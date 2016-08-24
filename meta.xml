@@ -1,0 +1,30 @@
+<meta>
+	<!-- Server side scripts -->
+	<script type="server">core.nut</script>
+	
+	<!-- Client side scripts -->
+	<script type="client">chat.nut</script>
+	<script type="client">3dtext.nut</script>
+	<script type="client">blips.nut</script>
+	<script type="client">player.nut</script>
+	<script type="client">gui.nut</script>
+	<script type="client">weather.nut</script>
+	<script type="client">nametags.nut</script>
+	<script type="client">scoreboard.nut</script>
+
+	<file>Tutorial1.png</file>
+	<file>Tutorial2.png</file>
+	<file>Tutorial3.png</file>
+
+	<file>Help_chats.png</file>
+	<file>Help_cmds.png</file>
+	<file>Help_house.png</file>
+	<file>Help_money.png</file>
+	<file>Help_vehicles.png</file>
+
+	<file>logo.png</file>
+	<file>Dipton.jpg</file>
+	<file>Dipton_description.png</file>
+	<file>Kingston.jpg</file>
+
+</meta>
