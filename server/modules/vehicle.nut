@@ -26,7 +26,9 @@ class Vehicle extends Object {
 	{
 		this.color = color;
 		this.plate = plate;
+		dbg("trying to create a vehicle");
 		this.id = createVehicle(model.tointeger(), pos.x, pos.y, pos.z, rot.x, rot.y, rot.z);
+		wait(1);
 		
 		_vehicle_queue.push(this);
 		
@@ -45,6 +47,8 @@ class Vehicle extends Object {
 		this.cache = {};
 		this.passengers = {};
 		this.passengers[0] <- null;
+
+		dbg("vehicle created");
 	}
 	
 	function onPlayerEnter(player, seat = 0)

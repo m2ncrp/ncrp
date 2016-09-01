@@ -1,4 +1,4 @@
-﻿const SCRIPT_ROOT = "resources/erp/server/";
+﻿const SCRIPT_ROOT = "resources/ncrp/server/";
 const MODULES_DIR = "modules/";
 const DEBUG_ENABLED = 1;
 
@@ -24,6 +24,12 @@ function compile(filename)
 {
 	local compile = loadfile(SCRIPT_ROOT + MODULES_DIR + filename + ".nut", true);
 	writeclosuretofile(SCRIPT_ROOT + MODULES_DIR + filename + ".sq", compile);
+}
+
+function wait(seconds)
+{
+    local start = time();
+    while (time() < start + seconds) {}
 }
 
 function str_replace(search, replace, subject)
@@ -104,7 +110,7 @@ addEventHandler("onScriptInit", function() {
 	include("interface");
 
 	include("world");
-	world = World(sqlite("erp2.db"));
+	world = World(sqlite("ncrp.db"));
 	
 	include("commands");
 	include("timers");
