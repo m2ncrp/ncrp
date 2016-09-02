@@ -1,0 +1,15 @@
+<meta> 
+	<!-- Server side scripts --> 
+	<script type="server">ncrp.nut</script> 
+ 
+	<!-- Client side scripts --> 
+ 
+	<!-- Images --> 
+	<file>1.png</file> 
+	<file>2.png</file> 
+	<file>3.png</file> 
+	<file>4.png</file> 
+	<file>5.png</file> 
+	<file>6.png</file> 
+	<file>7.png</file> 
+</meta> 

@@ -1,0 +1,8 @@
+# databases
+*.db
+
+# logs
+*.log
+
+# different os crap
+.DS_Store

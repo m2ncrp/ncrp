@@ -1,0 +1,11 @@
+<meta> 
+	<!-- Server side scripts --> 
+	<script type="server">ebdm.nut</script> 
+ 
+	<!-- Client side scripts --> 
+	<script type="client">events.nut</script> 
+	<script type="client">fps.nut</script> 
+	<script type="client">scoreboard.nut</script> 
+ 
+	<!-- Images --> 
+</meta> 
