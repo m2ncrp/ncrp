@@ -58,12 +58,3 @@ addCommandHandler( "die",
         setPlayerHealth( playerid, 0.0 );
     }
 );
-
-
-addCommandHandler( "restart",
-    function( playerid, name )
-    {
-        restart name;
-        log("LoL!");
-    }
-);
