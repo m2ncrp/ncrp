@@ -1,2 +1,1 @@
-dofile("./libs/squirrel-orm/lib/index.nut");
-
+dofile("./resources/libs/index.nut", true);

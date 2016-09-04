@@ -1,3 +1,5 @@
+dofile("./resources/libs/index.nut", true);
+
 local connection = null;
 
 addEventHandler("onScriptInit", function() {
@@ -8,7 +10,7 @@ addEventHandler("onScriptInit", function() {
 addEventHandler("__networkRequest", function() {
     if (request.data.destination == "database") {
         local result = connection.query(request.data.query);
-        Response({result: result}, request).send();
+        Response({result = result}, request).send();
     }
 });
 
