@@ -1,0 +1,12 @@
+<meta> 
+	<!-- Server side scripts --> 
+	<script type="server">commands.nut</script> 
+	<script type="server">ncrp.nut</script> 
+ 
+	<!-- Client side scripts --> 
+	<script type="client">events.nut</script> 
+	<script type="client">fps.nut</script> 
+	<script type="client">scoreboard.nut</script> 
+ 
+	<!-- Images --> 
+</meta> 
