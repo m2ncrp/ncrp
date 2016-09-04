@@ -4,7 +4,7 @@ class Account extends ORM.Entity {
     static table = "tbl_accounts";
 
     static fields = [
-        ORM.Field({ name = "username", type = "string", size = 255 }),
-        ORM.Field({ name = "password", type = "string", size = 255 })
+        ORM.Field.String({ name = "username" }),
+        ORM.Field.String({ name = "password" })
     ];
 }

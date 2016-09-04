@@ -12,7 +12,7 @@ dofile("./resources/libs/models/account.nut", true);
 dofile("./resources/libs/test.nut", true);
 
 ORM.Driver.setProxy(function(queryString, callback) {
-    local request = Request({ destination = "database", query = query });
+    local request = Request({ destination = "database", query = queryString });
 
     request.onResponse(function(response) {
         return callback ? callback( null, response.data.result ) : null;
