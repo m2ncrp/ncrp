@@ -1,4 +1,5 @@
 local handlers = {};
+local commands = {};
 
 function addEventHandler(event, cb) {
     handlers[event] <- cb; 
@@ -14,30 +15,6 @@ function removeEventHandler(event, func) {
     delete handlers[event];
 }
 
-dofile("debug.nut", true);
-dofile("network.nut", true);
-
-
-addEventHandler("__networkRequest", function(request) {
-    if (request.data.destination == "database") {
-        local result = "abababa" + request.data.query;
-        Response({result = result}, request).send();
-    }
-});
-function callback(d, a) {
-::print(a);
+function addCommandHandler(name, callback) {
+    commands[name] <- callback;
 }
-
-function run() {
-    local request = Request({ destination = "database", query = "___das" });
-
-    request.onResponse(function(response) {
-        if (callback) {
-            callback( null, response.data.result );
-        }
-    });
-
-    return request.send();
-}
-
-run();
