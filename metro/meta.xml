@@ -1,6 +1,7 @@
 <meta> 
 	<!-- Server side scripts --> 
-	<script type="server">ncrp.nut</script> 
+	<script type="server">commands.nut</script> 
+	<script type="server">metro.nut</script> 
  
 	<!-- Client side scripts --> 
  
