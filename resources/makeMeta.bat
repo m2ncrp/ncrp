@@ -25,3 +25,4 @@ for /d %%D in (*) do (
 		cd..
 	cd..
 )
+exit;
