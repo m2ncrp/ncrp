@@ -1,14 +1,31 @@
 dofile("libs/index.nut", true);
 
+/**
+ * Storage for our sessions
+ * no direct acess
+ *
+ * for access from remote resources use:
+ *     Account.getSession(playerid, callback)
+ *     Account.addSession(playerid)
+ */
 accounts <- {};
 
-function checkName(username) {
-    local rx = regexp("([A-Za-z0-9]{1,32}_[A-Za-z0-9]{1,32})");
-    return rx.match(username);
-}
+/**
+ * Compiled regex object for
+ * validation of usernames
+ * @type {Object}
+ */
+const REGEX_USERNAME = regexp("([A-Za-z0-9]{1,32}_[A-Za-z0-9]{1,32})")
 
+/**
+ * On player connects we will
+ * check his nickname for validity
+ * and then we will show him
+ * screen with different text
+ * depending if he is logined or not
+ */
 addEventHandler("onPlayerConnect", function(playerid, username, ip, serial) {
-    if (!checkName(username)) { return kickPlayer(playerid); }
+    if (!REGEX_USERNAME.match(username)) { return kickPlayer(playerid); }
 
     Account.findOneBy({ username = username }, function(err, account) {
         sendPlayerMessage(playerid, "---------------------------------------------");
@@ -28,6 +45,10 @@ addEventHandler("onPlayerConnect", function(playerid, username, ip, serial) {
     });
 });
 
+/**
+ * On player disconnects
+ * we will clean up all his data
+ */
 addEventHandler("onPlayerDisconnect", function(playerid, reason) {
     if (!(playerid in accounts)) return;
 
@@ -38,10 +59,9 @@ addEventHandler("onPlayerDisconnect", function(playerid, reason) {
     delete accounts[playerid];
 });
 
-addEventHandler("Player:hasLogined", function(id) {
-    players.push(id);
-});
-
+/**
+ * Cross resource handling
+ */
 addEventHandler("__networkRequest", function(request) {
     local data = request.data;
 
@@ -58,8 +78,6 @@ addEventHandler("__networkRequest", function(request) {
         accounts[data.id] <- data.object;
     }
 });
-
-
 
 // will be disalbed in prod
 triggerServerEvent("__resourceLoaded", "auth");
