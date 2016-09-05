@@ -73,7 +73,7 @@ addEventHandler("__resourceLoaded", function(a) {
     dofile("resources/auth/server/commands.nut", true);
     // debug
     triggerServerEvent("onPlayerConnect", 1, "Some_Name", 1, 1);
-    triggerCommand("register", 1, "123123");
-    triggerCommand("register", 1, "123123");
-    // triggerCommand("login", 1, "123123");
+    // triggerCommand("register", 1, "123123");
+    // triggerCommand("register", 1, "123123");
+    triggerCommand("login", 1, "123123");
 });

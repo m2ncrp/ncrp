@@ -15,7 +15,7 @@ accounts <- {};
  * validation of usernames
  * @type {Object}
  */
-const REGEX_USERNAME = regexp("([A-Za-z0-9]{1,32}_[A-Za-z0-9]{1,32})")
+local REGEX_USERNAME = regexp("([A-Za-z0-9]{1,32}_[A-Za-z0-9]{1,32})")
 
 /**
  * On player connects we will
