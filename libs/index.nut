@@ -7,7 +7,7 @@ try { return _IS_LOADED; } catch (e) { _IS_LOADED <- true; }
  * @param  {String} path
  * @return {Boolean}
  */
-local function inlcude(path) {
+local function include(path) {
     try {
         dofile(__FILE__.slice(0, -9) + path, true);
         return true;
@@ -17,15 +17,16 @@ local function inlcude(path) {
 }
 
 // load libs
-inlcude("squirrel-orm/lib/index.nut");
-inlcude("network.nut");
-inlcude("shortcuts.nut");
+include("squirrel-orm/lib/index.nut");
+include("network.nut");
+include("shortcuts.nut");
 
 // load models
-inlcude("models/account.nut");
+include("models/account.nut");
 
 // testing (mac)
-inlcude("test.nut");
+include("debug.nut");
+include("test.nut");
 
 /**
  * Setting up ORM proxier

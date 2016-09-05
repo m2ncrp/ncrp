@@ -46,10 +46,16 @@ addEventHandler("__networkRequest", function(request) {
     local data = request.data;
 
     // we are working with current resource
-    if (data.destination != "auth") return;
+    if (!("destination" in data) || data.destination != "auth") return;
 
     if (data.method == "getSession") {
-        Response({result = data.id   in accounts ? accounts[data.id] : null}, request).send();
+        ::print("- getting session for " + data.id + "\n");
+        Response({result = data.id in accounts ? accounts[data.id] : null}, request).send();
+    }
+
+    if (data.method == "addSession") {
+        ::print("- adding session for " + data.id + "\n");
+        accounts[data.id] <- data.object;
     }
 });
 

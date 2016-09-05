@@ -38,7 +38,6 @@ class Request {
         local self = this;
 
         self.handler = function(response) {
-            // dbg([response.request.data, response.request.signature]);
             // If result origin not equal to caller - exit
             if (self.signature == response.request.signature) {
                 removeEventHandler("__networkResponse", self.handler);

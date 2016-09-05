@@ -3,25 +3,32 @@
  * emulation of some m2o callbacks and methods
  */
 
+
 local handlers = {};
 local commands = {};
 
 function addEventHandler(event, cb) {
-    handlers[event] <- cb;
+    if (event in handlers) {
+        return handlers[event].push(cb);
+    }
+
+    handlers[event] <- [cb];
 }
 
 function triggerServerEvent(event, p1 = null, p2 = null, p3 = null, p4 = null) {
     if (event in handlers) {
-        if (p4) handlers[event](p1, p2, p3, p4);
-        else if (p3) handlers[event](p1, p2, p3);
-        else if (p2) handlers[event](p1, p2);
-        else if (p1) handlers[event](p1);
-        else handlers[event]();
+        foreach (idx, handler in handlers[event]) {
+            if (p4) handler(p1, p2, p3, p4);
+            else if (p3) handler(p1, p2, p3);
+            else if (p2) handler(p1, p2);
+            else if (p1) handler(p1);
+            else handler();
+        }
     }
 }
 
 function removeEventHandler(event, func) {
-    delete handlers[event];
+    handlers[event].remove(handlers[event].find(func));
 }
 
 function addCommandHandler(name, callback) {
@@ -66,6 +73,7 @@ addEventHandler("__resourceLoaded", function(a) {
     dofile("resources/auth/server/commands.nut", true);
     // debug
     triggerServerEvent("onPlayerConnect", 1, "Some_Name", 1, 1);
-    // triggerCommand("register", 1, "123123");
+    triggerCommand("register", 1, "123123");
+    triggerCommand("register", 1, "123123");
     // triggerCommand("login", 1, "123123");
 });
