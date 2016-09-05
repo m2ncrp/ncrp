@@ -160,7 +160,7 @@ class guiForm extends guiObject
 		local self = this;
 
 		addEventHandler(this.uid + "_data", function(playerid, data) {
-			self.datahandler(playerid), json.decode(data));
+			self.datahandler(playerid, json.decode(data));
 		});
 
 		triggerClientEvent(playerid, "onServerGuiDataRequest", this.uid);
