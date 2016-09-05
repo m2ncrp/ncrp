@@ -26,11 +26,10 @@ class Account extends ORM.Entity {
     }
 
     /**
-     * Checks if specified playerid is logined
-     * is so, passes to the callback Account object, else null
+     * Registers current object (this)
+     * as logined using playerid
      * 
      * @param  {Integer}  playerid
-     * @param  {Function} callback
      */
     function addSession(playerid) {
         Request({ destination = "auth", method = "addSession", id = playerid, object = this }).send();
