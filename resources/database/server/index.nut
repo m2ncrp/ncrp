@@ -1,4 +1,4 @@
-dofile("./resources/libs/index.nut", true);
+dofile("libs/index.nut", true);
 
 local connection = null;
 

@@ -1,3 +1,8 @@
+/**
+ * Testing code for non-server environment
+ * emulation of some m2o callbacks and methods
+ */
+
 local handlers = {};
 local commands = {};
 

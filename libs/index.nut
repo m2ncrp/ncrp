@@ -1,16 +1,39 @@
 try { return _IS_LOADED; } catch (e) { _IS_LOADED <- true; }
 
+/**
+ * Updated module includer script version
+ * throws exceptions if module was not found
+ * returns true if module was loaded
+ * @param  {String} path
+ * @return {Boolean}
+ */
+local function inlcude(path) {
+    try {
+        dofile(__FILE__.slice(0, -9) + path, true);
+        return true;
+    } catch (e) {
+        throw "System: File inclusion error (wrong filename or error in the file): " + __FILE__.slice(0, -9) + path;
+    }
+}
+
 // load libs
-dofile("./resources/libs/squirrel-orm/lib/index.nut", true);
-dofile("./resources/libs/network.nut", true);
-dofile("./resources/libs/shortcuts.nut", true);
+inlcude("squirrel-orm/lib/index.nut");
+inlcude("network.nut");
+inlcude("shortcuts.nut");
 
 // load models
-dofile("./resources/libs/models/account.nut", true);
+inlcude("models/account.nut");
 
 // testing (mac)
-dofile("./resources/libs/test.nut", true);
+inlcude("test.nut");
 
+/**
+ * Setting up ORM proxier
+ * All db requests will be forwarded to database resource
+ * 
+ * @param  {String} queryString compiled request string
+ * @param  {Function} callback which will be called
+ */
 ORM.Driver.setProxy(function(queryString, callback) {
     local request = Request({ destination = "database", query = queryString });
 
