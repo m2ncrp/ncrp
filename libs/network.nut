@@ -47,7 +47,7 @@ class Request {
             }
         }
 
-        addEventHandler("__networkResponse", handler);
+        addEventHandler("__networkResponse", self.handler);
     }
 };
 

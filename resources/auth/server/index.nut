@@ -1,6 +1,6 @@
 dofile("libs/index.nut", true);
 
-local players = [];
+accounts <- {};
 
 function checkName(username) {
     local rx = regexp("([A-Za-z0-9]{1,32}_[A-Za-z0-9]{1,32})");
@@ -29,16 +29,32 @@ addEventHandler("onPlayerConnect", function(playerid, username, ip, serial) {
 });
 
 addEventHandler("onPlayerDisconnect", function(playerid, reason) {
-    players.remove(players.find(playerid));
+    if (!(playerid in accounts)) return;
+
+    // clean up data for GC
+    accounts[playerid].clean();
+    accounts[playerid] = null;
+
+    delete accounts[playerid];
 });
 
 addEventHandler("Player:hasLogined", function(id) {
     players.push(id);
-})
-
-addEventHandler("Player:isLogined", function(request) {
-    // Response({ response = (request.data.id in players)}, request).send();
 });
+
+addEventHandler("__networkRequest", function(request) {
+    local data = request.data;
+
+    // we are working with current resource
+    if (data.destination != "auth") return;
+
+    if (data.method == "getSession") {
+        Response({result = data.id   in accounts ? accounts[data.id] : null}, request).send();
+    }
+});
+
+
 
 // will be disalbed in prod
 triggerServerEvent("__resourceLoaded", "auth");
+

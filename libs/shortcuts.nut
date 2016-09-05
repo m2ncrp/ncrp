@@ -1,6 +1,6 @@
 _server_commands <- {};
-function cmd(names, func) 
-{
+
+function cmd(names, func)  {
     if (typeof names != "array") {
         names = [names];
     }
