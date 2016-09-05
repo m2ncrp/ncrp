@@ -25,7 +25,7 @@ class Request {
     }
 
     function send() {
-        triggerEvent("__networkRequest", this);
+        triggerServerEvent("__networkRequest", this);
     }
 
     function clean() {
@@ -66,7 +66,7 @@ class Response extends Request {
     }
 
     function send() {
-        triggerEvent("__networkResponse", this);
+        triggerServerEvent("__networkResponse", this);
         this.clean();
     }
 };

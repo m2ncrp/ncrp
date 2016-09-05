@@ -41,4 +41,4 @@ addEventHandler("Player:isLogined", function(request) {
 });
 
 // will be disalbed in prod
-triggerEvent("__resourceLoaded", "auth");
+triggerServerEvent("__resourceLoaded", "auth");

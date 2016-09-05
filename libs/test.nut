@@ -5,7 +5,7 @@ function addEventHandler(event, cb) {
     handlers[event] <- cb;
 }
 
-function triggerEvent(event, p1 = null, p2 = null, p3 = null, p4 = null) {
+function triggerServerEvent(event, p1 = null, p2 = null, p3 = null, p4 = null) {
     if (event in handlers) {
         if (p4) handlers[event](p1, p2, p3, p4);
         else if (p3) handlers[event](p1, p2, p3);
@@ -60,7 +60,7 @@ addEventHandler("__networkRequest", function(request) {
 addEventHandler("__resourceLoaded", function(a) {
     dofile("resources/auth/server/commands.nut", true);
     // debug
-    triggerEvent("onPlayerConnect", 1, "Some_Name", 1, 1);
+    triggerServerEvent("onPlayerConnect", 1, "Some_Name", 1, 1);
     triggerCommand("register", 1, "123123");
     // triggerCommand("login", 1, "123123");
 });
