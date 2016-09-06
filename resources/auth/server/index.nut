@@ -62,7 +62,7 @@ addEventHandler("onPlayerDisconnect", function(playerid, reason) {
 /**
  * Cross resource handling
  */
-addEventHandler("__networkRequest", function(request) {
+addEventHandlerEx("__networkRequest", function(request) {
     local data = request.data;
 
     // we are working with current resource
@@ -80,5 +80,29 @@ addEventHandler("__networkRequest", function(request) {
 });
 
 // will be disalbed in prod
-triggerServerEvent("__resourceLoaded", "auth");
+// triggerServerEvent("__resourceLoaded", "auth");
 
+// database code
+local connection = null;
+
+addEventHandler("onScriptInit", function() {
+    print("starting database");
+
+    connection = sqlite("ncrp.db");
+
+    // trigger creation of database tables
+    Account().createTable().execute();
+});
+
+addEventHandler("onScriptExit", function() {
+    log("stopping database");
+    connection.close();
+});
+
+addEventHandlerEx("__networkRequest", function(request) {
+    if (request.data.destination == "database") {
+        local result = connection.query(request.data.query);
+        log(result ? "true" : "false");
+        Response({result = result}, request).send();
+    }
+});

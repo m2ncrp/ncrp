@@ -3,12 +3,12 @@ dofile("libs/index.nut", true);
 local connection = null;
 
 addEventHandler("onScriptInit", function() {
-    log("starting database");
+    print("starting database");
 
     connection = sqlite("ncrp.db");
 
     // trigger creation of database tables
-    Account().createTable();
+    Account().createTable().execute();
 });
 
 addEventHandler("onScriptExit", function() {
