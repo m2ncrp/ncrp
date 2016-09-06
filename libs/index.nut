@@ -11,7 +11,7 @@ local function include(path) {
     try {
         return dofile("libs/" + path, true) || true;
     } catch (e) {
-        throw "System: File inclusion error (wrong filename or error in the file): " + __FILE__.slice(0, -9) + path;
+        throw "System: File inclusion error (wrong filename or error in the file): libs/" + path;
     }
 }
 
