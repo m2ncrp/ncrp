@@ -56,6 +56,12 @@ class ORM.Field.Basic {
     __exported = true;
 
     /**
+     * Is this a SQLite implementation of the field
+     * @type {Boolean}
+     */
+    __sqlite = false;
+
+    /**
      * Field type
      * @type {String}
      */
@@ -97,10 +103,10 @@ class ORM.Field.Basic {
         this.__name = data.name.tostring().tolower();
 
         // check and save others
-        this.__primary  = "primary"  in data ? data.primary  : false;
-        this.__nullable = "nullable" in data ? data.nullable : false;
-        this.__autoinc  = "autoinc"  in data ? data.autoinc  : false;
-        this.__exported = "exported" in data ? data.exported : true;
+        this.__primary  = "primary"  in data ? data.primary  : this.__primary;
+        this.__nullable = "nullable" in data ? data.nullable : this.__nullable;
+        this.__autoinc  = "autoinc"  in data ? data.autoinc  : this.__autoinc;
+        this.__exported = "exported" in data ? data.exported : this.__exported;
 
         // handle the default value
         if ("value" in data) {
@@ -128,12 +134,22 @@ class ORM.Field.Basic {
         local autoinc   = this.__autoinc ? "AUTO_INCREMENT" : "";
         local primary   = this.__primary ? "PRIMARY KEY" : "";
 
+        // special override for sqlite
+        if (ORM.Driver.storage.provider == "sqlite") {
+
+            // autoincrement field
+            if (autoinc != "") {
+                autoinc = "AUTOINCREMENT";
+                type = "INTEGER";
+            }
+        }
+
         // default value
         local defval = this.__value && this.__name != "_entity" ? "DEFAULT " + this.encode(this.__value) : "";
 
         // insert and return;
         return strip(format("`%s` %s %s %s %s %s",
-            this.getName(), type, nullable, autoinc, primary, defval
+            this.getName(), type, nullable, primary, autoinc, defval
         ));
     }
 
@@ -430,7 +446,7 @@ class ORM.Utils.Formatter {
     }
 
     static function escape(value) {
-        return (typeof(value) == "string" ? "'" + value + "'" : value).tostring();
+        return (typeof(value) == "string" || typeof(value) == "bool" ? "'" + value + "'" : value).tostring();
     }
 
     /**
@@ -465,6 +481,7 @@ class ORM.Utils.Formatter {
 class ORM.Driver {
     static storage = {
         proxy = null,
+        provider = "mysql",
         configured = false
     };
 
@@ -472,8 +489,11 @@ class ORM.Driver {
         
     }
 
-    function configure() {
-
+    /**
+     * Method for configuration current connectins
+     */
+    function configure(settings = null) {
+        storage.provider = "provider" in settings ? settings.provider : storage.provider;
     }
 
     function setProxy(callback) {
@@ -691,7 +711,7 @@ class ORM.Query {
             if (err) return callback(err, null);
 
             // added return if no results
-            if (!results) return callback(err, null);
+            if (!results || results.len() < 1) return callback(err, null);
 
             // extract and hydrate data
             local result = results[0];
@@ -995,11 +1015,19 @@ class ORM.Entity {
             return query.execute(callback);
         } else {
             // create and execute even cuter query
-            local query = ORM.Query("INSERT INTO `:table` (:fields) VALUES (:values); SELECT LAST_INSERT_ID() as id;");
+            local lastid = "LAST_INSERT_ID";
+
+            // special check for sqlite
+            if (ORM.Driver.storage.provider == "sqlite") {
+                lastid = "last_insert_rowid";
+            }
+
+            local query = ORM.Query("INSERT INTO `:table` (:fields) VALUES (:values); SELECT :lastid() as id;");
 
             query.setParameter("table", this.table);
             query.setParameter("fields", ORM.Utils.Formatter.calculateFields(this));
             query.setParameter("values", ORM.Utils.Formatter.calculateValues(this));
+            query.setParameter("lastid", lastid);
 
             // try to read result and save last inserted id
             // as current entity id, and mark as persisted
@@ -1067,7 +1095,7 @@ class ORM.Entity {
      * @param  {Function} callback
      */
     static function findOneBy(condition, callback) {
-        local query = ORM.Query("SELECT * FROM `:table` :condition")
+        local query = ORM.Query("SELECT * FROM `:table` :condition LIMIT 1")
         
         query.setParameter("table", table);
         query.setParameter("condition", ORM.Utils.Formatter.calculateCondition(condition));

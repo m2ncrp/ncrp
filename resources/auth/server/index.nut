@@ -69,40 +69,66 @@ addEventHandlerEx("__networkRequest", function(request) {
     if (!("destination" in data) || data.destination != "auth") return;
 
     if (data.method == "getSession") {
-        ::print("- getting session for " + data.id + "\n");
+        ::log("- getting session for player #" + data.id + "\n");
         Response({result = data.id in accounts ? accounts[data.id] : null}, request).send();
     }
 
     if (data.method == "addSession") {
-        ::print("- adding session for " + data.id + "\n");
+        ::log("- adding session for player #" + data.id + "\n");
         accounts[data.id] <- data.object;
     }
 });
 
-// will be disalbed in prod
-// triggerServerEvent("__resourceLoaded", "auth");
 
 // database code
 local connection = null;
 
 addEventHandler("onScriptInit", function() {
-    print("starting database");
+    ::log("starting database");
 
     connection = sqlite("ncrp.db");
 
     // trigger creation of database tables
     Account().createTable().execute();
+
+    // testing
+    // triggerServerEventEx("onPlayerConnect", 1, "John_Doe", 1, 1);
+    // _server_commands["register"](1, "123456");
 });
 
 addEventHandler("onScriptExit", function() {
-    log("stopping database");
+    ::log("stopping database");
     connection.close();
 });
 
+/**
+ * Main database handler
+ * manages all database requrests
+ */
 addEventHandlerEx("__networkRequest", function(request) {
+    if (!("destination" in request.data)) return;
+
     if (request.data.destination == "database") {
-        local result = connection.query(request.data.query);
-        log(result ? "true" : "false");
+        local result = [];
+        local tmp = connection.query(request.data.query);
+        
+        // manuanlly push sqlite forced last inserted id after insert
+        if (request.data.query.slice(0, 6).toupper() == "INSERT") {
+            tmp = connection.query("select last_insert_rowid() as id");
+        }
+
+        // override empty result
+        if (!tmp) tmp = [];
+
+        // override tmp indexes
+        foreach (idx, value in tmp) {
+            result.push(value);
+        }
+
+        // log query and result
+        ::log("Incoming SQL request: " + request.data.query);
+        dbg(result);
+
         Response({result = result}, request).send();
     }
 });

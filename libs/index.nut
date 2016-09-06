@@ -43,3 +43,7 @@ ORM.Driver.setProxy(function(queryString, callback) {
 
     return request.send();
 });
+
+ORM.Driver.configure({
+    provider = "sqlite"
+});
