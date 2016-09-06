@@ -16,7 +16,7 @@ local function include(path) {
 }
 
 // load libs
-include("squirrel-orm/build.nut");
+include("squirrel-orm.nut");
 include("network.nut");
 include("shortcuts.nut");
 
