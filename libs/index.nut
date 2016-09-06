@@ -9,15 +9,14 @@ try { return _IS_LOADED; } catch (e) { _IS_LOADED <- true; }
  */
 local function include(path) {
     try {
-        dofile(__FILE__.slice(0, -9) + path, true);
-        return true;
+        return dofile("libs/" + path, true) || true;
     } catch (e) {
         throw "System: File inclusion error (wrong filename or error in the file): " + __FILE__.slice(0, -9) + path;
     }
 }
 
 // load libs
-include("squirrel-orm/lib/index.nut");
+include("squirrel-orm/build.nut");
 include("network.nut");
 include("shortcuts.nut");
 
