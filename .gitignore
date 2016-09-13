@@ -1,10 +1,15 @@
+# folders
+/logs
+/modules
+/webserver
+
+#files
+*.xml
+*.dll
+*.exe
+
 # databases
 *.db
-*.xml
-*.exe
-*.dll
-
-/webserver
 
 # logs
 *.log

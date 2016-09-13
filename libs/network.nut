@@ -25,7 +25,7 @@ class Request {
     }
 
     function send() {
-        triggerEvent("__networkRequest", this);
+        triggerServerEventEx("__networkRequest", this);
     }
 
     function clean() {
@@ -38,16 +38,15 @@ class Request {
         local self = this;
 
         self.handler = function(response) {
-            // dbg([response.request.data, response.request.signature]);
             // If result origin not equal to caller - exit
             if (self.signature == response.request.signature) {
-                removeEventHandler("__networkResponse", self.handler);
+                removeEventHandlerEx("__networkResponse", self.handler);
                 callback(response);
                 self.clean();
             }
         }
 
-        addEventHandler("__networkResponse", handler);
+        addEventHandlerEx("__networkResponse", self.handler);
     }
 };
 
@@ -66,7 +65,7 @@ class Response extends Request {
     }
 
     function send() {
-        triggerEvent("__networkResponse", this);
+        triggerServerEventEx("__networkResponse", this);
         this.clean();
     }
 };

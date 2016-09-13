@@ -77,19 +77,10 @@ EXIT /B 0
 
 
 :checkCommit
-	FOR /F %%i IN (%lastCommitPath%) DO set lastCommit=%%i
-	
-	git rev-parse --verify HEAD >> env/tmp.txt
-	FOR /F %%i IN (env/tmp.txt) DO set actual=%%i && del env\tmp.txt
-
-	if %lastCommit% NEQ %actual% (
-		@echo Different commit hash: %lastCommit% vs %actual%
-		del %lastCommitPath% && @echo %actual% >> %lastCommitPath%
+	for /f %%i in ('XML.EXE sel -t -v "/server/version/minor" env/env.xml') do (
+		set /A var=%%i+1
 	)
-
-	if %lastCommit% EQU %actual% (
-		@echo Last commit hash: %lastCommit%
-	) 
+	xml.exe ed --inplace -u "/server/version/minor" -v %var% env/env.xml
 EXIT /B 0
 
 
