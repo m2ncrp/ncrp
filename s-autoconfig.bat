@@ -1,9 +1,16 @@
 set file=config.xml
+set major=''
+set middle=''
+set minor=''
 
 del %file%
 
+for /f "delims=" %%j in ('XML.EXE sel -t -v "/server/version/major" env/env.xml') do set major=%%j
+for /f "delims=" %%j in ('XML.EXE sel -t -v "/server/version/middle" env/env.xml') do set middle=%%j
+for /f "delims=" %%j in ('XML.EXE sel -t -v "/server/version/minor" env/env.xml') do set minor=%%j
+
 echo ^<settings^> >> %file%
-echo    ^<hostname^>Night City Role-Play v0.0.7^</hostname^> >> %file%
+echo    ^<hostname^>Night City Role-Play v%major%.%middle%.%minor%^</hostname^> >> %file%
 echo    ^<serverip /^> >> %file%
 echo    ^<port^>23015^</port^> >> %file%
 echo    ^<maxplayers^>4^</maxplayers^> >> %file%

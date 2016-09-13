@@ -5,8 +5,10 @@
 
 #files
 *.xml
+!env.xml
 *.dll
 *.exe
+!xml.exe
 
 # databases
 *.db
