@@ -1,6 +1,8 @@
 @ECHO off
 set exeName=m2online-svr-test.exe
-set lastCommitPath=env\commitInfo.txt
+set subversionTagBegin="/server/subversion/branch[@name="
+set subversionTagEnd="]/commit"
+set versionMinorTag="/server/version/minor"
 
 
 
@@ -77,10 +79,29 @@ EXIT /B 0
 
 
 :checkCommit
-	for /f %%i in ('XML.EXE sel -t -v "/server/version/minor" env/env.xml') do (
+	set cur=''
+	set las=''
+	set branch='features'
+	for /f %%i in ('git rev-parse --verify HEAD') do (
+		set cur=%%i
+	)
+	for /f "delims=" %%j in ('XML.EXE sel -t -v %subversionTagBegin%%branch%%subversionTagEnd% env/env.xml') do (
+		set las=%%j
+	)
+	@echo %cur% vs %las% 
+	
+
+	IF %cur% NEQ %las% (
+		call :incrementMinorVersion
+		xml.exe ed --inplace -u %subversionTagBegin%%branch%%subversionTagEnd% -v %cur% env/env.xml
+	)
+EXIT /B 0
+
+:incrementMinorVersion
+	for /f %%i in ('XML.EXE sel -t -v %versionMinorTag% env/env.xml') do (
 		set /A var=%%i+1
 	)
-	xml.exe ed --inplace -u "/server/version/minor" -v %var% env/env.xml
+	xml.exe ed --inplace -u %versionMinorTag% -v %var% env/env.xml
 EXIT /B 0
 
 
