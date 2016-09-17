@@ -28,8 +28,13 @@ loadDep("squirrel-orm.nut");
 loadDep("network.nut");
 loadDep("Shortcuts/shortcuts.nut");
 
+// load traits
+loadDep("Traits/Colorable.nut");
+
 // load models
 loadDep("InternalModels/Account.nut");
+loadDep("InternalModels/Character.nut");
+loadDep("InternalModels/Vehicle.nut");
 
 // testing (mac)
 loadDep("debug.nut");
