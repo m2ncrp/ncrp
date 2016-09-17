@@ -1,4 +1,6 @@
 dofile("dependencies/index.nut", true);
+
+// super includes
 include("server/commands.nut");
 
 /**
@@ -92,8 +94,15 @@ addEventHandler("onScriptInit", function() {
     // trigger creation of database tables
     Account().createTable().execute();
 
-    // testing
-    // triggerServerEventEx("onPlayerConnect", 1, "John_Doe", 1, 1);
+    // THIS IS DEBUG
+    // DONT TRY AT HOME
+
+    // sendPlayerMessage = function(id, argument) {
+    //     ::print(argument);
+    // }
+
+    // // testing
+    // triggerServerEventEx("onPlayerConnect", 1, "John_Doe", "256.256.256.256", "SERIAL");
     // _server_commands["register"](1, "123456");
 });
 

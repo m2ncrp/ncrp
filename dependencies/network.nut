@@ -4,19 +4,19 @@
  */
 
 
-local handlers = {};
+local __handlers = {};
 
 function addEventHandlerEx(event, cb) {
-    if (event in handlers) {
-        return handlers[event].push(cb);
+    if (event in __handlers) {
+        return __handlers[event].push(cb);
     }
 
-    handlers[event] <- [cb];
+    __handlers[event] <- [cb];
 }
 
 function triggerServerEventEx(event, p1 = null, p2 = null, p3 = null, p4 = null) {
-    if (event in handlers) {
-        foreach (idx, handler in handlers[event]) {
+    if (event in __handlers) {
+        foreach (idx, handler in __handlers[event]) {
             if (p4) handler(p1, p2, p3, p4);
             else if (p3) handler(p1, p2, p3);
             else if (p2) handler(p1, p2);
@@ -27,7 +27,7 @@ function triggerServerEventEx(event, p1 = null, p2 = null, p3 = null, p4 = null)
 }
 
 function removeEventHandlerEx(event, func) {
-    handlers[event].remove(handlers[event].find(func));
+    __handlers[event].remove(__handlers[event].find(func));
 }
 
 
