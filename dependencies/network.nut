@@ -1,3 +1,38 @@
+/**
+ * Testing code for non-server environment
+ * emulation of some m2o callbacks and methods
+ */
+
+
+local handlers = {};
+
+function addEventHandlerEx(event, cb) {
+    if (event in handlers) {
+        return handlers[event].push(cb);
+    }
+
+    handlers[event] <- [cb];
+}
+
+function triggerServerEventEx(event, p1 = null, p2 = null, p3 = null, p4 = null) {
+    if (event in handlers) {
+        foreach (idx, handler in handlers[event]) {
+            if (p4) handler(p1, p2, p3, p4);
+            else if (p3) handler(p1, p2, p3);
+            else if (p2) handler(p1, p2);
+            else if (p1) handler(p1);
+            else handler();
+        }
+    }
+}
+
+function removeEventHandlerEx(event, func) {
+    handlers[event].remove(handlers[event].find(func));
+}
+
+
+
+
 class Request {
     data = null;
     signature = null;

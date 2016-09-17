@@ -1,6 +1,3 @@
-dofile("libs//index.nut", true);
-dofile("resources/auth/server/index.nut", true);
-
 /**
  * Command allows players to register
  * using their current username and specified password

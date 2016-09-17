@@ -1,4 +1,5 @@
-dofile("libs/index.nut", true);
+dofile("dependencies/index.nut", true);
+include("server/commands.nut");
 
 /**
  * Storage for our sessions

@@ -7,25 +7,32 @@ try { return _IS_LOADED; } catch (e) { _IS_LOADED <- true; }
  * @param  {String} path
  * @return {Boolean}
  */
-local function include(path) {
+local function loadDep(path) {
     try {
-        return dofile("libs/" + path, true) || true;
+        return dofile("dependencies/" + path, true) || true;
     } catch (e) {
-        throw "System: File inclusion error (wrong filename or error in the file): libs/" + path;
+        throw "System: File inclusion error (wrong filename or error in the file): dependencies/" + path;
+    }
+}
+
+function include(path) {
+    try {
+        return dofile("resources/ncrp/" + path, true) || true;
+    } catch (e) {
+        throw "System: File inclusion error (wrong filename or error in the file): ncrp/" + path;
     }
 }
 
 // load libs
-include("squirrel-orm.nut");
-include("network.nut");
-include("shortcuts.nut");
+loadDep("squirrel-orm.nut");
+loadDep("network.nut");
+loadDep("Shortcuts/shortcuts.nut");
 
 // load models
-include("models/account.nut");
+loadDep("InternalModels/Account.nut");
 
 // testing (mac)
-include("debug.nut");
-include("test.nut");
+loadDep("debug.nut");
 
 /**
  * Setting up ORM proxier

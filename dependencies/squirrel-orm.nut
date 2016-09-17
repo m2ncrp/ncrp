@@ -655,6 +655,11 @@ class ORM.Query {
         foreach (index, value in this.__matched.parameters) {
             if (value == UNDEFINED) throw "ORM.Query: you didn't provided data for parameter: " + index;
 
+            // simple escape if string
+            if (typeof(value) == "string") {
+                value = format("'%s'", value);
+            }
+
             // replace data to table names
             query = ORM.Utils.String.replace(":" + index, value, query);
         }
@@ -663,6 +668,26 @@ class ORM.Query {
         this.__compiled = query;
 
         return query;
+    }
+
+    /**
+     * Cleaning up object
+     * @return Object this
+     */
+    function cleanup() {
+        this.__compiled = null;
+        this.__raw = null;
+
+        if ("entities" in this.__matched) {
+            this.__matched.entities = null;
+        }
+
+        if ("parameters" in this.__matched) {
+            this.__matched.parameters = null;
+        }
+
+        this.__matched = null;
+        return this;
     }
 
     /**
@@ -676,7 +701,7 @@ class ORM.Query {
 
         // just proxy data if no special keys
         // (custom select fields case)
-        if (!("_uid" in data && "_entity" in data)) return data;
+        if (!("id" in data && "_entity" in data)) return data;
 
         // extract entity class by name
         local entityClass = compilestring("return " + data._entity + ";")();
@@ -696,7 +721,7 @@ class ORM.Query {
             return callback ? callback(err, err ? false : true) : null;
         });
 
-        return this;
+        return this.cleanup();
     }
 
     /**
@@ -721,7 +746,7 @@ class ORM.Query {
             callback(null, hydrated);
         });
 
-        return this;
+        return this.cleanup();
     }
 
     /**
@@ -746,7 +771,7 @@ class ORM.Query {
             callback(null, hydrated);
         });
 
-        return this;
+        return this.cleanup();
     }
 }
 /**
@@ -828,10 +853,7 @@ class ORM.Entity {
         this.__modified = [];
         this.__fields = {};
 
-        // this.__data["_uid"] <- _uid();
-        // this.__data["_entity"] <- typeof(this);
-
-        this.__attachField( ORM.Field.Id({ name = "_uid" }));
+        this.__attachField( ORM.Field.Id({ name = "id" }));
         this.__attachField( ORM.Field.String({ name = "_entity", value = this.classname }));
 
         // attach field described in entity class
@@ -1006,11 +1028,11 @@ class ORM.Entity {
             }
 
             // create and execute cute query
-            local query = ORM.Query("UPDATE `:table` SET :values WHERE `_uid` = :uid");
+            local query = ORM.Query("UPDATE `:table` SET :values WHERE `id` = :id");
 
             query.setParameter("table", this.table);
             query.setParameter("values", ORM.Utils.Formatter.calculateUpdates(this));
-            query.setParameter("uid", this.get("_uid"));
+            query.setParameter("id", this.get("id"));
 
             return query.execute(callback);
         } else {
@@ -1039,7 +1061,7 @@ class ORM.Entity {
                     throw "ORM.Entity: coundn't assign id after insertion; check the query or smth else.";
                 }
 
-                self.__data["_uid"] = result["id"];
+                self.__data["id"] = result["id"];
                 self.__persisted = true;
 
                 return callback ? callback(null, this) : null;
@@ -1054,10 +1076,10 @@ class ORM.Entity {
      */
     function remove(callback = null) {
         if (this.__persisted) {
-            local query = ORM.Query("DELETE FROM `:table` WHERE `_uid` = :uid");
+            local query = ORM.Query("DELETE FROM `:table` WHERE `id` = :id");
 
             query.setParameter("table", this.table);
-            query.setParameter("uid", this.get("_uid"));
+            query.setParameter("id", this.get("id"));
 
             return query.execute(callback);
         }
@@ -1110,8 +1132,11 @@ class ORM.Entity {
     function _tostring() {
         return this.classname;
     }
+    
+    function clean() {
 
-    // TODO: make entities able to detach and clear memory
+    }
+
+    // TODO: make entities able to detach
     function detach() {}
-    function clean() {}
 }
