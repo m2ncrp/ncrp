@@ -1,4 +1,4 @@
-dofile("libs/index.nut", true);
+dofile("libs//index.nut", true);
 dofile("resources/auth/server/index.nut", true);
 
 /**
