@@ -3,6 +3,7 @@ set exeName=m2online-svr-test.exe
 set subversionTagBegin="/server/subversion/branch[@name="
 set subversionTagEnd="]/commit"
 set versionMinorTag="/server/version/minor"
+set conf="globalSettings/env.xml"
 
 
 
@@ -12,21 +13,10 @@ rem * * * MAIN * * *
 if "%1" EQU "" (
 	@echo This batch file'll useful
 	@echo add -l flag and it'll launch your server
-	@echo add -l --ac will automaticly config your server
+	@echo add -l --a will automaticly config your server
 	@echo add -r will reload whole server
 	@echo add -d will shutdown server
 	@echo Enjoy! ^^_^^
-	EXIT /B 0
-)
-
-if "%1" EQU "make" (
-	if "%2" EQU "me" (
-		if "%3" EQU "a" (
-			if "%4" EQU "sandwitch" (
-				@echo Make it yourself.
-			)
-		)
-	)
 	EXIT /B 0
 )
 
@@ -47,7 +37,7 @@ if "%1" EQU "-d" (
 )
 
 if "%1" EQU "-c" (
-	call :checkCommit %lastCommit%
+	call :checkCommit
 	EXIT /B 0
 )
 
@@ -63,11 +53,7 @@ rem * * * FUNCTIONS * * *
 	if "%1" EQU "--a" (
 		start s-autoconfig
 	)
-
-	if "%1" EQU "--g" (
-		git status
-	)
-
+	call :checkCommit
 	call :hacks
 	start %exeName%
 EXIT /B 0
@@ -85,7 +71,7 @@ EXIT /B 0
 	for /f %%i in ('git rev-parse --verify HEAD') do (
 		set cur=%%i
 	)
-	for /f "delims=" %%j in ('XML.EXE sel -t -v %subversionTagBegin%%branch%%subversionTagEnd% env/env.xml') do (
+	for /f "delims=" %%j in ('XML.EXE sel -t -v %subversionTagBegin%%branch%%subversionTagEnd% %conf%') do (
 		set las=%%j
 	)
 	@echo %cur% vs %las% 
@@ -93,15 +79,15 @@ EXIT /B 0
 
 	IF %cur% NEQ %las% (
 		call :incrementMinorVersion
-		xml.exe ed --inplace -u %subversionTagBegin%%branch%%subversionTagEnd% -v %cur% env/env.xml
+		xml.exe ed --inplace -u %subversionTagBegin%%branch%%subversionTagEnd% -v %cur% %conf%
 	)
 EXIT /B 0
 
 :incrementMinorVersion
-	for /f %%i in ('XML.EXE sel -t -v %versionMinorTag% env/env.xml') do (
+	for /f %%i in ('XML.EXE sel -t -v %versionMinorTag% %conf%') do (
 		set /A var=%%i+1
 	)
-	xml.exe ed --inplace -u %versionMinorTag% -v %var% env/env.xml
+	xml.exe ed --inplace -u %versionMinorTag% -v %var% %conf%
 EXIT /B 0
 
 
