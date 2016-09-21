@@ -13,12 +13,26 @@ cmd(["r", "register"], function(playerid, password) {
         account = Account();
         account.username = getPlayerName(playerid);
         account.password = password;
-        
-        account.save(function(err, result) {
-            account.addSession(playerid);
+
+        Account.findOneBy({ username = account.username }, function(err, result) {
+            if (result) {
+                sendPlayerMessage(playerid, "* You've been registered already.");
+            } else {
+                account.save(function(err, result) {
+                    account.addSession(playerid);
+                    char = Character();
+                    char.firstname = getPlayerName(playerid);
+                    char.account_id = account.id;
+                    char.save();
+                });
+            }
         });
+
     });
 });
+
+
+
 
 /**
  * Command allows players to login
