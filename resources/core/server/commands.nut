@@ -114,34 +114,34 @@ const SHOUT_RADIUS = 35.0;
 // local chat 
 cmd(["i","say"], function( playerid, ... ) {  
 	local text = concat(vargv);
-	inRadius(text, playerid, NORMAL_RADIUS, CL_YELLOW);
+	inRadius(getPlayerName( playerid ) + " says: " + text, playerid, NORMAL_RADIUS, CL_YELLOW);
 });
 
 
 // shout 
 cmd(["s","shout"], function( playerid, ... ) {
 	local text = concat(vargv);
-	sendPlayerMessageToAll(text, CL_WHITE.r, CL_WHITE.g, CL_WHITE.b);
+	inRadius(getPlayerName( playerid ) + " shout: " + text, playerid, SHOUT_RADIUS, CL_WHITE);
 });
 
 
 // nonRP local chat
 cmd(["b"], function( playerid, ... ) {  	
 	local text = concat(vargv);
-	sendPlayerMessageToAll(text, CL_GRAY.r, CL_GRAY.g, CL_GRAY.b);
+	inRadius("[nonRP] " + getPlayerName( playerid ) + ": " + text, playerid, NORMAL_RADIUS, CL_GRAY);
 });
 
 
 // global nonRP chat
 cmd(["o","ooc"], function( playerid, ... ) {  	
 	local text = concat(vargv);
-	sendPlayerMessageToAll(text, CL_GRAY.r, CL_GRAY.g, CL_GRAY.b);
+	sendPlayerMessageToAll("[OOC] " + getPlayerName( playerid ) + ": " + text, CL_GRAY.r, CL_GRAY.g, CL_GRAY.b);
 });
 
 
 cmd("me", function( playerid, ... ) {
 	local text = concat(vargv);
-	sendPlayerMessageToAll("[ME] " + getPlayerName( playerid ) + text, CL_YELLOW.r, CL_YELLOW.g, CL_YELLOW.b);
+	inRadius("[ME] " + getPlayerName( playerid ) + " " + text, playerid, NORMAL_RADIUS, CL_YELLOW);
 });
 
 
@@ -151,7 +151,7 @@ cmd("try", function(playerid, ...) {
 
 	local res = random(0,1);
 	if(res == 1)
-		sendPlayerMessageToAll( text + " (success).");
+		inRadius(text + " (success).", playerid, NORMAL_RADIUS);
 	else
-		sendPlayerMessageToAll( text + " (failed).");	
+		inRadius(text + " (failed).", playerid, NORMAL_RADIUS);
 });
