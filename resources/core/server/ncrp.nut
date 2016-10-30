@@ -1,14 +1,12 @@
+// load all dependencies
+dofile("dependencies/index.nut", true);
+
+// load other imporant files
+include("server/color.nut");
+include("server/tools.nut");
+include("server/commands.nut");
+
 local script = "Night City Role-Play";
-
-const SCRIPT_ROOT = "resources/core/server/";
-const MODULES_DIR = "modules/";
-
-function include(filename, fm = true) 
-{
-	local file = SCRIPT_ROOT + ((fm) ? MODULES_DIR : "") + filename + ".nut";
-	return dofile(file, true);
-}
-
 
 playerList <- 0;
 
@@ -16,10 +14,6 @@ addEventHandler( "onScriptInit", function() {
 	log( script + " Loaded!" );
 	setGameModeText( "NCRP" );
 	setMapName( "Empire Bay" );
-
-	include("color", false);
-	include("tools", false);
-	include("commands", false);	
 	playerList = PlayerList();
 });
 

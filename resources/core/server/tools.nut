@@ -41,7 +41,7 @@ class PlayerList
 	function addPlayer(id, name, ip, serial) 
 	{
 		this.players[id] <- id;
-		this.players[id].onConnect();
+		// this.players[id].onConnect(); // hernya, tut takogo netu
 	}
 	
 	function delPlayer(id) 
