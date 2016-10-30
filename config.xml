@@ -1,0 +1,13 @@
+<settings>
+    <hostname>Default Mafia2-Online 0.1-rc2 Server</hostname>
+    <serverip />
+    <port>27015</port>
+    <maxplayers>1000</maxplayers>
+    <weburl>www.mafia2-online.com</weburl>
+    <password />
+    <modules />
+    <resources>
+        <resource>default</resource>
+    </resources>
+    <serverkey />
+</settings>

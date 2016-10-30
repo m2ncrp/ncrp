@@ -17,7 +17,7 @@ local function loadDep(path) {
 
 function include(path) {
     try {
-        return dofile("resources/ncrp/" + path, true) || true;
+        return dofile("resources/core/" + path, true) || true;
     } catch (e) {
         throw "System: File inclusion error (wrong filename or error in the file): ncrp/" + path;
     }

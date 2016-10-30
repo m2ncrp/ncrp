@@ -4,11 +4,11 @@
 /webserver
 
 #files
-*.xml
 !env.xml
 *.dll
 *.exe
 !xml.exe
+bans.xml
 
 # databases
 *.db

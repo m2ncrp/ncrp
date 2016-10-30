@@ -1,5 +1,3 @@
-dofile("dependencies/Shortcuts/shortcuts.nut", true);
-
 cmd(["help"], function(playerid) {
 	local commands = [
         { name = "/spawn",          	desc = "Teleport to spawn" },
