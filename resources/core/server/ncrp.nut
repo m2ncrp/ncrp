@@ -1,6 +1,6 @@
 local script = "Night City Role-Play";
 
-const SCRIPT_ROOT = "resources/erp/server/";
+const SCRIPT_ROOT = "resources/core/server/";
 const MODULES_DIR = "modules/";
 
 function include(filename, fm = true) 
@@ -9,51 +9,52 @@ function include(filename, fm = true)
 	return dofile(file, true);
 }
 
-function scriptInit()
-{
+
+playerList <- 0;
+
+addEventHandler( "onScriptInit", function() {
 	log( script + " Loaded!" );
 	setGameModeText( "NCRP" );
 	setMapName( "Empire Bay" );
-}
-addEventHandler( "onScriptInit", scriptInit );
 
-function playerConnect( playerid, name, ip, serial )
-{
+	include("tools", false);
+	playerList = PlayerList();
+});
+
+
+
+addEventHandler( "onPlayerConnect", function( playerid, name, ip, serial ) {
 	sendPlayerMessageToAll( "~ " + getPlayerName( playerid ) + " has joined the server.", 255, 204, 0 );
-}
-addEventHandler( "onPlayerConnect", playerConnect );
+	playerList.addPlayer(playerid, name, ip, serial);
+});
 
-function playerDisconnect( playerid, reason )
-{
+
+addEventHandler( "onPlayerDisconnect", function( playerid, reason ) {
 	sendPlayerMessageToAll( "~ " + getPlayerName( playerid ) + " has left the server. (" + reason + ")", 255, 204, 0 );
-}
-addEventHandler( "onPlayerDisconnect", playerDisconnect );
+	playerList.delPlayer(playerid);
+});
 
-function playerSpawn( playerid )
-{
+
+addEventHandler( "onPlayerSpawn", function( playerid ) {
 	setPlayerPosition( playerid, -1551.560181, -169.915466, -19.672523 );
 	setPlayerHealth( playerid, 720.0 );
 
 	sendPlayerMessage( playerid, "Welcome to " + script );
 	
 	triggerClientEvent( playerid, "serverEvent", script, "a test string" );
-}
-addEventHandler( "onPlayerSpawn", playerSpawn );
+});
 
-addEventHandler( "eventConfirm",
-	function( playerid )
-	{
-		givePlayerWeapon( playerid, 10, 2500 );
-		givePlayerWeapon( playerid, 11, 2500 );
-		givePlayerWeapon( playerid, 12, 2500 );
-	}
-);
 
-function playerDeath( playerid, killerid )
-{
+addEventHandler( "eventConfirm", function( playerid ) {
+	givePlayerWeapon( playerid, 10, 2500 );
+	givePlayerWeapon( playerid, 11, 2500 );
+	givePlayerWeapon( playerid, 12, 2500 );
+});
+
+
+addEventHandler( "onPlayerDeath", function( playerid, killerid ) {
 	if( killerid != INVALID_ENTITY_ID )
 		sendPlayerMessageToAll( "~ " + getPlayerName( playerid ) + " has been killed by " + getPlayerName( killerid ) + ".", 255, 204, 0 );
 	else
 		sendPlayerMessageToAll( "~ " + getPlayerName( playerid ) + " has died.", 255, 204, 0 );
-}
-addEventHandler( "onPlayerDeath", playerDeath );
+});
