@@ -1,3 +1,5 @@
+dofile("dependencies/Shortcuts/shortcuts.nut", true);
+
 /**
  * Command allows players to register
  * using their current username and specified password

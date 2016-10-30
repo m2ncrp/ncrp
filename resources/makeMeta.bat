@@ -1,11 +1,13 @@
+@ECHO off
+
 set file=meta.xml
 
 for /d %%D in (*) do (
 	cd %%~nxD
-		IF exist ret (
-			echo break
-			goto :break
-		)
+		rem IF exist ret (
+		rem 	echo break
+		rem 	goto :break
+		rem )
 
 		del %file%
 		echo ^<meta^> >> %file%
@@ -35,7 +37,9 @@ for /d %%D in (*) do (
 		)
 
 		<NUL set /p= ^</meta^> >> %file%
-		:break
+		rem :break
 	cd..
 )
+
+ping 127.0.0.1 -n 2 > nul
 exit;

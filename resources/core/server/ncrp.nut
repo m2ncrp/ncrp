@@ -1,4 +1,4 @@
-local script = "Empire Bay Death Match";
+local script = "Night City Role-Play";
 
 const SCRIPT_ROOT = "resources/erp/server/";
 const MODULES_DIR = "modules/";
@@ -12,7 +12,7 @@ function include(filename, fm = true)
 function scriptInit()
 {
 	log( script + " Loaded!" );
-	setGameModeText( "EBDM" );
+	setGameModeText( "NCRP" );
 	setMapName( "Empire Bay" );
 }
 addEventHandler( "onScriptInit", scriptInit );
