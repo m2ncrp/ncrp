@@ -1,0 +1,9 @@
+<meta> 
+	<!-- Server side scripts --> 
+	<script type="server">commands.nut</script> 
+	<script type="server">index.nut</script> 
+ 
+	<!-- Client side scripts --> 
+ 
+	<!-- Images --> 
+</meta> 

@@ -7,10 +7,10 @@ set file=meta.xml
 
 for /d %%D in (*) do (
 	cd %%~nxD
-		rem IF exist ret (
-		rem 	echo break
-		rem 	goto :break
-		rem )
+		IF exist ret (
+			echo break
+			goto :break
+		)
 
 		del %file%
 		echo ^<meta^> >> %file%
@@ -40,7 +40,7 @@ for /d %%D in (*) do (
 		)
 
 		<NUL set /p= ^</meta^> >> %file%
-		rem :break
+		:break
 	cd..
 )
 
