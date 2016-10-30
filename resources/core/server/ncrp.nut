@@ -17,7 +17,9 @@ addEventHandler( "onScriptInit", function() {
 	setGameModeText( "NCRP" );
 	setMapName( "Empire Bay" );
 
+	include("color", false);
 	include("tools", false);
+	include("commands", false);	
 	playerList = PlayerList();
 });
 

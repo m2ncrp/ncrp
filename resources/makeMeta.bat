@@ -1,5 +1,8 @@
 @ECHO off
 
+rem TODO
+rem 1. Ignore file contains name of files that shouldn't be included into meta.xml from server side
+
 set file=meta.xml
 
 for /d %%D in (*) do (

@@ -1,8 +1,4 @@
 dofile("dependencies/Shortcuts/shortcuts.nut", true);
-dofile("resources/core/server/color.nut");
-dofile("resources/core/server/tools.nut");
-dofile("resources/core/server/ncrp.nut");
-
 
 cmd(["help"], function(playerid) {
 	local commands = [
@@ -114,20 +110,13 @@ cmd(["skin"], function( playerid, id ) {
 /* 
 				CHAT BITCH 
 */
-function inRadius(message, sender, radius, color = 0)
-{
-	local players = playerList.getPlayers();
-	foreach(player in players) {
-		if (getDistance(sender, player) <= radius) {
-			sendPlayerMessage(player, text, CL_WHITE.r, CL_WHITE.g, CL_WHITE.b);
-		}
-	}
-}
+const NORMAL_RADIUS = 20.0;
+const SHOUT_RADIUS = 35.0;
 
 // local chat 
 cmd(["i","say"], function( playerid, ... ) {  
 	local text = concat(vargv);
-	sendPlayerMessageToAll(text);
+	inRadius(text, playerid, NORMAL_RADIUS, CL_YELLOW);
 });
 
 
