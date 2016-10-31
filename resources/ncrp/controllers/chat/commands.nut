@@ -34,7 +34,7 @@ cmd("me", function( playerid, ... ) {
 
 // random for some actions
 cmd("try", function(playerid, ...) {
-    local text = getPlayerName( playerid ) + "[TRY] " + concat(vargv);
+    local text = getPlayerName( playerid ) + " [TRY] " + concat(vargv);
 
     local res = random(0,1);
     if(res == 1)
