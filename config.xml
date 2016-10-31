@@ -6,7 +6,7 @@
     <weburl>www.mafia2-online.com</weburl>
     <password />
     <resources>
-        <resource>core</resource>
+        <resource>ncrp</resource>
     </resources>
     <serverkey />
     <modules />
