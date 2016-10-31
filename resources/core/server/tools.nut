@@ -9,7 +9,7 @@ function random(min = 0, max = RAND_MAX)
 
 function getDistance( senderID, targetID ) 
 {
-	local p1 = getPlayerPosition( sender );
+	local p1 = getPlayerPosition( senderID );
 	local p2 = getPlayerPosition( targetID );
 	
 	return getDistanceBetweenPoints3D(p1[0], p1[1], p1[2], p2[0], p2[1], p2[2]);
@@ -20,7 +20,10 @@ function inRadius(message, sender, radius, color = 0)
 	local players = playerList.getPlayers();
 	foreach(player in players) {
 		if (getDistance(sender, player) <= radius) {
-			sendPlayerMessage(player, message, color.r, color.g, color.b);
+			if (color)
+				sendPlayerMessage(player, message, color.r, color.g, color.b);
+			else 
+				sendPlayerMessage(player, message);
 		}
 	}
 }
@@ -41,7 +44,6 @@ class PlayerList
 	function addPlayer(id, name, ip, serial) 
 	{
 		this.players[id] <- id;
-		// this.players[id].onConnect(); // hernya, tut takogo netu
 	}
 	
 	function delPlayer(id) 
