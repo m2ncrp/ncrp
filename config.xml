@@ -1,13 +1,13 @@
 <settings>
-    <hostname>Default Mafia2-Online 0.1-rc2 Server</hostname>
+    <hostname>Night City Role-Play v0.0.56</hostname>
     <serverip />
-    <port>27015</port>
-    <maxplayers>1000</maxplayers>
+    <port>23015</port>
+    <maxplayers>4</maxplayers>
     <weburl>www.mafia2-online.com</weburl>
     <password />
-    <modules />
     <resources>
-        <resource>default</resource>
+        <resource>core</resource>
     </resources>
     <serverkey />
+    <modules />
 </settings>
