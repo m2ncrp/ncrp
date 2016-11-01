@@ -1,9 +1,12 @@
-createVehicle(20, -436.205, 417.33, 0.908799, 45.8896, -0.100647, 0.237746);
-createVehicle(20, -436.652, 427.656, 0.907598, 44.6088, -0.0841779, 0.205202);
-createVehicle(20, -437.04, 438.027, 0.907163, 45.1754, -0.100916, 0.242581);
-createVehicle(20, -410.198, 493.193, -0.21792, -179.657, -3.80509, -0.228946);  
-
 local job_bus = {};
+
+addEventHandlerEx("onServerStarted", function() {
+    log("[jobs] loading bus driver job...");
+    createVehicle(20, -436.205, 417.33, 0.908799, 45.8896, -0.100647, 0.237746);
+    createVehicle(20, -436.652, 427.656, 0.907598, 44.6088, -0.0841779, 0.205202);
+    createVehicle(20, -437.04, 438.027, 0.907163, 45.1754, -0.100916, 0.242581);
+    createVehicle(20, -410.198, 493.193, -0.21792, -179.657, -3.80509, -0.228946);
+});
 
 addEventHandler("onPlayerConnect", function(playerid, name, ip, serial ){
      job_bus[playerid] <- {};

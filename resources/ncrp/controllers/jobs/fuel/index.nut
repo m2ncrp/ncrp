@@ -1,12 +1,6 @@
 local job_fuel = {};
 local fuelcars = {};
 
-// fuelcars[i][0] - Truck ready: true/false
-// fuelcars[i][1] - Fuel load: integer
-fuelcars[createVehicle(5, 511.887, -277.5, -20.19, -179.464, -0.05, 0.1)]  <- [false, 0 ];
-fuelcars[createVehicle(5, 517.782, -277.5, -20.19, -177.742, -0.05, 0.1)]  <- [false, 0 ];
-fuelcars[createVehicle(5, 523.821, -277.5, -20.19, -176.393, -0.05, 0.1)]  <- [false, 0 ];
-
 local fuelname = [
     "Oyster Bay",                       // FuelStation Oyster Bay
     "West Side",                        // FuelStation
@@ -33,7 +27,16 @@ local fuelcoords = [
 ];
 
 
-addEventHandler("onPlayerConnect", function(playerid, name, ip, serial ){
+addEventHandlerEx("onServerStarted", function() {
+    log("[jobs] loading fuel job...");
+    // fuelcars[i][0] - Truck ready: true/false
+    // fuelcars[i][1] - Fuel load: integer
+    fuelcars[createVehicle(5, 511.887, -277.5, -20.19, -179.464, -0.05, 0.1)]  <- [false, 0 ];
+    fuelcars[createVehicle(5, 517.782, -277.5, -20.19, -177.742, -0.05, 0.1)]  <- [false, 0 ];
+    fuelcars[createVehicle(5, 523.821, -277.5, -20.19, -176.393, -0.05, 0.1)]  <- [false, 0 ];
+});
+
+addEventHandler("onPlayerConnect", function(playerid, name, ip, serial) {
      job_fuel[playerid] <- {};
      job_fuel[playerid]["fuelstatus"] <- [false, false, false, false, false, false, false, false]; // see sequence of gas stations in variable fuelname
      job_fuel[playerid]["fuelcomplete"] <- 0;  // number of completed fuel stations. Default is 0

@@ -1,5 +1,5 @@
-// nothing there yet :p
-addEventHandler("onScriptInit", function() {
+addEventHandlerEx("onServerStarted", function() {
+    log("[police] starting police...");
     createVehicle(42, -387.248, 644.162, -10.1017, -0.488971, 0.0184628, 4.32472 ); // policecar1
     createVehicle(42, -327.4, 677.512, -16.3, 88.6572, -2.82656, 0.0499204 ); // policecarParking3
     createVehicle(42, -327.4, 682.517, -16.2, 89.8648, -3.16096, 0.402121 ); // policecarParking4

@@ -1,4 +1,5 @@
-addEventHandler("onScriptInit", function() {
+addEventHandlerEx("onServerStarted", function() {
+    log("[vehicles] spawning hidden cars...");
     createVehicle(42, -1173.85, 1629.12, 10.5106, -85.8039, 2.5879, -15.7151 ); // hidecarKINGSTON1
     createVehicle(42, -1627.32, 1645.56, -5.05577, 90.3447, -0.702742, 0.131718 ); // hidecarKINGSTON2
     createVehicle(42, -1167.93, 1535.59, 6.75869, 90.1127, -0.194945, 0.194562 ); // hidecarKINGSTON3
