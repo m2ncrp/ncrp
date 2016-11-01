@@ -19,6 +19,7 @@ include("controllers/database");
 include("controllers/auth");
 include("controllers/chat");
 include("controllers/weather");
+include("controllers/world");
 include("controllers/money");
 include("controllers/jobs");
 include("controllers/metro");
@@ -30,7 +31,7 @@ include("controllers/vehicle");
 // initialize global values
 local script = "Night City Role-Play";
 
-playerList <- 0;
+playerList <- null;
 
 class PlayerList
 {
@@ -62,6 +63,13 @@ class PlayerList
         return this.players[id];
     }
 
+    function each(callback)
+    {
+        foreach (idx, playerid in this.players) {
+            callback(playerid);
+        }
+    }
+
     function nearestPlayer( playerid )
     {
         local min = null;
@@ -76,7 +84,6 @@ class PlayerList
         return str;
     }
 }
-
 
 addEventHandler( "onScriptInit", function() {
     log( script + " Loaded!" );
