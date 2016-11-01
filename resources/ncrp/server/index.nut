@@ -13,6 +13,7 @@ include("helpers/function.nut");
 include("helpers/string.nut");
 include("helpers/math.nut");
 include("helpers/distance.nut");
+include("helpers/commands.nut");
 include("helpers/color.nut");
 
 // load controllers
@@ -88,7 +89,7 @@ class PlayerList
     }
 }
 
-addEventHandler( "onScriptInit", function() {
+addEventHandler("onScriptInit", function() {
     log("[core] starting initialization...");
 
     // setup default values
@@ -100,6 +101,10 @@ addEventHandler( "onScriptInit", function() {
 
     // triggerring load events
     triggerServerEventEx("onServerStarted");
+});
+
+addEventHandler("onScriptExit", function() {
+    triggerServerEventEx("onServerStopping");
 });
 
 addEventHandler( "onPlayerConnect", function( playerid, name, ip, serial ) {

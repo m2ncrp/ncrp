@@ -23,7 +23,7 @@ addEventHandlerEx("onServerStarted", function() {
     ticker = timer(function() { world.onSecondChange(); }, 1000, -1);
 });
 
-addEventHandler("onScriptExit", function() {
+addEventHandlerEx("onServerStopping", function() {
     ticker.Kill();
 
     // reset objects
