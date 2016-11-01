@@ -1,5 +1,7 @@
 include("controllers/metro/commands.nut");
 
+const RADIUS = 4.0;
+
 metroInfos <- [
     [ -555.864136, 1592.924927, -21.863888, "Dipton" ],
     [ -293.068512, 553.138000, -2.273677, "Uptown" ],
