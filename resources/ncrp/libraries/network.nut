@@ -14,13 +14,13 @@ function addEventHandlerEx(event, cb) {
     __handlers[event] <- [cb];
 }
 
-function triggerServerEventEx(event, p1 = null, p2 = null, p3 = null, p4 = null) {
+function triggerServerEventEx(event, p1 = "_default", p2 = "_default", p3 = "_default", p4 = "_default") {
     if (event in __handlers) {
         foreach (idx, handler in __handlers[event]) {
-            if (p4) handler(p1, p2, p3, p4);
-            else if (p3) handler(p1, p2, p3);
-            else if (p2) handler(p1, p2);
-            else if (p1) handler(p1);
+            if (p4 != "_default") handler(p1, p2, p3, p4);
+            else if (p3 != "_default") handler(p1, p2, p3);
+            else if (p2 != "_default") handler(p1, p2);
+            else if (p1 != "_default") handler(p1);
             else handler();
         }
     }
