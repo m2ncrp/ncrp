@@ -4,7 +4,7 @@
  * @param {int} time in ms
  * @param {Function} callback
  * @param {mixed} [additional] optional argument
- *     that will be passed to a calle
+ *     that will be passed to a callback
  *
  * @return {int} timer id
  */
