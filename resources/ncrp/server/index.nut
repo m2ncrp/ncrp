@@ -27,6 +27,7 @@ include("controllers/police");
 include("controllers/government");
 include("controllers/player");
 include("controllers/vehicle");
+include("controllers/utils");
 
 // initialize global values
 local script = "Night City Role-Play";

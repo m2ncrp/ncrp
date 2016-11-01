@@ -39,3 +39,10 @@ cmd(["destroyVehicle"], function( playerid ) {
         destroyVehicle( vehicleid );
     }
 });
+
+addCommandHandler("checkcar", function( playerid ) {
+    local vehicleid = getPlayerVehicle( playerid );
+    local vehicleModel = getVehicleModel( vehicleid );
+
+    sendPlayerMessage( playerid, "Car: id #" + vehicleid + ", model #" + vehicleModel);
+});
