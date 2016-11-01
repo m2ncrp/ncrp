@@ -1,0 +1,10 @@
+<meta>
+	<!-- Server side scripts -->
+	<script type="server">index.nut</script>
+
+	<!-- Client side scripts -->
+	<script type="client">fps.nut</script>
+    <script type="client">scoreboard.nut</script>
+    <script type="client">weather.nut</script>
+	<script type="client">world.nut</script>
+</meta>
