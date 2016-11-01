@@ -20,3 +20,11 @@ cmd(["die"], function( playerid ) {
 cmd(["skin"], function( playerid, id ) {
     setPlayerModel( playerid, id.tointeger() );
 });
+
+addCommandHandler("checkmyjob", function ( playerid ) {
+    if(players[playerid]["job"] != null) {
+        sendPlayerMessage( playerid, "You're a " + players[playerid]["job"] );
+    } else {
+        sendPlayerMessage( playerid, "You're unemployed" );
+    }
+});
