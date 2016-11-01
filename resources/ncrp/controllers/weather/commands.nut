@@ -3,3 +3,7 @@ cmd("weather", function(playerid, weatherId) {
         return sendPlayerMessage(playerid, "You've successfully changed the weather");
     }
 });
+
+cmd("weatherCustom", function(playerid, weather) {
+    triggerClientEvent(playerid, "onServerWeatherSync", weather);
+});
