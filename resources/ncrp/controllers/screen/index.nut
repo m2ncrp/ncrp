@@ -33,13 +33,18 @@ function screenFadeout(playerid, time, callback = null) {
  *
  * @param {int} playerid
  * @param {int} time in ms
- * @param {Function} callback (optional)
+ * @param {Function} callback1 (optional) will be called at "black"
+ * @param {Function} callback2 (optional) will be called at finish
  */
-function screenFadeinFadeout(playerid, time, callback = null) {
+function screenFadeinFadeout(playerid, time, callback1 = null, callback2 = null) {
     screenFadein(playerid, time, function() {
+        // run first callback
+        if (callback1) callback1();
+
+        // start fadeout
         delayedFunction(1000, function(){
             screenFadeout(playerid, time, function() {
-                return callback ? callback() : null;
+                return callback2 ? callback2() : null;
             });
         })
     });

@@ -1,3 +1,4 @@
+//testing screen fades
 acmd("screen1", function(playerid) {
     sendPlayerMessage(playerid, "trying to fade in screen...");
     screenFadein(playerid, 1000, function() {
