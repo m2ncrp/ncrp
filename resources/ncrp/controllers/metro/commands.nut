@@ -1,4 +1,11 @@
-addCommandHandler( "sub", function( playerid, id ) {
-    log("Choden " + metroInfos[id][4]);
-    //setPlayerPosition(playerid, metroInfos[id][1], metroInfos[id][2], metroInfos[id][3]);
+cmd( ["sub"], function( playerid, id ) { 
+	id = id.tointeger();
+	if (id < 1)	id = 1;
+	if (id > 6)	id = 6;
+
+    log( "Chosen " + metroInfos[id][3] );
+
+    // foreach (index, value in metroInfos) {
+        setPlayerPosition(playerid, metroInfos[id][0], metroInfos[id][1], metroInfos[id][2]);
+    // }   
 });
