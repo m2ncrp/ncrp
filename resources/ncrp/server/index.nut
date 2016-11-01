@@ -9,6 +9,7 @@ include("models/Vehicle.nut");
 
 // load helpers
 include("helpers/array.nut");
+include("helpers/function.nut");
 include("helpers/string.nut");
 include("helpers/math.nut");
 include("helpers/distance.nut");
@@ -28,6 +29,7 @@ include("controllers/government");
 include("controllers/player");
 include("controllers/vehicle");
 include("controllers/utils");
+include("controllers/screen");
 
 // initialize global values
 local script = "Night City Role-Play";
@@ -87,10 +89,17 @@ class PlayerList
 }
 
 addEventHandler( "onScriptInit", function() {
-    log( script + " Loaded!" );
+    log("[core] starting initialization...");
+
+    // setup default values
     setGameModeText( "NCRP" );
     setMapName( "Empire Bay" );
+
+    // creating playerList storage
     playerList = PlayerList();
+
+    // triggerring load events
+    triggerServerEventEx("onServerStarted");
 });
 
 addEventHandler( "onPlayerConnect", function( playerid, name, ip, serial ) {

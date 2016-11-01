@@ -15,8 +15,8 @@ include("controllers/world/World.nut");
 local world  = null;
 local ticker = null;
 
-addEventHandler("onScriptInit", function() {
-    log("[world] starting world");
+addEventHandlerEx("onServerStarted", function() {
+    log("[world] starting world ...");
 
     // crate objects
     world = World();
