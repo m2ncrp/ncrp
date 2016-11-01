@@ -112,7 +112,6 @@ addEventHandler( "onPlayerConnect", function( playerid, name, ip, serial ) {
     playerList.addPlayer(playerid, name, ip, serial);
 });
 
-
 addEventHandler( "onPlayerDisconnect", function( playerid, reason ) {
     sendPlayerMessageToAll( "~ " + getPlayerName( playerid ) + " has left the server. (" + reason + ")", 255, 204, 0 );
     playerList.delPlayer(playerid);
