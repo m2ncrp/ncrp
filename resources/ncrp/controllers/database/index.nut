@@ -2,7 +2,7 @@
 local connection = null;
 
 addEventHandler("onScriptInit", function() {
-    ::log("starting database");
+    ::log("[database] creating connection...");
 
     connection = sqlite("ncrp.db");
 
@@ -16,7 +16,7 @@ addEventHandler("onScriptInit", function() {
 });
 
 addEventHandler("onScriptExit", function() {
-    ::log("stopping database");
+    ::log("[database] stopping...");
     connection.close();
 });
 

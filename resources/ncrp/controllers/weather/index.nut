@@ -3,7 +3,7 @@ include("controllers/weather/commands.nut");
 // settings
 const WEATHER_PHASE_CHANGE = 2;
 const WEATHER_DEFAULT_PHASE = 3;
-const WEATHER_DEFAULT_WEATHER = 2;
+const WEATHER_DEFAULT_WEATHER = 1;
 
 // available whethers
 local weathers = ["clear", "foggy", "rainy"];
