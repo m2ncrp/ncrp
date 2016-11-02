@@ -19,4 +19,9 @@ function chatcmd(names, callback)  {
     });
 }
 
+
+function msg(playerid, text, color = CL_WHITE ) {
+	sendPlayerMessage(playerid, text, color.r, color.g, color.b);
+}
+
 include("controllers/chat/commands.nut");

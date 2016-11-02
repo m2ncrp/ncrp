@@ -5,5 +5,5 @@ players <- {};
 addEventHandler("onPlayerConnect", function(playerid, name, ip, serial ) {
      players[playerid] <- {};
      players[playerid]["job"] <- null;
-     players[playerid]["money"] <- 0;
+     players[playerid]["money"] <- 13.37;
 });
