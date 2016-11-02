@@ -6,6 +6,7 @@ const WEATHER_DEFAULT_PHASE = 3;
 const WEATHER_DEFAULT_WEATHER = 1;
 const WEATHER_WINTER_STARTS = 11;
 const WEATHER_WINTER_ENDS = 2;
+const WEATHER_IS_WINTER = true;
 
 // available whethers
 local weathers = ["clear", "foggy", "rainy"];
@@ -66,9 +67,9 @@ addEventHandlerEx("weather:onPhaseChange", function(phaseid) {
 
 // register auto weather sync on player spawn
 addEventHandler("onPlayerSpawn", function(playerid) {
-    triggerClientEvent(playerid, "onServerWeatherSync", getWeatherName());
+    triggerClientEvent(playerid, "onServerWeatherSync", WEATHER_IS_WINTER ? "DTFreeRideNightSnow" : getWeatherName());
 });
 
 addEventHandlerEx("onServerStarted", function() {
-    // setSummer(false); // preparations for the winter
+    setSummer(!WEATHER_IS_WINTER); // preparations for the winter
 });
