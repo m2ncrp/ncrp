@@ -34,3 +34,8 @@ addEventHandlerEx("onServerStopping", function() {
 addEventHandler("onPlayerConnect", function(playerid, a, b, c) {
     world.sendToClient(playerid);
 });
+
+// register auto time sync on player spawn
+addEventHandler("onPlayerSpawn", function(playerid) {
+    world.sendToClient(playerid);
+});
