@@ -5,12 +5,13 @@
 addCommandHandler("getGPS", function ( playerid, name ) {
     if( isPlayerInVehicle( playerid ) ) {
         local vehicleid = getPlayerVehicle( playerid ) ;
+        local vehicleModel = getVehicleModel ( vehicleid );
         local vehPos = getVehiclePosition( vehicleid );
         local vehRot = getVehicleRotation( vehicleid );
-        log( "Vehicle " + vehicleid + " is at position and rotation " + vehPos[0] + ", " + vehPos[1] + ", " + vehPos[2] + ", " + vehRot[0] + ", " + vehRot[1] + ", " + vehRot[2] + " // " + name );
+        log( "Vehicle iD: " + vehicleid + " is at "+ vehicleModel + ", " + vehPos[0] + ", " + vehPos[1] + ", " + vehPos[2] + ", " + vehRot[0] + ", " + vehRot[1] + ", " + vehRot[2] + " // " + name );
     } else {
         local plaPos = getPlayerPosition( playerid ) ;
-        log( "Player " + playerid + " is at position " + plaPos[0] + ", " + plaPos[1] + ", " + plaPos[2] );
+        log( "Player " + playerid + " is at " + plaPos[0] + ", " + plaPos[1] + ", " + plaPos[2] + " // " + name );
     }
 }
 );
