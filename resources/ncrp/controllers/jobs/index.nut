@@ -4,8 +4,9 @@ include("controllers/jobs/fuel");
 include("controllers/jobs/taxi");
 
 
-addEventHandler("onScriptInit", function() {
+addEventHandlerEx("onServerStarted", function() {
     // nothing there anymore :C
+    log("[jobs] starting...");
 });
 
 /*

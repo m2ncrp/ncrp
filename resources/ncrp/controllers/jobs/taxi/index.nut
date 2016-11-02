@@ -1,4 +1,5 @@
-addEventHandler("onScriptInit", function() {
+addEventHandlerEx("onServerStarted", function() {
+    log("[jobs] loading taxi job...");
     createVehicle(24, -127.650, 412.521, -13.98, -90.0, 0.2, -0.2);   // taxi East Side 1
     createVehicle(24, -127.650, 408.872, -13.98, -90.0, 0.2, -0.2);   // taxi East Side 2
     createVehicle(24, -127.650, 405.611, -13.98, -90.0, 0.2, -0.2);   // taxi East Side 3
