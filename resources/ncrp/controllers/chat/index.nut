@@ -1,5 +1,7 @@
 /**
  * Chat module
+ * Auther: LoOnyRider & Inlife 
+ * Date: nov 2016
  */
 const NORMAL_RADIUS = 20.0;
 const SHOUT_RADIUS = 35.0;

@@ -1,3 +1,8 @@
+/*
+* Metro aka subway module
+* Auther: LoOnyRider
+* Date: nov 2016
+*/
 include("controllers/metro/commands.nut");
 
 const RADIUS = 4.0;
