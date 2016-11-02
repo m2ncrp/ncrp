@@ -119,7 +119,7 @@ addEventHandler( "onPlayerDisconnect", function( playerid, reason ) {
 
 
 addEventHandler( "onPlayerSpawn", function( playerid ) {
-    setPlayerPosition( playerid, -1551.560181, -169.915466, -19.672523 );
+    setPlayerPosition( playerid, -350.47, -726.722, -15.4205 );
     setPlayerHealth( playerid, 720.0 );
     sendPlayerMessage( playerid, "Welcome to " + script );
 });
