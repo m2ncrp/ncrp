@@ -1,47 +1,37 @@
 // local chat
-cmd(["i","say"], function( playerid, ... ) {
-    local text = concat(vargv);
-    inRadius(getPlayerName( playerid ) + " says: " + text, playerid, NORMAL_RADIUS, CL_YELLOW);
+chatcmd(["i", "say"], function(playerid, message) {
+    inRadius(getPlayerName( playerid ) + " says: " + message, playerid, NORMAL_RADIUS, CL_YELLOW);
 });
-
 
 // shout
-cmd(["s","shout"], function( playerid, ... ) {
-    local text = concat(vargv);
-    inRadius(getPlayerName( playerid ) + " shout: " + text, playerid, SHOUT_RADIUS, CL_WHITE);
+chatcmd(["s", "shout"], function(playerid, message) {
+    inRadius(getPlayerName( playerid ) + " shout: " + message, playerid, SHOUT_RADIUS, CL_WHITE);
 });
-
 
 // nonRP local chat
-cmd(["b"], function( playerid, ... ) {
-    local text = concat(vargv);
-    inRadius("[nonRP] " + getPlayerName( playerid ) + ": " + text, playerid, NORMAL_RADIUS, CL_GRAY);
+chatcmd(["b"], function(playerid, message) {
+    inRadius("[nonRP] " + getPlayerName( playerid ) + ": " + message, playerid, NORMAL_RADIUS, CL_GRAY);
 });
-
 
 // global nonRP chat
-cmd(["o","ooc"], function( playerid, ... ) {
-    local text = concat(vargv);
-    sendPlayerMessageToAll("[OOC] " + getPlayerName( playerid ) + ": " + text, CL_GRAY.r, CL_GRAY.g, CL_GRAY.b);
+chatcmd(["o","ooc"], function(playerid, message) {
+    sendPlayerMessageToAll("[OOC] " + getPlayerName( playerid ) + ": " + message, CL_GRAY.r, CL_GRAY.g, CL_GRAY.b);
 });
 
-
-cmd("me", function( playerid, ... ) {
-    local text = concat(vargv);
-    inRadius("[ME] " + getPlayerName( playerid ) + " " + text, playerid, NORMAL_RADIUS, CL_YELLOW);
+chatcmd(["me"], function(playerid, message) {
+    inRadius("[ME] " + getPlayerName( playerid ) + " " + message, playerid, NORMAL_RADIUS, CL_YELLOW);
 });
-
 
 // random for some actions
-cmd("try", function(playerid, ...) {
-    local text = getPlayerName( playerid ) + " [TRY] " + concat(vargv);
-
+chatcmd(["try"], function(playerid, message) {
+    message = "[TRY] " + getPlayerName( playerid ) + " try " + message;
     local res = random(0,1);
-    if(res == 1)
-        inRadius(text + " (success).", playerid, NORMAL_RADIUS);
+    if(res)
+        inRadius(message + " (success).", playerid, NORMAL_RADIUS);
     else
-        inRadius(text + " (failed).", playerid, NORMAL_RADIUS);
+        inRadius(message + " (failed).", playerid, NORMAL_RADIUS);
 });
+
 
 cmd(["help", "h", "halp", "info"], function(playerid) {
     local commands = [
