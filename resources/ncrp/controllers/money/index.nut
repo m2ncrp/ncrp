@@ -4,6 +4,6 @@ function addMoneyToPlayer(playerid, amount) {
     players[playerid]["money"] += amount;
 }
 
-function subMoneyToPlayer(playerid, amount) {
+function subMoney(playerid, amount) {
     players[playerid]["money"] -= amount;
 }
