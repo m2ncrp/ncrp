@@ -3,7 +3,9 @@ include("controllers/weather/commands.nut");
 // settings
 const WEATHER_PHASE_CHANGE = 2;
 const WEATHER_DEFAULT_PHASE = 3;
-const WEATHER_DEFAULT_WEATHER = 2;
+const WEATHER_DEFAULT_WEATHER = 1;
+const WEATHER_WINTER_STARTS = 11;
+const WEATHER_WINTER_ENDS = 2;
 
 // available whethers
 local weathers = ["clear", "foggy", "rainy"];
@@ -65,4 +67,8 @@ addEventHandlerEx("weather:onPhaseChange", function(phaseid) {
 // register auto weather sync on player spawn
 addEventHandler("onPlayerSpawn", function(playerid) {
     triggerClientEvent(playerid, "onServerWeatherSync", getWeatherName());
+});
+
+addEventHandlerEx("onServerStarted", function() {
+    // setSummer(false); // preparations for the winter
 });
