@@ -5,7 +5,7 @@ acmd("weather", function(playerid, weatherId) {
 });
 
 acmd("weatherCustom", function(playerid, weather) {
-    triggerClientEvent(playerid, "onServerWeatherSync", weather);
+    setWeather(weather);
 });
 
 
