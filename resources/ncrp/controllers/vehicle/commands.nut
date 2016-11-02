@@ -4,7 +4,6 @@ cmd(["vehicle"], function( playerid, id ) {
     setVehicleColour(vehicle, 0, 0, 0, 0, 0, 0);
 });
 
-
 cmd(["tune"], function( playerid ) {
     if( isPlayerInVehicle( playerid ) )
     {
@@ -16,7 +15,6 @@ cmd(["tune"], function( playerid ) {
     }
 });
 
-
 cmd(["fix"], function( playerid ) {
     if( isPlayerInVehicle( playerid ) )
     {
@@ -24,7 +22,6 @@ cmd(["fix"], function( playerid ) {
         repairVehicle( vehicleid );
     }
 });
-
 
 cmd(["destroyVehicle"], function( playerid ) {
     if( isPlayerInVehicle( playerid ) )
