@@ -50,9 +50,9 @@ rem * * * FUNCTIONS * * *
 	cd resources && start makeMeta.bat
 	cd ..
 
-	if "%1" EQU "--a" (
+	rem if "%1" EQU "--a" (
 		start s-autoconfig
-	)
+	rem )
 	call :checkCommit
 	call :hacks
 	start %exeName%
