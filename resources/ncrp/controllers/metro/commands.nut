@@ -8,6 +8,7 @@ cmd( ["sub"], function( playerid, id ) {
     if ( isNearStation(playerid) ) {
         screenFadeinFadeout(playerid, 2000, function() {
             // and don't forget took all his money bitch!
+            sendPlayerMessage(playerid, "You pay $0.25 for ticket.");
             setPlayerPosition(playerid, metroInfos[id][0], metroInfos[id][1], metroInfos[id][2]);
         });
     } else {
