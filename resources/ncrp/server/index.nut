@@ -6,6 +6,7 @@ include("traits/Colorable.nut");
 include("models/Color.nut");
 include("models/Account.nut");
 include("models/Vehicle.nut");
+include("models/TeleportPosition.nut");
 
 // load helpers
 include("helpers/array.nut");
@@ -31,6 +32,7 @@ include("controllers/player");
 include("controllers/vehicle");
 include("controllers/utils");
 include("controllers/screen");
+include("controllers/admin");
 
 // initialize global values
 local script = "Night City Role-Play";
