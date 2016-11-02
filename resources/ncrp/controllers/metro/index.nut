@@ -11,3 +11,18 @@ metroInfos <- [
     [ -1550.738159, -231.029968, -13.589154, "SandIsland" ],
     [ -1117.546509, 1363.452026, -17.572432, "Kingston" ]
 ];
+
+const HEAD = 0;
+const TAIL = 6; // total number of stations
+
+function isNearStation(playerid){
+	local playerPos = getPlayerPosition( playerid );
+
+	foreach (index, station in metroInfos) {
+    	local dist = getDistanceBetweenPoints3D( station[0], station[1], station[2], playerPos[0], playerPos[1], playerPos[2] );
+    	if (dist < RADIUS) {
+    		return true;
+    	}
+    }
+    return false;
+}
