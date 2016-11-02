@@ -13,7 +13,7 @@ for /f "delims=" %%j in ('XML.EXE sel -t -v "/server/version/minor" %env%') do s
 echo ^<settings^> >> %conf%
 echo    ^<hostname^>Night City Role-Play v%major%.%middle%.%minor%^</hostname^> >> %conf%
 echo    ^<serverip /^> >> %conf%
-echo    ^<port^>23015^</port^> >> %conf%
+echo    ^<port^>27015^</port^> >> %conf%
 echo    ^<maxplayers^>4^</maxplayers^> >> %conf%
 echo    ^<weburl^>www.mafia2-online.com^</weburl^> >> %conf%
 echo    ^<password /^> >> %conf%
