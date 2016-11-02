@@ -4,7 +4,6 @@
  
 	<!-- Client side scripts --> 
 	<script type="client">3dtext.nut</script> 
-	<script type="client">events.nut</script> 
 	<script type="client">fps.nut</script> 
 	<script type="client">scoreboard.nut</script> 
 	<script type="client">weather.nut</script> 
