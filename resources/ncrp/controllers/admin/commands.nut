@@ -10,7 +10,7 @@ acmd(["tsave", "ts"], function(playerid, name) {
     tpp.x = pos[0];
     tpp.y = pos[1];
     tpp.z = pos[2];
-    tpp.name = name.tolower();
+    tpp.name = name;
 
     tpp.save(function(err, result) {
         sendPlayerMessage(playerid, "You have saved new teleport point with #" + tpp.id);
@@ -29,7 +29,7 @@ acmd(["tlist", "tl"], function(playerid, page = "0") {
 
         // list
         return results.map(function(item) {
-            sendPlayerMessage(playerid, format(" - '%s' at x: %f y: %f z: %f", item.name, item.x, item.y, item.z), 240, 240, 220);
+            sendPlayerMessage(playerid, format(" #%d. '%s' at x: %f y: %f z: %f", item.id, item.name, item.x, item.y, item.z), 240, 240, 220);
         })
     });
 });
