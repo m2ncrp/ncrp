@@ -6,6 +6,7 @@ include("traits/Colorable.nut");
 include("models/Color.nut");
 include("models/Account.nut");
 include("models/Vehicle.nut");
+include("models/TeleportPosition.nut");
 
 // load helpers
 include("helpers/array.nut");
@@ -31,6 +32,7 @@ include("controllers/player");
 include("controllers/vehicle");
 include("controllers/utils");
 include("controllers/screen");
+include("controllers/admin");
 
 // initialize global values
 local script = "Night City Role-Play";
@@ -119,7 +121,7 @@ addEventHandler( "onPlayerDisconnect", function( playerid, reason ) {
 
 
 addEventHandler( "onPlayerSpawn", function( playerid ) {
-    setPlayerPosition( playerid, -1551.560181, -169.915466, -19.672523 );
+    setPlayerPosition( playerid, -350.47, -726.722, -15.4205 );
     setPlayerHealth( playerid, 720.0 );
     sendPlayerMessage( playerid, "Welcome to " + script );
 });
