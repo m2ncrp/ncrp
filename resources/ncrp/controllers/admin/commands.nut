@@ -41,7 +41,7 @@ acmd(["tgoto", "tg"], function(playerid, nameOrId) {
     local callback = function(err, item) {
         if (!item) return sendPlayerMessage(playerid, "No point were found by " + nameOrId);
 
-        if (!isPlayerInVehicle(playeid)) {
+        if (!isPlayerInVehicle(playerid)) {
             setPlayerPosition(playerid, item.x, item.y, item.z);
         } else {
             setVehiclePosition(getPlayerVehicle(playerid), item.x, item.y, item.z);
