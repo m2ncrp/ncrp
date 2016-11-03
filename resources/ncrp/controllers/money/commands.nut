@@ -3,6 +3,6 @@ cmd( ["money"], function( playerid ) {
 });
 
 
-cmd( ["send"], function( playerid, targetid, amount ){ 
+cmd( ["send"], function( playerid, targetid, amount ) { 
 	transfer(playerid, targetid, amount);
 });
