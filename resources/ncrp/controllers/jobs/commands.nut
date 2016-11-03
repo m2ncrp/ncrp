@@ -27,3 +27,26 @@ addCommandHandler("help_job", function(playerid) {
         }
     }
 });
+
+addCommandHandler("help_cargo", function(playerid) {
+    local commands = [
+        { name = "/job_cargo",        desc = "Get cargo delivery driver job" },
+        { name = "/job_cargo_leave",  desc = "Leave cargo delivery driver job" },
+        { name = "/loadcargo",       desc = "Load cargo into truck" },
+        { name = "/unloadcargo",     desc = "Unload cargo" },
+        { name = "/cargofinish",      desc = "Report to Derek and get money" }
+    ];
+
+    sendPlayerMessage(playerid, "");
+    sendPlayerMessage(playerid, "==================================", 200, 100, 100);
+    sendPlayerMessage(playerid, "Here is list of available job_cargo commands:", 200, 200, 0);
+
+    foreach (idx, cmd in commands) {
+        local text = cmd.name + "   -   " + cmd.desc;
+        if ((idx % 2) == 0) {
+            sendPlayerMessage(playerid, text, 200, 230, 255);
+        } else {
+            sendPlayerMessage(playerid, text);
+        }
+    }
+});
