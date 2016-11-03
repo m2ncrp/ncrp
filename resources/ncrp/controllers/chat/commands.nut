@@ -52,9 +52,10 @@ cmd(["help", "h", "halp", "info"], function(playerid) {
         { name = "/skin <id>",          desc = "Change your skin :O. Example: /skin 63" },
         { name = "/say <text>",         desc = "Put your text in local RP chat"},
         { name = "/shout <text>",       desc = "Your message could be heard far enough :)"},
+        { name = "/whisper <text>",     desc = "Say something to nearest player very quiet"},
         { name = "/b <text>",           desc = "Local nonRP chat"},
         { name = "/ooc <text>",         desc = "Global nonRP chat"},
-        { name = "/me <action text>",   decs = "Some action of your person"},
+        { name = "/me <action text>",   desc = "Some action of your person"},
         { name = "/try <action text>",  desc = "Any action simulation that could be failed"}
     ];
 
