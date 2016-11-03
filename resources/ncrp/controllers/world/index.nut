@@ -72,3 +72,27 @@ function getDate() {
 function getTime() {
     return format("%02d:%02d", world.time.hour, world.time.minute);
 }
+
+function getDay() {
+    return world.time.day;
+}
+
+function getMonth() {
+    return world.time.month;
+}
+
+function getYear() {
+    return world.time.year;
+}
+
+function getHour() {
+    return world.time.hour;
+}
+
+function getMinute() {
+    return world.time.minute;
+}
+
+function getSecond() {
+    return world.time.second;
+}
