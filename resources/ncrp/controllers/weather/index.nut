@@ -61,7 +61,7 @@ addEventHandlerEx("weather:onPhaseChange", function(phaseid) {
 
     if (phaseid >= 0 && phaseid < 24) {
         currentPhase = floor(phaseid / WEATHER_PHASE_CHANGE);
-        return setWeather(getWeatherName());
+       // return setWeather(getWeatherName()); /// ======================================================================================================
     }
 });
 
