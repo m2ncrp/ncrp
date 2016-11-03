@@ -65,3 +65,25 @@ addCommandHandler("putto", function ( playerid, vehicleid ) {
 //================================================================================================================================================
 //                                                          TEST COMMANDS END
 //================================================================================================================================================
+
+//================================================================================================================================================
+//                                                          TEST COLORS BEGIN
+//================================================================================================================================================
+
+// working
+addCommandHandler("chattest", function ( playerid ) {
+   msg(playerid, "This is Test color CL_WHITESMOKE", CL_WHITESMOKE);
+   msg(playerid, "This is Test color CL_LYNCH", CL_LYNCH);
+   msg(playerid, "This is Test color CL_PUMICE", CL_PUMICE);
+   msg(playerid, "This is Test color CL_GALLERY", CL_GALLERY);
+   msg(playerid, "This is Test color CL_SILVERSAND", CL_SILVERSAND);
+   msg(playerid, "This is Test color CL_PORCELAIN", CL_PORCELAIN);
+   msg(playerid, "This is Test color CL_CASCADE", CL_CASCADE);
+   msg(playerid, "This is Test color CL_IRON", CL_IRON);
+   msg(playerid, "This is Test color CL_EDWARD", CL_EDWARD);
+   msg(playerid, "This is Test color CL_CARARRA", CL_CARARRA);
+});
+
+//================================================================================================================================================
+//                                                          TEST COLORS END
+//================================================================================================================================================
