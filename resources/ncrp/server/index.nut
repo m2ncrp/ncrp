@@ -7,6 +7,7 @@ include("models/Color.nut");
 include("models/Account.nut");
 include("models/Vehicle.nut");
 include("models/TeleportPosition.nut");
+include("models/TimestampStorage.nut");
 
 // load helpers
 include("helpers/array.nut");
@@ -19,6 +20,7 @@ include("helpers/color.nut");
 
 // load controllers
 include("controllers/database");
+include("controllers/time");
 include("controllers/auth");
 include("controllers/chat");
 include("controllers/weather");
@@ -105,8 +107,15 @@ addEventHandler("onScriptInit", function() {
     triggerServerEventEx("onServerStarted");
 });
 
+
 addEventHandler("onScriptExit", function() {
     triggerServerEventEx("onServerStopping");
+    triggerServerEventEx("onServerStopped");
+});
+
+addEventHandler("onServerShutdown", function() {
+    triggerServerEventEx("onServerStopping");
+    triggerServerEventEx("onServerStopped");
 });
 
 addEventHandler( "onPlayerConnect", function( playerid, name, ip, serial ) {

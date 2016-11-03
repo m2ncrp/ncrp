@@ -8,3 +8,7 @@ local REGEXP_INTEGER = regexp("\\d+");
 function isInteger(value) {
     return (typeof value == "integer" || REGEXP_INTEGER.match(value));
 }
+
+function fillZeros(value, number = 2) {
+    
+}
