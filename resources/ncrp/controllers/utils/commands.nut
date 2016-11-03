@@ -71,19 +71,52 @@ addCommandHandler("putto", function ( playerid, vehicleid ) {
 //================================================================================================================================================
 
 // working
-addCommandHandler("chattest", function ( playerid ) {
-   msg(playerid, "This is Test color CL_WHITESMOKE", CL_WHITESMOKE);
-   msg(playerid, "This is Test color CL_LYNCH", CL_LYNCH);
-   msg(playerid, "This is Test color CL_PUMICE", CL_PUMICE);
-   msg(playerid, "This is Test color CL_GALLERY", CL_GALLERY);
-   msg(playerid, "This is Test color CL_SILVERSAND", CL_SILVERSAND);
-   msg(playerid, "This is Test color CL_PORCELAIN", CL_PORCELAIN);
-   msg(playerid, "This is Test color CL_CASCADE", CL_CASCADE);
-   msg(playerid, "This is Test color CL_IRON", CL_IRON);
-   msg(playerid, "This is Test color CL_EDWARD", CL_EDWARD);
-   msg(playerid, "This is Test color CL_CARARRA", CL_CARARRA);
+addCommandHandler("colors1", function ( playerid ) {
+   msg(playerid, "============== COLOR Page 1 ===============", CL_WHITE);
+   msg(playerid, "This is Test color  CL_FLAMINGO", CL_FLAMINGO);
+   msg(playerid, "This is Test color  CL_CHESTNUT", CL_CHESTNUT);
+   msg(playerid, "This is Test color  CL_THUNDERBIRD", CL_THUNDERBIRD);
+   msg(playerid, "This is Test color  CL_OLDBREAK", CL_OLDBREAK);
+   msg(playerid, "This is Test color  CL_WAXFLOWER", CL_WAXFLOWER);
+   msg(playerid, "This is Test color  CL_SNUFF", CL_SNUFF);
+   msg(playerid, "This is Test color  CL_REBECCAPURPLE", CL_REBECCAPURPLE);
+   msg(playerid, "This is Test color  CL_WISTFUL", CL_WISTFUL);
+   msg(playerid, "This is Test color  CL_MEDIUMPURPLE", CL_MEDIUMPURPLE);
+   msg(playerid, "This is Test color  CL_LIGHTWISTERIA", CL_LIGHTWISTERIA);
+   msg(playerid, "This is Test color  CL_ROYALBLUE", CL_ROYALBLUE);
 });
 
+
+addCommandHandler("colors2", function ( playerid ) {
+   msg(playerid, "============== COLOR Page 2 ===============", CL_WHITE);
+   msg(playerid, "This is Test color  CL_PICTONBLUE", CL_PICTONBLUE);
+   msg(playerid, "This is Test color  CL_PICTONBLUEDARK", CL_PICTONBLUEDARK);
+   msg(playerid, "This is Test color  CL_MING", CL_MING);
+   msg(playerid, "This is Test color  CL_MALIBU", CL_MALIBU);
+   msg(playerid, "This is Test color  CL_HOKI", CL_HOKI);
+   msg(playerid, "This is Test color  CL_JORDYBLUE", CL_JORDYBLUE);
+   msg(playerid, "This is Test color  CL_GOSSIP", CL_GOSSIP);
+   msg(playerid, "This is Test color  CL_EUCALYPTUS", CL_EUCALYPTUS);
+   msg(playerid, "This is Test color  CL_CARIBBEANGREEN", CL_CARIBBEANGREEN);
+   msg(playerid, "This is Test color  CL_NIAGARA", CL_NIAGARA);
+   msg(playerid, "This is Test color  CL_OCEANGREEN", CL_OCEANGREEN);
+}); 
+
+
+addCommandHandler("colors3", function ( playerid ) {
+   msg(playerid, "============== COLOR Page 3 ===============", CL_WHITE);
+   msg(playerid, "This is Test color  CL_JADE", CL_JADE);
+   msg(playerid, "This is Test color  CL_SALEM", CL_SALEM);
+   msg(playerid, "This is Test color  CL_CREAMCAN", CL_CREAMCAN);
+   msg(playerid, "This is Test color  CL_RIPELEMON", CL_RIPELEMON);
+   msg(playerid, "This is Test color  CL_FIREBUSH", CL_FIREBUSH);
+   msg(playerid, "This is Test color  CL_CRUSTA", CL_CRUSTA);
+   msg(playerid, "This is Test color  CL_BURNTORANGE", CL_BURNTORANGE);
+   msg(playerid, "This is Test color  CL_ECSTASY", CL_ECSTASY);
+   msg(playerid, "This is Test color  CL_LYNCH", CL_LYNCH);
+   msg(playerid, "This is Test color  CL_SILVERSAND", CL_SILVERSAND);
+   msg(playerid, "This is Test color  CL_CASCADE", CL_CASCADE);
+});   
 //================================================================================================================================================
 //                                                          TEST COLORS END
 //================================================================================================================================================
