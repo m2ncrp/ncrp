@@ -1,36 +1,36 @@
 // local chat
 chatcmd(["i", "say"], function(playerid, message) {
-    inRadius(getPlayerName( playerid ) + " says: " + message, playerid, NORMAL_RADIUS, CL_YELLOW);
+    inRadius(getAuther( playerid ) + " says: " + message, playerid, NORMAL_RADIUS, CL_YELLOW);
 });
 
 // shout
 chatcmd(["s", "shout"], function(playerid, message) {
-    inRadius(getPlayerName( playerid ) + " shout: " + message, playerid, SHOUT_RADIUS, CL_WHITE);
+    inRadius(getAuther( playerid ) + " shout: " + message, playerid, SHOUT_RADIUS, CL_WHITE);
 });
 
 // whisper
 chatcmd(["w", "whisper"], function(playerid, message) {
     local targetid = nearestPlayer( playerid );
-    msg(targetid, getPlayerName( playerid ) + " whisper: " + message);
+    msg(targetid, getAuther( playerid ) + " whisper: " + message);
 });
 
 // nonRP local chat
 chatcmd(["b"], function(playerid, message) {
-    inRadius("[nonRP] " + getPlayerName( playerid ) + ": " + message, playerid, NORMAL_RADIUS, CL_GRAY);
+    inRadius("[nonRP] " + getAuther( playerid ) + ": " + message, playerid, NORMAL_RADIUS, CL_GRAY);
 });
 
 // global nonRP chat
 chatcmd(["o","ooc"], function(playerid, message) {
-    msg_a("[OOC] " + getPlayerName( playerid ) + ": " + message, CL_GRAY);
+    msg_a("[OOC] " + getAuther( playerid ) + ": " + message, CL_GRAY);
 });
 
 chatcmd(["me"], function(playerid, message) {
-    inRadius("[ME] " + getPlayerName( playerid ) + " " + message, playerid, NORMAL_RADIUS, CL_YELLOW);
+    inRadius("[ME] " + getAuther( playerid ) + " " + message, playerid, NORMAL_RADIUS, CL_YELLOW);
 });
 
 // random for some actions
 chatcmd(["try"], function(playerid, message) {
-    message = "[TRY] " + getPlayerName( playerid ) + " try " + message;
+    message = "[TRY] " + getAuther( playerid ) + " try " + message;
     local res = random(0,1);
     if(res)
         inRadius(message + " (success).", playerid, NORMAL_RADIUS);
