@@ -21,7 +21,7 @@ function chatcmd(names, callback)  {
 
 // @params playerid - string
 // @return "Player_Name[id]" string
-function getAuther( playerid ) {
+function getAuthor( playerid ) {
 	return getPlayerName( playerid.tointeger() ) + "[" + playerid.tostring() + "]";
 }
 
@@ -32,5 +32,9 @@ function msg(playerid, text, color = CL_WHITE ) {
 function msg_a(text, color = CL_WHITE){
 	sendPlayerMessageToAll(text, color.r, color.g, color.b);
 }
+
+msga <- msg_a;
+msgA <- msg_a;
+getAuther <- getAuthor;
 
 include("controllers/chat/commands.nut");

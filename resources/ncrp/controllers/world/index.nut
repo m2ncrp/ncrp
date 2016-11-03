@@ -21,6 +21,8 @@ addEventHandlerEx("onServerStarted", function() {
     // crate objects
     world = World();
     ticker = timer(function() { world.onSecondChange(); }, 1000, -1);
+
+    log(getDate());
 });
 
 addEventHandlerEx("onServerStopping", function() {
@@ -39,3 +41,15 @@ addEventHandler("onPlayerConnect", function(playerid, a, b, c) {
 addEventHandler("onPlayerSpawn", function(playerid) {
     world.sendToClient(playerid);
 });
+
+function getDateTime() {
+    return getDate() + " " + getTime();
+}
+
+function getDate() {
+    return format("%02d.%02d.%d", world.time.day, world.time.month, world.time.year);
+}
+
+function getTime() {
+    return format("%02d:%02d", world.time.hour, world.time.minute);
+}
