@@ -48,3 +48,19 @@ function range(from, to) {
 
     return tmp;
 }
+
+/**
+ * Round <val> to <decimalPoints> after dot.
+ *
+ * @param  {float} val
+ * @param  {int} count number after dot
+ * @return {float} result
+ * URL: https://forums.electricimp.com/discussion/2128/round-float-to-fixed-decimal-places
+ */
+function round(val, decimalPoints) {
+    local f = pow(10, decimalPoints) * 1.0;
+    local newVal = val * f;
+    newVal = floor(newVal + 0.5)
+    newVal = (newVal * 1.0) / f;
+   return newVal;
+}
