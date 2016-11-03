@@ -18,15 +18,14 @@ launch()
 		git status
 	fi
 
-	hacks
+	# hacks
 	./$exeName
 }
 
 
-shutdown() {
-	echo $!
-	#kill $task
-}
+# shutdown() {
+# 	#kill $task
+# }
 
 
 checkCommit() {
@@ -47,9 +46,9 @@ checkCommit() {
 }
 
 
-hacks() {
-	ping 127.0.0.1 -n 2 > nul
-}
+# hacks() {
+# 	# ping 127.0.0.1 -n 2 > nul
+# }
 
 
 

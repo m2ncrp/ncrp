@@ -16,6 +16,14 @@ function getPlayerBalance(playerid) {
     return players[playerid]["money"];
 }
 
+function isEnoughBalance(playerid, amount) {
+    if (getPlayerBalance(playerid) < amount) {
+        msg(playerid, "You can't afford youself to spend $" + amount + "!", CL_RED);
+        return false;
+    }
+    return true;
+}
+
 function transfer(playerid, targetid, amount) {
     local f_amount = amount.tofloat();
     local i_targetid = targetid.tointeger();
