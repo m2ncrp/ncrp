@@ -6,7 +6,13 @@ function getDistance( senderID, targetID )
     return getDistanceBetweenPoints3D(p1[0], p1[1], p1[2], p2[0], p2[1], p2[2]);
 }
 
-function inRadius(message, sender, radius, color = 0)
+function inRadius(playerid, targetid, radius, callback)
+{
+    if (callback != null && getDistance(playerid, targetid) <= radius)
+        callback();
+}
+
+function inRadiusToAll(message, sender, radius, color = 0)
 {
     local players = playerList.getPlayers();
     foreach(player in players) {
