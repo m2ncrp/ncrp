@@ -82,7 +82,7 @@ class PlayerList
         local str = null;
         foreach(target in this.getPlayers()) {
             local dist = getDistance(playerid, target);
-            if(dist < min || !min) {
+            if((dist < min || !min) && target!=playerid) {
                 min = dist;
                 str = target;
             }
