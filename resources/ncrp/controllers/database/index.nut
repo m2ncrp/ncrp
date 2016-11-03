@@ -15,7 +15,7 @@ addEventHandler("onScriptInit", function() {
     // _server_commands["register"](1, "123456");
 });
 
-addEventHandler("onScriptExit", function() {
+addEventHandlerEx("onServerStopped", function() {
     ::log("[database] stopping...");
     connection.close();
 });
