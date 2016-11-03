@@ -1,5 +1,6 @@
 _server_commands <- {};
-_server_admin_commands <- {};
+
+local old__addCommandHander = addCommandHandler;
 
 function cmd(names, func)  {
     if (typeof names != "array") {
@@ -7,7 +8,7 @@ function cmd(names, func)  {
     }
     foreach(name in names) {
         _server_commands[name] <- func;
-        addCommandHandler(name, func);
+        old__addCommandHandler(name, func);
     }
 }
 
@@ -19,7 +20,10 @@ function acmd(names, func)  {
         names = [names];
     }
     foreach(name in names) {
-        _server_admin_commands[name] <- func;
-        addCommandHandler(name, func);
+        _server_commands[name] <- func;
+        old__addCommandHandler(name, func);
     }
 }
+
+
+addCommandHandler = cmd;
