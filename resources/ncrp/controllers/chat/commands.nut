@@ -1,30 +1,36 @@
 // local chat
 chatcmd(["i", "say"], function(playerid, message) {
-    inRadius(getPlayerName( playerid ) + " says: " + message, playerid, NORMAL_RADIUS, CL_YELLOW);
+    inRadius(getAuther( playerid ) + " says: " + message, playerid, NORMAL_RADIUS, CL_YELLOW);
 });
 
 // shout
 chatcmd(["s", "shout"], function(playerid, message) {
-    inRadius(getPlayerName( playerid ) + " shout: " + message, playerid, SHOUT_RADIUS, CL_WHITE);
+    inRadius(getAuther( playerid ) + " shout: " + message, playerid, SHOUT_RADIUS, CL_WHITE);
+});
+
+// whisper
+chatcmd(["w", "whisper"], function(playerid, message) {
+    local targetid = nearestPlayer( playerid );
+    msg(targetid, getAuther( playerid ) + " whisper: " + message);
 });
 
 // nonRP local chat
 chatcmd(["b"], function(playerid, message) {
-    inRadius("[nonRP] " + getPlayerName( playerid ) + ": " + message, playerid, NORMAL_RADIUS, CL_GRAY);
+    inRadius("[nonRP] " + getAuther( playerid ) + ": " + message, playerid, NORMAL_RADIUS, CL_GRAY);
 });
 
 // global nonRP chat
 chatcmd(["o","ooc"], function(playerid, message) {
-    sendPlayerMessageToAll("[OOC] " + getPlayerName( playerid ) + ": " + message, CL_GRAY.r, CL_GRAY.g, CL_GRAY.b);
+    msg_a("[OOC] " + getAuther( playerid ) + ": " + message, CL_GRAY);
 });
 
 chatcmd(["me"], function(playerid, message) {
-    inRadius("[ME] " + getPlayerName( playerid ) + " " + message, playerid, NORMAL_RADIUS, CL_YELLOW);
+    inRadius("[ME] " + getAuther( playerid ) + " " + message, playerid, NORMAL_RADIUS, CL_YELLOW);
 });
 
 // random for some actions
 chatcmd(["try"], function(playerid, message) {
-    message = "[TRY] " + getPlayerName( playerid ) + " try " + message;
+    message = "[TRY] " + getAuther( playerid ) + " try " + message;
     local res = random(0,1);
     if(res)
         inRadius(message + " (success).", playerid, NORMAL_RADIUS);
@@ -46,9 +52,10 @@ cmd(["help", "h", "halp", "info"], function(playerid) {
         { name = "/skin <id>",          desc = "Change your skin :O. Example: /skin 63" },
         { name = "/say <text>",         desc = "Put your text in local RP chat"},
         { name = "/shout <text>",       desc = "Your message could be heard far enough :)"},
+        { name = "/whisper <text>",     desc = "Say something to nearest player very quiet"},
         { name = "/b <text>",           desc = "Local nonRP chat"},
         { name = "/ooc <text>",         desc = "Global nonRP chat"},
-        { name = "/me <action text>",   decs = "Some action of your person"},
+        { name = "/me <action text>",   desc = "Some action of your person"},
         { name = "/try <action text>",  desc = "Any action simulation that could be failed"}
     ];
 

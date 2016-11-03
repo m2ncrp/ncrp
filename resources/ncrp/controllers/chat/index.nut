@@ -11,7 +11,7 @@ function chatcmd(names, callback)  {
         local text = concat(vargv);
 
         if (!text || text.len() < 1) {
-            return sendPlayerMessage(playerid, "[INFO] You cant send an empty message.", CL_YELLOW.r, CL_YELLOW.g, CL_YELLOW.g);
+            return msg(playerid, "[INFO] You cant send an empty message.", CL_YELLOW);
         }
 
         // call registered callback
@@ -19,9 +19,18 @@ function chatcmd(names, callback)  {
     });
 }
 
+// @params playerid - string
+// @return "Player_Name[id]" string
+function getAuther( playerid ) {
+	return getPlayerName( playerid.tointeger() ) + "[" + playerid.tostring() + "]";
+}
 
 function msg(playerid, text, color = CL_WHITE ) {
 	sendPlayerMessage(playerid, text, color.r, color.g, color.b);
+}
+
+function msg_a(text, color = CL_WHITE){
+	sendPlayerMessageToAll(text, color.r, color.g, color.b);
 }
 
 include("controllers/chat/commands.nut");

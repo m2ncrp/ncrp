@@ -27,10 +27,10 @@ function transfer(playerid, targetid, amount) {
         msg(playerid, "There's no such person on server!");
         return;
     }
-    
+
     subMoneyToPlayer(playerid, f_amount);
     msg(playerid, "You transfer $" + amount + " to " + getPlayerName( i_targetid ) + "[" + targetid + "]");
 
-    addMoneyToPlayer(i_targetid, f_amount);
-    msg(playerid, "You recived $" + amount + " from " + getPlayerName( i_targetid ) + "[" + playerid + "]");
+	addMoneyToPlayer(i_targetid, f_amount);
+	msg(i_targetid, "You recived $" + amount + " from " + getPlayerName( playerid ) + "[" + playerid + "]");
 }
