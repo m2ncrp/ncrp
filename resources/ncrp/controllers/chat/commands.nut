@@ -13,6 +13,7 @@ chatcmd(["w", "whisper"], function(playerid, message) {
     local targetid = playerList.nearestPlayer( playerid );
     inRadius(playerid, targetid, WHISPER_RADIUS, function() {
         msg(targetid, getAuther( playerid ) + " whisper: " + message);
+        msg(playerid, getAuther( playerid ) + " whisper: " + message);
     })
 });
 
