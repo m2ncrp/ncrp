@@ -19,9 +19,10 @@ function chatcmd(names, callback)  {
     });
 }
 
-
+// @params playerid - string
+// @return "Player_Name[id]" string
 function getAuther( playerid ) {
-	return getPlayerName(playerid) + "[" + playerid + "]";
+	return getPlayerName( playerid.tointeger() ) + "[" + playerid.tostring() + "]";
 }
 
 function msg(playerid, text, color = CL_WHITE ) {
