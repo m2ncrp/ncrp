@@ -1,22 +1,25 @@
 // local chat
 chatcmd(["i", "say"], function(playerid, message) {
-    inRadius(getAuther( playerid ) + " says: " + message, playerid, NORMAL_RADIUS, CL_YELLOW);
+    inRadiusToAll(getAuther( playerid ) + " says: " + message, playerid, NORMAL_RADIUS, CL_YELLOW);
 });
 
 // shout
 chatcmd(["s", "shout"], function(playerid, message) {
-    inRadius(getAuther( playerid ) + " shout: " + message, playerid, SHOUT_RADIUS, CL_WHITE);
+    inRadiusToAll(getAuther( playerid ) + " shout: " + message, playerid, SHOUT_RADIUS, CL_WHITE);
 });
 
 // whisper
 chatcmd(["w", "whisper"], function(playerid, message) {
-    local targetid = nearestPlayer( playerid );
-    msg(targetid, getAuther( playerid ) + " whisper: " + message);
+    local targetid = playerList.nearestPlayer( playerid );
+    inRadius(playerid, targetid, WHISPER_RADIUS, function() {
+        msg(targetid, getAuther( playerid ) + " whisper: " + message);
+        msg(playerid, getAuther( playerid ) + " whisper: " + message);
+    })
 });
 
 // nonRP local chat
 chatcmd(["b"], function(playerid, message) {
-    inRadius("[nonRP] " + getAuther( playerid ) + ": " + message, playerid, NORMAL_RADIUS, CL_GRAY);
+    inRadiusToAll("[nonRP] " + getAuther( playerid ) + ": " + message, playerid, NORMAL_RADIUS, CL_GRAY);
 });
 
 // global nonRP chat
@@ -25,7 +28,7 @@ chatcmd(["o","ooc"], function(playerid, message) {
 });
 
 chatcmd(["me"], function(playerid, message) {
-    inRadius("[ME] " + getAuther( playerid ) + " " + message, playerid, NORMAL_RADIUS, CL_YELLOW);
+    inRadiusToAll("[ME] " + getAuther( playerid ) + " " + message, playerid, NORMAL_RADIUS, CL_YELLOW);
 });
 
 // random for some actions
@@ -33,9 +36,9 @@ chatcmd(["try"], function(playerid, message) {
     message = "[TRY] " + getAuther( playerid ) + " try " + message;
     local res = random(0,1);
     if(res)
-        inRadius(message + " (success).", playerid, NORMAL_RADIUS);
+        inRadiusToAll(message + " (success).", playerid, NORMAL_RADIUS);
     else
-        inRadius(message + " (failed).", playerid, NORMAL_RADIUS);
+        inRadiusToAll(message + " (failed).", playerid, NORMAL_RADIUS);
 });
 
 
