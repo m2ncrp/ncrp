@@ -20,6 +20,10 @@ function chatcmd(names, callback)  {
 }
 
 
+function getAuther( playerid ) {
+	return getPlayerName(playerid) + "[" + playerid + "]";
+}
+
 function msg(playerid, text, color = CL_WHITE ) {
 	sendPlayerMessage(playerid, text, color.r, color.g, color.b);
 }
