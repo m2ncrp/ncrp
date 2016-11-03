@@ -42,14 +42,35 @@ addEventHandler("onPlayerSpawn", function(playerid) {
     world.sendToClient(playerid);
 });
 
+/**
+ * Return string with current datetime on server
+ * NOTE: Game time
+ * format: 01.01.1952 15:52
+ *
+ * @return {string}
+ */
 function getDateTime() {
     return getDate() + " " + getTime();
 }
 
+/**
+ * Return string with current date on server
+ * NOTE: Game time
+ * format: 01.01.1952
+ *
+ * @return {string}
+ */
 function getDate() {
     return format("%02d.%02d.%d", world.time.day, world.time.month, world.time.year);
 }
 
+/**
+ * Return string with current time on server
+ * NOTE: Game time
+ * format: 15:52
+ *
+ * @return {string}
+ */
 function getTime() {
     return format("%02d:%02d", world.time.hour, world.time.minute);
 }
