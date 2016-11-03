@@ -5,14 +5,13 @@ cmd( ["sub"], function( playerid, id ) {
 
     log( "Chosen " + metroInfos[id][3] );
 
-    if ( isNearStation(playerid) ) {
+    local ticketCost = 0.25;
+
+    if ( isNearStation(playerid) && isEnoughBalance(playerid, ticketCost)) {
         screenFadeinFadeout(playerid, 2000, function() {
-            subMoneyToPlayer(playerid, 0.25); // don't forget took money for ticket ~ 25 cents
-            sendPlayerMessage(playerid, "You pay $0.25 for ticket. Now you have $" + getPlayerBalance(playerid) );
+            subMoneyToPlayer(playerid, ticketCost); // don't forget took money for ticket ~ 25 cents
+            msg(playerid, "You pay $" + ticketCost + " for ticket. Now you have $" + getPlayerBalance(playerid) );
             setPlayerPosition(playerid, metroInfos[id][0], metroInfos[id][1], metroInfos[id][2]);
         });
-    } else {
-        sendPlayerMessage(playerid, "You are too far from any station!");
-    }
-    	
+    }    	
 });
