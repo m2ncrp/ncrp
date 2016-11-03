@@ -1,6 +1,6 @@
 _server_commands <- {};
 
-local old__addCommandHander = addCommandHandler;
+local old__addCommandHandler = addCommandHandler;
 
 function cmd(names, func)  {
     if (typeof names != "array") {
