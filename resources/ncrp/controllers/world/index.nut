@@ -21,8 +21,6 @@ addEventHandlerEx("onServerStarted", function() {
     // crate objects
     world = World();
     ticker = timer(function() { world.onSecondChange(); }, 1000, -1);
-
-    log(getDate());
 });
 
 addEventHandlerEx("onServerStopping", function() {
