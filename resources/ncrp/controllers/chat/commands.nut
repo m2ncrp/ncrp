@@ -8,6 +8,12 @@ chatcmd(["s", "shout"], function(playerid, message) {
     inRadius(getPlayerName( playerid ) + " shout: " + message, playerid, SHOUT_RADIUS, CL_WHITE);
 });
 
+// whisper
+chatcmd(["w", "whisper"], function(playerid, message) {
+    local targetid = nearestPlayer( playerid );
+    msg(targetid, getPlayerName( playerid ) + " whisper: " + message);
+});
+
 // nonRP local chat
 chatcmd(["b"], function(playerid, message) {
     inRadius("[nonRP] " + getPlayerName( playerid ) + ": " + message, playerid, NORMAL_RADIUS, CL_GRAY);
@@ -15,7 +21,7 @@ chatcmd(["b"], function(playerid, message) {
 
 // global nonRP chat
 chatcmd(["o","ooc"], function(playerid, message) {
-    sendPlayerMessageToAll("[OOC] " + getPlayerName( playerid ) + ": " + message, CL_GRAY.r, CL_GRAY.g, CL_GRAY.b);
+    msg_a("[OOC] " + getPlayerName( playerid ) + ": " + message, CL_GRAY);
 });
 
 chatcmd(["me"], function(playerid, message) {
