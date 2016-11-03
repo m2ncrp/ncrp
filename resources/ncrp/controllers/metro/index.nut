@@ -29,5 +29,6 @@ function isNearStation(playerid){
     		return true;
     	}
     }
+    msg(playerid, "You are too far from any station!");
     return false;
 }
