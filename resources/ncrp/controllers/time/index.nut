@@ -57,7 +57,9 @@ function onTimestampTick() {
     return true;
 }
 
-// save data
+/**
+ * Saving current ticks
+ */
 function saveCurrentTimestampTick() {
     entity.timestamp = CURRENT_TIMESTAMP;
     entity.operation = CURRENT_OPERATION;
@@ -85,5 +87,5 @@ function getTimestamp() {
  * @return {float}
  */
 function getTimestampMili() {
-    return (CURRENT_TIMESTAMP.tofloat() + (++CURRENT_OPERATION * 0.001));
+    return (getTimestamp().tostring() + (++CURRENT_OPERATION * 0.001).tostring().slice(1));
 }
