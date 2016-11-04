@@ -97,7 +97,6 @@ function cmd(aliases, extensionOrCallback, callbackOrNull = null) {
 
             // bind handler
             old__addCommandHandler(command, function(playerid, ...) {
-                print("handler called\n");
                 return handler(command, playerid, vargv);
             });
         }
