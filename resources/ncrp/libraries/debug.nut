@@ -21,6 +21,6 @@ function log(...) {
  * @return none
  */
 function dbg(...) {
-    return DEBUG_ENABLED ? ::print("[debug] " + JSONEncoder.encode(vargv).slice(2).slice(0, -2)) : null;
+    return DEBUG_ENABLED ? ::print("[debug] " + JSONEncoder.encode(vargv)) : null;
 }
 

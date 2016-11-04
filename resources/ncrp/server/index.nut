@@ -35,63 +35,7 @@ include("controllers/utils");
 include("controllers/screen");
 include("controllers/admin");
 
-// initialize global values
-local script = "Night City Role-Play";
-
-playerList <- null;
-
-class PlayerList
-{
-    players = null;
-
-    constructor () {
-        this.players = {};
-    }
-
-    function getPlayers()
-    {
-        return this.players;
-    }
-
-    function addPlayer(id, name, ip, serial)
-    {
-        this.players[id] <- id;
-    }
-
-    function delPlayer(id)
-    {
-        local t = this.players[id];
-        delete this.players[id];
-        return t;
-    }
-
-    function getPlayer(id)
-    {
-        return this.players[id];
-    }
-
-    function each(callback)
-    {
-        foreach (idx, playerid in this.players) {
-            callback(playerid);
-        }
-    }
-
-    function nearestPlayer( playerid )
-    {
-        local min = null;
-        local str = null;
-        foreach(target in this.getPlayers()) {
-            local dist = getDistance(playerid, target);
-            if((dist < min || !min) && target!=playerid) {
-                min = dist;
-                str = target;
-            }
-        }
-        return str;
-    }
-}
-
+// bind general events
 addEventHandler("onScriptInit", function() {
     log("[core] starting initialization...");
 
@@ -106,7 +50,6 @@ addEventHandler("onScriptInit", function() {
     triggerServerEventEx("onServerStarted");
 });
 
-
 addEventHandler("onScriptExit", function() {
     triggerServerEventEx("onServerStopping");
     triggerServerEventEx("onServerStopped");
@@ -117,27 +60,12 @@ addEventHandler("onServerShutdown", function() {
     triggerServerEventEx("onServerStopped");
 });
 
-addEventHandler( "onPlayerConnect", function( playerid, name, ip, serial ) {
-    sendPlayerMessageToAll( "~ " + getPlayerName( playerid ) + " has joined the server.", 255, 204, 0 );
-    playerList.addPlayer(playerid, name, ip, serial);
+addEventHandler("onPlayerConnect", function(playerid, name, ip, serial) {
+    triggerServerEventEx("onPlayerConnect", playerid, name, ip, serial);
 });
 
-addEventHandler( "onPlayerDisconnect", function( playerid, reason ) {
-    sendPlayerMessageToAll( "~ " + getPlayerName( playerid ) + " has left the server. (" + reason + ")", 255, 204, 0 );
-    playerList.delPlayer(playerid);
-});
-
-
-addEventHandler( "onPlayerSpawn", function( playerid ) {
-    setPlayerPosition( playerid, -350.47, -726.722, -15.4205 );
-    setPlayerHealth( playerid, 720.0 );
-    sendPlayerMessage( playerid, "Welcome to " + script );
-});
-
-
-addEventHandler( "onPlayerDeath", function( playerid, killerid ) {
-    if( killerid != INVALID_ENTITY_ID )
-        sendPlayerMessageToAll( "~ " + getPlayerName( playerid ) + " has been killed by " + getPlayerName( killerid ) + ".", 255, 204, 0 );
-    else
-        sendPlayerMessageToAll( "~ " + getPlayerName( playerid ) + " has died.", 255, 204, 0 );
+addEventHandlerEx("onServerStarted", function() {
+    foreach (playerid, name in getPlayers()) {
+        triggerServerEventEx("onPlayerConnect", playerid, name, null, null);
+    }
 });
