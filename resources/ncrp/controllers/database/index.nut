@@ -1,6 +1,9 @@
 // database code
 local connection = null;
 
+// debug settings
+const IS_DATABASE_DEBUG = false;
+
 addEventHandler("onScriptInit", function() {
     ::log("[database] creating connection...");
 
@@ -46,8 +49,10 @@ addEventHandlerEx("__networkRequest", function(request) {
         }
 
         // log query and result
-        ::log("Incoming SQL request: " + request.data.query);
-        dbg(result);
+        if (IS_DATABASE_DEBUG) {
+            ::log("Incoming SQL request: " + request.data.query);
+            dbg(result);
+        }
 
         Response({result = result}, request).send();
     }
