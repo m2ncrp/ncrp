@@ -1,5 +1,7 @@
 try { return _IS_LOADED; } catch (e) { _IS_LOADED <- true; }
 
+const __DEBUG__EXPORT = false;
+
 /**
  * Updated module includer script version
  * throws exceptions if module was not found
@@ -26,7 +28,7 @@ function include(path) {
 // load libs
 include("libraries/squirrel-orm.nut");
 include("libraries/network.nut");
-include("libraries/json.nut");
+include("libraries/JSONEncoder.class.nut");
 include("libraries/debug.nut");
 
 /**
@@ -49,3 +51,10 @@ ORM.Driver.setProxy(function(queryString, callback) {
 ORM.Driver.configure({
     provider = "sqlite"
 });
+
+
+if (__DEBUG__EXPORT) {
+    addEventHandler <- function(...) {};
+    addCommandHandler <- function(...) {};
+    createVehicle <- function(...){};
+}
