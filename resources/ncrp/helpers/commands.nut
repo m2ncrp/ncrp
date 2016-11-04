@@ -94,6 +94,12 @@ function cmd(aliases, extensionOrCallback, callbackOrNull = null) {
     foreach (command in cmdnames) {
         if (!(command in __commands)) {
             __commands[command] <- {};
+
+            // bind handler
+            old__addCommandHandler(command, function(playerid, ...) {
+                print("handler called\n");
+                return handler(command, playerid, vargv);
+            });
         }
 
         // create iterator
@@ -109,11 +115,6 @@ function cmd(aliases, extensionOrCallback, callbackOrNull = null) {
 
         // save callback
         cursor[COMMANDS_DEFAULT] <- callback;
-
-        // bind handler
-        old__addCommandHandler(command, function(playerid, ...) {
-            return handler(command, playerid, vargv);
-        });
     }
 
     // just true :p
