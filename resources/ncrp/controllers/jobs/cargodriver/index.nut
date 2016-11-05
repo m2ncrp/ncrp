@@ -124,6 +124,6 @@ addCommandHandler("cargofinish", function ( playerid ) {
                     sendPlayerMessage( playerid, "Nice job, " + getPlayerName( playerid ) + "! Keep your $30." );
                     addMoneyToPlayer(playerid, 30);
             } else { sendPlayerMessage( playerid, "Go to Derek office at City Port." );    }
-        } else { sendPlayerMessage( playerid, "Complete delivery." );   }        
+        } else { sendPlayerMessage( playerid, "Complete delivery." );   }
     } else { sendPlayerMessage( playerid, cargotext["notCDD"]); }
 });

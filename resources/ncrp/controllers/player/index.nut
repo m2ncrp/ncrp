@@ -24,7 +24,7 @@ addEventHandler("onPlayerDisconnect", function(playerid, reason) {
 
 addEventHandler("onPlayerSpawn", function(playerid) {
     setPlayerPosition(playerid, -567.499, 1531.58, -15.8716);
-    setPlayerHealth(playerid, 720.0);
+    setPlayerHealth(playerid, 730.0);
 });
 
 addEventHandler("onPlayerDeath", function(playerid, killerid) {
