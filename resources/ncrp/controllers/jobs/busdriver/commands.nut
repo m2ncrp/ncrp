@@ -18,7 +18,6 @@ cmd("bus", "stop", function(playerid) {
     busJobStop(playerid);
 });
 
-
 // usage: /help job bus
 cmd("help", ["job", "bus"], function(playerid) {
     local title = "List of available commands for BUSDRIVER JOB:";

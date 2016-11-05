@@ -56,37 +56,6 @@ function sendMoney(playerid, targetid, amount) {
 }
 
 /**
- * Check if a distance between two players less than radius.
- *
- * @param  {int} playerid
- * @param  {int} targetid
- * @param  {float} radius
- * @return {bool} true/false
- */
-function checkDistanceBtwTwoPlayersLess(playerid, targetid, radius) {
-    local playerPos = getPlayerPosition( playerid );
-    local targetPos = getPlayerPosition( targetid.tointeger() );
-    local radius = radius.tofloat();
-    local distance = getDistanceBetweenPoints3D( playerPos[0], playerPos[1], playerPos[2], targetPos[0], targetPos[1], targetPos[2] );
-    return  (distance <= radius);
-}
-
-/**
- * @deprecated
- * Use checkDistanceBtwTwoPlayersLess()
- *
- * Check if a distance between two players is lower than radius.
- *
- * @param  {int} playerid
- * @param  {int} targetid
- * @param  {float} radius
- * @return {bool} true/false
- */
-function checkDistance(playerid, targetid, radius) {
-    return checkDistanceBtwTwoPlayersLess(playerid, targetid, radius);
-}
-
-/**
  * Send invoice to transfer <amount> dollars from <playerid> to <targetid>
  *
  * @param  {int} playerid
