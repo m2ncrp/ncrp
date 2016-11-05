@@ -13,6 +13,18 @@ function getDistance( senderID, targetID ) {
 }
 
 /**
+ * Return true if player in radius
+ * 
+ * @param  {int}    playerid
+ * @param  {int}    targetid
+ * @param  {float}  radius   
+ * @return {bool}
+ */
+function inRadius(playerid, targetid, radius) {
+    return getDistance(playerid, targetid) <= radius;
+}
+
+/**
  * Call function if player in radius
  * 
  * @param  {int}      playerid
@@ -22,11 +34,11 @@ function getDistance( senderID, targetID ) {
  * @return {void}
  */
 function intoRadiusDo(playerid, targetid, radius, callback) {
-    if (targetid == null) {
-        msg(playerid, "There's no such player.", CL_RED);
+    if ( targetid == null ) {
+        msg(playerid, "There's no such player around.", CL_RED);
         return;
     }
-    if (callback != null && getDistance(playerid, targetid) <= radius)
+    if ( callback != null && inRadius(playerid, targetid, radius) )
         callback();
 }
 
@@ -44,7 +56,7 @@ function outofRadiusDo(playerid, targetid, radius, callback) {
         msg(playerid, "There's no such player.", CL_RED);
         return;
     }
-    if (callback != null && getDistance(playerid, targetid) > radius)
+    if ( callback != null && !inRadius(playerid, targetid, radius) )
         callback();
 }
 

@@ -14,7 +14,7 @@ chatcmd(["w", "whisper"], function(playerid, message) {
     intoRadiusDo(playerid, targetid, WHISPER_RADIUS, function() {
         msg(targetid, getAuthor( playerid ) + " whisper: " + message);
         msg(playerid, getAuthor( playerid ) + " whisper: " + message);
-    })
+    });
 });
 
 // nonRP local chat
