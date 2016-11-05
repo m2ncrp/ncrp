@@ -3,6 +3,8 @@
  * Authors: LoOnyRider, Inlife, JustPilz
  * Date: nov 2016
  */
+include("controllers/chat/commands.nut");
+
 const NORMAL_RADIUS = 20.0;
 const WHISPER_RADIUS = 4.0;
 const SHOUT_RADIUS = 35.0;
@@ -52,5 +54,3 @@ function msg_help(playerid, title, commands){
         }
     }
 }
-
-include("controllers/chat/commands.nut");
