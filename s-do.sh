@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Auther: LoOnyRider
+# Author: LoOnyRider
 # Data: november 2016
 # GitHub: https://github.com/LoOnyBiker
 
