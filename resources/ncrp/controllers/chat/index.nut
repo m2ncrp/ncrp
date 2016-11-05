@@ -1,3 +1,10 @@
+/**
+ * Chat module
+ * Authors: LoOnyRider, Inlife, JustPilz
+ * Date: nov 2016
+ */
+
+
 const NORMAL_RADIUS = 20.0;
 const WHISPER_RADIUS = 4.0;
 const SHOUT_RADIUS = 35.0;
