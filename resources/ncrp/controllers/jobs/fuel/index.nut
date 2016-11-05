@@ -1,3 +1,5 @@
+include("controllers/jobs/fuel/commands.nut");
+
 local job_fuel = {};
 local fuelcars = {};
 
