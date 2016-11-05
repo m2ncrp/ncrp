@@ -29,4 +29,3 @@ cmd("help", ["job", "bus"], function(playerid) {
     ];
     msg_help(playerid, title, commands);
 });
-
