@@ -54,12 +54,4 @@ addCommandHandler("checkmyjob", function ( playerid ) {
     } else {
         sendPlayerMessage( playerid, "You're unemployed." );
     }
-
-    /*
-    if(players[playerid]["job"] != null) {
-        sendPlayerMessage( playerid, "You're a " + players[playerid]["job"] );
-    } else {
-        sendPlayerMessage( playerid, "You're unemployed" );
-    }
-    */
 });

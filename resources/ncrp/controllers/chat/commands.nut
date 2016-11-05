@@ -52,14 +52,14 @@ cmd(["help", "h", "halp", "info"], function(playerid) {
         { name = "/skin <id>",              desc = "Change your skin :O. Example: /skin 63" },
         { name = "/help chat",              desc = "Show list of commands for chat" },
         { name = "/help vehicle",           desc = "Show list of commands for vehicles" },
-        { name = "/help subway",           desc = "Show list of commands for subway" },
+        { name = "/help subway",            desc = "Show list of commands for subway" },
         { name = "/help job <job name>",    desc = "Show list of commands for job. Example: /help job taxi" }
     ];
     msg_help(playerid, title, commands);
 });
 
 
-cmd(["help", "h", "halp", "info"], ["chat"], function(playerid) {
+cmd(["help", "h", "halp", "info"], "chat", function(playerid) {
     local title = "List of available commands for CHAT:";
     local commands = [
         { name = "/say <text>",         desc = "Put your text in local RP chat"},
@@ -73,7 +73,7 @@ cmd(["help", "h", "halp", "info"], ["chat"], function(playerid) {
     msg_help(playerid, title, commands);
 });
 
-cmd(["help", "h", "halp", "info"], ["vehicle"], function(playerid) {
+cmd(["help", "h", "halp", "info"], "vehicle", function(playerid) {
     local title = "List of available commands for VEHICLES:";
     local commands = [
         { name = "/vehicle <id>",       desc = "Spawn vehicle. Example: /vehicle 45" },
