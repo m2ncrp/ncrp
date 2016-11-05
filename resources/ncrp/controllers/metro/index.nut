@@ -1,6 +1,6 @@
 /*
 * Metro aka subway module
-* Auther: LoOnyRider
+* Author: LoOnyRider
 * Date: nov 2016
 */
 include("controllers/metro/commands.nut");
@@ -18,17 +18,14 @@ metroInfos <- [
 ];
 
 const HEAD = 0;
-const TAIL = 6; // total number of stations
+const TAIL = 6; // total number of stations-1
 
-function isNearStation(playerid){
-    local playerPos = getPlayerPosition( playerid );
-
-    foreach (index, station in metroInfos) {
-        local dist = getDistanceBetweenPoints3D( station[0], station[1], station[2], playerPos[0], playerPos[1], playerPos[2] );
-        if (dist < RADIUS) {
+function isNearStation(playerid) {
+    foreach (station in metroInfos) {
+        if ( inRadius(playerid, station[0], station[1], station[2], RADIUS) ) {
             return true;
         }
     }
-    msg(playerid, "You are too far from any station!");
+    msg(playerid, "You are too far from any station!", CL_RED);
     return false;
 }
