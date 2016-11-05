@@ -70,6 +70,12 @@ addEventHandlerEx("onServerStarted", function() {
     }
 });
 
+/**
+ * Debug export
+ * if constant is set to true
+ * all currently registered comamnds
+ * will be printed to server log
+ */
 if (__DEBUG__EXPORT) {
     dbg(__commands);
 }
