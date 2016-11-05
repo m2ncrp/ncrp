@@ -1,10 +1,14 @@
-CL_WHITE    <- rgb( 255, 255, 255 );
-CL_GRAY     <- rgb( 92,  92,  112 );
-CL_RED      <- rgb( 255, 0,   0   );
-CL_GREEN    <- rgb( 0,   255, 0   );
-CL_BLUE     <- rgb( 0,   0,   255 );
-CL_BLACK    <- rgb( 0,   0,   0   );
-CL_YELLOW   <- rgb( 255, 255, 0   );
+CL_WHITE        <- rgb( 255, 255, 255 );
+CL_GRAY         <- rgb( 92,  92,  112 );
+CL_RED          <- rgb( 255, 0,   0   );
+CL_GREEN        <- rgb( 0,   255, 0   );
+CL_BLUE         <- rgb( 0,   0,   255 );
+CL_BLACK        <- rgb( 0,   0,   0   );
+CL_YELLOW       <- rgb( 255, 255, 0   );
+CL_HELP         <- rgb( 200, 230, 255 );
+CL_HELP_TITLE   <- rgb( 200, 200, 0   );
+CL_HELP_LINE    <- rgb( 200, 100, 100 );
+
 
 CL_FLAMINGO       <- rgb( 239,  72,  54  );
 CL_CHESTNUT       <- rgb( 210,  77,  87  );

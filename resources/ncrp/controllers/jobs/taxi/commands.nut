@@ -44,49 +44,26 @@ cmd("taxi", "off", function(playerid) {
     taxiGoOffAir(playerid);
 });
 
-/*
-
-NOT WORKING
-
 // usage: /help taxi
 cmd("help", "taxi", function(playerid) {
     msg(playerid, "============== Help Taxi ===============", CL_WHITE);
     msg(playerid, "/taxi <your location> - Call a taxi from location", CL_WHITE);
 });
 
-// usage: /help taxi job
-cmd("help", ["taxi", "job"], function(playerid) {
-    msg(playerid, "========= Help Taxi Job Commands =========", CL_WHITE);
-    msg(playerid, "/taxi job - Get taxi driver job", CL_WHITE);
-    msg(playerid, "/taxi job leave - Leave from taxi driver job", CL_WHITE);
-    msg(playerid, "/taxi on - Set status as ON air", CL_WHITE);
-    msg(playerid, "/taxi off - Set status as OFF air", CL_WHITE);
-    msg(playerid, "/taxi take <id> - Take call with <id>", CL_WHITE);
-    msg(playerid, "/taxi refuse - Refuse the current taken call", CL_WHITE);
-    msg(playerid, "/taxi ready - Report that the taxicar has arrived to the address", CL_WHITE);
-    msg(playerid, "/taxi end <amount> - End trip and send invoice to pay <amount> dollars", CL_WHITE);
-});
-
-*/
-
-
-// usage: /taxi help
-cmd("taxi", "help", function(playerid) {
-    msg(playerid, "============== Help Taxi ===============", CL_WHITE);
-    msg(playerid, "/taxi <your location> - Call a taxi from location", CL_WHITE);
-});
-
-// usage: /taxi job help
-cmd("taxi", ["job", "help"], function(playerid) {
-    msg(playerid, "========= Taxi Job HELP Commands =========", CL_WHITE);
-    msg(playerid, "/taxi job - Get taxi driver job", CL_WHITE);
-    msg(playerid, "/taxi job leave - Leave from taxi driver job", CL_WHITE);
-    msg(playerid, "/taxi on - Set status as ON air", CL_WHITE);
-    msg(playerid, "/taxi off - Set status as OFF air", CL_WHITE);
-    msg(playerid, "/taxi take <id> - Take call with <id>", CL_WHITE);
-    msg(playerid, "/taxi refuse - Refuse the current taken call", CL_WHITE);
-    msg(playerid, "/taxi ready - Report that the taxicar has arrived to the address", CL_WHITE);
-    msg(playerid, "/taxi end <amount> - End trip and send invoice to pay <amount> dollars", CL_WHITE);
+// usage: /help job taxi
+cmd("help", ["job", "taxi"], function(playerid) {
+    local title = "List of available commands for TAXI JOB:";
+    local commands = [
+        { name = "/taxi job",              desc = "Get taxi driver job" },
+        { name = "/taxi job leave",        desc = "Leave from taxi driver job" },
+        { name = "/taxi on",               desc = "Set status as ON air"},
+        { name = "/taxi off",              desc = "Set status as OFF air" },
+        { name = "/taxi take <id>",        desc = "Take call with <id>. Example: /taxi take 5" },
+        { name = "/taxi refuse",           desc = "Refuse the current taken call" },
+        { name = "/taxi ready",            desc = "Report that the taxicar has arrived to the address" },
+        { name = "/taxi end <amount>",     desc = "End trip and send invoice to pay <amount> dollars. Example: /taxi end 1.25" }
+    ];
+    msg_help(playerid, title, commands);
 });
 
 
