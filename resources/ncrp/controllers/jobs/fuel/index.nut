@@ -14,6 +14,8 @@ local fuelname = [
     "Dipton"                            // FuelStation Dipton
 ];
 
+local fuelVehModelID = 5;
+
 // 788.288, -78.0801, -20.132   // coords of place to load fuel truck
 // 551.762, -266.866, -20.1644  // coords of place to get job fueldriver
 
@@ -88,8 +90,7 @@ addCommandHandler("truckready", function ( playerid ) {
     if(players[playerid]["job"] == "fueldriver")    {
         if( isPlayerInVehicle( playerid ) ) {
             local vehicleid    = getPlayerVehicle( playerid  );
-            local vehicleModel = getVehicleModel ( vehicleid );
-            if(vehicleModel == 5) {
+            if( isPlayerInValidVehicle(playerid, fuelVehModelID) ) {
                 if (fuelcars[vehicleid][0] == false) {
                     fuelcars[vehicleid][0] = true;
                     if(fuelcars[vehicleid][1] >= 4000) {
@@ -106,8 +107,7 @@ addCommandHandler("loadfuel", function ( playerid ) {
     if(players[playerid]["job"] == "fueldriver")    {
         if( isPlayerInVehicle( playerid ) ) {
             local vehicleid = getPlayerVehicle( playerid );
-            local vehicleModel = getVehicleModel( vehicleid );
-            if(vehicleModel == 5) {
+            if( isPlayerInValidVehicle(playerid, fuelVehModelID) ) {
                 if (fuelcars[vehicleid][0] == true) {
                     local vehPos = getVehiclePosition( vehicleid );
                     local check = isPointInCircle2D( vehPos[0], vehPos[1], 788.288, -78.0801, 5.0 );
@@ -131,8 +131,7 @@ addCommandHandler("unloadfuel", function ( playerid ) {
     if(players[playerid]["job"] == "fueldriver")    {
         if( isPlayerInVehicle( playerid ) ) {
             local vehicleid = getPlayerVehicle( playerid );
-            local vehicleModel = getVehicleModel( vehicleid );
-            if(vehicleModel == 5) {
+            if( isPlayerInValidVehicle(playerid, fuelVehModelID) ) {
                 if (fuelcars[vehicleid][0] == true) {
                     if(fuelcars[vehicleid][1] >= 4000) {
                         local vehPos = getVehiclePosition( vehicleid );
@@ -174,8 +173,7 @@ addCommandHandler("truckpark", function ( playerid ) {
     if(players[playerid]["job"] == "fueldriver")    {
         if( isPlayerInVehicle( playerid ) ) {
             local vehicleid = getPlayerVehicle( playerid );
-            local vehicleModel = getVehicleModel( vehicleid );
-            if(vehicleModel == 5) {
+            if( isPlayerInValidVehicle(playerid, fuelVehModelID) ) {
                 if (fuelcars[vehicleid][0] == true) {
                         local vehPos = getVehiclePosition( vehicleid );
                         local check = isPointInCircle2D( vehPos[0], vehPos[1], 517.782, -277.5, 10.0 );
@@ -219,8 +217,7 @@ addCommandHandler("checkfuel", function ( playerid ) {
     if(players[playerid]["job"] == "fueldriver")    {
         if( isPlayerInVehicle( playerid ) ) {
             local vehicleid = getPlayerVehicle( playerid );
-            local vehicleModel = getVehicleModel( vehicleid );
-            if(vehicleModel == 5) {
+            if( isPlayerInValidVehicle(playerid, fuelVehModelID) ) {
                 if (fuelcars[vehicleid][0] == true) {
                     sendPlayerMessage( playerid, "Fuel truck is loaded to " + fuelcars[vehicleid][1] + " / 16000" );
                 } else { sendPlayerMessage( playerid, "The truck isn't ready." ); }
