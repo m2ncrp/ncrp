@@ -1,3 +1,5 @@
+include("controllers/jobs/busdriver/commands.nut");
+
 local job_bus = {};
 
 addEventHandlerEx("onServerStarted", function() {
@@ -29,6 +31,24 @@ local busstops = [
     ["Go to bus station in Uptown near platform #3", -423.116, 440.924]
 ];
 
+
+/**
+ * Check is player is a busdriver
+ * @param  {int}  playerid
+ * @return {Boolean} true/false
+ */
+function isBusDriver (playerid) {
+    return (isPlayerHaveValidJob(playerid, "busdriver"));
+}
+
+/**
+ * Check is player's vehicle is a bus
+ * @param  {int}  playerid
+ * @return {Boolean} true/false
+ */
+function isPlayerVehicleBus(playerid) {
+    return (isPlayerInValidVehicle(playerid, 20));
+}
 
 // working good, check
 function busJob( playerid ) {

@@ -67,7 +67,6 @@ cmd("help", ["job", "taxi"], function(playerid) {
 });
 
 
-
 /*
 
 taxi  |   arg1   |  arg2   |

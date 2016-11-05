@@ -9,5 +9,5 @@
     <script type="client">screen.nut</script>
     <script type="client">weather.nut</script>
     <script type="client">world.nut</script>
-    <script type="client">test.nut</script>
+    <script type="client">debug.nut</script>
 </meta>

@@ -1,3 +1,5 @@
+include("controllers/jobs/cargodriver/commands.nut");
+
 local job_cargo = {};
 local cargocars = {};
 
