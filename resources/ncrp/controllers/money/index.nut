@@ -42,7 +42,7 @@ function sendMoney(playerid, targetid, amount) {
         msg(playerid, "There's no such person on server!");
         return;
     }
-    if (checkDistance(playerid, targetid, 2.0)) {
+    if (checkDistanceBtwTwoPlayersLess(playerid, targetid, 2.0)) {
         if(canMoneyBeSubstracted(playerid, amount)) {
             subMoneyToPlayer(playerid, amount);
             addMoneyToPlayer(targetid, amount);
@@ -56,6 +56,25 @@ function sendMoney(playerid, targetid, amount) {
 }
 
 /**
+ * Check if a distance between two players less than radius.
+ *
+ * @param  {int} playerid
+ * @param  {int} targetid
+ * @param  {float} radius
+ * @return {bool} true/false
+ */
+function checkDistanceBtwTwoPlayersLess(playerid, targetid, radius) {
+    local playerPos = getPlayerPosition( playerid );
+    local targetPos = getPlayerPosition( targetid.tointeger() );
+    local radius = radius.tofloat();
+    local distance = getDistanceBetweenPoints3D( playerPos[0], playerPos[1], playerPos[2], targetPos[0], targetPos[1], targetPos[2] );
+    return  (distance <= radius);
+}
+
+/**
+ * @deprecated
+ * Use checkDistanceBtwTwoPlayersLess()
+ *
  * Check if a distance between two players is lower than radius.
  *
  * @param  {int} playerid
@@ -64,11 +83,7 @@ function sendMoney(playerid, targetid, amount) {
  * @return {bool} true/false
  */
 function checkDistance(playerid, targetid, radius) {
-    local playerPos = getPlayerPosition( playerid );
-    local targetPos = getPlayerPosition( targetid.tointeger() );
-    local radius = radius.tofloat();
-    local distance = getDistanceBetweenPoints3D( playerPos[0], playerPos[1], playerPos[2], targetPos[0], targetPos[1], targetPos[2] );
-    return  (distance <= radius);
+    return checkDistanceBtwTwoPlayersLess(playerid, targetid, radius);
 }
 
 /**
@@ -89,7 +104,7 @@ function sendInvoice(playerid, targetid, amount) {
         msg(playerid, "There's no such person on server!");
         return;
     }
-    if (checkDistance(playerid, targetid, 2.0)) {
+    if (checkDistanceBtwTwoPlayersLess(playerid, targetid, 2.0)) {
         players[playerid]["request"][targetid] <- amount;
         msg(playerid, "You send invoice to " + getPlayerName(targetid) + " (#" + targetid + ") on $" + amount + "." );
         msg(targetid, "You received invoice from " + getPlayerName(playerid) + " (#" + playerid + ") on $" + amount + ". Please, /accept " + playerid + " or /decline " + playerid + " this invoice." );
@@ -108,7 +123,7 @@ function invoiceAccept(playerid, senderid) {
         msg(playerid, "Sender is'not on server!");
         return;
     }
-    if (checkDistance(playerid, senderid, 2.0)) {
+    if (checkDistanceBtwTwoPlayersLess(playerid, senderid, 2.0)) {
         if ("request" in players[senderid] && playerid in players[senderid]["request"]) {
             local amount = players[senderid]["request"][playerid];
             if(canMoneyBeSubstracted(playerid, amount)) {

@@ -48,9 +48,18 @@ cmd(["skindec"], function ( playerid ) {
 });
 
 addCommandHandler("checkmyjob", function ( playerid ) {
+    local job = getPlayerJob(playerid);
+    if(job) {
+        sendPlayerMessage( playerid, "You're a " + job + "." );
+    } else {
+        sendPlayerMessage( playerid, "You're unemployed." );
+    }
+
+    /*
     if(players[playerid]["job"] != null) {
         sendPlayerMessage( playerid, "You're a " + players[playerid]["job"] );
     } else {
         sendPlayerMessage( playerid, "You're unemployed" );
     }
+    */
 });

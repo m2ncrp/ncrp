@@ -1,3 +1,0 @@
-[submodule "squirrel-orm"]
-    path = libs/squirrel-orm
-    url = https://github.com/inlife/squirrel-orm
