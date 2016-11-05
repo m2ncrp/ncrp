@@ -27,8 +27,6 @@ DEBUG_FOOTER() {
 	./XML.exe el -v $xmlFile
 }
 
-
-
 # {url}: http://stackoverflow.com/questions/9726143/searching-for-xml-tag-by-value-between-them-and-inserting-a-new-tag-in-shell-scr
 	# xmlstarlet ed -a '//p[n="hello"]/r/s' -t elem -n s -v 2.0 input.xml
 	# 
@@ -106,8 +104,6 @@ getMinor() {
 	branchMinor=$(./XML.exe sel -t -v $xmlPath $xmlFile)
 }
 
-
-
 checkCommit() {
 	if [ $DEBUG == "true" ]; then
 		DEBUG_HEADER
@@ -126,7 +122,7 @@ checkCommit() {
 		# {url}: http://stackoverflow.com/questions/7693249/commits-since-a-certain-commit-number
 	# git rev-list <since_hash>..HEAD
 	commitCount=$(git rev-list $commitHash..HEAD --count)
-	echo "Since "$commitHash" commit "$commitCount" more!"
+	echo "Since "$commitHash" "$commitCount" commits more!"
 
 	echo "Minor value was = "$branchMinor
 	# {url}: http://askubuntu.com/questions/385528/how-to-increment-a-variable-in-bash
@@ -150,7 +146,6 @@ checkCommit() {
 	echo ""
 }
 
-
 # Check env.xml, update it and launch server
 launch() {
 	checkCommit
@@ -168,17 +163,27 @@ launch() {
 
 
 
-
-
-
 # Main flow
 if [ -z "$1" ]; then
-	echo "This batch file'll useful"
-	echo "add -l flag and it'll launch your server"
-	echo "add -l --ac will automaticly config your server"
-	echo "add -r will reload whole server"
-	echo "add -d will shutdown server"
-	echo "Enjoy! ^_^"
+	echo -e "\ts-do.sh [flag] [value] [options]\n
+	s-do.sh script allow launch and manage server preferences\n\t   in git bash on windows or in terminal on *NIX.\n
+	FLAGS:
+	  -l    check for commits, update env and config files, launch server
+	  -c    check commit hash, update env xml file
+	  -ub   update version for current branch in env.xml
+	  --m1  point to major version
+	  --m2  point to middle version
+	  --m3  point to minor version
+	OPTIONS:
+	  --all update all branches
+
+	USAGE:
+	  ./s-do.sh -l
+	  ./s-do.sh -c
+	  ./s-do.sh -ub --m2 [value]
+	  ./s-do.sh -ub --m1 [value] --all
+
+	Enjoy! ^_^"
 fi
 
 # Launch server
