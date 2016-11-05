@@ -18,10 +18,10 @@ cmd( ["sub", "subway", "metro"], function( playerid, id ) {
     }
 });
 
-cmd(["help", "h", "halp", "info"], ["subway", "metro", "sub"], function(playerid) {
+cmd(["help"], "subway", function(playerid) {
     local title = "List of available commands for SUBWAY:";
     local commands = [
-        { name = "/subway <id>",    desc = "Analog /subway <id>" },
+        { name = "/subway <id>",    desc = "Move to station by id" },
         { name = "/subway 0",       desc = "Dipton station" },
         { name = "/subway 1",       desc = "Uptown station" },
         { name = "/subway 2",       desc = "Chinatown station" },
