@@ -101,7 +101,7 @@ addCommandHandler("colors2", function ( playerid ) {
    msg(playerid, "This is Test color  CL_CARIBBEANGREEN", CL_CARIBBEANGREEN);
    msg(playerid, "This is Test color  CL_NIAGARA", CL_NIAGARA);
    msg(playerid, "This is Test color  CL_OCEANGREEN", CL_OCEANGREEN);
-}); 
+});
 
 
 addCommandHandler("colors3", function ( playerid ) {
@@ -117,7 +117,7 @@ addCommandHandler("colors3", function ( playerid ) {
    msg(playerid, "This is Test color  CL_LYNCH", CL_LYNCH);
    msg(playerid, "This is Test color  CL_SILVERSAND", CL_SILVERSAND);
    msg(playerid, "This is Test color  CL_CASCADE", CL_CASCADE);
-});   
+});
 //================================================================================================================================================
 //                                                          TEST COLORS END
 //================================================================================================================================================

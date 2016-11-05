@@ -1,6 +1,6 @@
 /**
  * Chat module
- * Auther: LoOnyRider & Inlife 
+ * Authors: LoOnyRider, Inlife, JustPilz
  * Date: nov 2016
  */
 const NORMAL_RADIUS = 20.0;
@@ -36,6 +36,21 @@ function msg_a(text, color = CL_WHITE){
 
 msga <- msg_a;
 msgA <- msg_a;
-getAuther <- getAuthor;
+
+
+function msg_help(playerid, title, commands){
+
+    msg(playerid, "==================================", CL_HELP_LINE);
+    msg(playerid, title, CL_HELP_TITLE);
+
+    foreach (idx, icmd in commands) {
+        local text = icmd.name + "   -   " + icmd.desc;
+        if ((idx % 2) == 0) {
+            msg(playerid, text, CL_HELP);
+        } else {
+            msg(playerid, text);
+        }
+    }
+}
 
 include("controllers/chat/commands.nut");
