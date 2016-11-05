@@ -2,9 +2,9 @@
  * Return distance between player and point
  * 
  * @param  {int}    playerid
- * @param  {float}  X      
- * @param  {float}  Y       
- * @param  {float}  Z    
+ * @param  {float}  X
+ * @param  {float}  Y
+ * @param  {float}  Z
  * @return {float}  distance 
  */
 function getDistanceToPoint(senderID, X, Y, Z) {
@@ -44,13 +44,13 @@ function isBothInRadius(playerid, targetid, radius) {
  * Return true if player in radius of given point
  * 
  * @param  {int}    playerid 
- * @param  {float}  X        
- * @param  {float}  Y        
- * @param  {float}  Z        
- * @param  {float}  radius   
- * @return {bool}         
+ * @param  {float}  X
+ * @param  {float}  Y
+ * @param  {float}  Z
+ * @param  {float}  radius
+ * @return {bool}
  */
-function inRadius(playerid, X, Y, Z, radius) {
+function isInRadius(playerid, X, Y, Z, radius) {
     return (getDistanceToPoint(playerid, X, Y, Z) <= radius);
 }
 
@@ -59,13 +59,17 @@ function inRadius(playerid, X, Y, Z, radius) {
  * 
  * @param  {int}      playerid
  * @param  {int}      targetid
- * @param  {float}    radius   
- * @param  {Function} callback 
+ * @param  {float}    radius
+ * @param  {Function} callback
  * @return {void}
  */
-function intoRadiusDo(playerid, targetid, radius, callback) {
+function intoRadiusDo(playerid, targetid, radius, callback, exceptionText, color = 0) {
     if ( targetid == null ) {
-        msg(playerid, "There's no such player around.", CL_RED);
+        if (color) {
+            msg(playerid, exceptionText, color);
+        } else {
+            msg(playerid, exceptionText);
+        }
         return;
     }
     if ( callback != null && isBothInRadius(playerid, targetid, radius) )
@@ -77,7 +81,7 @@ function intoRadiusDo(playerid, targetid, radius, callback) {
  * 
  * @param  {int}      playerid
  * @param  {int}      targetid
- * @param  {float}    radius   
+ * @param  {float}    radius
  * @param  {Function} callback 
  * @return {void}
  */
@@ -93,11 +97,11 @@ function outofRadiusDo(playerid, targetid, radius, callback) {
 /**
  * Send message to all players in radius
  * 
- * @param  {int}        sender  
+ * @param  {int}        sender
  * @param  {string}     message 
- * @param  {float}      radius  
- * @param  {RGB object} color   
- * @return {void}       
+ * @param  {float}      radius
+ * @param  {RGB object} color
+ * @return {void}
  */
 function inRadiusSendToAll(sender, message, radius, color = 0) {
     local players = playerList.getPlayers();
