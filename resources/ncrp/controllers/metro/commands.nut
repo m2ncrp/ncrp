@@ -16,3 +16,13 @@ cmd( ["sub", "subway", "metro"], function( playerid, id ) {
             });
     }
 });
+
+cmd(["help", "h", "halp", "info"], ["subway"], function(playerid) {
+    local title = "List of available commands for SUBWAY:";
+    local commands = [
+        { name = "/subway <id>",        desc = "Go to <id> metro station. Example: /subway 3" },
+        { name = "/sub <id>",           desc = "Analog /subway <id>" },
+        { name = "/metro <id>",         desc = "Analog /subway <id>" }
+    ];
+    msg_help(playerid, title, commands);
+});
