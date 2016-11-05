@@ -95,10 +95,15 @@ function cmd(aliases, extensionOrCallback, callbackOrNull = null) {
         if (!(command in __commands)) {
             __commands[command] <- {};
 
-            // bind handler
-            old__addCommandHandler(command, function(playerid, ...) {
-                return handler(command, playerid, vargv);
-            });
+            // bind handler generator
+            local subhandler = function(cmdvalue) {
+                return function(playerid, ...) {
+                    return handler(cmdvalue, playerid, vargv);
+                }
+            };
+
+            // bind subhandler
+            old__addCommandHandler(command, subhandler(command));
         }
 
         // create iterator

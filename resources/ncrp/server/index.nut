@@ -69,3 +69,11 @@ addEventHandlerEx("onServerStarted", function() {
         triggerServerEventEx("onPlayerConnect", playerid, name, null, null);
     }
 });
+
+cmd("help", ["job", "taxi"], function(playerid) {
+    dbg("called help job taxi");
+});
+
+if (__DEBUG__EXPORT) {
+    dbg(__commands);
+}

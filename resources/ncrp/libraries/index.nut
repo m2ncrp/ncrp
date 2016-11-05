@@ -1,6 +1,5 @@
 try { return _IS_LOADED; } catch (e) { _IS_LOADED <- true; }
-
-const __DEBUG__EXPORT = false;
+__DEBUG__EXPORT <- false;
 
 /**
  * Updated module includer script version
