@@ -15,6 +15,12 @@ function chatcmd(names, callback)  {
     });
 }
 
+// @params playerid - string
+// @return "Player_Name[id]" string
+function getAuthor( playerid ) {
+	return getPlayerName( playerid.tointeger() ) + "[" + playerid.tostring() + "]";
+}
+
 function msg(playerid, text, color = CL_WHITE ) {
 	sendPlayerMessage(playerid, text, color.r, color.g, color.b);
 }
