@@ -1,6 +1,6 @@
 /**
  * Chat module
- * Auther: LoOnyRider & Inlife 
+ * Author: LoOnyRider & Inlife 
  * Date: nov 2016
  */
 const NORMAL_RADIUS = 20.0;
@@ -36,6 +36,5 @@ function msg_a(text, color = CL_WHITE){
 
 msga <- msg_a;
 msgA <- msg_a;
-getAuther <- getAuthor;
 
 include("controllers/chat/commands.nut");
