@@ -12,7 +12,7 @@ cmd( ["sub", "subway", "metro"], function( playerid, id ) {
         screenFadeinFadeout(playerid, 2000, function() {
             subMoneyToPlayer(playerid, ticketCost); // don't forget took money for ticket ~ 25 cents
             msg(playerid, "You pay $" + ticketCost + " for ticket. Now you have $" + getPlayerBalance(playerid) );
-            msg(playerid, "You arrived to " + metroInfos[id][4]);
+            msg(playerid, "You arrived to " + metroInfos[id][4] + " station.");
             setPlayerPosition(playerid, metroInfos[id][0], metroInfos[id][1], metroInfos[id][2]);
         });
     }
