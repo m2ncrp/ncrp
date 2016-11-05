@@ -1,11 +1,10 @@
 /**
  * Return distance between player and point
- * 
  * @param  {int}    playerid
  * @param  {float}  X
  * @param  {float}  Y
  * @param  {float}  Z
- * @return {float}  distance 
+ * @return {float}  distance
  */
 function getDistanceToPoint(senderID, X, Y, Z) {
     local p1 = getPlayerPosition( senderID );
@@ -15,7 +14,6 @@ function getDistanceToPoint(senderID, X, Y, Z) {
 
 /**
  * Return distance between two players by their ids
- * 
  * @param  {int}    senderID    id who call command
  * @param  {int}    targetID    id distance to who need to know
  * @return {float}  distance
@@ -27,13 +25,11 @@ function getDistance( senderID, targetID ) {
 }
 
 
-
 /**
  * Return true if both players in radius
- * 
  * @param  {int}    playerid
  * @param  {int}    targetid
- * @param  {float}  radius   
+ * @param  {float}  radius
  * @return {bool}
  */
 function isBothInRadius(playerid, targetid, radius) {
@@ -42,8 +38,7 @@ function isBothInRadius(playerid, targetid, radius) {
 
 /**
  * Return true if player in radius of given point
- * 
- * @param  {int}    playerid 
+ * @param  {int}    playerid
  * @param  {float}  X
  * @param  {float}  Y
  * @param  {float}  Z
@@ -56,7 +51,6 @@ function isInRadius(playerid, X, Y, Z, radius) {
 
 /**
  * Call function if both players in radius
- * 
  * @param  {int}      playerid
  * @param  {int}      targetid
  * @param  {float}    radius
@@ -78,11 +72,10 @@ function intoRadiusDo(playerid, targetid, radius, callback, exceptionText, color
 
 /**
  * Call function if both players out of radius
- * 
  * @param  {int}      playerid
  * @param  {int}      targetid
  * @param  {float}    radius
- * @param  {Function} callback 
+ * @param  {Function} callback
  * @return {void}
  */
 function outofRadiusDo(playerid, targetid, radius, callback) {
@@ -96,9 +89,8 @@ function outofRadiusDo(playerid, targetid, radius, callback) {
 
 /**
  * Send message to all players in radius
- * 
  * @param  {int}        sender
- * @param  {string}     message 
+ * @param  {string}     message
  * @param  {float}      radius
  * @param  {RGB object} color
  * @return {void}

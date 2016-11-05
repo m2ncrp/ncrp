@@ -70,10 +70,6 @@ addEventHandlerEx("onServerStarted", function() {
     }
 });
 
-cmd("help", ["job", "taxi"], function(playerid) {
-    dbg("called help job taxi");
-});
-
 if (__DEBUG__EXPORT) {
     dbg(__commands);
 }
