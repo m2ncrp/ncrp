@@ -38,7 +38,7 @@ addCommandHandler("job_bus", function ( playerid ) {
             if(players[playerid]["job"] == "busdriver") {
                 sendPlayerMessage( playerid, "You're busdriver already.");
                 return;
-            }   
+            }
             if(players[playerid]["job"] == null) {
                 sendPlayerMessage( playerid, "You're a bus driver now! Congratulations!" );
                 sendPlayerMessage( playerid, "Sit into bus." );
@@ -73,7 +73,7 @@ addCommandHandler("busready", function ( playerid ) {
         if( isPlayerInVehicle( playerid ) ) {
             local vehicleid    = getPlayerVehicle( playerid  );
             local vehicleModel = getVehicleModel ( vehicleid );
-            if(vehicleModel == 20) {        
+            if(vehicleModel == 20) {
                 if (job_bus[playerid]["busready"] == false) {
                     job_bus[playerid]["busready"] = true;
                     sendPlayerMessage( playerid, busstops[0][0] );
@@ -82,7 +82,7 @@ addCommandHandler("busready", function ( playerid ) {
                 } else { sendPlayerMessage( playerid, "You're ready already." ); }
             } else { sendPlayerMessage( playerid, "This car isn't a bus." ); }
         } else { sendPlayerMessage( playerid, "You need a bus." ); }
-    } else { sendPlayerMessage( playerid, "You're not a bus driver"); } 
+    } else { sendPlayerMessage( playerid, "You're not a bus driver"); }
 });
 
 // working good, check
@@ -111,9 +111,9 @@ addCommandHandler("busstop", function ( playerid ) {
                             }
                             sendPlayerMessage( playerid, "Good! " + busstops[i+1][0] );
                         } else { sendPlayerMessage( playerid, "You're driving. Please stop the bus.");  }
-                    } else { sendPlayerMessage( playerid, busstops[i][0] ); }   
+                    } else { sendPlayerMessage( playerid, busstops[i][0] ); }
                 } else { sendPlayerMessage( playerid, "You aren't ready." ); }
             } else { sendPlayerMessage( playerid, "This car isn't a bus." ); }
         } else { sendPlayerMessage( playerid, "You need a bus." ); }
-    } else { sendPlayerMessage( playerid, "You're not a bus driver"); }     
+    } else { sendPlayerMessage( playerid, "You're not a bus driver"); }
 });
