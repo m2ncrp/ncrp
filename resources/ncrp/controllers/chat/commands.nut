@@ -1,44 +1,44 @@
 // local chat
 chatcmd(["i", "say"], function(playerid, message) {
-    inRadiusToAll(getAuther( playerid ) + " says: " + message, playerid, NORMAL_RADIUS, CL_YELLOW);
+    inRadiusSendToAll(playerid, getAuthor( playerid ) + " says: " + message, NORMAL_RADIUS, CL_YELLOW);
 });
 
 // shout
 chatcmd(["s", "shout"], function(playerid, message) {
-    inRadiusToAll(getAuther( playerid ) + " shout: " + message, playerid, SHOUT_RADIUS, CL_WHITE);
+    inRadiusSendToAll(playerid, getAuthor( playerid ) + " shout: " + message, SHOUT_RADIUS, CL_WHITE);
 });
 
 // whisper
 chatcmd(["w", "whisper"], function(playerid, message) {
     local targetid = playerList.nearestPlayer( playerid );
-    inRadius(playerid, targetid, WHISPER_RADIUS, function() {
-        msg(targetid, getAuther( playerid ) + " whisper: " + message);
-        msg(playerid, getAuther( playerid ) + " whisper: " + message);
-    })
+    intoRadiusDo(playerid, targetid, WHISPER_RADIUS, function() {
+        msg(targetid, getAuthor( playerid ) + " whisper: " + message);
+        msg(playerid, getAuthor( playerid ) + " whisper: " + message);
+    });
 });
 
 // nonRP local chat
 chatcmd(["b"], function(playerid, message) {
-    inRadiusToAll("[nonRP] " + getAuther( playerid ) + ": " + message, playerid, NORMAL_RADIUS, CL_GRAY);
+    inRadiusSendToAll(playerid, "[nonRP] " + getAuthor( playerid ) + ": " + message, NORMAL_RADIUS, CL_GRAY);
 });
 
 // global nonRP chat
 chatcmd(["o","ooc"], function(playerid, message) {
-    msg_a("[OOC] " + getAuther( playerid ) + ": " + message, CL_GRAY);
+    msg_a("[OOC] " + getAuthor( playerid ) + ": " + message, CL_GRAY);
 });
 
 chatcmd(["me"], function(playerid, message) {
-    inRadiusToAll("[ME] " + getAuther( playerid ) + " " + message, playerid, NORMAL_RADIUS, CL_YELLOW);
+    inRadiusSendToAll(playerid, "[ME] " + getAuthor( playerid ) + " " + message, NORMAL_RADIUS, CL_YELLOW);
 });
 
 // random for some actions
 chatcmd(["try"], function(playerid, message) {
-    message = "[TRY] " + getAuther( playerid ) + " try " + message;
+    message = "[TRY] " + getAuthor( playerid ) + " try " + message;
     local res = random(0,1);
     if(res)
-        inRadiusToAll(message + " (success).", playerid, NORMAL_RADIUS);
+        inRadiusSendToAll(playerid, message + " (success).", NORMAL_RADIUS);
     else
-        inRadiusToAll(message + " (failed).", playerid, NORMAL_RADIUS);
+        inRadiusSendToAll(playerid, message + " (failed).", NORMAL_RADIUS);
 });
 
 
