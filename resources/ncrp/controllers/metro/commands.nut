@@ -5,7 +5,7 @@ cmd( ["subway", "metro", "sub", "met"], function( playerid, id ) {
 
     log( "Chosen " + metroInfos[id][3] );
 
-    local ticketCost = 1500.25;
+    local ticketCost = 0.25;
 
     if ( isNearStation(playerid) ) {
         if ( canMoneyBeSubstracted(playerid, ticketCost) ) {
