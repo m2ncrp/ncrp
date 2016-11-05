@@ -18,7 +18,7 @@ cmd( ["sub", "subway", "metro"], function( playerid, id ) {
     }
 });
 
-cmd(["help", "h", "halp", "info"], ["subway", "metro", "sub"], function(playerid) {
+cmd(["help", "h", "halp", "info"], "subway", function(playerid) {
     local title = "List of available commands for SUBWAY:";
     local commands = [
         { name = "/subway <id>",    desc = "Analog /subway <id>" },
