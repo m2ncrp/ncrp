@@ -1,4 +1,4 @@
-cmd( ["sub"], function( playerid, id ) {
+cmd( ["sub", "subway", "metro"], function( playerid, id ) {
     local id = id.tointeger();
     if (id < HEAD) {  id = HEAD;  }
     if (id > TAIL) {  id = TAIL;  }
