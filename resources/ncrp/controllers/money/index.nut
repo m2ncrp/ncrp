@@ -13,7 +13,7 @@ function addMoneyToPlayer(playerid, amount) {
  */
 function canMoneyBeSubstracted(playerid, amount) {
     local amount = round(fabs(amount.tofloat()), 2);
-    return (players[playerid]["money"] > amount);
+    return (players[playerid]["money"] >= amount);
 }
 
 function subMoneyToPlayer(playerid, amount) {
