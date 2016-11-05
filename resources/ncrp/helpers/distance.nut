@@ -50,60 +50,23 @@ function isInRadius(playerid, X, Y, Z, radius) {
 }
 
 /**
- * Call function if both players in radius
+ * Call function if player in radius
  * @param  {int}      playerid
- * @param  {int}      targetid
  * @param  {float}    radius
  * @param  {Function} callback
  * @return {void}
  */
-function intoRadiusDo(playerid, targetid, radius, callback, exceptionText, color = 0) {
-    if ( targetid == null ) {
-        if (color) {
-            msg(playerid, exceptionText, color);
-        } else {
-            msg(playerid, exceptionText);
-        }
-        return;
-    }
-    if ( callback != null && isBothInRadius(playerid, targetid, radius) )
-        callback();
+function intoRadiusDo(playerid, radius, callback) {
+    // todo
 }
 
 /**
- * Call function if both players out of radius
+ * Call function if player out of radius
  * @param  {int}      playerid
- * @param  {int}      targetid
  * @param  {float}    radius
  * @param  {Function} callback
  * @return {void}
  */
-function outofRadiusDo(playerid, targetid, radius, callback) {
-    if ( targetid == null ) {
-        msg(playerid, "There's no such player.", CL_RED);
-        return;
-    }
-    if ( callback != null && !isBothInRadius(playerid, targetid, radius) )
-        callback();
-}
-
-/**
- * Send message to all players in radius
- * @param  {int}        sender
- * @param  {string}     message
- * @param  {float}      radius
- * @param  {RGB object} color
- * @return {void}
- */
-function inRadiusSendToAll(sender, message, radius, color = 0) {
-    local players = playerList.getPlayers();
-    foreach(player in players) {
-        intoRadiusDo(sender, player, radius, function() {
-            if (color) {
-                msg(player, message, color);
-            } else {
-                msg(player, message);
-            }
-        });
-    }
+function outofRadiusDo(playerid, radius, callback) {
+    // todo
 }
