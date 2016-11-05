@@ -6,7 +6,6 @@ cmd( ["sub"], function( playerid, id ) {
     log( "Chosen " + metroInfos[id][3] );
 
     local ticketCost = 0.25;
-
     if ( isNearStation(playerid) && canMoneyBeSubstracted(playerid, ticketCost)) {
         screenFadeinFadeout(playerid, 2000, function() {
             subMoneyToPlayer(playerid, ticketCost); // don't forget took money for ticket ~ 25 cents
