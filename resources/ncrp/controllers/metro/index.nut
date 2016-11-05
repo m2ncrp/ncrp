@@ -22,7 +22,7 @@ const TAIL = 6; // total number of stations-1
 
 function isNearStation(playerid) {
     foreach (station in metroInfos) {
-        if ( inRadius(playerid, station[0], station[1], station[2], RADIUS) ) {
+        if ( isInRadius(playerid, station[0], station[1], station[2], RADIUS) ) {
             return true;
         }
     }

@@ -12,9 +12,9 @@ chatcmd(["s", "shout"], function(playerid, message) {
 chatcmd(["w", "whisper"], function(playerid, message) {
     local targetid = playerList.nearestPlayer( playerid );
     intoRadiusDo(playerid, targetid, WHISPER_RADIUS, function() {
-        msg(targetid, getAuthor( playerid ) + " whisper: " + message);
-        msg(playerid, getAuthor( playerid ) + " whisper: " + message);
-    });
+            msg(targetid, getAuthor( playerid ) + " whisper: " + message);
+            msg(playerid, getAuthor( playerid ) + " whisper: " + message);
+        }, "There's no such player around.", CL_RED);
 });
 
 // nonRP local chat
