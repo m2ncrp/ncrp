@@ -36,7 +36,6 @@ function msg_a(text, color = CL_WHITE){
 
 msga <- msg_a;
 msgA <- msg_a;
-getAuther <- getAuthor;
 
 
 function msg_help(playerid, title, commands){

@@ -16,6 +16,3 @@ cmd( ["sub", "subway", "metro"], function( playerid, id ) {
             });
     }
 });
-
-
-
