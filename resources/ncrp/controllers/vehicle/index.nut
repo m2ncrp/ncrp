@@ -1,5 +1,7 @@
 include("controllers/vehicle/commands.nut");
 include("controllers/vehicle/hiddencars.nut");
+include("controllers/vehicle/functions.nut");
+
 
 // saving original vehicle method
 local old__createVehicle = createVehicle;
@@ -26,7 +28,7 @@ function getVehicleOverride(vehicleid, modelid) {
 
 addEventHandler("onScriptInit", function() {
     // police cars
-    addVehicleOverride([21, 42], function(id) {
+    addVehicleOverride(42, function(id) {
         setVehicleColour(id, 255, 255, 255, 0, 0, 0);
         setVehicleSirenState(id, false);
         // setVehicleBeaconLight(id, false);
@@ -43,7 +45,7 @@ addEventHandler("onScriptInit", function() {
         setVehicleColour(id, 255, 255, 255, 0, 0, 0);
     });
 
-    // armoured
+    // armoured lassister 75
     addVehicleOverride(17, function() {
         setVehicleColour(id, 0, 0, 0, 0, 0, 0);
     });
