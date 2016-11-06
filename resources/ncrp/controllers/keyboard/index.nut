@@ -3,7 +3,7 @@ include("controllers/keyboard/commands.nut");
 
 // register events
 addEventHandlerEx("onPlayerConnect", function(playerid, nickname, ip, serial) {
-    sendKeyboardRegistration(playerid);
+    delayedFunction(1000, function() { sendKeyboardRegistration(playerid); });
 });
 
 addEventHandler("onClientKeyboardPress", function(playerid, key, state) {
