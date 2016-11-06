@@ -49,3 +49,8 @@ function msg_help(playerid, title, commands){
 }
 
 include("controllers/chat/commands.nut"); // dont't touch!!! */
+
+addEventHandler("onPlayerChat", function(playerid, message) {
+    inRadiusSendToAll(playerid, getAuthor( playerid ) + " says: " + message, NORMAL_RADIUS, CL_YELLOW);
+    return false;
+});
