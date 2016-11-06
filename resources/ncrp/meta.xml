@@ -1,12 +1,13 @@
 <meta>
-	<!-- Server side scripts -->
-	<script type="server">index.nut</script>
+    <!-- Server side scripts -->
+    <script type="server">index.nut</script>
 
-	<!-- Client side scripts -->
-	<script type="client">fps.nut</script>
+    <!-- Client side scripts -->
+    <script type="client">3dtext.nut</script>
+    <script type="client">fps.nut</script>
     <script type="client">scoreboard.nut</script>
+    <script type="client">screen.nut</script>
     <script type="client">weather.nut</script>
     <script type="client">world.nut</script>
-    <script type="client">screen.nut</script>
-	<script type="client">3dtext.nut</script>
+    <script type="client">debug.nut</script>
 </meta>
