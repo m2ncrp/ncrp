@@ -10,5 +10,6 @@
     <script type="client">weather.nut</script>
     <script type="client">world.nut</script>
     <script type="client">chat.nut</script>
+    <script type="client">keyboard.nut</script>
     <script type="client">debug.nut</script>
 </meta>
