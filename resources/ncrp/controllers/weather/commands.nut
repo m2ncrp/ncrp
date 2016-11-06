@@ -5,5 +5,16 @@ acmd("weather", function(playerid, weatherId) {
 });
 
 acmd("weatherCustom", function(playerid, weather) {
-    triggerClientEvent(playerid, "onServerWeatherSync", weather);
+    setWeather(weather);
+});
+
+
+acmd("season", function(playerid, season) {
+    if (season == "s" || season == "summer") {
+        return setSummer(true);
+    }
+
+    if (season == "w" || season == "winter") {
+        return setSummer(false);
+    }
 });

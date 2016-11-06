@@ -19,12 +19,39 @@ cmd(["die"], function( playerid ) {
 
 cmd(["skin"], function( playerid, id ) {
     setPlayerModel( playerid, id.tointeger() );
+    players[playerid]["skin"] = id.tointeger();
+});
+
+
+cmd(["skininc"], function ( playerid ) {
+    local skin = players[playerid]["skin"];
+    if ( skin < 171) {
+        skin += 1;
+        setPlayerModel( playerid, skin );
+        players[playerid]["skin"] = skin;
+        sendPlayerMessage( playerid,  "Skin model changed on " + skin );
+    } else {
+        sendPlayerMessage( playerid,  "Skin top limit" );
+    }
+});
+
+cmd(["skindec"], function ( playerid ) {
+    local skin = players[playerid]["skin"];
+    if ( skin > 0) {
+        skin -= 1;
+        setPlayerModel( playerid, skin );
+        players[playerid]["skin"] = skin;
+        sendPlayerMessage( playerid,  "Skin model changed on " + skin );
+    } else {
+        sendPlayerMessage( playerid,  "Skin lower limit" );
+    }
 });
 
 addCommandHandler("checkmyjob", function ( playerid ) {
-    if(players[playerid]["job"] != null) {
-        sendPlayerMessage( playerid, "You're a " + players[playerid]["job"] );
+    local job = getPlayerJob(playerid);
+    if(job) {
+        sendPlayerMessage( playerid, "You're a " + job + "." );
     } else {
-        sendPlayerMessage( playerid, "You're unemployed" );
+        sendPlayerMessage( playerid, "You're unemployed." );
     }
 });

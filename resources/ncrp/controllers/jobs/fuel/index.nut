@@ -1,3 +1,5 @@
+include("controllers/jobs/fuel/commands.nut");
+
 local job_fuel = {};
 local fuelcars = {};
 
@@ -11,6 +13,9 @@ local fuelname = [
     "Greenfield",                       // FuelStation Greenfield
     "Dipton"                            // FuelStation Dipton
 ];
+
+// for future consideration ^__^
+local fuelVehModelID = 5;
 
 // 788.288, -78.0801, -20.132   // coords of place to load fuel truck
 // 551.762, -266.866, -20.1644  // coords of place to get job fueldriver

@@ -1,3 +1,5 @@
+include("controllers/jobs/busdriver/commands.nut");
+
 local job_bus = {};
 
 addEventHandlerEx("onServerStarted", function() {
@@ -8,7 +10,7 @@ addEventHandlerEx("onServerStarted", function() {
     createVehicle(20, -410.198, 493.193, -0.21792, -179.657, -3.80509, -0.228946);
 });
 
-addEventHandler("onPlayerConnect", function(playerid, name, ip, serial ){
+addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial ){
      job_bus[playerid] <- {};
      job_bus[playerid]["nextbusstop"] <- null;
      job_bus[playerid]["busready"] <- false;
@@ -30,15 +32,33 @@ local busstops = [
 ];
 
 
+/**
+ * Check is player is a busdriver
+ * @param  {int}  playerid
+ * @return {Boolean} true/false
+ */
+function isBusDriver (playerid) {
+    return (isPlayerHaveValidJob(playerid, "busdriver"));
+}
+
+/**
+ * Check is player's vehicle is a bus
+ * @param  {int}  playerid
+ * @return {Boolean} true/false
+ */
+function isPlayerVehicleBus(playerid) {
+    return (isPlayerInValidVehicle(playerid, 20));
+}
+
 // working good, check
-addCommandHandler("job_bus", function ( playerid ) {
+function busJob( playerid ) {
     local myPos = getPlayerPosition( playerid );
         local check = isPointInCircle2D( myPos[0], myPos[1], -422.731, 479.462, 1.0 );
         if(check) {
             if(players[playerid]["job"] == "busdriver") {
                 sendPlayerMessage( playerid, "You're busdriver already.");
                 return;
-            }   
+            }
             if(players[playerid]["job"] == null) {
                 sendPlayerMessage( playerid, "You're a bus driver now! Congratulations!" );
                 sendPlayerMessage( playerid, "Sit into bus." );
@@ -50,11 +70,11 @@ addCommandHandler("job_bus", function ( playerid ) {
         } else {
             sendPlayerMessage( playerid, "Let's go to bus station in Uptown (central door of the building)." );
         }
-});
+}
 
 
 // working good, check
-addCommandHandler("job_bus_leave", function ( playerid ) {
+function busJobLeave( playerid ) {
     local myPos = getPlayerPosition( playerid );
         local check = isPointInCircle2D( myPos[0], myPos[1], -422.731, 479.462, 1.0 );
         if(check) {
@@ -64,16 +84,16 @@ addCommandHandler("job_bus_leave", function ( playerid ) {
                 players[playerid]["job"] = null;
             } else { sendPlayerMessage( playerid, "You're not a bus driver"); }
         } else { sendPlayerMessage( playerid, "Let's go to bus station in Uptown (central door of the building)." ); }
-});
+}
 
 
 // working good, check
-addCommandHandler("busready", function ( playerid ) {
+function busJobReady( playerid ) {
     if(players[playerid]["job"] == "busdriver") {
         if( isPlayerInVehicle( playerid ) ) {
             local vehicleid    = getPlayerVehicle( playerid  );
             local vehicleModel = getVehicleModel ( vehicleid );
-            if(vehicleModel == 20) {        
+            if(vehicleModel == 20) {
                 if (job_bus[playerid]["busready"] == false) {
                     job_bus[playerid]["busready"] = true;
                     sendPlayerMessage( playerid, busstops[0][0] );
@@ -82,11 +102,11 @@ addCommandHandler("busready", function ( playerid ) {
                 } else { sendPlayerMessage( playerid, "You're ready already." ); }
             } else { sendPlayerMessage( playerid, "This car isn't a bus." ); }
         } else { sendPlayerMessage( playerid, "You need a bus." ); }
-    } else { sendPlayerMessage( playerid, "You're not a bus driver"); } 
-});
+    } else { sendPlayerMessage( playerid, "You're not a bus driver"); }
+}
 
 // working good, check
-addCommandHandler("busstop", function ( playerid ) {
+function busJobStop( playerid ) {
     if(players[playerid]["job"] == "busdriver") {
         if( isPlayerInVehicle( playerid ) ) {
             local vehicleid = getPlayerVehicle( playerid );
@@ -111,9 +131,9 @@ addCommandHandler("busstop", function ( playerid ) {
                             }
                             sendPlayerMessage( playerid, "Good! " + busstops[i+1][0] );
                         } else { sendPlayerMessage( playerid, "You're driving. Please stop the bus.");  }
-                    } else { sendPlayerMessage( playerid, busstops[i][0] ); }   
+                    } else { sendPlayerMessage( playerid, busstops[i][0] ); }
                 } else { sendPlayerMessage( playerid, "You aren't ready." ); }
             } else { sendPlayerMessage( playerid, "This car isn't a bus." ); }
         } else { sendPlayerMessage( playerid, "You need a bus." ); }
-    } else { sendPlayerMessage( playerid, "You're not a bus driver"); }     
-});
+    } else { sendPlayerMessage( playerid, "You're not a bus driver"); }
+}
