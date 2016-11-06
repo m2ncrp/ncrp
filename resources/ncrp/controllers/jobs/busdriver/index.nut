@@ -2,6 +2,11 @@ include("controllers/jobs/busdriver/commands.nut");
 
 local job_bus = {};
 
+const RADIUS_BUS = 1.0;
+const BUS_JOB_X = -422.731;
+const BUS_JOB_Y = 479.462;
+
+
 addEventHandlerEx("onServerStarted", function() {
     log("[jobs] loading bus driver job...");
     createVehicle(20, -436.205, 417.33, 0.908799, 45.8896, -0.100647, 0.237746);
@@ -37,7 +42,7 @@ local busstops = [
  * @param  {int}  playerid
  * @return {Boolean} true/false
  */
-function isBusDriver (playerid) {
+function isBusDriver(playerid) {
     return (isPlayerHaveValidJob(playerid, "busdriver"));
 }
 
@@ -50,90 +55,119 @@ function isPlayerVehicleBus(playerid) {
     return (isPlayerInValidVehicle(playerid, 20));
 }
 
-// working good, check
-function busJob( playerid ) {
-    local myPos = getPlayerPosition( playerid );
-        local check = isPointInCircle2D( myPos[0], myPos[1], -422.731, 479.462, 1.0 );
-        if(check) {
-            if(players[playerid]["job"] == "busdriver") {
-                sendPlayerMessage( playerid, "You're busdriver already.");
-                return;
-            }
-            if(players[playerid]["job"] == null) {
-                sendPlayerMessage( playerid, "You're a bus driver now! Congratulations!" );
-                sendPlayerMessage( playerid, "Sit into bus." );
-                setPlayerModel( playerid, 171 );
-                players[playerid]["job"] = "busdriver";
-            } else {
-                sendPlayerMessage( playerid, "You already have a job: " + players[playerid]["job"]);
-            }
-        } else {
-            sendPlayerMessage( playerid, "Let's go to bus station in Uptown (central door of the building)." );
-        }
+/**
+ * Check is BusReady
+ * @param  {int}  playerid
+ * @return {Boolean} true/false
+ */
+function isBusReady(playerid) {
+    return job_bus[playerid]["busready"];
 }
 
+// working good, check
+function busJob( playerid ) {
+    if(!isPlayerInValidPoint(playerid, BUS_JOB_X, BUS_JOB_Y, RADIUS_BUS)) {
+        return msg( playerid, "Let's go to bus station in Uptown (central door of the building)." );
+    }
+    if(isBusDriver(playerid)) {
+        return msg( playerid, "You're busdriver already.");
+    }
+
+    if(isPlayerHaveJob(playerid)) {
+        return msg(playerid, "You already have a job: " + getPlayerJob(playerid) + ".");
+    }
+
+    msg( playerid, "You're a bus driver now! Congratulations!" );
+    //msg( playerid, "Sit into bus." );
+    setPlayerModel( playerid, 171 );
+    players[playerid]["job"] = "busdriver";
+    msg( playerid, "Sit into bus." );
+}
 
 // working good, check
 function busJobLeave( playerid ) {
-    local myPos = getPlayerPosition( playerid );
-        local check = isPointInCircle2D( myPos[0], myPos[1], -422.731, 479.462, 1.0 );
-        if(check) {
-            if(players[playerid]["job"] == "busdriver") {
-                sendPlayerMessage( playerid, "You leave this job." );
-                setPlayerModel( playerid, 10 );
-                players[playerid]["job"] = null;
-            } else { sendPlayerMessage( playerid, "You're not a bus driver"); }
-        } else { sendPlayerMessage( playerid, "Let's go to bus station in Uptown (central door of the building)." ); }
+    if(!isPlayerInValidPoint(playerid, BUS_JOB_X, BUS_JOB_Y, RADIUS_BUS)) {
+        return msg( playerid, "Let's go to bus station in Uptown (central door of the building)." );
+    }
+    if(!isBusDriver(playerid)) {
+        return msg( playerid, "You're not a bus driver");
+    } else {
+         msg( playerid, "You leave this job." );
+         setPlayerModel( playerid, 10 );
+         players[playerid]["job"] = null;
+    }
+}
+
+
+function busJobRoutes( playerid ) {
+    if(!isPlayerInValidPoint(playerid, BUS_JOB_X, BUS_JOB_Y, RADIUS_BUS)) {
+        return msg( playerid, "Let's go to bus station in Uptown (central door of the building)." );
+    }
+    if(!isBusDriver(playerid)) {
+        return msg( playerid, "You're not a bus driver");
+    }
+
+    local title = "List of available routes:";
+    local commands = [
+        { name = "#3",        desc = "Central Circle Route" }
+    ];
+    msg_help(playerid, title, commands);
 }
 
 
 // working good, check
 function busJobReady( playerid ) {
-    if(players[playerid]["job"] == "busdriver") {
-        if( isPlayerInVehicle( playerid ) ) {
-            local vehicleid    = getPlayerVehicle( playerid  );
-            local vehicleModel = getVehicleModel ( vehicleid );
-            if(vehicleModel == 20) {
-                if (job_bus[playerid]["busready"] == false) {
-                    job_bus[playerid]["busready"] = true;
-                    sendPlayerMessage( playerid, busstops[0][0] );
-                    job_bus[playerid]["nextbusstop"] = 0;
-                    return;
-                } else { sendPlayerMessage( playerid, "You're ready already." ); }
-            } else { sendPlayerMessage( playerid, "This car isn't a bus." ); }
-        } else { sendPlayerMessage( playerid, "You need a bus." ); }
-    } else { sendPlayerMessage( playerid, "You're not a bus driver"); }
+    if(!isBusDriver(playerid)) {
+        return msg( playerid, "You're not a bus driver");
+    }
+
+    if (!isPlayerVehicleBus(playerid)) {
+        return msg(playerid, "You need a bus.");
+    }
+
+    if (isBusReady(playerid)) {
+        return msg(playerid, "You're ready already.");
+    }
+
+    job_bus[playerid]["busready"] = true;
+    msg( playerid, busstops[0][0] );
+    job_bus[playerid]["nextbusstop"] = 0;
 }
 
 // working good, check
+// coords bus at bus station in Sand Island    -1597.05, -193.64, -19.9622,-89.79, 0.235025, 3.47667
+// coords bus at bus station in Hunters Point    -1562.5, 105.709, -13.0123, 0.966663, -0.00153991, 0.182542
 function busJobStop( playerid ) {
-    if(players[playerid]["job"] == "busdriver") {
-        if( isPlayerInVehicle( playerid ) ) {
-            local vehicleid = getPlayerVehicle( playerid );
-            local vehicleModel = getVehicleModel( vehicleid );
-            if(vehicleModel == 20) {
-                if (job_bus[playerid]["busready"] == true) {
-                    local vehPos = getVehiclePosition( vehicleid );
-                    local i = job_bus[playerid]["nextbusstop"];
-                    local check = isPointInCircle2D( vehPos[0], vehPos[1], busstops[i][1], busstops[i][2], 5.0 );
-                    // coords bus at bus station in Sand Island    -1597.05, -193.64, -19.9622,-89.79, 0.235025, 3.47667
-                    // coords bus at bus station in Hunters Point    -1562.5, 105.709, -13.0123, 0.966663, -0.00153991, 0.182542
-                    log(busstops[i][1] + ", " + busstops[i][2]);
-                    if (check) {
-                        local velocity = getVehicleSpeed( vehicleid );
-                        if(fabs(velocity[0]) <= 0.5 && fabs(velocity[1]) <= 0.5) {
-                            job_bus[playerid]["nextbusstop"] += 1;
-                            if (busstops.len() == job_bus[playerid]["nextbusstop"]) {
-                                sendPlayerMessage( playerid, "Nice job! You earned $10." );
-                                job_bus[playerid]["busready"] = false;
-                                addMoneyToPlayer(playerid, 10);
-                                return;
-                            }
-                            sendPlayerMessage( playerid, "Good! " + busstops[i+1][0] );
-                        } else { sendPlayerMessage( playerid, "You're driving. Please stop the bus.");  }
-                    } else { sendPlayerMessage( playerid, busstops[i][0] ); }
-                } else { sendPlayerMessage( playerid, "You aren't ready." ); }
-            } else { sendPlayerMessage( playerid, "This car isn't a bus." ); }
-        } else { sendPlayerMessage( playerid, "You need a bus." ); }
-    } else { sendPlayerMessage( playerid, "You're not a bus driver"); }
+    if(!isBusDriver(playerid)) {
+        return msg( playerid, "You're not a bus driver");
+    }
+
+    if (!isPlayerVehicleBus(playerid)) {
+        return msg(playerid, "You need a bus.");
+    }
+
+    if (!isBusReady(playerid)) {
+        return msg( playerid, "You aren't ready." );
+    }
+
+    local i = job_bus[playerid]["nextbusstop"];
+
+    if(!isVehicleInValidPoint(playerid, busstops[i][1], busstops[i][2], 5.0 )) {
+        return msg( playerid, busstops[i][0]);
+    }
+
+    if(isPlayerVehicleMoving(playerid)){
+        return msg( playerid, "You're driving. Please stop the bus.");
+    }
+
+    log("in zone");
+
+        job_bus[playerid]["nextbusstop"] += 1;
+        if (busstops.len() == job_bus[playerid]["nextbusstop"]) {
+            sendPlayerMessage( playerid, "Nice job! You earned $10." );
+            job_bus[playerid]["busready"] = false;
+            addMoneyToPlayer(playerid, 10);
+            return;
+        }
+    sendPlayerMessage( playerid, "Good! " + busstops[i+1][0] );
 }
