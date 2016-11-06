@@ -8,6 +8,11 @@ cmd("bus", ["job", "leave"], function(playerid) {
     busJobLeave(playerid);
 });
 
+// usage: /bus list
+cmd("bus", "list", function(playerid) {
+    busJobRoutes(playerid);
+});
+
 // usage: /bus ready
 cmd("bus", "ready", function(playerid) {
     busJobReady(playerid);
