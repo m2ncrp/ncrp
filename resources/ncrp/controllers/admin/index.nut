@@ -43,3 +43,9 @@ function squirrelDebugOnClient(playerid, args) {
     triggerClientEvent(playerid, "onServerScriptEvaluate", concat(args));
 }
 
+
+// add error handler
+addEventHandler("onClientScriptError", function(playerid, code) {
+    msg(playerid, JSONEncoder.encode(code), CL_CHESTNUT);
+    dbg(code);
+});
