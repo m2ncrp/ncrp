@@ -43,11 +43,7 @@ function getPlayerJob(playerid) {
  */
 function getPlayerPositionObj ( playerid ) {
     local plaPos = getPlayerPosition(playerid);
-    local newPos = {}
-    newPos.x <- plaPos[0];
-    newPos.y <- plaPos[1],
-    newPos.z <- plaPos[2];
-    return newPos;
+    return { x = plaPos[0], y = plaPos[1], z = plaPos[2] };
 }
 
 /**
@@ -57,4 +53,32 @@ function getPlayerPositionObj ( playerid ) {
  */
 function setPlayerPositionObj ( playerid, objpos ) {
     setPlayerPosition( playerid, objpos.x, objpos.y, objpos.z);
+}
+
+
+/**
+ * Check if PLAYER in radius of given point
+ * @param  {int} playerid
+ * @param  {float} X
+ * @param  {float} Y
+ * @param  {float} radius
+ * @return {bool} true/false
+ */
+function isPlayerInValidPoint(playerid, X, Y, radius) {
+    local plaPos = getPlayerPosition( playerid );
+    return isPointInCircle2D( plaPos[0], plaPos[1], X, Y, radius );
+}
+
+/**
+ * Check if PLAYER in radius of given point 3D
+ * @param  {int} playerid
+ * @param  {float} X
+ * @param  {float} Y
+ * @param  {float} Z
+ * @param  {float} radius
+ * @return {bool} true/false
+ */
+function isPlayerInValidPoint3D(playerid, X, Y, Z, radius) {
+    local plaPos = getPlayerPosition( playerid );
+    return isPointInCircle3D( plaPos[0], plaPos[1], plaPos[2], X, Y, Z, radius );
 }
