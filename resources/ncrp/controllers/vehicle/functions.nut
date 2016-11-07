@@ -21,6 +21,18 @@ function isPlayerVehicleMoving (playerid, minimalspeed = 0.5) {
     return (isVehicleMoving(vehicleid, minimalspeed));
 }
 
+/**
+ * Check if VEHICLE of PLAYERid in radius of given point
+ * @param  {int} playerid
+ * @param  {float} X
+ * @param  {float} Y
+ * @param  {float} radius
+ * @return {bool} true/false
+ */
+function isVehicleInValidPoint(playerid, X, Y, radius) {
+    local vehPos = getVehiclePosition( getPlayerVehicle(playerid) );
+    return isPointInCircle2D( vehPos[0], vehPos[1], X, Y, radius );
+}
 
 /**
  * Get vehicle position and return to OBJECT
@@ -29,11 +41,7 @@ function isPlayerVehicleMoving (playerid, minimalspeed = 0.5) {
  */
 function getVehiclePositionObj ( vehicleid ) {
     local vehPos = getVehiclePosition( vehicleid );
-    local newPos = {}
-    newPos.x <- vehPos[0];
-    newPos.y <- vehPos[1],
-    newPos.z <- vehPos[2];
-    return newPos;
+    return { x = vehPos[0], y = vehPos[1], z = vehPos[2] };
 }
 
 /**
@@ -44,7 +52,6 @@ function getVehiclePositionObj ( vehicleid ) {
 function setVehiclePositionObj ( vehicleid, objpos ) {
     setVehiclePosition( vehicleid, objpos.x, objpos.y, objpos.z);
 }
-
 
 /**
  * Switch vehicle FRONT lights
@@ -113,5 +120,3 @@ function switchLeftLight(playerid) {
     setIndicatorLightState(vehicleid, INDICATOR_LEFT, !leftState);
     setIndicatorLightState(vehicleid, INDICATOR_RIGHT, false);
 }
-
-
