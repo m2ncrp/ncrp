@@ -225,6 +225,7 @@ function taxiGoOnAir(playerid) {
     }
 
     job_taxi[playerid]["status"] = "onair";
+    setTaxiLightState(getPlayerVehicle(playerid), true);
     msg_taxi_dr(playerid, "Your taxi driver status: ON air. Wait for a call...");
 }
 
@@ -247,6 +248,7 @@ function taxiGoOffAir(playerid) {
     }
 
     job_taxi[playerid]["status"] = "offair";
+    setTaxiLightState(getPlayerVehicle(playerid), false);
     msg_taxi_dr(playerid, "Your taxi driver status: OFF air. You won't receive calls now.");
 }
 
@@ -269,6 +271,7 @@ function taxiJob(playerid) {
         return msg(playerid, "You need a taxi car.");
     }
 
+    setTaxiLightState(getPlayerVehicle(playerid), false);
     players[playerid]["job"] = "taxidriver";
     msg(playerid, "You became a taxi driver. Change status to ON air to begin to receive calls.");
 }
@@ -286,7 +289,24 @@ function taxiJobLeave(playerid) {
         return msg(playerid, "You have a job: " + getPlayerJob(playerid) + ".");
     }
 
+    if ( isPlayerInVehicle(playerid) ) {
+        setTaxiLightState(getPlayerVehicle(playerid), false);
+    }
+
     players[playerid]["job"] = null;
     job_taxi[playerid]["status"] = "offair";
     msg(playerid, "You leave a taxi driver job.");
 }
+
+/*
+addEventHandler ( "onPlayerVehicleExit", function ( playerid, vehicleid, seat )
+{
+    local vehicleModel = getVehicleModel( vehicleid );
+
+    if (vehicleModel == 24 || vehicleModel == 33) {
+         setTaxiLightState(vehicleid, false);
+    }
+    //msg(playerid, playerid+" - "+vehicleid+" - "+seat);
+    return 1;
+});
+*/
