@@ -1,3 +1,7 @@
+jobtext <- {
+    "need" : "You need a ",
+    "notCDD" : "You're not a cargo delivery driver."
+};
 
 
 include("controllers/jobs/commands.nut");
@@ -12,9 +16,3 @@ addEventHandlerEx("onServerStarted", function() {
     log("[jobs] starting...");
 });
 
-jobphrases  = {
-    "letsgo" : "Let's go to TOOOOOOOO bus station in Uptown (central door of the building).",
-    "driveralready" : "You're busdriver already.",
-    "toDerek" : "Let's go to Derek office at City Port.",
-    "notCDD" : "You're not a cargo delivery driver."
-};
