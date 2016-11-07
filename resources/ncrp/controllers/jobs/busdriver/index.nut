@@ -160,8 +160,6 @@ function busJobStop( playerid ) {
         return msg( playerid, "You're driving. Please stop the bus.");
     }
 
-    log("in zone");
-
         job_bus[playerid]["nextbusstop"] += 1;
         if (busstops.len() == job_bus[playerid]["nextbusstop"]) {
             sendPlayerMessage( playerid, "Nice job! You earned $10." );
