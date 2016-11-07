@@ -6,7 +6,6 @@ const RADIUS_BUS = 1.0;
 const BUS_JOB_X = -422.731;
 const BUS_JOB_Y = 479.462;
 
-
 addEventHandlerEx("onServerStarted", function() {
     log("[jobs] loading bus driver job...");
     createVehicle(20, -436.205, 417.33, 0.908799, 45.8896, -0.100647, 0.237746);
@@ -67,7 +66,7 @@ function isBusReady(playerid) {
 // working good, check
 function busJob( playerid ) {
     if(!isPlayerInValidPoint(playerid, BUS_JOB_X, BUS_JOB_Y, RADIUS_BUS)) {
-        return msg( playerid, "Let's go to bus station in Uptown (central door of the building)." );
+        return msg( playerid, jobphrases["letsgo"] );
     }
     if(isBusDriver(playerid)) {
         return msg( playerid, "You're busdriver already.");
