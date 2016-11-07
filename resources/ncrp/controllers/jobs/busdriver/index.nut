@@ -1,6 +1,9 @@
 include("controllers/jobs/busdriver/commands.nut");
 
 local job_bus = {};
+jobtext <- {};
+jobtext["letsgo"] <- "asdasdasdad";
+
 
 const RADIUS_BUS = 1.0;
 const BUS_JOB_X = -422.731;
@@ -66,7 +69,7 @@ function isBusReady(playerid) {
 // working good, check
 function busJob( playerid ) {
     if(!isPlayerInValidPoint(playerid, BUS_JOB_X, BUS_JOB_Y, RADIUS_BUS)) {
-        return msg( playerid, jobphrases["letsgo"] );
+        return msg( playerid, "Let's go to bus station in Uptown (central door of the building)." );
     }
     if(isBusDriver(playerid)) {
         return msg( playerid, "You're busdriver already.");
