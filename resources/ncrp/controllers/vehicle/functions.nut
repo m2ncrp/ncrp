@@ -21,6 +21,31 @@ function isPlayerVehicleMoving (playerid, minimalspeed = 0.5) {
     return (isVehicleMoving(vehicleid, minimalspeed));
 }
 
+
+/**
+ * Get vehicle position and return to OBJECT
+ * @param  {int} vehicleid
+ * @return {object}
+ */
+function getVehiclePositionObj ( vehicleid ) {
+    local vehPos = getVehiclePosition( vehicleid );
+    local newPos = {}
+    newPos.x <- vehPos[0];
+    newPos.y <- vehPos[1],
+    newPos.z <- vehPos[2];
+    return newPos;
+}
+
+/**
+ * Set vehicle position to coordinates from objpos.x, objpos.y, objpos.z
+ * @param {int} vehicleid
+ * @param {object} objpos
+ */
+function setVehiclePositionObj ( vehicleid, objpos ) {
+    setVehiclePosition( vehicleid, objpos.x, objpos.y, objpos.z);
+}
+
+
 /**
  * Switch vehicle FRONT lights
  * @param  {int} playerid

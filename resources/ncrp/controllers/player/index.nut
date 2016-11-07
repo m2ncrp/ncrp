@@ -74,3 +74,26 @@ function isPlayerHaveJob(playerid) {
 function getPlayerJob(playerid) {
     return (players[playerid]["job"]) ? players[playerid]["job"] : false;
 }
+
+/**
+ * Get player position and return to OBJECT
+ * @param  {int} playerid
+ * @return {object}
+ */
+function getPlayerPositionObj ( playerid ) {
+    local plaPos = getPlayerPosition(playerid);
+    local newPos = {}
+    newPos.x <- plaPos[0];
+    newPos.y <- plaPos[1],
+    newPos.z <- plaPos[2];
+    return newPos;
+}
+
+/**
+ * Set player position to coordinates from objpos.x, objpos.y, objpos.z
+ * @param {int} playerid
+ * @param {object} objpos
+ */
+function setPlayerPositionObj ( playerid, objpos ) {
+    setPlayerPosition( playerid, objpos.x, objpos.y, objpos.z);
+}
