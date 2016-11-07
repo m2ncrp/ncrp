@@ -50,30 +50,9 @@ cmd("paint", function(playerid, red, green, blue) {
     setVehicleColour(getPlayerVehicle(playerid), r, g, b, r, g, b);
 });
 
-addKeyboardHandler("k", "up", function(playerid) {
-    switchLights(playerid);
-    msg(playerid, "Keyboard: LightSwitch");
-});
-
-addKeyboardHandler("h", "up", function(playerid) {
-    switchLeftLight(playerid);
-    msg(playerid, "Keyboard: Left Light");
-});
-
-addKeyboardHandler("j", "up", function(playerid) {
-    switchRightLight(playerid);
-    msg(playerid, "Keyboard: Right Light");
-});
-
-addKeyboardHandler("g", "up", function(playerid) {
-    switchBothLight(playerid);
-    msg(playerid, "Keyboard: Both Light");
-});
-
 
 cmd("lights", function(playerid) {
     switchLights(playerid);
-    msg(playerid, "LightSwitch");
 });
 
 cmd("turnleft", function(playerid) {
@@ -85,5 +64,25 @@ cmd("turnright", function(playerid) {
 });
 
 cmd("aviar", function(playerid) {
+    switchBothLight(playerid);
+});
+
+
+/**
+ * KEYBINDS
+ */
+addKeyboardHandler("k", "up", function(playerid) {
+    switchLights(playerid);
+});
+
+addKeyboardHandler("h", "up", function(playerid) {
+    switchLeftLight(playerid);
+});
+
+addKeyboardHandler("j", "up", function(playerid) {
+    switchRightLight(playerid);
+});
+
+addKeyboardHandler("g", "up", function(playerid) {
     switchBothLight(playerid);
 });
