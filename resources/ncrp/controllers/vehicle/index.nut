@@ -1,7 +1,7 @@
 include("controllers/vehicle/commands.nut");
 include("controllers/vehicle/hiddencars.nut");
 include("controllers/vehicle/functions.nut");
-
+include("controllers/rentcar/index.nut");
 
 // saving original vehicle method
 local old__createVehicle = createVehicle;

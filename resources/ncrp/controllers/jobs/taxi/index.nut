@@ -1,6 +1,7 @@
 include("controllers/jobs/taxi/commands.nut");
 
 local job_taxi = {};
+local price = 3.0;
 
 addEventHandlerEx("onServerStarted", function() {
     log("[jobs] loading taxi job...");
@@ -21,10 +22,35 @@ addEventHandlerEx("onServerStarted", function() {
 });
 
 addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial ){
-     job_taxi[playerid] <- {};
-     job_taxi[playerid]["status"] <- "offair";
-     job_taxi[playerid]["customer"] <- null; // customer == playerid who called taxi car
+    players[playerid]["taxi"] <- {};
+    players[playerid]["taxi"]["call_address"] <- false; // Address from which was caused by a taxi
+    players[playerid]["taxi"]["call_state"] <- false; // Address from which was caused by a taxi
+
+    job_taxi[playerid] <- {};
+    job_taxi[playerid]["status"] <- "offair";
+    job_taxi[playerid]["customer"] <- null; // customer == playerid who called taxi car
 });
+
+addEventHandler ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
+    if(isPlayerCarTaxi(playerid) && getPlayerJob(playerid) != "taxidriver") {
+        setVehicleFuel(vehicleid, 0.0);
+        return msg(playerid, "To drive this car you need to pay $"+price+" for fuel and rent. If you agree: /drive");
+    }
+
+});
+
+cmd("drive", function(playerid) {
+    if(isPlayerCarTaxi(playerid) && getPlayerJob(playerid) != "taxidriver") {
+        if(!canMoneyBeSubstracted(playerid, price.tofloat())) {
+            return msg(playerid, "You don't have enough money.");
+        }
+        subMoneyToPlayer(playerid, price);
+        setVehicleFuel(getPlayerVehicle(playerid), 56.0);
+        msg(playerid, "You paid $"+price+". Now you can drive this car!");
+        msg(playerid, "Attention!!! If you leave the car and want to drive again, you need to pay again too.");
+    }
+});
+
 
 /**
  * msg to taxi customer
@@ -272,6 +298,7 @@ function taxiJob(playerid) {
     }
 
     setTaxiLightState(getPlayerVehicle(playerid), false);
+    setVehicleFuel(getPlayerVehicle(playerid), 56.0);
     players[playerid]["job"] = "taxidriver";
     msg(playerid, "You became a taxi driver. Change status to ON air to begin to receive calls.");
 }
@@ -295,6 +322,7 @@ function taxiJobLeave(playerid) {
 
     players[playerid]["job"] = null;
     job_taxi[playerid]["status"] = "offair";
+    setVehicleFuel(vehicleid, 0.0);
     msg(playerid, "You leave a taxi driver job.");
 }
 
