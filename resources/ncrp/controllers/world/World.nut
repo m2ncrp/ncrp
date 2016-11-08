@@ -37,6 +37,8 @@ class World {
             this.onHourChange();
         }
 
+        triggerServerEventEx("onServerMinuteChange");
+
         this.sendToAllClients();
 
         if (!(this.time.minute % AUTOSAVE_TIME)) {
