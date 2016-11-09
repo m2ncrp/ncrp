@@ -4,7 +4,7 @@ include("controllers/vehicle/functions/additional.nut");
 include("controllers/vehicle/functions/overrides.nut");
 include("controllers/vehicle/functions/passengers.nut");
 
-const VEHICLE_RESPAWN_TIME = 30; // 10 minutes
+const VEHICLE_RESPAWN_TIME = 600; // 10 minutes
 const VEHICLE_FUEL_DEFAULT = 40.0;
 
 // saving original vehicle method
@@ -97,8 +97,10 @@ function tryRespawnVehicleById(vehicleid, forced = false) {
         return false;
     }
 
+    // if vehicle not emtpty - reset timestamp
     if (!isVehicleEmpty(vehicleid)) {
-        return;
+        data.time = getTimestamp();
+        return false;
     }
 
     // maybe vehicle already near its default place
@@ -108,7 +110,8 @@ function tryRespawnVehicleById(vehicleid, forced = false) {
 
     // maybe vehicle is moving - means its active
     if (isVehicleMoving(vehicleid)) {
-        return data.time = getTimestamp();
+        data.time = getTimestamp();
+        return false;
     }
 
     // reset respawn time
@@ -120,6 +123,7 @@ function tryRespawnVehicleById(vehicleid, forced = false) {
 
     // reset other parameters
     repairVehicle(vehicleid);
+    setVehicleEngineState(vehicleid, false);
     setVehicleFuel(vehicleid, VEHICLE_FUEL_DEFAULT);
 
     return true;
@@ -142,6 +146,7 @@ function destroyAllVehicles() {
  */
 function blockVehicle(vehicleid) {
     setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
+    setVehicleEngineState(vehicleid, false);
     return setVehicleFuel(vehicleid, 0.0);
 }
 
