@@ -57,12 +57,13 @@ addEventHandlerEx("onServerMinuteChange", function() {
 });
 
 addEventHandler("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
+    addVehiclePassenger(vehicleid, playerid);
     resetVehicleRespawnTimer(vehicleid);
 });
 
-// addEventHandler("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
-//     // do nothing
-// });
+addEventHandler("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
+    removeVehiclePassenger(vehicleid, playerid);
+});
 
 // clearing all vehicles on server stop
 addEventHandlerEx("onServerStopping", function() {
