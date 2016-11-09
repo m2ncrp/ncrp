@@ -6,7 +6,7 @@ const WEATHER_DEFAULT_PHASE = 3;
 const WEATHER_DEFAULT_WEATHER = 1;
 const WEATHER_WINTER_STARTS = 11;
 const WEATHER_WINTER_ENDS = 2;
-const WEATHER_IS_WINTER = true;
+const WEATHER_IS_WINTER = false;
 
 // available whethers
 local weathers = ["clear", "foggy", "rainy"];
@@ -61,7 +61,7 @@ addEventHandlerEx("weather:onPhaseChange", function(phaseid) {
 
     if (phaseid >= 0 && phaseid < 24) {
         currentPhase = floor(phaseid / WEATHER_PHASE_CHANGE);
-       // return setWeather(getWeatherName()); /// ======================================================================================================
+        return setWeather(getWeatherName()); /// ======================================================================================================
     }
 });
 
