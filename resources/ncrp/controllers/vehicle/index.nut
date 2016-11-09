@@ -1,4 +1,4 @@
-include("controllers/vehicle/functions.nut");
+include("controllers/vehicle/functions");
 include("controllers/vehicle/commands.nut");
 include("controllers/vehicle/hiddencars.nut");
 
@@ -37,21 +37,22 @@ addEventHandlerEx("onServerStarted", function() {
     log("[vehicles] starting...");
 
     // load all vehicles from db
-    Vehicle.findAll(function(err, results) {
-        foreach (idx, vehicle in results) {
-            // create vehicle
-            local vehicleid = createVehicle(vehicle.modelid, vehicle.x, vehicle.y, vehicle.z, vehicle.rx, vehicle.ry, vehicle.rz);
+    // Vehicle.findAll(function(err, results) {
+    //     foreach (idx, vehicle in results) {
+    //         // create vehicle
+    //         local vehicleid = createVehicle(vehicle.modelid, vehicle.x, vehicle.y, vehicle.z, vehicle.rx, vehicle.ry, vehicle.rz);
 
-            // load all the data
-            setVehicleColour(vehicleid, vehicle.cra, vehicle.cga, vehicle.cba, vehicle.crb, vehicle.cgb, vehicle.cbb);
-            setVehicleRotation(vehicleid, vehicle.rx, vehicle.ry, vehicle.rz);
-            setVehicleRespawnEx(vehicleid, false);
-            setVehicleTuningTable(vehicleid, vehicle.tuning);
-        }
-    });
+    //         // load all the data
+    //         setVehicleColour(vehicleid, vehicle.cra, vehicle.cga, vehicle.cba, vehicle.crb, vehicle.cgb, vehicle.cbb);
+    //         setVehicleRotation(vehicleid, vehicle.rx, vehicle.ry, vehicle.rz);
+    //         setVehicleRespawnEx(vehicleid, false);
+    //         setVehicleTuningTable(vehicleid, vehicle.tuning);
+    //     }
+    // });
 });
 
-addEventHandlerEx("onServerTimeMinute", function() {
+addEventHandlerEx("onServerMinuteChange", function() {
+    updateVehiclePassengers();
     checkVehicleRespawns();
 });
 

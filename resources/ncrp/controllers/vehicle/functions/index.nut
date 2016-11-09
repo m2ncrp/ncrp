@@ -1,9 +1,10 @@
-include("controllers/vehicle/lights.nut");
-include("controllers/vehicle/validators.nut");
-include("controllers/vehicle/additional.nut");
-include("controllers/vehicle/overrides.nut");
+include("controllers/vehicle/functions/lights.nut");
+include("controllers/vehicle/functions/validators.nut");
+include("controllers/vehicle/functions/additional.nut");
+include("controllers/vehicle/functions/overrides.nut");
 
-const VEHICLE_RESPAWN_TIME = 60 * 5; // 5 minutes
+const VEHICLE_RESPAWN_TIME = 30; // 10 minutes
+const VEHICLE_FUEL_DEFAULT = 40.0;
 
 // saving original vehicle method
 local old__createVehicle = createVehicle;
@@ -53,15 +54,7 @@ function setVehicleRespawnEx(vehicleid, value) {
  */
 function checkVehicleRespawns() {
     foreach (vehicleid, vehicle in vehicles) {
-        // maybe vehicle is moving - means its active
-        if (isVehicleMoving(vehicleid)) {
-            vehicle.respawn.time = getTimestamp();
-        }
-
-        // try to respawn it
-        if ((getTimestamp() - vehicle.respawn.time) > VEHICLE_RESPAWN_TIME) {
-            respawnVehicleById(vehicleid);
-        }
+        tryRespawnVehicleById(vehicleid);
     }
 }
 
@@ -88,14 +81,18 @@ function resetVehicleRespawnTimer(vehicleid) {
  * @param  {bool} forced
  * @return {boolean}
  */
-function respawnVehicleById(vehicleid, forced = false) {
+function tryRespawnVehicleById(vehicleid, forced = false) {
     if (!vehicleid in vehicles) {
         return false;
     }
 
     local data = vehicles[vehicleid].respawn;
 
-    if (!respawn.enabled && !forced) {
+    if (!data.enabled && !forced) {
+        return false;
+    }
+
+    if ((getTimestamp() - data.time) < VEHICLE_RESPAWN_TIME) {
         return false;
     }
 
@@ -104,8 +101,13 @@ function respawnVehicleById(vehicleid, forced = false) {
         return false;
     }
 
+    // maybe vehicle is moving - means its active
+    if (isVehicleMoving(vehicleid)) {
+        return data.time = getTimestamp();
+    }
+
     // reset respawn time
-    respawn.time = getTimestamp();
+    data.time = getTimestamp();
 
     // reset position/rotation
     setVehiclePosition(vehicleid, data.position.x, data.position.y, data.position.z);
@@ -113,6 +115,7 @@ function respawnVehicleById(vehicleid, forced = false) {
 
     // reset other parameters
     repairVehicle(vehicleid);
+    setVehicleFuel(vehicleid, VEHICLE_FUEL_DEFAULT);
 
     return true;
 }
@@ -133,6 +136,7 @@ function destroyAllVehicles() {
  * @return bool
  */
 function blockVehicle(vehicleid) {
+    setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
     return setVehicleFuel(vehicleid, 0.0);
 }
 
@@ -142,6 +146,6 @@ function blockVehicle(vehicleid) {
  * @param {float} fuel
  * @return {bool}
  */
-function unblockVehicle(vehicleid, fuel = 50.0) {
+function unblockVehicle(vehicleid, fuel = VEHICLE_FUEL_DEFAULT) {
     return setVehicleFuel(vehicleid, fuel);
 }
