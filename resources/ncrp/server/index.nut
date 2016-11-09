@@ -38,7 +38,6 @@ include("controllers/telephone");
 include("controllers/utils");
 include("controllers/screen");
 include("controllers/admin");
-include("controllers/rentcar");
 
 // bind general events
 addEventHandler("onScriptInit", function() {

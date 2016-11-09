@@ -20,6 +20,7 @@ cmd(["fix"], function( playerid ) {
     {
         local vehicleid = getPlayerVehicle( playerid );
         repairVehicle( vehicleid );
+        setVehicleFuel( vehicleid, 50.0 );
     }
 });
 
