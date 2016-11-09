@@ -70,6 +70,19 @@ addEventHandler ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat )
     }
 });
 
+addEventHandler( "onPlayerDisconnect",  function ( playerid, reason ) {
+        foreach (vehicleid, value in rentcars) {
+            if (value[1] == "free") {
+                continue;
+            }
+            if (playerid == value[1]) {
+                setVehicleFuel(vehicleid, 0.0);
+                setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
+                rentcars[vehicleid][1] = "free";
+            }
+        }
+});
+
 
 addEventHandlerEx("onServerMinuteChange", function() {
 // called every game time minute changes
