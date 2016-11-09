@@ -8,13 +8,9 @@ playerList <- null;
 addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial) {
     players[playerid] <- {};
     players[playerid]["job"] <- null;
-    players[playerid]["money"] <- 0.63;
+    players[playerid]["money"] <- 1.75;
     players[playerid]["skin"] <- 10;
     players[playerid]["request"] <- {}; // need for invoice to transfer money
-
-    players[playerid]["taxi"] <- {};
-    players[playerid]["taxi"]["call_address"] <- false; // Address from which was caused by a taxi
-    players[playerid]["taxi"]["call_state"] <- false; // Address from which was caused by a taxi
 
     playerList.addPlayer(playerid, name, ip, serial);
 });
