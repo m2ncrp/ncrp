@@ -2,6 +2,7 @@ include("controllers/vehicle/functions/lights.nut");
 include("controllers/vehicle/functions/validators.nut");
 include("controllers/vehicle/functions/additional.nut");
 include("controllers/vehicle/functions/overrides.nut");
+include("controllers/vehicle/functions/passengers.nut");
 
 const VEHICLE_RESPAWN_TIME = 30; // 10 minutes
 const VEHICLE_FUEL_DEFAULT = 40.0;
@@ -82,7 +83,7 @@ function resetVehicleRespawnTimer(vehicleid) {
  * @return {boolean}
  */
 function tryRespawnVehicleById(vehicleid, forced = false) {
-    if (!vehicleid in vehicles) {
+    if (!(vehicleid in vehicles)) {
         return false;
     }
 
@@ -94,6 +95,10 @@ function tryRespawnVehicleById(vehicleid, forced = false) {
 
     if ((getTimestamp() - data.time) < VEHICLE_RESPAWN_TIME) {
         return false;
+    }
+
+    if (!isVehicleEmpty(vehicleid)) {
+        return;
     }
 
     // maybe vehicle already near its default place
