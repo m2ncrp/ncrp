@@ -12,10 +12,13 @@ function updateVehiclePassengers() {
 
     foreach (playerid, value in players) {
         if (isPlayerInVehicle(playerid)) {
-            if (!vehicleid in occupatedVehicles) {
+            local vehicleid = getPlayerVehicle(playerid);
+
+            if (!(vehicleid in occupatedVehicles)) {
                 occupatedVehicles[vehicleid] <- [];
             }
 
+            // push player to vehicle
             occupatedVehicles[vehicleid].push(playerid);
         }
     }
@@ -38,5 +41,5 @@ function getVehiclePassengers(vehicleid) {
  * @return {Boolean}
  */
 function isVehicleEmpty(vehicleid) {
-    return (vehicleid in passengers && passengers[vehicleid].len() > 0);
+    return ((vehicleid in passengers) && passengers[vehicleid].len() > 0);
 }
