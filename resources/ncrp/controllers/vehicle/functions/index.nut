@@ -33,9 +33,17 @@ createVehicle = function(modelid, x, y, z, rx, ry, rz) {
         }
     };
 
+    dbg("pusing", vehicle);
+
     return vehicle;
 };
 
+addEventHandler("onConsoleInput", function(p, b) {
+    dbg(vehicles.len());
+    foreach (idx, value in vehicles) {
+        dbg(idx);
+    }
+})
 /**
  * Set if vehicle can be automatically respawned
  * @param  {int} vehicleid
@@ -135,7 +143,6 @@ function tryRespawnVehicleById(vehicleid, forced = false) {
 function destroyAllVehicles() {
     foreach (vehicleid, vehicle in vehicles) {
         destroyVehicle(vehicleid);
-        delete vehicles[vehicleid];
     }
 }
 
