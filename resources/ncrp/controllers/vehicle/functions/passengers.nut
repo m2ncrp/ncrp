@@ -41,5 +41,5 @@ function getVehiclePassengers(vehicleid) {
  * @return {Boolean}
  */
 function isVehicleEmpty(vehicleid) {
-    return ((vehicleid in passengers) && passengers[vehicleid].len() > 0);
+    return (getVehiclePassengers(vehicleid).len() < 1);
 }
