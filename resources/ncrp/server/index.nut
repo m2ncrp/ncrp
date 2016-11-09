@@ -55,6 +55,7 @@ addEventHandler("onScriptInit", function() {
 addEventHandler("onScriptExit", function() {
     triggerServerEventEx("onServerStopping");
     triggerServerEventEx("onServerStopped");
+    ::print("---------------------------------------");
 });
 
 addEventHandler("onServerShutdown", function() {
