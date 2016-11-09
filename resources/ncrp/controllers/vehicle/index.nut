@@ -1,30 +1,6 @@
+include("controllers/vehicle/functions.nut");
 include("controllers/vehicle/commands.nut");
 include("controllers/vehicle/hiddencars.nut");
-include("controllers/vehicle/functions.nut");
-include("controllers/rentcar/index.nut");
-
-// saving original vehicle method
-local old__createVehicle = createVehicle;
-
-// creating storage for vehicles
-local vehicles = [];
-local vehicleOverrides = {};
-
-function addVehicleOverride(range, callback) {
-    if (typeof range != "array") {
-        range = [range];
-    }
-
-    return range.map(function(item) {
-        vehicleOverrides[item] <- callback;
-    });
-}
-
-function getVehicleOverride(vehicleid, modelid) {
-    if (modelid in vehicleOverrides) {
-        vehicleOverrides[modelid](vehicleid);
-    }
-}
 
 addEventHandler("onScriptInit", function() {
     // police cars
@@ -56,31 +32,38 @@ addEventHandler("onScriptInit", function() {
     });
 });
 
-// overriding to custom one
-createVehicle = function(modelid, x, y, z, rx, ry, rz) {
-    local vehicle = old__createVehicle(
-        modelid.tointeger(), x.tofloat(), y.tofloat(), z.tofloat(), rx.tofloat(), ry.tofloat(), rz.tofloat()
-    );
-
-    // apply default functions
-    setVehicleRotation(vehicle, rx.tofloat(), ry.tofloat(), rz.tofloat());
-    getVehicleOverride(vehicle, modelid.tointeger());
-
-    // save ids
-    vehicles.push(vehicle);
-
-    return vehicle;
-};
-
 // binding events
 addEventHandlerEx("onServerStarted", function() {
     log("[vehicles] starting...");
-    createVehicle(8, -1546.6, -156.406, -19.2969, -0.241408, 2.89541, -2.29698);    // Sand Island
-    createVehicle(9, -1537.77, -168.93, -19.4142, 0.0217354, 0.396637, -2.80105);   // Sand Island
-    createVehicle(20, -1525.16, -193.591, -19.9696, 90.841, -0.248158, 3.35295);    // Sand Island
+
+    // load all vehicles from db
+    Vehicle.findAll(function(err, results) {
+        foreach (idx, vehicle in results) {
+            // create vehicle
+            local vehicleid = createVehicle(vehicle.modelid, vehicle.x, vehicle.y, vehicle.z, vehicle.rx, vehicle.ry, vehicle.rz);
+
+            // load all the data
+            setVehicleColour(vehicleid, vehicle.cra, vehicle.cga, vehicle.cba, vehicle.crb, vehicle.cgb, vehicle.cbb);
+            setVehicleRotation(vehicleid, vehicle.rx, vehicle.ry, vehicle.rz);
+            setVehicleRespawnEx(vehicleid, false);
+            setVehicleTuningTable(vehicleid, vehicle.tuning);
+        }
+    });
 });
+
+addEventHandlerEx("onServerTimeMinute", function() {
+    checkVehicleRespawns();
+});
+
+addEventHandler("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
+    resetVehicleRespawnTimer(vehicleid);
+});
+
+// addEventHandler("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
+//     // do nothing
+// });
 
 // clearing all vehicles on server stop
 addEventHandlerEx("onServerStopping", function() {
-    vehicles.apply(destroyVehicle);
+    destroyAllVehicles();
 });
