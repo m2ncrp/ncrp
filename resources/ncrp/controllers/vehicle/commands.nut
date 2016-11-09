@@ -50,7 +50,6 @@ cmd("paint", function(playerid, red, green, blue) {
     setVehicleColour(getPlayerVehicle(playerid), r, g, b, r, g, b);
 });
 
-
 cmd("lights", function(playerid) {
     switchLights(playerid);
 });
@@ -67,6 +66,13 @@ cmd("aviar", function(playerid) {
     switchBothLight(playerid);
 });
 
+cmd("jump", function(playerid) {
+    if (isPlayerInVehicle(playerid)) {
+        local vehicleid = getPlayerVehicle(playerid);
+        local sp = getVehicleSpeed(vehicleid);
+        setVehicleSpeed(vehicleid, sp[0], sp[1], sp[2] + 4.0);
+    }
+});
 
 /**
  * KEYBINDS
@@ -85,4 +91,12 @@ addKeyboardHandler("j", "up", function(playerid) {
 
 addKeyboardHandler("g", "up", function(playerid) {
     switchBothLight(playerid);
+});
+
+addKeyboardHandler("y", "up", function(playerid) {
+    if (isPlayerInVehicle(playerid)) {
+        local vehicleid = getPlayerVehicle(playerid);
+        local sp = getVehicleSpeed(vehicleid);
+        setVehicleSpeed(vehicleid, sp[0], sp[1], sp[2] + 4.0);
+    }
 });
