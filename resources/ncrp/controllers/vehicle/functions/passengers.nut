@@ -27,6 +27,38 @@ function updateVehiclePassengers() {
 }
 
 /**
+ * Add passanger to vehicle
+ * @param {int} vehicleid
+ * @param {int} playerid
+ */
+function addVehiclePassenger(vehicleid, playerid) {
+    if (!(vehicleid in passengers)) {
+        passengers[vehicleid] <- [];
+    }
+
+    // push player to vehicle
+    passengers[vehicleid].push(playerid);
+}
+
+/**
+ * Add passanger to vehicle
+ * @param {int} vehicleid
+ * @param {int} playerid
+ */
+function removeVehiclePassenger(vehicleid, playerid) {
+    if (!(vehicleid in passengers)) {
+        return;
+    }
+
+    // push player to vehicle
+    local index = passengers[vehicleid].find(playerid);
+
+    if (index >= 0) {
+        passengers[vehicleid].remove(index);
+    }
+}
+
+/**
  * Return all players in particular vehicle
  * @param  {int} vehicleid
  * @return {array}
