@@ -42,7 +42,7 @@ class World {
         this.sendToAllClients();
 
         if (!(this.time.minute % AUTOSAVE_TIME)) {
-            callEvent("onAutosave");
+            triggerServerEventEx("onServerAutosave");
         }
     }
 
