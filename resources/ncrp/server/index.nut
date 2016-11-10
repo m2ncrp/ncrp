@@ -8,6 +8,7 @@ include("models/Account.nut");
 include("models/Vehicle.nut");
 include("models/TeleportPosition.nut");
 include("models/TimestampStorage.nut");
+include("models/StatisticPoint.nut");
 
 // load helpers
 include("helpers/array.nut");
