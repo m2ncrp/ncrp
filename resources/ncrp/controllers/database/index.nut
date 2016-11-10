@@ -35,6 +35,12 @@ addEventHandlerEx("__networkRequest", function(request) {
         local result = [];
         local tmp = connection.query(request.data.query);
 
+        // log query and result
+        if (IS_DATABASE_DEBUG) {
+            ::log("Incoming SQL request: " + request.data.query);
+            dbg(tmp);
+        }
+
         // manuanlly push sqlite forced last inserted id after insert
         if (request.data.query.slice(0, 6).toupper() == "INSERT") {
             tmp = connection.query("select last_insert_rowid() as id");
@@ -46,12 +52,6 @@ addEventHandlerEx("__networkRequest", function(request) {
         // override tmp indexes
         foreach (idx, value in tmp) {
             result.push(value);
-        }
-
-        // log query and result
-        if (IS_DATABASE_DEBUG) {
-            ::log("Incoming SQL request: " + request.data.query);
-            dbg(result);
         }
 
         Response({result = result}, request).send();

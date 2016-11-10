@@ -158,3 +158,8 @@ function blockVehicle(vehicleid) {
 function unblockVehicle(vehicleid, fuel = VEHICLE_FUEL_DEFAULT) {
     return setVehicleFuel(vehicleid, fuel);
 }
+
+
+function getCustomPlayerVehicles() {
+    return [];
+}
