@@ -30,3 +30,7 @@ function statisticsPushPlayers() {
         point.save();
     }
 }
+
+addEventHandlerEx("onServerAutosave", function() {
+    statisticsPushPlayers();
+});
