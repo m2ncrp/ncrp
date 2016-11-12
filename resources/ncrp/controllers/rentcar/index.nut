@@ -42,6 +42,7 @@ function RentCar(playerid) {
     }
     rentcars[vehicleid][1] = playerid;
     setVehicleFuel(vehicleid, 28.0);
+    setVehicleRespawnEx(vehicleid, false);
     msg(playerid, "You rented this car. If you want to refuse from rent: /rent refuse");
 }
 
@@ -55,6 +56,7 @@ function RentCarRefuse(playerid) {
     foreach (vehicleid, value in rentcars) {
         if (value[1] == playerid) {
             rentcars[vehicleid][1] = "free";
+            setVehicleRespawnEx(vehicleid, true);
         }
     }
     msg(playerid, "You refused from rent all cars. Thank you for choosing North Millville Car Rental!");
@@ -79,6 +81,7 @@ addEventHandler( "onPlayerDisconnect",  function ( playerid, reason ) {
                 setVehicleFuel(vehicleid, 0.0);
                 setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
                 rentcars[vehicleid][1] = "free";
+                setVehicleRespawnEx(vehicleid, true);
             }
         }
 });
@@ -95,6 +98,7 @@ addEventHandlerEx("onServerMinuteChange", function() {
             setVehicleFuel(vehicleid, 0.0);
             setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
             rentcars[vehicleid][1] = "free";
+            setVehicleRespawnEx(vehicleid, true);
             msg(playerid, "You can't drive this car more, because you don't have enough money. Please, get out of the car.");
         } else {
             subMoneyToPlayer(playerid, value[0]);
