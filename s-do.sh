@@ -13,18 +13,22 @@ branchName=$(git rev-parse --abbrev-ref HEAD)
 branchMinor=""
 
 DEBUG_HEADER() {
-	echo ""
-	# Show xml content
-	./XML.exe el -a $xmlFile
-	echo ""
-	# Show xml content with values
-	./XML.exe el -v $xmlFile	
+	if [ $DEBUG == "true" ]; then
+		echo ""
+		# Show xml content
+		./XML.exe el -a $xmlFile
+		echo ""
+		# Show xml content with values
+		./XML.exe el -v $xmlFile	
+	fi
 }
 
 DEBUG_FOOTER() {
-	echo ""
-	echo "= = After changes = ="
-	./XML.exe el -v $xmlFile
+	if [ $DEBUG == "true" ]; then
+		echo ""
+		echo "= = After changes = ="
+		./XML.exe el -v $xmlFile
+	fi
 }
 
 # {url}: http://stackoverflow.com/questions/9726143/searching-for-xml-tag-by-value-between-them-and-inserting-a-new-tag-in-shell-scr
@@ -60,10 +64,7 @@ updateAllBranches() {
 		./XML.exe ed --inplace -u $xmlPath -v "$2" $xmlFile
 	fi
 
-
-	if [ $DEBUG == "true" ]; then
-		DEBUG_FOOTER
-	fi
+	DEBUG_FOOTER
 }
 
 updateBranchVersion() {
@@ -92,10 +93,7 @@ updateBranchVersion() {
 		./XML.exe ed --inplace -u $xmlPath -v "$2" $xmlFile
 	fi
 
-
-	if [ $DEBUG == "true" ]; then
-		DEBUG_FOOTER
-	fi
+	DEBUG_FOOTER
 }
 
 getMinor() {
@@ -105,18 +103,15 @@ getMinor() {
 }
 
 checkCommit() {
-	if [ $DEBUG == "true" ]; then
-		DEBUG_HEADER
-	fi
+	DEBUG_HEADER
 
-
-	echo -e "Branch: \t$branchName"
-	echo -e "Commit hash: \t$(git rev-parse --verify HEAD)"
+	echo -e "Branch: \t\t$branchName"
+	echo -e "Current commit hash: \t$(git rev-parse --verify HEAD)"
 	getMinor
 
 	xmlPath="//branch[@name='"$branchName"']/commit"
 	commitHash=$(./XML.exe sel -t -v $xmlPath $xmlFile)
-	echo "env.xml commit hash: "$commitHash
+	echo -e "env.xml commit hash: \t"$commitHash
 
 	# Get number of commits since certain commit hash
 		# {url}: http://stackoverflow.com/questions/7693249/commits-since-a-certain-commit-number
@@ -124,25 +119,24 @@ checkCommit() {
 	commitCount=$(git rev-list $commitHash..HEAD --count)
 	echo "Since "$commitHash" "$commitCount" commits more!"
 
-	echo "Minor value was = "$branchMinor
-	# {url}: http://askubuntu.com/questions/385528/how-to-increment-a-variable-in-bash
-	branchMinor=$((branchMinor+commitCount))
-	echo "Now value become = "$branchMinor
+	# No need to output same minor twice if there's no new commits
+	if [[ $commitCount != 0 ]]; then
+		echo "Minor value was  = "$branchMinor
+		# {url}: http://askubuntu.com/questions/385528/how-to-increment-a-variable-in-bash
+		branchMinor=$((branchMinor+commitCount))
+		echo "Now value become = "$branchMinor
 
-	# update minor value for branch
-	xmlPath="//branch[@name='"$branchName"']/commit/@minor"
-	./XML.exe ed --inplace -u $xmlPath -v "$branchMinor" $xmlFile
-	
-	# update commit hash
-	xmlPath="//branch[@name='"$branchName"']/commit"
-	commitHash=$(git rev-parse HEAD)
-	./XML.exe ed --inplace -u $xmlPath -v "$commitHash" $xmlFile
-
-
-	if [ $DEBUG == "true" ]; then
-		DEBUG_FOOTER
+		# update minor value for branch
+		xmlPath="//branch[@name='"$branchName"']/commit/@minor"
+		./XML.exe ed --inplace -u $xmlPath -v "$branchMinor" $xmlFile
+		
+		# update commit hash
+		xmlPath="//branch[@name='"$branchName"']/commit"
+		commitHash=$(git rev-parse HEAD)
+		./XML.exe ed --inplace -u $xmlPath -v "$commitHash" $xmlFile
 	fi
 
+	DEBUG_FOOTER
 	echo ""
 }
 
