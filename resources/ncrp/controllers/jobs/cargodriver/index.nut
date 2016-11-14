@@ -88,7 +88,7 @@ addCommandHandler("job_cargo_leave", function ( playerid ) {
                 sendPlayerMessage( playerid, "You leave this job." );
                 setPlayerModel( playerid, 10 );
                 players[playerid]["job"] = null;
-                players[playerid]["cargostatus"] = "free";
+                job_cargo[playerid]["cargostatus"] = false;
             } else { sendPlayerMessage( playerid, "You're not a cargo delivery driver."); }
         } else { sendPlayerMessage( playerid, "Let's go to Derek office at City Port." ); }
 });
