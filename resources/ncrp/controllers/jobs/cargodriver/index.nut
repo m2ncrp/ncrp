@@ -5,8 +5,8 @@ local cargocars = {};
 
 
 const RADIUS_CARGO = 1.0;
-const CARGO_JOB_X = -422.731;
-const CARGO_JOB_Y = 479.462;
+const CARGO_JOB_X = -348.071;
+const CARGO_JOB_Y = -731.48;
 
 local cargocoords = {};
 cargocoords["PortChinese"] <- [-217.298, -724.771, -21.423]; // PortPlace P3 06 Chinese
@@ -34,126 +34,125 @@ function isCargoDriver(playerid) {
 }
 
 /**
- * Check is player's vehicle is a bus
+ * Check is player's vehicle is a fish truck
  * @param  {int}  playerid
  * @return {Boolean} true/false
  */
 function isPlayerVehicleCargo(playerid) {
-    return (isPlayerInValidVehicle(playerid, 20));
+    return (isPlayerInValidVehicle(playerid, 38));
 }
 
-/**
- * Check is BusReady
- * @param  {int}  playerid
- * @return {Boolean} true/false
- */
-function isCargoReady(playerid) {
-    return job_bus[playerid]["busready"];
-}
-
+// working good, check
 function cargoJob( playerid ) {
 
+    if(!isPlayerInValidPoint(playerid, CARGO_JOB_X, CARGO_JOB_Y, RADIUS_CARGO)) {
+        return msg( playerid, "Let's go to Derek office at City Port." );
+    }
+
+    if(isCargoDriver( playerid )) {
+        return msg( playerid, "You're cargo delivery driver already." );
+    }
+
+    if(isPlayerHaveJob(playerid)) {
+        return msg( playerid, "You already have a job: " + getPlayerJob(playerid) + ".");
+    }
+
+    msg( playerid, "You're a cargo delivery driver now. Welcome! Ha-ha..." );
+    msg( playerid, "Go to Seagift Co. at Chinatown, get behind wheel of truck of fish and get your ass to warehouse P3 06 at Port." );
+    setPlayerModel( playerid, 130 );
+    players[playerid]["job"] = "cargodriver";
 }
 
 // working good, check
-addCommandHandler("job_cargo", function ( playerid ) {
-    local myPos = getPlayerPosition( playerid );
-        local check = isPointInCircle2D( myPos[0], myPos[1], -348.071, -731.48, RADIUS_CARGO );
-        if(check) {
-            if(players[playerid]["job"] == "cargodriver") {
-                sendPlayerMessage( playerid, "You're cargo delivery driver already.");
-                return;
-            }
-            if(players[playerid]["job"] == null) {
-                sendPlayerMessage( playerid, "You're a cargo delivery driver now. Welcome! Ha-ha..." );
-                sendPlayerMessage( playerid, "Go to Seagift Co. at Chinatown, get behind wheel of truck of fish and get your ass to warehouse P3 06 at Port." );
-                setPlayerModel( playerid, 130 );
-                players[playerid]["job"] = "cargodriver";
+function cargoJobLeave( playerid ) {
 
-            } else {
-                sendPlayerMessage( playerid, "You already have a job: " + players[playerid]["job"]);
-            }
-        } else {
-            sendPlayerMessage( playerid, "Let's go to Derek office at City Port." );
-        }
-});
+    if(!isPlayerInValidPoint(playerid, CARGO_JOB_X, CARGO_JOB_Y, RADIUS_CARGO)) {
+        return msg( playerid, "Let's go to Derek office at City Port." );
+    }
+
+    if(!isCargoDriver(playerid)) {
+        return msg( playerid, "You're not a cargo delivery driver.");
+    } else {
+        msg( playerid, "You leave this job." );
+        setPlayerModel( playerid, 10 );
+        players[playerid]["job"] = null;
+        job_cargo[playerid]["cargostatus"] = false;
+    }
+}
+
+// working good, check
+function cargoJobLoad( playerid ) {
+    if(!isCargoDriver(playerid)) {
+        return msg( playerid, "You're not a cargo delivery driver.");
+    }
+
+    if (!isPlayerVehicleCargo(playerid)) {
+        return msg( playerid, "You need a fish truck.");
+    }
+
+    if(!isVehicleInValidPoint(playerid, cargocoords["PortChinese"][0], cargocoords["PortChinese"][1], 4.0 )) {
+        return msg( playerid, "Go to warehouse P3 06 at Port to load fish truck.");
+    }
+
+    if(isPlayerVehicleMoving(playerid)){
+        return msg( playerid, "You're driving. Please stop the truck.");
+    }
+
+    local vehicleid = getPlayerVehicle(playerid);
+    if(cargocars[vehicleid][0]) {
+        return msg( playerid, "Truck already loaded.");
+    }
+
+    cargocars[vehicleid][0] = true;
+    msg( playerid, "The truck loaded. Go back to Seagift to unload.")
+}
+
+// working good, check
+function cargoJobUnload( playerid ) {
+    if(!isCargoDriver(playerid)) {
+        return msg( playerid, "You're not a cargo delivery driver.");
+    }
+
+    if (!isPlayerVehicleCargo(playerid)) {
+        return msg( playerid, "You need a fish truck.");
+    }
+
+    local vehicleid = getPlayerVehicle(playerid);
+    if(!cargocars[vehicleid][0]) {
+        return msg( playerid, "Truck is empty. Go to Port to load." );
+    }
+
+    if(!isVehicleInValidPoint(playerid, 396.5, 98.0385, 4.0 )) {
+        return msg( playerid, "Go to Seagift to unload.");
+    }
+
+    if(isPlayerVehicleMoving(playerid)){
+        return msg( playerid, "You're driving. Please stop the truck.");
+    }
+
+    job_cargo[playerid]["cargostatus"] = true;
+    cargocars[vehicleid][0] = false;
+    msg( playerid, "Go to Derek office at City Port and take your money." );
+    removePlayerFromVehicle( playerid );
+}
 
 
 // working good, check
-addCommandHandler("job_cargo_leave", function ( playerid ) {
-    local myPos = getPlayerPosition( playerid );
-        local check = isPointInCircle2D( myPos[0], myPos[1], -348.071, -731.48, RADIUS_CARGO );
-        if(check) {
-            if(players[playerid]["job"] == "cargodriver")    {
-                sendPlayerMessage( playerid, "You leave this job." );
-                setPlayerModel( playerid, 10 );
-                players[playerid]["job"] = null;
-                job_cargo[playerid]["cargostatus"] = false;
-            } else { sendPlayerMessage( playerid, "You're not a cargo delivery driver."); }
-        } else { sendPlayerMessage( playerid, "Let's go to Derek office at City Port." ); }
-});
+function cargoJobFinish( playerid ) {
 
-// working good, check
-addCommandHandler("loadcargo", function ( playerid ) {
-    if(players[playerid]["job"] == "cargodriver")    {
-        if( isPlayerInVehicle( playerid ) ) {
-            local vehicleid = getPlayerVehicle( playerid );
-            local vehicleModel = getVehicleModel( vehicleid );
-            if(vehicleModel == 38) {
-                    local vehPos = getVehiclePosition( vehicleid );
-                    local check = isPointInCircle2D( vehPos[0], vehPos[1], cargocoords["PortChinese"][0], cargocoords["PortChinese"][1], 4.0 );
-                    if (check) {
-                        local velocity = getVehicleSpeed( vehicleid );
-                        if(fabs(velocity[0]) <= 0.5 && fabs(velocity[1]) <= 0.5) {
-                            if(cargocars[vehicleid][0] == false) {
-                                cargocars[vehicleid][0] = true;
-                                sendPlayerMessage( playerid, "The truck loaded. Go back to Seagift to unload.")
-                            } else { sendPlayerMessage( playerid, "Truck already loaded." ); }
-                        } else { sendPlayerMessage( playerid, "You're driving. Please stop the truck.");    }
-                    } else { sendPlayerMessage( playerid, "Go to warehouse P3 06 at Port to load fish truck." );   }
-            } else { sendPlayerMessage( playerid, "This car isn't a fish truck." ); }
-        } else { sendPlayerMessage( playerid, "You need a fish truck." ); }
-    } else { sendPlayerMessage( playerid, "You're not a cargo delivery driver."); }
+    if(!isCargoDriver(playerid)) {
+        return msg( playerid, "You're not a cargo delivery driver.");
+    }
 
-});
+    if(!job_cargo[playerid]["cargostatus"]) {
+        return msg( playerid, "You must complete delivery before.");
+    }
 
-// working good, check
-addCommandHandler("unloadcargo", function ( playerid ) {
-    if(players[playerid]["job"] == "cargodriver")    {
-        if( isPlayerInVehicle( playerid ) ) {
-            local vehicleid = getPlayerVehicle( playerid );
-            local vehicleModel = getVehicleModel( vehicleid );
-            if(vehicleModel == 38) {
-                    if(cargocars[vehicleid][0] == true) {
-                        local vehPos = getVehiclePosition( vehicleid );
-                        local check = isPointInCircle2D( vehPos[0], vehPos[1], 396.5, 98.0385, 4.0 );
-                        if (check) {
-                            local velocity = getVehicleSpeed( vehicleid );
-                            if(fabs(velocity[0]) <= 0.5 && fabs(velocity[1]) <= 0.5) {
-                                    job_cargo[playerid]["cargostatus"] = true;
-                                    cargocars[vehicleid][0] = false;
-                                    sendPlayerMessage( playerid, "Go to Derek office at City Port and take your money." );
-                                    removePlayerFromVehicle( playerid );
-                            } else { sendPlayerMessage( playerid, "You're driving. Please stop the truck.");    }
-                        } else { sendPlayerMessage( playerid, "Go to Seagift to unload." );    }
-                    } else { sendPlayerMessage( playerid, "Truck is empty. Go to Port to load." ); }
-            } else { sendPlayerMessage( playerid, "This car isn't a fish truck." ); }
-        } else { sendPlayerMessage( playerid, "You need a fish truck." ); }
-    } else { sendPlayerMessage( playerid, "You're not a cargo delivery driver."); }
-});
+    if(!isPlayerInValidPoint(playerid, CARGO_JOB_X, CARGO_JOB_Y, RADIUS_CARGO)) {
+        return msg( playerid, "Let's go to Derek office at City Port." );
+    }
 
-
-// working good, check
-addCommandHandler("cargofinish", function ( playerid ) {
-    if(players[playerid]["job"] == "cargodriver")    {
-        if(job_cargo[playerid]["cargostatus"]) {
-            local myPos = getPlayerPosition( playerid );
-            local check = isPointInCircle2D( myPos[0], myPos[1], -348.071, -731.48, RADIUS_CARGO );  //cabinetDerek
-            if (check) {
-                    job_cargo[playerid]["cargostatus"] = false;
-                    sendPlayerMessage( playerid, "Nice job, " + getPlayerName( playerid ) + "! Keep your $30." );
-                    addMoneyToPlayer(playerid, 30);
-            } else { sendPlayerMessage( playerid, "Go to Derek office at City Port." );    }
-        } else { sendPlayerMessage( playerid, "Complete delivery." );   }
-    } else { sendPlayerMessage( playerid, "You're not a cargo delivery driver."); }
-});
+    job_cargo[playerid]["cargostatus"] = false;
+    msg( playerid, "Nice job, " + getPlayerName( playerid ) + "! Keep your $30." );
+    addMoneyToPlayer(playerid, 30);
+}
