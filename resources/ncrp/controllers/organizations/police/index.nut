@@ -1,4 +1,33 @@
+/** TODO LIST
+1. Make police exclusive for players. Join only through admins, write names and serials into script. [DONE]
+2. Create rang system. ~3-4 rangs: police chief, officer, junior officer, detective (ability to work plain-clothes).
+4. Ability to rang up or down by admins.
+5. Remove selfshot by taser in cmds X)
+6. To end duty and become simple civilian make duty on and off cmds [HALF DONE]
+*/
+
+const RUPOR_RADIUS = 100.0;
+const POLICE_MODEL = 75;
+
+function policecmd(names, callback)  {
+    cmd(names, function(playerid, ...) {
+        local text = concat(vargv);
+
+        if (!text || text.len() < 1) {
+            return msg(playerid, "[INFO] You cant send an empty message.", CL_YELLOW);
+        }
+
+        // call registered callback
+        return callback(playerid, text);
+    });
+}
+
 include("controllers/organizations/police/commands.nut");
+
+// All players in this list are police officer permanently
+officerList <- [
+    ["Roberto_Lukini", "CD19A5029AE81BB50B023291846C0DF3"]
+];
 
 addEventHandlerEx("onServerStarted", function() {
     log("[police] starting police...");
@@ -10,10 +39,26 @@ addEventHandlerEx("onServerStarted", function() {
     createVehicle(51, -326.781, 663.293, -17.5188, 93.214, -2.95046, -0.0939897 ); // policeOldCarParking2
 });
 
+addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial) {
+    players[playerid]["serial"] <- serial;
+    if ( isOfficer(playerid) ) {
+        players[playerid]["job"] <- "policeofficer";
+        players[playerid]["skin"] <- POLICE_MODEL;
+    }    
+});
+
+addEventHandler ( "onPlayerSpawn", function( playerid ) {
+    msg( playerid, "You serial is: " + players[playerid]["serial"], CL_RED );
+
+    setPlayerModel( playerid, players[playerid]["skin"] );
+    givePlayerWeapon( playerid, 2, 0 );
+});
+
+
 addEventHandler ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
     if(isPlayerInPoliceVehicle(playerid) && getPlayerJob(playerid) != "policeofficer") {
         // set player wanted level or smth like that
-        return msg(playerid, "Would better not to do it.");
+        return msg(playerid, "You would better not to do it..", CL_GRAY);
     }
 });
 
@@ -34,51 +79,58 @@ function isPlayerInPoliceVehicle(playerid) {
  * @return {Boolean} true/false
  */
 function isOfficer(playerid) {
-    return (isPlayerHaveValidJob(playerid, "policeofficer"));
+    foreach (playerRecord in officerList) {
+        local name = playerRecord[0];
+        local ser = playerRecord[1];
+        if ( name == getPlayerName(playerid) && ser == players[playerid]["serial"] )
+            return true;
+    }
+    return false;
+    // return (isPlayerHaveValidJob(playerid, "policeofficer"));
 }
 
 
 /**
- * Become police officer
+ * Become police officer ABANDONED
  * @param  {int} playerid
  */
-function getPoliceJob(playerid) {
-    if(isOfficer(playerid)) {
-        return msg(playerid, "You're police officer already.");
-    }
+// function getPoliceJob(playerid) {
+//     if(isOfficer(playerid)) {
+//         return msg(playerid, "You're police officer already.");
+//     }
 
-    if(isPlayerHaveJob(playerid)) {
-        return msg(playerid, "You already have a job: " + getPlayerJob(playerid) + ".");
-    }
+//     if(isPlayerHaveJob(playerid)) {
+//         return msg(playerid, "You already have a job: " + getPlayerJob(playerid) + ".");
+//     }
 
-    if (!isPlayerInPoliceVehicle(playerid)) {
-        return msg(playerid, "You need a police car."); // not a car, but PD or PD chief
-    }
+//     if (!isPlayerInPoliceVehicle(playerid)) {
+//         return msg(playerid, "You need a police car."); // not a car, but PD or PD chief
+//     }
 
-    //setVehicleFuel( getPlayerVehicle(playerid), 56.0 );
-    players[playerid]["job"] = "policeofficer";
-    msg(playerid, "You became a police officer.");
-}
+//     //setVehicleFuel( getPlayerVehicle(playerid), 56.0 );
+//     players[playerid]["job"] = "policeofficer";
+//     msg(playerid, "You became a police officer.");
+// }
 
 
 /**
- * Leave from police
+ * Leave from police ABANDONED
  * @param  {int} playerid
  */
-function leavePoliceJob(playerid) {
-    if(!isOfficer(playerid)) {
-        return msg(playerid, "You're not a police officer.");
-    }
+// function leavePoliceJob(playerid) {
+//     if(!isOfficer(playerid)) {
+//         return msg(playerid, "You're not a police officer.");
+//     }
 
-    if(isPlayerHaveJob(playerid) && !isOfficer(playerid)) {
-        return msg(playerid, "You already have got a job: " + getPlayerJob(playerid) + ".");
-    }
+//     if(isPlayerHaveJob(playerid) && !isOfficer(playerid)) {
+//         return msg(playerid, "You already have got a job: " + getPlayerJob(playerid) + ".");
+//     }
 
-    // IDK Y, but I'll leave it here
-    if( isPlayerInPoliceVehicle(playerid) ) {
-        setVehicleFuel( getPlayerVehicle(playerid), 0.0 );
-    }
+//     // IDK Y, but I'll leave it here
+//     if( isPlayerInPoliceVehicle(playerid) ) {
+//         setVehicleFuel( getPlayerVehicle(playerid), 0.0 );
+//     }
 
-    players[playerid]["job"] = null;
-    msg(playerid, "You leave police department.");
-}
+//     players[playerid]["job"] = null;
+//     msg(playerid, "You leave police department.");
+// }

@@ -9,6 +9,7 @@ addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial) {
     players[playerid] <- {};
     players[playerid]["job"] <- null;
     players[playerid]["money"] <- 1.75;
+    players[playerid]["default_skin"] <- 10;
     players[playerid]["skin"] <- 10;
     players[playerid]["request"] <- {}; // need for invoice to transfer money
 
