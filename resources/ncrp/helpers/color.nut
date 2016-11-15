@@ -8,6 +8,11 @@ CL_YELLOW       <- rgb( 255, 255, 0   );
 CL_HELP         <- rgb( 200, 230, 255 );
 CL_HELP_TITLE   <- rgb( 200, 200, 0   );
 CL_HELP_LINE    <- rgb( 200, 100, 100 );
+CL_JOB_FUEL     <- rgb( 247, 202, 24  );
+CL_JOB_FUEL_GREEN  <- rgb( 38, 166, 91  );
+CL_JOB_FUEL_RED    <- rgb( 192, 57, 43  );
+
+
 
 
 CL_FLAMINGO       <- rgb( 239,  72,  54  );
