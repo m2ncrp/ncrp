@@ -8,6 +8,10 @@
 //     leavePoliceJob(playerid);
 // });
 
+cmd("serial", function(playerid) {
+    msg( playerid, "Your serial is: " + players[playerid]["serial"], CL_RED );
+});
+
 // usage: /police duty on
 cmd("police", ["duty", "on"], function(playerid) {
     setPlayerModel(playerid, POLICE_MODEL);
@@ -47,7 +51,7 @@ policecmd("rupor", function(playerid, text) {
 });
 
 
-cmd(["ticket"], function(playerid, targetid, price, reason) {
+policecmd(["ticket"], function(playerid, targetid, price, reason) {
     if ( isOfficer(playerid) ) {
         msg(targetid, getAuthor(playerid) + " give you ticket for " + reason + " . Type /accept <id>");
         sendInvoice( playerid, targetid, price );
@@ -55,16 +59,16 @@ cmd(["ticket"], function(playerid, targetid, price, reason) {
 });
 
 
-// Selfshot for now :3
 cmd("taser", function( playerid ) {
     if ( isOfficer(playerid) ) {
         local targetid = playerList.nearestPlayer( playerid );
         dbg( targetid ); // Souldn't be NULL
         screenFadeinFadeout(playerid, 800, function() {
-            msg( playerid, "You's been shot by taser" );
-            togglePlayerControls( playerid, false );
+            msg( targetid, "You shot " + getAuthor(targetid) + " by taser." );
+            msg( targetid, "You's been shot by taser" );
+            togglePlayerControls( targetid, false );
         });
-        togglePlayerControls( playerid, true );
+        togglePlayerControls( targetid, true );
     } else {
         msg( playerid, "You have no taser couse you're not a cop." );
     }
