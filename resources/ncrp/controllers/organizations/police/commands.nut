@@ -51,8 +51,9 @@ policecmd("rupor", function(playerid, text) {
 });
 
 
-policecmd(["ticket"], function(playerid, targetid, price, reason) {
+cmd(["ticket"], function(playerid, targetid, price, ...) {
     if ( isOfficer(playerid) ) {
+        local reason = makeMeText(playerid, vargv);
         msg(targetid, getAuthor(playerid) + " give you ticket for " + reason + " . Type /accept <id>");
         sendInvoice( playerid, targetid, price );
     }
