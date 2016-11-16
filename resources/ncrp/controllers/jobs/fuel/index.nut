@@ -271,13 +271,13 @@ function fuelJobPark ( playerid ) {
 // working good, check
 function fuelJobList ( playerid ) {
     if(players[playerid]["job"] == "fueldriver")    {
-        msg( playerid, "========== List of route ==========", CL_JOB_FUEL);
+        msg( playerid, "========== List of route ==========", CL_JOB_LIST);
         foreach (key, value in job_fuel[playerid]["fuelstatus"]) {
             local i = key+1;
             if (value == true) {
-                msg( playerid, i + ". Gas station in " + fuelname[key] + " - completed", CL_JOB_FUEL_GREEN);
+                msg( playerid, i + ". Gas station in " + fuelname[key] + " - completed", CL_JOB_LIST_GR);
             } else {
-                msg( playerid, i + ". Gas station in " + fuelname[key] + " - waiting", CL_JOB_FUEL_RED);
+                msg( playerid, i + ". Gas station in " + fuelname[key] + " - waiting", CL_JOB_LIST_R);
             }
         }
     } else { msg( playerid, "You're not a fuel truck driver"); }

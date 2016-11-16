@@ -22,12 +22,12 @@ addEventHandler("onScriptInit", function() {
     });
 
     // armoured lassister 75
-    addVehicleOverride(17, function() {
+    addVehicleOverride(17, function(id) {
         setVehicleColour(id, 0, 0, 0, 0, 0, 0);
     });
 
     // milk
-    addVehicleOverride(19, function() {
+    addVehicleOverride(19, function(id) {
         setVehicleColour(id, 160, 160, 130, 50, 230, 50);
     });
 });
