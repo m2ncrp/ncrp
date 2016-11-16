@@ -5,7 +5,16 @@ include("controllers/player/functions.nut");
 players <- {};
 playerList <- null;
 
+default_spawns <- [
+    [-555.251,  1702.31, -22.2408], // railway
+    [ 100.421,  1776.41, -24.0068], // bomj style
+    [-402.282, -828.907, -21.7456]  // port
+];
+
 addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial) {
+    // probably should be at player registration once, not on every spawn
+    local res = random(0,3);
+
     players[playerid] <- {};
     players[playerid]["job"] <- null;
     players[playerid]["money"] <- 1.75;
