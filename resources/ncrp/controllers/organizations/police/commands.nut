@@ -102,10 +102,11 @@ cmd(["prison", "jail"], function(playerid) {
 
 // usage: /help job police
 cmd("help", ["job", "police"], function(playerid) {
+    msg( playerid, "If you want to join Police Department write one of admins!" );
     local title = "List of available commands for Police Officer JOB:";
     local commands = [
-        { name = "/police job",             desc = "Get police officer job" },
-        { name = "/police job leave",       desc = "Leave from police department job" },
+        // { name = "/police job",             desc = "Get police officer job" },
+        // { name = "/police job leave",       desc = "Leave from police department job" },
         { name = "/r <text>",               desc = "Send message to all police officers in vehicles"},
         { name = "/rupor <text>",           desc = "Say smth to vehicle rupor"},
         { name = "/ticket <id> <amount>",   desc = "Take ticket to player given <id>. Example: /ticket 0 5.2" },
