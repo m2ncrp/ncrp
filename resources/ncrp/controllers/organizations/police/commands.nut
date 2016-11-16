@@ -92,10 +92,12 @@ cmd(["uncuff"], function(playerid) {
     }
 });
 
-cmd(["prison", "jail"], function(playerid) {
+cmd(["prison", "jail"], function(playerid, targetid) {
     if ( isOfficer(playerid) ) {
-        togglePlayerControls( targetid, false );
-        //  fade in, output "Wasted" and set player position
+        screenFadein(playerid, 1500, function() {
+            togglePlayerControls( targetid, false );
+        //  output "Wasted" and set player position
+        });        
     }
 });
 
