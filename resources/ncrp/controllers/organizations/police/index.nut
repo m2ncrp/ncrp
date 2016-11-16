@@ -48,8 +48,6 @@ addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial) {
 });
 
 addEventHandler ( "onPlayerSpawn", function( playerid ) {
-    msg( playerid, "You serial is: " + players[playerid]["serial"], CL_RED );
-
     setPlayerModel( playerid, players[playerid]["skin"] );
     givePlayerWeapon( playerid, 2, 0 );
 });
