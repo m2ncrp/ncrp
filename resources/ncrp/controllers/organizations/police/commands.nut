@@ -9,7 +9,7 @@
 // });
 
 cmd("serial", function(playerid) {
-    msg( playerid, "Your serial is: " + players[playerid]["serial"], CL_RED );
+    msg( playerid, "Your serial is: " + players[playerid]["serial"], CL_THUNDERBIRD );
 });
 
 // usage: /police duty on
@@ -34,7 +34,7 @@ policecmd(["r", "ratio"], function(playerid, text) {
     // Enhaincment: loop through not players, but police vehicles with radio has on
     foreach (targetid in playerList.getPlayers()) {
         if ( isOfficer(targetid) && isPlayerInPoliceVehicle(targetid) ) {
-            msg( targetid, "[R] " + getAuthor(playerid) + ": " + text, CL_BLUE );
+            msg( targetid, "[R] " + getAuthor(playerid) + ": " + text, CL_ROYALBLUE );
         }
     }
 });
@@ -47,7 +47,7 @@ policecmd("rupor", function(playerid, text) {
         msg( playerid, "You should be in police vehicle!");
         return;
     }
-    inRadiusSendToAll(playerid, "[RUPOR] " + text, RUPOR_RADIUS, CL_BLUE);
+    inRadiusSendToAll(playerid, "[RUPOR] " + text, RUPOR_RADIUS, CL_ROYALBLUE);
 });
 
 

@@ -12,6 +12,19 @@ function random(min = 0, max = RAND_MAX) {
 }
 
 /**
+ * Generate random number (float)
+ * from a range
+ * by default range is 0...RAND_MAX
+ *
+ * @param  {float} min
+ * @param  {float} max
+ * @return {float}
+ */
+function randomf(min = 0.0, max = RAND_MAX) {
+    return (rand() % (max - min + 0.001)) + min;
+}
+
+/**
  * Max from a range (2 or more parameters)
  * @return {int}
  */
