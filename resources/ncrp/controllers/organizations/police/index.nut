@@ -22,6 +22,15 @@ function policecmd(names, callback)  {
     });
 }
 
+function makeMeText(playerid, vargv)  {
+    local text = concat(vargv);
+
+    if (!text || text.len() < 1) {
+        return msg(playerid, "[INFO] You cant send an empty message.", CL_YELLOW);
+    }
+    return text;
+}
+
 include("controllers/organizations/police/commands.nut");
 
 // All players in this list are police officer permanently

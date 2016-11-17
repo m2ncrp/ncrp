@@ -29,3 +29,9 @@ function isNearStation(playerid) {
     msg(playerid, "You are too far from any station!", CL_RED);
     return false;
 }
+
+function showAllStations(playerid) {
+    foreach (index, station in metroInfos) {
+        msg(playerid, "[INFO] Station number "+ index + " is " + station[3] +".", CL_YELLOW);
+    }
+}
