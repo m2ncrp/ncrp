@@ -51,8 +51,9 @@ policecmd("rupor", function(playerid, text) {
 });
 
 
-policecmd(["ticket"], function(playerid, targetid, price, reason) {
+cmd(["ticket"], function(playerid, targetid, price, ...) {
     if ( isOfficer(playerid) ) {
+        local reason = makeMeText(playerid, vargv);
         msg(targetid, getAuthor(playerid) + " give you ticket for " + reason + " . Type /accept <id>");
         sendInvoice( playerid, targetid, price );
     }
@@ -91,20 +92,23 @@ cmd(["uncuff"], function(playerid) {
     }
 });
 
-cmd(["prison", "jail"], function(playerid) {
+cmd(["prison", "jail"], function(playerid, targetid) {
     if ( isOfficer(playerid) ) {
-        togglePlayerControls( targetid, false );
-        //  fade in, output "Wasted" and set player position
+        screenFadein(playerid, 1500, function() {
+            togglePlayerControls( targetid, false );
+        //  output "Wasted" and set player position
+        });        
     }
 });
 
 
 // usage: /help job police
 cmd("help", ["job", "police"], function(playerid) {
+    msg( playerid, "If you want to join Police Department write one of admins!" );
     local title = "List of available commands for Police Officer JOB:";
     local commands = [
-        { name = "/police job",             desc = "Get police officer job" },
-        { name = "/police job leave",       desc = "Leave from police department job" },
+        // { name = "/police job",             desc = "Get police officer job" },
+        // { name = "/police job leave",       desc = "Leave from police department job" },
         { name = "/r <text>",               desc = "Send message to all police officers in vehicles"},
         { name = "/rupor <text>",           desc = "Say smth to vehicle rupor"},
         { name = "/ticket <id> <amount>",   desc = "Take ticket to player given <id>. Example: /ticket 0 5.2" },
