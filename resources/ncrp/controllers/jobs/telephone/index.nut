@@ -1,3 +1,5 @@
+include("controllers/jobs/telephone/commands.nut");
+
 local telephones = [
     [ -1021.87, 1643.44, 10.6318 ],     //  Telephone0 | Kingston. Near our prison.
     [ -562.58, 1521.96, -16.1836 ],     //  Telephone1 | Dipton. Taxi Parking.
@@ -15,8 +17,8 @@ local telephones = [
     [ -1170.64, 1578.32, 5.84166 ],     //  Telephone13 | Kingston. The Hill of Tara.
     [ -1297.43, 1491.66, -6.07104 ],    //  Telephone14 | Kingston. River Street, opposite to Kingston Stadium. Pair box.
     [ -1297.38, 1492.68, -6.07106 ],    //  Telephone15 | Kingston. River Street, opposite to Kingston Stadium. Pair box.
-    [ -1229.36, 1457.89, -4.88868 ],    //  Telephone16 | 
-    [ -1228.24, 1457.91, -4.85487 ],    //  Telephone17 | 
+    [ -1229.36, 1457.89, -4.88868 ],    //  Telephone16 | Kingston. Center of River Street. Pair box.
+    [ -1228.24, 1457.91, -4.85487 ],    //  Telephone17 | Kingston. Center of River Street. Pair box.
     [ -1046.37, 1429.04, -4.3155 ],     //  Telephone18 | Kingston. River Street, top of ladder to Kingston-Uptown Tunnel. Pair box.
     [ -1047.67, 1429.08, -4.31618 ],    //  Telephone19 | Kingston. River Street, top of ladder to Kingston-Uptown Tunnel. Pair box.
     [ -952.956, 1485.89, -4.74223 ],    //  Telephone20 | Kingston. East of River Street.
@@ -52,7 +54,7 @@ local telephones = [
     [ -31.2744, 658.517, -20.1292 ],    //  Telephone50 | Little Italy. Near Freddy's Bar.
     [ -123.964, 553.446, -20.2038 ],    //  Telephone51 | Little Italy. Near Giuseppe's Shop.
     [ 35.6793, 563.377, -19.3029 ],     //  Telephone52 | Little Italy. Road to East Side.
-    [ 63.6219, 417.433, -13.9426 ],     //  Telephone53 | 
+    [ 63.6219, 417.433, -13.9426 ],     //  Telephone53 | East Side. Border with Little Italy.
     [ -6.95174, 381.727, -13.9651 ],    //  Telephone54 | East Side. Near shop of men's wear Dipton Apparel.
     [ 112.527, 847.265, -19.911 ],      //  Telephone55 | Little Italy. Joe's Apartment.
     [ 257.777, 825.8, -20.001 ],        //  Telephone56 | Little Italy. Scaletta Family Apartment.
@@ -95,23 +97,18 @@ local telephones = [
     [ -264.414, 678.893, -19.9448 ]     //  Telephone92 | Uptown. Near arch to Little Italy.
 ];
 
-cmd("phone", function(playerid) {
-    local check = false;
-    foreach (key, value in telephones) {
-        if (isPlayerInValidPoint3D(playerid, value[0], value[1], value[2], 0.3)) {
-        check = true;
-        break;
-        }
-    }
-    if(check) {
-        msg(playerid, "Telephohe working");
-    } else {
-        msg(playerid, "Telephohe doesn't working");
+/* don't remove
+
+addEventHandlerEx("onServerStarted", function() {
+    log("[jobs] loading telephone services job...");
+    local teleservicescars = [
+        createVehicle(31, -1066.02, 1483.81, -3.79657, -90.8055, -1.36482, -0.105954),   // telephoneCAR1
+        createVehicle(31, -1076.38, 1483.81, -3.51025, -89.5915, -1.332, -0.0857111),   // telephoneCAR2
+    ];
+
+    foreach(key, value in teleservicescars ) {
+        setVehicleColour( value, 125, 60, 20, 125, 60, 20 );
     }
 });
 
-
-cmd("gotophone", function(playerid, phoneid) {
-    local phoneid = phoneid.tointeger();
-    setPlayerPosition( playerid, telephones[phoneid][0], telephones[phoneid][1], telephones[phoneid][2] );
-});
+*/

@@ -11,7 +11,7 @@ CL_HELP_LINE    <- rgb( 200, 100, 100 );
 CL_JOB_LIST     <- rgb( 247, 202, 24  );
 CL_JOB_LIST_GR  <- rgb( 38, 166, 91  );
 CL_JOB_LIST_R   <- rgb( 192, 57, 43  );
-
+CL_PHONE_CMPN   <- rgb( 125, 60, 20  );
 
 
 
