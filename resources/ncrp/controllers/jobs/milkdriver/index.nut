@@ -30,8 +30,8 @@ local milkcoordsall = [
     [239.853,   696.646,    -24.0973,   "Stellas Diner (Little Italy)"      ],
     [624.514,   904.991,    -12.6217,   "The Dragstrip (North Millvlille)"  ],
     [-1396.19,  476.477,    -22.2102,   "The Lone Star (Hunters Point)"     ],
-    [-1591.16,  187.75,     -12.8383,   "Empire Diner (Sand Island North)"  ],
-    [-1546.54, -171.372,    -19.8428,   "Empire Diner (Sand Island South)"  ]
+    [-1591.16,  187.75,     -12.8383,   "Empire Diner (Sand Island)"  ],
+    [-1546.54, -171.372,    -19.8428,   "Steaks & Chops (Sand Island)"  ]
 ];
 
 

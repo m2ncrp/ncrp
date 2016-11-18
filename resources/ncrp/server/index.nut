@@ -35,7 +35,6 @@ include("controllers/metro");
 include("controllers/organizations");
 include("controllers/vehicle");
 include("controllers/rentcar");
-include("controllers/telephone");
 include("controllers/utils");
 include("controllers/screen");
 include("controllers/admin");
