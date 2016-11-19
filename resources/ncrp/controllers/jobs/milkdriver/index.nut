@@ -43,7 +43,7 @@ addEventHandlerEx("onServerStarted", function() {
     milktrucks[createVehicle(19, 168.812, 436, -20.04, 179.681, 0.427494, -0.637235)]  <- 0 ;
 });
 
-addEventHandler("onPlayerConnect", function(playerid, name, ip, serial) {
+addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial) {
      job_milk[playerid] <- {};
      job_milk[playerid]["milkready"] <- false;
      job_milk[playerid]["milkcoords"] <- [];
