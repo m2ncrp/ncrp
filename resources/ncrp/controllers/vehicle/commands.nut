@@ -102,6 +102,15 @@ addKeyboardHandler("2", "up", function(playerid) {
     }
 });
 
+addKeyboardHandler("3", "up", function(playerid) {
+    if (isPlayerInVehicle(playerid)) {
+        local vehicleid = getPlayerVehicle(playerid);
+        local rot = getVehicleRotation(vehicleid);
+        setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
+        setVehicleRotation(vehicleid, rot[0], rot[1] * -0.9, rot[2] * -0.9);
+    }
+});
+
 addKeyboardHandler("e", "up", function(playerid) {
     if (isPlayerInVehicle(playerid) && getPlayerName(playerid) == "Inlife") {
         local vehicleid = getPlayerVehicle(playerid);
