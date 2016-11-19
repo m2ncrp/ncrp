@@ -217,5 +217,6 @@ function cmd(aliases, extensionOrCallback, callbackOrNull = null) {
 // asd["a1"](15, "test", "b", "tzt");
 // // asd["a1"](15, "dest", "a", "tzt");
 
+simplecmd <- old__addCommandHandler;
 acmd <- cmd;
 addCommandHandler <- cmd;
