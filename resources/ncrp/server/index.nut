@@ -67,12 +67,12 @@ addEventHandler("onServerShutdown", function() {
 });
 
 addEventHandler("onPlayerConnect", function(playerid, name, ip, serial) {
-    triggerServerEventEx("onPlayerConnect", playerid, name, ip, serial);
+    triggerServerEventEx("onPlayerInit", playerid, name, ip, serial);
 });
 
 addEventHandlerEx("onServerStarted", function() {
     foreach (playerid, name in getPlayers()) {
-        triggerServerEventEx("onPlayerConnect", playerid, name, null, null);
+        triggerServerEventEx("onPlayerInit", playerid, name, null, null);
     }
 });
 
