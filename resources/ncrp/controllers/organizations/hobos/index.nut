@@ -1,7 +1,7 @@
 include("controllers/organizations/hobos/commands.nut");
 
 local spawnID = 1;
-const DIG_RADIUS = 3.5;
+const DIG_RADIUS = 1.5;
 const HOBO_MODEL = 153;
 
 const maxCouldFind = 0.1;
@@ -44,9 +44,23 @@ function isNearTrash(playerid) {
 addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial) {
     if ( isHobos(playerid) ) {
         players[playerid]["skin"] <- HOBO_MODEL;
+        players[playerid]["digtime"] <- null;
     }    
 });
 
 addEventHandler ( "onPlayerSpawn", function( playerid ) {
     setPlayerModel( playerid, players[playerid]["skin"] );
 });
+
+
+function isTimeToDig(playerid) {
+    if (players[playerid]["digtime"] == null) {
+        return true;
+    }
+
+    if (getTimestamp() > (players[playerid]["digtime"] + 300)) {
+        return true;
+    }
+
+    return false;
+}
