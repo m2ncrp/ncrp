@@ -3,6 +3,7 @@ include("controllers/player/PlayerList.nut");
 include("controllers/player/functions.nut");
 
 players <- {};
+xPlayers <- {};
 playerList <- null;
 
 default_spawns <- [
@@ -13,37 +14,76 @@ default_spawns <- [
 ];
 local spawns = 2; // number-1
 
-
 addEventHandlerEx("onPlayerInit", function(playerid, name, ip, serial) {
-    players[playerid] <- {};
-    players[playerid]["job"] <- null;
-    players[playerid]["money"] <- 1.75;
-    players[playerid]["default_skin"] <- 10;
-    players[playerid]["skin"] <- 10;
-    players[playerid]["request"] <- {}; // need for invoice to transfer money
-    // probably should be at player registration once, not on every spawn
-    players[playerid]["spawn"] <- random(0, spawns);
+    Character.findOneBy({ name = getPlayerName(playerid) }, function(err, char) {
+        if (err || !char) {
+            // create entity
+            char = Character();
 
-    playerList.addPlayer(playerid, name, ip, serial);
+            // setup deafults
+            char.name    = getPlayerName(playerid);
+            char.spawnid = random(0, spawns);
+            char.money   = 1.75;
+            char.dskin   = 10;
+            char.cskin   = 10;
 
-    // Character.findOneBy({ name = getPlayerName(playerid) }, function(err, result) {
-    //     if (err || !result) {
+            // save first-time created entity
+            char.save();
+        }
 
-    //     } else {
+        xPlayers[playerid] <- char;
 
-    //     }
-    // });
+        // legacy data binding
+        // @deprecated
+        playerList.addPlayer(playerid, name, ip, serial);
+        players[playerid]                 <- {};
+        players[playerid]["request"]      <- {}; // need for invoice to transfer money
+        players[playerid]["job"]          <- (char.job.len() > 0) ? char.job : null;
+        players[playerid]["money"]        <- char.money;
+        players[playerid]["default_skin"] <- char.dskin;
+        players[playerid]["skin"]         <- char.cskin;
+        players[playerid]["spawn"]        <- char.spawnid;
+        players[playerid]["xp"]           <- char.xp;
+        players[playerid]["housex"]       <- char.housex;
+        players[playerid]["housey"]       <- char.housey;
+        players[playerid]["housez"]       <- char.housez;
 
-    // char = Character();
-    // char.firstname = getPlayerName(playerid);
-    // char.account_id = account.id;
-    // char.save();
-
-    triggerServerEventEx("onPlayerConnect", playerid, name, ip, serial);
+        triggerServerEventEx("onPlayerConnect", playerid, name, ip, serial);
+    });
 });
 
+function trySavePlayer(playerid) {
+    if (!(playerid in players) || !(playerid in xPlayers)) {
+        return null;
+    }
+
+    // get instance
+    local char   = xPlayers[playerid];
+
+    // proxy data back to the model
+    char.money   = players[playerid]["money"];
+    char.dskin   = players[playerid]["default_skin"];
+    char.cskin   = players[playerid]["skin"];
+    char.spawnid = players[playerid]["spawn"];
+    char.xp      = players[playerid]["xp"];
+    char.housex  = players[playerid]["housex"];
+    char.housey  = players[playerid]["housey"];
+    char.housez  = players[playerid]["housez"];
+
+    // save it
+    char.save();
+}
+
 addEventHandler("onPlayerDisconnect", function(playerid, reason) {
+    // save player after disconnect
+    trySavePlayer(playerid);
     playerList.delPlayer(playerid);
+});
+
+addEventHandlerEx("onServerAutosave", function() {
+    foreach (playerid, char in players) {
+        trySavePlayer(playerid);
+    }
 });
 
 addEventHandler("onPlayerSpawn", function(playerid) {
