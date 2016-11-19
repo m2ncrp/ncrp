@@ -87,6 +87,12 @@ addEventHandlerEx("onServerAutosave", function() {
     }
 });
 
+addEventHandlerEx("onServerMinuteChange", function() {
+    foreach (playerid, char in players) {
+        char.xp++;
+    }
+});
+
 addEventHandler("onPlayerSpawn", function(playerid) {
     local spawnID = players[playerid]["spawn"];
     local x = default_spawns[spawnID][0];
