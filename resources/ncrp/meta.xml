@@ -12,4 +12,8 @@
     <script type="client">chat.nut</script>
     <script type="client">keyboard.nut</script>
     <script type="client">debug.nut</script>
+
+    <!-- Client files -->
+    <file>logo.png</file>
+    <file>mad.jpg</file>
 </meta>
