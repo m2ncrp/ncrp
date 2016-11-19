@@ -1,5 +1,9 @@
 include("controllers/jobs/telephone/commands.nut");
 
+addEventHandlerEx("onServerStarted", function() {
+    log("[jobs] loading telephone services job and telephone system...");
+});
+
 local telephones = [
     [ -1021.87, 1643.44, 10.6318 ],     //  Telephone0 | Kingston. Near our prison.
     [ -562.58, 1521.96, -16.1836 ],     //  Telephone1 | Dipton. Taxi Parking.
@@ -96,6 +100,27 @@ local telephones = [
     [ -408.296, 631.616, -12.3661 ],    //  Telephone91 | Uptown. Opposite to Police Department.
     [ -264.414, 678.893, -19.9448 ]     //  Telephone92 | Uptown. Near arch to Little Italy.
 ];
+
+
+function callByPhone(playerid) {
+    local check = false;
+    foreach (key, value in telephones) {
+        if (isPlayerInValidPoint3D(playerid, value[0], value[1], value[2], 0.3)) {
+        check = true;
+        break;
+        }
+    }
+    if(check) {
+        msg(playerid, "Telephohe working");
+    } else {
+        msg(playerid, "Telephohe doesn't working");
+    }
+}
+
+function goToPhone(playerid, phoneid) {
+    local phoneid = phoneid.tointeger();
+    setPlayerPosition( playerid, telephones[phoneid][0], telephones[phoneid][1], telephones[phoneid][2] );
+}
 
 /* don't remove
 
