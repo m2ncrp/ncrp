@@ -34,3 +34,15 @@ cmd("help", ["job", "bus"], function(playerid) {
     ];
     msg_help(playerid, title, commands);
 });
+
+cmd("bus", "enter", function(playerid, busid) {
+    triggerClientEvent(playerid, "onServerPlayerBusEnter", busid);
+});
+
+cmd("bus", "exit", function(playerid) {
+    triggerClientEvent(playerid, "onServerPlayerBusExit");
+});
+
+addEventHandler("onClientRequestedPosition", function(playerid, x, y, z) {
+    setPlayerPosition(playerid, x, y, z);
+});
