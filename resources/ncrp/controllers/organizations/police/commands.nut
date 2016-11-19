@@ -64,8 +64,8 @@ cmd("taser", function( playerid ) {
     if ( isOfficer(playerid) ) {
         local targetid = playerList.nearestPlayer( playerid );
         dbg( targetid ); // Souldn't be NULL
-        screenFadeinFadeout(playerid, 800, function() {
-            msg( targetid, "You shot " + getAuthor(targetid) + " by taser." );
+        screenFadeinFadeout(targetid, 800, function() {
+            msg( playerid, "You shot " + getAuthor(targetid) + " by taser." );
             msg( targetid, "You's been shot by taser" );
             togglePlayerControls( targetid, false );
         });
