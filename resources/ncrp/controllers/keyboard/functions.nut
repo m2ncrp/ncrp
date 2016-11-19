@@ -13,18 +13,19 @@ function addKeyboardHandler(key, state, callback) {
     local name = key + "_" + state;
 
     if (!(name in __keyboard)) {
-        __keyboard[name] <- { key = key, state = state, callback = callback };
+        __keyboard[name] <- { key = key, state = state, callbacks = [callback] };
 
         // playerList.each(function(playerid) {
         //     triggerClientEvent("onServerKeyboardRegistration", key, state);
         // });
     } else {
-        return dbg("[keyboard] already registered", key, state);
+        __keyboard[name].callbacks.push(callback);
+        // return dbg("[keyboard] already registered", key, state);
     }
 }
 
 /**
- * Remove key bind handler for client
+ * Remove all key bind handlers for client
  * using key and key state [up/down]
  *
  * @param {string}   key - ["a", "f1", "tab", ...]
@@ -77,7 +78,9 @@ function triggerKeyboardPress(playerid, key, state) {
     local name = key + "_" + state;
 
     if (name in __keyboard) {
-        __keyboard[name].callback(playerid);
+        foreach (idx, __callback in __keyboard[name].callbacks) {
+            __callback(playerid);
+        }
     } else {
         return dbg("[keyboard] unknown keybind", key, state);
     }
