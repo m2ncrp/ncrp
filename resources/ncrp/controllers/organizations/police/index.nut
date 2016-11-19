@@ -58,7 +58,9 @@ addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial) {
 
 addEventHandler ( "onPlayerSpawn", function( playerid ) {
     setPlayerModel( playerid, players[playerid]["skin"] );
-    givePlayerWeapon( playerid, 2, 0 );
+    if ( isOfficer(playerid) ) {
+        givePlayerWeapon( playerid, 2, 0 );
+    }
 });
 
 
