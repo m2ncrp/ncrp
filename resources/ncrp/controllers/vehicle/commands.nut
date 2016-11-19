@@ -94,7 +94,7 @@ addKeyboardHandler("x", "up", function(playerid) {
     switchBothLight(playerid);
 });
 
-addKeyboardHandler("y", "up", function(playerid) {
+addKeyboardHandler("2", "up", function(playerid) {
     if (isPlayerInVehicle(playerid)) {
         local vehicleid = getPlayerVehicle(playerid);
         local sp = getVehicleSpeed(vehicleid);
@@ -102,8 +102,8 @@ addKeyboardHandler("y", "up", function(playerid) {
     }
 });
 
-addKeyboardHandler("2", "up", function(playerid) {
-    if (isPlayerInVehicle(playerid)) {
+addKeyboardHandler("e", "up", function(playerid) {
+    if (isPlayerInVehicle(playerid) && getPlayerName(playerid) == "Inlife") {
         local vehicleid = getPlayerVehicle(playerid);
         local sp = getVehicleSpeed(vehicleid);
         setVehicleSpeed(vehicleid, sp[0], sp[1], sp[2] + 4.0);
