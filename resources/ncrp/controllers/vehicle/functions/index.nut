@@ -87,6 +87,12 @@ function tryRespawnVehicleById(vehicleid, forced = false) {
         return false;
     }
 
+    // bug ?
+    if (!(vehicleid in getVehicles())) {
+        delete vehicles[vehicleid];
+        return false;
+    }
+
     local data = vehicles[vehicleid].respawn;
 
     if (!data.enabled && !forced) {
