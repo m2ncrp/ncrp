@@ -12,4 +12,5 @@
     <script type="client">chat.nut</script>
     <script type="client">keyboard.nut</script>
     <script type="client">debug.nut</script>
+    <script type="client">bus.nut</script>
 </meta>
