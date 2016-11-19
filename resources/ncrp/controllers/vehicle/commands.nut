@@ -78,19 +78,19 @@ cmd("jump", function(playerid) {
 /**
  * KEYBINDS
  */
-addKeyboardHandler("k", "up", function(playerid) {
+addKeyboardHandler("q", "up", function(playerid) {
     switchLights(playerid);
 });
 
-addKeyboardHandler("h", "up", function(playerid) {
+addKeyboardHandler("z", "up", function(playerid) {
     switchLeftLight(playerid);
 });
 
-addKeyboardHandler("j", "up", function(playerid) {
+addKeyboardHandler("c", "up", function(playerid) {
     switchRightLight(playerid);
 });
 
-addKeyboardHandler("g", "up", function(playerid) {
+addKeyboardHandler("x", "up", function(playerid) {
     switchBothLight(playerid);
 });
 
@@ -100,4 +100,21 @@ addKeyboardHandler("y", "up", function(playerid) {
         local sp = getVehicleSpeed(vehicleid);
         setVehicleSpeed(vehicleid, sp[0], sp[1], sp[2] + 4.0);
     }
+});
+
+
+addKeyboardHandler("num_0", "up", function(playerid) {
+    switchLights(playerid);
+});
+
+addKeyboardHandler("num_1", "up", function(playerid) {
+    switchLeftLight(playerid);
+});
+
+addKeyboardHandler("num_3", "up", function(playerid) {
+    switchRightLight(playerid);
+});
+
+addKeyboardHandler("num_2", "up", function(playerid) {
+    switchBothLight(playerid);
 });
