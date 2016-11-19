@@ -98,7 +98,7 @@ addKeyboardHandler("2", "up", function(playerid) {
     if (isPlayerInVehicle(playerid)) {
         local vehicleid = getPlayerVehicle(playerid);
         local sp = getVehicleSpeed(vehicleid);
-        setVehicleSpeed(vehicleid, sp[0], sp[1], sp[2] + 4.0);
+        setVehicleSpeed(vehicleid, sp[0], sp[1], sp[2] + 5.0);
     }
 });
 
@@ -106,7 +106,7 @@ addKeyboardHandler("e", "up", function(playerid) {
     if (isPlayerInVehicle(playerid) && getPlayerName(playerid) == "Inlife") {
         local vehicleid = getPlayerVehicle(playerid);
         local sp = getVehicleSpeed(vehicleid);
-        setVehicleSpeed(vehicleid, sp[0], sp[1], sp[2] + 4.0);
+        setVehicleSpeed(vehicleid, sp[0], sp[1], sp[2] + 5.0);
     }
 });
 
