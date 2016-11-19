@@ -14,7 +14,7 @@ default_spawns <- [
 local spawns = 2; // number-1
 
 
-addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial) {
+addEventHandlerEx("onPlayerInit", function(playerid, name, ip, serial) {
     players[playerid] <- {};
     players[playerid]["job"] <- null;
     players[playerid]["money"] <- 1.75;
@@ -25,6 +25,21 @@ addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial) {
     players[playerid]["spawn"] <- random(0, spawns);
 
     playerList.addPlayer(playerid, name, ip, serial);
+
+    // Character.findOneBy({ name = getPlayerName(playerid) }, function(err, result) {
+    //     if (err || !result) {
+
+    //     } else {
+
+    //     }
+    // });
+
+    // char = Character();
+    // char.firstname = getPlayerName(playerid);
+    // char.account_id = account.id;
+    // char.save();
+
+    triggerServerEventEx("onPlayerConnect", playerid, name, ip, serial);
 });
 
 addEventHandler("onPlayerDisconnect", function(playerid, reason) {
