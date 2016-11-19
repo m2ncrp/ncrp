@@ -69,6 +69,7 @@ function trySavePlayer(playerid) {
     char.housex  = players[playerid]["housex"];
     char.housey  = players[playerid]["housey"];
     char.housez  = players[playerid]["housez"];
+    char.job     = (players[playerid]["job"]) ? players[playerid]["job"] : "";
 
     // save it
     char.save();
