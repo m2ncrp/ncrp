@@ -7,11 +7,12 @@ function concat(vars) {
 
 function getRandomSubArray(arr, size = 1) {
     local subarr = [];
+    local orig = arr.map(function(a) {return a;});
 
     while (subarr.len() < size) {
-        local rand = random(0, arr.len() - 1);
-        subarr.push(arr[rand]);
-        arr.remove(rand)
+        local rand = random(0, orig.len() - 1);
+        subarr.push(orig[rand]);
+        orig.remove(rand)
     }
     return subarr;
 }
