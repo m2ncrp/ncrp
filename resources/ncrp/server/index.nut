@@ -10,6 +10,7 @@ include("models/Character.nut");
 include("models/TeleportPosition.nut");
 include("models/TimestampStorage.nut");
 include("models/StatisticPoint.nut");
+include("models/MigrationVersion.nut");
 
 // load helpers
 include("helpers/array.nut");
