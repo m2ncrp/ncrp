@@ -36,13 +36,17 @@ cmd("help", ["job", "bus"], function(playerid) {
 });
 
 cmd("bus", "enter", function(playerid, busid) {
-    triggerClientEvent(playerid, "onServerPlayerBusEnter", busid);
+    foreach (idx, value in players) {
+        triggerClientEvent(idx, "onServerPlayerBusEnter", playerid, busid.tointeger());
+    }
 });
 
-cmd("bus", "exit", function(playerid) {
-    triggerClientEvent(playerid, "onServerPlayerBusExit");
+cmd("bus", "exit", function(playerid, busid) {
+    foreach (idx, value in players) {
+        triggerClientEvent(idx, "onServerPlayerBusExit", playerid, busid.tointeger());
+    }
 });
 
-addEventHandler("onClientRequestedPosition", function(playerid, x, y, z) {
-    setPlayerPosition(playerid, x, y, z);
-});
+// addEventHandler("onClientRequestedPosition", function(playerid, x, y, z) {
+//     setPlayerPosition(playerid, x, y, z);
+// });
