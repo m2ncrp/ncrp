@@ -49,6 +49,7 @@ addEventHandlerEx("onPlayerInit", function(playerid, name, ip, serial) {
         players[playerid]["housez"]       <- char.housez;
 
         triggerServerEventEx("onPlayerConnect", playerid, name, ip, serial);
+        triggerClientEvent("onServerClientStarted");
     });
 });
 
@@ -94,6 +95,7 @@ addEventHandlerEx("onServerMinuteChange", function() {
 });
 
 addEventHandler("onPlayerSpawn", function(playerid) {
+    setPlayerColour(playerid, 0xFFFFFF99); // whity
     local spawnID = players[playerid]["spawn"];
     local x = default_spawns[spawnID][0];
     local y = default_spawns[spawnID][1];
