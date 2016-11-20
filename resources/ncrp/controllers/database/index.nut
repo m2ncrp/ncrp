@@ -1,3 +1,5 @@
+include("controllers/database/migrations.nut");
+
 // database code
 local connection = null;
 
@@ -8,6 +10,8 @@ addEventHandler("onScriptInit", function() {
     ::log("[database] creating connection...");
 
     connection = sqlite("ncrp.db");
+
+    applyMigrations(connection);
 
     // sendPlayerMessage = function(id, argument) {
     //     ::print(argument);
