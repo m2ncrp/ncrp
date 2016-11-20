@@ -95,14 +95,24 @@ addEventHandlerEx("onServerMinuteChange", function() {
 });
 
 addEventHandler("onPlayerSpawn", function(playerid) {
-    setPlayerColour(playerid, 0xFFFFFF99); // whity
-    local spawnID = players[playerid]["spawn"];
-    local x = default_spawns[spawnID][0];
-    local y = default_spawns[spawnID][1];
-    local z = default_spawns[spawnID][2];
-    setPlayerPosition(playerid, x, y, z);
-    // setPlayerPosition(playerid, -567.499, 1531.58, -15.8716);
+    if (!(playerid in players)) {
+        return dbg("[error] no playerid in players array " + playerid);
+    }
+
+    // check if player has home
+    if (players[playerid].housex != 0.0 && players[playerid].housey != 0.0) {
+        setPlayerPosition(playerid, players[playerid].housex, players[playerid].housey, players[playerid].housez);
+    } else {
+        local spawnID = players[playerid]["spawn"];
+        local x = default_spawns[spawnID][0];
+        local y = default_spawns[spawnID][1];
+        local z = default_spawns[spawnID][2];
+        setPlayerPosition(playerid, x, y, z);
+    }
+
     setPlayerHealth(playerid, 730.0);
+    setPlayerColour(playerid, 0x99FFFFFF); // whity
+    setPlayerModel(playerid, players[playerid].skin);
 });
 
 addEventHandler("onPlayerDeath", function(playerid, killerid) {
