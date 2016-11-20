@@ -62,7 +62,7 @@ function sendMoney(playerid, targetid, amount) {
  * @param  {int} targetid
  * @param  {float} amount
  */
-function sendInvoice(playerid, targetid, amount) {
+function sendInvoice(playerid, targetid, amount, callback = null) {
     local targetid = targetid.tointeger();
     local amount = round(fabs(amount.tofloat()), 2);
     if (playerid == targetid) {
@@ -74,7 +74,7 @@ function sendInvoice(playerid, targetid, amount) {
         return;
     }
     if (checkDistanceBtwTwoPlayersLess(playerid, targetid, 2.0)) {
-        players[playerid]["request"][targetid] <- amount;
+        players[playerid]["request"][targetid] <- [amount, callback];
         msg(playerid, "You send invoice to " + getPlayerName(targetid) + " (#" + targetid + ") on $" + amount + "." );
         msg(targetid, "You received invoice from " + getPlayerName(playerid) + " (#" + playerid + ") on $" + amount + ". Please, /accept " + playerid + " or /decline " + playerid + " this invoice." );
     } else { msg(playerid, "Distance between you and receiver is too large!"); }
@@ -94,10 +94,16 @@ function invoiceAccept(playerid, senderid) {
     }
     if (checkDistanceBtwTwoPlayersLess(playerid, senderid, 2.0)) {
         if ("request" in players[senderid] && playerid in players[senderid]["request"]) {
-            local amount = players[senderid]["request"][playerid];
+            local amount = players[senderid]["request"][playerid][0];
             if(canMoneyBeSubstracted(playerid, amount)) {
                 subMoneyToPlayer(playerid, amount);
                 addMoneyToPlayer(senderid, amount);
+
+                // trigger callback
+                if (players[senderid]["request"][playerid][1]) {
+                    players[senderid]["request"][playerid][1](playerid, senderid, true);
+                }
+
                 delete players[senderid]["request"][playerid];
                 msg(playerid, "You've given $" + amount + " to " + getPlayerName(senderid) + " (#" + senderid + "). Your balance: $" + getPlayerBalance(playerid) );
                 msg(senderid,  getPlayerName(playerid) + " (#" + playerid + ") accepted your invoice. You earned $" + amount + ". Your balance: $" + getPlayerBalance(senderid) );
@@ -122,6 +128,12 @@ function invoiceDecline(playerid, senderid) {
         return;
     }
         if ("request" in players[senderid] && playerid in players[senderid]["request"]) {
+
+            // trigger callback
+            if (players[senderid]["request"][playerid][1]) {
+                players[senderid]["request"][playerid][1](playerid, senderid, true);
+            }
+
             delete players[senderid]["request"][playerid];
         }
         msg(playerid, "You decline invoice from " + getPlayerName(senderid) + " (#" + senderid + ")." );
