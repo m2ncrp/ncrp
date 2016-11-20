@@ -3,6 +3,8 @@ include("controllers/jobs/taxi/commands.nut");
 local job_taxi = {};
 local price = 3.0;
 
+const TAXI_JOB_SKIN = 171;
+
 addEventHandlerEx("onServerStarted", function() {
     log("[jobs] loading taxi job...");
     local taxicars = [
@@ -299,8 +301,13 @@ function taxiJob(playerid) {
 
     setTaxiLightState(getPlayerVehicle(playerid), false);
     setVehicleFuel(getPlayerVehicle(playerid), 56.0);
-    players[playerid]["job"] = "taxidriver";
+
     msg(playerid, "You became a taxi driver. Change status to ON air to begin to receive calls.");
+
+    players[playerid]["job"] = "taxidriver";
+
+    players[playerid]["skin"] = TAXI_JOB_SKIN;
+    setPlayerModel( playerid, TAXI_JOB_SKIN );
 }
 
 /**
@@ -320,10 +327,15 @@ function taxiJobLeave(playerid) {
         setTaxiLightState(getPlayerVehicle(playerid), false);
     }
 
+    msg(playerid, "You leave a taxi driver job.");
+
     players[playerid]["job"] = null;
+
+    players[playerid]["skin"] = players[playerid]["default_skin"];
+    setPlayerModel( playerid, players[playerid]["default_skin"]);
+
     job_taxi[playerid]["status"] = "offair";
     setVehicleFuel(vehicleid, 0.0);
-    msg(playerid, "You leave a taxi driver job.");
 }
 
 /*

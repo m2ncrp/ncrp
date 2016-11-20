@@ -5,8 +5,11 @@ local cargocars = {};
 
 
 const RADIUS_CARGO = 1.0;
-const CARGO_JOB_X = -348.071;
-const CARGO_JOB_Y = -731.48;
+//const CARGO_JOB_X = -348.071; //Derek Cabinet
+//const CARGO_JOB_Y = -731.48;  //Derek Cabinet
+const CARGO_JOB_X = -348.205; //Derek Door
+const CARGO_JOB_Y = -731.48; //Derek Door
+const CARGO_JOB_SKIN = 130;
 
 local cargocoords = {};
 cargocoords["PortChinese"] <- [-217.298, -724.771, -21.423]; // PortPlace P3 06 Chinese
@@ -59,8 +62,11 @@ function cargoJob( playerid ) {
 
     msg( playerid, "You're a cargo delivery driver now. Welcome! Ha-ha..." );
     msg( playerid, "Go to Seagift Co. at Chinatown, get behind wheel of truck of fish and get your ass to warehouse P3 06 at Port." );
-    setPlayerModel( playerid, 130 );
+
     players[playerid]["job"] = "cargodriver";
+
+    players[playerid]["skin"] = CARGO_JOB_SKIN;
+    setPlayerModel( playerid, CARGO_JOB_SKIN );
 }
 
 // working good, check
@@ -74,8 +80,12 @@ function cargoJobLeave( playerid ) {
         return msg( playerid, "You're not a cargo delivery driver.");
     } else {
         msg( playerid, "You leave this job." );
-        setPlayerModel( playerid, 10 );
+
         players[playerid]["job"] = null;
+
+        players[playerid]["skin"] = players[playerid]["default_skin"];
+        setPlayerModel( playerid, players[playerid]["default_skin"]);
+
         job_cargo[playerid]["cargostatus"] = false;
     }
 }

@@ -11,6 +11,7 @@ include("controllers/jobs/taxi");
 include("controllers/jobs/milkdriver");
 include("controllers/jobs/cargodriver");
 include("controllers/jobs/telephone");
+include("controllers/jobs/docker");
 
 addEventHandlerEx("onServerStarted", function() {
     // nothing there anymore :C
