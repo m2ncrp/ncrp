@@ -40,6 +40,7 @@ addEventHandlerEx("onPlayerInit", function(playerid, name, ip, serial) {
         players[playerid]["request"]      <- {}; // need for invoice to transfer money
         players[playerid]["job"]          <- (char.job.len() > 0) ? char.job : null;
         players[playerid]["money"]        <- char.money;
+        players[playerid]["deposit"]      <- 0.0;
         players[playerid]["default_skin"] <- char.dskin;  // skin which buy by player
         players[playerid]["skin"]         <- char.cskin;  // current skin
         players[playerid]["spawn"]        <- char.spawnid;
