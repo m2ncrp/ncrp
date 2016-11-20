@@ -7,6 +7,7 @@
 */
 
 const RUPOR_RADIUS = 100.0;
+const CUFF_RADIUS = 3.0;
 const POLICE_MODEL = 75;
 
 function policecmd(names, callback)  {
@@ -53,6 +54,7 @@ addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial) {
     if ( isOfficer(playerid) ) {
         players[playerid]["job"] <- "policeofficer";
         players[playerid]["skin"] <- POLICE_MODEL;
+        players[playerid]["onduty"] <- true;
     }    
 });
 
@@ -96,6 +98,19 @@ function isOfficer(playerid) {
     }
     return false;
     // return (isPlayerHaveValidJob(playerid, "policeofficer"));
+}
+
+/**
+ * Check if player is a police officer and on duty now
+ * @param  {int}  playerid
+ * @return {Boolean} true/false
+ */
+function isOnDuty(playerid) {
+    return ( isOfficer(playerid) && players[playerid]["onduty"] );
+}
+
+function setOnDuty(playerid, bool) {
+    players[playerid]["onduty"] <- bool;
 }
 
 

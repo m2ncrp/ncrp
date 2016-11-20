@@ -14,17 +14,35 @@ cmd("serial", function(playerid) {
 
 // usage: /police duty on
 cmd("police", ["duty", "on"], function(playerid) {
-    setPlayerModel(playerid, POLICE_MODEL);
+    if ( !isOfficer(playerid) ) {
+        return msg(playerid, "You're not a police officer.");
+    }
+    if ( !isOnDuty(playerid) ) {
+        setOnDuty(playerid, true);
+        // givePlayerWeapon( playerid, 2, 0 ); // should be called once at spawn or zero ammo to prevent using infinite ammo usage in combats
+        return setPlayerModel(playerid, POLICE_MODEL);
+    } else {
+        return msg(playerid, "You're already on duty now.");
+    }
 });
 
 // usage: /police duty off
 cmd("police", ["duty", "off"], function(playerid) {
-    setPlayerModel(playerid, players[playerid]["default_skin"]);
+    if ( !isOfficer(playerid) ) {
+        return msg(playerid, "You're not a police officer.");
+    }
+    if ( isOnDuty(playerid) ) {
+        setOnDuty(playerid, false);
+        // RemovePlayerWeapon( playerid, 2 ); // remove at all
+        return setPlayerModel(playerid, players[playerid]["default_skin"]);
+    } else {
+        return msg(playerid, "You're already off duty now.");
+    }
 });
 
 policecmd(["r", "ratio"], function(playerid, text) {
     if ( !isOfficer(playerid) ) {
-        return;
+        return msg(playerid, "You're not a police officer.");
     }
     if( !isPlayerInPoliceVehicle(playerid) ) {
         msg( playerid, "You should be in police vehicle!");
@@ -52,16 +70,25 @@ policecmd("rupor", function(playerid, text) {
 
 
 cmd(["ticket"], function(playerid, targetid, price, ...) {
-    if ( isOfficer(playerid) ) {
+    if ( !isOfficer(playerid) ) {
+        return msg(playerid, "You're not a police officer.");
+    }
+    if ( isOnDuty(playerid) ) {
         local reason = makeMeText(playerid, vargv);
         msg(targetid, getAuthor(playerid) + " give you ticket for " + reason + " . Type /accept <id>");
         sendInvoice( playerid, targetid, price );
+    } else {
+        return msg(playerid, "You off the duty now and you haven't tickets.")
     }
 });
 
 
 cmd("taser", function( playerid ) {
-    if ( isOfficer(playerid) ) {
+    if ( !isOfficer(playerid) ) {
+        return msg( playerid, "You have no taser couse you're not a cop." );
+    }
+
+    if ( isOnDuty(playerid) ) {
         local targetid = playerList.nearestPlayer( playerid );
         dbg( targetid ); // Souldn't be NULL
         screenFadeinFadeout(targetid, 800, function() {
@@ -71,13 +98,13 @@ cmd("taser", function( playerid ) {
         });
         togglePlayerControls( targetid, true );
     } else {
-        msg( playerid, "You have no taser couse you're not a cop." );
+        return msg(playerid, "You off the duty now and you haven't taser.")
     }
 });
 
 
 cmd(["cuff"], function(playerid) {
-    if ( isOfficer(playerid) ) {
+    if ( isOnDuty(playerid) ) {
         local targetid = playerList.nearestPlayer( playerid );
         togglePlayerControls( targetid, true );
     }
@@ -86,16 +113,16 @@ cmd(["cuff"], function(playerid) {
 
 // temporary command
 cmd(["uncuff"], function(playerid) {
-    if ( isOfficer(playerid) ) {
+    if ( isOnDuty(playerid) ) {
         local targetid = playerList.nearestPlayer( playerid );
         togglePlayerControls( targetid, false );
     }
 });
 
 cmd(["prison", "jail"], function(playerid, targetid) {
-    if ( isOfficer(playerid) ) {
+    if ( isOnDuty(playerid) ) {
         screenFadein(playerid, 1500, function() {
-            togglePlayerControls( targetid, false );
+            togglePlayerControls( targetid, true );
         //  output "Wasted" and set player position
         });        
     }
