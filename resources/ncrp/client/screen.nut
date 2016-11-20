@@ -3,6 +3,10 @@ local ab;
 local ba;
 local bb;
 
+addEventHandler("onServerClientStarted", function() {
+    setRenderHealthbars(false);
+});
+
 addEventHandler("onServerFadeScreen", function(time, fadein) {
     fadeScreen(time.tofloat(), fadein);
 });

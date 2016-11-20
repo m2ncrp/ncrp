@@ -48,11 +48,6 @@ addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial) {
     }    
 });
 
-addEventHandler ( "onPlayerSpawn", function( playerid ) {
-    setPlayerModel( playerid, players[playerid]["skin"] );
-});
-
-
 function isTimeToDig(playerid) {
     if (players[playerid]["digtime"] == null) {
         return true;
