@@ -12,12 +12,18 @@ addEventHandler("onClientFrameRender", function(post) {
         }
 
         local ttime = t.hour + ":" + t.minute;
-        local timesize = dxGetTextDimensions(ttime, 4.0, "tahoma-bold");
-        dxDrawText(ttime, screen[0] - timesize[0] - 30.0, 8.0, 0xFFFFFFFF, true, "tahoma-bold", 4.0);
+        local timesize = dxGetTextDimensions(ttime, 3.2, "tahoma-bold");
+        dxDrawText(ttime, screen[0] - timesize[0] - 16.0, 28.0, 0xCCFFFFFF, false, "tahoma-bold", 3.2);
 
         local tdate = t.day + "." + t.month + "." + t.year;
-        local datesize = dxGetTextDimensions(tdate, 1.0, "tahoma-bold");
-        dxDrawText(tdate, screen[0] - timesize[0] / 2 - datesize[0] / 2 - 30.0, 70.0, 0xFFFFFFFF, true, "tahoma-bold", 1.0);
+        local datesize = dxGetTextDimensions(tdate, 1.6, "tahoma-bold");
+        dxDrawText(tdate, screen[0] - datesize[0] - 16.0, 70.0, 0xCCFFFFCC, false, "tahoma-bold", 1.6);
+        // dxDrawText("_________", screen[0] - datesize[0] - 16.0, 75.0, 0xFFFFFFFF, true, "tahoma-bold", 1.5);
+
+        local tmoney = "$00000242.23";
+        local moneysize = dxGetTextDimensions(tmoney, 2.4, "tahoma-bold");
+        dxDrawText(tmoney, screen[0] - moneysize[0] - 16.0, 92.0, 0xCC22AA22, false, "verdana", 2.4);
+
     }
 });
 
