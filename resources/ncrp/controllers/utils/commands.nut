@@ -63,6 +63,42 @@ addCommandHandler("putto", function ( playerid, vehicleid ) {
     return 1;
 });
 
+addCommandHandler("checkrand", function ( playerid ) {
+  local vfile = file("values.txt", "a");
+  local ar = array(1000);
+  for (local i = 0; i < 999; i++) {
+    ar[i] = randomf(0.01,0.1);
+  }
+
+  local summ_array = 0;
+  // Get mean
+  for (local i = 0; i < 999; i++) {
+    local val = round( ar[i], 2 );
+    dbg( val );
+    writeitnow(vfile, val);
+    summ_array = summ_array + val;
+  }
+  local mean = summ_array / 1000;
+  log(""); dbg( mean );
+
+  vfile.writen('\n', 'b');
+  mean = mean.tostring();
+  for (local i = 0; i < mean.len(); i++) {
+    vfile.writen(mean[i], 'b');
+  }
+  vfile.writen('\n', 'b');
+  vfile.close();
+});
+
+
+function writeitnow(file, data) {
+    data = data.tostring();
+    for (local i = 0; i < data.len(); i++) {
+      file.writen(data[i], 'b');
+    }
+    file.writen('\n', 'b');
+}
+
 //================================================================================================================================================
 //                                                          TEST COMMANDS END
 //================================================================================================================================================
