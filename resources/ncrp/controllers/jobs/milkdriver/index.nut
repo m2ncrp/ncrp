@@ -6,6 +6,7 @@ local milktrucks = {};
 const RADIUS_JOB_MILK = 2.0;
 const MILK_JOB_X =  176.8;
 const MILK_JOB_Y = 439.305;
+const MILK_JOB_SKIN = 171;
 
 local milkname = [
     "Hill Of Tara Black Exit",                  // Hill Of Tara Black Exit
@@ -98,9 +99,11 @@ function milkJob ( playerid ) {
 
     msg( playerid, "You're a milk truck driver now! Congratulations!" );
     msg( playerid, "Sit into milk truck." );
-    setPlayerModel( playerid, 144 );
+
     players[playerid]["job"] = "milkdriver";
 
+    players[playerid]["skin"] = MILK_JOB_SKIN;
+    setPlayerModel( playerid, MILK_JOB_SKIN );
 }
 
 
@@ -116,8 +119,11 @@ function milkJobLeave ( playerid ) {
     }
 
     msg( playerid, "You leave this job." );
-    setPlayerModel( playerid, 10 );
+
     players[playerid]["job"] = null;
+
+    players[playerid]["skin"] = players[playerid]["default_skin"];
+    setPlayerModel( playerid, players[playerid]["default_skin"]);
 
     job_milk[playerid]["milkready"] = false;
     job_milk[playerid]["milkcoords"] = null;

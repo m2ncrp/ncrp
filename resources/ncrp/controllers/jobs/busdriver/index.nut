@@ -8,6 +8,7 @@ jobtext["letsgo"] <- "asdasdasdad";
 const RADIUS_BUS = 1.0;
 const BUS_JOB_X = -422.731;
 const BUS_JOB_Y = 479.462;
+const BUS_JOB_SKIN = 171;
 
 addEventHandlerEx("onServerStarted", function() {
     log("[jobs] loading bus driver job...");
@@ -80,10 +81,12 @@ function busJob( playerid ) {
     }
 
     msg( playerid, "You're a bus driver now! Congratulations!" );
-    //msg( playerid, "Sit into bus." );
-    setPlayerModel( playerid, 171 );
-    players[playerid]["job"] = "busdriver";
     msg( playerid, "Sit into bus." );
+
+    players[playerid]["job"] = "busdriver";
+
+    players[playerid]["skin"] = BUS_JOB_SKIN;
+    setPlayerModel( playerid, BUS_JOB_SKIN );
 }
 
 // working good, check
@@ -95,8 +98,11 @@ function busJobLeave( playerid ) {
         return msg( playerid, "You're not a bus driver");
     } else {
          msg( playerid, "You leave this job." );
-         setPlayerModel( playerid, 10 );
+
          players[playerid]["job"] = null;
+
+         players[playerid]["skin"] = players[playerid]["default_skin"];
+         setPlayerModel( playerid, players[playerid]["default_skin"]);
     }
 }
 

@@ -6,6 +6,7 @@ local fuelcars = {};
 const RADIUS_JOB_FUEL = 2.0;
 const FUEL_JOB_X = 551.762;
 const FUEL_JOB_Y = -266.866;
+const FUEL_JOB_SKIN = 144;
 
 local fuelname = [
     "Oyster Bay",                       // FuelStation Oyster Bay
@@ -95,8 +96,12 @@ function fuelJob ( playerid ) {
 
     msg( playerid, "You're a fuel truck driver now! Congratulations!" );
     msg( playerid, "Sit into fuel truck." );
-    setPlayerModel( playerid, 144 );
+
     players[playerid]["job"] = "fueldriver";
+
+    players[playerid]["skin"] = FUEL_JOB_SKIN;
+    setPlayerModel( playerid, FUEL_JOB_SKIN );
+
 }
 
 
@@ -112,9 +117,11 @@ function fuelJobLeave ( playerid ) {
     }
 
     msg( playerid, "You leave this job." );
-    setPlayerModel( playerid, 10 );
+
     players[playerid]["job"] = null;
 
+    players[playerid]["skin"] = players[playerid]["default_skin"];
+    setPlayerModel( playerid, players[playerid]["default_skin"]);
 }
 
 

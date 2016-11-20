@@ -20,6 +20,7 @@ cmd(["die"], function( playerid ) {
 cmd(["skin"], function( playerid, id ) {
     setPlayerModel( playerid, id.tointeger() );
     players[playerid]["skin"] = id.tointeger();
+    players[playerid]["default_skin"] = id.tointeger();
 });
 
 
@@ -29,6 +30,7 @@ cmd(["skininc"], function ( playerid ) {
         skin += 1;
         setPlayerModel( playerid, skin );
         players[playerid]["skin"] = skin;
+        players[playerid]["default_skin"] = skin;
         sendPlayerMessage( playerid,  "Skin model changed on " + skin );
     } else {
         sendPlayerMessage( playerid,  "Skin top limit" );
@@ -41,6 +43,7 @@ cmd(["skindec"], function ( playerid ) {
         skin -= 1;
         setPlayerModel( playerid, skin );
         players[playerid]["skin"] = skin;
+        players[playerid]["default_skin"] = skin;
         sendPlayerMessage( playerid,  "Skin model changed on " + skin );
     } else {
         sendPlayerMessage( playerid,  "Skin lower limit" );
