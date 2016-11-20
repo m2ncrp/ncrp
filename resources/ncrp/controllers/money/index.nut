@@ -76,7 +76,8 @@ function sendInvoice(playerid, targetid, amount, callback = null) {
     if (checkDistanceBtwTwoPlayersLess(playerid, targetid, 2.0)) {
         players[playerid]["request"][targetid] <- [amount, callback];
         msg(playerid, "You send invoice to " + getPlayerName(targetid) + " (#" + targetid + ") on $" + amount + "." );
-        msg(targetid, "You received invoice from " + getPlayerName(playerid) + " (#" + playerid + ") on $" + amount + ". Please, /accept " + playerid + " or /decline " + playerid + " this invoice." );
+        msg(targetid, "You received invoice from " + getPlayerName(playerid) + " (#" + playerid + ") on $" + amount + "." );
+        msg(targetid, "Please, /accept " + playerid + " or /decline " + playerid + " this invoice." );
     } else { msg(playerid, "Distance between you and receiver is too large!"); }
 }
 
@@ -131,7 +132,7 @@ function invoiceDecline(playerid, senderid) {
 
             // trigger callback
             if (players[senderid]["request"][playerid][1]) {
-                players[senderid]["request"][playerid][1](playerid, senderid, true);
+                players[senderid]["request"][playerid][1](playerid, senderid, false);
             }
 
             delete players[senderid]["request"][playerid];
