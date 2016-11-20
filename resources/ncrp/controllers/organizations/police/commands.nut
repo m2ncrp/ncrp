@@ -106,7 +106,16 @@ cmd("taser", function( playerid ) {
 cmd(["cuff"], function(playerid) {
     if ( isOnDuty(playerid) ) {
         local targetid = playerList.nearestPlayer( playerid );
-        togglePlayerControls( targetid, true );
+
+        if ( targetid == null) {
+            return msg(playerid, "There's noone around near you.");
+        }
+
+        if ( isBothInRadius(playerid, targetid, CUFF_RADIUS) ) {
+            togglePlayerControls( targetid, true );
+            msg(targetid, "You've been cuffed by " + getAuthor( playerid ) + " .");
+            msg(playerid, "You cuffed " + getAuthor( targetid ) + " .");
+        }
     }
 });
 
@@ -115,7 +124,16 @@ cmd(["cuff"], function(playerid) {
 cmd(["uncuff"], function(playerid) {
     if ( isOnDuty(playerid) ) {
         local targetid = playerList.nearestPlayer( playerid );
-        togglePlayerControls( targetid, false );
+        
+        if ( targetid == null) {
+            return msg(playerid, "There's noone around near you.");
+        }
+
+        if ( isBothInRadius(playerid, targetid, CUFF_RADIUS) ) {
+            togglePlayerControls( targetid, false );
+            msg(targetid, "You've been cuffed by " + getAuthor( playerid ) + " .");
+            msg(playerid, "You cuffed " + getAuthor( targetid ) + " .");
+        }
     }
 });
 
