@@ -79,7 +79,7 @@ cmd("taser", function( playerid ) {
 cmd(["cuff"], function(playerid) {
     if ( isOfficer(playerid) ) {
         local targetid = playerList.nearestPlayer( playerid );
-        togglePlayerControls( targetid, false );
+        togglePlayerControls( targetid, true );
     }
 });
 
@@ -88,7 +88,7 @@ cmd(["cuff"], function(playerid) {
 cmd(["uncuff"], function(playerid) {
     if ( isOfficer(playerid) ) {
         local targetid = playerList.nearestPlayer( playerid );
-        togglePlayerControls( targetid, true );
+        togglePlayerControls( targetid, false );
     }
 });
 
