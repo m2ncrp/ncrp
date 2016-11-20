@@ -2,7 +2,7 @@ class World {
     time = null;
 
     constructor () {
-        this.time = {second = 0, minute = 59, hour = 23, day = 13, month = 6, year = 1952};
+        this.time = {second = 0, minute = 58, hour = 23, day = 13, month = 6, year = 1952};
     }
 
     function sendToClient(playerid)
