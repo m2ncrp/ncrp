@@ -5,7 +5,7 @@ const DIG_RADIUS = 1.5;
 const HOBO_MODEL = 153;
 
 const maxCouldFind = 0.1;
-const minCouldFind = 0.05; 
+const minCouldFind = 0.01; 
 
 hobos_points <- [
     [-2.9767,   1634.28, -20.0881], // at spawn
@@ -58,7 +58,7 @@ function isTimeToDig(playerid) {
         return true;
     }
 
-    if (getTimestamp() > (players[playerid]["digtime"] + 300)) {
+    if (getTimestamp() > (players[playerid]["digtime"] + 150)) {
         return true;
     }
 
