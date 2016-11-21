@@ -75,6 +75,25 @@ cmd("jump", function(playerid) {
     }
 });
 
+cmd("myveh", function(playerid, modelid) {
+    local pos = getPlayerPosition( playerid );
+    local vehicleid = createVehicle( modelid.tointeger(), pos[0] + 2.0, pos[1], pos[2] + 1.0, 0.0, 0.0, 0.0 );
+    setVehicleColour(vehicleid, 0, 0, 0, 0, 0, 0);
+    setVehicleOwner(vehicleid, playerid);
+    setVehicleSaving(vehicleid, true); // it will be saved to database
+    setVehicleRespawnEx(vehicleid, false); // it wont respawn
+});
+
+cmd("who", function(playerid) {
+    if (isPlayerInVehicle(playerid)) {
+        if (isPlayerVehicleOwner(playerid, getPlayerVehicle(playerid))) {
+            msg(playerid, "You are owner", CL_SNUFF);
+        } else {
+            msg(playerid, "You are not an owner", CL_SNUFF);
+        }
+    }
+});
+
 /**
  * KEYBINDS
  */

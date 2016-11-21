@@ -40,7 +40,7 @@ addEventHandlerEx("onServerStarted", function() {
     Vehicle.findAll(function(err, results) {
         foreach (idx, vehicle in results) {
             // create vehicle
-            local vehicleid = createVehicle(vehicle.modelid, vehicle.x, vehicle.y, vehicle.z, vehicle.rx, vehicle.ry, vehicle.rz);
+            local vehicleid = createVehicle(vehicle.model, vehicle.x, vehicle.y, vehicle.z, vehicle.rx, vehicle.ry, vehicle.rz);
 
             // load all the data
             setVehicleColour(vehicleid, vehicle.cra, vehicle.cga, vehicle.cba, vehicle.crb, vehicle.cgb, vehicle.cbb);
@@ -53,7 +53,8 @@ addEventHandlerEx("onServerStarted", function() {
 
             // secial methods for custom vehicles
             setVehicleRespawnEx(vehicleid, false);
-            setVehicleSaving(vehicleid, false);
+            setVehicleSaving(vehicleid, true);
+            setVehicleEntity(vehicleid, vehicle);
         }
     });
 });
@@ -66,10 +67,12 @@ addEventHandlerEx("onServerMinuteChange", function() {
 addEventHandler("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     addVehiclePassenger(vehicleid, playerid);
     resetVehicleRespawnTimer(vehicleid);
+    trySaveVehicle(vehicleid);
 });
 
 addEventHandler("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     removeVehiclePassenger(vehicleid, playerid);
+    trySaveVehicle(vehicleid);
 });
 
 // clearing all vehicles on server stop
