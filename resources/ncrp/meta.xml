@@ -13,4 +13,7 @@
     <script type="client">keyboard.nut</script>
     <script type="client">debug.nut</script>
     <script type="client">bus.nut</script>
+
+    <!-- Client files -->
+    <file>logo.png</file>
 </meta>
