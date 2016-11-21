@@ -1,3 +1,42 @@
+/**
+ * Send message to all players in radius
+ * @param  {int}        sender
+ * @param  {string}     message
+ * @param  {float}      radius
+ * @param  {RGB object} color
+ * @return {void}
+ */
+function inRadiusSendToAll(sender, message, radius, color = 0) {
+    local players = playerList.getPlayers();
+    foreach(player in players) {
+        intoRadiusDo(sender, player, radius, function() {
+            if (color) {
+                msg(player, message, color);
+            } else {
+                msg(player, message);
+            }
+        });
+    }
+}
+
+/**
+ * Return string "player_name[playerid]"
+ * @param  {int}    playerid
+ * @return {string}
+ */
+function getAuthor( playerid ) {
+    return getPlayerName( playerid.tointeger() ) + "[" + playerid.tostring() + "]";
+}
+
+/**
+ * Return string "player_name(#playerid)"
+ * @param  {int}    playerid
+ * @return {string}
+ */
+function getAuthor2( playerid ) {
+    return getPlayerName( playerid.tointeger() ) + "(#" + playerid.tostring() + ")";
+}
+
 function chatcmd(names, callback)  {
     cmd(names, function(playerid, ...) {
         local text = concat(vargv);
@@ -9,12 +48,6 @@ function chatcmd(names, callback)  {
         // call registered callback
         return callback(playerid, text);
     });
-}
-
-// @params playerid - string
-// @return "Player_Name[id]" string
-function getAuthor( playerid ) {
-    return getPlayerName( playerid.tointeger() ) + "[" + playerid.tostring() + "]";
 }
 
 function msg(playerid, text, color = CL_WHITE ) {

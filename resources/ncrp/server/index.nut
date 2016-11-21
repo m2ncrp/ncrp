@@ -18,7 +18,6 @@ include("helpers/function.nut");
 include("helpers/string.nut");
 include("helpers/math.nut");
 include("helpers/distance.nut");
-include("helpers/chat.nut");
 include("helpers/commands.nut");
 include("helpers/color.nut");
 
