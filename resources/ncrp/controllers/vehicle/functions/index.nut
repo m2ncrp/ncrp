@@ -31,7 +31,8 @@ createVehicle = function(modelid, x, y, z, rx, ry, rz) {
 
     // save vehicle entity
     vehicles[vehicle] <- {
-        saving  = false
+        saving  = false,
+        entity = null,
         respawn = {
             enabled = true,
             position = { x = x.tofloat(), y = y.tofloat(), z = z.tofloat() },
@@ -56,6 +57,12 @@ createVehicle = function(modelid, x, y, z, rx, ry, rz) {
 function setVehicleRespawnEx(vehicleid, value) {
     if (vehicleid in vehicles) {
         return vehicles[vehicleid].respawn.enabled = value;
+    }
+}
+
+function setVehicleEntity(vehicleid, entity) {
+    if (vehicleid in vehicles) {
+        return vehicles[vehicleid].entity = entity;
     }
 }
 
@@ -165,6 +172,7 @@ function tryRespawnVehicleById(vehicleid, forced = false) {
  */
 function destroyAllVehicles() {
     foreach (vehicleid, vehicle in vehicles) {
+        trySaveVehicle(vehicleid);
         destroyVehicle(vehicleid);
     }
 }
@@ -247,7 +255,7 @@ function getVehicleOwner(vehicleid) {
  * @return {Boolean}
  */
 function isPlayerVehicleOwner(playerid, vehicleid) {
-    return (isPlayerConnected(playerid)) && getVehicleOwner(vehicleid) == getPlayerName(playerid));
+    return (isPlayerConnected(playerid) && getVehicleOwner(vehicleid) == getPlayerName(playerid));
 }
 
 /**
@@ -268,34 +276,39 @@ function trySaveVehicle(vehicleid) {
         return false;
     }
 
+
+    if (!vehicle.entity) {
+        vehicle.entity = Vehicle();
+    }
+
     // save data
     local position = getVehiclePosition(vehicleid);
     local rotation = getVehicleRotation(vehicleid);
 
-    vehicle.x  = position[0];
-    vehicle.y  = position[1];
-    vehicle.z  = position[2];
-    vehicle.rx = rotation[0];
-    vehicle.ry = rotation[1];
-    vehicle.rz = rotation[2];
+    vehicle.entity.x  = position[0];
+    vehicle.entity.y  = position[1];
+    vehicle.entity.z  = position[2];
+    vehicle.entity.rx = rotation[0];
+    vehicle.entity.ry = rotation[1];
+    vehicle.entity.rz = rotation[2];
 
     local colors = getVehicleColour(vehicleid);
 
-    vehicle.cra = colors[0];
-    vehicle.cga = colors[1];
-    vehicle.cba = colors[2];
-    vehicle.crb = colors[3];
-    vehicle.cgb = colors[4];
-    vehicle.cbb = colors[5];
+    vehicle.entity.cra = colors[0];
+    vehicle.entity.cga = colors[1];
+    vehicle.entity.cba = colors[2];
+    vehicle.entity.crb = colors[3];
+    vehicle.entity.cgb = colors[4];
+    vehicle.entity.cbb = colors[5];
 
-    vehicle.model     = getVehicleModel(vehicleid);
-    vehicle.tunetable = getVehicleTuningTable(vehicleid);
-    vehicle.dirtlevel = getVehicleDirtLevel(vehicleid);
-    vehicle.fuellevel = getVehicleFuel(vehicleid);
-    vehicle.plate     = getVehiclePlateText(vehicleid);
-    vehicle.owner     = getVehicleOwner(vehicleid);
+    vehicle.entity.model     = getVehicleModel(vehicleid);
+    vehicle.entity.tunetable = getVehicleTuningTable(vehicleid);
+    vehicle.entity.dirtlevel = getVehicleDirtLevel(vehicleid);
+    vehicle.entity.fuellevel = getVehicleFuel(vehicleid);
+    vehicle.entity.plate     = getVehiclePlateText(vehicleid);
+    vehicle.entity.owner     = getVehicleOwner(vehicleid);
 
-    vehicle.save();
+    vehicle.entity.save();
     return true;
 }
 

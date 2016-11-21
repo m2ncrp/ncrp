@@ -17,6 +17,6 @@ class Vehicle extends ORM.Entity {
         ORM.Trait.Positionable(), // adds fields float x, float y, float z
         ORM.Trait.Rotationable(), // adds fields float rx, float ry, float rz
         ColorableA() // adds cra, cga, cba
-        ColorableA() // adds crb, cgb, cbb
+        ColorableB() // adds crb, cgb, cbb
     ];
 }
