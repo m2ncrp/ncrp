@@ -219,10 +219,8 @@ function setVehicleOwner(vehicleid, playerNameOrId) {
         return dbg("[vehicle] setVehicleOwner: vehicles no vehicleid #" + vehicleid);
     }
 
-    local vehicle = vehicles[vehicleid];
-
-    vehicle.ownership.status = VEHICLE_OWNERSHIP_SINGLE;
-    vehicle.ownership.owner  = playerNameOrId;
+    vehicles[vehicleid].ownership.status = VEHICLE_OWNERSHIP_SINGLE;
+    vehicles[vehicleid].ownership.owner  = playerNameOrId;
 
     return true;
 }
@@ -241,9 +239,9 @@ function getVehicleOwner(vehicleid) {
 
     local vehicle = vehicles[vehicleid];
 
-    if (vehicle.ownership.status != VEHICLE_OWNERSHIP_NONE) {
+    // if (vehicle.ownership.status != VEHICLE_OWNERSHIP_NONE) {
         return vehicle.ownership.owner;
-    }
+    // }
 
     return VEHICLE_DEFAULT_OWNER;
 }
