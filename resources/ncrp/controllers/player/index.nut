@@ -40,7 +40,7 @@ addEventHandlerEx("onPlayerInit", function(playerid, name, ip, serial) {
         players[playerid]["request"]      <- {}; // need for invoice to transfer money
         players[playerid]["job"]          <- (char.job.len() > 0) ? char.job : null;
         players[playerid]["money"]        <- char.money;
-        players[playerid]["deposit"]      <- 0.0;
+        players[playerid]["deposit"]      <- char.deposit;
         players[playerid]["default_skin"] <- char.dskin;  // skin which buy by player
         players[playerid]["skin"]         <- char.cskin;  // current skin
         players[playerid]["spawn"]        <- char.spawnid;
@@ -64,6 +64,7 @@ function trySavePlayer(playerid) {
 
     // proxy data back to the model
     char.money   = players[playerid]["money"];
+    char.deposit = players[playerid]["deposit"];
     char.dskin   = players[playerid]["default_skin"];
     char.cskin   = players[playerid]["skin"];
     char.spawnid = players[playerid]["spawn"];
