@@ -241,6 +241,16 @@ function getVehicleOwner(vehicleid) {
 }
 
 /**
+ * Check if current connected player is owner of ther car
+ * @param  {integer}  playerid
+ * @param  {integer}  vehicleid
+ * @return {Boolean}
+ */
+function isPlayerVehicleOwner(playerid, vehicleid) {
+    return (isPlayerConnected(playerid)) && getVehicleOwner(vehicleid) == getPlayerName(playerid));
+}
+
+/**
  * Try to save vehicle
  * make sure that vehicle is saveble via setVehicleSaving(vehicleid, true)
  *
