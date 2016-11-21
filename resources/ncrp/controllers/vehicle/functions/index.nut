@@ -325,3 +325,14 @@ function getCustomPlayerVehicles() {
 
     return ids;
 }
+
+/**
+ * Tries to save all vehicles
+ */
+function saveAllVehicles() {
+    foreach (vehicleid, vehicle in vehicles) {
+        if (vehicle.saving) {
+            trySaveVehicle(vehicleid);
+        }
+    }
+}
