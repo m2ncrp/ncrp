@@ -24,6 +24,7 @@ include("helpers/color.nut");
 // load controllers
 include("controllers/database");
 include("controllers/keyboard");
+include("controllers/waypoints");
 include("controllers/time");
 include("controllers/auth");
 include("controllers/chat");
