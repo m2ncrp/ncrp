@@ -26,7 +26,7 @@ function squirrelRun(code) {
  */
 function squirrelDebugOnServer(playerid, args) {
     local result = JSONEncoder.encode(squirrelRun(concat(args)));
-    msg(playerid, result, CL_CARIBBEANGREEN);
+    if (isPlayerConnected(playerid)) msg(playerid, result, CL_CARIBBEANGREEN);
     dbg(result);
 }
 
@@ -48,4 +48,10 @@ function squirrelDebugOnClient(playerid, args) {
 addEventHandler("onClientScriptError", function(playerid, code) {
     msg(playerid, JSONEncoder.encode(code), CL_CHESTNUT);
     dbg(code);
+});
+
+addEventHandler("onConsoleInput", function(name, ...) {
+    if (name == "sq") {
+        squirrelDebugOnServer(-1, vargv);
+    }
 });
