@@ -6,6 +6,11 @@ include("controllers/vehicle/functions/passengers.nut");
 
 const VEHICLE_RESPAWN_TIME = 600; // 10 minutes
 const VEHICLE_FUEL_DEFAULT = 40.0;
+const VEHICLE_MIN_DIRT     = 0.25;
+const VEHICLE_MAX_DIRT     = 0.75;
+const VEHICLE_DEFAULT_OWNER = "";
+const VEHICLE_OWNERSHIP_NONE = 0;
+const VEHICLE_OWNERSHIP_SINGLE = 0;
 
 // saving original vehicle method
 local old__createVehicle = createVehicle;
@@ -22,16 +27,21 @@ createVehicle = function(modelid, x, y, z, rx, ry, rz) {
     // apply default functions
     setVehicleRotation(vehicle, rx.tofloat(), ry.tofloat(), rz.tofloat());
     getVehicleOverride(vehicle, modelid.tointeger());
-    setVehicleDirtLevel(vehicle, randomf(0.2, 0.75));
+    setVehicleDirtLevel(vehicle, randomf(VEHICLE_MIN_DIRT, VEHICLE_MAX_DIRT));
 
     // save vehicle entity
     vehicles[vehicle] <- {
+        saving  = false
         respawn = {
             enabled = true,
             position = { x = x.tofloat(), y = y.tofloat(), z = z.tofloat() },
             rotation = { x = rx.tofloat(), y = ry.tofloat(), z = rz.tofloat() },
             time = getTimestamp(),
-        }
+        },
+        ownership = {
+            status = VEHICLE_OWNERSHIP_NONE,
+            owner  = null
+        },
     };
 
     return vehicle;
@@ -48,6 +58,19 @@ function setVehicleRespawnEx(vehicleid, value) {
         return vehicles[vehicleid].respawn.enabled = value;
     }
 }
+
+/**
+ * Set if vehicle can be automatically saved
+ * @param  {int} vehicleid
+ * @param  {bool} value
+ * @return {bool}
+ */
+function setVehicleSaving(vehicleid, value) {
+    if (vehicleid in vehicles) {
+        return vehicles[vehicleid].saving = value;
+    }
+}
+
 
 /**
  * Iterate over vehicles
@@ -132,6 +155,7 @@ function tryRespawnVehicleById(vehicleid, forced = false) {
     repairVehicle(vehicleid);
     setVehicleEngineState(vehicleid, false);
     setVehicleFuel(vehicleid, VEHICLE_FUEL_DEFAULT);
+    setVehicleDirtLevel(vehicle, randomf(VEHICLE_MIN_DIRT, VEHICLE_MAX_DIRT));
 
     return true;
 }
@@ -166,7 +190,117 @@ function unblockVehicle(vehicleid, fuel = VEHICLE_FUEL_DEFAULT) {
     return setVehicleFuel(vehicleid, fuel);
 }
 
+/**
+ * Set vehicle owner
+ * can be passed as playername or playerid(connected)
+ *
+ * @param {integer} vehicleid
+ * @param {mixed} playerNameOrId
+ */
+function setVehicleOwner(vehicleid, playerNameOrId) {
+    // if its id - get name from it
+    if (typeof playerNameOrId == "integer") {
+        if (isPlayerConnected(playerNameOrId)) {
+            playerNameOrId = getPlayerName(playerNameOrId);
+        } else {
+            return dbg("[vehicle] setVehicleOwner: trying to set for playerid that aint connected #" + playerNameOrId);
+        }
+    }
 
+    if (!(vehicleid in vehicles)) {
+        return dbg("[vehicle] setVehicleOwner: vehicles no vehicleid #" + vehicleid);
+    }
+
+    local vehicle = vehicles[vehicleid];
+
+    vehicle.ownership.status = VEHICLE_OWNERSHIP_SINGLE;
+    vehicle.ownership.owner  = playerNameOrId;
+
+    return true;
+}
+
+/**
+ * Get vehicle owner name or null
+ *
+ * @param  {integer} vehicleid
+ * @return {mixed}
+ */
+function getVehicleOwner(vehicleid) {
+    if (!(vehicleid in vehicles)) {
+        dbg("[vehicle] getVehicleOwner: vehicles no vehicleid #" + vehicleid);
+        return VEHICLE_DEFAULT_OWNER;
+    }
+
+    local vehicle = vehicles[vehicleid];
+
+    if (vehicle.ownership.status != VEHICLE_OWNERSHIP_NONE) {
+        return vehicle.ownership.owner;
+    }
+
+    return VEHICLE_DEFAULT_OWNER;
+}
+
+/**
+ * Try to save vehicle
+ * make sure that vehicle is saveble via setVehicleSaving(vehicleid, true)
+ *
+ * @param  {integer} vehicleid
+ * @return {bool} result
+ */
+function trySaveVehicle(vehicleid) {
+    if (!(vehicleid in vehicles)) {
+        return dbg("[vehicle] trySaveVehicle: vehicles no vehicleid #" + vehicleid);
+    }
+
+    local vehicle = vehicles[vehicleid];
+
+    if (!vehicle.saving) {
+        return false;
+    }
+
+    // save data
+    local position = getVehiclePosition(vehicleid);
+    local rotation = getVehicleRotation(vehicleid);
+
+    vehicle.x  = position[0];
+    vehicle.y  = position[1];
+    vehicle.z  = position[2];
+    vehicle.rx = rotation[0];
+    vehicle.ry = rotation[1];
+    vehicle.rz = rotation[2];
+
+    local colors = getVehicleColour(vehicleid);
+
+    vehicle.cra = colors[0];
+    vehicle.cga = colors[1];
+    vehicle.cba = colors[2];
+    vehicle.crb = colors[3];
+    vehicle.cgb = colors[4];
+    vehicle.cbb = colors[5];
+
+    vehicle.model     = getVehicleModel(vehicleid);
+    vehicle.tunetable = getVehicleTuningTable(vehicleid);
+    vehicle.dirtlevel = getVehicleDirtLevel(vehicleid);
+    vehicle.fuellevel = getVehicleFuel(vehicleid);
+    vehicle.plate     = getVehiclePlateText(vehicleid);
+    vehicle.owner     = getVehicleOwner(vehicleid);
+
+    vehicle.save();
+    return true;
+}
+
+/**
+ * Retuern array of vehicleids which are saveble
+ * @return {array}
+ */
 function getCustomPlayerVehicles() {
-    return [];
+    local ids = [];
+
+    foreach (vehicleid, vehicle in vehicles) {
+        if (vehicle.saving) {
+            ids.push(vehicleid);
+        }
+    }
+
+    return ids;
 }
