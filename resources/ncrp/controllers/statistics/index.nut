@@ -33,7 +33,7 @@ function statisticsPushVehicles() {
 
     foreach (vehicleid in getCustomPlayerVehicles()) {
         local additional = isVehicleEmpty(vehicleid) ? "empty" : "driven";
-        statisticsPushObject( getVehiclePositionObj(playerid), "vehicle", additional );
+        statisticsPushObject( getVehiclePositionObj(vehicleid), "vehicle", additional );
         amount++;
     }
 
