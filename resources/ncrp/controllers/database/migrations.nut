@@ -30,8 +30,10 @@ function applyMigrations(connection) {
 /**
  * Apply your migrations below
  */
-// // added deposit for character
-// migrate(function(connection) {
-//     connection.query("alter table tbl_characters add field deposit float not null default 0.0;");
-// });
+
+// 21.11.16
+// added deposit field for character
+migrate(function(connection) {
+    connection.query("ALTER TABLE tbl_characters ADD COLUMN `deposit` FLOAT NOT NULL DEFAULT 0.0;");
+});
 
