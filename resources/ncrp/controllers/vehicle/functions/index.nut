@@ -22,6 +22,7 @@ createVehicle = function(modelid, x, y, z, rx, ry, rz) {
     // apply default functions
     setVehicleRotation(vehicle, rx.tofloat(), ry.tofloat(), rz.tofloat());
     getVehicleOverride(vehicle, modelid.tointeger());
+    setVehicleDirtLevel(vehicle, randomf(0.2, 0.75));
 
     // save vehicle entity
     vehicles[vehicle] <- {
