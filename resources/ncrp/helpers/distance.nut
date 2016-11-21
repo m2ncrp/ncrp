@@ -85,27 +85,6 @@ function outofRadiusDo(playerid, targetid, radius, callback) {
         callback();
 }
 
-/**
- * Send message to all players in radius
- * @param  {int}        sender
- * @param  {string}     message
- * @param  {float}      radius
- * @param  {RGB object} color
- * @return {void}
- */
-function inRadiusSendToAll(sender, message, radius, color = 0) {
-    local players = playerList.getPlayers();
-    foreach(player in players) {
-        intoRadiusDo(sender, player, radius, function() {
-            if (color) {
-                msg(player, message, color);
-            } else {
-                msg(player, message);
-            }
-        });
-    }
-}
-
 
 /**
 * @temporary. Need changes
