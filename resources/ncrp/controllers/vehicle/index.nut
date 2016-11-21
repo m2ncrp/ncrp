@@ -37,18 +37,25 @@ addEventHandlerEx("onServerStarted", function() {
     log("[vehicles] starting...");
 
     // load all vehicles from db
-    // Vehicle.findAll(function(err, results) {
-    //     foreach (idx, vehicle in results) {
-    //         // create vehicle
-    //         local vehicleid = createVehicle(vehicle.modelid, vehicle.x, vehicle.y, vehicle.z, vehicle.rx, vehicle.ry, vehicle.rz);
+    Vehicle.findAll(function(err, results) {
+        foreach (idx, vehicle in results) {
+            // create vehicle
+            local vehicleid = createVehicle(vehicle.modelid, vehicle.x, vehicle.y, vehicle.z, vehicle.rx, vehicle.ry, vehicle.rz);
 
-    //         // load all the data
-    //         setVehicleColour(vehicleid, vehicle.cra, vehicle.cga, vehicle.cba, vehicle.crb, vehicle.cgb, vehicle.cbb);
-    //         setVehicleRotation(vehicleid, vehicle.rx, vehicle.ry, vehicle.rz);
-    //         setVehicleRespawnEx(vehicleid, false);
-    //         setVehicleTuningTable(vehicleid, vehicle.tuning);
-    //     }
-    // });
+            // load all the data
+            setVehicleColour(vehicleid, vehicle.cra, vehicle.cga, vehicle.cba, vehicle.crb, vehicle.cgb, vehicle.cbb);
+            setVehicleRotation(vehicleid, vehicle.rx, vehicle.ry, vehicle.rz);
+            setVehicleTuningTable(vehicleid, vehicle.tunetable);
+            setVehicleDirtLevel(vehicleid, vehicle.dirtlevel);
+            setVehicleFuel(vehicleid, vehicle.fuellevel);
+            setVehiclePlateText(vehicleid, vehicle.plate);
+            setVehicleOwner(vehicleid, vehicle.owner);
+
+            // secial methods for custom vehicles
+            setVehicleRespawnEx(vehicleid, false);
+            setVehicleSaving(vehicleid, false);
+        }
+    });
 });
 
 addEventHandlerEx("onServerMinuteChange", function() {

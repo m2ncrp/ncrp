@@ -20,7 +20,7 @@ function applyMigrations(connection) {
         // if current version is old, migrate to new
         while (migration.current < __migrations.len()) {
             __migrations[migration.current++](connection);
-            log("[database][migration] applying migration " + migration.current);
+            log("[database][migration] applying migration #" + migration.current);
         }
 
         migration.save();
