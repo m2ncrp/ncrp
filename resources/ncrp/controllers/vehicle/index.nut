@@ -35,6 +35,7 @@ addEventHandler("onScriptInit", function() {
 // binding events
 addEventHandlerEx("onServerStarted", function() {
     log("[vehicles] starting...");
+    local counter = 0;
 
     // load all vehicles from db
     Vehicle.findAll(function(err, results) {
@@ -55,13 +56,21 @@ addEventHandlerEx("onServerStarted", function() {
             setVehicleRespawnEx(vehicleid, false);
             setVehicleSaving(vehicleid, true);
             setVehicleEntity(vehicleid, vehicle);
+
+            counter++;
         }
+
+        log("[vehicles] loaded " + counter + " vehicles from database.");
     });
 });
 
 addEventHandlerEx("onServerMinuteChange", function() {
     updateVehiclePassengers();
     checkVehicleRespawns();
+});
+
+addEventHandlerEx("onServerAutosave", function() {
+    saveAllVehicles();
 });
 
 addEventHandler("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
