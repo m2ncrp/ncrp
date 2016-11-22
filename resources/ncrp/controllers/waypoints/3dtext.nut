@@ -68,7 +68,7 @@ function create3DText(x, y, z, text, color, distance = 35.0) {
  * @param  {Float} distance
  * @return {Integer} textid
  */
-function createPrivate3DText(playerid, x, y, z, text, color, distance = false) {
+function createPrivate3DText(playerid, x, y, z, text, color, distance = 35.0) {
     if (color instanceof Color) {
         color = color.toHex();
     }
