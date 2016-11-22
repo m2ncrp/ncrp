@@ -49,3 +49,54 @@ function screenFadeinFadeout(playerid, time, callback1 = null, callback2 = null)
         })
     });
 }
+
+
+/**
+ * Fadein Ex
+ * transparent -> black
+ *
+ * @param {int} playerid
+ * @param {int} fadetime in ms
+ * @param {Function} callback (optional)
+ */
+function screenFadeinEx(playerid, fadetime, callback = null) {
+    triggerClientEvent(playerid, "onServerFadeScreen", fadetime.tostring(), false);
+    return callback ? delayedFunction(fadetime, callback) : null;
+}
+
+/**
+ * Fadeout Ex
+ * black -> transparent
+ *
+ * @param {int} playerid
+ * @param {int} fadetime in ms
+ * @param {Function} callback (optional)
+ */
+function screenFadeoutEx(playerid, fadetime, callback = null) {
+    triggerClientEvent(playerid, "onServerFadeScreen", fadetime.tostring(), true);
+    return callback ? delayedFunction(fadetime, callback) : null;
+}
+
+/**
+ * For run code between fadein and fadeout
+ * transparent -> black -> wait <pause> ms -> transparent
+ *
+ * @param {int} playerid
+ * @param {int} fadetime in ms (for fadein and fadeout separately) (recommended value: 250, min: 100)
+ * @param {int} pause in ms (need value min: 150)
+ * @param {Function} callback1 (optional) will be called at "black"
+ * @param {Function} callback2 (optional) will be called at finish
+ */
+function screenFadeinFadeoutEx(playerid, fadetime, pause, callback1 = null, callback2 = null) {
+    screenFadeinEx(playerid, fadetime, function() {
+        // run first callback
+        if (callback1) callback1();
+
+        // start fadeout
+        delayedFunction(pause, function(){
+            screenFadeoutEx(playerid, fadetime, function() {
+                return callback2 ? callback2() : null;
+            });
+        })
+    });
+}
