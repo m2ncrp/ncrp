@@ -23,6 +23,12 @@ class Color {
         this.b = c[2];
         this.a = c[3];
     }
+
+    function applyAlpha(alpha)
+    {
+        this.a = alpha;
+        return this;
+    }
 }
 
 function rgb(red = 255, green = 255, blue = 255, alpha = 255) {
