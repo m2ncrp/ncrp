@@ -162,7 +162,7 @@ function tryRespawnVehicleById(vehicleid, forced = false) {
     repairVehicle(vehicleid);
     setVehicleEngineState(vehicleid, false);
     setVehicleFuel(vehicleid, VEHICLE_FUEL_DEFAULT);
-    setVehicleDirtLevel(vehicle, randomf(VEHICLE_MIN_DIRT, VEHICLE_MAX_DIRT));
+    setVehicleDirtLevel(vehicleid, randomf(VEHICLE_MIN_DIRT, VEHICLE_MAX_DIRT));
 
     return true;
 }
