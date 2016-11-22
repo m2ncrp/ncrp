@@ -50,7 +50,7 @@ addEventHandlerEx("onPlayerInit", function(playerid, name, ip, serial) {
         players[playerid]["housez"]       <- char.housez;
 
         triggerServerEventEx("onPlayerConnect", playerid, name, ip, serial);
-        triggerClientEvent("onServerClientStarted");
+        triggerClientEvent(playerid, "onServerClientStarted");
     });
 });
 
