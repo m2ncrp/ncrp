@@ -131,8 +131,8 @@ cmd(["uncuff"], function(playerid) {
 
         if ( isBothInRadius(playerid, targetid, CUFF_RADIUS) ) {
             togglePlayerControls( targetid, false );
-            msg(targetid, "You've been cuffed by " + getAuthor( playerid ) + " .");
-            msg(playerid, "You cuffed " + getAuthor( targetid ) + " .");
+            msg(targetid, "You've been uncuffed by " + getAuthor( playerid ) + " .");
+            msg(playerid, "You uncuffed " + getAuthor( targetid ) + " .");
         }
     }
 });

@@ -63,40 +63,95 @@ addCommandHandler("putto", function ( playerid, vehicleid ) {
     return 1;
 });
 
-addCommandHandler("checkrand", function ( playerid ) {
-  local vfile = file("values.txt", "a");
-  local ar = array(1000);
-  for (local i = 0; i < 999; i++) {
-    ar[i] = randomf(0.01,0.1);
+function checkrandf(from, to) {
+  local valAmmount = 1000;
+  local ar = array(valAmmount);
+  for (local i = 0; i < (valAmmount-1); i++) {
+    ar[i] = randomf(from, to);
   }
+
+  local vfile = DataFile("values.txt");
 
   local summ_array = 0;
   // Get mean
-  for (local i = 0; i < 999; i++) {
+  for (local i = 0; i < (valAmmount-1); i++) {
     local val = round( ar[i], 2 );
-    dbg( val );
-    writeitnow(vfile, val);
+    vfile.write(val);
     summ_array = summ_array + val;
   }
-  local mean = summ_array / 1000;
+
+  vfile.newline()
+    .write(mean)
+    .newline()
+    .close();
+
+  local mean = summ_array / valAmmount;
+  return mean;
+};
+
+function checkrand(from, to) {
+  local valAmmount = 1000;
+  local ar = array(valAmmount);
+  for (local i = 0; i < (valAmmount-1); i++) {
+    ar[i] = random(from, to);
+  }
+
+  local vfile = DataFile("values.txt");
+
+  local summ_array = 0;
+  // Get mean
+  for (local i = 0; i < (valAmmount-1); i++) {
+    local val = round( ar[i], 2 );
+    vfile.write(val);
+    summ_array = summ_array + val;
+  }
+  local mean = summ_array / valAmmount;
   log(""); dbg( mean );
 
-  vfile.writen('\n', 'b');
-  mean = mean.tostring();
-  for (local i = 0; i < mean.len(); i++) {
-    vfile.writen(mean[i], 'b');
-  }
-  vfile.writen('\n', 'b');
-  vfile.close();
-});
+  vfile.newline()
+    .write(mean)
+    .newline()
+    .close();
+};
+
+function getMean(data, length, round = false) {
+  local summ = 0;
+  local val;
+  for (local i = 0; i < (length-1); i++) {
+    if (round)
+      val = round( data[i], 2 );
+    else
+      val = data[i];
+    vfile.write(val);
+    summ = summ + val;
+  } 
+}
 
 
-function writeitnow(file, data) {
-    data = data.tostring();
-    for (local i = 0; i < data.len(); i++) {
-      file.writen(data[i], 'b');
+class DataFile {
+    filename = null;
+    
+    constructor (name, rights = "a") {
+        filename = file(name, rights);
     }
-    file.writen('\n', 'b');
+
+    function write(data) {
+        data = data.tostring();
+        for (local i = 0; i < data.len(); i++) {
+          filename.writen(data[i], 'b');
+        }
+        filename.writen('\n', 'b');
+        return this;
+    }
+
+    function newline() {
+        filename.writen('\n', 'b');
+        return this;
+    }
+
+    function close() {
+        filename.close();
+    }
 }
 
 //================================================================================================================================================
