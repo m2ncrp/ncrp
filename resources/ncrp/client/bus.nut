@@ -1,8 +1,27 @@
 local busses = {};
 local syncing = [];
+local ticker = null;
 
 addEventHandler("onServerClientStarted", function() {
-    
+    if (ticker) return;
+
+    // check for distances of the busses
+    ticker = timer(function() {
+        syncing.clear();
+
+        foreach (idx, passangers in busses) {
+            local bus = getVehiclePosition(idx);
+            local pos = getPlayerPosition(getLocalPlayer());
+            if (getDistanceBetweenPoints2D(bus[0], bus[1], pos[0], pos[1]) < 50.0) {
+                syncing.push(idx);
+            }
+        }
+    }, 1000, -1);
+});
+
+addEventHandler("onServerClientStopped", function() {
+    ticker.Kill();
+    ticker = null;
 });
 
 addEventHandler("onServerPlayerBusEnter", function(playerid, busid) {
@@ -24,20 +43,6 @@ addEventHandler("onServerPlayerBusExit", function(playerid, busid) {
         busses[busid].remove(idx);
     }
 });
-
-
-// check for distances of the busses
-timer(function() {
-    syncing.clear();
-
-    foreach (idx, passangers in busses) {
-        local bus = getVehiclePosition(idx);
-        local pos = getPlayerPosition(getLocalPlayer());
-        if (getDistanceBetweenPoints2D(bus[0], bus[1], pos[0], pos[1]) < 50.0) {
-            syncing.push(idx);
-        }
-    }
-}, 1000, -1);
 
 addEventHandler("onClientFrameRender", function(a) {
     if (a) {
