@@ -6,8 +6,9 @@ jobtext["letsgo"] <- "asdasdasdad";
 
 
 const RADIUS_BUS = 1.0;
-const BUS_JOB_X = -422.731;
-const BUS_JOB_Y = 479.462;
+const BUS_JOB_X = -421.738;
+const BUS_JOB_Y = 479.321;
+const BUS_JOB_Z = 0.0500296;
 const BUS_JOB_SKIN = 171;
 
 addEventHandlerEx("onServerStarted", function() {
@@ -16,6 +17,9 @@ addEventHandlerEx("onServerStarted", function() {
     createVehicle(20, -436.652, 427.656, 0.907598, 44.6088, -0.0841779, 0.205202);
     createVehicle(20, -437.04, 438.027, 0.907163, 45.1754, -0.100916, 0.242581);
     createVehicle(20, -410.198, 493.193, -0.21792, -179.657, -3.80509, -0.228946);
+
+    create3DText ( BUS_JOB_X, BUS_JOB_Y, 0.35, "ROADKING BUS DEPOT", CL_ROYALBLUE );
+    create3DText ( BUS_JOB_X, BUS_JOB_Y, -0.15, "/help job bus", CL_WHITE.applyAlpha(125) );
 });
 
 addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial ){
@@ -80,13 +84,15 @@ function busJob( playerid ) {
         return msg(playerid, "You already have a job: " + getPlayerJob(playerid) + ".");
     }
 
-    msg( playerid, "You're a bus driver now! Congratulations!" );
-    msg( playerid, "Sit into bus." );
+    screenFadeinFadeoutEx(playerid, 250, 200, function() {
+        msg( playerid, "You're a bus driver now! Congratulations!" );
+        msg( playerid, "Sit into bus." );
 
-    players[playerid]["job"] = "busdriver";
+        players[playerid]["job"] = "busdriver";
 
-    players[playerid]["skin"] = BUS_JOB_SKIN;
-    setPlayerModel( playerid, BUS_JOB_SKIN );
+        players[playerid]["skin"] = BUS_JOB_SKIN;
+        setPlayerModel( playerid, BUS_JOB_SKIN );
+    });
 }
 
 // working good, check
