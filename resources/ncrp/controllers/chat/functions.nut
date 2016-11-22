@@ -1,4 +1,5 @@
 /**
+ * Add a comment to this line
  * Send message to all players in radius
  * @param  {int}        sender
  * @param  {string}     message
@@ -9,15 +10,36 @@
 function inRadiusSendToAll(sender, message, radius, color = 0) {
     local players = playerList.getPlayers();
     foreach(player in players) {
-        intoRadiusDo(sender, player, radius, function() {
+        if ( isBothInRadius(sender, player, radius) ) {
             if (color) {
                 msg(player, message, color);
             } else {
                 msg(player, message);
             }
-        });
+        }
     }
 }
+
+// /**
+//  * Send message to all players in radius
+//  * @param  {int}        sender
+//  * @param  {string}     message
+//  * @param  {float}      radius
+//  * @param  {RGB object} color
+//  * @return {void}
+//  */
+// function inRadiusSendToAll(sender, message, radius, color = 0) {
+//     local players = playerList.getPlayers();
+//     foreach(player in players) {
+//         intoRadiusDo(sender, player, radius, function() {
+//             if (color) {
+//                 msg(player, message, color);
+//             } else {
+//                 msg(player, message);
+//             }
+//         });
+//     }
+// }
 
 /**
  * Return string "player_name[playerid]"

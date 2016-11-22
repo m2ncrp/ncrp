@@ -9,6 +9,5 @@ const SHOUT_RADIUS = 35.0;
 // event handlers
 addEventHandler("onPlayerChat", function(playerid, message) {
     inRadiusSendToAll(playerid, getAuthor( playerid ) + " says: " + message, NORMAL_RADIUS, CL_YELLOW);
-    msg(playerid, message, CL_YELLOW);
     return false;
 });
