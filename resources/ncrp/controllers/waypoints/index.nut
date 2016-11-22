@@ -13,6 +13,7 @@ function createTextPlayerWaypoint(playerid) {
 
 addEventHandlerEx("onServerStarted", function() {
     local text1 = create3DText(-419.275, 485.54, -0.0967727, "home of great inlufz", CL_LIGHTWISTERIA);
+    local text1 = createBlip(-419.275, 485.54, ICON_STAR);
 });
 
 addEventHandler("onPlayerSpawn", function(playerid) {

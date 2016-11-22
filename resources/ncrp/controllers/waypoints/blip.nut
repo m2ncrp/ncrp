@@ -27,3 +27,89 @@ ICON_LOGO_GREEN   <- [22,  0];
 ICON_LOGO_RED     <- [23,  0];
 ICON_LOGO_PINK    <- [24,  0];
 ICON_LOGO_BLACK   <- [25,  0];
+
+local __blips = [];
+
+function addBlipForPlayer(blipid, playerid) {
+    if (!(blipid in __blips)) {
+        return dbg("[blip] tried to send non-existent blip.");
+    }
+
+    local blip = __blips[blipid];
+    return triggerClientEvent(playerid, "onServerBlipAdd", blipid, blip.x, blip.y, blip.distance, blip.library, blip.icon);
+}
+
+function removeBlipForPlayer(blipid, playerid) {
+    return triggerClientEvent(playerid, "onServerBlipDelete", blipid);
+}
+
+function addBlipForPlayers(blipid) {
+    foreach (playerid, player in players) {
+        addBlipForPlayer(blipid, playerid);
+    }
+}
+
+function removeBlipForPlayers(blipid) {
+    foreach (playerid, player in players) {
+        removeBlipForPlayer(blipid, playerid);
+    }
+}
+
+addEventHandler("onPlayerSpawn", function(playerid) {
+    foreach (blipid, blip in __blips) {
+        if (!blip.private) { addBlipForPlayer(blipid, playerid); }
+    }
+});
+
+/**
+ * Create blip in postion with blip and color
+ * returns created 3d blip id
+ *
+ * @param  {Float}  x
+ * @param  {Float}  y
+ * @param  {Icon}  icon
+ * @param  {Float} distance
+ * @return {Integer} blipid
+ */
+function createBlip(x, y, icon, distance = 35.0) {
+    __blips.push({ x = x.tofloat(), y = y.tofloat(), library = icon[0], icon = icon[1], distance = distance.tofloat(), private = false });
+    local blipid = __blips.len() - 1;
+    addBlipForPlayers(blipid);
+    return blipid;
+}
+
+
+/**
+ * Create blip in postion with blip and color for player
+ * returns created 3d blip id
+ *
+ * @param  {Integer} playerid
+ * @param  {Float}  x
+ * @param  {Float}  y
+ * @param  {Icon}  icon
+ * @param  {Float} distance
+ * @return {Integer} blipid
+ */
+function createPrivateBlip(x, y, icon, distance = 35.0) {
+    __blips.push({ x = x.tofloat(), y = y.tofloat(), library = icon[0], icon = icon[1], distance = distance.tofloat(), private = true });
+    local blipid = __blips.len() - 1;
+    addBlipForPlayer(blipid, playerid);
+    return blipid;
+}
+
+/**
+ * Remove blip by blipid
+ *
+ * @param  {Integer} blipid
+ * @return {Boolean}
+ */
+function removeBlip(blipid) {
+    if (!(blipid in __blips)) {
+        return dbg("[blip] tried to remove non-existent blip.");
+    }
+
+    __blips.remove(blipid);
+    removeBlipForPlayers(blipid);
+    return true;
+}
+
