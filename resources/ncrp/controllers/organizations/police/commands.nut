@@ -20,7 +20,9 @@ cmd("police", ["duty", "on"], function(playerid) {
     if ( !isOnDuty(playerid) ) {
         setOnDuty(playerid, true);
         // givePlayerWeapon( playerid, 2, 0 ); // should be called once at spawn or zero ammo to prevent using infinite ammo usage in combats
-        return setPlayerModel(playerid, POLICE_MODEL);
+        return screenFadeinFadeout(playerid, 100, function() {
+                    setPlayerModel(playerid, POLICE_MODEL);
+                });
     } else {
         return msg(playerid, "You're already on duty now.");
     }
@@ -33,8 +35,10 @@ cmd("police", ["duty", "off"], function(playerid) {
     }
     if ( isOnDuty(playerid) ) {
         setOnDuty(playerid, false);
-        // RemovePlayerWeapon( playerid, 2 ); // remove at all
-        return setPlayerModel(playerid, players[playerid]["default_skin"]);
+        // removePlayerWeapon( playerid, 2 ); // remove at all
+        return screenFadeinFadeout(playerid, 100, function() {
+                    setPlayerModel(playerid, players[playerid]["default_skin"]);
+                });
     } else {
         return msg(playerid, "You're already off duty now.");
     }
@@ -138,13 +142,29 @@ cmd(["uncuff"], function(playerid) {
 });
 
 cmd(["prison", "jail"], function(playerid, targetid) {
+    targetid = targetid.tointeger();
     if ( isOnDuty(playerid) ) {
         screenFadein(playerid, 1500, function() {
             togglePlayerControls( targetid, true );
         //  output "Wasted" and set player position
+            setPlayerPosition( playerid, 0.0, 0.0, 0.0 );
         });        
     }
 });
+
+cmd(["amnesty"], function(playerid, targetid) {
+    targetid = targetid.tointeger();
+    if ( isOnDuty(playerid) ) {
+        screenFadeout(playerid, 1500, function() {
+            togglePlayerControls( targetid, false );
+            local spawnID = players[playerid]["spawn"];
+            local x = default_spawns[spawnID][0];
+            local y = default_spawns[spawnID][1];
+            local z = default_spawns[spawnID][2];
+            setPlayerPosition(playerid, x, y, z);
+        });        
+    }
+})
 
 
 // usage: /help job police
