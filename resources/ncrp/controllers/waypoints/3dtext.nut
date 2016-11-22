@@ -48,7 +48,7 @@ function create3DText(x, y, z, text, color, shadow = false) {
         color = color.toHex();
     }
 
-    __3dtexts.push({ x = x, y = y, z = z, value = text, color = color, shadow = shadow, private = false });
+    __3dtexts.push({ x = x.tofloat(), y = y.tofloat(), z = z.tofloat(), value = text, color = color, shadow = shadow, private = false });
     local textid = __3dtexts.len() - 1;
     add3DTextForPlayers(textid);
     return textid;
@@ -73,7 +73,7 @@ function createPrivate3DText(playerid, x, y, z, text, color, shadow = false) {
         color = color.toHex();
     }
 
-    __3dtexts.push({ x = x, y = y, z = z, value = text, color = color, shadow = shadow, private = true });
+    __3dtexts.push({ x = x.tofloat(), y = y.tofloat(), z = z.tofloat(), value = text, color = color, shadow = shadow, private = true });
     local textid = __3dtexts.len() - 1;
     add3DTextForPlayer(textid, playerid);
     return textid;
