@@ -27,7 +27,6 @@ addEventHandler("onClientFrameRender", function(post) {
 });
 
 addEventHandler("onServer3DTextAdd", function(uid, x, y, z, text, c, s) {
-    log("[debug] creating 3d text");
     local obj = {uid = uid, name = text, pos = {x = x, y = y, z = z}, color = c, shadow = s};
     _3Dtext_objects[obj.uid] <- obj;
 });

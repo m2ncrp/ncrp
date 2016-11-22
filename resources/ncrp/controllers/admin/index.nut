@@ -57,6 +57,6 @@ addEventHandler("onConsoleInput", function(name, ...) {
 });
 
 addEventHandler("onPlayerTeleportRequested", function(playerid, x, y, z) {
-    msg("Teleporting to: ", [x, y, z + 1]);
-    setPlayerPosition(playerid, x, y, z + 1);
+    // msg("Teleporting to: ", [x, y, z]);
+    setPlayerPosition(playerid, x, y, z);
 });
