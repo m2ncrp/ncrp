@@ -92,6 +92,16 @@ acmd(["tcoords", "tc"], function(playerid, nameOrId) {
     }
 });
 
+/**
+ * Rendering tgs in the world
+ */
+addEventHandlerEx("onServerStarted", function() {
+    TeleportPosition.findAll(function(err, positions) {
+        foreach (idx, teleport in positions) {
+            create3DText(teleport.x, teleport.y, teleport.z, "Teleport: " + teleport.name, CL_ROYALBLUE.applyAlpha(150));
+        }
+    });
+});
 
 
 /**

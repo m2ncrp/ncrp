@@ -19,7 +19,7 @@ addEventHandler("onClientFrameRender", function(post) {
             if (fDistance <= 35.0 && (i in _3Dtext_vectors) && _3Dtext_vectors[i][2] < 1) {
                 local dims = dxGetTextDimensions(obj.name, 1.0, "tahoma-bold");
 
-                dxDrawText(obj.name, (_3Dtext_vectors[i][0] - (dims[0] / 2)) + 1, _3Dtext_vectors[i][1] + 1, 0xFF000000, false, "tahoma-bold");
+                // dxDrawText(obj.name, (_3Dtext_vectors[i][0] - (dims[0] / 2)) + 1, _3Dtext_vectors[i][1] + 1, 0xFF000000, false, "tahoma-bold");
                 dxDrawText(obj.name, (_3Dtext_vectors[i][0] - (dims[0] / 2)), _3Dtext_vectors[i][1], obj.color, false, "tahoma-bold");
             }
         }
