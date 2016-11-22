@@ -28,9 +28,6 @@ local busstops = [
     ["Go to bus station in Uptown near platform #3", -423.116, 440.924, 0.132165]
 ];
 
-tmp <- busstops;
-
-
 local userbusstop = [
     [-419.707, 444.016, 0.0456606, "Uptown. Platform #3"             ],  // busst0
     [-474.538, 7.72202,  -1.33022, "West Side"                       ],  // busst1
@@ -65,7 +62,8 @@ addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial ){
      job_bus[playerid] <- {};
      job_bus[playerid]["nextbusstop"] <- null;
      job_bus[playerid]["busready"] <- false;
-     job_bus[playerid]["bus3dtext"] <- false;
+     job_bus[playerid]["bus3dtext1"] <- false;
+     job_bus[playerid]["bus3dtext2"] <- false;
 });
 
 
@@ -173,7 +171,8 @@ function busJobReady( playerid ) {
     job_bus[playerid]["busready"] = true;
     msg( playerid, busstops[0][0] );
     job_bus[playerid]["nextbusstop"] = 0;
-    job_bus[playerid]["bus3dtext"] = createPrivate3DText (playerid, busstops[0][1], busstops[0][2], busstops[0][3]+0.35, BUS_JOB_BUSSTOP, CL_RIPELEMON, BUS_JOB_DISTANCE );
+    job_bus[playerid]["bus3dtext1"] = createPrivate3DText (playerid, busstops[0][1], busstops[0][2], busstops[0][3]+0.35, BUS_JOB_BUSSTOP, CL_RIPELEMON, BUS_JOB_DISTANCE );
+    job_bus[playerid]["bus3dtext2"] = createPrivate3DText (playerid, busstops[0][1], busstops[0][2], busstops[0][3]-0.15, "/bus stop", CL_RIPELEMON );
 }
 
 // working good, check
@@ -201,9 +200,12 @@ function busJobStop( playerid ) {
     if(isPlayerVehicleMoving(playerid)){
         return msg( playerid, "You're driving. Please stop the bus.");
     }
-    remove3DText ( job_bus[playerid]["bus3dtext"] );
+
+    remove3DText ( job_bus[playerid]["bus3dtext1"] );
+    remove3DText ( job_bus[playerid]["bus3dtext2"] );
     job_bus[playerid]["nextbusstop"] += 1;
-    job_bus[playerid]["bus3dtext"] = createPrivate3DText (playerid, busstops[i+1][1], busstops[i+1][2], busstops[i+1][3]+0.35, BUS_JOB_BUSSTOP, CL_RIPELEMON, BUS_JOB_DISTANCE );
+    job_bus[playerid]["bus3dtext1"] = createPrivate3DText (playerid, busstops[i+1][1], busstops[i+1][2], busstops[i+1][3]+0.35, BUS_JOB_BUSSTOP, CL_RIPELEMON, BUS_JOB_DISTANCE );
+    job_bus[playerid]["bus3dtext2"] = createPrivate3DText (playerid, busstops[i+1][1], busstops[i+1][2], busstops[i+1][3]+1.15, "/bus stop", CL_RIPELEMON );
 
         if (busstops.len() == job_bus[playerid]["nextbusstop"]) {
             sendPlayerMessage( playerid, "Nice job! You earned $10." );
