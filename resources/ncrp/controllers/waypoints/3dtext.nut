@@ -6,7 +6,7 @@ function add3DTextForPlayer(textid, playerid) {
     }
 
     local text = __3dtexts[textid];
-    return triggerClientEvent(playerid, "onServer3DTextAdd", textid, text.x, text.y, text.z, text.value, text.color, text.shadow);
+    return triggerClientEvent(playerid, "onServer3DTextAdd", textid, text.x, text.y, text.z, text.value, text.color, text.distance);
 }
 
 function remove3DTextForPlayer(textid, playerid) {
@@ -40,15 +40,15 @@ addEventHandler("onPlayerSpawn", function(playerid) {
  * @param  {Float}  z
  * @param  {String}  text
  * @param  {Color}  color
- * @param  {Boolean} shadow
+ * @param  {Float} distance
  * @return {Integer} textid
  */
-function create3DText(x, y, z, text, color, shadow = false) {
+function create3DText(x, y, z, text, color, distance = 35.0) {
     if (color instanceof Color) {
         color = color.toHex();
     }
 
-    __3dtexts.push({ x = x.tofloat(), y = y.tofloat(), z = z.tofloat(), value = text, color = color, shadow = shadow, private = false });
+    __3dtexts.push({ x = x.tofloat(), y = y.tofloat(), z = z.tofloat(), value = text, color = color, distance = distance.tofloat(), private = false });
     local textid = __3dtexts.len() - 1;
     add3DTextForPlayers(textid);
     return textid;
@@ -65,15 +65,15 @@ function create3DText(x, y, z, text, color, shadow = false) {
  * @param  {Float}  z
  * @param  {String}  text
  * @param  {Color}  color
- * @param  {Boolean} shadow
+ * @param  {Float} distance
  * @return {Integer} textid
  */
-function createPrivate3DText(playerid, x, y, z, text, color, shadow = false) {
+function createPrivate3DText(playerid, x, y, z, text, color, distance = false) {
     if (color instanceof Color) {
         color = color.toHex();
     }
 
-    __3dtexts.push({ x = x.tofloat(), y = y.tofloat(), z = z.tofloat(), value = text, color = color, shadow = shadow, private = true });
+    __3dtexts.push({ x = x.tofloat(), y = y.tofloat(), z = z.tofloat(), value = text, color = color, distance = distance.tofloat(), private = true });
     local textid = __3dtexts.len() - 1;
     add3DTextForPlayer(textid, playerid);
     return textid;
