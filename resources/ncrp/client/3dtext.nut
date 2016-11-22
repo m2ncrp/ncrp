@@ -12,7 +12,13 @@ addEventHandler("onClientFrameRender", function(post) {
     if (!post) {
         foreach(i,obj in _3Dtext_objects) {
             local pos = obj.pos;
-            local lclPos = getPlayerPosition(getLocalPlayer());
+            local lclPos;
+            if (isPlayerInVehicle(getLocalPlayer())) {
+                lclPos = getVehiclePosition(getPlayerVehicle(getLocalPlayer()));
+            } else {
+                lclPos = getPlayerPosition(getLocalPlayer());
+            }
+
             if (typeof(lclPos) != "array") return;
             local fDistance = getDistanceBetweenPoints3D(pos.x, pos.y, pos.z, lclPos[0], lclPos[1], lclPos[2]);
 
