@@ -26,8 +26,9 @@ class Color {
 
     function applyAlpha(alpha)
     {
-        this.a = alpha;
-        return this;
+        local obj = clone this;
+        obj.a = alpha;
+        return obj;
     }
 }
 
