@@ -19,6 +19,17 @@ function isFloat(value) {
     return (typeof value == "float" || REGEXP_FLOAT.match(value));
 }
 
+
+/**
+ * Combined resulted function
+ * check if number is numeric (float/integer)
+ * @param {Mixed} value
+ * @return {Boolean}
+ */
+function isNumeric(value) {
+    return (isInteger(value) || isFloat(value));
+}
+
 /**
  * Convert value to string
  * wihout scientific notation
