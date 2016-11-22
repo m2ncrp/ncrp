@@ -10,6 +10,40 @@ const BUS_JOB_X = -421.738;
 const BUS_JOB_Y = 479.321;
 const BUS_JOB_Z = 0.0500296;
 const BUS_JOB_SKIN = 171;
+const BUS_JOB_BUSSTOP = "STOP HERE (middle of the bus)";
+const BUS_JOB_DISTANCE = 100;
+
+local busstops = [
+    ["Go to first bus station in Uptown near platform #3", -423.116, 440.924, 0.132165],
+    ["Go to bus stop in West Side", -471.471, 10.2396, -1.4627],
+    ["Go to bus stop in Midtown", -431.421, -299.824, -11.8258],
+    ["Go to bus stop in SouthPort", -140.946, -472.49, -15.4755],
+    ["Go to bus stop in Oyster Bay", 296.348, -315.252, -20.3024],
+    ["Go to bus stop in Chinatown", 274.361, 355.601, -21.6772],
+    ["Go to bus stop in Little Italy (East)", 475.215, 736.735, -21.3909],
+    ["Go to bus station in Millville North (west platform)", 688.59, 873.993, -12.2225],
+    ["Go to bus stop in Little Italy (Central)", 164.963, 832.472, -19.7743],
+    ["Go to bus stop in Little Italy (Diamond Motors)", -170.596, 727.372, -20.6562],
+    ["Go to bus stop in East Side", -101.08, 374.001, -14.1311],
+    ["Go to bus station in Uptown near platform #3", -423.116, 440.924, 0.132165]
+];
+
+tmp <- busstops;
+
+
+local userbusstop = [
+    [-419.707, 444.016, 0.0456606, "Uptown. Platform #3"             ],  // busst0
+    [-474.538, 7.72202,  -1.33022, "West Side"                       ],  // busst1
+    [-428.483, -303.189, -11.7407, "Midtown"                         ],  // busst2
+    [-137.196, -475.182, -15.2725, "SouthPort"                       ],  // busst3
+    [299.087, -311.669,   -20.162, "Oyster Bay"                      ],  // busst4
+    [277.134, 359.335,    -21.535, "Chinatown"                       ],  // busst5
+    [477.92, 733.942,    -21.2513, "Little Italy (East)"             ],  // busst6
+    [691.839, 873.923,   -11.9926, "Millville North (west platform)" ],  // busst7
+    [162.136, 835.064,   -19.6378, "Little Italy (Central)"          ],  // busst8
+    [-173.266, 724.155,  -20.4991, "Little Italy (Diamond Motors)"   ],  // busst9
+    [-104.387, 377.106,  -13.9932, "East Side"                       ]   // busst10
+];
 
 addEventHandlerEx("onServerStarted", function() {
     log("[jobs] loading bus driver job...");
@@ -19,29 +53,22 @@ addEventHandlerEx("onServerStarted", function() {
     createVehicle(20, -410.198, 493.193, -0.21792, -179.657, -3.80509, -0.228946);
 
     create3DText ( BUS_JOB_X, BUS_JOB_Y, 0.35, "ROADKING BUS DEPOT", CL_ROYALBLUE );
-    create3DText ( BUS_JOB_X, BUS_JOB_Y, -0.15, "/help job bus", CL_WHITE.applyAlpha(125) );
+    create3DText ( BUS_JOB_X, BUS_JOB_Y, -0.15, "/help job bus", CL_WHITE.applyAlpha(75) );
+
+    foreach (idx, value in userbusstop) {
+        create3DText ( value[0], value[1], value[2]+0.35, "BUS STOP", CL_ROYALBLUE );
+        create3DText ( value[0], value[1], value[2]-0.15, value[3], CL_WHITE.applyAlpha(150) );
+    }
 });
 
 addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial ){
      job_bus[playerid] <- {};
      job_bus[playerid]["nextbusstop"] <- null;
      job_bus[playerid]["busready"] <- false;
+     job_bus[playerid]["bus3dtext"] <- false;
 });
 
-local busstops = [
-    ["Go to first bus station in Uptown near platform #3", -423.116, 440.924],
-    ["Go to bus stop in West Side", -471.471, 10.2396],
-    ["Go to bus stop in Midtown", -431.421, -299.824],
-    ["Go to bus stop in SouthPort", -140.946, -472.49],
-    ["Go to bus stop in Oyster Bay", 296.348, -315.252],
-    ["Go to bus stop in Chinatown", 274.361, 355.601],
-    ["Go to bus stop in East Little Italy", 475.215, 736.735],
-    ["Go to bus station in Millville North (west platform)", 688.59, 873.993],
-    ["Go to bus stop in Central Little Italy", 164.963, 832.472],
-    ["Go to bus stop in Little Italy (Diamond Motors)", -170.596, 727.372],
-    ["Go to bus stop in East Side", -101.08, 374.001],
-    ["Go to bus station in Uptown near platform #3", -423.116, 440.924]
-];
+
 
 
 /**
@@ -146,6 +173,7 @@ function busJobReady( playerid ) {
     job_bus[playerid]["busready"] = true;
     msg( playerid, busstops[0][0] );
     job_bus[playerid]["nextbusstop"] = 0;
+    job_bus[playerid]["bus3dtext"] = createPrivate3DText (playerid, busstops[0][1], busstops[0][2], busstops[0][3]+0.35, BUS_JOB_BUSSTOP, CL_RIPELEMON, BUS_JOB_DISTANCE );
 }
 
 // working good, check
@@ -173,13 +201,16 @@ function busJobStop( playerid ) {
     if(isPlayerVehicleMoving(playerid)){
         return msg( playerid, "You're driving. Please stop the bus.");
     }
+    remove3DText ( job_bus[playerid]["bus3dtext"] );
+    job_bus[playerid]["nextbusstop"] += 1;
+    job_bus[playerid]["bus3dtext"] = createPrivate3DText (playerid, busstops[i+1][1], busstops[i+1][2], busstops[i+1][3]+0.35, BUS_JOB_BUSSTOP, CL_RIPELEMON, BUS_JOB_DISTANCE );
 
-        job_bus[playerid]["nextbusstop"] += 1;
         if (busstops.len() == job_bus[playerid]["nextbusstop"]) {
             sendPlayerMessage( playerid, "Nice job! You earned $10." );
             job_bus[playerid]["busready"] = false;
             addMoneyToPlayer(playerid, 10);
             return;
         }
+
     sendPlayerMessage( playerid, "Good! " + busstops[i+1][0] );
 }
