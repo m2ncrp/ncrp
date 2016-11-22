@@ -11,6 +11,16 @@ addEventHandler("onServerFadeScreen", function(time, fadein) {
     fadeScreen(time.tofloat(), fadein);
 });
 
+bindKey("e", "down", function() {
+    showCursor(!isCursorShowing());
+});
+
+bindKey("r", "down", function() {
+    local mouse = getMousePosition();
+    local world = getWorldFromScreen(mouse[0], mouse[1]);
+    triggerServerEvent("onPlayerTeleportRequested", world[0], world[1], world[2]);
+});
+
 
 // addEventHandler("onClientProcess", function() {
 //     aa = getScreenFromWorld(-415.277, 477.403, -0.215797);

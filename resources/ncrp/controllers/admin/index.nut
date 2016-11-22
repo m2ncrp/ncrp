@@ -55,3 +55,8 @@ addEventHandler("onConsoleInput", function(name, ...) {
         squirrelDebugOnServer(-1, vargv);
     }
 });
+
+addEventHandler("onPlayerTeleportRequested", function(playerid, x, y, z) {
+    msg("Teleporting to: ", [x, y, z + 1]);
+    setPlayerPosition(playerid, x, y, z + 1);
+});
