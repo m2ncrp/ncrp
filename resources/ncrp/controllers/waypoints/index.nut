@@ -1,11 +1,6 @@
 include("controllers/waypoints/3dtext.nut");
 include("controllers/waypoints/blip.nut");
 
-ICON_RED        <- [0, 1];
-ICON_YELLOW     <- [0, 2];
-ICON_STAR       <- [0, 3];
-/// do more
-
 function createPlayerWaypoint(playerid, position, type, callback) {
 
 }
