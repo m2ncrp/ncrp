@@ -53,7 +53,7 @@ addEventHandlerEx("onServerStarted", function() {
     create3DText ( BUS_JOB_X, BUS_JOB_Y, -0.15, "/help job bus", CL_WHITE.applyAlpha(75) );
 
     foreach (idx, value in userbusstop) {
-        create3DText ( value[0], value[1], value[2]+0.35, "BUS STOP", CL_ROYALBLUE );
+        create3DText ( value[0], value[1], value[2]+0.35, "=== BUS STOP ===", CL_ROYALBLUE );
         create3DText ( value[0], value[1], value[2]-0.15, value[3], CL_WHITE.applyAlpha(150) );
     }
 });
@@ -62,12 +62,16 @@ addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial ){
      job_bus[playerid] <- {};
      job_bus[playerid]["nextbusstop"] <- null;
      job_bus[playerid]["busready"] <- false;
-     job_bus[playerid]["bus3dtext1"] <- false;
-     job_bus[playerid]["bus3dtext2"] <- false;
+     job_bus[playerid]["bus3dtext"] <- false;
 });
 
 
-
+function createPrivateBusStop3DText(playerid, busstop) {
+    return [
+        createPrivate3DText (playerid, busstop[1], busstop[2], busstop[3]+0.35, BUS_JOB_BUSSTOP, CL_RIPELEMON, BUS_JOB_DISTANCE ),
+        createPrivate3DText (playerid, busstop[1], busstop[2], busstop[3]-0.15, "/bus stop", CL_WHITE.applyAlpha(150), 5 )
+    ];
+}
 
 /**
  * Check is player is a busdriver
@@ -171,8 +175,7 @@ function busJobReady( playerid ) {
     job_bus[playerid]["busready"] = true;
     msg( playerid, busstops[0][0] );
     job_bus[playerid]["nextbusstop"] = 0;
-    job_bus[playerid]["bus3dtext1"] = createPrivate3DText (playerid, busstops[0][1], busstops[0][2], busstops[0][3]+0.35, BUS_JOB_BUSSTOP, CL_RIPELEMON, BUS_JOB_DISTANCE );
-    job_bus[playerid]["bus3dtext2"] = createPrivate3DText (playerid, busstops[0][1], busstops[0][2], busstops[0][3]-0.15, "/bus stop", CL_WHITE.applyAlpha(150), 10 );
+    job_bus[playerid]["bus3dtext"] = createPrivateBusStop3DText(playerid, busstops[0]);
 }
 
 // working good, check
@@ -193,7 +196,7 @@ function busJobStop( playerid ) {
 
     local i = job_bus[playerid]["nextbusstop"];
 
-    if(!isVehicleInValidPoint(playerid, busstops[i][1], busstops[i][2], 5.0 )) {
+    if(!isPlayerVehicleInValidPoint(playerid, busstops[i][1], busstops[i][2], 5.0 )) {
         return msg( playerid, busstops[i][0]);
     }
 
@@ -201,11 +204,11 @@ function busJobStop( playerid ) {
         return msg( playerid, "You're driving. Please stop the bus.");
     }
 
-    remove3DText ( job_bus[playerid]["bus3dtext1"] );
-    remove3DText ( job_bus[playerid]["bus3dtext2"] );
+    remove3DText ( job_bus[playerid]["bus3dtext"][0] );
+    remove3DText ( job_bus[playerid]["bus3dtext"][1] );
     job_bus[playerid]["nextbusstop"] += 1;
-    job_bus[playerid]["bus3dtext1"] = createPrivate3DText (playerid, busstops[i+1][1], busstops[i+1][2], busstops[i+1][3]+0.35, BUS_JOB_BUSSTOP, CL_RIPELEMON, BUS_JOB_DISTANCE );
-    job_bus[playerid]["bus3dtext2"] = createPrivate3DText (playerid, busstops[i+1][1], busstops[i+1][2], busstops[i+1][3]-0.15, "/bus stop", CL_WHITE.applyAlpha(150), 10 );
+    job_bus[playerid]["bus3dtext"] = createPrivateBusStop3DText(playerid, busstops[i+1]);
+
 
         if (busstops.len() == job_bus[playerid]["nextbusstop"]) {
             sendPlayerMessage( playerid, "Nice job! You earned $10." );
