@@ -1,3 +1,4 @@
+local ticker = null;
 local _blip_objects = {};
 local _blip_cooldown_ticks = 0;
 
@@ -23,11 +24,12 @@ function onBlipTimer() {
 }
 
 addEventHandler("onServerBlipAdd", function(uid, x, y, r, library, icon) {
+    log("recieved blip from server");
     local obj = {id = -1, x = x, y = y, r = r, library = library, icon = icon, visible = false};
     _blip_objects[uid] <- obj;
 
     if (!ticker) {
-        ticker = timer(onBlipTimer, 1000, -1);
+        ticker = timer(onBlipTimer, 500, -1);
     }
 });
 
