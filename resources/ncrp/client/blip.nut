@@ -3,7 +3,7 @@ local _blip_objects = {};
 local _blip_cooldown_ticks = 0;
 
 function onBlipTimer() {
-    foreach(_blip_objects in _blip_objects) {
+    foreach(blip in _blip_objects) {
         local pos = getPlayerPosition(getLocalPlayer());
         local dist = getDistanceBetweenPoints2D(pos[0], pos[1], blip.x, blip.y);
         if (dist <= blip.r.tofloat() || blip.r.tointeger() == -1) {
