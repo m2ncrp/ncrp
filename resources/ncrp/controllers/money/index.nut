@@ -21,7 +21,7 @@ function subMoneyToPlayer(playerid, amount) {
 }
 
 function getPlayerBalance(playerid) {
-    return players[playerid]["money"];
+    return round( players[playerid]["money"], 2 );
 }
 
 /**
