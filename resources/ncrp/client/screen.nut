@@ -1,13 +1,16 @@
 local ticker = null;
 
 addEventHandler("onServerClientStarted", function() {
-    setRenderHealthbars(false);
+    log("onServerClientStarted");
 
     if (!ticker) {
         ticker = timer(function() {
+            log("onClientSendFPSData");
             triggerServerEvent("onClientSendFPSData", getFPS());
         }, 1000, -1);
     }
+
+    setRenderHealthbars(false);
 });
 
 addEventHandler("onServerFadeScreen", function(time, fadein) {
