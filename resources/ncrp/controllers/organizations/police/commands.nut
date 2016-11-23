@@ -155,13 +155,14 @@ cmd(["prison", "jail"], function(playerid, targetid) {
 cmd(["amnesty"], function(playerid, targetid) {
     targetid = targetid.tointeger();
     if ( isOnDuty(playerid) ) {
+        local spawnID = players[targetid]["spawn"];
+        local x = default_spawns[spawnID][0];
+        local y = default_spawns[spawnID][1];
+        local z = default_spawns[spawnID][2];
+        setPlayerPosition(targetid, x, y, z);
+
         screenFadeout(targetid, 1500, function() {
             togglePlayerControls( targetid, false );
-            local spawnID = players[targetid]["spawn"];
-            local x = default_spawns[spawnID][0];
-            local y = default_spawns[spawnID][1];
-            local z = default_spawns[spawnID][2];
-            setPlayerPosition(targetid, x, y, z);
         });        
     }
 })
