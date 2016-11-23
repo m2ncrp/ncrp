@@ -1,5 +1,31 @@
 include("controllers/screen/commands.nut");
 
+local __fpsdata = {};
+
+/**
+ * Calcualte FPS delay
+ *
+ * @param  {Integer} playerid
+ * @return {Integer}
+ */
+function calcualteFPSDelay(playerid) {
+    local fps = 30;
+
+    if (playerid in __fpsdata) {
+        fps = __fpsdata[playerid];
+    }
+
+    if (fps > 60) {
+        fps = 60;
+    }
+
+    return  (-20 * fps + 1450);
+}
+
+addEventHandler("onClientSendFPSData", function(playerid, fps) {
+    __fpsdata[playerid] <- fps.tointeger();
+});
+
 /**
  * Send message to player, to fade in his screen
  * transparent -> black
@@ -9,8 +35,7 @@ include("controllers/screen/commands.nut");
  * @param {Function} callback (optional)
  */
 function screenFadein(playerid, time, callback = null) {
-    triggerClientEvent(playerid, "onServerFadeScreen", time.tostring(), false);
-    return callback ? delayedFunction(time + 500, callback) : null;
+    return screenFadeinEx(playerid, time + 500, callback);
 }
 
 /**
@@ -22,14 +47,13 @@ function screenFadein(playerid, time, callback = null) {
  * @param {Function} callback (optional)
  */
 function screenFadeout(playerid, time, callback = null) {
-    triggerClientEvent(playerid, "onServerFadeScreen", time.tostring(), true);
-    return callback ? delayedFunction(time + 500, callback) : null;
+    return screenFadeoutEx(playerid, time + 500, callback);
 }
 
 /**
  * Send message to player, to fade in and then fade out his screen
  * using half of time for each
- * transparent -> black -> wait 1000ms -> transparent
+ * transparent -> black -> wait >1000ms -> transparent
  *
  * @param {int} playerid
  * @param {int} time in ms
@@ -37,17 +61,7 @@ function screenFadeout(playerid, time, callback = null) {
  * @param {Function} callback2 (optional) will be called at finish
  */
 function screenFadeinFadeout(playerid, time, callback1 = null, callback2 = null) {
-    screenFadein(playerid, time, function() {
-        // run first callback
-        if (callback1) callback1();
-
-        // start fadeout
-        delayedFunction(1000, function(){
-            screenFadeout(playerid, time, function() {
-                return callback2 ? callback2() : null;
-            });
-        })
-    });
+    return screenFadeinFadeoutEx(playerid, time, 1000, callback1, callback2);
 }
 
 
@@ -93,7 +107,7 @@ function screenFadeinFadeoutEx(playerid, fadetime, pause, callback1 = null, call
         if (callback1) callback1();
 
         // start fadeout
-        delayedFunction(pause, function(){
+        delayedFunction(calcualteFPSDelay(playerid) + pause, function(){
             screenFadeoutEx(playerid, fadetime, function() {
                 return callback2 ? callback2() : null;
             });
