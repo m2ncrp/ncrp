@@ -144,10 +144,10 @@ cmd(["uncuff"], function(playerid) {
 cmd(["prison", "jail"], function(playerid, targetid) {
     targetid = targetid.tointeger();
     if ( isOnDuty(playerid) ) {
-        screenFadein(playerid, 1500, function() {
+        screenFadein(targetid, 1500, function() {
             togglePlayerControls( targetid, true );
         //  output "Wasted" and set player position
-            setPlayerPosition( playerid, 0.0, 0.0, 0.0 );
+            setPlayerPosition( targetid, 0.0, 0.0, 0.0 );
         });        
     }
 });
@@ -155,13 +155,13 @@ cmd(["prison", "jail"], function(playerid, targetid) {
 cmd(["amnesty"], function(playerid, targetid) {
     targetid = targetid.tointeger();
     if ( isOnDuty(playerid) ) {
-        screenFadeout(playerid, 1500, function() {
+        screenFadeout(targetid, 1500, function() {
             togglePlayerControls( targetid, false );
-            local spawnID = players[playerid]["spawn"];
+            local spawnID = players[targetid]["spawn"];
             local x = default_spawns[spawnID][0];
             local y = default_spawns[spawnID][1];
             local z = default_spawns[spawnID][2];
-            setPlayerPosition(playerid, x, y, z);
+            setPlayerPosition(targetid, x, y, z);
         });        
     }
 })
