@@ -13,6 +13,12 @@ cmd("bus", "list", function(playerid) {
     busJobRoutes(playerid);
 });
 
+// usage: /bus route 5
+cmd("bus", "route", function(playerid, route) {
+    busJobSelectRoute(playerid, route.tointeger());
+});
+
+
 // usage: /bus ready
 cmd("bus", "ready", function(playerid) {
     busJobReady(playerid);
@@ -29,6 +35,8 @@ cmd("help", ["job", "bus"], function(playerid) {
     local commands = [
         { name = "/bus job",        desc = "Get busdriver job" },
         { name = "/bus job leave",  desc = "Leave busdriver job" },
+        { name = "/bus list",       desc = "Show list of available routes"},
+        { name = "/bus route <id>", desc = "Select route. Example: /bus route 3"},
         { name = "/bus ready",      desc = "Go to the route (make the bus ready)"},
         { name = "/bus stop",       desc = "Check in bus stop" }
     ];
