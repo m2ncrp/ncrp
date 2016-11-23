@@ -1,15 +1,20 @@
-local aa;
-local ab;
-local ba;
-local bb;
+local ticker = null;
 
 addEventHandler("onServerClientStarted", function() {
     setRenderHealthbars(false);
+
+    if (!ticker) {
+        ticker = timer(function() {
+            triggerServerEvent("onClientSendFPSData", getFPS());
+        }, 1000, -1);
+    }
 });
 
 addEventHandler("onServerFadeScreen", function(time, fadein) {
     fadeScreen(time.tofloat(), fadein);
 });
+
+
 
 // addEventHandler("onClientProcess", function() {
 //     aa = getScreenFromWorld(-415.277, 477.403, -0.215797);

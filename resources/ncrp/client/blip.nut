@@ -24,7 +24,6 @@ function onBlipTimer() {
 }
 
 addEventHandler("onServerBlipAdd", function(uid, x, y, r, library, icon) {
-    log("recieved blip from server");
     local obj = {id = -1, x = x, y = y, r = r, library = library, icon = icon, visible = false};
     _blip_objects[uid] <- obj;
 
