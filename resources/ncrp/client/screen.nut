@@ -10,7 +10,7 @@ addEventHandler("onServerClientStarted", function() {
         }, 1000, -1);
     }
 
-    setRenderHealthbars(false);
+    setRenderHealthbar(false);
 });
 
 addEventHandler("onServerFadeScreen", function(time, fadein) {
