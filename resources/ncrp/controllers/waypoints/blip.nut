@@ -29,6 +29,7 @@ ICON_LOGO_PINK    <- [24,  0];
 ICON_LOGO_BLACK   <- [25,  0];
 
 local __blips = {};
+local __blip__autoincrement = 0;
 
 function addBlipForPlayer(blipid, playerid) {
     if (!(blipid in __blips)) {
@@ -60,7 +61,7 @@ function removeBlipForPlayers(blipid) {
 }
 
 function instantiateBlip(x, y, icon, distance, private) {
-    local blipid = md5(time().tostring() + random(1111,9999).tostring());
+    local blipid = __blip__autoincrement++;
     __blips[blipid] <- { uid = blipid, x = x.tofloat(), y = y.tofloat(), library = icon[0], icon = icon[1], distance = distance.tofloat(), private = private };
     return blipid;
 }
