@@ -98,7 +98,7 @@ function createBlip(x, y, icon, distance = 50.0) {
  * @param  {Float} distance
  * @return {Integer} blipid
  */
-function createPrivateBlip(x, y, icon, distance = 50.0) {
+function createPrivateBlip(playerid, x, y, icon, distance = 50.0) {
     return addBlipForPlayer( instantiateBlip(x, y, icon, distance, true), playerid );
 }
 
