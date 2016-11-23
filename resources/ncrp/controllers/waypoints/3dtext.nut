@@ -1,4 +1,5 @@
 local __3dtexts = {};
+local __3dtext__autoincrement = 0;
 
 function add3DTextForPlayer(textid, playerid) {
     if (!(textid in __3dtexts)) {
@@ -34,7 +35,7 @@ function instantiate3DText(x, y, z, text, color, distance, private) {
         color = color.toHex();
     }
 
-    local textid = md5(time().tostring() + random(1111,9999).tostring());
+    local textid = __3dtext__autoincrement++;
     __3dtexts[textid] <- { uid = textid, x = x.tofloat(), y = y.tofloat(), z = z.tofloat(), value = text, color = color, distance = distance.tofloat(), private = private };
     return textid;
 }
