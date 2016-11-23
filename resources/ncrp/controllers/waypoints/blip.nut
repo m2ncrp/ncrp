@@ -28,7 +28,7 @@ ICON_LOGO_RED     <- [23,  0];
 ICON_LOGO_PINK    <- [24,  0];
 ICON_LOGO_BLACK   <- [25,  0];
 
-local __blips = [];
+local __blips = {};
 
 function addBlipForPlayer(blipid, playerid) {
     if (!(blipid in __blips)) {
@@ -36,24 +36,35 @@ function addBlipForPlayer(blipid, playerid) {
     }
 
     local blip = __blips[blipid];
-    return triggerClientEvent(playerid, "onServerBlipAdd", blipid, blip.x, blip.y, blip.distance, blip.library, blip.icon);
+    triggerClientEvent(playerid, "onServerBlipAdd", blipid, blip.x, blip.y, blip.distance, blip.library, blip.icon);
+    return blipid;
 }
 
 function removeBlipForPlayer(blipid, playerid) {
-    return triggerClientEvent(playerid, "onServerBlipDelete", blipid);
+    triggerClientEvent(playerid, "onServerBlipDelete", blipid);
+    return true;
 }
 
 function addBlipForPlayers(blipid) {
     foreach (playerid, player in players) {
         addBlipForPlayer(blipid, playerid);
     }
+    return blipid;
 }
 
 function removeBlipForPlayers(blipid) {
     foreach (playerid, player in players) {
         removeBlipForPlayer(blipid, playerid);
     }
+    return true;
 }
+
+function instantiateBlip(x, y, icon, distance, private) {
+    local blipid = md5(time().tostring() + random(1111,9999).tostring());
+    __blips[blipid] <- { uid = blipid, x = x.tofloat(), y = y.tofloat(), library = icon[0], icon = icon[1], distance = distance.tofloat(), private = private };
+    return blipid;
+}
+
 
 addEventHandler("onPlayerSpawn", function(playerid) {
     foreach (blipid, blip in __blips) {
@@ -71,11 +82,8 @@ addEventHandler("onPlayerSpawn", function(playerid) {
  * @param  {Float} distance
  * @return {Integer} blipid
  */
-function createBlip(x, y, icon, distance = 35.0) {
-    __blips.push({ x = x.tofloat(), y = y.tofloat(), library = icon[0], icon = icon[1], distance = distance.tofloat(), private = false });
-    local blipid = __blips.len() - 1;
-    addBlipForPlayers(blipid);
-    return blipid;
+function createBlip(x, y, icon, distance = 50.0) {
+    return addBlipForPlayers( instantiateBlip(x, y, icon, distance, false) );
 }
 
 
@@ -90,11 +98,8 @@ function createBlip(x, y, icon, distance = 35.0) {
  * @param  {Float} distance
  * @return {Integer} blipid
  */
-function createPrivateBlip(x, y, icon, distance = 35.0) {
-    __blips.push({ x = x.tofloat(), y = y.tofloat(), library = icon[0], icon = icon[1], distance = distance.tofloat(), private = true });
-    local blipid = __blips.len() - 1;
-    addBlipForPlayer(blipid, playerid);
-    return blipid;
+function createPrivateBlip(x, y, icon, distance = 50.0) {
+    return addBlipForPlayer( instantiateBlip(x, y, icon, distance, true), playerid );
 }
 
 /**
@@ -108,8 +113,8 @@ function removeBlip(blipid) {
         return dbg("[blip] tried to remove non-existent blip.");
     }
 
-    __blips.remove(blipid);
     removeBlipForPlayers(blipid);
+    delete __blips[blipid];
     return true;
 }
 
