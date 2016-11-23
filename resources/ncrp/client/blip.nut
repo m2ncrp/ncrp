@@ -3,7 +3,7 @@ local _blip_objects = {};
 local _blip_cooldown_ticks = 0;
 
 function onBlipTimer() {
-    foreach(blip in _blip_objects) {
+    foreach(_blip_objects in _blip_objects) {
         local pos = getPlayerPosition(getLocalPlayer());
         local dist = getDistanceBetweenPoints2D(pos[0], pos[1], blip.x, blip.y);
         if (dist <= blip.r.tofloat() || blip.r.tointeger() == -1) {
@@ -34,6 +34,10 @@ addEventHandler("onServerBlipAdd", function(uid, x, y, r, library, icon) {
 });
 
 addEventHandler("onServerBlipDelete", function(uid) {
-    destroyBlip(_blip_objects[uid]);
-    delete _blip_objects[uid];
+    if (uid in _blip_objects) {
+        if (_blip_objects[uid].id != -1) {
+            destroyBlip(_blip_objects[uid].id);
+        }
+        delete _blip_objects[uid];
+    }
 });
