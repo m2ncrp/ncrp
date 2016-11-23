@@ -6,9 +6,10 @@ local __fpsdata = {};
  * Calcualte FPS delay
  *
  * @param  {Integer} playerid
+ * @param  {Integer} Minumum delay
  * @return {Integer}
  */
-function calcualteFPSDelay(playerid) {
+function calcualteFPSDelay(playerid, minimum = 150) {
     local fps = 30;
 
     if (playerid in __fpsdata) {
@@ -19,7 +20,7 @@ function calcualteFPSDelay(playerid) {
         fps = 60;
     }
 
-    return  (-20 * fps + 1450);
+    return  (-20 * fps) + 1200 + minimum;
 }
 
 addEventHandler("onClientSendFPSData", function(playerid, fps) {
@@ -107,7 +108,7 @@ function screenFadeinFadeoutEx(playerid, fadetime, pause, callback1 = null, call
         if (callback1) callback1();
 
         // start fadeout
-        delayedFunction(calcualteFPSDelay(playerid) + pause, function(){
+        delayedFunction(calcualteFPSDelay(playerid, pause), function(){
             screenFadeoutEx(playerid, fadetime, function() {
                 return callback2 ? callback2() : null;
             });
