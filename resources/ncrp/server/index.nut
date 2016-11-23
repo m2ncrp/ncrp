@@ -35,6 +35,7 @@ include("controllers/money");
 include("controllers/jobs");
 include("controllers/metro");
 include("controllers/organizations");
+include("controllers/shops");
 include("controllers/vehicle");
 include("controllers/rentcar");
 include("controllers/utils");
