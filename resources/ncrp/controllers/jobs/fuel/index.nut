@@ -165,7 +165,7 @@ function fuelJobReady ( playerid ) {
     if(fuelcars[vehicleid][1] >= 4000) {
         msg( playerid, "The truck is ready. Truck is loaded to " + fuelcars[vehicleid][1] + " / 16000");
     } else {
-        msg( playerid, "The truck is ready. Go to the warehouse of fuel in South Millville to load fuel truck." );
+        msg( playerid, "The truck is ready. Go to the warehouse of fuel in South Millville to load fuel truck (yellow icon on radar)." );
     }
 }
 
@@ -186,7 +186,7 @@ function fuelJobLoad ( playerid ) {
     }
 
     if(!isVehicleInValidPoint(playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, 5.0)) {
-        return msg( playerid, "Go to the warehouse of fuel in South Millville to load fuel truck." );
+        return msg( playerid, "Go to the warehouse of fuel in South Millville to load fuel truck (yellow icon on radar)." );
     }
 
     if(isPlayerVehicleMoving(playerid)){
@@ -219,7 +219,7 @@ function fuelJobUnload ( playerid ) {
     }
 
     if(fuelcars[vehicleid][1] < 4000) {
-        return msg( playerid, "Fuel is not enough. Go to the warehouse to load fuel truck." );
+        return msg( playerid, "Fuel is not enough. Go to the warehouse to load fuel truck (yellow icon on radar)." );
     }
 
     local check = false;
@@ -227,8 +227,7 @@ function fuelJobUnload ( playerid ) {
     foreach (key, value in fuelcoords) {
         if (isVehicleInValidPoint(playerid, value[0], value[1], 5.0 )) {
             check = true;
-            remove3DText( job_fuel[playerid]["fuelBlipText"][0][key] );
-            removeBlip( job_fuel[playerid]["fuelBlipText"][1][key] );
+
 
             i = key;
             break;
@@ -251,13 +250,16 @@ function fuelJobUnload ( playerid ) {
     job_fuel[playerid]["fuelstatus"][i] = true;
     job_fuel[playerid]["fuelcomplete"] += 1;
 
+    remove3DText( job_fuel[playerid]["fuelBlipText"][0][i] );
+    removeBlip( job_fuel[playerid]["fuelBlipText"][1][i] );
+
     if (job_fuel[playerid]["fuelcomplete"] == 8) {
         msg( playerid, "Nice job! Return the fuel truck to Trago Oil headquartered in Oyster Bay, park truck and take your money." );
     } else {
         if (fuelcars[vehicleid][1] >= 4000) {
             msg( playerid, "Unloading completed. Fuel truck is loaded to " + fuelcars[vehicleid][1] + " / 16000. Go to next gas station." );
         } else {
-            msg( playerid, "Unloading completed. Fuel is not enough. Go to the warehouse to load fuel truck." );
+            msg( playerid, "Unloading completed. Fuel is not enough. Go to the warehouse to load fuel truck (yellow icon on radar)." );
         }
     }
 }
