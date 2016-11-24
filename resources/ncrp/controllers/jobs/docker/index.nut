@@ -5,10 +5,17 @@ local job_docker = {};
 const RADIUS_DOCKER = 5.0;
 const DOCKER_JOB_X = -348.205; //Derek Door
 const DOCKER_JOB_Y = -731.48; //Derek Door
+const DOCKER_JOB_Z = -15.4205;
 const DOCKER_JOB_SKIN = 63;
 
 addEventHandlerEx("onServerStarted", function() {
     log("[jobs] loading docker job...");
+
+    //creating 3dtext for bus depot
+    create3DText ( DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z+0.35, "CITY PORT", CL_ROYALBLUE );
+    create3DText ( DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z-0.15, "/help job docker", CL_WHITE.applyAlpha(75), 5 );
+
+    registerPersonalJobBlip("docker", DOCKER_JOB_X, DOCKER_JOB_Y);
 });
 
 addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial ){
@@ -51,13 +58,18 @@ function dockerJob( playerid ) {
         return msg( playerid, "You already have a job: " + getPlayerJob(playerid) + ".");
     }
 
-    msg( playerid, "You're a docker now. Welcome! Ha-ha..." );
-    msg( playerid, "Take a box and carry it to the warehouse." );
+    screenFadeinFadeoutEx(playerid, 250, 200, function() {
+        msg( playerid, "You're a docker now. Welcome! Ha-ha..." );
+        msg( playerid, "Take a box and carry it to the warehouse." );
 
-    players[playerid]["job"] = "docker";
+        players[playerid]["job"] = "docker";
 
-    players[playerid]["skin"] = DOCKER_JOB_SKIN;
-    setPlayerModel( playerid, DOCKER_JOB_SKIN );
+        players[playerid]["skin"] = DOCKER_JOB_SKIN;
+        setPlayerModel( playerid, DOCKER_JOB_SKIN );
+
+        // create private blip job
+        createPersonalJobBlip( playerid, DOCKER_JOB_X, DOCKER_JOB_Y);
+    });
 }
 
 // working good, check
@@ -70,15 +82,19 @@ function dockerJobLeave( playerid ) {
     if(!isDocker( playerid )) {
         return msg( playerid, "You're not a docker." );
     }
+    screenFadeinFadeoutEx(playerid, 250, 200, function() {
+        msg( playerid, "You leave this job." );
 
-    msg( playerid, "You leave this job." );
+        players[playerid]["job"] = null;
 
-    players[playerid]["job"] = null;
+        players[playerid]["skin"] = players[playerid]["default_skin"];
+        setPlayerModel( playerid, players[playerid]["default_skin"]);
 
-    players[playerid]["skin"] = players[playerid]["default_skin"];
-    setPlayerModel( playerid, players[playerid]["default_skin"]);
+        job_docker[playerid]["havebox"] = false;
 
-    job_docker[playerid]["havebox"] = false;
+        // remove private blip job
+        removePersonalJobBlip ( playerid );
+    });
 }
 
 // working good, check
