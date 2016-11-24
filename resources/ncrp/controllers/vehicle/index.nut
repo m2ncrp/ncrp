@@ -5,6 +5,7 @@ include("controllers/vehicle/hiddencars.nut");
 vehicle_tank <- [
     [0, 52], // ascot_baileys200_pha
     [1, 78], // berkley_kingfisher_pha
+    [2, 0],  // fuel_tank
     [3, 180],// gai_353_military_truck
     [4, 180],// hank_b
     [5, 180],// hank_fueltank
