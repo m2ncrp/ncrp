@@ -118,6 +118,12 @@ function createPrivateBusStop3DText(playerid, busstop) {
     ];
 }
 
+function busJobRemoveBlipText ( playerid ) {
+    remove3DText ( job_bus[playerid]["bus3dtext"][0] );
+    remove3DText ( job_bus[playerid]["bus3dtext"][1] );
+    removeBlip( job_bus[playerid]["busBlip"] );
+}
+
 /**
  * Check is player is a busdriver
  * @param  {int}  playerid
@@ -187,12 +193,16 @@ function busJobLeave( playerid ) {
     if(!isBusDriver(playerid)) {
         return msg( playerid, "You're not a bus driver");
     } else {
-         msg( playerid, "You leave this job." );
+        screenFadeinFadeoutEx(playerid, 250, 200, function() {
+            msg( playerid, "You leave this job." );
 
-         players[playerid]["job"] = null;
+            players[playerid]["job"] = null;
 
-         players[playerid]["skin"] = players[playerid]["default_skin"];
-         setPlayerModel( playerid, players[playerid]["default_skin"]);
+            players[playerid]["skin"] = players[playerid]["default_skin"];
+            setPlayerModel( playerid, players[playerid]["default_skin"]);
+
+            busJobRemoveBlipText( playerid );
+        });
     }
 }
 
@@ -289,9 +299,7 @@ function busJobStop( playerid ) {
         return msg( playerid, "You're driving. Please stop the bus.");
     }
 
-    remove3DText ( job_bus[playerid]["bus3dtext"][0] );
-    remove3DText ( job_bus[playerid]["bus3dtext"][1] );
-    removeBlip( job_bus[playerid]["busBlip"] );
+    busJobRemoveBlipText( playerid );
 
     job_bus[playerid]["route"][1].remove(0);
 
