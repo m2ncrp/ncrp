@@ -325,17 +325,18 @@ function taxiJobLeave(playerid) {
 
     if ( isPlayerInVehicle(playerid) ) {
         setTaxiLightState(getPlayerVehicle(playerid), false);
+        setVehicleFuel(vehicleid, 0.0);
     }
+    screenFadeinFadeoutEx(playerid, 250, 200, function() {
+        msg(playerid, "You leave a taxi driver job.");
 
-    msg(playerid, "You leave a taxi driver job.");
+        players[playerid]["job"] = null;
 
-    players[playerid]["job"] = null;
+        players[playerid]["skin"] = players[playerid]["default_skin"];
+        setPlayerModel( playerid, players[playerid]["default_skin"]);
 
-    players[playerid]["skin"] = players[playerid]["default_skin"];
-    setPlayerModel( playerid, players[playerid]["default_skin"]);
-
-    job_taxi[playerid]["status"] = "offair";
-    setVehicleFuel(vehicleid, 0.0);
+        job_taxi[playerid]["status"] = "offair";
+    });
 }
 
 /*
