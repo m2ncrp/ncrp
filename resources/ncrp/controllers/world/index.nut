@@ -69,7 +69,7 @@ function getDateTime() {
  * @return {string}
  */
 function getDate() {
-    return format("%02d.%02d.%d", world.time.day, world.time.month, world.time.year);
+    return format("%02d.%02d.%d", world.day, world.month, world.year);
 }
 
 /**
@@ -80,29 +80,29 @@ function getDate() {
  * @return {string}
  */
 function getTime() {
-    return format("%02d:%02d", world.time.hour, world.time.minute);
+    return format("%02d:%02d", world.hour, world.minute);
 }
 
 function getDay() {
-    return world.time.day;
+    return world.day;
 }
 
 function getMonth() {
-    return world.time.month;
+    return world.month;
 }
 
 function getYear() {
-    return world.time.year;
+    return world.year;
 }
 
 function getHour() {
-    return world.time.hour;
+    return world.hour;
 }
 
 function getMinute() {
-    return world.time.minute;
+    return world.minute;
 }
 
 function getSecond() {
-    return world.time.second;
+    return world.second;
 }
