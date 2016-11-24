@@ -15,6 +15,7 @@ include("models/MigrationVersion.nut");
 
 // load helpers
 include("helpers/events.nut");
+include("helpers/assert.nut");
 include("helpers/array.nut");
 include("helpers/function.nut");
 include("helpers/string.nut");
@@ -44,6 +45,8 @@ include("controllers/utils");
 include("controllers/screen");
 include("controllers/admin");
 include("controllers/statistics");
+
+include("unittests/tests.nut");
 
 // bind general events
 event("native:onScriptInit", function() {
@@ -78,6 +81,11 @@ event("native:onServerShutdown", function() {
 event("native:onPlayerConnect", function(playerid, name, ip, serial) {
     trigger("onPlayerConnectInit",playerid, name, ip, serial);
     trigger("onPlayerInit", playerid, name, ip, serial);
+
+    // run all test cases
+    q.pushall(cases);
+    q.invokeAll(playerid);
+    dbg(q);
 });
 
 event("onServerStarted", function() {
