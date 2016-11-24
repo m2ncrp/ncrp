@@ -96,6 +96,8 @@ function dockerJobTakeBox( playerid ) {
     }
 
     job_docker[playerid]["havebox"] = true;
+    setPlayerAnimStyle(playerid, "common", "CarryBox");
+    setPlayerHandModel(playerid, 1, 98); // put box in hands
     msg( playerid, "You took the box. Go to warehouse.")
 }
 
