@@ -100,7 +100,7 @@ addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial ){
      job_bus[playerid] <- {};
      job_bus[playerid]["busready"] <- false;
      job_bus[playerid]["route"] <- false;
-     job_bus[playerid]["bus3dtext"] <- false;
+     job_bus[playerid]["bus3dtext"] <- [ false, false ];
      job_bus[playerid]["busBlip"] <- false;
 });
 
@@ -132,6 +132,7 @@ function createPrivateBusStop3DText(playerid, busstop) {
  * @param  {int}  playerid
  */
 function busJobRemovePrivateBlipText ( playerid ) {
+    dbg(job_bus[playerid]["bus3dtext"]);
     remove3DText ( job_bus[playerid]["bus3dtext"][0] );
     remove3DText ( job_bus[playerid]["bus3dtext"][1] );
     removeBlip( job_bus[playerid]["busBlip"] );
