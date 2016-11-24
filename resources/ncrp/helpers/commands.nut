@@ -80,7 +80,7 @@ function cmd(aliases, extensionOrCallback, callbackOrNull = null) {
 
         if (COMMANDS_DEFAULT in cursor && typeof cursor[COMMANDS_DEFAULT] == "function") {
             // apply custom arguments
-            args.insert(0, null);
+            args.insert(0, getroottable());
             args.insert(1, playerid);
 
             // call registered handler
