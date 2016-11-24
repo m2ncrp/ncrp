@@ -54,7 +54,3 @@ cmd("bus", "exit", function(playerid, busid) {
         triggerClientEvent(idx, "onServerPlayerBusExit", playerid, busid.tointeger());
     }
 });
-
-// addEventHandler("onClientRequestedPosition", function(playerid, x, y, z) {
-//     setPlayerPosition(playerid, x, y, z);
-// });

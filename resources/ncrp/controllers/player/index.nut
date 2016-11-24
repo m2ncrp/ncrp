@@ -6,13 +6,15 @@ players <- {};
 xPlayers <- {};
 playerList <- {};
 
+const CHARACTER_DEFAULT_SKIN  = 10;
+const CHARACTER_DEFAULT_MONEY = 1.75;
+
 default_spawns <- [
     [-555.251,  1702.31, -22.2408], // railway
     [-11.2921,  1631.85, -20.0296], // tmp bomj spawn
     // [ 100.421,  1776.41, -24.0068], // bomj style
     [-402.282, -828.907, -21.7456]  // port
 ];
-local spawns = 2; // number-1
 
 event("onPlayerInit", function(playerid, name, ip, serial) {
     Character.findOneBy({ name = getPlayerName(playerid) }, function(err, char) {
@@ -22,10 +24,10 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
 
             // setup deafults
             char.name    = getPlayerName(playerid);
-            char.spawnid = random(0, spawns);
-            char.money   = 1.75;
-            char.dskin   = 10;
-            char.cskin   = 10;
+            char.spawnid = random(0, default_spawns.len());
+            char.money   = CHARACTER_DEFAULT_MONEY;
+            char.dskin   = CHARACTER_DEFAULT_SKIN;
+            char.cskin   = CHARACTER_DEFAULT_SKIN;
 
             // save first-time created entity
             char.save();
