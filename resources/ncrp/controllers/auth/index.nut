@@ -25,7 +25,7 @@ local REGEX_USERNAME = regexp("([A-Za-z0-9]{1,32}_[A-Za-z0-9]{1,32})")
  * screen with different text
  * depending if he is logined or not
  */
-addEventHandler("onPlayerConnect", function(playerid, username, ip, serial) {
+event("onPlayerConnectInit", function(playerid, username, ip, serial) {
     // disable for a while
     //if (!REGEX_USERNAME.match(username)) { return kickPlayer(playerid); }
 
@@ -51,7 +51,7 @@ addEventHandler("onPlayerConnect", function(playerid, username, ip, serial) {
  * On player disconnects
  * we will clean up all his data
  */
-addEventHandler("onPlayerDisconnect", function(playerid, reason) {
+event("onPlayerDisconnect", function(playerid, reason) {
     if (!(playerid in accounts)) return;
 
     // clean up data for GC

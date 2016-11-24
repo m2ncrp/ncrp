@@ -45,7 +45,7 @@ function squirrelDebugOnClient(playerid, args) {
 
 
 // add error handler
-addEventHandler("onClientScriptError", function(playerid, code) {
+event("onClientScriptError", function(playerid, code) {
     msg(playerid, JSONEncoder.encode(code), CL_CHESTNUT);
     dbg(code);
 });
@@ -56,7 +56,7 @@ event("native:onConsoleInput", function(name, ...) {
     }
 });
 
-addEventHandler("onPlayerTeleportRequested", function(playerid, x, y, z) {
+event("onPlayerTeleportRequested", function(playerid, x, y, z) {
     // msg("Teleporting to: ", [x, y, z]);
     setPlayerPosition(playerid, x, y, z);
 });

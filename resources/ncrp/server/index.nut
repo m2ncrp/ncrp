@@ -75,6 +75,7 @@ event("native:onServerShutdown", function() {
 });
 
 event("native:onPlayerConnect", function(playerid, name, ip, serial) {
+    trigger("onPlayerConnectInit",playerid, name, ip, serial);
     trigger("onPlayerInit", playerid, name, ip, serial);
 });
 
@@ -109,7 +110,13 @@ proxy("onPlayerVehicleEnter",       "native:onPlayerVehicleEnter"       );
 proxy("onPlayerVehicleExit",        "native:onPlayerVehicleExit"        );
 
 // vehicle
-proxy("onVehicleSpawn",              "native:onVehicleSpawn"            );
+proxy("onVehicleSpawn",             "native:onVehicleSpawn"             );
+
+// client events
+proxy("onClientKeyboardPress",      "onClientKeyboardPress"             );
+proxy("onClientScriptError",        "onClientScriptError"               );
+proxy("onPlayerTeleportRequested",  "onPlayerTeleportRequested"         );
+proxy("onClientSendFPSData",        "onClientSendFPSData"               );
 
 /**
  * Debug export
