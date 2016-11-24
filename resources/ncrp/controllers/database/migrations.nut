@@ -37,3 +37,10 @@ migrate(function(connection) {
     connection.query("ALTER TABLE tbl_characters ADD COLUMN `deposit` FLOAT NOT NULL DEFAULT 0.0;");
 });
 
+// 24.11.16
+// added vehicle wheel saving
+migrate(function(connection) {
+    connection.query("ALTER TABLE tbl_vehicles ADD COLUMN `fwheel` INT(255) NOT NULL DEFAULT 0;");
+    connection.query("ALTER TABLE tbl_vehicles ADD COLUMN `rwheel` INT(255) NOT NULL DEFAULT 0;");
+});
+

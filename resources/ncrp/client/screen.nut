@@ -5,7 +5,6 @@ addEventHandler("onServerClientStarted", function() {
 
     if (!ticker) {
         ticker = timer(function() {
-            log("onClientSendFPSData");
             triggerServerEvent("onClientSendFPSData", getFPS());
         }, 1000, -1);
     }
