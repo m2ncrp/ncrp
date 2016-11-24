@@ -114,6 +114,15 @@ addEventHandlerEx("onServerStarted", function() {
             setVehicleSaving(vehicleid, true);
             setVehicleEntity(vehicleid, vehicle);
 
+            local setWheels = function(id, entity) {
+                return function() {
+                    setVehicleWheelTexture(id, 0, entity.fwheel);
+                    setVehicleWheelTexture(id, 1, entity.rwheel);
+                };
+            };
+
+            delayedFunction(1000, setWheels(vehicleid, vehicle));
+
             counter++;
         }
 

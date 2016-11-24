@@ -305,6 +305,8 @@ function trySaveVehicle(vehicleid) {
     vehicle.entity.fuellevel = getVehicleFuel(vehicleid);
     vehicle.entity.plate     = getVehiclePlateText(vehicleid);
     vehicle.entity.owner     = getVehicleOwner(vehicleid);
+    vehicle.entity.fwheel    = getVehicleWheelTexture(vehicleid, 0);
+    vehicle.entity.rwheel    = getVehicleWheelTexture(vehicleid, 1);
 
     vehicle.entity.save();
     return true;
