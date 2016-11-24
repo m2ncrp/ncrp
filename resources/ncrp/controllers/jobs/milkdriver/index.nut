@@ -4,8 +4,9 @@ local job_milk = {};
 local milktrucks = {};
 
 const RADIUS_JOB_MILK = 2.0;
-const MILK_JOB_X =  176.8;
+const MILK_JOB_X =  176.834;
 const MILK_JOB_Y = 439.305;
+const MILK_JOB_Z = -20.1758;
 const MILK_JOB_SKIN = 171;
 
 local milkname = [
@@ -19,7 +20,7 @@ local milkname = [
 // 551.762, -266.866, -20.1644  // coords of place to get job milkdriver
 
 local milkcoordsall = [
-    [-1162.5,   1599.26,    6.46012,    "The Hill Of Tara (Emergency exit)"],
+    [-1162.5,   1599.26,    6.46012,    "The Hill Of Tara (Emergency exit)" ],
     [-1594.78,  1602.47,    -5.90717,   "Empire Diner (Kingston)"           ],
     [-1418.26,  975.404,    -13.577,    "Empire Diner (Greenfield)"         ],
     [-634.34,   1292.31,    3.26542,    "Empire Diner (Highbrook)"          ],
@@ -31,8 +32,8 @@ local milkcoordsall = [
     [239.853,   696.646,    -24.0973,   "Stellas Diner (Little Italy)"      ],
     [624.514,   904.991,    -12.6217,   "The Dragstrip (North Millvlille)"  ],
     [-1396.19,  476.477,    -22.2102,   "The Lone Star (Hunters Point)"     ],
-    [-1591.16,  187.75,     -12.8383,   "Empire Diner (Sand Island)"  ],
-    [-1546.54, -171.372,    -19.8428,   "Steaks & Chops (Sand Island)"  ]
+    [-1591.16,  187.75,     -12.8383,   "Empire Diner (Sand Island)"        ],
+    [-1546.54, -171.372,    -19.8428,   "Steaks & Chops (Sand Island)"      ]
 ];
 
 
@@ -42,6 +43,12 @@ addEventHandlerEx("onServerStarted", function() {
     // milktrucks[i][1] - milk load: integer
     milktrucks[createVehicle(19, 172.868, 436, -20.04, -178.634, 0.392045, -0.829271)]  <- 0 ;
     milktrucks[createVehicle(19, 168.812, 436, -20.04, 179.681, 0.427494, -0.637235)]  <- 0 ;
+
+    //creating 3dtext for bus depot
+    create3DText ( MILK_JOB_X, MILK_JOB_Y, MILK_JOB_Z+0.35, "EMPIRE BAY MILK CO.", CL_ROYALBLUE );
+    create3DText ( MILK_JOB_X, MILK_JOB_Y, MILK_JOB_Z-0.15, "/help job milk", CL_WHITE.applyAlpha(75) );
+
+    registerPersonalJobBlip("docker", MILK_JOB_X, MILK_JOB_Y);
 });
 
 addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial) {
@@ -96,14 +103,18 @@ function milkJob ( playerid ) {
     if(isPlayerHaveJob(playerid)) {
         return msg(playerid, "You already have a job: " + getPlayerJob(playerid) + ".");
     }
+    screenFadeinFadeoutEx(playerid, 250, 200, function() {
+        msg( playerid, "You're a milk truck driver now! Congratulations!" );
+        msg( playerid, "Sit into milk truck." );
 
-    msg( playerid, "You're a milk truck driver now! Congratulations!" );
-    msg( playerid, "Sit into milk truck." );
+        players[playerid]["job"] = "milkdriver";
 
-    players[playerid]["job"] = "milkdriver";
+        players[playerid]["skin"] = MILK_JOB_SKIN;
+        setPlayerModel( playerid, MILK_JOB_SKIN );
 
-    players[playerid]["skin"] = MILK_JOB_SKIN;
-    setPlayerModel( playerid, MILK_JOB_SKIN );
+         // create private blip job
+        createPersonalJobBlip( playerid, MILK_JOB_X, MILK_JOB_Y);
+    });
 }
 
 
@@ -117,16 +128,20 @@ function milkJobLeave ( playerid ) {
     if(!isMilkDriver(playerid)) {
         return msg( playerid, "You're not a milk truck driver.");
     }
+    screenFadeinFadeoutEx(playerid, 250, 200, function() {
+        msg( playerid, "You leave this job." );
 
-    msg( playerid, "You leave this job." );
+        players[playerid]["job"] = null;
 
-    players[playerid]["job"] = null;
+        players[playerid]["skin"] = players[playerid]["default_skin"];
+        setPlayerModel( playerid, players[playerid]["default_skin"]);
 
-    players[playerid]["skin"] = players[playerid]["default_skin"];
-    setPlayerModel( playerid, players[playerid]["default_skin"]);
+        job_milk[playerid]["milkready"] = false;
+        job_milk[playerid]["milkcoords"] = null;
 
-    job_milk[playerid]["milkready"] = false;
-    job_milk[playerid]["milkcoords"] = null;
+        // remove private blip job
+        removePersonalJobBlip ( playerid );
+    });
 }
 
 
