@@ -16,8 +16,6 @@ addEventHandler("onServerFadeScreen", function(time, fadein) {
     fadeScreen(time.tofloat(), fadein);
 });
 
-
-
 // addEventHandler("onClientProcess", function() {
 //     aa = getScreenFromWorld(-415.277, 477.403, -0.215797);
 //     ab = getScreenFromWorld(-419.277, 477.403, -0.215797);

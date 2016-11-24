@@ -44,6 +44,7 @@ include("controllers/utils");
 include("controllers/screen");
 include("controllers/admin");
 include("controllers/statistics");
+include("controllers/extrasync");
 
 // bind general events
 event("native:onScriptInit", function() {

@@ -29,6 +29,7 @@ addEventHandlerEx("onServerStarted", function() {
         }
 
         ticker = timer(function() { world.onSecondChange(); }, 1000, -1);
+        trigger("weather:onPhaseChange", world.hour);
     });
 });
 
