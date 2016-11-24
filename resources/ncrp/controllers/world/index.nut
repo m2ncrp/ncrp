@@ -1,15 +1,11 @@
 // configs
-const WORLD_SECONDS_PER_MINUTE = 30;
-const WORLD_MINUTES_PER_HOUR = 60;
-const WORLD_HOURS_PER_DAY = 24;
-const WORLD_DAYS_PER_MONTH = 30;
-const WORLD_MONTH_PER_YEAR = 12;
-const WEATHER_PHASE_CHANGE = 2;
+WORLD_SECONDS_PER_MINUTE    <- 30;
+WORLD_MINUTES_PER_HOUR      <- 60;
+WORLD_HOURS_PER_DAY         <- 24;
+WORLD_DAYS_PER_MONTH        <- 30;
+WORLD_MONTH_PER_YEAR        <- 12;
 
-const AUTOSAVE_TIME = 10;
-
-// includes
-include("controllers/world/World.nut");
+AUTOSAVE_TIME               <- 10;
 
 // setup local storage
 local world  = null;
@@ -18,12 +14,26 @@ local ticker = null;
 addEventHandlerEx("onServerStarted", function() {
     log("[world] starting world ...");
 
-    // crate objects
-    world = World();
-    ticker = timer(function() { world.onSecondChange(); }, 1000, -1);
+    World.findAll(function(err, worlds) {
+        if (err || worlds.len() < 1) {
+            world = World();
+
+            world.second = 0;
+            world.minute = 0;
+
+            world.day = 1;
+            world.month = 1;
+            world.year = 1949;
+        } else {
+            world = worlds[0];
+        }
+
+        ticker = timer(function() { world.onSecondChange(); }, 1000, -1);
+    });
 });
 
-addEventHandlerEx("onServerStopping", function() {
+event("onServerStopping", function() {
+    world.save();
     ticker.Kill();
 
     // reset objects

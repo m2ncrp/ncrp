@@ -7,6 +7,7 @@ include("models/Color.nut");
 include("models/Account.nut");
 include("models/Character.nut");
 include("models/Vehicle.nut");
+include("models/World.nut");
 include("models/TeleportPosition.nut");
 include("models/TimestampStorage.nut");
 include("models/StatisticPoint.nut");
