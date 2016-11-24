@@ -29,7 +29,7 @@ function registerPersonalJobBlip(jobname, x, y) {
 }
 
 function createPersonalJobBlip(playerid, x, y) {
-    jobBlips[playerid]["jobBlip"] <- createPrivateBlip(playerid, x, y, ICON_STAR, 2000.0);
+    jobBlips[playerid]["jobBlip"] <- createPrivateBlip(playerid, x, y, ICON_STAR, 4000.0);
 }
 
 function removePersonalJobBlip(playerid) {

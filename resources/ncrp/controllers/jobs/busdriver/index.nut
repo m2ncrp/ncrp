@@ -5,9 +5,9 @@ local busStops = {};
 local routes = {};
 
 const RADIUS_BUS = 2.0;
-const BUS_JOB_X = -421.738;
-const BUS_JOB_Y = 479.321;
-const BUS_JOB_Z = 0.0500296;
+const BUS_JOB_X = -422.731;
+const BUS_JOB_Y = 479.372;
+const BUS_JOB_Z = 0.10922;
 const BUS_JOB_SKIN = 171;
 const BUS_JOB_BUSSTOP = "STOP HERE (middle of the bus)";
 const BUS_JOB_DISTANCE = 100;
@@ -100,8 +100,8 @@ addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial ){
      job_bus[playerid] <- {};
      job_bus[playerid]["busready"] <- false;
      job_bus[playerid]["route"] <- false;
-     job_bus[playerid]["bus3dtext"] <- [ false, false ];
-     job_bus[playerid]["busBlip"] <- false;
+     job_bus[playerid]["bus3dtext"] <- [ null, null ];
+     job_bus[playerid]["busBlip"] <- null;
 });
 
 
@@ -132,10 +132,13 @@ function createPrivateBusStop3DText(playerid, busstop) {
  * @param  {int}  playerid
  */
 function busJobRemovePrivateBlipText ( playerid ) {
-    dbg(job_bus[playerid]["bus3dtext"]);
-    remove3DText ( job_bus[playerid]["bus3dtext"][0] );
-    remove3DText ( job_bus[playerid]["bus3dtext"][1] );
-    removeBlip( job_bus[playerid]["busBlip"] );
+    if(job_bus[playerid]["bus3dtext"][0] != null) {
+        remove3DText ( job_bus[playerid]["bus3dtext"][0] );
+        remove3DText ( job_bus[playerid]["bus3dtext"][1] );
+    }
+    if (job_bus[playerid]["busBlip"] != null) {
+        removeBlip ( job_bus[playerid]["busBlip"] );
+    }
 }
 
 /**
@@ -195,6 +198,7 @@ function busJob( playerid ) {
         players[playerid]["skin"] = BUS_JOB_SKIN;
         setPlayerModel( playerid, BUS_JOB_SKIN );
 
+        // create private blip job
         createPersonalJobBlip( playerid, BUS_JOB_X, BUS_JOB_Y);
 
         busJobRoutes( playerid );
@@ -218,6 +222,9 @@ function busJobLeave( playerid ) {
             setPlayerModel( playerid, players[playerid]["default_skin"]);
 
             busJobRemovePrivateBlipText( playerid );
+
+            // remove private blip job
+            removePersonalJobBlip ( playerid );
         });
     }
 }
