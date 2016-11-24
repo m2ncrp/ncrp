@@ -19,3 +19,23 @@ addEventHandlerEx("onServerStarted", function() {
     log("[jobs] starting...");
 });
 
+local jobBlips = {};
+
+function registerPersonalJobBlip(jobname, x, y) {
+    dbg("function");
+    addEventHandler("onPlayerSpawn", function(playerid) {
+        if (playerid in players && players[playerid].job == jobname) {
+            createPersonalJobBlip(playerid, x, y);
+        }
+    })
+}
+
+function createPersonalJobBlip(playerid, x, y) {
+    jobBlips[playerid] <- createPrivateBlip(playerid, x, y, ICON_STAR, 2000.0);
+}
+
+function removePersonalJobBlip(playerid) {
+    if(jobBlips[playerid]){
+        removeBlip(jobBlips[playerid]);
+    }
+}

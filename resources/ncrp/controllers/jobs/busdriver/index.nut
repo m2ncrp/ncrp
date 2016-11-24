@@ -49,7 +49,7 @@ addEventHandlerEx("onServerStarted", function() {
     createVehicle(20, -437.04, 438.027, 0.907163, 45.1754, -0.100916, 0.242581);
     createVehicle(20, -410.198, 493.193, -0.21792, -179.657, -3.80509, -0.228946);
 
-//  busStops[0]   <-  busStop("NAME",                                              public ST                                   private
+  //busStops[0]   <-  busStop("NAME",                                              public ST                                   private
     busStops[1]   <-  busStop("Uptown. Platform #1",              busv3( -400.996,   490.847,  -1.01301 ),   busv3( -404.360,   488.435,   -0.568764 ));
     busStops[2]   <-  busStop("Uptown. Platform #2",              busv3( -400.996,   444.081,  -1.05144 ),   busv3( -404.360,   441.001,   -0.566925 ));
     busStops[3]   <-  busStop("Uptown. Platform #3",              busv3( -419.423,   444.183, 0.0254459 ),   busv3( -423.116,   441.001,    0.132165 ));
@@ -75,21 +75,24 @@ addEventHandlerEx("onServerStarted", function() {
     busStops[23]  <-  busStop("Sand Island (North)",              busv3( -1559.15,   109.576,  -13.2876 ),   busv3(  -1562.2,    105.64,    -13.0085 ));
     busStops[24]  <-  busStop("Hunters Point",                    busv3( -1344.5,    421.815,  -23.7303 ),   busv3( -1347.92,    418.11,    -23.4532 ));
 
-
-//  routes[0] <- [zarplata, [stop1, stop2, stop3, ..., stop562]];
+  //routes[0] <- [zarplata, [stop1, stop2, stop3, ..., stop562]];
     routes[1] <- [10, [1, 5, 6, 22, 23, 24, 1]]; //sand island
     routes[2] <- [10, [2, 21, 19, 17, 14, 15, 2]]; //
     routes[3] <- [15, [16, 18, 20, 22, 23, 24, 21, 19, 17]];
     routes[4] <- [20, [3, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 3]];
     routes[5] <- [30, [4, 5, 6, 7, 8, 9, 10, 12, 13, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];
 
+    //creating 3dtext for bus depot
     create3DText ( BUS_JOB_X, BUS_JOB_Y, 0.35, "ROADKING BUS DEPOT", CL_ROYALBLUE );
     create3DText ( BUS_JOB_X, BUS_JOB_Y, -0.15, "/help job bus", CL_WHITE.applyAlpha(75) );
 
+    //creating public 3dtext
     foreach (idx, value in busStops) {
         create3DText ( value.public.x, value.public.y, value.public.z+0.35, "=== BUS STOP ===", CL_ROYALBLUE );
         create3DText ( value.public.x, value.public.y, value.public.z-0.15, value.name, CL_WHITE.applyAlpha(150) );
     }
+
+    registerPersonalJobBlip("busdriver", BUS_JOB_X, BUS_JOB_Y);
 
 });
 
@@ -111,6 +114,12 @@ function busv3(a, b, c) {
     return {x = a.tofloat(), y = b.tofloat(), z = c.tofloat() };
 }
 
+
+/**
+ * Create private 3DTEXT for current bus stop
+ * @param  {int}  playerid
+ * @return {array} [idtext1, id3dtext2]
+ */
 function createPrivateBusStop3DText(playerid, busstop) {
     return [
         createPrivate3DText (playerid, busstop.x, busstop.y, busstop.z+0.35, BUS_JOB_BUSSTOP, CL_RIPELEMON, BUS_JOB_DISTANCE ),
@@ -118,7 +127,11 @@ function createPrivateBusStop3DText(playerid, busstop) {
     ];
 }
 
-function busJobRemoveBlipText ( playerid ) {
+/**
+ * Remove private 3DTEXT AND BLIP for current bus stop
+ * @param  {int}  playerid
+ */
+function busJobRemovePrivateBlipText ( playerid ) {
     remove3DText ( job_bus[playerid]["bus3dtext"][0] );
     remove3DText ( job_bus[playerid]["bus3dtext"][1] );
     removeBlip( job_bus[playerid]["busBlip"] );
@@ -181,6 +194,8 @@ function busJob( playerid ) {
         players[playerid]["skin"] = BUS_JOB_SKIN;
         setPlayerModel( playerid, BUS_JOB_SKIN );
 
+        createPersonalJobBlip( playerid, BUS_JOB_X, BUS_JOB_Y);
+
         busJobRoutes( playerid );
     });
 }
@@ -201,7 +216,7 @@ function busJobLeave( playerid ) {
             players[playerid]["skin"] = players[playerid]["default_skin"];
             setPlayerModel( playerid, players[playerid]["default_skin"]);
 
-            busJobRemoveBlipText( playerid );
+            busJobRemovePrivateBlipText( playerid );
         });
     }
 }
@@ -299,7 +314,7 @@ function busJobStop( playerid ) {
         return msg( playerid, "You're driving. Please stop the bus.");
     }
 
-    busJobRemoveBlipText( playerid );
+    busJobRemovePrivateBlipText( playerid );
 
     job_bus[playerid]["route"][1].remove(0);
 
