@@ -13,7 +13,7 @@ addEventHandlerEx("onServerStarted", function() {
 
     //creating 3dtext for bus depot
     create3DText ( DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z+0.35, "CITY PORT", CL_ROYALBLUE );
-    create3DText ( DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z-0.15, "/help job docker", CL_WHITE.applyAlpha(75) );
+    create3DText ( DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z-0.15, "/help job docker", CL_WHITE.applyAlpha(75), 5 );
 
     registerPersonalJobBlip("docker", DOCKER_JOB_X, DOCKER_JOB_Y);
 });

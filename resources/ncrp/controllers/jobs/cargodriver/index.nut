@@ -9,6 +9,7 @@ const RADIUS_CARGO = 1.0;
 //const CARGO_JOB_Y = -731.48;  //Derek Cabinet
 const CARGO_JOB_X = -348.205; //Derek Door
 const CARGO_JOB_Y = -731.48; //Derek Door
+const CARGO_JOB_Z = -15.4205;
 const CARGO_JOB_SKIN = 130;
 
 local cargocoords = {};
@@ -19,6 +20,12 @@ addEventHandlerEx("onServerStarted", function() {
     log("[jobs] loading cargo job...");
     cargocars[createVehicle(38, 396.5, 101.977, -20.9432, -89.836, 0.40721, 0.0879066 )]  <- [ false ]; // SeagiftTruck0
     cargocars[createVehicle(38, 396.5, 98.0385, -20.9359, -88.4165, 0.479715, -0.0220962)]  <- [ false ];  //SeagiftTruck1
+
+    //creating 3dtext for bus depot
+    //create3DText ( DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z+0.35, "CITY PORT", CL_ROYALBLUE );
+    create3DText ( CARGO_JOB_X, CARGO_JOB_Y, CARGO_JOB_Z-0.25, "/help job cargo", CL_WHITE.applyAlpha(75), 5 );
+
+    registerPersonalJobBlip("docker", CARGO_JOB_X, CARGO_JOB_Y);
 });
 
 addEventHandler("onPlayerConnect", function(playerid, name, ip, serial) {
