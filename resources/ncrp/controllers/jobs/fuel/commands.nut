@@ -44,7 +44,7 @@ cmd("help", ["job", "fuel"], function(playerid) {
     local commands = [
         { name = "/fuel job",       desc = "Get fueldriver job" },
         { name = "/fuel job leave", desc = "Leave fueldriver job" },
-        { name = "/fuel ready",     desc = "Start delivery (make the truck ready)" },
+        { name = "/fuel ready",     desc = "Ready to delivery" },
         { name = "/fuel load",      desc = "Load fuel into truck" },
         { name = "/fuel unload",    desc = "Unload fuel to fuel station" },
         { name = "/fuel park",      desc = "Park the truck to Trago Oil parking" },
