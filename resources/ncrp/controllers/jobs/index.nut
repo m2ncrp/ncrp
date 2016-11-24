@@ -9,17 +9,13 @@ include("controllers/jobs/docker");
 include("controllers/jobs/realty");
 
 
-
 event("onServerStarted", function() {
     // nothing there anymore :C
     log("[jobs] starting...");
-
 });
 
 
 local jobBlips = {};
-
-
 
 function registerPersonalJobBlip(jobname, x, y) {
     dbg(jobname);
@@ -41,5 +37,3 @@ function removePersonalJobBlip(playerid) {
         removeBlip(jobBlips[playerid]["jobBlip"]);
     }
 }
-
-
