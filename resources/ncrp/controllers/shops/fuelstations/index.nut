@@ -1,8 +1,3 @@
-/*
-    TODO list
-    1. Set MAX_FUEL_LEVEL for every vehicle id
- */
-
 include("controllers/shops/fuelstations/commands.nut");
 
 const MAX_FUEL_LEVEL = 70.0;
@@ -18,7 +13,7 @@ fuel_stations <- [
     [338.56,     872.179, -21.1526, "LITTLE ITALY"  ],
     [-149.94,    613.368, -20.0459, "LITTLE ITALY"  ],
     [115.146,    181.259, -19.8966, "EAST SIDE"     ],
-    [551.154,    2.33366, -18.1063, "SOUTH MILVIL"  ],
+    [551.154,    2.33366, -18.1063, "OISTER-BAY"    ],
     [-630.299,   -51.715, 1.06515,  "WEST SIDE"     ]
 ];
 
@@ -48,7 +43,8 @@ function isNearFuelStation(playerid) {
  */
 function getFuelNeed(playerid) {
     local vehicleid = getPlayerVehicle(playerid);
-    return MAX_FUEL_LEVEL - getVehicleFuel(vehicleid);
+    local vehicle_model = getVehicleModel(vehicleid);
+    return vehicle_tank[vehicle_model-1][1] - getVehicleFuel(vehicleid);
 }
 
 function isFuelNeeded(playerid) {
