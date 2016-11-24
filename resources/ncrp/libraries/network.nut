@@ -4,31 +4,31 @@
  */
 
 
-local __handlers = {};
+// local __handlers = {};
 
-function addEventHandlerEx(event, cb) {
-    if (event in __handlers) {
-        return __handlers[event].push(cb);
-    }
+// function addEventHandlerEx(event, cb) {
+//     if (event in __handlers) {
+//         return __handlers[event].push(cb);
+//     }
 
-    __handlers[event] <- [cb];
-}
+//     __handlers[event] <- [cb];
+// }
 
-function triggerServerEventEx(event, p1 = "_default", p2 = "_default", p3 = "_default", p4 = "_default") {
-    if (event in __handlers) {
-        foreach (idx, handler in __handlers[event]) {
-            if (p4 != "_default") handler(p1, p2, p3, p4);
-            else if (p3 != "_default") handler(p1, p2, p3);
-            else if (p2 != "_default") handler(p1, p2);
-            else if (p1 != "_default") handler(p1);
-            else handler();
-        }
-    }
-}
+// function triggerServerEventEx(event, p1 = "_default", p2 = "_default", p3 = "_default", p4 = "_default") {
+//     if (event in __handlers) {
+//         foreach (idx, handler in __handlers[event]) {
+//             if (p4 != "_default") handler(p1, p2, p3, p4);
+//             else if (p3 != "_default") handler(p1, p2, p3);
+//             else if (p2 != "_default") handler(p1, p2);
+//             else if (p1 != "_default") handler(p1);
+//             else handler();
+//         }
+//     }
+// }
 
-function removeEventHandlerEx(event, func) {
-    __handlers[event].remove(__handlers[event].find(func));
-}
+// function removeEventHandlerEx(event, func) {
+//     __handlers[event].remove(__handlers[event].find(func));
+// }
 
 
 
@@ -45,7 +45,7 @@ class Request {
 
     function getSign() {
         local set = {};
-        
+
         set.a <- this.tostring();
         set.b <- this.data.tostring();
         set.a = set.a.slice(13, -1);

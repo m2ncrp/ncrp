@@ -4,7 +4,7 @@ include("controllers/player/functions.nut");
 
 players <- {};
 xPlayers <- {};
-playerList <- null;
+playerList <- {};
 
 default_spawns <- [
     [-555.251,  1702.31, -22.2408], // railway
@@ -14,7 +14,7 @@ default_spawns <- [
 ];
 local spawns = 2; // number-1
 
-addEventHandlerEx("onPlayerInit", function(playerid, name, ip, serial) {
+event("onPlayerInit", function(playerid, name, ip, serial) {
     Character.findOneBy({ name = getPlayerName(playerid) }, function(err, char) {
         if (err || !char) {
             // create entity
@@ -49,10 +49,11 @@ addEventHandlerEx("onPlayerInit", function(playerid, name, ip, serial) {
         players[playerid]["housey"]       <- char.housey;
         players[playerid]["housez"]       <- char.housez;
 
-        triggerServerEventEx("onPlayerConnect", playerid, name, ip, serial);
+        // notify all that client connected (and data loaded)
+        trigger("onPlayerConnect", playerid, name, ip, serial);
 
         delayedFunction(2500, function() {
-            triggerClientEvent(playerid, "onServerClientStarted");
+            trigger(playerid, "onServerClientStarted");
         });
     });
 });
@@ -81,7 +82,10 @@ function trySavePlayer(playerid) {
     char.save();
 }
 
-addEventHandler("onPlayerDisconnect", function(playerid, reason) {
+event("native:onPlayerDisconnect", function(playerid, reason) {
+    // call events
+    trigger("onPlayerDisconnect", playerid, reason);
+
     // save player after disconnect
     trySavePlayer(playerid);
     playerList.delPlayer(playerid);
@@ -99,7 +103,7 @@ addEventHandlerEx("onServerMinuteChange", function() {
     }
 });
 
-addEventHandler("onPlayerSpawn", function(playerid) {
+addEventHandler("native:onPlayerSpawn", function(playerid) {
     if (!(playerid in players)) {
         return dbg("[error] no playerid in players array " + playerid);
     }
@@ -118,12 +122,17 @@ addEventHandler("onPlayerSpawn", function(playerid) {
     setPlayerHealth(playerid, 730.0);
     setPlayerColour(playerid, 0x99FFFFFF); // whity
     setPlayerModel(playerid, players[playerid].skin);
+
+    trigger("onPlayerSpawn", playerid);
+    trigger("onPlayerSpawned", playerid);
 });
 
-addEventHandler("onPlayerDeath", function(playerid, killerid) {
+addEventHandler("native:onPlayerDeath", function(playerid, killerid) {
     if (killerid != INVALID_ENTITY_ID) {
         sendPlayerMessageToAll("~ " + getPlayerName(playerid) + " has been killed by " + getPlayerName(killerid) + ".", 255, 204, 0);
     } else {
         sendPlayerMessageToAll("~ " + getPlayerName(playerid) + " has died.", 255, 204, 0 );
     }
+
+    trigger("onPlayerDeath", playerid, killerid);
 });

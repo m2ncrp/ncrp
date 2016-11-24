@@ -139,15 +139,19 @@ addEventHandlerEx("onServerAutosave", function() {
     saveAllVehicles();
 });
 
-addEventHandler("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
+event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     addVehiclePassenger(vehicleid, playerid);
     resetVehicleRespawnTimer(vehicleid);
     trySaveVehicle(vehicleid);
+
+    trigger("onPlayerVehicleEnter", playerid, vehicleid, seat);
 });
 
-addEventHandler("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
+event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     removeVehiclePassenger(vehicleid, playerid);
     trySaveVehicle(vehicleid);
+
+    trigger("onPlayerVehicleExit", playerid, vehicleid, seat);
 });
 
 // clearing all vehicles on server stop
