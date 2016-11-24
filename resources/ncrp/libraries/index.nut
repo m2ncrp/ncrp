@@ -30,28 +30,6 @@ include("libraries/network.nut");
 include("libraries/JSONEncoder.class.nut");
 include("libraries/debug.nut");
 
-/**
- * Setting up ORM proxier
- * All db requests will be forwarded to database resource
- *
- * @param  {String} queryString compiled request string
- * @param  {Function} callback which will be called
- */
-ORM.Driver.setProxy(function(queryString, callback) {
-    local request = Request({ destination = "database", query = queryString });
-
-    request.onResponse(function(response) {
-        return callback ? callback( null, response.data.result ) : null;
-    });
-
-    return request.send();
-});
-
-ORM.Driver.configure({
-    provider = "sqlite"
-});
-
-
 if (__DEBUG__EXPORT) {
     addEventHandler <- function(...) {};
     addCommandHandler <- function(...) {};

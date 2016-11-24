@@ -7,7 +7,7 @@ const WHISPER_RADIUS = 4.0;
 const SHOUT_RADIUS = 35.0;
 
 // event handlers
-addEventHandler("onPlayerChat", function(playerid, message) {
+event("native:onPlayerChat", function(playerid, message) {
     inRadiusSendToAll(playerid, getAuthor( playerid ) + " says: " + message, NORMAL_RADIUS, CL_YELLOW);
     return false;
 });

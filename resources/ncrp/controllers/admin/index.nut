@@ -50,7 +50,7 @@ addEventHandler("onClientScriptError", function(playerid, code) {
     dbg(code);
 });
 
-addEventHandler("onConsoleInput", function(name, ...) {
+event("native:onConsoleInput", function(name, ...) {
     if (name == "sq") {
         squirrelDebugOnServer(-1, vargv);
     }

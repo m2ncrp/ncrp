@@ -13,6 +13,7 @@ include("models/StatisticPoint.nut");
 include("models/MigrationVersion.nut");
 
 // load helpers
+include("helpers/events.nut");
 include("helpers/array.nut");
 include("helpers/function.nut");
 include("helpers/string.nut");
@@ -44,10 +45,13 @@ include("controllers/admin");
 include("controllers/statistics");
 
 // bind general events
-addEventHandler("onScriptInit", function() {
+event("native:onScriptInit", function() {
     log("[core] starting initialization...");
 
-    // setup default values
+    // trigger pre init events
+    trigger("onScriptInit");
+
+    // // setup default values
     setGameModeText( "NCRP" );
     setMapName( "Empire Bay" );
 
@@ -55,29 +59,57 @@ addEventHandler("onScriptInit", function() {
     playerList = PlayerList();
 
     // triggerring load events
-    triggerServerEventEx("onServerStarted");
+    trigger("onServerStarted");
 });
 
-addEventHandler("onScriptExit", function() {
-    triggerServerEventEx("onServerStopping");
-    triggerServerEventEx("onServerStopped");
-    ::print("---------------------------------------");
+event("native:onScriptExit", function() {
+    trigger("onServerStopping");
+    trigger("onServerStopped");
+
+    ::print("\n\n");
 });
 
-addEventHandler("onServerShutdown", function() {
-    triggerServerEventEx("onServerStopping");
-    triggerServerEventEx("onServerStopped");
+event("native:onServerShutdown", function() {
+    trigger("onServerStopping");
+    trigger("onServerStopped");
 });
 
-addEventHandler("onPlayerConnect", function(playerid, name, ip, serial) {
-    triggerServerEventEx("onPlayerInit", playerid, name, ip, serial);
+event("native:onPlayerConnect", function(playerid, name, ip, serial) {
+    trigger("onPlayerInit", playerid, name, ip, serial);
 });
 
-addEventHandlerEx("onServerStarted", function() {
+event("onServerStarted", function() {
     foreach (playerid, name in getPlayers()) {
-        triggerServerEventEx("onPlayerInit", playerid, name, null, null);
+        trigger("onPlayerInit", playerid, name, null, null);
     }
 });
+
+/**
+ * Registering proxies
+ */
+// server
+proxy("onScriptInit",               "native:onScriptInit"               );
+proxy("onScriptExit",               "native:onScriptExit"               );
+proxy("onConsoleInput",             "native:onConsoleInput"             );
+proxy("onServerShutdown",           "native:onServerShutdown"           );
+// onScriptError
+// onServerPulse
+
+// player
+proxy("onPlayerConnect",            "native:onPlayerConnect"            );
+proxy("onPlayerDisconnect",         "native:onPlayerDisconnect"         );
+proxy("onPlayerConnectionRejected", "native:onPlayerConnectionRejected" );
+proxy("onPlayerChat",               "native:onPlayerChat"               );
+proxy("onPlayerSpawn",              "native:onPlayerSpawn"              );
+proxy("onPlayerChangeNick",         "native:onPlayerChangeNick"         );
+proxy("onPlayerDeath",              "native:onPlayerDeath"              );
+proxy("onPlayerChangeWeapon",       "native:onPlayerChangeWeapon"       );
+proxy("onPlayerChangeHealth",       "native:onPlayerChangeHealth"       );
+proxy("onPlayerVehicleEnter",       "native:onPlayerVehicleEnter"       );
+proxy("onPlayerVehicleExit",        "native:onPlayerVehicleExit"        );
+
+// vehicle
+proxy("onVehicleSpawn",              "native:onVehicleSpawn"            );
 
 /**
  * Debug export
