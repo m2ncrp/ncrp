@@ -16,24 +16,29 @@ event("onServerStarted", function() {
 
 
 local jobBlips = {};
+local playerJobBlips = {};
 
 function registerPersonalJobBlip(jobname, x, y) {
-    dbg(jobname);
-    event("onPlayerSpawn", function(playerid) {
-        jobBlips[playerid] <- {};
-        jobBlips[playerid]["jobBlip"] <- false;
-        if (playerid in players && players[playerid].job == jobname) {
-            createPersonalJobBlip(playerid, x, y);
-        }
-    })
+    dbg("register personal job blip for: "+jobname);
+    if (!(jobname in jobBlips)) {
+        jobBlips[jobname] <- {x = x, y = y};
+    }
 }
 
+event("onPlayerSpawn", function(playerid) {
+    foreach (jobname, coords in jobBlips) {
+        if (playerid in players && players[playerid].job == jobname) {
+            createPersonalJobBlip(playerid, coords.x, coords.y);
+        }
+    }
+});
+
 function createPersonalJobBlip(playerid, x, y) {
-    jobBlips[playerid]["jobBlip"] <- createPrivateBlip(playerid, x, y, ICON_STAR, 4000.0);
+    playerJobBlips[playerid] <- createPrivateBlip(playerid, x, y, ICON_STAR, 4000.0);
 }
 
 function removePersonalJobBlip(playerid) {
-    if(jobBlips[playerid]["jobBlip"]){
-        removeBlip(jobBlips[playerid]["jobBlip"]);
-    }
+   if (playerid in playerJobBlips) {
+       removeBlip(playerJobBlips[playerid]);
+   }
 }
