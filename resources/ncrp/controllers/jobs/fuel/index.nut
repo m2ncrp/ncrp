@@ -3,9 +3,10 @@ include("controllers/jobs/fuel/commands.nut");
 local job_fuel = {};
 local fuelcars = {};
 
-const RADIUS_JOB_FUEL = 2.0;
+const FUEL_JOB_RADIUS = 2.0;
 const FUEL_JOB_X = 551.762;
 const FUEL_JOB_Y = -266.866;
+const FUEL_JOB_Z = -20.1644;
 const FUEL_JOB_SKIN = 144;
 const FUEL_JOB_DISTANCE = 75;
 
@@ -46,9 +47,11 @@ addEventHandlerEx("onServerStarted", function() {
     fuelcars[createVehicle(5, 511.887, -277.5, -20.19, -179.464, -0.05, 0.1)]  <- [false, 0 ];
     fuelcars[createVehicle(5, 517.782, -277.5, -20.19, -177.742, -0.05, 0.1)]  <- [false, 0 ];
     fuelcars[createVehicle(5, 523.821, -277.5, -20.19, -176.393, -0.05, 0.1)]  <- [false, 0 ];
+
+    registerPersonalJobBlip("fueldriver", FUEL_JOB_X, FUEL_JOB_Y);
 });
 
-addEventHandler("onPlayerConnect", function(playerid, name, ip, serial) {
+addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial) {
      job_fuel[playerid] <- {};
      job_fuel[playerid]["fuelstatus"] <- [false, false, false, false, false, false, false, false]; // see sequence of gas stations in variable fuelname
      job_fuel[playerid]["fuelBlipText"] <- [ [], [] ];
@@ -57,6 +60,17 @@ addEventHandler("onPlayerConnect", function(playerid, name, ip, serial) {
      job_fuel[playerid]["fuelcomplete"] <- 0;  // number of completed fuel stations. Default is 0
 });
 
+/*
+addEventHandler("onPlayerSpawn", function(playerid) {
+    dbg("init");
+
+        if (isFuelDriver(playerid)) {
+            fuelJobCreateBlipText ( playerid );
+            dbg("fueldriver");
+     }
+
+});
+*/
 
 /**
  * Check is player is a fuel driver
@@ -90,7 +104,7 @@ function isFuelReady(playerid) {
 // working good, check
 function fuelJob ( playerid ) {
 
-    if(!isPlayerInValidPoint(playerid, FUEL_JOB_X, FUEL_JOB_Y, RADIUS_JOB_FUEL)) {
+    if(!isPlayerInValidPoint(playerid, FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_RADIUS)) {
         return msg( playerid, "Let's go to Trago Oil headquartered in Oyster Bay (right door at corner of the building) to become fuel truck driver." );
     }
 
@@ -112,7 +126,9 @@ function fuelJob ( playerid ) {
 
         job_fuel[playerid]["fuelBlipTruck"] = createPrivateBlip(playerid, 517.732, -276.828, ICON_TARGET, 2000.0);
 
-        fuelJobCreateBlipText ( playerid );
+        //fuelJobCreateBlipText ( playerid );
+
+        createPersonalJobBlip(playerid, FUEL_JOB_X, FUEL_JOB_Y);
     });
 }
 
@@ -120,7 +136,7 @@ function fuelJob ( playerid ) {
 // working good, check
 function fuelJobLeave ( playerid ) {
 
-    if(!isPlayerInValidPoint(playerid, FUEL_JOB_X, FUEL_JOB_Y, RADIUS_JOB_FUEL)) {
+    if(!isPlayerInValidPoint(playerid, FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_RADIUS)) {
         return msg( playerid, "Let's go to Trago Oil headquartered in Oyster Bay (right door at corner of the building) to become fuel truck driver." );
     }
 
@@ -136,6 +152,8 @@ function fuelJobLeave ( playerid ) {
         setPlayerModel( playerid, players[playerid]["default_skin"]);
 
         fuelJobRemoveBlipText ( playerid );
+
+        removePersonalJobBlip ( playerid );
     });
 }
 
@@ -337,6 +355,7 @@ function fuelJobCheck ( playerid ) {
 
 
 function fuelJobCreateBlipText( playerid ) {
+
     job_fuel[playerid]["fuelBlipTextWarehouse"].push( createPrivate3DText (playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, FUEL_JOB_WAREHOUSE_Z+0.35, "=== FUEL WAREHOUSE ===", CL_RIPELEMON, 100.0 ));
     job_fuel[playerid]["fuelBlipTextWarehouse"].push( createPrivate3DText (playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, FUEL_JOB_WAREHOUSE_Z-0.15, "/fuel load", CL_WHITE.applyAlpha(150), 5.0 ));
 
