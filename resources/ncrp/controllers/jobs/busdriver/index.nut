@@ -83,8 +83,8 @@ addEventHandlerEx("onServerStarted", function() {
     routes[5] <- [30, [4, 5, 6, 7, 8, 9, 10, 12, 13, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];
 
     //creating 3dtext for bus depot
-    create3DText ( BUS_JOB_X, BUS_JOB_Y, 0.35, "ROADKING BUS DEPOT", CL_ROYALBLUE );
-    create3DText ( BUS_JOB_X, BUS_JOB_Y, -0.15, "/help job bus", CL_WHITE.applyAlpha(75) );
+    create3DText ( BUS_JOB_X, BUS_JOB_Y, BUS_JOB_Z+0.35, "ROADKING BUS DEPOT", CL_ROYALBLUE );
+    create3DText ( BUS_JOB_X, BUS_JOB_Y, BUS_JOB_Z-0.15, "/help job bus", CL_WHITE.applyAlpha(75) );
 
     //creating public 3dtext
     foreach (idx, value in busStops) {

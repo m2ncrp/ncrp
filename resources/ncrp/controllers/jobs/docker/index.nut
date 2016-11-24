@@ -5,14 +5,15 @@ local job_docker = {};
 const RADIUS_DOCKER = 5.0;
 const DOCKER_JOB_X = -348.205; //Derek Door
 const DOCKER_JOB_Y = -731.48; //Derek Door
+const DOCKER_JOB_Z = -15.4205;
 const DOCKER_JOB_SKIN = 63;
 
 addEventHandlerEx("onServerStarted", function() {
     log("[jobs] loading docker job...");
 
     //creating 3dtext for bus depot
-    create3DText ( DOCKER_JOB_X, DOCKER_JOB_Y, 0.35, "CITY PORT", CL_ROYALBLUE );
-    create3DText ( DOCKER_JOB_X, DOCKER_JOB_Y, -0.15, "/help job docker", CL_WHITE.applyAlpha(75) );
+    create3DText ( DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z+0.35, "CITY PORT", CL_ROYALBLUE );
+    create3DText ( DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z-0.15, "/help job docker", CL_WHITE.applyAlpha(75) );
 
     registerPersonalJobBlip("docker", DOCKER_JOB_X, DOCKER_JOB_Y);
 });
