@@ -111,6 +111,8 @@ function fuelJob ( playerid ) {
         setPlayerModel( playerid, FUEL_JOB_SKIN );
 
         job_fuel[playerid]["fuelBlipTruck"] = createPrivateBlip(playerid, 517.732, -276.828, ICON_TARGET, 2000.0);
+
+        fuelJobCreateBlipText ( playerid );
     });
 }
 
@@ -149,7 +151,6 @@ function fuelJobReady ( playerid ) {
         return msg(playerid, "You need a fuel truck.");
     }
 
-    fuelJobCreateBlipText ( playerid );
     local vehicleid = getPlayerVehicle(playerid);
     if(fuelcars[vehicleid][0]) {
         return msg( playerid, "The truck is ready already.");
