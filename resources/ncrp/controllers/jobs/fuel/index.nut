@@ -7,6 +7,11 @@ const RADIUS_JOB_FUEL = 2.0;
 const FUEL_JOB_X = 551.762;
 const FUEL_JOB_Y = -266.866;
 const FUEL_JOB_SKIN = 144;
+const FUEL_JOB_DISTANCE = 75;
+
+const FUEL_JOB_WAREHOUSE_X = 788.288;
+const FUEL_JOB_WAREHOUSE_Y = -78.0801;
+const FUEL_JOB_WAREHOUSE_Z = -20.0379;
 
 local fuelname = [
     "Oyster Bay",                       // FuelStation Oyster Bay
@@ -46,6 +51,9 @@ addEventHandlerEx("onServerStarted", function() {
 addEventHandler("onPlayerConnect", function(playerid, name, ip, serial) {
      job_fuel[playerid] <- {};
      job_fuel[playerid]["fuelstatus"] <- [false, false, false, false, false, false, false, false]; // see sequence of gas stations in variable fuelname
+     job_fuel[playerid]["fuelBlipText"] <- [ [], [] ];
+     job_fuel[playerid]["fuelBlipTextWarehouse"] <- [];
+     job_fuel[playerid]["fuelBlipTruck"] <- false;
      job_fuel[playerid]["fuelcomplete"] <- 0;  // number of completed fuel stations. Default is 0
 });
 
@@ -93,15 +101,17 @@ function fuelJob ( playerid ) {
     if(isPlayerHaveJob(playerid)) {
         return msg(playerid, "You already have a job: " + getPlayerJob(playerid) + ".");
     }
+    screenFadeinFadeoutEx(playerid, 250, 200, function() {
+        msg( playerid, "You're a fuel truck driver now! Congratulations!" );
+        msg( playerid, "Sit into fuel truck." );
 
-    msg( playerid, "You're a fuel truck driver now! Congratulations!" );
-    msg( playerid, "Sit into fuel truck." );
+        players[playerid]["job"] = "fueldriver";
 
-    players[playerid]["job"] = "fueldriver";
+        players[playerid]["skin"] = FUEL_JOB_SKIN;
+        setPlayerModel( playerid, FUEL_JOB_SKIN );
 
-    players[playerid]["skin"] = FUEL_JOB_SKIN;
-    setPlayerModel( playerid, FUEL_JOB_SKIN );
-
+        job_fuel[playerid]["fuelBlipTruck"] = createPrivateBlip(playerid, 517.732, -276.828, ICON_TARGET, 2000.0);
+    });
 }
 
 
@@ -115,13 +125,16 @@ function fuelJobLeave ( playerid ) {
     if(!isFuelDriver(playerid)) {
         return msg( playerid, "You're not a fuel truck driver.");
     }
+    screenFadeinFadeoutEx(playerid, 250, 200, function() {
+        msg( playerid, "You leave this job." );
 
-    msg( playerid, "You leave this job." );
+        players[playerid]["job"] = null;
 
-    players[playerid]["job"] = null;
+        players[playerid]["skin"] = players[playerid]["default_skin"];
+        setPlayerModel( playerid, players[playerid]["default_skin"]);
 
-    players[playerid]["skin"] = players[playerid]["default_skin"];
-    setPlayerModel( playerid, players[playerid]["default_skin"]);
+        fuelJobRemoveBlipText ( playerid );
+    });
 }
 
 
@@ -136,12 +149,18 @@ function fuelJobReady ( playerid ) {
         return msg(playerid, "You need a fuel truck.");
     }
 
+    fuelJobCreateBlipText ( playerid );
     local vehicleid = getPlayerVehicle(playerid);
     if(fuelcars[vehicleid][0]) {
         return msg( playerid, "The truck is ready already.");
     }
 
     fuelcars[vehicleid][0] = true;
+
+    if(job_fuel[playerid]["fuelBlipTruck"]) {
+        removeBlip(job_fuel[playerid]["fuelBlipTruck"]);
+        job_fuel[playerid]["fuelBlipTruck"] = false;
+    }
 
     if(fuelcars[vehicleid][1] >= 4000) {
         msg( playerid, "The truck is ready. Truck is loaded to " + fuelcars[vehicleid][1] + " / 16000");
@@ -166,7 +185,7 @@ function fuelJobLoad ( playerid ) {
         return msg( playerid, "The truck isn't ready." );
     }
 
-    if(!isVehicleInValidPoint(playerid, 788.288, -78.0801, 5.0)) {
+    if(!isVehicleInValidPoint(playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, 5.0)) {
         return msg( playerid, "Go to the warehouse of fuel in South Millville to load fuel truck." );
     }
 
@@ -174,14 +193,15 @@ function fuelJobLoad ( playerid ) {
         return msg( playerid, "You're driving. Please stop the fuel truck.");
     }
 
+    if(fuelcars[vehicleid][1] == 16000) {
+       return msg( playerid, "Fuel truck already loaded." );
+    }
+
     if(fuelcars[vehicleid][1] < 16000) {
         fuelcars[vehicleid][1] = 16000;
         msg( playerid, "Fuel truck is loaded to 16000 / 16000. Deliver fuel to gas stations." );
-    } else {
-        msg( playerid, "Fuel truck already loaded." );
     }
 }
-
 // working good, check
 function fuelJobUnload ( playerid ) {
 
@@ -207,6 +227,9 @@ function fuelJobUnload ( playerid ) {
     foreach (key, value in fuelcoords) {
         if (isVehicleInValidPoint(playerid, value[0], value[1], 5.0 )) {
             check = true;
+            remove3DText( job_fuel[playerid]["fuelBlipText"][0][key] );
+            removeBlip( job_fuel[playerid]["fuelBlipText"][1][key] );
+
             i = key;
             break;
         }
@@ -308,3 +331,52 @@ function fuelJobCheck ( playerid ) {
 
     msg( playerid, "Fuel truck is loaded to " + fuelcars[vehicleid][1] + " / 16000" );
 }
+
+
+function fuelJobCreateBlipText( playerid ) {
+    job_fuel[playerid]["fuelBlipTextWarehouse"].push( createPrivate3DText (playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, FUEL_JOB_WAREHOUSE_Z+0.35, "=== FUEL WAREHOUSE ===", CL_RIPELEMON, 100.0 ));
+    job_fuel[playerid]["fuelBlipTextWarehouse"].push( createPrivate3DText (playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, FUEL_JOB_WAREHOUSE_Z-0.15, "/fuel load", CL_WHITE.applyAlpha(150), 5.0 ));
+
+    job_fuel[playerid]["fuelBlipTextWarehouse"].push( createPrivateBlip(playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, ICON_YELLOW, 2000.0));
+
+    foreach (key, value in fuelcoords) {
+        job_fuel[playerid]["fuelBlipText"][0].push( createPrivate3DText (playerid, value[0], value[1], value[2]-0.15, "/fuel unload", CL_WHITE.applyAlpha(150), 10 ));
+        job_fuel[playerid]["fuelBlipText"][1].push( createPrivateBlip(playerid, value[0], value[1], ICON_RED, 2000.0 ));
+    }
+}
+
+
+/*
+
+Ниже присутствует магия, не смотря на то, что магией запрещено пользоваться за пределами Хогвартса.
+
+ */
+function fuelJobRemoveBlipText( playerid ) {
+
+    if(job_fuel[playerid]["fuelBlipTextWarehouse"].len() > 0) {
+        remove3DText(job_fuel[playerid]["fuelBlipTextWarehouse"][0]);
+        remove3DText(job_fuel[playerid]["fuelBlipTextWarehouse"][1]);
+        removeBlip(job_fuel[playerid]["fuelBlipTextWarehouse"][2]);
+
+        job_fuel[playerid]["fuelBlipTextWarehouse"].clear();
+    }
+
+    if(job_fuel[playerid]["fuelBlipTruck"]) {
+        removeBlip(job_fuel[playerid]["fuelBlipTruck"]);
+    }
+
+    local len = job_fuel[playerid]["fuelBlipText"][0].len();
+    dbg("[FUELJOB] len: "+len);
+    if(len > 0 ) {
+        for (local key = 1; key <= len; key++ ) {
+            dbg("[FUELJOB] >>>>>> key: "+key);
+            remove3DText( job_fuel[playerid]["fuelBlipText"][0][0] );
+            removeBlip( job_fuel[playerid]["fuelBlipText"][1][0] );
+
+            job_fuel[playerid]["fuelBlipText"][0].remove(0);
+            job_fuel[playerid]["fuelBlipText"][1].remove(0);
+        }
+    }
+}
+
+
