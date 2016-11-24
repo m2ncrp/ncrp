@@ -60,6 +60,50 @@ addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial) {
      job_fuel[playerid]["fuelcomplete"] <- 0;  // number of completed fuel stations. Default is 0
 });
 
+local fuelJobStationMarks = {};
+function createFuelJobStationMarks(playerid, data) {
+    if (!(playerid in fuelJobStationMarks)) {
+        fuelJobStationMarks[playerid] <- {};
+    }
+
+    // ignore creation if they already set
+    if (fuelJobStationMarks[playerid].len()) {
+        return;
+    }
+
+    foreach (id, value in data) {
+        fuelJobStationMarks[playerid][id] <- {
+            text1 = createPrivate3DText(playerid, value[0], value[1], value[2]-0.15, "/fuel unload", CL_WHITE.applyAlpha(150), 10 ),
+            text2 = null, // maybe add later
+            blip  = createPrivateBlip(playerid, value[0], value[1], ICON_RED, 2000.0 )
+        };
+    }
+}
+
+function removeFuelJobStationMark(playerid, id) {
+    if (playerid in fuelJobStationMarks) {
+        if (id in fuelJobStationMarks[playerid]) {
+            remove3DText(fuelJobStationMarks[playerid][id].text1);
+            // remove3DText(fuelJobStationMarks[playerid][id].text2); // curenlty disabled
+            removeBlip(fuelJobStationMarks[playerid][id].blip);
+
+            delete fuelJobStationMarks[playerid][id];
+        }
+    }
+}
+
+function clearFuelJobStationMarks(playerid) {
+    if (playerid in fuelJobStationMarks) {
+        foreach (id, value in fuelJobStationMarks[playerid]) {
+            remove3DText(fuelJobStationMarks[playerid][id].text1);
+            // remove3DText(fuelJobStationMarks[playerid][id].text2); // curenlty disabled
+            removeBlip(fuelJobStationMarks[playerid][id].blip);
+        }
+        delete fuelJobStationMarks[playerid];
+    }
+}
+
+
 /*
 addEventHandler("onPlayerSpawn", function(playerid) {
     dbg("init");
@@ -151,9 +195,12 @@ function fuelJobLeave ( playerid ) {
         players[playerid]["skin"] = players[playerid]["default_skin"];
         setPlayerModel( playerid, players[playerid]["default_skin"]);
 
-        fuelJobRemoveBlipText ( playerid );
+        // fuelJobRemoveBlipText ( playerid );
 
         removePersonalJobBlip ( playerid );
+
+        // clear all marks
+        clearFuelJobStationMarks(playerid);
     });
 }
 
@@ -220,6 +267,9 @@ function fuelJobLoad ( playerid ) {
         fuelcars[vehicleid][1] = 16000;
         msg( playerid, "Fuel truck is loaded to 16000 / 16000. Deliver fuel to gas stations." );
     }
+
+    // create fuel marks
+    createFuelJobStationMarks(playerid, fuelcoords);
 }
 // working good, check
 function fuelJobUnload ( playerid ) {
@@ -269,8 +319,9 @@ function fuelJobUnload ( playerid ) {
     job_fuel[playerid]["fuelstatus"][i] = true;
     job_fuel[playerid]["fuelcomplete"] += 1;
 
-    remove3DText( job_fuel[playerid]["fuelBlipText"][0][i] );
-    removeBlip( job_fuel[playerid]["fuelBlipText"][1][i] );
+    // remove3DText( job_fuel[playerid]["fuelBlipText"][0][i] );
+    // removeBlip( job_fuel[playerid]["fuelBlipText"][1][i] );
+    removeFuelJobStationMark(playerid, i);
 
     if (job_fuel[playerid]["fuelcomplete"] == 8) {
         msg( playerid, "Nice job! Return the fuel truck to Trago Oil headquartered in Oyster Bay, park truck and take your money." );
@@ -316,6 +367,9 @@ function fuelJobPark ( playerid ) {
     fuelcars[vehicleid][0] = false;
     msg( playerid, "Nice job! You earned $40." );
     addMoneyToPlayer(playerid, 40);
+
+    // clear all marks
+    clearFuelJobStationMarks(playerid);
 }
 
 
