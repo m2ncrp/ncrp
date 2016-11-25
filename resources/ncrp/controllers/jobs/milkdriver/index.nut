@@ -8,6 +8,8 @@ const MILK_JOB_X =  176.834;
 const MILK_JOB_Y = 439.305;
 const MILK_JOB_Z = -20.1758;
 const MILK_JOB_SKIN = 171;
+const MILK_JOB_DISTANCE = 100;
+const MILK_JOB_NUMBER_STATIONS = 6;
 
 local milkname = [
     "Hill Of Tara Black Exit",                  // Hill Of Tara Black Exit
@@ -58,6 +60,50 @@ addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial) {
      job_milk[playerid]["milkstatus"] <- [false, false, false, false, false, false];
      job_milk[playerid]["milkcomplete"] <- 0;  // number of completed milk address. Default is 0
 });
+
+
+local milkJobStationMarks = {};
+function createMilkJobStationMarks(playerid, data) {
+    if (!(playerid in milkJobStationMarks)) {
+        milkJobStationMarks[playerid] <- {};
+    }
+
+    // ignore creation if they already set
+    if (milkJobStationMarks[playerid].len()) {
+        return;
+    }
+
+    foreach (id, value in data) {
+        milkJobStationMarks[playerid][id] <- {
+            text1 = createPrivate3DText(playerid, value[0], value[1], value[2]+0.35, "=== PARK HERE ===", CL_RIPELEMON, MILK_JOB_DISTANCE ),
+            text2 = createPrivate3DText(playerid, value[0], value[1], value[2]+0.20, "/milk unload", CL_WHITE.applyAlpha(150), 5 ),
+            blip  = createPrivateBlip(playerid, value[0], value[1], ICON_RED, 4000.0 )
+        };
+    }
+}
+
+function removeMilkJobStationMark(playerid, id) {
+    if (playerid in milkJobStationMarks) {
+        if (id in milkJobStationMarks[playerid]) {
+            remove3DText(milkJobStationMarks[playerid][id].text1);
+            remove3DText(milkJobStationMarks[playerid][id].text2);
+            removeBlip(milkJobStationMarks[playerid][id].blip);
+
+            delete milkJobStationMarks[playerid][id];
+        }
+    }
+}
+
+function clearMilkJobStationMarks(playerid) {
+    if (playerid in milkJobStationMarks) {
+        foreach (id, value in milkJobStationMarks[playerid]) {
+            remove3DText(milkJobStationMarks[playerid][id].text1);
+            remove3DText(milkJobStationMarks[playerid][id].text2); // curenlty disabled
+            removeBlip(milkJobStationMarks[playerid][id].blip);
+        }
+        delete milkJobStationMarks[playerid];
+    }
+}
 
 
 /**
@@ -141,6 +187,9 @@ function milkJobLeave ( playerid ) {
 
         // remove private blip job
         removePersonalJobBlip ( playerid );
+
+        // clear all marks
+        clearMilkJobStationMarks(playerid);
     });
 }
 
@@ -161,15 +210,17 @@ function milkJobReady ( playerid ) {
     }
 
     job_milk[playerid]["milkready"] = true;
-    job_milk[playerid]["milkcoords"] = getRandomSubArray(milkcoordsall, 6);
-
+    job_milk[playerid]["milkcoords"] = getRandomSubArray(milkcoordsall, MILK_JOB_NUMBER_STATIONS);
     dbg(job_milk[playerid]["milkcoords"]);
+
+    // create milk marks
+    createMilkJobStationMarks(playerid, job_milk[playerid]["milkcoords"]);
 
     local vehicleid = getPlayerVehicle(playerid);
     if(milktrucks[vehicleid] >= 12) {
-        msg( playerid, "The truck is ready. Truck is loaded to " + milktrucks[vehicleid] + " / 120");
+        msg( playerid, "You have route list now. Truck is loaded to " + milktrucks[vehicleid] + " / 120");
     } else {
-        msg( playerid, "The truck is ready, but empty. Load milk to truck." );
+        msg( playerid, "You have route list now. The truck is empty. Load milk to truck." );
     }
 }
 
@@ -185,7 +236,7 @@ function milkJobLoad ( playerid ) {
     }
 
     if (!isMilkReady(playerid)) {
-        return msg( playerid, "You don't have routes list." );
+        return msg( playerid, "You don't ready and don't have routes list." );
     }
 
     if(!isVehicleInValidPoint(playerid, 170.737, 436.886, 4.0)) {
@@ -253,7 +304,10 @@ function milkJobUnload ( playerid ) {
     job_milk[playerid]["milkstatus"][i] = true;
     job_milk[playerid]["milkcomplete"] += 1;
 
-    if (job_milk[playerid]["milkcomplete"] == 6) {
+    // remove blip on complete unload
+    removeMilkJobStationMark(playerid, i);
+
+    if (job_milk[playerid]["milkcomplete"] == MILK_JOB_NUMBER_STATIONS) {
         msg( playerid, "Nice job! Return the milk truck to milk filling station in Chinatown, park truck and take your money." );
     } else {
         if (milktrucks[vehicleid] >= 12) {
@@ -280,6 +334,10 @@ function milkJobPark ( playerid ) {
         return msg( playerid, "You don't have routes list." );
     }
 
+    if (job_milk[playerid]["milkcomplete"] != MILK_JOB_NUMBER_STATIONS) {
+        return msg( playerid, "Carry milk to all addresses." );
+    }
+
     if(!isVehicleInValidPoint(playerid, 170.737, 436.886, 4.0)) {
         return msg( playerid, "Go to the milk filling station to park the milk truck." );
     }
@@ -288,7 +346,7 @@ function milkJobPark ( playerid ) {
         return msg( playerid, "You're driving. Please stop the milk truck.");
     }
 
-    if (job_milk[playerid]["milkcomplete"] < 8) {
+    if (job_milk[playerid]["milkcomplete"] < MILK_JOB_NUMBER_STATIONS) {
         return msg( playerid, "Complete milk delivery to all addresses." );
     }
 
@@ -296,6 +354,9 @@ function milkJobPark ( playerid ) {
     job_milk[playerid]["milkready"] = false;
     msg( playerid, "Nice job! You earned $20." );
     addMoneyToPlayer(playerid, 20);
+
+    // clear all marks
+    clearMilkJobStationMarks( playerid );
 }
 
 
