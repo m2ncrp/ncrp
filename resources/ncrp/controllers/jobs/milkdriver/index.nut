@@ -46,9 +46,9 @@ addEventHandlerEx("onServerStarted", function() {
 
     //creating 3dtext for bus depot
     create3DText ( MILK_JOB_X, MILK_JOB_Y, MILK_JOB_Z+0.35, "EMPIRE BAY MILK CO.", CL_ROYALBLUE );
-    create3DText ( MILK_JOB_X, MILK_JOB_Y, MILK_JOB_Z-0.15, "/help job milk", CL_WHITE.applyAlpha(75) );
+    create3DText ( MILK_JOB_X, MILK_JOB_Y, MILK_JOB_Z+0.20, "/help job milk", CL_WHITE.applyAlpha(75), 3 );
 
-    registerPersonalJobBlip("docker", MILK_JOB_X, MILK_JOB_Y);
+    registerPersonalJobBlip("milkdriver", MILK_JOB_X, MILK_JOB_Y);
 });
 
 addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial) {
