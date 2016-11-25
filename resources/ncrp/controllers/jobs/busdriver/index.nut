@@ -84,7 +84,7 @@ addEventHandlerEx("onServerStarted", function() {
 
     //creating 3dtext for bus depot
     create3DText ( BUS_JOB_X, BUS_JOB_Y, BUS_JOB_Z+0.35, "ROADKING BUS DEPOT", CL_ROYALBLUE );
-    create3DText ( BUS_JOB_X, BUS_JOB_Y, BUS_JOB_Z-0.15, "/help job bus", CL_WHITE.applyAlpha(75) );
+    create3DText ( BUS_JOB_X, BUS_JOB_Y, BUS_JOB_Z+0.20, "/help job bus", CL_WHITE.applyAlpha(75), 3 );
 
     //creating public 3dtext
     foreach (idx, value in busStops) {

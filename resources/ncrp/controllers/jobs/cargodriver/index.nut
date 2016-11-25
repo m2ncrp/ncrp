@@ -23,9 +23,9 @@ addEventHandlerEx("onServerStarted", function() {
 
     //creating 3dtext for bus depot
     //create3DText ( DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z+0.35, "CITY PORT", CL_ROYALBLUE );
-    create3DText ( CARGO_JOB_X, CARGO_JOB_Y, CARGO_JOB_Z-0.25, "/help job cargo", CL_WHITE.applyAlpha(75), 5 );
+    create3DText ( CARGO_JOB_X, CARGO_JOB_Y, CARGO_JOB_Z+0.10, "/help job cargo", CL_WHITE.applyAlpha(75), 3 );
 
-    registerPersonalJobBlip("docker", CARGO_JOB_X, CARGO_JOB_Y);
+    registerPersonalJobBlip("cargodriver", CARGO_JOB_X, CARGO_JOB_Y);
 });
 
 addEventHandler("onPlayerConnect", function(playerid, name, ip, serial) {
