@@ -50,7 +50,7 @@ addEventHandlerEx("onServerStarted", function() {
 
     //creating 3dtext for Trago Oil
     create3DText ( FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.35, "TRAGO OIL", CL_ROYALBLUE );
-    create3DText ( FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z-0.15, "/help job fuel", CL_WHITE.applyAlpha(75) );
+    create3DText ( FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.20, "/help job fuel", CL_WHITE.applyAlpha(75), 3 );
 
     registerPersonalJobBlip("fueldriver", FUEL_JOB_X, FUEL_JOB_Y);
 });

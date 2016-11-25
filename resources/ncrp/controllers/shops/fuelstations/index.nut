@@ -44,7 +44,7 @@ function isNearFuelStation(playerid) {
 function getFuelNeed(playerid) {
     local vehicleid = getPlayerVehicle(playerid);
     local vehicle_model = getVehicleModel(vehicleid);
-    return vehicle_tank[vehicle_model-1][1] - getVehicleFuel(vehicleid);
+    return vehicle_tank[vehicle_model][1] - getVehicleFuel(vehicleid);
 }
 
 function isFuelNeeded(playerid) {
