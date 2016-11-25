@@ -91,6 +91,8 @@ event("native:onPlayerDisconnect", function(playerid, reason) {
     // save player after disconnect
     trySavePlayer(playerid);
     playerList.delPlayer(playerid);
+    delete players[playerid];
+    delete xPlayers[playerid];
 });
 
 addEventHandlerEx("onServerAutosave", function() {
