@@ -4,7 +4,61 @@
 4. Ability to rang up or down by admins.
 5. Remove selfshot by taser in cmds X)
 6. To end duty and become simple civilian make duty on and off cmds [HALF DONE]
+
+7. Call da fucking police
 */
+
+translation("en", {
+    "general.emptymessage"                      : "[INFO] You cant send an empty message",
+    "general.noonearound"                       : "There's noone around near you.",
+
+    "organizations.police.crimewasdone"         : "You would better not to do it..",
+    "organizations.police.getserial"            : "Your serial is: %s",
+    "organizations.police.notanofficer"         : "You're not a police officer.",
+    "organizations.police.alreadyonduty"        : "You're already on duty now.",
+    "organizations.police.alreadyoffduty"       : "You're already off duty now.",
+    "organizations.police.notinpolicevehicle"   : "You should be in police vehicle!",
+    "organizations.police.giveticketwithreason" : "%s give you ticket for %s. Type /accept %s.",
+    "organizations.police.offdutynotickets"     : "You off the duty now and you haven't tickets.",
+    "organizations.police.offdutynotaser"       : "You have no taser couse you're not a cop.",
+    
+    "organizations.police.shotsomeonebytaser"   : "You shot %s by taser.",
+    "organizations.police.beenshotbytaset"      : "You's been shot by taser", 
+    "organizations.police.beencuffed"           : "You've been cuffed by %s.",
+    "organizations.police.cuffsomeone"          : "You cuffed %s.",
+    "organizations.police.beenuncuffed"         : "You've been uncuffed by %s",
+    "organizations.police.uncuffsomeone"        : "You uncuffed %s",
+    
+    "organizations.police.info.howjoinpolice"   : "If you want to join Police Department write one of admins!",
+    "organizations.police.info.availablecmds"   : "List of available commands for Police Officer JOB:"
+});
+
+translation("ru", {
+    "general.emptymessage"                      : "[INFO] Вы не можете отправить пустую строку",
+    "general.noonearound"                       : "Рядом с вами никого нет.",
+
+    "organizations.police.crimewasdone"         : "Лучше бы ты этого не делал..",
+    "organizations.police.getserial"            : "Ваш серийный номер: %s",
+    "organizations.police.notanofficer"         : "Вы не являетесь офицером полиции.",
+    "organizations.police.alreadyonduty"        : "Вы закончили свою смену.",
+    "organizations.police.alreadyoffduty"       : "Вы уже начали свою смену.",
+    "organizations.police.notinpolicevehicle"   : "Вы должны быть в служебной машине!",
+    "organizations.police.giveticketwithreason" : "%s выписал вам штраф за %s. Введите /accept %s.",
+    "organizations.police.offdutynotickets"     : "Вы закончили свою смену и не имеете квитанций с собой.",
+    "organizations.police.offdutynotaser"       : "У вас нет шокера, т.к. вы не полицейский.",
+
+    "organizations.police.shotsomeonebytaser"   : "Вы выстрелили в %s из шокера.",
+    "organizations.police.beenshotbytaset"      : "В вас попал снаряд шокера", 
+    "organizations.police.beencuffed"           : "%s надел на вас наручники",
+    "organizations.police.cuffsomeone"          : "Вы арестовали %s",
+    "organizations.police.beenuncuffed"         : "%s снял с вас наручники",
+    "organizations.police.uncuffsomeone"        : "Вы сняли наручники с %s",
+    
+    "organizations.police.info.howjoinpolice"   : "Если вы хотите пополнить ряды офицеров департамента Empire Bay, напишите администраторам!",
+    "organizations.police.info.availablecmds"   : "Список команд, доступных офицерам полиции:"
+});
+
+
 
 const RUPOR_RADIUS = 100.0;
 const CUFF_RADIUS = 3.0;
@@ -15,7 +69,7 @@ function policecmd(names, callback)  {
         local text = concat(vargv);
 
         if (!text || text.len() < 1) {
-            return msg(playerid, "[INFO] You cant send an empty message.", CL_YELLOW);
+            return msg(playerid, "general.emptymessage", CL_YELLOW);
         }
 
         // call registered callback
@@ -27,7 +81,7 @@ function makeMeText(playerid, vargv)  {
     local text = concat(vargv);
 
     if (!text || text.len() < 1) {
-        return msg(playerid, "[INFO] You cant send an empty message.", CL_YELLOW);
+        return msg(playerid, "general.emptymessage", CL_YELLOW);
     }
     return text;
 }
@@ -68,7 +122,7 @@ addEventHandler ( "onPlayerSpawn", function( playerid ) {
 addEventHandler ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
     if(isPlayerInPoliceVehicle(playerid) && getPlayerJob(playerid) != "policeofficer") {
         // set player wanted level or smth like that
-        return msg(playerid, "You would better not to do it..", CL_GRAY);
+        return msg(playerid, "organizations.police.crimewasdone", CL_GRAY);
     }
 });
 

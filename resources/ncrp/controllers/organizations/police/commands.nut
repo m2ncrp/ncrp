@@ -9,13 +9,13 @@
 // });
 
 cmd("serial", function(playerid) {
-    msg( playerid, "Your serial is: " + players[playerid]["serial"], CL_THUNDERBIRD );
+    msg( playerid, "organizations.police.getserial", [players[playerid]["serial"]], CL_THUNDERBIRD );
 });
 
 // usage: /police duty on
 cmd("police", ["duty", "on"], function(playerid) {
     if ( !isOfficer(playerid) ) {
-        return msg(playerid, "You're not a police officer.");
+        return msg(playerid, "organizations.police.notanofficer");
     }
     if ( !isOnDuty(playerid) ) {
         setOnDuty(playerid, true);
@@ -24,14 +24,14 @@ cmd("police", ["duty", "on"], function(playerid) {
                     setPlayerModel(playerid, POLICE_MODEL);
                 });
     } else {
-        return msg(playerid, "You're already on duty now.");
+        return msg(playerid, "organizations.police.alreadyonduty");
     }
 });
 
 // usage: /police duty off
 cmd("police", ["duty", "off"], function(playerid) {
     if ( !isOfficer(playerid) ) {
-        return msg(playerid, "You're not a police officer.");
+        return msg(playerid, "organizations.police.notanofficer");
     }
     if ( isOnDuty(playerid) ) {
         setOnDuty(playerid, false);
@@ -40,16 +40,16 @@ cmd("police", ["duty", "off"], function(playerid) {
                     setPlayerModel(playerid, players[playerid]["default_skin"]);
                 });
     } else {
-        return msg(playerid, "You're already off duty now.");
+        return msg(playerid, "organizations.police.alreadyoffduty");
     }
 });
 
 policecmd(["r", "ratio"], function(playerid, text) {
     if ( !isOfficer(playerid) ) {
-        return msg(playerid, "You're not a police officer.");
+        return msg(playerid, "organizations.police.notanofficer");
     }
     if( !isPlayerInPoliceVehicle(playerid) ) {
-        msg( playerid, "You should be in police vehicle!");
+        msg( playerid, "organizations.police.notinpolicevehicle");
         return;
     }
 
@@ -66,7 +66,7 @@ policecmd("rupor", function(playerid, text) {
         return;
     }
     if ( !isPlayerInPoliceVehicle(playerid) ) {
-        msg( playerid, "You should be in police vehicle!");
+        msg( playerid, "organizations.police.notinpolicevehicle");
         return;
     }
     inRadiusSendToAll(playerid, "[RUPOR] " + text, RUPOR_RADIUS, CL_ROYALBLUE);
@@ -75,34 +75,36 @@ policecmd("rupor", function(playerid, text) {
 
 cmd(["ticket"], function(playerid, targetid, price, ...) {
     if ( !isOfficer(playerid) ) {
-        return msg(playerid, "You're not a police officer.");
+        return msg(playerid, "organizations.police.notanofficer");
     }
     if ( isOnDuty(playerid) ) {
         local reason = makeMeText(playerid, vargv);
-        msg(targetid, getAuthor(playerid) + " give you ticket for " + reason + " . Type /accept <id>");
+        msg(targetid, "organizations.police.giveticketwithreason", [getAuthor(playerid), reason, playerid]);
         sendInvoice( playerid, targetid, price );
     } else {
-        return msg(playerid, "You off the duty now and you haven't tickets.")
+        return msg(playerid, "organizations.police.offdutynotickets")
     }
 });
 
 
 cmd("taser", function( playerid ) {
     if ( !isOfficer(playerid) ) {
-        return msg( playerid, "You have no taser couse you're not a cop." );
+        return msg( playerid, "organizations.police.notanofficer" );
     }
 
     if ( isOnDuty(playerid) ) {
         local targetid = playerList.nearestPlayer( playerid );
-        dbg( targetid ); // Souldn't be NULL
+        if (!targetid) {
+            return msg(playerid, "general.noonearound");
+        }
         screenFadeinFadeout(targetid, 800, function() {
-            msg( playerid, "You shot " + getAuthor(targetid) + " by taser." );
-            msg( targetid, "You's been shot by taser" );
+            msg( playerid, "organizations.police.shotsomeonebytaser", [getAuthor(targetid)] );
+            msg( targetid, "organizations.police.beenshotbytaset" );
             togglePlayerControls( targetid, false );
         });
         togglePlayerControls( targetid, true );
     } else {
-        return msg(playerid, "You off the duty now and you haven't taser.")
+        return msg(playerid, "organizations.police.offdutynotaser")
     }
 });
 
@@ -112,13 +114,13 @@ cmd(["cuff"], function(playerid) {
         local targetid = playerList.nearestPlayer( playerid );
 
         if ( targetid == null) {
-            return msg(playerid, "There's noone around near you.");
+            return msg(playerid, "general.noonearound");
         }
 
         if ( isBothInRadius(playerid, targetid, CUFF_RADIUS) ) {
             togglePlayerControls( targetid, true );
-            msg(targetid, "You've been cuffed by " + getAuthor( playerid ) + " .");
-            msg(playerid, "You cuffed " + getAuthor( targetid ) + " .");
+            msg(targetid, "organizations.police.beencuffed", [getAuthor( playerid )]);
+            msg(playerid, "organizations.police.cuffsomeone", [getAuthor( targetid )]);
         }
     }
 });
@@ -130,13 +132,13 @@ cmd(["uncuff"], function(playerid) {
         local targetid = playerList.nearestPlayer( playerid );
         
         if ( targetid == null) {
-            return msg(playerid, "There's noone around near you.");
+            return msg(playerid, "general.noonearound");
         }
 
         if ( isBothInRadius(playerid, targetid, CUFF_RADIUS) ) {
             togglePlayerControls( targetid, false );
-            msg(targetid, "You've been uncuffed by " + getAuthor( playerid ) + " .");
-            msg(playerid, "You uncuffed " + getAuthor( targetid ) + " .");
+            msg(targetid, "organizations.police.beenuncuffed", [getAuthor( playerid )] );
+            msg(playerid, "organizations.police.uncuffsomeone", [getAuthor( targetid )] );
         }
     }
 });
@@ -170,8 +172,8 @@ cmd(["amnesty"], function(playerid, targetid) {
 
 // usage: /help job police
 cmd("help", ["job", "police"], function(playerid) {
-    msg( playerid, "If you want to join Police Department write one of admins!" );
-    local title = "List of available commands for Police Officer JOB:";
+    msg( playerid, "organizations.police.info.howjoinpolice" );
+    local title = "organizations.police.info.availablecmds";
     local commands = [
         // { name = "/police job",             desc = "Get police officer job" },
         // { name = "/police job leave",       desc = "Leave from police department job" },
