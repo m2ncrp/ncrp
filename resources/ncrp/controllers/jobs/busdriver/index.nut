@@ -328,7 +328,7 @@ function busJobStop( playerid ) {
 
         if (job_bus[playerid]["route"][1].len() == 0) {
             local busZP = job_bus[playerid]["route"][0];
-            sendPlayerMessage( playerid, "Nice job! You earned $"+busZP+"." );
+            msg( playerid, "Nice job! You earned $"+busZP+"." );
             job_bus[playerid]["route"] = false;
             job_bus[playerid]["busready"] = false;
             local route = job_bus[playerid]["route"]
@@ -341,7 +341,7 @@ function busJobStop( playerid ) {
     job_bus[playerid]["bus3dtext"] = createPrivateBusStop3DText(playerid, busStops[busID].private);
     job_bus[playerid]["busBlip"]   = createPrivateBlip(playerid, busStops[busID].private.x, busStops[busID].private.y, ICON_RED, 2000.0);
 
-    sendPlayerMessage( playerid, "Good! Go to next bus stop in " + busStops[busID].name );
+    msg( playerid, "Good! Go to next bus stop in " + busStops[busID].name );
 }
 
 // don't touch and don't replace. Service command for fast test!

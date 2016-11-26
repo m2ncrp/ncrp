@@ -21,9 +21,12 @@ function subMoneyToPlayer(playerid, amount) {
 }
 
 function getPlayerBalance(playerid) {
-    return round( players[playerid]["money"], 2 );
+    return format("%.2f", players[playerid]["money"]);
 }
 
+function formatMoney(amount) {
+    return format("%.2f", amount);
+}
 /**
  * Send <amount> dollars from <playerid> to <targetid>
  *
