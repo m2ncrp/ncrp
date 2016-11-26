@@ -113,7 +113,7 @@ cmd(["cuff"], function(playerid) {
     if ( isOnDuty(playerid) ) {
         local targetid = playerList.nearestPlayer( playerid );
 
-        if ( targetid == null) {
+        if ( !targetid ) {
             return msg(playerid, "general.noonearound");
         }
 
@@ -131,7 +131,7 @@ cmd(["uncuff"], function(playerid) {
     if ( isOnDuty(playerid) ) {
         local targetid = playerList.nearestPlayer( playerid );
         
-        if ( targetid == null) {
+        if ( !targetid ) {
             return msg(playerid, "general.noonearound");
         }
 
@@ -146,8 +146,8 @@ cmd(["uncuff"], function(playerid) {
 cmd(["prison", "jail"], function(playerid, targetid) {
     targetid = targetid.tointeger();
     if ( isOnDuty(playerid) ) {
-        screenFadein(targetid, 1500, function() {
-            togglePlayerControls( targetid, true );
+        togglePlayerControls( targetid, true );
+        screenFadein(targetid, 2000, function() {
         //  output "Wasted" and set player position
             setPlayerPosition( targetid, 0.0, 0.0, 0.0 );
         });        
@@ -163,7 +163,7 @@ cmd(["amnesty"], function(playerid, targetid) {
         local z = default_spawns[spawnID][2];
         setPlayerPosition(targetid, x, y, z);
 
-        screenFadeout(targetid, 1500, function() {
+        screenFadeout(targetid, 2200, function() {
             togglePlayerControls( targetid, false );
         });        
     }
