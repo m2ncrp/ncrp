@@ -52,7 +52,7 @@ function localize(value, params = [], langauge = "en") {
             return format.acall(params);
         } catch (e) {
             ::print("[error][translation] cannot format output value by tag: " + value + "\n");
-            return __translations[langauge][value];
+            return value;
         }
     }
 

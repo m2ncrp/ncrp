@@ -72,12 +72,34 @@ function chatcmd(names, callback)  {
     });
 }
 
-function msg(playerid, text, color = CL_WHITE ) {
-    sendPlayerMessage(playerid, text, color.r, color.g, color.b);
+function msg(playerid, text, ...) {
+    local args  = vargv;
+    local color = CL_WHITE;
+    local params = [];
+
+    if (args.len() && args[args.len() - 1] instanceof Color) {
+        color = args[args.len() - 1];
+    }
+
+    if (args.len()) {
+        if (typeof args[0] == "string" || typeof args[0] == "integer" || typeof args[0] == "float") {
+            params = [args[0]];
+        } else if (typeof args[0] == "array") {
+            params = args[0];
+        }
+    }
+
+    return sendPlayerMessage(playerid, localize(text, params, getPlayerLocale(playerid)), color.r, color.g, color.b);
 }
 
-function msg_a(text, color = CL_WHITE){
-    sendPlayerMessageToAll(text, color.r, color.g, color.b);
+function msg_a(...) {
+    // sendPlayerMessageToAll(text, color.r, color.g, color.b);
+    foreach (playerid, value in players) {
+        local args = clone vargv;
+        args.insert(0, getroottable());
+        args.insert(0, playerid);
+        msg.acall(args);
+    }
 }
 
 function msg_help(playerid, title, commands){
