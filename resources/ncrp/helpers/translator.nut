@@ -38,14 +38,14 @@ function translation(language, data) {
  *
  * @param  {String} value
  * @param  {Array}  params - array of parameters that will be passed to `format` function
- * @param  {String} langauge - language to try translate to
+ * @param  {String} language - language to try translate to
  * @return {String} translated (or not) value
  */
-function localize(value, params = [], langauge = "en") {
-    if (langauge in __translations && value in __translations[langauge]) {
+function localize(value, params = [], language = "en") {
+    if (language in __translations && value in __translations[language]) {
         // insert params
         params.insert(0, getroottable());
-        params.insert(1, __translations[langauge][value]);
+        params.insert(1, __translations[language][value]);
 
         // format and return
         try {
