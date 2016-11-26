@@ -4,7 +4,7 @@ cmd("bank", "account", function(playerid) {
 });
 
 // usage: /bank deposit
-cmd("bank", "deposit", function(playerid, amount) {
+cmd("bank", "deposit", function(playerid, amount = null) {
     bankDeposit(playerid, amount);
 });
 
@@ -14,7 +14,7 @@ cmd("bank", ["deposit", "all"], function(playerid) {
 });
 
 // usage: /bank withdraw
-cmd("bank", "withdraw", function(playerid, amount) {
+cmd("bank", "withdraw", function(playerid, amount = null) {
     bankWithdraw(playerid, amount);
 });
 
