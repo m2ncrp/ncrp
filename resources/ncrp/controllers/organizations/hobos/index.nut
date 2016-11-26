@@ -1,11 +1,15 @@
 include("controllers/organizations/hobos/commands.nut");
 
 translation("en", {
-    "organizations.hobos.trash.toofar"          : "You would better not to do it.."
+    "organizations.hobos.trash.toofar"  : "You are too far from any trash!",
+    "organizations.hobos.tired"         : "You get tired. Take a nap",
+    "organizations.hobos.trash.found"   : "You found $%.2f. Now you can buy yourself cookies with $%f."
 });
 
 translation("ru", {
-    "organizations.hobos.trash.toofar"          : "You would better not to do it.."
+    "organizations.hobos.trash.toofar"  : "Вы далеко от мусорного контейнера!",
+    "organizations.hobos.tired"         : "Вы устали, передохните.",
+    "organizations.hobos.trash.found"   : "Вы нашли $%.2f. Всего у вас теперь $%f."
 });
 
 local spawnID = 1;
@@ -45,7 +49,7 @@ function isNearTrash(playerid) {
             return true;
         }
     }
-    msg(playerid, "You are too far from any trash!", CL_YELLOW);
+    msg(playerid, "organizations.hobos.trash.toofar", [], CL_YELLOW);
     return false;
 }
 
