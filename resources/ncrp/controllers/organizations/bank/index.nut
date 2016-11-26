@@ -25,7 +25,7 @@ function bankGetPlayerDeposit(playerid) {
 function bankAccount(playerid) {
 
     if(!isPlayerInValidPoint(playerid, BANK_X, BANK_Y, BANK_RADIUS)) {
-        return msg( playerid, "Let's go to building of Grand Imperial Bank at Midtown." );
+        return msg( playerid, "bank.letsgo" );
     }
 
     msg( playerid, "Your deposit in bank: $"+bankGetPlayerDeposit(playerid) );
@@ -34,20 +34,20 @@ function bankAccount(playerid) {
 function bankDeposit(playerid, amount) {
 
     if(!isPlayerInValidPoint(playerid, BANK_X, BANK_Y, BANK_RADIUS)) {
-        return msg( playerid, "Let's go to building of Grand Imperial Bank at Midtown." );
+        return msg( playerid, "bank.letsgo" );
     }
 
     if(amount == null) {
-        return msg( playerid, "You must provide amount." );
+        return msg( playerid, "bank.provideamount" );
     }
 
     local amount = round(fabs(amount.tofloat()), 2);
     if(amount < 50.0) {
-        return msg(playerid, "You can't deposit this amount. Minimum deposit is $50.");
+        return msg(playerid, "bank.deposit.minimum");
     }
 
     if(!canMoneyBeSubstracted(playerid, amount)) {
-        return msg(playerid, "You can't deposit this amount: not enough money.");
+        return msg(playerid, "bank.deposit.notenough");
     }
 
     subMoneyToPlayer(playerid, amount);
@@ -58,20 +58,20 @@ function bankDeposit(playerid, amount) {
 function bankWithdraw(playerid, amount) {
 
     if(!isPlayerInValidPoint(playerid, BANK_X, BANK_Y, BANK_RADIUS)) {
-        return msg( playerid, "Let's go to building of Grand Imperial Bank at Midtown." );
+        return msg( playerid, "bank.letsgo" );
     }
 
     if(amount == null) {
-        return msg( playerid, "You must provide amount." );
+        return msg( playerid, "bank.provideamount" );
     }
 
     local amount = round(fabs(amount.tofloat()), 2);
     if(amount < 1.0) {
-        return msg( playerid, "You can't withdraw this amount. Minimum withdrawal amount is $1." );
+        return msg( playerid, "bank.withdraw.minimum" );
     }
 
     if(players[playerid]["deposit"] < amount) {
-        return msg( playerid, "You can't withdraw this amount: not enough money at account." );
+        return msg( playerid, "bank.withdraw.notenough" );
     }
 
     players[playerid]["deposit"] -= amount;
@@ -92,7 +92,7 @@ addEventHandlerEx("onServerHourChange", function() {
 
 
 function helpBank(playerid) {
-    local title = "List of available commands for BANK:";
+    local title = "bank.help.commandslist";
     local commands = [
         { name = "/bank account",               desc = "Show information about your account in bank." },
         { name = "/bank deposit <amount>",      desc = "Put <amount> dollars into the account." },
