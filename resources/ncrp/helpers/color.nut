@@ -50,6 +50,12 @@ CL_SILVERSAND     <- rgb( 189,  195, 199 );
 CL_CASCADE        <- rgb( 149,  165, 166 );
 
 
+CL_ERROR          <- CL_FLAMINGO;
+CL_WARNING        <- CL_ECSTASY;
+CL_SUCCESS        <- CL_GOSSIP;
+CL_INFO           <- CL_PICTONBLUE;
+CL_PLAIN          <- CL_WHITE;
+
 // rgb( 154 , 154 , 154 );    //White
 // rgb( 143 , 137 , 124 );    //Beige
 // rgb( 112 , 104 , 89 ); //Beige

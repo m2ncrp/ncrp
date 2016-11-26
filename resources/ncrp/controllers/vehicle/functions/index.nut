@@ -338,3 +338,7 @@ function saveAllVehicles() {
         }
     }
 }
+
+function getAllServerVehicles() {
+    return vehicles;
+}

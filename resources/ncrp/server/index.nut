@@ -14,6 +14,7 @@ include("models/StatisticPoint.nut");
 include("models/MigrationVersion.nut");
 
 // load helpers
+include("helpers/vector.nut");
 include("helpers/events.nut");
 include("helpers/assert.nut");
 include("helpers/array.nut");
