@@ -6,7 +6,7 @@ const WEATHER_DEFAULT_PHASE = 3;
 const WEATHER_DEFAULT_WEATHER = 1;
 const WEATHER_WINTER_STARTS = 11;
 const WEATHER_WINTER_ENDS = 2;
-const WEATHER_IS_WINTER = false;
+const WEATHER_IS_WINTER = true;
 
 // available whethers
 local weathers = ["clear", "foggy", "rainy"];
