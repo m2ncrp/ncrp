@@ -5,32 +5,65 @@ translation("en", {
 
 
 
-    "bank.letsgo"                       :   "Let's go to building of Grand Imperial Bank at Midtown."               ,
-    "bank.deposit.minimum"              :   "You can't deposit this amount. Minimum deposit is $50."                ,
-    "bank.deposit.notenough"            :   "You can't deposit this amount: not enough money."                      ,
-    "bank.withdraw.minimum"             :   "You can't withdraw this amount. Minimum withdrawal amount is $1."      ,
-    "bank.withdraw.notenough"           :   "You can't withdraw this amount: not enough money at account."          ,
-    "bank.provideamount"                :   "You must provide amount."                                              ,
-    "bank.help.commandslist"            :   "List of available commands for BANK:"                                  ,
+    "bank.letsgo"                       :   "Let's go to building of Grand Imperial Bank at Midtown."
+    "bank.deposit.minimum"              :   "You can't deposit this amount. Minimum deposit is $50."
+    "bank.deposit.notenough"            :   "You can't deposit this amount: not enough money."
+    "bank.withdraw.minimum"             :   "You can't withdraw this amount. Minimum withdrawal amount is $1."
+    "bank.withdraw.notenough"           :   "You can't withdraw this amount: not enough money at account."
+    "bank.provideamount"                :   "You must provide amount."
+    "bank.help.commandslist"            :   "List of available commands for BANK:"
 
-    "job.leave"                         :   "You leave this job."                                                   ,
-    "job.alreadyhavejob"                :   "You already have a job: %s."                                           ,
+    "job.leave"                         :   "You leave this job."
+    "job.alreadyhavejob"                :   "You already have a job: %s."
 
-    "job.busdriver"                     :   "Bus Driver"                                                            ,
-    "job.bus.letsgo"                    :   "Let's go to bus station in Uptown."     ,
-    "job.bus.driver.not"                :   "You're not a Bus Driver."                                               ,
-    "job.bus.driver.already"            :   "You're busdriver already."                                             ,
-    "job.bus.driver.now"                :   "You're a Bus Driver now! Congratulations!"                             ,
-    "job.bus.route.needselect"          :   "You need to select route."                                             ,
-    "job.bus.route.select"              :   "Select one route from available routes:"                               ,
-    "job.bus.route.selected"            :   "You selected route #%d. Sit into bus."                                 ,
-    "job.bus.route.needcomplete"        :   "Complete current route."                                               ,
-    "job.bus.needbus"                   :   "You need a bus."                                                       ,
-    "job.bus.notready"                  :   "You aren't ready. Please, report that you are ready via /bus ready."   ,
-    "job.bus.readyalready"              :   "You're ready already."                                                 ,
-    "job.bus.gotonextbusstop"           :   "Good! Go to next bus stop in %s."                                      ,
-    "job.bus.gotobusstop"               :   "Go to bus stop in %s."                                                 ,
-    "job.bus.driving"                   :   "You're driving. Please stop the bus."                                  ,
-    "job.bus.nicejob"                   :   "Nice job! You earned $%.2f"                                               ,
+    "job.busdriver"                     :   "Bus Driver"
+    "job.bus.letsgo"                    :   "Let's go to bus station in Uptown."
+    "job.bus.driver.not"                :   "You're not a Bus Driver."
+    "job.bus.driver.already"            :   "You're Bus Driver already."
+    "job.bus.driver.now"                :   "You're a Bus Driver now! Congratulations!"
+    "job.bus.route.needselect"          :   "You need to select route."
+    "job.bus.route.select"              :   "Select one route from available routes:"
+    "job.bus.route.selected"            :   "You selected route #%d. Sit into bus."
+    "job.bus.route.needcomplete"        :   "Complete current route."
+    "job.bus.needbus"                   :   "You need a bus."
+    "job.bus.notready"                  :   "You aren't ready. Please, report that you are ready via /bus ready."
+    "job.bus.readyalready"              :   "You're ready already."
+    "job.bus.gotonextbusstop"           :   "Good! Go to next bus stop in %s."
+    "job.bus.gotobusstop"               :   "Go to bus stop in %s."
+    "job.bus.driving"                   :   "You're driving. Please stop the bus."
+    "job.bus.nicejob"                   :   "Nice job! You earned $%.2f"
 
+    "job.taxidriver"                    :   "Taxi Driver"
+    "job.taxi.driver.not"               :   "You're not a Taxi Driver."
+    "job.taxi.driver.already"           :   "You're Taxi Driver already."
+    "job.taxi.driver.now"               :   "You became a taxi driver. Change status to ON air to begin to receive calls."
+    "job.taxi.call.new"                 :   "New call from address: %s. If you want take this call, write /taxi take %d."
+    "job.taxi.needcar"                  :   "You need a taxi car."
+    "job.taxi.noanycalls"               :   "You didn't take any calls."
+    "job.taxi.wait"                     :   "Wait for the passenger..."
+    "job.taxi.canttakecall"             :   "You can't take call while your status is OFF air."
+    "job.taxi.takenthiscall"            :   "You have already taken this call #%d."
+    "job.taxi.takencall"                :   "You have already taken a call."
+    "job.taxi.callalreadytaken"         :   "Call #%d is already taken."
+    "job.taxi.youtakencall"             :   "You've taken a call #%d."
+    "job.taxi.completed"                :   "You've completed the trip for call #%d."
+    "job.taxi.statuson"                 :   "Your taxi driver status: ON air. Wait for a call..."
+    "job.taxi.cantchangestatus"         :   "You can't change status while you'll complete trip or refuse call."
+    "job.taxi.statusoff"                :   "Your taxi driver status: OFF air. You won't receive calls now."
+    "job.taxi.havejob"                  :   "You have a job: %s."
+    "job.taxi.refusedcall"              :   "You've refused from call #%d."
+    "job.taxi.cantrefuse"               :   "You can't refuse from call while you carry a passenger."
+    "job.taxi.cantleavejob1"            :   "You can't leave job while you have a call."
+    "job.taxi.cantleavejob2"            :   "You can't leave job while you'll complete the trip."
+
+    "taxi.needpay"                      :   "To drive this car you need to pay $%.2f for fuel and rent. If you agree: /drive"
+    "taxi.notenough"                    :   "You don't have enough money."
+    "taxi.youpay"                       :   "You paid $%.2f. Now you can drive this car."
+    "taxi.attention"                    :   "Attention!!! If you leave the car and want to drive again, you need to pay again too."
+    "taxi.call.addresswithout"          :   "You can't call taxi without address."
+    "taxi.call.nofreecars"              :   "No free cars. Please try later."
+    "taxi.call.youcalled"               :   "You've called taxi from %s."
+    "taxi.call.received"                :   "Your call is received by driver. The car goes to you."
+    "taxi.call.arrived"                 :   "Your taxi car with plate %s arrived to address."
+    "taxi.call.refused"                 :   "Driver refused from your call. Wait another driver."
 });
