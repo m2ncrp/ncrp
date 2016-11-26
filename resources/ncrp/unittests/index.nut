@@ -1,4 +1,5 @@
 dofile("resources/ncrp/helpers/assert.nut");
+dofile("resources/ncrp/unittests/commands.nut");
 
 function test_isRobertoLukini(playerid) {
     expect( "test_isRobertoLukini", "Roberto_Lukini", getPlayerName(playerid) );
