@@ -29,6 +29,7 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
             char.money   = CHARACTER_DEFAULT_MONEY;
             char.dskin   = CHARACTER_DEFAULT_SKIN;
             char.cskin   = CHARACTER_DEFAULT_SKIN;
+            char.locale  = CHARACTER_DEFAULT_LOCALE;
 
             // save first-time created entity
             char.save();
@@ -51,7 +52,7 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
         players[playerid]["housex"]       <- char.housex;
         players[playerid]["housey"]       <- char.housey;
         players[playerid]["housez"]       <- char.housez;
-        players[playerid]["locale"]       <- CHARACTER_DEFAULT_LOCALE;
+        players[playerid]["locale"]       <- char.locale;
 
         // notify all that client connected (and data loaded)
         trigger("onPlayerConnect", playerid, name, ip, serial);
@@ -81,6 +82,7 @@ function trySavePlayer(playerid) {
     char.housey  = players[playerid]["housey"];
     char.housez  = players[playerid]["housez"];
     char.job     = (players[playerid]["job"]) ? players[playerid]["job"] : "";
+    char.locale  = players[playerid]["locale"];
 
     // save it
     char.save();

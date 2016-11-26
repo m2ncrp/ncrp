@@ -44,3 +44,8 @@ migrate(function(connection) {
     connection.query("ALTER TABLE tbl_vehicles ADD COLUMN `rwheel` INT(255) NOT NULL DEFAULT 0;");
 });
 
+// 26.11.16
+// added character language saving
+migrate(function(connection) {
+    connection.query("ALTER TABLE tbl_characters ADD COLUMN `locale` VARCHAR(255) NOT NULL DEFAULT 'en';");
+});
