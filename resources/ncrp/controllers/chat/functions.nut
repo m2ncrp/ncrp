@@ -92,14 +92,14 @@ function msg(playerid, text, ...) {
     return sendPlayerMessage(playerid, localize(text, params, getPlayerLocale(playerid)), color.r, color.g, color.b);
 }
 
-function msg_a(...) {
-    // sendPlayerMessageToAll(text, color.r, color.g, color.b);
-    foreach (playerid, value in players) {
-        local args = clone vargv;
-        args.insert(0, getroottable());
-        args.insert(0, playerid);
-        msg.acall(args);
-    }
+function msg_a(text, color = CL_WHITE) {
+    return sendPlayerMessageToAll(text, color.r, color.g, color.b);
+    // foreach (playerid, value in players) {
+    //     local args = clone vargv;
+    //     args.insert(0, getroottable());
+    //     args.insert(0, playerid);
+    //     msg.acall(args);
+    // }
 }
 
 function msg_help(playerid, title, commands){
