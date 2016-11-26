@@ -18,9 +18,8 @@ addEventHandlerEx("onServerStarted", function() {
     createBlip(BANK_X, BANK_Y, ICON_MAFIA, 4000.0 )
 });
 
-
 function bankGetPlayerDeposit(playerid) {
-    return format("%.2f", players[playerid]["deposit"]);
+    return formatMoney(players[playerid]["deposit"]);
 }
 
 function bankAccount(playerid) {
@@ -38,14 +37,22 @@ function bankDeposit(playerid, amount) {
         return msg( playerid, "Let's go to building of Grand Imperial Bank at Midtown." );
     }
 
-    local amount = amount.tofloat();
+    if(amount == null) {
+        return msg( playerid, "You must provide amount." );
+    }
+
+    local amount = round(fabs(amount.tofloat()), 2);
+    if(amount < 50.0) {
+        return msg(playerid, "You can't deposit this amount. Minimum deposit is $50.");
+    }
+
     if(!canMoneyBeSubstracted(playerid, amount)) {
         return msg(playerid, "You can't deposit this amount: not enough money.");
     }
 
     subMoneyToPlayer(playerid, amount);
     players[playerid]["deposit"] += amount;
-    msg( playerid, "You deposit to bank $"+amount+". Balance: $"+bankGetPlayerDeposit(playerid) );
+    msg( playerid, "You deposit to bank $"+formatMoney(amount)+". Balance: $"+bankGetPlayerDeposit(playerid) );
 }
 
 function bankWithdraw(playerid, amount) {
@@ -54,14 +61,22 @@ function bankWithdraw(playerid, amount) {
         return msg( playerid, "Let's go to building of Grand Imperial Bank at Midtown." );
     }
 
-    local amount = amount.tofloat();
+    if(amount == null) {
+        return msg( playerid, "You must provide amount." );
+    }
+
+    local amount = round(fabs(amount.tofloat()), 2);
+    if(amount < 1.0) {
+        return msg( playerid, "You can't withdraw this amount. Minimum withdrawal amount is $1." );
+    }
+
     if(players[playerid]["deposit"] < amount) {
         return msg( playerid, "You can't withdraw this amount: not enough money at account." );
     }
 
     players[playerid]["deposit"] -= amount;
     addMoneyToPlayer(playerid, amount);
-    msg( playerid, "You withdraw from bank $"+amount+". Balance: $"+bankGetPlayerDeposit(playerid) )
+    msg( playerid, "You withdraw from bank $"+formatMoney(amount)+". Balance: $"+bankGetPlayerDeposit(playerid) )
 }
 
 
