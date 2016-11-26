@@ -23,6 +23,7 @@ include("helpers/math.nut");
 include("helpers/distance.nut");
 include("helpers/commands.nut");
 include("helpers/color.nut");
+include("helpers/translator.nut");
 
 // load controllers
 include("controllers/database");
@@ -47,6 +48,10 @@ include("controllers/admin");
 include("controllers/statistics");
 include("controllers/extrasync");
 
+// translations
+include("translations/en.nut");
+
+// unit testing
 dofile("resources/ncrp/unittests/index.nut", true);
 
 // bind general events

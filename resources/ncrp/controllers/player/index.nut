@@ -6,8 +6,9 @@ players <- {};
 xPlayers <- {};
 playerList <- {};
 
-const CHARACTER_DEFAULT_SKIN  = 10;
-const CHARACTER_DEFAULT_MONEY = 1.75;
+const CHARACTER_DEFAULT_SKIN   = 10;
+const CHARACTER_DEFAULT_MONEY  = 1.75;
+const CHARACTER_DEFAULT_LOCALE = "en";
 
 default_spawns <- [
     [-555.251,  1702.31, -22.2408], // railway
@@ -50,6 +51,7 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
         players[playerid]["housex"]       <- char.housex;
         players[playerid]["housey"]       <- char.housey;
         players[playerid]["housez"]       <- char.housez;
+        players[playerid]["locale"]       <- CHARACTER_DEFAULT_LOCALE;
 
         // notify all that client connected (and data loaded)
         trigger("onPlayerConnect", playerid, name, ip, serial);
