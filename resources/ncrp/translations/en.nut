@@ -17,7 +17,7 @@ translation("en", {
     "job.alreadyhavejob"                :   "You already have a job: %s."                                           ,
 
     "job.busdriver"                     :   "Bus Driver"                                                            ,
-    "job.bus.letsgo"                    :   "Let's go to bus station in Uptown (central door of the building)."     ,
+    "job.bus.letsgo"                    :   "Let's go to bus station in Uptown."     ,
     "job.bus.driver.not"                :   "You're not a Bus Driver."                                               ,
     "job.bus.driver.already"            :   "You're busdriver already."                                             ,
     "job.bus.driver.now"                :   "You're a Bus Driver now! Congratulations!"                             ,
@@ -31,6 +31,6 @@ translation("en", {
     "job.bus.gotonextbusstop"           :   "Good! Go to next bus stop in %s."                                      ,
     "job.bus.gotobusstop"               :   "Go to bus stop in %s."                                                 ,
     "job.bus.driving"                   :   "You're driving. Please stop the bus."                                  ,
-    "job.bus.nicejob"                   :   "Nice job! You earned $%f"                                               ,
+    "job.bus.nicejob"                   :   "Nice job! You earned $%.2f"                                               ,
 
 });

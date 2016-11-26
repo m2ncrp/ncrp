@@ -28,9 +28,9 @@ translation("ru", {
     "job.bus.needbus"                   :   "Вам нужен автобус."                                                                        ,
     "job.bus.notready"                  :   "Вы не готовы. Сообщите о готовности выйти в рейс."                                         ,
     "job.bus.readyalready"              :   "Вы уже готовы выйти в рейс."                                                               ,
-    "job.bus.gotonextbusstop"           :   "Отлично! Направляйтесь к следующей остановке в  %s."                                       ,
-    "job.bus.gotobusstop"               :   "Направляйтесь к остановке в  %s."                                                          ,
+    "job.bus.gotonextbusstop"           :   "Отлично! Направляйтесь к следующей остановке в %s."                                       ,
+    "job.bus.gotobusstop"               :   "Направляйтесь к остановке в %s."                                                          ,
     "job.bus.driving"                   :   "Остановите автобус."                                                                       ,
-    "job.bus.nicejob"                   :   "Отличная работа! Вы заработали $%f."                                                       ,
+    "job.bus.nicejob"                   :   "Отличная работа! Вы заработали $%.2f."                                                       ,
 
 });
