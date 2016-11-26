@@ -50,6 +50,7 @@ include("controllers/extrasync");
 
 // translations
 include("translations/en.nut");
+include("translations/ru.nut");
 
 // unit testing
 dofile("resources/ncrp/unittests/index.nut", true);
