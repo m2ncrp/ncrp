@@ -18,7 +18,7 @@ translation("en", {
     "organizations.police.alreadyonduty"        : "You're already on duty now.",
     "organizations.police.alreadyoffduty"       : "You're already off duty now.",
     "organizations.police.notinpolicevehicle"   : "You should be in police vehicle!",
-    "organizations.police.giveticketwithreason" : "%s give you ticket for %s. Type /accept %s.",
+    "organizations.police.giveticketwithreason" : "%s give you ticket for %s. Type /accept %i.",
     "organizations.police.offdutynotickets"     : "You off the duty now and you haven't tickets.",
     "organizations.police.offdutynotaser"       : "You have no taser couse you're not a cop.",
     

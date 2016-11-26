@@ -1,5 +1,13 @@
 include("controllers/organizations/hobos/commands.nut");
 
+translation("en", {
+    "organizations.hobos.trash.toofar"          : "You would better not to do it.."
+});
+
+translation("ru", {
+    "organizations.hobos.trash.toofar"          : "You would better not to do it.."
+});
+
 local spawnID = 1;
 const DIG_RADIUS = 1.5;
 const HOBO_MODEL = 153;
