@@ -24,7 +24,7 @@ local carShopPlace = vector3(-204.324, 826.917, -20.8854);
 local carShopBlock = [vector3(-221.32, 834.918, -21.2491), vector3(-199.757, 828.45, -20.8919)];
 local carShopDisplay = {
     text = null,
-    blip = null
+    help = null
 };
 
 /**
@@ -106,7 +106,7 @@ function carShopCheckFreeSpace() {
     // }
 }
 
-function carStopCreateBlip() {
+function carShopCreatePlace() {
     carShopDisplay.text = create3DText(carShopPlace.x, carShopPlace.y, carShopPlace.z, "== Car Shop ==", CL_WHITE);
     carShopDisplay.help = create3DText(carShopPlace.x, carShopPlace.y, carShopPlace.z, "/car", CL_WHITE.applyAlpha(150));
     return true;

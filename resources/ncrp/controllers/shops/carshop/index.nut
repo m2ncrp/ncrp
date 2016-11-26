@@ -18,7 +18,7 @@ translation("en", {
 });
 
 event("onServerStarted", function() {
-    return carStopCreatePlace();
+    return carShopCreatePlace();
 });
 
 event("onServerMinuteChange", function() {
