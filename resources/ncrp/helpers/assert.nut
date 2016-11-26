@@ -62,9 +62,7 @@ class TestQueue {
      */
     function invokeAll(playerid) {
         foreach (key, test_case in test_cases) {
-            if ( test_case(playerid) ) {
-                __passed++;
-            }
+            test_case(playerid);
             __total++;
         }
         ::print("Test cases passed " + __total + "\\" + __passed + " in total.\n");

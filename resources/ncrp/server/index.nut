@@ -47,7 +47,7 @@ include("controllers/admin");
 include("controllers/statistics");
 include("controllers/extrasync");
 
-include("unittests/tests.nut");
+dofile("resources/ncrp/unittests/index.nut", true);
 
 // bind general events
 event("native:onScriptInit", function() {

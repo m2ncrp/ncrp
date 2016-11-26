@@ -1,28 +1,40 @@
 include("controllers/organizations/bank/commands.nut");
 
 const BANK_RATE = 0.005; //bank rate for deposit (x<1) in day
-const RADIUS_BANK = 3.0;
+const BANK_RADIUS = 3.0;
 const BANK_X = 64.8113;  //Bank X
 const BANK_Y = -202.754; //Bank Y
+const BANK_Z = -20.2314;
 
 addEventHandlerEx("onServerStarted", function() {
     log("[jobs] loading bank...");
     createVehicle(27, 124.65, -240.0, -19.2512, 180.0, 0.0, 0.0);   // securityCAR1
     createVehicle(27, 124.65, -222.5, -19.2512, 180.0, 0.0, 0.0);   // securityCAR2
+
+    //creating 3dtext for bus depot
+    create3DText ( BANK_X, BANK_Y, BANK_Z+0.35, "GRAND IMERIAL BANK", CL_ROYALBLUE );
+    create3DText ( BANK_X, BANK_Y, BANK_Z+0.20, "/bank", CL_WHITE.applyAlpha(75), BANK_RADIUS );
+
+    createBlip(BANK_X, BANK_Y, ICON_MAFIA, 4000.0 )
 });
+
+
+function bankGetPlayerDeposit(playerid) {
+    return format("%.2f", players[playerid]["deposit"]);
+}
 
 function bankAccount(playerid) {
 
-    if(!isPlayerInValidPoint(playerid, BANK_X, BANK_Y, RADIUS_BANK)) {
+    if(!isPlayerInValidPoint(playerid, BANK_X, BANK_Y, BANK_RADIUS)) {
         return msg( playerid, "Let's go to building of Grand Imperial Bank at Midtown." );
     }
 
-    msg( playerid, "Your deposit in bank: $"+players[playerid]["deposit"]+"." );
+    msg( playerid, "Your deposit in bank: $"+bankGetPlayerDeposit(playerid) );
 }
 
 function bankDeposit(playerid, amount) {
 
-    if(!isPlayerInValidPoint(playerid, BANK_X, BANK_Y, RADIUS_BANK)) {
+    if(!isPlayerInValidPoint(playerid, BANK_X, BANK_Y, BANK_RADIUS)) {
         return msg( playerid, "Let's go to building of Grand Imperial Bank at Midtown." );
     }
 
@@ -33,12 +45,12 @@ function bankDeposit(playerid, amount) {
 
     subMoneyToPlayer(playerid, amount);
     players[playerid]["deposit"] += amount;
-    msg( playerid, "You deposit to bank $"+amount+". Balance: $"+players[playerid]["deposit"]+"." );
+    msg( playerid, "You deposit to bank $"+amount+". Balance: $"+bankGetPlayerDeposit(playerid) );
 }
 
 function bankWithdraw(playerid, amount) {
 
-    if(!isPlayerInValidPoint(playerid, BANK_X, BANK_Y, RADIUS_BANK)) {
+    if(!isPlayerInValidPoint(playerid, BANK_X, BANK_Y, BANK_RADIUS)) {
         return msg( playerid, "Let's go to building of Grand Imperial Bank at Midtown." );
     }
 
@@ -49,7 +61,7 @@ function bankWithdraw(playerid, amount) {
 
     players[playerid]["deposit"] -= amount;
     addMoneyToPlayer(playerid, amount);
-    msg( playerid, "You withdraw from bank $"+amount+". Balance: $"+players[playerid]["deposit"]+"." )
+    msg( playerid, "You withdraw from bank $"+amount+". Balance: $"+bankGetPlayerDeposit(playerid) )
 }
 
 
