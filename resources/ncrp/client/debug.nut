@@ -203,3 +203,58 @@ addEventHandler("onServerScriptEvaluate", function(code) {
         triggerServerEvent("onClientScriptError", JSONEncoder.encode(e));
     }
 });
+
+local toggler = false;
+local step = 0.5;
+
+bindKey("0", "down", function() {
+    toggler = !toggler;
+
+    if (toggler) {
+        sendMessage("[tp] you are now in free fly mode!");
+        togglePlayerControls(true);
+    } else {
+        sendMessage("[tp] you are now in default mode!");
+        togglePlayerControls(false);
+    }
+});
+
+bindKey("1", "down", function() {
+    if (!toggler) return;
+    step += step;
+    sendMessage("[tp] step is now: " + step);
+});
+
+bindKey("2", "down", function() {
+    if (!toggler) return;
+    step -= (step / 2);
+    sendMessage("[tp] step is now: " + step);
+});
+
+bindKey("w", "down", function() {
+    if (!toggler) return;
+
+    local size     = getScreenSize();
+    local position = getWorldFromScreen( (size[0] / 2).tofloat(), (size[1] / 2).tofloat(), 100.0 );
+    local current  = getPlayerPosition( getLocalPlayer() );
+
+    local dx = ((position[0] - current[0])) * step;
+    local dy = (-1 * (current[1]  - position[1])) * step;
+
+    setPlayerPosition( getLocalPlayer(), current[0].tofloat() - dx, current[1].tofloat() - dy, current[2] );
+});
+
+bindKey("r", "down", function() {
+    if (!toggler) return;
+    local current = getPlayerPosition( getLocalPlayer() );
+
+    setPlayerPosition( getLocalPlayer(), current[0], current[1], current[2] + step );
+});
+
+
+bindKey("f", "down", function() {
+    if (!toggler) return;
+    local current = getPlayerPosition( getLocalPlayer() );
+
+    setPlayerPosition( getLocalPlayer(), current[0], current[1], current[2] - step );
+});
