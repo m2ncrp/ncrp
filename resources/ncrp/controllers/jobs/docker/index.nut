@@ -1,5 +1,5 @@
 translation("en", {
-"job.docker.letsgo"             : "Let's go to Derek office at City Port."
+"job.docker.letsgo"             : "Let's go to office at City Port."
 "job.docker.already"            : "You're docker already."
 "job.docker.now"                : "You're a docker now. Welcome... to hell! Ha-ha..."
 "job.docker.takeboxandcarry"    : "Take a box and carry it to the warehouse."
@@ -67,10 +67,16 @@ event("onPlayerSpawn", function( playerid ){
     }
 });
 
+
 /**
- * Create private 3DTEXT for current bus stop
+ * Create private 3DTEXT AND BLIP
  * @param  {int}  playerid
- * @return {array} [idtext1, id3dtext2]
+ * @param  {float} x
+ * @param  {float} y
+ * @param  {float} z
+ * @param  {string} text
+ * @param  {string} cmd
+ * @return {array} [idtext1, id3dtext2, idblip]
  */
 function dockerJobCreatePrivateBlipText(playerid, x, y, z, text, cmd) {
     return [
@@ -79,7 +85,6 @@ function dockerJobCreatePrivateBlipText(playerid, x, y, z, text, cmd) {
             createPrivateBlip (playerid, x, y, ICON_RED, 200.0)
     ];
 }
-
 
 /**
  * Remove private 3DTEXT AND BLIP
