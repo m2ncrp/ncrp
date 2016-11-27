@@ -22,6 +22,8 @@ translation("ru", {
     "job.bus.driver.already"            :   "Вы уже работаете водителем автобуса."
     "job.bus.driver.now"                :   "Вы стали водителем автобуса! Поздравляем!"
     "job.bus.route.needselect"          :   "Вам необходимо выбрать маршрут."
+    "job.bus.route.tochange"            :   "Для выбора маршрута используйте /bus route id"
+    "job.bus.route.noexist"             :   "Такой маршрут не существует. Выберите доступный маршрут."
     "job.bus.route.select"              :   "Выберите один из доступных маршрутов:"
     "job.bus.route.selected"            :   "Вы выбрали маршрут #%d. Садитесь в автобус."
     "job.bus.route.needcomplete"        :   "Завершите маршрут."

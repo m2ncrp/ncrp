@@ -52,7 +52,6 @@ event("onServerStarted", function() {
 
     registerPersonalJobBlip("docker", DOCKER_JOB_X, DOCKER_JOB_Y);
 
-
 });
 
 event("onPlayerConnect", function(playerid, name, ip, serial ){
