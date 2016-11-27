@@ -1,23 +1,27 @@
 // local chat
 chatcmd(["i", "say"], function(playerid, message) {
-    inRadiusSendToAll(playerid, getAuthor( playerid ) + " says: " + message, NORMAL_RADIUS, CL_YELLOW);
+    inRadiusSendToAll(playerid, 
+        localize("chat.player.says", [getAuthor( playerid ), message], getPlayerLocale(playerid)), 
+        NORMAL_RADIUS, CL_YELLOW);
 });
 
 // shout
 chatcmd(["s", "shout"], function(playerid, message) {
-    inRadiusSendToAll(playerid, getAuthor( playerid ) + " shout: " + message, SHOUT_RADIUS, CL_WHITE);
+    inRadiusSendToAll(playerid, 
+        localize("chat.player.shout", [getAuthor( playerid ), message], getPlayerLocale(playerid)), 
+        SHOUT_RADIUS, CL_WHITE);
 });
 
 // whisper
 chatcmd(["w", "whisper"], function(playerid, message) {
     local targetid = playerList.nearestPlayer( playerid );
     if ( targetid == null) {
-        msg(playerid, "There's noone around");
+        msg(playerid, "general.noonearound");
         return;
     }
     if ( isBothInRadius(playerid, targetid, WHISPER_RADIUS) ) {
-        msg(targetid, getAuthor( playerid ) + " whisper: " + message);
-        msg(playerid, getAuthor( playerid ) + " whisper: " + message);
+        msg(targetid, "chat.player.whisper", [getAuthor( playerid ), message]);
+        msg(playerid, "chat.player.whisper", [getAuthor( playerid ), message]);
     }
 });
 
@@ -37,12 +41,12 @@ chatcmd(["me"], function(playerid, message) {
 
 // random for some actions
 chatcmd(["try"], function(playerid, message) {
-    message = "[TRY] " + getAuthor( playerid ) + " try " + message;
+    message = localize("chat.player.try.body", [getAuthor( playerid ), message], getPlayerLocale(playerid));
     local res = random(0,1);
     if(res)
-        inRadiusSendToAll(playerid, message + " (success).", NORMAL_RADIUS);
+        inRadiusSendToAll(playerid, localize("chat.player.try.end.success", [message], getPlayerLocale(playerid)), NORMAL_RADIUS);
     else
-        inRadiusSendToAll(playerid, message + " (failed).", NORMAL_RADIUS);
+        inRadiusSendToAll(playerid, localize("chat.player.try.end.fail", [message], getPlayerLocale(playerid)), NORMAL_RADIUS);
 });
 
 
