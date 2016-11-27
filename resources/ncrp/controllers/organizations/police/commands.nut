@@ -24,7 +24,7 @@ cmd("police", ["duty", "on"], function(playerid) {
                     setPlayerModel(playerid, POLICE_MODEL);
                 });
     } else {
-        return msg(playerid, "organizations.police.alreadyonduty");
+        return msg(playerid, "organizations.police.duty.alreadyon");
     }
 });
 
@@ -40,7 +40,7 @@ cmd("police", ["duty", "off"], function(playerid) {
                     setPlayerModel(playerid, players[playerid]["default_skin"]);
                 });
     } else {
-        return msg(playerid, "organizations.police.alreadyoffduty");
+        return msg(playerid, "organizations.police.duty.alreadyoff");
     }
 });
 
@@ -79,10 +79,10 @@ cmd(["ticket"], function(playerid, targetid, price, ...) {
     }
     if ( isOnDuty(playerid) ) {
         local reason = makeMeText(playerid, vargv);
-        msg(targetid, "organizations.police.giveticketwithreason", [getAuthor(playerid), reason, playerid]);
+        msg(targetid, "organizations.police.ticket.givewithreason", [getAuthor(playerid), reason, playerid]);
         sendInvoice( playerid, targetid, price );
     } else {
-        return msg(playerid, "organizations.police.offdutynotickets")
+        return msg(playerid, "organizations.police.offduty.notickets")
     }
 });
 
@@ -98,13 +98,13 @@ cmd("taser", function( playerid ) {
             return msg(playerid, "general.noonearound");
         }
         screenFadeinFadeout(targetid, 800, function() {
-            msg( playerid, "organizations.police.shotsomeonebytaser", [getAuthor(targetid)] );
-            msg( targetid, "organizations.police.beenshotbytaset" );
+            msg( playerid, "organizations.police.shotsomeone.bytaser", [getAuthor(targetid)] );
+            msg( targetid, "organizations.police.beenshot.bytaser" );
             togglePlayerControls( targetid, false );
         });
         togglePlayerControls( targetid, true );
     } else {
-        return msg(playerid, "organizations.police.offdutynotaser")
+        return msg(playerid, "organizations.police.offduty.notaser")
     }
 });
 
@@ -120,7 +120,7 @@ cmd(["cuff"], function(playerid) {
         if ( isBothInRadius(playerid, targetid, CUFF_RADIUS) ) {
             togglePlayerControls( targetid, true );
             msg(targetid, "organizations.police.beencuffed", [getAuthor( playerid )]);
-            msg(playerid, "organizations.police.cuffsomeone", [getAuthor( targetid )]);
+            msg(playerid, "organizations.police.cuff.someone", [getAuthor( targetid )]);
         }
     }
 });
@@ -137,8 +137,8 @@ cmd(["uncuff"], function(playerid) {
 
         if ( isBothInRadius(playerid, targetid, CUFF_RADIUS) ) {
             togglePlayerControls( targetid, false );
-            msg(targetid, "organizations.police.beenuncuffed", [getAuthor( playerid )] );
-            msg(playerid, "organizations.police.uncuffsomeone", [getAuthor( targetid )] );
+            msg(targetid, "organizations.police.cuff.beenuncuffed", [getAuthor( playerid )] );
+            msg(playerid, "organizations.police.cuff.uncuffsomeone", [getAuthor( targetid )] );
         }
     }
 });
@@ -172,8 +172,8 @@ cmd(["amnesty"], function(playerid, targetid) {
 
 // usage: /help job police
 cmd("help", ["job", "police"], function(playerid) {
-    msg( playerid, "organizations.police.info.howjoinpolice" );
-    local title = "organizations.police.info.availablecmds";
+    msg( playerid, "organizations.police.info.howjoin" );
+    local title = "organizations.police.info.cmds.helptitle";
     local commands = [
         // { name = "/police job",             desc = "Get police officer job" },
         // { name = "/police job leave",       desc = "Leave from police department job" },
