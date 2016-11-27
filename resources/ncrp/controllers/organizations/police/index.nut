@@ -43,7 +43,7 @@ translation("ru", {
     "organizations.police.duty.alreadyon"       : "Вы закончили свою смену.",
     "organizations.police.duty.alreadyoff"      : "Вы уже начали свою смену.",
     "organizations.police.notinpolicevehicle"   : "Вы должны быть в служебной машине!",
-    "organizations.police.ticket.givewithreason": "%s выписал вам штраф за %s. Введите /accept %s.",
+    "organizations.police.ticket.givewithreason": "%s выписал вам штраф за %s. Введите /accept %i.",
     "organizations.police.offduty.notickets"    : "Вы закончили свою смену и не имеете квитанций с собой.",
     "organizations.police.offduty.notaser"      : "У вас нет шокера, т.к. вы не полицейский.",
 
@@ -122,7 +122,7 @@ addEventHandler ( "onPlayerSpawn", function( playerid ) {
 addEventHandler ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
     if(isPlayerInPoliceVehicle(playerid) && getPlayerJob(playerid) != "policeofficer") {
         // set player wanted level or smth like that
-        return msg(playerid, "organizations.police.crime.wasdone", CL_GRAY);
+        return msg(playerid, "organizations.police.crime.wasdone", [], CL_GRAY);
     }
 });
 
