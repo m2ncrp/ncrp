@@ -49,8 +49,8 @@ cmd("car", "buy", function(playerid, modelid = null) {
         return msg(playerid, "shops.carshop.money.error", CL_ERROR);
     }
 
-    // get point and mark it
-    local point = getFreeCarShopPoint();
+    // get free slot
+    local point = getCarShopSlotById();
 
     // take money
     subMoneyToPlayer(playerid, car.price);
@@ -61,7 +61,7 @@ cmd("car", "buy", function(playerid, modelid = null) {
         point.rotation.x, point.rotation.y, point.rotation.z
     );
 
-    // mark position as not available
+    // mark slot as not available
     point.state = vehicleid;
 
     // set params

@@ -21,6 +21,10 @@ event("onServerStarted", function() {
     return carShopCreatePlace();
 });
 
+event("onPlayerVehicleEnter", function(playerid, vehiclid, seat) {
+    return carShopFreeCarSlot(playerid, vehiclid);
+});
+
 event("onServerMinuteChange", function() {
     return carShopCheckFreeSpace();
 });
