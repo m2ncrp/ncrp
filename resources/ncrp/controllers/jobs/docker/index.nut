@@ -170,8 +170,8 @@ function dockerJobLeave( playerid ) {
 
         job_docker[playerid]["havebox"] = false;
 
-        setPlayerHandModel(playerid, 1, 0);
         setPlayerAnimStyle(playerid, "common", "default");
+        setPlayerHandModel(playerid, 1, 0);
 
         // remove private blip job
         removePersonalJobBlip ( playerid );
