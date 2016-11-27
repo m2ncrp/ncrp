@@ -54,9 +54,11 @@ createVehicle = function(modelid, x, y, z, rx, ry, rz) {
 setVehicleWheelTexture = function(vehicleid, wheel, textureid) {
     if (textureid != 255 && textureid != -1) {
 
-        // add info for saving
-        if (wheel == 0) vehicle.wheels.front = textureid;
-        if (wheel == 1) vehicle.wheels.rear  = textureid;
+        if (vehicleid in __vehicles) {
+            // add info for saving
+            if (wheel == 0) __vehicles[vehicleid].wheels.front = textureid;
+            if (wheel == 1) __vehicles[vehicleid].wheels.rear  = textureid;
+        }
 
         // call native
         return old__setVehicleWheelTexture(vehicleid, wheel, textureid);
