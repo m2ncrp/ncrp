@@ -64,16 +64,16 @@ function getCarPrices() {
  * @return {Boolean} [description]
  */
 function isThereFreeCarShopPoint() {
-    return (getFreeCarShopPoint() != null);
+    return (getCarShopSlotById() != null);
 }
 
 /**
  * Get free car shop point
  * @return {} [description]
  */
-function getFreeCarShopPoint() {
+function getCarShopSlotById(id = CARSHOP_STATE_FREE) {
     foreach (idx, value in vehiclePositions) {
-        if (value.state == CARSHOP_STATE_FREE) {
+        if (value.state == id) {
             return value;
         }
     }
@@ -107,7 +107,24 @@ function carShopCheckFreeSpace() {
 }
 
 function carShopCreatePlace() {
-    carShopDisplay.text = create3DText(carShopPlace.x, carShopPlace.y, carShopPlace.z, "== Car Shop ==", CL_WHITE);
-    carShopDisplay.help = create3DText(carShopPlace.x, carShopPlace.y, carShopPlace.z, "/car", CL_WHITE.applyAlpha(150));
+    carShopDisplay.text = create3DText(carShopPlace.x, carShopPlace.y, carShopPlace.z+0.35, "== Car Shop ==", CL_WHITE);
+    carShopDisplay.help = create3DText(carShopPlace.x, carShopPlace.y, carShopPlace.z-0.15, "/car", CL_WHITE.applyAlpha(150));
     return true;
+}
+
+/**
+ * Try to free slot point that is might be takend by vehicle
+ * @param {Integer} playerid
+ * @param {Integer} vehicleid
+ */
+function carShopFreeCarSlot(playerid, vehicleid) {
+    if (!isPlayerVehicleOwner(playerid, vehicleid)) return;
+
+    // try to get slot by vehicle
+    local slot = getCarShopSlotById(vehicleid);
+
+    // if slot exists - remove current car from the slot
+    if (slot) {
+        slot.state = CARSHOP_STATE_FREE;
+    }
 }
