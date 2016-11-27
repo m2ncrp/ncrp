@@ -1,3 +1,23 @@
+translation("en", {
+"job.realtor.not" : "You're not a realtor."
+"job.realtor.sendinvoice" : "You send invoice to pay house."
+"job.realtor.receivedinvoice" : "You received invoice to pay house."
+"job.realtor.boughthouse" : "You'll bought the house."
+"job.realtor.customerpaid" : "Customer paid. House has been sold. "
+"job.realtor.youcantbuy" : "You can't buy house without payment."
+"job.realtor.customer" : "Customer did not pay."
+});
+
+translation("ru", {
+"job.realtor.not" : "Вы не риэлтор."
+"job.realtor.sendinvoice" : "You send invoice to pay house."
+"job.realtor.receivedinvoice" : "You received invoice to pay house."
+"job.realtor.boughthouse" : "You'll bought the house."
+"job.realtor.customerpaid" : "Customer paid. House has been sold. "
+"job.realtor.youcantbuy" : "You can't buy house without payment."
+"job.realtor.customer" : "Customer did not pay."
+});
+
 include("controllers/jobs/realty/commands.nut");
 
 function isRealtor (playerid) {
@@ -7,14 +27,14 @@ function isRealtor (playerid) {
 function realtyJobSell (playerid, targetid, price) {
 
     if (!isRealtor(playerid)) {
-        return msg(playerid, "You're not a realtor.");
+        return msg(playerid, "job.realtor.not");
     }
 
     local price = price.tofloat();
     local targetid = targetid.tointeger();
 
-    msg(playerid, "You send invoice to pay house.", CL_GREEN);
-    msg(targetid, "You received invoice to pay house.", CL_GREEN);
+    msg(playerid, "job.realtor.sendinvoice", CL_GREEN);
+    msg(targetid, "job.realtor.receivedinvoice", CL_GREEN);
 
     sendInvoice(playerid, targetid, price, function(playerid, senderid, result) {
         // playerid responded to invoice from senderid with result
@@ -25,11 +45,11 @@ function realtyJobSell (playerid, targetid, price) {
             players[playerid]["housex"]       = plaPos.x;
             players[playerid]["housey"]       = plaPos.y;
             players[playerid]["housez"]       = plaPos.z;
-            msg(playerid, "You'll bought the house.", CL_GREEN);
-            msg(senderid, "Customer paid. House has been sold. ", CL_GREEN);
+            msg(playerid, "job.realtor.boughthouse", CL_GREEN);
+            msg(senderid, "job.realtor.customerpaid", CL_GREEN);
         } else {
-            msg(playerid, "You can't buy house without payment.", CL_RED);
-            msg(senderid, "Customer did not pay.", CL_RED);
+            msg(playerid, "job.realtor.youcantbuy", CL_RED);
+            msg(senderid, "job.realtor.customer", CL_RED);
         }
     });
 }
