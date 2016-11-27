@@ -22,6 +22,8 @@ translation("en", {
     "job.bus.driver.already"            :   "You're Bus Driver already."
     "job.bus.driver.now"                :   "You're a Bus Driver now! Congratulations!"
     "job.bus.route.needselect"          :   "You need to select route."
+    "job.bus.route.tochange"            :   "To select route use /bus route id"
+    "job.bus.route.noexist"             :   "Selected route doesn't exist. Select available route."
     "job.bus.route.select"              :   "Select one route from available routes:"
     "job.bus.route.selected"            :   "You selected route #%d. Sit into bus."
     "job.bus.route.needcomplete"        :   "Complete current route."

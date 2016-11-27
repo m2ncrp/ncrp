@@ -65,12 +65,12 @@ addEventHandlerEx("onServerStarted", function() {
     busStops[13]  <-  busStop("Little Italy (Central)",           busv3(  162.136,   835.064,  -19.6378 ),   busv3(  164.963,   832.472,    -19.7743 ));
     busStops[14]  <-  busStop("Little Italy (Diamond Motors)",    busv3( -173.266,   724.155,  -20.4991 ),   busv3( -170.596,   727.372,    -20.6562 ));
     busStops[15]  <-  busStop("East Side",                        busv3( -104.387,   377.106,  -13.9932 ),   busv3( -101.08,    374.001,    -14.1311 ));
-    busStops[16]  <-  busStop("Dipton1",                          busv3( -582.427,   1604.64,  -16.4354 ),   busv3( -579.006,   1601.32,    -16.1774 ));
-    busStops[17]  <-  busStop("Dipton2",                          busv3( -568.004,   1580.03,  -16.7092 ),   busv3( -571.569,   1582.89,    -16.1666 ));
-    busStops[18]  <-  busStop("Kingston1",                        busv3( -1151.38,   1486.28,  -3.42484 ),   busv3( -1147.42,   1483.27,    -3.03844 ));
-    busStops[19]  <-  busStop("Kingston2",                        busv3( -1063.9,    1457.63,  -3.97645 ),   busv3( -1067.98,    1460.7,    -3.57558 ));
-    busStops[20]  <-  busStop("Greenfield1",                      busv3( -1669.57,   1089.86,  -6.95323 ),   busv3( -1667.56,   1094.36,    -6.71022 ));
-    busStops[21]  <-  busStop("Greenfield2",                      busv3( -1612.92,    996.92,  -5.90228 ),   busv3( -1615.41,   992.857,    -5.58949 ));
+    busStops[16]  <-  busStop("Dipton",                           busv3( -582.427,   1604.64,  -16.4354 ),   busv3( -579.006,   1601.32,    -16.1774 )); // Dipton1
+    busStops[17]  <-  busStop("Dipton",                           busv3( -568.004,   1580.03,  -16.7092 ),   busv3( -571.569,   1582.89,    -16.1666 )); // Dipton2
+    busStops[18]  <-  busStop("Kingston",                         busv3( -1151.38,   1486.28,  -3.42484 ),   busv3( -1147.42,   1483.27,    -3.03844 )); // Kingston1
+    busStops[19]  <-  busStop("Kingston",                         busv3( -1063.9,    1457.63,  -3.97645 ),   busv3( -1067.98,    1460.7,    -3.57558 )); // Kingston2
+    busStops[20]  <-  busStop("Greenfield",                       busv3( -1669.57,   1089.86,  -6.95323 ),   busv3( -1667.56,   1094.36,    -6.71022 )); // Greenfield1
+    busStops[21]  <-  busStop("Greenfield",                       busv3( -1612.92,    996.92,  -5.90228 ),   busv3( -1615.41,   992.857,    -5.58949 )); // Greenfield2
     busStops[22]  <-  busStop("Sand Island",                      busv3( -1601.16,   -190.15,  -20.3354 ),   busv3( -1597.43,  -193.281,    -19.9776 ));
     busStops[23]  <-  busStop("Sand Island (North)",              busv3( -1559.15,   109.576,  -13.2876 ),   busv3(  -1562.2,    105.64,    -13.0085 ));
     busStops[24]  <-  busStop("Hunters Point",                    busv3( -1344.5,    421.815,  -23.7303 ),   busv3( -1347.92,    418.11,    -23.4532 ));
@@ -247,9 +247,10 @@ function busJobRoutes( playerid ) {
         { name = "#5",  desc = "Big Empire Bay Route (21 station)" }
     ];
     msg_help(playerid, title, commands);
+    msg( playerid, "job.bus.route.tochange");
 }
 
-function busJobSelectRoute( playerid, route ) {
+function busJobSelectRoute( playerid, route = null) {
     if(!isPlayerInValidPoint(playerid, BUS_JOB_X, BUS_JOB_Y, RADIUS_BUS)) {
         return msg( playerid, "job.bus.letsgo" );
     }
@@ -261,7 +262,16 @@ function busJobSelectRoute( playerid, route ) {
         return msg(playerid, "job.bus.route.needcomplete");
     }
 
-    job_bus[playerid]["route"] <- [routes[route.tointeger()][0], clone routes[route.tointeger()][1]]; //create clone of route
+    if (route == null) {
+        return msg(playerid, "job.bus.route.needselect");
+    }
+
+    local route = route.tointeger();
+    if (route < 1 || route > 5) {
+        return msg(playerid, "job.bus.route.noexist");
+    }
+
+    job_bus[playerid]["route"] <- [routes[route][0], clone routes[route][1]]; //create clone of route
     msg( playerid, "job.bus.route.selected", route );
 }
 
