@@ -12,6 +12,12 @@ cmd("serial", function(playerid) {
     msg( playerid, "organizations.police.getserial", [players[playerid]["serial"]], CL_THUNDERBIRD );
 });
 
+// usage: /police Train Station
+cmd("police", function(playerid, ...) {
+    local place = concat(vargv);
+    policeCall(playerid, place);
+});
+
 // usage: /police duty on
 cmd("police", ["duty", "on"], function(playerid) {
     if ( !isOfficer(playerid) ) {
