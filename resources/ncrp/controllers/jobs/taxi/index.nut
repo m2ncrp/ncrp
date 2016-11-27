@@ -215,7 +215,7 @@ function taxiCallRefuse(playerid) {
     players[customerid]["taxi"]["call_state"] = "open";
     msg_taxi_dr(playerid, "job.taxi.refusedcall", customerid);
     msg_taxi_cu(customerid, "taxi.call.refused");
-    delayedFunction(1000,  function() {
+    delayedFunction(3000,  function() {
         taxiCall(customerid, players[customerid]["taxi"]["call_address"], 1);
     });
 }
