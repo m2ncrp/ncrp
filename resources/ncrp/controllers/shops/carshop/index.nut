@@ -3,7 +3,7 @@ include("controllers/shops/carshop/functions.nut");
 
 // constants
 const CARSHOP_STATE_FREE = "free";
-const CARSHOP_DISTANCE   = 10.0;
+const CARSHOP_DISTANCE   = 5.0;
 
 // translations
 translation("en", {
