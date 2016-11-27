@@ -1,3 +1,69 @@
+translation("en", {
+"job.milkdriver.letsgo"                             : "Let's go to Empire Bay Milk Co.",
+"job.milkdriver.already."                           : "You're milkdriver already.",
+"job.milkdriver.now"                                : "You're a milk truck driver now! Congratulations!",
+"job.milkdriver.sitintruck"                         : "Sit into milk truck.",
+"job.milkdriver.gotofarm"                           : "Let's go to farm",
+"job.milkdriver.not"                                : "You're not a milk truck driver."
+"job.milkdriver.needtruck"                          : "You need a milk truck."
+"job.milkdriver.route.already"                      : "You got routes list already."
+"job.milkdriver.route.now.loaded"                   : "You have route list now. Truck is loaded to %d / 120"
+"job.milkdriver.route.now.empty"                    : "You have route list now. The truck is empty. Load milk to truck."
+"job.milkdriver.notready"                           : "You don't have routes list."
+"job.milkdriver.gofillingstation"                   : "Go to the milk filling station in Chinatown to load milk truck."
+"job.milkdriver.driving"                            : "You're driving. Please stop the milk truck."
+"job.milkdriver.milktruckloadedcarrymilk"           : "Milk truck is loaded to 120 / 120. Carry milk to addresses."
+"job.milkdriver.truckalreadyloaded."                : "Milk truck already loaded."
+"job.milkdriver.route.nohave"                       : "You don't have routes list."
+"job.milkdriver.milknotenough"                      : "Milk is not enough. Go to the milk filling station in Chinatown to load milk truck."
+"job.milkdriver.carrymilk"                          : "Carry milk to addresses."
+"job.milkdriver.alreadybeenhere"                    : "You've already been here. Go to other address."
+"job.milkdriver.nicejob.needpark"                   : "Nice job! Return the milk truck to milk filling station in Chinatown, park truck and take your money."
+"job.milkdriver.unloadingcompleted.truckloaded"     : "Unloading completed. Milk truck is loaded to %d / 120. Go to next address."
+"job.milkdriver.unloadingcompleted.milknotenough"   : "Unloading completed. Milk is not enough. Go to the milk filling station to load milk truck."
+"job.milkdriver.carrymilkalladdresses"              : "Carry milk to all addresses."
+"job.milkdriver.parkmilktruck."                     : "Go to the milk filling station to park the milk truck."
+"job.milkdriver.completemilkdelivery."              : "Complete milk delivery to all addresses."
+"job.milkdriver.nicejob"                            : "Nice job! You earned $20."
+"job.milkdriver.route.title"                        : "========== List of route =========="
+"job.milkdriver.route.completed"                    : "%d. %s - completed"
+"job.milkdriver.route.waiting"                      : "%d. %s - waiting"
+"job.milkdriver.milktruckloaded"                    : "Milk truck is loaded to %d / 120"
+});
+
+translation("ru", {
+"job.milkdriver.letsgo"                             : "Отправляйтесь к зданию Empire Bay Milk Co.",
+"job.milkdriver.already."                           : "Вы уже работаете развозчиком молока.",
+"job.milkdriver.now"                                : "Вы стали развозчиком молока. Поздравляем!",
+"job.milkdriver.sitintruck"                         : "Садитесь в молоковоз.",
+"job.milkdriver.gotofarm"                           : "Отправляйтесь на ферму.",
+"job.milkdriver.not"                                : "Вы не работаете развозчиком молока."
+"job.milkdriver.needtruck"                          : "Вам нужен молоковоз."
+"job.milkdriver.route.already"                      : "У вас уже есть маршрутный лист"
+"job.milkdriver.route.now.loaded"                   : "Вы получили маршрутный лист. Молоковоз заполнен на %d из 120"
+"job.milkdriver.route.now.empty"                    : "Вы получили маршрутный лист. Молоковоз пуст. Загрузите молоко."
+"job.milkdriver.notready"                           : "У вас нет маршрутного листа."
+"job.milkdriver.gofillingstation"                   : "Отправляйтесь к молочному заводу в Chinatown для загрузки молока."
+"job.milkdriver.driving"                            : "Остановите молоковоз."
+"job.milkdriver.milktruckloadedcarrymilk"           : "Молоковоз заполнен на 120 из 120. Развезите молоко по адресам."
+"job.milkdriver.truckalreadyloaded."                : "Молоковоз уже загружен."
+"job.milkdriver.route.nohave"                       : "У вас нет маршрутного листа."
+"job.milkdriver.milknotenough"                      : "Молоко закончилось. Отправляйтесь к молочному заводу в Chinatown для загрузки молока."
+"job.milkdriver.carrymilk"                          : "Развезите молоко по адресам."
+"job.milkdriver.alreadybeenhere"                    : "Вы уже были здесь. Направляйтесь к следующему адресу доставки."
+"job.milkdriver.nicejob.needpark"                   : "Отлично! Верните молоковоз обратно к молочному заводу в Chinatown, припаркуйте и получите Ваш заработок."
+"job.milkdriver.unloadingcompleted.truckloaded"     : "Разгрузка прошла успешна. Молоковоз заполнен на %d из 120. Направляйтесь к следующему адресу доставки."
+"job.milkdriver.unloadingcompleted.milknotenough"   : "Разгрузка прошла успешна. Молоко закончилось. Отправляйтесь к молочному заводу в Chinatown для загрузки молока."
+"job.milkdriver.carrymilkalladdresses"              : "Развезите молоко по всем адресам."
+"job.milkdriver.parkmilktruck."                     : "Чтобы припарковать молоковоз, отправляйтесь к молочному заводу в Chinatown."
+"job.milkdriver.completemilkdelivery."              : "Завершите доставку молока по всем адресам."
+"job.milkdriver.nicejob"                            : "Отличная работа! Вы заработали $20."
+"job.milkdriver.route.title"                        : "========== Маршрутный лист =========="
+"job.milkdriver.route.completed"                    : "%d. %s - завершено"
+"job.milkdriver.route.waiting"                      : "%d. %s - ожидание"
+"job.milkdriver.milktruckloaded"                    : "Молоковоз заполнен на %d из 120"
+});
+
 include("controllers/jobs/milkdriver/commands.nut");
 
 local job_milk = {};
@@ -139,19 +205,19 @@ function isMilkReady(playerid) {
 function milkJob ( playerid ) {
 
     if(!isPlayerInValidPoint(playerid, MILK_JOB_X, MILK_JOB_Y, RADIUS_JOB_MILK)) {
-        return msg( playerid, "Let's go to Empire Bay Milk Co." );
+        return msg( playerid, "job.milkdriver.letsgo" );
     }
 
     if(isMilkDriver(playerid)) {
-        return msg( playerid, "You're milkdriver already.");
+        return msg( playerid, "job.milkdriver.already.");
     }
 
     if(isPlayerHaveJob(playerid)) {
-        return msg(playerid, "You already have a job: " + getPlayerJob(playerid) + ".");
+        return msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid));
     }
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
-        msg( playerid, "You're a milk truck driver now! Congratulations!" );
-        msg( playerid, "Sit into milk truck." );
+        msg( playerid, "job.milkdriver.now" );
+        msg( playerid, "job.milkdriver.sitintruck" );
 
         players[playerid]["job"] = "milkdriver";
 
@@ -168,14 +234,14 @@ function milkJob ( playerid ) {
 function milkJobLeave ( playerid ) {
 
     if(!isPlayerInValidPoint(playerid, MILK_JOB_X, MILK_JOB_Y, RADIUS_JOB_MILK)) {
-        return msg( playerid, "Let's go to farm" );
+        return msg( playerid, "job.milkdriver.gotofarm" );
     }
 
     if(!isMilkDriver(playerid)) {
-        return msg( playerid, "You're not a milk truck driver.");
+        return msg( playerid, "job.milkdriver.not");
     }
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
-        msg( playerid, "You leave this job." );
+        msg( playerid, "job.leave" );
 
         players[playerid]["job"] = null;
 
@@ -198,15 +264,15 @@ function milkJobLeave ( playerid ) {
 function milkJobReady ( playerid ) {
 
     if(!isMilkDriver(playerid)) {
-        return msg( playerid, "You're not a milk truck driver.");
+        return msg( playerid, "job.milkdriver.not");
     }
 
     if (!isPlayerVehicleMilk(playerid)) {
-        return msg(playerid, "You need a milk truck.");
+        return msg(playerid, "job.milkdriver.needtruck");
     }
 
     if(isMilkReady(playerid)) {
-        return msg( playerid, "You got routes list already.");
+        return msg( playerid, "job.milkdriver.route.already");
     }
 
     job_milk[playerid]["milkready"] = true;
@@ -218,9 +284,9 @@ function milkJobReady ( playerid ) {
 
     local vehicleid = getPlayerVehicle(playerid);
     if(milktrucks[vehicleid] >= 12) {
-        msg( playerid, "You have route list now. Truck is loaded to " + milktrucks[vehicleid] + " / 120");
+        msg( playerid, "job.milkdriver.route.now.loaded", milktrucks[vehicleid]);
     } else {
-        msg( playerid, "You have route list now. The truck is empty. Load milk to truck." );
+        msg( playerid, "job.milkdriver.route.now.empty" );
     }
 }
 
@@ -228,32 +294,32 @@ function milkJobReady ( playerid ) {
 function milkJobLoad ( playerid ) {
 
     if(!isMilkDriver(playerid)) {
-        return msg( playerid, "You're not a milk truck driver.");
+        return msg( playerid, "job.milkdriver.not");
     }
 
     if (!isPlayerVehicleMilk(playerid)) {
-        return msg(playerid, "You need a milk truck.");
+        return msg(playerid, "job.milkdriver.needtruck");
     }
 
     if (!isMilkReady(playerid)) {
-        return msg( playerid, "You don't ready and don't have routes list." );
+        return msg( playerid, "job.milkdriver.notready" );
     }
 
     if(!isVehicleInValidPoint(playerid, 170.737, 436.886, 4.0)) {
-        return msg( playerid, "Go to the milk filling station in Chinatown to load milk truck." );
+        return msg( playerid, "job.milkdriver.gofillingstation" );
     }
 
     if(isPlayerVehicleMoving(playerid)){
-        return msg( playerid, "You're driving. Please stop the milk truck.");
+        return msg( playerid, "job.milkdriver.driving");
     }
 
     local vehicleid = getPlayerVehicle(playerid);
 // load in 1 pint = 0.5 litres
     if(milktrucks[vehicleid] < 120) {
         milktrucks[vehicleid] = 120;
-        msg( playerid, "Milk truck is loaded to 120 / 120. Carry milk to addresses." );
+        msg( playerid, "job.milkdriver.milktruckloadedcarrymilk" );
     } else {
-        msg( playerid, "Milk truck already loaded." );
+        msg( playerid, "job.milkdriver.truckalreadyloaded." );
     }
 }
 
@@ -261,20 +327,20 @@ function milkJobLoad ( playerid ) {
 function milkJobUnload ( playerid ) {
 
     if(!isMilkDriver(playerid)) {
-        return msg( playerid, "You're not a milk truck driver.");
+        return msg( playerid, "job.milkdriver.not");
     }
 
     if (!isPlayerVehicleMilk(playerid)) {
-        return msg(playerid, "You need a milk truck.");
+        return msg(playerid, "job.milkdriver.needtruck");
     }
 
     if (!isMilkReady(playerid)) {
-        return msg( playerid, "You don't have routes list." );
+        return msg( playerid, "job.milkdriver.route.nohave" );
     }
 
     local vehicleid = getPlayerVehicle(playerid);
     if(milktrucks[vehicleid] < 12) {
-        return msg( playerid, "Milk is not enough. Go to the milk filling station in Chinatown to load milk truck." );
+        return msg( playerid, "job.milkdriver.milknotenough" );
     }
 
     local check = false;
@@ -288,15 +354,15 @@ function milkJobUnload ( playerid ) {
     }
 
     if (!check) {
-       return  msg( playerid, "Carry milk to addresses." );
+       return  msg( playerid, "job.milkdriver.carrymilk" );
     }
 
     if(isPlayerVehicleMoving(playerid)){
-        return msg( playerid, "You're driving. Please stop the milk truck.");
+        return msg( playerid, "job.milkdriver.driving");
     }
 
     if(job_milk[playerid]["milkstatus"][i]) {
-        return msg( playerid, "You've already been here. Go to other address." );
+        return msg( playerid, "job.milkdriver.alreadybeenhere" );
     }
 
     local vehicleid = getPlayerVehicle(playerid);
@@ -308,12 +374,12 @@ function milkJobUnload ( playerid ) {
     removeMilkJobStationMark(playerid, i);
 
     if (job_milk[playerid]["milkcomplete"] == MILK_JOB_NUMBER_STATIONS) {
-        msg( playerid, "Nice job! Return the milk truck to milk filling station in Chinatown, park truck and take your money." );
+        msg( playerid, "job.milkdriver.nicejob.needpark" );
     } else {
         if (milktrucks[vehicleid] >= 12) {
-            msg( playerid, "Unloading completed. Milk truck is loaded to " + milktrucks[vehicleid] + " / 120. Go to next address." );
+            msg( playerid, "job.milkdriver.unloadingcompleted.truckloaded", milktrucks[vehicleid] );
         } else {
-            msg( playerid, "Unloading completed. Milk is not enough. Go to the milk filling station to load milk truck." );
+            msg( playerid, "job.milkdriver.unloadingcompleted.milknotenough" );
         }
     }
 }
@@ -323,36 +389,37 @@ function milkJobUnload ( playerid ) {
 function milkJobPark ( playerid ) {
 
     if(!isMilkDriver(playerid)) {
-        return msg( playerid, "You're not a milk truck driver.");
+        return msg( playerid, "job.milkdriver.not");
     }
 
     if (!isPlayerVehicleMilk(playerid)) {
-        return msg(playerid, "You need a milk truck.");
+        return msg(playerid, "job.milkdriver.needtruck");
     }
 
     if (!isMilkReady(playerid)) {
-        return msg( playerid, "You don't have routes list." );
+        return msg( playerid, "job.milkdriver.route.nohave" );
     }
 
     if (job_milk[playerid]["milkcomplete"] != MILK_JOB_NUMBER_STATIONS) {
-        return msg( playerid, "Carry milk to all addresses." );
+        return msg( playerid, "job.milkdriver.carrymilkalladdresses" );
     }
 
     if(!isVehicleInValidPoint(playerid, 170.737, 436.886, 4.0)) {
-        return msg( playerid, "Go to the milk filling station to park the milk truck." );
+        return msg( playerid, "job.milkdriver.parkmilktruck." );
     }
 
     if(isPlayerVehicleMoving(playerid)){
-        return msg( playerid, "You're driving. Please stop the milk truck.");
+        return msg( playerid, "job.milkdriver.driving");
     }
 
     if (job_milk[playerid]["milkcomplete"] < MILK_JOB_NUMBER_STATIONS) {
-        return msg( playerid, "Complete milk delivery to all addresses." );
+        return msg( playerid, "job.milkdriver.completemilkdelivery." );
     }
 
     job_milk[playerid]["milkcomplete"] = 0;
     job_milk[playerid]["milkready"] = false;
-    msg( playerid, "Nice job! You earned $20." );
+    job_milk[playerid]["milkstatus"] <- [false, false, false, false, false, false];
+    msg( playerid, "job.milkdriver.nicejob" );
     addMoneyToPlayer(playerid, 20);
 
     // clear all marks
@@ -364,20 +431,20 @@ function milkJobPark ( playerid ) {
 function milkJobList ( playerid ) {
 
     if(!isMilkDriver(playerid)) {
-        return msg( playerid, "You're not a milk truck driver.");
+        return msg( playerid, "job.milkdriver.not");
     }
 
      if (!isMilkReady(playerid)) {
-        return msg( playerid, "You don't have routes list." );
+        return msg( playerid, "job.milkdriver.route.nohave" );
     }
 
-    msg( playerid, "========== List of route ==========", CL_JOB_LIST);
+    msg( playerid, "job.milkdriver.route.title", CL_JOB_LIST);
     foreach (key, value in job_milk[playerid]["milkstatus"]) {
         local i = key+1;
         if (value == true) {
-            msg( playerid, i + ". " + job_milk[playerid]["milkcoords"][key][3] + " - completed", CL_JOB_LIST_GR);
+            msg( playerid, "job.milkdriver.route.completed", [i, job_milk[playerid]["milkcoords"][key][3]], CL_JOB_LIST_GR);
         } else {
-            msg( playerid, i + ". " + job_milk[playerid]["milkcoords"][key][3] + " - waiting", CL_JOB_LIST_R);
+            msg( playerid, "job.milkdriver.route.waiting", [i, job_milk[playerid]["milkcoords"][key][3]], CL_JOB_LIST_R);
         }
     }
 }
@@ -386,17 +453,17 @@ function milkJobList ( playerid ) {
 function milkJobCheck ( playerid ) {
 
     if(!isMilkDriver(playerid)) {
-        return msg( playerid, "You're not a milk truck driver.");
+        return msg( playerid, "job.milkdriver.not");
     }
 
     if (!isPlayerVehicleMilk(playerid)) {
-        return msg(playerid, "You need a milk truck.");
+        return msg(playerid, "job.milkdriver.needtruck");
     }
 
     if (!isMilkReady(playerid)) {
-        return msg( playerid, "You don't have routes list." );
+        return msg( playerid, "job.milkdriver.route.nohave" );
     }
 
     local vehicleid = getPlayerVehicle(playerid);
-    msg( playerid, "Milk truck is loaded to " + milktrucks[vehicleid] + " / 120" );
+    msg( playerid, "job.milkdriver.milktruckloaded", milktrucks[vehicleid] );
 }
