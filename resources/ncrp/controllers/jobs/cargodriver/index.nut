@@ -16,6 +16,13 @@ translation("en", {
 "job.cargodriver.takemoney"     : "Go to office at City Port and take your money."
 "job.cargodriver.needcomplete"  : "You must complete delivery before."
 "job.cargodriver.nicejob"       : "Nice job, %s! Keep $%.2f."
+
+"job.cargodriver.help.title"            :   "List of available commands for CARGODRIVER JOB:"
+"job.cargodriver.help.job"              :   "Get cargo delivery driver job"
+"job.cargodriver.help.jobleave"         :   "Leave cargo delivery driver job"
+"job.cargodriver.help.load"             :   "Load cargo into truck"
+"job.cargodriver.help.unload"           :   "Unload cargo"
+"job.cargodriver.help.finish"           :   "Report about delivery and get money"
 });
 
 translation("ru", {
@@ -36,6 +43,13 @@ translation("ru", {
 "job.cargodriver.takemoney"     : "Отправляйтесь в офис City Port и получите Ваш заработок."
 "job.cargodriver.needcomplete"  : "Завершите доставку."
 "job.cargodriver.nicejob"       : "Отличная работа, %s! Держи $%.2f."
+
+"job.cargodriver.help.title"            :   "Список доступных команд для водителя грузовика:"
+"job.cargodriver.help.job"              :   "Устроиться на работу водителем грузовика"
+"job.cargodriver.help.jobleave"         :   "Уволиться с работы"
+"job.cargodriver.help.load"             :   "Загрузить грузовик"
+"job.cargodriver.help.unload"           :   "Разгрузить грузовик"
+"job.cargodriver.help.finish"           :   "Сообщить о доставке и получить деньги"
 });
 
 include("controllers/jobs/cargodriver/commands.nut");
