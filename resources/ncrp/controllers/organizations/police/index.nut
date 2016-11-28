@@ -55,6 +55,13 @@ translation("en", {
     
     "organizations.police.info.howjoin"         : "If you want to join Police Department write one of admins!",
     "organizations.police.info.cmds.helptitle"  : "List of available commands for Police Officer JOB:",
+    "organizations.police.info.cmds.ratio"      : "Send message to all police by ratio",
+    "organizations.police.info.cmds.rupor"      : "Say smth to police vehicle rupor",
+    "organizations.police.info.cmds.ticket"     : "Give ticket to player with given id. Example: /ticket 0 2.1",
+    "organizations.police.info.cmds.taser"      : "Shock nearset player",
+    "organizations.police.info.cmds.cuff"       : "Use cuff for nearest player",
+    "organizations.police.info.cmds.prison"     : "Put nearest cuffed player in jail",
+    "organizations.police.info.cmds.amnesty"    : "Take out player with given id from prison",
 
     "organizations.police.onrankup"             : "You was rank up to %s",
     "organizations.police.onleave"              : "You're not a police officer anymore."
@@ -96,6 +103,13 @@ translation("ru", {
     
     "organizations.police.info.howjoin"         : "Если вы хотите пополнить ряды офицеров департамента Empire Bay, напишите администраторам!",
     "organizations.police.info.cmds.helptitle"  : "Список команд, доступных офицерам полиции:",
+    "organizations.police.info.cmds.ratio"      : "Сказать что-либо в полицейскую рацию",
+    "organizations.police.info.cmds.rupor"      : "Скачать что-либо в рупор служебной машины",
+    "organizations.police.info.cmds.ticket"     : "Выдать штраф игроку с указанным id. Пример: /ticket 0 2.1",
+    "organizations.police.info.cmds.taser"      : "Обездвижить ближайшего игрока",
+    "organizations.police.info.cmds.cuff"       : "Надеть наручники на ближайшего игрока",
+    "organizations.police.info.cmds.prison"     : "Посадить игрока с указанным id в тюрьму",
+    "organizations.police.info.cmds.amnesty"    : "Вытащить игрока с указанным id из тюрьмы",
 
     "organizations.police.onrankup"             : "Вы были повышены до %s",
     "organizations.police.onleave"              : "Вы более не являетесь офицером полиции."

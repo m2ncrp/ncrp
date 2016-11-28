@@ -177,12 +177,13 @@ cmd("help", ["job", "police"], function(playerid) {
     local commands = [
         // { name = "/police job",             desc = "Get police officer job" },
         // { name = "/police job leave",       desc = "Leave from police department job" },
-        { name = "/r <text>",               desc = "Send message to all police officers in vehicles"},
-        { name = "/rupor <text>",           desc = "Say smth to vehicle rupor"},
-        { name = "/ticket <id> <amount>",   desc = "Take ticket to player given <id>. Example: /ticket 0 5.2" },
-        { name = "/taser",                  desc = "Shock nearest player for 0.8 seconds" },
-        { name = "/cuff",                   desc = "Use cuff for nearest player" },
-        { name = "/prison <id>",            desc = "Put neares cuffed player in jail" }
+        { name = "/r <text>",               desc = "organizations.police.info.cmds.ratio"},
+        { name = "/rupor <text>",           desc = "organizations.police.info.cmds.rupor"},
+        { name = "/ticket <id> <amount>",   desc = "organizations.police.info.cmds.ticket" },
+        { name = "/taser",                  desc = "organizations.police.info.cmds.taser" },
+        { name = "/cuff",                   desc = "organizations.police.info.cmds.cuff" },
+        { name = "/prison <id>",            desc = "organizations.police.info.cmds.prison" },
+        { name = "/amnesty <id>",           desc = "organizations.police.info.cmds.amnesty" }
     ];
     msg_help(playerid, title, commands);
 });
