@@ -112,6 +112,14 @@ function setPlayerLocale(playerid, locale = "en") {
     return false;
 }
 
+function checkLevel(exp) {
+    local q = 2.45;
+    local a1 = 140;
+
+    local lvl = log10( 1.25109855*(a1 - exp*(1-q)) / 343 ) / log10(q);
+    return floor( abs(lvl) );
+}
+
 /**
  * Get player level
  *
@@ -123,7 +131,8 @@ function getPlayerLevel(playerid) {
         return null;
     }
 
-    return floor(0.1 * sqrt(players[playerid].xp * 0.25));
+    // return floor(0.1 * sqrt(players[playerid].xp * 0.25));
+    return checkLevel(players[playerid].xp);
 }
 
 /**
