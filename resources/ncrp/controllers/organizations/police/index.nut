@@ -26,10 +26,10 @@ translation("en", {
     "general.noonearound"                       : "There's noone around near you.",
     "general.job.anotherone"                    : "You've got %s job, not %s!",
 
-    "organizations.police.position.officer"     : "Police Officer",
-    "organizations.police.position.detective"   : "Detective",
-    "organizations.police.position.chief"       : "Police Chief",
-    "organizations.police.position.getmaxrank"  : "You've reached maximum rank: %s.",
+    "job.police.officer"                        : "Police Officer",
+    "job.police.detective"                      : "Detective",
+    "job.police.chief"                          : "Police Chief",
+    "organizations.police.job.getmaxrank"       : "You've reached maximum rank: %s.",
 
     "organizations.police.call.withoutaddress"  : "You can't call police without address.",
     "organizations.police.call.new"             : "[R] %s called police from %s",
@@ -45,14 +45,14 @@ translation("en", {
     "organizations.police.ticket.givewithreason": "%s give you ticket for %s. Type /accept %i.",
     "organizations.police.offduty.notickets"    : "You off the duty now and you haven't tickets.",
     "organizations.police.offduty.notaser"      : "You have no taser couse you're not a cop.",
-    
+
     "organizations.police.shotsomeone.bytaser"  : "You shot %s by taser.",
-    "organizations.police.beenshot.bytaser"     : "You's been shot by taser", 
+    "organizations.police.beenshot.bytaser"     : "You's been shot by taser",
     "organizations.police.beencuffed"           : "You've been cuffed by %s.",
     "organizations.police.cuff.someone"         : "You cuffed %s.",
     "organizations.police.cuff.beenuncuffed"    : "You've been uncuffed by %s",
     "organizations.police.cuff.uncuffsomeone"   : "You uncuffed %s",
-    
+
     "organizations.police.info.howjoin"         : "If you want to join Police Department write one of admins!",
     "organizations.police.info.cmds.helptitle"  : "List of available commands for Police Officer JOB:",
     "organizations.police.info.cmds.ratio"      : "Send message to all police by ratio",
@@ -74,10 +74,10 @@ translation("ru", {
     "general.noonearound"                       : "Рядом с вами никого нет.",
     "general.job.anotherone"                    : "Вы работаете %s, а не %s!",
 
-    "organizations.police.position.officer"     : "Офицер",
-    "organizations.police.position.detective"   : "Детектив",
-    "organizations.police.position.chief"       : "Шеф Полиции",
-    "organizations.police.position.getmaxrank"  : "Вы достигли максимального звания: %s.",
+    "job.police.officer"                        : "Офицер",
+    "job.police.detective"                      : "Детектив",
+    "job.police.chief"                          : "Шеф Полиции",
+    "organizations.police.job.getmaxrank"       : "Вы достигли максимального звания: %s.",
 
     "organizations.police.call.withoutaddress"  : "Вы не можете вызвать полицию не указав адреса.",
     "organizations.police.call.new"             : "[R] поступил вызов от %s из %s",
@@ -100,7 +100,7 @@ translation("ru", {
     "organizations.police.cuff.someone"         : "Вы арестовали %s",
     "organizations.police.cuff.beenuncuffed"    : "%s снял с вас наручники",
     "organizations.police.cuff.uncuffsomeone"   : "Вы сняли наручники с %s",
-    
+
     "organizations.police.info.howjoin"         : "Если вы хотите пополнить ряды офицеров департамента Empire Bay, напишите администраторам!",
     "organizations.police.info.cmds.helptitle"  : "Список команд, доступных офицерам полиции:",
     "organizations.police.info.cmds.ratio"      : "Сказать что-либо в полицейскую рацию",
@@ -122,11 +122,11 @@ const CUFF_RADIUS = 3.0;
 const POLICE_MODEL = 75;
 
 POLICE_RANK <- [
-    "organizations.police.position.officer",    // "Police Officer",
-    "organizations.police.position.detective",  // "Detective",
-    "organizations.police.position.chief"       // "Mein Führer",
+    "job.police.officer",    // "Police Officer",
+    "job.police.detective",  // "Detective",
+    "job.police.chief"       // "Mein Führer",
 ];
-MAX_RANK <- POLICE_RANK.len()-1; 
+MAX_RANK <- POLICE_RANK.len()-1;
 
 function policecmd(names, callback)  {
     cmd(names, function(playerid, ...) {
@@ -152,12 +152,9 @@ function makeMeText(playerid, vargv)  {
 
 include("controllers/organizations/police/commands.nut");
 
-// All players in this list are police officer permanently
-officerList <- [
-    ["Roberto_Lukini", "CD19A5029AE81BB50B023291846C0DF3"]
-];
+local police = {};
 
-addEventHandlerEx("onServerStarted", function() {
+event("onServerStarted", function() {
     log("[police] starting police...");
     createVehicle(42, -387.247, 644.23, -11.1051, -0.540928, 0.0203334, 4.30543 );      // policecar1
     createVehicle(42, -327.361, 677.508, -17.4467, 88.647, -2.7285, 0.00588255 );       // policecarParking3
@@ -167,25 +164,20 @@ addEventHandlerEx("onServerStarted", function() {
     createVehicle(51, -326.781, 663.293, -17.5188, 93.214, -2.95046, -0.0939897 );      // policeOldCarParking2
 });
 
-addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial) {
-    players[playerid]["serial"] <- serial;
+event("onPlayerConnect", function(playerid, name, ip, serial) {
     if ( isOfficer(playerid) ) {
-        players[playerid]["job"] <- "policeofficer";
-        players[playerid]["rank"] <- 0;
-        players[playerid]["skin"] <- POLICE_MODEL;
-        players[playerid]["onduty"] <- true;
-    }    
-});
-
-addEventHandler ( "onPlayerSpawn", function( playerid ) {
-    if ( isOfficer(playerid) ) {
-        givePlayerWeapon( playerid, 2, 0 );
+        police[playerid] <- { onduty = false };
     }
 });
 
+event("onPlayerSpawn", function( playerid ) {
+    if ( isOfficer(playerid) ) {
+        givePlayerWeapon( playerid, 2, 36 );
+    }
+});
 
-addEventHandler ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
-    if(isPlayerInPoliceVehicle(playerid) && getPlayerJob(playerid) != "policeofficer") {
+event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
+    if (isPlayerInPoliceVehicle(playerid) && !isOfficer(playerid)) {
         // set player wanted level or smth like that
         return msg(playerid, "organizations.police.crime.wasdone", [], CL_GRAY);
     }
@@ -208,13 +200,12 @@ function isPlayerInPoliceVehicle(playerid) {
  * @return {Boolean} true/false
  */
 function isOfficer(playerid) {
-    foreach (playerRecord in officerList) {
-        local name = playerRecord[0];
-        local ser = playerRecord[1];
-        if ( name == getPlayerName(playerid) && ser == players[playerid]["serial"] )
-            return true;
+    if (!(playerid in players)) {
+        return false;
     }
-    return false;
+
+    // return if playerjob (might be job.police.officer)
+    return (POLICE_RANK.find(players[playerid].job) != null);
 }
 
 /**
@@ -223,42 +214,38 @@ function isOfficer(playerid) {
  * @return {Boolean} true/false
  */
 function isOnDuty(playerid) {
-    return ( isOfficer(playerid) && players[playerid]["onduty"] );
+    return (isOfficer(playerid) && police[playerid].onduty);
 }
 
 function setOnDuty(playerid, bool) {
-    players[playerid]["onduty"] <- bool;
-    if (bool) {
-        // givePlayerWeapon( playerid, 2, 0 ); // should be called once at spawn or zero ammo to prevent using infinite ammo usage in combats
-        return screenFadeinFadeout(playerid, 100, function() {
-                setPlayerModel(playerid, POLICE_MODEL);
-                msg(playerid, "organizations.police.duty.on");
-            });
-    } else {
-        // removePlayerWeapon( playerid, 2 ); // remove at all
-        return screenFadeinFadeout(playerid, 100, function() {
-                setPlayerModel(playerid, players[playerid]["default_skin"]);
-                msg(playerid, "organizations.police.duty.off");
-            });
+    if (!(playerid in police)) {
+        police[playerid] <- {};
     }
-    
+
+    police[playerid].onduty <- bool;
+
+    if (bool) {
+        return screenFadeinFadeout(playerid, 100, function() {
+            givePlayerWeapon( playerid, 2, 0 );
+            setPlayerModel(playerid, POLICE_MODEL);
+            msg(playerid, "organizations.police.duty.on");
+        });
+    } else {
+        return screenFadeinFadeout(playerid, 100, function() {
+            removePlayerWeapon( playerid, 2 ); // remove at all
+            setPlayerModel(playerid, players[playerid]["default_skin"]);
+            msg(playerid, "organizations.police.duty.off");
+        });
+    }
 }
 
 /**
- * Return formated string with player rank
+ * Return integer with player rank
  * @param  {integer} playerid
- * @return {string}  player rank
+ * @return {Integer} player rank
  */
 function getPoliceRank(playerid) {
-    if (players[playerid]["rank"] == 0) {
-        return "organizations.police.position.officer";
-    }
-    if (players[playerid]["rank"] == 1) {
-        return "organizations.police.position.detective";
-    }
-    if (players[playerid]["rank"] == 2) {
-        return "organizations.police.position.chief";
-    }
+    return POLICE_RANK.find(players[playerid].job);
 }
 
 /**
@@ -268,31 +255,25 @@ function getPoliceRank(playerid) {
  */
 function setPoliceRank(playerid, rankID) {
     if (rankID >= 0 && rankID < POLICE_RANK.len()) {
-        players[playerid]["rank"] = rankID;
-    }
-}
-
-function isRankUpPossible(playerid, rank) {
-    rank = rank.tointeger();
-    if ( players[playerid]["rank"] != MAX_RANK && rank >= 0 ) {
+        players[playerid].job = POLICE_RANK[rankID];
         return true;
     }
     return false;
 }
 
+function isRankUpPossible(playerid) {
+    return (getPoliceRank(playerid) != null && getPoliceRank(playerid) < MAX_RANK);
+}
+
 function rankUpPolice(playerid) {
-    local next;
-    if ( players[playerid]["rank"] != null ) {
-        next = players[playerid]["rank"] + 1;
+    if (isRankUpPossible(playerid)) {
+        // increase rank
+        setPoliceRank(playerid, getPoliceRank(playerid) + 1);
+
+        // send message
+        msg( playerid, "organizations.police.onrankup", [ localize( players[playerid].job, [], getPlayerLocale(playerid)) ] );
     } else {
-        next = 0;
-    }
-    
-    if ( isRankUpPossible(playerid, next) ) {
-        players[playerid]["rank"] = next;
-        msg( playerid, "organizations.police.onrankup", [ localize( POLICE_RANK[players[playerid]["rank"]], [], getPlayerLocale(playerid)) ] );
-    } else {
-        msg( playerid, "organizations.police.position.getmaxrank", [ localize( POLICE_RANK[MAX_RANK], [], getPlayerLocale(playerid)) ] );
+        msg( playerid, "organizations.police.job.getmaxrank", [ localize( POLICE_RANK[MAX_RANK], [], getPlayerLocale(playerid)) ] );
     }
 }
 
@@ -303,7 +284,7 @@ function rankUpPolice(playerid) {
  */
 function policeCall(playerid, place) {
     if (!place || place.len() < 1) {
-            return msg(playerid, "organizations.police.call.withoutaddress");
+        return msg(playerid, "organizations.police.call.withoutaddress");
     }
 
     foreach(player in playerList.getPlayers()) {
@@ -315,7 +296,7 @@ function policeCall(playerid, place) {
 
 
 /**
- * Become police officer ABANDONED
+ * Become police officer
  * @param  {int} playerid
  */
 function getPoliceJob(playerid) {
@@ -323,19 +304,19 @@ function getPoliceJob(playerid) {
         return msg(playerid, "You're police officer already.");
     }
 
-    if(isPlayerHaveJob(playerid) && !isOfficer(playerid)) {
-        return msg(playerid, "general.job.anotherone", [getPlayerJob(playerid), "Police Officer"]);
+    if (isPlayerHaveJob(playerid)) {
+        return msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid));
     }
-    
+
+    // set first rank
+    setPoliceRank(playerid, 0);
     setOnDuty(playerid, false);
-    players[playerid]["job"] = "policeofficer";
-    players[playerid]["rank"] = 0;
     msg(playerid, "You became a police officer.");
 }
 
 
 /**
- * Leave from police ABANDONED
+ * Leave from police
  * @param  {int} playerid
  */
 function leavePoliceJob(playerid) {
@@ -343,12 +324,11 @@ function leavePoliceJob(playerid) {
         return msg(playerid, "organizations.police.notanofficer");
     }
 
-    if(isPlayerHaveJob(playerid) && !isOfficer(playerid)) {
-        return msg(playerid, "general.job.anotherone", [getPlayerJob(playerid), "Police Officer"]);
+    if (isPlayerHaveJob(playerid)) {
+        return msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid));
     }
 
     setOnDuty(playerid, false);
     players[playerid]["job"] = null;
-    players[playerid]["rank"] = null;
     msg(playerid, "organizations.police.onleave");
 }

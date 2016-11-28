@@ -94,7 +94,7 @@ cmd("taser", function( playerid ) {
 
     if ( isOnDuty(playerid) ) {
         local targetid = playerList.nearestPlayer( playerid );
-        if (!targetid) {
+        if ( targetid == null) {
             return msg(playerid, "general.noonearound");
         }
         screenFadeinFadeout(targetid, 800, function() {
@@ -113,7 +113,7 @@ cmd(["cuff"], function(playerid) {
     if ( isOnDuty(playerid) ) {
         local targetid = playerList.nearestPlayer( playerid );
 
-        if ( !targetid ) {
+        if ( targetid == null ) {
             return msg(playerid, "general.noonearound");
         }
 
@@ -130,8 +130,8 @@ cmd(["cuff"], function(playerid) {
 cmd(["uncuff"], function(playerid) {
     if ( isOnDuty(playerid) ) {
         local targetid = playerList.nearestPlayer( playerid );
-        
-        if ( !targetid ) {
+
+        if ( targetid == null ) {
             return msg(playerid, "general.noonearound");
         }
 
@@ -150,7 +150,7 @@ cmd(["prison", "jail"], function(playerid, targetid) {
         screenFadein(targetid, 2000, function() {
         //  output "Wasted" and set player position
             setPlayerPosition( targetid, 0.0, 0.0, 0.0 );
-        });        
+        });
     }
 });
 
@@ -165,7 +165,7 @@ cmd(["amnesty"], function(playerid, targetid) {
 
         screenFadeout(targetid, 2200, function() {
             togglePlayerControls( targetid, false );
-        });        
+        });
     }
 })
 
