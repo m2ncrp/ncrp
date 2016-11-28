@@ -78,7 +78,7 @@ translation("ru", {
 "job.milkdriver.route.waiting"                      : "%d. %s - ожидается"
 "job.milkdriver.milktruckloaded"                    : "Молоковоз заполнен на %d из 120"
 
-"job.milkdriver.help.title"                         :    "Список доступных команд для развозчика молока:"
+"job.milkdriver.help.title"                         :    "Список команд, доступных развозчику молока:"
 "job.milkdriver.help.job"                           :    "Устроиться на работу развозчиком молока"
 "job.milkdriver.help.jobleave"                      :    "Уволиться с работы"
 "job.milkdriver.help.ready"                         :    "Получить маршрутный лист"

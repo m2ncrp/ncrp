@@ -68,7 +68,7 @@ translation("ru", {
 "job.fueldriver.routelist.waiting"                      : "%d. Заправка в %s - ожидается"
 "job.fueldriver.truck.loadedto"                         : "Бензовоз заполнен на %d из 16000."
 
-"job.fueldriver.help.title"                             : "Список доступных команд для водителя бензовоза:"
+"job.fueldriver.help.title"                             : "Список команд, доступных водителю бензовоза:"
 "job.fueldriver.help.job"                               : "Устроиться на работу водителем бензовоза"
 "job.fueldriver.help.leavejob"                          : "Уволиться с работы"
 "job.fueldriver.help.ready"                             : "Выйти в рейс"
