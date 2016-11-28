@@ -1,15 +1,19 @@
 // usage: /police job
-// cmd("police", "job", function(playerid) {
-//     getPoliceJob(playerid);
-// });
+acmd("police", "job", function(playerid) {
+    getPoliceJob(playerid);
+});
 
-// usage: /police job leave
-// cmd("police", ["job", "leave"], function(playerid) {
-//     leavePoliceJob(playerid);
-// });
+// usage: /police job leave <id>
+acmd("police", ["job", "leave"], function(playerid, targetid) {
+    local targetid = targetid.tointeger();
+    dbg( "[POLICE LEAVE]" + getAuthor(playerid) + " remove " + getAuthor(targetid) + "from Police" );
+    leavePoliceJob(targetid);
+});
 
-cmd("serial", function(playerid) {
-    msg( playerid, "organizations.police.getserial", [players[playerid]["serial"]], CL_THUNDERBIRD );
+acmd("serial", function(playerid, targetid) {
+    local targetid = targetid.tointeger();
+    dbg( [players[targetid]["serial"]] );
+    return msg( playerid, "general.admins.serial.get", [getAuthor(targetid), players[targetid]["serial"]], CL_THUNDERBIRD );
 });
 
 // usage: /police Train Station
@@ -25,10 +29,6 @@ cmd("police", ["duty", "on"], function(playerid) {
     }
     if ( !isOnDuty(playerid) ) {
         setOnDuty(playerid, true);
-        // givePlayerWeapon( playerid, 2, 0 ); // should be called once at spawn or zero ammo to prevent using infinite ammo usage in combats
-        return screenFadeinFadeout(playerid, 100, function() {
-                    setPlayerModel(playerid, POLICE_MODEL);
-                });
     } else {
         return msg(playerid, "organizations.police.duty.alreadyon");
     }
@@ -40,11 +40,7 @@ cmd("police", ["duty", "off"], function(playerid) {
         return msg(playerid, "organizations.police.notanofficer");
     }
     if ( isOnDuty(playerid) ) {
-        setOnDuty(playerid, false);
-        // removePlayerWeapon( playerid, 2 ); // remove at all
-        return screenFadeinFadeout(playerid, 100, function() {
-                    setPlayerModel(playerid, players[playerid]["default_skin"]);
-                });
+        return setOnDuty(playerid, false);
     } else {
         return msg(playerid, "organizations.police.duty.alreadyoff");
     }
@@ -55,8 +51,7 @@ policecmd(["r", "ratio"], function(playerid, text) {
         return msg(playerid, "organizations.police.notanofficer");
     }
     if( !isPlayerInPoliceVehicle(playerid) ) {
-        msg( playerid, "organizations.police.notinpolicevehicle");
-        return;
+        return msg( playerid, "organizations.police.notinpolicevehicle");
     }
 
     // Enhaincment: loop through not players, but police vehicles with radio has on
@@ -72,8 +67,7 @@ policecmd("rupor", function(playerid, text) {
         return;
     }
     if ( !isPlayerInPoliceVehicle(playerid) ) {
-        msg( playerid, "organizations.police.notinpolicevehicle");
-        return;
+        return msg( playerid, "organizations.police.notinpolicevehicle");
     }
     inRadiusSendToAll(playerid, "[RUPOR] " + text, RUPOR_RADIUS, CL_ROYALBLUE);
 });
@@ -188,7 +182,7 @@ cmd("help", ["job", "police"], function(playerid) {
         { name = "/ticket <id> <amount>",   desc = "Take ticket to player given <id>. Example: /ticket 0 5.2" },
         { name = "/taser",                  desc = "Shock nearest player for 0.8 seconds" },
         { name = "/cuff",                   desc = "Use cuff for nearest player" },
-        { name = "/prison",                 desc = "Put neares cuffed player in jail" }
+        { name = "/prison <id>",            desc = "Put neares cuffed player in jail" }
     ];
     msg_help(playerid, title, commands);
 });
