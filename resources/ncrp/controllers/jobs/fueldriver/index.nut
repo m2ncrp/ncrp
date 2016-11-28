@@ -24,6 +24,17 @@ translation("en", {
 "job.fueldriver.routelist.completed"                    : "%d. Gas station in %s - completed"
 "job.fueldriver.routelist.waiting"                      : "%d. Gas station in %s - waiting"
 "job.fueldriver.truck.loadedto"                         : "Fuel truck is loaded to %d / 16000"
+
+"job.fueldriver.help.title"                             : "List of available commands for FUELDRIVER JOB:"
+"job.fueldriver.help.job"                               : "Get fueldriver job"
+"job.fueldriver.help.leavejob"                          : "Leave fueldriver job"
+"job.fueldriver.help.ready"                             : "Ready to delivery"
+"job.fueldriver.help.load"                              : "Load fuel into truck"
+"job.fueldriver.help.unload"                            : "Unload fuel to fuel station"
+"job.fueldriver.help.park"                              : "Park the truck to Trago Oil parking"
+"job.fueldriver.help.check"                             : "Checking loading truck"
+"job.fueldriver.help.list"                              : "See list of route"
+
 });
 
 translation("ru", {
@@ -52,9 +63,20 @@ translation("ru", {
 "job.fueldriver.routelist.completed"                    : "%d. Заправка в %s - доставлено"
 "job.fueldriver.routelist.waiting"                      : "%d. Заправка в %s - ожидается"
 "job.fueldriver.truck.loadedto"                         : "Бензовоз заполнен на %d из 16000."
+
+"job.fueldriver.help.title"                             : "Список доступных команд для водителя бензовоза:"
+"job.fueldriver.help.job"                               : "Устроиться на работу водителем бензовоза"
+"job.fueldriver.help.leavejob"                          : "Уволиться с работы"
+"job.fueldriver.help.ready"                             : "Выйти в рейс"
+"job.fueldriver.help.load"                              : "Загрузить бензовоз"
+"job.fueldriver.help.unload"                            : "Выгрузить топливо на заправке"
+"job.fueldriver.help.park"                              : "Припарковать бензовоз на парковке Trago Oil"
+"job.fueldriver.help.check"                             : "Проверить загруженность бензовоза"
+"job.fueldriver.help.list"                              : "Посмотреть маршрутный лист"
+
 });
 
-include("controllers/jobs/fuel/commands.nut");
+include("controllers/jobs/fueldriver/commands.nut");
 
 local job_fuel = {};
 local fuelcars = {};
@@ -96,8 +118,8 @@ local fuelcoords = [
 ];
 
 
-addEventHandlerEx("onServerStarted", function() {
-    log("[jobs] loading fuel job...");
+event("onServerStarted", function() {
+    log("[jobs] loading fueldriver job...");
     // DEPRECATED | fuelcars[i][0] - Truck ready: true/false DEPRECATED
     // fuelcars[i][1] - Fuel load: integer
     fuelcars[createVehicle(5, 511.887, -277.5, -20.19, -179.464, -0.05, 0.1)]  <- [false, 0 ];
@@ -111,7 +133,7 @@ addEventHandlerEx("onServerStarted", function() {
     registerPersonalJobBlip("fueldriver", FUEL_JOB_X, FUEL_JOB_Y);
 });
 
-addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial) {
+event("onPlayerConnect", function(playerid, name, ip, serial) {
      job_fuel[playerid] <- {};
      job_fuel[playerid]["fuelstatus"] <- [false, false, false, false, false, false, false, false]; // see sequence of gas stations in variable fuelname
      job_fuel[playerid]["fuelBlipText"] <- [ [], [] ];

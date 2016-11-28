@@ -29,14 +29,25 @@ translation("en", {
 "job.milkdriver.route.completed"                    : "%d. %s - completed"
 "job.milkdriver.route.waiting"                      : "%d. %s - waiting"
 "job.milkdriver.milktruckloaded"                    : "Milk truck is loaded to %d / 120"
+
+"job.milkdriver.help.title"                         :    "List of available commands for MILKDRIVER JOB:"
+"job.milkdriver.help.job"                           :    "Get milkdriver job"
+"job.milkdriver.help.jobleave"                      :    "Leave milkdriver job"
+"job.milkdriver.help.ready"                         :    "Get route list"
+"job.milkdriver.help.load"                          :    "Load milk into milk truck"
+"job.milkdriver.help.unload"                        :    "Unload milk"
+"job.milkdriver.help.park"                          :    "Park the milk truck to Empire Bay Milk Company parking"
+"job.milkdriver.help.check"                         :    "Checking loading milk truck"
+"job.milkdriver.help.list"                          :    "See list of route"
+
 });
 
 translation("ru", {
-"job.milkdriver.letsgo"                             : "Отправляйтесь к зданию Empire Bay Milk Co.",
-"job.milkdriver.already."                           : "Вы уже работаете развозчиком молока.",
-"job.milkdriver.now"                                : "Вы стали развозчиком молока. Поздравляем!",
-"job.milkdriver.sitintruck"                         : "Садитесь в молоковоз.",
-"job.milkdriver.gotofarm"                           : "Отправляйтесь на ферму.",
+"job.milkdriver.letsgo"                             : "Отправляйтесь к зданию Empire Bay Milk Co."
+"job.milkdriver.already."                           : "Вы уже работаете развозчиком молока."
+"job.milkdriver.now"                                : "Вы стали развозчиком молока. Поздравляем!"
+"job.milkdriver.sitintruck"                         : "Садитесь в молоковоз."
+"job.milkdriver.gotofarm"                           : "Отправляйтесь на ферму."
 "job.milkdriver.not"                                : "Вы не работаете развозчиком молока."
 "job.milkdriver.needtruck"                          : "Вам нужен молоковоз."
 "job.milkdriver.route.already"                      : "У вас уже есть маршрутный лист"
@@ -62,6 +73,17 @@ translation("ru", {
 "job.milkdriver.route.completed"                    : "%d. %s - завершено"
 "job.milkdriver.route.waiting"                      : "%d. %s - ожидается"
 "job.milkdriver.milktruckloaded"                    : "Молоковоз заполнен на %d из 120"
+
+"job.milkdriver.help.title"                         :    "Список доступных команд для развозчика молока:"
+"job.milkdriver.help.job"                           :    "Устроиться на работу развозчиком молока"
+"job.milkdriver.help.jobleave"                      :    "Уволиться с работы"
+"job.milkdriver.help.ready"                         :    "Получить маршрутный лист"
+"job.milkdriver.help.load"                          :    "Загрузить молоко в молоковоз"
+"job.milkdriver.help.unload"                        :    "Выгрузить молоко"
+"job.milkdriver.help.park"                          :    "Припарковать молоковоз на парковке"
+"job.milkdriver.help.check"                         :    "Проверить загруженность молоковоза"
+"job.milkdriver.help.list"                          :    "Посмотреть маршрутный лист"
+
 });
 
 include("controllers/jobs/milkdriver/commands.nut");

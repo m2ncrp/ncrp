@@ -16,6 +16,13 @@ translation("en", {
 "job.cargodriver.takemoney"     : "Go to office at City Port and take your money."
 "job.cargodriver.needcomplete"  : "You must complete delivery before."
 "job.cargodriver.nicejob"       : "Nice job, %s! Keep $%.2f."
+
+"job.cargodriver.help.title"            :   "List of available commands for CARGODRIVER JOB:"
+"job.cargodriver.help.job"              :   "Get cargo delivery driver job"
+"job.cargodriver.help.jobleave"         :   "Leave cargo delivery driver job"
+"job.cargodriver.help.load"             :   "Load cargo into truck"
+"job.cargodriver.help.unload"           :   "Unload cargo"
+"job.cargodriver.help.finish"           :   "Report about delivery and get money"
 });
 
 translation("ru", {
@@ -36,6 +43,13 @@ translation("ru", {
 "job.cargodriver.takemoney"     : "Отправляйтесь в офис City Port и получите Ваш заработок."
 "job.cargodriver.needcomplete"  : "Завершите доставку."
 "job.cargodriver.nicejob"       : "Отличная работа, %s! Держи $%.2f."
+
+"job.cargodriver.help.title"            :   "Список доступных команд для водителя грузовика:"
+"job.cargodriver.help.job"              :   "Устроиться на работу водителем грузовика"
+"job.cargodriver.help.jobleave"         :   "Уволиться с работы"
+"job.cargodriver.help.load"             :   "Загрузить грузовик"
+"job.cargodriver.help.unload"           :   "Разгрузить грузовик"
+"job.cargodriver.help.finish"           :   "Сообщить о доставке и получить деньги"
 });
 
 include("controllers/jobs/cargodriver/commands.nut");
@@ -57,8 +71,8 @@ local cargocoords = {};
 cargocoords["PortChinese"] <- [-217.298, -724.771, -21.423]; // PortPlace P3 06 Chinese
 
 
-addEventHandlerEx("onServerStarted", function() {
-    log("[jobs] loading cargo job...");
+event("onServerStarted", function() {
+    log("[jobs] loading cargodriver job...");
     cargocars[createVehicle(38, 396.5, 101.977, -20.9432, -89.836, 0.40721, 0.0879066 )]  <- [ false ]; // SeagiftTruck0
     cargocars[createVehicle(38, 396.5, 98.0385, -20.9359, -88.4165, 0.479715, -0.0220962)]  <- [ false ];  //SeagiftTruck1
 
@@ -69,7 +83,7 @@ addEventHandlerEx("onServerStarted", function() {
     registerPersonalJobBlip("cargodriver", CARGO_JOB_X, CARGO_JOB_Y);
 });
 
-addEventHandler("onPlayerConnect", function(playerid, name, ip, serial) {
+event("onPlayerConnect", function(playerid, name, ip, serial) {
      job_cargo[playerid] <- {};
      job_cargo[playerid]["cargostatus"] <- false;
 });
