@@ -157,11 +157,8 @@ cmd(["prison", "jail"], function(playerid, targetid) {
 cmd(["amnesty"], function(playerid, targetid) {
     targetid = targetid.tointeger();
     if ( isOnDuty(playerid) ) {
-        local spawnID = players[targetid]["spawn"];
-        local x = default_spawns[spawnID][0];
-        local y = default_spawns[spawnID][1];
-        local z = default_spawns[spawnID][2];
-        setPlayerPosition(targetid, x, y, z);
+        setPlayerPosition(targetid, -380.856, 652.657, -11.6902); // police department
+        //setPlayerRotation(targetid, -137.53, 0.00309768, -0.00414733);
 
         screenFadeout(targetid, 2200, function() {
             togglePlayerControls( targetid, false );
@@ -169,21 +166,25 @@ cmd(["amnesty"], function(playerid, targetid) {
     }
 })
 
-
-// usage: /help job police
-cmd("help", ["job", "police"], function(playerid) {
+function policeHelp(playerid, a = null, b = null) {
     msg( playerid, "organizations.police.info.howjoin" );
     local title = "organizations.police.info.cmds.helptitle";
     local commands = [
         // { name = "/police job",             desc = "Get police officer job" },
         // { name = "/police job leave",       desc = "Leave from police department job" },
-        { name = "/r <text>",               desc = "organizations.police.info.cmds.ratio"},
-        { name = "/rupor <text>",           desc = "organizations.police.info.cmds.rupor"},
-        { name = "/ticket <id> <amount>",   desc = "organizations.police.info.cmds.ticket" },
+        { name = "/r text",               desc = "organizations.police.info.cmds.ratio"},
+        { name = "/rupor text",           desc = "organizations.police.info.cmds.rupor"},
+        { name = "/ticket id amount reason",   desc = "organizations.police.info.cmds.ticket" },
         { name = "/taser",                  desc = "organizations.police.info.cmds.taser" },
         { name = "/cuff",                   desc = "organizations.police.info.cmds.cuff" },
-        { name = "/prison <id>",            desc = "organizations.police.info.cmds.prison" },
-        { name = "/amnesty <id>",           desc = "organizations.police.info.cmds.amnesty" }
+        { name = "/uncuff",                   desc = "organizations.police.info.cmds.uncuff" },
+        { name = "/prison id",            desc = "organizations.police.info.cmds.prison" },
+        { name = "/amnesty id",           desc = "organizations.police.info.cmds.amnesty" }
     ];
     msg_help(playerid, title, commands);
-});
+}
+
+// usage: /help job police
+cmd("help", ["job", "police"], policeHelp);
+cmd("help", ["police"], policeHelp);
+cmd("help", ["police", "job"], policeHelp);
