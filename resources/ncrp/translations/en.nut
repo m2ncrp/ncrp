@@ -15,6 +15,8 @@ translation("en", {
 
     "job.leave"                         :   "You leave this job."
     "job.alreadyhavejob"                :   "You already have a job: %s."
+    "job.checkmyjob"                    :   "You are a %s."
+    "job.unemployed"                    :   "You are unemployed."
 
     "job.busdriver"                     :   "bus driver"
     "job.bus.letsgo"                    :   "Let's go to bus station in Uptown."
