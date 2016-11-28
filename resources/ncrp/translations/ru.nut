@@ -43,11 +43,11 @@ translation("ru", {
     "job.bus.help.busstop"              :   "Остановиться на автобусной остановке"
 
     "job.bus.route.select"              :   "Выберите один из доступных маршрутов:"
-    "job.bus.route.1"                   :   "Маршрут «Uptown - Sand Island» (7 остановок)."
-    "job.bus.route.2"                   :   "Маршрут «Uptown - Kingston» (7 остановок)."
-    "job.bus.route.3"                   :   "Маршрут «Правый берег реки Калвер» (9 остановок)."
-    "job.bus.route.4"                   :   "Маршрут «Центральный кольцевой» (12 остановок)."
-    "job.bus.route.5"                   :   "Маршрут «Большой Empire Bay» (21 остановка)."
+    "job.bus.route.1"                   :   "Маршрут «Uptown - Sand Island» (7 остановок)"
+    "job.bus.route.2"                   :   "Маршрут «Uptown - Kingston» (7 остановок)"
+    "job.bus.route.3"                   :   "Маршрут «Правый берег реки Калвер» (9 остановок)"
+    "job.bus.route.4"                   :   "Маршрут «Центральный кольцевой» (12 остановок)"
+    "job.bus.route.5"                   :   "Маршрут «Большой Empire Bay» (21 остановка)"
 
     "job.taxidriver"                    :   "Таксист"
     "job.taxi.driver.not"               :   "Вы не работаете таксистом."

@@ -25,7 +25,16 @@ cmd("cargo", "finish", function(playerid) {
 
 // usage: /help job cargo
 cmd("help", ["job", "cargo"], function(playerid) {
-    local title = "job.cargodriver.help.title";
+    cargoJobHelp ( playerid );
+});
+
+// usage: /help cargo job
+cmd("help", ["cargo", "job"], function(playerid) {
+    cargoJobHelp ( playerid );
+});
+
+function cargoJobHelp ( playerid ) {
+        local title = "job.cargodriver.help.title";
     local commands = [
         { name = "/cargo job",        desc = "job.cargodriver.help.job" },
         { name = "/cargo job leave",  desc = "job.cargodriver.help.jobleave" },
@@ -34,5 +43,4 @@ cmd("help", ["job", "cargo"], function(playerid) {
         { name = "/cargo finish",      desc = "job.cargodriver.help.finish" }
     ];
     msg_help(playerid, title, commands);
-});
-
+}
