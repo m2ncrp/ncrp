@@ -12,6 +12,9 @@ translation("en", {
     "general.message.empty"                     : "[INFO] You cant send an empty message",
     "general.noonearound"                       : "There's noone around near you.",
 
+    "organizations.police.call.withoutaddress"  : "You can't call police without address.",
+    "organizations.police.call.new"             : "[R] %s called police from %s",
+
     "organizations.police.crime.wasdone"        : "You would better not to do it..",
     "organizations.police.getserial"            : "Your serial is: %s",
     "organizations.police.notanofficer"         : "You're not a police officer.",
@@ -36,6 +39,9 @@ translation("en", {
 translation("ru", {
     "general.message.empty"                     : "[INFO] Вы не можете отправить пустую строку",
     "general.noonearound"                       : "Рядом с вами никого нет.",
+
+    "organizations.police.call.withoutaddress"  : "Вы не можете вызвать полицию не указав адреса.",
+    "organizations.police.call.new"             : "[R] поступил вызов от %s из %s",
 
     "organizations.police.crime.wasdone"        : "Лучше бы ты этого не делал..",
     "organizations.police.getserial"            : "Ваш серийный номер: %s",
@@ -164,6 +170,24 @@ function isOnDuty(playerid) {
 
 function setOnDuty(playerid, bool) {
     players[playerid]["onduty"] <- bool;
+}
+
+
+/**
+ * Call police officers from <place>
+ * @param  {int} playerid
+ * @param  {string} place   - address place of call
+ */
+function policeCall(playerid, place) {
+    if (!place || place.len() < 1) {
+            return msg(playerid, "organizations.police.call.withoutaddress");
+    }
+
+    foreach(player in playerList.getPlayers()) {
+        if ( isOfficer(player) && isOnDuty(player) ) {
+            msg(player, "organizations.police.call.new", [getAuthor(playerid), place], CL_ROYALBLUE);
+        }
+    }
 }
 
 

@@ -1,3 +1,59 @@
+translation("en", {
+"job.fueldriver.letsgo"                                 : "Let's go to Trago Oil headquartered in Oyster Bay."
+"job.fueldriver.already."                               : "You're fueldriver already."
+"job.fueldriver.now"                                    : "You're a fuel truck driver now! Congratulations!"
+"job.fueldriver.sitintotruck"                           : "Sit into fuel truck."
+"job.fueldriver.not"                                    : "You're not a fuel truck driver."
+"job.fueldriver.needfueltruck"                          : "You need a fuel truck."
+"job.fueldriver.truck.loaded"                           : "Truck is loaded to %d / 16000. Deliver fuel to gas stations."
+"job.fueldriver.truck.empty"                            : "The truck is empty. Go to the warehouse of fuel in South Millville to load fuel truck (yellow icon on radar)."
+"job.fueldriver.truck.toload"                           : "Go to the warehouse of fuel in South Millville to load fuel truck (yellow icon on radar)."
+"job.fueldriver.driving"                                : "You're driving. Please stop the fuel truck."
+"job.fueldriver.truck.alreadyloaded"                    : "Fuel truck already loaded."
+"job.fueldriver.truck.fullloaded"                       : "Fuel truck is loaded to 16000 / 16000. Deliver fuel to gas stations."
+"job.fueldriver.truck.fuelnotenough"                    : "Fuel is not enough. Go to the warehouse to load fuel truck (yellow icon on radar)."
+"job.fueldriver.truck.tounload"                         : "Go to gas station to unload fuel."
+"job.fueldriver.alreadybeenhere"                        : "You've already been here. Go to other gas station."
+"job.fueldriver.truck.parking"                          : "Nice job! Return the fuel truck to Trago Oil headquartered in Oyster Bay, park truck and take your money."
+"job.fueldriver.truck.unloadingcompletedtruckisloaded"  : "Unloading completed. Fuel truck is loaded to %d / 16000. Go to next gas station."
+"job.fueldriver.truck.unloadingcompletedfuelnotenough"  : "Unloading completed. Fuel is not enough. Go to the warehouse to load fuel truck (yellow icon on radar)."
+"job.fueldriver.truck.topark"                           : "Go to Trago Oil headquartered to park the fuel truck."
+"job.fueldriver.completedelivery"                       : "Complete fuel delivery to all gas stations."
+"job.fueldriver.nicejob"                                : "Nice job! You earned $%.2f."
+"job.fueldriver.routelist.title"                        : "========== List of route =========="
+"job.fueldriver.routelist.completed"                    : "%d. Gas station in %s - completed"
+"job.fueldriver.routelist.waiting"                      : "%d. Gas station in %s - waiting"
+"job.fueldriver.truck.loadedto"                         : "Fuel truck is loaded to %d / 16000"
+});
+
+translation("ru", {
+"job.fueldriver.letsgo"                                 : "Отправляйтесь к штаб-квартире Trago Oil в Oyster Bay."
+"job.fueldriver.already."                               : "Вы уже работает водителем бензовоза."
+"job.fueldriver.now"                                    : "Вы стали водителем бензовоза!"
+"job.fueldriver.sitintotruck"                           : "Садитесь в бензовоз."
+"job.fueldriver.not"                                    : "Вы не работаете водителем бензовоза."
+"job.fueldriver.needfueltruck"                          : "Вам нужен бензовоз."
+"job.fueldriver.truck.loaded"                           : "Бензовоз заполнен на %d из 16000. Развезите топливо по заправкам."
+"job.fueldriver.truck.empty"                            : "Бензовоз пуст. Отправляйтесь к топливному хранилищу в South Millville для загрузки (жёлтая метка на радаре)."
+"job.fueldriver.truck.toload"                           : "Отправляйтесь к топливному хранилищу в South Millville для загрузки (жёлтая метка на радаре)."
+"job.fueldriver.driving"                                : "Остановите бензовоз."
+"job.fueldriver.truck.alreadyloaded"                    : "Бензовоз уже заполнен."
+"job.fueldriver.truck.fullloaded"                       : "Бензовоз заполнен на 16000 из 16000. Развезите топливо по заправкам."
+"job.fueldriver.truck.fuelnotenough"                    : "Недостаточно топлива. Отправляйтесь к топливному хранилищу для загрузки (жёлтая метка на радаре)"
+"job.fueldriver.truck.tounload"                         : "Разгрузка топлива возможна только на заправках."
+"job.fueldriver.alreadybeenhere"                        : "Вы уже были здесь. Направляйтесь к другой заправке."
+"job.fueldriver.truck.parking"                          : "Хорошая работа! Верните бензовоз к штаб-квартире Trago Oil в Oyster Bay, припаркуйте и получите Ваш заработок."
+"job.fueldriver.truck.unloadingcompletedtruckisloaded"  : "Разгрузка выполнена. Бензовоз заполнен на %d из 16000. Направляйтесь к следующей заправке."
+"job.fueldriver.truck.unloadingcompletedfuelnotenough"  : "Разгрузка выполнена. Топливо закончилось. Отправляйтесь к топливному хранилищу для загрузки (жёлтая метка на радаре)"
+"job.fueldriver.truck.topark"                           : "Чтобы припарковать бензовоз, отправляйтесь к штаб-квартире Trago Oil в Oyster Bay."
+"job.fueldriver.completedelivery"                       : "Развезите топливо по по всем заправкам."
+"job.fueldriver.nicejob"                                : "Отличная работа! Вы заработали $%.2f."
+"job.fueldriver.routelist.title"                        : "========== Маршутный лист =========="
+"job.fueldriver.routelist.completed"                    : "%d. Заправка в %s - доставлено"
+"job.fueldriver.routelist.waiting"                      : "%d. Заправка в %s - ожидается"
+"job.fueldriver.truck.loadedto"                         : "Бензовоз заполнен на %d из 16000."
+});
+
 include("controllers/jobs/fuel/commands.nut");
 
 local job_fuel = {};
@@ -9,7 +65,7 @@ const FUEL_JOB_Y = -266.866;
 const FUEL_JOB_Z = -20.1644;
 const FUEL_JOB_SKIN = 144;
 const FUEL_JOB_DISTANCE = 75;
-
+const FUEL_JOB_SALARY = 40.0;
 const FUEL_JOB_WAREHOUSE_X = 788.288;
 const FUEL_JOB_WAREHOUSE_Y = -78.0801;
 const FUEL_JOB_WAREHOUSE_Z = -20.0379;
@@ -140,19 +196,19 @@ function isFuelReady(playerid) {
 function fuelJob ( playerid ) {
 
     if(!isPlayerInValidPoint(playerid, FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_RADIUS)) {
-        return msg( playerid, "Let's go to Trago Oil headquartered in Oyster Bay (right door at corner of the building) to become fuel truck driver." );
+        return msg( playerid, "job.fueldriver.letsgo" );
     }
 
     if(isFuelDriver(playerid)) {
-        return msg( playerid, "You're fueldriver already.");
+        return msg( playerid, "job.fueldriver.already.");
     }
 
     if(isPlayerHaveJob(playerid)) {
-        return msg(playerid, "You already have a job: " + getPlayerJob(playerid) + ".");
+        return msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid));
     }
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
-        msg( playerid, "You're a fuel truck driver now! Congratulations!" );
-        msg( playerid, "Sit into fuel truck." );
+        msg( playerid, "job.fueldriver.now" );
+        msg( playerid, "job.fueldriver.sitintotruck" );
 
         players[playerid]["job"] = "fueldriver";
 
@@ -169,14 +225,14 @@ function fuelJob ( playerid ) {
 function fuelJobLeave ( playerid ) {
 
     if(!isPlayerInValidPoint(playerid, FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_RADIUS)) {
-        return msg( playerid, "Let's go to Trago Oil headquartered in Oyster Bay (right door at corner of the building) to become fuel truck driver." );
+        return msg( playerid, "job.fueldriver.letsgo" );
     }
 
     if(!isFuelDriver(playerid)) {
-        return msg( playerid, "You're not a fuel truck driver.");
+        return msg( playerid, "job.fueldriver.not");
     }
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
-        msg( playerid, "You leave this job." );
+        msg( playerid, "job.leave" );
 
         players[playerid]["job"] = null;
 
@@ -197,11 +253,11 @@ function fuelJobLeave ( playerid ) {
 function fuelJobReady ( playerid ) {
 
     if(!isFuelDriver(playerid)) {
-        return msg( playerid, "You're not a fuel truck driver.");
+        return msg( playerid, "job.fueldriver.not");
     }
 
     if (!isPlayerVehicleFuel(playerid)) {
-        return msg(playerid, "You need a fuel truck.");
+        return msg(playerid, "job.fueldriver.needfueltruck");
     }
 
     local vehicleid = getPlayerVehicle(playerid);
@@ -210,9 +266,9 @@ function fuelJobReady ( playerid ) {
     fuelJobWarehouseCreateBlipText( playerid );
 
     if(fuelcars[vehicleid][1] >= 4000) {
-        msg( playerid, "Truck is loaded to " + fuelcars[vehicleid][1] + " / 16000. Deliver fuel to gas stations.");
+        msg( playerid, "job.fueldriver.truck.loaded", fuelcars[vehicleid][1]);
     } else {
-        msg( playerid, "The truck is empty. Go to the warehouse of fuel in South Millville to load fuel truck (yellow icon on radar)." );
+        msg( playerid, "job.fueldriver.truck.empty" );
     }
 }
 
@@ -220,11 +276,11 @@ function fuelJobReady ( playerid ) {
 function fuelJobLoad ( playerid ) {
 
     if(!isFuelDriver(playerid)) {
-        return msg( playerid, "You're not a fuel truck driver.");
+        return msg( playerid, "job.fueldriver.not");
     }
 
     if (!isPlayerVehicleFuel(playerid)) {
-        return msg(playerid, "You need a fuel truck.");
+        return msg(playerid, "job.fueldriver.needfueltruck");
     }
 
     local vehicleid = getPlayerVehicle(playerid);
@@ -232,20 +288,20 @@ function fuelJobLoad ( playerid ) {
     if(!isVehicleInValidPoint(playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, 5.0)) {
         // create blip and 3text for warehouse
         fuelJobWarehouseCreateBlipText( playerid );
-        return msg( playerid, "Go to the warehouse of fuel in South Millville to load fuel truck (yellow icon on radar)." );
+        return msg( playerid, "job.fueldriver.truck.toload" );
     }
 
     if(isPlayerVehicleMoving(playerid)){
-        return msg( playerid, "You're driving. Please stop the fuel truck.");
+        return msg( playerid, "job.fueldriver.driving");
     }
 
     if(fuelcars[vehicleid][1] == 16000) {
-       return msg( playerid, "Fuel truck already loaded." );
+       return msg( playerid, "job.fueldriver.truck.alreadyloaded" );
     }
 
     if(fuelcars[vehicleid][1] < 16000) {
         fuelcars[vehicleid][1] = 16000;
-        msg( playerid, "Fuel truck is loaded to 16000 / 16000. Deliver fuel to gas stations." );
+        msg( playerid, "job.fueldriver.truck.fullloaded" );
     }
 
     // create fuel marks
@@ -256,17 +312,17 @@ function fuelJobLoad ( playerid ) {
 function fuelJobUnload ( playerid ) {
 
     if(!isFuelDriver(playerid)) {
-        return msg( playerid, "You're not a fuel truck driver.");
+        return msg( playerid, "job.fueldriver.not");
     }
 
     if (!isPlayerVehicleFuel(playerid)) {
-        return msg(playerid, "You need a fuel truck.");
+        return msg(playerid, "job.fueldriver.needfueltruck");
     }
 
     local vehicleid = getPlayerVehicle(playerid);
 
     if(fuelcars[vehicleid][1] < 4000) {
-        return msg( playerid, "Fuel is not enough. Go to the warehouse to load fuel truck (yellow icon on radar)." );
+        return msg( playerid, "job.fueldriver.truck.fuelnotenough" );
     }
 
     local check = false;
@@ -280,15 +336,15 @@ function fuelJobUnload ( playerid ) {
     }
 
     if (!check) {
-       return  msg( playerid, "Go to gas station to unload fuel." );
+       return  msg( playerid, "job.fueldriver.truck.tounload" );
     }
 
     if(isPlayerVehicleMoving(playerid)){
-        return msg( playerid, "You're driving. Please stop the fuel truck.");
+        return msg( playerid, "job.fueldriver.driving");
     }
 
     if(job_fuel[playerid]["fuelstatus"][i]) {
-        return msg( playerid, "You've already been here. Go to other gas station." );
+        return msg( playerid, "job.fueldriver.alreadybeenhere" );
     }
 
     fuelcars[vehicleid][1] -= 4000;
@@ -299,12 +355,12 @@ function fuelJobUnload ( playerid ) {
     removeFuelJobStationMark(playerid, i);
 
     if (job_fuel[playerid]["fuelcomplete"] == 8) {
-        msg( playerid, "Nice job! Return the fuel truck to Trago Oil headquartered in Oyster Bay, park truck and take your money." );
+        msg( playerid, "job.fueldriver.truck.parking" );
     } else {
         if (fuelcars[vehicleid][1] >= 4000) {
-            msg( playerid, "Unloading completed. Fuel truck is loaded to " + fuelcars[vehicleid][1] + " / 16000. Go to next gas station." );
+            msg( playerid, "job.fueldriver.truck.unloadingcompletedtruckisloaded", fuelcars[vehicleid][1] );
         } else {
-            msg( playerid, "Unloading completed. Fuel is not enough. Go to the warehouse to load fuel truck (yellow icon on radar)." );
+            msg( playerid, "job.fueldriver.truck.unloadingcompletedfuelnotenough" );
         }
     }
 }
@@ -314,30 +370,30 @@ function fuelJobUnload ( playerid ) {
 function fuelJobPark ( playerid ) {
 
     if(!isFuelDriver(playerid)) {
-        return msg( playerid, "You're not a fuel truck driver.");
+        return msg( playerid, "job.fueldriver.not");
     }
 
     if (!isPlayerVehicleFuel(playerid)) {
-        return msg(playerid, "You need a fuel truck.");
+        return msg(playerid, "job.fueldriver.needfueltruck");
     }
 
     local vehicleid = getPlayerVehicle(playerid);
 
     if(!isVehicleInValidPoint(playerid, 517.782, -277.5, 10.0)) {
-        return msg( playerid, "Go to Trago Oil headquartered to park the fuel truck." );
+        return msg( playerid, "job.fueldriver.truck.topark" );
     }
 
     if(isPlayerVehicleMoving(playerid)){
-        return msg( playerid, "You're driving. Please stop the fuel truck.");
+        return msg( playerid, "job.fueldriver.driving");
     }
 
     if (job_fuel[playerid]["fuelcomplete"] < 8) {
-        return msg( playerid, "Complete fuel delivery to all gas stations." );
+        return msg( playerid, "job.fueldriver.completedelivery" );
     }
 
     job_fuel[playerid]["fuelcomplete"] = 0;
-    msg( playerid, "Nice job! You earned $40." );
-    addMoneyToPlayer(playerid, 40);
+    msg( playerid, "job.fueldriver.nicejob", FUEL_JOB_SALARY );
+    addMoneyToPlayer(playerid, FUEL_JOB_SALARY);
 
     // clear all marks
     clearFuelJobStationMarks( playerid );
@@ -348,31 +404,31 @@ function fuelJobPark ( playerid ) {
 // working good, check
 function fuelJobList ( playerid ) {
     if(players[playerid]["job"] == "fueldriver")    {
-        msg( playerid, "========== List of route ==========", CL_JOB_LIST);
+        msg( playerid, "job.fueldriver.routelist.title", CL_JOB_LIST);
         foreach (key, value in job_fuel[playerid]["fuelstatus"]) {
             local i = key+1;
             if (value == true) {
-                msg( playerid, i + ". Gas station in " + fuelname[key] + " - completed", CL_JOB_LIST_GR);
+                msg( playerid, "job.fueldriver.routelist.completed", [i , fuelname[key]], CL_JOB_LIST_GR);
             } else {
-                msg( playerid, i + ". Gas station in " + fuelname[key] + " - waiting", CL_JOB_LIST_R);
+                msg( playerid, "job.fueldriver.routelist.waiting", [i, fuelname[key]], CL_JOB_LIST_R);
             }
         }
-    } else { msg( playerid, "You're not a fuel truck driver"); }
+    } else { msg( playerid, "job.fueldriver.not"); }
 }
 
 // working good, check
 function fuelJobCheck ( playerid ) {
 
     if(!isFuelDriver(playerid)) {
-        return msg( playerid, "You're not a fuel truck driver.");
+        return msg( playerid, "job.fueldriver.not");
     }
 
     if (!isPlayerVehicleFuel(playerid)) {
-        return msg(playerid, "You need a fuel truck.");
+        return msg(playerid, "job.fueldriver.needfueltruck");
     }
 
     local vehicleid = getPlayerVehicle(playerid);
-    msg( playerid, "Fuel truck is loaded to " + fuelcars[vehicleid][1] + " / 16000" );
+    msg( playerid, "job.fueldriver.truck.loadedto", fuelcars[vehicleid][1] );
 }
 
 
