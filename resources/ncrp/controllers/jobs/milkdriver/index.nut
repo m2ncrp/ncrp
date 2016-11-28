@@ -60,7 +60,7 @@ translation("ru", {
 "job.milkdriver.nicejob"                            : "Отличная работа! Вы заработали $20."
 "job.milkdriver.route.title"                        : "========== Маршрутный лист =========="
 "job.milkdriver.route.completed"                    : "%d. %s - завершено"
-"job.milkdriver.route.waiting"                      : "%d. %s - ожидание"
+"job.milkdriver.route.waiting"                      : "%d. %s - ожидается"
 "job.milkdriver.milktruckloaded"                    : "Молоковоз заполнен на %d из 120"
 });
 

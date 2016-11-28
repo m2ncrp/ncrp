@@ -107,8 +107,8 @@ function carShopCheckFreeSpace() {
 }
 
 function carShopCreatePlace() {
-    carShopDisplay.text = create3DText(carShopPlace.x, carShopPlace.y, carShopPlace.z+0.35, "== Car Shop ==", CL_WHITE);
-    carShopDisplay.help = create3DText(carShopPlace.x, carShopPlace.y, carShopPlace.z-0.15, "/car", CL_WHITE.applyAlpha(150));
+    carShopDisplay.text = create3DText(carShopPlace.x, carShopPlace.y, carShopPlace.z+0.35, "=== CAR SHOP ===", CL_ROYALBLUE );
+    carShopDisplay.help = create3DText(carShopPlace.x, carShopPlace.y, carShopPlace.z+0.20, "/car", CL_WHITE.applyAlpha(150), CARSHOP_DISTANCE);
     return true;
 }
 
