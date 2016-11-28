@@ -72,6 +72,16 @@ translation("en", {
     "job.taxi.cantleavejob1"            :   "You can't leave job while you have a call."
     "job.taxi.cantleavejob2"            :   "You can't leave job while you'll complete the trip."
 
+    "job.taxi.help.title"               :   "List of available commands for TAXI JOB:"
+    "job.taxi.help.job"                 :   "Get taxi driver job"
+    "job.taxi.help.jobleave"            :   "Leave from taxi driver job"
+    "job.taxi.help.onair"               :   "Set status as ON air"
+    "job.taxi.help.offair"              :   "Set status as OFF air"
+    "job.taxi.help.take"                :   "Take call with <id>. Example: /taxi take 5"
+    "job.taxi.help.refuse"              :   "Refuse the current taken call"
+    "job.taxi.help.ready"               :   "Report that the taxicar has arrived to the address"
+    "job.taxi.help.end"                 :   "End trip and send invoice to pay <amount> dollars. Example: /taxi end 1.25"
+
     "taxi.needpay"                      :   "To drive this car you need to pay $%.2f for fuel and rent. If you agree: /drive"
     "taxi.notenough"                    :   "You don't have enough money."
     "taxi.youpay"                       :   "You paid $%.2f. Now you can drive this car."
@@ -82,4 +92,7 @@ translation("en", {
     "taxi.call.received"                :   "Your call is received by driver. The car goes to you."
     "taxi.call.arrived"                 :   "Your taxi car with plate %s arrived to address."
     "taxi.call.refused"                 :   "Driver refused from your call. Wait another driver."
+    "taxi.help.title"                   :   "List of available commands for TAXI:"
+    "taxi.help.taxi"                    :   "/taxi your_address - Call a taxi to address"
+
 });

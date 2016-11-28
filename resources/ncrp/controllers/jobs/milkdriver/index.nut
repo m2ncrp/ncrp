@@ -43,11 +43,11 @@ translation("en", {
 });
 
 translation("ru", {
-"job.milkdriver.letsgo"                             : "Отправляйтесь к зданию Empire Bay Milk Co.",
-"job.milkdriver.already."                           : "Вы уже работаете развозчиком молока.",
-"job.milkdriver.now"                                : "Вы стали развозчиком молока. Поздравляем!",
-"job.milkdriver.sitintruck"                         : "Садитесь в молоковоз.",
-"job.milkdriver.gotofarm"                           : "Отправляйтесь на ферму.",
+"job.milkdriver.letsgo"                             : "Отправляйтесь к зданию Empire Bay Milk Co."
+"job.milkdriver.already."                           : "Вы уже работаете развозчиком молока."
+"job.milkdriver.now"                                : "Вы стали развозчиком молока. Поздравляем!"
+"job.milkdriver.sitintruck"                         : "Садитесь в молоковоз."
+"job.milkdriver.gotofarm"                           : "Отправляйтесь на ферму."
 "job.milkdriver.not"                                : "Вы не работаете развозчиком молока."
 "job.milkdriver.needtruck"                          : "Вам нужен молоковоз."
 "job.milkdriver.route.already"                      : "У вас уже есть маршрутный лист"
