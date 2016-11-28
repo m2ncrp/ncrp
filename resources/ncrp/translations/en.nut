@@ -24,7 +24,6 @@ translation("en", {
     "job.bus.route.needselect"          :   "You need to select route."
     "job.bus.route.tochange"            :   "To select route use /bus route id"
     "job.bus.route.noexist"             :   "Selected route doesn't exist. Select available route."
-    "job.bus.route.select"              :   "Select one route from available routes:"
     "job.bus.route.selected"            :   "You selected route #%d. Sit into bus."
     "job.bus.route.needcomplete"        :   "Complete current route."
     "job.bus.needbus"                   :   "You need a bus."
@@ -34,6 +33,21 @@ translation("en", {
     "job.bus.gotobusstop"               :   "Go to bus stop in %s."
     "job.bus.driving"                   :   "You're driving. Please stop the bus."
     "job.bus.nicejob"                   :   "Nice job! You earned $%.2f"
+
+    "job.bus.help.title"                :   "List of available commands for BUSDRIVER JOB:"
+    "job.bus.help.job"                  :   "Get busdriver job"
+    "job.bus.help.jobleave"             :   "Leave busdriver job"
+    "job.bus.help.routelist"            :   "Show list of available routes"
+    "job.bus.help.route"                :   "Select route. Example: /bus route 3"
+    "job.bus.help.ready"                :   "Go to the route (make the bus ready)"
+    "job.bus.help.busstop"              :   "Check in at the bus stop"
+
+    "job.bus.route.select"              :   "Select one route from available routes:"
+    "job.bus.route.1"                   :   "Uptown - Sand Island Route (7 station)."
+    "job.bus.route.2"                   :   "Uptown - Kingston Route  (7 station)."
+    "job.bus.route.3"                   :   "Right bank of Culver River Route (9 station)."
+    "job.bus.route.4"                   :   "Central Circle Route (12 station)."
+    "job.bus.route.5"                   :   "Big Empire Bay Route (21 station)."
 
     "job.taxidriver"                    :   "Taxi Driver"
     "job.taxi.driver.not"               :   "You're not a Taxi Driver."
@@ -58,6 +72,16 @@ translation("en", {
     "job.taxi.cantleavejob1"            :   "You can't leave job while you have a call."
     "job.taxi.cantleavejob2"            :   "You can't leave job while you'll complete the trip."
 
+    "job.taxi.help.title"               :   "List of available commands for TAXI JOB:"
+    "job.taxi.help.job"                 :   "Get taxi driver job"
+    "job.taxi.help.jobleave"            :   "Leave from taxi driver job"
+    "job.taxi.help.onair"               :   "Set status as ON air"
+    "job.taxi.help.offair"              :   "Set status as OFF air"
+    "job.taxi.help.take"                :   "Take call with <id>. Example: /taxi take 5"
+    "job.taxi.help.refuse"              :   "Refuse the current taken call"
+    "job.taxi.help.ready"               :   "Report that the taxicar has arrived to the address"
+    "job.taxi.help.end"                 :   "End trip and send invoice to pay <amount> dollars. Example: /taxi end 1.25"
+
     "taxi.needpay"                      :   "To drive this car you need to pay $%.2f for fuel and rent. If you agree: /drive"
     "taxi.notenough"                    :   "You don't have enough money."
     "taxi.youpay"                       :   "You paid $%.2f. Now you can drive this car."
@@ -68,4 +92,6 @@ translation("en", {
     "taxi.call.received"                :   "Your call is received by driver. The car goes to you."
     "taxi.call.arrived"                 :   "Your taxi car with plate %s arrived to address."
     "taxi.call.refused"                 :   "Driver refused from your call. Wait another driver."
+    "taxi.help.title"                   :   "List of available commands for TAXI:"
+    "taxi.help.taxi"                    :   "/taxi your_address - Call a taxi to address"
 });

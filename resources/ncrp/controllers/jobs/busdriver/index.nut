@@ -42,8 +42,8 @@ local userbusstop = [
     [-104.387, 377.106,  -13.9932, "East Side"                       ]   // busst10
 ];
 */
-addEventHandlerEx("onServerStarted", function() {
-    log("[jobs] loading bus driver job...");
+event("onServerStarted", function() {
+    log("[jobs] loading busdriver job...");
     createVehicle(20, -436.205, 417.33, 0.908799, 45.8896, -0.100647, 0.237746);
     createVehicle(20, -436.652, 427.656, 0.907598, 44.6088, -0.0841779, 0.205202);
     createVehicle(20, -437.04, 438.027, 0.907163, 45.1754, -0.100916, 0.242581);
@@ -96,7 +96,7 @@ addEventHandlerEx("onServerStarted", function() {
 
 });
 
-addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial ){
+event("onPlayerConnect", function(playerid, name, ip, serial ){
      job_bus[playerid] <- {};
      job_bus[playerid]["busready"] <- false;
      job_bus[playerid]["route"] <- false;
@@ -240,11 +240,11 @@ function busJobRoutes( playerid ) {
 
     local title = "job.bus.route.select";
     local commands = [
-        { name = "#1",  desc = "Uptown - Sand Island Route (7 station)." },
-        { name = "#2",  desc = "Uptown - Kingston Route  (7 station)" },
-        { name = "#3",  desc = "Right bank of Culver River Route (9 station)" },
-        { name = "#4",  desc = "Central Circle Route (12 station)" },
-        { name = "#5",  desc = "Big Empire Bay Route (21 station)" }
+        { name = "#1",  desc = "job.bus.route.1" },
+        { name = "#2",  desc = "job.bus.route.2" },
+        { name = "#3",  desc = "job.bus.route.3" },
+        { name = "#4",  desc = "job.bus.route.4" },
+        { name = "#5",  desc = "job.bus.route.5" }
     ];
     msg_help(playerid, title, commands);
     msg( playerid, "job.bus.route.tochange");
@@ -354,7 +354,7 @@ function busJobStop( playerid ) {
 }
 
 // don't touch and don't replace. Service command for fast test!
-cmd("gotobusstop", function(playerid) {
+acmd("gotobusstop", function(playerid) {
     local busid = job_bus[playerid]["route"][1][0];
     local poss = busStops[busid].private;
     setVehiclePosition( getPlayerVehicle(playerid), poss.x, poss.y, poss.z );

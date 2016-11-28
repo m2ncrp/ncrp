@@ -53,14 +53,14 @@ cmd("bus", "exit", function(playerid, busid) {
 });
 
 function busJobHelp ( playerid ) {
-    local title = "List of available commands for BUSDRIVER JOB:";
+    local title = "job.bus.help.title";
     local commands = [
-        { name = "/bus job",        desc = "Get busdriver job" },
-        { name = "/bus job leave",  desc = "Leave busdriver job" },
-        { name = "/bus route list", desc = "Show list of available routes"},
-        { name = "/bus route <id>", desc = "Select route. Example: /bus route 3"},
-        { name = "/bus ready",      desc = "Go to the route (make the bus ready)"},
-        { name = "/bus stop",       desc = "Check in bus stop" }
+        { name = "/bus job",        desc = "job.bus.help.job" },
+        { name = "/bus job leave",  desc = "job.bus.help.jobleave" },
+        { name = "/bus route list", desc = "job.bus.help.routelist" },
+        { name = "/bus route <id>", desc = "job.bus.help.route" },
+        { name = "/bus ready",      desc = "job.bus.help.ready" },
+        { name = "/bus stop",       desc = "job.bus.help.busstop" }
     ];
     msg_help(playerid, title, commands);
 }

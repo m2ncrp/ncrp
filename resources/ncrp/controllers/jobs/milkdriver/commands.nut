@@ -40,16 +40,25 @@ cmd("milk", "list", function(playerid) {
 
 // usage: /help job milk
 cmd("help", ["job", "milk"], function(playerid) {
-    local title = "List of available commands for MILKDRIVER JOB:";
+    milkJobHelp ( playerid );
+});
+
+// usage: /help job milk
+cmd("help", ["milk", "job"], function(playerid) {
+    milkJobHelp ( playerid );
+});
+
+function milkJobHelp ( playerid ) {
+    local title = "job.milkdriver.help.title";
     local commands = [
-        { name = "/milk job",       desc = "Get milkdriver job" },
-        { name = "/milk job leave", desc = "Leave milkdriver job" },
-        { name = "/milk ready",     desc = "Get route list" },
-        { name = "/milk load",      desc = "Load milk into milk truck" },
-        { name = "/milk unload",    desc = "Unload milk to institution" },
-        { name = "/milk park",      desc = "Park the milk truck to Empire Bay Milk Company parking" },
-        { name = "/milk check",     desc = "Checking loading milk truck" },
-        { name = "/milk list",      desc = "See list of route" }
+        { name = "/milk job",       desc = "job.milkdriver.help.job" },
+        { name = "/milk job leave", desc = "job.milkdriver.help.jobleave" },
+        { name = "/milk ready",     desc = "job.milkdriver.help.ready" },
+        { name = "/milk load",      desc = "job.milkdriver.help.load" },
+        { name = "/milk unload",    desc = "job.milkdriver.help.unload" },
+        { name = "/milk park",      desc = "job.milkdriver.help.park" },
+        { name = "/milk check",     desc = "job.milkdriver.help.check" },
+        { name = "/milk list",      desc = "job.milkdriver.help.list" }
     ];
     msg_help(playerid, title, commands);
-});
+}

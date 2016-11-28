@@ -46,25 +46,36 @@ cmd("taxi", "off", function(playerid) {
 
 // usage: /help taxi
 cmd("help", "taxi", function(playerid) {
-    msg(playerid, "============== Help Taxi ===============", CL_WHITE);
-    msg(playerid, "/taxi <your location> - Call a taxi from location", CL_WHITE);
+    msg(playerid, "==================================", CL_HELP_LINE);
+    msg(playerid, "taxi.help.title", CL_HELP_TITLE);
+    msg(playerid, "taxi.help.taxi", CL_WHITE);
 });
 
 // usage: /help job taxi
 cmd("help", ["job", "taxi"], function(playerid) {
-    local title = "List of available commands for TAXI JOB:";
+    taxiJobHelp ( playerid );
+});
+
+// usage: /help taxi job
+cmd("help", ["taxi", "job"], function(playerid) {
+    taxiJobHelp ( playerid );
+});
+
+function taxiJobHelp ( playerid ) {
+    local title = "job.taxi.help.title";
     local commands = [
-        { name = "/taxi job",              desc = "Get taxi driver job" },
-        { name = "/taxi job leave",        desc = "Leave from taxi driver job" },
-        { name = "/taxi on",               desc = "Set status as ON air"},
-        { name = "/taxi off",              desc = "Set status as OFF air" },
-        { name = "/taxi take <id>",        desc = "Take call with <id>. Example: /taxi take 5" },
-        { name = "/taxi refuse",           desc = "Refuse the current taken call" },
-        { name = "/taxi ready",            desc = "Report that the taxicar has arrived to the address" },
-        { name = "/taxi end <amount>",     desc = "End trip and send invoice to pay <amount> dollars. Example: /taxi end 1.25" }
+        { name = "/taxi job",              desc = "job.taxi.help.job" },
+        { name = "/taxi job leave",        desc = "job.taxi.help.jobleave" },
+        { name = "/taxi on",               desc = "job.taxi.help.onair" },
+        { name = "/taxi off",              desc = "job.taxi.help.offair" },
+        { name = "/taxi take id",          desc = "job.taxi.help.take" },
+        { name = "/taxi refuse",           desc = "job.taxi.help.refuse" },
+        { name = "/taxi ready",            desc = "job.taxi.help.ready" },
+        { name = "/taxi end amount",       desc = "job.taxi.help.end" }
     ];
     msg_help(playerid, title, commands);
-});
+}
+
 
 
 /*
