@@ -18,7 +18,11 @@ translation("ru", {
 "job.realtor.customer" : "Customer did not pay."
 });
 
-include("controllers/jobs/realty/commands.nut");
+include("controllers/jobs/realtor/commands.nut");
+
+event("onServerStarted", function() {
+    log("[jobs] loading realtor job...");
+});
 
 function isRealtor (playerid) {
     return (isPlayerHaveValidJob(playerid, "realtor"));

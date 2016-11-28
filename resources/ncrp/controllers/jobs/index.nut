@@ -1,12 +1,12 @@
 include("controllers/jobs/commands.nut");
 include("controllers/jobs/busdriver");
-include("controllers/jobs/fuel");
+include("controllers/jobs/fueldriver");
 include("controllers/jobs/taxi");
 include("controllers/jobs/milkdriver");
 include("controllers/jobs/cargodriver");
 include("controllers/jobs/telephone");
 include("controllers/jobs/docker");
-include("controllers/jobs/realty");
+include("controllers/jobs/realtor");
 
 
 event("onServerStarted", function() {

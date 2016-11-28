@@ -94,5 +94,4 @@ translation("en", {
     "taxi.call.refused"                 :   "Driver refused from your call. Wait another driver."
     "taxi.help.title"                   :   "List of available commands for TAXI:"
     "taxi.help.taxi"                    :   "/taxi your_address - Call a taxi to address"
-
 });
