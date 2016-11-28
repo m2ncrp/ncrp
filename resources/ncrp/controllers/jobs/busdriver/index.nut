@@ -11,7 +11,7 @@ const BUS_JOB_Z = 0.10922;
 const BUS_JOB_SKIN = 171;
 const BUS_JOB_BUSSTOP = "STOP HERE (middle of the bus)";
 const BUS_JOB_DISTANCE = 100;
-
+const BUS_JOB_LEVEL = 1;
 /*
 local busstops = [
     ["Go to first bus station in Uptown near platform #3",          -423.116, 440.924, 0.132165],
@@ -188,6 +188,10 @@ function busJob( playerid ) {
 
     if(isPlayerHaveJob(playerid)) {
         return msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid) );
+    }
+
+    if(!isPlayerLevelValid ( playerid, BUS_JOB_LEVEL )) {
+        return msg(playerid, "job.bus.needlevel", BUS_JOB_LEVEL );
     }
 
     screenFadeinFadeoutEx(playerid, 250, 200, function() {

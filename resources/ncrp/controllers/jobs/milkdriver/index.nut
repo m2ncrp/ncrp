@@ -1,9 +1,11 @@
 translation("en", {
-"job.milkdriver.letsgo"                             : "Let's go to Empire Bay Milk Co.",
-"job.milkdriver.already."                           : "You're milkdriver already.",
-"job.milkdriver.now"                                : "You're a milk truck driver now! Congratulations!",
-"job.milkdriver.sitintruck"                         : "Sit into milk truck.",
-"job.milkdriver.gotofarm"                           : "Let's go to farm",
+"job.milkdriver"                                    : "milk truck driver"
+"job.milkdriver.letsgo"                             : "Let's go to Empire Bay Milk Co."
+"job.milkdriver.needlevel"                          : "You need level %d to become milk truck driver."
+"job.milkdriver.already."                           : "You're milkdriver already."
+"job.milkdriver.now"                                : "You're a milk truck driver now! Congratulations!"
+"job.milkdriver.sitintruck"                         : "Sit into milk truck."
+"job.milkdriver.gotofarm"                           : "Let's go to farm"
 "job.milkdriver.not"                                : "You're not a milk truck driver."
 "job.milkdriver.needtruck"                          : "You need a milk truck."
 "job.milkdriver.route.already"                      : "You got routes list already."
@@ -43,7 +45,9 @@ translation("en", {
 });
 
 translation("ru", {
+"job.milkdriver"                                    : "развозчик молока"
 "job.milkdriver.letsgo"                             : "Отправляйтесь к зданию Empire Bay Milk Co."
+"job.milkdriver.needlevel"                          : "Развозчиком молока можно устроиться начиная с уровня %d."
 "job.milkdriver.already."                           : "Вы уже работаете развозчиком молока."
 "job.milkdriver.now"                                : "Вы стали развозчиком молока. Поздравляем!"
 "job.milkdriver.sitintruck"                         : "Садитесь в молоковоз."
@@ -98,6 +102,7 @@ const MILK_JOB_Z = -20.1758;
 const MILK_JOB_SKIN = 171;
 const MILK_JOB_DISTANCE = 100;
 const MILK_JOB_NUMBER_STATIONS = 6;
+const MILK_JOB_LEVEL = 1;
 
 local milkname = [
     "Hill Of Tara Black Exit",                  // Hill Of Tara Black Exit
@@ -237,6 +242,11 @@ function milkJob ( playerid ) {
     if(isPlayerHaveJob(playerid)) {
         return msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid));
     }
+
+    if(!isPlayerLevelValid ( playerid, MILK_JOB_LEVEL )) {
+        return msg(playerid, "job.milkdriver.needlevel", MILK_JOB_LEVEL );
+    }
+
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
         msg( playerid, "job.milkdriver.now" );
         msg( playerid, "job.milkdriver.sitintruck" );

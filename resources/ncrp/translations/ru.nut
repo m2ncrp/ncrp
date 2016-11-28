@@ -18,6 +18,7 @@ translation("ru", {
 
     "job.busdriver"                     :   "водитель автобуса"
     "job.bus.letsgo"                    :   "Отправляйтесь на автобусный вокзал в Аптауне."
+    "job.bus.needlevel"                 :   "Водителем автобуса можно устроиться начиная с уровня %d."
     "job.bus.driver.not"                :   "Вы не работает водителем автобуса."
     "job.bus.driver.already"            :   "Вы уже работаете водителем автобуса."
     "job.bus.driver.now"                :   "Вы стали водителем автобуса! Поздравляем!"
@@ -34,7 +35,7 @@ translation("ru", {
     "job.bus.driving"                   :   "Остановите автобус."
     "job.bus.nicejob"                   :   "Отличная работа! Вы заработали $%.2f."
 
-    "job.bus.help.title"                :   "Список доступных команд для водителя автобуса:"
+    "job.bus.help.title"                :   "Список команд, доступных водителю автобуса:"
     "job.bus.help.job"                  :   "Устроиться на работу водителем автобуса"
     "job.bus.help.jobleave"             :   "Уволиться с работы"
     "job.bus.help.routelist"            :   "Список доступных маршрутов"
@@ -49,7 +50,8 @@ translation("ru", {
     "job.bus.route.4"                   :   "Маршрут «Центральный кольцевой» (12 остановок)"
     "job.bus.route.5"                   :   "Маршрут «Большой Empire Bay» (21 остановка)"
 
-    "job.taxidriver"                    :   "Таксист"
+    "job.taxidriver"                    :   "таксист"
+    "job.taxi.needlevel"                :   "Таксистом можно устроиться начиная с уровня %d."
     "job.taxi.driver.not"               :   "Вы не работаете таксистом."
     "job.taxi.driver.already"           :   "Вы уже работаете таксистом."
     "job.taxi.driver.now"               :   "Вы стали таксистом. Выйдите на линию, чтобы начать принимать вызовы."
@@ -72,7 +74,7 @@ translation("ru", {
     "job.taxi.cantleavejob1"            :   "Вы не можете уволиться при наличии принятого звонка."
     "job.taxi.cantleavejob2"            :   "Вы не можете уволиться во время выполнения вызова."
 
-    "job.taxi.help.title"               :   "Список доступных команд для таксиста:"
+    "job.taxi.help.title"               :   "Список команд, доступных таксисту:"
     "job.taxi.help.job"                 :   "Устроиться на работу таксистом"
     "job.taxi.help.jobleave"            :   "Уволиться с работы"
     "job.taxi.help.onair"               :   "Выйти на линию"
