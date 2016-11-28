@@ -1,4 +1,4 @@
-cmd("realty", "sell", function(playerid, targetid, price) {
+cmd("realtor", "sell", function(playerid, targetid, price) {
     realtyJobSell(playerid, targetid, price);
 });
 

@@ -72,7 +72,7 @@ cargocoords["PortChinese"] <- [-217.298, -724.771, -21.423]; // PortPlace P3 06 
 
 
 addEventHandlerEx("onServerStarted", function() {
-    log("[jobs] loading cargo job...");
+    log("[jobs] loading cargodriver job...");
     cargocars[createVehicle(38, 396.5, 101.977, -20.9432, -89.836, 0.40721, 0.0879066 )]  <- [ false ]; // SeagiftTruck0
     cargocars[createVehicle(38, 396.5, 98.0385, -20.9359, -88.4165, 0.479715, -0.0220962)]  <- [ false ];  //SeagiftTruck1
 

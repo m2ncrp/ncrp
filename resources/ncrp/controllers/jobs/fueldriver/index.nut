@@ -76,7 +76,7 @@ translation("ru", {
 
 });
 
-include("controllers/jobs/fuel/commands.nut");
+include("controllers/jobs/fueldriver/commands.nut");
 
 local job_fuel = {};
 local fuelcars = {};
@@ -118,8 +118,8 @@ local fuelcoords = [
 ];
 
 
-addEventHandlerEx("onServerStarted", function() {
-    log("[jobs] loading fuel job...");
+event("onServerStarted", function() {
+    log("[jobs] loading fueldriver job...");
     // DEPRECATED | fuelcars[i][0] - Truck ready: true/false DEPRECATED
     // fuelcars[i][1] - Fuel load: integer
     fuelcars[createVehicle(5, 511.887, -277.5, -20.19, -179.464, -0.05, 0.1)]  <- [false, 0 ];
@@ -133,7 +133,7 @@ addEventHandlerEx("onServerStarted", function() {
     registerPersonalJobBlip("fueldriver", FUEL_JOB_X, FUEL_JOB_Y);
 });
 
-addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial) {
+event("onPlayerConnect", function(playerid, name, ip, serial) {
      job_fuel[playerid] <- {};
      job_fuel[playerid]["fuelstatus"] <- [false, false, false, false, false, false, false, false]; // see sequence of gas stations in variable fuelname
      job_fuel[playerid]["fuelBlipText"] <- [ [], [] ];
