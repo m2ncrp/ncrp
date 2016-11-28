@@ -111,3 +111,29 @@ function setPlayerLocale(playerid, locale = "en") {
 
     return false;
 }
+
+/**
+ * Get player level
+ *
+ * @param  {Integer} playerid
+ * @return {Integer}
+ */
+function getPlayerLevel(playerid) {
+    if (!(playerid in players)) {
+        return null;
+    }
+
+    return floor(0.1 * sqrt(players[playerid].xp * 0.25));
+}
+
+/**
+ * Is player level is passes validation
+ * (same or bigger as the one provided)
+ *
+ * @param  {Integer} playerid
+ * @param  {Number}  level
+ * @return {Boolean}
+ */
+function isPlayerLevelValid(playerid, level = 1) {
+    return (getPlayerLevel(playerid) >= level)
+}
