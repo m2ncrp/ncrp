@@ -11,7 +11,6 @@ translation("en", {
     "chat.player.try.body"          : "[TRY] %s try %s",
     "chat.player.try.end.success"   : "%s (success).",
     "chat.player.try.end.fail"      : "%s (failed)."
-
 });
 
 translation("ru", {

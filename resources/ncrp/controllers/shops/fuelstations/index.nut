@@ -6,7 +6,9 @@ translation("en", {
     "shops.fuelstations.fueltank.check"     : "Fuel level: %.2f gallons.",
     "shops.fuelstations.fueltank.full"      : "[FUEL] Your fuel tank is full!",
     "shops.fuelstations.money.notenough"    : "[FUEL] Not enough money. Need $%.2f, but you have only $%s",
-    "shops.fuelstations.fuel.payed"         : "[FUEL] You pay $%.2f for %.2f gallons. Current balance $%s. Come to us again."
+    "shops.fuelstations.fuel.payed"         : "[FUEL] You pay $%.2f for %.2f gallons. Current balance $%s. Come to us again.",
+
+    "shops.fuelstations.help.fuelup"        : "To fill up vehicle fuel tank"
 });
 
 translation("ru", {
@@ -15,7 +17,9 @@ translation("ru", {
     "shops.fuelstations.fueltank.check"     : "В баке: %.2f литров.",
     "shops.fuelstations.fueltank.full"      : "[FUEL] Бак полон!",
     "shops.fuelstations.money.notenough"    : "[FUEL] Денег недостаточно. Для оплаты требуется $%.2f, а у вас только $%s",
-    "shops.fuelstations.fuel.payed"         : "[FUEL] Вы заплатили $%.2f за %.2f литров. Ваш баланс $%s. Будем рады видеть вас вновь."
+    "shops.fuelstations.fuel.payed"         : "[FUEL] Вы заплатили $%.2f за %.2f литров. Ваш баланс $%s. Будем рады видеть вас вновь.",
+
+    "shops.fuelstations.help.fuelup"        : "Заправить автомобиль"
 });
 
 const MAX_FUEL_LEVEL = 70.0;
