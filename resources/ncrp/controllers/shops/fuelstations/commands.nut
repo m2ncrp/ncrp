@@ -6,15 +6,24 @@ cmd( ["fuel"], "up", function( playerid ) {
     return fuelup(playerid);
 });
 
-cmd( ["fuel"], "low", function( playerid ) {
+acmd( ["fuel"], "low", function( playerid ) {
     local vehicleid = getPlayerVehicle(playerid);
     return setVehicleFuel(vehicleid, 10.0);
 });
 
 
-cmd( ["fuel"], "test", function( playerid ) {
+acmd( ["fuel"], "test", function( playerid ) {
     local vehicleid = getPlayerVehicle(playerid);
     local volume = getVehicleFuel(vehicleid) + 1.0;
     msg( playerid, "shops.fuelstations.fueltank.check", [volume] );
     return setVehicleFuel(vehicleid, volume);
 });
+
+
+function fuelStationsHelp ( playerid ) {
+    local title = "job.taxi.help.title";
+    local commands = [
+        { name = "/fuel up",    desc = "shops.fuelstations.help.fuelup" }
+    ];
+    msg_help(playerid, title, commands);
+}
