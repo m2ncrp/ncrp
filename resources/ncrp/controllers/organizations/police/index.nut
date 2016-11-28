@@ -57,9 +57,10 @@ translation("en", {
     "organizations.police.info.cmds.helptitle"  : "List of available commands for Police Officer JOB:",
     "organizations.police.info.cmds.ratio"      : "Send message to all police by ratio",
     "organizations.police.info.cmds.rupor"      : "Say smth to police vehicle rupor",
-    "organizations.police.info.cmds.ticket"     : "Give ticket to player with given id. Example: /ticket 0 2.1",
+    "organizations.police.info.cmds.ticket"     : "Give ticket to player with given id. Example: /ticket 0 2.1 speed limit",
     "organizations.police.info.cmds.taser"      : "Shock nearset player",
-    "organizations.police.info.cmds.cuff"       : "Use cuff for nearest player",
+    "organizations.police.info.cmds.cuff"       : "Сuff nearest player",
+    "organizations.police.info.cmds.cuff"       : "Uncuff nearest player",
     "organizations.police.info.cmds.prison"     : "Put nearest cuffed player in jail",
     "organizations.police.info.cmds.amnesty"    : "Take out player with given id from prison",
 
@@ -104,10 +105,11 @@ translation("ru", {
     "organizations.police.info.howjoin"         : "Если вы хотите пополнить ряды офицеров департамента Empire Bay, напишите администраторам!",
     "organizations.police.info.cmds.helptitle"  : "Список команд, доступных офицерам полиции:",
     "organizations.police.info.cmds.ratio"      : "Сказать что-либо в полицейскую рацию",
-    "organizations.police.info.cmds.rupor"      : "Скачать что-либо в рупор служебной машины",
-    "organizations.police.info.cmds.ticket"     : "Выдать штраф игроку с указанным id. Пример: /ticket 0 2.1",
+    "organizations.police.info.cmds.rupor"      : "Сказать что-либо в рупор служебной машины",
+    "organizations.police.info.cmds.ticket"     : "Выдать штраф игроку с указанным id. Пример: /ticket 0 2.1 превышение скорости",
     "organizations.police.info.cmds.taser"      : "Обездвижить ближайшего игрока",
     "organizations.police.info.cmds.cuff"       : "Надеть наручники на ближайшего игрока",
+    "organizations.police.info.cmds.cuff"       : "Снять наручники с ближайшего игрока",
     "organizations.police.info.cmds.prison"     : "Посадить игрока с указанным id в тюрьму",
     "organizations.police.info.cmds.amnesty"    : "Вытащить игрока с указанным id из тюрьмы",
 
@@ -122,9 +124,9 @@ const CUFF_RADIUS = 3.0;
 const POLICE_MODEL = 75;
 
 POLICE_RANK <- [
-    "job.police.officer",    // "Police Officer",
-    "job.police.detective",  // "Detective",
-    "job.police.chief"       // "Mein Führer",
+    "police.officer",    // "Police Officer",
+    "police.detective",  // "Detective",
+    "police.chief"       // "Mein Führer",
 ];
 MAX_RANK <- POLICE_RANK.len()-1;
 
@@ -165,15 +167,13 @@ event("onServerStarted", function() {
 });
 
 event("onPlayerConnect", function(playerid, name, ip, serial) {
-    if ( isOfficer(playerid) ) {
-        police[playerid] <- { onduty = false };
-    }
+    // if ( isOfficer(playerid) ) {
+    //     police[playerid] <- { onduty = false };
+    // }
 });
 
 event("onPlayerSpawn", function( playerid ) {
-    if ( isOfficer(playerid) ) {
-        givePlayerWeapon( playerid, 2, 36 );
-    }
+    // nothing here
 });
 
 event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
@@ -271,9 +271,9 @@ function rankUpPolice(playerid) {
         setPoliceRank(playerid, getPoliceRank(playerid) + 1);
 
         // send message
-        msg( playerid, "organizations.police.onrankup", [ localize( players[playerid].job, [], getPlayerLocale(playerid)) ] );
+        msg( playerid, "organizations.police.onrankup", [ getLocalizedPlayerJob(playerid) ] );
     } else {
-        msg( playerid, "organizations.police.job.getmaxrank", [ localize( POLICE_RANK[MAX_RANK], [], getPlayerLocale(playerid)) ] );
+        msg( playerid, "organizations.police.job.getmaxrank", [ localize( "job." + POLICE_RANK[MAX_RANK], [], getPlayerLocale(playerid)) ] );
     }
 }
 
