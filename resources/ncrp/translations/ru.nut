@@ -14,7 +14,9 @@ translation("ru", {
     "bank.help.commandslist"            :   "Список доступных комманд для Grand Imperial Bank:"
 
     "job.leave"                         :   "Вы уволились с работы."
-    "job.alreadyhavejob"                :   "У вас уже есть работа: %s"
+    "job.alreadyhavejob"                :   "У вас уже есть работа: %s."
+    "job.checkmyjob"                    :   "Ваша работа: %s."
+    "job.unemployed"                    :   "У вас нет работы."
 
     "job.busdriver"                     :   "водитель автобуса"
     "job.bus.letsgo"                    :   "Отправляйтесь на автобусный вокзал в Аптауне."

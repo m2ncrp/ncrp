@@ -39,6 +39,11 @@ cmd("help", ["bus", "job"], function(playerid) {
     busJobHelp ( playerid );
 });
 
+// usage: /bus job help
+cmd("bus", ["job", "help"], function(playerid) {
+    busJobHelp ( playerid );
+});
+
 
 cmd("bus", "enter", function(playerid, busid) {
     foreach (idx, value in players) {
