@@ -31,7 +31,7 @@ translation("ru", {
 "job.docker.gotowarehouse"      : "Иди на склад."
 "job.docker.nicejob"            : "Ты принёс ящик. Твой заработок $%.2f."
 
-"job.docker.help.title"         : "Список доступных команд для портового рабочего:"
+"job.docker.help.title"         : "Список команд, доступных портовому рабочему:"
 "job.docker.help.job"           : "Устроиться на работу портовым рабочим"
 "job.docker.help.jobleave"      : "Уволиться с работы"
 "job.docker.help.take"          : "Взять ящик"

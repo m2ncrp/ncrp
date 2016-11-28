@@ -48,7 +48,7 @@ translation("ru", {
 "job.cargodriver.needcomplete"  : "Завершите доставку."
 "job.cargodriver.nicejob"       : "Отличная работа, %s! Держи $%.2f."
 
-"job.cargodriver.help.title"            :   "Список доступных команд для водителя грузовика:"
+"job.cargodriver.help.title"            :   "Список команд, доступных водителю грузовика:"
 "job.cargodriver.help.job"              :   "Устроиться на работу водителем грузовика"
 "job.cargodriver.help.jobleave"         :   "Уволиться с работы"
 "job.cargodriver.help.load"             :   "Загрузить грузовик"
