@@ -40,16 +40,25 @@ cmd("fuel", "list", function(playerid) {
 
 // usage: /help job fuel
 cmd("help", ["job", "fuel"], function(playerid) {
-    local title = "List of available commands for FUELDRIVER JOB:";
+    fuelJobHelp ( playerid );
+});
+
+// usage: /help fuel job
+cmd("help", ["fuel", "job"], function(playerid) {
+    fuelJobHelp ( playerid );
+});
+
+function fuelJobHelp ( playerid ) {
+    local title = "job.fueldriver.help.title";
     local commands = [
-        { name = "/fuel job",       desc = "Get fueldriver job" },
-        { name = "/fuel job leave", desc = "Leave fueldriver job" },
-        { name = "/fuel ready",     desc = "Ready to delivery" },
-        { name = "/fuel load",      desc = "Load fuel into truck" },
-        { name = "/fuel unload",    desc = "Unload fuel to fuel station" },
-        { name = "/fuel park",      desc = "Park the truck to Trago Oil parking" },
-        { name = "/fuel check",     desc = "Checking loading truck" },
-        { name = "/fuel list",      desc = "See list of route" }
+        { name = "/fuel job",       desc = "job.fueldriver.help.job" },
+        { name = "/fuel job leave", desc = "job.fueldriver.help.leavejob" },
+        { name = "/fuel ready",     desc = "job.fueldriver.help.ready" },
+        { name = "/fuel load",      desc = "job.fueldriver.help.load" },
+        { name = "/fuel unload",    desc = "job.fueldriver.help.unload" },
+        { name = "/fuel park",      desc = "job.fueldriver.help.park" },
+        { name = "/fuel check",     desc = "job.fueldriver.help.check" },
+        { name = "/fuel list",      desc = "job.fueldriver.help.list" }
     ];
     msg_help(playerid, title, commands);
-});
+}
