@@ -1,5 +1,14 @@
 // usage: /help job
 cmd("help", "job", function(playerid) {
+    jobHelp ( playerid );
+});
+
+// usage: /job
+cmd("job", function(playerid) {
+    jobHelp ( playerid );
+});
+
+function jobHelp ( playerid ) {
     local title = "List of available commands for JOB:";
     local commands = [
         { name = "/help job docker",       desc = "Info about docker job in Port" },
@@ -10,4 +19,4 @@ cmd("help", "job", function(playerid) {
         { name = "/help job taxi",         desc = "Info about taxi driver job" }
     ];
     msg_help(playerid, title, commands);
-});
+}

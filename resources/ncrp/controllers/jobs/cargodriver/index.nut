@@ -71,7 +71,7 @@ local cargocoords = {};
 cargocoords["PortChinese"] <- [-217.298, -724.771, -21.423]; // PortPlace P3 06 Chinese
 
 
-addEventHandlerEx("onServerStarted", function() {
+event("onServerStarted", function() {
     log("[jobs] loading cargodriver job...");
     cargocars[createVehicle(38, 396.5, 101.977, -20.9432, -89.836, 0.40721, 0.0879066 )]  <- [ false ]; // SeagiftTruck0
     cargocars[createVehicle(38, 396.5, 98.0385, -20.9359, -88.4165, 0.479715, -0.0220962)]  <- [ false ];  //SeagiftTruck1
@@ -83,7 +83,7 @@ addEventHandlerEx("onServerStarted", function() {
     registerPersonalJobBlip("cargodriver", CARGO_JOB_X, CARGO_JOB_Y);
 });
 
-addEventHandler("onPlayerConnect", function(playerid, name, ip, serial) {
+event("onPlayerConnect", function(playerid, name, ip, serial) {
      job_cargo[playerid] <- {};
      job_cargo[playerid]["cargostatus"] <- false;
 });

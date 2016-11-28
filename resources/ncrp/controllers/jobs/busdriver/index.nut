@@ -42,7 +42,7 @@ local userbusstop = [
     [-104.387, 377.106,  -13.9932, "East Side"                       ]   // busst10
 ];
 */
-addEventHandlerEx("onServerStarted", function() {
+event("onServerStarted", function() {
     log("[jobs] loading busdriver job...");
     createVehicle(20, -436.205, 417.33, 0.908799, 45.8896, -0.100647, 0.237746);
     createVehicle(20, -436.652, 427.656, 0.907598, 44.6088, -0.0841779, 0.205202);
@@ -96,7 +96,7 @@ addEventHandlerEx("onServerStarted", function() {
 
 });
 
-addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial ){
+event("onPlayerConnect", function(playerid, name, ip, serial ){
      job_bus[playerid] <- {};
      job_bus[playerid]["busready"] <- false;
      job_bus[playerid]["route"] <- false;
@@ -354,7 +354,7 @@ function busJobStop( playerid ) {
 }
 
 // don't touch and don't replace. Service command for fast test!
-cmd("gotobusstop", function(playerid) {
+acmd("gotobusstop", function(playerid) {
     local busid = job_bus[playerid]["route"][1][0];
     local poss = busStops[busid].private;
     setVehiclePosition( getPlayerVehicle(playerid), poss.x, poss.y, poss.z );
