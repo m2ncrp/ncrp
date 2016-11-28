@@ -51,13 +51,10 @@ cmd("help", "taxi", function(playerid) {
     msg(playerid, "taxi.help.taxi", CL_WHITE);
 });
 
-
-
 // usage: /help job taxi
 cmd("help", ["job", "taxi"], function(playerid) {
     taxiJobHelp ( playerid );
 });
-
 
 // usage: /help taxi job
 cmd("help", ["taxi", "job"], function(playerid) {
