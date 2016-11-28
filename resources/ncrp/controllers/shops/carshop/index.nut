@@ -17,6 +17,18 @@ translation("en", {
     "shops.carshop.success"       : "Contratulations! You've successfuly bought a car. Fare you well!",
 });
 
+// translations
+translation("ru", {
+    "shops.carshop.gotothere"     : "Добро пожаловать, %s! Если вы хотите купить авто, отпарвляйтесь в Diamond Motors!",
+    "shops.carshop.welcome"       : "Если вы хотите купить авто, выберите модель через: /car list",
+    "shops.carshop.nofreespace"   : "К сожалению на парковке нету свободных мест. Попробуйте позже!",
+    "shops.carshop.money.error"   : "К сожалению у вас недостаточно денег. Проверить баланс можно используя: /money",
+    "shops.carshop.selectmodel"   : "Вы можете просмотреть модели авто и их цены используя: /car list",
+    "shops.carshop.list.title"    : "Выберите модель которая вам подходит, и купите ее используя: /car buy <modelid>",
+    "shops.carshop.list.entry"    : " - Модель #%d, «%s». Цена: $%.2f",
+    "shops.carshop.success"       : "Поздравляем! Вы успешно купили автомобиль. Счастливого пути!",
+});
+
 event("onServerStarted", function() {
     return carShopCreatePlace();
 });
