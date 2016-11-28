@@ -240,11 +240,11 @@ function busJobRoutes( playerid ) {
 
     local title = "job.bus.route.select";
     local commands = [
-        { name = "#1",  desc = "Uptown - Sand Island Route (7 station)." },
-        { name = "#2",  desc = "Uptown - Kingston Route  (7 station)" },
-        { name = "#3",  desc = "Right bank of Culver River Route (9 station)" },
-        { name = "#4",  desc = "Central Circle Route (12 station)" },
-        { name = "#5",  desc = "Big Empire Bay Route (21 station)" }
+        { name = "#1",  desc = "job.bus.route.1" },
+        { name = "#2",  desc = "job.bus.route.2" },
+        { name = "#3",  desc = "job.bus.route.3" },
+        { name = "#4",  desc = "job.bus.route.4" },
+        { name = "#5",  desc = "job.bus.route.5" }
     ];
     msg_help(playerid, title, commands);
     msg( playerid, "job.bus.route.tochange");
