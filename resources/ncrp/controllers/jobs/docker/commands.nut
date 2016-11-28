@@ -18,15 +18,23 @@ cmd("docker", "put", function(playerid) {
     dockerJobPutBox( playerid );
 });
 
-
 // usage: /help job docker
 cmd("help", ["job", "docker"], function(playerid) {
-    local title = "List of available commands for DOCKER JOB:";
+    dockerJobHelp ( playerid );
+});
+
+// usage: /help docker job
+cmd("help", ["docker", "job"], function(playerid) {
+    dockerJobHelp ( playerid );
+});
+
+function dockerJobHelp ( playerid ) {
+    local title = "job.docker.help.title";
     local commands = [
-        { name = "/docker job",       desc = "Get docker job." },
-        { name = "/docker job leave", desc = "Leave docker job." },
-        { name = "/docker take",      desc = "Take a box." },
-        { name = "/docker put",       desc = "Put box to warehouse." }
+        { name = "/docker job",       desc = "job.docker.help.job" },
+        { name = "/docker job leave", desc = "job.docker.help.jobleave" },
+        { name = "/docker take",      desc = "job.docker.help.take" },
+        { name = "/docker put",       desc = "job.docker.help.put" }
     ];
     msg_help(playerid, title, commands);
-});
+}

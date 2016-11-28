@@ -10,6 +10,12 @@ translation("en", {
 "job.docker.haventbox"          : "You haven't a box."
 "job.docker.gotowarehouse"      : "Go to warehouse."
 "job.docker.nicejob"            : "You put the box. You earned $%.2f."
+
+"job.docker.help.title"         :   "List of available commands for DOCKER JOB:"
+"job.docker.help.job"           :   "Get docker job."
+"job.docker.help.jobleave"      :   "Leave docker job."
+"job.docker.help.take"          :   "Take a box."
+"job.docker.help.put"           :   "Put box to warehouse."
 });
 
 translation("ru", {
@@ -24,6 +30,12 @@ translation("ru", {
 "job.docker.haventbox"          : "Ты не брал ящик."
 "job.docker.gotowarehouse"      : "Иди на склад."
 "job.docker.nicejob"            : "Ты принёс ящик. Твой заработок $%.2f."
+
+"job.docker.help.title"         : "Список доступных команд для портового рабочего:"
+"job.docker.help.job"           : "Устроиться на работу портовым рабочим"
+"job.docker.help.jobleave"      : "Уволиться с работы"
+"job.docker.help.take"          : "Взять ящик"
+"job.docker.help.put"           : "Положить ящик на склад"
 });
 
 include("controllers/jobs/docker/commands.nut");
