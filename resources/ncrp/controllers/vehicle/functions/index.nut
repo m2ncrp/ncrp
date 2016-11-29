@@ -8,6 +8,7 @@ include("controllers/vehicle/functions/ownership.nut");
 include("controllers/vehicle/functions/saving.nut");
 include("controllers/vehicle/functions/blocking.nut");
 include("controllers/vehicle/functions/fuel.nut");
+include("controllers/vehicle/functions/plates.nut");
 
 // saving original vehicle method
 local old__createVehicle = createVehicle;
@@ -21,11 +22,6 @@ createVehicle = function(modelid, x, y, z, rx, ry, rz) {
     local vehicle = old__createVehicle(
         modelid.tointeger(), x.tofloat(), y.tofloat(), z.tofloat(), rx.tofloat(), ry.tofloat(), rz.tofloat()
     );
-
-    // apply default functions
-    setVehicleRotation(vehicle, rx.tofloat(), ry.tofloat(), rz.tofloat());
-    getVehicleOverride(vehicle, modelid.tointeger());
-    setVehicleDirtLevel(vehicle, randomf(VEHICLE_MIN_DIRT, VEHICLE_MAX_DIRT));
 
     // save vehicle record
     __vehicles[vehicle] <- {
@@ -46,6 +42,14 @@ createVehicle = function(modelid, x, y, z, rx, ry, rz) {
             rear  = -1
         }
     };
+
+    // apply default functions
+    setVehicleRotation(vehicle, rx.tofloat(), ry.tofloat(), rz.tofloat());
+    setVehicleDirtLevel(vehicle, randomf(VEHICLE_MIN_DIRT, VEHICLE_MAX_DIRT));
+    setVehiclePlateText(vehicle, getRandomVehiclePlate());
+
+    // apply overrides
+    getVehicleOverride(vehicle, modelid.tointeger());
 
     return vehicle;
 };
