@@ -1,6 +1,8 @@
 translation("en", {
+"job.fueldriver"                                        : "fuel truck driver"
 "job.fueldriver.letsgo"                                 : "Let's go to Trago Oil headquartered in Oyster Bay."
-"job.fueldriver.already."                               : "You're fueldriver already."
+"job.fueldriver.needlevel"                              : "You need level %d to become fuel truck driver."
+"job.fueldriver.already"                                : "You're fuel truck driver already."
 "job.fueldriver.now"                                    : "You're a fuel truck driver now! Congratulations!"
 "job.fueldriver.sitintotruck"                           : "Sit into fuel truck."
 "job.fueldriver.not"                                    : "You're not a fuel truck driver."
@@ -38,8 +40,10 @@ translation("en", {
 });
 
 translation("ru", {
+"job.fueldriver"                                        : "водитель бензовоза"
 "job.fueldriver.letsgo"                                 : "Отправляйтесь к штаб-квартире Trago Oil в Oyster Bay."
-"job.fueldriver.already."                               : "Вы уже работает водителем бензовоза."
+"job.fueldriver.needlevel"                              : "Водителем бензовоза можно устроиться начиная с уровня %d."
+"job.fueldriver.already"                                : "Вы уже работает водителем бензовоза."
 "job.fueldriver.now"                                    : "Вы стали водителем бензовоза!"
 "job.fueldriver.sitintotruck"                           : "Садитесь в бензовоз."
 "job.fueldriver.not"                                    : "Вы не работаете водителем бензовоза."
@@ -64,7 +68,7 @@ translation("ru", {
 "job.fueldriver.routelist.waiting"                      : "%d. Заправка в %s - ожидается"
 "job.fueldriver.truck.loadedto"                         : "Бензовоз заполнен на %d из 16000."
 
-"job.fueldriver.help.title"                             : "Список доступных команд для водителя бензовоза:"
+"job.fueldriver.help.title"                             : "Список команд, доступных водителю бензовоза:"
 "job.fueldriver.help.job"                               : "Устроиться на работу водителем бензовоза"
 "job.fueldriver.help.leavejob"                          : "Уволиться с работы"
 "job.fueldriver.help.ready"                             : "Выйти в рейс"
@@ -87,10 +91,11 @@ const FUEL_JOB_Y = -266.866;
 const FUEL_JOB_Z = -20.1644;
 const FUEL_JOB_SKIN = 144;
 const FUEL_JOB_DISTANCE = 75;
-const FUEL_JOB_SALARY = 40.0;
+const FUEL_JOB_SALARY = 30.0;
 const FUEL_JOB_WAREHOUSE_X = 788.288;
 const FUEL_JOB_WAREHOUSE_Y = -78.0801;
 const FUEL_JOB_WAREHOUSE_Z = -20.0379;
+const FUEL_JOB_LEVEL = 3;
 
 local fuelname = [
     "Oyster Bay",                       // FuelStation Oyster Bay
@@ -222,12 +227,17 @@ function fuelJob ( playerid ) {
     }
 
     if(isFuelDriver(playerid)) {
-        return msg( playerid, "job.fueldriver.already.");
+        return msg( playerid, "job.fueldriver.already");
     }
 
     if(isPlayerHaveJob(playerid)) {
         return msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid));
     }
+
+    if(!isPlayerLevelValid ( playerid, FUEL_JOB_LEVEL )) {
+        return msg(playerid, "job.fueldriver.needlevel", FUEL_JOB_LEVEL );
+    }
+
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
         msg( playerid, "job.fueldriver.now" );
         msg( playerid, "job.fueldriver.sitintotruck" );

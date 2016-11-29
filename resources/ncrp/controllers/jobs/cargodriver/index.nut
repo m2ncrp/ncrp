@@ -1,5 +1,7 @@
 translation("en", {
+"job.cargodriver"               : "cargo delivery driver"
 "job.cargodriver.letsgo"        : "Let's go to office at City Port."
+"job.cargodriver.needlevel"     : "You need level %d to become cargo delivery driver."
 "job.cargodriver.already"       : "You're cargo delivery driver already."
 "job.cargodriver.now"           : "You're a cargo delivery driver now. Welcome! Ha-ha..."
 "job.cargodriver.gotoseagift"   : "Go to Seagift Co. at Chinatown, get behind wheel of truck of fish and get your ass to warehouse P3 06 at Port."
@@ -26,7 +28,9 @@ translation("en", {
 });
 
 translation("ru", {
+"job.cargodriver"               : "водитель грузовика"
 "job.cargodriver.letsgo"        : "Отправляйтесь в офис City Port."
+"job.cargodriver.needlevel"     : "Водителем грузовика можно устроиться начиная с уровня %d."
 "job.cargodriver.already"       : "Вы уже работаете водителем грузовика."
 "job.cargodriver.now"           : "Вы стали водителем грузовика."
 "job.cargodriver.gotoseagift"   : "Отправляйтесь к складу Seagift в Chinatown, садитесь в грузовик для доставки рыбы и поезжайте в City Port к складу P3 06."
@@ -44,7 +48,7 @@ translation("ru", {
 "job.cargodriver.needcomplete"  : "Завершите доставку."
 "job.cargodriver.nicejob"       : "Отличная работа, %s! Держи $%.2f."
 
-"job.cargodriver.help.title"            :   "Список доступных команд для водителя грузовика:"
+"job.cargodriver.help.title"            :   "Список команд, доступных водителю грузовика:"
 "job.cargodriver.help.job"              :   "Устроиться на работу водителем грузовика"
 "job.cargodriver.help.jobleave"         :   "Уволиться с работы"
 "job.cargodriver.help.load"             :   "Загрузить грузовик"
@@ -65,7 +69,8 @@ const CARGO_JOB_X = -348.205; //Derek Door
 const CARGO_JOB_Y = -731.48; //Derek Door
 const CARGO_JOB_Z = -15.4205;
 const CARGO_JOB_SKIN = 130;
-const CARGO_SALARY = 30.0;
+const CARGO_JOB_SALARY = 25.0;
+const CARGO_JOB_LEVEL = 1;
 
 local cargocoords = {};
 cargocoords["PortChinese"] <- [-217.298, -724.771, -21.423]; // PortPlace P3 06 Chinese
@@ -122,13 +127,19 @@ function cargoJob( playerid ) {
         return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid));
     }
 
-    msg( playerid, "job.cargodriver.now" );
-    msg( playerid, "job.cargodriver.gotoseagift" );
+    if(!isPlayerLevelValid ( playerid, CARGO_JOB_LEVEL )) {
+        return msg(playerid, "job.cargodriver.needlevel", CARGO_JOB_LEVEL );
+    }
 
-    players[playerid]["job"] = "cargodriver";
+    screenFadeinFadeoutEx(playerid, 250, 200, function() {
+        msg( playerid, "job.cargodriver.now" );
+        msg( playerid, "job.cargodriver.gotoseagift" );
 
-    players[playerid]["skin"] = CARGO_JOB_SKIN;
-    setPlayerModel( playerid, CARGO_JOB_SKIN );
+        players[playerid]["job"] = "cargodriver";
+
+        players[playerid]["skin"] = CARGO_JOB_SKIN;
+        setPlayerModel( playerid, CARGO_JOB_SKIN );
+    });
 }
 
 // working good, check
@@ -141,14 +152,16 @@ function cargoJobLeave( playerid ) {
     if(!isCargoDriver(playerid)) {
         return msg( playerid, "job.cargodriver.not");
     } else {
-        msg( playerid, "job.leave" );
+        screenFadeinFadeoutEx(playerid, 250, 200, function() {
+            msg( playerid, "job.leave" );
 
-        players[playerid]["job"] = null;
+            players[playerid]["job"] = null;
 
-        players[playerid]["skin"] = players[playerid]["default_skin"];
-        setPlayerModel( playerid, players[playerid]["default_skin"]);
+            players[playerid]["skin"] = players[playerid]["default_skin"];
+            setPlayerModel( playerid, players[playerid]["default_skin"]);
 
-        job_cargo[playerid]["cargostatus"] = false;
+            job_cargo[playerid]["cargostatus"] = false;
+        });
     }
 }
 
@@ -233,6 +246,6 @@ function cargoJobFinish( playerid ) {
     }
 
     job_cargo[playerid]["cargostatus"] = false;
-    msg( playerid, "job.cargodriver.nicejob", [getPlayerName( playerid ), CARGO_SALARY] );
-    addMoneyToPlayer(playerid, CARGO_SALARY);
+    msg( playerid, "job.cargodriver.nicejob", [getPlayerName( playerid ), CARGO_JOB_SALARY] );
+    addMoneyToPlayer(playerid, CARGO_JOB_SALARY);
 }
