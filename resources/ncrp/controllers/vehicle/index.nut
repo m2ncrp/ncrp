@@ -99,6 +99,7 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
 // handle vehicle exit
 event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     removeVehiclePassenger(vehicleid, playerid);
+    resetVehicleRespawnTimer(vehicleid);
     trySaveVehicle(vehicleid);
 
     trigger("onPlayerVehicleExit", playerid, vehicleid, seat);
