@@ -16,10 +16,12 @@ function getBusinessInfo(type) {
 
 function loadBusinessResources(entity) {
     local pricetag = format("(Price: $%.2f, Income: $%.2f) /business buy %d", entity.price, entity.income, entity.servid);
-    entity.text1 = create3DText( entity.x, entity.y, entity.z + 0.35, entity.name, CL_RIPELEMON );
+    entity.text1 = create3DText( entity.x, entity.y, entity.z + 0.35, entity.name, CL_RIPELEMON , BUSINESS_VIEW_DISTANCE);
     entity.text2 = create3DText( entity.x, entity.y, entity.z + 0.05, pricetag, CL_EUCALYPTUS.applyAlpha(125), BUSINESS_BUY_DISTANCE );
-    if (entity.type != BUSINESS_DEFAULT && getBusinessInfo(entity.type)) {
-        entity.text3 = create3DText( entity.x, entity.y, entity.z + 0.20, getBusinessInfo(entity.type).info, CL_WHITE.applyAlpha(75), BUSINESS_DISTANCE );
+
+    local info = getBusinessInfo(entity.type);
+    if (entity.type != BUSINESS_DEFAULT && info && info.info) {
+        entity.text3 = create3DText( entity.x, entity.y, entity.z + 0.20, info.info, CL_WHITE.applyAlpha(75), BUSINESS_DISTANCE );
     }
 }
 

@@ -4,9 +4,9 @@ acmd("business", "create", function(playerid, type = 0) {
     msg(playerid, "You've created business # " + id);
 });
 
-acmd("business", ["set", "name"], function(playerid, id, name) {
-    if (setBusinessName(id.tointeger(), name)) {
-        msg(playerid, "You've set name of business to " + name);
+acmd("business", ["set", "name"], function(playerid, id, ...) {
+    if (setBusinessName(id.tointeger(), concat(vargv))) {
+        msg(playerid, "You've set name of business to " + concat(vargv));
     } else {
         msg(playerid, "No business found by id " + id);
     }
