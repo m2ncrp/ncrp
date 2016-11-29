@@ -6,8 +6,9 @@ const BUSINESS_DINER   = 1;
 const BUSINESS_BAR     = 2;
 const BUSINESS_WEAPON  = 3;
 
-const BUSINESS_DISTANCE = 2.5;
-const BUSINESS_BUY_DISTANCE = 1.0;
+const BUSINESS_INTERACT_DISTANCE = 2.5;
+const BUSINESS_BUY_DISTANCE      = 1.0;
+const BUSINESS_VIEW_DISTANCE     = 10.0;
 
 event("onServerStarted", function() {
     Business.findAll(function(err, results) {
