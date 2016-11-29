@@ -1,24 +1,108 @@
 local ticker = null;
+local drawdata = {
+    time = "00:00",
+    date = "01.01.1950",
+    status = "",
+    version = "0.0.000",
+    money = "$ 4645.10"
+};
 
-addEventHandler("onServerClientStarted", function() {
-    log("onServerClientStarted");
 
-    if (!ticker) {
-        ticker = timer(function() {
-            triggerServerEvent("onClientSendFPSData", getFPS());
-        }, 1000, -1);
-    }
+function onSecondChanged() {
+    triggerServerEvent("onClientSendFPSData", getFPS());
 
-    setRenderHealthbar(false);
+    drawdata.status = format(
+        "v%s  |  FPS: %d  |  Ping: %d  |  Online: %d",
+        drawdata.version,
+        getFPS(),
+        getPlayerPing(getLocalPlayer()),
+        (getPlayerCount() + 1)
+    );
+}
+
+/**
+ * Main rendering callback
+ */
+addEventHandler("onClientFrameRender", function(isGUIdrawn) {
+    if (!isGUIdrawn) return;
+
+    local screen = getScreenSize();
+    local screenX = screen[0];
+    local screenY = screen[1];
+
+    local offset;
+    local length;
+    local height;
+
+    /**
+     * Category: top-left
+     */
+    // draw top chat line
+    dxDrawRectangle(10.0, 0.0, 400.0, 28.0, 0xA1000000);
+
+    // draw status line
+    offset = dxGetTextDimensions(drawdata.status, 1.0, "tahoma-bold")[0].tofloat();
+    dxDrawText(drawdata.status, 410.0 - offset - 8.0, 6.5, 0xFFA1A1A1, false, "tahoma-bold" );
+
+    // draw chat slots
+    // TODO:
+
+    /**
+     * Category: top-right
+     */
+    // draw time
+    offset = dxGetTextDimensions(drawdata.time, 3.6, "tahoma-bold")[0].tofloat();
+    dxDrawText(drawdata.time, screenX - offset - 15.0, 8.0, 0xFFE4E4E4, false, "tahoma-bold", 3.6 );
+
+    // draw date
+    offset = dxGetTextDimensions(drawdata.date, 1.4, "tahoma-bold")[0].tofloat();
+    dxDrawText(drawdata.date, screenX - offset - 25.0, 58.0, 0xFFE4E4E4, false, "tahoma-bold", 1.4 );
+
+
+    /**
+     * Category: bottom-right
+     */
+    // draw base
+    length = (screenY / 5.0); // get height of meter (depends on screen Y)
+    height = (screenY / 13.80);
+    dxDrawRectangle(screenX - length - (screenX / 13.6), screenY - height, length, height + 5, 0xA1000000);
+    // TODO: add lines
+
+
+    // draw date
+    local offset1 = dxGetTextDimensions(drawdata.money, 1.6, "tahoma-bold")[0].tofloat();
+    local offset2 = dxGetTextDimensions(drawdata.money, 1.6, "tahoma-bold")[1].tofloat();
+    dxDrawText(drawdata.money, screenX - ( length / 2 ) - (screenX / 13.6) - ( offset1 / 2 ) + 1.0, screenY - height + 8.0 + 1.0, 0xFF000000, false, "tahoma-bold", 1.6 );
+    dxDrawText(drawdata.money, screenX - ( length / 2 ) - (screenX / 13.6) - ( offset1 / 2 ), screenY - height + 8.0, 0xFF569267, false, "tahoma-bold", 1.6 );
+});
+
+/**
+ * Handling client events
+ */
+addEventHandler("onServerIntefaceTime", function(time, date) {
+    drawdata.time = time;
+    drawdata.date = date;
 });
 
 addEventHandler("onServerFadeScreen", function(time, fadein) {
     fadeScreen(time.tofloat(), fadein);
 });
 
-addEventHandler("onClientFrameRender", function() {
-    // draw chat line
-    dxDrawRectangle(25.0, 0.0, 400, 28.0, 0xA1000000);
+/**
+ * Initialization
+ */
+addEventHandler("onServerClientStarted", function(version = null) {
+    log("onServerClientStarted");
+
+    if (!ticker) {
+        ticker = timer(onSecondChanged, 1000, -1);
+    }
+
+    // apply defaults
+    setRenderHealthbar(false);
+
+    // load params
+    drawdata.version = (version) ? version : drawdata.version;
 });
 
 // addEventHandler("onClientProcess", function() {

@@ -275,3 +275,26 @@ function calculateBusinessIncome() {
         }
     }
 }
+
+// function getAllBusinessesByType(type = -1) {
+
+//     foreach (idx, value in businesses) {
+//         // Code
+//     }
+// }
+
+/**
+ * Search for the first business near player
+ *
+ * @param  {Integer} playerid
+ * @return {Integer} business id
+ */
+function getBusinessNearPlayer(playerid) {
+    foreach (bizid, biz in businesses) {
+        if (getDistanceToPoint(playerid, biz.x, biz.y, biz.z) <= BUSINESS_INTERACT_DISTANCE) {
+            return bizid;
+        }
+    }
+
+    return null;
+}
