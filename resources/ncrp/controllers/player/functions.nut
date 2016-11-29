@@ -148,13 +148,9 @@ function setPlayerJob(playerid, jobname) {
     if (!(playerid in players)) {
         return false;
     }
-
-    trigger(playerid, "onServerIntefaceCharacterJob",
-        localize("client.interface.job", [ getLocalizedPlayerJob(playerid) ],
-        getPlayerLocale(playerid)
-    ));
-
-    return !!(players[playerid].job = jobname);
+    players[playerid].job = jobname;
+    trigger(playerid, "onServerIntefaceCharacterJob", getLocalizedPlayerJob(playerid, "en"));
+    return true;
 }
 
 /**
