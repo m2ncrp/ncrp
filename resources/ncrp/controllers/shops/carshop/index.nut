@@ -19,7 +19,7 @@ translation("en", {
     "shops.carshop.list.title"    : "Select car you like, and proceed to buying via: /car buy <modelid>",
     "shops.carshop.list.entry"    : " - Model #%d, «%s». Cost: $%.2f",
     "shops.carshop.success"       : "Contratulations! You've successfuly bought a car. Fare you well!",
-    "shops.carshop.help.commands" : "Commands available for car shop:",
+    "shops.carshop.help.title"    : "List of available commands for CAR SHOP:",
     "shops.carshop.help.list"     : "Lists cars which are available to buy",
     "shops.carshop.help.buy"      : "Attempt to buy car by provided modelid",
 });
@@ -34,9 +34,9 @@ translation("ru", {
     "shops.carshop.list.title"    : "Выберите модель которая вам подходит, и купите ее используя: /car buy <modelid>",
     "shops.carshop.list.entry"    : " - Модель #%d, «%s». Цена: $%.2f",
     "shops.carshop.success"       : "Поздравляем! Вы успешно купили автомобиль. Счастливого пути!",
-    "shops.carshop.help.commands" : "Доступные команды для магазина авто:",
-    "shops.carshop.help.list"     : "Просмотреть команды доступные для покупки",
-    "shops.carshop.help.buy"      : "Попробовать купить авто используя указанную модель",
+    "shops.carshop.help.title"    : "Список команд, доступных для магазина авто:",
+    "shops.carshop.help.list"     : "Просмотреть список авто, доступных для покупки",
+    "shops.carshop.help.buy"      : "Купить авто с указанной моделью",
 });
 
 event("onServerStarted", function() {
