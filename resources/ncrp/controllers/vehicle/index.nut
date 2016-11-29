@@ -16,12 +16,15 @@ event("onScriptInit", function() {
         setVehicleColour(id, 255, 255, 255, 0, 0, 0);
         setVehicleSirenState(id, false);
         // setVehicleBeaconLight(id, false);
+        setVehiclePlateText(id, getRandomVehiclePlate("PD"));
     });
 
     addVehicleOverride(51, function(id) {
         setVehicleColour(id, 0, 0, 0, 150, 150, 150);
         setVehicleSirenState(id, false);
         // setVehicleBeaconLight(id, false);
+        // added override for plate number
+        setVehiclePlateText(id, getRandomVehiclePlate("PD"));
     });
 
     // trucks
