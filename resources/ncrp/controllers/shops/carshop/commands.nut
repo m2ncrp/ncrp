@@ -73,7 +73,7 @@ cmd("car", "buy", function(playerid, modelid = null) {
 });
 
 function carShopHelp (playerid, a = null, b = null) {
-    local title = "shops.carshop.help.commandslist";
+    local title = "shops.carshop.help.title";
     local commands = [
         { name = "/car list", desc = "shops.carshop.help.list" },
         { name = "/car buy modelid",  desc = "shops.carshop.help.buy" },
