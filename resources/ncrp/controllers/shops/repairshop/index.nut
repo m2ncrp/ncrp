@@ -2,7 +2,7 @@ include("controllers/shops/repairshop/commands.nut");
 
 translation("en", {
     "shops.repairshop.toofar"             : "You are too far from any reapir shop!"
-    "shops.repairshop.money.notenough"    : "[REPAIR SHOP] Not enough money. Need $%.2f."
+    "shops.repairshop.money.notenough"    : "[REPAIR SHOP] Not enough money. Need $%.2f, but you have only $%s."
     "shops.repairshop.repair.payed"       : "[REPAIR SHOP] You pay $%.2f for repair car. Current balance $%s. Come to us again!"
 
     "shops.repairshop.help.title"         : "List of available commands for REPAIR SHOP:"
@@ -18,7 +18,7 @@ translation("ru", {
     "shops.repairshop.help.repair"        : "Починить автомобиль"
 });
 
-const SHOP_REPAIR_COST = 0.75;
+const SHOP_REPAIR_COST = 75;
 
 const SHOP_REPAIR_3DTEXT_DRAW_DISTANCE = 35.0;
 const SHOP_REPAIR_RADIUS = 4.0;
@@ -29,7 +29,7 @@ repair_shops <- [
     [ -120.695,   530.662,    -20.0303, "LITTLE ITALY"      ],
     [ -68.9644,   204.738,    -14.2976, "EAST SIDE"         ],
     [ 49.2922,   -405.444,    -19.9571, "SOUTHPORT"         ],
-    [ 719.814,   -447.579,   - 19.9535, "SOUTH MILLVILLE"   ],
+    [ 719.814,   -447.579,    -19.9535, "SOUTH MILLVILLE"   ],
     [ 554.52,     -122.35,    -20.0935, "SOUTH MILLVILLE"   ],
     [ -282.625,   699.927,    -19.7625, "UPTOWN"            ],
     [ -686.074,   188.778,     1.20266, "WEST SIDE"         ],
@@ -79,11 +79,9 @@ function repairShopRepairCar (playerid) {
 
 
 /*
-
         if( isPlayerInVehicle( playerid ) )
         {
             local vehicleid = getPlayerVehicle( playerid );
             setVehicleTuningTable( vehicleid, 3 );
         }
-
  */
