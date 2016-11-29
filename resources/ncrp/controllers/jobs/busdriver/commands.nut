@@ -18,7 +18,6 @@ cmd("bus", "route", function(playerid, route = null) {
     busJobSelectRoute(playerid, route);
 });
 
-
 // usage: /bus ready
 cmd("bus", "ready", function(playerid) {
     busJobReady(playerid);
@@ -41,13 +40,6 @@ cmd("bus", "exit", function(playerid, busid) {
     }
 });
 
-
-cmd("help", ["job", "bus"], busJobHelp );
-cmd("help", ["bus", "job"], busJobHelp );
-cmd("job", ["bus", "help"], busJobHelp );
-cmd("bus", ["job", "help"], busJobHelp );
-cmd("bus", busJobHelp );
-
 function busJobHelp ( playerid ) {
     local title = "job.bus.help.title";
     local commands = [
@@ -60,3 +52,9 @@ function busJobHelp ( playerid ) {
     ];
     msg_help(playerid, title, commands);
 }
+
+cmd("help", ["job", "bus"], busJobHelp );
+cmd("help", ["bus", "job"], busJobHelp );
+cmd("job", ["bus", "help"], busJobHelp );
+cmd("bus", ["job", "help"], busJobHelp );
+cmd("bus", busJobHelp );
