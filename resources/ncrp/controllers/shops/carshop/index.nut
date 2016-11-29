@@ -3,7 +3,11 @@ include("controllers/shops/carshop/functions.nut");
 
 // constants
 const CARSHOP_STATE_FREE = "free";
-const CARSHOP_DISTANCE   = 5.0;
+const CARSHOP_DISTANCE   = 5.0; // distance for command
+
+const CARSHOP_X = -204.324;
+const CARSHOP_Y =  826.917;
+const CARSHOP_Z = -20.8854;
 
 // translations
 translation("en", {
@@ -15,6 +19,9 @@ translation("en", {
     "shops.carshop.list.title"    : "Select car you like, and proceed to buying via: /car buy <modelid>",
     "shops.carshop.list.entry"    : " - Model #%d, «%s». Cost: $%.2f",
     "shops.carshop.success"       : "Contratulations! You've successfuly bought a car. Fare you well!",
+    "shops.carshop.help.commands" : "Commands available for car shop:",
+    "shops.carshop.help.list"     : "Lists cars which are available to buy",
+    "shops.carshop.help.buy"      : "Attempt to buy car by provided modelid",
 });
 
 // translations
@@ -27,10 +34,17 @@ translation("ru", {
     "shops.carshop.list.title"    : "Выберите модель которая вам подходит, и купите ее используя: /car buy <modelid>",
     "shops.carshop.list.entry"    : " - Модель #%d, «%s». Цена: $%.2f",
     "shops.carshop.success"       : "Поздравляем! Вы успешно купили автомобиль. Счастливого пути!",
+    "shops.carshop.help.commands" : "Доступные команды для магазина авто:",
+    "shops.carshop.help.list"     : "Просмотреть команды доступные для покупки",
+    "shops.carshop.help.buy"      : "Попробовать купить авто используя указанную модель",
 });
 
 event("onServerStarted", function() {
-    return carShopCreatePlace();
+    //creating 3dtext for bus depot
+    create3DText( CARSHOP_X, CARSHOP_Y, CARSHOP_Z + 0.35, "DIAMOND MOTORS", CL_ROYALBLUE );
+    create3DText( CARSHOP_X, CARSHOP_Y, CARSHOP_Z + 0.20, "/car", CL_WHITE.applyAlpha(75), CARSHOP_DISTANCE );
+
+    createBlip  ( CARSHOP_X, CARSHOP_Y, ICON_GEAR, ICON_RANGE_FULL );
 });
 
 event("onPlayerVehicleEnter", function(playerid, vehiclid, seat) {

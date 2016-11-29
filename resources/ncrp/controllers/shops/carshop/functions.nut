@@ -22,10 +22,6 @@ local vehiclePositions = [
 
 local carShopPlace = vector3(-204.324, 826.917, -20.8854);
 local carShopBlock = [vector3(-221.32, 834.918, -21.2491), vector3(-199.757, 828.45, -20.8919)];
-local carShopDisplay = {
-    text = null,
-    help = null
-};
 
 /**
  * Array with current market car prices
@@ -101,15 +97,10 @@ function getCarShopModelById(modelid) {
  * @return {Boolean}
  */
 function carShopCheckFreeSpace() {
+    // TODO: add in "car teleportation update"
     // foreach (idx, value in getAll) {
     //     // Code
     // }
-}
-
-function carShopCreatePlace() {
-    carShopDisplay.text = create3DText(carShopPlace.x, carShopPlace.y, carShopPlace.z+0.35, "=== CAR SHOP ===", CL_ROYALBLUE );
-    carShopDisplay.help = create3DText(carShopPlace.x, carShopPlace.y, carShopPlace.z+0.20, "/car", CL_WHITE.applyAlpha(150), CARSHOP_DISTANCE);
-    return true;
 }
 
 /**
