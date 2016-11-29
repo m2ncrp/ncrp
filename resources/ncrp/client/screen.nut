@@ -16,6 +16,11 @@ addEventHandler("onServerFadeScreen", function(time, fadein) {
     fadeScreen(time.tofloat(), fadein);
 });
 
+addEventHandler("onClientFrameRender", function() {
+    // draw chat line
+    dxDrawRectangle(25.0, 0.0, 400, 28.0, 0xA1000000);
+});
+
 // addEventHandler("onClientProcess", function() {
 //     aa = getScreenFromWorld(-415.277, 477.403, -0.215797);
 //     ab = getScreenFromWorld(-419.277, 477.403, -0.215797);
