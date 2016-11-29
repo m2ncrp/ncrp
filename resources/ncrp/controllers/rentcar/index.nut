@@ -91,6 +91,7 @@ addEventHandlerEx("onServerMinuteChange", function() {
 // called every game time minute changes
     foreach (vehicleid, value in rentcars) {
         if (value[1] == "free") {
+            setVehicleFuel(vehicleid, 0.0);
             continue;
         }
         local playerid = value[1];
