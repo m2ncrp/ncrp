@@ -19,7 +19,7 @@ local jobBlips = {};
 local playerJobBlips = {};
 
 function registerPersonalJobBlip(jobname, x, y) {
-    dbg("register personal job blip for: "+jobname);
+    //dbg("register personal job blip for: "+jobname);
     if (!(jobname in jobBlips)) {
         jobBlips[jobname] <- {x = x, y = y};
     }
