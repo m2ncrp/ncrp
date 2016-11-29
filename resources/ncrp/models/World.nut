@@ -13,7 +13,11 @@ class World extends ORM.Entity
     ];
 
     function sendToClient(playerid) {
-        triggerClientEvent(playerid, "onServerTimeSync", this.minute, this.hour, this.day, this.month, this.year.tostring());
+        // triggerClientEvent(playerid, "onServerTimeSync", this.minute, this.hour, this.day, this.month, this.year.tostring());
+        trigger(playerid, "onServerIntefaceTime",
+            format("%02d:%02d", this.hour, this.minute),
+            format("%02d.%02d.%04d", this.day, this.month, this.year)
+        );
     }
 
     function sendToAllClients()

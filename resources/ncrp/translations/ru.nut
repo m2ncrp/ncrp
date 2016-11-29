@@ -98,4 +98,10 @@ translation("ru", {
     "taxi.call.refused"                 :   "Водитель отказался от вызова. Ожидайте других водителей."
     "taxi.help.title"                   :   "Список доступных команд для такси"
     "taxi.help.taxi"                    :   "/taxi адрес - Вызвать такси по указанному адресу"
+
+    "client.interface.job"              :   "Текущая работа: %s"
+    "clinet.interface.level"            :   "Игровой уровень (level): %d"
+
+    "client.interface.job"              :   "Current job: %s"
+    "client.interface.level"            :   "Level: %d"
 });

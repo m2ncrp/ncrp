@@ -44,5 +44,5 @@ function removePersonalJobBlip(playerid) {
 }
 
 function getLocalizedPlayerJob(playerid) {
-    return localize("job."+getPlayerJob(playerid), [], getPlayerLocale(playerid));
+    return localize("job." + getPlayerJob(playerid), [], getPlayerLocale(playerid));
 }

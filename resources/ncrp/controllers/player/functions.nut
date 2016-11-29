@@ -28,15 +28,6 @@ function isPlayerHaveJob(playerid) {
 }
 
 /**
- * Get job of player
- * @param  {int}  playerid
- * @return {string}  - job of player
- */
-function getPlayerJob(playerid) {
-    return (players[playerid]["job"]) ? players[playerid]["job"] : false;
-}
-
-/**
  * Get player position and return to OBJECT
  * @param  {int} playerid
  * @return {object}
@@ -145,4 +136,59 @@ function getPlayerLevel(playerid) {
  */
 function isPlayerLevelValid(playerid, level = 1) {
     return (getPlayerLevel(playerid) >= level)
+}
+
+/**
+ * Set player job
+ * @param {Integer} playerid
+ * @param {String} jobname
+ * @return {Boolean}
+ */
+function setPlayerJob(playerid, jobname) {
+    if (!(playerid in players)) {
+        return false;
+    }
+
+    trigger(playerid, "onServerIntefaceCharacterJob",
+        localize("client.interface.job", [ getLocalizedPlayerJob(playerid) ],
+        getPlayerLocale(playerid)
+    ));
+
+    return !!(players[playerid].job = jobname);
+}
+
+/**
+ * Get player job by playerid
+ * @param  {Integer} playerid
+ * @return {String}
+ */
+function getPlayerJob(playerid) {
+    return (playerid in players && players[playerid].job) ? players[playerid].job : false;
+}
+
+/**
+ * Return current money balance
+ * or 0.0 if player was not found
+ * @param {Integer} playerid
+ * @return {Float}
+ */
+function getPlayerMoney(playerid) {
+    return (playerid in players) ? players[playerid].money : 0.0;
+}
+
+/**
+ * Set player money by playerid
+ * @param {Integer} playerid
+ * @param {Float} money
+ * @return {Boolean}
+ */
+function setPlayerMoney(playerid, money) {
+    if (!(playerid in players)) {
+        return false;
+    }
+
+    trigger(playerid, "onServerInterfaceMoney", money);
+
+    players[playerid].money = money;
+    return true;
 }

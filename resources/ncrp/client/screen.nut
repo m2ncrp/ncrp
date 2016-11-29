@@ -4,9 +4,9 @@ local drawdata = {
     date    = "01.01.1950",
     status  = "",
     version = "0.0.000",
-    money   = "$ 242424.00",
-    state   = "Job: fuel truck driver",
-    level   = "Character level: 2"
+    money   = "",
+    state   = "",
+    level   = ""
 };
 
 local datastore = {};
@@ -98,8 +98,6 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
         for (local x = 0; x < length; x += step) {
             local len = sqrt( pow(radius, 2) - pow(radius - x, 2) );
 
-            log(len.tostring());
-
             lines.push({
                 x = get("borders.x") + x,
                 y = get("borders.y") - radius + len - 2.5,
@@ -114,7 +112,6 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
     foreach (idx, line in lines) {
         dxDrawRectangle(line.x, line.y, line.step, line.height, 0xA1000000);
     }
-
 
     // draw money
     local offset1 = dxGetTextDimensions(drawdata.money, 1.6, "tahoma-bold")[0].tofloat();
@@ -136,6 +133,23 @@ addEventHandler("onServerIntefaceTime", function(time, date) {
     drawdata.time = time;
     drawdata.date = date;
 });
+
+addEventHandler("onServerIntefaceCharacterJob", function(job) {
+    drawdata.state = job;
+});
+
+addEventHandler("onServerIntefaceCharacterLevel", function(level) {
+    drawdata.level = level;
+});
+
+addEventHandler("onServerIntefaceCharacter", function(job, level) {
+    drawdata.state = job;
+    drawdata.level = level;
+});
+
+addEventHandler("onServerInterfaceMoney", function(money) {
+    drawdata.money = format("$ %.2f", money.tofloat());
+})
 
 addEventHandler("onServerFadeScreen", function(time, fadein) {
     fadeScreen(time.tofloat(), fadein);

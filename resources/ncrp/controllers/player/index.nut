@@ -57,8 +57,20 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
         // notify all that client connected (and data loaded)
         trigger("onPlayerConnect", playerid, name, ip, serial);
 
-        delayedFunction(2500, function() {
-            trigger(playerid, "onServerClientStarted");
+        delayedFunction(2000, function() {
+            trigger(playerid, "onServerClientStarted", "0.0.458");
+
+            trigger(playerid, "onServerIntefaceCharacterJob",
+                localize("client.interface.job", [ getLocalizedPlayerJob(playerid) ],
+                getPlayerLocale(playerid)
+            ));
+
+            trigger(playerid, "onServerIntefaceCharacterLevel",
+                localize("client.interface.level", [ getPlayerLevel(playerid) ],
+                getPlayerLocale(playerid)
+            ));
+
+            trigger(playerid, "onServerInterfaceMoney", getPlayerMoney(playerid));
         });
     });
 });
@@ -102,6 +114,11 @@ event("native:onPlayerDisconnect", function(playerid, reason) {
 addEventHandlerEx("onServerAutosave", function() {
     foreach (playerid, char in players) {
         trySavePlayer(playerid);
+
+        trigger(playerid, "onServerIntefaceCharacter",
+            localize("client.interface.job", [ getLocalizedPlayerJob(playerid) ], getPlayerLocale(playerid)),
+            localize("client.interface.level", [ getPlayerLevel(playerid) ], getPlayerLocale(playerid))
+        );
     }
 });
 
