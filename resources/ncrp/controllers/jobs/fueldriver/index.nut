@@ -317,7 +317,7 @@ function fuelJobLoad ( playerid ) {
 
     local vehicleid = getPlayerVehicle(playerid);
 
-    if(!isVehicleInValidPoint(playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, 5.0)) {
+    if(!isPlayerVehicleInValidPoint(playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, 5.0)) {
         // create blip and 3text for warehouse
         fuelJobWarehouseCreateBlipText( playerid );
         return msg( playerid, "job.fueldriver.truck.toload" );
@@ -360,7 +360,7 @@ function fuelJobUnload ( playerid ) {
     local check = false;
     local i = -1;
     foreach (key, value in fuelcoords) {
-        if (isVehicleInValidPoint(playerid, value[0], value[1], 5.0 )) {
+        if (isPlayerVehicleInValidPoint(playerid, value[0], value[1], 5.0 )) {
             check = true;
             i = key;
             break;
@@ -411,7 +411,7 @@ function fuelJobPark ( playerid ) {
 
     local vehicleid = getPlayerVehicle(playerid);
 
-    if(!isVehicleInValidPoint(playerid, 517.782, -277.5, 10.0)) {
+    if(!isPlayerVehicleInValidPoint(playerid, 517.782, -277.5, 10.0)) {
         return msg( playerid, "job.fueldriver.truck.topark" );
     }
 

@@ -1,5 +1,10 @@
 include("controllers/organizations/bank/commands.nut");
 
+/*
+[12:40:27] Vehicle iD: 0 is at 20, 128.514, -239.62, -19.8645, 175.759, 0.084436, -0.261477 // BankMidtownHernya
+
+*/
+
 const BANK_RATE = 0.005; //bank rate for deposit (x<1) in day
 const BANK_RADIUS = 3.0;
 const BANK_X = 64.8113;  //Bank X
@@ -8,8 +13,8 @@ const BANK_Z = -20.2314;
 
 addEventHandlerEx("onServerStarted", function() {
     log("[jobs] loading bank...");
-    createVehicle(27, 124.65, -240.0, -19.2512, 180.0, 0.0, 0.0);   // securityCAR1
-    createVehicle(27, 124.65, -222.5, -19.2512, 180.0, 0.0, 0.0);   // securityCAR2
+    createVehicle(27, 124.65, -240.0, -19.8645, 180.0, 0.0, 0.0);   // securityCAR1
+    createVehicle(27, 124.65, -222.5, -19.8645, 180.0, 0.0, 0.0);   // securityCAR2
 
     //creating 3dtext for bus depot
     create3DText ( BANK_X, BANK_Y, BANK_Z+0.35, "GRAND IMERIAL BANK", CL_ROYALBLUE );
