@@ -4,6 +4,7 @@ local job_taxi = {};
 local price = 3.0;
 
 const TAXI_JOB_SKIN = 171;
+const TAXI_JOB_LEVEL = 2;
 
 event("onServerStarted", function() {
     log("[jobs] loading taxi job...");
@@ -307,6 +308,10 @@ function taxiJob(playerid) {
 
     if (!isPlayerCarTaxi(playerid)) {
         return msg(playerid, "job.taxi.needcar");
+    }
+
+    if(!isPlayerLevelValid ( playerid, TAXI_JOB_LEVEL )) {
+        return msg(playerid, "job.taxi.needlevel", TAXI_JOB_LEVEL );
     }
 
     setTaxiLightState(getPlayerVehicle(playerid), false);

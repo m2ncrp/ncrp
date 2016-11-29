@@ -1,4 +1,5 @@
 translation("en", {
+"job.realtor" : "realtor"
 "job.realtor.not" : "You're not a realtor."
 "job.realtor.sendinvoice" : "You send invoice to pay house."
 "job.realtor.receivedinvoice" : "You received invoice to pay house."
@@ -9,6 +10,7 @@ translation("en", {
 });
 
 translation("ru", {
+"job.realtor" : "риэлтор"
 "job.realtor.not" : "Вы не риэлтор."
 "job.realtor.sendinvoice" : "Вы отправили запрос на оплату покупки дома."
 "job.realtor.receivedinvoice" : "Вы получили запрос на оплату покупки дома."

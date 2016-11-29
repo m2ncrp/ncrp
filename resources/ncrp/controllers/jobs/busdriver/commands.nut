@@ -18,7 +18,6 @@ cmd("bus", "route", function(playerid, route = null) {
     busJobSelectRoute(playerid, route);
 });
 
-
 // usage: /bus ready
 cmd("bus", "ready", function(playerid) {
     busJobReady(playerid);
@@ -28,17 +27,6 @@ cmd("bus", "ready", function(playerid) {
 cmd("bus", "stop", function(playerid) {
     busJobStop(playerid);
 });
-
-// usage: /help job bus
-cmd("help", ["job", "bus"], function(playerid) {
-    busJobHelp ( playerid );
-});
-
-// usage: /help bus job
-cmd("help", ["bus", "job"], function(playerid) {
-    busJobHelp ( playerid );
-});
-
 
 cmd("bus", "enter", function(playerid, busid) {
     foreach (idx, value in players) {
@@ -64,3 +52,9 @@ function busJobHelp ( playerid ) {
     ];
     msg_help(playerid, title, commands);
 }
+
+cmd("help", ["job", "bus"], busJobHelp );
+cmd("help", ["bus", "job"], busJobHelp );
+cmd("job", ["bus", "help"], busJobHelp );
+cmd("bus", ["job", "help"], busJobHelp );
+cmd("bus", busJobHelp );
