@@ -1,11 +1,28 @@
 local ticker = null;
 local drawdata = {
-    time = "00:00",
-    date = "01.01.1950",
-    status = "",
+    time    = "00:00",
+    date    = "01.01.1950",
+    status  = "",
     version = "0.0.000",
-    money = "$ 4645.10"
+    money   = "$ 242424.00",
+    state   = "Job: fuel truck driver",
+    level   = "Character level: 2"
 };
+
+local datastore = {};
+local lines     = [];
+
+function compute(x, y) {
+    datastore[x] <- y;
+}
+
+function has(x) {
+    return (x in datastore);
+}
+
+function get(x) {
+    return (x in datastore) ? datastore[x] : 0.0;
+}
 
 
 function onSecondChanged() {
@@ -33,6 +50,8 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
     local offset;
     local length;
     local height;
+
+    local ROUND_TO_RIGHT_RATIO = 13.6;
 
     /**
      * Category: top-left
@@ -62,18 +81,52 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
     /**
      * Category: bottom-right
      */
+    // calculating borders
+    if (!has("borders.x") || !has("borders.y")) {
+        length = (screenY / 5.0); // get height of meter (depends on screen Y)
+        height = (screenY / 13.80);
+
+        compute("roundy.height", height);
+        compute("roundy.width",  length);
+        compute("borders.x",    screenX - length - (screenX / ROUND_TO_RIGHT_RATIO));
+        compute("borders.y",    screenY - height);
+        compute("borders.cx",   screenX - (length / 2) - (screenX / ROUND_TO_RIGHT_RATIO));
+
+        local radius = length / 2;
+        local step   = 0.5;
+
+        for (local x = 0; x < length; x += step) {
+            local len = sqrt( pow(radius, 2) - pow(radius - x, 2) );
+
+            log(len.tostring());
+
+            lines.push({
+                x = get("borders.x") + x,
+                y = get("borders.y") - radius + len - 2.5,
+                step = step,
+                height = radius - len + 2.5
+            });
+        }
+    }
+
     // draw base
-    length = (screenY / 5.0); // get height of meter (depends on screen Y)
-    height = (screenY / 13.80);
-    dxDrawRectangle(screenX - length - (screenX / 13.6), screenY - height, length, height + 5, 0xA1000000);
-    // TODO: add lines
+    dxDrawRectangle(get("borders.x"), get("borders.y"), get("roundy.width"), get("roundy.height") + 5.0, 0xA1000000);
+    foreach (idx, line in lines) {
+        dxDrawRectangle(line.x, line.y, line.step, line.height, 0xA1000000);
+    }
 
 
-    // draw date
+    // draw money
     local offset1 = dxGetTextDimensions(drawdata.money, 1.6, "tahoma-bold")[0].tofloat();
     local offset2 = dxGetTextDimensions(drawdata.money, 1.6, "tahoma-bold")[1].tofloat();
-    dxDrawText(drawdata.money, screenX - ( length / 2 ) - (screenX / 13.6) - ( offset1 / 2 ) + 1.0, screenY - height + 8.0 + 1.0, 0xFF000000, false, "tahoma-bold", 1.6 );
-    dxDrawText(drawdata.money, screenX - ( length / 2 ) - (screenX / 13.6) - ( offset1 / 2 ), screenY - height + 8.0, 0xFF569267, false, "tahoma-bold", 1.6 );
+    dxDrawText( drawdata.money, get("borders.cx") - ( offset1 / 2 ) + 1.0, get("borders.y") + 3.0 + 1.0, 0xFF000000, false, "tahoma-bold", 1.6 );
+    dxDrawText( drawdata.money, get("borders.cx") - ( offset1 / 2 )      , get("borders.y") + 3.0      , 0xFF569267, false, "tahoma-bold", 1.6 );
+
+    // draw state
+    dxDrawText( drawdata.state, get("borders.x") + 11.0, get("borders.y") + offset2 + 5.0, 0xFFA1A1A1, false, "tahoma-bold", 1.0);
+
+    // draw level
+    dxDrawText( drawdata.level, get("borders.x") + 11.0, get("borders.y") + offset2 + 21.0, 0xFFA1A1A1, false, "tahoma-bold", 1.0);
 });
 
 /**
