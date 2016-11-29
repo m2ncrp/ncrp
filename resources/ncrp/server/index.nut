@@ -12,6 +12,7 @@ include("models/TeleportPosition.nut");
 include("models/TimestampStorage.nut");
 include("models/StatisticPoint.nut");
 include("models/MigrationVersion.nut");
+include("models/Business.nut");
 
 // load helpers
 include("helpers/vector.nut");
@@ -48,6 +49,7 @@ include("controllers/screen");
 include("controllers/admin");
 include("controllers/statistics");
 include("controllers/extrasync");
+include("controllers/business");
 
 // translations
 include("translations/en.nut");
