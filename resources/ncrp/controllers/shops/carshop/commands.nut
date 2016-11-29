@@ -72,7 +72,15 @@ cmd("car", "buy", function(playerid, modelid = null) {
     return msg(playerid, "shops.carshop.success", CL_SUCCESS);
 });
 
+function carShopHelp (playerid, a = null, b = null) {
+    local title = "shops.carshop.help.commandslist";
+    local commands = [
+        { name = "/car list", desc = "shops.carshop.help.list" },
+        { name = "/car buy modelid",  desc = "shops.carshop.help.buy" },
+    ];
+    msg_help(playerid, title, commands);
+}
+
 // usage: /help car
-cmd("help", "car", function(playerid) {
-    __commands["car"](playerid); // trigger car command
-});
+cmd("help", "car", carShopHelp);
+cmd("car",  "car", carShopHelp);
