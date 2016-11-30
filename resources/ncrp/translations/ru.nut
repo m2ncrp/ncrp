@@ -17,6 +17,7 @@ translation("ru", {
     "job.alreadyhavejob"                :   "У вас уже есть работа: %s."
     "job.checkmyjob"                    :   "Ваша работа: %s."
     "job.unemployed"                    :   "У вас нет работы."
+    "job.false"                         :   "unemployed"
 
     "job.busdriver"                     :   "водитель автобуса"
     "job.bus.letsgo"                    :   "Отправляйтесь на автобусный вокзал в Аптауне."

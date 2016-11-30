@@ -132,7 +132,7 @@ local milkcoordsall = [
 ];
 
 
-addEventHandlerEx("onServerStarted", function() {
+event("onServerStarted", function() {
     log("[jobs] loading milkdriver job...");
     // milktrucks[i][0] - Truck ready: true/false
     // milktrucks[i][1] - milk load: integer
@@ -146,7 +146,7 @@ addEventHandlerEx("onServerStarted", function() {
     registerPersonalJobBlip("milkdriver", MILK_JOB_X, MILK_JOB_Y);
 });
 
-addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial) {
+event("onPlayerConnect", function(playerid, name, ip, serial) {
      job_milk[playerid] <- {};
      job_milk[playerid]["milkready"] <- false;
      job_milk[playerid]["milkcoords"] <- [];
