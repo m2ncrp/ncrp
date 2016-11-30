@@ -38,18 +38,20 @@ include("controllers/weather");
 include("controllers/world");
 include("controllers/player");
 include("controllers/money");
-include("controllers/jobs");
-include("controllers/metro");
-include("controllers/organizations");
-include("controllers/shops");
 include("controllers/vehicle");
-include("controllers/rentcar");
 include("controllers/utils");
 include("controllers/screen");
 include("controllers/admin");
 include("controllers/statistics");
 include("controllers/extrasync");
 include("controllers/business");
+
+// load modules
+include("modules/metro");
+include("modules/jobs");
+include("modules/organizations");
+include("modules/shops");
+include("modules/rentcar");
 
 // translations
 include("translations/en.nut");
