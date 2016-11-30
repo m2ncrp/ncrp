@@ -11,10 +11,10 @@ const CARSHOP_Z = -20.8854;
 
 // translations
 translation("en", {
-    "shops.carshop.gotothere"     : "Hello there, %s! If you want to buy a car go to Diamond Motors!",
-    "shops.carshop.welcome"       : "If you want to buy a car, you should first choose it via: /car list",
+    "shops.carshop.gotothere"     : "If you want to buy a car go to Diamond Motors!",
+    "shops.carshop.welcome"       : "Hello there, %s! If you want to buy a car, you should first choose it via: /car list",
     "shops.carshop.nofreespace"   : "There is no free space near Parking. Please come again later!",
-    "shops.carshop.money.error"   : "Sorry, you dont have enough money. Check your wallet with: /money",
+    "shops.carshop.money.error"   : "Sorry, you dont have enough money.",
     "shops.carshop.selectmodel"   : "You can browse vehicle models, and their prices via: /car list",
     "shops.carshop.list.title"    : "Select car you like, and proceed to buying via: /car buy <modelid>",
     "shops.carshop.list.entry"    : " - Model #%d, «%s». Cost: $%.2f",
@@ -26,10 +26,10 @@ translation("en", {
 
 // translations
 translation("ru", {
-    "shops.carshop.gotothere"     : "Добро пожаловать, %s! Если вы хотите купить авто, отпарвляйтесь в Diamond Motors!",
-    "shops.carshop.welcome"       : "Если вы хотите купить авто, выберите модель через: /car list",
+    "shops.carshop.gotothere"     : "Если вы хотите купить авто, отправляйтесь в Diamond Motors!",
+    "shops.carshop.welcome"       : "Добро пожаловать, %s! Если вы хотите купить авто, выберите модель через: /car list",
     "shops.carshop.nofreespace"   : "К сожалению на парковке нету свободных мест. Попробуйте позже!",
-    "shops.carshop.money.error"   : "К сожалению у вас недостаточно денег. Проверить баланс можно используя: /money",
+    "shops.carshop.money.error"   : "К сожалению у вас недостаточно денег.",
     "shops.carshop.selectmodel"   : "Вы можете просмотреть модели авто и их цены используя: /car list",
     "shops.carshop.list.title"    : "Выберите модель которая вам подходит, и купите ее используя: /car buy <modelid>",
     "shops.carshop.list.entry"    : " - Модель #%d, «%s». Цена: $%.2f",
