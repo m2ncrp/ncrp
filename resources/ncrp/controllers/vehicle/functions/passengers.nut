@@ -68,6 +68,15 @@ function getVehiclePassengers(vehicleid) {
 }
 
 /**
+ * Return count of all players in particular vehicle
+ * @param  {int} vehicleid
+ * @return {int}
+ */
+function getVehiclePassengersCount(vehicleid) {
+    return (getVehiclePassengers(vehicleid).len());
+}
+
+/**
  * Return if vehicle empty
  * @param  {int}  vehicleid
  * @return {Boolean}
