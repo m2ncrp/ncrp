@@ -100,6 +100,6 @@ translation("en", {
     "taxi.help.title"                   :   "List of available commands for TAXI:"
     "taxi.help.taxi"                    :   "/taxi your_address - Call a taxi to address"
 
-    "client.interface.job"              :   "Current job: %s"
+    "client.interface.job"              :   "Your job: %s"
     "client.interface.level"            :   "Level: %d"
 });

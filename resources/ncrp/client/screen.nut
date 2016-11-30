@@ -135,16 +135,16 @@ addEventHandler("onServerIntefaceTime", function(time, date) {
 });
 
 addEventHandler("onServerIntefaceCharacterJob", function(job) {
-    drawdata.state = "Current job: " + job;
+    drawdata.state = "Your job: " + job;
 });
 
 addEventHandler("onServerIntefaceCharacterLevel", function(level) {
-    drawdata.level = "Current level: " + level;
+    drawdata.level = "Your level: " + level;
 });
 
 addEventHandler("onServerIntefaceCharacter", function(job, level) {
-    drawdata.state = "Current job: " + job;
-    drawdata.level = "Current level: " + level;
+    drawdata.state = "Your job: " + job;
+    drawdata.level = "Your level: " + level;
 });
 
 addEventHandler("onServerInterfaceMoney", function(money) {

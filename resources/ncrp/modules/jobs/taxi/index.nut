@@ -319,7 +319,7 @@ function taxiJob(playerid) {
 
     msg(playerid, "job.taxi.driver.now");
 
-    players[playerid]["job"] = "taxidriver";
+    setPlayerJob( playerid, "taxidriver");
 
     players[playerid]["skin"] = TAXI_JOB_SKIN;
     setPlayerModel( playerid, TAXI_JOB_SKIN );
@@ -355,7 +355,7 @@ function taxiJobLeave(playerid) {
 
         msg(playerid, "job.leave");
 
-        players[playerid]["job"] = null;
+        setPlayerJob( playerid, null );
 
         players[playerid]["skin"] = players[playerid]["default_skin"];
         setPlayerModel( playerid, players[playerid]["default_skin"]);

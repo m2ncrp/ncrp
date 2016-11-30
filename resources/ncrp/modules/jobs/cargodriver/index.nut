@@ -1,11 +1,11 @@
 translation("en", {
-"job.cargodriver"               : "cargo delivery driver"
+"job.cargodriver"               : "cargo truck driver"
 "job.cargodriver.letsgo"        : "Let's go to office at City Port."
-"job.cargodriver.needlevel"     : "You need level %d to become cargo delivery driver."
-"job.cargodriver.already"       : "You're cargo delivery driver already."
-"job.cargodriver.now"           : "You're a cargo delivery driver now. Welcome! Ha-ha..."
+"job.cargodriver.needlevel"     : "You need level %d to become cargo truck driver."
+"job.cargodriver.already"       : "You're cargo truck driver already."
+"job.cargodriver.now"           : "You're a cargo truck driver now. Welcome! Ha-ha..."
 "job.cargodriver.gotoseagift"   : "Go to Seagift Co. at Chinatown, get behind wheel of truck of fish and get your ass to warehouse P3 06 at Port."
-"job.cargodriver.not"           : "You're not a cargo delivery driver."
+"job.cargodriver.not"           : "You're not a cargo truck driver."
 "job.cargodriver.needfishtruck" : "You need a fish truck."
 "job.cargodriver.toload"        : "Go to warehouse P3 06 at Port to load fish truck."
 "job.cargodriver.driving"       : "You're driving. Please stop the truck."
@@ -20,8 +20,8 @@ translation("en", {
 "job.cargodriver.nicejob"       : "Nice job, %s! Keep $%.2f."
 
 "job.cargodriver.help.title"            :   "List of available commands for CARGODRIVER JOB:"
-"job.cargodriver.help.job"              :   "Get cargo delivery driver job"
-"job.cargodriver.help.jobleave"         :   "Leave cargo delivery driver job"
+"job.cargodriver.help.job"              :   "Get cargo truck driver job"
+"job.cargodriver.help.jobleave"         :   "Leave cargo truck driver job"
 "job.cargodriver.help.load"             :   "Load cargo into truck"
 "job.cargodriver.help.unload"           :   "Unload cargo"
 "job.cargodriver.help.finish"           :   "Report about delivery and get money"
@@ -95,7 +95,7 @@ event("onPlayerConnect", function(playerid, name, ip, serial) {
 
 
 /**
- * Check is player is a cargo delivery driver
+ * Check is player is a cargo truck driver
  * @param  {int}  playerid
  * @return {Boolean} true/false
  */
@@ -135,7 +135,7 @@ function cargoJob( playerid ) {
         msg( playerid, "job.cargodriver.now" );
         msg( playerid, "job.cargodriver.gotoseagift" );
 
-        players[playerid]["job"] = "cargodriver";
+        setPlayerJob( playerid, "cargodriver");
 
         players[playerid]["skin"] = CARGO_JOB_SKIN;
         setPlayerModel( playerid, CARGO_JOB_SKIN );
@@ -155,7 +155,7 @@ function cargoJobLeave( playerid ) {
         screenFadeinFadeoutEx(playerid, 250, 200, function() {
             msg( playerid, "job.leave" );
 
-            players[playerid]["job"] = null;
+            setPlayerJob( playerid, null );
 
             players[playerid]["skin"] = players[playerid]["default_skin"];
             setPlayerModel( playerid, players[playerid]["default_skin"]);
