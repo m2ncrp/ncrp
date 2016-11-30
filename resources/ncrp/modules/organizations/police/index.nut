@@ -119,7 +119,7 @@ translation("ru", {
 
 
 
-const RUPOR_RADIUS = 100.0;
+const RUPOR_RADIUS = 75.0;
 const CUFF_RADIUS = 3.0;
 const TASER_RADIUS = 6.0;
 const POLICE_MODEL = 75;
