@@ -44,7 +44,7 @@ vehicle_tank <- [
     [42, 80],// smith_200_p_pha
     [43, 50],// smith_coupe
     [44, 65],// smith_mainline_pha
-    [45, 65],// smith_stingray_pha
+    [45, 70],// smith_stingray_pha
     [46, 80],// smith_truck
     [47, 65],// smith_v8
     [48, 50],// smith_wagon_pha
