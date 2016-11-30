@@ -251,7 +251,7 @@ function milkJob ( playerid ) {
         msg( playerid, "job.milkdriver.now" );
         msg( playerid, "job.milkdriver.sitintruck" );
 
-        players[playerid]["job"] = "milkdriver";
+        setPlayerJob( playerid, "milkdriver");
 
         players[playerid]["skin"] = MILK_JOB_SKIN;
         setPlayerModel( playerid, MILK_JOB_SKIN );
@@ -275,7 +275,7 @@ function milkJobLeave ( playerid ) {
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
         msg( playerid, "job.leave" );
 
-        players[playerid]["job"] = null;
+        setPlayerJob( playerid, null );
 
         players[playerid]["skin"] = players[playerid]["default_skin"];
         setPlayerModel( playerid, players[playerid]["default_skin"]);

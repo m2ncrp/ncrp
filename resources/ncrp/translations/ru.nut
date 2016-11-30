@@ -103,6 +103,6 @@ translation("ru", {
     "client.interface.job"              :   "Текущая работа: %s"
     "clinet.interface.level"            :   "Игровой уровень (level): %d"
 
-    "client.interface.job"              :   "Current job: %s"
+    "client.interface.job"              :   "Your job: %s"
     "client.interface.level"            :   "Level: %d"
 });

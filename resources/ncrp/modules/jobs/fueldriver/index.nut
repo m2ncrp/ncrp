@@ -242,7 +242,7 @@ function fuelJob ( playerid ) {
         msg( playerid, "job.fueldriver.now" );
         msg( playerid, "job.fueldriver.sitintotruck" );
 
-        players[playerid]["job"] = "fueldriver";
+        setPlayerJob( playerid, "fueldriver");
 
         players[playerid]["skin"] = FUEL_JOB_SKIN;
         setPlayerModel( playerid, FUEL_JOB_SKIN );
@@ -266,7 +266,7 @@ function fuelJobLeave ( playerid ) {
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
         msg( playerid, "job.leave" );
 
-        players[playerid]["job"] = null;
+        setPlayerJob( playerid, null );
 
         players[playerid]["skin"] = players[playerid]["default_skin"];
         setPlayerModel( playerid, players[playerid]["default_skin"]);
