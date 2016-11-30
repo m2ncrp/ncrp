@@ -1,5 +1,6 @@
 function addMoneyToPlayer(playerid, amount) {
     players[playerid]["money"] += amount.tofloat();
+    setPlayerMoney(playerid, players[playerid]["money"]);
 }
 
 /**

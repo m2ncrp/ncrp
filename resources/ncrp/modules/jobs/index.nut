@@ -4,7 +4,7 @@ include("modules/jobs/fueldriver");
 include("modules/jobs/taxi");
 include("modules/jobs/milkdriver");
 include("modules/jobs/cargodriver");
-include("modules/jobs/telephone");
+//include("modules/jobs/telephone");
 include("modules/jobs/docker");
 include("modules/jobs/realtor");
 
