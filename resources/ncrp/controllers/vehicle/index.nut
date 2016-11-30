@@ -1,6 +1,6 @@
 include("controllers/vehicle/functions");
 include("controllers/vehicle/commands.nut");
-include("controllers/vehicle/hiddencars.nut");
+//include("controllers/vehicle/hiddencars.nut");
 
 const VEHICLE_RESPAWN_TIME      = 600; // 10 minutes
 const VEHICLE_FUEL_DEFAULT      = 40.0;
