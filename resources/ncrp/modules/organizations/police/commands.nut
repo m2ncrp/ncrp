@@ -10,6 +10,26 @@ acmd("police", ["job", "leave"], function(playerid, targetid) {
     leavePoliceJob(targetid);
 });
 
+// usage: /police duty on
+acmd("police", ["set", "rank"], function(playerid, targetid, rank) {
+    local targetid = targetid.tointeger();
+    local rank = rank.tointeger();
+    if ( !isOfficer(targetid) ) {
+        return msg(playerid, "organizations.police.notanofficer"); // not you, but target
+    }
+    if ( isOnDuty(targetid) ) {
+        setOnDuty(targetid, false);
+        onDutyRemoveWeapon( playerid );
+        setPoliceRank( playerid, rank );
+        setOnDuty(targetid, true);
+        onDutyGiveWeapon( playerid );
+    } else {
+        onDutyRemoveWeapon( playerid );
+        setPoliceRank( playerid, rank );
+        onDutyGiveWeapon( playerid );
+    }
+});
+
 acmd("serial", function(playerid, targetid) {
     local targetid = targetid.tointeger();
     dbg( [players[targetid]["serial"]] );
