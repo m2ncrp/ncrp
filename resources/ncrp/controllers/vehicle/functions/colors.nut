@@ -63,7 +63,7 @@ function setVehicleColorEx(vehiceid, colorA, colorB) {
  * CL_**** or via rgb table
  *
  * @param  {Integer} vehiceid
- * @return {Color}
+ * @return {Array}
  */
 function getVehicleColourEx(vehiceid) {
     local colors = getVehicleColour(vehiceid);
