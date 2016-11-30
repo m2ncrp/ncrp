@@ -16,6 +16,7 @@ function canMoneyBeSubstracted(playerid, amount) {
 
 function subMoneyToPlayer(playerid, amount) {
     players[playerid]["money"] -= amount.tofloat();
+    setPlayerMoney(playerid, players[playerid]["money"]);
 }
 
 function getPlayerBalance(playerid) {
@@ -75,6 +76,36 @@ function sendInvoice(playerid, targetid = null, amount = null, callback = null) 
 
     if (targetid == null || amount == null) {
         return msg(playerid, "You must provide player id and amount for sending invoice.");
+    }
+
+    local targetid = targetid.tointeger();
+    local amount = round(fabs(amount.tofloat()), 2);
+    if (playerid == targetid) {
+        return msg(playerid, "You can't transfer money to yourself.");
+    }
+    if ( !isPlayerConnected(targetid) ) {
+        return msg(playerid, "There's no such person on server!");
+    }
+    if (checkDistanceBtwTwoPlayersLess(playerid, targetid, 2.0)) {
+        players[playerid]["request"][targetid] <- [amount, callback];
+        msg(playerid, "You send invoice to " + getPlayerName(targetid) + " (#" + targetid + ") on $" + amount + "." );
+        msg(targetid, "You received invoice from " + getPlayerName(playerid) + " (#" + playerid + ") on $" + amount + "." );
+        msg(targetid, "Please, /accept " + playerid + " or /decline " + playerid + " this invoice." );
+    } else { msg(playerid, "Distance between you and receiver is too large!"); }
+}
+
+/**
+ * Send invoice to transfer <amount> dollars from <playerid> to <targetid> SILENT MODE
+ *
+ * @param  {int} playerid
+ * @param  {int} targetid
+ * @param  {float} amount
+ */
+function sendInvoiceSilent(playerid, targetid = null, amount = null, callback = null) {
+
+    if (targetid == null || amount == null) {
+        dbg("[money invoice silent] need targetid and amount");
+        return;
     }
 
     local targetid = targetid.tointeger();
