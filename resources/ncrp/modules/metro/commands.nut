@@ -1,18 +1,22 @@
 cmd( ["sub", "subway", "metro"], function( playerid, id = null ) {
-    metroGo (playerid, id);
+    metroGo( playerid, id );
 });
 
-cmd( ["sub", "subway", "metro"], "list", function( playerid, id = null ) {
-    return metroShowListStations(playerid);
+cmd( ["sub", "subway", "metro"], "list", function( playerid) {
+    return metroShowListStations( playerid );
 });
 
-cmd(["help", "h", "halp", "info"], "subway", function(playerid) {
-    local title = "List of available commands for SUBWAY:";
+function metroHelp ( playerid ) {
+    local title = "metro.help.title";
     local commands = [
-        { name = "/subway <id>",    desc = "Move to station by id" },
-        { name = "/subway list",    desc = "Show list of all stations" },
-        { name = "/sub <id>",       desc = "Analog /subway <id>" },
-        { name = "/metro <id>",     desc = "Analog /subway <id>" }
+        { name = "/subway id",      desc = "metro.help.subway" },
+        { name = "/subway list",    desc = "metro.help.subwayList" },
+        { name = "/sub id",         desc = "metro.help.sub" },
+        { name = "/metro id",       desc = "metro.help.metro" }
     ];
     msg_help(playerid, title, commands);
-});
+}
+
+cmd(["help", "h", "halp", "info"], "subway", metroHelp);
+cmd(["help", "h", "halp", "info"], "metro", metroHelp);
+cmd(["help", "h", "halp", "info"], "sub", metroHelp);

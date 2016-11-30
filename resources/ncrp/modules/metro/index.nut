@@ -12,6 +12,11 @@ translation("en", {
     "metro.listStations.title"      : "List of available stations:"
     "metro.listStations.station"    : "Station #%d - %s"
 
+    "metro.help.title"              : "List of available commands for SUBWAY:"
+    "metro.help.subway"             : "Move to station by id"
+    "metro.help.subwayList"         : "Show list of all stations"
+    "metro.help.sub"                : "Analog /subway id"
+    "metro.help.metro"              : "Analog /subway id"
 });
 
 translation("ru", {
@@ -25,6 +30,13 @@ translation("ru", {
 
     "metro.listStations.title"      : "Список доступных станций метро:"
     "metro.listStations.station"    : "Станция #%d - %s"
+
+    "metro.help.title"              : "Список доступных комманд для метро:"
+    "metro.help.subway"             : "Отправиться на станцию по id"
+    "metro.help.subwayList"         : "Посмотреть список всех станций"
+    "metro.help.sub"                : "Аналог /subway id"
+    "metro.help.metro"              : "Аналог /subway id"
+
 });
 
 const METRO_RADIUS = 3.8;
