@@ -35,7 +35,7 @@ event("onPlayerConnect", function(playerid, name, ip, serial ){
 });
 
 event( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
-    if(isPlayerCarTaxi(playerid) && getPlayerJob(playerid) != "taxidriver" && isVehicleEmpty(vehicleid)) {
+    if(isPlayerCarTaxi(playerid) && getVehiclePassengersCount(vehicleid) == 1 && getPlayerJob(playerid) != "taxidriver") {
         setVehicleFuel(vehicleid, 0.0);
         return msg(playerid, "taxi.needpay", price);
     }
