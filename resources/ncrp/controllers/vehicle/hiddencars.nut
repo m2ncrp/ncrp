@@ -87,6 +87,6 @@ addEventHandlerEx("onServerDayChange", function() {
 
 // ADMIN
 // Usage: /gotocar <vehicleid>
-cmd("gotocar", function(playerid, vehicleid) {
+acmd("gotocar", function(playerid, vehicleid) {
     setPlayerPositionObj( playerid, getVehiclePositionObj(vehicleid.tointeger()));
 });

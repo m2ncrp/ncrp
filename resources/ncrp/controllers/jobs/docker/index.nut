@@ -181,8 +181,8 @@ function dockerJobLeave( playerid ) {
 
         job_docker[playerid]["havebox"] = false;
 
-        setPlayerAnimStyle(playerid, "common", "default");
-        setPlayerHandModel(playerid, 1, 0);
+        //setPlayerAnimStyle(playerid, "common", "default");
+        //setPlayerHandModel(playerid, 1, 0);
 
         // remove private blip job
         removePersonalJobBlip ( playerid );
@@ -209,8 +209,8 @@ function dockerJobTakeBox( playerid ) {
     dockerJobRemovePrivateBlipText ( playerid );
 
     job_docker[playerid]["havebox"] = true;
-    setPlayerAnimStyle(playerid, "common", "CarryBox");
-    setPlayerHandModel(playerid, 1, 98); // put box in hands
+    //setPlayerAnimStyle(playerid, "common", "CarryBox");
+    //setPlayerHandModel(playerid, 1, 98); // put box in hands
     msg( playerid, "job.docker.tookbox");
 
     job_docker[playerid]["blip3dtext"] = dockerJobCreatePrivateBlipText(playerid, DOCKER_JOB_PUTBOX_X, DOCKER_JOB_PUTBOX_Y, DOCKER_JOB_PUTBOX_Z, "PUT BOX HERE", "/docker put");
@@ -231,8 +231,8 @@ function dockerJobPutBox( playerid ) {
         return msg( playerid, "job.docker.gotowarehouse" );
     }
 
-    setPlayerAnimStyle(playerid, "common", "default");
-    setPlayerHandModel(playerid, 1, 0);
+    //setPlayerAnimStyle(playerid, "common", "default");
+    //setPlayerHandModel(playerid, 1, 0);
 
     dockerJobRemovePrivateBlipText ( playerid );
 
