@@ -214,7 +214,7 @@ function isOfficer(playerid) {
  * @return {Boolean} true/false
  */
 function isOnDuty(playerid) {
-    return (isOfficer(playerid) && police[playerid].onduty);
+    return (isOfficer(playerid) && playerid in police && police[playerid].onduty);
 }
 
 function setOnDuty(playerid, bool) {
@@ -308,7 +308,7 @@ function onDutyRemoveWeapon(playerid, rank = null) {
     }
     if (rank == POLICE_RANK[1]) {
         removePlayerWeapon( playerid, 4 ); // Colt M1911A1
-        removaPlayerWeapon( playerid, 8 ); // Remington Model 870 Field gun
+        removePlayerWeapon( playerid, 8 ); // Remington Model 870 Field gun
     }
     if (rank == POLICE_RANK[2]) {
         removePlayerWeapon( playerid, 6 ); // Model 19 Revolver

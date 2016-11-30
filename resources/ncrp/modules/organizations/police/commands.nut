@@ -12,8 +12,8 @@ acmd("police", ["job", "leave"], function(playerid, targetid) {
 
 // usage: /police duty on
 acmd("police", ["set", "rank"], function(playerid, targetid, rank) {
-    local targetid = targetid.tointeger();
-    local rank = rank.tointeger();
+    targetid = targetid.tointeger();
+    rank = rank.tointeger();
     if ( !isOfficer(targetid) ) {
         return msg(playerid, "organizations.police.notanofficer"); // not you, but target
     }
@@ -23,10 +23,12 @@ acmd("police", ["set", "rank"], function(playerid, targetid, rank) {
         setPoliceRank( playerid, rank );
         setOnDuty(targetid, true);
         onDutyGiveWeapon( playerid );
+        setPlayerJob ( playerid, getPlayerJob(playerid) );
     } else {
         onDutyRemoveWeapon( playerid );
         setPoliceRank( playerid, rank );
         onDutyGiveWeapon( playerid );
+        setPlayerJob ( playerid, getPlayerJob(playerid) );
     }
 });
 
