@@ -1,7 +1,7 @@
 cmd(["vehicle"], function( playerid, id ) {
     local pos = getPlayerPosition( playerid );
     local vehicle = createVehicle( id.tointeger(), pos[0] + 2.0, pos[1], pos[2] + 1.0, 0.0, 0.0, 0.0 );
-    setVehicleColour(vehicle, 0, 0, 0, 0, 0, 0);
+    // setVehicleColour(vehicle, 0, 0, 0, 0, 0, 0);
 });
 
 cmd(["tune"], function( playerid ) {

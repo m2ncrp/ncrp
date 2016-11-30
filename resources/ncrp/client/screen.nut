@@ -1,7 +1,7 @@
 local ticker = null;
 local drawdata = {
-    time    = "00:00",
-    date    = "01.01.1950",
+    time    = "",
+    date    = "",
     status  = "",
     version = "0.0.000",
     money   = "",

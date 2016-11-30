@@ -9,6 +9,7 @@ include("controllers/vehicle/functions/saving.nut");
 include("controllers/vehicle/functions/blocking.nut");
 include("controllers/vehicle/functions/fuel.nut");
 include("controllers/vehicle/functions/plates.nut");
+include("controllers/vehicle/functions/colors.nut");
 
 // saving original vehicle method
 local old__createVehicle = createVehicle;
@@ -47,6 +48,7 @@ createVehicle = function(modelid, x, y, z, rx, ry, rz) {
     setVehicleRotation(vehicle, rx.tofloat(), ry.tofloat(), rz.tofloat());
     setVehicleDirtLevel(vehicle, randomf(VEHICLE_MIN_DIRT, VEHICLE_MAX_DIRT));
     setVehiclePlateText(vehicle, getRandomVehiclePlate());
+    setRandomVehicleColors(vehicle);
 
     // apply overrides
     getVehicleOverride(vehicle, modelid.tointeger());
