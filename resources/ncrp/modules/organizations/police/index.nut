@@ -226,13 +226,13 @@ function setOnDuty(playerid, bool) {
 
     if (bool) {
         return screenFadeinFadeout(playerid, 100, function() {
-            givePlayerWeapon( playerid, 2, 0 );
+            onDutyGiveWeapon( playerid );
             setPlayerModel(playerid, POLICE_MODEL);
             msg(playerid, "organizations.police.duty.on");
         });
     } else {
         return screenFadeinFadeout(playerid, 100, function() {
-            removePlayerWeapon( playerid, 2 ); // remove at all
+            onDutyRemoveWeapon( playerid );
             setPlayerModel(playerid, players[playerid]["default_skin"]);
             msg(playerid, "organizations.police.duty.off");
         });
@@ -274,6 +274,46 @@ function rankUpPolice(playerid) {
         msg( playerid, "organizations.police.onrankup", [ getLocalizedPlayerJob(playerid) ] );
     } else {
         msg( playerid, "organizations.police.job.getmaxrank", [ localize( "job." + POLICE_RANK[MAX_RANK], [], getPlayerLocale(playerid)) ] );
+    }
+}
+
+
+function onDutyGiveWeapon(playerid, rank = null) {
+    if (rank == null) {
+        rank = getPlayerJob(playerid);
+    }
+
+    if (rank == POLICE_RANK[0]) {
+        givePlayerWeapon( playerid, 2, 36 ); // Model 12 Revolver
+    }
+    if (rank == POLICE_RANK[1]) {
+        givePlayerWeapon( playerid, 4, 36 ); // Colt M1911A1
+        givePlayerWeapon( playerid, 8, 48 ); // Remington Model 870 Field gun
+    }
+    if (rank == POLICE_RANK[2]) {
+        givePlayerWeapon( playerid, 6, 36 ); // Model 19 Revolver
+        givePlayerWeapon( playerid, 8, 48 ); // Remington Model 870 Field gun
+        givePlayerWeapon( playerid, 9, 80 ); // M3 Grease Gun
+    }
+}
+
+
+function onDutyRemoveWeapon(playerid, rank = null) {
+    if (rank == null) {
+        rank = getPlayerJob(playerid);
+    }
+
+    if (rank == POLICE_RANK[0]) {
+        removePlayerWeapon( playerid, 2 ); // Model 12 Revolver
+    }
+    if (rank == POLICE_RANK[1]) {
+        removePlayerWeapon( playerid, 4 ); // Colt M1911A1
+        removaPlayerWeapon( playerid, 8 ); // Remington Model 870 Field gun
+    }
+    if (rank == POLICE_RANK[2]) {
+        removePlayerWeapon( playerid, 6 ); // Model 19 Revolver
+        removePlayerWeapon( playerid, 8 ); // Remington Model 870 Field gun
+        removePlayerWeapon( playerid, 9 ); // M3 Grease Gun
     }
 }
 
@@ -324,7 +364,7 @@ function leavePoliceJob(playerid) {
         return msg(playerid, "organizations.police.notanofficer");
     }
 
-    if (isPlayerHaveJob(playerid)) {
+    if (isPlayerHaveJob(playerid) && !isOfficer(playerid)) {
         return msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid));
     }
 
