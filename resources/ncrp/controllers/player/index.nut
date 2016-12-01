@@ -14,7 +14,8 @@ default_spawns <- [
     [-555.251,  1702.31, -22.2408], // railway
     [-11.2921,  1631.85, -20.0296], // tmp bomj spawn
     // [ 100.421,  1776.41, -24.0068], // bomj style
-    [-402.282, -828.907, -21.7456]  // port
+    // [-402.282, -828.907, -21.7456]  // port
+    [-344.028, -952.702, -21.7457], // new port
 ];
 
 event("onPlayerInit", function(playerid, name, ip, serial) {
