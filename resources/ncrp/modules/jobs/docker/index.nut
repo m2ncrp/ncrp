@@ -1,37 +1,37 @@
 translation("en", {
 "job.docker"                    : "docker"
-"job.docker.letsgo"             : "Let's go to office at City Port."
-"job.docker.already"            : "You're docker already."
-"job.docker.now"                : "You're a docker now. Welcome... to hell! Ha-ha..."
-"job.docker.takeboxandcarry"    : "Take a box and carry it to the warehouse."
-"job.docker.not"                : "You're not a docker."
-"job.docker.takebox"            : "Go and take a box."
-"job.docker.havebox"            : "You have a box already."
-"job.docker.tookbox"            : "You took the box. Go to warehouse."
-"job.docker.haventbox"          : "You haven't a box."
-"job.docker.gotowarehouse"      : "Go to warehouse."
-"job.docker.nicejob"            : "You put the box. You earned $%.2f."
+"job.docker.letsgo"             : "[DOCKER] Let's go to office at City Port."
+"job.docker.already"            : "[DOCKER] You're docker already."
+"job.docker.now"                : "[DOCKER] You're a docker now. Welcome... to hell! Ha-ha..."
+"job.docker.takeboxandcarry"    : "[DOCKER] Take a box and carry it to the warehouse."
+"job.docker.not"                : "[DOCKER] You're not a docker."
+"job.docker.takebox"            : "[DOCKER] Go and take a box."
+"job.docker.havebox"            : "[DOCKER] You have a box already."
+"job.docker.tookbox"            : "[DOCKER] You took the box. Go to warehouse."
+"job.docker.haventbox"          : "[DOCKER] You haven't a box."
+"job.docker.gotowarehouse"      : "[DOCKER] Go to warehouse."
+"job.docker.nicejob"            : "[DOCKER] You put the box. You earned $%.2f."
 
-"job.docker.help.title"         :   "List of available commands for DOCKER JOB:"
-"job.docker.help.job"           :   "Get docker job."
-"job.docker.help.jobleave"      :   "Leave docker job."
-"job.docker.help.take"          :   "Take a box."
-"job.docker.help.put"           :   "Put box to warehouse."
+"job.docker.help.title"         : "List of available commands for DOCKER JOB:"
+"job.docker.help.job"           : "Get docker job."
+"job.docker.help.jobleave"      : "Leave docker job."
+"job.docker.help.take"          : "Take a box."
+"job.docker.help.put"           : "Put box to warehouse."
 });
 
 translation("ru", {
 "job.docker"                    : "портовый рабочий"
-"job.docker.letsgo"             : "Отправляйтесь в офис City Port."
-"job.docker.already"            : "Ты уже работаешь портовым рабочим."
-"job.docker.now"                : "Ты стал портовым рабочим. Добро пожаловать... в ад! Аха-ха..."
-"job.docker.takeboxandcarry"    : "Бери ящик и неси на склад."
-"job.docker.not"                : "Вы не работаете портовым рабочим."
-"job.docker.takebox"            : "Иди и возьми ящик."
-"job.docker.havebox"            : "Ты уже несёшь ящик. Тебе мало что ли?"
-"job.docker.tookbox"            : "Ты взял ящик. Теперь неси его на склад."
-"job.docker.haventbox"          : "Ты не брал ящик."
-"job.docker.gotowarehouse"      : "Иди на склад."
-"job.docker.nicejob"            : "Ты принёс ящик. Твой заработок $%.2f."
+"job.docker.letsgo"             : "[DOCKER] Отправляйтесь в офис City Port."
+"job.docker.already"            : "[DOCKER] Ты уже работаешь портовым рабочим."
+"job.docker.now"                : "[DOCKER] Ты стал портовым рабочим. Добро пожаловать... в ад! Аха-ха..."
+"job.docker.takeboxandcarry"    : "[DOCKER] Бери ящик и неси на склад."
+"job.docker.not"                : "[DOCKER] Вы не работаете портовым рабочим."
+"job.docker.takebox"            : "[DOCKER] Иди и возьми ящик."
+"job.docker.havebox"            : "[DOCKER] Ты уже несёшь ящик. Тебе мало что ли?"
+"job.docker.tookbox"            : "[DOCKER] Ты взял ящик. Теперь неси его на склад."
+"job.docker.haventbox"          : "[DOCKER] Ты не брал ящик."
+"job.docker.gotowarehouse"      : "[DOCKER] Иди на склад."
+"job.docker.nicejob"            : "[DOCKER] Ты принёс ящик. Твой заработок $%.2f."
 
 "job.docker.help.title"         : "Список команд, доступных портовому рабочему:"
 "job.docker.help.job"           : "Устроиться на работу портовым рабочим"
@@ -56,6 +56,7 @@ const DOCKER_JOB_PUTBOX_Y = -719.601;
 const DOCKER_JOB_PUTBOX_Z = -21.7312;
 const DOCKER_JOB_SKIN = 63;
 const DOCKER_SALARY = 0.50;
+      DOCKER_JOB_COLOR <- CL_CRUSTA;
 
 event("onServerStarted", function() {
     log("[jobs] loading docker job...");
@@ -135,20 +136,20 @@ function isDockerHaveBox(playerid) {
 function dockerJob( playerid ) {
 
     if(!isPlayerInValidPoint(playerid, DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_RADIUS)) {
-        return msg( playerid, "job.docker.letsgo" );
+        return msg( playerid, "job.docker.letsgo", DOCKER_JOB_COLOR );
     }
 
     if(isDocker( playerid )) {
-        return msg( playerid, "job.docker.already" );
+        return msg( playerid, "job.docker.already", DOCKER_JOB_COLOR );
     }
 
     if(isPlayerHaveJob(playerid)) {
-        return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid));
+        return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), DOCKER_JOB_COLOR );
     }
 
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
-        msg( playerid, "job.docker.now" );
-        msg( playerid, "job.docker.takeboxandcarry" );
+        msg( playerid, "job.docker.now", DOCKER_JOB_COLOR );
+        msg( playerid, "job.docker.takeboxandcarry", DOCKER_JOB_COLOR );
 
         setPlayerJob( playerid, "docker");
 
@@ -167,14 +168,14 @@ function dockerJob( playerid ) {
 function dockerJobLeave( playerid ) {
 
     if(!isPlayerInValidPoint(playerid, DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_RADIUS)) {
-        return msg( playerid, "job.docker.letsgo" );
+        return msg( playerid, "job.docker.letsgo", DOCKER_JOB_COLOR );
     }
 
     if(!isDocker( playerid )) {
-        return msg( playerid, "job.docker.not" );
+        return msg( playerid, "job.docker.not", DOCKER_JOB_COLOR );
     }
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
-        msg( playerid, "job.leave" );
+        msg( playerid, "job.leave", DOCKER_JOB_COLOR );
 
         setPlayerJob( playerid, null );
 
@@ -197,15 +198,15 @@ function dockerJobLeave( playerid ) {
 // working good, check
 function dockerJobTakeBox( playerid ) {
     if(!isDocker( playerid )) {
-        return msg( playerid, "job.docker.not" );
+        return msg( playerid, "job.docker.not", DOCKER_JOB_COLOR );
     }
 
     if(!isPlayerInValidPoint(playerid, DOCKER_JOB_TAKEBOX_X , DOCKER_JOB_TAKEBOX_Y, DOCKER_RADIUS)) {
-        return msg( playerid, "job.docker.takebox" );
+        return msg( playerid, "job.docker.takebox", DOCKER_JOB_COLOR );
     }
 
     if (isDockerHaveBox(playerid)) {
-        return msg( playerid, "job.docker.havebox");
+        return msg( playerid, "job.docker.havebox", DOCKER_JOB_COLOR );
     }
 
     dockerJobRemovePrivateBlipText ( playerid );
@@ -213,7 +214,7 @@ function dockerJobTakeBox( playerid ) {
     job_docker[playerid]["havebox"] = true;
     //setPlayerAnimStyle(playerid, "common", "CarryBox");
     //setPlayerHandModel(playerid, 1, 98); // put box in hands
-    msg( playerid, "job.docker.tookbox");
+    msg( playerid, "job.docker.tookbox", DOCKER_JOB_COLOR );
 
     job_docker[playerid]["blip3dtext"] = dockerJobCreatePrivateBlipText(playerid, DOCKER_JOB_PUTBOX_X, DOCKER_JOB_PUTBOX_Y, DOCKER_JOB_PUTBOX_Z, "PUT BOX HERE", "/docker put");
 
@@ -222,15 +223,15 @@ function dockerJobTakeBox( playerid ) {
 // working good, check
 function dockerJobPutBox( playerid ) {
     if(!isDocker( playerid )) {
-        return msg( playerid, "job.docker.not" );
+        return msg( playerid, "job.docker.not", DOCKER_JOB_COLOR );
     }
 
     if (!isDockerHaveBox(playerid)) {
-        return msg( playerid, "job.docker.haventbox");
+        return msg( playerid, "job.docker.haventbox", DOCKER_JOB_COLOR );
     }
 
     if(!isPlayerInValidPoint(playerid, DOCKER_JOB_PUTBOX_X, DOCKER_JOB_PUTBOX_Y, DOCKER_RADIUS)) {
-        return msg( playerid, "job.docker.gotowarehouse" );
+        return msg( playerid, "job.docker.gotowarehouse", DOCKER_JOB_COLOR );
     }
 
     //setPlayerAnimStyle(playerid, "common", "default");
@@ -239,7 +240,7 @@ function dockerJobPutBox( playerid ) {
     dockerJobRemovePrivateBlipText ( playerid );
 
     job_docker[playerid]["havebox"] = false;
-    msg( playerid, "job.docker.nicejob", DOCKER_SALARY);
+    msg( playerid, "job.docker.nicejob", DOCKER_SALARY, DOCKER_JOB_COLOR );
     addMoneyToPlayer(playerid, DOCKER_SALARY);
 
     job_docker[playerid]["blip3dtext"] = dockerJobCreatePrivateBlipText(playerid, DOCKER_JOB_TAKEBOX_X, DOCKER_JOB_TAKEBOX_Y, DOCKER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "/docker take");
