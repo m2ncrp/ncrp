@@ -136,12 +136,16 @@ function taxiCallTake(playerid, customerid) {
         return msg_taxi_dr(playerid, "job.taxi.needcar");
     }
 
-    if(job_taxi[playerid]["customer"] == customerid) {
-        return msg_taxi_dr(playerid, "job.taxi.takenthiscall", customerid);
-    }
-
     if(job_taxi[playerid]["status"] == "offair") {
         return msg_taxi_dr(playerid, "job.taxi.canttakecall");
+    }
+
+    if ( !isPlayerConnected(customerid) ) {
+        return msg(playerid, "job.taxi.callnotexist");
+    }
+
+    if(job_taxi[playerid]["customer"] == customerid) {
+        return msg_taxi_dr(playerid, "job.taxi.takenthiscall", customerid);
     }
 
     if(job_taxi[playerid]["status"] == "busy") {

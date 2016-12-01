@@ -63,6 +63,7 @@ translation("en", {
     "job.taxi.noanycalls"               :   "You didn't take any calls."
     "job.taxi.wait"                     :   "Wait for the passenger..."
     "job.taxi.canttakecall"             :   "You can't take call while your status is OFF air."
+    "job.taxi.callnotexist"             :   "Customer has canceled the call. Wait other calls..."
     "job.taxi.takenthiscall"            :   "You have already taken this call #%d."
     "job.taxi.takencall"                :   "You have already taken a call."
     "job.taxi.callalreadytaken"         :   "Call #%d is already taken."
