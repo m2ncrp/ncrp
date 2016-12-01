@@ -1,10 +1,10 @@
-cmd(["vehicle"], function( playerid, id ) {
+acmd(["vehicle"], function( playerid, id ) {
     local pos = getPlayerPosition( playerid );
     local vehicle = createVehicle( id.tointeger(), pos[0] + 2.0, pos[1], pos[2] + 1.0, 0.0, 0.0, 0.0 );
     // setVehicleColour(vehicle, 0, 0, 0, 0, 0, 0);
 });
 
-cmd(["tune"], function( playerid ) {
+acmd(["tune"], function( playerid ) {
     if( isPlayerInVehicle( playerid ) )
     {
         local vehicleid = getPlayerVehicle( playerid );
@@ -15,7 +15,7 @@ cmd(["tune"], function( playerid ) {
     }
 });
 
-cmd(["fix"], function( playerid ) {
+acmd(["fix"], function( playerid ) {
     if( isPlayerInVehicle( playerid ) )
     {
         local vehicleid = getPlayerVehicle( playerid );
@@ -24,15 +24,7 @@ cmd(["fix"], function( playerid ) {
     }
 });
 
-cmd(["destroyVehicle"], function( playerid ) {
-    if( isPlayerInVehicle( playerid ) )
-    {
-        local vehicleid = getPlayerVehicle( playerid );
-        destroyVehicle( vehicleid );
-    }
-});
-
-addCommandHandler("checkcar", function( playerid ) {
+acmd("checkcar", function( playerid ) {
     local vehicleid = getPlayerVehicle( playerid );
     local vehicleModel = getVehicleModel( vehicleid );
 
@@ -67,7 +59,7 @@ cmd("aviar", function(playerid) {
     switchBothLight(playerid);
 });
 
-cmd("jump", function(playerid) {
+acmd("jump", function(playerid) {
     if (isPlayerInVehicle(playerid)) {
         local vehicleid = getPlayerVehicle(playerid);
         local sp = getVehicleSpeed(vehicleid);
@@ -75,7 +67,7 @@ cmd("jump", function(playerid) {
     }
 });
 
-cmd("myveh", function(playerid, modelid) {
+acmd("myveh", function(playerid, modelid) {
     local pos = getPlayerPosition( playerid );
     local vehicleid = createVehicle( modelid.tointeger(), pos[0] + 2.0, pos[1], pos[2] + 1.0, 0.0, 0.0, 0.0 );
     setVehicleColour(vehicleid, 0, 0, 0, 0, 0, 0);
@@ -84,7 +76,7 @@ cmd("myveh", function(playerid, modelid) {
     setVehicleRespawnEx(vehicleid, false); // it wont respawn
 });
 
-cmd("who", function(playerid) {
+acmd("who", function(playerid) {
     if (isPlayerInVehicle(playerid)) {
         if (isPlayerVehicleOwner(playerid, getPlayerVehicle(playerid))) {
             msg(playerid, "You are owner", CL_SNUFF);
