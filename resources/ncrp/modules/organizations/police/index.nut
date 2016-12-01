@@ -331,7 +331,7 @@ function policeCall(playerid, place) {
         return msg(playerid, "organizations.police.call.withoutaddress");
     }
 
-    msg(player, "organizations.police.call.foruser", [place], CL_ROYALBLUE);
+    msg(playerid, "organizations.police.call.foruser", [place], CL_ROYALBLUE);
 
     foreach(player in playerList.getPlayers()) {
         if ( isOfficer(player) && isOnDuty(player) ) {
