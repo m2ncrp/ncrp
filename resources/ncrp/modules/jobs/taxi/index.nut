@@ -101,9 +101,15 @@ function isPlayerCarTaxi(playerid) {
  * @param  {int} again      - if set 1, message not be shown for playerid
  */
 function taxiCall(playerid, place, again = 0) {
+
+    if ((isTaxiDriver(playerid) && job_taxi[playerid]["status"] == "onair") || (isTaxiDriver(playerid) && isPlayerCarTaxi(playerid))) {
+        return msg_taxi_dr(playerid, "job.taxi.driver.dontfoolaround"); // don't fool around   
+    }
+
     if (!place || place.len() < 1) {
             return msg_taxi_cu(playerid, "taxi.call.addresswithout");
     }
+
     local check = false;
     foreach (key, value in job_taxi) {
         if (value["status"] == "onair") { // need changed to onair for correct work !!!!!!!!!!!!!!!!!!!!!!!!
@@ -140,7 +146,7 @@ function taxiCallTake(playerid, customerid) {
         return msg_taxi_dr(playerid, "job.taxi.canttakecall");
     }
 
-    if ( !isPlayerConnected(customerid) ) {
+    if ( !isPlayerConnected(customerid) || playerid == customerid ) {
         return msg(playerid, "job.taxi.callnotexist");
     }
 
@@ -284,6 +290,10 @@ function taxiGoOffAir(playerid) {
 
     if (!isPlayerCarTaxi(playerid)) {
         return msg_taxi_dr(playerid, "job.taxi.needcar" );
+    }
+
+    if(job_taxi[playerid]["status"] == "offair") {
+        return msg_taxi_dr(playerid, "job.taxi.statusoff");
     }
 
     if(job_taxi[playerid]["status"] != "onair") {

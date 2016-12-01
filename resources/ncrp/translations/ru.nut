@@ -54,9 +54,10 @@ translation("ru", {
     "job.bus.route.5"                   :   "Маршрут «Большой Empire Bay» (21 остановка)"
 
     "job.taxidriver"                    :   "таксист"
-    "job.taxi.needlevel"                :   "Таксистом можно устроиться начиная с уровня %d."
+    "job.taxi.needlevel"                :   "Устроиться на работу таксистом можно начиная с уровня %d."
     "job.taxi.driver.not"               :   "Вы не работаете таксистом."
     "job.taxi.driver.already"           :   "Вы уже работаете таксистом."
+    "job.taxi.driver.dontfoolaround"    :   "Не валяй дурака! Ты сам таксист."
     "job.taxi.driver.now"               :   "Вы стали таксистом. Выйдите на линию, чтобы начать принимать вызовы."
     "job.taxi.call.new"                 :   "Новый вызов с адреса: %s. Если вы хотите принять этот вызов, напишите /taxi take %d."
     "job.taxi.needcar"                  :   "Вам нужен автомобиль такси."
