@@ -150,6 +150,7 @@ function setPlayerJob(playerid, jobname) {
     }
     players[playerid].job = jobname;
     trigger(playerid, "onServerIntefaceCharacterJob", getLocalizedPlayerJob(playerid, "en"));
+    trigger("onPlayerJobChanged", playerid);
     return true;
 }
 
