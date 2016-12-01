@@ -25,21 +25,39 @@ function registerPersonalJobBlip(jobname, x, y) {
     }
 }
 
-event("onPlayerSpawn", function(playerid) {
+function applyPersonalJobBlip(playerid) {
     foreach (jobname, coords in jobBlips) {
         if (playerid in players && players[playerid].job == jobname) {
             createPersonalJobBlip(playerid, coords.x, coords.y);
         }
+        if (!getPlayerJob(playerid)) {
+            createPersonalJobBlip(playerid, coords.x, coords.y);
+        }
     }
+}
+
+event("onPlayerSpawn", function(playerid) {
+    applyPersonalJobBlip(playerid);
+});
+
+event("onPlayerJobChanged", function(playerid) {
+    removePersonalJobBlip(playerid);
+    delayedFunction(250, function() {
+        applyPersonalJobBlip(playerid);
+    })
 });
 
 function createPersonalJobBlip(playerid, x, y) {
-    playerJobBlips[playerid] <- createPrivateBlip(playerid, x, y, ICON_STAR, 4000.0);
+    if (!(playerid in playerJobBlips)) {
+        playerJobBlips[playerid] <- [];
+    }
+    playerJobBlips[playerid].push(createPrivateBlip(playerid, x, y, ICON_STAR, 4000.0));
 }
 
 function removePersonalJobBlip(playerid) {
    if (playerid in playerJobBlips) {
-       removeBlip(playerJobBlips[playerid]);
+        playerJobBlips[playerid].apply(removeBlip)
+        playerJobBlips[playerid] = [];
    }
 }
 
