@@ -57,6 +57,7 @@ translation("en", {
     "job.taxi.needlevel"                :   "You need level %d to become taxi driver."
     "job.taxi.driver.not"               :   "You're not a Taxi Driver."
     "job.taxi.driver.already"           :   "You're Taxi Driver already."
+    "job.taxi.driver.dontfoolaround"    :   "Don't fool around! You are a taxi driver."
     "job.taxi.driver.now"               :   "You became a taxi driver. Change status to ON air to begin to receive calls."
     "job.taxi.call.new"                 :   "New call from address: %s. If you want take this call, write /taxi take %d."
     "job.taxi.needcar"                  :   "You need a taxi car."
