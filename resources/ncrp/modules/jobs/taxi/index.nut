@@ -35,7 +35,7 @@ event("onPlayerConnect", function(playerid, name, ip, serial ){
 });
 
 event( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
-    if(isPlayerCarTaxi(playerid) && getPlayerJob(playerid) != "taxidriver" && isVehicleEmpty(vehicleid)) {
+    if(isPlayerCarTaxi(playerid) && getVehiclePassengersCount(vehicleid) == 1 && getPlayerJob(playerid) != "taxidriver") {
         setVehicleFuel(vehicleid, 0.0);
         return msg(playerid, "taxi.needpay", price);
     }
@@ -101,9 +101,15 @@ function isPlayerCarTaxi(playerid) {
  * @param  {int} again      - if set 1, message not be shown for playerid
  */
 function taxiCall(playerid, place, again = 0) {
+
+    if ((isTaxiDriver(playerid) && job_taxi[playerid]["status"] == "onair") || (isTaxiDriver(playerid) && isPlayerCarTaxi(playerid))) {
+        return msg_taxi_dr(playerid, "job.taxi.driver.dontfoolaround"); // don't fool around   
+    }
+
     if (!place || place.len() < 1) {
             return msg_taxi_cu(playerid, "taxi.call.addresswithout");
     }
+
     local check = false;
     foreach (key, value in job_taxi) {
         if (value["status"] == "onair") { // need changed to onair for correct work !!!!!!!!!!!!!!!!!!!!!!!!
@@ -136,12 +142,16 @@ function taxiCallTake(playerid, customerid) {
         return msg_taxi_dr(playerid, "job.taxi.needcar");
     }
 
-    if(job_taxi[playerid]["customer"] == customerid) {
-        return msg_taxi_dr(playerid, "job.taxi.takenthiscall", customerid);
-    }
-
     if(job_taxi[playerid]["status"] == "offair") {
         return msg_taxi_dr(playerid, "job.taxi.canttakecall");
+    }
+
+    if ( !isPlayerConnected(customerid) || playerid == customerid ) {
+        return msg(playerid, "job.taxi.callnotexist");
+    }
+
+    if(job_taxi[playerid]["customer"] == customerid) {
+        return msg_taxi_dr(playerid, "job.taxi.takenthiscall", customerid);
     }
 
     if(job_taxi[playerid]["status"] == "busy") {
@@ -282,6 +292,10 @@ function taxiGoOffAir(playerid) {
         return msg_taxi_dr(playerid, "job.taxi.needcar" );
     }
 
+    if(job_taxi[playerid]["status"] == "offair") {
+        return msg_taxi_dr(playerid, "job.taxi.statusoff");
+    }
+
     if(job_taxi[playerid]["status"] != "onair") {
         return msg_taxi_dr(playerid, "job.taxi.cantchangestatus");
     }
@@ -319,7 +333,7 @@ function taxiJob(playerid) {
 
     msg(playerid, "job.taxi.driver.now");
 
-    players[playerid]["job"] = "taxidriver";
+    setPlayerJob( playerid, "taxidriver");
 
     players[playerid]["skin"] = TAXI_JOB_SKIN;
     setPlayerModel( playerid, TAXI_JOB_SKIN );
@@ -355,7 +369,7 @@ function taxiJobLeave(playerid) {
 
         msg(playerid, "job.leave");
 
-        players[playerid]["job"] = null;
+        setPlayerJob( playerid, null );
 
         players[playerid]["skin"] = players[playerid]["default_skin"];
         setPlayerModel( playerid, players[playerid]["default_skin"]);
