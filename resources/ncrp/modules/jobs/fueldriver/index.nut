@@ -96,12 +96,13 @@ const FUEL_JOB_WAREHOUSE_X = 788.288;
 const FUEL_JOB_WAREHOUSE_Y = -78.0801;
 const FUEL_JOB_WAREHOUSE_Z = -20.0379;
 const FUEL_JOB_LEVEL = 3;
+      FUEL_JOB_COLOR <- CL_ECSTASY;
 
 local fuelname = [
     "Oyster Bay",                       // FuelStation Oyster Bay
     "West Side",                        // FuelStation
-    "Little Italy (Diamond Motors)",    // FuelStation LittleItaly Diamond
-    "Little Italy East",                // FuelStation LittleItaly East
+    "Little Italy",                     // FuelStation LittleItaly Diamond
+    "Little Italy (East)",              // FuelStation LittleItaly East
     "East Side",                        // FuelStation EastSide
     "Sand Island",                      // FuelStation Sand Island
     "Greenfield",                       // FuelStation Greenfield
@@ -223,24 +224,24 @@ function isFuelReady(playerid) {
 function fuelJob ( playerid ) {
 
     if(!isPlayerInValidPoint(playerid, FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_RADIUS)) {
-        return msg( playerid, "job.fueldriver.letsgo" );
+        return msg( playerid, "job.fueldriver.letsgo", FUEL_JOB_COLOR );
     }
 
     if(isFuelDriver(playerid)) {
-        return msg( playerid, "job.fueldriver.already");
+        return msg( playerid, "job.fueldriver.already", FUEL_JOB_COLOR );
     }
 
     if(isPlayerHaveJob(playerid)) {
-        return msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid));
+        return msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), FUEL_JOB_COLOR );
     }
 
     if(!isPlayerLevelValid ( playerid, FUEL_JOB_LEVEL )) {
-        return msg(playerid, "job.fueldriver.needlevel", FUEL_JOB_LEVEL );
+        return msg(playerid, "job.fueldriver.needlevel", FUEL_JOB_LEVEL, FUEL_JOB_COLOR );
     }
 
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
-        msg( playerid, "job.fueldriver.now" );
-        msg( playerid, "job.fueldriver.sitintotruck" );
+        msg( playerid, "job.fueldriver.now", FUEL_JOB_COLOR );
+        msg( playerid, "job.fueldriver.sitintotruck", FUEL_JOB_COLOR );
 
         setPlayerJob( playerid, "fueldriver");
 
@@ -257,14 +258,14 @@ function fuelJob ( playerid ) {
 function fuelJobLeave ( playerid ) {
 
     if(!isPlayerInValidPoint(playerid, FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_RADIUS)) {
-        return msg( playerid, "job.fueldriver.letsgo" );
+        return msg( playerid, "job.fueldriver.letsgo", FUEL_JOB_COLOR );
     }
 
     if(!isFuelDriver(playerid)) {
-        return msg( playerid, "job.fueldriver.not");
+        return msg( playerid, "job.fueldriver.not", FUEL_JOB_COLOR );
     }
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
-        msg( playerid, "job.leave" );
+        msg( playerid, "job.leave", FUEL_JOB_COLOR );
 
         setPlayerJob( playerid, null );
 
@@ -285,11 +286,11 @@ function fuelJobLeave ( playerid ) {
 function fuelJobReady ( playerid ) {
 
     if(!isFuelDriver(playerid)) {
-        return msg( playerid, "job.fueldriver.not");
+        return msg( playerid, "job.fueldriver.not", FUEL_JOB_COLOR );
     }
 
     if (!isPlayerVehicleFuel(playerid)) {
-        return msg(playerid, "job.fueldriver.needfueltruck");
+        return msg(playerid, "job.fueldriver.needfueltruck", FUEL_JOB_COLOR );
     }
 
     local vehicleid = getPlayerVehicle(playerid);
@@ -298,9 +299,9 @@ function fuelJobReady ( playerid ) {
     fuelJobWarehouseCreateBlipText( playerid );
 
     if(fuelcars[vehicleid][1] >= 4000) {
-        msg( playerid, "job.fueldriver.truck.loaded", fuelcars[vehicleid][1]);
+        msg( playerid, "job.fueldriver.truck.loaded", fuelcars[vehicleid][1], FUEL_JOB_COLOR );
     } else {
-        msg( playerid, "job.fueldriver.truck.empty" );
+        msg( playerid, "job.fueldriver.truck.empty", FUEL_JOB_COLOR );
     }
 }
 
@@ -308,11 +309,11 @@ function fuelJobReady ( playerid ) {
 function fuelJobLoad ( playerid ) {
 
     if(!isFuelDriver(playerid)) {
-        return msg( playerid, "job.fueldriver.not");
+        return msg( playerid, "job.fueldriver.not", FUEL_JOB_COLOR );
     }
 
     if (!isPlayerVehicleFuel(playerid)) {
-        return msg(playerid, "job.fueldriver.needfueltruck");
+        return msg(playerid, "job.fueldriver.needfueltruck", FUEL_JOB_COLOR );
     }
 
     local vehicleid = getPlayerVehicle(playerid);
@@ -320,20 +321,20 @@ function fuelJobLoad ( playerid ) {
     if(!isPlayerVehicleInValidPoint(playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, 5.0)) {
         // create blip and 3text for warehouse
         fuelJobWarehouseCreateBlipText( playerid );
-        return msg( playerid, "job.fueldriver.truck.toload" );
+        return msg( playerid, "job.fueldriver.truck.toload", FUEL_JOB_COLOR );
     }
 
     if(isPlayerVehicleMoving(playerid)){
-        return msg( playerid, "job.fueldriver.driving");
+        return msg( playerid, "job.fueldriver.driving", FUEL_JOB_COLOR );
     }
 
     if(fuelcars[vehicleid][1] == 16000) {
-       return msg( playerid, "job.fueldriver.truck.alreadyloaded" );
+       return msg( playerid, "job.fueldriver.truck.alreadyloaded", FUEL_JOB_COLOR );
     }
 
     if(fuelcars[vehicleid][1] < 16000) {
         fuelcars[vehicleid][1] = 16000;
-        msg( playerid, "job.fueldriver.truck.fullloaded" );
+        msg( playerid, "job.fueldriver.truck.fullloaded", FUEL_JOB_COLOR );
     }
 
     // create fuel marks
@@ -344,17 +345,17 @@ function fuelJobLoad ( playerid ) {
 function fuelJobUnload ( playerid ) {
 
     if(!isFuelDriver(playerid)) {
-        return msg( playerid, "job.fueldriver.not");
+        return msg( playerid, "job.fueldriver.not", FUEL_JOB_COLOR );
     }
 
     if (!isPlayerVehicleFuel(playerid)) {
-        return msg(playerid, "job.fueldriver.needfueltruck");
+        return msg(playerid, "job.fueldriver.needfueltruck", FUEL_JOB_COLOR );
     }
 
     local vehicleid = getPlayerVehicle(playerid);
 
     if(fuelcars[vehicleid][1] < 4000) {
-        return msg( playerid, "job.fueldriver.truck.fuelnotenough" );
+        return msg( playerid, "job.fueldriver.truck.fuelnotenough", FUEL_JOB_COLOR );
     }
 
     local check = false;
@@ -368,15 +369,15 @@ function fuelJobUnload ( playerid ) {
     }
 
     if (!check) {
-       return  msg( playerid, "job.fueldriver.truck.tounload" );
+       return  msg( playerid, "job.fueldriver.truck.tounload", FUEL_JOB_COLOR );
     }
 
     if(isPlayerVehicleMoving(playerid)){
-        return msg( playerid, "job.fueldriver.driving");
+        return msg( playerid, "job.fueldriver.driving", FUEL_JOB_COLOR );
     }
 
     if(job_fuel[playerid]["fuelstatus"][i]) {
-        return msg( playerid, "job.fueldriver.alreadybeenhere" );
+        return msg( playerid, "job.fueldriver.alreadybeenhere", FUEL_JOB_COLOR );
     }
 
     fuelcars[vehicleid][1] -= 4000;
@@ -387,12 +388,13 @@ function fuelJobUnload ( playerid ) {
     removeFuelJobStationMark(playerid, i);
 
     if (job_fuel[playerid]["fuelcomplete"] == 8) {
-        msg( playerid, "job.fueldriver.truck.parking" );
+        msg( playerid, "job.fueldriver.truck.parking", FUEL_JOB_COLOR );
+        fuelJobWarehouseRemoveBlipText( playerid );
     } else {
         if (fuelcars[vehicleid][1] >= 4000) {
-            msg( playerid, "job.fueldriver.truck.unloadingcompletedtruckisloaded", fuelcars[vehicleid][1] );
+            msg( playerid, "job.fueldriver.truck.unloadingcompletedtruckisloaded", fuelcars[vehicleid][1], FUEL_JOB_COLOR );
         } else {
-            msg( playerid, "job.fueldriver.truck.unloadingcompletedfuelnotenough" );
+            msg( playerid, "job.fueldriver.truck.unloadingcompletedfuelnotenough", FUEL_JOB_COLOR );
         }
     }
 }
@@ -402,34 +404,33 @@ function fuelJobUnload ( playerid ) {
 function fuelJobPark ( playerid ) {
 
     if(!isFuelDriver(playerid)) {
-        return msg( playerid, "job.fueldriver.not");
+        return msg( playerid, "job.fueldriver.not", FUEL_JOB_COLOR );
     }
 
     if (!isPlayerVehicleFuel(playerid)) {
-        return msg(playerid, "job.fueldriver.needfueltruck");
+        return msg(playerid, "job.fueldriver.needfueltruck", FUEL_JOB_COLOR );
     }
 
     local vehicleid = getPlayerVehicle(playerid);
 
     if(!isPlayerVehicleInValidPoint(playerid, 517.782, -277.5, 10.0)) {
-        return msg( playerid, "job.fueldriver.truck.topark" );
+        return msg( playerid, "job.fueldriver.truck.topark", FUEL_JOB_COLOR );
     }
 
     if(isPlayerVehicleMoving(playerid)){
-        return msg( playerid, "job.fueldriver.driving");
+        return msg( playerid, "job.fueldriver.driving", FUEL_JOB_COLOR );
     }
 
     if (job_fuel[playerid]["fuelcomplete"] < 8) {
-        return msg( playerid, "job.fueldriver.completedelivery" );
+        return msg( playerid, "job.fueldriver.completedelivery", FUEL_JOB_COLOR );
     }
 
     job_fuel[playerid]["fuelcomplete"] = 0;
-    msg( playerid, "job.fueldriver.nicejob", FUEL_JOB_SALARY );
+    msg( playerid, "job.fueldriver.nicejob", FUEL_JOB_SALARY, FUEL_JOB_COLOR );
     addMoneyToPlayer(playerid, FUEL_JOB_SALARY);
 
     // clear all marks
     clearFuelJobStationMarks( playerid );
-    fuelJobWarehouseRemoveBlipText( playerid );
 }
 
 
@@ -445,22 +446,22 @@ function fuelJobList ( playerid ) {
                 msg( playerid, "job.fueldriver.routelist.waiting", [i, fuelname[key]], CL_JOB_LIST_R);
             }
         }
-    } else { msg( playerid, "job.fueldriver.not"); }
+    } else { msg( playerid, "job.fueldriver.not", FUEL_JOB_COLOR ); }
 }
 
 // working good, check
 function fuelJobCheck ( playerid ) {
 
     if(!isFuelDriver(playerid)) {
-        return msg( playerid, "job.fueldriver.not");
+        return msg( playerid, "job.fueldriver.not", FUEL_JOB_COLOR );
     }
 
     if (!isPlayerVehicleFuel(playerid)) {
-        return msg(playerid, "job.fueldriver.needfueltruck");
+        return msg(playerid, "job.fueldriver.needfueltruck", FUEL_JOB_COLOR );
     }
 
     local vehicleid = getPlayerVehicle(playerid);
-    msg( playerid, "job.fueldriver.truck.loadedto", fuelcars[vehicleid][1] );
+    msg( playerid, "job.fueldriver.truck.loadedto", fuelcars[vehicleid][1], FUEL_JOB_COLOR  );
 }
 
 
