@@ -44,6 +44,15 @@ acmd("biz", ["set", "owner"], function(playerid, id, ownerid) {
     }
 });
 
+acmd("bizc", function(playerid, type, price, income, ...) {
+    local pos = getPlayerPosition(playerid);
+    local id  = createBusiness(pos[0], pos[1], pos[2], "Default", type.tointeger());
+    setBusinessName(id.tointeger(), concat(vargv));
+    setBusinessPrice(id.tointeger(), price.tofloat());
+    setBusinessIncome(id.tointeger(), income.tofloat());
+    msg(playerid, "You've created business # " + id);
+});
+
 cmd("biz", "buy", function(playerid, a = 0, b = 0) {
     msg(playerid, "business.error.cantbuy", CL_WARNING);
 });
