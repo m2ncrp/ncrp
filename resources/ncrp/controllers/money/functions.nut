@@ -106,24 +106,130 @@ function sendInvoiceSilent(playerid, targetid = null, amount = null, callback = 
 
     if (targetid == null || amount == null) {
         dbg("[money invoice silent] need targetid and amount");
-        return;
+        return false;
     }
 
     local targetid = targetid.tointeger();
     local amount = round(fabs(amount.tofloat()), 2);
-    if (playerid == targetid) {
-        return msg(playerid, "You can't transfer money to yourself.");
-    }
+    /*if (playerid == targetid) {
+        dbg("[money invoice silent] You can't transfer money to yourself.");
+        return false;
+    }*/
     if ( !isPlayerConnected(targetid) ) {
-        return msg(playerid, "There's no such person on server!");
+        dbg("[money invoice silent] There's no such person on server!");
+        return false;
     }
-    if (checkDistanceBtwTwoPlayersLess(playerid, targetid, 2.0)) {
+    if (checkDistanceBtwTwoPlayersLess(playerid, targetid, 3.0)) {
         players[playerid]["request"][targetid] <- [amount, callback];
-        msg(playerid, "You send invoice to " + getPlayerName(targetid) + " (#" + targetid + ") on $" + amount + "." );
-        msg(targetid, "You received invoice from " + getPlayerName(playerid) + " (#" + playerid + ") on $" + amount + "." );
-        msg(targetid, "Please, /accept " + playerid + " or /decline " + playerid + " this invoice." );
-    } else { msg(playerid, "Distance between you and receiver is too large!"); }
+        //msg(playerid, "You send invoice to " + getPlayerName(targetid) + " (#" + targetid + ") on $" + amount + "." );
+        //msg(targetid, "You received invoice from " + getPlayerName(playerid) + " (#" + playerid + ") on $" + amount + "." );
+        msg(targetid, "money.invoice.selectaction", [ playerid, playerid ] );
+    } else {
+        msg(playerid, "money.invoice.distancetoolarge");
+    }
 }
+
+
+translation("en", {
+    "money.invoice.selectaction"        : "Please, /pay %d or /cancel %d to pay."
+    "money.invoice.distancetoolarge"    : "Distance between you and receiver is too large!"
+    "money.invoice.notenoughmoney"      : "Not enough money to pay!"
+    "money.invoice.cantpay"             : "%s can't accept payment!"
+    "money.invoice.needplayerid"        : "You must provide player id to accept invoice."
+    "money.invoice.senderoff"           : "Validity period of payment has expired."//  sender offline
+});
+
+translation("ru", {
+    "money.invoice.selectaction"        : "/pay %d, чтобы подтвердить оплату или /cancel %d, чтобы отклонить."
+    "money.invoice.distancetoolarge"    : "Расстояние между вами и другим игроком слишком велико!"
+    "money.invoice.notenoughmoney"      : "Недостаточно денег для оплаты!"
+    "money.invoice.cantpay"             : "%s не может произвести оплату!"
+    "money.invoice.needplayerid"        : "Для подтверждения оплаты необходимо указать id игрока."
+    "money.invoice.senderoff"           : "Срок действия платежа истёк." //  sender offline
+});
+
+
+
+
+/**
+ * Accept invoice to transfer from <senderid> to <playerid>
+ *
+ * @param  {int} playerid
+ * @param  {int} senderid
+ */
+function invoiceAcceptNew(playerid, senderid = null) {
+
+    if (senderid == null) {
+        return msg(playerid, "money.invoice.needplayerid");
+    }
+
+    local senderid = senderid.tointeger();
+    if ( !isPlayerConnected(senderid) ) {
+        return msg(playerid, "money.invoice.senderoff");
+    }
+    if (checkDistanceBtwTwoPlayersLess(playerid, senderid, 2.0)) {
+        if ("request" in players[senderid] && playerid in players[senderid]["request"]) {
+            local amount = players[senderid]["request"][playerid][0];
+            if(canMoneyBeSubstracted(playerid, amount)) {
+                subMoneyToPlayer(playerid, amount);
+                addMoneyToPlayer(senderid, amount);
+
+                // trigger callback
+                if (players[senderid]["request"][playerid][1]) {
+                    players[senderid]["request"][playerid][1](playerid, senderid, true);
+                }
+
+                delete players[senderid]["request"][playerid];
+                //msg(playerid, "You've given $" + amount + " to " + getPlayerName(senderid) + " (#" + senderid + "). Your cash: $" + getPlayerBalance(playerid) );
+                //msg(senderid,  getPlayerName(playerid) + " (#" + playerid + ") accepted your invoice. You earned $" + amount + ". Your cash: $" + getPlayerBalance(senderid) );
+            } else {
+                msg(playerid, "money.invoice.notenoughmoney");
+                msg(senderid, "money.invoice.cantpay", getPlayerNameShort(playerid));
+                //return "notenough";
+            }
+        }
+    } else { msg(playerid, "money.invoice.distancetoolarge"); }
+}
+
+
+/**
+ * Decline invoice to transfer from <senderid> to <playerid>
+ *
+ * @param  {int} playerid
+ * @param  {int} senderid
+ */
+function invoiceDeclineNew(playerid, senderid = null) {
+
+    if (senderid == null) {
+        return msg(playerid, "money.invoice.needplayerid");
+    }
+
+    local senderid = senderid.tointeger();
+    if ( !isPlayerConnected(senderid) ) {
+        return msg(playerid, "money.invoice.senderoff");
+    }
+        if ("request" in players[senderid] && playerid in players[senderid]["request"]) {
+
+            // trigger callback
+            if (players[senderid]["request"][playerid][1]) {
+                players[senderid]["request"][playerid][1](playerid, senderid, false);
+            }
+
+            delete players[senderid]["request"][playerid];
+        }
+        //msg(playerid, "You decline invoice from " + getPlayerName(senderid) + " (#" + senderid + ")." );
+        //msg(senderid,  getPlayerName(playerid) + " (#" + playerid + ") declined your invoice." );
+}
+
+
+
+
+
+
+
+
+//************************************************************************************************************************
+
 
 /**
  * Accept invoice to transfer from <senderid> to <playerid>
@@ -163,6 +269,7 @@ function invoiceAccept(playerid, senderid = null) {
         }
     } else { msg(playerid, "Distance between you and receiver is too large!"); }
 }
+
 
 /**
  * Decline invoice to transfer from <senderid> to <playerid>

@@ -73,6 +73,9 @@ translation("en", {
     "job.taxi.statuson"                 :   "Your taxi driver status: ON air. Wait for a call..."
     "job.taxi.cantchangestatus"         :   "You can't change status while you'll complete trip or refuse call."
     "job.taxi.statusoff"                :   "Your taxi driver status: OFF air. You won't receive calls now."
+    "job.taxi.requested"                :   "You have requested payment of $%.2f."
+    "job.taxi.psngdeclined"             :   "Passenger %s declined to pay."
+    "job.taxi.callclosed"               :   "Call has been closed successfully."
     "job.taxi.havejob"                  :   "You have a job: %s."
     "job.taxi.refusedcall"              :   "You've refused from call #%d."
     "job.taxi.cantrefuse"               :   "You can't refuse from call while you carry a passenger."
@@ -87,7 +90,8 @@ translation("en", {
     "job.taxi.help.take"                :   "Take call with <id>. Example: /taxi take 5"
     "job.taxi.help.refuse"              :   "Refuse the current taken call"
     "job.taxi.help.ready"               :   "Report that the taxicar has arrived to the address"
-    "job.taxi.help.end"                 :   "End trip and send invoice to pay <amount> dollars. Example: /taxi end 1.25"
+    "job.taxi.help.done"                :   "End trip and send invoice to pay <amount> dollars. Example: /taxi done 1.25"
+    "job.taxi.help.close"               :   "Close the call as completed"
 
     "taxi.needpay"                      :   "To drive this car you need to pay $%.2f for fuel and rent. If you agree: /drive"
     "taxi.notenough"                    :   "You don't have enough money."
@@ -99,6 +103,10 @@ translation("en", {
     "taxi.call.received"                :   "Your call is received by driver. The car goes to you."
     "taxi.call.arrived"                 :   "Your taxi car with plate %s arrived to address."
     "taxi.call.refused"                 :   "Driver refused from your call. Wait another driver."
+    "taxi.call.request"                 :   "You have to pay $%.2f for taxi."
+    "taxi.call.declined"                :   "You declined to pay for taxi."
+    "taxi.call.completed"               :   "The trip is completed. Please, leave the car."
+
     "taxi.help.title"                   :   "List of available commands for TAXI:"
     "taxi.help.taxi"                    :   "/taxi your_address - Call a taxi to address"
 
