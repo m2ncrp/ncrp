@@ -1,9 +1,9 @@
-cmd(["spawn"], function(playerid) {
+acmd(["spawn"], function(playerid) {
     setPlayerPosition( playerid, -1551.560181, -169.915466, -19.672523 );
     setPlayerHealth( playerid, 720.0 );
 });
 
-cmd(["weapons"], function(playerid) {
+acmd(["weapons"], function(playerid) {
     givePlayerWeapon( playerid, 2, 2500 );
     givePlayerWeapon( playerid, 3, 2500 );
     givePlayerWeapon( playerid, 4, 2500 );
@@ -19,22 +19,22 @@ cmd(["weapons"], function(playerid) {
     //player:InventoryAddItem(36) -- отмычки
 });
 
-cmd(["heal"], function( playerid ) {
+acmd(["heal"], function( playerid ) {
     setPlayerHealth( playerid, 720.0 );
 });
 
-cmd(["die"], function( playerid ) {
+acmd(["die"], function( playerid ) {
     setPlayerHealth( playerid, 0.0 );
 });
 
-cmd(["skin"], function( playerid, id ) {
+acmd(["skin"], function( playerid, id ) {
     setPlayerModel( playerid, id.tointeger() );
     players[playerid]["skin"] = id.tointeger();
     players[playerid]["default_skin"] = id.tointeger();
 });
 
 
-cmd(["skininc"], function ( playerid ) {
+acmd(["skininc"], function ( playerid ) {
     local skin = players[playerid]["skin"];
     if ( skin < 171) {
         skin += 1;
@@ -47,7 +47,7 @@ cmd(["skininc"], function ( playerid ) {
     }
 });
 
-cmd(["skindec"], function ( playerid ) {
+acmd(["skindec"], function ( playerid ) {
     local skin = players[playerid]["skin"];
     if ( skin > 0) {
         skin -= 1;

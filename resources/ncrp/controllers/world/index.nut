@@ -11,7 +11,7 @@ AUTOSAVE_TIME               <- 10;
 local world  = null;
 local ticker = null;
 
-addEventHandlerEx("onServerStarted", function() {
+event("onServerStarted", function() {
     log("[world] starting world ...");
 
     World.findAll(function(err, worlds) {
@@ -42,12 +42,12 @@ event("onServerStopping", function() {
     ticker = null;
 });
 
-addEventHandler("onPlayerConnect", function(playerid, a, b, c) {
+event("onPlayerConnect", function(playerid, a, b, c) {
     world.sendToClient(playerid);
 });
 
 // register auto time sync on player spawn
-addEventHandler("onPlayerSpawn", function(playerid) {
+event("onPlayerSpawn", function(playerid) {
     world.sendToClient(playerid);
 });
 
