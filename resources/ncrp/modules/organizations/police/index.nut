@@ -33,6 +33,7 @@ translation("en", {
 
     "organizations.police.call.withoutaddress"  : "You can't call police without address.",
     "organizations.police.call.new"             : "[R] %s called police from %s",
+    "organizations.police.call.foruser"         : "You've called police from %s",
 
     "organizations.police.crime.wasdone"        : "You would better not to do it..",
     "organizations.police.alreadyofficer"       : "You're already working in EBPD.",
@@ -82,6 +83,7 @@ translation("ru", {
 
     "organizations.police.call.withoutaddress"  : "Вы не можете вызвать полицию не указав адреса.",
     "organizations.police.call.new"             : "[R] поступил вызов от %s из %s",
+    "organizations.police.call.foruser"         : "Вы вызвали такси из %s",
 
     "organizations.police.crime.wasdone"        : "Лучше бы ты этого не делал..",
     "organizations.police.alreadyofficer"       : "Вы уже состоите в EBPD.",
@@ -328,6 +330,8 @@ function policeCall(playerid, place) {
     if (!place || place.len() < 1) {
         return msg(playerid, "organizations.police.call.withoutaddress");
     }
+
+    msg(player, "organizations.police.call.foruser", [place], CL_ROYALBLUE);
 
     foreach(player in playerList.getPlayers()) {
         if ( isOfficer(player) && isOnDuty(player) ) {
