@@ -12,7 +12,7 @@ const BUS_JOB_SKIN = 171;
 const BUS_JOB_BUSSTOP = "STOP HERE (middle of the bus)";
 const BUS_JOB_DISTANCE = 100;
 const BUS_JOB_LEVEL = 1;
-      BUS_JOB_COLOR <- CL_ECSTASY;
+      BUS_JOB_COLOR <- CL_CRUSTA;
 
 /*
 local busstops = [
