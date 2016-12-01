@@ -105,7 +105,7 @@ function isPlayerCarTaxi(playerid) {
 function taxiCall(playerid, place, again = 0) {
 
     if ((isTaxiDriver(playerid) && job_taxi[playerid]["status"] == "onair") || (isTaxiDriver(playerid) && isPlayerCarTaxi(playerid))) {
-        return msg_taxi_dr(playerid, "job.taxi.driver.dontfoolaround"); // don't fool around   
+        return msg_taxi_dr(playerid, "job.taxi.driver.dontfoolaround"); // don't fool around
     }
 
     if (!place || place.len() < 1) {
@@ -402,7 +402,7 @@ function taxiJobLeave(playerid) {
         return msg_taxi_dr(playerid, "job.taxi.cantleavejob2");
     }
 
-    if ( isPlayerInVehicle(playerid) ) {
+    if ( isPlayerInVehicle(playerid) && isPlayerCarTaxi(playerid) ) {
         local vehicleid = getPlayerVehicle( playerid );
         setTaxiLightState(getPlayerVehicle(playerid), false);
         setVehicleFuel(vehicleid, 0.0);
