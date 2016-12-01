@@ -103,6 +103,7 @@ const MILK_JOB_SKIN = 171;
 const MILK_JOB_DISTANCE = 100;
 const MILK_JOB_NUMBER_STATIONS = 6;
 const MILK_JOB_LEVEL = 1;
+      MILK_JOB_COLOR <- CL_ECSTASY;
 
 local milkname = [
     "Hill Of Tara Black Exit",                  // Hill Of Tara Black Exit
@@ -232,24 +233,24 @@ function isMilkReady(playerid) {
 function milkJob ( playerid ) {
 
     if(!isPlayerInValidPoint(playerid, MILK_JOB_X, MILK_JOB_Y, RADIUS_JOB_MILK)) {
-        return msg( playerid, "job.milkdriver.letsgo" );
+        return msg( playerid, "job.milkdriver.letsgo", MILK_JOB_COLOR );
     }
 
     if(isMilkDriver(playerid)) {
-        return msg( playerid, "job.milkdriver.already.");
+        return msg( playerid, "job.milkdriver.already.", MILK_JOB_COLOR );
     }
 
     if(isPlayerHaveJob(playerid)) {
-        return msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid));
+        return msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), MILK_JOB_COLOR );
     }
 
     if(!isPlayerLevelValid ( playerid, MILK_JOB_LEVEL )) {
-        return msg(playerid, "job.milkdriver.needlevel", MILK_JOB_LEVEL );
+        return msg(playerid, "job.milkdriver.needlevel", MILK_JOB_LEVEL, MILK_JOB_COLOR );
     }
 
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
-        msg( playerid, "job.milkdriver.now" );
-        msg( playerid, "job.milkdriver.sitintruck" );
+        msg( playerid, "job.milkdriver.now", MILK_JOB_COLOR );
+        msg( playerid, "job.milkdriver.sitintruck", MILK_JOB_COLOR );
 
         setPlayerJob( playerid, "milkdriver");
 
@@ -266,14 +267,14 @@ function milkJob ( playerid ) {
 function milkJobLeave ( playerid ) {
 
     if(!isPlayerInValidPoint(playerid, MILK_JOB_X, MILK_JOB_Y, RADIUS_JOB_MILK)) {
-        return msg( playerid, "job.milkdriver.gotofarm" );
+        return msg( playerid, "job.milkdriver.gotofarm", MILK_JOB_COLOR );
     }
 
     if(!isMilkDriver(playerid)) {
-        return msg( playerid, "job.milkdriver.not");
+        return msg( playerid, "job.milkdriver.not", MILK_JOB_COLOR );
     }
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
-        msg( playerid, "job.leave" );
+        msg( playerid, "job.leave", MILK_JOB_COLOR );
 
         setPlayerJob( playerid, null );
 
@@ -296,15 +297,15 @@ function milkJobLeave ( playerid ) {
 function milkJobReady ( playerid ) {
 
     if(!isMilkDriver(playerid)) {
-        return msg( playerid, "job.milkdriver.not");
+        return msg( playerid, "job.milkdriver.not", MILK_JOB_COLOR );
     }
 
     if (!isPlayerVehicleMilk(playerid)) {
-        return msg(playerid, "job.milkdriver.needtruck");
+        return msg(playerid, "job.milkdriver.needtruck", MILK_JOB_COLOR );
     }
 
     if(isMilkReady(playerid)) {
-        return msg( playerid, "job.milkdriver.route.already");
+        return msg( playerid, "job.milkdriver.route.already", MILK_JOB_COLOR );
     }
 
     job_milk[playerid]["milkready"] = true;
@@ -316,9 +317,9 @@ function milkJobReady ( playerid ) {
 
     local vehicleid = getPlayerVehicle(playerid);
     if(milktrucks[vehicleid] >= 12) {
-        msg( playerid, "job.milkdriver.route.now.loaded", milktrucks[vehicleid]);
+        msg( playerid, "job.milkdriver.route.now.loaded", milktrucks[vehicleid], MILK_JOB_COLOR );
     } else {
-        msg( playerid, "job.milkdriver.route.now.empty" );
+        msg( playerid, "job.milkdriver.route.now.empty", MILK_JOB_COLOR );
     }
 }
 
@@ -326,32 +327,32 @@ function milkJobReady ( playerid ) {
 function milkJobLoad ( playerid ) {
 
     if(!isMilkDriver(playerid)) {
-        return msg( playerid, "job.milkdriver.not");
+        return msg( playerid, "job.milkdriver.not", MILK_JOB_COLOR );
     }
 
     if (!isPlayerVehicleMilk(playerid)) {
-        return msg(playerid, "job.milkdriver.needtruck");
+        return msg(playerid, "job.milkdriver.needtruck", MILK_JOB_COLOR );
     }
 
     if (!isMilkReady(playerid)) {
-        return msg( playerid, "job.milkdriver.notready" );
+        return msg( playerid, "job.milkdriver.notready", MILK_JOB_COLOR );
     }
 
     if(!isVehicleInValidPoint(playerid, 170.737, 436.886, 4.0)) {
-        return msg( playerid, "job.milkdriver.gofillingstation" );
+        return msg( playerid, "job.milkdriver.gofillingstation", MILK_JOB_COLOR );
     }
 
     if(isPlayerVehicleMoving(playerid)){
-        return msg( playerid, "job.milkdriver.driving");
+        return msg( playerid, "job.milkdriver.driving", MILK_JOB_COLOR );
     }
 
     local vehicleid = getPlayerVehicle(playerid);
 // load in 1 pint = 0.5 litres
     if(milktrucks[vehicleid] < 120) {
         milktrucks[vehicleid] = 120;
-        msg( playerid, "job.milkdriver.milktruckloadedcarrymilk" );
+        msg( playerid, "job.milkdriver.milktruckloadedcarrymilk", MILK_JOB_COLOR );
     } else {
-        msg( playerid, "job.milkdriver.truckalreadyloaded." );
+        msg( playerid, "job.milkdriver.truckalreadyloaded.", MILK_JOB_COLOR );
     }
 }
 
@@ -359,20 +360,20 @@ function milkJobLoad ( playerid ) {
 function milkJobUnload ( playerid ) {
 
     if(!isMilkDriver(playerid)) {
-        return msg( playerid, "job.milkdriver.not");
+        return msg( playerid, "job.milkdriver.not", MILK_JOB_COLOR );
     }
 
     if (!isPlayerVehicleMilk(playerid)) {
-        return msg(playerid, "job.milkdriver.needtruck");
+        return msg(playerid, "job.milkdriver.needtruck", MILK_JOB_COLOR );
     }
 
     if (!isMilkReady(playerid)) {
-        return msg( playerid, "job.milkdriver.route.nohave" );
+        return msg( playerid, "job.milkdriver.route.nohave", MILK_JOB_COLOR );
     }
 
     local vehicleid = getPlayerVehicle(playerid);
     if(milktrucks[vehicleid] < 12) {
-        return msg( playerid, "job.milkdriver.milknotenough" );
+        return msg( playerid, "job.milkdriver.milknotenough", MILK_JOB_COLOR );
     }
 
     local check = false;
@@ -386,15 +387,15 @@ function milkJobUnload ( playerid ) {
     }
 
     if (!check) {
-       return  msg( playerid, "job.milkdriver.carrymilk" );
+       return  msg( playerid, "job.milkdriver.carrymilk", MILK_JOB_COLOR );
     }
 
     if(isPlayerVehicleMoving(playerid)){
-        return msg( playerid, "job.milkdriver.driving");
+        return msg( playerid, "job.milkdriver.driving", MILK_JOB_COLOR );
     }
 
     if(job_milk[playerid]["milkstatus"][i]) {
-        return msg( playerid, "job.milkdriver.alreadybeenhere" );
+        return msg( playerid, "job.milkdriver.alreadybeenhere", MILK_JOB_COLOR );
     }
 
     local vehicleid = getPlayerVehicle(playerid);
@@ -406,12 +407,12 @@ function milkJobUnload ( playerid ) {
     removeMilkJobStationMark(playerid, i);
 
     if (job_milk[playerid]["milkcomplete"] == MILK_JOB_NUMBER_STATIONS) {
-        msg( playerid, "job.milkdriver.nicejob.needpark" );
+        msg( playerid, "job.milkdriver.nicejob.needpark", MILK_JOB_COLOR );
     } else {
         if (milktrucks[vehicleid] >= 12) {
-            msg( playerid, "job.milkdriver.unloadingcompleted.truckloaded", milktrucks[vehicleid] );
+            msg( playerid, "job.milkdriver.unloadingcompleted.truckloaded", milktrucks[vehicleid], MILK_JOB_COLOR );
         } else {
-            msg( playerid, "job.milkdriver.unloadingcompleted.milknotenough" );
+            msg( playerid, "job.milkdriver.unloadingcompleted.milknotenough", MILK_JOB_COLOR );
         }
     }
 }
@@ -421,37 +422,37 @@ function milkJobUnload ( playerid ) {
 function milkJobPark ( playerid ) {
 
     if(!isMilkDriver(playerid)) {
-        return msg( playerid, "job.milkdriver.not");
+        return msg( playerid, "job.milkdriver.not", MILK_JOB_COLOR );
     }
 
     if (!isPlayerVehicleMilk(playerid)) {
-        return msg(playerid, "job.milkdriver.needtruck");
+        return msg(playerid, "job.milkdriver.needtruck", MILK_JOB_COLOR );
     }
 
     if (!isMilkReady(playerid)) {
-        return msg( playerid, "job.milkdriver.route.nohave" );
+        return msg( playerid, "job.milkdriver.route.nohave", MILK_JOB_COLOR );
     }
 
     if (job_milk[playerid]["milkcomplete"] != MILK_JOB_NUMBER_STATIONS) {
-        return msg( playerid, "job.milkdriver.carrymilkalladdresses" );
+        return msg( playerid, "job.milkdriver.carrymilkalladdresses", MILK_JOB_COLOR );
     }
 
     if(!isVehicleInValidPoint(playerid, 170.737, 436.886, 4.0)) {
-        return msg( playerid, "job.milkdriver.parkmilktruck." );
+        return msg( playerid, "job.milkdriver.parkmilktruck.", MILK_JOB_COLOR );
     }
 
     if(isPlayerVehicleMoving(playerid)){
-        return msg( playerid, "job.milkdriver.driving");
+        return msg( playerid, "job.milkdriver.driving", MILK_JOB_COLOR );
     }
 
     if (job_milk[playerid]["milkcomplete"] < MILK_JOB_NUMBER_STATIONS) {
-        return msg( playerid, "job.milkdriver.completemilkdelivery." );
+        return msg( playerid, "job.milkdriver.completemilkdelivery.", MILK_JOB_COLOR );
     }
 
     job_milk[playerid]["milkcomplete"] = 0;
     job_milk[playerid]["milkready"] = false;
     job_milk[playerid]["milkstatus"] <- [false, false, false, false, false, false];
-    msg( playerid, "job.milkdriver.nicejob" );
+    msg( playerid, "job.milkdriver.nicejob", MILK_JOB_COLOR );
     addMoneyToPlayer(playerid, 20);
 
     // clear all marks
@@ -463,11 +464,11 @@ function milkJobPark ( playerid ) {
 function milkJobList ( playerid ) {
 
     if(!isMilkDriver(playerid)) {
-        return msg( playerid, "job.milkdriver.not");
+        return msg( playerid, "job.milkdriver.not", MILK_JOB_COLOR );
     }
 
      if (!isMilkReady(playerid)) {
-        return msg( playerid, "job.milkdriver.route.nohave" );
+        return msg( playerid, "job.milkdriver.route.nohave", MILK_JOB_COLOR );
     }
 
     msg( playerid, "job.milkdriver.route.title", CL_JOB_LIST);
@@ -485,17 +486,17 @@ function milkJobList ( playerid ) {
 function milkJobCheck ( playerid ) {
 
     if(!isMilkDriver(playerid)) {
-        return msg( playerid, "job.milkdriver.not");
+        return msg( playerid, "job.milkdriver.not", MILK_JOB_COLOR );
     }
 
     if (!isPlayerVehicleMilk(playerid)) {
-        return msg(playerid, "job.milkdriver.needtruck");
+        return msg(playerid, "job.milkdriver.needtruck", MILK_JOB_COLOR );
     }
 
     if (!isMilkReady(playerid)) {
-        return msg( playerid, "job.milkdriver.route.nohave" );
+        return msg( playerid, "job.milkdriver.route.nohave", MILK_JOB_COLOR );
     }
 
     local vehicleid = getPlayerVehicle(playerid);
-    msg( playerid, "job.milkdriver.milktruckloaded", milktrucks[vehicleid] );
+    msg( playerid, "job.milkdriver.milktruckloaded", milktrucks[vehicleid], MILK_JOB_COLOR );
 }
