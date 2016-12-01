@@ -188,3 +188,16 @@ function setPlayerMoney(playerid, money) {
     players[playerid].money = money;
     return true;
 }
+
+/**
+ * Return short name of player
+ * or false if player was not found
+ * @param {Integer} playerid
+ * @return {Float}
+ */
+function getPlayerNameShort(playerid) {
+    local playerName = getPlayerName(playerid);
+    local index = playerName.find("_");
+    local playerNameShort = playerName.slice(0, index) + " " + playerName.slice(index+1, index+2)+".";
+    return (playerid in players) ? playerNameShort : false;
+}
