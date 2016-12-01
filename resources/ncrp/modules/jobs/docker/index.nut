@@ -56,6 +56,7 @@ const DOCKER_JOB_PUTBOX_Y = -719.601;
 const DOCKER_JOB_PUTBOX_Z = -21.7312;
 const DOCKER_JOB_SKIN = 63;
 const DOCKER_SALARY = 0.50;
+      DOCKER_JOB_COLOR <- CL_ECSTASY;
 
 event("onServerStarted", function() {
     log("[jobs] loading docker job...");
@@ -135,20 +136,20 @@ function isDockerHaveBox(playerid) {
 function dockerJob( playerid ) {
 
     if(!isPlayerInValidPoint(playerid, DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_RADIUS)) {
-        return msg( playerid, "job.docker.letsgo" );
+        return msg( playerid, "job.docker.letsgo", DOCKER_JOB_COLOR );
     }
 
     if(isDocker( playerid )) {
-        return msg( playerid, "job.docker.already" );
+        return msg( playerid, "job.docker.already", DOCKER_JOB_COLOR );
     }
 
     if(isPlayerHaveJob(playerid)) {
-        return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid));
+        return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), DOCKER_JOB_COLOR );
     }
 
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
-        msg( playerid, "job.docker.now" );
-        msg( playerid, "job.docker.takeboxandcarry" );
+        msg( playerid, "job.docker.now", DOCKER_JOB_COLOR );
+        msg( playerid, "job.docker.takeboxandcarry", DOCKER_JOB_COLOR );
 
         setPlayerJob( playerid, "docker");
 
@@ -167,14 +168,14 @@ function dockerJob( playerid ) {
 function dockerJobLeave( playerid ) {
 
     if(!isPlayerInValidPoint(playerid, DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_RADIUS)) {
-        return msg( playerid, "job.docker.letsgo" );
+        return msg( playerid, "job.docker.letsgo", DOCKER_JOB_COLOR );
     }
 
     if(!isDocker( playerid )) {
-        return msg( playerid, "job.docker.not" );
+        return msg( playerid, "job.docker.not", DOCKER_JOB_COLOR );
     }
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
-        msg( playerid, "job.leave" );
+        msg( playerid, "job.leave", DOCKER_JOB_COLOR );
 
         setPlayerJob( playerid, null );
 
@@ -197,15 +198,15 @@ function dockerJobLeave( playerid ) {
 // working good, check
 function dockerJobTakeBox( playerid ) {
     if(!isDocker( playerid )) {
-        return msg( playerid, "job.docker.not" );
+        return msg( playerid, "job.docker.not", DOCKER_JOB_COLOR );
     }
 
     if(!isPlayerInValidPoint(playerid, DOCKER_JOB_TAKEBOX_X , DOCKER_JOB_TAKEBOX_Y, DOCKER_RADIUS)) {
-        return msg( playerid, "job.docker.takebox" );
+        return msg( playerid, "job.docker.takebox", DOCKER_JOB_COLOR );
     }
 
     if (isDockerHaveBox(playerid)) {
-        return msg( playerid, "job.docker.havebox");
+        return msg( playerid, "job.docker.havebox", DOCKER_JOB_COLOR );
     }
 
     dockerJobRemovePrivateBlipText ( playerid );
@@ -213,7 +214,7 @@ function dockerJobTakeBox( playerid ) {
     job_docker[playerid]["havebox"] = true;
     //setPlayerAnimStyle(playerid, "common", "CarryBox");
     //setPlayerHandModel(playerid, 1, 98); // put box in hands
-    msg( playerid, "job.docker.tookbox");
+    msg( playerid, "job.docker.tookbox", DOCKER_JOB_COLOR );
 
     job_docker[playerid]["blip3dtext"] = dockerJobCreatePrivateBlipText(playerid, DOCKER_JOB_PUTBOX_X, DOCKER_JOB_PUTBOX_Y, DOCKER_JOB_PUTBOX_Z, "PUT BOX HERE", "/docker put");
 
@@ -222,15 +223,15 @@ function dockerJobTakeBox( playerid ) {
 // working good, check
 function dockerJobPutBox( playerid ) {
     if(!isDocker( playerid )) {
-        return msg( playerid, "job.docker.not" );
+        return msg( playerid, "job.docker.not", DOCKER_JOB_COLOR );
     }
 
     if (!isDockerHaveBox(playerid)) {
-        return msg( playerid, "job.docker.haventbox");
+        return msg( playerid, "job.docker.haventbox", DOCKER_JOB_COLOR );
     }
 
     if(!isPlayerInValidPoint(playerid, DOCKER_JOB_PUTBOX_X, DOCKER_JOB_PUTBOX_Y, DOCKER_RADIUS)) {
-        return msg( playerid, "job.docker.gotowarehouse" );
+        return msg( playerid, "job.docker.gotowarehouse", DOCKER_JOB_COLOR );
     }
 
     //setPlayerAnimStyle(playerid, "common", "default");
@@ -239,7 +240,7 @@ function dockerJobPutBox( playerid ) {
     dockerJobRemovePrivateBlipText ( playerid );
 
     job_docker[playerid]["havebox"] = false;
-    msg( playerid, "job.docker.nicejob", DOCKER_SALARY);
+    msg( playerid, "job.docker.nicejob", DOCKER_SALARY, DOCKER_JOB_COLOR );
     addMoneyToPlayer(playerid, DOCKER_SALARY);
 
     job_docker[playerid]["blip3dtext"] = dockerJobCreatePrivateBlipText(playerid, DOCKER_JOB_TAKEBOX_X, DOCKER_JOB_TAKEBOX_Y, DOCKER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "/docker take");
