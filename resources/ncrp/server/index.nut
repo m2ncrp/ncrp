@@ -96,7 +96,8 @@ event("native:onPlayerConnect", function(playerid, name, ip, serial) {
 
 event("onServerStarted", function() {
     foreach (playerid, name in getPlayers()) {
-        trigger("onPlayerInit", playerid, name, null, null);
+        // trigger("onPlayerInit", playerid, name, null, null);
+        trigger("onPlayerConnectInit", playerid, name, getPlayerIp(playerid), getPlayerSerial(playerid));
     }
 });
 
