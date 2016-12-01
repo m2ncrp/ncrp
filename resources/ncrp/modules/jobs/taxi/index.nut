@@ -267,7 +267,7 @@ function taxiCallDone(playerid, amount) {
             msg_taxi_cu(customerid, "taxi.call.completed" );
         } else {
             msg(driverid "job.taxi.psngdeclined", getPlayerNameShort(customerid), CL_RED );
-            msg(customerid, "taxi.call.declined", [], CL_RED );
+            msg(customerid, "taxi.call.declined", CL_RED );
         }
     }
     );
