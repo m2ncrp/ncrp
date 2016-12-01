@@ -71,6 +71,7 @@ const CARGO_JOB_Z = -15.4205;
 const CARGO_JOB_SKIN = 130;
 const CARGO_JOB_SALARY = 25.0;
 const CARGO_JOB_LEVEL = 1;
+      CARGO_JOB_COLOR <- CL_ECSTASY;
 
 local cargocoords = {};
 cargocoords["PortChinese"] <- [-217.298, -724.771, -21.423]; // PortPlace P3 06 Chinese
@@ -116,24 +117,24 @@ function isPlayerVehicleCargo(playerid) {
 function cargoJob( playerid ) {
 
     if(!isPlayerInValidPoint(playerid, CARGO_JOB_X, CARGO_JOB_Y, RADIUS_CARGO)) {
-        return msg( playerid, "job.cargodriver.letsgo" );
+        return msg( playerid, "job.cargodriver.letsgo", CARGO_JOB_COLOR );
     }
 
     if(isCargoDriver( playerid )) {
-        return msg( playerid, "job.cargodriver.already" );
+        return msg( playerid, "job.cargodriver.already", CARGO_JOB_COLOR );
     }
 
     if(isPlayerHaveJob(playerid)) {
-        return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid));
+        return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), CARGO_JOB_COLOR );
     }
 
     if(!isPlayerLevelValid ( playerid, CARGO_JOB_LEVEL )) {
-        return msg(playerid, "job.cargodriver.needlevel", CARGO_JOB_LEVEL );
+        return msg(playerid, "job.cargodriver.needlevel", CARGO_JOB_LEVEL, CARGO_JOB_COLOR );
     }
 
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
-        msg( playerid, "job.cargodriver.now" );
-        msg( playerid, "job.cargodriver.gotoseagift" );
+        msg( playerid, "job.cargodriver.now", CARGO_JOB_COLOR );
+        msg( playerid, "job.cargodriver.gotoseagift", CARGO_JOB_COLOR );
 
         setPlayerJob( playerid, "cargodriver");
 
@@ -146,14 +147,14 @@ function cargoJob( playerid ) {
 function cargoJobLeave( playerid ) {
 
     if(!isPlayerInValidPoint(playerid, CARGO_JOB_X, CARGO_JOB_Y, RADIUS_CARGO)) {
-        return msg( playerid, "job.cargodriver.letsgo" );
+        return msg( playerid, "job.cargodriver.letsgo", CARGO_JOB_COLOR );
     }
 
     if(!isCargoDriver(playerid)) {
-        return msg( playerid, "job.cargodriver.not");
+        return msg( playerid, "job.cargodriver.not", CARGO_JOB_COLOR );
     } else {
         screenFadeinFadeoutEx(playerid, 250, 200, function() {
-            msg( playerid, "job.leave" );
+            msg( playerid, "job.leave", CARGO_JOB_COLOR );
 
             setPlayerJob( playerid, null );
 
@@ -168,30 +169,30 @@ function cargoJobLeave( playerid ) {
 // working good, check
 function cargoJobLoad( playerid ) {
     if(!isCargoDriver(playerid)) {
-        return msg( playerid, "job.cargodriver.not");
+        return msg( playerid, "job.cargodriver.not", CARGO_JOB_COLOR );
     }
 
     if (!isPlayerVehicleCargo(playerid)) {
-        return msg( playerid, "job.cargodriver.needfishtruck");
+        return msg( playerid, "job.cargodriver.needfishtruck", CARGO_JOB_COLOR );
     }
 
     local vehicleid = getPlayerVehicle(playerid);
     if(cargocars[vehicleid][0]) {
-        return msg( playerid, "job.cargodriver.alreadyloaded");
+        return msg( playerid, "job.cargodriver.alreadyloaded", CARGO_JOB_COLOR );
     }
 
     if(!isVehicleInValidPoint(playerid, cargocoords["PortChinese"][0], cargocoords["PortChinese"][1], 4.0 )) {
-        return msg( playerid, "job.cargodriver.toload");
+        return msg( playerid, "job.cargodriver.toload", CARGO_JOB_COLOR );
     }
 
     if(isPlayerVehicleMoving(playerid)){
-        return msg( playerid, "job.cargodriver.driving");
+        return msg( playerid, "job.cargodriver.driving", CARGO_JOB_COLOR );
     }
 
-    msg( playerid, "job.cargodriver.loading");
+    msg( playerid, "job.cargodriver.loading", CARGO_JOB_COLOR );
     screenFadeinFadeoutEx(playerid, 1000, 3000, null, function() {
         cargocars[vehicleid][0] = true;
-        msg( playerid, "job.cargodriver.loaded");
+        msg( playerid, "job.cargodriver.loaded", CARGO_JOB_COLOR );
     });
 
 }
@@ -199,31 +200,31 @@ function cargoJobLoad( playerid ) {
 // working good, check
 function cargoJobUnload( playerid ) {
     if(!isCargoDriver(playerid)) {
-        return msg( playerid, "job.cargodriver.not");
+        return msg( playerid, "job.cargodriver.not", CARGO_JOB_COLOR );
     }
 
     if (!isPlayerVehicleCargo(playerid)) {
-        return msg( playerid, "job.cargodriver.needfishtruck");
+        return msg( playerid, "job.cargodriver.needfishtruck", CARGO_JOB_COLOR );
     }
 
     local vehicleid = getPlayerVehicle(playerid);
     if(!cargocars[vehicleid][0]) {
-        return msg( playerid, "job.cargodriver.empty" );
+        return msg( playerid, "job.cargodriver.empty", CARGO_JOB_COLOR );
     }
 
     if(!isVehicleInValidPoint(playerid, 396.5, 98.0385, 4.0 )) {
-        return msg( playerid, "job.cargodriver.tounload");
+        return msg( playerid, "job.cargodriver.tounload", CARGO_JOB_COLOR );
     }
 
     if(isPlayerVehicleMoving(playerid)){
-        return msg( playerid, "job.cargodriver.driving");
+        return msg( playerid, "job.cargodriver.driving", CARGO_JOB_COLOR );
     }
 
-    msg( playerid, "job.cargodriver.unloading");
+    msg( playerid, "job.cargodriver.unloading", CARGO_JOB_COLOR );
     screenFadeinFadeoutEx(playerid, 1000, 3000, null, function() {
         job_cargo[playerid]["cargostatus"] = true;
         cargocars[vehicleid][0] = false;
-        msg( playerid, "job.cargodriver.takemoney" );
+        msg( playerid, "job.cargodriver.takemoney", CARGO_JOB_COLOR );
         removePlayerFromVehicle( playerid );
     });
 
@@ -234,18 +235,18 @@ function cargoJobUnload( playerid ) {
 function cargoJobFinish( playerid ) {
 
     if(!isCargoDriver(playerid)) {
-        return msg( playerid, "job.cargodriver.not");
+        return msg( playerid, "job.cargodriver.not", CARGO_JOB_COLOR );
     }
 
     if(!job_cargo[playerid]["cargostatus"]) {
-        return msg( playerid, "job.cargodriver.needcomplete");
+        return msg( playerid, "job.cargodriver.needcomplete", CARGO_JOB_COLOR );
     }
 
     if(!isPlayerInValidPoint(playerid, CARGO_JOB_X, CARGO_JOB_Y, RADIUS_CARGO)) {
-        return msg( playerid, "job.cargodriver.letsgo" );
+        return msg( playerid, "job.cargodriver.letsgo", CARGO_JOB_COLOR );
     }
 
     job_cargo[playerid]["cargostatus"] = false;
-    msg( playerid, "job.cargodriver.nicejob", [getPlayerName( playerid ), CARGO_JOB_SALARY] );
+    msg( playerid, "job.cargodriver.nicejob", [getPlayerName( playerid ), CARGO_JOB_SALARY], CARGO_JOB_COLOR );
     addMoneyToPlayer(playerid, CARGO_JOB_SALARY);
 }
