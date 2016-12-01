@@ -343,7 +343,7 @@ function milkJobLoad ( playerid ) {
     }
 
     if(isPlayerVehicleMoving(playerid)){
-        return msg( playerid, "job.milkdriver.driving", MILK_JOB_COLOR );
+        return msg( playerid, "job.milkdriver.driving", CL_RED );
     }
 
     local vehicleid = getPlayerVehicle(playerid);
@@ -391,7 +391,7 @@ function milkJobUnload ( playerid ) {
     }
 
     if(isPlayerVehicleMoving(playerid)){
-        return msg( playerid, "job.milkdriver.driving", MILK_JOB_COLOR );
+        return msg( playerid, "job.milkdriver.driving", CL_RED );
     }
 
     if(job_milk[playerid]["milkstatus"][i]) {
@@ -442,7 +442,7 @@ function milkJobPark ( playerid ) {
     }
 
     if(isPlayerVehicleMoving(playerid)){
-        return msg( playerid, "job.milkdriver.driving", MILK_JOB_COLOR );
+        return msg( playerid, "job.milkdriver.driving", CL_RED );
     }
 
     if (job_milk[playerid]["milkcomplete"] < MILK_JOB_NUMBER_STATIONS) {

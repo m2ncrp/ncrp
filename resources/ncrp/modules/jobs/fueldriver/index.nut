@@ -325,7 +325,7 @@ function fuelJobLoad ( playerid ) {
     }
 
     if(isPlayerVehicleMoving(playerid)){
-        return msg( playerid, "job.fueldriver.driving", FUEL_JOB_COLOR );
+        return msg( playerid, "job.fueldriver.driving", CL_RED );
     }
 
     if(fuelcars[vehicleid][1] == 16000) {
@@ -373,7 +373,7 @@ function fuelJobUnload ( playerid ) {
     }
 
     if(isPlayerVehicleMoving(playerid)){
-        return msg( playerid, "job.fueldriver.driving", FUEL_JOB_COLOR );
+        return msg( playerid, "job.fueldriver.driving", CL_RED );
     }
 
     if(job_fuel[playerid]["fuelstatus"][i]) {
@@ -418,7 +418,7 @@ function fuelJobPark ( playerid ) {
     }
 
     if(isPlayerVehicleMoving(playerid)){
-        return msg( playerid, "job.fueldriver.driving", FUEL_JOB_COLOR );
+        return msg( playerid, "job.fueldriver.driving", CL_RED );
     }
 
     if (job_fuel[playerid]["fuelcomplete"] < 8) {
