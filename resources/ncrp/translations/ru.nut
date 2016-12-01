@@ -102,9 +102,9 @@ translation("ru", {
     "taxi.help.title"                   :   "Список доступных команд для такси"
     "taxi.help.taxi"                    :   "/taxi адрес - Вызвать такси по указанному адресу"
 
-    "client.interface.job"              :   "Текущая работа: %s"
-    "clinet.interface.level"            :   "Игровой уровень (level): %d"
+    "vehicle.owner.warning"             :   "Вы не можете передвигатся в чужом автомобиле"
 
+    // dont traslate this
     "client.interface.job"              :   "Your job: %s"
     "client.interface.level"            :   "Level: %d"
 });
