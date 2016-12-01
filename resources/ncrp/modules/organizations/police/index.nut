@@ -216,11 +216,11 @@ function isOfficer(playerid) {
  * @param  {int}  playerid
  * @return {Boolean} true/false
  */
-function isOnDuty(playerid) {
+function isOnPoliceDuty(playerid) {
     return (isOfficer(playerid) && playerid in police && police[playerid].onduty);
 }
 
-function setOnDuty(playerid, bool) {
+function policeSetOnDuty(playerid, bool) {
     if (!(playerid in police)) {
         police[playerid] <- {};
     }
@@ -229,12 +229,12 @@ function setOnDuty(playerid, bool) {
 
     if (bool) {
         return screenFadeinFadeout(playerid, 100, function() {
-            onDutyGiveWeapon( playerid );
+            onPoliceDutyGiveWeapon( playerid );
             setPlayerModel(playerid, POLICE_MODEL);
             msg(playerid, "organizations.police.duty.on");
         });
     } else {
-        onDutyRemoveWeapon( playerid );
+        onPoliceDutyRemoveWeapon( playerid );
         return screenFadeinFadeout(playerid, 100, function() {
             setPlayerModel(playerid, players[playerid]["default_skin"]);
             msg(playerid, "organizations.police.duty.off");
@@ -265,12 +265,12 @@ function setPoliceRank(playerid, rankID) {
     return players[playerid].job;
 }
 
-function isRankUpPossible(playerid) {
+function isPoliceRankUpPossible(playerid) {
     return (getPoliceRank(playerid) != null && getPoliceRank(playerid) < MAX_RANK);
 }
 
 function rankUpPolice(playerid) {
-    if (isRankUpPossible(playerid)) {
+    if (isPoliceRankUpPossible(playerid)) {
         // increase rank
         setPoliceRank(playerid, getPoliceRank(playerid) + 1);
 
@@ -282,7 +282,7 @@ function rankUpPolice(playerid) {
 }
 
 
-function onDutyGiveWeapon(playerid, rank = null) {
+function onPoliceDutyGiveWeapon(playerid, rank = null) {
     if (rank == null) {
         rank = getPlayerJob(playerid);
     }
@@ -302,7 +302,7 @@ function onDutyGiveWeapon(playerid, rank = null) {
 }
 
 
-function onDutyRemoveWeapon(playerid, rank = null) {
+function onPoliceDutyRemoveWeapon(playerid, rank = null) {
     if (rank == null) {
         rank = getPlayerJob(playerid);
     }
@@ -334,7 +334,7 @@ function policeCall(playerid, place) {
     msg(playerid, "organizations.police.call.foruser", [place], CL_ROYALBLUE);
 
     foreach(player in playerList.getPlayers()) {
-        if ( isOfficer(player) && isOnDuty(player) ) {
+        if ( isOfficer(player) && isOnPoliceDuty(player) ) {
             msg(player, "organizations.police.call.new", [getAuthor(playerid), place], CL_ROYALBLUE);
         }
     }
@@ -356,7 +356,7 @@ function getPoliceJob(playerid) {
 
     // set first rank
     setPlayerJob( playerid, setPoliceRank(playerid, 0) );
-    setOnDuty(playerid, false);
+    policeSetOnDuty(playerid, false);
     msg(playerid, "You became a police officer.");
 }
 
@@ -374,8 +374,8 @@ function leavePoliceJob(playerid) {
         return msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid));
     }
 
-    if (isOnDuty(playerid)) {
-        setOnDuty(playerid, false);
+    if (isOnPoliceDuty(playerid)) {
+        policeSetOnDuty(playerid, false);
     }    
     setPlayerJob( playerid, null );
     msg(playerid, "organizations.police.onleave");

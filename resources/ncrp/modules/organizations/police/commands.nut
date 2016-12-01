@@ -18,10 +18,10 @@ acmd("police", ["set", "rank"], function(playerid, targetid, rank) {
         return msg(playerid, "organizations.police.notanofficer"); // not you, but target
     }
 
-    if ( isOnDuty(playerid) ) {
-        onDutyRemoveWeapon( playerid );
+    if ( isOnPoliceDuty(playerid) ) {
+        onPoliceDutyRemoveWeapon( playerid );
         setPoliceRank( playerid, rank );
-        onDutyGiveWeapon( playerid );
+        onPoliceDutyGiveWeapon( playerid );
         setPlayerJob ( playerid, getPlayerJob(playerid) );
     } else {
         setPoliceRank( playerid, rank );
@@ -46,8 +46,8 @@ cmd("police", ["duty", "on"], function(playerid) {
     if ( !isOfficer(playerid) ) {
         return msg(playerid, "organizations.police.notanofficer");
     }
-    if ( !isOnDuty(playerid) ) {
-        setOnDuty(playerid, true);
+    if ( !isOnPoliceDuty(playerid) ) {
+        policeSetOnDuty(playerid, true);
     } else {
         return msg(playerid, "organizations.police.duty.alreadyon");
     }
@@ -58,8 +58,8 @@ cmd("police", ["duty", "off"], function(playerid) {
     if ( !isOfficer(playerid) ) {
         return msg(playerid, "organizations.police.notanofficer");
     }
-    if ( isOnDuty(playerid) ) {
-        return setOnDuty(playerid, false);
+    if ( isOnPoliceDuty(playerid) ) {
+        return policeSetOnDuty(playerid, false);
     } else {
         return msg(playerid, "organizations.police.duty.alreadyoff");
     }
@@ -96,7 +96,7 @@ cmd(["ticket"], function(playerid, targetid, price, ...) {
     if ( !isOfficer(playerid) ) {
         return msg(playerid, "organizations.police.notanofficer");
     }
-    if ( isOnDuty(playerid) ) {
+    if ( isOnPoliceDuty(playerid) ) {
         local reason = makeMeText(playerid, vargv);
         msg(targetid, "organizations.police.ticket.givewithreason", [getAuthor(playerid), reason, playerid]);
         sendInvoice( playerid, targetid, price );
@@ -111,7 +111,7 @@ cmd("taser", function( playerid ) {
         return msg( playerid, "organizations.police.notanofficer" );
     }
 
-    if ( isOnDuty(playerid) ) {
+    if ( isOnPoliceDuty(playerid) ) {
         local targetid = playerList.nearestPlayer( playerid );
         if ( targetid == null ) {
             return msg(playerid, "general.noonearound");
@@ -132,7 +132,7 @@ cmd("taser", function( playerid ) {
 
 
 cmd(["cuff"], function(playerid) {
-    if ( isOnDuty(playerid) ) {
+    if ( isOnPoliceDuty(playerid) ) {
         local targetid = playerList.nearestPlayer( playerid );
 
         if ( targetid == null ) {
@@ -150,7 +150,7 @@ cmd(["cuff"], function(playerid) {
 
 // temporary command
 cmd(["uncuff"], function(playerid) {
-    if ( isOnDuty(playerid) ) {
+    if ( isOnPoliceDuty(playerid) ) {
         local targetid = playerList.nearestPlayer( playerid );
 
         if ( targetid == null ) {
@@ -167,7 +167,7 @@ cmd(["uncuff"], function(playerid) {
 
 cmd(["prison", "jail"], function(playerid, targetid) {
     targetid = targetid.tointeger();
-    if ( isOnDuty(playerid) ) {
+    if ( isOnPoliceDuty(playerid) ) {
         togglePlayerControls( targetid, true );
         screenFadein(targetid, 2000, function() {
         //  output "Wasted" and set player position
@@ -178,7 +178,7 @@ cmd(["prison", "jail"], function(playerid, targetid) {
 
 cmd(["amnesty"], function(playerid, targetid) {
     targetid = targetid.tointeger();
-    if ( isOnDuty(playerid) ) {
+    if ( isOnPoliceDuty(playerid) ) {
         setPlayerPosition(targetid, -380.856, 652.657, -11.6902); // police department
         //setPlayerRotation(targetid, -137.53, 0.00309768, -0.00414733);
 
