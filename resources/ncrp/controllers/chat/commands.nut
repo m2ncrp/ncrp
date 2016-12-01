@@ -49,6 +49,9 @@ chatcmd(["try"], function(playerid, message) {
         inRadiusSendToAll(playerid, localize("chat.player.try.end.fail", [message], getPlayerLocale(playerid)), NORMAL_RADIUS);
 });
 
+acmd(["admin", "adm", "a"], function(playerid, ...) {
+    msg_a("[ADMIN] " + concat(vargv), CL_MEDIUMPURPLE);
+});
 
 cmd(["help", "h", "halp", "info"], function(playerid) {
     local title = "Here is list of available commands:";
