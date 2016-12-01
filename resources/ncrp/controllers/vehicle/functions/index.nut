@@ -20,12 +20,12 @@ __vehicles <- {};
 
 // overriding to custom one
 createVehicle = function(modelid, x, y, z, rx, ry, rz) {
-    local vehicle = old__createVehicle(
+    local vehicleid = old__createVehicle(
         modelid.tointeger(), x.tofloat(), y.tofloat(), z.tofloat(), rx.tofloat(), ry.tofloat(), rz.tofloat()
     );
 
     // save vehicle record
-    __vehicles[vehicle] <- {
+    __vehicles[vehicleid] <- {
         saving  = false,
         entity = null,
         respawn = {
@@ -41,19 +41,20 @@ createVehicle = function(modelid, x, y, z, rx, ry, rz) {
         wheels = {
             front = -1,
             rear  = -1
-        }
+        },
+        fuel = getDefaultVehicleFuel(vehicleid),
     };
 
     // apply default functions
-    setVehicleRotation(vehicle, rx.tofloat(), ry.tofloat(), rz.tofloat());
-    setVehicleDirtLevel(vehicle, randomf(VEHICLE_MIN_DIRT, VEHICLE_MAX_DIRT));
-    setVehiclePlateText(vehicle, getRandomVehiclePlate());
-    setRandomVehicleColors(vehicle);
+    setVehicleRotation(vehicleid, rx.tofloat(), ry.tofloat(), rz.tofloat());
+    setVehicleDirtLevel(vehicleid, randomf(VEHICLE_MIN_DIRT, VEHICLE_MAX_DIRT));
+    setVehiclePlateText(vehicleid, getRandomVehiclePlate());
+    setRandomVehicleColors(vehicleid);
 
     // apply overrides
-    getVehicleOverride(vehicle, modelid.tointeger());
+    getVehicleOverride(vehicleid, modelid.tointeger());
 
-    return vehicle;
+    return vehicleid;
 };
 
 // overriding to custom one

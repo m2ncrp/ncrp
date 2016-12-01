@@ -48,10 +48,20 @@ function getVehicleOwner(vehicleid) {
 
 /**
  * Check if current connected player is owner of ther car
+ *
  * @param  {integer}  playerid
  * @param  {integer}  vehicleid
  * @return {Boolean}
  */
 function isPlayerVehicleOwner(playerid, vehicleid) {
     return (isPlayerConnected(playerid) && getVehicleOwner(vehicleid) == getPlayerName(playerid));
+}
+
+/**
+ * Checks if current vehicle has owner
+ * @param  {Integer}  vehicleid
+ * @return {Boolean}
+ */
+function isVehicleOwned(vehicleid) {
+    return ((vehicleid in __vehicles) && __vehicles[vehicleid].status != VEHICLE_OWNERSHIP_NONE);
 }

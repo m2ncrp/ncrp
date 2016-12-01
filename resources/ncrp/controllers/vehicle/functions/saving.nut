@@ -1,13 +1,22 @@
 /**
  * Set if vehicle can be automatically saved
- * @param  {int} vehicleid
- * @param  {bool} value
- * @return {bool}
+ * @param  {Integer} vehicleid
+ * @param  {Boolean} value
+ * @return {Boolean}
  */
 function setVehicleSaving(vehicleid, value) {
     if (vehicleid in __vehicles) {
         return __vehicles[vehicleid].saving = value;
     }
+}
+
+/**
+ * Get if vehicle is automatically saved
+ * @param  {Integer} vehicleid
+ * @return {Boolean}
+ */
+function getVehicleSaving(vehicleid) {
+    return (vehicleid in __vehicles && __vehicles[vehicleid].saving);
 }
 
 /**

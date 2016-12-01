@@ -68,6 +68,9 @@ event("onServerStarted", function() {
             setVehicleSaving      ( vehicleid, true );
             setVehicleEntity      ( vehicleid, vehicle );
 
+            // block vehicle by default
+            blockVehicle          ( vehicleid );
+
             local setWheelsGenerator = function(id, entity) {
                 return function() {
                     setVehicleWheelTexture( id, 0, entity.fwheel );
@@ -76,7 +79,6 @@ event("onServerStarted", function() {
             };
 
             delayedFunction(1000, setWheelsGenerator(vehicleid, vehicle));
-
             counter++;
         }
 
@@ -92,19 +94,42 @@ event("onServerMinuteChange", function() {
 
 // handle vehicle enter
 event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
+    // handle vehicle passangers
     addVehiclePassenger(vehicleid, playerid);
+
+    // check blocking
+    if (getVehicleSaving(vehicleid) && seat == 0) {
+        if (isPlayerVehicleOwner(playerid, vehicleid)) {
+            unblockVehicle(vehicleid);
+        } else {
+            blockVehicle(vehicleid);
+            msg(playerid, "vehicle.owner.warning", CL_WARNING);
+        }
+    }
+
+    // handle respawning and saving
     resetVehicleRespawnTimer(vehicleid);
     trySaveVehicle(vehicleid);
 
+    // trigger other events
     trigger("onPlayerVehicleEnter", playerid, vehicleid, seat);
 });
 
 // handle vehicle exit
 event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
+    // handle vehicle passangers
     removeVehiclePassenger(vehicleid, playerid);
+
+    // check blocking
+    if (getVehicleSaving(vehicleid) && isPlayerVehicleOwner(playerid, vehicleid)) {
+        blockVehicle(vehicleid);
+    }
+
+    // handle respawning and saving
     resetVehicleRespawnTimer(vehicleid);
     trySaveVehicle(vehicleid);
 
+    // trigger other events
     trigger("onPlayerVehicleExit", playerid, vehicleid, seat);
 });
 
