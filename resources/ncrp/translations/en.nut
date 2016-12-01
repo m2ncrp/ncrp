@@ -57,12 +57,14 @@ translation("en", {
     "job.taxi.needlevel"                :   "You need level %d to become taxi driver."
     "job.taxi.driver.not"               :   "You're not a Taxi Driver."
     "job.taxi.driver.already"           :   "You're Taxi Driver already."
+    "job.taxi.driver.dontfoolaround"    :   "Don't fool around! You are a taxi driver."
     "job.taxi.driver.now"               :   "You became a taxi driver. Change status to ON air to begin to receive calls."
     "job.taxi.call.new"                 :   "New call from address: %s. If you want take this call, write /taxi take %d."
     "job.taxi.needcar"                  :   "You need a taxi car."
     "job.taxi.noanycalls"               :   "You didn't take any calls."
     "job.taxi.wait"                     :   "Wait for the passenger..."
     "job.taxi.canttakecall"             :   "You can't take call while your status is OFF air."
+    "job.taxi.callnotexist"             :   "Customer has canceled the call. Wait other calls..."
     "job.taxi.takenthiscall"            :   "You have already taken this call #%d."
     "job.taxi.takencall"                :   "You have already taken a call."
     "job.taxi.callalreadytaken"         :   "Call #%d is already taken."
@@ -100,6 +102,6 @@ translation("en", {
     "taxi.help.title"                   :   "List of available commands for TAXI:"
     "taxi.help.taxi"                    :   "/taxi your_address - Call a taxi to address"
 
-    "client.interface.job"              :   "Current job: %s"
+    "client.interface.job"              :   "Your job: %s"
     "client.interface.level"            :   "Level: %d"
 });

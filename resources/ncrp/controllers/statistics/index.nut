@@ -48,5 +48,5 @@ addEventHandlerEx("onServerAutosave", function() {
     local amount = 0;
     amount += statisticsPushPlayers();
     amount += statisticsPushVehicles();
-    log("[stats] collected info #" + amount + " records");
+    // log("[stats] collected info #" + amount + " records");
 });

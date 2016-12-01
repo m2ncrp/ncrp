@@ -1,4 +1,5 @@
 translation("en", {
+"job.docker"                    : "docker"
 "job.docker.letsgo"             : "Let's go to office at City Port."
 "job.docker.already"            : "You're docker already."
 "job.docker.now"                : "You're a docker now. Welcome... to hell! Ha-ha..."
@@ -19,6 +20,7 @@ translation("en", {
 });
 
 translation("ru", {
+"job.docker"                    : "портовый рабочий"
 "job.docker.letsgo"             : "Отправляйтесь в офис City Port."
 "job.docker.already"            : "Ты уже работаешь портовым рабочим."
 "job.docker.now"                : "Ты стал портовым рабочим. Добро пожаловать... в ад! Аха-ха..."
@@ -148,7 +150,7 @@ function dockerJob( playerid ) {
         msg( playerid, "job.docker.now" );
         msg( playerid, "job.docker.takeboxandcarry" );
 
-        players[playerid]["job"] = "docker";
+        setPlayerJob( playerid, "docker");
 
         players[playerid]["skin"] = DOCKER_JOB_SKIN;
         setPlayerModel( playerid, DOCKER_JOB_SKIN );
@@ -174,7 +176,7 @@ function dockerJobLeave( playerid ) {
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
         msg( playerid, "job.leave" );
 
-        players[playerid]["job"] = null;
+        setPlayerJob( playerid, null );
 
         players[playerid]["skin"] = players[playerid]["default_skin"];
         setPlayerModel( playerid, players[playerid]["default_skin"]);

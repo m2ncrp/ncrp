@@ -17,19 +17,16 @@ acmd("police", ["set", "rank"], function(playerid, targetid, rank) {
     if ( !isOfficer(targetid) ) {
         return msg(playerid, "organizations.police.notanofficer"); // not you, but target
     }
-    if ( isOnDuty(targetid) ) {
-        setOnDuty(targetid, false);
+
+    if ( isOnDuty(playerid) ) {
         onDutyRemoveWeapon( playerid );
         setPoliceRank( playerid, rank );
-        setOnDuty(targetid, true);
         onDutyGiveWeapon( playerid );
         setPlayerJob ( playerid, getPlayerJob(playerid) );
     } else {
-        onDutyRemoveWeapon( playerid );
         setPoliceRank( playerid, rank );
-        onDutyGiveWeapon( playerid );
         setPlayerJob ( playerid, getPlayerJob(playerid) );
-    }
+    }    
 });
 
 acmd("serial", function(playerid, targetid) {
@@ -116,15 +113,18 @@ cmd("taser", function( playerid ) {
 
     if ( isOnDuty(playerid) ) {
         local targetid = playerList.nearestPlayer( playerid );
-        if ( targetid == null) {
+        if ( targetid == null ) {
             return msg(playerid, "general.noonearound");
         }
-        screenFadeinFadeout(targetid, 800, function() {
-            msg( playerid, "organizations.police.shotsomeone.bytaser", [getAuthor(targetid)] );
-            msg( targetid, "organizations.police.beenshot.bytaser" );
-            togglePlayerControls( targetid, false );
-        });
-        togglePlayerControls( targetid, true );
+
+        if ( isBothInRadius(playerid, targetid, TASER_RADIUS) ) {
+            screenFadeinFadeout(targetid, 800, function() {
+                msg( playerid, "organizations.police.shotsomeone.bytaser", [getAuthor(targetid)] );
+                msg( targetid, "organizations.police.beenshot.bytaser" );
+                togglePlayerControls( targetid, false );
+            });
+            togglePlayerControls( targetid, true );
+        }        
     } else {
         return msg(playerid, "organizations.police.offduty.notaser")
     }
