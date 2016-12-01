@@ -12,6 +12,8 @@ const BUS_JOB_SKIN = 171;
 const BUS_JOB_BUSSTOP = "STOP HERE (middle of the bus)";
 const BUS_JOB_DISTANCE = 100;
 const BUS_JOB_LEVEL = 1;
+      BUS_JOB_COLOR <- CL_ECSTASY;
+
 /*
 local busstops = [
     ["Go to first bus station in Uptown near platform #3",          -423.116, 440.924, 0.132165],
@@ -180,22 +182,22 @@ function isBusReady(playerid) {
 // working good, check
 function busJob( playerid ) {
     if(!isPlayerInValidPoint(playerid, BUS_JOB_X, BUS_JOB_Y, RADIUS_BUS)) {
-        return msg( playerid, "job.bus.letsgo" );
+        return msg( playerid, "job.bus.letsgo", BUS_JOB_COLOR );
     }
     if(isBusDriver(playerid)) {
-        return msg( playerid, "job.bus.driver.already");
+        return msg( playerid, "job.bus.driver.already", BUS_JOB_COLOR );
     }
 
     if(isPlayerHaveJob(playerid)) {
-        return msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid) );
+        return msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), BUS_JOB_COLOR );
     }
 
     if(!isPlayerLevelValid ( playerid, BUS_JOB_LEVEL )) {
-        return msg(playerid, "job.bus.needlevel", BUS_JOB_LEVEL );
+        return msg(playerid, "job.bus.needlevel", BUS_JOB_LEVEL, BUS_JOB_COLOR );
     }
 
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
-        msg( playerid, "job.bus.driver.now" );
+        msg( playerid, "job.bus.driver.now", BUS_JOB_COLOR );
 
         setPlayerJob( playerid, "busdriver" )
 
@@ -212,13 +214,13 @@ function busJob( playerid ) {
 // working good, check
 function busJobLeave( playerid ) {
     if(!isPlayerInValidPoint(playerid, BUS_JOB_X, BUS_JOB_Y, RADIUS_BUS)) {
-        return msg( playerid, "job.bus.letsgo" );
+        return msg( playerid, "job.bus.letsgo", BUS_JOB_COLOR );
     }
     if(!isBusDriver(playerid)) {
-        return msg( playerid, "job.bus.driver.not");
+        return msg( playerid, "job.bus.driver.not", BUS_JOB_COLOR );
     } else {
         screenFadeinFadeoutEx(playerid, 250, 200, function() {
-            msg( playerid, "job.leave" );
+            msg( playerid, "job.leave", BUS_JOB_COLOR );
 
             setPlayerJob( playerid, null );
 
@@ -236,10 +238,10 @@ function busJobLeave( playerid ) {
 
 function busJobRoutes( playerid ) {
     if(!isPlayerInValidPoint(playerid, BUS_JOB_X, BUS_JOB_Y, RADIUS_BUS)) {
-        return msg( playerid, "job.bus.letsgo" );
+        return msg( playerid, "job.bus.letsgo", BUS_JOB_COLOR );
     }
     if(!isBusDriver(playerid)) {
-        return msg( playerid, "job.bus.driver.not");
+        return msg( playerid, "job.bus.driver.not", BUS_JOB_COLOR );
     }
 
     local title = "job.bus.route.select";
@@ -251,56 +253,56 @@ function busJobRoutes( playerid ) {
         { name = "#5",  desc = "job.bus.route.5" }
     ];
     msg_help(playerid, title, commands);
-    msg( playerid, "job.bus.route.tochange");
+    msg( playerid, "job.bus.route.tochange", BUS_JOB_COLOR );
 }
 
 function busJobSelectRoute( playerid, route = null) {
     if(!isPlayerInValidPoint(playerid, BUS_JOB_X, BUS_JOB_Y, RADIUS_BUS)) {
-        return msg( playerid, "job.bus.letsgo" );
+        return msg( playerid, "job.bus.letsgo", BUS_JOB_COLOR );
     }
     if(!isBusDriver(playerid)) {
-        return msg( playerid, "job.bus.driver.not");
+        return msg( playerid, "job.bus.driver.not", BUS_JOB_COLOR );
     }
 
     if (isBusReady(playerid)) {
-        return msg(playerid, "job.bus.route.needcomplete");
+        return msg(playerid, "job.bus.route.needcomplete", BUS_JOB_COLOR );
     }
 
     if (route == null) {
-        return msg(playerid, "job.bus.route.needselect");
+        return msg(playerid, "job.bus.route.needselect", BUS_JOB_COLOR );
     }
 
     local route = route.tointeger();
     if (route < 1 || route > 5) {
-        return msg(playerid, "job.bus.route.noexist");
+        return msg(playerid, "job.bus.route.noexist", BUS_JOB_COLOR );
     }
 
     job_bus[playerid]["route"] <- [routes[route][0], clone routes[route][1]]; //create clone of route
-    msg( playerid, "job.bus.route.selected", route );
+    msg( playerid, "job.bus.route.selected", route, BUS_JOB_COLOR  );
 }
 
 
 // working good, check
 function busJobReady( playerid ) {
     if(!isBusDriver(playerid)) {
-        return msg( playerid, "job.bus.driver.not");
+        return msg( playerid, "job.bus.driver.not", BUS_JOB_COLOR );
     }
 
     if (!isPlayerVehicleBus(playerid)) {
-        return msg(playerid, "job.bus.needbus");
+        return msg(playerid, "job.bus.needbus", BUS_JOB_COLOR );
     }
 
     if (!isBusRouteSelected(playerid)) {
-        return msg(playerid, "job.bus.route.needselect");
+        return msg(playerid, "job.bus.route.needselect", BUS_JOB_COLOR );
     }
 
     if (isBusReady(playerid)) {
-        return msg(playerid, "job.bus.readyalready");
+        return msg(playerid, "job.bus.readyalready", BUS_JOB_COLOR );
     }
 
     job_bus[playerid]["busready"] = true;
     local busID = job_bus[playerid]["route"][1][0];
-    msg( playerid, "job.bus.gotobusstop", busStops[busID].name);
+    msg( playerid, "job.bus.gotobusstop", busStops[busID].name, BUS_JOB_COLOR );
     job_bus[playerid]["bus3dtext"] = createPrivateBusStop3DText(playerid, busStops[busID].private);
     job_bus[playerid]["busBlip"]   = createPrivateBlip(playerid, busStops[busID].private.x, busStops[busID].private.y, ICON_RED, 2000.0);
 }
@@ -310,29 +312,29 @@ function busJobReady( playerid ) {
 // coords bus at bus station in Hunters Point    -1562.5, 105.709, -13.0123, 0.966663, -0.00153991, 0.182542
 function busJobStop( playerid ) {
     if(!isBusDriver(playerid)) {
-        return msg( playerid, "job.bus.driver.not");
+        return msg( playerid, "job.bus.driver.not", BUS_JOB_COLOR );
     }
 
     if (!isPlayerVehicleBus(playerid)) {
-        return msg(playerid, "job.bus.needbus");
+        return msg(playerid, "job.bus.needbus", BUS_JOB_COLOR );
     }
 
     if (!isBusRouteSelected(playerid)) {
-        return msg(playerid, "job.bus.route.needselect");
+        return msg(playerid, "job.bus.route.needselect", BUS_JOB_COLOR );
     }
 
     if (!isBusReady(playerid)) {
-        return msg( playerid, "job.bus.notready" );
+        return msg( playerid, "job.bus.notready", BUS_JOB_COLOR );
     }
 
     local busID = job_bus[playerid]["route"][1][0];
 
     if(!isPlayerVehicleInValidPoint(playerid, busStops[busID].private.x, busStops[busID].private.y, 5.0 )) {
-        return msg( playerid, "job.bus.gotobusstop", busStops[busID].name);
+        return msg( playerid, "job.bus.gotobusstop", busStops[busID].name, BUS_JOB_COLOR );
     }
 
     if(isPlayerVehicleMoving(playerid)){
-        return msg( playerid, "job.bus.driving");
+        return msg( playerid, "job.bus.driving", BUS_JOB_COLOR );
     }
 
     busJobRemovePrivateBlipText( playerid );
@@ -341,7 +343,7 @@ function busJobStop( playerid ) {
 
         if (job_bus[playerid]["route"][1].len() == 0) {
             local busZP = job_bus[playerid]["route"][0];
-            msg( playerid, "job.bus.nicejob", busZP);
+            msg( playerid, "job.bus.nicejob", busZP, BUS_JOB_COLOR );
             job_bus[playerid]["route"] = false;
             job_bus[playerid]["busready"] = false;
             local route = job_bus[playerid]["route"]
@@ -354,7 +356,7 @@ function busJobStop( playerid ) {
     job_bus[playerid]["bus3dtext"] = createPrivateBusStop3DText(playerid, busStops[busID].private);
     job_bus[playerid]["busBlip"]   = createPrivateBlip(playerid, busStops[busID].private.x, busStops[busID].private.y, ICON_RED, 2000.0);
 
-    msg( playerid, "job.bus.gotonextbusstop", busStops[busID].name );
+    msg( playerid, "job.bus.gotonextbusstop", busStops[busID].name, BUS_JOB_COLOR );
 }
 
 // don't touch and don't replace. Service command for fast test!
