@@ -7,19 +7,23 @@
 simplecmd("register", function(playerid, password) {
     Account.getSession(playerid, function(err, account) {
         // if player is logined
-        if (account) return sendPlayerMessage(playerid, "* You already logined in.");
+        if (account) return msg(playerid, "auth.error.login", CL_ERROR);
 
         // create account
         account = Account();
         account.username = getPlayerName(playerid);
-        account.password = password;
+        account.password = md5(password);
 
         Account.findOneBy({ username = account.username }, function(err, result) {
             if (result) {
-                sendPlayerMessage(playerid, "* You've been registered already.");
+                msg(playerid, "auth.error.register", CL_ERROR);
             } else {
                 account.save(function(err, result) {
                     account.addSession(playerid);
+                    msg(playerid, "auth.success.register", CL_SUCCESS);
+                    screenFadein(playerid, 250, function() {
+                        trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
+                    });
                 });
             }
         });
@@ -35,19 +39,23 @@ simplecmd("login", function(playerid, password) {
     Account.getSession(playerid, function(err, account) {
         // if player is logined
         if (account) {
-            return sendPlayerMessage(playerid, "* You already logined in.");
+            return msg(playerid, "auth.error.login", CL_ERROR);
         }
 
         // try to find logined account
         Account.findOneBy({
             username = getPlayerName(playerid),
-            password = password
+            password = md5(password)
         }, function(err, account) {
             // no accounts found
-            if (!account) return sendPlayerMessage(playerid, "* No specified account found.");
+            if (!account) return msg(playerid, "auth.error.notfound", CL_ERROR);
 
             // save session
             account.addSession(playerid);
+            msg(playerid, "auth.success.login", CL_SUCCESS);
+            screenFadein(playerid, 250, function() {
+                trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
+            });
         });
     });
 });

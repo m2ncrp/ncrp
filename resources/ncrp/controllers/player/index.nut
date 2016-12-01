@@ -10,6 +10,11 @@ const CHARACTER_DEFAULT_SKIN   = 10;
 const CHARACTER_DEFAULT_MONEY  = 1.75;
 const CHARACTER_DEFAULT_LOCALE = "en";
 
+const DEFAULT_SPAWN_SKIN = 26;
+const DEFAULT_SPAWN_X    = -1684.52;
+const DEFAULT_SPAWN_Y    = 981.397;
+const DEFAULT_SPAWN_Z    = -0.473357;
+
 default_spawns <- [
     [-555.251,  1702.31, -22.2408], // railway
     [-11.2921,  1631.85, -20.0296], // tmp bomj spawn
@@ -57,12 +62,13 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
 
         // notify all that client connected (and data loaded)
         trigger("onPlayerConnect", playerid, name, ip, serial);
+        trigger("native:onPlayerSpawn", playerid);
 
         delayedFunction(2000, function() {
             trigger(playerid, "onServerClientStarted", "0.0.458");
             trigger(playerid, "onServerIntefaceCharacter", getLocalizedPlayerJob(playerid, "en"), getPlayerLevel(playerid) );
             trigger(playerid, "onServerInterfaceMoney", getPlayerMoney(playerid));
-            screenFadeout(playerid, 1000);
+            screenFadeout(playerid, 500);
         });
     });
 });
@@ -93,6 +99,10 @@ function trySavePlayer(playerid) {
 }
 
 event("native:onPlayerDisconnect", function(playerid, reason) {
+    if (!(playerid in players)) {
+        return dbg(format("player %s exited without login", getPlayerName(playerid)));
+    }
+
     // call events
     trigger("onPlayerDisconnect", playerid, reason);
 
@@ -111,33 +121,41 @@ addEventHandlerEx("onServerAutosave", function() {
 });
 
 addEventHandlerEx("onServerMinuteChange", function() {
-    foreach (playerid, char in players) {
-        char.xp++;
-    }
+    foreach (playerid, char in players) { char.xp++; }
 });
 
 addEventHandler("native:onPlayerSpawn", function(playerid) {
-    if (!(playerid in players)) {
-        return dbg("[error] no playerid in players array " + playerid);
-    }
-
-    // check if player has home
-    if (players[playerid].housex != 0.0 && players[playerid].housey != 0.0) {
-        setPlayerPosition(playerid, players[playerid].housex, players[playerid].housey, players[playerid].housez);
-    } else {
-        local spawnID = players[playerid]["spawn"];
-        local x = default_spawns[spawnID][0];
-        local y = default_spawns[spawnID][1];
-        local z = default_spawns[spawnID][2];
-        setPlayerPosition(playerid, x, y, z);
-    }
-
-    setPlayerHealth(playerid, 730.0);
+    // set player colour
     setPlayerColour(playerid, 0x99FFFFFF); // whity
-    setPlayerModel(playerid, players[playerid].skin);
 
-    trigger("onPlayerSpawn", playerid);
-    trigger("onPlayerSpawned", playerid);
+    // player is not yet logined
+    if (!(playerid in players)) {
+        togglePlayerControls(playerid, true);
+
+        setPlayerPosition(playerid, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z);
+        // setPlayerRotation(playerid, -99.8071, -0.000323891, -0.00024408);
+        setPlayerModel(playerid, DEFAULT_SPAWN_SKIN);
+        togglePlayerHud(playerid, true);
+    } else {
+        // check if player has home
+        if (players[playerid].housex != 0.0 && players[playerid].housey != 0.0) {
+            setPlayerPosition(playerid, players[playerid].housex, players[playerid].housey, players[playerid].housez);
+        } else {
+            local spawnID = players[playerid]["spawn"];
+            local x = default_spawns[spawnID][0];
+            local y = default_spawns[spawnID][1];
+            local z = default_spawns[spawnID][2];
+            setPlayerPosition(playerid, x, y, z);
+        }
+
+        togglePlayerControls(playerid, false);
+
+        setPlayerHealth(playerid, 730.0);
+        setPlayerModel(playerid, players[playerid].skin);
+
+        trigger("onPlayerSpawn", playerid);
+        trigger("onPlayerSpawned", playerid);
+    }
 });
 
 addEventHandler("native:onPlayerDeath", function(playerid, killerid) {

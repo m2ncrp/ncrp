@@ -91,8 +91,7 @@ event("native:onServerShutdown", function() {
 });
 
 event("native:onPlayerConnect", function(playerid, name, ip, serial) {
-    trigger("onPlayerConnectInit",playerid, name, ip, serial);
-    trigger("onPlayerInit", playerid, name, ip, serial);
+    trigger("onPlayerConnectInit", playerid, name, ip, serial);
 });
 
 event("onServerStarted", function() {
