@@ -102,6 +102,9 @@ translation("en", {
     "taxi.help.title"                   :   "List of available commands for TAXI:"
     "taxi.help.taxi"                    :   "/taxi your_address - Call a taxi to address"
 
+    "vehicle.owner.warning"             :   "You cant drive a car which doesn't belong to you"
+
+    // dont trasnalte this
     "client.interface.job"              :   "Your job: %s"
     "client.interface.level"            :   "Level: %d"
 });
