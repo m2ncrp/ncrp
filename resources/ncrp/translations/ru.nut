@@ -73,6 +73,9 @@ translation("ru", {
     "job.taxi.statuson"                 :   "Вы вышли на линию. Ожидайте звонков..."
     "job.taxi.cantchangestatus"         :   "Вы сможете уйти с линии только когда завершите текущую поездку или откажетесь от вызова."
     "job.taxi.statusoff"                :   "Вы ушли с линии. Вам не будут поступать звонки."
+    "job.taxi.requested"                :   "Вы запросили оплатить $%.2f за свои услуги."
+    "job.taxi.psngdeclined"             :   "Пассажир %s отказался платить."
+    "job.taxi.callclosed"               :   "Вызов был успешно закрыт."
     "job.taxi.havejob"                  :   "У вас есть работа: %s."
     "job.taxi.refusedcall"              :   "Вы отказались от вызова #%d."
     "job.taxi.cantrefuse"               :   "Вы не можете отказаться от вызова во время его выполнения."
@@ -87,7 +90,8 @@ translation("ru", {
     "job.taxi.help.take"                :   "Взять вызов по id. Например: /taxi take 5"
     "job.taxi.help.refuse"              :   "Отказать от текущего вызова"
     "job.taxi.help.ready"               :   "Сообщить о прибытии по адресу"
-    "job.taxi.help.end"                 :   "Завершить поездку и отправить запрос на оплату. Например: /taxi end 1.25"
+    "job.taxi.help.done"                :   "Завершить поездку и отправить запрос на оплату. Например: /taxi done 1.25"
+    "job.taxi.help.close"               :   "Закрыть вызов как выполненный"
 
     "taxi.needpay"                      :   "Чтобы управлять этим автомобилем, Вы должны оплатить $%.2f за топливо и аренду. Если согласны: /drive"
     "taxi.notenough"                    :   "У вас недостаточно денег."
@@ -99,11 +103,12 @@ translation("ru", {
     "taxi.call.received"                :   "Водитель принял Ваш звонок. Машина выехала. Ожидайте..."
     "taxi.call.arrived"                 :   "Машина такси с номером %s прибыла по адресу."
     "taxi.call.refused"                 :   "Водитель отказался от вызова. Ожидайте других водителей."
+    "taxi.call.request"                 :   "Вы должны заплатить $%.2f за услуги такси."
+    "taxi.call.declined"                :   "Вы отказались платить за такси."
+    "taxi.call.completed"               :   "Поездка завершена. Пожалуйста, освободите автомобиль."
+
     "taxi.help.title"                   :   "Список доступных команд для такси"
     "taxi.help.taxi"                    :   "/taxi адрес - Вызвать такси по указанному адресу"
-
-    "client.interface.job"              :   "Текущая работа: %s"
-    "clinet.interface.level"            :   "Игровой уровень (level): %d"
 
     "client.interface.job"              :   "Your job: %s"
     "client.interface.level"            :   "Level: %d"

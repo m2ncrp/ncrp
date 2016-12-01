@@ -29,9 +29,19 @@ cmd("taxi", "refuse", function(playerid) {
    taxiCallRefuse(playerid);
 });
 
+//usage: /taxi done 8.25
+cmd("taxi", "done", function(playerid, amount = 3) {
+    taxiCallDone(playerid, amount.tofloat());
+});
+
 //usage: /taxi end 8.25
 cmd("taxi", "end", function(playerid, amount = 3) {
-    taxiCallEnd(playerid, amount.tofloat());
+    taxiCallDone(playerid, amount.tofloat());
+});
+
+//usage: /taxi close
+cmd("taxi", "close", function(playerid) {
+    taxiCallClose(playerid);
 });
 
 //usage: /taxi onair
@@ -71,7 +81,8 @@ function taxiJobHelp ( playerid ) {
         { name = "/taxi take id",          desc = "job.taxi.help.take" },
         { name = "/taxi refuse",           desc = "job.taxi.help.refuse" },
         { name = "/taxi ready",            desc = "job.taxi.help.ready" },
-        { name = "/taxi end amount",       desc = "job.taxi.help.end" }
+        { name = "/taxi done amount",      desc = "job.taxi.help.done" },
+        { name = "/taxi close",            desc = "job.taxi.help.close" }
     ];
     msg_help(playerid, title, commands);
 }
