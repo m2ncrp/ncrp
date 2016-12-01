@@ -1,23 +1,23 @@
 translation("en", {
 "job.cargodriver"               : "cargo truck driver"
-"job.cargodriver.letsgo"        : "Let's go to office at City Port."
-"job.cargodriver.needlevel"     : "You need level %d to become cargo truck driver."
-"job.cargodriver.already"       : "You're cargo truck driver already."
-"job.cargodriver.now"           : "You're a cargo truck driver now. Welcome! Ha-ha..."
-"job.cargodriver.gotoseagift"   : "Go to Seagift Co. at Chinatown, get behind wheel of truck of fish and get your ass to warehouse P3 06 at Port."
-"job.cargodriver.not"           : "You're not a cargo truck driver."
-"job.cargodriver.needfishtruck" : "You need a fish truck."
-"job.cargodriver.toload"        : "Go to warehouse P3 06 at Port to load fish truck."
-"job.cargodriver.driving"       : "You're driving. Please stop the truck."
-"job.cargodriver.loading"       : "Loading truck. Wait..."
-"job.cargodriver.unloading"     : "Unloading truck. Wait..."
-"job.cargodriver.alreadyloaded" : "Truck already loaded."
-"job.cargodriver.loaded"        : "The truck loaded. Go back to Seagift to unload."
-"job.cargodriver.empty"         : "Truck is empty. Go to Port to load."
-"job.cargodriver.tounload"      : "Go to Seagift to unload."
-"job.cargodriver.takemoney"     : "Go to office at City Port and take your money."
-"job.cargodriver.needcomplete"  : "You must complete delivery before."
-"job.cargodriver.nicejob"       : "Nice job, %s! Keep $%.2f."
+"job.cargodriver.letsgo"        : "[CARGO] Let's go to office at City Port."
+"job.cargodriver.needlevel"     : "[CARGO] You need level %d to become cargo truck driver."
+"job.cargodriver.already"       : "[CARGO] You're cargo truck driver already."
+"job.cargodriver.now"           : "[CARGO] You're a cargo truck driver now. Welcome! Ha-ha..."
+"job.cargodriver.gotoseagift"   : "[CARGO] Go to Seagift Co. at Chinatown, get behind wheel of truck of fish and get your ass to warehouse P3 06 at Port."
+"job.cargodriver.not"           : "[CARGO] You're not a cargo truck driver."
+"job.cargodriver.needfishtruck" : "[CARGO] You need a fish truck."
+"job.cargodriver.toload"        : "[CARGO] Go to warehouse P3 06 at Port to load fish truck."
+"job.cargodriver.driving"       : "[CARGO] You're driving. Please stop the truck."
+"job.cargodriver.loading"       : "[CARGO] Loading truck. Wait..."
+"job.cargodriver.unloading"     : "[CARGO] Unloading truck. Wait..."
+"job.cargodriver.alreadyloaded" : "[CARGO] Truck already loaded."
+"job.cargodriver.loaded"        : "[CARGO] The truck loaded. Go back to Seagift to unload."
+"job.cargodriver.empty"         : "[CARGO] Truck is empty. Go to Port to load."
+"job.cargodriver.tounload"      : "[CARGO] Go to Seagift to unload."
+"job.cargodriver.takemoney"     : "[CARGO] Go to office at City Port and take your money."
+"job.cargodriver.needcomplete"  : "[CARGO] You must complete delivery before."
+"job.cargodriver.nicejob"       : "[CARGO] Nice job, %s! Keep $%.2f."
 
 "job.cargodriver.help.title"            :   "List of available commands for CARGODRIVER JOB:"
 "job.cargodriver.help.job"              :   "Get cargo truck driver job"
@@ -29,24 +29,24 @@ translation("en", {
 
 translation("ru", {
 "job.cargodriver"               : "водитель грузовика"
-"job.cargodriver.letsgo"        : "Отправляйтесь в офис City Port."
-"job.cargodriver.needlevel"     : "Водителем грузовика можно устроиться начиная с уровня %d."
-"job.cargodriver.already"       : "Вы уже работаете водителем грузовика."
-"job.cargodriver.now"           : "Вы стали водителем грузовика."
-"job.cargodriver.gotoseagift"   : "Отправляйтесь к складу Seagift в Chinatown, садитесь в грузовик для доставки рыбы и поезжайте в City Port к складу P3 06."
-"job.cargodriver.not"           : "Вы не работаете водителем грузовика."
-"job.cargodriver.needfishtruck" : "Вам нужен грузовик для доставки рыбы."
-"job.cargodriver.toload"        : "Отправляйтесь в Порт к складу P3 06 для загрузки."
-"job.cargodriver.driving"       : "Остановите грузовик."
-"job.cargodriver.loading"       : "Грузовик загружается. Ждите..."
-"job.cargodriver.unloading"     : "Грузовик разгружается. Ждите..."
-"job.cargodriver.alreadyloaded" : "Грузовик уже загружен."
-"job.cargodriver.loaded"        : "Грузовик загружен. Езжайте к складу Seagift для разгрузки."
-"job.cargodriver.empty"         : "Грузовик пуст. Отправляйтесь в City Port для загрузки."
-"job.cargodriver.tounload"      : "Отправляйтесь к складу Seagift для разгрузки."
-"job.cargodriver.takemoney"     : "Отправляйтесь в офис City Port и получите Ваш заработок."
-"job.cargodriver.needcomplete"  : "Завершите доставку."
-"job.cargodriver.nicejob"       : "Отличная работа, %s! Держи $%.2f."
+"job.cargodriver.letsgo"        : "[CARGO] Отправляйтесь в офис City Port."
+"job.cargodriver.needlevel"     : "[CARGO] Водителем грузовика можно устроиться начиная с уровня %d."
+"job.cargodriver.already"       : "[CARGO] Вы уже работаете водителем грузовика."
+"job.cargodriver.now"           : "[CARGO] Вы стали водителем грузовика."
+"job.cargodriver.gotoseagift"   : "[CARGO] Отправляйтесь к складу Seagift в Chinatown, садитесь в грузовик для доставки рыбы и поезжайте в City Port к складу P3 06."
+"job.cargodriver.not"           : "[CARGO] Вы не работаете водителем грузовика."
+"job.cargodriver.needfishtruck" : "[CARGO] Вам нужен грузовик для доставки рыбы."
+"job.cargodriver.toload"        : "[CARGO] Отправляйтесь в Порт к складу P3 06 для загрузки."
+"job.cargodriver.driving"       : "[CARGO] Остановите грузовик."
+"job.cargodriver.loading"       : "[CARGO] Грузовик загружается. Ждите..."
+"job.cargodriver.unloading"     : "[CARGO] Грузовик разгружается. Ждите..."
+"job.cargodriver.alreadyloaded" : "[CARGO] Грузовик уже загружен."
+"job.cargodriver.loaded"        : "[CARGO] Грузовик загружен. Езжайте к складу Seagift для разгрузки."
+"job.cargodriver.empty"         : "[CARGO] Грузовик пуст. Отправляйтесь в City Port для загрузки."
+"job.cargodriver.tounload"      : "[CARGO] Отправляйтесь к складу Seagift для разгрузки."
+"job.cargodriver.takemoney"     : "[CARGO] Отправляйтесь в офис City Port и получите Ваш заработок."
+"job.cargodriver.needcomplete"  : "[CARGO] Завершите доставку."
+"job.cargodriver.nicejob"       : "[CARGO] Отличная работа, %s! Держи $%.2f."
 
 "job.cargodriver.help.title"            :   "Список команд, доступных водителю грузовика:"
 "job.cargodriver.help.job"              :   "Устроиться на работу водителем грузовика"
@@ -71,6 +71,7 @@ const CARGO_JOB_Z = -15.4205;
 const CARGO_JOB_SKIN = 130;
 const CARGO_JOB_SALARY = 25.0;
 const CARGO_JOB_LEVEL = 1;
+      CARGO_JOB_COLOR <- CL_CRUSTA;
 
 local cargocoords = {};
 cargocoords["PortChinese"] <- [-217.298, -724.771, -21.423]; // PortPlace P3 06 Chinese
@@ -116,24 +117,24 @@ function isPlayerVehicleCargo(playerid) {
 function cargoJob( playerid ) {
 
     if(!isPlayerInValidPoint(playerid, CARGO_JOB_X, CARGO_JOB_Y, RADIUS_CARGO)) {
-        return msg( playerid, "job.cargodriver.letsgo" );
+        return msg( playerid, "job.cargodriver.letsgo", CARGO_JOB_COLOR );
     }
 
     if(isCargoDriver( playerid )) {
-        return msg( playerid, "job.cargodriver.already" );
+        return msg( playerid, "job.cargodriver.already", CARGO_JOB_COLOR );
     }
 
     if(isPlayerHaveJob(playerid)) {
-        return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid));
+        return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), CARGO_JOB_COLOR );
     }
 
     if(!isPlayerLevelValid ( playerid, CARGO_JOB_LEVEL )) {
-        return msg(playerid, "job.cargodriver.needlevel", CARGO_JOB_LEVEL );
+        return msg(playerid, "job.cargodriver.needlevel", CARGO_JOB_LEVEL, CARGO_JOB_COLOR );
     }
 
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
-        msg( playerid, "job.cargodriver.now" );
-        msg( playerid, "job.cargodriver.gotoseagift" );
+        msg( playerid, "job.cargodriver.now", CARGO_JOB_COLOR );
+        msg( playerid, "job.cargodriver.gotoseagift", CARGO_JOB_COLOR );
 
         setPlayerJob( playerid, "cargodriver");
 
@@ -146,14 +147,14 @@ function cargoJob( playerid ) {
 function cargoJobLeave( playerid ) {
 
     if(!isPlayerInValidPoint(playerid, CARGO_JOB_X, CARGO_JOB_Y, RADIUS_CARGO)) {
-        return msg( playerid, "job.cargodriver.letsgo" );
+        return msg( playerid, "job.cargodriver.letsgo", CARGO_JOB_COLOR );
     }
 
     if(!isCargoDriver(playerid)) {
-        return msg( playerid, "job.cargodriver.not");
+        return msg( playerid, "job.cargodriver.not", CARGO_JOB_COLOR );
     } else {
         screenFadeinFadeoutEx(playerid, 250, 200, function() {
-            msg( playerid, "job.leave" );
+            msg( playerid, "job.leave", CARGO_JOB_COLOR );
 
             setPlayerJob( playerid, null );
 
@@ -168,30 +169,30 @@ function cargoJobLeave( playerid ) {
 // working good, check
 function cargoJobLoad( playerid ) {
     if(!isCargoDriver(playerid)) {
-        return msg( playerid, "job.cargodriver.not");
+        return msg( playerid, "job.cargodriver.not", CARGO_JOB_COLOR );
     }
 
     if (!isPlayerVehicleCargo(playerid)) {
-        return msg( playerid, "job.cargodriver.needfishtruck");
+        return msg( playerid, "job.cargodriver.needfishtruck", CARGO_JOB_COLOR );
     }
 
     local vehicleid = getPlayerVehicle(playerid);
     if(cargocars[vehicleid][0]) {
-        return msg( playerid, "job.cargodriver.alreadyloaded");
+        return msg( playerid, "job.cargodriver.alreadyloaded", CARGO_JOB_COLOR );
     }
 
     if(!isVehicleInValidPoint(playerid, cargocoords["PortChinese"][0], cargocoords["PortChinese"][1], 4.0 )) {
-        return msg( playerid, "job.cargodriver.toload");
+        return msg( playerid, "job.cargodriver.toload", CARGO_JOB_COLOR );
     }
 
     if(isPlayerVehicleMoving(playerid)){
-        return msg( playerid, "job.cargodriver.driving");
+        return msg( playerid, "job.cargodriver.driving", CL_RED );
     }
 
-    msg( playerid, "job.cargodriver.loading");
+    msg( playerid, "job.cargodriver.loading", CARGO_JOB_COLOR );
     screenFadeinFadeoutEx(playerid, 1000, 3000, null, function() {
         cargocars[vehicleid][0] = true;
-        msg( playerid, "job.cargodriver.loaded");
+        msg( playerid, "job.cargodriver.loaded", CARGO_JOB_COLOR );
     });
 
 }
@@ -199,31 +200,31 @@ function cargoJobLoad( playerid ) {
 // working good, check
 function cargoJobUnload( playerid ) {
     if(!isCargoDriver(playerid)) {
-        return msg( playerid, "job.cargodriver.not");
+        return msg( playerid, "job.cargodriver.not", CARGO_JOB_COLOR );
     }
 
     if (!isPlayerVehicleCargo(playerid)) {
-        return msg( playerid, "job.cargodriver.needfishtruck");
+        return msg( playerid, "job.cargodriver.needfishtruck", CARGO_JOB_COLOR );
     }
 
     local vehicleid = getPlayerVehicle(playerid);
     if(!cargocars[vehicleid][0]) {
-        return msg( playerid, "job.cargodriver.empty" );
+        return msg( playerid, "job.cargodriver.empty", CARGO_JOB_COLOR );
     }
 
     if(!isVehicleInValidPoint(playerid, 396.5, 98.0385, 4.0 )) {
-        return msg( playerid, "job.cargodriver.tounload");
+        return msg( playerid, "job.cargodriver.tounload", CARGO_JOB_COLOR );
     }
 
     if(isPlayerVehicleMoving(playerid)){
-        return msg( playerid, "job.cargodriver.driving");
+        return msg( playerid, "job.cargodriver.driving", CL_RED );
     }
 
-    msg( playerid, "job.cargodriver.unloading");
+    msg( playerid, "job.cargodriver.unloading", CARGO_JOB_COLOR );
     screenFadeinFadeoutEx(playerid, 1000, 3000, null, function() {
         job_cargo[playerid]["cargostatus"] = true;
         cargocars[vehicleid][0] = false;
-        msg( playerid, "job.cargodriver.takemoney" );
+        msg( playerid, "job.cargodriver.takemoney", CARGO_JOB_COLOR );
         removePlayerFromVehicle( playerid );
     });
 
@@ -234,18 +235,18 @@ function cargoJobUnload( playerid ) {
 function cargoJobFinish( playerid ) {
 
     if(!isCargoDriver(playerid)) {
-        return msg( playerid, "job.cargodriver.not");
+        return msg( playerid, "job.cargodriver.not", CARGO_JOB_COLOR );
     }
 
     if(!job_cargo[playerid]["cargostatus"]) {
-        return msg( playerid, "job.cargodriver.needcomplete");
+        return msg( playerid, "job.cargodriver.needcomplete", CARGO_JOB_COLOR );
     }
 
     if(!isPlayerInValidPoint(playerid, CARGO_JOB_X, CARGO_JOB_Y, RADIUS_CARGO)) {
-        return msg( playerid, "job.cargodriver.letsgo" );
+        return msg( playerid, "job.cargodriver.letsgo", CARGO_JOB_COLOR );
     }
 
     job_cargo[playerid]["cargostatus"] = false;
-    msg( playerid, "job.cargodriver.nicejob", [getPlayerName( playerid ), CARGO_JOB_SALARY] );
+    msg( playerid, "job.cargodriver.nicejob", [getPlayerName( playerid ), CARGO_JOB_SALARY], CARGO_JOB_COLOR );
     addMoneyToPlayer(playerid, CARGO_JOB_SALARY);
 }
