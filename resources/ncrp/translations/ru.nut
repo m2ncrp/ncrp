@@ -110,7 +110,7 @@ translation("ru", {
     "taxi.help.title"                   :   "Список доступных команд для такси"
     "taxi.help.taxi"                    :   "/taxi адрес - Вызвать такси по указанному адресу"
 
-    "vehicle.owner.warning"             :   "Вы не можете передвигатся в чужом автомобиле"
+    "vehicle.owner.warning"             :   "Вы не можете передвигаться в чужом автомобиле."
 
     // dont traslate this
     "client.interface.job"              :   "Your job: %s"

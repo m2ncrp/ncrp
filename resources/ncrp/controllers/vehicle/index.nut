@@ -39,7 +39,7 @@ event("onScriptInit", function() {
 
     // milk
     addVehicleOverride(19, function(id) {
-        setVehicleColour(id, 160, 160, 130, 50, 230, 50);
+        setVehicleColour(id, 154, 154, 154, 98, 26, 21);
     });
 });
 
