@@ -70,10 +70,10 @@ acmd("jump", function(playerid) {
 acmd("myveh", function(playerid, modelid) {
     local pos = getPlayerPosition( playerid );
     local vehicleid = createVehicle( modelid.tointeger(), pos[0] + 2.0, pos[1], pos[2] + 1.0, 0.0, 0.0, 0.0 );
-    setVehicleColour(vehicleid, 0, 0, 0, 0, 0, 0);
-    setVehicleOwner(vehicleid, playerid);
+    // setVehicleColour(vehicleid, 0, 0, 0, 0, 0, 0);
+    setVehicleOwner(vehicleid, "none");
     setVehicleSaving(vehicleid, true); // it will be saved to database
-    setVehicleRespawnEx(vehicleid, false); // it wont respawn
+    setVehicleRespawnEx(vehicleid, true); // it wont respawn
 });
 
 acmd("who", function(playerid) {
