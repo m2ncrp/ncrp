@@ -35,11 +35,13 @@ event("onPlayerConnect", function(playerid, name, ip, serial ){
 });
 
 event( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
-    if(isPlayerCarTaxi(playerid) && getVehiclePassengersCount(vehicleid) == 1 && getPlayerJob(playerid) != "taxidriver") {
+    if(isPlayerCarTaxi(playerid) && seat == 0) {
+        if(getPlayerJob(playerid) == "taxidriver") {
+            return setVehicleFuel(vehicleid, 65.0);
+        }
         setVehicleFuel(vehicleid, 0.0);
         return msg(playerid, "taxi.needpay", price);
     }
-
 });
 
 cmd("drive", function(playerid) {
@@ -187,7 +189,7 @@ function taxiCallReady(playerid) {
     local customerid = job_taxi[playerid]["customer"];
 
     if (customerid == null){
-        dbg(customerid);
+dbg(customerid);
         return msg_taxi_dr(playerid, "job.taxi.noanycalls");
     }
 
@@ -236,7 +238,47 @@ function taxiCallRefuse(playerid) {
  * @param  {int} playerid
  * @param  {float} amount   - amount for trip at taxi. Default $3.0
  */
-function taxiCallEnd(playerid, amount) {
+function taxiCallDone(playerid, amount) {
+
+    if (!isTaxiDriver(playerid)) {
+        return msg_taxi_dr(playerid, "job.taxi.driver.not");
+    }
+
+    if (!isPlayerCarTaxi(playerid)) {
+        return msg_taxi_dr(playerid, "job.taxi.needcar");
+    }
+
+    local customerid = job_taxi[playerid]["customer"];
+
+    if (customerid == null){
+        return msg_taxi_dr(playerid, "job.taxi.noanycalls");
+    }
+
+    msg_taxi_dr(playerid, "job.taxi.requested", amount );
+    msg_taxi_cu(customerid, "taxi.call.request", amount);
+    sendInvoiceSilent(playerid, customerid, amount, function(customerid, driverid, result) {
+        // playerid responded to invoice from customerid with result
+        // (true - acepted / false - declined)
+        if(result == true) {
+            players[customerid]["taxi"]["call_state"] = "closed";
+            job_taxi[driverid]["customer"] = null;
+            job_taxi[driverid]["status"] = "onair";
+            msg_taxi_dr(driverid, "job.taxi.completed", playerid );
+            msg_taxi_cu(customerid, "taxi.call.completed" );
+        } else {
+            msg(driverid "job.taxi.psngdeclined", getPlayerNameShort(customerid), CL_RED );
+            msg(customerid, "taxi.call.declined", [], CL_RED );
+        }
+    }
+    );
+}
+
+
+/**
+ * Close call
+ * @param  {int} playerid
+ */
+function taxiCallClose(playerid) {
 
     if (!isTaxiDriver(playerid)) {
         return msg_taxi_dr(playerid, "job.taxi.driver.not");
@@ -255,9 +297,9 @@ function taxiCallEnd(playerid, amount) {
     players[customerid]["taxi"]["call_state"] = "closed";
     job_taxi[playerid]["customer"] = null;
     job_taxi[playerid]["status"] = "onair";
-    msg_taxi_dr(playerid, "job.taxi.completed", customerid );
-    sendInvoice(playerid, customerid, amount);
+    msg_taxi_dr(playerid, "job.taxi.callclosed" );
 }
+
 
 /**
  * Set status as ON air
