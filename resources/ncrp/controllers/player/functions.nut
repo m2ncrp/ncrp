@@ -208,3 +208,12 @@ function getPlayerNameShort(playerid) {
     }
     return false;
 }
+
+/**
+ * Check if player is logined (right after login he is not)
+ * @param  {Integer}  playerid
+ * @return {Boolean}
+ */
+function isPlayerLogined(playerid) {
+    return (playerid in players);
+}
