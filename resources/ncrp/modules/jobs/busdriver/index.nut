@@ -334,7 +334,7 @@ function busJobStop( playerid ) {
     }
 
     if(isPlayerVehicleMoving(playerid)){
-        return msg( playerid, "job.bus.driving", BUS_JOB_COLOR );
+        return msg( playerid, "job.bus.driving", CL_RED );
     }
 
     busJobRemovePrivateBlipText( playerid );

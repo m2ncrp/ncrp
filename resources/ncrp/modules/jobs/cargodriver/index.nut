@@ -186,7 +186,7 @@ function cargoJobLoad( playerid ) {
     }
 
     if(isPlayerVehicleMoving(playerid)){
-        return msg( playerid, "job.cargodriver.driving", CARGO_JOB_COLOR );
+        return msg( playerid, "job.cargodriver.driving", CL_RED );
     }
 
     msg( playerid, "job.cargodriver.loading", CARGO_JOB_COLOR );
@@ -217,7 +217,7 @@ function cargoJobUnload( playerid ) {
     }
 
     if(isPlayerVehicleMoving(playerid)){
-        return msg( playerid, "job.cargodriver.driving", CARGO_JOB_COLOR );
+        return msg( playerid, "job.cargodriver.driving", CL_RED );
     }
 
     msg( playerid, "job.cargodriver.unloading", CARGO_JOB_COLOR );
