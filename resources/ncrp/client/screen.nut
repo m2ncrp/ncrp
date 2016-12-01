@@ -8,7 +8,7 @@ local drawdata = {
     state   = "",
     level   = ""
 };
-
+local initialized = false;
 local datastore = {};
 local lines     = [];
 
@@ -37,15 +37,22 @@ function onSecondChanged() {
     );
 }
 
+local screen = getScreenSize();
+local screenX = screen[0].tofloat();
+local screenY = screen[1].tofloat();
+
 /**
  * Main rendering callback
  */
 addEventHandler("onClientFrameRender", function(isGUIdrawn) {
-    if (!isGUIdrawn) return;
+    if (isGUIdrawn) return;
 
-    local screen = getScreenSize();
-    local screenX = screen[0];
-    local screenY = screen[1];
+    // on init
+    if (!initialized) {
+        // draw full black screen
+        dxDrawRectangle(0.0, 0.0, screenX, screenY, 0x99000000);
+        return;
+    }
 
     local offset;
     local length;
@@ -167,9 +174,17 @@ addEventHandler("onServerClientStarted", function(version = null) {
 
     // apply defaults
     setRenderHealthbar(false);
+    toggleHud(true);
 
     // load params
     drawdata.version = (version) ? version : drawdata.version;
+
+    initialized = true;
+});
+
+addEventHandler( "onClientScriptInit", function() {
+    setRenderHealthbar(false);
+    setRenderNametags(false);
 });
 
 // addEventHandler("onClientProcess", function() {

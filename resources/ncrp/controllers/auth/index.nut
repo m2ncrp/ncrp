@@ -10,6 +10,22 @@ include("controllers/auth/commands.nut");
  *     Account.addSession(playerid)
  */
 local accounts = {};
+local baseData = {};
+
+translation("en", {
+    "auth.wrongname"        : "Sorry, your name should be in Firstname_Lastname format."
+    "auth.changename"       : "Please, change you name in the settings, and reconnect. Thank you!"
+    "auth.welcome"          : "* Welcome there, %s!"
+    "auth.registered"       : "* Your account is registered"
+    "auth.notregistered"    : "* Your account is not registered"
+    "auth.command.register" : "* Please register using /register [password]"
+    "auth.command.login"    : "* Please enter using /login [password]"
+    "auth.error.logined"    : "[AUTH] You are already logined!"
+    "auth.error.register"   : "[AUTH] Account with this name is already registered!"
+    "auth.error.notfound"   : "[AUTH] This account is not registered"
+    "auth.success.register" : "[AUTH] You've successfuly registered!"
+    "auth.success.login"    : "[AUTH] You've successfuly logined!"
+});
 
 /**
  * Compiled regex object for
@@ -26,24 +42,37 @@ local REGEX_USERNAME = regexp("([A-Za-z0-9]{1,32}_[A-Za-z0-9]{1,32})")
  * depending if he is logined or not
  */
 event("onPlayerConnectInit", function(playerid, username, ip, serial) {
+    // save base data
+    baseData[playerid] <- {
+        playerid = playerid,
+        username = username,
+        ip = ip,
+        serial = serial
+    };
+
     // disable for a while
-    //if (!REGEX_USERNAME.match(username)) { return kickPlayer(playerid); }
+    if (!REGEX_USERNAME.match(username) && username != "Inlife") {
+        // return kickPlayer(playerid);
+        msg(playerid, "auth.wrongname", CL_WARNING);
+        msg(playerid, "auth.changename");
+        return;
+    }
 
     Account.findOneBy({ username = username }, function(err, account) {
-        sendPlayerMessage(playerid, "---------------------------------------------");
-        sendPlayerMessage(playerid, "* " + "Welcome there " + username);
+        msg(playerid, "---------------------------------------------", CL_SILVERSAND);
+        msg(playerid, "auth.welcome", username);
 
         if (account) {
-            sendPlayerMessage(playerid, "* " + "Your account is registed");
-            sendPlayerMessage(playerid, "*");
-            sendPlayerMessage(playerid, "* " + "Please enter using /login [password]");
+            msg(playerid, "auth.registered");
+            msg(playerid, "*");
+            msg(playerid, "auth.command.login");
         } else {
-            sendPlayerMessage(playerid, "* " + "This account is not registered");
-            sendPlayerMessage(playerid, "*");
-            sendPlayerMessage(playerid, "* " + "Please register using /register [password]");
+            msg(playerid, "auth.notregistered");
+            msg(playerid, "*");
+            msg(playerid, "auth.command.register");
         }
 
-        sendPlayerMessage(playerid, "---------------------------------------------");
+        msg(playerid, "---------------------------------------------", CL_SILVERSAND);
     });
 });
 
@@ -58,6 +87,7 @@ event("onPlayerDisconnect", function(playerid, reason) {
     accounts[playerid].clean();
     accounts[playerid] = null;
 
+    delete baseData[playerid];
     delete accounts[playerid];
 });
 
@@ -71,12 +101,14 @@ addEventHandlerEx("__networkRequest", function(request) {
     if (!("destination" in data) || data.destination != "auth") return;
 
     if (data.method == "getSession") {
-        ::log("- getting session for player #" + data.id + "\n");
         Response({result = data.id in accounts ? accounts[data.id] : null}, request).send();
     }
 
     if (data.method == "addSession") {
-        ::log("- adding session for player #" + data.id + "\n");
         accounts[data.id] <- data.object;
     }
 });
+
+function getPlayerIp(playerid) {
+    return baseData[playerid];
+}
