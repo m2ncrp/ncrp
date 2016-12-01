@@ -6,7 +6,8 @@
 function blockVehicle(vehicleid) {
     setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
     setVehicleEngineState(vehicleid, false);
-    return setVehicleFuel(vehicleid, 0.0);
+    setVehicleFuel(vehicleid, 0.0, true);
+    return true;
 }
 
 /**
@@ -16,5 +17,5 @@ function blockVehicle(vehicleid) {
  * @return {bool}
  */
 function unblockVehicle(vehicleid, fuel = VEHICLE_FUEL_DEFAULT) {
-    return setVehicleFuel(vehicleid, fuel);
+    return restoreVehicleFuel(vehicleid);
 }
