@@ -28,7 +28,7 @@ local old__addCommandHandler = addCommandHandler;
  * @param  {function} callbackOrNull
  * @return {bool} true
  */
-function cmd(aliases, extensionOrCallback, callbackOrNull = null) {
+function advancedCommand(isAdmin, aliases, extensionOrCallback, callbackOrNull = null) {
     // create storage
     local cmdnames  = [];
     local extension = [];
@@ -69,6 +69,11 @@ function cmd(aliases, extensionOrCallback, callbackOrNull = null) {
     local handler = function(cmdname, playerid, args) {
         local cursor = __commands[cmdname];
         local cmdlog = "/" + cmdname;
+
+        // if its admin command, and player is not admin - exit
+        if (isAdmin && !isPlayerAdmin(playerid)) {
+            return;
+        }
 
         // iterate over arguments
         // and try to find appropriate sequence
@@ -217,6 +222,20 @@ function cmd(aliases, extensionOrCallback, callbackOrNull = null) {
 // asd["a1"](15, "test", "b", "tzt");
 // // asd["a1"](15, "dest", "a", "tzt");
 
+// default command
+function cmd(...) {
+    vargv.insert(0, getroottable());
+    vargv.insert(1, false);
+    advancedCommand.acall(vargv);
+}
+
+// admin command
+function acmd(...) {
+    vargv.insert(0, getroottable());
+    vargv.insert(1, true);
+    advancedCommand.acall(vargv);
+}
+
+
 simplecmd <- old__addCommandHandler;
-acmd <- cmd;
 addCommandHandler <- cmd;
