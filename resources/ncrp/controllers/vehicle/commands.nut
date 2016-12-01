@@ -106,7 +106,7 @@ addKeyboardHandler("x", "up", function(playerid) {
 });
 
 addKeyboardHandler("2", "up", function(playerid) {
-    if (isPlayerInVehicle(playerid)) {
+    if (isPlayerInVehicle(playerid) && isPlayerAdmin(playerid)) {
         local vehicleid = getPlayerVehicle(playerid);
         local sp = getVehicleSpeed(vehicleid);
         setVehicleSpeed(vehicleid, sp[0], sp[1], sp[2] + 5.0);
@@ -114,7 +114,7 @@ addKeyboardHandler("2", "up", function(playerid) {
 });
 
 addKeyboardHandler("3", "up", function(playerid) {
-    if (isPlayerInVehicle(playerid)) {
+    if (isPlayerInVehicle(playerid) && isPlayerAdmin(playerid)) {
         local vehicleid = getPlayerVehicle(playerid);
         local rot = getVehicleRotation(vehicleid);
         setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
@@ -123,7 +123,7 @@ addKeyboardHandler("3", "up", function(playerid) {
 });
 
 addKeyboardHandler("e", "up", function(playerid) {
-    if (isPlayerInVehicle(playerid) && getPlayerName(playerid) == "Inlife") {
+    if (isPlayerInVehicle(playerid) && getPlayerName(playerid) == "Inlife" && isPlayerAdmin(playerid)) {
         local vehicleid = getPlayerVehicle(playerid);
         local sp = getVehicleSpeed(vehicleid);
         setVehicleSpeed(vehicleid, sp[0], sp[1], sp[2] + 5.0);

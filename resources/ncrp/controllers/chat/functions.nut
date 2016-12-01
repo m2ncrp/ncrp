@@ -93,13 +93,10 @@ function msg(playerid, text, ...) {
 }
 
 function msg_a(text, color = CL_WHITE) {
-    return sendPlayerMessageToAll(text, color.r, color.g, color.b);
-    // foreach (playerid, value in players) {
-    //     local args = clone vargv;
-    //     args.insert(0, getroottable());
-    //     args.insert(0, playerid);
-    //     msg.acall(args);
-    // }
+    // return sendPlayerMessageToAll(text, color.r, color.g, color.b);
+    foreach (playerid, value in players) {
+        msg(playerid, text, color);
+    }
 }
 
 function msg_help(playerid, title, commands){

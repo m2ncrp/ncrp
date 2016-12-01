@@ -25,6 +25,7 @@ translation("en", {
     "auth.error.notfound"   : "[AUTH] This account is not registered"
     "auth.success.register" : "[AUTH] You've successfuly registered!"
     "auth.success.login"    : "[AUTH] You've successfuly logined!"
+    "auth.error.cmderror"   : "[AUTH] You cant execute commands without registration"
 });
 
 /**
