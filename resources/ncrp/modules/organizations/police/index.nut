@@ -252,14 +252,15 @@ function getPoliceRank(playerid) {
 /**
  * Set player rank to given ID
  * @param  {integer} playerid
+ * @param  {integer} rank number
  * @return {string}  player rank
  */
 function setPoliceRank(playerid, rankID) {
     if (rankID >= 0 && rankID < POLICE_RANK.len()) {
         players[playerid].job = POLICE_RANK[rankID];
-        return true;
+        return POLICE_RANK[rankID];
     }
-    return false;
+    return players[playerid].job;
 }
 
 function isRankUpPossible(playerid) {
@@ -350,8 +351,7 @@ function getPoliceJob(playerid) {
     }
 
     // set first rank
-    setPoliceRank(playerid, 0);
-    setPlayerJob(playerid, getPlayerJob(playerid));
+    setPlayerJob( playerid, setPoliceRank(playerid, 0) );
     setOnDuty(playerid, false);
     msg(playerid, "You became a police officer.");
 }
@@ -370,8 +370,9 @@ function leavePoliceJob(playerid) {
         return msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid));
     }
 
-    setOnDuty(playerid, false);
-    players[playerid]["job"] = null;
-    setPlayerJob( playerid, getPlayerJob(playerid) );
+    if (isOnDuty(playerid)) {
+        setOnDuty(playerid, false);
+    }    
+    setPlayerJob( playerid, null );
     msg(playerid, "organizations.police.onleave");
 }
