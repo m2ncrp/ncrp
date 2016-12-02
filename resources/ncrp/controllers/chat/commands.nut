@@ -97,7 +97,7 @@ cmd(["help", "h", "halp", "info"], function(playerid) {
         { name = "/help subway",            desc = "Show list of commands for subway" },
         { name = "/help taxi",              desc = "Show list of commands for taxi" },
         { name = "/help rent",              desc = "Show list of commands for rent car" },
-        { name = "/help job JOBNAME",    desc = "Show list of commands for job. Example: /help job taxi" },
+        { name = "/help job JOBNAME",       desc = "Show list of commands for job. Example: /help job taxi" },
         { name = "/help bank",              desc = "Show list of commands for bank" },
         { name = "/help car",               desc = "Show list of commands for cars" },
         { name = "/help fuel",              desc = "Show list of commands for fuel stations" },
