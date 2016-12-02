@@ -14,6 +14,9 @@ const DEFAULT_SPAWN_SKIN = 10;
 const DEFAULT_SPAWN_X    = -1684.52;
 const DEFAULT_SPAWN_Y    = 981.397;
 const DEFAULT_SPAWN_Z    = -0.473357;
+const HOSPITAL_X         = -393.429;
+const HOSPITAL_Y         = 912.044;
+const HOSPITAL_Z         = -20.0026;
 
 default_spawns <- [
     [-555.251,  1702.31, -22.2408], // railway
@@ -148,9 +151,11 @@ addEventHandler("native:onPlayerSpawn", function(playerid) {
         if (isPlayerBeenDead(playerid)) {
 
             // repsawn at the hospital
-            setPlayerPosition(playerid, HOSPITAL_X HOSPITAL_Y,HOSPITAL_Z);
+            setPlayerPosition(playerid, HOSPITAL_X, HOSPITAL_Y, HOSPITAL_Z);
 
             // maybe deduct some money...
+
+            screenFadeout(playerid, 500);
 
         } else if (players[playerid].housex != 0.0 && players[playerid].housey != 0.0) {
 
@@ -191,5 +196,10 @@ addEventHandler("native:onPlayerDeath", function(playerid, killerid) {
     // }
     setPlayerBeenDead(playerid);
 
-    trigger("onPlayerDeath", playerid, killerid);
+    trigger("onPlayerDeath", playerid);
+
+    if (killerid != INVALID_ENTITY_ID) {
+        trigger("onPlayerMurdered", playerid, killerid);
+        trigger("onPlayerKill", killerid, playerid);
+    }
 });

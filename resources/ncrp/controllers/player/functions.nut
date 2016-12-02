@@ -228,7 +228,7 @@ local lastDeaths = {};
  * @return {Boolean}
  */
 function isPlayerBeenDead(playerid) {
-    return (playerid in lastDeaths && (getTimestamp() - lastDeaths[playerid] <= 1));
+    return (playerid in lastDeaths && ((getTimestamp() - lastDeaths[playerid]) <= 10));
 }
 
 /**
