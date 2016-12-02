@@ -3,6 +3,9 @@ chatcmd(["i", "say"], function(playerid, message) {
     inRadiusSendToAll(playerid, 
         localize("chat.player.says", [getAuthor( playerid ), message], getPlayerLocale(playerid)), 
         NORMAL_RADIUS, CL_YELLOW);
+
+    // statistics
+    statisticsPushMessage(playerid, message, "say");
 });
 
 // shout
@@ -10,6 +13,9 @@ chatcmd(["s", "shout"], function(playerid, message) {
     inRadiusSendToAll(playerid, 
         localize("chat.player.shout", [getAuthor( playerid ), message], getPlayerLocale(playerid)), 
         SHOUT_RADIUS, CL_WHITE);
+
+    // statistics
+    statisticsPushMessage(playerid, message, "shout");
 });
 
 // whisper
@@ -23,20 +29,32 @@ chatcmd(["w", "whisper"], function(playerid, message) {
         msg(targetid, "chat.player.whisper", [getAuthor( playerid ), message]);
         msg(playerid, "chat.player.whisper", [getAuthor( playerid ), message]);
     }
+
+    // statistics
+    statisticsPushMessage(playerid, message, "whisper");
 });
 
 // nonRP local chat
 chatcmd(["b"], function(playerid, message) {
     inRadiusSendToAll(playerid, "[nonRP] " + getAuthor( playerid ) + ": " + message, NORMAL_RADIUS, CL_GRAY);
+
+    // statistics
+    statisticsPushMessage(playerid, message, "non-rp-local");
 });
 
 // global nonRP chat
 chatcmd(["o","ooc"], function(playerid, message) {
     msg_a("[OOC] " + getAuthor( playerid ) + ": " + message, CL_GRAY);
+
+    // statistics
+    statisticsPushMessage(playerid, message, "ooc");
 });
 
 chatcmd(["me"], function(playerid, message) {
     inRadiusSendToAll(playerid, "[ME] " + getAuthor( playerid ) + " " + message, NORMAL_RADIUS, CL_YELLOW);
+
+    // statistics
+    statisticsPushMessage(playerid, message, "me");
 });
 
 // random for some actions
@@ -47,6 +65,9 @@ chatcmd(["try"], function(playerid, message) {
         inRadiusSendToAll(playerid, localize("chat.player.try.end.success", [message], getPlayerLocale(playerid)), NORMAL_RADIUS);
     else
         inRadiusSendToAll(playerid, localize("chat.player.try.end.fail", [message], getPlayerLocale(playerid)), NORMAL_RADIUS);
+
+    // statistics
+    statisticsPushMessage(playerid, message, "try");
 });
 
 cmd(["help", "h", "halp", "info"], function(playerid) {
