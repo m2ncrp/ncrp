@@ -199,13 +199,13 @@ function busJob( playerid ) {
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
         msg( playerid, "job.bus.driver.now", BUS_JOB_COLOR );
 
-        setPlayerJob( playerid, "busdriver" )
+        setPlayerJob( playerid, "busdriver" );
 
         players[playerid]["skin"] = BUS_JOB_SKIN;
         setPlayerModel( playerid, BUS_JOB_SKIN );
 
         // create private blip job
-        createPersonalJobBlip( playerid, BUS_JOB_X, BUS_JOB_Y);
+        //createPersonalJobBlip( playerid, BUS_JOB_X, BUS_JOB_Y);
 
         busJobRoutes( playerid );
     });

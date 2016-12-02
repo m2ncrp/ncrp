@@ -157,7 +157,7 @@ function dockerJob( playerid ) {
         setPlayerModel( playerid, DOCKER_JOB_SKIN );
 
         // create private blip job
-        createPersonalJobBlip( playerid, DOCKER_JOB_X, DOCKER_JOB_Y);
+        // createPersonalJobBlip( playerid, DOCKER_JOB_X, DOCKER_JOB_Y);
 
         job_docker[playerid]["blip3dtext"] = dockerJobCreatePrivateBlipText(playerid, DOCKER_JOB_TAKEBOX_X, DOCKER_JOB_TAKEBOX_Y, DOCKER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "/docker take");
 
