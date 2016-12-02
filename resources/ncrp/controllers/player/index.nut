@@ -44,7 +44,7 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
             char.spawnid = random(0, default_spawns.len());
             char.money   = randomf(5.0, 17.0);
             char.dskin   = defaultSkins[random(0, defaultSkins.len() - 1)];
-            char.cskin   = char.cskin;
+            char.cskin   = char.dskin;
             char.locale  = CHARACTER_DEFAULT_LOCALE;
 
             // save first-time created entity
