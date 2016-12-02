@@ -70,17 +70,17 @@ translation("en", {
     "auth.wrongname"        : "Sorry, your name should be original (not from the game) and have Firstname_Lastname format."
     "auth.changename"       : "Please, change you name in the settings, and reconnect. Thank you!"
     "auth.welcome"          : "* Welcome there, %s!"
-    "auth.registered"       : "* Your account is registered"
-    "auth.notregistered"    : "* Your account is not registered"
-    "auth.command.register" : "* Please register using /register [password]"
+    "auth.registered"       : "* Your account is registered."
+    "auth.notregistered"    : "* Your account is not registered."
+    "auth.command.register" : "* Please register using /register PASSWORD"
     "auth.command.regformat": "* Example: Joe_Barbaro"
-    "auth.command.login"    : "* Please enter using /login [password]"
+    "auth.command.login"    : "* Please enter using /login PASSWORD"
     "auth.error.logined"    : "[AUTH] You are already logined!"
     "auth.error.register"   : "[AUTH] Account with this name is already registered!"
     "auth.error.notfound"   : "[AUTH] This account is not registered"
     "auth.success.register" : "[AUTH] You've successfuly registered!"
     "auth.success.login"    : "[AUTH] You've successfuly logined!"
-    "auth.error.cmderror"   : "[AUTH] You cant execute commands without registration"
+    "auth.error.cmderror"   : "[AUTH] You cant execute commands without registration."
 });
 
 /**
