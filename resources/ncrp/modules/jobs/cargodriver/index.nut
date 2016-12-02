@@ -140,6 +140,9 @@ function cargoJob( playerid ) {
 
         players[playerid]["skin"] = CARGO_JOB_SKIN;
         setPlayerModel( playerid, CARGO_JOB_SKIN );
+
+        // create private blip job
+        //createPersonalJobBlip( playerid, CARGO_JOB_X, CARGO_JOB_Y);
     });
 }
 
@@ -162,6 +165,9 @@ function cargoJobLeave( playerid ) {
             setPlayerModel( playerid, players[playerid]["default_skin"]);
 
             job_cargo[playerid]["cargostatus"] = false;
+
+            // remove private blip job
+            removePersonalJobBlip ( playerid );
         });
     }
 }
