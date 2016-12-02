@@ -136,6 +136,7 @@ proxy("onVehicleSpawn",             "native:onVehicleSpawn"             );
 proxy("onClientKeyboardPress",      "onClientKeyboardPress"             );
 proxy("onClientScriptError",        "onClientScriptError"               );
 proxy("onPlayerTeleportRequested",  "onPlayerTeleportRequested"         );
+proxy("onClientDebugToggle",        "onClientDebugToggle"               );
 proxy("onClientSendFPSData",        "onClientSendFPSData"               );
 
 /**
