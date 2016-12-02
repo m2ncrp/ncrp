@@ -100,9 +100,9 @@ function helpBank(playerid) {
     local title = "bank.help.commandslist";
     local commands = [
         { name = "/bank account",               desc = "Show information about your account in bank." },
-        { name = "/bank deposit AMOUNT",      desc = "Put <amount> dollars into the account." },
+        { name = "/bank deposit AMOUNT",      desc = "Put AMOUNT dollars into the account." },
         { name = "/bank deposit all",           desc = "Put all money into the account." },
-        { name = "/bank withdraw AMOUNT",     desc = "Withdraw <amount> dollars from the account."},
+        { name = "/bank withdraw AMOUNT",     desc = "Withdraw AMOUNT dollars from the account."},
         { name = "/bank withdraw all",          desc = "Withdraw all money from the account."}
     ];
     msg_help(playerid, title, commands);
