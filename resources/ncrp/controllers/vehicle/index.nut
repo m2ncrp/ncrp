@@ -29,7 +29,12 @@ event("onScriptInit", function() {
 
     // trucks
     addVehicleOverride(range(34, 39), function(id) {
-        setVehicleColour(id, 255, 255, 255, 0, 0, 0);
+        setVehicleColour(id, 30, 30, 30, 154, 154, 154);
+    });
+
+    // trucks fish
+    addVehicleOverride(38, function(id) {
+        setVehicleColour(id, 15, 32, 24, 80, 80, 80);
     });
 
     // armoured lassiter 75
