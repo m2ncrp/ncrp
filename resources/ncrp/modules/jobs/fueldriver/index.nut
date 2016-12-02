@@ -249,7 +249,7 @@ function fuelJob ( playerid ) {
         setPlayerModel( playerid, FUEL_JOB_SKIN );
 
         // create private blip job
-        createPersonalJobBlip(playerid, FUEL_JOB_X, FUEL_JOB_Y);
+        //createPersonalJobBlip(playerid, FUEL_JOB_X, FUEL_JOB_Y);
     });
 }
 
