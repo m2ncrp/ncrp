@@ -124,6 +124,12 @@ addEventHandlerEx("onServerMinuteChange", function() {
     foreach (playerid, char in players) { char.xp++; }
 });
 
+event("onPlayerMoneyChanged", function(playerid) {
+    if (isPlayerLogined(playerid)) {
+        trySavePlayer(playerid);
+    }
+});
+
 addEventHandler("native:onPlayerSpawn", function(playerid) {
     // set player colour
     setPlayerColour(playerid, 0x99FFFFFF); // whity
@@ -136,15 +142,34 @@ addEventHandler("native:onPlayerSpawn", function(playerid) {
         // setPlayerRotation(playerid, -99.8071, -0.000323891, -0.00024408);
         setPlayerModel(playerid, DEFAULT_SPAWN_SKIN);
         togglePlayerHud(playerid, true);
+
     } else {
-        // check if player has home
-        if (players[playerid].housex != 0.0 && players[playerid].housey != 0.0) {
-            setPlayerPosition(playerid, players[playerid].housex, players[playerid].housey, players[playerid].housez);
+        // check if player just dead
+        if (isPlayerBeenDead(playerid)) {
+
+            // repsawn at the hospital
+            setPlayerPosition(playerid, HOSPITAL_X HOSPITAL_Y,HOSPITAL_Z);
+
+            // maybe deduct some money...
+
+        } else if (players[playerid].housex != 0.0 && players[playerid].housey != 0.0) {
+
+            // check if player has home
+            setPlayerPosition(playerid,
+                players[playerid].housex,
+                players[playerid].housey,
+                players[playerid].housez
+            );
+
         } else {
+            screenFadeout(playerid, 500);
+
             local spawnID = players[playerid]["spawn"];
+
             local x = default_spawns[spawnID][0];
             local y = default_spawns[spawnID][1];
             local z = default_spawns[spawnID][2];
+
             setPlayerPosition(playerid, x, y, z);
         }
 
@@ -159,11 +184,12 @@ addEventHandler("native:onPlayerSpawn", function(playerid) {
 });
 
 addEventHandler("native:onPlayerDeath", function(playerid, killerid) {
-    if (killerid != INVALID_ENTITY_ID) {
-        sendPlayerMessageToAll("~ " + getPlayerName(playerid) + " has been killed by " + getPlayerName(killerid) + ".", 255, 204, 0);
-    } else {
-        sendPlayerMessageToAll("~ " + getPlayerName(playerid) + " has died.", 255, 204, 0 );
-    }
+    // if (killerid != INVALID_ENTITY_ID) {
+    //     sendPlayerMessageToAll("~ " + getPlayerName(playerid) + " has been killed by " + getPlayerName(killerid) + ".", 255, 204, 0);
+    // } else {
+    //     sendPlayerMessageToAll("~ " + getPlayerName(playerid) + " has died.", 255, 204, 0 );
+    // }
+    setPlayerBeenDead(playerid);
 
     trigger("onPlayerDeath", playerid, killerid);
 });
