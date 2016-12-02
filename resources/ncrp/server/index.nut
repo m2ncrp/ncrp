@@ -68,8 +68,8 @@ event("native:onScriptInit", function() {
     // trigger pre init events
     trigger("onScriptInit");
 
-    // // setup default values
-    setGameModeText( "NCRP" );
+    // setup default values
+    setGameModeText( "NC-RP" );
     setMapName( "Empire Bay" );
 
     // creating playerList storage

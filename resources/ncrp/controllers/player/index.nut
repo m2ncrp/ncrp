@@ -29,6 +29,10 @@ default_spawns <- [
     [-344.028, -952.702, -21.7457], // new port
 ];
 
+local defaultSkins = [
+    10, 24, 42, 71, 72, 81, 149, 162
+];
+
 event("onPlayerInit", function(playerid, name, ip, serial) {
     Character.findOneBy({ name = getPlayerName(playerid) }, function(err, char) {
         if (err || !char) {
@@ -38,9 +42,9 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
             // setup deafults
             char.name    = getPlayerName(playerid);
             char.spawnid = random(0, default_spawns.len());
-            char.money   = CHARACTER_DEFAULT_MONEY;
-            char.dskin   = CHARACTER_DEFAULT_SKIN;
-            char.cskin   = CHARACTER_DEFAULT_SKIN;
+            char.money   = randomf(5.0, 17.0);
+            char.dskin   = defaultSkins[random(0, defaultSkins.len() - 1)];
+            char.cskin   = char.cskin;
             char.locale  = CHARACTER_DEFAULT_LOCALE;
 
             // save first-time created entity
@@ -166,7 +170,6 @@ addEventHandler("native:onPlayerSpawn", function(playerid) {
                 msg(playerid, "hospital.money.donthave", [HOSPITAL_AMOUNT], CL_ERROR);
                 setPlayerHealth(playerid, 370.0);
             }
-
 
         } else if (players[playerid].housex != 0.0 && players[playerid].housey != 0.0) {
 

@@ -1,7 +1,7 @@
 // includes
 include("controllers/auth/commands.nut");
 
-IS_AUTHORIZATION_ENABLED <- false;
+IS_AUTHORIZATION_ENABLED <- true;
 
 /**
  * Storage for our sessions
@@ -14,8 +14,60 @@ IS_AUTHORIZATION_ENABLED <- false;
 local accounts = {};
 local baseData = {};
 
+local bannedNames = [
+    "Joe_Barbaro",
+    "Joe_Barbero",
+    "Joe_Barbera",
+    "Joe_Barbara",
+    "Vito_Scaletta",
+    "Vito_Scaletto",
+    "Vito_Scaleto",
+    "Vito_Scaleta",
+    "Vito_Skaletta",
+    "Vito_Skaletto",
+    "Vito_Skaleto",
+    "Vito_Skaleta",
+    "Vitorio_Scaletta",
+    "Vitorio_Scaletto",
+    "Vittorio_Scaletta",
+    "Vittorio_Scaletto",
+    "Frank_Vinci",
+    "Frank_Vinchi",
+    "Leo_Galante",
+    "Leo_Galanta",
+    "Leo_Galanto",
+    "Derek_Pappalardo",
+    "Derek_Papalardo",
+    "Luca_Gurino",
+    "Luka_Gurino",
+    "Brian_O'Neill",
+    "Brian_ONeill",
+    "Brian_O'Nill",
+    "Brian_ONill",
+    "Tommy_Angelo",
+    "Tommy_Angela",
+    "Tomas_Angelo",
+    "Tomas_Angela",
+    "Tom_Angelo",
+    "Tom_Angela",
+    "Richard_Beck",
+    "Mike_Bruski",
+    "Frankie_Potts",
+    "Henry_Tomasino",
+    "Henry_Tomasina",
+    "Henry_Tamasina",
+    "Genry_Tamasina",
+    "Genry_Tomasino",
+    "Genry_Tomasina",
+    "Carlo_Falcone",
+    "Carlo_Falkone",
+    "Carlo_Folcone",
+    "Carlo_Folkone",
+    "Alberto_Clemente",
+];
+
 translation("en", {
-    "auth.wrongname"        : "Sorry, your name should be in Firstname_Lastname format."
+    "auth.wrongname"        : "Sorry, your name should be original (not from the game) and have Firstname_Lastname format."
     "auth.changename"       : "Please, change you name in the settings, and reconnect. Thank you!"
     "auth.welcome"          : "* Welcome there, %s!"
     "auth.registered"       : "* Your account is registered"
@@ -54,7 +106,7 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
     };
 
     // disable for a while
-    if (!REGEX_USERNAME.match(username) && username != "Inlife") {
+    if (!REGEX_USERNAME.match(username) && bannedNames.find(username) != null && username != "Inlife") {
         // return kickPlayer(playerid);
         msg(playerid, "auth.wrongname", CL_WARNING);
         msg(playerid, "auth.changename");
