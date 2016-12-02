@@ -70,7 +70,8 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
         trigger("onPlayerConnect", playerid, name, ip, serial);
         trigger("native:onPlayerSpawn", playerid);
 
-        delayedFunction(2000, function() {
+        delayedFunction(1500, function() {
+            trigger("onServerPlayerStarted", playerid);
             trigger(playerid, "onServerClientStarted", "0.0.458");
             trigger(playerid, "onServerIntefaceCharacter", getLocalizedPlayerJob(playerid, "en"), getPlayerLevel(playerid) );
             trigger(playerid, "onServerInterfaceMoney", getPlayerMoney(playerid));

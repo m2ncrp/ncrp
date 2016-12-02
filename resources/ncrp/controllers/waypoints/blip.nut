@@ -69,7 +69,7 @@ function instantiateBlip(x, y, icon, distance, private) {
 }
 
 
-addEventHandler("onPlayerSpawn", function(playerid) {
+event("onServerPlayerStarted", function(playerid) {
     foreach (blipid, blip in __blips) {
         if (!blip.private) { addBlipForPlayer(blipid, playerid); }
     }

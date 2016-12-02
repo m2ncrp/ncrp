@@ -36,7 +36,7 @@ function applyPersonalJobBlip(playerid) {
     }
 }
 
-event("onPlayerSpawn", function(playerid) {
+event("onServerPlayerStarted", function(playerid) {
     applyPersonalJobBlip(playerid);
 });
 
