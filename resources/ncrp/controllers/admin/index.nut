@@ -19,6 +19,8 @@ local infoTips = [
     "tips.metro"        ,
     "tips.house"        ,
     "tips.carrental"    ,
+    "tips.report"       ,
+    "tips.idea"         ,
 ];
 
 translation("en", {
@@ -32,6 +34,8 @@ translation("en", {
     "tips.metro"        :   "[TIPS] Subway is a good way of transportation. Go to the nearest subway station and use: /subway"
     "tips.house"        :   "[TIPS] You can buy a house, just find an estate agent, and settle a deal."
     "tips.carrental"    :   "[TIPS] If you haven't enough money to buy a car, you can rent it at the Car Rental in North Millville."
+    "tips.report"       :   "[TIPS] Saw a cheater? Or player which is braking the rules? Report via: /report ID TEXT"
+    "tips.idea"         :   "[TIPS] You have an idea, suggestion, or question? Let us know via: /idea TEXT"
 });
 
 function isPlayerAdmin(playerid) {

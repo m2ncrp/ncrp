@@ -18,9 +18,10 @@ function statisticsPushObject(object, type, additional = "") {
     return true;
 }
 
-function statisticsPushText(object, type, author, content, additional = "") {
+function statisticsPushText(type, author, content, additional = "") {
     // create object
     local entity = StatisticText();
+    local object = getPlayerPositionObj(playerid);
 
     // set values
     entity.type    = type;
@@ -40,11 +41,11 @@ function statisticsPushText(object, type, author, content, additional = "") {
 }
 
 function statisticsPushMessage(playerid, message, type = "") {
-    return statisticsPushText(getPlayerPositionObj(playerid), "message", getPlayerName(playerid), message, type);
+    return statisticsPushText("message", getPlayerName(playerid), message, type);
 }
 
 function statisticsPushCommand(playerid, command) {
-    return statisticsPushText(getPlayerPositionObj(playerid), "command", getPlayerName(playerid), command);
+    return statisticsPushText("command", getPlayerName(playerid), command);
 }
 
 function statisticsPushPlayers() {

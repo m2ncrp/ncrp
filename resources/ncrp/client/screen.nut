@@ -72,6 +72,7 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
 
     // draw chat slots
     // TODO:
+    dxDrawText("bit.ly/nc-rp", 18.0, 6.5, 0xFFFFFFFF, false, "tahoma-bold");
 
     /**
      * Category: top-right
