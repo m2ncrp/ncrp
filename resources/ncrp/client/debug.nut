@@ -208,15 +208,19 @@ local toggler = false;
 local step = 0.5;
 
 bindKey("0", "down", function() {
-    toggler = !toggler;
-
     if (toggler) {
-        sendMessage("[tp] you are now in free fly mode!");
-        togglePlayerControls(true);
-    } else {
         sendMessage("[tp] you are now in default mode!");
         togglePlayerControls(false);
+        toggler = false;
+    } else {
+        triggerServerEvent("onClientDebugToggle");
     }
+});
+
+addEventHandler("onServerDebugToggle", function() {
+    sendMessage("[tp] you are now in free fly mode!");
+    togglePlayerControls(true);
+    toggler = true;
 });
 
 bindKey("1", "down", function() {
@@ -241,14 +245,14 @@ bindKey("w", "down", function() {
     local dx = ((position[0] - current[0])) * step;
     local dy = (-1 * (current[1]  - position[1])) * step;
 
-    setPlayerPosition( getLocalPlayer(), current[0].tofloat() - dx, current[1].tofloat() - dy, current[2] );
+    triggerServerEvent("onPlayerTeleportRequested", current[0].tofloat() - dx, current[1].tofloat() - dy, current[2] );
 });
 
 bindKey("r", "down", function() {
     if (!toggler) return;
     local current = getPlayerPosition( getLocalPlayer() );
 
-    setPlayerPosition( getLocalPlayer(), current[0], current[1], current[2] + step );
+    triggerServerEvent("onPlayerTeleportRequested", current[0], current[1], current[2] + step );
 });
 
 
@@ -256,5 +260,5 @@ bindKey("f", "down", function() {
     if (!toggler) return;
     local current = getPlayerPosition( getLocalPlayer() );
 
-    setPlayerPosition( getLocalPlayer(), current[0], current[1], current[2] - step );
+    triggerServerEvent("onPlayerTeleportRequested", current[0], current[1], current[2] - step );
 });

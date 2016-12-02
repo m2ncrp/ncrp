@@ -21,15 +21,15 @@ local infoTips = [
 ];
 
 translation("en", {
-    "tips.money.earn"   :   "[TIP] You can get money by working. For more info: /help job"
-    "tips.money.bank"   :   "[TIP] You can earn money by starting bank deposit. Go to the bank (Yellow icon on the map)"
-    "tips.car"          :   "[TIP] You can buy own car at the Diamond Motors. (Gear icon on the map)."
-    "tips.car.repair"   :   "[TIP] You can repair your car at the service shops. Use /repair"
-    "tips.eat"          :   "[TIP] You can restore health by eating in the restaurants."
-    "tips.police"       :   "[TIP] If you see a crime, dont hesitate calling a police. Use: /police LOCATION"
-    "tips.taxi"         :   "[TIP] If you need a ride, you can take a taxi. Use: /taxi LOCATION"
-    "tips.metro"        :   "[TIP] Subway is a good way of transportation. Go to the nearest subway station, and use: /subway"
-    "tips.house"        :   "[TIP] You can buy a house, just find an estate agent, and settle a deal."
+    "tips.money.earn"   :   "[TIPS] You can get money by working. For more info: /help job"
+    "tips.money.bank"   :   "[TIPS] You can earn money by starting bank deposit. Go to the bank (Yellow icon on the map)"
+    "tips.car"          :   "[TIPS] You can buy own car at the Diamond Motors. (Gear icon on the map)."
+    "tips.car.repair"   :   "[TIPS] You can repair your car at the service shops. Use /repair"
+    "tips.eat"          :   "[TIPS] You can restore health by eating in the restaurants."
+    "tips.police"       :   "[TIPS] If you see a crime, dont hesitate calling a police. Use: /police LOCATION"
+    "tips.taxi"         :   "[TIPS] If you need a ride, you can take a taxi. Use: /taxi LOCATION"
+    "tips.metro"        :   "[TIPS] Subway is a good way of transportation. Go to the nearest subway station, and use: /subway"
+    "tips.house"        :   "[TIPS] You can buy a house, just find an estate agent, and settle a deal."
 });
 
 function isPlayerAdmin(playerid) {
@@ -37,9 +37,14 @@ function isPlayerAdmin(playerid) {
 }
 
 event("onPlayerTeleportRequested", function(playerid, x, y, z) {
-    // msg("Teleporting to: ", [x, y, z]);
-    setPlayerPosition(playerid, x, y, z);
+    if (isPlayerAdmin(playerid)) {
+        setPlayerPosition(playerid, x, y, z);
+    }
 });
+
+event("onClientDebugToggle", function(playerid) {
+    return (isPlayerAdmin(playerid)) ? trigger(playerid, "onServerDebugToggle") : null;
+})
 
 event("onServerAutosave", function() {
     if (!infoTipsCache || !infoTipsCache.len()) {
