@@ -37,6 +37,10 @@ const SHOUT_RADIUS = 35.0;
 
 // event handlers
 event("native:onPlayerChat", function(playerid, message) {
+    if (!isPlayerLogined(playerid)) {
+        return false;
+    }
+
     // inRadiusSendToAll(playerid, 
     //     localize("chat.player.says", [getAuthor( playerid ), message], getPlayerLocale(playerid)), 
     //     NORMAL_RADIUS, CL_YELLOW);
