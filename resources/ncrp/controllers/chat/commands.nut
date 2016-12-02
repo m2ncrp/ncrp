@@ -73,15 +73,14 @@ chatcmd(["try"], function(playerid, message) {
 cmd(["help", "h", "halp", "info"], function(playerid) {
     local title = "Here is list of available commands:";
     local commands = [
-        { name = "/spawn",                  desc = "Teleport to spawn" },
-        { name = "/weapons",                desc = "Give yourself some damn guns!" },
-        { name = "/heal",                   desc = "Restore your precious health points :p"},
-        { name = "/die",                    desc = "If you dont wanna live there anymore" },
-        { name = "/skin <id>",              desc = "Change your skin :O. Example: /skin 63" },
         { name = "/help chat",              desc = "Show list of commands for chat" },
-        { name = "/help vehicle",           desc = "Show list of commands for vehicles" },
         { name = "/help subway",            desc = "Show list of commands for subway" },
-        { name = "/help job <job name>",    desc = "Show list of commands for job. Example: /help job taxi" }
+        { name = "/help taxi",              desc = "Show list of commands for taxi" },
+        { name = "/help rent",              desc = "Show list of commands for rent car" },
+        { name = "/help job <job name>",    desc = "Show list of commands for job. Example: /help job taxi" },
+        { name = "/help car",               desc = "Show list of commands for cars" },
+        { name = "/help fuel",              desc = "Show list of commands for fuel stations" },
+        { name = "/help repair",            desc = "Show list of commands for repiair shop" }
     ];
     msg_help(playerid, title, commands);
 });
@@ -101,6 +100,7 @@ cmd(["help", "h", "halp", "info"], "chat", function(playerid) {
     msg_help(playerid, title, commands);
 });
 
+/*
 cmd(["help", "h", "halp", "info"], "vehicle", function(playerid) {
     local title = "List of available commands for VEHICLES:";
     local commands = [
@@ -111,3 +111,4 @@ cmd(["help", "h", "halp", "info"], "vehicle", function(playerid) {
     ];
     msg_help(playerid, title, commands);
 });
+*/

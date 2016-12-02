@@ -84,4 +84,3 @@ function carShopHelp (playerid, a = null, b = null) {
 
 // usage: /help car
 cmd("help", "car", carShopHelp);
-cmd("car",  "car", carShopHelp);
