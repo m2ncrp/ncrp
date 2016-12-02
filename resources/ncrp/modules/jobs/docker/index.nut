@@ -75,7 +75,7 @@ event("onPlayerConnect", function(playerid, name, ip, serial ){
     job_docker[playerid]["blip3dtext"] <- [null, null, null];
 });
 
-event("onPlayerSpawn", function( playerid ){
+event("onServerPlayerStarted", function( playerid ){
     if(players[playerid]["job"] == "docker") {
         job_docker[playerid]["blip3dtext"] = dockerJobCreatePrivateBlipText(playerid, DOCKER_JOB_TAKEBOX_X, DOCKER_JOB_TAKEBOX_Y, DOCKER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "/docker take");
     }
