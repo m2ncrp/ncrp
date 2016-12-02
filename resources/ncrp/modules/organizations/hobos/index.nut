@@ -16,6 +16,10 @@ local spawnID = 1;
 const DIG_RADIUS = 1.5;
 const HOBO_MODEL = 153;
 
+local hobosSkins = [
+    87, 153, 154
+];
+
 const maxCouldFind = 0.1;
 const minCouldFind = 0.01; 
 
@@ -55,7 +59,7 @@ function isNearTrash(playerid) {
 
 addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial) {
     if ( isHobos(playerid) ) {
-        players[playerid]["skin"] <- HOBO_MODEL;
+        players[playerid]["skin"] <- hobosSkins[random(0, hobosSkins.len() - 1)];
         players[playerid]["digtime"] <- null;
     }    
 });

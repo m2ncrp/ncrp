@@ -176,7 +176,10 @@ event("onPlayerConnect", function(playerid, name, ip, serial) {
 });
 
 event("onPlayerSpawn", function( playerid ) {
-    // nothing here
+    if ( isOfficer(playerid) && isOnPoliceDuty(playerid) ) {
+        onPoliceDutyGiveWeapon( playerid );
+        setPlayerModel(playerid, POLICE_MODEL);
+    }
 });
 
 event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
