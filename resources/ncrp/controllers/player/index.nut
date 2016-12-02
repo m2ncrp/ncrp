@@ -27,6 +27,7 @@ default_spawns <- [
     // [ 100.421,  1776.41, -24.0068], // bomj style
     // [-402.282, -828.907, -21.7456]  // port
     [-344.028, -952.702, -21.7457], // new port
+    [-344.028, -952.702, -21.7457], // new port
 ];
 
 local defaultSkins = [
@@ -41,7 +42,7 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
 
             // setup deafults
             char.name    = getPlayerName(playerid);
-            char.spawnid = random(0, default_spawns.len());
+            char.spawnid = random(0, default_spawns.len() - 1);
             char.money   = randomf(5.0, 17.0);
             char.dskin   = defaultSkins[random(0, defaultSkins.len() - 1)];
             char.cskin   = char.dskin;
