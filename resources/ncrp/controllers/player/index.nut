@@ -14,9 +14,12 @@ const DEFAULT_SPAWN_SKIN = 10;
 const DEFAULT_SPAWN_X    = -1684.52;
 const DEFAULT_SPAWN_Y    = 981.397;
 const DEFAULT_SPAWN_Z    = -0.473357;
+
+// hospital
 const HOSPITAL_X         = -393.429;
 const HOSPITAL_Y         = 912.044;
 const HOSPITAL_Z         = -20.0026;
+const HOSPITAL_AMOUNT    = 15.0;
 
 default_spawns <- [
     [-555.251,  1702.31, -22.2408], // railway
@@ -154,6 +157,14 @@ addEventHandler("native:onPlayerSpawn", function(playerid) {
             setPlayerPosition(playerid, HOSPITAL_X, HOSPITAL_Y, HOSPITAL_Z);
 
             // maybe deduct some money...
+            if (canMoneyBeSubstracted(playerid, HOSPITAL_AMOUNT)) {
+                subMoneyToPlayer(playerid, HOSPITAL_AMOUNT);
+                msg(playerid, "hospital.money.deducted", [HOSPITAL_AMOUNT], CL_SUCCESS);
+                setPlayerHealth(playerid, 730.0);
+            } else {
+                msg(playerid, "hospital.money.donthave", [HOSPITAL_AMOUNT], CL_ERROR);
+                setPlayerHealth(playerid, 370.0);
+            }
 
             screenFadeout(playerid, 500);
 
@@ -166,6 +177,8 @@ addEventHandler("native:onPlayerSpawn", function(playerid) {
                 players[playerid].housez
             );
 
+            setPlayerHealth(playerid, 730.0);
+
         } else {
             screenFadeout(playerid, 500);
 
@@ -176,11 +189,11 @@ addEventHandler("native:onPlayerSpawn", function(playerid) {
             local z = default_spawns[spawnID][2];
 
             setPlayerPosition(playerid, x, y, z);
+            setPlayerHealth(playerid, 730.0);
         }
 
         togglePlayerControls(playerid, false);
 
-        setPlayerHealth(playerid, 730.0);
         setPlayerModel(playerid, players[playerid].skin);
 
         trigger("onPlayerSpawn", playerid);
@@ -189,13 +202,8 @@ addEventHandler("native:onPlayerSpawn", function(playerid) {
 });
 
 addEventHandler("native:onPlayerDeath", function(playerid, killerid) {
-    // if (killerid != INVALID_ENTITY_ID) {
-    //     sendPlayerMessageToAll("~ " + getPlayerName(playerid) + " has been killed by " + getPlayerName(killerid) + ".", 255, 204, 0);
-    // } else {
-    //     sendPlayerMessageToAll("~ " + getPlayerName(playerid) + " has died.", 255, 204, 0 );
-    // }
+    // store state for respawning
     setPlayerBeenDead(playerid);
-
     trigger("onPlayerDeath", playerid);
 
     if (killerid != INVALID_ENTITY_ID) {

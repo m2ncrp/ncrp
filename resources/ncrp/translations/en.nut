@@ -113,6 +113,9 @@ translation("en", {
 
     "vehicle.owner.warning"             :   "You cant drive a car which doesn't belong to you"
 
+    "hospital.money.deducted"           :   "You've successfully payed $%.2f for your treatment!"
+    "hospital.money.donthave"           :   "You dont have enough money ($%.2f) to pay for your treatment!"
+
     // dont trasnalte this
     "client.interface.job"              :   "Your job: %s"
     "client.interface.level"            :   "Level: %d"
