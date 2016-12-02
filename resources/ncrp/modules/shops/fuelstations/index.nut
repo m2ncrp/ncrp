@@ -4,7 +4,7 @@ include("modules/shops/fuelstations/functions.nut");
 translation("en", {
     "shops.fuelstations.toofar"             : "You are too far from any fuel station!",
     "shops.fuelstations.farfromvehicle"     : "You are too far from vehicle.",
-    "shops.fuelstations.stopyourmoves"      : "We can fuel up you vehicle only if you stop it.",
+    "shops.fuelstations.stopyourmoves"      : "Please, stop car to fuel up.",
     "shops.fuelstations.fueltank.check"     : "Fuel level: %.2f gallons.",
     "shops.fuelstations.fueltank.full"      : "[FUEL] Your fuel tank is full!",
     "shops.fuelstations.money.notenough"    : "[FUEL] Not enough money. Need $%.2f, but you have only $%s",
@@ -16,7 +16,7 @@ translation("en", {
 translation("ru", {
     "shops.fuelstations.toofar"             : "Вы слишком далеко от заправки!",
     "shops.fuelstations.farfromvehicle"     : "Вы находитесь не у автомобиля.",
-    "shops.fuelstations.stopyourmoves"      : "Мы сможем заправить ваш автомобиль, если вы остановитесь.",
+    "shops.fuelstations.stopyourmoves"      : "Остановите автомобиль, чтобы заправиться.",
     "shops.fuelstations.fueltank.check"     : "В баке: %.2f литров.",
     "shops.fuelstations.fueltank.full"      : "[FUEL] Бак полон!",
     "shops.fuelstations.money.notenough"    : "[FUEL] Денег недостаточно. Для оплаты требуется $%.2f, а у вас только $%s",
