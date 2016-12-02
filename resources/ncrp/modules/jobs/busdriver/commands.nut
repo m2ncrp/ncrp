@@ -53,6 +53,7 @@ function busJobHelp ( playerid ) {
     msg_help(playerid, title, commands);
 }
 
+cmd("help", "bus", busJobHelp );
 cmd("help", ["job", "bus"], busJobHelp );
 cmd("help", ["bus", "job"], busJobHelp );
 cmd("job", ["bus", "help"], busJobHelp );
