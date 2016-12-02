@@ -1,84 +1,149 @@
+include("controllers/vehicle/functions");
 include("controllers/vehicle/commands.nut");
-include("controllers/vehicle/hiddencars.nut");
+//include("controllers/vehicle/hiddencars.nut");
 
-// saving original vehicle method
-local old__createVehicle = createVehicle;
+const VEHICLE_RESPAWN_TIME      = 600; // 10 minutes
+const VEHICLE_FUEL_DEFAULT      = 40.0;
+const VEHICLE_MIN_DIRT          = 0.25;
+const VEHICLE_MAX_DIRT          = 0.75;
+const VEHICLE_DEFAULT_OWNER     = "";
+const VEHICLE_OWNERSHIP_NONE    = 0;
+const VEHICLE_OWNERSHIP_SINGLE  = 1;
 
-// creating storage for vehicles
-local vehicles = [];
-local vehicleOverrides = {};
-
-function addVehicleOverride(range, callback) {
-    if (typeof range != "array") {
-        range = [range];
-    }
-
-    return range.map(function(item) {
-        vehicleOverrides[item] <- callback;
-    });
-}
-
-function getVehicleOverride(vehicleid, modelid) {
-    if (modelid in vehicleOverrides) {
-        vehicleOverrides[modelid](vehicleid);
-    }
-}
-
-addEventHandler("onScriptInit", function() {
+event("onScriptInit", function() {
     // police cars
-    addVehicleOverride([21, 42], function(id) {
+    addVehicleOverride(42, function(id) {
         setVehicleColour(id, 255, 255, 255, 0, 0, 0);
         setVehicleSirenState(id, false);
         // setVehicleBeaconLight(id, false);
+        setVehiclePlateText(id, getRandomVehiclePlate("PD"));
     });
 
     addVehicleOverride(51, function(id) {
         setVehicleColour(id, 0, 0, 0, 150, 150, 150);
         setVehicleSirenState(id, false);
         // setVehicleBeaconLight(id, false);
+        // added override for plate number
+        setVehiclePlateText(id, getRandomVehiclePlate("PD"));
     });
 
     // trucks
     addVehicleOverride(range(34, 39), function(id) {
-        setVehicleColour(id, 255, 255, 255, 0, 0, 0);
+        setVehicleColour(id, 30, 30, 30, 154, 154, 154);
     });
 
-    // armoured
-    addVehicleOverride(17, function() {
+    // trucks fish
+    addVehicleOverride(38, function(id) {
+        setVehicleColour(id, 15, 32, 24, 80, 80, 80);
+    });
+
+    // armoured lassiter 75
+    addVehicleOverride(17, function(id) {
         setVehicleColour(id, 0, 0, 0, 0, 0, 0);
     });
 
     // milk
-    addVehicleOverride(19, function() {
-        setVehicleColour(id, 160, 160, 130, 50, 230, 50);
+    addVehicleOverride(19, function(id) {
+        setVehicleColour(id, 154, 154, 154, 98, 26, 21);
     });
 });
 
-// overriding to custom one
-createVehicle = function(modelid, x, y, z, rx, ry, rz) {
-    local vehicle = old__createVehicle(
-        modelid.tointeger(), x.tofloat(), y.tofloat(), z.tofloat(), rx.tofloat(), ry.tofloat(), rz.tofloat()
-    );
-
-    // apply default functions
-    setVehicleRotation(vehicle, rx.tofloat(), ry.tofloat(), rz.tofloat());
-    getVehicleOverride(vehicle, modelid.tointeger());
-
-    // save ids
-    vehicles.push(vehicle);
-
-    return vehicle;
-};
-
 // binding events
-addEventHandlerEx("onServerStarted", function() {
+event("onServerStarted", function() {
     log("[vehicles] starting...");
-    createVehicle(8, -1546.6, -156.406, -19.2969, -0.241408, 2.89541, -2.29698);    // Sand Island
-    createVehicle(9, -1537.77, -168.93, -19.4142, 0.0217354, 0.396637, -2.80105);   // Sand Island
-    createVehicle(20, -1525.16, -193.591, -19.9696, 90.841, -0.248158, 3.35295);    // Sand Island
+    local counter = 0;
+
+    // load all vehicles from db
+    Vehicle.findAll(function(err, results) {
+        foreach (idx, vehicle in results) {
+            // create vehicle
+            local vehicleid = createVehicle( vehicle.model, vehicle.x, vehicle.y, vehicle.z, vehicle.rx, vehicle.ry, vehicle.rz );
+
+            // load all the data
+            setVehicleColour      ( vehicleid, vehicle.cra, vehicle.cga, vehicle.cba, vehicle.crb, vehicle.cgb, vehicle.cbb );
+            setVehicleRotation    ( vehicleid, vehicle.rx, vehicle.ry, vehicle.rz );
+            setVehicleTuningTable ( vehicleid, vehicle.tunetable );
+            setVehicleDirtLevel   ( vehicleid, vehicle.dirtlevel );
+            setVehicleFuel        ( vehicleid, vehicle.fuellevel );
+            setVehiclePlateText   ( vehicleid, vehicle.plate );
+            setVehicleOwner       ( vehicleid, vehicle.owner );
+
+            // secial methods for custom vehicles
+            setVehicleRespawnEx   ( vehicleid, false );
+            setVehicleSaving      ( vehicleid, true );
+            setVehicleEntity      ( vehicleid, vehicle );
+
+            // block vehicle by default
+            blockVehicle          ( vehicleid );
+
+            local setWheelsGenerator = function(id, entity) {
+                return function() {
+                    setVehicleWheelTexture( id, 0, entity.fwheel );
+                    setVehicleWheelTexture( id, 1, entity.rwheel );
+                };
+            };
+
+            delayedFunction(1000, setWheelsGenerator(vehicleid, vehicle));
+            counter++;
+        }
+
+        log("[vehicles] loaded " + counter + " vehicles from database.");
+    });
+});
+
+// respawn cars and update passangers
+event("onServerMinuteChange", function() {
+    updateVehiclePassengers();
+    checkVehicleRespawns();
+});
+
+// handle vehicle enter
+event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
+    // handle vehicle passangers
+    addVehiclePassenger(vehicleid, playerid);
+
+    // check blocking
+    if (getVehicleSaving(vehicleid) && seat == 0) {
+        if (isPlayerVehicleOwner(playerid, vehicleid)) {
+            unblockVehicle(vehicleid);
+        } else {
+            blockVehicle(vehicleid);
+            msg(playerid, "vehicle.owner.warning", CL_WARNING);
+        }
+    }
+
+    // handle respawning and saving
+    resetVehicleRespawnTimer(vehicleid);
+    trySaveVehicle(vehicleid);
+
+    // trigger other events
+    trigger("onPlayerVehicleEnter", playerid, vehicleid, seat);
+});
+
+// handle vehicle exit
+event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
+    // handle vehicle passangers
+    removeVehiclePassenger(vehicleid, playerid);
+
+    // check blocking
+    if (getVehicleSaving(vehicleid) && isPlayerVehicleOwner(playerid, vehicleid)) {
+        blockVehicle(vehicleid);
+    }
+
+    // handle respawning and saving
+    resetVehicleRespawnTimer(vehicleid);
+    trySaveVehicle(vehicleid);
+
+    // trigger other events
+    trigger("onPlayerVehicleExit", playerid, vehicleid, seat);
+});
+
+// saving current vehicle data
+event("onServerAutosave", function() {
+    return saveAllVehicles();
 });
 
 // clearing all vehicles on server stop
-addEventHandlerEx("onServerStopping", function() {
-    vehicles.apply(destroyVehicle);
+event("onServerStopping", function() {
+    return destroyAllVehicles();
 });

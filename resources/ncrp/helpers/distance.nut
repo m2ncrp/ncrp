@@ -8,7 +8,6 @@
  */
 function getDistanceToPoint(senderID, X, Y, Z) {
     local p1 = getPlayerPosition( senderID );
-
     return getDistanceBetweenPoints3D(p1[0], p1[1], p1[2], X, Y, Z);
 }
 
@@ -20,7 +19,6 @@ function getDistanceToPoint(senderID, X, Y, Z) {
  */
 function getDistance( senderID, targetID ) {
     local p2 = getPlayerPosition( targetID );
-
     return getDistanceToPoint( senderID, p2[0], p2[1], p2[2] );
 }
 
@@ -87,50 +85,39 @@ function outofRadiusDo(playerid, targetid, radius, callback) {
         callback();
 }
 
-/**
- * Send message to all players in radius
- * @param  {int}        sender
- * @param  {string}     message
- * @param  {float}      radius
- * @param  {RGB object} color
- * @return {void}
- */
-function inRadiusSendToAll(sender, message, radius, color = 0) {
-    local players = playerList.getPlayers();
-    foreach(player in players) {
-        intoRadiusDo(sender, player, radius, function() {
-            if (color) {
-                msg(player, message, color);
-            } else {
-                msg(player, message);
-            }
-        });
-    }
-}
 
 /**
- * Check if player in radius of given point
+* @temporary. Need changes
+*
+*   Check if a distance between two players less than radius.
+*
+* @param  {int} playerid
+* @param  {int} targetid
+* @param  {float} radius
+* @return {bool} true/false
+*/
+
+function checkDistanceBtwTwoPlayersLess(playerid, targetid, radius) {
+    local playerPos = getPlayerPosition( playerid );
+    local targetPos = getPlayerPosition( targetid.tointeger() );
+    local radius = radius.tofloat();
+    local distance = getDistanceBetweenPoints3D( playerPos[0], playerPos[1], playerPos[2], targetPos[0], targetPos[1], targetPos[2] );
+    return  (distance <= radius);
+}
+
+
+/**
+ * @deprecated
+ * Use checkDistanceBtwTwoPlayersLess()
+ *
+ * Check if a distance between two players is lower than radius.
+ *
  * @param  {int} playerid
- * @param  {float} X
- * @param  {float} Y
+ * @param  {int} targetid
  * @param  {float} radius
  * @return {bool} true/false
  */
-function isPlayerInValidPoint(playerid, X, Y, radius) {
-    local plaPos = getPlayerPosition( playerid );
-    return isPointInCircle2D( plaPos[0], plaPos[1], X, Y, radius );
-}
 
-/**
- * Check if player in radius of given point 3D
- * @param  {int} playerid
- * @param  {float} X
- * @param  {float} Y
- * @param  {float} Z
- * @param  {float} radius
- * @return {bool} true/false
- */
-function isPlayerInValidPoint3D(playerid, X, Y, Z, radius) {
-    local plaPos = getPlayerPosition( playerid );
-    return isPointInCircle3D( plaPos[0], plaPos[1], plaPos[2], X, Y, Z, radius );
+function checkDistance(playerid, targetid, radius) {
+    return checkDistanceBtwTwoPlayersLess(playerid, targetid, radius);
 }

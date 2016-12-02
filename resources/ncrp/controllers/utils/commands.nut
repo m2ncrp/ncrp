@@ -2,7 +2,7 @@
 //                                                          ADDITIONAL COMMAND
 //================================================================================================================================================
 
-addCommandHandler("getGPS", function ( playerid, name ) {
+acmd(["getGPS", "getpos"], function ( playerid, name = "" ) {
     if( isPlayerInVehicle( playerid ) ) {
         local vehicleid = getPlayerVehicle( playerid ) ;
         local vehicleModel = getVehicleModel ( vehicleid );
@@ -14,11 +14,10 @@ addCommandHandler("getGPS", function ( playerid, name ) {
         local plaRot = getPlayerRotation( playerid );
         log( "Player " + playerid + " is at " + plaPos[0] + ", " + plaPos[1] + ", " + plaPos[2] + ", " + plaRot[0] + ", " + plaRot[1] + ", " + plaRot[2] + " // " + name );
     }
-}
-);
+});
 
 
-addCommandHandler("getspeed", function ( playerid ) {
+acmd("getspeed", function ( playerid ) {
     if( isPlayerInVehicle( playerid ) ) {
         local vehicleid = getPlayerVehicle( playerid ) ;
         local velocity = getVehicleSpeed( vehicleid );
@@ -31,48 +30,21 @@ addCommandHandler("getspeed", function ( playerid ) {
 //                                                              TELEPORT
 //================================================================================================================================================
 
-addCommandHandler("pos", function(playerid, x, y, z) {
+acmd("pos", function(playerid, x, y, z) {
     local myPos = getPlayerPosition( playerid );
     setPlayerPosition( playerid, myPos[0]+x.tofloat(), myPos[1]+y.tofloat(), myPos[2]+z.tofloat() );
 });
 
-addCommandHandler("gotovinchi", function(playerid) {
+acmd("gotovinchi", function(playerid) {
     setPlayerPosition( playerid, -1680.47, 955.375, 0.48104 );
 });
-
-addCommandHandler("gotobus", function(playerid) {
-    setPlayerPosition( playerid, -422.731, 479.462, 0.109218 );
-});
-
-//================================================================================================================================================
-//                                                          TEST COMMANDS BEGIN
-//================================================================================================================================================
-
-// not working
-addCommandHandler("getarmoured", function ( playerid ) {
-    local myPos = getPlayerPosition( playerid );
-    local vehicleid = createVehicle( 27, myPos[0]+5, myPos[1], myPos[2]+0.5, 0.0, 0.0, 0.0 );
-    sendPlayerMessage( playerid, "playerid: " + playerid + "; vehicleid: " + vehicleid);
-/* --> */    putPlayerInVehicle( playerid, vehicleid, 0 );
-    return 1;
-});
-
-// not working
-addCommandHandler("putto", function ( playerid, vehicleid ) {
-/* --> */    putPlayerInVehicle( playerid, vehicleid.tointeger(), 0 );
-    return 1;
-});
-
-//================================================================================================================================================
-//                                                          TEST COMMANDS END
-//================================================================================================================================================
 
 //================================================================================================================================================
 //                                                          TEST COLORS BEGIN
 //================================================================================================================================================
 
 // working
-addCommandHandler("colors1", function ( playerid ) {
+acmd("colors1", function ( playerid ) {
    msg(playerid, "============== COLOR Page 1 ===============", CL_WHITE);
    msg(playerid, "This is Test color  CL_FLAMINGO", CL_FLAMINGO);
    msg(playerid, "This is Test color  CL_CHESTNUT", CL_CHESTNUT);
@@ -88,7 +60,7 @@ addCommandHandler("colors1", function ( playerid ) {
 });
 
 
-addCommandHandler("colors2", function ( playerid ) {
+acmd("colors2", function ( playerid ) {
    msg(playerid, "============== COLOR Page 2 ===============", CL_WHITE);
    msg(playerid, "This is Test color  CL_PICTONBLUE", CL_PICTONBLUE);
    msg(playerid, "This is Test color  CL_PICTONBLUEDARK", CL_PICTONBLUEDARK);
@@ -104,7 +76,7 @@ addCommandHandler("colors2", function ( playerid ) {
 });
 
 
-addCommandHandler("colors3", function ( playerid ) {
+acmd("colors3", function ( playerid ) {
    msg(playerid, "============== COLOR Page 3 ===============", CL_WHITE);
    msg(playerid, "This is Test color  CL_JADE", CL_JADE);
    msg(playerid, "This is Test color  CL_SALEM", CL_SALEM);

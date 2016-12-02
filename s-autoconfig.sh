@@ -1,4 +1,5 @@
-name="Night City Role-Play v"
+name_begin=".:: [RC3] Night City RolePlay (Open Beta Test v"  
+name_end=") FREE TODAY :D ::."
 cfg=config.xml
 envFile=globalSettings/env.xml
 
@@ -9,11 +10,11 @@ middle=$(./XML.EXE sel -t -v "//branch[@name='"$branchName"']/commit/@middle" $e
 minor=$(./XML.EXE sel -t -v "//branch[@name='"$branchName"']/commit/@minor" $envFile)
 
 echo "<settings>" > $cfg
-echo -e "\t<hostname>$name $major.$middle.$minor</hostname>" >> $cfg
+echo -e "\t<hostname>$name_begin $major.$middle.$minor$name_end</hostname>" >> $cfg
 echo -e "\t<serverip />" >> $cfg
-echo -e "\t<port>27015</port>" >> $cfg
-echo -e "\t<maxplayers>4</maxplayers>" >> $cfg
-echo -e "\t<weburl>www.mafia2-online.com</weburl>" >> $cfg
+echo -e "\t<port>7788</port>" >> $cfg
+echo -e "\t<maxplayers>64</maxplayers>" >> $cfg
+echo -e "\t<weburl>bit.ly/nc-rp</weburl>" >> $cfg
 echo -e "\t<password />" >> $cfg
 echo -e "\t<resources>" >> $cfg
 

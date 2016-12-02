@@ -8,6 +8,11 @@ CL_YELLOW       <- rgb( 255, 255, 0   );
 CL_HELP         <- rgb( 200, 230, 255 );
 CL_HELP_TITLE   <- rgb( 200, 200, 0   );
 CL_HELP_LINE    <- rgb( 200, 100, 100 );
+CL_JOB_LIST     <- rgb( 247, 202, 24  );
+CL_JOB_LIST_GR  <- rgb( 38, 166, 91  );
+CL_JOB_LIST_R   <- rgb( 192, 57, 43  );
+CL_PHONE_CMPN   <- rgb( 125, 60, 20  );
+
 
 
 CL_FLAMINGO       <- rgb( 239,  72,  54  );
@@ -43,3 +48,10 @@ CL_ECSTASY        <- rgb( 249,  105, 14  );
 CL_LYNCH          <- rgb( 108,  122, 137 );
 CL_SILVERSAND     <- rgb( 189,  195, 199 );
 CL_CASCADE        <- rgb( 149,  165, 166 );
+
+
+CL_ERROR          <- CL_FLAMINGO;
+CL_WARNING        <- CL_ECSTASY;
+CL_SUCCESS        <- CL_GOSSIP;
+CL_INFO           <- CL_PICTONBLUE;
+CL_PLAIN          <- CL_WHITE;

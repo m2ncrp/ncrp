@@ -28,7 +28,7 @@ local old__addCommandHandler = addCommandHandler;
  * @param  {function} callbackOrNull
  * @return {bool} true
  */
-function cmd(aliases, extensionOrCallback, callbackOrNull = null) {
+function advancedCommand(isAdmin, aliases, extensionOrCallback, callbackOrNull = null) {
     // create storage
     local cmdnames  = [];
     local extension = [];
@@ -70,6 +70,16 @@ function cmd(aliases, extensionOrCallback, callbackOrNull = null) {
         local cursor = __commands[cmdname];
         local cmdlog = "/" + cmdname;
 
+        // check if player is logined
+        if (!isPlayerLogined(playerid)) {
+            return msg(playerid, "auth.error.cmderror", CL_ERROR);
+        }
+
+        // if its admin command, and player is not admin - exit
+        if (isAdmin && !isPlayerAdmin(playerid)) {
+            return;
+        }
+
         // iterate over arguments
         // and try to find appropriate sequence
         while (args.len() > 0 && args[0] in cursor) {
@@ -80,7 +90,7 @@ function cmd(aliases, extensionOrCallback, callbackOrNull = null) {
 
         if (COMMANDS_DEFAULT in cursor && typeof cursor[COMMANDS_DEFAULT] == "function") {
             // apply custom arguments
-            args.insert(0, null);
+            args.insert(0, getroottable());
             args.insert(1, playerid);
 
             // call registered handler
@@ -217,5 +227,20 @@ function cmd(aliases, extensionOrCallback, callbackOrNull = null) {
 // asd["a1"](15, "test", "b", "tzt");
 // // asd["a1"](15, "dest", "a", "tzt");
 
-acmd <- cmd;
+// default command
+function cmd(...) {
+    vargv.insert(0, getroottable());
+    vargv.insert(1, false);
+    advancedCommand.acall(vargv);
+}
+
+// admin command
+function acmd(...) {
+    vargv.insert(0, getroottable());
+    vargv.insert(1, true);
+    advancedCommand.acall(vargv);
+}
+
+
+simplecmd <- old__addCommandHandler;
 addCommandHandler <- cmd;

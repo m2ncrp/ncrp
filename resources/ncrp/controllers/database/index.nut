@@ -1,3 +1,5 @@
+include("controllers/database/migrations.nut");
+
 // database code
 local connection = null;
 
@@ -8,6 +10,8 @@ addEventHandler("onScriptInit", function() {
     ::log("[database] creating connection...");
 
     connection = sqlite("ncrp.db");
+
+    applyMigrations(connection);
 
     // sendPlayerMessage = function(id, argument) {
     //     ::print(argument);
@@ -23,37 +27,96 @@ addEventHandlerEx("onServerStopped", function() {
     connection.close();
 });
 
-
 /**
- * Main database handler
- * manages all database requrests
+ * Setting up ORM proxier
+ * All db requests will be forwarded to database resource
+ *
+ * @param  {String} queryString compiled request string
+ * @param  {Function} callback which will be called
  */
-addEventHandlerEx("__networkRequest", function(request) {
-    if (!("destination" in request.data)) return;
+ORM.Driver.setProxy(function(queryString, callback) {
+    local result = [];
+    local tmp = connection.query(queryString);
 
-    if (request.data.destination == "database") {
-        local result = [];
-        local tmp = connection.query(request.data.query);
-
-        // manuanlly push sqlite forced last inserted id after insert
-        if (request.data.query.slice(0, 6).toupper() == "INSERT") {
-            tmp = connection.query("select last_insert_rowid() as id");
-        }
-
-        // override empty result
-        if (!tmp) tmp = [];
-
-        // override tmp indexes
-        foreach (idx, value in tmp) {
-            result.push(value);
-        }
-
-        // log query and result
-        if (IS_DATABASE_DEBUG) {
-            ::log("Incoming SQL request: " + request.data.query);
-            dbg(result);
-        }
-
-        Response({result = result}, request).send();
+    // log query and result
+    if (IS_DATABASE_DEBUG) {
+        ::log("Incoming SQL request: " + queryString);
+        dbg(tmp);
     }
+
+    // manuanlly push sqlite forced last inserted id after insert
+    if (queryString.slice(0, 6).toupper() == "INSERT") {
+        tmp = connection.query("select last_insert_rowid() as id");
+    }
+
+    // override empty result
+    if (!tmp) tmp = [];
+
+    // override tmp indexes
+    foreach (idx, value in tmp) {
+        result.push(value);
+    }
+
+    return callback ? callback(null, result) : null;
 });
+
+ORM.Driver.configure({
+    provider = "sqlite"
+});
+
+
+
+// /**
+//  * Setting up ORM proxier
+//  * All db requests will be forwarded to database resource
+//  *
+//  * @param  {String} queryString compiled request string
+//  * @param  {Function} callback which will be called
+//  */
+// ORM.Driver.setProxy(function(queryString, callback) {
+//     local request = Request({ destination = "database", query = queryString });
+
+//     request.onResponse(function(response) {
+//         return callback ? callback( null, response.data.result ) : null;
+//     });
+
+//     return request.send();
+// });
+
+// ORM.Driver.configure({
+//     provider = "sqlite"
+// });
+
+// /**
+//  * Main database handler
+//  * manages all database requrests
+//  */
+// addEventHandlerEx("__networkRequest", function(request) {
+//     if (!("destination" in request.data)) return;
+
+//     if (request.data.destination == "database") {
+//         local result = [];
+//         local tmp = connection.query(request.data.query);
+
+//         // log query and result
+//         if (IS_DATABASE_DEBUG) {
+//             ::log("Incoming SQL request: " + request.data.query);
+//             dbg(tmp);
+//         }
+
+//         // manuanlly push sqlite forced last inserted id after insert
+//         if (request.data.query.slice(0, 6).toupper() == "INSERT") {
+//             tmp = connection.query("select last_insert_rowid() as id");
+//         }
+
+//         // override empty result
+//         if (!tmp) tmp = [];
+
+//         // override tmp indexes
+//         foreach (idx, value in tmp) {
+//             result.push(value);
+//         }
+
+//         Response({result = result}, request).send();
+//     }
+// });
