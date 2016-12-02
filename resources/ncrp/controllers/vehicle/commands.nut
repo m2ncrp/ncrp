@@ -43,6 +43,16 @@ cmd("paint", function(playerid, red, green, blue) {
     setVehicleColour(getPlayerVehicle(playerid), r, g, b, r, g, b);
 });
 
+cmd("engine", "on", function(playerid) {
+    local vehicleid = getPlayerVehicle( playerid );
+    setVehicleEngineState(vehicleid, true);
+});
+
+cmd("engine", "off", function(playerid) {
+    local vehicleid = getPlayerVehicle( playerid );
+    setVehicleEngineState(vehicleid, false);
+});
+
 cmd("lights", function(playerid) {
     switchLights(playerid);
 });

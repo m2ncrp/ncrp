@@ -63,7 +63,7 @@ event("onServerStarted", function() {
 
     //creating 3dtext for bus depot
     create3DText ( DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z+0.35, "CITY PORT OFFICE", CL_ROYALBLUE );
-    create3DText ( DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z+0.20, "/help job docker", CL_WHITE.applyAlpha(75), 3 );
+    create3DText ( DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z+0.20, "/help job docker", CL_WHITE.applyAlpha(100), 3 );
 
     registerPersonalJobBlip("docker", DOCKER_JOB_X, DOCKER_JOB_Y);
 
