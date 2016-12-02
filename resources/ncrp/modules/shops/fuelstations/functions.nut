@@ -25,12 +25,6 @@ function isFuelNeeded(playerid) {
     return getFuelNeed(playerid) > 1.0;
 }
 
-function checkVehicleSpeed () {
-    if(isPlayerVehicleMoving(playerid)){
-        return msg( playerid, "job.bus.driving", CL_RED );
-    }
-}
-
 
 /**
  * Fuel up player vehicle
