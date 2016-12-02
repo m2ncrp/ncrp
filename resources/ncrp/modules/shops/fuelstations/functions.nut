@@ -37,15 +37,15 @@ function fuelup(playerid) {
     local cost = round(GALLON_COST*fuel, 2);
 
     if ( isNearFuelStation(playerid) ) {
+        if(isPlayerVehicleMoving(playerid)) {
+            return msg( playerid, "shops.fuelstations.stopyourmoves", CL_RED );
+        }
         if ( !isFuelNeeded(playerid) ) {
             return msg(playerid, "shops.fuelstations.fueltank.full");
         }
         if ( !canMoneyBeSubstracted(playerid, cost) ) {
             return msg(playerid, "shops.fuelstations.money.notenough", [cost, getPlayerBalance(playerid)], CL_THUNDERBIRD);
-        }
-        if(isPlayerVehicleMoving(playerid)) {
-            return msg( playerid, "shops.fuelstations.stopyourmoves", CL_RED );
-        }
+        }        
         setVehicleFuel(vehicleid, getDefaultVehicleFuel(vehicleid));
         subMoneyToPlayer(playerid, cost);
         return msg(playerid, "shops.fuelstations.fuel.payed", [cost, fuel, getPlayerBalance(playerid)]);
