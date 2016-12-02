@@ -1,19 +1,11 @@
 cmd( ["money"], function( playerid ) {
-    msg( playerid, "Your balance: $" + getPlayerBalance(playerid) );
+    msg( playerid, "Your cash: $" + getPlayerBalance(playerid) );
 });
 
-cmd( ["give", "send"], function( playerid, targetid, amount ){
-    sendMoney(playerid, targetid, amount)
-});
+cmd( ["give", "send"], sendMoney );
+cmd( ["invoice"], sendInvoice );
+cmd( ["accept"], invoiceAccept );
+cmd( ["decline"], invoiceDecline );
 
-cmd( ["invoice"], function( playerid, targetid, amount ){
-    sendInvoice(playerid, targetid, amount);
-});
-
-cmd( ["accept"], function( playerid, senderid ){
-    invoiceAccept(playerid, senderid);
-});
-
-cmd( ["decline"], function( playerid, senderid){
-    invoiceDecline(playerid, senderid);
-});
+cmd( ["pay"], invoiceAcceptNew );
+cmd( ["cancel"], invoiceDeclineNew );

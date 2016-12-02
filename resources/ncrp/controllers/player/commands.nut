@@ -1,57 +1,70 @@
-cmd(["spawn"], function(playerid) {
+acmd(["spawn"], function(playerid) {
     setPlayerPosition( playerid, -1551.560181, -169.915466, -19.672523 );
     setPlayerHealth( playerid, 720.0 );
 });
 
-cmd(["weapons"], function(playerid) {
+acmd(["weapons"], function(playerid) {
+    givePlayerWeapon( playerid, 2, 2500 );
+    givePlayerWeapon( playerid, 3, 2500 );
+    givePlayerWeapon( playerid, 4, 2500 );
+    givePlayerWeapon( playerid, 5, 2500 );
+    givePlayerWeapon( playerid, 6, 2500 );
+    givePlayerWeapon( playerid, 8, 2500 );
+    givePlayerWeapon( playerid, 9, 2500 );
     givePlayerWeapon( playerid, 10, 2500 );
     givePlayerWeapon( playerid, 11, 2500 );
-    givePlayerWeapon( playerid, 12, 2500 );
+    givePlayerWeapon( playerid, 13, 2500 );
+    givePlayerWeapon( playerid, 15, 2500 );
+    givePlayerWeapon( playerid, 17, 2500 );
+    //player:InventoryAddItem(36) -- отмычки
 });
 
-cmd(["heal"], function( playerid ) {
+acmd(["heal"], function( playerid ) {
     setPlayerHealth( playerid, 720.0 );
 });
 
-cmd(["die"], function( playerid ) {
+acmd(["die"], function( playerid ) {
     setPlayerHealth( playerid, 0.0 );
 });
 
-cmd(["skin"], function( playerid, id ) {
+acmd(["skin"], function( playerid, id ) {
     setPlayerModel( playerid, id.tointeger() );
     players[playerid]["skin"] = id.tointeger();
+    players[playerid]["default_skin"] = id.tointeger();
 });
 
 
-cmd(["skininc"], function ( playerid ) {
+acmd(["skininc"], function ( playerid ) {
     local skin = players[playerid]["skin"];
     if ( skin < 171) {
         skin += 1;
         setPlayerModel( playerid, skin );
         players[playerid]["skin"] = skin;
-        sendPlayerMessage( playerid,  "Skin model changed on " + skin );
+        players[playerid]["default_skin"] = skin;
+        msg( playerid,  "Skin model changed on " + skin );
     } else {
-        sendPlayerMessage( playerid,  "Skin top limit" );
+        msg( playerid,  "Skin top limit" );
     }
 });
 
-cmd(["skindec"], function ( playerid ) {
+acmd(["skindec"], function ( playerid ) {
     local skin = players[playerid]["skin"];
     if ( skin > 0) {
         skin -= 1;
         setPlayerModel( playerid, skin );
         players[playerid]["skin"] = skin;
-        sendPlayerMessage( playerid,  "Skin model changed on " + skin );
+        players[playerid]["default_skin"] = skin;
+        msg( playerid,  "Skin model changed on " + skin );
     } else {
-        sendPlayerMessage( playerid,  "Skin lower limit" );
+        msg( playerid,  "Skin lower limit" );
     }
 });
 
-addCommandHandler("checkmyjob", function ( playerid ) {
+cmd("checkmyjob", function ( playerid ) {
     local job = getPlayerJob(playerid);
     if(job) {
-        sendPlayerMessage( playerid, "You're a " + job + "." );
+        msg( playerid, "job.checkmyjob", getLocalizedPlayerJob(playerid) );
     } else {
-        sendPlayerMessage( playerid, "You're unemployed." );
+        msg( playerid, "job.unemployed" );
     }
 });

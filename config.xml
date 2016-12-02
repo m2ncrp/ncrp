@@ -1,9 +1,9 @@
 <settings>
-    <hostname>Night City Role-Play v 0.0.188</hostname>
+    <hostname>.:: [RC3] Night City RolePlay (Open Beta Test v 0.1.0) FREE TODAY :D ::.</hostname>
     <serverip />
-    <port>27015</port>
-    <maxplayers>4</maxplayers>
-    <weburl>www.mafia2-online.com</weburl>
+    <port>7788</port>
+    <maxplayers>64</maxplayers>
+    <weburl>bit.ly/nc-rp</weburl>
     <password />
     <resources>
         <resource>ncrp</resource>
