@@ -194,14 +194,14 @@ function policeHelp(playerid, a = null, b = null) {
     local commands = [
         // { name = "/police job",             desc = "Get police officer job" },
         // { name = "/police job leave",       desc = "Leave from police department job" },
-        { name = "/r text",               desc = "organizations.police.info.cmds.ratio"},
-        { name = "/rupor text",           desc = "organizations.police.info.cmds.rupor"},
-        { name = "/ticket id amount reason",   desc = "organizations.police.info.cmds.ticket" },
-        { name = "/taser",                  desc = "organizations.police.info.cmds.taser" },
-        { name = "/cuff",                   desc = "organizations.police.info.cmds.cuff" },
-        { name = "/uncuff",                   desc = "organizations.police.info.cmds.uncuff" },
-        { name = "/prison id",            desc = "organizations.police.info.cmds.prison" },
-        { name = "/amnesty id",           desc = "organizations.police.info.cmds.amnesty" }
+        { name = "/r TEXT",                     desc = "organizations.police.info.cmds.ratio"},
+        { name = "/rupor TEXT",                 desc = "organizations.police.info.cmds.rupor"},
+        { name = "/ticket ID AMOUNT REASON",    desc = "organizations.police.info.cmds.ticket" },
+        { name = "/taser",                      desc = "organizations.police.info.cmds.taser" },
+        { name = "/cuff",                       desc = "organizations.police.info.cmds.cuff" },
+        { name = "/uncuff",                     desc = "organizations.police.info.cmds.uncuff" },
+        { name = "/prison ID",                  desc = "organizations.police.info.cmds.prison" },
+        { name = "/amnesty ID",                 desc = "organizations.police.info.cmds.amnesty" }
     ];
     msg_help(playerid, title, commands);
 }

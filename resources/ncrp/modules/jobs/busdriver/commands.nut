@@ -46,7 +46,7 @@ function busJobHelp ( playerid ) {
         { name = "/bus job",        desc = "job.bus.help.job" },
         { name = "/bus job leave",  desc = "job.bus.help.jobleave" },
         { name = "/bus route list", desc = "job.bus.help.routelist" },
-        { name = "/bus route <id>", desc = "job.bus.help.route" },
+        { name = "/bus route ID", desc = "job.bus.help.route" },
         { name = "/bus ready",      desc = "job.bus.help.ready" },
         { name = "/bus stop",       desc = "job.bus.help.busstop" }
     ];
