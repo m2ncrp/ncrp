@@ -1,6 +1,8 @@
 // includes
 include("controllers/auth/commands.nut");
 
+IS_AUTHORIZATION_ENABLED <- false;
+
 /**
  * Storage for our sessions
  * no direct acess

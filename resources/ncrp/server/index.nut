@@ -92,12 +92,16 @@ event("native:onServerShutdown", function() {
 
 event("native:onPlayerConnect", function(playerid, name, ip, serial) {
     trigger("onPlayerConnectInit", playerid, name, ip, serial);
+
+    if (!IS_AUTHORIZATION_ENABLED) {
+        trigger("onPlayerInit", playerid, name, ip, serial);
+    }
 });
 
 event("onServerStarted", function() {
     foreach (playerid, name in getPlayers()) {
         // trigger("onPlayerInit", playerid, name, null, null);
-        trigger("onPlayerConnectInit", playerid, name, getPlayerIp(playerid), getPlayerSerial(playerid));
+        trigger("onPlayerConnectInit", playerid, name, "0.0.0.0", getPlayerSerial(playerid));
     }
 });
 
