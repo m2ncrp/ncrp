@@ -258,7 +258,7 @@ function milkJob ( playerid ) {
         setPlayerModel( playerid, MILK_JOB_SKIN );
 
          // create private blip job
-        createPersonalJobBlip( playerid, MILK_JOB_X, MILK_JOB_Y);
+        //createPersonalJobBlip( playerid, MILK_JOB_X, MILK_JOB_Y);
     });
 }
 
