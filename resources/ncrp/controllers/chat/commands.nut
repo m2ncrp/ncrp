@@ -62,9 +62,19 @@ chatcmd("idea", function(playerid, message) {
     statisticsPushIdea("idea", playerid, message);
 });
 
-chatcmd("report", function(playerid, message) {
+cmd("report", function(playerid, id, ...) {
+    if (!isInteger(id) || !vargv.len()) {
+        return msg(playerid, "chat.report.error", CL_ERROR);
+    }
+
+    if (!isPlayerConnected(id.tointeger())) {
+        return msg(playerid, "chat.report.noplayer", CL_ERROR);
+    }
+
+    vargv.insert(getPlayerName(id.tointeger()) + " ");
+
     msg(playerid, "chat.report.success", CL_SUCCESS);
-    statisticsPushText("report", playerid, message);
+    statisticsPushText("report", playerid, concat(vargv));
 });
 
 // random for some actions
