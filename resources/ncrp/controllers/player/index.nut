@@ -167,7 +167,6 @@ addEventHandler("native:onPlayerSpawn", function(playerid) {
                 setPlayerHealth(playerid, 370.0);
             }
 
-            screenFadeout(playerid, 500);
 
         } else if (players[playerid].housex != 0.0 && players[playerid].housey != 0.0) {
 
@@ -181,7 +180,6 @@ addEventHandler("native:onPlayerSpawn", function(playerid) {
             setPlayerHealth(playerid, 730.0);
 
         } else {
-            screenFadeout(playerid, 500);
 
             local spawnID = players[playerid]["spawn"];
 
@@ -192,6 +190,10 @@ addEventHandler("native:onPlayerSpawn", function(playerid) {
             setPlayerPosition(playerid, x, y, z);
             setPlayerHealth(playerid, 730.0);
         }
+
+        delayedFunction(calculateFPSDelay(playerid) + 1500, function() {
+            screenFadeout(playerid, 1000);
+        });
 
         togglePlayerControls(playerid, false);
 
