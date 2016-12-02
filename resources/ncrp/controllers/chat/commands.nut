@@ -59,7 +59,7 @@ chatcmd(["me"], function(playerid, message) {
 
 chatcmd("idea", function(playerid, message) {
     msg(playerid, "chat.idea.success", CL_SUCCESS);
-    statisticsPushIdea("idea", playerid, message);
+    statisticsPushText("idea", playerid, message);
 });
 
 cmd("report", function(playerid, id, ...) {
@@ -71,7 +71,7 @@ cmd("report", function(playerid, id, ...) {
         return msg(playerid, "chat.report.noplayer", CL_ERROR);
     }
 
-    vargv.insert(getPlayerName(id.tointeger()) + " ");
+    vargv.insert(0, getPlayerName(id.tointeger()) + " ");
 
     msg(playerid, "chat.report.success", CL_SUCCESS);
     statisticsPushText("report", playerid, concat(vargv));
