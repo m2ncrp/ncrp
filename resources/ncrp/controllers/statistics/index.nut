@@ -2,18 +2,49 @@ const STATISICS_ENABLED = true;
 
 function statisticsPushObject(object, type, additional = "") {
     // create object
-    local point = StatisticPoint();
+    local entity = StatisticPoint();
 
     // set values
-    point.x = object.x;
-    point.y = object.y;
-    point.z = object.z;
-    point.type = type;
-    point.created = getDateTime();
-    point.additional = additional;
+    entity.x = object.x;
+    entity.y = object.y;
+    entity.z = object.z;
+    entity.type = type;
+    entity.created = getDateTime();
+    entity.additional = additional;
 
     // save it to db
-    point.save();
+    entity.save();
+    entity.clean();
+    return true;
+}
+
+function statisticsPushText(object, type, author, content, additional = "") {
+    // create object
+    local entity = StatisticText();
+
+    // set values
+    entity.type    = type;
+    entity.author  = author;
+    entity.content = content;
+    entity.created = getDateTime();
+    entity.additional = additional;
+
+    entity.x = object.x;
+    entity.y = object.y;
+    entity.z = object.z;
+
+    // save it to db
+    entity.save();
+    entity.clean();
+    return true;
+}
+
+function statisticsPushMessage(playerid, message, type = "") {
+    return statisticsPushText(getPlayerPositionObj(playerid), "message", getPlayerName(playerid), message, type);
+}
+
+function statisticsPushCommand(playerid, command) {
+    return statisticsPushText(getPlayerPositionObj(playerid), "command", getPlayerName(playerid), command);
 }
 
 function statisticsPushPlayers() {

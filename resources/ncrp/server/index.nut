@@ -11,6 +11,7 @@ include("models/World.nut");
 include("models/TeleportPosition.nut");
 include("models/TimestampStorage.nut");
 include("models/StatisticPoint.nut");
+include("models/StatisticText.nut");
 include("models/MigrationVersion.nut");
 include("models/Business.nut");
 
