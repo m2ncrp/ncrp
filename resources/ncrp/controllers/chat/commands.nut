@@ -57,6 +57,16 @@ chatcmd(["me"], function(playerid, message) {
     statisticsPushMessage(playerid, message, "me");
 });
 
+chatcmd("idea", function(playerid, message) {
+    msg(playerid, "chat.idea.success", CL_SUCCESS);
+    statisticsPushIdea("idea", playerid, message);
+});
+
+chatcmd("report", function(playerid, message) {
+    msg(playerid, "chat.report.success", CL_SUCCESS);
+    statisticsPushText("report", playerid, message);
+});
+
 // random for some actions
 chatcmd(["try"], function(playerid, message) {
     message = localize("chat.player.try.body", [getAuthor( playerid ), message], getPlayerLocale(playerid));
