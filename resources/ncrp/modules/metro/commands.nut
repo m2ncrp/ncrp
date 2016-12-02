@@ -9,10 +9,10 @@ cmd( ["sub", "subway", "metro"], "list", function( playerid) {
 function metroHelp ( playerid ) {
     local title = "metro.help.title";
     local commands = [
-        { name = "/subway id",      desc = "metro.help.subway" },
+        { name = "/subway ID",      desc = "metro.help.subway" },
         { name = "/subway list",    desc = "metro.help.subwayList" },
-        { name = "/sub id",         desc = "metro.help.sub" },
-        { name = "/metro id",       desc = "metro.help.metro" }
+        { name = "/sub ID",         desc = "metro.help.sub" },
+        { name = "/metro ID",       desc = "metro.help.metro" }
     ];
     msg_help(playerid, title, commands);
 }
