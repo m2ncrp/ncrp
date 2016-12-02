@@ -77,11 +77,10 @@ function carShopHelp (playerid, a = null, b = null) {
     local title = "shops.carshop.help.title";
     local commands = [
         { name = "/car list", desc = "shops.carshop.help.list" },
-        { name = "/car buy modelid",  desc = "shops.carshop.help.buy" },
+        { name = "/car buy MODELID",  desc = "shops.carshop.help.buy" },
     ];
     msg_help(playerid, title, commands);
 }
 
 // usage: /help car
 cmd("help", "car", carShopHelp);
-cmd("car",  "car", carShopHelp);

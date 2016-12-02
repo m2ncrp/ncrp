@@ -72,7 +72,7 @@ function advancedCommand(isAdmin, aliases, extensionOrCallback, callbackOrNull =
 
         // check if player is logined
         if (!isPlayerLogined(playerid)) {
-            return msg(playerid, "auth.error.cmderror", CL_ERORR);
+            return msg(playerid, "auth.error.cmderror", CL_ERROR);
         }
 
         // if its admin command, and player is not admin - exit

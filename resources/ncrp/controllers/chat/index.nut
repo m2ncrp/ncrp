@@ -11,6 +11,11 @@ translation("en", {
     "chat.player.try.body"          : "[TRY] %s try %s",
     "chat.player.try.end.success"   : "%s (success).",
     "chat.player.try.end.fail"      : "%s (failed)."
+
+    "chat.idea.success"             : "[IDEA] Your idea has been successfuly submitted!"
+    "chat.report.success"           : "[REPORT] Your report has been successfuly submitted!"
+    "chat.report.noplayer"          : "[REPORT] You can't report about player, which is not connected!"
+    "chat.report.error"             : "[REPORT] You should provide report in a following format: /report ID TEXT"
 });
 
 translation("ru", {

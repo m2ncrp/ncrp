@@ -87,10 +87,10 @@ translation("en", {
     "job.taxi.help.jobleave"            :   "Leave from taxi driver job"
     "job.taxi.help.onair"               :   "Set status as ON air"
     "job.taxi.help.offair"              :   "Set status as OFF air"
-    "job.taxi.help.take"                :   "Take call with <id>. Example: /taxi take 5"
+    "job.taxi.help.take"                :   "Take call with ID. Example: /taxi take 5"
     "job.taxi.help.refuse"              :   "Refuse the current taken call"
     "job.taxi.help.ready"               :   "Report that the taxicar has arrived to the address"
-    "job.taxi.help.done"                :   "End trip and send invoice to pay <amount> dollars. Example: /taxi done 1.25"
+    "job.taxi.help.done"                :   "End trip and send invoice to pay AMOUNT dollars. Example: /taxi done 1.25"
     "job.taxi.help.close"               :   "Close the call as completed"
 
     "taxi.needpay"                      :   "To drive this car you need to pay $%.2f for fuel and rent. If you agree: /drive"
@@ -109,7 +109,7 @@ translation("en", {
     "taxi.call.completed"               :   "[TAXI] The trip is completed. Please, leave the car."
 
     "taxi.help.title"                   :   "List of available commands for TAXI:"
-    "taxi.help.taxi"                    :   "/taxi your_address - Call a taxi to address"
+    "taxi.help.taxi"                    :   "/taxi ADDRESS - Call a taxi to your address"
 
     "vehicle.owner.warning"             :   "You cant drive a car which doesn't belong to you"
 

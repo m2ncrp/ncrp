@@ -19,7 +19,6 @@ acmd( ["fuel"], "test", function( playerid ) {
     return setVehicleFuel(vehicleid, volume);
 });
 
-
 function fuelStationsHelp ( playerid ) {
     local title = "job.taxi.help.title";
     local commands = [
@@ -27,3 +26,6 @@ function fuelStationsHelp ( playerid ) {
     ];
     msg_help(playerid, title, commands);
 }
+
+
+cmd("help", "fuel", fuelStationsHelp);

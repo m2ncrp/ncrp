@@ -78,10 +78,10 @@ function taxiJobHelp ( playerid ) {
         { name = "/taxi job leave",        desc = "job.taxi.help.jobleave" },
         { name = "/taxi on",               desc = "job.taxi.help.onair" },
         { name = "/taxi off",              desc = "job.taxi.help.offair" },
-        { name = "/taxi take id",          desc = "job.taxi.help.take" },
+        { name = "/taxi take ID",          desc = "job.taxi.help.take" },
         { name = "/taxi refuse",           desc = "job.taxi.help.refuse" },
         { name = "/taxi ready",            desc = "job.taxi.help.ready" },
-        { name = "/taxi done amount",      desc = "job.taxi.help.done" },
+        { name = "/taxi done AMOUNT",      desc = "job.taxi.help.done" },
         { name = "/taxi close",            desc = "job.taxi.help.close" }
     ];
     msg_help(playerid, title, commands);
