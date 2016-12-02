@@ -185,6 +185,7 @@ function setPlayerMoney(playerid, money) {
     }
 
     trigger(playerid, "onServerInterfaceMoney", money);
+    trigger("onPlayerMoneyChanged", playerid);
 
     players[playerid].money = money;
     return true;
@@ -217,4 +218,23 @@ function getPlayerNameShort(playerid) {
  */
 function isPlayerLogined(playerid) {
     return (playerid in players);
+}
+
+local lastDeaths = {};
+
+/**
+ * Check if player was dead in last 1 second
+ * @param  {Integer}  playerid
+ * @return {Boolean}
+ */
+function isPlayerBeenDead(playerid) {
+    return (playerid in lastDeaths && (getTimestamp() - lastDeaths[playerid] <= 1));
+}
+
+/**
+ * Set last player death to current timestamp
+ * @param {Integer} playerid
+ */
+function setPlayerBeenDead(playerid) {
+    lastDeaths[playerid] <- getTimestamp();
 }
