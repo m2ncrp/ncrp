@@ -93,15 +93,17 @@ chatcmd(["try"], function(playerid, message) {
 cmd(["help", "h", "halp", "info"], function(playerid) {
     local title = "Here is list of available commands:";
     local commands = [
-        { name = "/spawn",                  desc = "Teleport to spawn" },
-        { name = "/weapons",                desc = "Give yourself some damn guns!" },
-        { name = "/heal",                   desc = "Restore your precious health points :p"},
-        { name = "/die",                    desc = "If you dont wanna live there anymore" },
-        { name = "/skin <id>",              desc = "Change your skin :O. Example: /skin 63" },
         { name = "/help chat",              desc = "Show list of commands for chat" },
-        { name = "/help vehicle",           desc = "Show list of commands for vehicles" },
         { name = "/help subway",            desc = "Show list of commands for subway" },
-        { name = "/help job <job name>",    desc = "Show list of commands for job. Example: /help job taxi" }
+        { name = "/help taxi",              desc = "Show list of commands for taxi" },
+        { name = "/help rent",              desc = "Show list of commands for rent car" },
+        { name = "/help job JOBNAME",    desc = "Show list of commands for job. Example: /help job taxi" },
+        { name = "/help bank",              desc = "Show list of commands for bank" },
+        { name = "/help car",               desc = "Show list of commands for cars" },
+        { name = "/help fuel",              desc = "Show list of commands for fuel stations" },
+        { name = "/help repair",            desc = "Show list of commands for repiair shop" },
+        { name = "/report ID TEXT",         desc = "Report about player which is braking the rules" },
+        { name = "/idea TEXT",              desc = "Send your idea to developers" }
     ];
     msg_help(playerid, title, commands);
 });
@@ -110,17 +112,18 @@ cmd(["help", "h", "halp", "info"], function(playerid) {
 cmd(["help", "h", "halp", "info"], "chat", function(playerid) {
     local title = "List of available commands for CHAT:";
     local commands = [
-        { name = "/say <text>",         desc = "Put your text in local RP chat"},
-        { name = "/shout <text>",       desc = "Your message could be heard far enough :)"},
-        { name = "/whisper <text>",     desc = "Say something to nearest player very quiet"},
-        { name = "/b <text>",           desc = "Local nonRP chat"},
-        { name = "/ooc <text>",         desc = "Global nonRP chat"},
-        { name = "/me <action text>",   desc = "Some action of your person"},
-        { name = "/try <action text>",  desc = "Any action simulation that could be failed"}
+        { name = "/say TEXT",         desc = "Put your text in local RP chat"},
+        { name = "/shout TEXT",       desc = "Your message could be heard far enough :)"},
+        { name = "/whisper TEXT",     desc = "Say something to nearest player very quiet"},
+        { name = "/b TEXT",           desc = "Local nonRP chat"},
+        { name = "/ooc TEXT",         desc = "Global nonRP chat"},
+        { name = "/me ACTION_TEXT",   desc = "Some action of your person"},
+        { name = "/try ACTION_TEXT",  desc = "Any action simulation that could be failed"}
     ];
     msg_help(playerid, title, commands);
 });
 
+/*
 cmd(["help", "h", "halp", "info"], "vehicle", function(playerid) {
     local title = "List of available commands for VEHICLES:";
     local commands = [
@@ -131,3 +134,4 @@ cmd(["help", "h", "halp", "info"], "vehicle", function(playerid) {
     ];
     msg_help(playerid, title, commands);
 });
+*/
