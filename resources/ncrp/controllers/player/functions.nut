@@ -196,7 +196,6 @@ function setPlayerMoney(playerid, money) {
  * or fullname if invalid format name (without _)
  * or false if player was not found
  * @param {Integer} playerid
- * @return {Float}
  */
 function getPlayerNameShort(playerid) {
     if(playerid in players) {

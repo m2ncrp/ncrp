@@ -73,6 +73,7 @@ translation("en", {
     "auth.registered"       : "* Your account is registered"
     "auth.notregistered"    : "* Your account is not registered"
     "auth.command.register" : "* Please register using /register [password]"
+    "auth.command.regformat": "* Example: Joe_Barbaro"
     "auth.command.login"    : "* Please enter using /login [password]"
     "auth.error.logined"    : "[AUTH] You are already logined!"
     "auth.error.register"   : "[AUTH] Account with this name is already registered!"
@@ -125,6 +126,7 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
             msg(playerid, "auth.notregistered");
             msg(playerid, "*");
             msg(playerid, "auth.command.register");
+            msg(playerid, "auth.command.regformat");
         }
 
         msg(playerid, "---------------------------------------------", CL_SILVERSAND);

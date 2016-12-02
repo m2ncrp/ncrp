@@ -3,8 +3,8 @@ translation("en", {
 "job.cargodriver.letsgo"        : "[CARGO] Let's go to office at City Port."
 "job.cargodriver.needlevel"     : "[CARGO] You need level %d to become cargo truck driver."
 "job.cargodriver.already"       : "[CARGO] You're cargo truck driver already."
-"job.cargodriver.now"           : "[CARGO] You're a cargo truck driver now. Welcome! Ha-ha..."
-"job.cargodriver.gotoseagift"   : "[CARGO] Go to Seagift Co. at Chinatown, get behind wheel of truck of fish and get your ass to warehouse P3 06 at Port."
+"job.cargodriver.now"           : "[CARGO] You're a cargo truck driver now. Welcome!"
+"job.cargodriver.sitintotruck"  : "[CARGO] Sit into fish truck and go to warehouse P3 06 at Port."
 "job.cargodriver.not"           : "[CARGO] You're not a cargo truck driver."
 "job.cargodriver.needfishtruck" : "[CARGO] You need a fish truck."
 "job.cargodriver.toload"        : "[CARGO] Go to warehouse P3 06 at Port to load fish truck."
@@ -15,11 +15,11 @@ translation("en", {
 "job.cargodriver.loaded"        : "[CARGO] The truck loaded. Go back to Seagift to unload."
 "job.cargodriver.empty"         : "[CARGO] Truck is empty. Go to Port to load."
 "job.cargodriver.tounload"      : "[CARGO] Go to Seagift to unload."
-"job.cargodriver.takemoney"     : "[CARGO] Go to office at City Port and take your money."
+"job.cargodriver.takemoney"     : "[CARGO] Go to Seagift's office and take your money."
 "job.cargodriver.needcomplete"  : "[CARGO] You must complete delivery before."
 "job.cargodriver.nicejob"       : "[CARGO] Nice job, %s! Keep $%.2f."
 
-"job.cargodriver.help.title"            :   "List of available commands for CARGODRIVER JOB:"
+"job.cargodriver.help.title"            :   "List of available commands for CARGO TRCUK DRIVER:"
 "job.cargodriver.help.job"              :   "Get cargo truck driver job"
 "job.cargodriver.help.jobleave"         :   "Leave cargo truck driver job"
 "job.cargodriver.help.load"             :   "Load cargo into truck"
@@ -33,7 +33,7 @@ translation("ru", {
 "job.cargodriver.needlevel"     : "[CARGO] Водителем грузовика можно устроиться начиная с уровня %d."
 "job.cargodriver.already"       : "[CARGO] Вы уже работаете водителем грузовика."
 "job.cargodriver.now"           : "[CARGO] Вы стали водителем грузовика."
-"job.cargodriver.gotoseagift"   : "[CARGO] Отправляйтесь к складу Seagift в Chinatown, садитесь в грузовик для доставки рыбы и поезжайте в City Port к складу P3 06."
+"job.cargodriver.sitintotruck"  : "[CARGO] Садитесь в грузовик для доставки рыбы и поезжайте в City Port к складу P3 06."
 "job.cargodriver.not"           : "[CARGO] Вы не работаете водителем грузовика."
 "job.cargodriver.needfishtruck" : "[CARGO] Вам нужен грузовик для доставки рыбы."
 "job.cargodriver.toload"        : "[CARGO] Отправляйтесь в Порт к складу P3 06 для загрузки."
@@ -44,7 +44,7 @@ translation("ru", {
 "job.cargodriver.loaded"        : "[CARGO] Грузовик загружен. Езжайте к складу Seagift для разгрузки."
 "job.cargodriver.empty"         : "[CARGO] Грузовик пуст. Отправляйтесь в City Port для загрузки."
 "job.cargodriver.tounload"      : "[CARGO] Отправляйтесь к складу Seagift для разгрузки."
-"job.cargodriver.takemoney"     : "[CARGO] Отправляйтесь в офис City Port и получите Ваш заработок."
+"job.cargodriver.takemoney"     : "[CARGO] Идите в офис Seagift и получите Ваш заработок."
 "job.cargodriver.needcomplete"  : "[CARGO] Завершите доставку."
 "job.cargodriver.nicejob"       : "[CARGO] Отличная работа, %s! Держи $%.2f."
 
@@ -65,13 +65,28 @@ local cargocars = {};
 const RADIUS_CARGO = 1.0;
 //const CARGO_JOB_X = -348.071; //Derek Cabinet
 //const CARGO_JOB_Y = -731.48;  //Derek Cabinet
-const CARGO_JOB_X = -348.205; //Derek Door
-const CARGO_JOB_Y = -731.48; //Derek Door
-const CARGO_JOB_Z = -15.4205;
+//const CARGO_JOB_X = -348.205; //Derek Door
+//const CARGO_JOB_Y = -731.48; //Derek Door
+//const CARGO_JOB_Z = -15.4205;
+
+const CARGO_JOB_X = 389.032; //Seagift
+const CARGO_JOB_Y = 128.104; //Seagift
+const CARGO_JOB_Z = -20.2027; //Seagift
+
+const CARGO_JOB_LOAD_X = -217.702; // Port P3 06
+const CARGO_JOB_LOAD_Y = -725.118;  // Port P3 06
+const CARGO_JOB_LOAD_Z = -21.7457; // Port P3 06
+
+const CARGO_JOB_UNLOAD_X = 396.5;
+const CARGO_JOB_UNLOAD_Y = 98.0385;
+const CARGO_JOB_UNLOAD_Z = -21.2582;
+
 const CARGO_JOB_SKIN = 130;
-const CARGO_JOB_SALARY = 25.0;
+const CARGO_JOB_SALARY = 15.0;
 const CARGO_JOB_LEVEL = 1;
       CARGO_JOB_COLOR <- CL_CRUSTA;
+
+
 
 local cargocoords = {};
 cargocoords["PortChinese"] <- [-217.298, -724.771, -21.423]; // PortPlace P3 06 Chinese
@@ -83,8 +98,8 @@ event("onServerStarted", function() {
     cargocars[createVehicle(38, 396.5, 98.0385, -20.9359, -88.4165, 0.479715, -0.0220962)]  <- [ false ];  //SeagiftTruck1
 
     //creating 3dtext for bus depot
-    //create3DText ( DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z+0.35, "CITY PORT", CL_ROYALBLUE );
-    create3DText ( CARGO_JOB_X, CARGO_JOB_Y, CARGO_JOB_Z+0.10, "/help job cargo", CL_WHITE.applyAlpha(75), 3 );
+    create3DText ( CARGO_JOB_X, CARGO_JOB_Y, CARGO_JOB_Z+0.35, "SEAGIFT's OFFICE", CL_ROYALBLUE );
+    create3DText ( CARGO_JOB_X, CARGO_JOB_Y, CARGO_JOB_Z+0.20, "/help job cargo", CL_WHITE.applyAlpha(100), 3 );
 
     registerPersonalJobBlip("cargodriver", CARGO_JOB_X, CARGO_JOB_Y);
 });
@@ -92,7 +107,46 @@ event("onServerStarted", function() {
 event("onPlayerConnect", function(playerid, name, ip, serial) {
      job_cargo[playerid] <- {};
      job_cargo[playerid]["cargostatus"] <- false;
+     job_cargo[playerid]["blip3dtext"] <- [null, null, null];
 });
+
+event("onServerPlayerStarted", function( playerid ){
+    if(players[playerid]["job"] == "cargodriver") {
+        msg( playerid, "job.cargodriver.sitintotruck", CARGO_JOB_COLOR );
+        job_cargo[playerid]["blip3dtext"] = cargoJobCreatePrivateBlipText(playerid, CARGO_JOB_LOAD_X, CARGO_JOB_LOAD_Y, CARGO_JOB_LOAD_Z, "LOAD HERE", "/cargo load");
+    }
+});
+
+
+/**
+ * Create private 3DTEXT AND BLIP
+ * @param  {int}  playerid
+ * @param  {float} x
+ * @param  {float} y
+ * @param  {float} z
+ * @param  {string} text
+ * @param  {string} cmd
+ * @return {array} [idtext1, id3dtext2, idblip]
+ */
+function cargoJobCreatePrivateBlipText(playerid, x, y, z, text, cmd) {
+    return [
+            createPrivate3DText (playerid, x, y, z+0.35, text, CL_RIPELEMON, 40 ),
+            createPrivate3DText (playerid, x, y, z+0.20, cmd, CL_WHITE.applyAlpha(150), 4.0 ),
+            createPrivateBlip (playerid, x, y, ICON_RED, 4000.0)
+    ];
+}
+
+/**
+ * Remove private 3DTEXT AND BLIP
+ * @param  {int}  playerid
+ */
+function cargoJobRemovePrivateBlipText ( playerid ) {
+    if(job_cargo[playerid]["blip3dtext"][0] != null) {
+        remove3DText ( job_cargo[playerid]["blip3dtext"][0] );
+        remove3DText ( job_cargo[playerid]["blip3dtext"][1] );
+        removeBlip   ( job_cargo[playerid]["blip3dtext"][2] );
+    }
+}
 
 
 /**
@@ -134,7 +188,7 @@ function cargoJob( playerid ) {
 
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
         msg( playerid, "job.cargodriver.now", CARGO_JOB_COLOR );
-        msg( playerid, "job.cargodriver.gotoseagift", CARGO_JOB_COLOR );
+        msg( playerid, "job.cargodriver.sitintotruck", CARGO_JOB_COLOR );
 
         setPlayerJob( playerid, "cargodriver");
 
@@ -143,6 +197,7 @@ function cargoJob( playerid ) {
 
         // create private blip job
         //createPersonalJobBlip( playerid, CARGO_JOB_X, CARGO_JOB_Y);
+        job_cargo[playerid]["blip3dtext"] = cargoJobCreatePrivateBlipText(playerid, CARGO_JOB_LOAD_X, CARGO_JOB_LOAD_Y, CARGO_JOB_LOAD_Z, "LOAD HERE", "/cargo load");
     });
 }
 
@@ -168,6 +223,8 @@ function cargoJobLeave( playerid ) {
 
             // remove private blip job
             removePersonalJobBlip ( playerid );
+
+            cargoJobRemovePrivateBlipText ( playerid );
         });
     }
 }
@@ -195,9 +252,12 @@ function cargoJobLoad( playerid ) {
         return msg( playerid, "job.cargodriver.driving", CL_RED );
     }
 
+    cargoJobRemovePrivateBlipText ( playerid );
+
     msg( playerid, "job.cargodriver.loading", CARGO_JOB_COLOR );
     screenFadeinFadeoutEx(playerid, 1000, 3000, null, function() {
         cargocars[vehicleid][0] = true;
+        job_cargo[playerid]["blip3dtext"] = cargoJobCreatePrivateBlipText(playerid, 396.5, 98.0385, -21.2582, "UNLOAD HERE", "/cargo unload");
         msg( playerid, "job.cargodriver.loaded", CARGO_JOB_COLOR );
     });
 
@@ -226,6 +286,8 @@ function cargoJobUnload( playerid ) {
         return msg( playerid, "job.cargodriver.driving", CL_RED );
     }
 
+    cargoJobRemovePrivateBlipText ( playerid );
+
     msg( playerid, "job.cargodriver.unloading", CARGO_JOB_COLOR );
     screenFadeinFadeoutEx(playerid, 1000, 3000, null, function() {
         job_cargo[playerid]["cargostatus"] = true;
@@ -233,6 +295,8 @@ function cargoJobUnload( playerid ) {
         msg( playerid, "job.cargodriver.takemoney", CARGO_JOB_COLOR );
         removePlayerFromVehicle( playerid );
     });
+
+
 
 }
 
