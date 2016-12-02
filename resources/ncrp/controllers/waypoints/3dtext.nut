@@ -40,7 +40,7 @@ function instantiate3DText(x, y, z, text, color, distance, private) {
     return textid;
 }
 
-addEventHandler("onPlayerSpawn", function(playerid) {
+event("onServerPlayerStarted", function(playerid) {
     foreach (textid, t3d in __3dtexts) {
         if (!t3d.private) { add3DTextForPlayer(textid, playerid); }
     }
