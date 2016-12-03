@@ -1,5 +1,4 @@
 include("modules/organizations/hobos/commands.nut");
-include("modules/bomj.nut");
 
 translation("en", {
     "organizations.hobos.trash.toofar"  : "You are too far from any trash!",
