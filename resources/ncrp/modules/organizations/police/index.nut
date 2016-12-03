@@ -183,9 +183,14 @@ event("onPlayerSpawn", function( playerid ) {
 });
 
 event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
-    if (isPlayerInPoliceVehicle(playerid) && !isOfficer(playerid)) {
-        // set player wanted level or smth like that
-        return msg(playerid, "organizations.police.crime.wasdone", [], CL_GRAY);
+    if (isPlayerInPoliceVehicle(playerid)) {
+        if (!isOfficer(playerid)) {
+            // set player wanted level or smth like that
+            blockVehicle(vehicleid);
+            return msg(playerid, "organizations.police.crime.wasdone", [], CL_GRAY);
+        } else {
+            unblockVehicle(vehicleid);
+        }
     }
 });
 
