@@ -7,7 +7,7 @@ local REGEXP_FLOAT   = regexp("[0-9\\.]+");
  * @return {Boolean} [description]
  */
 function isInteger(value) {
-    return (typeof value == "integer" || REGEXP_INTEGER.match(value));
+    return (value && (typeof value == "integer" || REGEXP_INTEGER.match(value)));
 }
 
 /**
@@ -16,7 +16,7 @@ function isInteger(value) {
  * @return {Boolean} [description]
  */
 function isFloat(value) {
-    return (typeof value == "float" || REGEXP_FLOAT.match(value));
+    return (value && (typeof value == "float" || REGEXP_FLOAT.match(value)));
 }
 
 
@@ -52,6 +52,10 @@ function floatToString(value) {
 function toInt(value) {
     if (isInteger(value)) {
         return value.tointeger();
+    }
+
+    if (value == null) {
+        return 0;
     }
 
     local result = REGEXP_INTEGER.search(value);
