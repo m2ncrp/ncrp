@@ -33,7 +33,7 @@ addEventHandler("onClientFrameRender", function(post) {
 });
 
 addEventHandler("onServer3DTextAdd", function(uid, x, y, z, text, c, d) {
-    local obj = {uid = uid, name = text, pos = {x = x, y = y, z = z}, color = c, distance = d};
+    local obj = {uid = uid, name = text, pos = {x = x.tofloat(), y = y.tofloat(), z = z.tofloat()}, color = c, distance = d.tofloat()};
     _3Dtext_objects[obj.uid] <- obj;
 });
 
