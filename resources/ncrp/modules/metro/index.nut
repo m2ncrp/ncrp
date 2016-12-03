@@ -14,6 +14,8 @@ translation("en", {
     "metro.listStations.station"        : "Station #%d - %s"
     "metro.listStations.station.closed" : "Station #%d - %s (closed)"
 
+    "metro.station.closed.maintaince"   : "Station closed for maintaince. Please move to another station or use other public transport."
+
     "metro.help.title"                  : "List of available commands for SUBWAY:"
     "metro.help.subway"                 : "Move to station by id"
     "metro.help.subwayList"             : "Show list of all stations"
@@ -33,6 +35,8 @@ translation("ru", {
     "metro.listStations.title"          : "Список доступных станций метро:"
     "metro.listStations.station"        : "Станция #%d - %s"
     "metro.listStations.station.closed" : "Станция #%d - %s (закрыта)"
+
+    "metro.station.closed.maintaince"   : "Станция закрыта для по техническим причинам. Пожалуйста, воспользуйтесь другими станциями или используйте общественный транспорт."
 
     "metro.help.title"                  : "Список доступных комманд для метро:"
     "metro.help.subway"                 : "Отправиться на станцию по id"
