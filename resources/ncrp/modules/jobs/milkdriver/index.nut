@@ -142,7 +142,7 @@ event("onServerStarted", function() {
 
     //creating 3dtext for bus depot
     create3DText ( MILK_JOB_X, MILK_JOB_Y, MILK_JOB_Z+0.35, "EMPIRE BAY MILK CO.", CL_ROYALBLUE );
-    create3DText ( MILK_JOB_X, MILK_JOB_Y, MILK_JOB_Z+0.20, "/help job milk", CL_WHITE.applyAlpha(75), 3 );
+    create3DText ( MILK_JOB_X, MILK_JOB_Y, MILK_JOB_Z+0.20, "/help job milk", CL_WHITE.applyAlpha(75), 3.0 );
 
     registerPersonalJobBlip("milkdriver", MILK_JOB_X, MILK_JOB_Y);
 });
@@ -170,7 +170,7 @@ function createMilkJobStationMarks(playerid, data) {
     foreach (id, value in data) {
         milkJobStationMarks[playerid][id] <- {
             text1 = createPrivate3DText(playerid, value[0], value[1], value[2]+0.35, "=== PARK HERE ===", CL_RIPELEMON, MILK_JOB_DISTANCE ),
-            text2 = createPrivate3DText(playerid, value[0], value[1], value[2]+0.20, "/milk unload", CL_WHITE.applyAlpha(150), 5 ),
+            text2 = createPrivate3DText(playerid, value[0], value[1], value[2]+0.20, "/milk unload", CL_WHITE.applyAlpha(150), 5.0 ),
             blip  = createPrivateBlip(playerid, value[0], value[1], ICON_YELLOW, 4000.0 )
         };
     }
