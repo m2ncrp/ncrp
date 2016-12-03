@@ -106,7 +106,11 @@ event("onPlayerConnect", function(playerid, name, ip, serial ){
      job_bus[playerid]["busBlip"] <- null;
 });
 
-
+event( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
+    if(isBusDriver(playerid)) {
+            busJobReady(playerid);
+    }
+});
 
 function busStop(a, b, c) {
     return {name = a, public = b, private = c };
@@ -288,23 +292,28 @@ function busJobReady( playerid ) {
         return msg( playerid, "job.bus.driver.not", BUS_JOB_COLOR );
     }
 
-    if (!isPlayerVehicleBus(playerid)) {
+    if (!isPlayerVehicleBus(playerid) && !isBusRouteSelected(playerid)) {
+        //return msg(playerid, "job.bus.ifyouwantstart", BUS_JOB_COLOR );
+        return;
+    }
+
+    if (!isPlayerVehicleBus(playerid) && isBusRouteSelected(playerid)) {
         return msg(playerid, "job.bus.needbus", BUS_JOB_COLOR );
     }
 
-    if (!isBusRouteSelected(playerid)) {
+    if (isPlayerVehicleBus(playerid) && !isBusRouteSelected(playerid)) {
         return msg(playerid, "job.bus.route.needselect", BUS_JOB_COLOR );
     }
 
     if (isBusReady(playerid)) {
-        return msg(playerid, "job.bus.readyalready", BUS_JOB_COLOR );
+        return msg(playerid, "job.bus.route.needcontinue", BUS_JOB_COLOR );
     }
 
     job_bus[playerid]["busready"] = true;
     local busID = job_bus[playerid]["route"][1][0];
     msg( playerid, "job.bus.gotobusstop", busStops[busID].name, BUS_JOB_COLOR );
     job_bus[playerid]["bus3dtext"] = createPrivateBusStop3DText(playerid, busStops[busID].private);
-    job_bus[playerid]["busBlip"]   = createPrivateBlip(playerid, busStops[busID].private.x, busStops[busID].private.y, ICON_RED, 2000.0);
+    job_bus[playerid]["busBlip"]   = createPrivateBlip(playerid, busStops[busID].private.x, busStops[busID].private.y, ICON_YELLOW, 4000.0);
 }
 
 // working good, check
@@ -354,7 +363,7 @@ function busJobStop( playerid ) {
     local busID = job_bus[playerid]["route"][1][0];
 
     job_bus[playerid]["bus3dtext"] = createPrivateBusStop3DText(playerid, busStops[busID].private);
-    job_bus[playerid]["busBlip"]   = createPrivateBlip(playerid, busStops[busID].private.x, busStops[busID].private.y, ICON_RED, 2000.0);
+    job_bus[playerid]["busBlip"]   = createPrivateBlip(playerid, busStops[busID].private.x, busStops[busID].private.y, ICON_YELLOW, 2000.0);
 
     msg( playerid, "job.bus.gotonextbusstop", busStops[busID].name, BUS_JOB_COLOR );
 }

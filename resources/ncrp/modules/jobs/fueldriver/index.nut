@@ -8,17 +8,17 @@ translation("en", {
 "job.fueldriver.not"                                    : "[FUEL] You're not a fuel truck driver."
 "job.fueldriver.needfueltruck"                          : "[FUEL] You need a fuel truck."
 "job.fueldriver.truck.loaded"                           : "[FUEL] Truck is loaded to %d / 16000. Deliver fuel to gas stations."
-"job.fueldriver.truck.empty"                            : "[FUEL] The truck is empty. Go to the warehouse of fuel in South Millville to load fuel truck (yellow icon on radar)."
-"job.fueldriver.truck.toload"                           : "[FUEL] Go to the warehouse of fuel in South Millville to load fuel truck (yellow icon on radar)."
+"job.fueldriver.truck.empty"                            : "[FUEL] The truck is empty. Go to the warehouse of fuel in South Millville to load fuel truck (red cross icon on radar)."
+"job.fueldriver.truck.toload"                           : "[FUEL] Go to the warehouse of fuel in South Millville to load fuel truck (red cross icon on radar)."
 "job.fueldriver.driving"                                : "[FUEL] You're driving. Please stop the fuel truck."
 "job.fueldriver.truck.alreadyloaded"                    : "[FUEL] Fuel truck already loaded."
 "job.fueldriver.truck.fullloaded"                       : "[FUEL] Fuel truck is loaded to 16000 / 16000. Deliver fuel to gas stations."
-"job.fueldriver.truck.fuelnotenough"                    : "[FUEL] Fuel is not enough. Go to the warehouse to load fuel truck (yellow icon on radar)."
+"job.fueldriver.truck.fuelnotenough"                    : "[FUEL] Fuel is not enough. Go to the warehouse to load fuel truck (red cross icon on radar)."
 "job.fueldriver.truck.tounload"                         : "[FUEL] Go to gas station to unload fuel."
 "job.fueldriver.alreadybeenhere"                        : "[FUEL] You've already been here. Go to other gas station."
 "job.fueldriver.truck.parking"                          : "[FUEL] Nice job! Return the fuel truck to Trago Oil headquartered in Oyster Bay, park truck and take your money."
 "job.fueldriver.truck.unloadingcompletedtruckisloaded"  : "[FUEL] Unloading completed. Fuel truck is loaded to %d / 16000. Go to next gas station."
-"job.fueldriver.truck.unloadingcompletedfuelnotenough"  : "[FUEL] Unloading completed. Fuel is not enough. Go to the warehouse to load fuel truck (yellow icon on radar)."
+"job.fueldriver.truck.unloadingcompletedfuelnotenough"  : "[FUEL] Unloading completed. Fuel is not enough. Go to the warehouse to load fuel truck (red cross icon on radar)."
 "job.fueldriver.truck.topark"                           : "[FUEL] Go to Trago Oil headquartered to park the fuel truck."
 "job.fueldriver.completedelivery"                       : "[FUEL] Complete fuel delivery to all gas stations."
 "job.fueldriver.nicejob"                                : "[FUEL] Nice job! You earned $%.2f."
@@ -49,19 +49,19 @@ translation("ru", {
 "job.fueldriver.not"                                    : "[FUEL] Вы не работаете водителем бензовоза."
 "job.fueldriver.needfueltruck"                          : "[FUEL] Вам нужен бензовоз."
 "job.fueldriver.truck.loaded"                           : "[FUEL] Бензовоз заполнен на %d из 16000. Развезите топливо по заправкам."
-"job.fueldriver.truck.empty"                            : "[FUEL] Бензовоз пуст. Отправляйтесь к топливному хранилищу в South Millville для загрузки (жёлтая метка на радаре)."
-"job.fueldriver.truck.toload"                           : "[FUEL] Отправляйтесь к топливному хранилищу в South Millville для загрузки (жёлтая метка на радаре)."
+"job.fueldriver.truck.empty"                            : "[FUEL] Бензовоз пуст. Отправляйтесь к топливному хранилищу в South Millville для загрузки (метка с красным крестом на радаре)."
+"job.fueldriver.truck.toload"                           : "[FUEL] Отправляйтесь к топливному хранилищу в South Millville для загрузки (метка с красным крестом на радаре)."
 "job.fueldriver.driving"                                : "[FUEL] Остановите бензовоз."
 "job.fueldriver.truck.alreadyloaded"                    : "[FUEL] Бензовоз уже заполнен."
 "job.fueldriver.truck.fullloaded"                       : "[FUEL] Бензовоз заполнен на 16000 из 16000. Развезите топливо по заправкам."
-"job.fueldriver.truck.fuelnotenough"                    : "[FUEL] Недостаточно топлива. Отправляйтесь к топливному хранилищу для загрузки (жёлтая метка на радаре)"
+"job.fueldriver.truck.fuelnotenough"                    : "[FUEL] Недостаточно топлива. Отправляйтесь к топливному хранилищу для загрузки (метка с красным крестом на радаре)"
 "job.fueldriver.truck.tounload"                         : "[FUEL] Разгрузка топлива возможна только на заправках."
 "job.fueldriver.alreadybeenhere"                        : "[FUEL] Вы уже были здесь. Направляйтесь к другой заправке."
 "job.fueldriver.truck.parking"                          : "[FUEL] Хорошая работа! Верните бензовоз к штаб-квартире Trago Oil в Oyster Bay, припаркуйте и получите Ваш заработок."
 "job.fueldriver.truck.unloadingcompletedtruckisloaded"  : "[FUEL] Разгрузка выполнена. Бензовоз заполнен на %d из 16000. Направляйтесь к следующей заправке."
-"job.fueldriver.truck.unloadingcompletedfuelnotenough"  : "[FUEL] Разгрузка выполнена. Топливо закончилось. Отправляйтесь к топливному хранилищу для загрузки (жёлтая метка на радаре)"
+"job.fueldriver.truck.unloadingcompletedfuelnotenough"  : "[FUEL] Разгрузка выполнена. Топливо закончилось. Отправляйтесь к топливному хранилищу для загрузки (метка с красным крестом на радаре)"
 "job.fueldriver.truck.topark"                           : "[FUEL] Чтобы припарковать бензовоз, отправляйтесь к штаб-квартире Trago Oil в Oyster Bay."
-"job.fueldriver.completedelivery"                       : "[FUEL] Развезите топливо по по всем заправкам."
+"job.fueldriver.completedelivery"                       : "[FUEL] Развезите топливо по всем заправкам."
 "job.fueldriver.nicejob"                                : "[FUEL] Отличная работа! Вы заработали $%.2f."
 "job.fueldriver.routelist.title"                        : "[FUEL] ========== Маршутный лист =========="
 "job.fueldriver.routelist.completed"                    : "[FUEL] %d. Заправка в %s - доставлено"
@@ -147,6 +147,7 @@ event("onPlayerConnect", function(playerid, name, ip, serial) {
      job_fuel[playerid]["fuelcomplete"] <- 0;  // number of completed fuel stations. Default is 0
 });
 
+
 local fuelJobStationMarks = {};
 function createFuelJobStationMarks(playerid, data) {
     if (!(playerid in fuelJobStationMarks)) {
@@ -162,7 +163,7 @@ function createFuelJobStationMarks(playerid, data) {
         fuelJobStationMarks[playerid][id] <- {
             text1 = createPrivate3DText(playerid, value[0], value[1], value[2]-0.15, "/fuel unload", CL_WHITE.applyAlpha(150), 10 ),
             text2 = null, // maybe add later
-            blip  = createPrivateBlip(playerid, value[0], value[1], ICON_RED, 4000.0 )
+            blip  = createPrivateBlip(playerid, value[0], value[1], ICON_YELLOW, 4000.0 )
         };
     }
 }
@@ -339,6 +340,8 @@ function fuelJobLoad ( playerid ) {
 
     // create fuel marks
     createFuelJobStationMarks(playerid, fuelcoords);
+    // remove Warehouse blip
+    //fuelJobWarehouseRemoveBlipText( playerid );
 }
 
 // working good, check
@@ -469,7 +472,7 @@ function fuelJobWarehouseCreateBlipText( playerid ) {
     if(job_fuel[playerid]["fuelBlipTextWarehouse"].len() < 1) {
         job_fuel[playerid]["fuelBlipTextWarehouse"].push( createPrivate3DText (playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, FUEL_JOB_WAREHOUSE_Z+0.35, "=== FUEL WAREHOUSE ===", CL_RIPELEMON, 100.0 ));
         job_fuel[playerid]["fuelBlipTextWarehouse"].push( createPrivate3DText (playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, FUEL_JOB_WAREHOUSE_Z-0.15, "/fuel load", CL_WHITE.applyAlpha(150), 5.0 ));
-        job_fuel[playerid]["fuelBlipTextWarehouse"].push( createPrivateBlip(playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, ICON_YELLOW, 4000.0));
+        job_fuel[playerid]["fuelBlipTextWarehouse"].push( createPrivateBlip(playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, ICON_CROSS, 4000.0));
     }
 }
 
