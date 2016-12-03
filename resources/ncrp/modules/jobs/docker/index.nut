@@ -96,7 +96,7 @@ function dockerJobCreatePrivateBlipText(playerid, x, y, z, text, cmd) {
     return [
             createPrivate3DText (playerid, x, y, z+0.35, text, CL_RIPELEMON, 15 ),
             createPrivate3DText (playerid, x, y, z+0.20, cmd, CL_WHITE.applyAlpha(150), DOCKER_RADIUS ),
-            createPrivateBlip (playerid, x, y, ICON_RED, 200.0)
+            createPrivateBlip (playerid, x, y, ICON_YELLOW, 200.0)
     ];
 }
 
