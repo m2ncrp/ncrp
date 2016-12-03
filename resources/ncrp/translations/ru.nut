@@ -71,7 +71,7 @@ translation("ru", {
     "job.taxi.takencall"                :   "[TAXI] Вы уже приняли другой вызов."
     "job.taxi.callalreadytaken"         :   "[TAXI] Вызов #%d уже принят другим водителем."
     "job.taxi.youtakencall"             :   "[TAXI] Вы приняли вызов #%d."
-    "job.taxi.completed"                :   "[TAXI] Вы завершили поездку по вызову #%d."
+    "job.taxi.completed"                :   "[TAXI] Клиент оплатил поездку. Вы завершили заказ #%d."
     "job.taxi.statuson"                 :   "[TAXI] Вы вышли на линию. Ожидайте звонков..."
     "job.taxi.cantchangestatus"         :   "[TAXI] Вы сможете уйти с линии только когда завершите текущую поездку или откажетесь от вызова."
     "job.taxi.statusoff"                :   "[TAXI] Вы ушли с линии. Вам не будут поступать звонки."
