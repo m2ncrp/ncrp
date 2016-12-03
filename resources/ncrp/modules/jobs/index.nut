@@ -6,6 +6,7 @@ include("modules/jobs/milkdriver");
 include("modules/jobs/cargodriver");
 //include("modules/jobs/telephone");
 include("modules/jobs/docker");
+include("modules/jobs/stationporter");
 include("modules/jobs/realtor");
 
 
