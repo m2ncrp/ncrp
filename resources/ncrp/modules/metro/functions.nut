@@ -1,29 +1,51 @@
 /**
- * Check whitch station player near to.
- * @param  {uint}  playerid
- * @return {Boolean}
+ * Check which station player near to.
+ * @param  {uint}   playerid
+ * @return {uint}   station index if near to any stations. If not return string "faraway".
  */
-function isNearStation(playerid) {
+function getNearStationIndex(playerid) {
     foreach (key, station in metroInfos) {
         if ( isInRadius(playerid, station[0], station[1], station[2], METRO_RADIUS) ) {
-            return (true) ? key : "faraway";
+            return key;
         }
     }
     return "faraway";
 }
 
 /**
+ * Return name of station by given ID
+ * @param  {uint} stationID
+ * @return {string}
+ */
+function getSubwayStationNameByID( stationID ) {
+    return metroInfos[stationID][3];
+}
+
+
+/**
  * Check if station with given ID currently avaliable on server
- * @param  {integer}  stationID
+ * @param  {uint}  stationID
  * @return {Boolean}
  */
 function isStationAvaliable(stationID) {
-    foreach (index, station in metroInfos) {
-        if ( index == stationID && station[9] == METRO_KEY_AVALIABLE ) {
-            return true;
-        }
+    if ( metroInfos[stationID][9] == METRO_KEY_AVALIABLE ) {
+        return true;
     }
     return false;
+}
+
+
+function setMetroStationStatus(stationID, close) {
+    if (stationID < METRO_HEAD || stationID > METRO_TAIL) {
+        return msg(playerid, "metro.notexist", CL_RED);
+    }
+
+    if (close) {
+        metroInfos[stationID][9] = METRO_KEY_UNAVALIABLE;
+    } else {
+        metroInfos[stationID][9] = METRO_KEY_AVALIABLE;
+    }
+    
 }
 
 /**
@@ -32,24 +54,24 @@ function isStationAvaliable(stationID) {
  * @return {uint} fade time duration
  */
 function metroCalculateTravelTime( stationID ) {
-    // Code
+    return 500;
 }
 
 
-function travelToStation( playerid, id = null ) {
-    if (id == null) {
+function travelToStation( playerid, stationID ) {
+    if (stationID == null) {
         return metroShowListStations(playerid);
     }
+    
+    local stationID = stationID.tointeger() - 1;
 
-    local id = id.tointeger();
-    //if (id < METRO_HEAD) {  id = METRO_HEAD;  }
-    //if (id > METRO_TAIL) {  id = METRO_TAIL;  }
+    if (stationID < METRO_HEAD || stationID > METRO_TAIL) {
+        return msg(playerid, "metro.notexist", CL_RED);
+    }
 
-    id -= 1; //for correct
+    local nearestStationID = getNearStationIndex(playerid);
 
-    local isNear = isNearStation( playerid );
-
-    if ( isNear == "faraway") {
+    if ( nearestStationID == "faraway") {
         return msg(playerid, "metro.toofaraway", CL_RED);
     }
 
@@ -57,20 +79,21 @@ function travelToStation( playerid, id = null ) {
         return msg(playerid, "metro.nocar", CL_RED);
     }
 
-    if ( isNumeric(isNear) ) {
-
-        if (id < METRO_HEAD || id > METRO_TAIL) {
-            return msg(playerid, "metro.notexist", CL_RED);
+    if ( isNumeric(nearestStationID) ) {
+        if ( !isStationAvaliable(nearestStationID) ) {
+            return msg(playerid, "metro.station.closed.maintaince", [ getSubwayStationNameByID(nearestStationID) ]);
         }
-
-        if ( id == isNear ) {
+        if ( !isStationAvaliable(stationID) ) {
+            return msg(playerid, "metro.station.closed.maintaince", [ getSubwayStationNameByID(stationID) ]);
+        }
+        if ( stationID == nearestStationID ) {
             return msg(playerid, "metro.herealready", CL_RED);
         }
 
         if ( !canMoneyBeSubstracted(playerid, METRO_TICKET_COST) ) {
             return msg(playerid, "metro.notenoughmoney", CL_RED);
         }
-        onTavelToStation(playerid, id);
+        onTavelToStation(playerid, stationID);
     }
 }
 
@@ -82,10 +105,10 @@ function travelToStation( playerid, id = null ) {
  * @return {void}
  */
 function onTavelToStation(playerid, id) {
-    //local travelTime = metroCalculateTravelTime(stationID);
+    local travelTime = metroCalculateTravelTime(id);
 
     togglePlayerControls( playerid, true );
-    screenFadeinFadeout(playerid, 500, function() {
+    screenFadeinFadeout(playerid, travelTime, function() {
         subMoneyToPlayer(playerid, METRO_TICKET_COST); // don't forget took money for ticket ~ 25 cents
         msg(playerid, "metro.pay", METRO_TICKET_COST );
         msg(playerid, "metro.arrived", metroInfos[id][3]);
@@ -112,11 +135,7 @@ function afterTravelToStation(playerid) {
  * @return {void}
  */
 function metroShowListStations( playerid ) {
-    msg(playerid, "==================================", CL_HELP_LINE);
-    msg(playerid, "metro.listStations.title", CL_HELP_TITLE);
-    foreach (index, station in metroInfos) {
-        msg(playerid, "metro.listStations.station", [(index+1), station[3]], CL_WHITE);
-    }
+    return metroShowListStationsIncludingUnavaliable( playerid );
 }
 
 
