@@ -61,7 +61,7 @@ translation("ru", {
 "job.fueldriver.truck.unloadingcompletedtruckisloaded"  : "[FUEL] Разгрузка выполнена. Бензовоз заполнен на %d из 16000. Направляйтесь к следующей заправке."
 "job.fueldriver.truck.unloadingcompletedfuelnotenough"  : "[FUEL] Разгрузка выполнена. Топливо закончилось. Отправляйтесь к топливному хранилищу для загрузки (жёлтая метка на радаре)"
 "job.fueldriver.truck.topark"                           : "[FUEL] Чтобы припарковать бензовоз, отправляйтесь к штаб-квартире Trago Oil в Oyster Bay."
-"job.fueldriver.completedelivery"                       : "[FUEL] Развезите топливо по по всем заправкам."
+"job.fueldriver.completedelivery"                       : "[FUEL] Развезите топливо по всем заправкам."
 "job.fueldriver.nicejob"                                : "[FUEL] Отличная работа! Вы заработали $%.2f."
 "job.fueldriver.routelist.title"                        : "[FUEL] ========== Маршутный лист =========="
 "job.fueldriver.routelist.completed"                    : "[FUEL] %d. Заправка в %s - доставлено"

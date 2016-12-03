@@ -106,7 +106,11 @@ event("onPlayerConnect", function(playerid, name, ip, serial ){
      job_bus[playerid]["busBlip"] <- null;
 });
 
-
+event( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
+    if(isBusDriver(playerid)) {
+            busJobReady(playerid);
+    }
+});
 
 function busStop(a, b, c) {
     return {name = a, public = b, private = c };
@@ -288,16 +292,20 @@ function busJobReady( playerid ) {
         return msg( playerid, "job.bus.driver.not", BUS_JOB_COLOR );
     }
 
-    if (!isPlayerVehicleBus(playerid)) {
+    if (!isPlayerVehicleBus(playerid) && !isBusRouteSelected(playerid)) {
+        return msg(playerid, "job.bus.ifyouwantstart", BUS_JOB_COLOR );
+    }
+
+    if (!isPlayerVehicleBus(playerid) && isBusRouteSelected(playerid)) {
         return msg(playerid, "job.bus.needbus", BUS_JOB_COLOR );
     }
 
-    if (!isBusRouteSelected(playerid)) {
+    if (isPlayerVehicleBus(playerid) && !isBusRouteSelected(playerid)) {
         return msg(playerid, "job.bus.route.needselect", BUS_JOB_COLOR );
     }
 
     if (isBusReady(playerid)) {
-        return msg(playerid, "job.bus.readyalready", BUS_JOB_COLOR );
+        return msg(playerid, "job.bus.route.needcontinue", BUS_JOB_COLOR );
     }
 
     job_bus[playerid]["busready"] = true;
