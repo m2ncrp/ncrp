@@ -26,8 +26,8 @@ local infoTips = [
 
 translation("en", {
     "tips.money.earn"   :   "[TIPS] You can get money by working. For more info: /help job"
-    "tips.money.bank"   :   "[TIPS] You can earn money by starting bank deposit. Go to the bank (yellow icon on the map)"
-    "tips.car"          :   "[TIPS] You can buy own car at the Diamond Motors. (gear icon on the map)."
+    "tips.money.bank"   :   "[TIPS] You can earn money by starting bank deposit. Go to the bank (yellow icon on the map)."
+    "tips.car"          :   "[TIPS] You can buy own car at the Diamond Motors (gear icon on the map)."
     "tips.car.repair"   :   "[TIPS] You can repair your car at the repair shops. Use /repair"
     "tips.eat"          :   "[TIPS] You can restore health by eating in the restaurants."
     "tips.police"       :   "[TIPS] If you see a crime, dont hesitate calling a police. Use: /police LOCATION"
