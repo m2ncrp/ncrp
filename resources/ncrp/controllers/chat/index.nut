@@ -44,6 +44,6 @@ event("native:onPlayerChat", function(playerid, message) {
     // inRadiusSendToAll(playerid, 
     //     localize("chat.player.says", [getAuthor( playerid ), message], getPlayerLocale(playerid)), 
     //     NORMAL_RADIUS, CL_YELLOW);
-    __commands["say"][COMMANDS_DEFAULT](playerid, message);
+    __commands["ooc"][COMMANDS_DEFAULT](playerid, message);
     return false;
 });
