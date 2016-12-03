@@ -71,7 +71,7 @@ translation("en", {
     "job.taxi.takencall"                :   "[TAXI JOB] You have already taken a call."
     "job.taxi.callalreadytaken"         :   "[TAXI JOB] Call #%d is already taken."
     "job.taxi.youtakencall"             :   "[TAXI JOB] You've taken a call #%d."
-    "job.taxi.completed"                :   "[TAXI JOB] You've completed the trip for call #%d."
+    "job.taxi.completed"                :   "[TAXI JOB] Customer paid the trip. You've completed the call #%d."
     "job.taxi.statuson"                 :   "[TAXI JOB] Your taxi driver status: ON air. Wait for a call..."
     "job.taxi.cantchangestatus"         :   "[TAXI JOB] You can't change status while you'll complete trip or refuse call."
     "job.taxi.statusoff"                :   "[TAXI JOB] Your taxi driver status: OFF air. You won't receive calls now."

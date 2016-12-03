@@ -16,6 +16,8 @@ local infoTips = [
     "tips.car.repair"   ,
     "tips.eat"          ,
     "tips.police"       ,
+    "tips.hobos"        ,
+    "tips.engine.howto" ,
     "tips.taxi"         ,
     "tips.metro"        ,
     "tips.house"        ,
@@ -31,6 +33,8 @@ translation("en", {
     "tips.car.repair"   :   "[TIPS] You can repair your car at the repair shops. Use /repair"
     "tips.eat"          :   "[TIPS] You can restore health by eating in the restaurants."
     "tips.police"       :   "[TIPS] If you see a crime, dont hesitate calling a police. Use: /police LOCATION"
+    "tips.hobos"        :   "[TIPS] You can search trash containers and find something in it using /dig command"
+    "tips.engine.howto" :   "[TIPS] Do not waste fuel, don't forget to off the engine using /engine off or press Q button"
     "tips.taxi"         :   "[TIPS] If you need a ride, you can take a taxi. Use: /taxi LOCATION"
     "tips.metro"        :   "[TIPS] Subway is a good way of transportation. Go to the nearest subway station and use: /subway"
     "tips.house"        :   "[TIPS] You can buy a house, just find an estate agent, and settle a deal."
