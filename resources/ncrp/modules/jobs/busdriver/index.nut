@@ -293,7 +293,8 @@ function busJobReady( playerid ) {
     }
 
     if (!isPlayerVehicleBus(playerid) && !isBusRouteSelected(playerid)) {
-        return msg(playerid, "job.bus.ifyouwantstart", BUS_JOB_COLOR );
+        //return msg(playerid, "job.bus.ifyouwantstart", BUS_JOB_COLOR );
+        return;
     }
 
     if (!isPlayerVehicleBus(playerid) && isBusRouteSelected(playerid)) {
@@ -312,7 +313,7 @@ function busJobReady( playerid ) {
     local busID = job_bus[playerid]["route"][1][0];
     msg( playerid, "job.bus.gotobusstop", busStops[busID].name, BUS_JOB_COLOR );
     job_bus[playerid]["bus3dtext"] = createPrivateBusStop3DText(playerid, busStops[busID].private);
-    job_bus[playerid]["busBlip"]   = createPrivateBlip(playerid, busStops[busID].private.x, busStops[busID].private.y, ICON_RED, 2000.0);
+    job_bus[playerid]["busBlip"]   = createPrivateBlip(playerid, busStops[busID].private.x, busStops[busID].private.y, ICON_YELLOW, 4000.0);
 }
 
 // working good, check
@@ -362,7 +363,7 @@ function busJobStop( playerid ) {
     local busID = job_bus[playerid]["route"][1][0];
 
     job_bus[playerid]["bus3dtext"] = createPrivateBusStop3DText(playerid, busStops[busID].private);
-    job_bus[playerid]["busBlip"]   = createPrivateBlip(playerid, busStops[busID].private.x, busStops[busID].private.y, ICON_RED, 2000.0);
+    job_bus[playerid]["busBlip"]   = createPrivateBlip(playerid, busStops[busID].private.x, busStops[busID].private.y, ICON_YELLOW, 2000.0);
 
     msg( playerid, "job.bus.gotonextbusstop", busStops[busID].name, BUS_JOB_COLOR );
 }
