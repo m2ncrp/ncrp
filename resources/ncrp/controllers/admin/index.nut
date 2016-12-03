@@ -1,5 +1,6 @@
 include("controllers/admin/commands.nut");
 include("controllers/admin/sqdebug.nut");
+include("controllers/admin/teleport.nut");
 
 local serverAdmins = [
     "CD19A5029AE81BB50B023291846C0DF3", // max

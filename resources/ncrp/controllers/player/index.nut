@@ -92,6 +92,7 @@ function trySavePlayer(playerid) {
 
     // get instance
     local char   = xPlayers[playerid];
+    local pos    = getPlayerPositionObj(playerid);
 
     // proxy data back to the model
     char.money   = players[playerid]["money"];
@@ -100,9 +101,9 @@ function trySavePlayer(playerid) {
     char.cskin   = players[playerid]["skin"];
     char.spawnid = players[playerid]["spawn"];
     char.xp      = players[playerid]["xp"];
-    char.housex  = players[playerid]["housex"];
-    char.housey  = players[playerid]["housey"];
-    char.housez  = players[playerid]["housez"];
+    char.housex  = pos.x;
+    char.housey  = pos.y;
+    char.housez  = pos.z;
     char.job     = (players[playerid]["job"]) ? players[playerid]["job"] : "";
     char.locale  = players[playerid]["locale"];
 
