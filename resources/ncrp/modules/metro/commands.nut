@@ -1,5 +1,5 @@
 cmd( ["sub", "subway", "metro"], function( playerid, id = null ) {
-    metroGo( playerid, id );
+    travelToStation( playerid, id );
 });
 
 cmd( ["sub", "subway", "metro"], "list", function( playerid) {
