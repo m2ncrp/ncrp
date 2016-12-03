@@ -7,7 +7,20 @@ function add3DTextForPlayer(textid, playerid) {
     }
 
     local text = __3dtexts[textid];
-    triggerClientEvent(playerid, "onServer3DTextAdd", textid, text.x, text.y, text.z, text.value, text.color, text.distance);
+
+    trigger(playerid,
+        "onServer3DTextAdd",
+        textid,
+        text.x.tofloat(),
+        text.y.tofloat(),
+        text.z.tofloat(),
+        text.value.tostring(),
+        text.color.r.tointeger(),
+        text.color.g.tointeger(),
+        text.color.b.tointeger(),
+        text.distance.tofloat()
+    );
+
     return textid;
 }
 
@@ -31,11 +44,7 @@ function remove3DTextForPlayers(textid) {
 }
 
 function instantiate3DText(x, y, z, text, color, distance, private) {
-    if (color instanceof Color) {
-        color = color.toHex();
-    }
-
-    local textid = __3dtext__autoincrement++;
+    local textid = md5("5" + (__3dtext__autoincrement++));
     __3dtexts[textid] <- { uid = textid, x = x.tofloat(), y = y.tofloat(), z = z.tofloat(), value = text, color = color, distance = distance.tofloat(), private = private };
     return textid;
 }
@@ -61,7 +70,6 @@ event("onServerPlayerStarted", function(playerid) {
 function create3DText(x, y, z, text, color, distance = 35.0) {
     return add3DTextForPlayers( instantiate3DText(x, y, z, text, color, distance, false) );
 }
-
 
 /**
  * Create 3d text in postion with text and color for player
