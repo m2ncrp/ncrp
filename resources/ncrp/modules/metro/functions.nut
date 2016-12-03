@@ -6,15 +6,25 @@
 function getNearStationIndex(playerid) {
     foreach (key, station in metroInfos) {
         if ( isInRadius(playerid, station[0], station[1], station[2], METRO_RADIUS) ) {
-            return (true) ? key : "faraway";
+            return key;
         }
     }
     return "faraway";
 }
 
 /**
+ * Return name of station by given ID
+ * @param  {uint} stationID
+ * @return {string}
+ */
+function getSubwayStationNameByID( stationID ) {
+    return metroInfos[stationID][3];
+}
+
+
+/**
  * Check if station with given ID currently avaliable on server
- * @param  {integer}  stationID
+ * @param  {uint}  stationID
  * @return {Boolean}
  */
 function isStationAvaliable(stationID) {
@@ -26,7 +36,6 @@ function isStationAvaliable(stationID) {
 
 
 function setMetroStationStatus(stationID, close) {
-    local stationID = stationID.tointeger() - 1;
     if (stationID < METRO_HEAD || stationID > METRO_TAIL) {
         return msg(playerid, "metro.notexist", CL_RED);
     }
@@ -49,12 +58,18 @@ function metroCalculateTravelTime( stationID ) {
 }
 
 
-function travelToStation( playerid, id ) {
-    // local id = id.tointeger() - 1; //for correct
-    //if (id < METRO_HEAD) {  id = METRO_HEAD;  }
-    //if (id > METRO_TAIL) {  id = METRO_TAIL;  } 
+function travelToStation( playerid, stationID ) {
+    if (stationID == null) {
+        return metroShowListStations(playerid);
+    }
+    
+    local stationID = stationID.tointeger() - 1;
 
-    local nearestStationID = getNearStationIndex( playerid );
+    if (stationID < METRO_HEAD || stationID > METRO_TAIL) {
+        return msg(playerid, "metro.notexist", CL_RED);
+    }
+
+    local nearestStationID = getNearStationIndex(playerid);
 
     if ( nearestStationID == "faraway") {
         return msg(playerid, "metro.toofaraway", CL_RED);
@@ -65,14 +80,20 @@ function travelToStation( playerid, id ) {
     }
 
     if ( isNumeric(nearestStationID) ) {
-        if ( id == nearestStationID ) {
+        if ( !isStationAvaliable(nearestStationID) ) {
+            return msg(playerid, "metro.station.closed.maintaince", [ getSubwayStationNameByID(nearestStationID) ]);
+        }
+        if ( !isStationAvaliable(stationID) ) {
+            return msg(playerid, "metro.station.closed.maintaince", [ getSubwayStationNameByID(stationID) ]);
+        }
+        if ( stationID == nearestStationID ) {
             return msg(playerid, "metro.herealready", CL_RED);
         }
 
         if ( !canMoneyBeSubstracted(playerid, METRO_TICKET_COST) ) {
             return msg(playerid, "metro.notenoughmoney", CL_RED);
         }
-        onTavelToStation(playerid, id);
+        onTavelToStation(playerid, stationID);
     }
 }
 
