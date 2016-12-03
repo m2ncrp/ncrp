@@ -53,3 +53,25 @@ event("native:onConsoleInput", function(name, ...) {
         squirrelDebugOnServer(-1, vargv);
     }
 });
+
+
+/**
+ * Squirrel inline debug commands
+ */
+acmd("sq", function(playerid, ...) {
+    squirrelDebugOnServer(playerid, vargv);
+});
+
+acmd("sq", ["s"], function(playerid, ...) {
+    squirrelDebugOnServer(playerid, vargv);
+});
+
+acmd("sq", ["c"], function(playerid, ...) {
+    squirrelDebugOnClient(playerid, vargv);
+});
+
+acmd("sq", ["b"], function(playerid, ...) {
+    squirrelDebugOnServer(playerid, vargv);
+    squirrelDebugOnClient(playerid, vargv);
+});
+
