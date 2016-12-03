@@ -53,6 +53,12 @@ event("onClientDebugToggle", function(playerid) {
     return (isPlayerAdmin(playerid)) ? trigger(playerid, "onServerDebugToggle") : null;
 })
 
+event("native:onConsoleInput", function(name, ...) {
+    if (name == "list") {
+        dbg(getPlayers());
+    }
+});
+
 event("onServerAutosave", function() {
     if (!infoTipsCache || !infoTipsCache.len()) {
         infoTipsCache = clone infoTips;
