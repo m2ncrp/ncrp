@@ -49,7 +49,7 @@ function floatToString(value) {
  * @param  {Mixed} value
  * @return {Integer}
  */
-function toInt(value) {
+function toInteger(value) {
     if (isInteger(value)) {
         return value.tointeger();
     }
@@ -67,4 +67,4 @@ function toInt(value) {
     return 0;
 }
 
-toInteger <- toInt;
+toInt <- toInteger;
