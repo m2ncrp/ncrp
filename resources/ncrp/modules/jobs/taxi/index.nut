@@ -149,7 +149,7 @@ function taxiCallTake(playerid, customerid) {
     }
 
     if ( !isPlayerConnected(customerid) || playerid == customerid ) {
-        return msg(playerid, "job.taxi.callnotexist");
+        return msg_taxi_dr(playerid, "job.taxi.callnotexist");
     }
 
     if(job_taxi[playerid]["customer"] == customerid) {
@@ -373,7 +373,7 @@ function taxiJob(playerid) {
     setTaxiLightState(getPlayerVehicle(playerid), false);
     setVehicleFuel(getPlayerVehicle(playerid), 56.0);
 
-    msg(playerid, "job.taxi.driver.now");
+    msg_taxi_dr(playerid, "job.taxi.driver.now");
 
     setPlayerJob( playerid, "taxidriver");
 
