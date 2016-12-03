@@ -134,7 +134,7 @@ event("onServerStarted", function() {
 
     //creating 3dtext for Trago Oil
     create3DText ( FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.35, "TRAGO OIL", CL_ROYALBLUE );
-    create3DText ( FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.20, "/help job fuel", CL_WHITE.applyAlpha(75), 3 );
+    create3DText ( FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.20, "/help job fuel", CL_WHITE.applyAlpha(75), 3.0 );
 
     registerPersonalJobBlip("fueldriver", FUEL_JOB_X, FUEL_JOB_Y);
 });
@@ -161,7 +161,7 @@ function createFuelJobStationMarks(playerid, data) {
 
     foreach (id, value in data) {
         fuelJobStationMarks[playerid][id] <- {
-            text1 = createPrivate3DText(playerid, value[0], value[1], value[2]-0.15, "/fuel unload", CL_WHITE.applyAlpha(150), 10 ),
+            text1 = createPrivate3DText(playerid, value[0], value[1], value[2]-0.15, "/fuel unload", CL_WHITE.applyAlpha(150), 10.0 ),
             text2 = null, // maybe add later
             blip  = createPrivateBlip(playerid, value[0], value[1], ICON_YELLOW, 4000.0 )
         };
