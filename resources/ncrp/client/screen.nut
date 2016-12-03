@@ -174,6 +174,7 @@ addEventHandler("onServerClientStarted", function(version = null) {
     }
 
     // apply defaults
+    setRenderNametags(true);
     setRenderHealthbar(false);
     toggleHud(true);
 
