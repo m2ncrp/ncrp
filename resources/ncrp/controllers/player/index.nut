@@ -143,7 +143,14 @@ event("onPlayerMoneyChanged", function(playerid) {
     }
 });
 
-addEventHandler("native:onPlayerSpawn", function(playerid) {
+event("onServerPlayerStarted", function(playerid) {
+    local weaponlist = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 21];
+    weaponlist.apply(function(id) {
+        removePlayerWeapon( playerid, id );
+    })
+});
+
+event("native:onPlayerSpawn", function(playerid) {
     // set player colour
     setPlayerColour(playerid, 0x99FFFFFF); // whity
 
@@ -209,7 +216,7 @@ addEventHandler("native:onPlayerSpawn", function(playerid) {
     }
 });
 
-addEventHandler("native:onPlayerDeath", function(playerid, killerid) {
+event("native:onPlayerDeath", function(playerid, killerid) {
     // store state for respawning
     setPlayerBeenDead(playerid);
     trigger("onPlayerDeath", playerid);
