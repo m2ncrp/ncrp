@@ -171,7 +171,7 @@ function createMilkJobStationMarks(playerid, data) {
         milkJobStationMarks[playerid][id] <- {
             text1 = createPrivate3DText(playerid, value[0], value[1], value[2]+0.35, "=== PARK HERE ===", CL_RIPELEMON, MILK_JOB_DISTANCE ),
             text2 = createPrivate3DText(playerid, value[0], value[1], value[2]+0.20, "/milk unload", CL_WHITE.applyAlpha(150), 5 ),
-            blip  = createPrivateBlip(playerid, value[0], value[1], ICON_RED, 4000.0 )
+            blip  = createPrivateBlip(playerid, value[0], value[1], ICON_YELLOW, 4000.0 )
         };
     }
 }

@@ -33,6 +33,11 @@ cmd("docker", function(playerid) {
     dockerJobHelp ( playerid );
 });
 
+// usage: /help docker
+cmd("help", "docker", function(playerid) {
+    dockerJobHelp ( playerid );
+});
+
 function dockerJobHelp ( playerid ) {
     local title = "job.docker.help.title";
     local commands = [
