@@ -135,7 +135,8 @@ function getPlayerLevel(playerid) {
  * @return {Boolean}
  */
 function isPlayerLevelValid(playerid, level = 1) {
-    return (getPlayerLevel(playerid) >= level)
+    // return (getPlayerLevel(playerid) >= level);
+    return true;
 }
 
 /**
