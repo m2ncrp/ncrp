@@ -15,9 +15,7 @@ function add3DTextForPlayer(textid, playerid) {
         text.y.tofloat(),
         text.z.tofloat(),
         text.value.tostring(),
-        text.color.r.tointeger(),
-        text.color.g.tointeger(),
-        text.color.b.tointeger(),
+        text.color.toHex(),
         text.distance.tofloat()
     );
 

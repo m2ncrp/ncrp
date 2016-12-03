@@ -32,15 +32,16 @@ addEventHandler("onClientFrameRender", function(post) {
     }
 });
 
-addEventHandler("onServer3DTextAdd", function(uid, x, y, z, text, r, g, b, d) {
+addEventHandler("onServer3DTextAdd", function(uid, x, y, z, text, color, d) {
     local obj = {
         uid = uid,
         name = text.tostring(),
         pos = {
             x = x.tofloat(),
             y = y.tofloat(),
-            z = z.tofloat()},
-        color = fromRGB(r.tointeger(), g.tointeger(), b.tointeger()),
+            z = z.tofloat()
+        },
+        color = color,
         distance = d.tofloat()
     };
 
