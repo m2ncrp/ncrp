@@ -228,6 +228,7 @@ function busJobLeave( playerid ) {
 
             setPlayerJob( playerid, null );
 
+            job_bus[playerid]["busready"] = false;
             players[playerid]["skin"] = players[playerid]["default_skin"];
             setPlayerModel( playerid, players[playerid]["default_skin"]);
 

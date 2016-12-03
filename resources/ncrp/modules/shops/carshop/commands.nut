@@ -31,6 +31,8 @@ cmd("car", "list", function(playerid, page = 1) {
  * Usage: /car buy
  */
 cmd("car", "buy", function(playerid, modelid = null) {
+    local modelid = toInteger(modelid);
+
     if (!isPlayerNearCarShop(playerid)) {
         return msg(playerid, "shops.carshop.gotothere", getPlayerName(playerid), CL_WARNING);
     }
