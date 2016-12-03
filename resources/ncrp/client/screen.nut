@@ -12,6 +12,13 @@ local initialized = false;
 local datastore = {};
 local lines     = [];
 
+local welcomeTexts = [
+    { size = 6.2, offset = 130.0, color = 0xFFCCCCCC, text = "WELCOME" },
+    { size = 3.3, offset = 45.0 , color = 0xFFCCCCCC, text = "to the Night City RolePlay" },
+    { size = 2.2, offset = 100.0, color = 0xFFA1A1A1, text = "You need to REGISTER or LOGIN to your account to start." },
+    { size = 2.2, offset = 10.0 , color = 0xFFA1A1A1, text = "See information in the chat." },
+];
+
 function compute(x, y) {
     datastore[x] <- y;
 }
@@ -23,7 +30,6 @@ function has(x) {
 function get(x) {
     return (x in datastore) ? datastore[x] : 0.0;
 }
-
 
 function onSecondChanged() {
     triggerServerEvent("onClientSendFPSData", getFPS());
@@ -37,9 +43,11 @@ function onSecondChanged() {
     );
 }
 
-local screen = getScreenSize();
+local screen  = getScreenSize();
 local screenX = screen[0].tofloat();
 local screenY = screen[1].tofloat();
+local centerX = screenX * 0.5;
+local centerY = screenY * 0.5;
 
 /**
  * Main rendering callback
@@ -47,16 +55,31 @@ local screenY = screen[1].tofloat();
 addEventHandler("onClientFrameRender", function(isGUIdrawn) {
     if (isGUIdrawn) return;
 
-    // on init
-    if (!initialized) {
-        // draw full black screen
-        dxDrawRectangle(0.0, 0.0, screenX, screenY, 0x99000000);
-        return;
-    }
-
     local offset;
     local length;
     local height;
+
+    // on init
+    if (!initialized) {
+        // draw full black screen
+        dxDrawRectangle(0.0, 0.0, screenX, screenY, 0xFF000000);
+
+        height = 0;
+
+        // draw text
+        foreach (idx, value in welcomeTexts) {
+            offset  = dxGetTextDimensions(value.text, value.size, "tahoma-bold")[0].tofloat();
+            height += dxGetTextDimensions(value.text, value.size, "tahoma-bold")[1].tofloat();
+
+            // calculate height offset
+            height += value.offset;
+
+            // draw it
+            dxDrawText(value.text, centerX - (offset * 0.5), height, value.color, false, "tahoma-bold", value.size);
+        }
+
+        return;
+    }
 
     local ROUND_TO_RIGHT_RATIO = 13.6;
 
@@ -184,9 +207,11 @@ addEventHandler("onServerClientStarted", function(version = null) {
     initialized = true;
 });
 
-addEventHandler( "onClientScriptInit", function() {
+addEventHandler("onClientScriptInit", function() {
     setRenderHealthbar(false);
     setRenderNametags(false);
+    sendMessage("You can start playing the game after registeration or login is succesfuly completed.", 0, 177, 106);
+    // sendMessage(format("screenX: %f, screenY: %f", screenX, screenY));
 });
 
 // addEventHandler("onClientProcess", function() {
