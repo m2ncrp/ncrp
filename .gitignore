@@ -1,6 +1,3 @@
-# specials
-config.xml
-
 # folders
 /logs
 /modules
@@ -22,3 +19,6 @@ bans.xml
 
 # different os crap
 .DS_Store
+
+# specials
+config.xml
