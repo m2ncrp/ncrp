@@ -13,10 +13,10 @@ translation("en", {
 "job.docker.nicejob"            : "[DOCKER] You put the box. You earned $%.2f."
 
 "job.docker.help.title"         : "List of available commands for DOCKER JOB:"
-"job.docker.help.job"           : "Get docker job."
-"job.docker.help.jobleave"      : "Leave docker job."
-"job.docker.help.take"          : "Take a box."
-"job.docker.help.put"           : "Put box to warehouse."
+"job.docker.help.job"           : "Get docker job"
+"job.docker.help.jobleave"      : "Leave docker job"
+"job.docker.help.take"          : "Take a box"
+"job.docker.help.put"           : "Put box to warehouse"
 });
 
 translation("ru", {
@@ -44,7 +44,7 @@ include("modules/jobs/docker/commands.nut");
 
 local job_docker = {};
 
-const DOCKER_RADIUS = 5.0;
+const DOCKER_RADIUS = 4.0;
 const DOCKER_JOB_X = -348.205; //Derek Door
 const DOCKER_JOB_Y = -731.48; //Derek Door
 const DOCKER_JOB_Z = -15.4205;
