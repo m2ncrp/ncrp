@@ -41,6 +41,7 @@ function statisticsPushText(type, playerid, content, additional = "") {
 }
 
 function statisticsPushMessage(playerid, message, type = "") {
+    dbg("chat", type, getAuthor(playerid), message);
     return statisticsPushText("message", playerid, message, type);
 }
 
