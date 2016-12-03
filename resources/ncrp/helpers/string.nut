@@ -41,3 +41,26 @@ function isNumeric(value) {
 function floatToString(value) {
     return format("%.0f", value.tofloat());
 }
+
+/**
+ * Strip all non integer data from the string
+ * and return plain, cleared value or 0
+ *
+ * @param  {Mixed} value
+ * @return {Integer}
+ */
+function toInt(value) {
+    if (isInteger(value)) {
+        return value.tointeger();
+    }
+
+    local result = REGEXP_INTEGER.search(value);
+
+    if (result != null) {
+        return value.slice(result.begin, result.end).tointeger();
+    }
+
+    return 0;
+}
+
+toInteger <- toInt;
