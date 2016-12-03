@@ -100,6 +100,12 @@ acmd("who", function(playerid) {
  * KEYBINDS
  */
 addKeyboardHandler("q", "up", function(playerid) {
+    if (isPlayerInVehicle(playerid)) {
+        return switchEngine(getPlayerVehicle(playerid));
+    }
+});
+
+addKeyboardHandler("r", "up", function(playerid) {
     switchLights(playerid);
 });
 
