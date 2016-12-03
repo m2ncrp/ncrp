@@ -15,7 +15,7 @@ cmd("bus", ["route", "list"], function(playerid) {
 
 // usage: /bus route 5
 cmd("bus", "route", function(playerid, route = null) {
-    busJobSelectRoute(playerid, route);
+    busJobSelectRoute(playerid, toInt(route));
 });
 
 // usage: /bus ready

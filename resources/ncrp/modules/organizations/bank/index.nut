@@ -11,17 +11,29 @@ const BANK_X = 64.8113;  //Bank X
 const BANK_Y = -202.754; //Bank Y
 const BANK_Z = -20.2314;
 
-addEventHandlerEx("onServerStarted", function() {
+const BANK_OFFICE_X = -323.211;  //Bank X
+const BANK_OFFICE_Y = -99.6398; //Bank Y
+const BANK_OFFICE_Z = -10.6255;
+
+event("onServerStarted", function() {
     log("[jobs] loading bank...");
     createVehicle(27, 124.65, -240.0, -19.8645, 180.0, 0.0, 0.0);   // securityCAR1
     createVehicle(27, 124.65, -222.5, -19.8645, 180.0, 0.0, 0.0);   // securityCAR2
 
-    //creating 3dtext for bus depot
+    //creating 3dtext for Bank
     create3DText ( BANK_X, BANK_Y, BANK_Z+0.35, "GRAND IMERIAL BANK", CL_ROYALBLUE );
     create3DText ( BANK_X, BANK_Y, BANK_Z+0.20, "/bank", CL_WHITE.applyAlpha(75), BANK_RADIUS );
-
     createBlip(BANK_X, BANK_Y, ICON_MAFIA, 4000.0 )
+
+    //creating 3dtext for Bank Office
+    create3DText ( BANK_OFFICE_X, BANK_OFFICE_Y, BANK_OFFICE_Z+0.35, "GRAND IMERIAL BANK", CL_ROYALBLUE );
+    create3DText ( BANK_OFFICE_X, BANK_OFFICE_Y, BANK_OFFICE_Z+0.20, "/bank", CL_WHITE.applyAlpha(75), BANK_RADIUS );
+    createBlip(BANK_OFFICE_X, BANK_OFFICE_Y, ICON_MAFIA, 4000.0 )
 });
+
+function bankPlayerInValidPoint(playerid) {
+    return (isPlayerInValidPoint(playerid, BANK_X, BANK_Y, BANK_RADIUS) || isPlayerInValidPoint(playerid, BANK_OFFICE_X, BANK_OFFICE_Y, BANK_RADIUS));
+}
 
 function bankGetPlayerDeposit(playerid) {
     return formatMoney(players[playerid]["deposit"]);
@@ -29,7 +41,7 @@ function bankGetPlayerDeposit(playerid) {
 
 function bankAccount(playerid) {
 
-    if(!isPlayerInValidPoint(playerid, BANK_X, BANK_Y, BANK_RADIUS)) {
+    if(!bankPlayerInValidPoint( playerid )) {
         return msg( playerid, "bank.letsgo" );
     }
 
@@ -38,7 +50,7 @@ function bankAccount(playerid) {
 
 function bankDeposit(playerid, amount) {
 
-    if(!isPlayerInValidPoint(playerid, BANK_X, BANK_Y, BANK_RADIUS)) {
+    if(!bankPlayerInValidPoint( playerid )) {
         return msg( playerid, "bank.letsgo" );
     }
 
@@ -62,7 +74,7 @@ function bankDeposit(playerid, amount) {
 
 function bankWithdraw(playerid, amount) {
 
-    if(!isPlayerInValidPoint(playerid, BANK_X, BANK_Y, BANK_RADIUS)) {
+    if(!bankPlayerInValidPoint( playerid )) {
         return msg( playerid, "bank.letsgo" );
     }
 
@@ -85,7 +97,7 @@ function bankWithdraw(playerid, amount) {
 }
 
 
-addEventHandlerEx("onServerHourChange", function() {
+event("onServerHourChange", function() {
 // called every game time minute changes
     foreach (playerid, value in players) {
         if (players[playerid]["deposit"] == 0.0) {
