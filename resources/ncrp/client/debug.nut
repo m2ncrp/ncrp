@@ -223,19 +223,19 @@ addEventHandler("onServerDebugToggle", function() {
     toggler = true;
 });
 
-bindKey("1", "down", function() {
+bindKey("2", "down", function() {
     if (!toggler) return;
     step += step;
     sendMessage("[tp] step is now: " + step);
 });
 
-bindKey("2", "down", function() {
+bindKey("1", "down", function() {
     if (!toggler) return;
     step -= (step / 2);
     sendMessage("[tp] step is now: " + step);
 });
 
-bindKey("w", "down", function() {
+bindKey("space", "down", function() {
     if (!toggler) return;
 
     local size     = getScreenSize();
@@ -248,7 +248,7 @@ bindKey("w", "down", function() {
     triggerServerEvent("onPlayerTeleportRequested", current[0].tofloat() - dx, current[1].tofloat() - dy, current[2] );
 });
 
-bindKey("r", "down", function() {
+bindKey("3", "down", function() {
     if (!toggler) return;
     local current = getPlayerPosition( getLocalPlayer() );
 
@@ -256,7 +256,7 @@ bindKey("r", "down", function() {
 });
 
 
-bindKey("f", "down", function() {
+bindKey("4", "down", function() {
     if (!toggler) return;
     local current = getPlayerPosition( getLocalPlayer() );
 

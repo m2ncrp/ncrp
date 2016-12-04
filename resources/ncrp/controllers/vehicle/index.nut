@@ -2,7 +2,7 @@ include("controllers/vehicle/functions");
 include("controllers/vehicle/commands.nut");
 //include("controllers/vehicle/hiddencars.nut");
 
-const VEHICLE_RESPAWN_TIME      = 600; // 10 minutes
+const VEHICLE_RESPAWN_TIME      = 600; // 10 (real) minutes
 const VEHICLE_FUEL_DEFAULT      = 40.0;
 const VEHICLE_MIN_DIRT          = 0.25;
 const VEHICLE_MAX_DIRT          = 0.75;
@@ -102,6 +102,12 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     // handle vehicle passangers
     addVehiclePassenger(vehicleid, playerid);
 
+    if (seat == 0) {
+        if (vehicleid in __vehicles) {
+            __vehicles[vehicleid].state = true;
+        }
+    }
+
     // check blocking
     if (getVehicleSaving(vehicleid) && seat == 0) {
         if (isPlayerVehicleOwner(playerid, vehicleid)) {
@@ -118,6 +124,18 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
 
     // trigger other events
     trigger("onPlayerVehicleEnter", playerid, vehicleid, seat);
+});
+
+key(["w", "s"], function(playerid) {
+    if (!isPlayerInVehicle(playerid)) {
+        return;
+    }
+
+    local vehicleid = getPlayerVehicle(playerid);
+
+    if (vehicleid in __vehicles) {
+        __vehicles[vehicleid].state = true;
+    }
 });
 
 // handle vehicle exit
