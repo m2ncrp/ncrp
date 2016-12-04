@@ -30,6 +30,18 @@ function translation(language, data) {
     return true;
 }
 
+function dumpTranslations(from, to) {
+    if (!(from in __translations) || !(to in __translations)) {
+        return dbg("unknown pair: ", [from, to]);
+    }
+
+    foreach (idx, value in __translations[from]) {
+        if (!(idx in __translations[to])) {
+            print(idx);
+        }
+    }
+}
+
 /**
  * Try to localize passed value
  * First of all, check if provided language exists
