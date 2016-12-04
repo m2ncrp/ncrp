@@ -81,9 +81,9 @@ acmd("myveh", function(playerid, modelid) {
     local pos = getPlayerPosition( playerid );
     local vehicleid = createVehicle( modelid.tointeger(), pos[0] + 2.0, pos[1], pos[2] + 1.0, 0.0, 0.0, 0.0 );
     // setVehicleColour(vehicleid, 0, 0, 0, 0, 0, 0);
-    setVehicleOwner(vehicleid, "none");
+    setVehicleOwner(vehicleid, "__cityNCRP");
     setVehicleSaving(vehicleid, true); // it will be saved to database
-    setVehicleRespawnEx(vehicleid, true); // it wont respawn
+    setVehicleRespawnEx(vehicleid, false); // it will respawn (specially)
 });
 
 acmd("who", function(playerid) {
