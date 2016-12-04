@@ -2,7 +2,7 @@ name_begin=".:: [RC3] Night City RolePlay (Open Beta Test v"
 name_end=") FREE TODAY :D ::."
 cfg=config.xml
 envFile=globalSettings/env.xml
-versionFile=globalSettings/version.txt
+versionFile=globalSettings/version.ver
 
 branchName=$(git rev-parse --abbrev-ref HEAD)
 
