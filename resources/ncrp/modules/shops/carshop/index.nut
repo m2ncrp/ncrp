@@ -28,14 +28,14 @@ translation("en", {
 translation("ru", {
     "shops.carshop.gotothere"     : "Если вы хотите купить авто, отправляйтесь в Diamond Motors!",
     "shops.carshop.welcome"       : "Добро пожаловать, %s! Если вы хотите купить авто, выберите модель через: /car list",
-    "shops.carshop.nofreespace"   : "К сожалению на парковке нету свободных мест. Попробуйте позже!",
-    "shops.carshop.money.error"   : "К сожалению у вас недостаточно денег.",
-    "shops.carshop.selectmodel"   : "Вы можете просмотреть модели авто и их цены используя: /car list",
-    "shops.carshop.list.title"    : "Выберите модель которая вам подходит, и купите ее используя: /car buy MODELID",
+    "shops.carshop.nofreespace"   : "К сожалению, на парковке нету свободных мест. Зайдите позже.",
+    "shops.carshop.money.error"   : "К сожалению, у вас недостаточно денег.",
+    "shops.carshop.selectmodel"   : "Вы можете посмотреть модели авто и их цены, используя: /car list",
+    "shops.carshop.list.title"    : "Выберите модель, которая вам нравится, и купите её, используя: /car buy MODELID",
     "shops.carshop.list.entry"    : " - Модель #%d, «%s». Цена: $%.2f",
     "shops.carshop.success"       : "Поздравляем! Вы успешно купили автомобиль. Счастливого пути!",
     "shops.carshop.help.title"    : "Список команд, доступных для магазина авто:",
-    "shops.carshop.help.list"     : "Просмотреть список авто, доступных для покупки",
+    "shops.carshop.help.list"     : "Посмотреть список авто, доступных для покупки",
     "shops.carshop.help.buy"      : "Купить авто с указанной моделью",
 });
 
