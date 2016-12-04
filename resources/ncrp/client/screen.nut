@@ -46,6 +46,11 @@ function onSecondChanged() {
 local screen  = getScreenSize();
 local screenX = screen[0].tofloat();
 local screenY = screen[1].tofloat();
+
+if ((screenX / screenY) > 2.0) {
+    screenX = 0.5 * screenX;
+}
+
 local centerX = screenX * 0.5;
 local centerY = screenY * 0.5;
 
