@@ -102,6 +102,12 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     // handle vehicle passangers
     addVehiclePassenger(vehicleid, playerid);
 
+    if (seat == 0) {
+        if (vehicleid in __vehicles) {
+            __vehicles[vehicleid].state = true;
+        }
+    }
+
     // check blocking
     if (getVehicleSaving(vehicleid) && seat == 0) {
         if (isPlayerVehicleOwner(playerid, vehicleid)) {
@@ -118,6 +124,18 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
 
     // trigger other events
     trigger("onPlayerVehicleEnter", playerid, vehicleid, seat);
+});
+
+key(["w", "s"], function(playerid) {
+    if (!isPlayerInVehicle(playerid)) {
+        return;
+    }
+
+    local vehicleid = getPlayerVehicle(playerid);
+
+    if (vehicleid in __vehicles) {
+        __vehicles[vehicleid].state = true;
+    }
 });
 
 // handle vehicle exit
