@@ -22,3 +22,7 @@ bans.xml
 
 # specials
 config.xml
+positions.txt
+
+# env
+.env

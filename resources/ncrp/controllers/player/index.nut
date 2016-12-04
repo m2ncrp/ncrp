@@ -77,7 +77,7 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
 
         delayedFunction(1500, function() {
             trigger("onServerPlayerStarted", playerid);
-            trigger(playerid, "onServerClientStarted", "0.1.49");
+            trigger(playerid, "onServerClientStarted", VERSION);
             trigger(playerid, "onServerIntefaceCharacter", getLocalizedPlayerJob(playerid, "en"), getPlayerLevel(playerid) );
             trigger(playerid, "onServerInterfaceMoney", getPlayerMoney(playerid));
             screenFadeout(playerid, 500);
