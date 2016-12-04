@@ -7,10 +7,10 @@ cmd("rent", "refuse", function(playerid) {
 });
 
 function rentcarHelp ( playerid ) {
-    local title = "List of available commands for Car Rental:";
+    local title = "rentcar.help.title";
     local commands = [
-        { name = "/rent",           desc = "Rent this car (need to be in a car)" },
-        { name = "/rent refuse",    desc = "Refuse from all rented cars" },
+        { name = "/rent",           desc = "rentcar.help.rent" },
+        { name = "/rent refuse",    desc = "rentcar.help.refuse" },
     ];
     msg_help(playerid, title, commands);
 }
