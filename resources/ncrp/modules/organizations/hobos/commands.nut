@@ -1,12 +1,50 @@
+local hoboses = {};
+
 cmd(["dig"], function(playerid) {
-    if ( isHobos(playerid) && !isTimeToDig(playerid) ) {
+    if ( !isTimeToDig(playerid) ) { // isHobos(playerid) && 
         return msg( playerid, "organizations.hobos.tired" );
     }
-    if ( isHobos(playerid) && isNearTrash(playerid) ) {
+    if ( isNearTrash(playerid) ) { // isHobos(playerid) &&
         local found = randomf(minCouldFind, maxCouldFind);
         found = round( found, 2);
         addMoneyToPlayer(playerid, found );
         msg( playerid, "organizations.hobos.trash.found", [found, getPlayerBalance(playerid)] );
-        players[playerid]["digtime"] <- getTimestamp();
+        
+        if (!(playerid in hoboses)) {
+            hoboses[playerid] <- {};
+        }
+        hoboses[playerid].digtime <- getTimestamp();
     }
 });
+
+
+
+
+
+function isHobos(playerid) {
+    return players[playerid]["spawn"] == hobos_spawnID;
+}
+
+
+function isNearTrash(playerid) {
+    foreach (point in hobos_points) {
+        if ( isInRadius(playerid, point[0], point[1], point[2], DIG_RADIUS) ) {
+            return true;
+        }
+    }
+    msg(playerid, "organizations.hobos.trash.toofar", [], CL_YELLOW);
+    return false;
+}
+
+
+function isTimeToDig(playerid) {
+    if (!(playerid in hoboses)) {
+        return true;
+    }
+
+    if (getTimestamp() > (hoboses[playerid].digtime + DIG_TIME_DELAY)) {
+        return true;
+    }
+
+    return false;
+}
