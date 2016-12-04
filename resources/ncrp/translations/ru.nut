@@ -115,6 +115,9 @@ translation("ru", {
 
     "vehicle.owner.warning"             :   "Вы не можете передвигаться в чужом автомобиле."
 
+    "hospital.money.deducted"           :   "Вас выписали из госпиталя. Лечение обошлось вам в $%.2f."
+    "hospital.money.donthave"           :   "У вас недостаточно денег для оплаты полного лечения."
+
     // dont traslate this
     "client.interface.job"              :   "Работа: %s"
     "client.interface.level"            :   "Уровень: %d"

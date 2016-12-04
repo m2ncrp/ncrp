@@ -44,6 +44,45 @@ local userbusstop = [
     [-104.387, 377.106,  -13.9932, "East Side"                       ]   // busst10
 ];
 */
+
+translation("en", {
+    "job.busdriver"                     :   "bus driver"
+    "job.bus.letsgo"                    :   "[BUS] Let's go to bus station in Uptown."
+    "job.bus.needlevel"                 :   "[BUS] You need level %d to become bus driver."
+    "job.bus.driver.not"                :   "[BUS] You're not a bus driver."
+    "job.bus.driver.already"            :   "[BUS] You're bus driver already."
+    "job.bus.driver.now"                :   "[BUS] You're a bus driver now! Congratulations!"
+    "job.bus.ifyouwantstart"            :   "[BUS] You're bus driver. If you want to start route - select route at bus station."
+    "job.bus.route.needselect"          :   "[BUS] You need to select route."
+    "job.bus.route.tochange"            :   "[BUS] To select route use /bus route id"
+    "job.bus.route.noexist"             :   "[BUS] Selected route doesn't exist. Select available route."
+    "job.bus.route.selected"            :   "[BUS] You selected route #%d. Sit into bus."
+    "job.bus.route.needcontinue"        :   "[BUS] Continue current route."
+    "job.bus.route.needcomplete"        :   "[BUS] Complete current route."
+    "job.bus.needbus"                   :   "[BUS] You need a bus."
+    "job.bus.notready"                  :   "[BUS] You aren't ready. Please, report that you are ready via /bus ready."
+    "job.bus.readyalready"              :   "[BUS] You're ready already."
+    "job.bus.gotonextbusstop"           :   "[BUS] Good! Go to next bus stop in %s."
+    "job.bus.gotobusstop"               :   "[BUS] Go to bus stop in %s."
+    "job.bus.driving"                   :   "[BUS] You're driving. Please stop the bus."
+    "job.bus.nicejob"                   :   "[BUS] Nice job! You earned $%.2f"
+
+    "job.bus.help.title"                :   "List of available commands for BUS DRIVER JOB:"
+    "job.bus.help.job"                  :   "Get bus driver job"
+    "job.bus.help.jobleave"             :   "Leave bus driver job"
+    "job.bus.help.routelist"            :   "Show list of available routes"
+    "job.bus.help.route"                :   "Select route. Example: /bus route 3"
+    "job.bus.help.ready"                :   "Go to the route (make the bus ready)"
+    "job.bus.help.busstop"              :   "Check in at the bus stop"
+
+    "job.bus.route.select"              :   "Select one route from available routes:"
+    "job.bus.route.1"                   :   "Uptown - Sand Island Route (7 station)."
+    "job.bus.route.2"                   :   "Uptown - Kingston Route  (7 station)."
+    "job.bus.route.3"                   :   "Right bank of Culver River Route (9 station)."
+    "job.bus.route.4"                   :   "Central Circle Route (12 station)."
+    "job.bus.route.5"                   :   "Big Empire Bay Route (21 station)."
+});
+
 event("onServerStarted", function() {
     log("[jobs] loading busdriver job...");
     createVehicle(20, -436.205, 417.33, 0.908799, 45.8896, -0.100647, 0.237746);
