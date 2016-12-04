@@ -238,3 +238,7 @@ function isPlayerBeenDead(playerid) {
 function setPlayerBeenDead(playerid) {
     lastDeaths[playerid] <- getTimestamp();
 }
+
+function sendPlayerNotification(playerid, type, message) {
+    return trigger(playeridm "onServerAddedNofitication", type, message);
+}
