@@ -1,5 +1,14 @@
 include("modules/organizations/bank/commands.nut");
 
+translation("en", {
+    "bank.letsgo"                       :   "Let's go to building of Grand Imperial Bank at Midtown."
+    "bank.deposit.minimum"              :   "You can't deposit this amount. Minimum deposit is $50."
+    "bank.deposit.notenough"            :   "You can't deposit this amount: not enough money."
+    "bank.withdraw.minimum"             :   "You can't withdraw this amount. Minimum withdrawal amount is $1."
+    "bank.withdraw.notenough"           :   "You can't withdraw this amount: not enough money at account."
+    "bank.provideamount"                :   "You must provide amount."
+    "bank.help.commandslist"            :   "List of available commands for BANK:"
+});
 /*
 [12:40:27] Vehicle iD: 0 is at 20, 128.514, -239.62, -19.8645, 175.759, 0.084436, -0.261477 // BankMidtownHernya
 
