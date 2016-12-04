@@ -1,5 +1,5 @@
 cmd( ["sub", "subway", "metro"], function( playerid, stationID = null ) {
-    travelToStation( playerid, toInteger(stationID) );
+    travelToStation( playerid, stationID );
 });
 
 

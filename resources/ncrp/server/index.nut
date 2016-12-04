@@ -1,3 +1,6 @@
+DEBUG   <- false;
+VERSION <- "0.0.000";
+
 // initialize libraries
 dofile("resources/ncrp/libraries/index.nut", true);
 
@@ -27,6 +30,7 @@ include("helpers/distance.nut");
 include("helpers/commands.nut");
 include("helpers/color.nut");
 include("helpers/translator.nut");
+include("helpers/base64.nut");
 
 // load controllers
 include("controllers/database");
@@ -61,16 +65,55 @@ include("translations/ru.nut");
 // unit testing
 dofile("resources/ncrp/unittests/index.nut", true);
 
+local initializeEnvironment = function() {
+    local envblob = file(".env", "a+");
+
+    // try to read env, or create new
+    if (envblob.eos()) {
+        envblob.writen('d', 'b');
+        DEBUG = true;
+    } else {
+        DEBUG = (envblob.readn('b') == 'd') ? true : false;
+    }
+
+    envblob.close();
+
+    local verblob = file("globalSettings/version.ver", "r");
+    local version = "";
+
+    // try to read data from version
+    for (local i = 1; i < verblob.len(); i++) {
+        version += verblob.readn('b').tochar();
+        verblob.seek(i);
+    }
+
+    if (version) {
+        VERSION = strip(version);
+    }
+
+    verblob.close();
+};
+
 // bind general events
 event("native:onScriptInit", function() {
     log("[core] starting initialization...");
 
-    // trigger pre init events
-    trigger("onScriptInit");
+    initializeEnvironment();
+
+    if (DEBUG) {
+        log("[core] running in DEBUG mode...");
+    } else {
+        log("[core] running in PROD mode...")
+    }
+
+    log(format("[core] running version %s...", VERSION));
 
     // setup default values
     setGameModeText( "NC-RP" );
     setMapName( "Empire Bay" );
+
+    // trigger pre init events
+    trigger("onScriptInit");
 
     // creating playerList storage
     playerList = PlayerList();
@@ -94,7 +137,7 @@ event("native:onServerShutdown", function() {
 event("native:onPlayerConnect", function(playerid, name, ip, serial) {
     trigger("onPlayerConnectInit", playerid, name, ip, serial);
 
-    if (!IS_AUTHORIZATION_ENABLED) {
+    if (!IS_AUTHORIZATION_ENABLED || DEBUG) {
         trigger("onPlayerInit", playerid, name, ip, serial);
     }
 });

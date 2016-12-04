@@ -2,7 +2,7 @@ name_begin=".:: [RC3] Night City RolePlay (Open Beta Test v"
 name_end=") FREE TODAY :D ::."
 cfg=config.xml
 envFile=globalSettings/env.xml
-versionFile=globalSettings/version.txt
+versionFile=globalSettings/version.ver
 
 branchName=$(git rev-parse --abbrev-ref HEAD)
 
@@ -10,7 +10,7 @@ major=$(./XML.EXE sel -t -v "//branch[@name='"$branchName"']/commit/@major" $env
 middle=$(./XML.EXE sel -t -v "//branch[@name='"$branchName"']/commit/@middle" $envFile)
 minor=$(./XML.EXE sel -t -v "//branch[@name='"$branchName"']/commit/@minor" $envFile)
 
-echo "$major.$middle.$minor" >> $versionFile
+echo "$major.$middle.$minor" > $versionFile
 
 echo "<settings>" > $cfg
 echo -e "\t<hostname>$name_begin $major.$middle.$minor$name_end</hostname>" >> $cfg

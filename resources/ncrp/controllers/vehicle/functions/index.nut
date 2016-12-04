@@ -42,7 +42,7 @@ createVehicle = function(modelid, x, y, z, rx, ry, rz) {
             front = -1,
             rear  = -1
         },
-        state = true,
+        state = false,
         fuel = getDefaultVehicleFuel(vehicleid),
     };
 

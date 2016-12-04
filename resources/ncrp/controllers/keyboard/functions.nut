@@ -1,3 +1,7 @@
+const KEY_UP    = "up";
+const KEY_DOWN  = "down";
+const KEY_BOTH  = "both";
+
 local __keyboard = {};
 
 /**
@@ -83,6 +87,31 @@ function triggerKeyboardPress(playerid, key, state) {
         }
     } else {
         return dbg("[keyboard] unknown keybind", key, state);
+    }
+
+    return true;
+}
+
+/**
+ * (Shortcut)
+ * Register keyboard event on key press (down state)
+ *
+ * @param  {Array|String} names
+ * @param  {Function} callback
+ * @return {Boolean}
+ */
+function key(names, callback, state = KEY_DOWN) {
+    if (typeof names != "array") {
+        names = [names];
+    }
+
+    foreach (idx, value in names) {
+        if (state == KEY_UP || state == KEY_DOWN) {
+            addKeyboardHandler(value, state, callback);
+        } else if (state == KEY_BOTH) {
+            addKeyboardHandler(value, KEY_UP  , callback);
+            addKeyboardHandler(value, KEY_DOWN, callback);
+        }
     }
 
     return true;
