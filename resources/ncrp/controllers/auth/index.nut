@@ -166,6 +166,11 @@ addEventHandlerEx("__networkRequest", function(request) {
     }
 });
 
+/**
+ * Get player ip
+ * @param  {Integer} playerid
+ * @return {String}
+ */
 function getPlayerIp(playerid) {
-    return baseData[playerid];
+    return (playerid in baseData) ? baseData[playerid].ip : "0.0.0.0";
 }
