@@ -145,6 +145,7 @@ function cargoJobRemovePrivateBlipText ( playerid ) {
         remove3DText ( job_cargo[playerid]["blip3dtext"][0] );
         remove3DText ( job_cargo[playerid]["blip3dtext"][1] );
         removeBlip   ( job_cargo[playerid]["blip3dtext"][2] );
+        job_cargo[playerid]["blip3dtext"][0] = null;
     }
 }
 
