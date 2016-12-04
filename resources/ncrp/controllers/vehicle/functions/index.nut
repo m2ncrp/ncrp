@@ -42,6 +42,7 @@ createVehicle = function(modelid, x, y, z, rx, ry, rz) {
             front = -1,
             rear  = -1
         },
+        state = true,
         fuel = getDefaultVehicleFuel(vehicleid),
     };
 
@@ -50,6 +51,7 @@ createVehicle = function(modelid, x, y, z, rx, ry, rz) {
     setVehicleDirtLevel(vehicleid, randomf(VEHICLE_MIN_DIRT, VEHICLE_MAX_DIRT));
     setVehiclePlateText(vehicleid, getRandomVehiclePlate());
     setRandomVehicleColors(vehicleid);
+    setVehicleEngineState(vehicleid, false);
 
     // apply overrides
     getVehicleOverride(vehicleid, modelid.tointeger());

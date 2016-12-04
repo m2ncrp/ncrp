@@ -58,8 +58,9 @@ event("onClientDebugToggle", function(playerid) {
 })
 
 event("native:onConsoleInput", function(name, ...) {
-    if (name == "list") {
-        dbg(getPlayers());
+    switch (name) {
+        case "list": dbg(getPlayers()); break;
+        case "adm": sendPlayerMessageToAll("[ADMIN] " + concat(vargv), CL_MEDIUMPURPLE.r, CL_MEDIUMPURPLE.g, CL_MEDIUMPURPLE.b); log("[ADMIN] " + concat(vargv)); break;
     }
 });
 
