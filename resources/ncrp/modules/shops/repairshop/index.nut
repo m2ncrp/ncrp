@@ -9,15 +9,6 @@ translation("en", {
     "shops.repairshop.help.repair"        : "Repair car"
 });
 
-translation("ru", {
-    "shops.repairshop.toofar"             : "Вы слишком далеко от автомастерской!"
-    "shops.repairshop.money.notenough"    : "[АВТОМАСТЕРСКАЯ] Недостаточно денег. Для оплаты ремонта требуется $%.2f, а у вас только $%s."
-    "shops.repairshop.repair.payed"       : "[АВТОМАСТЕРСКАЯ] Ремонт автомобиля обошёлся Вам в $%.2f. Ваш баланс $%s. Будем рады видеть вас снова!"
-
-    "shops.repairshop.help.title"         : "Список команд, доступных в автомастерской:"
-    "shops.repairshop.help.repair"        : "Починить автомобиль"
-});
-
 const SHOP_REPAIR_COST = 75;
 
 const SHOP_REPAIR_3DTEXT_DRAW_DISTANCE = 35.0;

@@ -66,59 +66,10 @@ translation("en", {
     "organizations.police.info.cmds.amnesty"    : "Take out player with given id from prison",
 
     "organizations.police.onrankup"             : "You was rank up to %s",
+    "organizations.police.onbecame"             : "You became a police officer."
     "organizations.police.onleave"              : "You're not a police officer anymore."
+
 });
-
-translation("ru", {
-    "general.admins.serial.get"                 : "Cерийный номер игрока %s: %s",
-
-    "general.message.empty"                     : "[INFO] Вы не можете отправить пустую строку",
-    "general.noonearound"                       : "Рядом с вами никого нет.",
-    "general.job.anotherone"                    : "Вы работаете %s, а не %s!",
-
-    "job.police.officer"                        : "Офицер",
-    "job.police.detective"                      : "Детектив",
-    "job.police.chief"                          : "Шеф Полиции",
-    "organizations.police.job.getmaxrank"       : "Вы достигли максимального звания: %s.",
-
-    "organizations.police.call.withoutaddress"  : "Вы не можете вызвать полицию не указав адреса.",
-    "organizations.police.call.new"             : "[R] поступил вызов от %s из %s",
-    "organizations.police.call.foruser"         : "Вы вызвали такси из %s",
-
-    "organizations.police.crime.wasdone"        : "Лучше бы ты этого не делал..",
-    "organizations.police.alreadyofficer"       : "Вы уже состоите в EBPD.",
-    "organizations.police.notanofficer"         : "Вы не являетесь офицером полиции.",
-    "organizations.police.duty.on"              : "Вы вышли на смену.",
-    "organizations.police.duty.off"             : "Вы закончили свою смену.",
-    "organizations.police.duty.alreadyon"       : "Вы уже начали свою смену.",
-    "organizations.police.duty.alreadyoff"      : "Вы уже закончили свою смену.",
-    "organizations.police.notinpolicevehicle"   : "Вы должны быть в служебной машине!",
-    "organizations.police.ticket.givewithreason": "%s выписал вам штраф за %s. Введите /accept %i.",
-    "organizations.police.offduty.notickets"    : "Вы закончили свою смену и не имеете квитанций с собой.",
-    "organizations.police.offduty.notaser"      : "У вас нет шокера, т.к. вы не полицейский.",
-
-    "organizations.police.shotsomeone.bytaser"  : "Вы выстрелили в %s из шокера.",
-    "organizations.police.beenshot.bytaser"     : "В вас попал снаряд шокера", 
-    "organizations.police.cuff.beencuffed"      : "%s надел на вас наручники",
-    "organizations.police.cuff.someone"         : "Вы арестовали %s",
-    "organizations.police.cuff.beenuncuffed"    : "%s снял с вас наручники",
-    "organizations.police.cuff.uncuffsomeone"   : "Вы сняли наручники с %s",
-
-    "organizations.police.info.howjoin"         : "Если вы хотите пополнить ряды офицеров департамента Empire Bay, напишите администраторам!",
-    "organizations.police.info.cmds.helptitle"  : "Список команд, доступных офицерам полиции:",
-    "organizations.police.info.cmds.ratio"      : "Сказать что-либо в полицейскую рацию",
-    "organizations.police.info.cmds.rupor"      : "Сказать что-либо в рупор служебной машины",
-    "organizations.police.info.cmds.ticket"     : "Выдать штраф игроку с указанным id. Пример: /ticket 0 2.1 превышение скорости",
-    "organizations.police.info.cmds.taser"      : "Обездвижить ближайшего игрока",
-    "organizations.police.info.cmds.cuff"       : "Надеть наручники на ближайшего игрока",
-    "organizations.police.info.cmds.cuff"       : "Снять наручники с ближайшего игрока",
-    "organizations.police.info.cmds.prison"     : "Посадить игрока с указанным id в тюрьму",
-    "organizations.police.info.cmds.amnesty"    : "Вытащить игрока с указанным id из тюрьмы",
-
-    "organizations.police.onrankup"             : "Вы были повышены до %s",
-    "organizations.police.onleave"              : "Вы более не являетесь офицером полиции."
-});
-
 
 
 const RUPOR_RADIUS = 75.0;
@@ -355,7 +306,7 @@ function policeCall(playerid, place) {
  */
 function getPoliceJob(playerid) {
     if( isOfficer(playerid) ) {
-        return msg(playerid, "You're police officer already.");
+        return msg(playerid, "organizations.police.alreadyofficer");
     }
 
     if (isPlayerHaveJob(playerid)) {
@@ -365,7 +316,7 @@ function getPoliceJob(playerid) {
     // set first rank
     setPlayerJob( playerid, setPoliceRank(playerid, 0) );
     policeSetOnDuty(playerid, false);
-    msg(playerid, "You became a police officer.");
+    msg(playerid, "organizations.police.onbecame");
 }
 
 
@@ -384,7 +335,7 @@ function leavePoliceJob(playerid) {
 
     if (isOnPoliceDuty(playerid)) {
         policeSetOnDuty(playerid, false);
-    }    
+    }
     setPlayerJob( playerid, null );
     msg(playerid, "organizations.police.onleave");
 }

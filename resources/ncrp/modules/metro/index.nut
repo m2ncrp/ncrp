@@ -23,29 +23,6 @@ translation("en", {
     "metro.help.metro"                  : "Analog /subway id"
 });
 
-translation("ru", {
-    "metro.toofaraway"                  : "[МЕТРО] Вы находитесь слишком далеко от станции!"
-    "metro.notenoughmoney"              : "[МЕТРО] У вас недостаточно денег!"
-    "metro.pay"                         : "[МЕТРО] Вы заплатили $%.2f за проезд."
-    "metro.arrived"                     : "[МЕТРО] Вы прибыли на станцию %s."
-    "metro.herealready"                 : "[МЕТРО] Вы и так уже здесь."
-    "metro.notexist"                    : "[МЕТРО] Выбранной станции метро не существует."
-    "metro.nocar"                       : "[МЕТРО] Метро - не паром. Выйдите из авто."
-
-    "metro.listStations.title"          : "Список доступных станций метро:"
-    "metro.listStations.station"        : "Станция #%d - %s"
-    "metro.listStations.station.closed" : "Станция #%d - %s (закрыта)"
-
-    "metro.station.closed.maintaince"   : "Станция %s закрыта для по техническим причинам. Пожалуйста, воспользуйтесь другими станциями или используйте общественный транспорт."
-
-    "metro.help.title"                  : "Список доступных комманд для метро:"
-    "metro.help.subway"                 : "Отправиться на станцию по id"
-    "metro.help.subwayList"             : "Посмотреть список всех станций"
-    "metro.help.sub"                    : "Аналог /subway id"
-    "metro.help.metro"                  : "Аналог /subway id"
-
-});
-
 const METRO_RADIUS = 3.8;
 const METRO_TICKET_COST = 0.25;
 
