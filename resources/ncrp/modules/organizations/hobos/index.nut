@@ -2,7 +2,7 @@ include("modules/organizations/hobos/commands.nut");
 
 translation("en", {
     "organizations.hobos.trash.toofar"  : "You are too far from any trash!",
-    "organizations.hobos.tired"         : "You get tired. Take a nap",
+    "organizations.hobos.tired"         : "You got tired. Take a nap.",
     "organizations.hobos.trash.found"   : "You found $%.2f. Now you can buy yourself cookies with $%s."
 });
 
