@@ -10,7 +10,7 @@ major=$(./XML.EXE sel -t -v "//branch[@name='"$branchName"']/commit/@major" $env
 middle=$(./XML.EXE sel -t -v "//branch[@name='"$branchName"']/commit/@middle" $envFile)
 minor=$(./XML.EXE sel -t -v "//branch[@name='"$branchName"']/commit/@minor" $envFile)
 
-echo "$major.$middle.$minor" >> $versionFile
+echo "$major.$middle.$minor" > $versionFile
 
 echo "<settings>" > $cfg
 echo -e "\t<hostname>$name_begin $major.$middle.$minor$name_end</hostname>" >> $cfg
