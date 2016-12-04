@@ -13,6 +13,8 @@ simplecmd("register", function(playerid, password) {
         account = Account();
         account.username = getPlayerName(playerid);
         account.password = md5(password);
+        account.ip       = getPlayerIp(playerid);
+        account.serial   = getPlayerSerial(playerid);
 
         Account.findOneBy({ username = account.username }, function(err, result) {
             if (result) {
@@ -49,6 +51,11 @@ simplecmd("login", function(playerid, password) {
         }, function(err, account) {
             // no accounts found
             if (!account) return msg(playerid, "auth.error.notfound", CL_ERROR);
+
+            // update data
+            account.ip     = getPlayerIp(playerid);
+            account.serial = getPlayerSerial(playerid);
+            account.save();
 
             // save session
             account.addSession(playerid);
