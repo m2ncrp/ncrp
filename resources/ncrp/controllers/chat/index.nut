@@ -28,11 +28,12 @@ translation("ru", {
     "chat.player.try.body"          : "[TRY] %s попытался %s",
     "chat.player.try.end.success"   : "%s (успех).",
     "chat.player.try.end.fail"      : "%s (провал)."
-});
+
     "chat.idea.success"             : "[IDEA] Ваша идея была успешно отправлена!"
     "chat.report.success"           : "[REPORT] Ваш репорт был успешно отправлен!"
     "chat.report.noplayer"          : "[REPORT] Вы не можете создать репорт на игрока который не подключен!"
     "chat.report.error"             : "[REPORT] Вам необходимо отправить репорт в виде: /report ID TEXT"
+});
 
 // settings
 const NORMAL_RADIUS = 20.0;

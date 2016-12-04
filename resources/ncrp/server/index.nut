@@ -31,6 +31,7 @@ include("helpers/commands.nut");
 include("helpers/color.nut");
 include("helpers/translator.nut");
 include("helpers/base64.nut");
+include("helpers/urlencode.nut");
 
 // load controllers
 include("controllers/database");
