@@ -136,7 +136,7 @@ key(["w", "s"], function(playerid) {
     if (vehicleid in __vehicles) {
         __vehicles[vehicleid].state = true;
     }
-});
+}, KEY_BOTH);
 
 // handle vehicle exit
 event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
