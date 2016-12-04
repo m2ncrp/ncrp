@@ -24,6 +24,7 @@ local infoTips = [
     "tips.carrental"    ,
     "tips.report"       ,
     "tips.idea"         ,
+    "tips.discord"      ,
 ];
 
 translation("en", {
@@ -41,6 +42,25 @@ translation("en", {
     "tips.carrental"    :   "[TIPS] If you haven't enough money to buy a car, you can rent it at the Car Rental in North Millville."
     "tips.report"       :   "[TIPS] Saw a cheater? Or player which is braking the rules? Report via: /report ID TEXT"
     "tips.idea"         :   "[TIPS] You have an idea, suggestion, or question? Let us know via: /idea TEXT"
+    "tips.discord"      :   "[TIPS] You can follow our development updates on the official discord server: bit.ly/nc-rp."
+});
+
+translation("ru", {
+    "tips.money.earn"   :   "[TIPS] Вы можете зарабатывать деньги работая на работах. Подробнее: /help job"
+    "tips.money.bank"   :   "[TIPS] Вы можете получать доход от депозита в банке. Отправляйтесь в банк (Желтая инконка на карте)."
+    "tips.car"          :   "[TIPS] Вы можете купить собственный автомобиль в Diamond Motors (Серая иконка шестеренки на карте)."
+    "tips.car.repair"   :   "[TIPS] Вы можете починить свой автомобиль в мастерских. Используйте /repair"
+    "tips.eat"          :   "[TIPS] Вы можете восстанавливать уровень ХП обедая в ресторанах."
+    "tips.police"       :   "[TIPS] Если вы стали свидетелем преступления, вызывайте полицию. Команда: /police МЕСТО"
+    "tips.hobos"        :   "[TIPS] Вы можете найти деньги в мусорных баках. Используйте команду: /dig"
+    "tips.engine.howto" :   "[TIPS] Не забывайте экономить топливо, используйте кнопку Q, или команду /engine off для выключения двигателя."
+    "tips.taxi"         :   "[TIPS] Если вам нужно куда-то добраться, вы можете вызвать такси: /taxi МЕСТО"
+    "tips.metro"        :   "[TIPS] Метро, это удобнный и дешевый способ передвижения. Найдите ближайшую станцию и используйте: /subway"
+    "tips.house"        :   "[TIPS] Вы моежете купить дом, найдите риелтора что бы заключить сделку."
+    "tips.carrental"    :   "[TIPS] Если у вас не хватает денег на авто, вы можете арендовать машину Car Rental в North Millville."
+    "tips.report"       :   "[TIPS] Увидели читера? Или игрока нарушающего правила? Доложите на него испоьзуя: /report ID ТЕКСТ"
+    "tips.idea"         :   "[TIPS] У вас есть идея или предложение, сообщите об этом нам используя команду: /idea ТЕКСТ"
+    "tips.discord"      :   "[TIPS] Вы можете следить за новостями разрабоки на официальном дискорд сервере: bit.ly/nc-rp."
 });
 
 function isPlayerAdmin(playerid) {

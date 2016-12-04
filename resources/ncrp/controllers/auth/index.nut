@@ -83,6 +83,24 @@ translation("en", {
     "auth.error.cmderror"   : "[AUTH] You cant execute commands without registration."
 });
 
+translation("ru", {
+    "auth.wrongname"        : "Имя аккаунта должно быть оригинальным, и иметь формат (Firstname_Lastname)."
+    "auth.changename"       : "Пожалуйста, смените имя аккаунта в настройках и переподключитесь!"
+    "auth.welcome"          : "* Добро пожаловать, %s!"
+    "auth.registered"       : "* Ваш аккаунт зарегистрирован."
+    "auth.notregistered"    : "* Ваш аккаунт не зарегистрирован."
+    "auth.command.register" : "* Зарегистрируйтесь используя /register PASSWORD"
+    "auth.command.regformat": "* Пример: Joe_Barbaro"
+    "auth.command.login"    : "* Войдите в аккаунт используя: /login PASSWORD"
+    "auth.error.logined"    : "[AUTH] Вы уже вошли в аккаунт!"
+    "auth.error.register"   : "[AUTH] Аккаунт с такими именем уже зарегистрирован"
+    "auth.error.notfound"   : "[AUTH] Аккаунт с такими данными не зарегистрирован"
+    "auth.success.register" : "[AUTH] Вы успешно зарегистрировались!"
+    "auth.success.login"    : "[AUTH] Вы успешно вошли в аккаунт!"
+    "auth.error.cmderror"   : "[AUTH] Для выпонения команды вам необходимо войти в аккаунт!"
+});
+
+
 /**
  * Compiled regex object for
  * validation of usernames
@@ -107,12 +125,12 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
     };
 
     // disable for a while
-    if (!REGEX_USERNAME.match(username) && bannedNames.find(username) != null && username != "Inlife") {
-        // return kickPlayer(playerid);
-        msg(playerid, "auth.wrongname", CL_WARNING);
-        msg(playerid, "auth.changename");
-        return;
-    }
+    // if (!REGEX_USERNAME.match(username) && bannedNames.find(username) != null && username != "Inlife") {
+    //     // return kickPlayer(playerid);
+    //     msg(playerid, "auth.wrongname", CL_WARNING);
+    //     msg(playerid, "auth.changename");
+    //     return;
+    // }
 
     Account.findOneBy({ username = username }, function(err, account) {
         msg(playerid, "---------------------------------------------", CL_SILVERSAND);
