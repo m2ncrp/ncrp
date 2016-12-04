@@ -19,6 +19,8 @@ local welcomeTexts = [
     { size = 2.2, offset = 10.0 , color = 0xFFA1A1A1, text = "See information in the chat." },
 ];
 
+local notifications = [];
+
 function compute(x, y) {
     datastore[x] <- y;
 }
@@ -156,10 +158,10 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
     dxDrawText( drawdata.money, get("borders.cx") - ( offset1 / 2 )      , get("borders.y") + 3.0      , 0xFF569267, false, "tahoma-bold", 1.6 );
 
     // draw state
-    dxDrawText( drawdata.state, get("borders.x") + 11.0, get("borders.y") + offset2 + 5.0, 0xFFA1A1A1, false, "tahoma-bold", 1.0);
+    dxDrawText( drawdata.state, get("borders.x") + 11.0, get("borders.y") + offset2 + 5.0, 0xFFA1A1A1, false, "tahoma-bold", 1.0 );
 
     // draw level
-    dxDrawText( drawdata.level, get("borders.x") + 11.0, get("borders.y") + offset2 + 21.0, 0xFFA1A1A1, false, "tahoma-bold", 1.0);
+    dxDrawText( drawdata.level, get("borders.x") + 11.0, get("borders.y") + offset2 + 21.0, 0xFFA1A1A1, false, "tahoma-bold", 1.0 );
 });
 
 /**
@@ -189,6 +191,10 @@ addEventHandler("onServerInterfaceMoney", function(money) {
 
 addEventHandler("onServerFadeScreen", function(time, fadein) {
     fadeScreen(time.tofloat(), fadein);
+});
+
+addEventHandler("onServerAddedNofitication", function(type, data) {
+    notifications.push({ type = type, data = data });
 });
 
 /**
