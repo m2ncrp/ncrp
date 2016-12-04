@@ -2,27 +2,15 @@ include("modules/shops/fuelstations/commands.nut");
 include("modules/shops/fuelstations/functions.nut");
 
 translation("en", {
-    "shops.fuelstations.toofar"             : "You are too far from any fuel station!",
-    "shops.fuelstations.farfromvehicle"     : "You are too far from vehicle.",
-    "shops.fuelstations.stopyourmoves"      : "Please, stop car to fuel up.",
-    "shops.fuelstations.fueltank.check"     : "Fuel level: %.2f gallons.",
-    "shops.fuelstations.fueltank.full"      : "[FUEL] Your fuel tank is full!",
-    "shops.fuelstations.money.notenough"    : "[FUEL] Not enough money. Need $%.2f, but you have only $%s",
-    "shops.fuelstations.fuel.payed"         : "[FUEL] You pay $%.2f for %.2f gallons. Current balance $%s. Come to us again!",
+    "shops.fuelstations.toofar"             : "You are too far from any fuel station!"
+    "shops.fuelstations.farfromvehicle"     : "You are too far from vehicle."
+    "shops.fuelstations.stopyourmoves"      : "Please, stop car to fuel up."
+    "shops.fuelstations.fueltank.check"     : "Fuel level: %.2f gallons."
+    "shops.fuelstations.fueltank.full"      : "[FUEL] Your fuel tank is full!"
+    "shops.fuelstations.money.notenough"    : "[FUEL] Not enough money. Need $%.2f, but you have only $%s"
+    "shops.fuelstations.fuel.payed"         : "[FUEL] You pay $%.2f for %.2f gallons. Current balance $%s. Come to us again!"
 
     "shops.fuelstations.help.fuelup"        : "To fill up vehicle fuel tank"
-});
-
-translation("ru", {
-    "shops.fuelstations.toofar"             : "Вы слишком далеко от заправки!",
-    "shops.fuelstations.farfromvehicle"     : "Вы находитесь не у автомобиля.",
-    "shops.fuelstations.stopyourmoves"      : "Остановите автомобиль, чтобы заправиться.",
-    "shops.fuelstations.fueltank.check"     : "В баке: %.2f литров.",
-    "shops.fuelstations.fueltank.full"      : "[FUEL] Бак полон!",
-    "shops.fuelstations.money.notenough"    : "[FUEL] Недостаточно денег. Для оплаты требуется $%.2f, а у вас только $%s.",
-    "shops.fuelstations.fuel.payed"         : "[FUEL] Вы заплатили $%.2f за %.2f литров. Ваш баланс $%s. Будем рады видеть Вас внова!",
-
-    "shops.fuelstations.help.fuelup"        : "Заправить автомобиль"
 });
 
 const MAX_FUEL_LEVEL = 70.0;

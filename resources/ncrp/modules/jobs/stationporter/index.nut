@@ -19,26 +19,6 @@ translation("en", {
 "job.porter.help.put"           : "Put box to the railway carriage"
 });
 
-translation("ru", {
-"job.porter"                    : "грузчик"
-"job.porter.letsgo"             : "[PORTER] Отправляйтесь внутрь здания вокзала в Dipton."
-"job.porter.already"            : "[PORTER] Ты уже работаешь грузчиком."
-"job.porter.now"                : "[PORTER] Ты стал грузчиком. Давай за работу!"
-"job.porter.takeboxandcarry"    : "[PORTER] Бери ящик и неси к вагону."
-"job.porter.not"                : "[PORTER] Вы не работаете грузчиком."
-"job.porter.takebox"            : "[PORTER] Иди и возьми ящик."
-"job.porter.havebox"            : "[PORTER] Ты уже несёшь ящик. Тебе мало что ли?"
-"job.porter.tookbox"            : "[PORTER] Ты взял ящик. Теперь неси его к вагону."
-"job.porter.haventbox"          : "[PORTER] Ты не брал ящик."
-"job.porter.gotowarehouse"      : "[PORTER] Иди к вагону."
-"job.porter.nicejob"            : "[PORTER] Ты принёс ящик. Твой заработок $%.2f."
-
-"job.porter.help.title"         : "Список команд, доступных грузчику:"
-"job.porter.help.job"           : "Устроиться на работу грузчиком"
-"job.porter.help.jobleave"      : "Уволиться с работы"
-"job.porter.help.take"          : "Взять ящик"
-"job.porter.help.put"           : "Положить ящик к вагону"
-});
 
 include("modules/jobs/stationporter/commands.nut");
 

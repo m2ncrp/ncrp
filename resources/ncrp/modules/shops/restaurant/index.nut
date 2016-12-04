@@ -5,17 +5,11 @@ const DRINK_COST = 0.1;
 const MAX_HEALTH = 800.0;
 
 translation("en", {
-    "shops.restaurant.toofar"               : "[INFO] You're too far.",
+    "shops.restaurant.toofar"               : "[INFO] You're too far."
     // "shops.restaurant.diner.eat.success"    : "You've spend $%.2f on diner.",
     // "shops.restaurant.bar.drink.success"    : "You've spend $%.2f for beer."
-    "shops.restaurant.diner.eat.success"    : "You've eaten some food (free).",
-    "shops.restaurant.bar.drink.success"    : "You've drunk some beer (free).",
-});
-
-translation("ru", {
-    "shops.restaurant.toofar"               : "[INFO] Вы слишком далеко.",
-    "shops.restaurant.diner.eat.success"    : "Вы потратили $%.2f на еду.",
-    "shops.restaurant.bar.drink.success"    : "Вы потратили $%.2f на пиво."
+    "shops.restaurant.diner.eat.success"    : "You've eaten some food (free)."
+    "shops.restaurant.bar.drink.success"    : "You've drunk some beer (free)."
 });
 
 /**
