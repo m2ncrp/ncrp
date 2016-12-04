@@ -9,7 +9,7 @@ translation("en", {
 translation("ru", {
     "organizations.hobos.trash.toofar"  : "Вы далеко от мусорного контейнера!",
     "organizations.hobos.tired"         : "Вы устали, передохните.",
-    "organizations.hobos.trash.found"   : "Вы нашли $%.2f. Всего у вас теперь $%s."
+    "organizations.hobos.trash.found"   : "Вы нашли $%.2f. Теперь у вас $%s."
 });
 
 const hobos_spawnID = 1;

@@ -5,7 +5,7 @@ addEventHandlerEx("onServerStarted", function() {
     log("[vehicles] loading rent cars module...");
 
     rentcars[createVehicle(31, 579.762, 802.5, -12.5, 34.939,  0.37609, -0.0309878)]    <- [ 0.28, "free" ];
-    rentcars[createVehicle(43,  575.099, 802.5, -12.5, 36.7076, 0.287637, 0.0469708)]   <- [ 0.28, "free" ];
+    rentcars[createVehicle(43, 575.099, 802.5, -12.5, 36.7076, 0.287637, 0.0469708)]    <- [ 0.28, "free" ];
     rentcars[createVehicle(53, 570.128, 802.5, -12.5, 38.578,  0.206956, -0.591333)]    <- [ 0.28, "free" ];
     rentcars[createVehicle(50, 565.087, 802.5, -12.5, 40.5424, 0.668225, -0.409561)]    <- [ 0.36, "free" ];
     rentcars[createVehicle(25, 560.053, 802.5, -12.5, 42.1816, 0.300678, 0.0441727)]    <- [ 0.28, "free" ];
@@ -24,6 +24,10 @@ translation("en", {
     "rentcar.canrent"       : "You can rent this car for $%.2f in minute. If you agree: /rent"
     "rentcar.cantrent"      : "You can't drive this car more, because you don't have enough money. Please, get out of the car."
     "rentcar.paidcar"       : "You paid for car. Your balance: $%.2f."
+
+    "rentcar.help.title"    : "List of available commands for CAR RENTAL:"
+    "rentcar.help.rent"     : "Rent this car (need to be in a car)"
+    "rentcar.help.refuse"   : "Refuse from all rented cars"
 });
 
 translation("ru", {
@@ -35,6 +39,10 @@ translation("ru", {
     "rentcar.canrent"       : "Вы можете взять этот автомобиль в аренду за $%.2f в минуту. Если согласны: /rent"
     "rentcar.cantrent"      : "У вас закончились деньги, аренда приостановлена. Пожалуйста, покиньте автомобиль."
     "rentcar.paidcar"       : "Вы заплатили за аренду автомобиля. Ваш баланс: $%.2f."
+
+    "rentcar.help.title"    : "Список команд, доступных для аренды автомобилей:"
+    "rentcar.help.rent"     : "Арендовать автомобиль (нужно быть в автомобиле)"
+    "rentcar.help.refuse"   : "Отказаться от аренды всех автомобилей"
 });
 
 function isPlayerCarRent(playerid) {
