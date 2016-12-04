@@ -1,5 +1,5 @@
 // russian translation
-translation("ru" {
+translation("ru", {
 
     "vehicle.owner.warning"             :   "Вы не можете передвигаться в чужом автомобиле."
     "vehicle.owner.true"                :   "Вы владелец данного авто."
