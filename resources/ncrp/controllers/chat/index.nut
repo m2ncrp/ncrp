@@ -29,6 +29,10 @@ translation("ru", {
     "chat.player.try.end.success"   : "%s (успех).",
     "chat.player.try.end.fail"      : "%s (провал)."
 });
+    "chat.idea.success"             : "[IDEA] Ваша идея была успешно отправлена!"
+    "chat.report.success"           : "[REPORT] Ваш репорт был успешно отправлен!"
+    "chat.report.noplayer"          : "[REPORT] Вы не можете создать репорт на игрока который не подключен!"
+    "chat.report.error"             : "[REPORT] Вам необходимо отправить репорт в виде: /report ID TEXT"
 
 // settings
 const NORMAL_RADIUS = 20.0;
@@ -41,9 +45,6 @@ event("native:onPlayerChat", function(playerid, message) {
         return false;
     }
 
-    // inRadiusSendToAll(playerid, 
-    //     localize("chat.player.says", [getAuthor( playerid ), message], getPlayerLocale(playerid)), 
-    //     NORMAL_RADIUS, CL_YELLOW);
     __commands["ooc"][COMMANDS_DEFAULT](playerid, message);
     return false;
 });
