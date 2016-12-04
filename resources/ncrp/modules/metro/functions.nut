@@ -63,7 +63,7 @@ function travelToStation( playerid, stationID ) {
         return metroShowListStations(playerid);
     }
     
-    local stationID = stationID.tointeger() - 1;
+    local stationID = toInteger(stationID).tointeger() - 1;
 
     if (stationID < METRO_HEAD || stationID > METRO_TAIL) {
         return msg(playerid, "metro.notexist", CL_RED);
