@@ -87,3 +87,23 @@ function triggerKeyboardPress(playerid, key, state) {
 
     return true;
 }
+
+/**
+ * (Shortcut)
+ * Register keyboard event on key press (down state)
+ *
+ * @param  {Array|String} names
+ * @param  {Function} callback
+ * @return {Boolean}
+ */
+function key(names, callback) {
+    if (typeof names != "array") {
+        names = [names];
+    }
+
+    foreach (idx, value in names) {
+        addKeyboardHandler(value, "down", callback);
+    }
+
+    return true;
+}
