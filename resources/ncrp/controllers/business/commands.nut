@@ -53,6 +53,23 @@ acmd("bizc", function(playerid, type, price, income, ...) {
     msg(playerid, "You've created business # " + id);
 });
 
-cmd("biz", "buy", function(playerid, a = 0, b = 0) {
-    msg(playerid, "business.error.cantbuy", CL_WARNING);
+cmd("biz", "buy", function(playerid) {
+    local bizid = getBusinessNearPlayer(playerid);
+
+    if (bizid == null) {
+        return msg(playerid, "business.error.faraway", CL_ERROR);
+    }
+
+    if (getBusinessOwner(bizid) != "") {
+        return msg(playerid, "business.error.owned", CL_ERROR);
+    }
+
+    if (getBusinessPrice(bizid) == false || !canMoneyBeSubstracted(playerid, getBusinessPrice(bizid))) {
+        return msg(playerid, "business.error.cantbuy", CL_ERROR);
+    }
+
+    subMoneyToPlayer(playerid, getBusinessPrice(bizid));
+    setBusinessOwner(bizid, getPlayerName(playerid));
+
+    msg(playerid, "business.purchase.success", [getBusinessName(bizid)], CL_SUCCESS);
 });

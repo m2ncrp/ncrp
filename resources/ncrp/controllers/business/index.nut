@@ -11,6 +11,7 @@ const BUSINESS_BUY_DISTANCE      = 1.0;
 const BUSINESS_VIEW_DISTANCE     = 10.0;
 
 event("onServerStarted", function() {
+    log("[business] loading all businesses...");
     Business.findAll(function(err, results) {
         foreach (idx, business in results) {
             loadBusiness(business);
@@ -19,8 +20,11 @@ event("onServerStarted", function() {
 });
 
 translation("en", {
-    "business.money.income"     : "You've earned %.2f from your business «%s» !",
-    "business.error.cantbuy"    : "You can't buy a business right now!"
+    "business.money.income"     : "You've earned %.2f from your business '%s' !"
+    "business.error.cantbuy"    : "You can't buy that business right now!"
+    "business.error.faraway"    : "You are far away from any business!"
+    "business.error.owned"      : "You cant buy a business which is already owned!"
+    "business.purchase.success" : "You've successfuly purchased '%s'!"
 });
 
 event("onServerStopping", saveBusinesses);
