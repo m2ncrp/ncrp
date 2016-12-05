@@ -1,3 +1,4 @@
+local drawing = true;
 local ticker = null;
 local drawdata = {
     time    = "",
@@ -60,6 +61,7 @@ local centerY = screenY * 0.5;
  * Main rendering callback
  */
 addEventHandler("onClientFrameRender", function(isGUIdrawn) {
+    if (!drawing) return;
     if (isGUIdrawn) return;
 
     local offset;
@@ -195,6 +197,20 @@ addEventHandler("onServerFadeScreen", function(time, fadein) {
 
 addEventHandler("onServerAddedNofitication", function(type, data) {
     notifications.push({ type = type, data = data });
+});
+
+addEventHandler("onServerToggleHudDrawing", function() {
+    drawing = !drawing;
+});
+
+addEventHandler("onClientOpenMap", function() {
+    drawing = false;
+    return 1;
+})
+
+addEventHandler("onClientCloseMap", function() {
+    drawing = true;
+    return 1;
 });
 
 /**
