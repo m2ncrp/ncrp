@@ -146,16 +146,23 @@ event("onPlayerMoneyChanged", function(playerid) {
     }
 });
 
+event("onPlayerConnectInit", function(playerid, name, ip, serial) {
+    // set player colour
+    setPlayerColour(playerid, 0x99FFFFFF); // whity
+});
+
 event("onServerPlayerStarted", function(playerid) {
     local weaponlist = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 21];
     weaponlist.apply(function(id) {
         removePlayerWeapon( playerid, id );
     })
+
+    if (getPlayerName(playerid) == "Inlife") {
+        setPlayerColour(playerid, 0x99FF3333); // admin
+    }
 });
 
 event("native:onPlayerSpawn", function(playerid) {
-    // set player colour
-    setPlayerColour(playerid, 0x99FFFFFF); // whity
 
     // player is not yet logined
     if (!(playerid in players)) {
