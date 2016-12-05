@@ -27,13 +27,13 @@ include("helpers/string.nut");
 include("helpers/math.nut");
 include("helpers/distance.nut");
 include("helpers/color.nut");
-include("helpers/translator.nut");
 include("helpers/base64.nut");
 include("helpers/urlencode.nut");
 
 // load controllers
 include("controllers/command");
 include("controllers/event");
+include("controllers/translator");
 include("controllers/database");
 include("controllers/keyboard");
 include("controllers/waypoints");
