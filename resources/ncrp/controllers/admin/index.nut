@@ -64,6 +64,7 @@ event("native:onConsoleInput", function(name, data) {
         case "list": dbg(getPlayers()); break;
         case "adm": sendPlayerMessageToAll("[ADMIN] " + data, CL_MEDIUMPURPLE.r, CL_MEDIUMPURPLE.g, CL_MEDIUMPURPLE.b); log("[ADMIN] " + data); break;
         case "lang": dumpTranslations(data.slice(0, 2), data.slice(3, 5)); break;
+        case "test": dsdsd(); break;
     }
 });
 

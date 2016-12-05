@@ -45,8 +45,9 @@ function statisticsPushMessage(playerid, message, type = "") {
     return statisticsPushText("message", playerid, message, type);
 }
 
-function statisticsPushCommand(playerid, command) {
-    return statisticsPushText("command", playerid, command);
+function statisticsPushCommand(playerid, command, result = "") {
+    dbg("command", getAuthor(playerid), command, result);
+    return statisticsPushText("command", playerid, command, result);
 }
 
 function statisticsPushPlayers() {
