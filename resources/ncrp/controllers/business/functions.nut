@@ -274,9 +274,9 @@ function calculateBusinessIncome() {
         local playerid = getPlayerIdFromName(biz.owner);
 
         if (playerid != -1) {
-            local amount = randomf(biz.income - 2.5, biz.income + 2.5);
+            local amount = max(0.0, randomf(biz.income - 2.5, biz.income + 2.5));
             addMoneyToPlayer(playerid, amount);
-            msg(playerid, "business.money.income", [amount], CL_SUCCESS);
+            msg(playerid, "business.money.income", [amount, biz.name], CL_SUCCESS);
         }
     }
 }

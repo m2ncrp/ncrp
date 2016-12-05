@@ -20,7 +20,7 @@ event("onServerStarted", function() {
 });
 
 translation("en", {
-    "business.money.income"     : "You've earned %.2f from your business '%s' !"
+    "business.money.income"     : "You've received $%.2f from your business '%s'!"
     "business.error.cantbuy"    : "You can't buy that business right now!"
     "business.error.faraway"    : "You are far away from any business!"
     "business.error.owned"      : "You cant buy a business which is already owned!"
