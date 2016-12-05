@@ -47,6 +47,7 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
             char.dskin   = defaultSkins[random(0, defaultSkins.len() - 1)];
             char.cskin   = char.dskin;
             char.locale  = CHARACTER_DEFAULT_LOCALE;
+            char.health  = 720.0;
 
             // save first-time created entity
             char.save();
@@ -70,6 +71,7 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
         players[playerid]["housey"]       <- char.housey;
         players[playerid]["housez"]       <- char.housez;
         players[playerid]["locale"]       <- char.locale;
+        players[playerid]["health"]       <- char.health;
 
         // notify all that client connected (and data loaded)
         trigger("onPlayerConnect", playerid, name, ip, serial);
@@ -106,6 +108,7 @@ function trySavePlayer(playerid) {
     char.housez  = pos.z;
     char.job     = (players[playerid]["job"]) ? players[playerid]["job"] : "";
     char.locale  = players[playerid]["locale"];
+    char.health  = getPlayerHealth(playerid);
 
     // save it
     char.save();
@@ -189,7 +192,7 @@ event("native:onPlayerSpawn", function(playerid) {
                 players[playerid].housez
             );
 
-            setPlayerHealth(playerid, 730.0);
+            setPlayerHealth(playerid, players[playerid].health);
 
         } else {
 
@@ -200,7 +203,7 @@ event("native:onPlayerSpawn", function(playerid) {
             local z = default_spawns[spawnID][2];
 
             setPlayerPosition(playerid, x, y, z);
-            setPlayerHealth(playerid, 730.0);
+            setPlayerHealth(playerid, players[playerid].health);
         }
 
         delayedFunction(calculateFPSDelay(playerid) + 1500, function() {
