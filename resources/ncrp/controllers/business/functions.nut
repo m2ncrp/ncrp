@@ -15,7 +15,14 @@ function getBusinessInfo(type) {
 }
 
 function loadBusinessResources(entity) {
-    local pricetag = format("(Price: $%.2f, Income: $%.2f) /business buy %d", entity.price, entity.income, entity.servid);
+    local pricetag;
+
+    if (entity.owner == "") {
+        pricetag = format("(Price: $%.2f, Income: $%.2f) /biz buy", entity.price, entity.income, entity.servid);
+    } else {
+        pricetag = format("(Owner: %s, Income: $%.2f)", entity.owner, entity.income);
+    }
+
     entity.text1 = create3DText( entity.x, entity.y, entity.z + 0.35, entity.name, CL_RIPELEMON , BUSINESS_VIEW_DISTANCE);
     entity.text2 = create3DText( entity.x, entity.y, entity.z + 0.05, pricetag, CL_EUCALYPTUS.applyAlpha(125), BUSINESS_BUY_DISTANCE );
 
@@ -80,7 +87,7 @@ function destroyBusiness(bizid) {
     }
 
     freeBusinessResources(businesses[bizid]);
-    businesses[bizid].entity.remove();
+    businesses[bizid].remove();
     delete businesses[bizid];
 }
 
@@ -219,15 +226,13 @@ function setBusinessOwner(bizid, playeridOrName) {
         playeridOrName = getPlayerName(playeridOrName);
     }
 
-    if (playeridOrName) {
-        businesses[bizid].income = playeridOrName;
-        return true;
-    }
+    businesses[bizid].owner = playeridOrName.tostring();
+    businesses[bizid].save();
 
     freeBusinessResources(businesses[bizid]);
     loadBusinessResources(businesses[bizid]);
 
-    return false;
+    return true;
 }
 
 /**
