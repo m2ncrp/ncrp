@@ -205,7 +205,7 @@ addEventHandler("onServerToggleHudDrawing", function() {
 
 addEventHandler("onClientOpenMap", function() {
     drawing = false;
-    return 1;
+    return 1; // enable map (0 to disable)
 })
 
 addEventHandler("onClientCloseMap", function() {
