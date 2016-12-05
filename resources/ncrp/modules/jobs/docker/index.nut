@@ -19,26 +19,6 @@ translation("en", {
 "job.docker.help.put"           : "Put box to warehouse"
 });
 
-translation("ru", {
-"job.docker"                    : "портовый рабочий"
-"job.docker.letsgo"             : "[DOCKER] Отправляйтесь в офис City Port."
-"job.docker.already"            : "[DOCKER] Ты уже работаешь портовым рабочим."
-"job.docker.now"                : "[DOCKER] Ты стал портовым рабочим. Добро пожаловать... в ад! Аха-ха..."
-"job.docker.takeboxandcarry"    : "[DOCKER] Бери ящик и неси на склад."
-"job.docker.not"                : "[DOCKER] Вы не работаете портовым рабочим."
-"job.docker.takebox"            : "[DOCKER] Иди и возьми ящик."
-"job.docker.havebox"            : "[DOCKER] Ты уже несёшь ящик. Тебе мало что ли?"
-"job.docker.tookbox"            : "[DOCKER] Ты взял ящик. Теперь неси его на склад."
-"job.docker.haventbox"          : "[DOCKER] Ты не брал ящик."
-"job.docker.gotowarehouse"      : "[DOCKER] Иди на склад."
-"job.docker.nicejob"            : "[DOCKER] Ты принёс ящик. Твой заработок $%.2f."
-
-"job.docker.help.title"         : "Список команд, доступных портовому рабочему:"
-"job.docker.help.job"           : "Устроиться на работу портовым рабочим"
-"job.docker.help.jobleave"      : "Уволиться с работы"
-"job.docker.help.take"          : "Взять ящик"
-"job.docker.help.put"           : "Положить ящик на склад"
-});
 
 include("modules/jobs/docker/commands.nut");
 
