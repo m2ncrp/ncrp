@@ -4,12 +4,14 @@ translation("en", {
     "organizations.hobos.trash.toofar"  : "You are too far from any trash!",
     "organizations.hobos.tired"         : "You got tired. Take a nap.",
     "organizations.hobos.trash.found"   : "You found $%.2f. Now you can buy yourself cookies with $%s."
+    "organizations.unemployed.income"   : "You've recieved $%.2f as unemployment compensation."
 });
 
 const hobos_spawnID = 1;
 const DIG_RADIUS = 1.5;
 const HOBO_MODEL = 153;
 const DIG_TIME_DELAY = 150; // ~ 5 minutes in game or 2.5 minutes
+const UNEMPLOYED_MONEY_INCOME = 3.0; // randomf(X - 1, X + 2.5)
 
 local hobosSkins = [
     87, 153, 154
@@ -130,5 +132,16 @@ event("onServerStarted", function() {
     //creating public 3dtext
     foreach (trashContainer in hobos_points) {
         create3DText ( trashContainer[0], trashContainer[1], trashContainer[2]+0.35, "Use /dig to find something in that", CL_EUCALYPTUS, DIG_RADIUS );
+    }
+});
+
+event("onServerHourChanged", function() {
+    local amount = randomf(UNEMPLOYED_MONEY_INCOME - 1.0, UNEMPLOYED_MONEY_INCOME + 2.5);
+
+    foreach (playerid, value in players) {
+        if (!getPlayerJob(playerid)) {
+            addMoneyToPlayer(playerid, amount);
+            msg(playerid, "organizations.unemployed.income", [amount], CL_SUCCESS);
+        }
     }
 });
