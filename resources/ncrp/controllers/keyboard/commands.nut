@@ -1,4 +1,4 @@
-cmd("layout", function(playerid, layout = null) {
+simplecmd("layout", function(playerid, layout = null) {
     if (!layout) {
         return msg(playerid, "keyboard.layout.info", CL_INFO);
     }
