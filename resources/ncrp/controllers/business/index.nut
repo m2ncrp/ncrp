@@ -23,12 +23,6 @@ translation("en", {
     "business.error.cantbuy"    : "You can't buy a business right now!"
 });
 
-translation("ru", {
-    "business.money.income"     : "Вы заработали %.2f от вашего бизнеса «%s» !",
-    "business.error.cantbuy"    : "Сейчас у вас нет возможности купить бизнес !"
-});
-
-
 event("onServerStopping", saveBusinesses);
 event("onServerAutosave", saveBusinesses);
 

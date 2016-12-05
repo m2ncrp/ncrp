@@ -176,7 +176,7 @@ event("native:onPlayerSpawn", function(playerid) {
                 msg(playerid, "hospital.money.deducted", [HOSPITAL_AMOUNT], CL_SUCCESS);
                 setPlayerHealth(playerid, 730.0);
             } else {
-                msg(playerid, "hospital.money.donthave", [HOSPITAL_AMOUNT], CL_ERROR);
+                msg(playerid, "hospital.money.donthave", [], CL_ERROR);
                 setPlayerHealth(playerid, 370.0);
             }
 

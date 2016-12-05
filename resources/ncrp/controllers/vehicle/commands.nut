@@ -89,9 +89,9 @@ acmd("myveh", function(playerid, modelid) {
 acmd("who", function(playerid) {
     if (isPlayerInVehicle(playerid)) {
         if (isPlayerVehicleOwner(playerid, getPlayerVehicle(playerid))) {
-            msg(playerid, "You are owner", CL_SNUFF);
+            msg(playerid, "vehicle.owner.true", CL_SNUFF);
         } else {
-            msg(playerid, "You are not an owner", CL_SNUFF);
+            msg(playerid, "vehicle.owner.false", CL_SNUFF);
         }
     }
 });

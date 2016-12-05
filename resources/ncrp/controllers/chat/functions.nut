@@ -105,7 +105,7 @@ function msg_help(playerid, title, commands){
     msg(playerid, title, CL_HELP_TITLE);
 
     foreach (idx, icmd in commands) {
-        local text = icmd.name + "   -   " + localize(icmd.desc, [], getPlayerLocale(playerid));
+        local text = localize(icmd.name, [], getPlayerLocale(playerid)) + "   -   " + localize(icmd.desc, [], getPlayerLocale(playerid));
         if ((idx % 2) == 0) {
             msg(playerid, text, CL_HELP);
         } else {

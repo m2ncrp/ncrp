@@ -30,21 +30,6 @@ translation("en", {
     "rentcar.help.refuse"   : "Refuse from all rented cars"
 });
 
-translation("ru", {
-    "rentcar.goto"          : "Отправляйтесь на парковку авто, предоставляемых в аренду, в North Millville."
-    "rentcar.notrent"       : "Этот автомобиль нельзя арендовать."
-    "rentcar.notenough"     : "У вас недостаточно денег."
-    "rentcar.rented"        : "Вы арендовали этот автомобиль. Отказаться от аренды: /rent refuse"
-    "rentcar.refused"       : "Вы отказались от аренды всех автомобилей. Благодарим за выбор North Millville Car Rental!"
-    "rentcar.canrent"       : "Вы можете взять этот автомобиль в аренду за $%.2f в минуту. Если согласны: /rent"
-    "rentcar.cantrent"      : "У вас закончились деньги, аренда приостановлена. Пожалуйста, покиньте автомобиль."
-    "rentcar.paidcar"       : "Вы заплатили за аренду автомобиля. Ваш баланс: $%.2f."
-
-    "rentcar.help.title"    : "Список команд, доступных для аренды автомобилей:"
-    "rentcar.help.rent"     : "Арендовать автомобиль (нужно быть в автомобиле)"
-    "rentcar.help.refuse"   : "Отказаться от аренды всех автомобилей"
-});
-
 function isPlayerCarRent(playerid) {
     return (getPlayerVehicle(playerid) in rentcars);
 }
