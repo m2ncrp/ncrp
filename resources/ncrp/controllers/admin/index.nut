@@ -25,6 +25,9 @@ local infoTips = [
     "tips.report"       ,
     "tips.idea"         ,
     "tips.discord"      ,
+    "tips.layout"       ,
+    "tips.language"     ,
+    "tips.business"     ,
 ];
 
 translation("en", {
@@ -43,6 +46,9 @@ translation("en", {
     "tips.report"       :   "[TIPS] Saw a cheater? Or player which is braking the rules? Report via: /report ID TEXT"
     "tips.idea"         :   "[TIPS] You have an idea, suggestion, or question? Let us know via: /idea TEXT"
     "tips.discord"      :   "[TIPS] You can follow our development updates on the official discord server: bit.ly/nc-rp."
+    "tips.layout"       :   "[TIPS] You can change keyboard layout (all binds will remain on same positions as for qwerty). Use /layout"
+    "tips.language"     :   "[TIPS] You can change language at any time. Currently available language packs are: (/en, /ru)"
+    "tips.business"     :   "[TIPS] You can purchase any business (while staning near it), via: /business buy"
 });
 
 function isPlayerAdmin(playerid) {

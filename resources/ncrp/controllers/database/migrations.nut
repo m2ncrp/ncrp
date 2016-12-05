@@ -63,10 +63,15 @@ migrate(function(connection) {
     connection.query("ALTER TABLE tbl_characters ADD COLUMN `health` FLOAT(255) NOT NULL DEFAULT 720.0;");
 });
 
-
 // 05.11.16
-// added character health saving
+// added account locale saving
 migrate(function(connection) {
     connection.query("ALTER TABLE tbl_accounts ADD COLUMN `locale` VARCHAR(255) NOT NULL DEFAULT 'en';");
+});
+
+// 05.11.16
+// added account layout saving
+migrate(function(connection) {
+    connection.query("ALTER TABLE tbl_accounts ADD COLUMN `layout` VARCHAR(255) NOT NULL DEFAULT 'qwerty';");
 });
 

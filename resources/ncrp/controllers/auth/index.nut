@@ -120,6 +120,7 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
         // override player locale if registered
         if (account) {
             setPlayerLocale(playerid, account.locale);
+            setPlayerLayout(playerid, account.layout, false);
         }
 
         msg(playerid, "---------------------------------------------", CL_SILVERSAND);
@@ -153,6 +154,12 @@ event("onPlayerDisconnect", function(playerid, reason) {
 
     delete baseData[playerid];
     delete accounts[playerid];
+});
+
+event("onPlayerAccountChanged", function(playerid) {
+    if (!(playerid in accounts)) return;
+
+    accounts[playerid].save();
 });
 
 /**

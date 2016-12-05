@@ -3,6 +3,8 @@ const KEY_DOWN  = "down";
 const KEY_BOTH  = "both";
 
 local __keyboard = {};
+local __layouts  = {};
+local __playerLayouts = {};
 
 /**
  * Add key bind handler for client
@@ -14,17 +16,16 @@ local __keyboard = {};
  * @param {Function} callback -  only one argument of callback will be playerid
  */
 function addKeyboardHandler(key, state, callback) {
-    local name = key + "_" + state;
+    local name = key.tolower() + "_" + state.tolower();
 
     if (!(name in __keyboard)) {
-        __keyboard[name] <- { key = key, state = state, callbacks = [callback] };
+        __keyboard[name] <- { key = key.tolower(), state = state.tolower(), callbacks = [callback] };
 
         // playerList.each(function(playerid) {
         //     triggerClientEvent("onServerKeyboardRegistration", key, state);
         // });
     } else {
         __keyboard[name].callbacks.push(callback);
-        // return dbg("[keyboard] already registered", key, state);
     }
 }
 
@@ -36,7 +37,7 @@ function addKeyboardHandler(key, state, callback) {
  * @param {string}   state - ["up", "down"]
  */
 function removeKeyboardHandler(key, state) {
-    local name = key + "_" + state;
+    local name = key.tolower() + "_" + state.tolower();
 
     if (name in __keyboard) {
         // playerList.each(function(playerid) {
@@ -56,17 +57,18 @@ function removeKeyboardHandler(key, state) {
  */
 function sendKeyboardRegistration(playerid) {
     foreach (idx, value in __keyboard) {
-        triggerClientEvent(playerid, "onServerKeyboardRegistration", value.key, value.state);
+        triggerClientEvent(playerid, "onServerKeyboardRegistration", getPKey(value.key, playerid), value.state);
     }
 }
 
 /**
+ * @deprecated
  * Send unregistering keyboard events to player by id
  * @param  {int} playerid
  */
 function sendKeyboardUnregistration(playerid) {
     foreach (idx, value in __keyboard) {
-        triggerClientEvent(playerid, "onServerKeyboardUnregistration", value.key, value.state);
+        triggerClientEvent(playerid, "onServerKeyboardUnregistration", getPKey(value.key, playerid), value.state);
     }
 }
 
@@ -79,7 +81,7 @@ function sendKeyboardUnregistration(playerid) {
  * @return {bool}
  */
 function triggerKeyboardPress(playerid, key, state) {
-    local name = key + "_" + state;
+    local name = getRKey(key, playerid) + "_" + state;
 
     if (name in __keyboard) {
         foreach (idx, __callback in __keyboard[name].callbacks) {
@@ -115,4 +117,137 @@ function key(names, callback, state = KEY_DOWN) {
     }
 
     return true;
+}
+
+/**
+ * Register new layout mapping by given name
+ * @param {String} name
+ * @param {Table} mapping
+ */
+function addKeyboardLayout(name, mapping) {
+    local reverse = {};
+
+    foreach (idx, value in mapping) {
+        reverse[value] <- idx;
+    }
+
+    return __layouts[name] <- {
+        straight = mapping,
+        reverse  = reverse
+    };
+}
+
+/**
+ * Get array with registered layout names
+ * @return {Array}
+ */
+function getKeyboardLayouts() {
+    local keys = [];
+
+    foreach (idx, value in __layouts) {
+        keys.push(idx);
+    }
+
+    return keys;
+}
+
+/**
+ * Set player layout name to given one
+ * @param {Integer} playerid
+ * @param {String} name
+ * @return {Boolean}
+ */
+function setPlayerLayout(playerid, name, resend = true) {
+    if (!(name in __layouts)) {
+        return false;
+    }
+
+    // if (resend) {
+    //     sendKeyboardUnregistration(playerid);
+    // }
+
+    // just change
+    __playerLayouts[playerid] <- name;
+
+    Account.getSession(playerid, function(err, account) {
+        if (err || !account) return;
+        account.layout = name;
+        account.save();
+    });
+
+    // should resend new mappings ?
+    if (resend) {
+        sendKeyboardRegistration(playerid);
+    }
+
+    return true;
+}
+
+/**
+ * Get registered player layout name
+ * @param  {Integer} playerid
+ * @return {String}
+ */
+function getPlayerLayout(playerid) {
+    if (!(playerid in __playerLayouts)) {
+        return "qwerty";
+    }
+
+    return __playerLayouts[playerid];
+}
+
+/**
+ * Apply mapping substitution for key
+ * with give layout name
+ *
+ * @param  {String} key
+ * @param  {String} name layout
+ * @return {String}
+ */
+function applyLayoutMapping(key, name) {
+    if (!(name in __layouts)) {
+        name = "qwerty";
+    }
+
+    return (key in __layouts[name].straight) ? __layouts[name].straight[key] : key;
+}
+
+/**
+ * Apply reverse mapping substitution for key
+ * with give layout name
+ *
+ * @param  {String} key
+ * @param  {String} name layout
+ * @return {String}
+ */
+function applyReverseLayoutMapping(key, name) {
+    if (!(name in __layouts)) {
+        name = "qwerty";
+    }
+
+    return (key in __layouts[name].reverse) ? __layouts[name].reverse[key] : key;
+}
+
+/**
+ * Get substituded key
+ * registered for particular player using his layout
+ *
+ * @param  {String} key
+ * @param  {Integer} playerid
+ * @return {String}
+ */
+function getPKey(key, playerid) {
+    return applyLayoutMapping(key.tolower(), getPlayerLayout(playerid))
+}
+
+/**
+ * Get reverse substituded key
+ * registered for particular player using his layout
+ *
+ * @param  {String} key
+ * @param  {Integer} playerid
+ * @return {String}
+ */
+function getRKey(key, playerid) {
+    return applyReverseLayoutMapping(key.tolower(), getPlayerLayout(playerid))
 }
