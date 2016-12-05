@@ -18,7 +18,7 @@ function loadBusinessResources(entity) {
     local pricetag;
 
     if (entity.owner == "") {
-        pricetag = format("(Price: $%.2f, Income: $%.2f) /biz buy", entity.price, entity.income, entity.servid);
+        pricetag = format("(Price: $%.2f, Income: $%.2f) /business buy", entity.price, entity.income, entity.servid);
     } else {
         pricetag = format("(Owner: %s, Income: $%.2f)", entity.owner, entity.income);
     }

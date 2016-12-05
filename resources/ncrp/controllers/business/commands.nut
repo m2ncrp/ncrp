@@ -53,7 +53,7 @@ acmd("bizc", function(playerid, type, price, income, ...) {
     msg(playerid, "You've created business # " + id);
 });
 
-cmd("biz", "buy", function(playerid) {
+cmd("business", "buy", function(playerid) {
     local bizid = getBusinessNearPlayer(playerid);
 
     if (bizid == null) {

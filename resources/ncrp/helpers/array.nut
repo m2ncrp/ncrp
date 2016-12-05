@@ -1,6 +1,6 @@
-function concat(vars) {
+function concat(vars, symbol = " ") {
     return vars.reduce(function(carry, item) {
-        return item ? carry + " " + item : "";
+        return item ? carry + symbol + item : "";
     });
 }
 
