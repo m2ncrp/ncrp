@@ -9,7 +9,7 @@ translation("en", {
     "shops.repairshop.help.repair"        : "Repair car"
 });
 
-const SHOP_REPAIR_COST = 54.99;
+const SHOP_REPAIR_COST = 49.99;
 
 const SHOP_REPAIR_3DTEXT_DRAW_DISTANCE = 35.0;
 const SHOP_REPAIR_RADIUS = 4.0;
