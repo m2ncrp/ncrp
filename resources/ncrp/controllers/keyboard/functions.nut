@@ -88,7 +88,7 @@ function triggerKeyboardPress(playerid, key, state) {
             __callback(playerid);
         }
     } else {
-        return dbg("[keyboard] unknown keybind", key, state);
+        // return dbg("[keyboard] unknown keybind", key, state);
     }
 
     return true;
