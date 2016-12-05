@@ -8,7 +8,6 @@ playerList <- {};
 
 const CHARACTER_DEFAULT_SKIN   = 10;
 const CHARACTER_DEFAULT_MONEY  = 1.75;
-const CHARACTER_DEFAULT_LOCALE = "en";
 
 const DEFAULT_SPAWN_SKIN = 10;
 const DEFAULT_SPAWN_X    = -1684.52;
@@ -46,7 +45,6 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
             char.money   = randomf(5.0, 17.0);
             char.dskin   = defaultSkins[random(0, defaultSkins.len() - 1)];
             char.cskin   = char.dskin;
-            char.locale  = CHARACTER_DEFAULT_LOCALE;
             char.health  = 720.0;
 
             // save first-time created entity
@@ -70,7 +68,6 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
         players[playerid]["housex"]       <- char.housex;
         players[playerid]["housey"]       <- char.housey;
         players[playerid]["housez"]       <- char.housez;
-        players[playerid]["locale"]       <- char.locale;
         players[playerid]["health"]       <- char.health;
 
         // notify all that client connected (and data loaded)
@@ -107,7 +104,6 @@ function trySavePlayer(playerid) {
     char.housey  = pos.y;
     char.housez  = pos.z;
     char.job     = (players[playerid]["job"]) ? players[playerid]["job"] : "";
-    char.locale  = players[playerid]["locale"];
     char.health  = getPlayerHealth(playerid);
 
     // save it
@@ -159,6 +155,11 @@ event("onServerPlayerStarted", function(playerid) {
 
     if (getPlayerName(playerid) == "Inlife") {
         setPlayerColour(playerid, 0x99FF3333); // admin
+    }
+
+    // clear chat
+    for (local i = 0;i < 12; i++) {
+        msg(playerid, "", CL_BLACK);
     }
 });
 

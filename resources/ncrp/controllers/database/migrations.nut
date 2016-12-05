@@ -57,8 +57,16 @@ migrate(function(connection) {
     connection.query("ALTER TABLE tbl_accounts ADD COLUMN `serial` VARCHAR(255) NOT NULL DEFAULT '';");
 });
 
-// 26.11.16
+// 05.11.16
 // added character health saving
 migrate(function(connection) {
     connection.query("ALTER TABLE tbl_characters ADD COLUMN `health` FLOAT(255) NOT NULL DEFAULT 720.0;");
 });
+
+
+// 05.11.16
+// added character health saving
+migrate(function(connection) {
+    connection.query("ALTER TABLE tbl_accounts ADD COLUMN `locale` VARCHAR(255) NOT NULL DEFAULT 'en';");
+});
+

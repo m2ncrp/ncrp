@@ -15,7 +15,6 @@ class Character extends ORM.Entity {
         ORM.Field.Float     ({ name = "housez",     value = 0.0     }),
         ORM.Field.Integer   ({ name = "xp",         value = 0       })
         ORM.Field.Float     ({ name = "deposit",    value = 0.0     }),
-        ORM.Field.String    ({ name = "locale",     value = "en"    }),
         ORM.Field.Float     ({ name = "health",     value = 720.0   }),
     ];
 

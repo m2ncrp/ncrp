@@ -1,5 +1,6 @@
 // russian translation
 translation("ru", {
+    "language.change.success"           :   "Вы успешно изменили язык интерфейса на русский!"
 
     "vehicle.owner.warning"             :   "Вы не можете передвигаться в чужом автомобиле."
     "vehicle.owner.true"                :   "Вы владелец данного авто."

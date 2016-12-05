@@ -1,5 +1,6 @@
 // general
 translation("en", {
+    "language.change.success"           :   "You've successfully changed language to English!"
 
     "vehicle.owner.warning"             :   "You cant drive a car which doesn't belong to you"
     "vehicle.owner.true"                :   "You are owner."

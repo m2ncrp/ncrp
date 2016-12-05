@@ -15,6 +15,7 @@ simplecmd("register", function(playerid, password) {
         account.password = md5(password);
         account.ip       = getPlayerIp(playerid);
         account.serial   = getPlayerSerial(playerid);
+        account.locale   = getPlayerLocale(playerid);
 
         Account.findOneBy({ username = account.username }, function(err, result) {
             if (result) {

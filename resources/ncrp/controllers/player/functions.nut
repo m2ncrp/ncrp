@@ -74,35 +74,6 @@ function isPlayerInValidPoint3D(playerid, X, Y, Z, radius) {
     return isPointInCircle3D( plaPos[0], plaPos[1], plaPos[2], X, Y, Z, radius );
 }
 
-/**
- * Return current player locale
- *
- * @param  {Integer} playerid
- * @return {String}
- */
-function getPlayerLocale(playerid) {
-    if (playerid in players && "locale" in players[playerid]) {
-        return players[playerid]["locale"];
-    }
-
-    return "en";
-}
-
-/**
- * Set current player locale
- *
- * @param  {Integer} playerid
- * @return {String}
- */
-function setPlayerLocale(playerid, locale = "en") {
-    if (playerid in players) {
-        players[playerid]["locale"] <- locale;
-        return true;
-    }
-
-    return false;
-}
-
 function checkLevel(exp) {
     local q = 2.45;
     local a1 = 140;

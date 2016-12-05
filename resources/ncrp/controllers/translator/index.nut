@@ -1,3 +1,5 @@
+include("controllers/translator/commands.nut");
+
 local __translations = {};
 
 /**
