@@ -20,20 +20,20 @@ include("models/Business.nut");
 
 // load helpers
 include("helpers/vector.nut");
-include("helpers/events.nut");
 include("helpers/assert.nut");
 include("helpers/array.nut");
 include("helpers/function.nut");
 include("helpers/string.nut");
 include("helpers/math.nut");
 include("helpers/distance.nut");
-include("helpers/commands.nut");
 include("helpers/color.nut");
 include("helpers/translator.nut");
 include("helpers/base64.nut");
 include("helpers/urlencode.nut");
 
 // load controllers
+include("controllers/command");
+include("controllers/event");
 include("controllers/database");
 include("controllers/keyboard");
 include("controllers/waypoints");
