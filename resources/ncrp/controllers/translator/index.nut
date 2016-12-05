@@ -30,6 +30,9 @@ function translation(language, data) {
     return true;
 }
 
+translator <- translation;
+translate  <- translation;
+
 function dumpTranslations(from, to) {
     if (!(from in __translations) || !(to in __translations)) {
         return dbg("unknown pair: ", [from, to]);
@@ -70,6 +73,10 @@ function localize(value, params = [], language = "en") {
 
     // return `value` if replaces are not found
     return value;
+}
+
+function plocalize(playerid, value, params = []) {
+    return localize(value, params, getPlayerLocale(playerid));
 }
 
 /**
