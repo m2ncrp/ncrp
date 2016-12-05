@@ -238,6 +238,9 @@ addEventHandler("onClientScriptInit", function() {
     setRenderHealthbar(false);
     setRenderNametags(false);
     sendMessage("You can start playing the game after registeration or login is succesfuly completed.", 0, 177, 106);
+    sendMessage("");
+    sendMessage("We have a support for english language. Switch via: /en", 247,  202, 24);
+    sendMessage("У нас есть поддержка русского языка. Включить: /ru", 247,  202, 24);
     // sendMessage(format("screenX: %f, screenY: %f", screenX, screenY));
 });
 

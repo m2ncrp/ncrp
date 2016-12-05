@@ -104,7 +104,8 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
         playerid = playerid,
         username = username,
         ip = ip,
-        serial = serial
+        serial = serial,
+        locale = "en"
     };
 
     // disable for a while
@@ -116,6 +117,11 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
     // }
 
     Account.findOneBy({ username = username }, function(err, account) {
+        // override player locale if registered
+        if (account) {
+            setPlayerLocale(playerid, account.locale);
+        }
+
         msg(playerid, "---------------------------------------------", CL_SILVERSAND);
         msg(playerid, "auth.welcome", username);
 
@@ -174,4 +180,48 @@ addEventHandlerEx("__networkRequest", function(request) {
  */
 function getPlayerIp(playerid) {
     return (playerid in baseData) ? baseData[playerid].ip : "0.0.0.0";
+}
+
+/**
+ * Return current player locale
+ *
+ * @param  {Integer} playerid
+ * @return {String}
+ */
+function getPlayerLocale(playerid) {
+    if (playerid in accounts) {
+        return accounts[playerid].locale;
+    }
+
+    if (playerid in baseData) {
+        return baseData[playerid].locale;
+    }
+
+    return "en";
+}
+
+/**
+ * Set current player locale
+ *
+ * @param  {Integer} playerid
+ * @return {String}
+ */
+function setPlayerLocale(playerid, locale = "en") {
+    if (playerid in accounts) {
+        accounts[playerid].locale = locale;
+        accounts[playerid].save();
+        return true;
+    }
+
+    if (!(playerid in baseData)) {
+        baseData[playerid] <- { locale = locale }
+        return true;
+    }
+
+    if (playerid in baseData) {
+        baseData[playerid].locale = locale;
+        return true;
+    }
+
+    return false;
 }
