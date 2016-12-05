@@ -8,6 +8,7 @@ class Account extends ORM.Entity {
         ORM.Field.String({ name = "password" }),
         ORM.Field.String({ name = "ip" }),
         ORM.Field.String({ name = "serial" }),
+        ORM.Field.Float ({ name = "money" }),
         ORM.Field.String({ name = "locale", value = "en" }),
         ORM.Field.String({ name = "layout", value = "qwerty "}),
     ];
