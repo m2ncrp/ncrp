@@ -18,6 +18,30 @@ translation("en", {
     "chat.report.error"             : "[REPORT] You should provide report in a following format: /report ID TEXT"
 });
 
+// help
+translation("en", {
+    "help.chat"        : "Show list of commands for chat"
+    "help.subway"      : "Show list of commands for subway"
+    "help.taxi"        : "Show list of commands for taxi"
+    "help.rentcar"     : "Show list of commands for rent car"
+    "help.job"         : "Show list of commands for job. Example: /help job taxi"
+    "help.ban"         : "Show list of commands for bank"
+    "help.cars"        : "Show list of commands for cars"
+    "help.fuel"        : "Show list of commands for fuel stations"
+    "help.repair"      : "Show list of commands for repiair shop"
+    "help.report"      : "Report about player which is braking the rules"
+    "help.idea"        : "Send your idea to developers"
+});
+
+translation("en", {
+    "help.chat.say"         : "Put your text in local RP chat"
+    "help.chat.shout"       : "Your message could be heard far enough :)"
+    "help.chat.whisper"     : "Say something to nearest player very quiet"
+    "help.chat.localooc"    : "Local nonRP chat"
+    "help.chat.ooc"         : "Global nonRP chat"
+    "help.chat.me"          : "Some action of your person"
+    "help.chat.try"         : "Any action simulation that could be failed"
+});
 
 // settings
 const NORMAL_RADIUS = 20.0;
