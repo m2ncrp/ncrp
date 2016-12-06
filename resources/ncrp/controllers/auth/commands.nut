@@ -23,7 +23,11 @@ simplecmd("register", function(playerid, password) {
             } else {
                 account.save(function(err, result) {
                     account.addSession(playerid);
+
+                    // send success registration message
                     msg(playerid, "auth.success.register", CL_SUCCESS);
+                    dbg("registration", getAuthor(playerid));
+
                     screenFadein(playerid, 250, function() {
                         trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
                     });
@@ -60,7 +64,11 @@ simplecmd("login", function(playerid, password) {
 
             // save session
             account.addSession(playerid);
+
+            // send message success
             msg(playerid, "auth.success.login", CL_SUCCESS);
+            dbg("login", getAuthor(playerid));
+
             screenFadein(playerid, 250, function() {
                 trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
             });
