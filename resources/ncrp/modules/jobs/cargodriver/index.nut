@@ -18,8 +18,9 @@ translation("en", {
 "job.cargodriver.takemoney"     : "[CARGO] Go to Seagift's office and take your money."
 "job.cargodriver.needcomplete"  : "[CARGO] You must complete delivery before."
 "job.cargodriver.nicejob"       : "[CARGO] Nice job, %s! Keep $%.2f."
+"job.cargodriver.wantagain"     : "[CARGO] If you want to go to route again - sit into cargo truck and go to warehouse P3 06 at Port."
 
-"job.cargodriver.help.title"            :   "List of available commands for CARGO TRCUK DRIVER:"
+"job.cargodriver.help.title"            :   "List of available commands for CARGO TRUCK DRIVER:"
 "job.cargodriver.help.job"              :   "Get cargo truck driver job"
 "job.cargodriver.help.jobleave"         :   "Leave cargo truck driver job"
 "job.cargodriver.help.load"             :   "Load cargo into truck"
@@ -291,4 +292,10 @@ function cargoJobFinish( playerid ) {
     job_cargo[playerid]["cargostatus"] = false;
     msg( playerid, "job.cargodriver.nicejob", [getPlayerName( playerid ), CARGO_JOB_SALARY], CARGO_JOB_COLOR );
     addMoneyToPlayer(playerid, CARGO_JOB_SALARY);
+
+    delayedFunction(2000, function() {
+        msg( playerid, "job.cargodriver.wantagain", CARGO_JOB_COLOR );
+        job_cargo[playerid]["blip3dtext"] = cargoJobCreatePrivateBlipText(playerid, CARGO_JOB_LOAD_X, CARGO_JOB_LOAD_Y, CARGO_JOB_LOAD_Z, "LOAD HERE", "/cargo load");
+    });
+
 }
