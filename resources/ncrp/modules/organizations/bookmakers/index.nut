@@ -108,8 +108,9 @@ function bkCreateBaseData() {
 
 function bkSelectFixedAmount(type, amount) {
     local data = [];
+    local source = shuffle(bkLoadedData.records);
 
-    foreach (idx, value in bkLoadedData.records) {
+    foreach (idx, value in source) {
         if (data.len() >= amount) break;
         if (value.type == type) data.push(value);
     }
