@@ -4,3 +4,4 @@ include("modules/organizations/mobs");
 include("modules/organizations/gangs");
 include("modules/organizations/hobos");
 include("modules/organizations/bank");
+include("modules/organizations/bookmakers");
