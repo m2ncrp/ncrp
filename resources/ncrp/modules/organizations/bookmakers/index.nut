@@ -1,9 +1,16 @@
 include("modules/organizations/bookmakers/models/SportEntries.nut");
 
 const BK_RADIUS = 4.0;
+/*
 const BK_X = -669.88;
 const BK_Y = -98.718;
 const BK_Z = 1.03804;
+*/
+
+const BK_X = -416.889;
+const BK_Y = 474.576;
+const BK_Z = -0.238935;
+
       BK_COLOR <- CL_PICTONBLUEDARK;
 
 local bkSpotTypes = [
@@ -153,7 +160,10 @@ function bkOpen ( playerid, sport = null ) {
         msg( playerid, "bk.selecthorse", BK_COLOR);
 
         local data = bkSelectFixedAmount("horserace", 8);
-        dbg(data);
+
+        foreach (idx, value in data) {
+            dbg(value.title);
+        }
         return;
     }
 
