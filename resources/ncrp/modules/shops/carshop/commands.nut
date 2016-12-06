@@ -31,6 +31,8 @@ cmd("car", "list", function(playerid, page = 1) {
  * Usage: /car buy
  */
 cmd("car", "buy", function(playerid, modelid = null) {
+    local modelid = toInteger(modelid);
+
     if (!isPlayerNearCarShop(playerid)) {
         return msg(playerid, "shops.carshop.gotothere", getPlayerName(playerid), CL_WARNING);
     }
@@ -69,6 +71,7 @@ cmd("car", "buy", function(playerid, modelid = null) {
     setVehicleSaving(vehicleid, true);
     setVehicleRespawnEx(vehicleid, false);
     setVehicleDirtLevel(vehicleid, 0.0);
+    repairVehicle(vehicleid);
 
     return msg(playerid, "shops.carshop.success", CL_SUCCESS);
 });

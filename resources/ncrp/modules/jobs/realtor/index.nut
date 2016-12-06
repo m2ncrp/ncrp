@@ -1,23 +1,12 @@
 translation("en", {
-"job.realtor" : "realtor"
-"job.realtor.not" : "You're not a realtor."
-"job.realtor.sendinvoice" : "You send invoice to pay house."
-"job.realtor.receivedinvoice" : "You received invoice to pay house."
-"job.realtor.boughthouse" : "You'll bought the house."
-"job.realtor.customerpaid" : "Customer paid. House has been sold. "
-"job.realtor.youcantbuy" : "You can't buy house without payment."
-"job.realtor.customer" : "Customer did not pay."
-});
-
-translation("ru", {
-"job.realtor" : "риэлтор"
-"job.realtor.not" : "Вы не риэлтор."
-"job.realtor.sendinvoice" : "Вы отправили запрос на оплату покупки дома."
-"job.realtor.receivedinvoice" : "Вы получили запрос на оплату покупки дома."
-"job.realtor.boughthouse" : "Поздравляем с приобретением дома!."
-"job.realtor.customerpaid" : "Покупатель подтвердил оплату. Дом продан. "
-"job.realtor.youcantbuy" : "Вы должны оплатить покупку дома."
-"job.realtor.customer" : "Покупатель не подтвердил оплату."
+"job.realtor"                   : "realtor"
+"job.realtor.not"               : "You're not a realtor."
+"job.realtor.sendinvoice"       : "You send invoice to pay house."
+"job.realtor.receivedinvoice"   : "You received invoice to pay house."
+"job.realtor.boughthouse"       : "You'll bought the house."
+"job.realtor.customerpaid"      : "Customer paid. House has been sold. "
+"job.realtor.youcantbuy"        : "You can't buy house without payment."
+"job.realtor.customer"          : "Customer did not pay."
 });
 
 include("modules/jobs/realtor/commands.nut");

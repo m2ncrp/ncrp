@@ -18,16 +18,29 @@ translation("en", {
     "chat.report.error"             : "[REPORT] You should provide report in a following format: /report ID TEXT"
 });
 
-translation("ru", {
-    "general.message.empty"         : "[INFO] Вы не можете отправить пустую строку",
-    "general.noonearound"           : "Рядом с вами никого нет.",
+// help
+translation("en", {
+    "help.chat"        : "Show list of commands for chat"
+    "help.subway"      : "Show list of commands for subway"
+    "help.taxi"        : "Show list of commands for taxi"
+    "help.rentcar"     : "Show list of commands for rent car"
+    "help.job"         : "Show list of commands for job. Example: /help job taxi"
+    "help.ban"         : "Show list of commands for bank"
+    "help.cars"        : "Show list of commands for cars"
+    "help.fuel"        : "Show list of commands for fuel stations"
+    "help.repair"      : "Show list of commands for repiair shop"
+    "help.report"      : "Report about player which is braking the rules"
+    "help.idea"        : "Send your idea to developers"
+});
 
-    "chat.player.says"              : "%s сказал: %s",
-    "chat.player.shout"             : "%s крикнул: %s",
-    "chat.player.whisper"           : "%s шепчет: %s",
-    "chat.player.try.body"          : "[TRY] %s попытался %s",
-    "chat.player.try.end.success"   : "%s (успех).",
-    "chat.player.try.end.fail"      : "%s (провал)."
+translation("en", {
+    "help.chat.say"         : "Put your text in local RP chat"
+    "help.chat.shout"       : "Your message could be heard far enough :)"
+    "help.chat.whisper"     : "Say something to nearest player very quiet"
+    "help.chat.localooc"    : "Local nonRP chat"
+    "help.chat.ooc"         : "Global nonRP chat"
+    "help.chat.me"          : "Some action of your person"
+    "help.chat.try"         : "Any action simulation that could be failed"
 });
 
 // settings
@@ -41,9 +54,6 @@ event("native:onPlayerChat", function(playerid, message) {
         return false;
     }
 
-    // inRadiusSendToAll(playerid, 
-    //     localize("chat.player.says", [getAuthor( playerid ), message], getPlayerLocale(playerid)), 
-    //     NORMAL_RADIUS, CL_YELLOW);
-    __commands["say"][COMMANDS_DEFAULT](playerid, message);
+    __commands["ooc"][COMMANDS_DEFAULT](playerid, message);
     return false;
 });

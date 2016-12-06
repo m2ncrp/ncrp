@@ -2,13 +2,23 @@ include("controllers/vehicle/functions");
 include("controllers/vehicle/commands.nut");
 //include("controllers/vehicle/hiddencars.nut");
 
-const VEHICLE_RESPAWN_TIME      = 600; // 10 minutes
+const VEHICLE_RESPAWN_TIME      = 600; // 10 (real) minutes
 const VEHICLE_FUEL_DEFAULT      = 40.0;
 const VEHICLE_MIN_DIRT          = 0.25;
 const VEHICLE_MAX_DIRT          = 0.75;
 const VEHICLE_DEFAULT_OWNER     = "";
 const VEHICLE_OWNERSHIP_NONE    = 0;
 const VEHICLE_OWNERSHIP_SINGLE  = 1;
+
+translate("en", {
+    "vehicle.sell.amount"       : "You need to set the amount you wish to sell your car for."
+    "vehicle.sell.2passangers"  : "You need potential buyer to sit in the vehicle with you."
+    "vehicle.sell.ask"          : "%s offers you to buy his vehicle for $%.2f."
+    "vehicle.sell.log"          : "You offered %s to buy your vehicle for $%.2f."
+    "vehicle.sell.success"      : "You've successfuly sold this car."
+    "vehicle.buy.success"       : "You've successfuly bought this car."
+    "vehicle.sell.failure"      : "%s refused to buy this car."
+});
 
 event("onScriptInit", function() {
     // police cars
@@ -102,6 +112,12 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     // handle vehicle passangers
     addVehiclePassenger(vehicleid, playerid);
 
+    if (seat == 0) {
+        if (vehicleid in __vehicles) {
+            __vehicles[vehicleid].state = true;
+        }
+    }
+
     // check blocking
     if (getVehicleSaving(vehicleid) && seat == 0) {
         if (isPlayerVehicleOwner(playerid, vehicleid)) {
@@ -119,6 +135,18 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     // trigger other events
     trigger("onPlayerVehicleEnter", playerid, vehicleid, seat);
 });
+
+key(["w", "s"], function(playerid) {
+    if (!isPlayerInVehicle(playerid)) {
+        return;
+    }
+
+    local vehicleid = getPlayerVehicle(playerid);
+
+    if (vehicleid in __vehicles) {
+        __vehicles[vehicleid].state = true;
+    }
+}, KEY_BOTH);
 
 // handle vehicle exit
 event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {

@@ -41,11 +41,13 @@ function statisticsPushText(type, playerid, content, additional = "") {
 }
 
 function statisticsPushMessage(playerid, message, type = "") {
+    dbg("chat", type, getAuthor(playerid), message);
     return statisticsPushText("message", playerid, message, type);
 }
 
-function statisticsPushCommand(playerid, command) {
-    return statisticsPushText("command", playerid, command);
+function statisticsPushCommand(playerid, command, result = "") {
+    dbg("command", getAuthor(playerid), command, result);
+    return statisticsPushText("command", playerid, command, result);
 }
 
 function statisticsPushPlayers() {

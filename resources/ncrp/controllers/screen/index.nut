@@ -115,3 +115,7 @@ function screenFadeinFadeoutEx(playerid, fadetime, pause, callback1 = null, call
         })
     });
 }
+
+key("p", function(playerid) {
+    trigger(playerid, "onServerToggleHudDrawing")
+});

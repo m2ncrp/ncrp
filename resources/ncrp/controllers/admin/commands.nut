@@ -1,128 +1,91 @@
-/**
- * Save new position
- */
-acmd(["tsave", "ts"], function(playerid, name) {
-    if (!name || name.len() < 1) return sendPlayerMessage(playerid, "Usage: /ts <name>");
-
-    local tpp = TeleportPosition();
-    local pos = getPlayerPosition(playerid);
-
-    tpp.x = pos[0];
-    tpp.y = pos[1];
-    tpp.z = pos[2];
-    tpp.name = name;
-
-    tpp.save(function(err, result) {
-        sendPlayerMessage(playerid, "Created new teleport point #" + tpp.id);
+function kickPlayerFromServer( cheaterID ) {
+    msg(cheaterID, format("You has been kicked for: %s", reason), CL_RED);
+    delayedFunction(7000, function () {
+        kickPlayer( cheaterID );
     });
-});
+}
 
 
 /**
- * List all positions (paginated)
+ * Ban player account for some time.    <-------------------- Currently not working properly
+ * @param  {uint}   cheaterID 
+ * @param  {String} reason    Explonation why player is cheater
+ * @param  {Number} adminID   Pass -1 by default if send ban from console
+ * @param  {Number} banDays   Pass 0 for permanent ban
+ * @return {void}
  */
-acmd(["tlist", "tl"], function(playerid, page = "0") {
-    local q = ORM.Query("select * from @TeleportPosition limit :page, 10");
+function banPlayerAccount( cheaterID, reason = "", adminID = -1, banDays = 1 ) {
+    local banTime = banDays * 86400;
+    return banPlayer( cheaterID, adminID, banTime, reason );
+}
 
-    q.setParameter("page", max(0, page.tointeger()) * 10);
-    q.getResult(function(err, results) {
-        sendPlayerMessage(playerid, format("Page %s (for next page /tl <page>):", page) );
-
-        // list
-        return results.map(function(item) {
-            sendPlayerMessage(playerid, format(" #%d. %s", item.id, item.name), 240, 240, 220);
-        })
-    });
-});
 
 /**
- * Go to position
+ * Ban player account for some time
+ * @param  {uint}   cheaterID 
+ * @param  {String} reason    Explonation why player is cheater
+ * @param  {Number} adminID   Pass -1 by default if send ban from console
+ * @param  {Number} banDays   Pass 0 for permanent ban
+ * @return {void}
  */
-acmd(["tgoto", "tg"], function(playerid, nameOrId) {
-    local callback = function(err, item) {
-        if (!item) return sendPlayerMessage(playerid, "No point were found by " + nameOrId);
+function banPlayerSerial( cheaterID, reason = "", adminID = -1, banDays = 1 ) {
+    local banTime = banDays * 86400;
+    local serial = getPlayerSerial( cheaterID );
+    return banSerial( serial, adminID, banTime, reason);
+}
 
-        if (!isPlayerInVehicle(playerid)) {
-            setPlayerPosition(playerid, item.x, item.y, item.z);
-        } else {
-            setVehiclePosition(getPlayerVehicle(playerid), item.x, item.y, item.z);
-        }
 
-        sendPlayerMessage(playerid, "Teleport to " + item.name +" (#" + item.id + ") completed.", 240, 240, 200);
-    };
+function onCheaterDetected( cheaterID, reason ) {
+    local pos = getPlayerPosition(cheaterID);
 
-    if (isInteger(nameOrId)) {
-        TeleportPosition.findOneBy({ id = nameOrId.tointeger() }, callback);
-    } else {
-        TeleportPosition.findOneBy({ name = nameOrId }, callback);
+    togglePlayerControls( cheaterID, true );
+    if (isPlayerInVehicle(cheaterID)) {
+        local vehID = getPlayerVehicle(cheaterID);
+        setVehicleSpeed( vehID, 0.0,0.0,0.0 );
+        // removePlayerFromVehicle( playerid );
+        respawnVehicle( vehID );
     }
-});
-
-/**
- * Remove position
- */
-acmd(["tdelete", "td"], function(playerid, nameOrId) {
-    local callback = function(err, item) {
-        if (!item) return sendPlayerMessage(playerid, "No point were found by " + nameOrId);
-        sendPlayerMessage(playerid, "Removed point #" + item.id, 240, 240, 200);
-        item.remove();
-    };
-
-    if (isInteger(nameOrId)) {
-        TeleportPosition.findOneBy({ id = nameOrId.tointeger() }, callback);
-    } else {
-        TeleportPosition.findOneBy({ name = nameOrId }, callback);
+    setPlayerPosition(cheaterID, pos[0], pos[1], pos[2] + 5.0);
+    for (local i = 0; i < 11; i++) {
+        msg(cheaterID, "");
     }
-});
+}
 
-
-/**
- * Get coords of point
- */
-acmd(["tcoords", "tc"], function(playerid, nameOrId) {
-    local callback = function(err, item) {
-        if (!item) return sendPlayerMessage(playerid, "No point were found by " + nameOrId);
-        sendPlayerMessage(playerid, format("Coords for %s (#%d): x: %f y: %f z: %f", item.name, item.id, item.x, item.y, item.z), 240, 240, 200);
-    };
-
-    if (isInteger(nameOrId)) {
-        TeleportPosition.findOneBy({ id = nameOrId.tointeger() }, callback);
-    } else {
-        TeleportPosition.findOneBy({ name = nameOrId }, callback);
-    }
-});
-
-/**
- * Rendering tgs in the world
- */
-addEventHandlerEx("onServerStarted", function() {
-    TeleportPosition.findAll(function(err, positions) {
-        foreach (idx, teleport in positions) {
-            // create3DText(teleport.x, teleport.y, teleport.z, "Teleport: " + teleport.name, CL_ROYALBLUE.applyAlpha(150));
-        }
-    });
-});
 
 acmd(["admin", "adm", "a"], function(playerid, ...) {
     return sendPlayerMessageToAll("[ADMIN] " + concat(vargv), CL_MEDIUMPURPLE.r, CL_MEDIUMPURPLE.g, CL_MEDIUMPURPLE.b);
 });
 
-/**
- * Squirrel inline debug commands
- */
-acmd("sq", function(playerid, ...) {
-    squirrelDebugOnServer(playerid, vargv);
+
+acmd(["admin", "adm", "a"], "kick", function(playerid, targetid, ...) {
+    local targetid = targetid.tointeger();
+    local reason = concat(vargv);
+
+    log( getAuthor(playerid) + "'s kick " + getAuthor(targetid) + " for: " + reason);
+    onCheaterDetected( targetid, reason );
+    msg(targetid, format("You has been kicked for: %s", reason), CL_RED);
+    kickPlayerFromServer( targetid );
 });
 
-acmd("sq", ["s"], function(playerid, ...) {
-    squirrelDebugOnServer(playerid, vargv);
+
+acmd(["admin", "adm", "a"], "ban", function(playerid, targetid, days, ...) {
+    local targetid = targetid.tointeger();
+    local days = days.tointeger();
+    local reason = concat(vargv);
+
+    log( getAuthor(playerid) + "'s banned " + getAuthor(targetid) + " for " + days + ". Reason: " + reason);
+    onCheaterDetected( targetid, reason );
+    msg(targetid, format("You has been banned for: %s", reason), CL_RED);
+    // banPlayerAccount( targetid, reason, playerid, days );
+    banPlayerSerial( targetid, reason, playerid, days );
 });
 
-acmd("sq", ["c"], function(playerid, ...) {
-    squirrelDebugOnClient(playerid, vargv);
-});
 
-acmd("sq", ["b"], function(playerid, ...) {
-    squirrelDebugOnServer(playerid, vargv);
-    squirrelDebugOnClient(playerid, vargv);
+acmd("test1", function(playerid, number = 100) {
+    local pos = getPlayerPositionObj(playerid);
+    local id;
+    for (local i = 0; i < number.tofloat(); i++) {
+        id = createPrivate3DText(pos.x + i, pos.y + i, pos.z, "A A", CL_MEDIUMPURPLE, 10000.0);
+    }
+    msg(playerid, format("created #%s texts", id));
 });

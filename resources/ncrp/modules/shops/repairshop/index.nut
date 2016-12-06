@@ -9,16 +9,7 @@ translation("en", {
     "shops.repairshop.help.repair"        : "Repair car"
 });
 
-translation("ru", {
-    "shops.repairshop.toofar"             : "Вы слишком далеко от автомастерской!"
-    "shops.repairshop.money.notenough"    : "[АВТОМАСТЕРСКАЯ] Недостаточно денег. Для оплаты ремонта требуется $%.2f, а у вас только $%s."
-    "shops.repairshop.repair.payed"       : "[АВТОМАСТЕРСКАЯ] Ремонт автомобиля обошёлся Вам в $%.2f. Ваш баланс $%s. Будем рады видеть вас снова!"
-
-    "shops.repairshop.help.title"         : "Список команд, доступных в автомастерской:"
-    "shops.repairshop.help.repair"        : "Починить автомобиль"
-});
-
-const SHOP_REPAIR_COST = 75;
+const SHOP_REPAIR_COST = 49.99;
 
 const SHOP_REPAIR_3DTEXT_DRAW_DISTANCE = 35.0;
 const SHOP_REPAIR_RADIUS = 4.0;
@@ -44,7 +35,7 @@ addEventHandlerEx("onServerStarted", function() {
     log("[shops] loading repair shops...");
     foreach (shop in repair_shops) {
         create3DText ( shop[0], shop[1], shop[2]+0.35, "=== "+shop[3]+" REPAIR SHOP ===", CL_ROYALBLUE, SHOP_REPAIR_3DTEXT_DRAW_DISTANCE );
-        create3DText ( shop[0], shop[1], shop[2]+0.20, "/repair", CL_WHITE.applyAlpha(150), SHOP_REPAIR_RADIUS );
+        create3DText ( shop[0], shop[1], shop[2]+0.20, format("(Price: $%.2f) Use: /repair", SHOP_REPAIR_COST), CL_WHITE.applyAlpha(150), SHOP_REPAIR_RADIUS );
     }
 });
 

@@ -19,3 +19,10 @@ bans.xml
 
 # different os crap
 .DS_Store
+
+# specials
+config.xml
+positions.txt
+
+# env
+.env

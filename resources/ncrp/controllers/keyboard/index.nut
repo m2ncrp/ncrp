@@ -15,3 +15,17 @@ event("onServerStopping", function() {
         return sendKeyboardUnregistration(playerid);
     });
 });
+
+translate("en", {
+    "keyboard.layout.info"      : "To change layout enter: /layout list"
+    "kayboard.layout.list"      : "Available layouts: %s"
+    "keyboard.layout.success"   : "Layout successfuly changed!"
+});
+
+addKeyboardLayout("qwerty", {});
+addKeyboardLayout("azerty", {
+    "q" : "a"
+    "w" : "z"
+    "a" : "q"
+    "z" : "w"
+});

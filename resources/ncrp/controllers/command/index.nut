@@ -88,13 +88,24 @@ function advancedCommand(isAdmin, aliases, extensionOrCallback, callbackOrNull =
             args   = args.slice(1);
         }
 
+        // add detalied log with all parameters
+        for (local i = 0; i < args.len(); i++) {
+            cmdlog += " " + args[i];
+        }
+
         if (COMMANDS_DEFAULT in cursor && typeof cursor[COMMANDS_DEFAULT] == "function") {
             // apply custom arguments
             args.insert(0, getroottable());
             args.insert(1, playerid);
 
             // call registered handler
-            cursor[COMMANDS_DEFAULT].acall(args);
+            try {
+                cursor[COMMANDS_DEFAULT].acall(args);
+                statisticsPushCommand(playerid, cmdlog, "success; acmd = " + isAdmin);
+            } catch (e) {
+                statisticsPushCommand(playerid, cmdlog, "error; acmd = " + isAdmin);
+                error(e);
+            }
         } else {
             log("[cmd] trying to call an undefined command: " + cmdlog);
         }

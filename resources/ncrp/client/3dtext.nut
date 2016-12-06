@@ -32,11 +32,24 @@ addEventHandler("onClientFrameRender", function(post) {
     }
 });
 
-addEventHandler("onServer3DTextAdd", function(uid, x, y, z, text, c, d) {
-    local obj = {uid = uid, name = text, pos = {x = x, y = y, z = z}, color = c, distance = d};
+addEventHandler("onServer3DTextAdd", function(uid, x, y, z, text, color, d) {
+    local obj = {
+        uid = uid,
+        name = text.tostring(),
+        pos = {
+            x = x.tofloat(),
+            y = y.tofloat(),
+            z = z.tofloat()
+        },
+        color = color,
+        distance = d.tofloat()
+    };
+
     _3Dtext_objects[obj.uid] <- obj;
 });
 
 addEventHandler("onServer3DTextDelete", function(uid) {
-    delete _3Dtext_objects[uid];
+    if (uid in _3Dtext_objects) {
+        delete _3Dtext_objects[uid];
+    }
 });
