@@ -19,7 +19,7 @@ event("onServerStarted", function() {
     SportEntries.findAll(function(err, entries) {
         if (err || !entries) {
             // called only one time (per database)
-            bkCreateBaseData();
+            entries = bkCreateBaseData();
         }
 
         bkLoadedData.records = entries;
@@ -27,6 +27,7 @@ event("onServerStarted", function() {
 });
 
 function bkCreateBaseData() {
+    local entries   = [];
     local baseballs = [
         "Pittsburgh Pirates"   ,
         "St. Louis Cardinals"  ,
@@ -61,6 +62,7 @@ function bkCreateBaseData() {
 
         // insert into database
         entry.save();
+        entries.push(entry);
     }
 
     local horses = [
@@ -84,13 +86,16 @@ function bkCreateBaseData() {
 
         // insert into database
         entry.save();
+        entries.push(entry);
     }
+
+    return entries;
 }
 
 function bkSelectFixedAmount(type, amount) {
     local data = [];
 
-    foreach (idx, value in var) {
+    foreach (idx, value in bkLoadedData.records) {
         if (data.len() >= amount) break;
         if (value.type == type) data.push(value);
     }
