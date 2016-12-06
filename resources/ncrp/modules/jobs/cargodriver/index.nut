@@ -27,35 +27,6 @@ translation("en", {
 "job.cargodriver.help.finish"           :   "Report about delivery and get money"
 });
 
-translation("ru", {
-"job.cargodriver"               : "водитель грузовика"
-"job.cargodriver.letsgo"        : "[CARGO] Отправляйтесь в офис City Port."
-"job.cargodriver.needlevel"     : "[CARGO] Водителем грузовика можно устроиться начиная с уровня %d."
-"job.cargodriver.already"       : "[CARGO] Вы уже работаете водителем грузовика."
-"job.cargodriver.now"           : "[CARGO] Вы стали водителем грузовика."
-"job.cargodriver.sitintotruck"  : "[CARGO] Садитесь в грузовик для доставки рыбы и поезжайте в City Port к складу P3 06."
-"job.cargodriver.not"           : "[CARGO] Вы не работаете водителем грузовика."
-"job.cargodriver.needfishtruck" : "[CARGO] Вам нужен грузовик для доставки рыбы."
-"job.cargodriver.toload"        : "[CARGO] Отправляйтесь в Порт к складу P3 06 для загрузки."
-"job.cargodriver.driving"       : "[CARGO] Остановите грузовик."
-"job.cargodriver.loading"       : "[CARGO] Грузовик загружается. Ждите..."
-"job.cargodriver.unloading"     : "[CARGO] Грузовик разгружается. Ждите..."
-"job.cargodriver.alreadyloaded" : "[CARGO] Грузовик уже загружен."
-"job.cargodriver.loaded"        : "[CARGO] Грузовик загружен. Езжайте к складу Seagift для разгрузки."
-"job.cargodriver.empty"         : "[CARGO] Грузовик пуст. Отправляйтесь в City Port для загрузки."
-"job.cargodriver.tounload"      : "[CARGO] Отправляйтесь к складу Seagift для разгрузки."
-"job.cargodriver.takemoney"     : "[CARGO] Идите в офис Seagift и получите Ваш заработок."
-"job.cargodriver.needcomplete"  : "[CARGO] Завершите доставку."
-"job.cargodriver.nicejob"       : "[CARGO] Отличная работа, %s! Держи $%.2f."
-
-"job.cargodriver.help.title"            :   "Список команд, доступных водителю грузовика:"
-"job.cargodriver.help.job"              :   "Устроиться на работу водителем грузовика"
-"job.cargodriver.help.jobleave"         :   "Уволиться с работы"
-"job.cargodriver.help.load"             :   "Загрузить грузовик"
-"job.cargodriver.help.unload"           :   "Разгрузить грузовик"
-"job.cargodriver.help.finish"           :   "Сообщить о доставке и получить деньги"
-});
-
 include("modules/jobs/cargodriver/commands.nut");
 
 local job_cargo = {};
@@ -132,7 +103,7 @@ function cargoJobCreatePrivateBlipText(playerid, x, y, z, text, cmd) {
     return [
             createPrivate3DText (playerid, x, y, z+0.35, text, CL_RIPELEMON, 40 ),
             createPrivate3DText (playerid, x, y, z+0.20, cmd, CL_WHITE.applyAlpha(150), 4.0 ),
-            createPrivateBlip (playerid, x, y, ICON_RED, 4000.0)
+            createPrivateBlip (playerid, x, y, ICON_YELLOW, 4000.0)
     ];
 }
 
@@ -145,6 +116,7 @@ function cargoJobRemovePrivateBlipText ( playerid ) {
         remove3DText ( job_cargo[playerid]["blip3dtext"][0] );
         remove3DText ( job_cargo[playerid]["blip3dtext"][1] );
         removeBlip   ( job_cargo[playerid]["blip3dtext"][2] );
+        job_cargo[playerid]["blip3dtext"][0] = null;
     }
 }
 

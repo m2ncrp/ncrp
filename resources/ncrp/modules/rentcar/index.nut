@@ -5,7 +5,7 @@ addEventHandlerEx("onServerStarted", function() {
     log("[vehicles] loading rent cars module...");
 
     rentcars[createVehicle(31, 579.762, 802.5, -12.5, 34.939,  0.37609, -0.0309878)]    <- [ 0.28, "free" ];
-    rentcars[createVehicle(43,  575.099, 802.5, -12.5, 36.7076, 0.287637, 0.0469708)]   <- [ 0.28, "free" ];
+    rentcars[createVehicle(43, 575.099, 802.5, -12.5, 36.7076, 0.287637, 0.0469708)]    <- [ 0.28, "free" ];
     rentcars[createVehicle(53, 570.128, 802.5, -12.5, 38.578,  0.206956, -0.591333)]    <- [ 0.28, "free" ];
     rentcars[createVehicle(50, 565.087, 802.5, -12.5, 40.5424, 0.668225, -0.409561)]    <- [ 0.36, "free" ];
     rentcars[createVehicle(25, 560.053, 802.5, -12.5, 42.1816, 0.300678, 0.0441727)]    <- [ 0.28, "free" ];
@@ -15,6 +15,20 @@ addEventHandlerEx("onServerStarted", function() {
     createBlip  (  570.26, 830.175, [ 6, 4 ], 4000.0);
 });
 
+translation("en", {
+    "rentcar.goto"          : "Go to parking CAR RENTAL in North Millville to rent a car."
+    "rentcar.notrent"       : "This car can not be rented."
+    "rentcar.notenough"     : "You don't have enough money."
+    "rentcar.rented"        : "You rented this car. If you want to refuse from rent: /rent refuse"
+    "rentcar.refused"       : "You refused from rent all cars. Thank you for choosing North Millville Car Rental!"
+    "rentcar.canrent"       : "You can rent this car for $%.2f in minute. If you agree: /rent"
+    "rentcar.cantrent"      : "You can't drive this car more, because you don't have enough money. Please, get out of the car."
+    "rentcar.paidcar"       : "You paid for car. Your balance: $%.2f."
+
+    "rentcar.help.title"    : "List of available commands for CAR RENTAL:"
+    "rentcar.help.rent"     : "Rent this car (need to be in a car)"
+    "rentcar.help.refuse"   : "Refuse from all rented cars"
+});
 
 function isPlayerCarRent(playerid) {
     return (getPlayerVehicle(playerid) in rentcars);
@@ -30,21 +44,21 @@ function getPlayerWhoRentVehicle(vehicleid) {
 
 function RentCar(playerid) {
     if (!isPlayerInVehicle) {
-        return msg(playerid, "Go to parking CAR RENTAL in North Millville to rent a car.");
+        return msg(playerid, "rentcar.goto");
     }
     if(!isPlayerCarRent(playerid)) {
-        return msg(playerid, "This car can not be rented.");
+        return msg(playerid, "rentcar.notrent");
     }
 
     local vehicleid = getPlayerVehicle(playerid);
     local rentprice = rentcars[vehicleid][0].tofloat();
     if(!canMoneyBeSubstracted(playerid, rentprice)) {
-        return msg(playerid, "You don't have enough money.");
+        return msg(playerid, "rentcar.notenough");
     }
     rentcars[vehicleid][1] = playerid;
     setVehicleFuel(vehicleid, 28.0);
     setVehicleRespawnEx(vehicleid, false);
-    msg(playerid, "You rented this car. If you want to refuse from rent: /rent refuse");
+    msg(playerid, "rentcar.rented");
 }
 
 function RentCarRefuse(playerid) {
@@ -60,7 +74,7 @@ function RentCarRefuse(playerid) {
             setVehicleRespawnEx(vehicleid, true);
         }
     }
-    msg(playerid, "You refused from rent all cars. Thank you for choosing North Millville Car Rental!");
+    msg(playerid, "rentcar.refused");
 }
 
 addEventHandler ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
@@ -68,7 +82,7 @@ addEventHandler ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat )
         local whorent = getPlayerWhoRentVehicle(vehicleid);
         if(whorent != playerid) {
             setVehicleFuel(vehicleid, 0.0);
-            msg(playerid, "You can rent this car for $"+getVehicleRentPrice(vehicleid)+" in minute. If you agree: /rent");
+            msg(playerid, "rentcar.canrent", getVehicleRentPrice(vehicleid));
         }
     }
 });
@@ -101,10 +115,10 @@ addEventHandlerEx("onServerMinuteChange", function() {
             setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
             rentcars[vehicleid][1] = "free";
             setVehicleRespawnEx(vehicleid, true);
-            msg(playerid, "You can't drive this car more, because you don't have enough money. Please, get out of the car.");
+            msg(playerid, "rentcar.cantrent");
         } else {
             subMoneyToPlayer(playerid, value[0]);
-            msg(playerid, "You paid for car. Your balance: "+getPlayerBalance(playerid));
+            msg(playerid, "rentcar.paidcar", getPlayerBalance(playerid) );
         }
     }
 });

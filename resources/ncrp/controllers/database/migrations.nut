@@ -49,3 +49,29 @@ migrate(function(connection) {
 migrate(function(connection) {
     connection.query("ALTER TABLE tbl_characters ADD COLUMN `locale` VARCHAR(255) NOT NULL DEFAULT 'en';");
 });
+
+// 04.11.16
+// added accounts serial and ip saving
+migrate(function(connection) {
+    connection.query("ALTER TABLE tbl_accounts ADD COLUMN `ip` VARCHAR(255) NOT NULL DEFAULT '';");
+    connection.query("ALTER TABLE tbl_accounts ADD COLUMN `serial` VARCHAR(255) NOT NULL DEFAULT '';");
+});
+
+// 05.11.16
+// added character health saving
+migrate(function(connection) {
+    connection.query("ALTER TABLE tbl_characters ADD COLUMN `health` FLOAT(255) NOT NULL DEFAULT 720.0;");
+});
+
+// 05.11.16
+// added account locale saving
+migrate(function(connection) {
+    connection.query("ALTER TABLE tbl_accounts ADD COLUMN `locale` VARCHAR(255) NOT NULL DEFAULT 'en';");
+});
+
+// 05.11.16
+// added account layout saving
+migrate(function(connection) {
+    connection.query("ALTER TABLE tbl_accounts ADD COLUMN `layout` VARCHAR(255) NOT NULL DEFAULT 'qwerty';");
+});
+

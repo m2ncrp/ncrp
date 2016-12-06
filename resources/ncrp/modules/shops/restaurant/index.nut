@@ -5,15 +5,11 @@ const DRINK_COST = 0.1;
 const MAX_HEALTH = 800.0;
 
 translation("en", {
-    "shops.restaurant.toofar"           : "[INFO] You're too far.",
-    "shops.restaurant.diner.eat.sucess" : "You've spend $%.2f on diner.",
-    "shops.restaurant.bar.drink.sucess" : "You've spend $%.2f for beer."
-});
-
-translation("ru", {
-    "shops.restaurant.toofar"           : "[INFO] Вы слишком далеко.",
-    "shops.restaurant.diner.eat.sucess" : "Вы потратили $%.2f на еду.",
-    "shops.restaurant.bar.drink.sucess" : "Вы потратили $%.2f на пиво."
+    "shops.restaurant.toofar"               : "[INFO] You're too far."
+    // "shops.restaurant.diner.eat.success"    : "You've spend $%.2f on diner.",
+    // "shops.restaurant.bar.drink.success"    : "You've spend $%.2f for beer."
+    "shops.restaurant.diner.eat.success"    : "You've eaten some food (free)."
+    "shops.restaurant.bar.drink.success"    : "You've drunk some beer (free)."
 });
 
 /**
@@ -22,7 +18,7 @@ translation("ru", {
  * @return {[type]}          [description]
  */
 function onEating(playerid) {
-    msg(playerid, "shops.restaurant.diner.eat.sucess", [EAT_COST]);
+    msg(playerid, "shops.restaurant.diner.eat.success", [EAT_COST], CL_SUCCESS);
     return setPlayerHealth(playerid, MAX_HEALTH);
 }
 
@@ -42,7 +38,7 @@ function eat(playerid) {
  * @return {[type]}          [description]
  */
 function onDrinking(playerid) {
-    msg(playerid, "shops.restaurant.bar.drink.sucess", [DRINK_COST]);
+    msg(playerid, "shops.restaurant.bar.drink.success", [DRINK_COST], CL_SUCCESS);
     return setPlayerHealth(playerid, MAX_HEALTH);
 }
 

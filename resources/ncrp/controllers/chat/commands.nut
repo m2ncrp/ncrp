@@ -60,6 +60,9 @@ chatcmd(["me"], function(playerid, message) {
 chatcmd("idea", function(playerid, message) {
     msg(playerid, "chat.idea.success", CL_SUCCESS);
     statisticsPushText("idea", playerid, message);
+
+    local data = url_encode(base64_encode(format("%s: %s", getAuthor(playerid), message)));
+    webRequest(HTTP_TYPE_GET, "inlife.no-ip.org", "/discord?type=idea&data=" + data, function(a,b,c) {}, 7790);
 });
 
 cmd("report", function(playerid, id, ...) {
@@ -75,6 +78,9 @@ cmd("report", function(playerid, id, ...) {
 
     msg(playerid, "chat.report.success", CL_SUCCESS);
     statisticsPushText("report", playerid, concat(vargv));
+
+    local data = url_encode(base64_encode(format("%s: %s", getAuthor(playerid), concat(vargv))))
+    webRequest(HTTP_TYPE_GET, "inlife.no-ip.org", "/discord?type=report&data=" + data, function(a,b,c) {}, 7790);
 });
 
 // random for some actions
@@ -93,32 +99,31 @@ chatcmd(["try"], function(playerid, message) {
 cmd(["help", "h", "halp", "info"], function(playerid) {
     local title = "Here is list of available commands:";
     local commands = [
-        { name = "/help chat",              desc = "Show list of commands for chat" },
-        { name = "/help subway",            desc = "Show list of commands for subway" },
-        { name = "/help taxi",              desc = "Show list of commands for taxi" },
-        { name = "/help rent",              desc = "Show list of commands for rent car" },
-        { name = "/help job JOBNAME",       desc = "Show list of commands for job. Example: /help job taxi" },
-        { name = "/help bank",              desc = "Show list of commands for bank" },
-        { name = "/help car",               desc = "Show list of commands for cars" },
-        { name = "/help fuel",              desc = "Show list of commands for fuel stations" },
-        { name = "/help repair",            desc = "Show list of commands for repiair shop" },
-        { name = "/report ID TEXT",         desc = "Report about player which is braking the rules" },
-        { name = "/idea TEXT",              desc = "Send your idea to developers" }
+        { name = "/help chat",              desc = "help.chat" },
+        { name = "/help subway",            desc = "help.subway" },
+        { name = "/help taxi",              desc = "help.taxi" },
+        { name = "/help rent",              desc = "help.rentcar" },
+        { name = "/help job JOBNAME",       desc = "help.job" },
+        { name = "/help bank",              desc = "help.ban" },
+        { name = "/help car",               desc = "help.cars" },
+        { name = "/help fuel",              desc = "help.fuel" },
+        { name = "/help repair",            desc = "help.repair" },
+        { name = "/report ID TEXT",         desc = "help.report" },
+        { name = "/idea TEXT",              desc = "help.idea" }
     ];
     msg_help(playerid, title, commands);
 });
 
-
 cmd(["help", "h", "halp", "info"], "chat", function(playerid) {
     local title = "List of available commands for CHAT:";
     local commands = [
-        { name = "/say TEXT",         desc = "Put your text in local RP chat"},
-        { name = "/shout TEXT",       desc = "Your message could be heard far enough :)"},
-        { name = "/whisper TEXT",     desc = "Say something to nearest player very quiet"},
-        { name = "/b TEXT",           desc = "Local nonRP chat"},
-        { name = "/ooc TEXT",         desc = "Global nonRP chat"},
-        { name = "/me ACTION_TEXT",   desc = "Some action of your person"},
-        { name = "/try ACTION_TEXT",  desc = "Any action simulation that could be failed"}
+        { name = "/say TEXT",         desc = "help.chat.say"},
+        { name = "/shout TEXT",       desc = "help.chat.shout"},
+        { name = "/whisper TEXT",     desc = "help.chat.whisper"},
+        { name = "/b TEXT",           desc = "help.chat.localooc"},
+        { name = "/ooc TEXT",         desc = "help.chat.ooc"},
+        { name = "/me ACTION_TEXT",   desc = "help.chat.me"},
+        { name = "/try ACTION_TEXT",  desc = "help.chat.try"}
     ];
     msg_help(playerid, title, commands);
 });

@@ -7,7 +7,7 @@ local REGEXP_FLOAT   = regexp("[0-9\\.]+");
  * @return {Boolean} [description]
  */
 function isInteger(value) {
-    return (typeof value == "integer" || REGEXP_INTEGER.match(value));
+    return (value != null && (typeof value == "integer" || REGEXP_INTEGER.match(value)));
 }
 
 /**
@@ -16,7 +16,7 @@ function isInteger(value) {
  * @return {Boolean} [description]
  */
 function isFloat(value) {
-    return (typeof value == "float" || REGEXP_FLOAT.match(value));
+    return (value != null && (typeof value == "float" || REGEXP_FLOAT.match(value)));
 }
 
 
@@ -41,3 +41,30 @@ function isNumeric(value) {
 function floatToString(value) {
     return format("%.0f", value.tofloat());
 }
+
+/**
+ * Strip all non integer data from the string
+ * and return plain, cleared value or 0
+ *
+ * @param  {Mixed} value
+ * @return {Integer}
+ */
+function toInteger(value) {
+    if (isInteger(value)) {
+        return value.tointeger();
+    }
+
+    if (value == null) {
+        return 0;
+    }
+
+    local result = REGEXP_INTEGER.search(value);
+
+    if (result != null) {
+        return value.slice(result.begin, result.end).tointeger();
+    }
+
+    return 0;
+}
+
+toInt <- toInteger;

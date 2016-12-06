@@ -13,38 +13,18 @@ translation("en", {
 "job.docker.nicejob"            : "[DOCKER] You put the box. You earned $%.2f."
 
 "job.docker.help.title"         : "List of available commands for DOCKER JOB:"
-"job.docker.help.job"           : "Get docker job."
-"job.docker.help.jobleave"      : "Leave docker job."
-"job.docker.help.take"          : "Take a box."
-"job.docker.help.put"           : "Put box to warehouse."
+"job.docker.help.job"           : "Get docker job"
+"job.docker.help.jobleave"      : "Leave docker job"
+"job.docker.help.take"          : "Take a box"
+"job.docker.help.put"           : "Put box to warehouse"
 });
 
-translation("ru", {
-"job.docker"                    : "портовый рабочий"
-"job.docker.letsgo"             : "[DOCKER] Отправляйтесь в офис City Port."
-"job.docker.already"            : "[DOCKER] Ты уже работаешь портовым рабочим."
-"job.docker.now"                : "[DOCKER] Ты стал портовым рабочим. Добро пожаловать... в ад! Аха-ха..."
-"job.docker.takeboxandcarry"    : "[DOCKER] Бери ящик и неси на склад."
-"job.docker.not"                : "[DOCKER] Вы не работаете портовым рабочим."
-"job.docker.takebox"            : "[DOCKER] Иди и возьми ящик."
-"job.docker.havebox"            : "[DOCKER] Ты уже несёшь ящик. Тебе мало что ли?"
-"job.docker.tookbox"            : "[DOCKER] Ты взял ящик. Теперь неси его на склад."
-"job.docker.haventbox"          : "[DOCKER] Ты не брал ящик."
-"job.docker.gotowarehouse"      : "[DOCKER] Иди на склад."
-"job.docker.nicejob"            : "[DOCKER] Ты принёс ящик. Твой заработок $%.2f."
-
-"job.docker.help.title"         : "Список команд, доступных портовому рабочему:"
-"job.docker.help.job"           : "Устроиться на работу портовым рабочим"
-"job.docker.help.jobleave"      : "Уволиться с работы"
-"job.docker.help.take"          : "Взять ящик"
-"job.docker.help.put"           : "Положить ящик на склад"
-});
 
 include("modules/jobs/docker/commands.nut");
 
 local job_docker = {};
 
-const DOCKER_RADIUS = 5.0;
+const DOCKER_RADIUS = 4.0;
 const DOCKER_JOB_X = -348.205; //Derek Door
 const DOCKER_JOB_Y = -731.48; //Derek Door
 const DOCKER_JOB_Z = -15.4205;
@@ -63,7 +43,7 @@ event("onServerStarted", function() {
 
     //creating 3dtext for bus depot
     create3DText ( DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z+0.35, "CITY PORT OFFICE", CL_ROYALBLUE );
-    create3DText ( DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z+0.20, "/help job docker", CL_WHITE.applyAlpha(100), 3 );
+    create3DText ( DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z+0.20, "/help job docker", CL_WHITE.applyAlpha(100), 3.0 );
 
     registerPersonalJobBlip("docker", DOCKER_JOB_X, DOCKER_JOB_Y);
 
@@ -96,7 +76,7 @@ function dockerJobCreatePrivateBlipText(playerid, x, y, z, text, cmd) {
     return [
             createPrivate3DText (playerid, x, y, z+0.35, text, CL_RIPELEMON, 15 ),
             createPrivate3DText (playerid, x, y, z+0.20, cmd, CL_WHITE.applyAlpha(150), DOCKER_RADIUS ),
-            createPrivateBlip (playerid, x, y, ICON_RED, 200.0)
+            createPrivateBlip (playerid, x, y, ICON_YELLOW, 200.0)
     ];
 }
 

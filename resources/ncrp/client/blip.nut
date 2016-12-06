@@ -24,7 +24,7 @@ function onBlipTimer() {
 }
 
 addEventHandler("onServerBlipAdd", function(uid, x, y, r, library, icon) {
-    local obj = {id = -1, x = x, y = y, r = r, library = library, icon = icon, visible = false};
+    local obj = {id = -1, x = x.tofloat(), y = y.tofloat(), r = r.tofloat(), library = library, icon = icon, visible = false};
     _blip_objects[uid] <- obj;
 
     if (!ticker) {

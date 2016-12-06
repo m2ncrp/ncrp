@@ -15,13 +15,15 @@ cmd("bus", ["route", "list"], function(playerid) {
 
 // usage: /bus route 5
 cmd("bus", "route", function(playerid, route = null) {
-    busJobSelectRoute(playerid, route);
+    busJobSelectRoute(playerid, toInt(route));
 });
 
 // usage: /bus ready
+/*
 cmd("bus", "ready", function(playerid) {
     busJobReady(playerid);
 });
+*/
 
 // usage: /bus stop
 cmd("bus", "stop", function(playerid) {
@@ -47,12 +49,13 @@ function busJobHelp ( playerid ) {
         { name = "/bus job leave",  desc = "job.bus.help.jobleave" },
         { name = "/bus route list", desc = "job.bus.help.routelist" },
         { name = "/bus route ID", desc = "job.bus.help.route" },
-        { name = "/bus ready",      desc = "job.bus.help.ready" },
+    //       { name = "/bus ready",      desc = "job.bus.help.ready" },
         { name = "/bus stop",       desc = "job.bus.help.busstop" }
     ];
     msg_help(playerid, title, commands);
 }
 
+cmd("help", "bus", busJobHelp );
 cmd("help", ["job", "bus"], busJobHelp );
 cmd("help", ["bus", "job"], busJobHelp );
 cmd("job", ["bus", "help"], busJobHelp );

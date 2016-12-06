@@ -83,6 +83,7 @@ translation("en", {
     "auth.error.cmderror"   : "[AUTH] You cant execute commands without registration."
 });
 
+
 /**
  * Compiled regex object for
  * validation of usernames
@@ -103,18 +104,25 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
         playerid = playerid,
         username = username,
         ip = ip,
-        serial = serial
+        serial = serial,
+        locale = "en"
     };
 
     // disable for a while
-    if (!REGEX_USERNAME.match(username) && bannedNames.find(username) != null && username != "Inlife") {
-        // return kickPlayer(playerid);
-        msg(playerid, "auth.wrongname", CL_WARNING);
-        msg(playerid, "auth.changename");
-        return;
-    }
+    // if (!REGEX_USERNAME.match(username) && bannedNames.find(username) != null && username != "Inlife") {
+    //     // return kickPlayer(playerid);
+    //     msg(playerid, "auth.wrongname", CL_WARNING);
+    //     msg(playerid, "auth.changename");
+    //     return;
+    // }
 
     Account.findOneBy({ username = username }, function(err, account) {
+        // override player locale if registered
+        if (account) {
+            setPlayerLocale(playerid, account.locale);
+            setPlayerLayout(playerid, account.layout, false);
+        }
+
         msg(playerid, "---------------------------------------------", CL_SILVERSAND);
         msg(playerid, "auth.welcome", username);
 
@@ -148,6 +156,12 @@ event("onPlayerDisconnect", function(playerid, reason) {
     delete accounts[playerid];
 });
 
+event("onPlayerAccountChanged", function(playerid) {
+    if (!(playerid in accounts)) return;
+
+    accounts[playerid].save();
+});
+
 /**
  * Cross resource handling
  */
@@ -166,6 +180,55 @@ addEventHandlerEx("__networkRequest", function(request) {
     }
 });
 
+/**
+ * Get player ip
+ * @param  {Integer} playerid
+ * @return {String}
+ */
 function getPlayerIp(playerid) {
-    return baseData[playerid];
+    return (playerid in baseData) ? baseData[playerid].ip : "0.0.0.0";
+}
+
+/**
+ * Return current player locale
+ *
+ * @param  {Integer} playerid
+ * @return {String}
+ */
+function getPlayerLocale(playerid) {
+    if (playerid in accounts) {
+        return accounts[playerid].locale;
+    }
+
+    if (playerid in baseData) {
+        return baseData[playerid].locale;
+    }
+
+    return "en";
+}
+
+/**
+ * Set current player locale
+ *
+ * @param  {Integer} playerid
+ * @return {String}
+ */
+function setPlayerLocale(playerid, locale = "en") {
+    if (playerid in accounts) {
+        accounts[playerid].locale = locale;
+        accounts[playerid].save();
+        return true;
+    }
+
+    if (!(playerid in baseData)) {
+        baseData[playerid] <- { locale = locale }
+        return true;
+    }
+
+    if (playerid in baseData) {
+        baseData[playerid].locale = locale;
+        return true;
+    }
+
+    return false;
 }

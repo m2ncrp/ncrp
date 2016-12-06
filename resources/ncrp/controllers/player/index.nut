@@ -8,7 +8,6 @@ playerList <- {};
 
 const CHARACTER_DEFAULT_SKIN   = 10;
 const CHARACTER_DEFAULT_MONEY  = 1.75;
-const CHARACTER_DEFAULT_LOCALE = "en";
 
 const DEFAULT_SPAWN_SKIN = 10;
 const DEFAULT_SPAWN_X    = -1684.52;
@@ -46,7 +45,7 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
             char.money   = randomf(5.0, 17.0);
             char.dskin   = defaultSkins[random(0, defaultSkins.len() - 1)];
             char.cskin   = char.dskin;
-            char.locale  = CHARACTER_DEFAULT_LOCALE;
+            char.health  = 720.0;
 
             // save first-time created entity
             char.save();
@@ -69,7 +68,7 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
         players[playerid]["housex"]       <- char.housex;
         players[playerid]["housey"]       <- char.housey;
         players[playerid]["housez"]       <- char.housez;
-        players[playerid]["locale"]       <- char.locale;
+        players[playerid]["health"]       <- char.health;
 
         // notify all that client connected (and data loaded)
         trigger("onPlayerConnect", playerid, name, ip, serial);
@@ -77,7 +76,7 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
 
         delayedFunction(1500, function() {
             trigger("onServerPlayerStarted", playerid);
-            trigger(playerid, "onServerClientStarted", "0.0.458");
+            trigger(playerid, "onServerClientStarted", VERSION);
             trigger(playerid, "onServerIntefaceCharacter", getLocalizedPlayerJob(playerid, "en"), getPlayerLevel(playerid) );
             trigger(playerid, "onServerInterfaceMoney", getPlayerMoney(playerid));
             screenFadeout(playerid, 500);
@@ -92,6 +91,7 @@ function trySavePlayer(playerid) {
 
     // get instance
     local char   = xPlayers[playerid];
+    local pos    = getPlayerPositionObj(playerid);
 
     // proxy data back to the model
     char.money   = players[playerid]["money"];
@@ -100,11 +100,11 @@ function trySavePlayer(playerid) {
     char.cskin   = players[playerid]["skin"];
     char.spawnid = players[playerid]["spawn"];
     char.xp      = players[playerid]["xp"];
-    char.housex  = players[playerid]["housex"];
-    char.housey  = players[playerid]["housey"];
-    char.housez  = players[playerid]["housez"];
+    char.housex  = pos.x;
+    char.housey  = pos.y;
+    char.housez  = pos.z;
     char.job     = (players[playerid]["job"]) ? players[playerid]["job"] : "";
-    char.locale  = players[playerid]["locale"];
+    char.health  = getPlayerHealth(playerid);
 
     // save it
     char.save();
@@ -142,9 +142,28 @@ event("onPlayerMoneyChanged", function(playerid) {
     }
 });
 
-addEventHandler("native:onPlayerSpawn", function(playerid) {
+event("onPlayerConnectInit", function(playerid, name, ip, serial) {
     // set player colour
     setPlayerColour(playerid, 0x99FFFFFF); // whity
+});
+
+event("onServerPlayerStarted", function(playerid) {
+    local weaponlist = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 21];
+    weaponlist.apply(function(id) {
+        removePlayerWeapon( playerid, id );
+    })
+
+    if (getPlayerName(playerid) == "Inlife") {
+        setPlayerColour(playerid, 0x99FF3333); // admin
+    }
+
+    // clear chat
+    for (local i = 0;i < 12; i++) {
+        msg(playerid, "", CL_BLACK);
+    }
+});
+
+event("native:onPlayerSpawn", function(playerid) {
 
     // player is not yet logined
     if (!(playerid in players)) {
@@ -168,7 +187,7 @@ addEventHandler("native:onPlayerSpawn", function(playerid) {
                 msg(playerid, "hospital.money.deducted", [HOSPITAL_AMOUNT], CL_SUCCESS);
                 setPlayerHealth(playerid, 730.0);
             } else {
-                msg(playerid, "hospital.money.donthave", [HOSPITAL_AMOUNT], CL_ERROR);
+                msg(playerid, "hospital.money.donthave", [], CL_ERROR);
                 setPlayerHealth(playerid, 370.0);
             }
 
@@ -181,7 +200,7 @@ addEventHandler("native:onPlayerSpawn", function(playerid) {
                 players[playerid].housez
             );
 
-            setPlayerHealth(playerid, 730.0);
+            setPlayerHealth(playerid, players[playerid].health);
 
         } else {
 
@@ -192,7 +211,7 @@ addEventHandler("native:onPlayerSpawn", function(playerid) {
             local z = default_spawns[spawnID][2];
 
             setPlayerPosition(playerid, x, y, z);
-            setPlayerHealth(playerid, 730.0);
+            setPlayerHealth(playerid, players[playerid].health);
         }
 
         delayedFunction(calculateFPSDelay(playerid) + 1500, function() {
@@ -208,7 +227,7 @@ addEventHandler("native:onPlayerSpawn", function(playerid) {
     }
 });
 
-addEventHandler("native:onPlayerDeath", function(playerid, killerid) {
+event("native:onPlayerDeath", function(playerid, killerid) {
     // store state for respawning
     setPlayerBeenDead(playerid);
     trigger("onPlayerDeath", playerid);

@@ -28,4 +28,4 @@ function fuelStationsHelp ( playerid ) {
 }
 
 
-cmd("help", "fuel", fuelStationsHelp);
+cmd("help", "fuel", fuelStationsHelp); // Attention to developers: don't move this string to up.

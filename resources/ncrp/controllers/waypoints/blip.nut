@@ -63,7 +63,7 @@ function removeBlipForPlayers(blipid) {
 }
 
 function instantiateBlip(x, y, icon, distance, private) {
-    local blipid = __blip__autoincrement++;
+    local blipid = md5("5" + (__blip__autoincrement++));
     __blips[blipid] <- { uid = blipid, x = x.tofloat(), y = y.tofloat(), library = icon[0], icon = icon[1], distance = distance.tofloat(), private = private };
     return blipid;
 }

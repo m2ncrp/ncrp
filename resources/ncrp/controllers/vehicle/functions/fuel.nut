@@ -165,3 +165,16 @@ function getDefaultVehicleFuel(vehicleid) {
 function getDefaultVehicleModelFuel(modelid) {
     return (("model_" + modelid) in vehicleFuelTankData) ? vehicleFuelTankData["model_" + modelid] : VEHICLE_FUEL_DEFAULT;
 }
+
+/**
+ * Switch engine on/off
+ * @param  {Integer} vehicleid
+ * @return {Boolean}
+ */
+function switchEngine(vehicleid) {
+    if (vehicleid in __vehicles) {
+        return setVehicleEngineState(vehicleid, (__vehicles[vehicleid].state = !__vehicles[vehicleid].state));
+    }
+
+    return false;
+}

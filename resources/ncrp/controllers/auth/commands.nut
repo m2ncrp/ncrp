@@ -13,6 +13,9 @@ simplecmd("register", function(playerid, password) {
         account = Account();
         account.username = getPlayerName(playerid);
         account.password = md5(password);
+        account.ip       = getPlayerIp(playerid);
+        account.serial   = getPlayerSerial(playerid);
+        account.locale   = getPlayerLocale(playerid);
 
         Account.findOneBy({ username = account.username }, function(err, result) {
             if (result) {
@@ -20,7 +23,11 @@ simplecmd("register", function(playerid, password) {
             } else {
                 account.save(function(err, result) {
                     account.addSession(playerid);
+
+                    // send success registration message
                     msg(playerid, "auth.success.register", CL_SUCCESS);
+                    dbg("registration", getAuthor(playerid));
+
                     screenFadein(playerid, 250, function() {
                         trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
                     });
@@ -50,9 +57,18 @@ simplecmd("login", function(playerid, password) {
             // no accounts found
             if (!account) return msg(playerid, "auth.error.notfound", CL_ERROR);
 
+            // update data
+            account.ip     = getPlayerIp(playerid);
+            account.serial = getPlayerSerial(playerid);
+            account.save();
+
             // save session
             account.addSession(playerid);
+
+            // send message success
             msg(playerid, "auth.success.login", CL_SUCCESS);
+            dbg("login", getAuthor(playerid));
+
             screenFadein(playerid, 250, function() {
                 trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
             });

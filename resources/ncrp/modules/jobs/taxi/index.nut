@@ -6,6 +6,67 @@ local price = 3.0;
 const TAXI_JOB_SKIN = 171;
 const TAXI_JOB_LEVEL = 2;
 
+// general
+translation("en", {
+    "job.taxidriver"                    :   "taxi driver"
+    "job.taxi.needlevel"                :   "[TAXI JOB] You need level %d to become taxi driver."
+    "job.taxi.driver.not"               :   "[TAXI JOB] You're not a Taxi Driver."
+    "job.taxi.driver.already"           :   "[TAXI JOB] You're Taxi Driver already."
+    "job.taxi.driver.dontfoolaround"    :   "[TAXI JOB] Don't fool around! You are a taxi driver."
+    "job.taxi.driver.now"               :   "[TAXI JOB] You became a taxi driver. Change status to ON air to begin to receive calls."
+    "job.taxi.call.new"                 :   "[TAXI JOB] New call from address: %s. If you want take this call, write /taxi take %d."
+    "job.taxi.needcar"                  :   "[TAXI JOB] You need a taxi car."
+    "job.taxi.noanycalls"               :   "[TAXI JOB] You didn't take any calls."
+    "job.taxi.wait"                     :   "[TAXI JOB] Wait for the passenger..."
+    "job.taxi.canttakecall"             :   "[TAXI JOB] You can't take call while your status is OFF air."
+    "job.taxi.callnotexist"             :   "[TAXI JOB] Customer has canceled the call. Wait other calls..."
+    "job.taxi.takenthiscall"            :   "[TAXI JOB] You have already taken this call #%d."
+    "job.taxi.takencall"                :   "[TAXI JOB] You have already taken a call."
+    "job.taxi.callalreadytaken"         :   "[TAXI JOB] Call #%d is already taken."
+    "job.taxi.youtakencall"             :   "[TAXI JOB] You've taken a call #%d."
+    "job.taxi.completed"                :   "[TAXI JOB] Customer paid the trip. You've completed the call #%d."
+    "job.taxi.statuson"                 :   "[TAXI JOB] Your taxi driver status: ON air. Wait for a call..."
+    "job.taxi.cantchangestatus"         :   "[TAXI JOB] You can't change status while you'll complete trip or refuse call."
+    "job.taxi.statusoff"                :   "[TAXI JOB] Your taxi driver status: OFF air. You won't receive calls now."
+    "job.taxi.requested"                :   "[TAXI JOB] You have requested payment of $%.2f."
+    "job.taxi.psngdeclined"             :   "[TAXI JOB] Passenger %s declined to pay."
+    "job.taxi.callclosed"               :   "[TAXI JOB] Call has been closed successfully."
+    "job.taxi.havejob"                  :   "[TAXI JOB] You have a job: %s."
+    "job.taxi.refusedcall"              :   "[TAXI JOB] You've refused from call #%d."
+    "job.taxi.cantrefuse"               :   "[TAXI JOB] You can't refuse from call while you carry a passenger."
+    "job.taxi.cantleavejob1"            :   "[TAXI JOB] You can't leave job while you have a call."
+    "job.taxi.cantleavejob2"            :   "[TAXI JOB] You can't leave job while you'll complete the trip."
+
+    "job.taxi.help.title"               :   "List of available commands for TAXI JOB:"
+    "job.taxi.help.job"                 :   "Get taxi driver job"
+    "job.taxi.help.jobleave"            :   "Leave from taxi driver job"
+    "job.taxi.help.onair"               :   "Set status as ON air"
+    "job.taxi.help.offair"              :   "Set status as OFF air"
+    "job.taxi.help.take"                :   "Take call with ID. Example: /taxi take 5"
+    "job.taxi.help.refuse"              :   "Refuse the current taken call"
+    "job.taxi.help.ready"               :   "Report that the taxicar has arrived to the address"
+    "job.taxi.help.done"                :   "End trip and send invoice to pay AMOUNT dollars. Example: /taxi done 1.25"
+    "job.taxi.help.close"               :   "Close the call as completed"
+
+    "taxi.needpay"                      :   "To drive this car you need to pay $%.2f for fuel and rent. If you agree: /drive"
+    "taxi.notenough"                    :   "You don't have enough money."
+    "taxi.youpay"                       :   "You paid $%.2f. Now you can drive this car."
+    "taxi.attention"                    :   "Attention!!! If you leave the car and want to drive again, you need to pay again too."
+
+    "taxi.call.addresswithout"          :   "[TAXI] You can't call taxi without address."
+    "taxi.call.nofreecars"              :   "[TAXI] No free cars. Please try later."
+    "taxi.call.youcalled"               :   "[TAXI] You've called taxi from %s."
+    "taxi.call.received"                :   "[TAXI] Your call is received by driver. The car goes to you."
+    "taxi.call.arrived"                 :   "[TAXI] Your taxi car with plate %s arrived to address."
+    "taxi.call.refused"                 :   "[TAXI] Driver refused from your call. Wait another driver."
+    "taxi.call.request"                 :   "[TAXI] You have to pay $%.2f for taxi."
+    "taxi.call.declined"                :   "[TAXI] You declined to pay for taxi."
+    "taxi.call.completed"               :   "[TAXI] The trip is completed. Please, leave the car."
+
+    "taxi.help.title"                   :   "List of available commands for TAXI:"
+    "taxi.help.taxi"                    :   "/taxi ADDRESS - Call a taxi to your address"
+});
+
 event("onServerStarted", function() {
     log("[jobs] loading taxi job...");
     local taxicars = [
@@ -149,7 +210,7 @@ function taxiCallTake(playerid, customerid) {
     }
 
     if ( !isPlayerConnected(customerid) || playerid == customerid ) {
-        return msg(playerid, "job.taxi.callnotexist");
+        return msg_taxi_dr(playerid, "job.taxi.callnotexist");
     }
 
     if(job_taxi[playerid]["customer"] == customerid) {
@@ -373,7 +434,7 @@ function taxiJob(playerid) {
     setTaxiLightState(getPlayerVehicle(playerid), false);
     setVehicleFuel(getPlayerVehicle(playerid), 56.0);
 
-    msg(playerid, "job.taxi.driver.now");
+    msg_taxi_dr(playerid, "job.taxi.driver.now");
 
     setPlayerJob( playerid, "taxidriver");
 
