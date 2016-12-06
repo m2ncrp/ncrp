@@ -10,6 +10,16 @@ const VEHICLE_DEFAULT_OWNER     = "";
 const VEHICLE_OWNERSHIP_NONE    = 0;
 const VEHICLE_OWNERSHIP_SINGLE  = 1;
 
+translate("en", {
+    "vehicle.sell.amount"       : "You need to set the amount you wish to sell your car for."
+    "vehicle.sell.2passangers"  : "You need potential buyer to sit in the vehicle with you."
+    "vehicle.sell.ask"          : "%s offers you to buy his vehicle for $%.2f."
+    "vehicle.sell.log"          : "You offered %s to buy your vehicle for $%.2f."
+    "vehicle.sell.success"      : "You've successfuly sold this car."
+    "vehicle.buy.success"       : "You've successfuly bought this car."
+    "vehicle.sell.failure"      : "%s refused to buy this car."
+});
+
 event("onScriptInit", function() {
     // police cars
     addVehicleOverride(42, function(id) {

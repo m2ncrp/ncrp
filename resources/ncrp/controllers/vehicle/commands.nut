@@ -96,6 +96,43 @@ acmd("who", function(playerid) {
     }
 });
 
+cmd("sell", function(playerid, amount = null) {
+    if (!isPlayerInVehicle(playerid)) {
+        return;
+    }
+
+    if (!amount) {
+        return msg(playerid, "vehicle.sell.amount", CL_ERROR);
+    }
+
+    local vehicleid = getPlayerVehicle(playerid);
+
+    if (getVehiclePassengersCount(vehicleid) != 2) {
+        return msg(playerid, "vehicle.sell.2passangers", CL_ERROR);
+    }
+
+    local passangers = getVehiclePassengers(vehicleid);
+
+    foreach (idx, targetid in passangers) {
+        // prevent selling to yourself
+        if (targetid == playerid) continue;
+
+        msg(targetid, "vehicle.sell.ask", [getPlayerName(playerid), amount], CL_WARNING);
+        msg(playerid, "vehicle.sell.log", [getPlayerName(targetid), amount], CL_WARNING);
+
+        sendInvoiceSilent(playerid, targetid, amount, function(a, b, result) {
+            if (result) {
+                setVehicleOwner(vehicleid, targetid);
+                msg(playerid, "vehicle.sell.success", CL_SUCCESS);
+                msg(targetid, "vehicle.buy.success" , CL_SUCCESS);
+                return;
+            } else {
+                msg(playerid, "vehicle.sell.failure", [getPlayerName(targetid)], CL_ERROR);
+            }
+        });
+    }
+});
+
 /**
  * KEYBINDS
  */
