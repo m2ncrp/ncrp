@@ -131,8 +131,8 @@ function bkOpen ( playerid, sport = null ) {
         msg(playerid, "==================================", CL_HELP_LINE);
         msg( playerid, "bk.selectteam", BK_COLOR);
 
-        local data = bkSelectFixedAmount("baseball", 12);
-
+        local data = bkSelectFixedAmount("baseball", 10);
+        dbg(data);
         return;
     }
 
@@ -141,7 +141,7 @@ function bkOpen ( playerid, sport = null ) {
         msg( playerid, "bk.selecthorse", BK_COLOR);
 
         local data = bkSelectFixedAmount("horserace", 8);
-
+        dbg(data);
         return;
     }
 
