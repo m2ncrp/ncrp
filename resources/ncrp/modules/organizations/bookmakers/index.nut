@@ -17,7 +17,7 @@ local bkLoadedData = {
 
 event("onServerStarted", function() {
     SportEntries.findAll(function(err, entries) {
-        if (err || !entries) {
+        if (err || !entries.len()) {
             // called only one time (per database)
             entries = bkCreateBaseData();
         }
