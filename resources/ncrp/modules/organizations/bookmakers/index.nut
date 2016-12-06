@@ -24,7 +24,19 @@ event("onServerStarted", function() {
 
         bkLoadedData.records = entries;
     });
+
+    log("[jobs] loading porter job...");
+
+    //creating 3dtext for bus depot
+    create3DText ( BK_X, BK_Y, BK_Z+0.35, "TRAIN STATION", CL_ROYALBLUE );
+    create3DText ( BK_X, BK_Y, BK_Z+0.20, "/help job porter", CL_WHITE.applyAlpha(100), 3.0 );
+
+    createBlip  (  BK_X, BK_Y, [ 6, 4 ], 4000.0);
+
 });
+
+
+
 
 function bkCreateBaseData() {
     local entries   = [];
@@ -66,12 +78,7 @@ function bkCreateBaseData() {
     }
 
     local horses = [
-        "Horse 1",
-        "Horse 2",
-        "Horse 3",
-        "Horse 4",
-        "Horse 5",
-        "Horse 6",
+        "Phalaris", "Eclipse", "Nearco", "Sayram", "American Pharoah", "Sorrento", "Mustang", "Nearctic", "Allegra", "Alaska", "Acorn", "Adagio", "Admiral", "Arnie", "Artemis", "Artex", "Arthur", "Banjo", "Baloo", "Bambi", "Bandit", "Barkley", "Bueno", "Noir", "Jaguar", "Ebony", "Onyx", "Domino", "Cleveland", "Adobe", "Cinnamon", "Brandy", "Autumn", "Opie", "Fiona", "Peter Pan", "Russell", "Blondie", "Rapunzel", "Spirit", "Trapper", "Napoleon", "Pepper", "Snowball", "Lacey", "Traveller", "Scout", "Little Joe", "Jigsaw", "Pirate", "Rembrandt", "Monte", "Baymax", "Goliath", "Universe", "Bolt", "Challenger", "Billie Jean", "Fargo", "Jet", "Victory", "Pharoah", "Trigger", "Champ", "Oakley", "Bonney", "Rio", "Dale", "Gene", "Cash", "Chisholm", "Misty", "Dolly", "Cookie", "Charlie Brown", "Kokomo", "Olaf", "Thelwell", "Isabelle", "Randolph", "Debutante", "Marquis", "Juliet", "Henrietta", "Vanderbilt", "Versailles", "El Jefe", "Queen", "Boots", "Major", "Barkley", "Barnaby", "Whiskers", "Balki", "Newton", "Tigger", "Buster", "Flopsy", "Paris", "Sicily", "Beijing", "Vancouver", "Utah", "Sydney", "Berlin", "Carolina", "Passport", "London", "Mozart", "Jackson", "Beethoven", "Mona", "Dickinson", "Bard", "Da Vinci", "Sullivan", "Chopin"
     ];
 
     foreach (idx, value in horses) {
