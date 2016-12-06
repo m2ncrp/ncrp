@@ -141,6 +141,7 @@ translation("ru", {
     "job.cargodriver.takemoney"         :   "[CARGO] Идите в офис Seagift и получите Ваш заработок."
     "job.cargodriver.needcomplete"      :   "[CARGO] Завершите доставку."
     "job.cargodriver.nicejob"           :   "[CARGO] Отличная работа, %s! Держи $%.2f."
+    "job.cargodriver.wantagain"         :   "[CARGO] Если вы хотите выйти в рейс повторно - садистесь в грузовки и отправлйтесь в Порт к складу P3 06."
 
     "job.cargodriver.help.title"        :   "Список команд, доступных водителю грузовика:"
     "job.cargodriver.help.job"          :   "Устроиться на работу водителем грузовика"
@@ -148,6 +149,8 @@ translation("ru", {
     "job.cargodriver.help.load"         :   "Загрузить грузовик"
     "job.cargodriver.help.unload"       :   "Разгрузить грузовик"
     "job.cargodriver.help.finish"       :   "Сообщить о доставке и получить деньги"
+
+
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
