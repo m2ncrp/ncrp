@@ -71,6 +71,7 @@ cmd("car", "buy", function(playerid, modelid = null) {
     setVehicleSaving(vehicleid, true);
     setVehicleRespawnEx(vehicleid, false);
     setVehicleDirtLevel(vehicleid, 0.0);
+    repairVehicle(vehicleid);
 
     return msg(playerid, "shops.carshop.success", CL_SUCCESS);
 });
