@@ -51,6 +51,7 @@ include("controllers/admin");
 include("controllers/statistics");
 include("controllers/extrasync");
 include("controllers/business");
+include("controllers/gui");
 
 // load modules
 include("modules/metro");

@@ -4,6 +4,8 @@ __events <- {};
 local oldAddEventHandler = addEventHandler;
 local oldClientTrigger   = triggerClientEvent;
 
+original__addEventHandler <- addEventHandler;
+
 /**
  * Method for proxying old events to new
  *

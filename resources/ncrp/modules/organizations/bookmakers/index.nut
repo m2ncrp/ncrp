@@ -1,3 +1,4 @@
+include("modules/organizations/bookmakers/SportEntries");
 
 local baseballs = [
     "Pittsburgh Pirates"   ,
@@ -20,6 +21,17 @@ local baseballs = [
     "Lost Heaven Lancers"  ,
     "Birkland Bulls"
 ];
+
+local bkSpotTypes = [
+    "baseball",
+    "horserace"
+];
+
+event("onServerStarted", function() {
+    SportEntries.findAll(function(err, entries) {
+        // if (err || )
+    });
+});
 
 function bkShowList ( playerid ) {
     // Code
