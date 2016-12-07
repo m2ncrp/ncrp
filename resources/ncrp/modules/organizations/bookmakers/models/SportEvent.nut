@@ -36,3 +36,19 @@ class SportEvent extends ORM.Entity {
         q.getResult(callback);
     }
 }
+
+
+
+
+class SportBet extends ORM.Entity {
+
+    static classname = "SportBet";
+    static table = "sport_bets";
+
+    static fields = [
+        ORM.Field.String({  name = "owner" }),
+        ORM.Field.Integer({ name = "participant" }),
+        ORM.Field.Float  ({ name = "amount" }),
+    ];
+
+}
