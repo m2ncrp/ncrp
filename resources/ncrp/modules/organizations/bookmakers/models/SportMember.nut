@@ -1,7 +1,7 @@
-class SportEntries extends ORM.Entity {
+class SportMember extends ORM.Entity {
 
-    static classname = "SportEntries";
-    static table = "sport_entries";
+    static classname = "SportMember";
+    static table = "sport_members";
 
     static fields = [
         ORM.Field.String ({ name = "type" }),
