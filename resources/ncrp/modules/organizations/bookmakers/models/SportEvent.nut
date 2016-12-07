@@ -46,7 +46,7 @@ class SportBet extends ORM.Entity {
     static table = "sport_bets";
 
     static fields = [
-        ORM.Field.String({  name = "owner" }),
+        ORM.Field.String({  name = "name" }),
         ORM.Field.Integer({ name = "participant" }),
         ORM.Field.Float  ({ name = "amount" }),
     ];
