@@ -70,6 +70,9 @@ event("onServerStarted", function() {
     log("[jobs] loading cargodriver job...");
     cargocars[createVehicle(38, 396.5, 101.977, -20.9432, -89.836, 0.40721, 0.0879066 )]  <- [ false ]; // SeagiftTruck0
     cargocars[createVehicle(38, 396.5, 98.0385, -20.9359, -88.4165, 0.479715, -0.0220962)]  <- [ false ];  //SeagiftTruck1
+    cargocars[createVehicle(38, 365.481, 116.910, -20.9320, 179.810, -0.0470277, -0.456284)]  <- [ false ];  //SeagiftTruck3
+    cargocars[createVehicle(38, 375.196, 116.910, -20.9320, 179.810, -0.081981, -0.55936)]  <- [ false ];  //SeagiftTruck3
+
 
     //creating 3dtext for bus depot
     create3DText ( CARGO_JOB_X, CARGO_JOB_Y, CARGO_JOB_Z+0.35, "SEAGIFT's OFFICE", CL_ROYALBLUE );
