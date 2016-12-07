@@ -227,7 +227,7 @@ function cargoJobLoad( playerid ) {
         return msg( playerid, "job.cargodriver.driving", CL_RED );
     }
 
-    if(!isPlayerInVehicleSeat(playerid, 0){
+    if(!isPlayerInVehicleSeat(playerid, 0)) {
         return msg( playerid, "job.cargodriver.notpassenger", CARGO_JOB_COLOR );
     }
 
@@ -265,7 +265,7 @@ function cargoJobUnload( playerid ) {
         return msg( playerid, "job.cargodriver.driving", CL_RED );
     }
 
-    if(!isPlayerInVehicleSeat(playerid, 0){
+    if(!isPlayerInVehicleSeat(playerid, 0)) {
         return msg( playerid, "job.cargodriver.notpassenger", CARGO_JOB_COLOR );
     }
 
