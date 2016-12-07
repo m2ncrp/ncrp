@@ -23,7 +23,7 @@ translation("en", {
     "rentcar.refused"       : "You refused from rent all cars. Thank you for choosing North Millville Car Rental!"
     "rentcar.canrent"       : "You can rent this car for $%.2f in minute. If you agree: /rent"
     "rentcar.cantrent"      : "You can't drive this car more, because you don't have enough money. Please, get out of the car."
-    "rentcar.paidcar"       : "You paid for car. Your balance: $%.2f."
+    "rentcar.paidcar"       : "You paid for car. Your balance: $%s."
 
     "rentcar.help.title"    : "List of available commands for CAR RENTAL:"
     "rentcar.help.rent"     : "Rent this car (need to be in a car)"
