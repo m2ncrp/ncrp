@@ -15,11 +15,14 @@ class GUI.Window extends GUI.Object
 
     /**
      * Current element type
+     * ELEMENT_TYPE_WINDOW
      * @type {Integer}
      */
-    static __type = ELEMENT_TYPE_WINDOW;
+    static __type = 0;
 
-    constructor() {
+
+    constructor()
+    {
         base.constructor();
         this.__components = [];
     }
@@ -29,7 +32,8 @@ class GUI.Window extends GUI.Object
      * @param {GUI.Object} component
      * @return {GUI.Window} this
      */
-    function add(component) {
+    function add(component)
+    {
         if (typeof component == "array"){
             return this.addLine(component);
         }
@@ -37,6 +41,8 @@ class GUI.Window extends GUI.Object
         if (!(component instanceof GUI.Object)) {
             throw "GUI.Window.add: only component of GUI.Object can be passed";
         }
+
+        component.setParent(this);
 
         this.__components.push(component);
         this.rehash();
@@ -50,7 +56,8 @@ class GUI.Window extends GUI.Object
      * @param {Array} components
      * @return {GUI.Window} this
      */
-    function addLine(components) {
+    function addLine(components)
+    {
         if (typeof components != "array") {
             throw "GUI.Window.addLine: You should pass array of GUI.Objects.";
         }
@@ -69,7 +76,8 @@ class GUI.Window extends GUI.Object
         return this;
     }
 
-    function show(playerid) {
+    function show(playerid)
+    {
 
     }
 }

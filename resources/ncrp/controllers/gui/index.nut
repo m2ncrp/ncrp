@@ -1,3 +1,8 @@
+GUI <- { __version = "001" };
+
+// include("controllers/gui/Object.nut");
+// include("controllers/gui/Object.nut");
+
 // ELEMENT_TYPE_WINDOW
 // ELEMENT_TYPE_EDIT
 // ELEMENT_TYPE_BUTTON
@@ -35,4 +40,17 @@ cmd("sts", function(playerid) {
 
 cmd("alert", function(playerid) {
     GUI.Alert("WTF ??").show(playerid);
+});
+
+cmd("wtf", function(pid) {
+    local a = GUI.Window("Hello world");
+
+    local handler = function(pid) {
+        print(pid + " clicked");
+    };
+
+    a.setPosition(ORM.Position.center(-5, -10));
+    a.add([ ORM.Label("how hard you try"), ORM.Button("Try", handler) ]);
+
+    a.show(pid);
 });
