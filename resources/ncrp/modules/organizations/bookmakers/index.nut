@@ -222,24 +222,26 @@ function bkOpen ( playerid, sport = null ) {
 
         return;
     }
+
+    local type;
     local sport = sport.tointeger();
     if (sport == 1) {
         msg(playerid, "==================================", CL_HELP_LINE);
         msg( playerid, "bk.selectteam", BK_COLOR);
-        local type = "horserace";
+        type = "horserace"
     }
 
     if (sport == 2) {
         msg(playerid, "==================================", CL_HELP_LINE);
         msg( playerid, "bk.selecthorse", BK_COLOR);
-
-        local type = "baseball";
-        }
+        type = "baseball";
+    }
 
 
     SportEvent.findBy({ winner = 0, type = type }, function(err, events) {
         foreach (idx, sprt in events) {
             sprt.getParticipants(function(err, teams) {
+                // dbg(err, teams);
                 foreach (idx, team in teams) {
                     print(team.title);
                 }
