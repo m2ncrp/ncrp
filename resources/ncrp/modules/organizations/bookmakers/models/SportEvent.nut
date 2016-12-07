@@ -7,6 +7,7 @@ class SportEvent extends ORM.Entity {
         ORM.Field.String({ name = "type" }),
         ORM.Field.String({ name = "participants", value = "0" }),
         ORM.Field.String({ name = "date" }),
+        ORM.Field.Integer({ name = "winner", value = 0 }),
     ];
 
     /**

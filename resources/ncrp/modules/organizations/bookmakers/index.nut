@@ -44,12 +44,82 @@ event("onServerStarted", function() {
 });
 
 event("onServerHourChange", function() {
+    if (getHour() == 0)  { bkCreateEvent(); return; }
     if (getHour() != 20) return;
 
+    SportEvent.findBy({ winner = 0 }, function(err, events) {
+        foreach (idx, sprt in events) {
+            sprt.getParticipants(function(err, teams) {
 
+                // add win to random winner
+                local winner = teams[random(0, teams.len() - 1)];
+                winner.wins++;
+
+                // add totals to all and save
+                foreach (idx, team in teams) {
+                    team.total++;
+                    team.save();
+                }
+
+                // save winner id
+                sprt.winner = winner.id;
+                sprt.save();
+            });
+        }
+    });
 
 });
 
+
+function bkCreateEvent () {
+
+// create horserace events
+    local data = bkSelectFixedAmount("horserace", 8);
+    local sprt = SportEvent();
+
+    foreach (idx, value in data) {
+        sprt.addParticipant(value);
+    }
+
+    sprt.type = "horserace";
+    sprt.date = getDate();
+    sprt.save();
+
+    print("saved with id: " + sprt.id);
+
+// create baseball events
+    for (local i = 0; i < 5; i++) {
+
+        local data = bkSelectFixedAmount("baseball", 2);
+        local sprt = SportEvent();
+
+        foreach (idx, value in data) {
+            sprt.addParticipant(value);
+        }
+
+        sprt.type = "baseball";
+        sprt.date = getDate();
+        sprt.save();
+
+        print("saved with id: " + sprt.id);
+    }
+}
+
+function bkRemoveEvents (type = null) {
+    if (type == null) {
+        ORM.Query("delete from @SportEvent").execute();
+        return;
+    }
+    if (type == "baseball") {
+        ORM.Query("delete from @SportEvent where type = 'baseball'").execute();
+        return;
+    }
+    if (type == "horserace") {
+        ORM.Query("delete from @SportEvent where type = 'horserace'").execute();
+        return;
+    }
+    print("[bk] type \""+type+"\" not found" );
+}
 
 function bkCreateBaseData() {
     local entries   = [];
@@ -156,23 +226,27 @@ function bkOpen ( playerid, sport = null ) {
     if (sport == 1) {
         msg(playerid, "==================================", CL_HELP_LINE);
         msg( playerid, "bk.selectteam", BK_COLOR);
-
-        local data = bkSelectFixedAmount("baseball", 10);
-        dbg(data);
-        return;
+        local type = "horserace";
     }
 
     if (sport == 2) {
         msg(playerid, "==================================", CL_HELP_LINE);
         msg( playerid, "bk.selecthorse", BK_COLOR);
 
-        local data = bkSelectFixedAmount("horserace", 8);
-
-        foreach (idx, value in data) {
-            dbg(value.title);
+        local type = "baseball";
         }
-        return;
-    }
+
+
+    SportEvent.findBy({ winner = 0, type = type }, function(err, events) {
+        foreach (idx, sprt in events) {
+            sprt.getParticipants(function(err, teams) {
+                foreach (idx, team in teams) {
+                    print(team.title);
+                }
+            });
+        }
+    });
+
 
 }
 
