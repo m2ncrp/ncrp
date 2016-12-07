@@ -2,7 +2,7 @@ include("controllers/vehicle/functions");
 include("controllers/vehicle/commands.nut");
 //include("controllers/vehicle/hiddencars.nut");
 
-const VEHICLE_RESPAWN_TIME      = 600; // 10 (real) minutes
+const VEHICLE_RESPAWN_TIME      = 300; // 5 (real) minutes
 const VEHICLE_FUEL_DEFAULT      = 40.0;
 const VEHICLE_MIN_DIRT          = 0.25;
 const VEHICLE_MAX_DIRT          = 0.75;
