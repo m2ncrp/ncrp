@@ -6,6 +6,13 @@ class GUI.Window extends GUI.Object
      */
     __components = null;
 
+    /**
+     * Static shared table
+     * for storing similar elements
+     * @type {Object}
+     */
+    static __windows = {};
+
     constructor() {
         base.constructor();
         this.__components = [];
