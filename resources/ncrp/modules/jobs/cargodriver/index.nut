@@ -19,6 +19,8 @@ translation("en", {
 "job.cargodriver.needcomplete"  : "[CARGO] You must complete delivery before."
 "job.cargodriver.nicejob"       : "[CARGO] Nice job, %s! Keep $%.2f."
 "job.cargodriver.wantagain"     : "[CARGO] If you want to go to route again - sit into cargo truck and go to warehouse P3 06 at Port."
+"job.cargodriver.notpassenger"  : "[CARGO] Delivery can be performed only by driver, but not by passenger."
+
 
 "job.cargodriver.help.title"            :   "List of available commands for CARGO TRUCK DRIVER:"
 "job.cargodriver.help.job"              :   "Get cargo truck driver job"
@@ -225,6 +227,10 @@ function cargoJobLoad( playerid ) {
         return msg( playerid, "job.cargodriver.driving", CL_RED );
     }
 
+    if(!isPlayerInVehicleSeat(playerid, 0){
+        return msg( playerid, "job.cargodriver.notpassenger", CARGO_JOB_COLOR );
+    }
+
     cargoJobRemovePrivateBlipText ( playerid );
 
     msg( playerid, "job.cargodriver.loading", CARGO_JOB_COLOR );
@@ -257,6 +263,10 @@ function cargoJobUnload( playerid ) {
 
     if(isPlayerVehicleMoving(playerid)){
         return msg( playerid, "job.cargodriver.driving", CL_RED );
+    }
+
+    if(!isPlayerInVehicleSeat(playerid, 0){
+        return msg( playerid, "job.cargodriver.notpassenger", CARGO_JOB_COLOR );
     }
 
     cargoJobRemovePrivateBlipText ( playerid );

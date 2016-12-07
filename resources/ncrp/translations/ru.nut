@@ -142,6 +142,7 @@ translation("ru", {
     "job.cargodriver.needcomplete"      :   "[CARGO] Завершите доставку."
     "job.cargodriver.nicejob"           :   "[CARGO] Отличная работа, %s! Держи $%.2f."
     "job.cargodriver.wantagain"         :   "[CARGO] Если вы хотите выйти в рейс повторно - садистесь в грузовки и отправлйтесь в Порт к складу P3 06."
+    "job.cargodriver.notpassenger"      :   "[CARGO] Доставка может осуществляться только водителем, но не пассажиром."
 
     "job.cargodriver.help.title"        :   "Список команд, доступных водителю грузовика:"
     "job.cargodriver.help.job"          :   "Устроиться на работу водителем грузовика"
