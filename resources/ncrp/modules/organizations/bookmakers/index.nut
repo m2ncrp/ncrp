@@ -1,4 +1,5 @@
 include("modules/organizations/bookmakers/models/SportEntries.nut");
+include("modules/organizations/bookmakers/models/SportEvent.nut");
 
 const BK_RADIUS = 4.0;
 /*
