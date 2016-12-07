@@ -1,4 +1,4 @@
-include("modules/organizations/bookmakers/models/SportEntries.nut");
+include("modules/organizations/bookmakers/models/SportMember.nut");
 include("modules/organizations/bookmakers/models/SportEvent.nut");
 
 const BK_RADIUS = 4.0;
@@ -20,7 +20,7 @@ local bkSpotTypes = [
 ];
 
 local bkLoadedData = {
-    records = [],
+    members = [],
     events  = [],
     current = {
         horses = [],
@@ -31,18 +31,16 @@ local bkLoadedData = {
 event("onServerStarted", function() {
     log("[jobs] loading bookmakers...");
 
-    // load records (horses and )
-    SportEntries.findAll(function(err, results) {
-        bkLoadedData.records = (!results.len()) ? bkCreateBaseData() : results;
+    // load records (horses and etc.)
+    SportMember.findAll(function(err, results) {
+        bkLoadedData.members = (!results.len()) ? bkCreateBaseData() : results;
     });
 
     // load current events
-    SportEvents.findAll(function(err, results) {
+    SportEvent.findAll(function(err, results) {
         bkLoadedData.events = (!results.len()) ? bkCreateEvent() : results;
     });
 
-
-    //creating 3dtext for bus depot
     create3DText ( BK_X, BK_Y, BK_Z+0.35, "Betting Office", CL_ROYALBLUE );
     create3DText ( BK_X, BK_Y, BK_Z+0.20, "/bk", CL_WHITE.applyAlpha(100), 3.0 );
 
@@ -76,6 +74,9 @@ event("onServerHourChange", function() {
     });
 
 });
+
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 function bkCreateEvent () {
@@ -114,6 +115,10 @@ function bkCreateEvent () {
     }
 }
 
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 function bkRemoveEvents (type = null) {
     if (type == null) {
         ORM.Query("delete from @SportEvent").execute();
@@ -130,8 +135,12 @@ function bkRemoveEvents (type = null) {
     print("[bk] type \""+type+"\" not found" );
 }
 
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 function bkCreateBaseData() {
-    local entries   = [];
+    local members   = [];
     local baseballs = [
         "Pittsburgh Pirates"   ,
         "St. Louis Cardinals"  ,
@@ -156,17 +165,17 @@ function bkCreateBaseData() {
 
     foreach (idx, value in baseballs) {
         // crate
-        local entry = SportEntries();
+        local member = SportMember();
 
         // put data
-        entry.type  = bkSpotTypes[0];
-        entry.title = value;
-        entry.wins  = random(3, 7);
-        entry.total = random(3, 23);
+        member.type  = bkSpotTypes[0];
+        member.title = value;
+        member.wins  = random(3, 7);
+        member.total = random(3, 23);
 
         // insert into database
-        entry.save();
-        entries.push(entry);
+        member.save();
+        members.push(member);
     }
 
     local horses = [
@@ -175,21 +184,25 @@ function bkCreateBaseData() {
 
     foreach (idx, value in horses) {
         // crate
-        local entry = SportEntries();
+        local member = SportMember();
 
         // put data
-        entry.type  = bkSpotTypes[1];
-        entry.title = value;
-        entry.wins  = random(3, 7);
-        entry.total = random(3, 23);
+        member.type  = bkSpotTypes[1];
+        member.title = value;
+        member.wins  = random(3, 7);
+        member.total = random(3, 23);
 
         // insert into database
-        entry.save();
-        entries.push(entry);
+        member.save();
+        members.push(member);
     }
 
-    return entries;
+    return members;
 }
+
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 function bkSelectFixedAmount(type, amount) {
     local data = [];
@@ -203,9 +216,17 @@ function bkSelectFixedAmount(type, amount) {
     return data;
 }
 
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 function bkShowList ( playerid ) {
     // Code
 }
+
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 translation("en", {
     "bk.goto"              : "Go to betting office in West Side"
@@ -218,6 +239,10 @@ translation("en", {
     "bk.toselectteam"      : "To select team use: /bk team ID"
     "bk.toselecthorse"     : "To select horse use: /bk horse ID"
 });
+
+
+//---------------------------------------------------------------------------------------------------------------
+
 
 function bkOpen ( playerid, sport = null ) {
 
@@ -241,7 +266,9 @@ function bkOpen ( playerid, sport = null ) {
         msg(playerid, "==================================", CL_HELP_LINE);
         msg( playerid, "bk.selecthorse", BK_COLOR);
 
-        SportEvent.findBy({ winner = 0, type = "horserace" }, function(err, events) {
+        /*
+
+         SportEvent.findBy({ winner = 0, type = "horserace" }, function(err, events) {
             foreach (idx, sprt in events) {
                 sprt.getParticipants(function(err, teams) {
                     foreach (i, team in teams) {
@@ -250,7 +277,12 @@ function bkOpen ( playerid, sport = null ) {
                 });
             }
         });
-        msg( playerid, "bk.toselecthorse", BK_COLOR);
+        */
+            foreach (idx, member in bkLoadedData.members) {
+                msg ( playerid, idx+". "+member.type+" "+member.title+" "+member.wins+" "+member.total );
+            }
+
+        msg( playerid, "bk.toselecthorse22", BK_COLOR);
     }
 
     if (sport == 2) {
@@ -274,6 +306,10 @@ function bkOpen ( playerid, sport = null ) {
 
 
 }
+
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 function bkBet ( playerid, participant, amount ) {
 
@@ -312,6 +348,8 @@ function bkBet ( playerid, participant, amount ) {
 
 }
 
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 cmd("bk", function(playerid, sport = null) {
