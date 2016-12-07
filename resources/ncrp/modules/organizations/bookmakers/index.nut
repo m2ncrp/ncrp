@@ -42,7 +42,12 @@ event("onServerStarted", function() {
 
 });
 
+event("onServerHourChange", function() {
+    if (getHour() != 20) return;
 
+
+
+});
 
 
 function bkCreateBaseData() {
