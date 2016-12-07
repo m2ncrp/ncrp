@@ -20,23 +20,27 @@ local bkSpotTypes = [
 ];
 
 local bkLoadedData = {
-    records = [], current = {
+    records = [],
+    events  = [],
+    current = {
         horses = [],
         teams = []
     }
 };
 
 event("onServerStarted", function() {
-    SportEntries.findAll(function(err, entries) {
-        if (err || !entries.len()) {
-            // called only one time (per database)
-            entries = bkCreateBaseData();
-        }
+    log("[jobs] loading bookmakers...");
 
-        bkLoadedData.records = entries;
+    // load records (horses and )
+    SportEntries.findAll(function(err, results) {
+        bkLoadedData.records = (!results.len()) ? bkCreateBaseData() : results;
     });
 
-    log("[jobs] loading porter job...");
+    // load current events
+    SportEvents.findAll(function(err, results) {
+        bkLoadedData.events = (!results.len()) ? bkCreateEvent() : results;
+    });
+
 
     //creating 3dtext for bus depot
     create3DText ( BK_X, BK_Y, BK_Z+0.35, "Betting Office", CL_ROYALBLUE );
