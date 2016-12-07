@@ -171,7 +171,7 @@ function bkCreateBaseData() {
         member.type  = bkSpotTypes[0];
         member.title = value;
         member.wins  = random(3, 7);
-        member.total = random(3, 23);
+        member.total = member.wins + random(3, 10);
 
         // insert into database
         member.save();
@@ -190,7 +190,7 @@ function bkCreateBaseData() {
         member.type  = bkSpotTypes[1];
         member.title = value;
         member.wins  = random(3, 7);
-        member.total = random(3, 23);
+        member.total = member.wins + random(3, 10);
 
         // insert into database
         member.save();

@@ -13,6 +13,12 @@ class GUI.Window extends GUI.Object
      */
     static __windows = {};
 
+    /**
+     * Current element type
+     * @type {Integer}
+     */
+    static __type = ELEMENT_TYPE_WINDOW;
+
     constructor() {
         base.constructor();
         this.__components = [];
