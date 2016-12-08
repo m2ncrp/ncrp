@@ -34,6 +34,22 @@ chatcmd(["w", "whisper"], function(playerid, message) {
     statisticsPushMessage(playerid, message, "whisper");
 });
 
+// private message
+cmd("pm", function(playerid, id, ...) {
+    if (!isInteger(id) || !vargv.len()) {
+        return msg(playerid, "chat.player.message.error", CL_ERROR);
+    }
+
+    if (!isPlayerConnected(id.tointeger())) {
+        return msg(playerid, "chat.player.message.noplayer", CL_ERROR);
+    }
+
+    local message = concat(vargv);
+    msg(playerid, "chat.player.message.private", [getAuthor( playerid ), message]);
+    statisticsPushText("pm", playerid, message);
+});
+
+
 // nonRP local chat
 chatcmd(["b"], function(playerid, message) {
     inRadiusSendToAll(playerid, "[nonRP] " + getAuthor( playerid ) + ": " + message, NORMAL_RADIUS, CL_GRAY);
