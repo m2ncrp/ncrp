@@ -213,8 +213,6 @@ addEventHandler("onClientCloseMap", function() {
     return 1;
 });
 
-local element = null;
-
 /**
  * Initialization
  */
@@ -234,9 +232,6 @@ addEventHandler("onServerClientStarted", function(version = null) {
     drawdata.version = (version) ? version : drawdata.version;
 
     initialized = true;
-
-    element = guiCreateElement(ELEMENT_TYPE_WINDOW, "test", 0.0, -10.0, screenX, screenY + 10);
-    guiSetAlpha(element, 0.0);
 });
 
 addEventHandler("onClientScriptInit", function() {
@@ -247,9 +242,4 @@ addEventHandler("onClientScriptInit", function() {
     sendMessage("We have a support for english language. Switch via: /en", 247,  202, 24);
     sendMessage("У нас есть поддержка русского языка. Включить: /ru", 247,  202, 24);
     // sendMessage(format("screenX: %f, screenY: %f", screenX, screenY));
-});
-
-
-addEventHandler("onGuiElementClick", function( button ) {
-    sendMessage ( "GUI Input: " + button );
 });
