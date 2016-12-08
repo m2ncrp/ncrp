@@ -21,7 +21,7 @@ local vehiclePositions = [
  */
 local carPrices = [
     [   // diamond motors
-        { modelid = 1 , price = 5000, title = "Berkley Kingfisher"  },  // berkley_kingfisher_pha
+        // { modelid = 1 , price = 5000, title = "Berkley Kingfisher"  },  // berkley_kingfisher_pha
         { modelid = 9 , price = 2740, title = "Houston Wasp"        },  // houston_wasp_pha
         { modelid = 22, price = 2100, title = "Potomac Indian"      },  // potomac_indian
         { modelid = 23, price = 2350, title = "Quicksilver Windsor" },  // quicksilver_windsor_pha
@@ -40,7 +40,7 @@ local carPrices = [
         { modelid = 45, price = 2700, title = "Smith Thunderbolt"   },
         { modelid = 41, price = 2140, title = "Smith Custom 200"    },
         { modelid = 28, price = 2300, title = "Shubert Beverly"     },
-        { modelid = 52, price = 2450, title = "Walker Rocket"       },
+        // { modelid = 52, price = 2450, title = "Walker Rocket"       },
     ]
 ];
 
