@@ -2,19 +2,20 @@
  * Car help
  * Usage: /car
  */
-cmd("car", function(playerid) {
-    if (isPlayerNearCarShop(playerid)) {
-        return msg(playerid, "shops.carshop.welcome", getPlayerName(playerid), CL_INFO);
-    }
+// cmd("car", function(playerid) {
+//     if (isPlayerNearCarShop(playerid)) {
+//         return msg(playerid, "shops.carshop.welcome", getPlayerName(playerid), CL_INFO);
+//     }
 
-    return msg(playerid, "shops.carshop.gotothere", getPlayerName(playerid), CL_WARNING);
-});
+//     return msg(playerid, "shops.carshop.gotothere", getPlayerName(playerid), CL_WARNING);
+// });
 
 /**
+ * RANAMED FROM CAR LIST
  * List car models available in the shop
  * Usage: /car list
  */
-cmd("car", "list", function(playerid, page = 1) {
+cmd("car", function(playerid, page = null, a = null) {
     if (!isPlayerNearCarShop(playerid)) {
         return msg(playerid, "shops.carshop.gotothere", getPlayerName(playerid), CL_WARNING);
     }
