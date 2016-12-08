@@ -127,10 +127,10 @@ cmd("sell", function(playerid, amount = null) {
         // prevent selling to yourself
         if (targetid == playerid) continue;
 
-        msg(targetid, "vehicle.sell.ask", [getPlayerName(playerid), amount], CL_WARNING);
-        msg(playerid, "vehicle.sell.log", [getPlayerName(targetid), amount], CL_WARNING);
+        msg(targetid, "vehicle.sell.ask", [getPlayerName(playerid), amount.tofloat()], CL_WARNING);
+        msg(playerid, "vehicle.sell.log", [getPlayerName(targetid), amount.tofloat()], CL_WARNING);
 
-        sendInvoiceSilent(playerid, targetid, amount, function(a, b, result) {
+        sendInvoiceSilent(playerid, targetid, amount.tofloat(), function(a, b, result) {
             if (result) {
                 setVehicleOwner(vehicleid, targetid);
                 msg(playerid, "vehicle.sell.success", CL_SUCCESS);
