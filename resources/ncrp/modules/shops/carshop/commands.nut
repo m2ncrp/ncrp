@@ -19,9 +19,11 @@ cmd("car", "list", function(playerid, page = 1) {
         return msg(playerid, "shops.carshop.gotothere", getPlayerName(playerid), CL_WARNING);
     }
 
+    local carshopid = getPlayerCarShopIndex(playerid);
+
     msg(playerid, "shops.carshop.list.title", CL_INFO);
 
-    foreach (idx, car in getCarPrices()) {
+    foreach (idx, car in getCarPrices(carshopid)) {
         msg(playerid, "shops.carshop.list.entry", [car.modelid, car.title, car.price])
     }
 });
@@ -37,22 +39,24 @@ cmd("car", "buy", function(playerid, modelid = null) {
         return msg(playerid, "shops.carshop.gotothere", getPlayerName(playerid), CL_WARNING);
     }
 
-    if (!isThereFreeCarShopPoint()) {
+    local carshopid = getPlayerCarShopIndex(playerid);
+
+    if (!isThereFreeCarShopPoint(carshopid)) {
         return msg(playerid, "shops.carshop.nofreespace", CL_ERROR);
     }
 
-    if (!modelid || !getCarShopModelById(modelid)) {
+    if (!modelid || !getCarShopModelById(modelid, carshopid)) {
         return msg(playerid, "shops.carshop.selectmodel");
     }
 
-    local car = getCarShopModelById(modelid);
+    local car = getCarShopModelById(modelid, carshopid);
 
     if (!canMoneyBeSubstracted(playerid, car.price)) {
         return msg(playerid, "shops.carshop.money.error", CL_ERROR);
     }
 
     // get free slot
-    local point = getCarShopSlotById();
+    local point = getCarShopSlotById(carshopid);
 
     // take money
     subMoneyToPlayer(playerid, car.price);
