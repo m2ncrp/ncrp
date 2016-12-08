@@ -141,6 +141,7 @@ cmd(["help", "h", "halp", "info"], "chat", function(playerid) {
         { name = "/whisper TEXT",     desc = "help.chat.whisper"},
         { name = "/b TEXT",           desc = "help.chat.localooc"},
         { name = "/ooc TEXT",         desc = "help.chat.ooc"},
+        { name = "/pm ID TEXT",       desc = "help.chat.privatemsg"},
         { name = "/me ACTION_TEXT",   desc = "help.chat.me"},
         { name = "/try ACTION_TEXT",  desc = "help.chat.try"}
     ];
