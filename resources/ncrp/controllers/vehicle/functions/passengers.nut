@@ -104,3 +104,12 @@ function getPlayerVehicleSeat(playerid) {
 function isPlayerInVehicleSeat(playerid, seat = 0) {
     return (isPlayerInVehicle(playerid) && getPlayerVehicleSeat(playerid) == seat);
 }
+
+/**
+ * Alias for driver
+ * @param  {[type]}  playerid [description]
+ * @return {Boolean}          [description]
+ */
+function isPlayerVehicleDriver(playerid) {
+    return isPlayerInVehicleSeat(playerid, 0);
+}

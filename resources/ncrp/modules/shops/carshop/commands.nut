@@ -26,6 +26,8 @@ cmd("car", "list", function(playerid, page = 1) {
     foreach (idx, car in getCarPrices(carshopid)) {
         msg(playerid, "shops.carshop.list.entry", [car.modelid, car.title, car.price])
     }
+
+    msg(playerid, "shops.carshop.list.title", CL_INFO);
 });
 
 /**

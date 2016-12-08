@@ -21,7 +21,7 @@ translation("en", {
     "shops.carshop.money.error"   : "Sorry, you dont have enough money."
     "shops.carshop.selectmodel"   : "You can browse vehicle models, and their prices via: /car list"
     "shops.carshop.list.title"    : "Select car you like, and proceed to buying via: /car buy MODELID"
-    "shops.carshop.list.entry"    : " - Model #%d, «%s». Cost: $%.2f"
+    "shops.carshop.list.entry"    : " - Model #%d, '%s'. Cost: $%.2f"
     "shops.carshop.success"       : "Contratulations! You've successfuly bought a car. Fare you well!"
     "shops.carshop.help.title"    : "List of available commands for CAR SHOP:"
     "shops.carshop.help.list"     : "Lists cars which are available to buy"
@@ -36,7 +36,7 @@ event("onServerStarted", function() {
     createBlip  ( DIAMOND_CARSHOP_X, DIAMOND_CARSHOP_Y, ICON_GEAR, ICON_RANGE_FULL );
 
     // Badbuy Motors
-    create3DText( BADGUY_CARSHOP_X, BADGUY_CARSHOP_Y, BADGUY_CARSHOP_Z + 0.35, "BADGUY MOTORS", CL_ROYALBLUE );
+    create3DText( BADGUY_CARSHOP_X, BADGUY_CARSHOP_Y, BADGUY_CARSHOP_Z + 0.35, "BAD GUY MOTORS", CL_ROYALBLUE );
     create3DText( BADGUY_CARSHOP_X, BADGUY_CARSHOP_Y, BADGUY_CARSHOP_Z + 0.20, "/car", CL_WHITE.applyAlpha(75), CARSHOP_DISTANCE );
 
     createBlip  ( BADGUY_CARSHOP_X, BADGUY_CARSHOP_Y, ICON_GEAR, ICON_RANGE_FULL );

@@ -144,6 +144,10 @@ key(["w", "s"], function(playerid) {
 
     local vehicleid = getPlayerVehicle(playerid);
 
+    if (!isPlayerVehicleDriver(playerid)) {
+        return;
+    }
+
     if (vehicleid in __vehicles) {
         __vehicles[vehicleid].state = true;
     }
