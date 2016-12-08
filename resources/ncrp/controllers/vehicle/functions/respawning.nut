@@ -74,6 +74,9 @@ function tryRespawnVehicleById(vehicleid, forced = false) {
     // repair and refuel
     repairVehicle(vehicleid);
     setVehicleFuel(vehicleid, getDefaultVehicleFuel(vehicleid));
+    setIndicatorLightState(vehicleid, INDICATOR_LEFT, false);
+    setIndicatorLightState(vehicleid, INDICATOR_RIGHT, false);
+    setVehicleLightState( vehicleid, false );
 
     // maybe vehicle already near its default place
     if (isVehicleNearPoint(vehicleid, data.position.x, data.position.y, 3.0)) {
