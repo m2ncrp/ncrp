@@ -45,6 +45,11 @@ cmd("paint", function(playerid, red, green, blue) {
 
 cmd("engine", "on", function(playerid) {
     local vehicleid = getPlayerVehicle( playerid );
+
+    if (!isPlayerVehicleDriver(playerid)) {
+        return;
+    }
+
     setVehicleEngineState(vehicleid, true);
 });
 
@@ -136,10 +141,16 @@ cmd("sell", function(playerid, amount = null) {
 /**
  * KEYBINDS
  */
-addKeyboardHandler("q", "up", function(playerid) {
-    if (isPlayerInVehicle(playerid)) {
-        return switchEngine(getPlayerVehicle(playerid));
+key("q", function(playerid) {
+    if (!isPlayerInVehicle(playerid)) {
+        return;
     }
+
+    if (!isPlayerVehicleDriver(playerid)) {
+        return;
+    }
+
+    return switchEngine(getPlayerVehicle(playerid));
 });
 
 addKeyboardHandler("r", "up", function(playerid) {
