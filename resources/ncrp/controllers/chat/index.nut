@@ -8,6 +8,9 @@ translation("en", {
     "chat.player.says"              : "%s says: %s",
     "chat.player.shout"             : "%s shout: %s",
     "chat.player.whisper"           : "%s whisper: %s",
+    "chat.player.message.private"   : "[PM] %s: %s",
+    "chat.player.message.error"     : "[PM] You should provide pm in a following format: /pm ID TEXT",
+    "chat.player.message.noplayer"  : "[PM] Player is not connected",
     "chat.player.try.body"          : "[TRY] %s try %s",
     "chat.player.try.end.success"   : "%s (success).",
     "chat.player.try.end.fail"      : "%s (failed)."
