@@ -1,7 +1,7 @@
 // local chat
 chatcmd(["i", "say"], function(playerid, message) {
-    inRadiusSendToAll(playerid, 
-        localize("chat.player.says", [getAuthor( playerid ), message], getPlayerLocale(playerid)), 
+    inRadiusSendToAll(playerid,
+        localize("chat.player.says", [getAuthor( playerid ), message], getPlayerLocale(playerid)),
         NORMAL_RADIUS, CL_YELLOW);
 
     // statistics
@@ -10,8 +10,8 @@ chatcmd(["i", "say"], function(playerid, message) {
 
 // shout
 chatcmd(["s", "shout"], function(playerid, message) {
-    inRadiusSendToAll(playerid, 
-        localize("chat.player.shout", [getAuthor( playerid ), message], getPlayerLocale(playerid)), 
+    inRadiusSendToAll(playerid,
+        localize("chat.player.shout", [getAuthor( playerid ), message], getPlayerLocale(playerid)),
         SHOUT_RADIUS, CL_WHITE);
 
     // statistics
@@ -35,18 +35,21 @@ chatcmd(["w", "whisper"], function(playerid, message) {
 });
 
 // private message
-cmd("pm", function(playerid, id, ...) {
-    if (!isInteger(id) || !vargv.len()) {
+cmd("pm", function(playerid, targetid, ...) {
+    local targetid = toInteger(targetid);
+
+    if (!isInteger(targetid) || !vargv.len()) {
         return msg(playerid, "chat.player.message.error", CL_ERROR);
     }
 
-    if (!isPlayerConnected(id.tointeger())) {
+    if (!isPlayerConnected(targetid)) {
         return msg(playerid, "chat.player.message.noplayer", CL_ERROR);
     }
 
     local message = concat(vargv);
-    msg(playerid, "chat.player.message.private", [getAuthor( playerid ), message]);
-    statisticsPushText("pm", playerid, message);
+    msg(playerid, "chat.player.message.private", [getAuthor( playerid ), message], CL_LIGHTWISTERIA);
+    msg(targetid, "chat.player.message.private", [getAuthor( playerid ), message], CL_LIGHTWISTERIA);
+    statisticsPushText("pm", playerid, "to: " + getAuthor( targetid ) + message);
 });
 
 

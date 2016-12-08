@@ -89,7 +89,9 @@ function msg(playerid, text, ...) {
         }
     }
 
-    return sendPlayerMessage(playerid, localize(text, params, getPlayerLocale(playerid)), color.r, color.g, color.b);
+    return sendPlayerMessage(playerid.tointeger(), localize(
+        text, params, getPlayerLocale(playerid.tointeger())
+    ), color.r, color.g, color.b);
 }
 
 function msg_a(text, color = CL_WHITE) {
