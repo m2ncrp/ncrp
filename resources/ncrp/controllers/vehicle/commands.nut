@@ -55,6 +55,11 @@ cmd("engine", "on", function(playerid) {
 
 cmd("engine", "off", function(playerid) {
     local vehicleid = getPlayerVehicle( playerid );
+
+    if (!isPlayerVehicleDriver(playerid)) {
+        return;
+    }
+
     setVehicleEngineState(vehicleid, false);
 });
 
