@@ -9,6 +9,7 @@ const VEHICLE_MAX_DIRT          = 0.75;
 const VEHICLE_DEFAULT_OWNER     = "";
 const VEHICLE_OWNERSHIP_NONE    = 0;
 const VEHICLE_OWNERSHIP_SINGLE  = 1;
+const VEHICLE_OWNER_CITY        = "__cityNCRP";
 
 translate("en", {
     "vehicle.sell.amount"       : "You need to set the amount you wish to sell your car for."
