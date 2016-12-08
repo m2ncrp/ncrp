@@ -22,7 +22,7 @@
 translation("en", {
     "general.admins.serial.get"                 : "Serial of %s: %s",
 
-    "general.message.empty"                     : "[INFO] You cant send an empty message",
+    "general.message.empty"                     : "[INFO] You can't send an empty message",
     "general.noonearound"                       : "There's noone around near you.",
     "general.job.anotherone"                    : "You've got %s job, not %s!",
 

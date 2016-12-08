@@ -2,7 +2,7 @@ include("controllers/chat/functions.nut");
 include("controllers/chat/commands.nut");
 
 translation("en", {
-    "general.message.empty"         : "[INFO] You cant send an empty message",
+    "general.message.empty"         : "[INFO] You can't send an empty message",
     "general.noonearound"           : "There's noone around near you.",
 
     "chat.player.says"              : "%s says: %s",

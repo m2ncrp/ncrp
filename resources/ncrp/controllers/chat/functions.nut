@@ -64,7 +64,7 @@ function chatcmd(names, callback)  {
         local text = concat(vargv);
 
         if (!text || text.len() < 1) {
-            return msg(playerid, "[INFO] You cant send an empty message.", CL_YELLOW);
+            return msg(playerid, "[INFO] You can't send an empty message.", CL_YELLOW);
         }
 
         // call registered callback
