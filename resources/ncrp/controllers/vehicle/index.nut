@@ -19,6 +19,8 @@ translate("en", {
     "vehicle.sell.success"      : "You've successfuly sold this car."
     "vehicle.buy.success"       : "You've successfuly bought this car."
     "vehicle.sell.failure"      : "%s refused to buy this car."
+    "vehicle.buy.failure"       : "You refused to buy this car."
+    "vehicle.sell.notowner"     : "You can't sell car tht doesn't belong to you."
 });
 
 event("onScriptInit", function() {
