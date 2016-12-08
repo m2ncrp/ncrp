@@ -37,11 +37,12 @@ translation("en", {
 });
 
 translation("en", {
-    "help.chat.say"         : "Put your text in local RP chat"
-    "help.chat.shout"       : "Your message could be heard far enough :)"
-    "help.chat.whisper"     : "Say something to nearest player very quiet"
+    "help.chat.say"         : "Put your text in local RP chat (also use /i TEXT)"
+    "help.chat.shout"       : "Your message could be heard far enough :) (also use /s TEXT)"
+    "help.chat.whisper"     : "Say something to nearest player very quiet (also use /w TEXT)"
     "help.chat.localooc"    : "Local nonRP chat"
     "help.chat.ooc"         : "Global nonRP chat"
+    "help.chat.privatemsg"  : "Send private message to other player with ID. Example: /pm 3 hello!"
     "help.chat.me"          : "Some action of your person"
     "help.chat.try"         : "Any action simulation that could be failed"
 });
