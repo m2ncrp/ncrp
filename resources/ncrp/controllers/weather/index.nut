@@ -51,6 +51,10 @@ function setWeather(name) {
     return true;
 }
 
+function resetWeather() {
+    WEATHER_CHANGE_TRIGGER = 0;
+}
+
 event("onServerSecondChange", function() {
     WEATHER_CHANGE_TRIGGER--;
 

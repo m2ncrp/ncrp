@@ -111,11 +111,15 @@ cmd("sell", function(playerid, amount = null) {
         return;
     }
 
+    local vehicleid = getPlayerVehicle(playerid);
+
+    if (!isPlayerVehicleOwner(playerid, vehicleid)) {
+        return msg(playerid, "vehicle.sell.notowner", CL_ERROR);
+    }
+
     if (!amount) {
         return msg(playerid, "vehicle.sell.amount", CL_ERROR);
     }
-
-    local vehicleid = getPlayerVehicle(playerid);
 
     if (getVehiclePassengersCount(vehicleid) != 2) {
         return msg(playerid, "vehicle.sell.2passangers", CL_ERROR);
@@ -130,14 +134,18 @@ cmd("sell", function(playerid, amount = null) {
         msg(targetid, "vehicle.sell.ask", [getPlayerName(playerid), amount.tofloat()], CL_WARNING);
         msg(playerid, "vehicle.sell.log", [getPlayerName(targetid), amount.tofloat()], CL_WARNING);
 
-        sendInvoiceSilent(playerid, targetid, amount.tofloat(), function(a, b, result) {
+        sendInvoiceSilent(playerid, targetid, amount.tofloat(), function(invreciever, invsender, result) {
             if (result) {
-                setVehicleOwner(vehicleid, targetid);
-                msg(playerid, "vehicle.sell.success", CL_SUCCESS);
-                msg(targetid, "vehicle.buy.success" , CL_SUCCESS);
+                setVehicleOwner(vehicleid, invreciever);
+                msg(invsender, "vehicle.sell.success", CL_SUCCESS);
+                msg(invreciever, "vehicle.buy.success" , CL_SUCCESS);
+
+                // block it
+                blockVehicle(vehicleid);
                 return;
             } else {
-                msg(playerid, "vehicle.sell.failure", [getPlayerName(targetid)], CL_ERROR);
+                msg(invsender, "vehicle.sell.failure", [getPlayerName(invreciever)], CL_ERROR);
+                msg(invreciever, "vehicle.buy.failure", CL_ERROR);
             }
         });
     }
