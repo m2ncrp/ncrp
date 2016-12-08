@@ -3,6 +3,11 @@ function addMoneyToPlayer(playerid, amount) {
     setPlayerMoney(playerid, players[playerid]["money"]);
 }
 
+function addMoneyToDeposit(playerid, amount) {
+    players[playerid]["deposit"] += amount.tofloat();
+}
+
+
 /**
  * Check if <amount> money can be subsctracted from <playerid>
  *
