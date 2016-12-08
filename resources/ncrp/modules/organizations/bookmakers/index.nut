@@ -14,6 +14,7 @@ const BK_Z = -0.238935;
 
       BK_COLOR <- CL_PICTONBLUEDARK;
 
+local bk_player = {};
 local bkSpotTypes = [
     "baseball",
     "horserace"
@@ -27,6 +28,11 @@ local bkLoadedData = {
         teams = []
     }
 };
+
+event("onPlayerConnect", function(playerid, name, ip, serial ){
+    bk_player[playerid] <- {};
+    bk_player[playerid]["bet"] <- null;
+});
 
 event("onServerStarted", function() {
     log("[jobs] loading bookmakers...");
@@ -243,14 +249,18 @@ translation("en", {
 
 //---------------------------------------------------------------------------------------------------------------
 
+function bkFindCoef ( wins, total ) {
+    return 10-round( (wins.tofloat() / total.tofloat()), 1)*10;
+}
 
-function bkOpen ( playerid, sport = null ) {
+
+function bkOpen ( playerid, type = null) {
 
     if(!isPlayerInValidPoint(playerid, BK_X, BK_Y, BK_RADIUS)) {
         return msg( playerid, "bk.goto", BK_COLOR );
     }
 
-    if (sport == null) {
+    if (type == null) {
         msg(playerid, "==================================", CL_HELP_LINE);
         msg( playerid, "bk.selectsport", CL_PICTONBLUEDARK);
         msg( playerid, "bk.baseball", CL_PICTONBLUEDARK);
@@ -259,62 +269,89 @@ function bkOpen ( playerid, sport = null ) {
         return;
     }
 
-    local type;
-    local sport = sport.tointeger();
-
-    if (sport == 1) {
-        msg(playerid, "==================================", CL_HELP_LINE);
-        msg( playerid, "bk.selecthorse", BK_COLOR);
-
-        /*
-
-         SportEvent.findBy({ winner = 0, type = "horserace" }, function(err, events) {
-            foreach (idx, sprt in events) {
-                sprt.getParticipants(function(err, teams) {
-                    foreach (i, team in teams) {
-                        msg ( playerid, (i+1)+". "+team.title );
-                    }
-                });
-            }
-        });
-        */
-            foreach (idx, member in bkLoadedData.members) {
-                msg ( playerid, idx+". "+member.type+" "+member.title+" "+member.wins+" "+member.total );
-            }
-
-        msg( playerid, "bk.toselecthorse22", BK_COLOR);
-    }
-
-    if (sport == 2) {
-        msg(playerid, "==================================", CL_HELP_LINE);
+    local count = 1;
+    if (type == "2") {
+        msg( playerid, "==================================", CL_HELP_LINE );
         msg( playerid, "bk.selectteam", BK_COLOR);
+        foreach (idx, event in bkLoadedData.events) {
+            local currentmembers = split(event.participants, ",");
+            if (event.type == "baseball") {
+                local id1 = bkLoadedData.members[ (currentmembers[1].tointeger() - 1)];
+                local id2 = bkLoadedData.members[ (currentmembers[2].tointeger() - 1)];
+                local coef1 = bkFindCoef(id1.wins, id1.total);
+                local coef2 = bkFindCoef(id2.wins, id2.total);
 
-        local i = 1;
-        SportEvent.findBy({ winner = 0, type = "baseball" }, function(err, events) {
-            foreach (idx, sprt in events) {
-                sprt.getParticipants(function(err, teams) {
-                    msg ( playerid, teams[0].title+" ["+i+"]"+"   -   "+teams[1].title+" ["+(i+1)+"]" );
-                    i += 2;
-                });
+                msg( playerid, "["+count+"] "+id1.title+" ("+coef1+"/1)   -   ["+(count+1)+"] "+id2.title+" ("+coef2+"/1)");
+                count += 2;
             }
-        });
-        msg( playerid, "bk.toselectteam", BK_COLOR);
+        }
+        msg( playerid, "bk.toselectteam22", BK_COLOR);
+        bk_player[playerid]["bet"] <- "baseball";
     }
-
-
-
-
-
+     if (type == "1") {
+        msg( playerid, "==================================", CL_HELP_LINE );
+        msg( playerid, "bk.selecthorse", BK_COLOR);
+        foreach (idx, event in bkLoadedData.events) {
+            local currentmembers = split(event.participants, ",");
+            if (event.type == "horserace") {
+                foreach (i, member in currentmembers) {
+                    if (member == "0") continue;
+                    local mid = bkLoadedData.members[ (member.tointeger() - 1)]
+                    local coef = bkFindCoef(mid.wins, mid.total);
+                    msg( playerid, i+". "+mid.title+" ("+coef+"/1)");
+                }
+            }
+        }
+        msg( playerid, "bk.toselecthorse11", BK_COLOR);
+        bk_player[playerid]["bet"] <- "horserace";
+    }
 }
 
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+function bkGetHorseIdByNumber( id = null) {
+    foreach (idx, event in bkLoadedData.events) {
+        local currentmembers = split(event.participants, ",");
+        if (event.type == "horserace") {
+            foreach (i, member in currentmembers) {
+                if (member == "0") continue;
+                if (i == id) {
+                        dbg(member);
+                    return member.tointeger();
+                }
+            }
+        }
+    }
+}
 
-function bkBet ( playerid, participant, amount ) {
+function bkGetTeamIdByNumber( id = null) {
+    local count = 1;
+    local pos = 1 - (id.tointeger() % 2);
+    foreach (idx, event in bkLoadedData.events) {
+        local currentmembers = split(event.participants, ",");
+        if (event.type == "baseball") {
+            if (id == (count+pos) ) {
+            local id = bkLoadedData.members[ (currentmembers[(1+pos)].tointeger() - 1)].id;
+            dbg(id);
+            return id.tointeger();
+            }
+            count += 2;
+        }
+    }
+}
+
+
+function bkBet ( playerid, number, amount ) {
 
     if(!isPlayerInValidPoint(playerid, BK_X, BK_Y, BK_RADIUS)) {
         return msg( playerid, "bk.goto", BK_COLOR );
+    }
+
+    local type = bk_player[playerid]["bet"];
+
+    if(type == null) {
+        return msg( playerid, "bk.needselectsport", BK_COLOR );
     }
 
     local amount = amount.tofloat();
@@ -327,19 +364,19 @@ function bkBet ( playerid, participant, amount ) {
         return msg(playerid, "bk.bettoomuch", CL_RED);
     }
 
-    local bet = SportBet();
-
-    local found = false;
-    foreach (idx, record in bkLoadedData.records) {
-        if (record.id == participant.tointeger()) {
-            found = true;
-            break;
+      local participant = null;
+        if(type == "horserace") {
+            participant = bkGetHorseIdByNumber( number.tointeger() );
         }
-    }
+        else if(type == "baseball") {
+            participant = bkGetTeamIdByNumber( number.tointeger() );
+        }
 
-    if (!found) {
+    if (participant == null) {
         return msg(playerid, "bk.betnotfound", CL_RED);
     }
+
+    local bet = SportBet();
 
     bet.name  = getPlayerName( playerid );
     bet.participant = participant.tointeger();
@@ -357,7 +394,7 @@ cmd("bk", function(playerid, sport = null) {
 });
 
 
-cmd("bk", "bet", function(playerid, participant, amount) {
-    bkBet (playerid, participant-1, amount);
+cmd("bk", "bet", function(playerid, number, amount) {
+    bkBet (playerid, number, amount);
 });
 
