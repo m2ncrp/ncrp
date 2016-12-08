@@ -8,7 +8,7 @@ WORLD_MONTH_PER_YEAR        <- 12;
 AUTOSAVE_TIME               <- 10;
 
 // setup local storage
-local world  = null;
+__world  <- null;
 local ticker = null;
 
 event("onServerStarted", function() {
@@ -16,39 +16,39 @@ event("onServerStarted", function() {
 
     World.findAll(function(err, worlds) {
         if (err || worlds.len() < 1) {
-            world = World();
+            __world = World();
 
-            world.second = 0;
-            world.minute = 0;
+            __world.second = 0;
+            __world.minute = 0;
 
-            world.day = 1;
-            world.month = 1;
-            world.year = 1949;
+            __world.day = 1;
+            __world.month = 1;
+            __world.year = 1949;
         } else {
-            world = worlds[0];
+            __world = worlds[0];
         }
 
-        ticker = timer(function() { world.onSecondChange(); }, 1000, -1);
-        trigger("weather:onPhaseChange", world.hour);
+        ticker = timer(function() { __world.onSecondChange(); }, 1000, -1);
+        trigger("onPhaseChange", __world);
     });
 });
 
 event("onServerStopping", function() {
-    world.save();
+    __world.save();
     ticker.Kill();
 
     // reset objects
-    world = null;
+    __world = null;
     ticker = null;
 });
 
 event("onPlayerConnect", function(playerid, a, b, c) {
-    world.sendToClient(playerid);
+    __world.sendToClient(playerid);
 });
 
 // register auto time sync on player spawn
 event("onPlayerSpawn", function(playerid) {
-    world.sendToClient(playerid);
+    __world.sendToClient(playerid);
 });
 
 /**
@@ -70,7 +70,7 @@ function getDateTime() {
  * @return {string}
  */
 function getDate() {
-    return format("%02d.%02d.%d", world.day, world.month, world.year);
+    return format("%02d.%02d.%d", __world.day, __world.month, __world.year);
 }
 
 /**
@@ -81,29 +81,60 @@ function getDate() {
  * @return {string}
  */
 function getTime() {
-    return format("%02d:%02d", world.hour, world.minute);
+    return format("%02d:%02d", __world.hour, __world.minute);
 }
 
 function getDay() {
-    return world.day;
+    return __world.day;
 }
 
 function getMonth() {
-    return world.month;
+    return __world.month;
 }
 
 function getYear() {
-    return world.year;
+    return __world.year;
 }
 
 function getHour() {
-    return world.hour;
+    return __world.hour;
 }
 
 function getMinute() {
-    return world.minute;
+    return __world.minute;
 }
 
 function getSecond() {
-    return world.second;
+    return __world.second;
 }
+
+function setDay(value) {
+    __world.day = value;
+    __world.sendToAllClients();
+}
+
+function setMonth(value) {
+    __world.month = value;
+    __world.sendToAllClients();
+}
+
+function setYear(value) {
+    __world.year = value;
+    __world.sendToAllClients();
+}
+
+function setHour(value) {
+    __world.hour = value;
+    __world.sendToAllClients();
+}
+
+function setMinute(value) {
+    __world.minute = value;
+    __world.sendToAllClients();
+}
+
+function setSecond(value) {
+    __world.second = value;
+    __world.sendToAllClients();
+}
+
