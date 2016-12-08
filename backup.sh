@@ -1,9 +1,11 @@
 #!/bin/sh
 
-TARGET="./resources/ncrp/scriptfiles/ncrp.db";
+TARGET="/resources/ncrp/scriptfiles/ncrp.db";
 FILENAME="backup_"$(date +"%d%m%y_%H%M")".db.bak";
-BACKUPS="./backups/";
+BACKUPS="/backups/";
+BASEDIR=$(dirname "$0")
 
-mkdir -p $BACKUPS;
+mkdir -p $BASEDIR$BACKUPS;
+cp $BASEDIR$TARGET $BASEDIR$BACKUPS$FILENAME;
 
-cp $TARGET $BACKUPS$FILENAME;
+echo "created backup $FILENAME";
