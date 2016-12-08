@@ -45,7 +45,6 @@ local SERVER_WEATHER = null;
 
 function setWeather(name) {
     playerList.each(function(playerid) {
-        msg(playerid, "changing weather 4 u")
         trigger(playerid, "onServerWeatherSync", name);
     });
 
