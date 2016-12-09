@@ -25,7 +25,7 @@ local WEATHERS = {
         [16, 17, ["DT13part02", "DT_RTRclear_day_late_afternoon", "DT01part01sicily_svit" "DT_RTRrainy_day_late_afternoon", "DT11part03", "DT_RTRfoggy_day_late_afternoon"] ],
         [18, 18, ["DT08part03crazyhorse", "DT07part03prepadrestaurcie", "DT_RTRrainy_day_evening", "DT_RTRfoggy_day_late_afternoon"] ],
         [19, 19, ["DT05part06Francesca", "DT10part03Evening", "DT14part7_10", "DT11part04", "DT_RTRfoggy_day_evening"] ],
-        [20, 23, ["DT_RTRclear_day_evening", "DT08part04subquestwarning", "DT_RTRclear_day_late_even", "DT_RTRrainy_day_late_even", "DT_RTRfoggy_day_late_even", "DT01part02sicily"] ],
+        [20, 23, ["DT_RTRclear_day_evening", "DT08part04subquestwarning", "DT_RTRclear_day_late_even", "DT_RTRrainy_day_late_even", "DT_RTRfoggy_day_late_even"] ],
     ],
 
     WINTER = [
