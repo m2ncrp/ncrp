@@ -135,7 +135,7 @@ event("onServerStarted", function() {
     }
 });
 
-event("onServerHourChanged", function() {
+event("onServerHourChange", function() {
     local amount = randomf(UNEMPLOYED_MONEY_INCOME - 1.0, UNEMPLOYED_MONEY_INCOME + 2.5);
 
     foreach (playerid, value in players) {
