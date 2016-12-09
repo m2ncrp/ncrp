@@ -84,3 +84,32 @@ function getVehiclePassengersCount(vehicleid) {
 function isVehicleEmpty(vehicleid) {
     return (getVehiclePassengers(vehicleid).len() < 1);
 }
+
+/**
+ * Get current player seat id
+ * or null if is not int the vehicle, or not found
+ * @param  {Integer} playerid
+ * @return {Integer} seat
+ */
+function getPlayerVehicleSeat(playerid) {
+    return isPlayerInVehicle(playerid) ? getVehiclePassengers(getPlayerVehicle(playerid)).find(playerid) : null;
+}
+
+/**
+ * Check if player is sitting in correct seat
+ * @param  {Integer} playerid
+ * @param  {Integer} seat
+ * @return {Boolean} result
+ */
+function isPlayerInVehicleSeat(playerid, seat = 0) {
+    return (isPlayerInVehicle(playerid) && getPlayerVehicleSeat(playerid) == seat);
+}
+
+/**
+ * Alias for driver
+ * @param  {[type]}  playerid [description]
+ * @return {Boolean}          [description]
+ */
+function isPlayerVehicleDriver(playerid) {
+    return isPlayerInVehicleSeat(playerid, 0);
+}

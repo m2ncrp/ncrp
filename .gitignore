@@ -2,6 +2,10 @@
 /logs
 /modules
 /webserver
+/backups
+
+# discord bot
+/additional/discord/node_modules
 
 #files
 !env.xml

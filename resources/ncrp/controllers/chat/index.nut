@@ -2,12 +2,15 @@ include("controllers/chat/functions.nut");
 include("controllers/chat/commands.nut");
 
 translation("en", {
-    "general.message.empty"         : "[INFO] You cant send an empty message",
+    "general.message.empty"         : "[INFO] You can't send an empty message",
     "general.noonearound"           : "There's noone around near you.",
 
     "chat.player.says"              : "%s says: %s",
     "chat.player.shout"             : "%s shout: %s",
     "chat.player.whisper"           : "%s whisper: %s",
+    "chat.player.message.private"   : "[PM] %s: %s",
+    "chat.player.message.error"     : "[PM] You should provide pm in a following format: /pm ID TEXT",
+    "chat.player.message.noplayer"  : "[PM] Player is not connected",
     "chat.player.try.body"          : "[TRY] %s try %s",
     "chat.player.try.end.success"   : "%s (success).",
     "chat.player.try.end.fail"      : "%s (failed)."
@@ -34,11 +37,12 @@ translation("en", {
 });
 
 translation("en", {
-    "help.chat.say"         : "Put your text in local RP chat"
-    "help.chat.shout"       : "Your message could be heard far enough :)"
-    "help.chat.whisper"     : "Say something to nearest player very quiet"
+    "help.chat.say"         : "Put your text in local RP chat (also use /i TEXT)"
+    "help.chat.shout"       : "Your message could be heard far enough :) (also use /s TEXT)"
+    "help.chat.whisper"     : "Say something to nearest player very quiet (also use /w TEXT)"
     "help.chat.localooc"    : "Local nonRP chat"
     "help.chat.ooc"         : "Global nonRP chat"
+    "help.chat.privatemsg"  : "Send private message to other player with ID. Example: /pm 3 hello!"
     "help.chat.me"          : "Some action of your person"
     "help.chat.try"         : "Any action simulation that could be failed"
 });

@@ -3,6 +3,11 @@ function addMoneyToPlayer(playerid, amount) {
     setPlayerMoney(playerid, players[playerid]["money"]);
 }
 
+function addMoneyToDeposit(playerid, amount) {
+    players[playerid]["deposit"] += amount.tofloat();
+}
+
+
 /**
  * Check if <amount> money can be subsctracted from <playerid>
  *
@@ -138,17 +143,6 @@ translation("en", {
     "money.invoice.needplayerid"        : "You must provide player id to accept invoice."
     "money.invoice.senderoff"           : "Validity period of payment has expired."//  sender offline
 });
-
-translation("ru", {
-    "money.invoice.selectaction"        : "/pay %d, чтобы подтвердить оплату или /cancel %d, чтобы отклонить."
-    "money.invoice.distancetoolarge"    : "Расстояние между вами и другим игроком слишком велико!"
-    "money.invoice.notenoughmoney"      : "Недостаточно денег для оплаты!"
-    "money.invoice.cantpay"             : "%s не может произвести оплату!"
-    "money.invoice.needplayerid"        : "Для подтверждения оплаты необходимо указать id игрока."
-    "money.invoice.senderoff"           : "Срок действия платежа истёк." //  sender offline
-});
-
-
 
 
 /**

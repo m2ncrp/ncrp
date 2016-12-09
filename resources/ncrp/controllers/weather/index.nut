@@ -1,160 +1,108 @@
-include("controllers/weather/commands.nut");
+/**
+ * This array contains all the weathers and are ordered to fit the hour
+ * Layout:
+ *      [HOUR_START, HOUR_END, ["LIST", "OF", "WEATHERS", ...] ]
+ *
+ * So if time is between HOUR_START and HOUR_END,
+ * then it will pick one of the weathers that are available in slot [2].
+ */
+local WEATHERS = {
+    SUMMER = [
+        // This is between the hours of 00:00 and 02:00 (night)
+        [0, 2, ["DT_RTRclear_day_nigh", "DT07part04night_bordel", "DTFreerideNight", "DT14part11", "DT11part05", "DT_RTRrainy_day_night", "DT10part03Subquest", "DT_RTRfoggy_day_night"] ],
 
-// settings
-const WEATHER_PHASE_CHANGE = 2;
-const WEATHER_DEFAULT_PHASE = 3;
-const WEATHER_DEFAULT_WEATHER = 0;
-const WEATHER_WINTER_STARTS = 11;
-const WEATHER_WINTER_ENDS = 2;
-const WEATHER_IS_WINTER = false;
+        // This is between the hours of 03:00 and 05:00 (night / early morning)
+        [3, 5, ["DT_RTRclear_day_early_morn1", "DT_RTRfoggy_day_early_morn1", "DT_RTRrainy_day_early_morn"] ],
 
-SUMMER_CLEAR <- [
-    "DT_RTRclear_day_night",        // 0
-    "DT07part04night_bordel",
-    "DTFreerideNight",
-    "DT14part11",
-    "DT11part05",
-    "DT_RTRclear_day_early_morn1",  // 5
-    "DT_RTRclear_day_early_morn2",
-    "DT_RTRclear_day_morning",
-    "DTFreeRideDay",
-    "DT06part03",
-    "DT07part01fromprison",         // 10
-    "DT13part01death",
-    "DT09part1VitosFlat",
-    "DT_RTRclear_day_noon",
-    "DT07part02dereksubquest",
-    "DT08part01cigarettesriver",
-    "DT09part2MalteseFalcone",
-    "DT14part1_6",
-    "DT_RTRclear_day_afternoon",
-    "DT10part02Roof",
-    "DT09part3SlaughterHouseAfter", // 20
-    "DT10part02bSUNOFF",            // 21   before rain
-    "DT09part4MalteseFalcone2",
-    "DT08part02cigarettesmill",
-    "DT12_part_all",
-    "DT13part02",
-    "DT_RTRclear_day_late_afternoon",
-    "DT08part03crazyhorse",
-    "DT07part03prepadrestaurcie",
-    "DT05part06Francesca",
-    "DT10part03Evening",            // 30
-    "DT14part7_10",                 
-    "DT_RTRclear_day_evening",
-    "DT08part04subquestwarning",
-    "DT_RTRclear_day_late_even"     // 34
-];
+        // This is between the hours of 06:00 and 08:00 (morning) etc.
+        [6, 9, ["DT_RTRclear_day_early_morn2", "DT_RTRclear_day_morning", "DT_RTRrainy_day_morning", "DT_RTRfoggy_day_morning"] ],
 
-WINTER_CLEAR <- [
-    "DTFreeRideNightSnow"
-    "DT04part02"  
-    "DT05part01JoesFlat"
-    "DT03part01JoesFlat"
-    "DTFreeRideDaySnow" 
-    "DT05part02FreddysBar"
-    "DTFreeRideDayWinter" 
-    "DT02part01Railwaystation"
-    "DT05part03HarrysGunshop" 
-    "DT02part02JoesFlat"  
-    "DT02part04Giuseppe"  
-    "DT02part05Derek" 
-    "DT02NewStart1"   
-    "DT03part03MariaAgnelo"
-    "DT02NewStart2"   
-    "DT03part04PriceOffice"
-];
+        [10, 10, ["DTFreeRideDay", "DT06part03", "DTFreeRideDayRain", "DT11part01", "DT_RTRfoggy_day_noon"] ],
+        [11, 11, ["DT07part01fromprison", "DT13part01death", "DT09part1VitosFlat", "DT_RTRclear_day_noon", "DT06part01", "DT06part02", "DT11part02"] ],
+        [12, 12, ["DT07part02dereksubquest", "DT08part01cigarettesriver", "DT09part2MalteseFalcone", "DT14part1_6", "DT_RTRrainy_day_noon", "DT_RTRfoggy_day_afternoon"] ],
+        [13, 13, ["DT_RTRclear_day_afternoon", "DT10part02Roof", "DT09part3SlaughterHouseAfter", "DT_RTRrainy_day_afternoon", "DT_RTRfoggy_day_afternoon"] ],
+        [14, 15, ["DT09part4MalteseFalcone2", "DT08part02cigarettesmill", "DT12_part_all", "DT15", "DT15end", "DT15_interier"] ],
+        [16, 17, ["DT13part02", "DT_RTRclear_day_late_afternoon", "DT01part01sicily_svit" "DT_RTRrainy_day_late_afternoon", "DT11part03", "DT_RTRfoggy_day_late_afternoon"] ],
+        [18, 18, ["DT08part03crazyhorse", "DT07part03prepadrestaurcie", "DT_RTRrainy_day_evening", "DT_RTRfoggy_day_late_afternoon"] ],
+        [19, 19, ["DT05part06Francesca", "DT10part03Evening", "DT14part7_10", "DT11part04", "DT_RTRfoggy_day_evening"] ],
+        [20, 23, ["DT_RTRclear_day_evening", "DT08part04subquestwarning", "DT_RTRclear_day_late_even", "DT_RTRrainy_day_late_even", "DT_RTRfoggy_day_late_even", "DT01part02sicily"] ],
+    ],
 
-WINTER_FOGGY <- [
-    "DT05part04Distillery",
-    "DT04part01JoesFlat",
-    "DT05part05ElGreco",
-    "DT03part02FreddysBar",
-    "DT02part03Charlie",   
-    "DT05Distillery_inside"
-];
+    WINTER = [
+        [0, 7, ["DTFreeRideNightSnow", "DT04part02"] ],
+        [8, 11, ["DT05part01JoesFlat", "DT03part01JoesFlat", "DTFreeRideDaySnow"] ],
+        [12, 13, ["DT05part02FreddysBar", "DTFreeRideDayWinter", "DT05part04Distillery", "DT04part01JoesFlat"] ],
+        [14, 15, ["DT02part01Railwaystation", "DT05part03HarrysGunshop", "DT05part05ElGreco"] ],
+        [16, 17, ["DT02part02JoesFlat", "DT02part04Giuseppe", "DT03part02FreddysBar"] ],
+        [18, 20, ["DT05Distillery_inside", "DT02part05Derek", "DT02part03Charlie"] ],
+        [21, 23, ["DT02NewStart1", "DT03part03MariaAgnelo", "DT02NewStart2", "DT03part04PriceOffice"] ],
+    ]
+};
 
-SUMMER_DAY_ROW <- [
-    "DT_RTRclear_day_night",        // 0
-    "DT_RTRclear_day_early_morn1",  // 5
-    "DT_RTRclear_day_early_morn2",  // 6
-    "DT_RTRclear_day_morning",
-    "DTFreeRideDay",                // 8 ~
-    "DT06part03",
-    "DT07part01fromprison",         // 10
-    "DT13part01death",              // 11
-    "DT07part02dereksubquest",      // 14
-    "DT09part3SlaughterHouseAfter", // 20
-    "DT09part4MalteseFalcone2",     // 22
-    "DT08part02cigarettesmill",     // 23
-    "DT_RTRclear_day_late_afternoon",// 26
-    "DT07part03prepadrestaurcie",   // 28
-    "DT_RTRclear_day_evening"       // 32
-];
+local SERVER_IS_SUMMER = true;
+local WEATHER_CHANGE_TRIGGER = 0;
+local SERVER_WEATHER = null;
 
-
-// available whethers
-local weathers = ["clear", "foggy", "rainy"];
-
-// available day/night cycle phases
-local phases = [
-    "night", "night", ["early_morn1", "early_morn1", "early_morn"], ["early_morn2", "early_morn1", "early_morn"],
-    "morning", "noon", "noon", "afternoon", "late_afternoon", "evening", "late_even", "night"
-];
-
-// setup local storage
-local currentWeather = WEATHER_DEFAULT_WEATHER;
-local currentPhase   = WEATHER_DEFAULT_PHASE;
-
-// overried default function
 function setWeather(name) {
     playerList.each(function(playerid) {
-        triggerClientEvent(playerid, "onServerWeatherSync", name);
+        trigger(playerid, "onServerWeatherSync", name);
     });
 
     return true;
 }
 
-function setCurrentWeather(id) {
-    if (id < 0 || id > weathers.len()) {
-        return false;
-    }
-
-    // write new vlaue
-    currentWeather = id;
-
-    // execute change
-    return setWeather(getWeatherName());
+function resetWeather() {
+    WEATHER_CHANGE_TRIGGER = 0;
 }
 
-function getWeatherName() {
-    // get current phase
-    local phsz = phases[currentPhase];
+event("onServerSecondChange", function() {
+    WEATHER_CHANGE_TRIGGER--;
 
-    // if this is array, select weathery phase
-    if (typeof phsz == "array") {
-        phsz = phsz[currentWeather];
-    }
+    // First we check if weather count has reached 0
+    if (WEATHER_CHANGE_TRIGGER > 0) return;
 
-    // concat everything together
-    return "DT_RTR" + weathers[currentWeather] + "_day_" + phsz;
-}
+    // calculate season change
+    // if (getMonth() > 10 || getMonth() < 3) {
+    //     if (SERVER_IS_SUMMER) {
+    //         SERVER_IS_SUMMER = false;
+    //         setSummer(false);
+    //         dbg("triggering winter");
+    //     }
+    // } else {
+    //     if (!SERVER_IS_SUMMER) {
+    //         SERVER_IS_SUMMER = true;
+    //         setSummer(true);
+    //         dbg("triggering summer");
+    //     }
+    // }
 
-// add internal listener for phase changing
-addEventHandlerEx("weather:onPhaseChange", function(phaseid) {
-    phaseid = phaseid.tointeger();
+    // Get weather based on what season it is
+    local weathers = (SERVER_IS_SUMMER) ? WEATHERS.SUMMER : WEATHERS.WINTER;
 
-    if (phaseid >= 0 && phaseid < 24) {
-        currentPhase = floor(phaseid / WEATHER_PHASE_CHANGE);
-        return setWeather(getWeatherName());
+    // Go through the weathers array
+    for (local i = 0; i < weathers.len(); i++) {
+        // Check and compare current hour with the hours in array
+        // So it checks if current hour is between HOUR_START and HOUR_END
+        if (getHour() >= weathers[i][0] && getHour() <= weathers[i][1]) {
+            // Select a random weather from slot [2]
+            local randWeather = weathers[i][2][random(0, weathers[i][2].len()-1)];
+            // Set the random weather for all players
+            setWeather(randWeather);
+            // Change SERVER_WEATHER string
+            SERVER_WEATHER = randWeather;
+
+            // Generate a new number when weather change will happen again
+            // New count is between 20 and 75 in-game minutes.
+            WEATHER_CHANGE_TRIGGER = random(20 * WORLD_SECONDS_PER_MINUTE, 70 * WORLD_SECONDS_PER_MINUTE);
+
+            // Break out of the loop
+            break;
+        }
     }
 });
 
 // register auto weather sync on player spawn
-addEventHandler("onPlayerSpawn", function(playerid) {
-    triggerClientEvent(playerid, "onServerWeatherSync", WEATHER_IS_WINTER ? "DTFreeRideNightSnow" : getWeatherName());
+event("onPlayerSpawn", function(playerid) {
+    trigger(playerid, "onServerWeatherSync", SERVER_WEATHER);
 });
 
-addEventHandlerEx("onServerStarted", function() {
-    setSummer(!WEATHER_IS_WINTER); // preparations for the winter
-});

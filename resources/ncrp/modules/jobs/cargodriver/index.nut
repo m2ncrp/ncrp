@@ -18,8 +18,11 @@ translation("en", {
 "job.cargodriver.takemoney"     : "[CARGO] Go to Seagift's office and take your money."
 "job.cargodriver.needcomplete"  : "[CARGO] You must complete delivery before."
 "job.cargodriver.nicejob"       : "[CARGO] Nice job, %s! Keep $%.2f."
+"job.cargodriver.wantagain"     : "[CARGO] If you want to go to route again - sit into cargo truck and go to warehouse P3 06 at Port."
+"job.cargodriver.notpassenger"  : "[CARGO] Delivery can be performed only by driver, but not by passenger."
 
-"job.cargodriver.help.title"            :   "List of available commands for CARGO TRCUK DRIVER:"
+
+"job.cargodriver.help.title"            :   "List of available commands for CARGO TRUCK DRIVER:"
 "job.cargodriver.help.job"              :   "Get cargo truck driver job"
 "job.cargodriver.help.jobleave"         :   "Leave cargo truck driver job"
 "job.cargodriver.help.load"             :   "Load cargo into truck"
@@ -67,6 +70,9 @@ event("onServerStarted", function() {
     log("[jobs] loading cargodriver job...");
     cargocars[createVehicle(38, 396.5, 101.977, -20.9432, -89.836, 0.40721, 0.0879066 )]  <- [ false ]; // SeagiftTruck0
     cargocars[createVehicle(38, 396.5, 98.0385, -20.9359, -88.4165, 0.479715, -0.0220962)]  <- [ false ];  //SeagiftTruck1
+    cargocars[createVehicle(38, 365.481, 116.910, -20.9320, 179.810, -0.0470277, -0.456284)]  <- [ false ];  //SeagiftTruck3
+    cargocars[createVehicle(38, 375.196, 116.910, -20.9320, 179.810, -0.081981, -0.55936)]  <- [ false ];  //SeagiftTruck3
+
 
     //creating 3dtext for bus depot
     create3DText ( CARGO_JOB_X, CARGO_JOB_Y, CARGO_JOB_Z+0.35, "SEAGIFT's OFFICE", CL_ROYALBLUE );
@@ -224,6 +230,10 @@ function cargoJobLoad( playerid ) {
         return msg( playerid, "job.cargodriver.driving", CL_RED );
     }
 
+    if(!isPlayerInVehicleSeat(playerid, 0)) {
+        return msg( playerid, "job.cargodriver.notpassenger", CARGO_JOB_COLOR );
+    }
+
     cargoJobRemovePrivateBlipText ( playerid );
 
     msg( playerid, "job.cargodriver.loading", CARGO_JOB_COLOR );
@@ -256,6 +266,10 @@ function cargoJobUnload( playerid ) {
 
     if(isPlayerVehicleMoving(playerid)){
         return msg( playerid, "job.cargodriver.driving", CL_RED );
+    }
+
+    if(!isPlayerInVehicleSeat(playerid, 0)) {
+        return msg( playerid, "job.cargodriver.notpassenger", CARGO_JOB_COLOR );
     }
 
     cargoJobRemovePrivateBlipText ( playerid );
@@ -291,4 +305,10 @@ function cargoJobFinish( playerid ) {
     job_cargo[playerid]["cargostatus"] = false;
     msg( playerid, "job.cargodriver.nicejob", [getPlayerName( playerid ), CARGO_JOB_SALARY], CARGO_JOB_COLOR );
     addMoneyToPlayer(playerid, CARGO_JOB_SALARY);
+
+    delayedFunction(2000, function() {
+        msg( playerid, "job.cargodriver.wantagain", CARGO_JOB_COLOR );
+        job_cargo[playerid]["blip3dtext"] = cargoJobCreatePrivateBlipText(playerid, CARGO_JOB_LOAD_X, CARGO_JOB_LOAD_Y, CARGO_JOB_LOAD_Z, "LOAD HERE", "/cargo load");
+    });
+
 }

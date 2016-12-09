@@ -71,6 +71,13 @@ function tryRespawnVehicleById(vehicleid, forced = false) {
         return false;
     }
 
+    // repair and refuel
+    repairVehicle(vehicleid);
+    setVehicleFuel(vehicleid, getDefaultVehicleFuel(vehicleid));
+    setIndicatorLightState(vehicleid, INDICATOR_LEFT, false);
+    setIndicatorLightState(vehicleid, INDICATOR_RIGHT, false);
+    setVehicleLightState( vehicleid, false );
+
     // maybe vehicle already near its default place
     if (isVehicleNearPoint(vehicleid, data.position.x, data.position.y, 3.0)) {
         return false;
@@ -90,9 +97,7 @@ function tryRespawnVehicleById(vehicleid, forced = false) {
     setVehicleRotation(vehicleid, data.rotation.x, data.rotation.y, data.rotation.z);
 
     // reset other parameters
-    repairVehicle(vehicleid);
     setVehicleEngineState(vehicleid, false);
-    setVehicleFuel(vehicleid, VEHICLE_FUEL_DEFAULT);
     setVehicleDirtLevel(vehicleid, randomf(VEHICLE_MIN_DIRT, VEHICLE_MAX_DIRT));
 
     return true;

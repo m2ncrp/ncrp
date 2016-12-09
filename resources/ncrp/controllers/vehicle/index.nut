@@ -2,13 +2,14 @@ include("controllers/vehicle/functions");
 include("controllers/vehicle/commands.nut");
 //include("controllers/vehicle/hiddencars.nut");
 
-const VEHICLE_RESPAWN_TIME      = 600; // 10 (real) minutes
+const VEHICLE_RESPAWN_TIME      = 300; // 5 (real) minutes
 const VEHICLE_FUEL_DEFAULT      = 40.0;
 const VEHICLE_MIN_DIRT          = 0.25;
 const VEHICLE_MAX_DIRT          = 0.75;
 const VEHICLE_DEFAULT_OWNER     = "";
 const VEHICLE_OWNERSHIP_NONE    = 0;
 const VEHICLE_OWNERSHIP_SINGLE  = 1;
+const VEHICLE_OWNER_CITY        = "__cityNCRP";
 
 translate("en", {
     "vehicle.sell.amount"       : "You need to set the amount you wish to sell your car for."
@@ -18,6 +19,8 @@ translate("en", {
     "vehicle.sell.success"      : "You've successfuly sold this car."
     "vehicle.buy.success"       : "You've successfuly bought this car."
     "vehicle.sell.failure"      : "%s refused to buy this car."
+    "vehicle.buy.failure"       : "You refused to buy this car."
+    "vehicle.sell.notowner"     : "You can't sell car tht doesn't belong to you."
 });
 
 event("onScriptInit", function() {
@@ -142,6 +145,10 @@ key(["w", "s"], function(playerid) {
     }
 
     local vehicleid = getPlayerVehicle(playerid);
+
+    if (!isPlayerVehicleDriver(playerid)) {
+        return;
+    }
 
     if (vehicleid in __vehicles) {
         __vehicles[vehicleid].state = true;
