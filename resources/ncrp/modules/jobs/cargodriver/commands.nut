@@ -34,7 +34,7 @@ cmd("help", ["cargo", "job"], function(playerid) {
 });
 
 function cargoJobHelp ( playerid ) {
-        local title = "job.cargodriver.help.title";
+    local title = "job.cargodriver.help.title";
     local commands = [
         { name = "/cargo job",        desc = "job.cargodriver.help.job" },
         { name = "/cargo job leave",  desc = "job.cargodriver.help.jobleave" },
@@ -44,3 +44,13 @@ function cargoJobHelp ( playerid ) {
     ];
     msg_help(playerid, title, commands);
 }
+
+
+// usage: /help cargo job
+acmd("cargo", ["limit", "set"], function(playerid, limit) {
+    cargoJobSetFishLimit( playerid, limit );
+});
+
+acmd("cargo", ["limit", "get"], function(playerid) {
+    cargoJobGetFishLimit( playerid );
+});

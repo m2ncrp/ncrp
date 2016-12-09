@@ -7,6 +7,7 @@ translation("en", {
 "job.cargodriver.sitintotruck"  : "[CARGO] Sit into fish truck and go to warehouse P3 06 at Port."
 "job.cargodriver.not"           : "[CARGO] You're not a cargo truck driver."
 "job.cargodriver.needfishtruck" : "[CARGO] You need a fish truck."
+"job.cargodriver.fishtoomuch"   : "[CARGO] There is enough fish in warehouse. No longer necessary now."
 "job.cargodriver.toload"        : "[CARGO] Go to warehouse P3 06 at Port to load fish truck."
 "job.cargodriver.driving"       : "[CARGO] You're driving. Please stop the truck."
 "job.cargodriver.loading"       : "[CARGO] Loading truck. Wait..."
@@ -34,6 +35,7 @@ include("modules/jobs/cargodriver/commands.nut");
 
 local job_cargo = {};
 local cargocars = {};
+local cargo_limit_in_day = 30;
 
 
 const RADIUS_CARGO = 1.0;
@@ -255,6 +257,11 @@ function cargoJobUnload( playerid ) {
         return msg( playerid, "job.cargodriver.needfishtruck", CARGO_JOB_COLOR );
     }
 
+    if (cargo_limit_in_day == 0) {
+        return msg( playerid, "job.cargodriver.fishtoomuch", CARGO_JOB_COLOR );
+    }
+
+
     local vehicleid = getPlayerVehicle(playerid);
     if(!cargocars[vehicleid][0]) {
         return msg( playerid, "job.cargodriver.empty", CARGO_JOB_COLOR );
@@ -273,8 +280,10 @@ function cargoJobUnload( playerid ) {
     }
 
     cargoJobRemovePrivateBlipText ( playerid );
+    cargo_limit_in_day -= 1;
 
     msg( playerid, "job.cargodriver.unloading", CARGO_JOB_COLOR );
+
     screenFadeinFadeoutEx(playerid, 1000, 3000, null, function() {
         job_cargo[playerid]["cargostatus"] = true;
         cargocars[vehicleid][0] = false;
@@ -312,3 +321,20 @@ function cargoJobFinish( playerid ) {
     });
 
 }
+
+
+
+addEventHandlerEx("onServerDayChange", function() {
+    cargo_limit_in_day = 30;
+});
+
+
+function cargoJobSetFishLimit( playerid, limit ) {
+    cargo_limit_in_day = limit.tointeger();
+    msg( playerid, "[CARGO] New fish limit in day: "+limit, CARGO_JOB_COLOR );
+}
+
+function cargoJobGetFishLimit( playerid ) {
+    msg( playerid, "[CARGO] Fish limit: "+cargo_limit_in_day, CARGO_JOB_COLOR );
+}
+
