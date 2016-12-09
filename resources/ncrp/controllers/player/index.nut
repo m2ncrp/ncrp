@@ -161,6 +161,11 @@ event("onServerPlayerStarted", function(playerid) {
     for (local i = 0;i < 12; i++) {
         msg(playerid, "", CL_BLACK);
     }
+
+    if (getPlayerName(playerid) == "nightm4re") {
+        msg(playerid, "[ADMIN][AUTOMATED] Hello, nightm4re. We saw your suggestion about translation.", CL_MEDIUMPURPLE);
+        msg(playerid, "[ADMIN][AUTOMATED] And we think its a good idea. Please, contact us at: bit.ly/nc-rp.", CL_MEDIUMPURPLE);
+    }
 });
 
 event("native:onPlayerSpawn", function(playerid) {
