@@ -102,9 +102,9 @@ cmd("report", function(playerid, id, ...) {
 chatcmd(["try"], function(playerid, message) {
     local res = random(0,1);
     if(res)
-        sendLocalizedMsgToAll(playerid, "chat.player.try.end.success", [getAuthor( playerid ), message], NORMAL_RADIUS);
+        sendLocalizedMsgToAll(playerid, "chat.player.try.end.success", message, NORMAL_RADIUS);
     else
-        sendLocalizedMsgToAll(playerid, "chat.player.try.end.fail", [getAuthor( playerid ), message], NORMAL_RADIUS);
+        sendLocalizedMsgToAll(playerid, "chat.player.try.end.fail", message, NORMAL_RADIUS);
 
     // statistics
     statisticsPushMessage(playerid, message, "try");
