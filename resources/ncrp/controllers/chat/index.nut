@@ -11,9 +11,8 @@ translation("en", {
     "chat.player.message.private"   : "[PM] %s: %s",
     "chat.player.message.error"     : "[PM] You should provide pm in a following format: /pm ID TEXT",
     "chat.player.message.noplayer"  : "[PM] Player is not connected",
-    "chat.player.try.body"          : "[TRY] %s try %s",
-    "chat.player.try.end.success"   : "%s (success).",
-    "chat.player.try.end.fail"      : "%s (failed)."
+    "chat.player.try.end.success"   : "[TRY] %s try %s (success).",
+    "chat.player.try.end.fail"      : "[TRY] %s try %s (failed)."
 
     "chat.idea.success"             : "[IDEA] Your idea has been successfuly submitted!"
     "chat.report.success"           : "[REPORT] Your report has been successfuly submitted!"

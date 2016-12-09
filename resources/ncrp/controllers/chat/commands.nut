@@ -100,12 +100,11 @@ cmd("report", function(playerid, id, ...) {
 
 // random for some actions
 chatcmd(["try"], function(playerid, message) {
-    message = localize("chat.player.try.body", [getAuthor( playerid ), message], getPlayerLocale(playerid));
     local res = random(0,1);
     if(res)
-        inRadiusSendToAll(playerid, localize("chat.player.try.end.success", [message], getPlayerLocale(playerid)), NORMAL_RADIUS);
+        sendLocalizedMsgToAll(playerid, "chat.player.try.end.success", [getAuthor( playerid ), message], NORMAL_RADIUS);
     else
-        inRadiusSendToAll(playerid, localize("chat.player.try.end.fail", [message], getPlayerLocale(playerid)), NORMAL_RADIUS);
+        sendLocalizedMsgToAll(playerid, "chat.player.try.end.fail", [getAuthor( playerid ), message], NORMAL_RADIUS);
 
     // statistics
     statisticsPushMessage(playerid, message, "try");

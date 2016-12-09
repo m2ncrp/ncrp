@@ -68,9 +68,8 @@ translation("ru", {
     "chat.player.shout"             : "%s крикнул: %s"
     "chat.player.whisper"           : "%s шепчет: %s"
     "chat.player.message.private"   : "[PM] %s: %s"
-    "chat.player.try.body"          : "[TRY] %s попытался %s"
-    "chat.player.try.end.success"   : "%s (успех)."
-    "chat.player.try.end.fail"      : "%s (провал)."
+    "chat.player.try.end.success"   : "[TRY] %s попытался %s (успех)."
+    "chat.player.try.end.fail"      : "[TRY] %s попытался %s (провал)."
 
     "chat.idea.success"             : "[IDEA] Ваша идея была успешно отправлена!"
     "chat.report.success"           : "[REPORT] Ваш репорт был успешно отправлен!"
