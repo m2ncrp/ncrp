@@ -322,6 +322,13 @@ function cargoJobFinish( playerid ) {
 
 }
 
+
+
+addEventHandlerEx("onServerDayChange", function() {
+    cargo_limit_in_day = 30;
+});
+
+
 function cargoJobSetFishLimit( playerid, limit ) {
     cargo_limit_in_day = limit.tointeger();
     msg( playerid, "[CARGO] New fish limit in day: "+limit, CARGO_JOB_COLOR );
@@ -330,3 +337,4 @@ function cargoJobSetFishLimit( playerid, limit ) {
 function cargoJobGetFishLimit( playerid ) {
     msg( playerid, "[CARGO] Fish limit: "+cargo_limit_in_day, CARGO_JOB_COLOR );
 }
+
