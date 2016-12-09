@@ -31,7 +31,7 @@ acmd("checkcar", function( playerid ) {
     sendPlayerMessage( playerid, "Car: id #" + vehicleid + ", model #" + vehicleModel);
 });
 
-cmd("paint", function(playerid, red, green, blue) {
+acmd("paint", function(playerid, red, green, blue) {
     local r = min(red.tointeger(), 255);
     local g = min(green.tointeger(), 255);
     local b = min(blue.tointeger(), 255);
