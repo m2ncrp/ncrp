@@ -12,9 +12,9 @@ function inRadiusSendToAll(sender, message, radius, color = 0) {
     foreach(player in players) {
         if ( isBothInRadius(sender, player, radius) ) {
             if (color) {
-                msg(player, localize(message, [getAuthor( player ), message], getPlayerLocale(player)), color);
+                msg(player, message, color);
             } else {
-                msg(player, localize(message, [getAuthor( player ), message], getPlayerLocale(player)));
+                msg(player, message);
             }
         }
     }
