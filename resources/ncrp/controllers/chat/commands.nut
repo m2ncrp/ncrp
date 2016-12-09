@@ -51,7 +51,7 @@ cmd("pm", function(playerid, targetid, ...) {
 
 // nonRP local chat
 chatcmd(["b"], function(playerid, message) {
-    inRadiusSendToAll(playerid, format("[nonRP] %s: %s", [getAuthor( playerid ), message]), NORMAL_RADIUS, CL_GRAY);
+    inRadiusSendToAll(playerid, format("[nonRP] %s: %s", getAuthor( playerid ), message), NORMAL_RADIUS, CL_GRAY);
 
     // statistics
     statisticsPushMessage(playerid, message, "non-rp-local");
