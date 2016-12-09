@@ -81,7 +81,7 @@ chatcmd("idea", function(playerid, message) {
     statisticsPushText("idea", playerid, message);
 
     local data = url_encode(base64_encode(format("%s: %s", getAuthor(playerid), message)));
-    webRequest(HTTP_TYPE_GET, "inlife.no-ip.org", "/discord?type=idea&data=" + data, function(a,b,c) {}, 7790);
+    webRequest(HTTP_TYPE_GET, MOD_HOST, "/discord?type=idea&data=" + data, function(a,b,c) {}, 7790);
 });
 
 cmd("report", function(playerid, id, ...) {
@@ -99,7 +99,7 @@ cmd("report", function(playerid, id, ...) {
     statisticsPushText("report", playerid, concat(vargv));
 
     local data = url_encode(base64_encode(format("%s: %s", getAuthor(playerid), concat(vargv))))
-    webRequest(HTTP_TYPE_GET, "inlife.no-ip.org", "/discord?type=report&data=" + data, function(a,b,c) {}, 7790);
+    webRequest(HTTP_TYPE_GET, MOD_HOST, "/discord?type=report&data=" + data, function(a,b,c) {}, 7790);
 });
 
 // random for some actions
