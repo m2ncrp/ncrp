@@ -132,6 +132,7 @@ translation("ru", {
     "job.cargodriver.sitintotruck"      :   "[CARGO] Садитесь в грузовик для доставки рыбы и поезжайте в City Port к складу P3 06."
     "job.cargodriver.not"               :   "[CARGO] Вы не работаете водителем грузовика."
     "job.cargodriver.needfishtruck"     :   "[CARGO] Вам нужен грузовик для доставки рыбы."
+    "job.cargodriver.fishtoomuch"       :   "[CARGO] На складе уже достаточно рыбы. Пока больше не требуется."
     "job.cargodriver.toload"            :   "[CARGO] Отправляйтесь в Порт к складу P3 06 для загрузки."
     "job.cargodriver.driving"           :   "[CARGO] Остановите грузовик."
     "job.cargodriver.loading"           :   "[CARGO] Грузовик загружается. Ждите..."
