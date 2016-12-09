@@ -64,7 +64,7 @@ function chatcmd(names, callback)  {
         local text = concat(vargv);
 
         if (!text || text.len() < 1) {
-            return msg(playerid, "[INFO] You cant send an empty message.", CL_YELLOW);
+            return msg(playerid, "[INFO] You can't send an empty message.", CL_YELLOW);
         }
 
         // call registered callback
@@ -89,7 +89,9 @@ function msg(playerid, text, ...) {
         }
     }
 
-    return sendPlayerMessage(playerid, localize(text, params, getPlayerLocale(playerid)), color.r, color.g, color.b);
+    return sendPlayerMessage(playerid.tointeger(), localize(
+        text, params, getPlayerLocale(playerid.tointeger())
+    ), color.r, color.g, color.b);
 }
 
 function msg_a(text, color = CL_WHITE) {

@@ -1,7 +1,7 @@
 // local chat
 chatcmd(["i", "say"], function(playerid, message) {
-    inRadiusSendToAll(playerid, 
-        localize("chat.player.says", [getAuthor( playerid ), message], getPlayerLocale(playerid)), 
+    inRadiusSendToAll(playerid,
+        localize("chat.player.says", [getAuthor( playerid ), message], getPlayerLocale(playerid)),
         NORMAL_RADIUS, CL_YELLOW);
 
     // statistics
@@ -10,8 +10,8 @@ chatcmd(["i", "say"], function(playerid, message) {
 
 // shout
 chatcmd(["s", "shout"], function(playerid, message) {
-    inRadiusSendToAll(playerid, 
-        localize("chat.player.shout", [getAuthor( playerid ), message], getPlayerLocale(playerid)), 
+    inRadiusSendToAll(playerid,
+        localize("chat.player.shout", [getAuthor( playerid ), message], getPlayerLocale(playerid)),
         SHOUT_RADIUS, CL_WHITE);
 
     // statistics
@@ -33,6 +33,25 @@ chatcmd(["w", "whisper"], function(playerid, message) {
     // statistics
     statisticsPushMessage(playerid, message, "whisper");
 });
+
+// private message
+cmd("pm", function(playerid, targetid, ...) {
+    local targetid = toInteger(targetid);
+
+    if (!isInteger(targetid) || !vargv.len()) {
+        return msg(playerid, "chat.player.message.error", CL_ERROR);
+    }
+
+    if (!isPlayerConnected(targetid)) {
+        return msg(playerid, "chat.player.message.noplayer", CL_ERROR);
+    }
+
+    local message = concat(vargv);
+    msg(playerid, "chat.player.message.private", [getAuthor( playerid ), message], CL_LIGHTWISTERIA);
+    msg(targetid, "chat.player.message.private", [getAuthor( playerid ), message], CL_LIGHTWISTERIA);
+    statisticsPushText("pm", playerid, "to: " + getAuthor( targetid ) + message);
+});
+
 
 // nonRP local chat
 chatcmd(["b"], function(playerid, message) {
@@ -122,6 +141,7 @@ cmd(["help", "h", "halp", "info"], "chat", function(playerid) {
         { name = "/whisper TEXT",     desc = "help.chat.whisper"},
         { name = "/b TEXT",           desc = "help.chat.localooc"},
         { name = "/ooc TEXT",         desc = "help.chat.ooc"},
+        { name = "/pm ID TEXT",       desc = "help.chat.privatemsg"},
         { name = "/me ACTION_TEXT",   desc = "help.chat.me"},
         { name = "/try ACTION_TEXT",  desc = "help.chat.try"}
     ];

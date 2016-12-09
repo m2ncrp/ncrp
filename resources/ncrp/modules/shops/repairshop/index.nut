@@ -4,6 +4,7 @@ translation("en", {
     "shops.repairshop.toofar"             : "You are too far from any reapir shop!"
     "shops.repairshop.money.notenough"    : "[REPAIR SHOP] Not enough money. Need $%.2f, but you have only $%s."
     "shops.repairshop.repair.payed"       : "[REPAIR SHOP] You pay $%.2f for repair car. Current balance $%s. Come to us again!"
+    "shops.repairshop.needwait"           : "[REPAIR SHOP] Please, wait while your car is on repair..."
 
     "shops.repairshop.help.title"         : "List of available commands for REPAIR SHOP:"
     "shops.repairshop.help.repair"        : "Repair car"
@@ -35,7 +36,7 @@ addEventHandlerEx("onServerStarted", function() {
     log("[shops] loading repair shops...");
     foreach (shop in repair_shops) {
         create3DText ( shop[0], shop[1], shop[2]+0.35, "=== "+shop[3]+" REPAIR SHOP ===", CL_ROYALBLUE, SHOP_REPAIR_3DTEXT_DRAW_DISTANCE );
-        create3DText ( shop[0], shop[1], shop[2]+0.20, format("(Price: $%.2f) Use: /repair", SHOP_REPAIR_COST), CL_WHITE.applyAlpha(150), SHOP_REPAIR_RADIUS );
+        create3DText ( shop[0], shop[1], shop[2]+0.20, format("(price: $%.2f) Use: /repair", SHOP_REPAIR_COST), CL_WHITE.applyAlpha(150), SHOP_REPAIR_RADIUS );
     }
 });
 
@@ -61,10 +62,13 @@ function repairShopRepairCar (playerid) {
         if ( !canMoneyBeSubstracted(playerid, SHOP_REPAIR_COST) ) {
             return msg(playerid, "shops.repairshop.money.notenough", [SHOP_REPAIR_COST, getPlayerBalance(playerid)], CL_THUNDERBIRD);
         }
-        local vehicleid = getPlayerVehicle(playerid);
-        repairVehicle( vehicleid );
-        subMoneyToPlayer(playerid, SHOP_REPAIR_COST);
-        return msg(playerid, "shops.repairshop.repair.payed", [SHOP_REPAIR_COST, getPlayerBalance(playerid)]);
+        msg(playerid, "shops.repairshop.needwait");
+        screenFadeinFadeoutEx(playerid, 250, 3000, null, function() {
+            local vehicleid = getPlayerVehicle(playerid);
+            repairVehicle( vehicleid );
+            subMoneyToPlayer(playerid, SHOP_REPAIR_COST);
+            return msg(playerid, "shops.repairshop.repair.payed", [SHOP_REPAIR_COST, getPlayerBalance(playerid)]);
+        });
     }
 }
 
