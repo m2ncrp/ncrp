@@ -12,9 +12,24 @@ function inRadiusSendToAll(sender, message, radius, color = 0) {
     foreach(player in players) {
         if ( isBothInRadius(sender, player, radius) ) {
             if (color) {
-                msg(player, message, color);
+                msg(player, localize(message, [getAuthor( player ), message], getPlayerLocale(player)), color);
             } else {
-                msg(player, message);
+                msg(player, localize(message, [getAuthor( player ), message], getPlayerLocale(player)));
+            }
+        }
+    }
+}
+
+
+// Fix: send message in player locale, not only sender locale
+function sendLocalizedMsgToAll(sender, phrase_key, message, radius, color = 0) {
+    local players = playerList.getPlayers();
+    foreach(player in players) {
+        if ( isBothInRadius(sender, player, radius) ) {
+            if (color) {
+                msg(player, localize(phrase_key, [getAuthor( player ), message], getPlayerLocale(player)), color);
+            } else {
+                msg(player, localize(phrase_key, [getAuthor( player ), message], getPlayerLocale(player)));
             }
         }
     }

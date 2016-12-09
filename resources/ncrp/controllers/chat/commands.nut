@@ -1,8 +1,6 @@
 // local chat
 chatcmd(["i", "say"], function(playerid, message) {
-    inRadiusSendToAll(playerid,
-        localize("chat.player.says", [getAuthor( playerid ), message], getPlayerLocale(playerid)),
-        NORMAL_RADIUS, CL_YELLOW);
+    sendLocalizedMsgToAll(playerid, "chat.player.says", message, NORMAL_RADIUS, CL_YELLOW);
 
     // statistics
     statisticsPushMessage(playerid, message, "say");
@@ -10,9 +8,7 @@ chatcmd(["i", "say"], function(playerid, message) {
 
 // shout
 chatcmd(["s", "shout"], function(playerid, message) {
-    inRadiusSendToAll(playerid,
-        localize("chat.player.shout", [getAuthor( playerid ), message], getPlayerLocale(playerid)),
-        SHOUT_RADIUS, CL_WHITE);
+    sendLocalizedMsgToAll(playerid, "chat.player.shout", message, SHOUT_RADIUS, CL_WHITE);
 
     // statistics
     statisticsPushMessage(playerid, message, "shout");
@@ -55,7 +51,7 @@ cmd("pm", function(playerid, targetid, ...) {
 
 // nonRP local chat
 chatcmd(["b"], function(playerid, message) {
-    inRadiusSendToAll(playerid, "[nonRP] " + getAuthor( playerid ) + ": " + message, NORMAL_RADIUS, CL_GRAY);
+    inRadiusSendToAll(playerid, format("[nonRP] %s: %s", [getAuthor( playerid ), message]), NORMAL_RADIUS, CL_GRAY);
 
     // statistics
     statisticsPushMessage(playerid, message, "non-rp-local");
