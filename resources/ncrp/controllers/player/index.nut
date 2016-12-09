@@ -142,6 +142,14 @@ event("onPlayerMoneyChanged", function(playerid) {
     }
 });
 
+event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
+    trySavePlayer(playerid);
+});
+
+event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
+    trySavePlayer(playerid);
+});
+
 event("onPlayerConnectInit", function(playerid, name, ip, serial) {
     // set player colour
     setPlayerColour(playerid, 0x99FFFFFF); // whity
