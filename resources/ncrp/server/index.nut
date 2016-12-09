@@ -1,5 +1,6 @@
 DEBUG   <- false;
 VERSION <- "0.0.000";
+MOD_HOST <- "139.59.142.46";
 
 // initialize libraries
 dofile("resources/ncrp/libraries/index.nut", true);
