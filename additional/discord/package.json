@@ -15,6 +15,6 @@
   "homepage": "https://bitbucket.org/Inlife/ncrp#readme",
   "dependencies": {
     "express": "^4.14.0",
-    "discord.js": "^10.0.1",
+    "discord.js": "^10.0.1"
   }
 }

@@ -41,7 +41,7 @@ cmd("police", function(playerid, ...) {
     policeCall(playerid, place);
 
     local data = url_encode(base64_encode(format("%s: %s", getAuthor(playerid), concat(vargv))));
-    webRequest(HTTP_TYPE_GET, "inlife.no-ip.org", "/discord?type=police&data=" + data, function(a,b,c) {}, 7790);
+    webRequest(HTTP_TYPE_GET, MOD_HOST, "/discord?type=police&data=" + data, function(a,b,c) {}, 7790);
 });
 
 // usage: /police duty on
