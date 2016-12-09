@@ -52,6 +52,10 @@ function onCheaterDetected( cheaterID, reason ) {
 }
 
 
+acmd("restart", function(playerid) {
+    // todo
+});
+
 acmd(["admin", "adm", "a"], function(playerid, ...) {
     return sendPlayerMessageToAll("[ADMIN] " + concat(vargv), CL_MEDIUMPURPLE.r, CL_MEDIUMPURPLE.g, CL_MEDIUMPURPLE.b);
 });
