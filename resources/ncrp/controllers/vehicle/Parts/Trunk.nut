@@ -1,4 +1,4 @@
-class Trunk extends VehiclePart {
+class Trunk extends OpenableVehiclePart {
     capacity = null;
     
     constructor (vehicleID) {

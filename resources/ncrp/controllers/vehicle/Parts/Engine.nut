@@ -1,19 +1,15 @@
-class Engine {
-    vehicleID = null;
+class Engine extends SwitchableVehiclePart {
 
     constructor (vehicleID) {
-        this.vehicleID = vehicleID;
+        base.constructor(vehicleID, null, false);
     }
 
-    function isEngineOn() {
+    function getState() {
         return getVehicleEngineState( vehicleID );
     }
 
-    function switchOn() {
-        setVehicleEngineState( vehicleID, true );
-    }
-
-    function switchOff() {
-        setVehicleEngineState( vehicleID, false );
+    function setState(to) {
+        setVehicleEngineState( vehicleID, to );
+        base.setState( to );
     }
 }

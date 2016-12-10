@@ -1,10 +1,8 @@
-class Door extends VehiclePart {
+class Door extends OpenableVehiclePart {
     window = null;
     
     constructor (vehicleID, seatID) {
-        this.vehicleID = vehicleID;
-        this.partID = seatID;
-
+        base.constructor(vehicleID, seatID, false);
         this.window = Window(vehicleID, seatID);
     }
 

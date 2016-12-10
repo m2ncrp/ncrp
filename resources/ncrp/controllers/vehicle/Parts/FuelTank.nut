@@ -1,10 +1,9 @@
-class FuelTank {
+class FuelTank extends BaseVehiclePart {
     volume = null;
-    vehicleID = null;
     model = null;
 
     constructor (vehicleID, model) {
-        this.vehicleID = vehicleID;
+        base.constructor(vehicleID, null);
         this.model = getVehicleModel(vehicleID);
         this.volume = getFuelVolume();
 
