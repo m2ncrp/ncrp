@@ -1,6 +1,6 @@
-class TaxiLight extends Horn {
+class TaxiLight extends SwitchableVehiclePart {
     constructor (vehicleID) {
-        base.constructor(vehicleID);
+        base.constructor(vehicleID, null, false);
     }
     
     function getState() {
@@ -9,5 +9,6 @@ class TaxiLight extends Horn {
 
     function setState(to) {
         setTaxiLightState( vehicleID, to );
+        base.setState( to );
     }
 }

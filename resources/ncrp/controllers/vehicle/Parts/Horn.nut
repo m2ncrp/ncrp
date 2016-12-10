@@ -1,15 +1,15 @@
-class Horn extends VehiclePart {
-    vehicleID = null;
+class Horn extends SwitchableVehiclePart {
     
     constructor (vehicleID) {
-        this.vehicleID = vehicleID;
+        base.constructor(vehicleID, null, false);
     }
 
     function getState() {
-        return getVehicleHornState( vehicleID );
+        return getVehicleHornState( vehicleID ); // || state;
     }
 
     function setState(to) {
         setVehicleHornState( vehicleID, to );
+        base.setState( to );
     }
 }

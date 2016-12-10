@@ -1,18 +1,15 @@
-class Lights {
-    vehicleID = null;
-    state = null;
+class Lights extends SwitchableVehiclePart {
     
     constructor (vehicleID) {
-        this.vehicleID = vehicleID;
-        state = false;
+        base.constructor(vehicleID, null, false);
     }
 
-    function isLightsOn() {
+    function getState() {
         return getVehicleLightState(vehicleID);
     }
 
-    function switchLights() {
-        local prevState = isLightsOn();
-        setVehicleLightState( vehicleID, !prevState );
+    function setState(to) {
+        setVehicleLightState( vehicleID, to);
+        base.setState( to );
     }
 }
