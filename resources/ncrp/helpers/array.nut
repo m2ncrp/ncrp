@@ -39,6 +39,22 @@ function shuffle(input) {
     return output;
 }
 
+/**
+ * Return new array with all unique elements
+ * @param  {Array} array
+ * @return {Array}
+ */
+function array_unique ( array ) {
+    local result = [];
+    foreach (idx, value in array) {
+        if(result.find(value) == null)
+        {
+            result.push(value);
+        }
+    }
+    return result;
+}
+
 
 function getRandomSubArray(arr, size = 1) {
     local subarr = [];
