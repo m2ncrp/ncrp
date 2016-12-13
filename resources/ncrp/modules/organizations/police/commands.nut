@@ -173,12 +173,14 @@ function cuff(playerid) {
                 setPlayerState(targetid, "cuffed");
                 msg(targetid, "organizations.police.beencuffed", [getAuthor( playerid )]);
                 msg(playerid, "organizations.police.cuff.someone", [getAuthor( targetid )]);
+                return;
             }
             if ( getPlayerState(targetid) == "cuffed" ) {
                 setPlayerToggle( targetid, false ); // uncuff him...
                 setPlayerState(targetid, "free");
                 msg(targetid, "organizations.police.cuff.beenuncuffed", [getAuthor( playerid )] );
                 msg(playerid, "organizations.police.cuff.uncuffsomeone", [getAuthor( targetid )] );
+                return;
             }
             // throw out cuffes and disable arrest any players till officer didn't take them from the ground 
         }
