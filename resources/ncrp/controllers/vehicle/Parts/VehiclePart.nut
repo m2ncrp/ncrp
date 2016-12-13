@@ -38,7 +38,6 @@ class OpenableVehiclePart extends BaseVehiclePart {
         setVehiclePartOpen(vehicleID, partID, false);
         isOpen = false;
     }
-
 }
 
 
