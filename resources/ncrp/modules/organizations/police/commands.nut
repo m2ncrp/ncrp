@@ -128,14 +128,14 @@ function taser( playerid ) {
             screenFadeinFadeout(targetid, 800, function() {
                 msg( playerid, "organizations.police.shotsomeone.bytaser", [getAuthor(targetid)] );
                 msg( targetid, "organizations.police.beenshot.bytaser" );
-                if ( getPlayerState(targetid) == PlayerState.free ) {
+                if ( getPlayerState(targetid) == "free" ) {
                     setPlayerToggle( targetid, true );
-                    setPlayerState(targetid, PlayerState.tased);
+                    setPlayerState(targetid, "tased");
                 }
             }, function() {
-                if ( getPlayerState(targetid) == PlayerState.tased ) {
+                if ( getPlayerState(targetid) == "tased" ) {
                     setPlayerToggle( targetid, false );
-                    setPlayerState(targetid, PlayerState.free);
+                    setPlayerState(targetid, "free");
                 }
             });
         }        
@@ -168,15 +168,15 @@ function cuff(playerid) {
         }
 
         if ( isBothInRadius(playerid, targetid, CUFF_RADIUS) ) {
-            if ( getPlayerState(targetid) == PlayerState.tased ) {
+            if ( getPlayerState(targetid) == "tased" ) {
                 setPlayerToggle( targetid, true ); // cuff dat bitch
-                setPlayerState(targetid, PlayerState.cuffed);
+                setPlayerState(targetid, "cuffed");
                 msg(targetid, "organizations.police.beencuffed", [getAuthor( playerid )]);
                 msg(playerid, "organizations.police.cuff.someone", [getAuthor( targetid )]);
             }
-            if ( getPlayerState(targetid) == PlayerState.cuffed ) {
+            if ( getPlayerState(targetid) == "cuffed" ) {
                 setPlayerToggle( targetid, false ); // uncuff him...
-                setPlayerState(targetid, PlayerState.free);
+                setPlayerState(targetid, "free");
                 msg(targetid, "organizations.police.cuff.beenuncuffed", [getAuthor( playerid )] );
                 msg(playerid, "organizations.police.cuff.uncuffsomeone", [getAuthor( targetid )] );
             }

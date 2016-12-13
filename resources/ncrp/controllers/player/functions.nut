@@ -221,7 +221,7 @@ function getPlayerToggle(playerid) {
     return players[playerid]["toggle"];
 }
 
-function setPlayerToggle(playerid, state) {
+function setPlayerToggle(playerid, to) {
     players[playerid]["toggle"] = to;
     togglePlayerControls(playerid, to);
 }
