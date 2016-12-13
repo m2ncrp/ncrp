@@ -1,5 +1,4 @@
-class Trailer extends Vehicle {
-    MAX_SEATS = 0;
+class Trailer extends BaseVehicle {
     capacity = null;
     
     constructor (model, px, py, pz, rx, ry, rz) {

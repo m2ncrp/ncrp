@@ -10,11 +10,6 @@ class BaseVehicle {
     gabarites = null;
     fueltank = null;
     trunk = null;
-
-    // visual
-    tuning_level = null;
-    front_wheels = null;
-    back_wheels = null;
     
     constructor(model, px, py, pz, rx, ry, rz) {
         this.id = createVehicle(model, px, py, pz, rx, ry, rz);
@@ -22,11 +17,12 @@ class BaseVehicle {
         this.fueltank = FuelTank(id, model);
         this.trunk = Trunk(id);
 
-        this.tuning_level = getVehicleTuningTable( id );
-        this.front_wheels = getVehicleWheelTexture( id, 0 );
-        this.back_wheels = getVehicleWheelTexture( id, 1 );
-
         _vehicle_queue.push(this);
+    }
+
+    function destructor() {
+        // _vehicle_queue.remove(id); // too much to reorganize
+        destroyVehicle(id);
     }
 
     function getModel() {
@@ -39,11 +35,11 @@ class BaseVehicle {
     }
 
     function getFuel() {
-        return getVehicleFuel(id);
+        return this.fueltank.getFuel();
     }
 
     function setFuel( to ) {
-        this.fueltank.setCurrentLevel(to);
+        this.fueltank.setFuel(to);
     }
 
 
@@ -55,83 +51,130 @@ class BaseVehicle {
         setVehiclePosition( id, x, y, z );
     }
 
-    function setPosVector(pos) {
-        setVehiclePosition( id, pos[0], pos[1], pos[2] );
+    function setPosVector(vector3d) {
+        setVehiclePosition( id, vector3d[0], vector3d[1], vector3d[2] );
     }
 
 
     function getRot() {
-        // Code
+        return getVehicleRotation(id);
     }
 
-    function setRot() {
-        // Code
+    function setRot(xr, yr, zr) {
+        setVehicleRotation( id, xr, yr, zr );
     }
 
 
     function getSpeed() {
-        // Code
+        return getVehicleSpeed( id );
     }
 
-    function setSpeed() {
-        // Code
+    function setSpeed(xs, ys, zs) {
+        setVehicleSpeed( vehicleid, xs, ys, zs );
     }
 
 
     function getEngineState() {
-        // Code
+        return this.engine.getState();
     }
 
-    function setEngineState() {
-        // Code
+    function setEngineState(to) {
+        this.engine.setState(to);
     }
 
 
     function getColor() {
-        // Code
+        return getVehicleColour(id);
     }
 
-    function setColor() {
-        // Code
+    function setColor(pr, pg, pb, sr, sg, sb) {
+        setVehicleColour( id, pr, pg, pb, sr, sg, sb );
     }
 
 
     function getPlate () {
-        // Code
+        return getVehiclePlateText(id);
     }
 
-    function setPlate() {
-        // Code
+    function setPlate(to) {
+        setVehiclePlateText( id, to );
     }
 
 
     function getDirtLevel() {
-        // Code
+        return getVehicleDirtLevel(id);
     }
 
-    function setDirlLevel() {
-        // Code
+    function setDirlLevel(to) {
+        setVehicleDirtLevel( id, to );
     }
+}
 
+
+class Vehicle extends BaseVehicle {
+    lights = null;
+    hood = null;
+    engine = null;
+    horn = null;
+
+    // visual
+    tuning_level = null;
+    front_wheels = null;
+    back_wheels = null;
+
+    seats = {};
+    distance = null;
+    
+    constructor(model, px, py, pz, rx, ry, rz) {
+        base.constructor(model, px, py, pz, rx, ry, rz);
+        this.lights = Lights(id);
+        this.hood = Hood(id);
+        this.engine = Engine(id);
+        this.horn = Horn(id);
+
+        this.distance = 0; // load from DB
+        this.tuning_level = getTuning();
+        this.front_wheels = getVehicleWheelTexture( id, 0 );
+        this.back_wheels = getVehicleWheelTexture( id, 1 );
+    }
 
     function getTuning() {
-        // Code
+        return getVehicleTuningTable(id);
     }
 
-    function setTuning() {
-        // Code
+    function setTuning(to) {
+        setVehicleTuningTable( id, to );
     }
 
-
-    function gb_left() {
-        gabarites.switchLeft();
+    function getWheels() {
+        local result = array(2);
+        result[0] = getVehicleWheelTexture( id, 0 );
+        result[1] = getVehicleWheelTexture( id, 1 );
+        return result;
     }
 
-    function gb_right() {
-        gabarites.switchRight();
+    function setWheels(to) {
+        setVehicleWheelTexture( id, 0, to );
+        setVehicleWheelTexture( id, 1, to );
     }
 
-    function gb_both() {
-        gabarites.switchBoth();
+    function setFrontWheels(to) {
+        setVehicleWheelTexture( id, 0, to );
+    }
+
+    function setBackWheels(to) {
+        setVehicleWheelTexture( id, 1, to );
+    }
+
+    function getDistance() {
+        return distance;
+    }
+
+    // Check every minute
+    function calculateDistance(startPoint, endPoint) {
+        local x = endPoint[0] - startPoint[0];
+        local y = endPoint[1] - startPoint[1];
+        local z = endPoint[2] - startPoint[2];
+        distance += sqrt( x*x + y*y + z*z );
     }
 }
