@@ -142,7 +142,7 @@ key(["e"], function(playerid) {
         return;
     }
     if ( !isOfficer(playerid) ) {
-        return msg( playerid, "organizations.police.notanofficer" );
+        return;
     }
     // print("Player pressed e");
     taser(playerid);
@@ -158,45 +158,31 @@ function cuff(playerid) {
         }
 
         if ( isBothInRadius(playerid, targetid, CUFF_RADIUS) ) {
-            // if (isPlayerCantMove) // means for some time
-            togglePlayerControls( targetid, true ); // cuff dat bitch
-            msg(targetid, "organizations.police.beencuffed", [getAuthor( playerid )]);
-            msg(playerid, "organizations.police.cuff.someone", [getAuthor( targetid )]);
-            // else
+            if ( getPlayerToggle(targetid) ) {
+                setPlayerToggle( targetid, true ); // cuff dat bitch
+                msg(targetid, "organizations.police.beencuffed", [getAuthor( playerid )]);
+                msg(playerid, "organizations.police.cuff.someone", [getAuthor( targetid )]);
+            } else {
+                togglePlayerControls( targetid, false ); // uncuff him...
+                msg(targetid, "organizations.police.cuff.beenuncuffed", [getAuthor( playerid )] );
+                msg(playerid, "organizations.police.cuff.uncuffsomeone", [getAuthor( targetid )] );
+            }
             // throw out cuffes and disable arrest any players till officer didn't take them from the ground 
         }
     }
 }
-
-// temporary command
-function uncuff(playerid) {
-    if ( isOnPoliceDuty(playerid) ) {
-        local targetid = playerList.nearestPlayer( playerid );
-
-        if ( targetid == null ) {
-            return msg(playerid, "general.noonearound");
-        }
-
-        if ( isBothInRadius(playerid, targetid, CUFF_RADIUS) ) {
-            togglePlayerControls( targetid, false );
-            msg(targetid, "organizations.police.cuff.beenuncuffed", [getAuthor( playerid )] );
-            msg(playerid, "organizations.police.cuff.uncuffsomeone", [getAuthor( targetid )] );
-        }
-    }
-}
-
 
 key(["q"], function(playerid) {
     if ( isPlayerInVehicle(playerid) ) {
         return;
     }
     if ( !isOfficer(playerid) ) {
-        return msg( playerid, "organizations.police.notanofficer" );
+        return;
     }
-    // print("Player pressed e");
-    // if player cuffed
-    uncuff(playerid);
-    //else
+    if ( isOfficer(playerid) && !isOnPoliceDuty(playerid) ) {
+        return msg( playerid, "organizations.police.duty.off" );
+    }
+    // print("Player pressed q");
     cuff(playerid);
 }, KEY_UP);
 
