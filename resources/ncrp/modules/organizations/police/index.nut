@@ -2,7 +2,7 @@
 1. Make police exclusive for players. Join only through admins, write names and serials into script. [DONE]
 2. Create rang system. ~3-4 rangs: police chief, officer, junior officer, detective (ability to work plain-clothes).
 4. Ability to rang up or down by admins.
-5. Remove selfshot by taser in cmds X)
+5. Remove selfshot by baton in cmds X)
 6. To end duty and become simple civilian make duty on and off cmds [HALF DONE]
 
 7. Call da fucking police
@@ -12,7 +12,7 @@
 1. Работа: проверять является ли игрок копом или нет через players[playerid]["job"]. Этого достаточно.
 2. Пистолет есть - патронов нет. Как так?
 3. Рупор и r проверить не удалось, т.к. нужно два и более игрока.
-4. Taser, ticket, cuff - тоже что и пункт 3.
+4. baton, ticket, cuff - тоже что и пункт 3.
 5. prison выдало ошибку AN ERROR HAS OCCURED [wrong number of parameters]
 6. Неполный хелп
 7. Чёто странное с командами /police duty on и /police duty off (то ли месседжы перепутаны, для duty off вообще не выводится собщение). Непоняяяяяятно
@@ -45,10 +45,10 @@ translation("en", {
     "organizations.police.notinpolicevehicle"   : "You should be in police vehicle!",
     "organizations.police.ticket.givewithreason": "%s give you ticket for %s. Type /accept %i.",
     "organizations.police.offduty.notickets"    : "You off the duty now and you haven't tickets.",
-    "organizations.police.offduty.notaser"      : "You have no taser couse you're not a cop.",
+    "organizations.police.offduty.nobaton"      : "You have no baton couse you're not a cop.",
 
-    "organizations.police.shotsomeone.bytaser"  : "You shot %s by taser.",
-    "organizations.police.beenshot.bytaser"     : "You's been shot by taser",
+    "organizations.police.shotsomeone.bybaton"  : "You shot %s by baton.",
+    "organizations.police.beenshot.bybaton"     : "You's been shot by baton",
     "organizations.police.beencuffed"           : "You've been cuffed by %s.",
     "organizations.police.cuff.someone"         : "You cuffed %s.",
     "organizations.police.cuff.beenuncuffed"    : "You've been uncuffed by %s",
@@ -59,9 +59,8 @@ translation("en", {
     "organizations.police.info.cmds.ratio"      : "Send message to all police by ratio",
     "organizations.police.info.cmds.rupor"      : "Say smth to police vehicle rupor",
     "organizations.police.info.cmds.ticket"     : "Give ticket to player with given id. Example: /ticket 0 2.1 speed limit",
-    "organizations.police.info.cmds.taser"      : "Shock nearset player",
-    "organizations.police.info.cmds.cuff"       : "Сuff nearest player",
-    "organizations.police.info.cmds.cuff"       : "Uncuff nearest player",
+    "organizations.police.info.cmds.baton"      : "Stun nearset player",
+    "organizations.police.info.cmds.cuff"       : "Сuff or uncuff nearest stunned player",
     "organizations.police.info.cmds.prison"     : "Put nearest cuffed player in jail",
     "organizations.police.info.cmds.amnesty"    : "Take out player with given id from prison",
 
@@ -74,7 +73,7 @@ translation("en", {
 
 const RUPOR_RADIUS = 75.0;
 const CUFF_RADIUS = 3.0;
-const TASER_RADIUS = 6.0;
+const BATON_RADIUS = 6.0;
 const POLICE_MODEL = 75;
 
 POLICE_RANK <- [

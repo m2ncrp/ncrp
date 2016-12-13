@@ -113,7 +113,7 @@ cmd(["ticket"], function(playerid, targetid, price, ...) {
 });
 
 
-function taser( playerid ) {
+function baton( playerid ) {
     if ( !isOfficer(playerid) ) {
         return msg( playerid, "organizations.police.notanofficer" );
     }
@@ -124,10 +124,10 @@ function taser( playerid ) {
             return msg(playerid, "general.noonearound");
         }
 
-        if ( isBothInRadius(playerid, targetid, TASER_RADIUS) ) {
-            screenFadeinFadeout(targetid, 800, function() {
-                msg( playerid, "organizations.police.shotsomeone.bytaser", [getAuthor(targetid)] );
-                msg( targetid, "organizations.police.beenshot.bytaser" );
+        if ( isBothInRadius(playerid, targetid, BATON_RADIUS) ) {
+            screenFadeinFadeout(targetid, 1000, function() {
+                msg( playerid, "organizations.police.shotsomeone.bybaton", [getAuthor(targetid)] );
+                msg( targetid, "organizations.police.beenshot.bybaton" );
                 if ( getPlayerState(targetid) == "free" ) {
                     setPlayerToggle( targetid, true );
                     setPlayerState(targetid, "tased");
@@ -140,7 +140,7 @@ function taser( playerid ) {
             });
         }        
     } else {
-        return msg(playerid, "organizations.police.offduty.notaser")
+        return msg(playerid, "organizations.police.offduty.nobaton")
     }
 }
 
@@ -155,7 +155,7 @@ key(["e"], function(playerid) {
         return msg( playerid, "organizations.police.duty.off" );
     }
     // print("Player pressed e");
-    taser(playerid);
+    baton(playerid);
 }, KEY_UP);
 
 
@@ -235,9 +235,8 @@ function policeHelp(playerid, a = null, b = null) {
         { name = "/r TEXT",                     desc = "organizations.police.info.cmds.ratio"},
         { name = "/rupor TEXT",                 desc = "organizations.police.info.cmds.rupor"},
         { name = "/ticket ID AMOUNT REASON",    desc = "organizations.police.info.cmds.ticket" },
-        { name = "/taser",                      desc = "organizations.police.info.cmds.taser" },
-        { name = "/cuff",                       desc = "organizations.police.info.cmds.cuff" },
-        { name = "/uncuff",                     desc = "organizations.police.info.cmds.uncuff" },
+        { name = "E button",                    desc = "organizations.police.info.cmds.baton" },
+        { name = "Q button",                    desc = "organizations.police.info.cmds.cuff" },
         { name = "/prison ID",                  desc = "organizations.police.info.cmds.prison" },
         { name = "/amnesty ID",                 desc = "organizations.police.info.cmds.amnesty" }
     ];
