@@ -665,7 +665,7 @@ translation("ru", {
     "bk.disabled"           : "[БК] Букмекерская контора закрыта. Приходите в другое время."
     "bk.goto"               : "[БК] Отправляйтесь к букмекерской конторе в West Side"
     "bk.selectsport"        : "[БК] Выберите спорт:"
-    "bk.toselectsport"      : "[БК] Для выпора спорта используйте: /bk ID"
+    "bk.toselectsport"      : "[БК] Для выбора спорта используйте: /bk ID"
     "bk.horseriding"        : "1. Скачки"
     "bk.greyhound"          : "2. Собачьи бега"
     "bk.baseball"           : "3. Бейсбол"
