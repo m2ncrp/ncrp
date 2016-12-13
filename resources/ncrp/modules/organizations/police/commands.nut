@@ -1,3 +1,7 @@
+/*
+    BINDS SHOW UP MESSAGE EVERY TIME IF PLAYER CONTACT WITH VEHICLE
+ */
+
 // usage: /police job <id>
 acmd("police", "job", function(playerid, targetid) {
     local targetid = targetid.tointeger();
@@ -232,6 +236,8 @@ function policeHelp(playerid, a = null, b = null) {
     local commands = [
         // { name = "/police job",             desc = "Get police officer job" },
         // { name = "/police job leave",       desc = "Leave from police department job" },
+        { name = "/police duty on",             desc = "organizations.police.info.cmds.dutyon"},
+        { name = "/police duty off",            desc = "organizations.police.info.cmds.dutyoff"},
         { name = "/r TEXT",                     desc = "organizations.police.info.cmds.ratio"},
         { name = "/rupor TEXT",                 desc = "organizations.police.info.cmds.rupor"},
         { name = "/ticket ID AMOUNT REASON",    desc = "organizations.police.info.cmds.ticket" },
