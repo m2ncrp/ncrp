@@ -18,6 +18,20 @@ cmd("docker", "put", function(playerid) {
     dockerJobPutBox( playerid );
 });
 
+key(["e"], function(playerid) {
+    if ( isPlayerInVehicle(playerid) ) {
+        return;
+    }
+    if ( !isDocker(playerid) ) {
+        return;
+    }
+    if ( !isDockerHaveBox(playerid) ) {
+        dockerJobTakeBox( playerid );
+    } else {
+        dockerJobPutBox( playerid );
+    }
+}, KEY_UP);
+
 // usage: /help job docker
 cmd("help", ["job", "docker"], function(playerid) {
     dockerJobHelp ( playerid );
