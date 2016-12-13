@@ -6,6 +6,7 @@ class SportEvent extends ORM.Entity {
     static fields = [
         ORM.Field.String({ name = "type" }),
         ORM.Field.String({ name = "participants", value = "0" }),
+        ORM.Field.String({ name = "chances", value = "0" }),
         ORM.Field.String({ name = "date" }),
         ORM.Field.Integer({ name = "winner", value = 0 }),
     ];
@@ -17,8 +18,8 @@ class SportEvent extends ORM.Entity {
      */
     function addParticipant(team)
     {
-        if (!(team instanceof SportEntries)) {
-            throw "Participant should be a SportEntries type"
+        if (!(team instanceof SportMember)) {
+            throw "Participant should be a SportMember type"
         }
 
         this.participants += "," + team.id;
@@ -31,14 +32,23 @@ class SportEvent extends ORM.Entity {
      */
     function getParticipants(callback)
     {
-        local q = ORM.Query("select * from @SportEntries where id in (:ids)");
+        local q = ORM.Query("select * from @SportMember where id in (:ids)");
         q.setParameter("ids", this.participants);
         q.getResult(callback);
     }
+
+
+    /**
+     * Add chance
+     * @param {SportEntries} cheance
+     * @return {SportEvents} this
+     */
+    function addChance(chance)
+    {
+        this.chances += "," + chance;
+        return this;
+    }
 }
-
-
-
 
 class SportBet extends ORM.Entity {
 
@@ -49,6 +59,7 @@ class SportBet extends ORM.Entity {
         ORM.Field.String({  name = "name" }),
         ORM.Field.Integer({ name = "participant" }),
         ORM.Field.Float  ({ name = "amount" }),
+        ORM.Field.Float  ({ name = "fraction" }),
     ];
 
 }
