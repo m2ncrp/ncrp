@@ -1,23 +1,32 @@
 include("modules/organizations/bookmakers/models/SportMember.nut");
 include("modules/organizations/bookmakers/models/SportEvent.nut");
+include("modules/organizations/bookmakers/models/SportBet.nut");
 
 const BK_RADIUS = 4.0;
-/*
+
 const BK_X =  -682.184;
 const BK_Y = -54.8196;
 const BK_Z = 1.0381;
-*/
 
+/*
 const BK_X = -416.889;
 const BK_Y = 474.576;
 const BK_Z = -0.238935;
-
+*/
+const BK_HORSE_MIN = 50.0;
+const BK_HORSE_MAX = 12000.0;
+const BK_GREYHOUND_MIN = 30.0;
+const BK_GREYHOUND_MAX = 8000.0;
+const BK_TEAM_MIN = 100.0;
+const BK_TEAM_MAX = 15000.0;
       BK_COLOR <- CL_PICTONBLUEDARK;
 
+local BOOKMAKER_ENABLED = true;
 local bk_player = {};
 local bkSpotTypes = [
     "baseball",
-    "horserace"
+    "horserace",
+    "greyhoundrace"
 ];
 
 local bkLoadedData = {
@@ -25,6 +34,7 @@ local bkLoadedData = {
     events  = [],
     current = {
         horses = [],
+        greyhounds = [],
         teams = []
     }
 };
@@ -47,19 +57,17 @@ event("onServerStarted", function() {
         bkLoadedData.events = (!results.len()) ? bkCreateEvent() : results;
     });
 
-    create3DText ( BK_X, BK_Y, BK_Z+0.35, "Betting Office", CL_ROYALBLUE );
-    create3DText ( BK_X, BK_Y, BK_Z+0.20, "/bk", CL_WHITE.applyAlpha(100), 3.0 );
+    create3DText ( BK_X, BK_Y, BK_Z+0.35, "BOOKMAKER's OFFICE", CL_ROYALBLUE );
+    create3DText ( BK_X, BK_Y, BK_Z+0.20, "/bk  or  /bm", CL_WHITE.applyAlpha(100), 3.0 );
 
-    createBlip  (  BK_X, BK_Y, [ 6, 4 ], 4000.0);
+    createBlip  (  BK_X, BK_Y, [ 0, 9 ], 4000.0);
 
 });
 
 event("onServerHourChange", function() {
     local winners = [];
-    //dbg(getHour());
 
-
-   // if (getHour() != 19) return;
+    if (getHour() != 19) return;
 
     SportEvent.findBy({ winner = 0 }, function(err, events) {
         foreach (idx, sprt in events) {
@@ -73,22 +81,17 @@ event("onServerHourChange", function() {
                 local winner = null;
                 local max = 0;
 
-                foreach (idy, team in teams) {
-                    //dbg(idy+". "+team.id);
-                    local v =  pow(chances[idy].tofloat(), (team.wins.tofloat() / team.total.tofloat()));
-                    if (v > max) {
-                        winner = idy;
-                        max = v;
-                    }
+                local winner = teams[random(0, teams.len() - 1)];
+                winner.wins++;
+
+                foreach (idx, team in teams) {
                     team.total++;
                     team.save();
                 }
 
-                teams[winner].wins++;
                 // save winner id
-                sprt.winner = teams[winner].id;
-                winners.push(teams[winner].id);
-
+                sprt.winner = winner.id;
+                winners.push(winner.id);
                 sprt.save();
 
 /*
@@ -98,9 +101,6 @@ event("onServerHourChange", function() {
                     team.save();
                 }
 */
-
-
-
 
                 //local winner = teams[random(0, teams.len() - 1)];
 //                winner.wins++;
@@ -128,21 +128,14 @@ event("onServerHourChange", function() {
         foreach (idx, value in bets) {
             if(winners.find(value.participant) != null)
             {
-/*
-                local wins  = bkLoadedData.members[value.participant].wins.tofloat();
-                local total = bkLoadedData.members[value.participant].total.tofloat();
 
-                return 10-round( (wins.tofloat() / total.tofloat()), 1)*10;
-*/
                 local playerid = getPlayerIdFromName( value.name );
                 local prize = value.amount.tofloat() * value.fraction.tofloat();
                 if( playerid != INVALID_ENTITY_ID )
                 {
                     addMoneyToDeposit(playerid, prize );
                     msg( playerid, "bk.betwin", [bkLoadedData.members[(value.participant-1)].title, prize ] );
-                }
-                else
-                {
+                } else {
                     dbg( playerid+" - player not found!" );
                     ORM.Query("update @Character set deposit = deposit + :prize where name = ':name'")
                     .setParameter("prize", prize)
@@ -152,18 +145,18 @@ event("onServerHourChange", function() {
             }
             value.remove();
         }
-
-        //          //return 10-round( (wins.tofloat() / total.tofloat()), 1)*10;
     });
 
+    // load current events
+    SportEvent.findAll(function(err, results) {
+        bkLoadedData.events = (!results.len()) ? bkCreateEvent() : results;
+    });
 
     // add new bets
-    if (getHour() == 0)  { bkCreateEvent(); }
-
-
+    if (getHour() == 0)  {
+        bkCreateEvent();
+    }
 });
-
-
 
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -193,9 +186,31 @@ function bkCreateEvent () {
     sprt.date = getDate();
     sprt.save();
 
-    print("saved with id: " + sprt.id);
+    print("horserace saved with id: " + sprt.id);
 
+// create greyhound race events 8 shtuk
+    local data = bkSelectFixedAmount("greyhoundrace", 8);
+    local sprt = SportEvent();
+    local coefob = 0;
+    local coefwins = [];
 
+    foreach (idx, value in data) {
+        local coefwin = value.wins.tofloat() / (value.wins.tofloat()+value.total.tofloat());
+        coefwins.push( coefwin );
+        coefob = coefob + coefwin;
+    }
+
+    foreach (idx, value in data) {
+        sprt.addParticipant(value);
+        sprt.addChance(  bkFindCoef (coefwins[idx], coefob)  );
+        bkLoadedData.current.greyhounds.push(value);
+    }
+
+    sprt.type = "greyhoundrace";
+    sprt.date = getDate();
+    sprt.save();
+
+    print("greyhoundrace saved with id: " + sprt.id);
 
 // create baseball events PARA
     for (local i = 0; i < 5; i++) {
@@ -213,7 +228,7 @@ function bkCreateEvent () {
 
         foreach (idx, value in data) {
             sprt.addParticipant(value);
-            sprt.addChance(  bkFindCoef (coefwins[idx], coefob)  );
+            sprt.addChance(  bkFindCoefBaseBall (coefwins[idx], coefob)  );
             bkLoadedData.current.teams.push(value);
         }
 
@@ -221,7 +236,7 @@ function bkCreateEvent () {
         sprt.date = getDate();
         sprt.save();
 
-        print("saved with id: " + sprt.id);
+        print("baseball saved with id: " + sprt.id);
     }
 
     // load current events
@@ -233,8 +248,17 @@ function bkCreateEvent () {
 function bkFindCoef (coefwins, coefob) {
     local veroyat = 100 * coefwins / coefob;
     local coef_eng = 1 / (veroyat / 100);
-    local offset = randomf(-100.0, 100.0)/78.0;
+    local offset = randomf(-100.0, 100.0)/randomf(25, 75);
     local coef_eng_bk = coef_eng - offset;
+    coef_eng_bk = round( coef_eng_bk, 2);
+    return coef_eng_bk;
+}
+
+function bkFindCoefBaseBall (coefwins, coefob) {
+    local veroyat = 100 * coefwins / coefob;
+    local coef_eng = 1 / (veroyat / 100);
+    local offset = randomf(-15.0, 35.0)/randomf(15, 35);
+    local coef_eng_bk = coef_eng - offset + 1.0;
     coef_eng_bk = round( coef_eng_bk, 2);
     return coef_eng_bk;
 }
@@ -254,6 +278,10 @@ function bkRemoveEvents (type = null) {
     }
     if (type == "horserace") {
         ORM.Query("delete from @SportEvent where type = 'horserace'").execute();
+        return;
+    }
+    if (type == "greyhoundrace") {
+        ORM.Query("delete from @SportEvent where type = 'greyhoundrace'").execute();
         return;
     }
     print("[bk] type \""+type+"\" not found" );
@@ -321,6 +349,24 @@ function bkCreateBaseData() {
         members.push(member);
     }
 
+    local greyhounds = [
+        "Riley", "Oscar", "Bandit", "Pepper", "Beau", "Sparky", "Lucky", "Sam", "Shadow", "Rusty", "Ben", "Felix", "Gaius", "Jack", "Archie", "Apollo", "Gideon", "Jesse", "Mickey", "Rudy", "Maximus", "Buster", "Cody", "Cain", "Ezra", "Duke", "Bobby", "Murphy", "Rufus", "Chaos", "Jett", "Jinx", "Bruno", "Rocky", "Bailey", "Winston", "Toby", "Josh", "Jake", "Sammy", "Casey", "Ragnor", "Rogue", "Sabre", "Charlie", "Tucker", "Teddy", "Gizmo", "Samson", "Jagger", "Scout", "Max", "Buddy", "Spike", "Simba", "Gus", "Dylan", "Smoky", "Wolf", "Vulcan", "Pluto", "Pax", "Caesar", "Duke", "Prince", "Juno", "Misty", "Lady", "Sasha", "Abby", "Roxy", "Missy", "Brandy", "Coco", "Annie", "Daisy", "Lucy", "Sadie", "Ginger", "Precious", "Bella", "Angel", "Leah", "Mara", "Persis", "Candy", "Princess", "Kishi", "Rosie", "Misty", "Duchess", "Vicki", "Venus", "Flora", "Cassie", "Zoe", "Dixie", "Sugar", "Zara", "Lola", "Honey", "Sophie", "Bella", "Cinders", "Empress", "Bobbi", "Chloe", "Emma", "Sandy", "Lily", "Penny", "Maddy", "Pepper", "Sheba", "Tasha", "Baby", "Cleo", "Sammy", "Molly", "Maggie", "Phoebe", "Reba", "Katie", "Gracie", "Abby", "Charlie", "Jasmine", "Holly", "Ruby", "Sassy"
+    ];
+
+    foreach (idx, value in greyhounds) {
+        // crate
+        local member = SportMember();
+
+        // put data
+        member.type  = bkSpotTypes[2];
+        member.title = value;
+        member.wins  = random(3, 5);
+        member.total = member.wins + random(4, 8);
+
+        // insert into database
+        member.save();
+        members.push(member);
+    }
     return members;
 }
 
@@ -353,25 +399,30 @@ function bkShowList ( playerid ) {
 
 
 translation("en", {
-    "bk.goto"               : "Go to betting office in West Side"
-    "bk.selectsport"        : "Select sport:"
-    "bk.toselectsport"      : "To select sport use: /bk ID"
-    "bk.baseball"           : "1. Horse riding"
-    "bk.horseriding"        : "2. Baseball"
+    "bk.disabled"           : "[BM] Bookmaker's office closed. Come later."
+    "bk.goto"               : "[BM] Go to bookmaker's office in West Side"
+    "bk.selectsport"        : "[BM] Select sport:"
+    "bk.toselectsport"      : "[BM] To select sport use: /bk ID"
+    "bk.horseriding"        : "1. Horse riding"
+    "bk.greyhound"          : "2. Greyhound racing"
+    "bk.baseball"           : "3. Baseball"
 
-    "bk.selectteam"         : "Select team to bet:"
-    "bk.selecthorse"        : "Select horse to bet:"
-    "bk.emptylist"          : "No available bets. Come later."
-    "bk.toselectteam"       : "To put money use: /bk ID AMOUNT"
-    "bk.toselecthorse"      : "To put money use: /bk ID AMOUNT"
+    "bk.selectteam"         : "[BM] Select team to bet:"
+    "bk.selecthorse"        : "[BM] Select horse to bet:"
+    "bk.selectdog"          : "[BM] Select greyhound to bet:"
+    "bk.emptylist"          : "[BM] No available bets. Come later."
+    "bk.toselectteam"       : "[BM] Min: $%s, Max: $%s. To put money use: /bk ID AMOUNT"
+    "bk.toselecthorse"      : "[BM] Min: $%s, Max: $%s. To put money use: /bk ID AMOUNT"
+    "bk.toselectdog"        : "[BM] Min: $%s, Max: $%s. To put money use: /bk ID AMOUNT"
 
-    "bk.needselectsport"    : "You need select sport before to bet."
-    "bk.notenough"          : "Not enough money."
-    "bk.bettoomuch"         : "Amount of bet is too high."
-    "bk.betnotfound"        : "You can put money only to participants from list."
-    "bk.betmade"            : "You bet $%.2f to win on %s."
-    "bk.betwin"             : "You bet on %s has won. You earn $%.2f."
-
+    "bk.needselectsport"    : "[BM] You need select sport before to bet."
+    "bk.notenough"          : "[BM] Not enough money."
+    "bk.bettoomuch"         : "[BM] Amount of bet is too high."
+    "bk.bettoolow"          : "[BM] Amount of bet is too low."
+    "bk.betnotfound"        : "[BM] You can put money only to participants from list."
+    "bk.betmade"            : "[BM] You bet $%.2f to win on %s."
+    "bk.betwin"             : "[BM] Your bet on %s has won. You earn $%.2f."
+    "bk.betlose"            : "[BM] Your bet on %s has lost. You lose $%.2f."
 });
 
 /*
@@ -380,8 +431,6 @@ For example: "$5 to win on Number 1."
 Example: If you bet a "$5 Perfecta Number 5 and 6",you collect if horses 5 and 6 finish first and second. Can also be called an Exacta.
  */
 //---------------------------------------------------------------------------------------------------------------
-
-
 
 
 function bkOpen ( playerid, type = null) {
@@ -393,14 +442,14 @@ function bkOpen ( playerid, type = null) {
     if (type == null) {
         msg(playerid, "==================================", CL_HELP_LINE);
         msg( playerid, "bk.selectsport", BK_COLOR);
-        msg( playerid, "bk.baseball");
         msg( playerid, "bk.horseriding");
-        msg( playerid, "bk.toselectsport", BK_COLOR);
+        msg( playerid, "bk.greyhound");
+        msg( playerid, "bk.baseball");
         return;
     }
 
     local count = 1;
-    if (type == "2") {
+    if (type == "3") {
         msg( playerid, "==================================", CL_HELP_LINE );
         msg( playerid, "bk.selectteam", BK_COLOR);
         local pusto = false;
@@ -423,18 +472,18 @@ function bkOpen ( playerid, type = null) {
             } else { pusto = true; }
         }
         if (pusto == true) { msg( playerid, "bk.emptylist"); }
-        msg( playerid, "bk.toselectteam", BK_COLOR);
+        msg( playerid, "bk.toselectteam", [BK_TEAM_MIN.tostring(), BK_TEAM_MAX.tostring()], BK_COLOR);
         bk_player[playerid]["bet"] <- "baseball";
     }
-     if (type == "1") {
+     if (type == "2") {
         msg( playerid, "==================================", CL_HELP_LINE );
-        msg( playerid, "bk.selecthorse", BK_COLOR);
-        local pusto = false;
+        msg( playerid, "bk.selectdog", BK_COLOR);
+        local pusto = true;
         foreach (idx, event in bkLoadedData.events) {
-            if (event.winner == 0) {
+            if (event.winner == 0 && event.type == "greyhoundrace") {
                 local currentmembers = split(event.participants, ",");
                 local currentchances = split(event.chances, ",");
-                if (event.type == "horserace") {
+
                     foreach (i, member in currentmembers) {
                         if (member == "0") continue;
                         local mid = bkLoadedData.members[ (member.tointeger() - 1)]
@@ -442,11 +491,32 @@ function bkOpen ( playerid, type = null) {
                         msg( playerid, i+". "+mid.title+" ("+coef+")");
                         pusto = false;
                     }
-                }
-            } else { pusto = true; }
+            }
         }
         if (pusto == true) { msg( playerid, "bk.emptylist"); }
-        msg( playerid, "bk.toselecthorse", BK_COLOR);
+        msg( playerid, "bk.toselectdog", [BK_GREYHOUND_MIN.tostring(), BK_GREYHOUND_MAX.tostring()], BK_COLOR);
+        bk_player[playerid]["bet"] <- "greyhoundrace";
+    }
+     if (type == "1") {
+        msg( playerid, "==================================", CL_HELP_LINE );
+        msg( playerid, "bk.selecthorse", BK_COLOR);
+        local pusto = true;
+        foreach (idx, event in bkLoadedData.events) {
+            if (event.winner == 0 && event.type == "horserace") {
+                local currentmembers = split(event.participants, ",");
+                local currentchances = split(event.chances, ",");
+
+                    foreach (i, member in currentmembers) {
+                        if (member == "0") continue;
+                        local mid = bkLoadedData.members[ (member.tointeger() - 1)]
+                        local coef = currentchances[i]; //bkFindCoef(mid.wins, mid.total);
+                        msg( playerid, i+". "+mid.title+" ("+coef+")");
+                        pusto = false;
+                    }
+            }
+        }
+        if (pusto == true) { msg( playerid, "bk.emptylist"); }
+        msg( playerid, "bk.toselecthorse", [BK_HORSE_MIN.tostring(), BK_HORSE_MAX.tostring()], BK_COLOR);
         bk_player[playerid]["bet"] <- "horserace";
     }
 }
@@ -463,7 +533,22 @@ function bkGetHorseIdByNumber( id = null) {
                 if (member == "0") continue;
                 if (i == id) {
                     local stavka = currentchances[(i)];
-                    dbg("stavka: "+stavka);
+                    return [member.tointeger(), stavka ];
+                }
+            }
+        }
+    }
+}
+
+function bkGetGreyhoundIdByNumber( id = null) {
+    foreach (idx, event in bkLoadedData.events) {
+        local currentmembers = split(event.participants, ",");
+        local currentchances = split(event.chances, ",");
+        if (event.type == "greyhoundrace" && event.winner == 0) {
+            foreach (i, member in currentmembers) {
+                if (member == "0") continue;
+                if (i == id) {
+                    local stavka = currentchances[(i)];
                     return [member.tointeger(), stavka ];
                 }
             }
@@ -481,7 +566,6 @@ function bkGetTeamIdByNumber( id = null) {
             if (id == (count+pos) ) {
             local id = bkLoadedData.members[ (currentmembers[(1+pos)].tointeger() - 1)].id;
             local stavka = currentchances[(pos)];
-            dbg("stavka: "+stavka);
             return [id.tointeger(), stavka ];
             }
             count += 2;
@@ -508,15 +592,41 @@ function bkBet ( playerid, number, amount ) {
         return msg(playerid, "bk.notenough", CL_RED);
     }
 
-    if ( amount > 100000.0) {
-        return msg(playerid, "bk.bettoomuch", CL_RED);
-    }
-
       local participant = null;
         if(type == "horserace") {
+
+            if ( amount > BK_HORSE_MAX) {
+                return msg(playerid, "bk.bettoomuch", CL_RED);
+            }
+
+            if ( amount < BK_HORSE_MIN) {
+                return msg(playerid, "bk.bettoolow", CL_RED);
+            }
+
             participant = bkGetHorseIdByNumber( number.tointeger() );
         }
+        else if(type == "greyhoundace") {
+
+            if ( amount > BK_GREYHOUND_MAX) {
+                return msg(playerid, "bk.bettoomuch", CL_RED);
+            }
+
+            if ( amount < BK_GREYHOUND_MIN) {
+                return msg(playerid, "bk.bettoolow", CL_RED);
+            }
+
+            participant = bkGetGreyhoundIdByNumber( number.tointeger() );
+        }
         else if(type == "baseball") {
+
+            if ( amount > BK_TEAM_MAX) {
+                return msg(playerid, "bk.bettoomuch", CL_RED);
+            }
+
+            if ( amount < BK_TEAM_MIN) {
+                return msg(playerid, "bk.bettoolow", CL_RED);
+            }
+
             participant = bkGetTeamIdByNumber( number.tointeger() );
         }
 
@@ -543,7 +653,10 @@ function bkBet ( playerid, number, amount ) {
 //BOOKMAKER_ENABLED <- true;
 // sq BOOKMAKER_ENABLED = false
 
-cmd("bk", function(playerid, sportORnumber = null, amount = null) {
+cmd(["bk", "bm"], function(playerid, sportORnumber = null, amount = null) {
+    if (!BOOKMAKER_ENABLED) {
+        return msg(playerid, "bk.disabled", BK_COLOR);
+    }
     if (amount != null) {
         bkBet (playerid, sportORnumber, amount);
         return;
@@ -551,84 +664,13 @@ cmd("bk", function(playerid, sportORnumber = null, amount = null) {
     bkOpen ( playerid, sportORnumber );
 });
 
-
-function drob (a, b) {
-    local nod = nod (a, b);
-    local a1 = a / nod;
-    local b1 = b / nod;
-    return a1+"/"+b1;
-}
-
-
-function nod (a, b) {
-    local a = abs(a);
-    local b = abs(b);
-    while (a != b) {
-        if (a > b) {
-            a -= b;
-        } else {
-            b -= a;
-        }
+acmd(["bk", "bm"], "status", function(playerid, status) {
+    if (status == "on") {
+        BOOKMAKER_ENABLED = true;
+        return msg(playerid, "[BM] Bookmaker's office has been enabled.", BK_COLOR);
+    } else {
+        BOOKMAKER_ENABLED = false;
+        return msg(playerid, "[BM] Bookmaker's office has been disabled.", BK_COLOR);
     }
-    return a;
-}
-
-
-function bkFindCoefHernya ( a, b ) {
-    //return 10-round( (wins.tofloat() / total.tofloat()), 1)*10;
-
-    local nod = nod (a, b);
-    local a1 = a / nod;
-    local b1 = b / nod;
-
-return a1+"/"+b1;
-
-/* (a1.tofloat()/b1.tofloat()+1.0) */
-
-}
-
-
-
-
-
-function bkSimple (num) {
-
-    local num = num.tofloat();
-    local chis = (num%1)*100;
-        dbg("chis: "+chis);
-    local tseloe = floor(num);
-        dbg("tseloe: "+tseloe);
-    local nodd = nod(chis, 100);
-        dbg("nodd: "+nodd);
-    local znam = 100 / nodd;
-    local chis = (tseloe * znam) + (chis / nodd);
-    dbg("chis|znam "+chis+"|"+znam);
-}
-
-
-function bkPeriodic (num) {
-
-    local num = num.tostring();
-        dbg("num: "+num);
-    num = num.slice(0, 4);
-        dbg("num slice: "+num);
-    local posle = num.slice(2, 4);
-        dbg("posle: "+posle);
-    if (posle.find("0")) {
-        posle = posle.slice(1, 2);
-            dbg("if posle: "+posle);
-    }  // если [0,]66 => 66, если [0,]06 => 6
-
-    local val_do = posle.slice(0, 1);
-        dbg("val_do: "+val_do);
-    local chis = posle.tofloat() - fabs(val_do.tofloat());   // выполнили 6 пункт
-        dbg("chis: "+chis);
-    local znam = 90.0;
-    local nd = nod(chis, znam);
-    local ekran_chis = chis/nd;
-    local ekran_znam = znam/nd;
-        dbg("ekran: "+ekran_chis+"|"+ekran_znam);
-    //return ekran;
-}
-
+});
 
