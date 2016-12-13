@@ -128,9 +128,10 @@ function taser( playerid ) {
             screenFadeinFadeout(targetid, 800, function() {
                 msg( playerid, "organizations.police.shotsomeone.bytaser", [getAuthor(targetid)] );
                 msg( targetid, "organizations.police.beenshot.bytaser" );
-                togglePlayerControls( targetid, false );
+                setPlayerToggle( targetid, true );
+            }, function() {
+                setPlayerToggle( targetid, false );
             });
-            togglePlayerControls( targetid, true );
         }        
     } else {
         return msg(playerid, "organizations.police.offduty.notaser")
@@ -143,6 +144,9 @@ key(["e"], function(playerid) {
     }
     if ( !isOfficer(playerid) ) {
         return;
+    }
+    if ( isOfficer(playerid) && !isOnPoliceDuty(playerid) ) {
+        return msg( playerid, "organizations.police.duty.off" );
     }
     // print("Player pressed e");
     taser(playerid);
