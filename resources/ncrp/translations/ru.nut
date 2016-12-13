@@ -520,8 +520,8 @@ translation("ru", {
     "organizations.police.offduty.notickets"    : "Вы закончили свою смену и не имеете квитанций с собой."
     "organizations.police.offduty.nobaton"      : "У вас нет дубинки, т.к. вы не полицейский."
 
-    "organizations.police.shotsomeone.bybaton"  : "Вы выстрелили в %s из дубинки."
-    "organizations.police.beenshot.bybaton"     : "В вас попал снаряд дубинки."
+    "organizations.police.bitsomeone.bybaton"   : "Вы ударили %s дубинкой."
+    "organizations.police.beenbit.bybaton"      : "Вас оглушили дубинкой."
     "organizations.police.beencuffed"           : "%s надел на вас наручники."
     "organizations.police.cuff.someone"         : "Вы арестовали %s."
     "organizations.police.cuff.beenuncuffed"    : "%s снял с вас наручники."
@@ -536,6 +536,8 @@ translation("ru", {
     "organizations.police.info.cmds.cuff"       : "Надеть наручники на ближайшего оглушенного игрока или снять их"
     "organizations.police.info.cmds.prison"     : "Посадить игрока с указанным id в тюрьму"
     "organizations.police.info.cmds.amnesty"    : "Вытащить игрока с указанным id из тюрьмы"
+    "organizations.police.info.cmds.dutyon"     : "Выйти на смену."
+    "organizations.police.info.cmds.dutyoff"    : "Закончить смену."
 
     "organizations.police.onrankup"             : "Вы были повышены до %s"
     "organizations.police.onbecame"             : "Вы стали офицером полиции."
