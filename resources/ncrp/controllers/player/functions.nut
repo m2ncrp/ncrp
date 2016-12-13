@@ -216,11 +216,21 @@ function sendPlayerNotification(playerid, type, message) {
 
 
 
+
 function getPlayerToggle(playerid) {
     return players[playerid]["toggle"];
 }
 
-function setPlayerToggle(playerid, to) {
+function setPlayerToggle(playerid, state) {
     players[playerid]["toggle"] = to;
     togglePlayerControls(playerid, to);
+}
+
+
+function getPlayerState(playerid) {
+    return players[playerid]["state"];
+}
+
+function setPlayerState(playerid, to) {
+    players[playerid]["state"] = to;
 }

@@ -29,6 +29,12 @@ default_spawns <- [
     [-344.028, -952.702, -21.7457], // new port
 ];
 
+enum PlayerStates {
+    free,   // 0
+    cuffed, // 1
+    tased   // 2
+}
+
 local defaultSkins = [
     10, 24, 42, 71, 72, 81, 149, 162
 ];
@@ -70,6 +76,7 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
         players[playerid]["housez"]       <- char.housez;
         players[playerid]["health"]       <- char.health;
         players[playerid]["toggle"]       <- false;
+        players[playerid]["state"]        <- PlayerStates.free;
 
         // notify all that client connected (and data loaded)
         trigger("onPlayerConnect", playerid, name, ip, serial);

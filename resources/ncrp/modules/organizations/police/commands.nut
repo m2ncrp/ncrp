@@ -128,9 +128,15 @@ function taser( playerid ) {
             screenFadeinFadeout(targetid, 800, function() {
                 msg( playerid, "organizations.police.shotsomeone.bytaser", [getAuthor(targetid)] );
                 msg( targetid, "organizations.police.beenshot.bytaser" );
-                setPlayerToggle( targetid, true );
+                if ( getPlayerState(targetid) == PlayerState.free ) {
+                    setPlayerToggle( targetid, true );
+                    setPlayerState(targetid, PlayerState.tased);
+                }
             }, function() {
-                setPlayerToggle( targetid, false );
+                if ( getPlayerState(targetid) == PlayerState.tased ) {
+                    setPlayerToggle( targetid, false );
+                    setPlayerState(targetid, PlayerState.free);
+                }
             });
         }        
     } else {
@@ -162,12 +168,15 @@ function cuff(playerid) {
         }
 
         if ( isBothInRadius(playerid, targetid, CUFF_RADIUS) ) {
-            if ( !getPlayerToggle(targetid) ) {
+            if ( getPlayerState(targetid) == PlayerState.tased ) {
                 setPlayerToggle( targetid, true ); // cuff dat bitch
+                setPlayerState(targetid, PlayerState.cuffed);
                 msg(targetid, "organizations.police.beencuffed", [getAuthor( playerid )]);
                 msg(playerid, "organizations.police.cuff.someone", [getAuthor( targetid )]);
-            } else {
+            }
+            if ( getPlayerState(targetid) == PlayerState.cuffed ) {
                 setPlayerToggle( targetid, false ); // uncuff him...
+                setPlayerState(targetid, PlayerState.free);
                 msg(targetid, "organizations.police.cuff.beenuncuffed", [getAuthor( playerid )] );
                 msg(playerid, "organizations.police.cuff.uncuffsomeone", [getAuthor( targetid )] );
             }
