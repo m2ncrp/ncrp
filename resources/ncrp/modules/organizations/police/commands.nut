@@ -158,12 +158,12 @@ function cuff(playerid) {
         }
 
         if ( isBothInRadius(playerid, targetid, CUFF_RADIUS) ) {
-            if ( getPlayerToggle(targetid) ) {
+            if ( !getPlayerToggle(targetid) ) {
                 setPlayerToggle( targetid, true ); // cuff dat bitch
                 msg(targetid, "organizations.police.beencuffed", [getAuthor( playerid )]);
                 msg(playerid, "organizations.police.cuff.someone", [getAuthor( targetid )]);
             } else {
-                togglePlayerControls( targetid, false ); // uncuff him...
+                setPlayerToggle( targetid, false ); // uncuff him...
                 msg(targetid, "organizations.police.cuff.beenuncuffed", [getAuthor( playerid )] );
                 msg(playerid, "organizations.police.cuff.uncuffsomeone", [getAuthor( targetid )] );
             }
