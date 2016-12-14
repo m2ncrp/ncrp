@@ -48,7 +48,7 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
             // setup deafults
             char.name    = getPlayerName(playerid);
             char.spawnid = random(0, default_spawns.len() - 1);
-            char.money   = randomf(5.0, 17.0);
+            char.money   = randomf(0.1, 1.75);
             char.dskin   = defaultSkins[random(0, defaultSkins.len() - 1)];
             char.cskin   = char.dskin;
             char.health  = 720.0;
