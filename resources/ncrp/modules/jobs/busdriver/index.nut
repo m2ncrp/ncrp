@@ -147,7 +147,9 @@ event("onPlayerConnect", function(playerid, name, ip, serial ){
 
 event( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
     if(isBusDriver(playerid)) {
+        delayedFunction(4500, function() {
             busJobReady(playerid);
+        });
     }
 });
 

@@ -108,6 +108,14 @@ event("onPlayerConnect", function(playerid, name, ip, serial) {
 });
 
 
+event( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
+    if(isFuelDriver(playerid)) {
+        delayedFunction(4500, function() {
+            fuelJobReady(playerid);
+        });
+    }
+});
+
 local fuelJobStationMarks = {};
 function createFuelJobStationMarks(playerid, data) {
     if (!(playerid in fuelJobStationMarks)) {
@@ -258,6 +266,7 @@ function fuelJobReady ( playerid ) {
 
     // create blip and 3text for warehouse
     fuelJobWarehouseCreateBlipText( playerid );
+    job_fuel[playerid]["fuelstatus"] <- [false, false, false, false, false, false, false, false];
 
     if(fuelcars[vehicleid][1] >= 4000) {
         msg( playerid, "job.fueldriver.truck.loaded", fuelcars[vehicleid][1], FUEL_JOB_COLOR );
@@ -290,7 +299,8 @@ function fuelJobLoad ( playerid ) {
     }
 
     if(fuelcars[vehicleid][1] == 16000) {
-       return msg( playerid, "job.fueldriver.truck.alreadyloaded", FUEL_JOB_COLOR );
+        if (job_fuel[playerid]["fuelcomplete"] < 8) { createFuelJobStationMarks(playerid, fuelcoords); }
+        return msg( playerid, "job.fueldriver.truck.alreadyloaded", FUEL_JOB_COLOR );
     }
 
     if(fuelcars[vehicleid][1] < 16000) {
@@ -389,11 +399,16 @@ function fuelJobPark ( playerid ) {
     }
 
     job_fuel[playerid]["fuelcomplete"] = 0;
+    job_fuel[playerid]["fuelstatus"] <- [false, false, false, false, false, false, false, false];
     msg( playerid, "job.fueldriver.nicejob", FUEL_JOB_SALARY, FUEL_JOB_COLOR );
     addMoneyToPlayer(playerid, FUEL_JOB_SALARY);
 
     // clear all marks
     clearFuelJobStationMarks( playerid );
+
+    delayedFunction(2000, function() {
+        fuelJobReady(playerid);
+    });
 }
 
 
