@@ -35,8 +35,8 @@ include("modules/jobs/cargodriver/commands.nut");
 
 local job_cargo = {};
 local cargocars = {};
-local cargo_limit_in_hour = 3;
-
+local cargo_limit_in_hour_current = 3;
+local cargo_limit_in_hour_default = 3;
 
 const RADIUS_CARGO = 1.0;
 //const CARGO_JOB_X = -348.071; //Derek Cabinet
@@ -58,7 +58,7 @@ const CARGO_JOB_UNLOAD_Y = 98.0385;
 const CARGO_JOB_UNLOAD_Z = -21.2582;
 
 const CARGO_JOB_SKIN = 130;
-const CARGO_JOB_SALARY = 15.0;
+const CARGO_JOB_SALARY = 12.0;
 const CARGO_JOB_LEVEL = 1;
       CARGO_JOB_COLOR <- CL_CRUSTA;
 
@@ -257,10 +257,9 @@ function cargoJobUnload( playerid ) {
         return msg( playerid, "job.cargodriver.needfishtruck", CARGO_JOB_COLOR );
     }
 
-    if (cargo_limit_in_hour == 0) {
+    if (cargo_limit_in_hour_current == 0) {
         return msg( playerid, "job.cargodriver.fishtoomuch", CARGO_JOB_COLOR );
     }
-
 
     local vehicleid = getPlayerVehicle(playerid);
     if(!cargocars[vehicleid][0]) {
@@ -280,7 +279,7 @@ function cargoJobUnload( playerid ) {
     }
 
     cargoJobRemovePrivateBlipText ( playerid );
-    cargo_limit_in_hour -= 1;
+    cargo_limit_in_hour_current -= 1;
 
     msg( playerid, "job.cargodriver.unloading", CARGO_JOB_COLOR );
 
@@ -325,16 +324,20 @@ function cargoJobFinish( playerid ) {
 
 
 addEventHandlerEx("onServerHourChange", function() {
-    cargo_limit_in_hour = 3;
+       cargo_limit_in_hour_current = cargo_limit_in_hour_default;
 });
 
 
 function cargoJobSetFishLimit( playerid, limit ) {
-    cargo_limit_in_hour = limit.tointeger();
-    msg( playerid, "[CARGO] New fish limit in hour: "+limit, CARGO_JOB_COLOR );
+    cargo_limit_in_hour_current = limit.tointeger();
+    msg( playerid, "[CARGO] New current fish limit in hour: "+limit, CARGO_JOB_COLOR );
 }
 
 function cargoJobGetFishLimit( playerid ) {
-    msg( playerid, "[CARGO] Fish limit: "+cargo_limit_in_hour, CARGO_JOB_COLOR );
+    msg( playerid, "[CARGO] Fish limit: "+cargo_limit_in_hour_current, CARGO_JOB_COLOR );
 }
 
+function cargoJobSetDefaultFishLimit( playerid, limit ) {
+    cargo_limit_in_hour_default = limit.tointeger();
+    msg( playerid, "[CARGO] New default fish limit in hour: "+limit, CARGO_JOB_COLOR );
+}
