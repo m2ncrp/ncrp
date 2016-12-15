@@ -130,8 +130,8 @@ function baton( playerid ) {
 
         if ( isBothInRadius(playerid, targetid, BATON_RADIUS) ) {
             screenFadeinFadeout(targetid, 1000, function() {
-                msg( playerid, "organizations.police.shotsomeone.bybaton", [getAuthor(targetid)] );
-                msg( targetid, "organizations.police.beenshot.bybaton" );
+                msg( playerid, "organizations.police.bitsomeone.bybaton", [getAuthor(targetid)] );
+                msg( targetid, "organizations.police.beenbit.bybaton" );
                 if ( getPlayerState(targetid) == "free" ) {
                     setPlayerToggle( targetid, true );
                     setPlayerState(targetid, "tased");
