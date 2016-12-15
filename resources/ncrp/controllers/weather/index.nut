@@ -90,7 +90,7 @@ event("onServerSecondChange", function() {
             setWeather(randWeather);
             // Change SERVER_WEATHER string
             SERVER_WEATHER = randWeather;
-
+        dbg("Weather: "+SERVER_WEATHER);
             // Generate a new number when weather change will happen again
             // New count is between 20 and 75 in-game minutes.
             WEATHER_CHANGE_TRIGGER = random(20 * WORLD_SECONDS_PER_MINUTE, 70 * WORLD_SECONDS_PER_MINUTE);
@@ -105,4 +105,3 @@ event("onServerSecondChange", function() {
 event("onPlayerSpawn", function(playerid) {
     trigger(playerid, "onServerWeatherSync", SERVER_WEATHER);
 });
-
