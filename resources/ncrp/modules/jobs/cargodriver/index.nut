@@ -35,7 +35,7 @@ include("modules/jobs/cargodriver/commands.nut");
 
 local job_cargo = {};
 local cargocars = {};
-local cargo_limit_in_day = 30;
+local cargo_limit_in_hour = 3;
 
 
 const RADIUS_CARGO = 1.0;
@@ -257,7 +257,7 @@ function cargoJobUnload( playerid ) {
         return msg( playerid, "job.cargodriver.needfishtruck", CARGO_JOB_COLOR );
     }
 
-    if (cargo_limit_in_day == 0) {
+    if (cargo_limit_in_hour == 0) {
         return msg( playerid, "job.cargodriver.fishtoomuch", CARGO_JOB_COLOR );
     }
 
@@ -280,7 +280,7 @@ function cargoJobUnload( playerid ) {
     }
 
     cargoJobRemovePrivateBlipText ( playerid );
-    cargo_limit_in_day -= 1;
+    cargo_limit_in_hour -= 1;
 
     msg( playerid, "job.cargodriver.unloading", CARGO_JOB_COLOR );
 
@@ -324,17 +324,17 @@ function cargoJobFinish( playerid ) {
 
 
 
-addEventHandlerEx("onServerDayChange", function() {
-    cargo_limit_in_day = 30;
+addEventHandlerEx("onServerHourChange", function() {
+    cargo_limit_in_hour = 3;
 });
 
 
 function cargoJobSetFishLimit( playerid, limit ) {
-    cargo_limit_in_day = limit.tointeger();
-    msg( playerid, "[CARGO] New fish limit in day: "+limit, CARGO_JOB_COLOR );
+    cargo_limit_in_hour = limit.tointeger();
+    msg( playerid, "[CARGO] New fish limit in hour: "+limit, CARGO_JOB_COLOR );
 }
 
 function cargoJobGetFishLimit( playerid ) {
-    msg( playerid, "[CARGO] Fish limit: "+cargo_limit_in_day, CARGO_JOB_COLOR );
+    msg( playerid, "[CARGO] Fish limit: "+cargo_limit_in_hour, CARGO_JOB_COLOR );
 }
 
