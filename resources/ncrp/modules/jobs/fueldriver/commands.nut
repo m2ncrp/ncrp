@@ -53,7 +53,7 @@ function fuelJobHelp ( playerid ) {
     local commands = [
         { name = "/fuel job",       desc = "job.fueldriver.help.job" },
         { name = "/fuel job leave", desc = "job.fueldriver.help.leavejob" },
-        { name = "/fuel ready",     desc = "job.fueldriver.help.ready" },
+//        { name = "/fuel ready",     desc = "job.fueldriver.help.ready" },
         { name = "/fuel load",      desc = "job.fueldriver.help.load" },
         { name = "/fuel unload",    desc = "job.fueldriver.help.unload" },
         { name = "/fuel park",      desc = "job.fueldriver.help.park" },
