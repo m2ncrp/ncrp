@@ -11,6 +11,7 @@ addEventHandlerEx("onServerStarted", function() {
     rentcars[createVehicle(25, 560.053, 802.5, -12.5, 42.1816, 0.300678, 0.0441727)]    <- [ 0.03, "free" ];
     rentcars[createVehicle(47, 554.652, 802.5, -12.5, 38.7988, 0.134398, -0.381655)]    <- [ 0.03, "free" ];
     rentcars[createVehicle(15, 548.724, 802.5, -12.5, 45.0359, 0.392815, 0.00316114)]   <- [ 0.17, "free" ];
+    rentcars[createVehicle(9, 1037.01, 842.146, -3.55631, 70.4218, 5.2121, 0.6804)]     <- [ 0.07, "free" ];
 
     createBlip  (  570.26, 830.175, [ 6, 4 ], 4000.0);
 });
