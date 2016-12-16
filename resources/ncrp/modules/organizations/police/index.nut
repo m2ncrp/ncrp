@@ -25,6 +25,8 @@ translation("en", {
     "organizations.police.call.new"             : "[R] %s called police from %s",
     "organizations.police.call.foruser"         : "You've called police from %s",
 
+    "organizations.police.income"               : "[EBPD] We send $%.2f to you for duty as %s.",
+
     "organizations.police.crime.wasdone"        : "You would better not to do it..",
     "organizations.police.alreadyofficer"       : "You're already working in EBPD.",
     "organizations.police.notanofficer"         : "You're not a police officer.",
@@ -36,6 +38,7 @@ translation("en", {
     "organizations.police.ticket.givewithreason": "%s give you ticket for %s. Type /accept %i.",
     "organizations.police.offduty.notickets"    : "You off the duty now and you haven't tickets.",
     "organizations.police.offduty.nobaton"      : "You have no baton couse you're not a cop.",
+    "organizations.police.offduty.nobadge"      : "You have no badge with you couse you're off duty now.",
 
     "organizations.police.bitsomeone.bybaton"   : "You bet %s by baton.",
     "organizations.police.beenbit.bybaton"      : "You's been bet by baton",
@@ -43,6 +46,9 @@ translation("en", {
     "organizations.police.cuff.someone"         : "You cuffed %s.",
     "organizations.police.cuff.beenuncuffed"    : "You've been uncuffed by %s",
     "organizations.police.cuff.uncuffsomeone"   : "You uncuffed %s",
+
+    "organizations.police.beenshown.badge"      : "You're showing your badge to %s",
+    "organizations.police.show.badge"           : "%s %s is showing his badge to you .",
 
     "organizations.police.info.howjoin"         : "If you want to join Police Department write one of admins!",
     "organizations.police.info.cmds.helptitle"  : "List of available commands for Police Officer JOB:",
@@ -67,6 +73,9 @@ const RUPOR_RADIUS = 75.0;
 const CUFF_RADIUS = 3.0;
 const BATON_RADIUS = 6.0;
 const POLICE_MODEL = 75;
+const POLICE_BADGE_RADIUS = 3.5;
+
+const POLICE_MONEY_INCOME = 30.0;
 
 POLICE_RANK <- [
     "police.officer",    // "Police Officer",
@@ -231,6 +240,29 @@ function rankUpPolice(playerid) {
     }
 }
 
+function showBadge(playerid, targetid = null) {
+    if ( !isOfficer(playerid) ) {
+        return msg(playerid, "organizations.police.notanofficer");
+    }
+
+    if ( !isOnPoliceDuty(playerid) ) {
+        return msg(playerid, "organizations.police.offduty.nobadge");
+    }
+
+    if (targetid != null) {
+        targetid = targetid.tointeger();
+    } else {
+        targetid = playerList.nearestPlayer( playerid );
+    }
+    
+    if ( targetid == null) {
+        return msg(playerid, "general.noonearound");
+    }
+
+    msg(playerid, "organizations.police.beenshown.badge", [getAuthor(targetid)]);
+    msg(targetid, "organizations.police.show.badge", [getPoliceRank(playerid), getAuthor(targetid)]);
+}
+
 
 function onPoliceDutyGiveWeapon(playerid, rank = null) {
     if (rank == null) {
@@ -242,12 +274,12 @@ function onPoliceDutyGiveWeapon(playerid, rank = null) {
     }
     if (rank == POLICE_RANK[1]) {
         givePlayerWeapon( playerid, 4, 36 ); // Colt M1911A1
-        givePlayerWeapon( playerid, 8, 48 ); // Remington Model 870 Field gun
+        //givePlayerWeapon( playerid, 8, 48 ); // Remington Model 870 Field gun // on RED level
     }
     if (rank == POLICE_RANK[2]) {
         givePlayerWeapon( playerid, 6, 36 ); // Model 19 Revolver
-        givePlayerWeapon( playerid, 8, 48 ); // Remington Model 870 Field gun
-        givePlayerWeapon( playerid, 9, 80 ); // M3 Grease Gun
+        //givePlayerWeapon( playerid, 8, 48 ); // Remington Model 870 Field gun // on RED level
+        givePlayerWeapon( playerid, 12, 80 ); // M1A1 Thompson
     }
 }
 
@@ -259,15 +291,17 @@ function onPoliceDutyRemoveWeapon(playerid, rank = null) {
 
     if (rank == POLICE_RANK[0]) {
         removePlayerWeapon( playerid, 2 ); // Model 12 Revolver
+
+        // thompon on RED level
     }
     if (rank == POLICE_RANK[1]) {
         removePlayerWeapon( playerid, 4 ); // Colt M1911A1
-        removePlayerWeapon( playerid, 8 ); // Remington Model 870 Field gun
+        //removePlayerWeapon( playerid, 8 ); // Remington Model 870 Field gun // on RED level
     }
     if (rank == POLICE_RANK[2]) {
         removePlayerWeapon( playerid, 6 ); // Model 19 Revolver
-        removePlayerWeapon( playerid, 8 ); // Remington Model 870 Field gun
-        removePlayerWeapon( playerid, 9 ); // M3 Grease Gun
+        //removePlayerWeapon( playerid, 8 ); // Remington Model 870 Field gun // on RED level
+        removePlayerWeapon( playerid, 12 ); // M1A1 Thompson
     }
 }
 
@@ -330,3 +364,17 @@ function leavePoliceJob(playerid) {
     setPlayerJob( playerid, null );
     msg(playerid, "organizations.police.onleave");
 }
+
+
+
+
+event("onServerHourChange", function() {
+    local amount = POLICE_MONEY_INCOME;
+
+    foreach (playerid, value in players) {// police
+        if (isOfficer(playerid)) {
+            addMoneyToPlayer(playerid, amount);
+            msg(playerid, "organizations.police.income", [amount.tofloat(), getPlayerJob(playerid)], CL_SUCCESS);
+        }
+    }
+});

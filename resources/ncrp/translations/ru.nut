@@ -508,6 +508,8 @@ translation("ru", {
     "organizations.police.call.new"             : "[R] поступил вызов от %s из %s"
     "organizations.police.call.foruser"         : "Вы вызвали такси из %s"
 
+    "organizations.police.income"               : "[EBPD] Ваша зарплата составляет $%.2f за службу в качестве %s."
+
     "organizations.police.crime.wasdone"        : "Лучше бы ты этого не делал..."
     "organizations.police.alreadyofficer"       : "Вы уже состоите в EBPD."
     "organizations.police.notanofficer"         : "Вы не являетесь офицером полиции."
@@ -519,6 +521,7 @@ translation("ru", {
     "organizations.police.ticket.givewithreason": "%s выписал вам штраф за %s. Введите /accept %i."
     "organizations.police.offduty.notickets"    : "Вы закончили свою смену и не имеете квитанций с собой."
     "organizations.police.offduty.nobaton"      : "У вас нет дубинки, т.к. вы не полицейский."
+    "organizations.police.offduty.nobadge"      : "У вас нет с собой жетона, т.к. вы не на смене."
 
     "organizations.police.bitsomeone.bybaton"   : "Вы ударили %s дубинкой."
     "organizations.police.beenbit.bybaton"      : "Вас оглушили дубинкой."
@@ -526,6 +529,9 @@ translation("ru", {
     "organizations.police.cuff.someone"         : "Вы арестовали %s."
     "organizations.police.cuff.beenuncuffed"    : "%s снял с вас наручники."
     "organizations.police.cuff.uncuffsomeone"   : "Вы сняли наручники с %s."
+
+    "organizations.police.beenshown.badge"      : "Вы показываете свой жетон %s"
+    "organizations.police.show.badge"           : "%s %s показывает Вам свой полицейский жетон."
 
     "organizations.police.info.howjoin"         : "Если вы хотите пополнить ряды офицеров департамента Empire Bay, напишите администраторам!"
     "organizations.police.info.cmds.helptitle"  : "Список команд, доступных офицерам полиции:"

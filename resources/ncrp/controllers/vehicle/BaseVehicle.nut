@@ -124,6 +124,8 @@ class Vehicle extends BaseVehicle {
 
     seats = {};
     distance = null;
+
+    locked = null;
     
     constructor(model, px, py, pz, rx, ry, rz) {
         base.constructor(model, px, py, pz, rx, ry, rz);
@@ -136,6 +138,8 @@ class Vehicle extends BaseVehicle {
         this.tuning_level = getTuning();
         this.front_wheels = getVehicleWheelTexture( id, 0 );
         this.back_wheels = getVehicleWheelTexture( id, 1 );
+
+        this.locked = true;
     }
 
     function getTuning() {
@@ -164,6 +168,14 @@ class Vehicle extends BaseVehicle {
 
     function setBackWheels(to) {
         setVehicleWheelTexture( id, 1, to );
+    }
+
+    function lock() {
+        locked = true;
+    }
+
+    function unlock() {
+        locked = false;
     }
 
     function getDistance() {
