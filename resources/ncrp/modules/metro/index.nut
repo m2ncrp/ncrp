@@ -22,7 +22,7 @@ translation("en", {
     "metro.help.sub"                    : "Analog /subway id"
     "metro.help.metro"                  : "Analog /subway id"
 
-    "metro.station.nearest.showblip"    : "[SUBWAY] Nearest station (%s) was marked on map."
+    "metro.station.nearest.showblip"    : "[SUBWAY] Nearest station (%s) is marked by yellow icon on map."
 });
 
 const METRO_RADIUS = 3.8;
