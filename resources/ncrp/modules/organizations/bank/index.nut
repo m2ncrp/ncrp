@@ -68,7 +68,7 @@ function bankDeposit(playerid, amount) {
     }
 
     local amount = round(fabs(amount.tofloat()), 2);
-    if(amount < 50.0) {
+    if(amount < 100.0) {
         return msg(playerid, "bank.deposit.minimum");
     }
 
@@ -92,7 +92,7 @@ function bankWithdraw(playerid, amount) {
     }
 
     local amount = round(fabs(amount.tofloat()), 2);
-    if(amount < 1.0) {
+    if(amount < 100.0) {
         return msg( playerid, "bank.withdraw.minimum" );
     }
 
