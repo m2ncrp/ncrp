@@ -196,7 +196,7 @@ function metroShowListStationsIncludingUnavaliable( playerid ) {
 
 function showNearestMetroBlip( playerid ) {
     local st = getNearestStation(playerid);
-    local sblip_hash = createPrivateBlip(playerid, st[0], st[1], ICON_CROSS, 4000.0);
+    local sblip_hash = createPrivateBlip(playerid, st[0], st[1], ICON_YELLOW, 4000.0);
 
     delayedFunction(20000, function() {
         removeBlip( sblip_hash );
