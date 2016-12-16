@@ -75,7 +75,7 @@ const BATON_RADIUS = 6.0;
 const POLICE_MODEL = 75;
 const POLICE_BADGE_RADIUS = 3.5;
 
-const POLICE_MONEY_INCOME = 30.0;
+const POLICE_SALARY = 0.5; // for 1 minute
 
 POLICE_RANK <- [
     "police.officer",    // "Police Officer",
@@ -120,18 +120,15 @@ event("onServerStarted", function() {
     createVehicle(51, -326.781, 663.293, -17.5188, 93.214, -2.95046, -0.0939897 );      // policeOldCarParking2
 });
 
-event("onPlayerConnect", function(playerid, name, ip, serial) {
-    // if ( isOfficer(playerid) ) {
-    //     police[playerid] <- { onduty = false };
-    // }
-});
-
+/*
 event("onPlayerSpawn", function( playerid ) {
     if ( isOfficer(playerid) && isOnPoliceDuty(playerid) ) {
         onPoliceDutyGiveWeapon( playerid );
         setPlayerModel(playerid, POLICE_MODEL);
+        police[playerid]["ondutyminutes"] <- 0;
     }
 });
+*/
 
 event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
     if (isPlayerInPoliceVehicle(playerid)) {
@@ -145,6 +142,9 @@ event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
     }
 });
 
+event("onPlayerDisconnect", function(playerid, reason) {
+    delete police[playerid];
+});
 
 /**
  * Check is player's vehicle is a police car
@@ -182,6 +182,7 @@ function isOnPoliceDuty(playerid) {
 function policeSetOnDuty(playerid, bool) {
     if (!(playerid in police)) {
         police[playerid] <- {};
+        police[playerid]["ondutyminutes"] <- 0;
     }
 
     police[playerid].onduty <- bool;
@@ -197,6 +198,8 @@ function policeSetOnDuty(playerid, bool) {
         return screenFadeinFadeout(playerid, 100, function() {
             setPlayerModel(playerid, players[playerid]["default_skin"]);
             msg(playerid, "organizations.police.duty.off");
+
+            policeJobPaySalary( playerid );
         });
     }
 }
@@ -254,7 +257,7 @@ function showBadge(playerid, targetid = null) {
     } else {
         targetid = playerList.nearestPlayer( playerid );
     }
-    
+
     if ( targetid == null) {
         return msg(playerid, "general.noonearound");
     }
@@ -366,15 +369,23 @@ function leavePoliceJob(playerid) {
 }
 
 
+event("onServerMinuteChange", function() {
+    foreach (playerid, value in police) {
+        if("ondutyminutes" in police[playerid] && isOnPoliceDuty(playerid)) police[playerid]["ondutyminutes"] += 1;
+    }
 
+    if (getHour() != 23) return;
 
-event("onServerHourChange", function() {
-    local amount = POLICE_MONEY_INCOME;
-
-    foreach (playerid, value in players) {// police
-        if (isOfficer(playerid)) {
-            addMoneyToPlayer(playerid, amount);
-            msg(playerid, "organizations.police.income", [amount.tofloat(), getPlayerJob(playerid)], CL_SUCCESS);
-        }
+    foreach (k, playerid in police) {
+        policeJobPaySalary( playerid );
     }
 });
+
+
+function policeJobPaySalary(playerid) {
+    local summa = police[playerid]["ondutyminutes"] * POLICE_SALARY;
+    dbg(police[playerid]["ondutyminutes"]+" : "+POLICE_SALARY)
+    addMoneyToPlayer(playerid, summa);
+    msg(playerid, "organizations.police.income", [summa.tofloat(), getPlayerJob(playerid)], CL_SUCCESS);
+    police[playerid]["ondutyminutes"] = 0;
+}
