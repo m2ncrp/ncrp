@@ -143,7 +143,7 @@ event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
 });
 
 event("onPlayerDisconnect", function(playerid, reason) {
-    delete police[playerid];
+    if(playerid in police) delete police[playerid];
 });
 
 /**
@@ -333,6 +333,7 @@ function policeCall(playerid, place) {
  * @param  {int} playerid
  */
 function getPoliceJob(playerid) {
+/*
     if( isOfficer(playerid) ) {
         return msg(playerid, "organizations.police.alreadyofficer");
     }
@@ -340,7 +341,7 @@ function getPoliceJob(playerid) {
     if (isPlayerHaveJob(playerid)) {
         return msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid));
     }
-
+*/
     // set first rank
     setPlayerJob( playerid, setPoliceRank(playerid, 0) );
     policeSetOnDuty(playerid, false);
