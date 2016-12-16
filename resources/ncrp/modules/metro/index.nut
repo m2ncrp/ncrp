@@ -21,6 +21,8 @@ translation("en", {
     "metro.help.subwayList"             : "Show list of all stations"
     "metro.help.sub"                    : "Analog /subway id"
     "metro.help.metro"                  : "Analog /subway id"
+
+    "metro.station.nearest.showblip"    : "[SUBWAY] Nearest station (%s) was marked on map."
 });
 
 const METRO_RADIUS = 3.8;
