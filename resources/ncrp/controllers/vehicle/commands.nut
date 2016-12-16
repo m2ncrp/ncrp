@@ -194,8 +194,8 @@ addKeyboardHandler("3", "up", function(playerid) {
     if (isPlayerInVehicle(playerid) && isPlayerAdmin(playerid)) {
         local vehicleid = getPlayerVehicle(playerid);
         local rot = getVehicleRotation(vehicleid);
-        setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
-        setVehicleRotation(vehicleid, rot[0], rot[1] * -0.9, rot[2] * -0.9);
+        //setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
+        setVehicleRotation(vehicleid, rot[0], 0.0, 0.0);
     }
 });
 
@@ -207,9 +207,26 @@ addKeyboardHandler("e", "up", function(playerid) {
     }
 });
 
+addKeyboardHandler("num_4", "up", function(playerid) {
+    if (isPlayerInVehicle(playerid) && isPlayerAdmin(playerid)) {
+        local vehicleid = getPlayerVehicle(playerid);
+        local rot = getVehicleRotation(vehicleid);
+        setVehicleRotation(vehicleid, rot[0]-5.0, rot[1], rot[2]);
+    }
+});
+
+addKeyboardHandler("num_6", "up", function(playerid) {
+    if (isPlayerInVehicle(playerid) && isPlayerAdmin(playerid)) {
+        local vehicleid = getPlayerVehicle(playerid);
+        local rot = getVehicleRotation(vehicleid);
+        setVehicleRotation(vehicleid, rot[0]+5.0, rot[1], rot[2]);
+    }
+});
+
 addKeyboardHandler("num_0", "up", function(playerid) {
     switchLights(playerid);
 });
+
 
 addKeyboardHandler("num_1", "up", function(playerid) {
     switchLeftLight(playerid);
@@ -222,3 +239,4 @@ addKeyboardHandler("num_3", "up", function(playerid) {
 addKeyboardHandler("num_2", "up", function(playerid) {
     switchBothLight(playerid);
 });
+
