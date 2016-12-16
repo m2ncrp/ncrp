@@ -39,9 +39,20 @@ local WEATHERS = {
     ]
 };
 
+/*
+    Bugs weather
+
+*/
+
+
+
 local SERVER_IS_SUMMER = true;
 local WEATHER_CHANGE_TRIGGER = 0;
 local SERVER_WEATHER = null;
+
+function isSummer() {
+    return SERVER_IS_SUMMER;
+}
 
 function setWeather(name) {
     playerList.each(function(playerid) {
