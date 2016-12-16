@@ -117,11 +117,11 @@ event("onServerStarted", function() {
     busStops[24]  <-  busStop("Hunters Point",                    busv3( -1344.5,    421.815,  -23.7303 ),   busv3( -1347.92,    418.11,    -23.4532 ));
 
   //routes[0] <- [zarplata, [stop1, stop2, stop3, ..., stop562]];
-    routes[1] <- [10, [1, 5, 6, 22, 23, 24, 1]]; //sand island
-    routes[2] <- [10, [2, 21, 19, 17, 14, 15, 2]]; //
-    routes[3] <- [15, [16, 18, 20, 22, 23, 24, 21, 19, 17]];
-    routes[4] <- [20, [3, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 3]];
-    routes[5] <- [30, [4, 5, 6, 7, 8, 9, 10, 12, 13, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];
+    routes[1] <- [12, [1, 5, 6, 22, 23, 24, 1]]; //sand island
+    routes[2] <- [12, [2, 21, 19, 17, 14, 15, 2]]; //
+    routes[3] <- [17, [16, 18, 20, 22, 23, 24, 21, 19, 17]];
+    routes[4] <- [24, [3, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 3]];
+    routes[5] <- [38, [4, 5, 6, 7, 8, 9, 10, 12, 13, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];
 
     //creating 3dtext for bus depot
     create3DText ( BUS_JOB_X, BUS_JOB_Y, BUS_JOB_Z+0.35, "ROADKING BUS DEPOT", CL_ROYALBLUE );

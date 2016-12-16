@@ -54,3 +54,7 @@ acmd("cargo", ["limit", "set"], function(playerid, limit) {
 acmd("cargo", ["limit", "get"], function(playerid) {
     cargoJobGetFishLimit( playerid );
 });
+
+acmd("cargo", ["limit", "new"], function(playerid, limit) {
+    cargoJobSetDefaultFishLimit( playerid, limit );
+});

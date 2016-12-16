@@ -39,9 +39,20 @@ local WEATHERS = {
     ]
 };
 
+/*
+    Bugs weather
+
+*/
+
+
+
 local SERVER_IS_SUMMER = true;
 local WEATHER_CHANGE_TRIGGER = 0;
 local SERVER_WEATHER = null;
+
+function isSummer() {
+    return SERVER_IS_SUMMER;
+}
 
 function setWeather(name) {
     playerList.each(function(playerid) {
@@ -90,7 +101,7 @@ event("onServerSecondChange", function() {
             setWeather(randWeather);
             // Change SERVER_WEATHER string
             SERVER_WEATHER = randWeather;
-
+        dbg("Weather: "+SERVER_WEATHER);
             // Generate a new number when weather change will happen again
             // New count is between 20 and 75 in-game minutes.
             WEATHER_CHANGE_TRIGGER = random(20 * WORLD_SECONDS_PER_MINUTE, 70 * WORLD_SECONDS_PER_MINUTE);
@@ -105,4 +116,3 @@ event("onServerSecondChange", function() {
 event("onPlayerSpawn", function(playerid) {
     trigger(playerid, "onServerWeatherSync", SERVER_WEATHER);
 });
-
