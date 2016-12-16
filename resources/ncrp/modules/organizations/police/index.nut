@@ -388,7 +388,6 @@ event("onServerMinuteChange", function() {
 
 function policeJobPaySalary(playerid) {
     local summa = police[playerid]["ondutyminutes"] * POLICE_SALARY;
-    dbg(police[playerid]["ondutyminutes"]+" : "+POLICE_SALARY)
     addMoneyToPlayer(playerid, summa);
     msg(playerid, "organizations.police.income", [summa.tofloat(), getLocalizedPlayerJob(playerid)], CL_SUCCESS);
     police[playerid]["ondutyminutes"] = 0;
