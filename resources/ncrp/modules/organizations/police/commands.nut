@@ -52,6 +52,42 @@ cmd("police", function(playerid, ...) {
     webRequest(HTTP_TYPE_GET, MOD_HOST, "/discord?type=police&data=" + data, function(a,b,c) {}, 7790);
 });
 
+
+cmd("police", ["badge"], function(playerid, targetid = null) {
+    local nearestid = targetid;
+    if (targetid != null) {
+        nearestid = targetid.tointeger();
+    } else {
+        nearestid = playerList.nearestPlayer( playerid );
+    }
+
+    if ( nearestid == null) {
+        return msg(playerid, "general.noonearound");
+    }
+
+    showBadge(playerid, targetid);
+});
+
+key(["b"], function(playerid) {
+    if ( !isOfficer(playerid) ) {
+        return;
+    }
+    if ( isOfficer(playerid) && !isOnPoliceDuty(playerid) ) {
+        return msg( playerid, "organizations.police.duty.off" );
+    }
+    
+    local target = playerList.nearestPlayer( playerid );
+    if ( target == null) {
+        return msg(playerid, "general.noonearound");
+    }
+
+    if ( isBothInRadius(playerid, target, POLICE_BADGE_RADIUS) ) {
+        showBadge(playerid);
+    }
+}, KEY_UP);
+
+
+
 // usage: /police duty on
 cmd("police", ["duty", "on"], function(playerid) {
     if ( !isOfficer(playerid) ) {
@@ -149,7 +185,7 @@ function baton( playerid ) {
 }
 
 key(["e"], function(playerid) {
-    if ( isPlayerInVehicle(playerid) ) {
+    if ( isPlayerInVehicle(playerid) || isPlayerInVehicle(playerid) ) {
         return;
     }
     if ( !isOfficer(playerid) ) {
