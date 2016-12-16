@@ -146,6 +146,9 @@ event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
 });
 
 event("onPlayerDisconnect", function(playerid, reason) {
+    foreach (playerid, value in police) {
+        policeJobPaySalary( playerid );
+    }
     if(playerid in police) delete police[playerid];
 });
 
@@ -375,13 +378,10 @@ function leavePoliceJob(playerid) {
 
 event("onServerMinuteChange", function() {
     foreach (playerid, value in police) {
-        if("ondutyminutes" in police[playerid] && isOnPoliceDuty(playerid)) police[playerid]["ondutyminutes"] += 1;
-    }
+        if("ondutyminutes" in police[playerid] && isOnPoliceDuty(playerid)) {
+            police[playerid]["ondutyminutes"] += 1;
 
-    if (getHour() != 23) return;
-
-    foreach (k, playerid in police) {
-        policeJobPaySalary( playerid );
+        }
     }
 });
 
