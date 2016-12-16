@@ -16,10 +16,13 @@ translation("en", {
     "general.noonearound"                       : "There's noone around near you.",
     "general.job.anotherone"                    : "You've got %s job, not %s!",
 
-    "job.police.officer"                        : "Police Officer",
-    "job.police.detective"                      : "Detective",
-    "job.police.chief"                          : "Police Chief",
+    "job.police.officer"                        : "police officer",
+    "job.police.detective"                      : "detective",
+    "job.police.chief"                          : "police chief",
     "organizations.police.job.getmaxrank"       : "You've reached maximum rank: %s.",
+
+    "organizations.police.setjob.byadmin"       : "You've successfully set job for %s as %s."
+    "organizations.police.leavejob.byadmin"     : "You fired %s from %s job."
 
     "organizations.police.call.withoutaddress"  : "You can't call police without address.",
     "organizations.police.call.new"             : "[R] %s called police from %s",
@@ -273,16 +276,16 @@ function onPoliceDutyGiveWeapon(playerid, rank = null) {
     }
 
     if (rank == POLICE_RANK[0]) {
-        givePlayerWeapon( playerid, 2, 36 ); // Model 12 Revolver
+        givePlayerWeapon( playerid, 2, 42 ); // Model 12 Revolver
     }
     if (rank == POLICE_RANK[1]) {
-        givePlayerWeapon( playerid, 4, 36 ); // Colt M1911A1
+        givePlayerWeapon( playerid, 4, 56 ); // Colt M1911A1
         //givePlayerWeapon( playerid, 8, 48 ); // Remington Model 870 Field gun // on RED level
     }
     if (rank == POLICE_RANK[2]) {
-        givePlayerWeapon( playerid, 6, 36 ); // Model 19 Revolver
+        givePlayerWeapon( playerid, 6, 42 ); // Model 19 Revolver
         //givePlayerWeapon( playerid, 8, 48 ); // Remington Model 870 Field gun // on RED level
-        givePlayerWeapon( playerid, 12, 80 ); // M1A1 Thompson
+        givePlayerWeapon( playerid, 12, 120 ); // M1A1 Thompson
     }
 }
 
@@ -344,7 +347,7 @@ function getPoliceJob(playerid) {
 */
     // set first rank
     setPlayerJob( playerid, setPoliceRank(playerid, 0) );
-    policeSetOnDuty(playerid, false);
+    //policeSetOnDuty(playerid, false);
     msg(playerid, "organizations.police.onbecame");
 }
 
@@ -387,6 +390,6 @@ function policeJobPaySalary(playerid) {
     local summa = police[playerid]["ondutyminutes"] * POLICE_SALARY;
     dbg(police[playerid]["ondutyminutes"]+" : "+POLICE_SALARY)
     addMoneyToPlayer(playerid, summa);
-    msg(playerid, "organizations.police.income", [summa.tofloat(), getPlayerJob(playerid)], CL_SUCCESS);
+    msg(playerid, "organizations.police.income", [summa.tofloat(), getLocalizedPlayerJob(playerid)], CL_SUCCESS);
     police[playerid]["ondutyminutes"] = 0;
 }

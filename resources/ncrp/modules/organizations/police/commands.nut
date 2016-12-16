@@ -5,15 +5,15 @@
 // usage: /police job <id>
 acmd("police", "job", function(playerid, targetid) {
     local targetid = targetid.tointeger();
-    msg(playerid, "admin.setjob.police.success", [getAuthor(targetid)]);
-    dbg( "[POLICE JOIN]" + getAuthor(playerid) + " add " + getAuthor(targetid) + "to Police" );
     getPoliceJob(targetid);
+    msg(playerid, "organizations.police.setjob.byadmin", [ getAuthor(targetid), getLocalizedPlayerJob(targetid) ] );
+    dbg( "[POLICE JOIN]" + getAuthor(playerid) + " add " + getAuthor(targetid) + "to Police" );
 });
 
 // usage: /police job leave <id>
 acmd("police", ["job", "leave"], function(playerid, targetid) {
     local targetid = targetid.tointeger();
-    msg(playerid, "admin.setjob.police.success", [getAuthor(targetid)]);
+    msg(playerid, "organizations.police.leavejob.byadmin", [ getAuthor(targetid), getLocalizedPlayerJob(targetid) ]);
     dbg( "[POLICE LEAVE]" + getAuthor(playerid) + " remove " + getAuthor(targetid) + "from Police" );
     leavePoliceJob(targetid);
 });
