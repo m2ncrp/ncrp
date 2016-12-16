@@ -23,8 +23,10 @@ acmd(["heal"], function( playerid ) {
     setPlayerHealth( playerid, 720.0 );
 });
 
-acmd(["die"], function( playerid ) {
-    setPlayerHealth( playerid, 0.0 );
+acmd(["die"], function( playerid, targetid = null ) {
+    if(!targetid) targetid = playerid;
+    setPlayerHealth( targetid.tointeger(), 0.0 );
+    dbg (targetid);
 });
 
 acmd(["skin"], function( playerid, id ) {
