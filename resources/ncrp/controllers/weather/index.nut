@@ -9,7 +9,7 @@
 local WEATHERS = {
     SUMMER = [
         // This is between the hours of 00:00 and 02:00 (night)
-        [0, 2, ["DT_RTRclear_day_nigh", "DT07part04night_bordel", "DTFreerideNight", "DT14part11", "DT11part05", "DT_RTRrainy_day_night", "DT10part03Subquest", "DT_RTRfoggy_day_night"] ],
+        [0, 2, ["DT07part04night_bordel", "DTFreerideNight", "DT14part11", "DT11part05", "DT_RTRrainy_day_night", "DT10part03Subquest", "DT_RTRfoggy_day_night"] ], // remove "DT_RTRclear_day_nigh"
 
         // This is between the hours of 03:00 and 05:00 (night / early morning)
         [3, 5, ["DT_RTRclear_day_early_morn1", "DT_RTRfoggy_day_early_morn1", "DT_RTRrainy_day_early_morn"] ],
