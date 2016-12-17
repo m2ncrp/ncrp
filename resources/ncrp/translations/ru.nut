@@ -506,6 +506,9 @@ translation("ru", {
     "job.police.chief"                          : "Шеф Полиции"
     "organizations.police.job.getmaxrank"       : "Вы достигли максимального звания: %s."
 
+    "organizations.police.setjob.byadmin"       : "Вы устроили на работу игрока %s в качестве %s."
+    "organizations.police.leavejob.byadmin"     : "Вы уволили %s с работы %s."
+
     "organizations.police.call.withoutaddress"  : "Вы не можете вызвать полицию, не указав адрес."
     "organizations.police.call.new"             : "[R] поступил вызов от %s из %s"
     "organizations.police.call.foruser"         : "Вы вызвали такси из %s"
