@@ -68,7 +68,6 @@ translation("en", {
     "organizations.police.onrankup"             : "You was rank up to %s",
     "organizations.police.onbecame"             : "You became a police officer."
     "organizations.police.onleave"              : "You're not a police officer anymore."
-
 });
 
 
@@ -79,6 +78,14 @@ const POLICE_MODEL = 75;
 const POLICE_BADGE_RADIUS = 3.5;
 
 const POLICE_SALARY = 0.5; // for 1 minute
+
+POLICE_EBPD_ENTERES <- [
+    [-360.342, 785.954, -19.9269],  // parade
+    [-379.444, 654.207, -11.6451]   // stuff only
+];
+
+const EBPD_ENTER_RADIUS = 2.0;
+const TITLE_DRAW_DISTANCE = 12.0;
 
 POLICE_RANK <- [
     "police.officer",    // "Police Officer",
@@ -137,7 +144,7 @@ include("modules/organizations/police/commands.nut");
 include("modules/organizations/police/functions.nut");
 
 
-local police = {};
+police <- {};
 
 
 event("onServerStarted", function() {
@@ -148,6 +155,9 @@ event("onServerStarted", function() {
     createVehicle(21, -324.296, 693.308, -17.4131, -179.874, -0.796982, -0.196363 );    // policeBusParking1
     createVehicle(51, -326.669, 658.13, -17.5624, 90.304, -3.56444, -0.040828 );        // policeOldCarParking1
     createVehicle(51, -326.781, 663.293, -17.5188, 93.214, -2.95046, -0.0939897 );      // policeOldCarParking2
+
+    create3DText ( POLICE_EBPD_ENTERES[0][0], POLICE_EBPD_ENTERES[0][1], POLICE_EBPD_ENTERES[0][2]+0.35, "=== Empire Bay Police Department ===", CL_ROYALBLUE, TITLE_DRAW_DISTANCE );
+    create3DText ( POLICE_EBPD_ENTERES[0][0], POLICE_EBPD_ENTERES[0][1], POLICE_EBPD_ENTERES[0][2]-0.15, "/duty <on/off>", CL_WHITE.applyAlpha(150), EBPD_ENTER_RADIUS );
 });
 
 
@@ -162,7 +172,6 @@ event("onPlayerSpawn", function( playerid ) {
     }
 });
 */
-
 
 
 
