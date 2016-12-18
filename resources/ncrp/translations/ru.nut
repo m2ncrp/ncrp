@@ -574,6 +574,9 @@ translation("ru", {
     "organizations.police.beenshown.badge"      : "Вы показываете свой жетон %s."
     "organizations.police.show.badge"           : "%s %s показывает Вам свой полицейский жетон."
 
+    "organizations.police.jail"                 : "Вас посадили в тюрьму."
+    "organizations.police.unjail"               : "Вы отсидели свой срок и были освобождены от тюремного заключения."
+
     "organizations.police.info.howjoin"         : "Если вы хотите пополнить ряды офицеров департамента Empire Bay, напишите администраторам!"
     "organizations.police.info.cmds.helptitle"  : "Список команд, доступных офицерам полиции:"
     "organizations.police.info.cmds.ratio"      : "Сказать что-либо в полицейскую рацию"

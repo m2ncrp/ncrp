@@ -53,6 +53,9 @@ translation("en", {
     "organizations.police.beenshown.badge"      : "You're showing your badge to %s.",
     "organizations.police.show.badge"           : "%s %s is showing his badge to you.",
 
+    "organizations.police.jail"                 : "[POLICE] You was put in jail.",
+    "organizations.police.unjail"               : "[POLICE] You're released from jail.",
+
     "organizations.police.info.howjoin"         : "If you want to join Police Department write one of admins!",
     "organizations.police.info.cmds.helptitle"  : "List of available commands for Police Officer JOB:",
     "organizations.police.info.cmds.ratio"      : "Send message to all police by ratio",
