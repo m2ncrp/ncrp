@@ -27,9 +27,11 @@ acmd("police", ["set", "rank"], function(playerid, targetid, rank) {
     }
 
     if ( isOnPoliceDuty(playerid) ) {
-        onPoliceDutyRemoveWeapon( playerid );
+        // onPoliceDutyRemoveWeapon( playerid );
+        trigger("onPoliceDutyOff", playerid);
         setPoliceRank( playerid, rank );
-        onPoliceDutyGiveWeapon( playerid );
+        // onPoliceDutyGiveWeapon( playerid );
+        trigger("onPoliceDutyOn", playerid);
         setPlayerJob ( playerid, getPlayerJob(playerid) );
     } else {
         setPoliceRank( playerid, rank );
