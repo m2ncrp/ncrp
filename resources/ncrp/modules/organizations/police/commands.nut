@@ -123,6 +123,18 @@ cmd("police", ["duty", "off"], function(playerid) {
     }
 });
 
+
+key(["e"], function(playerid) {
+    if ( isPlayerInVehicle(playerid) ) {
+        return;
+    }
+    if ( !isOfficer(playerid) ) {
+        return msg( playerid, "organizations.police.notanofficer" );
+    }
+    local bool = isOnPoliceDuty(playerid);
+    policeSetOnDuty(playerid, !bool);
+}, KEY_UP);
+
 policecmd(["r", "ratio"], function(playerid, text) {
     if ( !isOfficer(playerid) ) {
         return msg(playerid, "organizations.police.notanofficer");
