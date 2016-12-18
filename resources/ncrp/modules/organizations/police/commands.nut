@@ -254,9 +254,10 @@ key(["v"], function(playerid) {
 cmd(["prison", "jail"], function(playerid, targetid) {
     targetid = targetid.tointeger();
     if ( isOnPoliceDuty(playerid) && getPlayerState(targetid) == "cuffed" ) {
-        setPlayerToggle(targetid, true);
-        screenFadein(targetid, 2000, function() {
+        // setPlayerToggle(targetid, true);
+        screenFadeinFadeout(targetid, 2200, function() {
         //  output "Wasted" and set player position
+            getPlayerState(targetid) = "jail";
             setPlayerPosition( targetid, -1027.02, 1746.63, 10.2325 );
         });
     }
@@ -269,8 +270,8 @@ cmd(["amnesty"], function(playerid, targetid) {
         setPlayerPosition(targetid, -380.856, 652.657, -11.6902); // police department
         //setPlayerRotation(targetid, -137.53, 0.00309768, -0.00414733);
 
-        screenFadeout(targetid, 2200, function() {
-            setPlayerToggle(targetid, false);
+        screenFadeinFadeout(targetid, 2200, function() {
+            // setPlayerToggle(targetid, false);
             setPlayerState(targetid, "free");
         });
     }

@@ -158,8 +158,8 @@ event("onServerStarted", function() {
     createVehicle(51, -326.669, 658.13, -17.5624, 90.304, -3.56444, -0.040828 );        // policeOldCarParking1
     createVehicle(51, -326.781, 663.293, -17.5188, 93.214, -2.95046, -0.0939897 );      // policeOldCarParking2
 
-    create3DText( POLICE_EBPD_ENTERES[0][0], POLICE_EBPD_ENTERES[0][1], POLICE_EBPD_ENTERES[0][2]+0.35, "=== Empire Bay Police Department ===", CL_ROYALBLUE, TITLE_DRAW_DISTANCE );
-    create3DText( POLICE_EBPD_ENTERES[0][0], POLICE_EBPD_ENTERES[0][1], POLICE_EBPD_ENTERES[0][2]-0.15, "/police duty <on/off>", CL_WHITE.applyAlpha(150), EBPD_ENTER_RADIUS );
+    create3DText( POLICE_EBPD_ENTERES[0][0], POLICE_EBPD_ENTERES[0][1], POLICE_EBPD_ENTERES[0][2]+0.35, "=== EMPIRE BAY POLICE DEPARTMENT ===", CL_ROYALBLUE, TITLE_DRAW_DISTANCE );
+    create3DText( POLICE_EBPD_ENTERES[0][0], POLICE_EBPD_ENTERES[0][1], POLICE_EBPD_ENTERES[0][2]-0.15, "/police duty on/off", CL_WHITE.applyAlpha(150), EBPD_ENTER_RADIUS );
 });
 
 
