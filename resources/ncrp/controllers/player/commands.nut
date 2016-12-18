@@ -26,7 +26,6 @@ acmd(["heal"], function( playerid ) {
 acmd(["die"], function( playerid, targetid = null ) {
     if(!targetid) targetid = playerid;
     setPlayerHealth( targetid.tointeger(), 0.0 );
-    dbg (targetid);
 });
 
 acmd(["skin"], function( playerid, id ) {

@@ -20,7 +20,7 @@ translation("ru", {
     "tips.car.repair"   :   "[TIPS] Вы можете починить свой автомобиль в автомастерских."
     "tips.eat"          :   "[TIPS] Вы можете восстанавливать уровень здоровья, обедая в ресторанах."
     "tips.police"       :   "[TIPS] Если вы стали свидетелем преступления - вызывайте полицию. Команда: /police МЕСТО"
-    "tips.hobos"        :   "[TIPS] Вы можете найти деньги в мусорных баках. Используйте команду: /dig"
+    "tips.hobos"        :   "[TIPS] Вы можете найти деньги в мусорных контейнерах. Используйте команду: /dig"
     "tips.engine.howto" :   "[TIPS] Не забывайте экономить топливо, используйте кнопку Q для выключения двигателя."
     "tips.taxi"         :   "[TIPS] Если вам нужно куда-то добраться, вы можете вызвать такси: /taxi МЕСТО"
     "tips.metro"        :   "[TIPS] Метро - это удобный и дешевый способ передвижения. Найдите ближайшую станцию с помощью /subway"
@@ -154,6 +154,42 @@ translation("ru", {
     "job.fishdriver.help.unload"       :   "Разгрузить грузовик"
     "job.fishdriver.help.finish"       :   "Сообщить о доставке и получить деньги"
 
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+
+    "job.truckdriver"                   : "шофёр"
+
+    "job.truckdriver.scens1.load"       : "Садись в грузовик и отправляйся в Северный Милвилл для загрузки строительных материалов."
+    "job.truckdriver.scens1.unload"     : "Грузовик загружен. Отправляйся в Мидтаун для разгрузки строительных материалов."
+
+    "job.truckdriver.scens2.load"       : "Садись в грузовик и отправляйся в Хантерс-Пойнт для погрузки обломков сгоревшего дома."
+    "job.truckdriver.scens2.unload"     : "Грузовик загружен. Отправляйся в Северный Милвилл для разгрузки обломков сгоревшего дома."
+
+    "job.truckdriver.badworker"         : "Robert Casey: Плохой из тебя работник. Для такого как ты у меня нет работы."
+    "job.truckdriver.badworker.onleave" : "Robert Casey: Херовый ты работник. Вали нахрен."
+    "job.truckdriver.goodluck"          : "Robert Casey: Удачи тебе, пацан! Приходи, если нужна работа."
+    "job.truckdriver.needcomplete"      : "Robert Casey: Сначала заверши доставку."
+    "job.truckdriver.nicejob"           : "Robert Casey: Отличная работа, %s! Держи $%.2f."
+    "job.truckdriver.now"               : "Robert Casey: Добро пожаловать в ряды шофёров!"
+
+    "job.truckdriver.needlevel"         : "[TRUCK] Шофёром можно устроиться начиная с уровня %d."
+    "job.truckdriver.wantwork"          : "[TRUCK] Ты работаешь шофёром. Если хочешь поработать - отправляйся к транспортной базе у моста в Хайбрук."
+    "job.truckdriver.already"           : "[TRUCK] Ты уже работаешь шофёром."
+    "job.truckdriver.notpassenger"      : "[TRUCK] Доставка может осуществляться только водителем, но не пассажиром."
+    "job.truckdriver.loading"           : "[TRUCK] Грузовик загружается. Подожди..."
+    "job.truckdriver.unloading"         : "[TRUCK] Грузовик разгружается. Подожди..."
+    "job.truckdriver.alreadyloaded"     : "[TRUCK] Грузовик уже загружен."
+    "job.truckdriver.empty"             : "[TRUCK] Грузовик пуст."
+    "job.truckdriver.takemoney"         : "[TRUCK] Возвращайся на базу к мосту в Хайбрук, припаркуй грузовик и получи заработанные деньги."
+
+    "job.truckdriver.help.title"        : "Список команд, доступных шофёру:"
+    "job.truckdriver.help.job"              :   "кнопка E"
+    "job.truckdriver.help.jobtext"          :   "Устроиться на работу шофёром (подойти к Robert Casey)"
+    "job.truckdriver.help.jobleave"         :   "кнопка Q"
+    "job.truckdriver.help.jobleavetext"     :   "Уволиться с работы (подойти к Robert Casey)"
+    "job.truckdriver.help.loadunload"       :   "кнопка E"
+    "job.truckdriver.help.loadunloadtext"   :   "Загрузить/разгрузить грузовик (нужно быть в грузовике)"
 
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
