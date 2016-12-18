@@ -75,7 +75,7 @@ function isPlayerInPoliceVehicle(playerid) {
 
 
 function isPlayerNearPoliceDepartment(playerid) {
-    return isInRadius(playerid, POLICE_EBPD_ENTERES[0][0], POLICE_EBPD_ENTERES[0][1], POLICE_EBPD_ENTERES[0][2], EBPD_ENTER_RADIUS);
+    return isInRadius(playerid, POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2], EBPD_ENTER_RADIUS);
 }
 
 
