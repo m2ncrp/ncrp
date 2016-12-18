@@ -94,6 +94,8 @@ POLICE_RANK <- [
 ];
 MAX_RANK <- POLICE_RANK.len()-1;
 
+DENGER_LEVEL <- "green";
+
 /**
  * Any cmd only with any text, without specific parameters
  * @param  {[type]}   names    [description]
@@ -156,8 +158,8 @@ event("onServerStarted", function() {
     createVehicle(51, -326.669, 658.13, -17.5624, 90.304, -3.56444, -0.040828 );        // policeOldCarParking1
     createVehicle(51, -326.781, 663.293, -17.5188, 93.214, -2.95046, -0.0939897 );      // policeOldCarParking2
 
-    create3DText ( POLICE_EBPD_ENTERES[0][0], POLICE_EBPD_ENTERES[0][1], POLICE_EBPD_ENTERES[0][2]+0.35, "=== Empire Bay Police Department ===", CL_ROYALBLUE, TITLE_DRAW_DISTANCE );
-    create3DText ( POLICE_EBPD_ENTERES[0][0], POLICE_EBPD_ENTERES[0][1], POLICE_EBPD_ENTERES[0][2]-0.15, "/duty <on/off>", CL_WHITE.applyAlpha(150), EBPD_ENTER_RADIUS );
+    create3DText( POLICE_EBPD_ENTERES[0][0], POLICE_EBPD_ENTERES[0][1], POLICE_EBPD_ENTERES[0][2]+0.35, "=== Empire Bay Police Department ===", CL_ROYALBLUE, TITLE_DRAW_DISTANCE );
+    create3DText( POLICE_EBPD_ENTERES[0][0], POLICE_EBPD_ENTERES[0][1], POLICE_EBPD_ENTERES[0][2]-0.15, "/police duty <on/off>", CL_WHITE.applyAlpha(150), EBPD_ENTER_RADIUS );
 });
 
 
@@ -217,15 +219,22 @@ event("onPoliceDutyOn", function(playerid, rank = null) {
 
     if (rank == POLICE_RANK[0]) {
         givePlayerWeapon( playerid, 2, 42 ); // Model 12 Revolver
+        if (DENGER_LEVEL == "red") {
+            givePlayerWeapon( playerid, 12, 120 ); // M1A1 Thompson
+        }
     }
     if (rank == POLICE_RANK[1]) {
         givePlayerWeapon( playerid, 4, 56 ); // Colt M1911A1
-        //givePlayerWeapon( playerid, 8, 48 ); // Remington Model 870 Field gun // on RED level
+        if (DENGER_LEVEL == "red") {
+            givePlayerWeapon( playerid, 8, 48 ); // Remington Model 870 Field gun // on RED level
+        }
     }
     if (rank == POLICE_RANK[2]) {
         givePlayerWeapon( playerid, 6, 42 ); // Model 19 Revolver
-        //givePlayerWeapon( playerid, 8, 48 ); // Remington Model 870 Field gun // on RED level
-        givePlayerWeapon( playerid, 12, 120 ); // M1A1 Thompson
+        if (DENGER_LEVEL == "red") {
+            givePlayerWeapon( playerid, 8, 48 ); // Remington Model 870 Field gun // on RED level
+            givePlayerWeapon( playerid, 12, 120 ); // M1A1 Thompson
+        }
     }
 });
 
@@ -237,16 +246,15 @@ event("onPoliceDutyOff", function(playerid, rank = null) {
 
     if (rank == POLICE_RANK[0]) {
         removePlayerWeapon( playerid, 2 ); // Model 12 Revolver
-
-        // thompon on RED level
+        removePlayerWeapon( playerid, 12 ); // M1A1 Thompson // on RED level
     }
     if (rank == POLICE_RANK[1]) {
         removePlayerWeapon( playerid, 4 ); // Colt M1911A1
-        //removePlayerWeapon( playerid, 8 ); // Remington Model 870 Field gun // on RED level
+        removePlayerWeapon( playerid, 8 ); // Remington Model 870 Field gun // on RED level
     }
     if (rank == POLICE_RANK[2]) {
         removePlayerWeapon( playerid, 6 ); // Model 19 Revolver
-        //removePlayerWeapon( playerid, 8 ); // Remington Model 870 Field gun // on RED level
+        removePlayerWeapon( playerid, 8 ); // Remington Model 870 Field gun // on RED level
         removePlayerWeapon( playerid, 12 ); // M1A1 Thompson
     }
-})
+});
