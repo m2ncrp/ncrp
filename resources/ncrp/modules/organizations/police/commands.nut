@@ -257,7 +257,7 @@ cmd(["prison", "jail"], function(playerid, targetid) {
         setPlayerToggle(targetid, true);
         screenFadein(targetid, 2000, function() {
         //  output "Wasted" and set player position
-            setPlayerPosition( targetid, 0.0, 0.0, 0.0 );
+            setPlayerPosition( targetid, -1027.02, 1746.63, 10.2325 );
         });
     }
 });
