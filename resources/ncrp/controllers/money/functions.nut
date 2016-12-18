@@ -58,6 +58,11 @@ function sendMoney(playerid, targetid = null, amount = null) {
     if ( !isPlayerConnected(targetid) ) {
         return msg(playerid, "There's no such person on server!");
     }
+
+    if(getPlayerState( playerid ) != "free" || getPlayerState( targetid ) != "free") {
+        return msg(playerid, "You can't send money." );
+    }
+
     if (checkDistanceBtwTwoPlayersLess(playerid, targetid, 2.0)) {
         if(canMoneyBeSubstracted(playerid, amount)) {
             subMoneyToPlayer(playerid, amount);
