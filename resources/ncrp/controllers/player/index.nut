@@ -6,10 +6,10 @@ players <- {};
 xPlayers <- {};
 playerList <- {};
 
-const CHARACTER_DEFAULT_SKIN   = 10;
-const CHARACTER_DEFAULT_MONEY  = 1.75;
+const CHARACTER_DEFAULT_SKIN   = 10; // @deprecated
+const CHARACTER_DEFAULT_MONEY  = 1.75; // @deprecated
 
-const DEFAULT_SPAWN_SKIN = 10;
+const DEFAULT_SPAWN_SKIN = 4;
 const DEFAULT_SPAWN_X    = -1027.02;
 const DEFAULT_SPAWN_Y    = 1746.63;
 const DEFAULT_SPAWN_Z    = 10.2325;
@@ -193,7 +193,7 @@ event("native:onPlayerSpawn", function(playerid) {
         setPlayerPosition(playerid, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z);
         // setPlayerRotation(playerid, -99.8071, -0.000323891, -0.00024408);
         setPlayerModel(playerid, DEFAULT_SPAWN_SKIN);
-        // togglePlayerHud(playerid, true);
+        togglePlayerHud(playerid, true);
 
     } else {
         // check if player just dead
