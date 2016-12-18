@@ -30,4 +30,28 @@ class FuelTank extends BaseVehiclePart {
     function setFuelToMin() {
         setFuel(0.0);
     }
+
+    /**
+     * Restore amount of fuel that was saved during
+     * temporary saving f.e.: setVehicleFuel(.., ..., true)
+     *
+     * @param  {Integer} vehicleid
+     * @return {Boolean}
+     */
+    function restoreVehicleFuel(vehicleid) {
+        if (vehicleid in __vehicles) {
+            return old__setVehicleFuel(vehicleid, __vehicles[vehicleid].fuel);
+        }
+
+        return old__setVehicleFuel(vehicleid, getDefaultVehicleFuel(vehicleid));
+    }
+
+    /**
+     * Get fuel level for vehicle by vehicleid
+     * @param  {Integer} vehicleid
+     * @return {Float} level
+     */
+    function getDefaultVehicleFuel(vehicleid) {
+        return getDefaultVehicleModelFuel(getVehicleModel(vehicleid));
+    }
 }

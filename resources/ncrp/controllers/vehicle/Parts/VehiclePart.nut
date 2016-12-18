@@ -38,6 +38,14 @@ class OpenableVehiclePart extends BaseVehiclePart {
         setVehiclePartOpen(vehicleID, partID, false);
         isOpen = false;
     }
+
+    function correct() {
+        if (state) {
+            open();
+        } else {
+            close();
+        }
+    }
 }
 
 
@@ -61,5 +69,13 @@ class SwitchableVehiclePart extends BaseVehiclePart {
 
     function switch() {
         setState( !state );
+    }
+
+    function correct() {
+        if (state) {
+            setState( true );
+        } else {
+            setState( false );
+        }
     }
 }
