@@ -31,42 +31,76 @@ class Gabarites {
     function switchLeft() {
         if (current_state == Gabarite_States.both_on) {
             right.turnOff();
+            current_state = Gabarite_States.both_off;
+            return;
         }
 
         if (current_state == Gabarite_States.both_off) {
-            left._switch();
+            left.partSwitch();
+            current_state = Gabarite_States.left_on;
+            return;
         }
 
         if (current_state == Gabarite_States.right_on) {
             right.turnOff();
-            left._switch();
+            left.partSwitch();
+            current_state = Gabarite_States.left_on;
+            return;
         }
 
         if(current_state == Gabarite_States.left_on) {
-            left._switch();
+            left.partSwitch();
+            current_state = Gabarite_States.both_off;
+            return;
         }
-
-        current_state = Gabarite_States.left_on;
     }
 
     function switchRight() {
         if (current_state == Gabarite_States.both_on) {
             left.turnOff();
+            current_state = Gabarite_States.right_on;
+            return;
         }
 
         if (current_state == Gabarite_States.both_off) {
-            right._switch();
+            right.partSwitch();
+            current_state = Gabarite_States.right_on;
+            return;
         }
 
         if(current_state == Gabarite_States.left_on) {
             left.turnOff();
-            right._switch();
+            right.partSwitch();
+            current_state = Gabarite_States.right_on;
+            return;
         }
 
         if (current_state == Gabarite_States.right_on) {
-            right._switch();
+            right.partSwitch();
+            current_state = Gabarite_States.both_off;
+            return;
+        }
+    }
+
+    function correct() {
+        if (current_state == Gabarite_States.both_on) {
+            right.turnOn();
+            left.turnOn();
         }
 
-        current_state = Gabarite_States.right_on;
+        if (current_state == Gabarite_States.both_off) {
+            right.turnOff();
+            left.turnOff();
+        }
+
+        if(current_state == Gabarite_States.left_on) {
+            right.turnOff();
+            left.turnOn();
+        }
+
+        if (current_state == Gabarite_States.right_on) {
+            right.turnOn();
+            left.turnOff();
+        }
     }
 }
