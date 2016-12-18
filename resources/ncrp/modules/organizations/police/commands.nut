@@ -174,6 +174,10 @@ function baton( playerid ) {
             return msg(playerid, "general.noonearound");
         }
 
+        if ( isPlayerInVehicle(targetid) ) {
+            return;
+        }
+
         if ( isBothInRadius(playerid, targetid, BATON_RADIUS) ) {
             screenFadeinFadeout(targetid, 1000, function() {
                 msg( playerid, "organizations.police.bitsomeone.bybaton", [getAuthor(targetid)] );
