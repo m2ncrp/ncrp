@@ -194,7 +194,7 @@ function baton( playerid ) {
     }
 }
 
-key(["u"], function(playerid) {
+key(["g"], function(playerid) {
     if ( isPlayerInVehicle(playerid) || isPlayerInVehicle(playerid) ) {
         return;
     }
@@ -237,7 +237,7 @@ function cuff(playerid) {
     }
 }
 
-key(["q"], function(playerid) {
+key(["v"], function(playerid) {
     if ( isPlayerInVehicle(playerid) ) {
         return;
     }
@@ -247,15 +247,14 @@ key(["q"], function(playerid) {
     if ( isOfficer(playerid) && !isOnPoliceDuty(playerid) ) {
         return msg( playerid, "organizations.police.duty.off" );
     }
-    // print("Player pressed q");
     cuff(playerid);
 }, KEY_UP);
 
 // put nearest cuffed player in jail
 cmd(["prison", "jail"], function(playerid, targetid) {
     targetid = targetid.tointeger();
-    if ( isOnPoliceDuty(playerid) ) {
-        togglePlayerControls( targetid, true );
+    if ( isOnPoliceDuty(playerid) && getPlayerState(targetid) == "cuffed" ) {
+        setPlayerToggle(targetid, true);
         screenFadein(targetid, 2000, function() {
         //  output "Wasted" and set player position
             setPlayerPosition( targetid, 0.0, 0.0, 0.0 );
@@ -271,7 +270,8 @@ cmd(["amnesty"], function(playerid, targetid) {
         //setPlayerRotation(targetid, -137.53, 0.00309768, -0.00414733);
 
         screenFadeout(targetid, 2200, function() {
-            togglePlayerControls( targetid, false );
+            setPlayerToggle(targetid, false);
+            setPlayerState(targetid, "free");
         });
     }
 })
