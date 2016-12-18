@@ -81,6 +81,7 @@ translation("en", {
     "auth.success.register" : "[AUTH] You've successfuly registered!"
     "auth.success.login"    : "[AUTH] You've successfuly logined!"
     "auth.error.cmderror"   : "[AUTH] You can't execute commands without registration."
+    "auth.notification"     : "[AUTH] You should enter into your account via /login PASSWORD, or create new one via /register PASSWORD"
 });
 
 
@@ -160,6 +161,16 @@ event("onPlayerAccountChanged", function(playerid) {
     if (!(playerid in accounts)) return;
 
     accounts[playerid].save();
+});
+
+event("onServerSecondChange", function() {
+    if (getSecond() % 15) return; // each 15 seconds
+
+    foreach (playerid, data in baseData) {
+        if (isPlayerConnected(playerid) && !isPlayerLogined(playerid)) {
+            msg(playerid, "auth.notification");
+        }
+    }
 });
 
 /**
