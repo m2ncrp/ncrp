@@ -17,6 +17,12 @@ function policeCall(playerid, place) {
     }
 }
 
+function setDangerLevel(playerid, to) {
+    DENGER_LEVEL = to;
+    trigger("onPoliceDutyOff", playerid);
+    trigger("onPoliceDutyOn", playerid);
+}
+
 /**
  * Become police officer
  * @param  {int} playerid
@@ -200,45 +206,3 @@ function showBadge(playerid, targetid = null) {
     msg(playerid, "organizations.police.beenshown.badge", [getAuthor(targetid)]);
     msg(targetid, "organizations.police.show.badge", [getPoliceRank(playerid), getAuthor(targetid)]);
 }
-
-
-// function onPoliceDutyGiveWeapon(playerid, rank = null) {
-//     if (rank == null) {
-//         rank = getPlayerJob(playerid);
-//     }
-
-//     if (rank == POLICE_RANK[0]) {
-//         givePlayerWeapon( playerid, 2, 42 ); // Model 12 Revolver
-//     }
-//     if (rank == POLICE_RANK[1]) {
-//         givePlayerWeapon( playerid, 4, 56 ); // Colt M1911A1
-//         //givePlayerWeapon( playerid, 8, 48 ); // Remington Model 870 Field gun // on RED level
-//     }
-//     if (rank == POLICE_RANK[2]) {
-//         givePlayerWeapon( playerid, 6, 42 ); // Model 19 Revolver
-//         //givePlayerWeapon( playerid, 8, 48 ); // Remington Model 870 Field gun // on RED level
-//         givePlayerWeapon( playerid, 12, 120 ); // M1A1 Thompson
-//     }
-// }
-
-
-// function onPoliceDutyRemoveWeapon(playerid, rank = null) {
-//     if (rank == null) {
-//         rank = getPlayerJob(playerid);
-//     }
-
-//     if (rank == POLICE_RANK[0]) {
-//         removePlayerWeapon( playerid, 2 ); // Model 12 Revolver
-
-//         // thompon on RED level
-//     }
-//     if (rank == POLICE_RANK[1]) {
-//         removePlayerWeapon( playerid, 4 ); // Colt M1911A1
-//         //removePlayerWeapon( playerid, 8 ); // Remington Model 870 Field gun // on RED level
-//     }
-//     if (rank == POLICE_RANK[2]) {
-//         removePlayerWeapon( playerid, 6 ); // Model 19 Revolver
-//         //removePlayerWeapon( playerid, 8 ); // Remington Model 870 Field gun // on RED level
-//         removePlayerWeapon( playerid, 12 ); // M1A1 Thompson
-//     }
-// }

@@ -2,6 +2,10 @@
     BINDS SHOW UP MESSAGE EVERY TIME IF PLAYER CONTACT WITH VEHICLE OR DOORS WHILE ON DUTY
  */
 
+acmd("police", "danger", function(playerid, level) {
+    setDangerLevel(playeridm, level);
+});
+
 // usage: /police job <id>
 acmd("police", "job", function(playerid, targetid) {
     local targetid = targetid.tointeger();
@@ -190,7 +194,7 @@ function baton( playerid ) {
     }
 }
 
-key(["e"], function(playerid) {
+key(["u"], function(playerid) {
     if ( isPlayerInVehicle(playerid) || isPlayerInVehicle(playerid) ) {
         return;
     }
