@@ -131,8 +131,10 @@ key(["e"], function(playerid) {
     if ( !isOfficer(playerid) && isPlayerNearPoliceDepartment(playerid) ) {
         return msg( playerid, "organizations.police.notanofficer" );
     }
-    local bool = isOnPoliceDuty(playerid);
-    policeSetOnDuty(playerid, !bool);
+    if ( isOfficer(playerid) && isPlayerNearPoliceDepartment(playerid) ) {
+        local bool = isOnPoliceDuty(playerid);
+        policeSetOnDuty(playerid, !bool);
+    }
 }, KEY_UP);
 
 policecmd(["r", "ratio"], function(playerid, text) {
