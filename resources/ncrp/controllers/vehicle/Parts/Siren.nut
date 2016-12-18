@@ -11,4 +11,12 @@ class Siren extends SwitchableVehiclePart {
         setVehicleSirenState( vehicleID, to );
         base.setState( to );
     }
+
+    /**
+     * Return true if siren visually broken on server side. 
+     * @return {Boolean}
+     */
+    function isBroken() {
+        return false;
+    }
 }

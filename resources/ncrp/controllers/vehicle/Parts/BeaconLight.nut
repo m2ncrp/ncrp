@@ -11,4 +11,12 @@ class BeaconLight extends SwitchableVehiclePart {
         setVehicleBeaconLight( vehicleID, to );
         base.setState( to );
     }
+
+    /**
+     * Return true if beacon light visually broken on server side.
+     * @return {Boolean}
+     */
+    function isBroken() {
+        return false;
+    }
 }
