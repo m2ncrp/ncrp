@@ -248,7 +248,7 @@ function truckJobTalk( playerid ) {
         if(isSummer()) {
             userjob = truck_scens[truck_scens_summer[random(0, truck_scens_summer.len()-1)]];
         } else {
-            userjob = truck_scens[random(0, truck_scens_winter.len())-1];
+            userjob = truck_scens[truck_scens_winter[random(0, truck_scens_winter.len()-1)]];
         }
 
         job_truck[playerid]["userjob"] = userjob;
