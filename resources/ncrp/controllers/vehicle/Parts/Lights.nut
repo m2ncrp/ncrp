@@ -5,11 +5,21 @@ class Lights extends SwitchableVehiclePart {
     }
 
     function getState() {
-        return getVehicleLightState(vehicleID);
+        // log( state.tostring() +"~"+ getVehicleLightState(vehicleID).tostring() );
+        local native = getVehicleLightState(vehicleID);
+        return native || state;
     }
 
     function setState(to) {
         setVehicleLightState( vehicleID, to);
         base.setState( to );
+    }
+
+    /**
+     * Return true if lights visually broken on server side.
+     * @return {Boolean}
+     */
+    function isBroken() {
+        return false;
     }
 }

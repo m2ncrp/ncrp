@@ -12,4 +12,13 @@ class Window extends OpenableVehiclePart {
         setVehicleWindowOpen(vehicleID, id, false);
         isOpen = false;
     }
+
+    /**
+     * Return true if window visually broken on server side.
+     * Needs for different message radius. 
+     * @return {Boolean}
+     */
+    function isBroken() {
+        return false;
+    }
 }
