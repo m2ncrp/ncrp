@@ -96,7 +96,9 @@ cmd("police", ["duty", "on"], function(playerid) {
         return msg(playerid, "organizations.police.notanofficer");
     }
     if ( !isOnPoliceDuty(playerid) ) {
-        policeSetOnDuty(playerid, true);    // <------------------------------- Set only on police dep
+        if ( isPlayerNearPoliceDepartment(playerid) ) { // <------------------------------- Set only on police dep
+            return policeSetOnDuty(playerid, true);    
+        }        
     } else {
         return msg(playerid, "organizations.police.duty.alreadyon");
     }
@@ -108,7 +110,9 @@ cmd("police", ["duty", "off"], function(playerid) {
         return msg(playerid, "organizations.police.notanofficer");
     }
     if ( isOnPoliceDuty(playerid) ) {
-        return policeSetOnDuty(playerid, false);// <------------------------------- Set only on police dep
+        if ( isPlayerNearPoliceDepartment(playerid) ) { // <------------------------------- Set only on police dep
+            return policeSetOnDuty(playerid, false);    
+        }
     } else {
         return msg(playerid, "organizations.police.duty.alreadyoff");
     }
