@@ -571,7 +571,7 @@ translation("ru", {
     "organizations.police.cuff.beenuncuffed"    : "%s снял с вас наручники."
     "organizations.police.cuff.uncuffsomeone"   : "Вы сняли наручники с %s."
 
-    "organizations.police.beenshown.badge"      : "Вы показываете свой жетон %s"
+    "organizations.police.beenshown.badge"      : "Вы показываете свой жетон %s."
     "organizations.police.show.badge"           : "%s %s показывает Вам свой полицейский жетон."
 
     "organizations.police.info.howjoin"         : "Если вы хотите пополнить ряды офицеров департамента Empire Bay, напишите администраторам!"

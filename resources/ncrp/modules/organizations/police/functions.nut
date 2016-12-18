@@ -204,5 +204,5 @@ function showBadge(playerid, targetid = null) {
     }
 
     msg(playerid, "organizations.police.beenshown.badge", [getAuthor(targetid)]);
-    msg(targetid, "organizations.police.show.badge", [getPoliceRank(playerid), getAuthor(targetid)]);
+    msg(targetid, "organizations.police.show.badge", [getPlayerJob(playerid), getAuthor(targetid)]);
 }
