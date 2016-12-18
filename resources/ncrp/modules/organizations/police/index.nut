@@ -50,8 +50,8 @@ translation("en", {
     "organizations.police.cuff.beenuncuffed"    : "You've been uncuffed by %s",
     "organizations.police.cuff.uncuffsomeone"   : "You uncuffed %s",
 
-    "organizations.police.beenshown.badge"      : "You're showing your badge to %s",
-    "organizations.police.show.badge"           : "%s %s is showing his badge to you .",
+    "organizations.police.beenshown.badge"      : "You're showing your badge to %s.",
+    "organizations.police.show.badge"           : "%s %s is showing his badge to you.",
 
     "organizations.police.info.howjoin"         : "If you want to join Police Department write one of admins!",
     "organizations.police.info.cmds.helptitle"  : "List of available commands for Police Officer JOB:",
