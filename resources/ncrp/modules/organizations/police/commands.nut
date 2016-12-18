@@ -3,7 +3,7 @@
  */
 
 acmd("police", "danger", function(playerid, level) {
-    setDangerLevel(playeridm, level);
+    setDangerLevel(playerid, level);
 });
 
 // usage: /police job <id>
