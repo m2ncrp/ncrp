@@ -1,5 +1,6 @@
 // russian translation
 translation("ru", {
+<<<<<<< HEAD
     "language.change.success"           :   "Âû óñïåøíî èçìåíèëè ÿçûê èíòåðôåéñà íà ðóññêèé!"
 
     "vehicle.owner.warning"             :   "Âû íå ìîæåòå ïåðåäâèãàòüñÿ â ÷óæîì àâòîìîáèëå."
@@ -154,11 +155,168 @@ translation("ru", {
     "job.fishdriver.help.load"         :   "Çàãðóçèòü ãðóçîâèê"
     "job.fishdriver.help.unload"       :   "Ðàçãðóçèòü ãðóçîâèê"
     "job.fishdriver.help.finish"       :   "Ñîîáùèòü î äîñòàâêå è ïîëó÷èòü äåíüãè"
+=======
+    "language.change.success"           :   "Вы успешно изменили язык интерфейса на русский!"
+
+    "vehicle.owner.warning"             :   "Вы не можете передвигаться в чужом автомобиле."
+    "vehicle.owner.true"                :   "Вы владелец данного авто."
+    "vehicle.owner.false"               :   "Вы не владелец данного авто."
+
+    "hospital.money.deducted"           :   "Вас выписали из госпиталя. Лечение обошлось вам в $%.2f."
+    "hospital.money.donthave"           :   "У вас недостаточно денег для оплаты полного лечения."
+
+    "client.interface.job"              :   "Работа: %s"
+    "client.interface.level"            :   "Уровень: %d"
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    "tips.money.earn"   :   "[TIPS] Вы можете зарабатывать деньги, устроившись на работу. Подробнее: /help job"
+    "tips.money.bank"   :   "[TIPS] Вы можете получать доход от депозита в банке (желтая иконка на радаре)."
+    "tips.car"          :   "[TIPS] Вы можете купить собственный автомобиль в Diamond Motors (серая иконка шестеренки на радаре)."
+    "tips.car.repair"   :   "[TIPS] Вы можете починить свой автомобиль в автомастерских."
+    "tips.eat"          :   "[TIPS] Вы можете восстанавливать уровень здоровья, обедая в ресторанах."
+    "tips.police"       :   "[TIPS] Если вы стали свидетелем преступления - вызывайте полицию. Команда: /police МЕСТО"
+    "tips.hobos"        :   "[TIPS] Вы можете найти деньги в мусорных контейнерах. Используйте команду: /dig"
+    "tips.engine.howto" :   "[TIPS] Не забывайте экономить топливо, используйте кнопку Q для выключения двигателя."
+    "tips.taxi"         :   "[TIPS] Если вам нужно куда-то добраться, вы можете вызвать такси: /taxi МЕСТО"
+    "tips.metro"        :   "[TIPS] Метро - это удобный и дешевый способ передвижения. Найдите ближайшую станцию с помощью /subway"
+    "tips.house"        :   "[TIPS] Вы можете купить дом. Найдите риэлтора, чтобы заключить сделку."
+    "tips.carrental"    :   "[TIPS] Если у вас не хватает денег на авто, вы можете арендовать машину в Car Rental в North Millville."
+    "tips.report"       :   "[TIPS] Увидели читера? Или игрока нарушающего правила? Сообщите администрации: /report ID ТЕКСТ"
+    "tips.idea"         :   "[TIPS] У вас есть идея или предложение, сообщите об этом нам, используя команду: /idea ТЕКСТ"
+    "tips.discord"      :   "[TIPS] Вы можете следить за новостями разработки на официальном сервере Discord: bit.ly/nc-rp"
+    "tips.layout"       :   "[TIPS] Вы можете сменить раскладку клавиатуры (бинды останутся на прежних местах как для qwerty). См. /layout"
+    "tips.language"     :   "[TIPS] В любой момент у вас есть возможность сменить язык: /en - английский, /ru - русский."
+    "tips.business"     :   "[TIPS] Вы можете приобрести бизнес. Находясь у бизнеса, напишите команду /business buy"
+    "tips.sellcar"      :   "[TIPS] Вы можете продать свой автомобиль другому игроку. Используйте команду /sell"
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    "auth.wrongname"        : "Имя аккаунта должно быть более оригинальным и иметь формат (Firstname Lastname)."
+    "auth.changename"       : "Пожалуйста, смените имя аккаунта в настройках и переподключитесь!"
+    "auth.welcome"          : "* Добро пожаловать, %s!"
+    "auth.registered"       : "* Ваш аккаунт зарегистрирован."
+    "auth.notregistered"    : "* Ваш аккаунт НЕ зарегистрирован."
+    "auth.command.register" : "* Зарегистрируйтесь, используя /register PASSWORD"
+    "auth.command.regformat": "* Пример: Joe Barbaro"
+    "auth.command.login"    : "* Войдите в аккаунт, используя: /login PASSWORD"
+    "auth.error.logined"    : "[AUTH] Вы уже вошли в аккаунт!"
+    "auth.error.register"   : "[AUTH] Аккаунт с такими именем уже зарегистрирован."
+    "auth.error.notfound"   : "[AUTH] Аккаунт с такими данными не зарегистрирован."
+    "auth.success.register" : "[AUTH] Вы успешно зарегистрировались!"
+    "auth.success.login"    : "[AUTH] Вы успешно вошли в аккаунт!"
+    "auth.error.cmderror"   : "[AUTH] Для выполнения команды Вам необходимо войти в аккаунт!"
+    "auth.notification"     : "[AUTH] Вам нужно войти в свой аккаунт используя /login PASSWORD, или создать новый через /register PASSWORD"
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    "business.money.income"     : "Вы получили %.2f как доход от вашего бизнеса «%s»!"
+    "business.error.cantbuy"    : "Сейчас у Вас нет возможности купить бизнес!"
+    "business.error.faraway"    : "Вы далеко от любого бизнеса!"
+    "business.error.owned"      : "Вы не можете приобрести бизнес который уже находится в собственности!"
+    "business.purchase.success" : "Вы успешно приобрели «%s»!"
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    "general.message.empty"         : "[INFO] Вы не можете отправить пустую строку"
+    "general.noonearound"           : "Рядом с вами никого нет."
+
+    "chat.player.says"              : "%s сказал: %s"
+    "chat.player.shout"             : "%s крикнул: %s"
+    "chat.player.whisper"           : "%s шепчет: %s"
+    "chat.player.message.private"   : "[PM] %s: %s"
+    "chat.player.try.end.success"   : "[TRY] %s попытался %s (успех)."
+    "chat.player.try.end.fail"      : "[TRY] %s попытался %s (провал)."
+
+    "chat.idea.success"             : "[IDEA] Ваша идея была успешно отправлена!"
+    "chat.report.success"           : "[REPORT] Ваш репорт был успешно отправлен!"
+    "chat.report.noplayer"          : "[REPORT] Вы не можете создать репорт на игрока, который находится в оффлайн!"
+    "chat.report.error"             : "[REPORT] Вам необходимо отправить репорт в виде: /report ID TEXT"
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    "job.leave"                         :   "Вы уволились с работы."
+    "job.alreadyhavejob"                :   "У вас уже есть работа: %s."
+    "job.checkmyjob"                    :   "Ваша работа: %s."
+    "job.unemployed"                    :   "У вас нет работы."
+    "job.false"                         :   "безработный"
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    "job.busdriver"                     :   "водитель автобуса"
+    "job.bus.letsgo"                    :   "[BUS] Отправляйтесь на автобусный вокзал в Аптауне."
+    "job.bus.needlevel"                 :   "[BUS] Водителем автобуса можно устроиться начиная с уровня %d."
+    "job.bus.driver.not"                :   "[BUS] Вы не работает водителем автобуса."
+    "job.bus.driver.already"            :   "[BUS] Вы уже работаете водителем автобуса."
+    "job.bus.driver.now"                :   "[BUS] Вы стали водителем автобуса! Поздравляем!"
+    "job.bus.ifyouwantstart"            :   "[BUS] Вы работаете водителем автобуса. Если хотите выйти в рейс - выберите маршрут на автобусном вокзале."
+    "job.bus.route.needselect"          :   "[BUS] Вам необходимо выбрать маршрут."
+    "job.bus.route.tochange"            :   "[BUS] Для выбора маршрута используйте /bus route id"
+    "job.bus.route.noexist"             :   "[BUS] Такой маршрут не существует. Выберите доступный маршрут."
+    "job.bus.route.selected"            :   "[BUS] Вы выбрали маршрут #%d. Садитесь в автобус."
+    "job.bus.route.needcontinue"        :   "[BUS] Продолжайте маршрут."
+    "job.bus.route.needcomplete"        :   "[BUS] Завершите маршрут."
+    "job.bus.needbus"                   :   "[BUS] Вам нужен автобус."
+    "job.bus.notready"                  :   "[BUS] Вы не готовы. Сообщите о готовности выйти в рейс."
+    "job.bus.readyalready"              :   "[BUS] Вы уже готовы выйти в рейс."
+    "job.bus.gotonextbusstop"           :   "[BUS] Отлично! Направляйтесь к следующей остановке в %s."
+    "job.bus.gotobusstop"               :   "[BUS] Направляйтесь к остановке в %s."
+    "job.bus.driving"                   :   "[BUS] Остановите автобус."
+    "job.bus.nicejob"                   :   "[BUS] Отличная работа! Вы заработали $%.2f."
+
+    "job.bus.help.title"                :   "Список команд, доступных водителю автобуса:"
+    "job.bus.help.job"                  :   "Устроиться на работу водителем автобуса"
+    "job.bus.help.jobleave"             :   "Уволиться с работы"
+    "job.bus.help.routelist"            :   "Список доступных маршрутов"
+    "job.bus.help.route"                :   "Выбрать маршрут. Например: /bus route 3"
+    "job.bus.help.ready"                :   "Выйти в рейс (подготовить автобус)"
+    "job.bus.help.busstop"              :   "Остановиться на автобусной остановке"
+
+    "job.bus.route.select"              :   "Выберите один из доступных маршрутов:"
+    "job.bus.route.1"                   :   "Маршрут «Uptown - Sand Island» (7 остановок)"
+    "job.bus.route.2"                   :   "Маршрут «Uptown - Kingston» (7 остановок)"
+    "job.bus.route.3"                   :   "Маршрут «Правый берег реки Калвер» (9 остановок)"
+    "job.bus.route.4"                   :   "Маршрут «Центральный кольцевой» (12 остановок)"
+    "job.bus.route.5"                   :   "Маршрут «Большой Empire Bay» (21 остановка)"
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    "job.fishdriver"                   :   "водитель грузовика"
+    "job.fishdriver.letsgo"            :   "[FISH] Отправляйтесь в офис City Port."
+    "job.fishdriver.needlevel"         :   "[FISH] Водителем грузовика можно устроиться начиная с уровня %d."
+    "job.fishdriver.already"           :   "[FISH] Вы уже работаете водителем грузовика."
+    "job.fishdriver.now"               :   "[FISH] Вы стали водителем грузовика."
+    "job.fishdriver.sitintotruck"      :   "[FISH] Садитесь в грузовик для доставки рыбы и поезжайте в City Port к складу P3 06."
+    "job.fishdriver.not"               :   "[FISH] Вы не работаете водителем грузовика."
+    "job.fishdriver.needfishtruck"     :   "[FISH] Вам нужен грузовик для доставки рыбы."
+    "job.fishdriver.fishtoomuch"       :   "[FISH] На складе уже достаточно рыбы. Пока больше не требуется."
+    "job.fishdriver.toload"            :   "[FISH] Отправляйтесь в Порт к складу P3 06 для загрузки."
+    "job.fishdriver.driving"           :   "[FISH] Остановите грузовик."
+    "job.fishdriver.loading"           :   "[FISH] Грузовик загружается. Ждите..."
+    "job.fishdriver.unloading"         :   "[FISH] Грузовик разгружается. Ждите..."
+    "job.fishdriver.alreadyloaded"     :   "[FISH] Грузовик уже загружен."
+    "job.fishdriver.loaded"            :   "[FISH] Грузовик загружен. Езжайте к складу Seagift для разгрузки."
+    "job.fishdriver.empty"             :   "[FISH] Грузовик пуст. Отправляйтесь в City Port для загрузки."
+    "job.fishdriver.tounload"          :   "[FISH] Отправляйтесь к складу Seagift для разгрузки."
+    "job.fishdriver.takemoney"         :   "[FISH] Идите в офис Seagift и получите Ваш заработок."
+    "job.fishdriver.needcomplete"      :   "[FISH] Завершите доставку."
+    "job.fishdriver.nicejob"           :   "[FISH] Отличная работа, %s! Держи $%.2f."
+    "job.fishdriver.wantagain"         :   "[FISH] Если вы хотите выйти в рейс повторно - садистесь в грузовки и отправлйтесь в Порт к складу P3 06."
+    "job.fishdriver.notpassenger"      :   "[FISH] Доставка может осуществляться только водителем, но не пассажиром."
+
+    "job.fishdriver.help.title"        :   "Список команд, доступных водителю грузовика:"
+    "job.fishdriver.help.job"          :   "Устроиться на работу водителем грузовика"
+    "job.fishdriver.help.jobleave"     :   "Уволиться с работы"
+    "job.fishdriver.help.load"         :   "Загрузить грузовик"
+    "job.fishdriver.help.unload"       :   "Разгрузить грузовик"
+    "job.fishdriver.help.finish"       :   "Сообщить о доставке и получить деньги"
+>>>>>>> 78553b0cdf664b0fb79ac4e4dca686534297be2e
 
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
 
+<<<<<<< HEAD
     "job.truckdriver"                   : "øîô¸ð"
 
     "job.truckdriver.scens1.load"       : "Ñàäèñü â ãðóçîâèê è îòïðàâëÿéñÿ â Ñåâåðíûé Ìèëâèëë äëÿ çàãðóçêè ñòðîèòåëüíûõ ìàòåðèàëîâ."
@@ -191,10 +349,45 @@ translation("ru", {
     "job.truckdriver.help.jobleavetext"     :   "Óâîëèòüñÿ ñ ðàáîòû (ïîäîéòè ê Robert Casey)"
     "job.truckdriver.help.loadunload"       :   "êíîïêà E"
     "job.truckdriver.help.loadunloadtext"   :   "Çàãðóçèòü/ðàçãðóçèòü ãðóçîâèê (íóæíî áûòü â ãðóçîâèêå)"
+=======
+    "job.truckdriver"                   : "шофёр"
+
+    "job.truckdriver.scens1.load"       : "Садись в грузовик и отправляйся в Северный Милвилл для загрузки строительных материалов."
+    "job.truckdriver.scens1.unload"     : "Грузовик загружен. Отправляйся в Мидтаун для разгрузки строительных материалов."
+
+    "job.truckdriver.scens2.load"       : "Садись в грузовик и отправляйся в Хантерс-Пойнт для погрузки обломков сгоревшего дома."
+    "job.truckdriver.scens2.unload"     : "Грузовик загружен. Отправляйся в Северный Милвилл для разгрузки обломков сгоревшего дома."
+
+    "job.truckdriver.badworker"         : "Robert Casey: Плохой из тебя работник. Для такого как ты у меня нет работы."
+    "job.truckdriver.badworker.onleave" : "Robert Casey: Херовый ты работник. Вали нахрен."
+    "job.truckdriver.goodluck"          : "Robert Casey: Удачи тебе, пацан! Приходи, если нужна работа."
+    "job.truckdriver.needcomplete"      : "Robert Casey: Сначала заверши доставку."
+    "job.truckdriver.nicejob"           : "Robert Casey: Отличная работа, %s! Держи $%.2f."
+    "job.truckdriver.now"               : "Robert Casey: Добро пожаловать в ряды шофёров!"
+
+    "job.truckdriver.needlevel"         : "[TRUCK] Шофёром можно устроиться начиная с уровня %d."
+    "job.truckdriver.wantwork"          : "[TRUCK] Ты работаешь шофёром. Если хочешь поработать - отправляйся к транспортной базе у моста в Хайбрук."
+    "job.truckdriver.already"           : "[TRUCK] Ты уже работаешь шофёром."
+    "job.truckdriver.notpassenger"      : "[TRUCK] Доставка может осуществляться только водителем, но не пассажиром."
+    "job.truckdriver.loading"           : "[TRUCK] Грузовик загружается. Подожди..."
+    "job.truckdriver.unloading"         : "[TRUCK] Грузовик разгружается. Подожди..."
+    "job.truckdriver.alreadyloaded"     : "[TRUCK] Грузовик уже загружен."
+    "job.truckdriver.empty"             : "[TRUCK] Грузовик пуст."
+    "job.truckdriver.takemoney"         : "[TRUCK] Возвращайся на базу к мосту в Хайбрук, припаркуй грузовик и получи заработанные деньги."
+
+    "job.truckdriver.help.title"        : "Список команд, доступных шофёру:"
+    "job.truckdriver.help.job"              :   "кнопка E"
+    "job.truckdriver.help.jobtext"          :   "Устроиться на работу шофёром (подойти к Robert Casey)"
+    "job.truckdriver.help.jobleave"         :   "кнопка Q"
+    "job.truckdriver.help.jobleavetext"     :   "Уволиться с работы (подойти к Robert Casey)"
+    "job.truckdriver.help.loadunload"       :   "кнопка E"
+    "job.truckdriver.help.loadunloadtext"   :   "Загрузить/разгрузить грузовик (нужно быть в грузовике)"
+>>>>>>> 78553b0cdf664b0fb79ac4e4dca686534297be2e
 
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
+<<<<<<< HEAD
     "job.docker"                        :   "ïîðòîâûé ðàáî÷èé"
     "job.docker.letsgo"                 :   "[DOCKER] Îòïðàâëÿéòåñü â îôèñ City Port."
     "job.docker.already"                :   "[DOCKER] Òû óæå ðàáîòàåøü ïîðòîâûì ðàáî÷èì."
@@ -389,6 +582,202 @@ translation("ru", {
 
     "taxi.help.title"                   :   "Ñïèñîê äîñòóïíûõ êîìàíä äëÿ òàêñè"
     "taxi.help.taxi"                    :   "/taxi àäðåñ - Âûçâàòü òàêñè ïî óêàçàííîìó àäðåñó"
+=======
+    "job.docker"                        :   "портовый рабочий"
+    "job.docker.letsgo"                 :   "[DOCKER] Отправляйтесь в офис City Port."
+    "job.docker.already"                :   "[DOCKER] Ты уже работаешь портовым рабочим."
+    "job.docker.now"                    :   "[DOCKER] Ты стал портовым рабочим. Добро пожаловать... в ад! Аха-ха..."
+    "job.docker.takeboxandcarry"        :   "[DOCKER] Бери ящик и неси на склад."
+    "job.docker.not"                    :   "[DOCKER] Вы не работаете портовым рабочим."
+    "job.docker.takebox"                :   "[DOCKER] Иди и возьми ящик."
+    "job.docker.havebox"                :   "[DOCKER] Ты уже несёшь ящик. Тебе мало что ли?"
+    "job.docker.tookbox"                :   "[DOCKER] Ты взял ящик. Теперь неси его на склад."
+    "job.docker.haventbox"              :   "[DOCKER] Ты не брал ящик."
+    "job.docker.gotowarehouse"          :   "[DOCKER] Иди на склад."
+    "job.docker.nicejob"                :   "[DOCKER] Ты принёс ящик. Твой заработок $%.2f."
+
+    "job.docker.help.title"             :   "Список команд, доступных портовому рабочему:"
+    "job.docker.help.job"               :   "Устроиться на работу портовым рабочим"
+    "job.docker.help.jobleave"          :   "Уволиться с работы"
+    "job.docker.help.take"              :   "Взять ящик"
+    "job.docker.help.put"               :   "Положить ящик на склад"
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    "job.fueldriver"                                        : "водитель бензовоза"
+    "job.fueldriver.letsgo"                                 : "[FUEL] Отправляйтесь к штаб-квартире Trago Oil в Oyster Bay."
+    "job.fueldriver.needlevel"                              : "[FUEL] Водителем бензовоза можно устроиться начиная с уровня %d."
+    "job.fueldriver.already"                                : "[FUEL] Вы уже работает водителем бензовоза."
+    "job.fueldriver.now"                                    : "[FUEL] Вы стали водителем бензовоза!"
+    "job.fueldriver.sitintotruck"                           : "[FUEL] Садитесь в бензовоз."
+    "job.fueldriver.not"                                    : "[FUEL] Вы не работаете водителем бензовоза."
+    "job.fueldriver.needfueltruck"                          : "[FUEL] Вам нужен бензовоз."
+    "job.fueldriver.truck.loaded"                           : "[FUEL] Бензовоз заполнен на %d из 16000. Развезите топливо по заправкам."
+    "job.fueldriver.truck.empty"                            : "[FUEL] Бензовоз пуст. Отправляйтесь к топливному хранилищу в South Millville для загрузки (метка с красным крестом на радаре)."
+    "job.fueldriver.truck.toload"                           : "[FUEL] Отправляйтесь к топливному хранилищу в South Millville для загрузки (метка с красным крестом на радаре)."
+    "job.fueldriver.driving"                                : "[FUEL] Остановите бензовоз."
+    "job.fueldriver.truck.alreadyloaded"                    : "[FUEL] Бензовоз уже заполнен."
+    "job.fueldriver.truck.fullloaded"                       : "[FUEL] Бензовоз заполнен на 16000 из 16000. Развезите топливо по заправкам."
+    "job.fueldriver.truck.fuelnotenough"                    : "[FUEL] Недостаточно топлива. Отправляйтесь к топливному хранилищу для загрузки (метка с красным крестом на радаре)"
+    "job.fueldriver.truck.tounload"                         : "[FUEL] Разгрузка топлива возможна только на заправках."
+    "job.fueldriver.alreadybeenhere"                        : "[FUEL] Вы уже были здесь. Направляйтесь к другой заправке."
+    "job.fueldriver.truck.parking"                          : "[FUEL] Хорошая работа! Верните бензовоз к штаб-квартире Trago Oil в Oyster Bay, припаркуйте и получите Ваш заработок."
+    "job.fueldriver.truck.unloadingcompletedtruckisloaded"  : "[FUEL] Разгрузка выполнена. Бензовоз заполнен на %d из 16000. Направляйтесь к следующей заправке."
+    "job.fueldriver.truck.unloadingcompletedfuelnotenough"  : "[FUEL] Разгрузка выполнена. Топливо закончилось. Отправляйтесь к топливному хранилищу для загрузки (метка с красным крестом на радаре)"
+    "job.fueldriver.truck.topark"                           : "[FUEL] Чтобы припарковать бензовоз, отправляйтесь к штаб-квартире Trago Oil в Oyster Bay."
+    "job.fueldriver.completedelivery"                       : "[FUEL] Развезите топливо по всем заправкам."
+    "job.fueldriver.nicejob"                                : "[FUEL] Отличная работа! Вы заработали $%.2f."
+    "job.fueldriver.routelist.title"                        : "[FUEL] ========== Маршутный лист =========="
+    "job.fueldriver.routelist.completed"                    : "[FUEL] %d. Заправка в %s - доставлено"
+    "job.fueldriver.routelist.waiting"                      : "[FUEL] %d. Заправка в %s - ожидается"
+    "job.fueldriver.truck.loadedto"                         : "[FUEL] Бензовоз заполнен на %d из 16000."
+
+    "job.fueldriver.help.title"                             : "Список команд, доступных водителю бензовоза:"
+    "job.fueldriver.help.job"                               : "Устроиться на работу водителем бензовоза"
+    "job.fueldriver.help.leavejob"                          : "Уволиться с работы"
+    "job.fueldriver.help.ready"                             : "Выйти в рейс"
+    "job.fueldriver.help.load"                              : "Загрузить бензовоз"
+    "job.fueldriver.help.unload"                            : "Выгрузить топливо на заправке"
+    "job.fueldriver.help.park"                              : "Припарковать бензовоз на парковке Trago Oil"
+    "job.fueldriver.help.check"                             : "Проверить загруженность бензовоза"
+    "job.fueldriver.help.list"                              : "Посмотреть маршрутный лист"
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    "job.milkdriver"                                    :   "развозчик молока"
+    "job.milkdriver.letsgo"                             :   "[MILK] Отправляйтесь к зданию Empire Bay Milk Co."
+    "job.milkdriver.needlevel"                          :   "[MILK] Развозчиком молока можно устроиться начиная с уровня %d."
+    "job.milkdriver.already."                           :   "[MILK] Вы уже работаете развозчиком молока."
+    "job.milkdriver.now"                                :   "[MILK] Вы стали развозчиком молока. Поздравляем!"
+    "job.milkdriver.sitintruck"                         :   "[MILK] Садитесь в молоковоз."
+    "job.milkdriver.gotofarm"                           :   "[MILK] Отправляйтесь на ферму."
+    "job.milkdriver.not"                                :   "[MILK] Вы не работаете развозчиком молока."
+    "job.milkdriver.needtruck"                          :   "[MILK] Вам нужен молоковоз."
+    "job.milkdriver.route.already"                      :   "[MILK] У вас уже есть маршрутный лист"
+    "job.milkdriver.route.now.loaded"                   :   "[MILK] Вы получили маршрутный лист. Молоковоз заполнен на %d из 120"
+    "job.milkdriver.route.now.empty"                    :   "[MILK] Вы получили маршрутный лист. Молоковоз пуст. Загрузите молоко."
+    "job.milkdriver.notready"                           :   "[MILK] У вас нет маршрутного листа."
+    "job.milkdriver.gofillingstation"                   :   "[MILK] Отправляйтесь к молочному заводу в Chinatown для загрузки молока."
+    "job.milkdriver.driving"                            :   "[MILK] Остановите молоковоз."
+    "job.milkdriver.milktruckloadedcarrymilk"           :   "[MILK] Молоковоз заполнен на 120 из 120. Развезите молоко по адресам."
+    "job.milkdriver.truckalreadyloaded."                :   "[MILK] Молоковоз уже загружен."
+    "job.milkdriver.route.nohave"                       :   "[MILK] У вас нет маршрутного листа."
+    "job.milkdriver.milknotenough"                      :   "[MILK] Молоко закончилось. Отправляйтесь к молочному заводу в Chinatown для загрузки молока."
+    "job.milkdriver.carrymilk"                          :   "[MILK] Развезите молоко по адресам."
+    "job.milkdriver.alreadybeenhere"                    :   "[MILK] Вы уже были здесь. Направляйтесь к следующему адресу доставки."
+    "job.milkdriver.nicejob.needpark"                   :   "[MILK] Отлично! Верните молоковоз обратно к молочному заводу в Chinatown, припаркуйте и получите Ваш заработок."
+    "job.milkdriver.unloadingcompleted.truckloaded"     :   "[MILK] Разгрузка прошла успешна. Молоковоз заполнен на %d из 120. Направляйтесь к следующему адресу доставки."
+    "job.milkdriver.unloadingcompleted.milknotenough"   :   "[MILK] Разгрузка прошла успешна. Молоко закончилось. Отправляйтесь к молочному заводу в Chinatown для загрузки молока."
+    "job.milkdriver.carrymilkalladdresses"              :   "[MILK] Развезите молоко по всем адресам."
+    "job.milkdriver.parkmilktruck."                     :   "[MILK] Чтобы припарковать молоковоз, отправляйтесь к молочному заводу в Chinatown."
+    "job.milkdriver.completemilkdelivery."              :   "[MILK] Завершите доставку молока по всем адресам."
+    "job.milkdriver.nicejob"                            :   "[MILK] Отличная работа! Вы заработали $20."
+    "job.milkdriver.route.title"                        :   "[MILK] ========== Маршрутный лист =========="
+    "job.milkdriver.route.completed"                    :   "[MILK] %d. %s - завершено"
+    "job.milkdriver.route.waiting"                      :   "[MILK] %d. %s - ожидается"
+    "job.milkdriver.milktruckloaded"                    :   "[MILK] Молоковоз заполнен на %d из 120"
+
+    "job.milkdriver.help.title"                         :    "Список команд, доступных развозчику молока:"
+    "job.milkdriver.help.job"                           :    "Устроиться на работу развозчиком молока"
+    "job.milkdriver.help.jobleave"                      :    "Уволиться с работы"
+    "job.milkdriver.help.ready"                         :    "Получить маршрутный лист"
+    "job.milkdriver.help.load"                          :    "Загрузить молоко в молоковоз"
+    "job.milkdriver.help.unload"                        :    "Выгрузить молоко"
+    "job.milkdriver.help.park"                          :    "Припарковать молоковоз на парковке"
+    "job.milkdriver.help.check"                         :    "Проверить загруженность молоковоза"
+    "job.milkdriver.help.list"                          :    "Посмотреть маршрутный лист"
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    "job.realtor"                   :   "риэлтор"
+    "job.realtor.not"               :   "Вы не риэлтор."
+    "job.realtor.sendinvoice"       :   "Вы отправили запрос на оплату покупки дома."
+    "job.realtor.receivedinvoice"   :   "Вы получили запрос на оплату покупки дома."
+    "job.realtor.boughthouse"       :   "Поздравляем с приобретением дома!."
+    "job.realtor.customerpaid"      :   "Покупатель подтвердил оплату. Дом продан. "
+    "job.realtor.youcantbuy"        :   "Вы должны оплатить покупку дома."
+    "job.realtor.customer"          :   "Покупатель не подтвердил оплату."
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    "job.porter"                    :   "грузчик"
+    "job.porter.letsgo"             :   "[PORTER] Отправляйтесь внутрь здания вокзала в Dipton."
+    "job.porter.already"            :   "[PORTER] Ты уже работаешь грузчиком."
+    "job.porter.now"                :   "[PORTER] Ты стал грузчиком. Давай за работу!"
+    "job.porter.takeboxandcarry"    :   "[PORTER] Бери ящик и неси к вагону."
+    "job.porter.not"                :   "[PORTER] Вы не работаете грузчиком."
+    "job.porter.takebox"            :   "[PORTER] Иди и возьми ящик."
+    "job.porter.havebox"            :   "[PORTER] Ты уже несёшь ящик. Тебе мало что ли?"
+    "job.porter.tookbox"            :   "[PORTER] Ты взял ящик. Теперь неси его к вагону."
+    "job.porter.haventbox"          :   "[PORTER] Ты не брал ящик."
+    "job.porter.gotowarehouse"      :   "[PORTER] Иди к вагону."
+    "job.porter.nicejob"            :   "[PORTER] Ты принёс ящик. Твой заработок $%.2f."
+
+    "job.porter.help.title"         :   "Список команд, доступных грузчику:"
+    "job.porter.help.job"           :   "Устроиться на работу грузчиком"
+    "job.porter.help.jobleave"      :   "Уволиться с работы"
+    "job.porter.help.take"          :   "Взять ящик"
+    "job.porter.help.put"           :   "Положить ящик к вагону"
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+    "job.taxidriver"                    :   "таксист"
+    "job.taxi.needlevel"                :   "[TAXI] Устроиться на работу таксистом можно начиная с уровня %d."
+    "job.taxi.driver.not"               :   "[TAXI] Вы не работаете таксистом."
+    "job.taxi.driver.already"           :   "[TAXI] Вы уже работаете таксистом."
+    "job.taxi.driver.dontfoolaround"    :   "[TAXI] Не валяй дурака! Ты сам таксист."
+    "job.taxi.driver.now"               :   "[TAXI] Вы стали таксистом. Выйдите на линию, чтобы начать принимать вызовы."
+    "job.taxi.call.new"                 :   "[TAXI] Новый вызов с адреса: %s. Если вы хотите принять этот вызов, напишите /taxi take %d."
+    "job.taxi.needcar"                  :   "[TAXI] Вам нужен автомобиль такси."
+    "job.taxi.noanycalls"               :   "[TAXI] Сейчас у вас нет принятого вызова."
+    "job.taxi.wait"                     :   "[TAXI] Ждите пассажира..."
+    "job.taxi.canttakecall"             :   "[TAXI] Вы не можете принять вызов, пока не вышли на линию."
+    "job.taxi.callnotexist"             :   "[TAXI] Клиент отменил вызов. Ждите других звонков..."
+    "job.taxi.takenthiscall"            :   "[TAXI] Вы уже приняли этот вызов (#%d)."
+    "job.taxi.takencall"                :   "[TAXI] Вы уже приняли другой вызов."
+    "job.taxi.callalreadytaken"         :   "[TAXI] Вызов #%d уже принят другим водителем."
+    "job.taxi.youtakencall"             :   "[TAXI] Вы приняли вызов #%d."
+    "job.taxi.completed"                :   "[TAXI] Клиент оплатил поездку. Вы завершили заказ #%d."
+    "job.taxi.statuson"                 :   "[TAXI] Вы вышли на линию. Ожидайте звонков..."
+    "job.taxi.cantchangestatus"         :   "[TAXI] Вы сможете уйти с линии только когда завершите текущую поездку или откажетесь от вызова."
+    "job.taxi.statusoff"                :   "[TAXI] Вы ушли с линии. Вам не будут поступать звонки."
+    "job.taxi.requested"                :   "[TAXI] Вы запросили оплатить $%.2f за свои услуги."
+    "job.taxi.psngdeclined"             :   "[TAXI] Пассажир %s отказался платить."
+    "job.taxi.callclosed"               :   "[TAXI] Вызов был успешно закрыт."
+    "job.taxi.havejob"                  :   "[TAXI] У вас есть работа: %s."
+    "job.taxi.refusedcall"              :   "[TAXI] Вы отказались от вызова #%d."
+    "job.taxi.cantrefuse"               :   "[TAXI] Вы не можете отказаться от вызова во время его выполнения."
+    "job.taxi.cantleavejob1"            :   "[TAXI] Вы не можете уволиться при наличии принятого звонка."
+    "job.taxi.cantleavejob2"            :   "[TAXI] Вы не можете уволиться во время выполнения вызова."
+
+    "job.taxi.help.title"               :   "Список команд, доступных таксисту:"
+    "job.taxi.help.job"                 :   "Устроиться на работу таксистом"
+    "job.taxi.help.jobleave"            :   "Уволиться с работы"
+    "job.taxi.help.onair"               :   "Выйти на линию"
+    "job.taxi.help.offair"              :   "Уйти с линии"
+    "job.taxi.help.take"                :   "Взять вызов по id. Например: /taxi take 5"
+    "job.taxi.help.refuse"              :   "Отказать от текущего вызова"
+    "job.taxi.help.ready"               :   "Сообщить о прибытии по адресу"
+    "job.taxi.help.done"                :   "Завершить поездку и отправить запрос на оплату. Например: /taxi done 1.25"
+    "job.taxi.help.close"               :   "Закрыть вызов как выполненный"
+
+    "taxi.needpay"                      :   "Чтобы управлять этим автомобилем, Вы должны оплатить $%.2f за топливо и аренду. Если согласны: /drive"
+    "taxi.notenough"                    :   "У вас недостаточно денег."
+    "taxi.youpay"                       :   "Вы заплатили $%.2f. Теперь вы можете управлять данным автомобилем."
+    "taxi.attention"                    :   "Внимание!!! Если вы покинете автомобиль и сядете обратно, Вы будете должны оплатить аренду снова."
+
+    "taxi.call.addresswithout"          :   "Нельзя вызвать такси без указания адреса."
+    "taxi.call.nofreecars"              :   "Нет свободных машин. Позвоните позже."
+    "taxi.call.youcalled"               :   "Вы вызвали такси по адресу %s."
+    "taxi.call.received"                :   "Водитель принял Ваш звонок. Машина выехала. Ожидайте..."
+    "taxi.call.arrived"                 :   "Машина такси с номером %s прибыла по адресу."
+    "taxi.call.refused"                 :   "Водитель отказался от вызова. Ожидайте других водителей."
+    "taxi.call.request"                 :   "Вы должны заплатить $%.2f за услуги такси."
+    "taxi.call.declined"                :   "Вы отказались платить за такси."
+    "taxi.call.completed"               :   "Поездка завершена. Пожалуйста, освободите автомобиль."
+
+    "taxi.help.title"                   :   "Список доступных команд для такси"
+    "taxi.help.taxi"                    :   "/taxi адрес - Вызвать такси по указанному адресу"
+>>>>>>> 78553b0cdf664b0fb79ac4e4dca686534297be2e
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
@@ -397,7 +786,11 @@ translation("ru", {
     "telephone2"  : "Riverside."
     "telephone3"  : "Dipton. Gas Station."
     "telephone4"  : "Dipton. Road to Gas Station. Pair box."
+<<<<<<< HEAD
     "telephone5"  : "Äèïòîí. Äîðîãà ê àâòîçàïðàâêå. Ñìåæíûå áóäêè."
+=======
+    "telephone5"  : "Диптон. Дорога к автозаправке. Смежные будки."
+>>>>>>> 78553b0cdf664b0fb79ac4e4dca686534297be2e
     "telephone6"  : "Kingston. Gun Shop."
     "telephone7"  : "Kingston. West of last north street."
     "telephone8"  : "Kingston. Empire Diner."
@@ -487,6 +880,7 @@ translation("ru", {
     "telephone92" : "Uptown. Opposite to Police Department."
     "telephone93" : "Uptown. Near arch to Little Italy."
 
+<<<<<<< HEAD
     "telephone.findphone" : "Â òå÷åíèå 20 ñåêóíä íà ðàäàðå îòîáðàæàåòñÿ ìåòêà áëèæàéøåé òåëåôîííîé áóäêè."
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
@@ -737,5 +1131,257 @@ translation("ru", {
     "bk.betmade"            : "[ÁÊ] Âû ïîñòàâèëè $%.2f íà ïîáåäó %s."
     "bk.betwin"             : "[ÁÊ] Âàøà ñòàâêà íà «%s» âûèãðàëà. Âû çàðàáîòàëè $%.2f."
     "bk.betlose"            : "[ÁÊ] Âàøà ñòàâêà íà «%s» ïðîèãðàëà. Âû ïîòåðÿëè $%.2f."
+=======
+    "telephone.findphone" : "В течение 20 секунд на радаре отображается метка ближайшей телефонной будки."
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    "metro.toofaraway"                  : "[МЕТРО] Вы находитесь слишком далеко от станции!"
+    "metro.notenoughmoney"              : "[МЕТРО] У вас недостаточно денег!"
+    "metro.pay"                         : "[МЕТРО] Вы заплатили $%.2f за проезд."
+    "metro.arrived"                     : "[МЕТРО] Вы прибыли на станцию %s."
+    "metro.herealready"                 : "[МЕТРО] Вы и так уже здесь."
+    "metro.notexist"                    : "[МЕТРО] Выбранной станции метро не существует."
+    "metro.nocar"                       : "[МЕТРО] Метро - не паром. Выйдите из авто."
+
+    "metro.listStations.title"          : "Список доступных станций метро:"
+    "metro.listStations.station"        : "Станция #%d - %s"
+    "metro.listStations.station.closed" : "Станция #%d - %s (закрыта)"
+
+    "metro.station.closed.maintaince"   : "Станция %s закрыта по техническим причинам. Пожалуйста, воспользуйтесь другими станциями или используйте общественный транспорт."
+
+    "metro.help.title"                  : "Список доступных комманд для метро:"
+    "metro.help.subway"                 : "Отправиться на станцию по id"
+    "metro.help.subwayList"             : "Посмотреть список всех станций"
+    "metro.help.sub"                    : "Аналог /subway id"
+    "metro.help.metro"                  : "Аналог /subway id"
+
+    "metro.station.nearest.showblip"    : "[SUBWAY] Ближайшая станция (%s) отмечена на карте жёлтым маркером."
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    "bank.letsgo"                       :   "Отправляйтесь к зданию Grand Imperial Bank в Мидтауне."
+    "bank.deposit.minimum"              :   "Вы не можете положить эту сумму. Минимальная сумма вклада составляет $100."
+    "bank.deposit.notenough"            :   "Вы не можете положить эту сумму: недостаточно наличных денег."
+    "bank.withdraw.minimum"             :   "Вы не можете снять эту сумму. Минимальная сумма снятия составляет $100."
+    "bank.withdraw.notenough"           :   "Вы не можете снять эту сумму: недостаточно средств на балансе."
+    "bank.provideamount"                :   "Вам необходимо указать сумму."
+    "bank.help.commandslist"            :   "Список доступных комманд для Grand Imperial Bank:"
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    "organizations.hobos.trash.toofar"  : "Вы далеко от мусорного контейнера!"
+    "organizations.hobos.tired"         : "Вы устали, передохните."
+    "organizations.hobos.trash.found"   : "Вы нашли $%.2f. Теперь у вас $%s."
+    "organizations.unemployed.income"   : "Вы получили $%.2f в качестве пособия по безработице."
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    "general.admins.serial.get"                 : "Cерийный номер игрока %s: %s"
+
+    "general.message.empty"                     : "[INFO] Вы не можете отправить пустое сообщение."
+    "general.noonearound"                       : "Рядом с вами никого нет."
+    "general.job.anotherone"                    : "Вы работаете %s, а не %s!"
+
+    "job.police.officer"                        : "Офицер"
+    "job.police.detective"                      : "Детектив"
+    "job.police.chief"                          : "Шеф Полиции"
+    "organizations.police.job.getmaxrank"       : "Вы достигли максимального звания: %s."
+
+    "organizations.police.setjob.byadmin"       : "Вы устроили на работу игрока %s в качестве %s."
+    "organizations.police.leavejob.byadmin"     : "Вы уволили %s с работы %s."
+
+    "organizations.police.call.withoutaddress"  : "Вы не можете вызвать полицию, не указав адрес."
+    "organizations.police.call.new"             : "[R] поступил вызов от %s из %s"
+    "organizations.police.call.foruser"         : "Вы вызвали такси из %s"
+
+    "organizations.police.income"               : "[EBPD] Ваша зарплата составляет $%.2f за службу в качестве %s."
+
+    "organizations.police.crime.wasdone"        : "Лучше бы ты этого не делал..."
+    "organizations.police.alreadyofficer"       : "Вы уже состоите в EBPD."
+    "organizations.police.notanofficer"         : "Вы не являетесь офицером полиции."
+    "organizations.police.duty.on"              : "Вы вышли на смену."
+    "organizations.police.duty.off"             : "Вы закончили свою смену."
+    "organizations.police.duty.alreadyon"       : "Вы уже начали свою смену."
+    "organizations.police.duty.alreadyoff"      : "Вы уже закончили свою смену."
+    "organizations.police.notinpolicevehicle"   : "Вы должны быть в служебной машине!"
+    "organizations.police.ticket.givewithreason": "%s выписал вам штраф за %s. Введите /accept %i."
+    "organizations.police.offduty.notickets"    : "Вы закончили свою смену и не имеете квитанций с собой."
+    "organizations.police.offduty.nobaton"      : "У вас нет дубинки, т.к. вы не полицейский."
+    "organizations.police.offduty.nobadge"      : "У вас нет с собой жетона, т.к. вы не на смене."
+
+    "organizations.police.bitsomeone.bybaton"   : "Вы ударили %s дубинкой."
+    "organizations.police.beenbit.bybaton"      : "Вас оглушили дубинкой."
+    "organizations.police.beencuffed"           : "%s надел на вас наручники."
+    "organizations.police.cuff.someone"         : "Вы арестовали %s."
+    "organizations.police.cuff.beenuncuffed"    : "%s снял с вас наручники."
+    "organizations.police.cuff.uncuffsomeone"   : "Вы сняли наручники с %s."
+
+    "organizations.police.beenshown.badge"      : "Вы показываете свой жетон %s."
+    "organizations.police.show.badge"           : "%s %s показывает Вам свой полицейский жетон."
+
+    "organizations.police.jail"                 : "Вас посадили в тюрьму."
+    "organizations.police.unjail"               : "Вы отсидели свой срок и были освобождены от тюремного заключения."
+
+    "organizations.police.info.howjoin"         : "Если вы хотите пополнить ряды офицеров департамента Empire Bay, напишите администраторам!"
+    "organizations.police.info.cmds.helptitle"  : "Список команд, доступных офицерам полиции:"
+    "organizations.police.info.cmds.ratio"      : "Сказать что-либо в полицейскую рацию"
+    "organizations.police.info.cmds.rupor"      : "Сказать что-либо в рупор служебной машины"
+    "organizations.police.info.cmds.ticket"     : "Выдать штраф игроку с указанным id. Пример: /ticket 0 2.1 превышение скорости"
+    "organizations.police.info.cmds.baton"      : "Обездвижить ближайшего игрока"
+    "organizations.police.info.cmds.cuff"       : "Надеть наручники на ближайшего оглушенного игрока или снять их"
+    "organizations.police.info.cmds.prison"     : "Посадить игрока с указанным id в тюрьму"
+    "organizations.police.info.cmds.amnesty"    : "Вытащить игрока с указанным id из тюрьмы"
+    "organizations.police.info.cmds.dutyon"     : "Выйти на смену."
+    "organizations.police.info.cmds.dutyoff"    : "Закончить смену."
+
+    "organizations.police.onrankup"             : "Вы были повышены до %s"
+    "organizations.police.onbecame"             : "Вы стали офицером полиции."
+    "organizations.police.onleave"              : "Вы более не являетесь офицером полиции."
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    "rentcar.goto"          : "Отправляйтесь на парковку авто, предоставляемых в аренду, в North Millville."
+    "rentcar.notrent"       : "Этот автомобиль нельзя арендовать."
+    "rentcar.notenough"     : "У вас недостаточно денег."
+    "rentcar.rented"        : "Вы арендовали этот автомобиль. Отказаться от аренды: /rent refuse"
+    "rentcar.refused"       : "Вы отказались от аренды всех автомобилей. Благодарим за выбор North Millville Car Rental!"
+    "rentcar.canrent"       : "Вы можете взять этот автомобиль в аренду за $%.2f за 10 игровых минут ($%.2f в час). Если согласны: /rent"
+    "rentcar.cantrent"      : "У вас закончились деньги, аренда приостановлена. Пожалуйста, покиньте автомобиль."
+    "rentcar.paidcar"       : "Вы заплатили за аренду автомобиля $%.2f. Ваш баланс: $%s."
+
+    "rentcar.help.title"    : "Список команд, доступных для аренды автомобилей:"
+    "rentcar.help.rent"     : "Арендовать автомобиль (нужно быть в автомобиле)"
+    "rentcar.help.refuse"   : "Отказаться от аренды всех автомобилей"
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    "shops.carshop.gotothere"     : "Если вы хотите купить авто, отправляйтесь в Diamond Motors или Bad Guy Motors!"
+    "shops.carshop.welcome"       : "Добро пожаловать, %s! Если вы хотите купить авто, выберите модель через: /car list"
+    "shops.carshop.nofreespace"   : "К сожалению, на парковке нету свободных мест. Зайдите позже."
+    "shops.carshop.money.error"   : "К сожалению, у вас недостаточно денег."
+    "shops.carshop.selectmodel"   : "Вы можете посмотреть модели авто и их цены, используя: /car list"
+    "shops.carshop.list.title"    : "Выберите модель, которая вам нравится, и купите её, используя: /car buy MODELID"
+    "shops.carshop.list.entry"    : " - Модель #%d, «%s». Цена: $%.2f"
+    "shops.carshop.success"       : "Поздравляем! Вы успешно купили автомобиль. Счастливого пути!"
+    "shops.carshop.help.title"    : "Список команд, доступных для магазина авто:"
+    "shops.carshop.help.list"     : "Посмотреть список авто, доступных для покупки"
+    "shops.carshop.help.buy"      : "Купить авто с указанной моделью"
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    "shops.fuelstations.toofar"             : "Вы слишком далеко от заправки!"
+    "shops.fuelstations.farfromvehicle"     : "Вы находитесь не у автомобиля."
+    "shops.fuelstations.stopyourmoves"      : "Остановите автомобиль, чтобы заправиться."
+    "shops.fuelstations.fueltank.check"     : "В баке: %.2f литров."
+    "shops.fuelstations.fueltank.full"      : "[FUEL] Бак полон!"
+    "shops.fuelstations.money.notenough"    : "[FUEL] Недостаточно денег. Для оплаты требуется $%.2f, а у вас только $%s."
+    "shops.fuelstations.fuel.payed"         : "[FUEL] Вы заплатили $%.2f за %.2f литров. Ваш баланс $%s. Будем рады видеть Вас снова!"
+
+    "shops.fuelstations.help.fuelup"        : "Заправить автомобиль"
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    "shops.repairshop.toofar"             : "Вы слишком далеко от автомастерской!"
+    "shops.repairshop.money.notenough"    : "[АВТОМАСТЕРСКАЯ] Недостаточно денег. Для оплаты ремонта требуется $%.2f, а у вас только $%s."
+    "shops.repairshop.repair.payed"       : "[АВТОМАСТЕРСКАЯ] Ремонт автомобиля обошёлся Вам в $%.2f. Ваш баланс $%s. Будем рады видеть вас снова!"
+    "shops.repairshop.needwait"           : "[АВТОМАСТЕРСКАЯ] Ваша машина на ремонте. Ожидайте..."
+
+    "shops.repairshop.help.title"         : "Список команд, доступных в автомастерской:"
+    "shops.repairshop.help.repair"        : "Починить автомобиль"
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    "shops.restaurant.toofar"               : "[INFO] Вы слишком далеко."
+    "shops.restaurant.diner.eat.success"    : "Вы потратили $%.2f на еду."
+    "shops.restaurant.bar.drink.success"    : "Вы потратили $%.2f на пиво."
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    "shops.washstations.toofar"             : "Вы слишком далеко от автомойки!"
+    "shops.washstations.money.notenough"    : "[АВТОМОЙКА] Недостаточно денег. Для оплаты мойки авто требуется $%.2f, а у вас только $%s."
+    "shops.washstations.wash.payed"         : "[АВТОМОЙКА] Мойка автомобиля обошлась Вам в $%.2f. Ваш баланс $%s. Будем рады видеть вас снова!"
+    "shops.washstations.needwait"           : "[АВТОМОЙКА] Ваша машина на мойке. Ожидайте..."
+
+    "shops.washstations.help.title"         : "Список команд, доступных в автомойки:"
+    "shops.washstations.help.wash"          : "Помыть автомобиль"
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    "help.chat"        : "Показать список команд для чата"
+    "help.subway"      : "Показать список команд для метро"
+    "help.taxi"        : "Показать список команд для такси"
+    "help.rentcar"     : "Показать список команд для аренды авто"
+    "help.job"         : "Показать список команд для работ. Пример: /help job taxi"
+    "help.ban"         : "Показать список команд для банка"
+    "help.cars"        : "Показать список команд для авто"
+    "help.fuel"        : "Показать список команд для автозаправок"
+    "help.repair"      : "Показать список команд для автомастерских"
+    "help.report"      : "Сообщить о читере или игроке, нарушающем правила"
+    "help.idea"        : "Отправить идею/сообщение разработчикам"
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    "help.chat.say"         : "(Сказать) Отправить сообщение в локальный чат."
+    "help.chat.shout"       : "(Крикнуть) Отправить сообщение в локальный (большого радиуса) чат."
+    "help.chat.whisper"     : "(Прошептать) Отправить сообщение ближайшему игроку."
+    "help.chat.localooc"    : "Отправить сообщение в локальный нон-РП чат"
+    "help.chat.ooc"         : "Отправить сообщение в глобальный нон-РП чат"
+    "help.chat.privatemsg"  : "Отправить личное сообщение другому игроку. Например: /pm 3 hello!"
+    "help.chat.me"          : "Сообщить о действии вашего персонажа"
+    "help.chat.try"         : "Сообщить о попытке выполенения действия со случайным результатом"
+
+    "telephone.findphone"   : "В течение 15 секунд на радаре отображается метка ближайшей телефонной будки."
+    "telephone.findalready" : "Ближайшая телефонная будка уже отображена на радаре."
+    "telephone.needphone"   : "Чтобы позвонить, нужно найти телефон."
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    "money.invoice.selectaction"        : "/pay %d, чтобы подтвердить оплату или /cancel %d, чтобы отклонить."
+    "money.invoice.distancetoolarge"    : "Расстояние между вами и другим игроком слишком велико!"
+    "money.invoice.notenoughmoney"      : "Недостаточно денег для оплаты!"
+    "money.invoice.cantpay"             : "%s не может произвести оплату!"
+    "money.invoice.needplayerid"        : "Для подтверждения оплаты необходимо указать id игрока."
+    "money.invoice.senderoff"           : "Срок действия платежа истёк." //  sender offline
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    "vehicle.sell.amount"       : "Вам нужно установить сумму, за которую вы хотите продать авто."
+    "vehicle.sell.2passangers"  : "Человек, которому вы хотите продать, должен находиться в одном авто с вами."
+    "vehicle.sell.ask"          : "%s предлагает вам приобрести это авто за $%.2f."
+    "vehicle.sell.log"          : "Вы предложили %s купить это авто за $%.2f."
+    "vehicle.sell.success"      : "Вы успешно продали это авто."
+    "vehicle.buy.success"       : "Вы успешно приобрели это авто."
+    "vehicle.sell.failure"      : "%s отказался от покупки этого авто."
+    "vehicle.buy.failure"       : "Вы отказались от покупки этого авто."
+    "vehicle.sell.notowner"     : "Вы не можете продать машину, которая вам не принадлежит."
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    "bk.disabled"           : "[БК] Букмекерская контора закрыта. Приходите в другое время."
+    "bk.goto"               : "[БК] Отправляйтесь к букмекерской конторе в West Side"
+    "bk.selectsport"        : "[БК] Выберите спорт:"
+    "bk.toselectsport"      : "[БК] Для выбора спорта используйте: /bk ID"
+    "bk.horseriding"        : "1. Скачки"
+    "bk.greyhound"          : "2. Собачьи бега"
+    "bk.baseball"           : "3. Бейсбол"
+
+    "bk.selectteam"         : "[БК] Выберите команду:"
+    "bk.selecthorse"        : "[БК] Выберите лошадь:"
+    "bk.selectdog"          : "[БК] Выберите гончую:"
+    "bk.emptylist"          : "[БК] Нет доступных ставок. Приходите в другое время."
+    "bk.toselectteam"       : "[БК] Min: $%s, Max: $%s. Сделать ставку: /bk ID СУММА"
+    "bk.toselecthorse"      : "[БК] Min: $%s, Max: $%s. Сделать ставку: /bk ID СУММА"
+    "bk.toselectdog"        : "[БК] Min: $%s, Max: $%s. Сделать ставку: /bk ID СУММА"
+
+    "bk.needselectsport"    : "[БК] Сначала надо выбрать спорт."
+    "bk.notenough"          : "[БК] У вас недостаточно денег."
+    "bk.bettoomuch"         : "[БК] Ставка слишком высокая."
+    "bk.bettoolow"          : "[БК] Ставка слишком низкая."
+    "bk.betnotfound"        : "[БК] Вы можете ставить только на участников из списка."
+    "bk.betmade"            : "[БК] Вы поставили $%.2f на победу %s."
+    "bk.betwin"             : "[БК] Ваша ставка на «%s» выиграла. Вы заработали $%.2f."
+    "bk.betlose"            : "[БК] Ваша ставка на «%s» проиграла. Вы потеряли $%.2f."
+>>>>>>> 78553b0cdf664b0fb79ac4e4dca686534297be2e
 
 });
