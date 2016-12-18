@@ -30,6 +30,12 @@ chatcmd(["w", "whisper"], function(playerid, message) {
     statisticsPushMessage(playerid, message, "whisper");
 });
 
+chatcmd(["global", "g"], function(playerid, message) {
+    msg_a("[Global OOC] " + getAuthor( playerid ) + ": " + message, CL_SILVERSAND);
+
+    statisticsPushMessage(playerid, message, "global");
+});
+
 // private message
 cmd("pm", function(playerid, targetid, ...) {
     local targetid = toInteger(targetid);
@@ -59,7 +65,12 @@ chatcmd(["b"], function(playerid, message) {
 
 // global nonRP chat
 chatcmd(["o","ooc"], function(playerid, message) {
-    msg_a("[OOC] " + getAuthor( playerid ) + ": " + message, CL_GRAY);
+    // msg_a("[OOC] " + getAuthor( playerid ) + ": " + message, CL_GRAY);
+    foreach (targetid, value in players) {
+        if (getPlayerLocale(targetid) == getPlayerLocale(playerid)) {
+            msg(targetid, "[OOC " + getPlayerLocale(playerid).toupper() + "] " + getAuthor( playerid ) + ": " + message, CL_GRAY);
+        }
+    }
 
     // statistics
     statisticsPushMessage(playerid, message, "ooc");
