@@ -128,7 +128,7 @@ key(["e"], function(playerid) {
     if ( isPlayerInVehicle(playerid) ) {
         return;
     }
-    if ( !isOfficer(playerid) ) {
+    if ( !isOfficer(playerid) && isPlayerNearPoliceDepartment(playerid) ) {
         return msg( playerid, "organizations.police.notanofficer" );
     }
     local bool = isOnPoliceDuty(playerid);
