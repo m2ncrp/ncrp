@@ -84,6 +84,10 @@ POLICE_EBPD_ENTERES <- [
     [-379.444, 654.207, -11.6451]   // stuff only
 ];
 
+POLICE_JAIL_COORDS <- [
+    [-1027.02, 1746.63, 10.2325]
+];
+
 const EBPD_ENTER_RADIUS = 2.0;
 const TITLE_DRAW_DISTANCE = 12.0;
 
