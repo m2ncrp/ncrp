@@ -133,21 +133,18 @@ key(["q"], function(playerid) {
 }, KEY_UP);
 
 
-event("onPlayerConnect", function(playerid, name, ip, serial) {
-     job_truck[playerid] <- {};
-     job_truck[playerid]["userjob"] <- null;
-     job_truck[playerid]["userstatus"] <- null;
-     job_truck[playerid]["leavejob3dtext"] <- null;
-     job_truck[playerid]["truckblip3dtext"] <- [null, null, null];
-
-});
-
 event("onPlayerSpawn", function(playerid) {
     setVehicleBeaconLightState(carp, true);
     if (isSummer()) { setVehicleBeaconLightState(carp2, true); }
 });
 
 event("onServerPlayerStarted", function( playerid ){
+     job_truck[playerid] <- {};
+     job_truck[playerid]["userjob"] <- null;
+     job_truck[playerid]["userstatus"] <- null;
+     job_truck[playerid]["leavejob3dtext"] <- null;
+     job_truck[playerid]["truckblip3dtext"] <- [null, null, null];
+
     if(players[playerid]["job"] == "truckdriver") {
         msg( playerid, "job.truckdriver.wantwork", TRUCK_JOB_COLOR );
         job_truck[playerid]["leavejob3dtext"] = createPrivate3DText (playerid, TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), RADIUS_TRUCK );
