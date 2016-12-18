@@ -9,9 +9,16 @@ function policeCall(playerid, place) {
     }
 
     msg(playerid, "organizations.police.call.foruser", [place], CL_ROYALBLUE);
+    local pos = getPlayerPositionObj(playerid); 
 
     foreach(player in playerList.getPlayers()) {
         if ( isOfficer(player) && isOnPoliceDuty(player) ) {
+            local crime_hash = createPrivateBlip(playerid, pos.x, pos.y, ICON_YELLOW, 4000.0);
+
+            delayedFunction(60000, function() {
+                removeBlip( crime_hash );
+            });
+
             msg(player, "organizations.police.call.new", [getAuthor(playerid), place], CL_ROYALBLUE);
         }
     }
