@@ -260,6 +260,8 @@ cmd(["prison", "jail"], function(playerid, targetid) {
             setPlayerState(targetid, "jail");
             setPlayerPosition( targetid, POLICE_JAIL_COORDS[0][0], POLICE_JAIL_COORDS[0][1], POLICE_JAIL_COORDS[0][2] );
         });
+        msg(targetid, "organizations.police.jail", [], CL_THUNDERBIRD);
+        dbg( "[JAIL] " + getAuthor(playerid) + " put " + getAuthor(targetid) + "in jail." );
     }
 });
 
@@ -274,6 +276,7 @@ cmd(["amnesty"], function(playerid, targetid) {
             // setPlayerToggle(targetid, false);
             setPlayerState(targetid, "free");
         });
+        msg(targetid, "organizations.police.unjail", [], CL_THUNDERBIRD);
     }
 })
 
