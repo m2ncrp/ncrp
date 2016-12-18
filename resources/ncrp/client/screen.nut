@@ -203,14 +203,25 @@ addEventHandler("onServerToggleHudDrawing", function() {
     drawing = !drawing;
 });
 
-addEventHandler("onClientOpenMap", function() {
-    drawing = false;
-    return 1; // enable map (0 to disable)
-})
+// addEventHandler("onClientOpenMap", function() {
+//     drawing = false;
+//     return 1; // enable map (0 to disable)
+// })
 
 addEventHandler("onClientCloseMap", function() {
-    drawing = true;
+    // drawing = true;
     return 1;
+});
+
+bindKey("m", "down", function() {
+    if (drawing) {
+        drawing = false;
+        openMap();
+    } else {
+        drawing = true;
+    }
+
+    showChat(drawing);
 });
 
 /**
