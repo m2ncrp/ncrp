@@ -254,10 +254,10 @@ key(["v"], function(playerid) {
 cmd(["prison", "jail"], function(playerid, targetid) {
     targetid = targetid.tointeger();
     if ( isOnPoliceDuty(playerid) && getPlayerState(targetid) == "cuffed" ) {
-        // setPlayerToggle(targetid, true);
+        setPlayerToggle(targetid, false);
         screenFadeinFadeout(targetid, 2200, function() {
         //  output "Wasted" and set player position
-            setPlayerState(targetid,"jail");
+            setPlayerState(targetid, "jail");
             setPlayerPosition( targetid, -1027.02, 1746.63, 10.2325 );
         });
     }
