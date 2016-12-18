@@ -1,28 +1,28 @@
-# ncrp roadmap
+# ncrp
 
-Relise v0.1.0 should contain:
+Hey there. If you see this - it means you are awesome!
 
-0. Add different player types
+## Installation
 
-1. Login system for players
+Clone the repo:
 
-2. Chats with different settings and colors
+```
+$ git clone git@github.com:Inlife/ncrp.git
+```
 
-3. Player stat system
+Get the server (windows):
 
-4. Player wallets for big money
+```
+$ wget http://download.mafia2-online.com/versions/01-RC3/public/m2o_rc3_server_release.zip && unzip m2o_rc3_server_release.zip
+```
 
-5. Lot of work types to gain money by players. At least simpliest: take at point A, go to point B.
+Start it!
 
-6. Rent, buy or sell vehicles
+```sh
+./m2online-svr.exe
+```
 
-7. Simpliest police department
+## Database
 
-
-
-Relise v0.2.0 should contain:
-
-1. More complicated work types, such as taxi or police duty.
-
-2. 3d text and labels
-
+Database is inside `/resources/ncrp/scriptfiles/ncrp.db` (SQLite).
+All tables are created automatically.

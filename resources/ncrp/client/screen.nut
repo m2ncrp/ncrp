@@ -69,26 +69,26 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
     local height;
 
     // on init
-    if (!initialized) {
-        // draw full black screen
-        dxDrawRectangle(0.0, 0.0, screenX, screenY, 0xFF000000);
+    // if (!initialized) {
+    //     // draw full black screen
+    //     dxDrawRectangle(0.0, 0.0, screenX, screenY, 0xFF000000);
 
-        height = 0;
+    //     height = 0;
 
-        // draw text
-        foreach (idx, value in welcomeTexts) {
-            offset  = dxGetTextDimensions(value.text, value.size, "tahoma-bold")[0].tofloat();
-            height += dxGetTextDimensions(value.text, value.size, "tahoma-bold")[1].tofloat();
+    //     // draw text
+    //     foreach (idx, value in welcomeTexts) {
+    //         offset  = dxGetTextDimensions(value.text, value.size, "tahoma-bold")[0].tofloat();
+    //         height += dxGetTextDimensions(value.text, value.size, "tahoma-bold")[1].tofloat();
 
-            // calculate height offset
-            height += value.offset;
+    //         // calculate height offset
+    //         height += value.offset;
 
-            // draw it
-            dxDrawText(value.text, centerX - (offset * 0.5), height, value.color, false, "tahoma-bold", value.size);
-        }
+    //         // draw it
+    //         dxDrawText(value.text, centerX - (offset * 0.5), height, value.color, false, "tahoma-bold", value.size);
+    //     }
 
-        return;
-    }
+    //     return;
+    // }
 
     local ROUND_TO_RIGHT_RATIO = 13.6;
 
