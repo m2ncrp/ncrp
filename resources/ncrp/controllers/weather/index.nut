@@ -46,7 +46,7 @@ local WEATHERS = {
 
 
 
-local SERVER_IS_SUMMER = true;
+local SERVER_IS_SUMMER = false;
 local WEATHER_CHANGE_TRIGGER = 0;
 local SERVER_WEATHER = null;
 
@@ -65,6 +65,10 @@ function setWeather(name) {
 function resetWeather() {
     WEATHER_CHANGE_TRIGGER = 0;
 }
+
+event("onServerStarted", function() {
+    setSummer(SERVER_IS_SUMMER);
+});
 
 event("onServerSecondChange", function() {
     WEATHER_CHANGE_TRIGGER--;
