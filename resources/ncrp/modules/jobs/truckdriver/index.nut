@@ -132,6 +132,13 @@ key(["q"], function(playerid) {
     truckJobRefuseLeave( playerid );
 }, KEY_UP);
 
+event("onPlayerConnect", function(playerid, name, ip, serial) {
+     job_truck[playerid] <- {};
+     job_truck[playerid]["userjob"] <- null;
+     job_truck[playerid]["userstatus"] <- null;
+     job_truck[playerid]["leavejob3dtext"] <- null;
+     job_truck[playerid]["truckblip3dtext"] <- [null, null, null];
+});
 
 event("onPlayerSpawn", function(playerid) {
     setVehicleBeaconLightState(carp, true);
@@ -139,11 +146,7 @@ event("onPlayerSpawn", function(playerid) {
 });
 
 event("onServerPlayerStarted", function( playerid ){
-     job_truck[playerid] <- {};
-     job_truck[playerid]["userjob"] <- null;
-     job_truck[playerid]["userstatus"] <- null;
-     job_truck[playerid]["leavejob3dtext"] <- null;
-     job_truck[playerid]["truckblip3dtext"] <- [null, null, null];
+
 
     if(players[playerid]["job"] == "truckdriver") {
         msg( playerid, "job.truckdriver.wantwork", TRUCK_JOB_COLOR );
