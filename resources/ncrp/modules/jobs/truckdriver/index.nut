@@ -76,10 +76,10 @@ local carp2 = false;
 
 event("onServerStarted", function() {
     log("[jobs] loading truckdriver job...");
-
-     truckcars[createVehicle(35, -705.155, 1456, -6.48204, -43.0174, -0.252974, -0.64192)]  <- [ false, false ]; //      Truck1
-     truckcars[createVehicle(35, -708.151, 1453.25, -6.50832, -43.1396, -0.445434, -1.12674)]  <- [ false, false ]; //   Truck2
-     truckcars[createVehicle(35, -711.119, 1450.54, -6.52765, -41.8644, -0.613728, -1.6044)]  <- [ false, false ]; //    Truck3
+                                                                                            //  loaded, playerid
+     truckcars[createVehicle(35, -705.155, 1456, -6.48204, -43.0174, -0.252974, -0.64192)]  <- [ false, null ]; //      Truck1
+     truckcars[createVehicle(35, -708.151, 1453.25, -6.50832, -43.1396, -0.445434, -1.12674)]  <- [ false, null ]; //   Truck2
+     truckcars[createVehicle(35, -711.119, 1450.54, -6.52765, -41.8644, -0.613728, -1.6044)]  <- [ false, null ]; //    Truck3
 
      carp = createVehicle(42, -364.809, -348.672, -13.5259, -0.540874, -0.0051816, -1.09775); // police Midtown
 
@@ -346,13 +346,12 @@ function truckJobLoadUnload( playerid ) {
 
     local userjob = job_truck[playerid]["userjob"];
 
-    if(truckcars[vehicleid][0] && isVehicleInValidPoint(playerid, userjob.LoadPointX, userjob.LoadPointY, 4.0 )) {
-        dbg(1);
+    if(truckcars[vehicleid][0] && truckcars[vehicleid][1] == playerid && isVehicleInValidPoint(playerid, userjob.LoadPointX, userjob.LoadPointY, 4.0 )) {
+        dbg("truck already loaded");
         return msg( playerid, "job.truckdriver.alreadyloaded", TRUCK_JOB_COLOR );
     }
 
     if(!truckcars[vehicleid][0] && isVehicleInValidPoint(playerid, userjob.UnloadPointX, userjob.UnloadPointY, 4.0 )) {
-        dbg(2);
         return msg( playerid, "job.truckdriver.empty", TRUCK_JOB_COLOR );
     }
 
@@ -379,6 +378,7 @@ function truckJobLoadUnload( playerid ) {
         delayedFunction(1500, function() {
             screenFadeinFadeoutEx(playerid, 1000, 3000, null, function() {
                 truckcars[vehicleid][0] = true;
+                truckcars[vehicleid][1] = playerid;
                 job_truck[playerid]["truckblip3dtext"] = truckJobCreatePrivateBlipText(playerid, userjob.UnloadPointX, userjob.UnloadPointY, userjob.UnloadPointZ, "UNLOAD HERE", "Press E to unload");
                 msg( playerid, userjob.UnloadText, TRUCK_JOB_COLOR );
                 setVehiclePartOpen(vehicleid, 1, false);
@@ -400,6 +400,7 @@ function truckJobLoadUnload( playerid ) {
             screenFadeinFadeoutEx(playerid, 1000, 3000, null, function() {
                 job_truck[playerid]["userstatus"] = "complete";
                 truckcars[vehicleid][0] = false;
+                truckcars[vehicleid][1] = null;
                 msg( playerid, "job.truckdriver.takemoney", TRUCK_JOB_COLOR );
                 setVehiclePartOpen(vehicleid, 1, false);
             });
