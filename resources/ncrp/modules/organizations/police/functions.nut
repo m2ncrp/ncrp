@@ -213,3 +213,74 @@ function showBadge(playerid, targetid = null) {
     msg(playerid, "organizations.police.beenshown.badge", [getAuthor(targetid)]);
     msg(targetid, "organizations.police.show.badge", [getPlayerJob(playerid), getAuthor(targetid)]);
 }
+
+
+function baton( playerid ) {
+    if ( !isOfficer(playerid) ) {
+        return msg( playerid, "organizations.police.notanofficer" );
+    }
+
+    if ( isOnPoliceDuty(playerid) ) {
+        local targetid = playerList.nearestPlayer( playerid );
+        if ( targetid == null ) {
+            return msg(playerid, "general.noonearound");
+        }
+
+        if ( isPlayerInVehicle(targetid) ) {
+            return;
+        }
+
+        if ( isBothInRadius(playerid, targetid, BATON_RADIUS) ) {
+            setPlayerAnimStyle(playerid, "common", "ManColdWeapon");
+            setPlayerHandModel(playerid, 1, 28); // policedubinka right hand
+
+            screenFadeinFadeout(targetid, 1000, function() {
+                msg( playerid, "organizations.police.bitsomeone.bybaton", [getAuthor(targetid)] );
+                msg( targetid, "organizations.police.beenbit.bybaton" );
+                if ( getPlayerState(targetid) == "free" ) {
+                    setPlayerToggle( targetid, true );
+                    setPlayerState(targetid, "tased");
+                }
+            }, function() {
+                if ( getPlayerState(targetid) == "tased" ) {
+                    setPlayerToggle( targetid, false );
+                    setPlayerState(targetid, "free");
+                }
+            });
+
+            setPlayerAnimStyle(playerid, "common", "default");
+            setPlayerHandModel(playerid, 1, 0); // remove policedubinka right hand
+        }        
+    } else {
+        return msg(playerid, "organizations.police.offduty.nobaton")
+    }
+}
+
+
+function cuff(playerid) {
+    if ( isOnPoliceDuty(playerid) ) {
+        local targetid = playerList.nearestPlayer( playerid );
+
+        if ( targetid == null ) {
+            return msg(playerid, "general.noonearound");
+        }
+
+        if ( isBothInRadius(playerid, targetid, CUFF_RADIUS) ) {
+            if ( getPlayerState(targetid) == "tased" ) {
+                setPlayerToggle( targetid, true ); // cuff dat bitch
+                setPlayerState(targetid, "cuffed");
+                msg(targetid, "organizations.police.beencuffed", [getAuthor( playerid )]);
+                msg(playerid, "organizations.police.cuff.someone", [getAuthor( targetid )]);
+                return;
+            }
+            if ( getPlayerState(targetid) == "cuffed" ) {
+                setPlayerToggle( targetid, false ); // uncuff him...
+                setPlayerState(targetid, "free");
+                msg(targetid, "organizations.police.cuff.beenuncuffed", [getAuthor( playerid )] );
+                msg(playerid, "organizations.police.cuff.uncuffsomeone", [getAuthor( targetid )] );
+                return;
+            }
+            // throw out cuffes and disable arrest any players till officer didn't take them from the ground 
+        }
+    }
+}

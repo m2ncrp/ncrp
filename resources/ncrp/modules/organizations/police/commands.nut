@@ -1,10 +1,7 @@
-/*
-    BINDS SHOW UP MESSAGE EVERY TIME IF PLAYER CONTACT WITH VEHICLE OR DOORS WHILE ON DUTY
- */
-
 acmd("police", "danger", function(playerid, level) {
     setDangerLevel(playerid, level);
 });
+
 
 // usage: /police job <id>
 acmd("police", "job", function(playerid, targetid) {
@@ -14,6 +11,7 @@ acmd("police", "job", function(playerid, targetid) {
     dbg( "[POLICE JOIN]" + getAuthor(playerid) + " add " + getAuthor(targetid) + "to Police" );
 });
 
+
 // usage: /police job leave <id>
 acmd("police", ["job", "leave"], function(playerid, targetid) {
     local targetid = targetid.tointeger();
@@ -21,6 +19,7 @@ acmd("police", ["job", "leave"], function(playerid, targetid) {
     dbg( "[POLICE LEAVE]" + getAuthor(playerid) + " remove " + getAuthor(targetid) + "from Police" );
     leavePoliceJob(targetid);
 });
+
 
 // usage: /police set rank <1..3>
 acmd("police", ["set", "rank"], function(playerid, targetid, rank) {
@@ -43,11 +42,13 @@ acmd("police", ["set", "rank"], function(playerid, targetid, rank) {
     }
 });
 
+
 acmd("serial", function(playerid, targetid) {
     local targetid = targetid.tointeger();
     dbg( [players[targetid]["serial"]] );
     return msg( playerid, "general.admins.serial.get", [getAuthor(targetid), players[targetid]["serial"]], CL_THUNDERBIRD );
 });
+
 
 // usage: /police Train Station
 cmd("police", function(playerid, ...) {
@@ -75,6 +76,8 @@ cmd("police", ["badge"], function(playerid, targetid = null) {
     showBadge(playerid, targetid);
 });
 
+
+// show badge
 key(["b"], function(playerid) {
     if ( !isOfficer(playerid) ) {
         return;
@@ -109,6 +112,7 @@ cmd("police", ["duty", "on"], function(playerid) {
     }
 });
 
+
 // usage: /police duty off
 cmd("police", ["duty", "off"], function(playerid) {
     if ( !isOfficer(playerid) ) {
@@ -124,6 +128,7 @@ cmd("police", ["duty", "off"], function(playerid) {
 });
 
 
+// set duty on or off
 key(["e"], function(playerid) {
     if ( isPlayerInVehicle(playerid) ) {
         return;
@@ -154,6 +159,7 @@ policecmd(["r", "ratio"], function(playerid, text) {
     }
 });
 
+
 policecmd("rupor", function(playerid, text) {
     if ( !isOfficer(playerid) ) {
         return;
@@ -179,89 +185,31 @@ cmd(["ticket"], function(playerid, targetid, price, ...) {
 });
 
 
-function baton( playerid ) {
-    if ( !isOfficer(playerid) ) {
-        return msg( playerid, "organizations.police.notanofficer" );
-    }
+// stun nearest player for some time
+key(["g"], function(playerid) {
+    local targetid = playerList.nearestPlayer( playerid );
 
-    if ( isOnPoliceDuty(playerid) ) {
-        local targetid = playerList.nearestPlayer( playerid );
-        if ( targetid == null ) {
-            return msg(playerid, "general.noonearound");
-        }
-
-        if ( isPlayerInVehicle(targetid) ) {
-            return;
-        }
-
-        if ( isBothInRadius(playerid, targetid, BATON_RADIUS) ) {
-            screenFadeinFadeout(targetid, 1000, function() {
-                msg( playerid, "organizations.police.bitsomeone.bybaton", [getAuthor(targetid)] );
-                msg( targetid, "organizations.police.beenbit.bybaton" );
-                if ( getPlayerState(targetid) == "free" ) {
-                    setPlayerToggle( targetid, true );
-                    setPlayerState(targetid, "tased");
-                }
-            }, function() {
-                if ( getPlayerState(targetid) == "tased" ) {
-                    setPlayerToggle( targetid, false );
-                    setPlayerState(targetid, "free");
-                }
-            });
-        }        
-    } else {
-        return msg(playerid, "organizations.police.offduty.nobaton")
-    }
-}
-
-key(["g"], function(playerid) {             // check if not office
     if ( isPlayerInVehicle(playerid) || isPlayerInVehicle(playerid) ) {
         return;
     }
-    if ( !isOfficer(playerid) ) {
+    if ( !isOfficer(playerid) || isOfficer(targetid) ) {
         return;
     }
     if ( isOfficer(playerid) && !isOnPoliceDuty(playerid) ) {
         return msg( playerid, "organizations.police.duty.off" );
     }
-    // print("Player pressed e");
     baton(playerid);
 }, KEY_UP);
 
 
-function cuff(playerid) {
-    if ( isOnPoliceDuty(playerid) ) {
-        local targetid = playerList.nearestPlayer( playerid );
+// cuff nearest stunned player
+key(["v"], function(playerid) {
+    local targetid = playerList.nearestPlayer( playerid );
 
-        if ( targetid == null ) {
-            return msg(playerid, "general.noonearound");
-        }
-
-        if ( isBothInRadius(playerid, targetid, CUFF_RADIUS) ) {
-            if ( getPlayerState(targetid) == "tased" ) {
-                setPlayerToggle( targetid, true ); // cuff dat bitch
-                setPlayerState(targetid, "cuffed");
-                msg(targetid, "organizations.police.beencuffed", [getAuthor( playerid )]);
-                msg(playerid, "organizations.police.cuff.someone", [getAuthor( targetid )]);
-                return;
-            }
-            if ( getPlayerState(targetid) == "cuffed" ) {
-                setPlayerToggle( targetid, false ); // uncuff him...
-                setPlayerState(targetid, "free");
-                msg(targetid, "organizations.police.cuff.beenuncuffed", [getAuthor( playerid )] );
-                msg(playerid, "organizations.police.cuff.uncuffsomeone", [getAuthor( targetid )] );
-                return;
-            }
-            // throw out cuffes and disable arrest any players till officer didn't take them from the ground 
-        }
-    }
-}
-
-key(["v"], function(playerid) {   // check if not office
     if ( isPlayerInVehicle(playerid) ) {
         return;
     }
-    if ( !isOfficer(playerid) ) {
+    if ( !isOfficer(playerid) || isOfficer(targetid) ) { // check if not office
         return;
     }
     if ( isOfficer(playerid) && !isOnPoliceDuty(playerid) ) {
@@ -269,6 +217,7 @@ key(["v"], function(playerid) {   // check if not office
     }
     cuff(playerid);
 }, KEY_UP);
+
 
 // put nearest cuffed player in jail
 cmd(["prison", "jail"], function(playerid, targetid) {
@@ -284,6 +233,7 @@ cmd(["prison", "jail"], function(playerid, targetid) {
         dbg( "[JAIL] " + getAuthor(playerid) + " put " + getAuthor(targetid) + "in jail." );
     }
 });
+
 
 // take out player from jail
 cmd(["amnesty"], function(playerid, targetid) {
