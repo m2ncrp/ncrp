@@ -104,7 +104,7 @@ acmd(["admin", "adm", "a"], "ban", function(playerid, targetid, srok, type, ...)
     stopPlayerVehicle( targetid );
     msg(targetid, format("You has been banned for: %s", reason), CL_RED);
     // banPlayerAccount( targetid, reason, playerid, days );
-    //banPlayerSerial( targetid, reason, playerid, time );
+    banPlayerSerial( targetid, reason, playerid, time );
 });
 
 
