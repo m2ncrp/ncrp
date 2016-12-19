@@ -13,9 +13,9 @@ function policeCall(playerid, place) {
 
     foreach(player in playerList.getPlayers()) {
         if ( isOfficer(player) && isOnPoliceDuty(player) ) {
-            local crime_hash = createPrivateBlip(playerid, pos.x, pos.y, ICON_YELLOW, 4000.0);
+            local crime_hash = createPrivateBlip(player, pos.x, pos.y, ICON_YELLOW, 4000.0);
 
-            delayedFunction(60000, function() {
+            delayedFunction(60000, function() { // <----------------------------------------- need check for more than 2 people
                 removeBlip( crime_hash );
             });
 
@@ -248,8 +248,8 @@ function baton( playerid ) {
                 }
             });
 
-            setPlayerAnimStyle(playerid, "common", "default");
-            setPlayerHandModel(playerid, 1, 0); // remove policedubinka right hand
+            // setPlayerAnimStyle(playerid, "common", "default");
+            // setPlayerHandModel(playerid, 1, 0); // remove policedubinka right hand
         }        
     } else {
         return msg(playerid, "organizations.police.offduty.nobaton")
