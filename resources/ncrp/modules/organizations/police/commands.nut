@@ -33,13 +33,13 @@ acmd("police", ["set", "rank"], function(playerid, targetid, rank) {
     if ( isOnPoliceDuty(playerid) ) {
         // onPoliceDutyRemoveWeapon( playerid );
         trigger("onPoliceDutyOff", playerid);
-        setPoliceRank( playerid, rank );
+        setPoliceRank( targetid, rank );
         // onPoliceDutyGiveWeapon( playerid );
         trigger("onPoliceDutyOn", playerid);
-        setPlayerJob ( playerid, getPlayerJob(playerid) );
+        setPlayerJob ( targetid, getPlayerJob(playerid) );
     } else {
-        setPoliceRank( playerid, rank );
-        setPlayerJob ( playerid, getPlayerJob(playerid) );
+        setPoliceRank( targetid, rank );
+        setPlayerJob ( targetid, getPlayerJob(playerid) );
     }
 });
 
@@ -137,6 +137,7 @@ key(["e"], function(playerid) {
     }
 }, KEY_UP);
 
+
 policecmd(["r", "ratio"], function(playerid, text) {
     if ( !isOfficer(playerid) ) {
         return msg(playerid, "organizations.police.notanofficer");
@@ -148,7 +149,7 @@ policecmd(["r", "ratio"], function(playerid, text) {
     // Enhaincment: loop through not players, but police vehicles with radio has on
     foreach (targetid in playerList.getPlayers()) {
         if ( isOfficer(targetid) && isPlayerInPoliceVehicle(targetid) ) {
-            msg( targetid, "[R] " + getAuthor(playerid) + ": " + text, CL_ROYALBLUE );
+            msg( targetid, "[POLICE RADIO] " + getAuthor(playerid) + ": " + text, CL_ROYALBLUE );
         }
     }
 });
@@ -160,7 +161,7 @@ policecmd("rupor", function(playerid, text) {
     if ( !isPlayerInPoliceVehicle(playerid) ) {
         return msg( playerid, "organizations.police.notinpolicevehicle");
     }
-    inRadiusSendToAll(playerid, "[RUPOR] " + text, RUPOR_RADIUS, CL_ROYALBLUE);
+    inRadiusSendToAll(playerid, "[POLICE RUPOR] " + text, RUPOR_RADIUS, CL_ROYALBLUE);
 });
 
 
@@ -170,8 +171,8 @@ cmd(["ticket"], function(playerid, targetid, price, ...) {
     }
     if ( isOnPoliceDuty(playerid) ) {
         local reason = makeMeText(playerid, vargv);
-        msg(targetid, "organizations.police.ticket.givewithreason", [getAuthor(playerid), reason, playerid]);
-        sendInvoice( playerid, targetid, price );
+        msg(targetid, "organizations.police.ticket.givewithreason", [getAuthor(playerid), reason, playerid]); // add distance check
+        sendInvoice( playerid, targetid, price ); // sendInvoiceSilent
     } else {
         return msg(playerid, "organizations.police.offduty.notickets")
     }
@@ -213,7 +214,7 @@ function baton( playerid ) {
     }
 }
 
-key(["g"], function(playerid) {
+key(["g"], function(playerid) {             // check if not office
     if ( isPlayerInVehicle(playerid) || isPlayerInVehicle(playerid) ) {
         return;
     }
@@ -256,7 +257,7 @@ function cuff(playerid) {
     }
 }
 
-key(["v"], function(playerid) {
+key(["v"], function(playerid) {   // check if not office
     if ( isPlayerInVehicle(playerid) ) {
         return;
     }
@@ -310,8 +311,8 @@ function policeHelp(playerid, a = null, b = null) {
         { name = "/r TEXT",                     desc = "organizations.police.info.cmds.ratio"},
         { name = "/rupor TEXT",                 desc = "organizations.police.info.cmds.rupor"},
         { name = "/ticket ID AMOUNT REASON",    desc = "organizations.police.info.cmds.ticket" },
-        { name = "E button",                    desc = "organizations.police.info.cmds.baton" },
-        { name = "Q button",                    desc = "organizations.police.info.cmds.cuff" },
+        { name = "G button",                    desc = "organizations.police.info.cmds.baton" },
+        { name = "V button",                    desc = "organizations.police.info.cmds.cuff" },
         { name = "/prison ID",                  desc = "organizations.police.info.cmds.prison" },
         { name = "/amnesty ID",                 desc = "organizations.police.info.cmds.amnesty" }
     ];

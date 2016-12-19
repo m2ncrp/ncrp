@@ -538,7 +538,7 @@ translation("ru", {
     "general.noonearound"                       : "Рядом с вами никого нет."
     "general.job.anotherone"                    : "Вы работаете %s, а не %s!"
 
-    "job.police.officer"                        : "Офицер"
+    "job.police.officer"                        : "Офицер Полиции"
     "job.police.detective"                      : "Детектив"
     "job.police.chief"                          : "Шеф Полиции"
     "organizations.police.job.getmaxrank"       : "Вы достигли максимального звания: %s."

@@ -59,12 +59,7 @@ acmd(["admin", "adm", "a"], "kick", function(playerid, targetid, ...) {
 
 
 
-/*
 
-NOT WORKING. NOT USE.
-Assigned to JustPilz
-
-*/
 acmd(["admin", "adm", "a"], "ban", function(playerid, targetid, srok, type, ...) {
     local targetid = targetid.tointeger();
 
@@ -103,8 +98,10 @@ acmd(["admin", "adm", "a"], "ban", function(playerid, targetid, srok, type, ...)
     freezePlayer( targetid, true );
     stopPlayerVehicle( targetid );
     msg(targetid, format("You has been banned for: %s", reason), CL_RED);
-    // banPlayerAccount( targetid, reason, playerid, days );
-    banPlayerSerial( targetid, reason, playerid, time );
+
+    delayedFunction(5000, function () {
+        banPlayerSerial( targetid, reason, playerid, time );
+    });
 });
 
 

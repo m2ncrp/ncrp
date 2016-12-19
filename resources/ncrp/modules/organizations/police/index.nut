@@ -266,3 +266,8 @@ event("onPoliceDutyOff", function(playerid, rank = null) {
         removePlayerWeapon( playerid, 12 ); // M1A1 Thompson
     }
 });
+
+
+event("onBatonBitStart", function (playerid) {
+     
+});
