@@ -67,7 +67,7 @@ chatcmd(["b"], function(playerid, message) {
 chatcmd(["o","ooc"], function(playerid, message) {
     // msg_a("[OOC] " + getAuthor( playerid ) + ": " + message, CL_GRAY);
     foreach (targetid, value in players) {
-        if (getPlayerLocale(targetid) == getPlayerLocale(playerid)) {
+        if (getPlayerLocale(targetid) == getPlayerLocale(playerid) || isPlayerAdmin(targetid)) {
             msg(targetid, "[OOC " + getPlayerLocale(playerid).toupper() + "] " + getAuthor( playerid ) + ": " + message, CL_GRAY);
         }
     }
