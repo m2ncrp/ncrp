@@ -58,8 +58,8 @@ translation("en", {
 
     "organizations.police.info.howjoin"         : "If you want to join Police Department write one of admins!",
     "organizations.police.info.cmds.helptitle"  : "List of available commands for Police Officer JOB:",
-    "organizations.police.info.cmds.ratio"      : "Send message to all police by ratio",
-    "organizations.police.info.cmds.rupor"      : "Say smth to police vehicle rupor",
+    "organizations.police.info.cmds.ratio"      : "Send message to all police by radio",
+    "organizations.police.info.cmds.rupor"      : "Say something to police vehicle rupor",
     "organizations.police.info.cmds.ticket"     : "Give ticket to player with given id. Example: /ticket 0 2.1 speed limit",
     "organizations.police.info.cmds.baton"      : "Stun nearset player",
     "organizations.police.info.cmds.cuff"       : "Cuff or uncuff nearest stunned player",
@@ -201,10 +201,10 @@ event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
 
 
 event("onPlayerDisconnect", function(playerid, reason) {
-    foreach (playerid, value in police) {
+    if (playerid in police) {
         policeJobPaySalary( playerid );
+         delete police[playerid];
     }
-    if(playerid in police) delete police[playerid];
 });
 
 
