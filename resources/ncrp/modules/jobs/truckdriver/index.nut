@@ -369,7 +369,7 @@ function truckJobLoadUnload( playerid ) {
         return msg( playerid, "job.truckdriver.notpassenger", TRUCK_JOB_COLOR );
     }
 
-    if(!truckcars[vehicleid][0] && isVehicleInValidPoint(playerid, userjob.LoadPointX, userjob.LoadPointY, 4.0 )) {
+    if( ( !truckcars[vehicleid][0] || ( truckcars[vehicleid][0] && truckcars[vehicleid][1] != playerid  ) ) && isVehicleInValidPoint(playerid, userjob.LoadPointX, userjob.LoadPointY, 4.0 )) {
         //loading
         truckJobRemovePrivateBlipText ( playerid );
         setVehiclePartOpen(vehicleid, 1, true);
