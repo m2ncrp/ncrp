@@ -540,17 +540,17 @@ translation("ru", {
     "general.noonearound"                       : "Рядом с вами никого нет."
     "general.job.anotherone"                    : "Вы работаете %s, а не %s!"
 
-    "job.police.officer"                        : "Офицер"
-    "job.police.detective"                      : "Детектив"
-    "job.police.chief"                          : "Шеф Полиции"
+    "job.police.officer"                        : "офицер полиции"
+    "job.police.detective"                      : "детектив"
+    "job.police.chief"                          : "шеф полиции"
     "organizations.police.job.getmaxrank"       : "Вы достигли максимального звания: %s."
 
     "organizations.police.setjob.byadmin"       : "Вы устроили на работу игрока %s в качестве %s."
     "organizations.police.leavejob.byadmin"     : "Вы уволили %s с работы %s."
 
     "organizations.police.call.withoutaddress"  : "Вы не можете вызвать полицию, не указав адрес."
-    "organizations.police.call.new"             : "[R] поступил вызов от %s из %s"
-    "organizations.police.call.foruser"         : "Вы вызвали такси из %s"
+    "organizations.police.call.new"             : "[R] поступил вызов от %s по адресу %s"
+    "organizations.police.call.foruser"         : "Вы вызвали полицию по адресу %s"
 
     "organizations.police.income"               : "[EBPD] Ваша зарплата составляет $%.2f за службу в качестве %s."
 
