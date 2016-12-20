@@ -177,8 +177,9 @@ cmd(["ticket"], function(playerid, targetid, price, ...) {
     }
     if ( isOnPoliceDuty(playerid) ) {
         local reason = makeMeText(playerid, vargv);
+        local targetid = targetid.tointeger();
         msg(targetid, "organizations.police.ticket.givewithreason", [getAuthor(playerid), reason, playerid]); // add distance check
-        sendInvoice( playerid, targetid, price ); // sendInvoiceSilent
+        subMoneyToPlayer(targetid, price);
     } else {
         return msg(playerid, "organizations.police.offduty.notickets")
     }
