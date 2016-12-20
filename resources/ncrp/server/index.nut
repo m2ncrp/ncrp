@@ -142,7 +142,7 @@ event("native:onPlayerConnect", function(playerid, name, ip, serial) {
     trigger("onPlayerConnectInit", playerid, name, ip, serial);
 
     if (!IS_AUTHORIZATION_ENABLED || DEBUG) {
-        // trigger("onPlayerInit", playerid, name, ip, serial);
+        trigger("onPlayerInit", playerid, name, ip, serial);
     }
 });
 
