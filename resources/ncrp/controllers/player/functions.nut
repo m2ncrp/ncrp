@@ -1,4 +1,18 @@
 /**
+ * Move player to a specified place from his coordinates
+ *
+ * @param  {Integer} playerid
+ * @param  {Number} x
+ * @param  {Number} y
+ * @param  {Number} z
+ * @return {Boolean}
+ */
+function movePlayer(playerid, x = 0.0, y = 0.0, z = 0.0) {
+    local pos = getPlayerPosition(playerid.tointeger());
+    return setPlayerPosition(playerid.tointeger(), pos[0] + x.tofloat(), pos[1] + y.tofloat(), pos[2] + z.tofloat());
+}
+
+/**
  * Check is player sit in a valid vehicle
  * @param  {int}  playerid
  * @param  {int}  modelid  - model vehicle
