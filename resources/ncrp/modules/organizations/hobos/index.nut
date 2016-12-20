@@ -17,8 +17,8 @@ local hobosSkins = [
     87, 153, 154
 ];
 
-const maxCouldFind = 0.1;
-const minCouldFind = 0.01;
+const maxCouldFind = 0.15;
+const minCouldFind = 0.03;
 
 local hoboses = {};
 

@@ -45,12 +45,14 @@ translation("ru", {
     "auth.command.regformat": "* Пример: Joe Barbaro"
     "auth.command.login"    : "* Войдите в аккаунт, используя: /login PASSWORD"
     "auth.error.logined"    : "[AUTH] Вы уже вошли в аккаунт!"
+    "auth.error.login"      : "[AUTH] Вы уже вошли в аккаунт!"
     "auth.error.register"   : "[AUTH] Аккаунт с такими именем уже зарегистрирован."
     "auth.error.notfound"   : "[AUTH] Аккаунт с такими данными не зарегистрирован."
     "auth.success.register" : "[AUTH] Вы успешно зарегистрировались!"
     "auth.success.login"    : "[AUTH] Вы успешно вошли в аккаунт!"
     "auth.error.cmderror"   : "[AUTH] Для выполнения команды Вам необходимо войти в аккаунт!"
     "auth.notification"     : "[AUTH] Вам нужно войти в свой аккаунт используя /login PASSWORD, или создать новый через /register PASSWORD"
+    "auth.error.tomany"     : "[AUTH] Вы достигли лимита по количеству аккаунтов."
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
@@ -538,17 +540,17 @@ translation("ru", {
     "general.noonearound"                       : "Рядом с вами никого нет."
     "general.job.anotherone"                    : "Вы работаете %s, а не %s!"
 
-    "job.police.officer"                        : "Офицер Полиции"
-    "job.police.detective"                      : "Детектив"
-    "job.police.chief"                          : "Шеф Полиции"
+    "job.police.officer"                        : "офицер полиции"
+    "job.police.detective"                      : "детектив"
+    "job.police.chief"                          : "шеф полиции"
     "organizations.police.job.getmaxrank"       : "Вы достигли максимального звания: %s."
 
     "organizations.police.setjob.byadmin"       : "Вы устроили на работу игрока %s в качестве %s."
     "organizations.police.leavejob.byadmin"     : "Вы уволили %s с работы %s."
 
     "organizations.police.call.withoutaddress"  : "Вы не можете вызвать полицию, не указав адрес."
-    "organizations.police.call.new"             : "[R] поступил вызов от %s из %s"
-    "organizations.police.call.foruser"         : "Вы вызвали такси из %s"
+    "organizations.police.call.new"             : "[R] поступил вызов от %s по адресу %s"
+    "organizations.police.call.foruser"         : "Вы вызвали полицию по адресу %s"
 
     "organizations.police.income"               : "[EBPD] Ваша зарплата составляет $%.2f за службу в качестве %s."
 
