@@ -24,8 +24,8 @@ simplecmd("register", function(playerid, password) {
                 ORM.Query("select count(*) cnt from @Account where serial like ':serial'")
                 .setParameter("serial", getPlayerSerial(playerid))
                 .getSingleResult(function(err, result) {
-                    // no more than 3 accounts
-                    if (result.cnt >= 3) {
+                    // no more than N accounts
+                    if (result.cnt >= AUTH_ACCOUNTS_LIMIT) {
                         return msg(playerid, "auth.error.tomany", CL_ERROR);
                     }
 
