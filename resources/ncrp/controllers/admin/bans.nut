@@ -19,11 +19,11 @@ acmd("kick", function(playerid, targetid, ...) {
         removePlayerFromVehicle( playerid );
     }
 
-    // move player to sky
-    movePlayer(targetid, 0.0, 0.0, 150.0);
-
     // remove player from players array (disabling chats and stuff)
     removePlayer(targetid, reason);
+
+    // move player to sky
+    movePlayer(targetid, 0.0, 0.0, 150.0);
 
     // clear chat
     for (local i = 0; i < 12; i++) {
