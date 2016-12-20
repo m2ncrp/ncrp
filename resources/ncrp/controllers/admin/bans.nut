@@ -39,3 +39,14 @@ acmd("kick", function(playerid, targetid, ...) {
 
 // acmd("ban")
 // acmd("mute")
+// acmd("mute", function(playerid, targetid, amount, ...) {
+//     local targetid = toInteger(targetid);
+//     local reason   = concat(vargv);
+
+//     if (targetid == null || !isPlayerConnected(targetid)) {
+//         return msg(playerid, "You should provide playerid of connected player you want to kick", CL_ERROR);
+//     }
+
+//     setPlayerMuted(targetid, true);
+//     msg(targetid, format("[SERVER] You has been muted: %s", reason), CL_RED);
+// });
