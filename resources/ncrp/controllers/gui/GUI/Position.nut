@@ -1,6 +1,7 @@
-enum {
-    GUI_POSITION_ABSOLUTE,
-    GUI_POSITION_CENTERED
+enum GUI_POSITION {
+    ABSOLUTE,
+    RELATIVE,
+    CENTERED,
 };
 
 class GUI.Position
