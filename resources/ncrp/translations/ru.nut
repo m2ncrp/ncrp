@@ -45,12 +45,14 @@ translation("ru", {
     "auth.command.regformat": "* Пример: Joe Barbaro"
     "auth.command.login"    : "* Войдите в аккаунт, используя: /login PASSWORD"
     "auth.error.logined"    : "[AUTH] Вы уже вошли в аккаунт!"
+    "auth.error.login"      : "[AUTH] Вы уже вошли в аккаунт!"
     "auth.error.register"   : "[AUTH] Аккаунт с такими именем уже зарегистрирован."
     "auth.error.notfound"   : "[AUTH] Аккаунт с такими данными не зарегистрирован."
     "auth.success.register" : "[AUTH] Вы успешно зарегистрировались!"
     "auth.success.login"    : "[AUTH] Вы успешно вошли в аккаунт!"
     "auth.error.cmderror"   : "[AUTH] Для выполнения команды Вам необходимо войти в аккаунт!"
     "auth.notification"     : "[AUTH] Вам нужно войти в свой аккаунт используя /login PASSWORD, или создать новый через /register PASSWORD"
+    "auth.error.tomany"     : "[AUTH] Вы достигли лимита по количеству аккаунтов."
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 

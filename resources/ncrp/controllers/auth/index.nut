@@ -76,12 +76,14 @@ translation("en", {
     "auth.command.regformat": "* Example: Joe_Barbaro"
     "auth.command.login"    : "* Please enter using /login PASSWORD"
     "auth.error.logined"    : "[AUTH] You are already logined!"
+    "auth.error.login"      : "[AUTH] You are already logined!"
     "auth.error.register"   : "[AUTH] Account with this name is already registered!"
     "auth.error.notfound"   : "[AUTH] This account is not registered"
     "auth.success.register" : "[AUTH] You've successfuly registered!"
     "auth.success.login"    : "[AUTH] You've successfuly logined!"
     "auth.error.cmderror"   : "[AUTH] You can't execute commands without registration."
     "auth.notification"     : "[AUTH] You should enter into your account via /login PASSWORD, or create new one via /register PASSWORD"
+    "auth.error.tomany"     : "[AUTH] You cant register more accounts."
 });
 
 
