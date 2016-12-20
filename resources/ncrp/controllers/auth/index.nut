@@ -2,6 +2,7 @@
 include("controllers/auth/commands.nut");
 
 IS_AUTHORIZATION_ENABLED <- true;
+AUTH_ACCOUNTS_LIMIT <- 2;
 
 /**
  * Storage for our sessions
