@@ -1,7 +1,7 @@
 include("controllers/time/commands.nut");
 
-// number of senconds from 01.01.2012
-const DEFAULT_TIMESTAMP     = 1325368800;
+// number of senconds from 01.01.1970
+const DEFAULT_TIMESTAMP     = 1482271376;
 const DEFAULT_SHAPSHOT_ID   = 1;
 const DEFAULT_SAVE_INTERVAL = 10;
 
