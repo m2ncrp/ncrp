@@ -21,20 +21,28 @@ simplecmd("register", function(playerid, password) {
             if (result) {
                 msg(playerid, "auth.error.register", CL_ERROR);
             } else {
-                account.save(function(err, result) {
-                    account.addSession(playerid);
+                ORM.Query("select count(*) cnt from @Account where serial like ':serial'")
+                .setParameter("serial", getPlayerSerial(playerid))
+                .getSingleResult(function(err, result) {
+                    // no more than 3 accounts
+                    if (result.cnt >= 3) {
+                        return msg(playerid, "auth.error.tomany", CL_ERROR);
+                    }
 
-                    // send success registration message
-                    msg(playerid, "auth.success.register", CL_SUCCESS);
-                    dbg("registration", getAuthor(playerid));
+                    account.save(function(err, result) {
+                        account.addSession(playerid);
 
-                    screenFadein(playerid, 250, function() {
-                        trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
+                        // send success registration message
+                        msg(playerid, "auth.success.register", CL_SUCCESS);
+                        dbg("registration", getAuthor(playerid));
+
+                        screenFadein(playerid, 250, function() {
+                            trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
+                        });
                     });
                 });
             }
         });
-
     });
 });
 
