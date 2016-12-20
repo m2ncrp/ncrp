@@ -14,7 +14,7 @@ translation("en", {
 
 */
 
-const BANK_RATE = 0.005; //bank rate for deposit (x<1) in day
+const BANK_RATE = 0.0; //bank rate for deposit (x<1) in day
 const BANK_RADIUS = 3.0;
 const BANK_X = 64.8113;  //Bank X
 const BANK_Y = -202.754; //Bank Y
