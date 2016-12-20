@@ -80,7 +80,13 @@ acmd(["v2p", "vtop"], function(playerid, targetid1 = null, targetid2 = null, off
     msg(playerid, format("You've successuly tp'd vehicle #%d to player %d", targetid1, targetid2), CL_SUCCESS);
 });
 
-
+/**
+ * Find vehicle id, owner by full, or partial plate number
+ * Usage:
+ *     /plate 25
+ *     /plate PD
+ *     /plate LA-1
+ */
 acmd("plate", function(playerid, text = "") {
     local plates = getRegisteredVehiclePlates();
 
