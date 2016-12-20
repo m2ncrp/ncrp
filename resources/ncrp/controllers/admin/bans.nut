@@ -4,7 +4,7 @@
  *     /kick 0 shitposting
  *     /kick 0
  */
-acmd("kick", function(playerid, targetid = null, ...) {
+acmd("kick", function(playerid, targetid, ...) {
     local targetid = toInteger(targetid);
     local reason   = concat(vargv);
 
@@ -36,3 +36,6 @@ acmd("kick", function(playerid, targetid = null, ...) {
         kickPlayer( targetid );
     });
 });
+
+// acmd("ban")
+// acmd("mute")

@@ -68,7 +68,8 @@ local bannedNames = [
 ];
 
 translation("en", {
-    "auth.wrongname"        : "Sorry, your name should be original (not from the game) and have Firstname_Lastname format."
+    "auth.wrongname"        : "Your name should be at least 4 symbols and should not contain any symbols except letters, nubmers, space and underscore."
+    // "auth.wrongname"        : "Sorry, your name should be original (not from the game) and have Firstname_Lastname format."
     "auth.changename"       : "Please, change you name in the settings, and reconnect. Thank you!"
     "auth.welcome"          : "* Welcome there, %s!"
     "auth.registered"       : "* Your account is registered."
@@ -93,7 +94,7 @@ translation("en", {
  * validation of usernames
  * @type {Object}
  */
-local REGEX_USERNAME = regexp("([A-Za-z0-9]{1,32}_[A-Za-z0-9]{1,32})")
+local REGEX_USERNAME = regexp("[A-Za-z0-9_ ]{4,64}")
 
 /**
  * On player connects we will
@@ -113,12 +114,23 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
     };
 
     // disable for a while
-    // if (!REGEX_USERNAME.match(username) && bannedNames.find(username) != null && username != "Inlife") {
-    //     // return kickPlayer(playerid);
-    //     msg(playerid, "auth.wrongname", CL_WARNING);
-    //     msg(playerid, "auth.changename");
-    //     return;
-    // }
+    if (!REGEX_USERNAME.match(username) || username.find("  ") != null || username.find("__") != null) {
+        return delayedFunction(2000, function() {
+            // // clear chat
+            for (local i = 0; i < 12; i++) {
+                msg(playerid, "");
+            }
+
+            msg(playerid, "auth.wrongname", CL_WARNING);
+            msg(playerid, "auth.changename");
+
+            dbg("kick", "invalid unsername", getPlayerName(playerid));
+
+            return delayedFunction(5000, function () {
+                kickPlayer( playerid );
+            });
+        })
+    }
 
     Account.findOneBy({ username = username }, function(err, account) {
         // override player locale if registered
