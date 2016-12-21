@@ -35,7 +35,13 @@ function translation(language, data) {
 translator <- translation;
 translate  <- translation;
 
-function dumpTranslations(from, to) {
+/**
+ * Compare 2 language translations
+ * and print differences
+ * @param  {String} from
+ * @param  {String} to
+ */
+function compareTranslations(from, to) {
     if (!(from in __translations) || !(to in __translations)) {
         return dbg("unknown pair: ", [from, to]);
     }
@@ -45,6 +51,35 @@ function dumpTranslations(from, to) {
             print(idx);
         }
     }
+}
+
+/**
+ * Dump tranlsation for provided language
+ * @param  {String} lang
+ * @return {Boolean}
+ */
+function dumpTranslation(lang) {
+    if (!(lang in __translations)) {
+        return dbg("unknown language", lang);
+    }
+
+    local keys = tableKeys(__translations[lang]);
+    local dt = DataFile("logs/" + lang + ".dump.json", "w");
+
+    dt.write("{");
+    keys.sort();
+
+    while (keys.len()) {
+        local name  = keys.pop();
+        local value = __translations[lang][name];
+        local comma = keys.len() ? "," : "";
+        dt.write("    \"" + name + "\": \"" + value + "\"" + comma);
+    }
+
+    dt.write("}");
+    dt.close();
+
+    return dbg("successfuly dumped", lang, "to logs/ dir");
 }
 
 /**
