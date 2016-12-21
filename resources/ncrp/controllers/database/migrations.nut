@@ -75,8 +75,15 @@ migrate(function(connection) {
     connection.query("ALTER TABLE tbl_accounts ADD COLUMN `layout` VARCHAR(255) NOT NULL DEFAULT 'qwerty';");
 });
 
+// 20.12.16
+// added account time of creation and last login
+migrate(function(connection) {
+    connection.query("ALTER TABLE tbl_accounts ADD COLUMN `created` INT(255) NOT NULL DEFAULT 0;");
+    connection.query("ALTER TABLE tbl_accounts ADD COLUMN `logined` INT(255) NOT NULL DEFAULT 0;");
+});
+
 // 21.12.16
 // added character state saving
 migrate(function(connection) {
     connection.query("ALTER TABLE tbl_characters ADD COLUMN `state` VARCHAR(255) NOT NULL DEFAULT 'free';");
-})
+});

@@ -4,7 +4,7 @@ include("controllers/database/migrations.nut");
 local connection = null;
 
 // debug settings
-const IS_DATABASE_DEBUG = false;
+IS_DATABASE_DEBUG <- false;
 
 addEventHandler("onScriptInit", function() {
     ::log("[database] creating connection...");

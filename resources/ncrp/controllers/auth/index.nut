@@ -2,6 +2,7 @@
 include("controllers/auth/commands.nut");
 
 IS_AUTHORIZATION_ENABLED <- true;
+AUTH_ACCOUNTS_LIMIT <- 2;
 
 /**
  * Storage for our sessions
@@ -14,60 +15,9 @@ IS_AUTHORIZATION_ENABLED <- true;
 local accounts = {};
 local baseData = {};
 
-local bannedNames = [
-    "Joe_Barbaro",
-    "Joe_Barbero",
-    "Joe_Barbera",
-    "Joe_Barbara",
-    "Vito_Scaletta",
-    "Vito_Scaletto",
-    "Vito_Scaleto",
-    "Vito_Scaleta",
-    "Vito_Skaletta",
-    "Vito_Skaletto",
-    "Vito_Skaleto",
-    "Vito_Skaleta",
-    "Vitorio_Scaletta",
-    "Vitorio_Scaletto",
-    "Vittorio_Scaletta",
-    "Vittorio_Scaletto",
-    "Frank_Vinci",
-    "Frank_Vinchi",
-    "Leo_Galante",
-    "Leo_Galanta",
-    "Leo_Galanto",
-    "Derek_Pappalardo",
-    "Derek_Papalardo",
-    "Luca_Gurino",
-    "Luka_Gurino",
-    "Brian_O'Neill",
-    "Brian_ONeill",
-    "Brian_O'Nill",
-    "Brian_ONill",
-    "Tommy_Angelo",
-    "Tommy_Angela",
-    "Tomas_Angelo",
-    "Tomas_Angela",
-    "Tom_Angelo",
-    "Tom_Angela",
-    "Richard_Beck",
-    "Mike_Bruski",
-    "Frankie_Potts",
-    "Henry_Tomasino",
-    "Henry_Tomasina",
-    "Henry_Tamasina",
-    "Genry_Tamasina",
-    "Genry_Tomasino",
-    "Genry_Tomasina",
-    "Carlo_Falcone",
-    "Carlo_Falkone",
-    "Carlo_Folcone",
-    "Carlo_Folkone",
-    "Alberto_Clemente",
-];
-
 translation("en", {
-    "auth.wrongname"        : "Sorry, your name should be original (not from the game) and have Firstname_Lastname format."
+    "auth.wrongname"        : "Your name should be at least 4 symbols and should not contain any symbols except letters, nubmers, space and underscore."
+    // "auth.wrongname"        : "Sorry, your name should be original (not from the game) and have Firstname_Lastname format."
     "auth.changename"       : "Please, change you name in the settings, and reconnect. Thank you!"
     "auth.welcome"          : "* Welcome there, %s!"
     "auth.registered"       : "* Your account is registered."
@@ -92,7 +42,7 @@ translation("en", {
  * validation of usernames
  * @type {Object}
  */
-local REGEX_USERNAME = regexp("([A-Za-z0-9]{1,32}_[A-Za-z0-9]{1,32})")
+local REGEX_USERNAME = regexp("[A-Za-z0-9_ ]{4,64}")
 
 /**
  * On player connects we will
@@ -112,12 +62,23 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
     };
 
     // disable for a while
-    // if (!REGEX_USERNAME.match(username) && bannedNames.find(username) != null && username != "Inlife") {
-    //     // return kickPlayer(playerid);
-    //     msg(playerid, "auth.wrongname", CL_WARNING);
-    //     msg(playerid, "auth.changename");
-    //     return;
-    // }
+    if (!REGEX_USERNAME.match(username) || username.find("  ") != null || username.find("__") != null) {
+        return delayedFunction(2000, function() {
+            // // clear chat
+            for (local i = 0; i < 12; i++) {
+                msg(playerid, "");
+            }
+
+            msg(playerid, "auth.wrongname", CL_WARNING);
+            msg(playerid, "auth.changename");
+
+            dbg("kick", "invalid unsername", getPlayerName(playerid));
+
+            return delayedFunction(5000, function () {
+                kickPlayer( playerid );
+            });
+        })
+    }
 
     Account.findOneBy({ username = username }, function(err, account) {
         // override player locale if registered

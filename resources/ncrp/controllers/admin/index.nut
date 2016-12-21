@@ -1,6 +1,8 @@
 include("controllers/admin/commands.nut");
 include("controllers/admin/sqdebug.nut");
 include("controllers/admin/teleport.nut");
+include("controllers/admin/utils.nut");
+include("controllers/admin/bans.nut");
 
 local serverAdmins = [
     "CD19A5029AE81BB50B023291846C0DF3", // max
@@ -11,6 +13,17 @@ local serverAdmins = [
 
 function isPlayerAdmin(playerid) {
     return (serverAdmins.find(getPlayerSerial(playerid)) != null);
+}
+
+function freezePlayer( targetid, value ) {
+    togglePlayerControls( targetid.tointeger(), value );
+}
+
+function stopPlayerVehicle( targetid ) {
+    if (isPlayerInVehicle( targetid )) {
+        local vehicleid = getPlayerVehicle( targetid );
+        setVehicleSpeed( vehicleid, 0.0, 0.0, 0.0 );
+    }
 }
 
 event("onPlayerTeleportRequested", function(playerid, x, y, z) {
