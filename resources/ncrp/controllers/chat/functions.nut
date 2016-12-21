@@ -82,6 +82,10 @@ function chatcmd(names, callback)  {
             return msg(playerid, "[INFO] You can't send an empty message.", CL_YELLOW);
         }
 
+        if (isPlayerMuted(playerid)) {
+            return;
+        }
+
         // call registered callback
         return callback(playerid, text);
     });
