@@ -14,6 +14,7 @@ translation("en", {
     "chat.player.try.end.success"   : "[TRY] %s try %s (success).",
     "chat.player.try.end.fail"      : "[TRY] %s try %s (failed)."
 
+    "chat.bug.success"              : "[BUG] Your bug report is successfuly saved. Thank you!"
     "chat.idea.success"             : "[IDEA] Your idea has been successfuly submitted!"
     "chat.report.success"           : "[REPORT] Your report has been successfuly submitted!"
     "chat.report.noplayer"          : "[REPORT] You can't report about player, which is not connected!"
