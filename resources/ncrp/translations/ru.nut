@@ -74,6 +74,7 @@ translation("ru", {
     "chat.player.try.end.success"   : "[TRY] %s попытался %s (успех)."
     "chat.player.try.end.fail"      : "[TRY] %s попытался %s (провал)."
 
+    "chat.bug.success"              : "[BUG] Ваш баг-репорт успешно отправлен. Спасибо! ;)"
     "chat.idea.success"             : "[IDEA] Ваша идея была успешно отправлена!"
     "chat.report.success"           : "[REPORT] Ваш репорт был успешно отправлен!"
     "chat.report.noplayer"          : "[REPORT] Вы не можете создать репорт на игрока, который находится в оффлайн!"
