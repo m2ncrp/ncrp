@@ -4,7 +4,7 @@
  *     /p2p 0 15
  *     /p2p 0 15 32.0
  */
-acmd(["p2p", "ptop"], function(playerid, targetid1 = null, targetid2 = null, offset = 1.0) {
+acmd(["p2p", "ptop", "pp"], function(playerid, targetid1 = null, targetid2 = null, offset = 1.0) {
     local targetid1 = toInteger(targetid1);
     local targetid2 = toInteger(targetid2);
 
@@ -28,7 +28,7 @@ acmd(["p2p", "ptop"], function(playerid, targetid1 = null, targetid2 = null, off
  *     /v2v 0 15
  *     /v2v 0 15 32.0
  */
-acmd(["v2v", "vtov"], function(playerid, targetid1 = null, targetid2 = null, offset = 1.0) {
+acmd(["v2v", "vtov", "vv"], function(playerid, targetid1 = null, targetid2 = null, offset = 1.0) {
     local targetid1 = toInteger(targetid1);
     local targetid2 = toInteger(targetid2);
 
@@ -47,7 +47,7 @@ acmd(["v2v", "vtov"], function(playerid, targetid1 = null, targetid2 = null, off
  *     /p2v 0 15
  *     /p2v 0 15 32.0
  */
-acmd(["p2v", "ptov"], function(playerid, targetid1 = null, targetid2 = null, offset = 1.0) {
+acmd(["p2v", "ptov", "pv"], function(playerid, targetid1 = null, targetid2 = null, offset = 1.0) {
     local targetid1 = toInteger(targetid1);
     local targetid2 = toInteger(targetid2);
 
@@ -67,7 +67,7 @@ acmd(["p2v", "ptov"], function(playerid, targetid1 = null, targetid2 = null, off
  *     /v2p 0 15
  *     /v2p 0 15 32.0
  */
-acmd(["v2p", "vtop"], function(playerid, targetid1 = null, targetid2 = null, offset = 1.0) {
+acmd(["v2p", "vtop", "vp"], function(playerid, targetid1 = null, targetid2 = null, offset = 1.0) {
     local targetid1 = toInteger(targetid1);
     local targetid2 = toInteger(targetid2);
 
