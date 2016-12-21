@@ -44,8 +44,6 @@ acmd("kick", function(playerid, targetid, ...) {
     });
 });
 
-// acmd("ban")
-
 /**
  * Mute player for a period of time
  * Usage:
@@ -186,5 +184,48 @@ acmd("ban", function(playerid, targetid, ...) {
     delayedFunction(5000, function () {
         kickPlayer( targetid );
         dbg("kick", "banned", getPlayerName(playerid));
+    });
+});
+
+/**
+ * List current bans
+ * Usage:
+ *     /ban list
+ */
+acmd("ban", "list", function(playerid, page = "0") {
+    msg(playerid, "Listing current server bans:");
+    msg(playerid, "----------------------------------------", CL_WARNING);
+    local q = ORM.Query("select * from @Ban where until > :current limit :page, 10");
+
+    q.setParameter("current", getTimestamp())
+    q.setParameter("page", max(0, page.tointeger()) * 10);
+    q.getResult(function(err, results) {
+        msg(playerid, format("Page %s (for next page /ban list %d):", page, page.tointeger() + 1), CL_INFO);
+
+        // list
+        return results.map(function(item) {
+            msg(playerid, format("Player: %s, seconds left: %d. Unban via: /unban %d", item.name, item.until - getTimestamp(), item.id));
+        })
+    });
+});
+
+/**
+ * Remove ban record by id
+ * Usage:
+ *     /unban 51
+ */
+acmd("unban", function(playerid, id = null) {
+    local q = ORM.Query("select * from @Ban where until > :current and id = :id")
+
+    q.setParameter("id", toInteger(id));
+    q.setParameter("current", getTimestamp())
+
+    q.getSingleResult(function(err, result) {
+        if (err || !result) {
+            return msg(playerid, "No bans has been found for id #" + id, CL_WARNING);
+        }
+
+        result.remove();
+        msg(playerid, format("Ban for player %s has been successfuly removed", getPlayerName(playerid)), CL_SUCCESS);
     });
 });
