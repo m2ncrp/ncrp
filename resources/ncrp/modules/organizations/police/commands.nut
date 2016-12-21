@@ -179,7 +179,9 @@ cmd(["ticket"], function(playerid, targetid, price, ...) {
         local reason = makeMeText(playerid, vargv);
         local targetid = targetid.tointeger();
         msg(targetid, "organizations.police.ticket.givewithreason", [getAuthor(playerid), reason, playerid]); // add distance check
-        subMoneyToPlayer(targetid, price);
+        if (canMoneyBeSubstracted(targetid, price)) {
+            subMoneyToPlayer(targetid, price);
+        }
     } else {
         return msg(playerid, "organizations.police.offduty.notickets")
     }

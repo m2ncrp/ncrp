@@ -274,4 +274,5 @@ event("native:onPlayerDeath", function(playerid, killerid) {
 
 event("onPlayerStateChange", function(playerid) {
     // WIP
+    trySavePlayer(playerid);
 })
