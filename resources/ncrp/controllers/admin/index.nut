@@ -40,7 +40,8 @@ event("native:onConsoleInput", function(name, data) {
     switch (name) {
         case "list": dbg(getPlayers()); break;
         case "adm": sendPlayerMessageToAll("[ADMIN] " + data, CL_MEDIUMPURPLE.r, CL_MEDIUMPURPLE.g, CL_MEDIUMPURPLE.b); log("[ADMIN] " + data); break;
-        case "lang": dumpTranslations(data.slice(0, 2), data.slice(3, 5)); break;
+        case "lang": compareTranslations(data.slice(0, 2), data.slice(3, 5)); break;
+        case "tdmp": dumpTranslation(data.slice(0, 2)); break;
         case "test":
             local data = url_encode(base64_encode(format("%s: %s", "console", "testing...")));
             webRequest(HTTP_TYPE_GET, MOD_HOST, "/discord?type=test&data=" + data, function(a,b,c) {}, 7790);
