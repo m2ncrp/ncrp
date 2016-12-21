@@ -75,3 +75,8 @@ migrate(function(connection) {
     connection.query("ALTER TABLE tbl_accounts ADD COLUMN `layout` VARCHAR(255) NOT NULL DEFAULT 'qwerty';");
 });
 
+// 21.12.16
+// added character state saving
+migrate(function(connection) {
+    connection.query("ALTER TABLE tbl_characters ADD COLUMN `state` VARCHAR(255) NOT NULL DEFAULT 'free';");
+})

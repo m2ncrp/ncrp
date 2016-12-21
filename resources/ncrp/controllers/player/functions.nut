@@ -233,4 +233,5 @@ function getPlayerState(playerid) {
 
 function setPlayerState(playerid, to) {
     players[playerid]["state"] = to;
+    trigger("onPlayerStateChange", playerid);
 }
