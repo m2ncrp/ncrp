@@ -224,6 +224,7 @@ key(["v"], function(playerid) {
 cmd(["prison", "jail"], function(playerid, targetid) {
     targetid = targetid.tointeger();
     if ( isOnPoliceDuty(playerid) && getPlayerState(targetid) == "cuffed" ) {
+        setPlayerState(targetid, "jail");
         setPlayerToggle(targetid, false);
         screenFadeinFadeoutEx(targetid, 250, 200, function() {
         //  output "Wasted" and set player position

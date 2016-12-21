@@ -20,6 +20,11 @@ const HOSPITAL_Y         = 912.044;
 const HOSPITAL_Z         = -20.0026;
 const HOSPITAL_AMOUNT    = 15.0;
 
+// jail
+const JAIL_X = -1018.93;
+const JAIL_Y = 1731.82;
+const JAIL_Z = 10.3252;
+
 default_spawns <- [
     [-555.251,  1702.31, -22.2408], // railway
     [-11.2921,  1631.85, -20.0296], // tmp bomj spawn
@@ -76,7 +81,7 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
         players[playerid]["housez"]       <- char.housez;
         players[playerid]["health"]       <- char.health;
         players[playerid]["toggle"]       <- false;
-        players[playerid]["state"]        <- "free";
+        players[playerid]["state"]        <- char.state;
 
         // notify all that client connected (and data loaded)
         trigger("onPlayerConnect", playerid, name, ip, serial);
@@ -113,6 +118,7 @@ function trySavePlayer(playerid) {
     char.housez  = pos.z;
     char.job     = (players[playerid]["job"]) ? players[playerid]["job"] : "";
     char.health  = getPlayerHealth(playerid);
+    char.state   = getPlayerState(playerid);
 
     // save it
     char.save();
@@ -196,6 +202,9 @@ event("native:onPlayerSpawn", function(playerid) {
         togglePlayerHud(playerid, true);
 
     } else {
+        if (getPlayerState(playerid) == "jail") {
+            return setPlayerPosition(playerid, JAIL_X, JAIL_Y, JAIL_Z);
+        }
         // check if player just dead
         if (isPlayerBeenDead(playerid)) {
 
@@ -258,3 +267,9 @@ event("native:onPlayerDeath", function(playerid, killerid) {
         trigger("onPlayerKill", killerid, playerid);
     }
 });
+
+
+
+event("onPlayerStateChange", function(playerid) {
+    // WIP
+})
