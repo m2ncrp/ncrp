@@ -30,6 +30,7 @@ include("helpers/distance.nut");
 include("helpers/color.nut");
 include("helpers/base64.nut");
 include("helpers/urlencode.nut");
+include("helpers/table.nut");
 
 // load controllers
 include("controllers/command");
