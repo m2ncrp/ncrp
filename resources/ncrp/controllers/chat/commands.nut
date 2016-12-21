@@ -83,11 +83,11 @@ chatcmd(["me"], function(playerid, message) {
     statisticsPushMessage(playerid, message, "me");
 });
 
-chatcmd("idea", function(playerid, message) {
+cmd("idea", function(playerid, ...) {
     msg(playerid, "chat.idea.success", CL_SUCCESS);
-    statisticsPushText("idea", playerid, message);
+    statisticsPushText("idea", playerid, concat(vargv));
 
-    local data = url_encode(base64_encode(format("%s: %s", getAuthor(playerid), message)));
+    local data = url_encode(base64_encode(format("%s: %s", getAuthor(playerid), concat(vargv))));
     webRequest(HTTP_TYPE_GET, MOD_HOST, "/discord?type=idea&data=" + data, function(a,b,c) {}, 7790);
 });
 
