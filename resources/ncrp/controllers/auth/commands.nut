@@ -16,6 +16,8 @@ simplecmd("register", function(playerid, password) {
         account.ip       = getPlayerIp(playerid);
         account.serial   = getPlayerSerial(playerid);
         account.locale   = getPlayerLocale(playerid);
+        account.created  = getTimestamp();
+        account.logined  = getTimestamp();
 
         Account.findOneBy({ username = account.username }, function(err, result) {
             if (result) {
@@ -24,8 +26,8 @@ simplecmd("register", function(playerid, password) {
                 ORM.Query("select count(*) cnt from @Account where serial like ':serial'")
                 .setParameter("serial", getPlayerSerial(playerid))
                 .getSingleResult(function(err, result) {
-                    // no more than 3 accounts
-                    if (result.cnt >= 3) {
+                    // no more than N accounts
+                    if (result.cnt >= AUTH_ACCOUNTS_LIMIT) {
                         return msg(playerid, "auth.error.tomany", CL_ERROR);
                     }
 
@@ -66,8 +68,9 @@ simplecmd("login", function(playerid, password) {
             if (!account) return msg(playerid, "auth.error.notfound", CL_ERROR);
 
             // update data
-            account.ip     = getPlayerIp(playerid);
-            account.serial = getPlayerSerial(playerid);
+            account.ip       = getPlayerIp(playerid);
+            account.serial   = getPlayerSerial(playerid);
+            account.logined  = getTimestamp();
             account.save();
 
             // save session

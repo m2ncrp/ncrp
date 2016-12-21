@@ -124,7 +124,7 @@ function trySavePlayer(playerid) {
     char.save();
 }
 
-event("native:onPlayerDisconnect", function(playerid, reason) {
+function removePlayer(playerid, reason = "") {
     if (!(playerid in players)) {
         return dbg(format("player %s exited without login", getPlayerName(playerid)));
     }
@@ -137,7 +137,9 @@ event("native:onPlayerDisconnect", function(playerid, reason) {
     playerList.delPlayer(playerid);
     delete players[playerid];
     delete xPlayers[playerid];
-});
+}
+
+event("native:onPlayerDisconnect", removePlayer);
 
 addEventHandlerEx("onServerAutosave", function() {
     foreach (playerid, char in players) {

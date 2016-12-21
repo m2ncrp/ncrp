@@ -69,6 +69,9 @@ function sendMoney(playerid, targetid = null, amount = null) {
             addMoneyToPlayer(targetid, amount);
             msg(playerid, "You've given $" + amount + " to " + getPlayerName(targetid) + " (#" + targetid + "). Your balance: $" + getPlayerBalance(playerid) );
             msg(targetid, "You've taken $" + amount + " from " + getPlayerName(playerid) + " (#" + playerid + "). Your balance: $" + getPlayerBalance(targetid) );
+
+            dbg("money", "send", getPlayerName(playerid), getPlayerName(targetid), amount);
+            statisticsPushText("money", playerid, format("to: %s, amount: %.2f", getPlayerName(targetid), amount), "send");
         } else {
             msg(playerid, "Not enough money to give!");
             msg(targetid, getPlayerName(playerid) + " (#" + playerid + ") can't give you money!");
