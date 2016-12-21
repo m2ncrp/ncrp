@@ -4,7 +4,7 @@
  *     /p2p 0 15
  *     /p2p 0 15 32.0
  */
-acmd(["p2p", "ptop", "pp"], function(playerid, targetid1 = null, targetid2 = null, offset = 1.0) {
+acmd("pp", function(playerid, targetid1 = null, targetid2 = null, offset = 1.0) {
     local targetid1 = toInteger(targetid1);
     local targetid2 = toInteger(targetid2);
 
@@ -28,7 +28,7 @@ acmd(["p2p", "ptop", "pp"], function(playerid, targetid1 = null, targetid2 = nul
  *     /v2v 0 15
  *     /v2v 0 15 32.0
  */
-acmd(["v2v", "vtov", "vv"], function(playerid, targetid1 = null, targetid2 = null, offset = 1.0) {
+acmd("vv", function(playerid, targetid1 = null, targetid2 = null, offset = 1.0) {
     local targetid1 = toInteger(targetid1);
     local targetid2 = toInteger(targetid2);
 
@@ -47,7 +47,7 @@ acmd(["v2v", "vtov", "vv"], function(playerid, targetid1 = null, targetid2 = nul
  *     /p2v 0 15
  *     /p2v 0 15 32.0
  */
-acmd(["p2v", "ptov", "pv"], function(playerid, targetid1 = null, targetid2 = null, offset = 1.0) {
+acmd("pv", function(playerid, targetid1 = null, targetid2 = null, offset = 1.0) {
     local targetid1 = toInteger(targetid1);
     local targetid2 = toInteger(targetid2);
 
@@ -67,7 +67,7 @@ acmd(["p2v", "ptov", "pv"], function(playerid, targetid1 = null, targetid2 = nul
  *     /v2p 0 15
  *     /v2p 0 15 32.0
  */
-acmd(["v2p", "vtop", "vp"], function(playerid, targetid1 = null, targetid2 = null, offset = 1.0) {
+acmd("vp", function(playerid, targetid1 = null, targetid2 = null, offset = 1.0) {
     local targetid1 = toInteger(targetid1);
     local targetid2 = toInteger(targetid2);
 
@@ -99,8 +99,8 @@ acmd("plate", function(playerid, text = "") {
     foreach (plate, vehicleid in plates) {
         if (plate.tolower().find(text.tolower()) != null) {
             msg(playerid, format(
-                "Vehicle id: %d Plate: %s, Owner: %s", 
-                vehicleid, plate, (getVehicleOwner(vehicleid) ? getVehicleOwner(vehicleid) : "")
+                "Vehicle: %d | Model: %d | Plate: %s | Owner: %s", 
+                vehicleid, getVehicleModel(vehicleid), plate, (getVehicleOwner(vehicleid) ? getVehicleOwner(vehicleid) : "")
             ))
         }
     }
