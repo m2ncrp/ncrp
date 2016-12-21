@@ -38,7 +38,7 @@ default_spawns <- [
 //     "free",   // 0
 //     "cuffed", // 1
 //     "tased"   // 2
-// ];  
+// ];
 
 local defaultSkins = [
     10, 24, 42, 71, 72, 81, 149, 162
@@ -125,6 +125,8 @@ function trySavePlayer(playerid) {
 }
 
 function removePlayer(playerid, reason = "") {
+    setPlayerAuthBlocked(playerid, true);
+
     if (!(playerid in players)) {
         return dbg(format("player %s exited without login", getPlayerName(playerid)));
     }
