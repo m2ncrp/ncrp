@@ -5,6 +5,10 @@
  * TODO: add check for existing
  */
 simplecmd("register", function(playerid, password) {
+    if (isPlayerAuthBlocked(playerid)) {
+        return;
+    }
+
     Account.getSession(playerid, function(err, account) {
         // if player is logined
         if (account) return msg(playerid, "auth.error.login", CL_ERROR);
@@ -53,6 +57,10 @@ simplecmd("register", function(playerid, password) {
  * using their current username and specified password
  */
 simplecmd("login", function(playerid, password) {
+    if (isPlayerAuthBlocked(playerid)) {
+        return;
+    }
+
     Account.getSession(playerid, function(err, account) {
         // if player is logined
         if (account) {

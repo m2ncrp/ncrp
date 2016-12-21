@@ -42,7 +42,36 @@ translation("en", {
  * validation of usernames
  * @type {Object}
  */
-local REGEX_USERNAME = regexp("[A-Za-z0-9_ ]{4,64}")
+local REGEX_USERNAME = regexp("[A-Za-z0-9_ ]{4,64}");
+
+
+local blockedAccounts = [];
+
+/**
+ * Check if player account is blocked via kick or ban
+ * @param  {Integer} playerid
+ * @return {Boolean}
+ */
+function isPlayerAuthBlocked(playerid) {
+    return blockedAccounts.find(getPlayerName(playerid)) != null;
+}
+
+/**
+ * Sets player account blocked
+ * @param {Integer} playerid
+ * @param {Boolean} value
+ */
+function setPlayerAuthBlocked(playerid, value) {
+    if (value && !isPlayerAuthBlocked(playerid)) {
+        return blockedAccounts.push(getPlayerName(playerid));
+    }
+
+    if (!value && isPlayerAuthBlocked(playerid)) {
+        return blockedAccounts.remove(blockedAccounts.find(getPlayerName(playerid)));
+    }
+
+    return false;
+}
 
 /**
  * On player connects we will
@@ -61,8 +90,12 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
         locale = "en"
     };
 
-    // disable for a while
+    // check playername validity
     if (!REGEX_USERNAME.match(username) || username.find("  ") != null || username.find("__") != null) {
+        // disable ability to login
+        setPlayerAuthBlocked(playerid, true);
+
+        // wait to load client chat and then display message
         return delayedFunction(2000, function() {
             // // clear chat
             for (local i = 0; i < 12; i++) {
@@ -74,35 +107,63 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
 
             dbg("kick", "invalid unsername", getPlayerName(playerid));
 
-            return delayedFunction(5000, function () {
+            return delayedFunction(6000, function () {
                 kickPlayer( playerid );
             });
-        })
+        });
     }
 
-    Account.findOneBy({ username = username }, function(err, account) {
-        // override player locale if registered
-        if (account) {
-            setPlayerLocale(playerid, account.locale);
-            setPlayerLayout(playerid, account.layout, false);
-        }
+    // maybe he is banned
+    ORM.Query("select * from @Ban where serial = ':serial' and until > :current")
+        .setParameter("serial", getPlayerSerial(playerid))
+        .setParameter("current", getTimestamp())
+        .getSingleResult(function(err, result) {
+            if (result) {
+                // disable ability to login
+                setPlayerAuthBlocked(playerid, true);
 
-        msg(playerid, "---------------------------------------------", CL_SILVERSAND);
-        msg(playerid, "auth.welcome", username);
+                // wait to load client chat and then display message
+                return delayedFunction(2000, function() {
+                    // // clear chat
+                    for (local i = 0; i < 12; i++) {
+                        msg(playerid, "");
+                    }
 
-        if (account) {
-            msg(playerid, "auth.registered");
-            msg(playerid, "*");
-            msg(playerid, "auth.command.login");
-        } else {
-            msg(playerid, "auth.notregistered");
-            msg(playerid, "*");
-            msg(playerid, "auth.command.register");
-            msg(playerid, "auth.command.regformat");
-        }
+                    msg(playerid, "[SERVER] You are banned from the server for: " + result.reason, CL_RED);
+                    msg(playerid, "[SERVER] Try connecting again later."    );
 
-        msg(playerid, "---------------------------------------------", CL_SILVERSAND);
-    });
+                    dbg("kick", "banned connected", getPlayerName(playerid));
+
+                    return delayedFunction(6000, function () {
+                        kickPlayer( playerid );
+                    });
+                });
+            }
+
+            Account.findOneBy({ username = username }, function(err, account) {
+                // override player locale if registered
+                if (account) {
+                    setPlayerLocale(playerid, account.locale);
+                    setPlayerLayout(playerid, account.layout, false);
+                }
+
+                msg(playerid, "---------------------------------------------", CL_SILVERSAND);
+                msg(playerid, "auth.welcome", username);
+
+                if (account) {
+                    msg(playerid, "auth.registered");
+                    msg(playerid, "*");
+                    msg(playerid, "auth.command.login");
+                } else {
+                    msg(playerid, "auth.notregistered");
+                    msg(playerid, "*");
+                    msg(playerid, "auth.command.register");
+                    msg(playerid, "auth.command.regformat");
+                }
+
+                msg(playerid, "---------------------------------------------", CL_SILVERSAND);
+            });
+        });
 });
 
 /**
@@ -110,6 +171,7 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
  * we will clean up all his data
  */
 event("onPlayerDisconnect", function(playerid, reason) {
+    setPlayerAuthBlocked(playerid, false);
     if (!(playerid in accounts)) return;
 
     // clean up data for GC
@@ -130,7 +192,7 @@ event("onServerSecondChange", function() {
     if (getSecond() % 15) return; // each 15 seconds
 
     foreach (playerid, data in baseData) {
-        if (isPlayerConnected(playerid) && !isPlayerLogined(playerid)) {
+        if (isPlayerConnected(playerid) && !isPlayerLogined(playerid) && !isPlayerAuthBlocked(playerid)) {
             msg(playerid, "auth.notification");
         }
     }
