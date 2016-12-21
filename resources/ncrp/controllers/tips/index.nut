@@ -19,6 +19,7 @@ local infoTips = [
     "tips.language"     ,
     "tips.business"     ,
     "tips.sellcar"      ,
+    "tips.bugreport"    ,
 ];
 
 translation("en", {
@@ -41,6 +42,7 @@ translation("en", {
     "tips.language"     :   "[TIPS] You can change language at any time. Currently available language packs are: (/en, /ru)"
     "tips.business"     :   "[TIPS] You can purchase any business (while staning near it), via: /business buy"
     "tips.sellcar"      :   "[TIPS] You can sell car to other player. Use command /sell"
+    "tips.bugreport"    :   "[TIPS] You can report bugs or errors via /bug TEXT"
 });
 
 
