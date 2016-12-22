@@ -9,7 +9,7 @@ include("controllers/admin/models/Ban.nut");
  *     /kick 0 shitposting
  *     /kick 0
  */
-acmd("kick", function(playerid, targetid, ...) {
+function kick(playerid, targetid, ...) {
     local targetid = toInteger(targetid);
     local reason   = concat(vargv);
 
@@ -40,9 +40,10 @@ acmd("kick", function(playerid, targetid, ...) {
 
     delayedFunction(5000, function () {
         kickPlayer( targetid );
-        dbg("kick", "kicked", getPlayerName(playerid));
+        dbg("admin", "kicked", getAuthor(targetid));
     });
-});
+};
+acmd("kick", kick);
 
 /**
  * Mute player for a period of time
@@ -51,7 +52,7 @@ acmd("kick", function(playerid, targetid, ...) {
  *     /mute 0 150
  *     /mute 1 150 spam, flood
  */
-acmd("mute", function(playerid, targetid, ...) {
+function mute(playerid, targetid, ...) {
     local targetid = toInteger(targetid);
     local amount   = vargv.len() ? toInteger(vargv.pop()) : null;
     local reason   = concat(vargv);
@@ -71,22 +72,25 @@ acmd("mute", function(playerid, targetid, ...) {
     setPlayerMuted(targetid, true);
     msg(targetid, format("[SERVER] You has been muted on: %d seconds, for: %s.", amount, reason), CL_RED);
     msg(playerid, format("You've muted %s on: %d seconds, for: %s.", getPlayerName(targetid), amount, reason), CL_SUCCESS);
+    dbg("admin", "muted", getAuthor(targetid), amount);
 
     // unmute
     return delayedFunction(amount * 1000, function() {
         if (isPlayerMuted(targetid)) {
             setPlayerMuted(targetid, false);
             msg(targetid, "[SERVER] You has been unmuted", CL_INFO);
+            dbg("admin", "unmuted", getAuthor(targetid), amount);
         }
     });
-});
+};
+acmd("mute", mute);
 
 /**
  * Unmute player
  * Usage:
  *     /unmute 0
  */
-acmd("unmute", function(playerid, targetid) {
+function unmute(playerid, targetid) {
     local targetid = toInteger(targetid);
 
     if (targetid == null || !isPlayerConnected(targetid)) {
@@ -100,7 +104,9 @@ acmd("unmute", function(playerid, targetid) {
     setPlayerMuted(targetid, false);
     msg(playerid, format("Player %s is unmuted.", getPlayerName(targetid)), CL_SUCCESS);
     msg(targetid, "[SERVER] You has been unmuted", CL_INFO);
-});
+    dbg("admin", "unmuted", getAuthor(targetid))
+};
+acmd("unmute", unmute);
 
 /**
  * Ban player
@@ -112,7 +118,7 @@ acmd("unmute", function(playerid, targetid) {
  *     /ban 0 3 hours cheating
  *     /ban 0 1 year killing other people, bad stuff.
  */
-acmd("ban", function(playerid, targetid, ...) {
+function ban(playerid, targetid, ...) {
     local targetid = toInteger(targetid);
     vargv.reverse();
     local amount   = vargv.len() ? toInteger(vargv.pop()) : DEFAULT_PLAYER_BAN_TIME;
@@ -158,7 +164,7 @@ acmd("ban", function(playerid, targetid, ...) {
     }
 
     // save the ban
-    Ban(getPlayerName(playerid), getPlayerSerial(playerid), time, reason).save();
+    Ban(getPlayerName(targetid), getPlayerSerial(targetid), time, reason).save();
 
     freezePlayer( targetid, true );
 
@@ -169,6 +175,7 @@ acmd("ban", function(playerid, targetid, ...) {
 
     // remove player from players array (disabling chats and stuff)
     removePlayer(targetid, reason);
+    dbg("admin", "banned", getAuthor(targetid), amount, reason);
 
     // move player to sky
     movePlayer(targetid, 0.0, 0.0, 150.0);
@@ -183,16 +190,17 @@ acmd("ban", function(playerid, targetid, ...) {
 
     delayedFunction(5000, function () {
         kickPlayer( targetid );
-        dbg("kick", "banned", getPlayerName(playerid));
+        dbg("admin", "kicked", getAuthor(targetid), "banned");
     });
-});
+};
+acmd("ban", ban);
 
 /**
  * List current bans
  * Usage:
  *     /ban list
  */
-acmd("ban", "list", function(playerid, page = "0") {
+function banlist(playerid, page = "0") {
     msg(playerid, "Listing current server bans:");
     msg(playerid, "----------------------------------------", CL_WARNING);
     local q = ORM.Query("select * from @Ban where until > :current limit :page, 10");
@@ -201,20 +209,26 @@ acmd("ban", "list", function(playerid, page = "0") {
     q.setParameter("page", max(0, page.tointeger()) * 10);
     q.getResult(function(err, results) {
         msg(playerid, format("Page %s (for next page /ban list %d):", page, page.tointeger() + 1), CL_INFO);
+        local list = "";
 
         // list
-        return results.map(function(item) {
-            msg(playerid, format("Player: %s, seconds left: %d. Unban via: /unban %d", item.name, item.until - getTimestamp(), item.id));
-        })
+        results.map(function(item) {
+            local entry = format("Player: %s, seconds left: %d. Unban via: /unban %d", item.name, item.until - getTimestamp(), item.id);
+            msg(playerid, entry);
+            list += entry + "\n";
+        });
+
+        dbg("admin", "banlist", list);
     });
-});
+};
+acmd("ban", "list", banlist);
 
 /**
  * Remove ban record by id
  * Usage:
  *     /unban 51
  */
-acmd("unban", function(playerid, id = null) {
+function unban(playerid, id = null) {
     local q = ORM.Query("select * from @Ban where until > :current and id = :id")
 
     q.setParameter("id", toInteger(id));
@@ -225,7 +239,30 @@ acmd("unban", function(playerid, id = null) {
             return msg(playerid, "No bans has been found for id #" + id, CL_WARNING);
         }
 
+        local name = result.name;
+
         result.remove();
-        msg(playerid, format("Ban for player %s has been successfuly removed", getPlayerName(playerid)), CL_SUCCESS);
+        msg(playerid, format("Ban for player %s has been successfuly removed", name), CL_SUCCESS);
+        dbg("admin" "unban", name);
     });
-});
+};
+acmd("unban", unban);
+
+function handleAdminInput(data) {
+    local mappings = {
+        kick = kick,
+        mute = mute,
+        unmute = unmute,
+        ban = ban,
+        banlist = banlist,
+        unban = unban,
+    };
+
+    if (!data.len() || !(data[0] in mappings)) {
+        return dbg("admin", "error", "handling input");
+    }
+    local callback = mappings[data[0]];
+    data[0] = getroottable();
+    data.insert(1, -1);
+    callback.acall(data);
+}
