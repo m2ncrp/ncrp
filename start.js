@@ -18,15 +18,13 @@ let settings = {
     police: "260470624428752896", // police
 
     // stream for all logs
-    stream: "256102201187893248", // randomshiet
-    urgent: "254996128074825738", // dev-nofications
+    console: "256102201187893248", // console
 
     // valid admin output chats
     output: [
         "219673733638389760", // dev-russian
         "220460332827672576", // dev-talks
-        "254996128074825738", // dev-nofications
-        "256102201187893248", // randomshiet
+        "256102201187893248", // console
     ]
 };
 
@@ -61,7 +59,7 @@ function startServer() {
 
     let ticker = setInterval(function() {
         if (!errorlog || !errorlog.length) return;
-        channels[settings.urgent].sendMessage("@everyone ERROR: " + errorlog.join("\n"));
+        channels[settings.console].sendMessage("@everyone ERROR: " + errorlog.join("\n"));
         errorlog = [];
     }, 5000);
 
@@ -94,7 +92,7 @@ function startServer() {
         data = data.slice(8).trim();
 
         // send message to log
-        channels[settings.stream].sendMessage(data);
+        channels[settings.console].sendMessage(data);
 
         try {
             data = JSON.parse(data);
@@ -116,7 +114,7 @@ function startServer() {
 
             if (key == "server") {
                 console.log(">> server", data[1]);
-                channels[settings.urgent].sendMessage(data[1]);
+                channels[settings.console].sendMessage(data[1]);
                 return;
             }
 
@@ -131,33 +129,33 @@ function startServer() {
                         list += " " + data[2][a] + " with id #" + a + "\n";
                     }
 
-                    return channels[settings.urgent].sendMessage(list.trim());
+                    return channels[settings.console].sendMessage(list.trim());
                 }
 
                 console.log(data);
 
                 if (action == "banned") {
-                    return channels[settings.urgent].sendMessage(`banned ${data[2]} on ${data[3]} for ${data[4]}`);
+                    return channels[settings.console].sendMessage(`banned ${data[2]} on ${data[3]} for ${data[4]}`);
                 }
 
                 if (action == "kicked") {
-                    return channels[settings.urgent].sendMessage(`kicked ${data[2]} for ${data[3]}`);
+                    return channels[settings.console].sendMessage(`kicked ${data[2]} for ${data[3]}`);
                 }
 
                 if (action == "muted") {
-                    return channels[settings.urgent].sendMessage(`muted ${data[2]} for ${data[3]}`);
+                    return channels[settings.console].sendMessage(`muted ${data[2]} for ${data[3]}`);
                 }
 
                 if (action == "unmuted") {
-                    return channels[settings.urgent].sendMessage(`unmuted ${data[2]}`);
+                    return channels[settings.console].sendMessage(`unmuted ${data[2]}`);
                 }
 
                 if (action == "unban") {
-                    return channels[settings.urgent].sendMessage(`unbanned ${data[2]}`);
+                    return channels[settings.console].sendMessage(`unbanned ${data[2]}`);
                 }
 
                 if (action == "banlist") {
-                    return channels[settings.urgent].sendMessage("current bans: " + data[2]);
+                    return channels[settings.console].sendMessage("current bans: " + data[2]);
                 }
             }
         }
@@ -177,7 +175,7 @@ function startServer() {
         };
 
         // send message
-        channels[settings.urgent].sendMessage(data.toString().trim());
+        channels[settings.console].sendMessage(data.toString().trim());
     });
 
     // on finish (code 0 - success, other - error)
@@ -185,7 +183,7 @@ function startServer() {
         console.log("exited with code:", code);
 
         if (code != 0) {
-             channels[settings.urgent].sendMessage("@everyone server has crashed, auto-restarting!");
+             channels[settings.console].sendMessage("@everyone server has crashed, auto-restarting!");
 
             setTimeout(function() {
                 m2o = startServer();
@@ -232,7 +230,7 @@ bot.on('message', msg => {
         return msg.delete();
     }
 
-    if (msg.channel.id !== settings.stream && msg.channel.id !== settings.urgent) {
+    if (msg.channel.id !== settings.console) {
         msg.reply("check output in #dev-nofications or #randomshiet");
     }
 
