@@ -1,0 +1,311 @@
+const Discord   = require('discord.js');
+const spawn     = require('child_process').spawn;
+const path      = require('path');
+
+// const express = require('express');
+// const app     = express();
+
+const bot = new Discord.Client();
+
+// the token of your bot - https://discordapp.com/developers/applications/me
+const token = 'MjYxNDcwMDcxNTY0NTMzNzYx.Cz1Y6g.WGYSbl5vCRjJQQUvVq6ns2PUDdE';
+const AUTORESTART_TIME = 5000;
+
+let settings = {
+    // player chats
+    ooc_ru: "219565308007022592", // general-ru
+    ooc_en: "260713962402742273", // general-en
+    police: "260470624428752896", // police
+
+    // stream for all logs
+    console: "256102201187893248", // console
+
+    // valid admin output chats
+    output: [
+        "219673733638389760", // dev-russian
+        "220460332827672576", // dev-talks
+        "256102201187893248", // console
+    ]
+};
+
+let roles = {
+    admin: "Administrators",
+};
+
+let started = false;
+let ready = false;
+let channels = [];
+
+// the ready event is vital, it means that your bot will only start reacting to information
+// from Discord _after_ ready is emitted.
+bot.on('ready', () => {
+    console.log('>> started Discord bot.');
+    for (channel of bot.channels) {
+        if (channel[1].type != "text") continue;
+
+        // push text channels
+        channels[channel[0].toString()] = channel[1];
+    }
+
+    ready = true;
+});
+
+let m2o = startServer();
+
+function startServer() {
+    let m2o;
+    let errorlog = [];
+    started = true;
+
+    let ticker = setInterval(function() {
+        if (!errorlog || !errorlog.length) return;
+        channels[settings.console].sendMessage("@everyone ERROR: " + errorlog.join("\n"));
+        errorlog = [];
+    }, 5000);
+
+    if (process.platform == "darwin") {
+        // do noting
+    } else if (process.platform == "win32") {
+        m2o = spawn(path.join(__dirname, "m2online-svr.exe"));
+    } else {
+        m2o = spawn("/usr/bin/wine " + path.join(__dirname, "m2online-svr.exe"));
+    }
+
+    m2o.on('error', (err) => {
+        return reject(new Error('Error starting m2online-svr.exe process, did you set up the path correctly?'));
+    });
+
+    // on data (logs)
+    m2o.stdout.on('data', (data) => {
+        data = data.toString().trim();
+
+        console.log(data);
+
+        if (data.indexOf("Script Error") != -1) {
+            errorlog.push(data);
+        }
+
+        if (!ready) return;
+
+        data = data.toString().slice(11).trim();
+        if (!data.startsWith("[debug]")) return;
+        data = data.slice(8).trim();
+
+        // send message to log
+        channels[settings.console].sendMessage(data);
+
+        try {
+            data = JSON.parse(data);
+            if (!data || !data.length) return;
+
+            let key = data[0];
+
+            if (key == "chat") {
+                if (data[1] == "global") {
+                    data[1] = "ooc_en";
+                }
+
+                if (settings.hasOwnProperty(data[1])) {
+                    channels[settings[data[1]]].sendMessage("**" + data[2] + "**" + ": " + data[3]);
+                }
+
+                return;
+            }
+
+            if (key == "server") {
+                console.log(">> server", data[1]);
+                channels[settings.console].sendMessage(data[1]);
+
+                if (data[1] == "restart" && data[2] == "request") {
+                    m2o.stdin.write("exit\n");
+                    setTimeout(function() {
+                        m2o = startServer();
+                    }, AUTORESTART_TIME);
+                }
+
+                return;
+            }
+
+            if (key == "admin") {
+                let action = data[1];
+
+                if (action == "list") {
+                    if (!data[2]) return;
+
+                    let list = "**List of current players**:\n---------------------\n";
+                    for (a in data[2]) {
+                        list += " " + data[2][a] + " with id #" + a + "\n";
+                    }
+
+                    return channels[settings.console].sendMessage(list.trim());
+                }
+
+                console.log(data);
+
+                if (action == "banned") {
+                    return channels[settings.console].sendMessage(`banned ${data[2]} on ${data[3]} for ${data[4]}`);
+                }
+
+                if (action == "kicked") {
+                    return channels[settings.console].sendMessage(`kicked ${data[2]} for ${data[3]}`);
+                }
+
+                if (action == "muted") {
+                    return channels[settings.console].sendMessage(`muted ${data[2]} for ${data[3]}`);
+                }
+
+                if (action == "unmuted") {
+                    return channels[settings.console].sendMessage(`unmuted ${data[2]}`);
+                }
+
+                if (action == "unban") {
+                    return channels[settings.console].sendMessage(`unbanned ${data[2]}`);
+                }
+
+                if (action == "banlist") {
+                    return channels[settings.console].sendMessage("current bans: " + data[2]);
+                }
+            }
+        }
+        catch (e) {
+            console.log(">> could not parse debug expression: " + data);
+            console.log(e.message);
+        }
+    });
+
+    // on error (logs)
+    m2o.stderr.on('data', (data) => {
+        console.log(data.toString().trim());
+        if (!ready) {
+            return setTimeout(function() {
+                arguments.callee(data); // call itself in 5 seconds
+            }, 5000);
+        };
+
+        // send message
+        channels[settings.console].sendMessage(data.toString().trim());
+    });
+
+    // on finish (code 0 - success, other - error)
+    m2o.on('close', (code) => {
+        console.log("exited with code:", code);
+
+        if (code != 0) {
+             channels[settings.console].sendMessage("@everyone server has crashed, auto-restarting!");
+
+            setTimeout(function() {
+                m2o = startServer();
+            }, AUTORESTART_TIME);
+        }
+
+        started = false;
+        clearInterval(ticker);
+    });
+
+    return m2o;
+}
+
+// create an event listener for messages
+bot.on('message', msg => {
+    // Set the prefix
+    let prefix = "/";
+
+    // Exit and stop if it's not there
+    if(!msg.content.startsWith(prefix)) return;
+
+    // Exit if any bot
+    if (msg.author.bot) return;
+    // exit if not in guild
+    if (!msg.member) return;
+
+    if (msg.content.startsWith(prefix + "ping")) {
+        msg.channel.sendMessage("pong!");
+    }
+
+    // if (msg.content.startsWith(prefix + "ooc")) {
+    //     console.log("sending ooc message", msg.content.slice(4).trim());
+    // }
+
+    // ADMIN COMMANDS
+
+    // delete command if not admin
+    if (msg.member.highestRole.name != roles.admin) {
+        return msg.delete();
+    }
+
+    // delete command if wrong chnannel
+    if (settings.output.indexOf(msg.channel.id) == -1) {
+        return msg.delete();
+    }
+
+    if (msg.channel.id !== settings.console) {
+        msg.reply("check output in #dev-nofications or #randomshiet");
+    }
+
+    if (!m2o) {
+        return msg.reply("m2o not loaded!");
+    }
+
+    // Usage: /list
+    if (msg.content.startsWith(prefix + "list")) {
+        console.log(">>", msg.member.user.username, "reqeusted", "list");
+        return m2o.stdin.write("list\n");
+    }
+
+    // Usage: /adm Hello everyone!
+    if (msg.content.startsWith(prefix + "adm")) {
+        let content = msg.content.slice(4).trim();
+        console.log(">>", msg.member.user.username, "reqeusted", "adm", content);
+        return m2o.stdin.write("adm " + content + "\n");
+    }
+
+    // Usage: /sq getPlayerMoney(0)
+    if (msg.content.startsWith(prefix + "sq")) {
+        let content = msg.content.slice(3).trim();
+        console.log(">>", msg.member.user.username, "reqeusted", "sq", content);
+        return m2o.stdin.write("sq " + content + "\n");
+    }
+
+    // Usage: /restart
+    if (msg.content.startsWith(prefix + "restart")) {
+        console.log(">>", msg.member.user.username, "reqeusted", "restart");
+        m2o.stdin.write("exit\n");
+        setTimeout(function() {
+            m2o = startServer();
+        }, AUTORESTART_TIME);
+        return;
+    }
+
+    // Usage: /stop
+    if (msg.content.startsWith(prefix + "stop")) {
+        console.log(">>", msg.member.user.username, "reqeusted", "stop");
+        if (!started) {
+            return msg.reply("the server is not started!");
+        }
+
+        m2o.stdin.write("exit\n");
+        return;
+    }
+
+    // Usage: /start
+    if (msg.content.startsWith(prefix + "start")) {
+        console.log(">>", msg.member.user.username, "reqeusted", "start");
+        if (started) {
+            return msg.reply("the server is already started!");
+        }
+
+        m2o = startServer();
+        return;
+    }
+
+    let controls = ["ban", "kick", "mute", "unmute", "banlist", "unban"];
+    for (ctrl of controls) {
+        if (!msg.content.startsWith(prefix + ctrl)) continue;
+        let content = msg.content.slice(1).trim();
+        console.log(">>", msg.member.user.username, "reqeusted", "admin", content);
+        return m2o.stdin.write("admin " + content + "\n");
+    }
+});
+
+bot.login(token);
+

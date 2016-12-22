@@ -125,6 +125,7 @@ function trySavePlayer(playerid) {
 }
 
 function removePlayer(playerid, reason = "") {
+    dbg("player", "disconnect", getPlayerName(playerid));
     setPlayerAuthBlocked(playerid, true);
 
     if (!(playerid in players)) {

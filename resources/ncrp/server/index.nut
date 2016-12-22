@@ -1,6 +1,7 @@
 DEBUG   <- false;
 VERSION <- "0.0.000";
 MOD_HOST <- "139.59.142.46";
+MOD_PORT <- 7790;
 
 // initialize libraries
 dofile("resources/ncrp/libraries/index.nut", true);
@@ -125,13 +126,21 @@ event("native:onScriptInit", function() {
 
     // triggerring load events
     trigger("onServerStarted");
+
+    dbg("server", "server started");
+});
+
+event("onServerStarted", function() {
+    if (!DEBUG) {
+        webRequest(HTTP_TYPE_GET, MOD_HOST, "/discord?type=info&data=server_restarted", function(a,b,c) {}, MOD_PORT);
+    }
 });
 
 event("native:onScriptExit", function() {
     trigger("onServerStopping");
     trigger("onServerStopped");
 
-    ::print("\n\n");
+    dbg("server", "server stopped");
 });
 
 event("native:onServerShutdown", function() {
@@ -140,6 +149,7 @@ event("native:onServerShutdown", function() {
 });
 
 event("native:onPlayerConnect", function(playerid, name, ip, serial) {
+    dbg("player", "conenct", name, playerid, ip, serial);
     trigger("onPlayerConnectInit", playerid, name, ip, serial);
 
     if (!IS_AUTHORIZATION_ENABLED || DEBUG) {
