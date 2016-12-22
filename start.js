@@ -72,7 +72,7 @@ function startServer() {
     }
 
     m2o.on('error', (err) => {
-        return reject(new Error('Error starting m2online-svr.exe process, did you set up the path correctly?'));
+        return console.error(err);
     });
 
     // on data (logs)
