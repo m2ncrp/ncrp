@@ -68,7 +68,7 @@ function startServer() {
     } else if (process.platform == "win32") {
         m2o = spawn(path.join(__dirname, "m2online-svr.exe"));
     } else {
-        m2o = spawn("/usr/bin/wine", path.join(__dirname, "m2online-svr.exe"));
+        m2o = spawn("/usr/bin/wine", [path.join(__dirname, "m2online-svr.exe")]);
     }
 
     m2o.on('error', (err) => {
