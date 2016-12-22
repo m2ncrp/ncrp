@@ -115,6 +115,14 @@ function startServer() {
             if (key == "server") {
                 console.log(">> server", data[1]);
                 channels[settings.console].sendMessage(data[1]);
+
+                if (data[1] == "restart" && data[2] == "request") {
+                    m2o.stdin.write("exit\n");
+                    setTimeout(function() {
+                        m2o = startServer();
+                    }, AUTORESTART_TIME);
+                }
+
                 return;
             }
 
