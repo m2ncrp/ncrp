@@ -177,9 +177,10 @@ function startServer() {
     m2o.stderr.on('data', (data) => {
         console.log(data.toString().trim());
         if (!ready) {
-            return setTimeout(function() {
-                arguments.callee(data); // call itself in 5 seconds
-            }, 5000);
+            return 0;
+            // setTimeout(function() {
+            //     arguments.callee(data); // call itself in 5 seconds
+            // }, 5000);
         };
 
         // send message
