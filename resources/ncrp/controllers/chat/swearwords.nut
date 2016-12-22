@@ -43,7 +43,7 @@ function stipSwearwords(input) {
 
         result += string.slice(position);
 
-}
+    }
 
     return input;
 }

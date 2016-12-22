@@ -127,6 +127,12 @@ event("native:onScriptInit", function() {
     trigger("onServerStarted");
 });
 
+event("onServerStarted", function() {
+    if (!DEBUG) {
+        webRequest(HTTP_TYPE_GET, MOD_HOST, "/discord?type=info&data=server_restarted", function(a,b,c) {}, 7790);
+    }
+});
+
 event("native:onScriptExit", function() {
     trigger("onServerStopping");
     trigger("onServerStopped");
