@@ -25,7 +25,8 @@ local carPrices = [
         { modelid = 9 , price = 2740, title = "Houston Wasp"        },  // houston_wasp_pha
         { modelid = 22, price = 2100, title = "Potomac Indian"      },  // potomac_indian
         { modelid = 23, price = 2350, title = "Quicksilver Windsor" },  // quicksilver_windsor_pha
-        { modelid = 50, price = 1475, title = "Culver Empire"       },
+        { modelid = 47, price = 530,  title = "Smith V8" },  // quicksilver_windsor_pha
+       // { modelid = 50, price = 1475, title = "Culver Empire"       },
        // { modelid = 48, price = 1500, title = "Smith Wagon"         },  // smith_wagon_pha
         { modelid = 43, price = 450 , title = "Smith Coupe"         },  // smith_coupe
         { modelid = 53, price = 770 , title = "Walter Coupe"        },  // walter_coupe
