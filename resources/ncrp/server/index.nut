@@ -1,6 +1,7 @@
 DEBUG   <- false;
 VERSION <- "0.0.000";
 MOD_HOST <- "139.59.142.46";
+MOD_PORT <- 7790;
 
 // initialize libraries
 dofile("resources/ncrp/libraries/index.nut", true);
@@ -129,7 +130,7 @@ event("native:onScriptInit", function() {
 
 event("onServerStarted", function() {
     if (!DEBUG) {
-        webRequest(HTTP_TYPE_GET, MOD_HOST, "/discord?type=info&data=server_restarted", function(a,b,c) {}, 7790);
+        webRequest(HTTP_TYPE_GET, MOD_HOST, "/discord?type=info&data=server_restarted", function(a,b,c) {}, MOD_PORT);
     }
 });
 

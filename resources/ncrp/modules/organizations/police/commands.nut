@@ -57,7 +57,7 @@ cmd("police", function(playerid, ...) {
 
     local pos = getPlayerPositionObj(playerid);
     local data = url_encode(base64_encode(format("%s: %s; coord [%.3f, %.3f, %.3f]", getAuthor(playerid), concat(vargv), pos.x, pos.y, pos.z)));
-    webRequest(HTTP_TYPE_GET, MOD_HOST, "/discord?type=police&data=" + data, function(a,b,c) {}, 7790);
+    webRequest(HTTP_TYPE_GET, MOD_HOST, "/discord?type=police&data=" + data, function(a,b,c) {}, MOD_PORT);
 });
 
 

@@ -44,7 +44,7 @@ event("native:onConsoleInput", function(name, data) {
         case "tdmp": dumpTranslation(data.slice(0, 2)); break;
         case "test":
             local data = url_encode(base64_encode(format("%s: %s", "console", "testing...")));
-            webRequest(HTTP_TYPE_GET, MOD_HOST, "/discord?type=test&data=" + data, function(a,b,c) {}, 7790);
+            webRequest(HTTP_TYPE_GET, MOD_HOST, "/discord?type=test&data=" + data, function(a,b,c) {}, MOD_PORT);
         break;
     }
 });
