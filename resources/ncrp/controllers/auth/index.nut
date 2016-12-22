@@ -42,7 +42,7 @@ translation("en", {
  * validation of usernames
  * @type {Object}
  */
-local REGEX_USERNAME = regexp("[A-Za-z0-9_ ]{4,64}");
+local REGEX_USERNAME = regexp("[A-Za-z0-9_ ]{3,64}");
 
 
 local blockedAccounts = [];

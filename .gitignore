@@ -3,6 +3,7 @@
 /modules
 /webserver
 /backups
+/node_modules
 
 # discord bot
 /additional/discord/node_modules
