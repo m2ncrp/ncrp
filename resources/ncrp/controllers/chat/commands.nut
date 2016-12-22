@@ -73,7 +73,7 @@ chatcmd(["o","ooc"], function(playerid, message) {
     }
 
     // statistics
-    statisticsPushMessage(playerid, message, "ooc");
+    statisticsPushMessage(playerid, message, "ooc_" + getPlayerLocale(playerid));
 });
 
 chatcmd(["me"], function(playerid, message) {

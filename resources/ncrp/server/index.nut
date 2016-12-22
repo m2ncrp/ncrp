@@ -126,6 +126,8 @@ event("native:onScriptInit", function() {
 
     // triggerring load events
     trigger("onServerStarted");
+
+    dbg("server", "server started");
 });
 
 event("onServerStarted", function() {
@@ -138,7 +140,7 @@ event("native:onScriptExit", function() {
     trigger("onServerStopping");
     trigger("onServerStopped");
 
-    ::print("\n\n");
+    dbg("server", "server stopped");
 });
 
 event("native:onServerShutdown", function() {
@@ -147,6 +149,7 @@ event("native:onServerShutdown", function() {
 });
 
 event("native:onPlayerConnect", function(playerid, name, ip, serial) {
+    dbg("player", "conenct", name, playerid, ip, serial);
     trigger("onPlayerConnectInit", playerid, name, ip, serial);
 
     if (!IS_AUTHORIZATION_ENABLED || DEBUG) {
