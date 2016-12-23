@@ -53,7 +53,7 @@ local blockedAccounts = [];
  * @return {Boolean}
  */
 function isPlayerAuthBlocked(playerid) {
-    return blockedAccounts.find(getPlayerName(playerid)) != null;
+    return false;//blockedAccounts.find(getPlayerName(playerid)) != null;
 }
 
 /**
