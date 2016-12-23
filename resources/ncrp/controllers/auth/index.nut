@@ -62,13 +62,13 @@ function isPlayerAuthBlocked(playerid) {
  * @param {Boolean} value
  */
 function setPlayerAuthBlocked(playerid, value) {
-    if (value && !isPlayerAuthBlocked(playerid)) {
-        return blockedAccounts.push(getPlayerName(playerid));
-    }
+    // if (value && !isPlayerAuthBlocked(playerid)) {
+    //     return blockedAccounts.push(getPlayerName(playerid));
+    // }
 
-    if (!value && isPlayerAuthBlocked(playerid)) {
-        return blockedAccounts.remove(blockedAccounts.find(getPlayerName(playerid)));
-    }
+    // if (!value && isPlayerAuthBlocked(playerid)) {
+    //     return blockedAccounts.remove(blockedAccounts.find(getPlayerName(playerid)));
+    // }
 
     return false;
 }
