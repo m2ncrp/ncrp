@@ -231,9 +231,7 @@ function baton( playerid ) {
         }
 
         if ( isBothInRadius(playerid, targetid, BATON_RADIUS) ) {
-            setPlayerAnimStyle(playerid, "common", "ManColdWeapon");
-            setPlayerHandModel(playerid, 1, 28); // policedubinka right hand
-
+            trigger("onBatonBitStart", playerid);
             screenFadeinFadeout(targetid, 1000, function() {
                 msg( playerid, "organizations.police.bitsomeone.bybaton", [getAuthor(targetid)] );
                 msg( targetid, "organizations.police.beenbit.bybaton" );
