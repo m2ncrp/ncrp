@@ -268,5 +268,6 @@ event("onPoliceDutyOff", function(playerid, rank = null) {
 
 
 event("onBatonBitStart", function (playerid) {
-     
+    setPlayerAnimStyle(playerid, "common", "ManColdWeapon");
+    setPlayerHandModel(playerid, 1, 28); // policedubinka right hand
 });
