@@ -2,7 +2,7 @@ local busses = {};
 local syncing = [];
 local ticker = null;
 
-addEventHandler("onServerClientStarted", function() {
+addEventHandler("onServerClientStarted", function(version) {
     if (ticker) return;
 
     // check for distances of the busses

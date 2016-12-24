@@ -1,478 +1,478 @@
-/**
- * JSON Parser
- *
- * @author Mikhail Yurasov <mikhail@electricimp.com>
- * @package JSONParser
- * @version 0.3.1
- */
+// /**
+//  * JSON Parser
+//  *
+//  * @author Mikhail Yurasov <mikhail@electricimp.com>
+//  * @package JSONParser
+//  * @version 0.3.1
+//  */
 
-/**
- * JSON Parser
- * @package JSONParser
- */
-class JSONParser {
+// /**
+//  * JSON Parser
+//  * @package JSONParser
+//  */
+// class JSONParser {
 
-  // should be the same for all components within JSONParser package
-  static version = [1, 0, 0];
+//   // should be the same for all components within JSONParser package
+//   static version = [1, 0, 0];
 
-  /**
-   * Parse JSON string into data structure
-   *
-   * @param {string} str
-   * @param {function({string} value[, "number"|"string"])|null} converter
-   * @return {*}
-   */
-  function parse(str, converter = null) {
+//   /**
+//    * Parse JSON string into data structure
+//    *
+//    * @param {string} str
+//    * @param {function({string} value[, "number"|"string"])|null} converter
+//    * @return {*}
+//    */
+//   function parse(str, converter = null) {
 
-    local state;
-    local stack = []
-    local container;
-    local key;
-    local value;
+//     local state;
+//     local stack = []
+//     local container;
+//     local key;
+//     local value;
 
-    // actions for string tokens
-    local string = {
-      go = function () {
-        state = "ok";
-      },
-      firstokey = function () {
-        key = value;
-        state = "colon";
-      },
-      okey = function () {
-        key = value;
-        state = "colon";
-      },
-      ovalue = function () {
-        value = this._convert(value, "string", converter);
-        state = "ocomma";
-      }.bindenv(this),
-      firstavalue = function () {
-        value = this._convert(value, "string", converter);
-        state = "acomma";
-      }.bindenv(this),
-      avalue = function () {
-        value = this._convert(value, "string", converter);
-        state = "acomma";
-      }.bindenv(this)
-    };
+//     // actions for string tokens
+//     local string = {
+//       go = function () {
+//         state = "ok";
+//       },
+//       firstokey = function () {
+//         key = value;
+//         state = "colon";
+//       },
+//       okey = function () {
+//         key = value;
+//         state = "colon";
+//       },
+//       ovalue = function () {
+//         value = this._convert(value, "string", converter);
+//         state = "ocomma";
+//       }.bindenv(this),
+//       firstavalue = function () {
+//         value = this._convert(value, "string", converter);
+//         state = "acomma";
+//       }.bindenv(this),
+//       avalue = function () {
+//         value = this._convert(value, "string", converter);
+//         state = "acomma";
+//       }.bindenv(this)
+//     };
 
-    // the actions for number tokens
-    local number = {
-      go = function () {
-        state = "ok";
-      },
-      ovalue = function () {
-        value = this._convert(value, "number", converter);
-        state = "ocomma";
-      }.bindenv(this),
-      firstavalue = function () {
-        value = this._convert(value, "number", converter);
-        state = "acomma";
-      }.bindenv(this),
-      avalue = function () {
-        value = this._convert(value, "number", converter);
-        state = "acomma";
-      }.bindenv(this)
-    };
+//     // the actions for number tokens
+//     local number = {
+//       go = function () {
+//         state = "ok";
+//       },
+//       ovalue = function () {
+//         value = this._convert(value, "number", converter);
+//         state = "ocomma";
+//       }.bindenv(this),
+//       firstavalue = function () {
+//         value = this._convert(value, "number", converter);
+//         state = "acomma";
+//       }.bindenv(this),
+//       avalue = function () {
+//         value = this._convert(value, "number", converter);
+//         state = "acomma";
+//       }.bindenv(this)
+//     };
 
-    // action table
-    // describes where the state machine will go from each given state
-    local action = {
+//     // action table
+//     // describes where the state machine will go from each given state
+//     local action = {
 
-      "{": {
-        go = function () {
-          stack.push({state = "ok"});
-          container = {};
-          state = "firstokey";
-        },
-        ovalue = function () {
-          stack.push({container = container, state = "ocomma", key = key});
-          container = {};
-          state = "firstokey";
-        },
-        firstavalue = function () {
-          stack.push({container = container, state = "acomma"});
-          container = {};
-          state = "firstokey";
-        },
-        avalue = function () {
-          stack.push({container = container, state = "acomma"});
-          container = {};
-          state = "firstokey";
-        }
-      },
+//       "{": {
+//         go = function () {
+//           stack.push({state = "ok"});
+//           container = {};
+//           state = "firstokey";
+//         },
+//         ovalue = function () {
+//           stack.push({container = container, state = "ocomma", key = key});
+//           container = {};
+//           state = "firstokey";
+//         },
+//         firstavalue = function () {
+//           stack.push({container = container, state = "acomma"});
+//           container = {};
+//           state = "firstokey";
+//         },
+//         avalue = function () {
+//           stack.push({container = container, state = "acomma"});
+//           container = {};
+//           state = "firstokey";
+//         }
+//       },
 
-      "}" : {
-        firstokey = function () {
-          local pop = stack.pop();
-          value = container;
-          container = ("container" in pop) ? pop.container : null;
-          key = ("key" in pop) ? pop.key : null;
-          state = pop.state;
-        },
-        ocomma = function () {
-          local pop = stack.pop();
-          container[key] <- value;
-          value = container;
-          container = ("container" in pop) ? pop.container : null;
-          key = ("key" in pop) ? pop.key : null;
-          state = pop.state;
-        }
-      },
+//       "}" : {
+//         firstokey = function () {
+//           local pop = stack.pop();
+//           value = container;
+//           container = ("container" in pop) ? pop.container : null;
+//           key = ("key" in pop) ? pop.key : null;
+//           state = pop.state;
+//         },
+//         ocomma = function () {
+//           local pop = stack.pop();
+//           container[key] <- value;
+//           value = container;
+//           container = ("container" in pop) ? pop.container : null;
+//           key = ("key" in pop) ? pop.key : null;
+//           state = pop.state;
+//         }
+//       },
 
-      "[" : {
-        go = function () {
-          stack.push({state = "ok"});
-          container = [];
-          state = "firstavalue";
-        },
-        ovalue = function () {
-          stack.push({container = container, state = "ocomma", key = key});
-          container = [];
-          state = "firstavalue";
-        },
-        firstavalue = function () {
-          stack.push({container = container, state = "acomma"});
-          container = [];
-          state = "firstavalue";
-        },
-        avalue = function () {
-          stack.push({container = container, state = "acomma"});
-          container = [];
-          state = "firstavalue";
-        }
-      },
+//       "[" : {
+//         go = function () {
+//           stack.push({state = "ok"});
+//           container = [];
+//           state = "firstavalue";
+//         },
+//         ovalue = function () {
+//           stack.push({container = container, state = "ocomma", key = key});
+//           container = [];
+//           state = "firstavalue";
+//         },
+//         firstavalue = function () {
+//           stack.push({container = container, state = "acomma"});
+//           container = [];
+//           state = "firstavalue";
+//         },
+//         avalue = function () {
+//           stack.push({container = container, state = "acomma"});
+//           container = [];
+//           state = "firstavalue";
+//         }
+//       },
 
-      "]" : {
-        firstavalue = function () {
-          local pop = stack.pop();
-          value = container;
-          container = ("container" in pop) ? pop.container : null;
-          key = ("key" in pop) ? pop.key : null;
-          state = pop.state;
-        },
-        acomma = function () {
-          local pop = stack.pop();
-          container.push(value);
-          value = container;
-          container = ("container" in pop) ? pop.container : null;
-          key = ("key" in pop) ? pop.key : null;
-          state = pop.state;
-        }
-      },
+//       "]" : {
+//         firstavalue = function () {
+//           local pop = stack.pop();
+//           value = container;
+//           container = ("container" in pop) ? pop.container : null;
+//           key = ("key" in pop) ? pop.key : null;
+//           state = pop.state;
+//         },
+//         acomma = function () {
+//           local pop = stack.pop();
+//           container.push(value);
+//           value = container;
+//           container = ("container" in pop) ? pop.container : null;
+//           key = ("key" in pop) ? pop.key : null;
+//           state = pop.state;
+//         }
+//       },
 
-      ":" : {
-        colon = function () {
-          // check if the key already exists
-          if (key in container) {
-            throw "Duplicate key \"" + key + "\"";
-          }
-          state = "ovalue";
-        }
-      },
+//       ":" : {
+//         colon = function () {
+//           // check if the key already exists
+//           if (key in container) {
+//             throw "Duplicate key \"" + key + "\"";
+//           }
+//           state = "ovalue";
+//         }
+//       },
 
-      "," : {
-        ocomma = function () {
-          container[key] <- value;
-          state = "okey";
-        },
-        acomma = function () {
-          container.push(value);
-          state = "avalue";
-        }
-      },
+//       "," : {
+//         ocomma = function () {
+//           container[key] <- value;
+//           state = "okey";
+//         },
+//         acomma = function () {
+//           container.push(value);
+//           state = "avalue";
+//         }
+//       },
 
-      "true" : {
-        go = function () {
-          value = true;
-          state = "ok";
-        },
-        ovalue = function () {
-          value = true;
-          state = "ocomma";
-        },
-        firstavalue = function () {
-          value = true;
-          state = "acomma";
-        },
-        avalue = function () {
-          value = true;
-          state = "acomma";
-        }
-      },
+//       "true" : {
+//         go = function () {
+//           value = true;
+//           state = "ok";
+//         },
+//         ovalue = function () {
+//           value = true;
+//           state = "ocomma";
+//         },
+//         firstavalue = function () {
+//           value = true;
+//           state = "acomma";
+//         },
+//         avalue = function () {
+//           value = true;
+//           state = "acomma";
+//         }
+//       },
 
-      "false" : {
-        go = function () {
-          value = false;
-          state = "ok";
-        },
-        ovalue = function () {
-          value = false;
-          state = "ocomma";
-        },
-        firstavalue = function () {
-          value = false;
-          state = "acomma";
-        },
-        avalue = function () {
-          value = false;
-          state = "acomma";
-        }
-      },
+//       "false" : {
+//         go = function () {
+//           value = false;
+//           state = "ok";
+//         },
+//         ovalue = function () {
+//           value = false;
+//           state = "ocomma";
+//         },
+//         firstavalue = function () {
+//           value = false;
+//           state = "acomma";
+//         },
+//         avalue = function () {
+//           value = false;
+//           state = "acomma";
+//         }
+//       },
 
-      "null" : {
-        go = function () {
-          value = null;
-          state = "ok";
-        },
-        ovalue = function () {
-          value = null;
-          state = "ocomma";
-        },
-        firstavalue = function () {
-          value = null;
-          state = "acomma";
-        },
-        avalue = function () {
-          value = null;
-          state = "acomma";
-        }
-      }
-    };
+//       "null" : {
+//         go = function () {
+//           value = null;
+//           state = "ok";
+//         },
+//         ovalue = function () {
+//           value = null;
+//           state = "ocomma";
+//         },
+//         firstavalue = function () {
+//           value = null;
+//           state = "acomma";
+//         },
+//         avalue = function () {
+//           value = null;
+//           state = "acomma";
+//         }
+//       }
+//     };
 
-    //
+//     //
 
-    state = "go";
-    stack = [];
+//     state = "go";
+//     stack = [];
 
-    // current tokenizeing position
-    local start = 0;
+//     // current tokenizeing position
+//     local start = 0;
 
-    try {
+//     try {
 
-      local
-        result,
-        token,
-        tokenizer = _JSONTokenizer();
+//       local
+//         result,
+//         token,
+//         tokenizer = _JSONTokenizer();
 
-      while (token = tokenizer.nextToken(str, start)) {
+//       while (token = tokenizer.nextToken(str, start)) {
 
-        if ("ptfn" == token.type) {
-          // punctuation/true/false/null
-          action[token.value][state]();
-        } else if ("number" == token.type) {
-          // number
-          value = token.value;
-          number[state]();
-        } else if ("string" == token.type) {
-          // string
-          value = tokenizer.unescape(token.value);
-          string[state]();
-        }
+//         if ("ptfn" == token.type) {
+//           // punctuation/true/false/null
+//           action[token.value][state]();
+//         } else if ("number" == token.type) {
+//           // number
+//           value = token.value;
+//           number[state]();
+//         } else if ("string" == token.type) {
+//           // string
+//           value = tokenizer.unescape(token.value);
+//           string[state]();
+//         }
 
-        start += token.length;
-      }
+//         start += token.length;
+//       }
 
-    } catch (e) {
-      state = e;
-    }
+//     } catch (e) {
+//       state = e;
+//     }
 
-    // check is the final state is not ok
-    // or if there is somethign left in the str
-    if (state != "ok" || regexp("[^\\s]").capture(str, start)) {
-      local min = @(a, b) a < b ? a : b;
-      local near = str.slice(start, min(str.len(), start + 10));
-      throw "JSON Syntax Error near `" + near + "`";
-    }
+//     // check is the final state is not ok
+//     // or if there is somethign left in the str
+//     if (state != "ok" || regexp("[^\\s]").capture(str, start)) {
+//       local min = @(a, b) a < b ? a : b;
+//       local near = str.slice(start, min(str.len(), start + 10));
+//       throw "JSON Syntax Error near `" + near + "`";
+//     }
 
-    return value;
-  }
+//     return value;
+//   }
 
-  /**
-   * Convert strings/numbers
-   * Uses custom converter function
-   *
-   * @param {string} value
-   * @param {string} type
-   * @param {function|null} converter
-   */
-  function _convert(value, type, converter) {
-    if ("function" == typeof converter) {
+//   /**
+//    * Convert strings/numbers
+//    * Uses custom converter function
+//    *
+//    * @param {string} value
+//    * @param {string} type
+//    * @param {function|null} converter
+//    */
+//   function _convert(value, type, converter) {
+//     if ("function" == typeof converter) {
 
-      // # of params for converter function
+//       // # of params for converter function
 
-      local parametercCount = 2;
+//       local parametercCount = 2;
 
-      // .getinfos() is missing on ei platform
-      if ("getinfos" in converter) {
-        parametercCount = converter.getinfos().parameters.len()
-          - 1 /* "this" is also included */;
-      }
+//       // .getinfos() is missing on ei platform
+//       if ("getinfos" in converter) {
+//         parametercCount = converter.getinfos().parameters.len()
+//           - 1 /* "this" is also included */;
+//       }
 
-      if (parametercCount == 1) {
-        return converter(value);
-      } else if (parametercCount == 2) {
-        return converter(value, type);
-      } else {
-        throw "Error: converter function must take 1 or 2 parameters"
-      }
+//       if (parametercCount == 1) {
+//         return converter(value);
+//       } else if (parametercCount == 2) {
+//         return converter(value, type);
+//       } else {
+//         throw "Error: converter function must take 1 or 2 parameters"
+//       }
 
-    } else if ("number" == type) {
-      return (value.find(".") == null && value.find("e") == null && value.find("E") == null) ? value.tointeger() : value.tofloat();
-    } else {
-      return value;
-    }
-  }
-}
+//     } else if ("number" == type) {
+//       return (value.find(".") == null && value.find("e") == null && value.find("E") == null) ? value.tointeger() : value.tofloat();
+//     } else {
+//       return value;
+//     }
+//   }
+// }
 
-/**
- * JSON Tokenizer
- * @package JSONParser
- */
-class _JSONTokenizer {
+// /**
+//  * JSON Tokenizer
+//  * @package JSONParser
+//  */
+// class _JSONTokenizer {
 
-  _ptfnRegex = null;
-  _numberRegex = null;
-  _stringRegex = null;
-  _ltrimRegex = null;
-  _unescapeRegex = null;
+//   _ptfnRegex = null;
+//   _numberRegex = null;
+//   _stringRegex = null;
+//   _ltrimRegex = null;
+//   _unescapeRegex = null;
 
-  constructor() {
-    // punctuation/true/false/null
-    this._ptfnRegex = regexp("^(?:\\,|\\:|\\[|\\]|\\{|\\}|true|false|null)");
+//   constructor() {
+//     // punctuation/true/false/null
+//     this._ptfnRegex = regexp("^(?:\\,|\\:|\\[|\\]|\\{|\\}|true|false|null)");
 
-    // numbers
-    this._numberRegex = regexp("^(?:\\-?\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d+)?)");
+//     // numbers
+//     this._numberRegex = regexp("^(?:\\-?\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d+)?)");
 
-    // strings
-    this._stringRegex = regexp("^(?:\\\"((?:[^\\r\\n\\t\\\\\\\"]|\\\\(?:[\"\\\\\\/trnfb]|u[0-9a-fA-F]{4}))*)\\\")");
+//     // strings
+//     this._stringRegex = regexp("^(?:\\\"((?:[^\\r\\n\\t\\\\\\\"]|\\\\(?:[\"\\\\\\/trnfb]|u[0-9a-fA-F]{4}))*)\\\")");
 
-    // ltrim pattern
-    this._ltrimRegex = regexp("^[\\s\\t\\n\\r]*");
+//     // ltrim pattern
+//     this._ltrimRegex = regexp("^[\\s\\t\\n\\r]*");
 
-    // string unescaper tokenizer pattern
-    this._unescapeRegex = regexp("\\\\(?:(?:u\\d{4})|[\\\"\\\\/bfnrt])");
-  }
+//     // string unescaper tokenizer pattern
+//     this._unescapeRegex = regexp("\\\\(?:(?:u\\d{4})|[\\\"\\\\/bfnrt])");
+//   }
 
-  /**
-   * Get next available token
-   * @param {string} str
-   * @param {integer} start
-   * @return {{type,value,length}|null}
-   */
-  function nextToken(str, start = 0) {
+//   /**
+//    * Get next available token
+//    * @param {string} str
+//    * @param {integer} start
+//    * @return {{type,value,length}|null}
+//    */
+//   function nextToken(str, start = 0) {
 
-    local
-      m,
-      type,
-      token,
-      value,
-      length,
-      whitespaces;
+//     local
+//       m,
+//       type,
+//       token,
+//       value,
+//       length,
+//       whitespaces;
 
-    // count # of left-side whitespace chars
-    whitespaces = this._leadingWhitespaces(str, start);
-    start += whitespaces;
+//     // count # of left-side whitespace chars
+//     whitespaces = this._leadingWhitespaces(str, start);
+//     start += whitespaces;
 
-    if (m = this._ptfnRegex.capture(str, start)) {
-      // punctuation/true/false/null
-      value = str.slice(m[0].begin, m[0].end);
-      type = "ptfn";
-    } else if (m = this._numberRegex.capture(str, start)) {
-      // number
-      value = str.slice(m[0].begin, m[0].end);
-      type = "number";
-    } else if (m = this._stringRegex.capture(str, start)) {
-      // string
-      value = str.slice(m[1].begin, m[1].end);
-      type = "string";
-    } else {
-      return null;
-    }
+//     if (m = this._ptfnRegex.capture(str, start)) {
+//       // punctuation/true/false/null
+//       value = str.slice(m[0].begin, m[0].end);
+//       type = "ptfn";
+//     } else if (m = this._numberRegex.capture(str, start)) {
+//       // number
+//       value = str.slice(m[0].begin, m[0].end);
+//       type = "number";
+//     } else if (m = this._stringRegex.capture(str, start)) {
+//       // string
+//       value = str.slice(m[1].begin, m[1].end);
+//       type = "string";
+//     } else {
+//       return null;
+//     }
 
-    token = {
-      type = type,
-      value = value,
-      length = m[0].end - m[0].begin + whitespaces
-    };
+//     token = {
+//       type = type,
+//       value = value,
+//       length = m[0].end - m[0].begin + whitespaces
+//     };
 
-    return token;
-  }
+//     return token;
+//   }
 
-  /**
-   * Count # of left-side whitespace chars
-   * @param {string} str
-   * @param {integer} start
-   * @return {integer} number of leading spaces
-   */
-  function _leadingWhitespaces(str, start) {
-    local r = this._ltrimRegex.capture(str, start);
+//   /**
+//    * Count # of left-side whitespace chars
+//    * @param {string} str
+//    * @param {integer} start
+//    * @return {integer} number of leading spaces
+//    */
+//   function _leadingWhitespaces(str, start) {
+//     local r = this._ltrimRegex.capture(str, start);
 
-    if (r) {
-      return r[0].end - r[0].begin;
-    } else {
-      return 0;
-    }
-  }
+//     if (r) {
+//       return r[0].end - r[0].begin;
+//     } else {
+//       return 0;
+//     }
+//   }
 
-  // unesacape() replacements table
-  _unescapeReplacements = {
-    "b": "\b",
-    "f": "\f",
-    "n": "\n",
-    "r": "\r",
-    "t": "\t"
-  };
+//   // unesacape() replacements table
+//   _unescapeReplacements = {
+//     "b": "\b",
+//     "f": "\f",
+//     "n": "\n",
+//     "r": "\r",
+//     "t": "\t"
+//   };
 
-  /**
-   * Unesacape string escaped per JSON standard
-   * @param {string} str
-   * @return {string}
-   */
-  function unescape(str) {
+//   /**
+//    * Unesacape string escaped per JSON standard
+//    * @param {string} str
+//    * @return {string}
+//    */
+//   function unescape(str) {
 
-    local start = 0;
-    local res = "";
+//     local start = 0;
+//     local res = "";
 
-    while (start < str.len()) {
-      local m = this._unescapeRegex.capture(str, start);
+//     while (start < str.len()) {
+//       local m = this._unescapeRegex.capture(str, start);
 
-      if (m) {
-        local token = str.slice(m[0].begin, m[0].end);
+//       if (m) {
+//         local token = str.slice(m[0].begin, m[0].end);
 
-        // append chars before match
-        local pre = str.slice(start, m[0].begin);
-        res += pre;
+//         // append chars before match
+//         local pre = str.slice(start, m[0].begin);
+//         res += pre;
 
-        if (token.len() == 6) {
-          // unicode char in format \uhhhh, where hhhh is hex char code
-          // todo: convert \uhhhh chars
-          res += token;
-        } else {
-          // escaped char
-          // @see http://www.json.org/
-          local char = token.slice(1);
+//         if (token.len() == 6) {
+//           // unicode char in format \uhhhh, where hhhh is hex char code
+//           // todo: convert \uhhhh chars
+//           res += token;
+//         } else {
+//           // escaped char
+//           // @see http://www.json.org/
+//           local char = token.slice(1);
 
-          if (char in this._unescapeReplacements) {
-            res += this._unescapeReplacements[char];
-          } else {
-            res += char;
-          }
-        }
+//           if (char in this._unescapeReplacements) {
+//             res += this._unescapeReplacements[char];
+//           } else {
+//             res += char;
+//           }
+//         }
 
-      } else {
-        // append the rest of the source string
-        res += str.slice(start);
-        break;
-      }
+//       } else {
+//         // append the rest of the source string
+//         res += str.slice(start);
+//         break;
+//       }
 
-      start = m[0].end;
-    }
+//       start = m[0].end;
+//     }
 
-    return res;
-  }
-}
+//     return res;
+//   }
+// }
 
 
 const TICKER_STEP = 0.05;
@@ -482,70 +482,74 @@ function lerp(start, alpha, end) {
     return (end - start) * alpha + start;
 }
 
-addEventHandler("onServerSyncPackage", function(pacakage) {
-    storage.clear();
-    storage = JSONParser.parse(pacakage);
-});
+// addEventHandler("onServerSyncPackage", function(pacakage) {
+//     storage.clear();
+//     storage = JSONParser.parse(pacakage);
+// });
 
-function syncPlayer(record) {
-    if (isPlayerConnected(record.playerid)) {
-        local xpos = getPlayerPosition(record.playerid);
+// function syncPlayer(record) {
+//     if (isPlayerConnected(record.playerid)) {
+//         local xpos = getPlayerPosition(record.playerid);
 
-        if (!("ticker" in record)) {
-            record["ticker"] <- 0.0;
-        }
+//         if (!("ticker" in record)) {
+//             record["ticker"] <- 0.0;
+//         }
 
-        if (record.ticker <= 1.0) {
-            local x = lerp(xpos[0], record.ticker, record.x);
-            local y = lerp(xpos[1], record.ticker, record.y);
-            local z = lerp(xpos[2], record.ticker, record.z);
+//         if (record.ticker <= 1.0) {
+//             local x = lerp(xpos[0], record.ticker, record.x);
+//             local y = lerp(xpos[1], record.ticker, record.y);
+//             local z = lerp(xpos[2], record.ticker, record.z);
 
-            setPlayerPosition(record.playerid, x, y, z);
-            record.ticker += TICKER_STEP;
-        }
-    }
-}
+//             setPlayerPosition(record.playerid, x, y, z);
+//             record.ticker += TICKER_STEP;
+//         }
+//     }
+// }
 
-function syncVehicle(record) {
-    setVehiclePosition(record.vehicleid, record.x, record.y, record.z);
-}
+// function syncVehicle(record) {
+//     setVehiclePosition(record.vehicleid, record.x, record.y, record.z);
+// }
 
-addEventHandler("onClientProcess", function() {
-    foreach (idx, record in storage) {
-        try {
-            if (record.type == "vehicle") {
-                syncVehicle(record);
-            } else if (record.type == "player") {
-                syncPlayer(record);
-            }
-        } catch (e) {}
-    }
-});
-
-// addEventHandler("onClientScriptInit", function() {
-//     foreach (idx, value in getVehicles()) {
-            // TODO: add fligh down fix
+// addEventHandler("onClientProcess", function() {
+//     foreach (idx, record in storage) {
+//         try {
+//             if (record.type == "vehicle") {
+//                 syncVehicle(record);
+//             } else if (record.type == "player") {
+//                 syncPlayer(record);
+//             }
+//         } catch (e) {}
 //     }
 // });
 
-    // foreach (playerid, pos in targets) {
-    //     if (isPlayerConnected(playerid)) {
-    //         local xpos = getPlayerPosition(playerid);
+local targets = {};
 
-    //         if (pos.ticker <= 1.0) {
-    //             local x = lerp(xpos[0], pos.ticker, pos.x);
-    //             local y = lerp(xpos[1], pos.ticker, pos.y);
-    //             local z = lerp(xpos[2], pos.ticker, pos.z);
+addEventHandler("onClientScriptInit", function() {
+    foreach (idx, value in getVehicles()) {
+        // TODO: add fligh down fix
+    }
+});
 
-    //             setPlayerPosition(playerid, x, y, z);
-    //             pos.ticker += STEP;
-    //         }
-    //     }
-    // }
+addEventHandler("onClientProcess", function() {
+    foreach (playerid, pos in targets) {
+        if (isPlayerConnected(playerid)) {
+            local xpos = getPlayerPosition(playerid);
 
-// addEventHandler("onServerPlayerSyncPackage", function(playerid, x, y, z) {
-//     targets[playerid] <- {x = x, y = y, z = z, ticker = 0.0};
-// });
+            if (pos.ticker <= 1.0) {
+                local x = lerp(xpos[0], pos.ticker, pos.x);
+                local y = lerp(xpos[1], pos.ticker, pos.y);
+                local z = lerp(xpos[2], pos.ticker, pos.z);
+
+                setPlayerPosition(playerid, x, y, z);
+                pos.ticker += TICKER_STEP;
+            }
+        }
+    }
+});
+
+addEventHandler("onServerPlayerSyncPackage", function(playerid, x, y, z) {
+    targets[playerid] <- {x = x, y = y, z = z, ticker = 0.0};
+});
 
 
 // local busses = {};
