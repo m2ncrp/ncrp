@@ -19,6 +19,7 @@ let settings = {
 
     // stream for all logs
     console: "256102201187893248", // console
+    nofitication: "219673733638389760", // dev-notfications
 
     // valid admin output chats
     output: [
@@ -105,8 +106,12 @@ function startServer() {
                     data[1] = "ooc_en";
                 }
 
+                if (["idea", "report", "bug"].indexOf(data[1]) != -1) {
+                    return channels[settings.nofitication].sendMessage("**" + data[2] + "**" + ": " + data[3]);
+                }
+
                 if (settings.hasOwnProperty(data[1])) {
-                    channels[settings[data[1]]].sendMessage("**" + data[2] + "**" + ": " + data[3]);
+                    return channels[settings[data[1]]].sendMessage("**" + data[2] + "**" + ": " + data[3]);
                 }
 
                 return;

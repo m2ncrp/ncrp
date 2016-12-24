@@ -8,6 +8,7 @@ local serverAdmins = [
     "CD19A5029AE81BB50B023291846C0DF3", // max
     "940A9BF3DC69DC56BCB6BDB5450961B4", // dima
     "E818234F219F14336D8FFD5C657B796C", // inlufz
+    // "68D6A6A2A380766FC30CA5C2B01F212F", // klo
     // add your serials there :p
 ];
 
