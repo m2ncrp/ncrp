@@ -182,3 +182,20 @@ event("onServerAutosave", function() {
 event("onServerStopping", function() {
     return destroyAllVehicles();
 });
+
+// force resetting vehicle position to death point
+event("onPlayerDeath", function(playerid) {
+    if (isPlayerInVehicle(playerid)) {
+        local vehicleid = getPlayerVehicle(playerid);
+
+        delayedFunction(1500, function() {
+            setVehiclePositionObj(vehicleid, getVehiclePositionObj(vehicleid));
+            dbg("player", "death", vehicleid);
+        });
+
+        delayedFunction(5000, function() {
+            setVehiclePositionObj(vehicleid, getVehiclePositionObj(vehicleid));
+            dbg("player", "death", vehicleid);
+        });
+    }
+});
