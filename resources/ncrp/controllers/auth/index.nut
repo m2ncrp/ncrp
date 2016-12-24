@@ -42,7 +42,7 @@ translation("en", {
  * validation of usernames
  * @type {Object}
  */
-local REGEX_USERNAME = regexp("[A-Za-z0-9_ ]{4,64}");
+local REGEX_USERNAME = regexp("[A-Za-z0-9_ ]{3,64}");
 
 
 local blockedAccounts = [];
@@ -53,7 +53,7 @@ local blockedAccounts = [];
  * @return {Boolean}
  */
 function isPlayerAuthBlocked(playerid) {
-    return blockedAccounts.find(getPlayerName(playerid)) != null;
+    return false;//blockedAccounts.find(getPlayerName(playerid)) != null;
 }
 
 /**
@@ -62,13 +62,13 @@ function isPlayerAuthBlocked(playerid) {
  * @param {Boolean} value
  */
 function setPlayerAuthBlocked(playerid, value) {
-    if (value && !isPlayerAuthBlocked(playerid)) {
-        return blockedAccounts.push(getPlayerName(playerid));
-    }
+    // if (value && !isPlayerAuthBlocked(playerid)) {
+    //     return blockedAccounts.push(getPlayerName(playerid));
+    // }
 
-    if (!value && isPlayerAuthBlocked(playerid)) {
-        return blockedAccounts.remove(blockedAccounts.find(getPlayerName(playerid)));
-    }
+    // if (!value && isPlayerAuthBlocked(playerid)) {
+    //     return blockedAccounts.remove(blockedAccounts.find(getPlayerName(playerid)));
+    // }
 
     return false;
 }

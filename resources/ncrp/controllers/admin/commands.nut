@@ -111,7 +111,8 @@ acmd("restart", function(playerid) {
     delayedFunction(15*60*1000, function() {
         msga("Server will be restarted in 5 seconds.", CL_RED);
         delayedFunction(15*60*1000-5000, function() {
-            msga("RESTART. See you soon ;)", CL_RED); shutdown();
+            msga("RESTART. See you soon ;)", CL_RED);
+            dbg("server", "restart", "requested");
         });
     });
 });

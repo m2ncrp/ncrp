@@ -73,7 +73,7 @@ chatcmd(["o","ooc"], function(playerid, message) {
     }
 
     // statistics
-    statisticsPushMessage(playerid, message, "ooc");
+    statisticsPushMessage(playerid, message, "ooc_" + getPlayerLocale(playerid));
 });
 
 chatcmd(["me"], function(playerid, message) {
@@ -86,17 +86,13 @@ chatcmd(["me"], function(playerid, message) {
 cmd("idea", function(playerid, ...) {
     msg(playerid, "chat.idea.success", CL_SUCCESS);
     statisticsPushText("idea", playerid, concat(vargv));
-
-    local data = url_encode(base64_encode(format("%s: %s", getAuthor(playerid), concat(vargv))));
-    webRequest(HTTP_TYPE_GET, MOD_HOST, "/discord?type=idea&data=" + data, function(a,b,c) {}, 7790);
+    dbg("chat", "idea", concat(vargv));
 });
 
 cmd("bug", function(playerid, ...) {
     msg(playerid, "chat.bug.success", CL_SUCCESS);
     statisticsPushText("bug", playerid, concat(vargv));
-
-    local data = url_encode(base64_encode(format("%s: %s", getAuthor(playerid), concat(vargv))));
-    webRequest(HTTP_TYPE_GET, MOD_HOST, "/discord?type=bug&data=" + data, function(a,b,c) {}, 7790);
+    dbg("chat", "bug", concat(vargv));
 });
 
 cmd("report", function(playerid, id, ...) {
@@ -112,9 +108,7 @@ cmd("report", function(playerid, id, ...) {
 
     msg(playerid, "chat.report.success", CL_SUCCESS);
     statisticsPushText("report", playerid, concat(vargv));
-
-    local data = url_encode(base64_encode(format("%s: %s", getAuthor(playerid), concat(vargv))))
-    webRequest(HTTP_TYPE_GET, MOD_HOST, "/discord?type=report&data=" + data, function(a,b,c) {}, 7790);
+    dbg("chat", "report", getAuthor(playerid), getAuthor(id), concat(vargv));
 });
 
 // random for some actions
