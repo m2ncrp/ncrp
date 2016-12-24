@@ -4,7 +4,7 @@ local interiors = [
 ["onfoot",  "Enter",     -48.4323, 728.248, -21.9672,    "FreddyBarEnter"],
 ["onfoot",  "Exit",     -48.8562, 728.771, -21.9009,   "FreddyBarExit"],
 ["onfoot",  "Enter",     629.552, 894.31, -12.0137,     "DragStripEnter"],
-["onfoot",  "Exit",     631.026, 899.66, -12.0138,     "DragStripExit"],
+["onfoot",  "Exit",     629.599, 895.129, -12.0138,     "DragStripExit"],
 ["onfoot",  "Enter",    631.026, 899.66, -12.0138,     "DragStripBlackExit"],
 ["onfoot",  "Exit",     631.072, 900.367, -12.0137,   "DragStripBlackEnter"],
 ["onfoot",  "Enter",    1226.26, 1273.46, 0.0755348,   "EmpireBayForgeEnter"],
@@ -191,6 +191,10 @@ event("onServerStarted", function() {
 });
 
 key(["e"], function(playerid) {
+    if (isPlayerInVehicle(playerid)) {
+        return;
+    }
+
     local check = false;
     local i = -1;
     foreach (key, value in interiors) {
@@ -201,7 +205,6 @@ key(["e"], function(playerid) {
         }
     }
     if (!check) {
-        dbg("no in zone");
        return;
     }
 
