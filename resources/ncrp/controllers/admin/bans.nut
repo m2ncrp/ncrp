@@ -24,6 +24,10 @@ function kick(playerid, targetid, ...) {
         removePlayerFromVehicle( targetid );
     }
 
+    if (!reason) {
+        reason = "inappropriate behavior";
+    }
+
     // remove player from players array (disabling chats and stuff)
     removePlayer(targetid, reason);
 
