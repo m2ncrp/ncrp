@@ -25,7 +25,7 @@ translation("en", {
     "organizations.police.leavejob.byadmin"     : "You fired %s from %s job."
 
     "organizations.police.call.withoutaddress"  : "You can't call police without address.",
-    "organizations.police.call.new"             : "[R] %s called police from %s",
+    "organizations.police.call.new"             : "[POLICE RADIO] There's situation on %s",
     "organizations.police.call.foruser"         : "You've called police from %s",
 
     "organizations.police.income"               : "[EBPD] We send $%.2f to you for duty as %s.",

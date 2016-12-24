@@ -144,16 +144,16 @@ key(["e"], function(playerid) {
 
 
 policecmd(["r", "ratio"], function(playerid, text) {
-    if ( !isOfficer(playerid) ) {
+    if ( !isOfficer(playerid)  || isPlayerAdmin(playerid) ) {
         return msg(playerid, "organizations.police.notanofficer");
     }
-    if( !isPlayerInPoliceVehicle(playerid) ) {
+    if( !isPlayerInPoliceVehicle(playerid)  || isPlayerAdmin(playerid) ) {
         return msg( playerid, "organizations.police.notinpolicevehicle");
     }
 
     // Enhaincment: loop through not players, but police vehicles with radio has on
     foreach (targetid in playerList.getPlayers()) {
-        if ( isOfficer(targetid) && isPlayerInPoliceVehicle(targetid) ) {
+        if ( isOfficer(targetid) && isPlayerInPoliceVehicle(targetid) || isPlayerAdmin(targetid) ) {
             msg( targetid, "[POLICE RADIO] " + getAuthor(playerid) + ": " + text, CL_ROYALBLUE );
         }
     }
@@ -179,11 +179,11 @@ cmd(["ticket"], function(playerid, targetid, price, ...) {
         local reason = makeMeText(playerid, vargv);
         local targetid = targetid.tointeger();
         msg(targetid, "organizations.police.ticket.givewithreason", [getAuthor(playerid), reason, playerid]); // add distance check
-        if (canMoneyBeSubstracted(targetid, price)) {
+        if (canMoneyBeSubstracted(targetid, price) && checkDistanceBtwTwoPlayersLess(playerid, targetid, 2.5)) {
             subMoneyToPlayer(targetid, price);
         }
     } else {
-        return msg(playerid, "organizations.police.offduty.notickets")
+        return msg(playerid, "organizations.police.offduty.notickets");
     }
 });
 
@@ -225,33 +225,14 @@ key(["v"], function(playerid) {
 // put nearest cuffed player in jail
 cmd(["prison", "jail"], function(playerid, targetid) {
     targetid = targetid.tointeger();
-    if ( isOnPoliceDuty(playerid) && getPlayerState(targetid) == "cuffed" ) {
-        setPlayerState(targetid, "jail");
-        setPlayerToggle(targetid, false);
-        screenFadeinFadeoutEx(targetid, 250, 200, function() {
-        //  output "Wasted" and set player position
-            setPlayerState(targetid, "jail");
-            setPlayerPosition( targetid, POLICE_JAIL_COORDS[0][0], POLICE_JAIL_COORDS[0][1], POLICE_JAIL_COORDS[0][2] );
-        });
-        msg(targetid, "organizations.police.jail", [], CL_THUNDERBIRD);
-        dbg( "[JAIL] " + getAuthor(playerid) + " put " + getAuthor(targetid) + "in jail." );
-    }
+    putInJail(playerid, targetid);
 });
 
 
 // take out player from jail
 cmd(["amnesty"], function(playerid, targetid) {
     targetid = targetid.tointeger();
-    if ( isOnPoliceDuty(playerid) ) {
-        setPlayerPosition(targetid, POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]); // police department
-        //setPlayerRotation(targetid, -137.53, 0.00309768, -0.00414733);
-
-        screenFadeinFadeoutEx(targetid, 250, 200, function() {
-            // setPlayerToggle(targetid, false);
-            setPlayerState(targetid, "free");
-        });
-        msg(targetid, "organizations.police.unjail", [], CL_THUNDERBIRD);
-    }
+    takeOutOfJail(playerid, targetid);
 })
 
 function policeHelp(playerid, a = null, b = null) {

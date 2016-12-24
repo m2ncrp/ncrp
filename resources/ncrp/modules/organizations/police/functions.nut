@@ -12,14 +12,14 @@ function policeCall(playerid, place) {
     local pos = getPlayerPositionObj(playerid); 
 
     foreach(player in playerList.getPlayers()) {
-        if ( isOfficer(player) && isOnPoliceDuty(player) ) {
+        if ( isOfficer(player) && isOnPoliceDuty(player) || isPlayerAdmin(player) ) {
             local crime_hash = createPrivateBlip(player, pos.x, pos.y, ICON_YELLOW, 4000.0);
 
             delayedFunction(60000, function() { // <----------------------------------------- need check for more than 2 people
                 removeBlip( crime_hash );
             });
 
-            msg(player, "organizations.police.call.new", [getAuthor(playerid), place], CL_ROYALBLUE);
+            msg(player, "organizations.police.call.new", [place], CL_ROYALBLUE);
         }
     }
 }
@@ -282,5 +282,34 @@ function cuff(playerid) {
             }
             // throw out cuffes and disable arrest any players till officer didn't take them from the ground 
         }
+    }
+}
+
+
+function putInJail(playerid, targetid) {
+    if ( isOnPoliceDuty(playerid) && getPlayerState(targetid) == "cuffed" ) {
+        setPlayerState(targetid, "jail");
+        setPlayerToggle(targetid, false);
+        screenFadeinFadeoutEx(targetid, 250, 200, function() {
+        //  output "Wasted" and set player position
+            setPlayerState(targetid, "jail");
+            setPlayerPosition( targetid, POLICE_JAIL_COORDS[0][0], POLICE_JAIL_COORDS[0][1], POLICE_JAIL_COORDS[0][2] );
+        });
+        msg(targetid, "organizations.police.jail", [], CL_THUNDERBIRD);
+        dbg( "[JAIL] " + getAuthor(playerid) + " put " + getAuthor(targetid) + "in jail." );
+    }
+}
+
+
+function takeOutOfJail(playerid, targetid) {
+    if ( isOnPoliceDuty(playerid) ) {
+        setPlayerPosition(targetid, POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]); // police department
+        //setPlayerRotation(targetid, -137.53, 0.00309768, -0.00414733);
+
+        screenFadeinFadeoutEx(targetid, 250, 200, function() {
+            // setPlayerToggle(targetid, false);
+            setPlayerState(targetid, "free");
+        });
+        msg(targetid, "organizations.police.unjail", [], CL_THUNDERBIRD);
     }
 }
