@@ -58,11 +58,7 @@ include("controllers/tips");
 // include("controllers/gui");
 
 // load modules
-include("modules/metro");
-include("modules/jobs");
-include("modules/organizations");
-include("modules/shops");
-include("modules/rentcar");
+include("modules/index.nut");
 
 // translations
 include("translations/en.nut");
