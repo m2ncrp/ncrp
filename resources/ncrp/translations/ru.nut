@@ -551,7 +551,7 @@ translation("ru", {
     "organizations.police.leavejob.byadmin"     : "Вы уволили %s с работы %s."
 
     "organizations.police.call.withoutaddress"  : "Вы не можете вызвать полицию, не указав адрес."
-    "organizations.police.call.new"             : "[R] поступил вызов от %s по адресу %s"
+    "organizations.police.call.new"             : "[POLICE RADIO] Происшествие по адресу %s"
     "organizations.police.call.foruser"         : "Вы вызвали полицию по адресу %s"
 
     "organizations.police.income"               : "[EBPD] Ваша зарплата составляет $%.2f за службу в качестве %s."
