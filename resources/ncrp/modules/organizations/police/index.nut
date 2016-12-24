@@ -186,7 +186,7 @@ event("onPlayerSpawn", function( playerid ) {
 
 
 event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
-    if (isPlayerInPoliceVehicle(playerid)) {
+    if (isPlayerInPoliceVehicle(playerid) && seat == 0) {
         if (!isOfficer(playerid)) {
             // set player wanted level or smth like that
             blockVehicle(vehicleid);
@@ -196,7 +196,6 @@ event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
         }
     }
 });
-
 
 
 
@@ -269,5 +268,6 @@ event("onPoliceDutyOff", function(playerid, rank = null) {
 
 
 event("onBatonBitStart", function (playerid) {
-     
+    setPlayerAnimStyle(playerid, "common", "ManColdWeapon");
+    setPlayerHandModel(playerid, 1, 28); // policedubinka right hand
 });
