@@ -31,3 +31,5 @@ positions.txt
 
 # env
 .env
+
+*.dll
