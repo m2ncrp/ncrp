@@ -96,7 +96,6 @@ function outofRadiusDo(playerid, targetid, radius, callback) {
 * @param  {float} radius
 * @return {bool} true/false
 */
-
 function checkDistanceBtwTwoPlayersLess(playerid, targetid, radius) {
     local playerPos = getPlayerPosition( playerid );
     local targetPos = getPlayerPosition( targetid.tointeger() );
@@ -117,7 +116,21 @@ function checkDistanceBtwTwoPlayersLess(playerid, targetid, radius) {
  * @param  {float} radius
  * @return {bool} true/false
  */
-
 function checkDistance(playerid, targetid, radius) {
     return checkDistanceBtwTwoPlayersLess(playerid, targetid, radius);
+}
+
+
+
+
+
+
+function checkDistanceXYZ(X1, Y1, Z1, X2, Y2, Z2, radius) {
+    local distance = getDistanceBetweenPoints3D( X1, Y1, Z1, X2, Y2, Z2 );
+    return (distance <= radius);
+}
+
+function checkDistanceXY(X1, Y1, X2, Y2, radius) {
+    local distance = getDistanceBetweenPoints2D( X1, Y1, X2, Y2 );
+    return (distance <= radius);
 }

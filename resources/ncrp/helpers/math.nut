@@ -147,3 +147,17 @@ function fractionPeriodic (num) {
         dbg("ekran: "+ekran_chis+"|"+ekran_znam);
     //return ekran;
 }
+
+
+
+class Vector3d {
+    X = null; 
+    Y = null; 
+    Z = null;
+
+    constructor (X = 0.0, Y = 0.0, Z = 0.0) {
+        this.X = X;
+        this.Y = Y
+        this.Z = Z;
+    }
+}
