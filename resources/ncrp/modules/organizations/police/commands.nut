@@ -30,10 +30,8 @@ acmd("police", ["set", "rank"], function(playerid, targetid, rank) {
     }
 
     if ( isOnPoliceDuty(playerid) ) {
-        // onPoliceDutyRemoveWeapon( playerid );
         trigger("onPoliceDutyOff", playerid);
         setPoliceRank( targetid, rank );
-        // onPoliceDutyGiveWeapon( playerid );
         trigger("onPoliceDutyOn", playerid);
         setPlayerJob ( targetid, getPlayerJob(playerid) );
     } else {
@@ -145,17 +143,17 @@ key(["e"], function(playerid) {
 }, KEY_UP);
 
 
-policecmd(["r", "ratio"], function(playerid, text) {
-    if ( !isOfficer(playerid)  || isPlayerAdmin(playerid) ) {
+policecmd(["r", "radio"], function(playerid, text) {
+    if ( !isOfficer(playerid) ) {
         return msg(playerid, "organizations.police.notanofficer");
     }
-    if( !isPlayerInPoliceVehicle(playerid)  || isPlayerAdmin(playerid) ) {
+    if( !isPlayerInPoliceVehicle(playerid) ) {
         return msg( playerid, "organizations.police.notinpolicevehicle");
     }
 
     // Enhaincment: loop through not players, but police vehicles with radio has on
     foreach (targetid in playerList.getPlayers()) {
-        if ( isOfficer(targetid) && isPlayerInPoliceVehicle(targetid) || isPlayerAdmin(targetid) ) {
+        if ( (isOfficer(targetid) && isPlayerInPoliceVehicle(targetid)) || isPlayerAdmin(targetid) ) {
             msg( targetid, "[POLICE RADIO] " + getAuthor(playerid) + ": " + text, CL_ROYALBLUE );
         }
     }
@@ -235,7 +233,8 @@ cmd(["prison", "jail"], function(playerid, targetid) {
 cmd(["amnesty"], function(playerid, targetid) {
     targetid = targetid.tointeger();
     takeOutOfJail(playerid, targetid);
-})
+});
+
 
 function policeHelp(playerid, a = null, b = null) {
     msg( playerid, "organizations.police.info.howjoin" );
