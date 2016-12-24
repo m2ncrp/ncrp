@@ -2,7 +2,7 @@ include("controllers/vehicle/functions");
 include("controllers/vehicle/commands.nut");
 //include("controllers/vehicle/hiddencars.nut");
 
-const VEHICLE_RESPAWN_TIME      = 180; // 3 (real) minutes
+const VEHICLE_RESPAWN_TIME      = 300; // 5 (real) minutes
 const VEHICLE_FUEL_DEFAULT      = 40.0;
 const VEHICLE_MIN_DIRT          = 0.25;
 const VEHICLE_MAX_DIRT          = 0.75;
@@ -122,7 +122,7 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     }
 
     // check blocking
-    if (getVehicleSaving(vehicleid) && seat == 0) {
+    if (isVehicleOwned(vehicleid) && seat == 0) {
         if (isPlayerVehicleOwner(playerid, vehicleid)) {
             unblockVehicle(vehicleid);
         } else {
@@ -181,4 +181,21 @@ event("onServerAutosave", function() {
 // clearing all vehicles on server stop
 event("onServerStopping", function() {
     return destroyAllVehicles();
+});
+
+// force resetting vehicle position to death point
+event("onPlayerDeath", function(playerid) {
+    if (isPlayerInVehicle(playerid)) {
+        local vehicleid = getPlayerVehicle(playerid);
+
+        delayedFunction(1500, function() {
+            setVehiclePositionObj(vehicleid, getVehiclePositionObj(vehicleid));
+            dbg("player", "death", vehicleid);
+        });
+
+        delayedFunction(5000, function() {
+            setVehiclePositionObj(vehicleid, getVehiclePositionObj(vehicleid));
+            dbg("player", "death", vehicleid);
+        });
+    }
 });

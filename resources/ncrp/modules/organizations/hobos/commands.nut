@@ -1,6 +1,7 @@
 local hoboses = {};
 
-cmd(["dig"], function(playerid) {
+
+function hobosDig(playerid) {
     if ( !isTimeToDig(playerid) ) { // isHobos(playerid) && 
         return msg( playerid, "organizations.hobos.tired" );
     }
@@ -9,22 +10,26 @@ cmd(["dig"], function(playerid) {
         found = round( found, 2);
         addMoneyToPlayer(playerid, found );
         msg( playerid, "organizations.hobos.trash.found", [found, getPlayerBalance(playerid)] );
-        
+
         if (!(playerid in hoboses)) {
             hoboses[playerid] <- {};
         }
         hoboses[playerid].digtime <- getTimestamp();
     }
+}
+
+cmd(["dig"], hobosDig);
+key("e", function(playerid) {
+    if (!isNearTrash()) {
+        return;
+    }
+
+    hobosDig(playerid);
 });
-
-
-
-
 
 function isHobos(playerid) {
     return players[playerid]["spawn"] == hobos_spawnID;
 }
-
 
 function isNearTrash(playerid) {
     foreach (point in hobos_points) {
