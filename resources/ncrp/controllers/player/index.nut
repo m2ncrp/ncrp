@@ -1,6 +1,8 @@
 include("controllers/player/commands.nut");
 include("controllers/player/PlayerList.nut");
 include("controllers/player/functions.nut");
+include("controllers/player/anticheat.nut");
+// include("controllers/player/respawn");
 
 players <- {};
 xPlayers <- {};
@@ -18,7 +20,7 @@ const DEFAULT_SPAWN_Z    = 10.2325;
 const HOSPITAL_X         = -393.429;
 const HOSPITAL_Y         = 912.044;
 const HOSPITAL_Z         = -20.0026;
-const HOSPITAL_AMOUNT    = 15.0;
+const HOSPITAL_AMOUNT    = 4.99;
 
 // jail
 const JAIL_X = -1018.93;
@@ -43,6 +45,20 @@ default_spawns <- [
 local defaultSkins = [
     10, 24, 42, 71, 72, 81, 149, 162
 ];
+local ticker = null;
+
+event("onServerStarted", function() {
+    ticker = timer(function() {
+        foreach (playerid, value in players) {
+
+            // check for falling players
+            if (getPlayerPosition(playerid)[2] < -75.0) {
+                dbg("player", "falldown", playerid);
+                // trigger("onPlayerFallingDown", playerid);
+            }
+        }
+    }, 500, -1);
+});
 
 event("onPlayerInit", function(playerid, name, ip, serial) {
     Character.findOneBy({ name = getPlayerName(playerid) }, function(err, char) {
@@ -196,12 +212,13 @@ event("onServerPlayerStarted", function(playerid) {
 });
 
 event("native:onPlayerSpawn", function(playerid) {
+    local position = {};
 
     // player is not yet logined
     if (!(playerid in players)) {
         // togglePlayerControls(playerid, true);
 
-        setPlayerPosition(playerid, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z);
+        position = {x = DEFAULT_SPAWN_X, y = DEFAULT_SPAWN_Y, z = DEFAULT_SPAWN_Z};
         // setPlayerRotation(playerid, -99.8071, -0.000323891, -0.00024408);
         setPlayerModel(playerid, DEFAULT_SPAWN_SKIN);
         togglePlayerHud(playerid, true);
@@ -214,7 +231,7 @@ event("native:onPlayerSpawn", function(playerid) {
         if (isPlayerBeenDead(playerid)) {
 
             // repsawn at the hospital
-            setPlayerPosition(playerid, HOSPITAL_X, HOSPITAL_Y, HOSPITAL_Z);
+            position = {x = HOSPITAL_X, y = HOSPITAL_Y, z = HOSPITAL_Z};
 
             // maybe deduct some money...
             if (canMoneyBeSubstracted(playerid, HOSPITAL_AMOUNT)) {
@@ -228,13 +245,8 @@ event("native:onPlayerSpawn", function(playerid) {
 
         } else if (players[playerid].housex != 0.0 && players[playerid].housey != 0.0) {
 
-            // check if player has home
-            setPlayerPosition(playerid,
-                players[playerid].housex,
-                players[playerid].housey,
-                players[playerid].housez
-            );
-
+            // spawn player at coords of exit
+            position = {x = players[playerid].housex, y = players[playerid].housey, z = players[playerid].housez};
             setPlayerHealth(playerid, players[playerid].health);
 
         } else {
@@ -245,7 +257,7 @@ event("native:onPlayerSpawn", function(playerid) {
             local y = default_spawns[spawnID][1];
             local z = default_spawns[spawnID][2];
 
-            setPlayerPosition(playerid, x, y, z);
+            position = {x = x, y = y, z = z};
             setPlayerHealth(playerid, players[playerid].health);
         }
 
@@ -259,6 +271,8 @@ event("native:onPlayerSpawn", function(playerid) {
 
         trigger("onPlayerSpawn", playerid);
         trigger("onPlayerSpawned", playerid);
+
+        setPlayerPosition(playerid, position.x, position.y, position.z);
     }
 });
 

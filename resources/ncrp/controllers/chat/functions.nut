@@ -76,7 +76,7 @@ function getAuthor2( playerid ) {
 
 function chatcmd(names, callback)  {
     cmd(names, function(playerid, ...) {
-        local text = concat(vargv);
+        local text = strip(concat(vargv));
 
         if (!text || text.len() < 1) {
             return msg(playerid, "[INFO] You can't send an empty message.", CL_YELLOW);
