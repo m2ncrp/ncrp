@@ -90,7 +90,7 @@ function RentCarRefuse(playerid) {
 }
 
 addEventHandler ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
-    if(isPlayerCarRent(playerid)) {
+    if(isPlayerCarRent(playerid) && seat == 0) {
         local whorent = getPlayerWhoRentVehicle(vehicleid);
         if(whorent != playerid) {
             setVehicleFuel(vehicleid, 0.0);
