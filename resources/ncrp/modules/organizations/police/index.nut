@@ -186,7 +186,7 @@ event("onPlayerSpawn", function( playerid ) {
 
 
 event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
-    if (isPlayerInPoliceVehicle(playerid)) {
+    if (isPlayerInPoliceVehicle(playerid) && seat == 0) {
         if (!isOfficer(playerid)) {
             // set player wanted level or smth like that
             blockVehicle(vehicleid);
@@ -196,7 +196,6 @@ event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
         }
     }
 });
-
 
 
 
