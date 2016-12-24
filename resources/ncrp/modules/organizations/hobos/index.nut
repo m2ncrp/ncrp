@@ -132,7 +132,7 @@ addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial) {
     if ( isHobos(playerid) ) {
         // players[playerid]["skin"] <- hobosSkins[random(0, hobosSkins.len() - 1)];
         hoboses[playerid] <- {};
-    }    
+    }
 });
 
 
