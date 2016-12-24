@@ -1,13 +1,12 @@
 include("controllers/player/commands.nut");
 include("controllers/player/PlayerList.nut");
 include("controllers/player/functions.nut");
+include("controllers/player/anticheat.nut");
 // include("controllers/player/respawn");
 
 players <- {};
 xPlayers <- {};
 playerList <- {};
-
-const ANTICHEAT_SPEED_LIMIT = 80.0;
 
 const CHARACTER_DEFAULT_SKIN   = 10; // @deprecated
 const CHARACTER_DEFAULT_MONEY  = 1.75; // @deprecated
@@ -57,26 +56,8 @@ event("onServerStarted", function() {
                 dbg("player", "falldown", playerid);
                 // trigger("onPlayerFallingDown", playerid);
             }
-
-            // anticheat check for speed-hack
-            if (isPlayerInVehicle(playerid)) {
-                local speed = getVehicleSpeed(getPlayerVehicle(playerid));
-                local maxsp = max(speed[0], speed[1], speed[2]) + 20.0;
-
-                if (maxsp > ANTICHEAT_SPEED_LIMIT) {
-                    kick( -1, playerid, "speed-hack protection" );
-                }
-            }
-
-            // anticheat - remove weapons
-            if (!isOfficer(playerid)) {
-                local weaponlist = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 21];
-                weaponlist.apply(function(id) {
-                    removePlayerWeapon( playerid, id );
-                })
-            }
         }
-    }, 250, -1);
+    }, 500, -1);
 });
 
 event("onPlayerInit", function(playerid, name, ip, serial) {
