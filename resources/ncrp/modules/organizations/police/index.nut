@@ -204,6 +204,10 @@ event("onPlayerDisconnect", function(playerid, reason) {
         policeJobPaySalary( playerid );
          delete police[playerid];
     }
+
+    if ( getPlayerState(playerid) == "cuffed" ) {
+        setPlayerState(playerid, "jail");
+    }
 });
 
 
@@ -212,7 +216,6 @@ event("onServerMinuteChange", function() {
     foreach (playerid, value in police) {
         if("ondutyminutes" in police[playerid] && isOnPoliceDuty(playerid)) {
             police[playerid]["ondutyminutes"] += 1;
-
         }
     }
 });

@@ -18,11 +18,19 @@ class Point2d extends Vector3d {
         return (angle - tolerance <= currentAngle <= angle + tolerance);
     }
 
-    function attachLocalBlip(playerid, visibleDistance) {
-        blip_hash = createPrivateBlip(playerid, pos.x, pos.y, ICON_YELLOW, visibleDistance);
+    function attachLocalBlip(playerid, X, Y, icon, visibleDistance) {
+        blip_hash = createPrivateBlip(playerid, X, Y, icon, visibleDistance);
+    }
+
+    function attachGlobalBlip(X, Y, icon, distance) {
+        blip_hash = createBlip(X, Y, icon, distance);
     }
 
     function removeLocalBlip() {
+        removeBlip( blip_hash );
+    }
+
+    function removeGlobalBlip() {
         removeBlip( blip_hash );
     }
 
@@ -38,6 +46,10 @@ class Point2d extends Vector3d {
         local isDistGood = checkDistanceXY(X1, Y1, X2, Y2, radius);
         local isRotationGood = checkRotation(angle);
         return isDistGood && isRotationGood;
+    }
+
+    function isInPoint_Strict(X, Y, angle, radius) {
+        // Code
     }
 
     /*
