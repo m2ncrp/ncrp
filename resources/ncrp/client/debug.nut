@@ -223,17 +223,17 @@ addEventHandler("onServerDebugToggle", function() {
     toggler = true;
 });
 
-// bindKey("2", "down", function() {
-//     if (!toggler) return;
-//     step += step;
-//     sendMessage("[tp] step is now: " + step);
-// });
+bindKey("2", "down", function() {
+    if (!toggler) return;
+    step += step;
+    sendMessage("[tp] step is now: " + step);
+});
 
-// bindKey("1", "down", function() {
-//     if (!toggler) return;
-//     step -= (step / 2);
-//     sendMessage("[tp] step is now: " + step);
-// });
+bindKey("1", "down", function() {
+    if (!toggler) return;
+    step -= (step / 2);
+    sendMessage("[tp] step is now: " + step);
+});
 
 bindKey("space", "down", function() {
     if (!toggler) return;
@@ -248,17 +248,17 @@ bindKey("space", "down", function() {
     triggerServerEvent("onPlayerTeleportRequested", current[0].tofloat() - dx, current[1].tofloat() - dy, current[2] );
 });
 
-// bindKey("3", "down", function() {
-//     if (!toggler) return;
-//     local current = getPlayerPosition( getLocalPlayer() );
+bindKey("3", "down", function() {
+    if (!toggler) return;
+    local current = getPlayerPosition( getLocalPlayer() );
 
-//     triggerServerEvent("onPlayerTeleportRequested", current[0], current[1], current[2] + step );
-// });
+    triggerServerEvent("onPlayerTeleportRequested", current[0], current[1], current[2] + step );
+});
 
 
-// bindKey("4", "down", function() {
-//     if (!toggler) return;
-//     local current = getPlayerPosition( getLocalPlayer() );
+bindKey("4", "down", function() {
+    if (!toggler) return;
+    local current = getPlayerPosition( getLocalPlayer() );
 
-//     triggerServerEvent("onPlayerTeleportRequested", current[0], current[1], current[2] - step );
-// });
+    triggerServerEvent("onPlayerTeleportRequested", current[0], current[1], current[2] - step );
+});

@@ -223,6 +223,10 @@ addEventHandler("onServerToggleHudDrawing", function() {
     drawing = !drawing;
 });
 
+addEventHandler("onServerChatTrigger", function() {
+    showChat(!isChatVisible());
+});
+
 addEventHandler("onServerChatSlotRequested", function(slot) {
     slot = slot.tointeger();
     slot = slot < 0 ? 0 : slot;
