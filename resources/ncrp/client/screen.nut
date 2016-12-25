@@ -14,7 +14,7 @@ local initialized = false;
 local datastore = {};
 local lines     = [];
 
-local chatslots = ["say", "me", "ooc"];
+local chatslots = ["ooc", "ic", "me", "do"];
 local selectedslot = 0;
 
 local welcomeTexts = [
@@ -42,8 +42,8 @@ function onSecondChanged() {
     triggerServerEvent("onClientSendFPSData", getFPS());
 
     drawdata.status = format(
-        "v%s  |  FPS: %d  |  Ping: %d  |  Online: %d",
-        drawdata.version,
+        "ID: %s  |  FPS: %d  |  Ping: %d  |  Online: %d",
+        getLocalPlayer(),
         getFPS(),
         getPlayerPing(getLocalPlayer()),
         (getPlayerCount() + 1)
