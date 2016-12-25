@@ -93,15 +93,17 @@ event ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
     if(isPlayerCarRent(playerid) && seat == 0) {
         local whorent = getPlayerWhoRentVehicle(vehicleid);
         if(whorent != playerid) {
-            setVehicleFuel(vehicleid, 0.0);
+            blockVehicle(vehicleid);
             msg(playerid, "rentcar.canrent", [getVehicleRentPrice(vehicleid)*10, getVehicleRentPrice(vehicleid)*60 ]);
+        } else {
+            unblockVehicle(vehicleid);
         }
     }
 });
 
 event ( "onPlayerVehicleExit", function ( playerid, vehicleid, seat ) {
-    if(seat == 0) {
-        setVehicleFuel(vehicleid, 0.0);
+    if(!isPlayerCarRent(playerid) && seat == 0) {
+        blockVehicle(vehicleid);
     }
 });
 
