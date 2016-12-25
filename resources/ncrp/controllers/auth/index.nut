@@ -3,6 +3,7 @@ include("controllers/auth/commands.nut");
 
 IS_AUTHORIZATION_ENABLED <- true;
 AUTH_ACCOUNTS_LIMIT <- 2;
+AUTH_AUTOLOGIN_TIME <- 900; // 15 minutes
 
 /**
  * Storage for our sessions
@@ -14,6 +15,7 @@ AUTH_ACCOUNTS_LIMIT <- 2;
  */
 local accounts = {};
 local baseData = {};
+local sessions = {};
 
 translation("en", {
     "auth.wrongname"        : "Your name should be at least 4 symbols and should not contain any symbols except letters, nubmers, space and underscore."
@@ -31,6 +33,7 @@ translation("en", {
     "auth.error.notfound"   : "[AUTH] This account is not registered"
     "auth.success.register" : "[AUTH] You've successfuly registered!"
     "auth.success.login"    : "[AUTH] You've successfuly logined!"
+    "auth.success.autologin": "[AUTH] You've been automatically logined!"
     "auth.error.cmderror"   : "[AUTH] You can't execute commands without registration."
     "auth.notification"     : "[AUTH] You should enter into your account via /login PASSWORD, or create new one via /register PASSWORD"
     "auth.error.tomany"     : "[AUTH] You cant register more accounts."
@@ -147,6 +150,28 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
                     setPlayerLayout(playerid, account.layout, false);
                 }
 
+                if (getTimestamp() - getLastActiveSession(playerid) < AUTH_AUTOLOGIN_TIME) {
+                    // update data
+                    account.ip       = getPlayerIp(playerid);
+                    account.serial   = getPlayerSerial(playerid);
+                    account.logined  = getTimestamp();
+                    account.save();
+
+                    // save session
+                    account.addSession(playerid);
+                    setLastActiveSession(playerid);
+
+                    // send message success
+                    msg(playerid, "auth.success.autologin", CL_SUCCESS);
+                    dbg("login", getAuthor(playerid), "autologin");
+
+                    screenFadein(playerid, 250, function() {
+                        trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
+                    });
+
+                    return;
+                }
+
                 msg(playerid, "---------------------------------------------", CL_SILVERSAND);
                 msg(playerid, "auth.welcome", username);
 
@@ -173,6 +198,8 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
 event("onPlayerDisconnect", function(playerid, reason) {
     setPlayerAuthBlocked(playerid, false);
     if (!(playerid in accounts)) return;
+
+    setLastActiveSession(playerid);
 
     // clean up data for GC
     accounts[playerid].clean();
@@ -267,4 +294,28 @@ function setPlayerLocale(playerid, locale = "en") {
     }
 
     return false;
+}
+
+/**
+ * Get last active session for the player
+ * @param  {Integer} playerid
+ * @return {Boolean}
+ */
+function getLastActiveSession(playerid) {
+    local key = md5(getPlayerName(playerid) + "@" + getPlayerSerial(playerid));
+
+    if (key in sessions) {
+        return sessions[key];
+    }
+
+    return 0;
+}
+
+/**
+ * Set last active session to current timestamp
+ * @param {Integer} playerid
+ * @return {Boolean}
+ */
+function setLastActiveSession(playerid) {
+    return sessions[md5(getPlayerName(playerid) + "@" + getPlayerSerial(playerid))] <- getTimestamp();
 }
