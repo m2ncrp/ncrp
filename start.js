@@ -122,10 +122,14 @@ function startServer() {
                 channels[settings.console].sendMessage(data[1]);
 
                 if (data[1] == "restart" && data[2] == "request") {
-                    m2o.stdin.write("exit\n");
-                    setTimeout(function() {
-                        m2o = startServer();
-                    }, AUTORESTART_TIME);
+                    try {
+                        m2o.stdin.write("exit\n");
+                        setTimeout(function() {
+                            m2o = startServer();
+                        }, AUTORESTART_TIME);
+                    } catch (e) {
+                        return channels[settings.nofitication].sendMessage("@everyone Could not write to sdtin for server restarting! Error: " + e.message);
+                    }
                 }
 
                 return;
