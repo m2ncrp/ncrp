@@ -1,5 +1,5 @@
 // local chat
-chatcmd(["i", "say"], function(playerid, message) {
+chatcmd(["i", "ic", "say"], function(playerid, message) {
     sendLocalizedMsgToAll(playerid, "chat.player.says", message, NORMAL_RADIUS, CL_YELLOW);
 
     // statistics
