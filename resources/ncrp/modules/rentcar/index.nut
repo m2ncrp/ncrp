@@ -1,7 +1,7 @@
 include("modules/rentcar/commands.nut");
 
 local rentcars = {};
-addEventHandlerEx("onServerStarted", function() {
+event ("onServerStarted", function() {
     log("[vehicles] loading rent cars module...");
 
     rentcars[createVehicle(31, 579.762, 802.5, -12.5, 34.939,  0.37609, -0.0309878)]    <- [ 0.03, "free" ];
@@ -89,7 +89,7 @@ function RentCarRefuse(playerid) {
     msg(playerid, "rentcar.refused");
 }
 
-addEventHandler ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
+event ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
     if(isPlayerCarRent(playerid) && seat == 0) {
         local whorent = getPlayerWhoRentVehicle(vehicleid);
         if(whorent != playerid) {
@@ -99,7 +99,13 @@ addEventHandler ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat )
     }
 });
 
-addEventHandler( "onPlayerDisconnect",  function ( playerid, reason ) {
+event ( "onPlayerVehicleExit", function ( playerid, vehicleid, seat ) {
+    if(seat == 0) {
+        setVehicleFuel(vehicleid, 0.0);
+    }
+});
+
+event( "onPlayerDisconnect",  function ( playerid, reason ) {
         foreach (vehicleid, value in rentcars) {
             if (value[1] == "free") {
                 continue;
@@ -114,7 +120,7 @@ addEventHandler( "onPlayerDisconnect",  function ( playerid, reason ) {
 });
 
 
-addEventHandlerEx("onServerMinuteChange", function() {
+event ("onServerMinuteChange", function() {
     if (((getMinute()+1) % 10.0) != 0) {
         return;
     }
