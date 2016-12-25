@@ -19,7 +19,7 @@ let settings = {
 
     // stream for all logs
     console: "256102201187893248", // console
-    nofitication: "219673733638389760", // dev-notfications
+    nofitication: "254996128074825738", // dev-notfications
 
     // valid admin output chats
     output: [
@@ -248,68 +248,79 @@ bot.on('message', msg => {
         msg.reply("check output in #dev-nofications or #randomshiet");
     }
 
-    if (!m2o) {
-        return msg.reply("m2o not loaded!");
-    }
+    try {
 
-    // Usage: /list
-    if (msg.content.startsWith(prefix + "list")) {
-        console.log(">>", msg.member.user.username, "reqeusted", "list");
-        return m2o.stdin.write("list\n");
-    }
+        if (!m2o) {
+            return msg.reply("m2o not loaded!");
+        }
 
-    // Usage: /adm Hello everyone!
-    if (msg.content.startsWith(prefix + "adm")) {
-        let content = msg.content.slice(4).trim();
-        console.log(">>", msg.member.user.username, "reqeusted", "adm", content);
-        return m2o.stdin.write("adm " + content + "\n");
-    }
+        if (!child.sdtin.writable) {
+            console.log(">>", "m2o stdin not writable!");
+            return msg.reply("@everyone ALERT! m2o stdin stream not writable");
+        }
 
-    // Usage: /sq getPlayerMoney(0)
-    if (msg.content.startsWith(prefix + "sq")) {
-        let content = msg.content.slice(3).trim();
-        console.log(">>", msg.member.user.username, "reqeusted", "sq", content);
-        return m2o.stdin.write("sq " + content + "\n");
-    }
+        // Usage: /list
+        if (msg.content.startsWith(prefix + "list")) {
+            console.log(">>", msg.member.user.username, "reqeusted", "list");
+            return m2o.stdin.write("list\n");
+        }
 
-    // Usage: /restart
-    if (msg.content.startsWith(prefix + "restart")) {
-        console.log(">>", msg.member.user.username, "reqeusted", "restart");
-        m2o.stdin.write("exit\n");
-        setTimeout(function() {
+        // Usage: /adm Hello everyone!
+        if (msg.content.startsWith(prefix + "adm")) {
+            let content = msg.content.slice(4).trim();
+            console.log(">>", msg.member.user.username, "reqeusted", "adm", content);
+            return m2o.stdin.write("adm " + content + "\n");
+        }
+
+        // Usage: /sq getPlayerMoney(0)
+        if (msg.content.startsWith(prefix + "sq")) {
+            let content = msg.content.slice(3).trim();
+            console.log(">>", msg.member.user.username, "reqeusted", "sq", content);
+            return m2o.stdin.write("sq " + content + "\n");
+        }
+
+        // Usage: /restart
+        if (msg.content.startsWith(prefix + "restart")) {
+            console.log(">>", msg.member.user.username, "reqeusted", "restart");
+            m2o.stdin.write("exit\n");
+            setTimeout(function() {
+                m2o = startServer();
+            }, AUTORESTART_TIME);
+            return;
+        }
+
+        // Usage: /stop
+        if (msg.content.startsWith(prefix + "stop")) {
+            console.log(">>", msg.member.user.username, "reqeusted", "stop");
+            if (!started) {
+                return msg.reply("the server is not started!");
+            }
+
+            m2o.stdin.write("exit\n");
+            return;
+        }
+
+        // Usage: /start
+        if (msg.content.startsWith(prefix + "start")) {
+            console.log(">>", msg.member.user.username, "reqeusted", "start");
+            if (started) {
+                return msg.reply("the server is already started!");
+            }
+
             m2o = startServer();
-        }, AUTORESTART_TIME);
-        return;
-    }
-
-    // Usage: /stop
-    if (msg.content.startsWith(prefix + "stop")) {
-        console.log(">>", msg.member.user.username, "reqeusted", "stop");
-        if (!started) {
-            return msg.reply("the server is not started!");
+            return;
         }
 
-        m2o.stdin.write("exit\n");
-        return;
-    }
-
-    // Usage: /start
-    if (msg.content.startsWith(prefix + "start")) {
-        console.log(">>", msg.member.user.username, "reqeusted", "start");
-        if (started) {
-            return msg.reply("the server is already started!");
+        let controls = ["ban", "kick", "mute", "unmute", "banlist", "unban"];
+        for (ctrl of controls) {
+            if (!msg.content.startsWith(prefix + ctrl)) continue;
+            let content = msg.content.slice(1).trim();
+            console.log(">>", msg.member.user.username, "reqeusted", "admin", content);
+            return m2o.stdin.write("admin " + content + "\n");
         }
-
-        m2o = startServer();
-        return;
-    }
-
-    let controls = ["ban", "kick", "mute", "unmute", "banlist", "unban"];
-    for (ctrl of controls) {
-        if (!msg.content.startsWith(prefix + ctrl)) continue;
-        let content = msg.content.slice(1).trim();
-        console.log(">>", msg.member.user.username, "reqeusted", "admin", content);
-        return m2o.stdin.write("admin " + content + "\n");
+    } catch (e) {
+        msg.reply("@everyone ALERT! Exception writing to m2o stdin " + e.message);
+        console.log(">>", "cannot write to stdin", e.message);
     }
 });
 
