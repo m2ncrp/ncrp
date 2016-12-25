@@ -40,3 +40,46 @@ addEventHandler("onServerBlipDelete", function(uid) {
         delete _blip_objects[uid];
     }
 });
+
+/**
+ * Admin blips
+ */
+
+local blipP = [];
+local blipV = [];
+
+addEventHandler("onServerToggleBlip", function(type) {
+    if (type == "p") {
+        if (!blipP.len()) {
+            // no blips - create
+            foreach (idx, value in getPlayers()) {
+                local pos  = getPlayerPosition(idx);
+                local blip = createBlip(pos[0], pos[1], 0, 1);
+                attachBlipToPlayer(blip, idx);
+                blipP.push(blip);
+            }
+        } else {
+            // remove all blips
+            foreach (idx, value in blipP) {
+                destroyBlip(value);
+            }
+            blipP.clear();
+        }
+    } else if (type == "v") {
+        if (!blipV.len()) {
+            // no blips - create
+            foreach (idx, value in getVehicles()) {
+                local pos  = getVehiclePosition(idx);
+                local blip = createBlip(pos[0], pos[1], 0, 2);
+                attachBlipToVehicle(blip, idx);
+                blipV.push(blip);
+            }
+        } else {
+            // remove all blips
+            foreach (idx, value in blipV) {
+                destroyBlip(value);
+            }
+            blipV.clear();
+        }
+    }
+});
