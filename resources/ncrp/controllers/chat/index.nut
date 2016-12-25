@@ -59,7 +59,7 @@ event("native:onPlayerChat", function(playerid, message) {
     }
 
     // NOTE(inlife): make sure array looks exactly like the one in the client/screen.nut
-    local chatslots = ["say", "me", "ooc"];
+    local chatslots = ["ooc", "say", "me", "do"];
     local slot = getPlayerChatSlot(playerid);
 
     // push to selected chat

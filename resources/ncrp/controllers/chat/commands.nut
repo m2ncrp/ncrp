@@ -14,6 +14,11 @@ chatcmd(["s", "shout"], function(playerid, message) {
     statisticsPushMessage(playerid, message, "shout");
 });
 
+chatcmd("do", function(playerid, message) {
+    inRadiusSendToAll(playerid, format("[DO] %s - (%s)", message, getPlayerName(playerid)), NORMAL_RADIUS, CL_CARIBBEANGREEN);
+    statisticsPushMessage(playerid, message, "do");
+});
+
 // whisper
 chatcmd(["w", "whisper"], function(playerid, message) {
     local targetid = playerList.nearestPlayer( playerid );
