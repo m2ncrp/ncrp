@@ -605,7 +605,7 @@
 
              participant = bkGetHorseIdByNumber( number.tointeger() );
          }
-         else if(type == "greyhoundace") {
+         else if(type == "greyhoundrace") {
 
              if ( amount > BK_GREYHOUND_MAX) {
                  return msg(playerid, "bk.bettoomuch", CL_RED);
