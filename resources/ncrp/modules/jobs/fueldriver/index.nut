@@ -88,9 +88,10 @@ event("onServerStarted", function() {
     log("[jobs] loading fueldriver job...");
     // DEPRECATED | fuelcars[i][0] - Truck ready: true/false DEPRECATED
     // fuelcars[i][1] - Fuel load: integer
-    fuelcars[createVehicle(5, 511.887, -277.5, -20.19, -179.464, -0.05, 0.1)]  <- [false, 0 ];
-    fuelcars[createVehicle(5, 517.782, -277.5, -20.19, -177.742, -0.05, 0.1)]  <- [false, 0 ];
-    fuelcars[createVehicle(5, 523.821, -277.5, -20.19, -176.393, -0.05, 0.1)]  <- [false, 0 ];
+    fuelcars[createVehicle(5, 510.0, -277.5, -20.19, -179.464, -0.05, 0.1)]  <- [false, 0 ];
+    fuelcars[createVehicle(5, 515.0, -277.5, -20.19, -177.742, -0.05, 0.1)]  <- [false, 0 ];
+    fuelcars[createVehicle(5, 520.0, -277.5, -20.19, -176.393, -0.05, 0.1)]  <- [false, 0 ];
+    fuelcars[createVehicle(5, 525.0, -277.5, -20.19, -176.393, -0.05, 0.1)]  <- [false, 0 ];
 
     //creating 3dtext for Trago Oil
     create3DText ( FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.35, "TRAGO OIL", CL_ROYALBLUE );
