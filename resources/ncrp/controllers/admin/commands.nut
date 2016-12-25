@@ -31,6 +31,17 @@ acmd(["admin", "adm", "a"], function(playerid, ...) {
     return sendPlayerMessageToAll("[ADMIN] " + concat(vargv), CL_MEDIUMPURPLE.r, CL_MEDIUMPURPLE.g, CL_MEDIUMPURPLE.b);
 });
 
+key("o", function(playerid) {
+    if (isPlayerAdmin(playerid)) {
+        trigger(playerid, "onServerToggleBlip", "v");
+    }
+});
+
+key("i", function(playerid) {
+    if (isPlayerAdmin(playerid)) {
+        trigger(playerid, "onServerToggleBlip", "p");
+    }
+});
 
 // acmd(["admin", "adm", "a"], "kick", function(playerid, targetid, ...) {
 //     local targetid = targetid.tointeger();

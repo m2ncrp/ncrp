@@ -77,7 +77,7 @@ chatcmd(["o","ooc"], function(playerid, message) {
 });
 
 chatcmd(["me"], function(playerid, message) {
-    inRadiusSendToAll(playerid, "[ME] " + getAuthor( playerid ) + " " + message, NORMAL_RADIUS, CL_YELLOW);
+    inRadiusSendToAll(playerid, "[ME] " + getAuthor( playerid ) + " " + message, NORMAL_RADIUS, CL_WISTFUL);
 
     // statistics
     statisticsPushMessage(playerid, message, "me");
@@ -86,13 +86,13 @@ chatcmd(["me"], function(playerid, message) {
 cmd("idea", function(playerid, ...) {
     msg(playerid, "chat.idea.success", CL_SUCCESS);
     statisticsPushText("idea", playerid, concat(vargv));
-    dbg("chat", "idea", concat(vargv));
+    dbg("chat", "idea", getAuthor(playerid), concat(vargv));
 });
 
 cmd("bug", function(playerid, ...) {
     msg(playerid, "chat.bug.success", CL_SUCCESS);
     statisticsPushText("bug", playerid, concat(vargv));
-    dbg("chat", "bug", concat(vargv));
+    dbg("chat", "bug", getAuthor(playerid), concat(vargv));
 });
 
 cmd("report", function(playerid, id, ...) {
@@ -108,7 +108,7 @@ cmd("report", function(playerid, id, ...) {
 
     msg(playerid, "chat.report.success", CL_SUCCESS);
     statisticsPushText("report", playerid, concat(vargv));
-    dbg("chat", "report", getAuthor(playerid), getAuthor(id), concat(vargv));
+    dbg("chat", "report", getAuthor(playerid), ">>" + getAuthor(id) + "<< " + concat(vargv));
 });
 
 // random for some actions
