@@ -161,7 +161,7 @@ event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     removeVehiclePassenger(vehicleid, playerid);
 
     // check blocking
-    if (getVehicleSaving(vehicleid) && isPlayerVehicleOwner(playerid, vehicleid)) {
+    if (isVehicleOwned(vehicleid) && isPlayerVehicleOwner(playerid, vehicleid)) {
         blockVehicle(vehicleid);
     }
 
