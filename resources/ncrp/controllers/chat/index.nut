@@ -58,6 +58,14 @@ event("native:onPlayerChat", function(playerid, message) {
         return false;
     }
 
-    __commands["ooc"][COMMANDS_DEFAULT](playerid, message);
+    // NOTE(inlife): make sure array looks exactly like the one in the client/screen.nut
+    local chatslots = ["say", "me", "ooc"];
+    local slot = getPlayerChatSlot(playerid);
+
+    // push to selected chat
+    if (slot in chatslots) {
+        __commands[chatslots[slot]][COMMANDS_DEFAULT](playerid, message);
+    }
+
     return false;
 });

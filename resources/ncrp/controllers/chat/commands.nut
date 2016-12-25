@@ -111,6 +111,18 @@ cmd("report", function(playerid, id, ...) {
     dbg("chat", "report", getAuthor(playerid), ">>" + getAuthor(id) + "<< " + concat(vargv));
 });
 
+key("f1", function(playerid) {
+    return setPlayerChatSlot(playerid, 0);
+});
+
+key("f2", function(playerid) {
+    return setPlayerChatSlot(playerid, 1);
+});
+
+key("f3", function(playerid) {
+    return setPlayerChatSlot(playerid, 2);
+});
+
 // random for some actions
 chatcmd(["try"], function(playerid, message) {
     local res = random(0,1);
