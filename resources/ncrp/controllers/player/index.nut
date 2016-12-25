@@ -97,7 +97,7 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
         players[playerid]["housez"]       <- char.housez;
         players[playerid]["health"]       <- char.health;
         players[playerid]["toggle"]       <- false;
-        players[playerid]["state"]        <- char.state;
+        players[playerid]["state"]        <- (char.state.len() > 0) ? char.state : "free";
 
         // notify all that client connected (and data loaded)
         trigger("onPlayerConnect", playerid, name, ip, serial);
