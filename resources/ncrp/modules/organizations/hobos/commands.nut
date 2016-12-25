@@ -20,7 +20,7 @@ function hobosDig(playerid) {
 
 cmd(["dig"], hobosDig);
 key("e", function(playerid) {
-    if (!isNearTrash()) {
+    if (!isNearTrash(playerid, true)) {
         return;
     }
 
@@ -31,13 +31,17 @@ function isHobos(playerid) {
     return players[playerid]["spawn"] == hobos_spawnID;
 }
 
-function isNearTrash(playerid) {
+function isNearTrash(playerid, silent = false) {
     foreach (point in hobos_points) {
         if ( isInRadius(playerid, point[0], point[1], point[2], DIG_RADIUS) ) {
             return true;
         }
     }
-    msg(playerid, "organizations.hobos.trash.toofar", [], CL_YELLOW);
+
+    if (!silent) {
+        msg(playerid, "organizations.hobos.trash.toofar", [], CL_YELLOW);
+    }
+
     return false;
 }
 
