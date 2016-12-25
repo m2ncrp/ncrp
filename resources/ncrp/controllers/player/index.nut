@@ -219,9 +219,12 @@ event("native:onPlayerSpawn", function(playerid) {
         // togglePlayerControls(playerid, true);
 
         position = {x = DEFAULT_SPAWN_X, y = DEFAULT_SPAWN_Y, z = DEFAULT_SPAWN_Z};
+        setPlayerPosition(playerid, position.x, position.y, position.z);
         // setPlayerRotation(playerid, -99.8071, -0.000323891, -0.00024408);
         setPlayerModel(playerid, DEFAULT_SPAWN_SKIN);
         togglePlayerHud(playerid, true);
+
+        return;
 
     } else {
         if (getPlayerState(playerid) == "jail") {
