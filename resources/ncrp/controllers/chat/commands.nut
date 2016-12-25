@@ -128,6 +128,11 @@ key("f3", function(playerid) {
     return setPlayerChatSlot(playerid, 2);
 });
 
+key("f4", function(playerid) {
+    return setPlayerChatSlot(playerid, 3);
+});
+
+
 // random for some actions
 chatcmd(["try"], function(playerid, message) {
     local res = random(0,1);
