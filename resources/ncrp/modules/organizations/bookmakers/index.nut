@@ -147,13 +147,13 @@
      });
 
      // load current events
-     SportEvent.findAll(function(err, results) {
-         bkLoadedData.events = (!results.len()) ? bkCreateEvent() : results;
-     });
+     // SportEvent.findAll(function(err, results) {
+     //     bkLoadedData.events = (!results.len()) ? bkCreateEvent() : results;
+     // });
 
      // add new bets
      if (getHour() == 0)  {
-         bkCreateEvent();
+         bkLoadedData.events = bkCreateEvent();
      }
  });
 
@@ -168,6 +168,7 @@
      local sprt = SportEvent();
      local coefob = 0;
      local coefwins = [];
+     local events = [];
 
      foreach (idx, value in data) {
          local coefwin = value.wins.tofloat() / (value.wins.tofloat()+value.total.tofloat());
@@ -184,6 +185,8 @@
      sprt.type = "horserace";
      sprt.date = getDate();
      sprt.save();
+
+     events.push(sprt);
 
      print("horserace saved with id: " + sprt.id);
 
@@ -208,6 +211,7 @@
      sprt.type = "greyhoundrace";
      sprt.date = getDate();
      sprt.save();
+     events.push(sprt);
 
      print("greyhoundrace saved with id: " + sprt.id);
 
@@ -234,14 +238,17 @@
          sprt.type = "baseball";
          sprt.date = getDate();
          sprt.save();
+         events.push(sprt);
+
 
          print("baseball saved with id: " + sprt.id);
      }
 
-     // load current events
-     SportEvent.findAll(function(err, results) {
-         bkLoadedData.events = (!results.len()) ? bkCreateEvent() : results;
-     });
+     // // load current events
+     // SportEvent.findAll(function(err, results) {
+     //     bkLoadedData.events = (!results.len()) ? bkCreateEvent() : results;
+     // });
+     return events;
  }
 
  function bkFindCoef (coefwins, coefob) {
