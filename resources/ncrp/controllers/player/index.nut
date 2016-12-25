@@ -185,6 +185,12 @@ event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     trySavePlayer(playerid);
 });
 
+key("f", function(playerid) {
+    if (isPlayerInVehicle(playerid)) {
+        trySavePlayer(playerid);
+    }
+}, KEY_DOWN);
+
 event("onPlayerConnectInit", function(playerid, name, ip, serial) {
     // set player colour
     setPlayerColour(playerid, 0x99FFFFFF); // whity
