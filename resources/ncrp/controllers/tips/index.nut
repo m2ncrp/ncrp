@@ -17,12 +17,12 @@ local infoTips = [
     "tips.discord"      ,
     "tips.vk"           ,
  // "tips.layout"       ,
-    "tips.language"     ,
     "tips.business"     ,
     "tips.sellcar"      ,
     "tips.bugreport"    ,
     "tips.openmap"      ,
-    "tips.switchchats"
+    "tips.switchchats"  ,
+    "tips.chatvisible"
 ];
 
 translation("en", {
@@ -43,18 +43,19 @@ translation("en", {
     "tips.discord"      :   "[TIPS] You can follow our development updates on the official discord server: bit.ly/nc-rp."
     "tips.vk"           :   "[TIPS] Join our group in VK: vk.com/m2ncrp"
     "tips.layout"       :   "[TIPS] You can change keyboard layout (all binds will remain on same positions as for qwerty). Use /layout"
-    "tips.language"     :   "[TIPS] You can change language at any time. Currently available language packs are: (/en, /ru)"
     "tips.business"     :   "[TIPS] You can purchase any business (while staning near it), via: /business buy"
     "tips.sellcar"      :   "[TIPS] You can sell car to other player. Use command /sell"
     "tips.bugreport"    :   "[TIPS] You can report bugs or errors via /bug TEXT"
     "tips.openmap"      :   "[TIPS] You can open map - press key M."
     "tips.switchchats"  :   "[TIPS] Use F1-F4 keys to switch between different types of the chat."
+    "tips.chatvisible"  :   "[TIPS] Press F5 to show/hide window of chat."
 });
 
 
 event("onServerMinuteChange", function() {
 
-    if ((getMinute() % 4) != 0) {
+    if ((getMinute() % 2) != 0) {
+        dbg((getMinute() % 2));
         return;
     }
 
