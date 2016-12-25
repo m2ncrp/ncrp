@@ -90,7 +90,7 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
         username = username,
         ip = ip,
         serial = serial,
-        locale = "en"
+        locale = "ru"
     };
 
     // check playername validity
@@ -267,7 +267,7 @@ function getPlayerLocale(playerid) {
         return baseData[playerid].locale;
     }
 
-    return "en";
+    return "ru";
 }
 
 /**
