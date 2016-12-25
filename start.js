@@ -107,9 +107,10 @@ function startServer() {
                 }
 
                 if (["idea", "report", "bug"].indexOf(data[1]) != -1) {
-                    return channels[settings.nofitication].sendMessage("**" + data[2] + "**" + ": " + data[3]);
+                    return channels[settings.nofitication].sendMessage(`New ${data[1]}:\n**${data[2]}**: ${data[3]}`);
                 }
 
+                // ooc/police chats
                 if (settings.hasOwnProperty(data[1])) {
                     return channels[settings[data[1]]].sendMessage("**" + data[2] + "**" + ": " + data[3]);
                 }
