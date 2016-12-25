@@ -102,7 +102,7 @@ event ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
 });
 
 event ( "onPlayerVehicleExit", function ( playerid, vehicleid, seat ) {
-    if(isPlayerCarRent(playerid) && seat == 0) {
+    if (vehicleid in rentcars && seat == 0) {
         blockVehicle(vehicleid);
     }
 });
