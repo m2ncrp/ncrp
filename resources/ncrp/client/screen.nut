@@ -7,11 +7,15 @@ local drawdata = {
     version = "0.0.000",
     money   = "",
     state   = "",
-    level   = ""
+    level   = "",
+    logos   = "bit.ly/nc-rp | vk.com/m2ncrp",
 };
 local initialized = false;
 local datastore = {};
 local lines     = [];
+
+local chatslots = ["say", "me", "ooc"];
+local selectedslot = 0;
 
 local welcomeTexts = [
     { size = 6.2, offset = 130.0, color = 0xFFCCCCCC, text = "WELCOME" },
@@ -103,8 +107,17 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
     dxDrawText(drawdata.status, 410.0 - offset - 8.0, 6.5, 0xFFA1A1A1, false, "tahoma-bold" );
 
     // draw chat slots
-    // TODO:
-    dxDrawText("bit.ly/nc-rp  vk.com/m2ncrp", 18.0, 6.5, 0xFFFFFFFF, false, "tahoma-bold");
+    offset = 0;
+    foreach (idx, value in chatslots) {
+        local size = dxGetTextDimensions(value, 1.0, "tahoma-bold")[0].tofloat() + 20.0;
+
+        if (idx == selectedslot) {
+            dxDrawRectangle(15.0 + offset, 3.0, size - 1.0, 20.0, 0xFF29AF5C);
+        }
+
+        dxDrawText(value, 25.0 + offset, 6.5, idx == selectedslot ? 0xFF111111 : 0xFFFFFFFF, false, "tahoma-bold" );
+        offset += size;
+    }
 
     /**
      * Category: top-right
@@ -116,7 +129,6 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
     // draw date
     offset = dxGetTextDimensions(drawdata.date, 1.4, "tahoma-bold")[0].tofloat();
     dxDrawText(drawdata.date, screenX - offset - 25.0, 58.0, 0xFFE4E4E4, false, "tahoma-bold", 1.4 );
-
 
     /**
      * Category: bottom-right
@@ -164,6 +176,14 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
 
     // draw level
     // dxDrawText( drawdata.level, get("borders.x") + 11.0, get("borders.y") + offset2 + 21.0, 0xFFA1A1A1, false, "tahoma-bold", 1.0 );
+
+
+    /**
+     * Bottom left corner
+     */
+    // draw logos
+    offset = dxGetTextDimensions(drawdata.logos, 1.0, "tahoma-bold")[1].tofloat();
+    dxDrawText(drawdata.logos, 6.5, screenY - offset - 6.5, 0x88FFFFFF, false, "tahoma-bold");
 });
 
 /**
@@ -201,6 +221,17 @@ addEventHandler("onServerAddedNofitication", function(type, data) {
 
 addEventHandler("onServerToggleHudDrawing", function() {
     drawing = !drawing;
+});
+
+addEventHandler("onServerChatSlotRequested", function(slot) {
+    slot = slot.tointeger();
+    slot = slot < 0 ? 0 : slot;
+    slot = slot > chatslots.len() ? chatslots.len() : slot;
+
+    // try to swtich slot
+    // if (isInputVisible()) {
+        selectedslot = slot;
+    // }
 });
 
 // addEventHandler("onClientOpenMap", function() {

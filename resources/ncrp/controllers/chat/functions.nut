@@ -1,4 +1,39 @@
 /**
+ * Storage for current player's chat slots
+ * @type {Array}
+ */
+local chatSlots = {};
+
+/**
+ * Set current player chat slot id
+ * @param {Integer} playerid
+ * @param {Integer} slot
+ */
+function setPlayerChatSlot(playerid, slot) {
+    chatSlots[playerid] <- slot;
+    return trigger(playerid, "onServerChatSlotRequested", slot);
+}
+
+/**
+ * Set current player slot id
+ * @param  {Integer} playerid
+ * @return {Integer}
+ */
+function getPlayerChatSlot(playerid) {
+    if (playerid in chatSlots) {
+        return chatSlots[playerid];
+    }
+
+    return 0;
+}
+
+event("onPlayerDisconnect", function(playerid, reason) {
+    if (playerid in chatSlots) {
+        delete chatSlots[playerid];
+    }
+});
+
+/**
  * Add a comment to this line
  * Send message to all players in radius
  * @param  {int}        sender
