@@ -25,9 +25,10 @@ event("onServerStarted", function() {
         foreach (playerid, value in getPlayers()) {
             // anticheat check for speed-hack
             if (isPlayerInVehicle(playerid)) {
-                local speed = getVehicleSpeed(getPlayerVehicle(playerid));
+                local vehicleid = getPlayerVehicle(playerid);
+                local speed = getVehicleSpeed(vehicleid);
                 local maxsp = max(fabs(speed[0]), fabs(speed[1]));
-                local limits = vehicleSpeedLimits.all;
+                local limits = vehicleSpeedLimits["all"];
 
                 if (getVehicleModel(vehicleid) in vehicleSpeedLimits) {
                     limits = vehicleSpeedLimits[getVehicleModel(vehicleid)];
@@ -37,7 +38,7 @@ event("onServerStarted", function() {
                 // msg(playerid, "your speed " + maxsp);
 
                 // check soft limit
-                if (maxsp > limit[0]) {
+                if (maxsp > limits[0]) {
                     dbg("anticheat", "speed", getAuthor(playerid), "model: " + getVehicleModel(vehicleid), maxsp);
                 }
 
