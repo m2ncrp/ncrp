@@ -372,6 +372,7 @@ function truckJobLoadUnload( playerid ) {
     if( ( !truckcars[vehicleid][0] || ( truckcars[vehicleid][0] && truckcars[vehicleid][1] != playerid  ) ) && isVehicleInValidPoint(playerid, userjob.LoadPointX, userjob.LoadPointY, 4.0 )) {
         //loading
         truckJobRemovePrivateBlipText ( playerid );
+        freezePlayer( playerid, true );
         setVehiclePartOpen(vehicleid, 1, true);
 
         msg( playerid, "job.truckdriver.loading", TRUCK_JOB_COLOR );
@@ -382,6 +383,7 @@ function truckJobLoadUnload( playerid ) {
                 job_truck[playerid]["truckblip3dtext"] = truckJobCreatePrivateBlipText(playerid, userjob.UnloadPointX, userjob.UnloadPointY, userjob.UnloadPointZ, "UNLOAD HERE", "Press E to unload");
                 msg( playerid, userjob.UnloadText, TRUCK_JOB_COLOR );
                 setVehiclePartOpen(vehicleid, 1, false);
+                freezePlayer( playerid, false );
             });
         });
 
@@ -392,7 +394,7 @@ function truckJobLoadUnload( playerid ) {
         // UNloading
         truckJobRemovePrivateBlipText ( playerid );
         //truck_limit_in_hour_current -= 1;
-
+        freezePlayer( playerid, true );
         setVehiclePartOpen(vehicleid, 1, true);
 
         msg( playerid, "job.truckdriver.unloading", TRUCK_JOB_COLOR );
@@ -403,6 +405,7 @@ function truckJobLoadUnload( playerid ) {
                 truckcars[vehicleid][1] = null;
                 msg( playerid, "job.truckdriver.takemoney", TRUCK_JOB_COLOR );
                 setVehiclePartOpen(vehicleid, 1, false);
+                freezePlayer( playerid, false );
             });
         });
     }
