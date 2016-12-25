@@ -13,10 +13,11 @@ event ("onServerStarted", function() {
     rentcars[createVehicle(15, 548.724, 802.5, -12.5, 45.0359, 0.392815, 0.00316114)]   <- [ 0.17, "free" ];
 
     // need for helper in game
-    local houston = createVehicle(9, 1037.01, 842.146, -3.55631, 70.4218, 5.2121, 0.6804);
+/*  local houston = createVehicle(9, 1037.01, 842.146, -3.55631, 70.4218, 5.2121, 0.6804);
     rentcars[houston]     <- [ 0.07, "free" ];
     setVehicleColour( houston, 10, 10, 10, 10, 10, 10 );
     setVehicleDirtLevel( houston 0.0 );
+*/
     // end
 
     createBlip  (  570.26, 830.175, [ 6, 4 ], 4000.0);
