@@ -71,7 +71,7 @@ translation("ru", {
     "general.message.empty"         : "[INFO] Вы не можете отправить пустую строку"
     "general.noonearound"           : "Рядом с вами никого нет."
 
-    "chat.player.says"              : "%s сказал: %s"
+    "chat.player.says"              : "%s: %s"
     "chat.player.shout"             : "%s крикнул: %s"
     "chat.player.whisper"           : "%s шепчет: %s"
     "chat.player.message.private"   : "[PM] %s: %s"

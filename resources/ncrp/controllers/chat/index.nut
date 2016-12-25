@@ -5,7 +5,7 @@ translation("en", {
     "general.message.empty"         : "[INFO] You can't send an empty message",
     "general.noonearound"           : "There's noone around near you.",
 
-    "chat.player.says"              : "%s says: %s",
+    "chat.player.says"              : "%s: %s",
     "chat.player.shout"             : "%s shout: %s",
     "chat.player.whisper"           : "%s whisper: %s",
     "chat.player.message.private"   : "[PM] %s: %s",
@@ -58,6 +58,14 @@ event("native:onPlayerChat", function(playerid, message) {
         return false;
     }
 
-    __commands["ooc"][COMMANDS_DEFAULT](playerid, message);
+    // NOTE(inlife): make sure array looks exactly like the one in the client/screen.nut
+    local chatslots = ["ooc", "say", "me", "do"];
+    local slot = getPlayerChatSlot(playerid);
+
+    // push to selected chat
+    if (slot in chatslots) {
+        __commands[chatslots[slot]][COMMANDS_DEFAULT](playerid, message);
+    }
+
     return false;
 });

@@ -1,5 +1,5 @@
 // local chat
-chatcmd(["i", "say"], function(playerid, message) {
+chatcmd(["i", "ic", "say"], function(playerid, message) {
     sendLocalizedMsgToAll(playerid, "chat.player.says", message, NORMAL_RADIUS, CL_YELLOW);
 
     // statistics
@@ -12,6 +12,11 @@ chatcmd(["s", "shout"], function(playerid, message) {
 
     // statistics
     statisticsPushMessage(playerid, message, "shout");
+});
+
+chatcmd("do", function(playerid, message) {
+    inRadiusSendToAll(playerid, format("[DO] %s - (%s)", message, getPlayerName(playerid)), NORMAL_RADIUS, CL_CARIBBEANGREEN);
+    statisticsPushMessage(playerid, message, "do");
 });
 
 // whisper
@@ -77,7 +82,7 @@ chatcmd(["o","ooc"], function(playerid, message) {
 });
 
 chatcmd(["me"], function(playerid, message) {
-    inRadiusSendToAll(playerid, "[ME] " + getAuthor( playerid ) + " " + message, NORMAL_RADIUS, CL_WISTFUL);
+    inRadiusSendToAll(playerid, "[ME] " + getAuthor( playerid ) + " " + message, NORMAL_RADIUS, CL_WAXFLOWER);
 
     // statistics
     statisticsPushMessage(playerid, message, "me");
@@ -110,6 +115,23 @@ cmd("report", function(playerid, id, ...) {
     statisticsPushText("report", playerid, concat(vargv));
     dbg("chat", "report", getAuthor(playerid), ">>" + getAuthor(id) + "<< " + concat(vargv));
 });
+
+key("f1", function(playerid) {
+    return setPlayerChatSlot(playerid, 0);
+});
+
+key("f2", function(playerid) {
+    return setPlayerChatSlot(playerid, 1);
+});
+
+key("f3", function(playerid) {
+    return setPlayerChatSlot(playerid, 2);
+});
+
+key("f4", function(playerid) {
+    return setPlayerChatSlot(playerid, 3);
+});
+
 
 // random for some actions
 chatcmd(["try"], function(playerid, message) {

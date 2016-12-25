@@ -167,6 +167,11 @@ addEventHandlerEx("onServerAutosave", function() {
     }
 });
 
+// prevent nickname spoofing
+event("native:onPlayerChangeNick", function(playerid, newname, oldnickname) {
+    kick(-1, playerid, "nick change is not allowed in game.");
+});
+
 addEventHandlerEx("onServerMinuteChange", function() {
     foreach (playerid, char in players) { char.xp++; }
 });
@@ -184,6 +189,12 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
 event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     trySavePlayer(playerid);
 });
+
+key("f", function(playerid) {
+    if (isPlayerInVehicle(playerid)) {
+        trySavePlayer(playerid);
+    }
+}, KEY_DOWN);
 
 event("onPlayerConnectInit", function(playerid, name, ip, serial) {
     // set player colour
