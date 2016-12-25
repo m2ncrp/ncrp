@@ -4,7 +4,7 @@ class Point2d extends Vector3d {
 
     blip_hash = null;
     
-    constructor (X, Y, angle, tolerance = 5.0) {
+    constructor (X, Y, angle, tolerance = 10.0) {
         this.X = X;
         this.Y = Y;
 
@@ -15,7 +15,7 @@ class Point2d extends Vector3d {
     }
 
     function checkRotation(currentAngle) {
-        return (angle - tolerance <= currentAngle <= angle + tolerance);
+        return (angle - tolerance < currentAngle && currentAngle < angle + tolerance);
     }
 
     function attachLocalBlip(playerid, X, Y, icon, visibleDistance) {
@@ -43,11 +43,11 @@ class Point2d extends Vector3d {
      * @return {Boolean}        [description]
      */
     function isInPoint(X, Y, radius) {
-        return checkDistanceXY(X1, Y1, X2, Y2, radius);
+        return checkDistanceXY(this.X, this.Y, X, Y, radius);
     }
 
     function isInPoint_Strict(X, Y, angle, radius) {
-        local isDistGood = checkDistanceXY(X1, Y1, X2, Y2, radius);
+        local isDistGood = checkDistanceXY(this.X, this.Y, X, Y, radius);
         local isRotationGood = checkRotation(angle);
         return isDistGood && isRotationGood;
     }
@@ -59,17 +59,17 @@ class Point2d extends Vector3d {
 
 class Point3d extends Point2d {
     
-    constructor (X, Y, Z, angle, tolerance = 5.0) {
+    constructor (X, Y, Z, angle, tolerance = 10.0) {
         base.constructor(X, Y, angle, tolerance);
         this.Z = Z;
     }
 
     function isInPoint(X, Y, Z, radius) {
-        return checkDistanceXYZ(X1, Y1, Z1, X2, Y2, Z2, radius);
+        return checkDistanceXYZ(this.X, this.Y, this.Z, X, Y, Z, radius);
     }
 
     function isInPoint_Strict(X, Y, Z, angle, radius) {
-        local isDistGood = checkDistanceXYZ(X1, Y1, Z1, X2, Y2, Z2, radius);
+        local isDistGood = checkDistanceXYZ(this.X, this.Y, this.Z, X, Y, Z, radius);
         local isRotationGood = checkRotation(angle);
         return isDistGood && isRotationGood;
     }
