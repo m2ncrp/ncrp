@@ -37,6 +37,7 @@ simplecmd("register", function(playerid, password) {
 
                     account.save(function(err, result) {
                         account.addSession(playerid);
+                        setLastActiveSession(playerid);
 
                         // send success registration message
                         msg(playerid, "auth.success.register", CL_SUCCESS);
@@ -83,6 +84,7 @@ simplecmd("login", function(playerid, password) {
 
             // save session
             account.addSession(playerid);
+            setLastActiveSession(playerid);
 
             // send message success
             msg(playerid, "auth.success.login", CL_SUCCESS);
