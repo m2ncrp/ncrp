@@ -55,7 +55,6 @@ translation("en", {
 event("onServerMinuteChange", function() {
 
     if ((getMinute() % 2) != 0) {
-        dbg((getMinute() % 2));
         return;
     }
 
