@@ -51,6 +51,7 @@ translation("ru", {
     "auth.error.notfound"   : "[AUTH] Аккаунт с такими данными не зарегистрирован."
     "auth.success.register" : "[AUTH] Вы успешно зарегистрировались!"
     "auth.success.login"    : "[AUTH] Вы успешно вошли в аккаунт!"
+    "auth.success.autologin": "[AUTH] Вы были успешно авторизованы автоматически!"
     "auth.error.cmderror"   : "[AUTH] Для выполнения команды Вам необходимо войти в аккаунт!"
     "auth.notification"     : "[AUTH] Вам нужно войти в свой аккаунт используя /login PASSWORD, или создать новый через /register PASSWORD"
     "auth.error.tomany"     : "[AUTH] Вы достигли лимита по количеству аккаунтов."
