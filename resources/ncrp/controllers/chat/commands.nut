@@ -77,7 +77,7 @@ chatcmd(["o","ooc"], function(playerid, message) {
 });
 
 chatcmd(["me"], function(playerid, message) {
-    inRadiusSendToAll(playerid, "[ME] " + getAuthor( playerid ) + " " + message, NORMAL_RADIUS, CL_YELLOW);
+    inRadiusSendToAll(playerid, "[ME] " + getAuthor( playerid ) + " " + message, NORMAL_RADIUS, CL_WISTFUL);
 
     // statistics
     statisticsPushMessage(playerid, message, "me");
