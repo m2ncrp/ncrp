@@ -11,17 +11,18 @@
  * @type {Object}
  */
 local vehicleSpeedLimits = {
-    all = [60.0, 70.0],
-    5   = [32.0, 35.0],
-    38  = [30.0, 32.5],
-    35  = [30.0, 32.5],
-    19  = [28.0, 30.0],
-    20  = [26.0, 28.0],
+    all = [60.0, 70.0]
 };
+
+vehicleSpeedLimits[05] <- [32.0, 35.0];
+vehicleSpeedLimits[38] <- [30.0, 32.5];
+vehicleSpeedLimits[35] <- [30.0, 32.5];
+vehicleSpeedLimits[19] <- [28.0, 30.0];
+vehicleSpeedLimits[20] <- [26.0, 28.0];
 
 event("onServerStarted", function() {
     local ticker = timer(function() {
-        foreach (idx, value in getPlayers()) {
+        foreach (playerid, value in getPlayers()) {
             // anticheat check for speed-hack
             if (isPlayerInVehicle(playerid)) {
                 local speed = getVehicleSpeed(getPlayerVehicle(playerid));
