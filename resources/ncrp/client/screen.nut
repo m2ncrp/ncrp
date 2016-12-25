@@ -124,11 +124,11 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
      */
     // draw time
     offset = dxGetTextDimensions(drawdata.time, 3.6, "tahoma-bold")[0].tofloat();
-    dxDrawText(drawdata.time, screenX - offset - 15.0, 8.0, 0xFFE4E4E4, true, "tahoma-bold", 3.6 );
+    dxDrawText(drawdata.time, screenX - offset - 15.0, 8.0, 0xFFE4E4E4, false, "tahoma-bold", 3.6 );
 
     // draw date
     offset = dxGetTextDimensions(drawdata.date, 1.4, "tahoma-bold")[0].tofloat();
-    dxDrawText(drawdata.date, screenX - offset - 25.0, 58.0, 0xFFE4E4E4, true, "tahoma-bold", 1.4 );
+    dxDrawText(drawdata.date, screenX - offset - 25.0, 58.0, 0xFFE4E4E4, false, "tahoma-bold", 1.4 );
 
     /**
      * Category: bottom-right
@@ -183,7 +183,7 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
      */
     // draw logos
     offset = dxGetTextDimensions(drawdata.logos, 1.0, "tahoma-bold")[1].tofloat();
-    dxDrawText(drawdata.logos, 6.5, screenY - offset - 6.5, 0x88FFFFFF, true, "tahoma-bold");
+    dxDrawText(drawdata.logos, 6.5, screenY - offset - 6.5, 0x88FFFFFF, false, "tahoma-bold");
 });
 
 /**
