@@ -5,7 +5,7 @@ translation("en", {
     "general.message.empty"         : "[INFO] You can't send an empty message",
     "general.noonearound"           : "There's noone around near you.",
 
-    "chat.player.says"              : "%s says: %s",
+    "chat.player.says"              : "%s: %s",
     "chat.player.shout"             : "%s shout: %s",
     "chat.player.whisper"           : "%s whisper: %s",
     "chat.player.message.private"   : "[PM] %s: %s",
