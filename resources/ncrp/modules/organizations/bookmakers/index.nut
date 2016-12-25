@@ -66,6 +66,11 @@
  event("onServerHourChange", function() {
      local winners = [];
 
+     // add new bets
+     if (getHour() == 7)  {
+         bkLoadedData.events = bkCreateEvent();
+     }
+
      if (getHour() != 19) return;
 
      SportEvent.findBy({ winner = 0 }, function(err, events) {
@@ -147,14 +152,10 @@
      });
 
      // load current events
-     // SportEvent.findAll(function(err, results) {
-     //     bkLoadedData.events = (!results.len()) ? bkCreateEvent() : results;
-     // });
+      SportEvent.findAll(function(err, results) {
+          bkLoadedData.events = (!results.len()) ? bkCreateEvent() : results;
+      });
 
-     // add new bets
-     if (getHour() == 0)  {
-         bkLoadedData.events = bkCreateEvent();
-     }
  });
 
 
@@ -562,17 +563,20 @@
          }
      }
  }
-
+0 
  function bkGetTeamIdByNumber( id = null) {
-     local count = 1;
-     local pos = 1 - (id.tointeger() % 2);
+     local count = 0;
+     //local pos = 1 - (id.tointeger() % 2);
+     local pos = 2 - (id.tointeger() % 2);
+     dbg ("pos: "+pos);
      foreach (idx, event in bkLoadedData.events) {
          local currentmembers = split(event.participants, ",");
          local currentchances = split(event.chances, ",");
          if (event.type == "baseball" && event.winner == 0) {
              if (id == (count+pos) ) {
-             local id = bkLoadedData.members[ (currentmembers[(1+pos)].tointeger() - 1)].id;
+             local id = bkLoadedData.members[ (currentmembers[(pos)].tointeger() - 1)].id;
              local stavka = currentchances[(pos)];
+             dbg(id.tointeger()+", "+stavka );
              return [id.tointeger(), stavka ];
              }
              count += 2;
