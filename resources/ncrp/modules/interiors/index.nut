@@ -138,12 +138,14 @@ local interiors = [
 ["onfoot",  "Exit",    -1585.34,    171.235,    -12.4393,     "EmpirDinerSandIslandExit2"],
 ["onfoot",  "Enter",   -1587.29,    185.235,    -12.4762,     "EmpirDinerSandIslandEnter3"],
 ["onfoot",  "Exit",    -1587.39,    184.507,    -12.4393,     "EmpirDinerSandIslandExit3"],
+
 ["onfoot",  "Enter",   -1419.12,    952.777,    -12.7921,     "EmpirDinerGreenfieldEnter1"],
 ["onfoot",  "Exit",    -1419.07,    953.456,    -12.7543,     "EmpirDinerGreenfieldExit1"],
-["onfoot",  "Enter",   -1416.36,    955.092,    -12.7921,     "EmpirDinerGreenfieldEnter2"],
-["onfoot",  "Exit",    -1417.04,    955.111,    -12.7543,     "EmpirDinerGreenfieldExit2"],
-["onfoot",  "Enter",   -1416.28,    954.996,    -12.7921,     "EmpirDinerGreenfieldEnter3"],
-["onfoot",  "Exit",    -1419.11,    968.409,    -12.7543,     "EmpirDinerGreenfieldExit3"],
+["onfoot",  "Enter",   -1416.33,    955.037,    -12.7921,     "EmpirDinerGreenfieldEnter2"],
+["onfoot",  "Exit",    -1417.04,    955.156,    -12.7543,     "EmpirDinerGreenfieldExit2"],
+["onfoot",  "Enter",   -1419.09,    969.088,     -12.792,     "EmpirDinerGreenfieldEnter3"],
+["onfoot",  "Exit",    -1419.21,    968.348,    -12.7543,     "EmpirDinerGreenfieldExit3"],
+
 ["onfoot",  "Enter",   -1590.94,    1602.59,    -5.26265,     "EmpireDinerKingstonEnter1"],
 ["onfoot",  "Exit",    -1590.26,    1602.47,    -5.22507,     "EmpireDinerKingstonExit1"],
 ["onfoot",  "Enter",   -1588.65,    1599.75,    -5.26265,     "EmpireDinerKingstonEnter2"],

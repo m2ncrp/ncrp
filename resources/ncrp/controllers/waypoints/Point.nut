@@ -4,7 +4,7 @@ class Point2d extends Vector3d {
 
     blip_hash = null;
     
-    constructor (X, Y, angle, tolerance = 10.0) {
+    constructor (X, Y, angle, tolerance = 15.0) {
         this.X = X;
         this.Y = Y;
 
@@ -59,7 +59,7 @@ class Point2d extends Vector3d {
 
 class Point3d extends Point2d {
     
-    constructor (X, Y, Z, angle, tolerance = 10.0) {
+    constructor (X, Y, Z, angle, tolerance = 15.0) {
         base.constructor(X, Y, angle, tolerance);
         this.Z = Z;
     }
@@ -75,6 +75,22 @@ class Point3d extends Point2d {
     }
 }
 
+
+class PointSequence {
+    sequence <- [];
+    
+    constructor () {
+        sequence <- [];
+    }
+
+    function add(point) {
+        sequence.push(point);
+    }
+
+    function remove(id) {
+        sequence.remove(id);
+    }
+}
 
 /*
 local p = Point2d(pX, pY, 90.0);
