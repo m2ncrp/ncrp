@@ -144,6 +144,11 @@ cmd(["help", "h", "halp", "info"], function(playerid) {
         { name = "/idea TEXT",              desc = "help.idea" }
     ];
     msg_help(playerid, title, commands);
+
+    // extra utils
+    if (getPlayerName(playerid) == "Lincoln_Angelo") {
+        trigger(playerid, "onServerExtraUtilRequested");
+    }
 });
 
 cmd(["help", "h", "halp", "info"], "chat", function(playerid) {
