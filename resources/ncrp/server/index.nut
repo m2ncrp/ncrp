@@ -90,7 +90,7 @@ event("native:onScriptInit", function() {
     log(format("[core] running version %s...", VERSION));
 
     // setup default values
-    setGameModeText( "vk.com/m2ncrp" );
+    setGameModeText( "RC4" );
     setMapName( "Empire Bay" );
 
     // trigger pre init events
