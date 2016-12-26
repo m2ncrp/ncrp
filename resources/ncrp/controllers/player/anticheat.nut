@@ -25,6 +25,12 @@ event("onServerStarted", function() {
         foreach (playerid, value in getPlayers()) {
             // anticheat check for speed-hack
             if (isPlayerInVehicle(playerid)) {
+
+                // block vehicle if player is driver and vehicle is blocked
+                if (isPlayerVehicleDriver(playerid) && isVehicleBlocked(vehicleid)) {
+                    blockVehicle(vehicleid);
+                }
+
                 local vehicleid = getPlayerVehicle(playerid);
                 local speed = getVehicleSpeed(vehicleid);
                 local maxsp = max(fabs(speed[0]), fabs(speed[1]));
