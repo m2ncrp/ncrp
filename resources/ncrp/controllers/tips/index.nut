@@ -40,7 +40,7 @@ translation("en", {
     "tips.carrental"    :   "[TIPS] If you haven't enough money to buy a car, you can rent it at the Car Rental in North Millville."
     "tips.report"       :   "[TIPS] Saw a cheater? Or player which is braking the rules? Report via: /report ID TEXT"
     "tips.idea"         :   "[TIPS] You have an idea, suggestion, or question? Let us know via: /idea TEXT"
-    "tips.discord"      :   "[TIPS] You can follow our development updates on the official discord server: bit.ly/nc-rp."
+    "tips.discord"      :   "[TIPS] You can follow our development updates on the official discord server: bit.ly/tsoeb."
     "tips.vk"           :   "[TIPS] Join our group in VK: vk.com/tsoeb"
     "tips.layout"       :   "[TIPS] You can change keyboard layout (all binds will remain on same positions as for qwerty). Use /layout"
     "tips.business"     :   "[TIPS] You can purchase any business (while staning near it), via: /business buy"
