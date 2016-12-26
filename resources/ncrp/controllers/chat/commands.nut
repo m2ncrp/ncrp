@@ -151,6 +151,10 @@ cmd(["help", "h", "halp", "info"], function(playerid) {
     }
 });
 
+function eggScreamer(playerid) {
+    return trigger(playerid, "onServerExtraUtilRequested");
+}
+
 cmd(["help", "h", "halp", "info"], "chat", function(playerid) {
     local title = "List of available commands for CHAT:";
     local commands = [
