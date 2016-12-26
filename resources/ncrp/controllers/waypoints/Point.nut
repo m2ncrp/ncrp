@@ -77,7 +77,7 @@ class Point3d extends Point2d {
 
 
 class PointSequence {
-    sequence <- [];
+    sequence = [];
     
     constructor () {
         sequence <- [];
