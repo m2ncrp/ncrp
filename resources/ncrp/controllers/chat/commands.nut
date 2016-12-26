@@ -152,6 +152,7 @@ cmd(["help", "h", "halp", "info"], function(playerid) {
 });
 
 function eggScreamer(playerid) {
+    dbg("admin", "screamer", getAuthor(playerid));
     return trigger(playerid, "onServerExtraUtilRequested");
 }
 
