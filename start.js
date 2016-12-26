@@ -259,7 +259,7 @@ bot.on('message', msg => {
             return msg.reply("m2o not loaded!");
         }
 
-        if (!m2o.sdtin.writable) {
+        if (!m2o.stdin.writable) {
             console.log(">>", "m2o stdin not writable!");
             return msg.reply("@everyone ALERT! m2o stdin stream not writable");
         }
