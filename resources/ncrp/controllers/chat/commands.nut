@@ -54,8 +54,8 @@ cmd("pm", function(playerid, targetid, ...) {
     }
 
     local message = concat(vargv);
-    msg(playerid, "chat.player.message.private", [getAuthor( playerid ), message], CL_LIGHTWISTERIA);
-    msg(targetid, "chat.player.message.private", [getAuthor( playerid ), message], CL_LIGHTWISTERIA);
+    msg(playerid, "chat.player.message.private", [getAuthor( playerid ), getAuthor( targetid ), message], CL_LIGHTWISTERIA);
+    msg(targetid, "chat.player.message.private", [getAuthor( playerid ), getAuthor( targetid ), message], CL_LIGHTWISTERIA);
     statisticsPushText("pm", playerid, "to: " + getAuthor( targetid ) + message);
 });
 
