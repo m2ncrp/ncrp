@@ -107,12 +107,12 @@ event("onPlayerFallingDown", function(playerid) {
     local p = getPlayerPosition(playerid);
     local q = ORM.Query("select p.x, p.y, p.z, ( (p.x - :x) * (p.x - :x) + (p.y - :y) * (p.y - :y)) as dist from @SpawnPosition as p order by dist limit 1");
 
-    dbg("on down");
-
     q.setParameter("x", p[0]);
     q.setParameter("y", p[1]);
 
     q.getSingleResult(function(err, pos) {
+        if (err || !pos) return dbg("respawn", "cannot find any respawn points");
+
         dbg("player", "falldown", "respawn", playerid, { x = pos.x, y = pos.y, z = pos.z});
 
         // respawn on vehicle or on foot
