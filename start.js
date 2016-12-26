@@ -142,7 +142,7 @@ function startServer() {
                 if (action == "list") {
                     if (!data[2]) return;
 
-                    let list = "**List of current players**:\n---------------------\n";
+                    let list = "**List of current players (count: " + data[2].length + ")**:\n---------------------\n";
                     for (a in data[2]) {
                         list += " " + data[2][a] + " with id #" + a + "\n";
                     }
