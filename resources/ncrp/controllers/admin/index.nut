@@ -41,7 +41,7 @@ event("onClientDebugToggle", function(playerid) {
 event("native:onConsoleInput", function(name, data) {
     switch (name) {
         case "list": dbg("admin", "list", getPlayers()); break;
-        case "adm": sendPlayerMessageToAll("[ADMIN] " + data, CL_MEDIUMPURPLE.r, CL_MEDIUMPURPLE.g, CL_MEDIUMPURPLE.b); log("[ADMIN] " + data); break;
+        case "adm": sendPlayerMessageToAll("[ADMIN] " + data, CL_MEDIUMPURPLE.r, CL_MEDIUMPURPLE.g, CL_MEDIUMPURPLE.b); dbg("[ADMIN] " + data); break;
         case "lang": compareTranslations(data.slice(0, 2), data.slice(3, 5)); break;
         case "tdmp": dumpTranslation(data.slice(0, 2)); break;
         case "test":
