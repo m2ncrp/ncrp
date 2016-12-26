@@ -8,7 +8,7 @@ local drawdata = {
     money   = "",
     state   = "",
     level   = "",
-    logos   = "bit.ly/nc-rp | vk.com/tsoeb",
+    logos   = "bit.ly/tsoeb | vk.com/tsoeb",
 };
 local initialized = false;
 local datastore = {};
