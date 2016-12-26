@@ -3,8 +3,8 @@ include("controllers/player/respawn/SpawnPosition.nut");
 /**
  * Save new position
  */
-acmd(["spawnsave", "ss"], function(playerid, name) {
-    if (!name || name.len() < 1) return sendPlayerMessage(playerid, "Usage: /ts <name>");
+acmd(["spawnsave", "ss"], function(playerid) {
+    // if (!name || name.len() < 1) return sendPlayerMessage(playerid, "Usage: /ts <name>");
 
     local tpp = SpawnPosition();
     local pos = getPlayerPosition(playerid);
@@ -105,22 +105,25 @@ addEventHandlerEx("onServerStarted", function() {
  */
 event("onPlayerFallingDown", function(playerid) {
     local p = getPlayerPosition(playerid);
-    local q = ORM.Query("
-        select
-            p.x,
-            p.y,
-            p.z,
-            sqrt(power((x - 15), 2) + power((y - 0), 2)) as dist
-        from @SpawnPosition as p
-        order by dist
-        limit 1
-    ");
+    local q = ORM.Query("select p.x, p.y, p.z, ( (p.x - :x) * (p.x - :x) + (p.y - :y) * (p.y - :y)) as dist from @SpawnPosition as p order by dist limit 1");
+
+    dbg("on down");
 
     q.setParameter("x", p[0]);
     q.setParameter("y", p[1]);
 
     q.getSingleResult(function(err, pos) {
         dbg("player", "falldown", "respawn", playerid, { x = pos.x, y = pos.y, z = pos.z});
-        setPlayerPosition(playerid, pos.x, pos.y, pos.z);
+
+        // respawn on vehicle or on foot
+        if (isPlayerInVehicle(playerid)) {
+            local vehicleid = getPlayerVehicle(playerid);
+
+            setVehiclePosition(vehicleid, pos.x, pos.y, pos.z);
+            setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
+            setVehicleRotation(vehicleid, 0.0, 0.0, 0.0);
+        } else {
+            setPlayerPosition(playerid, pos.x, pos.y, pos.z);
+        }
     });
 });

@@ -2,7 +2,7 @@ include("controllers/player/commands.nut");
 include("controllers/player/PlayerList.nut");
 include("controllers/player/functions.nut");
 include("controllers/player/anticheat.nut");
-// include("controllers/player/respawn");
+include("controllers/player/respawn");
 
 players <- {};
 xPlayers <- {};
@@ -54,7 +54,7 @@ event("onServerStarted", function() {
             // check for falling players
             if (getPlayerPosition(playerid)[2] < -75.0) {
                 dbg("player", "falldown", playerid);
-                // trigger("onPlayerFallingDown", playerid);
+                trigger("onPlayerFallingDown", playerid);
             }
         }
     }, 500, -1);
