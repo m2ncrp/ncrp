@@ -70,6 +70,20 @@ function sendLocalizedMsgToAll(sender, phrase_key, message, radius, color = 0) {
     }
 }
 
+// Fix: send message in player locale, not only sender locale
+function sendMsgToAllInRadius(sender, message, params, radius, color = 0) {
+    local players = playerList.getPlayers();
+    foreach(player in players) {
+        if ( isBothInRadius(sender, player, radius) ) {
+            if (color) {
+                msg(player, message, params, color);
+            } else {
+                msg(player, message, params);
+            }
+        }
+    }
+}
+
 // /**
 //  * Send message to all players in radius
 //  * @param  {int}        sender

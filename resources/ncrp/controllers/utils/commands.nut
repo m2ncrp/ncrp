@@ -137,3 +137,23 @@ acmd("colors3", function ( playerid ) {
 //================================================================================================================================================
 //                                                          TEST COLORS END
 //================================================================================================================================================
+
+
+cmd("diсe", function ( playerid ) {
+    local dice = 6;
+    //msg(playerid, "utils.diсe", [ getAuthor2(playerid), dice ], CL_WHITE);
+    dbg (dice);
+   /* sendMsgToAllInRadius(playerid, "utils.diсe", [ getPlayerLocale(playerid), dice ], 35, CL_WHITE);
+    dbg (dice);
+    msg(playerid, "utils.diсe", [ getPlayerLocale(playerid), dice ], CL_WHITE);
+    // statistics
+    statisticsPushMessage(playerid, dice, "dice");
+*/
+});
+
+
+
+translate("en", {
+    "utils.diсe"            : "%s threw the dice: %d"
+    "utils.random"          : "There are %d balls in the cap. %s pulled the ball with number %d."
+});
