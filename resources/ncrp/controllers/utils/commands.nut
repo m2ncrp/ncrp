@@ -139,21 +139,28 @@ acmd("colors3", function ( playerid ) {
 //================================================================================================================================================
 
 
-cmd("diсe", function ( playerid ) {
-    local dice = 6;
-    //msg(playerid, "utils.diсe", [ getAuthor2(playerid), dice ], CL_WHITE);
-    dbg (dice);
-   /* sendMsgToAllInRadius(playerid, "utils.diсe", [ getPlayerLocale(playerid), dice ], 35, CL_WHITE);
-    dbg (dice);
-    msg(playerid, "utils.diсe", [ getPlayerLocale(playerid), dice ], CL_WHITE);
+cmd("dice", function ( playerid ) {
+    local dice = random(1, 6);
+    sendMsgToAllInRadius(playerid, "utils.diсe", [ getAuthor2(playerid), dice ], 35, CL_WHITE);
+
     // statistics
     statisticsPushMessage(playerid, dice, "dice");
-*/
+});
+
+
+cmd("hat", function ( playerid, count) {
+    local count = count.tointeger();
+    if (count > 1) {
+        local hat = random(1, count);
+        sendMsgToAllInRadius(playerid, "utils.hat", [ count, getAuthor2(playerid), hat ], 35, CL_WHITE);
+        // statistics
+        statisticsPushMessage(playerid, hat, "hat");
+    }
 });
 
 
 
 translate("en", {
     "utils.diсe"            : "%s threw the dice: %d"
-    "utils.random"          : "There are %d balls in the cap. %s pulled the ball with number %d."
+    "utils.hat"          : "There are %d balls in the cap. %s pulled the ball with number %d."
 });
