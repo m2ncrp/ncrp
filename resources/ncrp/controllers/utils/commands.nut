@@ -141,7 +141,7 @@ acmd("colors3", function ( playerid ) {
 
 cmd("dice", function ( playerid ) {
     local dice = random(1, 6);
-    sendMsgToAllInRadius(playerid, "utils.diсe", [ getAuthor2(playerid), dice ], 35, CL_WHITE);
+    sendMsgToAllInRadius(playerid, "utils.diсe", [ getAuthor2(playerid), dice ], 10, CL_WHITE);
 
     // statistics
     statisticsPushMessage(playerid, dice, "dice");
@@ -152,7 +152,7 @@ cmd("hat", function ( playerid, count) {
     local count = count.tointeger();
     if (count > 1) {
         local hat = random(1, count);
-        sendMsgToAllInRadius(playerid, "utils.hat", [ count, getAuthor2(playerid), hat ], 35, CL_WHITE);
+        sendMsgToAllInRadius(playerid, "utils.hat", [ count, getAuthor2(playerid), hat ], 10, CL_WHITE);
         // statistics
         statisticsPushMessage(playerid, hat, "hat");
     }
