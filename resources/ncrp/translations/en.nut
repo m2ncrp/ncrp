@@ -21,7 +21,7 @@ translation("en", {
     "rentcar.goto"                      : "Go to parking CAR RENTAL in North Millville to rent a car."
     "rentcar.notrent"                   : "This car can not be rented."
     "rentcar.notenough"                 : "You don't have enough money."
-    "rentcar.rented"                    : "You rented this car. If you want to refuse from rent: /rent refuse"
+    "rentcar.rented"                    : "You rented this car. If you want to refuse from rent: /unrent"
     "rentcar.refused"                   : "You refused from rent all cars. Thank you for choosing North Millville Car Rental!"
     "rentcar.canrent"                   : "You can rent this car for $%.2f in 10 minutes ($%.2f in hour) in game. If you agree: /rent"
     "rentcar.cantrent"                  : "You can't drive this car more, because you don't have enough money. Please, get out of the car."

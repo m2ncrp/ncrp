@@ -14,8 +14,8 @@ cmd("unrent", function(playerid) {
 function rentcarHelp ( playerid ) {
     local title = "rentcar.help.title";
     local commands = [
-        { name = "/rent",           desc = "rentcar.help.rent" },
-        { name = "/rent refuse",    desc = "rentcar.help.refuse" },
+        { name = "/rent",      desc = "rentcar.help.rent" },
+        { name = "/unrent",    desc = "rentcar.help.refuse" },
     ];
     msg_help(playerid, title, commands);
 }
