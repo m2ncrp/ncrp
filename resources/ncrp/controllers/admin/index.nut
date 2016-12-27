@@ -4,17 +4,17 @@ include("controllers/admin/teleport.nut");
 include("controllers/admin/utils.nut");
 include("controllers/admin/bans.nut");
 
-local serverAdmins = [
-    "CD19A5029AE81BB50B023291846C0DF3", // max
-    "940A9BF3DC69DC56BCB6BDB5450961B4", // dima
-    "E818234F219F14336D8FFD5C657B796C", // inlufz
-    "EBD8F16123FA9DE5C3C64D64FF844953", // inlufz 2
-    "68D6A6A2A380766FC30CA5C2B01F212F", // klo
+local serverAdmins = {};
+
+serverAdmins["CD19A5029AE81BB50B023291846C0DF3"] <- 1; // max
+serverAdmins["940A9BF3DC69DC56BCB6BDB5450961B4"] <- 1; // dima
+serverAdmins["E818234F219F14336D8FFD5C657B796C"] <- 1; // inlufz
+serverAdmins["EBD8F16123FA9DE5C3C64D64FF844953"] <- 1; // inlufz 2
+serverAdmins["68D6A6A2A380766FC30CA5C2B01F212F"] <- 1; // klo
     // add your serials there :p
-];
 
 function isPlayerAdmin(playerid) {
-    return (serverAdmins.find(getPlayerSerial(playerid)) != null);
+    return (getPlayerSerial(playerid) in serverAdmins);
 }
 
 function freezePlayer( targetid, value ) {
@@ -41,7 +41,7 @@ event("onClientDebugToggle", function(playerid) {
 event("native:onConsoleInput", function(name, data) {
     switch (name) {
         case "list": dbg("admin", "list", getPlayers()); break;
-        case "adm": sendPlayerMessageToAll("[ADMIN] " + data, CL_MEDIUMPURPLE.r, CL_MEDIUMPURPLE.g, CL_MEDIUMPURPLE.b); log("[ADMIN] " + data); break;
+        case "adm": sendPlayerMessageToAll("[ADMIN] " + data, CL_MEDIUMPURPLE.r, CL_MEDIUMPURPLE.g, CL_MEDIUMPURPLE.b); dbg("[ADMIN] " + data); break;
         case "lang": compareTranslations(data.slice(0, 2), data.slice(3, 5)); break;
         case "tdmp": dumpTranslation(data.slice(0, 2)); break;
         case "test":

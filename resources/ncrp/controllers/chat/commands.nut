@@ -62,7 +62,7 @@ cmd("pm", function(playerid, targetid, ...) {
 
 // nonRP local chat
 chatcmd(["b"], function(playerid, message) {
-    inRadiusSendToAll(playerid, format("[nonRP] %s: %s", getAuthor( playerid ), message), NORMAL_RADIUS, CL_GRAY);
+    inRadiusSendToAll(playerid, format("%s: (( %s ))", getAuthor3( playerid ), message), NORMAL_RADIUS, CL_GRAY);
 
     // statistics
     statisticsPushMessage(playerid, message, "non-rp-local");
@@ -72,13 +72,13 @@ chatcmd(["b"], function(playerid, message) {
 chatcmd(["o","ooc"], function(playerid, message) {
     // msg_a("[OOC] " + getAuthor( playerid ) + ": " + message, CL_GRAY);
     foreach (targetid, value in players) {
-        if (getPlayerLocale(targetid) == getPlayerLocale(playerid) || isPlayerAdmin(targetid)) {
-            msg(targetid, "[OOC " + getPlayerLocale(playerid).toupper() + "] " + getAuthor( playerid ) + ": " + message, CL_GRAY);
-        }
+        // if (getPlayerLocale(targetid) == getPlayerLocale(playerid) || isPlayerAdmin(targetid)) {
+            msg(targetid, "[OOC] " + getAuthor3( playerid ) + ": " + message, CL_GRAY);
+        // }
     }
 
     // statistics
-    statisticsPushMessage(playerid, message, "ooc_" + getPlayerLocale(playerid));
+    statisticsPushMessage(playerid, message, "ooc");
 });
 
 chatcmd(["me"], function(playerid, message) {
