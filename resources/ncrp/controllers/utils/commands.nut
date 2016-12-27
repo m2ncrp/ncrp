@@ -159,7 +159,6 @@ cmd("hat", function ( playerid, count) {
 });
 
 
-
 translate("en", {
     "utils.diсe"            : "%s threw the dice: %d"
     "utils.hat"          : "There are %d balls in the cap. %s pulled the ball with number %d."
