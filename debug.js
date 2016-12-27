@@ -8,7 +8,7 @@ const chokidar  = require('chokidar')
 fs.readFile('.env', function(err, data) {
     if (err) return console.error(err);
     if (data == 'p') return console.log("YOU SHOULD NOT run debug.js for product env! Exiting...");
-    if (process.platform != "win32") return console.log("You are trying to run debug on platform other then win32!");
+    if (process.platform != "win32" && process.platform != "darwin") return console.log("You are trying to run debug on platform other then win32 or macos!");
 
     main();
 });
@@ -90,16 +90,16 @@ function main() {
         }
     });
 
-    let handler = function(filename) {
-        console.log('chnaged', filename);
+    // let handler = function(filename) {
+    //     console.log('chnaged', filename);
 
-        if (filename && (filename.endsWith(".nut") || filename.endsWith(".xml"))) {
-            console.log(">> saved file " + filename);
-            console.log(">> restarting server due changes");
-            m2o.write("exit\n");
-            setTimeout(startServer, 1000);
-        }
-    };
+    //     if (filename && (filename.endsWith(".nut") || filename.endsWith(".xml"))) {
+    //         console.log(">> saved file " + filename);
+    //         console.log(">> restarting server due changes");
+    //         m2o.write("exit\n");
+    //         setTimeout(startServer, 1000);
+    //     }
+    // };
 
     // walk('./resources/ncrp', function(filename) {
     //     if (filename && filename.endsWith(".nut") || filename.endsWith(".xml")) {
@@ -109,11 +109,11 @@ function main() {
     // })
 
     // watch(path.join(__dirname, 'resources', 'ncrp'), handler);
-    chokidar.watch(path.join(__dirname, 'resources', 'ncrp'), {ignored: /[\/\\]\./}).on('change', (path, event) => {
+    chokidar.watch(path.join(__dirname, 'resources', 'ncrp')).on('change', (path, event) => {
         if (path && (path.indexOf(".nut") !== -1 || path.indexOf(".xml") !== -1)) {
-            console.log(">> saved file " + filename);
+            console.log(">> saved file " + path);
             console.log(">> restarting server due changes");
-            m2o.write("exit\n");
+            // m2o.write("exit\n");
             setTimeout(startServer, 1000);
         }
     });
