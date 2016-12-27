@@ -138,12 +138,14 @@ local interiors = [
 ["onfoot",  "Exit",    -1585.34,    171.235,    -12.4393,     "EmpirDinerSandIslandExit2"],
 ["onfoot",  "Enter",   -1587.29,    185.235,    -12.4762,     "EmpirDinerSandIslandEnter3"],
 ["onfoot",  "Exit",    -1587.39,    184.507,    -12.4393,     "EmpirDinerSandIslandExit3"],
+
 ["onfoot",  "Enter",   -1419.12,    952.777,    -12.7921,     "EmpirDinerGreenfieldEnter1"],
 ["onfoot",  "Exit",    -1419.07,    953.456,    -12.7543,     "EmpirDinerGreenfieldExit1"],
-["onfoot",  "Enter",   -1416.36,    955.092,    -12.7921,     "EmpirDinerGreenfieldEnter2"],
-["onfoot",  "Exit",    -1417.04,    955.111,    -12.7543,     "EmpirDinerGreenfieldExit2"],
-["onfoot",  "Enter",   -1416.28,    954.996,    -12.7921,     "EmpirDinerGreenfieldEnter3"],
-["onfoot",  "Exit",    -1419.11,    968.409,    -12.7543,     "EmpirDinerGreenfieldExit3"],
+["onfoot",  "Enter",   -1416.33,    955.037,    -12.7921,     "EmpirDinerGreenfieldEnter2"],
+["onfoot",  "Exit",    -1417.04,    955.156,    -12.7543,     "EmpirDinerGreenfieldExit2"],
+["onfoot",  "Enter",   -1419.09,    969.088,     -12.792,     "EmpirDinerGreenfieldEnter3"],
+["onfoot",  "Exit",    -1419.21,    968.348,    -12.7543,     "EmpirDinerGreenfieldExit3"],
+
 ["onfoot",  "Enter",   -1590.94,    1602.59,    -5.26265,     "EmpireDinerKingstonEnter1"],
 ["onfoot",  "Exit",    -1590.26,    1602.47,    -5.22507,     "EmpireDinerKingstonExit1"],
 ["onfoot",  "Enter",   -1588.65,    1599.75,    -5.26265,     "EmpireDinerKingstonEnter2"],
@@ -162,8 +164,21 @@ local interiors = [
 ["onfoot",  "Exit",    136.335,    -433.043,    -19.429,      "EmpireDinerOysterBayExit2"],
 ["onfoot",  "Enter",   150.331,    -431.037,    -19.4657,     "EmpireDinerOysterBayEnter3"],
 ["onfoot",  "Exit",    149.652,    -430.939,    -19.429,      "EmpireDinerOysterBayExit3"],
-];
 
+
+["onfoot",  "Enter",   310.27,      432.974,    -22.8998,     "ChinaTownEnter", 310.0, 432.0, -25.0],
+["onfoot",  "Exit",    312.828,     426.763,    -25.7714,     "ChinaTownExit"],
+
+["onfoot",  "Enter",   305.434,     400.538,    -25.7734,     "ChinaTownLiftEnter"],
+["onfoot",  "Exit",    307.673,     397.318,    -29.5913,     "ChinaTownLiftExit"],
+
+["onfoot",  "Enter",   306.285,     397.738,    -26.5533,      "ChinaTownLiftEnterHelp"],
+["onfoot",  "Exit",    307.673,     397.318,    -29.5913,      "ChinaTownLiftExitHelp"],
+
+
+["onfoot",  "Enter",   326.867,     412.519,    -25.7734,      "ChinaTownLift2EnterHelp"],
+["onfoot",  "Exit",    326.784,     411.757,     -26.467,      "ChinaTownLift2ExitHelp"],
+];
 
 /*
 ["vehicle", "enter",     -1309,23, 1006,19, -18,4034, 90,2244, 0,113699, -0,113254,         "VillaVitoGarageCAREnter"],
@@ -209,9 +224,34 @@ key(["e"], function(playerid) {
     }
 
     if (interiors[i][1] == "Enter") {
+        dbg(interiors[i][5]);
+        if (interiors[i].len() <= 6) {
             i += 1;
-        } else  {
-            i -= 1;
+            setPlayerPosition(playerid, interiors[i][2], interiors[i][3], interiors[i][4]);
+        } else {
+            freezePlayer( playerid, true );
+            screenFadeinFadeoutEx(playerid, 250, 1000, function() {
+                setPlayerPosition(playerid, interiors[i][6], interiors[i][7], interiors[i][8]);
+                    delayedFunction(1000, function () {
+                    i += 1;
+                    setPlayerPosition(playerid, interiors[i][2], interiors[i][3], interiors[i][4]);
+                    freezePlayer( playerid, false );
+                });
+            });
         }
-    setPlayerPosition(playerid, interiors[i][2], interiors[i][3], interiors[i][4]);
+
+    } else  {
+        i -= 1;
+        setPlayerPosition(playerid, interiors[i][2], interiors[i][3], interiors[i][4]);
+        removePlayerWeaponChina ( playerid );
+    }
+
 }, KEY_UP);
+
+
+function removePlayerWeaponChina ( playerid ) {
+    local weaponlist = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21];
+    weaponlist.apply(function(id) {
+        removePlayerWeapon( playerid, id );
+    })
+}

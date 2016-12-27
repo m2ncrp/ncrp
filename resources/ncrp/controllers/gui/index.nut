@@ -1,5 +1,8 @@
 GUI <- { __version = "001" };
 
+include("controllers/gui/simple.nut");
+
+
 // include("controllers/gui/Object.nut");
 // include("controllers/gui/Object.nut");
 enum GUI_ELEMENT_TYPE {
@@ -55,8 +58,3 @@ enum GUI_ELEMENT_TYPE {
 
 //     a.show(pid);
 // });
-
-
-key("mouse_left", function(playerid) {
-    dbg("clicked mouse1");
-});
