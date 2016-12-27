@@ -57,6 +57,18 @@ event("onServerStarted", function() {
                 dbg("player", "falldown", playerid);
                 trigger("onPlayerFallingDown", playerid);
             }
+
+            // store position in-memory
+            if (playerid in xPlayers) {
+                local char = xPlayers[playerid];
+                local pos  = getPlayerPosition(playerid);
+
+                char.housex = pos[0];
+                char.housey = pos[1];
+                char.housez = pos[2];
+                // char.y = pos[1];
+                // char.z = pos[2];
+            }
         }
     }, 500, -1);
 });
@@ -121,7 +133,6 @@ function trySavePlayer(playerid) {
 
     // get instance
     local char   = xPlayers[playerid];
-    local pos    = getPlayerPositionObj(playerid);
 
     // proxy data back to the model
     char.money   = players[playerid]["money"];
@@ -130,9 +141,6 @@ function trySavePlayer(playerid) {
     char.cskin   = players[playerid]["skin"];
     char.spawnid = players[playerid]["spawn"];
     char.xp      = players[playerid]["xp"];
-    char.housex  = pos.x;
-    char.housey  = pos.y;
-    char.housez  = pos.z;
     char.job     = (players[playerid]["job"]) ? players[playerid]["job"] : "";
     char.health  = getPlayerHealth(playerid);
     char.state   = getPlayerState(playerid);
@@ -193,6 +201,7 @@ event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
 
 key("f", function(playerid) {
     if (isPlayerInVehicle(playerid)) {
+        dbg("player", "save on exit from vehicle");
         trySavePlayer(playerid);
     }
 }, KEY_DOWN);
