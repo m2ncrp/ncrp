@@ -1,3 +1,5 @@
+VEHICLE_RESPAWN_PLAYER_DISTANCE <- pow(20, 2);
+
 /**
  * Set if vehicle can be automatically respawned
  * @param  {int} vehicleid
@@ -87,6 +89,18 @@ function tryRespawnVehicleById(vehicleid, forced = false) {
     if (isVehicleMoving(vehicleid)) {
         data.time = getTimestamp();
         return false;
+    }
+
+    foreach (playerid, value in players) {
+        local ppos = getPlayerPosition(playerid);
+        local vpos = getVehiclePosition(vehicleid);
+
+        // dont respawn if player is near
+        if ((pow(ppos[0] - vpos[0], 2) + pow(ppos[1] - vpos[1], 2)) < VEHICLE_RESPAWN_PLAYER_DISTANCE) {
+            dbg("vehicle", "respawn", "not respawning because of close player distance", getVehiclePlateText(vehicleid), getAuthor(playerid));
+            data.time = getTimestamp();
+            return false;
+        }
     }
 
     // reset respawn time
