@@ -199,12 +199,12 @@ event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     trySavePlayer(playerid);
 });
 
-key("f", function(playerid) {
-    if (isPlayerInVehicle(playerid)) {
-        dbg("player", "save on exit from vehicle");
-        trySavePlayer(playerid);
-    }
-}, KEY_DOWN);
+// key("f", function(playerid) {
+//     if (isPlayerInVehicle(playerid)) {
+//         dbg("player", "save on exit from vehicle");
+//         trySavePlayer(playerid);
+//     }
+// }, KEY_DOWN);
 
 event("onPlayerConnectInit", function(playerid, name, ip, serial) {
     // set player colour
