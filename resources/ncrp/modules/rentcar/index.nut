@@ -49,7 +49,6 @@ function RentCar(playerid) {
     local rentprice = rentcars[vehicleid][0].tofloat()*minutesleft;
 
     if(!canMoneyBeSubstracted(playerid, rentprice)) {
-        showNoMoneyRentCarGUI(playerid,vehicleid); //todo refactor this shit
         return msg(playerid, "rentcar.notenough");
     }
     rentcars[vehicleid][1] = playerid;
@@ -141,14 +140,6 @@ event ("onServerMinuteChange", function() {
 function showRentCarGUI(playerid, vehicleid){
     local windowText =  plocalize(playerid, "rentcar.gui.window");
     local labelText =   plocalize(playerid, "rentcar.gui.canrent", [getVehicleRentPrice(vehicleid)*10, getVehicleRentPrice(vehicleid)*60]);
-    local button1Text = plocalize(playerid, "rentcar.gui.buttonRent");
-    local button2Text = plocalize(playerid, "rentcar.gui.buttonRefuse");
-    triggerClientEvent(playerid, "showRentCarGUI", windowText,labelText,button1Text,button2Text);
-}
-
-function showNoMoneyRentCarGUI (playerid,vehicleid) { //todo refactor this shit
-    local windowText =  plocalize(playerid, "rentcar.gui.window");
-    local labelText =   plocalize(playerid, "rentcar.notenough");
     local button1Text = plocalize(playerid, "rentcar.gui.buttonRent");
     local button2Text = plocalize(playerid, "rentcar.gui.buttonRefuse");
     triggerClientEvent(playerid, "showRentCarGUI", windowText,labelText,button1Text,button2Text);
