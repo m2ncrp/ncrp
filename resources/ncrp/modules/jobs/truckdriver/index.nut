@@ -1,6 +1,7 @@
 include("modules/jobs/truckdriver/commands.nut");
 
 local job_truck = {};
+local job_truck_blocked = {};
 local truckcars = {};
 local truck_scens = {};
 
@@ -64,6 +65,7 @@ const TRUCK_JOB_X =  -704.88; //under Red Bridge
 const TRUCK_JOB_Y =  1461.06; //
 const TRUCK_JOB_Z = -6.86539; //
 
+const TRUCK_JOB_TIMEOUT = 1800; // 30 minutes
 const TRUCK_JOB_SKIN = 130;
 const TRUCK_JOB_SALARY = 12.0;
 const TRUCK_JOB_LEVEL = 1;
@@ -216,6 +218,12 @@ function truckJobTalk( playerid ) {
         return msg(playerid, "job.truckdriver.needlevel", TRUCK_JOB_LEVEL, TRUCK_JOB_COLOR );
     }
 
+    if (getPlayerName(playerid) in job_truck_blocked) {
+        if (getTimestamp() - job_truck_blocked[getPlayerName(playerid)] < TRUCK_JOB_TIMEOUT) {
+            return msg( playerid, "job.truckdriver.badworker");
+        }
+    }
+
     // если у игрока статус работы == null
     if(job_truck[playerid]["userstatus"] == null) {
 /*
@@ -263,9 +271,10 @@ function truckJobTalk( playerid ) {
     }
 
     // если у игрока статус работы == для тебя нет работы
-    if (job_truck[playerid]["userstatus"] == "nojob") {
-        return msg( playerid, "job.truckdriver.badworker");
-    }
+    // if (job_truck[playerid]["userstatus"] == "nojob") {
+    //     return msg( playerid, "job.truckdriver.badworker");
+    // }
+
     // если у игрока статус работы == выполняет работу
     if (job_truck[playerid]["userstatus"] == "working") {
         return msg( playerid, "job.truckdriver.needcomplete" );
@@ -293,6 +302,7 @@ function truckJobRefuseLeave( playerid ) {
     if (job_truck[playerid]["userstatus"] == "working") {
         msg( playerid, "job.truckdriver.badworker.onleave");
         job_truck[playerid]["userstatus"] = "nojob";
+        job_truck_blocked[getPlayerName(playerid)] <- getTimestamp();
     }
 
     if (job_truck[playerid]["userstatus"] == "complete") {

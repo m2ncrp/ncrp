@@ -29,7 +29,8 @@ const JAIL_Z = 10.3252;
 
 default_spawns <- [
     [-555.251,  1702.31, -22.2408], // railway
-    [-11.2921,  1631.85, -20.0296], // tmp bomj spawn
+    [-555.251,  1702.31, -22.2408], // railway
+    // [-11.2921,  1631.85, -20.0296], // tmp bomj spawn
     // [ 100.421,  1776.41, -24.0068], // bomj style
     // [-402.282, -828.907, -21.7456]  // port
     [-344.028, -952.702, -21.7457], // new port
@@ -69,7 +70,7 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
             // setup deafults
             char.name    = getPlayerName(playerid);
             char.spawnid = random(0, default_spawns.len() - 1);
-            char.money   = randomf(0.1, 1.75);
+            char.money   = randomf(5.0, 10.0);
             char.dskin   = defaultSkins[random(0, defaultSkins.len() - 1)];
             char.cskin   = char.dskin;
             char.health  = 720.0;
