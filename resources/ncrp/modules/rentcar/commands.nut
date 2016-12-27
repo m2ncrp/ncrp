@@ -3,8 +3,13 @@ cmd("rent", function(playerid) {
 });
 
 cmd("rent", "refuse", function(playerid) {
+    msg(playerid, "Use: /unrent", CL_RED);
+});
+
+cmd("unrent", function(playerid) {
     RentCarRefuse(playerid);
 });
+
 
 function rentcarHelp ( playerid ) {
     local title = "rentcar.help.title";
