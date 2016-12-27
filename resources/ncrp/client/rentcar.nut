@@ -12,20 +12,30 @@ addEventHandler("onServerClientStarted", function(...){
 	guiSetVisible( window, false);
 });
 */
-
-function showRentCarGUI (labelText) {
+/**
+ * [showRentCarGUI description]
+ * @param  {[string]} windowText  [description]
+ * @param  {[string]} labelText   [description]
+ * @param  {[string]} button1Text [description]
+ * @param  {[string} button2Text [description]
+ * @return {[type]}             [description]
+ */
+function showRentCarGUI (windowText,labelText, button1Text, button2Text) {
     guiSetSize(window, 270.0, 90.0  );
     guiSetPosition(window,screen[0]/2 - 135, screen[1]/2 - 45);
+    guiSetText( window, windowText);
     guiSetText( label, labelText);
+    guiSetText( buttons[0], button1Text);
+    guiSetText( buttons[1], button2Text);
     guiSetVisible( window, true);
     showCursor(true);
 }
 addEventHandler("showRentCarGUI",showRentCarGUI);
 
+
 function hideRentCarGUI () {
 	if( guiIsVisible( window ) ){
 	    guiSetVisible( window, !guiIsVisible( window ));
 	}
-
 }
 addEventHandler("hideRentCarGUI",hideRentCarGUI);
