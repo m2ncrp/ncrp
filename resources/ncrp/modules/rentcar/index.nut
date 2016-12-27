@@ -96,6 +96,8 @@ event ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
         if(whorent != playerid) {
             blockVehicle(vehicleid);
             msg(playerid, "rentcar.canrent", [getVehicleRentPrice(vehicleid)*10, getVehicleRentPrice(vehicleid)*60 ]);
+            //local formatGUIText = format("Вы можете взять этот автомобиль в аренду.\nЦена: $%.2f за 10 игровых минут ($%.2f в час).", getVehicleRentPrice(vehicleid)*10, getVehicleRentPrice(vehicleid)*60 );
+            //triggerClientEvent(playerid, "showRentCarGUI", formatGUIText);
         } else {
             unblockVehicle(vehicleid);
         }
