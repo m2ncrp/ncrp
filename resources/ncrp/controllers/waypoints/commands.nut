@@ -57,3 +57,27 @@ cmd(["cccc6"], function(playerid) {
         // points.remove(idx)
     }
 });
+
+
+
+ps <- PointSequence();
+
+cmd(["cccc7"], function(playerid) {
+    local p1 = Point3d(X, Y, Z, 180.0);
+    p1.attachLocalBlip(playerid, X, Y, ICON_TARGET, 4000.0);
+    local p2 = Point3d(41.9951, -21.5509, -15.4029, 180.0);
+    p2.attachLocalBlip(playerid, 41.9951, -21.5509, ICON_TARGET, 4000.0);
+    local p3 = Point3d(41.4975, -98.6097, -18.3269, 180.0);
+    p3.attachLocalBlip(playerid, 41.4975, -98.6097, ICON_TARGET, 4000.0);
+    
+    ps.add(p1);
+    ps.add(p2);
+    ps.add(p3);
+});
+
+
+cmd(["cccc8"], function(playerid) {
+    local pos = getPlayerPosition(playerid);
+    local angle = getPlayerRotation(playerid);
+    ps.check(pos[0], pos[1], pos[2], angle[0], radius);
+});
