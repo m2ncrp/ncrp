@@ -21,17 +21,16 @@ function showRentCarGUI (windowText,labelText, button1Text, button2Text) {
 	    guiSetText( buttons[0], button1Text);
 	    guiSetText( buttons[1], button2Text);
 	    guiSetVisible( window, true);
-	    showCursor(true);
 	}
 	else{//if widow doesn't created, create his
 		window =  guiCreateElement( ELEMENT_TYPE_WINDOW, windowText, screen[0]/2 - 135, screen[1]/2 - 45, 270.0, 90.0 );
 		label =	guiCreateElement( ELEMENT_TYPE_LABEL, labelText, 20.0, 20.0, 300.0, 40.0, false, window);
 		buttons[0] = guiCreateElement(  ELEMENT_TYPE_BUTTON, button1Text, 20.0, 60.0, 115.0, 20.0,false, window);
 		buttons[1] = guiCreateElement(  ELEMENT_TYPE_BUTTON, button2Text, 140.0, 60.0, 115.0, 20.0,false, window);
-		showCursor(true);
 	}
 	guiSetSizable(window,false);
 	guiSetMovable(window,false);
+	showCursor(true);
 }
 addEventHandler("showRentCarGUI",showRentCarGUI);
 
@@ -45,6 +44,7 @@ function hideRentCarGUI () {
 function hideCursor() {
     showCursor(false);
 }
+addEventHandler("hideCursor",hideCursor);
 
 addEventHandler( "onGuiElementClick",
 	function(element)
