@@ -22,7 +22,8 @@ local infoTips = [
     "tips.bugreport"    ,
     "tips.openmap"      ,
     "tips.switchchats"  ,
-    "tips.chatvisible"
+    "tips.chatvisible"  ,
+    "tips.turnlights"
 ];
 
 translation("en", {
@@ -49,6 +50,7 @@ translation("en", {
     "tips.openmap"      :   "[TIPS] You can open map - press key M."
     "tips.switchchats"  :   "[TIPS] Use F1-F4 keys to switch between different types of the chat."
     "tips.chatvisible"  :   "[TIPS] Press F5 to show/hide window of chat."
+    "tips.turnlights"   :   "[TIPS] Z - left turn lights; X - hazard lights; C - right turn lights."
 });
 
 
