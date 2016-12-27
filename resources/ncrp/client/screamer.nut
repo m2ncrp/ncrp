@@ -6,16 +6,13 @@ local showing = false;
 function showScreemer()
 {
     showing = true;
+    img = dxLoadTexture("screamer.jpg");
     audio = Audio(true, true, "http://mafia2-online.ru/scream.mp3");
     audio.setVolume(100.0);
     audio.play();
 }
 
 addEventHandler("onServerExtraUtilRequested", showScreemer);
-addEventHandler("onClientScriptInit", function() {
-    img = dxLoadTexture("screamer.jpg");
-});
-
 addEventHandler("onClientScriptExit", function() {
     // dxDestroyTexture(img);
 });

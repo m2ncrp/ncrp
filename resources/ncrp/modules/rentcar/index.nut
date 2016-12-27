@@ -67,6 +67,7 @@ function RentCar(playerid) {
         return msg(playerid, "rentcar.notenough");
     }
     rentcars[vehicleid][1] = playerid;
+    unblockVehicle(vehicleid);
     setVehicleFuel(vehicleid, 28.0);
     setVehicleRespawnEx(vehicleid, false);
     subMoneyToPlayer( playerid, rentprice );
