@@ -109,6 +109,15 @@ function getAuthor2( playerid ) {
     return getPlayerName( playerid.tointeger() ) + "(#" + playerid.tostring() + ")";
 }
 
+/**
+ * Return string "player_name(#playerid)"
+ * @param  {int}    playerid
+ * @return {string}
+ */
+function getAuthor3( playerid ) {
+    return getPlayerName( playerid.tointeger() ) + "(" + playerid.tostring() + ")";
+}
+
 function chatcmd(names, callback)  {
     cmd(names, function(playerid, ...) {
         local text = (concat(vargv));

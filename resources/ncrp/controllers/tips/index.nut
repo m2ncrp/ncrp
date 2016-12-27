@@ -54,7 +54,7 @@ translation("en", {
 
 event("onServerMinuteChange", function() {
 
-    if ((getMinute() % 2) != 0) {
+    if ((getMinute() % 5) != 0) {
         return;
     }
 
