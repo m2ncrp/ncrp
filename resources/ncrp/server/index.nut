@@ -172,6 +172,9 @@ proxy("onClientScriptError",        "onClientScriptError"               );
 proxy("onPlayerTeleportRequested",  "onPlayerTeleportRequested"         );
 proxy("onClientDebugToggle",        "onClientDebugToggle"               );
 proxy("onClientSendFPSData",        "onClientSendFPSData"               );
+proxy("onClientSendFPSData",        "onClientSendFPSData"               );
+proxy("RentCar",                    "RentCar"                           );
+
 
 /**
  * Debug export
