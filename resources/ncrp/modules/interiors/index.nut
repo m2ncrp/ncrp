@@ -164,8 +164,21 @@ local interiors = [
 ["onfoot",  "Exit",    136.335,    -433.043,    -19.429,      "EmpireDinerOysterBayExit2"],
 ["onfoot",  "Enter",   150.331,    -431.037,    -19.4657,     "EmpireDinerOysterBayEnter3"],
 ["onfoot",  "Exit",    149.652,    -430.939,    -19.429,      "EmpireDinerOysterBayExit3"],
-];
 
+
+["onfoot",  "Enter",   310.27,      432.974,    -22.8998,     "ChinaTownEnter", 310.0, 432.0, -25.0],
+["onfoot",  "Exit",    312.828,     426.763,    -25.7714,     "ChinaTownExit"],
+
+["onfoot",  "Enter",   305.434,     400.538,    -25.7734,     "ChinaTownLiftEnter"],
+["onfoot",  "Exit",    307.673,     397.318,    -29.5913,     "ChinaTownLiftExit"],
+
+["onfoot",  "Enter",   306.285,     397.738,    -26.5533,      "ChinaTownLiftEnterHelp"],
+["onfoot",  "Exit",    307.673,     397.318,    -29.5913,      "ChinaTownLiftExitHelp"],
+
+
+["onfoot",  "Enter",   326.867,     412.519,    -25.7734,      "ChinaTownLift2EnterHelp"],
+["onfoot",  "Exit",    326.784,     411.757,     -26.467,      "ChinaTownLift2ExitHelp"],
+];
 
 /*
 ["vehicle", "enter",     -1309,23, 1006,19, -18,4034, 90,2244, 0,113699, -0,113254,         "VillaVitoGarageCAREnter"],
@@ -211,9 +224,34 @@ key(["e"], function(playerid) {
     }
 
     if (interiors[i][1] == "Enter") {
+        dbg(interiors[i][5]);
+        if (interiors[i].len() <= 6) {
             i += 1;
-        } else  {
-            i -= 1;
+            setPlayerPosition(playerid, interiors[i][2], interiors[i][3], interiors[i][4]);
+        } else {
+            freezePlayer( playerid, true );
+            screenFadeinFadeoutEx(playerid, 250, 1000, function() {
+                setPlayerPosition(playerid, interiors[i][6], interiors[i][7], interiors[i][8]);
+                    delayedFunction(1000, function () {
+                    i += 1;
+                    setPlayerPosition(playerid, interiors[i][2], interiors[i][3], interiors[i][4]);
+                    freezePlayer( playerid, false );
+                });
+            });
         }
-    setPlayerPosition(playerid, interiors[i][2], interiors[i][3], interiors[i][4]);
+
+    } else  {
+        i -= 1;
+        setPlayerPosition(playerid, interiors[i][2], interiors[i][3], interiors[i][4]);
+        removePlayerWeaponChina ( playerid );
+    }
+
 }, KEY_UP);
+
+
+function removePlayerWeaponChina ( playerid ) {
+    local weaponlist = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21];
+    weaponlist.apply(function(id) {
+        removePlayerWeapon( playerid, id );
+    })
+}
