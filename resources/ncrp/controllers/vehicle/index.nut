@@ -185,7 +185,7 @@ event("onServerStopping", function() {
 
 // force resetting vehicle position to death point
 event("onPlayerDeath", function(playerid) {
-    dbg("player", "death", "vehicle", getAuthor(playerid), getVehiclePlateText(vehicleid));
+    dbg("player", "death", "vehicle", getAuthor(playerid), getVehiclePlateText(getPlayerVehicle(playerid)));
 
     if (isPlayerInVehicle(playerid)) {
         local vehicleid = getPlayerVehicle(playerid);

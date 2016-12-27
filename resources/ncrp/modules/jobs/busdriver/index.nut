@@ -159,12 +159,19 @@ event("onPlayerConnect", function(playerid, name, ip, serial ){
      job_bus[playerid]["busBlip"] <- null;
 });
 
-event( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
+event("onPlayerVehicleEnter", function (playerid, vehicleid, seat) {
     if(isBusDriver(playerid)) {
+        unblockVehicle(vehicleid);
         delayedFunction(4500, function() {
             busJobReady(playerid);
         });
+    } else {
+        blockVehicle(vehicleid);
     }
+});
+
+event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
+    blockVehicle(vehicleid);
 });
 
 function busStop(a, b, c) {
