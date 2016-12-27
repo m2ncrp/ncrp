@@ -94,7 +94,10 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
     };
 
     // check playername validity
-    if (!REGEX_USERNAME.match(username) || username.find("  ") != null || username.find("__") != null) {
+    if (!REGEX_USERNAME.match(username) ||
+        username.find("  ") != null ||
+        username.find("__") != null
+    ) {
         // disable ability to login
         setPlayerAuthBlocked(playerid, true);
 
