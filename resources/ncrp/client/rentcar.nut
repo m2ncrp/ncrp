@@ -22,7 +22,6 @@ function showRentCarGUI (windowText,labelText, button1Text, button2Text) {
 	    guiSetText( buttons[1], button2Text);
 	    guiSetVisible( window, true);
 	    showCursor(true);
-	    log("if widow created");
 	}
 	else{//if widow doesn't created, create his
 		window =  guiCreateElement( ELEMENT_TYPE_WINDOW, windowText, screen[0]/2 - 135, screen[1]/2 - 45, 270.0, 90.0 );
@@ -30,7 +29,6 @@ function showRentCarGUI (windowText,labelText, button1Text, button2Text) {
 		buttons[0] = guiCreateElement(  ELEMENT_TYPE_BUTTON, button1Text, 20.0, 60.0, 115.0, 20.0,false, window);
 		buttons[1] = guiCreateElement(  ELEMENT_TYPE_BUTTON, button2Text, 140.0, 60.0, 115.0, 20.0,false, window);
 		showCursor(true);
-		log("if widow doesn't created, create his");
 	}
 	guiSetSizable(window,false);
 	guiSetMovable(window,false);
@@ -53,6 +51,7 @@ addEventHandler( "onGuiElementClick",
 	{
 		if(element == buttons[0]){
 			triggerServerEvent("RentCar");
+			hideRentCarGUI();
 		}
 		if(element == buttons[1]){
 			hideRentCarGUI();
