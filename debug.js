@@ -113,8 +113,10 @@ function main() {
         if (path && (path.indexOf(".nut") !== -1 || path.indexOf(".xml") !== -1)) {
             console.log(">> saved file " + path);
             console.log(">> restarting server due changes");
-            m2o.write("exit\n");
-            setTimeout(startServer, 1000);
+            m2o.stdin.write("exit\n");
+            setTimeout(function() {
+                m2o = startServer();
+            }, 500);
         }
     });
 }
