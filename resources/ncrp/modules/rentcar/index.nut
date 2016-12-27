@@ -49,6 +49,7 @@ function RentCar(playerid) {
     local rentprice = rentcars[vehicleid][0].tofloat()*minutesleft;
 
     if(!canMoneyBeSubstracted(playerid, rentprice)) {
+        showNoMoneyRentCarGUI(playerid,vehicleid); //todo refactor this shit
         return msg(playerid, "rentcar.notenough");
     }
     rentcars[vehicleid][1] = playerid;
@@ -59,6 +60,7 @@ function RentCar(playerid) {
     msg(playerid, "rentcar.rented");
     msg(playerid, "rentcar.paidcar", [ rentprice, getPlayerBalance(playerid)] );
 }
+addEventHandler("RentCar", RentCar);
 
 function RentCarRefuse(playerid) {
     if(isPlayerInVehicle && isPlayerCarRent(playerid)) {
@@ -82,7 +84,7 @@ event ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
         if(whorent != playerid) {
             blockVehicle(vehicleid);
             msg(playerid, "rentcar.canrent", [getVehicleRentPrice(vehicleid)*10, getVehicleRentPrice(vehicleid)*60 ]);
-            //showRentCarGUI(playerid, vehicleid);
+            showRentCarGUI(playerid, vehicleid);
         } else {
             unblockVehicle(vehicleid);
         }
@@ -139,6 +141,14 @@ event ("onServerMinuteChange", function() {
 function showRentCarGUI(playerid, vehicleid){
     local windowText =  plocalize(playerid, "rentcar.gui.window");
     local labelText =   plocalize(playerid, "rentcar.gui.canrent", [getVehicleRentPrice(vehicleid)*10, getVehicleRentPrice(vehicleid)*60]);
+    local button1Text = plocalize(playerid, "rentcar.gui.buttonRent");
+    local button2Text = plocalize(playerid, "rentcar.gui.buttonRefuse");
+    triggerClientEvent(playerid, "showRentCarGUI", windowText,labelText,button1Text,button2Text);
+}
+
+function showNoMoneyRentCarGUI (playerid,vehicleid) { //todo refactor this shit
+    local windowText =  plocalize(playerid, "rentcar.gui.window");
+    local labelText =   plocalize(playerid, "rentcar.notenough");
     local button1Text = plocalize(playerid, "rentcar.gui.buttonRent");
     local button2Text = plocalize(playerid, "rentcar.gui.buttonRefuse");
     triggerClientEvent(playerid, "showRentCarGUI", windowText,labelText,button1Text,button2Text);
