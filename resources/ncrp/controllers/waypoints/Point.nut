@@ -77,10 +77,10 @@ class Point3d extends Point2d {
 
 
 class PointSequence {
-    sequence <- [];
+    sequence = [];
     
     constructor () {
-        sequence <- [];
+        
     }
 
     function add(point) {
@@ -89,6 +89,15 @@ class PointSequence {
 
     function remove(id) {
         sequence.remove(id);
+    }
+
+    function check(X, Y, Z, angle, radius) {
+        foreach (index, point in sequence) {
+            if ( sequence[index].isInPoint_Strict(X, Y, Z, angle, radius) ) {
+                sequence[index].removeLocalBlip();
+                sequence.remove(index);
+            }
+        }
     }
 }
 
