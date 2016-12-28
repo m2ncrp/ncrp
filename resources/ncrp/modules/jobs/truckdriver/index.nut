@@ -48,8 +48,6 @@ local truck_scens_summer = [ 2, 4, 6, 7 ];
     // truck_scens[10] <- { LoadText = "job.truckdriver.scens1.load", UnloadText = "job.truckdriver.scens1.unload", LoadPointX = 826.769, LoadPointY = 517.451, LoadPointZ = -11.7677, UnloadPointX = -370.788, UnloadPointY = -347.463, UnloadPointZ =  -13.3999 };
 
 
-
-
 translation("en", {
     "job.truckdriver"                   : "truck driver"
 
@@ -100,66 +98,66 @@ translation("en", {
     "job.truckdriver.help.loadunload"       :   "E button"
     "job.truckdriver.help.loadunloadtext"   :   "Load/unload truck (need be in truck)"
 
-
 });
 
 
 local vehicleName = {
-    model_0  = 52.0  , // ascot_baileys200_pha
-    model_1  = 78.0  , // berkley_kingfisher_pha
-    model_2  = 0.0   , // fuel_tank
-    model_3  = 180.0 , // gai_353_military_truck
-    model_4  = 180.0 , // hank_b
-    model_5  = 180.0 , // hank_fueltank
-    model_6  = 64.0  , // hot_rod_1
-    model_7  = 64.0  , // hot_rod_2
-    model_8  = 64.0  , // hot_rod_3
-    model_9  = 65.0  , // houston_wasp_pha
-    model_10 = 65.0  , // isw_508
-    model_11 = 54.0  , // jeep
-    model_12 = 54.0  , // jeep_civil
-    model_13 = 83.0  , // jefferson_futura_pha
-    model_14 = 65.0  , // jefferson_provincial
-    model_15 = 84.0  , // lassiter_69
-    model_16 = 84.0  , // lassiter_69_destr
-    model_17 = 85.0  , // lassiter_75_fmv
-    model_18 = 85.0  , // lassiter_75_pha
-    model_19 = 75.0  , // milk_truck
-    model_20 = 142.0 , // parry_bus
-    model_21 = 142.0 , // parry_prison
-    model_22 = 50.0  , // potomac_indian
-    model_23 = 55.0  , // quicksilver_windsor_pha
-    model_24 = 55.0  , // quicksilver_windsor_taxi_pha
-    model_25 = 60.0  , // shubert_38
-    model_26 = 60.0  , // shubert_38_destr
-    model_27 = 0.0   , // shubert_armoured
-    model_28 = 75.0  , // shubert_beverly
-    model_29 = 65.0  , // shubert_frigate_pha
-    model_30 = 60.0  , // shubert_hearse
-    model_31 = 60.0  , // shubert_panel
-    model_32 = 60.0  , // shubert_panel_m14
-    model_33 = 60.0  , // shubert_taxi
-    model_34 = 93.0  , // shubert_truck_cc
-    model_35 = "Shubert Truck Flatbed" // Shubert_truck_ct
-    model_36 = 93.0  , // shubert_truck_ct_cigar
-    model_37 = "Shubert Truck Covered"  , // shubert_truck_qd
-    model_38 = 93.0  , // shubert_truck_sg
-    model_39 = 93.0  , // shubert_truck_sp
-    model_40 = 75.0  , // sicily_military_truck
-    model_41 = 75.0  , // smith_200_pha
-    model_42 = 75.0  , // smith_200_p_pha
-    model_43 = 47.0  , // smith_coupe
-    model_44 = 63.0  , // smith_mainline_pha
-    model_45 = 65.0  , // smith_stingray_pha
-    model_46 = 75.0  , // smith_truck
-    model_47 = 60.0  , // smith_v8
-    model_48 = 47.0  , // smith_wagon_pha
-    model_49 = 0.0   , // trailer
-    model_50 = 65.0  , // ulver_newyorker
-    model_51 = 65.0  , // ulver_newyorker_p
-    model_52 = 75.0  , // walker_rocket
-    model_53 = 38.0  , // walter_coupe
+    model_0  = "Ascot Bailey S200"               , // ascot_baileys200_pha
+    model_1  = "Berkley Kingfisher"              , // berkley_kingfisher_pha
+    model_2  = "Fuel Tank"                       , // fuel_tank
+    model_3  = "GAI 353 Military Truck"          , // gai_353_military_truck
+    model_4  = "Hank B"                          , // hank_b
+    model_5  = "Hank B Fuel Tank"                , // hank_fueltank
+    model_6  = "Walter Hot Rod"                  , // hot_rod_1
+    model_7  = "Smith 34 Hot Rod"                , // hot_rod_2
+    model_8  = "Shuber Pickup Hot Rod"           , // hot_rod_3
+    model_9  = "Houston Wasp"                    , // houston_wasp_pha
+    model_10 = "ISW 508"                         , // isw_508
+    model_11 = "Jeep"                            , // jeep
+    model_12 = "Jeep Civil"                      , // jeep_civil
+    model_13 = "Jefferson Futura"                , // jefferson_futura_pha
+    model_14 = "Jefferson Provincial"            , // jefferson_provincial
+    model_15 = "Lassiter 69"                     , // lassiter_69
+    model_16 = "Lassiter 69 Destroy"             , // lassiter_69_destr
+    model_17 = "Lassiter 75 FMV"                 , // lassiter_75_fmv
+    model_18 = "Lassiter 75"                     , // lassiter_75_pha
+    model_19 = "Milk Truck"                      , // milk_truck
+    model_20 = "Parry Bus"                       , // parry_bus
+    model_21 = "Parry Bus Prison"                , // parry_prison
+    model_22 = "Potomac Indian"                  , // potomac_indian
+    model_23 = "Quicksilver Windsor"             , // quicksilver_windsor_pha
+    model_24 = "Quicksilver Windsor Taxi"        , // quicksilver_windsor_taxi_pha
+    model_25 = "Shubert 38"                      , // shubert_38
+    model_26 = "Shubert 38 Destroy"              , // shubert_38_destr
+    model_27 = "Shubert Armored Truck"           , // shubert_armoured
+    model_28 = "Shubert Beverly"                 , // shubert_beverly
+    model_29 = "Shubert Frigate"                 , // shubert_frigate_pha
+    model_30 = "Shubert Hearse"                  , // shubert_hearse
+    model_31 = "Shubert Panel"                   , // shubert_panel
+    model_32 = "Shubert Panel M14"               , // shubert_panel_m14
+    model_33 = "Shubert Taxi"                    , // shubert_taxi
+    model_34 = "Shubert Truck Fresh Meat"        , // shubert_truck_cc
+    model_35 = "Shubert Truck Flatbed"           , // Shubert_truck_ct
+    model_36 = "Shubert Truck Cigars"            , // shubert_truck_ct_cigar
+    model_37 = "Shubert Truck Covered"           , // shubert_truck_qd
+    model_38 = "Shubert Truck Seagift"           , // shubert_truck_sg
+    model_39 = "Shubert Snow Plow"               , // shubert_truck_sp
+    model_40 = "Sicily Military Truck"           , // sicily_military_truck
+    model_41 = "Smith Custom 200"                , // smith_200_pha
+    model_42 = "Smith Custom 200 Police Special" , // smith_200_p_pha
+    model_43 = "Smith Coupe"                     , // smith_coupe
+    model_44 = "Smith Mainline"                  , // smith_mainline_pha
+    model_45 = "Smith Thunderbolt"               , // smith_stingray_pha
+    model_46 = "Smith Truck"                     , // smith_truck
+    model_47 = "Smith V8"                        , // smith_v8
+    model_48 = "Smith Wagon"                     , // smith_wagon_pha
+    model_49 = "Trailer"                         , // trailer
+    model_50 = "Culver Empire"                   , // ulver_newyorker
+    model_51 = "Culver Empire Police Special"    , // ulver_newyorker_p
+    model_52 = "Walker Rocket"                   , // walker_rocket
+    model_53 = "Walter Coupe"                      // walter_coupe
 };
+
 /*
 826.769, 517.451, -11.7677, 89.8741, -0.213281, 0.213751, NorthMillVilleLoadMaterials
 -370.788, -347.463, -13.3999, -179.469, -0.0121328, -1.44906, MidtownUnloadMaterials
@@ -464,13 +462,12 @@ function truckJobLoadUnload( playerid ) {
 
 
     local userjob = job_truck[playerid]["userjob"];
-    dbg(userjob.vehicleid);
+
     if (!isPlayerVehicleTruck(playerid, userjob.vehicleid) && isVehicleInValidPoint(playerid, userjob.LoadPointX, userjob.LoadPointY, 4.0 )) {
         return msg( playerid, "job.truckdriver.needtruck", vehicleName["model_" + userjob.vehicleid], TRUCK_JOB_COLOR );
     }
 
     if(truckcars[vehicleid][0] && truckcars[vehicleid][1] == playerid && isVehicleInValidPoint(playerid, userjob.LoadPointX, userjob.LoadPointY, 4.0 )) {
-        dbg("truck already loaded");
         return msg( playerid, "job.truckdriver.alreadyloaded", TRUCK_JOB_COLOR );
     }
 
