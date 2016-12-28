@@ -52,7 +52,7 @@ translation("ru", {
     "auth.error.logined"    : "[AUTH] Вы уже вошли в аккаунт!"
     "auth.error.login"      : "[AUTH] Вы уже вошли в аккаунт!"
     "auth.error.register"   : "[AUTH] Аккаунт с такими именем уже зарегистрирован."
-    "auth.error.notfound"   : "[AUTH] Аккаунт с такими данными не зарегистрирован."
+    "auth.error.notfound"   : "[AUTH] Логин или пароль были введены не правильно."
     "auth.success.register" : "[AUTH] Вы успешно зарегистрировались!"
     "auth.success.login"    : "[AUTH] Вы успешно вошли в аккаунт!"
     "auth.success.autologin": "[AUTH] Вы были успешно авторизованы автоматически!"

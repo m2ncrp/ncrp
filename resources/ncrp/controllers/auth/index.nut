@@ -179,10 +179,12 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
                 msg(playerid, "auth.welcome", username);
 
                 if (account) {
+                    delayedFunction(1000, function() {trigger(playerid, "showAuthGUI");});
                     msg(playerid, "auth.registered");
                     msg(playerid, "*");
                     msg(playerid, "auth.command.login");
                 } else {
+                    delayedFunction(1000, function() {trigger(playerid, "showRegGUI");});
                     msg(playerid, "auth.notregistered");
                     msg(playerid, "*");
                     msg(playerid, "auth.command.register");
@@ -193,6 +195,7 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
             });
         });
 });
+
 
 /**
  * On player disconnects
