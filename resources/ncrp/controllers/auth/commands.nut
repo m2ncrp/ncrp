@@ -4,7 +4,7 @@
  *
  * TODO: add check for existing
  */
-simplecmd("register", function(playerid, password) {
+function registerFunc(playerid, password,email) {
     if (isPlayerAuthBlocked(playerid)) {
         return;
     }
@@ -22,6 +22,7 @@ simplecmd("register", function(playerid, password) {
         account.locale   = getPlayerLocale(playerid);
         account.created  = getTimestamp();
         account.logined  = getTimestamp();
+        //account.email    = email;
 
         Account.findOneBy({ username = account.username }, function(err, result) {
             if (result) {
@@ -34,15 +35,14 @@ simplecmd("register", function(playerid, password) {
                     if (result.cnt >= AUTH_ACCOUNTS_LIMIT) {
                         return msg(playerid, "auth.error.tomany", CL_ERROR);
                     }
-
-                    account.save(function(err, result) {
+                        account.save(function(err, result) {
                         account.addSession(playerid);
                         setLastActiveSession(playerid);
 
                         // send success registration message
                         msg(playerid, "auth.success.register", CL_SUCCESS);
                         dbg("registration", getAuthor(playerid));
-
+                        trigger(playerid, "destroyAuthGUI");
                         screenFadein(playerid, 250, function() {
                             trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
                         });
@@ -51,13 +51,16 @@ simplecmd("register", function(playerid, password) {
             }
         });
     });
-});
+}
+
+//simplecmd("register", registerFunc); // removed, doesn't work with field email
+addEventHandler("registerGUIFunction",registerFunc);
 
 /**
  * Command allows players to login
  * using their current username and specified password
  */
-simplecmd("login", function(playerid, password) {
+function loginFunc(playerid, password) {
     if (isPlayerAuthBlocked(playerid)) {
         return;
     }
@@ -89,10 +92,12 @@ simplecmd("login", function(playerid, password) {
             // send message success
             msg(playerid, "auth.success.login", CL_SUCCESS);
             dbg("login", getAuthor(playerid));
-
+            trigger(playerid, "destroyAuthGUI");
             screenFadein(playerid, 250, function() {
                 trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
             });
         });
     });
-});
+}
+simplecmd("login", loginFunc);
+addEventHandler("loginGUIFunction",loginFunc);

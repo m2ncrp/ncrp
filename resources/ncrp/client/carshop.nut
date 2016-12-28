@@ -5,7 +5,7 @@ local window;
 local label;
 local image;
 local logo;
-local buttons= array(4);
+local buttons = array(4);
 
 
 /**
