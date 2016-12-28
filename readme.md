@@ -13,7 +13,7 @@ $ git clone git@github.com:Inlife/ncrp.git
 Get the server (windows):
 
 ```
-$ wget http://download.mafia2-online.com/versions/01-RC3/public/m2o_rc3_server_release.zip && unzip m2o_rc3_server_release.zip
+$ wget http://download.mafia2-online.com/versions/01-RC4/public/m2online-svr.exe
 ```
 
 Start it!
