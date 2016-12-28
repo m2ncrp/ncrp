@@ -5,25 +5,76 @@ local job_truck_blocked = {};
 local truckcars = {};
 local truck_scens = {};
 
-    // сценарий 1: Северный Миллвиль - Мидтаун (доставка материалов) All
-     truck_scens[1] <- { LoadText = "job.truckdriver.scens1.load", UnloadText = "job.truckdriver.scens1.unload", LoadPointX = 826.769, LoadPointY = 517.451, LoadPointZ = -11.7677, UnloadPointX = -370.788, UnloadPointY = -347.463, UnloadPointZ =  -13.3999 };
-    // сценарий 2: Хантерч Поинт - Северный Миллвиль (обломки здания) Only summer
-     truck_scens[2] <- { LoadText = "job.truckdriver.scens2.load", UnloadText = "job.truckdriver.scens2.unload", LoadPointX = -1582.51, LoadPointY = 571.176, LoadPointZ = -19.8774, UnloadPointX = 628.368, UnloadPointY = 382.828, UnloadPointZ = -6.70368 };
+    // сценарий 1: Северный Миллвиль - Мидтаун Отель (доставка материалов) | Only winter
+    truck_scens[1] <- { LoadText = "job.truckdriver.scens1.load", UnloadText = "job.truckdriver.scens1.unload", vehicleid = 35,
+    LoadPointX = 826.769, LoadPointY = 517.451, LoadPointZ = -11.7677,
+    UnloadPointX = -602.528, UnloadPointY = -223.786, UnloadPointZ = -4.22442 };
+
+    // сценарий 2: Хантерс Поинт - Северный Миллвиль (обломки здания) | Only summer
+    truck_scens[2] <- { LoadText = "job.truckdriver.scens2.load", UnloadText = "job.truckdriver.scens2.unload", vehicleid = 35,
+    LoadPointX = -1582.51, LoadPointY = 571.176, LoadPointZ = -19.8774,
+    UnloadPointX = 628.368, UnloadPointY = 382.828, UnloadPointZ = -6.70368 };
+
+    // сценарий 3: Мидтаун Разруха- Северный Миллвиль Свалка | Only winter
+    truck_scens[3] <- { LoadText = "job.truckdriver.scens3.load", UnloadText = "job.truckdriver.scens3.unload", vehicleid = 35,
+    LoadPointX = -370.788, LoadPointY = -347.463, LoadPointZ =  -13.3999,
+    UnloadPointX = 628.368, UnloadPointY = 382.828, UnloadPointZ = -6.70368 };
+
+    // сценарий 4: Доставка Южный Миллвилл склад 12 -> Сенд Айленд В глубине | All
+    truck_scens[4] <- { LoadText = "job.truckdriver.scens4.load", UnloadText = "job.truckdriver.scens4.unload", vehicleid = 37,
+    LoadPointX = 958.227, LoadPointY = -364.286, LoadPointZ =  -19.8471,
+    UnloadPointX = -1526.77, UnloadPointY = 185.209, UnloadPointZ = -12.9613 };
+
+    // сценарий 5: Мидтаун Разруха - Северный Миллвиль Свалка Далеко | Only winter
+    truck_scens[5] <- { LoadText = "job.truckdriver.scens5.load", UnloadText = "job.truckdriver.scens5.unload", vehicleid = 35,
+    LoadPointX = -370.788, LoadPointY = -347.463, LoadPointZ = -13.3999,
+    UnloadPointX = 1189.01, UnloadPointY = 1148.07, UnloadPointZ = 3.3324 };
+
+    // сценарий 6: Мидтаун Разруха - Северный Миллвиль Свалка Далеко | All
+    truck_scens[6] <- { LoadText = "job.truckdriver.scens6.load", UnloadText = "job.truckdriver.scens6.unload", vehicleid = 37,
+    LoadPointX = -1544.27, LoadPointY = -108.465, LoadPointZ = -18.0451,
+    UnloadPointX = -1163.7, UnloadPointY = 1594.2, UnloadPointZ = 6.53147 };
+
+    // сценарий 7: Мидтаун Разруха - Северный Миллвиль Свалка Далеко | All
+    truck_scens[7] <- { LoadText = "job.truckdriver.scens7.load", UnloadText = "job.truckdriver.scens7.unload", vehicleid = 37,
+    LoadPointX = -1544.27, LoadPointY = -108.465, LoadPointZ = -18.0451,
+    UnloadPointX = 634.324, UnloadPointY = 906.558, UnloadPointZ = -12.4234 };
 
 // работы доступные в сезон
-local truck_scens_winter = [ 1 ];
-local truck_scens_summer = [ 1, 2 ];
+local truck_scens_winter = [ 1, 3, 4, 5, 6, 7 ];
+local truck_scens_summer = [ 2, 4, 6, 7 ];
+
+    // сценарий 1: Северный Миллвиль - Мидтаун Разруха (доставка материалов) | All
+    // truck_scens[10] <- { LoadText = "job.truckdriver.scens1.load", UnloadText = "job.truckdriver.scens1.unload", LoadPointX = 826.769, LoadPointY = 517.451, LoadPointZ = -11.7677, UnloadPointX = -370.788, UnloadPointY = -347.463, UnloadPointZ =  -13.3999 };
+
+
 
 
 translation("en", {
     "job.truckdriver"                   : "truck driver"
 
-    "job.truckdriver.scens1.load"       : "Sit into truck and go to North Millville to load construction materials."
+    "job.truckdriver.scens1.load"       : "Sit into %s and go to North Millville to load construction materials."
     "job.truckdriver.scens1.unload"     : "The truck loaded. Go to Midtown to unload construction materials."
 
-    "job.truckdriver.scens2.load"       : "Sit into truck and go to Hunters Point to load debris of burnt building."
+    "job.truckdriver.scens2.load"       : "Sit into %s and go to Hunters Point to load debris of burnt building."
     "job.truckdriver.scens2.unload"     : "The truck loaded. Go to North Millville to unload debris of burnt building."
 
+    "job.truckdriver.scens3.load"       : "Sit into %s and go to Midtown to load debris of destroyed building."
+    "job.truckdriver.scens3.unload"     : "The truck loaded. Go to North Millville to unload debris of destroyed building."
+
+    "job.truckdriver.scens4.load"       : "Sit into %s and go to South Millville to load cargo."
+    "job.truckdriver.scens4.unload"     : "The truck loaded. Go to Sand Island to unload cargo."
+
+    "job.truckdriver.scens5.load"       : "Sit into %s and go to Midtown to load debris of destroyed building."
+    "job.truckdriver.scens5.unload"     : "The truck loaded. Go to North Millville to unload debris of destroyed building."
+
+    "job.truckdriver.scens6.load"       : "Sit into %s and go to the Distillery in Sand Island to load alcohol."
+    "job.truckdriver.scens6.unload"     : "The truck loaded. Go to Hill of Tara in Kingston to unload alcohol."
+
+    "job.truckdriver.scens7.load"       : "Sit into %s and go to the Distillery in Sand Island to load alcohol."
+    "job.truckdriver.scens7.unload"     : "The truck loaded. Go to Dragsrtip in North Millville to unload alcohol."
+
+    "job.truckdriver.needtruck"         : "You need a %s."
     "job.truckdriver.badworker"         : "Robert Casey: You are a bad worker. I'll not give you a job."
     "job.truckdriver.badworker.onleave" : "Robert Casey: You are a bad worker. Get out of here."
     "job.truckdriver.goodluck"          : "Robert Casey: Good luck, guy! Come if you need a job."
@@ -53,6 +104,62 @@ translation("en", {
 });
 
 
+local vehicleName = {
+    model_0  = 52.0  , // ascot_baileys200_pha
+    model_1  = 78.0  , // berkley_kingfisher_pha
+    model_2  = 0.0   , // fuel_tank
+    model_3  = 180.0 , // gai_353_military_truck
+    model_4  = 180.0 , // hank_b
+    model_5  = 180.0 , // hank_fueltank
+    model_6  = 64.0  , // hot_rod_1
+    model_7  = 64.0  , // hot_rod_2
+    model_8  = 64.0  , // hot_rod_3
+    model_9  = 65.0  , // houston_wasp_pha
+    model_10 = 65.0  , // isw_508
+    model_11 = 54.0  , // jeep
+    model_12 = 54.0  , // jeep_civil
+    model_13 = 83.0  , // jefferson_futura_pha
+    model_14 = 65.0  , // jefferson_provincial
+    model_15 = 84.0  , // lassiter_69
+    model_16 = 84.0  , // lassiter_69_destr
+    model_17 = 85.0  , // lassiter_75_fmv
+    model_18 = 85.0  , // lassiter_75_pha
+    model_19 = 75.0  , // milk_truck
+    model_20 = 142.0 , // parry_bus
+    model_21 = 142.0 , // parry_prison
+    model_22 = 50.0  , // potomac_indian
+    model_23 = 55.0  , // quicksilver_windsor_pha
+    model_24 = 55.0  , // quicksilver_windsor_taxi_pha
+    model_25 = 60.0  , // shubert_38
+    model_26 = 60.0  , // shubert_38_destr
+    model_27 = 0.0   , // shubert_armoured
+    model_28 = 75.0  , // shubert_beverly
+    model_29 = 65.0  , // shubert_frigate_pha
+    model_30 = 60.0  , // shubert_hearse
+    model_31 = 60.0  , // shubert_panel
+    model_32 = 60.0  , // shubert_panel_m14
+    model_33 = 60.0  , // shubert_taxi
+    model_34 = 93.0  , // shubert_truck_cc
+    model_35 = "Shubert Truck Flatbed" // Shubert_truck_ct
+    model_36 = 93.0  , // shubert_truck_ct_cigar
+    model_37 = "Shubert Truck Covered"  , // shubert_truck_qd
+    model_38 = 93.0  , // shubert_truck_sg
+    model_39 = 93.0  , // shubert_truck_sp
+    model_40 = 75.0  , // sicily_military_truck
+    model_41 = 75.0  , // smith_200_pha
+    model_42 = 75.0  , // smith_200_p_pha
+    model_43 = 47.0  , // smith_coupe
+    model_44 = 63.0  , // smith_mainline_pha
+    model_45 = 65.0  , // smith_stingray_pha
+    model_46 = 75.0  , // smith_truck
+    model_47 = 60.0  , // smith_v8
+    model_48 = 47.0  , // smith_wagon_pha
+    model_49 = 0.0   , // trailer
+    model_50 = 65.0  , // ulver_newyorker
+    model_51 = 65.0  , // ulver_newyorker_p
+    model_52 = 75.0  , // walker_rocket
+    model_53 = 38.0  , // walter_coupe
+};
 /*
 826.769, 517.451, -11.7677, 89.8741, -0.213281, 0.213751, NorthMillVilleLoadMaterials
 -370.788, -347.463, -13.3999, -179.469, -0.0121328, -1.44906, MidtownUnloadMaterials
@@ -67,7 +174,7 @@ const TRUCK_JOB_Z = -6.86539; //
 
 const TRUCK_JOB_TIMEOUT = 1800; // 30 minutes
 const TRUCK_JOB_SKIN = 130;
-const TRUCK_JOB_SALARY = 12.0;
+const TRUCK_JOB_SALARY = 13.0;
 const TRUCK_JOB_LEVEL = 1;
       TRUCK_JOB_COLOR <- CL_CRUSTA;
 
@@ -79,14 +186,16 @@ local carp2 = false;
 event("onServerStarted", function() {
     log("[jobs] loading truckdriver job...");
                                                                                             //  loaded, playerid
-     truckcars[createVehicle(35, -705.155, 1456, -6.48204, -43.0174, -0.252974, -0.64192)]  <- [ false, null ]; //      Truck1
-     truckcars[createVehicle(35, -708.151, 1453.25, -6.50832, -43.1396, -0.445434, -1.12674)]  <- [ false, null ]; //   Truck2
-     truckcars[createVehicle(35, -711.119, 1450.54, -6.52765, -41.8644, -0.613728, -1.6044)]  <- [ false, null ]; //    Truck3
+    truckcars[createVehicle(35, -705.155, 1456, -6.48204, -43.0174, -0.252974, -0.64192)]  <- [ false, null ]; //      Truck1
+    truckcars[createVehicle(37, -708.151, 1453.25, -6.50832, -43.1396, -0.445434, -1.12674)]  <- [ false, null ]; //   Truck2
+    truckcars[createVehicle(35, -711.119, 1450.54, -6.52765, -41.8644, -0.613728, -1.6044)]  <- [ false, null ]; //    Truck3
+    truckcars[createVehicle(35, -714.315, 1447.55, -6.52792, -41.1587, -1.82778, -0.432325)]  <- [ false, null ]; //    Covered
+    truckcars[createVehicle(37, -717.422, 1444.53, -6.33198, -39.2871, -1.59798, 3.26338)]  <- [ false, false ]; //    Covered
 
-     carp = createVehicle(42, -364.809, -348.672, -13.5259, -0.540874, -0.0051816, -1.09775); // police Midtown
+    carp = createVehicle(42, -364.809, -348.672, -13.5259, -0.540874, -0.0051816, -1.09775); // police Midtown
 
-     createVehicle(27, -368.761, -330.329, -13.1167, 113.28, -0.503684, -1.39627); //Bron1
-     createVehicle(27, -368.435, -366.052, -13.8605, 63.8406, -0.365066, -1.26762); //Bron2
+    createVehicle(27, -368.761, -330.329, -13.1167, 113.28, -0.503684, -1.39627); //Bron1
+    createVehicle(27, -368.435, -366.052, -13.8605, 63.8406, -0.365066, -1.26762); //Bron2
 
     if (isSummer()) {
         carp2 = createVehicle(42, -1604.3, 569.969, -19.9775, -54.2438, 0.27688, -0.144837); // police Most
@@ -203,8 +312,8 @@ function isTruckDriver(playerid) {
  * @param  {int}  playerid
  * @return {Boolean} true/false
  */
-function isPlayerVehicleTruck(playerid) {
-    return (isPlayerInValidVehicle(playerid, 35));
+function isPlayerVehicleTruck(playerid, vehicleid) {
+    return (isPlayerInValidVehicle(playerid, vehicleid));
 }
 
 
@@ -260,7 +369,7 @@ function truckJobTalk( playerid ) {
         }
 
         job_truck[playerid]["userjob"] = userjob;
-        msg( playerid, userjob.LoadText, TRUCK_JOB_COLOR );
+        msg( playerid, userjob.LoadText, vehicleName["model_" + userjob.vehicleid], TRUCK_JOB_COLOR );
         job_truck[playerid]["userstatus"] = "working";
 
 
@@ -282,7 +391,7 @@ function truckJobTalk( playerid ) {
     // если у игрока статус работы == завершил работу
     if (job_truck[playerid]["userstatus"] == "complete") {
         job_truck[playerid]["userstatus"] = null;
-        local amount = TRUCK_JOB_SALARY + (random(-2, 2)).tofloat();
+        local amount = TRUCK_JOB_SALARY + (random(-3, 2)).tofloat();
         msg( playerid, "job.truckdriver.nicejob", [getPlayerName( playerid ), amount] );
         addMoneyToPlayer(playerid, amount);
         return;
@@ -355,6 +464,10 @@ function truckJobLoadUnload( playerid ) {
 
 
     local userjob = job_truck[playerid]["userjob"];
+    dbg(userjob.vehicleid);
+    if (!isPlayerVehicleTruck(playerid, userjob.vehicleid) && isVehicleInValidPoint(playerid, userjob.LoadPointX, userjob.LoadPointY, 4.0 )) {
+        return msg( playerid, "job.truckdriver.needtruck", vehicleName["model_" + userjob.vehicleid], TRUCK_JOB_COLOR );
+    }
 
     if(truckcars[vehicleid][0] && truckcars[vehicleid][1] == playerid && isVehicleInValidPoint(playerid, userjob.LoadPointX, userjob.LoadPointY, 4.0 )) {
         dbg("truck already loaded");
@@ -367,10 +480,6 @@ function truckJobLoadUnload( playerid ) {
 
 
 /*
-    if (!isPlayerVehicleTruck(playerid)) {
-        return msg( playerid, "job.truckdriver.needtruck", TRUCK_JOB_COLOR );
-    }
-
     if(isPlayerVehicleMoving(playerid)){
         return msg( playerid, "job.truckdriver.driving", CL_RED );
     }
