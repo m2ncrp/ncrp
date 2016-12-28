@@ -25,14 +25,6 @@ acmd("police", ["job", "leave"], function(playerid, targetid) {
 acmd("police", ["set", "rank"], function(playerid, targetid, rank) {
     targetid = targetid.tointeger();
     rank = rank.tointeger();
-    local oldRank = getPoliceRank(targetid);
-    local callback = null;
-
-    if (rank > oldRank) {
-        callback = rankUpPolice;
-    } else {
-        callback = rankDownPolice;
-    }
 
     if ( !isOfficer(targetid) ) {
         return msg(playerid, "organizations.police.notanofficer"); // not you, but target
