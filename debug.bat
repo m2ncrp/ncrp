@@ -1,2 +1,0 @@
-node "debug.js"
-pause
