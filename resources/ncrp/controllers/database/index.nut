@@ -154,7 +154,7 @@ function readMysqlSettings() {
 
             myblob.seek(i);
         }
-        dbg(settings);
+
         myblob.close();
 
         return (
@@ -163,7 +163,8 @@ function readMysqlSettings() {
         );
     }
     catch (e) {
-        return dbg(e);
+        dbg(e);
+        return false;
     }
 }
 
