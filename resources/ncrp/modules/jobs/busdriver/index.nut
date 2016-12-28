@@ -160,6 +160,10 @@ event("onPlayerConnect", function(playerid, name, ip, serial ){
 });
 
 event("onPlayerVehicleEnter", function (playerid, vehicleid, seat) {
+    if (!isPlayerVehicleBus(playerid)) {
+        return;
+    }
+
     if(isBusDriver(playerid)) {
         unblockVehicle(vehicleid);
         delayedFunction(4500, function() {
