@@ -4,6 +4,7 @@ include("controllers/database/migrations.nut");
 local connection = null;
 local settings = {};
 
+
 // debug settings
 IS_DATABASE_DEBUG   <- false;
 IS_MYSQL_ENABLED    <- false;
@@ -145,7 +146,7 @@ function readMysqlSettings() {
 
             myblob.seek(i);
         }
-
+        dbg(settings);
         myblob.close();
 
         return (
@@ -154,7 +155,7 @@ function readMysqlSettings() {
         );
     }
     catch (e) {
-        return false;
+        return dbg(e);
     }
 }
 
