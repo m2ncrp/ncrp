@@ -75,6 +75,7 @@ translation("en", {
 
 
 const RUPOR_RADIUS = 75.0;
+const POLICERADIO_RADIUS = 10.0;
 const CUFF_RADIUS = 3.0;
 const BATON_RADIUS = 6.0;
 const POLICE_MODEL = 75;

@@ -93,9 +93,9 @@ class PointSequence {
 
     function check(X, Y, Z, angle, radius) {
         foreach (index, point in sequence) {
-            if ( sequence[index].isInPoint_Strict(X, Y, Z, angle, radius) ) {
-                sequence[index].removeLocalBlip();
-                sequence.remove(index);
+            if ( point.isInPoint_Strict(X, Y, Z, angle, radius) ) {
+                point.removeLocalBlip();
+                this.remove(index);
             }
         }
     }

@@ -4,7 +4,7 @@ const X = 39.4199;
 const Y = 22.7286;
 const Z = -13.6457;
 
-const radius = 2.5;
+const radius = 5.5;
 
 cmd(["cccc1"], function(playerid) {
     local p = Point3d(X, Y, Z, 90.0);
