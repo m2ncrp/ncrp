@@ -2,67 +2,156 @@ include("controllers/database/migrations.nut");
 
 // database code
 local connection = null;
+local settings = {};
 
 // debug settings
-IS_DATABASE_DEBUG <- false;
+IS_DATABASE_DEBUG   <- false;
+IS_MYSQL_ENABLED    <- false;
 
 addEventHandler("onScriptInit", function() {
-    ::log("[database] creating connection...");
+    ::log("[database] trying to read mysql settings...")
+    IS_MYSQL_ENABLED = readMysqlSettings();
 
-    connection = sqlite("ncrp.db");
+    if (IS_MYSQL_ENABLED && !("mysql_connect" in getroottable())) {
+        dbg("database", "mysql failed to load. skipping .mysql settings and falling back to sqlite");
+        IS_MYSQL_ENABLED = false;
+    }
+
+    ::log("[database] creating connection...");
+    if (IS_MYSQL_ENABLED) {
+        dbg("database", "connecting with settings", settings);
+        connection = mysql_connect(settings.hostname, settings.username, settings.password, settings.database);
+        intializeMySQLDDrivers();
+    } else {
+        connection = sqlite("ncrp.db");
+        intializeSQLiteDrivers();
+    }
 
     applyMigrations(connection);
-
-    // sendPlayerMessage = function(id, argument) {
-    //     ::print(argument);
-    // }
-
-    // // testing
-    // triggerServerEventEx("onPlayerConnect", 1, "John_Doe", "256.256.256.256", "SERIAL");
-    // _server_commands["register"](1, "123456");
 });
 
 addEventHandlerEx("onServerStopped", function() {
     ::log("[database] stopping...");
-    connection.close();
+    if (IS_MYSQL_ENABLED) {
+        connection.close();
+    } else {
+        mysql_close(connection);
+    }
 });
+
+function intializeSQLiteDrivers() {
+    /**
+     * Setting up ORM proxier
+     * All db requests will be forwarded to database resource
+     *
+     * @param  {String} queryString compiled request string
+     * @param  {Function} callback which will be called
+     */
+    ORM.Driver.setProxy(function(queryString, callback) {
+        local result = [];
+        local tmp = connection.query(queryString);
+
+        // log query and result
+        if (IS_DATABASE_DEBUG) {
+            dbg("database", "sql", queryString);
+            dbg("database", "result", tmp);
+        }
+
+        // manuanlly push sqlite forced last inserted id after insert
+        if (queryString.slice(0, 6).toupper() == "INSERT") {
+            tmp = connection.query("select last_insert_rowid() as id");
+        }
+
+        // override empty result
+        if (!tmp) tmp = [];
+
+        // override tmp indexes
+        foreach (idx, value in tmp) {
+            result.push(value);
+        }
+
+        return callback ? callback(null, result) : null;
+    });
+
+    ORM.Driver.configure({
+        provider = "sqlite"
+    });
+}
+
+function intializeMySQLDDrivers() {
+    /**
+     * Setting up ORM proxier
+     * All db requests will be forwarded to database resource
+     *
+     * @param  {String} queryString compiled request string
+     * @param  {Function} callback which will be called
+     */
+    ORM.Driver.setProxy(function(queryString, callback) {
+        local result = [];
+        local tmp = mysql_query(connection, queryString);
+
+        // log query and result
+        if (IS_DATABASE_DEBUG) {
+            dbg("database", "sql", queryString);
+            dbg("database", "result", tmp);
+        }
+
+        // // manuanlly push sqlite forced last inserted id after insert
+        if (queryString.slice(0, 6).toupper() == "INSERT") {
+            tmp = mysql_insert_id(connection);//connection.query("select last_insert_rowid() as id");
+        }
+
+        // override empty result
+        if (!tmp) tmp = [];
+
+        // override tmp indexes
+        foreach (idx, value in tmp) {
+            result.push(value);
+        }
+
+        return callback ? callback(null, result) : null;
+    });
+}
 
 /**
- * Setting up ORM proxier
- * All db requests will be forwarded to database resource
- *
- * @param  {String} queryString compiled request string
- * @param  {Function} callback which will be called
+ * Try to read mysql settings for the file
+ * ".mysql" into global "settings" variable
+ * @return {Boolean} [description]
  */
-ORM.Driver.setProxy(function(queryString, callback) {
-    local result = [];
-    local tmp = connection.query(queryString);
+function readMysqlSettings() {
+    try {
+        local myblob = file(".mysql", "r");
+        local buffer = "";
+        local key;
 
-    // log query and result
-    if (IS_DATABASE_DEBUG) {
-        ::log("Incoming SQL request: " + queryString);
-        dbg(tmp);
+        // try to read data from version
+        for (local i = 1; i < myblob.len() + 1; ++i) {
+            local symbol = myblob.readn('b').tochar();
+
+            if (symbol == '='.tochar()) {
+                key = buffer;
+                buffer = "";
+            } else if (symbol == '\n'.tochar()) {
+                settings[key] <- buffer;
+                buffer = "";
+            } else {
+                buffer += symbol;
+            }
+
+            myblob.seek(i);
+        }
+
+        myblob.close();
+
+        return (
+            "hostname" in settings && "username" in settings &&
+            "password" in settings && "database" in settings
+        );
     }
-
-    // manuanlly push sqlite forced last inserted id after insert
-    if (queryString.slice(0, 6).toupper() == "INSERT") {
-        tmp = connection.query("select last_insert_rowid() as id");
+    catch (e) {
+        return false;
     }
-
-    // override empty result
-    if (!tmp) tmp = [];
-
-    // override tmp indexes
-    foreach (idx, value in tmp) {
-        result.push(value);
-    }
-
-    return callback ? callback(null, result) : null;
-});
-
-ORM.Driver.configure({
-    provider = "sqlite"
-});
+}
 
 
 

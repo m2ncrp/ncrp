@@ -31,3 +31,4 @@ positions.txt
 
 # env
 .env
+.mysql
