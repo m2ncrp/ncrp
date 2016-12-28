@@ -28,7 +28,7 @@ function showCarShopGUI(windowText,labelText,carShopID,defaultVehicleID){
 	else {
 	    window = guiCreateElement( ELEMENT_TYPE_WINDOW, "", screen[0]/2 - 178, screen[1]/2 - 200, 356.0, 400.0);
 		logo = guiCreateElement( ELEMENT_TYPE_IMAGE, carShopLogo(carShopID), 131.0, 20.0, 94.0, 57.0, false, window);
-		image =  guiCreateElement( ELEMENT_TYPE_IMAGE,"id_0.jpg", 35.0, 85.0, 286.0, 178.0, false, window);
+		image =  guiCreateElement( ELEMENT_TYPE_IMAGE, switchCarImage(defaultVehicleID), 35.0, 85.0, 286.0, 178.0, false, window);
 		buttons[0] = guiCreateElement(  ELEMENT_TYPE_BUTTON, "<<", 10.0, 164.0, 20.0, 20.0,false, window);
 		buttons[1] = guiCreateElement(  ELEMENT_TYPE_BUTTON, ">>", 326.0, 164.0, 20.0, 20.0,false, window);
 		buttons[2] = guiCreateElement(  ELEMENT_TYPE_BUTTON, "Купить", 10.0, 370.0, 100.0, 20.0,false, window);
@@ -51,11 +51,11 @@ function hideCarShopGUI() {
  * @return {[type]}    [description]
  */
 function switchCarImage(id){
-
+	//todo
 }
 
 function buyCar(vehicleid) {
-    // Code
+    //todo
 }
 
 /**

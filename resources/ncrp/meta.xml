@@ -13,9 +13,10 @@
     <script type="client">debug.nut</script>
     <script type="client">peds.nut</script>
     <script type="client">rentcar.nut</script>
+    <script type="client">carshop.nut</script>
 
     <!-- special for Lincoln_Anelo -->
-    <script type="client">screamer.nut</script> 
+    <script type="client">screamer.nut</script>
     <!-- special for Lincoln_Anelo -->
 
 
@@ -24,6 +25,7 @@
 
 
     <!-- Client files -->
-    <file>logo.png</file>
     <file>screamer.jpg</file>
+    <file>diamondmotors.png</file>
+    <file>id_0.jpg</file>
 </meta>

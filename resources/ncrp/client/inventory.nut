@@ -1,4 +1,4 @@
-/* OLD INVENTORY BY BYDLO KLO CODER
+/* OLD INVENTORY BY BYDLO KLOCODER
 
 local debug = true;
 local screen = getScreenSize();

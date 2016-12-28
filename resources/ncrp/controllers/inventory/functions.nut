@@ -5,5 +5,5 @@ function addItem(playerid,itemID){
 }
 
 function moveItem(playerid,oldPos,newPos){
-	//rodo
+	//todo
 }

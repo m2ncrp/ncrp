@@ -51,7 +51,7 @@ addEventHandler("onServerWeatherSync", function(name = "") {
 // bindKey("b", "down", function() {
 //     sendMessage("loading texture");
 //     log("loading texture");
-//     logo = dxLoadTexture("logo.png");
+//     logo = dxLoadTexture("");
 //     log("texture" + logo);
 // });
 
