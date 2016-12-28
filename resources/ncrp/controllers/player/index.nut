@@ -29,7 +29,8 @@ const JAIL_Z = 10.3252;
 
 default_spawns <- [
     [-555.251,  1702.31, -22.2408], // railway
-    [-11.2921,  1631.85, -20.0296], // tmp bomj spawn
+    [-555.251,  1702.31, -22.2408], // railway
+    // [-11.2921,  1631.85, -20.0296], // tmp bomj spawn
     // [ 100.421,  1776.41, -24.0068], // bomj style
     // [-402.282, -828.907, -21.7456]  // port
     [-344.028, -952.702, -21.7457], // new port
@@ -56,6 +57,18 @@ event("onServerStarted", function() {
                 dbg("player", "falldown", playerid);
                 trigger("onPlayerFallingDown", playerid);
             }
+
+            // store position in-memory
+            if (playerid in xPlayers) {
+                local char = xPlayers[playerid];
+                local pos  = getPlayerPosition(playerid);
+
+                char.housex = pos[0];
+                char.housey = pos[1];
+                char.housez = pos[2];
+                // char.y = pos[1];
+                // char.z = pos[2];
+            }
         }
     }, 500, -1);
 });
@@ -69,7 +82,7 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
             // setup deafults
             char.name    = getPlayerName(playerid);
             char.spawnid = random(0, default_spawns.len() - 1);
-            char.money   = randomf(0.1, 1.75);
+            char.money   = randomf(5.0, 10.0);
             char.dskin   = defaultSkins[random(0, defaultSkins.len() - 1)];
             char.cskin   = char.dskin;
             char.health  = 720.0;
@@ -120,7 +133,6 @@ function trySavePlayer(playerid) {
 
     // get instance
     local char   = xPlayers[playerid];
-    local pos    = getPlayerPositionObj(playerid);
 
     // proxy data back to the model
     char.money   = players[playerid]["money"];
@@ -129,9 +141,6 @@ function trySavePlayer(playerid) {
     char.cskin   = players[playerid]["skin"];
     char.spawnid = players[playerid]["spawn"];
     char.xp      = players[playerid]["xp"];
-    char.housex  = pos.x;
-    char.housey  = pos.y;
-    char.housez  = pos.z;
     char.job     = (players[playerid]["job"]) ? players[playerid]["job"] : "";
     char.health  = getPlayerHealth(playerid);
     char.state   = getPlayerState(playerid);
@@ -190,11 +199,12 @@ event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     trySavePlayer(playerid);
 });
 
-key("f", function(playerid) {
-    if (isPlayerInVehicle(playerid)) {
-        trySavePlayer(playerid);
-    }
-}, KEY_DOWN);
+// key("f", function(playerid) {
+//     if (isPlayerInVehicle(playerid)) {
+//         dbg("player", "save on exit from vehicle");
+//         trySavePlayer(playerid);
+//     }
+// }, KEY_DOWN);
 
 event("onPlayerConnectInit", function(playerid, name, ip, serial) {
     // set player colour

@@ -44,7 +44,7 @@ function hideRentCarGUI () {
 function hideCursor() {
     showCursor(false);
 }
-addEventHandler("hideCursor",hideCursor);
+
 
 addEventHandler( "onGuiElementClick",
 	function(element)

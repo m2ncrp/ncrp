@@ -109,11 +109,26 @@ event("onPlayerConnect", function(playerid, name, ip, serial) {
 });
 
 
-event( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
-    if(isFuelDriver(playerid)) {
+event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
+    // ignore anyhting related to other seats
+    if (seat != 0) return;
+    if (!isPlayerVehicleFuel(playerid)) return;
+
+    // if player on seat 0 is a fuel driver
+    if (isFuelDriver(playerid)) {
+        unblockVehicle(vehicleid);
+
         delayedFunction(4500, function() {
             fuelJobReady(playerid);
         });
+    } else {
+        blockVehicle(vehicleid);
+    }
+});
+
+event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
+    if (seat == 0) {
+        blockVehicle(vehicleid);
     }
 });
 
