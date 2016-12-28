@@ -7,6 +7,9 @@
 class TenCode {
     codes = [
     // Коды-статусы (отражают состояние ситуации);      Source: http://copradar.com/tencodes/
+        ["10-41", "organizations.police.tencode.10-41"], // Офицер заступил на смену
+        ["10-41", "organizations.police.tencode.10-41"], // Офицер закончил смену
+
         ["10-1", "organizations.police.tencode.10-1"],  // Код 1 » Возможны человеческие жертвы, прибыть как можно скорее, действовать аккуратно
         ["10-2", "organizations.police.tencode.10-2"],  // Код 2 » Отбой по вызову, ситуация под контролем, преступник нейтрализован
         ["10-3", "organizations.police.tencode.10-3"], // Тишина в эфире / Stop transmitting
@@ -47,7 +50,7 @@ class TenCode {
         ["10-38", "organizations.police.tencode.10-38"], // Побег из тюрьмы / Jail break
         ["10-39", "organizations.police.tencode.10-39"], // Розыскивается или украден / Wanted or Stolen
         ["10-40", "organizations.police.tencode.10-40"], // Не использовать мигалку и сирену / No lights or siren
-        ["10-41", "organizations.police.tencode.10-41"], // Офицер заступил на службу
+
         ["10-42", "organizations.police.tencode.10-42"], // Превышение скорости / Drag racing
         ["10-43", "organizations.police.tencode.10-43"], // Подозреваемый (имя) под охраной / Subject (name) in custody
         ["10-44", "organizations.police.tencode.10-44"], // Проверка связи / Check signal

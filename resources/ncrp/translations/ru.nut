@@ -576,10 +576,23 @@ translation("ru", {
     "general.noonearound"                       : "Рядом с вами никого нет."
     "general.job.anotherone"                    : "Вы работаете %s, а не %s!"
 
-    "job.police.officer"                        : "офицер полиции"
-    "job.police.detective"                      : "детектив"
+    "job.police.cadet"                          : "кадет"       
+    "job.police.patrol"                         : "патрульный" 
+    "job.police.officer"                        : "офицер полиции"   
+    "job.police.detective"                      : "детектив"          
+    "job.police.sergeant.1"                     : "сержант"            
+    "job.police.sergeant.2"                     : "сержант"            
+    "job.police.lieutenant.1"                   : "лейтенант"         
+    "job.police.lieutenant.2"                   : "лейтенант"         
+    "job.police.Captain.1"                      : "капитан I ранга"            
+    "job.police.Captain.2"                      : "капитан II ранга"            
+    "job.police.Captain.3"                      : "капитан III ранга"            
+    "job.police.commander"                      : "команующий"          
+    "job.police.deputychief"                    : "заместитель шефа"       
+    "job.police.assistantchief"                 : "помошник шефа"    
     "job.police.chief"                          : "шеф полиции"
     "organizations.police.job.getmaxrank"       : "Вы достигли максимального звания: %s."
+    "organizations.police.lowrank"              : "Ваша должность не позволяет вам этого.",
 
     "organizations.police.setjob.byadmin"       : "Вы устроили на работу игрока %s в качестве %s."
     "organizations.police.leavejob.byadmin"     : "Вы уволили %s с работы %s."
@@ -602,6 +615,7 @@ translation("ru", {
     "organizations.police.offduty.notickets"    : "Вы закончили свою смену и не имеете квитанций с собой."
     "organizations.police.offduty.nobaton"      : "У вас нет дубинки, т.к. вы не полицейский."
     "organizations.police.offduty.nobadge"      : "У вас нет с собой жетона, т.к. вы не на смене."
+    "organizations.police.offduty.nokeys"       : "У вас нет ключей с собой, т.к. вы не на смене."
 
     "organizations.police.bitsomeone.bybaton"   : "Вы ударили %s дубинкой."
     "organizations.police.beenbit.bybaton"      : "Вас оглушили дубинкой."
