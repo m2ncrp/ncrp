@@ -32,6 +32,7 @@ translation("en", {
     "job.police.assistantchief"                 : "Assistant chief"    
     "job.police.chief"                          : "Police chief",      
     "organizations.police.job.getmaxrank"       : "You've reached maximum rank: %s.",
+    "organizations.police.job.getminrank"       : "You've reached minimum rank: %s.",
     "organizations.police.lowrank"              : "Your rank is too low for that.",
 
     "organizations.police.setjob.byadmin"       : "You've successfully set job for %s as %s."
@@ -83,6 +84,7 @@ translation("en", {
     "organizations.police.info.cmds.dutyoff"    : "To go off duty",
 
     "organizations.police.onrankup"             : "You was rank up to %s",
+    "organizations.police.onrankdown"           : "You was rank down to %s"
     "organizations.police.onbecame"             : "You became a police officer."
     "organizations.police.onleave"              : "You're not a police officer anymore."
 });

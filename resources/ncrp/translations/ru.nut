@@ -591,8 +591,9 @@ translation("ru", {
     "job.police.deputychief"                    : "заместитель шефа"       
     "job.police.assistantchief"                 : "помошник шефа"    
     "job.police.chief"                          : "шеф полиции"
-    "organizations.police.job.getmaxrank"       : "Вы достигли максимального звания: %s."
-    "organizations.police.lowrank"              : "Ваша должность не позволяет вам этого.",
+    "organizations.police.job.getmaxrank"       : "Вы достигли высшего звания: %s."
+    "organizations.police.job.getminrank"       : "Вы достигли низшего звания: %s."
+    "organizations.police.lowrank"              : "Ваша должность не позволяет вам этого."
 
     "organizations.police.setjob.byadmin"       : "Вы устроили на работу игрока %s в качестве %s."
     "organizations.police.leavejob.byadmin"     : "Вы уволили %s с работы %s."
@@ -643,6 +644,7 @@ translation("ru", {
     "organizations.police.info.cmds.dutyoff"    : "Закончить смену."
 
     "organizations.police.onrankup"             : "Вы были повышены до %s"
+    "organizations.police.onrankdown"           : "Вы были понижены до %s"
     "organizations.police.onbecame"             : "Вы стали офицером полиции."
     "organizations.police.onleave"              : "Вы более не являетесь офицером полиции."
 
