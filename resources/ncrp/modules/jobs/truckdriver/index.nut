@@ -464,8 +464,8 @@ function truckJobLoadUnload( playerid ) {
 
 
     local userjob = job_truck[playerid]["userjob"];
-
-    if (!isPlayerVehicleTruck(playerid, userjob.vehicleid) && isVehicleInValidPoint(playerid, userjob.UnloadPointX, userjob.UnloadPointY, 4.0 )) {
+    dbg(userjob.vehicleid);
+    if (!isPlayerVehicleTruck(playerid, userjob.vehicleid) && isVehicleInValidPoint(playerid, userjob.LoadPointX, userjob.LoadPointY, 4.0 )) {
         return msg( playerid, "job.truckdriver.needtruck", vehicleName["model_" + userjob.vehicleid], TRUCK_JOB_COLOR );
     }
 
