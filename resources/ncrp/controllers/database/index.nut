@@ -6,7 +6,7 @@ local settings = {};
 
 
 // debug settings
-IS_DATABASE_DEBUG   <- false;
+IS_DATABASE_DEBUG   <- true;
 IS_MYSQL_ENABLED    <- false;
 
 addEventHandler("onScriptInit", function() {
