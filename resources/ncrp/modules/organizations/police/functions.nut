@@ -153,7 +153,15 @@ function getPoliceRank(playerid) {
  */
 function setPoliceRank(playerid, rankID) {
     if (rankID >= 0 && rankID < POLICE_RANK.len()) {
+        local oldRankID = getPoliceRank(playerid);
+
         players[playerid].job = POLICE_RANK[rankID];
+
+        if (rankID > oldRankID) {
+            msg( playerid, "organizations.police.onrankup", [ getLocalizedPlayerJob(playerid) ] );
+        } else {
+            msg( playerid, "organizations.police.onrankdown", [ getLocalizedPlayerJob(playerid) ] );
+        }
         return POLICE_RANK[rankID];
     }
     return players[playerid].job;
