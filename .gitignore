@@ -15,6 +15,7 @@
 *.txt
 !xml.exe
 bans.xml
+*.dll
 
 # databases
 *.db
