@@ -1,7 +1,6 @@
 class Officer {
     constructor (playerid) {
-        // set first rank
-        setPlayerJob( playerid, setPoliceRank(playerid, 0) );
+        setPlayerJob( playerid, setPoliceRank(playerid, 0) ); // set first rank
         //policeSetOnDuty(playerid, false);
         msg(playerid, "organizations.police.onbecame");
     }

@@ -16,10 +16,24 @@ translation("en", {
     "general.noonearound"                       : "There's noone around near you.",
     "general.job.anotherone"                    : "You've got %s job, not %s!",
 
-    "job.police.officer"                        : "police officer",
-    "job.police.detective"                      : "detective",
-    "job.police.chief"                          : "police chief",
+    "job.police.cadet"                          : "Police cadet"       
+    "job.police.patrol"                         : "Police patrolman",  
+    "job.police.officer"                        : "Police officer",    
+    "job.police.detective"                      : "Detective"          
+    "job.police.sergeant.1"                     : "Sergant"            
+    "job.police.sergeant.2"                     : "Sergant"            
+    "job.police.lieutenant.1"                   : "Lieutenant"         
+    "job.police.lieutenant.2"                   : "Lieutenant"         
+    "job.police.Captain.1"                      : "Captain I"            
+    "job.police.Captain.2"                      : "Captain II"            
+    "job.police.Captain.3"                      : "Captain III"            
+    "job.police.commander"                      : "Commander"          
+    "job.police.deputychief"                    : "Deputy chief"       
+    "job.police.assistantchief"                 : "Assistant chief"    
+    "job.police.chief"                          : "Police chief",      
     "organizations.police.job.getmaxrank"       : "You've reached maximum rank: %s.",
+    "organizations.police.job.getminrank"       : "You've reached minimum rank: %s.",
+    "organizations.police.lowrank"              : "Your rank is too low for that.",
 
     "organizations.police.setjob.byadmin"       : "You've successfully set job for %s as %s."
     "organizations.police.leavejob.byadmin"     : "You fired %s from %s job."
@@ -42,6 +56,7 @@ translation("en", {
     "organizations.police.offduty.notickets"    : "You off the duty now and you haven't tickets.",
     "organizations.police.offduty.nobaton"      : "You have no baton couse you're not a cop.",
     "organizations.police.offduty.nobadge"      : "You have no badge with you couse you're off duty now.",
+    "organizations.police.offduty.nokeys"       : "You have no keys with you couse you're off duty now.",
 
     "organizations.police.bitsomeone.bybaton"   : "You bet %s by baton.",
     "organizations.police.beenbit.bybaton"      : "You's been bet by baton",
@@ -69,12 +84,14 @@ translation("en", {
     "organizations.police.info.cmds.dutyoff"    : "To go off duty",
 
     "organizations.police.onrankup"             : "You was rank up to %s",
+    "organizations.police.onrankdown"           : "You was rank down to %s"
     "organizations.police.onbecame"             : "You became a police officer."
     "organizations.police.onleave"              : "You're not a police officer anymore."
 });
 
 
 const RUPOR_RADIUS = 75.0;
+const POLICERADIO_RADIUS = 10.0;
 const CUFF_RADIUS = 3.0;
 const BATON_RADIUS = 6.0;
 const POLICE_MODEL = 75;
@@ -94,12 +111,42 @@ POLICE_JAIL_COORDS <- [
 const EBPD_ENTER_RADIUS = 2.0;
 const TITLE_DRAW_DISTANCE = 12.0;
 
-POLICE_RANK <- [
-    "police.officer",    // "Police Officer",
-    "police.detective",  // "Detective",
-    "police.chief"       // "Mein Führer",
+POLICE_RANK <- [ // source: https://youtu.be/i7o0_PMv72A && https://en.wikipedia.org/wiki/Los_Angeles_Police_Department#Rank_structure_and_insignia
+    "police.cadet"          //"Police cadet"       0
+    "police.patrol"         //"Police patrolman",  1
+    "police.officer"        //"Police officer",    2
+    "police.detective"      //"Detective"          3
+    "police.sergeant.1"     //"Sergant"            4
+    "police.sergeant.2"     //"Sergant"            5
+    "police.lieutenant.1"   //"Lieutenant"         6
+    "police.lieutenant.2"   //"Lieutenant"         7
+    "police.Captain.1"      //"Captain I"          8  
+    "police.Captain.2"      //"Captain II"         9  
+    "police.Captain.3"      //"Captain III"        10   
+    "police.commander"      //"Commander"          11
+    "police.deputychief"    //"Deputy chief"       12
+    "police.assistantchief" //"Assistant chief"    13
+    "police.chief"          //"Police chief"       14
 ];
 MAX_RANK <- POLICE_RANK.len()-1;
+
+POLICE_SALLARY_COEF <- [ // calculated as: (-i^2 + 27*i + 28)/200; i - rank number
+    0.14, // 4.20
+    0.27, // 8.10
+    0.39, // 11.70
+    0.5,  // 15.00
+    0.6,  // 18.00
+    0.69, // 20.70
+    0.77, // 23.10
+    0.84, // 25.20
+    0.9,  // 27.00
+    0.95, // 28.50
+    0.99, // 29.70
+    1.02, // 30.60
+    1.04, // 31.20
+    1.05, // 31.50
+    1.05  // 31.50
+];
 
 DENGER_LEVEL <- "green";
 
@@ -143,7 +190,8 @@ function makeMeText(playerid, vargv)  {
  * @return {[type]}          [description]
  */
 function policeJobPaySalary(playerid) {
-    local summa = police[playerid]["ondutyminutes"] * POLICE_SALARY;
+    local rank = getPoliceRank(playerid);
+    local summa = police[playerid]["ondutyminutes"] * POLICE_SALARY * POLICE_SALLARY_COEF[rank];
     addMoneyToPlayer(playerid, summa);
     msg(playerid, "organizations.police.income", [summa.tofloat(), getLocalizedPlayerJob(playerid)], CL_SUCCESS);
     police[playerid]["ondutyminutes"] = 0;
@@ -191,6 +239,14 @@ event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
             // set player wanted level or smth like that
             blockVehicle(vehicleid);
             return msg(playerid, "organizations.police.crime.wasdone", [], CL_GRAY);
+        }
+        if ( isOfficer(playerid) && getPoliceRank(playerid) < 2 ) {
+            blockVehicle(vehicleid);
+            return msg(playerid, "organizations.police.lowrank", [], CL_GRAY);
+        } 
+        if ( isOfficer(playerid) && !isOnPoliceDuty(playerid) ) {
+            blockVehicle(vehicleid);
+            return msg(playerid, "organizations.police.offduty.nokeys", [], CL_GRAY);
         } else {
             unblockVehicle(vehicleid);
         }
@@ -224,25 +280,30 @@ event("onServerMinuteChange", function() {
 
 event("onPoliceDutyOn", function(playerid, rank = null) {
     if (rank == null) {
-        rank = getPlayerJob(playerid);
+        rank = getPoliceRank(playerid);
     }
 
-    if (rank == POLICE_RANK[0]) {
+    if (rank == 2) {
         givePlayerWeapon( playerid, 2, 42 ); // Model 12 Revolver
         if (DENGER_LEVEL == "red") {
             givePlayerWeapon( playerid, 12, 120 ); // M1A1 Thompson
         }
     }
-    if (rank == POLICE_RANK[1]) {
-        givePlayerWeapon( playerid, 4, 56 ); // Colt M1911A1
+    if (rank >= 3 && rank <= 7) {
+        givePlayerWeapon( playerid, 2, 42 ); // Model 12 Revolver
         if (DENGER_LEVEL == "red") {
             givePlayerWeapon( playerid, 8, 48 ); // Remington Model 870 Field gun // on RED level
         }
     }
-    if (rank == POLICE_RANK[2]) {
+    if (rank >= 8 && rank <= 10) {
+        givePlayerWeapon( playerid, 4, 56 ); // Colt M1911A1
+        if (DENGER_LEVEL == "red") {
+            givePlayerWeapon( playerid, 12, 120 ); // M1A1 Thompson
+        }
+    }
+    if (rank >= 11 && rank <= 14) {
         givePlayerWeapon( playerid, 6, 42 ); // Model 19 Revolver
         if (DENGER_LEVEL == "red") {
-            givePlayerWeapon( playerid, 8, 48 ); // Remington Model 870 Field gun // on RED level
             givePlayerWeapon( playerid, 12, 120 ); // M1A1 Thompson
         }
     }
@@ -251,20 +312,23 @@ event("onPoliceDutyOn", function(playerid, rank = null) {
 
 event("onPoliceDutyOff", function(playerid, rank = null) {
     if (rank == null) {
-        rank = getPlayerJob(playerid);
+        rank = getPoliceRank(playerid);
     }
 
-    if (rank == POLICE_RANK[0]) {
+    if (rank == 2) {
         removePlayerWeapon( playerid, 2 ); // Model 12 Revolver
-        removePlayerWeapon( playerid, 12 ); // M1A1 Thompson // on RED level
+        removePlayerWeapon( playerid, 12 ); // M1A1 Thompson
     }
-    if (rank == POLICE_RANK[1]) {
+    if (rank >= 3 && rank <= 7) {
+        removePlayerWeapon( playerid, 2 ); // Model 12 Revolver
+        removePlayerWeapon( playerid, 8 ); // Remington Model 870 Field gun // on RED level
+    }
+    if (rank >= 8 && rank <= 10) {
         removePlayerWeapon( playerid, 4 ); // Colt M1911A1
-        removePlayerWeapon( playerid, 8 ); // Remington Model 870 Field gun // on RED level
+        removePlayerWeapon( playerid, 12 ); // M1A1 Thompson
     }
-    if (rank == POLICE_RANK[2]) {
+    if (rank >= 11 && rank <= 14) {
         removePlayerWeapon( playerid, 6 ); // Model 19 Revolver
-        removePlayerWeapon( playerid, 8 ); // Remington Model 870 Field gun // on RED level
         removePlayerWeapon( playerid, 12 ); // M1A1 Thompson
     }
 });
