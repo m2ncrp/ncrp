@@ -19,10 +19,11 @@ addEventHandler("onScriptInit", function() {
 
     ::log("[database] creating connection...");
     if (IS_MYSQL_ENABLED) {
-        dbg("database", "connecting with settings", settings);
+        dbg("database", "mysql", "connecting with settings", settings);
         connection = mysql_connect(settings.hostname, settings.username, settings.password, settings.database);
         intializeMySQLDDrivers();
     } else {
+        dbg("database", "sqlite", "connecting");
         connection = sqlite("ncrp.db");
         intializeSQLiteDrivers();
     }
@@ -98,7 +99,7 @@ function intializeMySQLDDrivers() {
 
         // // manuanlly push sqlite forced last inserted id after insert
         if (queryString.slice(0, 6).toupper() == "INSERT") {
-            tmp = mysql_insert_id(connection);//connection.query("select last_insert_rowid() as id");
+            tmp = { id = mysql_insert_id(connection) };
         }
 
         // override empty result
@@ -110,6 +111,10 @@ function intializeMySQLDDrivers() {
         }
 
         return callback ? callback(null, result) : null;
+    });
+
+    ORM.Driver.configure({
+        provider = "mysql"
     });
 }
 
