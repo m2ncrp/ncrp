@@ -6,7 +6,7 @@ local settings = {};
 
 
 // debug settings
-IS_DATABASE_DEBUG   <- false;
+IS_DATABASE_DEBUG   <- true;
 IS_MYSQL_ENABLED    <- false;
 
 addEventHandler("onScriptInit", function() {
@@ -22,8 +22,16 @@ addEventHandler("onScriptInit", function() {
     if (IS_MYSQL_ENABLED) {
         dbg("database", "mysql", "connecting with settings", settings);
         connection = mysql_connect(settings.hostname, settings.username, settings.password, settings.database);
-        intializeMySQLDDrivers();
-    } else {
+
+        if (mysql_ping(connection)) {
+            intializeMySQLDDrivers();
+        } else {
+            IS_MYSQL_ENABLED <- false;
+            dbg("database", "mysql", "failed to connect, falling back to sqlite");
+        }
+    }
+
+    if (!IS_MYSQL_ENABLED) {
         dbg("database", "sqlite", "connecting");
         connection = sqlite("ncrp.db");
         intializeSQLiteDrivers();
@@ -90,26 +98,26 @@ function intializeMySQLDDrivers() {
      */
     ORM.Driver.setProxy(function(queryString, callback) {
         local result = [];
-        local tmp = mysql_query(connection, queryString);
+        local query = mysql_query(connection, queryString);
 
         // log query and result
         if (IS_DATABASE_DEBUG) {
             dbg("database", "sql", queryString);
-            dbg("database", "result", tmp);
         }
+
+        local row = {};
 
         // // manuanlly push sqlite forced last inserted id after insert
         if (queryString.slice(0, 6).toupper() == "INSERT") {
-            tmp = { id = mysql_insert_id(connection) };
+            result.push({ id = mysql_insert_id(connection) });
+        } else {
+            while(row = mysql_fetch_assoc(query)) {
+                result.push(row);
+            }
         }
 
-        // override empty result
-        if (!tmp) tmp = [];
-
-        // override tmp indexes
-        foreach (idx, value in tmp) {
-            result.push(value);
-        }
+        // Free the results
+        mysql_free_result( query );
 
         return callback ? callback(null, result) : null;
     });
@@ -146,7 +154,7 @@ function readMysqlSettings() {
 
             myblob.seek(i);
         }
-        dbg(settings);
+
         myblob.close();
 
         return (
@@ -155,7 +163,8 @@ function readMysqlSettings() {
         );
     }
     catch (e) {
-        return dbg(e);
+        dbg(e);
+        return false;
     }
 }
 
