@@ -153,7 +153,15 @@ function getPoliceRank(playerid) {
  */
 function setPoliceRank(playerid, rankID) {
     if (rankID >= 0 && rankID < POLICE_RANK.len()) {
+        local oldRankID = getPoliceRank(playerid);
+
         players[playerid].job = POLICE_RANK[rankID];
+
+        if (rankID > oldRankID) {
+            msg( playerid, "organizations.police.onrankup", [ getLocalizedPlayerJob(playerid) ] );
+        } else {
+            msg( playerid, "organizations.police.onrankdown", [ getLocalizedPlayerJob(playerid) ] );
+        }
         return POLICE_RANK[rankID];
     }
     return players[playerid].job;
@@ -165,7 +173,18 @@ function setPoliceRank(playerid, rankID) {
  * @return {Boolean}          [description]
  */
 function isPoliceRankUpPossible(playerid) {
-    return (getPoliceRank(playerid) != null && getPoliceRank(playerid) < MAX_RANK);
+    local rank = getPoliceRank(playerid);
+    return (getPoliceRank(playerid) != null &&  rank < MAX_RANK);
+}
+
+/**
+ * Retrun true if player didn't reach MAX_RANK
+ * @param  {[type]}  playerid [description]
+ * @return {Boolean}          [description]
+ */
+function isPoliceRankDownPossible(playerid) {
+    local rank = getPoliceRank(playerid);
+    return (getPoliceRank(playerid) != null && rank > 0);
 }
 
 /**
@@ -176,12 +195,32 @@ function isPoliceRankUpPossible(playerid) {
 function rankUpPolice(playerid) {
     if (isPoliceRankUpPossible(playerid)) {
         // increase rank
-        setPoliceRank(playerid, getPoliceRank(playerid) + 1);
-
+        setPlayerJob( playerid, 
+            setPoliceRank(playerid, getPoliceRank(playerid) + 1)
+        );
         // send message
         msg( playerid, "organizations.police.onrankup", [ getLocalizedPlayerJob(playerid) ] );
     } else {
         msg( playerid, "organizations.police.job.getmaxrank", [ localize( "job." + POLICE_RANK[MAX_RANK], [], getPlayerLocale(playerid)) ] );
+    }
+}
+
+/**
+ * Increment rank if it's not MAX_RANK
+ * @param  {[type]} playerid [description]
+ * @return {[type]}          [description]
+ */
+function rankDownPolice(playerid) {
+    if (isPoliceRankDownPossible(playerid)) {
+        // decrease rank
+        setPlayerJob( playerid, 
+            setPoliceRank(playerid, getPoliceRank(playerid) - 1)
+        );
+
+        // send message
+        msg( playerid, "organizations.police.onrankdown", [ getLocalizedPlayerJob(playerid) ] );
+    } else {
+        msg( playerid, "organizations.police.job.getminrank", [ localize( "job." + POLICE_RANK[0], [], getPlayerLocale(playerid)) ] );
     }
 }
 
