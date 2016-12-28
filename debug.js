@@ -90,6 +90,12 @@ function main() {
         }
     });
 
+    process.on('exit', function () {
+        //handle your on exit code
+        console.log("Exiting, have a nice day");
+        m2o.stdin.write("exit\n");
+    });
+
     // let handler = function(filename) {
     //     console.log('chnaged', filename);
 

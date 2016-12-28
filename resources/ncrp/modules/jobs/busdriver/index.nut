@@ -3,6 +3,7 @@ include("modules/jobs/busdriver/commands.nut");
 local job_bus = {};
 local busStops = {};
 local routes = {};
+local carp = false;
 
 const RADIUS_BUS = 2.0;
 const BUS_JOB_X = -422.731;
@@ -89,6 +90,13 @@ event("onServerStarted", function() {
     createVehicle(20, -436.652, 427.656, 0.907598, 44.6088, -0.0841779, 0.205202);
     createVehicle(20, -437.04, 438.027, 0.907163, 45.1754, -0.100916, 0.242581);
     createVehicle(20, -410.198, 493.193, -0.21792, -179.657, -3.80509, -0.228946);
+    createVehicle(20, -426.371, 410.698, 0.742629, 90.2978, -3.42313, 0.371656);
+    createVehicle(20, -412.107, 410.674, -0.0407671, 89.4833, -3.28604, 1.37194);
+
+    createVehicle(27, -1559.61, -297.071, -20.0909, -0.0439384, 0.275704, 0.537192); //Bronevik Sand Island
+
+    carp = createVehicle(42, -1559.61, -296.908, -20.0912, -0.0724972, 0.000332189, 0.525066); // police Sand Island
+
 
   //busStops[0]   <-  busStop("NAME",                                              public ST                                   private
     busStops[1]   <-  busStop("Uptown. Platform #1",              busv3( -400.996,   490.847,  -1.01301 ),   busv3( -404.360,   488.435,   -0.568764 ));
@@ -137,6 +145,12 @@ event("onServerStarted", function() {
 
 });
 
+
+event("onPlayerSpawn", function(playerid) {
+    setVehicleBeaconLightState(carp, true);
+});
+
+
 event("onPlayerConnect", function(playerid, name, ip, serial ){
      job_bus[playerid] <- {};
      job_bus[playerid]["busready"] <- false;
@@ -145,12 +159,23 @@ event("onPlayerConnect", function(playerid, name, ip, serial ){
      job_bus[playerid]["busBlip"] <- null;
 });
 
-event( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
+event("onPlayerVehicleEnter", function (playerid, vehicleid, seat) {
+    if (!isPlayerVehicleBus(playerid)) {
+        return;
+    }
+
     if(isBusDriver(playerid)) {
+        unblockVehicle(vehicleid);
         delayedFunction(4500, function() {
             busJobReady(playerid);
         });
+    } else {
+        blockVehicle(vehicleid);
     }
+});
+
+event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
+    blockVehicle(vehicleid);
 });
 
 function busStop(a, b, c) {

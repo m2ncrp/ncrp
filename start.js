@@ -54,7 +54,7 @@ bot.on('ready', () => {
 let m2o = startServer();
 
 function startServer() {
-    let m2o;
+    let server;
     let errorlog = [];
     started = true;
 
@@ -67,17 +67,17 @@ function startServer() {
     if (process.platform == "darwin") {
         // do noting
     } else if (process.platform == "win32") {
-        m2o = spawn(path.join(__dirname, "m2online-svr.exe"));
+        server = spawn(path.join(__dirname, "m2online-svr.exe"));
     } else {
-        m2o = spawn("/usr/bin/wine", [path.join(__dirname, "m2online-svr.exe")]);
+        server = spawn("/usr/bin/wine", [path.join(__dirname, "m2online-svr.exe")]);
     }
 
-    m2o.on('error', (err) => {
+    server.on('error', (err) => {
         return console.error(err);
     });
 
     // on data (logs)
-    m2o.stdout.on('data', (data) => {
+    server.stdout.on('data', (data) => {
         data = data.toString().trim();
 
         console.log(data);
@@ -184,7 +184,7 @@ function startServer() {
     });
 
     // on error (logs)
-    m2o.stderr.on('data', (data) => {
+    server.stderr.on('data', (data) => {
         console.log(data.toString().trim());
         if (!ready) {
             return 0;
@@ -198,7 +198,7 @@ function startServer() {
     });
 
     // on finish (code 0 - success, other - error)
-    m2o.on('close', (code) => {
+    server.on('close', (code) => {
         console.log("exited with code:", code);
 
         if (code != 0) {
@@ -213,7 +213,7 @@ function startServer() {
         clearInterval(ticker);
     });
 
-    return m2o;
+    return server;
 }
 
 // create an event listener for messages

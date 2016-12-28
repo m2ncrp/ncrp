@@ -116,6 +116,7 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     addVehiclePassenger(vehicleid, playerid);
 
     if (seat == 0) {
+        // set state of the engine as on
         if (vehicleid in __vehicles) {
             __vehicles[vehicleid].state = true;
         }
@@ -123,6 +124,7 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
 
     // check blocking
     if (isVehicleOwned(vehicleid) && seat == 0) {
+        dbg("entering owned vehicle");
         if (isPlayerVehicleOwner(playerid, vehicleid)) {
             unblockVehicle(vehicleid);
         } else {
@@ -185,17 +187,17 @@ event("onServerStopping", function() {
 
 // force resetting vehicle position to death point
 event("onPlayerDeath", function(playerid) {
+    dbg("player", "death", "vehicle", getAuthor(playerid), getVehiclePlateText(getPlayerVehicle(playerid)));
+
     if (isPlayerInVehicle(playerid)) {
         local vehicleid = getPlayerVehicle(playerid);
 
         delayedFunction(1500, function() {
             setVehiclePositionObj(vehicleid, getVehiclePositionObj(vehicleid));
-            dbg("player", "death", vehicleid);
         });
 
         delayedFunction(5000, function() {
             setVehiclePositionObj(vehicleid, getVehiclePositionObj(vehicleid));
-            dbg("player", "death", vehicleid);
         });
     }
 });
