@@ -1,6 +1,6 @@
 include("controllers/translator/commands.nut");
 
-local __translations = {};
+__translations <- {};
 
 /**
  * Register transaltion table
