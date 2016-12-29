@@ -56,8 +56,8 @@ translation("en", {
     "organizations.police.duty.alreadyon"       : "You're already on duty now.",
     "organizations.police.duty.alreadyoff"      : "You're already off duty now.",
     "organizations.police.notinpolicevehicle"   : "You should be in police vehicle!",
-    "organizations.police.ticket.givewithreason": "%s give you ticket for %s.", //  Type /accept %i.
-    "organizations.police.ticket.given"         : "You've given ticket to %s for %s.",
+    "organizations.police.ticket.givewithreason": "%s give you ticket for %s (%.2f).", //  Type /accept %i.
+    "organizations.police.ticket.given"         : "You've given ticket to %s for %s (%.2f).",
     "organizations.police.offduty.notickets"    : "You off the duty now and you haven't tickets.",
     "organizations.police.offduty.nobaton"      : "You have no baton couse you're not a cop.",
     "organizations.police.offduty.nobadge"      : "You have no badge with you couse you're off duty now.",
