@@ -169,11 +169,11 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
                     setLastActiveSession(playerid);
 
                     // send message success
-                    msg(playerid, "auth.success.autologin", CL_SUCCESS);
                     dbg("login", getAuthor(playerid), "autologin");
                     screenFadein(playerid, 250, function() {
                         trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
                     });
+                    msg(playerid, "auth.success.autologin", CL_SUCCESS);
 
                     return;
                 }
