@@ -15,11 +15,10 @@ function onServerFreezePlayer(state) {
     if (isInputVisible()) {
         ticker = timer(function () {
             onServerFreezePlayer(false);
-        }, 1000, -1);
+        }, 1000, 1);
     } else {
         togglePlayerControls(false);
         if (ticker) {
-            ticker.Kill();
             ticker = null;
         }
     }
