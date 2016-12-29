@@ -24,6 +24,7 @@ function showAuthGUI(){
 	guiSetMovable(window,false);
 	guiSetSizable(window,false);
 	showCursor(true);
+	// guiSetAlpha(window, 0.1);
 	isAuth = true;
 }
 addEventHandler("showAuthGUI", showAuthGUI);
@@ -44,6 +45,7 @@ function showRegGUI(){
 	guiSetMovable(window,false);
 	guiSetSizable(window,false);
 	showCursor(true);
+	// guiSetAlpha(window, 0.1);
 	isAuth = false;
 }
 addEventHandler("showRegGUI", showRegGUI);
@@ -59,6 +61,9 @@ function destroyAuthGUI(){
 		delayedFunction(500, function() {
 			showCursor(false);
 		})
+
+		image = null;
+		window = null;
 	}
 }
 addEventHandler("destroyAuthGUI", destroyAuthGUI);
@@ -79,7 +84,7 @@ addEventHandler( "onGuiElementClick",function(element){ //this shit need some re
 		if(element == button[1]){
 			if(guiGetText(input[0]) == guiGetText(input[1])){
 				if(isValidEmail(guiGetText(input[2]))){
-					guiSetText(input[2], "Введён не корректный email");
+					guiSetText(input[2], "Введён некорректный email");
 				}
 				else {
 					local password = guiGetText(input[0]);
@@ -107,6 +112,10 @@ addEventHandler("onClientFrameRender", function(a) {
 		if (idx == getLocalPlayer()) continue;
 		setPlayerPosition(idx, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z);
 	}
+
+	// if (window && guiGetAlpha(window) < 1.0) {
+	// 	guiSetAlpha(window, guiGetAlpha(window) + 0.01);
+	// }
 
 	showChat(false);
 });

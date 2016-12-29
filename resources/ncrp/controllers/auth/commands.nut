@@ -15,9 +15,9 @@ function registerFunc(playerid, password, email = null) {
         // if player is logined
         if (account){
             trigger(playerid, "authErrorMessage", plocalize(playerid, "auth.error.login"));
-            msg(playerid, "auth.error.login", CL_ERROR);
+            //msg(playerid, "auth.error.login", CL_ERROR);
             return;
-        } 
+        }
 
         // create account
         account = Account();
@@ -33,7 +33,7 @@ function registerFunc(playerid, password, email = null) {
         Account.findOneBy({ username = account.username }, function(err, result) {
             if (result) {
                 trigger(playerid, "authErrorMessage", plocalize(playerid, "auth.error.register"));
-                msg(playerid, "auth.error.register", CL_ERROR);
+                //msg(playerid, "auth.error.register", CL_ERROR);
             } else {
                 ORM.Query("select count(*) cnt from @Account where serial like ':serial'")
                 .setParameter("serial", getPlayerSerial(playerid))
@@ -41,7 +41,7 @@ function registerFunc(playerid, password, email = null) {
                     // no more than N accounts
                     if (result.cnt >= AUTH_ACCOUNTS_LIMIT) {
                         trigger(playerid, "authErrorMessage", plocalize(playerid, "auth.error.tomany"));
-                        msg(playerid, "auth.error.tomany", CL_ERROR);
+                        //msg(playerid, "auth.error.tomany", CL_ERROR);
                         return;
                     }
 
@@ -80,7 +80,7 @@ function loginFunc(playerid, password) {
         // if player is logined
         if (account) {
             trigger(playerid, "authErrorMessage", plocalize(playerid, "auth.error.login"));
-            msg(playerid, "auth.error.login", CL_ERROR);
+            //msg(playerid, "auth.error.login", CL_ERROR);
             return;
         }
 
@@ -92,7 +92,7 @@ function loginFunc(playerid, password) {
             // no accounts found
             if (!account){
                 trigger(playerid, "authErrorMessage", plocalize(playerid, "auth.error.notfound"));
-                msg(playerid, "auth.error.notfound", CL_ERROR);
+                //msg(playerid, "auth.error.notfound", CL_ERROR);
                 return ;
             }
 
