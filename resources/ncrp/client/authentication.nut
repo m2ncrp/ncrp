@@ -132,3 +132,7 @@ addEventHandler("resetPlayerIntroScreen",resetPlayerIntroScreen);
 function delayedFunction(time, callback, additional = null) {
     return additional ? timer(callback, time, 1, additional) : timer(callback, time, 1);
 }
+
+addEventHandler("authErrorMessage", function (errorText) {
+    	guiSetText(label[0], errorText);
+	});
