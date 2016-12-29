@@ -10,7 +10,7 @@ local isAuth;
 function showAuthGUI(){
 	image = guiCreateElement(13,"logo.png", screen[0]/2 - 148.0, screen[1]/2 - 220.0, 296.0, 102.0);
 	window = guiCreateElement( ELEMENT_TYPE_WINDOW, "Авторизация", screen[0]/2 - 192.5, screen[1]/2 - 65.2, 385.0, 135.0 );
-	label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, "Аккаунт уже зарегестрирован, введите ваш пароль!", 58.0, 30.0, 300.0, 20.0, false, window);
+	label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, "Аккаунт уже зарегистрирован. Введите ваш пароль:", 58.0, 30.0, 300.0, 20.0, false, window);
 	input[0] = guiCreateElement( ELEMENT_TYPE_EDIT, "Пароль", 92.0, 60.0, 200.0, 20.0, false, window);
 	button[0] = guiCreateElement( ELEMENT_TYPE_BUTTON, "Авторизоваться", 92.0, 90.0, 200.0, 20.0,false, window);
 	guiSetMovable(window,false);
@@ -23,7 +23,7 @@ addEventHandler("showAuthGUI", showAuthGUI);
 function showRegGUI(){
 	image = guiCreateElement(13,"logo.png", screen[0]/2 - 148.0, screen[1]/2 - 220.0, 296.0, 102.0);
 	window = guiCreateElement( ELEMENT_TYPE_WINDOW, "Регистрация", screen[0]/2 - 222.5, screen[1]/2 - 100.0, 455.0, 200.0 );
-	label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, "Регистрация нового аккаунта, заполните поля ниже!", 85.0, 30.0, 300.0, 20.0, false, window);
+	label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, "Регистрация нового аккаунта. Заполните поля ниже:", 85.0, 30.0, 300.0, 20.0, false, window);
 	label[1] = guiCreateElement( ELEMENT_TYPE_LABEL, "Придумайте пароль: ", 90.0, 60.0, 300.0, 20.0, false, window);
 	label[2] = guiCreateElement( ELEMENT_TYPE_LABEL, "Повторите пароль:", 90.0, 90.0, 300.0, 20.0, false, window);
 	label[3] = guiCreateElement( ELEMENT_TYPE_LABEL, "Email:", 90.0, 120.0, 300.0, 20.0, false, window);
