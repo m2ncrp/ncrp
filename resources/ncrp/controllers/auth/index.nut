@@ -181,12 +181,12 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
                 msg(playerid, "---------------------------------------------", CL_SILVERSAND);
                 msg(playerid, "auth.welcome", username);
                 if (account) {
-                    delayedFunction(1000, function() {trigger(playerid, "showAuthGUI");});
+                    delayedFunction(1500, function() {trigger(playerid, "showAuthGUI");});
                     msg(playerid, "auth.registered");
                     msg(playerid, "*");
                     msg(playerid, "auth.command.login");
                 } else {
-                    delayedFunction(1000, function() {trigger(playerid, "showRegGUI");});
+                    delayedFunction(1500, function() {trigger(playerid, "showRegGUI");});
                     msg(playerid, "auth.notregistered");
                     msg(playerid, "*");
                     msg(playerid, "auth.command.register");
@@ -223,15 +223,15 @@ event("onPlayerAccountChanged", function(playerid) {
     accounts[playerid].save();
 });
 
-event("onServerSecondChange", function() {
-    if (getSecond() % 15) return; // each 15 seconds
+// event("onServerSecondChange", function() {
+//     if (getSecond() % 15) return; // each 15 seconds
 
-    foreach (playerid, data in baseData) {
-        if (isPlayerConnected(playerid) && !isPlayerLogined(playerid) && !isPlayerAuthBlocked(playerid)) {
-            msg(playerid, "auth.notification");
-        }
-    }
-});
+//     foreach (playerid, data in baseData) {
+//         if (isPlayerConnected(playerid) && !isPlayerLogined(playerid) && !isPlayerAuthBlocked(playerid)) {
+//             msg(playerid, "auth.notification");
+//         }
+//     }
+// });
 
 /**
  * Cross resource handling

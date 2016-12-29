@@ -13,7 +13,11 @@ function registerFunc(playerid, password, email = null) {
 
     Account.getSession(playerid, function(err, account) {
         // if player is logined
-        if (account) return msg(playerid, "auth.error.login", CL_ERROR);
+        if (account){
+            trigger(playerid, "authErrorMessage", plocalize(playerid, "auth.error.login"));
+            //msg(playerid, "auth.error.login", CL_ERROR);
+            return;
+        }
 
         // create account
         account = Account();
@@ -28,14 +32,17 @@ function registerFunc(playerid, password, email = null) {
 
         Account.findOneBy({ username = account.username }, function(err, result) {
             if (result) {
-                msg(playerid, "auth.error.register", CL_ERROR);
+                trigger(playerid, "authErrorMessage", plocalize(playerid, "auth.error.register"));
+                //msg(playerid, "auth.error.register", CL_ERROR);
             } else {
                 ORM.Query("select count(*) cnt from @Account where serial like ':serial'")
                 .setParameter("serial", getPlayerSerial(playerid))
                 .getSingleResult(function(err, result) {
                     // no more than N accounts
                     if (result.cnt >= AUTH_ACCOUNTS_LIMIT) {
-                        return msg(playerid, "auth.error.tomany", CL_ERROR);
+                        trigger(playerid, "authErrorMessage", plocalize(playerid, "auth.error.tomany"));
+                        //msg(playerid, "auth.error.tomany", CL_ERROR);
+                        return;
                     }
 
                     account.save(function(err, result) {
@@ -72,7 +79,9 @@ function loginFunc(playerid, password) {
     Account.getSession(playerid, function(err, account) {
         // if player is logined
         if (account) {
-            return msg(playerid, "auth.error.login", CL_ERROR);
+            trigger(playerid, "authErrorMessage", plocalize(playerid, "auth.error.login"));
+            //msg(playerid, "auth.error.login", CL_ERROR);
+            return;
         }
 
         // try to find logined account
@@ -81,7 +90,11 @@ function loginFunc(playerid, password) {
             password = md5(password)
         }, function(err, account) {
             // no accounts found
-            if (!account) return msg(playerid, "auth.error.notfound", CL_ERROR);
+            if (!account){
+                trigger(playerid, "authErrorMessage", plocalize(playerid, "auth.error.notfound"));
+                //msg(playerid, "auth.error.notfound", CL_ERROR);
+                return ;
+            }
 
             // update data
             account.ip       = getPlayerIp(playerid);
