@@ -6,6 +6,7 @@ translation("en", {
     "shops.repairshop.repair.payed"       : "[REPAIR SHOP] You pay $%.2f for repair car. Current balance $%s. Come to us again!"
     "shops.repairshop.repaint.payed"      : "[REPAIR SHOP] You pay $%.2f for repaint car. Current balance $%s. Come to us again!"
     "shops.repairshop.needwait"           : "[REPAIR SHOP] Please, wait while your car is on repair..."
+    "shops.repairshop.ownership.wrong"    : "Sorry mate, but it's not your car. I won't repaint that."
 
     "shops.repairshop.help.title"         : "List of available commands for REPAIR SHOP:"
     "shops.repairshop.help.repair"        : "Repair car"
