@@ -1,17 +1,38 @@
 local _3Dtext_vectors = {};
 local _3Dtext_objects = {};
 
+local ticker = null;
+local loadedTexts  = {};
+local visibleTexts = {};
+
 addEventHandler("onClientFramePreRender", function() {
-    foreach(i,obj in _3Dtext_objects) {
-        local pos = obj.pos;
-        _3Dtext_vectors[i] <- getScreenFromWorld(pos.x, pos.y, (pos.z + 1.0));
+    foreach (idx, obj in visibleTexts) {
+        obj["coords"] <- getScreenFromWorld(obj.pos.x, obj.pos.y, obj.pos.z + 1.0);
     }
 });
 
-addEventHandler("onClientFrameRender", function(post) {
-    if (!post) {
-        foreach(i,obj in _3Dtext_objects) {
+addEventHandler("onClientFrameRender", function(aftergui) {
+    if (aftergui) return;
+
+    foreach (idx, obj in visibleTexts) {
+        if (!("coords" in obj)) continue;
+
+        local coords = obj.coords;
+
+        // hacky check
+        if (coords[2] < 1) {
+            dxDrawText(obj.name, coords[0] - obj.dims[0] * 0.5, coords[1], obj.color, false, "tahoma-bold");
+        }
+    }
+});
+
+addEventHandler("onServerClientStarted", function(version) {
+    ticker = timer(function() {
+
+        foreach (idx, obj in loadedTexts) {
             local pos = obj.pos;
+
+            // get local position
             local lclPos;
             if (isPlayerInVehicle(getLocalPlayer())) {
                 lclPos = getVehiclePosition(getPlayerVehicle(getLocalPlayer()));
@@ -19,17 +40,32 @@ addEventHandler("onClientFrameRender", function(post) {
                 lclPos = getPlayerPosition(getLocalPlayer());
             }
 
-            if (typeof(lclPos) != "array") return;
-            local fDistance = getDistanceBetweenPoints3D(pos.x, pos.y, pos.z, lclPos[0], lclPos[1], lclPos[2]);
+            if (typeof lclPos != "array") return;
 
-            if (fDistance <= obj.distance && (i in _3Dtext_vectors) && _3Dtext_vectors[i][2] < 1) {
-                local dims = dxGetTextDimensions(obj.name, 1.0, "tahoma-bold");
+            // get dist^2
+            local distance = pow(pos.x - lclPos[0], 2) + pow(pos.y - lclPos[1], 2) + pow(pos.z - lclPos[2], 2);
+            local limit = pow(obj.distance, 2);
 
-                // dxDrawText(obj.name, (_3Dtext_vectors[i][0] - (dims[0] / 2)) + 1, _3Dtext_vectors[i][1] + 1, 0xFF000000, false, "tahoma-bold");
-                dxDrawText(obj.name, (_3Dtext_vectors[i][0] - (dims[0] / 2)), _3Dtext_vectors[i][1], obj.color, false, "tahoma-bold");
+            // log("checking dist with " + distance + " and limit " + limit);
+
+            if (obj.uid in visibleTexts) {
+                if (limit > distance) continue;
+
+                // text was visible, now remove it
+                delete visibleTexts[obj.uid];
+            } else {
+                if (limit < distance) continue;
+
+                if (!("dims" in obj)) {
+                    obj["dims"] <- dxGetTextDimensions(obj.name, 1.0, "tahoma-bold");
+                }
+
+                // text has become visible
+                visibleTexts[obj.uid] <- obj;
             }
         }
-    }
+
+    }, 100, -1);
 });
 
 addEventHandler("onServer3DTextAdd", function(uid, x, y, z, text, color, d) {
@@ -45,11 +81,15 @@ addEventHandler("onServer3DTextAdd", function(uid, x, y, z, text, color, d) {
         distance = d.tofloat()
     };
 
-    _3Dtext_objects[obj.uid] <- obj;
+    loadedTexts[obj.uid] <- obj;
 });
 
 addEventHandler("onServer3DTextDelete", function(uid) {
-    if (uid in _3Dtext_objects) {
-        delete _3Dtext_objects[uid];
+    if (uid in loadedTexts) {
+        delete loadedTexts[uid];
+    }
+
+    if (uid in visibleTexts) {
+        delete visibleTexts[uid];
     }
 });

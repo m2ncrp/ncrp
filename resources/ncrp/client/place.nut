@@ -1,7 +1,7 @@
 local placeRegistry = {};
 local ticker = null;
 
-addEventHandler("onServerPlayerStarted", function() {
+addEventHandler("onServerClientStarted", function(version) {
     ticker = timer(onPlayerTick, 100, -1);
 });
 
