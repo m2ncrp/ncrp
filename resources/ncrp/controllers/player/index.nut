@@ -124,6 +124,9 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
             trigger(playerid, "onServerIntefaceCharacter", getLocalizedPlayerJob(playerid, "en"), getPlayerLevel(playerid) );
             trigger(playerid, "onServerInterfaceMoney", getPlayerMoney(playerid));
             screenFadeout(playerid, 500);
+
+            // try to undfreeze player
+            freezePlayer(playerid, false);
         });
     });
 });

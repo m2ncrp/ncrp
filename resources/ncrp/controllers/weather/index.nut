@@ -31,8 +31,8 @@ local WEATHERS = {
     WINTER = [
         [0, 7, ["DTFreeRideNightSnow", "DT04part02"] ],
         [8, 11, ["DT05part01JoesFlat", "DT03part01JoesFlat", "DTFreeRideDaySnow"] ],
-        [12, 13, ["DT05part02FreddysBar", "DTFreeRideDayWinter", "DT05part04Distillery", "DT04part01JoesFlat"] ],
-        [14, 15, ["DT02part01Railwaystation", "DT05part03HarrysGunshop", "DT05part05ElGreco"] ],
+        [12, 13, ["DT05part02FreddysBar", "DTFreeRideDayWinter", "DT05part04Distillery", "DT04part01JoesFlat", "DT05part04Distillery", "DT05part04Distillery"] ],
+        [14, 15, ["DT02part01Railwaystation", "DT05part03HarrysGunshop", "DT05part05ElGreco", "DT05part04Distillery"] ],
         [16, 17, ["DT02part02JoesFlat", "DT02part04Giuseppe", "DT03part02FreddysBar"] ],
         [18, 20, ["DT05Distillery_inside", "DT02part05Derek", "DT02part03Charlie"] ],
         [21, 23, ["DT02NewStart1", "DT03part03MariaAgnelo", "DT02NewStart2", "DT03part04PriceOffice"] ],

@@ -52,7 +52,7 @@ event("onServerStarted", function() {
 key("e", function(playerid) {
     foreach (idx, pos in spawnHelperPositions) {
         if (!isInRadius(playerid, pos[0], pos[1], pos[2], TUTORIAL_RADIUS)) {
-            return;
+            continue;
         }
 
         // player is near the spawn helper
