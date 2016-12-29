@@ -7,8 +7,10 @@ local spawnHelperMessages = {};
 local playerCache = {};
 
 const TUTORIAL_AMOUNT_SOFT_LIMIT = 1000;
+const TUTORIAL_RADIUS = 3.0;
 
 translation("en", {
+    "tutorial.continue" :  "(( Для продолжения нажимайте E ))"
     "turorial.spawn.1"  :  "Hey there friend, i see you've just arrived there. If you need any help - i'll be glad to help."
     "tutorial.spawn.2"  :  "You are in the Empire Bay, city where you can make your own story. But in order to survive here - you need money."
     "tutorial.spawn.3"  :  "You can earn money in several ways. Some people choose legal jobs, but some are going dark ways."
@@ -39,8 +41,8 @@ event("onServerStarted", function() {
 
     // create helper text for peds
     foreach (idx, pos in spawnHelperPositions) {
-        create3DText ( pos[0], pos[1], pos[2] + 0.20, "Press E to talk", CL_WHITE.applyAlpha(150), 3.0 );
-        create3DText ( pos[0], pos[1], pos[2] + 1.0, pos[3], CL_WHITE, 15.0);
+        create3DText ( pos[0], pos[1], pos[2] + 0.20, "Press E to talk", CL_WHITE.applyAlpha(150), TUTORIAL_RADIUS );
+        // create3DText ( pos[0], pos[1], pos[2] + 1.0, pos[3], CL_WHITE, 15.0);
     }
 });
 
@@ -49,7 +51,7 @@ event("onServerStarted", function() {
  */
 key("e", function(playerid) {
     foreach (idx, pos in spawnHelperPositions) {
-        if (!isInRadius(playerid, pos[0], pos[1], pos[2], 15.0)) {
+        if (!isInRadius(playerid, pos[0], pos[1], pos[2], TUTORIAL_RADIUS)) {
             return;
         }
 
@@ -67,8 +69,13 @@ key("e", function(playerid) {
             playerCache[playername] = 0;
         }
 
-        msg(playerid, "-----------------------------------------------------------------", CL_WHITE);
+        msg(playerid, "------------------------------------------------------------------------", CL_WHITE);
         msg(playerid, pos[3] + ": " + plocalize(playerid, spawnHelperMessages[lang][playerCache[playername]++]), CL_EUCALYPTUS);
+
+        if (playerCache[playername] == 1) {
+            msg(playerid, "tutorial.continue");
+        }
+
         msg(playerid, "");
     }
 });
