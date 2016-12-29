@@ -3,6 +3,7 @@ include("controllers/player/PlayerList.nut");
 include("controllers/player/functions.nut");
 include("controllers/player/anticheat.nut");
 include("controllers/player/respawn");
+include("controllers/player/afk.nut");
 
 players <- {};
 xPlayers <- {};
