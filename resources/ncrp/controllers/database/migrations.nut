@@ -87,3 +87,9 @@ migrate(function(connection) {
 migrate(function(connection) {
     connection.query("ALTER TABLE tbl_characters ADD COLUMN `state` VARCHAR(255) NOT NULL DEFAULT 'free';");
 });
+
+// 29.12.16
+// added account email
+migrate(function(connection) {
+    connection.query("ALTER TABLE tbl_accounts ADD COLUMN `email` VARCHAR(255) NOT NULL DEFAULT '';");
+});

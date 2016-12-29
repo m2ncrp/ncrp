@@ -1,3 +1,4 @@
+/*
 local screen = getScreenSize()
 local img;
 local audio;
@@ -22,3 +23,4 @@ addEventHandler("onClientFrameRender", function(post) {
         dxDrawTexture(img, 0.0, 0.0, screen[0] / 700, screen[1] / 645, 0.0, 0.0, 0.0, 255);
     }
 });
+*/

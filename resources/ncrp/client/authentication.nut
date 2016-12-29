@@ -7,6 +7,12 @@ local button = array(2);
 local image;
 local isAuth;
 
+// stuff needed for hiding players
+local otherPlayerLocked = true;
+const DEFAULT_SPAWN_X    = -1027.02;
+const DEFAULT_SPAWN_Y    =  1746.63;
+const DEFAULT_SPAWN_Z    =  10.2325;
+
 function showAuthGUI(){
 	//setPlayerPosition( getLocalPlayer(), -412.0, 1371.0, 36.0 );
 	//setPlayerPosition( getLocalPlayer(), -746.0, 1278.0, 15.5 );
@@ -46,9 +52,13 @@ function destroyAuthGUI(){
 	if(window){
 		guiSetVisible(window,false);
 		guiSetVisible(image,false);
-		showCursor(false);
+
 		guiDestroyElement(window);
 		guiDestroyElement(image);
+
+		delayedFunction(500, function() {
+			showCursor(false);
+		})
 	}
 }
 addEventHandler("destroyAuthGUI", destroyAuthGUI);
@@ -89,6 +99,18 @@ addEventHandler( "onGuiElementClick",function(element){ //this shit need some re
 		}
 	});
 
+addEventHandler("onClientFrameRender", function(a) {
+	// teleport players
+	if (!otherPlayerLocked || a) return;
+
+	foreach (idx, value in getPlayers()) {
+		if (idx == getLocalPlayer()) continue;
+		setPlayerPosition(idx, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z);
+	}
+
+	showChat(false);
+});
+
 function isValidEmail(email)
 {
     local check = regexp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"); //Email Validation Regex
@@ -102,6 +124,8 @@ addEventHandler("setPlayerIntroScreen",setPlayerIntroScreen);
 
 function resetPlayerIntroScreen () {
 	setPlayerRotation(getLocalPlayer(), 0.0, 0.0, 0.0);
+	otherPlayerLocked = false;
+	showChat(true);
 }
 addEventHandler("resetPlayerIntroScreen",resetPlayerIntroScreen);
 
