@@ -226,6 +226,7 @@ cmd(["ticket"], function(playerid, targetid, reason) {
         return msg(playerid, "organizations.police.notanofficer");
     }
     if ( isOnPoliceDuty(playerid) ) {
+        local reason = reason.tointeger();
         local targetid  = targetid.tointeger();
         local pos       = getPlayerPosition(targetid);
         local price     = POLICE_TICKET_PRICELIST[reason][0];
