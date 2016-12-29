@@ -151,7 +151,7 @@ cmd("dice", function ( playerid ) {
 
 cmd("hat", function ( playerid, count = null) {
     if (count == null) {
-        msg( playerid, "utils.hatnull");
+        return msg( playerid, "utils.hatnull");
     }
 
     local count = count.tointeger();
