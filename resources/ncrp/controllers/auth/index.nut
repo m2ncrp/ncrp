@@ -93,6 +93,10 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
         locale = "ru"
     };
 
+    if (DEBUG) {
+        return dbg("skipping auth for debug mode");
+    }
+
     // check playername validity
     if (!REGEX_USERNAME.match(username) ||
         username.find("  ") != null ||
