@@ -451,7 +451,7 @@ function busJobStop( playerid ) {
         msg( playerid, "job.bus.gotonextbusstop", busStops[busID].name, BUS_JOB_COLOR );
 
         freezePlayer( playerid, false);
-        delayedFunction(1000, function () { freezePlayer( playerid, false); }
+        delayedFunction(1000, function () { freezePlayer( playerid, false); });
     });
 
 }
