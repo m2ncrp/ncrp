@@ -254,7 +254,7 @@ event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
             blockVehicle(vehicleid);
             return msg(playerid, "organizations.police.crime.wasdone", [], CL_GRAY);
         }
-        if ( isOfficer(playerid) && getPoliceRank(playerid) < 2 ) {
+        if ( isOfficer(playerid) && getPoliceRank(playerid) < 1 ) {
             blockVehicle(vehicleid);
             return msg(playerid, "organizations.police.lowrank", [], CL_GRAY);
         } 
