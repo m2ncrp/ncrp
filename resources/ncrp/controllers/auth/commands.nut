@@ -1,12 +1,14 @@
 /**
  * Command allows players to register
  * using their current username and specified password
- *
- * TODO: add check for existing
  */
-function registerFunc(playerid, password,email) {
+function registerFunc(playerid, password, email = null) {
     if (isPlayerAuthBlocked(playerid)) {
         return;
+    }
+
+    if (!email) {
+        return msg(playerid, "please use /register PASSWORD EMAIL to register");
     }
 
     Account.getSession(playerid, function(err, account) {
@@ -22,7 +24,7 @@ function registerFunc(playerid, password,email) {
         account.locale   = getPlayerLocale(playerid);
         account.created  = getTimestamp();
         account.logined  = getTimestamp();
-        //account.email    = email;
+        account.email    = email.tostring();
 
         Account.findOneBy({ username = account.username }, function(err, result) {
             if (result) {
@@ -35,16 +37,18 @@ function registerFunc(playerid, password,email) {
                     if (result.cnt >= AUTH_ACCOUNTS_LIMIT) {
                         return msg(playerid, "auth.error.tomany", CL_ERROR);
                     }
-                        account.save(function(err, result) {
+
+                    account.save(function(err, result) {
                         account.addSession(playerid);
                         setLastActiveSession(playerid);
 
                         // send success registration message
                         msg(playerid, "auth.success.register", CL_SUCCESS);
                         dbg("registration", getAuthor(playerid));
-                        screenFadein(playerid, 250, function() {
-                        trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
                         trigger(playerid, "destroyAuthGUI");
+
+                        screenFadein(playerid, 250, function() {
+                            trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
                         });
                     });
                 });
@@ -53,7 +57,7 @@ function registerFunc(playerid, password,email) {
     });
 }
 
-//simplecmd("register", registerFunc); // removed, doesn't work with field email
+simplecmd("register", registerFunc); // removed, doesn't work with field email
 addEventHandler("registerGUIFunction",registerFunc);
 
 /**
@@ -93,12 +97,13 @@ function loginFunc(playerid, password) {
             msg(playerid, "auth.success.login", CL_SUCCESS);
             dbg("login", getAuthor(playerid));
             trigger(playerid, "destroyAuthGUI");
+
             screenFadein(playerid, 250, function() {
-            trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
-            trigger(playerid, "resetPlayerIntroScreen");
+                trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
             });
         });
     });
 }
+
 simplecmd("login", loginFunc);
 addEventHandler("loginGUIFunction",loginFunc);
