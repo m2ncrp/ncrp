@@ -10,7 +10,7 @@ const TUTORIAL_AMOUNT_SOFT_LIMIT = 1000;
 const TUTORIAL_RADIUS = 3.0;
 
 translation("en", {
-    "tutorial.continue" :  "(( Для продолжения нажимайте E ))"
+    "tutorial.continue" :  "(( Press E to continue... ))"
     "turorial.spawn.1"  :  "Hey there friend, i see you've just arrived there. If you need any help - i'll be glad to help."
     "tutorial.spawn.2"  :  "You are in the Empire Bay, city where you can make your own story. But in order to survive here - you need money."
     "tutorial.spawn.3"  :  "You can earn money in several ways. Some people choose legal jobs, but some are going dark ways."

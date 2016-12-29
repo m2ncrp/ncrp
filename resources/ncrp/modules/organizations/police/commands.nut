@@ -224,23 +224,28 @@ policecmd("rupor", function(playerid, text) {
 
 // /ticket <id> <reason-id>
 cmd(["ticket"], function(playerid, targetid, reason) {
+    local targetid  = targetid.tointeger();
+    if ( playerid == targetid ) {
+        return;
+    }
     if ( !isOfficer(playerid) ) {
         return msg(playerid, "organizations.police.notanofficer");
     }
+    if ( !isPlayerConnected(targetid) ) {
+        return msg(playerid, "general.playeroffline");
+    }
     if ( isOnPoliceDuty(playerid) ) {
-        local reason = reason.tointeger();
-        local targetid  = targetid.tointeger();
+        local reason    = reason.tointeger();
         local pos       = getPlayerPosition(targetid);
-        local price     = POLICE_TICKET_PRICELIST[reason][0];
+        local price     = POLICE_TICKET_PRICELIST[reason][0].tofloat();
         local player_reason = plocalize(playerid, POLICE_TICKET_PRICELIST[reason][1]);
         local target_reason = plocalize(targetid, POLICE_TICKET_PRICELIST[reason][1]);
 
-        if (canMoneyBeSubstracted(targetid, price) && checkDistanceBtwTwoPlayersLess(playerid, targetid, 2.5)) {
-            subMoneyToPlayer(targetid, price);
-            msg(targetid, "organizations.police.ticket.givewithreason", [getAuthor(playerid), target_reason, playerid], price); // add distance check
-            msg(playerid, "organizations.police.ticket.given", [getAuthor(targetid), player_reason, playerid], price); // add distance check
+        if (checkDistanceBtwTwoPlayersLess(playerid, targetid, POLICE_TICKET_DISTANCE)) {
+            msg(targetid, "organizations.police.ticket.givewithreason", [getAuthor(playerid), target_reason, price]);
+            msg(playerid, "organizations.police.ticket.given", [getAuthor(targetid), player_reason, price]);
             
-            PoliceTicket( getPlayerName(targetid), POLICE_TICKET_PRICELIST[reason][1], "open", pos[0], pos[1], pos[2])
+            PoliceTicket( getPlayerName(targetid), POLICE_TICKET_PRICELIST[reason][1], price, "open", pos[0], pos[1], pos[2])
                 .save();
         }
     } else {
