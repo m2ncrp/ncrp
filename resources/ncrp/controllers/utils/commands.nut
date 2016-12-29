@@ -53,8 +53,6 @@ acmd(["getGPS", "getpos"], function ( playerid, str ) {
         }
 
         // also write whitespace after the number
-        dbg(idx+"    "+(pos.len()-1));
-
         if (idx != (pos.len()-1) && idx != (pos.len()-2)) {
             posfile.writen(',', 'b');
             posfile.writen(' ', 'b');
