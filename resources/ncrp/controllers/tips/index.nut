@@ -25,7 +25,9 @@ local infoTips = [
     "tips.openmap"      ,
     "tips.switchchats"  ,
     "tips.chatvisible"  ,
-    "tips.turnlights"
+    "tips.turnlights"   ,
+    "tips.dice"         ,
+    "tips.hat"
 ];
 
 translation("en", {
@@ -53,6 +55,9 @@ translation("en", {
     "tips.switchchats"  :   "[TIPS] Use F1-F4 keys to switch between different types of the chat."
     "tips.chatvisible"  :   "[TIPS] Press F5 to show/hide window of chat."
     "tips.turnlights"   :   "[TIPS] Z - left turn lights; X - hazard lights; C - right turn lights."
+    "tips.dice"         :   "[TIPS] Use /dice for throwing dice."
+    "tips.hat"          :   "[TIPS] Use /hat COUNT for pull a ball from hat, where COUNT balls in hat."
+
 });
 
 
