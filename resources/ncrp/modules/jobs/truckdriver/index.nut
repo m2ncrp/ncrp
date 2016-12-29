@@ -425,14 +425,14 @@ function truckJobRefuseLeave( playerid ) {
 
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
         msg( playerid, "job.leave", TRUCK_JOB_COLOR );
+        remove3DText ( job_truck[playerid]["leavejob3dtext"] );
 
         setPlayerJob( playerid, null );
 
         players[playerid]["skin"] = players[playerid]["default_skin"];
         setPlayerModel( playerid, players[playerid]["default_skin"]);
 
-        remove3DText ( job_truck[playerid]["leavejob3dtext"] );
-        // remove private blip job
+                // remove private blip job
         removePersonalJobBlip ( playerid );
 
         truckJobRemovePrivateBlipText ( playerid );
