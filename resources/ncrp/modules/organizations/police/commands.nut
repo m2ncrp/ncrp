@@ -225,9 +225,9 @@ policecmd("rupor", function(playerid, text) {
 // /ticket <id> <reason-id>
 cmd(["ticket"], function(playerid, targetid, reason) {
     local targetid  = targetid.tointeger();
-    if ( playerid == targetid ) {
-        return;
-    }
+    // if ( playerid == targetid ) {
+    //     return;
+    // }
     if ( !isOfficer(playerid) ) {
         return msg(playerid, "organizations.police.notanofficer");
     }
