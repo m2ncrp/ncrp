@@ -85,7 +85,12 @@ function triggerKeyboardPress(playerid, key, state) {
 
     if (name in __keyboard) {
         foreach (idx, __callback in __keyboard[name].callbacks) {
-            __callback(playerid);
+            try {
+                __callback(playerid);
+            }
+            catch (e) {
+                return error(e + " for key " + name);
+            }
         }
     } else {
         // return dbg("[keyboard] unknown keybind", key, state);

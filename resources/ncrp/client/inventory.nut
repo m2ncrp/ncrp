@@ -165,7 +165,7 @@ addEventHandler( "onGuiElementClick",
     {
         for(local i = 0; i<30;i++)
 		{
-			if( element == invImage[i]) 
+			if( element == invImage[i])
 			{
 				if(playerItems[i] >0)
 				{
@@ -193,7 +193,7 @@ addEventHandler( "onGuiElementClick",
 						guiChangeImage(invImage[i],items[playerItems[i]][2]);
 						guiChangeImage(invImage[selectedItem],items[0][2]);
 						guiSetAlpha(invImage[selectedItem], 0.7);
-						guiSetAlpha(invImage[i], 0.7);	
+						guiSetAlpha(invImage[i], 0.7);
 					}
 				}
 			}

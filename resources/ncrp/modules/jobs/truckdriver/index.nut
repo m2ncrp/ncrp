@@ -90,7 +90,7 @@ translation("en", {
     "job.truckdriver.empty"             : "[TRUCK] Truck is empty."
     "job.truckdriver.takemoney"         : "[TRUCK] Go back to transport facilities near Highbrook Bridge to park truck and get money."
 
-    "job.truckdriver.help.title"            :   "List of available commands for TRUCK DRIVER:"
+    "job.truckdriver.help.title"            :   "Controls for TRUCK DRIVER:"
     "job.truckdriver.help.job"              :   "E button"
     "job.truckdriver.help.jobtext"          :   "Get truck driver job near Robert Casey"
     "job.truckdriver.help.jobleave"         :   "Q button"
@@ -232,12 +232,12 @@ job_truck[playerid]["userstatus"] == "complete";    -  если игрок вы�
 */
 
 
-key(["e"], function(playerid) {
+key("e", function(playerid) {
     truckJobTalk( playerid );
     truckJobLoadUnload( playerid )
 }, KEY_UP);
 
-key(["q"], function(playerid) {
+key("q", function(playerid) {
     truckJobRefuseLeave( playerid );
 }, KEY_UP);
 
@@ -350,10 +350,8 @@ function truckJobTalk( playerid ) {
 
         if(!isPlayerHaveJob(playerid)) {
             msg( playerid, "job.truckdriver.now" );
+            setPlayerJob( playerid, "truckdriver");
             screenFadeinFadeoutEx(playerid, 250, 200, function() {
-
-                setPlayerJob( playerid, "truckdriver");
-
                 players[playerid]["skin"] = TRUCK_JOB_SKIN;
                 setPlayerModel( playerid, TRUCK_JOB_SKIN );
             });
@@ -373,7 +371,9 @@ function truckJobTalk( playerid ) {
 
 
         job_truck[playerid]["truckblip3dtext"] = truckJobCreatePrivateBlipText(playerid, userjob.LoadPointX, userjob.LoadPointY, userjob.LoadPointZ, "LOAD HERE", "Press E to load");
-        job_truck[playerid]["leavejob3dtext"] = createPrivate3DText (playerid, TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), RADIUS_TRUCK );
+        if(job_truck[playerid]["leavejob3dtext"] == null) {
+            job_truck[playerid]["leavejob3dtext"] = createPrivate3DText (playerid, TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), RADIUS_TRUCK );
+        }
         return;
     }
 
@@ -389,9 +389,7 @@ function truckJobTalk( playerid ) {
     // если у игрока статус работы == завершил работу
     if (job_truck[playerid]["userstatus"] == "complete") {
         job_truck[playerid]["userstatus"] = null;
-        local amount = TRUCK_JOB_SALARY + (random(-3, 2)).tofloat();
-        msg( playerid, "job.truckdriver.nicejob", [getPlayerName( playerid ), amount] );
-        addMoneyToPlayer(playerid, amount);
+        truckGetSalary( playerid );
         return;
     }
 }
@@ -413,9 +411,8 @@ function truckJobRefuseLeave( playerid ) {
     }
 
     if (job_truck[playerid]["userstatus"] == "complete") {
-        msg( playerid, "job.truckdriver.nicejob", [getPlayerName( playerid ), TRUCK_JOB_SALARY] );
+        truckGetSalary( playerid );
         msg( playerid, "job.truckdriver.goodluck");
-        addMoneyToPlayer(playerid, TRUCK_JOB_SALARY);
         job_truck[playerid]["userstatus"] = null;
     }
 
@@ -425,13 +422,14 @@ function truckJobRefuseLeave( playerid ) {
 
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
         msg( playerid, "job.leave", TRUCK_JOB_COLOR );
+        remove3DText ( job_truck[playerid]["leavejob3dtext"] );
+        job_truck[playerid]["leavejob3dtext"] = null;
 
         setPlayerJob( playerid, null );
 
         players[playerid]["skin"] = players[playerid]["default_skin"];
         setPlayerModel( playerid, players[playerid]["default_skin"]);
 
-        remove3DText ( job_truck[playerid]["leavejob3dtext"] );
         // remove private blip job
         removePersonalJobBlip ( playerid );
 
@@ -440,6 +438,12 @@ function truckJobRefuseLeave( playerid ) {
 
 }
 
+
+function truckGetSalary( playerid ) {
+    local amount = TRUCK_JOB_SALARY + (random(-3, 2)).tofloat();
+    addMoneyToPlayer(playerid, amount);
+    msg( playerid, "job.truckdriver.nicejob", [getPlayerName( playerid ), amount] );
+}
 
 
 // working good, check
