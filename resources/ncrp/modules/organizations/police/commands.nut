@@ -228,7 +228,7 @@ cmd(["ticket"], function(playerid, targetid, reason) {
     if ( isOnPoliceDuty(playerid) ) {
         local targetid  = targetid.tointeger();
         local pos       = getPlayerPosition(targetid);
-        local price     = reason[0];
+        local price     = POLICE_TICKET_PRICELIST[reason][0];
         local player_reason = plocalize(playerid, POLICE_TICKET_PRICELIST[reason][1]);
         local target_reason = plocalize(targetid, POLICE_TICKET_PRICELIST[reason][1]);
 
