@@ -240,7 +240,7 @@ cmd(["ticket"], function(playerid, targetid, reason) {
             msg(targetid, "organizations.police.ticket.givewithreason", [getAuthor(playerid), target_reason, playerid]); // add distance check
             msg(playerid, "organizations.police.ticket.given", [getAuthor(playerid), player_reason, playerid]); // add distance check
             
-            PoliceTicket( getPlayerName(targetid), reason[1], "open", pos[0], pos[1], pos[2])
+            PoliceTicket( getPlayerName(targetid), POLICE_TICKET_PRICELIST[reason][1], "open", pos[0], pos[1], pos[2])
                 .save();
         }
     } else {
