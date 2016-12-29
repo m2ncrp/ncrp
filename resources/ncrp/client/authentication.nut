@@ -79,7 +79,7 @@ addEventHandler( "onGuiElementClick",function(element){ //this shit need some re
 		if(element == button[1]){
 			if(guiGetText(input[0]) == guiGetText(input[1])){
 				if(isValidEmail(guiGetText(input[2]))){
-					guiSetText(input[2], "Введён не корректный email");
+					guiSetText(input[2], "Введён некорректный email");
 				}
 				else {
 					local password = guiGetText(input[0]);
