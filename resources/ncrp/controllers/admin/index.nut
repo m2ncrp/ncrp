@@ -19,6 +19,7 @@ function isPlayerAdmin(playerid) {
 
 function freezePlayer( targetid, value ) {
     togglePlayerControls( targetid.tointeger(), value );
+    trigger( targetid.tointeger(), "onServerFreezePlayer", value );
 }
 
 function stopPlayerVehicle( targetid ) {

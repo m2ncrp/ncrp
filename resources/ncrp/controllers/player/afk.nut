@@ -7,7 +7,7 @@ event("onServerPlayerStarted", function(playerid) {
     afkPlayers[playerid] <- getTimestamp();
 });
 
-event("onServerPlayerCommand", function(playerid) {
+event("onServerPlayerCommand", function(playerid, cmdlog) {
     setPlayerAfk(playerid, false);
 });
 
@@ -18,10 +18,10 @@ event("onServerMinuteChange", function() {
         }
 
         local pos1 = getPlayerPosition(playerid);
-        local pos2 = afkLastPositions[players];
+        local pos2 = afkLastPositions[playerid];
 
         if ((pos2[0] - pos1[0]) > 2.5 || (pos2[1] - pos1[1]) > 2.5) {
-            afkLastPositions[players] = [ pos1[0], pos1[1] ];
+            afkLastPositions[playerid] = [ pos1[0], pos1[1] ];
             setPlayerAfk(playerid, false);
         }
     }
