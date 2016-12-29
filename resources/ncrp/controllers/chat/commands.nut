@@ -146,15 +146,19 @@ cmd(["help", "h", "halp", "info"], function(playerid) {
     msg_help(playerid, title, commands);
 
     // extra utils
+    //
+    /*
     if (getPlayerName(playerid) == "Lincoln_Angelo") {
         trigger(playerid, "onServerExtraUtilRequested");
     }
+    */
 });
-
+/*
 function eggScreamer(playerid) {
     dbg("admin", "screamer", getAuthor(playerid));
     return trigger(playerid, "onServerExtraUtilRequested");
 }
+*/
 
 cmd(["help", "h", "halp", "info"], "chat", function(playerid) {
     local title = "List of available commands for CHAT:";
