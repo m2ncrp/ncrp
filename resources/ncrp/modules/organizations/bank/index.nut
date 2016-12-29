@@ -130,6 +130,7 @@ event("onServerHourChange", function() {
 
 
 function helpBank(playerid) {
+    //trigger(playerid, "showBankGUI");
     local title = "bank.help.commandslist";
     local commands = [
         { name = "help.cmd.bank.account",        desc = "help.bank.account" },
