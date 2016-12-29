@@ -229,8 +229,8 @@ cmd(["ticket"], function(playerid, targetid, reason) {
         local targetid  = targetid.tointeger();
         local pos       = getPlayerPosition(targetid);
         local price     = reason[0];
-        local player_reason = plocalize(playerid, reason[1]);
-        local target_reason = plocalize(targetid, reason[1]);
+        local player_reason = plocalize(playerid, POLICE_TICKET_PRICELIST[reason][1]);
+        local target_reason = plocalize(targetid, POLICE_TICKET_PRICELIST[reason][1]);
 
         if (canMoneyBeSubstracted(targetid, price) && checkDistanceBtwTwoPlayersLess(playerid, targetid, 2.5)) {
             subMoneyToPlayer(targetid, price);
