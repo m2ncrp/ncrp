@@ -12,6 +12,15 @@ event ("onServerStarted", function() {
     rentcars[createVehicle(47, 554.652, 802.5, -12.5, 38.7988, 0.134398, -0.381655)]    <- [ 0.03, "free" ];
     rentcars[createVehicle(15, 548.724, 802.5, -12.5, 45.0359, 0.392815, 0.00316114)]   <- [ 0.17, "free" ];
 
+    // Vokzal
+    rentcars[createVehicle(43, -547.328, 1583.16, -16.3215, 1.03211, 0.00669244, -0.743004)]  <- [ 0.02, "free" ];
+    rentcars[createVehicle(53, -539.312, 1600.12, -16.3687, -179.923, -0.285566, 0.826165)]   <- [ 0.04, "free" ];
+    rentcars[createVehicle(25, -536.281, 1599.85, -16.4633, -179.624, -0.121403, 0.225714)]   <- [ 0.03, "free" ];
+
+    //Port
+    rentcars[createVehicle(43, -419.388, -667.238, -20.8829, 87.5226, -0.29715, -1.18796)]  <- [ 0.02, "free" ];
+    rentcars[createVehicle(44, -419.57, -670.935, -21.0624, 88.1328, -0.25944, -1.9095)]    <- [ 0.08, "free" ];
+    rentcars[createVehicle(31, -419.314, -677.798, -21.2509, -93.2246, 0.213046, -2.23081)] <- [ 0.03, "free" ];
     // need for helper in game
 /*  local houston = createVehicle(9, 1037.01, 842.146, -3.55631, 70.4218, 5.2121, 0.6804);
     rentcars[houston]     <- [ 0.07, "free" ];
@@ -82,7 +91,7 @@ event ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
         local whorent = getPlayerWhoRentVehicle(vehicleid);
         if(whorent != playerid) {
             blockVehicle(vehicleid);
-            msg(playerid, "rentcar.canrent", [getVehicleRentPrice(vehicleid)*10, getVehicleRentPrice(vehicleid)*60 ]);
+            //msg(playerid, "rentcar.canrent", [getVehicleRentPrice(vehicleid)*10, getVehicleRentPrice(vehicleid)*60 ]);
             showRentCarGUI(playerid, vehicleid);
         } else {
             unblockVehicle(vehicleid);
