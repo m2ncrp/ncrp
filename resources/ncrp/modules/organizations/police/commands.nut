@@ -1,3 +1,5 @@
+include("modules/organizations/police/models/PoliceTicket.nut");
+
 acmd("police", "danger", function(playerid, level) {
     setDangerLevel(playerid, level);
 });
