@@ -602,6 +602,10 @@ translation("ru", {
     "organizations.police.call.new"             : "[POLICE RADIO] Происшествие по адресу %s"
     "organizations.police.call.foruser"         : "Вы вызвали полицию по адресу %s"
 
+    "organizations.police.lawbreak.warning"     : "неповиновение сотруднику EBPD"
+    "organizations.police.lawbreak.trafficviolation" : "нарушение ПДД"
+    "organizations.police.lawbreak.roadaccident": "ДТП" 
+
     "organizations.police.income"               : "[EBPD] Ваша зарплата составляет $%.2f за службу в качестве %s."
 
     "organizations.police.crime.wasdone"        : "Лучше бы ты этого не делал..."
@@ -613,6 +617,7 @@ translation("ru", {
     "organizations.police.duty.alreadyoff"      : "Вы уже закончили свою смену."
     "organizations.police.notinpolicevehicle"   : "Вы должны быть в служебной машине!"
     "organizations.police.ticket.givewithreason": "%s выписал вам штраф за %s." // Введите /accept %i.
+    "organizations.police.ticket.given"         : "Вы выписали штраф %s за %s."
     "organizations.police.offduty.notickets"    : "Вы закончили свою смену и не имеете квитанций с собой."
     "organizations.police.offduty.nobaton"      : "У вас нет дубинки, т.к. вы не полицейский."
     "organizations.police.offduty.nobadge"      : "У вас нет с собой жетона, т.к. вы не на смене."

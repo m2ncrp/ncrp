@@ -220,19 +220,38 @@ policecmd("rupor", function(playerid, text) {
 });
 
 
-cmd(["ticket"], function(playerid, targetid, price, ...) {
+// /ticket <id> <reason-id>
+cmd(["ticket"], function(playerid, targetid, reason) {
     if ( !isOfficer(playerid) ) {
         return msg(playerid, "organizations.police.notanofficer");
     }
     if ( isOnPoliceDuty(playerid) ) {
-        local reason = makeMeText(playerid, vargv);
-        local targetid = targetid.tointeger();
-        msg(targetid, "organizations.police.ticket.givewithreason", [getAuthor(playerid), reason, playerid]); // add distance check
+        local targetid  = targetid.tointeger();
+        local pos       = getPlayerPosition(targetid);
+        local price     = reason[0];
+        local player_reason = plocalize(playerid, reason[1]);
+        local target_reason = plocalize(targetid, reason[1]);
+
         if (canMoneyBeSubstracted(targetid, price) && checkDistanceBtwTwoPlayersLess(playerid, targetid, 2.5)) {
             subMoneyToPlayer(targetid, price);
+            msg(targetid, "organizations.police.ticket.givewithreason", [getAuthor(playerid), target_reason, playerid]); // add distance check
+            msg(playerid, "organizations.police.ticket.given", [getAuthor(playerid), player_reason, playerid]); // add distance check
+            
+            PoliceTicket( getPlayerName(targetid), reason[1], "open", pos[0], pos[1], pos[2])
+                .save();
         }
     } else {
         return msg(playerid, "organizations.police.offduty.notickets");
+    }
+});
+
+
+cmd(["tickets"], function( playerid, targetid = null ) {
+    if ( targetid == null ) {
+        // show all player assign tickets
+    } else {
+        targetid = targetid.tointeger();
+        // show target player asign tickets
     }
 });
 
