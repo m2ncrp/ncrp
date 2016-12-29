@@ -2,23 +2,25 @@
 //                                                          ADDITIONAL COMMAND
 //================================================================================================================================================
 
-acmd(["getGPS", "getpos"], function ( playerid, ... ) {
+acmd(["getGPS", "getpos"], function ( playerid, str ) {
+    local vehicleModel = -1;
     if( isPlayerInVehicle( playerid ) ) {
         local vehicleid = getPlayerVehicle( playerid ) ;
-        local vehicleModel = getVehicleModel ( vehicleid );
+        vehicleModel = getVehicleModel ( vehicleid );
         local vehPos = getVehiclePosition( vehicleid );
         local vehRot = getVehicleRotation( vehicleid );
-        log( "Vehicle iD: " + vehicleid + " is at "+ vehicleModel + ", " + vehPos[0] + ", " + vehPos[1] + ", " + vehPos[2] + ", " + vehRot[0] + ", " + vehRot[1] + ", " + vehRot[2] );
+        log( "Vehicle: " + vehicleid + ", "+ vehicleModel + ", " + vehPos[0] + ", " + vehPos[1] + ", " + vehPos[2] + ", " + vehRot[0] + ", " + vehRot[1] + ", " + vehRot[2] );
     } else {
         local plaPos = getPlayerPosition( playerid ) ;
         local plaRot = getPlayerRotation( playerid );
-        log( "Player " + playerid + " is at " + plaPos[0] + ", " + plaPos[1] + ", " + plaPos[2] + ", " + plaRot[0] + ", " + plaRot[1] + ", " + plaRot[2] );
+        log( "Player: " + plaPos[0] + ", " + plaPos[1] + ", " + plaPos[2] + ", " + plaRot[0] + ", " + plaRot[1] + ", " + plaRot[2] );
     }
 
     // for info about reading modes check out
     // http://www.cplusplus.com/reference/cstdio/fopen/
     local posfile = file("positions.txt", "a");
     local pos, rot;
+
 
     if (isPlayerInVehicle(playerid)) {
         pos = getVehiclePosition( getPlayerVehicle(playerid) );
@@ -28,17 +30,17 @@ acmd(["getGPS", "getpos"], function ( playerid, ... ) {
         rot = getPlayerRotation( playerid );
     }
 
+
+    pos.insert(0, vehicleModel);
+
     foreach (idx, value in rot) {
         pos.push(value);
     }
 
     // read rest of the input string (if there any)
     // concat it, and push to the pos array
-    if (vargv.len() > 0) {
-        pos.push(vargv.reduce(function(a, b) {
-            return a + " " + b;
-        }));
-    }
+
+    pos.push(" // "+str);
 
     // iterate over px,y,z]
     foreach (idx, value in pos) {
@@ -51,14 +53,17 @@ acmd(["getGPS", "getpos"], function ( playerid, ... ) {
         }
 
         // also write whitespace after the number
-        posfile.writen(',', 'b');
-        posfile.writen(' ', 'b');
+        if (idx != (pos.len()-1) && idx != (pos.len()-2)) {
+            posfile.writen(',', 'b');
+            posfile.writen(' ', 'b');
+        }
     }
-
+    //posfile.writen(" // "+str, 'b');
     // and dont forget push newline before closing
     posfile.writen('\n', 'b');
     posfile.close();
 });
+
 
 
 acmd("getspeed", function ( playerid ) {
