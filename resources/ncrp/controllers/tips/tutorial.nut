@@ -70,7 +70,7 @@ key("e", function(playerid) {
         }
 
         msg(playerid, "------------------------------------------------------------------------", CL_WHITE);
-        msg(playerid, pos[3] + ": " + plocalize(playerid, spawnHelperMessages[lang][playerCache[playername]++]), CL_EUCALYPTUS);
+        msg(playerid, pos[3] + ":  " + plocalize(playerid, spawnHelperMessages[lang][playerCache[playername]++]), CL_EUCALYPTUS);
 
         if (playerCache[playername] == 1) {
             msg(playerid, "tutorial.continue");
