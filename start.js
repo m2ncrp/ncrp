@@ -16,6 +16,7 @@ let settings = {
     ooc_ru: "219565308007022592", // general-ru
     ooc_en: "260713962402742273", // general-en
     police: "260470624428752896", // police
+    ooc:    "263939471614017546", // gamechat
 
     // stream for all logs
     console: "256102201187893248", // console
@@ -275,6 +276,13 @@ bot.on('message', msg => {
             let content = msg.content.slice(4).trim();
             console.log(">>", msg.member.user.username, "reqeusted", "adm", content);
             return m2o.stdin.write("adm " + content + "\n");
+        }
+
+        // Usage: /pm id Hello mate!
+        if (msg.content.startsWith(prefix + "pm")) {
+            let content = msg.content.slice(4).trim().split(' ');
+            console.log(">>", msg.member.user.username, "reqeusted", "pm", content);
+            return m2o.stdin.write("sq msg(" + content.shift() + ",\"[ADMIN][PM] " + content.join(' ') + "\", CL_RED)\n");
         }
 
         // Usage: /sq getPlayerMoney(0)

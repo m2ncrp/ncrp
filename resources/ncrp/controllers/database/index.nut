@@ -1,40 +1,52 @@
 include("controllers/database/migrations.nut");
+include("controllers/database/convertor.nut");
 
 // database code
 local connection = null;
-local settings = {};
-
 
 // debug settings
-IS_DATABASE_DEBUG   <- true;
+IS_DATABASE_DEBUG   <- false;
 IS_MYSQL_ENABLED    <- false;
 
 addEventHandler("onScriptInit", function() {
-    ::log("[database] trying to read mysql settings...")
-    IS_MYSQL_ENABLED = readMysqlSettings();
+    log("[database] trying to read mysql settings...");
+    local settings = readMysqlSettings(".mysql");
 
+    // check if settings was propertly loaded
+    if (settings && settings.len()) {
+        IS_MYSQL_ENABLED = true;
+    }
+
+    // check if mysql is loaded
     if (IS_MYSQL_ENABLED && !("mysql_connect" in getroottable())) {
-        dbg("database", "mysql failed to load. skipping .mysql settings and falling back to sqlite");
+        log("[database] mysql failed to load. skipping .mysql settings and falling back to sqlite...");
         IS_MYSQL_ENABLED = false;
     }
 
     ::log("[database] creating connection...");
+
+    // try to load mysql
     if (IS_MYSQL_ENABLED) {
         dbg("database", "mysql", "connecting with settings", settings);
         connection = mysql_connect(settings.hostname, settings.username, settings.password, settings.database);
 
+        // check connection
         if (mysql_ping(connection)) {
-            intializeMySQLDDrivers();
+            intializeMySQLDDrivers(connection);
+
+            // set names to UTF-8 strictly
+            mysql_query(connection, "SET NAMES UTF8;");
         } else {
             IS_MYSQL_ENABLED <- false;
             dbg("database", "mysql", "failed to connect, falling back to sqlite");
         }
     }
 
+    // fall back to sqlite
     if (!IS_MYSQL_ENABLED) {
         dbg("database", "sqlite", "connecting");
         connection = sqlite("ncrp.db");
-        intializeSQLiteDrivers();
+        intializeSQLiteDrivers(connection);
     }
 
     applyMigrations(connection);
@@ -49,7 +61,7 @@ addEventHandlerEx("onServerStopped", function() {
     }
 });
 
-function intializeSQLiteDrivers() {
+function intializeSQLiteDrivers(conn) {
     /**
      * Setting up ORM proxier
      * All db requests will be forwarded to database resource
@@ -59,7 +71,7 @@ function intializeSQLiteDrivers() {
      */
     ORM.Driver.setProxy(function(queryString, callback) {
         local result = [];
-        local tmp = connection.query(queryString);
+        local tmp = conn.query(queryString);
 
         // log query and result
         if (IS_DATABASE_DEBUG) {
@@ -69,7 +81,7 @@ function intializeSQLiteDrivers() {
 
         // manuanlly push sqlite forced last inserted id after insert
         if (queryString.slice(0, 6).toupper() == "INSERT") {
-            tmp = connection.query("select last_insert_rowid() as id");
+            tmp = conn.query("select last_insert_rowid() as id");
         }
 
         // override empty result
@@ -88,7 +100,7 @@ function intializeSQLiteDrivers() {
     });
 }
 
-function intializeMySQLDDrivers() {
+function intializeMySQLDDrivers(conn) {
     /**
      * Setting up ORM proxier
      * All db requests will be forwarded to database resource
@@ -98,18 +110,22 @@ function intializeMySQLDDrivers() {
      */
     ORM.Driver.setProxy(function(queryString, callback) {
         local result = [];
-        local query = mysql_query(connection, queryString);
+        local query = mysql_query(conn, queryString);
 
         // log query and result
         if (IS_DATABASE_DEBUG) {
             dbg("database", "sql", queryString);
         }
 
+        if (!query) {
+            return dbg(mysql_errno(conn), mysql_error(conn));
+        }
+
         local row = {};
 
         // // manuanlly push sqlite forced last inserted id after insert
         if (queryString.slice(0, 6).toupper() == "INSERT") {
-            result.push({ id = mysql_insert_id(connection) });
+            result.push({ id = mysql_insert_id(conn) });
         } else {
             while(row = mysql_fetch_assoc(query)) {
                 result.push(row);
@@ -132,9 +148,10 @@ function intializeMySQLDDrivers() {
  * ".mysql" into global "settings" variable
  * @return {Boolean} [description]
  */
-function readMysqlSettings() {
+function readMysqlSettings(filename) {
     try {
-        local myblob = file(".mysql", "r");
+        local settings = {};
+        local myblob = file(filename, "r");
         local buffer = "";
         local key;
 
@@ -157,17 +174,20 @@ function readMysqlSettings() {
 
         myblob.close();
 
-        return (
+        if (
             "hostname" in settings && "username" in settings &&
             "password" in settings && "database" in settings
-        );
+        ) {
+            return settings;
+        } else {
+            return false;
+        }
     }
     catch (e) {
         dbg(e);
         return false;
     }
 }
-
 
 
 // /**

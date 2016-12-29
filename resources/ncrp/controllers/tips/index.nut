@@ -1,3 +1,5 @@
+include("controllers/tips/tutorial.nut")
+
 local infoTipsCache = [];
 local infoTips = [
     "tips.money.earn"   ,

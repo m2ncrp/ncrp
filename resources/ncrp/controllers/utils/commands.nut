@@ -148,7 +148,12 @@ cmd("dice", function ( playerid ) {
 });
 
 
-cmd("hat", function ( playerid, count) {
+
+cmd("hat", function ( playerid, count = null) {
+    if (count == null) {
+        return msg( playerid, "utils.hatnull");
+    }
+
     local count = count.tointeger();
     if (count > 1) {
         local hat = random(1, count);
@@ -161,5 +166,6 @@ cmd("hat", function ( playerid, count) {
 
 translate("en", {
     "utils.diсe"            : "%s threw the dice: %d"
-    "utils.hat"          : "There are %d balls in the cap. %s pulled the ball with number %d."
+    "utils.hat"             : "There are %d balls in the cap. %s pulled the ball with number %d."
+    "utils.hatnull"         : "Need to set count of participants. Example: /hat 15"
 });

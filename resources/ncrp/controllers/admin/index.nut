@@ -49,14 +49,15 @@ event("native:onConsoleInput", function(name, data) {
             webRequest(HTTP_TYPE_GET, MOD_HOST, "/discord?type=test&data=" + data, function(a,b,c) {}, MOD_PORT);
         break;
         case "admin": handleAdminInput(split(data, " ")); break;
+        case "migratedb": migrateSQLiteToMySQL(); break;
     }
 });
 
-local a = null;
-acmd("tst", function(playerid, id) {
-    if (a) {
-        destroyVehicle(a);
-    }
-    local pos = getPlayerPosition( playerid );
-    a = createVehicle( id.tointeger(), pos[0] + 2.0, pos[1], pos[2] + 1.0, 0.0, 0.0, 0.0 );
-});
+// local a = null;
+// acmd("tst", function(playerid, id) {
+//     if (a) {
+//         destroyVehicle(a);
+//     }
+//     local pos = getPlayerPosition( playerid );
+//     a = createVehicle( id.tointeger(), pos[0] + 2.0, pos[1], pos[2] + 1.0, 0.0, 0.0, 0.0 );
+// });
