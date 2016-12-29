@@ -35,7 +35,7 @@ addEventHandler("onScriptInit", function() {
             intializeMySQLDDrivers(connection);
 
             // set names to UTF-8 strictly
-            mysql_query(connection2, "SET NAMES UTF8;");
+            mysql_query(connection, "SET NAMES UTF8;");
         } else {
             IS_MYSQL_ENABLED <- false;
             dbg("database", "mysql", "failed to connect, falling back to sqlite");
