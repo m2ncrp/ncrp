@@ -432,7 +432,7 @@ function busJobStop( playerid ) {
 
     job_bus[playerid]["route"][1].remove(0);
 
-    freezePlayer( playerid, true);
+    //freezePlayer( playerid, true);
     msg( playerid, "job.bus.waitpasses", BUS_JOB_COLOR );
 
     delayedFunction(5000, function () {
@@ -450,7 +450,7 @@ function busJobStop( playerid ) {
 
         msg( playerid, "job.bus.gotonextbusstop", busStops[busID].name, BUS_JOB_COLOR );
 
-        freezePlayer( playerid, false);
+        //freezePlayer( playerid, false);
     });
 
 }
