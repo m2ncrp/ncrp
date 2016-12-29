@@ -615,8 +615,8 @@ translation("ru", {
     "organizations.police.duty.alreadyon"       : "Вы уже начали свою смену."
     "organizations.police.duty.alreadyoff"      : "Вы уже закончили свою смену."
     "organizations.police.notinpolicevehicle"   : "Вы должны быть в служебной машине!"
-    "organizations.police.ticket.givewithreason": "%s выписал вам штраф за %s." // Введите /accept %i.
-    "organizations.police.ticket.given"         : "Вы выписали штраф %s за %s."
+    "organizations.police.ticket.givewithreason": "%s выписал вам штраф за %s (%.2f)." // Введите /accept %i.
+    "organizations.police.ticket.given"         : "Вы выписали штраф %s за %s (%.2f)."
     "organizations.police.offduty.notickets"    : "Вы закончили свою смену и не имеете квитанций с собой."
     "organizations.police.offduty.nobaton"      : "У вас нет дубинки, т.к. вы не полицейский."
     "organizations.police.offduty.nobadge"      : "У вас нет с собой жетона, т.к. вы не на смене."
