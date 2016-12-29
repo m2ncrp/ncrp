@@ -172,7 +172,8 @@ proxy("onClientScriptError",        "onClientScriptError"               );
 proxy("onPlayerTeleportRequested",  "onPlayerTeleportRequested"         );
 proxy("onClientDebugToggle",        "onClientDebugToggle"               );
 proxy("onClientSendFPSData",        "onClientSendFPSData"               );
-proxy("onClientSendFPSData",        "onClientSendFPSData"               );
+proxy("onPlayerPlaceEnter",         "native:onPlayerPlaceEnter"         );
+proxy("onPlayerPlaceExit",          "native:onPlayerPlaceEexit"         );
 
 // Klo's playground
 proxy("RentCar",                    "RentCar"                           );
