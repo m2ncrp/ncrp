@@ -134,7 +134,7 @@ event("onServerStarted", function() {
 
     //creating 3dtext for bus depot
     create3DText ( BUS_JOB_X, BUS_JOB_Y, BUS_JOB_Z+0.35, "ROADKING BUS DEPOT", CL_ROYALBLUE );
-    create3DText ( BUS_JOB_X, BUS_JOB_Y, BUS_JOB_Z+0.20, "Press E to get job", CL_WHITE.applyAlpha(150), RADIUS_BUS );
+    create3DText ( BUS_JOB_X, BUS_JOB_Y, BUS_JOB_Z+0.20, "Press E to action", CL_WHITE.applyAlpha(150), RADIUS_BUS );
 
     //creating public 3dtext
     foreach (idx, value in busStops) {
@@ -186,9 +186,9 @@ event("onPlayerVehicleEnter", function (playerid, vehicleid, seat) {
 
     if(isBusDriver(playerid)) {
         unblockVehicle(vehicleid);
-        delayedFunction(4500, function() {
+        //delayedFunction(4500, function() {
             //busJobReady(playerid);
-        });
+        //});
     } else {
         blockVehicle(vehicleid);
     }
@@ -322,9 +322,9 @@ function busJobGet( playerid ) {
     }
     // если у игрока статус работы == завершил работу
     if (job_bus[playerid]["userstatus"] == "complete") {
-        job_bus[playerid]["userstatus"] = null;
-        job_bus[playerid]["route"] = false;
         busGetSalary( playerid );
+        job_bus[playerid]["route"] = false;
+        job_bus[playerid]["userstatus"] = null;
         return;
     }
 
@@ -406,7 +406,7 @@ function busJobStartRoute( playerid ) {
 // coords bus at bus station in Hunters Point    -1562.5, 105.709, -13.0123, 0.966663, -0.00153991, 0.182542
 function busJobStop( playerid ) {
 
-    if(job_bus[playerid]["userstatus"] == null || !isPlayerInVehicle(playerid) || !isPlayerVehicleDriver(playerid)) {
+    if(job_bus[playerid]["userstatus"] == null || job_bus[playerid]["userstatus"] == "complete" || !isPlayerInVehicle(playerid) || !isPlayerVehicleDriver(playerid)) {
         return;
     }
 
@@ -451,6 +451,7 @@ function busJobStop( playerid ) {
         msg( playerid, "job.bus.gotonextbusstop", busStops[busID].name, BUS_JOB_COLOR );
 
         freezePlayer( playerid, false);
+        delayedFunction(1000, function () { freezePlayer( playerid, false); }
     });
 
 }
