@@ -42,9 +42,9 @@ function registerFunc(playerid, password,email) {
                         // send success registration message
                         msg(playerid, "auth.success.register", CL_SUCCESS);
                         dbg("registration", getAuthor(playerid));
-                        trigger(playerid, "destroyAuthGUI");
                         screenFadein(playerid, 250, function() {
-                            trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
+                        trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
+                        trigger(playerid, "destroyAuthGUI");
                         });
                     });
                 });
@@ -94,7 +94,8 @@ function loginFunc(playerid, password) {
             dbg("login", getAuthor(playerid));
             trigger(playerid, "destroyAuthGUI");
             screenFadein(playerid, 250, function() {
-                trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
+            trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
+            trigger(playerid, "resetPlayerIntroScreen");
             });
         });
     });
