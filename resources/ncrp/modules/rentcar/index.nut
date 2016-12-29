@@ -91,7 +91,7 @@ event ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
         local whorent = getPlayerWhoRentVehicle(vehicleid);
         if(whorent != playerid) {
             blockVehicle(vehicleid);
-            msg(playerid, "rentcar.canrent", [getVehicleRentPrice(vehicleid)*10, getVehicleRentPrice(vehicleid)*60 ]);
+            //msg(playerid, "rentcar.canrent", [getVehicleRentPrice(vehicleid)*10, getVehicleRentPrice(vehicleid)*60 ]);
             showRentCarGUI(playerid, vehicleid);
         } else {
             unblockVehicle(vehicleid);
