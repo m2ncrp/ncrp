@@ -171,7 +171,6 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
                     // send message success
                     msg(playerid, "auth.success.autologin", CL_SUCCESS);
                     dbg("login", getAuthor(playerid), "autologin");
-
                     screenFadein(playerid, 250, function() {
                         trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
                     });
@@ -181,7 +180,6 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
 
                 msg(playerid, "---------------------------------------------", CL_SILVERSAND);
                 msg(playerid, "auth.welcome", username);
-
                 if (account) {
                     delayedFunction(1000, function() {trigger(playerid, "showAuthGUI");});
                     msg(playerid, "auth.registered");
@@ -329,3 +327,5 @@ function getLastActiveSession(playerid) {
 function setLastActiveSession(playerid) {
     return sessions[md5(getPlayerName(playerid) + "@" + getPlayerSerial(playerid))] <- getTimestamp();
 }
+
+

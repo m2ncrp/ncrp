@@ -12,9 +12,10 @@ const CHARACTER_DEFAULT_SKIN   = 10; // @deprecated
 const CHARACTER_DEFAULT_MONEY  = 1.75; // @deprecated
 
 const DEFAULT_SPAWN_SKIN = 4;
-const DEFAULT_SPAWN_X    = -1027.02;
-const DEFAULT_SPAWN_Y    = 1746.63;
-const DEFAULT_SPAWN_Z    = 10.2325;
+const DEFAULT_SPAWN_X    = -143.0;//-1027.02;
+const DEFAULT_SPAWN_Y    = 1206.0;//1746.63;
+const DEFAULT_SPAWN_Z    = 84.0;//10.2325;
+
 
 // hospital
 const HOSPITAL_X         = -393.429;
@@ -74,6 +75,7 @@ event("onServerStarted", function() {
 });
 
 event("onPlayerInit", function(playerid, name, ip, serial) {
+    trigger(playerid, "resetPlayerIntroScreen");
     Character.findOneBy({ name = getPlayerName(playerid) }, function(err, char) {
         if (err || !char) {
             // create entity
@@ -220,9 +222,12 @@ event("onServerPlayerStarted", function(playerid) {
     if (getPlayerName(playerid) == "Inlife") {
         setPlayerColour(playerid, 0x99FF3333); // admin
     }
+    if (getPlayerName(playerid) == "Klo_Douglas") {
+        setPlayerColour(playerid, 0x99FF3333); // admin
+    }
 
     // clear chat
-    for (local i = 0;i < 12; i++) {
+    for (local i = 0;i < 14; i++) {
         msg(playerid, "", CL_BLACK);
     }
 
@@ -241,7 +246,7 @@ event("native:onPlayerSpawn", function(playerid) {
 
         position = {x = DEFAULT_SPAWN_X, y = DEFAULT_SPAWN_Y, z = DEFAULT_SPAWN_Z};
         setPlayerPosition(playerid, position.x, position.y, position.z);
-        // setPlayerRotation(playerid, -99.8071, -0.000323891, -0.00024408);
+        trigger(playerid, "setPlayerIntroScreen");
         setPlayerModel(playerid, DEFAULT_SPAWN_SKIN);
         togglePlayerHud(playerid, true);
 
