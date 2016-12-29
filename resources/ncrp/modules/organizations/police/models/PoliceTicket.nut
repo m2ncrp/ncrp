@@ -5,6 +5,7 @@ class PoliceTicket extends ORM.Entity {
     static fields = [
         ORM.Field.String({ name = "player"  }),
         ORM.Field.String({ name = "type"    }),
+        ORM.Field.String({ name = "price"   }),
         ORM.Field.String({ name = "status"  }),
     ];
 
@@ -20,9 +21,10 @@ class PoliceTicket extends ORM.Entity {
         // put data
         this.player = vargv[0];
         this.type   = vargv[1];
-        this.status = vargv[2];
-        this.x      = vargv[3];
-        this.y      = vargv[4];
-        this.z      = vargv[5];
+        this.price  = vargv[2];
+        this.status = vargv[3];
+        this.x      = vargv[4];
+        this.y      = vargv[5];
+        this.z      = vargv[6];
     }
 }
