@@ -5,6 +5,7 @@ class PoliceTicket extends ORM.Entity {
     static fields = [
         ORM.Field.String({ name = "player"  }),
         ORM.Field.String({ name = "type"    }),
+        ORM.Field.String({ name = "price"   }),
         ORM.Field.String({ name = "status"  }),
     ];
 
