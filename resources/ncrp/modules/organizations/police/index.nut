@@ -42,6 +42,10 @@ translation("en", {
     "organizations.police.call.new"             : "[POLICE RADIO] There's situation on %s",
     "organizations.police.call.foruser"         : "You've called police from %s",
 
+    "organizations.police.lawbreak.warning"     : "defiance",
+    "organizations.police.lawbreak.trafficviolation" : "traffic violation",
+    "organizations.police.lawbreak.roadaccident": "road accident", 
+
     "organizations.police.income"               : "[EBPD] We send $%.2f to you for duty as %s.",
 
     "organizations.police.crime.wasdone"        : "You would better not to do it..",
@@ -53,6 +57,7 @@ translation("en", {
     "organizations.police.duty.alreadyoff"      : "You're already off duty now.",
     "organizations.police.notinpolicevehicle"   : "You should be in police vehicle!",
     "organizations.police.ticket.givewithreason": "%s give you ticket for %s.", //  Type /accept %i.
+    "organizations.police.ticket.given"         : "You've given ticket to %s for %s.",
     "organizations.police.offduty.notickets"    : "You off the duty now and you haven't tickets.",
     "organizations.police.offduty.nobaton"      : "You have no baton couse you're not a cop.",
     "organizations.police.offduty.nobadge"      : "You have no badge with you couse you're off duty now.",
@@ -146,6 +151,13 @@ POLICE_SALLARY_COEF <- [ // calculated as: (-i^2 + 27*i + 28)/200; i - rank numb
     1.04, // 31.20
     1.05, // 31.50
     1.05  // 31.50
+];
+
+
+POLICE_TICKET_PRICELIST <- [
+    [7.0, "organizations.police.lawbreak.warning"           ],  // Предупреждение aka warning
+    [8.5, "organizations.police.lawbreak.trafficviolation"  ],  // Нарушение ПДД aka traffic violation
+    [10.0,"organizations.police.lawbreak.roadaccident"      ]   // ДТП aka road acident
 ];
 
 DENGER_LEVEL <- "green";
