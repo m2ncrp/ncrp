@@ -8,6 +8,8 @@ local image;
 local isAuth;
 
 function showAuthGUI(){
+	//setPlayerPosition( getLocalPlayer(), -412.0, 1371.0, 36.0 );
+	//setPlayerPosition( getLocalPlayer(), -746.0, 1278.0, 15.5 );
 	image = guiCreateElement(13,"logo.png", screen[0]/2 - 148.0, screen[1]/2 - 220.0, 296.0, 102.0);
 	window = guiCreateElement( ELEMENT_TYPE_WINDOW, "Авторизация", screen[0]/2 - 192.5, screen[1]/2 - 65.2, 385.0, 135.0 );
 	label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, "Аккаунт уже зарегистрирован. Введите ваш пароль:", 58.0, 30.0, 300.0, 20.0, false, window);
@@ -92,6 +94,16 @@ function isValidEmail(email)
     local check = regexp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"); //Email Validation Regex
     return check.match(email);
 }
+
+function setPlayerIntroScreen () {
+	setPlayerRotation(getLocalPlayer(), 0.0, 0.0, 180.0);
+}
+addEventHandler("setPlayerIntroScreen",setPlayerIntroScreen);
+
+function resetPlayerIntroScreen () {
+	setPlayerRotation(getLocalPlayer(), 0.0, 0.0, 0.0);
+}
+addEventHandler("resetPlayerIntroScreen",resetPlayerIntroScreen);
 
 function delayedFunction(time, callback, additional = null) {
     return additional ? timer(callback, time, 1, additional) : timer(callback, time, 1);
