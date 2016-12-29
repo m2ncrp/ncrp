@@ -12,10 +12,13 @@ cmd( "repaint", function(playerid, red, green, blue) {
     }
 
     if (isNearRepairShop(playerid)) {
+        local vehicleid = getPlayerVehicle(playerid);
+        if ( !isPlayerVehicleOwner(playerid, vehicleid) ) {
+            return msg(playerid,"shops.repairshop.ownership.wrong");
+        }
         if ( canMoneyBeSubstracted(playerid, SHOP_REPAINT_COST) ) {
             msg(playerid, "shops.repairshop.needwait");
             screenFadeinFadeoutEx(playerid, 250, 3000, null, function() {
-                local vehicleid = getPlayerVehicle(playerid);
                 setVehicleColour(vehicleid, r, g, b, r, g, b);
                 subMoneyToPlayer(playerid, SHOP_REPAINT_COST);
                 return msg(playerid, "shops.repairshop.repaint.payed", [SHOP_REPAINT_COST, getPlayerBalance(playerid)]);
