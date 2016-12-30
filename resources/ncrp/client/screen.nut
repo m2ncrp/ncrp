@@ -17,13 +17,7 @@ local lines     = [];
 local chatslots = ["ooc", "ic", "me", "do"];
 local selectedslot = 0;
 
-local welcomeTexts = [
-    { size = 6.2, offset = 130.0, color = 0xFFCCCCCC, text = "WELCOME" },
-    { size = 3.3, offset = 45.0 , color = 0xFFCCCCCC, text = "to the Night City RolePlay" },
-    { size = 2.2, offset = 100.0, color = 0xFFA1A1A1, text = "You need to REGISTER or LOGIN to your account to start." },
-    { size = 2.2, offset = 10.0 , color = 0xFFA1A1A1, text = "See information in the chat." },
-];
-
+local asd = null;
 local notifications = [];
 
 function compute(x, y) {
@@ -93,6 +87,17 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
 
         return;
     }
+
+    // if (asd) {
+    //     local limit = 7.5;
+    //     local c = getScreenFromWorld(-555.251,  1702.31, -22.2408);
+    //     local pos = getPlayerPosition(getLocalPlayer());
+    //     local dist = sqrt(pow(-555 - pos[0], 2) + pow(1702 - pos[1], 2) + pow(-22 - pos[2], 2));
+    //     if (dist < limit) {
+    //         local scale = 1 - (((dist > limit) ? limit : dist) / limit);
+    //         dxDrawTexture(asd, c[0], c[1], scale, scale, 0.5, 0.5, 0.0, 255);
+    //     }
+    // }
 
     local ROUND_TO_RIGHT_RATIO = 13.6;
 
@@ -212,7 +217,7 @@ addEventHandler("onServerInterfaceMoney", function(money) {
 })
 
 addEventHandler("onServerFadeScreen", function(time, fadein) {
-    fadeScreen(time.tofloat(), fadein);
+    // fadeScreen(time.tofloat(), fadein);
 });
 
 addEventHandler("onServerAddedNofitication", function(type, data) {
@@ -278,6 +283,8 @@ addEventHandler("onServerClientStarted", function(version = null) {
     drawdata.version = (version) ? version : drawdata.version;
 
     initialized = true;
+
+    // asd = dxLoadTexture("fine.png");
 });
 
 addEventHandler("onClientScriptInit", function() {
