@@ -181,12 +181,12 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
                 msg(playerid, "---------------------------------------------", CL_SILVERSAND);
                 msg(playerid, "auth.welcome", username);
                 if (account) {
-                    delayedFunction(3000, function() {trigger(playerid, "showAuthGUI");});
+                    delayedFunction(2500, function() {trigger(playerid, "showAuthGUI");});
                     msg(playerid, "auth.registered");
                     msg(playerid, "*");
                     msg(playerid, "auth.command.login");
                 } else {
-                    delayedFunction(3000, function() {trigger(playerid, "showRegGUI");});
+                    delayedFunction(2500, function() {trigger(playerid, "showRegGUI");});
                     msg(playerid, "auth.notregistered");
                     msg(playerid, "*");
                     msg(playerid, "auth.command.register");
