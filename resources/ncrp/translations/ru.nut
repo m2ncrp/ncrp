@@ -61,6 +61,7 @@ translation("ru", {
     "auth.error.cmderror"   : "[AUTH] Для выполнения команды Вам необходимо войти в аккаунт!"
     "auth.notification"     : "[AUTH] Вам нужно войти в свой аккаунт используя /login ваш_пароль, или создать новый через /register ваш_пароль"
     "auth.error.tomany"     : "[AUTH] Вы достигли лимита по количеству аккаунтов."
+    "auth.error.email"      : "Такой email адрес уже используется!"
 
     "auth.GUI.TitleRegister"            : "Регистрация"
     "auth.GUI.TitleLabelRegister"       : "Регистрация нового аккаунта. Заполните поля ниже:"

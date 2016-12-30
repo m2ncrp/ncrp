@@ -30,6 +30,8 @@ translation("en", {
     "rentcar.help.title"                : "List of available commands for CAR RENTAL:"
     "rentcar.help.rent"                 : "Rent this car (need to be in a car)"
     "rentcar.help.refuse"               : "Refuse from all rented cars"
+
+    "auth.error.email"                  :"This email address is already in use!"
     //GUI
     "rentcar.gui.window"                : "Car rent"
     "rentcar.gui.buttonRent"            : "Rent"
