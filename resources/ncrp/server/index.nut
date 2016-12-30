@@ -178,9 +178,8 @@ proxy("onPlayerPlaceExit",          "native:onPlayerPlaceEexit"         );
 // Klo's playground
 proxy("RentCar",                    "RentCar"                           );
 proxy("loginGUIFunction",           "loginGUIFunction"                  );
-proxy("registerGUIFunction",        "registerGUIFunction"                );
-
-
+proxy("registerGUIFunction",        "registerGUIFunction"               );
+proxy("updateMoveState",            "updateMoveState"                   );
 
 /**
  * Debug export

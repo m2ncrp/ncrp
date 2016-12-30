@@ -53,6 +53,7 @@ event("onPlayerConnect", function(playerid, name, ip, serial ){
     job_docker[playerid] <- {};
     job_docker[playerid]["havebox"] <- false;
     job_docker[playerid]["blip3dtext"] <- [null, null, null];
+    job_docker[playerid]["moveState"] <- null;
 });
 
 event("onServerPlayerStarted", function( playerid ){
@@ -225,3 +226,8 @@ function dockerJobPutBox( playerid ) {
 
     job_docker[playerid]["blip3dtext"] = dockerJobCreatePrivateBlipText(playerid, DOCKER_JOB_TAKEBOX_X, DOCKER_JOB_TAKEBOX_Y, DOCKER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "press E");
 }
+
+
+addEventHandler("updateMoveState",function(playerid, state) {
+    job_docker[playerid]["moveState"] = state;
+});
