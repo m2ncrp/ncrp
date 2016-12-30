@@ -30,11 +30,29 @@ translation("en", {
     "rentcar.help.title"                : "List of available commands for CAR RENTAL:"
     "rentcar.help.rent"                 : "Rent this car (need to be in a car)"
     "rentcar.help.refuse"               : "Refuse from all rented cars"
+
+    "auth.error.email"                  :"This email address is already in use!"
     //GUI
     "rentcar.gui.window"                : "Car rent"
     "rentcar.gui.buttonRent"            : "Rent"
     "rentcar.gui.buttonRefuse"          : "Refuse"
     "rentcar.gui.canrent"               : "You can rent this car.\nPrice: $%.2f in 10 minutes ($%.2f in hour) in game"
+
+    "auth.GUI.TitleLogin"               : "Authorization"
+    "auth.GUI.TitleLabelLogin"          : "Account already registered. Enter your password:"
+    "auth.GUI.TitleInputLogin"          : "password"
+    "auth.GUI.ButtonLogin"              : "Log in"
+
+    "auth.GUI.TitleRegister"            : "Registration"
+    "auth.GUI.TitleLabelRegister"       : "Register a new account. Fill in the fields below:"
+    "auth.GUI.PasswordInput"            : "Create a password:"
+    "auth.GUI.RepeatPasswordInput"      : "Repeat password:"
+    "auth.GUI.Email"                    : "Email:"
+    "auth.GUI.ButtonRegister"           : "Sign up"
+
+    "admin.startRR.message"             :"SERVER: Hello guys! I need to restart itself in 15 minutes. Please, complete all your jobs. Thanks!"
+    "admin.rrTime.message"              :"Server will be restarted in %i minutes."
+
 
 });
 
