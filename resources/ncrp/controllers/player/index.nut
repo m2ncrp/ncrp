@@ -324,6 +324,7 @@ event("native:onPlayerDeath", function(playerid, killerid) {
     // store state for respawning
     setPlayerBeenDead(playerid);
     trigger("onPlayerDeath", playerid);
+    dbg("player", "death", getAuthor(playerid), (killerid != INVALID_ENTITY_ID) ? getAuthor(killerid) : "self");
 
     if (killerid != INVALID_ENTITY_ID) {
         trigger("onPlayerMurdered", playerid, killerid);
