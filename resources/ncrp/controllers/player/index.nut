@@ -140,6 +140,13 @@ function trySavePlayer(playerid) {
         return null;
     }
 
+    // if player has crashed on spawn
+    if (isInRadius(playerid, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z, 5.0)) {
+        char.x = HOSPITAL_X;
+        char.y = HOSPITAL_Y;
+        char.z = HOSPITAL_Z;
+    }
+
     // get instance
     local char   = xPlayers[playerid];
 
