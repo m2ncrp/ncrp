@@ -441,7 +441,7 @@ function busJobStop( playerid ) {
 
     delayedFunction(5000, function () {
         freezePlayer( playerid, false);
-        delayedFunction(1000, function () { freezePlayer( playerid, false); }
+        delayedFunction(1000, function () { freezePlayer( playerid, false); });
 
         if (job_bus[playerid]["route"][1].len() == 0) {
             msg( playerid, "job.bus.gototakemoney", BUS_JOB_COLOR );
