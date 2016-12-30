@@ -143,10 +143,14 @@ function startServer() {
                 if (action == "list") {
                     if (!data[2]) return;
 
-                    let list = "**List of current players (count: " + data[2].length + ")**:\n---------------------\n";
+                    let cnt = 0;
+                    let list = "**List of current players **:\n---------------------\n";
                     for (a in data[2]) {
                         list += " " + data[2][a] + " with id #" + a + "\n";
+                        cnt++;
                     }
+
+                    console.log("Total: " + cnt + " players.");
 
                     return channels[settings.console].sendMessage(list.trim());
                 }
