@@ -9,6 +9,7 @@ event("onPlayerConnect", function(playerid, nickname, ip, serial) {
 event("onClientKeyboardPress", function(playerid, key, state) {
     if (isPlayerLogined(playerid)) {
         triggerKeyboardPress(playerid, key, state);
+        setPlayerAfk(playerid, false);
     }
 });
 

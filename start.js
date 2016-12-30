@@ -143,10 +143,14 @@ function startServer() {
                 if (action == "list") {
                     if (!data[2]) return;
 
-                    let list = "**List of current players (count: " + data[2].length + ")**:\n---------------------\n";
+                    let cnt = 0;
+                    let list = "**List of current players **:\n---------------------\n";
                     for (a in data[2]) {
                         list += " " + data[2][a] + " with id #" + a + "\n";
+                        cnt++;
                     }
+
+                    console.log("Total: " + cnt + " players.");
 
                     return channels[settings.console].sendMessage(list.trim());
                 }
@@ -338,4 +342,39 @@ bot.on('message', msg => {
 });
 
 bot.login(token);
+
+var stdin = process.stdin;
+
+// without this, we would only get streams once enter is pressed
+stdin.setRawMode( false );
+
+// resume stdin in the parent process (node app won't quit all by itself
+// unless an error or process.exit() happens)
+stdin.resume();
+
+// i don't want binary, do you?
+stdin.setEncoding( 'utf8' );
+
+// on any data into stdin
+stdin.on( 'data', function( data ){
+    // // ctrl-c ( end of text )
+    if ( data === '\u0003' ) {
+        process.exit();
+    }
+    // write the key to stdout all normal like
+    try {
+        // if (m2o.stdin.writable) {
+
+        m2o.stdin.write(data.trim() + "\n");
+
+    } catch (e) {
+        console.error(">>error writing to stream (try restarting debug.js). " + e.message);
+    }
+});
+
+process.on('exit', function () {
+    //handle your on exit code
+    console.log(">>Exiting, have a nice day");
+    m2o.stdin.write("exit\n");
+});
 

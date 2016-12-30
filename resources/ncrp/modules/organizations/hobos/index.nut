@@ -149,6 +149,12 @@ event("onServerHourChange", function() {
 
     foreach (playerid, value in players) {
         if (!getPlayerJob(playerid)) {
+
+            // give only 5% of current amount
+            if (isPlayerAfk(playerid)) {
+                amount = amount * 0.05;
+            }
+
             addMoneyToPlayer(playerid, amount);
             msg(playerid, "organizations.unemployed.income", [amount], CL_SUCCESS);
         }

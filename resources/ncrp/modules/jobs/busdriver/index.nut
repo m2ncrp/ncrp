@@ -195,6 +195,10 @@ event("onPlayerVehicleEnter", function (playerid, vehicleid, seat) {
 });
 
 event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
+    if (!isPlayerVehicleBus(playerid)) {
+        return;
+    }
+
     blockVehicle(vehicleid);
 });
 
