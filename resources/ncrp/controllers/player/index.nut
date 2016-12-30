@@ -76,7 +76,9 @@ event("onServerStarted", function() {
 });
 
 event("onPlayerInit", function(playerid, name, ip, serial) {
+    // reset screen data
     trigger(playerid, "resetPlayerIntroScreen");
+
     Character.findOneBy({ name = getPlayerName(playerid) }, function(err, char) {
         if (err || !char) {
             // create entity
