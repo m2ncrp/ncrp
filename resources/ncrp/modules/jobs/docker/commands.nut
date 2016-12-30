@@ -18,7 +18,7 @@ cmd("docker", "put", function(playerid) {
     dockerJobPutBox( playerid );
 });
 
-key(["e"], function(playerid) {
+key("e", function(playerid) {
     if ( isPlayerInVehicle(playerid) ) {
         return;
     }
