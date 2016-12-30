@@ -181,12 +181,12 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
                 msg(playerid, "---------------------------------------------", CL_SILVERSAND);
                 msg(playerid, "auth.welcome", username);
                 if (account) {
-                    delayedFunction(2500, function() {trigger(playerid, "showAuthGUI");});
+                    showLoginGUI(playerid);
                     msg(playerid, "auth.registered");
                     msg(playerid, "*");
                     msg(playerid, "auth.command.login");
                 } else {
-                    delayedFunction(2500, function() {trigger(playerid, "showRegGUI");});
+                    showRegisterGUI(playerid);
                     msg(playerid, "auth.notregistered");
                     msg(playerid, "*");
                     msg(playerid, "auth.command.register");
@@ -328,4 +328,22 @@ function setLastActiveSession(playerid) {
     return sessions[md5(getPlayerName(playerid) + "@" + getPlayerSerial(playerid))] <- getTimestamp();
 }
 
+
+function showLoginGUI(playerid){
+    local window = plocalize(playerid,  "auth.GUI.TitleLogin");
+    local label = plocalize(playerid,   "auth.GUI.TitleLabelLogin");
+    local input = plocalize(playerid,   "auth.GUI.TitleInputLogin");
+    local button = plocalize(playerid,  "auth.GUI.ButtonLogin");
+    delayedFunction(2500, function() {trigger(playerid, "showAuthGUI",window,label,input,button);});
+}
+
+function showRegisterGUI(playerid){
+    local window = plocalize(playerid,      "auth.GUI.TitleRegister");
+    local label = plocalize(playerid,       "auth.GUI.TitleLabelRegister");
+    local inputp = plocalize(playerid,      "auth.GUI.PasswordInput");
+    local inputrp = plocalize(playerid,     "auth.GUI.RepeatPasswordInput");
+    local inputemail = plocalize(playerid,   "auth.GUI.Email");
+    local button = plocalize(playerid,      "auth.GUI.ButtonRegister");
+    delayedFunction(2500, function() {trigger(playerid, "showRegGUI",window,label,inputp,inputrp,inputemail,button);});
+}
 
