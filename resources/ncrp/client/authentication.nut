@@ -135,6 +135,9 @@ function resetPlayerIntroScreen () {
 	setPlayerRotation(getLocalPlayer(), 0.0, 0.0, 0.0);
 	otherPlayerLocked = false;
 	showChat(true);
+	delayedFunction(500, function() {
+		showChat(true);
+	});
 }
 addEventHandler("resetPlayerIntroScreen",resetPlayerIntroScreen);
 
