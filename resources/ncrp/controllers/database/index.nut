@@ -118,7 +118,7 @@ function intializeMySQLDDrivers(conn) {
         }
 
         if (!query) {
-            return dbg(mysql_errno(conn), mysql_error(conn));
+            return error(format("mysql error: #%d : %s", mysql_errno(conn), mysql_error(conn)));
         }
 
         local row = {};
