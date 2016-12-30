@@ -342,6 +342,7 @@ function busJobRefuseLeave( playerid ) {
         msg( playerid, "job.bus.badworker.onleave", BUS_JOB_COLOR);
         job_bus[playerid]["userstatus"] = "nojob";
         job_bus_blocked[getPlayerName(playerid)] <- getTimestamp();
+        busJobRemovePrivateBlipText( playerid );
     }
 
     if (job_bus[playerid]["userstatus"] == "complete") {
@@ -352,8 +353,10 @@ function busJobRefuseLeave( playerid ) {
     }
 
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
-        msg( playerid, "job.leave", BUS_JOB_COLOR );
         remove3DText ( job_bus[playerid]["leavejob3dtext"] );
+
+        msg( playerid, "job.leave", BUS_JOB_COLOR );
+
         job_bus[playerid]["leavejob3dtext"] = null;
 
         setPlayerJob( playerid, null );
@@ -363,8 +366,6 @@ function busJobRefuseLeave( playerid ) {
 
         // remove private blip job
         removePersonalJobBlip ( playerid );
-
-        busJobRemovePrivateBlipText( playerid );
     });
 
 }
@@ -456,3 +457,8 @@ acmd("gotobusstop", function(playerid) {
     setVehiclePosition( getPlayerVehicle(playerid), poss.x, poss.y, poss.z );
     busJobStop( playerid );
 });
+
+acmd("buscomplete", function(playerid) {
+    job_bus[playerid]["userstatus"] = "complete";
+});
+
