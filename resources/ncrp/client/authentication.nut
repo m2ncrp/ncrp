@@ -101,7 +101,7 @@ addEventHandler( "onGuiElementClick",function(element){ //this shit need some re
 					else {
 						local password = guiGetText(input[0]);
 						local email = guiGetText(input[2]);
-						triggerServerEvent("registerGUIFunction", password, email);
+						triggerServerEvent("registerGUIFunction", password, email.tolower());
 					}
 				}
 				else {
