@@ -1,3 +1,21 @@
+local antiflood = {};
+
+event("onPlayerConnect", function(playerid, name, ip, serial ){
+    antiflood[playerid] <- {};
+    antiflood[playerid]["gooc"] <- 0;
+});
+
+
+
+event("onServerSecondChange",function() {
+    foreach (pid, value in players) {
+        if (isPlayerLogined(pid)) {
+            if(antiflood[pid]["gooc"] > 0){
+                antiflood[pid]["gooc"]--;
+            }
+        }
+    }
+});
 // local chat
 chatcmd(["i", "ic", "say"], function(playerid, message) {
     sendLocalizedMsgToAll(playerid, "chat.player.says", message, NORMAL_RADIUS, CL_YELLOW);
@@ -73,7 +91,13 @@ chatcmd(["o","ooc"], function(playerid, message) {
     // msg_a("[OOC] " + getAuthor( playerid ) + ": " + message, CL_GRAY);
     foreach (targetid, value in players) {
         // if (getPlayerLocale(targetid) == getPlayerLocale(playerid) || isPlayerAdmin(targetid)) {
-            msg(targetid, "[OOC] " + getAuthor3( playerid ) + ": " + message, CL_GRAY);
+            if(antiflood[playerid]["gooc"] == 0){
+                msg(targetid, "[OOC] " + getAuthor3( playerid ) + ": " + message, CL_GRAY);
+                antiflood[playerid]["gooc"] = ANTIFLOOD_GLOBAL_OOC_CHAT;
+            }
+            else {
+                msg(playerid, "antiflood.message", antiflood[playerid]["gooc"]/2, CL_LIGHTWISTERIA);
+            }
         // }
     }
 
