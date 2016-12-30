@@ -110,9 +110,10 @@ event("onPlayerConnect", function(playerid, name, ip, serial) {
 
 
 event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
+    if (!isPlayerVehicleFuel(playerid)) return;
+
     // ignore anyhting related to other seats
     if (seat != 0) return;
-    if (!isPlayerVehicleFuel(playerid)) return;
 
     // if player on seat 0 is a fuel driver
     if (isFuelDriver(playerid)) {
@@ -127,6 +128,8 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
 });
 
 event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
+    if (!isPlayerVehicleFuel(playerid)) return;
+
     if (seat == 0) {
         blockVehicle(vehicleid);
     }

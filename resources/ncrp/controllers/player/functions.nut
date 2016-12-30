@@ -263,7 +263,8 @@ function getPlayerToggle(playerid) {
 
 function setPlayerToggle(playerid, to) {
     players[playerid]["toggle"] = to;
-    togglePlayerControls(playerid, to);
+    // togglePlayerControls(playerid, to);
+    freezePlayer(playerid, to);
 }
 
 
