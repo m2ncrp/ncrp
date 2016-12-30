@@ -71,12 +71,12 @@ function migrateSQLiteToMySQL() {
     })
 
     dbg("loading table StatisticPoint");
-    // StatisticPoint.findAll(function(err, records) {
-    //     foreach (idx, value in records) {
-    //         value.__persisted = false;
-    //         data.push(value);
-    //     }
-    // })
+    StatisticPoint.findAll(function(err, records) {
+        foreach (idx, value in records) {
+            value.__persisted = false;
+            data.push(value);
+        }
+    })
 
     dbg("loading table StatisticText");
     StatisticText.findAll(function(err, records) {
@@ -84,7 +84,6 @@ function migrateSQLiteToMySQL() {
         foreach (idx, value in records) {
             value.__persisted = false;
             data.push(value);
-            if (i++ > 100) break;
         }
     })
 
