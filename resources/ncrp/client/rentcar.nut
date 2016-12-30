@@ -1,5 +1,16 @@
 const ELEMENT_TYPE_BUTTON = 2;
+
+// added check for 2x widht bug
 local screen = getScreenSize();
+local screenX = screen[0].tofloat();
+local screenY = screen[1].tofloat();
+
+if ((screenX / screenY) > 2.0) {
+    screenX = 0.5 * screenX;
+}
+
+screen = [screenX, screenY];
+
 local window;
 local label;
 local buttons = array(2);
