@@ -150,7 +150,7 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
         compute("borders.cx",   screenX - (length / 2) - (screenX / ROUND_TO_RIGHT_RATIO));
 
         local radius = length / 2;
-        local step   = 0.5;
+        local step   = 1.0;//0.5;
 
         for (local x = 0; x < length; x += step) {
             local len = sqrt( pow(radius, 2) - pow(radius - x, 2) );
