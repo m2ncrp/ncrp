@@ -54,8 +54,18 @@ event("onServerStarted", function() {
     ticker = timer(function() {
         foreach (playerid, value in players) {
 
+            if (isPlayerConnected(playerid)) {
+                continue;
+            }
+
+            local pos = getPlayerPosition(playerid);
+
+            if (pos.len() != 3) {
+                continue;
+            }
+
             // check for falling players
-            if (getPlayerPosition(playerid)[2] < -75.0) {
+            if ([2] < -75.0) {
                 dbg("player", "falldown", playerid);
                 trigger("onPlayerFallingDown", playerid);
             }
