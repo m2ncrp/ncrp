@@ -14,9 +14,7 @@ function registerFunc(playerid, password, email = null) {
     Account.getSession(playerid, function(err, account) {
         // if player is logined
         if (account){
-            trigger(playerid, "authErrorMessage", plocalize(playerid, "auth.error.login"));
-            //msg(playerid, "auth.error.login", CL_ERROR);
-            return;
+            return trigger(playerid, "authErrorMessage", plocalize(playerid, "auth.error.login"));;
         }
 
         // create account
@@ -30,34 +28,41 @@ function registerFunc(playerid, password, email = null) {
         account.logined  = getTimestamp();
         account.email    = email.tostring();
 
-        Account.findOneBy({ username = account.username }, function(err, result) {
-            if (result) {
-                trigger(playerid, "authErrorMessage", plocalize(playerid, "auth.error.register"));
-                //msg(playerid, "auth.error.register", CL_ERROR);
-            } else {
-                ORM.Query("select count(*) cnt from @Account where serial like ':serial'")
-                .setParameter("serial", getPlayerSerial(playerid))
-                .getSingleResult(function(err, result) {
-                    // no more than N accounts
-                    if (result.cnt >= AUTH_ACCOUNTS_LIMIT) {
-                        trigger(playerid, "authErrorMessage", plocalize(playerid, "auth.error.tomany"));
-                        //msg(playerid, "auth.error.tomany", CL_ERROR);
-                        return;
-                    }
+        Account.findOneBy({ email = account.email}, function(err, result) {
+            if(result){
+                return trigger(playerid, "authErrorMessage", plocalize(playerid, "auth.error.email"));
+            }
+            else {
+                  Account.findOneBy({ username = account.username }, function(err, result) {
+                    if (result) {
+                        trigger(playerid, "authErrorMessage", plocalize(playerid, "auth.error.register"));
+                        //msg(playerid, "auth.error.register", CL_ERROR);
+                    } else {
+                        ORM.Query("select count(*) cnt from @Account where serial like ':serial'")
+                        .setParameter("serial", getPlayerSerial(playerid))
+                        .getSingleResult(function(err, result) {
+                            // no more than N accounts
+                            if (result.cnt >= AUTH_ACCOUNTS_LIMIT) {
+                                trigger(playerid, "authErrorMessage", plocalize(playerid, "auth.error.tomany"));
+                                //msg(playerid, "auth.error.tomany", CL_ERROR);
+                                return;
+                            }
 
-                    account.save(function(err, result) {
-                        account.addSession(playerid);
-                        setLastActiveSession(playerid);
+                            account.save(function(err, result) {
+                                account.addSession(playerid);
+                                setLastActiveSession(playerid);
 
-                        // send success registration message
-                        msg(playerid, "auth.success.register", CL_SUCCESS);
-                        dbg("registration", getAuthor(playerid));
-                        trigger(playerid, "destroyAuthGUI");
+                                // send success registration message
+                                msg(playerid, "auth.success.register", CL_SUCCESS);
+                                dbg("registration", getAuthor(playerid));
+                                trigger(playerid, "destroyAuthGUI");
 
-                        screenFadein(playerid, 250, function() {
-                            trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
+                                screenFadein(playerid, 250, function() {
+                                    trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
+                                });
+                            });
                         });
-                    });
+                    }
                 });
             }
         });
