@@ -67,5 +67,7 @@ event("native:onPlayerChat", function(playerid, message) {
         __commands[chatslots[slot]][COMMANDS_DEFAULT](playerid, message);
     }
 
+    setPlayerAfk(playerid, false);
+
     return false;
 });
