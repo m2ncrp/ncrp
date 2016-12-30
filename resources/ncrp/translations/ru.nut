@@ -62,6 +62,22 @@ translation("ru", {
     "auth.notification"     : "[AUTH] Вам нужно войти в свой аккаунт используя /login ваш_пароль, или создать новый через /register ваш_пароль"
     "auth.error.tomany"     : "[AUTH] Вы достигли лимита по количеству аккаунтов."
 
+    "auth.GUI.TitleRegister"            : "Регистрация"
+    "auth.GUI.TitleLabelRegister"       : "Регистрация нового аккаунта. Заполните поля ниже:"
+    "auth.GUI.PasswordInput"            : "Придумайте пароль:"
+    "auth.GUI.RepeatPasswordInput"      : "Повторите пароль:"
+    "auth.GUI.Email"                    : "Email:"
+    "auth.GUI.ButtonRegister"           : "Зарегестрироваться"
+
+    "auth.GUI.TitleLogin"       : "Авторизация"
+    "auth.GUI.TitleLabelLogin"  : "Аккаунт уже зарегистрирован. Введите ваш пароль:"
+    "auth.GUI.TitleInputLogin"  : "Пароль"
+    "auth.GUI.ButtonLogin"      : "Авторизоваться"
+
+
+
+
+
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
     "business.money.income"     : "Вы получили %.2f в качестве дохода от вашего бизнеса «%s»!"

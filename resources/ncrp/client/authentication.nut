@@ -24,14 +24,14 @@ const DEFAULT_SPAWN_X    = -1027.02;
 const DEFAULT_SPAWN_Y    =  1746.63;
 const DEFAULT_SPAWN_Z    =  10.2325;
 
-function showAuthGUI(){
+function showAuthGUI(windowLabel,labelText,inputText,buttonText){
 	//setPlayerPosition( getLocalPlayer(), -412.0, 1371.0, 36.0 );
 	//setPlayerPosition( getLocalPlayer(), -746.0, 1278.0, 15.5 );
 	image = guiCreateElement(13,"logo.png", screen[0]/2 - 148.0, screen[1]/2 - 220.0, 296.0, 102.0);
-	window = guiCreateElement( ELEMENT_TYPE_WINDOW, "Авторизация", screen[0]/2 - 192.5, screen[1]/2 - 65.2, 385.0, 135.0 );
-	label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, "Аккаунт уже зарегистрирован. Введите ваш пароль:", 58.0, 30.0, 300.0, 20.0, false, window);
-	input[0] = guiCreateElement( ELEMENT_TYPE_EDIT, "Пароль", 92.0, 60.0, 200.0, 20.0, false, window);
-	button[0] = guiCreateElement( ELEMENT_TYPE_BUTTON, "Авторизоваться", 92.0, 90.0, 200.0, 20.0,false, window);
+	window = guiCreateElement( ELEMENT_TYPE_WINDOW, windowLabel, screen[0]/2 - 192.5, screen[1]/2 - 65.2, 385.0, 135.0 );
+	label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, labelText, 58.0, 30.0, 300.0, 20.0, false, window);
+	input[0] = guiCreateElement( ELEMENT_TYPE_EDIT, inputText, 92.0, 60.0, 200.0, 20.0, false, window);
+	button[0] = guiCreateElement( ELEMENT_TYPE_BUTTON, buttonText, 92.0, 90.0, 200.0, 20.0,false, window);
 	guiSetMovable(window,false);
 	guiSetSizable(window,false);
 	showCursor(true);
@@ -40,17 +40,17 @@ function showAuthGUI(){
 }
 addEventHandler("showAuthGUI", showAuthGUI);
 
-function showRegGUI(){
+function showRegGUI(windowText,labelText, inputpText, inputrpText, inputEmailText, buttonText){
 	image = guiCreateElement(13,"logo.png", screen[0]/2 - 148.0, screen[1]/2 - 220.0, 296.0, 102.0);
-	window = guiCreateElement( ELEMENT_TYPE_WINDOW, "Регистрация", screen[0]/2 - 222.5, screen[1]/2 - 100.0, 455.0, 200.0 );
-	label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, "Регистрация нового аккаунта. Заполните поля ниже:", 85.0, 30.0, 300.0, 20.0, false, window);
-	label[1] = guiCreateElement( ELEMENT_TYPE_LABEL, "Придумайте пароль: ", 90.0, 60.0, 300.0, 20.0, false, window);
-	label[2] = guiCreateElement( ELEMENT_TYPE_LABEL, "Повторите пароль:", 90.0, 90.0, 300.0, 20.0, false, window);
-	label[3] = guiCreateElement( ELEMENT_TYPE_LABEL, "Email:", 90.0, 120.0, 300.0, 20.0, false, window);
+	window = guiCreateElement( ELEMENT_TYPE_WINDOW, windowText, screen[0]/2 - 222.5, screen[1]/2 - 100.0, 455.0, 200.0 );
+	label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, labelText, 85.0, 30.0, 300.0, 20.0, false, window);
+	label[1] = guiCreateElement( ELEMENT_TYPE_LABEL, inputpText, 90.0, 60.0, 300.0, 20.0, false, window);
+	label[2] = guiCreateElement( ELEMENT_TYPE_LABEL, inputrpText, 90.0, 90.0, 300.0, 20.0, false, window);
+	label[3] = guiCreateElement( ELEMENT_TYPE_LABEL, inputEmailText, 90.0, 120.0, 300.0, 20.0, false, window);
 	input[0] = guiCreateElement( ELEMENT_TYPE_EDIT, "", 200.0, 60.0, 150.0, 20.0, false, window);
 	input[1] = guiCreateElement( ELEMENT_TYPE_EDIT, "", 200.0, 90.0, 150.0, 20.0, false, window);
 	input[2] = guiCreateElement( ELEMENT_TYPE_EDIT, "", 150.0, 120.0, 200.0, 20.0, false, window);
-	button[1] = guiCreateElement( 2, "Зарегистрироваться" ,  150.0, 150.0, 150.0, 20.0, false, window);
+	button[1] = guiCreateElement( 2, buttonText ,  150.0, 150.0, 150.0, 20.0, false, window);
 	guiSetInputMasked( input[0], true );
 	guiSetInputMasked( input[1], true );
 	guiSetMovable(window,false);
