@@ -440,6 +440,8 @@ function busJobStop( playerid ) {
     msg( playerid, "job.bus.waitpasses", BUS_JOB_COLOR );
 
     delayedFunction(5000, function () {
+        freezePlayer( playerid, false);
+        delayedFunction(1000, function () { freezePlayer( playerid, false); });
 
         if (job_bus[playerid]["route"][1].len() == 0) {
             msg( playerid, "job.bus.gototakemoney", BUS_JOB_COLOR );
@@ -453,9 +455,6 @@ function busJobStop( playerid ) {
         job_bus[playerid]["busBlip"]   = createPrivateBlip(playerid, busStops[busID].private.x, busStops[busID].private.y, ICON_YELLOW, 2000.0);
 
         msg( playerid, "job.bus.gotonextbusstop", busStops[busID].name, BUS_JOB_COLOR );
-
-        freezePlayer( playerid, false);
-        delayedFunction(1000, function () { freezePlayer( playerid, false); });
     });
 
 }

@@ -263,6 +263,26 @@ event("onServerPlayerStarted", function( playerid ){
     }
 });
 
+event("onPlayerVehicleEnter", function (playerid, vehicleid, seat) {
+    if (!isPlayerVehicleTruck(playerid, 35) && !isPlayerVehicleTruck(playerid, 37) ) {
+        return;
+    }
+
+    if(isTruckDriver(playerid)) {
+        unblockVehicle(vehicleid);
+    } else {
+        blockVehicle(vehicleid);
+    }
+});
+
+event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
+    if (!isPlayerVehicleTruck(playerid, 35) && !isPlayerVehicleTruck(playerid, 37) ) {
+        return;
+    }
+
+    blockVehicle(vehicleid);
+});
+
 
 /**
  * Create private 3DTEXT AND BLIP
