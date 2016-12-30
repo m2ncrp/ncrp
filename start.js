@@ -358,7 +358,7 @@ stdin.setEncoding( 'utf8' );
 // on any data into stdin
 stdin.on( 'data', function( data ){
     // // ctrl-c ( end of text )
-    if ( key === '\u0003' ) {
+    if ( data === '\u0003' ) {
         process.exit();
     }
     // write the key to stdout all normal like
