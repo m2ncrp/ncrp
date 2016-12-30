@@ -75,6 +75,8 @@ function advancedCommand(isAdmin, aliases, extensionOrCallback, callbackOrNull =
             return msg(playerid, "auth.error.cmderror", CL_ERROR);
         }
 
+        trigger("onServerPlayerCommand", playerid, cmdlog);
+
         // if its admin command, and player is not admin - exit
         if (isAdmin && !isPlayerAdmin(playerid)) {
             return;

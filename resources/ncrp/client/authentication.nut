@@ -83,13 +83,18 @@ addEventHandler( "onGuiElementClick",function(element){ //this shit need some re
 		}
 		if(element == button[1]){
 			if(guiGetText(input[0]) == guiGetText(input[1])){
-				if(isValidEmail(guiGetText(input[2]))){
-					guiSetText(input[2], "Введён некорректный email");
+				if(guiGetText(input[2]).len() > 0){
+					if(isValidEmail(guiGetText(input[2]))){
+						guiSetText(input[2], "Введён некорректный email");
+					}
+					else {
+						local password = guiGetText(input[0]);
+						local email = guiGetText(input[2]);
+						triggerServerEvent("registerGUIFunction", password, email);
+					}
 				}
 				else {
-					local password = guiGetText(input[0]);
-					local email = guiGetText(input[2]);
-					triggerServerEvent("registerGUIFunction", password, email);
+				    guiSetText(label[0], "Введите ваш email адресс!");
 				}
 			}
 		}
@@ -135,6 +140,9 @@ function resetPlayerIntroScreen () {
 	setPlayerRotation(getLocalPlayer(), 0.0, 0.0, 0.0);
 	otherPlayerLocked = false;
 	showChat(true);
+	delayedFunction(500, function() {
+		showChat(true);
+	});
 }
 addEventHandler("resetPlayerIntroScreen",resetPlayerIntroScreen);
 

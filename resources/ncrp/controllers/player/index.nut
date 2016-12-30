@@ -3,6 +3,7 @@ include("controllers/player/PlayerList.nut");
 include("controllers/player/functions.nut");
 include("controllers/player/anticheat.nut");
 include("controllers/player/respawn");
+include("controllers/player/afk.nut");
 
 players <- {};
 xPlayers <- {};
@@ -75,7 +76,9 @@ event("onServerStarted", function() {
 });
 
 event("onPlayerInit", function(playerid, name, ip, serial) {
+    // reset screen data
     trigger(playerid, "resetPlayerIntroScreen");
+
     Character.findOneBy({ name = getPlayerName(playerid) }, function(err, char) {
         if (err || !char) {
             // create entity
@@ -124,6 +127,10 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
             trigger(playerid, "onServerIntefaceCharacter", getLocalizedPlayerJob(playerid, "en"), getPlayerLevel(playerid) );
             trigger(playerid, "onServerInterfaceMoney", getPlayerMoney(playerid));
             screenFadeout(playerid, 500);
+
+            // try to undfreeze player
+            freezePlayer(playerid, false);
+            trigger(playerid, "resetPlayerIntroScreen");
         });
     });
 });
@@ -131,6 +138,13 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
 function trySavePlayer(playerid) {
     if (!(playerid in players) || !(playerid in xPlayers)) {
         return null;
+    }
+
+    // if player has crashed on spawn
+    if (isInRadius(playerid, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z, 5.0)) {
+        char.x = HOSPITAL_X;
+        char.y = HOSPITAL_Y;
+        char.z = HOSPITAL_Z;
     }
 
     // get instance
