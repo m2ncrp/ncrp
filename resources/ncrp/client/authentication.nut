@@ -66,8 +66,8 @@ function destroyAuthGUI(){
 		guiSetVisible(window,false);
 		guiSetVisible(image,false);
 
-		guiDestroyElement(window);
-		guiDestroyElement(image);
+		//guiDestroyElement(window);
+		//guiDestroyElement(image);
 
 		delayedFunction(500, function() {
 			showCursor(false);
