@@ -94,11 +94,6 @@ event("onServerStarted", function() {
     createVehicle(20, -426.371, 410.698, 0.742629, 90.2978, -3.42313, 0.371656);
     createVehicle(20, -412.107, 410.674, -0.0407671, 89.4833, -3.28604, 1.37194);
 
-    createVehicle(27, -1559.61, -297.071, -20.0909, -0.0439384, 0.275704, 0.537192); //Bronevik Sand Island
-
-    carp = createVehicle(42, -1559.61, -296.908, -20.0912, -0.0724972, 0.000332189, 0.525066); // police Sand Island
-
-
   //busStops[0]   <-  busStop("NAME",                                              public ST                                   private
     busStops[1]   <-  busStop("Uptown (platform #1)",              busv3( -400.996,   490.847,  -1.01301 ),   busv3( -404.360,   488.435,   -0.568764 ));
     busStops[2]   <-  busStop("Uptown (platform #2)",              busv3( -400.996,   444.081,  -1.05144 ),   busv3( -404.360,   441.001,   -0.566925 ));
@@ -155,11 +150,6 @@ key("e", function(playerid) {
 key("q", function(playerid) {
     busJobRefuseLeave( playerid );
 }, KEY_UP);
-
-
-event("onPlayerSpawn", function(playerid) {
-    setVehicleBeaconLightState(carp, true);
-});
 
 
 event("onPlayerConnect", function(playerid, name, ip, serial ){
@@ -344,6 +334,10 @@ function busJobRefuseLeave( playerid ) {
         return;
     }
 
+    if(job_bus[playerid]["userstatus"] == null) {
+        msg( playerid, "job.bus.goodluck", BUS_JOB_COLOR);
+    }
+
     if (job_bus[playerid]["userstatus"] == "working") {
         msg( playerid, "job.bus.badworker.onleave", BUS_JOB_COLOR);
         job_bus[playerid]["userstatus"] = "nojob";
@@ -351,13 +345,9 @@ function busJobRefuseLeave( playerid ) {
     }
 
     if (job_bus[playerid]["userstatus"] == "complete") {
-        job_bus[playerid]["userstatus"] = null;
-        job_bus[playerid]["route"] = false;
         busGetSalary( playerid );
-        msg( playerid, "job.bus.goodluck", BUS_JOB_COLOR);
-    }
-
-    if(job_bus[playerid]["userstatus"] == null) {
+        job_bus[playerid]["route"] = false;
+        job_bus[playerid]["userstatus"] = null;
         msg( playerid, "job.bus.goodluck", BUS_JOB_COLOR);
     }
 
