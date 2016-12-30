@@ -130,6 +130,7 @@ event("onPlayerInit", function(playerid, name, ip, serial) {
 
             // try to undfreeze player
             freezePlayer(playerid, false);
+            trigger(playerid, "resetPlayerIntroScreen");
         });
     });
 });
