@@ -48,6 +48,9 @@ translation("en", {
     "auth.GUI.Email"                    : "Email:"
     "auth.GUI.ButtonRegister"           : "Sign up"
 
+    "admin.startRR.message"             :"SERVER: Hello guys! I need to restart itself in 15 minutes. Please, complete all your jobs. Thanks!"
+    "admin.rrTime.message"              :"Server will be restarted in %i minutes."
+
 
 });
 
