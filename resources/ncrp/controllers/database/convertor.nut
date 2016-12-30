@@ -121,28 +121,28 @@ function migrateSQLiteToMySQL() {
     })
 
     dbg("loading table SportBet");
-    SportBet.findAll(function(err, records) {
-        foreach (idx, value in records) {
-            value.__persisted = false;
-            data.push(value);
-        }
-    })
+    // SportBet.findAll(function(err, records) {
+    //     foreach (idx, value in records) {
+    //         value.__persisted = false;
+    //         data.push(value);
+    //     }
+    // })
 
-    dbg("loading table SportEvent");
-    SportEvent.findAll(function(err, records) {
-        foreach (idx, value in records) {
-            value.__persisted = false;
-            data.push(value);
-        }
-    })
+    // dbg("loading table SportEvent");
+    // SportEvent.findAll(function(err, records) {
+    //     foreach (idx, value in records) {
+    //         value.__persisted = false;
+    //         data.push(value);
+    //     }
+    // })
 
-    dbg("loading table SportMember");
-    SportMember.findAll(function(err, records) {
-        foreach (idx, value in records) {
-            value.__persisted = false;
-            data.push(value);
-        }
-    })
+    // dbg("loading table SportMember");
+    // SportMember.findAll(function(err, records) {
+    //     foreach (idx, value in records) {
+    //         value.__persisted = false;
+    //         data.push(value);
+    //     }
+    // })
 
     dbg("setting up mysql driver...");
 
@@ -164,9 +164,9 @@ function migrateSQLiteToMySQL() {
     TimestampStorage.createTable().execute();
     Vehicle.createTable().execute();
     World.createTable().execute();
-    SportBet.createTable().execute();
-    SportEvent.createTable().execute();
-    SportMember.createTable().execute();
+    // SportBet.createTable().execute();
+    // SportEvent.createTable().execute();
+    // SportMember.createTable().execute();
 
     // mysql_query(connection2, "ALTER TABLE `stat_texts` CHANGE COLUMN `content` `content` TEXT CHARACTER SET 'cp1251' NOT NULL ;");
 
