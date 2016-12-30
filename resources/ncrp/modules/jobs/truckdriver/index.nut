@@ -199,7 +199,8 @@ event("onServerStarted", function() {
         carp2 = createVehicle(42, -1604.3, 569.969, -19.9775, -54.2438, 0.27688, -0.144837); // police Most
     }
 
-    create3DText ( TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.20, "Press E to talk", CL_WHITE.applyAlpha(150), RADIUS_TRUCK );
+    create3DText ( TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.35, "TRANSPORT COMPANY", CL_ROYALBLUE );
+    create3DText ( TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.20, "Press E to action", CL_WHITE.applyAlpha(150), RADIUS_TRUCK );
 
     registerPersonalJobBlip("truckdriver", TRUCK_JOB_X, TRUCK_JOB_Y);
 });
@@ -428,6 +429,10 @@ function truckJobRefuseLeave( playerid ) {
         return;
     }
 
+    if(job_truck[playerid]["userstatus"] == null) {
+        msg( playerid, "job.truckdriver.goodluck");
+    }
+
     if (job_truck[playerid]["userstatus"] == "working") {
         msg( playerid, "job.truckdriver.badworker.onleave");
         job_truck[playerid]["userstatus"] = "nojob";
@@ -438,10 +443,6 @@ function truckJobRefuseLeave( playerid ) {
         truckGetSalary( playerid );
         msg( playerid, "job.truckdriver.goodluck");
         job_truck[playerid]["userstatus"] = null;
-    }
-
-    if(job_truck[playerid]["userstatus"] == null) {
-        msg( playerid, "job.truckdriver.goodluck");
     }
 
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
