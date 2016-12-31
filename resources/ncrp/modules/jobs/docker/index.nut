@@ -224,7 +224,10 @@ function dockerJobTakeBox( playerid ) {
     msg( playerid, "job.docker.tookbox", DOCKER_JOB_COLOR );
 
     job_docker[playerid]["blip3dtext"] = dockerJobCreatePrivateBlipText(playerid, DOCKER_JOB_PUTBOX_X, DOCKER_JOB_PUTBOX_Y, DOCKER_JOB_PUTBOX_Z, "PUT BOX HERE", "press E");
-
+    delayedFunction(250, function () { setPlayerAnimStyle(playerid, "common", "CarryBox"); });
+    delayedFunction(500, function () { setPlayerAnimStyle(playerid, "common", "CarryBox"); });
+    delayedFunction(750, function () { setPlayerAnimStyle(playerid, "common", "CarryBox"); });
+    delayedFunction(1000, function () { setPlayerAnimStyle(playerid, "common", "CarryBox"); });
 }
 
 // working good, check
@@ -251,7 +254,10 @@ function dockerJobPutBox( playerid ) {
     addMoneyToPlayer(playerid, DOCKER_SALARY);
 
     job_docker[playerid]["blip3dtext"] = dockerJobCreatePrivateBlipText(playerid, DOCKER_JOB_TAKEBOX_X, DOCKER_JOB_TAKEBOX_Y, DOCKER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "press E");
+    delayedFunction(250, function () { setPlayerAnimStyle(playerid, "common", "default"); });
     delayedFunction(500, function () { setPlayerAnimStyle(playerid, "common", "default"); });
+    delayedFunction(750, function () { setPlayerAnimStyle(playerid, "common", "default"); });
+    delayedFunction(1000, function () { setPlayerAnimStyle(playerid, "common", "default"); });
 }
 
 
@@ -269,7 +275,10 @@ event("updateMoveState", function(playerid, state) {
             msg( playerid, "job.docker.dropped", DOCKER_JOB_COLOR );
             msg( playerid, "job.docker.presscapslock" )
             job_docker[playerid]["blip3dtext"] = dockerJobCreatePrivateBlipText(playerid, DOCKER_JOB_TAKEBOX_X, DOCKER_JOB_TAKEBOX_Y, DOCKER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "press E");
+            delayedFunction(250, function () { setPlayerAnimStyle(playerid, "common", "default"); });
             delayedFunction(500, function () { setPlayerAnimStyle(playerid, "common", "default"); });
+            delayedFunction(750, function () { setPlayerAnimStyle(playerid, "common", "default"); });
+            delayedFunction(1000, function () { setPlayerAnimStyle(playerid, "common", "default"); });
         }
     }
 });
