@@ -281,9 +281,9 @@ function calculateBusinessIncome() {
         if (playerid != -1) {
             local amount = max(0.0, randomf(biz.income - 2.5, biz.income + 2.5));
 
-            // give only 5% of current amount
+            // give only 10% of current amount
             if (isPlayerAfk(playerid)) {
-                amount = amount * 0.05;
+                amount = amount * 0.1;
             }
 
             addMoneyToPlayer(playerid, amount);
