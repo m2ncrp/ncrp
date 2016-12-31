@@ -60,12 +60,12 @@ event("onServerStarted", function() {
 
             local pos = getPlayerPosition(playerid);
 
-            if (pos.len() != 3) {
+            if (pos && pos.len() != 3) {
                 continue;
             }
 
             // check for falling players
-            if ([2] < -75.0) {
+            if (pos[2] < -75.0) {
                 dbg("player", "falldown", playerid);
                 trigger("onPlayerFallingDown", playerid);
             }
