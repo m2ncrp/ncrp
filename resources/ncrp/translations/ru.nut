@@ -245,7 +245,7 @@ translation("ru", {
     "job.docker.tookbox"                :   "[DOCKER] Ты взял ящик. Теперь неси его к грузовику."
     "job.docker.haventbox"              :   "[DOCKER] Ты не брал ящик."
     "job.docker.dropped"                :   "[DOCKER] Ты уронил ящик."
-    "job.docker.presssapslock"          :   "Нажми CAPS LOCK для включения режима ходьбы."
+    "job.docker.presscapslock"          :   "Нажми CAPS LOCK для включения режима ходьбы."
     "job.docker.gotowarehouse"          :   "[DOCKER] Иди к грузовику."
     "job.docker.nicejob"                :   "[DOCKER] Ты принёс ящик. Твой заработок $%.2f."
 
