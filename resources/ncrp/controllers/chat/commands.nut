@@ -4,6 +4,7 @@ local IS_OOC_ENABLED = true;
 event("onPlayerConnect", function(playerid, name, ip, serial ){
     antiflood[playerid] <- {};
     antiflood[playerid]["gooc"] <- 0;
+    antiflood[playerid]["togooc"] <- false;
 });
 
 event("onServerSecondChange",function() {
@@ -93,7 +94,9 @@ chatcmd(["o","ooc"], function(playerid, message) {
         if(IS_OOC_ENABLED){
             if(antiflood[playerid]["gooc"] == 0){
                 foreach (targetid, value in players) {
-                    msg(targetid, "[OOC] " + getAuthor3( playerid ) + ": " + message, CL_GRAY); 
+                    if (!antiflood[targetid]["togooc"]) {
+                        msg(targetid, "[OOC] " + getAuthor3( playerid ) + ": " + message, CL_GRAY); 
+                    }
                 }
                 antiflood[playerid]["gooc"] = ANTIFLOOD_GLOBAL_OOC_CHAT;
             }
@@ -244,5 +247,27 @@ acmd(["noooc"], function ( playerid ) {
     else{
         IS_OOC_ENABLED = true;
         msg_a("Общий чат был включен администратором.",CL_LIGHTWISTERIA);
+    }
+});
+
+chatcmd(["try"], function(playerid, message) {
+    local res = random(0,1);
+    if(res)
+        sendLocalizedMsgToAll(playerid, "chat.player.try.end.success", message, NORMAL_RADIUS);
+    else
+        sendLocalizedMsgToAll(playerid, "chat.player.try.end.fail", message, NORMAL_RADIUS);
+
+    // statistics
+    statisticsPushMessage(playerid, message, "try");
+});
+
+cmd(["togooc"], function(playerid) {
+    if(antiflood[playerid]["togooc"]){
+        antiflood[playerid]["togooc"] = false;
+        msg(playerid, "Вы отключили показ ООС чата!");
+    }
+    else{
+        antiflood[playerid]["togooc"] = true;
+        msg(playerid, "Вы включили показ ООС чата!");
     }
 });
