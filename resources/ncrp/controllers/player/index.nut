@@ -54,11 +54,22 @@ event("onServerStarted", function() {
     ticker = timer(function() {
         foreach (playerid, value in players) {
 
-            if (isPlayerConnected(playerid)) {
+            if (!isPlayerConnected(playerid)) {
                 continue;
             }
 
-            local pos = getPlayerPosition(playerid);
+            local pos  = getPlayerPosition(playerid);
+
+            // store position in-memory
+            if (playerid in xPlayers) {
+                local char = xPlayers[playerid];
+
+                char.housex = pos[0];
+                char.housey = pos[1];
+                char.housez = pos[2];
+                // char.y = pos[1];
+                // char.z = pos[2];
+            }
 
             if (pos && pos.len() != 3) {
                 continue;
@@ -68,18 +79,6 @@ event("onServerStarted", function() {
             if (pos[2] < -75.0) {
                 dbg("player", "falldown", playerid);
                 trigger("onPlayerFallingDown", playerid);
-            }
-
-            // store position in-memory
-            if (playerid in xPlayers) {
-                local char = xPlayers[playerid];
-                local pos  = getPlayerPosition(playerid);
-
-                char.housex = pos[0];
-                char.housey = pos[1];
-                char.housez = pos[2];
-                // char.y = pos[1];
-                // char.z = pos[2];
             }
         }
     }, 500, -1);
