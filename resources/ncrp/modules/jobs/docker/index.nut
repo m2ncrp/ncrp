@@ -3,22 +3,22 @@ translation("en", {
 "job.docker.letsgo"             : "[DOCKER] Let's go to office at City Port."
 "job.docker.already"            : "[DOCKER] You're docker already."
 "job.docker.now"                : "[DOCKER] You're a docker now. Welcome... to hell! Ha-ha..."
-"job.docker.takeboxandcarry"    : "[DOCKER] Take a box and carry it to the truck."
+"job.docker.takeboxandcarry"    : "[DOCKER] Take a crate and carry it to the truck."
 "job.docker.not"                : "[DOCKER] You're not a docker."
-"job.docker.takebox"            : "[DOCKER] Go and take a box."
-"job.docker.havebox"            : "[DOCKER] You have a box already."
-"job.docker.tookbox"            : "[DOCKER] You took the box. Go to truck."
-"job.docker.haventbox"          : "[DOCKER] You haven't a box."
-"job.docker.dropped"            : "[DOCKER] You dropped the box."
-"job.docker.presssapslock"      : "Press CAPS LOCK to walk."
+"job.docker.takebox"            : "[DOCKER] Go and take a crate."
+"job.docker.havebox"            : "[DOCKER] You have a crate already."
+"job.docker.tookbox"            : "[DOCKER] You took the crate. Go to truck."
+"job.docker.haventbox"          : "[DOCKER] You haven't a crate."
+"job.docker.dropped"            : "[DOCKER] You dropped the crate."
+"job.docker.presscapslock"      : "Press CAPS LOCK to walk."
 "job.docker.gotowarehouse"      : "[DOCKER] Go to truck."
-"job.docker.nicejob"            : "[DOCKER] You put the box. You earned $%.2f."
+"job.docker.nicejob"            : "[DOCKER] You put the crate. You earned $%.2f."
 
 "job.docker.help.title"         : "List of available commands for DOCKER JOB:"
 "job.docker.help.job"           : "Get docker job"
 "job.docker.help.jobleave"      : "Leave docker job"
-"job.docker.help.take"          : "Take a box"
-"job.docker.help.put"           : "Put box to truck"
+"job.docker.help.take"          : "Take a crate"
+"job.docker.help.put"           : "Put crate to truck"
 });
 
 
@@ -262,7 +262,7 @@ event("updateMoveState", function(playerid, state) {
             job_docker[playerid]["havebox"] = false;
             dockerJobRemovePrivateBlipText ( playerid );
             msg( playerid, "job.docker.dropped", DOCKER_JOB_COLOR );
-            msg( playerid, "job.docker.presssapslock" )
+            msg( playerid, "job.docker.presscapslock" )
             job_docker[playerid]["blip3dtext"] = dockerJobCreatePrivateBlipText(playerid, DOCKER_JOB_TAKEBOX_X, DOCKER_JOB_TAKEBOX_Y, DOCKER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "press E");
             delayedFunction(500, function () { setPlayerAnimStyle(playerid, "common", "default"); });
         }
