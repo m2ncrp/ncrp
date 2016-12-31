@@ -79,6 +79,11 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
         .setParameter("serial", getPlayerSerial(playerid))
         .setParameter("current", getTimestamp())
         .getSingleResult(function(err, result) {
+
+            /**
+             * Account is banned!
+             * Applying actions
+             */
             if (result) {
                 // disable ability to login
                 setPlayerAuthBlocked(playerid, true);
@@ -101,6 +106,11 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
                 });
             }
 
+            /**
+             * Seems like account is not banned
+             * Now we are trying to find account
+             * to show login form or show registration form
+             */
             Account.findOneBy({ username = username }, function(err, account) {
                 // override player locale if registered
                 if (account) {
@@ -108,6 +118,9 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
                     setPlayerLayout(playerid, account.layout, false);
                 }
 
+                /**
+                 * Maybe we shoudl apply autologin ?
+                 */
                 if (getTimestamp() - getLastActiveSession(playerid) < AUTH_AUTOLOGIN_TIME) {
                     // update data
                     account.ip       = getPlayerIp(playerid);
@@ -131,6 +144,10 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
                     return;
                 }
 
+                /**
+                 * Or just show the forms
+                 * for login or registration
+                 */
                 msg(playerid, "---------------------------------------------", CL_SILVERSAND);
                 msg(playerid, "auth.welcome", username);
 

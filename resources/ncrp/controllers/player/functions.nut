@@ -1,3 +1,19 @@
+nativeGetPlayerName <- getPlayerName;
+
+/**
+ * Return logined player character name
+ * or native network player name
+ * @param  {Integer} playerid
+ * @return {String}
+ */
+function getPlayerName(playerid) {
+    if (playerid in players) {
+        return players[playerid].firstname + " " players[playerid].lastname;
+    }
+
+    return nativeGetPlayerName(playerid);
+}
+
 /**
  * Move player to a specified place from his coordinates
  *
