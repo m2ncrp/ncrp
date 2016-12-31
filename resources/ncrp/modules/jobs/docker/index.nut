@@ -207,7 +207,8 @@ function dockerJobTakeBox( playerid ) {
     }
 
     if(!isPlayerInValidPoint(playerid, DOCKER_JOB_TAKEBOX_X , DOCKER_JOB_TAKEBOX_Y, DOCKER_RADIUS)) {
-        return msg( playerid, "job.docker.takebox", DOCKER_JOB_COLOR );
+        //return msg( playerid, "job.docker.takebox", DOCKER_JOB_COLOR );
+        return;
     }
 
     if (isDockerHaveBox(playerid)) {
