@@ -242,12 +242,11 @@ translation("ru", {
     "job.docker.not"                    :   "[DOCKER] Вы не работаете портовым рабочим."
     "job.docker.takebox"                :   "[DOCKER] Иди и возьми ящик."
     "job.docker.havebox"                :   "[DOCKER] Ты уже несёшь ящик. Тебе мало что ли?"
-    "job.docker.tookbox"                :   "[DOCKER] Ты взял ящик. Теперь неси его на склад."
+    "job.docker.tookbox"                :   "[DOCKER] Ты взял ящик. Теперь неси его к грузовику."
     "job.docker.haventbox"              :   "[DOCKER] Ты не брал ящик."
     "job.docker.dropped"                :   "[DOCKER] Ты уронил ящик."
     "job.docker.presscapslock"          :   "Нажми CAPS LOCK для включения режима ходьбы."
     "job.docker.gotowarehouse"          :   "[DOCKER] Иди к грузовику."
-    "job.docker.gotowarehouse"          :   "[DOCKER] Иди на склад."
     "job.docker.nicejob"                :   "[DOCKER] Ты принёс ящик. Твой заработок $%.2f."
 
     "job.docker.help.title"             :   "Список команд, доступных портовому рабочему:"
