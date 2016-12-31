@@ -54,6 +54,8 @@ translation("en", {
     "admin.rrTime.message"              :"Server will be restarted in %i minutes."
 
     "antiflood.message"                 : "Aniflood: wait a %i seconds."
+
+    "admin.oocDisabled.message"         :"General chat disabled by your administrator!"
 });
 
 

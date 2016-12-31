@@ -145,14 +145,15 @@ event("onServerStarted", function() {
 });
 
 event("onServerHourChange", function() {
-    local amount = randomf(UNEMPLOYED_MONEY_INCOME - 1.0, UNEMPLOYED_MONEY_INCOME + 2.5);
+    local originalAmount = randomf(UNEMPLOYED_MONEY_INCOME - 1.0, UNEMPLOYED_MONEY_INCOME + 2.5);
 
     foreach (playerid, value in players) {
         if (!getPlayerJob(playerid)) {
+            local amount = originalAmount;
 
-            // give only 5% of current amount
+            // give only 10% of current amount for afk
             if (isPlayerAfk(playerid)) {
-                amount = amount * 0.05;
+                amount = originalAmount * 0.1;
             }
 
             addMoneyToPlayer(playerid, amount);
