@@ -191,6 +191,27 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
     dxDrawText(drawdata.logos, 6.5, screenY - offset - 6.5, 0x88FFFFFF, false, "tahoma-bold");
 });
 
+local screenFade = {
+    current = 255,
+    state = false,
+};
+
+addEventHandler("onClientFrameRender", function(isGUIdrawn) {
+    if (!isGUIdrawn) return;
+    if ( screenFade.current > 0 ) {
+        // dxDrawRectangle(0.0, 0.0, screenX, screenY, fromRGB(0, 0, 0, screenFade.current));
+    }
+});
+
+addEventHandler("onServerFadeScreen", function(time, fadein) {
+    if (fadein) {
+        screenFade.state = fadein;
+    }
+});
+
+
+
+
 /**
  * Handling client events
  */
@@ -215,10 +236,6 @@ addEventHandler("onServerIntefaceCharacter", function(job, level) {
 addEventHandler("onServerInterfaceMoney", function(money) {
     drawdata.money = format("$ %.2f", money.tofloat());
 })
-
-addEventHandler("onServerFadeScreen", function(time, fadein) {
-    // fadeScreen(time.tofloat(), fadein);
-});
 
 addEventHandler("onServerAddedNofitication", function(type, data) {
     notifications.push({ type = type, data = data });
