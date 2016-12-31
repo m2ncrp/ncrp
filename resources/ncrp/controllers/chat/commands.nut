@@ -90,12 +90,11 @@ chatcmd(["b"], function(playerid, message) {
 
 // global nonRP chat
 chatcmd(["o","ooc"], function(playerid, message) {
-    // msg_a("[OOC] " + getAuthor( playerid ) + ": " + message, CL_GRAY);
-    foreach (targetid, value in players) {
-        // if (getPlayerLocale(targetid) == getPlayerLocale(playerid) || isPlayerAdmin(targetid)) {
         if(IS_OOC_ENABLED){
             if(antiflood[playerid]["gooc"] == 0){
-                msg(targetid, "[OOC] " + getAuthor3( playerid ) + ": " + message, CL_GRAY);
+                foreach (targetid, value in players) {
+                    msg(targetid, "[OOC] " + getAuthor3( playerid ) + ": " + message, CL_GRAY); 
+                }
                 antiflood[playerid]["gooc"] = ANTIFLOOD_GLOBAL_OOC_CHAT;
             }
             else {
@@ -105,8 +104,6 @@ chatcmd(["o","ooc"], function(playerid, message) {
         else{
             msg(playerid, "admin.oocDisabled.message",CL_LIGHTWISTERIA);
         }
-        // }
-    }
 
     // statistics
     statisticsPushMessage(playerid, message, "ooc");
