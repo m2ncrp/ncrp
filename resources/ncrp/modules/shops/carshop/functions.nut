@@ -25,8 +25,8 @@ local carPrices = [
        // { modelid = 22, price = 2100, title = "Potomac Indian"      },  // potomac_indian
         { modelid = 23, price = 2350, title = "Quicksilver Windsor" },  // quicksilver_windsor_pha
         { modelid = 44, price = 1700, title = "Smith Mainline"      },  // smith mainline
-        { modelid = 50, price = 1475, title = "Culver Empire"       },
         { modelid = 48, price = 1500, title = "Smith Wagon"         },  // smith_wagon_pha
+        { modelid = 50, price = 1475, title = "Culver Empire"       },
         { modelid = 53, price = 770 , title = "Walter Coupe"        },  // walter_coupe
         { modelid = 47, price = 530,  title = "Smith V8" },  // quicksilver_windsor_pha
         { modelid = 43, price = 450 , title = "Smith Coupe"         },  // smith_coupe
@@ -42,8 +42,8 @@ local carPrices = [
         { modelid = 29, price = 3500, title = "Shubert Frigate"       },
         { modelid = 14, price = 3200, title = "Jefferson Provincial"},
         { modelid = 45, price = 2700, title = "Smith Thunderbolt"   },
-        { modelid = 41, price = 2140, title = "Smith Custom 200"    },
         { modelid = 28, price = 2300, title = "Shubert Beverly"     },
+        { modelid = 41, price = 2140, title = "Smith Custom 200"    },
        // { modelid = 52, price = 2450, title = "Walker Rocket"       },
     ]
 ];
