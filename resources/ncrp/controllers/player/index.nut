@@ -220,13 +220,6 @@ event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     trySavePlayer(playerid);
 });
 
-// key("f", function(playerid) {
-//     if (isPlayerInVehicle(playerid)) {
-//         dbg("player", "save on exit from vehicle");
-//         trySavePlayer(playerid);
-//     }
-// }, KEY_DOWN);
-
 event("onPlayerConnectInit", function(playerid, name, ip, serial) {
     // set player colour
     setPlayerColour(playerid, 0x99FFFFFF); // whity
@@ -251,21 +244,16 @@ event("onServerPlayerStarted", function(playerid) {
         removePlayerWeapon( playerid, id );
     })
 
-    if (getPlayerName(playerid) == "Inlife") {
+    if (getAccountName(playerid) == "Inlife") {
         setPlayerColour(playerid, 0x99FF3333); // admin
     }
-    if (getPlayerName(playerid) == "Klo_Douglas") {
+    if (getAccountName(playerid) == "Klo_Douglas") {
         setPlayerColour(playerid, 0x99FF3333); // admin
     }
 
     // clear chat
     for (local i = 0;i < 14; i++) {
         msg(playerid, "", CL_BLACK);
-    }
-
-    if (getPlayerName(playerid) == "nightm4re") {
-        msg(playerid, "[ADMIN][AUTOMATED] Hello, nightm4re. We saw your suggestion about translation.", CL_MEDIUMPURPLE);
-        msg(playerid, "[ADMIN][AUTOMATED] And we think its a good idea. Please, contact us at: bit.ly/tsoeb.", CL_MEDIUMPURPLE);
     }
 });
 

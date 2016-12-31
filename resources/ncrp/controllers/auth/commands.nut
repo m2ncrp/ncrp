@@ -19,7 +19,7 @@ function registerFunc(playerid, password, email = null) {
 
         // create account
         account = Account();
-        account.username = getPlayerName(playerid);
+        account.username = getAccountName(playerid);
         account.password = md5(password);
         account.ip       = getPlayerIp(playerid);
         account.serial   = getPlayerSerial(playerid);
@@ -91,7 +91,7 @@ function loginFunc(playerid, password) {
 
         // try to find logined account
         Account.findOneBy({
-            username = getPlayerName(playerid),
+            username = getAccountName(playerid),
             password = md5(password)
         }, function(err, account) {
             // no accounts found
