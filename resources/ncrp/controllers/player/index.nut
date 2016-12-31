@@ -54,32 +54,31 @@ event("onServerStarted", function() {
     ticker = timer(function() {
         foreach (playerid, value in players) {
 
-            if (isPlayerConnected(playerid)) {
+            if (!isPlayerConnected(playerid)) {
                 continue;
             }
 
-            local pos = getPlayerPosition(playerid);
+            local pos  = getPlayerPosition(playerid);
 
-            if (pos && pos.len() != 3) {
+            if (!pos || pos.len() != 3) {
                 continue;
-            }
-
-            // check for falling players
-            if (pos[2] < -75.0) {
-                dbg("player", "falldown", playerid);
-                trigger("onPlayerFallingDown", playerid);
             }
 
             // store position in-memory
             if (playerid in xPlayers) {
                 local char = xPlayers[playerid];
-                local pos  = getPlayerPosition(playerid);
 
                 char.housex = pos[0];
                 char.housey = pos[1];
                 char.housez = pos[2];
                 // char.y = pos[1];
                 // char.z = pos[2];
+            }
+
+            // check for falling players
+            if (pos[2] < -75.0) {
+                dbg("player", "falldown", playerid);
+                trigger("onPlayerFallingDown", playerid);
             }
         }
     }, 500, -1);
@@ -203,11 +202,6 @@ addEventHandlerEx("onServerAutosave", function() {
     }
 });
 
-// prevent nickname spoofing
-event("native:onPlayerChangeNick", function(playerid, newname, oldnickname) {
-    kick(-1, playerid, "nick change is not allowed in game.");
-});
-
 addEventHandlerEx("onServerMinuteChange", function() {
     foreach (playerid, char in players) { char.xp++; }
 });
@@ -236,6 +230,19 @@ event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
 event("onPlayerConnectInit", function(playerid, name, ip, serial) {
     // set player colour
     setPlayerColour(playerid, 0x99FFFFFF); // whity
+});
+
+// prevent nickname spoofing
+event("native:onPlayerChangeNick", function(playerid, newname, oldnickname) {
+    kick(-1, playerid, "nick change is not allowed in game.");
+});
+
+event("onServerMinuteChange", function() {
+    foreach (playerid, value in getPlayers()) {
+        if (!strip(getPlayerName(playerid)).len()) {
+            kick(-1, playerid, "nick change is not allowed in game.");
+        }
+    }
 });
 
 event("onServerPlayerStarted", function(playerid) {
