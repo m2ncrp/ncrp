@@ -1,3 +1,22 @@
+local antiflood = {};
+local IS_OOC_ENABLED = true;
+
+event("onPlayerConnect", function(playerid, name, ip, serial ){
+    antiflood[playerid] <- {};
+    antiflood[playerid]["gooc"] <- 0;
+    antiflood[playerid]["togooc"] <- true;
+});
+
+event("onServerSecondChange",function() {
+    foreach (pid, value in players) {
+        if (isPlayerLogined(pid)) {
+            if(antiflood[pid]["gooc"] > 0){
+                antiflood[pid]["gooc"]--;
+            }
+        }
+    }
+});
+
 // local chat
 chatcmd(["i", "ic", "say"], function(playerid, message) {
     sendLocalizedMsgToAll(playerid, "chat.player.says", message, NORMAL_RADIUS, CL_YELLOW);
@@ -35,11 +54,13 @@ chatcmd(["w", "whisper"], function(playerid, message) {
     statisticsPushMessage(playerid, message, "whisper");
 });
 
+/*
 chatcmd(["global", "g"], function(playerid, message) {
     msg_a("[Global OOC] " + getAuthor( playerid ) + ": " + message, CL_SILVERSAND);
 
     statisticsPushMessage(playerid, message, "global");
 });
+*/
 
 // private message
 cmd("pm", function(playerid, targetid, ...) {
@@ -70,12 +91,22 @@ chatcmd(["b"], function(playerid, message) {
 
 // global nonRP chat
 chatcmd(["o","ooc"], function(playerid, message) {
-    // msg_a("[OOC] " + getAuthor( playerid ) + ": " + message, CL_GRAY);
-    foreach (targetid, value in players) {
-        // if (getPlayerLocale(targetid) == getPlayerLocale(playerid) || isPlayerAdmin(targetid)) {
-            msg(targetid, "[OOC] " + getAuthor3( playerid ) + ": " + message, CL_GRAY);
-        // }
-    }
+        if(IS_OOC_ENABLED){
+            if(antiflood[playerid]["gooc"] == 0){
+                foreach (targetid, value in players) {
+                    //if (!antiflood[targetid]["togooc"]) {
+                        msg(targetid, "[OOC] " + getAuthor3( playerid ) + ": " + message, CL_GRAY); 
+                   // }
+                }
+                antiflood[playerid]["gooc"] = ANTIFLOOD_GLOBAL_OOC_CHAT;
+            }
+            else {
+                msg(playerid, "antiflood.message", antiflood[playerid]["gooc"]/2, CL_LIGHTWISTERIA);
+            }
+        }
+        else{
+            msg(playerid, "admin.oocDisabled.message",CL_LIGHTWISTERIA);
+        }
 
     // statistics
     statisticsPushMessage(playerid, message, "ooc");
@@ -188,7 +219,6 @@ cmd(["help", "h", "halp", "info"], "vehicle", function(playerid) {
 });
 */
 
-
 key("f1", function(playerid) {
     return setPlayerChatSlot(playerid, 0);
 });
@@ -207,4 +237,37 @@ key("f4", function(playerid) {
 
 key("f5", function(playerid) {
     return trigger(playerid, "onServerChatTrigger");
+});
+
+acmd(["noooc"], function ( playerid ) {
+    if(IS_OOC_ENABLED){
+        IS_OOC_ENABLED = false;
+        msg_a("Общий чат был отключен администратором.",CL_LIGHTWISTERIA);
+    }
+    else{
+        IS_OOC_ENABLED = true;
+        msg_a("Общий чат был включен администратором.",CL_LIGHTWISTERIA);
+    }
+});
+
+chatcmd(["try"], function(playerid, message) {
+    local res = random(0,1);
+    if(res)
+        sendLocalizedMsgToAll(playerid, "chat.player.try.end.success", message, NORMAL_RADIUS);
+    else
+        sendLocalizedMsgToAll(playerid, "chat.player.try.end.fail", message, NORMAL_RADIUS);
+
+    // statistics
+    statisticsPushMessage(playerid, message, "try");
+});
+
+cmd(["togooc"], function(playerid) {
+    if(antiflood[playerid]["togooc"]){
+        antiflood[playerid]["togooc"] = false;
+        msg(playerid, "Вы отключили показ ООС чата!");
+    }
+    else{
+        antiflood[playerid]["togooc"] = true;
+        msg(playerid, "Вы включили показ ООС чата!");
+    }
 });
