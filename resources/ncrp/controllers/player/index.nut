@@ -240,7 +240,7 @@ event("native:onPlayerChangeNick", function(playerid, newname, oldnickname) {
 
 event("onServerMinuteChange", function() {
     foreach (playerid, value in getPlayers()) {
-        if (!getPlayerName(playerid).trim().len()) {
+        if (!strip(getPlayerName(playerid)).len()) {
             kick(-1, playerid, "nick change is not allowed in game.");
         }
     }
