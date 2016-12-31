@@ -1,0 +1,1 @@
+gource -1280x720 --key --title "[Russian Role Play] The Stories of Empire Bay | NCRP" --logo /Users/inlife/Projects/ncrp/resources/ncrp/files/logo.png --background 2C3E50 --camera-mode track --time-scale 3 -o - | ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec libx264 -preset ultrafast -pix_fmt yuv420p -crf 1 -threads 0 -bf 0 gource.mp4
