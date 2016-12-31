@@ -8,7 +8,7 @@ nativeGetPlayerName <- getPlayerName;
  */
 function getPlayerName(playerid) {
     if (playerid in players) {
-        return players[playerid].firstname + " " players[playerid].lastname;
+        return players[playerid].firstname + " " + players[playerid].lastname;
     }
 
     return nativeGetPlayerName(playerid);
