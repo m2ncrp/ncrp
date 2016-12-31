@@ -94,9 +94,9 @@ chatcmd(["o","ooc"], function(playerid, message) {
         if(IS_OOC_ENABLED){
             if(antiflood[playerid]["gooc"] == 0){
                 foreach (targetid, value in players) {
-                    if (!antiflood[targetid]["togooc"]) {
+                    //if (!antiflood[targetid]["togooc"]) {
                         msg(targetid, "[OOC] " + getAuthor3( playerid ) + ": " + message, CL_GRAY); 
-                    }
+                   // }
                 }
                 antiflood[playerid]["gooc"] = ANTIFLOOD_GLOBAL_OOC_CHAT;
             }
