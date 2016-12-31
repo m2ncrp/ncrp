@@ -136,6 +136,7 @@ event("onServerStarted", function() {
     foreach (playerid, name in getPlayers()) {
         // trigger("onPlayerInit", playerid, name, null, null);
         trigger("onPlayerConnectInit", playerid, name, "0.0.0.0", getPlayerSerial(playerid));
+        trigger("native:onPlayerSpawn", playerid);
     }
 });
 
