@@ -60,6 +60,10 @@ event("onServerStarted", function() {
 
             local pos  = getPlayerPosition(playerid);
 
+            if (!pos || pos.len() != 3) {
+                continue;
+            }
+
             // store position in-memory
             if (playerid in xPlayers) {
                 local char = xPlayers[playerid];
@@ -69,10 +73,6 @@ event("onServerStarted", function() {
                 char.housez = pos[2];
                 // char.y = pos[1];
                 // char.z = pos[2];
-            }
-
-            if (pos && pos.len() != 3) {
-                continue;
             }
 
             // check for falling players
