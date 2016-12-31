@@ -4,7 +4,7 @@ local IS_OOC_ENABLED = true;
 event("onPlayerConnect", function(playerid, name, ip, serial ){
     antiflood[playerid] <- {};
     antiflood[playerid]["gooc"] <- 0;
-    antiflood[playerid]["togooc"] <- false;
+    antiflood[playerid]["togooc"] <- true;
 });
 
 event("onServerSecondChange",function() {
