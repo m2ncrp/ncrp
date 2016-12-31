@@ -12,6 +12,8 @@ addEventHandler("onServerClientStarted", function(version) {
         return;
     }
 
+    log("creating peds");
+
     // create peds
     foreach (idx, data in peds) {
         local tmp = clone(data);
@@ -20,6 +22,8 @@ addEventHandler("onServerClientStarted", function(version) {
         data.push(ped);
         setPedName(ped, data[data.len() - 2]);
     }
+
+    log("peds created");
 
     // // reset positons
     // ticker = timer(function() {

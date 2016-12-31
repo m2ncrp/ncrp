@@ -90,7 +90,7 @@ event("native:onScriptInit", function() {
     log(format("[core] running version %s...", VERSION));
 
     // setup default values
-    setGameModeText( "RC4" );
+    setGameModeText( VERSION );
     setMapName( "Empire Bay" );
 
     // trigger pre init events
@@ -178,9 +178,8 @@ proxy("onPlayerPlaceExit",          "native:onPlayerPlaceEexit"         );
 // Klo's playground
 proxy("RentCar",                    "RentCar"                           );
 proxy("loginGUIFunction",           "loginGUIFunction"                  );
-proxy("registerGUIFunction",        "registerGUIFunction"                );
-
-
+proxy("registerGUIFunction",        "registerGUIFunction"               );
+proxy("updateMoveState",            "updateMoveState"                   );
 
 /**
  * Debug export

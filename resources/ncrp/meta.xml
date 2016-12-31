@@ -9,10 +9,11 @@
     <script type="client">screen.nut</script>
     <script type="client">weather.nut</script>
     <script type="client">debug.nut</script>
-    <script type="client">peds.nut</script>
+    <!-- <script type="client">peds.nut</script> -->
     <script type="client">rentcar.nut</script>
     <script type="client">authentication.nut</script>
     <script type="client">keyboard.nut</script>
+    <script type="client">other.nut</script>
 
 
    <!-- <script type="client">carshop.nut</script> -->
@@ -29,6 +30,7 @@
     <!-- Client files -->
     <!-- <file>screamer.jpg</file> -->
     <file>logo.png</file>
+    <!-- <file>fine.png</file> -->
     <!-- <file>diamondmotors.png</file> -->
     <!-- <file>id_0.jpg</file> -->
     <!-- <file>bank.png</file> -->
