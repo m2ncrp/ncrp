@@ -5,6 +5,9 @@ include("controllers/player/anticheat.nut");
 include("controllers/player/respawn");
 include("controllers/player/afk.nut");
 
+include("controllers/player/classes/PlayerContainer.nut")
+include("controllers/player/classes/Character.nut")
+
 players <- {};
 xPlayers <- {};
 playerList <- {};

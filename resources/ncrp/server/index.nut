@@ -9,8 +9,6 @@ dofile("resources/ncrp/libraries/index.nut", true);
 // load classes
 include("traits/Colorable.nut");
 include("models/Color.nut");
-include("models/Account.nut");
-include("models/Character.nut");
 include("models/Vehicle.nut");
 include("models/World.nut");
 include("models/TeleportPosition.nut");

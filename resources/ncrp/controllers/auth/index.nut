@@ -1,3 +1,5 @@
+include("controllers/auth/classes/Account.nut");
+
 IS_AUTHORIZATION_ENABLED <- true;
 AUTH_ACCOUNTS_LIMIT      <- 2;
 AUTH_AUTOLOGIN_TIME      <- 900; // 15 minutes
