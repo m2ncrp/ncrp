@@ -42,7 +42,7 @@ event("onServerStarted", function() {
     // create helper text for peds
     foreach (idx, pos in spawnHelperPositions) {
         create3DText ( pos[0], pos[1], pos[2] + 0.20, "Press E to talk", CL_WHITE.applyAlpha(150), TUTORIAL_RADIUS );
-        // create3DText ( pos[0], pos[1], pos[2] + 1.0, pos[3], CL_WHITE, 15.0);
+        create3DText ( pos[0], pos[1], pos[2] + 1.0, "== TUTORIAL ==", CL_ROYALBLUE, 15.0);
     }
 });
 
