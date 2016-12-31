@@ -242,6 +242,7 @@ function dockerJobPutBox( playerid ) {
 
     setPlayerAnimStyle(playerid, "common", "default");
     setPlayerHandModel(playerid, 1, 0);
+    delayedFunction(1000, function () { setPlayerAnimStyle(playerid, "common", "default"); });
 
     dockerJobRemovePrivateBlipText ( playerid );
 
@@ -259,12 +260,14 @@ event("updateMoveState", function(playerid, state) {
         if(state == 1 || state == 2) {
             setPlayerAnimStyle(playerid, "common", "default");
             setPlayerHandModel(playerid, 1, 0);
-            job_docker[playerid]["havebox"] = false;
+            delayedFunction(1000, function () { setPlayerAnimStyle(playerid, "common", "default"); });
+
             dockerJobRemovePrivateBlipText ( playerid );
+
+            job_docker[playerid]["havebox"] = false;
             msg( playerid, "job.docker.dropped", DOCKER_JOB_COLOR );
             msg( playerid, "job.docker.presscapslock" )
             job_docker[playerid]["blip3dtext"] = dockerJobCreatePrivateBlipText(playerid, DOCKER_JOB_TAKEBOX_X, DOCKER_JOB_TAKEBOX_Y, DOCKER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "press E");
-            delayedFunction(500, function () { setPlayerAnimStyle(playerid, "common", "default"); });
         }
     }
 });
