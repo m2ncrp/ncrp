@@ -209,8 +209,6 @@ function milkJob ( playerid ) {
         msg( playerid, "job.milkdriver.sitintruck", MILK_JOB_COLOR );
 
         setPlayerJob( playerid, "milkdriver");
-
-        players[playerid]["skin"] = MILK_JOB_SKIN;
         setPlayerModel( playerid, MILK_JOB_SKIN );
 
          // create private blip job
@@ -233,9 +231,7 @@ function milkJobLeave ( playerid ) {
         msg( playerid, "job.leave", MILK_JOB_COLOR );
 
         setPlayerJob( playerid, null );
-
-        players[playerid]["skin"] = players[playerid]["default_skin"];
-        setPlayerModel( playerid, players[playerid]["default_skin"]);
+        restorePlayerModel(playerid);
 
         job_milk[playerid]["milkready"] = false;
         job_milk[playerid]["milkcoords"] = null;

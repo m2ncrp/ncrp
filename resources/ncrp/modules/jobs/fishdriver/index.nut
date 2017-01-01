@@ -171,8 +171,6 @@ function fishJob( playerid ) {
         msg( playerid, "job.fishdriver.sitintotruck", FISH_JOB_COLOR );
 
         setPlayerJob( playerid, "fishdriver");
-
-        players[playerid]["skin"] = FISH_JOB_SKIN;
         setPlayerModel( playerid, FISH_JOB_SKIN );
 
         // create private blip job
@@ -195,9 +193,7 @@ function fishJobLeave( playerid ) {
             msg( playerid, "job.leave", FISH_JOB_COLOR );
 
             setPlayerJob( playerid, null );
-
-            players[playerid]["skin"] = players[playerid]["default_skin"];
-            setPlayerModel( playerid, players[playerid]["default_skin"]);
+            restorePlayerModel(playerid);
 
             job_fish[playerid]["fishstatus"] = false;
 

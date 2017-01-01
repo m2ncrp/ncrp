@@ -297,7 +297,6 @@ function busJobGet( playerid ) {
             msg( playerid, "job.bus.driver.now", BUS_JOB_COLOR );
             setPlayerJob( playerid, "busdriver");
             screenFadeinFadeoutEx(playerid, 250, 200, function() {
-                players[playerid]["skin"] = BUS_JOB_SKIN;
                 setPlayerModel( playerid, BUS_JOB_SKIN );
             });
         }
@@ -360,9 +359,7 @@ function busJobRefuseLeave( playerid ) {
         job_bus[playerid]["leavejob3dtext"] = null;
 
         setPlayerJob( playerid, null );
-
-        players[playerid]["skin"] = players[playerid]["default_skin"];
-        setPlayerModel( playerid, players[playerid]["default_skin"]);
+        restorePlayerModel(playerid);
 
         // remove private blip job
         removePersonalJobBlip ( playerid );

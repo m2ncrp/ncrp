@@ -28,10 +28,8 @@ acmd(["die"], function( playerid, targetid = null ) {
     setPlayerHealth( targetid.tointeger(), 0.0 );
 });
 
-acmd(["skin"], function( playerid, id ) {
-    setPlayerModel( playerid, id.tointeger() );
-    players[playerid]["skin"] = id.tointeger();
-    players[playerid]["default_skin"] = id.tointeger();
+acmd("skin", function(playerid, id) {
+    setPlayerModel(playerid, id.tointeger(), true);
 });
 
 
@@ -39,9 +37,7 @@ acmd(["skininc"], function ( playerid ) {
     local skin = players[playerid]["skin"];
     if ( skin < 171) {
         skin += 1;
-        setPlayerModel( playerid, skin );
-        players[playerid]["skin"] = skin;
-        players[playerid]["default_skin"] = skin;
+        setPlayerModel(playerid, skin, true);
         msg( playerid,  "Skin model changed on " + skin );
     } else {
         msg( playerid,  "Skin top limit" );
@@ -52,9 +48,7 @@ acmd(["skindec"], function ( playerid ) {
     local skin = players[playerid]["skin"];
     if ( skin > 0) {
         skin -= 1;
-        setPlayerModel( playerid, skin );
-        players[playerid]["skin"] = skin;
-        players[playerid]["default_skin"] = skin;
+        setPlayerModel(playerid, skin, true);
         msg( playerid,  "Skin model changed on " + skin );
     } else {
         msg( playerid,  "Skin lower limit" );

@@ -8,9 +8,9 @@ nativeGetPlayerModel <- getPlayerModel;
  *
  * @param {Integer}  playerid
  * @param {Integer}  skin
- * @param {Boolean} temp
+ * @param {Boolean}  forced
  */
-function setPlayerModel(playerid, skin, temp = true) {
+function setPlayerModel(playerid, skin, forced = false) {
     nativeGetPlayerModel(playerid, skin.tointeger());
 
     if (isPlayerLoaded(playerid)) {
@@ -18,7 +18,7 @@ function setPlayerModel(playerid, skin, temp = true) {
         players[playerid].cskin = skin.tointeger();
 
         // if not temp, set also main skin
-        if (!temp) players[playerid].dskin = skin.tointeger();
+        if (forced) players[playerid].dskin = skin.tointeger();
     }
 
     return true;
