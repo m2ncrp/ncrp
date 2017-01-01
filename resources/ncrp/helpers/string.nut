@@ -130,6 +130,8 @@ function escape(str) {
                 res += "\\r";
             } else if (ch1 == "\t") {
                 res += "\\t";
+            } else if (ch1 == "\'") {
+                res += "\\'";
             } else if (ch1 == "\0") {
                 res += "\\u0000";
             } else {

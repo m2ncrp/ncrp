@@ -1,5 +1,3 @@
-include("controllers/player/respawn/SpawnPosition.nut");
-
 /**
  * Save new position
  */
@@ -98,6 +96,16 @@ addEventHandlerEx("onServerStarted", function() {
 
         log(format("[players] loaded %d spawn points...", positions.len()));
     });
+});
+
+event("onServerPlayerAlive", function(playerid) {
+    if (!isPlayerConnected(playerid)) return;
+
+    // check for falling players
+    if (getPlayerPosition(playerid)[2] < -75.0) {
+        dbg("player", "falldown", getAuthor(playerid));
+        trigger("onPlayerFallingDown", playerid);
+    }
 });
 
 /**

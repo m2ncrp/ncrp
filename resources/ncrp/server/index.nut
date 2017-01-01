@@ -95,7 +95,7 @@ event("native:onScriptInit", function() {
     trigger("onScriptInit");
 
     // creating playerList storage
-    playerList = PlayerList();
+    // playerList = PlayerList();
 
     // triggerring load events
     trigger("onServerStarted");
@@ -104,8 +104,12 @@ event("native:onScriptInit", function() {
 });
 
 event("onServerStarted", function() {
-    if (!DEBUG) {
-        webRequest(HTTP_TYPE_GET, MOD_HOST, "/discord?type=info&data=server_restarted", function(a,b,c) {}, MOD_PORT);
+    // imitate server restart after script init
+    // (after script exit for still connected players)
+    foreach (playerid, name in getPlayers()) {
+        // trigger("onPlayerInit", playerid);
+        trigger("onPlayerConnectInit", playerid, name, "0.0.0.0", getPlayerSerial(playerid));
+        trigger("native:onPlayerSpawn", playerid);
     }
 });
 
@@ -126,15 +130,7 @@ event("native:onPlayerConnect", function(playerid, name, ip, serial) {
     trigger("onPlayerConnectInit", playerid, name, ip, serial);
 
     if (!IS_AUTHORIZATION_ENABLED || DEBUG) {
-        trigger("onPlayerInit", playerid, name, ip, serial);
-    }
-});
-
-event("onServerStarted", function() {
-    foreach (playerid, name in getPlayers()) {
-        // trigger("onPlayerInit", playerid, name, null, null);
-        trigger("onPlayerConnectInit", playerid, name, "0.0.0.0", getPlayerSerial(playerid));
-        trigger("native:onPlayerSpawn", playerid);
+        trigger("onPlayerInit", playerid);
     }
 });
 

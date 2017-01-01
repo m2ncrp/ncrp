@@ -7,7 +7,7 @@ event("onPlayerConnect", function(playerid, name, ip, serial ){
     antiflood[playerid]["togooc"] <- true;
 });
 
-event("onServerSecondChange",function() {
+event("onServerSecondChange", function() {
     foreach (pid, value in players) {
         if (isPlayerLogined(pid)) {
             if(antiflood[pid]["gooc"] > 0){

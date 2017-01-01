@@ -4,6 +4,11 @@ IS_AUTHORIZATION_ENABLED <- true;
 AUTH_ACCOUNTS_LIMIT      <- 2;
 AUTH_AUTOLOGIN_TIME      <- 900; // 15 minutes
 
+const DEFAULT_SPAWN_SKIN = 4;
+const DEFAULT_SPAWN_X    = -143.0;  //-1027.02;
+const DEFAULT_SPAWN_Y    = 1206.0;  //1746.63;
+const DEFAULT_SPAWN_Z    = 84.0;    //10.2325;
+
 /**
  * Compiled regex object for
  * validation of usernames
@@ -171,6 +176,23 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
         });
 });
 
+/**
+ * Listen spawn event
+ * and spawn for non-authed players
+ */
+event("native:onPlayerSpawn", function(playerid) {
+    if (!isPlayerAuthed(playerid)) return;
+
+    // togglePlayerControls(playerid, true);
+
+    // set player position and skin
+    setPlayerPosition(playerid, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z);
+    setPlayerModel(playerid, DEFAULT_SPAWN_SKIN);
+
+    // disable hud and show
+    trigger(playerid, "setPlayerIntroScreen");
+    togglePlayerHud(playerid, true);
+});
 
 /**
  * On player disconnects
