@@ -232,8 +232,6 @@ function fuelJob ( playerid ) {
         msg( playerid, "job.fueldriver.sitintotruck", FUEL_JOB_COLOR );
 
         setPlayerJob( playerid, "fueldriver");
-
-        players[playerid]["skin"] = FUEL_JOB_SKIN;
         setPlayerModel( playerid, FUEL_JOB_SKIN );
 
         // create private blip job
@@ -257,8 +255,7 @@ function fuelJobLeave ( playerid ) {
 
         setPlayerJob( playerid, null );
 
-        players[playerid]["skin"] = players[playerid]["default_skin"];
-        setPlayerModel( playerid, players[playerid]["default_skin"]);
+        restorePlayerModel(playerid);
 
         // remove private blip job
         removePersonalJobBlip ( playerid );

@@ -132,8 +132,6 @@ function porterJob( playerid ) {
         msg( playerid, "job.porter.takeboxandcarry", PORTER_JOB_COLOR );
 
         setPlayerJob( playerid, "porter");
-
-        players[playerid]["skin"] = PORTER_JOB_SKIN;
         setPlayerModel( playerid, PORTER_JOB_SKIN );
 
         // create private blip job
@@ -158,9 +156,7 @@ function porterJobLeave( playerid ) {
         msg( playerid, "job.leave", PORTER_JOB_COLOR );
 
         setPlayerJob( playerid, null );
-
-        players[playerid]["skin"] = players[playerid]["default_skin"];
-        setPlayerModel( playerid, players[playerid]["default_skin"]);
+        restorePlayerModel(playerid);
 
         job_porter[playerid]["havebox"] = false;
 
