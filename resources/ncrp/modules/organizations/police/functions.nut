@@ -92,7 +92,7 @@ function isPlayerNearPoliceDepartment(playerid) {
  * @return {Boolean} true/false
  */
 function isOfficer(playerid) {
-    if (!(playerid in players)) {
+    if (!(isPlayerLoaded(playerid))) {
         return false;
     }
 

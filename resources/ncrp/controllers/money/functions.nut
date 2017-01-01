@@ -41,7 +41,7 @@ function formatMoney(amount) {
  * @return {Float}
  */
 function getPlayerMoney(playerid) {
-    return (playerid in players) ? players[playerid].money : 0.0;
+    return (isPlayerLoaded(playerid)) ? players[playerid].money : 0.0;
 }
 
 /**
@@ -51,7 +51,7 @@ function getPlayerMoney(playerid) {
  * @return {Boolean}
  */
 function setPlayerMoney(playerid, money) {
-    if (!(playerid in players)) {
+    if (!isPlayerLoaded(playerid)) {
         return false;
     }
 

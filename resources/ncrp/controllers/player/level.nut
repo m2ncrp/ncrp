@@ -5,7 +5,7 @@
  * @return {Integer}
  */
 function getPlayerLevel(playerid) {
-    if (!(playerid in players)) {
+    if (!(isPlayerLoaded(playerid))) {
         return null;
     }
 

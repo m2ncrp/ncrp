@@ -29,7 +29,7 @@ function registerPersonalJobBlip(jobname, x, y) {
 
 function applyPersonalJobBlip(playerid) {
     foreach (jobname, coords in jobBlips) {
-        if (playerid in players && players[playerid].job == jobname) {
+        if (isPlayerLoaded(playerid) && isPlayerHaveValidJob(playerid, jobname)) {
             createPersonalJobBlip(playerid, coords.x, coords.y, ICON_TARGET); // for current job
         }
         if (!getPlayerJob(playerid)) {

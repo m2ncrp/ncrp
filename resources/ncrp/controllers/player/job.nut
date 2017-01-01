@@ -5,7 +5,7 @@
  * @return {Boolean} true/false
  */
 function isPlayerHaveValidJob(playerid, jobname) {
-    return (players[playerid]["job"] == jobname);
+    return (players[playerid].job == jobname);
 }
 
 /**
@@ -14,7 +14,7 @@ function isPlayerHaveValidJob(playerid, jobname) {
  * @return {Boolean} true/false
  */
 function isPlayerHaveJob(playerid) {
-    return (players[playerid]["job"]) ? true : false;
+    return (players[playerid].job) ? true : false;
 }
 
 
@@ -25,7 +25,7 @@ function isPlayerHaveJob(playerid) {
  * @return {Boolean}
  */
 function setPlayerJob(playerid, jobname) {
-    if (!(playerid in players)) {
+    if (!(isPlayerLoaded(playerid))) {
         return false;
     }
     players[playerid].job = jobname;
@@ -40,5 +40,5 @@ function setPlayerJob(playerid, jobname) {
  * @return {String}
  */
 function getPlayerJob(playerid) {
-    return (playerid in players && players[playerid].job) ? players[playerid].job : false;
+    return (isPlayerLoaded(playerid) && players[playerid].job) ? players[playerid].job : false;
 }
