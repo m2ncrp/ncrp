@@ -166,8 +166,8 @@ event("onServerPlayerAlive", function(playerid) {
 
     // save in-memory pos
     // NOTE(inlife): might collide with other stuff
-    local pos = getPlayerPosition(playerid);
-    players[playerid].setPosition(pos[0], pos[1], pos[2]);
+    // local pos = getPlayerPosition(playerid);
+    // players[playerid].setPosition(pos[0], pos[1], pos[2]);
 });
 
 
@@ -250,7 +250,7 @@ event("onServerPlayerAlive", function(playerid) {
 // });
 
 // function trySavePlayer(playerid) {
-//     if (!(playerid in players) || !(playerid in xPlayers)) {
+//     if (!(isPlayerLoaded(playerid)) || !(playerid in xPlayers)) {
 //         return null;
 //     }
 
