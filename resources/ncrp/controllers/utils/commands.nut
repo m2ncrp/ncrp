@@ -155,7 +155,7 @@ cmd("dice", function ( playerid ) {
 
 
 cmd("hat", function ( playerid, count = null) {
-    if (count == null) {
+    if (count == null || !isNumeric(count)) {
         return msg( playerid, "utils.hatnull");
     }
 
