@@ -19,6 +19,7 @@ class Character extends ORM.Entity {
         ORM.Field.String    ({ name = "state"       }),
     ];
 
+    toggle = null;
     request = null;
     playerid = -1;
 
