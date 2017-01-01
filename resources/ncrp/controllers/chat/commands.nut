@@ -77,10 +77,13 @@ cmd("pm", function(playerid, targetid, ...) {
 cmd(["re", "reply"], function(playerid, ...) {
     local targetid = lastPMs[playerid];
 
+    if(targetid == -1) {
+        return msg(playerid, "chat.player.message.noplayer", CL_ERROR);
+    }
+
     sendPlayerPrivateMessage(playerid, targetid, vargv);
     lastPMs[targetid] <- playerid;
 });
-
 
 // nonRP local chat
 chatcmd(["b"], function(playerid, message) {
