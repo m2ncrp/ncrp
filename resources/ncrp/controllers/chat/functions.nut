@@ -193,6 +193,21 @@ function msg_help(playerid, title, commands){
     }
 }
 
+function sendPlayerPrivateMessage(playerid, targetid, vargv) {
+    if (!isInteger(targetid) || !vargv.len()) {
+        return msg(playerid, "chat.player.message.error", CL_ERROR);
+    }
+
+    if (!isPlayerConnected(targetid)) {
+        return msg(playerid, "chat.player.message.noplayer", CL_ERROR);
+    }
+
+    local message = concat(vargv);
+    msg(playerid, "chat.player.message.private", [getAuthor( playerid ), getAuthor( targetid ), message], CL_LIGHTWISTERIA);
+    msg(targetid, "chat.player.message.private", [getAuthor( playerid ), getAuthor( targetid ), message], CL_LIGHTWISTERIA);
+    statisticsPushText("pm", playerid, "to: " + getAuthor( targetid ) + message);
+}
+
 // aliases
 msga <- msg_a;
 msgA <- msg_a;

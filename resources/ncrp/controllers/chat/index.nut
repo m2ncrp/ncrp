@@ -43,6 +43,7 @@ translation("en", {
     "help.chat.localooc"    : "Local nonRP chat"
     "help.chat.ooc"         : "Global nonRP chat"
     "help.chat.privatemsg"  : "Send private message to other player with ID. Example: /pm 3 hello!"
+    "help.chat.reply"       : "Reply to private message. Example: /re hello!"
     "help.chat.me"          : "Some action of your person"
     "help.chat.try"         : "Any action simulation that could be failed"
 });
