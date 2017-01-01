@@ -58,7 +58,7 @@ function registerFunc(playerid, password, email = null) {
                                 trigger(playerid, "destroyAuthGUI");
 
                                 screenFadein(playerid, 250, function() {
-                                    trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
+                                    trigger("onPlayerInit", playerid);
                                 });
                             });
                         });
@@ -117,7 +117,7 @@ function loginFunc(playerid, password) {
             trigger(playerid, "destroyAuthGUI");
 
             screenFadein(playerid, 250, function() {
-                trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
+                trigger("onPlayerInit", playerid);
             });
         });
     });

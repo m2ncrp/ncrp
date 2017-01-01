@@ -82,7 +82,12 @@ function trigger(...) {
         if (vargv[0] in __events) {
             args.remove(1); // remove event name
             foreach (idx, callback in __events[vargv[0]]) {
-                callback.acall(args);
+                try {
+                    callback.acall(args);
+                }
+                catch (e) {
+                    dbg("error calling event:", vargv[0], e);
+                }
             }
 
             return true;

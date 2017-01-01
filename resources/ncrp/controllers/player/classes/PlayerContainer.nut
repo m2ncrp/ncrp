@@ -137,7 +137,7 @@ class PlayerContainer
      */
     function _nexti(previd) {
         if (previd == null) {
-            return this.__keys[0];
+            return this.__keys.len() ? this.__keys[0] : null;
         }
 
         // find next key index

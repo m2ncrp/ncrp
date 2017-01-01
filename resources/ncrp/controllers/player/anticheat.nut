@@ -64,3 +64,23 @@ event("onServerStarted", function() {
         }
     }, 500, -1);
 });
+
+event("onPlayerConnect", function(playerid) {
+    local weaponlist = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 21];
+    weaponlist.apply(function(id) {
+        removePlayerWeapon( playerid, id );
+    });
+});
+
+// prevent nickname spoofing
+event("native:onPlayerChangeNick", function(playerid, newname, oldnickname) {
+    kick(-1, playerid, "nick change is not allowed in game.");
+});
+
+event("onServerMinuteChange", function() {
+    foreach (playerid, value in getPlayers()) {
+        if (!strip(getPlayerName(playerid)).len()) {
+            kick(-1, playerid, "nick change is not allowed in game.");
+        }
+    }
+});
