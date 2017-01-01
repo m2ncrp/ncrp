@@ -5,7 +5,7 @@
  * @return {Boolean} true/false
  */
 function isPlayerHaveValidJob(playerid, jobname) {
-    return (players[playerid].job == jobname);
+    return (getPlayerJob(playerid) == jobname);
 }
 
 /**
@@ -14,7 +14,7 @@ function isPlayerHaveValidJob(playerid, jobname) {
  * @return {Boolean} true/false
  */
 function isPlayerHaveJob(playerid) {
-    return (players[playerid].job) ? true : false;
+    return (getPlayerJob(playerid)) ? true : false;
 }
 
 

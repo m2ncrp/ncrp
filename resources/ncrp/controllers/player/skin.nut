@@ -20,6 +20,17 @@ function setPlayerModel(playerid, skin, temp = true) {
         // if not temp, set also main skin
         if (!temp) players[playerid].dskin = skin.tointeger();
     }
+
+    return true;
+}
+
+/**
+ * Restore player model to default skin
+ * @param  {Integer} playerid
+ * @return {Boolean} result of execution
+ */
+function restorePlayerModel(playerid) {
+    return (isPlayerLoaded(playerid)) ? setPlayerModel(playerid, players[playerid].dskin) : false;
 }
 
 /**
