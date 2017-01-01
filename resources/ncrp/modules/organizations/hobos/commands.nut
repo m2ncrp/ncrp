@@ -27,9 +27,9 @@ key("e", function(playerid) {
     hobosDig(playerid);
 });
 
-function isHobos(playerid) {
-    return players[playerid]["spawn"] == hobos_spawnID;
-}
+// function isHobos(playerid) {
+//     return players[playerid]["spawn"] == hobos_spawnID;
+// }
 
 function isNearTrash(playerid, silent = false) {
     foreach (point in hobos_points) {
