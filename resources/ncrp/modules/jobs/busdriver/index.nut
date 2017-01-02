@@ -394,6 +394,8 @@ function busJobStartRoute( playerid ) {
     msg( playerid, "job.bus.startroute", busStops[busID].name, BUS_JOB_COLOR );
     job_bus[playerid]["bus3dtext"] = createPrivateBusStop3DText(playerid, busStops[busID].private);
     job_bus[playerid]["busBlip"]   = createPrivateBlip(playerid, busStops[busID].private.x, busStops[busID].private.y, ICON_YELLOW, 4000.0);
+    //local gpsPos = busStops[busID].private;
+    //trigger(playerid, "setGPS", gpsPos.x, gpsPos.y);
 }
 
 // working good, check
@@ -446,6 +448,8 @@ function busJobStop( playerid ) {
         job_bus[playerid]["busBlip"]   = createPrivateBlip(playerid, busStops[busID].private.x, busStops[busID].private.y, ICON_YELLOW, 2000.0);
 
         msg( playerid, "job.bus.gotonextbusstop", busStops[busID].name, BUS_JOB_COLOR );
+        //local gpsPos = busStops[busID].private;
+        //trigger(playerid, "setGPS", gpsPos.x, gpsPos.y);
     });
 
 }
