@@ -222,3 +222,8 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
         locale = "ru"
     };
 });
+
+
+event("changeModel",function(playerid,model) {
+    setPlayerModel( playerid, model);
+});

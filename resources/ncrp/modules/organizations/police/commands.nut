@@ -228,14 +228,14 @@ cmd(["ticket"], function(playerid, target, reason) {
 });
 
 
-cmd(["tickets"], function( playerid, targetid = null ) {
-    if ( targetid == null ) {
-        // show all player assign tickets
-    } else {
-        targetid = targetid.tointeger();
-        // show target player asign tickets
-    }
-});
+// cmd(["tickets"], function( playerid, targetid = null ) {
+//     if ( targetid == null ) {
+//         // show all player assign tickets
+//     } else {
+//         targetid = targetid.tointeger();
+//         // show target player asign tickets
+//     }
+// });
 
 
 // stun nearest player for some time

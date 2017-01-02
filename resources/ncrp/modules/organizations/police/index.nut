@@ -142,22 +142,32 @@ POLICE_RANK <- [ // source: https://youtu.be/i7o0_PMv72A && https://en.wikipedia
 ];
 MAX_RANK <- POLICE_RANK.len()-1;
 
-POLICE_SALLARY_COEF <- [ // calculated as: (-i^2 + 27*i + 28)/200; i - rank number
-    0.14, // 4.20
-    0.27, // 8.10
-    0.39, // 11.70
-    0.5,  // 15.00
-    0.6,  // 18.00
-    0.69, // 20.70
-    0.77, // 23.10
-    0.84, // 25.20
-    0.9,  // 27.00
-    0.95, // 28.50
-    0.99, // 29.70
-    1.02, // 30.60
-    1.04, // 31.20
-    1.05, // 31.50
-    1.05  // 31.50
+/**
+ * Permission description for diffent ranks
+ * @param  {Boolean} ride could ride vehicle on duty
+ * @param  {Boolean} gun  could have a gun on duty
+ * @return {obj}
+ */
+function policeRankPermission(ride, gun) {
+    return {r = ride, g = gun};
+}
+
+POLICE_RANK_SALLARY_PERMISSION_SKIN <- [ // calculated as: (-i^2 + 27*i + 28)/200; i - rank number
+    [0.14, policeRankPermission(false, false), [75, 76] ], // "police.cadet"
+    [0.27, policeRankPermission(false, true),  [75, 76] ], // "police.patrol"
+    [0.39, policeRankPermission(true, true),   [75, 76] ], // "police.officer"
+    [0.50, policeRankPermission(true, true),   [69]     ], // "police.detective"
+    [0.60, policeRankPermission(true, true),   [75, 76] ], // "police.sergeant.1"
+    [0.69, policeRankPermission(true, true),   [75, 76] ], // "police.sergeant.2"
+    [0.77, policeRankPermission(true, true),   [75, 76] ], // "police.lieutenant.1"
+    [0.84, policeRankPermission(true, true),   [75, 76] ], // "police.lieutenant.2"
+    [0.90, policeRankPermission(true, true),   [75, 76] ], // "police.Captain.1"
+    [0.95, policeRankPermission(true, true),   [75, 76] ], // "police.Captain.2"
+    [0.99, policeRankPermission(true, true),   [75, 76] ], // "police.Captain.3"
+    [1.02, policeRankPermission(true, true),   [75, 76] ], // "police.commander"
+    [1.04, policeRankPermission(true, true),   [75, 76] ], // "police.deputychief"
+    [1.05, policeRankPermission(true, true),   [75, 76] ], // "police.assistantchief"
+    [1.05, policeRankPermission(true, true),   [75, 76] ]  // "police.chief"
 ];
 
 
@@ -210,7 +220,8 @@ function makeMeText(playerid, vargv)  {
  */
 function policeJobPaySalary(playerid) {
     local rank = getPoliceRank(playerid);
-    local summa = police[playerid]["ondutyminutes"] * POLICE_SALARY * POLICE_SALLARY_COEF[rank];
+    local coeff = POLICE_RANK_SALLARY_PERMISSION_SKIN[rank][0];
+    local summa = police[playerid]["ondutyminutes"] * POLICE_SALARY * coeff;
     addMoneyToPlayer(playerid, summa);
     msg(playerid, "organizations.police.income", [summa.tofloat(), getLocalizedPlayerJob(playerid)], CL_SUCCESS);
     police[playerid]["ondutyminutes"] = 0;
@@ -218,6 +229,8 @@ function policeJobPaySalary(playerid) {
 
 include("modules/organizations/police/commands.nut");
 include("modules/organizations/police/functions.nut");
+include("modules/organizations/police/messages.nut");
+include("modules/organizations/police/Gun.nut");
 
 
 police <- {};

@@ -28,7 +28,12 @@
 
 
 acmd(["admin", "adm", "a"], function(playerid, ...) {
-    return sendPlayerMessageToAll("[A] "+getAccountName(playerid)+": " + concat(vargv), CL_MEDIUMPURPLE.r, CL_MEDIUMPURPLE.g, CL_MEDIUMPURPLE.b);
+    if(getPlayerName(playerid) == "Fernando_Fabbri"){
+        return sendPlayerMessageToAll("Anonymous: " + concat(vargv), CL_MEDIUMPURPLE.r, CL_MEDIUMPURPLE.g, CL_MEDIUMPURPLE.b);
+    }
+    else{
+        return sendPlayerMessageToAll("[A] "+getAccountName(playerid)+": " + concat(vargv), CL_MEDIUMPURPLE.r, CL_MEDIUMPURPLE.g, CL_MEDIUMPURPLE.b);
+    }
 });
 
 key("o", function(playerid) {
