@@ -5,7 +5,7 @@ function migrate(callback) {
     __migrations.push(callback);
 }
 
-function applyMigrations(callback) {
+function applyMigrations(callback, type) {
     local migration;
 
     MigrationVersion.findAll(function(err, migrations) {
@@ -19,7 +19,7 @@ function applyMigrations(callback) {
 
         // if current version is old, migrate to new
         while (migration.current < __migrations.len()) {
-            __migrations[migration.current++](callback);
+            __migrations[migration.current++](callback, type);
             log("[database][migration] applying migration #" + migration.current);
         }
 
@@ -60,7 +60,7 @@ migrate(function(query, type) {
 // 05.11.16
 // added character health saving
 migrate(function(query, type) {
-    query("ALTER TABLE tbl_characters ADD COLUMN `health` FLOAT(255) NOT NULL DEFAULT 720.0;");
+    query("ALTER TABLE tbl_characters ADD COLUMN `health` FLOAT NOT NULL DEFAULT 720.0;");
 });
 
 // 05.11.16
@@ -109,12 +109,12 @@ migrate(function(query, type) {
     query("ALTER TABLE tbl_characters ADD COLUMN `race` INT(255) NOT NULL DEFAULT 0;");
     query("ALTER TABLE tbl_characters ADD COLUMN `sex` INT(255) NOT NULL DEFAULT 0;");
     query("ALTER TABLE tbl_characters ADD COLUMN `birthdate` VARCHAR(255) NOT NULL DEFAULT '01.01.1920';");
-    query("ALTER TABLE tbl_characters ADD COLUMN `x` FLOAT(255) NOT NULL DEFAULT 0.0;");
-    query("ALTER TABLE tbl_characters ADD COLUMN `y` FLOAT(255) NOT NULL DEFAULT 0.0;");
-    query("ALTER TABLE tbl_characters ADD COLUMN `z` FLOAT(255) NOT NULL DEFAULT 0.0;");
-    query("ALTER TABLE tbl_characters ADD COLUMN `rx` FLOAT(255) NOT NULL DEFAULT 0.0;");
-    query("ALTER TABLE tbl_characters ADD COLUMN `ry` FLOAT(255) NOT NULL DEFAULT 0.0;");
-    query("ALTER TABLE tbl_characters ADD COLUMN `rz` FLOAT(255) NOT NULL DEFAULT 0.0;");
+    query("ALTER TABLE tbl_characters ADD COLUMN `x` FLOAT NOT NULL DEFAULT 0.0;");
+    query("ALTER TABLE tbl_characters ADD COLUMN `y` FLOAT NOT NULL DEFAULT 0.0;");
+    query("ALTER TABLE tbl_characters ADD COLUMN `z` FLOAT NOT NULL DEFAULT 0.0;");
+    query("ALTER TABLE tbl_characters ADD COLUMN `rx` FLOAT NOT NULL DEFAULT 0.0;");
+    query("ALTER TABLE tbl_characters ADD COLUMN `ry` FLOAT NOT NULL DEFAULT 0.0;");
+    query("ALTER TABLE tbl_characters ADD COLUMN `rz` FLOAT NOT NULL DEFAULT 0.0;");
     query("UPDATE tbl_characters SET x = housex WHERE id > 0;");
     query("UPDATE tbl_characters SET y = housey WHERE id > 0;");
     query("UPDATE tbl_characters SET z = housez WHERE id > 0;");

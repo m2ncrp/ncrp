@@ -40,7 +40,7 @@ addEventHandler("onScriptInit", function() {
             // applly migrations
             applyMigrations(function(query) {
                 mysql_query(connection, query);
-            });
+            }, "mysql");
         } else {
             IS_MYSQL_ENABLED <- false;
             dbg("database", "mysql", "failed to connect, falling back to sqlite");
@@ -58,7 +58,7 @@ addEventHandler("onScriptInit", function() {
         // applly migrations
         applyMigrations(function(query) {
             connection.query(query);
-        });
+        }, "sqlite");
     }
 });
 
