@@ -242,7 +242,7 @@ key("q", function(playerid) {
     truckJobRefuseLeave( playerid );
 }, KEY_UP);
 
-event("onPlayerConnect", function(playerid, name, ip, serial) {
+event("onPlayerConnect", function(playerid) {
      job_truck[playerid] <- {};
      job_truck[playerid]["userjob"] <- null;
      job_truck[playerid]["userstatus"] <- null;

@@ -83,7 +83,7 @@ event("onServerStarted", function() {
     registerPersonalJobBlip("fishdriver", FISH_JOB_X, FISH_JOB_Y);
 });
 
-event("onPlayerConnect", function(playerid, name, ip, serial) {
+event("onPlayerConnect", function(playerid) {
      job_fish[playerid] <- {};
      job_fish[playerid]["fishstatus"] <- false;
      job_fish[playerid]["blip3dtext"] <- [null, null, null];

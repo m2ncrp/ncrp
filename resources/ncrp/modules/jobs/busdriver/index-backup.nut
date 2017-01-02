@@ -151,7 +151,7 @@ event("onPlayerSpawn", function(playerid) {
 });
 
 
-event("onPlayerConnect", function(playerid, name, ip, serial ){
+event("onPlayerConnect", function(playerid) {
      job_bus[playerid] <- {};
      job_bus[playerid]["busready"] <- false;
      job_bus[playerid]["route"] <- false;

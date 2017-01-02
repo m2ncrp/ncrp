@@ -82,7 +82,7 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
     }
 
     // maybe he is banned
-    ORM.Query("select * from @Ban where serial = ':serial' and until > :current")
+    ORM.Query("select * from @Ban where serial = :serial and until > :current")
         .setParameter("serial", getPlayerSerial(playerid))
         .setParameter("current", getTimestamp())
         .getSingleResult(function(err, result) {
@@ -143,7 +143,7 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
                     dbg("login", getAuthor(playerid), "autologin");
 
                     screenFadein(playerid, 250, function() {
-                        trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
+                        trigger("onPlayerInit", playerid);
                     });
 
                     msg(playerid, "auth.success.autologin", CL_SUCCESS);
@@ -181,7 +181,7 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
  * and spawn for non-authed players
  */
 event("native:onPlayerSpawn", function(playerid) {
-    if (!isPlayerAuthed(playerid)) return;
+    if (isPlayerAuthed(playerid)) return;
 
     // togglePlayerControls(playerid, true);
 

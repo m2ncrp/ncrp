@@ -103,7 +103,7 @@ event("onServerStarted", function() {
     registerPersonalJobBlip("milkdriver", MILK_JOB_X, MILK_JOB_Y);
 });
 
-event("onPlayerConnect", function(playerid, name, ip, serial) {
+event("onPlayerConnect", function(playerid) {
      job_milk[playerid] <- {};
      job_milk[playerid]["milkready"] <- false;
      job_milk[playerid]["milkcoords"] <- [];

@@ -49,7 +49,7 @@ event("onServerStarted", function() {
 
 });
 
-event("onPlayerConnect", function(playerid, name, ip, serial ){
+event("onPlayerConnect", function(playerid) {
     job_porter[playerid] <- {};
     job_porter[playerid]["havebox"] <- false;
     job_porter[playerid]["blip3dtext"] <- [null, null, null];

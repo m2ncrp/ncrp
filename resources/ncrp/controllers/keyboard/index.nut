@@ -2,7 +2,7 @@ include("controllers/keyboard/functions.nut");
 include("controllers/keyboard/commands.nut");
 
 // register events
-event("onPlayerConnect", function(playerid, nickname, ip, serial) {
+event("onPlayerConnect", function(playerid) {
     delayedFunction(1000, function() { sendKeyboardRegistration(playerid); });
 });
 
