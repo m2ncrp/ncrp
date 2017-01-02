@@ -72,18 +72,23 @@ class Character extends ORM.Entity {
         return dbg("player", "setPosition", "arguments are invalid", vargv) && false;
     }
 
+    function save() {
+        dbg("player", "saving", getIdentity(this.playerid));
+        base.save();
+    }
+
     /**
      * Return current player position
      * @return {vector3}
      */
     function getPosition() {
-        local position = getPlayerPosition(this.playerid);
+        // local position = getPlayerPosition(this.playerid);
 
-        this.x = position[0];
-        this.y = position[1];
-        this.z = position[2];
+        // this.x = position[0];
+        // this.y = position[1];
+        // this.z = position[2];
 
         // todo: refactor
-        return vector3(x, y, z);
+        return vector3(this.x, this.y, this.z);
     }
 }
