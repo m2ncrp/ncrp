@@ -25,7 +25,7 @@ function statisticsPushText(type, playerid, content, additional = "") {
 
     // set values
     entity.type    = type;
-    entity.author  = getPlayerName(playerid);
+    entity.author  = getIdentity(playerid);
     entity.content = content;
     entity.created = getDateTime();
     entity.additional = additional;
@@ -41,12 +41,12 @@ function statisticsPushText(type, playerid, content, additional = "") {
 }
 
 function statisticsPushMessage(playerid, message, type = "") {
-    dbg("chat", type, getAuthor(playerid), message);
+    dbg("chat", type, getIdentity(playerid), message);
     return statisticsPushText("message", playerid, message, type);
 }
 
 function statisticsPushCommand(playerid, command, result = "") {
-    dbg("command", getAuthor(playerid), command, result);
+    dbg("command", getIdentity(playerid), command, result);
     return statisticsPushText("command", playerid, command, result);
 }
 
