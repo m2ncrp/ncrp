@@ -38,6 +38,14 @@ local modelsData =
 	[[51,52],[56,57]] //Asia
 ]
 
+addEventHandler("onServerCharacterLoading", function(id,firstname, lastname, race, sex, birthdate, money, deposit, cskin){
+		log(money);
+});
+
+addEventHandler("onServerCharacterLoaded", function(){
+		log("All characters loaded!!!");
+});
+
 function characterSelection(){
 	togglePlayerControls( true );
 	showCursor(true);
