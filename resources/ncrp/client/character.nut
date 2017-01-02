@@ -16,7 +16,8 @@ local button = [];
 local label = [];
 local radio = [];
 
-local isCharacterMenu;
+local isCharacterCreationMenu;
+local isCharacterSelectionmenu;
 local fieldsErrors = 0;
 
 local PData = {};
@@ -38,7 +39,17 @@ local modelsData =
 ]
 
 function characterSelection(){
-
+	togglePlayerControls( true );
+	showCursor(true);
+	setPlayerPosition(getLocalPlayer(), -1598.5,69.0,-13.0);
+	setPlayerRotation(getLocalPlayer(), 180.0,0.0,180.0);
+	window = guiCreateElement( ELEMENT_TYPE_WINDOW, "Выберите персонажа", screen[0] - 300.0, screen[1]/2- 175.0, 190.0, 320.0 );
+	label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Имя: Klo\nФамилия:Douglas\nРаса:Нигер\nПол:Трансуха\nДата рождения:01.01.228\nДенежных средств:1488.0$\nРабота:" 20.0, 20.0, 300.0, 100.0, false, window));//label[0]
+	label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Имя:\nФамилия:\nРаса:\nПол:\nДата рождения:\nДенежных средств:\nРабота:", 20.0, 180.0, 300.0, 100.0, false, window));//label[1]
+	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "Выбрать персонажа", 20, 120.0, 150.0, 20.0,false, window));//button[0]
+	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "Создать персонажа", 20, 280.0, 150.0, 20.0,false, window));//button[1]
+	guiSetSizable(window,false);
+	isCharacterSelectionmenu = true;
 }
 addEventHandler("wp",characterSelection);
 
@@ -70,34 +81,36 @@ function characterCreation(){
 	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, ">>", 140.0, 260.0, 30.0, 20.0,false, window));//button[3]
 	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "Продолжить", 20.0, 290.0, 150.0, 20.0,false, window));//button[4]
 	guiSetSizable(window,false);
-	isCharacterMenu = true;
+	isCharacterCreationMenu = true;
 }
-addEventHandler("gg",characterCreation);
+addEventHandler("characterCreation",characterCreation);
 
 addEventHandler( "onGuiElementClick",function(element){
-	if(element == button[0]){ PData.Gender <- 0; changeModel();}
-	if(element == button[1]){ PData.Gender <- 1; changeModel();}
-	if(element == radio[0]) {PData.Race <- 0; changeModel();}
-	if(element == radio[1]) {PData.Race <- 1; changeModel();}
-	if(element == radio[2]) {PData.Race <- 2; changeModel();}
-	if(element == button[2]) {switchModel();}
-	if(element == button[3]) {switchModel();}
-	if(element == input[0]) {guiSetText(input[0], "");}
-	if(element == input[1]) {guiSetText(input[1], "");}
-	if(element == input[2]) {guiSetText(input[2], "");}
-	if(element == input[3]) {guiSetText(input[3], "");}
-	if(element == input[4]) {guiSetText(input[4], "");}
-	if(element == button[4]) {checkFields();}
+	if(isCharacterCreationMenu){
+		if(element == button[0]){ PData.Gender <- 0; changeModel();}
+		if(element == button[1]){ PData.Gender <- 1; changeModel();}
+		if(element == radio[0]) {PData.Race <- 0; changeModel();}
+		if(element == radio[1]) {PData.Race <- 1; changeModel();}
+		if(element == radio[2]) {PData.Race <- 2; changeModel();}
+		if(element == button[2]) {switchModel();}
+		if(element == button[3]) {switchModel();}
+		if(element == input[0]) {guiSetText(input[0], "");}
+		if(element == input[1]) {guiSetText(input[1], "");}
+		if(element == input[2]) {guiSetText(input[2], "");}
+		if(element == input[3]) {guiSetText(input[3], "");}
+		if(element == input[4]) {guiSetText(input[4], "");}
+		if(element == button[4]) {checkFields();}
+	}
 });
 
 bindKey("shift", "down", function() {
-	if(isCharacterMenu){
+	if(isCharacterCreationMenu){
 		showCursor(false);
 	}
 });
 
 bindKey("shift", "up", function() {
-   if(isCharacterMenu){
+   if(isCharacterCreationMenu){
    		showCursor(true);
    }
 });
@@ -168,14 +181,14 @@ function creatCharacter() {
 function destroyCharacterGUI () {
     guiSetVisible(window,false);
     window = null;
-    isCharacterMenu = false;
+    isCharacterCreationMenu = false;
 }
 
 function isValidRange(input, a, b) {
     try {return (input.tointeger() > a && input.tointeger() < b); } catch (e) { return false; }
 }
 
-function isValidName(name){ 
+function isValidName(name){
     local check = regexp("^[A-Z][a-z]*$");
     return check.match(name);
 }
