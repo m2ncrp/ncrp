@@ -41,10 +41,9 @@ function characterSelection(){
 addEventHandler("wp",characterSelection);
 
 function characterCreation(){
-	changeModel();
 	showCursor(true);
 	setPlayerPosition(getLocalPlayer(), -1598.5,69.0,-13.0);
-	setPlayerRotation(getLocalPlayer(), 180.0,0.0,0.0);
+	setPlayerRotation(getLocalPlayer(), 180.0,0.0,180.0);
 	window = guiCreateElement( ELEMENT_TYPE_WINDOW, "Создание персонажа", screen[0] - 300.0, screen[1]/2- 175.0, 190.0, 320.0 );
 	label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Имя" 20.0, 20.0, 300.0, 20.0, false, window));//label[0]
 	label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Фамилия", 20.0, 60.0, 300.0, 20.0, false, window));//label[1]
@@ -107,6 +106,7 @@ function switchModel(){
 }
 
 function changeModel () {
+	setPlayerRotation(getLocalPlayer(), 180.0,0.0,0.0);
 	local model = modelsData[PlayerData.Race][PlayerData.Gender][switchModelID];
     triggerServerEvent("changeModel", model)
 }
@@ -134,6 +134,12 @@ function isValidName (name) {
 
 function isValidBday (bday) {
 	//code
+}
+
+function destroyCharacterGUI () {
+    guiSetVisible(window,false);
+    window = null;
+    isCharacterMenu = false;
 }
 /* Бэкапчик
 	window = guiCreateElement( ELEMENT_TYPE_WINDOW, "Создание персонажа", screen[0] - 300.0, screen[1]/2- 175.0, 190.0, 320.0 );
