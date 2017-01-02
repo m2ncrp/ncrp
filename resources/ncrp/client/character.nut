@@ -131,59 +131,47 @@ function checkFields () {
 	PData.LastName <- guiGetText(input[1]);
 	if(!isValidName(PData.Firstname)){
 		guiSetText(label[0],"Некорректное Имя");
-		fieldsErrors++;
+		guiSetText(input[0], "Например: John");
+		return fieldsErrors++;
 	}
 	else {guiSetText(label[0],"Имя");}
 
 	if(!isValidName(PData.LastName)){
 		guiSetText(label[1],"Некорректная Фамилия");
-		fieldsErrors++;
+		guiSetText(input[1], "Например: John");
+		return fieldsErrors++;
 	}
 	else {guiSetText(label[1],"Фамилия");}
 
-	//if(!isValidDay(guiGetText(input[2]))){
-		//guiSetText(label[2],"'День' введен не корректно");
-		//fieldsErrors++;
-	//}
-	//else {guiSetText(label[2],"Дата рождения");}
+	if(!isValidRange(guiGetText(input[2]), 0,32)){
+		guiSetText(label[2],"'День' введен не корректно");
+		guiSetText(input[2],"День");
+		return fieldsErrors++;
+	}
+	else {guiSetText(label[2],"Дата рождения");}
 
-	//if(isValidMonth(guiGetText(input[3]))){
-		//guiSetText(label[2],"'Месяц' введен не корректно");
-		//fieldsErrors++;
-	//}
-	//else {guiSetText(label[2],"Дата рождения");}
+	if(!isValidRange(guiGetText(input[3]),0,13)){
+		guiSetText(label[2],"'Месяц' введен не корректно");
+		guiSetText(input[3],"Месяц");
+		return fieldsErrors++;
+	}
+	else {guiSetText(label[2],"Дата рождения");}
 
-	//if(!isValidYear(guiGetText(input[4]))){
-	//	guiSetText(label[2],"Поле 'Год' введено не корректно");
-		//fieldsErrors++;
-	//}
-	//else {guiSetText(label[2],"Дата рождения");}
+	if(!isValidRange(guiGetText(input[4]),1871,1933)){
+		guiSetText(label[2],"'Год' введен не корректно");
+		guiSetText(input[4],"Год");
+		return fieldsErrors++;
+	}
+	else {guiSetText(label[2],"Дата рождения");}
 }
 
-function creatCharacte () {
+function creatCharacter() {
 	//code
 }
 
-function isValidName (string) {
-    local check = regexp("[A-Z][a-z]*");
-    return check.match(string);
-}
 
 
-function isValidDay(day) {
-	local check = regexp("");
-	return check.match(day);
-}
 
-function isValidMonth(month) {
-	local check = regexp("");
-	return check.match(month);
-}
-
-function isValidYear(year) {
-	local check = regexp("");
-	return check.match(year);
-}
 
 function destroyCharacterGUI () {
     guiSetVisible(window,false);
@@ -191,9 +179,13 @@ function destroyCharacterGUI () {
     isCharacterMenu = false;
 }
 
-function calculateAge(day,month,year){
+function isValidRange(input, a, b) {
+    try {return (input.tointeger() > a && input.tointeger() < b); } catch (e) { return false; }
+}
 
-
+function isValidName(name){ 
+    local check = regexp("^[A-Z][a-z]*$");
+    return check.match(name);
 }
 
 function delayedFunction(time, callback, additional = null) {
