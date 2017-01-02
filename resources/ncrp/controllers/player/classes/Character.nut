@@ -36,6 +36,7 @@ class Character extends ORM.Entity {
     taxi        = null; // @deprecated
     toggle      = null; // @deprecated
     request     = null; // @deprecated
+    spawned     = false;
     playerid    = -1;
 
     /**

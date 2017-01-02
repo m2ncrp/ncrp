@@ -48,6 +48,10 @@ class PlayerContainer
             throw "PlayerContainer: could not add non Character entity."
         }
 
+        if (playerid in this.__data) {
+            throw "PlayerContainer: cant insert playerid. It already exists."
+        }
+
         // store data
         this.__data[playerid] <- character;
         this.__keys.push(playerid);

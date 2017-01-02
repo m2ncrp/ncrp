@@ -28,9 +28,16 @@ function setPlayerJob(playerid, jobname) {
     if (!(isPlayerLoaded(playerid))) {
         return false;
     }
-    players[playerid].job = jobname;
+
     trigger(playerid, "onServerIntefaceCharacterJob", getLocalizedPlayerJob(playerid, "en"));
     trigger("onPlayerJobChanged", playerid);
+
+    if (!jobname) {
+        jobname = "";
+    }
+
+    players[playerid].job = jobname;
+
     return true;
 }
 
@@ -40,5 +47,5 @@ function setPlayerJob(playerid, jobname) {
  * @return {String}
  */
 function getPlayerJob(playerid) {
-    return (isPlayerLoaded(playerid) && players[playerid].job) ? players[playerid].job : false;
+    return (isPlayerLoaded(playerid) && players[playerid].job && players[playerid].job != "") ? players[playerid].job : false;
 }
