@@ -38,7 +38,7 @@
      }
  };
 
- event("onPlayerConnect", function(playerid, name, ip, serial ){
+ event("onPlayerConnect", function(playerid) {
      bk_player[playerid] <- {};
      bk_player[playerid]["bet"] <- null;
  });
@@ -141,7 +141,7 @@
                      msg( playerid, "bk.betwin", [bkLoadedData.members[(value.participant-1)].title, prize ] );
                  } else {
                      dbg( playerid+" - player not found!" );
-                     ORM.Query("update @Character set deposit = deposit + :prize where name = ':name'")
+                     ORM.Query("update @Character set deposit = deposit + :prize where name = :name")
                      .setParameter("prize", prize)
                      .setParameter("name", value.name)
                      .execute();

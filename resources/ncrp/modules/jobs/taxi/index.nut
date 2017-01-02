@@ -85,8 +85,8 @@ event("onServerStarted", function() {
     ];
 });
 
-event("onPlayerConnect", function(playerid, name, ip, serial ){
-    players[playerid]["taxi"] <- {};
+event("onPlayerConnect", function(playerid) {
+    players[playerid]["taxi"] = {};
     players[playerid]["taxi"]["call_address"] <- false; // Address from which was caused by a taxi
     players[playerid]["taxi"]["call_state"] <- false; // Address from which was caused by a taxi
 

@@ -8,20 +8,30 @@ class Character extends ORM.Entity {
         ORM.Field.Float     ({ name = "money"       }),
         ORM.Field.Integer   ({ name = "dskin"       }),
         ORM.Field.Integer   ({ name = "cskin"       }),
-        ORM.Field.Integer   ({ name = "spawnid"     }),
-        ORM.Field.String    ({ name = "job"         }),
-        ORM.Field.Float     ({ name = "housex",     value = 0.0     }),
-        ORM.Field.Float     ({ name = "housey",     value = 0.0     }),
-        ORM.Field.Float     ({ name = "housez",     value = 0.0     }),
         ORM.Field.Integer   ({ name = "xp",         value = 0       })
-        ORM.Field.Float     ({ name = "deposit",    value = 0.0     }),
         ORM.Field.Float     ({ name = "health",     value = 720.0   }),
         ORM.Field.String    ({ name = "state"       }),
+
+        ORM.Field.String    ({ name = "firstname"   }),
+        ORM.Field.String    ({ name = "lastname"    }),
+
+        ORM.Field.String    ({ name = "job"         }), // @deprecated
+        ORM.Field.Float     ({ name = "deposit",    value = 0.0     }), // @deprecated
+        ORM.Field.Integer   ({ name = "spawnid"     value = 0       }), // @deprecated
+        ORM.Field.Float     ({ name = "housex",     value = 0.0     }), // @deprecated
+        ORM.Field.Float     ({ name = "housey",     value = 0.0     }), // @deprecated
+        ORM.Field.Float     ({ name = "housez",     value = 0.0     }), // @deprecated
     ];
 
-    toggle = null;
-    request = null;
-    playerid = -1;
+    static traits = [
+        ORM.Trait.Positionable(),
+        ORM.Trait.Rotationable(),
+    ];
+
+    taxi        = null; // @deprecated
+    toggle      = null; // @deprecated
+    request     = null; // @deprecated
+    playerid    = -1;
 
     /**
      * Try to set virtual position (not calling native setPlayerPosition)

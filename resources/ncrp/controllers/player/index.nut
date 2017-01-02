@@ -72,7 +72,7 @@ event("onServerPlayerStarted", function(playerid) {
  * (after player just logined or regitered)
  */
 event("onPlayerInit", function(playerid) {
-    Character.findOneBy({ account = getAccountName(playerid) }, function(err, character) {
+    Character.findOneBy({ name = getAccountName(playerid) }, function(err, character) {
         if (!character) {
             return trigger("onPlayerCharacterCreation", playerid);
         }

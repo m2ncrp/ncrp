@@ -42,7 +42,7 @@ event("onServerStopping", function() {
     ticker = null;
 });
 
-event("onPlayerConnect", function(playerid, a, b, c) {
+event("onPlayerConnect", function(playerid) {
     __world.sendToClient(playerid);
 });
 

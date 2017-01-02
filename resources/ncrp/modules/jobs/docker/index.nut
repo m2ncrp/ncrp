@@ -73,7 +73,7 @@ event("onServerStarted", function() {
 
 });
 
-event("onPlayerConnect", function(playerid, name, ip, serial ){
+event("onPlayerConnect", function(playerid) {
     job_docker[playerid] <- {};
     job_docker[playerid]["havebox"] <- false;
     job_docker[playerid]["blip3dtext"] <- [null, null, null];

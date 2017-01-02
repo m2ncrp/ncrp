@@ -152,7 +152,7 @@ key("q", function(playerid) {
 }, KEY_UP);
 
 
-event("onPlayerConnect", function(playerid, name, ip, serial ){
+event("onPlayerConnect", function(playerid) {
      job_bus[playerid] <- {};
      job_bus[playerid]["route"] <- false;
      job_bus[playerid]["userstatus"] <- null;

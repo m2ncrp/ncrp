@@ -11,7 +11,7 @@ nativeGetPlayerModel <- getPlayerModel;
  * @param {Boolean}  forced
  */
 function setPlayerModel(playerid, skin, forced = false) {
-    nativeGetPlayerModel(playerid, skin.tointeger());
+    nativeSetPlayerModel(playerid, skin.tointeger());
 
     if (isPlayerLoaded(playerid)) {
         // save temp skin
