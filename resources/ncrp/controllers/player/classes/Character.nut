@@ -3,6 +3,10 @@ class Character extends ORM.Entity {
     static classname = "Character";
     static table = "tbl_characters";
 
+    /**
+     * Array of default character fields
+     * @type {Array}
+     */
     static fields = [
         ORM.Field.Integer   ({ name = "accountid"   }), // for relation to @Account
 
@@ -28,6 +32,10 @@ class Character extends ORM.Entity {
         ORM.Field.Float     ({ name = "housez",     }), // @deprecated
     ];
 
+    /**
+     * Array of character traits
+     * @type {Array}
+     */
     static traits = [
         ORM.Trait.Positionable(),
         ORM.Trait.Rotationable(),
@@ -41,7 +49,7 @@ class Character extends ORM.Entity {
 
     constructor () {
         base.constructor();
-        this.request <- {};
+        this.request = {};
     }
 
     /**
