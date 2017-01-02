@@ -4,23 +4,28 @@ class Character extends ORM.Entity {
     static table = "tbl_characters";
 
     static fields = [
-        ORM.Field.String    ({ name = "name"        }),
+        ORM.Field.Integer   ({ name = "accountid"   }), // for relation to @Account
+
         ORM.Field.Float     ({ name = "money"       }),
         ORM.Field.Integer   ({ name = "dskin"       }),
         ORM.Field.Integer   ({ name = "cskin"       }),
-        ORM.Field.Integer   ({ name = "xp",         value = 0       })
-        ORM.Field.Float     ({ name = "health",     value = 720.0   }),
+        ORM.Field.Integer   ({ name = "xp",         })
+        ORM.Field.Float     ({ name = "health",     value = 720.0 }),
         ORM.Field.String    ({ name = "state"       }),
 
         ORM.Field.String    ({ name = "firstname"   }),
         ORM.Field.String    ({ name = "lastname"    }),
+        ORM.Field.Integer   ({ name = "race"        }),
+        ORM.Field.Integer   ({ name = "sex"         }),
+        ORM.Field.String    ({ name = "birthdate"   value = "01.01.1920" }),
 
+        ORM.Field.String    ({ name = "name"        }), // @deprecated
         ORM.Field.String    ({ name = "job"         }), // @deprecated
-        ORM.Field.Float     ({ name = "deposit",    value = 0.0     }), // @deprecated
-        ORM.Field.Integer   ({ name = "spawnid"     value = 0       }), // @deprecated
-        ORM.Field.Float     ({ name = "housex",     value = 0.0     }), // @deprecated
-        ORM.Field.Float     ({ name = "housey",     value = 0.0     }), // @deprecated
-        ORM.Field.Float     ({ name = "housez",     value = 0.0     }), // @deprecated
+        ORM.Field.Float     ({ name = "deposit",    }), // @deprecated
+        ORM.Field.Integer   ({ name = "spawnid"     }), // @deprecated
+        ORM.Field.Float     ({ name = "housex",     }), // @deprecated
+        ORM.Field.Float     ({ name = "housey",     }), // @deprecated
+        ORM.Field.Float     ({ name = "housez",     }), // @deprecated
     ];
 
     static traits = [
