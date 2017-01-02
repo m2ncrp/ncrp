@@ -75,7 +75,7 @@ function screenFadeinFadeout(playerid, time, callback1 = null, callback2 = null)
  * @param {Function} callback (optional)
  */
 function screenFadeinEx(playerid, fadetime, callback = null) {
-    triggerClientEvent(playerid, "onServerFadeScreen", fadetime.tostring(), false);
+    trigger(playerid, "onServerFadeScreen", fadetime, "in");
     return callback ? delayedFunction(fadetime, callback) : null;
 }
 
@@ -88,7 +88,7 @@ function screenFadeinEx(playerid, fadetime, callback = null) {
  * @param {Function} callback (optional)
  */
 function screenFadeoutEx(playerid, fadetime, callback = null) {
-    triggerClientEvent(playerid, "onServerFadeScreen", fadetime.tostring(), true);
+    trigger(playerid, "onServerFadeScreen", fadetime, "out");
     return callback ? delayedFunction(fadetime, callback) : null;
 }
 
