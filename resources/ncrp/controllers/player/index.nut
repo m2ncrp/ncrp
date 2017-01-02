@@ -79,11 +79,6 @@ event("onPlayerInit", function(playerid) {
 
         // save player to storage
         players.add(playerid, character);
-
-        // TODO(inlife): movo to character
-        character.playerid = playerid;
-        trigger("native:onPlayerSpawn", playerid);
-
         return trigger("onPlayerCharacterLoaded", playerid);
     });
 });
@@ -176,6 +171,6 @@ event("onServerPlayerAlive", function(playerid) {
 
     // save in-memory pos
     // NOTE(inlife): might collide with other stuff
-    // local pos = getPlayerPosition(playerid);
-    // players[playerid].setPosition(pos[0], pos[1], pos[2]);
+    local pos = getPlayerPosition(playerid);
+    players[playerid].setPosition(pos[0], pos[1], pos[2]);
 });

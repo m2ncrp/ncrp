@@ -126,7 +126,7 @@ event("native:onServerShutdown", function() {
 });
 
 event("native:onPlayerConnect", function(playerid, name, ip, serial) {
-    dbg("player", "conenct", name, playerid, ip, serial);
+    dbg("player", "connect", name, playerid, ip, serial);
     trigger("onPlayerConnectInit", playerid, name, ip, serial);
 
     if (!IS_AUTHORIZATION_ENABLED || DEBUG) {

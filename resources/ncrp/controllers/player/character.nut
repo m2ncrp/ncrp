@@ -2,9 +2,12 @@
  * Handle character loadeded event
  */
 event("onPlayerCharacterLoaded", function(playerid) {
+    // store player id for current player
+    players[playerid].playerid = playerid;
+
     // trigger init events
     trigger("onPlayerConnect", playerid);
-    // trigger("native:onPlayerSpawn", playerid); ?? moved to later
+    trigger("native:onPlayerSpawn", playerid); // ?? moved to later
 
     // and trigger start events
     delayedFunction(1500, function() {
