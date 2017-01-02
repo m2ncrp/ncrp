@@ -36,17 +36,17 @@ cmd("bus", "stop", function(playerid) {
     busJobStop(playerid);
 });
 */
-// cmd("bus", "enter", function(playerid, busid) {
-//     foreach (idx, value in players) {
-//         triggerClientEvent(idx, "onServerPlayerBusEnter", playerid, busid.tointeger());
-//     }
-// });
+cmd("bus", "enter", function(playerid, busid) {
+    foreach (idx, value in players) {
+        triggerClientEvent(idx, "onServerPlayerBusEnter", playerid, busid.tointeger());
+    }
+});
 
-// cmd("bus", "exit", function(playerid, busid) {
-//     foreach (idx, value in players) {
-//         triggerClientEvent(idx, "onServerPlayerBusExit", playerid, busid.tointeger());
-//     }
-// });
+cmd("bus", "exit", function(playerid, busid) {
+    foreach (idx, value in players) {
+        triggerClientEvent(idx, "onServerPlayerBusExit", playerid, busid.tointeger());
+    }
+});
 
 function busJobHelp ( playerid ) {
     local title = "job.bus.help.title";
