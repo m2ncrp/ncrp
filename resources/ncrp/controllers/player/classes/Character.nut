@@ -39,6 +39,11 @@ class Character extends ORM.Entity {
     spawned     = false;
     playerid    = -1;
 
+    constructor () {
+        base.constructor();
+        this.request <- {};
+    }
+
     /**
      * Try to set virtual position (not calling native setPlayerPosition)
      * Can be passed either number sequence or vector3 object

@@ -248,9 +248,10 @@ event("onPlayerSpawn", function( playerid ) {
     //     police[playerid]["ondutyminutes"] <- 0;
     // }
 
-    if (getPlayerState(playerid) == "jail") {
-        return setPlayerPosition(playerid, JAIL_X, JAIL_Y, JAIL_Z);
-    }
+    if (!isPlayerLoaded(playerid)) return;
+    if (!(getPlayerState(playerid) == "jail")) return;
+
+    players[playerid].setPosition(JAIL_X, JAIL_Y, JAIL_Z);
 });
 
 
