@@ -193,23 +193,35 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
 
 local screenFade = {
     current = 255,
-    state = false,
+    state   = "out",
+    time    = 2500,
+    step    = 0.5,
 };
 
 addEventHandler("onClientFrameRender", function(isGUIdrawn) {
     if (!isGUIdrawn) return;
     if ( screenFade.current > 0 ) {
-        // dxDrawRectangle(0.0, 0.0, screenX, screenY, fromRGB(0, 0, 0, screenFade.current));
+        dxDrawRectangle(0.0, 0.0, screenX, screenY, fromRGB(0, 0, 0, screenFade.current.tointeger()));
     }
 });
 
-addEventHandler("onServerFadeScreen", function(time, fadein) {
-    if (fadein) {
-        screenFade.state = fadein;
+addEventHandler("onClientProcess", function() {
+    // transp -> black
+    if (screenFade.state == "in" && screenFade.current < 255) {
+        screenFade.current += screenFade.step;
+    }
+
+    // black -> transp
+    if (screenFade.state == "out" && screenFade.current > 0) {
+        screenFade.current -= screenFade.step;
     }
 });
 
-
+addEventHandler("onServerFadeScreen", function(time, type) {
+    // screenFade.state    = type;
+    // screenFade.time     = time.tointeger();
+    // screenFade.current  = (type == "in") ? 0 : 255;
+});
 
 
 /**
