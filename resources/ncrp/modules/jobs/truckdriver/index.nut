@@ -450,7 +450,7 @@ function truckJobRefuseLeave( playerid ) {
         job_truck[playerid]["leavejob3dtext"] = null;
 
         setPlayerJob( playerid, null );
-        restorePlayerJob(playerid);
+        restorePlayerModel(playerid);
 
         // remove private blip job
         removePersonalJobBlip ( playerid );
