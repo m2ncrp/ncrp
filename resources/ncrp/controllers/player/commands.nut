@@ -34,7 +34,7 @@ acmd("skin", function(playerid, id) {
 
 
 acmd(["skininc"], function ( playerid ) {
-    local skin = players[playerid]["skin"];
+    local skin = getPlayerModel(playerid);
     if ( skin < 171) {
         skin += 1;
         setPlayerModel(playerid, skin, true);
@@ -45,7 +45,7 @@ acmd(["skininc"], function ( playerid ) {
 });
 
 acmd(["skindec"], function ( playerid ) {
-    local skin = players[playerid]["skin"];
+    local skin = getPlayerModel(playerid);
     if ( skin > 0) {
         skin -= 1;
         setPlayerModel(playerid, skin, true);
