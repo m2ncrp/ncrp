@@ -14,11 +14,15 @@ function isPlayerInValidVehicle(playerid, modelid) {
  * @param  {String} reason
  */
 function removePlayer(playerid, reason = "") {
-    dbg("player", "disconnect", getPlayerName(playerid));
+    dbg("player", "disconnect", getIdentity(playerid));
     setPlayerAuthBlocked(playerid, false);
 
-    if (!players.exists(playerid)) {
-        return dbg(format("player %s exited without login", getPlayerName(playerid)));
+    if (!isPlayerLoaded(playerid)) {
+        return dbg(format("player %s exited without character loading", getIdentity(playerid)));
+    }
+
+    if (!isPlayerAuthed(playerid)) {
+        return dbg(format("player %s exited without login", getIdentity(playerid)));
     }
 
     // call events
