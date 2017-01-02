@@ -36,6 +36,11 @@ addEventHandler("onScriptInit", function() {
 
             // set names to UTF-8 strictly
             mysql_query(connection, "SET NAMES UTF8;");
+
+            // applly migrations
+            applyMigrations(function(query) {
+                mysql_query(connection, query);
+            });
         } else {
             IS_MYSQL_ENABLED <- false;
             dbg("database", "mysql", "failed to connect, falling back to sqlite");
@@ -45,11 +50,16 @@ addEventHandler("onScriptInit", function() {
     // fall back to sqlite
     if (!IS_MYSQL_ENABLED) {
         dbg("database", "sqlite", "connecting");
+
+        // create connection and initialize driver
         connection = sqlite("ncrp.db");
         intializeSQLiteDrivers(connection);
-    }
 
-    applyMigrations(connection);
+        // applly migrations
+        applyMigrations(function(query) {
+            connection.query(query);
+        });
+    }
 });
 
 addEventHandlerEx("onServerStopped", function() {

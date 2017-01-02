@@ -5,7 +5,7 @@ function migrate(callback) {
     __migrations.push(callback);
 }
 
-function applyMigrations(connection) {
+function applyMigrations(callback) {
     local migration;
 
     MigrationVersion.findAll(function(err, migrations) {
@@ -19,7 +19,7 @@ function applyMigrations(connection) {
 
         // if current version is old, migrate to new
         while (migration.current < __migrations.len()) {
-            __migrations[migration.current++](connection);
+            __migrations[migration.current++](callback);
             log("[database][migration] applying migration #" + migration.current);
         }
 
@@ -33,63 +33,89 @@ function applyMigrations(connection) {
 
 // 21.11.16
 // added deposit field for character
-migrate(function(connection) {
-    connection.query("ALTER TABLE tbl_characters ADD COLUMN `deposit` FLOAT NOT NULL DEFAULT 0.0;");
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_characters ADD COLUMN `deposit` FLOAT NOT NULL DEFAULT 0.0;");
 });
 
 // 24.11.16
 // added vehicle wheel saving
-migrate(function(connection) {
-    connection.query("ALTER TABLE tbl_vehicles ADD COLUMN `fwheel` INT(255) NOT NULL DEFAULT 0;");
-    connection.query("ALTER TABLE tbl_vehicles ADD COLUMN `rwheel` INT(255) NOT NULL DEFAULT 0;");
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_vehicles ADD COLUMN `fwheel` INT(255) NOT NULL DEFAULT 0;");
+    query("ALTER TABLE tbl_vehicles ADD COLUMN `rwheel` INT(255) NOT NULL DEFAULT 0;");
 });
 
 // 26.11.16
 // added character language saving
-migrate(function(connection) {
-    connection.query("ALTER TABLE tbl_characters ADD COLUMN `locale` VARCHAR(255) NOT NULL DEFAULT 'en';");
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_characters ADD COLUMN `locale` VARCHAR(255) NOT NULL DEFAULT 'en';");
 });
 
 // 04.11.16
 // added accounts serial and ip saving
-migrate(function(connection) {
-    connection.query("ALTER TABLE tbl_accounts ADD COLUMN `ip` VARCHAR(255) NOT NULL DEFAULT '';");
-    connection.query("ALTER TABLE tbl_accounts ADD COLUMN `serial` VARCHAR(255) NOT NULL DEFAULT '';");
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_accounts ADD COLUMN `ip` VARCHAR(255) NOT NULL DEFAULT '';");
+    query("ALTER TABLE tbl_accounts ADD COLUMN `serial` VARCHAR(255) NOT NULL DEFAULT '';");
 });
 
 // 05.11.16
 // added character health saving
-migrate(function(connection) {
-    connection.query("ALTER TABLE tbl_characters ADD COLUMN `health` FLOAT(255) NOT NULL DEFAULT 720.0;");
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_characters ADD COLUMN `health` FLOAT(255) NOT NULL DEFAULT 720.0;");
 });
 
 // 05.11.16
 // added account locale saving
-migrate(function(connection) {
-    connection.query("ALTER TABLE tbl_accounts ADD COLUMN `locale` VARCHAR(255) NOT NULL DEFAULT 'en';");
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_accounts ADD COLUMN `locale` VARCHAR(255) NOT NULL DEFAULT 'en';");
 });
 
 // 05.11.16
 // added account layout saving
-migrate(function(connection) {
-    connection.query("ALTER TABLE tbl_accounts ADD COLUMN `layout` VARCHAR(255) NOT NULL DEFAULT 'qwerty';");
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_accounts ADD COLUMN `layout` VARCHAR(255) NOT NULL DEFAULT 'qwerty';");
 });
 
 // 20.12.16
 // added account time of creation and last login
-migrate(function(connection) {
-    connection.query("ALTER TABLE tbl_accounts ADD COLUMN `created` INT(255) NOT NULL DEFAULT 0;");
-    connection.query("ALTER TABLE tbl_accounts ADD COLUMN `logined` INT(255) NOT NULL DEFAULT 0;");
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_accounts ADD COLUMN `created` INT(255) NOT NULL DEFAULT 0;");
+    query("ALTER TABLE tbl_accounts ADD COLUMN `logined` INT(255) NOT NULL DEFAULT 0;");
 });
 
 // 21.12.16
 // added character state saving
-migrate(function(connection) {
-    connection.query("ALTER TABLE tbl_characters ADD COLUMN `state` VARCHAR(255) NOT NULL DEFAULT 'free';");
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_characters ADD COLUMN `state` VARCHAR(255) NOT NULL DEFAULT 'free';");
 });
 
 // 29.12.16
 // added account email
-migrate(function(connection) {
-    connection.query("ALTER TABLE tbl_accounts ADD COLUMN `email` VARCHAR(255) NOT NULL DEFAULT '';");
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_accounts ADD COLUMN `email` VARCHAR(255) NOT NULL DEFAULT '';");
+});
+
+// 29.12.16
+// added account email
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_accounts ADD COLUMN `email` VARCHAR(255) NOT NULL DEFAULT '';");
+});
+
+// 02.01.17
+// added character update fields
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_characters ADD COLUMN `accountid` INT(255) NOT NULL DEFAULT 0;");
+    query("ALTER TABLE tbl_characters ADD COLUMN `firstname` VARCHAR(255) NOT NULL DEFAULT '';");
+    query("ALTER TABLE tbl_characters ADD COLUMN `lastname` VARCHAR(255) NOT NULL DEFAULT '';");
+    query("ALTER TABLE tbl_characters ADD COLUMN `race` INT(255) NOT NULL DEFAULT 0;");
+    query("ALTER TABLE tbl_characters ADD COLUMN `sex` INT(255) NOT NULL DEFAULT 0;");
+    query("ALTER TABLE tbl_characters ADD COLUMN `birthdate` VARCHAR(255) NOT NULL DEFAULT '01.01.1920';");
+    query("ALTER TABLE tbl_characters ADD COLUMN `x` FLOAT(255) NOT NULL DEFAULT 0.0;");
+    query("ALTER TABLE tbl_characters ADD COLUMN `y` FLOAT(255) NOT NULL DEFAULT 0.0;");
+    query("ALTER TABLE tbl_characters ADD COLUMN `z` FLOAT(255) NOT NULL DEFAULT 0.0;");
+    query("ALTER TABLE tbl_characters ADD COLUMN `rx` FLOAT(255) NOT NULL DEFAULT 0.0;");
+    query("ALTER TABLE tbl_characters ADD COLUMN `ry` FLOAT(255) NOT NULL DEFAULT 0.0;");
+    query("ALTER TABLE tbl_characters ADD COLUMN `rz` FLOAT(255) NOT NULL DEFAULT 0.0;");
+    query("UPDATE tbl_characters SET x = housex WHERE id > 0;");
+    query("UPDATE tbl_characters SET y = housey WHERE id > 0;");
+    query("UPDATE tbl_characters SET z = housez WHERE id > 0;");
 });
