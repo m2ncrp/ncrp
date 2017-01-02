@@ -57,7 +57,7 @@ class Officer {
             // onPoliceDutyRemoveWeapon( playerid );
             trigger("onPoliceDutyOff", playerid);
             return screenFadeinFadeout(playerid, 100, function() {
-                setPlayerModel(playerid, players[playerid]["default_skin"]);
+                restorePlayerModel(playerid);
                 msg(playerid, "organizations.police.duty.off");
 
                 policeJobPaySalary( playerid );

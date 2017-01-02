@@ -32,7 +32,7 @@ acmd(["admin", "adm", "a"], function(playerid, ...) {
         return sendPlayerMessageToAll("Anonymous: " + concat(vargv), CL_MEDIUMPURPLE.r, CL_MEDIUMPURPLE.g, CL_MEDIUMPURPLE.b);
     }
     else{
-        return sendPlayerMessageToAll("[A] "+getPlayerName(playerid)+": " + concat(vargv), CL_MEDIUMPURPLE.r, CL_MEDIUMPURPLE.g, CL_MEDIUMPURPLE.b);
+        return sendPlayerMessageToAll("[A] "+getAccountName(playerid)+": " + concat(vargv), CL_MEDIUMPURPLE.r, CL_MEDIUMPURPLE.g, CL_MEDIUMPURPLE.b);
     }
 });
 

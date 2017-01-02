@@ -99,9 +99,9 @@ function str_replace(original, replacement, string) {
 
 
 /**
-* Escape strings according to http://www.json.org/ spec
-* @param {String} str
-*/
+ * Escape strings according to http://www.json.org/ spec
+ * @param {String} str
+ */
 function escape(str) {
     local res = "";
 
@@ -114,7 +114,9 @@ function escape(str) {
 
             ch1 = format("%c", ch1);
 
-            if (ch1 == "\"") {
+            if (ch1 == "\'") {
+                res += "\\\'";
+            } else if (ch1 == "\"") {
                 res += "\\\"";
             } else if (ch1 == "\\") {
                 res += "\\\\";

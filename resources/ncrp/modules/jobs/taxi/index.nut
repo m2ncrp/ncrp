@@ -85,8 +85,8 @@ event("onServerStarted", function() {
     ];
 });
 
-event("onPlayerConnect", function(playerid, name, ip, serial ){
-    players[playerid]["taxi"] <- {};
+event("onPlayerConnect", function(playerid) {
+    players[playerid]["taxi"] = {};
     players[playerid]["taxi"]["call_address"] <- false; // Address from which was caused by a taxi
     players[playerid]["taxi"]["call_state"] <- false; // Address from which was caused by a taxi
 
@@ -437,8 +437,6 @@ function taxiJob(playerid) {
     msg_taxi_dr(playerid, "job.taxi.driver.now");
 
     setPlayerJob( playerid, "taxidriver");
-
-    players[playerid]["skin"] = TAXI_JOB_SKIN;
     setPlayerModel( playerid, TAXI_JOB_SKIN );
 }
 
@@ -473,9 +471,7 @@ function taxiJobLeave(playerid) {
         msg(playerid, "job.leave");
 
         setPlayerJob( playerid, null );
-
-        players[playerid]["skin"] = players[playerid]["default_skin"];
-        setPlayerModel( playerid, players[playerid]["default_skin"]);
+        restorePlayerModel(playerid);
 
         job_taxi[playerid]["status"] = "offair";
     });

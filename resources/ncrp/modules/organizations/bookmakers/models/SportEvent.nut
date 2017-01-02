@@ -33,7 +33,7 @@ class SportEvent extends ORM.Entity {
     function getParticipants(callback)
     {
         local q = ORM.Query("select * from @SportMember where id in (:ids)");
-        q.setParameter("ids", this.participants);
+        q.setParameter("ids", this.participants, true);
         q.getResult(callback);
     }
 

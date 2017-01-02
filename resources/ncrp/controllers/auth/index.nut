@@ -1,6 +1,13 @@
+include("controllers/auth/classes/Account.nut");
+
 IS_AUTHORIZATION_ENABLED <- true;
 AUTH_ACCOUNTS_LIMIT      <- 2;
 AUTH_AUTOLOGIN_TIME      <- 900; // 15 minutes
+
+const DEFAULT_SPAWN_SKIN = 4;
+const DEFAULT_SPAWN_X    = -143.0;  //-1027.02;
+const DEFAULT_SPAWN_Y    = 1206.0;  //1746.63;
+const DEFAULT_SPAWN_Z    = 84.0;    //10.2325;
 
 /**
  * Compiled regex object for
@@ -66,7 +73,7 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
             msg(playerid, "auth.wrongname", CL_WARNING);
             msg(playerid, "auth.changename");
 
-            dbg("kick", "invalid unsername", getPlayerName(playerid));
+            dbg("kick", "invalid unsername", getIdentity(playerid));
 
             return delayedFunction(6000, function () {
                 kickPlayer( playerid );
@@ -75,10 +82,15 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
     }
 
     // maybe he is banned
-    ORM.Query("select * from @Ban where serial = ':serial' and until > :current")
+    ORM.Query("select * from @Ban where serial = :serial and until > :current")
         .setParameter("serial", getPlayerSerial(playerid))
         .setParameter("current", getTimestamp())
         .getSingleResult(function(err, result) {
+
+            /**
+             * Account is banned!
+             * Applying actions
+             */
             if (result) {
                 // disable ability to login
                 setPlayerAuthBlocked(playerid, true);
@@ -93,7 +105,7 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
                     msg(playerid, "[SERVER] You are banned from the server for: " + result.reason, CL_RED);
                     msg(playerid, "[SERVER] Try connecting again later."    );
 
-                    dbg("kick", "banned connected", getPlayerName(playerid));
+                    dbg("kick", "banned connected", getIdentity(playerid));
 
                     return delayedFunction(6000, function () {
                         kickPlayer( playerid );
@@ -101,6 +113,11 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
                 });
             }
 
+            /**
+             * Seems like account is not banned
+             * Now we are trying to find account
+             * to show login form or show registration form
+             */
             Account.findOneBy({ username = username }, function(err, account) {
                 // override player locale if registered
                 if (account) {
@@ -108,6 +125,9 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
                     setPlayerLayout(playerid, account.layout, false);
                 }
 
+                /**
+                 * Maybe we shoudl apply autologin ?
+                 */
                 if (getTimestamp() - getLastActiveSession(playerid) < AUTH_AUTOLOGIN_TIME) {
                     // update data
                     account.ip       = getPlayerIp(playerid);
@@ -120,10 +140,10 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
                     setLastActiveSession(playerid);
 
                     // send message success
-                    dbg("login", getAuthor(playerid), "autologin");
+                    dbg("login", getIdentity(playerid), "autologin");
 
                     screenFadein(playerid, 250, function() {
-                        trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
+                        trigger("onPlayerInit", playerid);
                     });
 
                     msg(playerid, "auth.success.autologin", CL_SUCCESS);
@@ -131,6 +151,10 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
                     return;
                 }
 
+                /**
+                 * Or just show the forms
+                 * for login or registration
+                 */
                 msg(playerid, "---------------------------------------------", CL_SILVERSAND);
                 msg(playerid, "auth.welcome", username);
 
@@ -152,6 +176,23 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
         });
 });
 
+/**
+ * Listen spawn event
+ * and spawn for non-authed players
+ */
+event("native:onPlayerSpawn", function(playerid) {
+    if (isPlayerAuthed(playerid)) return;
+
+    // togglePlayerControls(playerid, true);
+
+    // set player position and skin
+    setPlayerPosition(playerid, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z);
+    setPlayerModel(playerid, DEFAULT_SPAWN_SKIN);
+
+    // disable hud and show
+    trigger(playerid, "setPlayerIntroScreen");
+    togglePlayerHud(playerid, true);
+});
 
 /**
  * On player disconnects
