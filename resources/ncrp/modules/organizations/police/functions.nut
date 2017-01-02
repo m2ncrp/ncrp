@@ -115,23 +115,25 @@ function policeSetOnDuty(playerid, bool) {
         police[playerid]["ondutyminutes"] <- 0;
     }
 
+    local rank = getPoliceRank(playerid);
     police[playerid].onduty <- bool;
 
     if (bool) {
         return screenFadeinFadeout(playerid, 100, function() {
             // onPoliceDutyGiveWeapon( playerid );
             trigger("onPoliceDutyOn", playerid);
-            setPlayerModel(playerid, POLICE_MODEL);
+            local modelNUM = random( 0, POLICE_RANK_SALLARY_PERMISSION_SKIN[rank][2].len()-1 );
+            local model = POLICE_RANK_SALLARY_PERMISSION_SKIN[rank][2][modelNUM];
+            setPlayerModel(playerid, model);
             msg(playerid, "organizations.police.duty.on");
         });
     } else {
         // onPoliceDutyRemoveWeapon( playerid );
         trigger("onPoliceDutyOff", playerid);
+        policeJobPaySalary( playerid );
         return screenFadeinFadeout(playerid, 100, function() {
             restorePlayerModel(playerid);
             msg(playerid, "organizations.police.duty.off");
-
-            policeJobPaySalary( playerid );
         });
     }
 }
