@@ -17,10 +17,14 @@ local label = [];
 local radio = [];
 
 local isCharacterMenu;
+local fieldsErrors = 0;
 
-local PlayerData = {};
-PlayerData.Gender <- 0;
-PlayerData.Race <- 0;
+local PData = {};
+PData.Firstname <- "";
+PData.LastName <- "";
+PData.BDay <- "";
+PData.Gender <- 0;
+PData.Race <- 0;
 
 local switchModelID = 0;
 
@@ -32,7 +36,6 @@ local modelsData =
 	[[51,52],[56,57]] //Asia
 ]
 
-// modelsData[0][0][0] -> output: 73
 
 
 function characterSelection(){
@@ -41,6 +44,7 @@ function characterSelection(){
 addEventHandler("wp",characterSelection);
 
 function characterCreation(){
+	togglePlayerControls( true );
 	showCursor(true);
 	setPlayerPosition(getLocalPlayer(), -1598.5,69.0,-13.0);
 	setPlayerRotation(getLocalPlayer(), 180.0,0.0,180.0);
@@ -53,30 +57,38 @@ function characterCreation(){
 	label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Негроидная", 55.0, 215.0, 300.0, 20.0, false, window));//label[5]
 	label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Монголоидная", 55.0, 235.0, 300.0, 20.0, false, window));//label[6]
 	label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Выберите скин", 57.0, 260.0, 300.0, 20.0, false, window));//label[7]
-	input.push(guiCreateElement( ELEMENT_TYPE_EDIT, "", 20.0, 40.0, 150.0, 20.0, false, window));//input[0]
-	input.push(guiCreateElement( ELEMENT_TYPE_EDIT, "", 20.0, 80.0, 150.0, 20.0, false, window));//input[1]
-	input.push(guiCreateElement( ELEMENT_TYPE_EDIT, "Например: 27.01.1931", 20.0, 120.0, 150.0, 20.0, false, window));//input[2]
+	input.push(guiCreateElement( ELEMENT_TYPE_EDIT, "Например: John", 20.0, 40.0, 150.0, 20.0, false, window));//input[0]
+	input.push(guiCreateElement( ELEMENT_TYPE_EDIT, "Например: Douglas", 20.0, 80.0, 150.0, 20.0, false, window));//input[1]
+	input.push(guiCreateElement( ELEMENT_TYPE_EDIT, "День", 20.0, 120.0, 50.0, 20.0, false, window));//input[2]
+	input.push(guiCreateElement( ELEMENT_TYPE_EDIT, "Месяц", 70.0, 120.0, 50.0, 20.0, false, window));//input[3]
+	input.push(guiCreateElement( ELEMENT_TYPE_EDIT, "Год", 120.0, 120.0, 50.0, 20.0, false, window));//input[4]
 	radio.push(guiCreateElement( ELEMENT_TYPE_RADIOBUTTON, "", 25, 200.0, 15.0, 15.0,false, window));//radio[0]
 	radio.push(guiCreateElement( ELEMENT_TYPE_RADIOBUTTON, "", 25, 220.0, 15.0, 15.0,false, window));//radio[1]
 	radio.push(guiCreateElement( ELEMENT_TYPE_RADIOBUTTON, "", 25, 240.0, 15.0, 15.0,false, window));//radio[2]
 	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "Мужчина", 20, 150.0, 70.0, 20.0,false, window));//button[0]
 	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "Женщина", 100, 150.0, 70.0, 20.0,false, window));//button[1]
-	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "<<", 20.0, 260.0, 30.0, 20.0,false, window));//button[3]
-	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, ">>", 140.0, 260.0, 30.0, 20.0,false, window));//button[4]
-	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "Продолжить", 20.0, 290.0, 150.0, 20.0,false, window));//button[5]
+	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "<<", 20.0, 260.0, 30.0, 20.0,false, window));//button[2]
+	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, ">>", 140.0, 260.0, 30.0, 20.0,false, window));//button[3]
+	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "Продолжить", 20.0, 290.0, 150.0, 20.0,false, window));//button[4]
 	guiSetSizable(window,false);
 	isCharacterMenu = true;
 }
 addEventHandler("gg",characterCreation);
 
 addEventHandler( "onGuiElementClick",function(element){
-	if(element == button[0]) PlayerData.Gender <- 0; changeModel();
-	if(element == button[1]) PlayerData.Gender <- 1; changeModel();
-	if(element == radio[0]) PlayerData.Race <- 0; changeModel();
-	if(element == radio[1]) PlayerData.Race <- 1; changeModel();
-	if(element == radio[2]) PlayerData.Race <- 2; changeModel();
-	if(element == button[3]) switchModel();
-	if(element == button[4]) switchModel();
+	if(element == button[0]){ PData.Gender <- 0; changeModel();}
+	if(element == button[1]){ PData.Gender <- 1; changeModel();}
+	if(element == radio[0]) {PData.Race <- 0; changeModel();}
+	if(element == radio[1]) {PData.Race <- 1; changeModel();}
+	if(element == radio[2]) {PData.Race <- 2; changeModel();}
+	if(element == button[2]) {switchModel();}
+	if(element == button[3]) {switchModel();}
+	if(element == input[0]) {guiSetText(input[0], "");}
+	if(element == input[1]) {guiSetText(input[1], "");}
+	if(element == input[2]) {guiSetText(input[2], "");}
+	if(element == input[3]) {guiSetText(input[3], "");}
+	if(element == input[4]) {guiSetText(input[4], "");}
+	if(element == button[4]) {checkFields();}
 });
 
 
@@ -107,33 +119,70 @@ function switchModel(){
 
 function changeModel () {
 	setPlayerRotation(getLocalPlayer(), 180.0,0.0,0.0);
-	local model = modelsData[PlayerData.Race][PlayerData.Gender][switchModelID];
+	local model = modelsData[PData.Race][PData.Gender][switchModelID];
     triggerServerEvent("changeModel", model)
 }
 
 
 
 function checkFields () {
-	//code
+	fieldsErrors = 0;
+	PData.Firstname <- guiGetText(input[0]);
+	PData.LastName <- guiGetText(input[1]);
+	if(!isValidName(PData.Firstname)){
+		guiSetText(label[0],"Некорректное Имя");
+		fieldsErrors++;
+	}
+	else {guiSetText(label[0],"Имя");}
+
+	if(!isValidName(PData.LastName)){
+		guiSetText(label[1],"Некорректная Фамилия");
+		fieldsErrors++;
+	}
+	else {guiSetText(label[1],"Фамилия");}
+
+	//if(!isValidDay(guiGetText(input[2]))){
+		//guiSetText(label[2],"'День' введен не корректно");
+		//fieldsErrors++;
+	//}
+	//else {guiSetText(label[2],"Дата рождения");}
+
+	//if(isValidMonth(guiGetText(input[3]))){
+		//guiSetText(label[2],"'Месяц' введен не корректно");
+		//fieldsErrors++;
+	//}
+	//else {guiSetText(label[2],"Дата рождения");}
+
+	//if(!isValidYear(guiGetText(input[4]))){
+	//	guiSetText(label[2],"Поле 'Год' введено не корректно");
+		//fieldsErrors++;
+	//}
+	//else {guiSetText(label[2],"Дата рождения");}
 }
 
 function creatCharacte () {
 	//code
 }
 
-
-function delayedFunction(time, callback, additional = null) {
-    return additional ? timer(callback, time, 1, additional) : timer(callback, time, 1);
-}
-
-
-function isValidName (name) {
+function isValidName (string) {
     local check = regexp("[A-Z][a-z]*");
-    return check.match(email);
+    return check.match(string);
 }
 
-function isValidBday (bday) {
-	//code
+
+function isValidDay(day) {
+	local check = regexp("");
+	return check.match(day);
+}
+
+function isValidMonth(month) {
+	local check = regexp("");
+	return check.match(month);
+}
+
+function isValidYear(year) {
+	local check = regexp("");
+	return check.match(year);
 }
 
 function destroyCharacterGUI () {
@@ -141,25 +190,12 @@ function destroyCharacterGUI () {
     window = null;
     isCharacterMenu = false;
 }
-/* Бэкапчик
-	window = guiCreateElement( ELEMENT_TYPE_WINDOW, "Создание персонажа", screen[0] - 300.0, screen[1]/2- 175.0, 190.0, 320.0 );
-	label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Имя" 20.0, 20.0, 300.0, 20.0, false, window));//label[0]
-	input.push(guiCreateElement( ELEMENT_TYPE_EDIT, "", 20.0, 40.0, 150.0, 20.0, false, window));//input[0]
-	label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Фамилия", 20.0, 60.0, 300.0, 20.0, false, window));//label[1]
-	input.push(guiCreateElement( ELEMENT_TYPE_EDIT, "", 20.0, 80.0, 150.0, 20.0, false, window));//input[1]
-	label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Дата рождения", 20.0, 100.0, 300.0, 20.0, false, window));//label[2]
-	input.push(guiCreateElement( ELEMENT_TYPE_EDIT, "Например: 27.01.1931", 20.0, 120.0, 150.0, 20.0, false, window));//input[2]
-	label.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "Мужчина", 20, 150.0, 70.0, 20.0,false, window));//button[0]
-	label.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "Женщина", 100, 150.0, 70.0, 20.0,false, window));//button[1]
-	label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Выберите расу персонажа", 28.0, 175.0, 300.0, 20.0, false, window));
-	radio.push(guiCreateElement( ELEMENT_TYPE_RADIOBUTTON, "", 25, 200.0, 15.0, 15.0,false, window));
-	radio.push(guiCreateElement( ELEMENT_TYPE_RADIOBUTTON, "", 25, 220.0, 15.0, 15.0,false, window));
-	radio.push(guiCreateElement( ELEMENT_TYPE_RADIOBUTTON, "", 25, 240.0, 15.0, 15.0,false, window));
-	label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Европеоидная", 55.0, 195.0, 300.0, 20.0, false, window));
-	label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Негроидная", 55.0, 215.0, 300.0, 20.0, false, window));
-	label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Монголоидная", 55.0, 235.0, 300.0, 20.0, false, window));
-	label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Выберите скин", 57.0, 260.0, 300.0, 20.0, false, window));
-	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "<<", 20.0, 260.0, 30.0, 20.0,false, window));//button[3]
-	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, ">>", 140.0, 260.0, 30.0, 20.0,false, window));//button[4]
-	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "Продолжить", 20.0, 290.0, 150.0, 20.0,false, window));//button[5]
- */
+
+function calculateAge(day,month,year){
+
+
+}
+
+function delayedFunction(time, callback, additional = null) {
+    return additional ? timer(callback, time, 1, additional) : timer(callback, time, 1);
+}
