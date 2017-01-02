@@ -45,7 +45,7 @@ event("onServerStarted", function() {
 
                 // check soft limit
                 if (maxsp > limits[0]) {
-                    dbg("anticheat", "speed", getAuthor(playerid), "model: " + getVehicleModel(vehicleid), maxsp);
+                    dbg("anticheat", "speed", getIdentity(playerid), "model: " + getVehicleModel(vehicleid), maxsp);
                 }
 
                 // check hard limit
@@ -74,12 +74,13 @@ event("onPlayerConnect", function(playerid) {
 
 // prevent nickname spoofing
 event("native:onPlayerChangeNick", function(playerid, newname, oldnickname) {
+    dbg("player", "anticheat", "nickchange", getIdentity(playerid));
     kick(-1, playerid, "nick change is not allowed in game.");
 });
 
 event("onServerMinuteChange", function() {
     foreach (playerid, value in getPlayers()) {
-        if (!strip(getPlayerName(playerid)).len()) {
+        if (!strip(getAccountName(playerid)).len()) {
             kick(-1, playerid, "nick change is not allowed in game.");
         }
     }

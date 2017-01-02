@@ -73,7 +73,7 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
             msg(playerid, "auth.wrongname", CL_WARNING);
             msg(playerid, "auth.changename");
 
-            dbg("kick", "invalid unsername", getPlayerName(playerid));
+            dbg("kick", "invalid unsername", getIdentity(playerid));
 
             return delayedFunction(6000, function () {
                 kickPlayer( playerid );
@@ -105,7 +105,7 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
                     msg(playerid, "[SERVER] You are banned from the server for: " + result.reason, CL_RED);
                     msg(playerid, "[SERVER] Try connecting again later."    );
 
-                    dbg("kick", "banned connected", getPlayerName(playerid));
+                    dbg("kick", "banned connected", getIdentity(playerid));
 
                     return delayedFunction(6000, function () {
                         kickPlayer( playerid );
@@ -140,7 +140,7 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
                     setLastActiveSession(playerid);
 
                     // send message success
-                    dbg("login", getAuthor(playerid), "autologin");
+                    dbg("login", getIdentity(playerid), "autologin");
 
                     screenFadein(playerid, 250, function() {
                         trigger("onPlayerInit", playerid);
