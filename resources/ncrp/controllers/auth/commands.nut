@@ -54,7 +54,7 @@ function registerFunc(playerid, password, email = null) {
 
                                 // send success registration message
                                 msg(playerid, "auth.success.register", CL_SUCCESS);
-                                dbg("registration", getAuthor(playerid));
+                                dbg("registration", getIdentity(playerid));
                                 trigger(playerid, "destroyAuthGUI");
 
                                 screenFadein(playerid, 250, function() {
@@ -113,7 +113,7 @@ function loginFunc(playerid, password) {
 
             // send message success
             msg(playerid, "auth.success.login", CL_SUCCESS);
-            dbg("login", getAuthor(playerid));
+            dbg("login", getIdentity(playerid));
             trigger(playerid, "destroyAuthGUI");
 
             screenFadein(playerid, 250, function() {

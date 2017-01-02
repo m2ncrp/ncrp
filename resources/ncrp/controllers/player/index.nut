@@ -79,6 +79,11 @@ event("onPlayerInit", function(playerid) {
 
         // save player to storage
         players.add(playerid, character);
+
+        // TODO(inlife): movo to character
+        character.playerid = playerid;
+        trigger("native:onPlayerSpawn", playerid);
+
         return trigger("onPlayerCharacterLoaded", playerid);
     });
 });
@@ -96,7 +101,7 @@ event("native:onPlayerSpawn", function(playerid) {
 
     // reset freeze and set default model
     freezePlayer(playerid, false);
-    setPlayerModel(playerid, players[playerid].skin);
+    setPlayerModel(playerid, players[playerid].cskin);
 
     trigger("onPlayerSpawn", playerid);
     trigger("onPlayerSpawned", playerid);
@@ -104,8 +109,13 @@ event("native:onPlayerSpawn", function(playerid) {
     // set player position according to data
     setPlayerPosition(playerid, players[playerid].x, players[playerid].y, players[playerid].z);
 
+    // maybe player spawned not far from spawn
+    local isPlayerNearSpawn = isInRadius(playerid, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z, 5.0);
+
     // maybe position was not yet set or spanwed in 0, 0, 0
-    if (players[playerid].getPosition().isNull()) {
+    if (players[playerid].getPosition().isNull() || isPlayerNearSpawn) {
+        dbg("player", "spawn", getIdentity(playerid), "spawned on null or on spawn, warping to spawn...");
+
         // select random spawn
         local spawnID = random(0, defaultPlayerSpawns.len() - 1);
 

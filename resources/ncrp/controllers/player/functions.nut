@@ -28,6 +28,16 @@ function removePlayer(playerid, reason = "") {
     players.remove(playerid).save();
 }
 
+/**
+ * Get player description for admins
+ * in format:
+ *     id: 5, character: John Smith, account: Holly18, serial: ASADAS11D123A3S23DA42A1165SDSDASD
+ * @param  {Integer} playerid
+ * @return {String}
+ */
+function getIdentity(playerid) {
+    return format("id: %d, character: %s, account: %s, serial: %s", playerid, getPlayerName(playerid), getAccountName(playerid), getPlayerSerial(playerid));
+}
 
 /**
  * Check if player is logined (right after login he is not)
