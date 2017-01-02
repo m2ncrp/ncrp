@@ -80,6 +80,9 @@ function tryRespawnVehicleById(vehicleid, forced = false) {
     setIndicatorLightState(vehicleid, INDICATOR_RIGHT, false);
     setVehicleLightState( vehicleid, false );
 
+    // NOTE(inlife): might be bugged (stopping vehicles)
+    setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
+
     // maybe vehicle already near its default place
     if (isVehicleNearPoint(vehicleid, data.position.x, data.position.y, 3.0)) {
         return false;
