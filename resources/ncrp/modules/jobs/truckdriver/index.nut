@@ -242,7 +242,7 @@ key("q", function(playerid) {
     truckJobRefuseLeave( playerid );
 }, KEY_UP);
 
-event("onPlayerConnect", function(playerid, name, ip, serial) {
+event("onPlayerConnect", function(playerid) {
      job_truck[playerid] <- {};
      job_truck[playerid]["userjob"] <- null;
      job_truck[playerid]["userstatus"] <- null;
@@ -377,7 +377,6 @@ function truckJobTalk( playerid ) {
             msg( playerid, "job.truckdriver.now" );
             setPlayerJob( playerid, "truckdriver");
             screenFadeinFadeoutEx(playerid, 250, 200, function() {
-                players[playerid]["skin"] = TRUCK_JOB_SKIN;
                 setPlayerModel( playerid, TRUCK_JOB_SKIN );
             });
         }
@@ -451,9 +450,7 @@ function truckJobRefuseLeave( playerid ) {
         job_truck[playerid]["leavejob3dtext"] = null;
 
         setPlayerJob( playerid, null );
-
-        players[playerid]["skin"] = players[playerid]["default_skin"];
-        setPlayerModel( playerid, players[playerid]["default_skin"]);
+        restorePlayerModel(playerid);
 
         // remove private blip job
         removePersonalJobBlip ( playerid );

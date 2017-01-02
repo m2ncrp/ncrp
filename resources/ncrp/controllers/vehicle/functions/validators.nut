@@ -1,6 +1,8 @@
 const DEFAULT_NEAR_RADIUS = 5.0;
 
 /**
+ * NOTE(inlife): BUGGED, after player timeout in vehicle
+ * it setVehicleSpeed returns speed which was on
  * Return true if vehicle is moving.
  * @param  {int}  vehicleid
  * @param  {float}  minimalspeed - Vehicle is standing if real speed of vehicle less that minimalspeed
