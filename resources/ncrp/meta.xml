@@ -23,7 +23,7 @@
     <!-- special for Lincoln_Anelo -->
 
 
-    <script type="client">bus.nut</script>
+    <!-- <script type="client">bus.nut</script> -->
     <!-- <script type="client">extrasync.nut</script> -->
 
     <!-- <script type="client">bank.nut</script> -->
