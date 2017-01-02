@@ -1,3 +1,8 @@
+const HOSPITAL_X         = -393.429;
+const HOSPITAL_Y         = 912.044;
+const HOSPITAL_Z         = -20.0026;
+const HOSPITAL_AMOUNT    = 4.99;
+
 local lastDeaths = {};
 
 /**
@@ -17,15 +22,20 @@ function setPlayerBeenDead(playerid) {
     lastDeaths[playerid] <- getTimestamp();
 }
 
-
+/**
+ * Handler player death
+ * mark player as dead, and call appropirate events
+ */
 event("native:onPlayerDeath", function(playerid, killerid) {
+    if (!isPlayerLoaded(playerid)) return;
+
+    players[playerid].spawned = false;
+
     // store state for respawning
     setPlayerBeenDead(playerid);
 
     // start triggers
     trigger("onPlayerDeath", playerid);
-
-
     dbg("player", "death", getIdentity(playerid), (killerid != INVALID_ENTITY_ID) ? getIdentity(killerid) : "self");
 
     if (killerid != INVALID_ENTITY_ID) {
@@ -34,8 +44,14 @@ event("native:onPlayerDeath", function(playerid, killerid) {
     }
 });
 
+/**
+ * Handle player respawn event
+ * for spawning player in hospital
+ */
 event("onPlayerSpawn", function(playerid) {
     if (!isPlayerBeenDead(playerid)) return;
+
+    dbg("player", "spawn", "after death", getIdentity(playerid));
 
     // maybe deduct some money...
     if (canMoneyBeSubstracted(playerid, HOSPITAL_AMOUNT)) {
@@ -48,5 +64,5 @@ event("onPlayerSpawn", function(playerid) {
     }
 
     // repsawn at the hospital
-    players[playerid].setPosition( vector3(HOSPITAL_X, HOSPITAL_Y, HOSPITAL_Z) );
+    players[playerid].setPosition( HOSPITAL_X, HOSPITAL_Y, HOSPITAL_Z );
 });

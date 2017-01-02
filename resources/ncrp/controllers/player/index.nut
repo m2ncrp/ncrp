@@ -62,7 +62,7 @@ event("onServerPlayerStarted", function(playerid) {
     }
 
     // clear chat
-    for (local i = 0;i < 14; i++) {
+    for (local i = 0;i < 13; i++) {
         msg(playerid, "", CL_BLACK);
     }
 });
@@ -105,7 +105,10 @@ event("native:onPlayerSpawn", function(playerid) {
     setPlayerPosition(playerid, players[playerid].x, players[playerid].y, players[playerid].z);
 
     // maybe player spawned not far from spawn
-    local isPlayerNearSpawn = isInRadius(playerid, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z, 5.0);
+    local isPlayerNearSpawn = (5.0 > getDistanceBetweenPoints3D (
+        players[playerid].x, players[playerid].y, players[playerid].z
+        DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z
+    ));
 
     // maybe position was not yet set or spanwed in 0, 0, 0
     if (players[playerid].getPosition().isNull() || isPlayerNearSpawn) {
@@ -121,6 +124,10 @@ event("native:onPlayerSpawn", function(playerid) {
         setPlayerPosition(playerid, x, y, z);
         setPlayerHealth(playerid, 720.0);
     }
+
+    // mark player as spawned
+    // and available for saving coords
+    players[playerid].spawned = true;
 });
 
 /**
@@ -132,7 +139,7 @@ event("native:onPlayerDisconnect", removePlayer);
  * Save players on autoupdate
  * NOTE(inlife): better is to disable with high online
  */
-event("onServerAutosave", function() {
+event(["onServerAutosave", "onServerStopping"], function() {
     foreach (playerid, character in players) character.save();
 });
 
@@ -167,7 +174,7 @@ event("onServerPlayerAlive", function(playerid) {
         players.remove(playerid);
     }
 
-    if (!isPlayerLoaded(playerid)) return;
+    if (!isPlayerLoaded(playerid) || !players[playerid].spawned) return;
 
     // save in-memory pos
     // NOTE(inlife): might collide with other stuff
