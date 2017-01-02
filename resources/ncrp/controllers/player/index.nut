@@ -162,7 +162,7 @@ event([
     "onPlayerStateChange",
 ],
 function(playerid, a = null, b = null) {
-    return isPlayerLogined(playerid) ? players[playerid].save() : false;
+    return isPlayerLoaded(playerid) ? players[playerid].save() : false;
 });
 
 /**
