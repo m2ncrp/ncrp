@@ -40,7 +40,7 @@ function removePlayer(playerid, reason = "") {
  * @return {String}
  */
 function getIdentity(playerid) {
-    return format("id: %d, character: %s, account: %s, serial: %s", playerid, getPlayerName(playerid), getAccountName(playerid), getPlayerSerial(playerid));
+    return format("id: %d, character: %s, account: %s", playerid, getPlayerName(playerid), getAccountName(playerid));
 }
 
 /**
