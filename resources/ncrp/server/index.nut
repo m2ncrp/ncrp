@@ -103,6 +103,7 @@ event("native:onScriptInit", function() {
     trigger("onServerStarted");
 
     dbg("server", "server started");
+
 });
 
 event("onServerStarted", function() {
@@ -181,7 +182,7 @@ proxy("RentCar",                    "RentCar"                           );
 proxy("loginGUIFunction",           "loginGUIFunction"                  );
 proxy("registerGUIFunction",        "registerGUIFunction"               );
 proxy("updateMoveState",            "updateMoveState"                   );
-
+proxy("changeModel",                "changeModel"                       );
 /**
  * Debug export
  * if constant is set to true
