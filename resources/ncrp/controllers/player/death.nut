@@ -26,7 +26,7 @@ event("native:onPlayerDeath", function(playerid, killerid) {
     trigger("onPlayerDeath", playerid);
 
 
-    dbg("player", "death", getAuthor(playerid), (killerid != INVALID_ENTITY_ID) ? getAuthor(killerid) : "self");
+    dbg("player", "death", getIdentity(playerid), (killerid != INVALID_ENTITY_ID) ? getIdentity(killerid) : "self");
 
     if (killerid != INVALID_ENTITY_ID) {
         trigger("onPlayerMurdered", playerid, killerid);
