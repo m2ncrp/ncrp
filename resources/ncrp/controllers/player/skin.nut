@@ -43,6 +43,15 @@ function getDefaultPlayerModel(playerid) {
 }
 
 /**
+ * Get current player model
+ * @param  {Integer} playerid
+ * @return {Integer}
+ */
+function getPlayerModel(playerid) {
+    return isPlayerLoaded(playerid) ? players[playerid].cskin : 0;
+}
+
+/**
  * Register aliases
  */
 setPlayerSkin <- setPlayerModel;
