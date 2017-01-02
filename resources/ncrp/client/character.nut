@@ -25,18 +25,17 @@ PData.LastName <- "";
 PData.BDay <- "";
 PData.Gender <- 0;
 PData.Race <- 0;
+PData.BDay <- 0;
+
 
 local switchModelID = 0;
 
-
-local modelsData = 
+local modelsData =
 [
 	[[71,72],[118,135]],//Euro
 	[[43,42],[46,47]],//Niggas
 	[[51,52],[56,57]] //Asia
 ]
-
-
 
 function characterSelection(){
 
@@ -91,10 +90,6 @@ addEventHandler( "onGuiElementClick",function(element){
 	if(element == button[4]) {checkFields();}
 });
 
-
-
-
-
 bindKey("shift", "down", function() {
 	if(isCharacterMenu){
 		showCursor(false);
@@ -120,10 +115,9 @@ function switchModel(){
 function changeModel () {
 	setPlayerRotation(getLocalPlayer(), 180.0,0.0,0.0);
 	local model = modelsData[PData.Race][PData.Gender][switchModelID];
-    triggerServerEvent("changeModel", model)
+    triggerServerEvent("changeModel", model);
+    togglePlayerControls( true );
 }
-
-
 
 function checkFields () {
 	fieldsErrors = 0;
@@ -163,15 +157,13 @@ function checkFields () {
 		return fieldsErrors++;
 	}
 	else {guiSetText(label[2],"Дата рождения");}
+	PData.BDay = format("%02d.%02d.%04d",guiGetText(input[2]),guiGetText(input[3]),guiGetText(input[4]));
+	log(PData.BDay);
 }
 
 function creatCharacter() {
 	//code
 }
-
-
-
-
 
 function destroyCharacterGUI () {
     guiSetVisible(window,false);
