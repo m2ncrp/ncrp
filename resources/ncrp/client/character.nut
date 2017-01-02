@@ -15,10 +15,24 @@ local input = [];
 local button = [];
 local label = [];
 local radio = [];
+
 local isCharacterMenu;
 
-
 local PlayerData = {};
+PlayerData.Gender <- 0;
+PlayerData.Race <- 0;
+
+local switchModelID = 0;
+
+
+local modelsData = 
+[
+	[[71,72],[118,135]],//Euro
+	[[43,42],[46,47]],//Niggas
+	[[51,52],[56,57]] //Asia
+]
+
+// modelsData[0][0][0] -> output: 73
 
 
 function characterSelection(){
@@ -27,6 +41,7 @@ function characterSelection(){
 addEventHandler("wp",characterSelection);
 
 function characterCreation(){
+	changeModel();
 	showCursor(true);
 	setPlayerPosition(getLocalPlayer(), -1598.5,69.0,-13.0);
 	setPlayerRotation(getLocalPlayer(), 180.0,0.0,0.0);
@@ -56,14 +71,14 @@ function characterCreation(){
 addEventHandler("gg",characterCreation);
 
 addEventHandler( "onGuiElementClick",function(element){
-	if(element == button[0]) PlayerData.Gender <- 1;
-	if(element == button[1]) PlayerData.Gender <- 2;
-	if(element == radio[0]) PlayerData.Race <- 1;
-	if(element == radio[1]) PlayerData.Race <- 2;
-	if(element == radio[2]) PlayerData.Race <- 3;
-	log("Пол:"+PlayerData.Gender.tostring()+"Раса:"+PlayerData.Race.tostring());
+	if(element == button[0]) PlayerData.Gender <- 0; changeModel();
+	if(element == button[1]) PlayerData.Gender <- 1; changeModel();
+	if(element == radio[0]) PlayerData.Race <- 0; changeModel();
+	if(element == radio[1]) PlayerData.Race <- 1; changeModel();
+	if(element == radio[2]) PlayerData.Race <- 2; changeModel();
+	if(element == button[3]) switchModel();
+	if(element == button[4]) switchModel();
 });
-
 
 
 
@@ -81,9 +96,29 @@ bindKey("shift", "up", function() {
    }
 });
 
+function switchModel(){
+	if(switchModelID == 0){
+		switchModelID = 1;
+	}
+	else {
+	    switchModelID = 0;
+	}
+	changeModel();
+}
 
-function changeGenderAndRaceModel () {
+function changeModel () {
+	local model = modelsData[PlayerData.Race][PlayerData.Gender][switchModelID];
+    triggerServerEvent("changeModel", model)
+}
 
+
+
+function checkFields () {
+	//code
+}
+
+function creatCharacte () {
+	//code
 }
 
 
@@ -98,7 +133,7 @@ function isValidName (name) {
 }
 
 function isValidBday (bday) {
-    
+	//code
 }
 /* Бэкапчик
 	window = guiCreateElement( ELEMENT_TYPE_WINDOW, "Создание персонажа", screen[0] - 300.0, screen[1]/2- 175.0, 190.0, 320.0 );
