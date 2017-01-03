@@ -96,10 +96,10 @@ function formatCharacterSelection (charactersCount) {
 	    charDescButton[1] = "Выбрать персонажа";
 	}
 	if(charactersCount == 1){
-		/*if(characters[0].Firstname == ""){
+		if(characters[0].Firstname == ""){
     		migrateOldCharacter = true;
     		return characterCreation();
-    	}*/
+    	}
 		local race = getRaceFromId(characters[0].Race);
 		local sex = getSexFromId(characters[0].Sex);
 	    charDesc[0] = format("Имя: %s\nФамилия: %s\nРаса: %s\n",characters[0].Firstname,characters[0].Lastname,race);
