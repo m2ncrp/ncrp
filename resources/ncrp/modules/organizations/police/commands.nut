@@ -272,9 +272,15 @@ key(["v"], function(playerid) {
 }, KEY_UP);
 
 
-cmd(["transport", "suspect"], function(playerid, targetid) {
+local function policetestitout(playerid, targetid, vehid) {
+    putPlayerInVehicle(targetid, vehid, 1);
+    setPlayerToggle(playerid, false);
+}
+
+acmd(["transport", "suspect"], function(playerid, targetid) {
     targetid = targetid.tointeger();
-    putInJail(playerid, targetid);
+    local veh = getPlayerVehicle(playerid);
+    policetestitout(playerid, targetid, veh);
 });
 
 // put nearest cuffed player in jail
