@@ -58,6 +58,7 @@ const MILK_JOB_SKIN = 171;
 const MILK_JOB_DISTANCE = 100;
 const MILK_JOB_NUMBER_STATIONS = 6;
 const MILK_JOB_LEVEL = 1;
+const MILK_JOB_SALARY = 20.0;
       MILK_JOB_COLOR <- CL_CRUSTA;
 
 local milkname = [
@@ -102,7 +103,7 @@ event("onServerStarted", function() {
     registerPersonalJobBlip("milkdriver", MILK_JOB_X, MILK_JOB_Y);
 });
 
-event("onPlayerConnect", function(playerid, name, ip, serial) {
+event("onPlayerConnect", function(playerid) {
      job_milk[playerid] <- {};
      job_milk[playerid]["milkready"] <- false;
      job_milk[playerid]["milkcoords"] <- [];
@@ -208,8 +209,6 @@ function milkJob ( playerid ) {
         msg( playerid, "job.milkdriver.sitintruck", MILK_JOB_COLOR );
 
         setPlayerJob( playerid, "milkdriver");
-
-        players[playerid]["skin"] = MILK_JOB_SKIN;
         setPlayerModel( playerid, MILK_JOB_SKIN );
 
          // create private blip job
@@ -232,9 +231,7 @@ function milkJobLeave ( playerid ) {
         msg( playerid, "job.leave", MILK_JOB_COLOR );
 
         setPlayerJob( playerid, null );
-
-        players[playerid]["skin"] = players[playerid]["default_skin"];
-        setPlayerModel( playerid, players[playerid]["default_skin"]);
+        restorePlayerModel(playerid);
 
         job_milk[playerid]["milkready"] = false;
         job_milk[playerid]["milkcoords"] = null;
@@ -408,7 +405,7 @@ function milkJobPark ( playerid ) {
     job_milk[playerid]["milkready"] = false;
     job_milk[playerid]["milkstatus"] <- [false, false, false, false, false, false];
     msg( playerid, "job.milkdriver.nicejob", MILK_JOB_COLOR );
-    addMoneyToPlayer(playerid, 20);
+    addMoneyToPlayer(playerid, MILK_JOB_SALARY);
 
     // clear all marks
     clearMilkJobStationMarks( playerid );

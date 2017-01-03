@@ -92,7 +92,7 @@ function isPlayerNearPoliceDepartment(playerid) {
  * @return {Boolean} true/false
  */
 function isOfficer(playerid) {
-    if (!(playerid in players)) {
+    if (!(isPlayerLoaded(playerid))) {
         return false;
     }
 
@@ -132,7 +132,7 @@ function policeSetOnDuty(playerid, bool) {
         trigger("onPoliceDutyOff", playerid);
         policeJobPaySalary( playerid );
         return screenFadeinFadeout(playerid, 100, function() {
-            setPlayerModel(playerid, players[playerid]["default_skin"]);
+            restorePlayerModel(playerid);
             msg(playerid, "organizations.police.duty.off");
         });
     }

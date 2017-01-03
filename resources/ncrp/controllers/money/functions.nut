@@ -34,6 +34,35 @@ function formatMoney(amount) {
 }
 
 
+/**
+ * Return current money balance
+ * or 0.0 if player was not found
+ * @param {Integer} playerid
+ * @return {Float}
+ */
+function getPlayerMoney(playerid) {
+    return (isPlayerLoaded(playerid)) ? players[playerid].money : 0.0;
+}
+
+/**
+ * Set player money by playerid
+ * @param {Integer} playerid
+ * @param {Float} money
+ * @return {Boolean}
+ */
+function setPlayerMoney(playerid, money) {
+    if (!isPlayerLoaded(playerid)) {
+        return false;
+    }
+
+    trigger(playerid, "onServerInterfaceMoney", money);
+    trigger("onPlayerMoneyChanged", playerid);
+
+    players[playerid].money = money;
+    return true;
+}
+
+
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 

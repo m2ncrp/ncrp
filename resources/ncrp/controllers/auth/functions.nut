@@ -47,6 +47,15 @@ function isPlayerAuthed(playerid) {
 }
 
 /**
+ * Return player account name
+ * @param  {Integer} playerid
+ * @return {String}
+ */
+function getAccountName(playerid) {
+    return "nativeGetPlayerName" in getroottable() ? nativeGetPlayerName(playerid) : getPlayerName(playerid);
+}
+
+/**
  * Get account object by playerid or null
  * @param  {Integer} playerid
  * @return {Account}
@@ -131,7 +140,7 @@ function setPlayerLocale(playerid, locale = "en") {
  * @return {Boolean}
  */
 function getLastActiveSession(playerid) {
-    local key = md5(getPlayerName(playerid) + "@" + getPlayerSerial(playerid));
+    local key = md5(getAccountName(playerid) + "@" + getPlayerSerial(playerid));
 
     if (key in sessions) {
         return sessions[key];
@@ -146,7 +155,7 @@ function getLastActiveSession(playerid) {
  * @return {Boolean}
  */
 function setLastActiveSession(playerid) {
-    return sessions[md5(getPlayerName(playerid) + "@" + getPlayerSerial(playerid))] <- getTimestamp();
+    return sessions[md5(getAccountName(playerid) + "@" + getPlayerSerial(playerid))] <- getTimestamp();
 }
 
 /**

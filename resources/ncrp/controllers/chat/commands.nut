@@ -2,7 +2,7 @@ local antiflood = {};
 local lastPMs = {};
 local IS_OOC_ENABLED = true;
 
-event("onPlayerConnect", function(playerid, name, ip, serial ){
+event("onPlayerConnect", function(playerid){
     antiflood[playerid] <- {};
     antiflood[playerid]["gooc"] <- 0;
     antiflood[playerid]["togooc"] <- true;
@@ -10,7 +10,7 @@ event("onPlayerConnect", function(playerid, name, ip, serial ){
     lastPMs[playerid] <- -1;
 });
 
-event("onServerSecondChange",function() {
+event("onServerSecondChange", function() {
     foreach (pid, value in players) {
         if (isPlayerLogined(pid)) {
             if(antiflood[pid]["gooc"] > 0){
