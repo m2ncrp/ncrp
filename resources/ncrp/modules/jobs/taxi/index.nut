@@ -64,7 +64,7 @@ translation("en", {
     "taxi.call.completed"               :   "[TAXI] The trip is completed. Please, leave the car."
 
     "taxi.help.title"                   :   "List of available commands for TAXI:"
-    "taxi.help.taxi"                    :   "/taxi ADDRESS - Call a taxi to your address"
+    "taxi.help.taxi"                    :   "/taxi - Call a taxi from phonebooth"
 });
 
 event("onServerStarted", function() {
@@ -117,6 +117,11 @@ cmd("drive", function(playerid) {
     }
 });
 
+event("onPlayerPhoneCall", function(playerid, number, place) {
+    if(number == "taxi") {
+        taxiCall(playerid, place);
+    }
+});
 
 /**
  * msg to taxi customer

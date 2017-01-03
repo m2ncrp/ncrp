@@ -1,7 +1,5 @@
-// usage: /taxi Train Station
-cmd("taxi", function(playerid, ...) {
-    local place = concat(vargv);
-    taxiCall(playerid, place);
+cmd("taxi", function(playerid) {
+    __commands["call"][COMMANDS_DEFAULT](playerid, "taxi");
 });
 
 // usage: /taxi job
