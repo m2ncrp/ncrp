@@ -191,11 +191,12 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
     dxDrawText(drawdata.logos, 6.5, screenY - offset - 6.5, 0x88FFFFFF, false, "tahoma-bold");
 });
 
+// setup default animation
 local screenFade = {
     current = 255,
     state   = "out",
-    time    = 2500,
-    step    = 0.5,
+    time    = 5000,
+    step    = 0.45,
 };
 
 addEventHandler("onClientFrameRender", function(isGUIdrawn) {
@@ -218,9 +219,11 @@ addEventHandler("onClientProcess", function() {
 });
 
 addEventHandler("onServerFadeScreen", function(time, type) {
-    // screenFade.state    = type;
-    // screenFade.time     = time.tointeger();
-    // screenFade.current  = (type == "in") ? 0 : 255;
+    return;//disalbed for now
+    screenFade.state    = type;
+    screenFade.time     = time.tointeger();
+    screenFade.step     = 256 / (screenFade.time / 5);
+    screenFade.current  = (type == "in") ? 0 : 255;
 });
 
 
