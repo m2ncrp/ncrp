@@ -270,7 +270,7 @@ event("onPlayerSpawn", function( playerid ) {
 
 
 
-event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
+event("onPlayerVehicleEnter", function( playerid, vehicleid, seat ) {
     if (isPlayerInPoliceVehicle(playerid) && seat == 0) {
         if (!isOfficer(playerid)) {
             // set player wanted level or smth like that
@@ -289,15 +289,15 @@ event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
         }
     }
 
-    if (getPlayerState(playerid) == "cuffed" && seat != 0) {
-        setPlayerToggle(playerid, true);
+    if ( getPlayerState(playerid) == "cuffed" ) { //  && seat != 0
+        setPlayerToggle(playerid, false);
     }
 });
 
 
-event("onPlayerVehicleExit", function ( playerid, vehicleid, seat ) {
-    if (getPlayerState(playerid) == "cuffed" && seat != 0) {
-        setPlayerToggle(playerid, false);
+event("onPlayerVehicleExit", function( playerid, vehicleid, seat ) {
+    if ( getPlayerState(playerid) == "cuffed" ) {
+        setPlayerToggle(playerid, true);
     }
 });
 

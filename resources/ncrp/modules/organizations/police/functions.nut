@@ -80,6 +80,11 @@ function isPlayerInPoliceVehicle(playerid) {
     return (isPlayerInValidVehicle(playerid, 42) || isPlayerInValidVehicle(playerid, 51) || isPlayerInValidVehicle(playerid, 21));
 }
 
+function isVehicleidPoliceVehicle(vehicleid) {
+    local model = getVehicleModel( vehicleid );
+    return ( model == 42 ) || ( model == 51 ) || ( model == 21 );
+}
+
 
 function isPlayerNearPoliceDepartment(playerid) {
     return isInRadius(playerid, POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2], EBPD_ENTER_RADIUS);
