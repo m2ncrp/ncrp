@@ -67,7 +67,6 @@ addEventHandler("onServerCharacterLoaded", function(){
 		formatCharacterSelection();
 });
 
-
 function characterSelection(){
 	hideCharacterSelection();
 	isCharacterSelectionMenu = true;
@@ -102,7 +101,7 @@ function formatCharacterSelection () {
 	if(charactersCount == 1){
 		if(characters[0].Firstname == ""){
     		migrateOldCharacter = true;
-    		//return characterCreation();
+    		return characterCreation();
     	}
 		local race = getRaceFromId(characters[0].Race);
 		local sex = getSexFromId(characters[0].Sex);
@@ -121,9 +120,6 @@ function formatCharacterSelection () {
 	}
 	characterSelection();
 }
-
-
-
 
 function characterCreation(){
 	hideCharacterSelection();
@@ -342,3 +338,26 @@ function delayedFunction(time, callback, additional = null) {
     return additional ? timer(callback, time, 1, additional) : timer(callback, time, 1);
 }
 
+addEventHandler( "onGuiElementMouseEnter",
+    function( element ){
+        if(isCharacterSelectionMenu) {
+        	if(element == label[0] || element == button[0]){
+        		if(charactersCount == 1){
+        			triggerServerEvent("changeModel", characters[0].cskin);
+        			setPlayerRotation(getLocalPlayer(), 180.0,0.0,0.0);
+        		}
+        		else {
+        			setPlayerRotation(getLocalPlayer(), 180.0,0.0,180.0);
+        		}
+        	}
+        	if(element == label[1] || element == button[1]){
+        		if(charactersCount == 2){
+        			triggerServerEvent("changeModel", characters[1].cskin);
+        		}
+        		else {
+        		    setPlayerRotation(getLocalPlayer(), 180.0,0.0,180.0);
+        		}
+        	}
+        }
+    }
+);
