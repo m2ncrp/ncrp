@@ -14,6 +14,7 @@
     <script type="client">authentication.nut</script>
     <script type="client">keyboard.nut</script>
     <script type="client">other.nut</script>
+    <script type="client">character.nut</script>
 
 
    <!-- <script type="client">carshop.nut</script> -->
