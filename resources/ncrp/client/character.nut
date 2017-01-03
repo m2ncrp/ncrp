@@ -21,12 +21,14 @@ local isCharacterSelectionmenu;
 local fieldsErrors = 0;
 
 local PData = {};
+PData.ID <- null;
 PData.Firstname <- "";
 PData.Lastname <- "";
 PData.BDay <- "";
 PData.Sex <- 0;
 PData.Race <- 0;
 PData.BDay <- 0;
+
 
 local switchModelID = 0;
 
@@ -48,6 +50,7 @@ local modelsData =
 
 addEventHandler("onServerCharacterLoading", function(id,firstname, lastname, race, sex, birthdate, money, deposit, cskin){
 	char.Id <- id;
+	PData.ID <- id;
 	char.Firstname <- firstname;
 	char.Lastname <- lastname;
 	char.Race <- race;
@@ -61,7 +64,7 @@ addEventHandler("onServerCharacterLoading", function(id,firstname, lastname, rac
 
 addEventHandler("onServerCharacterLoaded", function(){
 		charactersCount = characters.len();
-		formatCharacterSelection(charactersCount);
+		formatCharacterSelection();
 });
 
 
@@ -78,9 +81,9 @@ function characterSelection(){
 	guiSetSizable(window,false);
 	isCharacterSelectionmenu = true;
 }
-addEventHandler("wp",characterSelection);
+addEventHandler("characterSelection",characterSelection);
 
-function formatCharacterSelection (charactersCount) {
+function formatCharacterSelection () {
 	if(charactersCount == 2){
 		local race = getRaceFromId(characters[0].Race);
 		local sex = getSexFromId(characters[0].Sex);
@@ -98,7 +101,7 @@ function formatCharacterSelection (charactersCount) {
 	if(charactersCount == 1){
 		if(characters[0].Firstname == ""){
     		migrateOldCharacter = true;
-    		return characterCreation();
+    		//return characterCreation();
     	}
 		local race = getRaceFromId(characters[0].Race);
 		local sex = getSexFromId(characters[0].Sex);
@@ -122,6 +125,7 @@ function formatCharacterSelection (charactersCount) {
 
 
 function characterCreation(){
+	if(isCharacterSelectionmenu) destroyCharacterGUI();
 	togglePlayerControls( true );
 	showCursor(true);
 	setPlayerPosition(getLocalPlayer(), -1598.5,69.0,-13.0);
@@ -263,13 +267,13 @@ function createCharacter() {
 	local sex = PData.Sex
 	local bday = format("%02d.%02d.%04d",guiGetText(input[2]).tointeger(),guiGetText(input[3]).tointeger(),guiGetText(input[4]).tointeger());
 	local model = modelsData[PData.Race][PData.Sex][switchModelID];
-	triggerServerEvent("onPlayerCharacterCreate",first,last,race,sex,bday,model);
+	triggerServerEvent("onPlayerCharacterCreate",PData.ID,first,last,race,sex,bday,model);
 	destroyCharacterGUI();
 }
 
 function selectCharacter (id) {
-	triggerServerEvent("onPlayerCharacterSelect",characters[id].Id);
 	destroyCharacterGUI();
+	triggerServerEvent("onPlayerCharacterSelect",characters[id].Id);
 }
 
 function destroyCharacterGUI () {
@@ -277,7 +281,9 @@ function destroyCharacterGUI () {
     window = null;
     isCharacterCreationMenu = false;
     isCharacterSelectionmenu = false;
-    showCursor(false);
+    delayedFunction(200, function() {
+    	showCursor(false);
+    });
 }
 
 function isValidRange(input, a, b) {
@@ -317,3 +323,4 @@ function getSexFromId (id) {
 function delayedFunction(time, callback, additional = null) {
     return additional ? timer(callback, time, 1, additional) : timer(callback, time, 1);
 }
+

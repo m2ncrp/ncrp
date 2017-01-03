@@ -180,8 +180,7 @@ proxy("loginGUIFunction",           "loginGUIFunction"                  );
 proxy("registerGUIFunction",        "registerGUIFunction"               );
 proxy("updateMoveState",            "updateMoveState"                   );
 proxy("changeModel",                "changeModel"                       );
-proxy("onPlayerCharacterCreate",    "onPlayerCharacterCreate"           );
-proxy("onPlayerCharacterSelect",    "onPlayerCharacterSelect"           );
+
 /**
  * Debug export
  * if constant is set to true
