@@ -23,3 +23,32 @@ event("onPlayerCharacterLoaded", function(playerid) {
         delayedFunction(1000, function() { freezePlayer(playerid, false); });
     });
 });
+
+/**
+ * Event when player tries to create character
+ * @param  {[type]} playerid  [description]
+ * @param  {[type]} firstname [description]
+ * @param  {[type]} lastname  [description]
+ * @param  {[type]} race      [description]
+ * @param  {[type]} sex       [description]
+ * @param  {[type]} birthdate [description]
+ * @param  {[type]} money     [description]
+ * @param  {[type]} deposit   [description]
+ * @return {[type]}           [description]
+ */
+event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, sex, birthdate, money, deposit, cskin) {
+    dbg("trying to create character with", firstname, lastname, race, sex, birthdate, money, deposit, cskin);
+});
+
+/**
+ * Event when player tries to load character
+ */
+event("onPlayerCharacterSelect", function(playerid, id) {
+    Character.findOneBy({ id = id }, function(err, character) {
+        if (err || !character) return trigger(playerid, "onPlayerCharacterError", "no char");
+
+        // load characters
+        players.add(playerid, character);
+        return trigger("onPlayerCharacterLoaded", playerid)
+    });
+});
