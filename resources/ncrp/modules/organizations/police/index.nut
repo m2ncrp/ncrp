@@ -278,6 +278,17 @@ event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
             unblockVehicle(vehicleid);
         }
     }
+
+    if (getPlayerState(playerid) == "cuffed" && seat != 0) {
+        setPlayerToggle(playerid, true);
+    }
+});
+
+
+event("onPlayerVehicleExit", function ( playerid, vehicleid, seat ) {
+    if (getPlayerState(playerid) == "cuffed" && seat != 0) {
+        setPlayerToggle(playerid, false);
+    }
 });
 
 
