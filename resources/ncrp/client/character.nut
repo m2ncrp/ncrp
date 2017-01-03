@@ -22,14 +22,22 @@ local fieldsErrors = 0;
 
 local PData = {};
 PData.Firstname <- "";
-PData.LastName <- "";
+PData.Lastname <- "";
 PData.BDay <- "";
-PData.Gender <- 0;
+PData.Sex <- 0;
 PData.Race <- 0;
 PData.BDay <- 0;
 
-
 local switchModelID = 0;
+
+local characters = [];
+local char = {};
+
+local charDesc = array(2);
+local charDescButton = array(2);
+
+local charactersCount;
+local migrateOldCharacter = false;
 
 local modelsData =
 [
@@ -39,12 +47,23 @@ local modelsData =
 ]
 
 addEventHandler("onServerCharacterLoading", function(id,firstname, lastname, race, sex, birthdate, money, deposit, cskin){
-		log(money);
+	char.Id <- id;
+	char.Firstname <- firstname;
+	char.Lastname <- lastname;
+	char.Race <- race;
+	char.Sex <- sex;
+	char.Bdate <- birthdate;
+	char.money <- money;
+	char.deposit <- deposit;
+	char.cskin <- cskin
+	characters.push( char );
 });
 
 addEventHandler("onServerCharacterLoaded", function(){
-		log("All characters loaded!!!");
+		charactersCount = characters.len();
+		formatCharacterSelection(charactersCount);
 });
+
 
 function characterSelection(){
 	togglePlayerControls( true );
@@ -52,14 +71,55 @@ function characterSelection(){
 	setPlayerPosition(getLocalPlayer(), -1598.5,69.0,-13.0);
 	setPlayerRotation(getLocalPlayer(), 180.0,0.0,180.0);
 	window = guiCreateElement( ELEMENT_TYPE_WINDOW, "Выберите персонажа", screen[0] - 300.0, screen[1]/2- 175.0, 190.0, 320.0 );
-	label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Имя: Klo\nФамилия:Douglas\nРаса:Нигер\nПол:Трансуха\nДата рождения:01.01.228\nДенежных средств:1488.0$\nРабота:" 20.0, 20.0, 300.0, 100.0, false, window));//label[0]
-	label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Имя:\nФамилия:\nРаса:\nПол:\nДата рождения:\nДенежных средств:\nРабота:", 20.0, 180.0, 300.0, 100.0, false, window));//label[1]
-	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "Выбрать персонажа", 20, 120.0, 150.0, 20.0,false, window));//button[0]
-	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "Создать персонажа", 20, 280.0, 150.0, 20.0,false, window));//button[1]
+	label.push(guiCreateElement( ELEMENT_TYPE_LABEL, charDesc[0], 20.0, 20.0, 300.0, 100.0, false, window));//label[0]
+	label.push(guiCreateElement( ELEMENT_TYPE_LABEL, charDesc[1], 20.0, 180.0, 300.0, 100.0, false, window));//label[1]
+	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, charDescButton[0], 20, 120.0, 150.0, 20.0,false, window));//button[0]
+	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, charDescButton[1], 20, 280.0, 150.0, 20.0,false, window));//button[1]
 	guiSetSizable(window,false);
 	isCharacterSelectionmenu = true;
 }
 addEventHandler("wp",characterSelection);
+
+function formatCharacterSelection (charactersCount) {
+	if(charactersCount == 2){
+		local race = getRaceFromId(characters[0].Race);
+		local sex = getSexFromId(characters[0].Sex);
+	    charDesc[0] = format("Имя: %s\nФамилия: %s\nРаса: %s\n",characters[0].Firstname,characters[0].Lastname,race);
+	    charDesc[0] += format("Пол: %s\nДата рождения: %s\n",sex,characters[0].Bdate.tostring());
+	    charDesc[0] += format("Денежных средств: %s$\nСчёт в банке: %s$",characters[0].money.tostring(),characters[0].deposit.tostring());
+	    charDescButton[0] = "Выбрать персонажа";
+	    race = getRaceFromId(characters[1].Race);
+		sex = getSexFromId(characters[1].Sex);
+	    charDesc[1] = format("Имя: %s\nФамилия: %s\nРаса: %s\n",characters[1].Firstname,characters[1].Lastname,race);
+	    charDesc[1] += format("Пол: %s\nДата рождения: %s\n",sex,characters[1].Bdate.tostring());
+	    charDesc[1] += format("Денежных средств: %s$\nСчёт в банке: %s$",characters[1].money.tostring(),characters[1].deposit.tostring());
+	    charDescButton[1] = "Выбрать персонажа";
+	}
+	if(charactersCount == 1){
+		/*if(characters[0].Firstname == ""){
+    		migrateOldCharacter = true;
+    		return characterCreation();
+    	}*/
+		local race = getRaceFromId(characters[0].Race);
+		local sex = getSexFromId(characters[0].Sex);
+	    charDesc[0] = format("Имя: %s\nФамилия: %s\nРаса: %s\n",characters[0].Firstname,characters[0].Lastname,race);
+	    charDesc[0] += format("Пол: %s\nДата рождения: %s\n",sex,characters[0].Bdate.tostring());
+	    charDesc[0] += format("Денежных средств: %s$\nСчёт в банке: %s$",characters[0].money.tostring(),characters[0].deposit.tostring());
+	    charDescButton[0] = "Выбрать персонажа";
+	    charDesc[1] = "Пустой слот\nЧтобы перейти к созданию\nНажмите кнопку";
+	    charDescButton[1] = "Создать персонажа";
+	}
+	if(charactersCount == 0){
+		charDesc[0] = "Пустой слот\nНажмите кнопку Создать персонажа\nЧтобы перейти к созданию";
+	    charDescButton[0] = "Создать персонажа";
+		charDesc[1] = "Пустой слот\nНажмите кнопку Создать персонажа\nЧтобы перейти к созданию";
+	    charDescButton[1] = "Создать персонажа";
+	}
+	characterSelection();
+}
+
+
+
 
 function characterCreation(){
 	togglePlayerControls( true );
@@ -95,8 +155,8 @@ addEventHandler("characterCreation",characterCreation);
 
 addEventHandler( "onGuiElementClick",function(element){
 	if(isCharacterCreationMenu){
-		if(element == button[0]){ PData.Gender <- 0; changeModel();}
-		if(element == button[1]){ PData.Gender <- 1; changeModel();}
+		if(element == button[0]){ PData.Sex <- 0; changeModel();}
+		if(element == button[1]){ PData.Sex <- 1; changeModel();}
 		if(element == radio[0]) {PData.Race <- 0; changeModel();}
 		if(element == radio[1]) {PData.Race <- 1; changeModel();}
 		if(element == radio[2]) {PData.Race <- 2; changeModel();}
@@ -108,6 +168,21 @@ addEventHandler( "onGuiElementClick",function(element){
 		if(element == input[3]) {guiSetText(input[3], "");}
 		if(element == input[4]) {guiSetText(input[4], "");}
 		if(element == button[4]) {checkFields();}
+	}
+	if(isCharacterSelectionmenu)
+	{
+		if(charactersCount == 2){
+			if(element == button[0]) return  selectCharacter(0);
+			if(element == button[1]) return  selectCharacter(1);
+		}
+		if(charactersCount == 1){
+			if(element == button[0]) return  selectCharacter(0);
+			if(element == button[1]) return  characterCreation();
+		}
+		if(charactersCount == 0){
+			if(element == button[0]) return  characterCreation();
+			if(element == button[1]) return  characterCreation();
+		}
 	}
 });
 
@@ -135,7 +210,7 @@ function switchModel(){
 
 function changeModel () {
 	setPlayerRotation(getLocalPlayer(), 180.0,0.0,0.0);
-	local model = modelsData[PData.Race][PData.Gender][switchModelID];
+	local model = modelsData[PData.Race][PData.Sex][switchModelID];
     triggerServerEvent("changeModel", model);
     togglePlayerControls( true );
 }
@@ -143,7 +218,7 @@ function changeModel () {
 function checkFields () {
 	fieldsErrors = 0;
 	PData.Firstname <- guiGetText(input[0]);
-	PData.LastName <- guiGetText(input[1]);
+	PData.Lastname <- guiGetText(input[1]);
 	if(!isValidName(PData.Firstname)){
 		guiSetText(label[0],"Некорректное Имя");
 		guiSetText(input[0], "Например: John");
@@ -151,7 +226,7 @@ function checkFields () {
 	}
 	else {guiSetText(label[0],"Имя");}
 
-	if(!isValidName(PData.LastName)){
+	if(!isValidName(PData.Lastname)){
 		guiSetText(label[1],"Некорректная Фамилия");
 		guiSetText(input[1], "Например: John");
 		return fieldsErrors++;
@@ -178,18 +253,31 @@ function checkFields () {
 		return fieldsErrors++;
 	}
 	else {guiSetText(label[2],"Дата рождения");}
-	PData.BDay = format("%02d.%02d.%04d",guiGetText(input[2]),guiGetText(input[3]),guiGetText(input[4]));
-	log(PData.BDay);
+	createCharacter();
 }
 
-function creatCharacter() {
-	//code
+function createCharacter() {
+	local first = PData.Firstname;
+	local last = PData.Lastname;
+	local race = PData.Race;
+	local sex = PData.Sex
+	local bday = format("%02d.%02d.%04d",guiGetText(input[2]).tointeger(),guiGetText(input[3]).tointeger(),guiGetText(input[4]).tointeger());
+	local model = modelsData[PData.Race][PData.Sex][switchModelID];
+	triggerServerEvent("onPlayerCharacterCreate",first,last,race,sex,bday,model);
+	destroyCharacterGUI();
+}
+
+function selectCharacter (id) {
+	triggerServerEvent("onPlayerCharacterSelect",characters[id].Id);
+	destroyCharacterGUI();
 }
 
 function destroyCharacterGUI () {
     guiSetVisible(window,false);
     window = null;
     isCharacterCreationMenu = false;
+    isCharacterSelectionmenu = false;
+    showCursor(false);
 }
 
 function isValidRange(input, a, b) {
@@ -199,6 +287,31 @@ function isValidRange(input, a, b) {
 function isValidName(name){
     local check = regexp("^[A-Z][a-z]*$");
     return check.match(name);
+}
+
+function getRaceFromId (id) {
+	switch (id) {
+	    case 0:
+	     	return "Eропеоидная"
+	    break;
+	    case 1:
+	     	return "Негроидная"
+	    break;
+	    case 2:
+	     	return "Монголоидная"
+	    break;
+	}
+}
+
+function getSexFromId (id) {
+    switch (id) {
+	    case 0:
+	     	return "Мужской"
+	    break;
+	    case 1:
+	     	return "Женский"
+	    break;
+	}
 }
 
 function delayedFunction(time, callback, additional = null) {

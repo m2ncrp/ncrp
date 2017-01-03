@@ -36,10 +36,9 @@ event("onPlayerCharacterLoaded", function(playerid) {
  * @param  {[type]} deposit   [description]
  * @return {[type]}           [description]
  */
-event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, sex, birthdate, money, deposit, cskin) {
-    dbg("trying to create character with", firstname, lastname, race, sex, birthdate, money, deposit, cskin);
+event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, sex, birthdate, cskin) {
+    dbg("trying to create character with", firstname, lastname, race, sex, birthdate, cskin);
 });
-
 /**
  * Event when player tries to load character
  */
