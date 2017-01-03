@@ -50,7 +50,6 @@ local modelsData =
 
 addEventHandler("onServerCharacterLoading", function(id,firstname, lastname, race, sex, birthdate, money, deposit, cskin){
 	char.Id <- id;
-	PData.ID <- id;
 	char.Firstname <- firstname;
 	char.Lastname <- lastname;
 	char.Race <- race;
@@ -100,8 +99,8 @@ function formatCharacterSelection () {
 	}
 	if(charactersCount == 1){
 		if(characters[0].Firstname == ""){
-    		migrateOldCharacter = true;
-    		return characterCreation();
+    		//migrateOldCharacter = true;
+    		//return characterCreation();
     	}
 		local race = getRaceFromId(characters[0].Race);
 		local sex = getSexFromId(characters[0].Sex);
@@ -265,7 +264,7 @@ function createCharacter() {
 	local sex = PData.Sex
 	local bday = format("%02d.%02d.%04d",guiGetText(input[2]).tointeger(),guiGetText(input[3]).tointeger(),guiGetText(input[4]).tointeger());
 	local model = modelsData[PData.Race][PData.Sex][switchModelID];
-	triggerServerEvent("onPlayerCharacterCreate",PData.ID,first,last,race,sex,bday,model);
+	triggerServerEvent("onPlayerCharacterCreate",first,last,race,sex,bday,model,migrateOldCharacter);
 	hideCharacterCreation();
 	delayedFunction(200, function() {showCursor(false);});
 }
