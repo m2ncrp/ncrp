@@ -17,7 +17,7 @@ local label = [];
 local radio = [];
 
 local isCharacterCreationMenu;
-local isCharacterSelectionmenu;
+local isCharacterSelectionMenu;
 local fieldsErrors = 0;
 
 local PData = {};
@@ -69,8 +69,9 @@ addEventHandler("onServerCharacterLoaded", function(){
 
 
 function characterSelection(){
+	hideCharacterSelection();
+	isCharacterSelectionMenu = true;
 	togglePlayerControls( true );
-	showCursor(true);
 	setPlayerPosition(getLocalPlayer(), -1598.5,69.0,-13.0);
 	setPlayerRotation(getLocalPlayer(), 180.0,0.0,180.0);
 	window = guiCreateElement( ELEMENT_TYPE_WINDOW, "Выберите персонажа", screen[0] - 300.0, screen[1]/2- 175.0, 190.0, 320.0 );
@@ -79,7 +80,7 @@ function characterSelection(){
 	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, charDescButton[0], 20, 120.0, 150.0, 20.0,false, window));//button[0]
 	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, charDescButton[1], 20, 280.0, 150.0, 20.0,false, window));//button[1]
 	guiSetSizable(window,false);
-	isCharacterSelectionmenu = true;
+	showCursor(true);
 }
 addEventHandler("characterSelection",characterSelection);
 
@@ -125,9 +126,9 @@ function formatCharacterSelection () {
 
 
 function characterCreation(){
-	if(isCharacterSelectionmenu) destroyCharacterGUI();
+	hideCharacterSelection();
+	isCharacterCreationMenu = true;
 	togglePlayerControls( true );
-	showCursor(true);
 	setPlayerPosition(getLocalPlayer(), -1598.5,69.0,-13.0);
 	setPlayerRotation(getLocalPlayer(), 180.0,0.0,180.0);
 	window = guiCreateElement( ELEMENT_TYPE_WINDOW, "Создание персонажа", screen[0] - 300.0, screen[1]/2- 175.0, 190.0, 320.0 );
@@ -153,7 +154,7 @@ function characterCreation(){
 	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, ">>", 140.0, 260.0, 30.0, 20.0,false, window));//button[3]
 	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "Продолжить", 20.0, 290.0, 150.0, 20.0,false, window));//button[4]
 	guiSetSizable(window,false);
-	isCharacterCreationMenu = true;
+	showCursor(true);
 }
 addEventHandler("characterCreation",characterCreation);
 
@@ -173,7 +174,7 @@ addEventHandler( "onGuiElementClick",function(element){
 		if(element == input[4]) {guiSetText(input[4], "");}
 		if(element == button[4]) {checkFields();}
 	}
-	if(isCharacterSelectionmenu)
+	if(isCharacterSelectionMenu)
 	{
 		if(charactersCount == 2){
 			if(element == button[0]) return  selectCharacter(0);
@@ -217,6 +218,7 @@ function changeModel () {
 	local model = modelsData[PData.Race][PData.Sex][switchModelID];
     triggerServerEvent("changeModel", model);
     togglePlayerControls( true );
+    log("changeModelGG");
 }
 
 function checkFields () {
@@ -268,22 +270,38 @@ function createCharacter() {
 	local bday = format("%02d.%02d.%04d",guiGetText(input[2]).tointeger(),guiGetText(input[3]).tointeger(),guiGetText(input[4]).tointeger());
 	local model = modelsData[PData.Race][PData.Sex][switchModelID];
 	triggerServerEvent("onPlayerCharacterCreate",PData.ID,first,last,race,sex,bday,model);
-	destroyCharacterGUI();
+	hideCharacterCreation();
+	delayedFunction(200, function() {showCursor(false);});
 }
 
 function selectCharacter (id) {
-	destroyCharacterGUI();
+	hideCharacterSelection();
 	triggerServerEvent("onPlayerCharacterSelect",characters[id].Id);
+	delayedFunction(200, function() {showCursor(false);});
 }
 
-function destroyCharacterGUI () {
-    guiSetVisible(window,false);
-    window = null;
-    isCharacterCreationMenu = false;
-    isCharacterSelectionmenu = false;
-    delayedFunction(200, function() {
-    	showCursor(false);
-    });
+function hideCharacterCreation() {
+	if(isCharacterCreationMenu){
+		guiSetVisible(window,false);
+		window = null;
+		input.clear();
+		button.clear();
+		label.clear();
+		radio.clear();
+    	isCharacterCreationMenu = false;
+	}
+}
+
+function hideCharacterSelection () {
+    if(isCharacterSelectionMenu){
+	    guiSetVisible(window,false);
+	    window = null;
+	    input.clear();
+		button.clear();
+		label.clear();
+		radio.clear();
+	    isCharacterSelectionMenu = false;
+	}
 }
 
 function isValidRange(input, a, b) {
