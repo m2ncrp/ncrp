@@ -345,36 +345,34 @@ function goToPhone(playerid, phoneid) {
 
 function callByPhone (playerid, number = null) {
     local place = getPlayerPhoneName(playerid);
-    if (place != false) {
-        if (number != null) {
+    if (place == false) {
+        return msg(playerid, "telephone.needphone");
+    }
 
-            if(number == "taxi" || number == "police") {
-                return trigger("onPlayerPhoneCall", playerid, number, place);
+    if (number == null) {
+        return msg(playerid, "telephone.neednumber");
+    }
+
+    if(number == "taxi" || number == "police") {
+        return trigger("onPlayerPhoneCall", playerid, number, place);
+    }
+
+    local number = str_replace("555-", "", number);
+    if(isNumeric(number) && number.len() == 4) {
+        msg(playerid, "telephone.youcall", ["555-"+number, place]);
+        delayedFunction(3000, function () {
+            local check = false;
+            foreach (idx, num in numbers) {
+                if (num == number) { check = true; }
             }
-
-            local number = str_replace("555-", "", number);
-            if(isNumeric(number) && number.len() == 4) {
-                msg(playerid, "telephone.youcall", ["555-"+number, place]);
-                delayedFunction(3000, function () {
-                    local check = false;
-                    foreach (idx, num in numbers) {
-                        if (num == number) { check = true; }
-                    }
-                    if(check) {
-                        trigger("onPlayerPhoneCall", playerid, number, place);
-                    } else {
-                        msg(playerid, "telephone.notregister");
-                    }
-                });
+            if(check) {
+                trigger("onPlayerPhoneCall", playerid, number, place);
             } else {
-                msg(playerid, "telephone.incorrect");
+                msg(playerid, "telephone.notregister");
             }
-
-        } else {
-            msg(playerid, "telephone.neednumber");
-        }
+        });
     } else {
-        msg(playerid, "telephone.needphone");
+        msg(playerid, "telephone.incorrect");
     }
 }
 
