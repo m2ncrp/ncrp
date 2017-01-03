@@ -6,7 +6,7 @@ acmd("police", "danger", function(playerid, level) {
 
 
 // usage: /police job <id>
-acmd("police", "job", function(playerid, targetid) {
+acmd("a", ["police", "job"], function(playerid, targetid) {
     local targetid = targetid.tointeger();
     getPoliceJob(targetid);
     msg(playerid, "organizations.police.setjob.byadmin", [ getAuthor(targetid), getLocalizedPlayerJob(targetid) ] );
@@ -15,7 +15,7 @@ acmd("police", "job", function(playerid, targetid) {
 
 
 // usage: /police job leave <id>
-acmd("police", ["job", "leave"], function(playerid, targetid) {
+acmd("a", ["police", "job", "leave"], function(playerid, targetid) {
     local targetid = targetid.tointeger();
     msg(playerid, "organizations.police.leavejob.byadmin", [ getAuthor(targetid), getLocalizedPlayerJob(targetid) ]);
     dbg( "[POLICE LEAVE]" + getAuthor(playerid) + " remove " + getAuthor(targetid) + "from Police" );
@@ -24,7 +24,7 @@ acmd("police", ["job", "leave"], function(playerid, targetid) {
 
 
 // usage: /police set rank <1..3>
-acmd("police", ["set", "rank"], function(playerid, targetid, rank) {
+acmd("a", ["police", "set", "rank"], function(playerid, targetid, rank) {
     targetid = targetid.tointeger();
     rank = rank.tointeger();
 
@@ -65,50 +65,50 @@ cmd("police", function(playerid, ...) {
 
 
 
-// // usage: /police job <id>
-// cmd("police", "job", function(playerid, targetid) {
-//     local targetid = targetid.tointeger();
-//     if ( getPoliceRank(playerid) == MAX_RANK ) {
-//         if ( isPlayerHaveJob(targetid) ) {
-//             return;
-//         }
+// usage: /police job <id>
+cmd("police", "job", function(playerid, targetid) {
+    local targetid = targetid.tointeger();
+    if ( getPoliceRank(playerid) == MAX_RANK ) {
+        if ( isPlayerHaveJob(targetid) ) {
+            return;
+        }
 
-//         getPoliceJob(targetid);
-//         dbg( "[POLICE JOIN]" + getAuthor(playerid) + " add " + getAuthor(targetid) + "to Police" );
-//     }
-// });
-
-
-// // usage: /police job leave <id>
-// cmd("police", ["job", "leave"], function(playerid, targetid) {
-//     local targetid = targetid.tointeger();
-//     if ( getPoliceRank(playerid) == MAX_RANK ) {
-//         dbg( "[POLICE LEAVE]" + getAuthor(playerid) + " remove " + getAuthor(targetid) + "from Police" );
-//         leavePoliceJob(targetid);
-//     }
-// });
+        getPoliceJob(targetid);
+        dbg( "[POLICE JOIN]" + getAuthor(playerid) + " add " + getAuthor(targetid) + "to Police" );
+    }
+});
 
 
-// // usage: /police set rank <1..3>
-// cmd("police", ["set", "rank"], function(playerid, targetid, rank) {
-//     targetid = targetid.tointeger();
-//     rank = rank.tointeger();
-//     if ( getPoliceRank(playerid) == MAX_RANK ) {
-//         if ( !isOfficer(targetid) ) {
-//             return msg(playerid, "organizations.police.notanofficer"); // not you, but target
-//         }
+// usage: /police job leave <id>
+cmd("police", ["job", "leave"], function(playerid, targetid) {
+    local targetid = targetid.tointeger();
+    if ( getPoliceRank(playerid) == MAX_RANK ) {
+        dbg( "[POLICE LEAVE]" + getAuthor(playerid) + " remove " + getAuthor(targetid) + "from Police" );
+        leavePoliceJob(targetid);
+    }
+});
 
-//         if ( isOnPoliceDuty(playerid) ) {
-//             trigger("onPoliceDutyOff", playerid);
-//             setPoliceRank( targetid, rank );
-//             trigger("onPoliceDutyOn", playerid);
-//             setPlayerJob ( targetid, getPlayerJob(playerid) );
-//         } else {
-//             setPoliceRank( targetid, rank );
-//             setPlayerJob ( targetid, getPlayerJob(playerid) );
-//         }
-//     }    
-// });
+
+// usage: /police set rank <0..14>
+cmd("police", ["set", "rank"], function(playerid, targetid, rank) {
+    targetid = targetid.tointeger();
+    rank = rank.tointeger();
+    if ( getPoliceRank(playerid) == MAX_RANK ) {
+        if ( !isOfficer(targetid) ) {
+            return msg(playerid, "organizations.police.notanofficer"); // not you, but target
+        }
+
+        if ( isOnPoliceDuty(playerid) ) {
+            trigger("onPoliceDutyOff", playerid);
+            setPoliceRank( targetid, rank );
+            trigger("onPoliceDutyOn", playerid);
+            setPlayerJob ( targetid, getPlayerJob(playerid) );
+        } else {
+            setPoliceRank( targetid, rank );
+            setPlayerJob ( targetid, getPlayerJob(playerid) );
+        }
+    }    
+});
 
 
 
@@ -271,6 +271,11 @@ key(["v"], function(playerid) {
     cuff(playerid);
 }, KEY_UP);
 
+
+cmd(["transport", "suspect"], function(playerid, targetid) {
+    targetid = targetid.tointeger();
+    putInJail(playerid, targetid);
+});
 
 // put nearest cuffed player in jail
 cmd(["prison", "jail"], function(playerid, targetid) {
