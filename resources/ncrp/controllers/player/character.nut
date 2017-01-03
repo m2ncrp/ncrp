@@ -37,7 +37,12 @@ event("onPlayerCharacterLoaded", function(playerid) {
  * @return {[type]}           [description]
  */
 event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, sex, birthdate, cskin, migrate) {
-    dbg("trying to create character with", firstname, lastname, race, sex, birthdate, cskin, migrate);
+    if(migrate){
+        dbg("trying to migrate old character with", firstname, lastname, race, sex, birthdate, cskin, migrate);
+    }
+    else {
+        dbg("trying to create character with", firstname, lastname, race, sex, birthdate, cskin, migrate);
+    }
 });
 /**
  * Event when player tries to load character

@@ -99,8 +99,8 @@ function formatCharacterSelection () {
 	}
 	if(charactersCount == 1){
 		if(characters[0].Firstname == ""){
-    		//migrateOldCharacter = true;
-    		//return characterCreation();
+    		migrateOldCharacter = true;
+    		return characterCreation();
     	}
 		local race = getRaceFromId(characters[0].Race);
 		local sex = getSexFromId(characters[0].Sex);
