@@ -73,7 +73,7 @@ event("onServerStarted", function() {
 
 });
 
-event("onPlayerConnect", function(playerid, name, ip, serial ){
+event("onPlayerConnect", function(playerid) {
     job_docker[playerid] <- {};
     job_docker[playerid]["havebox"] <- false;
     job_docker[playerid]["blip3dtext"] <- [null, null, null];
@@ -157,8 +157,6 @@ function dockerJob( playerid ) {
         msg( playerid, "job.docker.takeboxandcarry", DOCKER_JOB_COLOR );
 
         setPlayerJob( playerid, "docker");
-
-        players[playerid]["skin"] = DOCKER_JOB_SKIN;
         setPlayerModel( playerid, DOCKER_JOB_SKIN );
 
         // create private blip job
@@ -183,9 +181,7 @@ function dockerJobLeave( playerid ) {
         msg( playerid, "job.leave", DOCKER_JOB_COLOR );
 
         setPlayerJob( playerid, null );
-
-        players[playerid]["skin"] = players[playerid]["default_skin"];
-        setPlayerModel( playerid, players[playerid]["default_skin"]);
+        restorePlayerModel(playerid);
 
         job_docker[playerid]["havebox"] = false;
 

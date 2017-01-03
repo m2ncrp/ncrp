@@ -118,6 +118,11 @@ POLICE_JAIL_COORDS <- [
 const EBPD_ENTER_RADIUS = 2.0;
 const TITLE_DRAW_DISTANCE = 12.0;
 
+// jail
+const JAIL_X = -1018.93;
+const JAIL_Y = 1731.82;
+const JAIL_Z = 10.3252;
+
 POLICE_RANK <- [ // source: https://youtu.be/i7o0_PMv72A && https://en.wikipedia.org/wiki/Los_Angeles_Police_Department#Rank_structure_and_insignia
     "police.cadet"          //"Police cadet"       0
     "police.patrol"         //"Police patrolman",  1
@@ -248,15 +253,20 @@ event("onServerStarted", function() {
 
 
 
-/*
+
 event("onPlayerSpawn", function( playerid ) {
-    if ( isOfficer(playerid) && isOnPoliceDuty(playerid) ) {
-        onPoliceDutyGiveWeapon( playerid );
-        setPlayerModel(playerid, POLICE_MODEL);
-        police[playerid]["ondutyminutes"] <- 0;
-    }
+    // if ( isOfficer(playerid) && isOnPoliceDuty(playerid) ) {
+    //     onPoliceDutyGiveWeapon( playerid );
+    //     setPlayerModel(playerid, POLICE_MODEL);
+    //     police[playerid]["ondutyminutes"] <- 0;
+    // }
+
+    if (!isPlayerLoaded(playerid)) return;
+    if (!(getPlayerState(playerid) == "jail")) return;
+
+    players[playerid].setPosition(JAIL_X, JAIL_Y, JAIL_Z);
 });
-*/
+
 
 
 

@@ -151,7 +151,7 @@ event("onPlayerSpawn", function(playerid) {
 });
 
 
-event("onPlayerConnect", function(playerid, name, ip, serial ){
+event("onPlayerConnect", function(playerid) {
      job_bus[playerid] <- {};
      job_bus[playerid]["busready"] <- false;
      job_bus[playerid]["route"] <- false;
@@ -270,8 +270,6 @@ function busJob( playerid ) {
         msg( playerid, "job.bus.driver.now", BUS_JOB_COLOR );
 
         setPlayerJob( playerid, "busdriver" );
-
-        players[playerid]["skin"] = BUS_JOB_SKIN;
         setPlayerModel( playerid, BUS_JOB_SKIN );
 
         // create private blip job
@@ -295,8 +293,7 @@ function busJobLeave( playerid ) {
             setPlayerJob( playerid, null );
 
             job_bus[playerid]["busready"] = false;
-            players[playerid]["skin"] = players[playerid]["default_skin"];
-            setPlayerModel( playerid, players[playerid]["default_skin"]);
+            restorePlayerModel(playerid);
 
             busJobRemovePrivateBlipText( playerid );
 

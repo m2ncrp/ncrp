@@ -19,7 +19,7 @@ function registerFunc(playerid, password, email = null) {
 
         // create account
         account = Account();
-        account.username = getPlayerName(playerid);
+        account.username = getAccountName(playerid);
         account.password = md5(password);
         account.ip       = getPlayerIp(playerid);
         account.serial   = getPlayerSerial(playerid);
@@ -54,11 +54,11 @@ function registerFunc(playerid, password, email = null) {
 
                                 // send success registration message
                                 msg(playerid, "auth.success.register", CL_SUCCESS);
-                                dbg("registration", getAuthor(playerid));
+                                dbg("registration", getIdentity(playerid));
                                 trigger(playerid, "destroyAuthGUI");
 
                                 screenFadein(playerid, 250, function() {
-                                    trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
+                                    trigger("onPlayerInit", playerid);
                                 });
                             });
                         });
@@ -91,7 +91,7 @@ function loginFunc(playerid, password) {
 
         // try to find logined account
         Account.findOneBy({
-            username = getPlayerName(playerid),
+            username = getAccountName(playerid),
             password = md5(password)
         }, function(err, account) {
             // no accounts found
@@ -113,11 +113,11 @@ function loginFunc(playerid, password) {
 
             // send message success
             msg(playerid, "auth.success.login", CL_SUCCESS);
-            dbg("login", getAuthor(playerid));
+            dbg("login", getIdentity(playerid));
             trigger(playerid, "destroyAuthGUI");
 
             screenFadein(playerid, 250, function() {
-                trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
+                trigger("onPlayerInit", playerid);
             });
         });
     });

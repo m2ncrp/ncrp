@@ -9,8 +9,6 @@ dofile("resources/ncrp/libraries/index.nut", true);
 // load classes
 include("traits/Colorable.nut");
 include("models/Color.nut");
-include("models/Account.nut");
-include("models/Character.nut");
 include("models/Vehicle.nut");
 include("models/World.nut");
 include("models/TeleportPosition.nut");
@@ -97,7 +95,7 @@ event("native:onScriptInit", function() {
     trigger("onScriptInit");
 
     // creating playerList storage
-    playerList = PlayerList();
+    // playerList = PlayerList();
 
     // triggerring load events
     trigger("onServerStarted");
@@ -107,8 +105,12 @@ event("native:onScriptInit", function() {
 });
 
 event("onServerStarted", function() {
-    if (!DEBUG) {
-        webRequest(HTTP_TYPE_GET, MOD_HOST, "/discord?type=info&data=server_restarted", function(a,b,c) {}, MOD_PORT);
+    // imitate server restart after script init
+    // (after script exit for still connected players)
+    foreach (playerid, name in getPlayers()) {
+        // trigger("onPlayerInit", playerid);
+        trigger("onPlayerConnectInit", playerid, name, "0.0.0.0", getPlayerSerial(playerid));
+        trigger("native:onPlayerSpawn", playerid);
     }
 });
 
@@ -125,19 +127,11 @@ event("native:onServerShutdown", function() {
 });
 
 event("native:onPlayerConnect", function(playerid, name, ip, serial) {
-    dbg("player", "conenct", name, playerid, ip, serial);
+    dbg("player", "connect", name, playerid, ip, serial);
     trigger("onPlayerConnectInit", playerid, name, ip, serial);
 
     if (!IS_AUTHORIZATION_ENABLED || DEBUG) {
-        trigger("onPlayerInit", playerid, name, ip, serial);
-    }
-});
-
-event("onServerStarted", function() {
-    foreach (playerid, name in getPlayers()) {
-        // trigger("onPlayerInit", playerid, name, null, null);
-        trigger("onPlayerConnectInit", playerid, name, "0.0.0.0", getPlayerSerial(playerid));
-        trigger("native:onPlayerSpawn", playerid);
+        trigger("onPlayerInit", playerid);
     }
 });
 

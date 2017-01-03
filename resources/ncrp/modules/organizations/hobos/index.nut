@@ -128,16 +128,9 @@ hobos_points <- [
 ];
 
 
-addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial) {
-    if ( isHobos(playerid) ) {
-        // players[playerid]["skin"] <- hobosSkins[random(0, hobosSkins.len() - 1)];
-        hoboses[playerid] <- {};
-    }
-});
-
-
 event("onServerStarted", function() {
     log("[hobos] loading trash containers...");
+
     //creating public 3dtext
     foreach (trashContainer in hobos_points) {
         create3DText ( trashContainer[0], trashContainer[1], trashContainer[2]+0.35, "Press E or use /dig to find something in that", CL_EUCALYPTUS, DIG_RADIUS );
