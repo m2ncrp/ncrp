@@ -14,12 +14,14 @@ screen = [screenX, screenY];
 local window;
 local label;
 local button;
-local oldCursorState;
+local oldCursorState = false;
 
 addEventHandler("onAlert", function (message) {
-	oldCursorState = isCursorShowing();
+	if(window && !guiIsVisible(window) ){
+		oldCursorState = isCursorShowing();
+	}
 	if(window){
-		guiSetText(label, message);
+		guiSetText(label, message.tostring());
 		guiSetVisible(window,true);
 	}
 	else{
@@ -27,7 +29,9 @@ addEventHandler("onAlert", function (message) {
 		label = guiCreateElement( ELEMENT_TYPE_LABEL, message.tostring(), 10.0, 20.0, 300.0, 50.0, false, window);
 		button = guiCreateElement( ELEMENT_TYPE_BUTTON, "ОК" ,  10.0, 70, 180.0, 20.0, false, window);
 	}
-	showCursor(true);
+	if(!oldCursorState){
+		showCursor(true);
+	}
 	guiSetMovable(window,false);
 	guiSetSizable(window,false);
 });
