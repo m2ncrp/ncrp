@@ -24,11 +24,13 @@ addEventHandler("onAlert", function (message) {
 	else{
 		window = guiCreateElement( ELEMENT_TYPE_WINDOW, "Ошибка!/Error!", screen[0]/2 - 100, screen[1]/2 - 50, 200.0, 100.0 );
 		label = guiCreateElement( ELEMENT_TYPE_LABEL, message.tostring(), 10.0, 20.0, 300.0, 20.0, false, window);
-		button = guiCreateElement( ELEMENT_TYPE_BUTTON, "ОК" ,  10.0, 70, 90.0, 20.0, false, window);
+		button = guiCreateElement( ELEMENT_TYPE_BUTTON, "ОК" ,  10.0, 70, 190.0, 20.0, false, window);
 	}
 	if(!oldCursorState){
 		showCursor(true);
 	}
+	guiSetSizible(window,false);
+	guiSetMovable(window, false)
 });
 
 addEventHandler( "onGuiElementClick",function(element){
