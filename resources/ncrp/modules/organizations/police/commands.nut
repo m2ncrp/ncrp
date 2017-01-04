@@ -64,6 +64,11 @@ cmd("police", function(playerid, ...) {
 });
 
 
+cmd("police", function(playerid) {
+    __commands["call"][COMMANDS_DEFAULT](playerid, "police");
+});
+
+
 
 // usage: /police job <id>
 cmd("police", "job", function(playerid, targetid) {
