@@ -31,7 +31,7 @@ translation("en", {
     "job.police.commander"                      : "commander"
     "job.police.deputychief"                    : "deputy chief"
     "job.police.assistantchief"                 : "assist. chief"
-    "job.police.chief"                          : "Dep. chief"
+    "job.police.chief"                          : "police chief"
     "organizations.police.job.getmaxrank"       : "You've reached maximum rank: %s.",
     "organizations.police.job.getminrank"       : "You've reached minimum rank: %s.",
     "organizations.police.lowrank"              : "Your rank is too low for that.",
