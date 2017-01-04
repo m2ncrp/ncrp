@@ -131,8 +131,10 @@ event("native:onPlayerConnect", function(playerid, name, ip, serial) {
     trigger("onPlayerConnectInit", playerid, name, ip, serial);
 
     if (!IS_AUTHORIZATION_ENABLED || DEBUG) {
+        setLastActiveSession(playerid);
+
         delayedFunction(100, function() {
-            trigger("onPlayerInit", playerid);
+            trigger("onPlayerConnectInit", playerid, name, ip, serial);
         });
     }
 });

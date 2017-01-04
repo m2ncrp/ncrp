@@ -51,10 +51,6 @@ translation("en", {
  * depending if he is logined or not
  */
 event("onPlayerConnectInit", function(playerid, username, ip, serial) {
-    if (DEBUG) {
-        return dbg("skipping auth for debug mode");
-    }
-
     // check playername validity
     if (!REGEX_USERNAME.match(username) ||
         username.find("  ") != null ||
@@ -149,6 +145,10 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
                     msg(playerid, "auth.success.autologin", CL_SUCCESS);
 
                     return;
+                }
+
+                if (DEBUG) {
+                    return dbg("skipping auth forms for debug mode");
                 }
 
                 /**
