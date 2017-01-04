@@ -387,3 +387,12 @@ event("onBatonBitStart", function (playerid) {
     setPlayerAnimStyle(playerid, "common", "ManColdWeapon");
     setPlayerHandModel(playerid, 1, 28); // policedubinka right hand
 });
+
+
+event("onPlayerPhoneCall", function(playerid, number, place) {
+    if(number == "police") {
+        policeCall(playerid, place);
+        dbg("chat", "police", getAuthor(playerid), place);
+    }
+});
+
