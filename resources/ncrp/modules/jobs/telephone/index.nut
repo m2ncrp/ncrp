@@ -98,20 +98,20 @@ local telephones = [
     [ -408.296, 631.616, -12.3661   , "telephone92"  ],
     [ -264.414, 678.893, -19.9448   , "telephone93"  ],
 
-    [ -352.354, -726.13, -15.4204   , "telephone94"  ],
-    [ 81.3677, 892.368, -13.3204    , "telephone95"  ],
-    [ 626.474, 898.527, -11.7137    , "telephone96"  ],
-    [ -49.231, 740.707, -21.9009    , "telephone97"  ],
-    [ 19.2317, -74.7028, -15.595    , "telephone98"  ],
-    [ -254.039, -82.1033, -11.458   , "telephone99"  ],
-    [ -637.16, 348.346, 1.34485     , "telephone100" ],
-    [ -1386.91, 470.764, -22.1321   , "telephone101" ],
-    [ -1559.92, -163.443, -19.6113  , "telephone102" ],
-    [ -1146.3, 1591.19, 6.25566     , "telephone103" ],
-    [ -1301.75, 996.284, -17.3339   , "telephone104" ],
-    [ -651.048, 942.307, -7.93587   , "telephone105" ],
-    [ 374.146, -290.937, -15.5799   , "telephone106" ],
-    [ -161.972, -588.33, -16.1199   , "telephone107" ]
+    [ -352.354, -726.13, -15.4204   , "telephone94"  , 1],
+    [ 81.3677, 892.368, -13.3204    , "telephone95"  , 1],
+    [ 626.474, 898.527, -11.7137    , "telephone96"  , 1],
+    [ -49.231, 740.707, -21.9009    , "telephone97"  , 1],
+    [ 19.2317, -74.7028, -15.595    , "telephone98"  , 1],
+    [ -254.039, -82.1033, -11.458   , "telephone99"  , 1],
+    [ -637.16, 348.346, 1.34485     , "telephone100" , 1],
+    [ -1386.91, 470.764, -22.1321   , "telephone101" , 1],
+    [ -1559.92, -163.443, -19.6113  , "telephone102" , 1],
+    [ -1146.3, 1591.19, 6.25566     , "telephone103" , 1],
+    [ -1301.75, 996.284, -17.3339   , "telephone104" , 1],
+    [ -651.048, 942.307, -7.93587   , "telephone105" , 1],
+    [ 374.146, -290.937, -15.5799   , "telephone106" , 1],
+    [ -161.972, -588.33, -16.1199   , "telephone107" , 1]
 
 ];
 
@@ -255,7 +255,7 @@ event("onServerStarted", function() {
 
     //creating public 3dtext
     foreach (phone in telephones) {
-        create3DText ( phone[0], phone[1], phone[2]+0.35, "TELEPHONE", CL_RIPELEMON, 20 );
+        create3DText ( phone[0], phone[1], phone[2]+0.35, "TELEPHONE", CL_RIPELEMON );
         create3DText ( phone[0], phone[1], phone[2]+0.20, "/call", CL_WHITE.applyAlpha(150), 0.3 );
     }
 
@@ -270,9 +270,10 @@ event("onPlayerConnect", function(playerid){
 
 function phoneCreatePrivateBlipText(playerid, x, y, z, text, cmd) {
     return [
-            createPrivate3DText (playerid, x, y, z+0.35, text, CL_RIPELEMON, 20 ),
-            createPrivate3DText (playerid, x, y, z+0.20, cmd, CL_WHITE.applyAlpha(150), 0.3 ),
-            createPrivateBlip (playerid, x, y, ICON_PHONE, 200.0)
+            createPrivateBlip (playerid, x, y, ICON_RED, 200.0)
+            //createPrivate3DText (playerid, x, y, z+0.35, text, CL_RIPELEMON, 20 ),
+            //createPrivate3DText (playerid, x, y, z+0.20, cmd, CL_WHITE.applyAlpha(150), 0.3 ),
+            
     ];
 }
 
@@ -281,9 +282,9 @@ function phoneCreatePrivateBlipText(playerid, x, y, z, text, cmd) {
  * @param  {int}  playerid
  */
 function phoneJobRemovePrivateBlipText ( phone ) {
-        remove3DText ( phone[0] );
-        remove3DText ( phone[1] );
-        removeBlip   ( phone[2] );
+        removeBlip   ( phone[0] );
+        //remove3DText ( phone[1] );
+        //remove3DText ( phone[2] );
 }
 
 
@@ -310,7 +311,7 @@ function phoneFindNearest( playerid ) {
     local phoneid = null;
     foreach (key, value in telephones) {
         local distance = getDistanceBetweenPoints2D( pos.x, pos.y, value[0], value[1] );
-        if (distance < dis) {
+        if (distance < dis && value.len() == 4) {
            dis = distance;
            phoneid = key;
         }
@@ -346,7 +347,9 @@ function goToPhone(playerid, phoneid) {
 function callByPhone (playerid, number = null) {
     local place = getPlayerPhoneName(playerid);
     if (place == false) {
-        return msg(playerid, "telephone.needphone");
+        msg(playerid, "telephone.needphone");
+        showBlipNearestPhoneForPlayer ( playerid );
+        return;
     }
 
     if (number == null) {
