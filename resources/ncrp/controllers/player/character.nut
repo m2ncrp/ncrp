@@ -22,7 +22,6 @@ event("onPlayerCharacterLoaded", function(playerid, character) {
         trigger(playerid, "onServerClientStarted", VERSION);
         trigger(playerid, "onServerIntefaceCharacter", getLocalizedPlayerJob(playerid, "en"), getPlayerLevel(playerid) );
         trigger(playerid, "onServerInterfaceMoney", getPlayerMoney(playerid));
-        screenFadeout(playerid, 500);
 
         // try to undfreeze player
         freezePlayer(playerid, false);
