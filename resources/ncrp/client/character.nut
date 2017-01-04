@@ -267,8 +267,7 @@ function createCharacter() {
 	local model = modelsData[PData.Race][PData.Sex][switchModelID];
 	triggerServerEvent("onPlayerCharacterCreate",first,last,race,sex,bday,model,(migrateOldCharacter && "Id" in PData) ? PData.Id : 0);
 	log("migrating character: " + [first,last,race,sex,bday,model,(migrateOldCharacter && "Id" in PData) ? PData.Id : 0].reduce(@(a,b) a + " " + b));
-	delayedFunction(200, function() {showCursor(false);});
-}
+	}
 
 function selectCharacter (id) {
 	hideCharacterSelection();
@@ -285,6 +284,7 @@ function hideCharacterCreation() {
 		label.clear();
 		radio.clear();
     	isCharacterCreationMenu = false;
+    	delayedFunction(200, function() {showCursor(false);});
 	}
 }
 addEventHandler("hideCharacterCreation",hideCharacterCreation);
