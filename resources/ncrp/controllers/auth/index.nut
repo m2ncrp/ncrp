@@ -187,7 +187,7 @@ event("native:onPlayerSpawn", function(playerid) {
 
     // set player position and skin
     setPlayerPosition(playerid, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z);
-    setPlayerModel(playerid, DEFAULT_SPAWN_SKIN);
+    nativeSetPlayerModel(playerid, DEFAULT_SPAWN_SKIN);
 
     // disable hud and show
     trigger(playerid, "setPlayerIntroScreen");
