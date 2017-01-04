@@ -72,6 +72,9 @@ event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, s
             // save char
             character.save();
 
+            //Hide character creation gui
+            trigger(playerid, "hideCharacterCreation");
+
             // add to container
             trigger("onPlayerCharacterLoaded", playerid, character);
         });
@@ -110,6 +113,9 @@ event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, s
 
                 // save char
                 character.save();
+
+                //Hide character creation gui
+                trigger(playerid, "hideCharacterCreation");
 
                 // add to container
                 trigger("onPlayerCharacterLoaded", playerid, character);
