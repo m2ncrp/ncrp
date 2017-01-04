@@ -79,29 +79,36 @@ event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, s
     if(!migrate) {
         dbg("character", "creating", null, getIdentity(playerid), firstname, lastname, race, sex, birthdate, cskin);
 
-        Character.findBy({ name = getAccountName(playerid) }, function(err, character) {
-            if (err || character.len() >= CHARACTER_LIMIT) {
+        Character.findBy({ name = getAccountName(playerid) }, function(err, characters) {
+            if (err || characters.len() >= CHARACTER_LIMIT) {
                 return alert(playerid, "character.limitexceeded");
             }
 
-            // TODO(inlife): add data validation
+            Character.findBy({ firstname = firstname, lastname = lastname }, function(err, characters) {
+                if (err || characters.len()) {
+                    return alert(playerid, "character.alreadyregistered");
+                }
 
-            // update data
-            character.firstname = firstname;
-            character.lastname  = lastname;
-            character.race      = race;
-            character.sex       = sex;
-            character.birthdate = birthdate;
-            character.cskin     = cskin;
-            character.dskin     = cskin;
+                // TODO(inlife): add data validation
+                local character = Character();
 
-            // save char
-            character.save();
+                // update data
+                character.firstname = firstname;
+                character.lastname  = lastname;
+                character.race      = race;
+                character.sex       = sex;
+                character.birthdate = birthdate;
+                character.cskin     = cskin;
+                character.dskin     = cskin;
+
+                // save char
+                character.save();
+            });
+
+            // add to container
+            players.add(playerid, character);
+            trigger("onPlayerCharacterLoaded", playerid);
         });
-
-        // add to container
-        players.add(playerid, character);
-        trigger("onPlayerCharacterLoaded", playerid);
     }
 });
 
