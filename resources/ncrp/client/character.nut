@@ -99,6 +99,7 @@ function formatCharacterSelection () {
 	}
 	if(charactersCount == 1){
 		if(characters[0].Firstname == ""){
+			PData.Id <- characters[0].Id; // add data to push it later
     		migrateOldCharacter = true;
     		return characterCreation();
     	}
@@ -264,7 +265,8 @@ function createCharacter() {
 	local sex = PData.Sex
 	local bday = format("%02d.%02d.%04d",guiGetText(input[2]).tointeger(),guiGetText(input[3]).tointeger(),guiGetText(input[4]).tointeger());
 	local model = modelsData[PData.Race][PData.Sex][switchModelID];
-	triggerServerEvent("onPlayerCharacterCreate",first,last,race,sex,bday,model,migrateOldCharacter);
+	triggerServerEvent("onPlayerCharacterCreate",first,last,race,sex,bday,model,(migrateOldCharacter && "Id" in PData) ? PData.Id : null);
+	log("migrating character: " + [first,last,race,sex,bday,model,(migrateOldCharacter && "Id" in PData) ? PData.Id : null].reduce(@(a,b) a + " " + b));
 	hideCharacterCreation();
 	delayedFunction(200, function() {showCursor(false);});
 }

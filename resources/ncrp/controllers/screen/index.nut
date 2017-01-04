@@ -119,3 +119,16 @@ function screenFadeinFadeoutEx(playerid, fadetime, pause, callback1 = null, call
 key("p", function(playerid) {
     trigger(playerid, "onServerToggleHudDrawing")
 });
+
+/**
+ * Create GUI alertbox for player with
+ * specified translated text
+ * @param  {Integer} playerid
+ * @param  {String}  message
+ * @param  {Array}   params optional
+ * @return {Boolean}
+ */
+function alert(playerid, message, params = []) {
+    if (DEBUG) dbg("alert", getIdentity(playerid), plocalize(playerid, message, params));
+    return trigger(playerid, "onAlert", plocalize(playerid, message, params))
+}
