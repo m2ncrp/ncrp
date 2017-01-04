@@ -41,6 +41,8 @@ local charDescButton = array(2);
 local charactersCount;
 local migrateOldCharacter = false;
 
+local otherPlayerLocked = true;
+
 local modelsData =
 [
 	[[71,72],[118,135]],//Euro
@@ -267,7 +269,7 @@ function createCharacter() {
 	local model = modelsData[PData.Race][PData.Sex][switchModelID];
 	triggerServerEvent("onPlayerCharacterCreate",first,last,race,sex,bday,model,(migrateOldCharacter && "Id" in PData) ? PData.Id : 0);
 	log("migrating character: " + [first,last,race,sex,bday,model,(migrateOldCharacter && "Id" in PData) ? PData.Id : 0].reduce(@(a,b) a + " " + b));
-	}
+}
 
 function selectCharacter (id) {
 	hideCharacterSelection();
@@ -284,6 +286,7 @@ function hideCharacterCreation() {
 		label.clear();
 		radio.clear();
     	isCharacterCreationMenu = false;
+    	otherPlayerLocked = false
     	delayedFunction(200, function() {showCursor(false);});
 	}
 }
@@ -297,6 +300,7 @@ function hideCharacterSelection () {
 		button.clear();
 		label.clear();
 		radio.clear();
+		otherPlayerLocked = false;
 	    isCharacterSelectionMenu = false;
 	}
 }
@@ -362,3 +366,19 @@ addEventHandler( "onGuiElementMouseEnter",
         }
     }
 );
+
+addEventHandler("onClientFrameRender", function(a) {
+	// teleport players
+	if (!otherPlayerLocked || a) return;
+
+	foreach (idx, value in getPlayers()) {
+		if (idx == getLocalPlayer()) continue;
+		setPlayerPosition(idx, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z);
+	}
+
+	// if (window && guiGetAlpha(window) < 1.0) {
+	// 	guiSetAlpha(window, guiGetAlpha(window) + 0.01);
+	// }
+
+	showChat(false);
+});
