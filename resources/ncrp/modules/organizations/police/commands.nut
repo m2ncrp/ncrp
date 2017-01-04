@@ -23,7 +23,7 @@ acmd("a", ["police", "job", "leave"], function(playerid, targetid) {
 });
 
 
-// usage: /police set rank <1..3>
+// usage: /police set rank <0..14>
 acmd("a", ["police", "set", "rank"], function(playerid, targetid, rank) {
     targetid = targetid.tointeger();
     rank = rank.tointeger();
@@ -36,10 +36,10 @@ acmd("a", ["police", "set", "rank"], function(playerid, targetid, rank) {
         trigger("onPoliceDutyOff", playerid);
         setPoliceRank( targetid, rank );
         trigger("onPoliceDutyOn", playerid);
-        setPlayerJob ( targetid, getPlayerJob(playerid) );
+        setPlayerJob( targetid, POLICE_RANK[rank] );
     } else {
         setPoliceRank( targetid, rank );
-        setPlayerJob ( targetid, getPlayerJob(playerid) );
+        setPlayerJob( targetid, POLICE_RANK[rank] );
     }
 });
 

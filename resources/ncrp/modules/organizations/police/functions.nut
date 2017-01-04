@@ -11,8 +11,9 @@ function policeCall(playerid, place) {
     msg(playerid, "organizations.police.call.foruser", [place], CL_ROYALBLUE);
     local pos = getPlayerPositionObj(playerid); 
 
-    foreach (id, player in players) {
-        if ( isOfficer(id) && isOnPoliceDuty(id) ) { //
+    foreach (player in players) {
+        local id = player.playerid;
+        if ( isOfficer(id) && isOnPoliceDuty(id) ) {
             local crime_hash = createPrivateBlip(id, pos.x, pos.y, ICON_YELLOW, 4000.0);
 
             delayedFunction(60000, function() { // <----------------------------------------- need check for more than 2 people
