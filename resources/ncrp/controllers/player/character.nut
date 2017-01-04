@@ -3,9 +3,10 @@ const CHARACTER_LIMIT = 2;
 /**
  * Handle character loadeded event
  */
-event("onPlayerCharacterLoaded", function(playerid) {
+event("onPlayerCharacterLoaded", function(playerid, character) {
     // store player id for current player
-    players[playerid].playerid = playerid;
+    character.playerid = playerid;
+    players.add(playerid, character);
 
     // trigger init events
     trigger("onPlayerConnect", playerid);
@@ -72,7 +73,6 @@ event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, s
             character.save();
 
             // add to container
-            players.add(playerid, character);
             trigger("onPlayerCharacterLoaded", playerid);
         });
     }
@@ -105,11 +105,13 @@ event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, s
                 character.cskin     = cskin;
                 character.dskin     = cskin;
 
+                // override onspawn stuff (money, other shiet)
+                character.money     = randomf(1.75, 5.13);
+
                 // save char
                 character.save();
 
                 // add to container
-                players.add(playerid, character);
                 trigger("onPlayerCharacterLoaded", playerid);
             });
         });
@@ -120,14 +122,17 @@ event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, s
  * Event when player tries to load character
  */
 event("onPlayerCharacterSelect", function(playerid, id) {
+    if (!isPlayerAuthed(playerid)) return dbg("character", "select", "non-authed", getIdentity(playerid));
+
+    dbg("selecting character with data", id, getAccountName(playerid));
+
     Character.findOneBy({ id = id, name = getAccountName(playerid) }, function(err, character) {
         if (err || !character) {
             return alert(playerid, "character.doesnotexist");
         }
 
         // load character
-        players.add(playerid, character);
-        trigger("onPlayerCharacterLoaded", playerid)
+        trigger("onPlayerCharacterLoaded", playerid);
         dbg("character", "selected", getIdentity(playerid));
     });
 });
