@@ -58,6 +58,8 @@ event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, s
             // TODO(inlife): add data validation
 
             // update data
+            character.accountid = getAccountId(playerid);
+            character.name      = getAccountName(playerid);
             character.firstname = firstname;
             character.lastname  = lastname;
             character.race      = race;
@@ -76,7 +78,7 @@ event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, s
     }
 
     // or we are creating new
-    if(!migrate) {
+    if(!migrateid) {
         dbg("character", "creating", null, getIdentity(playerid), firstname, lastname, race, sex, birthdate, cskin);
 
         Character.findBy({ name = getAccountName(playerid) }, function(err, characters) {
@@ -93,6 +95,8 @@ event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, s
                 local character = Character();
 
                 // update data
+                character.accountid = getAccountId(playerid);
+                character.name      = getAccountName(playerid);
                 character.firstname = firstname;
                 character.lastname  = lastname;
                 character.race      = race;
@@ -103,11 +107,11 @@ event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, s
 
                 // save char
                 character.save();
-            });
 
-            // add to container
-            players.add(playerid, character);
-            trigger("onPlayerCharacterLoaded", playerid);
+                // add to container
+                players.add(playerid, character);
+                trigger("onPlayerCharacterLoaded", playerid);
+            });
         });
     }
 });

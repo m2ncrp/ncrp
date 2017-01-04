@@ -55,6 +55,10 @@ function getAccountName(playerid) {
     return "nativeGetPlayerName" in getroottable() ? nativeGetPlayerName(playerid) : getPlayerName(playerid);
 }
 
+function getAccountId(playerid) {
+    return (isPlayerAuthed(playerid) ? accounts[playerid].id : 0);
+}
+
 /**
  * Get account object by playerid or null
  * @param  {Integer} playerid
@@ -225,5 +229,5 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
 
 
 event("changeModel",function(playerid,model) {
-    setPlayerModel( playerid, model);
+    nativeSetPlayerModel( playerid, model);
 });
