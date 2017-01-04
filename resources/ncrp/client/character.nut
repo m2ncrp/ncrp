@@ -49,6 +49,7 @@ local modelsData =
 ]
 
 addEventHandler("onServerCharacterLoading", function(id,firstname, lastname, race, sex, birthdate, money, deposit, cskin){
+	local char = {};
 	char.Id <- id;
 	char.Firstname <- firstname;
 	char.Lastname <- lastname;
