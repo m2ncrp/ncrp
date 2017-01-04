@@ -34,7 +34,9 @@ addEventHandler("onAlert", function (message) {
 addEventHandler( "onGuiElementClick",function(element){
 	if(element == button){
 		guiSetVisible(window,false);
-		showCursor(oldCursorState);
+		delayedFunction(200, function() {
+			showCursor(oldCursorState);
+		});
 	}
 });
 
