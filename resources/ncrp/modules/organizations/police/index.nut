@@ -393,5 +393,10 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
         policeCall(playerid, place);
         dbg("chat", "police", getAuthor(playerid), place);
     }
+
+    // if (number == "dispatch") {
+    //     msg(playerid, "- Dispatcher on line.");
+    //     // WIP
+    // }
 });
 
