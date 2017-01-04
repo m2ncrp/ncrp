@@ -3,6 +3,12 @@ include("modules/jobs/telephone/commands.nut");
 local phone_nearest_blip = {};
 
 local telephones = [
+/*
+0 - phone booth
+1 - bussiness
+2 - police alarm
+
+ */
     [ -1021.87, 1643.44, 10.6318    , "telephone0"   ],
     [ -562.58, 1521.96, -16.1836    , "telephone1"   ],
     [ -310.62, 1694.98, -22.3772    , "telephone2"   ],
@@ -111,8 +117,43 @@ local telephones = [
     [ -1301.75, 996.284, -17.3339   , "telephone104" , 1],
     [ -651.048, 942.307, -7.93587   , "telephone105" , 1],
     [ 374.146, -290.937, -15.5799   , "telephone106" , 1],
-    [ -161.972, -588.33, -16.1199   , "telephone107" , 1]
+    [ -161.972, -588.33, -16.1199   , "telephone107" , 1],
 
+    [-371.573,   1787.89, -23.589   , "policeAlarm1" , 2 ],
+    [-1292.88,   1484.98, -6.11190  , "policeAlarm2" , 2 ],
+    [-1176.64,   1457.64, -4.12012  , "policeAlarm3" , 2 ],
+    [-1171.7,    1387.29, -13.6239  , "policeAlarm4" , 2 ],
+    [-1317.53,   1402.58, -13.5725  , "policeAlarm5" , 2 ],
+    [-1299.35,   751.584, -15.7788  , "policeAlarm6" , 2 ],
+    [-1417.24,   497.773, -21.4151  , "policeAlarm7" , 2 ],
+    [ 36.4554,   235.118, -16.0193  , "policeAlarm8" , 2 ],
+    [-639.445,  -76.2884,  1.03814  , "policeAlarm9" , 2 ],
+    [-680.221,   182.574,  1.03806  , "policeAlarm10", 2 ],
+    [-474.135,   185.611,  1.02381  , "policeAlarm11", 2 ],
+    [-477.684,   382.254,  1.03808  , "policeAlarm12", 2 ],
+    [-477.376,   439.521,  1.03657  , "policeAlarm13", 2 ],
+    [-661.801,   455.444,  1.03789  , "policeAlarm14", 2 ],
+    [-512.606,   810.714, -19.6019  , "policeAlarm15", 2 ],
+    [-196.664,   382.899, -6.32934  , "policeAlarm16", 2 ],
+    [-191.619,   297.732, -6.45726  , "policeAlarm17", 2 ],
+    [-195.883,   162.1,   -10.5431  , "policeAlarm18", 2 ],
+    [-196.463,   82.5475, -11.1609  , "policeAlarm19", 2 ],
+    [-123.769,   232.632, -13.9932  , "policeAlarm20", 2 ],
+    [-122.238,   355.647, -13.9932  , "policeAlarm21", 2 ],
+    [-9.27437,   413.96,  -13.9914  , "policeAlarm22", 2 ],
+    [-69.3858,   723.144, -21.9343  , "policeAlarm23", 2 ],
+    [ 131.276,   780.688, -18.9663  , "policeAlarm24", 2 ],
+    [ 118.093,   904.171, -22.3053  , "policeAlarm25", 2 ],
+    [ 335.894,   829.788, -21.2524  , "policeAlarm26", 2 ],
+    [ 370.317,   808.668, -21.2487  , "policeAlarm27", 2 ],
+    [ 394.804,   797.771, -21.2487  , "policeAlarm28", 2 ],
+    [ 451.982,   751.116, -21.2541  , "policeAlarm29", 2 ],
+    [ 407.519,   674.809, -24.8892  , "policeAlarm30", 2 ],
+    [ 276.342,   606.728, -24.5672  , "policeAlarm31", 2 ],
+    [ 259.641,   466.762, -20.1637  , "policeAlarm32", 2 ],
+    [ 259.739,   333.152, -21.6012  , "policeAlarm33", 2 ],
+    [ 259.682,   399.147, -21.5767  , "policeAlarm34", 2 ],
+    [ 255.309,   31.6091, -23.3979  , "policeAlarm35", 2 ]
 ];
 
 
@@ -255,6 +296,13 @@ event("onServerStarted", function() {
 
     //creating public 3dtext
     foreach (phone in telephones) {
+        if (phone.len() == 5) {
+            if (phone[4] == 2) {
+                create3DText ( phone[0], phone[1], phone[2]+0.35, "POLICE ALARM", CL_MALIBU );
+                create3DText ( phone[0], phone[1], phone[2]+0.20, "/police", CL_WHITE.applyAlpha(150), 0.3 );
+                continue;
+            }
+        }
         create3DText ( phone[0], phone[1], phone[2]+0.35, "TELEPHONE", CL_RIPELEMON );
         create3DText ( phone[0], phone[1], phone[2]+0.20, "/call", CL_WHITE.applyAlpha(150), 0.3 );
     }
