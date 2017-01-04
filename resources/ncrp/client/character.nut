@@ -91,13 +91,13 @@ function formatCharacterSelection () {
 		local sex = getSexFromId(characters[0].Sex);
 	    charDesc[0] = format("Имя: %s\nФамилия: %s\nРаса: %s\n",characters[0].Firstname,characters[0].Lastname,race);
 	    charDesc[0] += format("Пол: %s\nДата рождения: %s\n",sex,characters[0].Bdate.tostring());
-	    charDesc[0] += format("Денежных средств: %s$\nСчёт в банке: %s$",characters[0].money.tostring(),characters[0].deposit.tostring());
+	    charDesc[0] += format("Денежных средств: %.2f$\nСчёт в банке: %.2f$",characters[0].money.tostring(),characters[0].deposit.tostring());
 	    charDescButton[0] = "Выбрать персонажа";
 	    race = getRaceFromId(characters[1].Race);
 		sex = getSexFromId(characters[1].Sex);
 	    charDesc[1] = format("Имя: %s\nФамилия: %s\nРаса: %s\n",characters[1].Firstname,characters[1].Lastname,race);
 	    charDesc[1] += format("Пол: %s\nДата рождения: %s\n",sex,characters[1].Bdate.tostring());
-	    charDesc[1] += format("Денежных средств: %s$\nСчёт в банке: %s$",characters[1].money.tostring(),characters[1].deposit.tostring());
+	    charDesc[1] += format("Денежных средств: %.2f$\nСчёт в банке: %.2f$",characters[1].money.tostring(),characters[1].deposit.tostring());
 	    charDescButton[1] = "Выбрать персонажа";
 	}
 	if(charactersCount == 1){
@@ -110,7 +110,7 @@ function formatCharacterSelection () {
 		local sex = getSexFromId(characters[0].Sex);
 	    charDesc[0] = format("Имя: %s\nФамилия: %s\nРаса: %s\n",characters[0].Firstname,characters[0].Lastname,race);
 	    charDesc[0] += format("Пол: %s\nДата рождения: %s\n",sex,characters[0].Bdate.tostring());
-	    charDesc[0] += format("Денежных средств: %s$\nСчёт в банке: %s$",characters[0].money.tostring(),characters[0].deposit.tostring());
+	    charDesc[0] += format("Денежных средств: %.2f$\nСчёт в банке: %.2f$",characters[0].money.tostring(),characters[0].deposit.tostring());
 	    charDescButton[0] = "Выбрать персонажа";
 	    charDesc[1] = "Пустой слот\nЧтобы перейти к созданию\nНажмите кнопку";
 	    charDescButton[1] = "Создать персонажа";
