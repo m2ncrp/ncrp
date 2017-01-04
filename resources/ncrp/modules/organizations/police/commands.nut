@@ -32,14 +32,16 @@ acmd("a", ["police", "set", "rank"], function(playerid, targetid, rank) {
         return msg(playerid, "organizations.police.notanofficer"); // not you, but target
     }
 
-    if ( isOnPoliceDuty(playerid) ) {
-        trigger("onPoliceDutyOff", playerid);
-        setPoliceRank( targetid, rank );
-        trigger("onPoliceDutyOn", playerid);
-        setPlayerJob( targetid, POLICE_RANK[rank] );
-    } else {
-        setPoliceRank( targetid, rank );
-        setPlayerJob( targetid, POLICE_RANK[rank] );
+    if (rank >= 0 && rank < POLICE_RANK.len()) {
+        if ( isOnPoliceDuty(playerid) ) {
+            trigger("onPoliceDutyOff", playerid);
+            setPoliceRank( targetid, rank );
+            trigger("onPoliceDutyOn", playerid);
+            setPlayerJob( targetid, POLICE_RANK[rank] );
+        } else {
+            setPoliceRank( targetid, rank );
+            setPlayerJob( targetid, POLICE_RANK[rank] );
+        }
     }
 });
 
