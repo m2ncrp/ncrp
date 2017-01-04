@@ -73,7 +73,7 @@ event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, s
             character.save();
 
             // add to container
-            trigger("onPlayerCharacterLoaded", playerid);
+            trigger("onPlayerCharacterLoaded", playerid, character);
         });
     }
 
@@ -112,7 +112,7 @@ event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, s
                 character.save();
 
                 // add to container
-                trigger("onPlayerCharacterLoaded", playerid);
+                trigger("onPlayerCharacterLoaded", playerid, character);
             });
         });
     }
@@ -132,7 +132,7 @@ event("onPlayerCharacterSelect", function(playerid, id) {
         }
 
         // load character
-        trigger("onPlayerCharacterLoaded", playerid);
+        trigger("onPlayerCharacterLoaded", playerid, character);
         dbg("character", "selected", getIdentity(playerid));
     });
 });
