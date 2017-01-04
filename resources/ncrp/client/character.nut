@@ -214,7 +214,6 @@ function changeModel () {
 	local model = modelsData[PData.Race][PData.Sex][switchModelID];
     triggerServerEvent("changeModel", model);
     togglePlayerControls( true );
-    log("changeModelGG");
 }
 
 function checkFields () {
