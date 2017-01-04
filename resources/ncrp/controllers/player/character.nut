@@ -1,3 +1,5 @@
+const CHARACTER_LIMIT = 2;
+
 /**
  * Handle character loadeded event
  */
@@ -7,10 +9,11 @@ event("onPlayerCharacterLoaded", function(playerid) {
 
     // trigger init events
     trigger("onPlayerConnect", playerid);
-    trigger("native:onPlayerSpawn", playerid); // ?? moved to later
+    trigger("native:onPlayerSpawn", playerid); // ?? move to later
 
     // and trigger start events
     delayedFunction(1500, function() {
+        if (DEBUG) dbg("player", "started", getIdentity(playerid));
         trigger("onServerPlayerStarted", playerid);
         trigger(playerid, "onServerClientStarted", VERSION);
         trigger(playerid, "onServerIntefaceCharacter", getLocalizedPlayerJob(playerid, "en"), getPlayerLevel(playerid) );
@@ -36,23 +39,84 @@ event("onPlayerCharacterLoaded", function(playerid) {
  * @param  {[type]} deposit   [description]
  * @return {[type]}           [description]
  */
-event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, sex, birthdate, cskin, migrate) {
-    if(migrate){
-        dbg("trying to migrate old character with", firstname, lastname, race, sex, birthdate, cskin, migrate);
+event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, sex, birthdate, cskin, migrateid) {
+    if (!isPlayerAuthed(playerid)) return dbg("character", "create with no auth", getIdentity(playerid));
+
+    // are we migrating character
+    if (migrateid) {
+        dbg("character", "migrating", migrateid, getIdentity(playerid), firstname, lastname, race, sex, birthdate, cskin);
+
+        Character.findOneBy({ id = migrateid, name = getAccountName(playerid) }, function(err, character) {
+            if (err || !character) {
+                return alert(playerid, "character.doesnotexist");
+            }
+
+            if (character.firstname != "") {
+                return alert(playerid, "character.alreadymigrated");
+            }
+
+            // TODO(inlife): add data validation
+
+            // update data
+            character.firstname = firstname;
+            character.lastname  = lastname;
+            character.race      = race;
+            character.sex       = sex;
+            character.birthdate = birthdate;
+            character.cskin     = cskin;
+            character.dskin     = cskin;
+
+            // save char
+            character.save();
+
+            // add to container
+            players.add(playerid, character);
+            trigger("onPlayerCharacterLoaded", playerid);
+        });
     }
-    else {
-        dbg("trying to create character with", firstname, lastname, race, sex, birthdate, cskin, migrate);
+
+    // or we are creating new
+    if(!migrate) {
+        dbg("character", "creating", null, getIdentity(playerid), firstname, lastname, race, sex, birthdate, cskin);
+
+        Character.findBy({ name = getAccountName(playerid) }, function(err, character) {
+            if (err || character.len() >= CHARACTER_LIMIT) {
+                return alert(playerid, "character.limitexceeded");
+            }
+
+            // TODO(inlife): add data validation
+
+            // update data
+            character.firstname = firstname;
+            character.lastname  = lastname;
+            character.race      = race;
+            character.sex       = sex;
+            character.birthdate = birthdate;
+            character.cskin     = cskin;
+            character.dskin     = cskin;
+
+            // save char
+            character.save();
+        });
+
+        // add to container
+        players.add(playerid, character);
+        trigger("onPlayerCharacterLoaded", playerid);
     }
 });
+
 /**
  * Event when player tries to load character
  */
 event("onPlayerCharacterSelect", function(playerid, id) {
-    Character.findOneBy({ id = id }, function(err, character) {
-        if (err || !character) return trigger(playerid, "onPlayerCharacterError", "no char");
+    Character.findOneBy({ id = id, name = getAccountName(playerid) }, function(err, character) {
+        if (err || !character) {
+            return alert(playerid, "character.doesnotexist");
+        }
 
-        // load characters
+        // load character
         players.add(playerid, character);
-        return trigger("onPlayerCharacterLoaded", playerid)
+        trigger("onPlayerCharacterLoaded", playerid)
+        dbg("character", "selected", getIdentity(playerid));
     });
 });

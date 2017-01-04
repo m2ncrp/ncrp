@@ -258,7 +258,10 @@ function dockerJobPutBox( playerid ) {
 
 
 event("updateMoveState", function(playerid, state) {
-    job_docker[playerid]["moveState"] = state;
+    if (playerid in job_docker) {
+        job_docker[playerid]["moveState"] = state;
+    }
+
     if(isDocker( playerid ) && isDockerHaveBox(playerid)) {
         if(state == 1 || state == 2) {
             setPlayerAnimStyle(playerid, "common", "default");
