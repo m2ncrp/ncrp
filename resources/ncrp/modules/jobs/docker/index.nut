@@ -210,6 +210,9 @@ function dockerJobTakeBox( playerid ) {
     if (isDockerHaveBox(playerid)) {
         return msg( playerid, "job.docker.havebox", DOCKER_JOB_COLOR );
     }
+    if(job_docker[playerid]["moveState"] == 1 ||  job_docker[playerid]["moveState"] == 2){
+        return  msg( playerid, "job.docker.presscapslock" );
+    }
 
     dockerJobRemovePrivateBlipText ( playerid );
 
