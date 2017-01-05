@@ -32,6 +32,10 @@ function get(x) {
     return (x in datastore) ? datastore[x] : 0.0;
 }
 
+function lerp(start, alpha, end) {
+    return (end - start) * alpha + start;
+}
+
 function onSecondChanged() {
     triggerServerEvent("onClientSendFPSData", getFPS());
 
@@ -193,39 +197,40 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
 
 // setup default animation
 local screenFade = {
-    current = 255,
     state   = "out",
+    current = 0,
     time    = 5000,
-    step    = 0.45,
 };
 
 addEventHandler("onClientFrameRender", function(isGUIdrawn) {
     if (!isGUIdrawn) return;
-    if ( screenFade.current > 0 ) {
-        dxDrawRectangle(0.0, 0.0, screenX, screenY, fromRGB(0, 0, 0, screenFade.current.tointeger()));
-    }
-});
 
-addEventHandler("onClientProcess", function() {
+    if ( screenFade.current > 0 ) {
+        local alpha = lerp(0, screenFade.current.tofloat() / screenFade.time.tofloat(), 255).tointeger();
+        dxDrawRectangle(0.0, 0.0, screenX, screenY, fromRGB(0, 0, 0, alpha));
+    }
+
     // transp -> black
-    if (screenFade.state == "in" && screenFade.current < 255) {
-        screenFade.current += screenFade.step;
+    if (screenFade.state == "in" && screenFade.current < screenFade.time) {
+        screenFade.current += screenFade.time.tofloat() / getFPS().tofloat();
     }
 
     // black -> transp
     if (screenFade.state == "out" && screenFade.current > 0) {
-        screenFade.current -= screenFade.step;
+        screenFade.current -= screenFade.time.tofloat() / getFPS().tofloat();
     }
 });
 
 addEventHandler("onServerFadeScreen", function(time, type) {
-    return;//disalbed for now
-    screenFade.state    = type;
-    screenFade.time     = time.tointeger();
-    screenFade.step     = 256 / (screenFade.time / 5);
+    log("calling fade" + type.tostring() + " with time " + time.tostring());
+    screenFade.state    = type.tostring();
+    screenFade.time     = time.tofloat();
     screenFade.current  = (type == "in") ? 0 : 255;
 });
 
+addEventHandler("onNativePlayerFadeout", function(time) {
+    fadeScreen(time.tofloat(), true);
+});
 
 /**
  * Handling client events
