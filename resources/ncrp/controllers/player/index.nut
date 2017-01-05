@@ -46,7 +46,7 @@ default_spawns <- [
 // ];
 
 local defaultSkins = [
-    10, 24, 42, 71, 72, 81, 149, 162
+    10, 42, 71, 72, 81, 149, 162
 ];
 local ticker = null;
 
