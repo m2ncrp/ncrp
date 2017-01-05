@@ -41,6 +41,8 @@ local charDescButton = array(2);
 local charactersCount;
 local migrateOldCharacter = false;
 
+local otherPlayerLocked = true;
+
 local modelsData =
 [
 	[[71,72],[118,135]],//Euro
@@ -89,13 +91,13 @@ function formatCharacterSelection () {
 		local sex = getSexFromId(characters[0].Sex);
 	    charDesc[0] = format("Имя: %s\nФамилия: %s\nРаса: %s\n",characters[0].Firstname,characters[0].Lastname,race);
 	    charDesc[0] += format("Пол: %s\nДата рождения: %s\n",sex,characters[0].Bdate.tostring());
-	    charDesc[0] += format("Денежных средств: %s$\nСчёт в банке: %s$",characters[0].money.tostring(),characters[0].deposit.tostring());
+	    charDesc[0] += format("Денежных средств: %.2f$\nСчёт в банке: %.2f$",characters[0].money.tostring(),characters[0].deposit.tostring());
 	    charDescButton[0] = "Выбрать персонажа";
 	    race = getRaceFromId(characters[1].Race);
 		sex = getSexFromId(characters[1].Sex);
 	    charDesc[1] = format("Имя: %s\nФамилия: %s\nРаса: %s\n",characters[1].Firstname,characters[1].Lastname,race);
 	    charDesc[1] += format("Пол: %s\nДата рождения: %s\n",sex,characters[1].Bdate.tostring());
-	    charDesc[1] += format("Денежных средств: %s$\nСчёт в банке: %s$",characters[1].money.tostring(),characters[1].deposit.tostring());
+	    charDesc[1] += format("Денежных средств: %.2f$\nСчёт в банке: %.2f$",characters[1].money.tostring(),characters[1].deposit.tostring());
 	    charDescButton[1] = "Выбрать персонажа";
 	}
 	if(charactersCount == 1){
@@ -108,7 +110,7 @@ function formatCharacterSelection () {
 		local sex = getSexFromId(characters[0].Sex);
 	    charDesc[0] = format("Имя: %s\nФамилия: %s\nРаса: %s\n",characters[0].Firstname,characters[0].Lastname,race);
 	    charDesc[0] += format("Пол: %s\nДата рождения: %s\n",sex,characters[0].Bdate.tostring());
-	    charDesc[0] += format("Денежных средств: %s$\nСчёт в банке: %s$",characters[0].money.tostring(),characters[0].deposit.tostring());
+	    charDesc[0] += format("Денежных средств: %.2f$\nСчёт в банке: %.2f$",characters[0].money.tostring(),characters[0].deposit.tostring());
 	    charDescButton[0] = "Выбрать персонажа";
 	    charDesc[1] = "Пустой слот\nЧтобы перейти к созданию\nНажмите кнопку";
 	    charDescButton[1] = "Создать персонажа";
@@ -267,7 +269,6 @@ function createCharacter() {
 	local model = modelsData[PData.Race][PData.Sex][switchModelID];
 	triggerServerEvent("onPlayerCharacterCreate",first,last,race,sex,bday,model,(migrateOldCharacter && "Id" in PData) ? PData.Id : 0);
 	log("migrating character: " + [first,last,race,sex,bday,model,(migrateOldCharacter && "Id" in PData) ? PData.Id : 0].reduce(@(a,b) a + " " + b));
-	delayedFunction(200, function() {showCursor(false);});
 }
 
 function selectCharacter (id) {
@@ -285,6 +286,8 @@ function hideCharacterCreation() {
 		label.clear();
 		radio.clear();
     	isCharacterCreationMenu = false;
+    	otherPlayerLocked = false
+    	delayedFunction(200, function() {showCursor(false);});
 	}
 }
 addEventHandler("hideCharacterCreation",hideCharacterCreation);
@@ -297,6 +300,7 @@ function hideCharacterSelection () {
 		button.clear();
 		label.clear();
 		radio.clear();
+		otherPlayerLocked = false;
 	    isCharacterSelectionMenu = false;
 	}
 }
@@ -362,3 +366,19 @@ addEventHandler( "onGuiElementMouseEnter",
         }
     }
 );
+
+addEventHandler("onClientFrameRender", function(a) {
+	// teleport players
+	if (!otherPlayerLocked || a) return;
+
+	foreach (idx, value in getPlayers()) {
+		if (idx == getLocalPlayer()) continue;
+		setPlayerPosition(idx, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z);
+	}
+
+	// if (window && guiGetAlpha(window) < 1.0) {
+	// 	guiSetAlpha(window, guiGetAlpha(window) + 0.01);
+	// }
+
+	showChat(false);
+});
