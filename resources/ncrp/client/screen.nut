@@ -32,6 +32,10 @@ function get(x) {
     return (x in datastore) ? datastore[x] : 0.0;
 }
 
+function lerp(start, alpha, end) {
+    return (end - start) * alpha + start;
+}
+
 function onSecondChanged() {
     triggerServerEvent("onClientSendFPSData", getFPS());
 
@@ -194,24 +198,26 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
 // setup default animation
 local screenFade = {
     state   = "out",
-    current = 255,
+    current = 0,
     time    = 5000,
 };
 
 addEventHandler("onClientFrameRender", function(isGUIdrawn) {
     if (!isGUIdrawn) return;
+
     if ( screenFade.current > 0 ) {
-        dxDrawRectangle(0.0, 0.0, screenX, screenY, fromRGB(0, 0, 0, screenFade.current.tointeger()));
+        local alpha = lerp(0, screenFade.current.tofloat() / screenFade.time.tofloat(), 255).tointeger();
+        dxDrawRectangle(0.0, 0.0, screenX, screenY, fromRGB(0, 0, 0, alpha));
     }
 
     // transp -> black
-    if (screenFade.state == "in" && screenFade.current < 255) {
-        screenFade.current += ((getFPS().tofloat() + 1.0) * 1000.0) / screenFade.time.tofloat() * 0.1;
+    if (screenFade.state == "in" && screenFade.current < screenFade.time) {
+        screenFade.current += screenFade.time.tofloat() / getFPS().tofloat();
     }
 
     // black -> transp
     if (screenFade.state == "out" && screenFade.current > 0) {
-        screenFade.current -= ((getFPS().tofloat() + 1.0) * 1000.0) / screenFade.time.tofloat() * 0.1;
+        screenFade.current -= screenFade.time.tofloat() / getFPS().tofloat();
     }
 });
 
