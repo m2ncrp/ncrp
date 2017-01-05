@@ -59,6 +59,10 @@ function getAccountId(playerid) {
     return (isPlayerAuthed(playerid) ? accounts[playerid].id : 0);
 }
 
+function getAccount(playerid) {
+    return (isPlayerAuthed(playerid) ? accounts[playerid] : null);
+}
+
 /**
  * Get account object by playerid or null
  * @param  {Integer} playerid
