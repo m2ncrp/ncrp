@@ -153,9 +153,9 @@ local telephones = [
     [ 259.641,   466.762, -20.1637  , "policeAlarm32", 2 ],
     [ 259.739,   333.152, -21.6012  , "policeAlarm33", 2 ],
     [ 259.682,   399.147, -21.5767  , "policeAlarm34", 2 ],
-    [ 255.309,   31.6091, -23.3979  , "policeAlarm35", 2 ]
+    [ 255.309,   31.6091, -23.3979  , "policeAlarm35", 2 ],
+    [  264.94,   841.694,   -20.38  , "policeAlarm36", 2 ],
 ];
-
 
 translation("en", {
 "telephone0"  : "Kingston. Near our prison"
@@ -276,6 +276,43 @@ translation("en", {
 "telephone.incorrect"   : "Incorrect number. Use: /call 555-XXXX"
 "telephone.notregister" : "This phone number isn't registered."
 
+    "policeAlarm1"      : "Riverside. Police Alarm"
+    "policeAlarm2"      : "Kingston. River Street, opposite to Kingston Stadium. Police Alarm"
+    "policeAlarm3"      : "Kingston. Center of River Street. Police Alarm"
+    "policeAlarm4"      : "Kingston. Sculpture of a rider. Police Alarm"
+    "policeAlarm5"      : "Kingston. Kingston Stadium. Police Alarm"
+    "policeAlarm6"      : "Hunters Point. North of Evergreen Street. Police Alarm"
+    "policeAlarm7"      : "Hunters Point. Near bar Lone Star. Police Alarm"
+    "policeAlarm8"      : "East Side. Near boulevard. Police Alarm"
+    "policeAlarm9"      : "West Side. Near fuel station. Police Alarm"
+    "policeAlarm10"     : "West Side. Near automotive repair shop. Police Alarm"
+    "policeAlarm11"     : "West Side. Near Linkoln Park. South-West. Police Alarm"
+    "policeAlarm12"     : "West Side. Near Linkoln Park. North-West. Police Alarm"
+    "policeAlarm13"     : "Uptown. Opposite to bus station. Police Alarm"
+    "policeAlarm14"     : "West Side. North. Police Alarm"
+    "policeAlarm15"     : "East Side. Avenue. Police Alarm"
+    "policeAlarm16"     : "East Side. Near Linkoln Park. North-East. Police Alarm"
+    "policeAlarm17"     : "East Side. Near Linkoln Park. East entrance. Police Alarm"
+    "policeAlarm18"     : "East Side. Near Linkoln Park. East. Police Alarm"
+    "policeAlarm19"     : "East Side. Near Linkoln Park. South-East. Police Alarm"
+    "policeAlarm20"     : "East Side. Corner near automotive repair shop. Police Alarm"
+    "policeAlarm21"     : "East Side. Taxi Parking. Police Alarm"
+    "policeAlarm22"     : "East Side. Corner road to Little Italy. Police Alarm"
+    "policeAlarm23"     : "Little Italy. Near Freddy's Bar. Police Alarm"
+    "policeAlarm24"     : "Little Italy. Center. Police Alarm"
+    "policeAlarm25"     : "Little Italy. Near Joe's Apartment. Police Alarm"
+    "policeAlarm26"     : "Little Italy. East. Near fuel station. Police Alarm"
+    "policeAlarm27"     : "Little Italy. East. Police Alarm"
+    "policeAlarm28"     : "Little Italy. East. Police Alarm"
+    "policeAlarm29"     : "Little Italy. East. Near bus stop. Police Alarm"
+    "policeAlarm30"     : "Little Italy. Near Maria Agnello's Apartment. Police Alarm"
+    "policeAlarm31"     : "Little Italy. Border with Chinatown. Police Alarm"
+    "policeAlarm32"     : "Chinatown. West. Police Alarm"
+    "policeAlarm33"     : "Chinatown. Center. Police Alarm"
+    "policeAlarm34"     : "Chinatown. Subway. Police Alarm"
+    "policeAlarm35"     : "Oyster Bay. Near gentlemen's club Garden of Eden. Police Alarm"
+    "policeAlarm36"     : "Little Italy. Near Scaletta Apartment. Police Alarm"
+
 });
 
 local numbers = [
@@ -298,7 +335,7 @@ event("onServerStarted", function() {
     foreach (phone in telephones) {
         if (phone.len() == 5) {
             if (phone[4] == 2) {
-                create3DText ( phone[0], phone[1], phone[2]+0.35, "POLICE ALARM", CL_MALIBU );
+                create3DText ( phone[0], phone[1], phone[2]+0.35, "POLICE ALARM" /* localize(phone[3], [], "en") */, CL_MALIBU );
                 create3DText ( phone[0], phone[1], phone[2]+0.20, "/police", CL_WHITE.applyAlpha(150), 0.3 );
                 continue;
             }
@@ -318,7 +355,7 @@ event("onPlayerConnect", function(playerid){
 
 function phoneCreatePrivateBlipText(playerid, x, y, z, text, cmd) {
     return [
-            createPrivateBlip (playerid, x, y, ICON_RED, 200.0)
+            createPrivateBlip (playerid, x, y, ICON_RED, 1000.0)
             //createPrivate3DText (playerid, x, y, z+0.35, text, CL_RIPELEMON, 20 ),
             //createPrivate3DText (playerid, x, y, z+0.20, cmd, CL_WHITE.applyAlpha(150), 0.3 ),
             
