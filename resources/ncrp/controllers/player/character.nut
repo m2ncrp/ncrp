@@ -8,6 +8,9 @@ event("onPlayerCharacterLoaded", function(playerid, character) {
     character.playerid = playerid;
     players.add(playerid, character);
 
+    //Hide character creation gui
+    trigger(playerid, "hideCharacterCreation");
+
     // trigger init events
     trigger("onPlayerConnect", playerid);
     trigger("native:onPlayerSpawn", playerid); // ?? move to later
@@ -19,7 +22,6 @@ event("onPlayerCharacterLoaded", function(playerid, character) {
         trigger(playerid, "onServerClientStarted", VERSION);
         trigger(playerid, "onServerIntefaceCharacter", getLocalizedPlayerJob(playerid, "en"), getPlayerLevel(playerid) );
         trigger(playerid, "onServerInterfaceMoney", getPlayerMoney(playerid));
-        screenFadeout(playerid, 500);
 
         // try to undfreeze player
         freezePlayer(playerid, false);
@@ -72,9 +74,6 @@ event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, s
             // save char
             character.save();
 
-            //Hide character creation gui
-            trigger(playerid, "hideCharacterCreation");
-
             // add to container
             trigger("onPlayerCharacterLoaded", playerid, character);
         });
@@ -113,9 +112,6 @@ event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, s
 
                 // save char
                 character.save();
-
-                //Hide character creation gui
-                trigger(playerid, "hideCharacterCreation");
 
                 // add to container
                 trigger("onPlayerCharacterLoaded", playerid, character);
