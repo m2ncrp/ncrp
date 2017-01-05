@@ -17,12 +17,12 @@ local button;
 local oldCursorState = false;
 
 addEventHandler("onAlert", function (message) {
-	if(window && !guiIsVisible(window) ){
+	if (!window || (window && guiIsVisible(window))){
 		oldCursorState = isCursorShowing();
 	}
 	if(window){
-		guiSetText(label, message.tostring());
 		guiSetVisible(window,true);
+		guiSetText(label, message.tostring());
 	}
 	else{
 		window = guiCreateElement( ELEMENT_TYPE_WINDOW, "Ошибка!", screen[0]/2 - 100, screen[1]/2 - 50, 200.0, 100.0 );
@@ -38,6 +38,7 @@ addEventHandler("onAlert", function (message) {
 
 addEventHandler( "onGuiElementClick",function(element){
 	if(element == button){
+		guiSetText(label, "");
 		guiSetVisible(window,false);
 		delayedFunction(200, function() {
 			showCursor(oldCursorState);
