@@ -1,5 +1,7 @@
 DEBUG   <- false;
 VERSION <- "0.0.000";
+MOD_HOST <- "139.59.142.46";
+MOD_PORT <- 7790;
 
 // initialize libraries
 dofile("resources/ncrp/libraries/index.nut", true);
@@ -29,36 +31,13 @@ include("helpers/distance.nut");
 include("helpers/color.nut");
 include("helpers/base64.nut");
 include("helpers/urlencode.nut");
+include("helpers/table.nut");
 
 // load controllers
-include("controllers/command");
-include("controllers/event");
-include("controllers/translator");
-include("controllers/database");
-include("controllers/keyboard");
-include("controllers/waypoints");
-include("controllers/time");
-include("controllers/auth");
-include("controllers/chat");
-include("controllers/weather");
-include("controllers/world");
-include("controllers/player");
-include("controllers/money");
-include("controllers/vehicle");
-include("controllers/utils");
-include("controllers/screen");
-include("controllers/admin");
-include("controllers/statistics");
-include("controllers/extrasync");
-include("controllers/business");
-include("controllers/tips");
+include("controllers");
 
 // load modules
-include("modules/metro");
-include("modules/jobs");
-include("modules/organizations");
-include("modules/shops");
-include("modules/rentcar");
+include("modules/index.nut");
 
 // translations
 include("translations/en.nut");
@@ -111,7 +90,7 @@ event("native:onScriptInit", function() {
     log(format("[core] running version %s...", VERSION));
 
     // setup default values
-    setGameModeText( "NC-RP" );
+    setGameModeText( VERSION );
     setMapName( "Empire Bay" );
 
     // trigger pre init events
@@ -122,13 +101,21 @@ event("native:onScriptInit", function() {
 
     // triggerring load events
     trigger("onServerStarted");
+
+    dbg("server", "server started");
+});
+
+event("onServerStarted", function() {
+    if (!DEBUG) {
+        webRequest(HTTP_TYPE_GET, MOD_HOST, "/discord?type=info&data=server_restarted", function(a,b,c) {}, MOD_PORT);
+    }
 });
 
 event("native:onScriptExit", function() {
     trigger("onServerStopping");
     trigger("onServerStopped");
 
-    ::print("\n\n");
+    dbg("server", "server stopped");
 });
 
 event("native:onServerShutdown", function() {
@@ -137,6 +124,7 @@ event("native:onServerShutdown", function() {
 });
 
 event("native:onPlayerConnect", function(playerid, name, ip, serial) {
+    dbg("player", "conenct", name, playerid, ip, serial);
     trigger("onPlayerConnectInit", playerid, name, ip, serial);
 
     if (!IS_AUTHORIZATION_ENABLED || DEBUG) {
@@ -184,6 +172,14 @@ proxy("onClientScriptError",        "onClientScriptError"               );
 proxy("onPlayerTeleportRequested",  "onPlayerTeleportRequested"         );
 proxy("onClientDebugToggle",        "onClientDebugToggle"               );
 proxy("onClientSendFPSData",        "onClientSendFPSData"               );
+proxy("onPlayerPlaceEnter",         "native:onPlayerPlaceEnter"         );
+proxy("onPlayerPlaceExit",          "native:onPlayerPlaceEexit"         );
+
+// Klo's playground
+proxy("RentCar",                    "RentCar"                           );
+proxy("loginGUIFunction",           "loginGUIFunction"                  );
+proxy("registerGUIFunction",        "registerGUIFunction"               );
+proxy("updateMoveState",            "updateMoveState"                   );
 
 /**
  * Debug export

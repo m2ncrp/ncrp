@@ -57,7 +57,7 @@ event("onPlayerConnect", function(playerid, name, ip, serial ){
 
 event("onServerPlayerStarted", function( playerid ){
     if(players[playerid]["job"] == "porter") {
-        job_porter[playerid]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_TAKEBOX_X, PORTER_JOB_TAKEBOX_Y, PORTER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "/porter take");
+        job_porter[playerid]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_TAKEBOX_X, PORTER_JOB_TAKEBOX_Y, PORTER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "press E");
     }
 });
 
@@ -139,7 +139,7 @@ function porterJob( playerid ) {
         // create private blip job
         // createPersonalJobBlip( playerid, PORTER_JOB_X, PORTER_JOB_Y);
 
-        job_porter[playerid]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_TAKEBOX_X, PORTER_JOB_TAKEBOX_Y, PORTER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "/porter take");
+        job_porter[playerid]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_TAKEBOX_X, PORTER_JOB_TAKEBOX_Y, PORTER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "press E");
 
     });
 }
@@ -196,7 +196,7 @@ function porterJobTakeBox( playerid ) {
     //setPlayerHandModel(playerid, 1, 98); // put box in hands
     msg( playerid, "job.porter.tookbox", PORTER_JOB_COLOR );
 
-    job_porter[playerid]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_PUTBOX_X, PORTER_JOB_PUTBOX_Y, PORTER_JOB_PUTBOX_Z, "PUT BOX HERE", "/porter put");
+    job_porter[playerid]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_PUTBOX_X, PORTER_JOB_PUTBOX_Y, PORTER_JOB_PUTBOX_Z, "PUT BOX HERE", "press E");
 
 }
 
@@ -223,5 +223,5 @@ function porterJobPutBox( playerid ) {
     msg( playerid, "job.porter.nicejob", PORTER_SALARY, PORTER_JOB_COLOR );
     addMoneyToPlayer(playerid, PORTER_SALARY);
 
-    job_porter[playerid]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_TAKEBOX_X, PORTER_JOB_TAKEBOX_Y, PORTER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "/porter take");
+    job_porter[playerid]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_TAKEBOX_X, PORTER_JOB_TAKEBOX_Y, PORTER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "press E");
 }

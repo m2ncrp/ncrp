@@ -1,22 +1,27 @@
 // usage: /bus job
+/*
 cmd("bus", "job", function(playerid) {
     busJob(playerid);
 });
-
+*/
 // usage: /bus job leave
+/*
 cmd("bus", ["job", "leave"], function(playerid) {
     busJobLeave(playerid);
 });
-
+*/
 // usage: /bus route list
+/*
 cmd("bus", ["route", "list"], function(playerid) {
     busJobRoutes(playerid);
 });
-
+*/
 // usage: /bus route 5
+/*
 cmd("bus", "route", function(playerid, route = null) {
     busJobSelectRoute(playerid, toInt(route));
 });
+*/
 
 // usage: /bus ready
 /*
@@ -26,31 +31,29 @@ cmd("bus", "ready", function(playerid) {
 */
 
 // usage: /bus stop
+/*
 cmd("bus", "stop", function(playerid) {
     busJobStop(playerid);
 });
+*/
+// cmd("bus", "enter", function(playerid, busid) {
+//     foreach (idx, value in players) {
+//         triggerClientEvent(idx, "onServerPlayerBusEnter", playerid, busid.tointeger());
+//     }
+// });
 
-cmd("bus", "enter", function(playerid, busid) {
-    foreach (idx, value in players) {
-        triggerClientEvent(idx, "onServerPlayerBusEnter", playerid, busid.tointeger());
-    }
-});
-
-cmd("bus", "exit", function(playerid, busid) {
-    foreach (idx, value in players) {
-        triggerClientEvent(idx, "onServerPlayerBusExit", playerid, busid.tointeger());
-    }
-});
+// cmd("bus", "exit", function(playerid, busid) {
+//     foreach (idx, value in players) {
+//         triggerClientEvent(idx, "onServerPlayerBusExit", playerid, busid.tointeger());
+//     }
+// });
 
 function busJobHelp ( playerid ) {
     local title = "job.bus.help.title";
     local commands = [
-        { name = "/bus job",        desc = "job.bus.help.job" },
-        { name = "/bus job leave",  desc = "job.bus.help.jobleave" },
-        { name = "/bus route list", desc = "job.bus.help.routelist" },
-        { name = "/bus route ID", desc = "job.bus.help.route" },
-    //       { name = "/bus ready",      desc = "job.bus.help.ready" },
-        { name = "/bus stop",       desc = "job.bus.help.busstop" }
+        { name = "job.bus.help.job",         desc = "job.bus.help.jobtext"           },
+        { name = "job.bus.help.jobleave",    desc = "job.bus.help.jobleavetext"      },
+        { name = "job.bus.help.busstop",     desc = "job.bus.help.busstoptext"    }
     ];
     msg_help(playerid, title, commands);
 }

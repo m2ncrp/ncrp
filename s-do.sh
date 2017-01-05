@@ -117,7 +117,7 @@ checkCommit() {
 		# {url}: http://stackoverflow.com/questions/7693249/commits-since-a-certain-commit-number
 	# git rev-list <since_hash>..HEAD
 	commitCount=$(git rev-list $commitHash..HEAD --count)
-	echo "Since "$commitHash" "$commitCount" commits more!"
+	echo "Since "$commitHash" appears "$commitCount" commits more!"
 
 	# No need to output same minor twice if there's no new commits
 	if [[ $commitCount != 0 ]]; then

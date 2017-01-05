@@ -12,6 +12,20 @@ function getNearStationIndex(playerid) {
     return "faraway";
 }
 
+
+function getNearestStation(playerid) {
+    local min = null;
+    local stn = null;
+    foreach(index, station in metroInfos) {
+        local dist = getDistanceToPoint(playerid, station[0], station[1], station[2]);
+        if(dist < min || !min) {
+            min = dist;
+            stn = station;
+        }
+    }
+    return stn;
+}
+
 /**
  * Return name of station by given ID
  * @param  {uint} stationID
@@ -163,6 +177,9 @@ function metroShowListAvaliableStations( playerid ) {
 function metroShowListStationsIncludingUnavaliable( playerid ) {
     msg(playerid, "==================================", CL_HELP_LINE);
     msg(playerid, "metro.listStations.title", CL_HELP_TITLE);
+
+    showNearestMetroBlip(playerid);
+
     foreach (index, station in metroInfos) {
         if ( isStationAvaliable(index) ) {
             msg(playerid, "metro.listStations.station", [(index+1), station[3]], CL_WHITE);
@@ -171,4 +188,17 @@ function metroShowListStationsIncludingUnavaliable( playerid ) {
             msg(playerid, "metro.listStations.station.closed", [(index+1), station[3]], CL_THUNDERBIRD);
         }
     }
+
+    msg(playerid, "metro.station.nearest.showblip", [getNearestStation(playerid)[3]]);
+}
+
+
+
+function showNearestMetroBlip( playerid ) {
+    local st = getNearestStation(playerid);
+    local sblip_hash = createPrivateBlip(playerid, st[0], st[1], ICON_YELLOW, 4000.0);
+
+    delayedFunction(20000, function() {
+        removeBlip( sblip_hash );
+    });
 }

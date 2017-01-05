@@ -3,6 +3,7 @@
 /modules
 /webserver
 /backups
+/node_modules
 
 # discord bot
 /additional/discord/node_modules
@@ -14,6 +15,7 @@
 *.txt
 !xml.exe
 bans.xml
+*.dll
 
 # databases
 *.db
@@ -30,3 +32,4 @@ positions.txt
 
 # env
 .env
+.mysql

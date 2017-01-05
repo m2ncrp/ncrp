@@ -10,7 +10,10 @@ class Account extends ORM.Entity {
         ORM.Field.String({ name = "serial" }),
         ORM.Field.Float ({ name = "money" }),
         ORM.Field.String({ name = "locale", value = "en" }),
-        ORM.Field.String({ name = "layout", value = "qwerty "}),
+        ORM.Field.String({ name = "layout", value = "qwerty" }),
+        ORM.Field.Integer({ name = "created", value = 0 }),
+        ORM.Field.Integer({ name = "logined", value = 0 }),
+        ORM.Field.String ({ name = "email", value = "" })
     ];
 
     /**
@@ -33,7 +36,7 @@ class Account extends ORM.Entity {
     /**
      * Registers current object (this)
      * as logined using playerid
-     *s
+     *
      * @param  {Integer}  playerid
      */
     function addSession(playerid) {

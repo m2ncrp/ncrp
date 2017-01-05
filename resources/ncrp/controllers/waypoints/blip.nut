@@ -85,7 +85,7 @@ event("onServerPlayerStarted", function(playerid) {
  * @param  {Float} distance
  * @return {Integer} blipid
  */
-function createBlip(x, y, icon, distance = 50.0) {
+function createBlip(x, y, icon, distance = 75.0) {
     return addBlipForPlayers( instantiateBlip(x, y, icon, distance, false) );
 }
 
@@ -101,7 +101,7 @@ function createBlip(x, y, icon, distance = 50.0) {
  * @param  {Float} distance
  * @return {Integer} blipid
  */
-function createPrivateBlip(playerid, x, y, icon, distance = 50.0) {
+function createPrivateBlip(playerid, x, y, icon, distance = 75.0) {
     return addBlipForPlayer( instantiateBlip(x, y, icon, distance, true), playerid );
 }
 

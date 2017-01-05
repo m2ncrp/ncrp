@@ -1,28 +1,36 @@
-# ncrp roadmap
+# ncrp
 
-Relise v0.1.0 should contain:
+Hey there. If you see this - it means you are awesome!
 
-0. Add different player types
+## Installation
 
-1. Login system for players
+Clone the repo:
 
-2. Chats with different settings and colors
+```
+$ git clone git@github.com:Inlife/ncrp.git
+```
 
-3. Player stat system
+Get the server (windows):
 
-4. Player wallets for big money
+```
+$ wget http://download.mafia2-online.com/versions/01-RC4/public/m2online-svr.exe
+```
 
-5. Lot of work types to gain money by players. At least simpliest: take at point A, go to point B.
+Start it!
 
-6. Rent, buy or sell vehicles
+```sh
+./m2online-svr.exe
+```
 
-7. Simpliest police department
+## Database
+
+Database is inside `/resources/ncrp/scriptfiles/ncrp.db` (SQLite).
+All tables are created automatically.
+
+If you want to swtich to MySQL, copy file `default.mysql` to `.mysql` and change settings in the new file. Also dont forget to create database! :D
 
 
+## Environments
 
-Relise v0.2.0 should contain:
-
-1. More complicated work types, such as taxi or police duty.
-
-2. 3d text and labels
-
+By default server is running in the "debug" environment. Which means that code inside can be checked with `if (DEBUG) {` statement, and can be branched accordingly.
+If you want to switch server to "production" env, open file `.env` and change letter `d` to `p`, and save it. Now your server is in production env! :p

@@ -9,7 +9,7 @@
 local WEATHERS = {
     SUMMER = [
         // This is between the hours of 00:00 and 02:00 (night)
-        [0, 2, ["DT_RTRclear_day_nigh", "DT07part04night_bordel", "DTFreerideNight", "DT14part11", "DT11part05", "DT_RTRrainy_day_night", "DT10part03Subquest", "DT_RTRfoggy_day_night"] ],
+        [0, 2, ["DT07part04night_bordel", "DTFreerideNight", "DT14part11", "DT11part05", "DT_RTRrainy_day_night", "DT10part03Subquest", "DT_RTRfoggy_day_night"] ], // remove "DT_RTRclear_day_nigh"
 
         // This is between the hours of 03:00 and 05:00 (night / early morning)
         [3, 5, ["DT_RTRclear_day_early_morn1", "DT_RTRfoggy_day_early_morn1", "DT_RTRrainy_day_early_morn"] ],
@@ -25,23 +25,34 @@ local WEATHERS = {
         [16, 17, ["DT13part02", "DT_RTRclear_day_late_afternoon", "DT01part01sicily_svit" "DT_RTRrainy_day_late_afternoon", "DT11part03", "DT_RTRfoggy_day_late_afternoon"] ],
         [18, 18, ["DT08part03crazyhorse", "DT07part03prepadrestaurcie", "DT_RTRrainy_day_evening", "DT_RTRfoggy_day_late_afternoon"] ],
         [19, 19, ["DT05part06Francesca", "DT10part03Evening", "DT14part7_10", "DT11part04", "DT_RTRfoggy_day_evening"] ],
-        [20, 23, ["DT_RTRclear_day_evening", "DT08part04subquestwarning", "DT_RTRclear_day_late_even", "DT_RTRrainy_day_late_even", "DT_RTRfoggy_day_late_even", "DT01part02sicily"] ],
+        [20, 23, ["DT_RTRclear_day_evening", "DT08part04subquestwarning", "DT_RTRclear_day_late_even", "DT_RTRrainy_day_late_even", "DT_RTRfoggy_day_late_even"] ],
     ],
 
     WINTER = [
         [0, 7, ["DTFreeRideNightSnow", "DT04part02"] ],
         [8, 11, ["DT05part01JoesFlat", "DT03part01JoesFlat", "DTFreeRideDaySnow"] ],
-        [12, 13, ["DT05part02FreddysBar", "DTFreeRideDayWinter", "DT05part04Distillery", "DT04part01JoesFlat"] ],
-        [14, 15, ["DT02part01Railwaystation", "DT05part03HarrysGunshop", "DT05part05ElGreco"] ],
+        [12, 13, ["DT05part02FreddysBar", "DTFreeRideDayWinter", "DT05part04Distillery", "DT04part01JoesFlat", "DT05part04Distillery", "DT05part04Distillery"] ],
+        [14, 15, ["DT02part01Railwaystation", "DT05part03HarrysGunshop", "DT05part05ElGreco", "DT05part04Distillery"] ],
         [16, 17, ["DT02part02JoesFlat", "DT02part04Giuseppe", "DT03part02FreddysBar"] ],
         [18, 20, ["DT05Distillery_inside", "DT02part05Derek", "DT02part03Charlie"] ],
         [21, 23, ["DT02NewStart1", "DT03part03MariaAgnelo", "DT02NewStart2", "DT03part04PriceOffice"] ],
     ]
 };
 
-local SERVER_IS_SUMMER = true;
+/*
+    Bugs weather
+
+*/
+
+
+
+local SERVER_IS_SUMMER = false;
 local WEATHER_CHANGE_TRIGGER = 0;
 local SERVER_WEATHER = null;
+
+function isSummer() {
+    return SERVER_IS_SUMMER;
+}
 
 function setWeather(name) {
     playerList.each(function(playerid) {
@@ -54,6 +65,10 @@ function setWeather(name) {
 function resetWeather() {
     WEATHER_CHANGE_TRIGGER = 0;
 }
+
+event("onServerStarted", function() {
+    setSummer(SERVER_IS_SUMMER);
+});
 
 event("onServerSecondChange", function() {
     WEATHER_CHANGE_TRIGGER--;
@@ -90,7 +105,7 @@ event("onServerSecondChange", function() {
             setWeather(randWeather);
             // Change SERVER_WEATHER string
             SERVER_WEATHER = randWeather;
-
+        dbg("Weather: "+SERVER_WEATHER);
             // Generate a new number when weather change will happen again
             // New count is between 20 and 75 in-game minutes.
             WEATHER_CHANGE_TRIGGER = random(20 * WORLD_SECONDS_PER_MINUTE, 70 * WORLD_SECONDS_PER_MINUTE);
@@ -105,4 +120,3 @@ event("onServerSecondChange", function() {
 event("onPlayerSpawn", function(playerid) {
     trigger(playerid, "onServerWeatherSync", SERVER_WEATHER);
 });
-

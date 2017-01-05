@@ -1,4 +1,18 @@
 /**
+ * Move player to a specified place from his coordinates
+ *
+ * @param  {Integer} playerid
+ * @param  {Number} x
+ * @param  {Number} y
+ * @param  {Number} z
+ * @return {Boolean}
+ */
+function movePlayer(playerid, x = 0.0, y = 0.0, z = 0.0) {
+    local pos = getPlayerPosition(playerid.tointeger());
+    return setPlayerPosition(playerid.tointeger(), pos[0] + x.tofloat(), pos[1] + y.tofloat(), pos[2] + z.tofloat());
+}
+
+/**
  * Check is player sit in a valid vehicle
  * @param  {int}  playerid
  * @param  {int}  modelid  - model vehicle
@@ -212,4 +226,53 @@ function setPlayerBeenDead(playerid) {
 
 function sendPlayerNotification(playerid, type, message) {
     return trigger(playeridm "onServerAddedNofitication", type, message);
+}
+
+// storage for mutes
+local mutes = [];
+
+/**
+ * Set particular player mute
+ * @param {Integer} playerid
+ * @param {Boolean} state
+ */
+function setPlayerMuted(playerid, state) {
+    if (state && mutes.find(playerid) == null) {
+        return mutes.push(playerid);
+    }
+
+    if (!state && mutes.find(playerid) != null) {
+        return mutes.remove(mutes.find(playerid));
+    }
+
+    return false;
+}
+
+/**
+ * Check is player muted
+ * @param  {Integer} playerid
+ * @return {Boolean}
+ */
+function isPlayerMuted(playerid) {
+    return mutes.find(playerid) != null;
+}
+
+function getPlayerToggle(playerid) {
+    return players[playerid]["toggle"];
+}
+
+function setPlayerToggle(playerid, to) {
+    players[playerid]["toggle"] = to;
+    // togglePlayerControls(playerid, to);
+    freezePlayer(playerid, to);
+}
+
+
+function getPlayerState(playerid) {
+    return players[playerid]["state"];
+}
+
+function setPlayerState(playerid, to) {
+    players[playerid]["state"] = to;
+    trigger("onPlayerStateChange", playerid);
 }

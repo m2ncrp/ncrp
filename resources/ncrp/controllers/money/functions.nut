@@ -58,12 +58,20 @@ function sendMoney(playerid, targetid = null, amount = null) {
     if ( !isPlayerConnected(targetid) ) {
         return msg(playerid, "There's no such person on server!");
     }
+
+    if(getPlayerState( playerid ) != "free" || getPlayerState( targetid ) != "free") {
+        return msg(playerid, "You can't send money." );
+    }
+
     if (checkDistanceBtwTwoPlayersLess(playerid, targetid, 2.0)) {
         if(canMoneyBeSubstracted(playerid, amount)) {
             subMoneyToPlayer(playerid, amount);
             addMoneyToPlayer(targetid, amount);
             msg(playerid, "You've given $" + amount + " to " + getPlayerName(targetid) + " (#" + targetid + "). Your balance: $" + getPlayerBalance(playerid) );
             msg(targetid, "You've taken $" + amount + " from " + getPlayerName(playerid) + " (#" + playerid + "). Your balance: $" + getPlayerBalance(targetid) );
+
+            dbg("money", "send", getPlayerName(playerid), getPlayerName(targetid), amount);
+            statisticsPushText("money", playerid, format("to: %s, amount: %.2f", getPlayerName(targetid), amount), "send");
         } else {
             msg(playerid, "Not enough money to give!");
             msg(targetid, getPlayerName(playerid) + " (#" + playerid + ") can't give you money!");

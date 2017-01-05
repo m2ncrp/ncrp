@@ -21,26 +21,30 @@ local vehiclePositions = [
  */
 local carPrices = [
     [   // diamond motors
-        // { modelid = 1 , price = 5000, title = "Berkley Kingfisher"  },  // berkley_kingfisher_pha
         { modelid = 9 , price = 2740, title = "Houston Wasp"        },  // houston_wasp_pha
-        { modelid = 22, price = 2100, title = "Potomac Indian"      },  // potomac_indian
+       // { modelid = 22, price = 2100, title = "Potomac Indian"      },  // potomac_indian
         { modelid = 23, price = 2350, title = "Quicksilver Windsor" },  // quicksilver_windsor_pha
-        { modelid = 50, price = 1475, title = "Culver Empire"       },
+        { modelid = 44, price = 1700, title = "Smith Mainline"      },  // smith mainline
         { modelid = 48, price = 1500, title = "Smith Wagon"         },  // smith_wagon_pha
-        { modelid = 43, price = 450 , title = "Smith Coupe"         },  // smith_coupe
+        { modelid = 50, price = 1475, title = "Culver Empire"       },
         { modelid = 53, price = 770 , title = "Walter Coupe"        },  // walter_coupe
-        { modelid = 25, price = 730 , title = "Shubert 38"          },  // shubert_38
+        { modelid = 47, price = 530,  title = "Smith V8" },  // quicksilver_windsor_pha
+        { modelid = 43, price = 450 , title = "Smith Coupe"         },  // smith_coupe
+       // { modelid = 25, price = 730 , title = "Shubert 38"          },  // shubert_38
+
     ],
     [   // bad guy
-        { modelid = 10, price = 9000, title = "ISW 508"             },
-        { modelid = 0 , price = 4995, title = "Ascot Bailey S200"   },
+       // { modelid = 10, price = 9000, title = "ISW 508"             },
         { modelid = 18, price = 5170, title = "Lassiter Series 75 Hollywood" },
-        { modelid = 15, price = 3500, title = "Lassiter Series 69"  },
+        { modelid = 1 , price = 5000, title = "Berkley Kingfisher"  },
+        { modelid = 0 , price = 4995, title = "Ascot Bailey S200"   },
+       // { modelid = 15, price = 3500, title = "Lassiter Series 69"  },
+        { modelid = 29, price = 3500, title = "Shubert Frigate"       },
         { modelid = 14, price = 3200, title = "Jefferson Provincial"},
         { modelid = 45, price = 2700, title = "Smith Thunderbolt"   },
-        { modelid = 41, price = 2140, title = "Smith Custom 200"    },
         { modelid = 28, price = 2300, title = "Shubert Beverly"     },
-        // { modelid = 52, price = 2450, title = "Walker Rocket"       },
+        { modelid = 41, price = 2140, title = "Smith Custom 200"    },
+       // { modelid = 52, price = 2450, title = "Walker Rocket"       },
     ]
 ];
 

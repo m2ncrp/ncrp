@@ -97,3 +97,11 @@ function isVehilclePlateRegistered(plateText) {
 function getVehicleByPlateText(plateText) {
     return (isVehilclePlateRegistered(plateText)) ? plateRegistry[plateText] : null;
 }
+
+/**
+ * Return table with platenumber -> vehicleid
+ * @return {Table}
+ */
+function getRegisteredVehiclePlates() {
+    return plateRegistry;
+}

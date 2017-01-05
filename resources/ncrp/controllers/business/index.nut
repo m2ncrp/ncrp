@@ -30,6 +30,6 @@ translation("en", {
 event("onServerStopping", saveBusinesses);
 event("onServerAutosave", saveBusinesses);
 
-event("onServerHourChanged", function() {
+event("onServerHourChange", function() {
     return calculateBusinessIncome();
 });

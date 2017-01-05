@@ -49,7 +49,7 @@ CL_LYNCH            <- rgb( 108,  122, 137 );
 CL_SILVERSAND       <- rgb( 189,  195, 199 );
 CL_CASCADE          <- rgb( 149,  165, 166 );
 
-CL_GRAY             <- CL_LYNCH;
+CL_GRAY             <- CL_CASCADE;
 
 CL_ERROR            <- CL_FLAMINGO;
 CL_WARNING          <- CL_ECSTASY;

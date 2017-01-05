@@ -1,4 +1,39 @@
 /**
+ * Storage for current player's chat slots
+ * @type {Array}
+ */
+local chatSlots = {};
+
+/**
+ * Set current player chat slot id
+ * @param {Integer} playerid
+ * @param {Integer} slot
+ */
+function setPlayerChatSlot(playerid, slot) {
+    chatSlots[playerid] <- slot;
+    return trigger(playerid, "onServerChatSlotRequested", slot);
+}
+
+/**
+ * Set current player slot id
+ * @param  {Integer} playerid
+ * @return {Integer}
+ */
+function getPlayerChatSlot(playerid) {
+    if (playerid in chatSlots) {
+        return chatSlots[playerid];
+    }
+
+    return 0;
+}
+
+event("onPlayerDisconnect", function(playerid, reason) {
+    if (playerid in chatSlots) {
+        delete chatSlots[playerid];
+    }
+});
+
+/**
  * Add a comment to this line
  * Send message to all players in radius
  * @param  {int}        sender
@@ -15,6 +50,35 @@ function inRadiusSendToAll(sender, message, radius, color = 0) {
                 msg(player, message, color);
             } else {
                 msg(player, message);
+            }
+        }
+    }
+}
+
+
+// Fix: send message in player locale, not only sender locale
+function sendLocalizedMsgToAll(sender, phrase_key, message, radius, color = 0) {
+    local players = playerList.getPlayers();
+    foreach(player in players) {
+        if ( isBothInRadius(sender, player, radius) ) {
+            if (color) {
+                msg(player, localize(phrase_key, [getAuthor( sender ), message], getPlayerLocale(player)), color);
+            } else {
+                msg(player, localize(phrase_key, [getAuthor( sender ), message], getPlayerLocale(player)));
+            }
+        }
+    }
+}
+
+// Fix: send message in player locale, not only sender locale
+function sendMsgToAllInRadius(sender, message, params, radius, color = 0) {
+    local players = playerList.getPlayers();
+    foreach(player in players) {
+        if ( isBothInRadius(sender, player, radius) ) {
+            if (color) {
+                msg(player, message, params, color);
+            } else {
+                msg(player, message, params);
             }
         }
     }
@@ -59,16 +123,29 @@ function getAuthor2( playerid ) {
     return getPlayerName( playerid.tointeger() ) + "(#" + playerid.tostring() + ")";
 }
 
+/**
+ * Return string "player_name(#playerid)"
+ * @param  {int}    playerid
+ * @return {string}
+ */
+function getAuthor3( playerid ) {
+    return getPlayerName( playerid.tointeger() ) + "(" + playerid.tostring() + ")";
+}
+
 function chatcmd(names, callback)  {
     cmd(names, function(playerid, ...) {
-        local text = concat(vargv);
+        local text = (concat(vargv));
 
-        if (!text || text.len() < 1) {
+        if (!text || strip(text).len() < 1) {
             return msg(playerid, "[INFO] You can't send an empty message.", CL_YELLOW);
         }
 
+        if (isPlayerMuted(playerid)) {
+            return;
+        }
+
         // call registered callback
-        return callback(playerid, text);
+        return callback(playerid, strip(text));
     });
 }
 

@@ -102,3 +102,11 @@ addEventHandlerEx("onServerStarted", function() {
         }
     });
 });
+
+
+/**
+ * Set player coords
+ */
+acmd("tp", function(playerid, x, y, z) {
+    setPlayerPosition(playerid, x.tofloat(), y.tofloat(), z.tofloat());
+});

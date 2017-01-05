@@ -1,10 +1,10 @@
 local businessesIncr = 0;
 local businesses = {};
 local businessDefaults = [
-    { type = BUSINESS_DEFAULT,  info = null,        price = 15000.0,  income = 10.0 },
-    { type = BUSINESS_DINER,    info = "/eat",      price = 25000.0,  income = 15.0 },
-    { type = BUSINESS_BAR,      info = "/drink",    price = 45000.0,  income = 40.0 },
-    { type = BUSINESS_WEAPON,   info = "/weapons",  price = 100000.0, income = 65.0 },
+    { type = BUSINESS_DEFAULT, blip = null,         info = null,        price = 15000.0,  income = 10.0 },
+    { type = BUSINESS_DINER,   blip = ICON_BURGER,  info = "/eat",      price = 25000.0,  income = 15.0 },
+    { type = BUSINESS_BAR,     blip = ICON_BAR,     info = "/drink",    price = 45000.0,  income = 40.0 },
+    { type = BUSINESS_WEAPON,  blip = ICON_WEAPON,  info = "/weapons",  price = 100000.0, income = 65.0 },
 ];
 
 function getBusinessInfo(type) {
@@ -29,6 +29,7 @@ function loadBusinessResources(entity) {
     local info = getBusinessInfo(entity.type);
     if (entity.type != BUSINESS_DEFAULT && info && info.info) {
         entity.text3 = create3DText( entity.x, entity.y, entity.z + 0.20, info.info, CL_WHITE.applyAlpha(75), BUSINESS_INTERACT_DISTANCE );
+        entity.blip  = createBlip(   entity.x, entity.y, info.blip );
     }
 }
 
@@ -103,6 +104,7 @@ function setBusinessName(bizid, name) {
     }
 
     businesses[bizid].name = name.tostring();
+    businesses[bizid].save();
     freeBusinessResources(businesses[bizid]);
     loadBusinessResources(businesses[bizid]);
     return true;
@@ -133,6 +135,7 @@ function setBusinessType(bizid, type) {
     }
 
     businesses[bizid].type = type.tointeger();
+    businesses[bizid].save();
     freeBusinessResources(businesses[bizid]);
     loadBusinessResources(businesses[bizid]);
     return true;
@@ -163,6 +166,7 @@ function setBusinessPrice(bizid, amount) {
     }
 
     businesses[bizid].price = amount.tofloat();
+    businesses[bizid].save();
     freeBusinessResources(businesses[bizid]);
     loadBusinessResources(businesses[bizid]);
     return true;
@@ -193,6 +197,7 @@ function setBusinessIncome(bizid, amount) {
     }
 
     businesses[bizid].income = amount.tofloat();
+    businesses[bizid].save();
     freeBusinessResources(businesses[bizid]);
     loadBusinessResources(businesses[bizid]);
     return true;
@@ -275,6 +280,12 @@ function calculateBusinessIncome() {
 
         if (playerid != -1) {
             local amount = max(0.0, randomf(biz.income - 2.5, biz.income + 2.5));
+
+            // give only 10% of current amount
+            if (isPlayerAfk(playerid)) {
+                amount = amount * 0.1;
+            }
+
             addMoneyToPlayer(playerid, amount);
             msg(playerid, "business.money.income", [amount, biz.name], CL_SUCCESS);
         }
