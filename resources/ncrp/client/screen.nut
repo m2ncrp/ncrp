@@ -7,19 +7,17 @@ local drawdata = {
     version = "0.0.000",
     money   = "",
     state   = "",
-    level   = ""
+    level   = "",
+    logos   = "bit.ly/tsoeb | vk.com/tsoeb",
 };
 local initialized = false;
 local datastore = {};
 local lines     = [];
 
-local welcomeTexts = [
-    { size = 6.2, offset = 130.0, color = 0xFFCCCCCC, text = "WELCOME" },
-    { size = 3.3, offset = 45.0 , color = 0xFFCCCCCC, text = "to the Night City RolePlay" },
-    { size = 2.2, offset = 100.0, color = 0xFFA1A1A1, text = "You need to REGISTER or LOGIN to your account to start." },
-    { size = 2.2, offset = 10.0 , color = 0xFFA1A1A1, text = "See information in the chat." },
-];
+local chatslots = ["ooc", "ic", "me", "do"];
+local selectedslot = 0;
 
+local asd = null;
 local notifications = [];
 
 function compute(x, y) {
@@ -38,8 +36,8 @@ function onSecondChanged() {
     triggerServerEvent("onClientSendFPSData", getFPS());
 
     drawdata.status = format(
-        "v%s  |  FPS: %d  |  Ping: %d  |  Online: %d",
-        drawdata.version,
+        "ID: %d  |  FPS: %d  |  Ping: %d  |  Online: %d",
+        getLocalPlayer(),
         getFPS(),
         getPlayerPing(getLocalPlayer()),
         (getPlayerCount() + 1)
@@ -70,25 +68,36 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
 
     // on init
     if (!initialized) {
-        // draw full black screen
-        dxDrawRectangle(0.0, 0.0, screenX, screenY, 0xFF000000);
+        // // draw full black screen
+        // dxDrawRectangle(0.0, 0.0, screenX, screenY, 0xFF000000);
 
-        height = 0;
+        // height = 0;
 
-        // draw text
-        foreach (idx, value in welcomeTexts) {
-            offset  = dxGetTextDimensions(value.text, value.size, "tahoma-bold")[0].tofloat();
-            height += dxGetTextDimensions(value.text, value.size, "tahoma-bold")[1].tofloat();
+        // // draw text
+        // foreach (idx, value in welcomeTexts) {
+        //     offset  = dxGetTextDimensions(value.text, value.size, "tahoma-bold")[0].tofloat();
+        //     height += dxGetTextDimensions(value.text, value.size, "tahoma-bold")[1].tofloat();
 
-            // calculate height offset
-            height += value.offset;
+        //     // calculate height offset
+        //     height += value.offset;
 
-            // draw it
-            dxDrawText(value.text, centerX - (offset * 0.5), height, value.color, false, "tahoma-bold", value.size);
-        }
+        //     // draw it
+        //     dxDrawText(value.text, centerX - (offset * 0.5), height, value.color, false, "tahoma-bold", value.size);
+        // }
 
         return;
     }
+
+    // if (asd) {
+    //     local limit = 7.5;
+    //     local c = getScreenFromWorld(-555.251,  1702.31, -22.2408);
+    //     local pos = getPlayerPosition(getLocalPlayer());
+    //     local dist = sqrt(pow(-555 - pos[0], 2) + pow(1702 - pos[1], 2) + pow(-22 - pos[2], 2));
+    //     if (dist < limit) {
+    //         local scale = 1 - (((dist > limit) ? limit : dist) / limit);
+    //         dxDrawTexture(asd, c[0], c[1], scale, scale, 0.5, 0.5, 0.0, 255);
+    //     }
+    // }
 
     local ROUND_TO_RIGHT_RATIO = 13.6;
 
@@ -103,8 +112,17 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
     dxDrawText(drawdata.status, 410.0 - offset - 8.0, 6.5, 0xFFA1A1A1, false, "tahoma-bold" );
 
     // draw chat slots
-    // TODO:
-    dxDrawText("bit.ly/nc-rp  vk.com/m2ncrp", 18.0, 6.5, 0xFFFFFFFF, false, "tahoma-bold");
+    offset = 0;
+    foreach (idx, value in chatslots) {
+        local size = dxGetTextDimensions(value, 1.0, "tahoma-bold")[0].tofloat() + 20.0;
+
+        if (idx == selectedslot) {
+            dxDrawRectangle(15.0 + offset, 3.0, size - 1.0, 20.0, 0xFF29AF5C);
+        }
+
+        dxDrawText(value, 25.0 + offset, 6.5, idx == selectedslot ? 0xFF111111 : 0xFFFFFFFF, false, "tahoma-bold" );
+        offset += size;
+    }
 
     /**
      * Category: top-right
@@ -116,7 +134,6 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
     // draw date
     offset = dxGetTextDimensions(drawdata.date, 1.4, "tahoma-bold")[0].tofloat();
     dxDrawText(drawdata.date, screenX - offset - 25.0, 58.0, 0xFFE4E4E4, false, "tahoma-bold", 1.4 );
-
 
     /**
      * Category: bottom-right
@@ -133,7 +150,7 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
         compute("borders.cx",   screenX - (length / 2) - (screenX / ROUND_TO_RIGHT_RATIO));
 
         local radius = length / 2;
-        local step   = 0.5;
+        local step   = 1.0;//0.5;
 
         for (local x = 0; x < length; x += step) {
             local len = sqrt( pow(radius, 2) - pow(radius - x, 2) );
@@ -163,8 +180,37 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
     dxDrawText( drawdata.state, get("borders.x") + 11.0, get("borders.y") + offset2 + 5.0, 0xFFA1A1A1, false, "tahoma-bold", 1.0 );
 
     // draw level
-    dxDrawText( drawdata.level, get("borders.x") + 11.0, get("borders.y") + offset2 + 21.0, 0xFFA1A1A1, false, "tahoma-bold", 1.0 );
+    // dxDrawText( drawdata.level, get("borders.x") + 11.0, get("borders.y") + offset2 + 21.0, 0xFFA1A1A1, false, "tahoma-bold", 1.0 );
+
+
+    /**
+     * Bottom left corner
+     */
+    // draw logos
+    offset = dxGetTextDimensions(drawdata.logos, 1.0, "tahoma-bold")[1].tofloat();
+    dxDrawText(drawdata.logos, 6.5, screenY - offset - 6.5, 0x88FFFFFF, false, "tahoma-bold");
 });
+
+local screenFade = {
+    current = 255,
+    state = false,
+};
+
+addEventHandler("onClientFrameRender", function(isGUIdrawn) {
+    if (!isGUIdrawn) return;
+    if ( screenFade.current > 0 ) {
+        // dxDrawRectangle(0.0, 0.0, screenX, screenY, fromRGB(0, 0, 0, screenFade.current));
+    }
+});
+
+addEventHandler("onServerFadeScreen", function(time, fadein) {
+    if (fadein) {
+        screenFade.state = fadein;
+    }
+});
+
+
+
 
 /**
  * Handling client events
@@ -191,10 +237,6 @@ addEventHandler("onServerInterfaceMoney", function(money) {
     drawdata.money = format("$ %.2f", money.tofloat());
 })
 
-addEventHandler("onServerFadeScreen", function(time, fadein) {
-    fadeScreen(time.tofloat(), fadein);
-});
-
 addEventHandler("onServerAddedNofitication", function(type, data) {
     notifications.push({ type = type, data = data });
 });
@@ -203,14 +245,40 @@ addEventHandler("onServerToggleHudDrawing", function() {
     drawing = !drawing;
 });
 
-addEventHandler("onClientOpenMap", function() {
-    drawing = false;
-    return 1; // enable map (0 to disable)
-})
+addEventHandler("onServerChatTrigger", function() {
+    showChat(!isChatVisible());
+});
+
+addEventHandler("onServerChatSlotRequested", function(slot) {
+    slot = slot.tointeger();
+    slot = slot < 0 ? 0 : slot;
+    slot = slot > chatslots.len() ? chatslots.len() : slot;
+
+    // try to swtich slot
+    // if (isInputVisible()) {
+        selectedslot = slot;
+    // }
+});
+
+// addEventHandler("onClientOpenMap", function() {
+//     drawing = false;
+//     return 1; // enable map (0 to disable)
+// })
 
 addEventHandler("onClientCloseMap", function() {
-    drawing = true;
+    // drawing = true;
     return 1;
+});
+
+bindKey("m", "down", function() {
+    if (drawing) {
+        drawing = false;
+        openMap();
+    } else {
+        drawing = true;
+    }
+
+    showChat(drawing);
 });
 
 /**
@@ -232,6 +300,8 @@ addEventHandler("onServerClientStarted", function(version = null) {
     drawdata.version = (version) ? version : drawdata.version;
 
     initialized = true;
+
+    // asd = dxLoadTexture("fine.png");
 });
 
 addEventHandler("onClientScriptInit", function() {

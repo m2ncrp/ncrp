@@ -23,8 +23,9 @@ acmd(["heal"], function( playerid ) {
     setPlayerHealth( playerid, 720.0 );
 });
 
-acmd(["die"], function( playerid ) {
-    setPlayerHealth( playerid, 0.0 );
+acmd(["die"], function( playerid, targetid = null ) {
+    if(!targetid) targetid = playerid;
+    setPlayerHealth( targetid.tointeger(), 0.0 );
 });
 
 acmd(["skin"], function( playerid, id ) {
@@ -68,3 +69,10 @@ cmd("checkmyjob", function ( playerid ) {
         msg( playerid, "job.unemployed" );
     }
 });
+
+cmd(["clearchat"], function(playerid) {
+    for(local i = 0; i <15;i++){
+        sendPlayerMessage(playerid,"")
+    }
+});
+

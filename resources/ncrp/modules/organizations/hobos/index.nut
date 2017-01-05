@@ -17,8 +17,8 @@ local hobosSkins = [
     87, 153, 154
 ];
 
-const maxCouldFind = 0.1;
-const minCouldFind = 0.01;
+const maxCouldFind = 0.15;
+const minCouldFind = 0.03;
 
 local hoboses = {};
 
@@ -115,7 +115,16 @@ hobos_points <- [
     [-41.0699, 68.4161,  -14.3253], //89
     [-692.851, 290.153, -0.090662], //90
     [-39.9175, -28.4576, -14.4931], //91
-    [-685.006, 482.542, 1.03802]    //92
+    [-685.006, 482.542,   1.03802], //92
+    [-1282.18, 1612.62,   4.03744], //93
+    [-1055.32, 1738.21,   10.2671], //94
+    [-173.792, 863.807,   -20.979], //95
+    [-198.242, 868.185,  -20.9749], //96
+    [39.5701,  1201.61,   67.1089], //97
+    [-1132.18, 1288.17,  -21.7018], //98
+    [-1164.57, 1215.55,  -21.7018], //99
+    [827.166, -144.277,  -20.3568], //100
+    [-231.881, -676.135, -14.5929], //101
 ];
 
 
@@ -123,7 +132,7 @@ addEventHandlerEx("onPlayerConnect", function(playerid, name, ip, serial) {
     if ( isHobos(playerid) ) {
         // players[playerid]["skin"] <- hobosSkins[random(0, hobosSkins.len() - 1)];
         hoboses[playerid] <- {};
-    }    
+    }
 });
 
 
@@ -131,15 +140,22 @@ event("onServerStarted", function() {
     log("[hobos] loading trash containers...");
     //creating public 3dtext
     foreach (trashContainer in hobos_points) {
-        create3DText ( trashContainer[0], trashContainer[1], trashContainer[2]+0.35, "Use /dig to find something in that", CL_EUCALYPTUS, DIG_RADIUS );
+        create3DText ( trashContainer[0], trashContainer[1], trashContainer[2]+0.35, "Press E or use /dig to find something in that", CL_EUCALYPTUS, DIG_RADIUS );
     }
 });
 
-event("onServerHourChanged", function() {
-    local amount = randomf(UNEMPLOYED_MONEY_INCOME - 1.0, UNEMPLOYED_MONEY_INCOME + 2.5);
+event("onServerHourChange", function() {
+    local originalAmount = randomf(UNEMPLOYED_MONEY_INCOME - 1.0, UNEMPLOYED_MONEY_INCOME + 2.5);
 
     foreach (playerid, value in players) {
         if (!getPlayerJob(playerid)) {
+            local amount = originalAmount;
+
+            // give only 10% of current amount for afk
+            if (isPlayerAfk(playerid)) {
+                amount = originalAmount * 0.1;
+            }
+
             addMoneyToPlayer(playerid, amount);
             msg(playerid, "organizations.unemployed.income", [amount], CL_SUCCESS);
         }

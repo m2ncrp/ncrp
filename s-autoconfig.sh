@@ -15,7 +15,7 @@ echo "$major.$middle.$minor" > $versionFile
 echo "<settings>" > $cfg
 echo -e "\t<hostname>$name_begin $major.$middle.$minor$name_end</hostname>" >> $cfg
 echo -e "\t<serverip />" >> $cfg
-echo -e "\t<port>7788</port>" >> $cfg
+echo -e "\t<port>27015</port>" >> $cfg
 echo -e "\t<maxplayers>64</maxplayers>" >> $cfg
 echo -e "\t<weburl>bit.ly/nc-rp</weburl>" >> $cfg
 echo -e "\t<password />" >> $cfg

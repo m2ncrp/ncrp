@@ -51,7 +51,7 @@ const FUEL_JOB_Y = -266.866;
 const FUEL_JOB_Z = -20.1644;
 const FUEL_JOB_SKIN = 144;
 const FUEL_JOB_DISTANCE = 75;
-const FUEL_JOB_SALARY = 30.0;
+const FUEL_JOB_SALARY = 35.0;
 const FUEL_JOB_WAREHOUSE_X = 788.288;
 const FUEL_JOB_WAREHOUSE_Y = -78.0801;
 const FUEL_JOB_WAREHOUSE_Z = -20.0379;
@@ -88,9 +88,10 @@ event("onServerStarted", function() {
     log("[jobs] loading fueldriver job...");
     // DEPRECATED | fuelcars[i][0] - Truck ready: true/false DEPRECATED
     // fuelcars[i][1] - Fuel load: integer
-    fuelcars[createVehicle(5, 511.887, -277.5, -20.19, -179.464, -0.05, 0.1)]  <- [false, 0 ];
-    fuelcars[createVehicle(5, 517.782, -277.5, -20.19, -177.742, -0.05, 0.1)]  <- [false, 0 ];
-    fuelcars[createVehicle(5, 523.821, -277.5, -20.19, -176.393, -0.05, 0.1)]  <- [false, 0 ];
+    fuelcars[createVehicle(5, 510.0, -277.5, -20.19, -179.464, -0.05, 0.1)]  <- [false, 0 ];
+    fuelcars[createVehicle(5, 515.0, -277.5, -20.19, -177.742, -0.05, 0.1)]  <- [false, 0 ];
+    fuelcars[createVehicle(5, 520.0, -277.5, -20.19, -176.393, -0.05, 0.1)]  <- [false, 0 ];
+    fuelcars[createVehicle(5, 525.0, -277.5, -20.19, -176.393, -0.05, 0.1)]  <- [false, 0 ];
 
     //creating 3dtext for Trago Oil
     create3DText ( FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.35, "TRAGO OIL", CL_ROYALBLUE );
@@ -107,6 +108,32 @@ event("onPlayerConnect", function(playerid, name, ip, serial) {
      job_fuel[playerid]["fuelcomplete"] <- 0;  // number of completed fuel stations. Default is 0
 });
 
+
+event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
+    if (!isPlayerVehicleFuel(playerid)) return;
+
+    // ignore anyhting related to other seats
+    if (seat != 0) return;
+
+    // if player on seat 0 is a fuel driver
+    if (isFuelDriver(playerid)) {
+        unblockVehicle(vehicleid);
+
+        delayedFunction(4500, function() {
+            fuelJobReady(playerid);
+        });
+    } else {
+        blockVehicle(vehicleid);
+    }
+});
+
+event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
+    if (!isPlayerVehicleFuel(playerid)) return;
+
+    if (seat == 0) {
+        blockVehicle(vehicleid);
+    }
+});
 
 local fuelJobStationMarks = {};
 function createFuelJobStationMarks(playerid, data) {
@@ -258,6 +285,7 @@ function fuelJobReady ( playerid ) {
 
     // create blip and 3text for warehouse
     fuelJobWarehouseCreateBlipText( playerid );
+    job_fuel[playerid]["fuelstatus"] <- [false, false, false, false, false, false, false, false];
 
     if(fuelcars[vehicleid][1] >= 4000) {
         msg( playerid, "job.fueldriver.truck.loaded", fuelcars[vehicleid][1], FUEL_JOB_COLOR );
@@ -290,7 +318,8 @@ function fuelJobLoad ( playerid ) {
     }
 
     if(fuelcars[vehicleid][1] == 16000) {
-       return msg( playerid, "job.fueldriver.truck.alreadyloaded", FUEL_JOB_COLOR );
+        if (job_fuel[playerid]["fuelcomplete"] < 8) { createFuelJobStationMarks(playerid, fuelcoords); }
+        return msg( playerid, "job.fueldriver.truck.alreadyloaded", FUEL_JOB_COLOR );
     }
 
     if(fuelcars[vehicleid][1] < 16000) {
@@ -389,11 +418,16 @@ function fuelJobPark ( playerid ) {
     }
 
     job_fuel[playerid]["fuelcomplete"] = 0;
+    job_fuel[playerid]["fuelstatus"] <- [false, false, false, false, false, false, false, false];
     msg( playerid, "job.fueldriver.nicejob", FUEL_JOB_SALARY, FUEL_JOB_COLOR );
     addMoneyToPlayer(playerid, FUEL_JOB_SALARY);
 
     // clear all marks
     clearFuelJobStationMarks( playerid );
+
+    delayedFunction(2000, function() {
+        fuelJobReady(playerid);
+    });
 }
 
 

@@ -1,22 +1,26 @@
 GUI <- { __version = "001" };
 
-// include("controllers/gui/Object.nut");
-// include("controllers/gui/Object.nut");
+include("controllers/gui/simple.nut");
 
-// ELEMENT_TYPE_WINDOW
-// ELEMENT_TYPE_EDIT
-// ELEMENT_TYPE_BUTTON
-// ELEMENT_TYPE_CHECKBOX
-// ELEMENT_TYPE_COMBOBOX
-// ELEMENT_TYPE_GRIDLIST
-// ELEMENT_TYPE_LABEL
-// ELEMENT_TYPE_PROGRESSBAR
-// ELEMENT_TYPE_RADIOBUTTON
-// ELEMENT_TYPE_SCROLLBAR
-// ELEMENT_TYPE_SCROLLPANE
-// ELEMENT_TYPE_TABPANEL
-// ELEMENT_TYPE_TAB
-// ELEMENT_TYPE_IMAGE
+
+// include("controllers/gui/Object.nut");
+// include("controllers/gui/Object.nut");
+enum GUI_ELEMENT_TYPE {
+    WINDOW,
+    EDIT,
+    BUTTON,
+    CHECKBOX,
+    COMBOBOX,
+    GRIDLIST,
+    LABEL,
+    PROGRESSBAR,
+    RADIOBUTTON,
+    SCROLLBAR,
+    SCROLLPANE,
+    TABPANEL,
+    TAB,
+    IMAGE,
+};
 
 // cmd("sts", function(playerid) {
 //     local window  = GUI.Window("Seelct stuff");

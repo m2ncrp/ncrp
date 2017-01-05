@@ -1,18 +1,8 @@
 /** TODO LIST
-1. Make police exclusive for players. Join only through admins, write names and serials into script. [DONE]
-2. Create rang system. ~3-4 rangs: police chief, officer, junior officer, detective (ability to work plain-clothes).
-4. Ability to rang up or down by admins.
-5. Remove selfshot by taser in cmds X)
-6. To end duty and become simple civilian make duty on and off cmds [HALF DONE]
-
-7. Call da fucking police
-
 
 И так, полиция:
-1. Работа: проверять является ли игрок копом или нет через players[playerid]["job"]. Этого достаточно.
-2. Пистолет есть - патронов нет. Как так?
 3. Рупор и r проверить не удалось, т.к. нужно два и более игрока.
-4. Taser, ticket, cuff - тоже что и пункт 3.
+4. baton, ticket, cuff - тоже что и пункт 3.
 5. prison выдало ошибку AN ERROR HAS OCCURED [wrong number of parameters]
 6. Неполный хелп
 7. Чёто странное с командами /police duty on и /police duty off (то ли месседжы перепутаны, для duty off вообще не выводится собщение). Непоняяяяяятно
@@ -23,17 +13,41 @@ translation("en", {
     "general.admins.serial.get"                 : "Serial of %s: %s",
 
     "general.message.empty"                     : "[INFO] You can't send an empty message",
+    "general.playeroffline"                     : "[INFO] There's no such person on server!",
     "general.noonearound"                       : "There's noone around near you.",
     "general.job.anotherone"                    : "You've got %s job, not %s!",
 
-    "job.police.officer"                        : "Police Officer",
-    "job.police.detective"                      : "Detective",
-    "job.police.chief"                          : "Police Chief",
+    "job.police.cadet"                          : "Police cadet"       
+    "job.police.patrol"                         : "Police patrolman",  
+    "job.police.officer"                        : "Police officer",    
+    "job.police.detective"                      : "Detective"          
+    "job.police.sergeant.1"                     : "Sergant"            
+    "job.police.sergeant.2"                     : "Sergant"            
+    "job.police.lieutenant.1"                   : "Lieutenant"         
+    "job.police.lieutenant.2"                   : "Lieutenant"         
+    "job.police.Captain.1"                      : "Captain I"            
+    "job.police.Captain.2"                      : "Captain II"            
+    "job.police.Captain.3"                      : "Captain III"            
+    "job.police.commander"                      : "Commander"          
+    "job.police.deputychief"                    : "Deputy chief"       
+    "job.police.assistantchief"                 : "Assistant chief"    
+    "job.police.chief"                          : "Police chief",      
     "organizations.police.job.getmaxrank"       : "You've reached maximum rank: %s.",
+    "organizations.police.job.getminrank"       : "You've reached minimum rank: %s.",
+    "organizations.police.lowrank"              : "Your rank is too low for that.",
+
+    "organizations.police.setjob.byadmin"       : "You've successfully set job for %s as %s."
+    "organizations.police.leavejob.byadmin"     : "You fired %s from %s job."
 
     "organizations.police.call.withoutaddress"  : "You can't call police without address.",
-    "organizations.police.call.new"             : "[R] %s called police from %s",
+    "organizations.police.call.new"             : "[POLICE RADIO] There's situation on %s",
     "organizations.police.call.foruser"         : "You've called police from %s",
+
+    "organizations.police.lawbreak.warning"     : "defiance",
+    "organizations.police.lawbreak.trafficviolation" : "traffic violation",
+    "organizations.police.lawbreak.roadaccident": "road accident", 
+
+    "organizations.police.income"               : "[EBPD] We send $%.2f to you for duty as %s.",
 
     "organizations.police.crime.wasdone"        : "You would better not to do it..",
     "organizations.police.alreadyofficer"       : "You're already working in EBPD.",
@@ -43,47 +57,119 @@ translation("en", {
     "organizations.police.duty.alreadyon"       : "You're already on duty now.",
     "organizations.police.duty.alreadyoff"      : "You're already off duty now.",
     "organizations.police.notinpolicevehicle"   : "You should be in police vehicle!",
-    "organizations.police.ticket.givewithreason": "%s give you ticket for %s. Type /accept %i.",
+    "organizations.police.ticket.givewithreason": "%s give you ticket for %s ($%.2f).", //  Type /accept %i.
+    "organizations.police.ticket.given"         : "You've given ticket to %s for %s ($%.2f).",
     "organizations.police.offduty.notickets"    : "You off the duty now and you haven't tickets.",
-    "organizations.police.offduty.notaser"      : "You have no taser couse you're not a cop.",
+    "organizations.police.offduty.nobaton"      : "You have no baton couse you're not a cop.",
+    "organizations.police.offduty.nobadge"      : "You have no badge with you couse you're off duty now.",
+    "organizations.police.offduty.nokeys"       : "You have no keys with you couse you're off duty now.",
 
-    "organizations.police.shotsomeone.bytaser"  : "You shot %s by taser.",
-    "organizations.police.beenshot.bytaser"     : "You's been shot by taser",
+    "organizations.police.bitsomeone.bybaton"   : "You bet %s by baton.",
+    "organizations.police.beenbit.bybaton"      : "You's been bet by baton",
     "organizations.police.beencuffed"           : "You've been cuffed by %s.",
     "organizations.police.cuff.someone"         : "You cuffed %s.",
     "organizations.police.cuff.beenuncuffed"    : "You've been uncuffed by %s",
     "organizations.police.cuff.uncuffsomeone"   : "You uncuffed %s",
 
+    "organizations.police.beenshown.badge"      : "You're showing your badge to %s.",
+    "organizations.police.show.badge"           : "%s %s is showing his badge to you.",
+
+    "organizations.police.jail"                 : "[POLICE] You was put in jail.",
+    "organizations.police.unjail"               : "[POLICE] You're released from jail.",
+
     "organizations.police.info.howjoin"         : "If you want to join Police Department write one of admins!",
     "organizations.police.info.cmds.helptitle"  : "List of available commands for Police Officer JOB:",
-    "organizations.police.info.cmds.ratio"      : "Send message to all police by ratio",
-    "organizations.police.info.cmds.rupor"      : "Say smth to police vehicle rupor",
+    "organizations.police.info.cmds.ratio"      : "Send message to all police by radio",
+    "organizations.police.info.cmds.rupor"      : "Say something to police vehicle rupor",
     "organizations.police.info.cmds.ticket"     : "Give ticket to player with given id. Example: /ticket 0 2.1 speed limit",
-    "organizations.police.info.cmds.taser"      : "Shock nearset player",
-    "organizations.police.info.cmds.cuff"       : "Сuff nearest player",
-    "organizations.police.info.cmds.cuff"       : "Uncuff nearest player",
+    "organizations.police.info.cmds.baton"      : "Stun nearset player",
+    "organizations.police.info.cmds.cuff"       : "Cuff or uncuff nearest stunned player",
     "organizations.police.info.cmds.prison"     : "Put nearest cuffed player in jail",
     "organizations.police.info.cmds.amnesty"    : "Take out player with given id from prison",
+    "organizations.police.info.cmds.dutyon"     : "To go on duty.",
+    "organizations.police.info.cmds.dutyoff"    : "To go off duty",
 
     "organizations.police.onrankup"             : "You was rank up to %s",
+    "organizations.police.onrankdown"           : "You was rank down to %s"
     "organizations.police.onbecame"             : "You became a police officer."
     "organizations.police.onleave"              : "You're not a police officer anymore."
-
 });
 
 
 const RUPOR_RADIUS = 75.0;
+const POLICERADIO_RADIUS = 10.0;
 const CUFF_RADIUS = 3.0;
-const TASER_RADIUS = 6.0;
+const BATON_RADIUS = 6.0;
 const POLICE_MODEL = 75;
+const POLICE_BADGE_RADIUS = 3.5;
+const POLICE_TICKET_DISTANCE = 2.5;
 
-POLICE_RANK <- [
-    "police.officer",    // "Police Officer",
-    "police.detective",  // "Detective",
-    "police.chief"       // "Mein Führer",
+const POLICE_SALARY = 0.5; // for 1 minute
+
+POLICE_EBPD_ENTERES <- [
+    [-360.342, 785.954, -19.9269],  // parade
+    [-379.444, 654.207, -11.6451]   // stuff only
+];
+
+POLICE_JAIL_COORDS <- [
+    [-1018.93, 1731.82, 10.3252]
+];
+
+const EBPD_ENTER_RADIUS = 2.0;
+const TITLE_DRAW_DISTANCE = 12.0;
+
+POLICE_RANK <- [ // source: https://youtu.be/i7o0_PMv72A && https://en.wikipedia.org/wiki/Los_Angeles_Police_Department#Rank_structure_and_insignia
+    "police.cadet"          //"Police cadet"       0
+    "police.patrol"         //"Police patrolman",  1
+    "police.officer"        //"Police officer",    2
+    "police.detective"      //"Detective"          3
+    "police.sergeant.1"     //"Sergant"            4
+    "police.sergeant.2"     //"Sergant"            5
+    "police.lieutenant.1"   //"Lieutenant"         6
+    "police.lieutenant.2"   //"Lieutenant"         7
+    "police.Captain.1"      //"Captain I"          8  
+    "police.Captain.2"      //"Captain II"         9  
+    "police.Captain.3"      //"Captain III"        10   
+    "police.commander"      //"Commander"          11
+    "police.deputychief"    //"Deputy chief"       12
+    "police.assistantchief" //"Assistant chief"    13
+    "police.chief"          //"Police chief"       14
 ];
 MAX_RANK <- POLICE_RANK.len()-1;
 
+POLICE_SALLARY_COEF <- [ // calculated as: (-i^2 + 27*i + 28)/200; i - rank number
+    0.14, // 4.20
+    0.27, // 8.10
+    0.39, // 11.70
+    0.5,  // 15.00
+    0.6,  // 18.00
+    0.69, // 20.70
+    0.77, // 23.10
+    0.84, // 25.20
+    0.9,  // 27.00
+    0.95, // 28.50
+    0.99, // 29.70
+    1.02, // 30.60
+    1.04, // 31.20
+    1.05, // 31.50
+    1.05  // 31.50
+];
+
+
+POLICE_TICKET_PRICELIST <- [
+    [7.0, "organizations.police.lawbreak.warning"           ],  // Предупреждение aka warning
+    [8.5, "organizations.police.lawbreak.trafficviolation"  ],  // Нарушение ПДД aka traffic violation
+    [10.0,"organizations.police.lawbreak.roadaccident"      ]   // ДТП aka road acident
+];
+
+DENGER_LEVEL <- "green";
+
+/**
+ * Any cmd only with any text, without specific parameters
+ * @param  {[type]}   names    [description]
+ * @param  {Function} callback [description]
+ * @return {[type]}            [description]
+ */
 function policecmd(names, callback)  {
     cmd(names, function(playerid, ...) {
         local text = concat(vargv);
@@ -97,6 +183,12 @@ function policecmd(names, callback)  {
     });
 }
 
+/**
+ * Format message from parameters package (vargv)
+ * @param  {[type]} playerid [description]
+ * @param  {[type]} vargv    [description]
+ * @return {[type]}          [description]
+ */
 function makeMeText(playerid, vargv)  {
     local text = concat(vargv);
 
@@ -106,9 +198,25 @@ function makeMeText(playerid, vargv)  {
     return text;
 }
 
-include("modules/organizations/police/commands.nut");
+/**
+ * Calculate salary for police based on time on duty
+ * @param  {[type]} playerid [description]
+ * @return {[type]}          [description]
+ */
+function policeJobPaySalary(playerid) {
+    local rank = getPoliceRank(playerid);
+    local summa = police[playerid]["ondutyminutes"] * POLICE_SALARY * POLICE_SALLARY_COEF[rank];
+    addMoneyToPlayer(playerid, summa);
+    msg(playerid, "organizations.police.income", [summa.tofloat(), getLocalizedPlayerJob(playerid)], CL_SUCCESS);
+    police[playerid]["ondutyminutes"] = 0;
+}
 
-local police = {};
+include("modules/organizations/police/commands.nut");
+include("modules/organizations/police/functions.nut");
+
+
+police <- {};
+
 
 event("onServerStarted", function() {
     log("[police] starting police...");
@@ -118,27 +226,41 @@ event("onServerStarted", function() {
     createVehicle(21, -324.296, 693.308, -17.4131, -179.874, -0.796982, -0.196363 );    // policeBusParking1
     createVehicle(51, -326.669, 658.13, -17.5624, 90.304, -3.56444, -0.040828 );        // policeOldCarParking1
     createVehicle(51, -326.781, 663.293, -17.5188, 93.214, -2.95046, -0.0939897 );      // policeOldCarParking2
+
+    create3DText( POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]+0.3, "=== EMPIRE BAY POLICE DEPARTMENT ===", CL_ROYALBLUE, TITLE_DRAW_DISTANCE );
+    create3DText( POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]-0.05, "/police duty on/off", CL_WHITE.applyAlpha(150), EBPD_ENTER_RADIUS );
+    create3DText( POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]-0.2, "or press E button", CL_WHITE.applyAlpha(150), EBPD_ENTER_RADIUS );
 });
 
-event("onPlayerConnect", function(playerid, name, ip, serial) {
-    // if ( isOfficer(playerid) ) {
-    //     police[playerid] <- { onduty = false };
-    // }
-});
 
+
+
+/*
 event("onPlayerSpawn", function( playerid ) {
     if ( isOfficer(playerid) && isOnPoliceDuty(playerid) ) {
         onPoliceDutyGiveWeapon( playerid );
         setPlayerModel(playerid, POLICE_MODEL);
+        police[playerid]["ondutyminutes"] <- 0;
     }
 });
+*/
+
+
 
 event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
-    if (isPlayerInPoliceVehicle(playerid)) {
+    if (isPlayerInPoliceVehicle(playerid) && seat == 0) {
         if (!isOfficer(playerid)) {
             // set player wanted level or smth like that
             blockVehicle(vehicleid);
             return msg(playerid, "organizations.police.crime.wasdone", [], CL_GRAY);
+        }
+        if ( isOfficer(playerid) && getPoliceRank(playerid) < 1 ) {
+            blockVehicle(vehicleid);
+            return msg(playerid, "organizations.police.lowrank", [], CL_GRAY);
+        } 
+        if ( isOfficer(playerid) && !isOnPoliceDuty(playerid) ) {
+            blockVehicle(vehicleid);
+            return msg(playerid, "organizations.police.offduty.nokeys", [], CL_GRAY);
         } else {
             unblockVehicle(vehicleid);
         }
@@ -146,196 +268,87 @@ event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
 });
 
 
-/**
- * Check is player's vehicle is a police car
- * @param  {int}  playerid
- * @return {Boolean} true/false
- */
-function isPlayerInPoliceVehicle(playerid) {
-    return (isPlayerInValidVehicle(playerid, 42) || isPlayerInValidVehicle(playerid, 51) || isPlayerInValidVehicle(playerid, 21));
-}
 
-
-/**
- * Check if player is a police officer
- * @param  {int}  playerid
- * @return {Boolean} true/false
- */
-function isOfficer(playerid) {
-    if (!(playerid in players)) {
-        return false;
+event("onPlayerDisconnect", function(playerid, reason) {
+    if (playerid in police) {
+        policeJobPaySalary( playerid );
+         delete police[playerid];
     }
 
-    // return if playerjob (might be job.police.officer)
-    return (POLICE_RANK.find(players[playerid].job) != null);
-}
-
-/**
- * Check if player is a police officer and on duty now
- * @param  {int}  playerid
- * @return {Boolean} true/false
- */
-function isOnPoliceDuty(playerid) {
-    return (isOfficer(playerid) && playerid in police && police[playerid].onduty);
-}
-
-function policeSetOnDuty(playerid, bool) {
-    if (!(playerid in police)) {
-        police[playerid] <- {};
+    if ( getPlayerState(playerid) == "cuffed" ) {
+        setPlayerState(playerid, "jail");
     }
-
-    police[playerid].onduty <- bool;
-
-    if (bool) {
-        return screenFadeinFadeout(playerid, 100, function() {
-            onPoliceDutyGiveWeapon( playerid );
-            setPlayerModel(playerid, POLICE_MODEL);
-            msg(playerid, "organizations.police.duty.on");
-        });
-    } else {
-        onPoliceDutyRemoveWeapon( playerid );
-        return screenFadeinFadeout(playerid, 100, function() {
-            setPlayerModel(playerid, players[playerid]["default_skin"]);
-            msg(playerid, "organizations.police.duty.off");
-        });
-    }
-}
-
-/**
- * Return integer with player rank
- * @param  {integer} playerid
- * @return {Integer} player rank
- */
-function getPoliceRank(playerid) {
-    return POLICE_RANK.find(players[playerid].job);
-}
-
-/**
- * Set player rank to given ID
- * @param  {integer} playerid
- * @param  {integer} rank number
- * @return {string}  player rank
- */
-function setPoliceRank(playerid, rankID) {
-    if (rankID >= 0 && rankID < POLICE_RANK.len()) {
-        players[playerid].job = POLICE_RANK[rankID];
-        return POLICE_RANK[rankID];
-    }
-    return players[playerid].job;
-}
-
-function isPoliceRankUpPossible(playerid) {
-    return (getPoliceRank(playerid) != null && getPoliceRank(playerid) < MAX_RANK);
-}
-
-function rankUpPolice(playerid) {
-    if (isPoliceRankUpPossible(playerid)) {
-        // increase rank
-        setPoliceRank(playerid, getPoliceRank(playerid) + 1);
-
-        // send message
-        msg( playerid, "organizations.police.onrankup", [ getLocalizedPlayerJob(playerid) ] );
-    } else {
-        msg( playerid, "organizations.police.job.getmaxrank", [ localize( "job." + POLICE_RANK[MAX_RANK], [], getPlayerLocale(playerid)) ] );
-    }
-}
+});
 
 
-function onPoliceDutyGiveWeapon(playerid, rank = null) {
-    if (rank == null) {
-        rank = getPlayerJob(playerid);
-    }
 
-    if (rank == POLICE_RANK[0]) {
-        givePlayerWeapon( playerid, 2, 36 ); // Model 12 Revolver
-    }
-    if (rank == POLICE_RANK[1]) {
-        givePlayerWeapon( playerid, 4, 36 ); // Colt M1911A1
-        givePlayerWeapon( playerid, 8, 48 ); // Remington Model 870 Field gun
-    }
-    if (rank == POLICE_RANK[2]) {
-        givePlayerWeapon( playerid, 6, 36 ); // Model 19 Revolver
-        givePlayerWeapon( playerid, 8, 48 ); // Remington Model 870 Field gun
-        givePlayerWeapon( playerid, 9, 80 ); // M3 Grease Gun
-    }
-}
-
-
-function onPoliceDutyRemoveWeapon(playerid, rank = null) {
-    if (rank == null) {
-        rank = getPlayerJob(playerid);
-    }
-
-    if (rank == POLICE_RANK[0]) {
-        removePlayerWeapon( playerid, 2 ); // Model 12 Revolver
-    }
-    if (rank == POLICE_RANK[1]) {
-        removePlayerWeapon( playerid, 4 ); // Colt M1911A1
-        removePlayerWeapon( playerid, 8 ); // Remington Model 870 Field gun
-    }
-    if (rank == POLICE_RANK[2]) {
-        removePlayerWeapon( playerid, 6 ); // Model 19 Revolver
-        removePlayerWeapon( playerid, 8 ); // Remington Model 870 Field gun
-        removePlayerWeapon( playerid, 9 ); // M3 Grease Gun
-    }
-}
-
-/**
- * Call police officers from <place>
- * @param  {int} playerid
- * @param  {string} place   - address place of call
- */
-function policeCall(playerid, place) {
-    if (!place || place.len() < 1) {
-        return msg(playerid, "organizations.police.call.withoutaddress");
-    }
-
-    msg(playerid, "organizations.police.call.foruser", [place], CL_ROYALBLUE);
-
-    foreach(player in playerList.getPlayers()) {
-        if ( isOfficer(player) && isOnPoliceDuty(player) ) {
-            msg(player, "organizations.police.call.new", [getAuthor(playerid), place], CL_ROYALBLUE);
+event("onServerMinuteChange", function() {
+    foreach (playerid, value in police) {
+        if("ondutyminutes" in police[playerid] && isOnPoliceDuty(playerid)) {
+            police[playerid]["ondutyminutes"] += 1;
         }
     }
-}
+});
 
 
-/**
- * Become police officer
- * @param  {int} playerid
- */
-function getPoliceJob(playerid) {
-    if( isOfficer(playerid) ) {
-        return msg(playerid, "organizations.police.alreadyofficer");
+
+event("onPoliceDutyOn", function(playerid, rank = null) {
+    if (rank == null) {
+        rank = getPoliceRank(playerid);
     }
 
-    if (isPlayerHaveJob(playerid)) {
-        return msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid));
+    if (rank == 2) {
+        givePlayerWeapon( playerid, 2, 42 ); // Model 12 Revolver
+        if (DENGER_LEVEL == "red") {
+            givePlayerWeapon( playerid, 12, 120 ); // M1A1 Thompson
+        }
+    }
+    if (rank >= 3 && rank <= 7) {
+        givePlayerWeapon( playerid, 2, 42 ); // Model 12 Revolver
+        if (DENGER_LEVEL == "red") {
+            givePlayerWeapon( playerid, 8, 48 ); // Remington Model 870 Field gun // on RED level
+        }
+    }
+    if (rank >= 8 && rank <= 10) {
+        givePlayerWeapon( playerid, 4, 56 ); // Colt M1911A1
+        if (DENGER_LEVEL == "red") {
+            givePlayerWeapon( playerid, 12, 120 ); // M1A1 Thompson
+        }
+    }
+    if (rank >= 11 && rank <= 14) {
+        givePlayerWeapon( playerid, 6, 42 ); // Model 19 Revolver
+        if (DENGER_LEVEL == "red") {
+            givePlayerWeapon( playerid, 12, 120 ); // M1A1 Thompson
+        }
+    }
+});
+
+
+event("onPoliceDutyOff", function(playerid, rank = null) {
+    if (rank == null) {
+        rank = getPoliceRank(playerid);
     }
 
-    // set first rank
-    setPlayerJob( playerid, setPoliceRank(playerid, 0) );
-    policeSetOnDuty(playerid, false);
-    msg(playerid, "organizations.police.onbecame");
-}
-
-
-/**
- * Leave from police
- * @param  {int} playerid
- */
-function leavePoliceJob(playerid) {
-    if(!isOfficer(playerid)) {
-        return msg(playerid, "organizations.police.notanofficer");
+    if (rank == 2) {
+        removePlayerWeapon( playerid, 2 ); // Model 12 Revolver
+        removePlayerWeapon( playerid, 12 ); // M1A1 Thompson
     }
-
-    if (isPlayerHaveJob(playerid) && !isOfficer(playerid)) {
-        return msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid));
+    if (rank >= 3 && rank <= 7) {
+        removePlayerWeapon( playerid, 2 ); // Model 12 Revolver
+        removePlayerWeapon( playerid, 8 ); // Remington Model 870 Field gun // on RED level
     }
-
-    if (isOnPoliceDuty(playerid)) {
-        policeSetOnDuty(playerid, false);
+    if (rank >= 8 && rank <= 10) {
+        removePlayerWeapon( playerid, 4 ); // Colt M1911A1
+        removePlayerWeapon( playerid, 12 ); // M1A1 Thompson
     }
-    setPlayerJob( playerid, null );
-    msg(playerid, "organizations.police.onleave");
-}
+    if (rank >= 11 && rank <= 14) {
+        removePlayerWeapon( playerid, 6 ); // Model 19 Revolver
+        removePlayerWeapon( playerid, 12 ); // M1A1 Thompson
+    }
+});
+
+
+event("onBatonBitStart", function (playerid) {
+    setPlayerAnimStyle(playerid, "common", "ManColdWeapon");
+    setPlayerHandModel(playerid, 1, 28); // policedubinka right hand
+});

@@ -29,6 +29,7 @@ cmd("car", function(playerid, page = null, a = null) {
     }
 
     msg(playerid, "shops.carshop.list.title", CL_INFO);
+    //triggerClientEvent(playerid, "showCarShopGUI");
 });
 
 /**
@@ -55,6 +56,7 @@ cmd("car", "buy", function(playerid, modelid = null) {
     local car = getCarShopModelById(modelid, carshopid);
 
     if (!canMoneyBeSubstracted(playerid, car.price)) {
+        //triggerClientEvent(playerid, "hideCarShopGUI");
         return msg(playerid, "shops.carshop.money.error", CL_ERROR);
     }
 
@@ -80,6 +82,7 @@ cmd("car", "buy", function(playerid, modelid = null) {
     setVehicleDirtLevel(vehicleid, 0.0);
     repairVehicle(vehicleid);
 
+    //triggerClientEvent(playerid, "hideCarShopGUI");
     return msg(playerid, "shops.carshop.success", CL_SUCCESS);
 });
 

@@ -19,5 +19,6 @@ class Business extends ORM.Entity {
     text1 = null;
     text2 = null;
     text3 = null;
+    blip  = null;
     servid = 0;
 }

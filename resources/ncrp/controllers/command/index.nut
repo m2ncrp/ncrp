@@ -75,6 +75,8 @@ function advancedCommand(isAdmin, aliases, extensionOrCallback, callbackOrNull =
             return msg(playerid, "auth.error.cmderror", CL_ERROR);
         }
 
+        trigger("onServerPlayerCommand", playerid, cmdlog);
+
         // if its admin command, and player is not admin - exit
         if (isAdmin && !isPlayerAdmin(playerid)) {
             return;
@@ -103,11 +105,10 @@ function advancedCommand(isAdmin, aliases, extensionOrCallback, callbackOrNull =
                 cursor[COMMANDS_DEFAULT].acall(args);
                 statisticsPushCommand(playerid, cmdlog, "success; acmd = " + isAdmin);
             } catch (e) {
-                statisticsPushCommand(playerid, cmdlog, "error; acmd = " + isAdmin);
-                error(e);
+                statisticsPushCommand(playerid, cmdlog, "error; acmd = " + isAdmin + "; " + e);
             }
         } else {
-            log("[cmd] trying to call an undefined command: " + cmdlog);
+            statisticsPushCommand(playerid, cmdlog, "error; acmd = " + isAdmin);
         }
     };
 

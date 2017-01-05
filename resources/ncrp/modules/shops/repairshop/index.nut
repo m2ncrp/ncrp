@@ -4,13 +4,16 @@ translation("en", {
     "shops.repairshop.toofar"             : "You are too far from any reapir shop!"
     "shops.repairshop.money.notenough"    : "[REPAIR SHOP] Not enough money. Need $%.2f, but you have only $%s."
     "shops.repairshop.repair.payed"       : "[REPAIR SHOP] You pay $%.2f for repair car. Current balance $%s. Come to us again!"
+    "shops.repairshop.repaint.payed"      : "[REPAIR SHOP] You pay $%.2f for repaint car. Current balance $%s. Come to us again!"
     "shops.repairshop.needwait"           : "[REPAIR SHOP] Please, wait while your car is on repair..."
+    "shops.repairshop.ownership.wrong"    : "Sorry mate, but it's not your car. I won't repaint that."
 
     "shops.repairshop.help.title"         : "List of available commands for REPAIR SHOP:"
     "shops.repairshop.help.repair"        : "Repair car"
 });
 
-const SHOP_REPAIR_COST = 49.99;
+const SHOP_REPAIR_COST = 9.99;
+const SHOP_REPAINT_COST = 84.00;
 
 const SHOP_REPAIR_3DTEXT_DRAW_DISTANCE = 35.0;
 const SHOP_REPAIR_RADIUS = 4.0;
@@ -37,6 +40,7 @@ addEventHandlerEx("onServerStarted", function() {
     foreach (shop in repair_shops) {
         create3DText ( shop[0], shop[1], shop[2]+0.35, "=== "+shop[3]+" REPAIR SHOP ===", CL_ROYALBLUE, SHOP_REPAIR_3DTEXT_DRAW_DISTANCE );
         create3DText ( shop[0], shop[1], shop[2]+0.20, format("(price: $%.2f) Use: /repair", SHOP_REPAIR_COST), CL_WHITE.applyAlpha(150), SHOP_REPAIR_RADIUS );
+        // create3DText ( shop[0], shop[1], shop[2], format("(price: $%.2f) Use: /repaint r g b", SHOP_REPAINT_COST), CL_WHITE.applyAlpha(150), SHOP_REPAIR_RADIUS );
     }
 });
 

@@ -1,24 +1,33 @@
+include("controllers/tips/tutorial.nut")
+
 local infoTipsCache = [];
 local infoTips = [
     "tips.money.earn"   ,
-    "tips.money.bank"   ,
+ // "tips.money.bank"   ,
     "tips.car"          ,
     "tips.car.repair"   ,
     "tips.eat"          ,
     "tips.police"       ,
     "tips.hobos"        ,
     "tips.engine.howto" ,
-    "tips.taxi"         ,
+ // "tips.taxi"         ,
     "tips.metro"        ,
-    "tips.house"        ,
+ // "tips.house"        ,
     "tips.carrental"    ,
     "tips.report"       ,
     "tips.idea"         ,
     "tips.discord"      ,
-    "tips.layout"       ,
-    "tips.language"     ,
+    "tips.vk"           ,
+ // "tips.layout"       ,
     "tips.business"     ,
     "tips.sellcar"      ,
+    "tips.bugreport"    ,
+    "tips.openmap"      ,
+    "tips.switchchats"  ,
+    "tips.chatvisible"  ,
+    "tips.turnlights"   ,
+    "tips.dice"         ,
+    "tips.hat"
 ];
 
 translation("en", {
@@ -36,15 +45,28 @@ translation("en", {
     "tips.carrental"    :   "[TIPS] If you haven't enough money to buy a car, you can rent it at the Car Rental in North Millville."
     "tips.report"       :   "[TIPS] Saw a cheater? Or player which is braking the rules? Report via: /report ID TEXT"
     "tips.idea"         :   "[TIPS] You have an idea, suggestion, or question? Let us know via: /idea TEXT"
-    "tips.discord"      :   "[TIPS] You can follow our development updates on the official discord server: bit.ly/nc-rp."
+    "tips.discord"      :   "[TIPS] You can follow our development updates on the official discord server: bit.ly/tsoeb."
+    "tips.vk"           :   "[TIPS] Join our group in VK: vk.com/tsoeb"
     "tips.layout"       :   "[TIPS] You can change keyboard layout (all binds will remain on same positions as for qwerty). Use /layout"
-    "tips.language"     :   "[TIPS] You can change language at any time. Currently available language packs are: (/en, /ru)"
     "tips.business"     :   "[TIPS] You can purchase any business (while staning near it), via: /business buy"
     "tips.sellcar"      :   "[TIPS] You can sell car to other player. Use command /sell"
+    "tips.bugreport"    :   "[TIPS] You can report bugs or errors via /bug TEXT"
+    "tips.openmap"      :   "[TIPS] You can open map - press key M."
+    "tips.switchchats"  :   "[TIPS] Use F1-F4 keys to switch between different types of the chat."
+    "tips.chatvisible"  :   "[TIPS] Press F5 to show/hide window of chat."
+    "tips.turnlights"   :   "[TIPS] Z - left turn lights; X - hazard lights; C - right turn lights."
+    "tips.dice"         :   "[TIPS] Use /dice for throwing dice."
+    "tips.hat"          :   "[TIPS] Use /hat COUNT for pull a ball from hat, where COUNT balls in hat."
+
 });
 
 
-event("onServerAutosave", function() {
+event("onServerMinuteChange", function() {
+
+    if ((getMinute() % 5) != 0) {
+        return;
+    }
+
     if (!infoTipsCache || !infoTipsCache.len()) {
         infoTipsCache = clone infoTips;
     }

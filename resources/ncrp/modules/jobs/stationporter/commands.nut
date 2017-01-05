@@ -18,6 +18,20 @@ cmd("porter", "put", function(playerid) {
     porterJobPutBox( playerid );
 });
 
+key(["e"], function(playerid) {
+    if ( isPlayerInVehicle(playerid) ) {
+        return;
+    }
+    if ( !isPorter(playerid) ) {
+        return;
+    }
+    if ( !isPorterHaveBox(playerid) ) {
+        porterJobTakeBox( playerid );
+    } else {
+        porterJobPutBox( playerid );
+    }
+}, KEY_UP);
+
 // usage: /help job porter
 cmd("help", ["job", "porter"], function(playerid) {
     porterJobHelp ( playerid );
