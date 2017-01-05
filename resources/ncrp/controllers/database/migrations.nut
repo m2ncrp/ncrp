@@ -119,3 +119,11 @@ migrate(function(query, type) {
     query("UPDATE tbl_characters SET y = housey WHERE id > 0;");
     query("UPDATE tbl_characters SET z = housez WHERE id > 0;");
 });
+
+//05.01.2017
+//added moderator access level, number of player warnings/blocks
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_accounts ADD COLUMN `moderator` INT(255) NOT NULL DEFAULT 0;");
+    query("ALTER TABLE tbl_accounts ADD COLUMN `warns` INT(255) NOT NULL DEFAULT 0;");
+    query("ALTER TABLE tbl_accounts ADD COLUMN `blocks` INT(255) NOT NULL DEFAULT 0;");
+});
