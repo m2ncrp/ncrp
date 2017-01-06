@@ -82,10 +82,11 @@ event("onPlayerConnect", function(playerid) {
 });
 
 event("onServerPlayerStarted", function( playerid ) {
-    job_docker[playerid]["press3Dtext"] = createPrivate3DText (playerid, DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z+0.20, "Press E to get job", CL_WHITE.applyAlpha(100), 3.0 );
-
     if(players[playerid]["job"] == "docker") {
         job_docker[playerid]["blip3dtext"] = dockerJobCreatePrivateBlipText(playerid, DOCKER_JOB_TAKEBOX_X, DOCKER_JOB_TAKEBOX_Y, DOCKER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "press E");
+        job_docker[playerid]["press3Dtext"] = createPrivate3DText (playerid, DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z+0.20, "Press Q to leave job", CL_WHITE.applyAlpha(100), 3.0 );
+    } else {
+        job_docker[playerid]["press3Dtext"] = createPrivate3DText (playerid, DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z+0.20, "Press E to get job", CL_WHITE.applyAlpha(100), 3.0 );
     }
 });
 
@@ -212,7 +213,6 @@ function dockerJobTakeBox( playerid ) {
     }
 
     if(!isPlayerInValidPoint(playerid, DOCKER_JOB_TAKEBOX_X , DOCKER_JOB_TAKEBOX_Y, DOCKER_RADIUS)) {
-        //return msg( playerid, "job.docker.takebox", DOCKER_JOB_COLOR );
         return;
     }
 

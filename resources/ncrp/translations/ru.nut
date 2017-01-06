@@ -238,7 +238,7 @@ translation("ru", {
     "job.docker.letsgo"                 :   "[DOCKER] Отправляйтесь в офис City Port."
     "job.docker.already"                :   "[DOCKER] Ты уже работаешь портовым рабочим."
     "job.docker.now"                    :   "[DOCKER] Ты стал портовым рабочим. Добро пожаловать... в ад! Аха-ха..."
-    "job.docker.takeboxandcarry"        :   "[DOCKER] Бери ящик и неси на склад."
+    "job.docker.takeboxandcarry"        :   "[DOCKER] Бери ящик и неси к грузовику."
     "job.docker.not"                    :   "[DOCKER] Вы не работаете портовым рабочим."
     "job.docker.takebox"                :   "[DOCKER] Возьми ящик."
     "job.docker.havebox"                :   "[DOCKER] Ты уже несёшь ящик. Тебе мало что ли?"
