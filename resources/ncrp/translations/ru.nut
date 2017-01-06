@@ -68,7 +68,7 @@ translation("ru", {
     "auth.GUI.PasswordInput"            : "Придумайте пароль:"
     "auth.GUI.RepeatPasswordInput"      : "Повторите пароль:"
     "auth.GUI.Email"                    : "Email:"
-    "auth.GUI.ButtonRegister"           : "Зарегестрироваться"
+    "auth.GUI.ButtonRegister"           : "Зарегистрироваться"
 
     "auth.GUI.TitleLogin"       : "Авторизация"
     "auth.GUI.TitleLabelLogin"  : "Аккаунт уже зарегистрирован. Введите ваш пароль:"
