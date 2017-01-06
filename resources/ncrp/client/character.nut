@@ -191,13 +191,13 @@ addEventHandler( "onGuiElementClick",function(element){
 });
 
 bindKey("shift", "down", function() {
-	if(isCharacterCreationMenu){
+	if(isCharacterCreationMenu || isCharacterSelectionMenu){
 		showCursor(false);
 	}
 });
 
 bindKey("shift", "up", function() {
-   if(isCharacterCreationMenu){
+   if(isCharacterCreationMenu || isCharacterSelectionMenu){
    		showCursor(true);
    }
 });
