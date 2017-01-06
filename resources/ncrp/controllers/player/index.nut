@@ -72,15 +72,14 @@ event("onServerPlayerStarted", function(playerid) {
  * (after player just logined or regitered)
  */
 event("onPlayerInit", function(playerid) {
-    Character.findOneBy({ name = getAccountName(playerid) }, function(err, character) {
-        if (!character) {
-            return trigger("onPlayerCharacterCreation", playerid);
+    Character.findBy({ name = getAccountName(playerid) }, function(err, characters) {
+        foreach (idx, c in characters) {
+            trigger(playerid, "onServerCharacterLoading", c.id, c.firstname, c.lastname, c.race, c.sex, c.birthdate, c.money, c.deposit, c.cskin);
         }
-
-        // save player to storage
-        players.add(playerid, character);
-        return trigger("onPlayerCharacterLoaded", playerid);
     });
+
+    trigger(playerid, "onServerCharacterLoaded");
+    screenFadeout(playerid, 250);
 });
 
 /**
@@ -90,8 +89,12 @@ event("onPlayerInit", function(playerid) {
 event("native:onPlayerSpawn", function(playerid) {
     if (!isPlayerLoaded(playerid)) return;
 
+    // draw default fadeout
+    screenFadeout(playerid, calculateFPSDelay(playerid) + 2500);
+
+    // trigger native game fadeout to fix possible black screen
     delayedFunction(calculateFPSDelay(playerid) + 1500, function() {
-        screenFadeout(playerid, 1000);
+        nativeScreenFadeout(playerid, 1000);
     });
 
     // reset freeze and set default model

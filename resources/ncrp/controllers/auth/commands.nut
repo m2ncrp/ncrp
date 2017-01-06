@@ -33,12 +33,12 @@ function registerFunc(playerid, password, email = null) {
                 return trigger(playerid, "authErrorMessage", plocalize(playerid, "auth.error.email"));
             }
             else {
-                  Account.findOneBy({ username = account.username }, function(err, result) {
+                Account.findOneBy({ username = account.username }, function(err, result) {
                     if (result) {
                         trigger(playerid, "authErrorMessage", plocalize(playerid, "auth.error.register"));
                         //msg(playerid, "auth.error.register", CL_ERROR);
                     } else {
-                        ORM.Query("select count(*) cnt from @Account where serial like ':serial'")
+                        ORM.Query("select count(*) cnt from @Account where serial like :serial")
                         .setParameter("serial", getPlayerSerial(playerid))
                         .getSingleResult(function(err, result) {
                             // no more than N accounts
