@@ -17,21 +17,21 @@ translation("en", {
     "general.noonearound"                       : "There's noone around near you.",
     "general.job.anotherone"                    : "You've got %s job, not %s!",
 
-    "job.police.cadet"                          : "Police cadet"       
-    "job.police.patrol"                         : "Police patrolman",  
-    "job.police.officer"                        : "Police officer",    
-    "job.police.detective"                      : "Detective"          
-    "job.police.sergeant.1"                     : "Sergant"            
-    "job.police.sergeant.2"                     : "Sergant"            
-    "job.police.lieutenant.1"                   : "Lieutenant"         
-    "job.police.lieutenant.2"                   : "Lieutenant"         
-    "job.police.Captain.1"                      : "Captain I"            
-    "job.police.Captain.2"                      : "Captain II"            
-    "job.police.Captain.3"                      : "Captain III"            
-    "job.police.commander"                      : "Commander"          
-    "job.police.deputychief"                    : "Deputy chief"       
-    "job.police.assistantchief"                 : "Assistant chief"    
-    "job.police.chief"                          : "Police chief",      
+    "job.police.cadet"                          : "cadet"
+    "job.police.patrol"                         : "patrolman",  
+    "job.police.officer"                        : "officer",    
+    "job.police.detective"                      : "detective"
+    "job.police.sergeant.1"                     : "sergant I"
+    "job.police.sergeant.2"                     : "sergant II"
+    "job.police.lieutenant.1"                   : "lieutenant I"
+    "job.police.lieutenant.2"                   : "lieutenant II"
+    "job.police.Captain.1"                      : "captain I"
+    "job.police.Captain.2"                      : "captain II"
+    "job.police.Captain.3"                      : "captain III"
+    "job.police.commander"                      : "commander"
+    "job.police.deputychief"                    : "deputy chief"
+    "job.police.assistantchief"                 : "assist. chief"
+    "job.police.chief"                          : "police chief"
     "organizations.police.job.getmaxrank"       : "You've reached maximum rank: %s.",
     "organizations.police.job.getminrank"       : "You've reached minimum rank: %s.",
     "organizations.police.lowrank"              : "Your rank is too low for that.",
@@ -270,7 +270,7 @@ event("onPlayerSpawn", function( playerid ) {
 
 
 
-event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
+event("onPlayerVehicleEnter", function( playerid, vehicleid, seat ) {
     if (isPlayerInPoliceVehicle(playerid) && seat == 0) {
         if (!isOfficer(playerid)) {
             // set player wanted level or smth like that
@@ -287,6 +287,17 @@ event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
         } else {
             unblockVehicle(vehicleid);
         }
+    }
+
+    if ( getPlayerState(playerid) == "cuffed" ) { //  && seat != 0
+        setPlayerToggle(playerid, false);
+    }
+});
+
+
+event("onPlayerVehicleExit", function( playerid, vehicleid, seat ) {
+    if ( getPlayerState(playerid) == "cuffed" ) {
+        setPlayerToggle(playerid, true);
     }
 });
 
@@ -375,3 +386,17 @@ event("onBatonBitStart", function (playerid) {
     setPlayerAnimStyle(playerid, "common", "ManColdWeapon");
     setPlayerHandModel(playerid, 1, 28); // policedubinka right hand
 });
+
+
+event("onPlayerPhoneCall", function(playerid, number, place) {
+    if(number == "police") {
+        policeCall(playerid, place);
+        dbg("chat", "police", getAuthor(playerid), place);
+    }
+
+    // if (number == "dispatch") {
+    //     msg(playerid, "- Dispatcher on line.");
+    //     // WIP
+    // }
+});
+

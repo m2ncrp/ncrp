@@ -131,7 +131,11 @@ event("native:onPlayerConnect", function(playerid, name, ip, serial) {
     trigger("onPlayerConnectInit", playerid, name, ip, serial);
 
     if (!IS_AUTHORIZATION_ENABLED || DEBUG) {
-        trigger("onPlayerInit", playerid);
+        setLastActiveSession(playerid);
+
+        delayedFunction(100, function() {
+            trigger("onPlayerConnectInit", playerid, name, ip, serial);
+        });
     }
 });
 
@@ -170,6 +174,9 @@ proxy("onClientDebugToggle",        "onClientDebugToggle"               );
 proxy("onClientSendFPSData",        "onClientSendFPSData"               );
 proxy("onPlayerPlaceEnter",         "native:onPlayerPlaceEnter"         );
 proxy("onPlayerPlaceExit",          "native:onPlayerPlaceEexit"         );
+proxy("onPlayerCharacterCreate",    "onPlayerCharacterCreate"           );
+proxy("onPlayerCharacterSelect",    "onPlayerCharacterSelect"           );
+
 
 // Klo's playground
 proxy("RentCar",                    "RentCar"                           );
@@ -177,6 +184,7 @@ proxy("loginGUIFunction",           "loginGUIFunction"                  );
 proxy("registerGUIFunction",        "registerGUIFunction"               );
 proxy("updateMoveState",            "updateMoveState"                   );
 proxy("changeModel",                "changeModel"                       );
+
 /**
  * Debug export
  * if constant is set to true

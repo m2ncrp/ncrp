@@ -11,15 +11,16 @@ function policeCall(playerid, place) {
     msg(playerid, "organizations.police.call.foruser", [place], CL_ROYALBLUE);
     local pos = getPlayerPositionObj(playerid); 
 
-    foreach(player in playerList.getPlayers()) {
-        if ( isOfficer(player) && isOnPoliceDuty(player) || isPlayerAdmin(player) ) {
-            local crime_hash = createPrivateBlip(player, pos.x, pos.y, ICON_YELLOW, 4000.0);
+    foreach (player in players) {
+        local id = player.playerid;
+        if ( isOfficer(id) && isOnPoliceDuty(id) ) {
+            local crime_hash = createPrivateBlip(id, pos.x, pos.y, ICON_YELLOW, 4000.0);
 
             delayedFunction(60000, function() { // <----------------------------------------- need check for more than 2 people
                 removeBlip( crime_hash );
             });
 
-            msg(player, "organizations.police.call.new", [place], CL_ROYALBLUE);
+            msg(id, "organizations.police.call.new", [place], CL_ROYALBLUE);
         }
     }
 }
@@ -78,6 +79,11 @@ function leavePoliceJob(playerid) {
  */
 function isPlayerInPoliceVehicle(playerid) {
     return (isPlayerInValidVehicle(playerid, 42) || isPlayerInValidVehicle(playerid, 51) || isPlayerInValidVehicle(playerid, 21));
+}
+
+function isVehicleidPoliceVehicle(vehicleid) {
+    local model = getVehicleModel( vehicleid );
+    return ( model == 42 ) || ( model == 51 ) || ( model == 21 );
 }
 
 

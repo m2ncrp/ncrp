@@ -52,6 +52,16 @@ function screenFadeout(playerid, time, callback = null) {
 }
 
 /**
+ * Trigger native game screen fadeout
+ * @param  {Integer} playerid
+ * @param  {Float}   time
+ * @return {Boolean}
+ */
+function nativeScreenFadeout(playerid, time) {
+    return trigger(playerid, "onNativePlayerFadeout", time.tofloat());
+}
+
+/**
  * Send message to player, to fade in and then fade out his screen
  * using half of time for each
  * transparent -> black -> wait >1000ms -> transparent
@@ -75,7 +85,7 @@ function screenFadeinFadeout(playerid, time, callback1 = null, callback2 = null)
  * @param {Function} callback (optional)
  */
 function screenFadeinEx(playerid, fadetime, callback = null) {
-    trigger(playerid, "onServerFadeScreen", fadetime, "in");
+    trigger(playerid, "onServerFadeScreen", fadetime.tofloat(), "in");
     return callback ? delayedFunction(fadetime, callback) : null;
 }
 
@@ -88,7 +98,7 @@ function screenFadeinEx(playerid, fadetime, callback = null) {
  * @param {Function} callback (optional)
  */
 function screenFadeoutEx(playerid, fadetime, callback = null) {
-    trigger(playerid, "onServerFadeScreen", fadetime, "out");
+    trigger(playerid, "onServerFadeScreen", fadetime.tofloat(), "out");
     return callback ? delayedFunction(fadetime, callback) : null;
 }
 
@@ -119,3 +129,16 @@ function screenFadeinFadeoutEx(playerid, fadetime, pause, callback1 = null, call
 key("p", function(playerid) {
     trigger(playerid, "onServerToggleHudDrawing")
 });
+
+/**
+ * Create GUI alertbox for player with
+ * specified translated text
+ * @param  {Integer} playerid
+ * @param  {String}  message
+ * @param  {Array}   params optional
+ * @return {Boolean}
+ */
+function alert(playerid, message, params = []) {
+    if (DEBUG) dbg("alert", getIdentity(playerid), plocalize(playerid, message, params));
+    return trigger(playerid, "onAlert", plocalize(playerid, message, params))
+}

@@ -278,6 +278,10 @@ function calculateBusinessIncome() {
     foreach (idx, biz in businesses) {
         local playerid = getPlayerIdFromName(biz.owner);
 
+        if (!isPlayerConnected(playerid) || !isPlayerLoaded(playerid)) {
+            return;
+        }
+
         if (playerid != -1) {
             local amount = max(0.0, randomf(biz.income - 2.5, biz.income + 2.5));
 
