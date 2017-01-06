@@ -23,12 +23,18 @@ key("e", function(playerid) {
         return;
     }
     if ( !isDocker(playerid) ) {
-        return;
+        return dockerJob( playerid );
     }
     if ( !isDockerHaveBox(playerid) ) {
         dockerJobTakeBox( playerid );
     } else {
         dockerJobPutBox( playerid );
+    }
+}, KEY_UP);
+
+key("q", function(playerid) {
+    if ( isDocker(playerid) ) {
+        dockerJobLeave( playerid );
     }
 }, KEY_UP);
 
