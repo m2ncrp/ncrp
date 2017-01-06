@@ -17,12 +17,12 @@ function removePlayer(playerid, reason = "") {
     dbg("player", "disconnect", getIdentity(playerid));
     setPlayerAuthBlocked(playerid, false);
 
-    if (!isPlayerLoaded(playerid)) {
-        return dbg(format("player %s exited without character loading", getIdentity(playerid)));
-    }
-
     if (!isPlayerAuthed(playerid)) {
         return dbg(format("player %s exited without login", getIdentity(playerid)));
+    }
+
+    if (!isPlayerLoaded(playerid)) {
+        return dbg(format("player %s exited without character loading", getIdentity(playerid)));
     }
 
     // call events
@@ -40,7 +40,7 @@ function removePlayer(playerid, reason = "") {
  * @return {String}
  */
 function getIdentity(playerid) {
-    return format("id: %d, character: %s, account: %s", playerid, getPlayerName(playerid), getAccountName(playerid));
+    return playerid >= 0 ? format("id: %d, character: %s, account: %s", playerid, getPlayerName(playerid), getAccountName(playerid)) : "unloaded";
 }
 
 /**

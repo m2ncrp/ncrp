@@ -32,6 +32,10 @@ function get(x) {
     return (x in datastore) ? datastore[x] : 0.0;
 }
 
+function lerp(start, alpha, end) {
+    return (end - start) * alpha + start;
+}
+
 function onSecondChanged() {
     triggerServerEvent("onClientSendFPSData", getFPS());
 
@@ -191,26 +195,42 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
     dxDrawText(drawdata.logos, 6.5, screenY - offset - 6.5, 0x88FFFFFF, false, "tahoma-bold");
 });
 
+// setup default animation
 local screenFade = {
-    current = 255,
-    state = false,
+    state   = "out",
+    current = 0,
+    time    = 5000,
 };
 
 addEventHandler("onClientFrameRender", function(isGUIdrawn) {
     if (!isGUIdrawn) return;
+
     if ( screenFade.current > 0 ) {
-        // dxDrawRectangle(0.0, 0.0, screenX, screenY, fromRGB(0, 0, 0, screenFade.current));
+        local alpha = lerp(0, screenFade.current.tofloat() / screenFade.time.tofloat(), 255).tointeger();
+        dxDrawRectangle(0.0, 0.0, screenX, screenY, fromRGB(0, 0, 0, alpha));
+    }
+
+    // transp -> black
+    if (screenFade.state == "in" && screenFade.current < screenFade.time) {
+        screenFade.current += screenFade.time.tofloat() / getFPS().tofloat();
+    }
+
+    // black -> transp
+    if (screenFade.state == "out" && screenFade.current > 0) {
+        screenFade.current -= screenFade.time.tofloat() / getFPS().tofloat();
     }
 });
 
-addEventHandler("onServerFadeScreen", function(time, fadein) {
-    if (fadein) {
-        screenFade.state = fadein;
-    }
+addEventHandler("onServerFadeScreen", function(time, type) {
+    log("calling fade" + type.tostring() + " with time " + time.tostring());
+    screenFade.state    = type.tostring();
+    screenFade.time     = time.tofloat();
+    screenFade.current  = (type == "in") ? 0 : 255;
 });
 
-
-
+addEventHandler("onNativePlayerFadeout", function(time) {
+    fadeScreen(time.tofloat(), true);
+});
 
 /**
  * Handling client events
