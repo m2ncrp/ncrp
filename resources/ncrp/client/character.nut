@@ -43,6 +43,8 @@ local migrateOldCharacter = false;
 
 local otherPlayerLocked = true;
 
+local kek;
+
 local modelsData =
 [
 	[[71,72],[118,135]],//Euro
@@ -67,6 +69,7 @@ addEventHandler("onServerCharacterLoading", function(id,firstname, lastname, rac
 addEventHandler("onServerCharacterLoaded", function(){
 		charactersCount = characters.len();
 		formatCharacterSelection();
+		//kek = guiCreateElement(13,"someweirdshit.png", 0, 0, screen[0], screen[1]);
 });
 
 function characterSelection(){
@@ -80,6 +83,7 @@ function characterSelection(){
 	label.push(guiCreateElement( ELEMENT_TYPE_LABEL, charDesc[1], 20.0, 180.0, 300.0, 100.0, false, window));//label[1]
 	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, charDescButton[0], 20, 120.0, 150.0, 20.0,false, window));//button[0]
 	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, charDescButton[1], 20, 280.0, 150.0, 20.0,false, window));//button[1]
+	guiSetAlwaysOnTop(window,true);
 	guiSetSizable(window,false);
 	showCursor(true);
 }
@@ -152,6 +156,7 @@ function characterCreation(){
 	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "<<", 20.0, 260.0, 30.0, 20.0,false, window));//button[2]
 	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, ">>", 140.0, 260.0, 30.0, 20.0,false, window));//button[3]
 	button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "Продолжить", 20.0, 290.0, 150.0, 20.0,false, window));//button[4]
+	guiSetAlwaysOnTop(window,true);
 	guiSetSizable(window,false);
 	showCursor(true);
 }
@@ -302,6 +307,12 @@ function hideCharacterSelection () {
 		radio.clear();
 		otherPlayerLocked = false;
 	    isCharacterSelectionMenu = false;
+	    /*
+	    if(kek){
+	    	guiSetVisible(kek,false);
+	    	kek = null;
+	    }
+	    */
 	}
 }
 
@@ -368,17 +379,11 @@ addEventHandler( "onGuiElementMouseEnter",
 );
 
 addEventHandler("onClientFrameRender", function(a) {
-	// teleport players
 	if (!otherPlayerLocked || a) return;
 
 	foreach (idx, value in getPlayers()) {
 		if (idx == getLocalPlayer()) continue;
 		setPlayerPosition(idx, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z);
 	}
-
-	// if (window && guiGetAlpha(window) < 1.0) {
-	// 	guiSetAlpha(window, guiGetAlpha(window) + 0.01);
-	// }
-
 	showChat(false);
 });
