@@ -18,6 +18,8 @@ local button = array(2);
 local image;
 local isAuth;
 
+local kek;
+
 // stuff needed for hiding players
 local otherPlayerLocked = true;
 const DEFAULT_SPAWN_X    = -1027.02;
@@ -27,6 +29,7 @@ const DEFAULT_SPAWN_Z    =  10.2325;
 function showAuthGUI(windowLabel,labelText,inputText,buttonText){
 	//setPlayerPosition( getLocalPlayer(), -412.0, 1371.0, 36.0 );
 	//setPlayerPosition( getLocalPlayer(), -746.0, 1278.0, 15.5 );
+	kek = guiCreateElement(13,"someweirdshit.png", 0, 0, screen[0], screen[1]);
 	image = guiCreateElement(13,"logo.png", screen[0]/2 - 148.0, screen[1]/2 - 220.0, 296.0, 102.0);
 	window = guiCreateElement( ELEMENT_TYPE_WINDOW, windowLabel, screen[0]/2 - 192.5, screen[1]/2 - 65.2, 385.0, 135.0 );
 	label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, labelText, 58.0, 30.0, 300.0, 20.0, false, window);
@@ -41,6 +44,7 @@ function showAuthGUI(windowLabel,labelText,inputText,buttonText){
 addEventHandler("showAuthGUI", showAuthGUI);
 
 function showRegGUI(windowText,labelText, inputpText, inputrpText, inputEmailText, buttonText){
+	kek = guiCreateElement(13,"someweirdshit.png", 0, 0, screen[0], screen[1]);
 	image = guiCreateElement(13,"logo.png", screen[0]/2 - 148.0, screen[1]/2 - 220.0, 296.0, 102.0);
 	window = guiCreateElement( ELEMENT_TYPE_WINDOW, windowText, screen[0]/2 - 222.5, screen[1]/2 - 100.0, 455.0, 200.0 );
 	label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, labelText, 85.0, 30.0, 300.0, 20.0, false, window);
@@ -65,6 +69,7 @@ function destroyAuthGUI(){
 	if(window){
 		guiSetVisible(window,false);
 		guiSetVisible(image,false);
+		guiSetVisible(kek,false);
 
 		//guiDestroyElement(window);
 		//guiDestroyElement(image);
@@ -72,7 +77,7 @@ function destroyAuthGUI(){
 		delayedFunction(500, function() {
 			showCursor(false);
 		})
-
+		kek = null;
 		image = null;
 		window = null;
 	}

@@ -6,7 +6,7 @@ acmd("police", "danger", function(playerid, level) {
 
 
 // usage: /police job <id>
-acmd("police", "job", function(playerid, targetid) {
+acmd("a", ["police", "job"], function(playerid, targetid) {
     local targetid = targetid.tointeger();
     getPoliceJob(targetid);
     msg(playerid, "organizations.police.setjob.byadmin", [ getAuthor(targetid), getLocalizedPlayerJob(targetid) ] );
@@ -15,7 +15,7 @@ acmd("police", "job", function(playerid, targetid) {
 
 
 // usage: /police job leave <id>
-acmd("police", ["job", "leave"], function(playerid, targetid) {
+acmd("a", ["police", "job", "leave"], function(playerid, targetid) {
     local targetid = targetid.tointeger();
     msg(playerid, "organizations.police.leavejob.byadmin", [ getAuthor(targetid), getLocalizedPlayerJob(targetid) ]);
     dbg( "[POLICE LEAVE]" + getAuthor(playerid) + " remove " + getAuthor(targetid) + "from Police" );
@@ -23,8 +23,8 @@ acmd("police", ["job", "leave"], function(playerid, targetid) {
 });
 
 
-// usage: /police set rank <1..3>
-acmd("police", ["set", "rank"], function(playerid, targetid, rank) {
+// usage: /police set rank <0..14>
+acmd("a", ["police", "set", "rank"], function(playerid, targetid, rank) {
     targetid = targetid.tointeger();
     rank = rank.tointeger();
 
@@ -32,14 +32,16 @@ acmd("police", ["set", "rank"], function(playerid, targetid, rank) {
         return msg(playerid, "organizations.police.notanofficer"); // not you, but target
     }
 
-    if ( isOnPoliceDuty(playerid) ) {
-        trigger("onPoliceDutyOff", playerid);
-        setPoliceRank( targetid, rank );
-        trigger("onPoliceDutyOn", playerid);
-        setPlayerJob ( targetid, getPlayerJob(playerid) );
-    } else {
-        setPoliceRank( targetid, rank );
-        setPlayerJob ( targetid, getPlayerJob(playerid) );
+    if (rank >= 0 && rank < POLICE_RANK.len()) {
+        if ( isOnPoliceDuty(playerid) ) {
+            trigger("onPoliceDutyOff", playerid);
+            setPoliceRank( targetid, rank );
+            trigger("onPoliceDutyOn", playerid);
+            setPlayerJob( targetid, POLICE_RANK[rank] );
+        } else {
+            setPoliceRank( targetid, rank );
+            setPlayerJob( targetid, POLICE_RANK[rank] );
+        }
     }
 });
 
@@ -51,64 +53,68 @@ acmd("serial", function(playerid, targetid) {
 });
 
 
+/*
 // usage: /police Train Station
 cmd("police", function(playerid, ...) {
     local place = concat(vargv);
-    policeCall(playerid, place);
 
     // local pos = getPlayerPositionObj(playerid);
     // local data = url_encode(base64_encode(format("%s: %s; coord [%.3f, %.3f, %.3f]", getAuthor(playerid), concat(vargv), pos.x, pos.y, pos.z)));
     // webRequest(HTTP_TYPE_GET, MOD_HOST, "/discord?type=police&data=" + data, function(a,b,c) {}, MOD_PORT);
 
-    dbg("chat", "police", getAuthor(playerid), place);
+});
+*/
+
+// usage in phone booth: /police
+cmd("police", function(playerid) {
+    __commands["call"][COMMANDS_DEFAULT](playerid, "police");
 });
 
 
+// usage: /police job <id>
+cmd("police", "job", function(playerid, targetid) {
+    local targetid = targetid.tointeger();
+    if ( getPoliceRank(playerid) == MAX_RANK ) {
+        if ( isPlayerHaveJob(targetid) ) {
+            return;
+        }
 
-// // usage: /police job <id>
-// cmd("police", "job", function(playerid, targetid) {
-//     local targetid = targetid.tointeger();
-//     if ( getPoliceRank(playerid) == MAX_RANK ) {
-//         if ( isPlayerHaveJob(targetid) ) {
-//             return;
-//         }
-
-//         getPoliceJob(targetid);
-//         dbg( "[POLICE JOIN]" + getAuthor(playerid) + " add " + getAuthor(targetid) + "to Police" );
-//     }
-// });
-
-
-// // usage: /police job leave <id>
-// cmd("police", ["job", "leave"], function(playerid, targetid) {
-//     local targetid = targetid.tointeger();
-//     if ( getPoliceRank(playerid) == MAX_RANK ) {
-//         dbg( "[POLICE LEAVE]" + getAuthor(playerid) + " remove " + getAuthor(targetid) + "from Police" );
-//         leavePoliceJob(targetid);
-//     }
-// });
+        getPoliceJob(targetid);
+        dbg( "[POLICE JOIN]" + getAuthor(playerid) + " add " + getAuthor(targetid) + "to Police" );
+    }
+});
 
 
-// // usage: /police set rank <1..3>
-// cmd("police", ["set", "rank"], function(playerid, targetid, rank) {
-//     targetid = targetid.tointeger();
-//     rank = rank.tointeger();
-//     if ( getPoliceRank(playerid) == MAX_RANK ) {
-//         if ( !isOfficer(targetid) ) {
-//             return msg(playerid, "organizations.police.notanofficer"); // not you, but target
-//         }
+// usage: /police job leave <id>
+cmd("police", ["job", "leave"], function(playerid, targetid) {
+    local targetid = targetid.tointeger();
+    if ( getPoliceRank(playerid) == MAX_RANK ) {
+        dbg( "[POLICE LEAVE]" + getAuthor(playerid) + " remove " + getAuthor(targetid) + "from Police" );
+        leavePoliceJob(targetid);
+    }
+});
 
-//         if ( isOnPoliceDuty(playerid) ) {
-//             trigger("onPoliceDutyOff", playerid);
-//             setPoliceRank( targetid, rank );
-//             trigger("onPoliceDutyOn", playerid);
-//             setPlayerJob ( targetid, getPlayerJob(playerid) );
-//         } else {
-//             setPoliceRank( targetid, rank );
-//             setPlayerJob ( targetid, getPlayerJob(playerid) );
-//         }
-//     }    
-// });
+
+// usage: /police set rank <0..14>
+cmd("police", ["set", "rank"], function(playerid, targetid, rank) {
+    targetid = targetid.tointeger();
+    rank = rank.tointeger();
+    if ( getPoliceRank(playerid) == MAX_RANK ) {
+        if ( !isOfficer(targetid) ) {
+            return msg(playerid, "organizations.police.notanofficer"); // not you, but target
+        }
+
+        if ( isOnPoliceDuty(playerid) ) {
+            trigger("onPoliceDutyOff", playerid);
+            setPoliceRank( targetid, rank );
+            trigger("onPoliceDutyOn", playerid);
+            setPlayerJob ( targetid, getPlayerJob(playerid) );
+        } else {
+            setPoliceRank( targetid, rank );
+            setPlayerJob ( targetid, getPlayerJob(playerid) );
+        }
+    }    
+});
 
 
 
@@ -271,6 +277,17 @@ key(["v"], function(playerid) {
     cuff(playerid);
 }, KEY_UP);
 
+
+local function policetestitout(playerid, targetid, vehid) {
+    putPlayerInVehicle(targetid, vehid, 1);
+    setPlayerToggle(playerid, false);
+}
+
+acmd(["transport", "suspect"], function(playerid, targetid) {
+    targetid = targetid.tointeger();
+    local veh = getPlayerVehicle(playerid);
+    policetestitout(playerid, targetid, veh);
+});
 
 // put nearest cuffed player in jail
 cmd(["prison", "jail"], function(playerid, targetid) {

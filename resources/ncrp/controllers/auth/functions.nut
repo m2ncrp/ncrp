@@ -56,6 +56,24 @@ function getAccountName(playerid) {
 }
 
 /**
+ * Get player account id (if logined, or 0)
+ * @param  {Integer} playerid
+ * @return {Integer}
+ */
+function getAccountId(playerid) {
+    return (isPlayerAuthed(playerid) ? accounts[playerid].id : 0);
+}
+
+/**
+ * Get player account object (if logined or null)
+ * @param  {Integer} playerid
+ * @return {Account}
+ */
+function getAccount(playerid) {
+    return (isPlayerAuthed(playerid) ? accounts[playerid] : null);
+}
+
+/**
  * Get account object by playerid or null
  * @param  {Integer} playerid
  * @return {Account}
@@ -225,5 +243,5 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
 
 
 event("changeModel",function(playerid,model) {
-    setPlayerModel( playerid, model);
+    nativeSetPlayerModel( playerid, model);
 });

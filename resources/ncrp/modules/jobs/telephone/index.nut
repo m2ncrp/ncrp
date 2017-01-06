@@ -1,129 +1,477 @@
 include("modules/jobs/telephone/commands.nut");
 
-addEventHandlerEx("onServerStarted", function() {
-    log("[jobs] loading telephone services job and telephone system...");
-    createVehicle(31, -1066.02, 1483.81, -3.79657, -90.8055, -1.36482, -0.105954);   // telephoneCAR1
-    createVehicle(31, -1076.38, 1483.81, -3.51025, -89.5915, -1.332, -0.0857111);   // telephoneCAR2
-});
+local phone_nearest_blip = {};
 
 local telephones = [
-    [ -1021.87, 1643.44, 10.6318 ],     //  Telephone0 | Kingston. Near our prison.
-    [ -562.58, 1521.96, -16.1836 ],     //  Telephone1 | Dipton. Taxi Parking.
-    [ -310.62, 1694.98, -22.3772 ],     //  Telephone2 | Riverside.
-    [ -747.386, 1762.67, -15.0237 ],    //  Telephone3 | Dipton. Gas Station.
-    [ -724.814, 1647.21, -14.9223 ],    //  Telephone4 | Dipton. Road to Gas Station. Pair box.
-    [ -724.914, 1645.24, -14.9223 ],    //  Telephone5 | Dipton. Road to Gas Station. Pair box.
-    [ -1200.2, 1675.75, 11.3337 ],      //  Telephone6 | Kingston. Gun Shop.
-    [ -1436.35, 1676.01, 6.14958 ],     //  Telephone7 | Kingston. West of last north street.
-    [ -1520.38, 1592.71, -6.04848 ],    //  Telephone8 | Kingston. Empire Diner.
-    [ -1038.5, 1368.65, -13.5484 ],     //  Telephone9 | Kingston. Enter to Kingston-Uptown Tunnel. Pair box.
-    [ -1037.4, 1368.55, -13.5485 ],     //  Telephone10 | Kingston. Enter to Kingston-Uptown Tunnel. Pair box.
-    [ -1033.41, 1398.75, -13.5597 ],    //  Telephone11 | Kingston. Enter to Kingston-Uptown Tunnel.
-    [ -903.212, 1412.57, -11.3637 ],    //  Telephone12 | Kingston. From tunnel to River Street.
-    [ -1170.64, 1578.32, 5.84166 ],     //  Telephone13 | Kingston. The Hill of Tara.
-    [ -1297.43, 1491.66, -6.07104 ],    //  Telephone14 | Kingston. River Street, opposite to Kingston Stadium. Pair box.
-    [ -1297.38, 1492.68, -6.07106 ],    //  Telephone15 | Kingston. River Street, opposite to Kingston Stadium. Pair box.
-    [ -1229.36, 1457.89, -4.88868 ],    //  Telephone16 | Kingston. Center of River Street. Pair box.
-    [ -1228.24, 1457.91, -4.85487 ],    //  Telephone17 | Kingston. Center of River Street. Pair box.
-    [ -1046.37, 1429.04, -4.3155 ],     //  Telephone18 | Kingston. River Street, top of ladder to Kingston-Uptown Tunnel. Pair box.
-    [ -1047.67, 1429.08, -4.31618 ],    //  Telephone19 | Kingston. River Street, top of ladder to Kingston-Uptown Tunnel. Pair box.
-    [ -952.956, 1485.89, -4.74223 ],    //  Telephone20 | Kingston. East of River Street.
-    [ -1654.7, 1142.97, -7.10701 ],     //  Telephone21 | Greenfield. Highway.
-    [ -1471.25, 1124.4, -11.7355 ],     //  Telephone22 | Greenfield. Oak Street.
-    [ -1187.1, 1276.32, -13.5484 ],     //  Telephone23 | Kingston. Kingston Stadium. Pair box.
-    [ -1187.13, 1275.15, -13.5485 ],    //  Telephone24 | Kingston. Kingston Stadium. Pair box.
-    [ -1579.08, 940.472, -5.19268 ],    //  Telephone25 | Greenfield. Gas Station.
-    [ -1416.07, 935.317, -13.6497 ],    //  Telephone26 | Greenfield. Empire Diner.
-    [ -1342.85, 1017.48, -17.6025 ],    //  Telephone27 | Greenfield. Greenfield Park.
-    [ -1339.04, 916.051, -18.4358 ],    //  Telephone28 | Greenfield. Near Greenfield Park.
-    [ -1344.78, 796.552, -14.6407 ],    //  Telephone29 | Hunters Point. Near Evergreen Street.
-    [ -1562.11, 527.842, -20.1475 ],    //  Telephone30 | Hunters Point. Springboard from planks.
-    [ -1712.73, 688.218, -10.2715 ],    //  Telephone31 | Hunters Point. After small bridge over subway.
-    [ -1639.46, 382.508, -19.5393 ],    //  Telephone32 | Hunters Point. Heart of region.
-    [ -1559.83, 170.441, -13.267 ],     //  Telephone33 | Sand Island. Empire Diner.
-    [ -1401.38, 218.989, -24.7309 ],    //  Telephone34 | Hunters Point. Border with Sand Island.
-    [ -1649.2, 65.497, -9.2241 ],       //  Telephone35 | Sand Island. Under Subway.
-    [ -1777.09, -78.2523, -7.52374 ],   //  Telephone36 | Sand Island. West.
-    [ -1421.37, -191.312, -20.3051 ],   //  Telephone37 | Sand Island. Near Misery Lane.
-    [ 139.144, 1226.56, 62.8896 ],      //  Telephone38 | Hillwood
-    [ -508.56, 910.732, -19.0552 ],     //  Telephone39 | Uptown. Enter to Uptown-Kingston Tunnel.
-    [ -646.39, 923.879, -18.8975 ],     //  Telephone40 | Uptown. House 174.
-    [ -736.363, 832.825, -18.8975 ],    //  Telephone41 | Uptown. View on the Culver River. Pair box.
-    [ -736.459, 831.573, -18.8976 ],    //  Telephone42 | Uptown. View on the Culver River. Pair box.
-    [ -622.139, 815.393, -18.8975 ],    //  Telephone43 | Uptown. Avenue.
-    [ -733.445, 691.414, -17.3997 ],    //  Telephone44 | Uptown. Bottom street to Southport.
-    [ -377.095, 794.644, -20.125 ],     //  Telephone45 | Uptown. Near Office of Price Administration. Pair box.
-    [ -375.991, 794.554, -20.125 ],     //  Telephone46 | Uptown. Near Office of Price Administration. Pair box.
-    [ -405.618, 913.88, -19.9786 ],     //  Telephone47 | Uptown. Empire General Hospital.
-    [ -156.412, 770.867, -20.733 ],     //  Telephone48 | Little Italy. Near Diamond Motors.
-    [ -8.69882, 625.297, -19.9222 ],    //  Telephone49 | Little Italy. Avenue.
-    [ -31.2744, 658.517, -20.1292 ],    //  Telephone50 | Little Italy. Near Freddy's Bar.
-    [ -123.964, 553.446, -20.2038 ],    //  Telephone51 | Little Italy. Near Giuseppe's Shop.
-    [ 35.6793, 563.377, -19.3029 ],     //  Telephone52 | Little Italy. Road to East Side.
-    [ 63.6219, 417.433, -13.9426 ],     //  Telephone53 | East Side. Border with Little Italy.
-    [ -6.95174, 381.727, -13.9651 ],    //  Telephone54 | East Side. Near shop of men's wear Dipton Apparel.
-    [ 112.527, 847.265, -19.911 ],      //  Telephone55 | Little Italy. Joe's Apartment.
-    [ 257.777, 825.8, -20.001 ],        //  Telephone56 | Little Italy. Scaletta Family Apartment.
-    [ 612.138, 845.592, -12.6475 ],     //  Telephone57 | North Millville. Car rental and bar The Dragstrip.
-    [ 385.573, 680.05, -24.8659 ],      //  Telephone58 | Little Italy. Maria Agnello's Apartment.
-    [ 285.979, 612.951, -24.5618 ],     //  Telephone59 | Little Italy. Border with Chinatown.
-    [ 250.089, 494.022, -20.0461 ],     //  Telephone60 | Chinatown. West.
-    [ 436.909, 391.101, -20.1926 ],     //  Telephone61 | Chinatown. East.
-    [ 332.423, 232.168, -21.5327 ],     //  Telephone62 | Chinatown. Heart of region. Pair box.
-    [ 331.261, 232.113, -21.5326 ],     //  Telephone63 | Chinatown. Heart of region. Pair box.
-    [ 383.722, -111.622, -6.62286 ],    //  Telephone64 | Oyster Bay. Cafeteria on the hill.
-    [ 618.075, 32.9697, -18.2669 ],     //  Telephone65 | South Millville. Near Gas Station.
-    [ 747.702, 7.96036, -19.4605 ],     //  Telephone66 | South Millville. The Printery.
-    [ 500.901, -265.225, -20.1588 ],    //  Telephone67 | Oyster Bay. Trago Oil Co.
-    [ 282.829, -388.466, -20.1362 ],    //  Telephone68 | Oyster Bay. Near Gun Shop.
-    [ 49.447, -456.087, -20.1363 ],     //  Telephone69 | Southport. Charlie's Service Station.
-    [ -147.15, -596.099, -20.125 ],     //  Telephone70 | Southport. Palisade Street. Near Bruno's Office.
-    [ -315.458, -406.552, -14.393 ],    //  Telephone71 | Southport. Pair box.
-    [ -315.519, -407.59, -14.4268 ],    //  Telephone72 | Southport. Pair box.
-    [ -427.784, -307.159, -11.7241 ],   //  Telephone73 | Midtown. Bus stop.
-    [ 70.7739, -275.54, -20.1476 ],     //  Telephone74 | Midtown. Grand Imperial Bank.
-    [ -68.1265, -199.786, -14.3818 ],   //  Telephone75 | Midtown. Church.
-    [ -208.821, -45.6546, -12.0169 ],   //  Telephone76 | Midtown. Near upscale clothing store Vangel's.
-    [ 29.1469, 34.0267, -12.5575 ],     //  Telephone77 | East Side. Near The Maltese Falcon.
-    [ 68.3763, 237.33, -15.9921 ],      //  Telephone78 | East Side. Near avenue. Pair box.
-    [ 67.1935, 237.317, -15.9921 ],     //  Telephone79 | East Side. Near avenue. Pair box.
-    [ -78.6167, 233.374, -14.4043 ],    //  Telephone80 | East Side. Opposite to automotive repair shop.
-    [ -578.792, -481.143, -20.1363 ],   //  Telephone81 | Southport. Road to Southport Tunnel.
-    [ -191.072, 165.4, -10.5756 ],      //  Telephone81 | East Side. Near Linkoln Park.
-    [ -584.818, 89.3622, -0.215257 ],   //  Telephone82 | West Side. Backyard of West Side Mall (Market Arcade).
-    [ -655.417, 236.77, 1.0432 ],       //  Telephone83 | West Side. Near automotive repair shop.
-    [ -515.485, 449.502, 0.971977 ],    //  Telephone84 | Uptown. Hieroglyph sculpture.
-    [ -653.472, 555.425, 1.04811 ],     //  Telephone85 | Uptown. Backyard of Uptown Parking.
-    [ -373.309, 487.793, 1.05809 ],     //  Telephone86 | Uptown. Bus station. Pair box.
-    [ -373.36, 488.971, 1.05808 ],      //  Telephone87 | Uptown. Bus station. Pair box.
-    [ -353.737, 592.724, 1.05806 ],     //  Telephone88 | Uptown. View on the Police Department.
-    [ -469.515, 571.311, 1.04652 ],     //  Telephone89 | Uptown. Near Uptown Parking and Grand Upper Bridge. Pair box.
-    [ -470.609, 571.31, 1.04651 ],      //  Telephone90 | Uptown. Near Uptown Parking and Grand Upper Bridge. Pair box.
-    [ -408.296, 631.616, -12.3661 ],    //  Telephone91 | Uptown. Opposite to Police Department.
-    [ -264.414, 678.893, -19.9448 ]     //  Telephone92 | Uptown. Near arch to Little Italy.
+/*
+0 - phone booth
+1 - bussiness
+2 - police alarm
+
+ */
+    [ -1021.87, 1643.44, 10.6318    , "telephone0"   ],
+    [ -562.58, 1521.96, -16.1836    , "telephone1"   ],
+    [ -310.62, 1694.98, -22.3772    , "telephone2"   ],
+    [ -747.386, 1762.67, -15.0237   , "telephone3"   ],
+    [ -724.814, 1647.21, -14.9223   , "telephone4"   ],
+    [ -724.914, 1645.24, -14.9223   , "telephone5"   ],
+    [ -1200.2, 1675.75, 11.3337     , "telephone6"   ],
+    [ -1436.35, 1676.01, 6.14958    , "telephone7"   ],
+    [ -1520.38, 1592.71, -6.04848   , "telephone8"   ],
+    [ -1038.5, 1368.65, -13.5484    , "telephone9"   ],
+    [ -1037.4, 1368.55, -13.5485    , "telephone10"  ],
+    [ -1033.41, 1398.75, -13.5597   , "telephone11"  ],
+    [ -903.212, 1412.57, -11.3637   , "telephone12"  ],
+    [ -1170.64, 1578.32, 5.84166    , "telephone13"  ],
+    [ -1297.43, 1491.66, -6.07104   , "telephone14"  ],
+    [ -1297.38, 1492.68, -6.07106   , "telephone15"  ],
+    [ -1229.36, 1457.89, -4.88868   , "telephone16"  ],
+    [ -1228.24, 1457.91, -4.85487   , "telephone17"  ],
+    [ -1046.37, 1429.04, -4.3155    , "telephone18"  ],
+    [ -1047.67, 1429.08, -4.31618   , "telephone19"  ],
+    [ -952.956, 1485.89, -4.74223   , "telephone20"  ],
+    [ -1654.7, 1142.97, -7.10701    , "telephone21"  ],
+    [ -1471.25, 1124.4, -11.7355    , "telephone22"  ],
+    [ -1187.1, 1276.32, -13.5484    , "telephone23"  ],
+    [ -1187.13, 1275.15, -13.5485   , "telephone24"  ],
+    [ -1579.08, 940.472, -5.19268   , "telephone25"  ],
+    [ -1416.07, 935.317, -13.6497   , "telephone26"  ],
+    [ -1342.85, 1017.48, -17.6025   , "telephone27"  ],
+    [ -1339.04, 916.051, -18.4358   , "telephone28"  ],
+    [ -1344.78, 796.552, -14.6407   , "telephone29"  ],
+    [ -1562.11, 527.842, -20.1475   , "telephone30"  ],
+    [ -1712.73, 688.218, -10.2715   , "telephone31"  ],
+    [ -1639.46, 382.508, -19.5393   , "telephone32"  ],
+    [ -1559.83, 170.441, -13.267    , "telephone33"  ],
+    [ -1401.38, 218.989, -24.7309   , "telephone34"  ],
+    [ -1649.2, 65.497, -9.2241      , "telephone35"  ],
+    [ -1777.09, -78.2523, -7.52374  , "telephone36"  ],
+    [ -1421.37, -191.312, -20.3051  , "telephone37"  ],
+    [ 139.144, 1226.56, 62.8896     , "telephone38"  ],
+    [ -508.56, 910.732, -19.0552    , "telephone39"  ],
+    [ -646.39, 923.879, -18.8975    , "telephone40"  ],
+    [ -736.363, 832.825, -18.8975   , "telephone41"  ],
+    [ -736.459, 831.573, -18.8976   , "telephone42"  ],
+    [ -622.139, 815.393, -18.8975   , "telephone43"  ],
+    [ -733.445, 691.414, -17.3997   , "telephone44"  ],
+    [ -377.095, 794.644, -20.125    , "telephone45"  ],
+    [ -375.991, 794.554, -20.125    , "telephone46"  ],
+    [ -405.618, 913.88, -19.9786    , "telephone47"  ],
+    [ -156.412, 770.867, -20.733    , "telephone48"  ],
+    [ -8.69882, 625.297, -19.9222   , "telephone49"  ],
+    [ -31.2744, 658.517, -20.1292   , "telephone50"  ],
+    [ -123.964, 553.446, -20.2038   , "telephone51"  ],
+    [ 35.6793, 563.377, -19.3029    , "telephone52"  ],
+    [ 63.6219, 417.433, -13.9426    , "telephone53"  ],
+    [ -6.95174, 381.727, -13.9651   , "telephone54"  ],
+    [ 112.527, 847.265, -19.911     , "telephone55"  ],
+    [ 257.777, 825.8, -20.001       , "telephone56"  ],
+    [ 612.138, 845.592, -12.6475    , "telephone57"  ],
+    [ 385.573, 680.05, -24.8659     , "telephone58"  ],
+    [ 285.979, 612.951, -24.5618    , "telephone59"  ],
+    [ 250.089, 494.022, -20.0461    , "telephone60"  ],
+    [ 436.909, 391.101, -20.1926    , "telephone61"  ],
+    [ 332.423, 232.168, -21.5327    , "telephone62"  ],
+    [ 331.261, 232.113, -21.5326    , "telephone63"  ],
+    [ 383.722, -111.622, -6.62286   , "telephone64"  ],
+    [ 618.075, 32.9697, -18.2669    , "telephone65"  ],
+    [ 747.702, 7.96036, -19.4605    , "telephone66"  ],
+    [ 500.901, -265.225, -20.1588   , "telephone67"  ],
+    [ 282.829, -388.466, -20.1362   , "telephone68"  ],
+    [ 49.447, -456.087, -20.1363    , "telephone69"  ],
+    [ -147.15, -596.099, -20.125    , "telephone70"  ],
+    [ -315.458, -406.552, -14.393   , "telephone71"  ],
+    [ -315.519, -407.59, -14.4268   , "telephone72"  ],
+    [ -427.784, -307.159, -11.7241  , "telephone73"  ],
+    [ 70.7739, -275.54, -20.1476    , "telephone74"  ],
+    [ -68.1265, -199.786, -14.3818  , "telephone75"  ],
+    [ -208.821, -45.6546, -12.0169  , "telephone76"  ],
+    [ 29.1469, 34.0267, -12.5575    , "telephone77"  ],
+    [ 68.3763, 237.33, -15.9921     , "telephone78"  ],
+    [ 67.1935, 237.317, -15.9921    , "telephone79"  ],
+    [ -78.6167, 233.374, -14.4043   , "telephone80"  ],
+    [ -578.792, -481.143, -20.1363  , "telephone81"  ],
+    [ -191.072, 165.4, -10.5756     , "telephone82"  ],
+    [ -584.818, 89.3622, -0.215257  , "telephone83"  ],
+    [ -655.417, 236.77, 1.0432      , "telephone84"  ],
+    [ -515.485, 449.502, 0.971977   , "telephone85"  ],
+    [ -653.472, 555.425, 1.04811    , "telephone86"  ],
+    [ -373.309, 487.793, 1.05809    , "telephone87"  ],
+    [ -373.36, 488.971, 1.05808     , "telephone88"  ],
+    [ -353.737, 592.724, 1.05806    , "telephone89"  ],
+    [ -469.515, 571.311, 1.04652    , "telephone90"  ],
+    [ -470.609, 571.31, 1.04651     , "telephone91"  ],
+    [ -408.296, 631.616, -12.3661   , "telephone92"  ],
+    [ -264.414, 678.893, -19.9448   , "telephone93"  ],
+
+    [ -352.354, -726.13, -15.4204   , "telephone94"  , 1],
+    [ 81.3677, 892.368, -13.3204    , "telephone95"  , 1],
+    [ 626.474, 898.527, -11.7137    , "telephone96"  , 1],
+    [ -49.231, 740.707, -21.9009    , "telephone97"  , 1],
+    [ 19.2317, -74.7028, -15.595    , "telephone98"  , 1],
+    [ -254.039, -82.1033, -11.458   , "telephone99"  , 1],
+    [ -637.16, 348.346, 1.34485     , "telephone100" , 1],
+    [ -1386.91, 470.764, -22.1321   , "telephone101" , 1],
+    [ -1559.92, -163.443, -19.6113  , "telephone102" , 1],
+    [ -1146.3, 1591.19, 6.25566     , "telephone103" , 1],
+    [ -1301.75, 996.284, -17.3339   , "telephone104" , 1],
+    [ -651.048, 942.307, -7.93587   , "telephone105" , 1],
+    [ 374.146, -290.937, -15.5799   , "telephone106" , 1],
+    [ -161.972, -588.33, -16.1199   , "telephone107" , 1],
+
+    [-371.573,   1787.89, -23.589   , "policeAlarm1" , 2 ],
+    [-1292.88,   1484.98, -6.11190  , "policeAlarm2" , 2 ],
+    [-1176.64,   1457.64, -4.12012  , "policeAlarm3" , 2 ],
+    [-1171.7,    1387.29, -13.6239  , "policeAlarm4" , 2 ],
+    [-1317.53,   1402.58, -13.5725  , "policeAlarm5" , 2 ],
+    [-1299.35,   751.584, -15.7788  , "policeAlarm6" , 2 ],
+    [-1417.24,   497.773, -21.4151  , "policeAlarm7" , 2 ],
+    [ 36.4554,   235.118, -16.0193  , "policeAlarm8" , 2 ],
+    [-639.445,  -76.2884,  1.03814  , "policeAlarm9" , 2 ],
+    [-680.221,   182.574,  1.03806  , "policeAlarm10", 2 ],
+    [-474.135,   185.611,  1.02381  , "policeAlarm11", 2 ],
+    [-477.684,   382.254,  1.03808  , "policeAlarm12", 2 ],
+    [-477.376,   439.521,  1.03657  , "policeAlarm13", 2 ],
+    [-661.801,   455.444,  1.03789  , "policeAlarm14", 2 ],
+    [-512.606,   810.714, -19.6019  , "policeAlarm15", 2 ],
+    [-196.664,   382.899, -6.32934  , "policeAlarm16", 2 ],
+    [-191.619,   297.732, -6.45726  , "policeAlarm17", 2 ],
+    [-195.883,   162.1,   -10.5431  , "policeAlarm18", 2 ],
+    [-196.463,   82.5475, -11.1609  , "policeAlarm19", 2 ],
+    [-123.769,   232.632, -13.9932  , "policeAlarm20", 2 ],
+    [-122.238,   355.647, -13.9932  , "policeAlarm21", 2 ],
+    [-9.27437,   413.96,  -13.9914  , "policeAlarm22", 2 ],
+    [-69.3858,   723.144, -21.9343  , "policeAlarm23", 2 ],
+    [ 131.276,   780.688, -18.9663  , "policeAlarm24", 2 ],
+    [ 118.093,   904.171, -22.3053  , "policeAlarm25", 2 ],
+    [ 335.894,   829.788, -21.2524  , "policeAlarm26", 2 ],
+    [ 370.317,   808.668, -21.2487  , "policeAlarm27", 2 ],
+    [ 394.804,   797.771, -21.2487  , "policeAlarm28", 2 ],
+    [ 451.982,   751.116, -21.2541  , "policeAlarm29", 2 ],
+    [ 407.519,   674.809, -24.8892  , "policeAlarm30", 2 ],
+    [ 276.342,   606.728, -24.5672  , "policeAlarm31", 2 ],
+    [ 259.641,   466.762, -20.1637  , "policeAlarm32", 2 ],
+    [ 259.739,   333.152, -21.6012  , "policeAlarm33", 2 ],
+    [ 259.682,   399.147, -21.5767  , "policeAlarm34", 2 ],
+    [ 255.309,   31.6091, -23.3979  , "policeAlarm35", 2 ],
+    [  264.94,   841.694,   -20.38  , "policeAlarm36", 2 ],
+];
+
+translation("en", {
+"telephone0"  : "Kingston. Near our prison"
+"telephone1"  : "Dipton. Opposite to Union Station"
+"telephone2"  : "Riverside"
+"telephone3"  : "Dipton. Near Gas Station"
+"telephone4"  : "Dipton. Road to Gas Station. Pair box"
+"telephone5"  : "Dipton. Road to Gas Station. Pair box"
+"telephone6"  : "Kingston. Near Gun Shop"
+"telephone7"  : "Kingston. West of last north street"
+"telephone8"  : "Kingston. Near Empire Diner"
+"telephone9"  : "Kingston. Enter to Uptown Tunnel. Pair box"
+"telephone10" : "Kingston. Enter to Uptown Tunnel. Pair box"
+"telephone11" : "Kingston. Enter to Uptown Tunnel"
+"telephone12" : "Kingston. From tunnel to River Street"
+"telephone13" : "Kingston. Near the Hill of Tara"
+"telephone14" : "Kingston. River Street, opposite to Kingston Stadium. Pair box"
+"telephone15" : "Kingston. River Street, opposite to Kingston Stadium. Pair box"
+"telephone16" : "Kingston. Center of River Street. Pair box"
+"telephone17" : "Kingston. Center of River Street. Pair box"
+"telephone18" : "Kingston. River Street, top of ladder to Uptown Tunnel. Pair box"
+"telephone19" : "Kingston. River Street, top of ladder to Uptown Tunnel. Pair box"
+"telephone20" : "Kingston. East of River Street"
+"telephone21" : "Greenfield. Highway"
+"telephone22" : "Greenfield. Oak Street"
+"telephone23" : "Kingston. Kingston Stadium. Pair box"
+"telephone24" : "Kingston. Kingston Stadium. Pair box"
+"telephone25" : "Greenfield. Near Gas Station"
+"telephone26" : "Greenfield. Near Empire Diner"
+"telephone27" : "Greenfield. Near Greenfield Park"
+"telephone28" : "Greenfield. Near Greenfield Park"
+"telephone29" : "Hunters Point. Near Evergreen Street"
+"telephone30" : "Hunters Point. Springboard from planks"
+"telephone31" : "Hunters Point. After small bridge over subway"
+"telephone32" : "Hunters Point. Heart of region"
+"telephone33" : "Sand Island. Near Empire Diner"
+"telephone34" : "Hunters Point. Border with Sand Island"
+"telephone35" : "Sand Island. Under Subway"
+"telephone36" : "Sand Island. West"
+"telephone37" : "Sand Island. Near Misery Lane"
+"telephone38" : "Hillwood"
+"telephone39" : "Uptown. Enter to Uptown Tunnel"
+"telephone40" : "Uptown. Near house 174"
+"telephone41" : "Uptown. View on the Culver River. Pair box"
+"telephone42" : "Uptown. View on the Culver River. Pair box"
+"telephone43" : "Uptown. Avenue"
+"telephone44" : "Uptown. Bottom street to Southport"
+"telephone45" : "Uptown. Near Office of Price Administration. Pair box"
+"telephone46" : "Uptown. Near Office of Price Administration. Pair box"
+"telephone47" : "Uptown. Near Empire General Hospital"
+"telephone48" : "Little Italy. Near Diamond Motors"
+"telephone49" : "Little Italy. Boulevard"
+"telephone50" : "Little Italy. Near Freddy's Bar"
+"telephone51" : "Little Italy. Near Giuseppe's Shop"
+"telephone52" : "Little Italy. Road to East Side"
+"telephone53" : "East Side. Border with Little Italy"
+"telephone54" : "East Side. Near shop of men's wear Dipton Apparel"
+"telephone55" : "Little Italy. Near Joe's Apartment"
+"telephone56" : "Little Italy. Near Scaletta Family Apartment"
+"telephone57" : "North Millville. Near Car Rental"
+"telephone58" : "Little Italy. Near Maria Agnello's Apartment"
+"telephone59" : "Little Italy. Border with Chinatown"
+"telephone60" : "Chinatown. West"
+"telephone61" : "Chinatown. East"
+"telephone62" : "Chinatown. Heart of region. Pair box"
+"telephone63" : "Chinatown. Heart of region. Pair box"
+"telephone64" : "Oyster Bay. Cafeteria on the hill"
+"telephone65" : "South Millville. Near Gas Station"
+"telephone66" : "South Millville. Near the Printery"
+"telephone67" : "Oyster Bay. Near Trago Oil Co"
+"telephone68" : "Oyster Bay. Near Gun Shop"
+"telephone69" : "Southport. Near Charlie's Service Station"
+"telephone70" : "Southport. Palisade Street. Near Bruno's Office"
+"telephone71" : "Southport. Pair box"
+"telephone72" : "Southport. Pair box"
+"telephone73" : "Midtown. Bus stop"
+"telephone74" : "Midtown. Near Grand Imperial Bank"
+"telephone75" : "Midtown. Near church"
+"telephone76" : "Midtown. Near upscale clothing store Vangel's"
+"telephone77" : "East Side. Near The Maltese Falcon"
+"telephone78" : "East Side. Near boulevard. Pair box"
+"telephone79" : "East Side. Near boulevard. Pair box"
+"telephone80" : "East Side. Opposite to automotive repair shop"
+"telephone81" : "Southport. Road to Southport Tunnel"
+"telephone82" : "East Side. Near Linkoln Park"
+"telephone83" : "West Side. Backyard of West Side Mall (Market Arcade)"
+"telephone84" : "West Side. Near automotive repair shop"
+"telephone85" : "Uptown. Hieroglyph sculpture"
+"telephone86" : "Uptown. Backyard of Uptown Parking"
+"telephone87" : "Uptown. Bus station. Pair box"
+"telephone88" : "Uptown. Bus station. Pair box"
+"telephone89" : "Uptown. View on the Police Department"
+"telephone90" : "Uptown. Near Uptown Parking and Grand Upper Bridge. Pair box"
+"telephone91" : "Uptown. Near Uptown Parking and Grand Upper Bridge. Pair box"
+"telephone92" : "Uptown. Opposite to Police Department"
+"telephone93" : "Uptown. Near arch to Little Italy"
+
+"telephone94" :  "Port. Port Office"
+"telephone95" :  "Little Italy. Joe's Apartment"
+"telephone96" :  "North Millville. Dragstrip"
+"telephone97" :  "Little Italy. Freddy's Bar"
+"telephone98" :  "Midtown. Maltese Falcon"
+"telephone99" :  "Midtown. Vangelis"
+"telephone100" : "West Side. Mona Lisa"
+"telephone101" : "Hunters Point. Lone Star"
+"telephone102" : "Sand Island. Steaks & Chops"
+"telephone103" : "Kingston. Hill Of Tara"
+"telephone104" : "Greenfield. Villa Scaletta"
+"telephone105" : "Uptown. Scaletta Apartment"
+"telephone106" : "Oyster Bay. Marty's Apartment"
+"telephone107" : "Southport. Bruno's Office"
+
+"telephone.findphone"   : "You can see nearest phone booth on radar for 15 seconds."
+"telephone.findalready" : "Nearest phone booth already displayed on radar."
+"telephone.needphone"   : "You need a telephone to call."
+"telephone.neednumber"  : "You need enter telephone number to call: /call 555-XXXX"
+"telephone.youcall"     : "You call by number %s."
+"telephone.incorrect"   : "Incorrect number. Use: /call 555-XXXX"
+"telephone.notregister" : "This phone number isn't registered."
+
+    "policeAlarm1"      : "Riverside. Police Alarm"
+    "policeAlarm2"      : "Kingston. River Street, opposite to Kingston Stadium. Police Alarm"
+    "policeAlarm3"      : "Kingston. Center of River Street. Police Alarm"
+    "policeAlarm4"      : "Kingston. Sculpture of a rider. Police Alarm"
+    "policeAlarm5"      : "Kingston. Kingston Stadium. Police Alarm"
+    "policeAlarm6"      : "Hunters Point. North of Evergreen Street. Police Alarm"
+    "policeAlarm7"      : "Hunters Point. Near bar Lone Star. Police Alarm"
+    "policeAlarm8"      : "East Side. Near boulevard. Police Alarm"
+    "policeAlarm9"      : "West Side. Near fuel station. Police Alarm"
+    "policeAlarm10"     : "West Side. Near automotive repair shop. Police Alarm"
+    "policeAlarm11"     : "West Side. Near Linkoln Park. South-West. Police Alarm"
+    "policeAlarm12"     : "West Side. Near Linkoln Park. North-West. Police Alarm"
+    "policeAlarm13"     : "Uptown. Opposite to bus station. Police Alarm"
+    "policeAlarm14"     : "West Side. North. Police Alarm"
+    "policeAlarm15"     : "East Side. Avenue. Police Alarm"
+    "policeAlarm16"     : "East Side. Near Linkoln Park. North-East. Police Alarm"
+    "policeAlarm17"     : "East Side. Near Linkoln Park. East entrance. Police Alarm"
+    "policeAlarm18"     : "East Side. Near Linkoln Park. East. Police Alarm"
+    "policeAlarm19"     : "East Side. Near Linkoln Park. South-East. Police Alarm"
+    "policeAlarm20"     : "East Side. Corner near automotive repair shop. Police Alarm"
+    "policeAlarm21"     : "East Side. Taxi Parking. Police Alarm"
+    "policeAlarm22"     : "East Side. Corner road to Little Italy. Police Alarm"
+    "policeAlarm23"     : "Little Italy. Near Freddy's Bar. Police Alarm"
+    "policeAlarm24"     : "Little Italy. Center. Police Alarm"
+    "policeAlarm25"     : "Little Italy. Near Joe's Apartment. Police Alarm"
+    "policeAlarm26"     : "Little Italy. East. Near fuel station. Police Alarm"
+    "policeAlarm27"     : "Little Italy. East. Police Alarm"
+    "policeAlarm28"     : "Little Italy. East. Police Alarm"
+    "policeAlarm29"     : "Little Italy. East. Near bus stop. Police Alarm"
+    "policeAlarm30"     : "Little Italy. Near Maria Agnello's Apartment. Police Alarm"
+    "policeAlarm31"     : "Little Italy. Border with Chinatown. Police Alarm"
+    "policeAlarm32"     : "Chinatown. West. Police Alarm"
+    "policeAlarm33"     : "Chinatown. Center. Police Alarm"
+    "policeAlarm34"     : "Chinatown. Subway. Police Alarm"
+    "policeAlarm35"     : "Oyster Bay. Near gentlemen's club Garden of Eden. Police Alarm"
+    "policeAlarm36"     : "Little Italy. Near Scaletta Apartment. Police Alarm"
+
+});
+
+local numbers = [
+    "0192", //car rental
+    //"1863", // Tires and Rims
 ];
 
 
-function callByPhone(playerid) {
+
+event("onServerStarted", function() {
+    log("[jobs] loading telephone services job and telephone system...");
+    local ets1 = createVehicle(31, -1066.02, 1483.81, -3.79657, -90.8055, -1.36482, -0.105954);   // telephoneCAR1
+    local ets2 = createVehicle(31, -1076.38, 1483.81, -3.51025, -89.5915, -1.332, -0.0857111);   // telephoneCAR2
+    setVehicleColor(ets1, 102, 70, 18, 63, 36, 7);
+    setVehicleColor(ets2, 102, 70, 18, 63, 36, 7);
+    setVehiclePlateText(ets1, "ETS-01");
+    setVehiclePlateText(ets2, "ETS-02");
+
+    //creating public 3dtext
+    foreach (phone in telephones) {
+        if (phone.len() == 5) {
+            if (phone[4] == 2) {
+                create3DText ( phone[0], phone[1], phone[2]+0.35, "POLICE ALARM" /* localize(phone[3], [], "en") */, CL_MALIBU );
+                create3DText ( phone[0], phone[1], phone[2]+0.20, "/police", CL_WHITE.applyAlpha(150), 0.3 );
+                continue;
+            }
+        }
+        create3DText ( phone[0], phone[1], phone[2]+0.35, "TELEPHONE", CL_RIPELEMON );
+        create3DText ( phone[0], phone[1], phone[2]+0.20, "/call", CL_WHITE.applyAlpha(150), 0.3 );
+    }
+
+
+});
+
+event("onPlayerConnect", function(playerid){
+    phone_nearest_blip[playerid] <- {};
+    phone_nearest_blip[playerid]["blip3dtext"] <- null;
+});
+
+
+function phoneCreatePrivateBlipText(playerid, x, y, z, text, cmd) {
+    return [
+            createPrivateBlip (playerid, x, y, ICON_RED, 1000.0)
+            //createPrivate3DText (playerid, x, y, z+0.35, text, CL_RIPELEMON, 20 ),
+            //createPrivate3DText (playerid, x, y, z+0.20, cmd, CL_WHITE.applyAlpha(150), 0.3 ),
+            
+    ];
+}
+
+/**
+ * Remove private 3DTEXT AND BLIP
+ * @param  {int}  playerid
+ */
+function phoneJobRemovePrivateBlipText ( phone ) {
+        removeBlip   ( phone[0] );
+        //remove3DText ( phone[1] );
+        //remove3DText ( phone[2] );
+}
+
+
+function getPlayerPhoneName(playerid) {
     local check = false;
+    local name = null;
     foreach (key, value in telephones) {
         if (isPlayerInValidPoint3D(playerid, value[0], value[1], value[2], 0.3)) {
         check = true;
+        name = value[3];
         break;
         }
     }
     if(check) {
-        msg(playerid, "Telephohe working");
+        return plocalize(playerid, name);
     } else {
-        msg(playerid, "Telephohe doesn't working");
+        return false;
+    }
+}
+
+function phoneFindNearest( playerid ) {
+    local pos = getPlayerPositionObj( playerid );
+    local dis = 2000;
+    local phoneid = null;
+    foreach (key, value in telephones) {
+        local distance = getDistanceBetweenPoints2D( pos.x, pos.y, value[0], value[1] );
+        if (distance < dis && value.len() == 4) {
+           dis = distance;
+           phoneid = key;
+        }
+    }
+    return phoneid;
+}
+
+
+function showBlipNearestPhoneForPlayer ( playerid ) {
+    if (phone_nearest_blip[playerid]["blip3dtext"] == null) {
+        local phoneid = phoneFindNearest( playerid );
+        local phonehash = phoneCreatePrivateBlipText(playerid, telephones[phoneid][0], telephones[phoneid][1], telephones[phoneid][2], "TELEPHONE", "/call");
+        phone_nearest_blip[playerid]["blip3dtext"] = true;
+        msg( playerid, "telephone.findphone");
+        delayedFunction(15000, function() {
+            phoneJobRemovePrivateBlipText ( phonehash );
+            phone_nearest_blip[playerid]["blip3dtext"] = null;
+        });
+
+    } else {
+        msg( playerid, "telephone.findalready");
     }
 }
 
 function goToPhone(playerid, phoneid) {
     local phoneid = phoneid.tointeger();
     setPlayerPosition( playerid, telephones[phoneid][0], telephones[phoneid][1], telephones[phoneid][2] );
+
+
 }
 
+
+function callByPhone (playerid, number = null) {
+    local place = getPlayerPhoneName(playerid);
+    if (place == false) {
+        msg(playerid, "telephone.needphone");
+        showBlipNearestPhoneForPlayer ( playerid );
+        return;
+    }
+
+    if (number == null) {
+        return msg(playerid, "telephone.neednumber");
+    }
+
+    if(number == "taxi" || number == "police") {
+        return trigger("onPlayerPhoneCall", playerid, number, place);
+    }
+
+    local number = str_replace("555-", "", number);
+    if(isNumeric(number) && number.len() == 4) {
+        msg(playerid, "telephone.youcall", ["555-"+number]);
+        delayedFunction(3000, function () {
+            local check = false;
+            foreach (idx, num in numbers) {
+                if (num == number) { check = true; }
+            }
+            if(check) {
+                trigger("onPlayerPhoneCall", playerid, number, place);
+            } else {
+                msg(playerid, "telephone.notregister");
+            }
+        });
+    } else {
+        msg(playerid, "telephone.incorrect");
+    }
+}
+
+/*
+event("onPlayerPhoneCall", function(playerid, number, place) {
+
+});
+*/
+
+
+    //showBlipNearestPhoneForPlayer ( playerid );
 /* don't remove
 
 addEventHandlerEx("onServerStarted", function() {

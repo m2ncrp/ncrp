@@ -79,6 +79,7 @@ event("onPlayerInit", function(playerid) {
     });
 
     trigger(playerid, "onServerCharacterLoaded");
+    screenFadeout(playerid, 250);
 });
 
 /**
@@ -88,8 +89,12 @@ event("onPlayerInit", function(playerid) {
 event("native:onPlayerSpawn", function(playerid) {
     if (!isPlayerLoaded(playerid)) return;
 
+    // draw default fadeout
+    screenFadeout(playerid, calculateFPSDelay(playerid) + 2500);
+
+    // trigger native game fadeout to fix possible black screen
     delayedFunction(calculateFPSDelay(playerid) + 1500, function() {
-        screenFadeout(playerid, 1000);
+        nativeScreenFadeout(playerid, 1000);
     });
 
     // reset freeze and set default model
