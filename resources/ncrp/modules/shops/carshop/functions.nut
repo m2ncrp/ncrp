@@ -44,7 +44,7 @@ local carPrices = [
         { modelid = 45, price = 2700, title = "Smith Thunderbolt"   },
         { modelid = 28, price = 2300, title = "Shubert Beverly"     },
         { modelid = 41, price = 2140, title = "Smith Custom 200"    },
-       // { modelid = 52, price = 2450, title = "Walker Rocket"       },
+       // { modelid = 52, price = 2450, title = "Walker Rocket"       },  /// super rare vehicles
     ]
 ];
 
