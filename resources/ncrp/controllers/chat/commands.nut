@@ -12,7 +12,7 @@ event("onPlayerConnect", function(playerid){
 
 event("onServerSecondChange", function() {
     foreach (pid, value in players) {
-        if (isPlayerLogined(pid)) {
+        if (isPlayerLogined(pid) && pid in players) {
             if(antiflood[pid]["gooc"] > 0){
                 antiflood[pid]["gooc"]--;
             }
