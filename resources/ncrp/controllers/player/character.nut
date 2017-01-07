@@ -6,9 +6,9 @@ const CHARACTER_LIMIT = 2;
 event("onPlayerCharacterLoaded", function(playerid, character) {
     //Hide character creation gui
     trigger(playerid, "hideCharacterCreation");
-    setPlayerPosition(playerid, 0.0, 0.0, 0.0);
+    // setPlayerPosition(playerid, 0.0, 0.0, 0.0);
 
-    delayedFunction(5000, function() {
+    // delayedFunction(5000, function() {
         // store player id for current player
         character.playerid = playerid;
         players.add(playerid, character);
@@ -16,10 +16,10 @@ event("onPlayerCharacterLoaded", function(playerid, character) {
         // trigger init events
         trigger("onPlayerConnect", playerid);
         trigger("native:onPlayerSpawn", playerid); // ?? move to later
-    });
+    // });
 
     // and trigger start events
-    delayedFunction(10000, function() {
+    delayedFunction(1500, function() {
         if (DEBUG) dbg("player", "started", getIdentity(playerid));
         trigger("onServerPlayerStarted", playerid);
         trigger(playerid, "onServerClientStarted", VERSION);
