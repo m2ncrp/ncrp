@@ -140,5 +140,5 @@ key("p", function(playerid) {
  */
 function alert(playerid, message, params = []) {
     if (DEBUG) dbg("alert", getIdentity(playerid), plocalize(playerid, message, params));
-    return trigger(playerid, "onAlert", plocalize(playerid, message, params))
+    return trigger(playerid, "onAlert", plocalize(playerid, "error.title"), plocalize(playerid, message, params))
 }
