@@ -225,7 +225,7 @@ addEventHandler("onServerFadeScreen", function(time, type) {
     log("calling fade" + type.tostring() + " with time " + time.tostring());
     screenFade.state    = type.tostring();
     screenFade.time     = time.tofloat();
-    screenFade.current  = (type == "in") ? 0 : 255;
+    screenFade.current  = (type == "in") ? 0 : screenFade.time.tofloat();
 });
 
 addEventHandler("onNativePlayerFadeout", function(time) {

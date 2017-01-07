@@ -30,6 +30,10 @@ PData.Race <- 0;
 PData.BDay <- 0;
 
 
+const DEFAULT_SPAWN_X    = 0.0;//-1620.15;
+const DEFAULT_SPAWN_Y    = 0.0;// 49.2881;
+const DEFAULT_SPAWN_Z    = 0.0;// -13.788;
+
 local switchModelID = 0;
 
 local characters = [];

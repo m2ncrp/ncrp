@@ -131,7 +131,7 @@ addEventHandler("onClientFrameRender", function(a) {
 
 	foreach (idx, value in getPlayers()) {
 		if (idx == getLocalPlayer()) continue;
-		setPlayerPosition(idx, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z);
+		// setPlayerPosition(idx, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z);
 	}
 
 	// if (window && guiGetAlpha(window) < 1.0) {
