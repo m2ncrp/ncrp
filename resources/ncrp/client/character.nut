@@ -59,7 +59,6 @@ local modelsData =
 ]
 
 addEventHandler("onServerCharacterLoading", function(id,firstname, lastname, race, sex, birthdate, money, deposit, cskin){
-    kektimer = timer(otherPlayerLock, 100, -1);
     local char = {};
     char.Id <- id;
     char.Firstname <- firstname;
@@ -408,6 +407,10 @@ addEventHandler("onClientFrameRender", function(a) {
         setPlayerPosition(idx, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z);
     }
 */
+});
+
+addEventHandler("onClientScriptInit", function() {
+    kektimer = timer(otherPlayerLock, 100, -1);
 });
 
 function otherPlayerLock()
