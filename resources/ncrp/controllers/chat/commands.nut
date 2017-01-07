@@ -75,7 +75,7 @@ cmd("pm", function(playerid, targetid, ...) {
 
 // reply to private message
 cmd(["re", "reply"], function(playerid, ...) {
-    local targetid = lastPMs[playerid];
+    local targetid = playerid in lastPMs ? lastPMs[playerid] : -1;
 
     if(targetid == -1) {
         return msg(playerid, "chat.player.message.noplayer", CL_ERROR);
