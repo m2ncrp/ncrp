@@ -312,8 +312,8 @@ addEventHandler("onServerClientStarted", function(version = null) {
     }
 
     // apply defaults
-    setRenderNametags(true);
-    setRenderHealthbar(false);
+    // setRenderNametags(true);
+    // setRenderHealthbar(false);
     toggleHud(true);
 
     // load params

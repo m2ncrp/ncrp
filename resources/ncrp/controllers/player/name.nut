@@ -32,3 +32,10 @@ function getPlayerNameShort(playerid) {
     }
     return false;
 }
+
+event("onServerPlayerStarted", function(playerid) {
+    foreach (targetid, player in players) {
+        trigger(targetid, "onServerPlayerAdded", playerid, getPlayerName(playerid)); // create name of current player for remote players
+        trigger(playerid, "onServerPlayerAdded", targetid, getPlayerName(targetid)); // create name of remote player for current player
+    }
+});

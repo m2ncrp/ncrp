@@ -46,6 +46,7 @@ event("onScriptInit", function() {
  */
 event("onPlayerConnectInit", function(playerid, name, ip, serial) {
     setPlayerColour(playerid, 0x99FFFFFF); // whity
+    setPlayerHealth(playerid, 720.0);
 });
 
 /**
@@ -93,9 +94,9 @@ event("native:onPlayerSpawn", function(playerid) {
     screenFadeout(playerid, calculateFPSDelay(playerid) + 2500);
 
     // trigger native game fadeout to fix possible black screen
-    delayedFunction(calculateFPSDelay(playerid) + 1500, function() {
-        nativeScreenFadeout(playerid, 1000);
-    });
+    // delayedFunction(calculateFPSDelay(playerid) + 1500, function() {
+    //     nativeScreenFadeout(playerid, 1000);
+    // });
 
     // reset freeze and set default model
     freezePlayer(playerid, false);
