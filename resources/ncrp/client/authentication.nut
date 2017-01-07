@@ -137,8 +137,6 @@ addEventHandler("onClientFrameRender", function(a) {
 	// if (window && guiGetAlpha(window) < 1.0) {
 	// 	guiSetAlpha(window, guiGetAlpha(window) + 0.01);
 	// }
-
-	showChat(false);
 });
 
 function isValidEmail(email)
@@ -167,5 +165,9 @@ function delayedFunction(time, callback, additional = null) {
 }
 
 addEventHandler("authErrorMessage", function (errorText) {
-    	guiSetText(label[0], errorText);
-	});
+	guiSetText(label[0], errorText);
+});
+
+addEventHandler("onClientScriptInit", function() {
+	showChat(false);
+});
