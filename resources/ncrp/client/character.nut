@@ -49,6 +49,8 @@ local otherPlayerLocked = true;
 
 local kek;
 
+local kektimer;
+
 local modelsData =
 [
     [[71,72],[118,135]],//Euro
@@ -57,6 +59,7 @@ local modelsData =
 ]
 
 addEventHandler("onServerCharacterLoading", function(id,firstname, lastname, race, sex, birthdate, money, deposit, cskin){
+    kektimer = timer(otherPlayerLock, 100, -1);
     local char = {};
     char.Id <- id;
     char.Firstname <- firstname;
@@ -397,11 +400,26 @@ addEventHandler("onClientFrameRender", function(a) {
         local offset = dxGetTextDimensions(text, 2.0, "tahoma-bold")[1];
         dxDrawText(text, 25.0, screenY - offset - 25.0 - offset - 4.0, 0xAAFFFFFF, false, "tahoma-bold", 2.0);
     }
-
+/*
     if (!otherPlayerLocked) return;
 
     foreach (idx, value in getPlayers()) {
         if (idx == getLocalPlayer()) continue;
         setPlayerPosition(idx, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z);
     }
+*/
 });
+
+function otherPlayerLock()
+{
+	if (!otherPlayerLocked){
+		if(kektimer.IsActive()){
+			return kektimer.Kill();
+		}
+	}
+	log("lel");
+    foreach (idx, value in getPlayers()) {
+        if (idx == getLocalPlayer()) continue;
+        setPlayerPosition(idx, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z);
+    }
+}
