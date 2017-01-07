@@ -420,7 +420,6 @@ function otherPlayerLock()
 			return kektimer.Kill();
 		}
 	}
-	log("lel");
     foreach (idx, value in getPlayers()) {
         if (idx == getLocalPlayer()) continue;
         setPlayerPosition(idx, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z);
