@@ -57,7 +57,7 @@ function isSummer() {
 local nativeSetWeather = setWeather;
 
 function setWeather(name) {
-    nativeSetWeather(randWeather);
+    nativeSetWeather(name);
 
     playerList.each(function(playerid) {
         trigger(playerid, "onServerWeatherSync", name);

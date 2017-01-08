@@ -17,7 +17,7 @@ local button;
 local oldCursorState = false;
 
 addEventHandler("onAlert", function (title, message) {
-	if (!window || (window && guiIsVisible(window))){
+	if (!window || (window && !guiIsVisible(window))) {
 		oldCursorState = isCursorShowing();
 	}
 	if(window){

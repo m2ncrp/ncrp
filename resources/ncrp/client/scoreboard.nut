@@ -11,10 +11,12 @@ local fOffsetID = 50.0, fOffsetName = 450.0;
 local fPaddingPlayer = 20.0;
 local fX = 0.0, fY = 0.0, fOffsetX = 0.0, fOffsetY = 0.0;
 
+local initialized = false;
 local players = array(MAX_PLAYERS, 0);
 
 function tabDown()
 {
+	if (!initialized) return;
 	drawScoreboard = true;
 	showChat( false );
 
@@ -29,6 +31,7 @@ bindKey( "tab", "down", tabDown );
 
 function tabUp()
 {
+	if (!initialized) return;
 	drawScoreboard = false;
 	showChat( true );
 
@@ -122,6 +125,7 @@ addEventHandler( "onClientFrameRender", frameRender );
 
 
 addEventHandler("onServerPlayerAdded", function(playerid, charname) {
+	initialized = true;
     players[playerid] = charname;
 });
 
