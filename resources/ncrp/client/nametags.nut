@@ -25,18 +25,18 @@ event("onClientFrameRender", function(isGUIDrawn) {
         {
             if (!(i in players) || !players[i]) continue;
 
-            local limit     = 35.0;
+            local limit     = 40.0;
             local pos       = getPlayerPosition( i );
             local lclPos    = getPlayerPosition( getLocalPlayer() );
             local fDistance = getDistanceBetweenPoints3D( pos[0], pos[1], pos[2], lclPos[0], lclPos[1], lclPos[2] );
 
-            if( fDistance <= 35.0 && i in vectors && vectors[i][2] < 1) {
-                local fScale = 1 - (((fDistance > limit) ? limit : fDistance) / limit);
+            if( fDistance <= 40.0 && i in vectors && vectors[i][2] < 1) {
+                local fScale = 1.05 - (((fDistance > limit) ? limit : fDistance) / limit);
 
                 local text = players[i] + " [" + i.tostring() + "]";
                 local dimensions = dxGetTextDimensions( text, fScale, "tahoma-bold" );
 
-                dxDrawText( text, (vectors[i][0] - (dimensions[0] / 2)), vectors[i][1], fromRGB(255, 255, 255, (150.0 * fScale).tointeger()), false, "tahoma-bold", fScale );
+                dxDrawText( text, (vectors[i][0] - (dimensions[0] / 2)), vectors[i][1], fromRGB(255, 255, 255, (125.0 * fScale).tointeger()), false, "tahoma-bold", fScale );
             }
         }
     }
