@@ -95,22 +95,24 @@ chatcmd(["b"], function(playerid, message) {
 
 // global nonRP chat
 chatcmd(["o","ooc"], function(playerid, message) {
-        if(IS_OOC_ENABLED){
-            if(antiflood[playerid]["gooc"] == 0){
-                foreach (targetid, value in players) {
-                    //if (!antiflood[targetid]["togooc"]) {
-                        msg(targetid, "[OOC] " + getAuthor3( playerid ) + ": " + message, CL_GRAY);
-                   // }
+    if(IS_OOC_ENABLED){
+        if(antiflood[playerid]["gooc"] == 0){
+
+            foreach (targetid, value in players) {
+                if (antiflood[targetid]["togooc"]) {
+                    msg(targetid, "[OOC] " + getAuthor3( playerid ) + ": " + message, CL_GRAY);
                 }
-                antiflood[playerid]["gooc"] = ANTIFLOOD_GLOBAL_OOC_CHAT;
             }
-            else {
-                msg(playerid, "antiflood.message", antiflood[playerid]["gooc"]/2, CL_LIGHTWISTERIA);
-            }
+
+            antiflood[playerid]["gooc"] = ANTIFLOOD_GLOBAL_OOC_CHAT;
         }
-        else{
-            msg(playerid, "admin.oocDisabled.message",CL_LIGHTWISTERIA);
+        else {
+            msg(playerid, "antiflood.message", antiflood[playerid]["gooc"]/2, CL_LIGHTWISTERIA);
         }
+    }
+    else{
+        msg(playerid, "admin.oocDisabled.message",CL_LIGHTWISTERIA);
+    }
 
     // statistics
     statisticsPushMessage(playerid, message, "ooc");
