@@ -42,12 +42,12 @@ local char = {};
 local charDesc = array(2);
 local charDescButton = array(2);
 
-local charactersCount;
+local charactersCount = 0;
 local migrateOldCharacter = false;
+local selectedCharacter = 0;
 
 local otherPlayerLocked = true;
 
-local kek;
 
 local kektimer;
 
@@ -75,65 +75,50 @@ addEventHandler("onServerCharacterLoading", function(id,firstname, lastname, rac
 addEventHandler("onServerCharacterLoaded", function(){
     charactersCount = characters.len();
     formatCharacterSelection();
-    //kek = guiCreateElement(13,"someweirdshit.png", 0, 0, screen[0], screen[1]);
     showChat(false);
 });
 
 function characterSelection(){
-    hideCharacterSelection();
+    hideCharacterCreation();
     isCharacterSelectionMenu = true;
     togglePlayerControls( true );
-    setPlayerPosition(getLocalPlayer(), -1598.5,69.0,-13.0);
-    setPlayerRotation(getLocalPlayer(), 180.0,0.0,180.0);
-    window = guiCreateElement( ELEMENT_TYPE_WINDOW, "Выберите персонажа", screen[0] - 300.0, screen[1]/2- 175.0, 190.0, 320.0 );
+    window = guiCreateElement( ELEMENT_TYPE_WINDOW, "Выберите персонажа", screen[0] - 300.0, screen[1]/2- 90.0, 190.0, 180.0 );
     label.push(guiCreateElement( ELEMENT_TYPE_LABEL, charDesc[0], 20.0, 20.0, 300.0, 100.0, false, window));//label[0]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, charDesc[1], 20.0, 180.0, 300.0, 100.0, false, window));//label[1]
     button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, charDescButton[0], 20, 120.0, 150.0, 20.0,false, window));//button[0]
-    button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, charDescButton[1], 20, 280.0, 150.0, 20.0,false, window));//button[1]
+    button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "<<", 20.0, 150.0, 30.0, 20.0,false, window));//button[2]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Персонаж", 70.0, 148.0, 300.0, 20.0, false, window))
+    button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, ">>", 140.0, 150.0, 30.0, 20.0,false, window));//button[3]
     guiSetAlwaysOnTop(window,true);
     guiSetSizable(window,false);
     showCursor(true);
 }
 addEventHandler("characterSelection",characterSelection);
 
+
 function formatCharacterSelection () {
-    if(charactersCount == 2){
-        local race = getRaceFromId(characters[0].Race);
-        local sex = getSexFromId(characters[0].Sex);
-        charDesc[0] = format("Имя: %s\nФамилия: %s\nРаса: %s\n",characters[0].Firstname,characters[0].Lastname,race);
-        charDesc[0] += format("Пол: %s\nДата рождения: %s\n",sex,characters[0].Bdate.tostring());
-        charDesc[0] += format("Денежных средств: $%.2f\nСчёт в банке: %.2f$",characters[0].money.tofloat(),characters[0].deposit.tofloat());
-        charDescButton[0] = "Выбрать персонажа";
-        race = getRaceFromId(characters[1].Race);
-        sex = getSexFromId(characters[1].Sex);
-        charDesc[1] = format("Имя: %s\nФамилия: %s\nРаса: %s\n",characters[1].Firstname,characters[1].Lastname,race);
-        charDesc[1] += format("Пол: %s\nДата рождения: %s\n",sex,characters[1].Bdate.tostring());
-        charDesc[1] += format("Денежных средств: $%.2f\nСчёт в банке: %.2f$",characters[1].money.tofloat(),characters[1].deposit.tofloat());
-        charDescButton[1] = "Выбрать персонажа";
-    }
-    if(charactersCount == 1){
-        if(characters[0].Firstname == ""){
-            PData.Id <- characters[0].Id; // add data to push it later
+	local idx = selectedCharacter;
+	setPlayerPosition(getLocalPlayer(), -1598.5,69.0,-13.0);
+    triggerServerEvent("changeModel", characters[idx].cskin);
+    setPlayerRotation(getLocalPlayer(), 180.0,0.0,0.0);
+	if(charactersCount == 0){
+		return characterCreation();
+	}
+	else{
+		if(characters[0].Firstname == ""){
+        	PData.Id <- characters[0].Id; // add data to push it later
             migrateOldCharacter = true;
             return characterCreation();
-        }
-        local race = getRaceFromId(characters[0].Race);
-        local sex = getSexFromId(characters[0].Sex);
-        charDesc[0] = format("Имя: %s\nФамилия: %s\nРаса: %s\n",characters[0].Firstname,characters[0].Lastname,race);
-        charDesc[0] += format("Пол: %s\nДата рождения: %s\n",sex,characters[0].Bdate.tostring());
-        charDesc[0] += format("Денежных средств: $%.2f\nСчёт в банке: %.2f$",characters[0].money.tofloat(),characters[0].deposit.tofloat());
-        charDescButton[0] = "Выбрать персонажа";
-        charDesc[1] = "Пустой слот\nЧтобы перейти к созданию\nНажмите кнопку";
-        charDescButton[1] = "Создать персонажа";
-    }
-    if(charactersCount == 0){
-        charDesc[0] = "Пустой слот\nЧтобы перейти к созданию\nНажмите кнопку";
-        charDescButton[0] = "Создать персонажа";
-        charDesc[1] = "Пустой слот\nЧтобы перейти к созданию\nНажмите кнопку";
-        charDescButton[1] = "Создать персонажа";
-    }
-    characterSelection();
+    	}
+	    local race = getRaceFromId(characters[idx].Race);
+	    local sex = getSexFromId(characters[idx].Sex);
+	    charDesc[0] = format("Имя: %s\nФамилия: %s\nРаса: %s\n",characters[idx].Firstname,characters[idx].Lastname,race);
+	    charDesc[0] += format("Пол: %s\nДата рождения: %s\n",sex,characters[idx].Bdate.tostring());
+	    charDesc[0] += format("Денежных средств: $%.2f\nСчёт в банке: %.2f$",characters[idx].money.tofloat(),characters[idx].deposit.tofloat());
+	    charDescButton[0] = "Выбрать персонажа";
+	    characterSelection();
+	}
 }
+
 
 function characterCreation(){
     hideCharacterSelection();
@@ -171,36 +156,81 @@ addEventHandler("characterCreation",characterCreation);
 
 addEventHandler( "onGuiElementClick",function(element){
     if(isCharacterCreationMenu){
-        if(element == button[0]){ PData.Sex <- 0; changeModel();}
-        if(element == button[1]){ PData.Sex <- 1; changeModel();}
-        if(element == radio[0]) {PData.Race <- 0; changeModel();}
-        if(element == radio[1]) {PData.Race <- 1; changeModel();}
-        if(element == radio[2]) {PData.Race <- 2; changeModel();}
-        if(element == button[2]) {switchModel();}
-        if(element == button[3]) {switchModel();}
-        if(element == input[0]) {guiSetText(input[0], "");}
-        if(element == input[1]) {guiSetText(input[1], "");}
-        if(element == input[2]) {guiSetText(input[2], "");}
-        if(element == input[3]) {guiSetText(input[3], "");}
-        if(element == input[4]) {guiSetText(input[4], "");}
-        if(element == button[4]) {checkFields();}
+        if(element == button[0]){
+        	PData.Sex <- 0;
+        	return changeModel();
+        }
+        if(element == button[1]){
+        	PData.Sex <- 1;
+        	return changeModel();
+        }
+        if(element == radio[0]) {
+        	PData.Race <- 0;
+        	return changeModel();
+        }
+        if(element == radio[1]) {
+        	PData.Race <- 1;
+        	return changeModel();
+        }
+        if(element == radio[2]) {
+        	PData.Race <- 2;
+        	return changeModel();
+        }
+        if(element == button[2]) return switchModel();
+        if(element == button[3]) return switchModel();
+        if(element == input[0])  return guiSetText(input[0], "");
+        if(element == input[1])  return guiSetText(input[1], "");
+        if(element == input[2])  return guiSetText(input[2], "");
+        if(element == input[3])  return guiSetText(input[3], "");
+        if(element == input[4])  return guiSetText(input[4], "");
+        if(element == button[4]) return checkFields();
     }
     if(isCharacterSelectionMenu)
     {
-        if(charactersCount == 2){
-            if(element == button[0]) return  selectCharacter(0);
-            if(element == button[1]) return  selectCharacter(1);
-        }
-        if(charactersCount == 1){
-            if(element == button[0]) return  selectCharacter(0);
-            if(element == button[1]) return  characterCreation();
-        }
-        if(charactersCount == 0){
-            if(element == button[0]) return  characterCreation();
-            if(element == button[1]) return  characterCreation();
-        }
+    	if(element == button[0]){
+    		if(selectedCharacter in characters){
+    			return selectCharacter(selectedCharacter);
+    		}
+    		else{
+				return characterCreation();
+    		}
+    	}
+    	if(element == button[1] || element == button[2]){
+	    	if(selectedCharacter == 0){
+	    		selectedCharacter = 1;
+	    	}
+		    else {
+		        selectedCharacter = 0;
+		    }
+		    return switchCharacterSlot();
+		}
     }
 });
+
+function switchCharacterSlot(){
+	if(charactersCount == 0){
+		return characterCreation();
+	}
+	local slot = selectedCharacter;
+	if(slot in characters){
+		local race = getRaceFromId(characters[slot].Race);
+		local sex = getSexFromId(characters[slot].Sex);
+		charDesc[0] = format("Имя: %s\nФамилия: %s\nРаса: %s\n",characters[slot].Firstname,characters[slot].Lastname,race);
+		charDesc[0] += format("Пол: %s\nДата рождения: %s\n",sex,characters[slot].Bdate.tostring());
+		charDesc[0] += format("Денежных средств: $%.2f\nСчёт в банке: %.2f$",characters[slot].money.tofloat(),characters[slot].deposit.tofloat());
+		charDescButton[0] = "Выбрать персонажа";
+		guiSetText(label[0], charDesc[0]);
+		guiSetText(button[0], charDescButton[0]);
+		triggerServerEvent("changeModel", characters[slot].cskin);
+	}
+	else {
+		setPlayerRotation(getLocalPlayer(), 180.0,0.0,180.0);
+	   	charDesc[0] = "Пустой слот\nЧтобы перейти к созданию\nНажмите кнопку";
+       	charDescButton[0] = "Создать персонажа";
+      	guiSetText(label[0], charDesc[0]);
+		guiSetText(button[0], charDescButton[0]);
+	}
+}
 
 bindKey("shift", "down", function() {
     if(isCharacterCreationMenu || isCharacterSelectionMenu){
@@ -314,12 +344,6 @@ function hideCharacterSelection () {
         radio.clear();
         otherPlayerLocked = false;
         isCharacterSelectionMenu = false;
-        /*
-        if(kek){
-            guiSetVisible(kek,false);
-            kek = null;
-        }
-        */
     }
 }
 
@@ -360,7 +384,7 @@ function getSexFromId (id) {
 function delayedFunction(time, callback, additional = null) {
     return additional ? timer(callback, time, 1, additional) : timer(callback, time, 1);
 }
-
+/*
 addEventHandler( "onGuiElementMouseEnter",
     function( element ){
         if(isCharacterSelectionMenu) {
@@ -384,6 +408,7 @@ addEventHandler( "onGuiElementMouseEnter",
         }
     }
 );
+*/
 
 addEventHandler("onClientFrameRender", function(a) {
     if (a) return;
@@ -399,14 +424,6 @@ addEventHandler("onClientFrameRender", function(a) {
         local offset = dxGetTextDimensions(text, 2.0, "tahoma-bold")[1];
         dxDrawText(text, 25.0, screenY - offset - 25.0 - offset - 4.0, 0xAAFFFFFF, false, "tahoma-bold", 2.0);
     }
-/*
-    if (!otherPlayerLocked) return;
-
-    foreach (idx, value in getPlayers()) {
-        if (idx == getLocalPlayer()) continue;
-        setPlayerPosition(idx, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z);
-    }
-*/
 });
 
 addEventHandler("onClientScriptInit", function() {
@@ -425,3 +442,44 @@ function otherPlayerLock()
         setPlayerPosition(idx, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z);
     }
 }
+
+/*
+function formatCharacterSelection () {
+    if(charactersCount == 2){
+        local race = getRaceFromId(characters[0].Race);
+        local sex = getSexFromId(characters[0].Sex);
+        charDesc[0] = format("Имя: %s\nФамилия: %s\nРаса: %s\n",characters[0].Firstname,characters[0].Lastname,race);
+        charDesc[0] += format("Пол: %s\nДата рождения: %s\n",sex,characters[0].Bdate.tostring());
+        charDesc[0] += format("Денежных средств: $%.2f\nСчёт в банке: %.2f$",characters[0].money.tofloat(),characters[0].deposit.tofloat());
+        charDescButton[0] = "Выбрать персонажа";
+        race = getRaceFromId(characters[1].Race);
+        sex = getSexFromId(characters[1].Sex);
+        charDesc[1] = format("Имя: %s\nФамилия: %s\nРаса: %s\n",characters[1].Firstname,characters[1].Lastname,race);
+        charDesc[1] += format("Пол: %s\nДата рождения: %s\n",sex,characters[1].Bdate.tostring());
+        charDesc[1] += format("Денежных средств: $%.2f\nСчёт в банке: %.2f$",characters[1].money.tofloat(),characters[1].deposit.tofloat());
+        charDescButton[1] = "Выбрать персонажа";
+    }
+    if(charactersCount == 1){
+        if(characters[0].Firstname == ""){
+            PData.Id <- characters[0].Id; // add data to push it later
+            migrateOldCharacter = true;
+            return characterCreation();
+        }
+        local race = getRaceFromId(characters[0].Race);
+        local sex = getSexFromId(characters[0].Sex);
+        charDesc[0] = format("Имя: %s\nФамилия: %s\nРаса: %s\n",characters[0].Firstname,characters[0].Lastname,race);
+        charDesc[0] += format("Пол: %s\nДата рождения: %s\n",sex,characters[0].Bdate.tostring());
+        charDesc[0] += format("Денежных средств: $%.2f\nСчёт в банке: %.2f$",characters[0].money.tofloat(),characters[0].deposit.tofloat());
+        charDescButton[0] = "Выбрать персонажа";
+        charDesc[1] = "Пустой слот\nЧтобы перейти к созданию\nНажмите кнопку";
+        charDescButton[1] = "Создать персонажа";
+    }
+    if(charactersCount == 0){
+        charDesc[0] = "Пустой слот\nЧтобы перейти к созданию\nНажмите кнопку";
+        charDescButton[0] = "Создать персонажа";
+        charDesc[1] = "Пустой слот\nЧтобы перейти к созданию\nНажмите кнопку";
+        charDescButton[1] = "Создать персонажа";
+    }
+    characterSelection();
+}
+*/
