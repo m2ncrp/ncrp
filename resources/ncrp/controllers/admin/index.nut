@@ -12,7 +12,6 @@ serverAdmins["E818234F219F14336D8FFD5C657B796C"] <- 1; // inlufz
 serverAdmins["EBD8F16123FA9DE5C3C64D64FF844953"] <- 1; // inlufz 2
 serverAdmins["68D6A6A2A380766FC30CA5C2B01F212F"] <- 1; // kloO
 serverAdmins["0B4856B787A508D58E3330A2DAB7914C"] <- 1; // zaklaus
-serverAdmins["8721319F072CFE029B3CBB0E237D30B7"] <- 1; // temp klo
 serverAdmins["1896AD32EFA8A60BDD3CC2F6197F40DC"] <- 1; // member3
     // add your serials there :p
 
