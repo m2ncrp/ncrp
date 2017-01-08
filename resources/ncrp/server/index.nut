@@ -128,7 +128,6 @@ event("native:onServerShutdown", function() {
 
 event("native:onPlayerConnect", function(playerid, name, ip, serial) {
     dbg("player", "connect", name, playerid, ip, serial);
-    trigger("onPlayerConnectInit", playerid, name, ip, serial);
 
     if (!IS_AUTHORIZATION_ENABLED || DEBUG) {
         setLastActiveSession(playerid);
@@ -136,6 +135,8 @@ event("native:onPlayerConnect", function(playerid, name, ip, serial) {
         delayedFunction(100, function() {
             trigger("onPlayerConnectInit", playerid, name, ip, serial);
         });
+    } else {
+        trigger("onPlayerConnectInit", playerid, name, ip, serial);
     }
 });
 
