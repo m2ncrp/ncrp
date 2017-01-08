@@ -36,7 +36,7 @@ event("onClientFrameRender", function(isGUIDrawn) {
                 local text = players[i] + " [" + i.tostring() + "]";
                 local dimensions = dxGetTextDimensions( text, fScale, "tahoma-bold" );
 
-                dxDrawText( text, (vectors[i][0] - (dimensions[0] / 2)), vectors[i][1], fromRGB(255, 255, 255, (125.0 * fScale).tointeger()), false, "tahoma-bold", fScale );
+                dxDrawText( text, (vectors[i][0] - (dimensions[0] / 2)), vectors[i][1], fromRGB(255, 255, 255, (50 + 125.0 * fScale).tointeger()), false, "tahoma-bold", fScale );
             }
         }
     }
