@@ -64,9 +64,9 @@ translation("en", {
 local tipsToggles = {};
 
 event("onServerMinuteChange", function() {
-    // if ((getMinute() % 5) != 0) {
-    //     return;
-    // }
+    if ((getMinute() % 5) != 0) {
+        return;
+    }
 
     if (!infoTipsCache || !infoTipsCache.len()) {
         infoTipsCache = clone infoTips;
