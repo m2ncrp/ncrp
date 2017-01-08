@@ -1,5 +1,6 @@
 local drawing = true;
 local ticker = null;
+local microticker = null;
 local drawdata = {
     time    = "",
     date    = "",
@@ -207,18 +208,8 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
     if (!isGUIdrawn) return;
 
     if ( screenFade.current > 0 ) {
-        local alpha = lerp(0, screenFade.current.tofloat() / screenFade.time.tofloat(), 255).tointeger();
+        local alpha = lerp(0, clamp(0.0, screenFade.current.tofloat() / screenFade.time.tofloat(), 1.0), 255).tointeger();
         dxDrawRectangle(0.0, 0.0, screenX, screenY, fromRGB(0, 0, 0, alpha));
-    }
-
-    // transp -> black
-    if (screenFade.state == "in" && screenFade.current < screenFade.time) {
-        screenFade.current += screenFade.time.tofloat() / getFPS().tofloat();
-    }
-
-    // black -> transp
-    if (screenFade.state == "out" && screenFade.current > 0) {
-        screenFade.current -= screenFade.time.tofloat() / getFPS().tofloat();
     }
 });
 
@@ -232,6 +223,18 @@ addEventHandler("onServerFadeScreen", function(time, type) {
 addEventHandler("onNativePlayerFadeout", function(time) {
     fadeScreen(time.tofloat(), true);
 });
+
+function onEvery100ms() {
+    // transp -> black
+    if (screenFade.state == "in" && screenFade.current < screenFade.time) {
+        screenFade.current += 100;// / (getFPS().tofloat() + 1);
+    }
+
+    // black -> transp
+    if (screenFade.state == "out" && screenFade.current > 0) {
+        screenFade.current -= 100;//0 / (getFPS().tofloat() + 1);
+    }
+}
 
 /**
  * Handling client events
@@ -328,9 +331,13 @@ addEventHandler("onServerClientStarted", function(version = null) {
 addEventHandler("onClientScriptInit", function() {
     setRenderHealthbar(false);
     setRenderNametags(false);
-    sendMessage("You can start playing the game after registeration or login is succesfuly completed.", 0, 177, 106);
-    sendMessage("");
-    sendMessage("We have a support for english language. Switch via: /en", 247,  202, 24);
-    sendMessage("У нас есть поддержка русского языка. Включить: /ru", 247,  202, 24);
-    // sendMessage(format("screenX: %f, screenY: %f", screenX, screenY));
+    // sendMessage("You can start playing the game after registeration or login is succesfuly completed.", 0, 177, 106);
+    // sendMessage("");
+    // sendMessage("We have a support for english language. Switch via: /en", 247,  202, 24);
+    // sendMessage("У нас есть поддержка русского языка. Включить: /ru", 247,  202, 24);
+    // // sendMessage(format("screenX: %f, screenY: %f", screenX, screenY));
+
+    if (!microticker) {
+        microticker = timer(onEvery100ms, 100, -1);
+    }
 });

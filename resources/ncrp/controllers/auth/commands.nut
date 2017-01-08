@@ -57,7 +57,7 @@ function registerFunc(playerid, password, email = null) {
                                 dbg("registration", getIdentity(playerid));
                                 trigger(playerid, "destroyAuthGUI");
 
-                                screenFadein(playerid, 250, function() {
+                                screenFadein(playerid, 500, function() {
                                     trigger("onPlayerInit", playerid);
                                 });
                             });
