@@ -96,14 +96,13 @@ addEventHandler("characterSelection",characterSelection);
 
 
 function formatCharacterSelection () {
-	local idx = selectedCharacter;
 	setPlayerPosition(getLocalPlayer(), -1598.5,69.0,-13.0);
-    triggerServerEvent("changeModel", characters[idx].cskin);
     setPlayerRotation(getLocalPlayer(), 180.0,0.0,0.0);
 	if(charactersCount == 0){
 		return characterCreation();
 	}
 	else{
+		local idx = selectedCharacter;
 		if(characters[0].Firstname == ""){
         	PData.Id <- characters[0].Id; // add data to push it later
             migrateOldCharacter = true;
@@ -115,6 +114,7 @@ function formatCharacterSelection () {
 	    charDesc[0] += format("Пол: %s\nДата рождения: %s\n",sex,characters[idx].Bdate.tostring());
 	    charDesc[0] += format("Денежных средств: $%.2f\nСчёт в банке: %.2f$",characters[idx].money.tofloat(),characters[idx].deposit.tofloat());
 	    charDescButton[0] = "Выбрать персонажа";
+	    triggerServerEvent("changeModel", characters[idx].cskin);
 	    characterSelection();
 	}
 }
@@ -407,8 +407,7 @@ addEventHandler("onClientScriptInit", function() {
     kektimer = timer(otherPlayerLock, 100, -1);
 });
 
-function otherPlayerLock()
-{
+function otherPlayerLock(){
 	if (!otherPlayerLocked){
 		if(kektimer.IsActive()){
 			return kektimer.Kill();
