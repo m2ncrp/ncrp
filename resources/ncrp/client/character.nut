@@ -84,7 +84,7 @@ function characterSelection(){
     togglePlayerControls( true );
     window = guiCreateElement( ELEMENT_TYPE_WINDOW, "Выберите персонажа", screen[0] - 300.0, screen[1]/2- 90.0, 190.0, 180.0 );
     label.push(guiCreateElement( ELEMENT_TYPE_LABEL, charDesc[0], 20.0, 20.0, 300.0, 100.0, false, window));//label[0]
-    button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, charDescButton[0], 20, 120.0, 150.0, 20.0,false, window));//button[0]
+    button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, charDescButton[0], 20, 125.0, 150.0, 20.0,false, window));//button[0]
     button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "<<", 20.0, 150.0, 30.0, 20.0,false, window));//button[2]
     label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Персонаж", 70.0, 148.0, 300.0, 20.0, false, window))
     button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, ">>", 140.0, 150.0, 30.0, 20.0,false, window));//button[3]
@@ -222,6 +222,7 @@ function switchCharacterSlot(){
 		guiSetText(label[0], charDesc[0]);
 		guiSetText(button[0], charDescButton[0]);
 		triggerServerEvent("changeModel", characters[slot].cskin);
+		setPlayerRotation(getLocalPlayer(), 180.0,0.0,0.0);
 	}
 	else {
 		setPlayerRotation(getLocalPlayer(), 180.0,0.0,180.0);
@@ -384,31 +385,7 @@ function getSexFromId (id) {
 function delayedFunction(time, callback, additional = null) {
     return additional ? timer(callback, time, 1, additional) : timer(callback, time, 1);
 }
-/*
-addEventHandler( "onGuiElementMouseEnter",
-    function( element ){
-        if(isCharacterSelectionMenu) {
-            if(element == label[0] || element == button[0]){
-                if(charactersCount == 1){
-                    triggerServerEvent("changeModel", characters[0].cskin);
-                    setPlayerRotation(getLocalPlayer(), 180.0,0.0,0.0);
-                }
-                else {
-                    setPlayerRotation(getLocalPlayer(), 180.0,0.0,180.0);
-                }
-            }
-            if(element == label[1] || element == button[1]){
-                if(charactersCount == 2){
-                    triggerServerEvent("changeModel", characters[1].cskin);
-                }
-                else {
-                    setPlayerRotation(getLocalPlayer(), 180.0,0.0,180.0);
-                }
-            }
-        }
-    }
-);
-*/
+
 
 addEventHandler("onClientFrameRender", function(a) {
     if (a) return;
@@ -443,43 +420,3 @@ function otherPlayerLock()
     }
 }
 
-/*
-function formatCharacterSelection () {
-    if(charactersCount == 2){
-        local race = getRaceFromId(characters[0].Race);
-        local sex = getSexFromId(characters[0].Sex);
-        charDesc[0] = format("Имя: %s\nФамилия: %s\nРаса: %s\n",characters[0].Firstname,characters[0].Lastname,race);
-        charDesc[0] += format("Пол: %s\nДата рождения: %s\n",sex,characters[0].Bdate.tostring());
-        charDesc[0] += format("Денежных средств: $%.2f\nСчёт в банке: %.2f$",characters[0].money.tofloat(),characters[0].deposit.tofloat());
-        charDescButton[0] = "Выбрать персонажа";
-        race = getRaceFromId(characters[1].Race);
-        sex = getSexFromId(characters[1].Sex);
-        charDesc[1] = format("Имя: %s\nФамилия: %s\nРаса: %s\n",characters[1].Firstname,characters[1].Lastname,race);
-        charDesc[1] += format("Пол: %s\nДата рождения: %s\n",sex,characters[1].Bdate.tostring());
-        charDesc[1] += format("Денежных средств: $%.2f\nСчёт в банке: %.2f$",characters[1].money.tofloat(),characters[1].deposit.tofloat());
-        charDescButton[1] = "Выбрать персонажа";
-    }
-    if(charactersCount == 1){
-        if(characters[0].Firstname == ""){
-            PData.Id <- characters[0].Id; // add data to push it later
-            migrateOldCharacter = true;
-            return characterCreation();
-        }
-        local race = getRaceFromId(characters[0].Race);
-        local sex = getSexFromId(characters[0].Sex);
-        charDesc[0] = format("Имя: %s\nФамилия: %s\nРаса: %s\n",characters[0].Firstname,characters[0].Lastname,race);
-        charDesc[0] += format("Пол: %s\nДата рождения: %s\n",sex,characters[0].Bdate.tostring());
-        charDesc[0] += format("Денежных средств: $%.2f\nСчёт в банке: %.2f$",characters[0].money.tofloat(),characters[0].deposit.tofloat());
-        charDescButton[0] = "Выбрать персонажа";
-        charDesc[1] = "Пустой слот\nЧтобы перейти к созданию\nНажмите кнопку";
-        charDescButton[1] = "Создать персонажа";
-    }
-    if(charactersCount == 0){
-        charDesc[0] = "Пустой слот\nЧтобы перейти к созданию\nНажмите кнопку";
-        charDescButton[0] = "Создать персонажа";
-        charDesc[1] = "Пустой слот\nЧтобы перейти к созданию\nНажмите кнопку";
-        charDescButton[1] = "Создать персонажа";
-    }
-    characterSelection();
-}
-*/
