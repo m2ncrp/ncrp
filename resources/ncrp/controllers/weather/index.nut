@@ -54,7 +54,11 @@ function isSummer() {
     return SERVER_IS_SUMMER;
 }
 
+local nativeSetWeather = setWeather;
+
 function setWeather(name) {
+    nativeSetWeather(randWeather);
+
     playerList.each(function(playerid) {
         trigger(playerid, "onServerWeatherSync", name);
     });
@@ -99,10 +103,14 @@ event("onServerSecondChange", function() {
         // Check and compare current hour with the hours in array
         // So it checks if current hour is between HOUR_START and HOUR_END
         if (getHour() >= weathers[i][0] && getHour() <= weathers[i][1]) {
+
             // Select a random weather from slot [2]
             local randWeather = weathers[i][2][random(0, weathers[i][2].len()-1)];
+
             // Set the random weather for all players
             setWeather(randWeather);
+            nativeSetWeather(randWeather);
+
             // Change SERVER_WEATHER string
             SERVER_WEATHER = randWeather;
 
