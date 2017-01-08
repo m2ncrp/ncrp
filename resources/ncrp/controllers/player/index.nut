@@ -91,12 +91,13 @@ event("native:onPlayerSpawn", function(playerid) {
     if (!isPlayerLoaded(playerid)) return;
 
     // draw default fadeout
-    screenFadeout(playerid, calculateFPSDelay(playerid) + 2500);
+    screenFadeout(playerid, calculateFPSDelay(playerid) + 50000);
 
     // trigger native game fadeout to fix possible black screen
-    // delayedFunction(calculateFPSDelay(playerid) + 1500, function() {
-    //     nativeScreenFadeout(playerid, 1000);
-    // });
+    delayedFunction(calculateFPSDelay(playerid) + 1000, function() {
+        nativeScreenFadeout(playerid, 100);
+        screenFadeout(playerid, 250);
+    });
 
     // reset freeze and set default model
     freezePlayer(playerid, false);
