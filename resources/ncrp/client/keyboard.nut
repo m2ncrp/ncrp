@@ -24,4 +24,9 @@ function onServerFreezePlayer(state) {
     }
 }
 
+bindKey("enter", "down", function() {
+    triggerServerEvent("onClientNativeKeyboardPress", "enter", "down");
+    triggerServerEvent("onClientKeyboardPress", "enter", "down");
+});
+
 addEventHandler("onServerFreezePlayer", onServerFreezePlayer);

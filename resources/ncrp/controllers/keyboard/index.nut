@@ -13,6 +13,12 @@ event("onClientKeyboardPress", function(playerid, key, state) {
     }
 });
 
+event("onClientNativeKeyboardPress", function(playerid, key, state) {
+    if (key == "enter" && state == "down") {
+        trigger(playerid, "onServerPressEnter");
+    }
+});
+
 event("onServerStopping", function() {
     playerList.each(function(playerid) {
         return sendKeyboardUnregistration(playerid);
