@@ -57,15 +57,16 @@ translation("en", {
     "tips.turnlights"   :   "[TIPS] Z - left turn lights; X - hazard lights; C - right turn lights."
     "tips.dice"         :   "[TIPS] Use /dice for throwing dice."
     "tips.hat"          :   "[TIPS] Use /hat COUNT for pull a ball from hat, where COUNT balls in hat."
-
+    "tips.enabled"      :   "[TIPS] Tips has been enabled."
+    "tips.disabled"     :   "[TIPS] Tips has been disabled."
 });
 
+local tipsToggles = {};
 
 event("onServerMinuteChange", function() {
-
-    if ((getMinute() % 5) != 0) {
-        return;
-    }
+    // if ((getMinute() % 5) != 0) {
+    //     return;
+    // }
 
     if (!infoTipsCache || !infoTipsCache.len()) {
         infoTipsCache = clone infoTips;
@@ -77,5 +78,19 @@ event("onServerMinuteChange", function() {
     infoTipsCache.remove(tipid);
 
     // send to all logined players
-    msg_a(tip, CL_JORDYBLUE);
+    foreach (playerid, value in players) {
+        if (getPlayerName(playerid) in tipsToggles) continue;
+
+        msg(playerid, tip, CL_JORDYBLUE);
+    }
+});
+
+cmd("tips", function(playerid) {
+    if (!(getPlayerName(playerid) in tipsToggles)) {
+        msg(playerid, "tips.disabled");
+        return tipsToggles[getPlayerName(playerid)] <- true;
+    }
+
+    msg(playerid, "tips.enabled");
+    delete tipsToggles[getPlayerName(playerid)];
 });
