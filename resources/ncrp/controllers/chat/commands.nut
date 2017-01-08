@@ -12,7 +12,7 @@ event("onPlayerConnect", function(playerid){
 
 event("onServerSecondChange", function() {
     foreach (pid, value in players) {
-        if (isPlayerLogined(pid) && pid in players) {
+        if (isPlayerLogined(pid) && pid in antiflood) {
             if(antiflood[pid]["gooc"] > 0){
                 antiflood[pid]["gooc"]--;
             }
@@ -107,7 +107,7 @@ chatcmd(["o","ooc"], function(playerid, message) {
             antiflood[playerid]["gooc"] = ANTIFLOOD_GLOBAL_OOC_CHAT;
         }
         else {
-            msg(playerid, "antiflood.message", antiflood[playerid]["gooc"]/2, CL_LIGHTWISTERIA);
+            msg(playerid, "antiflood.message", antiflood[playerid]["gooc"], CL_LIGHTWISTERIA);
         }
     }
     else{
