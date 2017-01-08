@@ -117,14 +117,14 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
 
     // draw chat slots
     offset = 0;
-    foreach (idx, value in chatslots) {
-        local size = dxGetTextDimensions(value, 1.0, "tahoma-bold")[0].tofloat() + 20.0;
+    for (local i = 0; i < 4; i++) {
+        local size = dxGetTextDimensions(chatslots[i], 1.0, "tahoma-bold")[0].tofloat() + 20.0;
 
         if (idx == selectedslot) {
             dxDrawRectangle(15.0 + offset, 3.0, size - 1.0, 20.0, 0xFF29AF5C);
         }
 
-        dxDrawText(value, 25.0 + offset, 6.5, idx == selectedslot ? 0xFF111111 : 0xFFFFFFFF, false, "tahoma-bold" );
+        dxDrawText(chatslots[i], 25.0 + offset, 6.5, idx == selectedslot ? 0xFF111111 : 0xFFFFFFFF, false, "tahoma-bold" );
         offset += size;
     }
 
@@ -170,7 +170,8 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
 
     // draw base
     dxDrawRectangle(get("borders.x"), get("borders.y"), get("roundy.width"), get("roundy.height") + 5.0, 0xA1000000);
-    foreach (idx, line in lines) {
+    for (local i = 0; i < lines.len(); i++) {
+        local line = lines[i];
         dxDrawRectangle(line.x, line.y, line.step, line.height, 0xA1000000);
     }
 
