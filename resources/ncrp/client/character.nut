@@ -206,10 +206,6 @@ function formatCharacterSelection () {
 	    local deposit = characters[idx].deposit.tofloat();
 	    charDesc[0] = format(translation[0].CharacterDesc,fname,lname,race,sex,bday,money,deposit);
 	    charDescButton[0] = translation[0].SelectButtonDesc;
-	    charDesc[0] = format("Имя: %s\nФамилия: %s\nРаса: %s\n",characters[idx].Firstname,characters[idx].Lastname,race);
-	    charDesc[0] += format("Пол: %s\nДата рождения: %s\n",sex,characters[idx].Bdate.tostring());
-	    charDesc[0] += format("Денежных средств: $%.2f\nСчёт в банке: $%.2f",characters[idx].money.tofloat(),characters[idx].deposit.tofloat());
-	    charDescButton[0] = "Выбрать персонажа";
 	    triggerServerEvent("changeModel", characters[idx].cskin.tostring());
 	    characterSelection();
 	}
@@ -311,8 +307,6 @@ function switchCharacterSlot(){
 	if(idx in characters){
 		local race = getRaceFromId(characters[idx].Race);
 		local sex = getSexFromId(characters[idx].Sex);
-		local race = getRaceFromId(characters[idx].Race);
-	    local sex = getSexFromId(characters[idx].Sex);
 	    local fname = characters[idx].Firstname;
 	    local lname = characters[idx].Lastname;
 	    local bday = characters[idx].Bdate.tostring()

@@ -261,7 +261,7 @@ function getVehicleOwnerAndPinTicket(playerid, plateTxt, reason) {
             if ( !checkDistanceXYZ(pos[0], pos[1], pos[2], opos[0], opos[1], opos[2], POLICE_TICKET_DISTANCE) ) {
                 return msg(playerid, "Distance too large");
             }
-            local owner = (getVehicleOwner(vehicleid) ? getVehicleOwner(vehicleid) : null);
+            local owner = (getVehicleOwner(vehicleid) ? getVehicleOwner(vehicleid) : "");
             PoliceTicket( owner, key, price, "open", pos[0], pos[1], pos[2])
                 .save();
             return owner;
