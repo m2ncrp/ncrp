@@ -80,7 +80,7 @@ event("onPlayerInit", function(playerid) {
         }
     });
 
-    trigger(playerid, "onServerCharacterLoaded");
+    trigger(playerid, "onServerCharacterLoaded", getPlayerLocale(playerid));
     screenFadeout(playerid, 250);
 });
 
