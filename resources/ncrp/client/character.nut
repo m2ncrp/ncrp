@@ -322,7 +322,7 @@ function switchCharacterSlot(){
 		charDescButton[0] = translation[0].SelectButtonDesc;
 		guiSetText(label[0], charDesc[0]);
 		guiSetText(button[0], charDescButton[0]);
-		triggerServerEvent("changeModel", characters[slot].cskin.tostring());
+		triggerServerEvent("changeModel", characters[idx].cskin.tostring());
 		setPlayerRotation(getLocalPlayer(), 180.0,0.0,0.0);
 	}
 	else {
