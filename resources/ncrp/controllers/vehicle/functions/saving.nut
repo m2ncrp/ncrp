@@ -86,6 +86,7 @@ function trySaveVehicle(vehicleid) {
     vehicle.entity.fuellevel = vehicle.fuel;
     vehicle.entity.plate     = getVehiclePlateText(vehicleid);
     vehicle.entity.owner     = getVehicleOwner(vehicleid);
+    vehicle.entity.ownerud   = getVehicleOnwerId(vehicleid);
     vehicle.entity.fwheel    = vehicle.wheels.front;
     vehicle.entity.rwheel    = vehicle.wheels.rear;
 

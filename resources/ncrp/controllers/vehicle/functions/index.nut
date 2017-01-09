@@ -35,8 +35,9 @@ createVehicle = function(modelid, x, y, z, rx, ry, rz) {
             time = getTimestamp(),
         },
         ownership = {
-            status = VEHICLE_OWNERSHIP_NONE,
-            owner  = null
+            status   = VEHICLE_OWNERSHIP_NONE,
+            owner    = null,
+            ownerid  = -1,
         },
         wheels = {
             front = -1,
