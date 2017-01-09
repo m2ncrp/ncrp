@@ -205,7 +205,7 @@ event("onPlayerSpawned", function(playerid) {
         local vpos = getVehiclePosition(vehicleid);
 
         // if inside vehicle, set offsetted position
-        if (getDistanceBetweenPoints3D(ppos.x, ppos.y, ppos.z, vpos[0], vpos[1], vpos[2]) < 2.5) {
+        if (getDistanceBetweenPoints3D(ppos.x, ppos.y, ppos.z, vpos[0], vpos[1], vpos[2]) < 4.0) {
             dbg("player", "spawn", getIdentity(playerid), "inside closed truck, respawning...");
             players[playerid].setPosition(ppos.x + 1.5, ppos.y + 1.5, ppos.z);
             return;

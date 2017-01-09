@@ -295,6 +295,8 @@ addEventHandler("onClientCloseMap", function() {
 });
 
 bindKey("m", "down", function() {
+    if (!initialized) return;
+
     if (drawing) {
         drawing = false;
         openMap();
@@ -331,6 +333,7 @@ addEventHandler("onServerClientStarted", function(version = null) {
 addEventHandler("onClientScriptInit", function() {
     setRenderHealthbar(false);
     setRenderNametags(false);
+    toggleHud(false);
     // sendMessage("You can start playing the game after registeration or login is succesfuly completed.", 0, 177, 106);
     // sendMessage("");
     // sendMessage("We have a support for english language. Switch via: /en", 247,  202, 24);

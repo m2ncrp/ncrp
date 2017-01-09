@@ -16,15 +16,7 @@ include("controllers/player/skin.nut");
 include("controllers/player/falldown.nut");
 include("controllers/player/commands.nut");
 include("controllers/player/spawn.nut");
-
-/**
- * Define player spawns
- * @type {Array}
- */
-local defaultPlayerSpawns = [
-    [-555.251,  1702.31, -22.2408], // railway
-    [-344.028, -952.702, -21.7457], // new port
-];
+include("controllers/player/bannednames.nut");
 
 /**
  * Basic event for registraion
@@ -76,7 +68,15 @@ event("onServerPlayerStarted", function(playerid) {
 event("onPlayerInit", function(playerid) {
     Character.findBy({ name = getAccountName(playerid) }, function(err, characters) {
         foreach (idx, c in characters) {
-            trigger(playerid, "onServerCharacterLoading", c.id, c.firstname, c.lastname, c.race, c.sex, c.birthdate, c.money, c.deposit, c.cskin);
+            trigger(playerid, "onServerCharacterLoading",
+                c.id.tostring(),
+                c.firstname, c.lastname,
+                c.race.tostring(),
+                c.sex.tostring(),
+                c.birthdate,
+                c.money, c.deposit,
+                c.cskin.tostring()
+            );
         }
     });
 
