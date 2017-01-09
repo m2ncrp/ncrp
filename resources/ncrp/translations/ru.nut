@@ -64,6 +64,7 @@ translation("ru", {
     "auth.notification"     : "[AUTH] Вам нужно войти в свой аккаунт используя /login ваш_пароль, или создать новый через /register ваш_пароль"
     "auth.error.tomany"     : "[AUTH] Вы достигли лимита по количеству аккаунтов."
     "auth.error.email"      : "Такой email адрес уже используется!"
+    "auth.client.notloaded" : "Кажется ваши клиен-скрипты не прогрузились. Попробуйте переподключиться!"
 
     "auth.GUI.TitleRegister"            : "Регистрация"
     "auth.GUI.TitleLabelRegister"       : "Регистрация нового аккаунта. Заполните поля ниже:"
