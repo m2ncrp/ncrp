@@ -9,6 +9,7 @@ class PoliceTicket extends ORM.Entity {
         ORM.Field.String({ name = "status"  }),
         ORM.Field.Integer({ name = "stamp" }),
         ORM.Field.String({ name = "created" }),
+        ORM.Field.String({ name = "who"}),
     ];
 
     static traits = [
@@ -29,6 +30,7 @@ class PoliceTicket extends ORM.Entity {
         this.y      = vargv[5];
         this.z      = vargv[6];
         this.stamp  = getTimestamp();
-        this.created= getDateTime(); 
+        this.created= getDateTime();
+        this.who    = vargv[7];
     }
 }
