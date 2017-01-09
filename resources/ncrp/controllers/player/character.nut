@@ -8,12 +8,12 @@ const CHARACTER_LIMIT = 2;
 local REGEX_NAME = regexp("[A-Za-z]{2,16}");
 
 translate("en", {
-    "character.doesnotexist"        : "Character with provided data does not exist."
-    "character.alreadymigrated"     : "Provided character has already been migrated."
+    "character.doesnotexist"        : "Character with provided data\ndoes not exist."
+    "character.alreadymigrated"     : "Provided character has already\nbeen migrated."
     "character.limitexceeded"       : "You cant create more characters!"
-    "character.alreadyregistered"   : "Character with provided firstname and lastname already exists. Please use different!"
-    "character.wrongname"           : "You provided non-valid firstname or lastname. Please try again using other name."
-    "character.bannednames"         : "Provided firstname or lastname is banned. Please try again using other name."
+    "character.alreadyregistered"   : "Character with provided firstname\nand lastname already exists.\nPlease use different!"
+    "character.wrongname"           : "You provided non-valid firstname\nor lastname. Please,\ntry again using other name."
+    "character.bannednames"         : "Provided firstname or lastname\nis banned. Please,\ntry again using other name."
 });
 
 /**
