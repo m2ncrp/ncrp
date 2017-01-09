@@ -17,7 +17,8 @@ function registerFunc(playerid, password, email = null) {
     }
 
     // create account
-    account = Account();
+    local account = Account();
+
     account.username = getAccountName(playerid);
     account.password = md5(password);
     account.ip       = getPlayerIp(playerid);
