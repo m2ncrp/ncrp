@@ -8,7 +8,7 @@ nativeGetPlayerName <- getPlayerName;
  */
 function getPlayerName(playerid) {
     if (isPlayerLoaded(playerid)) {
-        return players[playerid].firstname + " " + players[playerid].lastname;
+        return players[playerid].getName();
     }
 
     return nativeGetPlayerName(playerid);
@@ -23,7 +23,7 @@ function getPlayerName(playerid) {
 function getPlayerNameShort(playerid) {
     if(isPlayerLoaded(playerid)) {
         local playerName = getPlayerName(playerid);
-        local index = playerName.find("_");
+        local index = playerName.find(" ");
         if (index != null) {
             local playerNameShort = playerName.slice(0, index) + " " + playerName.slice(index+1, index+2)+".";
             return playerNameShort;
