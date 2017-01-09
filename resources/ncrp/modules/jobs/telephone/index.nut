@@ -324,13 +324,14 @@ local numbers = [
 
 event("onServerStarted", function() {
     log("[jobs] loading telephone services job and telephone system...");
+/*
     local ets1 = createVehicle(31, -1066.02, 1483.81, -3.79657, -90.8055, -1.36482, -0.105954);   // telephoneCAR1
     local ets2 = createVehicle(31, -1076.38, 1483.81, -3.51025, -89.5915, -1.332, -0.0857111);   // telephoneCAR2
     setVehicleColor(ets1, 102, 70, 18, 63, 36, 7);
     setVehicleColor(ets2, 102, 70, 18, 63, 36, 7);
     setVehiclePlateText(ets1, "ETS-01");
     setVehiclePlateText(ets2, "ETS-02");
-
+*/
     //creating public 3dtext
     foreach (phone in telephones) {
         if (phone.len() == 5) {

@@ -307,8 +307,9 @@ function fishJobFinish( playerid ) {
     }
 
     job_fish[playerid]["fishstatus"] = false;
-    msg( playerid, "job.fishdriver.nicejob", [getPlayerName( playerid ), FISH_JOB_SALARY], FISH_JOB_COLOR );
-    addMoneyToPlayer(playerid, FISH_JOB_SALARY);
+    local amount = FISH_JOB_SALARY + (random(-5, 1)).tofloat();
+    msg( playerid, "job.fishdriver.nicejob", [getPlayerName( playerid ), amount], FISH_JOB_COLOR );
+    addMoneyToPlayer(playerid, amount);
 
     delayedFunction(2000, function() {
         msg( playerid, "job.fishdriver.wantagain", FISH_JOB_COLOR );
