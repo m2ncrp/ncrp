@@ -5,10 +5,10 @@ include("modules/jobs/taxi");
 include("modules/jobs/milkdriver");
 include("modules/jobs/fishdriver");
 include("modules/jobs/truckdriver");
-//include("modules/jobs/telephone");
+include("modules/jobs/telephone");
 include("modules/jobs/docker");
 include("modules/jobs/stationporter");
-include("modules/jobs/realtor");
+// include("modules/jobs/realtor");
 
 
 event("onServerStarted", function() {
@@ -29,7 +29,7 @@ function registerPersonalJobBlip(jobname, x, y) {
 
 function applyPersonalJobBlip(playerid) {
     foreach (jobname, coords in jobBlips) {
-        if (playerid in players && players[playerid].job == jobname) {
+        if (isPlayerLoaded(playerid) && isPlayerHaveValidJob(playerid, jobname)) {
             createPersonalJobBlip(playerid, coords.x, coords.y, ICON_TARGET); // for current job
         }
         if (!getPlayerJob(playerid)) {

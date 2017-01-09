@@ -24,7 +24,7 @@ local WEATHERS = {
         [14, 15, ["DT09part4MalteseFalcone2", "DT08part02cigarettesmill", "DT12_part_all", "DT15", "DT15end", "DT15_interier"] ],
         [16, 17, ["DT13part02", "DT_RTRclear_day_late_afternoon", "DT01part01sicily_svit" "DT_RTRrainy_day_late_afternoon", "DT11part03", "DT_RTRfoggy_day_late_afternoon"] ],
         [18, 18, ["DT08part03crazyhorse", "DT07part03prepadrestaurcie", "DT_RTRrainy_day_evening", "DT_RTRfoggy_day_late_afternoon"] ],
-        [19, 19, ["DT05part06Francesca", "DT10part03Evening", "DT14part7_10", "DT11part04", "DT_RTRfoggy_day_evening"] ],
+        [19, 19, ["DT10part03Evening", "DT14part7_10", "DT11part04", "DT_RTRfoggy_day_evening"] ],
         [20, 23, ["DT_RTRclear_day_evening", "DT08part04subquestwarning", "DT_RTRclear_day_late_even", "DT_RTRrainy_day_late_even", "DT_RTRfoggy_day_late_even"] ],
     ],
 
@@ -46,7 +46,7 @@ local WEATHERS = {
 
 
 
-local SERVER_IS_SUMMER = false;
+local SERVER_IS_SUMMER = true;
 local WEATHER_CHANGE_TRIGGER = 0;
 local SERVER_WEATHER = null;
 
@@ -54,7 +54,11 @@ function isSummer() {
     return SERVER_IS_SUMMER;
 }
 
+local nativeSetWeather = setWeather;
+
 function setWeather(name) {
+    nativeSetWeather(name);
+
     playerList.each(function(playerid) {
         trigger(playerid, "onServerWeatherSync", name);
     });
@@ -99,13 +103,19 @@ event("onServerSecondChange", function() {
         // Check and compare current hour with the hours in array
         // So it checks if current hour is between HOUR_START and HOUR_END
         if (getHour() >= weathers[i][0] && getHour() <= weathers[i][1]) {
+
             // Select a random weather from slot [2]
             local randWeather = weathers[i][2][random(0, weathers[i][2].len()-1)];
+
             // Set the random weather for all players
             setWeather(randWeather);
+            nativeSetWeather(randWeather);
+
             // Change SERVER_WEATHER string
             SERVER_WEATHER = randWeather;
-        dbg("Weather: "+SERVER_WEATHER);
+
+            dbg("server", "weather", SERVER_WEATHER);
+
             // Generate a new number when weather change will happen again
             // New count is between 20 and 75 in-game minutes.
             WEATHER_CHANGE_TRIGGER = random(20 * WORLD_SECONDS_PER_MINUTE, 70 * WORLD_SECONDS_PER_MINUTE);

@@ -236,7 +236,7 @@ class Vehicle extends BaseVehicle {
      * @return {Boolean}
      */
     function isOwner(playerid) {
-        return (isPlayerConnected(playerid) && getVehicleOwner(vehicleID) == getPlayerName(playerid));
+        throw "TODO";
     }
 
     /**

@@ -1,11 +1,10 @@
 #!/bin/sh
 
-TARGET="/resources/ncrp/scriptfiles/ncrp.db";
-FILENAME="backup_"$(date +"%d%m%y_%H%M")".db.bak";
+FILENAME="backup_"$(date +"%d%m%y_%H%M")".gz";
 BACKUPS="/backups/";
 BASEDIR=$(dirname "$0")
 
 mkdir -p $BASEDIR$BACKUPS;
-cp $BASEDIR$TARGET $BASEDIR$BACKUPS$FILENAME;
+/usr/bin/mysqldump -u root -p"y9Dt6^f2fNU;8RLU4{xP" ncrp | gzip -v > $BASEDIR$BACKUPS$FILENAME;
 
 echo "created backup $FILENAME";

@@ -56,6 +56,8 @@ translation("en", {
     "antiflood.message"                 : "Aniflood: wait a %i seconds."
 
     "admin.oocDisabled.message"         :"General chat disabled by your administrator!"
+
+    "error.title"                       : "Error!"
 });
 
 

@@ -11,15 +11,16 @@ function policeCall(playerid, place) {
     msg(playerid, "organizations.police.call.foruser", [place], CL_ROYALBLUE);
     local pos = getPlayerPositionObj(playerid); 
 
-    foreach(player in playerList.getPlayers()) {
-        if ( isOfficer(player) && isOnPoliceDuty(player) || isPlayerAdmin(player) ) {
-            local crime_hash = createPrivateBlip(player, pos.x, pos.y, ICON_YELLOW, 4000.0);
+    foreach (player in players) {
+        local id = player.playerid;
+        if ( isOfficer(id) && isOnPoliceDuty(id) ) {
+            local crime_hash = createPrivateBlip(id, pos.x, pos.y, ICON_YELLOW, 4000.0);
 
             delayedFunction(60000, function() { // <----------------------------------------- need check for more than 2 people
                 removeBlip( crime_hash );
             });
 
-            msg(player, "organizations.police.call.new", [place], CL_ROYALBLUE);
+            msg(id, "organizations.police.call.new", [place], CL_ROYALBLUE);
         }
     }
 }
@@ -80,6 +81,11 @@ function isPlayerInPoliceVehicle(playerid) {
     return (isPlayerInValidVehicle(playerid, 42) || isPlayerInValidVehicle(playerid, 51) || isPlayerInValidVehicle(playerid, 21));
 }
 
+function isVehicleidPoliceVehicle(vehicleid) {
+    local model = getVehicleModel( vehicleid );
+    return ( model == 42 ) || ( model == 51 ) || ( model == 21 );
+}
+
 
 function isPlayerNearPoliceDepartment(playerid) {
     return isInRadius(playerid, POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2], EBPD_ENTER_RADIUS);
@@ -92,7 +98,7 @@ function isPlayerNearPoliceDepartment(playerid) {
  * @return {Boolean} true/false
  */
 function isOfficer(playerid) {
-    if (!(playerid in players)) {
+    if (!(isPlayerLoaded(playerid))) {
         return false;
     }
 
@@ -115,23 +121,25 @@ function policeSetOnDuty(playerid, bool) {
         police[playerid]["ondutyminutes"] <- 0;
     }
 
+    local rank = getPoliceRank(playerid);
     police[playerid].onduty <- bool;
 
     if (bool) {
         return screenFadeinFadeout(playerid, 100, function() {
             // onPoliceDutyGiveWeapon( playerid );
             trigger("onPoliceDutyOn", playerid);
-            setPlayerModel(playerid, POLICE_MODEL);
+            local modelNUM = random( 0, POLICE_RANK_SALLARY_PERMISSION_SKIN[rank][2].len()-1 );
+            local model = POLICE_RANK_SALLARY_PERMISSION_SKIN[rank][2][modelNUM];
+            setPlayerModel(playerid, model);
             msg(playerid, "organizations.police.duty.on");
         });
     } else {
         // onPoliceDutyRemoveWeapon( playerid );
         trigger("onPoliceDutyOff", playerid);
+        policeJobPaySalary( playerid );
         return screenFadeinFadeout(playerid, 100, function() {
-            setPlayerModel(playerid, players[playerid]["default_skin"]);
+            restorePlayerModel(playerid);
             msg(playerid, "organizations.police.duty.off");
-
-            policeJobPaySalary( playerid );
         });
     }
 }
@@ -223,6 +231,79 @@ function rankDownPolice(playerid) {
         msg( playerid, "organizations.police.job.getminrank", [ localize( "job." + POLICE_RANK[0], [], getPlayerLocale(playerid)) ] );
     }
 }
+
+
+
+/**
+ * Return true if parameter length less than 4 symbols that mean it's player ID
+ * Return false if length more than 4 symbols that mean it's plate number
+ * @param  {string}  parameter  player ID or plate number
+ * @return {Boolean}            is it player ID
+ */
+function isIdOrPlatenumber(parameter) {
+    return ( parameter.len() < 4 );
+}
+
+function getVehicleOwnerAndPinTicket(playerid, plateTxt, reason) {
+    local reason = reason.tointeger();
+    local price  = POLICE_TICKET_PRICELIST[reason][0].tofloat();
+    local key    = POLICE_TICKET_PRICELIST[reason][1];
+    local plates = getRegisteredVehiclePlates();
+    local opos   = getPlayerPosition(playerid);
+
+    if (plateTxt.len() < 6) {
+        return msg(playerid, "Enter whole 6 letter plate number", CL_ERROR);
+    }
+
+    foreach (plate, vehicleid in plates) {
+        if (plate.tolower().find(plateTxt.tolower()) != null) {
+            local pos    = getVehiclePosition(vehicleid);
+            if ( !checkDistanceXYZ(pos[0], pos[1], pos[2], opos[0], opos[1], opos[2], POLICE_TICKET_DISTANCE) ) {
+                return msg(playerid, "Distance too large");
+            }
+            local owner = (getVehicleOwner(vehicleid) ? getVehicleOwner(vehicleid) : "");
+            PoliceTicket( owner, key, price, "open", pos[0], pos[1], pos[2], getPlayerName(playerid))
+                .save();
+            return owner;
+        }
+    }
+}
+
+function policeFindThatMotherfucker(playerid, IDorPLATE, reason) {
+    if ( !isOfficer(playerid) ) {
+        return msg(playerid, "organizations.police.notanofficer");
+    }
+
+    if ( isOnPoliceDuty(playerid) ) {
+        if ( isIdOrPlatenumber(IDorPLATE) ) {
+            local targetid = IDorPLATE.tointeger();
+            if ( playerid == targetid ) {
+                return;
+            }
+            if ( !isPlayerConnected(targetid) ) {
+                return msg(playerid, "general.playeroffline");
+            }
+            local reason    = reason.tointeger();
+            local pos       = getPlayerPosition(targetid);
+            local price     = POLICE_TICKET_PRICELIST[reason][0].tofloat();
+            local player_reason = plocalize(playerid, POLICE_TICKET_PRICELIST[reason][1]);
+            local target_reason = plocalize(targetid, POLICE_TICKET_PRICELIST[reason][1]);
+
+            if (checkDistanceBtwTwoPlayersLess(playerid, targetid, POLICE_TICKET_DISTANCE)) {
+                msg(targetid, "organizations.police.ticket.givewithreason", [getAuthor(playerid), target_reason, price]);
+                msg(playerid, "organizations.police.ticket.given", [getAuthor(targetid), player_reason, price]);
+                
+                PoliceTicket( getPlayerName(targetid), POLICE_TICKET_PRICELIST[reason][1], price, "open", pos[0], pos[1], pos[2])
+                    .save();
+            }
+        } else {
+            getVehicleOwnerAndPinTicket(playerid, IDorPLATE, reason);
+        }
+    } else {
+        return msg(playerid, "organizations.police.offduty.notickets");
+    }
+}
+
 
 /**
  * Show police 

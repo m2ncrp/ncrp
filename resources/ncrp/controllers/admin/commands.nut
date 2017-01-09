@@ -32,7 +32,7 @@ acmd(["admin", "adm", "a"], function(playerid, ...) {
         return sendPlayerMessageToAll("Anonymous: " + concat(vargv), CL_MEDIUMPURPLE.r, CL_MEDIUMPURPLE.g, CL_MEDIUMPURPLE.b);
     }
     else{
-        return sendPlayerMessageToAll("[A] "+getPlayerName(playerid)+": " + concat(vargv), CL_MEDIUMPURPLE.r, CL_MEDIUMPURPLE.g, CL_MEDIUMPURPLE.b);
+        return sendPlayerMessageToAll("[A] "+getAccountName(playerid)+": " + concat(vargv), CL_MEDIUMPURPLE.r, CL_MEDIUMPURPLE.g, CL_MEDIUMPURPLE.b);
     }
 });
 
@@ -108,27 +108,26 @@ key("i", function(playerid) {
 //     });
 // });
 
-
-acmd("restart", function(playerid) {
-    msga("SERVER: Hello guys! I need to restart itself in 15 minutes. Please, complete all your jobs. Thanks!", CL_RED);
+function planServerRestart(playerid) {
+    msga("Auto-Restart: Server will be restart in 15 minutes. Please, complete all your jobs. Thanks!", CL_RED);
 
     delayedFunction(5*60*1000, function() {
-        msga("Server will be restarted in 10 minutes.", CL_RED);
+        msga("Auto-Restart: Server will be restarted in 10 minutes.", CL_RED);
     });
 
     delayedFunction(10*60*1000, function() {
-        msga("Server will be restarted in 5 minutes.", CL_RED);
+        msga("Auto-Restart: Server will be restarted in 5 minutes.", CL_RED);
     });
 
     delayedFunction(14*60*1000, function() {
-        msga("Server will be restarted in 1 minute.", CL_RED);
+        msga("Auto-Restart: Server will be restarted in 1 minute.", CL_RED);
     });
 
     delayedFunction(15*60*1000, function() {
-        msga("Server will be restarted in 5 seconds.", CL_RED);
+        msga("Auto-Restart: Server will be restarted in 5 seconds. See you soon ;)", CL_RED);
 
         delayedFunction(5000, function() {
-            msga("RESTART. See you soon ;)", CL_RED);
+            msga("Auto-Restart: Restarting now!", CL_RED);
 
             // kick all dawgs
             foreach (idx, value in getPlayers()) {
@@ -139,4 +138,6 @@ acmd("restart", function(playerid) {
             dbg("server", "restart", "requested");
         });
     });
-});
+}
+
+acmd("restart", planServerRestart);

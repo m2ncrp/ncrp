@@ -152,7 +152,7 @@ key("q", function(playerid) {
 }, KEY_UP);
 
 
-event("onPlayerConnect", function(playerid, name, ip, serial ){
+event("onPlayerConnect", function(playerid) {
      job_bus[playerid] <- {};
      job_bus[playerid]["route"] <- false;
      job_bus[playerid]["userstatus"] <- null;
@@ -297,7 +297,6 @@ function busJobGet( playerid ) {
             msg( playerid, "job.bus.driver.now", BUS_JOB_COLOR );
             setPlayerJob( playerid, "busdriver");
             screenFadeinFadeoutEx(playerid, 250, 200, function() {
-                players[playerid]["skin"] = BUS_JOB_SKIN;
                 setPlayerModel( playerid, BUS_JOB_SKIN );
             });
         }
@@ -360,9 +359,7 @@ function busJobRefuseLeave( playerid ) {
         job_bus[playerid]["leavejob3dtext"] = null;
 
         setPlayerJob( playerid, null );
-
-        players[playerid]["skin"] = players[playerid]["default_skin"];
-        setPlayerModel( playerid, players[playerid]["default_skin"]);
+        restorePlayerModel(playerid);
 
         // remove private blip job
         removePersonalJobBlip ( playerid );
@@ -394,6 +391,8 @@ function busJobStartRoute( playerid ) {
     msg( playerid, "job.bus.startroute", busStops[busID].name, BUS_JOB_COLOR );
     job_bus[playerid]["bus3dtext"] = createPrivateBusStop3DText(playerid, busStops[busID].private);
     job_bus[playerid]["busBlip"]   = createPrivateBlip(playerid, busStops[busID].private.x, busStops[busID].private.y, ICON_YELLOW, 4000.0);
+    //local gpsPos = busStops[busID].private;
+    //trigger(playerid, "setGPS", gpsPos.x, gpsPos.y);
 }
 
 // working good, check
@@ -446,6 +445,8 @@ function busJobStop( playerid ) {
         job_bus[playerid]["busBlip"]   = createPrivateBlip(playerid, busStops[busID].private.x, busStops[busID].private.y, ICON_YELLOW, 2000.0);
 
         msg( playerid, "job.bus.gotonextbusstop", busStops[busID].name, BUS_JOB_COLOR );
+        //local gpsPos = busStops[busID].private;
+        //trigger(playerid, "setGPS", gpsPos.x, gpsPos.y);
     });
 
 }

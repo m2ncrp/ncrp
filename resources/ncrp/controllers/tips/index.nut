@@ -36,10 +36,10 @@ translation("en", {
     "tips.car"          :   "[TIPS] You can buy own car at the Diamond Motors (gear icon on the map)."
     "tips.car.repair"   :   "[TIPS] You can repair your car at the repair shops. Use /repair"
     "tips.eat"          :   "[TIPS] You can restore health by eating in the restaurants."
-    "tips.police"       :   "[TIPS] If you see a crime, dont hesitate calling a police. Use: /police LOCATION"
+    "tips.police"       :   "[TIPS] If you see a crime, don't hesitate calling a police from phone booth. Use: /police"
     "tips.hobos"        :   "[TIPS] You can search trash containers and find something in it using /dig command"
     "tips.engine.howto" :   "[TIPS] Do not waste fuel, don't forget to off the engine using /engine off or press Q button"
-    "tips.taxi"         :   "[TIPS] If you need a ride, you can take a taxi. Use: /taxi LOCATION"
+    "tips.taxi"         :   "[TIPS] If you need a ride, you can take a taxi from phone booth. Use: /taxi"
     "tips.metro"        :   "[TIPS] Subway is a good way of transportation. Go to the nearest subway station and use: /subway"
     "tips.house"        :   "[TIPS] You can buy a house, just find an estate agent, and settle a deal."
     "tips.carrental"    :   "[TIPS] If you haven't enough money to buy a car, you can rent it at the Car Rental in North Millville."
@@ -57,12 +57,13 @@ translation("en", {
     "tips.turnlights"   :   "[TIPS] Z - left turn lights; X - hazard lights; C - right turn lights."
     "tips.dice"         :   "[TIPS] Use /dice for throwing dice."
     "tips.hat"          :   "[TIPS] Use /hat COUNT for pull a ball from hat, where COUNT balls in hat."
-
+    "tips.enabled"      :   "[TIPS] Tips has been enabled."
+    "tips.disabled"     :   "[TIPS] Tips has been disabled."
 });
 
+local tipsToggles = {};
 
 event("onServerMinuteChange", function() {
-
     if ((getMinute() % 5) != 0) {
         return;
     }
@@ -77,5 +78,19 @@ event("onServerMinuteChange", function() {
     infoTipsCache.remove(tipid);
 
     // send to all logined players
-    msg_a(tip, CL_JORDYBLUE);
+    foreach (playerid, value in players) {
+        if (getPlayerName(playerid) in tipsToggles) continue;
+
+        msg(playerid, tip, CL_JORDYBLUE);
+    }
+});
+
+cmd("tips", function(playerid) {
+    if (!(getPlayerName(playerid) in tipsToggles)) {
+        msg(playerid, "tips.disabled");
+        return tipsToggles[getPlayerName(playerid)] <- true;
+    }
+
+    msg(playerid, "tips.enabled");
+    delete tipsToggles[getPlayerName(playerid)];
 });

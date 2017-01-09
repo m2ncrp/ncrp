@@ -2,7 +2,7 @@ include("controllers/keyboard/functions.nut");
 include("controllers/keyboard/commands.nut");
 
 // register events
-event("onPlayerConnect", function(playerid, nickname, ip, serial) {
+event("onPlayerConnect", function(playerid) {
     delayedFunction(1000, function() { sendKeyboardRegistration(playerid); });
 });
 
@@ -10,6 +10,12 @@ event("onClientKeyboardPress", function(playerid, key, state) {
     if (isPlayerLogined(playerid)) {
         triggerKeyboardPress(playerid, key, state);
         setPlayerAfk(playerid, false);
+    }
+});
+
+event("onClientNativeKeyboardPress", function(playerid, key, state) {
+    if (key == "enter" && state == "down") {
+        trigger(playerid, "onServerPressEnter");
     }
 });
 

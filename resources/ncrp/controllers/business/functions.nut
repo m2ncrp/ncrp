@@ -227,10 +227,17 @@ function setBusinessOwner(bizid, playeridOrName) {
         return false;
     }
 
+    local ownerid = -1;
+
     if (isInteger(playeridOrName)) {
         playeridOrName = getPlayerName(playeridOrName);
+    } else {
+        if (isPlayerLoaded(playeridOrName)) {
+            ownerid = players[playeridOrName].id;
+        }
     }
 
+    businesses[bizid].ownerid = ownerid;
     businesses[bizid].owner = playeridOrName.tostring();
     businesses[bizid].save();
 
@@ -277,6 +284,10 @@ function getBusiness(id) {
 function calculateBusinessIncome() {
     foreach (idx, biz in businesses) {
         local playerid = getPlayerIdFromName(biz.owner);
+
+        if (!isPlayerConnected(playerid) || !isPlayerLoaded(playerid)) {
+            return;
+        }
 
         if (playerid != -1) {
             local amount = max(0.0, randomf(biz.income - 2.5, biz.income + 2.5));
