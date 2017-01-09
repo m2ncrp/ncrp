@@ -172,7 +172,7 @@ migrate(function(query, type) {
         foreach (idx2, vehicle in data.vehicles) {
             if (character.name == vehicle.owner) {
                 vehicle.ownerid = character.id;
-                vehicle.owner   = character.getName();
+                // vehicle.owner   = character.getName();
                 vehicle.save();
             }
         }
@@ -181,7 +181,7 @@ migrate(function(query, type) {
         foreach (idx2, business in data.businesses) {
             if (character.name == business.owner) {
                 business.ownerid = character.id;
-                business.owner   = character.getName();
+                // business.owner   = character.getName();
                 business.save();
             }
         }
