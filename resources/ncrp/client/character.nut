@@ -307,8 +307,6 @@ function switchCharacterSlot(){
 	if(idx in characters){
 		local race = getRaceFromId(characters[idx].Race);
 		local sex = getSexFromId(characters[idx].Sex);
-		local race = getRaceFromId(characters[idx].Race);
-	    local sex = getSexFromId(characters[idx].Sex);
 	    local fname = characters[idx].Firstname;
 	    local lname = characters[idx].Lastname;
 	    local bday = characters[idx].Bdate.tostring()
