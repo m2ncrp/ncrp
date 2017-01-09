@@ -7,6 +7,8 @@ const path      = require('path');
 
 const bot = new Discord.Client();
 
+bot.setGame("TSOEB | M2O");
+
 // the token of your bot - https://discordapp.com/developers/applications/me
 const token = 'MjYxNDcwMDcxNTY0NTMzNzYx.Cz1Y6g.WGYSbl5vCRjJQQUvVq6ns2PUDdE';
 const AUTORESTART_TIME = 5000;
