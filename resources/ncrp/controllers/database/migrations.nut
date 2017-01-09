@@ -185,3 +185,10 @@ migrate(function(query, type) {
         }
     }
 });
+
+
+// 09.01.2017
+// added migration for police ticket
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_policetickets ADD COLUMN `who` VARCHAR(255) NOT NULL DEFAULT '';");
+});

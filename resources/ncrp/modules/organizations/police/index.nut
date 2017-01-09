@@ -398,36 +398,32 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
     }
 
     // if (number == "dispatch") {
-    
-    
-    
-    //  - How can I help, <rank>?       // Чем могу помочь, (ранг)?
-    //  
-    //  
+    //     local message = "organizations.police.phone.dispatch.call"; //  - Operator, give me dispatch.  // Оператор, соедините с диспетчером.
+    //     // Operator, message for KJPL. // Оператор, сообщение для диспетчера.
+    //     sendLocalizedMsgToAll(playerid, "chat.player.says", message, POLICE_PHONENORMAL_RADIUS, CL_YELLOW);
 
-    //  
-        local message = "organizations.police.phone.dispatch.call"; //  - Operator, give me dispatch.  // Оператор, соедините с диспетчером.
-        sendLocalizedMsgToAll(playerid, "chat.player.says", message, POLICE_PHONENORMAL_RADIUS, CL_YELLOW);
+    //     local replyMessage = "organizations.police.phone.operator.connecttodispatch"; //  - Putting you through now.      // Соединяю
+    //     sendLocalizedMsgToAll(playerid, "chat.player.says", replyMessage, POLICE_PHONEREPLY_RADIUS, CL_YELLOW);
 
-        local replyMessage = "organizations.police.phone.operator.connecttodispatch"; //  - Putting you through now.      // Соединяю
-        sendLocalizedMsgToAll(playerid, "chat.player.says", replyMessage, POLICE_PHONEREPLY_RADIUS, CL_YELLOW);
+    //     delayedFunction( random(100, 160), function() {
+    //         replyMessage = "organizations.police.phone.dispatch.online"; // - Dispatcher on line. // Диспетчер, слушаю.
+    //         sendLocalizedMsgToAll(playerid, "chat.player.says", message, POLICE_PHONEREPLY_RADIUS, CL_YELLOW);
 
-        delayedFunction( random(100, 160), function() {
-            replyMessage = "organizations.police.phone.dispatch.online"; // - Dispatcher on line. // Диспетчер, слушаю.
-            sendLocalizedMsgToAll(playerid, "chat.player.says", message, POLICE_PHONEREPLY_RADIUS, CL_YELLOW);
-
-            message = "organizations.police.phone.dispatch.badge"; //  - <Name>, badge <number>.       // (Кто), жетон (номер)
-            sendLocalizedMsgToAll(playerid, "chat.player.says", message, POLICE_PHONENORMAL_RADIUS, CL_YELLOW);
-        });
+    //         message = "organizations.police.phone.dispatch.badge"; //  - <Name>, badge <number>.       // (Кто), жетон (номер)
+    //         sendLocalizedMsgToAll(playerid, "chat.player.says", message, POLICE_PHONENORMAL_RADIUS, CL_YELLOW);
+    //     });
         
+    //     delayedFunction( random(160, 170), function() {
+    //         replyMessage = "organizations.police.phone.dispatch.policereply"; //  - How can I help, <rank>?       // Чем могу помочь, (ранг)?
+    //     })
 
-        
-
-        // Show up anser choise with GUI
-        //  1. Узнать адрес заведения
-        //  2. Пробить номер машины
-        //      Мишина зарегистрирована на (имя), (адрес постоянного проживания).
-        //  3. Сообщения от других игроков-полицейских и обращения в EBPD
+    //     // Show up anser choise with GUI
+    //     //  1. Узнать адрес заведения
+    //     //  2. Пробить номер машины
+    //     //      Мишина зарегистрирована на (имя), (адрес постоянного проживания).
+    //     //  3. Сообщения от других игроков-полицейских и обращения в EBPD
+    //     //  4. Транспортировка задержанного
+    //     //  5. Буксировка авто на штрафстоянку
     // }
 });
 
