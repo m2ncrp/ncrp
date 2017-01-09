@@ -79,7 +79,7 @@ event("onServerStarted", function() {
             setVehicleDirtLevel   ( vehicleid, vehicle.dirtlevel );
             setVehicleFuel        ( vehicleid, vehicle.fuellevel );
             setVehiclePlateText   ( vehicleid, vehicle.plate );
-            setVehicleOwner       ( vehicleid, vehicle.owner );
+            setVehicleOwner       ( vehicleid, vehicle.owner, vehicle.ownerid );
 
             // secial methods for custom vehicles
             setVehicleRespawnEx   ( vehicleid, false );

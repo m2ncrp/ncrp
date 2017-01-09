@@ -127,3 +127,10 @@ migrate(function(query, type) {
     query("ALTER TABLE tbl_accounts ADD COLUMN `warns` INT(255) NOT NULL DEFAULT 0;");
     query("ALTER TABLE tbl_accounts ADD COLUMN `blocks` INT(255) NOT NULL DEFAULT 0;");
 });
+
+// 09.01.2017
+// added migration for attaching new owned vehicles to players
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_vehicles ADD COLUMN `ownerid` INT(255) NOT NULL DEFAULT -1;");
+    query("UPDATE tbl_vehicles v SET v.ownerid = c.id LEFT JOIN tbl_characters c WHERE c.name = v.owner;");
+});

@@ -5,6 +5,7 @@ class Vehicle extends ORM.Entity {
 
     static fields = [
         ORM.Field.String  ({ name = "owner",    value = "" }), // character owner name
+        ORM.Field.Integer ({ name = "ownerid",   value = -1 }), // character owner name
         ORM.Field.Integer ({ name = "model",    value = 35 }), // vehicle model
         ORM.Field.String  ({ name = "plate",    value = "NCRP" }),
         ORM.Field.Integer ({ name = "tunetable", value = 0 }),
