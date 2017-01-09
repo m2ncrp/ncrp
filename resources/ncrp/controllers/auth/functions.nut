@@ -242,6 +242,6 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
 });
 
 
-event("changeModel",function(playerid,model) {
-    nativeSetPlayerModel( playerid, model);
+event("changeModel",function(playerid, model) {
+    nativeSetPlayerModel( playerid, model.tointeger() );
 });
