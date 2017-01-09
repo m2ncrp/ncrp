@@ -59,7 +59,9 @@ bot.on('ready', () => {
 function checkAutorestart() {
     var date = new Date();
 
-    for (var i = restarts.length - 1; i >= 0; i--) {
+    for (var i = 0; i < restarts.length; i++) {
+        if (!restarts[i]) continue;
+
         if (restarts[i][0] == date.getHours() && restarts[i][1] == date.getMinutes()) {
             if (m2o && m2o.stdin.writable) {
                 m2o.stdin.write("sq planServerRestart(-1)\n");
