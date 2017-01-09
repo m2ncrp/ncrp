@@ -88,12 +88,6 @@ function tryRespawnVehicleById(vehicleid, forced = false) {
         return false;
     }
 
-    // maybe vehicle is moving - means its active
-    if (isVehicleMoving(vehicleid)) {
-        data.time = getTimestamp();
-        return false;
-    }
-
     foreach (playerid, value in players) {
         local ppos = getPlayerPosition(playerid);
         local vpos = getVehiclePosition(vehicleid);

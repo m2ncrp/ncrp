@@ -17,21 +17,21 @@ translation("en", {
     "general.noonearound"                       : "There's noone around near you.",
     "general.job.anotherone"                    : "You've got %s job, not %s!",
 
-    "job.police.cadet"                          : "Police cadet"       
-    "job.police.patrol"                         : "Police patrolman",  
-    "job.police.officer"                        : "Police officer",    
-    "job.police.detective"                      : "Detective"          
-    "job.police.sergeant.1"                     : "Sergant"            
-    "job.police.sergeant.2"                     : "Sergant"            
-    "job.police.lieutenant.1"                   : "Lieutenant"         
-    "job.police.lieutenant.2"                   : "Lieutenant"         
-    "job.police.Captain.1"                      : "Captain I"            
-    "job.police.Captain.2"                      : "Captain II"            
-    "job.police.Captain.3"                      : "Captain III"            
-    "job.police.commander"                      : "Commander"          
-    "job.police.deputychief"                    : "Deputy chief"       
-    "job.police.assistantchief"                 : "Assistant chief"    
-    "job.police.chief"                          : "Police chief",      
+    "job.police.cadet"                          : "cadet"
+    "job.police.patrol"                         : "patrolman",  
+    "job.police.officer"                        : "officer",    
+    "job.police.detective"                      : "detective"
+    "job.police.sergeant.1"                     : "sergant I"
+    "job.police.sergeant.2"                     : "sergant II"
+    "job.police.lieutenant.1"                   : "lieutenant I"
+    "job.police.lieutenant.2"                   : "lieutenant II"
+    "job.police.Captain.1"                      : "captain I"
+    "job.police.Captain.2"                      : "captain II"
+    "job.police.Captain.3"                      : "captain III"
+    "job.police.commander"                      : "commander"
+    "job.police.deputychief"                    : "deputy chief"
+    "job.police.assistantchief"                 : "assist. chief"
+    "job.police.chief"                          : "police chief"
     "organizations.police.job.getmaxrank"       : "You've reached maximum rank: %s.",
     "organizations.police.job.getminrank"       : "You've reached minimum rank: %s.",
     "organizations.police.lowrank"              : "Your rank is too low for that.",
@@ -106,6 +106,9 @@ const POLICE_TICKET_DISTANCE = 2.5;
 
 const POLICE_SALARY = 0.5; // for 1 minute
 
+const POLICE_PHONEREPLY_RADIUS = 0.2;
+const POLICE_PHONENORMAL_RADIUS = 20.0;
+
 POLICE_EBPD_ENTERES <- [
     [-360.342, 785.954, -19.9269],  // parade
     [-379.444, 654.207, -11.6451]   // stuff only
@@ -117,6 +120,11 @@ POLICE_JAIL_COORDS <- [
 
 const EBPD_ENTER_RADIUS = 2.0;
 const TITLE_DRAW_DISTANCE = 12.0;
+
+// jail
+const JAIL_X = -1018.93;
+const JAIL_Y = 1731.82;
+const JAIL_Z = 10.3252;
 
 POLICE_RANK <- [ // source: https://youtu.be/i7o0_PMv72A && https://en.wikipedia.org/wiki/Los_Angeles_Police_Department#Rank_structure_and_insignia
     "police.cadet"          //"Police cadet"       0
@@ -137,22 +145,32 @@ POLICE_RANK <- [ // source: https://youtu.be/i7o0_PMv72A && https://en.wikipedia
 ];
 MAX_RANK <- POLICE_RANK.len()-1;
 
-POLICE_SALLARY_COEF <- [ // calculated as: (-i^2 + 27*i + 28)/200; i - rank number
-    0.14, // 4.20
-    0.27, // 8.10
-    0.39, // 11.70
-    0.5,  // 15.00
-    0.6,  // 18.00
-    0.69, // 20.70
-    0.77, // 23.10
-    0.84, // 25.20
-    0.9,  // 27.00
-    0.95, // 28.50
-    0.99, // 29.70
-    1.02, // 30.60
-    1.04, // 31.20
-    1.05, // 31.50
-    1.05  // 31.50
+/**
+ * Permission description for diffent ranks
+ * @param  {Boolean} ride could ride vehicle on duty
+ * @param  {Boolean} gun  could have a gun on duty
+ * @return {obj}
+ */
+function policeRankPermission(ride, gun) {
+    return {r = ride, g = gun};
+}
+
+POLICE_RANK_SALLARY_PERMISSION_SKIN <- [ // calculated as: (-i^2 + 27*i + 28)/200; i - rank number
+    [0.14, policeRankPermission(false, false), [75, 76] ], // "police.cadet"
+    [0.27, policeRankPermission(false, true),  [75, 76] ], // "police.patrol"
+    [0.39, policeRankPermission(true, true),   [75, 76] ], // "police.officer"
+    [0.50, policeRankPermission(true, true),   [69]     ], // "police.detective"
+    [0.60, policeRankPermission(true, true),   [75, 76] ], // "police.sergeant.1"
+    [0.69, policeRankPermission(true, true),   [75, 76] ], // "police.sergeant.2"
+    [0.77, policeRankPermission(true, true),   [75, 76] ], // "police.lieutenant.1"
+    [0.84, policeRankPermission(true, true),   [75, 76] ], // "police.lieutenant.2"
+    [0.90, policeRankPermission(true, true),   [75, 76] ], // "police.Captain.1"
+    [0.95, policeRankPermission(true, true),   [75, 76] ], // "police.Captain.2"
+    [0.99, policeRankPermission(true, true),   [75, 76] ], // "police.Captain.3"
+    [1.02, policeRankPermission(true, true),   [75, 76] ], // "police.commander"
+    [1.04, policeRankPermission(true, true),   [75, 76] ], // "police.deputychief"
+    [1.05, policeRankPermission(true, true),   [75, 76] ], // "police.assistantchief"
+    [1.05, policeRankPermission(true, true),   [75, 76] ]  // "police.chief"
 ];
 
 
@@ -205,7 +223,8 @@ function makeMeText(playerid, vargv)  {
  */
 function policeJobPaySalary(playerid) {
     local rank = getPoliceRank(playerid);
-    local summa = police[playerid]["ondutyminutes"] * POLICE_SALARY * POLICE_SALLARY_COEF[rank];
+    local coeff = POLICE_RANK_SALLARY_PERMISSION_SKIN[rank][0];
+    local summa = police[playerid]["ondutyminutes"] * POLICE_SALARY * coeff;
     addMoneyToPlayer(playerid, summa);
     msg(playerid, "organizations.police.income", [summa.tofloat(), getLocalizedPlayerJob(playerid)], CL_SUCCESS);
     police[playerid]["ondutyminutes"] = 0;
@@ -213,6 +232,8 @@ function policeJobPaySalary(playerid) {
 
 include("modules/organizations/police/commands.nut");
 include("modules/organizations/police/functions.nut");
+include("modules/organizations/police/messages.nut");
+include("modules/organizations/police/Gun.nut");
 
 
 police <- {};
@@ -235,19 +256,24 @@ event("onServerStarted", function() {
 
 
 
-/*
+
 event("onPlayerSpawn", function( playerid ) {
-    if ( isOfficer(playerid) && isOnPoliceDuty(playerid) ) {
-        onPoliceDutyGiveWeapon( playerid );
-        setPlayerModel(playerid, POLICE_MODEL);
-        police[playerid]["ondutyminutes"] <- 0;
-    }
+    // if ( isOfficer(playerid) && isOnPoliceDuty(playerid) ) {
+    //     onPoliceDutyGiveWeapon( playerid );
+    //     setPlayerModel(playerid, POLICE_MODEL);
+    //     police[playerid]["ondutyminutes"] <- 0;
+    // }
+
+    if (!isPlayerLoaded(playerid)) return;
+    if (!(getPlayerState(playerid) == "jail")) return;
+
+    players[playerid].setPosition(JAIL_X, JAIL_Y, JAIL_Z);
 });
-*/
 
 
 
-event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
+
+event("onPlayerVehicleEnter", function( playerid, vehicleid, seat ) {
     if (isPlayerInPoliceVehicle(playerid) && seat == 0) {
         if (!isOfficer(playerid)) {
             // set player wanted level or smth like that
@@ -264,6 +290,17 @@ event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
         } else {
             unblockVehicle(vehicleid);
         }
+    }
+
+    if ( getPlayerState(playerid) == "cuffed" ) { //  && seat != 0
+        setPlayerToggle(playerid, false);
+    }
+});
+
+
+event("onPlayerVehicleExit", function( playerid, vehicleid, seat ) {
+    if ( getPlayerState(playerid) == "cuffed" ) {
+        setPlayerToggle(playerid, true);
     }
 });
 
@@ -352,3 +389,41 @@ event("onBatonBitStart", function (playerid) {
     setPlayerAnimStyle(playerid, "common", "ManColdWeapon");
     setPlayerHandModel(playerid, 1, 28); // policedubinka right hand
 });
+
+
+event("onPlayerPhoneCall", function(playerid, number, place) {
+    if(number == "police") {
+        policeCall(playerid, place);
+        dbg("chat", "police", getAuthor(playerid), place);
+    }
+
+    // if (number == "dispatch") {
+    //     local message = "organizations.police.phone.dispatch.call"; //  - Operator, give me dispatch.  // Оператор, соедините с диспетчером.
+    //     // Operator, message for KJPL. // Оператор, сообщение для диспетчера.
+    //     sendLocalizedMsgToAll(playerid, "chat.player.says", message, POLICE_PHONENORMAL_RADIUS, CL_YELLOW);
+
+    //     local replyMessage = "organizations.police.phone.operator.connecttodispatch"; //  - Putting you through now.      // Соединяю
+    //     sendLocalizedMsgToAll(playerid, "chat.player.says", replyMessage, POLICE_PHONEREPLY_RADIUS, CL_YELLOW);
+
+    //     delayedFunction( random(100, 160), function() {
+    //         replyMessage = "organizations.police.phone.dispatch.online"; // - Dispatcher on line. // Диспетчер, слушаю.
+    //         sendLocalizedMsgToAll(playerid, "chat.player.says", message, POLICE_PHONEREPLY_RADIUS, CL_YELLOW);
+
+    //         message = "organizations.police.phone.dispatch.badge"; //  - <Name>, badge <number>.       // (Кто), жетон (номер)
+    //         sendLocalizedMsgToAll(playerid, "chat.player.says", message, POLICE_PHONENORMAL_RADIUS, CL_YELLOW);
+    //     });
+        
+    //     delayedFunction( random(160, 170), function() {
+    //         replyMessage = "organizations.police.phone.dispatch.policereply"; //  - How can I help, <rank>?       // Чем могу помочь, (ранг)?
+    //     })
+
+    //     // Show up anser choise with GUI
+    //     //  1. Узнать адрес заведения
+    //     //  2. Пробить номер машины
+    //     //      Мишина зарегистрирована на (имя), (адрес постоянного проживания).
+    //     //  3. Сообщения от других игроков-полицейских и обращения в EBPD
+    //     //  4. Транспортировка задержанного
+    //     //  5. Буксировка авто на штрафстоянку
+    // }
+});
+

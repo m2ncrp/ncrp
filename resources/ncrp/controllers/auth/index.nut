@@ -1,21 +1,25 @@
-// includes
-include("controllers/auth/commands.nut");
+include("controllers/auth/classes/Account.nut");
 
 IS_AUTHORIZATION_ENABLED <- true;
-AUTH_ACCOUNTS_LIMIT <- 2;
-AUTH_AUTOLOGIN_TIME <- 900; // 15 minutes
+AUTH_ACCOUNTS_LIMIT      <- 2;
+AUTH_AUTOLOGIN_TIME      <- 900; // 15 minutes
+
+const DEFAULT_SPAWN_SKIN = 4;
+const DEFAULT_SPAWN_X    = -762.8;//-143.0;  //-1027.02;
+const DEFAULT_SPAWN_Y    = 722.5;//1206.0;  //1746.63;
+const DEFAULT_SPAWN_Z    = 4.15;//84.0;    //10.2325;
 
 /**
- * Storage for our sessions
- * no direct acess
- *
- * for access from remote resources use:
- *     Account.getSession(playerid, callback)
- *     Account.addSession(playerid)
+ * Compiled regex object for
+ * validation of usernames
+ * @type {Object}
  */
-local accounts = {};
-local baseData = {};
-local sessions = {};
+local REGEX_USERNAME = regexp("[A-Za-z0-9_ ]{3,64}");
+
+
+// includes
+include("controllers/auth/functions.nut");
+include("controllers/auth/commands.nut");
 
 translation("en", {
     "auth.wrongname"        : "Your name should be at least 4 symbols and should not contain any symbols except letters, nubmers, space and underscore."
@@ -39,43 +43,6 @@ translation("en", {
     "auth.error.tomany"     : "[AUTH] You cant register more accounts."
 });
 
-
-/**
- * Compiled regex object for
- * validation of usernames
- * @type {Object}
- */
-local REGEX_USERNAME = regexp("[A-Za-z0-9_ ]{3,64}");
-
-
-local blockedAccounts = [];
-
-/**
- * Check if player account is blocked via kick or ban
- * @param  {Integer} playerid
- * @return {Boolean}
- */
-function isPlayerAuthBlocked(playerid) {
-    return false;//blockedAccounts.find(getPlayerName(playerid)) != null;
-}
-
-/**
- * Sets player account blocked
- * @param {Integer} playerid
- * @param {Boolean} value
- */
-function setPlayerAuthBlocked(playerid, value) {
-    // if (value && !isPlayerAuthBlocked(playerid)) {
-    //     return blockedAccounts.push(getPlayerName(playerid));
-    // }
-
-    // if (!value && isPlayerAuthBlocked(playerid)) {
-    //     return blockedAccounts.remove(blockedAccounts.find(getPlayerName(playerid)));
-    // }
-
-    return false;
-}
-
 /**
  * On player connects we will
  * check his nickname for validity
@@ -84,19 +51,6 @@ function setPlayerAuthBlocked(playerid, value) {
  * depending if he is logined or not
  */
 event("onPlayerConnectInit", function(playerid, username, ip, serial) {
-    // save base data
-    baseData[playerid] <- {
-        playerid = playerid,
-        username = username,
-        ip = ip,
-        serial = serial,
-        locale = "ru"
-    };
-
-    if (DEBUG) {
-        return dbg("skipping auth for debug mode");
-    }
-
     // check playername validity
     if (!REGEX_USERNAME.match(username) ||
         username.find("  ") != null ||
@@ -115,7 +69,7 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
             msg(playerid, "auth.wrongname", CL_WARNING);
             msg(playerid, "auth.changename");
 
-            dbg("kick", "invalid unsername", getPlayerName(playerid));
+            dbg("kick", "invalid unsername", getIdentity(playerid));
 
             return delayedFunction(6000, function () {
                 kickPlayer( playerid );
@@ -124,10 +78,15 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
     }
 
     // maybe he is banned
-    ORM.Query("select * from @Ban where serial = ':serial' and until > :current")
+    ORM.Query("select * from @Ban where serial = :serial and until > :current")
         .setParameter("serial", getPlayerSerial(playerid))
         .setParameter("current", getTimestamp())
         .getSingleResult(function(err, result) {
+
+            /**
+             * Account is banned!
+             * Applying actions
+             */
             if (result) {
                 // disable ability to login
                 setPlayerAuthBlocked(playerid, true);
@@ -142,7 +101,7 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
                     msg(playerid, "[SERVER] You are banned from the server for: " + result.reason, CL_RED);
                     msg(playerid, "[SERVER] Try connecting again later."    );
 
-                    dbg("kick", "banned connected", getPlayerName(playerid));
+                    dbg("kick", "banned connected", getIdentity(playerid));
 
                     return delayedFunction(6000, function () {
                         kickPlayer( playerid );
@@ -150,6 +109,11 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
                 });
             }
 
+            /**
+             * Seems like account is not banned
+             * Now we are trying to find account
+             * to show login form or show registration form
+             */
             Account.findOneBy({ username = username }, function(err, account) {
                 // override player locale if registered
                 if (account) {
@@ -157,6 +121,9 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
                     setPlayerLayout(playerid, account.layout, false);
                 }
 
+                /**
+                 * Maybe we shoudl apply autologin ?
+                 */
                 if (getTimestamp() - getLastActiveSession(playerid) < AUTH_AUTOLOGIN_TIME) {
                     // update data
                     account.ip       = getPlayerIp(playerid);
@@ -169,17 +136,28 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
                     setLastActiveSession(playerid);
 
                     // send message success
-                    dbg("login", getAuthor(playerid), "autologin");
+                    dbg("login", getIdentity(playerid), "autologin");
+
                     screenFadein(playerid, 250, function() {
-                        trigger("onPlayerInit", playerid, getPlayerName(playerid), getPlayerIp(playerid), getPlayerSerial(playerid));
+                        trigger("onPlayerInit", playerid);
                     });
+
                     msg(playerid, "auth.success.autologin", CL_SUCCESS);
 
                     return;
                 }
 
+                if (DEBUG) {
+                    return dbg("skipping auth forms for debug mode");
+                }
+
+                /**
+                 * Or just show the forms
+                 * for login or registration
+                 */
                 msg(playerid, "---------------------------------------------", CL_SILVERSAND);
                 msg(playerid, "auth.welcome", username);
+
                 if (account) {
                     showLoginGUI(playerid);
                     msg(playerid, "auth.registered");
@@ -198,6 +176,23 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
         });
 });
 
+/**
+ * Listen spawn event
+ * and spawn for non-authed players
+ */
+event("native:onPlayerSpawn", function(playerid) {
+    if (isPlayerAuthed(playerid)) return;
+
+    // togglePlayerControls(playerid, true);
+
+    // set player position and skin
+    setPlayerPosition(playerid, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z);
+    nativeSetPlayerModel(playerid, DEFAULT_SPAWN_SKIN);
+
+    // disable hud and show
+    trigger(playerid, "setPlayerIntroScreen");
+    togglePlayerHud(playerid, true);
+});
 
 /**
  * On player disconnects
@@ -205,22 +200,16 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
  */
 event("onPlayerDisconnect", function(playerid, reason) {
     setPlayerAuthBlocked(playerid, false);
-    if (!(playerid in accounts)) return;
+    if (!isPlayerAuthed(playerid)) return;
 
     setLastActiveSession(playerid);
-
-    // clean up data for GC
-    accounts[playerid].clean();
-    accounts[playerid] = null;
-
-    delete baseData[playerid];
-    delete accounts[playerid];
+    destroyAuthData(playerid);
 });
 
 event("onPlayerAccountChanged", function(playerid) {
-    if (!(playerid in accounts)) return;
+    if (!isPlayerAuthed(playerid)) return;
 
-    accounts[playerid].save();
+    getPlayerSession(playerid).save();
 });
 
 // event("onServerSecondChange", function() {
@@ -232,118 +221,3 @@ event("onPlayerAccountChanged", function(playerid) {
 //         }
 //     }
 // });
-
-/**
- * Cross resource handling
- */
-addEventHandlerEx("__networkRequest", function(request) {
-    local data = request.data;
-
-    // we are working with current resource
-    if (!("destination" in data) || data.destination != "auth") return;
-
-    if (data.method == "getSession") {
-        Response({result = data.id in accounts ? accounts[data.id] : null}, request).send();
-    }
-
-    if (data.method == "addSession") {
-        accounts[data.id] <- data.object;
-    }
-});
-
-/**
- * Get player ip
- * @param  {Integer} playerid
- * @return {String}
- */
-function getPlayerIp(playerid) {
-    return (playerid in baseData) ? baseData[playerid].ip : "0.0.0.0";
-}
-
-/**
- * Return current player locale
- *
- * @param  {Integer} playerid
- * @return {String}
- */
-function getPlayerLocale(playerid) {
-    if (playerid in accounts) {
-        return accounts[playerid].locale;
-    }
-
-    if (playerid in baseData) {
-        return baseData[playerid].locale;
-    }
-
-    return "ru";
-}
-
-/**
- * Set current player locale
- *
- * @param  {Integer} playerid
- * @return {String}
- */
-function setPlayerLocale(playerid, locale = "en") {
-    if (playerid in accounts) {
-        accounts[playerid].locale = locale;
-        accounts[playerid].save();
-        return true;
-    }
-
-    if (!(playerid in baseData)) {
-        baseData[playerid] <- { locale = locale }
-        return true;
-    }
-
-    if (playerid in baseData) {
-        baseData[playerid].locale = locale;
-        return true;
-    }
-
-    return false;
-}
-
-/**
- * Get last active session for the player
- * @param  {Integer} playerid
- * @return {Boolean}
- */
-function getLastActiveSession(playerid) {
-    local key = md5(getPlayerName(playerid) + "@" + getPlayerSerial(playerid));
-
-    if (key in sessions) {
-        return sessions[key];
-    }
-
-    return 0;
-}
-
-/**
- * Set last active session to current timestamp
- * @param {Integer} playerid
- * @return {Boolean}
- */
-function setLastActiveSession(playerid) {
-    return sessions[md5(getPlayerName(playerid) + "@" + getPlayerSerial(playerid))] <- getTimestamp();
-}
-
-
-function showLoginGUI(playerid){
-    local window = plocalize(playerid,  "auth.GUI.TitleLogin");
-    local label = plocalize(playerid,   "auth.GUI.TitleLabelLogin");
-    local input = plocalize(playerid,   "auth.GUI.TitleInputLogin");
-    local button = plocalize(playerid,  "auth.GUI.ButtonLogin");
-    delayedFunction(2500, function() {trigger(playerid, "showAuthGUI",window,label,input,button);});
-}
-
-function showRegisterGUI(playerid){
-    local window = plocalize(playerid,      "auth.GUI.TitleRegister");
-    local label = plocalize(playerid,       "auth.GUI.TitleLabelRegister");
-    local inputp = plocalize(playerid,      "auth.GUI.PasswordInput");
-    local inputrp = plocalize(playerid,     "auth.GUI.RepeatPasswordInput");
-    local inputemail = plocalize(playerid,   "auth.GUI.Email");
-    local button = plocalize(playerid,      "auth.GUI.ButtonRegister");
-    delayedFunction(2500, function() {trigger(playerid, "showRegGUI",window,label,inputp,inputrp,inputemail,button);});
-}
-

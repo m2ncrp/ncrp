@@ -1,5 +1,3 @@
-include("controllers/player/respawn/SpawnPosition.nut");
-
 /**
  * Save new position
  */
@@ -100,6 +98,16 @@ addEventHandlerEx("onServerStarted", function() {
     });
 });
 
+event("onServerPlayerAlive", function(playerid) {
+    if (!isPlayerConnected(playerid)) return;
+
+    // check for falling players
+    if (getPlayerPosition(playerid)[2] < -75.0) {
+        dbg("player", "falldown", getIdentity(playerid));
+        trigger("onPlayerFallingDown", playerid);
+    }
+});
+
 /**
  * TODO: need mysql
  */
@@ -113,7 +121,7 @@ event("onPlayerFallingDown", function(playerid) {
     q.getSingleResult(function(err, pos) {
         if (err || !pos) return dbg("respawn", "cannot find any respawn points");
 
-        dbg("player", "falldown", "respawn", playerid, { x = pos.x, y = pos.y, z = pos.z});
+        dbg("player", "falldown", "respawn", getIdentity(playerid), { x = pos.x, y = pos.y, z = pos.z});
 
         // respawn on vehicle or on foot
         if (isPlayerInVehicle(playerid)) {

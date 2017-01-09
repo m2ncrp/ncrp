@@ -12,4 +12,8 @@ class vector3 {
     // function add(vec) {
         
     // }
+
+    function isNull() {
+        return (this.x == 0.0 && this.y == 0.0 && this.z == 0.0);
+    }
 }

@@ -146,6 +146,12 @@ event ("onServerMinuteChange", function() {
 });
 
 
+event("onPlayerPhoneCall", function(playerid, number, place) {
+    if(number == "0192") {
+        msg(playerid, "You call to North Millville Car Rental. If you want to rent car - go to our parking in North Millville.");
+    }
+});
+
 function showRentCarGUI(playerid, vehicleid){
     local windowText =  plocalize(playerid, "rentcar.gui.window");
     local labelText =   plocalize(playerid, "rentcar.gui.canrent", [getVehicleRentPrice(vehicleid)*10, getVehicleRentPrice(vehicleid)*60]);

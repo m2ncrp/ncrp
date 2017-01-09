@@ -13,7 +13,10 @@ class Account extends ORM.Entity {
         ORM.Field.String({ name = "layout", value = "qwerty" }),
         ORM.Field.Integer({ name = "created", value = 0 }),
         ORM.Field.Integer({ name = "logined", value = 0 }),
-        ORM.Field.String ({ name = "email", value = "" })
+        ORM.Field.String ({ name = "email", value = "" }),
+        ORM.Field.Integer({ name = "moderator", value = 0 }), // moderator access level
+        ORM.Field.Integer({ name = "warns", value = 0 }), //the number of player warnings
+        ORM.Field.Integer({ name = "blocks", value = 0 }) //the number of player blocks
     ];
 
     /**

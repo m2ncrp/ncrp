@@ -16,6 +16,7 @@
 !xml.exe
 bans.xml
 *.dll
+gource.mp4
 
 # databases
 *.db
@@ -33,3 +34,4 @@ positions.txt
 # env
 .env
 .mysql
+

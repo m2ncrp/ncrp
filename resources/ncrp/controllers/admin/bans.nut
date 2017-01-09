@@ -168,7 +168,7 @@ function ban(playerid, targetid, ...) {
     }
 
     // save the ban
-    Ban(getPlayerName(targetid), getPlayerSerial(targetid), time, reason).save();
+    Ban(getAccountName(targetid), getPlayerSerial(targetid), time, reason).save();
 
     freezePlayer( targetid, true );
 

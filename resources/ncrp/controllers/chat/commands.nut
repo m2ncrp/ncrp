@@ -1,15 +1,18 @@
 local antiflood = {};
+local lastPMs = {};
 local IS_OOC_ENABLED = true;
 
-event("onPlayerConnect", function(playerid, name, ip, serial ){
+event("onPlayerConnect", function(playerid){
     antiflood[playerid] <- {};
     antiflood[playerid]["gooc"] <- 0;
     antiflood[playerid]["togooc"] <- true;
+
+    lastPMs[playerid] <- -1;
 });
 
-event("onServerSecondChange",function() {
+event("onServerSecondChange", function() {
     foreach (pid, value in players) {
-        if (isPlayerLogined(pid)) {
+        if (isPlayerLogined(pid) && pid in antiflood) {
             if(antiflood[pid]["gooc"] > 0){
                 antiflood[pid]["gooc"]--;
             }
@@ -66,20 +69,21 @@ chatcmd(["global", "g"], function(playerid, message) {
 cmd("pm", function(playerid, targetid, ...) {
     local targetid = toInteger(targetid);
 
-    if (!isInteger(targetid) || !vargv.len()) {
-        return msg(playerid, "chat.player.message.error", CL_ERROR);
-    }
+    sendPlayerPrivateMessage(playerid, targetid, vargv);
+    lastPMs[targetid] <- playerid;
+});
 
-    if (!isPlayerConnected(targetid)) {
+// reply to private message
+cmd(["re", "reply"], function(playerid, ...) {
+    local targetid = playerid in lastPMs ? lastPMs[playerid] : -1;
+
+    if(targetid == -1) {
         return msg(playerid, "chat.player.message.noplayer", CL_ERROR);
     }
 
-    local message = concat(vargv);
-    msg(playerid, "chat.player.message.private", [getAuthor( playerid ), getAuthor( targetid ), message], CL_LIGHTWISTERIA);
-    msg(targetid, "chat.player.message.private", [getAuthor( playerid ), getAuthor( targetid ), message], CL_LIGHTWISTERIA);
-    statisticsPushText("pm", playerid, "to: " + getAuthor( targetid ) + message);
+    sendPlayerPrivateMessage(playerid, targetid, vargv);
+    lastPMs[targetid] <- playerid;
 });
-
 
 // nonRP local chat
 chatcmd(["b"], function(playerid, message) {
@@ -91,22 +95,24 @@ chatcmd(["b"], function(playerid, message) {
 
 // global nonRP chat
 chatcmd(["o","ooc"], function(playerid, message) {
-        if(IS_OOC_ENABLED){
-            if(antiflood[playerid]["gooc"] == 0){
-                foreach (targetid, value in players) {
-                    //if (!antiflood[targetid]["togooc"]) {
-                        msg(targetid, "[OOC] " + getAuthor3( playerid ) + ": " + message, CL_GRAY); 
-                   // }
+    if(IS_OOC_ENABLED){
+        if(antiflood[playerid]["gooc"] == 0){
+
+            foreach (targetid, value in players) {
+                if (antiflood[targetid]["togooc"]) {
+                    msg(targetid, "[OOC] " + getAuthor3( playerid ) + ": " + message, CL_GRAY);
                 }
-                antiflood[playerid]["gooc"] = ANTIFLOOD_GLOBAL_OOC_CHAT;
             }
-            else {
-                msg(playerid, "antiflood.message", antiflood[playerid]["gooc"]/2, CL_LIGHTWISTERIA);
-            }
+
+            antiflood[playerid]["gooc"] = ANTIFLOOD_GLOBAL_OOC_CHAT;
         }
-        else{
-            msg(playerid, "admin.oocDisabled.message",CL_LIGHTWISTERIA);
+        else {
+            msg(playerid, "antiflood.message", antiflood[playerid]["gooc"], CL_LIGHTWISTERIA);
         }
+    }
+    else{
+        msg(playerid, "admin.oocDisabled.message",CL_LIGHTWISTERIA);
+    }
 
     // statistics
     statisticsPushMessage(playerid, message, "ooc");

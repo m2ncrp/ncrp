@@ -86,9 +86,20 @@ function trySaveVehicle(vehicleid) {
     vehicle.entity.fuellevel = vehicle.fuel;
     vehicle.entity.plate     = getVehiclePlateText(vehicleid);
     vehicle.entity.owner     = getVehicleOwner(vehicleid);
+    vehicle.entity.ownerid   = getVehicleOwnerId(vehicleid);
     vehicle.entity.fwheel    = vehicle.wheels.front;
     vehicle.entity.rwheel    = vehicle.wheels.rear;
 
     vehicle.entity.save();
     return true;
 }
+
+// saving current vehicle data
+event("onServerAutosave", function() {
+    return saveAllVehicles();
+});
+
+// clearing all vehicles on server stop
+event("onServerStopping", function() {
+    return destroyAllVehicles();
+});
