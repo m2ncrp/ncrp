@@ -1,4 +1,13 @@
 /**
+ * Define player spawns
+ * @type {Array}
+ */
+local defaultPlayerSpawns = [
+    [-555.251,  1702.31, -22.2408], // railway
+    [-344.028, -952.702, -21.7457], // new port
+];
+
+/**
  * Handle player spawn event
  * Tirggers only for players which are already loaded (loaded character)
  */
