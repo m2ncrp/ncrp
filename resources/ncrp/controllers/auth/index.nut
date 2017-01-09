@@ -132,7 +132,7 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
                     account.save();
 
                     // save session
-                    account.addSession(playerid);
+                    addAccount(playerid, account);
                     setLastActiveSession(playerid);
 
                     // send message success
