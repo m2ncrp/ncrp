@@ -1,5 +1,6 @@
 local drawing = true;
 local ticker = null;
+local microticker = null;
 local drawdata = {
     time    = "",
     date    = "",
@@ -30,6 +31,10 @@ function has(x) {
 
 function get(x) {
     return (x in datastore) ? datastore[x] : 0.0;
+}
+
+function lerp(start, alpha, end) {
+    return (end - start) * alpha + start;
 }
 
 function onSecondChanged() {
@@ -113,14 +118,14 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
 
     // draw chat slots
     offset = 0;
-    foreach (idx, value in chatslots) {
-        local size = dxGetTextDimensions(value, 1.0, "tahoma-bold")[0].tofloat() + 20.0;
+    for (local i = 0; i < 4; i++) {
+        local size = dxGetTextDimensions(chatslots[i], 1.0, "tahoma-bold")[0].tofloat() + 20.0;
 
-        if (idx == selectedslot) {
+        if (i == selectedslot) {
             dxDrawRectangle(15.0 + offset, 3.0, size - 1.0, 20.0, 0xFF29AF5C);
         }
 
-        dxDrawText(value, 25.0 + offset, 6.5, idx == selectedslot ? 0xFF111111 : 0xFFFFFFFF, false, "tahoma-bold" );
+        dxDrawText(chatslots[i], 25.0 + offset, 6.5, i == selectedslot ? 0xFF111111 : 0xFFFFFFFF, false, "tahoma-bold" );
         offset += size;
     }
 
@@ -166,7 +171,8 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
 
     // draw base
     dxDrawRectangle(get("borders.x"), get("borders.y"), get("roundy.width"), get("roundy.height") + 5.0, 0xA1000000);
-    foreach (idx, line in lines) {
+    for (local i = 0; i < lines.len(); i++) {
+        local line = lines[i];
         dxDrawRectangle(line.x, line.y, line.step, line.height, 0xA1000000);
     }
 
@@ -191,26 +197,44 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
     dxDrawText(drawdata.logos, 6.5, screenY - offset - 6.5, 0x88FFFFFF, false, "tahoma-bold");
 });
 
+// setup default animation
 local screenFade = {
-    current = 255,
-    state = false,
+    state   = "out",
+    current = 0,
+    time    = 5000,
 };
 
 addEventHandler("onClientFrameRender", function(isGUIdrawn) {
     if (!isGUIdrawn) return;
+
     if ( screenFade.current > 0 ) {
-        // dxDrawRectangle(0.0, 0.0, screenX, screenY, fromRGB(0, 0, 0, screenFade.current));
+        local alpha = lerp(0, clamp(0.0, screenFade.current.tofloat() / screenFade.time.tofloat(), 1.0), 255).tointeger();
+        dxDrawRectangle(0.0, 0.0, screenX, screenY, fromRGB(0, 0, 0, alpha));
     }
 });
 
-addEventHandler("onServerFadeScreen", function(time, fadein) {
-    if (fadein) {
-        screenFade.state = fadein;
-    }
+addEventHandler("onServerFadeScreen", function(time, type) {
+    log("calling fade" + type.tostring() + " with time " + time.tostring());
+    screenFade.state    = type.tostring();
+    screenFade.time     = time.tofloat();
+    screenFade.current  = (type == "in") ? 0 : screenFade.time.tofloat();
 });
 
+addEventHandler("onNativePlayerFadeout", function(time) {
+    fadeScreen(time.tofloat(), true);
+});
 
+function onEvery10ms() {
+    // transp -> black
+    if (screenFade.state == "in" && screenFade.current < screenFade.time) {
+        screenFade.current += 10;// / (getFPS().tofloat() + 1);
+    }
 
+    // black -> transp
+    if (screenFade.state == "out" && screenFade.current > 0) {
+        screenFade.current -= 10;//0 / (getFPS().tofloat() + 1);
+    }
+}
 
 /**
  * Handling client events
@@ -271,6 +295,8 @@ addEventHandler("onClientCloseMap", function() {
 });
 
 bindKey("m", "down", function() {
+    if (!initialized) return;
+
     if (drawing) {
         drawing = false;
         openMap();
@@ -292,8 +318,8 @@ addEventHandler("onServerClientStarted", function(version = null) {
     }
 
     // apply defaults
-    setRenderNametags(true);
-    setRenderHealthbar(false);
+    // setRenderNametags(true);
+    // setRenderHealthbar(false);
     toggleHud(true);
 
     // load params
@@ -307,9 +333,14 @@ addEventHandler("onServerClientStarted", function(version = null) {
 addEventHandler("onClientScriptInit", function() {
     setRenderHealthbar(false);
     setRenderNametags(false);
-    sendMessage("You can start playing the game after registeration or login is succesfuly completed.", 0, 177, 106);
-    sendMessage("");
-    sendMessage("We have a support for english language. Switch via: /en", 247,  202, 24);
-    sendMessage("У нас есть поддержка русского языка. Включить: /ru", 247,  202, 24);
-    // sendMessage(format("screenX: %f, screenY: %f", screenX, screenY));
+    toggleHud(false);
+    // sendMessage("You can start playing the game after registeration or login is succesfuly completed.", 0, 177, 106);
+    // sendMessage("");
+    // sendMessage("We have a support for english language. Switch via: /en", 247,  202, 24);
+    // sendMessage("У нас есть поддержка русского языка. Включить: /ru", 247,  202, 24);
+    // // sendMessage(format("screenX: %f, screenY: %f", screenX, screenY));
+
+    if (!microticker) {
+        microticker = timer(onEvery10ms, 10, -1);
+    }
 });

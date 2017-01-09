@@ -119,3 +119,69 @@ migrate(function(query, type) {
     query("UPDATE tbl_characters SET y = housey WHERE id > 0;");
     query("UPDATE tbl_characters SET z = housez WHERE id > 0;");
 });
+
+//05.01.2017
+//added moderator access level, number of player warnings/blocks
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_accounts ADD COLUMN `moderator` INT(255) NOT NULL DEFAULT 0;");
+    query("ALTER TABLE tbl_accounts ADD COLUMN `warns` INT(255) NOT NULL DEFAULT 0;");
+    query("ALTER TABLE tbl_accounts ADD COLUMN `blocks` INT(255) NOT NULL DEFAULT 0;");
+});
+
+// 09.01.2017
+// added migration for attaching new owned vehicles to players
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_vehicles ADD COLUMN `ownerid` INT(255) NOT NULL DEFAULT -1;");
+});
+
+// 10.01.2017
+// added migration for businesses and adding ids for owners
+// and attaching id references to all stuff
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_businesses ADD COLUMN `ownerid` INT(255) NOT NULL DEFAULT -1;");
+
+    local data = {};
+
+    Account.findAll(function(err, accounts) {
+        data.accounts <- accounts;
+    });
+
+    Character.findAll(function(err, characters) {
+        data.characters <- characters;
+    });
+
+    Vehicle.findAll(function(err, vehicles) {
+        data.vehicles <- vehicles;
+    });
+
+    Business.findAll(function(err, businesses) {
+        data.businesses <- businesses;
+    });
+
+    foreach (idx1, character in data.characters) {
+
+        // update references to accountid in character
+        foreach (idx2, account in data.accounts) {
+            if (character.name == account.username) {
+                character.accountid = account.id;
+                character.save();
+            }
+        }
+
+        // update vehicle references
+        foreach (idx2, vehicle in data.vehicles) {
+            if (character.name == vehicle.owner) {
+                vehicle.ownerid = character.id;
+                vehicle.save();
+            }
+        }
+
+        // update business references
+        foreach (idx2, business in data.businesses) {
+            if (character.name == business.owner) {
+                business.ownerid = character.id;
+                business.save();
+            }
+        }
+    }
+});

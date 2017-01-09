@@ -79,7 +79,7 @@ event("onServerStarted", function() {
             setVehicleDirtLevel   ( vehicleid, vehicle.dirtlevel );
             setVehicleFuel        ( vehicleid, vehicle.fuellevel );
             setVehiclePlateText   ( vehicleid, vehicle.plate );
-            setVehicleOwner       ( vehicleid, vehicle.owner );
+            setVehicleOwner       ( vehicleid, vehicle.owner, vehicle.ownerid );
 
             // secial methods for custom vehicles
             setVehicleRespawnEx   ( vehicleid, false );
@@ -124,7 +124,9 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
 
     // check blocking
     if (isVehicleOwned(vehicleid) && seat == 0) {
-        dbg("entering owned vehicle");
+
+        dbg("player", "vehicle", "enter", getVehiclePlateText(vehicleid), getIdentity(playerid), "owned: " + isPlayerVehicleOwner(playerid, vehicleid));
+
         if (isPlayerVehicleOwner(playerid, vehicleid)) {
             unblockVehicle(vehicleid);
         } else {
@@ -175,16 +177,6 @@ event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     trigger("onPlayerVehicleExit", playerid, vehicleid, seat);
 });
 
-// saving current vehicle data
-event("onServerAutosave", function() {
-    return saveAllVehicles();
-});
-
-// clearing all vehicles on server stop
-event("onServerStopping", function() {
-    return destroyAllVehicles();
-});
-
 // force resetting vehicle position to death point
 event("onPlayerDeath", function(playerid) {
     dbg("player", "death", "vehicle", getAuthor(playerid), getVehiclePlateText(getPlayerVehicle(playerid)));
@@ -199,5 +191,24 @@ event("onPlayerDeath", function(playerid) {
         delayedFunction(5000, function() {
             setVehiclePositionObj(vehicleid, getVehiclePositionObj(vehicleid));
         });
+    }
+});
+
+event("onPlayerSpawned", function(playerid) {
+    local ppos = players[playerid].getPosition();
+
+    // special check for spawning inside closed truck
+    foreach (vehicleid, value in __vehicles) {
+        if (getVehicleModel(vehicleid) != 38) continue;
+        if (getVehicleModel(vehicleid) != 34) continue;
+
+        local vpos = getVehiclePosition(vehicleid);
+
+        // if inside vehicle, set offsetted position
+        if (getDistanceBetweenPoints3D(ppos.x, ppos.y, ppos.z, vpos[0], vpos[1], vpos[2]) < 4.0) {
+            dbg("player", "spawn", getIdentity(playerid), "inside closed truck, respawning...");
+            players[playerid].setPosition(ppos.x + 1.5, ppos.y + 1.5, ppos.z);
+            return;
+        }
     }
 });

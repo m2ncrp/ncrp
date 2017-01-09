@@ -65,7 +65,7 @@ event("onServerStarted", function() {
 
     //creating 3dtext for bus depot
     create3DText ( DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z+0.35, "CITY PORT OFFICE", CL_ROYALBLUE );
-    create3DText ( DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z+0.20, "/help job docker", CL_WHITE.applyAlpha(100), 3.0 );
+
 
     registerPersonalJobBlip("docker", DOCKER_JOB_X, DOCKER_JOB_Y);
 
@@ -78,11 +78,15 @@ event("onPlayerConnect", function(playerid) {
     job_docker[playerid]["havebox"] <- false;
     job_docker[playerid]["blip3dtext"] <- [null, null, null];
     job_docker[playerid]["moveState"] <- null;
+    job_docker[playerid]["press3Dtext"] <- null;
 });
 
-event("onServerPlayerStarted", function( playerid ){
+event("onServerPlayerStarted", function( playerid ) {
     if(players[playerid]["job"] == "docker") {
         job_docker[playerid]["blip3dtext"] = dockerJobCreatePrivateBlipText(playerid, DOCKER_JOB_TAKEBOX_X, DOCKER_JOB_TAKEBOX_Y, DOCKER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "press E");
+        job_docker[playerid]["press3Dtext"] = createPrivate3DText (playerid, DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z+0.20, "Press Q to leave job", CL_WHITE.applyAlpha(100), 3.0 );
+    } else {
+        job_docker[playerid]["press3Dtext"] = createPrivate3DText (playerid, DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z+0.20, "Press E to get job", CL_WHITE.applyAlpha(100), 3.0 );
     }
 });
 
@@ -141,7 +145,8 @@ function isDockerHaveBox(playerid) {
 function dockerJob( playerid ) {
 
     if(!isPlayerInValidPoint(playerid, DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_RADIUS)) {
-        return msg( playerid, "job.docker.letsgo", DOCKER_JOB_COLOR );
+        //return msg( playerid, "job.docker.letsgo", DOCKER_JOB_COLOR );
+        return;
     }
 
     if(isDocker( playerid )) {
@@ -162,6 +167,8 @@ function dockerJob( playerid ) {
         // create private blip job
         // createPersonalJobBlip( playerid, DOCKER_JOB_X, DOCKER_JOB_Y);
 
+        remove3DText(job_docker[playerid]["press3Dtext"]);
+        job_docker[playerid]["press3Dtext"] = createPrivate3DText (playerid, DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z+0.20, "Press Q to leave job", CL_WHITE.applyAlpha(100), 3.0 );
         job_docker[playerid]["blip3dtext"] = dockerJobCreatePrivateBlipText(playerid, DOCKER_JOB_TAKEBOX_X, DOCKER_JOB_TAKEBOX_Y, DOCKER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "press E");
 
     });
@@ -171,7 +178,8 @@ function dockerJob( playerid ) {
 function dockerJobLeave( playerid ) {
 
     if(!isPlayerInValidPoint(playerid, DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_RADIUS)) {
-        return msg( playerid, "job.docker.letsgo", DOCKER_JOB_COLOR );
+        //return msg( playerid, "job.docker.letsgo", DOCKER_JOB_COLOR );
+        return;
     }
 
     if(!isDocker( playerid )) {
@@ -193,6 +201,8 @@ function dockerJobLeave( playerid ) {
 
         dockerJobRemovePrivateBlipText ( playerid );
 
+        remove3DText(job_docker[playerid]["press3Dtext"]);
+        job_docker[playerid]["press3Dtext"] = createPrivate3DText (playerid, DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z+0.20, "Press E to get job", CL_WHITE.applyAlpha(100), 3.0 );
     });
 }
 
@@ -203,7 +213,6 @@ function dockerJobTakeBox( playerid ) {
     }
 
     if(!isPlayerInValidPoint(playerid, DOCKER_JOB_TAKEBOX_X , DOCKER_JOB_TAKEBOX_Y, DOCKER_RADIUS)) {
-        //return msg( playerid, "job.docker.takebox", DOCKER_JOB_COLOR );
         return;
     }
 
@@ -262,7 +271,10 @@ function dockerJobPutBox( playerid ) {
 
 
 event("updateMoveState", function(playerid, state) {
-    job_docker[playerid]["moveState"] = state;
+    if (playerid in job_docker) {
+        job_docker[playerid]["moveState"] = state;
+    }
+
     if(isDocker( playerid ) && isDockerHaveBox(playerid)) {
         if(state == 1 || state == 2) {
             setPlayerAnimStyle(playerid, "common", "default");

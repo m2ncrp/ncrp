@@ -42,14 +42,13 @@ event("onPlayerDisconnect", function(playerid, reason) {
  * @param  {RGB object} color
  * @return {void}
  */
-function inRadiusSendToAll(sender, message, radius, color = 0) {
-    local players = playerList.getPlayers();
-    foreach(player in players) {
-        if ( isBothInRadius(sender, player, radius) ) {
+function inRadiusSendToAll(senderid, message, radius, color = 0) {
+    foreach(playerid, player in players) {
+        if ( isBothInRadius(senderid, playerid, radius) ) {
             if (color) {
-                msg(player, message, color);
+                msg(playerid, message, color);
             } else {
-                msg(player, message);
+                msg(playerid, message);
             }
         }
     }
@@ -57,28 +56,26 @@ function inRadiusSendToAll(sender, message, radius, color = 0) {
 
 
 // Fix: send message in player locale, not only sender locale
-function sendLocalizedMsgToAll(sender, phrase_key, message, radius, color = 0) {
-    local players = playerList.getPlayers();
-    foreach(player in players) {
-        if ( isBothInRadius(sender, player, radius) ) {
+function sendLocalizedMsgToAll(senderid, phrase_key, message, radius, color = 0) {
+    foreach(playerid, player in players) {
+        if ( isBothInRadius(senderid, playerid, radius) ) {
             if (color) {
-                msg(player, localize(phrase_key, [getAuthor( sender ), message], getPlayerLocale(player)), color);
+                msg(playerid, localize(phrase_key, [getAuthor( senderid ), message], getPlayerLocale(player)), color);
             } else {
-                msg(player, localize(phrase_key, [getAuthor( sender ), message], getPlayerLocale(player)));
+                msg(playerid, localize(phrase_key, [getAuthor( senderid ), message], getPlayerLocale(player)));
             }
         }
     }
 }
 
 // Fix: send message in player locale, not only sender locale
-function sendMsgToAllInRadius(sender, message, params, radius, color = 0) {
-    local players = playerList.getPlayers();
-    foreach(player in players) {
-        if ( isBothInRadius(sender, player, radius) ) {
+function sendMsgToAllInRadius(senderid, message, params, radius, color = 0) {
+    foreach(playerid, player in players) {
+        if ( isBothInRadius(senderid, playerid, radius) ) {
             if (color) {
-                msg(player, message, params, color);
+                msg(playerid, message, params, color);
             } else {
-                msg(player, message, params);
+                msg(playerid, message, params);
             }
         }
     }

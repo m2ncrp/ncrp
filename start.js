@@ -11,6 +11,13 @@ const bot = new Discord.Client();
 const token = 'MjYxNDcwMDcxNTY0NTMzNzYx.Cz1Y6g.WGYSbl5vCRjJQQUvVq6ns2PUDdE';
 const AUTORESTART_TIME = 5000;
 
+let restarts = [
+    [05, 45],
+    [11, 45],
+    [17, 45],
+    [23, 45],
+];
+
 let settings = {
     // player chats
     ooc_ru: "219565308007022592", // general-ru
@@ -52,6 +59,21 @@ bot.on('ready', () => {
     ready = true;
 });
 
+function checkAutorestart() {
+    var date = new Date();
+
+    for (var i = restarts.length - 1; i >= 0; i--) {
+        if (restarts[i][0] == date.getHours() && restarts[i][1] == date.getMinutes()) {
+            if (m2o && m2o.stdin.writable) {
+                m2o.stdin.write("sq planServerRestart(-1)\n");
+                restarts = [];
+            } else {
+                console.log(">> tried to restart server, got non-writable stream");
+            }
+        }
+    }
+}
+
 let m2o = startServer();
 
 function startServer() {
@@ -60,6 +82,7 @@ function startServer() {
     started = true;
 
     let ticker = setInterval(function() {
+        checkAutorestart();
         if (!errorlog || !errorlog.length) return;
         channels[settings.console].sendMessage("@everyone ERROR: " + errorlog.join("\n"));
         errorlog = [];
@@ -208,6 +231,7 @@ function startServer() {
 
         if (code != 0) {
              channels[settings.console].sendMessage("@everyone server has crashed, auto-restarting!");
+             channels[settings.notifcation].sendMessage("@everyone server has crashed, auto-restarting!");
 
             setTimeout(function() {
                 m2o = startServer();
