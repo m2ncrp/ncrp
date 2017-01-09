@@ -7,7 +7,7 @@ const path      = require('path');
 
 const bot = new Discord.Client();
 
-bot.user.setGame("TSOEB | M2O");
+// bot.user.setGame("TSOEB | M2O");
 
 // the token of your bot - https://discordapp.com/developers/applications/me
 const token = 'MjYxNDcwMDcxNTY0NTMzNzYx.Cz1Y6g.WGYSbl5vCRjJQQUvVq6ns2PUDdE';
