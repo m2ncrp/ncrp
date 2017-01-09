@@ -59,23 +59,29 @@ local modelsData =
     [[51,52],[56,57]] //Asia
 ]
 
+<<<<<<< HEAD
 
 local playerLocale;
 
 
 
 addEventHandler("onServerCharacterLoading", function(id,firstname, lastname, race, sex, birthdate, money, deposit, cskin){
+=======
+addEventHandler("onServerCharacterLoading", function(id, firstname, lastname, race, sex, birthdate, money, deposit, cskin){
+>>>>>>> origin/develop
     local char = {};
-    char.Id <- id;
+    char.Id <- id.tointeger();
     char.Firstname <- firstname;
     char.Lastname <- lastname;
-    char.Race <- race;
-    char.Sex <- sex;
+    char.Race <- race.tointeger();
+    char.Sex <- sex.tointeger();
     char.Bdate <- birthdate;
-    char.money <- money;
-    char.deposit <- deposit;
-    char.cskin <- cskin
+    char.money <- money.tofloat();
+    char.deposit <- deposit.tofloat();
+    char.cskin <- cskin.tointeger();
     characters.push( char );
+
+    log("pushing character with name:" + firstname + " " + lastname);
 });
 
 addEventHandler("onServerCharacterLoaded", function(locale){
@@ -197,6 +203,7 @@ function formatCharacterSelection () {
     	}
 	    local race = getRaceFromId(characters[idx].Race);
 	    local sex = getSexFromId(characters[idx].Sex);
+<<<<<<< HEAD
 	    local fname = characters[idx].Firstname;
 	    local lname = characters[idx].Lastname;
 	    local bday = characters[idx].Bdate.tostring()
@@ -205,6 +212,13 @@ function formatCharacterSelection () {
 	    charDesc[0] = format(translation[0].CharacterDesc,fname,lname,race,sex,bday,money,deposit);
 	    charDescButton[0] = translation[0].SelectButtonDesc;
 	    triggerServerEvent("changeModel", characters[idx].cskin);
+=======
+	    charDesc[0] = format("Имя: %s\nФамилия: %s\nРаса: %s\n",characters[idx].Firstname,characters[idx].Lastname,race);
+	    charDesc[0] += format("Пол: %s\nДата рождения: %s\n",sex,characters[idx].Bdate.tostring());
+	    charDesc[0] += format("Денежных средств: $%.2f\nСчёт в банке: $%.2f",characters[idx].money.tofloat(),characters[idx].deposit.tofloat());
+	    charDescButton[0] = "Выбрать персонажа";
+	    triggerServerEvent("changeModel", characters[idx].cskin.tostring());
+>>>>>>> origin/develop
 	    characterSelection();
 	}
 }
@@ -316,7 +330,7 @@ function switchCharacterSlot(){
 		charDescButton[0] = translation[0].SelectButtonDesc;
 		guiSetText(label[0], charDesc[0]);
 		guiSetText(button[0], charDescButton[0]);
-		triggerServerEvent("changeModel", characters[idx].cskin);
+		triggerServerEvent("changeModel", characters[slot].cskin.tostring());
 		setPlayerRotation(getLocalPlayer(), 180.0,0.0,0.0);
 	}
 	else {
@@ -353,7 +367,7 @@ function switchModel(){
 function changeModel () {
     setPlayerRotation(getLocalPlayer(), 180.0,0.0,0.0);
     local model = modelsData[PData.Race][PData.Sex][switchModelID];
-    triggerServerEvent("changeModel", model);
+    triggerServerEvent("changeModel", model.tostring());
     togglePlayerControls( true );
 }
 
@@ -405,13 +419,12 @@ function createCharacter() {
     local sex = PData.Sex
     local bday = format("%02d.%02d.%04d",guiGetText(input[2]).tointeger(),guiGetText(input[3]).tointeger(),guiGetText(input[4]).tointeger());
     local model = modelsData[PData.Race][PData.Sex][switchModelID];
-    triggerServerEvent("onPlayerCharacterCreate",first,last,race,sex,bday,model,(migrateOldCharacter && "Id" in PData) ? PData.Id : 0);
-    log("migrating character: " + [first,last,race,sex,bday,model,(migrateOldCharacter && "Id" in PData) ? PData.Id : 0].reduce(@(a,b) a + " " + b));
+    triggerServerEvent("onPlayerCharacterCreate",first,last,race.tostring(),sex.tostring(),bday,model.tostring(),(migrateOldCharacter && "Id" in PData) ? PData.Id.tostring() : "0");
 }
 
 function selectCharacter (id) {
     hideCharacterSelection();
-    triggerServerEvent("onPlayerCharacterSelect",characters[id].Id);
+    triggerServerEvent("onPlayerCharacterSelect",characters[id].Id.tostring());
     delayedFunction(200, function() {showCursor(false);});
 }
 

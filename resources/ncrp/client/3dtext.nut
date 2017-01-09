@@ -42,7 +42,7 @@ addEventHandler("onServer3DTextAdd", function(uid, x, y, z, text, color, d) {
             y = y.tofloat(),
             z = z.tofloat()
         },
-        color = color,
+        color = color.tointeger(),
         distance = d.tofloat()
     };
 
