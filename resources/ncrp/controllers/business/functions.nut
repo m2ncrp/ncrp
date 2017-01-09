@@ -227,10 +227,17 @@ function setBusinessOwner(bizid, playeridOrName) {
         return false;
     }
 
+    local ownerid = -1;
+
     if (isInteger(playeridOrName)) {
         playeridOrName = getPlayerName(playeridOrName);
+    } else {
+        if (isPlayerLoaded(playeridOrName)) {
+            ownerid = players[playeridOrName].id;
+        }
     }
 
+    businesses[bizid].ownerid = ownerid;
     businesses[bizid].owner = playeridOrName.tostring();
     businesses[bizid].save();
 
