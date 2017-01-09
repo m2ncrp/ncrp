@@ -58,18 +58,20 @@ local modelsData =
     [[51,52],[56,57]] //Asia
 ]
 
-addEventHandler("onServerCharacterLoading", function(id,firstname, lastname, race, sex, birthdate, money, deposit, cskin){
+addEventHandler("onServerCharacterLoading", function(id, firstname, lastname, race, sex, birthdate, money, deposit, cskin){
     local char = {};
-    char.Id <- id;
+    char.Id <- id.tointeger();
     char.Firstname <- firstname;
     char.Lastname <- lastname;
-    char.Race <- race;
-    char.Sex <- sex;
+    char.Race <- race.tointeger();
+    char.Sex <- sex.tointeger();
     char.Bdate <- birthdate;
-    char.money <- money;
-    char.deposit <- deposit;
-    char.cskin <- cskin
+    char.money <- money.tofloat();
+    char.deposit <- deposit.tofloat();
+    char.cskin <- cskin.tointeger();
     characters.push( char );
+
+    log("pushing character with name:" + firstname + " " + lastname);
 });
 
 addEventHandler("onServerCharacterLoaded", function(){
@@ -316,7 +318,7 @@ function createCharacter() {
 
 function selectCharacter (id) {
     hideCharacterSelection();
-    triggerServerEvent("onPlayerCharacterSelect",characters[id].Id);
+    triggerServerEvent("onPlayerCharacterSelect",characters[id].Id.tostring());
     delayedFunction(200, function() {showCursor(false);});
 }
 

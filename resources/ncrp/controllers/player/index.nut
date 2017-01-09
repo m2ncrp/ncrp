@@ -68,8 +68,15 @@ event("onServerPlayerStarted", function(playerid) {
 event("onPlayerInit", function(playerid) {
     Character.findBy({ name = getAccountName(playerid) }, function(err, characters) {
         foreach (idx, c in characters) {
-            dbg(c.firstname, c.lastname);
-            trigger(playerid, "onServerCharacterLoading", c.id, c.firstname, c.lastname, c.race, c.sex, c.birthdate, c.money, c.deposit, c.cskin);
+            trigger(playerid, "onServerCharacterLoading",
+                c.id.tostring(),
+                c.firstname, c.lastname,
+                c.race.tostring(),
+                c.sex.tostring(),
+                c.birthdate,
+                c.money, c.deposit,
+                c.cskin.tostring()
+            );
         }
     });
 

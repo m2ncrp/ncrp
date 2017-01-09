@@ -101,9 +101,9 @@ event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, s
 event("onPlayerCharacterSelect", function(playerid, id) {
     if (!isPlayerAuthed(playerid)) return dbg("character", "select", "non-authed", getIdentity(playerid));
 
-    dbg("selecting character with data", id, getAccountName(playerid));
+    dbg("selecting character with data", id.tointeger(), getAccountName(playerid));
 
-    Character.findOneBy({ id = id, name = getAccountName(playerid) }, function(err, character) {
+    Character.findOneBy({ id = id.tointeger(), name = getAccountName(playerid) }, function(err, character) {
         if (err || !character) {
             return alert(playerid, "character.doesnotexist");
         }
