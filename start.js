@@ -13,12 +13,7 @@ const bot = new Discord.Client();
 const token = 'MjYxNDcwMDcxNTY0NTMzNzYx.Cz1Y6g.WGYSbl5vCRjJQQUvVq6ns2PUDdE';
 const AUTORESTART_TIME = 5000;
 
-let restarts = [
-    [05, 45],
-    [11, 45],
-    [17, 45],
-    [23, 45],
-];
+let restarts = [];
 
 let settings = {
     // player chats
@@ -79,6 +74,13 @@ function checkAutorestart() {
 let m2o = startServer();
 
 function startServer() {
+    restarts = [
+        [02, 45],
+        [08, 45],
+        [14, 45],
+        [20, 45],
+    ];
+
     let server;
     let errorlog = [];
     started = true;
