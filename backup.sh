@@ -1,6 +1,7 @@
 #!/bin/sh
 
 FILENAME="backup_"$(date +"%d%m%y_%H%M")".gz";
+
 BACKUPS="/backups/";
 BASEDIR=$(dirname "$0")
 
