@@ -10,6 +10,7 @@ include("controllers/vehicle/functions/blocking.nut");
 include("controllers/vehicle/functions/fuel.nut");
 include("controllers/vehicle/functions/plates.nut");
 include("controllers/vehicle/functions/colors.nut");
+include("controllers/vehicle/functions/distance.nut");
 
 // saving original vehicle method
 local old__createVehicle = createVehicle;
