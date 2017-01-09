@@ -224,15 +224,15 @@ addEventHandler("onNativePlayerFadeout", function(time) {
     fadeScreen(time.tofloat(), true);
 });
 
-function onEvery100ms() {
+function onEvery10ms() {
     // transp -> black
     if (screenFade.state == "in" && screenFade.current < screenFade.time) {
-        screenFade.current += 100;// / (getFPS().tofloat() + 1);
+        screenFade.current += 10;// / (getFPS().tofloat() + 1);
     }
 
     // black -> transp
     if (screenFade.state == "out" && screenFade.current > 0) {
-        screenFade.current -= 100;//0 / (getFPS().tofloat() + 1);
+        screenFade.current -= 10;//0 / (getFPS().tofloat() + 1);
     }
 }
 
@@ -341,6 +341,6 @@ addEventHandler("onClientScriptInit", function() {
     // // sendMessage(format("screenX: %f, screenY: %f", screenX, screenY));
 
     if (!microticker) {
-        microticker = timer(onEvery100ms, 100, -1);
+        microticker = timer(onEvery100ms, 10, -1);
     }
 });

@@ -90,6 +90,7 @@ event("native:onScriptInit", function() {
     // setup default values
     setGameModeText( VERSION );
     setMapName( "Empire Bay" );
+    srand(time()); // set random seed
 
     // trigger pre init events
     trigger("onScriptInit");
