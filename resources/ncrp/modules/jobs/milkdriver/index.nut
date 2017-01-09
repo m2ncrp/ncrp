@@ -58,7 +58,7 @@ const MILK_JOB_SKIN = 171;
 const MILK_JOB_DISTANCE = 100;
 const MILK_JOB_NUMBER_STATIONS = 6;
 const MILK_JOB_LEVEL = 1;
-const MILK_JOB_SALARY = 20.0;
+const MILK_JOB_SALARY = 18.0;
       MILK_JOB_COLOR <- CL_CRUSTA;
 
 local milkname = [
@@ -405,7 +405,8 @@ function milkJobPark ( playerid ) {
     job_milk[playerid]["milkready"] = false;
     job_milk[playerid]["milkstatus"] <- [false, false, false, false, false, false];
     msg( playerid, "job.milkdriver.nicejob", MILK_JOB_COLOR );
-    addMoneyToPlayer(playerid, MILK_JOB_SALARY);
+    local amount = MILK_JOB_SALARY;
+    addMoneyToPlayer(playerid, amount);
 
     // clear all marks
     clearMilkJobStationMarks( playerid );
