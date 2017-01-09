@@ -59,16 +59,12 @@ local modelsData =
     [[51,52],[56,57]] //Asia
 ]
 
-<<<<<<< HEAD
 
 local playerLocale;
 
 
 
 addEventHandler("onServerCharacterLoading", function(id,firstname, lastname, race, sex, birthdate, money, deposit, cskin){
-=======
-addEventHandler("onServerCharacterLoading", function(id, firstname, lastname, race, sex, birthdate, money, deposit, cskin){
->>>>>>> origin/develop
     local char = {};
     char.Id <- id.tointeger();
     char.Firstname <- firstname;
