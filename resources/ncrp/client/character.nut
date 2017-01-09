@@ -112,7 +112,7 @@ function formatCharacterSelection () {
 	    local sex = getSexFromId(characters[idx].Sex);
 	    charDesc[0] = format("Имя: %s\nФамилия: %s\nРаса: %s\n",characters[idx].Firstname,characters[idx].Lastname,race);
 	    charDesc[0] += format("Пол: %s\nДата рождения: %s\n",sex,characters[idx].Bdate.tostring());
-	    charDesc[0] += format("Денежных средств: $%.2f\nСчёт в банке: %.2f$",characters[idx].money.tofloat(),characters[idx].deposit.tofloat());
+	    charDesc[0] += format("Денежных средств: $%.2f\nСчёт в банке: $%.2f",characters[idx].money.tofloat(),characters[idx].deposit.tofloat());
 	    charDescButton[0] = "Выбрать персонажа";
 	    triggerServerEvent("changeModel", characters[idx].cskin);
 	    characterSelection();
@@ -217,7 +217,7 @@ function switchCharacterSlot(){
 		local sex = getSexFromId(characters[slot].Sex);
 		charDesc[0] = format("Имя: %s\nФамилия: %s\nРаса: %s\n",characters[slot].Firstname,characters[slot].Lastname,race);
 		charDesc[0] += format("Пол: %s\nДата рождения: %s\n",sex,characters[slot].Bdate.tostring());
-		charDesc[0] += format("Денежных средств: $%.2f\nСчёт в банке: %.2f$",characters[slot].money.tofloat(),characters[slot].deposit.tofloat());
+		charDesc[0] += format("Денежных средств: $%.2f\nСчёт в банке: $%.2f",characters[slot].money.tofloat(),characters[slot].deposit.tofloat());
 		charDescButton[0] = "Выбрать персонажа";
 		guiSetText(label[0], charDesc[0]);
 		guiSetText(button[0], charDescButton[0]);
