@@ -4,11 +4,12 @@ class Business extends ORM.Entity {
     static table = "tbl_businesses";
 
     static fields = [
-        ORM.Field.String  ({ name = "name",  value = "Business" }),
-        ORM.Field.String  ({ name = "owner", value = "" }), // character owner name
-        ORM.Field.Float   ({ name = "price", value = 10000.0 }),
-        ORM.Field.Float   ({ name = "income",value = 15.0 }),
-        ORM.Field.Integer ({ name = "type",  value = 0 }),
+        ORM.Field.String  ({ name = "name",    value = "Business" }),
+        ORM.Field.Integer ({ name = "ownerid", value = -1 }), // character owner name
+        ORM.Field.String  ({ name = "owner",   value = "" }), // character owner name
+        ORM.Field.Float   ({ name = "price",   value = 10000.0 }),
+        ORM.Field.Float   ({ name = "income",  value = 15.0 }),
+        ORM.Field.Integer ({ name = "type",    value = 0 }),
     ];
 
     // predefiend collections of fields
