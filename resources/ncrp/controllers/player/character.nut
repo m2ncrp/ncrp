@@ -63,10 +63,10 @@ event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, s
     if (!isPlayerAuthed(playerid)) return dbg("character", "create with no auth", getIdentity(playerid));
 
     // are we migrating character
-    if (migrateid) {
+    if (migrateid != "0") {
         dbg("character", "migrating", migrateid, getIdentity(playerid), firstname, lastname, race, sex, birthdate, cskin);
 
-        Character.findOneBy({ id = migrateid, name = getAccountName(playerid) }, function(err, character) {
+        Character.findOneBy({ id = migrateid.tointeger(), name = getAccountName(playerid) }, function(err, character) {
             if (err || !character) {
                 return alert(playerid, "character.doesnotexist");
             }
@@ -81,7 +81,7 @@ event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, s
     }
 
     // or we are creating new
-    if(!migrateid) {
+    if(migrateid == "0") {
         dbg("character", "creating", null, getIdentity(playerid), firstname, lastname, race, sex, birthdate, cskin);
 
         Character.findBy({ name = getAccountName(playerid) }, function(err, characters) {
@@ -143,7 +143,7 @@ function validateAndUpdateCharacter(playerid, character, firstname, lastname, ra
      * Check for name bans
      */
     local banned = false;
-    local q = ORM.Query("select * from @BannedName where ((firstname like :firstname and lastname = '') or (firstname like :lastname and lastname = '') or (firstname like :firstname and firstname like :lastname))");
+    local q = ORM.Query("select * from @BannedName where ((firstname like :firstname and lastname = '') or (firstname like :lastname and lastname = '') or (firstname like :firstname and lastname like :lastname))");
 
     q.setParameter("firstname", firstname);
     q.setParameter("lastname",  lastname );
