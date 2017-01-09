@@ -56,7 +56,7 @@ event("onServerPlayerStarted", function(playerid) {
     }
 
     // clear chat
-    for (local i = 0;i < 13; i++) {
+    for (local i = 0;i < 14; i++) {
         msg(playerid, "", CL_BLACK);
     }
 });
