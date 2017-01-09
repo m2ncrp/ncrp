@@ -15,6 +15,7 @@
     <script type="client">keyboard.nut</script>
     <script type="client">other.nut</script>
     <script type="client">character.nut</script>
+    <script type="client">nametags.nut</script>
 
 
    <!-- <script type="client">carshop.nut</script> -->
@@ -31,6 +32,7 @@
     <!-- Client files -->
     <!-- <file>screamer.jpg</file> -->
     <file>logo.png</file>
+    <file>someweirdshit.png</file>
     <!-- <file>fine.png</file> -->
     <!-- <file>diamondmotors.png</file> -->
     <!-- <file>id_0.jpg</file> -->

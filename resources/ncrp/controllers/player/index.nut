@@ -15,15 +15,8 @@ include("controllers/player/name.nut");
 include("controllers/player/skin.nut");
 include("controllers/player/falldown.nut");
 include("controllers/player/commands.nut");
-
-/**
- * Define player spawns
- * @type {Array}
- */
-local defaultPlayerSpawns = [
-    [-555.251,  1702.31, -22.2408], // railway
-    [-344.028, -952.702, -21.7457], // new port
-];
+include("controllers/player/spawn.nut");
+include("controllers/player/bannednames.nut");
 
 /**
  * Basic event for registraion
@@ -46,6 +39,7 @@ event("onScriptInit", function() {
  */
 event("onPlayerConnectInit", function(playerid, name, ip, serial) {
     setPlayerColour(playerid, 0x99FFFFFF); // whity
+    setPlayerHealth(playerid, 720.0);
 });
 
 /**
@@ -72,62 +66,22 @@ event("onServerPlayerStarted", function(playerid) {
  * (after player just logined or regitered)
  */
 event("onPlayerInit", function(playerid) {
-    Character.findOneBy({ name = getAccountName(playerid) }, function(err, character) {
-        if (!character) {
-            return trigger("onPlayerCharacterCreation", playerid);
+    Character.findBy({ name = getAccountName(playerid) }, function(err, characters) {
+        foreach (idx, c in characters) {
+            trigger(playerid, "onServerCharacterLoading",
+                c.id.tostring(),
+                c.firstname, c.lastname,
+                c.race.tostring(),
+                c.sex.tostring(),
+                c.birthdate,
+                c.money, c.deposit,
+                c.cskin.tostring()
+            );
         }
-
-        // save player to storage
-        players.add(playerid, character);
-        return trigger("onPlayerCharacterLoaded", playerid);
-    });
-});
-
-/**
- * Handle player spawn event
- * Tirggers only for players which are already loaded (loaded character)
- */
-event("native:onPlayerSpawn", function(playerid) {
-    if (!isPlayerLoaded(playerid)) return;
-
-    delayedFunction(calculateFPSDelay(playerid) + 1500, function() {
-        screenFadeout(playerid, 1000);
     });
 
-    // reset freeze and set default model
-    freezePlayer(playerid, false);
-    setPlayerModel(playerid, players[playerid].cskin);
-
-    trigger("onPlayerSpawn", playerid);
-    trigger("onPlayerSpawned", playerid);
-
-    // set player position according to data
-    setPlayerPosition(playerid, players[playerid].x, players[playerid].y, players[playerid].z);
-
-    // maybe player spawned not far from spawn
-    local isPlayerNearSpawn = (5.0 > getDistanceBetweenPoints3D (
-        players[playerid].x, players[playerid].y, players[playerid].z
-        DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z
-    ));
-
-    // maybe position was not yet set or spanwed in 0, 0, 0
-    if (players[playerid].getPosition().isNull() || isPlayerNearSpawn) {
-        dbg("player", "spawn", getIdentity(playerid), "spawned on null or on spawn, warping to spawn...");
-
-        // select random spawn
-        local spawnID = random(0, defaultPlayerSpawns.len() - 1);
-
-        local x = defaultPlayerSpawns[spawnID][0];
-        local y = defaultPlayerSpawns[spawnID][1];
-        local z = defaultPlayerSpawns[spawnID][2];
-
-        setPlayerPosition(playerid, x, y, z);
-        setPlayerHealth(playerid, 720.0);
-    }
-
-    // mark player as spawned
-    // and available for saving coords
-    players[playerid].spawned = true;
+    trigger(playerid, "onServerCharacterLoaded", getPlayerLocale(playerid));
+    screenFadeout(playerid, 250);
 });
 
 /**

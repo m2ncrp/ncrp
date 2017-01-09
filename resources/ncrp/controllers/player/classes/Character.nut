@@ -86,10 +86,10 @@ class Character extends ORM.Entity {
         return dbg("player", "setPosition", "arguments are invalid", vargv) && false;
     }
 
-    function save() {
-        dbg("player", "saving", getIdentity(this.playerid));
-        base.save();
-    }
+    // function save() {
+    //     dbg("player", "saving", getIdentity(this.playerid));
+    //     base.save();
+    // }
 
     /**
      * Return current player position

@@ -28,9 +28,15 @@ const PORTER_RADIUS = 4.0;
 const PORTER_JOB_X = -583.78; //Dipton Station Inside
 const PORTER_JOB_Y = 1620.02; //Dipton Station Inside
 const PORTER_JOB_Z = -15.6957; //Dipton Station Inside
+
 const PORTER_JOB_TAKEBOX_X = -658.107;
 const PORTER_JOB_TAKEBOX_Y = 1722.11;
 const PORTER_JOB_TAKEBOX_Z = -23.2408;
+/*
+const PORTER_JOB_TAKEBOX_X = -645.541;
+const PORTER_JOB_TAKEBOX_Y = 1626.6;
+const PORTER_JOB_TAKEBOX_Z = -23.2145;
+*/
 const PORTER_JOB_PUTBOX_X = -632.416;
 const PORTER_JOB_PUTBOX_Y = 1645.35;
 const PORTER_JOB_PUTBOX_Z = -23.2408;
@@ -43,7 +49,7 @@ event("onServerStarted", function() {
 
     //creating 3dtext for bus depot
     create3DText ( PORTER_JOB_X, PORTER_JOB_Y, PORTER_JOB_Z+0.35, "TRAIN STATION", CL_ROYALBLUE );
-    create3DText ( PORTER_JOB_X, PORTER_JOB_Y, PORTER_JOB_Z+0.20, "/help job porter", CL_WHITE.applyAlpha(100), 3.0 );
+
 
     registerPersonalJobBlip("porter", PORTER_JOB_X, PORTER_JOB_Y);
 
@@ -53,11 +59,16 @@ event("onPlayerConnect", function(playerid) {
     job_porter[playerid] <- {};
     job_porter[playerid]["havebox"] <- false;
     job_porter[playerid]["blip3dtext"] <- [null, null, null];
+    job_porter[playerid]["moveState"] <- null;
+    job_porter[playerid]["press3Dtext"] <- null;
 });
 
-event("onServerPlayerStarted", function( playerid ){
+event("onServerPlayerStarted", function( playerid ) {
     if(players[playerid]["job"] == "porter") {
         job_porter[playerid]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_TAKEBOX_X, PORTER_JOB_TAKEBOX_Y, PORTER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "press E");
+        job_porter[playerid]["press3Dtext"] = createPrivate3DText (playerid, PORTER_JOB_X, PORTER_JOB_Y, PORTER_JOB_Z+0.20, "Press Q to leave job", CL_WHITE.applyAlpha(100), 3.0 );
+    } else {
+        job_porter[playerid]["press3Dtext"] = createPrivate3DText (playerid, PORTER_JOB_X, PORTER_JOB_Y, PORTER_JOB_Z+0.20, "Press E to get job", CL_WHITE.applyAlpha(100), 3.0 );
     }
 });
 
@@ -116,7 +127,7 @@ function isPorterHaveBox(playerid) {
 function porterJob( playerid ) {
 
     if(!isPlayerInValidPoint(playerid, PORTER_JOB_X, PORTER_JOB_Y, PORTER_RADIUS)) {
-        return msg( playerid, "job.porter.letsgo", PORTER_JOB_COLOR );
+        return;
     }
 
     if(isPorter( playerid )) {
@@ -137,7 +148,9 @@ function porterJob( playerid ) {
         // create private blip job
         // createPersonalJobBlip( playerid, PORTER_JOB_X, PORTER_JOB_Y);
 
-        job_porter[playerid]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_TAKEBOX_X, PORTER_JOB_TAKEBOX_Y, PORTER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "press E");
+        remove3DText(job_porter[playerid]["press3Dtext"]);
+        job_porter[playerid]["press3Dtext"] = createPrivate3DText (playerid, PORTER_JOB_X, PORTER_JOB_Y, PORTER_JOB_Z+0.20, "Press Q to leave job", CL_WHITE.applyAlpha(100), 3.0 );
+        job_porter[playerid]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_TAKEBOX_X, PORTER_JOB_TAKEBOX_Y, PORTER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "Press E");
 
     });
 }
@@ -146,7 +159,8 @@ function porterJob( playerid ) {
 function porterJobLeave( playerid ) {
 
     if(!isPlayerInValidPoint(playerid, PORTER_JOB_X, PORTER_JOB_Y, PORTER_RADIUS)) {
-        return msg( playerid, "job.porter.letsgo", PORTER_JOB_COLOR );
+        return;
+        // msg( playerid, "job.porter.letsgo", PORTER_JOB_COLOR );
     }
 
     if(!isPorter( playerid )) {
@@ -168,6 +182,9 @@ function porterJobLeave( playerid ) {
 
         porterJobRemovePrivateBlipText ( playerid );
 
+        remove3DText(job_porter[playerid]["press3Dtext"]);
+        job_porter[playerid]["press3Dtext"] = createPrivate3DText (playerid, PORTER_JOB_X, PORTER_JOB_Y, PORTER_JOB_Z+0.20, "Press E to get job", CL_WHITE.applyAlpha(100), 3.0 );
+
     });
 }
 
@@ -178,22 +195,30 @@ function porterJobTakeBox( playerid ) {
     }
 
     if(!isPlayerInValidPoint(playerid, PORTER_JOB_TAKEBOX_X , PORTER_JOB_TAKEBOX_Y, PORTER_RADIUS)) {
-        return msg( playerid, "job.porter.takebox", PORTER_JOB_COLOR );
+        return;
     }
 
     if (isPorterHaveBox(playerid)) {
         return msg( playerid, "job.porter.havebox", PORTER_JOB_COLOR );
     }
 
+    if (job_porter[playerid]["moveState"] == 1 || job_porter[playerid]["moveState"] == 2){
+        return  msg( playerid, "job.porter.presscapslock" );
+    }
+
     porterJobRemovePrivateBlipText ( playerid );
 
     job_porter[playerid]["havebox"] = true;
+
     //setPlayerAnimStyle(playerid, "common", "CarryBox");
     //setPlayerHandModel(playerid, 1, 98); // put box in hands
     msg( playerid, "job.porter.tookbox", PORTER_JOB_COLOR );
 
-    job_porter[playerid]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_PUTBOX_X, PORTER_JOB_PUTBOX_Y, PORTER_JOB_PUTBOX_Z, "PUT BOX HERE", "press E");
-
+    job_porter[playerid]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_PUTBOX_X, PORTER_JOB_PUTBOX_Y, PORTER_JOB_PUTBOX_Z, "PUT BOX HERE", "Press E");
+    //delayedFunction(250, function () { setPlayerAnimStyle(playerid, "common", "CarryBox"); });
+    //delayedFunction(500, function () { setPlayerAnimStyle(playerid, "common", "CarryBox"); });
+    //delayedFunction(750, function () { setPlayerAnimStyle(playerid, "common", "CarryBox"); });
+    //delayedFunction(1000, function () { setPlayerAnimStyle(playerid, "common", "CarryBox"); });
 }
 
 // working good, check
@@ -219,5 +244,33 @@ function porterJobPutBox( playerid ) {
     msg( playerid, "job.porter.nicejob", PORTER_SALARY, PORTER_JOB_COLOR );
     addMoneyToPlayer(playerid, PORTER_SALARY);
 
-    job_porter[playerid]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_TAKEBOX_X, PORTER_JOB_TAKEBOX_Y, PORTER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "press E");
+    job_porter[playerid]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_TAKEBOX_X, PORTER_JOB_TAKEBOX_Y, PORTER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "Press E");
+    //delayedFunction(250, function () { setPlayerAnimStyle(playerid, "common", "default"); });
+    //delayedFunction(500, function () { setPlayerAnimStyle(playerid, "common", "default"); });
+    //delayedFunction(750, function () { setPlayerAnimStyle(playerid, "common", "default"); });
+    //delayedFunction(1000, function () { setPlayerAnimStyle(playerid, "common", "default"); });
 }
+
+/*
+event("updateMoveState", function(playerid, state) {
+    job_porter[playerid]["moveState"] = state;
+    if(isPorter( playerid ) && isPorterHaveBox(playerid)) {
+        if(state == 1 || state == 2) {
+            setPlayerAnimStyle(playerid, "common", "default");
+            setPlayerHandModel(playerid, 1, 0);
+
+
+            porterJobRemovePrivateBlipText ( playerid );
+
+            job_porter[playerid]["havebox"] = false;
+            msg( playerid, "job.porter.dropped", PORTER_JOB_COLOR );
+            msg( playerid, "job.porter.presscapslock" )
+            job_porter[playerid]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_TAKEBOX_X, PORTER_JOB_TAKEBOX_Y, PORTER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "press E");
+            delayedFunction(250, function () { setPlayerAnimStyle(playerid, "common", "default"); });
+            delayedFunction(500, function () { setPlayerAnimStyle(playerid, "common", "default"); });
+            delayedFunction(750, function () { setPlayerAnimStyle(playerid, "common", "default"); });
+            delayedFunction(1000, function () { setPlayerAnimStyle(playerid, "common", "default"); });
+        }
+    }
+});
+*/

@@ -54,7 +54,7 @@ const WHISPER_RADIUS = 4.0;
 const SHOUT_RADIUS = 35.0;
 
 
-const ANTIFLOOD_GLOBAL_OOC_CHAT = 30;//15 real sec
+const ANTIFLOOD_GLOBAL_OOC_CHAT = 10;//10 real sec
 
 // event handlers
 event("native:onPlayerChat", function(playerid, message) {

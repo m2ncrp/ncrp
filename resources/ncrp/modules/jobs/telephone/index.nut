@@ -335,12 +335,12 @@ event("onServerStarted", function() {
     foreach (phone in telephones) {
         if (phone.len() == 5) {
             if (phone[4] == 2) {
-                create3DText ( phone[0], phone[1], phone[2]+0.35, "POLICE ALARM" /* localize(phone[3], [], "en") */, CL_MALIBU );
+                create3DText ( phone[0], phone[1], phone[2]+0.35, "POLICE ALARM" /* localize(phone[3], [], "en") */, CL_MALIBU, 6.0);
                 create3DText ( phone[0], phone[1], phone[2]+0.20, "/police", CL_WHITE.applyAlpha(150), 0.3 );
                 continue;
             }
         }
-        create3DText ( phone[0], phone[1], phone[2]+0.35, "TELEPHONE", CL_RIPELEMON );
+        create3DText ( phone[0], phone[1], phone[2]+0.35, "TELEPHONE", CL_RIPELEMON, 6.0);
         create3DText ( phone[0], phone[1], phone[2]+0.20, "/call", CL_WHITE.applyAlpha(150), 0.3 );
     }
 

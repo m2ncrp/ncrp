@@ -10,6 +10,7 @@ include("controllers/vehicle/functions/blocking.nut");
 include("controllers/vehicle/functions/fuel.nut");
 include("controllers/vehicle/functions/plates.nut");
 include("controllers/vehicle/functions/colors.nut");
+include("controllers/vehicle/functions/distance.nut");
 
 // saving original vehicle method
 local old__createVehicle = createVehicle;
@@ -35,8 +36,9 @@ createVehicle = function(modelid, x, y, z, rx, ry, rz) {
             time = getTimestamp(),
         },
         ownership = {
-            status = VEHICLE_OWNERSHIP_NONE,
-            owner  = null
+            status   = VEHICLE_OWNERSHIP_NONE,
+            owner    = null,
+            ownerid  = -1,
         },
         wheels = {
             front = -1,

@@ -12,7 +12,7 @@ translation("ru", {
 function sendLocalizedPoliceRadioMsgToAll(sender, phrase_key, ...) {
     local players = playerList.getPlayers();
     local message = concat(vargv);
-    foreach(playerid in players) {
+    foreach(playerid, player in players) {
         if ( isPlayerInPoliceVehicle(playerid) ) {
             if ( isOfficer(playerid) ) {
                 msg(playerid, "[POLICE RADIO] " + getAuthor(playerid) + ": " + localize("organizations.police.tencode." + phrase_key, [message], getPlayerLocale(playerid)), CL_ROYALBLUE);
