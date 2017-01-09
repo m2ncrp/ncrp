@@ -416,8 +416,9 @@ function fuelJobPark ( playerid ) {
 
     job_fuel[playerid]["fuelcomplete"] = 0;
     job_fuel[playerid]["fuelstatus"] <- [false, false, false, false, false, false, false, false];
-    msg( playerid, "job.fueldriver.nicejob", FUEL_JOB_SALARY, FUEL_JOB_COLOR );
-    addMoneyToPlayer(playerid, FUEL_JOB_SALARY);
+    local amount = FUEL_JOB_SALARY + (random(-5, 1)).tofloat();
+    msg( playerid, "job.fueldriver.nicejob", amount, FUEL_JOB_COLOR );
+    addMoneyToPlayer(playerid, amount);
 
     // clear all marks
     clearFuelJobStationMarks( playerid );
