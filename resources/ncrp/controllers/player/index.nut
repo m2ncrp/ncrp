@@ -47,11 +47,11 @@ event("onPlayerConnectInit", function(playerid, name, ip, serial) {
  */
 event("onServerPlayerStarted", function(playerid) {
     local rednicks = [
-        "Inlife", "Klo_Douglas"
+        "Ray Bacon", "Klo Douglas", "John Barbarossa"
     ];
 
     // admins
-    if (rednicks.find(getAccountName(playerid)) != null) {
+    if (rednicks.find(getPlayerName(playerid)) != null) {
         setPlayerColour(playerid, 0x99FF3333);
     }
 
