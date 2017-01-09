@@ -209,7 +209,7 @@ policecmd(["r", "radio"], function(playerid, text) {
     }
 
     // Enhaincment: loop through not players, but police vehicles with radio has on
-    foreach (targetid in playerList.getPlayers()) {
+    foreach (targetid, player in players) {
         if ( (isOfficer(targetid) && isPlayerInPoliceVehicle(targetid)) || isPlayerAdmin(targetid) ) {
             msg( targetid, "[POLICE RADIO] " + getAuthor(playerid) + ": " + text, CL_ROYALBLUE );
         }
