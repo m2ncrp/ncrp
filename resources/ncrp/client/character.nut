@@ -37,7 +37,7 @@ const DEFAULT_SPAWN_Z    = 0.0;// -13.788;
 local switchModelID = 0;
 
 local characters = [];
-local char = {};
+local translation = [];
 
 local charDesc = array(2);
 local charDescButton = array(2);
@@ -49,6 +49,7 @@ local selectedCharacter = 0;
 local otherPlayerLocked = true;
 
 
+
 local kektimer;
 
 local modelsData =
@@ -57,6 +58,11 @@ local modelsData =
     [[43,42],[46,47]],//Niggas
     [[51,52],[56,57]] //Asia
 ]
+
+
+local playerLocale;
+
+
 
 addEventHandler("onServerCharacterLoading", function(id,firstname, lastname, race, sex, birthdate, money, deposit, cskin){
     local char = {};
@@ -72,21 +78,101 @@ addEventHandler("onServerCharacterLoading", function(id,firstname, lastname, rac
     characters.push( char );
 });
 
-addEventHandler("onServerCharacterLoaded", function(){
+addEventHandler("onServerCharacterLoaded", function(locale){
+	playerLocale = locale;
+	loadTraslation();
     charactersCount = characters.len();
     formatCharacterSelection();
     showChat(false);
 });
 
+function loadTraslation(){
+	translation.clear();
+	local text = {};
+	if(playerLocale == "en"){
+		//selection
+		text.SelectionWindow 		<- "Selection of character";
+		text.CharacterDesc 			<- "First name: %s\nLast name: %s\nRace: %s\nSex: %s\nBirthday: %s\nMoney: $%.2f\nDeposit: $%.2f";
+		text.SelectButtonDesc 		<- "Select character";
+		text.CreateButtonDesc 		<- "Create character";
+		text.EmptyCharacterSlot 	<- "Empty slot\nTo go to the creation of\nPress Button";
+		text.CharacterSwitchlabel 	<- "Character";
+
+		//creation
+		text.CreationWindow 		<- "Character Creation";
+		text.CreationChooseRace 	<- "Choose a character race";
+		text.CreationChooseSkin 	<- "Choose skin";
+		text.CreationFirstName 		<- "Firstname";
+		text.CreationLastName 		<- "Lastname";
+		text.CreationBirthday 		<- "Birthday";
+		text.WrongLName				<- "Wrong firstname";
+		text.WrongFName				<- "Wrong lastname";
+		text.WrongDay				<- "Wrong 'Day'";
+		text.WrongMonth				<- "Wrong 'Month'";
+		text.WrongYear				<- "Wrong 'Year'";
+		text.ExampleFName			<- "eg 'John'";
+		text.ExampleLName			<- "eg 'Douglas'";
+
+		//other
+		text.Male  		<- "Male";
+		text.Female 	<- "Female";
+		text.Europide 	<- "Europide";
+		text.Negroid 	<- "Negroid";
+		text.Mongoloid 	<- "Mongoloid";
+		text.Day 		<- "Day";
+		text.Month 		<- "Month";
+		text.Year 		<- "Year";
+		text.Next 		<- "Continue";
+		translation.push( text );
+	}
+	else if(playerLocale == "ru")
+	{
+		//selection
+		text.SelectionWindow 		<- "Выбор персонажа";
+		text.CharacterDesc 			<- "Имя: %s\nФамилия: %s\nРаса: %s\nПол: %s\nДата рождения: %s\nДенежных средств: $%.2f\nСчёт в банке: $%.2f";
+		text.SelectButtonDesc 		<- "Выбрать персонажа";
+		text.CreateButtonDesc 		<- "Создать персонажа"
+		text.EmptyCharacterSlot 	<- "Пустой слот\nЧтобы перейти к созданию\nНажмите кнопку";
+		text.CharacterSwitchlabel 	<- "Персонаж";
+
+		//creation
+		text.CreationWindow 		<- "Создание персонажа";
+		text.CreationChooseRace	 	<- "Выберите расу персонажа";
+		text.CreationChooseSkin 	<- "Выберите скин";
+		text.CreationFirstName 		<- "Имя";
+		text.CreationLastName 		<- "Фамилия";
+		text.CreationBirthday 		<- "Дата рождения";
+		text.WrongLName				<- "Некорректное Имя";
+		text.WrongFName				<- "Некорректная Фамилия";
+		text.WrongDay				<- "'День' введен не корректно";
+		text.WrongMonth				<- "'Месяц' введен не корректно";
+		text.WrongYear				<- "'Год' введен не корректно";
+		text.ExampleFName			<- "Например'John'";
+		text.ExampleLName			<- "Например 'Douglas'";
+
+		//other
+		text.Male 		<- "Мужчина";
+		text.Female 	<- "Женщина";
+		text.Europide 	<- "Европеоидная";
+		text.Negroid 	<- "Негроидная";
+		text.Mongoloid 	<- "Монголоидная";
+		text.Day 		<- "День";
+		text.Month 		<- "Месяц";
+		text.Year 		<- "Год";
+		text.Next 		<- "Продолжить";
+		translation.push( text );
+	}
+}
+
 function characterSelection(){
     hideCharacterCreation();
     isCharacterSelectionMenu = true;
     togglePlayerControls( true );
-    window = guiCreateElement( ELEMENT_TYPE_WINDOW, "Выберите персонажа", screen[0] - 300.0, screen[1]/2- 90.0, 190.0, 180.0 );
+    window = guiCreateElement( ELEMENT_TYPE_WINDOW, translation[0].SelectionWindow, screen[0] - 300.0, screen[1]/2- 90.0, 190.0, 180.0 );
     label.push(guiCreateElement( ELEMENT_TYPE_LABEL, charDesc[0], 20.0, 20.0, 300.0, 100.0, false, window));//label[0]
     button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, charDescButton[0], 20, 125.0, 150.0, 20.0,false, window));//button[0]
     button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "<<", 20.0, 150.0, 30.0, 20.0,false, window));//button[2]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Персонаж", 70.0, 148.0, 300.0, 20.0, false, window))
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CharacterSwitchlabel, 70.0, 148.0, 300.0, 20.0, false, window))
     button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, ">>", 140.0, 150.0, 30.0, 20.0,false, window));//button[3]
     guiSetAlwaysOnTop(window,true);
     guiSetSizable(window,false);
@@ -96,13 +182,14 @@ addEventHandler("characterSelection",characterSelection);
 
 
 function formatCharacterSelection () {
+	local idx = selectedCharacter;
 	setPlayerPosition(getLocalPlayer(), -1598.5,69.0,-13.0);
     setPlayerRotation(getLocalPlayer(), 180.0,0.0,0.0);
 	if(charactersCount == 0){
 		return characterCreation();
 	}
 	else{
-		local idx = selectedCharacter;
+
 		if(characters[0].Firstname == ""){
         	PData.Id <- characters[0].Id; // add data to push it later
             migrateOldCharacter = true;
@@ -110,10 +197,13 @@ function formatCharacterSelection () {
     	}
 	    local race = getRaceFromId(characters[idx].Race);
 	    local sex = getSexFromId(characters[idx].Sex);
-	    charDesc[0] = format("Имя: %s\nФамилия: %s\nРаса: %s\n",characters[idx].Firstname,characters[idx].Lastname,race);
-	    charDesc[0] += format("Пол: %s\nДата рождения: %s\n",sex,characters[idx].Bdate.tostring());
-	    charDesc[0] += format("Денежных средств: $%.2f\nСчёт в банке: $%.2f",characters[idx].money.tofloat(),characters[idx].deposit.tofloat());
-	    charDescButton[0] = "Выбрать персонажа";
+	    local fname = characters[idx].Firstname;
+	    local lname = characters[idx].Lastname;
+	    local bday = characters[idx].Bdate.tostring()
+	    local money = characters[idx].money.tofloat();
+	    local deposit = characters[idx].deposit.tofloat();
+	    charDesc[0] = format(translation[0].CharacterDesc,fname,lname,race,sex,bday,money,deposit);
+	    charDescButton[0] = translation[0].SelectButtonDesc;
 	    triggerServerEvent("changeModel", characters[idx].cskin);
 	    characterSelection();
 	}
@@ -126,28 +216,28 @@ function characterCreation(){
     togglePlayerControls( true );
     setPlayerPosition(getLocalPlayer(), -1598.5,69.0,-13.0);
     setPlayerRotation(getLocalPlayer(), 180.0,0.0,180.0);
-    window = guiCreateElement( ELEMENT_TYPE_WINDOW, "Создание персонажа", screen[0] - 300.0, screen[1]/2- 175.0, 190.0, 320.0 );
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Имя" 20.0, 20.0, 300.0, 20.0, false, window));//label[0]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Фамилия", 20.0, 60.0, 300.0, 20.0, false, window));//label[1]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Дата рождения", 20.0, 100.0, 300.0, 20.0, false, window));//label[2]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Выберите расу персонажа", 28.0, 175.0, 300.0, 20.0, false, window));//label[3]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Европеоидная", 55.0, 195.0, 300.0, 20.0, false, window));//label[4]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Негроидная", 55.0, 215.0, 300.0, 20.0, false, window));//label[5]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Монголоидная", 55.0, 235.0, 300.0, 20.0, false, window));//label[6]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, "Выберите скин", 57.0, 260.0, 300.0, 20.0, false, window));//label[7]
-    input.push(guiCreateElement( ELEMENT_TYPE_EDIT, "Например: John", 20.0, 40.0, 150.0, 20.0, false, window));//input[0]
-    input.push(guiCreateElement( ELEMENT_TYPE_EDIT, "Например: Douglas", 20.0, 80.0, 150.0, 20.0, false, window));//input[1]
-    input.push(guiCreateElement( ELEMENT_TYPE_EDIT, "День", 20.0, 120.0, 50.0, 20.0, false, window));//input[2]
-    input.push(guiCreateElement( ELEMENT_TYPE_EDIT, "Месяц", 70.0, 120.0, 50.0, 20.0, false, window));//input[3]
-    input.push(guiCreateElement( ELEMENT_TYPE_EDIT, "Год", 120.0, 120.0, 50.0, 20.0, false, window));//input[4]
+    window = guiCreateElement( ELEMENT_TYPE_WINDOW,  translation[0].CreationWindow, screen[0] - 300.0, screen[1]/2- 175.0, 190.0, 320.0 );
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationFirstName 20.0, 20.0, 300.0, 20.0, false, window));//label[0]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationLastName, 20.0, 60.0, 300.0, 20.0, false, window));//label[1]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationBirthday, 20.0, 100.0, 300.0, 20.0, false, window));//label[2]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationChooseRace, 28.0, 175.0, 300.0, 20.0, false, window));//label[3]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Europide, 55.0, 195.0, 300.0, 20.0, false, window));//label[4]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Negroid, 55.0, 215.0, 300.0, 20.0, false, window));//label[5]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Mongoloid, 55.0, 235.0, 300.0, 20.0, false, window));//label[6]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationChooseSkin, 57.0, 260.0, 300.0, 20.0, false, window));//label[7]
+    input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].ExampleFName, 20.0, 40.0, 150.0, 20.0, false, window));//input[0]
+    input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].ExampleLName, 20.0, 80.0, 150.0, 20.0, false, window));//input[1]
+    input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].Day, 20.0, 120.0, 50.0, 20.0, false, window));//input[2]
+    input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].Month, 70.0, 120.0, 50.0, 20.0, false, window));//input[3]
+    input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].Year, 120.0, 120.0, 50.0, 20.0, false, window));//input[4]
     radio.push(guiCreateElement( ELEMENT_TYPE_RADIOBUTTON, "", 25, 200.0, 15.0, 15.0,false, window));//radio[0]
     radio.push(guiCreateElement( ELEMENT_TYPE_RADIOBUTTON, "", 25, 220.0, 15.0, 15.0,false, window));//radio[1]
     radio.push(guiCreateElement( ELEMENT_TYPE_RADIOBUTTON, "", 25, 240.0, 15.0, 15.0,false, window));//radio[2]
-    button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "Мужчина", 20, 150.0, 70.0, 20.0,false, window));//button[0]
-    button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "Женщина", 100, 150.0, 70.0, 20.0,false, window));//button[1]
+    button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[0].Male, 20, 150.0, 70.0, 20.0,false, window));//button[0]
+    button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[0].Female, 100, 150.0, 70.0, 20.0,false, window));//button[1]
     button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "<<", 20.0, 260.0, 30.0, 20.0,false, window));//button[2]
     button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, ">>", 140.0, 260.0, 30.0, 20.0,false, window));//button[3]
-    button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "Продолжить", 20.0, 290.0, 150.0, 20.0,false, window));//button[4]
+    button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[0].Next, 20.0, 290.0, 150.0, 20.0,false, window));//button[4]
     guiSetAlwaysOnTop(window,true);
     guiSetSizable(window,false);
     showCursor(true);
@@ -211,23 +301,28 @@ function switchCharacterSlot(){
 	if(charactersCount == 0){
 		return characterCreation();
 	}
-	local slot = selectedCharacter;
-	if(slot in characters){
-		local race = getRaceFromId(characters[slot].Race);
-		local sex = getSexFromId(characters[slot].Sex);
-		charDesc[0] = format("Имя: %s\nФамилия: %s\nРаса: %s\n",characters[slot].Firstname,characters[slot].Lastname,race);
-		charDesc[0] += format("Пол: %s\nДата рождения: %s\n",sex,characters[slot].Bdate.tostring());
-		charDesc[0] += format("Денежных средств: $%.2f\nСчёт в банке: $%.2f",characters[slot].money.tofloat(),characters[slot].deposit.tofloat());
-		charDescButton[0] = "Выбрать персонажа";
+	local idx = selectedCharacter;
+	if(idx in characters){
+		local race = getRaceFromId(characters[idx].Race);
+		local sex = getSexFromId(characters[idx].Sex);
+		local race = getRaceFromId(characters[idx].Race);
+	    local sex = getSexFromId(characters[idx].Sex);
+	    local fname = characters[idx].Firstname;
+	    local lname = characters[idx].Lastname;
+	    local bday = characters[idx].Bdate.tostring()
+	    local money = characters[idx].money.tofloat();
+	    local deposit = characters[idx].deposit.tofloat();
+	    charDesc[0] = format(translation[0].CharacterDesc,fname,lname,race,sex,bday,money,deposit);
+		charDescButton[0] = translation[0].SelectButtonDesc;
 		guiSetText(label[0], charDesc[0]);
 		guiSetText(button[0], charDescButton[0]);
-		triggerServerEvent("changeModel", characters[slot].cskin);
+		triggerServerEvent("changeModel", characters[idx].cskin);
 		setPlayerRotation(getLocalPlayer(), 180.0,0.0,0.0);
 	}
 	else {
 		setPlayerRotation(getLocalPlayer(), 180.0,0.0,180.0);
-	   	charDesc[0] = "Пустой слот\nЧтобы перейти к созданию\nНажмите кнопку";
-       	charDescButton[0] = "Создать персонажа";
+	   	charDesc[0] = translation[0].EmptyCharacterSlot;
+       	charDescButton[0] = translation[0].CreateButtonDesc;
       	guiSetText(label[0], charDesc[0]);
 		guiSetText(button[0], charDescButton[0]);
 	}
@@ -267,39 +362,39 @@ function checkFields () {
     PData.Firstname <- guiGetText(input[0]);
     PData.Lastname <- guiGetText(input[1]);
     if(!isValidName(PData.Firstname)){
-        guiSetText(label[0],"Некорректное Имя");
-        guiSetText(input[0], "Например: John");
+        guiSetText(label[0], translation[0].WrongLName);
+        guiSetText(input[0], translation[0].ExampleFName);
         return fieldsErrors++;
     }
-    else {guiSetText(label[0],"Имя");}
+    else {guiSetText(label[0],translation[0].CreationFirstName);}
 
     if(!isValidName(PData.Lastname)){
-        guiSetText(label[1],"Некорректная Фамилия");
-        guiSetText(input[1], "Например: John");
+        guiSetText(label[1], translation[0].WrongFName);
+        guiSetText(input[1], translation[0].ExampleLName);
         return fieldsErrors++;
     }
-    else {guiSetText(label[1],"Фамилия");}
+    else {guiSetText(label[1],translation[0].CreationLastName);}
 
     if(!isValidRange(guiGetText(input[2]), 0,32)){
-        guiSetText(label[2],"'День' введен не корректно");
-        guiSetText(input[2],"День");
+        guiSetText(label[2],translation[0].WrongDay);
+        guiSetText(input[2],translation[0].Day);
         return fieldsErrors++;
     }
-    else {guiSetText(label[2],"Дата рождения");}
+    else {guiSetText(label[2],translation[0].CreationBirthday);}
 
     if(!isValidRange(guiGetText(input[3]),0,13)){
-        guiSetText(label[2],"'Месяц' введен не корректно");
-        guiSetText(input[3],"Месяц");
+        guiSetText(label[2],translation[0].WrongMonth);
+        guiSetText(input[3],translation[0].Month);
         return fieldsErrors++;
     }
-    else {guiSetText(label[2],"Дата рождения");}
+    else {guiSetText(label[2],translation[0].CreationBirthday);}
 
     if(!isValidRange(guiGetText(input[4]),1871,1933)){
-        guiSetText(label[2],"'Год' введен не корректно");
-        guiSetText(input[4],"Год");
+        guiSetText(label[2],translation[0].WrongYear);
+        guiSetText(input[4],translation[0].Year);
         return fieldsErrors++;
     }
-    else {guiSetText(label[2],"Дата рождения");}
+    else {guiSetText(label[2],translation[0].CreationBirthday);}
     createCharacter();
 }
 
@@ -360,13 +455,13 @@ function isValidName(name){
 function getRaceFromId (id) {
     switch (id) {
         case 0:
-            return "Eропеоидная"
+            return translation[0].Europide;
         break;
         case 1:
-            return "Негроидная"
+            return translation[0].Negroid;
         break;
         case 2:
-            return "Монголоидная"
+            return translation[0].Mongoloid;
         break;
     }
 }
@@ -374,10 +469,10 @@ function getRaceFromId (id) {
 function getSexFromId (id) {
     switch (id) {
         case 0:
-            return "Мужской"
+            return translation[0].Male;
         break;
         case 1:
-            return "Женский"
+            return translation[0].Female;
         break;
     }
 }
