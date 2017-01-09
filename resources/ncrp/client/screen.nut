@@ -341,6 +341,6 @@ addEventHandler("onClientScriptInit", function() {
     // // sendMessage(format("screenX: %f, screenY: %f", screenX, screenY));
 
     if (!microticker) {
-        microticker = timer(onEvery100ms, 10, -1);
+        microticker = timer(onEvery10ms, 10, -1);
     }
 });
