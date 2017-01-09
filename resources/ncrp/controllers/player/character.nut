@@ -89,8 +89,14 @@ event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, s
                 return alert(playerid, "character.limitexceeded");
             }
 
+            // create emtpy character
+            local character = Character();
+
+            // override onspawn stuff (money, other shiet)
+            character.money = randomf(1.75, 5.13);
+
             // try to create new character
-            return validateAndUpdateCharacter(playerid, Character(), firstname, lastname, race, sex, birthdate, cskin);
+            return validateAndUpdateCharacter(playerid, character, firstname, lastname, race, sex, birthdate, cskin);
         });
     }
 });
@@ -174,9 +180,6 @@ function validateAndUpdateCharacter(playerid, character, firstname, lastname, ra
         character.birthdate = birthdate.tostring();
         character.cskin     = cskin.tointeger();
         character.dskin     = cskin.tointeger();
-
-        // override onspawn stuff (money, other shiet)
-        character.money     = randomf(1.75, 5.13);
 
         // save char
         character.save();
