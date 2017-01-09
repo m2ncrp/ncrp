@@ -124,7 +124,9 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
 
     // check blocking
     if (isVehicleOwned(vehicleid) && seat == 0) {
-        dbg("entering owned vehicle");
+
+        dbg("player", "vehicle", "enter", getVehiclePlateText(vehicleid), getIdentity(playerid), "owned: " + isPlayerVehicleOwner(playerid, vehicleid));
+
         if (isPlayerVehicleOwner(playerid, vehicleid)) {
             unblockVehicle(vehicleid);
         } else {
