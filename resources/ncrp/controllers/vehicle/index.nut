@@ -197,15 +197,16 @@ event("onPlayerDeath", function(playerid) {
 event("onPlayerSpawned", function(playerid) {
     local ppos = players[playerid].getPosition();
 
-    // special check for spawning inside fish truck
+    // special check for spawning inside closed truck
     foreach (vehicleid, value in __vehicles) {
         if (getVehicleModel(vehicleid) != 38) continue;
+        if (getVehicleModel(vehicleid) != 34) continue;
 
         local vpos = getVehiclePosition(vehicleid);
 
         // if inside vehicle, set offsetted position
-        if (getDistanceBetweenPoints3D(ppos.x, ppos.y, ppos.z, vpos[0], vpos[1], vpos[2]) < 4.5) {
-            dbg("player", "spawn", getIdentity(playerid), "inside fish truck, respawning...");
+        if (getDistanceBetweenPoints3D(ppos.x, ppos.y, ppos.z, vpos[0], vpos[1], vpos[2]) < 2.5) {
+            dbg("player", "spawn", getIdentity(playerid), "inside closed truck, respawning...");
             players[playerid].setPosition(ppos.x + 1.5, ppos.y + 1.5, ppos.z);
             return;
         }
