@@ -6,7 +6,33 @@
  * @return {Boolean}
  */
 function isPlayerNearCar(playerid, vehicleid, limit = 5.0) {
-    return (getNearestCarForPlayer(playerid, limit) == vehicleid);
+    local pos = getVehiclePosition(vehicleid);
+    local dis = getDistanceToPoint(playerid, pos[0], pos[1], pos[2]);
+
+    return (dis < limit);
+}
+
+/**
+ * Is player near particular car model
+ * @param  {Integer}  playerid
+ * @param  {Integer}  modelid
+ * @param  {Float}    limit
+ * @return {Boolean}
+ */
+function isPlayerNearCarModel(playerid, modelid, limit = 5.0) {
+    foreach (vehicleid, value in __vehicles) {
+        local pos = getVehiclePosition(vehicleid);
+        local dis = getDistanceToPoint(playerid, pos[0], pos[1], pos[2]);
+
+        // invalidate model
+        if (getVehicleModel(vehicleid) != modelid) continue;
+
+        if (dis < limit) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 /**
@@ -35,7 +61,7 @@ function getNearestCarForPlayer(playerid, limit = 500.0) {
 
         if (dis < min) {
             min = dis;
-            vid  = vehicleid;
+            vid = vehicleid;
         }
     }
 
@@ -45,4 +71,5 @@ function getNearestCarForPlayer(playerid, limit = 500.0) {
 // alieases
 isPlayerNearVehicle         <- isPlayerNearCar;
 isPlayerNearAnyVehicle      <- isPlayerNearAnyCar;
+isPlayerNearVehicleModel    <- isPlayerNearCarModel;
 getNearestVehicleForPlayer  <- getNearestCarForPlayer;

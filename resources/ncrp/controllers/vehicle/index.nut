@@ -177,16 +177,6 @@ event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     trigger("onPlayerVehicleExit", playerid, vehicleid, seat);
 });
 
-// saving current vehicle data
-event("onServerAutosave", function() {
-    return saveAllVehicles();
-});
-
-// clearing all vehicles on server stop
-event("onServerStopping", function() {
-    return destroyAllVehicles();
-});
-
 // force resetting vehicle position to death point
 event("onPlayerDeath", function(playerid) {
     dbg("player", "death", "vehicle", getAuthor(playerid), getVehiclePlateText(getPlayerVehicle(playerid)));
@@ -201,5 +191,23 @@ event("onPlayerDeath", function(playerid) {
         delayedFunction(5000, function() {
             setVehiclePositionObj(vehicleid, getVehiclePositionObj(vehicleid));
         });
+    }
+});
+
+event("onPlayerSpawned", function(playerid) {
+    local ppos = players[playerid].getPosition();
+
+    // special check for spawning inside fish truck
+    foreach (vehicleid, value in __vehicles) {
+        if (getVehicleModel(vehicleid) != 38) continue;
+
+        local vpos = getVehiclePosition(vehicleid);
+
+        // if inside vehicle, set offsetted position
+        if (getDistanceBetweenPoints3D(ppos.x, ppos.y, ppos.z, vpos[0], vpos[1], vpos[2]) < 4.5) {
+            dbg("player", "spawn", getIdentity(playerid), "inside fish truck, respawning...");
+            players[playerid].setPosition(ppos.x + 1.5, ppos.y + 1.5, ppos.z);
+            return;
+        }
     }
 });

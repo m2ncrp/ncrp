@@ -93,3 +93,13 @@ function trySaveVehicle(vehicleid) {
     vehicle.entity.save();
     return true;
 }
+
+// saving current vehicle data
+event("onServerAutosave", function() {
+    return saveAllVehicles();
+});
+
+// clearing all vehicles on server stop
+event("onServerStopping", function() {
+    return destroyAllVehicles();
+});
