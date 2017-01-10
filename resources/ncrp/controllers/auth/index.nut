@@ -187,7 +187,12 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
 
 event("onServerSecondChange", function() {
     foreach (playerid, value in buffer) {
-        if (getTimestamp() - buffer[playerid] > 5) {
+        if (!isPlayerConnected(i) || !buffer[playerid]) {
+            buffer[playerid] = null;
+            continue;
+        }
+
+        if (getTimestamp() - buffer[playerid] > 10) {
             msg(playerid, "auth.client.scripts.notloaded", CL_ERROR);
             dbg("player", "clientscripts", getIdentity(playerid));
             buffer[playerid] <- getTimestamp();
@@ -218,6 +223,10 @@ event("native:onPlayerSpawn", function(playerid) {
  * we will clean up all his data
  */
 event("onPlayerDisconnect", function(playerid, reason) {
+    if (playerid in buffer) {
+        delete buffer[playerid];
+    }
+
     setPlayerAuthBlocked(playerid, false);
     if (!isPlayerAuthed(playerid)) return;
 
