@@ -498,7 +498,7 @@ addEventHandler("onClientFrameRender", function(a) {
 });
 
 addEventHandler("onClientScriptInit", function() {
-    kektimer = timer(otherPlayerLock, 50, -1);
+    kektimer = timer(otherPlayerLock, 150, -1);
 });
 
 function otherPlayerLock(){
