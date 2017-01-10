@@ -237,7 +237,7 @@ function startServer() {
 
         if (code != 0) {
              channels[settings.console].sendMessage("@everyone server has crashed, auto-restarting!");
-             channels[settings.notifcation].sendMessage("@everyone server has crashed, auto-restarting!");
+             channels[settings.nofitication].sendMessage("@everyone server has crashed, auto-restarting!");
 
             setTimeout(function() {
                 m2o = startServer();
