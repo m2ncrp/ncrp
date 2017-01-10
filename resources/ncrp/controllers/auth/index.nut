@@ -187,7 +187,7 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
 
 event("onServerSecondChange", function() {
     foreach (playerid, value in buffer) {
-        if (!isPlayerConnected(i) || !buffer[playerid]) {
+        if (!isPlayerConnected(playerid) || !buffer[playerid]) {
             buffer[playerid] = null;
             continue;
         }
