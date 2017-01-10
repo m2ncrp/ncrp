@@ -145,6 +145,10 @@ function planServerRestart(playerid) {
 
             // kick all dawgs
             foreach (idx, value in getPlayers()) {
+                if (isPlayerLoaded(idx)) {
+                    players[idx].save();
+                }
+
                 kickPlayer(idx);
             }
 
