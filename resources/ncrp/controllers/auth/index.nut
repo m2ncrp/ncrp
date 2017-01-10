@@ -193,7 +193,7 @@ event("onServerSecondChange", function() {
         }
 
         if (getTimestamp() - buffer[playerid] > 10) {
-            msg(playerid, "auth.client.scripts.notloaded", CL_ERROR);
+            msg(playerid, "auth.client.notloaded", CL_ERROR);
             dbg("player", "clientscripts", getIdentity(playerid));
             buffer[playerid] <- getTimestamp();
         }
