@@ -719,7 +719,7 @@ translation("ru", {
     "organizations.police.info.cmds.helptitle"  : "Список команд, доступных офицерам полиции:"
     "organizations.police.info.cmds.ratio"      : "Сказать что-либо в полицейскую рацию"
     "organizations.police.info.cmds.rupor"      : "Сказать что-либо в рупор служебной машины"
-    "organizations.police.info.cmds.ticket"     : "Выдать штраф игроку с указанным id. Пример: /ticket 0 2.1 превышение скорости"
+    "organizations.police.info.cmds.ticket"     : "Выдать штраф игроку с указанным id. Пример: /ticket 0 1 или /ticket LA-132 1"
     "organizations.police.info.cmds.baton"      : "Обездвижить ближайшего игрока"
     "organizations.police.info.cmds.cuff"       : "Надеть наручники на ближайшего оглушенного игрока или снять их"
     "organizations.police.info.cmds.prison"     : "Посадить игрока с указанным id в тюрьму"
