@@ -102,7 +102,7 @@ const CUFF_RADIUS = 3.0;
 const BATON_RADIUS = 6.0;
 const POLICE_MODEL = 75;
 const POLICE_BADGE_RADIUS = 3.5;
-const POLICE_TICKET_DISTANCE = 2.5;
+const POLICE_TICKET_DISTANCE = 3.0;
 
 const POLICE_SALARY = 0.5; // for 1 minute
 

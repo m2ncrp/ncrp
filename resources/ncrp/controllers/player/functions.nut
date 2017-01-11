@@ -78,10 +78,10 @@ function setPlayerToggle(playerid, to) {
 
 
 function getPlayerState(playerid) {
-    return playerid in players ? players[playerid]["state"] : "free";
+    return playerid in players ? players[playerid].state : "free";
 }
 
 function setPlayerState(playerid, to) {
-    players[playerid]["state"] = to;
+    players[playerid].state = to;
     trigger("onPlayerStateChange", playerid);
 }
