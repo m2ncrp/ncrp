@@ -217,7 +217,7 @@ policecmd(["r", "radio"], function(playerid, text) {
 });
 
 
-policecmd("rupor", function(playerid, text) {
+policecmd("m", function(playerid, text) {
     if ( !isOfficer(playerid) ) {
         return;
     }
@@ -278,16 +278,16 @@ key(["v"], function(playerid) {
 });
 
 
-local function policetestitout(playerid, targetid, vehid) {
-    putPlayerInVehicle(targetid, vehid, 1);
-    setPlayerToggle(playerid, false);
-}
+// local function policetestitout(playerid, targetid, vehid) {
+//     putPlayerInVehicle(targetid, vehid, 1);
+//     setPlayerToggle(playerid, false);
+// }
 
-acmd(["transport", "suspect"], function(playerid, targetid) {
-    targetid = targetid.tointeger();
-    local veh = getPlayerVehicle(playerid);
-    policetestitout(playerid, targetid, veh);
-});
+// acmd(["transport", "suspect"], function(playerid, targetid) {
+//     targetid = targetid.tointeger();
+//     local veh = getPlayerVehicle(playerid);
+//     policetestitout(playerid, targetid, veh);
+// });
 
 // put nearest cuffed player in jail
 cmd(["prison", "jail"], function(playerid, targetid) {
@@ -313,7 +313,7 @@ function policeHelp(playerid, a = null, b = null) {
         { name = "/police duty off",            desc = "organizations.police.info.cmds.dutyoff"},
         { name = "/r TEXT",                     desc = "organizations.police.info.cmds.ratio"},
         { name = "/rupor TEXT",                 desc = "organizations.police.info.cmds.rupor"},
-        { name = "/ticket ID AMOUNT REASON",    desc = "organizations.police.info.cmds.ticket" },
+        { name = "/ticket ID REASON",           desc = "organizations.police.info.cmds.ticket" },
         { name = "G button",                    desc = "organizations.police.info.cmds.baton" },
         { name = "V button",                    desc = "organizations.police.info.cmds.cuff" },
         { name = "/prison ID",                  desc = "organizations.police.info.cmds.prison" },
