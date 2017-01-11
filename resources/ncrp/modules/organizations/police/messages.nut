@@ -220,7 +220,7 @@ cmd(["police"],["10-27"], function(playerid, ...) {
 cmd(["r"],["10-80"], function(playerid) {
     if ( isPlayerInPoliceVehicle(playerid) ) {
         sendLocalizedPoliceRadioMsgToAll( playerid, "10-80" );
-
+        local pos = getPlayerPositionObj(playerid); 
         foreach (player in players) {
             local id = player.playerid;
             if ( isOfficer(id) && isOnPoliceDuty(id) && isPlayerInPoliceVehicle(id) ) {
