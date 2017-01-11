@@ -359,12 +359,12 @@ function baton( playerid ) {
             screenFadeinFadeout(targetid, 1500, function() {
                 msg( playerid, "organizations.police.bitsomeone.bybaton", [getAuthor(targetid)] );
                 msg( targetid, "organizations.police.beenbit.bybaton" );
-                if ( getPlayerState(targetid) == "free" ) {
+                if ( players[targetid].state == "free" ) {
                     setPlayerToggle( targetid, true );
                     setPlayerState(targetid, "tased");
                 }
             }, function() {
-                if ( getPlayerState(targetid) == "tased" ) {
+                if ( players[targetid].state == "tased" ) {
                     setPlayerToggle( targetid, false );
                     setPlayerState(targetid, "free");
                 }
@@ -388,14 +388,14 @@ function cuff(playerid) {
         }
 
         if ( isBothInRadius(playerid, targetid, CUFF_RADIUS) ) {
-            if ( getPlayerState(targetid) == "tased" ) {
+            if ( players[targetid].state == "tased" ) {
                 setPlayerToggle( targetid, true ); // cuff dat bitch
                 setPlayerState(targetid, "cuffed");
                 msg(targetid, "organizations.police.beencuffed", [getAuthor( playerid )]);
                 msg(playerid, "organizations.police.cuff.someone", [getAuthor( targetid )]);
                 return;
             }
-            if ( getPlayerState(targetid) == "cuffed" ) {
+            if ( players[targetid].state == "cuffed" ) {
                 setPlayerToggle( targetid, false ); // uncuff him...
                 setPlayerState(targetid, "free");
                 msg(targetid, "organizations.police.cuff.beenuncuffed", [getAuthor( playerid )] );
@@ -409,7 +409,7 @@ function cuff(playerid) {
 
 
 function putInJail(playerid, targetid) {
-    if ( isOnPoliceDuty(playerid) && getPlayerState(targetid) == "cuffed" ) {
+    if ( isOnPoliceDuty(playerid) && players[targetid].state == "cuffed" ) {
         setPlayerState(targetid, "jail");
         setPlayerToggle(targetid, false);
         screenFadeinFadeoutEx(targetid, 250, 200, function() {
