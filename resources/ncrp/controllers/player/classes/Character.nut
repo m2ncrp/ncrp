@@ -105,4 +105,8 @@ class Character extends ORM.Entity {
         // todo: refactor
         return vector3(this.x, this.y, this.z);
     }
+
+    function getName() {
+        return this.firstname + " " + this.lastname;
+    }
 }

@@ -293,7 +293,7 @@ function policeFindThatMotherfucker(playerid, IDorPLATE, reason) {
                 msg(targetid, "organizations.police.ticket.givewithreason", [getAuthor(playerid), target_reason, price]);
                 msg(playerid, "organizations.police.ticket.given", [getAuthor(targetid), player_reason, price]);
                 
-                PoliceTicket( getPlayerName(targetid), POLICE_TICKET_PRICELIST[reason][1], price, "open", pos[0], pos[1], pos[2])
+                PoliceTicket( getPlayerName(targetid), POLICE_TICKET_PRICELIST[reason][1], price, "open", pos[0], pos[1], pos[2], getPlayerName(playerid))
                     .save();
             }
         } else {

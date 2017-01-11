@@ -174,11 +174,11 @@ function setPlayerLayout(playerid, name, resend = true) {
     // just change
     __playerLayouts[playerid] <- name;
 
-    Account.getSession(playerid, function(err, account) {
-        if (err || !account) return;
+    if (isPlayerAuthed(playerid)) {
+        local account = getAccount(playerid);
         account.layout = name;
         account.save();
-    });
+    }
 
     // should resend new mappings ?
     if (resend) {

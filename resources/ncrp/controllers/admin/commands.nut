@@ -26,6 +26,20 @@
 //     return banSerial( serial, adminID, banTime, reason);
 // }
 
+acmd("name", function(playerid, targetid) {
+    if (isPlayerConnected(playerid)) {
+        msg(playerid, "Info: " + getIdentity(targetid.tointeger()), CL_MEDIUMPURPLE);
+    } else {
+        msg(playerid, "Player is not connected", CL_MEDIUMPURPLE);
+    }
+});
+
+acmd("list", function(playerid) {
+    msg(playerid, "Current player list:", CL_MEDIUMPURPLE);
+    foreach (pid, value in getPlayers()) {
+        msg(playerid, "Info: " + getIdentity(pid));
+    }
+});
 
 acmd(["admin", "adm", "a"], function(playerid, ...) {
     if(getPlayerName(playerid) == "Fernando_Fabbri"){
@@ -131,6 +145,10 @@ function planServerRestart(playerid) {
 
             // kick all dawgs
             foreach (idx, value in getPlayers()) {
+                if (isPlayerLoaded(idx)) {
+                    players[idx].save();
+                }
+
                 kickPlayer(idx);
             }
 

@@ -179,6 +179,7 @@ proxy("onPlayerPlaceEnter",         "native:onPlayerPlaceEnter"         );
 proxy("onPlayerPlaceExit",          "native:onPlayerPlaceEexit"         );
 proxy("onPlayerCharacterCreate",    "onPlayerCharacterCreate"           );
 proxy("onPlayerCharacterSelect",    "onPlayerCharacterSelect"           );
+proxy("onClientSuccessfulyStarted", "onClientSuccessfulyStarted"        );
 
 
 // Klo's playground

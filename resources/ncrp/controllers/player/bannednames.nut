@@ -5,7 +5,7 @@ local BASIC_BANNED_NAMES = [
 ];
 
 translate("en", {
-    "character.invalid.rpname" : "Invalid (NON-RP) Character name. Character will be deleted! Please create new one with valid first and last names!"
+    "character.invalid.rpname" : "Invalid (NON-RP) Character name.\nCharacter name will be resetted!\nPlease create new one!"
 })
 
 event("onServerStarted", function() {
@@ -65,6 +65,8 @@ acmd("banname", function(playerid, targetid) {
     delayedFunction(1000, function() {
         dbg("admin", "player", "bannedname", "removing character", character.firstname + " " character.lastname);
         msg(playerid, "Removed player character from database!", CL_SUCCESS);
-        character.remove();
+        character.firstname = "";
+        character.lastname  = "";
+        character.save();
     });
 });

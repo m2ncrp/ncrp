@@ -15,7 +15,7 @@ const DEFAULT_SPAWN_Z    = 4.15;//84.0;    //10.2325;
  * @type {Object}
  */
 local REGEX_USERNAME = regexp("[A-Za-z0-9_ ]{3,64}");
-
+local buffer = {};
 
 // includes
 include("controllers/auth/functions.nut");
@@ -41,6 +41,7 @@ translation("en", {
     "auth.error.cmderror"   : "[AUTH] You can't execute commands without registration."
     "auth.notification"     : "[AUTH] You should enter into your account via /login PASSWORD, or create new one via /register PASSWORD"
     "auth.error.tomany"     : "[AUTH] You cant register more accounts."
+    "auth.client.notloaded" : "Seems like your client scripts were not properly loaded. Try reconnecting!"
 });
 
 /**
@@ -50,7 +51,11 @@ translation("en", {
  * screen with different text
  * depending if he is logined or not
  */
-event("onPlayerConnectInit", function(playerid, username, ip, serial) {
+event("onClientSuccessfulyStarted", function(playerid) {
+    if (playerid in buffer) delete buffer[playerid];
+
+    local username = getPlayerName(playerid);
+
     // check playername validity
     if (!REGEX_USERNAME.match(username) ||
         username.find("  ") != null ||
@@ -62,7 +67,7 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
         // wait to load client chat and then display message
         return delayedFunction(2000, function() {
             // // clear chat
-            for (local i = 0; i < 12; i++) {
+            for (local i = 0; i < 14; i++) {
                 msg(playerid, "");
             }
 
@@ -93,8 +98,8 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
 
                 // wait to load client chat and then display message
                 return delayedFunction(2000, function() {
-                    // // clear chat
-                    for (local i = 0; i < 12; i++) {
+                    // clear chat
+                    for (local i = 0; i < 14; i++) {
                         msg(playerid, "");
                     }
 
@@ -132,7 +137,7 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
                     account.save();
 
                     // save session
-                    account.addSession(playerid);
+                    addAccount(playerid, account);
                     setLastActiveSession(playerid);
 
                     // send message success
@@ -176,6 +181,25 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
         });
 });
 
+event("onPlayerConnectInit", function(playerid, username, ip, serial) {
+    buffer[playerid] <- getTimestamp();
+});
+
+event("onServerSecondChange", function() {
+    foreach (playerid, value in buffer) {
+        if (!isPlayerConnected(playerid) || !buffer[playerid]) {
+            buffer[playerid] = null;
+            continue;
+        }
+
+        if (getTimestamp() - buffer[playerid] > 10) {
+            msg(playerid, "auth.client.notloaded", CL_ERROR);
+            dbg("player", "clientscripts", getIdentity(playerid));
+            buffer[playerid] <- getTimestamp();
+        }
+    }
+});
+
 /**
  * Listen spawn event
  * and spawn for non-authed players
@@ -199,6 +223,10 @@ event("native:onPlayerSpawn", function(playerid) {
  * we will clean up all his data
  */
 event("onPlayerDisconnect", function(playerid, reason) {
+    if (playerid in buffer) {
+        delete buffer[playerid];
+    }
+
     setPlayerAuthBlocked(playerid, false);
     if (!isPlayerAuthed(playerid)) return;
 
