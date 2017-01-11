@@ -36,7 +36,7 @@ function setDangerLevel(playerid, to) {
  * @param  {int} playerid
  */
 function getPoliceJob(playerid) {
-/*
+
     if( isOfficer(playerid) ) {
         return msg(playerid, "organizations.police.alreadyofficer");
     }
@@ -44,7 +44,7 @@ function getPoliceJob(playerid) {
     if (isPlayerHaveJob(playerid)) {
         return msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid));
     }
-*/
+
     // set first rank
     setPlayerJob( playerid, setPoliceRank(playerid, 0) );
     //policeSetOnDuty(playerid, false);
