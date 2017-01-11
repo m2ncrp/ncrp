@@ -4,7 +4,8 @@
 
 
 translation("ru", {
-    "organizations.police.tencode.10-1"  : "подозреваемый %s обнаружен",
+    "organizations.police.tencode.10-1"   : "подозреваемый %s обнаружен",
+    "organizations.police.tencode.10-80"  : "веду преследование нарушителя",
 });
 
 
@@ -213,6 +214,24 @@ cmd(["police"],["10-27"], function(playerid, ...) {
         
     }
     dbg( "----------------------------- kek -----------------------------" );
+});
+
+
+cmd(["r"],["10-80"], function(playerid) {
+    if ( isPlayerInPoliceVehicle(playerid) ) {
+        sendLocalizedPoliceRadioMsgToAll( playerid, "10-80" );
+
+        foreach (player in players) {
+            local id = player.playerid;
+            if ( isOfficer(id) && isOnPoliceDuty(id) && isPlayerInPoliceVehicle(id) ) {
+                local crime_hash = createPrivateBlip(id, pos.x, pos.y, ICON_YELLOW, 4000.0);
+
+                delayedFunction(60000, function() {
+                    removeBlip( crime_hash );
+                });
+            }
+        }
+    }
 });
 
 
