@@ -305,6 +305,11 @@ function switchCharacterSlot(){
 	}
 	local idx = selectedCharacter;
 	if(idx in characters){
+        if(characters[idx].Firstname == ""){
+            PData.Id <- characters[0].Id;
+            migrateOldCharacter = true;
+            return characterCreation();
+        }
 		local race = getRaceFromId(characters[idx].Race);
 		local sex = getSexFromId(characters[idx].Sex);
 	    local fname = characters[idx].Firstname;
