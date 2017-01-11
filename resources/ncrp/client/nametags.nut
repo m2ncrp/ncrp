@@ -25,12 +25,12 @@ event("onClientFrameRender", function(isGUIDrawn) {
         {
             if (!(i in players) || !players[i]) continue;
 
-            local limit     = 40.0;
+            local limit     = 50.0;
             local pos       = getPlayerPosition( i );
             local lclPos    = getPlayerPosition( getLocalPlayer() );
             local fDistance = getDistanceBetweenPoints3D( pos[0], pos[1], pos[2], lclPos[0], lclPos[1], lclPos[2] );
 
-            if( fDistance <= 40.0 && i in vectors && vectors[i][2] < 1) {
+            if( fDistance <= limit && i in vectors && vectors[i][2] < 1) {
                 local fScale = 1.05 - (((fDistance > limit) ? limit : fDistance) / limit);
 
                 local text = players[i] + " [" + i.tostring() + "]";

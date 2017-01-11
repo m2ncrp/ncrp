@@ -41,7 +41,7 @@ const PORTER_JOB_PUTBOX_X = -632.416;
 const PORTER_JOB_PUTBOX_Y = 1645.35;
 const PORTER_JOB_PUTBOX_Z = -23.2408;
 const PORTER_JOB_SKIN = 131;
-const PORTER_SALARY = 0.50;
+const PORTER_SALARY = 0.25;
       PORTER_JOB_COLOR <- CL_CRUSTA;
 
 event("onServerStarted", function() {

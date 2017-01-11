@@ -24,7 +24,12 @@ function calculateFPSDelay(playerid, minimum = 150) {
 }
 
 addEventHandler("onClientSendFPSData", function(playerid, fps) {
-    __fpsdata[playerid] <- fps.tointeger();
+    try {
+        __fpsdata[playerid] <- fps.tointeger();
+    }
+    catch (e) {
+        __fpsdata[playerid] <- 20;
+    }
 });
 
 /**
