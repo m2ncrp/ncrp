@@ -17,10 +17,19 @@ function getBusinessInfo(type) {
 function loadBusinessResources(entity) {
     local pricetag;
 
+    // LoOnyBiker from 11.01.2017
+    // MSG: Business incone should be a private information on the Server.
+    // 
+    // if (entity.owner == "") {
+    //     pricetag = format("(Price: $%.2f, Income: $%.2f) /business buy", entity.price, entity.income, entity.servid);
+    // } else {
+    //     pricetag = format("(Owner: %s, Income: $%.2f)", entity.owner, entity.income);
+    // }
+    
     if (entity.owner == "") {
-        pricetag = format("(Price: $%.2f, Income: $%.2f) /business buy", entity.price, entity.income, entity.servid);
+        pricetag = format("(Price: $%.2f) /business buy", entity.price, entity.servid);
     } else {
-        pricetag = format("(Owner: %s, Income: $%.2f)", entity.owner, entity.income);
+        pricetag = format("(Owner: %s)", entity.owner);
     }
 
     entity.text1 = create3DText( entity.x, entity.y, entity.z + 0.35, entity.name, CL_RIPELEMON , BUSINESS_VIEW_DISTANCE);

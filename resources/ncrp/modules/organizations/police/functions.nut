@@ -262,6 +262,10 @@ function getVehicleOwnerAndPinTicket(playerid, plateTxt, reason) {
                 return msg(playerid, "Distance too large");
             }
             local owner = (getVehicleOwner(vehicleid) ? getVehicleOwner(vehicleid) : "");
+            local player_reason = plocalize(playerid, key);
+
+            msg(playerid, "organizations.police.ticket.given", [plateTxt, player_reason, price]);
+
             PoliceTicket( owner, key, price, "open", pos[0], pos[1], pos[2], getPlayerName(playerid))
                 .save();
             return owner;
@@ -352,7 +356,7 @@ function baton( playerid ) {
 
         if ( isBothInRadius(playerid, targetid, BATON_RADIUS) ) {
             trigger("onBatonBitStart", playerid);
-            screenFadeinFadeout(targetid, 1000, function() {
+            screenFadeinFadeout(targetid, 1500, function() {
                 msg( playerid, "organizations.police.bitsomeone.bybaton", [getAuthor(targetid)] );
                 msg( targetid, "organizations.police.beenbit.bybaton" );
                 if ( getPlayerState(targetid) == "free" ) {
