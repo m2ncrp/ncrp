@@ -4,5 +4,5 @@ cmd("eat", function(playerid) {
 
 
 cmd("drink", function(playerid) {
-    drink(playerid);
+    return drink(playerid);
 });
