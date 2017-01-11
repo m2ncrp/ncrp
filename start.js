@@ -95,11 +95,11 @@ function startServer() {
     }, 5000);
 
     if (process.platform == "darwin") {
-        // do noting
+        // do nothing
     } else if (process.platform == "win32") {
         server = spawn(path.join(__dirname, "m2online-svr.exe"));
     } else {
-        server = spawn("/usr/bin/wine", [path.join(__dirname, "m2online-svr.exe")]);
+        server = spawn(path.join(__dirname, "m2online-svr"));
     }
 
     server.on('error', (err) => {
