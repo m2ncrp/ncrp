@@ -258,7 +258,7 @@ key(["g"], function(playerid) {
         return msg( playerid, "organizations.police.duty.off" );
     }
     baton(playerid);
-}, KEY_UP);
+});
 
 
 // cuff nearest stunned player
@@ -275,7 +275,7 @@ key(["v"], function(playerid) {
         return msg( playerid, "organizations.police.duty.off" );
     }
     cuff(playerid);
-}, KEY_UP);
+});
 
 
 local function policetestitout(playerid, targetid, vehid) {
