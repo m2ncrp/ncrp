@@ -76,6 +76,25 @@ setVehicleWheelTexture = function(vehicleid, wheel, textureid) {
     }
 }
 
+/**
+ * Remove player vehicle from database
+ * @param  {Integer} vehicleid
+ * @return {Boolean}
+ */
+function removePlayerVehicle(vehicleid) {
+    if (vehicleid in __vehicles) {
+        dbg("removing player vehicle from database", getVehiclePlateText(vehicleid));
+        if (__vehicles[vehicleid].entity) {
+            __vehicles[vehicleid].entity.remove();
+            delete __vehicles[vehicleid];
+        }
+
+        destroyVehicle(vehicleid);
+
+        return true;
+    }
+}
+
 function setVehicleEntity(vehicleid, entity) {
     if (vehicleid in __vehicles) {
         return __vehicles[vehicleid].entity = entity;
