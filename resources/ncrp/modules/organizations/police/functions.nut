@@ -352,7 +352,7 @@ function baton( playerid ) {
 
         if ( isBothInRadius(playerid, targetid, BATON_RADIUS) ) {
             trigger("onBatonBitStart", playerid);
-            screenFadeinFadeout(targetid, 1000, function() {
+            screenFadeinFadeout(targetid, 1500, function() {
                 msg( playerid, "organizations.police.bitsomeone.bybaton", [getAuthor(targetid)] );
                 msg( targetid, "organizations.police.beenbit.bybaton" );
                 if ( getPlayerState(targetid) == "free" ) {
