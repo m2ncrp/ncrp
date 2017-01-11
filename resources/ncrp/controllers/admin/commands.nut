@@ -138,22 +138,22 @@ function planServerRestart(playerid) {
     });
 
     delayedFunction(15*60*1000, function() {
-        msga("Auto-Restart: Server will be restarted in 5 seconds. See you soon ;)", CL_RED);
+        msga("Auto-Restart: Server will be restarted in 3 seconds. See you soon ;)", CL_RED);
 
-        delayedFunction(5000, function() {
+        trigger("native:onServerShutdown");
+
+        // kick all dawgs
+        delayedFunction(1000, function() {
             msga("Auto-Restart: Restarting now!", CL_RED);
 
-            // kick all dawgs
             foreach (idx, value in getPlayers()) {
-                if (isPlayerLoaded(idx)) {
-                    players[idx].save();
-                }
-
                 kickPlayer(idx);
             }
 
-            // request restart
-            dbg("server", "restart", "requested");
+            delayedFunction(1000, function() {
+                // request restart
+                dbg("server", "restart", "requested");
+            });
         });
     });
 }

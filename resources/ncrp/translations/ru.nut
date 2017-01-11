@@ -97,6 +97,7 @@ translation("ru", {
     "chat.player.message.private"   : "[PM] %s пишет %s: %s"
     "chat.player.try.end.success"   : "[TRY] %s попытался %s (успех)."
     "chat.player.try.end.fail"      : "[TRY] %s попытался %s (провал)."
+    "chat.player.message.noplayer"  : "[PM] Такого игрока нет на сервере.",
 
     "chat.bug.success"              : "[BUG] Ваше сообщение об ошибке успешно отправлено. Спасибо! ;)"
     "chat.idea.success"             : "[IDEA] Ваша идея успешно отправлена!"
