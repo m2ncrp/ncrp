@@ -158,7 +158,7 @@ function newban(...) {
         msg(targetid, "");
     }
 
-    sendPlayerMessageToAll(format("TSOEB: Игрок '%s' был забанен администратором %s на '%d' минут. Причина: %s", getPlayerName(targetid),getAccountName(playerid), time, reason), CL_RED);
+    sendPlayerMessageToAll(format("TSOEB: Player '%s' has been banned by the administrator %s on '%d' minutes. Reason: %s", getPlayerName(targetid),getAccountName(playerid), time, reason), CL_RED);
 
     msg(targetid, format("[SERVER] You has been banned on: %d min. for: %s.", time, reason), CL_RED);
     msg(playerid, format("You've banned %s for: %s on %d min.", getPlayerName(targetid), reason, time), CL_SUCCESS);
