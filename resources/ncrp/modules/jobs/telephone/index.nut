@@ -317,6 +317,7 @@ translation("en", {
 
 local numbers = [
     "0192", //car rental
+    "0000"
     //"1863", // Tires and Rims
 ];
 
