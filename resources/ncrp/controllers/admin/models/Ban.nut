@@ -22,8 +22,8 @@ class Ban extends ORM.Entity {
         this.name    = vargv[0];
         this.serial  = vargv[1];
         this.created = getTimestamp();
-        this.until   = this.created.tointeger() + (vargv[2]) ? vargv[2] : 0;
         this.amount  = vargv[2];
+        this.until   = this.created.tointeger() + this.amount.tointeger();
         this.reason  = vargv[3];
     }
 }
