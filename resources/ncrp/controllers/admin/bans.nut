@@ -167,8 +167,6 @@ function ban(playerid, targetid, ...) {
         reason = "inappropriate behavior";
     }
 
-    local dbgban = format("[BAN] time: %i reason: %s ", time,reason);
-    return log(dbgban);
 
     // save the ban
     Ban(getAccountName(targetid), getPlayerSerial(targetid), time, reason).save();
