@@ -50,44 +50,46 @@ function kick(playerid, targetid, ...) {
 acmd("kick", kick);
 
 /**
- * Mute player for a period of time
+ * Mute player
  * Usage:
- *     /mute 0
- *     /mute 0 150
- *     /mute 1 150 spam, flood
+ *     /mute target time(minutes) reason
+ * EG:
+ * /mute 10 20 noob (mute player with id 10 on 20 minutes for reason 'noob')
  */
-function mute(playerid, targetid, ...) {
-    local targetid = toInteger(targetid);
-    local amount   = vargv.len() ? toInteger(vargv.pop()) : null;
-    local reason   = concat(vargv);
+
+function newmute(...) {
+    local playerid  = vargv[0].tointeger();
+    if(vargv.len() < 4){
+        return msg(playerid, "USE: /mute targetid time reason")
+    }
+    local targetid = vargv[1].tointeger();
+    local time = vargv[2].tointeger();
+    local reason = "";
+    for(local i = 3; i < vargv.len(); i++) reason = reason+" "+vargv[i]; //get mute reason
 
     if (targetid == null || !isPlayerConnected(targetid)) {
-        return msg(playerid, "You should provide playerid of connected player you want to mute", CL_ERROR);
+        return msg(playerid, "You should provide playerid of connected player you want to ban", CL_ERROR);
     }
+    local mutetime = time*60;
+    Mute( getAccountName(playerid), getAccountName(targetid), getPlayerSerial(targetid), mutetime, reason).save();
 
-    if (amount == null || amount < 1) {
-        amount = DEFAULT_PLAYER_MUTE_TIME;
-    }
-
-    if (!reason) {
-        reason = "inappropriate behavior";
-    }
+     sendPlayerMessageToAll(format("TSOEB: Player '%s' has been muted by the administrator %s on '%d' minutes. Reason: %s", getPlayerName(targetid),getAccountName(playerid), time, reason), CL_RED)
 
     setPlayerMuted(targetid, true);
-    msg(targetid, format("[SERVER] You has been muted on: %d seconds, for: %s.", amount, reason), CL_RED);
-    msg(playerid, format("You've muted %s on: %d seconds, for: %s.", getPlayerName(targetid), amount, reason), CL_SUCCESS);
-    dbg("admin", "muted", getAuthor(targetid), amount);
+    msg(targetid, format("[SERVER] You has been muted on: %d minutes, for: %s.", time, reason), CL_RED);
+    msg(playerid, format("You've muted %s on: %d minutes, for: %s.", getPlayerName(targetid), time, reason), CL_SUCCESS);
+    dbg("admin", "muted", getAuthor(targetid), time);
 
     // unmute
-    return delayedFunction(amount * 1000, function() {
+    return delayedFunction(time * 60000, function() {
         if (isPlayerMuted(targetid)) {
             setPlayerMuted(targetid, false);
             msg(targetid, "[SERVER] You has been unmuted", CL_INFO);
-            dbg("admin", "unmuted", getAuthor(targetid), amount);
+            dbg("admin", "unmuted", getAuthor(targetid), time);
         }
     });
 };
-acmd("mute", mute);
+acmd("mute", newmute);
 
 /**
  * Unmute player
@@ -124,7 +126,7 @@ acmd("unmute", unmute);
 function newban(...) {
     local playerid  = vargv[0].tointeger();
     if(vargv.len() < 4){
-        return msg(playerid, "USE: /nban target time reason")
+        return msg(playerid, "USE: /ban targetid time reason")
     }
     local targetid = vargv[1].tointeger();
     local time = vargv[2].tointeger();
@@ -331,4 +333,45 @@ function ban(playerid, targetid, ...) {
     });
 };
 //acmd("ban", ban);
+*/
+/**
+ * Mute player for a period of time
+ * Usage:
+ *     /mute 0
+ *     /mute 0 150
+ *     /mute 1 150 spam, flood
+ */
+/*
+function mute(playerid, targetid, ...) {
+    local targetid = toInteger(targetid);
+    local amount   = vargv.len() ? toInteger(vargv.pop()) : null;
+    local reason   = concat(vargv);
+
+    if (targetid == null || !isPlayerConnected(targetid)) {
+        return msg(playerid, "You should provide playerid of connected player you want to mute", CL_ERROR);
+    }
+
+    if (amount == null || amount < 1) {
+        amount = DEFAULT_PLAYER_MUTE_TIME;
+    }
+
+    if (!reason) {
+        reason = "inappropriate behavior";
+    }
+
+    setPlayerMuted(targetid, true);
+    msg(targetid, format("[SERVER] You has been muted on: %d seconds, for: %s.", amount, reason), CL_RED);
+    msg(playerid, format("You've muted %s on: %d seconds, for: %s.", getPlayerName(targetid), amount, reason), CL_SUCCESS);
+    dbg("admin", "muted", getAuthor(targetid), amount);
+
+    // unmute
+    return delayedFunction(amount * 1000, function() {
+        if (isPlayerMuted(targetid)) {
+            setPlayerMuted(targetid, false);
+            msg(targetid, "[SERVER] You has been unmuted", CL_INFO);
+            dbg("admin", "unmuted", getAuthor(targetid), amount);
+        }
+    });
+};
+acmd("mute", mute);
 */
