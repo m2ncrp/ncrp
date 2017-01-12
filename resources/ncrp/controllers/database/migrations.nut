@@ -194,3 +194,9 @@ migrate(function(query, type) {
 migrate(function(query, type) {
     query("ALTER TABLE tbl_policetickets ADD COLUMN `who` VARCHAR(255) NOT NULL DEFAULT '';");
 });
+
+//12.01.2017
+//added banOwner in bans table
+migrate(function(query, type) {
+    query("ALTER TABLE adm_bans ADD COLUMN `banowner` VARCHAR(255) NOT NULL DEFAULT '';");
+});

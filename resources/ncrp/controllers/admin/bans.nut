@@ -224,7 +224,7 @@ function newban(...) {
     }
 
     local bantime = time*60;
-    Ban(getAccountName(targetid), getPlayerSerial(targetid), bantime, reason).save();
+    Ban( getAccountName(playerid), getAccountName(targetid), getPlayerSerial(targetid), bantime, reason).save();
 
     freezePlayer( targetid, true );
 
