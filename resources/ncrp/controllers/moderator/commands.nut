@@ -16,3 +16,16 @@ acmd("getmlvl", function(playerid, targetid = null) {
     targetid = targetid.tointeger();
     msg(playerid, format("Игрок '%s' | Уровень - '%i'.",getPlayerName(targetid),players[targetid].mlvl),CL_RED);
 });
+
+cmd("h",function(playerid, ...) {
+    if(vargv.len() < 1){
+        return msg(playerid, "USE: /h text")
+    }
+    local text = concat(vargv);
+    foreach (id, value in players) {
+        if(players[id].mlvl > 0)
+        {
+            msg(id, "[question] " + getAuthor( playerid ) + ": " + text, CL_INFO);
+        }
+    }
+});
