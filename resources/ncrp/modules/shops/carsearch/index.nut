@@ -35,7 +35,6 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
                         });
                     }
                 }
-                subMoneyToPlayer(playerid, FINDCAR_COST);
                 msg(playerid, "shops.findcar.found", CL_WAXFLOWER);
                 msg(playerid, "shops.findcar.seemap");
 
