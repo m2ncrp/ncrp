@@ -167,6 +167,9 @@ function ban(playerid, targetid, ...) {
         reason = "inappropriate behavior";
     }
 
+    local dbgban = format("[BAN] time: %i reason: %s ", time,reason);
+    return log(dbgban);
+
     // save the ban
     Ban(getAccountName(targetid), getPlayerSerial(targetid), time, reason).save();
 
@@ -197,7 +200,63 @@ function ban(playerid, targetid, ...) {
         dbg("admin", "kicked", getAuthor(targetid), "banned");
     });
 };
-acmd("ban", ban);
+//acmd("ban", ban);
+
+/**
+ * Ban player
+ * Usage:
+ *     /ban target time(minutes) reason
+ * EG:
+ * /ban 10 20 noob (ban player with id 10 on 20 minutes for reason 'noob')
+ */
+
+function newban(...) {
+    local playerid  = vargv[0].tointeger();
+    if(vargv.len() < 4){
+        return msg(playerid, "USE: /nban target time reason")
+    }
+    local targetid = vargv[1].tointeger();
+    local time = vargv[2].tointeger();
+
+    local reason = "";
+    for(local i = 3; i < vargv.len(); i++) reason = reason+" "+vargv[i]; //get ban reason
+
+    if (targetid == null || !isPlayerConnected(targetid)) {
+        return msg(playerid, "You should provide playerid of connected player you want to ban", CL_ERROR);
+    }
+
+    local bantime = time*60;
+    Ban(getAccountName(targetid), getPlayerSerial(targetid), bantime, reason).save();
+
+    freezePlayer( targetid, true );
+
+    if (isPlayerInVehicle(targetid)) {
+        stopPlayerVehicle(targetid);
+        removePlayerFromVehicle(targetid);
+    }
+
+    // remove player from players array (disabling chats and stuff)
+    removePlayer(targetid, reason);
+    dbg("admin", "banned", getAuthor(targetid), bantime, reason);
+
+    // move player to sky
+    movePlayer(targetid, 0.0, 0.0, 150.0);
+
+    // clear chat
+    for (local i = 0; i < 12; i++) {
+        msg(targetid, "");
+    }
+
+    msg(targetid, format("[SERVER] You has been banned on: %d min. for: %s.", time, reason), CL_RED);
+    msg(playerid, format("You've banned %s for: %s on %d min.", getPlayerName(targetid), reason, time), CL_SUCCESS);
+
+    delayedFunction(5000, function () {
+        kickPlayer( targetid );
+        dbg("admin", "kicked", getAuthor(targetid), "banned");
+    });
+
+};
+acmd("ban", newban);
 
 /**
  * List current bans
