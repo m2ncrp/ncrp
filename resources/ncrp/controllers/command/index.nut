@@ -7,6 +7,16 @@ const COMMANDS_DEFAULT = "__default";
 // remap old addCommandHandler
 local old__addCommandHandler = addCommandHandler;
 
+enum CMD_LEVEL {
+    USER,
+    HELPER,
+    MODER1,
+    MODER2,
+    MODER3,
+    ADMIN,
+    SUPER_ADMIN,
+};
+
 /**
  * Register command handler for any given command name
  *     or array of command names (aliases)
@@ -22,13 +32,13 @@ local old__addCommandHandler = addCommandHandler;
  * Third argument is null by default and sholud be a function
  * if second one was an array|string
  *
- *
+ * @param  {Integer} user level to access command
  * @param  {array|string} aliases Can be string or array of strings
  * @param  {function|string|array} extensionOrCallback
  * @param  {function} callbackOrNull
  * @return {bool} true
  */
-function advancedCommand(isAdmin, aliases, extensionOrCallback, callbackOrNull = null) {
+function advancedCommand(accessLevel, aliases, extensionOrCallback, callbackOrNull = null) {
     // create storage
     local cmdnames  = [];
     local extension = [];
@@ -78,8 +88,10 @@ function advancedCommand(isAdmin, aliases, extensionOrCallback, callbackOrNull =
         trigger("onServerPlayerCommand", playerid, cmdlog);
 
         // if its admin command, and player is not admin - exit
-        if (isAdmin && !isPlayerAdmin(playerid)) {
-            return;
+        if (accessLevel != CMD_LEVEL.USER && !isPlayerAdmin(playerid)) {
+            if (getAccount(playerid).moderator < accessLevel) {
+                return;
+            }
         }
 
         // iterate over arguments
@@ -103,12 +115,12 @@ function advancedCommand(isAdmin, aliases, extensionOrCallback, callbackOrNull =
             // call registered handler
             try {
                 cursor[COMMANDS_DEFAULT].acall(args);
-                statisticsPushCommand(playerid, cmdlog, "success; acmd = " + isAdmin);
+                statisticsPushCommand(playerid, cmdlog, "success; level = " + accessLevel);
             } catch (e) {
-                statisticsPushCommand(playerid, cmdlog, "error; acmd = " + isAdmin + "; " + e);
+                statisticsPushCommand(playerid, cmdlog, "error; level = " + accessLevel + "; " + e);
             }
         } else {
-            statisticsPushCommand(playerid, cmdlog, "error; acmd = " + isAdmin);
+            statisticsPushCommand(playerid, cmdlog, "error; level = " + accessLevel);
         }
     };
 
@@ -242,14 +254,16 @@ function advancedCommand(isAdmin, aliases, extensionOrCallback, callbackOrNull =
 // default command
 function cmd(...) {
     vargv.insert(0, getroottable());
-    vargv.insert(1, false);
+    vargv.insert(1, CMD_LEVEL.USER);
     advancedCommand.acall(vargv);
 }
+
+mcmd <- advancedCommand;
 
 // admin command
 function acmd(...) {
     vargv.insert(0, getroottable());
-    vargv.insert(1, true);
+    vargv.insert(1, CMD_LEVEL.SUPER_ADMIN);
     advancedCommand.acall(vargv);
 }
 
