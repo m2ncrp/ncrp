@@ -155,9 +155,9 @@ function startServer() {
                 if (data[1] == "restart" && data[2] == "requested") {
                     try {
                         m2o.stdin.write("exit\n");
-                        setTimeout(function() {
-                            m2o = startServer();
-                        }, AUTORESTART_TIME);
+                        // setTimeout(function() {
+                        //     m2o = startServer();
+                        // }, AUTORESTART_TIME);
                     } catch (e) {
                         return channels[settings.nofitication].sendMessage("@everyone Could not write to sdtin for server restarting! Error: " + e.message);
                     }
@@ -330,9 +330,9 @@ bot.on('message', msg => {
         if (msg.content.startsWith(prefix + "restart")) {
             console.log(">>", msg.member.user.username, "reqeusted", "restart");
             m2o.stdin.write("exit\n");
-            setTimeout(function() {
-                m2o = startServer();
-            }, AUTORESTART_TIME);
+            // setTimeout(function() {
+            //     m2o = startServer();
+            // }, AUTORESTART_TIME);
             return;
         }
 
