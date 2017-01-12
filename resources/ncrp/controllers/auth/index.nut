@@ -76,7 +76,7 @@ event("onClientSuccessfulyStarted", function(playerid) {
 
             dbg("kick", "invalid unsername", getIdentity(playerid));
 
-            return delayedFunction(6000, function () {
+            return delayedFunction(12000, function () {
                 kickPlayer( playerid );
             });
         });
