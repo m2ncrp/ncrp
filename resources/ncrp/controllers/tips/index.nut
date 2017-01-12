@@ -27,7 +27,8 @@ local infoTips = [
     "tips.chatvisible"  ,
     "tips.turnlights"   ,
     "tips.dice"         ,
-    "tips.hat"
+    "tips.hat"          ,
+    "tips.carsearching"
 ];
 
 translation("en", {
@@ -57,6 +58,7 @@ translation("en", {
     "tips.turnlights"   :   "[TIPS] Z - left turn lights; X - hazard lights; C - right turn lights."
     "tips.dice"         :   "[TIPS] Use /dice for throwing dice."
     "tips.hat"          :   "[TIPS] Use /hat COUNT for pull a ball from hat, where COUNT balls in hat."
+    "tips.carsearching" :   "[TIPS] You can find all your cars by Empire Bay Car Searching Services. Phone number: 555-0000. Cost: $49.90"
     "tips.enabled"      :   "[TIPS] Tips has been enabled."
     "tips.disabled"     :   "[TIPS] Tips has been disabled."
 });
