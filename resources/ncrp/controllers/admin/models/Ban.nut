@@ -8,6 +8,7 @@ class Ban extends ORM.Entity {
         ORM.Field.String({ name = "name", value = "" }),
         ORM.Field.String({ name = "serial", value = "" }),
         ORM.Field.String({ name = "reason", value = "" }),
+        ORM.Field.String({ name = "banowner" value = ""}),
         ORM.Field.Integer({ name = "amount" }),
         ORM.Field.Integer({ name = "until" }),
         ORM.Field.Integer({ name = "created" }),
@@ -19,11 +20,12 @@ class Ban extends ORM.Entity {
         if (!vargv.len()) return;
 
         // put data
-        this.name    = vargv[0];
-        this.serial  = vargv[1];
+        this.banowner = vargv[0];
+        this.name    = vargv[1];
+        this.serial  = vargv[2];
         this.created = getTimestamp();
-        this.until   = this.created.tointeger() + (vargv[2]) ? vargv[2] : 0;
-        this.amount  = vargv[2];
-        this.reason  = vargv[3];
+        this.amount  = vargv[3];
+        this.until   = this.created.tointeger() + this.amount.tointeger();
+        this.reason  = vargv[4];
     }
 }
