@@ -10,11 +10,11 @@ local old__addCommandHandler = addCommandHandler;
 enum CMD_LEVEL {
     USER,
     HELPER,
-    MODER1,
-    MODER2,
-    MODER3,
+    MLVL1,
+    MLVL2,
+    MLVL3,
+    GMLVL,
     ADMIN,
-    SUPER_ADMIN,
 };
 
 /**
@@ -89,7 +89,7 @@ function advancedCommand(accessLevel, aliases, extensionOrCallback, callbackOrNu
 
         // if its admin command, and player is not admin - exit
         if (accessLevel != CMD_LEVEL.USER && !isPlayerAdmin(playerid)) {
-            if (getAccount(playerid).moderator < accessLevel) {
+            if (players[playerid].mlvl < accessLevel) {
                 return;
             }
         }
@@ -263,7 +263,7 @@ mcmd <- advancedCommand;
 // admin command
 function acmd(...) {
     vargv.insert(0, getroottable());
-    vargv.insert(1, CMD_LEVEL.SUPER_ADMIN);
+    vargv.insert(1, CMD_LEVEL.ADMIN);
     advancedCommand.acall(vargv);
 }
 
