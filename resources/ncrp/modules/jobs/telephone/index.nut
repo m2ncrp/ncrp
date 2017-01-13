@@ -338,7 +338,7 @@ event("onServerStarted", function() {
         if (phone.len() == 5) {
             if (phone[4] == 2) {
                 create3DText ( phone[0], phone[1], phone[2]+0.35, "POLICE ALARM" /* localize(phone[3], [], "en") */, CL_MALIBU, 6.0);
-                create3DText ( phone[0], phone[1], phone[2]+0.20, "/police", CL_WHITE.applyAlpha(150), 0.3 );
+                create3DText ( phone[0], phone[1], phone[2]+0.20, "Press E", CL_WHITE.applyAlpha(150), 0.4 );
                 continue;
             }
         }
@@ -379,7 +379,7 @@ function getPlayerPhoneName(playerid) {
     local check = false;
     local name = null;
     foreach (key, value in telephones) {
-        if (isPlayerInValidPoint3D(playerid, value[0], value[1], value[2], 0.3)) {
+        if (isPlayerInValidPoint3D(playerid, value[0], value[1], value[2], 0.4)) {
         check = true;
         name = value[3];
         break;
