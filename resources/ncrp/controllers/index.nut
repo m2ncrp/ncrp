@@ -22,3 +22,4 @@ include("controllers/tips");
 // include("controllers/gui");
 include("controllers/objectpool");
 include("controllers/moderator");
+include("controllers/place");
