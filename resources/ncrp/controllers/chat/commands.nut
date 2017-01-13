@@ -98,7 +98,7 @@ chatcmd(["o","ooc"], function(playerid, message) {
 
     // is global chat enabled and user writing this message
     // did not disable his global chat
-    if (IS_OOC_ENABLED && !antiflood[playerid]["togooc"])
+    if (IS_OOC_ENABLED && antiflood[playerid]["togooc"])
     {
         // matybe he has some time to be antiflooded yet
         if(antiflood[playerid]["gooc"] == 0)

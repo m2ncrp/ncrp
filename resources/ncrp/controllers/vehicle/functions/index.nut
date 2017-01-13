@@ -11,6 +11,7 @@ include("controllers/vehicle/functions/fuel.nut");
 include("controllers/vehicle/functions/plates.nut");
 include("controllers/vehicle/functions/colors.nut");
 include("controllers/vehicle/functions/distance.nut");
+include("controllers/vehicle/functions/models.nut");
 
 // saving original vehicle method
 local old__createVehicle = createVehicle;
