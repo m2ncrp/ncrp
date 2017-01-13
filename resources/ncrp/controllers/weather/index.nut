@@ -1,3 +1,5 @@
+include("controllers/weather/commands.nut");
+
 /**
  * This array contains all the weathers and are ordered to fit the hour
  * Layout:

@@ -14,14 +14,14 @@ addEventHandler("onServerClientStarted", function(version) {
 
     log("creating peds");
 
-    // create peds
-    foreach (idx, data in peds) {
-        local tmp = clone(data);
-        tmp.insert(0, getroottable()); tmp.pop();
-        local ped = createPed.acall(tmp);
-        data.push(ped);
-        setPedName(ped, data[data.len() - 2]);
-    }
+    // // create peds
+    // foreach (idx, data in peds) {
+    //     local tmp = clone(data);
+    //     tmp.insert(0, getroottable()); tmp.pop();
+    //     local ped = createPed.acall(tmp);
+    //     data.push(ped);
+    //     setPedName(ped, data[data.len() - 2]);
+    // }
 
     log("peds created");
 
