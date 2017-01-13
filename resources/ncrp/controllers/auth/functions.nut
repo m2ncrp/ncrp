@@ -39,7 +39,7 @@ function setPlayerAuthBlocked(playerid, value) {
  * @return {Boolean}
  */
 function isPlayerAuthed(playerid) {
-    return (playerid in accounts && accounts[playerid] && accounts[playerid] instanceof Account && accounts[playerid].id);
+    return (playerid in accounts && accounts[playerid] && accounts[playerid] instanceof Account);
 }
 
 /**
@@ -110,7 +110,7 @@ function destroyAuthData(playerid) {
  * @return {String}
  */
 function getPlayerIp(playerid) {
-    return (playerid in baseData) ? baseData[playerid].ip : "0.0.0.0";
+    return (playerid in baseData && "ip" in baseData[playerid]) ? baseData[playerid].ip : "0.0.0.0";
 }
 
 /**
