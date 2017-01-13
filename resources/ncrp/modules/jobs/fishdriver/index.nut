@@ -58,7 +58,7 @@ const FISH_JOB_UNLOAD_Y = 98.0385;
 const FISH_JOB_UNLOAD_Z = -21.2582;
 
 const FISH_JOB_SKIN = 130;
-const FISH_JOB_SALARY = 12.0;
+const FISH_JOB_SALARY = 11.0;
 const FISH_JOB_LEVEL = 1;
       FISH_JOB_COLOR <- CL_CRUSTA;
 
@@ -307,7 +307,7 @@ function fishJobFinish( playerid ) {
     }
 
     job_fish[playerid]["fishstatus"] = false;
-    local amount = FISH_JOB_SALARY + (random(-5, 1)).tofloat();
+    local amount = FISH_JOB_SALARY + (random(-3, 1)).tofloat();
     msg( playerid, "job.fishdriver.nicejob", [getPlayerName( playerid ), amount], FISH_JOB_COLOR );
     addMoneyToPlayer(playerid, amount);
 
