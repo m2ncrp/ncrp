@@ -330,7 +330,7 @@ translation("ru", {
     "job.milkdriver.carrymilkalladdresses"              :   "[MILK] Развезите молоко по всем адресам."
     "job.milkdriver.parkmilktruck."                     :   "[MILK] Чтобы припарковать молоковоз, отправляйтесь к молочному заводу в Chinatown."
     "job.milkdriver.completemilkdelivery."              :   "[MILK] Завершите доставку молока по всем адресам."
-    "job.milkdriver.nicejob"                            :   "[MILK] Отличная работа! Вы заработали $20."
+    "job.milkdriver.nicejob"                            :   "[MILK] Отличная работа! Вы заработали $%.2f."
     "job.milkdriver.route.title"                        :   "[MILK] ========== Маршрутный лист =========="
     "job.milkdriver.route.completed"                    :   "[MILK] %d. %s - завершено"
     "job.milkdriver.route.waiting"                      :   "[MILK] %d. %s - ожидается"
