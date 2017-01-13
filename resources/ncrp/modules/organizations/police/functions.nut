@@ -293,13 +293,13 @@ function policeFindThatMotherfucker(playerid, IDorPLATE, reason) {
             local player_reason = plocalize(playerid, POLICE_TICKET_PRICELIST[reason][1]);
             local target_reason = plocalize(targetid, POLICE_TICKET_PRICELIST[reason][1]);
 
-            if (checkDistanceBtwTwoPlayersLess(playerid, targetid, POLICE_TICKET_DISTANCE)) {
+            // if (checkDistanceBtwTwoPlayersLess(playerid, targetid, POLICE_TICKET_DISTANCE)) {
                 msg(targetid, "organizations.police.ticket.givewithreason", [getAuthor(playerid), target_reason, price]);
                 msg(playerid, "organizations.police.ticket.given", [getAuthor(targetid), player_reason, price]);
-                
-                PoliceTicket( getPlayerName(targetid), POLICE_TICKET_PRICELIST[reason][1], price, "open", pos[0], pos[1], pos[2], getPlayerName(playerid))
-                    .save();
-            }
+                subMoneyToPlayer(targetid, price); // FUCK U MEMB3R
+                // PoliceTicket( getPlayerName(targetid), POLICE_TICKET_PRICELIST[reason][1], price, "open", pos[0], pos[1], pos[2], getPlayerName(playerid))
+                //     .save();
+            // }
         } else {
             getVehicleOwnerAndPinTicket(playerid, IDorPLATE, reason);
         }
