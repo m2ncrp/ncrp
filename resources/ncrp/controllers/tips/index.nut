@@ -28,6 +28,7 @@ local infoTips = [
     "tips.turnlights"   ,
     "tips.dice"         ,
     "tips.hat"          ,
+    "tips.vangel"       ,
     "tips.carsearching"
 ];
 
@@ -59,6 +60,7 @@ translation("en", {
     "tips.dice"         :   "[TIPS] Use /dice for throwing dice."
     "tips.hat"          :   "[TIPS] Use /hat COUNT for pull a ball from hat, where COUNT balls in hat."
     "tips.carsearching" :   "[TIPS] You can find all your cars by Empire Bay Car Searching Services. Phone number: 555-0000. Cost: $49.90"
+    "tips.vangel"       :   "[TIPS] You can buy clothes in Vangel's clothing store in Midtown"
     "tips.enabled"      :   "[TIPS] Tips has been enabled."
     "tips.disabled"     :   "[TIPS] Tips has been disabled."
 });
