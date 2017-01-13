@@ -14,12 +14,12 @@ local clothesPrices = [
 ];
 
 translation("en", {
-    "shops.clothesshop.gotothere"     : "If you want to buy clothes go to clothing shop Vangel's in Midtown!"
+    "shops.clothesshop.gotothere"     : "If you want to buy clothes go to Vangel's clothing store in Midtown!"
     "shops.clothesshop.money.error"   : "Sorry, you don't have enough money."
     "shops.clothesshop.selectskin"    : "You can browse clothes and their prices by press E key."
     "shops.clothesshop.list.title"    : "Select clothes you like, and proceed to buying via: /skin buy skinID"
     "shops.clothesshop.list.entry"    : " - Skin #%d, '%s'. Cost: $%.2f"
-    "shops.clothesshop.success"       : "Good choice! We look forward to welcoming you in our shop!"
+    "shops.clothesshop.success"       : "Good choice! We look forward to welcoming you in our store!"
 
     "shops.clothesshop.id4"        : "Suit with hat"
     "shops.clothesshop.id6"        : "Suit with vest and a hat"
