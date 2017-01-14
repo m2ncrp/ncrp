@@ -10,7 +10,11 @@ translation("en", {
     "shops.washstations.help.wash"          : "Wash car"
 });
 
-const SHOP_WASH_COST = 0.03;
+if (isSummer()) {
+    SHOP_WASH_COST <- 0.03;
+} else {
+    SHOP_WASH_COST <- 0.05;
+}
 
 const SHOP_WASH_3DTEXT_DRAW_DISTANCE = 35.0;
 const SHOP_WASH_RADIUS = 4.0;
