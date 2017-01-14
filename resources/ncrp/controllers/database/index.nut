@@ -64,7 +64,7 @@ addEventHandler("onScriptInit", function() {
 
 addEventHandlerEx("onServerStopped", function() {
     ::log("[database] stopping...");
-    if (IS_MYSQL_ENABLED) {
+    if (!IS_MYSQL_ENABLED) {
         connection.close();
     } else {
         mysql_close(connection);
