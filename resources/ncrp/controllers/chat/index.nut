@@ -66,9 +66,13 @@ event("native:onPlayerChat", function(playerid, message) {
 
     // reroute input to callbacks
     if (playerid in inputRequests) {
-        inputRequests[playerid](playerid, message);
+        if (inputRequests[playerid].timeout < getTimestamp()) {
+            inputRequests[playerid](playerid, message);
+            delete inputRequests[playerid];
+            return false;
+        }
+
         delete inputRequests[playerid];
-        return false;
     }
 
     // NOTE(inlife): make sure array looks exactly like the one in the client/screen.nut
@@ -93,6 +97,6 @@ event("native:onPlayerChat", function(playerid, message) {
  * @param  {Function} callback
  * @return {Boolean}
  */
-function requestUserInput(playerid, callback) {
-    return inputRequests[playerid] <- callback;
+function requestUserInput(playerid, callback, timeout = 30) {
+    return inputRequests[playerid] <- { callback = callback, timeout = (getTimestamp() + 30) };
 }
