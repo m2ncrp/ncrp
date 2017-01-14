@@ -1,4 +1,4 @@
-local platePrefixes = ["AZ", "ZX", "MV", "EB", "OI", "LA"];
+local platePrefixes = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 local plateRegistry = {};
 
 local old__setVehiclePlateText = setVehiclePlateText;
@@ -12,7 +12,10 @@ local old__getVehiclePlateText = getVehiclePlateText;
  */
 function getRandomVehiclePlate(prefix = null) {
     if (!prefix) {
-        prefix = platePrefixes[random(0, platePrefixes.len() - 1)];
+        prefix =
+            platePrefixes[random(0, platePrefixes.len() - 1)].tochar() +
+            platePrefixes[random(0, platePrefixes.len() - 1)].tochar()
+        ;
     }
 
     // generate plate text
