@@ -56,10 +56,19 @@ const SHOUT_RADIUS = 35.0;
 
 const ANTIFLOOD_GLOBAL_OOC_CHAT = 10;//10 real sec
 
+local inputRequests = {};
+
 // event handlers
 event("native:onPlayerChat", function(playerid, message) {
     if (!isPlayerLogined(playerid)) {
         return false;
+    }
+
+    // reroute input to callbacks
+    if (playerid in inputRequests) {
+        inputRequests[playerid](playerid, message);
+        delete inputRequests[playerid];
+        return;
     }
 
     // NOTE(inlife): make sure array looks exactly like the one in the client/screen.nut
@@ -75,3 +84,15 @@ event("native:onPlayerChat", function(playerid, message) {
 
     return false;
 });
+
+/**
+ * Use this method for forcing user to
+ * input some information into the chat
+ *
+ * @param  {Integer}  playerid
+ * @param  {Function} callback
+ * @return {Boolean}
+ */
+function requestUserInput(playerid, callback) {
+    return inputRequests[playerid] <- callback;
+}
