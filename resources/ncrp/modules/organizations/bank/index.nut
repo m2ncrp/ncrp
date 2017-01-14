@@ -60,6 +60,22 @@ function bankGetPlayerDeposit(playerid) {
     return formatMoney(players[playerid]["deposit"]);
 }
 
+
+function bankGetPlayerDeposit(playerid) {
+    return formatMoney(players[playerid]["deposit"]);
+}
+
+
+function canBankMoneyBeSubstracted(playerid, amount) {
+    local amount = round(fabs(amount.tofloat()), 2);
+    return (players[playerid]["deposit"] >= amount);
+}
+
+function subBankMoneyToPlayer(playerid, amount) {
+    players[playerid]["deposit"] -= amount.tofloat();
+}
+
+
 function bankAccount(playerid) {
 
     if(!bankPlayerInValidPoint( playerid )) {
