@@ -12,6 +12,7 @@ include("controllers/vehicle/functions/plates.nut");
 include("controllers/vehicle/functions/colors.nut");
 include("controllers/vehicle/functions/distance.nut");
 include("controllers/vehicle/functions/models.nut");
+include("controllers/vehicle/functions/dirt.nut");
 
 // saving original vehicle method
 local old__createVehicle = createVehicle;
@@ -45,6 +46,7 @@ createVehicle = function(modelid, x, y, z, rx, ry, rz) {
             front = -1,
             rear  = -1
         },
+        dirt = 0.0,
         state = false,
         fuel = getDefaultVehicleFuel(vehicleid),
     };
