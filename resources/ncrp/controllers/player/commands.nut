@@ -28,7 +28,7 @@ acmd(["die"], function( playerid, targetid = null ) {
     setPlayerHealth( targetid.tointeger(), 0.0 );
 });
 
-acmd("skin", function(playerid, id) {
+acmd("askin", function(playerid, id) {
     setPlayerModel(playerid, id.tointeger(), true);
 });
 
