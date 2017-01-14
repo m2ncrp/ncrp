@@ -95,27 +95,38 @@ chatcmd(["b"], function(playerid, message) {
 
 // global nonRP chat
 chatcmd(["o","ooc"], function(playerid, message) {
-    if(IS_OOC_ENABLED){
-        if(antiflood[playerid]["gooc"] == 0){
 
+    // is global chat enabled and user writing this message
+    // did not disable his global chat
+    if (IS_OOC_ENABLED && antiflood[playerid]["togooc"])
+    {
+        // matybe he has some time to be antiflooded yet
+        if(antiflood[playerid]["gooc"] == 0)
+        {
+            // send message to all enabled chat
             foreach (targetid, value in players) {
                 if (antiflood[targetid]["togooc"]) {
-                    msg(targetid, "[OOC] " + getAuthor3( playerid ) + ": " + message, CL_GRAY);
+                    msg(targetid, "[Global OOC] " + getAuthor3( playerid ) + ": " + message, CL_GRAY);
                 }
             }
 
+            // statistics
+            statisticsPushMessage(playerid, message, "ooc_");
             antiflood[playerid]["gooc"] = ANTIFLOOD_GLOBAL_OOC_CHAT;
         }
         else {
             msg(playerid, "antiflood.message", antiflood[playerid]["gooc"], CL_LIGHTWISTERIA);
         }
     }
-    else{
-        msg(playerid, "admin.oocDisabled.message",CL_LIGHTWISTERIA);
+    else {
+        // msg(playerid, "admin.oocDisabled.message",CL_LIGHTWISTERIA);
+        // forward to /b
+        inRadiusSendToAll(playerid, format("[OOC] %s: (( %s ))", getAuthor3( playerid ), message), NORMAL_RADIUS, CL_GRAY);
+
+        // statistics
+        statisticsPushMessage(playerid, message, "non-rp-local");
     }
 
-    // statistics
-    statisticsPushMessage(playerid, message, "ooc");
 });
 
 chatcmd(["me"], function(playerid, message) {

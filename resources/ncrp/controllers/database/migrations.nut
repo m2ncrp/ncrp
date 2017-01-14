@@ -172,7 +172,7 @@ migrate(function(query, type) {
         foreach (idx2, vehicle in data.vehicles) {
             if (character.name == vehicle.owner) {
                 vehicle.ownerid = character.id;
-                vehicle.owner   = character.getName();
+                // vehicle.owner   = character.getName();
                 vehicle.save();
             }
         }
@@ -181,7 +181,7 @@ migrate(function(query, type) {
         foreach (idx2, business in data.businesses) {
             if (character.name == business.owner) {
                 business.ownerid = character.id;
-                business.owner   = character.getName();
+                // business.owner   = character.getName();
                 business.save();
             }
         }
@@ -194,3 +194,16 @@ migrate(function(query, type) {
 migrate(function(query, type) {
     query("ALTER TABLE tbl_policetickets ADD COLUMN `who` VARCHAR(255) NOT NULL DEFAULT '';");
 });
+
+//12.01.2017
+//added owner in bans table
+migrate(function(query, type) {
+    query("ALTER TABLE adm_bans ADD COLUMN `owner` VARCHAR(255) NOT NULL DEFAULT '';");
+});
+
+//12.01.2017
+//added moderator lvl in character table
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_characters ADD COLUMN `mlvl` INT(255) NOT NULL DEFAULT 0;");
+});
+

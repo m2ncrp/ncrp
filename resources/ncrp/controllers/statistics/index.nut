@@ -42,6 +42,12 @@ function statisticsPushText(type, playerid, content, additional = "") {
 
 function statisticsPushMessage(playerid, message, type = "") {
     dbg("chat", type, getIdentity(playerid), message);
+
+    // special handling for gamechat
+    if (type == "ooc_") {
+        dbg("chat", "ooc", getAuthor(playerid), message);
+    }
+
     return statisticsPushText("message", playerid, message, type);
 }
 

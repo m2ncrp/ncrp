@@ -36,7 +36,7 @@ function setDangerLevel(playerid, to) {
  * @param  {int} playerid
  */
 function getPoliceJob(playerid) {
-/*
+
     if( isOfficer(playerid) ) {
         return msg(playerid, "organizations.police.alreadyofficer");
     }
@@ -44,7 +44,7 @@ function getPoliceJob(playerid) {
     if (isPlayerHaveJob(playerid)) {
         return msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid));
     }
-*/
+
     // set first rank
     setPlayerJob( playerid, setPoliceRank(playerid, 0) );
     //policeSetOnDuty(playerid, false);
@@ -262,6 +262,10 @@ function getVehicleOwnerAndPinTicket(playerid, plateTxt, reason) {
                 return msg(playerid, "Distance too large");
             }
             local owner = (getVehicleOwner(vehicleid) ? getVehicleOwner(vehicleid) : "");
+            local player_reason = plocalize(playerid, key);
+
+            msg(playerid, "organizations.police.ticket.given", [plateTxt, player_reason, price]);
+
             PoliceTicket( owner, key, price, "open", pos[0], pos[1], pos[2], getPlayerName(playerid))
                 .save();
             return owner;
@@ -289,13 +293,13 @@ function policeFindThatMotherfucker(playerid, IDorPLATE, reason) {
             local player_reason = plocalize(playerid, POLICE_TICKET_PRICELIST[reason][1]);
             local target_reason = plocalize(targetid, POLICE_TICKET_PRICELIST[reason][1]);
 
-            if (checkDistanceBtwTwoPlayersLess(playerid, targetid, POLICE_TICKET_DISTANCE)) {
+            // if (checkDistanceBtwTwoPlayersLess(playerid, targetid, POLICE_TICKET_DISTANCE)) {
                 msg(targetid, "organizations.police.ticket.givewithreason", [getAuthor(playerid), target_reason, price]);
                 msg(playerid, "organizations.police.ticket.given", [getAuthor(targetid), player_reason, price]);
-                
-                PoliceTicket( getPlayerName(targetid), POLICE_TICKET_PRICELIST[reason][1], price, "open", pos[0], pos[1], pos[2])
-                    .save();
-            }
+                subMoneyToPlayer(targetid, price); // FUCK U MEMB3R
+                // PoliceTicket( getPlayerName(targetid), POLICE_TICKET_PRICELIST[reason][1], price, "open", pos[0], pos[1], pos[2], getPlayerName(playerid))
+                //     .save();
+            // }
         } else {
             getVehicleOwnerAndPinTicket(playerid, IDorPLATE, reason);
         }
@@ -352,15 +356,15 @@ function baton( playerid ) {
 
         if ( isBothInRadius(playerid, targetid, BATON_RADIUS) ) {
             trigger("onBatonBitStart", playerid);
-            screenFadeinFadeout(targetid, 1000, function() {
+            screenFadeinFadeout(targetid, 1500, function() {
                 msg( playerid, "organizations.police.bitsomeone.bybaton", [getAuthor(targetid)] );
                 msg( targetid, "organizations.police.beenbit.bybaton" );
-                if ( getPlayerState(targetid) == "free" ) {
+                if ( players[targetid].state == "free" ) {
                     setPlayerToggle( targetid, true );
                     setPlayerState(targetid, "tased");
                 }
             }, function() {
-                if ( getPlayerState(targetid) == "tased" ) {
+                if ( players[targetid].state == "tased" ) {
                     setPlayerToggle( targetid, false );
                     setPlayerState(targetid, "free");
                 }
@@ -384,14 +388,14 @@ function cuff(playerid) {
         }
 
         if ( isBothInRadius(playerid, targetid, CUFF_RADIUS) ) {
-            if ( getPlayerState(targetid) == "tased" ) {
+            if ( players[targetid].state == "tased" ) {
                 setPlayerToggle( targetid, true ); // cuff dat bitch
                 setPlayerState(targetid, "cuffed");
                 msg(targetid, "organizations.police.beencuffed", [getAuthor( playerid )]);
                 msg(playerid, "organizations.police.cuff.someone", [getAuthor( targetid )]);
                 return;
             }
-            if ( getPlayerState(targetid) == "cuffed" ) {
+            if ( players[targetid].state == "cuffed" ) {
                 setPlayerToggle( targetid, false ); // uncuff him...
                 setPlayerState(targetid, "free");
                 msg(targetid, "organizations.police.cuff.beenuncuffed", [getAuthor( playerid )] );
@@ -405,7 +409,7 @@ function cuff(playerid) {
 
 
 function putInJail(playerid, targetid) {
-    if ( isOnPoliceDuty(playerid) && getPlayerState(targetid) == "cuffed" ) {
+    if ( isOnPoliceDuty(playerid) && players[targetid].state == "cuffed" ) {
         setPlayerState(targetid, "jail");
         setPlayerToggle(targetid, false);
         screenFadeinFadeoutEx(targetid, 250, 200, function() {

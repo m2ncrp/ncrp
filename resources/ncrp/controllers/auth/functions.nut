@@ -1,10 +1,6 @@
 /**
  * Storage for our sessions
  * no direct acess
- *
- * for access from remote resources use:
- *     Account.getSession(playerid, callback)
- *     Account.addSession(playerid)
  */
 local accounts = {};
 local baseData = {};
@@ -43,7 +39,7 @@ function setPlayerAuthBlocked(playerid, value) {
  * @return {Boolean}
  */
 function isPlayerAuthed(playerid) {
-    return (playerid in accounts);
+    return (playerid in accounts && accounts[playerid] && accounts[playerid] instanceof Account);
 }
 
 /**
@@ -71,6 +67,15 @@ function getAccountId(playerid) {
  */
 function getAccount(playerid) {
     return (isPlayerAuthed(playerid) ? accounts[playerid] : null);
+}
+
+/**
+ * Add account to session
+ * @param {Integer} playerid
+ * @param {Account} account
+ */
+function addAccount(playerid, account) {
+    return accounts[playerid] <- account;
 }
 
 /**
@@ -105,7 +110,7 @@ function destroyAuthData(playerid) {
  * @return {String}
  */
 function getPlayerIp(playerid) {
-    return (playerid in baseData) ? baseData[playerid].ip : "0.0.0.0";
+    return (playerid in baseData && "ip" in baseData[playerid]) ? baseData[playerid].ip : "0.0.0.0";
 }
 
 /**
@@ -115,7 +120,7 @@ function getPlayerIp(playerid) {
  * @return {String}
  */
 function getPlayerLocale(playerid) {
-    if (playerid in accounts) {
+    if (isPlayerAuthed(playerid)) {
         return accounts[playerid].locale;
     }
 
@@ -133,7 +138,7 @@ function getPlayerLocale(playerid) {
  * @return {String}
  */
 function setPlayerLocale(playerid, locale = "en") {
-    if (playerid in accounts) {
+    if (isPlayerAuthed(playerid)) {
         accounts[playerid].locale = locale;
         accounts[playerid].save();
         return true;
@@ -215,20 +220,20 @@ function showRegisterGUI(playerid) {
 /**
  * Cross resource handling
  */
-event("__networkRequest", function(request) {
-    local data = request.data;
+// event("__networkRequest", function(request) {
+//     local data = request.data;
 
-    // we are working with current resource
-    if (!("destination" in data) || data.destination != "auth") return;
+//     // we are working with current resource
+//     if (!("destination" in data) || data.destination != "auth") return;
 
-    if (data.method == "getSession") {
-        Response({result = data.id in accounts ? accounts[data.id] : null}, request).send();
-    }
+//     if (data.method == "getSession") {
+//         Response({result = data.id in accounts ? accounts[data.id] : null}, request).send();
+//     }
 
-    if (data.method == "addSession") {
-        accounts[data.id] <- data.object;
-    }
-});
+//     if (data.method == "addSession") {
+//         accounts[data.id] <- data.object;
+//     }
+// });
 
 event("onPlayerConnectInit", function(playerid, username, ip, serial) {
     // save base data
@@ -239,6 +244,8 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
         serial = serial,
         locale = "ru"
     };
+
+    accounts[playerid] <- null;
 });
 
 

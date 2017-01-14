@@ -4,9 +4,9 @@
 //     }
 // });
 
-// acmd("weatherCustom", function(playerid, weather) {
-//     setWeather(weather);
-// });
+acmd("weather", function(playerid, weather) {
+    setWeather(weather);
+});
 
 
 // acmd("season", function(playerid, season) {
