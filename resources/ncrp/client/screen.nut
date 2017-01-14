@@ -343,4 +343,6 @@ addEventHandler("onClientScriptInit", function() {
     if (!microticker) {
         microticker = timer(onEvery10ms, 10, -1);
     }
+
+    triggerServerEvent("onClientSuccessfulyStarted");
 });

@@ -51,7 +51,7 @@ const FUEL_JOB_Y = -266.866;
 const FUEL_JOB_Z = -20.1644;
 const FUEL_JOB_SKIN = 144;
 const FUEL_JOB_DISTANCE = 75;
-const FUEL_JOB_SALARY = 35.0;
+const FUEL_JOB_SALARY = 24.0;
 const FUEL_JOB_WAREHOUSE_X = 788.288;
 const FUEL_JOB_WAREHOUSE_Y = -78.0801;
 const FUEL_JOB_WAREHOUSE_Z = -20.0379;
@@ -416,8 +416,9 @@ function fuelJobPark ( playerid ) {
 
     job_fuel[playerid]["fuelcomplete"] = 0;
     job_fuel[playerid]["fuelstatus"] <- [false, false, false, false, false, false, false, false];
-    msg( playerid, "job.fueldriver.nicejob", FUEL_JOB_SALARY, FUEL_JOB_COLOR );
-    addMoneyToPlayer(playerid, FUEL_JOB_SALARY);
+    local amount = FUEL_JOB_SALARY + (random(-5, 1)).tofloat();
+    msg( playerid, "job.fueldriver.nicejob", amount, FUEL_JOB_COLOR );
+    addMoneyToPlayer(playerid, amount);
 
     // clear all marks
     clearFuelJobStationMarks( playerid );

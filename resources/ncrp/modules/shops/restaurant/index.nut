@@ -6,10 +6,11 @@ const MAX_HEALTH = 800.0;
 
 translation("en", {
     "shops.restaurant.toofar"               : "[INFO] You're too far."
-    // "shops.restaurant.diner.eat.success"    : "You've spend $%.2f on diner.",
-    // "shops.restaurant.bar.drink.success"    : "You've spend $%.2f for beer."
-    "shops.restaurant.diner.eat.success"    : "You've eaten some food (free)."
-    "shops.restaurant.bar.drink.success"    : "You've drunk some beer (free)."
+    "shops.restaurant.money.notenough"      : "Not enough money to buy that."
+    "shops.restaurant.diner.eat.success"    : "You've spend $%.2f on diner."
+    "shops.restaurant.bar.drink.success"    : "You've spend $%.2f for beer."
+    // "shops.restaurant.diner.eat.success"    : "You've eaten some food (free)."
+    // "shops.restaurant.bar.drink.success"    : "You've drunk some beer (free)."
 });
 
 /**
@@ -18,6 +19,7 @@ translation("en", {
  * @return {[type]}          [description]
  */
 function onEating(playerid) {
+    subMoneyToPlayer(playerid, EAT_COST);
     msg(playerid, "shops.restaurant.diner.eat.success", [EAT_COST], CL_SUCCESS);
     return setPlayerHealth(playerid, MAX_HEALTH);
 }
@@ -25,7 +27,10 @@ function onEating(playerid) {
 function eat(playerid) {
     local bid = getBusinessNearPlayer(playerid);
     if ( getBusinessType(bid) == 1 ) {
-        return onEating(playerid);
+        if (canMoneyBeSubstracted(playerid, EAT_COST)) {
+            return onEating(playerid);
+        }
+        return msg(playerid, "shops.restaurant.money.notenough"); // !
     } else {
         return msg(playerid, "shops.restaurant.toofar");
     }
@@ -38,6 +43,7 @@ function eat(playerid) {
  * @return {[type]}          [description]
  */
 function onDrinking(playerid) {
+    subMoneyToPlayer(playerid, DRINK_COST);
     msg(playerid, "shops.restaurant.bar.drink.success", [DRINK_COST], CL_SUCCESS);
     return setPlayerHealth(playerid, MAX_HEALTH);
 }
@@ -45,7 +51,10 @@ function onDrinking(playerid) {
 function drink(playerid) {
     local bid = getBusinessNearPlayer(playerid);
     if ( getBusinessType(bid) == 2 ) {
-        return onDrinking(playerid);
+        if (canMoneyBeSubstracted(playerid, DRINK_COST)) {
+            return onDrinking(playerid);
+        }
+        return msg(playerid, "shops.restaurant.money.notenough"); // !        
     } else {
         return msg(playerid, "shops.restaurant.toofar");
     }

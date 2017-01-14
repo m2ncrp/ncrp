@@ -95,13 +95,15 @@ function dumpTranslation(lang) {
  */
 function localize(value, params = [], language = "en") {
     if (language in __translations && value in __translations[language]) {
+        local args = clone(params);
+
         // insert params
-        params.insert(0, getroottable());
-        params.insert(1, __translations[language][value]);
+        args.insert(0, getroottable());
+        args.insert(1, __translations[language][value]);
 
         // format and return
         try {
-            return format.acall(params);
+            return format.acall(args);
         } catch (e) {
             ::print("[error][translation] cannot format output value by tag: " + value + "\n");
             return value;

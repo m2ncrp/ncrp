@@ -40,7 +40,12 @@ function removePlayer(playerid, reason = "") {
  * @return {String}
  */
 function getIdentity(playerid) {
-    return playerid >= 0 ? format("id: %d, character: %s, account: %s", playerid, getPlayerName(playerid), getAccountName(playerid)) : "unloaded";
+    try {
+        return playerid >= 0 ? format("id: %d, account: %s, character: %s", playerid.tointeger(), getAccountName(playerid).tostring(), getPlayerName(playerid).tostring()) : "unloaded";
+    }
+    catch (e) {
+        return "cannot format identity for playerid: " + playerid;
+    }
 }
 
 /**
@@ -73,10 +78,10 @@ function setPlayerToggle(playerid, to) {
 
 
 function getPlayerState(playerid) {
-    return playerid in players ? players[playerid]["state"] : "free";
+    return playerid in players ? players[playerid].state : "free";
 }
 
 function setPlayerState(playerid, to) {
-    players[playerid]["state"] = to;
+    players[playerid].state = to;
     trigger("onPlayerStateChange", playerid);
 }

@@ -9,100 +9,100 @@ local telephones = [
 2 - police alarm
 
  */
-    [ -1021.87, 1643.44, 10.6318    , "telephone0"   ],
-    [ -562.58, 1521.96, -16.1836    , "telephone1"   ],
-    [ -310.62, 1694.98, -22.3772    , "telephone2"   ],
-    [ -747.386, 1762.67, -15.0237   , "telephone3"   ],
-    [ -724.814, 1647.21, -14.9223   , "telephone4"   ],
-    [ -724.914, 1645.24, -14.9223   , "telephone5"   ],
-    [ -1200.2, 1675.75, 11.3337     , "telephone6"   ],
-    [ -1436.35, 1676.01, 6.14958    , "telephone7"   ],
-    [ -1520.38, 1592.71, -6.04848   , "telephone8"   ],
-    [ -1038.5, 1368.65, -13.5484    , "telephone9"   ],
-    [ -1037.4, 1368.55, -13.5485    , "telephone10"  ],
-    [ -1033.41, 1398.75, -13.5597   , "telephone11"  ],
-    [ -903.212, 1412.57, -11.3637   , "telephone12"  ],
-    [ -1170.64, 1578.32, 5.84166    , "telephone13"  ],
-    [ -1297.43, 1491.66, -6.07104   , "telephone14"  ],
-    [ -1297.38, 1492.68, -6.07106   , "telephone15"  ],
-    [ -1229.36, 1457.89, -4.88868   , "telephone16"  ],
-    [ -1228.24, 1457.91, -4.85487   , "telephone17"  ],
-    [ -1046.37, 1429.04, -4.3155    , "telephone18"  ],
-    [ -1047.67, 1429.08, -4.31618   , "telephone19"  ],
-    [ -952.956, 1485.89, -4.74223   , "telephone20"  ],
-    [ -1654.7, 1142.97, -7.10701    , "telephone21"  ],
-    [ -1471.25, 1124.4, -11.7355    , "telephone22"  ],
-    [ -1187.1, 1276.32, -13.5484    , "telephone23"  ],
-    [ -1187.13, 1275.15, -13.5485   , "telephone24"  ],
-    [ -1579.08, 940.472, -5.19268   , "telephone25"  ],
-    [ -1416.07, 935.317, -13.6497   , "telephone26"  ],
-    [ -1342.85, 1017.48, -17.6025   , "telephone27"  ],
-    [ -1339.04, 916.051, -18.4358   , "telephone28"  ],
-    [ -1344.78, 796.552, -14.6407   , "telephone29"  ],
-    [ -1562.11, 527.842, -20.1475   , "telephone30"  ],
-    [ -1712.73, 688.218, -10.2715   , "telephone31"  ],
-    [ -1639.46, 382.508, -19.5393   , "telephone32"  ],
-    [ -1559.83, 170.441, -13.267    , "telephone33"  ],
-    [ -1401.38, 218.989, -24.7309   , "telephone34"  ],
-    [ -1649.2, 65.497, -9.2241      , "telephone35"  ],
-    [ -1777.09, -78.2523, -7.52374  , "telephone36"  ],
-    [ -1421.37, -191.312, -20.3051  , "telephone37"  ],
-    [ 139.144, 1226.56, 62.8896     , "telephone38"  ],
-    [ -508.56, 910.732, -19.0552    , "telephone39"  ],
-    [ -646.39, 923.879, -18.8975    , "telephone40"  ],
-    [ -736.363, 832.825, -18.8975   , "telephone41"  ],
-    [ -736.459, 831.573, -18.8976   , "telephone42"  ],
-    [ -622.139, 815.393, -18.8975   , "telephone43"  ],
-    [ -733.445, 691.414, -17.3997   , "telephone44"  ],
-    [ -377.095, 794.644, -20.125    , "telephone45"  ],
-    [ -375.991, 794.554, -20.125    , "telephone46"  ],
-    [ -405.618, 913.88, -19.9786    , "telephone47"  ],
-    [ -156.412, 770.867, -20.733    , "telephone48"  ],
-    [ -8.69882, 625.297, -19.9222   , "telephone49"  ],
-    [ -31.2744, 658.517, -20.1292   , "telephone50"  ],
-    [ -123.964, 553.446, -20.2038   , "telephone51"  ],
-    [ 35.6793, 563.377, -19.3029    , "telephone52"  ],
-    [ 63.6219, 417.433, -13.9426    , "telephone53"  ],
-    [ -6.95174, 381.727, -13.9651   , "telephone54"  ],
-    [ 112.527, 847.265, -19.911     , "telephone55"  ],
-    [ 257.777, 825.8, -20.001       , "telephone56"  ],
-    [ 612.138, 845.592, -12.6475    , "telephone57"  ],
-    [ 385.573, 680.05, -24.8659     , "telephone58"  ],
-    [ 285.979, 612.951, -24.5618    , "telephone59"  ],
-    [ 250.089, 494.022, -20.0461    , "telephone60"  ],
-    [ 436.909, 391.101, -20.1926    , "telephone61"  ],
-    [ 332.423, 232.168, -21.5327    , "telephone62"  ],
-    [ 331.261, 232.113, -21.5326    , "telephone63"  ],
-    [ 383.722, -111.622, -6.62286   , "telephone64"  ],
-    [ 618.075, 32.9697, -18.2669    , "telephone65"  ],
-    [ 747.702, 7.96036, -19.4605    , "telephone66"  ],
-    [ 500.901, -265.225, -20.1588   , "telephone67"  ],
-    [ 282.829, -388.466, -20.1362   , "telephone68"  ],
-    [ 49.447, -456.087, -20.1363    , "telephone69"  ],
-    [ -147.15, -596.099, -20.125    , "telephone70"  ],
-    [ -315.458, -406.552, -14.393   , "telephone71"  ],
-    [ -315.519, -407.59, -14.4268   , "telephone72"  ],
-    [ -427.784, -307.159, -11.7241  , "telephone73"  ],
-    [ 70.7739, -275.54, -20.1476    , "telephone74"  ],
-    [ -68.1265, -199.786, -14.3818  , "telephone75"  ],
-    [ -208.821, -45.6546, -12.0169  , "telephone76"  ],
-    [ 29.1469, 34.0267, -12.5575    , "telephone77"  ],
-    [ 68.3763, 237.33, -15.9921     , "telephone78"  ],
-    [ 67.1935, 237.317, -15.9921    , "telephone79"  ],
-    [ -78.6167, 233.374, -14.4043   , "telephone80"  ],
-    [ -578.792, -481.143, -20.1363  , "telephone81"  ],
-    [ -191.072, 165.4, -10.5756     , "telephone82"  ],
-    [ -584.818, 89.3622, -0.215257  , "telephone83"  ],
-    [ -655.417, 236.77, 1.0432      , "telephone84"  ],
-    [ -515.485, 449.502, 0.971977   , "telephone85"  ],
-    [ -653.472, 555.425, 1.04811    , "telephone86"  ],
-    [ -373.309, 487.793, 1.05809    , "telephone87"  ],
-    [ -373.36, 488.971, 1.05808     , "telephone88"  ],
-    [ -353.737, 592.724, 1.05806    , "telephone89"  ],
-    [ -469.515, 571.311, 1.04652    , "telephone90"  ],
-    [ -470.609, 571.31, 1.04651     , "telephone91"  ],
-    [ -408.296, 631.616, -12.3661   , "telephone92"  ],
-    [ -264.414, 678.893, -19.9448   , "telephone93"  ],
+    [ -1021.87, 1643.44, 10.6318    , "telephone0"   , 0],
+    [ -562.58, 1521.96, -16.1836    , "telephone1"   , 0],
+    [ -310.62, 1694.98, -22.3772    , "telephone2"   , 0],
+    [ -747.386, 1762.67, -15.0237   , "telephone3"   , 0],
+    [ -724.814, 1647.21, -14.9223   , "telephone4"   , 0],
+    [ -724.914, 1645.24, -14.9223   , "telephone5"   , 0],
+    [ -1200.2, 1675.75, 11.3337     , "telephone6"   , 0],
+    [ -1436.35, 1676.01, 6.14958    , "telephone7"   , 0],
+    [ -1520.38, 1592.71, -6.04848   , "telephone8"   , 0],
+    [ -1038.5, 1368.65, -13.5484    , "telephone9"   , 0],
+    [ -1037.4, 1368.55, -13.5485    , "telephone10"  , 0],
+    [ -1033.41, 1398.75, -13.5597   , "telephone11"  , 0],
+    [ -903.212, 1412.57, -11.3637   , "telephone12"  , 0],
+    [ -1170.64, 1578.32, 5.84166    , "telephone13"  , 0],
+    [ -1297.43, 1491.66, -6.07104   , "telephone14"  , 0],
+    [ -1297.38, 1492.68, -6.07106   , "telephone15"  , 0],
+    [ -1229.36, 1457.89, -4.88868   , "telephone16"  , 0],
+    [ -1228.24, 1457.91, -4.85487   , "telephone17"  , 0],
+    [ -1046.37, 1429.04, -4.3155    , "telephone18"  , 0],
+    [ -1047.67, 1429.08, -4.31618   , "telephone19"  , 0],
+    [ -952.956, 1485.89, -4.74223   , "telephone20"  , 0],
+    [ -1654.7, 1142.97, -7.10701    , "telephone21"  , 0],
+    [ -1471.25, 1124.4, -11.7355    , "telephone22"  , 0],
+    [ -1187.1, 1276.32, -13.5484    , "telephone23"  , 0],
+    [ -1187.13, 1275.15, -13.5485   , "telephone24"  , 0],
+    [ -1579.08, 940.472, -5.19268   , "telephone25"  , 0],
+    [ -1416.07, 935.317, -13.6497   , "telephone26"  , 0],
+    [ -1342.85, 1017.48, -17.6025   , "telephone27"  , 0],
+    [ -1339.04, 916.051, -18.4358   , "telephone28"  , 0],
+    [ -1344.78, 796.552, -14.6407   , "telephone29"  , 0],
+    [ -1562.11, 527.842, -20.1475   , "telephone30"  , 0],
+    [ -1712.73, 688.218, -10.2715   , "telephone31"  , 0],
+    [ -1639.46, 382.508, -19.5393   , "telephone32"  , 0],
+    [ -1559.83, 170.441, -13.267    , "telephone33"  , 0],
+    [ -1401.38, 218.989, -24.7309   , "telephone34"  , 0],
+    [ -1649.2, 65.497, -9.2241      , "telephone35"  , 0],
+    [ -1777.09, -78.2523, -7.52374  , "telephone36"  , 0],
+    [ -1421.37, -191.312, -20.3051  , "telephone37"  , 0],
+    [ 139.144, 1226.56, 62.8896     , "telephone38"  , 0],
+    [ -508.56, 910.732, -19.0552    , "telephone39"  , 0],
+    [ -646.39, 923.879, -18.8975    , "telephone40"  , 0],
+    [ -736.363, 832.825, -18.8975   , "telephone41"  , 0],
+    [ -736.459, 831.573, -18.8976   , "telephone42"  , 0],
+    [ -622.139, 815.393, -18.8975   , "telephone43"  , 0],
+    [ -733.445, 691.414, -17.3997   , "telephone44"  , 0],
+    [ -377.095, 794.644, -20.125    , "telephone45"  , 0],
+    [ -375.991, 794.554, -20.125    , "telephone46"  , 0],
+    [ -405.618, 913.88, -19.9786    , "telephone47"  , 0],
+    [ -156.412, 770.867, -20.733    , "telephone48"  , 0],
+    [ -8.69882, 625.297, -19.9222   , "telephone49"  , 0],
+    [ -31.2744, 658.517, -20.1292   , "telephone50"  , 0],
+    [ -123.964, 553.446, -20.2038   , "telephone51"  , 0],
+    [ 35.6793, 563.377, -19.3029    , "telephone52"  , 0],
+    [ 63.6219, 417.433, -13.9426    , "telephone53"  , 0],
+    [ -6.95174, 381.727, -13.9651   , "telephone54"  , 0],
+    [ 112.527, 847.265, -19.911     , "telephone55"  , 0],
+    [ 257.777, 825.8, -20.001       , "telephone56"  , 0],
+    [ 612.138, 845.592, -12.6475    , "telephone57"  , 0],
+    [ 385.573, 680.05, -24.8659     , "telephone58"  , 0],
+    [ 285.979, 612.951, -24.5618    , "telephone59"  , 0],
+    [ 250.089, 494.022, -20.0461    , "telephone60"  , 0],
+    [ 436.909, 391.101, -20.1926    , "telephone61"  , 0],
+    [ 332.423, 232.168, -21.5327    , "telephone62"  , 0],
+    [ 331.261, 232.113, -21.5326    , "telephone63"  , 0],
+    [ 383.722, -111.622, -6.62286   , "telephone64"  , 0],
+    [ 618.075, 32.9697, -18.2669    , "telephone65"  , 0],
+    [ 747.702, 7.96036, -19.4605    , "telephone66"  , 0],
+    [ 500.901, -265.225, -20.1588   , "telephone67"  , 0],
+    [ 282.829, -388.466, -20.1362   , "telephone68"  , 0],
+    [ 49.447, -456.087, -20.1363    , "telephone69"  , 0],
+    [ -147.15, -596.099, -20.125    , "telephone70"  , 0],
+    [ -315.458, -406.552, -14.393   , "telephone71"  , 0],
+    [ -315.519, -407.59, -14.4268   , "telephone72"  , 0],
+    [ -427.784, -307.159, -11.7241  , "telephone73"  , 0],
+    [ 70.7739, -275.54, -20.1476    , "telephone74"  , 0],
+    [ -68.1265, -199.786, -14.3818  , "telephone75"  , 0],
+    [ -208.821, -45.6546, -12.0169  , "telephone76"  , 0],
+    [ 29.1469, 34.0267, -12.5575    , "telephone77"  , 0],
+    [ 68.3763, 237.33, -15.9921     , "telephone78"  , 0],
+    [ 67.1935, 237.317, -15.9921    , "telephone79"  , 0],
+    [ -78.6167, 233.374, -14.4043   , "telephone80"  , 0],
+    [ -578.792, -481.143, -20.1363  , "telephone81"  , 0],
+    [ -191.072, 165.4, -10.5756     , "telephone82"  , 0],
+    [ -584.818, 89.3622, -0.215257  , "telephone83"  , 0],
+    [ -655.417, 236.77, 1.0432      , "telephone84"  , 0],
+    [ -515.485, 449.502, 0.971977   , "telephone85"  , 0],
+    [ -653.472, 555.425, 1.04811    , "telephone86"  , 0],
+    [ -373.309, 487.793, 1.05809    , "telephone87"  , 0],
+    [ -373.36, 488.971, 1.05808     , "telephone88"  , 0],
+    [ -353.737, 592.724, 1.05806    , "telephone89"  , 0],
+    [ -469.515, 571.311, 1.04652    , "telephone90"  , 0],
+    [ -470.609, 571.31, 1.04651     , "telephone91"  , 0],
+    [ -408.296, 631.616, -12.3661   , "telephone92"  , 0],
+    [ -264.414, 678.893, -19.9448   , "telephone93"  , 0],
 
     [ -352.354, -726.13, -15.4204   , "telephone94"  , 1],
     [ 81.3677, 892.368, -13.3204    , "telephone95"  , 1],
@@ -317,6 +317,7 @@ translation("en", {
 
 local numbers = [
     "0192", //car rental
+    "0000"
     //"1863", // Tires and Rims
 ];
 
@@ -324,19 +325,20 @@ local numbers = [
 
 event("onServerStarted", function() {
     log("[jobs] loading telephone services job and telephone system...");
+/*
     local ets1 = createVehicle(31, -1066.02, 1483.81, -3.79657, -90.8055, -1.36482, -0.105954);   // telephoneCAR1
     local ets2 = createVehicle(31, -1076.38, 1483.81, -3.51025, -89.5915, -1.332, -0.0857111);   // telephoneCAR2
     setVehicleColor(ets1, 102, 70, 18, 63, 36, 7);
     setVehicleColor(ets2, 102, 70, 18, 63, 36, 7);
     setVehiclePlateText(ets1, "ETS-01");
     setVehiclePlateText(ets2, "ETS-02");
-
+*/
     //creating public 3dtext
     foreach (phone in telephones) {
         if (phone.len() == 5) {
             if (phone[4] == 2) {
                 create3DText ( phone[0], phone[1], phone[2]+0.35, "POLICE ALARM" /* localize(phone[3], [], "en") */, CL_MALIBU, 6.0);
-                create3DText ( phone[0], phone[1], phone[2]+0.20, "/police", CL_WHITE.applyAlpha(150), 0.3 );
+                create3DText ( phone[0], phone[1], phone[2]+0.20, "Press E", CL_WHITE.applyAlpha(150), 0.4 );
                 continue;
             }
         }
@@ -375,16 +377,18 @@ function phoneJobRemovePrivateBlipText ( phone ) {
 
 function getPlayerPhoneName(playerid) {
     local check = false;
-    local name = null;
+    local obj = null;
     foreach (key, value in telephones) {
-        if (isPlayerInValidPoint3D(playerid, value[0], value[1], value[2], 0.3)) {
+        if (isPlayerInValidPoint3D(playerid, value[0], value[1], value[2], 0.4)) {
         check = true;
-        name = value[3];
+        //name = value[3];
+        obj = value;
         break;
         }
     }
     if(check) {
-        return plocalize(playerid, name);
+        return obj;
+        //return plocalize(playerid, name);
     } else {
         return false;
     }
@@ -396,7 +400,7 @@ function phoneFindNearest( playerid ) {
     local phoneid = null;
     foreach (key, value in telephones) {
         local distance = getDistanceBetweenPoints2D( pos.x, pos.y, value[0], value[1] );
-        if (distance < dis && value.len() == 4) {
+        if (distance < dis && value[4] == 0) {
            dis = distance;
            phoneid = key;
         }
@@ -429,9 +433,16 @@ function goToPhone(playerid, phoneid) {
 }
 
 
-function callByPhone (playerid, number = null) {
-    local place = getPlayerPhoneName(playerid);
-    if (place == false) {
+function callByPhone (playerid, number = null, isbind = false) {
+    local budka = getPlayerPhoneName(playerid);
+    local type = (budka) ? budka[4] : false;
+
+    //dbg(budka+", "+type+", "+isbind);
+    if ((budka == false && isbind == true) || (isbind == true && type != 2)) {
+        return;
+    }
+
+    if (budka == false || (isbind == false && type == 2)) {
         msg(playerid, "telephone.needphone");
         showBlipNearestPhoneForPlayer ( playerid );
         return;
@@ -442,7 +453,7 @@ function callByPhone (playerid, number = null) {
     }
 
     if(number == "taxi" || number == "police") {
-        return trigger("onPlayerPhoneCall", playerid, number, place);
+        return trigger("onPlayerPhoneCall", playerid, number, plocalize(playerid, budka[3]));
     }
 
     local number = str_replace("555-", "", number);
@@ -454,7 +465,7 @@ function callByPhone (playerid, number = null) {
                 if (num == number) { check = true; }
             }
             if(check) {
-                trigger("onPlayerPhoneCall", playerid, number, place);
+                trigger("onPlayerPhoneCall", playerid, number, plocalize(playerid, budka[3]));
             } else {
                 msg(playerid, "telephone.notregister");
             }

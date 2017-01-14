@@ -9,7 +9,7 @@ acmd("police", "danger", function(playerid, level) {
 acmd("a", ["police", "job"], function(playerid, targetid) {
     local targetid = targetid.tointeger();
     getPoliceJob(targetid);
-    msg(playerid, "organizations.police.setjob.byadmin", [ getAuthor(targetid), getLocalizedPlayerJob(targetid) ] );
+    msg(playerid, "organizations.police.setjob.byadmin", [ getAuthor(targetid), getLocalizedPlayerJob(playerid) ] );
     dbg( "[POLICE JOIN]" + getAuthor(playerid) + " add " + getAuthor(targetid) + "to Police" );
 });
 
@@ -17,7 +17,7 @@ acmd("a", ["police", "job"], function(playerid, targetid) {
 // usage: /police job leave <id>
 acmd("a", ["police", "job", "leave"], function(playerid, targetid) {
     local targetid = targetid.tointeger();
-    msg(playerid, "organizations.police.leavejob.byadmin", [ getAuthor(targetid), getLocalizedPlayerJob(targetid) ]);
+    msg(playerid, "organizations.police.leavejob.byadmin", [ getAuthor(targetid), getLocalizedPlayerJob(playerid) ]);
     dbg( "[POLICE LEAVE]" + getAuthor(playerid) + " remove " + getAuthor(targetid) + "from Police" );
     leavePoliceJob(targetid);
 });
@@ -209,7 +209,7 @@ policecmd(["r", "radio"], function(playerid, text) {
     }
 
     // Enhaincment: loop through not players, but police vehicles with radio has on
-    foreach (targetid in playerList.getPlayers()) {
+    foreach (targetid, player in players) {
         if ( (isOfficer(targetid) && isPlayerInPoliceVehicle(targetid)) || isPlayerAdmin(targetid) ) {
             msg( targetid, "[POLICE RADIO] " + getAuthor(playerid) + ": " + text, CL_ROYALBLUE );
         }
@@ -217,7 +217,7 @@ policecmd(["r", "radio"], function(playerid, text) {
 });
 
 
-policecmd("rupor", function(playerid, text) {
+policecmd("m", function(playerid, text) {
     if ( !isOfficer(playerid) ) {
         return;
     }
@@ -258,7 +258,7 @@ key(["g"], function(playerid) {
         return msg( playerid, "organizations.police.duty.off" );
     }
     baton(playerid);
-}, KEY_UP);
+});
 
 
 // cuff nearest stunned player
@@ -275,19 +275,19 @@ key(["v"], function(playerid) {
         return msg( playerid, "organizations.police.duty.off" );
     }
     cuff(playerid);
-}, KEY_UP);
-
-
-local function policetestitout(playerid, targetid, vehid) {
-    putPlayerInVehicle(targetid, vehid, 1);
-    setPlayerToggle(playerid, false);
-}
-
-acmd(["transport", "suspect"], function(playerid, targetid) {
-    targetid = targetid.tointeger();
-    local veh = getPlayerVehicle(playerid);
-    policetestitout(playerid, targetid, veh);
 });
+
+
+// local function policetestitout(playerid, targetid, vehid) {
+//     putPlayerInVehicle(targetid, vehid, 1);
+//     setPlayerToggle(playerid, false);
+// }
+
+// acmd(["transport", "suspect"], function(playerid, targetid) {
+//     targetid = targetid.tointeger();
+//     local veh = getPlayerVehicle(playerid);
+//     policetestitout(playerid, targetid, veh);
+// });
 
 // put nearest cuffed player in jail
 cmd(["prison", "jail"], function(playerid, targetid) {
@@ -303,6 +303,10 @@ cmd(["amnesty"], function(playerid, targetid) {
 });
 
 
+key("e", function(playerid) {
+    __commands["call"][COMMANDS_DEFAULT](playerid, "police", true);
+});
+
 function policeHelp(playerid, a = null, b = null) {
     msg( playerid, "organizations.police.info.howjoin" );
     local title = "organizations.police.info.cmds.helptitle";
@@ -313,7 +317,7 @@ function policeHelp(playerid, a = null, b = null) {
         { name = "/police duty off",            desc = "organizations.police.info.cmds.dutyoff"},
         { name = "/r TEXT",                     desc = "organizations.police.info.cmds.ratio"},
         { name = "/rupor TEXT",                 desc = "organizations.police.info.cmds.rupor"},
-        { name = "/ticket ID AMOUNT REASON",    desc = "organizations.police.info.cmds.ticket" },
+        { name = "/ticket ID REASON",           desc = "organizations.police.info.cmds.ticket" },
         { name = "G button",                    desc = "organizations.police.info.cmds.baton" },
         { name = "V button",                    desc = "organizations.police.info.cmds.cuff" },
         { name = "/prison ID",                  desc = "organizations.police.info.cmds.prison" },

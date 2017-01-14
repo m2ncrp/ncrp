@@ -40,6 +40,8 @@ translation("ru", {
     "tips.turnlights"   :   "[TIPS] Z - левый поворотник; X - аварийка; C - правый поворотник."
     "tips.dice"         :   "[TIPS] Чтобы бросить кубик, используйте: /dice"
     "tips.hat"          :   "[TIPS] /hat X - вытащить из шляпы один шар из X шаров."
+    "tips.carsearching" :   "[TIPS] Забыли, где оставили свой автомобиль? Мы найдём его! Скорее звони: 555-0000. Стоимость: $49.90"
+    "tips.vangel"       :   "[TIPS] Пора обновить гардерод? Ателье Вэнджела в Мидтауне ждёт Вас!"
     "tips.enabled"      :   "[TIPS] Подсказки были включены."
     "tips.disabled"     :   "[TIPS] Подсказки были выключены."
 
@@ -64,6 +66,7 @@ translation("ru", {
     "auth.notification"     : "[AUTH] Вам нужно войти в свой аккаунт используя /login ваш_пароль, или создать новый через /register ваш_пароль"
     "auth.error.tomany"     : "[AUTH] Вы достигли лимита по количеству аккаунтов."
     "auth.error.email"      : "Такой email адрес уже используется!"
+    "auth.client.notloaded" : "Кажется ваши клиен-скрипты не прогрузились. Попробуйте переподключиться!"
 
     "auth.GUI.TitleRegister"            : "Регистрация"
     "auth.GUI.TitleLabelRegister"       : "Регистрация нового аккаунта. Заполните поля ниже:"
@@ -96,6 +99,7 @@ translation("ru", {
     "chat.player.message.private"   : "[PM] %s пишет %s: %s"
     "chat.player.try.end.success"   : "[TRY] %s попытался %s (успех)."
     "chat.player.try.end.fail"      : "[TRY] %s попытался %s (провал)."
+    "chat.player.message.noplayer"  : "[PM] Такого игрока нет на сервере.",
 
     "chat.bug.success"              : "[BUG] Ваше сообщение об ошибке успешно отправлено. Спасибо! ;)"
     "chat.idea.success"             : "[IDEA] Ваша идея успешно отправлена!"
@@ -326,7 +330,7 @@ translation("ru", {
     "job.milkdriver.carrymilkalladdresses"              :   "[MILK] Развезите молоко по всем адресам."
     "job.milkdriver.parkmilktruck."                     :   "[MILK] Чтобы припарковать молоковоз, отправляйтесь к молочному заводу в Chinatown."
     "job.milkdriver.completemilkdelivery."              :   "[MILK] Завершите доставку молока по всем адресам."
-    "job.milkdriver.nicejob"                            :   "[MILK] Отличная работа! Вы заработали $20."
+    "job.milkdriver.nicejob"                            :   "[MILK] Отличная работа! Вы заработали $%.2f."
     "job.milkdriver.route.title"                        :   "[MILK] ========== Маршрутный лист =========="
     "job.milkdriver.route.completed"                    :   "[MILK] %d. %s - завершено"
     "job.milkdriver.route.waiting"                      :   "[MILK] %d. %s - ожидается"
@@ -612,7 +616,7 @@ translation("ru", {
     "metro.help.sub"                    : "Аналог /subway id"
     "metro.help.metro"                  : "Аналог /subway id"
 
-    "metro.station.nearest.showblip"    : "[SUBWAY] Ближайшая станция (%s) отмечена на карте жёлтым маркером."
+    "metro.station.nearest.showblip"    : "[МЕТРО] Ближайшая станция (%s) отмечена на карте жёлтым маркером."
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
@@ -717,7 +721,7 @@ translation("ru", {
     "organizations.police.info.cmds.helptitle"  : "Список команд, доступных офицерам полиции:"
     "organizations.police.info.cmds.ratio"      : "Сказать что-либо в полицейскую рацию"
     "organizations.police.info.cmds.rupor"      : "Сказать что-либо в рупор служебной машины"
-    "organizations.police.info.cmds.ticket"     : "Выдать штраф игроку с указанным id. Пример: /ticket 0 2.1 превышение скорости"
+    "organizations.police.info.cmds.ticket"     : "Выдать штраф игроку с указанным id. Пример: /ticket 0 1 или /ticket LA-132 1"
     "organizations.police.info.cmds.baton"      : "Обездвижить ближайшего игрока"
     "organizations.police.info.cmds.cuff"       : "Надеть наручники на ближайшего оглушенного игрока или снять их"
     "organizations.police.info.cmds.prison"     : "Посадить игрока с указанным id в тюрьму"
@@ -766,6 +770,24 @@ translation("ru", {
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
+    "shops.clothesshop.gotothere"     : "Если вы хотите купить одежду, отправляйтесь в магазин одежды Vangel's в Мидтауне!"
+    "shops.clothesshop.money.error"   : "К сожалению, у вас недостаточно денег."
+    "shops.clothesshop.selectskin"    : "Вы можете посмотреть одежду и цены на неё, нажав клавишу E."
+    "shops.clothesshop.list.title"    : "Выберите одежду, которая вам нравится, и купите её, используя: /skin buy skinID"
+    "shops.clothesshop.list.entry"    : " - Модель #%d, '%s'. Цена: $%.2f"
+    "shops.clothesshop.success"       : "Отличный выбор! Ждём Вас снова в нашем магазине!"
+
+    "shops.clothesshop.id4"        : "Костюм с шляпой"
+    "shops.clothesshop.id6"        : "Костюм с жилеткой и шляпой"
+    "shops.clothesshop.id10"       : "Повседневная одежда"
+    "shops.clothesshop.id48"       : "Костюм азиатский"
+    "shops.clothesshop.id74"       : "Костюм"
+    "shops.clothesshop.id90"       : "Светлое пальто с шляпой"
+    "shops.clothesshop.id91"       : "Чёрный плащ с шляпой"
+    "shops.clothesshop.id92"       : "Чёрное пальто"
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
     "shops.fuelstations.toofar"             : "Вы слишком далеко от заправки!"
     "shops.fuelstations.farfromvehicle"     : "Вы находитесь не у автомобиля."
     "shops.fuelstations.stopyourmoves"      : "Остановите автомобиль, чтобы заправиться."
@@ -791,6 +813,7 @@ translation("ru", {
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
     "shops.restaurant.toofar"               : "[INFO] Вы слишком далеко."
+    "shops.restaurant.money.notenough"      : "У вас недостаточно денег для оплаты."
     "shops.restaurant.diner.eat.success"    : "Вы потратили $%.2f на еду."
     "shops.restaurant.bar.drink.success"    : "Вы потратили $%.2f на пиво."
 
@@ -805,6 +828,15 @@ translation("ru", {
     "shops.washstations.help.wash"          : "Помыть автомобиль"
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+    "shops.findcar.hello"  : "[ЗВОНОК] Empire Bay Car Searching Services. Мы найдём ваш автомобиль. Услуга стоит $%.2f."
+    "shops.findcar.wait"   : "Идёт поиск... Пожалуйста, подождите..."
+    "shops.findcar.found"  : "[ЗВОНОК] Мы нашли все ваши автомобили. Благодарим за выбор Empire Bay Car Searching Services."
+    "shops.findcar.seemap" : "Метки всех ваших автомобилей отмечены на карте в течение 90 секунд."
+    "shops.findcar.nomoney" : "[ЗВОНОК] К сожалению, у вас недостаточно денег. До свидания."
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
 
     "help.chat"        : "Показать список команд для чата"
     "help.subway"      : "Показать список команд для метро"
@@ -912,7 +944,7 @@ translation("ru", {
     "error.title"               : "Ошибка!"
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
-    "character.invalid.rpname"      : "Ваш персонаж был создан с\nнеправильным (Нон-РП) именем.\nОн будет удален. Пожалуйста,\nпересоздайте персонажа следуя правилам."
+    "character.invalid.rpname"      : "Ваш персонаж был создан с неправильным (Нон-РП) именем. Он будет удален. Пожалуйста, пересоздайте персонажа следуя правилам."
     "character.doesnotexist"        : "Персонаж с указанными данными\nне существует."
     "character.alreadymigrated"     : "Указанный персонаж уже\nбыл мигрирован."
     "character.limitexceeded"       : "Вы не можете создавать\nбольше персонажей."

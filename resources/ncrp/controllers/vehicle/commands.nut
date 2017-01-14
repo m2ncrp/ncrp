@@ -43,6 +43,21 @@ acmd("paint", function(playerid, red, green, blue) {
     setVehicleColour(getPlayerVehicle(playerid), r, g, b, r, g, b);
 });
 
+acmd("p", function(playerid, r1 = 0, g1 = 0, b1 = 0, r2 = 0, g2 = 0, b2 = 0) {
+    local r1 = min(r1.tointeger(), 255);
+    local g1 = min(g1.tointeger(), 255);
+    local b1 = min(b1.tointeger(), 255);
+    local r2 = min(r2.tointeger(), 255);
+    local g2 = min(g2.tointeger(), 255);
+    local b2 = min(b2.tointeger(), 255);
+
+    if (!isPlayerInVehicle(playerid)) {
+        return;
+    }
+
+    setVehicleColour(getPlayerVehicle(playerid), r1, g1, b1, r2, g2, b2);
+});
+
 cmd("engine", "on", function(playerid) {
     local vehicleid = getPlayerVehicle( playerid );
 

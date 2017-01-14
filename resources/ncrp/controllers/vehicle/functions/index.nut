@@ -11,6 +11,8 @@ include("controllers/vehicle/functions/fuel.nut");
 include("controllers/vehicle/functions/plates.nut");
 include("controllers/vehicle/functions/colors.nut");
 include("controllers/vehicle/functions/distance.nut");
+include("controllers/vehicle/functions/models.nut");
+include("controllers/vehicle/functions/dirt.nut");
 
 // saving original vehicle method
 local old__createVehicle = createVehicle;
@@ -44,6 +46,7 @@ createVehicle = function(modelid, x, y, z, rx, ry, rz) {
             front = -1,
             rear  = -1
         },
+        dirt = 0.0,
         state = false,
         fuel = getDefaultVehicleFuel(vehicleid),
     };
@@ -73,6 +76,25 @@ setVehicleWheelTexture = function(vehicleid, wheel, textureid) {
 
         // call native
         return old__setVehicleWheelTexture(vehicleid, wheel, textureid);
+    }
+}
+
+/**
+ * Remove player vehicle from database
+ * @param  {Integer} vehicleid
+ * @return {Boolean}
+ */
+function removePlayerVehicle(vehicleid) {
+    if (vehicleid in __vehicles) {
+        dbg("removing player vehicle from database", getVehiclePlateText(vehicleid));
+        if (__vehicles[vehicleid].entity) {
+            __vehicles[vehicleid].entity.remove();
+            delete __vehicles[vehicleid];
+        }
+
+        destroyVehicle(vehicleid);
+
+        return true;
     }
 }
 

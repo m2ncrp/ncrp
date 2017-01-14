@@ -7,16 +7,13 @@ const path      = require('path');
 
 const bot = new Discord.Client();
 
+// bot.user.setGame("TSOEB | M2O");
+
 // the token of your bot - https://discordapp.com/developers/applications/me
 const token = 'MjYxNDcwMDcxNTY0NTMzNzYx.Cz1Y6g.WGYSbl5vCRjJQQUvVq6ns2PUDdE';
 const AUTORESTART_TIME = 5000;
 
-let restarts = [
-    [05, 45],
-    [11, 45],
-    [17, 45],
-    [23, 45],
-];
+let restarts = [];
 
 let settings = {
     // player chats
@@ -62,7 +59,9 @@ bot.on('ready', () => {
 function checkAutorestart() {
     var date = new Date();
 
-    for (var i = restarts.length - 1; i >= 0; i--) {
+    for (var i = 0; i < restarts.length; i++) {
+        if (!restarts[i]) continue;
+
         if (restarts[i][0] == date.getHours() && restarts[i][1] == date.getMinutes()) {
             if (m2o && m2o.stdin.writable) {
                 m2o.stdin.write("sq planServerRestart(-1)\n");
@@ -77,6 +76,13 @@ function checkAutorestart() {
 let m2o = startServer();
 
 function startServer() {
+    restarts = [
+        [02, 45],
+        [08, 45],
+        [14, 45],
+        [20, 45],
+    ];
+
     let server;
     let errorlog = [];
     started = true;
@@ -89,11 +95,11 @@ function startServer() {
     }, 5000);
 
     if (process.platform == "darwin") {
-        // do noting
+        // do nothing
     } else if (process.platform == "win32") {
         server = spawn(path.join(__dirname, "m2online-svr.exe"));
     } else {
-        server = spawn("/usr/bin/wine", [path.join(__dirname, "m2online-svr.exe")]);
+        server = spawn(path.join(__dirname, "m2online-svr"));
     }
 
     server.on('error', (err) => {
@@ -149,9 +155,9 @@ function startServer() {
                 if (data[1] == "restart" && data[2] == "requested") {
                     try {
                         m2o.stdin.write("exit\n");
-                        setTimeout(function() {
-                            m2o = startServer();
-                        }, AUTORESTART_TIME);
+                        // setTimeout(function() {
+                        //     m2o = startServer();
+                        // }, AUTORESTART_TIME);
                     } catch (e) {
                         return channels[settings.nofitication].sendMessage("@everyone Could not write to sdtin for server restarting! Error: " + e.message);
                     }
@@ -231,7 +237,7 @@ function startServer() {
 
         if (code != 0) {
              channels[settings.console].sendMessage("@everyone server has crashed, auto-restarting!");
-             channels[settings.notifcation].sendMessage("@everyone server has crashed, auto-restarting!");
+             channels[settings.nofitication].sendMessage("@everyone server has crashed, auto-restarting!");
 
             setTimeout(function() {
                 m2o = startServer();
@@ -324,9 +330,9 @@ bot.on('message', msg => {
         if (msg.content.startsWith(prefix + "restart")) {
             console.log(">>", msg.member.user.username, "reqeusted", "restart");
             m2o.stdin.write("exit\n");
-            setTimeout(function() {
-                m2o = startServer();
-            }, AUTORESTART_TIME);
+            // setTimeout(function() {
+            //     m2o = startServer();
+            // }, AUTORESTART_TIME);
             return;
         }
 
