@@ -34,7 +34,7 @@ translation("en", {
 
 
 
-key(["e"], function(playerid) {
+key("e", function(playerid) {
 
     if(!isPlayerInValidPoint(playerid, CLOTHES_SHOP_X, CLOTHES_SHOP_Y, CLOTHES_SHOP_DISTANCE)) {
         //return msg( playerid, "job.docker.letsgo", DOCKER_JOB_COLOR );

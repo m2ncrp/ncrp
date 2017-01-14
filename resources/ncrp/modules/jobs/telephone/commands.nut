@@ -1,5 +1,5 @@
-cmd("call", function(playerid, number = null) {
-    callByPhone (playerid, number);
+cmd("call", function(playerid, number = null, isbind = false) {
+    callByPhone (playerid, number, isbind);
 });
 
 acmd("gotophone", function(playerid, phoneid) {
