@@ -68,7 +68,7 @@ event("native:onPlayerChat", function(playerid, message) {
     if (playerid in inputRequests) {
         inputRequests[playerid](playerid, message);
         delete inputRequests[playerid];
-        return;
+        return false;
     }
 
     // NOTE(inlife): make sure array looks exactly like the one in the client/screen.nut
