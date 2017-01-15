@@ -118,7 +118,7 @@ cmd("police", ["set", "rank"], function(playerid, targetid, rank) {
 });
 
 
-cmd("police", "danger", function(playerid, level) {
+cmd("police", ["danger"], function(playerid, level) {
     if ( getPoliceRank(playerid) == POLICE_MAX_RANK ) {
         setDangerLevel(playerid, level);
     }
