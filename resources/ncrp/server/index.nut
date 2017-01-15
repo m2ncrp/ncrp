@@ -132,10 +132,7 @@ event("native:onPlayerConnect", function(playerid, name, ip, serial) {
 
     if (!IS_AUTHORIZATION_ENABLED || DEBUG) {
         setLastActiveSession(playerid);
-
-        delayedFunction(100, function() {
-            trigger("onPlayerConnectInit", playerid, name, ip, serial);
-        });
+        trigger("onPlayerConnectInit", playerid, name, ip, serial);
     } else {
         trigger("onPlayerConnectInit", playerid, name, ip, serial);
     }
@@ -176,7 +173,7 @@ proxy("onPlayerTeleportRequested",  "onPlayerTeleportRequested"         );
 proxy("onClientDebugToggle",        "onClientDebugToggle"               );
 proxy("onClientSendFPSData",        "onClientSendFPSData"               );
 proxy("onPlayerPlaceEnter",         "native:onPlayerPlaceEnter"         );
-proxy("onPlayerPlaceExit",          "native:onPlayerPlaceEexit"         );
+proxy("onPlayerPlaceExit",          "native:onPlayerPlaceExit"          );
 proxy("onPlayerCharacterCreate",    "onPlayerCharacterCreate"           );
 proxy("onPlayerCharacterSelect",    "onPlayerCharacterSelect"           );
 proxy("onClientSuccessfulyStarted", "onClientSuccessfulyStarted"        );

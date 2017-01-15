@@ -2,6 +2,7 @@
     <!-- Server side scripts -->
     <script type="server">index.nut</script>
 
+
     <!-- Client side scripts -->
     <script type="client">3dtext.nut</script>
     <script type="client">blip.nut</script>
@@ -16,19 +17,19 @@
     <script type="client">other.nut</script>
     <script type="client">character.nut</script>
     <script type="client">nametags.nut</script>
+    <script type="client">place.nut</script>
 
-
-   <!-- <script type="client">carshop.nut</script> -->
+    <!-- <script type="client">carshop.nut</script> -->
+    <!-- <script type="client">bus.nut</script> -->
+    <!-- <script type="client">extrasync.nut</script> -->
+    <!-- <script type="client">bank.nut</script> -->
 
     <!-- special for Lincoln_Anelo -->
     <!-- <script type="client">screamer.nut</script> -->
     <!-- special for Lincoln_Anelo -->
 
 
-    <!-- <script type="client">bus.nut</script> -->
-    <!-- <script type="client">extrasync.nut</script> -->
 
-    <!-- <script type="client">bank.nut</script> -->
     <!-- Client files -->
     <!-- <file>screamer.jpg</file> -->
     <file>logo.png</file>

@@ -196,7 +196,14 @@ migrate(function(query, type) {
 });
 
 //12.01.2017
-//added banOwner in bans table
+//added owner in bans table
 migrate(function(query, type) {
     query("ALTER TABLE adm_bans ADD COLUMN `owner` VARCHAR(255) NOT NULL DEFAULT '';");
 });
+
+//12.01.2017
+//added moderator lvl in character table
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_characters ADD COLUMN `mlvl` INT(255) NOT NULL DEFAULT 0;");
+});
+

@@ -26,7 +26,7 @@ translation("en", {
 "job.milkdriver.carrymilkalladdresses"              : "[MILK] Carry milk to all addresses."
 "job.milkdriver.parkmilktruck."                     : "[MILK] Go to the milk filling station to park the milk truck."
 "job.milkdriver.completemilkdelivery."              : "[MILK] Complete milk delivery to all addresses."
-"job.milkdriver.nicejob"                            : "[MILK] Nice job! You earned $20."
+"job.milkdriver.nicejob"                            : "[MILK] Nice job! You earned $%.2f."
 "job.milkdriver.route.title"                        : "[MILK] ========== List of route =========="
 "job.milkdriver.route.completed"                    : "[MILK] %d. %s - completed"
 "job.milkdriver.route.waiting"                      : "[MILK] %d. %s - waiting"
@@ -58,7 +58,7 @@ const MILK_JOB_SKIN = 171;
 const MILK_JOB_DISTANCE = 100;
 const MILK_JOB_NUMBER_STATIONS = 6;
 const MILK_JOB_LEVEL = 1;
-const MILK_JOB_SALARY = 18.0;
+const MILK_JOB_SALARY = 17.0;
       MILK_JOB_COLOR <- CL_CRUSTA;
 
 local milkname = [
@@ -404,8 +404,8 @@ function milkJobPark ( playerid ) {
     job_milk[playerid]["milkcomplete"] = 0;
     job_milk[playerid]["milkready"] = false;
     job_milk[playerid]["milkstatus"] <- [false, false, false, false, false, false];
-    msg( playerid, "job.milkdriver.nicejob", MILK_JOB_COLOR );
     local amount = MILK_JOB_SALARY;
+    msg( playerid, "job.milkdriver.nicejob", amount, MILK_JOB_COLOR );
     addMoneyToPlayer(playerid, amount);
 
     // clear all marks

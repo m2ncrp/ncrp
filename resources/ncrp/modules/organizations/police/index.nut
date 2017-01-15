@@ -41,7 +41,7 @@ translation("en", {
 
     "organizations.police.call.withoutaddress"  : "You can't call police without address.",
     "organizations.police.call.new"             : "[POLICE RADIO] There's situation on %s",
-    "organizations.police.call.foruser"         : "You've called police from %s",
+    "organizations.police.call.foruser"         : "You've called police from %s.",
 
     "organizations.police.lawbreak.warning"     : "defiance",
     "organizations.police.lawbreak.trafficviolation" : "traffic violation",
