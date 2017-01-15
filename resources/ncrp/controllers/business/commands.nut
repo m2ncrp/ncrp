@@ -44,6 +44,14 @@ acmd("biz", ["set", "owner"], function(playerid, id, ownerid) {
     }
 });
 
+acmd("biz", ["set", "place"], function(playerid, id) {
+    if (setBusinessPosition(id, getPlayerPositionObj(playerid))) {
+        msg(playerid, "You've set business #" + id + " position on the map");
+    } else {
+        msg(playerid, "No business found by id " + id);
+    }
+})
+
 acmd("bizc", function(playerid, type, price, income, ...) {
     local pos = getPlayerPosition(playerid);
     local id  = createBusiness(pos[0], pos[1], pos[2], "Default", type.tointeger());
