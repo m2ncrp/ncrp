@@ -41,7 +41,7 @@ acmd("list", function(playerid) {
     }
 });
 
-acmd(["admin", "adm", "a"], function(playerid, ...) {
+acmd(["admin", "adm"], function(playerid, ...) {
     if(getPlayerName(playerid) == "Fernando_Fabbri"){
         return sendPlayerMessageToAll("Anonymous: " + concat(vargv), CL_MEDIUMPURPLE.r, CL_MEDIUMPURPLE.g, CL_MEDIUMPURPLE.b);
     }
