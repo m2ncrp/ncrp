@@ -3,7 +3,7 @@ translation("en", {
     "empirecustom.phone.hello"      : "[CALL] Advertising agency Empire Custom. We can help you to advertise! Cost: $%.2f."
     "empirecustom.phone.notenough"  : "[CALL] Sorry, there is not enough money on your account in bank."
     "empirecustom.phone.enter"      : "Enter text of your ad:"
-    "empirecustom.phone.help"       : "Write text on chat and send it for %d seconds. To refuse - write 0 or 'cancel'."
+    "empirecustom.phone.help"       : "Write text in chat and send it for %d seconds. To refuse - write 0 or 'cancel'."
     "empirecustom.phone.yourad"     : "Text: %s"
     "empirecustom.phone.placed"     : "[CALL] Your ad will be placed in 1 minute. Thanks for choosing Empire Custom. (hang up)"
     "empirecustom.phone.ad"         : "[AD] %s"
