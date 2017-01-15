@@ -463,13 +463,8 @@ function callByPhone (playerid, number = null, isbind = false) {
         return msg(playerid, "telephone.neednumber");
     }
 
-<<<<<<< HEAD
     if(number == "taxi" || number == "police" || number == "dispatch" ) {
-        return trigger("onPlayerPhoneCall", playerid, number, place);
-=======
-    if(number == "taxi" || number == "police") {
         return trigger("onPlayerPhoneCall", playerid, number, plocalize(playerid, budka[3]));
->>>>>>> c422ced43dd7c613e11ba16d4d7a4246413e15c3
     }
 
     local number = str_replace("555-", "", number);
