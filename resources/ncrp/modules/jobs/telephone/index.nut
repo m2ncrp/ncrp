@@ -119,6 +119,11 @@ local telephones = [
     [ 374.146, -290.937, -15.5799   , "telephone106" , 1],
     [ -161.972, -588.33, -16.1199   , "telephone107" , 1],
 
+    [ 140.695, -427.998, -19.429    , "telephone108"  ],
+    [ -1590.33, 175.591, -12.4393   , "telephone109"  ],
+    [ -1584.37, 1605.48, -5.22507   , "telephone110"  ],
+    [ -645.304, 1293.91, 3.94464    , "telephone111"  ],
+
     [-371.573,   1787.89, -23.589   , "policeAlarm1" , 2 ],
     [-1292.88,   1484.98, -6.11190  , "policeAlarm2" , 2 ],
     [-1176.64,   1457.64, -4.12012  , "policeAlarm3" , 2 ],
@@ -268,6 +273,11 @@ translation("en", {
 "telephone106" : "Oyster Bay. Marty's Apartment"
 "telephone107" : "Southport. Bruno's Office"
 
+"telephone108" : "Oyster Bay. Empire Diner"
+"telephone109" : "Sand Island. Empire Diner"
+"telephone110" : "Kingston. Empire Diner"
+"telephone111" : "Highbrook. Empire Diner"
+
 "telephone.findphone"   : "You can see nearest phone booth on radar for 15 seconds."
 "telephone.findalready" : "Nearest phone booth already displayed on radar."
 "telephone.needphone"   : "You need a telephone to call."
@@ -317,11 +327,12 @@ translation("en", {
 
 local numbers = [
     "0192", //car rental
-    "0000"
+    "0000", // searhing car services
+    "1111" // empire custom
     //"1863", // Tires and Rims
 ];
 
-
+TELEPHONE_TEXT_COLOR <- CL_WAXFLOWER;
 
 event("onServerStarted", function() {
     log("[jobs] loading telephone services job and telephone system...");
@@ -452,7 +463,7 @@ function callByPhone (playerid, number = null, isbind = false) {
         return msg(playerid, "telephone.neednumber");
     }
 
-    if(number == "taxi" || number == "police") {
+    if(number == "taxi" || number == "police" || number == "dispatch" ) {
         return trigger("onPlayerPhoneCall", playerid, number, plocalize(playerid, budka[3]));
     }
 

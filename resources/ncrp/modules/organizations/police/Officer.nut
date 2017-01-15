@@ -1,3 +1,5 @@
+
+
 class Officer {
     constructor (playerid) {
         setPlayerJob( playerid, setPoliceRank(playerid, 0) ); // set first rank

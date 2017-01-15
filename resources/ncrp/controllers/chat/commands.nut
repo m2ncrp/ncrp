@@ -22,7 +22,7 @@ event("onServerSecondChange", function() {
 
 // local chat
 chatcmd(["i", "ic", "say"], function(playerid, message) {
-    sendLocalizedMsgToAll(playerid, "chat.player.says", message, NORMAL_RADIUS, CL_YELLOW);
+    sendLocalizedMsgToAll(playerid, "chat.player.says", [getPlayerName(playerid), message], NORMAL_RADIUS, CL_YELLOW);
 
     // statistics
     statisticsPushMessage(playerid, message, "say");
@@ -30,7 +30,7 @@ chatcmd(["i", "ic", "say"], function(playerid, message) {
 
 // shout
 chatcmd(["s", "shout"], function(playerid, message) {
-    sendLocalizedMsgToAll(playerid, "chat.player.shout", message, SHOUT_RADIUS, CL_WHITE);
+    sendLocalizedMsgToAll(playerid, "chat.player.shout", [getPlayerName(playerid), message], SHOUT_RADIUS, CL_WHITE);
 
     // statistics
     statisticsPushMessage(playerid, message, "shout");
@@ -168,9 +168,9 @@ cmd("report", function(playerid, id, ...) {
 chatcmd(["try"], function(playerid, message) {
     local res = random(0,1);
     if(res)
-        sendLocalizedMsgToAll(playerid, "chat.player.try.end.success", message, NORMAL_RADIUS);
+        sendLocalizedMsgToAll(playerid, "chat.player.try.end.success", [getPlayerName(playerid), message], NORMAL_RADIUS);
     else
-        sendLocalizedMsgToAll(playerid, "chat.player.try.end.fail", message, NORMAL_RADIUS);
+        sendLocalizedMsgToAll(playerid, "chat.player.try.end.fail", [getPlayerName(playerid), message], NORMAL_RADIUS);
 
     // statistics
     statisticsPushMessage(playerid, message, "try");
@@ -259,20 +259,20 @@ key("f5", function(playerid) {
 acmd(["noooc"], function ( playerid ) {
     if(IS_OOC_ENABLED){
         IS_OOC_ENABLED = false;
-        msg_a("Общий чат был отключен администратором.",CL_LIGHTWISTERIA);
+        msg_a("admin.oocDisabled.message", CL_LIGHTWISTERIA);
     }
     else{
         IS_OOC_ENABLED = true;
-        msg_a("Общий чат был включен администратором.",CL_LIGHTWISTERIA);
+        msg_a("admin.oocEnabled.message", CL_LIGHTWISTERIA);
     }
 });
 
 chatcmd(["try"], function(playerid, message) {
     local res = random(0,1);
     if(res)
-        sendLocalizedMsgToAll(playerid, "chat.player.try.end.success", message, NORMAL_RADIUS);
+        sendLocalizedMsgToAll(playerid, "chat.player.try.end.success", [getPlayerName(playerid), message], NORMAL_RADIUS);
     else
-        sendLocalizedMsgToAll(playerid, "chat.player.try.end.fail", message, NORMAL_RADIUS);
+        sendLocalizedMsgToAll(playerid, "chat.player.try.end.fail", [getPlayerName(playerid), message], NORMAL_RADIUS);
 
     // statistics
     statisticsPushMessage(playerid, message, "try");
@@ -281,10 +281,10 @@ chatcmd(["try"], function(playerid, message) {
 cmd(["togooc"], function(playerid) {
     if(antiflood[playerid]["togooc"]){
         antiflood[playerid]["togooc"] = false;
-        msg(playerid, "Вы отключили показ ООС чата!");
+        msg(playerid, "chat.togoocDisabled");
     }
     else{
         antiflood[playerid]["togooc"] = true;
-        msg(playerid, "Вы включили показ ООС чата!");
+        msg(playerid, "chat.togoocEnabled");
     }
 });
