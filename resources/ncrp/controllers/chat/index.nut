@@ -66,7 +66,7 @@ event("native:onPlayerChat", function(playerid, message) {
 
     // reroute input to callbacks
     if (playerid in inputRequests) {
-        if (inputRequests[playerid].timeout < getTimestamp()) {
+        if (inputRequests[playerid].timeout > getTimestamp()) {
             inputRequests[playerid](playerid, message);
             delete inputRequests[playerid];
             return false;
