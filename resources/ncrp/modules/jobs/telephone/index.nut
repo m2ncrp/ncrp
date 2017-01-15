@@ -317,11 +317,12 @@ translation("en", {
 
 local numbers = [
     "0192", //car rental
-    "0000"
+    "0000", // searhing car services
+    "1111" // empire custom
     //"1863", // Tires and Rims
 ];
 
-
+TELEPHONE_TEXT_COLOR <- CL_WAXFLOWER;
 
 event("onServerStarted", function() {
     log("[jobs] loading telephone services job and telephone system...");

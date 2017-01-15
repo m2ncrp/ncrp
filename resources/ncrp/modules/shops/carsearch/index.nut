@@ -14,11 +14,11 @@ const FINDCAR_COST = 49.90;
 
 event("onPlayerPhoneCall", function(playerid, number, place) {
     if(number == "0000") {
-        msg(playerid, "shops.findcar.hello", FINDCAR_COST, CL_WAXFLOWER);
+        msg(playerid, "shops.findcar.hello", FINDCAR_COST, TELEPHONE_TEXT_COLOR);
 
         delayedFunction(5000, function() {
             if(!canMoneyBeSubstracted(playerid, FINDCAR_COST)) {
-                return msg(playerid, "shops.findcar.nomoney", CL_WAXFLOWER);
+                return msg(playerid, "shops.findcar.nomoney", TELEPHONE_TEXT_COLOR);
             }
 
             msg(playerid, "shops.findcar.wait");
@@ -35,7 +35,7 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
                         });
                     }
                 }
-                msg(playerid, "shops.findcar.found", CL_WAXFLOWER);
+                msg(playerid, "shops.findcar.found", TELEPHONE_TEXT_COLOR);
                 msg(playerid, "shops.findcar.seemap");
 
             });
