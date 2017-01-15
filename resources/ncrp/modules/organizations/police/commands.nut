@@ -74,8 +74,9 @@ cmd("police", function(playerid) {
 // usage: /police job <id>
 cmd("police", "job", function(playerid, targetid) {
     local targetid = targetid.tointeger();
-    if ( getPoliceRank(playerid) == MAX_RANK ) {
+    if ( getPoliceRank(playerid) == POLICE_MAX_RANK ) {
         if ( isPlayerHaveJob(targetid) ) {
+            msg(playerid, "Dat bustard alredy have job!", CL_RED);
             return;
         }
 
@@ -88,7 +89,7 @@ cmd("police", "job", function(playerid, targetid) {
 // usage: /police job leave <id>
 cmd("police", ["job", "leave"], function(playerid, targetid) {
     local targetid = targetid.tointeger();
-    if ( getPoliceRank(playerid) == MAX_RANK ) {
+    if ( getPoliceRank(playerid) == POLICE_MAX_RANK ) {
         dbg( "[POLICE LEAVE]" + getAuthor(playerid) + " remove " + getAuthor(targetid) + "from Police" );
         leavePoliceJob(targetid);
     }
@@ -99,7 +100,7 @@ cmd("police", ["job", "leave"], function(playerid, targetid) {
 cmd("police", ["set", "rank"], function(playerid, targetid, rank) {
     targetid = targetid.tointeger();
     rank = rank.tointeger();
-    if ( getPoliceRank(playerid) == MAX_RANK ) {
+    if ( getPoliceRank(playerid) == POLICE_MAX_RANK ) {
         if ( !isOfficer(targetid) ) {
             return msg(playerid, "organizations.police.notanofficer"); // not you, but target
         }

@@ -143,7 +143,7 @@ POLICE_RANK <- [ // source: https://youtu.be/i7o0_PMv72A && https://en.wikipedia
     "police.assistantchief" //"Assistant chief"    13
     "police.chief"          //"Police chief"       14
 ];
-MAX_RANK <- POLICE_RANK.len()-1;
+POLICE_MAX_RANK <- POLICE_RANK.len()-1;
 
 /**
  * Permission description for diffent ranks
