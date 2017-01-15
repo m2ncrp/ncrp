@@ -7,7 +7,7 @@ local clothesPrices = [
     { skinid = 6 , price = 350, title = "shops.clothesshop.id6"    },  //
     { skinid = 10, price = 300, title = "shops.clothesshop.id10"   },  //
     { skinid = 48, price = 290, title = "shops.clothesshop.id48"   },  //
-    { skinid = 74, price = 150, title = "shops.clothesshop.id74"   },  //
+    { skinid = 74, price = 290, title = "shops.clothesshop.id74"   },  //
     { skinid = 90, price = 400, title = "shops.clothesshop.id90"   },  //
     { skinid = 91, price = 250, title = "shops.clothesshop.id91"   },  //
     { skinid = 92, price = 370, title = "shops.clothesshop.id92"   },  //
