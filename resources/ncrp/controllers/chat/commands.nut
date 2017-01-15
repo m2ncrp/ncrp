@@ -22,7 +22,7 @@ event("onServerSecondChange", function() {
 
 // local chat
 chatcmd(["i", "ic", "say"], function(playerid, message) {
-    sendLocalizedMsgToAll(playerid, "chat.player.says", message, NORMAL_RADIUS, CL_YELLOW);
+    sendLocalizedMsgToAll(playerid, "chat.player.says", [getPlayerName(playerid), message], NORMAL_RADIUS, CL_YELLOW);
 
     // statistics
     statisticsPushMessage(playerid, message, "say");
@@ -30,7 +30,7 @@ chatcmd(["i", "ic", "say"], function(playerid, message) {
 
 // shout
 chatcmd(["s", "shout"], function(playerid, message) {
-    sendLocalizedMsgToAll(playerid, "chat.player.shout", message, SHOUT_RADIUS, CL_WHITE);
+    sendLocalizedMsgToAll(playerid, "chat.player.shout", [getPlayerName(playerid), message], SHOUT_RADIUS, CL_WHITE);
 
     // statistics
     statisticsPushMessage(playerid, message, "shout");
@@ -157,9 +157,9 @@ cmd("report", function(playerid, id, ...) {
 chatcmd(["try"], function(playerid, message) {
     local res = random(0,1);
     if(res)
-        sendLocalizedMsgToAll(playerid, "chat.player.try.end.success", message, NORMAL_RADIUS);
+        sendLocalizedMsgToAll(playerid, "chat.player.try.end.success", [getPlayerName(playerid), message], NORMAL_RADIUS);
     else
-        sendLocalizedMsgToAll(playerid, "chat.player.try.end.fail", message, NORMAL_RADIUS);
+        sendLocalizedMsgToAll(playerid, "chat.player.try.end.fail", [getPlayerName(playerid), message], NORMAL_RADIUS);
 
     // statistics
     statisticsPushMessage(playerid, message, "try");
@@ -259,9 +259,9 @@ acmd(["noooc"], function ( playerid ) {
 chatcmd(["try"], function(playerid, message) {
     local res = random(0,1);
     if(res)
-        sendLocalizedMsgToAll(playerid, "chat.player.try.end.success", message, NORMAL_RADIUS);
+        sendLocalizedMsgToAll(playerid, "chat.player.try.end.success", [getPlayerName(playerid), message], NORMAL_RADIUS);
     else
-        sendLocalizedMsgToAll(playerid, "chat.player.try.end.fail", message, NORMAL_RADIUS);
+        sendLocalizedMsgToAll(playerid, "chat.player.try.end.fail", [getPlayerName(playerid), message], NORMAL_RADIUS);
 
     // statistics
     statisticsPushMessage(playerid, message, "try");

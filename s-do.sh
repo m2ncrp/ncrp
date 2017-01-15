@@ -142,7 +142,7 @@ checkCommit() {
 
 # Check env.xml, update it and launch server
 launch() {
-	checkCommit
+	# checkCommit
 	./s-autoconfig.sh
 	./$exeName
 }

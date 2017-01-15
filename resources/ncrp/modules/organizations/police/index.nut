@@ -234,10 +234,20 @@ include("modules/organizations/police/commands.nut");
 include("modules/organizations/police/functions.nut");
 include("modules/organizations/police/messages.nut");
 include("modules/organizations/police/Gun.nut");
-
+include("modules/organizations/police/PoliceBuffer.nut");
 
 police <- {};
+policeIncr <- 0;
+police_buffer <- {};
 
+
+function getPoliceOfficersList(entity) {
+    if ( POLICE_RANK.find(entity.job) != null ) {
+        police_buffer[++policeIncr] <- entity;
+        // entity.servid = policeIncr;
+        return policeIncr;
+    }
+}
 
 event("onServerStarted", function() {
     log("[police] starting police...");
@@ -251,6 +261,13 @@ event("onServerStarted", function() {
     create3DText( POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]+0.3, "=== EMPIRE BAY POLICE DEPARTMENT ===", CL_ROYALBLUE, TITLE_DRAW_DISTANCE );
     create3DText( POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]-0.05, "/police duty on/off", CL_WHITE.applyAlpha(150), EBPD_ENTER_RADIUS );
     create3DText( POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]-0.2, "or press E button", CL_WHITE.applyAlpha(150), EBPD_ENTER_RADIUS );
+
+    // Get all police officer's list
+    Character.findAll(function(err, results) {
+        foreach (idx, char in results) {
+            getPoliceOfficersList(char);
+        }
+    });
 });
 
 
@@ -307,10 +324,10 @@ event("onPlayerVehicleExit", function( playerid, vehicleid, seat ) {
 
 
 event("onPlayerDisconnect", function(playerid, reason) {
-    if (playerid in police) {
-        policeJobPaySalary( playerid );
-         delete police[playerid];
-    }
+    // if (playerid in police) {
+    //     policeJobPaySalary( playerid );
+    //      delete police[playerid];
+    // }
 
     if ( getPlayerState(playerid) == "cuffed" ) {
         setPlayerState(playerid, "jail");
@@ -391,31 +408,48 @@ event("onBatonBitStart", function (playerid) {
 });
 
 
+translation("en", {
+    "organizations.police.phone.dispatch.call"              : "%s says: Operator, give me dispatch."
+    "organizations.police.phone.operator.connecttodispatch" : "- Putting you through now."
+    "organizations.police.phone.dispatch.online"            : "- Dispatcher on line."
+    "organizations.police.phone.dispatch.badge"             : "%s says: %s, badge 00000."
+    "organizations.police.phone.dispatch.policereply"       : "- How can I help, %s?"
+});
+
+translation("ru", {
+    "organizations.police.phone.dispatch.call"              : "%s сказал: Оператор, соедините с диспетчером."
+    "organizations.police.phone.operator.connecttodispatch" : "- Соединяю."
+    "organizations.police.phone.dispatch.online"            : "- Диспетчер на линии, слушаю."
+    "organizations.police.phone.dispatch.badge"             : "%s сказал: %s, жетон 00000."
+    "organizations.police.phone.dispatch.policereply"       : "- Чем могу помочь, %s?"
+});
+
 event("onPlayerPhoneCall", function(playerid, number, place) {
-    if(number == "police") {
+    if (number == "police") {
         policeCall(playerid, place);
         dbg("chat", "police", getAuthor(playerid), place);
     }
 
-    // if (number == "dispatch") {
-    //     local message = "organizations.police.phone.dispatch.call"; //  - Operator, give me dispatch.  // Оператор, соедините с диспетчером.
-    //     // Operator, message for KJPL. // Оператор, сообщение для диспетчера.
-    //     sendLocalizedMsgToAll(playerid, "chat.player.says", message, POLICE_PHONENORMAL_RADIUS, CL_YELLOW);
+    if (number == "dispatch" && isOfficer(playerid)) {
+        local message = "organizations.police.phone.dispatch.call"; //  - Operator, give me dispatch.  // Оператор, соедините с диспетчером.
+        // Operator, message for KJPL. // Оператор, сообщение для диспетчера.
+        sendLocalizedMsgToAll(playerid, message, [getPlayerName(playerid)], POLICE_PHONENORMAL_RADIUS, CL_WHITE);
 
-    //     local replyMessage = "organizations.police.phone.operator.connecttodispatch"; //  - Putting you through now.      // Соединяю
-    //     sendLocalizedMsgToAll(playerid, "chat.player.says", replyMessage, POLICE_PHONEREPLY_RADIUS, CL_YELLOW);
+        local replyMessage = "organizations.police.phone.operator.connecttodispatch"; //  - Putting you through now.      // Соединяю
+        sendLocalizedMsgToAll(playerid, replyMessage, [""], POLICE_PHONEREPLY_RADIUS, CL_WHITE);
 
-    //     delayedFunction( random(100, 160), function() {
-    //         replyMessage = "organizations.police.phone.dispatch.online"; // - Dispatcher on line. // Диспетчер, слушаю.
-    //         sendLocalizedMsgToAll(playerid, "chat.player.says", message, POLICE_PHONEREPLY_RADIUS, CL_YELLOW);
+        delayedFunction( random(1700, 2600), function() {
+            replyMessage = "organizations.police.phone.dispatch.online"; // - Dispatcher on line. // Диспетчер, слушаю.
+            sendLocalizedMsgToAll(playerid, replyMessage, [""], POLICE_PHONEREPLY_RADIUS, CL_WHITE);
 
-    //         message = "organizations.police.phone.dispatch.badge"; //  - <Name>, badge <number>.       // (Кто), жетон (номер)
-    //         sendLocalizedMsgToAll(playerid, "chat.player.says", message, POLICE_PHONENORMAL_RADIUS, CL_YELLOW);
-    //     });
+            message = "organizations.police.phone.dispatch.badge"; //  - <Name>, badge <number>.       // (Кто), жетон (номер)
+            sendLocalizedMsgToAll(playerid, message, [getPlayerName(playerid), getPlayerName(playerid)], POLICE_PHONENORMAL_RADIUS, CL_WHITE);
+        });
         
-    //     delayedFunction( random(160, 170), function() {
-    //         replyMessage = "organizations.police.phone.dispatch.policereply"; //  - How can I help, <rank>?       // Чем могу помочь, (ранг)?
-    //     })
+        delayedFunction( random(2700, 2900), function() {
+            replyMessage = "organizations.police.phone.dispatch.policereply"; //  - How can I help, <rank>?       // Чем могу помочь, (ранг)?
+            sendLocalizedMsgToAll(playerid, replyMessage, [getLocalizedPlayerJob(playerid)], POLICE_PHONENORMAL_RADIUS, CL_WHITE);
+        });
 
     //     // Show up anser choise with GUI
     //     //  1. Узнать адрес заведения
@@ -424,6 +458,6 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
     //     //  3. Сообщения от других игроков-полицейских и обращения в EBPD
     //     //  4. Транспортировка задержанного
     //     //  5. Буксировка авто на штрафстоянку
-    // }
+    }
 });
 
