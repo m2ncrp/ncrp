@@ -164,7 +164,7 @@ function setPoliceRank(playerid, rankID) {
         local oldRankID = getPoliceRank(playerid);
 
         players[playerid].job = POLICE_RANK[rankID];
-
+        setPlayerJob(playerid, POLICE_RANK[rankID]);
         if (rankID > oldRankID) {
             msg( playerid, "organizations.police.onrankup", [ getLocalizedPlayerJob(playerid) ] );
         } else {

@@ -233,7 +233,7 @@ function policeJobPaySalary(playerid) {
 include("modules/organizations/police/commands.nut");
 include("modules/organizations/police/functions.nut");
 include("modules/organizations/police/messages.nut");
-include("modules/organizations/police/Gun.nut");
+// include("modules/organizations/police/Gun.nut");
 include("modules/organizations/police/PoliceBuffer.nut");
 
 police <- {};
