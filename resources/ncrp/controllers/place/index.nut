@@ -94,3 +94,14 @@ function removePlace(name) {
 acmd("placedbg", function(playerid) {
     trigger(playerid, "onDebugToggle");
 });
+
+// createPlace("test1", -612.941, 454.184, -560.539, 440.482);
+// createPlace("test2", -576.303, 444.865, -579.186, 449.768);
+
+// event("onPlayerPlaceEnter", function(playerid, place) {
+//     msg(playerid, "you've entered " + place, CL_SUCCESS);
+// });
+
+// event("onPlayerPlaceExit", function(playerid, place) {
+//     msg(playerid, "you've exited " + place, CL_ERROR);
+// });
