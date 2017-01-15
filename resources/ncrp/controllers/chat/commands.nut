@@ -259,11 +259,11 @@ key("f5", function(playerid) {
 acmd(["noooc"], function ( playerid ) {
     if(IS_OOC_ENABLED){
         IS_OOC_ENABLED = false;
-        msg_a("Общий чат был отключен администратором.",CL_LIGHTWISTERIA);
+        msg_a("admin.oocDisabled.message", CL_LIGHTWISTERIA);
     }
     else{
         IS_OOC_ENABLED = true;
-        msg_a("Общий чат был включен администратором.",CL_LIGHTWISTERIA);
+        msg_a("admin.oocEnabled.message", CL_LIGHTWISTERIA);
     }
 });
 
@@ -281,10 +281,10 @@ chatcmd(["try"], function(playerid, message) {
 cmd(["togooc"], function(playerid) {
     if(antiflood[playerid]["togooc"]){
         antiflood[playerid]["togooc"] = false;
-        msg(playerid, "Вы отключили показ ООС чата!");
+        msg(playerid, "chat.togoocDisabled");
     }
     else{
         antiflood[playerid]["togooc"] = true;
-        msg(playerid, "Вы включили показ ООС чата!");
+        msg(playerid, "chat.togoocEnabled");
     }
 });
