@@ -47,6 +47,7 @@ function freeBusinessResources(entity) {
         if (entity.text1) remove3DText(entity.text1);
         if (entity.text2) remove3DText(entity.text2);
         if (entity.text3) remove3DText(entity.text3);
+        if (entity.blip) removeBlip(entity.blip);
         return true;
     }
 
@@ -253,6 +254,26 @@ function setBusinessOwner(bizid, playeridOrName) {
     freeBusinessResources(businesses[bizid]);
     loadBusinessResources(businesses[bizid]);
 
+    return true;
+}
+
+/**
+ * Set business owner
+ * @param {Integer} bizid
+ * @param {Array} new position of the biz
+ * @return {Boolean} result
+ */
+function setBusinessPosition(bizid, newPos) {
+    if (!(bizid in businesses)) {
+        return false;
+    }
+
+    businesses[bizid].x = newPos.x.tofloat();
+    businesses[bizid].y = newPos.y.tofloat();
+    businesses[bizid].z = newPos.z.tofloat();
+    businesses[bizid].save();
+    freeBusinessResources(businesses[bizid]);
+    loadBusinessResources(businesses[bizid]);
     return true;
 }
 

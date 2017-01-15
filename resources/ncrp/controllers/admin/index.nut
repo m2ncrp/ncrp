@@ -7,7 +7,7 @@ include("controllers/admin/bans.nut");
 local serverAdmins = {};
 
 serverAdmins["CD19A5029AE81BB50B023291846C0DF3"] <- 1; // max
-serverAdmins["83CA98D93A29F5F548E65E4DBBA41379"] <- 1; // max 2
+// serverAdmins["83CA98D93A29F5F548E65E4DBBA41379"] <- 1; // max 2
 serverAdmins["940A9BF3DC69DC56BCB6BDB5450961B4"] <- 1; // dima
 serverAdmins["E818234F219F14336D8FFD5C657B796C"] <- 1; // inlufz
 serverAdmins["EBD8F16123FA9DE5C3C64D64FF844953"] <- 1; // inlufz 2
