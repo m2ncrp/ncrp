@@ -143,7 +143,7 @@ POLICE_RANK <- [ // source: https://youtu.be/i7o0_PMv72A && https://en.wikipedia
     "police.assistantchief" //"Assistant chief"    13
     "police.chief"          //"Police chief"       14
 ];
-MAX_RANK <- POLICE_RANK.len()-1;
+POLICE_MAX_RANK <- POLICE_RANK.len()-1;
 
 /**
  * Permission description for diffent ranks
@@ -233,7 +233,7 @@ function policeJobPaySalary(playerid) {
 include("modules/organizations/police/commands.nut");
 include("modules/organizations/police/functions.nut");
 include("modules/organizations/police/messages.nut");
-include("modules/organizations/police/Gun.nut");
+// include("modules/organizations/police/Gun.nut");
 include("modules/organizations/police/PoliceBuffer.nut");
 
 police <- {};
