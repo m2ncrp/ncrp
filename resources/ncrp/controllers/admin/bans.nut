@@ -73,7 +73,7 @@ function newmute(...) {
     local mutetime = time*60;
     Mute( getAccountName(playerid), getAccountName(targetid), getPlayerSerial(targetid), mutetime, reason).save();
 
-     sendPlayerMessageToAll(format("TSOEB: Player '%s' has been muted by the administrator %s on '%d' minutes. Reason: %s", getPlayerName(targetid),getAccountName(playerid), time, reason), CL_RED)
+    msga(format("[Player %s has been muted by admin %s on %d minutes. Reason: %s]", getPlayerName(targetid),getAccountName(playerid), time, reason), CL_RED)
 
     setPlayerMuted(targetid, true);
     msg(targetid, format("[SERVER] You has been muted on: %d minutes, for: %s.", time, reason), CL_RED);
@@ -89,7 +89,7 @@ function newmute(...) {
         }
     });
 };
-acmd("mute", newmute);
+mcmd(CMD_LEVEL.MLVL1,"mute", newmute);
 
 /**
  * Unmute player
@@ -160,7 +160,7 @@ function newban(...) {
         msg(targetid, "");
     }
 
-    sendPlayerMessageToAll(format("TSOEB: Player '%s' has been banned by the administrator %s on '%d' minutes. Reason: %s", getPlayerName(targetid),getAccountName(playerid), time, reason), CL_RED);
+    msga(format("[Player %s has been banned by admin %s on %d minutes.Reason: %s]", getPlayerName(targetid),getAccountName(playerid), time, reason), CL_RED);
 
     msg(targetid, format("[SERVER] You has been banned on: %d min. for: %s.", time, reason), CL_RED);
     msg(playerid, format("You've banned %s for: %s on %d min.", getPlayerName(targetid), reason, time), CL_SUCCESS);
@@ -171,7 +171,7 @@ function newban(...) {
     });
 
 };
-acmd("ban", newban);
+mcmd(CMD_LEVEL.MLVL1,"ban", newban);
 
 /**
  * List current bans

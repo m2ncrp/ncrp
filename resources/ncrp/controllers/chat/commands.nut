@@ -95,27 +95,38 @@ chatcmd(["b"], function(playerid, message) {
 
 // global nonRP chat
 chatcmd(["o","ooc"], function(playerid, message) {
-    if(IS_OOC_ENABLED){
-        if(antiflood[playerid]["gooc"] == 0){
 
+    // is global chat enabled and user writing this message
+    // did not disable his global chat
+    if (IS_OOC_ENABLED && antiflood[playerid]["togooc"])
+    {
+        // matybe he has some time to be antiflooded yet
+        if(antiflood[playerid]["gooc"] == 0)
+        {
+            // send message to all enabled chat
             foreach (targetid, value in players) {
                 if (antiflood[targetid]["togooc"]) {
-                    msg(targetid, "[OOC] " + getAuthor3( playerid ) + ": " + message, CL_GRAY);
+                    msg(targetid, "[Global OOC] " + getAuthor3( playerid ) + ": " + message, CL_GRAY);
                 }
             }
 
+            // statistics
+            statisticsPushMessage(playerid, message, "ooc_");
             antiflood[playerid]["gooc"] = ANTIFLOOD_GLOBAL_OOC_CHAT;
         }
         else {
             msg(playerid, "antiflood.message", antiflood[playerid]["gooc"], CL_LIGHTWISTERIA);
         }
     }
-    else{
-        msg(playerid, "admin.oocDisabled.message",CL_LIGHTWISTERIA);
+    else {
+        // msg(playerid, "admin.oocDisabled.message",CL_LIGHTWISTERIA);
+        // forward to /b
+        inRadiusSendToAll(playerid, format("[OOC] %s: (( %s ))", getAuthor3( playerid ), message), NORMAL_RADIUS, CL_GRAY);
+
+        // statistics
+        statisticsPushMessage(playerid, message, "non-rp-local");
     }
 
-    // statistics
-    statisticsPushMessage(playerid, message, "ooc_");
 });
 
 chatcmd(["me"], function(playerid, message) {
@@ -248,11 +259,11 @@ key("f5", function(playerid) {
 acmd(["noooc"], function ( playerid ) {
     if(IS_OOC_ENABLED){
         IS_OOC_ENABLED = false;
-        msg_a("Общий чат был отключен администратором.",CL_LIGHTWISTERIA);
+        msg_a("admin.oocDisabled.message", CL_LIGHTWISTERIA);
     }
     else{
         IS_OOC_ENABLED = true;
-        msg_a("Общий чат был включен администратором.",CL_LIGHTWISTERIA);
+        msg_a("admin.oocEnabled.message", CL_LIGHTWISTERIA);
     }
 });
 
@@ -270,10 +281,10 @@ chatcmd(["try"], function(playerid, message) {
 cmd(["togooc"], function(playerid) {
     if(antiflood[playerid]["togooc"]){
         antiflood[playerid]["togooc"] = false;
-        msg(playerid, "Вы отключили показ ООС чата!");
+        msg(playerid, "chat.togoocDisabled");
     }
     else{
         antiflood[playerid]["togooc"] = true;
-        msg(playerid, "Вы включили показ ООС чата!");
+        msg(playerid, "chat.togoocEnabled");
     }
 });

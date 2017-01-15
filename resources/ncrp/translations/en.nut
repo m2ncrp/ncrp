@@ -55,7 +55,11 @@ translation("en", {
 
     "antiflood.message"                 : "Aniflood: wait a %i seconds."
 
-    "admin.oocDisabled.message"         :"General chat disabled by your administrator!"
+    "admin.oocEnabled.message"          : "General chat enabled by administrator!"
+    "admin.oocDisabled.message"         : "General chat disabled by administrator!"
+
+    "chat.togoocEnabled"                : "You have enabled display of general chat!"
+    "chat.togoocDisabled"               : "You have disabled display of general chat!"
 
     "error.title"                       : "Error!"
 });
