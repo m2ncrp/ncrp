@@ -1,6 +1,6 @@
 include("modules/organizations/police/models/PoliceTicket.nut");
 
-acmd("police", "danger", function(playerid, level) {
+acmd("a", ["police", "danger"], function(playerid, level) {
     setDangerLevel(playerid, level);
 });
 
@@ -72,7 +72,7 @@ cmd("police", function(playerid) {
 
 
 // usage: /police job <id>
-cmd("police", "job", function(playerid, targetid) {
+cmd("police", ["job"], function(playerid, targetid) {
     local targetid = targetid.tointeger();
     if ( getPoliceRank(playerid) == POLICE_MAX_RANK ) {
         if ( isPlayerHaveJob(targetid) ) {
@@ -115,6 +115,13 @@ cmd("police", ["set", "rank"], function(playerid, targetid, rank) {
             setPlayerJob ( targetid, getPlayerJob(playerid) );
         }
     }    
+});
+
+
+cmd("police", "danger", function(playerid, level) {
+    if ( getPoliceRank(playerid) == POLICE_MAX_RANK ) {
+        setDangerLevel(playerid, level);
+    }
 });
 
 
