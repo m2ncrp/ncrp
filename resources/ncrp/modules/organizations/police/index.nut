@@ -127,21 +127,21 @@ const JAIL_Y = 1731.82;
 const JAIL_Z = 10.3252;
 
 POLICE_RANK <- [ // source: https://youtu.be/i7o0_PMv72A && https://en.wikipedia.org/wiki/Los_Angeles_Police_Department#Rank_structure_and_insignia
-    "police.cadet"          //"Police cadet"       0
-    "police.patrol"         //"Police patrolman",  1
-    "police.officer"        //"Police officer",    2
-    "police.detective"      //"Detective"          3
-    "police.sergeant.1"     //"Sergant"            4
-    "police.sergeant.2"     //"Sergant"            5
-    "police.lieutenant.1"   //"Lieutenant"         6
-    "police.lieutenant.2"   //"Lieutenant"         7
-    "police.Captain.1"      //"Captain I"          8  
-    "police.Captain.2"      //"Captain II"         9  
-    "police.Captain.3"      //"Captain III"        10   
-    "police.commander"      //"Commander"          11
-    "police.deputychief"    //"Deputy chief"       12
-    "police.assistantchief" //"Assistant chief"    13
-    "police.chief"          //"Police chief"       14
+    "police.cadet",          //"Police cadet"       0
+    "police.patrol",         //"Police patrolman",  1
+    "police.officer",        //"Police officer",    2
+    "police.detective",      //"Detective"          3
+    "police.sergeant.1",     //"Sergant"            4
+    "police.sergeant.2",     //"Sergant"            5
+    "police.lieutenant.1",   //"Lieutenant"         6
+    "police.lieutenant.2",   //"Lieutenant"         7
+    "police.Captain.1",      //"Captain I"          8  
+    "police.Captain.2",      //"Captain II"         9  
+    "police.Captain.3",      //"Captain III"        10   
+    "police.commander",      //"Commander"          11
+    "police.deputychief",    //"Deputy chief"       12
+    "police.assistantchief", //"Assistant chief"    13
+    "police.chief",          //"Police chief"       14
 ];
 POLICE_MAX_RANK <- POLICE_RANK.len()-1;
 
@@ -235,19 +235,10 @@ include("modules/organizations/police/functions.nut");
 include("modules/organizations/police/messages.nut");
 // include("modules/organizations/police/Gun.nut");
 include("modules/organizations/police/PoliceBuffer.nut");
+include("modules/organizations/police/PoliceOfficersList.nut");
 
 police <- {};
-policeIncr <- 0;
-police_buffer <- {};
 
-
-function getPoliceOfficersList(entity) {
-    if ( POLICE_RANK.find(entity.job) != null ) {
-        police_buffer[++policeIncr] <- entity;
-        // entity.servid = policeIncr;
-        return policeIncr;
-    }
-}
 
 event("onServerStarted", function() {
     log("[police] starting police...");
@@ -261,33 +252,15 @@ event("onServerStarted", function() {
     create3DText( POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]+0.3, "=== EMPIRE BAY POLICE DEPARTMENT ===", CL_ROYALBLUE, TITLE_DRAW_DISTANCE );
     create3DText( POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]-0.05, "/police duty on/off", CL_WHITE.applyAlpha(150), EBPD_ENTER_RADIUS );
     create3DText( POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]-0.2, "or press E button", CL_WHITE.applyAlpha(150), EBPD_ENTER_RADIUS );
-
-    // Get all police officer's list
-    Character.findAll(function(err, results) {
-        foreach (idx, char in results) {
-            getPoliceOfficersList(char);
-        }
-    });
 });
 
 
-
-
-
 event("onPlayerSpawn", function( playerid ) {
-    // if ( isOfficer(playerid) && isOnPoliceDuty(playerid) ) {
-    //     onPoliceDutyGiveWeapon( playerid );
-    //     setPlayerModel(playerid, POLICE_MODEL);
-    //     police[playerid]["ondutyminutes"] <- 0;
-    // }
-
     if (!isPlayerLoaded(playerid)) return;
     if (!(getPlayerState(playerid) == "jail")) return;
 
     players[playerid].setPosition(JAIL_X, JAIL_Y, JAIL_Z);
 });
-
-
 
 
 event("onPlayerVehicleEnter", function( playerid, vehicleid, seat ) {
@@ -322,18 +295,11 @@ event("onPlayerVehicleExit", function( playerid, vehicleid, seat ) {
 });
 
 
-
 event("onPlayerDisconnect", function(playerid, reason) {
-    // if (playerid in police) {
-    //     policeJobPaySalary( playerid );
-    //      delete police[playerid];
-    // }
-
     if ( getPlayerState(playerid) == "cuffed" ) {
         setPlayerState(playerid, "jail");
     }
 });
-
 
 
 event("onServerMinuteChange", function() {
@@ -343,7 +309,6 @@ event("onServerMinuteChange", function() {
         }
     }
 });
-
 
 
 event("onPoliceDutyOn", function(playerid, rank = null) {
@@ -423,6 +388,7 @@ translation("ru", {
     "organizations.police.phone.dispatch.badge"             : "%s сказал: %s, жетон 00000."
     "organizations.police.phone.dispatch.policereply"       : "- Чем могу помочь, %s?"
 });
+
 
 event("onPlayerPhoneCall", function(playerid, number, place) {
     if (number == "police") {
