@@ -20,7 +20,7 @@ local invItems = {};
 
 addEventHandler("onItemLoading", function(playerid, id, amount, slot){
     invItems[playerid][slot.tointeger()] <- {id = id.tointeger(), amount = amount.tointeger()};
-    trigger(playerid, "onServerSyncItems",slot,id);
+    trigger(playerid, "onServerSyncItems",slot,id,amount);
 });
 
 function sendFullItemSync (playerid) {
@@ -36,6 +36,7 @@ function initPlayerItems(playerid){
 }
 
 function  resetPlayerItems (playerid) {
+    trigger(playerid,"resetClientInvItem");
     for(local i = 0; i < MAX_INVENTORY_SLOTS; i++) { // reset player items
         invItems[playerid][i] <- {id = 0, amount = 0};
     }
@@ -79,8 +80,8 @@ addEventHandler("onPlayerMoveItem", function(playerid,oldSlot, newSlot) {
             invItems[playerid][newSlot].amount = invItems[playerid][oldSlot].amount;
             invItems[playerid][oldSlot].id = 0;
             invItems[playerid][oldSlot].amount = 0;
-            trigger(playerid, "updateSlot", newSlot, invItems[playerid][newSlot].id);
-            trigger(playerid, "updateSlot", oldSlot, invItems[playerid][oldSlot].id);
+            trigger(playerid, "updateSlot", newSlot, invItems[playerid][newSlot].id, invItems[playerid][newSlot].amount);
+            trigger(playerid, "updateSlot", oldSlot, invItems[playerid][oldSlot].id, invItems[playerid][oldSlot].amount);
             return;
         }
         if(invItems[playerid][newSlot].id > 0){
@@ -89,13 +90,13 @@ addEventHandler("onPlayerMoveItem", function(playerid,oldSlot, newSlot) {
 
             local newId = invItems[playerid][newSlot].id;
             local newAmount = invItems[playerid][oldSlot].amount;
-            if(oldId == newId && (isItemStackable(oldId) && isItemStackable(oldId))){
+            if(oldId == newId && (isItemStackable(oldId) && isItemStackable(newId))){
                 invItems[playerid][oldSlot].id = 0;
                 invItems[playerid][oldSlot].amount = 0;
-                trigger(playerid, "updateSlot", oldSlot, invItems[playerid][oldSlot].id);
+                trigger(playerid, "updateSlot", oldSlot, invItems[playerid][oldSlot].id, invItems[playerid][oldSlot].amount);
 
                 invItems[playerid][newSlot].amount += oldAmount;
-                trigger(playerid, "updateSlot", newSlot, invItems[playerid][newSlot].id);
+                trigger(playerid, "updateSlot", newSlot, invItems[playerid][newSlot].id, invItems[playerid][newSlot].amount);
                 dbg("TRU TO STACK ITEMS:" invItems[playerid][newSlot].amount);
                 return;
 
@@ -122,7 +123,7 @@ acmd("giveitem",function(playerid, itemid = 0, amount = 0) {
         return msg(playerid, "ERROR: no free slots");// no free slots
     }
     invItems[playerid][slot] <- {id = itemid.tointeger(), amount = amount.tointeger()};
-    trigger(playerid, "updateSlot", slot, invItems[playerid][slot].id);
+    trigger(playerid, "updateSlot", slot, invItems[playerid][slot].id, invItems[playerid][slot].amount);
 });
 
 
@@ -138,3 +139,4 @@ function findFreeSlot(playerid){
     }
     return freeSlot;
 }
+
