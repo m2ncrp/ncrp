@@ -96,18 +96,25 @@ addEventHandler("onPlayerMoveItem", function(playerid,oldSlot, newSlot) {
     //dbg(invItems[playerid]);
 })
 
-function givePlayerItem (playerid, item, amount) {
-    local free = findFreeInvSlot(playerid);
-    if(!free){
-        return; //no free slots :(
-    }
-    invItems[playerid][free].id = item.tointeger();
-    invItems[playerid][free].amount =  amount.tointeger();
-    trigger(playerid, "updateSlot", free, invItems[playerid][free].id);
+function resetPlayerSlot(slot){
+    invItems[playerid][slot].id = 0;
+    invItems[playerid][slot].amount = 0;
 }
 
-function findFreeInvSlot(palyerid){
-    local freeSlot = null;
+acmd("giveitem",function(playerid, itemid, amount) {
+    local slot = findFreeSlot(playerid);
+    if(slot == -1){
+        return;// no free slots
+    }
+    invItems[playerid][slot] <- {id = itemid.tointeger(), amount = amount.tointeger()};
+    trigger(playerid, "updateSlot", slot, invItems[playerid][slot].id);
+});
+
+
+
+
+function findFreeSlot(playerid){
+    local freeSlot = -1;
     for(local i = 0; i < MAX_INVENTORY_SLOTS; i++){
         if(invItems[playerid][i].id == 0){
             freeSlot = i;
@@ -116,12 +123,3 @@ function findFreeInvSlot(palyerid){
     }
     return freeSlot;
 }
-
-function resetPlayerSlot(slot){
-    invItems[playerid][slot].id = 0;
-    invItems[playerid][slot].amount = 0;
-}
-
-acmd("giveitem", function(playerid, id, amount) {
-    givePlayerItem(playerid, id, amount);
-});
