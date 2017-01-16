@@ -25,18 +25,13 @@ addEventHandler("onItemLoading", function(playerid, id, amount, slot){
     dbg(invItems[playerid][slot.tointeger()]);
 });
 
-acmd("slot", function(playerid, id) {
-    dbg(invItems[playerid][id]);
-});
-
-
 function initPlayerItems(playerid){
     invItems[playerid] <- {};
     resetPlayerItems(playerid);
 }
 
 function  resetPlayerItems (playerid) {
-    for(local i = 0; i < MAX_INVENTORY_SLOTS; i++) { // reset player items 
+    for(local i = 0; i < MAX_INVENTORY_SLOTS; i++) { // reset player items
         invItems[playerid][i] <- array(2, 0);
     }
 }
