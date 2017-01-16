@@ -19,10 +19,7 @@ local items = [
 local invItems = {};
 
 addEventHandler("onItemLoading", function(playerid, id, amount, slot){
-    local item = {};
-    item.id <- id.tointeger();
-    item.amount <- amount.tointeger();
-    invItems[playerid][slot.tointeger()].push( item );
+    invItems[playerid][slot.tointeger()] <- {id = id.tointeger(), amount = amount.tointeger()};
     trigger(playerid, "onServerSyncItems",slot,id);
 });
 
@@ -35,12 +32,12 @@ function sendFullItemSync (playerid) {
 
 function initPlayerItems(playerid){
     invItems[playerid] <- {};
-    resetPlayerItems(playerid);
+    resetPlayerItems (playerid);
 }
 
 function  resetPlayerItems (playerid) {
     for(local i = 0; i < MAX_INVENTORY_SLOTS; i++) { // reset player items
-        invItems[playerid][i] <- array(2, 0);
+        invItems[playerid][i] <- {id = 0, amount = 0};
     }
 }
 
@@ -69,11 +66,13 @@ function isItemStackable (id) {
     return items[id].stackable;
 }
 
-addEventHandler("onPlayerUseItem", function(itemSlot) {
+addEventHandler("onPlayerUseItem", function(playerid, itemSlot) {
 
 })
 
-addEventHandler("onPlayerMoveItem", function(oldSlot, newSlot) {
+addEventHandler("onPlayerMoveItem", function(playerid,oldSlot, newSlot) {
+    oldSlot = oldSlot.tointeger();
+    newSlot = newSlot.tointeger();
     if(invItems[playerid][oldSlot].id > 0){
         if(invItems[playerid][newSlot].id == 0){
             invItems[playerid][newSlot].id = invItems[playerid][oldSlot].id;
@@ -83,7 +82,8 @@ addEventHandler("onPlayerMoveItem", function(oldSlot, newSlot) {
             trigger(playerid, "updateSlot", newSlot, invItems[playerid][newSlot].id);
             trigger(playerid, "updateSlot", oldSlot, invItems[playerid][oldSlot].id);
         }
-        else { // опа рокировочка проиошла кек
+        /*
+        else { // опа рокировочка произошла кек
             invItems[playerid][newSlot].id = invItems[playerid][oldSlot].id;
             invItems[playerid][newSlot].amount = invItems[playerid][oldSlot].amount;
             invItems[playerid][oldSlot].id = invItems[playerid][newSlot].id;
@@ -91,7 +91,9 @@ addEventHandler("onPlayerMoveItem", function(oldSlot, newSlot) {
             trigger(playerid, "updateSlot", newSlot, invItems[playerid][newSlot].id);
             trigger(playerid, "updateSlot", oldSlot, invItems[playerid][oldSlot].id);
         }
+        */
     }
+    dbg(invItems[playerid]);
 })
 
 function givePlayerItem (playerid, item, amount) {
