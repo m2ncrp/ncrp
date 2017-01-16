@@ -87,3 +87,8 @@ function findFreeInvSlot(palyerid){
     }
     return freeSlot;
 }
+
+function resetPlayerSlot(slot){
+    invItems[playerid][slot].id = 0;
+    invItems[playerid][slot].amount = 0;
+}
