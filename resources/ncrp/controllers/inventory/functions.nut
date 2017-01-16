@@ -61,7 +61,7 @@ function isItemStackable (id) {
 }
 
 addEventHandler("onPlayerUseItem", function(itemSlot) {
-    
+
 })
 
 addEventHandler("onPlayerMoveItem", function(oldSlot, newSlot) {
@@ -70,12 +70,15 @@ addEventHandler("onPlayerMoveItem", function(oldSlot, newSlot) {
 
 function givePlayerItem (playerid, item, amount) {
     local free = findFreeInvSlot(playerid);
+    if(!free){
+        return; //no free slots :(
+    }
     invItems[playerid][free].id = item.tointeger();
     invItems[playerid][free].amount =  amount.tointeger();
 }
 
 function findFreeInvSlot(palyerid){
-    local freeSlot;
+    local freeSlot = null;
     for(local i = 0; i < MAX_INVENTORY_SLOTS; i++){
         if(invItems[playerid][i].id == 0){
             freeSlot = i;
