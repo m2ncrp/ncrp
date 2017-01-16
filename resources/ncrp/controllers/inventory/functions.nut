@@ -64,3 +64,11 @@ function getItemTypeById (id) {
 function isItemStackable (id) {
     return items[id].stackable;
 }
+
+addEventHandler("onPlayerUseItem", function(itemSlot) {
+    
+})
+
+addEventHandler("onPlayerMoveItem", function(oldSlot, newSlot) {
+    
+})
