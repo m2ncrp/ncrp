@@ -13,6 +13,7 @@ screen = [screenX, screenY];
 local invWindow;
 local invItemImg = array(30, null);
 local playerItems = array(30, 0);
+local labelItems = array(30, 0);
 local selectedSlot = -1;
 local clickedSlot = -1;
 
@@ -53,7 +54,7 @@ function initInventory()
    for(local i = 0; i < MAX_INVENTORY_ITEMS; i++){
         local id = playerItems[i];
         invItemImg[i] = guiCreateElement( ELEMENT_TYPE_IMAGE, items[id].img, itemsPos[i][0], itemsPos[i][1], 64.0, 64.0, false, invWindow);
-        //guiSetAlpha(invImage[i], 0.7);
+        guiSetAlpha(invItemImg[i], 0.8);
     }
     //guiSetAlwaysOnTop(weight[2], true);
     guiSetSizable(invWindow,false);
@@ -69,6 +70,7 @@ function updatePlayerItem(slot, itemid) {
     guiDestroyElement(invItemImg[slot]);
     local id = playerItems[slot];
     invItemImg[slot] = guiCreateElement( ELEMENT_TYPE_IMAGE, items[id].img, itemsPos[slot][0], itemsPos[slot][1], 64.0, 64.0, false, invWindow);
+    guiSetAlpha(invItemImg[slot], 0.8);
     guiSetVisible(invItemImg[slot], true);
 }
 
@@ -83,18 +85,22 @@ addEventHandler( "onGuiElementClick",
             if(element == invItemImg[i])
             {
                clickedSlot = i;
-               if(playerItems[i] > 0){
-                    selectedSlot = i;
-               }
-               if(playerItems[i] == 0)
-               {
-                    if(selectedSlot != -1)
-                    {
-                        triggerServerEvent("onPlayerMoveItem", selectedSlot, clickedSlot)
-                        sendMessage("onPlayerMoveItem: selected: "+selectedSlot+ "clicked: "+clickedSlot);
-                        selectedSlot = -1; //reset select
-                    }
-               }
+                if(selectedSlot != -1 && i != selectedSlot)
+                {
+                    triggerServerEvent("onPlayerMoveItem", selectedSlot, clickedSlot)
+                    sendMessage("onPlayerMoveItem: selected: "+selectedSlot+ "clicked: "+clickedSlot);
+                    guiSetAlpha(invItemImg[selectedSlot], 0.8);
+                    return selectedSlot = -1; //reset select
+                }
+                if(selectedSlot != -1 && i == selectedSlot){
+                    sendMessage("DOUBLE CLICK: selected: "+selectedSlot+ "clicked: "+clickedSlot);
+                    guiSetAlpha(invItemImg[selectedSlot], 0.8);
+                    return selectedSlot = -1;
+                }
+                if(playerItems[i] > 0){
+                    guiSetAlpha(invItemImg[i], 1.0);
+                    return selectedSlot = i;
+                }
                 sendMessage("clickid: "+clickedSlot+ "selectid: "+selectedSlot+"");
             }
         }
