@@ -1,4 +1,4 @@
-const MAX_INVENTORY_ITEMS = 30;
+const MAX_INVENTORY_SLOTS = 30;
 const ELEMENT_TYPE_IMAGE = 13;
 local screen = getScreenSize();
 local screenX = screen[0].tofloat();
@@ -12,7 +12,7 @@ screen = [screenX, screenY];
 
 local invWindow;
 local invItemImg = array(30, null);
-local playerItems = array(30, 0);
+local playerItems = {};
 local labelItems = array(30, 0);
 local selectedSlot = -1;
 local clickedSlot = -1;
@@ -38,9 +38,16 @@ local itemsPos =
     [10.0,365.0],   [78.0,365.0],   [146.0,365.0],  [214.0,365.0],  [282.0,365.0]
 ];
 
-addEventHandler("onServerSyncItems", function(slot,itemid){
-    playerItems[slot] = itemid;
-    log("onServerSyncItems"+itemid);
+addEventHandler("resetClientInvItem",function (){
+    for(local i = 0; i < MAX_INVENTORY_SLOTS; i++) { // reset player items
+        playerItems[i] <- {id = 0, amount = 0};
+    }
+});
+
+addEventHandler("onServerSyncItems", function(slot,itemid,amount){
+    playerItems[slot].id = itemid;
+    playerItems[slot].amount = amount;
+    log("onServerSyncItems"+itemid+":"+amount);
 });
 
 
@@ -51,9 +58,11 @@ function initInventory()
     //weight[0] = guiCreateElement( 13,"weight-bg.jpg", 10.0, 435.0, 346.0, 20.0, false, inventoryWindow);
     //weight[1] = guiCreateElement( 13,"weight-front.jpg", 10.0, 435.0, 180.0, 20.0, false, inventoryWindow);
     //weight[2] = guiCreateElement( ELEMENT_TYPE_LABEL, "Переносимый груз 1.3/5.0 kg", 140.0, 435.0, 190.0, 20.0, false, invWindow);
-   for(local i = 0; i < MAX_INVENTORY_ITEMS; i++){
-        local id = playerItems[i];
+   for(local i = 0; i < MAX_INVENTORY_SLOTS; i++){
+        local id = playerItems[i].id;
         invItemImg[i] = guiCreateElement( ELEMENT_TYPE_IMAGE, items[id].img, itemsPos[i][0], itemsPos[i][1], 64.0, 64.0, false, invWindow);
+        labelItems[i] = guiCreateElement( ELEMENT_TYPE_LABEL, playerItems[i].amount.tostring(), itemsPos[i][0]+50.0, itemsPos[i][1]+50.0, 15.0, 15.0, false, invWindow);
+        guiSetAlwaysOnTop(labelItems[i], true);
         guiSetAlpha(invItemImg[i], 0.8);
     }
     //guiSetAlwaysOnTop(weight[2], true);
@@ -64,24 +73,25 @@ addEventHandler("INV", initInventory);
 
 
 
-function updatePlayerItem(slot, itemid) {
-    playerItems[slot] = itemid.tointeger();
+function updatePlayerItem(slot, itemid, amount) {
+    playerItems[slot].id = itemid.tointeger();
+    playerItems[slot].amount = amount.tointeger();
     guiSetVisible(invItemImg[slot],false);
     guiDestroyElement(invItemImg[slot]);
-    local id = playerItems[slot];
-    invItemImg[slot] = guiCreateElement( ELEMENT_TYPE_IMAGE, items[id].img, itemsPos[slot][0], itemsPos[slot][1], 64.0, 64.0, false, invWindow);
+    invItemImg[slot] = guiCreateElement( ELEMENT_TYPE_IMAGE, items[itemid].img, itemsPos[slot][0], itemsPos[slot][1], 64.0, 64.0, false, invWindow);
+    guiSetText(labelItems[slot], amount.tostring());
     guiSetAlpha(invItemImg[slot], 0.8);
     guiSetVisible(invItemImg[slot], true);
 }
 
-addEventHandler("updateSlot", function(slot, itemid) {
-    updatePlayerItem(slot.tointeger(),itemid.tointeger());
+addEventHandler("updateSlot", function(slot, itemid, amount) {
+    updatePlayerItem(slot.tointeger(),itemid.tointeger(), amount.tointeger());
 })
 
 
 addEventHandler( "onGuiElementClick",
     function( element ){
-        for(local i = 0; i < MAX_INVENTORY_ITEMS; i++){
+        for(local i = 0; i < MAX_INVENTORY_SLOTS; i++){
             if(element == invItemImg[i])
             {
                clickedSlot = i;
@@ -97,7 +107,7 @@ addEventHandler( "onGuiElementClick",
                     guiSetAlpha(invItemImg[selectedSlot], 0.8);
                     return selectedSlot = -1;
                 }
-                if(playerItems[i] > 0){
+                if(playerItems[i].id > 0){
                     guiSetAlpha(invItemImg[i], 1.0);
                     return selectedSlot = i;
                 }
