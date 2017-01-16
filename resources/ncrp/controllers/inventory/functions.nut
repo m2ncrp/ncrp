@@ -7,12 +7,12 @@ enum ITEM_TYPE {
 };
 
 local items = [
-        { id = 0, type = ITEM_TYPE.NONE},
-        { id = 1, type = ITEM_TYPE.FOOD},
-        { id = 2, type = ITEM_TYPE.FOOD},
-        { id = 3, type = ITEM_TYPE.DRUNK},
-        { id = 4, type = ITEM_TYPE.DRUNK},
-        { id = 5, type = ITEM_TYPE.OTHER},
+        { id = 0, title = "",       type = ITEM_TYPE.NONE,  stackable = false,  img = "none.png"},
+        { id = 1, title = "Бургер", type = ITEM_TYPE.FOOD,  stackable = true,   img = "burger.png"},
+        { id = 2, title = "Хотдог", type = ITEM_TYPE.FOOD,  stackable = true,   img = "hotdog.png"},
+        { id = 3, title = "Виски",  type = ITEM_TYPE.DRUNK, stackable = true,   img = "whiskey.png"},
+        { id = 4, title = "Вино",   type = ITEM_TYPE.DRUNK, stackable = true,   img = "wine.png"},
+        { id = 5, title = "Деньги", type = ITEM_TYPE.OTHER, stackable = false,  img = "money.png"},
 ];
 
 local invItems = {};
@@ -50,20 +50,17 @@ function getItemAmountBySlot (playerid, slot) {
 }
 
 function getItemImageById (id) {
-    local image = "test.png"
-    return image;
+    return items[id].img;
 }
 
 function getItemDescriptionById (id) {
-    local description = "лул";
-    return description;
+    //todo
 }
 
 function getItemTypeById (id) {
-    local type = "kek"
-    return type;
+    return items[id].type;
 }
 
 function isItemStackable (id) {
-    // Code
+    return items[id].stackable;
 }
