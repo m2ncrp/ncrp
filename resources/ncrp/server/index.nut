@@ -187,8 +187,8 @@ proxy("updateMoveState",            "updateMoveState"                   );
 proxy("changeModel",                "changeModel"                       );
 
 //Inventory system
-proxy("getItemImageById",           "getItemImageById"                  );
-
+proxy("onPlayerUseItem",           "onPlayerUseItem"                    );
+proxy("onPlayerMoveItem",          "onPlayerMoveItem"                   );
 /**
  * Debug export
  * if constant is set to true

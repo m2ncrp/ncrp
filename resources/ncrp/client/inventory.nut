@@ -93,7 +93,9 @@ addEventHandler( "onGuiElementClick",
                 }
                 if(invItemImg[i] != selectedSlot){
                     clickedSlot = i;
-                    return triggerServerEvent("onPlayerMoveItem", selectedSlot, clickedSlot)
+                    triggerServerEvent("onPlayerMoveItem", selectedSlot, clickedSlot)
+                    clickedSlot  = null;
+                    selectedSlot = null;
                 }
 
             }
