@@ -77,10 +77,8 @@ let m2o = startServer();
 
 function startServer() {
     restarts = [
-        [02, 45],
-        [08, 45],
-        [14, 45],
-        [20, 45],
+        [23, 45],
+        [11, 45],
     ];
 
     let server;
