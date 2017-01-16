@@ -7,12 +7,13 @@ enum ITEM_TYPE {
 };
 
 local items = [
-        { id = 0, title = "",       type = ITEM_TYPE.NONE,  stackable = false,  img = "none.png"},
-        { id = 1, title = "Бургер", type = ITEM_TYPE.FOOD,  stackable = true,   img = "burger.png"},
-        { id = 2, title = "Хотдог", type = ITEM_TYPE.FOOD,  stackable = true,   img = "hotdog.png"},
-        { id = 3, title = "Виски",  type = ITEM_TYPE.DRUNK, stackable = true,   img = "whiskey.png"},
-        { id = 4, title = "Вино",   type = ITEM_TYPE.DRUNK, stackable = true,   img = "wine.png"},
-        { id = 5, title = "Деньги", type = ITEM_TYPE.OTHER, stackable = false,  img = "money.png"},
+    { id = 0, title = "",           type = ITEM_TYPE.NONE,  stackable = false,  img = "none.png"},
+    { id = 1, title = "Бургер",     type = ITEM_TYPE.FOOD,  stackable = true,   img = "burger.png"},
+    { id = 2, title = "Хотдог",     type = ITEM_TYPE.FOOD,  stackable = true,   img = "hotdog.png"},
+    { id = 3, title = "Виски",      type = ITEM_TYPE.DRUNK, stackable = true,   img = "whiskey.png"},
+    { id = 4, title = "Свифт кола", type = ITEM_TYPE.DRUNK, stackable = true,   img = "swift-cola.png"},
+    { id = 5, title = "Деньги",     type = ITEM_TYPE.OTHER, stackable = false,  img = "money.png"},
+    { id = 6, title = "Квитанция",  type = ITEM_TYPE.OTHER, stackable = false,  img = "fine.png"},
 ];
 
 local invItems = {};
