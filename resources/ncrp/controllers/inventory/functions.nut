@@ -74,7 +74,24 @@ addEventHandler("onPlayerUseItem", function(itemSlot) {
 })
 
 addEventHandler("onPlayerMoveItem", function(oldSlot, newSlot) {
-
+    if(invItems[playerid][oldSlot].id > 0){
+        if(invItems[playerid][newSlot].id == 0){
+            invItems[playerid][newSlot].id = invItems[playerid][oldSlot].id;
+            invItems[playerid][newSlot].amount = invItems[playerid][oldSlot].amount;
+            invItems[playerid][oldSlot].id = 0;
+            invItems[playerid][oldSlot].amount = 0;
+            trigger(playerid, "updateSlot", newSlot, invItems[playerid][newSlot].id);
+            trigger(playerid, "updateSlot", oldSlot, invItems[playerid][oldSlot].id);
+        }
+        else { // опа рокировочка проиошла кек
+            invItems[playerid][newSlot].id = invItems[playerid][oldSlot].id;
+            invItems[playerid][newSlot].amount = invItems[playerid][oldSlot].amount;
+            invItems[playerid][oldSlot].id = invItems[playerid][newSlot].id;
+            invItems[playerid][oldSlot].amount = invItems[playerid][newSlot].amount;
+            trigger(playerid, "updateSlot", newSlot, invItems[playerid][newSlot].id);
+            trigger(playerid, "updateSlot", oldSlot, invItems[playerid][oldSlot].id);
+        }
+    }
 })
 
 function givePlayerItem (playerid, item, amount) {
@@ -101,3 +118,7 @@ function resetPlayerSlot(slot){
     invItems[playerid][slot].id = 0;
     invItems[playerid][slot].amount = 0;
 }
+
+acmd("slot", function(playerid, slot, id) {
+    trigger(playerid, "updateSlot", slot, id);
+});

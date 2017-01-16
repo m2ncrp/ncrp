@@ -13,7 +13,8 @@ screen = [screenX, screenY];
 local invWindow;
 local invItemImg = array(30, null);
 local playerItems = array(30, 0);
-
+local selectedSlot = null;
+local clickedSlot = null;
 
 
 local items = [
@@ -64,20 +65,37 @@ addEventHandler("INV", initInventory);
 function updateInvSlot (slot) {
     guiSetVisible(invItemImg[slot],false);
     guiDestroyElement(invItemImg[slot]);
-    invItemImg[i] = guiCreateElement( ELEMENT_TYPE_IMAGE, items[slot].img, itemsPos[slot][0], itemsPos[slot][1], 64.0, 64.0, false, invWindow);
+    local id = playerItems[slot];
+    invItemImg[slot] = guiCreateElement( ELEMENT_TYPE_IMAGE, items[id].img, itemsPos[slot][0], itemsPos[slot][1], 64.0, 64.0, false, invWindow);
     guiSetVisible(invItemImg[slot], true);
 }
 
-function updatePlayerItems(slot, id) {
-    playerItems[slot] = id.tointeger();
+function updatePlayerItem(slot, itemid) {
+    playerItems[slot] = itemid.tointeger();
+    updateInvSlot(slot);
 }
 
-function inventory () {
-    if(invWindow)
-    {
+addEventHandler("updateSlot", function(slot, itemid) {
+    updatePlayerItem(slot.tointeger(),itemid.tointeger());
+})
 
-    }
-    else {
-        initInventory();
-    }
-}
+
+addEventHandler( "onGuiElementClick",
+    function( element ){
+        for(local i = 0; i < MAX_INVENTORY_ITEMS; i++){
+            if(element == invItemImg[i])
+            {
+                if(!selectedSlot){
+                    return selectedSlot = i;
+                }
+                if(invItemImg[i] == selectedSlot) {//double click for slot
+                    return selectedSlot = null; //reset selectedSlod
+                }
+                if(invItemImg[i] != selectedSlot){
+                    clickedSlot = i;
+                    return triggerServerEvent("onPlayerMoveItem", selectedSlot, clickedSlot)
+                }
+
+            }
+        }
+});
