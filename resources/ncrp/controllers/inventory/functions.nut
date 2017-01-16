@@ -81,19 +81,34 @@ addEventHandler("onPlayerMoveItem", function(playerid,oldSlot, newSlot) {
             invItems[playerid][oldSlot].amount = 0;
             trigger(playerid, "updateSlot", newSlot, invItems[playerid][newSlot].id);
             trigger(playerid, "updateSlot", oldSlot, invItems[playerid][oldSlot].id);
+            return;
         }
-        /*
-        else { // опа рокировочка произошла кек
-            invItems[playerid][newSlot].id = invItems[playerid][oldSlot].id;
-            invItems[playerid][newSlot].amount = invItems[playerid][oldSlot].amount;
-            invItems[playerid][oldSlot].id = invItems[playerid][newSlot].id;
-            invItems[playerid][oldSlot].amount = invItems[playerid][newSlot].amount;
-            trigger(playerid, "updateSlot", newSlot, invItems[playerid][newSlot].id);
+        if(invItems[playerid][newSlot].id > 0){
+            local oldId = invItems[playerid][oldSlot].id;
+            local oldAmount = invItems[playerid][oldSlot].amount;
+
+            local newId = invItems[playerid][newSlot].id;
+            local newAmount = invItems[playerid][oldSlot].amount;
+            if(oldId == newId && (isItemStackable(oldId) && isItemStackable(oldId))){
+                invItems[playerid][oldSlot].id = 0;
+                invItems[playerid][oldSlot].amount = 0;
+                trigger(playerid, "updateSlot", oldSlot, invItems[playerid][oldSlot].id);
+
+                invItems[playerid][newSlot].amount += oldAmount;
+                trigger(playerid, "updateSlot", newSlot, invItems[playerid][newSlot].id);
+                dbg("TRU TO STACK ITEMS:" invItems[playerid][newSlot].amount);
+                return;
+
+            }
+            invItems[playerid][oldSlot].id = newId;
+            invItems[playerid][oldSlot].amount = newAmount;
             trigger(playerid, "updateSlot", oldSlot, invItems[playerid][oldSlot].id);
+
+            invItems[playerid][newSlot].id = oldId;
+            invItems[playerid][newSlot].amount = oldAmount;
+            trigger(playerid, "updateSlot", newSlot, invItems[playerid][newSlot].id);
         }
-        */
     }
-    //dbg(invItems[playerid]);
 })
 
 function resetPlayerSlot(slot){
