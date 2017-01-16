@@ -93,7 +93,7 @@ addEventHandler("onPlayerMoveItem", function(playerid,oldSlot, newSlot) {
         }
         */
     }
-    dbg(invItems[playerid]);
+    //dbg(invItems[playerid]);
 })
 
 function givePlayerItem (playerid, item, amount) {
@@ -103,6 +103,7 @@ function givePlayerItem (playerid, item, amount) {
     }
     invItems[playerid][free].id = item.tointeger();
     invItems[playerid][free].amount =  amount.tointeger();
+    trigger(playerid, "updateSlot", free, invItems[playerid][free].id);
 }
 
 function findFreeInvSlot(palyerid){
@@ -121,6 +122,6 @@ function resetPlayerSlot(slot){
     invItems[playerid][slot].amount = 0;
 }
 
-acmd("slot", function(playerid, slot, id) {
-    trigger(playerid, "updateSlot", slot, id);
+acmd("giveitem", function(playerid, id, amount) {
+    givePlayerItem(playerid, id, amount);
 });
