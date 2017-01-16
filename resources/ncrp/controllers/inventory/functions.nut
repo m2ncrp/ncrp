@@ -101,10 +101,10 @@ function resetPlayerSlot(slot){
     invItems[playerid][slot].amount = 0;
 }
 
-acmd("giveitem",function(playerid, itemid, amount) {
+acmd("giveitem",function(playerid, itemid = 0, amount = 0) {
     local slot = findFreeSlot(playerid);
     if(slot == -1){
-        return;// no free slots
+        return msg(playerid, "ERROR: no free slots");// no free slots
     }
     invItems[playerid][slot] <- {id = itemid.tointeger(), amount = amount.tointeger()};
     trigger(playerid, "updateSlot", slot, invItems[playerid][slot].id);

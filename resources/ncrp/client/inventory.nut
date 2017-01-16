@@ -62,17 +62,14 @@ function initInventory()
 addEventHandler("INV", initInventory);
 
 
-function updateInvSlot (slot) {
+
+function updatePlayerItem(slot, itemid) {
+    playerItems[slot] = itemid.tointeger();
     guiSetVisible(invItemImg[slot],false);
     guiDestroyElement(invItemImg[slot]);
     local id = playerItems[slot];
     invItemImg[slot] = guiCreateElement( ELEMENT_TYPE_IMAGE, items[id].img, itemsPos[slot][0], itemsPos[slot][1], 64.0, 64.0, false, invWindow);
     guiSetVisible(invItemImg[slot], true);
-}
-
-function updatePlayerItem(slot, itemid) {
-    playerItems[slot] = itemid.tointeger();
-    updateInvSlot(slot);
 }
 
 addEventHandler("updateSlot", function(slot, itemid) {
