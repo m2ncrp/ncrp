@@ -7,13 +7,13 @@ enum ITEM_TYPE {
 };
 
 local items = [
-    { id = 0, title = "",           type = ITEM_TYPE.NONE,  stackable = false,  img = "none.png"},
-    { id = 1, title = "Бургер",     type = ITEM_TYPE.FOOD,  stackable = true,   img = "burger.png"},
-    { id = 2, title = "Хотдог",     type = ITEM_TYPE.FOOD,  stackable = true,   img = "hotdog.png"},
-    { id = 3, title = "Виски",      type = ITEM_TYPE.DRUNK, stackable = true,   img = "whiskey.png"},
-    { id = 4, title = "Свифт кола", type = ITEM_TYPE.DRUNK, stackable = true,   img = "swift-cola.png"},
-    { id = 5, title = "Деньги",     type = ITEM_TYPE.OTHER, stackable = false,  img = "money.png"},
-    { id = 6, title = "Квитанция",  type = ITEM_TYPE.OTHER, stackable = false,  img = "fine.png"},
+    { id = 0, title = "ёбаное ничего",  type = ITEM_TYPE.NONE,  stackable = false,  img = "none.jpg"},
+    { id = 1, title = "Бургер",         type = ITEM_TYPE.FOOD,  stackable = true,   img = "burger.jpg"},
+    { id = 2, title = "Хотдог",         type = ITEM_TYPE.FOOD,  stackable = true,   img = "hotdog.jpg"},
+    { id = 3, title = "Виски",          type = ITEM_TYPE.DRUNK, stackable = true,   img = "whiskey.jpg"},
+    { id = 4, title = "Свифт кола",     type = ITEM_TYPE.DRUNK, stackable = true,   img = "swift-cola.jpg"},
+    { id = 5, title = "Деньги",         type = ITEM_TYPE.OTHER, stackable = false,  img = "money.jpg"},
+    { id = 6, title = "Квитанция",      type = ITEM_TYPE.OTHER, stackable = false,  img = "fine.jpg"},
 ];
 
 local invItems = {};
@@ -46,8 +46,10 @@ function getItemAmountBySlot (playerid, slot) {
 }
 
 function getItemImageById (id) {
-    return items[id].img;
+    local img = items[id.tointeger()].img;
+    return img.tostring();
 }
+addEventHandler("getItemImageById", getItemImageById)
 
 function getItemDescriptionById (id) {
     //todo

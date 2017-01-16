@@ -10,8 +10,9 @@ if ((screenX / screenY) > 2.0) {
 screen = [screenX, screenY];
 
 local invWindow;
-local invitemImg;
+local invItemImg;
 local playerItems = array(30, 0);
+
 
 local itemsPos =
 [
@@ -25,20 +26,19 @@ local itemsPos =
 
 function initInventory()
 {
-    inventoryWindow = guiCreateElement( ELEMENT_TYPE_WINDOW, "Инвентарь", 0.0, 0.0,  356.0, 465.0 );
-    guiSetVisible(inventoryWindow, false);
-    weight[0] = guiCreateElement( 13,"weight-bg.jpg", 10.0, 435.0, 346.0, 20.0, false, inventoryWindow);
-    weight[1] = guiCreateElement( 13,"weight-front.jpg", 10.0, 435.0, 180.0, 20.0, false, inventoryWindow);
-    weight[2] = guiCreateElement( ELEMENT_TYPE_LABEL, "Переносимый груз 1.3/5.0 kg", 140.0, 435.0, 190.0, 20.0, false, inventoryWindow);
-    for(local i = 0; i < 5; i++){
-        invImage[i] = guiCreateElement( 13,"empty.jpg", 10.0 +(68.0*i), 25.0, 64.0, 64.0, false, inventoryWindow);guiSetAlpha(invImage[i], 0.7);
-        invImage[i+5] = guiCreateElement( 13,"empty.jpg", 10.0 +(68.0*i), 93.0, 64.0, 64.0, false, inventoryWindow);guiSetAlpha(invImage[i+5], 0.7);
-        invImage[i+10] = guiCreateElement( 13,"empty.jpg", 10.0 +(68.0*i), 161.0, 64.0, 64.0, false, inventoryWindow);guiSetAlpha(invImage[i+10], 0.7);
-        invImage[i+15] = guiCreateElement( 13,"empty.jpg", 10.0 +(68.0*i), 229.0, 64.0, 64.0, false, inventoryWindow);guiSetAlpha(invImage[i+15], 0.7);
-        invImage[i+20] = guiCreateElement( 13,"empty.jpg", 10.0 +(68.0*i), 297.0, 64.0, 64.0, false, inventoryWindow);guiSetAlpha(invImage[i+20], 0.7);
-        invImage[i+25] = guiCreateElement( 13,"empty.jpg", 10.0 +(68.0*i), 365.0, 64.0, 64.0, false, inventoryWindow);guiSetAlpha(invImage[i+25], 0.7);
+    invWindow = guiCreateElement( ELEMENT_TYPE_WINDOW, "Инвентарь", screen[0]/2, screen[1]/2 - 232.5,  356.0, 465.0 );
+    //guiSetVisible(inventoryWindow, false);
+    //weight[0] = guiCreateElement( 13,"weight-bg.jpg", 10.0, 435.0, 346.0, 20.0, false, inventoryWindow);
+    //weight[1] = guiCreateElement( 13,"weight-front.jpg", 10.0, 435.0, 180.0, 20.0, false, inventoryWindow);
+    //weight[2] = guiCreateElement( ELEMENT_TYPE_LABEL, "Переносимый груз 1.3/5.0 kg", 140.0, 435.0, 190.0, 20.0, false, invWindow);
+   for(local i = 0; i < MAX_INVENTORY_ITEMS; i++){
+        log(playerItems[i].tostring())
+        local image = triggerServerEvent("getItemTypeById",playerItems[i].tointeger());
+        log(image.tostring())
+        invItemImg[i] = guiCreateElement( 13,image.tostring(), itemsPos[i][0], itemsPos[i][1], 64.0, 64.0, false, invWindow);
+        //guiSetAlpha(invImage[i], 0.7);
     }
-    guiSetAlwaysOnTop(weight[2], true);
-    guiSetSizable(inventoryWindow,false);
-    guiSetSizable(characterWindow,false);
+    //guiSetAlwaysOnTop(weight[2], true);
+    guiSetSizable(invWindow,true);
 }
+addEventHandler("INV", initInventory);
