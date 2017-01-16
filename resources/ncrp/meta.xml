@@ -19,6 +19,8 @@
     <script type="client">nametags.nut</script>
     <script type="client">place.nut</script>
 
+     <script type="client">inventory.nut</script>
+
     <!-- <script type="client">carshop.nut</script> -->
     <!-- <script type="client">bus.nut</script> -->
     <!-- <script type="client">extrasync.nut</script> -->
@@ -37,11 +39,11 @@
 
     <!-- Client inventory files -->
     <!-- ITEMS -->
-    <file>none.png</file>
-    <file>burger.png</file>
-    <file>hotdog.png</file>
-    <file>whiskey.png</file>
-    <file>swift-cola.png</file>
-    <file>money.png</file>
-    <file>fine.png</file>
+    <file>none.jpg</file>
+    <file>burger.jpg</file>
+    <file>hotdog.jpg</file>
+    <file>whiskey.jpg</file>
+    <file>swift-cola.jpg</file>
+    <file>money.jpg</file>
+    <file>fine.jpg</file>
 </meta>

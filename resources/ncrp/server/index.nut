@@ -186,6 +186,9 @@ proxy("registerGUIFunction",        "registerGUIFunction"               );
 proxy("updateMoveState",            "updateMoveState"                   );
 proxy("changeModel",                "changeModel"                       );
 
+//Inventory system
+proxy("getItemImageById",           "getItemImageById"                  );
+
 /**
  * Debug export
  * if constant is set to true
