@@ -9,7 +9,7 @@ acmd("a", ["police", "danger"], function(playerid, level) {
 acmd("a", ["police", "job"], function(playerid, targetid) {
     local targetid = targetid.tointeger();
     getPoliceJob(targetid);
-    msg(playerid, "organizations.police.setjob.byadmin", [ getAuthor(targetid), getLocalizedPlayerJob(playerid) ] );
+    msg(playerid, "organizations.police.setjob.byadmin", [ getAuthor(targetid), getLocalizedPlayerJob(targetid) ] );
     dbg( "[POLICE JOIN]" + getAuthor(playerid) + " add " + getAuthor(targetid) + "to Police" );
 });
 
@@ -17,7 +17,7 @@ acmd("a", ["police", "job"], function(playerid, targetid) {
 // usage: /police job leave <id>
 acmd("a", ["police", "job", "leave"], function(playerid, targetid) {
     local targetid = targetid.tointeger();
-    msg(playerid, "organizations.police.leavejob.byadmin", [ getAuthor(targetid), getLocalizedPlayerJob(playerid) ]);
+    msg(playerid, "organizations.police.leavejob.byadmin", [ getAuthor(targetid), getLocalizedPlayerJob(targetid) ]);
     dbg( "[POLICE LEAVE]" + getAuthor(playerid) + " remove " + getAuthor(targetid) + "from Police" );
     leavePoliceJob(targetid);
 });
@@ -109,10 +109,10 @@ cmd("police", ["set", "rank"], function(playerid, targetid, rank) {
             trigger("onPoliceDutyOff", playerid);
             setPoliceRank( targetid, rank );
             trigger("onPoliceDutyOn", playerid);
-            setPlayerJob ( targetid, getPlayerJob(playerid) );
+            setPlayerJob ( targetid, POLICE_RANK[rank] );
         } else {
             setPoliceRank( targetid, rank );
-            setPlayerJob ( targetid, getPlayerJob(playerid) );
+            setPlayerJob ( targetid, POLICE_RANK[rank] );
         }
     }    
 });

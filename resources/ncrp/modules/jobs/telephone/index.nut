@@ -123,6 +123,8 @@ local telephones = [
     [ -1590.33, 175.591, -12.4393   , "telephone109"  ],
     [ -1584.37, 1605.48, -5.22507   , "telephone110"  ],
     [ -645.304, 1293.91, 3.94464    , "telephone111"  ],
+    [ 241.946, 710.54, -24.0321     , "telephone112"  ],
+    [ -375.504, -449.881, -17.2661  , "telephone113"  ],
 
     [-371.573,   1787.89, -23.589   , "policeAlarm1" , 2 ],
     [-1292.88,   1484.98, -6.11190  , "policeAlarm2" , 2 ],
@@ -277,6 +279,8 @@ translation("en", {
 "telephone109" : "Sand Island. Empire Diner"
 "telephone110" : "Kingston. Empire Diner"
 "telephone111" : "Highbrook. Empire Diner"
+"telephone112" : "Little Italy. Stella's diner"
+"telephone113" : "Southport. Dipton Apparel"
 
 "telephone.findphone"   : "You can see nearest phone booth on radar for 15 seconds."
 "telephone.findalready" : "Nearest phone booth already displayed on radar."

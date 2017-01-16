@@ -58,7 +58,7 @@ acmd(["getGPS", "getpos"], function ( playerid, str ) {
             posfile.writen(' ', 'b');
         }
     }
-    //posfile.writen(" // "+str, 'b');
+    // posfile.writen(" // "+str, 'b');
     // and dont forget push newline before closing
     posfile.writen('\n', 'b');
     posfile.close();
