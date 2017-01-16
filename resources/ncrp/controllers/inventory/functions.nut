@@ -23,8 +23,15 @@ addEventHandler("onItemLoading", function(playerid, id, amount, slot){
     item.id <- id.tointeger();
     item.amount <- amount.tointeger();
     invItems[playerid][slot.tointeger()].push( item );
-    dbg(invItems[playerid][slot.tointeger()]);
+    trigger(playerid, "onServerSyncItems",slot,id);
 });
+
+function sendFullItemSync (playerid) {
+    for(local i = 0; i < MAX_INVENTORY_SLOTS; i++){
+        local item = getItemIdBySlot(i);
+        trigger(playerid, "onServerSyncItems",i,item);
+    }
+}
 
 function initPlayerItems(playerid){
     invItems[playerid] <- {};
@@ -46,8 +53,7 @@ function getItemAmountBySlot (playerid, slot) {
 }
 
 function getItemImageById (id) {
-    local img = items[id.tointeger()].img;
-    return img.tostring();
+    return items[id.tointeger()].img;
 }
 addEventHandler("getItemImageById", getItemImageById)
 
