@@ -78,7 +78,7 @@ cmd("police", ["job"], function(playerid, targetid) {
     local targetid = targetid.tointeger();
     if ( getPoliceRank(playerid) == POLICE_MAX_RANK ) {
         if ( isPlayerHaveJob(targetid) ) {
-            msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), CL_RED);
+            msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(targetid), CL_RED);
             return;
         }
 

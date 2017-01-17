@@ -47,8 +47,7 @@ function getPoliceJob(playerid) {
 
     // set first rank
     setPlayerJob( playerid, setPoliceRank(playerid, 0) );
-    //policeSetOnDuty(playerid, false);
-    msg(playerid, "organizations.police.onbecame");
+    // msg(playerid, "organizations.police.onbecame");
 }
 
 
@@ -157,17 +156,17 @@ function getPoliceRank(playerid) {
  * @param  {integer} rank number
  * @return {string}  player rank
  */
-function setPoliceRank(playerid, targetid, rankID) {
+function setPoliceRank(targetid, rankID) {
     if (rankID >= 0 && rankID < POLICE_RANK.len()) {
         local oldRankID = getPoliceRank(targetid);
 
         players[targetid].job = POLICE_RANK[rankID];
         setPlayerJob(targetid, POLICE_RANK[rankID]);
         if (rankID > oldRankID) {
-            msg( playerid, "organizations.police.onrankupsmbd", [getPlayerName(targetid), POLICE_RANK[rankID]]);
+            // msg( playerid, "organizations.police.onrankupsmbd", [getPlayerName(targetid), POLICE_RANK[rankID]]);
             msg( targetid, "organizations.police.onrankup", [ getLocalizedPlayerJob(targetid) ] );
         } else {
-            msg( playerid, "organizations.police.onrankdownsmbd", [getPlayerName(targetid), POLICE_RANK[rankID]]);
+            // msg( playerid, "organizations.police.onrankdownsmbd", [getPlayerName(targetid), POLICE_RANK[rankID]]);
             msg( targetid, "organizations.police.onrankdown", [ getLocalizedPlayerJob(targetid) ] );
         }
         return POLICE_RANK[rankID];
