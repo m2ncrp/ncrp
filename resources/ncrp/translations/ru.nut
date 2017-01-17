@@ -559,7 +559,7 @@ translation("ru", {
     "telephone112" : "Гринфилд. Empire Diner"
     "telephone113" : "Вест-Сайд. Stella's Diner"
     "telephone114" : "Маленькая Италия. Stella's Diner"
-    "telephone115" : "Сауспорт. Illia's bar"
+    "telephone115" : "Сауспорт. Illia's Bar"
 
     "telephone116" : "Сауспорт. Магазин одежды Dipton Apparel"
     "telephone117" : "Кингстон. Магазин одежды Dipton Apparel (Север)"
