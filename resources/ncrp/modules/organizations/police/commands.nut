@@ -38,9 +38,11 @@ acmd("a", ["police", "set", "rank"], function(playerid, targetid, rank) {
             setPoliceRank( targetid, rank );
             trigger("onPoliceDutyOn", playerid);
             setPlayerJob( targetid, POLICE_RANK[rank] );
+            msg( playerid, "organizations.police.onrankset", [getAuthor(targetid), getLocalizedPlayerJob(targetid)]);
         } else {
             setPoliceRank( targetid, rank );
             setPlayerJob( targetid, POLICE_RANK[rank] );
+            msg( playerid, "organizations.police.onrankset", [getAuthor(targetid), getLocalizedPlayerJob(targetid)]);
         }
     }
 });
@@ -76,11 +78,12 @@ cmd("police", ["job"], function(playerid, targetid) {
     local targetid = targetid.tointeger();
     if ( getPoliceRank(playerid) == POLICE_MAX_RANK ) {
         if ( isPlayerHaveJob(targetid) ) {
-            msg(playerid, "Dat bustard alredy have job!", CL_RED);
+            msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), CL_RED);
             return;
         }
 
         getPoliceJob(targetid);
+        msg(playerid, "organizations.police.setjob.byadmin", [getAuthor(targetid), getLocalizedPlayerJob(targetid)]);
         dbg( "[POLICE JOIN]" + getAuthor(playerid) + " add " + getAuthor(targetid) + "to Police" );
     }
 });
@@ -91,6 +94,7 @@ cmd("police", ["job", "leave"], function(playerid, targetid) {
     local targetid = targetid.tointeger();
     if ( getPoliceRank(playerid) == POLICE_MAX_RANK ) {
         dbg( "[POLICE LEAVE]" + getAuthor(playerid) + " remove " + getAuthor(targetid) + "from Police" );
+        msg(playerid, "organizations.police.leavejob.byadmin", [ getAuthor(targetid), getLocalizedPlayerJob(targetid) ]);
         leavePoliceJob(targetid);
     }
 });
@@ -110,11 +114,13 @@ cmd("police", ["set", "rank"], function(playerid, targetid, rank) {
             setPoliceRank( targetid, rank );
             trigger("onPoliceDutyOn", playerid);
             setPlayerJob ( targetid, POLICE_RANK[rank] );
+            msg( playerid, "organizations.police.onrankset", [getAuthor(targetid), getLocalizedPlayerJob(targetid)]);
         } else {
             setPoliceRank( targetid, rank );
             setPlayerJob ( targetid, POLICE_RANK[rank] );
+            msg( playerid, "organizations.police.onrankset", [getAuthor(targetid), getLocalizedPlayerJob(targetid)]);
         }
-    }    
+    }
 });
 
 
@@ -150,7 +156,7 @@ key(["b"], function(playerid) {
     if ( isOfficer(playerid) && !isOnPoliceDuty(playerid) ) {
         return msg( playerid, "organizations.police.duty.off" );
     }
-    
+
     local target = playerList.nearestPlayer( playerid );
     if ( target == null) {
         return msg(playerid, "general.noonearound");
@@ -170,8 +176,8 @@ cmd("police", ["duty", "on"], function(playerid) {
     }
     if ( !isOnPoliceDuty(playerid) ) {
         if ( isPlayerNearPoliceDepartment(playerid) ) { // <------------------------------- Set only on police dep
-            return policeSetOnDuty(playerid, true);    
-        }        
+            return policeSetOnDuty(playerid, true);
+        }
     } else {
         return msg(playerid, "organizations.police.duty.alreadyon");
     }
@@ -185,7 +191,7 @@ cmd("police", ["duty", "off"], function(playerid) {
     }
     if ( isOnPoliceDuty(playerid) ) {
         if ( isPlayerNearPoliceDepartment(playerid) ) { // <------------------------------- Set only on police dep
-            return policeSetOnDuty(playerid, false);    
+            return policeSetOnDuty(playerid, false);
         }
     } else {
         return msg(playerid, "organizations.police.duty.alreadyoff");

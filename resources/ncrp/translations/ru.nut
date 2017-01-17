@@ -732,8 +732,11 @@ translation("ru", {
     "organizations.police.info.cmds.dutyon"     : "Выйти на смену."
     "organizations.police.info.cmds.dutyoff"    : "Закончить смену."
 
+    "organizations.police.onrankset"            : "Вы успешно изменили ранг %s на %s"
     "organizations.police.onrankup"             : "Вы были повышены до %s"
+    "organizations.police.onrankupsmbd"         : "%s был повышен до %s"
     "organizations.police.onrankdown"           : "Вы были понижены до %s"
+    "organizations.police.onrankdownsmbd"       : "%s был понижен до %s"
     "organizations.police.onbecame"             : "Вы стали офицером полиции."
     "organizations.police.onleave"              : "Вы более не являетесь офицером полиции."
 
