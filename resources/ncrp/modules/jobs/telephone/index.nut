@@ -345,8 +345,8 @@ translation("en", {
 "telephone136" : "East Side. Gun Shop"
 "telephone137" : "Little Italy. Gun Shop (West)"
 "telephone138" : "Little Italy. Gun Shop (East)"
-"telephone139" : "Dipton. Gas station"
 
+"telephone139" : "Dipton. Gas station"
 "telephone140" : "Greenfield. Gas station"
 "telephone141" : "Sand Island. Gas station"
 "telephone142" : "Little Italy. Gas station (East)"
