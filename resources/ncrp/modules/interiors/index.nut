@@ -181,6 +181,8 @@ local interiors = [
 ["onfoot",  "Enter",   326.867,     412.519,    -25.7734,      "ChinaTownLift2EnterHelp"],
 ["onfoot",  "Exit",    326.784,     411.757,     -26.467,      "ChinaTownLift2ExitHelp"],
 
+["onfoot",  "Enter",   -1302.92, 1613.28, 1.22659, "HarryVitrinaExit"],
+["onfoot",  "Exit",    -1304.76, 1613.28, 1.22659, "HarryVitrinaEnter"],
 
 ["onfoot",  "Enter", 545.215, 0.606471, -18.26,    "GasStationOysterBayEnter1"],
 ["onfoot",  "Exit",  544.477, 0.636801, -18.2491,  "GasStationOysterBayExit1"],

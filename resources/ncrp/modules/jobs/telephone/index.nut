@@ -119,12 +119,12 @@ local telephones = [
     [ 374.146, -290.937, -15.5799   , "telephone106" , 1],
     [ -161.972, -588.33, -16.1199   , "telephone107" , 1],
 
-    [ 140.695, -427.998, -19.429    , "telephone108"  ],
-    [ -1590.33, 175.591, -12.4393   , "telephone109"  ],
-    [ -1584.37, 1605.48, -5.22507   , "telephone110"  ],
-    [ -645.304, 1293.91, 3.94464    , "telephone111"  ],
-    [ 241.946, 710.54, -24.0321     , "telephone112"  ],
-    [ -375.504, -449.881, -17.2661  , "telephone113"  ],
+    [ 140.695, -427.998, -19.429    , "telephone108" , 1 ],
+    [ -1590.33, 175.591, -12.4393   , "telephone109" , 1 ],
+    [ -1584.37, 1605.48, -5.22507   , "telephone110" , 1 ],
+    [ -645.304, 1293.91, 3.94464    , "telephone111" , 1 ],
+    [ 241.946, 710.54, -24.0321     , "telephone112" , 1 ],
+    [ -375.504, -449.881, -17.2661  , "Southport. Dipton Apparel" , 1 ],
 
     [-371.573,   1787.89, -23.589   , "policeAlarm1" , 2 ],
     [-1292.88,   1484.98, -6.11190  , "policeAlarm2" , 2 ],
@@ -279,8 +279,7 @@ translation("en", {
 "telephone109" : "Sand Island. Empire Diner"
 "telephone110" : "Kingston. Empire Diner"
 "telephone111" : "Highbrook. Empire Diner"
-"telephone112" : "Little Italy. Stella's diner"
-"telephone113" : "Southport. Dipton Apparel"
+"telephone112" : "Little Italy. Stella's Diner"
 
 "telephone.findphone"   : "You can see nearest phone booth on radar for 15 seconds."
 "telephone.findalready" : "Nearest phone booth already displayed on radar."
@@ -375,7 +374,6 @@ function phoneCreatePrivateBlipText(playerid, x, y, z, text, cmd) {
             createPrivateBlip (playerid, x, y, ICON_RED, 1000.0)
             //createPrivate3DText (playerid, x, y, z+0.35, text, CL_RIPELEMON, 20 ),
             //createPrivate3DText (playerid, x, y, z+0.20, cmd, CL_WHITE.applyAlpha(150), 0.3 ),
-            
     ];
 }
 
