@@ -55,7 +55,6 @@ function inRadiusSendToAll(senderid, message, radius, color = 0) {
 }
 
 
-// Fix: send message in player locale, not only sender locale
 function sendLocalizedMsgToAll(senderid, phrase_key, message, radius, color = 0) {
     foreach(playerid, player in players) {
         if ( isBothInRadius(senderid, playerid, radius) ) {
@@ -68,7 +67,15 @@ function sendLocalizedMsgToAll(senderid, phrase_key, message, radius, color = 0)
     }
 }
 
-// Fix: send message in player locale, not only sender locale
+/**
+ * Send localized message to all players (in radius from SENDER) with parameters. Working GOOD!!!
+ * @param  {int}        sender
+ * @param  {string}     message
+ * @param  {string}     params
+ * @param  {float}      radius
+ * @param  {RGB object} color
+ * @return {void}
+ */
 function sendMsgToAllInRadius(senderid, message, params, radius, color = 0) {
     foreach(playerid, player in players) {
         if ( isBothInRadius(senderid, playerid, radius) ) {
@@ -80,6 +87,30 @@ function sendMsgToAllInRadius(senderid, message, params, radius, color = 0) {
         }
     }
 }
+
+/**
+ * Send localized message to all players (in radius from POINT with coords X, Y, Z) with parameters. Working GOOD!!!
+ * @param  {float}      X
+ * @param  {float}      Y
+ * @param  {float}      Z
+ * @param  {string}     message
+ * @param  {string}     params
+ * @param  {float}      radius
+ * @param  {RGB object} color
+ * @return {void}
+ */
+function sendMsgToAllInRadiusFromPoint(X, Y, Z, message, params, radius, color = 0) {
+    foreach(playerid, player in players) {
+        if ( isInRadius(playerid, X, Y, Z, radius) ) {
+            if (color) {
+                msg(playerid, message, params, color);
+            } else {
+                msg(playerid, message, params);
+            }
+        }
+    }
+}
+
 
 // /**
 //  * Send message to all players in radius
