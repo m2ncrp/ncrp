@@ -319,7 +319,7 @@ translation("en", {
 "telephone112" : "Greenfield. Empire Diner"
 "telephone113" : "West Side. Stella's Diner"
 "telephone114" : "Little Italy. Stella's Diner"
-"telephone115" : "Southport. Illia's bar"
+"telephone115" : "Southport. Illia's Bar"
 
 "telephone116" : "Southport. Dipton Apparel"
 "telephone117" : "Kingston. Dipton Apparel (North)"
