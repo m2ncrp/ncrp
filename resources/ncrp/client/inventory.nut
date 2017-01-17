@@ -17,15 +17,40 @@ local labelItems = array(30, 0);
 local selectedSlot = -1;
 local clickedSlot = -1;
 
+enum ITEM_TYPE {
+    NONE,
+    FOOD,
+    DRUNK,
+    CLOTHES,
+    OTHER,
+    WEAPON,
+    AMMO,
+};
 
 local items = [
-    { id = 0, title = "ёбаное ничего", img = "none.jpg"},
-    { id = 1, title = "Бургер",        img = "burger.jpg"},
-    { id = 2, title = "Хотдог",        img = "hotdog.jpg"},
-    { id = 3, title = "Виски",         img = "whiskey.jpg"},
-    { id = 4, title = "Свифт кола",    img = "swift-cola.jpg"},
-    { id = 5, title = "Деньги",        img = "money.jpg"},
-    { id = 6, title = "Квитанция",     img = "fine.jpg"},
+    { id = 0,   weight = 0.0,   type = ITEM_TYPE.NONE,    stackable = false,  img = "none.jpg"},
+    { id = 1,   weight = 0.0,   type = ITEM_TYPE.OTHER,   stackable = true,   img = "money.jpg"},
+    { id = 2,   weight = 0.5,   type = ITEM_TYPE.WEAPON,  stackable = false,  img = "12Revolver.jpg"},
+    { id = 3,   weight = 1.2,   type = ITEM_TYPE.WEAPON,  stackable = false,  img = "MauserC96.jpg"},
+    { id = 4,   weight = 1.1,   type = ITEM_TYPE.WEAPON,  stackable = false,  img = "ColtM1911A1.jpg"},
+    { id = 5,   weight = 1.5,   type = ITEM_TYPE.WEAPON,  stackable = false,  img = "ColtM1911Spec.jpg"},
+    { id = 6,   weight = 0.9,   type = ITEM_TYPE.WEAPON,  stackable = false,  img = "19Revolver.jpg"},
+    { id = 7,   weight = 0.6,   type = ITEM_TYPE.WEAPON,  stackable = false,  img = "MK2.jpg"},
+    { id = 8,   weight = 3.6,   type = ITEM_TYPE.WEAPON,  stackable = false,  img = "Remington870"},
+    { id = 9,   weight = 3.5,   type = ITEM_TYPE.WEAPON,  stackable = false,  img = "M3GreaseGun.jpg"},
+    { id = 10,  weight = 4.7,   type = ITEM_TYPE.WEAPON,  stackable = false,  img = "MP40.jpg"},
+    { id = 11,  weight = 4.9,   type = ITEM_TYPE.WEAPON,  stackable = false,  img = "Thompson1928.jpg"},
+    { id = 12,  weight = 4.8,   type = ITEM_TYPE.WEAPON,  stackable = false,  img = "M1A1Thompson.jpg"},
+    { id = 13,  weight = 3.3,   type = ITEM_TYPE.WEAPON,  stackable = false,  img = "Beretta38A.jpg"},
+    { id = 14,  weight = 11.5,  type = ITEM_TYPE.WEAPON,  stackable = false,  img = "MG42.jpg"},
+    { id = 15,  weight = 4.3,   type = ITEM_TYPE.WEAPON,  stackable = false,  img = "M1Garand.jpg"},
+    { id = 16,  weight = 0.0,   type = ITEM_TYPE.AMMO,    stackable = true,   img = ""},
+    { id = 17,  weight = 3.9,   type = ITEM_TYPE.WEAPON,  stackable = false,  img = "Kar98k.jpg"},
+    { id = 18,  weight = 0.0,   type = ITEM_TYPE.AMMO,    stackable = true,   img = ""},
+    { id = 19,  weight = 0.0,   type = ITEM_TYPE.AMMO,    stackable = true,   img = ""},
+    { id = 20,  weight = 0.0,   type = ITEM_TYPE.AMMO,    stackable = true,   img = ""},
+    { id = 21,  weight = 1.0,   type = ITEM_TYPE.WEAPON,  stackable = false,  img = "Molotov.jpg"},
+
 ];
 
 local itemsPos =
@@ -61,7 +86,7 @@ function initInventory()
    for(local i = 0; i < MAX_INVENTORY_SLOTS; i++){
         local id = playerItems[i].id;
         invItemImg[i] = guiCreateElement( ELEMENT_TYPE_IMAGE, items[id].img, itemsPos[i][0], itemsPos[i][1], 64.0, 64.0, false, invWindow);
-        labelItems[i] = guiCreateElement( ELEMENT_TYPE_LABEL, playerItems[i].amount.tostring(), itemsPos[i][0]+50.0, itemsPos[i][1]+50.0, 15.0, 15.0, false, invWindow);
+        labelItems[i] = guiCreateElement( ELEMENT_TYPE_LABEL, "", itemsPos[i][0]+50.0, itemsPos[i][1]+50.0, 15.0, 15.0, false, invWindow);
         guiSetAlwaysOnTop(labelItems[i], true);
         guiSetAlpha(invItemImg[i], 0.8);
     }
@@ -79,7 +104,7 @@ function updatePlayerItem(slot, itemid, amount) {
     guiSetVisible(invItemImg[slot],false);
     guiDestroyElement(invItemImg[slot]);
     invItemImg[slot] = guiCreateElement( ELEMENT_TYPE_IMAGE, items[itemid].img, itemsPos[slot][0], itemsPos[slot][1], 64.0, 64.0, false, invWindow);
-    guiSetText(labelItems[slot], amount.tostring());
+    guiSetText(labelItems[slot], formatLabelText(slot));
     guiSetAlpha(invItemImg[slot], 0.8);
     guiSetVisible(invItemImg[slot], true);
 }
@@ -115,3 +140,15 @@ addEventHandler( "onGuiElementClick",
             }
         }
 });
+
+
+function formatLabelText(slot){
+    local itemid = playerItems[slot].id;
+    if(itemid == 0){
+        return "";
+    }
+    if(items[itemid].type == ITEM_TYPE.WEAPON){
+        return playerItems[slot].amount.tostring();
+    }
+
+}

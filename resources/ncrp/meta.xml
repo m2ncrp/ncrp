@@ -38,12 +38,26 @@
     <file>someweirdshit.png</file>
 
     <!-- Client inventory files -->
-    <!-- ITEMS -->
-    <file>none.jpg</file>
-    <file>burger.jpg</file>
-    <file>hotdog.jpg</file>
-    <file>whiskey.jpg</file>
-    <file>swift-cola.jpg</file>
-    <file>money.jpg</file>
-    <file>fine.jpg</file>
+
+        <!-- ITEMS -->
+        <file>none.jpg</file>
+        <file>money.jpg</file>
+        <file>12Revolver.jpg</file>
+        <file>Mauser_C96.jpg</file>
+        <file>ColtM1911A1.jpg</file>
+        <file>ColtM1911Spec.jpg</file>
+        <file>19Revolver.jpg</file>
+        <file>MK2.jpg</file>
+        <file>Remington870.jpg</file>
+        <file>M3GreaseGun.jpg</file>
+        <file>MP40.jpg</file>
+        <file>Thompson1928.jpg</file>
+        <file>M1A1Thompson.jpg</file>
+        <file>Beretta38A.jpg</file>
+        <file>MG42.jpg</file>
+        <file>M1Garand.jpg</file>
+        <file>Kar98k.jpg</file>
+        <file>Molotov.jpg</file>
+
+
 </meta>
