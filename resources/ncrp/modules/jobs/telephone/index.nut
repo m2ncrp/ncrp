@@ -374,7 +374,6 @@ function phoneCreatePrivateBlipText(playerid, x, y, z, text, cmd) {
             createPrivateBlip (playerid, x, y, ICON_RED, 1000.0)
             //createPrivate3DText (playerid, x, y, z+0.35, text, CL_RIPELEMON, 20 ),
             //createPrivate3DText (playerid, x, y, z+0.20, cmd, CL_WHITE.applyAlpha(150), 0.3 ),
-            
     ];
 }
 
