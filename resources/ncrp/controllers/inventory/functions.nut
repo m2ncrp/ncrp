@@ -1,41 +1,10 @@
-enum ITEM_TYPE {
-    NONE,
-    FOOD,
-    DRUNK,
-    CLOTHES,
-    OTHER,
-};
+include("controllers/inventory/items.nut");
 
-local items = [
-    { id = 0, title = "ёбаное ничего",  type = ITEM_TYPE.NONE,  stackable = false,  img = "none.jpg"},
-    { id = 1, title = "Бургер",         type = ITEM_TYPE.FOOD,  stackable = true,   img = "burger.jpg"},
-    { id = 2, title = "Хотдог",         type = ITEM_TYPE.FOOD,  stackable = true,   img = "hotdog.jpg"},
-    { id = 3, title = "Виски",          type = ITEM_TYPE.DRUNK, stackable = true,   img = "whiskey.jpg"},
-    { id = 4, title = "Свифт кола",     type = ITEM_TYPE.DRUNK, stackable = true,   img = "swift-cola.jpg"},
-    { id = 5, title = "Деньги",         type = ITEM_TYPE.OTHER, stackable = false,  img = "money.jpg"},
-    { id = 6, title = "Квитанция",      type = ITEM_TYPE.OTHER, stackable = false,  img = "fine.jpg"},
-];
 
 local invItems = {};
 
-addEventHandler("onItemLoading", function(playerid, id, amount, slot){
-    invItems[playerid][slot.tointeger()] <- {id = id.tointeger(), amount = amount.tointeger()};
-    trigger(playerid, "onServerSyncItems",slot,id,amount);
-});
-
-function sendFullItemSync (playerid) {
-    for(local i = 0; i < MAX_INVENTORY_SLOTS; i++){
-        local item = getItemIdBySlot(i);
-        trigger(playerid, "onServerSyncItems",i,item);
-    }
-}
-
-function initPlayerItems(playerid){
-    invItems[playerid] <- {};
-    resetPlayerItems (playerid);
-}
-
 function  resetPlayerItems (playerid) {
+    invItems[playerid] <- {};
     trigger(playerid,"resetClientInvItem");
     for(local i = 0; i < MAX_INVENTORY_SLOTS; i++) { // reset player items
         invItems[playerid][i] <- {id = 0, amount = 0};
@@ -50,22 +19,12 @@ function getItemAmountBySlot (playerid, slot) {
     return invItems[playerid][slot].amount;
 }
 
-function getItemImageById (id) {
-    return items[id.tointeger()].img;
-}
-addEventHandler("getItemImageById", getItemImageById)
 
-function getItemDescriptionById (id) {
-    //todo
-}
+addEventHandler("onItemLoading", function(playerid, id, amount, slot){
+    invItems[playerid][slot.tointeger()] <- {id = id.tointeger(), amount = amount.tointeger()};
+    trigger(playerid, "onServerSyncItems",slot,id,amount);
+});
 
-function getItemTypeById (id) {
-    return items[id].type;
-}
-
-function isItemStackable (id) {
-    return items[id].stackable;
-}
 
 addEventHandler("onPlayerUseItem", function(playerid, itemSlot) {
 
