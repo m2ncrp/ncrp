@@ -1,6 +1,3 @@
-// TODO(inlife): move to other place
-event("onServerStarted", function() {
-
 // координаты центров помещений для радио:
 /*    create3DText(-1295.72, 1706.66, 10.5592,        "01-KingstonClothesStoreRadio"           , CL_YELLOW, 2000);
     create3DText(-1149.45, 1588.94, 6.25566,        "02-HillOfTaraRadio"                     , CL_YELLOW, 2000);
@@ -71,7 +68,6 @@ event("onServerStarted", function() {
         create3DText( 140.116, -427.935, -19.429,       "62-OysterBayDinnerRadio",             CL_WHITE);
         create3DText( 280.497, -117.119, -12.2741,      "64-OysterBayGunRadio2",               CL_WHITE);
 */
-});
 
 
 local radioPoint = [
@@ -124,13 +120,7 @@ local radioPoint = [
     [ -1396.45, -30.9751, -17.8468,     "047-SIgunRadioCenter"                   ],
     [ -644.641, 1296.51, 3.94464,       "048-HighbrookCenterRadio"               ],
     [ 142.147, -430.395, -19.429,       "049-OysterDinerRadioCenter"             ]
-]
-
-
-
-
-
-//sendMsgToAllInRadius(playerid, "utils.diсe", [ getAuthor2(playerid), dice ], 10, CL_WHITE);
+];
 
 local RADIO_COLOR = CL_JADE;
 local RADIO_RADIUS = 12.0; // need float
@@ -237,9 +227,6 @@ translation("ru", {
     "radio.ricky"           :   "Все хиты Ricky для танцев и частных вечеринок."
     "radio.oldempirical"    :   "Old Empirical - лучшее пиво штата!"
     "radio.theball"         :   "Весело провести время можно только в боулинг-баре The Ball"
-
-
-
 });
 
 /*
