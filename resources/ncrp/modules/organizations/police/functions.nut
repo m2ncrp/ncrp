@@ -27,8 +27,10 @@ function policeCall(playerid, place) {
 
 function setDangerLevel(playerid, to) {
     DENGER_LEVEL = to;
-    trigger("onPoliceDutyOff", playerid);
-    trigger("onPoliceDutyOn", playerid);
+    foreach(player in police) {
+        trigger("onPoliceDutyOff", player.playerid);
+        trigger("onPoliceDutyOn", player.playerid);
+    }
 }
 
 /**
@@ -355,13 +357,16 @@ function baton( playerid ) {
 
         if ( isBothInRadius(playerid, targetid, BATON_RADIUS) ) {
             trigger("onBatonBitStart", playerid);
+            if ( players[targetid].state == "free" || players[targetid].state == "" ) {
+                setPlayerToggle( targetid, true );
+                setPlayerState(targetid, "tased");
+                local health_dmg = random(1,10);
+                local health = getPlayerHealth();
+                setPlayerHealth(targetid, health - health_dmg);
+            }
             screenFadeinFadeout(targetid, 1500, function() {
                 msg( playerid, "organizations.police.bitsomeone.bybaton", [getAuthor(targetid)] );
                 msg( targetid, "organizations.police.beenbit.bybaton" );
-                if ( players[targetid].state == "free" ) {
-                    setPlayerToggle( targetid, true );
-                    setPlayerState(targetid, "tased");
-                }
             }, function() {
                 if ( players[targetid].state == "tased" ) {
                     setPlayerToggle( targetid, false );

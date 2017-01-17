@@ -1,5 +1,8 @@
 Tasks for nearest future
  ✔ Add more feedback msgs for all actions @done (17-01-17 12:41)
+ ☐ Add error handlers on setPoliceRank when rank less than 0 or more than 15;
+ ☐ Change CODE police to lower case;
+ ☐ Add limit of baton usage. Simply don't let bit more that 20 times in a row;
  ☐ Complete Officer class
  ☐ Complete OfficerManager class
  ☐ Add police deparment garage where all duty vehicle could be cleaned up or repaired
@@ -13,6 +16,7 @@ Tasks for nearest future
  ☐ Add /tickets cmd - show all tickets that player've got for now. Show list like police employees one with format "#ticket - reason ($payment)";
  ☐ Add /ticket <id> - to pay ticket with given ID on EBPD;
  ☐ Add department "bank account" to pay EBPD salaries and get pay for the tickets;
+ ☐ Add patrol partner (/patrol <targetid> <patrolName> and /patrol accept <id>);
 
 Tasks for futher
  ☐ Add parking slots all around the city. First one should be on EastSide;
