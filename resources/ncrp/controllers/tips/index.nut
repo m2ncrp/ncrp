@@ -62,7 +62,7 @@ translation("en", {
 local tipsToggles = {};
 
 event("onServerMinuteChange", function() {
-    if ((getMinute() % 10) != 0) {
+    if ((getMinute() % 30) != 0) {
         return;
     }
 
