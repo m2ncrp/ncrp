@@ -13,7 +13,6 @@ local infoTips = [
  // "tips.taxi"         ,
     "tips.metro"        ,
  // "tips.house"        ,
-    "tips.carrental"    ,
     "tips.report"       ,
     "tips.idea"         ,
     "tips.discord"      ,
@@ -27,9 +26,7 @@ local infoTips = [
     "tips.chatvisible"  ,
     "tips.turnlights"   ,
     "tips.dice"         ,
-    "tips.hat"          ,
-    "tips.vangel"       ,
-    "tips.carsearching"
+    "tips.hat"
 ];
 
 translation("en", {
@@ -44,7 +41,6 @@ translation("en", {
     "tips.taxi"         :   "[TIPS] If you need a ride, you can take a taxi from phone booth. Use: /taxi"
     "tips.metro"        :   "[TIPS] Subway is a good way of transportation. Go to the nearest subway station and use: /subway"
     "tips.house"        :   "[TIPS] You can buy a house, just find an estate agent, and settle a deal."
-    "tips.carrental"    :   "[TIPS] If you haven't enough money to buy a car, you can rent it at the Car Rental in North Millville."
     "tips.report"       :   "[TIPS] Saw a cheater? Or player which is braking the rules? Report via: /report ID TEXT"
     "tips.idea"         :   "[TIPS] You have an idea, suggestion, or question? Let us know via: /idea TEXT"
     "tips.discord"      :   "[TIPS] You can follow our development updates on the official discord server: bit.ly/tsoeb."
@@ -59,8 +55,6 @@ translation("en", {
     "tips.turnlights"   :   "[TIPS] Z - left turn lights; X - hazard lights; C - right turn lights."
     "tips.dice"         :   "[TIPS] Use /dice for throwing dice."
     "tips.hat"          :   "[TIPS] Use /hat COUNT for pull a ball from hat, where COUNT balls in hat."
-    "tips.carsearching" :   "[TIPS] You can find all your cars by Empire Bay Car Searching Services. Phone number: 555-0000. Cost: $49.90"
-    "tips.vangel"       :   "[TIPS] You can buy clothes in Vangel's clothing store in Midtown"
     "tips.enabled"      :   "[TIPS] Tips has been enabled."
     "tips.disabled"     :   "[TIPS] Tips has been disabled."
 });
