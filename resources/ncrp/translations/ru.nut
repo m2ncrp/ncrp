@@ -25,7 +25,6 @@ translation("ru", {
     "tips.taxi"         :   "[TIPS] Если вам нужно куда-то добраться, вы можете вызвать такси из телефонной будки: /taxi"
     "tips.metro"        :   "[TIPS] Метро - это удобный и дешевый способ передвижения. Найдите ближайшую станцию с помощью /subway"
     "tips.house"        :   "[TIPS] Вы можете купить дом. Найдите риэлтора, чтобы заключить сделку."
-    "tips.carrental"    :   "[TIPS] Если у вас не хватает денег на авто, вы можете арендовать машину в Car Rental в North Millville."
     "tips.report"       :   "[TIPS] Увидели читера? Или игрока нарушающего правила? Сообщите администрации: /report ID ТЕКСТ"
     "tips.idea"         :   "[TIPS] У вас есть идея или предложение, сообщите об этом нам, используя команду: /idea ТЕКСТ"
     "tips.discord"      :   "[TIPS] Вы можете следить за новостями разработки на официальном сервере Discord: bit.ly/tsoeb"
@@ -40,10 +39,13 @@ translation("ru", {
     "tips.turnlights"   :   "[TIPS] Z - левый поворотник; X - аварийка; C - правый поворотник."
     "tips.dice"         :   "[TIPS] Чтобы бросить кубик, используйте: /dice"
     "tips.hat"          :   "[TIPS] /hat X - вытащить из шляпы один шар из X шаров."
-    "tips.carsearching" :   "[TIPS] Забыли, где оставили свой автомобиль? Мы найдём его! Скорее звони: 555-0000. Стоимость: $49.90"
-    "tips.vangel"       :   "[TIPS] Пора обновить гардерод? Ателье Вэнджела в Мидтауне ждёт Вас!"
     "tips.enabled"      :   "[TIPS] Подсказки были включены."
     "tips.disabled"     :   "[TIPS] Подсказки были выключены."
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+
+
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
@@ -149,8 +151,8 @@ translation("ru", {
     "job.bus.help.busstoptext"      :   "Остановиться на остановке"
 
     "job.bus.route.select"              :   "Выбери один из доступных маршрутов:"
-    "job.bus.route.1"                   :   "«Uptown - Sand Island» (7 остановок)"
-    "job.bus.route.2"                   :   "«Uptown - Kingston» (7 остановок)"
+    "job.bus.route.1"                   :   "«Аптаун - Сэнд-Айленд» (7 остановок)"
+    "job.bus.route.2"                   :   "«Аптаун - Кингстон» (7 остановок)"
     "job.bus.route.3"                   :   "«Правый берег реки Калвер» (9 остановок)"
     "job.bus.route.4"                   :   "«Центральный кольцевой» (12 остановок)"
     "job.bus.route.5"                   :   "«Большой Empire Bay» (21 остановка)"
@@ -267,7 +269,7 @@ translation("ru", {
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
     "job.fueldriver"                                        : "водитель бензовоза"
-    "job.fueldriver.letsgo"                                 : "[FUEL] Отправляйтесь к штаб-квартире Trago Oil в Oyster Bay."
+    "job.fueldriver.letsgo"                                 : "[FUEL] Отправляйтесь к штаб-квартире Trago Oil в Ойстер-Бэй."
     "job.fueldriver.needlevel"                              : "[FUEL] Водителем бензовоза можно устроиться начиная с уровня %d."
     "job.fueldriver.already"                                : "[FUEL] Вы уже работает водителем бензовоза."
     "job.fueldriver.now"                                    : "[FUEL] Вы стали водителем бензовоза!"
@@ -283,10 +285,10 @@ translation("ru", {
     "job.fueldriver.truck.fuelnotenough"                    : "[FUEL] Недостаточно топлива. Отправляйтесь к топливному хранилищу для загрузки (метка с красным крестом на радаре)"
     "job.fueldriver.truck.tounload"                         : "[FUEL] Разгрузка топлива возможна только на заправках."
     "job.fueldriver.alreadybeenhere"                        : "[FUEL] Вы уже были здесь. Направляйтесь к другой заправке."
-    "job.fueldriver.truck.parking"                          : "[FUEL] Хорошая работа! Верните бензовоз к штаб-квартире Trago Oil в Oyster Bay, припаркуйте и получите Ваш заработок."
+    "job.fueldriver.truck.parking"                          : "[FUEL] Хорошая работа! Верните бензовоз к штаб-квартире Trago Oil в Ойстер-Бэй, припаркуйте и получите Ваш заработок."
     "job.fueldriver.truck.unloadingcompletedtruckisloaded"  : "[FUEL] Разгрузка выполнена. Бензовоз заполнен на %d из 16000. Направляйтесь к следующей заправке."
     "job.fueldriver.truck.unloadingcompletedfuelnotenough"  : "[FUEL] Разгрузка выполнена. Топливо закончилось. Отправляйтесь к топливному хранилищу для загрузки (метка с красным крестом на радаре)"
-    "job.fueldriver.truck.topark"                           : "[FUEL] Чтобы припарковать бензовоз, отправляйтесь к штаб-квартире Trago Oil в Oyster Bay."
+    "job.fueldriver.truck.topark"                           : "[FUEL] Чтобы припарковать бензовоз, отправляйтесь к штаб-квартире Trago Oil в Ойстер-Бэй."
     "job.fueldriver.completedelivery"                       : "[FUEL] Развезите топливо по всем заправкам."
     "job.fueldriver.nicejob"                                : "[FUEL] Отличная работа! Вы заработали $%.2f."
     "job.fueldriver.routelist.title"                        : "[FUEL] ========== Маршутный лист =========="
@@ -319,19 +321,19 @@ translation("ru", {
     "job.milkdriver.route.now.loaded"                   :   "[MILK] Вы получили маршрутный лист. Молоковоз заполнен на %d из 120"
     "job.milkdriver.route.now.empty"                    :   "[MILK] Вы получили маршрутный лист. Молоковоз пуст. Загрузите молоко."
     "job.milkdriver.notready"                           :   "[MILK] У вас нет маршрутного листа."
-    "job.milkdriver.gofillingstation"                   :   "[MILK] Отправляйтесь к молочному заводу в Chinatown для загрузки молока."
+    "job.milkdriver.gofillingstation"                   :   "[MILK] Отправляйтесь к молочному заводу в Чайнатаун для загрузки молока."
     "job.milkdriver.driving"                            :   "[MILK] Остановите молоковоз."
     "job.milkdriver.milktruckloadedcarrymilk"           :   "[MILK] Молоковоз заполнен на 120 из 120. Развезите молоко по адресам."
     "job.milkdriver.truckalreadyloaded."                :   "[MILK] Молоковоз уже загружен."
     "job.milkdriver.route.nohave"                       :   "[MILK] У вас нет маршрутного листа."
-    "job.milkdriver.milknotenough"                      :   "[MILK] Молоко закончилось. Отправляйтесь к молочному заводу в Chinatown для загрузки молока."
+    "job.milkdriver.milknotenough"                      :   "[MILK] Молоко закончилось. Отправляйтесь к молочному заводу в Чайнатаун для загрузки молока."
     "job.milkdriver.carrymilk"                          :   "[MILK] Развезите молоко по адресам."
     "job.milkdriver.alreadybeenhere"                    :   "[MILK] Вы уже были здесь. Направляйтесь к следующему адресу доставки."
-    "job.milkdriver.nicejob.needpark"                   :   "[MILK] Отлично! Верните молоковоз обратно к молочному заводу в Chinatown, припаркуйте и получите Ваш заработок."
+    "job.milkdriver.nicejob.needpark"                   :   "[MILK] Отлично! Верните молоковоз обратно к молочному заводу в Чайнатаун, припаркуйте и получите Ваш заработок."
     "job.milkdriver.unloadingcompleted.truckloaded"     :   "[MILK] Разгрузка прошла успешна. Молоковоз заполнен на %d из 120. Направляйтесь к следующему адресу доставки."
-    "job.milkdriver.unloadingcompleted.milknotenough"   :   "[MILK] Разгрузка прошла успешна. Молоко закончилось. Отправляйтесь к молочному заводу в Chinatown для загрузки молока."
+    "job.milkdriver.unloadingcompleted.milknotenough"   :   "[MILK] Разгрузка прошла успешна. Молоко закончилось. Отправляйтесь к молочному заводу в Чайнатаун для загрузки молока."
     "job.milkdriver.carrymilkalladdresses"              :   "[MILK] Развезите молоко по всем адресам."
-    "job.milkdriver.parkmilktruck."                     :   "[MILK] Чтобы припарковать молоковоз, отправляйтесь к молочному заводу в Chinatown."
+    "job.milkdriver.parkmilktruck."                     :   "[MILK] Чтобы припарковать молоковоз, отправляйтесь к молочному заводу в Чайнатаун."
     "job.milkdriver.completemilkdelivery."              :   "[MILK] Завершите доставку молока по всем адресам."
     "job.milkdriver.nicejob"                            :   "[MILK] Отличная работа! Вы заработали $%.2f."
     "job.milkdriver.route.title"                        :   "[MILK] ========== Маршрутный лист =========="
@@ -551,6 +553,52 @@ translation("ru", {
     "telephone105" : "Аптаун. Квартира Вито"
     "telephone106" : "Ойстер-Бэй. Квартира Марти"
     "telephone107" : "Сауспорт. Офис ростовщика"
+
+    "telephone108" : "Ойстер-Бэй. Empire Diner"
+    "telephone109" : "Сэнд-Айленд. Empire Diner"
+    "telephone110" : "Кингстон. Empire Diner"
+    "telephone111" : "Хайбрук. Empire Diner"
+    "telephone112" : "Гринфилд. Empire Diner"
+    "telephone113" : "Вест-Сайд. Stella's Diner"
+    "telephone114" : "Маленькая Италия. Stella's Diner"
+    "telephone115" : "Сауспорт. Illia's Bar"
+
+    "telephone116" : "Сауспорт. Магазин одежды Dipton Apparel"
+    "telephone117" : "Кингстон. Магазин одежды Dipton Apparel (Север)"
+    "telephone118" : "Кингстон. Магазин одежды Dipton Apparel (Юг)"
+    "telephone119" : "Вест-Сайд. Магазин одежды Dipton Apparel"
+    "telephone120" : "Аптаун. Магазин одежды Dipton Apparel"
+    "telephone121" : "Чайнатаун. Магазин одежды Dipton Apparel"
+    "telephone122" : "Ист-Сайд. Магазин одежды Dipton Apparel"
+    "telephone123" : "Ойстер-Бэй. Магазин одежды Dipton Apparel (Север)"
+    "telephone124" : "Ойстер-Бэй. Магазин одежды Dipton Apparel (Юг)"
+    "telephone125" : "Маленькая Италия. Магазин одежды Dipton Apparel (Запад)"
+    "telephone126" : "Маленькая Италия. Магазин одежды Dipton Apparel (Восток)"
+    "telephone127" : "Хантерс-Пойнт. Магазин одежды Магазин одежды Dipton Apparel"
+    "telephone128" : "Сэнд-Айленд. Магазин одежды Dipton Apparel"
+
+    "telephone129" : "Сэнд-Айленд. Магазин оружия"
+    "telephone130" : "Кингстон. Магазин оружия"
+    "telephone131" : "Риверсайд. Магазин оружия"
+    "telephone132" : "Ойстер-Бэй. Магазин оружия (Юг)"
+    "telephone133" : "Ойстер-Бэй. Магазин оружия (Север)"
+    "telephone134" : "Вест-Сайд. Магазин оружия"
+    "telephone135" : "Сауспорт. Магазин оружия"
+    "telephone136" : "Ист-Сайд. Магазин оружия"
+    "telephone137" : "Маленькая Италия. Магазин оружия (Запад)"
+    "telephone138" : "Маленькая Италия. Магазин оружия (Восток)"
+
+    "telephone139" : "Диптон. Автозаправка"
+    "telephone140" : "Гринфилд. Автозаправка"
+    "telephone141" : "Сэнд-Айленд. Автозаправка"
+    "telephone142" : "Маленькая Италия. Автозаправка (Восток)"
+    "telephone143" : "Маленькая Италия. Автозаправка (Запад)"
+    "telephone144" : "Ойстер-Бэй. Автозаправка"
+    "telephone145" : "Ист-Сайд. Автозаправка"
+    "telephone146" : "Вест-Сайд. Автозаправка"
+
+    "telephone147" : "Кингстон. Army Navy"
+
 
     "telephone.findphone" : "В течение 20 секунд на радаре отображается метка ближайшей телефонной будки."
     "telephone.findalready" : "Ближайшая телефонная будка уже отображена на радаре."
@@ -835,11 +883,11 @@ translation("ru", {
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
-    "shops.findcar.hello"  : "[ЗВОНОК] Empire Bay Car Searching Services. Мы найдём ваш автомобиль. Услуга стоит $%.2f."
+    "shops.findcar.hello"  : "[ЗВОНОК] Empire Bay Car Searching Services. Мы найдём ваш автомобиль. Услуга стоит $%.2f. Оплата с банковского счёта."
     "shops.findcar.wait"   : "Идёт поиск... Пожалуйста, подождите..."
-    "shops.findcar.found"  : "[ЗВОНОК] Мы нашли все ваши автомобили. Благодарим за выбор Empire Bay Car Searching Services."
+    "shops.findcar.found"  : "[ЗВОНОК] Мы нашли ваши автомобили. Благодарим за выбор Empire Bay Car Searching Services."
     "shops.findcar.seemap" : "Метки всех ваших автомобилей отмечены на карте в течение 90 секунд."
-    "shops.findcar.nomoney" : "[ЗВОНОК] К сожалению, у вас недостаточно денег. До свидания."
+    "shops.findcar.nomoney" : "[ЗВОНОК] К сожалению, у вас недостаточно средств на банковском счёте. До свидания."
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 

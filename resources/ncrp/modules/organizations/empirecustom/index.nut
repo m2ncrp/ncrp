@@ -46,7 +46,8 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
             subBankMoneyToPlayer(playerid, AD_COST);
 
             delayedFunction(60000, function() {
-                msg(playerid, "empirecustom.phone.ad", text, AD_COLOR);
+                trigger("onRadioMessageSend", text);
+                //msg(playerid, "empirecustom.phone.ad", text, AD_COLOR);
             });
         }, 90);
     }

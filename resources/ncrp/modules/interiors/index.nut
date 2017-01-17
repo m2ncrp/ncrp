@@ -297,6 +297,7 @@ key(["e"], function(playerid) {
         }
 
     } else  {
+        dbg(interiors[i][5]);
         i -= 1;
         setPlayerPosition(playerid, interiors[i][2], interiors[i][3], interiors[i][4]);
         removePlayerWeaponChina ( playerid );
