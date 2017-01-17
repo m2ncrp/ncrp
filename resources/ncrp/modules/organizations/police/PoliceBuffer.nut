@@ -1,8 +1,9 @@
 /**
-	PoliceBuffer contain all police officers data if some of them has game crash or disconnected for a small time.
-	Allow to keep data on the server and restore it if player back online.
-*/
-
+ * PoliceBuffer contain all police officers data if some of them has game crash or disconnected (for a small time in future).
+ * Allow to keep data on the server and restore it if player back online.
+ *
+ * ATTENTION! All tha data stores now while server's online. After its reboot buffer will be empty.
+ */
 __police_buffer <- {}
 local POLICE_BUFFER_SIZE = null;
 

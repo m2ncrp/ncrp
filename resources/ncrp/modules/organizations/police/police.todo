@@ -1,0 +1,26 @@
+Tasks for nearest future
+ ✔ Add more feedback msgs for all actions @done (17-01-17 12:41)
+ ☐ Complete Officer class
+ ☐ Complete OfficerManager class
+ ☐ Add police deparment garage where all duty vehicle could be cleaned up or repaired
+ ✔ Add cmd /badge - to show police badge to nearest player. It'll proof that cop isn't fake one; @done (17-01-17 11:53)
+ ☐ Add cmd /roulette - to show distances bwtween wto points in game. Need to be added to solve traffic accidents and traffic violation;
+ ☐ Add search plate number (from some rank);
+ ☐ Ability to set siren state [setVehicleSirenState(vehicleid, true/false)];
+ ☐ Ability to set beacon light state [setVehicleBeaconLightState(vehicleid, true/false)];
+ ☐ Add parking vialations tickets;
+ ☐ Add immitation of me/do/try on some actions;
+ ☐ Add /tickets cmd - show all tickets that player've got for now. Show list like police employees one with format "#ticket - reason ($payment)";
+ ☐ Add /ticket <id> - to pay ticket with given ID on EBPD;
+ ☐ Add department "bank account" to pay EBPD salaries and get pay for the tickets;
+
+Tasks for futher
+ ☐ Add parking slots all around the city. First one should be on EastSide;
+ ☐ Ability to send vehicle on parking slot by plate number. Vehicle temporary change its owner, so if the real owner wants his vehicle back he should pay ticket first, i.g. $30;
+ ☐ Add posibility to stop suspect vehicle by shooting tires. There's should be 2 officers in vehicle at least couse driver can't shoot!
+ ☐ Ability to check out other character documents such as driver license, passport and so on;
+ ☐ Add wanted list. Point to character directly with reason he's on wanted list. Add and remove char cmds;
+ ☐ Make badge as an object: add individual number for each one;
+ ☐ Add check to ammo amount on RED level in the city on duty off [getPlayerWeaponBullet(playerid), source: none].
+
+

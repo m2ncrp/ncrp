@@ -54,8 +54,8 @@ class Gun {
     model = null;
     serial = null;
     ammo = null;
-    gunshop = null;    
-    
+    gunshop = null;
+
     constructor (model, ammo, gunshop) {
         this.model = model;
         this.ammo = ammo;
@@ -93,7 +93,7 @@ class Gun {
     // Ложные вызовы от "граждан"
 
 // Ивенты с участием игроков
-    // Попытка угона авто 
+    // Попытка угона авто
     // Ношение оружия в публичном месте
     // Стрельба
 

@@ -9,7 +9,7 @@ function policeCall(playerid, place) {
     }
 
     msg(playerid, "organizations.police.call.foruser", [place], CL_ROYALBLUE);
-    local pos = getPlayerPositionObj(playerid); 
+    local pos = getPlayerPositionObj(playerid);
 
     foreach (player in players) {
         local id = player.playerid;
@@ -126,7 +126,6 @@ function policeSetOnDuty(playerid, bool) {
 
     if (bool) {
         return screenFadeinFadeout(playerid, 100, function() {
-            // onPoliceDutyGiveWeapon( playerid );
             trigger("onPoliceDutyOn", playerid);
             local modelNUM = random( 0, POLICE_RANK_SALLARY_PERMISSION_SKIN[rank][2].len()-1 );
             local model = POLICE_RANK_SALLARY_PERMISSION_SKIN[rank][2][modelNUM];
@@ -134,7 +133,6 @@ function policeSetOnDuty(playerid, bool) {
             msg(playerid, "organizations.police.duty.on");
         });
     } else {
-        // onPoliceDutyRemoveWeapon( playerid );
         trigger("onPoliceDutyOff", playerid);
         policeJobPaySalary( playerid );
         return screenFadeinFadeout(playerid, 100, function() {
@@ -159,20 +157,22 @@ function getPoliceRank(playerid) {
  * @param  {integer} rank number
  * @return {string}  player rank
  */
-function setPoliceRank(playerid, rankID) {
+function setPoliceRank(playerid, targetid, rankID) {
     if (rankID >= 0 && rankID < POLICE_RANK.len()) {
-        local oldRankID = getPoliceRank(playerid);
+        local oldRankID = getPoliceRank(targetid);
 
-        players[playerid].job = POLICE_RANK[rankID];
-        setPlayerJob(playerid, POLICE_RANK[rankID]);
+        players[targetid].job = POLICE_RANK[rankID];
+        setPlayerJob(targetid, POLICE_RANK[rankID]);
         if (rankID > oldRankID) {
-            msg( playerid, "organizations.police.onrankup", [ getLocalizedPlayerJob(playerid) ] );
+            msg( playerid, "organizations.police.onrankupsmbd", [getPlayerName(targetid), POLICE_RANK[rankID]]);
+            msg( targetid, "organizations.police.onrankup", [ getLocalizedPlayerJob(targetid) ] );
         } else {
-            msg( playerid, "organizations.police.onrankdown", [ getLocalizedPlayerJob(playerid) ] );
+            msg( playerid, "organizations.police.onrankdownsmbd", [getPlayerName(targetid), POLICE_RANK[rankID]]);
+            msg( targetid, "organizations.police.onrankdown", [ getLocalizedPlayerJob(targetid) ] );
         }
         return POLICE_RANK[rankID];
     }
-    return players[playerid].job;
+    return players[targetid].job;
 }
 
 /**
@@ -203,7 +203,7 @@ function isPoliceRankDownPossible(playerid) {
 function rankUpPolice(playerid) {
     if (isPoliceRankUpPossible(playerid)) {
         // increase rank
-        setPlayerJob( playerid, 
+        setPlayerJob( playerid,
             setPoliceRank(playerid, getPoliceRank(playerid) + 1)
         );
         // send message
@@ -221,7 +221,7 @@ function rankUpPolice(playerid) {
 function rankDownPolice(playerid) {
     if (isPoliceRankDownPossible(playerid)) {
         // decrease rank
-        setPlayerJob( playerid, 
+        setPlayerJob( playerid,
             setPoliceRank(playerid, getPoliceRank(playerid) - 1)
         );
 
@@ -310,7 +310,7 @@ function policeFindThatMotherfucker(playerid, IDorPLATE, reason) {
 
 
 /**
- * Show police 
+ * Show police
  * @param  {[type]} playerid [description]
  * @param  {[type]} targetid [description]
  * @return {[type]}          [description]
@@ -372,7 +372,7 @@ function baton( playerid ) {
 
             // setPlayerAnimStyle(playerid, "common", "default");
             // setPlayerHandModel(playerid, 1, 0); // remove policedubinka right hand
-        }        
+        }
     } else {
         return msg(playerid, "organizations.police.offduty.nobaton")
     }
@@ -402,7 +402,7 @@ function cuff(playerid) {
                 msg(playerid, "organizations.police.cuff.uncuffsomeone", [getAuthor( targetid )] );
                 return;
             }
-            // throw out cuffes and disable arrest any players till officer didn't take them from the ground 
+            // throw out cuffes and disable arrest any players till officer didn't take them from the ground
         }
     }
 }

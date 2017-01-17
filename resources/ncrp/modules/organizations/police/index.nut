@@ -1,14 +1,3 @@
-/** TODO LIST
-
-И так, полиция:
-3. Рупор и r проверить не удалось, т.к. нужно два и более игрока.
-4. baton, ticket, cuff - тоже что и пункт 3.
-5. prison выдало ошибку AN ERROR HAS OCCURED [wrong number of parameters]
-6. Неполный хелп
-7. Чёто странное с командами /police duty on и /police duty off (то ли месседжы перепутаны, для duty off вообще не выводится собщение). Непоняяяяяятно
-8. По умолчанию при входе на серв я бы ставит duty off и гражданский скин(изменено)
-*/
-
 translation("en", {
     "general.admins.serial.get"                 : "Serial of %s: %s",
 
@@ -18,8 +7,8 @@ translation("en", {
     "general.job.anotherone"                    : "You've got %s job, not %s!",
 
     "job.police.cadet"                          : "cadet"
-    "job.police.patrol"                         : "patrolman",  
-    "job.police.officer"                        : "officer",    
+    "job.police.patrol"                         : "patrolman",
+    "job.police.officer"                        : "officer",
     "job.police.detective"                      : "detective"
     "job.police.sergeant.1"                     : "sergant I"
     "job.police.sergeant.2"                     : "sergant II"
@@ -45,7 +34,7 @@ translation("en", {
 
     "organizations.police.lawbreak.warning"     : "defiance",
     "organizations.police.lawbreak.trafficviolation" : "traffic violation",
-    "organizations.police.lawbreak.roadaccident": "road accident", 
+    "organizations.police.lawbreak.roadaccident": "road accident",
 
     "organizations.police.income"               : "[EBPD] We send $%.2f to you for duty as %s.",
 
@@ -89,8 +78,11 @@ translation("en", {
     "organizations.police.info.cmds.dutyon"     : "To go on duty.",
     "organizations.police.info.cmds.dutyoff"    : "To go off duty",
 
+    "organizations.police.onrankset"            : "You've successfully set %s rank to %s"
     "organizations.police.onrankup"             : "You was rank up to %s",
+    "organizations.police.onrankupsmbd"         : "%s was rank up to %s"
     "organizations.police.onrankdown"           : "You was rank down to %s"
+    "organizations.police.onrankdownsmbd"       : "%s was rank down to %s"
     "organizations.police.onbecame"             : "You became a police officer."
     "organizations.police.onleave"              : "You're not a police officer anymore."
 });
@@ -135,9 +127,9 @@ POLICE_RANK <- [ // source: https://youtu.be/i7o0_PMv72A && https://en.wikipedia
     "police.sergeant.2",     //"Sergant"            5
     "police.lieutenant.1",   //"Lieutenant"         6
     "police.lieutenant.2",   //"Lieutenant"         7
-    "police.Captain.1",      //"Captain I"          8  
-    "police.Captain.2",      //"Captain II"         9  
-    "police.Captain.3",      //"Captain III"        10   
+    "police.Captain.1",      //"Captain I"          8
+    "police.Captain.2",      //"Captain II"         9
+    "police.Captain.3",      //"Captain III"        10
     "police.commander",      //"Commander"          11
     "police.deputychief",    //"Deputy chief"       12
     "police.assistantchief", //"Assistant chief"    13
@@ -252,6 +244,9 @@ event("onServerStarted", function() {
     create3DText( POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]+0.3, "=== EMPIRE BAY POLICE DEPARTMENT ===", CL_ROYALBLUE, TITLE_DRAW_DISTANCE );
     create3DText( POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]-0.05, "/police duty on/off", CL_WHITE.applyAlpha(150), EBPD_ENTER_RADIUS );
     create3DText( POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]-0.2, "or press E button", CL_WHITE.applyAlpha(150), EBPD_ENTER_RADIUS );
+
+    // Create Police Officers Manager here
+    // POLICE_MANAGER = OfficerManager();
 });
 
 
@@ -273,7 +268,7 @@ event("onPlayerVehicleEnter", function( playerid, vehicleid, seat ) {
         if ( isOfficer(playerid) && getPoliceRank(playerid) < 1 ) {
             blockVehicle(vehicleid);
             return msg(playerid, "organizations.police.lowrank", [], CL_GRAY);
-        } 
+        }
         if ( isOfficer(playerid) && !isOnPoliceDuty(playerid) ) {
             blockVehicle(vehicleid);
             return msg(playerid, "organizations.police.offduty.nokeys", [], CL_GRAY);
@@ -411,7 +406,7 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
             message = "organizations.police.phone.dispatch.badge"; //  - <Name>, badge <number>.       // (Кто), жетон (номер)
             sendLocalizedMsgToAll(playerid, message, [getPlayerName(playerid), getPlayerName(playerid)], POLICE_PHONENORMAL_RADIUS, CL_WHITE);
         });
-        
+
         delayedFunction( random(2700, 2900), function() {
             replyMessage = "organizations.police.phone.dispatch.policereply"; //  - How can I help, <rank>?       // Чем могу помочь, (ранг)?
             sendLocalizedMsgToAll(playerid, replyMessage, [getLocalizedPlayerJob(playerid)], POLICE_PHONENORMAL_RADIUS, CL_WHITE);
