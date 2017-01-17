@@ -14,7 +14,7 @@ Tasks for nearest future
  ☐ Add parking vialations tickets;
  ☐ Add immitation of me/do/try on some actions;
  ☐ Add /tickets cmd - show all tickets that player've got for now. Show list like police employees one with format "#ticket - reason ($payment)";
- ☐ Add /ticket <id> - to pay ticket with given ID on EBPD;
+ ☐ Add /ticket pay <id> - to pay ticket with given ID on EBPD;
  ☐ Add department "bank account" to pay EBPD salaries and get pay for the tickets;
  ☐ Add patrol partner (/patrol <targetid> <patrolName> and /patrol accept <id>);
 
