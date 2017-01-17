@@ -71,6 +71,239 @@ event("onServerStarted", function() {
         create3DText( 140.116, -427.935, -19.429,       "62-OysterBayDinnerRadio",             CL_WHITE);
         create3DText( 280.497, -117.119, -12.2741,      "64-OysterBayGunRadio2",               CL_WHITE);
 */
+});
 
 
-})
+local radioPoint = [
+    [-1295.72, 1706.66, 10.5592,        "01-KingstonClothesStoreRadio"           ],
+    [-1149.45, 1588.94, 6.25566,        "02-HillOfTaraRadio"                     ],
+    [-1585.75, 942.841, -5.20643,       "03-GreenfieldGasstationRadio"           ],
+    [-1686.19, -231.996, -20.328,       "04-SandIslantGasstationRadio"           ],
+    [-517.973, 871.842, -19.3224,       "05-UptownDressingShopRadio"             ],
+    [338.483, 881.513, -21.3066,        "06-LittleItalyGasstation(East)Radio"    ],
+    [429.584, 302.659, -20.1786,        "07-Chinatown. Gas station. Radio"       ],
+    [541.734, 2.07937, -18.2491,        "08-OsterbayGasstationRadio"             ],
+    [-41.8942, 389.116, -13.9963,       "09-EastSideClothingShopRadio"           ],
+    [105.723, 180.87, -20.0394,         "010-EastSideGasstaionRadio"             ],
+    [-5.61307, 560.5, -19.4068,         "011-LittleItalyClothingShopRadio"       ],
+    [-149.686, 604.01, -20.1886,        "012-LittleitalyGasstaion2Radio"         ],
+    [240.014, 709.288, -24.0321,        "013-LittleitalyStellasDinerRadio"       ],
+    [631.654, 897.374, -12.0138,        "014-LittleitalyBrialinBarRadio"         ],
+    [-53.6405, 742.169, -21.9009,       "015-LittleitalyFreddysBarRadio"         ],
+    [-8.8025, 741.246, -22.0582,        "016-LittleitalyGunshopNearFBRadio"      ], // near Freddy's Bar
+    [-168.989, 522.981, -16.0193,       "017-LittleitalyGiuseppesShopRadio"      ],
+    [-771.725, -377.324, -20.4072,      "018-SouthPortIlliasBarRadio"            ],
+    [-321.456, -590.863, -20.1043,      "019-SouthPortGunshopRadio"              ],
+    [-377.02, -448.385, -17.2661,       "020-SouthPortDiptonApparelRadio"        ],
+    [-251.738, -70.3595, -11.458,       "021-MidtownUangelsD&RClosingRadio"      ],
+    [24.2735, -78.9135, -15.5926,       "022-MidtownTheMalteseFalconRadio"       ],
+    [-631.257, -41.4123, 0.922398,      "023-WestSideFuelStationRadio"           ],
+    [-639.262, 349.289, 1.34485,        "024-WestSideMonaLisaRadio"              ],
+    [-1558.92, -166.169, -19.6113,      "025-niggabarradio"                      ],
+    [415.377, -290.927, -20.1622,       "026-OysterBayClothesRadio"              ],
+    [ -566.002, 312.354, 0.168081,      "027-WestSideGunshopRadio"               ],
+    [-1588.4, 177.376, -12.4393,        "028-SandIslantDinerRadio"               ],
+    [ -627.297, 291.996, -0.267101,     "029-WSDIptonApparelRadio"               ],
+    [ -561.204, 428.302, 1.02075,       "030-West Side. Stella's Diner. Radio"   ],
+    [-710.199, 1756.32, -15.0063,       "031-DiptonGasstaionRadio"               ],
+    [ 275.36, -452.657, -20.1636,       "032-OysterBayGunshopRadio"              ],
+    [ 277.922, -120.387, -12.2741,      "033-OysterBayGunshopRadio2"             ],
+    [ 344.479, 41.7052, -24.1478,       "034-OysterBayDiptonApparelRadio"        ],
+    [ 66.3907, 137.906, -14.4583,       "035-ESgunRadioCenter"                   ],
+    [ 271.602, 775.99, -21.2439,        "036-LIDiptoApparelRadioCenter"          ],
+    [ 402.929, 605.669, -24.9746,       "037-LIWestgunRadioCenter"               ],
+    [ -286.356, 1625.76, -23.0758,      "038-RiverSideGunRadioCenter"            ],
+    [ -1306.47, 1612.38, 1.22659,       "039-HarryRadioCenter"                   ],
+    [ -1181.47, 1704.52, 11.0941,       "040-KingstonGunRadioCenter"             ],
+    [ -1425.68, 1296.22, -13.7195,      "041-KingstonDiptonApparelRadioCEnter"   ],
+    [ -1582.61, 1603.15, -5.22507,      "042-KingstonEmpireDinerRadio"           ],
+    [ -1419.72, 961.505, -12.7543,      "043-GreenfieldEmpireDinerRadio"         ],
+    [ -1384.29, 470.847, -22.1321,      "044-LoneStarRadioCenter"                ],
+    [ -1377.66, 386.016, -23.7368,      "045-HunterDiptonApparelRadio"           ],
+    [ -1533.55, 3.86801, -17.8468,      "046-SIDiptonApparelRadio"               ],
+    [ -1396.45, -30.9751, -17.8468,     "047-SIgunRadioCenter"                   ],
+    [ -644.641, 1296.51, 3.94464,       "048-HighbrookCenterRadio"               ],
+    [ 142.147, -430.395, -19.429,       "049-OysterDinerRadioCenter"             ]
+]
+
+
+
+
+
+//sendMsgToAllInRadius(playerid, "utils.diсe", [ getAuthor2(playerid), dice ], 10, CL_WHITE);
+
+local RADIO_COLOR = CL_JADE;
+local RADIO_RADIUS = 12.0; // need float
+local radioToggles = {};
+local radioMsgsCache = [];
+local radioMsgs = [
+    "radio.noise"          ,
+    "radio.pdd"            ,
+    "radio.parking"        ,
+    "radio.carrental"      ,
+    "radio.carsearching"   ,
+    "radio.vangel"         ,
+    "radio.empirecustom"   ,
+    "radio.swiftcola"      ,
+    "radio.badguy"         ,
+    "radio.bigbreak"       ,
+    "radio.potomac"        ,
+    "radio.empirediner"    ,
+    "radio.phoneservices"  ,
+    "radio.masterbeer"     ,
+    "radio.empiretimes"    ,
+    "radio.cab"            ,
+    "radio.emeryshirt"     ,
+    "radio.diptonapparel"  ,
+    "radio.barbers"        ,
+    "radio.tragooil1"      ,
+    "radio.tragooil2"      ,
+    "radio.ascot"          ,
+    "radio.milk"           ,
+    "radio.dobinson"       ,
+    "radio.transport"      ,
+    "radio.ricky"          ,
+    "radio.oldempirical"   ,
+    "radio.theball"
+];
+
+translation("en", {
+    "radio.enabled"         :   "[RADIO] Tips has been enabled."
+    "radio.disabled"        :   "[RADIO] Tips has been disabled."
+    "radio.prefix"          :   "[RADIO]"
+    "radio.noise"           :   "Pschschsch-chchshschschsch-pffffzzzziiiiuuuuschschschsch"
+
+    "radio.pdd"             :   "Police department Empire Bay reminds: observe rules of the road! Take care of yourself, the health and the lives of their loved ones and those around you!"
+    "radio.parking"         :   "Drivers, be decent! Do not leave your car in the wrong place."
+    "radio.carrental"       :   "Need car? But you haven't enough money to buy a car? Rent it at the Car Rental in North Millville!"
+    "radio.carsearching"    :   "You can find all your cars by Empire Bay Car Searching Services. Phone number: 555-0000. Cost: $49.90"
+    "radio.vangel"          :   "You can buy clothes in Vangel's clothing store in Midtown"
+    "radio.empirecustom"    :   "Empire Custom - first advertising agency in Empire Bay. We can help you to advertise! Call us: 555-1111"
+
+    "radio.swiftcola"       :   "Let your taste drift with Cola Swift. She can't resist a Swift."
+    "radio.badguy"          :   "Bad Guy car showroom - cars for connoisseurs of luxury!"
+    "radio.bigbreak"        :   "Big Break sigarettes. Take a Break from it all!"
+    "radio.potomac"         :   "Potomac Indian - the choice of professionals."
+    "radio.empirediner"     :   "Empire Diner - open all night!"
+    "radio.phoneservices"   :   "Empire Telephone Services - stay in touch!"
+    "radio.masterbeer"      :   "Master Beer - master make all the difference!"
+    "radio.empiretimes"     :   "Empire Times - The News you need to hear."
+    "radio.cab"             :   "Empire Bay Cab - convenience in the first place."
+    "radio.emeryshirt"      :   "Emery shirt - cheap and cheerful."
+    "radio.diptonapparel"   :   "Dipton Apparel - clothing you can depend on!"
+    "radio.barbers"         :   "Keep looking beautiful with Barbers."
+    "radio.tragooil1"       :   "Trago Oil - always on the top!"
+    "radio.tragooil2"       :   "Trago Oil - fuel for Leaders."
+    "radio.ascot"           :   "Ascot Bailey S200 - enjoy the freedom!"
+    "radio.milk"            :   "Empire Bay Milk - only fresh goods."
+    "radio.dobinson"        :   "Easy to FIND, hard to LEAVE. Dobinson"
+    "radio.transport"       :   "Our routes cover the whole city - Empire Bay Transport Lines."
+    "radio.ricky"           :   "All the old favorites Ricky's records for dances and private parties."
+    "radio.oldempirical"    :   "Old Empirical - the Bay`s best beer!"
+    "radio.theball"         :   "The Ball is only in the bowling bar you can spend time."
+});
+
+translation("ru", {
+    "radio.enabled"         :   "[РАДИО] Радио включено."
+    "radio.disabled"        :   "[РАДИО] Радио выключено."
+    "radio.prefix"          :   "[РАДИО]"
+    "radio.noise"           :   "Пщщщ-ччшщщщщщ-пффффззззииииуууущщщщщщ"
+
+    "radio.pdd"             :   "Полицейский департамент Эмпайр-Бэй напоминает: соблюдайте правила дорожного движения! Берегите себя, здоровье и жизнь своих близких и окружающих Вас людей!"
+    "radio.parking"         :   "Водители, будьте порядочны! Не оставляйте свой автомобиль в неположенном месте."
+    "radio.carrental"       :   "Нужен автомобиль? Но нет денег на покупку? Возьми в аренду в Car Rental в Северном Милвилле!"
+    "radio.carsearching"    :   "Забыли, где оставили свой автомобиль? Мы найдём его! Скорее звони: 555-0000. Стоимость: $49.90"
+    "radio.vangel"          :   "Пора обновить гардерод? Ателье Вэнджела в Мидтауне ждёт Вас!"
+    "radio.empirecustom"    :   "Empire Custom - первое рекламное агентство в Эмпайр-Бэй. Мы поможем Вам разместить объявление! Звоните: 555-1111"
+
+    "radio.swiftcola"       :   "Спонсор сегодняшнего матча Swift Cola. Покупайте Swift Cola!"
+    "radio.badguy"          :   "Автосалон Bad Guy - автомобили для истинных ценителей роскоши!"
+    "radio.bigbreak"        :   "Сигареты Big Break! Отвлекитесь от всего!"
+    "radio.potomac"         :   "Potomac Indian - выбор профессионалов."
+    "radio.empirediner"     :   "Закусочная Empire Diner - открыты всю ночь!"
+    "radio.phoneservices"   :   "Телефонная компания Эмпайр-Бэй - оставайтесь на связи!"
+    "radio.masterbeer"      :   "Пиво Master - разница в мастерстве!"
+    "radio.empiretimes"     :   "Empire Times - новости, которые вам нужно знать."
+    "radio.cab"             :   "Таксопарк Эмпайр-Бэй - удобство на первом месте."
+    "radio.emeryshirt"      :   "Emery Shirt - дёшево и сердито."
+    "radio.diptonapparel"   :   "Dipton Apparel - одежда, на которую можно положиться!"
+    "radio.barbers"         :   "Будь красивой вместе с Barbers."
+    "radio.tragooil1"       :   "Trago Oil - всегда на высоте!"
+    "radio.tragooil2"       :   "Trago Oil - топливо для Лидеров!"
+    "radio.ascot"           :   "Ascot Bailey S200 - наслаждайся свободой!"
+    "radio.milk"            :   "Молочная компания Эмпайр-Бэй - только свежая фермерская продукция."
+    "radio.dobinson"        :   "Легко найти, тяжело потерять. Dobinson"
+    "radio.transport"       :   "Наши маршруты охватывают весь город - транспортная компания Эмпайр-Бэй."
+    "radio.ricky"           :   "Все хиты Ricky для танцев и частных вечеринок."
+    "radio.oldempirical"    :   "Old Empirical - лучшее пиво штата!"
+    "radio.theball"         :   "Весело провести время можно только в боулинг-баре The Ball"
+
+
+
+});
+
+/*
+"Пингвины - это ласточки, которые ели после 18:00"
+"Движение - это жизнь, поэтому, лёжа на диванчике, слегка подёргивай ножкой"
+"Дорогой, можно я себе туфельки купила?"
+"За Вами будущее. Отойдите"
+"Be protected with McClusky & Sons" : "Будь защищенным с МакКласки и Сыновья" (оружейный)
+ */
+
+event("onRadioMessageSend", function(message) {
+    sendMsgToRadio(message);
+});
+
+event("onServerMinuteChange", function() {
+
+    if ((getMinute() % 15) != 0) {
+        return;
+    }
+
+    if (!radioMsgsCache || !radioMsgsCache.len()) {
+        radioMsgsCache = clone radioMsgs;
+    }
+
+    // remove random value from cache
+    local radioMsgid = random(0, radioMsgsCache.len() - 1);
+    local message   = radioMsgsCache[radioMsgid];
+    radioMsgsCache.remove(radioMsgid);
+
+    sendMsgToRadio(message);
+
+});
+
+function sendMsgToRadio(message) {
+
+    foreach (playerid, value in players) {
+        if (getPlayerName(playerid) in radioToggles) continue;
+
+        local radioMsg = plocalize(playerid, "radio.prefix")+" "+plocalize(playerid, message);
+
+        if(isPlayerInVehicle(playerid) ) {
+            msg(playerid, radioMsg, RADIO_COLOR);
+        } else {
+            foreach (pointid, point in radioPoint) {
+                if(isPlayerInValidPoint3D(playerid, point[0], point[1], point[2], RADIO_RADIUS)) {
+                    msg(playerid, radioMsg, RADIO_COLOR);
+                }
+            }
+        }
+    }
+}
+
+
+cmd("togradio", function(playerid) {
+    if (!(getPlayerName(playerid) in radioToggles)) {
+        msg(playerid, "radio.disabled");
+        return radioToggles[getPlayerName(playerid)] <- true;
+    }
+
+    msg(playerid, "radio.enabled");
+    delete radioToggles[getPlayerName(playerid)];
+});
+
+
+acmd("radio", function(playerid, ...) {
+    sendMsgToRadio(concat(vargv));
+});
