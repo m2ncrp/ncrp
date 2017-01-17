@@ -279,7 +279,7 @@ translation("en", {
 "telephone109" : "Sand Island. Empire Diner"
 "telephone110" : "Kingston. Empire Diner"
 "telephone111" : "Highbrook. Empire Diner"
-"telephone112" : "Little Italy. Stella's diner"
+"telephone112" : "Little Italy. Stella's Diner"
 "telephone113" : "Southport. Dipton Apparel"
 
 "telephone.findphone"   : "You can see nearest phone booth on radar for 15 seconds."
