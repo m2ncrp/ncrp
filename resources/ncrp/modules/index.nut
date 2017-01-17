@@ -6,3 +6,4 @@ include("modules/shops");
 include("modules/rentcar");
 include("modules/interiors");
 include("modules/map");
+include("modules/radio");
