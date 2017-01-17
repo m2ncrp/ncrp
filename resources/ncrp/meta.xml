@@ -43,7 +43,7 @@
         <file>none.jpg</file>
         <file>money.jpg</file>
         <file>12Revolver.jpg</file>
-        <file>Mauser_C96.jpg</file>
+        <file>MauserC96.jpg</file>
         <file>ColtM1911A1.jpg</file>
         <file>ColtM1911Spec.jpg</file>
         <file>19Revolver.jpg</file>
@@ -58,6 +58,13 @@
         <file>M1Garand.jpg</file>
         <file>Kar98k.jpg</file>
         <file>Molotov.jpg</file>
+        <file>38Special.jpg</file>
+        <file>45ACP.jpg</file>
+        <file>357magnum.jpg</file>
+        <file>12mm.jpg</file>
+        <file>9x19mm.jpg</file>
+        <file>7,92x57mm.jpg</file>
+        <file>7,62x63mm.jpg</file>
 
 
 </meta>
