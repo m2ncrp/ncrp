@@ -241,9 +241,9 @@ event("onRadioMessageSend", function(message) {
     sendMsgToRadio(message);
 });
 
-event("onServerMinuteChange", function() {
+event("onServerHourChange", function() {
 
-    if ((getMinute() % 15) != 0) {
+    if ((getHour() % 4) != 0) {
         return;
     }
 
