@@ -59,18 +59,21 @@ function tryRespawnVehicleById(vehicleid, forced = false) {
 
     local data = __vehicles[vehicleid].respawn;
 
-    if (!data.enabled && !forced) {
-        return false;
-    }
+    if (!forced) {
 
-    if ((getTimestamp() - data.time) < VEHICLE_RESPAWN_TIME) {
-        return false;
-    }
+        if (!data.enabled) {
+            return false;
+        }
 
-    // if vehicle not emtpty - reset timestamp
-    if (!isVehicleEmpty(vehicleid)) {
-        data.time = getTimestamp();
-        return false;
+        if ((getTimestamp() - data.time) < VEHICLE_RESPAWN_TIME) {
+            return false;
+        }
+
+        // if vehicle not emtpty - reset timestamp
+        if (!isVehicleEmpty(vehicleid)) {
+            data.time = getTimestamp();
+            return false;
+        }
     }
 
     // repair and refuel
@@ -83,20 +86,23 @@ function tryRespawnVehicleById(vehicleid, forced = false) {
     // NOTE(inlife): might be bugged (stopping vehicles)
     setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
 
-    // maybe vehicle already near its default place
-    if (isVehicleNearPoint(vehicleid, data.position.x, data.position.y, 3.0)) {
-        return false;
-    }
+    if (!forced) {
 
-    foreach (playerid, value in players) {
-        local ppos = getPlayerPosition(playerid);
-        local vpos = getVehiclePosition(vehicleid);
-
-        // dont respawn if player is near
-        if ((pow(ppos[0] - vpos[0], 2) + pow(ppos[1] - vpos[1], 2)) < VEHICLE_RESPAWN_PLAYER_DISTANCE) {
-            dbg("vehicle", "respawn", "not respawning because of close player distance", getVehiclePlateText(vehicleid), getAuthor(playerid));
-            data.time = getTimestamp();
+        // maybe vehicle already near its default place
+        if (isVehicleNearPoint(vehicleid, data.position.x, data.position.y, 3.0)) {
             return false;
+        }
+
+        foreach (playerid, value in players) {
+            local ppos = getPlayerPosition(playerid);
+            local vpos = getVehiclePosition(vehicleid);
+
+            // dont respawn if player is near
+            if ((pow(ppos[0] - vpos[0], 2) + pow(ppos[1] - vpos[1], 2)) < VEHICLE_RESPAWN_PLAYER_DISTANCE) {
+                dbg("vehicle", "respawn", "not respawning because of close player distance", getVehiclePlateText(vehicleid), getAuthor(playerid));
+                data.time = getTimestamp();
+                return false;
+            }
         }
     }
 
