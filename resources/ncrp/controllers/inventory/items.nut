@@ -8,12 +8,23 @@ enum ITEM_TYPE {
     AMMO,
 };
 
+enum ITEM_STATE {
+    NONE,
+    GROUND,
+    PLAYER_HAND,
+    PLAYER_INVENTORY,
+    VEHICLE_INVENTORY,
+    BUILDING_INVENTORY,
+};
+
+include("controllers/invetory/classes/Item.nut");
+
 //{id, weight, type, stackable,img }
 
 local items = [
     { id = 0,   weight = 0.0,   type = ITEM_TYPE.NONE,    stackable = false, maxstack = 0, expiration = 0, img = "none.jpg"},
     { id = 1,   weight = 0.0,   type = ITEM_TYPE.OTHER,   stackable = false, maxstack = 0, expiration = 0, img = "money.jpg"},
-    { id = 2,   weight = 0.5,   type = ITEM_TYPE.WEAPON,  stackable = true, maxstack = 0, expiration = 0, img = "12Revolver.jpg"},
+    { id = 2,   weight = 0.5,   type = ITEM_TYPE.WEAPON,  stackable = true,  maxstack = 0, expiration = 0, img = "12Revolver.jpg"},
     { id = 3,   weight = 1.2,   type = ITEM_TYPE.WEAPON,  stackable = false, maxstack = 0, expiration = 0, img = "MauserC96.jpg"},
     { id = 4,   weight = 1.1,   type = ITEM_TYPE.WEAPON,  stackable = false, maxstack = 0, expiration = 0, img = "ColtM1911A1.jpg"},
     { id = 5,   weight = 1.5,   type = ITEM_TYPE.WEAPON,  stackable = false, maxstack = 0, expiration = 0, img = "ColtM1911Spec.jpg"},
