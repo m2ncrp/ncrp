@@ -24,7 +24,8 @@ include("controllers/invetory/classes/Item.nut");
 local items = [
     { id = 0,   weight = 0.0,   type = ITEM_TYPE.NONE,    stackable = false, maxstack = 0, expiration = 0, img = "none.jpg"},
     { id = 1,   weight = 0.0,   type = ITEM_TYPE.OTHER,   stackable = false, maxstack = 0, expiration = 0, img = "money.jpg"},
-    { id = 2,   weight = 0.5,   type = ITEM_TYPE.WEAPON,  stackable = true,  maxstack = 0, expiration = 0, img = "12Revolver.jpg"},
+/* ---------------------------------------------------------------WEAPONS/AMMO--------------------------------------------------------------------------------------- */
+    { id = 2,   weight = 0.5,   type = ITEM_TYPE.WEAPON,  stackable = false, maxstack = 0, expiration = 0, img = "12Revolver.jpg"},
     { id = 3,   weight = 1.2,   type = ITEM_TYPE.WEAPON,  stackable = false, maxstack = 0, expiration = 0, img = "MauserC96.jpg"},
     { id = 4,   weight = 1.1,   type = ITEM_TYPE.WEAPON,  stackable = false, maxstack = 0, expiration = 0, img = "ColtM1911A1.jpg"},
     { id = 5,   weight = 1.5,   type = ITEM_TYPE.WEAPON,  stackable = false, maxstack = 0, expiration = 0, img = "ColtM1911Spec.jpg"},
@@ -44,29 +45,48 @@ local items = [
     { id = 19,  weight = 0.01,  type = ITEM_TYPE.AMMO,    stackable = true,  maxstack = 0, expiration = 0, img = "357magnum.jpg"},
     { id = 20,  weight = 0.017, type = ITEM_TYPE.AMMO,    stackable = true,  maxstack = 0, expiration = 0, img = "12mm.jpg"},
     { id = 21,  weight = 1.0,   type = ITEM_TYPE.WEAPON,  stackable = false, maxstack = 0, expiration = 0, img = "Molotov.jpg"},
-    { id = 22,  weight = 0.0,   type = ITEM_TYPE.AMMO,    stackable = true,  maxstack = 0, expiration = 0, img = "9×19mm.jpg"},
+    { id = 22,  weight = 0.0,   type = ITEM_TYPE.AMMO,    stackable = true,  maxstack = 0, expiration = 0, img = "9x19mm.jpg"},
     { id = 23,  weight = 0.012, type = ITEM_TYPE.AMMO,    stackable = true,  maxstack = 0, expiration = 0, img = "7,92x57mm.jpg"},
-    { id = 24,  weight = 0.01,  type = ITEM_TYPE.AMMO,    stackable = true,  maxstack = 0, expiration = 0, img = "7,62×63mm.jpg"},
+    { id = 24,  weight = 0.01,  type = ITEM_TYPE.AMMO,    stackable = true,  maxstack = 0, expiration = 0, img = "7,62x63mm.jpg"},
+/* ---------------------------------------------------------------FOOD/DRUNK--------------------------------------------------------------------------------------- */
+    /*{ id = 25,  weight = 0.01,  type = ITEM_TYPE.FOOD,    stackable = true,  maxstack = 0, expiration = 0, img = ""},
+    { id = 26,  weight = 0.01,  type = ITEM_TYPE.FOOD,    stackable = true,  maxstack = 0, expiration = 0, img = ""},
+    { id = 27,  weight = 0.01,  type = ITEM_TYPE.DRUNK,    stackable = true,  maxstack = 0, expiration = 0, img = ""},
+    { id = 28,  weight = 0.01,  type = ITEM_TYPE.FOOD,    stackable = true,  maxstack = 0, expiration = 0, img = ""},
+    { id = 29,  weight = 0.01,  type = ITEM_TYPE.FOOD,    stackable = true,  maxstack = 0, expiration = 0, img = ""},
+    { id = 30,  weight = 0.01,  type = ITEM_TYPE.DRUNK,    stackable = true,  maxstack = 0, expiration = 0, img = ""},*/
 ];
 
 
 
-
-function getItemImageById (id) {
-    return items[id].img;
+function getIdxFromID(id){
+    foreach (idx, value in items) {
+            if(value.id == id.tointeger()){
+                return value.id;
+            }
+        }
 }
 
-function getItemWeigtById (id) {
-    return items[id].weight;
+function getItemImageById (itemid) {
+    local idx = getIdxFromID(itemid);
+    return items[itemid].img;
 }
 
-function getItemTypeById (id) {
-    return items[id].type;
+function getItemWeigtById (itemid) {
+    local idx = getIdxFromID(itemid);
+    return items[itemid].weight;
 }
 
-function isItemStackable (id) {
-    return items[id].stackable;
+function getItemTypeById (itemid) {
+    local idx = getIdxFromID(itemid);
+    return items[itemid].type;
 }
+
+function isItemStackable (itemid) {
+    local idx = getIdxFromID(itemid);
+    return items[itemid].stackable;
+}
+
 
 
 /*

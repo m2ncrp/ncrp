@@ -33,26 +33,25 @@ addEventHandler("onPlayerUseItem", function(playerid, itemSlot) {
 addEventHandler("onPlayerMoveItem", function(playerid,oldSlot, newSlot) {
     oldSlot = oldSlot.tointeger();
     newSlot = newSlot.tointeger();
+    local oldId = invItems[playerid][oldSlot].id;
+    local newId = invItems[playerid][newSlot].id;
     if(invItems[playerid][oldSlot].id > 0){
         if(invItems[playerid][newSlot].id == 0){
             invItems[playerid][newSlot].id = invItems[playerid][oldSlot].id;
             invItems[playerid][newSlot].amount = invItems[playerid][oldSlot].amount;
             invItems[playerid][oldSlot].id = 0;
             invItems[playerid][oldSlot].amount = 0;
-            trigger(playerid, "updateSlot", newSlot, invItems[playerid][newSlot].id, invItems[playerid][newSlot].amount);
-            trigger(playerid, "updateSlot", oldSlot, invItems[playerid][oldSlot].id, invItems[playerid][oldSlot].amount);
+            trigger(playerid, "updateSlot", newSlot.tostring(), invItems[playerid][newSlot].id.tostring(), invItems[playerid][newSlot].amount.tostring());
+            trigger(playerid, "updateSlot", oldSlot.tostring(), invItems[playerid][oldSlot].id.tostring(), invItems[playerid][oldSlot].amount.tostring());
             return;
         }
         if(invItems[playerid][newSlot].id > 0){
-
-            local oldId = invItems[playerid][oldSlot].id;
-            local newId = invItems[playerid][newSlot].id;
 
             if(oldId == newId && (isItemStackable(oldId) && isItemStackable(newId))){
                 return stackItem(playerid, oldSlot, newSlot);
             }
 
-            return castlingItem(playerid, oldslot, newSlot);
+            return castlingItem(playerid, oldSlot, newSlot);
         }
     }
 })
@@ -68,7 +67,7 @@ acmd("giveitem",function(playerid, itemid = 0, amount = 0) {
         return msg(playerid, "ERROR: no free slots");// no free slots
     }
     invItems[playerid][slot] <- {id = itemid.tointeger(), amount = amount.tointeger()};
-    trigger(playerid, "updateSlot", slot, invItems[playerid][slot].id, invItems[playerid][slot].amount);
+    trigger(playerid, "updateSlot", slot.tostring(), invItems[playerid][slot].id.tostring(), invItems[playerid][slot].amount.tostring());
 });
 
 
@@ -95,10 +94,10 @@ function stackItem(playerid, oldSlot, newSlot) {
     if(oldId == newId && (isItemStackable(oldId) && isItemStackable(newId))){
         invItems[playerid][oldSlot].id = 0;
         invItems[playerid][oldSlot].amount = 0;
-        trigger(playerid, "updateSlot", oldSlot, invItems[playerid][oldSlot].id, invItems[playerid][oldSlot].amount);
+        trigger(playerid, "updateSlot", oldSlot.tostring(), invItems[playerid][oldSlot].id.tostring(), invItems[playerid][oldSlot].amount.tostring());
 
         invItems[playerid][newSlot].amount += oldAmount;
-        trigger(playerid, "updateSlot", newSlot, invItems[playerid][newSlot].id, invItems[playerid][newSlot].amount);
+        trigger(playerid, "updateSlot", newSlot.tostring(), invItems[playerid][newSlot].id.tostring(), invItems[playerid][newSlot].amount.tostring());
         dbg("TRU TO STACK ITEMS:" invItems[playerid][newSlot].amount);
         return;
     }
@@ -114,11 +113,12 @@ function castlingItem (playerid, oldSlot, newSlot) {
 
     invItems[playerid][oldSlot].id = newId;
     invItems[playerid][oldSlot].amount = newAmount;
-    trigger(playerid, "updateSlot", oldSlot, invItems[playerid][oldSlot].id);
+    trigger(playerid, "updateSlot", oldSlot.tostring(), invItems[playerid][oldSlot].id.tostring(), invItems[playerid][oldSlot].amount.tostring());
 
     invItems[playerid][newSlot].id = oldId;
     invItems[playerid][newSlot].amount = oldAmount;
-    trigger(playerid, "updateSlot", newSlot, invItems[playerid][newSlot].id);
+    trigger(playerid, "updateSlot", newSlot.tostring(), invItems[playerid][newSlot].id.tostring(),invItems[playerid][newSlot].amount.tostring());
 
     return;
 }
+
