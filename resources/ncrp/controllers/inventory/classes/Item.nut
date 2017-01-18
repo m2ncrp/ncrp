@@ -5,7 +5,7 @@ class Item.Item extends ORM.Entity
     static classname = "Item.Item";
     static table = "tbl_items";
 
-    static fields = [
+    fields = [
         ORM.Field.Integer({ name = "type",  value = ITEM_TYPE.NONE  }),
         ORM.Field.Integer({ name = "state", value = ITEM_STATE.NONE }),
         ORM.Field.Integer({ name = "slot",  value = 0 }),
@@ -15,7 +15,7 @@ class Item.Item extends ORM.Entity
         ORM.Field.String({ name = "data",   value = "{}"}),
     ];
 
-    static traits = [
+    traits = [
         ORM.Trait.Positionable(),
     ];
 
