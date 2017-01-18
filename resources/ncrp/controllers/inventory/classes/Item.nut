@@ -31,6 +31,10 @@ class Item.Item extends ORM.Entity
             this.created = getTimestamp();
         }
     }
+
+    function use(playerid) {
+        dbg("classes/Item.nut: trying to use item. Make sure you've overriden this method for your item", this.classname, getIdentity(playerid));
+    }
 }
 
 class Item.None extends Item.Item {

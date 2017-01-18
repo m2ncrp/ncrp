@@ -36,14 +36,20 @@ function addPlayerItem(playerid, item) {
 
 
 event("native:onPlayerUseItem", function(playerid, itemSlot) {
+    itemSlot = itemSlot.tointeger();
 
+    // exit if invalid
+    if (!(playerid in invItems) || !(itemSlot in invItems[playerid])) return;
+
+    invItems[playerid][itemSlot].use(playerid);
 });
 
 event("native:onPlayerMoveItem", function(playerid, oldSlot, newSlot) {
-    dbg("inventory", "trying to move item slots:", oldSlot, newSlot);
-
     oldSlot = oldSlot.tointeger();
     newSlot = newSlot.tointeger();
+
+    // exit if invalid
+    if (!(playerid in invItems) || !(oldSlot in invItems[playerid]) || !(newSlot in invItems[playerid])) return;
 
     // player trying to move empty item, ignore
     if (invItems[playerid][oldSlot].classname == "Item.None") return;
