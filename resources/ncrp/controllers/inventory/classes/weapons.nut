@@ -2,7 +2,7 @@
  * Weapons
  */
 class Item.Revolver12       extends Item.Weapon { static classname = "Item.Revolver12";     constructor () { base.constructor(); this.weight = 0.200; this.model = 02 }}
-class Item.ColtM1911A1      extends Item.Weapon { static classname = "Item.ColtM1911A1";    constructor () { base.constructor(); this.weight = 1.200; this.model = 03 }}
+class Item.ColtM1911A1      extends Item.Weapon { static classname = "Item.MauserC96";      constructor () { base.constructor(); this.weight = 1.200; this.model = 03 }}
 class Item.ColtM1911A1      extends Item.Weapon { static classname = "Item.ColtM1911A1";    constructor () { base.constructor(); this.weight = 1.100; this.model = 04 }}
 class Item.ColtM1911Spec    extends Item.Weapon { static classname = "Item.ColtM1911Spec";  constructor () { base.constructor(); this.weight = 1.500; this.model = 05 }}
 class Item.Revolver19       extends Item.Weapon { static classname = "Item.Revolver19";     constructor () { base.constructor(); this.weight = 0.900; this.model = 06 }}
