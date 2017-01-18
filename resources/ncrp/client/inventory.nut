@@ -60,9 +60,10 @@ function initInventory(){
 
 
 function showInventory(){
-    guiSetSize(invWindow, invWinW, invWinH);
     guiSetPosition(invWindow,screen[0]/2 - invWinPosOffsetX, screen[1]/2 - invWinPosOffsetY);
+    guiSetSizable(invWindow,false);
     guiSetVisible(invWindow, true);
+    showCursor(true);
 }
 addEventHandler("INV", showInventory);
 
@@ -73,7 +74,7 @@ function hideInventory(){
 
 function updateImage (id) {
      if(!invWindow){
-        invWindow = guiCreateElement( ELEMENT_TYPE_WINDOW, "Инвентарь", 99999.9, 0.0,  0.0, 0.0);
+        invWindow = guiCreateElement( ELEMENT_TYPE_WINDOW, "Инвентарь", 99999.9, 0.0, invWinH, invWinW);
         guiSetVisible(invWindow, false);
     }
     if(invWindow){
