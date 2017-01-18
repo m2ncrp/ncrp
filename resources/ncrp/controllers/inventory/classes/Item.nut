@@ -1,28 +1,25 @@
-class ShortIntTypeField extends ORM.Field.Integer {
-    static size = 3;
-}
+Item <- {};
+ItemList <- {};
 
-class Item extends ORM.Entity
+class Item.Item extends ORM.Entity
 {
-    static classname = "Item";
+    static classname = "Item.Item";
     static table = "tbl_items";
 
     static fields = [
-        ShortIntTypeField({ name = "type",  ITEM_TYPE.NONE  }),
-        ShortIntTypeField({ name = "state", ITEM_STATE.NONE }),
+        ORM.Field.Integer({ name = "type",  value = ITEM_TYPE.NONE  }),
+        ORM.Field.Integer({ name = "state", value = ITEM_STATE.NONE }),
+        ORM.Field.Integer({ name = "slot",  value = 0 }),
         ORM.Field.Integer("parent"),
+        ORM.Field.Integer("amount"),
         ORM.Field.Integer("created"),
         ORM.Field.String("data"),
     ];
 
-    id          = 0;
+    itemid      = 0;
     stackable   = false;
     maxstack    = 0;
     weight      = 1.0;
     name        = "Default Item"; // ?
-    img         = "none.jpg";
-}
-
-class WeaponItem extends Item {
-    capacity = 0;
+    img         = "none.jpg"; // ?
 }
