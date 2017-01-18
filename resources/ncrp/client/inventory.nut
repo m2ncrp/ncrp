@@ -40,7 +40,7 @@ addEventHandler("onServerSyncItems", function(slot,classname,amount, type){  //s
     log(format("onServerSyncItems - slot: %s, classname: %s, amount: %s, type: %s", slot, classname,amount,type));
 });
 
-
+/*
 function initInventory(){
     invWindow = guiCreateElement( ELEMENT_TYPE_WINDOW, "Инвентарь", screen[0]/2, screen[1]/2 - 232.5,  356.0, 465.0 );
     guiSetVisible(inventoryWindow, false);
@@ -57,10 +57,11 @@ function initInventory(){
     guiSetSizable(invWindow,false);
     showCursor(true);
 }
-
+*/
 
 function showInventory(){
-    guiSetPosition(invWindow,screen[0]/2 - invWinPosOffsetX, screen[1]/2 - invWinPosOffsetY);
+    guiSetPosition(invWindow,screen[0]/2, screen[1]/2 -232.5);
+    guiSetSize(invWindow,356.0, 465.0);
     guiSetSizable(invWindow,false);
     guiSetVisible(invWindow, true);
     showCursor(true);
@@ -74,7 +75,7 @@ function hideInventory(){
 
 function updateImage (id) {
      if(!invWindow){
-        invWindow = guiCreateElement( ELEMENT_TYPE_WINDOW, "Инвентарь", 99999.9, 0.0, invWinH, invWinW);
+        invWindow = guiCreateElement( ELEMENT_TYPE_WINDOW, "Инвентарь", 0.0, 0.0, 356.0, 465.0);
         guiSetVisible(invWindow, false);
     }
     if(invWindow){
