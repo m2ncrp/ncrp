@@ -12,7 +12,7 @@ function resetPlayerItems(playerid) {
     invItems[playerid] <- {};
 
     for(local i = 0; i < MAX_INVENTORY_SLOTS; i++) {
-        trigger("onItemLoading", playerid, Item.None(i));
+        addPlayerItem(playerid, Item.None(i));
     }
 }
 
@@ -40,6 +40,8 @@ event("native:onPlayerUseItem", function(playerid, itemSlot) {
 });
 
 event("native:onPlayerMoveItem", function(playerid, oldSlot, newSlot) {
+    dbg("inventory", "trying to move item slots:", oldSlot, newSlot);
+
     oldSlot = oldSlot.tointeger();
     newSlot = newSlot.tointeger();
 
@@ -94,6 +96,23 @@ function syncPlayerItem(playerid, item) {
     return trigger(playerid, "onServerSyncItems", item.slot.tostring(), item.classname, item.amount.tostring(), getItemType(item));
 }
 
+
+acmd("addtommy", function(playerid) {
+    local slot = findFreeSlot(playerid);
+
+    if (slot == -1){
+        return msg(playerid, "ERROR: no free slots", CL_ERROR);// no free slots
+    }
+
+    local tommy  = Item.Thompson1928();
+    tommy.state  = ITEM_STATE.PLAYER_INV;
+    tommy.amount = 6;
+    tommy.parent = players[playerid].id;
+    tommy.save();
+
+    addPlayerItem(playerid, tommy);
+});
+
 // acmd("giveitem",function(playerid, itemid = 0, amount = 0) {
 //     local slot = findFreeSlot(playerid);
 //     if(slot == -1){
@@ -105,12 +124,10 @@ function syncPlayerItem(playerid, item) {
 
 
 function findFreeSlot(playerid){
-    local freeSlot = -1;
-    for(local i = 0; i < MAX_INVENTORY_SLOTS; i++){
-        if(invItems[playerid][i].classname == 0){
-            freeSlot = i;
-            break;
+    for (local i = 0; i < MAX_INVENTORY_SLOTS; i++) {
+        if (invItems[playerid][i].classname == "Item.None") {
+            return i;
         }
     }
-    return freeSlot;
+    return -1;
 }

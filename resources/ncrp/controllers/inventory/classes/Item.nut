@@ -12,7 +12,7 @@ class Item.Item extends ORM.Entity
         ORM.Field.Integer("parent"),
         ORM.Field.Integer("amount"),
         ORM.Field.Integer("created"),
-        ORM.Field.String("data"),
+        ORM.Field.String({ name = "data",   value = "{}"}),
     ];
 
     static traits = [
@@ -38,10 +38,6 @@ class Item.None extends Item.Item {
     constructor (slot = 0) {
         base.constructor();
         this.slot = slot;
-    }
-
-    function createTable() {
-        return { execute = function() {} };
     }
 
     function save() {
