@@ -21,118 +21,94 @@ function resetPlayerItems(playerid) {
  * @param {Integer} playerid
  * @param {Item.Item} item
  */
-addEventHandler("onItemLoading", function(playerid, item) {
+event("onItemLoading", function(playerid, item) {
     if (!(item instanceof Item.Item)) {
         throw "onItemLoading: you've provided invalid item instance. Make sure it extends Item.Item";
     }
 
     invItems[playerid][item.slot] <- item;
-    trigger(playerid, "onServerSyncItems", item.slot.tostring(), item.classaname, item.amount.tostring(),);
+    syncPlayerItem(playerid, item);
 });
 
 
-addEventHandler("onPlayerUseItem", function(playerid, itemSlot) {
+event("native:onPlayerUseItem", function(playerid, itemSlot) {
 
-})
+});
 
-addEventHandler("onPlayerMoveItem", function(playerid, oldSlot, newSlot) {
+event("native:onPlayerMoveItem", function(playerid, oldSlot, newSlot) {
     oldSlot = oldSlot.tointeger();
     newSlot = newSlot.tointeger();
 
     local oldId = invItems[playerid][oldSlot].classname;
     local newId = invItems[playerid][newSlot].classname;
 
-    if(invItems[playerid][oldSlot].id > 0){
-        if(invItems[playerid][newSlot].id == 0){
-            invItems[playerid][newSlot].id = invItems[playerid][oldSlot].id;
-            invItems[playerid][newSlot].amount = invItems[playerid][oldSlot].amount;
-            invItems[playerid][oldSlot].id = 0;
-            invItems[playerid][oldSlot].amount = 0;
-            trigger(playerid, "updateSlot", newSlot.tostring(), invItems[playerid][newSlot].id.tostring(), invItems[playerid][newSlot].amount.tostring());
-            trigger(playerid, "updateSlot", oldSlot.tostring(), invItems[playerid][oldSlot].id.tostring(), invItems[playerid][oldSlot].amount.tostring());
-            return;
+    // player trying to move empty item, ignore
+    if (invItems[playerid][oldSlot].classname == "Item.None") return;
+
+    // player trying to stack up same items
+    if (invItems[playerid][oldSlot].classname == invItems[playerid][newSlot].classname && invItems[playerid][newSlot].stackable) {
+        local newAmount = invItems[playerid][oldSlot].amount + invItems[playerid][oldSlot].amount;
+
+        if (newAmount > invItems[playerid][newSlot].maxstack) {
+            invItems[playerid][oldSlot] = newAmount - invItems[playerid][newSlot].maxstack;
+            invItems[playerid][newSlot] = invItems[playerid][oldSlot].maxstack;
+        } else {
+            invItems[playerid][oldSlot] = Item.None(oldSlot);
+            invItems[playerid][newSlot].amount = newAmount;
         }
-        if(invItems[playerid][newSlot].id > 0){
 
-            if(oldId == newId && (isItemStackable(oldId) && isItemStackable(newId))){
-                return stackItem(playerid, oldSlot, newSlot);
-            }
+        syncPlayerItem(playerid, invItems[playerid][newSlot]);
+        syncPlayerItem(playerid, invItems[playerid][oldSlot]);
 
-            return castlingItem(playerid, oldSlot, newSlot);
-        }
+        trigger("onPlayerStackItem", playerid, invItems[playerid][newSlot]);
+        // TODO(inlife): maybe add on player remove item for oldSlot?
+        return;
     }
-})
 
-function resetPlayerSlot(slot){
-    invItems[playerid][slot].id = 0;
-    invItems[playerid][slot].amount = 0;
-}
+    local temp = invItems[playerid][oldSlot];
+    invItems[playerid][newSlot] = invItems[playerid][oldSlot];
+    invItems[playerid][oldSlot] = temp;
 
-acmd("giveitem",function(playerid, itemid = 0, amount = 0) {
-    local slot = findFreeSlot(playerid);
-    if(slot == -1){
-        return msg(playerid, "ERROR: no free slots");// no free slots
-    }
-    invItems[playerid][slot] <- {id = itemid.tointeger(), amount = amount.tointeger()};
-    trigger(playerid, "updateSlot", slot.tostring(), invItems[playerid][slot].id.tostring(), invItems[playerid][slot].amount.tostring());
+    invItems[playerid][newSlot].slot = newSlot;
+    invItems[playerid][oldSlot].slot = oldSlot;
+
+    syncPlayerItem(playerid, invItems[playerid][newSlot]);
+    syncPlayerItem(playerid, invItems[playerid][oldSlot]);
+
+    if (invItems[playerid][oldSlot].classname != "Item.None") trigger("onPlayerMoveItem", playerid, invItems[playerid][oldSlot]);
+    if (invItems[playerid][newSlot].classname != "Item.None") trigger("onPlayerMoveItem", playerid, invItems[playerid][newSlot]);
+
+    return true;
 });
 
+function getItemType(item) {
+    if (item instanceof Item.Ammo)      return "ITEM_TYPE.AMMO";
+    if (item instanceof Item.Weapon)    return "ITEM_TYPE.WEAPON";
 
+    return "ITEM_TYPE.NONE";
+}
+
+function syncPlayerItem(playerid, item) {
+    return trigger(playerid, "onServerSyncItems", item.slot.tostring(), item.classaname, item.amount.tostring(), getItemType(item));
+}
+
+// acmd("giveitem",function(playerid, itemid = 0, amount = 0) {
+//     local slot = findFreeSlot(playerid);
+//     if(slot == -1){
+//         return msg(playerid, "ERROR: no free slots");// no free slots
+//     }
+//     invItems[playerid][slot] <- {id = itemid.tointeger(), amount = amount.tointeger()};
+//     trigger(playerid, "updateSlot", slot.tostring(), invItems[playerid][slot].classname.tostring(), invItems[playerid][slot].amount.tostring());
+// });
 
 
 function findFreeSlot(playerid){
     local freeSlot = -1;
     for(local i = 0; i < MAX_INVENTORY_SLOTS; i++){
-        if(invItems[playerid][i].id == 0){
+        if(invItems[playerid][i].classname == 0){
             freeSlot = i;
             break;
         }
     }
     return freeSlot;
 }
-
-function stackItem(playerid, oldSlot, newSlot) {
-    local oldId = invItems[playerid][oldSlot].id;
-    local oldAmount = invItems[playerid][oldSlot].amount;
-
-    local newId = invItems[playerid][newSlot].id;
-    local newAmount = invItems[playerid][oldSlot].amount;
-
-    if(oldId == newId && (isItemStackable(oldId) && isItemStackable(newId))){
-        invItems[playerid][oldSlot].id = 0;
-        invItems[playerid][oldSlot].amount = 0;
-        trigger(playerid, "updateSlot", oldSlot.tostring(), invItems[playerid][oldSlot].id.tostring(), invItems[playerid][oldSlot].amount.tostring());
-
-        invItems[playerid][newSlot].amount += oldAmount;
-        trigger(playerid, "updateSlot", newSlot.tostring(), invItems[playerid][newSlot].id.tostring(), invItems[playerid][newSlot].amount.tostring());
-        dbg("TRU TO STACK ITEMS:" invItems[playerid][newSlot].amount);
-        return;
-    }
-    return;
-}
-
-function castlingItem (playerid, oldSlot, newSlot) {
-    local oldId = invItems[playerid][oldSlot].id;
-    local oldAmount = invItems[playerid][oldSlot].amount;
-
-    local newId = invItems[playerid][newSlot].id;
-    local newAmount = invItems[playerid][oldSlot].amount;
-
-    invItems[playerid][oldSlot].id = newId;
-    invItems[playerid][oldSlot].amount = newAmount;
-    trigger(playerid, "updateSlot", oldSlot.tostring(), invItems[playerid][oldSlot].id.tostring(), invItems[playerid][oldSlot].amount.tostring());
-
-    invItems[playerid][newSlot].id = oldId;
-    invItems[playerid][newSlot].amount = oldAmount;
-    trigger(playerid, "updateSlot", newSlot.tostring(), invItems[playerid][newSlot].id.tostring(),invItems[playerid][newSlot].amount.tostring());
-
-    return;
-}
-
-// function getItemIdBySlot (playerid, slot) {
-//     return invItems[playerid][slot].id;
-// }
-
-// function getItemAmountBySlot (playerid, slot) {
-//     return invItems[playerid][slot].amount;
-// }
