@@ -113,7 +113,7 @@ addEventHandler( "onGuiElementClick",
                     guiSetAlpha(invItemImg[selectedSlot], 0.8);
                     return selectedSlot = -1;
                 }
-                if(playerItems[i].id > 0){
+                if(playerItems[i].type != "ITEM_TYPE.NONE"){
                     guiSetAlpha(invItemImg[i], 1.0);
                     return selectedSlot = i;
                 }
