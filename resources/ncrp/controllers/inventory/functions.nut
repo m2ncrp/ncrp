@@ -56,7 +56,7 @@ event("native:onPlayerMoveItem", function(playerid, oldSlot, newSlot) {
 
     // player trying to stack up same items
     if (invItems[playerid][oldSlot].classname == invItems[playerid][newSlot].classname && invItems[playerid][newSlot].stackable) {
-        local newAmount = invItems[playerid][oldSlot].amount + invItems[playerid][oldSlot].amount;
+        local newAmount = invItems[playerid][oldSlot].amount + invItems[playerid][newSlot].amount;
 
         if (newAmount > invItems[playerid][newSlot].maxstack) {
             invItems[playerid][newSlot].amount = invItems[playerid][oldSlot].maxstack;
