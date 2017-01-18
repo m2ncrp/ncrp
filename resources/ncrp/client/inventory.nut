@@ -59,14 +59,21 @@ function initInventory(){
 }
 */
 
-function showInventory(){
-    guiSetPosition(invWindow,screen[0]/2, screen[1]/2 -232.5);
-    guiSetSize(invWindow,356.0, 465.0);
-    guiSetSizable(invWindow,false);
-    guiSetVisible(invWindow, true);
-    showCursor(true);
+
+function Inventory () {
+    if(guiIsVisible(invWindow)){
+        guiSetVisible(invWindow, false);
+        showCursor(false);
+    }
+    else {
+        guiSetPosition(invWindow,screen[0]/2, screen[1]/2 -232.5);
+        guiSetSize(invWindow,356.0, 465.0);
+        guiSetSizable(invWindow,false);
+        guiSetVisible(invWindow, true);
+        showCursor(true);
+    }
 }
-addEventHandler("INV", showInventory);
+addEventHandler("INV", Inventory);
 
 function hideInventory(){
 
