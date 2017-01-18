@@ -15,13 +15,30 @@ acmd(["tune"], function( playerid ) {
     }
 });
 
-acmd(["fix"], function( playerid ) {
+acmd(["fix"], function( playerid, vehicleid = null ) {
     if( isPlayerInVehicle( playerid ) )
     {
-        local vehicleid = getPlayerVehicle( playerid );
-        repairVehicle( vehicleid );
-        setVehicleFuel( vehicleid, 50.0 );
+        vehicleid = getPlayerVehicle( playerid );
+    } else if (vehicleid != null) {
+        vehicleid = vehicleid.tointeger();
+    } else {
+        return;
     }
+        repairVehicle( vehicleid );
+        restoreVehicleFuel( vehicleid );
+});
+
+acmd(["rot"], function( playerid, vehicleid = null ) {
+    if( isPlayerInVehicle( playerid ) )
+    {
+        vehicleid = getPlayerVehicle( playerid );
+    } else if (vehicleid != null) {
+        vehicleid = vehicleid.tointeger();
+    } else {
+        return;
+    }
+        local vehRot = getVehicleRotation(vehicleid);
+        setVehicleRotation( vehicleid, vehRot[0], 0.0, 0.0 );
 });
 
 acmd("checkcar", function( playerid ) {
