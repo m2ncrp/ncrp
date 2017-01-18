@@ -958,6 +958,17 @@ class ORM.Entity {
             if (!(field instanceof ORM.Field.Basic)) {
                 throw "ORM.Entity: you've tried to attach non-inherited field. Dont do dis.";
             }
+
+            this.fields[idx] = clone(field);
+        }
+
+        // special check for extended entity class
+        if (this.fields.len() > 1) {
+            // id exists, which means we are inhariting some entity
+            if (this.fields[0].getName() == "id") {
+                this.fields.remove(1);
+                this.fields.remove(0);
+            }
         }
 
         // reverse current defined fields (to add at the beginning)

@@ -42,3 +42,91 @@ event("onServerStarted", function() {
     create3DText(-150.935, 606.023, -20.1787,       "LittleitalyGasstaion2Phone",       CL_WHITE);
     create3DText(-149.686, 604.01, -20.1886,        "LittleitalyGasstaion2Radio",       CL_WHITE);
 })
+
+
+local musiclist = [
+    "m01_part1",
+    "m01_part2",
+    "m01_action",
+    "m02_ride_to_freddys_bar",
+    "m02_way_to_mother",
+    "m02_Bombers_fight",
+    "m03_PriceOffice_music_stealth",
+    "m03_PriceOffice_music_suspiction",
+    "m03_PriceOffice_music_fighting",
+    "m03_sq_deepthroat1",
+    "m03_sq_deepthroat2",
+    "m04_Elbox_music",
+    "m04_Jewellery_music",
+    "m04_Escape_music",
+    "m04_Roof_music",
+    "m05_Distilery_Street",
+    "m05_Distilery_Firstfloor",
+    "m05_Distilery_Surprise",
+    "m05_Distilery_Secondfloor",
+    "m06_Prison_arrival",
+    "m06_Prison_welcome",
+    "m06_Prison_fight_with_Brian",
+    "m06_Prison_fight_with_rapists",
+    "m06_Prison_final_fight",
+    "m06_Prison_yard_first",
+    "m07_grave_departure",
+    "m08_Hot_Rod_chase",
+    "m08_Storming_foundry_outside",
+    "m08_Storming_foundry_inside",
+    "m09_Sewers",
+    "m09_Sneaking",
+    "m09_Fight_torturers",
+    "m09_Fight_reinforcements",
+    "m09_Prisoners",
+    "m09_Pursuit",
+    "m09_Close_combat",
+    "m09_Fredy_bar",
+    "m10_Skyscraper_action",
+    "m10_Basement_action",
+    "m10_Car_chase",
+    "m10_Roof_fight",
+    "m10_lift_music",
+    "m10_lift_music2",
+    "m11_Race",
+    "m11_Hiding",
+    "m12_Ambush",
+    "m12_Fight_inside",
+    "m13_Park_fight",
+    "m13_Following_the_car",
+    "m13_Storming_the_restaurant",
+    "m13_Opium_Lair",
+    "m13_Laboratory_Fight",
+    "m14_SQ_Garage_Fight",
+    "m14_Sneaking",
+    "m14_CS_Fight",
+    "m14_SQ_Kill_Derek_1",
+    "m14_SQ_Kill_Derek_2",
+    "m15_Planetarium_Action",
+    "m15_Planetarium_BossFight",
+    "RtR_prison_break",
+    "GCD_fist_fight",
+    "GCD_stealth",
+    "GCD_guard_fight",
+];
+
+local musicplayer = {};
+
+acmd("mu", function(playerid, step = 1) {
+    if (!(playerid in musicplayer)) {
+        musicplayer[playerid] <- 0;
+    } else {
+        stopSoundForPlayer(playerid);
+    }
+
+    local track = musiclist[musicplayer[playerid]];
+
+    playSoundForPlayer(playerid, track);
+    msg(playerid, "now playing: " + track, CL_INFO);
+
+    musicplayer[playerid] = musicplayer[playerid] + step.tointeger();
+
+    if (musicplayer[playerid] >= musiclist.len()) {
+        musicplayer[playerid] = 0;
+    }
+});
