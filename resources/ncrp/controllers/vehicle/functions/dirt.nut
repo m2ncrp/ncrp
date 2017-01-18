@@ -5,7 +5,7 @@ event("onServerMinuteChange", function() {
         if (isVehicleEmpty(vehicleid)) continue;
         local speed = getVehicleSpeed(vehicleid);
 
-        if (speed[0] > 1.0 && speed[1] > 1.0 && __vehicles[vehicleid].dirt <= 1.0) {
+        if ((speed[0] > 1.0 || speed[1] > 1.0) && __vehicles[vehicleid].dirt <= 1.0) {
             __vehicles[vehicleid].dirt += VEHICLE_DIRT_STEP
         }
 
