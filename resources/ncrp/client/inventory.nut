@@ -55,7 +55,7 @@ function Inventory () {
         showCursor(true);
     }
 }
-addEventHandler("INV", Inventory);
+addEventHandler("onPlayerInventorySwitch", Inventory);
 
 function updateImage (id) {
      if(!invWindow){
