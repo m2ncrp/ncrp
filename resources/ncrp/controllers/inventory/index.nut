@@ -9,7 +9,7 @@ event("onServerPlayerStarted", function(playerid) {
     local character = players[playerid];
 
     Item.Item.findBy({ state = ITEM_STATE.PLAYER_INV, parent = character.id }, function(err, items) {
-        if (err || !items.len()) return;
+        //if (err || !items.len()) return;
 
         local slots = {};
 
