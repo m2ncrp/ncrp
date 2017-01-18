@@ -19,7 +19,10 @@ acmd(["weapons"], function(playerid) {
     //player:InventoryAddItem(36) -- отмычки
 });
 
-acmd(["heal"], function( playerid ) {
+acmd(["heal"], function( playerid, plaID = null ) {
+    if (plaID != null) {
+        playerid = plaID.tointeger();
+    }
     setPlayerHealth( playerid, 720.0 );
 });
 
