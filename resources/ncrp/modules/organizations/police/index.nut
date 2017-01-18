@@ -228,6 +228,7 @@ include("modules/organizations/police/messages.nut");
 // include("modules/organizations/police/Gun.nut");
 include("modules/organizations/police/PoliceBuffer.nut");
 include("modules/organizations/police/PoliceOfficersList.nut");
+include("modules/organizations/police/garage.nut");
 
 police <- {};
 
