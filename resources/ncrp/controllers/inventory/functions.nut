@@ -1,6 +1,6 @@
 include("controllers/inventory/items.nut");
 
-local invItems = {};
+invItems <- {};
 
 /**
  * WARNING:
@@ -53,8 +53,8 @@ event("native:onPlayerMoveItem", function(playerid, oldSlot, newSlot) {
         local newAmount = invItems[playerid][oldSlot].amount + invItems[playerid][oldSlot].amount;
 
         if (newAmount > invItems[playerid][newSlot].maxstack) {
-            invItems[playerid][oldSlot] = newAmount - invItems[playerid][newSlot].maxstack;
-            invItems[playerid][newSlot] = invItems[playerid][oldSlot].maxstack;
+            invItems[playerid][newSlot].amount = invItems[playerid][oldSlot].maxstack;
+            invItems[playerid][oldSlot].amount = newAmount - invItems[playerid][newSlot].maxstack;
         } else {
             invItems[playerid][oldSlot] = Item.None(oldSlot);
             invItems[playerid][newSlot].amount = newAmount;
@@ -103,4 +103,8 @@ function findFreeSlot(playerid){
         }
     }
     return -1;
+}
+
+function getPlayerItems(playerid) {
+    return invItems[playerid];
 }

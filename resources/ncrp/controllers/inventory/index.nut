@@ -26,3 +26,11 @@ event("onServerPlayerStarted", function(playerid) {
         }
     });
 });
+
+event("onCharacterSave", function(playerid, character) {
+    local items = getPlayerItems(playerid);
+
+    foreach (idx, item in items) {
+        item.save();
+    }
+});
