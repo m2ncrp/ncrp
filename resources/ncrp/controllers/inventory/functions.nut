@@ -68,7 +68,7 @@ event("native:onPlayerMoveItem", function(playerid, oldSlot, newSlot) {
         return;
     }
 
-    local temp = invItems[playerid][oldSlot];
+    local temp = invItems[playerid][newSlot];
     invItems[playerid][newSlot] = invItems[playerid][oldSlot];
     invItems[playerid][oldSlot] = temp;
 
