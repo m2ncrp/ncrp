@@ -16,6 +16,7 @@ local playerItems = {};
 local labelItems = array(30, 0);
 local selectedSlot = -1;
 local clickedSlot = -1;
+local labelItemOffset = 50.0;
 
 enum ITEM_TYPE {
     NONE,
@@ -90,7 +91,7 @@ function initInventory()
    for(local i = 0; i < MAX_INVENTORY_SLOTS; i++){
         local id = playerItems[i].id;
         invItemImg[i] = guiCreateElement( ELEMENT_TYPE_IMAGE, items[id].img, itemsPos[i][0], itemsPos[i][1], 64.0, 64.0, false, invWindow);
-        labelItems[i] = guiCreateElement( ELEMENT_TYPE_LABEL, "", itemsPos[i][0]+50.0, itemsPos[i][1]+50.0, 15.0, 15.0, false, invWindow);
+        labelItems[i] = guiCreateElement( ELEMENT_TYPE_LABEL, "", itemsPos[i][0]+labelItemOffset, itemsPos[i][1]+labelItemOffset, 15.0, 15.0, false, invWindow);
         guiSetAlwaysOnTop(labelItems[i], true);
         guiSetAlpha(invItemImg[i], 0.8);
     }
