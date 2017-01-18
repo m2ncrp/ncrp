@@ -8,14 +8,15 @@ enum ITEM_TYPE {
     AMMO,
 };
 
-enum ITEM_STATE {
-    NONE,
-    GROUND,
-    PLAYER_HAND,
-    PLAYER_INV,
-    VEHICLE_INV,
-    BUILDING_INV,
+ITEM_STATE <- {
+    NONE            = 0,
+    GROUND          = 1,
+    PLAYER_HAND     = 2,
+    PLAYER_INV      = 3,
+    VEHICLE_INV     = 4,
+    BUILDING_INV    = 5,
 };
+
 
 // big separate entities
 include("controllers/inventory/classes/Item.nut");

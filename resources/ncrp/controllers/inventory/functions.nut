@@ -39,9 +39,6 @@ event("native:onPlayerMoveItem", function(playerid, oldSlot, newSlot) {
     oldSlot = oldSlot.tointeger();
     newSlot = newSlot.tointeger();
 
-    local oldId = invItems[playerid][oldSlot].classname;
-    local newId = invItems[playerid][newSlot].classname;
-
     // player trying to move empty item, ignore
     if (invItems[playerid][oldSlot].classname == "Item.None") return;
 
@@ -89,7 +86,7 @@ function getItemType(item) {
 }
 
 function syncPlayerItem(playerid, item) {
-    return trigger(playerid, "onServerSyncItems", item.slot.tostring(), item.classaname, item.amount.tostring(), getItemType(item));
+    return trigger(playerid, "onServerSyncItems", item.slot.tostring(), item.classname, item.amount.tostring(), getItemType(item));
 }
 
 // acmd("giveitem",function(playerid, itemid = 0, amount = 0) {
