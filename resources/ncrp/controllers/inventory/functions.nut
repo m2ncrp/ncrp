@@ -96,36 +96,6 @@ function syncPlayerItem(playerid, item) {
     return trigger(playerid, "onServerSyncItems", item.slot.tostring(), item.classname, item.amount.tostring(), getItemType(item));
 }
 
-tommy <- null;
-acmd("addtommy", function(playerid) {
-    local slot = findFreeSlot(playerid);
-
-    if (slot == -1){
-        return msg(playerid, "ERROR: no free slots", CL_ERROR);// no free slots
-    }
-
-    tommy = Item.Thompson1928();
-    tommy.state  = ITEM_STATE.PLAYER_INV;
-    tommy.amount = 6;
-    tommy.parent = players[playerid].id;
-    tommy.slot   = findFreeSlot(playerid);
-    tommy.save();
-
-    // dbg(tommy.classname);
-
-    addPlayerItem(playerid, tommy);
-});
-
-// acmd("giveitem",function(playerid, itemid = 0, amount = 0) {
-//     local slot = findFreeSlot(playerid);
-//     if(slot == -1){
-//         return msg(playerid, "ERROR: no free slots");// no free slots
-//     }
-//     invItems[playerid][slot] <- {id = itemid.tointeger(), amount = amount.tointeger()};
-//     trigger(playerid, "updateSlot", slot.tostring(), invItems[playerid][slot].classname.tostring(), invItems[playerid][slot].amount.tostring());
-// });
-
-
 function findFreeSlot(playerid){
     for (local i = 0; i < MAX_INVENTORY_SLOTS; i++) {
         if (invItems[playerid][i].classname == "Item.None") {

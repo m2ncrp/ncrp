@@ -56,8 +56,42 @@ itemID[ 22 ] <- Item.Ammo9x19mm;
 itemID[ 23 ] <- Item.Ammo792x57mm;
 itemID[ 24 ] <- Item.Ammo762x63mm;
 
+tommy <- null;
+acmd("addtommy", function(playerid) {
+    local slot = findFreeSlot(playerid);
 
+    if (slot == -1){
+        return msg(playerid, "ERROR: no free slots", CL_ERROR);// no free slots
+    }
 
+    tommy = Item.Thompson1928();
+    tommy.state  = ITEM_STATE.PLAYER_INV;
+    tommy.amount = 6;
+    tommy.parent = players[playerid].id;
+    tommy.slot   = findFreeSlot(playerid);
+    tommy.save();
+
+    // dbg(tommy.classname);
+
+    addPlayerItem(playerid, tommy);
+});
+
+acmd("giveitem",function(playerid, itemid = 0, amount = 0) {
+    local slot = findFreeSlot(playerid);
+    if(slot == -1){
+        return msg(playerid, "ERROR: no free slots");// no free slots
+    }
+
+    local itemclass = itemID[itemid.tointeger()];
+    local item = itemclass();
+    item.state = ITEM_STATE.PLAYER_INV;
+    item.amount = amout.tointeger();
+    item.parent = players[playerid].id;
+    item.slot  = slot;
+    item.save();
+
+    addPlayerItem(playerid, item);
+});
 
 
 
