@@ -2,6 +2,7 @@ include("controllers/inventory/items.nut");
 
 invItems <- {};
 
+
 /**
  * WARNING:
  * Override all current player items with empty one

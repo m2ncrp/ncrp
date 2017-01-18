@@ -4,7 +4,6 @@ const MAX_INVENTORY_SLOTS = 30;
 const MAX_INVENTORY_WEIGHT = 10.0;
 
 event("onServerPlayerStarted", function(playerid) {
-    // resetPlayerItems(playerid);
 
     local character = players[playerid];
 
@@ -13,11 +12,13 @@ event("onServerPlayerStarted", function(playerid) {
 
         local slots = {};
 
+        playerHands[playerid] <- item;
+
         foreach (idx, item in items) {
             slots[item.slot] <- item;
         }
 
-        for(local i = 0; i < MAX_INVENTORY_SLOTS; i++) {
+        for(local i = 0; i < MAX_INVENTORY_SLOTS+1; i++) {
             if (!(i in slots)) {
                 slots[i] <- Item.None(i);
             }
