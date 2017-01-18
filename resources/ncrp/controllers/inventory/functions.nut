@@ -1,28 +1,33 @@
 include("controllers/inventory/items.nut");
 
-
 local invItems = {};
 
-function  resetPlayerItems (playerid) {
+/**
+ * WARNING:
+ * Override all current player items with empty one
+ * without saving any prevous ones
+ * @param  {Integer} playerid
+ */
+function resetPlayerItems(playerid) {
     invItems[playerid] <- {};
-    trigger(playerid,"resetClientInvItem");
-    for(local i = 0; i < MAX_INVENTORY_SLOTS; i++) { // reset player items
-        invItems[playerid][i] <- {id = 0, amount = 0};
+
+    for(local i = 0; i < MAX_INVENTORY_SLOTS; i++) {
+        trigger("onItemLoading", playerid, Item.None(i));
     }
 }
 
-function getItemIdBySlot (playerid, slot) {
-    return invItems[playerid][slot].id;
-}
+/**
+ * Main event for loading items
+ * @param {Integer} playerid
+ * @param {Item.Item} item
+ */
+addEventHandler("onItemLoading", function(playerid, item) {
+    if (!(item instanceof Item.Item)) {
+        throw "onItemLoading: you've provided invalid item instance. Make sure it extends Item.Item";
+    }
 
-function getItemAmountBySlot (playerid, slot) {
-    return invItems[playerid][slot].amount;
-}
-
-
-addEventHandler("onItemLoading", function(playerid, id, amount, slot){
-    invItems[playerid][slot.tointeger()] <- {id = id.tointeger(), amount = amount.tointeger()};
-    trigger(playerid, "onServerSyncItems",slot,id,amount);
+    invItems[playerid][item.slot] <- item;
+    trigger(playerid, "onServerSyncItems", item.slot.tostring(), item.classaname, item.amount.tostring(),);
 });
 
 
@@ -30,11 +35,13 @@ addEventHandler("onPlayerUseItem", function(playerid, itemSlot) {
 
 })
 
-addEventHandler("onPlayerMoveItem", function(playerid,oldSlot, newSlot) {
+addEventHandler("onPlayerMoveItem", function(playerid, oldSlot, newSlot) {
     oldSlot = oldSlot.tointeger();
     newSlot = newSlot.tointeger();
-    local oldId = invItems[playerid][oldSlot].id;
-    local newId = invItems[playerid][newSlot].id;
+
+    local oldId = invItems[playerid][oldSlot].classname;
+    local newId = invItems[playerid][newSlot].classname;
+
     if(invItems[playerid][oldSlot].id > 0){
         if(invItems[playerid][newSlot].id == 0){
             invItems[playerid][newSlot].id = invItems[playerid][oldSlot].id;
@@ -122,3 +129,10 @@ function castlingItem (playerid, oldSlot, newSlot) {
     return;
 }
 
+// function getItemIdBySlot (playerid, slot) {
+//     return invItems[playerid][slot].id;
+// }
+
+// function getItemAmountBySlot (playerid, slot) {
+//     return invItems[playerid][slot].amount;
+// }
