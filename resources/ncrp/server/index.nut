@@ -177,7 +177,7 @@ proxy("onPlayerPlaceExit",          "native:onPlayerPlaceExit"          );
 proxy("onPlayerCharacterCreate",    "onPlayerCharacterCreate"           );
 proxy("onPlayerCharacterSelect",    "onPlayerCharacterSelect"           );
 proxy("onClientSuccessfulyStarted", "onClientSuccessfulyStarted"        );
-
+proxy("onPlayerLanguageChange",     "onPlayerLanguageChange"            );
 
 // Klo's playground
 proxy("RentCar",                    "RentCar"                           );
