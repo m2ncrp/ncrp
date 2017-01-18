@@ -15,7 +15,6 @@ event("onServerPlayerStarted", function(playerid) {
 
         foreach (idx, item in items) {
             slots[item.slot] <- item;
-            dbg("trying to add item with name", item.classname, "to player");
         }
 
         for(local i = 0; i < MAX_INVENTORY_SLOTS; i++) {
@@ -23,7 +22,7 @@ event("onServerPlayerStarted", function(playerid) {
                 slots[i] <- Item.None(i);
             }
 
-            trigger("onItemLoading", playerid, slots[i]);
+            addPlayerItem(playerid, slots[i]);
         }
     });
 });

@@ -17,11 +17,11 @@ function resetPlayerItems(playerid) {
 }
 
 /**
- * Main event for loading items
+ * Main method for loading items
  * @param {Integer} playerid
  * @param {Item.Item} item
  */
-event("onItemLoading", function(playerid, item) {
+function addPlayerItem(playerid, item) {
     if (!(item instanceof Item.Item)) {
         throw "onItemLoading: you've provided invalid item instance. Make sure it extends Item.Item";
     }
@@ -32,7 +32,7 @@ event("onItemLoading", function(playerid, item) {
 
     invItems[playerid][item.slot] <- item;
     syncPlayerItem(playerid, item);
-});
+}
 
 
 event("native:onPlayerUseItem", function(playerid, itemSlot) {
@@ -90,6 +90,7 @@ function getItemType(item) {
 }
 
 function syncPlayerItem(playerid, item) {
+    dbg("trying to sync item with name", item.classname, "to player", getIdentity(playerid));
     return trigger(playerid, "onServerSyncItems", item.slot.tostring(), item.classname, item.amount.tostring(), getItemType(item));
 }
 
