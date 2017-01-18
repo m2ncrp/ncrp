@@ -28,33 +28,33 @@ include("controllers/inventory/classes/weapons.nut");
 
 itemID <- {};
 
-itemID[  0 ] = Item.None;
-itemID[  1 ] = Item.None;
+itemID[  0 ] <- Item.None;
+itemID[  1 ] <- Item.None;
 
-itemID[  2 ] = Item.Revolver12;
-itemID[  3 ] = Item.MauserC96;
-itemID[  4 ] = Item.ColtM1911A1;
-itemID[  5 ] = Item.ColtM1911Spec;
-itemID[  6 ] = Item.Revolver19;
-itemID[  7 ] = Item.MK2;
-itemID[  8 ] = Item.Remington870;
-itemID[  9 ] = Item.M3GreaseGun;
-itemID[ 10 ] = Item.MP40;
-itemID[ 11 ] = Item.Thompson1928;
-itemID[ 12 ] = Item.M1A1Thompson;
-itemID[ 13 ] = Item.Beretta38A;
-itemID[ 14 ] = Item.MG42;
-itemID[ 15 ] = Item.M1Garand;
+itemID[  2 ] <- Item.Revolver12;
+itemID[  3 ] <- Item.MauserC96;
+itemID[  4 ] <- Item.ColtM1911A1;
+itemID[  5 ] <- Item.ColtM1911Spec;
+itemID[  6 ] <- Item.Revolver19;
+itemID[  7 ] <- Item.MK2;
+itemID[  8 ] <- Item.Remington870;
+itemID[  9 ] <- Item.M3GreaseGun;
+itemID[ 10 ] <- Item.MP40;
+itemID[ 11 ] <- Item.Thompson1928;
+itemID[ 12 ] <- Item.M1A1Thompson;
+itemID[ 13 ] <- Item.Beretta38A;
+itemID[ 14 ] <- Item.MG42;
+itemID[ 15 ] <- Item.M1Garand;
 
-itemID[ 16 ] = Item.Ammo38Special;
-itemID[ 17 ] = Item.Kar98k;
-itemID[ 18 ] = Item.Ammo45ACP;
-itemID[ 19 ] = Item.Ammo357magnum;
-itemID[ 20 ] = Item.Ammo12mm;
-itemID[ 21 ] = Item.Molotov;
-itemID[ 22 ] = Item.Ammo9x19mm;
-itemID[ 23 ] = Item.Ammo792x57mm;
-itemID[ 24 ] = Item.Ammo762x63mm;
+itemID[ 16 ] <- Item.Ammo38Special;
+itemID[ 17 ] <- Item.Kar98k;
+itemID[ 18 ] <- Item.Ammo45ACP;
+itemID[ 19 ] <- Item.Ammo357magnum;
+itemID[ 20 ] <- Item.Ammo12mm;
+itemID[ 21 ] <- Item.Molotov;
+itemID[ 22 ] <- Item.Ammo9x19mm;
+itemID[ 23 ] <- Item.Ammo792x57mm;
+itemID[ 24 ] <- Item.Ammo762x63mm;
 
 
 
