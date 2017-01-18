@@ -17,7 +17,13 @@ enum ITEM_STATE {
     BUILDING_INVENTORY,
 };
 
-include("controllers/invetory/classes/Item.nut");
+// big separate entities
+include("controllers/inventory/classes/Item.nut");
+include("controllers/inventory/classes/Weapon.nut");
+include("controllers/inventory/classes/Ammo.nut");
+
+// small similar entities
+include("controllers/inventory/classes/weapons.nut");
 
 //{id, weight, type, stackable,img }
 
