@@ -1,21 +1,18 @@
 Tasks for nearest future
- ✔ Add more feedback msgs for all actions @done (17-01-17 12:41)
- ☐ Add error handlers on setPoliceRank when rank less than 0 or more than 15;
- ☐ Change CODE police to lower case;
- ☐ Add limit of baton usage. Simply don't let bit more that 20 times in a row;
- ☐ Complete Officer class
- ☐ Complete OfficerManager class
- ☐ Add police deparment garage where all duty vehicle could be cleaned up or repaired
- ✔ Add cmd /badge - to show police badge to nearest player. It'll proof that cop isn't fake one; @done (17-01-17 11:53)
+ ✔ Add error handlers on setPoliceRank when rank less than 0 or more than 15; @done (17-01-18 21:59)
+ ☐ Add limit of baton usage. Simply don't let bit more that 20 times in a row couse of physical run out of power (see hobos module, /dig cmd);
+ ☐ Complete Officer class (description player as an officer); @Architect
+ ☐ Complete OfficerManager class (manage fields values of Officer objects); @Architect
+ ✔ Add police deparment garage where all duty vehicle could be cleaned up or repaired; @done (17-01-18 22:56)
  ☐ Add cmd /roulette - to show distances bwtween wto points in game. Need to be added to solve traffic accidents and traffic violation;
  ☐ Add search plate number (from some rank);
  ☐ Ability to set siren state [setVehicleSirenState(vehicleid, true/false)];
  ☐ Ability to set beacon light state [setVehicleBeaconLightState(vehicleid, true/false)];
  ☐ Add parking vialations tickets;
- ☐ Add immitation of me/do/try on some actions;
+ ☐ Add immitation of me/do/try on some actions; @Cosmetic
  ☐ Add /tickets cmd - show all tickets that player've got for now. Show list like police employees one with format "#ticket - reason ($payment)";
  ☐ Add /ticket pay <id> - to pay ticket with given ID on EBPD;
- ☐ Add department "bank account" to pay EBPD salaries and get pay for the tickets;
+ ☐ Add department "bank account" to pay EBPD salaries and get pay for the tickets; @Architect
  ☐ Add patrol partner (/patrol <targetid> <patrolName> and /patrol accept <id>);
 
 Tasks for futher
@@ -25,6 +22,16 @@ Tasks for futher
  ☐ Ability to check out other character documents such as driver license, passport and so on;
  ☐ Add wanted list. Point to character directly with reason he's on wanted list. Add and remove char cmds;
  ☐ Make badge as an object: add individual number for each one;
- ☐ Add check to ammo amount on RED level in the city on duty off [getPlayerWeaponBullet(playerid), source: none].
+ ☐ Add interactive dialogs with dispatch through telepho and police radio to: 1. Get information about vehicle owner; 2. Call a tow-track to transport vehicle to parking slot; 3. Transfer suspect to prison;
+ ☐ Add check to ammo amount on RED level in the city on duty off [getPlayerWeaponBullet(playerid), source: none];
+ ☐ Add GUI instead of most of the commands.
 
 
+
+--- ✄ -----------------------
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+Archive:
+ ✔ Add more ten codes with translations. Show blips on some of them; @done (17-01-18 08:30)
+ ✔ Add more feedback msgs for all actions @done (17-01-17 12:41)
+ ✔ Add cmd /badge - to show police badge to nearest player. It'll proof that cop isn't fake one; @done (17-01-17 11:53) Comment: /police badge
+ ✔ Change CODE police to lower case. Simply add aliases to cmds; @rejected (17-01-18 21:45)
