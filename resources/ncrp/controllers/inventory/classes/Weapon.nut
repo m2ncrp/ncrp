@@ -1,7 +1,9 @@
 class Item.Weapon extends Item.Item
 {
     static classname = "Item.Weapon";
-    capacity = 0;
+
+    capacity    = 0;
+    model       = 0;
 
     constructor () {
         base.constructor();
