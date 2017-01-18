@@ -19,11 +19,9 @@ acmd(["weapons"], function(playerid) {
     //player:InventoryAddItem(36) -- отмычки
 });
 
-acmd(["heal"], function( playerid, plaID = null ) {
-    if (plaID != null) {
-        playerid = plaID.tointeger();
-    }
-    setPlayerHealth( playerid, 720.0 );
+acmd(["heal"], function( playerid, targetid = null ) {
+    if(!targetid) targetid = playerid;
+    setPlayerHealth( targetid.tointeger(), 720.0 );
 });
 
 acmd(["die"], function( playerid, targetid = null ) {
@@ -31,8 +29,9 @@ acmd(["die"], function( playerid, targetid = null ) {
     setPlayerHealth( targetid.tointeger(), 0.0 );
 });
 
-acmd("skin", function(playerid, id) {
-    setPlayerModel(playerid, id.tointeger(), true);
+acmd("skin", function(playerid, id, targetid = null ) {
+    if(!targetid) targetid = playerid;
+    setPlayerModel(targetid.tointeger(), id.tointeger(), true);
 });
 
 
