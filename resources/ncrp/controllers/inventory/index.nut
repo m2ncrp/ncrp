@@ -11,13 +11,19 @@ event("onServerPlayerStarted", function(playerid) {
     Item.Item.findBy({ type = ITEM_STATE.PLAYER_INV, parent = character.id }, function(err, items) {
         if (err || !items.len()) return;
 
-        foreach (idx, item in items) {
-            // item.itemid
-            // item.amount
-            // item.
+        local slots = {};
 
+        foreach (idx, item in items) {
+            slots[item.slot] <- item;
             dbg("trying to add item with name", item.classname, "to player");
-            trigger("onItemLoading", playerid, item.classname, item.amount, item.slot);
+        }
+
+        for(local i = 0; i < MAX_INVENTORY_SLOTS; i++) {
+            if (!(i in slots)) {
+                slots[i] <- Item.None(i);
+            }
+
+            trigger("onItemLoading", playerid, slots[i]);
         }
     });
 });
