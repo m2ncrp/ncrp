@@ -18,6 +18,11 @@ local selectedSlot = -1;
 local clickedSlot = -1;
 local labelItemOffset = 50.0;
 
+local invWinW = 356.0;
+local invWinH = 465.0;
+local invWinPosOffsetX = 0.0;
+local invWinPosOffsetY = 232.5;
+
 local itemsPos =
 [
     [10.0,25.0],    [78.0,25.0],    [146.0,25.0],   [214.0,25.0],   [282.0,25.0],
@@ -31,14 +36,14 @@ local itemsPos =
 
 addEventHandler("onServerSyncItems", function(slot,classname,amount, type){  //slot, classname, amout, type
     playerItems[slot.tointeger()] <- {classname = classname, amount = amount.tointeger(), type = type};
+    updateImage(slot.tointeger());
     log(format("onServerSyncItems - slot: %s, classname: %s, amount: %s, type: %s", slot, classname,amount,type));
 });
 
 
-function initInventory()
-{
+function initInventory(){
     invWindow = guiCreateElement( ELEMENT_TYPE_WINDOW, "Инвентарь", screen[0]/2, screen[1]/2 - 232.5,  356.0, 465.0 );
-    //guiSetVisible(inventoryWindow, false);
+    guiSetVisible(inventoryWindow, false);
     //weight[0] = guiCreateElement( 13,"weight-bg.jpg", 10.0, 435.0, 346.0, 20.0, false, inventoryWindow);
     //weight[1] = guiCreateElement( 13,"weight-front.jpg", 10.0, 435.0, 180.0, 20.0, false, inventoryWindow);
     //weight[2] = guiCreateElement( ELEMENT_TYPE_LABEL, "Переносимый груз 1.3/5.0 kg", 140.0, 435.0, 190.0, 20.0, false, invWindow);
@@ -55,21 +60,38 @@ function initInventory()
 addEventHandler("INV", initInventory);
 
 
+function showInventory(){
+    guiSetSize(invWindow, invWinW, invWinH);
+    guiSetPosition(invWindow,screen[0]/2 - invWinPosOffsetX, screen[1]/2 - invWinPosOffsetY);
+    guiSetVisible(invWindow, true);
+}
+addEventHandler("INV", showInventory);
 
-function updatePlayerItem(slot, itemid, amount) {
-    playerItems[slot].id = itemid;
-    playerItems[slot].amount = amount;
-    guiSetVisible(invItemImg[slot],false);
-    guiDestroyElement(invItemImg[slot]);
-    invItemImg[slot] = guiCreateElement( ELEMENT_TYPE_IMAGE, items[itemid].img, itemsPos[slot][0], itemsPos[slot][1], 64.0, 64.0, false, invWindow);
-    guiSetText(labelItems[slot], formatLabelText(slot));
-    guiSetAlpha(invItemImg[slot], 0.8);
-    guiSetVisible(invItemImg[slot], true);
+function hideInventory(){
+
 }
 
-addEventHandler("updateSlot", function(slot, itemid, amount) {
-    updatePlayerItem(slot.tointeger(),itemid.tointeger(), amount.tointeger());
-})
+
+function updateImage (id) {
+     if(!invWindow){
+        invWindow = guiCreateElement( ELEMENT_TYPE_WINDOW, "Инвентарь", 99999.9, 0.0,  0.0, 0.0);
+        guiSetVisible(invWindow, false);
+    }
+    if(invWindow){
+        if(!invItemImg[id]){
+            invItemImg[id] = guiCreateElement( ELEMENT_TYPE_IMAGE, playerItems[id].classname+".jpg", itemsPos[id][0], itemsPos[id][1], 64.0, 64.0, false, invWindow);
+            labelItems[id] = guiCreateElement( ELEMENT_TYPE_LABEL, formatLabelText(id), itemsPos[id][0]+labelItemOffset, itemsPos[id][1]+labelItemOffset, 15.0, 15.0, false, invWindow);
+            return;
+        }
+        else {
+            guiDestroyElement(invItemImg[id]);
+            invItemImg[id] = guiCreateElement( ELEMENT_TYPE_IMAGE, playerItems[id].classname+".jpg", itemsPos[id][0], itemsPos[id][1], 64.0, 64.0, false, invWindow);
+            guiSetText(labelItems[id], formatLabelText(id));
+            guiSetAlpha(invItemImg[id], 0.8);
+            return;
+        }
+    }
+}
 
 
 addEventHandler( "onGuiElementClick",
@@ -99,16 +121,14 @@ addEventHandler( "onGuiElementClick",
         }
 });
 
-/*
+
 function formatLabelText(slot){
-    local itemid = playerItems[slot].id;
-    if(itemid == 0){
+    if(playerItems[slot].type == "ITEM_TYPE.NONE"){
         return "";
     }
-    if(items[itemid].type == ITEM_TYPE.WEAPON){
+    if(playerItems[slot].type == "ITEM_TYPE.WEAPON"){
         return playerItems[slot].amount.tostring();
     }
     return "";
 
 }
-*/
