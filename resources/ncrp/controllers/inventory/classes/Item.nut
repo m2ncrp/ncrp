@@ -16,10 +16,22 @@ class Item.Item extends ORM.Entity
         ORM.Field.String("data"),
     ];
 
+    static traits = [
+        ORM.Trait.Positionable(),
+    ];
+
     itemid      = 0;
     stackable   = false;
     maxstack    = 0;
     weight      = 1.0;
     name        = "Default Item"; // ?
     img         = "none.jpg"; // ?
+
+    constructor () {
+        base.constructor();
+
+        if (this.created == 0) {
+            this.created = getTimestamp();
+        }
+    }
 }
