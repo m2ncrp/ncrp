@@ -26,6 +26,10 @@ event("onItemLoading", function(playerid, item) {
         throw "onItemLoading: you've provided invalid item instance. Make sure it extends Item.Item";
     }
 
+    if (!(playerid in invItems)) {
+        invItems[playerid] <- {};
+    }
+
     invItems[playerid][item.slot] <- item;
     syncPlayerItem(playerid, item);
 });
