@@ -19,6 +19,8 @@
     <script type="client">nametags.nut</script>
     <script type="client">place.nut</script>
 
+     <script type="client">inventory.nut</script>
+
     <!-- <script type="client">carshop.nut</script> -->
     <!-- <script type="client">bus.nut</script> -->
     <!-- <script type="client">extrasync.nut</script> -->
@@ -34,8 +36,35 @@
     <!-- <file>screamer.jpg</file> -->
     <file>logo.png</file>
     <file>someweirdshit.png</file>
-    <!-- <file>fine.png</file> -->
-    <!-- <file>diamondmotors.png</file> -->
-    <!-- <file>id_0.jpg</file> -->
-    <!-- <file>bank.png</file> -->
+
+    <!-- Client inventory files -->
+
+        <!-- ITEMS -->
+        <file>none.jpg</file>
+        <file>money.jpg</file>
+        <file>12Revolver.jpg</file>
+        <file>MauserC96.jpg</file>
+        <file>ColtM1911A1.jpg</file>
+        <file>ColtM1911Spec.jpg</file>
+        <file>19Revolver.jpg</file>
+        <file>MK2.jpg</file>
+        <file>Remington870.jpg</file>
+        <file>M3GreaseGun.jpg</file>
+        <file>MP40.jpg</file>
+        <file>Thompson1928.jpg</file>
+        <file>M1A1Thompson.jpg</file>
+        <file>Beretta38A.jpg</file>
+        <file>MG42.jpg</file>
+        <file>M1Garand.jpg</file>
+        <file>Kar98k.jpg</file>
+        <file>Molotov.jpg</file>
+        <file>38Special.jpg</file>
+        <file>45ACP.jpg</file>
+        <file>357magnum.jpg</file>
+        <file>12mm.jpg</file>
+        <file>9x19mm.jpg</file>
+        <file>7,92x57mm.jpg</file>
+        <file>7,62x63mm.jpg</file>
+
+
 </meta>
