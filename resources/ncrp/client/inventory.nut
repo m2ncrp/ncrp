@@ -40,26 +40,6 @@ addEventHandler("onServerSyncItems", function(slot,classname,amount, type){  //s
     log(format("onServerSyncItems - slot: %s, classname: %s, amount: %s, type: %s", slot, classname,amount,type));
 });
 
-/*
-function initInventory(){
-    invWindow = guiCreateElement( ELEMENT_TYPE_WINDOW, "Инвентарь", screen[0]/2, screen[1]/2 - 232.5,  356.0, 465.0 );
-    guiSetVisible(inventoryWindow, false);
-    //weight[0] = guiCreateElement( 13,"weight-bg.jpg", 10.0, 435.0, 346.0, 20.0, false, inventoryWindow);
-    //weight[1] = guiCreateElement( 13,"weight-front.jpg", 10.0, 435.0, 180.0, 20.0, false, inventoryWindow);
-    //weight[2] = guiCreateElement( ELEMENT_TYPE_LABEL, "Переносимый груз 1.3/5.0 kg", 140.0, 435.0, 190.0, 20.0, false, invWindow);
-   for(local i = 0; i < MAX_INVENTORY_SLOTS; i++){
-        invItemImg[i] = guiCreateElement( ELEMENT_TYPE_IMAGE, playerItems[i].classname+".jpg", itemsPos[i][0], itemsPos[i][1], 64.0, 64.0, false, invWindow);
-        labelItems[i] = guiCreateElement( ELEMENT_TYPE_LABEL, "", itemsPos[i][0]+labelItemOffset, itemsPos[i][1]+labelItemOffset, 15.0, 15.0, false, invWindow);
-        guiSetAlwaysOnTop(labelItems[i], true);
-        guiSetAlpha(invItemImg[i], 0.8);
-    }
-    //guiSetAlwaysOnTop(weight[2], true);
-    guiSetSizable(invWindow,false);
-    showCursor(true);
-}
-*/
-
-
 function Inventory () {
     if(guiIsVisible(invWindow)){
         guiSetVisible(invWindow, false);
@@ -74,11 +54,6 @@ function Inventory () {
     }
 }
 addEventHandler("INV", Inventory);
-
-function hideInventory(){
-
-}
-
 
 function updateImage (id) {
      if(!invWindow){
