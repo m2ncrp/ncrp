@@ -12,9 +12,9 @@ enum ITEM_STATE {
     NONE,
     GROUND,
     PLAYER_HAND,
-    PLAYER_INVENTORY,
-    VEHICLE_INVENTORY,
-    BUILDING_INVENTORY,
+    PLAYER_INV,
+    VEHICLE_INV,
+    BUILDING_INV,
 };
 
 // big separate entities
