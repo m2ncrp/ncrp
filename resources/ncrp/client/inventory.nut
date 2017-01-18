@@ -28,31 +28,32 @@ enum ITEM_TYPE {
 };
 
 local items = [
-    { id = 0,   type = ITEM_TYPE.NONE,    stackable = false,  img = "none.jpg"},
-    { id = 1,   type = ITEM_TYPE.OTHER,   stackable = false,  img = "money.jpg"},
-    { id = 2,   type = ITEM_TYPE.WEAPON,  stackable = true,   img = "12Revolver.jpg"},
-    { id = 3,   type = ITEM_TYPE.WEAPON,  stackable = false,  img = "MauserC96.jpg"},
-    { id = 4,   type = ITEM_TYPE.WEAPON,  stackable = false,  img = "ColtM1911A1.jpg"},
-    { id = 5,   type = ITEM_TYPE.WEAPON,  stackable = false,  img = "ColtM1911Spec.jpg"},
-    { id = 6,   type = ITEM_TYPE.WEAPON,  stackable = false,  img = "19Revolver.jpg"},
-    { id = 7,   type = ITEM_TYPE.WEAPON,  stackable = false,  img = "MK2.jpg"},
-    { id = 8,   type = ITEM_TYPE.WEAPON,  stackable = false,  img = "Remington870.jpg"},
-    { id = 9,   type = ITEM_TYPE.WEAPON,  stackable = false,  img = "M3GreaseGun.jpg"},
-    { id = 10,  type = ITEM_TYPE.WEAPON,  stackable = false,  img = "MP40.jpg"},
-    { id = 11,  type = ITEM_TYPE.WEAPON,  stackable = false,  img = "Thompson1928.jpg"},
-    { id = 12,  type = ITEM_TYPE.WEAPON,  stackable = false,  img = "M1A1Thompson.jpg"},
-    { id = 13,  type = ITEM_TYPE.WEAPON,  stackable = false,  img = "Beretta38A.jpg"},
-    { id = 14,  type = ITEM_TYPE.WEAPON,  stackable = false,  img = "MG42.jpg"},
-    { id = 15,  type = ITEM_TYPE.WEAPON,  stackable = false,  img = "M1Garand.jpg"},
-    { id = 16,  type = ITEM_TYPE.AMMO,    stackable = true,   img = "38Special.jpg"},
-    { id = 17,  type = ITEM_TYPE.WEAPON,  stackable = false,  img = "Kar98k.jpg"},
-    { id = 18,  type = ITEM_TYPE.AMMO,    stackable = true,   img = "45ACP.jpg"},
-    { id = 19,  type = ITEM_TYPE.AMMO,    stackable = true,   img = "357magnum.jpg"},
-    { id = 20,  type = ITEM_TYPE.AMMO,    stackable = true,   img = "12mm.jpg"},
-    { id = 21,  type = ITEM_TYPE.WEAPON,  stackable = false,  img = "Molotov.jpg"},
-    { id = 22,  type = ITEM_TYPE.AMMO,    stackable = true,   img = "9×19mm.jpg"},
-    { id = 23,  type = ITEM_TYPE.AMMO,    stackable = true,   img = "7,92x57mm.jpg"},
-    { id = 24,  type = ITEM_TYPE.AMMO,    stackable = true,   img = "7,62×63mm.jpg"},
+    { id = 0,   type = ITEM_TYPE.NONE,    img = "none.jpg"},
+    { id = 1,   type = ITEM_TYPE.OTHER,   img = "money.jpg"},
+/* ------------------------------------------------------------------------------------------------- */
+    { id = 2,   type = ITEM_TYPE.WEAPON,  img = "12Revolver.jpg"},
+    { id = 3,   type = ITEM_TYPE.WEAPON,  img = "MauserC96.jpg"},
+    { id = 4,   type = ITEM_TYPE.WEAPON,  img = "ColtM1911A1.jpg"},
+    { id = 5,   type = ITEM_TYPE.WEAPON,  img = "ColtM1911Spec.jpg"},
+    { id = 6,   type = ITEM_TYPE.WEAPON,  img = "19Revolver.jpg"},
+    { id = 7,   type = ITEM_TYPE.WEAPON,  img = "MK2.jpg"},
+    { id = 8,   type = ITEM_TYPE.WEAPON,  img = "Remington870.jpg"},
+    { id = 9,   type = ITEM_TYPE.WEAPON,  img = "M3GreaseGun.jpg"},
+    { id = 10,  type = ITEM_TYPE.WEAPON,  img = "MP40.jpg"},
+    { id = 11,  type = ITEM_TYPE.WEAPON,  img = "Thompson1928.jpg"},
+    { id = 12,  type = ITEM_TYPE.WEAPON,  img = "M1A1Thompson.jpg"},
+    { id = 13,  type = ITEM_TYPE.WEAPON,  img = "Beretta38A.jpg"},
+    { id = 14,  type = ITEM_TYPE.WEAPON,  img = "MG42.jpg"},
+    { id = 15,  type = ITEM_TYPE.WEAPON,  img = "M1Garand.jpg"},
+    { id = 16,  type = ITEM_TYPE.AMMO,    img = "38Special.jpg"},
+    { id = 17,  type = ITEM_TYPE.WEAPON,  img = "Kar98k.jpg"},
+    { id = 18,  type = ITEM_TYPE.AMMO,    img = "45ACP.jpg"},
+    { id = 19,  type = ITEM_TYPE.AMMO,    img = "357magnum.jpg"},
+    { id = 20,  type = ITEM_TYPE.AMMO,    img = "12mm.jpg"},
+    { id = 21,  type = ITEM_TYPE.WEAPON,  img = "Molotov.jpg"},
+    { id = 22,  type = ITEM_TYPE.AMMO,    img = "9x19mm.jpg"},
+    { id = 23,  type = ITEM_TYPE.AMMO,    img = "7,92x57mm.jpg"},
+    { id = 24,  type = ITEM_TYPE.AMMO,    img = "7,62x63mm.jpg"},
 
 ];
 
@@ -102,8 +103,8 @@ addEventHandler("INV", initInventory);
 
 
 function updatePlayerItem(slot, itemid, amount) {
-    playerItems[slot].id = itemid.tointeger();
-    playerItems[slot].amount = amount.tointeger();
+    playerItems[slot].id = itemid;
+    playerItems[slot].amount = amount;
     guiSetVisible(invItemImg[slot],false);
     guiDestroyElement(invItemImg[slot]);
     invItemImg[slot] = guiCreateElement( ELEMENT_TYPE_IMAGE, items[itemid].img, itemsPos[slot][0], itemsPos[slot][1], 64.0, 64.0, false, invWindow);
@@ -153,5 +154,6 @@ function formatLabelText(slot){
     if(items[itemid].type == ITEM_TYPE.WEAPON){
         return playerItems[slot].amount.tostring();
     }
+    return "";
 
 }
