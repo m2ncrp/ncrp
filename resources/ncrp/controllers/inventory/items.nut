@@ -85,7 +85,7 @@ acmd("giveitem",function(playerid, itemid = 0, amount = 0) {
     local itemclass = itemID[itemid.tointeger()];
     local item = itemclass();
     item.state = ITEM_STATE.PLAYER_INV;
-    item.amount = amout.tointeger();
+    item.amount = amount.tointeger();
     item.parent = players[playerid].id;
     item.slot  = slot;
     item.save();
