@@ -1,21 +1,25 @@
 local PARKING_COORDS = [ -1209.71, 1340.0, -1391.25, 1370.0 ];
 local PARKING_NAME = "Car Pound";
+local PARKING_COST = 50.0;
 
-local parkingPlaceStatus = [ "free", "free", "free", "free", "free", "free", "free", "free", "free", "free", "free"];
+local parkingPlaceStatus = [ "free", "free", "free", "free", "free", "free", "free", "free", "free", "free", "free", "free", "free", "free", "free"];
 
 local parkingPlace = [
-
-    [-1280.0, 1356.0, -13.31],
-    [-1284.0, 1356.0, -13.31],
-    [-1288.0, 1356.0, -13.31],
-    [-1292.0, 1356.0, -13.31],
-    [-1296.0, 1356.0, -13.31],
-    [-1300.0, 1356.0, -13.31],
-    [-1304.0, 1356.0, -13.31],
-    [-1308.0, 1356.0, -13.31],
-    [-1312.0, 1356.0, -13.31],
-    [-1316.0, 1356.0, -13.31],
-    [-1320.0, 1356.0, -13.31],
+    [-1300.0, 1358.0, -13.31],
+    [-1304.0, 1358.0, -13.31],
+    [-1296.0, 1358.0, -13.31],
+    [-1308.0, 1358.0, -13.31],
+    [-1292.0, 1358.0, -13.31],
+    [-1312.0, 1358.0, -13.31],
+    [-1288.0, 1358.0, -13.31],
+    [-1316.0, 1358.0, -13.31],
+    [-1284.0, 1358.0, -13.31],
+    [-1320.0, 1358.0, -13.31],
+    [-1280.0, 1358.0, -13.31],
+    [-1324.0, 1358.0, -13.31],
+    [-1276.0, 1358.0, -13.31],
+    [-1328.0, 1358.0, -13.31],
+    [-1272.0, 1358.0, -13.31],
 ];
 
 event("onServerStarted", function() {
@@ -74,7 +78,18 @@ function findBusyPlaces() {
     }
 }
 
-acmd("park", function ( playerid, plate = null) {
+// /park plate_number
+acmd("park2", function ( playerid, plate) {
+    trigger("onVehicleSetToCarPound", playerid, plate);
+});
+
+// player need to be in car
+cmd("unpark2", function ( playerid ) {
+    trigger("onVehicleGetFromCarPound", playerid);
+});
+
+
+event("onVehicleSetToCarPound", function(playerid, plate = null) {
     if (plate == null) {
         return msg( playerid, "Need enter plate number.");
     }
@@ -108,8 +123,6 @@ acmd("park", function ( playerid, plate = null) {
         tpcomplete = true;
         setVehiclePosition(vehicleid, parkingPlace[placeid][0], parkingPlace[placeid][1], parkingPlace[placeid][2]);
         setVehicleRotation(vehicleid, 180.0, 0.0, 0.0 );
-        dbg(" ---- SPAWN ---- ");
-        dbg("vehicleid: "+vehicleid+"; placeid: "+placeid+"; status: "+parkingPlaceStatus[placeid]);
         break;
     }
     findBusyPlaces(); //read after
@@ -119,7 +132,7 @@ acmd("park", function ( playerid, plate = null) {
 });
 
 
-cmd("unpark", function ( playerid ) {
+event("onVehicleGetFromCarPound", function(playerid) {
     findBusyPlaces(); //read before
     dbg(parkingPlaceStatus);
 
@@ -128,13 +141,16 @@ cmd("unpark", function ( playerid ) {
     }
 
     local vehicleid = getPlayerVehicle( playerid ) ;
-
-     if (!isPlayerVehicleOwner(playerid, vehicleid)) {
-        return msg(playerid, "This is not you car.");
-    }
-
     if(parkingPlaceStatus.find(vehicleid) == null) {
         return msg(playerid, "no car at car pound");
+    }
+
+     if(!canBankMoneyBeSubstracted(playerid, PARKING_COST)) {
+        return msg(playerid, "You don't have enough money.");
+    }
+
+    if (!isPlayerVehicleOwner(playerid, vehicleid)) {
+        return msg(playerid, "This is not you car.");
     }
 
     foreach (placeid, place in parkingPlaceStatus) {
@@ -142,9 +158,9 @@ cmd("unpark", function ( playerid ) {
         //local vehicleid = place;
         parkingPlaceStatus[placeid] = "free";
         unblockVehicle(vehicleid);
-        subMoneyToPlayer(playerid, 5.0);
+        subBankMoneyToPlayer(playerid, PARKING_COST);
         msg(playerid, "The car has been freed sucsessfully.");
-        setVehicleSpeed(vehicleid, 0.0, -9.0, 0.0);
+        setVehicleSpeed(vehicleid, 0.0, -12.0, 0.0);
         break;
         }
     }
@@ -161,16 +177,16 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
         if (!isPlayerVehicleOwner(playerid, vehicleid)) {
             return msg(playerid, "This is not you car.");
         }
-        msg(playerid, "Need pay $5 to unpark: /unpark");
+        msg(playerid, "Need pay $50 to unpark: /unpark", PARKING_COST);
     }
 });
 
 event("onServerSecondChange", function() {
-
+/*
     if ((getSecond() % 10) != 0) {
         return;
     }
-
+*/
     foreach (placeid, place in parkingPlaceStatus) {
         if(place != "free") {
             local vehicleid = place;
