@@ -34,3 +34,7 @@ event("onCharacterSave", function(playerid, character) {
         item.save();
     }
 });
+
+key("i", function(playerid) {
+    trigger(playerid, "onPlayerInventorySwitch");
+});
