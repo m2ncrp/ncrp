@@ -252,7 +252,7 @@ bindKey("3", "down", function() {
     if (!toggler) return;
     local current = getPlayerPosition( getLocalPlayer() );
 
-    triggerServerEvent("onPlayerTeleportRequested", current[0], current[1], current[2] + step );
+    triggerServerEvent("onPlayerTeleportRequested", current[0], current[1], current[2] - step );
 });
 
 
@@ -260,5 +260,5 @@ bindKey("4", "down", function() {
     if (!toggler) return;
     local current = getPlayerPosition( getLocalPlayer() );
 
-    triggerServerEvent("onPlayerTeleportRequested", current[0], current[1], current[2] - step );
+    triggerServerEvent("onPlayerTeleportRequested", current[0], current[1], current[2] + step );
 });
