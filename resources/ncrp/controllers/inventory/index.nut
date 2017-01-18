@@ -17,7 +17,7 @@ event("onServerPlayerStarted", function(playerid) {
             // item.
 
             dbg("trying to add item with name", item.classname, "to player");
-            trigger("onItemLoading", playerid, item.itemid, item.amount, item.slot);
+            trigger("onItemLoading", playerid, item.classname, item.amount, item.slot);
         }
     });
 });
