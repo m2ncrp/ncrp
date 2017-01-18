@@ -21,7 +21,7 @@ class Item.Item extends ORM.Entity
 
     stackable   = false;
     maxstack    = 0;
-    weight      = 1.0;
+    weight      = 0.0;
     name        = "Default Item"; // ?
 
     constructor () {
@@ -34,6 +34,10 @@ class Item.Item extends ORM.Entity
 
     function use(playerid) {
         dbg("classes/Item.nut: trying to use item. Make sure you've overriden this method for your item", this.classname, getIdentity(playerid));
+    }
+
+    function calculateWeight () {
+        return this.weight;
     }
 }
 

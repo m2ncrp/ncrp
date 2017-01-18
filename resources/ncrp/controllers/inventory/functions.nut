@@ -114,3 +114,11 @@ function findFreeSlot(playerid){
 function getPlayerItems(playerid) {
     return invItems[playerid];
 }
+
+function getTotalWeight(playerid) {
+    local weight = 0.0;
+    for(local i = 0; i < MAX_INVENTORY_SLOTS; i++){
+        weight += invItems[playerid][i].calculateWeight();
+    }
+    return weight;
+}
