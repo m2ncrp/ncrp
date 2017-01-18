@@ -1,17 +1,21 @@
-local PARKING_COORDS = [ 29.5264, 112.01, 11.8024, 130.534 ];
+local PARKING_COORDS = [ -1209.71, 1340.0, -1391.25, 1370.0 ];
 local PARKING_NAME = "Car Pound";
 
-local parkingPlaceStatus = [ "free", "free", "free", "free", "free", "free", "free", "free"];
+local parkingPlaceStatus = [ "free", "free", "free", "free", "free", "free", "free", "free", "free", "free", "free"];
 
 local parkingPlace = [
-    [ 16.15 , 116.7   , -13.8 ],
-    [ 19.5  , 116.7   , -13.8 ],
-    [ 22.85 , 116.7   , -13.8 ],
-    [ 26.2  , 116.7   , -13.8 ],
-    [ 16.15 , 126.415 , -13.8 ],
-    [ 19.5  , 126.415 , -13.8 ],
-    [ 22.85 , 126.415 , -13.8 ],
-    [ 26.2  , 126.415 , -13.8 ],
+
+    [-1280.0, 1356.0, -13.31],
+    [-1284.0, 1356.0, -13.31],
+    [-1288.0, 1356.0, -13.31],
+    [-1292.0, 1356.0, -13.31],
+    [-1296.0, 1356.0, -13.31],
+    [-1300.0, 1356.0, -13.31],
+    [-1304.0, 1356.0, -13.31],
+    [-1308.0, 1356.0, -13.31],
+    [-1312.0, 1356.0, -13.31],
+    [-1316.0, 1356.0, -13.31],
+    [-1320.0, 1356.0, -13.31],
 ];
 
 event("onServerStarted", function() {
@@ -38,8 +42,8 @@ event("onServerStarted", function() {
 event("onPlayerPlaceEnter", function(playerid, name) {
     if (isPlayerInVehicle(playerid) && name == PARKING_NAME) {
         local vehicleid = getPlayerVehicle(playerid);
-        setVehiclePosition(vehicleid, 23.2244, 106.793, -13.3134);
-        setVehicleRotation(vehicleid, 90.1467, 0.104741, 3.21106);
+        setVehiclePosition(vehicleid, -1326.79, 1317.87, -13.304);
+        setVehicleRotation(vehicleid, 89.9415, -0.0703264, 0.0703982);
         setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
     }
 
@@ -108,7 +112,7 @@ acmd("park", function ( playerid, plate = null) {
         parkingPlaceStatus[placeid] = vehicleid;
         tpcomplete = true;
         setVehiclePosition(vehicleid, parkingPlace[placeid][0], parkingPlace[placeid][1], parkingPlace[placeid][2]);
-        setVehicleRotation(vehicleid, 0.0, 0.0, 0.0 );
+        setVehicleRotation(vehicleid, 180.0, 0.0, 0.0 );
         dbg(" ---- SPAWN ---- ");
         dbg("vehicleid: "+vehicleid+"; placeid: "+placeid+"; status: "+parkingPlaceStatus[placeid]);
         break;
@@ -180,7 +184,7 @@ event("onServerSecondChange", function() {
             if(dist > 1) {
                 dbg(" ---- SECOND CHANGE ---- ");
                 setVehiclePosition(vehicleid, parkingPlace[placeid][0], parkingPlace[placeid][1], parkingPlace[placeid][2]);
-                setVehicleRotation(vehicleid, 0.0, 0.0, 0.0 );
+                setVehicleRotation(vehicleid, 180.0, 0.0, 0.0 );
             }
         }
     }
