@@ -57,7 +57,6 @@ function initInventory(){
     guiSetSizable(invWindow,false);
     showCursor(true);
 }
-addEventHandler("INV", initInventory);
 
 
 function showInventory(){

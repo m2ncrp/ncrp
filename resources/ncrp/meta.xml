@@ -40,6 +40,7 @@
     <!-- Client inventory files -->
 
         <!-- ITEMS -->
+        <file>Item.None.jpg</file>
         <file>Item.Revolver12.jpg</file>
         <file>Item.MauserC96.jpg</file>
         <file>Item.ColtM1911A1.jpg</file>
