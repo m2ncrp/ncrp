@@ -37,8 +37,10 @@ event("onServerStarted", function() {
 
 event("onPlayerPlaceEnter", function(playerid, name) {
     if (isPlayerInVehicle(playerid) && name == PARKING_NAME) {
-        msg(playerid, "You've entered in " + name + ". If you'll leave car here, you'll need to pay.");
-        dbg(playerid, "you've entered in " + name);
+        local vehicleid = getPlayerVehicle(playerid);
+        setVehiclePosition(vehicleid, 23.2244, 106.793, -13.3134);
+        setVehicleRotation(vehicleid, 90.1467, 0.104741, 3.21106);
+        setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
     }
 
 });
