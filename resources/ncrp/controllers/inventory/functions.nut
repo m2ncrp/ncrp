@@ -108,9 +108,11 @@ acmd("addtommy", function(playerid) {
     tommy.state  = ITEM_STATE.PLAYER_INV;
     tommy.amount = 6;
     tommy.parent = players[playerid].id;
-    tommy.save();
+    // tommy.save();
 
-    addPlayerItem(playerid, tommy);
+    dbg(tommy.classname);
+
+    // addPlayerItem(playerid, tommy);
 });
 
 // acmd("giveitem",function(playerid, itemid = 0, amount = 0) {
