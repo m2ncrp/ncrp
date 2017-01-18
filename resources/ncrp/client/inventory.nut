@@ -82,6 +82,7 @@ function updateImage (id) {
         if(!invItemImg[id]){
             invItemImg[id] = guiCreateElement( ELEMENT_TYPE_IMAGE, playerItems[id].classname+".jpg", itemsPos[id][0], itemsPos[id][1], 64.0, 64.0, false, invWindow);
             labelItems[id] = guiCreateElement( ELEMENT_TYPE_LABEL, formatLabelText(id), itemsPos[id][0]+labelItemOffset, itemsPos[id][1]+labelItemOffset, 15.0, 15.0, false, invWindow);
+            guiSetAlwaysOnTop(labelItems[id], true);
             return;
         }
         else {
