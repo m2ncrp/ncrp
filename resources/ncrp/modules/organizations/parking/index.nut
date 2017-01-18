@@ -57,8 +57,12 @@ event("onPlayerPlaceExit", function(playerid, name) {
 
 function findBusyPlaces() {
     //parkingPlaceStatus = [ "free", "free", "free", "free", "free", "free", "free", "free"];
-    foreach (placeid, place in parkingPlaceStatus) {
-        foreach (vehicleid, vehicle in __vehicles) {
+    foreach (vehicleid, vehicle in __vehicles) {
+        if (isVehicleOwned(vehicleid)) {
+            continue;
+        }
+
+        foreach (placeid, place in parkingPlaceStatus) {
             local vehPos = getVehiclePosition(vehicleid);
             local dist = getDistanceBetweenPoints2D(parkingPlace[placeid][0], parkingPlace[placeid][1], vehPos[0], vehPos[1]);
             if(dist < 3.0 && isVehicleEmpty(vehicleid) && parkingPlaceStatus[placeid] == "free") {
@@ -69,8 +73,7 @@ function findBusyPlaces() {
     }
 }
 
-cmd("park", function ( playerid, plate = null) {
-
+acmd("park", function ( playerid, plate = null) {
     if (plate == null) {
         return msg( playerid, "Need enter plate number.");
     }
@@ -86,6 +89,10 @@ cmd("park", function ( playerid, plate = null) {
 
     if(parkingPlaceStatus.find(vehicleid) != null) {
         return msg(playerid, "Car already parked");
+    }
+
+    if (!isVehicleOwned(vehicleid)) {
+        return tryRespawnVehicleById(vehicleid, true);
     }
 
     findBusyPlaces(); //read before

@@ -87,5 +87,5 @@ function isPlayerVehicleOwner(playerid, vehicleid) {
  * @return {Boolean}
  */
 function isVehicleOwned(vehicleid) {
-    return (vehicleid in __vehicles && getVehicleOwner(vehicleid) != null);
+    return (vehicleid in __vehicles && getVehicleOwnerId(vehicleid) != -1);
 }
