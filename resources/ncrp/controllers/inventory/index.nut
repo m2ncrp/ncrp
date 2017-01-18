@@ -4,11 +4,11 @@ const MAX_INVENTORY_SLOTS = 30;
 const MAX_INVENTORY_WEIGHT = 10.0;
 
 event("onServerPlayerStarted", function(playerid) {
-    resetPlayerItems(playerid);
+    // resetPlayerItems(playerid);
 
-    local character = players[players];
+    local character = players[playerid];
 
-    Item.Item.findBy({ type = ITEM_STATE.PLAYER_INV, parent = character.id }, function(err, items) {
+    Item.Item.findBy({ state = ITEM_STATE.PLAYER_INV, parent = character.id }, function(err, items) {
         if (err || !items.len()) return;
 
         local slots = {};
