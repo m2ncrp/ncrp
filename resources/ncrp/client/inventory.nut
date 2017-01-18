@@ -11,9 +11,9 @@ if ((screenX / screenY) > 2.0) {
 screen = [screenX, screenY];
 
 local invWindow;
-local invItemImg = array(30, null);
+local invItemImg = array(31, null);
 local playerItems = {};
-local labelItems = array(30, null);
+local labelItems = array(31, null);
 local selectedSlot = -1;
 local clickedSlot = -1;
 local labelItemOffset = 50.0;
@@ -59,7 +59,7 @@ function Inventory () {
         guiSetSizable(charWindow,false);
 
         guiSetVisible(invWindow, true);
-        guiSetVisible(charWindow, true);
+        //guiSetVisible(charWindow, true);
         showCursor(true);
     }
 }
@@ -74,6 +74,7 @@ function updateImage (id) {
         //weight[2] = guiCreateElement( ELEMENT_TYPE_LABEL, "Переносимый груз 1.3/5.0 kg", 100.0, 435.0, 190.0, 20.0, false, invWindow);
         //guiSetAlwaysOnTop(weight[2], true);
         guiSetVisible(invWindow, false);
+        guiSetVisible(charWindow, false);
     }
     if(invWindow){
         if(!invItemImg[id]){
