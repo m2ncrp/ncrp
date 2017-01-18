@@ -26,6 +26,38 @@ include("controllers/inventory/classes/Ammo.nut");
 // small similar entities
 include("controllers/inventory/classes/weapons.nut");
 
+local items = [
+    Item.Revolver12,
+    Item.MauserC96,
+    Item.ColtM1911A1,
+    Item.ColtM1911Spec,
+    Item.Revolver19,
+    Item.MK2,
+    Item.Remington870,
+    Item.M3GreaseGun,
+    Item.MP40,
+    Item.Thompson1928,
+    Item.M1A1Thompson,
+    Item.Beretta38A,
+    Item.MG42,
+    Item.M1Garand,
+    Item.Kar98k,
+    Item.Molotov,
+    Item.Ammo45ACP,
+    Item.Ammo357magnum,
+    Item.Ammo12mm,
+    Item.Ammo9x19mm,
+    Item.Ammo792x57mm,
+    Item.Ammo762x63mm,
+    Item.Ammo38Special,
+];
+
+
+
+
+
+
+
 //{id, weight, type, stackable,img }
 
 // local items = [
