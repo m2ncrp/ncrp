@@ -9,4 +9,8 @@ class Item.Ammo extends Item.Item
         this.stackable = true;
         this.maxstack  = 10;
     }
+
+    function calculateWeight () {
+        return this.weight * this.amount;
+    }
 }
