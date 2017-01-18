@@ -12,8 +12,6 @@ event("onServerPlayerStarted", function(playerid) {
 
         local slots = {};
 
-        playerHands[playerid] <- item;
-
         foreach (idx, item in items) {
             slots[item.slot] <- item;
         }
