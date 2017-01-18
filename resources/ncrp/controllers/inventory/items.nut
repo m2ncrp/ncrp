@@ -50,7 +50,7 @@ local items = [
 
 function getIdxFromID(id){
     foreach (idx, value in items) {
-            if(value.id == fid.tointeger()){
+            if(value.id == id.tointeger()){
                 return value.id;
             }
         }
