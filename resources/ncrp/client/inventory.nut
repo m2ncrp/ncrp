@@ -125,6 +125,9 @@ function formatLabelText(slot){
     if(playerItems[slot].type == "ITEM_TYPE.WEAPON"){
         return playerItems[slot].amount.tostring();
     }
+     if(playerItems[slot].type == "ITEM_TYPE.AMMO"){
+        return playerItems[slot].amount.tostring();
+    }
     return "";
 
 }
