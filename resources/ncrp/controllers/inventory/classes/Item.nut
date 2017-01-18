@@ -1,5 +1,4 @@
 Item <- {};
-ItemList <- {};
 
 class Item.Item extends ORM.Entity
 {
@@ -20,12 +19,10 @@ class Item.Item extends ORM.Entity
         ORM.Trait.Positionable(),
     ];
 
-    itemid      = 0;
     stackable   = false;
     maxstack    = 0;
     weight      = 1.0;
     name        = "Default Item"; // ?
-    img         = "none.jpg"; // ?
 
     constructor () {
         base.constructor();
@@ -33,5 +30,21 @@ class Item.Item extends ORM.Entity
         if (this.created == 0) {
             this.created = getTimestamp();
         }
+    }
+}
+
+class Item.None extends Item.Item {
+    static classname = "Item.None";
+    constructor (slot = 0) {
+        base.constructor();
+        this.slot = slot;
+    }
+
+    function createTable() {
+        return { execute = function() {} };
+    }
+
+    function save() {
+        return;
     }
 }
