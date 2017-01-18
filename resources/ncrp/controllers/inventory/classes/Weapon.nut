@@ -13,4 +13,8 @@ class Item.Weapon extends Item.Item
     function calculateWeight () {
         return this.weight;
     }
+
+    function use(playerid) {
+        msg(playerid, format("Вы использовали: %s", this.classname));
+    }
 }
