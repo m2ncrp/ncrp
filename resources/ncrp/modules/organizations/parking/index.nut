@@ -58,7 +58,7 @@ event("onPlayerPlaceExit", function(playerid, name) {
 function findBusyPlaces() {
     //parkingPlaceStatus = [ "free", "free", "free", "free", "free", "free", "free", "free"];
     foreach (vehicleid, vehicle in __vehicles) {
-        if (isVehicleOwned(vehicleid)) {
+        if (!isVehicleOwned(vehicleid)) {
             continue;
         }
 
