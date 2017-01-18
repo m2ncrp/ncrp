@@ -26,35 +26,35 @@ include("controllers/inventory/classes/Ammo.nut");
 // small similar entities
 include("controllers/inventory/classes/weapons.nut");
 
-local items = {};
+itemID <- {};
 
-// items[  0 ] = Item.None;
-// items[  1 ] = Item.None;
+items[  0 ] = Item.None;
+items[  1 ] = Item.None;
 
-// items[  2 ] = Item.Revolver12;
-// items[  3 ] = Item.MauserC96;
-// items[  4 ] = Item.ColtM1911A1;
-// items[  5 ] = Item.ColtM1911Spec;
-// items[  6 ] = Item.Revolver19;
-// items[  7 ] = Item.MK2;
-// items[  8 ] = Item.Remington870;
-// items[  9 ] = Item.M3GreaseGun;
-// items[ 10 ] = Item.MP40;
-// items[ 11 ] = Item.Thompson1928;
-// items[ 12 ] = Item.M1A1Thompson;
-// items[ 13 ] = Item.Beretta38A;
-// items[ 14 ] = Item.MG42;
-// items[ 15 ] = Item.M1Garand;
+items[  2 ] = Item.Revolver12;
+items[  3 ] = Item.MauserC96;
+items[  4 ] = Item.ColtM1911A1;
+items[  5 ] = Item.ColtM1911Spec;
+items[  6 ] = Item.Revolver19;
+items[  7 ] = Item.MK2;
+items[  8 ] = Item.Remington870;
+items[  9 ] = Item.M3GreaseGun;
+items[ 10 ] = Item.MP40;
+items[ 11 ] = Item.Thompson1928;
+items[ 12 ] = Item.M1A1Thompson;
+items[ 13 ] = Item.Beretta38A;
+items[ 14 ] = Item.MG42;
+items[ 15 ] = Item.M1Garand;
 
-// items[  1 ] = Item.Kar98k;
-// items[  1 ] = Item.Molotov;
-// items[  1 ] = Item.Ammo45ACP;
-// items[  1 ] = Item.Ammo357magnum;
-// items[  1 ] = Item.Ammo12mm;
-// items[  1 ] = Item.Ammo9x19mm;
-// items[  1 ] = Item.Ammo792x57mm;
-// items[  1 ] = Item.Ammo762x63mm;
-// items[  1 ] = Item.Ammo38Special;
+items[ 16 ] = Item.Ammo38Special;
+items[ 17 ] = Item.Kar98k;
+items[ 18 ] = Item.Ammo45ACP;
+items[ 19 ] = Item.Ammo357magnum;
+items[ 20 ] = Item.Ammo12mm;
+items[ 21 ] = Item.Molotov;
+items[ 22 ] = Item.Ammo9x19mm;
+items[ 23 ] = Item.Ammo792x57mm;
+items[ 24 ] = Item.Ammo762x63mm;
 
 
 
