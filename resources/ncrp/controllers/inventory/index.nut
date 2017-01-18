@@ -8,7 +8,7 @@ event("onServerPlayerStarted", function(playerid) {
 
     local character = players[players];
 
-    Item.findBy({ type = ITEM_STATE.PLAYER_INV, parent = character.id}, function(err, items) {
+    Item.Item.findBy({ type = ITEM_STATE.PLAYER_INV, parent = character.id }, function(err, items) {
         if (err || !items.len()) return;
 
         foreach (idx, item in items) {
