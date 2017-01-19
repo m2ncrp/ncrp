@@ -14,6 +14,7 @@ Tasks for nearest future
  ☐ Add /ticket pay <id> - to pay ticket with given ID on EBPD;
  ☐ Add department "bank account" to pay EBPD salaries and get pay for the tickets; @Architect
  ☐ Add patrol partner (/patrol <targetid> <patrolName> and /patrol accept <id>);
+ ✔ Add check if player's AFK on duty and don't pay him; @done (17-01-19 21:58)
 
 Tasks for futher
  ☐ Add parking slots all around the city. First one should be on EastSide;

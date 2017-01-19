@@ -55,7 +55,7 @@ function createPlace(name, x1, y1, x2, y2) {
         local obj = placeRegister[id];
 
         players.each(function(playerid) {
-            trigger(playerid, "onServerPlaceAdded", idx, obj.pos1.x, obj.pos1.y, obj.pos2.x, obj.pos2.y);
+            trigger(playerid, "onServerPlaceAdded", id, obj.pos1.x, obj.pos1.y, obj.pos2.x, obj.pos2.y);
         });
     }
 

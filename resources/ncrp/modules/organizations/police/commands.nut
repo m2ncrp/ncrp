@@ -250,13 +250,16 @@ cmd(["ticket"], function(playerid, target, reason) {
 });
 
 
-// cmd(["tickets"], function( playerid, targetid = null ) {
-//     if ( targetid == null ) {
-//         // show all player assign tickets
-//     } else {
-//         targetid = targetid.tointeger();
-//         // show target player asign tickets
-//     }
+// cmd(["tickets"], function( playerid, page = 0 ) {
+//     local q = ORM.Query("select * from tbl_policetickets where player in (:player) limit :page, 10");
+//     q.setParameter("player", getPlayerName(playerid), true);
+//     q.setParameter("page", max(0, page.tointeger()) * 10);
+//     q.getResult(function(err, chars) {
+//         sendPlayerMessage(playerid, format("Page %s, format '#Ticket - reason (($amount))' (for next page /tickets <page>):", page.tostring()) );
+//         foreach (idx, char in chars) {
+//             msg(playerid, char.getName() + " - " + localize("job."+char.job, [], language));
+//         }
+//     });
 // });
 
 
