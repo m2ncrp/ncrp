@@ -79,12 +79,12 @@ function updateImage (id) {
 
         invItemImg[30] = guiCreateElement( ELEMENT_TYPE_IMAGE, "Item.None.jpg", 50.0, 50.0, 64.0, 64.0, false, charWindow);
         labelItems[30] = guiCreateElement( ELEMENT_TYPE_LABEL, "", 50.0+labelItemOffset, 50.0+labelItemOffset, 15.0, 15.0, false, charWindow);
-        
-        weight[0] = guiCreateElement( 13,"weight-bg.jpg", 10.0, 435.0, 346.0, 20.0, false, invWindow);
-        weight[1] = guiCreateElement( 13,"weight-front.jpg", 10.0, 435.0, 180.0, 20.0, false, invWindow);
-        weight[2] = guiCreateElement( ELEMENT_TYPE_LABEL, "Переносимый груз 1.3/5.0 kg", 100.0, 435.0, 190.0, 20.0, false, invWindow);
-        guiSetAlwaysOnTop(weight[1], true);
-        guiSetAlwaysOnTop(weight[2], true);
+
+        //weight[0] = guiCreateElement( 13,"weight-bg.jpg", 10.0, 435.0, 346.0, 20.0, false, invWindow);
+        //weight[1] = guiCreateElement( 13,"weight-front.jpg", 10.0, 435.0, 180.0, 20.0, false, invWindow);
+        weight[0] = guiCreateElement( ELEMENT_TYPE_LABEL, "Переносимый груз 1.3/5.0 kg", 100.0, 435.0, 190.0, 20.0, false, invWindow);
+       // guiSetAlwaysOnTop(weight[1], true);
+        //guiSetAlwaysOnTop(weight[2], true);
         guiSetVisible(invWindow, false);
         guiSetVisible(charWindow, false);
     }
