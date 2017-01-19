@@ -94,7 +94,7 @@ event("native:onPlayerMoveItem", function(playerid, oldSlot, newSlot) {
 function getItemType(item) {
     if (item instanceof Item.Ammo)      return "ITEM_TYPE.AMMO";
     if (item instanceof Item.Weapon)    return "ITEM_TYPE.WEAPON";
-
+    if (item instanceof Item.Clothes)    return "ITEM_TYPE.CLOTHES";
     return "ITEM_TYPE.NONE";
 }
 
