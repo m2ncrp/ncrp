@@ -18,7 +18,7 @@
     <script type="client">character.nut</script>
     <script type="client">nametags.nut</script>
     <script type="client">place.nut</script>
-
+    <script type="client">gps.nut</script>
     <!-- <script type="client">carshop.nut</script> -->
     <!-- <script type="client">bus.nut</script> -->
     <!-- <script type="client">extrasync.nut</script> -->
