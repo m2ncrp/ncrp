@@ -22,6 +22,7 @@ ITEM_STATE <- {
 include("controllers/inventory/classes/Item.nut");
 include("controllers/inventory/classes/Weapon.nut");
 include("controllers/inventory/classes/Ammo.nut");
+include("controllers/inventory/classes/Clothes.nut");
 
 // small similar entities
 include("controllers/inventory/classes/weapons.nut");
