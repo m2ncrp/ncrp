@@ -25,7 +25,7 @@ acmd(["fix"], function( playerid, vehicleid = null ) {
         return;
     }
         repairVehicle( vehicleid );
-        restoreVehicleFuel( vehicleid );
+        setVehicleFuel(vehicleid, getDefaultVehicleFuel(vehicleid));
 });
 
 acmd(["rot"], function( playerid, vehicleid = null ) {
