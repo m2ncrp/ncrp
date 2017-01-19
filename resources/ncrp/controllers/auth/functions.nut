@@ -103,7 +103,6 @@ function destroyAuthData(playerid) {
     return true;
 }
 
-
 /**
  * Get player ip
  * @param  {Integer} playerid
@@ -128,7 +127,7 @@ function getPlayerLocale(playerid) {
         return baseData[playerid].locale;
     }
 
-    return "ru";
+    return "en";
 }
 
 /**
@@ -145,7 +144,7 @@ function setPlayerLocale(playerid, locale = "en") {
     }
 
     if (!(playerid in baseData)) {
-        baseData[playerid] <- { locale = locale }
+        baseData[playerid] <- { locale = locale, account = account }
         return true;
     }
 
@@ -217,6 +216,21 @@ function showRegisterGUI(playerid) {
     });
 }
 
+event("onPlayerLanguageChange", function(playerid, locale) {
+    local lwindow    = localize("auth.GUI.TitleLogin", [], locale);
+    local llabel     = localize("auth.GUI.TitleLabelLogin", [], locale);
+    local linput     = localize("auth.GUI.TitleInputLogin", [], locale);
+    local lbutton    = localize("auth.GUI.ButtonLogin", [], locale);
+    local rwindow    = localize("auth.GUI.TitleRegister", [], locale);
+    local rlabel     = localize("auth.GUI.TitleLabelRegister", [], locale);
+    local rinputp    = localize("auth.GUI.PasswordInput", [], locale);
+    local rinputrp   = localize("auth.GUI.RepeatPasswordInput", [], locale);
+    local riptemail  = localize("auth.GUI.Email", [], locale);
+    local rbutton    = localize("auth.GUI.ButtonRegister", [], locale);
+
+    trigger(playerid, "changeAuthLanguage", lwindow, llabel, linput, lbutton, rwindow, rlabel, rinputp, rinputrp, riptemail, rbutton);
+});
+
 /**
  * Cross resource handling
  */
@@ -242,7 +256,8 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
         username = username,
         ip = ip,
         serial = serial,
-        locale = "ru"
+        locale = "en",
+        overriden = false,
     };
 
     accounts[playerid] <- null;

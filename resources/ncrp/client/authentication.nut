@@ -19,6 +19,7 @@ local image;
 local isAuth = null;
 
 local blackRoundFrame;
+local langs = array(2);
 
 // stuff needed for hiding players
 local otherPlayerLocked = true;
@@ -31,14 +32,17 @@ function showAuthGUI(windowLabel,labelText,inputText,buttonText){
     //setPlayerPosition( getLocalPlayer(), -746.0, 1278.0, 15.5 );
     blackRoundFrame = guiCreateElement(13,"someweirdshit.png", 0, 0, screen[0], screen[1]);
     image = guiCreateElement(13,"logo.png", screen[0]/2 - 148.0, screen[1]/2 - 220.0, 296.0, 102.0);
-    window = guiCreateElement( ELEMENT_TYPE_WINDOW, windowLabel, screen[0]/2 - 192.5, screen[1]/2 - 65.2, 385.0, 135.0 );
+    window = guiCreateElement( ELEMENT_TYPE_WINDOW, windowLabel, screen[0]/2 - 192.5, screen[1]/2 - 65.2, 385.0, 150.0 );
     label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, labelText, 58.0, 30.0, 300.0, 20.0, false, window);
     input[0] = guiCreateElement( ELEMENT_TYPE_EDIT, inputText, 92.0, 60.0, 200.0, 20.0, false, window);
     button[0] = guiCreateElement( ELEMENT_TYPE_BUTTON, buttonText, 92.0, 90.0, 200.0, 20.0,false, window);
+    langs[0] = guiCreateElement(13, "lang_en.png", screen[0]/2 - 16.0 - 20.0, screen[1]/2 + (135.0 / 2) - 14.0, 32.0, 18.0, false);
+    langs[1] = guiCreateElement(13, "lang_ru.png", screen[0]/2 - 16.0 + 20.0, screen[1]/2 + (135.0 / 2) - 14.0, 32.0, 18.0, false);
+    guiSetAlwaysOnTop(langs[0], true);
+    guiSetAlwaysOnTop(langs[1], true);
     guiSetMovable(window,false);
     guiSetSizable(window,false);
-    showCursor(true);
-    // guiSetAlpha(window, 0.1);
+    showCursor(true);    // guiSetAlpha(window, 0.1);
     isAuth = true;
 }
 addEventHandler("showAuthGUI", showAuthGUI);
@@ -46,7 +50,7 @@ addEventHandler("showAuthGUI", showAuthGUI);
 function showRegGUI(windowText,labelText, inputpText, inputrpText, inputEmailText, buttonText){
     blackRoundFrame = guiCreateElement(13,"someweirdshit.png", 0, 0, screen[0], screen[1]);
     image = guiCreateElement(13,"logo.png", screen[0]/2 - 148.0, screen[1]/2 - 220.0, 296.0, 102.0);
-    window = guiCreateElement( ELEMENT_TYPE_WINDOW, windowText, screen[0]/2 - 222.5, screen[1]/2 - 100.0, 455.0, 200.0 );
+    window = guiCreateElement( ELEMENT_TYPE_WINDOW, windowText, screen[0]/2 - 222.5, screen[1]/2 - 100.0, 445.0, 210.0 );
     label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, labelText, 85.0, 30.0, 300.0, 20.0, false, window);
     label[1] = guiCreateElement( ELEMENT_TYPE_LABEL, inputpText, 90.0, 60.0, 300.0, 20.0, false, window);
     label[2] = guiCreateElement( ELEMENT_TYPE_LABEL, inputrpText, 90.0, 90.0, 300.0, 20.0, false, window);
@@ -55,6 +59,10 @@ function showRegGUI(windowText,labelText, inputpText, inputrpText, inputEmailTex
     input[1] = guiCreateElement( ELEMENT_TYPE_EDIT, "", 200.0, 90.0, 150.0, 20.0, false, window);
     input[2] = guiCreateElement( ELEMENT_TYPE_EDIT, "", 150.0, 120.0, 200.0, 20.0, false, window);
     button[1] = guiCreateElement( 2, buttonText ,  150.0, 150.0, 150.0, 20.0, false, window);
+    langs[0] = guiCreateElement(13, "lang_en.png", screen[0]/2 - 16.0 - 20.0, screen[1]/2 + (200.0 / 2) - 20.0, 32.0, 18.0);
+    langs[1] = guiCreateElement(13, "lang_ru.png", screen[0]/2 - 16.0 + 20.0, screen[1]/2 + (200.0 / 2) - 20.0, 32.0, 18.0);
+    guiSetAlwaysOnTop(langs[0], true);
+    guiSetAlwaysOnTop(langs[1], true);
     guiSetInputMasked( input[0], true );
     guiSetInputMasked( input[1], true );
     guiSetMovable(window,false);
@@ -70,6 +78,8 @@ function destroyAuthGUI(){
         guiSetVisible(window,false);
         guiSetVisible(image,false);
         guiSetVisible(blackRoundFrame,false);
+        guiSetVisible(langs[0],false);
+        guiSetVisible(langs[1],false);
 
         //guiDestroyElement(window);
         //guiDestroyElement(image);
@@ -83,6 +93,22 @@ function destroyAuthGUI(){
     }
 }
 addEventHandler("destroyAuthGUI", destroyAuthGUI);
+
+addEventHandler("changeAuthLanguage", function(lwindow, llabel, linput, lbutton, rwindow, rlabel, rinputp, rinputrp, riptemail, rbutton) {
+    if (isAuth) {
+        guiSetText(window, lwindow);
+        guiSetText(label[0], llabel);
+        guiSetText(input[0], linput);
+        guiSetText(button[0], lbutton);
+    } else {
+        guiSetText(window, rwindow);
+        guiSetText(label[0], rlabel);
+        guiSetText(label[1], rinputp);
+        guiSetText(label[2], rinputrp);
+        guiSetText(label[3], riptemail);
+        guiSetText(button[1], rbutton);
+    }
+});
 
 addEventHandler( "onGuiElementClick",function(element){ //this shit need some refactor
     if(element == button[0]){
@@ -101,6 +127,13 @@ addEventHandler( "onGuiElementClick",function(element){ //this shit need some re
     }
     if(element == input[2]){
         guiSetText(input[2], "");
+    }
+
+    if (element == langs[0]) {
+        triggerServerEvent("onPlayerLanguageChange", "en");
+    }
+    if (element == langs[1]) {
+        triggerServerEvent("onPlayerLanguageChange", "ru");
     }
 });
 

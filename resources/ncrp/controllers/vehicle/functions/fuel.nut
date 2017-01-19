@@ -113,7 +113,7 @@ local vehicleFuelTankData = {
     model_53 = 38.0  , // walter_coupe
 };
 
-local old__setVehicleFuel = setVehicleFuel;
+local nativeSetVehicleFuel = setVehicleFuel;
 
 /**
  * Set vehicle fuel
@@ -130,7 +130,7 @@ function setVehicleFuel(vehicleid, amount, temp = false) {
         __vehicles[vehicleid].fuel = amount;
     }
 
-    return old__setVehicleFuel(vehicleid, amount);
+    return nativeSetVehicleFuel(vehicleid, amount);
 }
 
 /**
@@ -142,10 +142,10 @@ function setVehicleFuel(vehicleid, amount, temp = false) {
  */
 function restoreVehicleFuel(vehicleid) {
     if (vehicleid in __vehicles) {
-        return old__setVehicleFuel(vehicleid, __vehicles[vehicleid].fuel);
+        return nativeSetVehicleFuel(vehicleid, __vehicles[vehicleid].fuel);
     }
 
-    return old__setVehicleFuel(vehicleid, getDefaultVehicleFuel(vehicleid));
+    return nativeSetVehicleFuel(vehicleid, getDefaultVehicleFuel(vehicleid));
 }
 
 /**
@@ -178,3 +178,20 @@ function switchEngine(vehicleid) {
 
     return false;
 }
+
+
+const VEHICLE_FUEL_STEP = 0.02;
+
+event("onServerMinuteChange", function() {
+    foreach (vehicleid, object in __vehicles) {
+        if (isVehicleEmpty(vehicleid) || isVehicleBlocked(vehicleid)) continue;
+
+        local speed = getVehicleSpeed(vehicleid);
+
+        if (__vehicles[vehicleid].state && __vehicles[vehicleid].fuel >= 0) {
+            __vehicles[vehicleid].fuel -= VEHICLE_FUEL_STEP * getDefaultVehicleFuel(vehicleid);
+        }
+
+        setVehicleFuel(vehicleid, __vehicles[vehicleid].fuel);
+    }
+});
