@@ -103,6 +103,7 @@ function loginFunc(playerid, password) {
         account.ip       = getPlayerIp(playerid);
         account.serial   = getPlayerSerial(playerid);
         account.logined  = getTimestamp();
+        account.locale   = getPlayerLocale(playerid);
         account.save();
 
         // save session
