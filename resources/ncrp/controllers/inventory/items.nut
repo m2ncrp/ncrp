@@ -29,7 +29,7 @@ include("controllers/inventory/classes/weapons.nut");
 itemID <- {};
 
 itemID[  0 ] <- Item.None;
-itemID[  1 ] <- Item.None;
+itemID[  1 ] <- Item.Clothes;
 
 itemID[  2 ] <- Item.Revolver12;
 itemID[  3 ] <- Item.MauserC96;
