@@ -25,8 +25,10 @@ local invWinPosOffsetX = 0.0;
 local invWinPosOffsetY = 232.5;
 
 local charWindow;
+local charItemImg = array(5, null);
+local charLabelsItem = array(5, null);
 
-local itemsPos =
+local InvItemsPos =
 [
     [10.0,25.0],    [78.0,25.0],    [146.0,25.0],   [214.0,25.0],   [282.0,25.0],
     [10.0,93.0],    [78.0,93.0],    [146.0,93.0],   [214.0,93.0],   [282.0,93.0],
@@ -36,11 +38,16 @@ local itemsPos =
     [10.0,365.0],   [78.0,365.0],   [146.0,365.0],  [214.0,365.0],  [282.0,365.0]
 ];
 
+/*
+local CharItemsPos =
+[
+];
+*/
 
-addEventHandler("onServerSyncItems", function(slot,classname,amount, type){  //slot, classname, amout, type
+addEventHandler("onServerSyncItems", function(slot,classname,amount, type, weight){  //slot, classname, amout, type
     playerItems[slot.tointeger()] <- {classname = classname, amount = amount.tointeger(), type = type};
     updateImage(slot.tointeger());
-    log(format("onServerSyncItems - slot: %s, classname: %s, amount: %s, type: %s", slot, classname,amount,type));
+    log(format("onServerSyncItems - slot: %s, classname: %s, amount: %s, type: %s, totalweight: %s", slot, classname,amount,type,weight));
 });
 
 function Inventory () {
@@ -59,7 +66,7 @@ function Inventory () {
         guiSetSizable(charWindow,false);
 
         guiSetVisible(invWindow, true);
-        //guiSetVisible(charWindow, true);
+        guiSetVisible(charWindow, true);
         showCursor(true);
     }
 }
@@ -69,24 +76,29 @@ function updateImage (id) {
      if(!invWindow){
         invWindow = guiCreateElement( ELEMENT_TYPE_WINDOW, "Инвентарь", 0.0, 0.0, 356.0, 465.0);
         charWindow = guiCreateElement( ELEMENT_TYPE_WINDOW, "Персонаж", 0.0, 0.0, 300.0, 465.0);
-        //weight[0] = guiCreateElement( 13,"weight-bg.jpg", 10.0, 435.0, 346.0, 20.0, false, invWindow);
-        //weight[1] = guiCreateElement( 13,"weight-front.jpg", 10.0, 435.0, 180.0, 20.0, false, invWindow);
-        //weight[2] = guiCreateElement( ELEMENT_TYPE_LABEL, "Переносимый груз 1.3/5.0 kg", 100.0, 435.0, 190.0, 20.0, false, invWindow);
-        //guiSetAlwaysOnTop(weight[2], true);
+
+        invItemImg[30] = guiCreateElement( ELEMENT_TYPE_IMAGE, "Item.None.jpg", 50.0, 50.0, 64.0, 64.0, false, charWindow);
+        labelItems[30] = guiCreateElement( ELEMENT_TYPE_LABEL, "", 50.0+labelItemOffset, 50.0+labelItemOffset, 15.0, 15.0, false, charWindow);
+        
+        weight[0] = guiCreateElement( 13,"weight-bg.jpg", 10.0, 435.0, 346.0, 20.0, false, invWindow);
+        weight[1] = guiCreateElement( 13,"weight-front.jpg", 10.0, 435.0, 180.0, 20.0, false, invWindow);
+        weight[2] = guiCreateElement( ELEMENT_TYPE_LABEL, "Переносимый груз 1.3/5.0 kg", 100.0, 435.0, 190.0, 20.0, false, invWindow);
+        guiSetAlwaysOnTop(weight[1], true);
+        guiSetAlwaysOnTop(weight[2], true);
         guiSetVisible(invWindow, false);
         guiSetVisible(charWindow, false);
     }
     if(invWindow){
         if(!invItemImg[id]){
-            invItemImg[id] = guiCreateElement( ELEMENT_TYPE_IMAGE, playerItems[id].classname+".jpg", itemsPos[id][0], itemsPos[id][1], 64.0, 64.0, false, invWindow);
-            labelItems[id] = guiCreateElement( ELEMENT_TYPE_LABEL, formatLabelText(id), itemsPos[id][0]+labelItemOffset, itemsPos[id][1]+labelItemOffset, 15.0, 15.0, false, invWindow);
+            invItemImg[id] = guiCreateElement( ELEMENT_TYPE_IMAGE, playerItems[id].classname+".jpg", InvItemsPos[id][0], InvItemsPos[id][1], 64.0, 64.0, false, invWindow);
+            labelItems[id] = guiCreateElement( ELEMENT_TYPE_LABEL, formatLabelText(id), InvItemsPos[id][0]+labelItemOffset, InvItemsPos[id][1]+labelItemOffset, 15.0, 15.0, false, invWindow);
             guiSetAlwaysOnTop(labelItems[id], true);
             guiSetAlpha(invItemImg[id], 0.75);
             return;
         }
         else {
             guiDestroyElement(invItemImg[id]);
-            invItemImg[id] = guiCreateElement( ELEMENT_TYPE_IMAGE, playerItems[id].classname+".jpg", itemsPos[id][0], itemsPos[id][1], 64.0, 64.0, false, invWindow);
+            invItemImg[id] = guiCreateElement( ELEMENT_TYPE_IMAGE, playerItems[id].classname+".jpg", InvItemsPos[id][0], InvItemsPos[id][1], 64.0, 64.0, false, invWindow);
             guiSetText(labelItems[id], formatLabelText(id));
             guiSetAlpha(invItemImg[id], 0.75);
             return;
@@ -129,6 +141,8 @@ addEventHandler( "onGuiElementClick",
 });
 
 
+
+
 function formatLabelText(slot){
     if(playerItems[slot].type == "ITEM_TYPE.NONE"){
         return "";
@@ -142,3 +156,13 @@ function formatLabelText(slot){
     return "";
 
 }
+/*
+addEventHandler("onClientFrameRender", function(isGUIdrawn) {
+    if(!isGUIdrawn) return;
+    if(invWindow){
+        if(guiIsVisible(invWindow)){
+            dxDrawRectangle( (screen[0] / 2), (screen[1] / 2), 400.0, 400.0, 0x99000000 );
+        }
+    }
+});
+*/
