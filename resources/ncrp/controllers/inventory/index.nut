@@ -16,7 +16,7 @@ event("onServerPlayerStarted", function(playerid) {
             slots[item.slot] <- item;
         }
 
-        for(local i = 0; i < MAX_INVENTORY_SLOTS+1; i++) {
+        for(local i = 0; i < MAX_INVENTORY_SLOTS; i++) {
             if (!(i in slots)) {
                 slots[i] <- Item.None(i);
             }

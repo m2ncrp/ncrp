@@ -100,7 +100,7 @@ function getItemType(item) {
 
 function syncPlayerItem(playerid, item) {
     dbg("trying to sync item with name", item.classname, "to player", getIdentity(playerid));
-    return trigger(playerid, "onServerSyncItems", item.slot.tostring(), item.classname, item.amount.tostring(), getItemType(item));
+    return trigger(playerid, "onServerSyncItems", item.slot.tostring(), item.classname, item.amount.tostring(), getItemType(item), item.calculateWeight().tostring());
 }
 
 function findFreeSlot(playerid){
