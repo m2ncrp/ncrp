@@ -300,7 +300,11 @@ event("onPlayerDisconnect", function(playerid, reason) {
 
 event("onServerMinuteChange", function() {
     foreach (playerid, value in police) {
-        if("ondutyminutes" in police[playerid] && isOnPoliceDuty(playerid)) {
+        if ( isPlayerAfk(playerid) ) {
+            return;
+        }
+
+        if ("ondutyminutes" in police[playerid] && isOnPoliceDuty(playerid)) {
             police[playerid]["ondutyminutes"] += 1;
         }
     }
