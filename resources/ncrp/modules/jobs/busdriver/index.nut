@@ -18,37 +18,6 @@ const BUS_JOB_DISTANCE = 100;
 const BUS_JOB_LEVEL = 1;
       BUS_JOB_COLOR <- CL_CRUSTA;
 
-/*
-local busstops = [
-    ["Go to first bus station in Uptown near platform #3",          -423.116, 440.924, 0.132165],
-    ["Go to bus stop in West Side",                                 -471.471, 10.2396, -1.4627],
-    ["Go to bus stop in Midtown",                                   -431.421, -299.824, -11.8258],
-    ["Go to bus stop in SouthPort",                                 -140.946, -472.49, -15.4755],
-    ["Go to bus stop in Oyster Bay",                                296.348, -315.252, -20.3024],
-    ["Go to bus stop in Chinatown",                                 274.361, 355.601, -21.6772],
-    ["Go to bus stop in Little Italy (East)",                       475.215, 736.735, -21.3909],
-    ["Go to bus station in Millville North (west platform)",        688.59, 873.993, -12.2225],
-    ["Go to bus stop in Little Italy (Central)",                    164.963, 832.472, -19.7743],
-    ["Go to bus stop in Little Italy (Diamond Motors)",             -170.596, 727.372, -20.6562],
-    ["Go to bus stop in East Side",                                 -101.08, 374.001, -14.1311],
-    ["Go to bus station in Uptown near platform #3",                -423.116, 440.924, 0.132165]
-];
-
-local userbusstop = [
-    [-419.707, 444.016, 0.0456606, "Uptown. Platform #3"             ],  // busst0
-    [-474.538, 7.72202,  -1.33022, "West Side"                       ],  // busst1
-    [-428.483, -303.189, -11.7407, "Midtown"                         ],  // busst2
-    [-137.196, -475.182, -15.2725, "SouthPort"                       ],  // busst3
-    [299.087, -311.669,   -20.162, "Oyster Bay"                      ],  // busst4
-    [277.134, 359.335,    -21.535, "Chinatown"                       ],  // busst5
-    [477.92, 733.942,    -21.2513, "Little Italy (East)"             ],  // busst6
-    [691.839, 873.923,   -11.9926, "Millville North (west platform)" ],  // busst7
-    [162.136, 835.064,   -19.6378, "Little Italy (Central)"          ],  // busst8
-    [-173.266, 724.155,  -20.4991, "Little Italy (Diamond Motors)"   ],  // busst9
-    [-104.387, 377.106,  -13.9932, "East Side"                       ]   // busst10
-];
-*/
-
 translation("en", {
     "job.busdriver"                     :   "bus driver"
     "job.bus.letsgo"                    :   "[BUS] Let's go to central door at bus depot in Uptown."
@@ -182,16 +151,16 @@ event("onPlayerConnect", function(playerid) {
 
 event("onServerPlayerStarted", function( playerid ){
 
-    if(players[playerid]["job"] == "busdriver") {
+    if(isBusDriver(playerid)) {
         if (job_bus[getPlayerName(playerid)]["userstatus"] == "working") {
             local busID = job_bus[getPlayerName(playerid)]["route"][1][0];
             if (busID < 90 ) job_bus[getPlayerName(playerid)]["bus3dtext"] = createPrivateBusStop3DText(playerid, busStops[busID].private);
-                trigger(playerid, "setGPS", busStops[busID].private.x, busStops[busID].private.y);
-                trigger(playerid, "hudDestroyTimer");
-                msg( playerid, "job.bus.continuebusstop", busStops[busID].name, BUS_JOB_COLOR );
-            } else {
-                msg( playerid, "job.bus.ifyouwantstart", BUS_JOB_COLOR );
-            }
+            trigger(playerid, "setGPS", busStops[busID].private.x, busStops[busID].private.y);
+            trigger(playerid, "hudDestroyTimer");
+            msg( playerid, "job.bus.continuebusstop", busStops[busID].name, BUS_JOB_COLOR );
+        } else {
+            msg( playerid, "job.bus.ifyouwantstart", BUS_JOB_COLOR );
+        }
         job_bus[getPlayerName(playerid)]["leavejob3dtext"] = createPrivate3DText (playerid, BUS_JOB_X, BUS_JOB_Y, BUS_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), RADIUS_BUS );
     }
 });
@@ -316,7 +285,7 @@ function busJobGet( playerid ) {
     if(job_bus[getPlayerName(playerid)]["userstatus"] == null) {
 
         // если у игрока уже есть другая работа
-        if(isPlayerHaveJob(playerid) && getPlayerJob(playerid) != "busdriver") {
+        if(isPlayerHaveJob(playerid) && !isBusDriver(playerid)) {
             return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), BUS_JOB_COLOR );
         }
 
@@ -445,7 +414,7 @@ function busJobStop( playerid ) {
     local busID = job_bus[getPlayerName(playerid)]["route"][1][0];
 
     if(!isPlayerVehicleInValidPoint(playerid, busStops[busID].private.x, busStops[busID].private.y, 5.0 )) {
-        return msg( playerid, "job.bus.gotobusstop", busStops[busID].name, BUS_JOB_COLOR );
+        return/* msg( playerid, "job.bus.gotobusstop", busStops[busID].name, BUS_JOB_COLOR )*/;
     }
 
     if(isPlayerVehicleMoving(playerid)){
