@@ -214,12 +214,10 @@ key("q", function(playerid) {
 function createFuelJobStationMarks(playerid, data) {
     if (!(getPlayerName(playerid) in fuelJobStationMarks)) {
         fuelJobStationMarks[getPlayerName(playerid)] <- {};
-        dbg("create table");
     }
 
     // ignore creation if they already set
     if (fuelJobStationMarks[getPlayerName(playerid)].len()) {
-         dbg("already create");
         return;
     }
 
@@ -230,16 +228,13 @@ function createFuelJobStationMarks(playerid, data) {
                 text2 = null, // maybe add later
                 blip  = createPrivateBlip(playerid, value[0], value[1], ICON_RED, 4000.0 )
             };
-            dbg("creating");
         }
     }
 }
 
 function removeFuelJobStationMark(playerid, id) {
-    dbg("remove ENTER");
     if (getPlayerName(playerid) in fuelJobStationMarks) {
         if (id in fuelJobStationMarks[getPlayerName(playerid)]) {
-            dbg("removing");
             remove3DText(fuelJobStationMarks[getPlayerName(playerid)][id].text1);
             // remove3DText(fuelJobStationMarks[getPlayerName(playerid)][id].text2); // curenlty disabled
             removeBlip(fuelJobStationMarks[getPlayerName(playerid)][id].blip);
@@ -418,12 +413,10 @@ function fuelJobRefuseLeave( playerid ) {
 function fuelJobLoadUnload ( playerid ) {
 
     if(job_fuel[getPlayerName(playerid)]["userstatus"] == null || job_fuel[getPlayerName(playerid)]["userstatus"] == "complete" || !isPlayerInVehicle(playerid) || !isPlayerVehicleDriver(playerid)) {
-        dbg("First if");
         return;
     }
 
     if(!isFuelDriver(playerid)) {
-        dbg("!isFuelDriver");
         return;
     }
 
@@ -449,7 +442,6 @@ function fuelJobLoadUnload ( playerid ) {
     }
 
     if (!check && !check_ware) {
-        dbg("!check && !check_ware");
        return;
     }
 
@@ -469,14 +461,11 @@ function fuelJobLoadUnload ( playerid ) {
 
 
     if(check_ware && fuelcars[vehicleid][1] == 16000) {
-        dbg("already loaded");
-                //if (job_fuel[getPlayerName(playerid)]["fuelcomplete"] < 8) { createFuelJobStationMarks(playerid, fuelcoords); }
         return msg( playerid, "job.fueldriver.truck.alreadyloaded", FUEL_JOB_COLOR );
     }
 
     // to load
     if(check_ware && fuelcars[vehicleid][1] < 16000) {
-        dbg("to load");
         fuelcars[vehicleid][1] = 16000;
         msg( playerid, "job.fueldriver.truck.fullloaded", FUEL_JOB_COLOR );
         createFuelJobStationMarks(playerid, fuelcoords);
