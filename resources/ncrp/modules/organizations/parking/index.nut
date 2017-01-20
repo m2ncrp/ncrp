@@ -125,7 +125,7 @@ event("onVehicleSetToCarPound", function(playerid, plate = null) {
         setVehicleRotation(vehicleid, 180.0, 0.0, 0.0 );
         break;
     }
-    findBusyPlaces(); //read after
+    delayedFunction(1000, findBusyPlaces()); //read after
     dbg(parkingPlaceStatus);
     if(tpcomplete) msg(playerid, "Car has been parked at car pound.");
     else msg(playerid, "No free space at car pound.");

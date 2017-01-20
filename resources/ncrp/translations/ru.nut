@@ -136,10 +136,11 @@ translation("ru", {
     "job.bus.route.needcomplete"        :   "[BUS] Заверши маршрут."
     "job.bus.needbus"                   :   "[BUS] Тебе нужен автобус."
     "job.bus.gotonextbusstop"           :   "[BUS] Отлично! Направляйся к следующей остановке в %s."
+    "job.bus.continuebusstop"           :   "[BUS] Продолжай движение по маршруту. Следующая остановка в %s."
     "job.bus.waitpasses"                :   "[BUS] Подожди немного пассажиров..."
     "job.bus.gotobusstop"               :   "[BUS] Направляйся к остановке в %s."
     "job.bus.driving"                   :   "[BUS] Останови автобус."
-    "job.bus.gototakemoney"             :   "[BUS] Припаркуй автобус у автобусного депо и получи заработанные деньги у центрального входа."
+    "job.bus.gototakemoney"             :   "[BUS] Оставляй автобус тут. Заработанные деньги получишь у центрального входа в здание депо."
     "job.bus.nicejob"                   :   "[BUS] Отличная работа! Ты заработал $%.2f."
 
     "job.bus.help.title"            :   "Управление для водителя автобуса:"
