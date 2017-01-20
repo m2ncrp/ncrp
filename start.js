@@ -153,7 +153,7 @@ function startServer() {
                 if (data[1] == "restart" && data[2] == "requested") {
                     try {
                         m2o.stdin.write("exit\n");
-                        m2o.kill();
+                        m2o.kill('SIGKILL');
                         // setTimeout(function() {
                         //     m2o = startServer();
                         // }, AUTORESTART_TIME);
@@ -329,10 +329,10 @@ bot.on('message', msg => {
         if (msg.content.startsWith(prefix + "restart")) {
             console.log(">>", msg.member.user.username, "reqeusted", "restart");
             m2o.stdin.write("exit\n");
-            m2o.kill();
-            // setTimeout(function() {
-            //     m2o = startServer();
-            // }, AUTORESTART_TIME);
+            m2o.kill('SIGKILL');
+            setTimeout(function() {
+                m2o = startServer();
+            }, AUTORESTART_TIME);
             return;
         }
 
@@ -344,7 +344,7 @@ bot.on('message', msg => {
             }
 
             m2o.stdin.write("exit\n");
-            m2o.kill();
+            m2o.kill('SIGKILL');
             return;
         }
 
