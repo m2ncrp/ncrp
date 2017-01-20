@@ -404,8 +404,7 @@ function busGetSalary( playerid ) {
 // working good, check
 function busJobStartRoute( playerid ) {
 
-    local route = 1;
-    if (route == 2) route = 1;
+    local route = random(1, 5);
 
     job_bus[getPlayerName(playerid)]["route"] <- [routes[route][0], clone routes[route][1]]; //create clone of route
     msg( playerid, "job.bus.route.your", [route, plocalize(playerid, "job.bus.route."+route) ], BUS_JOB_COLOR  );
