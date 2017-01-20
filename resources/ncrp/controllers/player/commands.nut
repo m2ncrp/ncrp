@@ -34,7 +34,6 @@ acmd("skin", function(playerid, id, targetid = null ) {
     setPlayerModel(targetid.tointeger(), id.tointeger(), true);
 });
 
-
 acmd(["skininc"], function ( playerid ) {
     local skin = getPlayerModel(playerid);
     if ( skin < 171) {
