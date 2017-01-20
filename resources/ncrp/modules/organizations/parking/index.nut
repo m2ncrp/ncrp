@@ -1,6 +1,6 @@
 local PARKING_COORDS = [ -1209.71, 1340.0, -1391.25, 1370.0 ];
-local PARKING_NAME = "Car Pound";
-local PARKING_COST = 50.0;
+local PARKING_NAME = "CarPound";
+local PARKING_COST = 15.0;
 
 local parkingPlaceStatus = [ "free", "free", "free", "free", "free", "free", "free", "free", "free", "free", "free", "free", "free", "free", "free"];
 
@@ -21,6 +21,20 @@ local parkingPlace = [
     [-1328.0, 1358.0, -13.31],
     [-1272.0, 1358.0, -13.31],
 ];
+
+translate("en", {
+    "parking.needEnterPlate"    : "Need to enter plate number."
+    "parking.checkPlate"        : "Check the correct plate number of the car."
+    "parking.peoopleInside"     : "Impossible pick up the car at car pound with people."
+    "parking.alreadyParking"    : "Car already parked."
+    "parking.complete"          : "Car has been parked at car pound."
+    "parking.noFreeSpace"       : "No free space at car pound."
+    "parking.carNotParked"      : "Car with plate number %s is not parked."
+    "parking.notenoughmoney"    : "You don't have enough money."
+    "parking.notYourCar"        : "This is not your car."
+    "parking.free"              : "The car has been freed sucsessfully."
+    "parking.pay"               : "Need to pay $%d to unpark: /unpark"
+});
 
 event("onServerStarted", function() {
     log("[police] parking...");
@@ -54,12 +68,13 @@ event("onPlayerPlaceEnter", function(playerid, name) {
 
 });
 
+/*
 event("onPlayerPlaceExit", function(playerid, name) {
     if (isPlayerInVehicle(playerid) && name == PARKING_NAME) {
         msg(playerid, "You've exited " + name);
     }
 });
-
+*/
 
 function findBusyPlaces() {
     foreach (vehicleid, vehicle in __vehicles) {
@@ -79,32 +94,32 @@ function findBusyPlaces() {
 }
 
 // /park plate_number
-acmd("park2", function ( playerid, plate) {
+acmd("apark", function ( playerid, plate) {
     trigger("onVehicleSetToCarPound", playerid, plate);
 });
 
 // player need to be in car
-cmd("unpark2", function ( playerid ) {
+acmd("aunpark", function ( playerid ) {
     trigger("onVehicleGetFromCarPound", playerid);
 });
 
 
 event("onVehicleSetToCarPound", function(playerid, plate = null) {
     if (plate == null) {
-        return msg( playerid, "Need enter plate number.");
+        return msg( playerid, "parking.needEnterPlate");
     }
 
     local vehicleid = getVehicleByPlateText(plate.toupper());
     if(vehicleid == null) {
-        return msg( playerid, "Car with plate number "+plate+" not found");
+        return msg( playerid, "parking.checkPlate");
     }
 
     if (!isVehicleEmpty(vehicleid)) {
-        return msg( playerid, "There are people in the car. Impossible pick up the car at car pound with people.");
+        return msg( playerid, "parking.peoopleInside");
     }
 
     if(parkingPlaceStatus.find(vehicleid) != null) {
-        return msg(playerid, "Car already parked");
+        return msg(playerid, "parking.alreadyParking");
     }
 
     if (!isVehicleOwned(vehicleid)) {
@@ -116,7 +131,6 @@ event("onVehicleSetToCarPound", function(playerid, plate = null) {
     local tpcomplete = false;
     foreach (placeid, place in parkingPlaceStatus) {
         if(place != "free") {
-            dbg ("continue");
             continue;
         }
         parkingPlaceStatus[placeid] = vehicleid;
@@ -127,8 +141,8 @@ event("onVehicleSetToCarPound", function(playerid, plate = null) {
     }
     delayedFunction(1000, findBusyPlaces()); //read after
     dbg(parkingPlaceStatus);
-    if(tpcomplete) msg(playerid, "Car has been parked at car pound.");
-    else msg(playerid, "No free space at car pound.");
+    if(tpcomplete) msg(playerid, "parking.complete");
+    else msg(playerid, "parking.noFreeSpace");
 });
 
 
@@ -142,15 +156,15 @@ event("onVehicleGetFromCarPound", function(playerid) {
 
     local vehicleid = getPlayerVehicle( playerid ) ;
     if(parkingPlaceStatus.find(vehicleid) == null) {
-        return msg(playerid, "no car at car pound");
+        return msg(playerid, "parking.carNotParked");
     }
 
      if(!canBankMoneyBeSubstracted(playerid, PARKING_COST)) {
-        return msg(playerid, "You don't have enough money.");
+        return msg(playerid, "parking.notenoughmoney");
     }
 
     if (!isPlayerVehicleOwner(playerid, vehicleid)) {
-        return msg(playerid, "This is not you car.");
+        return msg(playerid, "parking.notYourCar");
     }
 
     foreach (placeid, place in parkingPlaceStatus) {
@@ -159,7 +173,7 @@ event("onVehicleGetFromCarPound", function(playerid) {
         parkingPlaceStatus[placeid] = "free";
         unblockVehicle(vehicleid);
         subBankMoneyToPlayer(playerid, PARKING_COST);
-        msg(playerid, "The car has been freed sucsessfully.");
+        msg(playerid, "parking.free");
         setVehicleSpeed(vehicleid, 0.0, -12.0, 0.0);
         break;
         }
@@ -175,9 +189,9 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     {
         blockVehicle(vehicleid);
         if (!isPlayerVehicleOwner(playerid, vehicleid)) {
-            return msg(playerid, "This is not you car.");
+            return msg(playerid, "parking.notYourCar");
         }
-        msg(playerid, "Need pay $50 to unpark: /unpark", PARKING_COST);
+        msg(playerid, "parking.pay", PARKING_COST);
     }
 });
 
