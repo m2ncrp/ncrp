@@ -10,7 +10,7 @@ translate("en", {
     "shops.findcar.nomoney" : "[CALL] Sorry, you don't have enough money in bank account. Good bye."
 });
 
-const FINDCAR_COST = 49.90;
+const FINDCAR_COST = 29.90;
 
 event("onPlayerPhoneCall", function(playerid, number, place) {
     if(number == "0000") {

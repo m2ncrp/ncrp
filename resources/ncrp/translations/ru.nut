@@ -102,8 +102,8 @@ translation("ru", {
     "chat.player.shout"             : "%s крикнул: %s"
     "chat.player.whisper"           : "%s шепчет: %s"
     "chat.player.message.private"   : "[PM] %s пишет %s: %s"
-    "chat.player.try.end.success"   : "[TRY] %s попытался %s (успех)."
-    "chat.player.try.end.fail"      : "[TRY] %s попытался %s (провал)."
+    "chat.player.try.end.success"   : "[TRY] %s: %s (успех)."
+    "chat.player.try.end.fail"      : "[TRY] %s: %s (провал)."
     "chat.player.message.noplayer"  : "[PM] Такого игрока нет на сервере.",
 
     "chat.bug.success"              : "[BUG] Ваше сообщение об ошибке успешно отправлено. Спасибо! ;)"
@@ -794,6 +794,8 @@ translation("ru", {
     "organizations.police.onrankdownsmbd"       : "%s был понижен до %s"
     "organizations.police.onbecame"             : "Вы стали офицером полиции."
     "organizations.police.onleave"              : "Вы более не являетесь офицером полиции."
+
+    "organizations.police.alarm.alreadyCall"    : "Вы уже вызвали полицию. Ожидайте..."
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 

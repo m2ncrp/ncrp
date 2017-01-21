@@ -85,6 +85,8 @@ translation("en", {
     "organizations.police.onrankdownsmbd"       : "%s was rank down to %s"
     "organizations.police.onbecame"             : "You became a police officer."
     "organizations.police.onleave"              : "You're not a police officer anymore."
+
+    "organizations.police.alarm.alreadyCall"    : "You've already called the police. Please, wait..."
 });
 
 
