@@ -322,8 +322,21 @@ cmd(["amnesty"], function(playerid, targetid) {
 });
 
 
+local police_alarm_block = {};
 key("e", function(playerid) {
-    __commands["call"][COMMANDS_DEFAULT](playerid, "police", true);
+    local plaName = getPlayerName(playerid);
+    if (!(plaName in police_alarm_block)) {
+        police_alarm_block[plaName] <- null;
+    }
+    if (police_alarm_block[plaName] != "block") {
+        police_alarm_block[plaName] = "block";
+        __commands["call"][COMMANDS_DEFAULT](playerid, "police", true);
+        delayedFunction(180000, function() {
+            police_alarm_block[plaName] = null;
+        });
+    } else {
+        msg(playerid, "organizations.police.alarm.alreadyCall");
+    }
 });
 
 function policeHelp(playerid, a = null, b = null) {
