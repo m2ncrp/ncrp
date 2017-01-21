@@ -9,6 +9,7 @@ include("modules/jobs/telephone");
 include("modules/jobs/docker");
 include("modules/jobs/stationporter");
 // include("modules/jobs/realtor");
+// include("modules/jobs/slaughterhouseworker");
 
 
 event("onServerStarted", function() {

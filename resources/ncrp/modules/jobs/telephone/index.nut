@@ -541,7 +541,7 @@ function callByPhone (playerid, number = null, isbind = false) {
         return msg(playerid, "telephone.neednumber");
     }
 
-    if(number == "taxi" || number == "police" || number == "dispatch" ) {
+    if(number == "taxi" || number == "police" || number == "dispatch" || number == "towtruck" ) {
         return trigger("onPlayerPhoneCall", playerid, number, plocalize(playerid, budka[3]));
     }
 
