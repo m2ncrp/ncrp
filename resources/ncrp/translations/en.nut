@@ -62,6 +62,10 @@ translation("en", {
     "chat.togoocDisabled"               : "You have disabled display of general chat!"
 
     "error.title"                       : "Error!"
+
+    "treasury.get" : "Treasury: $%.2f"
+    "treasury.add" : "Treasury: add $%.2f. Now: $%.2f"
+    "treasury.sub" : "Treasury: sub $%.2f. Now: $%.2f"
 });
 
 
