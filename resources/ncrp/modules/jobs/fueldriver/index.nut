@@ -470,8 +470,8 @@ function fuelJobLoadUnload ( playerid ) {
     if(check_ware && fuelcars[vehicleid][1] < 16000) {
         msg( playerid, "job.fueldriver.truck.loading", FUEL_JOB_COLOR );
         freezePlayer( playerid, true);
-        trigger(playerid, "hudCreateTimer", 15.0, true, true);
-        delayedFunction(15000, function () {
+        trigger(playerid, "hudCreateTimer", 30.0, true, true);
+        delayedFunction(30000, function () {
             freezePlayer( playerid, false);
             delayedFunction(1000, function () { freezePlayer( playerid, false); });
 
@@ -485,8 +485,8 @@ function fuelJobLoadUnload ( playerid ) {
 
     msg( playerid, "job.fueldriver.truck.unloading", FUEL_JOB_COLOR );
     freezePlayer( playerid, true);
-    trigger(playerid, "hudCreateTimer", 5.0, true, true);
-    delayedFunction(5000, function () {
+    trigger(playerid, "hudCreateTimer", 10.0, true, true);
+    delayedFunction(10000, function () {
         freezePlayer( playerid, false);
         delayedFunction(1000, function () { freezePlayer( playerid, false); });
 

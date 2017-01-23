@@ -4,7 +4,6 @@ local job_bus = {};
 local job_bus_blocked = {};
 local busStops = {};
 local routes = {};
-local BUS_TIMER = 5.0;
 
 const RADIUS_BUS = 2.0;
 const BUS_JOB_X = -422.731;
@@ -433,8 +432,8 @@ function busJobStop( playerid ) {
     freezePlayer( playerid, true);
     msg( playerid, "job.bus.waitpasses", BUS_JOB_COLOR );
 
-    trigger(playerid, "hudCreateTimer", BUS_TIMER, true, true);
-    delayedFunction(5000, function () {
+    trigger(playerid, "hudCreateTimer", 8.0, true, true);
+    delayedFunction(8000, function () {
         freezePlayer( playerid, false);
         delayedFunction(1000, function () { freezePlayer( playerid, false); });
 
