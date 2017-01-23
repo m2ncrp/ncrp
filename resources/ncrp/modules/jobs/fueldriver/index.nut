@@ -14,6 +14,8 @@ translation("en", {
 "job.fueldriver.truck.empty"                            : "[FUEL] The truck is empty. Go to the warehouse of fuel in South Millville to load fuel truck (yellow icon on minimap)."
 "job.fueldriver.truck.toload"                           : "[FUEL] Go to the warehouse of fuel in South Millville to load fuel truck (yellow icon on minimap)."
 "job.fueldriver.driving"                                : "[FUEL] You're driving. Please stop the fuel truck."
+"job.fueldriver.truck.loading"                          : "[FUEL] Loading. Please, wait..."
+"job.fueldriver.truck.unloading"                        : "[FUEL] Unoading. Please, wait..."
 "job.fueldriver.truck.alreadyloaded"                    : "[FUEL] Fuel truck already loaded."
 "job.fueldriver.truck.fullloaded"                       : "[FUEL] Fuel truck is loaded to 16000 / 16000. Deliver fuel to gas stations."
 "job.fueldriver.truck.fuelnotenough"                    : "[FUEL] Fuel is not enough. Go to the warehouse to load fuel truck (yellow icon on minimap)."
@@ -466,32 +468,47 @@ function fuelJobLoadUnload ( playerid ) {
 
     // to load
     if(check_ware && fuelcars[vehicleid][1] < 16000) {
-        fuelcars[vehicleid][1] = 16000;
-        msg( playerid, "job.fueldriver.truck.fullloaded", FUEL_JOB_COLOR );
-        createFuelJobStationMarks(playerid, fuelcoords);
+        msg( playerid, "job.fueldriver.truck.loading", FUEL_JOB_COLOR );
+        freezePlayer( playerid, true);
+        trigger(playerid, "hudCreateTimer", 15.0, true, true);
+        delayedFunction(15000, function () {
+            freezePlayer( playerid, false);
+            delayedFunction(1000, function () { freezePlayer( playerid, false); });
+
+            fuelcars[vehicleid][1] = 16000;
+            msg( playerid, "job.fueldriver.truck.fullloaded", FUEL_JOB_COLOR );
+            createFuelJobStationMarks(playerid, fuelcoords);
+        });
+
         return;
     }
 
+    msg( playerid, "job.fueldriver.truck.unloading", FUEL_JOB_COLOR );
+    freezePlayer( playerid, true);
+    trigger(playerid, "hudCreateTimer", 5.0, true, true);
+    delayedFunction(5000, function () {
+        freezePlayer( playerid, false);
+        delayedFunction(1000, function () { freezePlayer( playerid, false); });
 
-    fuelcars[vehicleid][1] -= 4000;
-    job_fuel[getPlayerName(playerid)]["fuelstatus"][i] = true;
-    job_fuel[getPlayerName(playerid)]["fuelcomplete"] += 1;
+        fuelcars[vehicleid][1] -= 4000;
+        job_fuel[getPlayerName(playerid)]["fuelstatus"][i] = true;
+        job_fuel[getPlayerName(playerid)]["fuelcomplete"] += 1;
 
-    // remove blip on complete unload
-    removeFuelJobStationMark(playerid, i);
+        // remove blip on complete unload
+        removeFuelJobStationMark(playerid, i);
 
-    if (job_fuel[getPlayerName(playerid)]["fuelcomplete"] == 8) {
-        msg( playerid, "job.fueldriver.truck.parking", FUEL_JOB_COLOR );
-        fuelJobWarehouseRemoveBlipText( playerid );
-        job_fuel[getPlayerName(playerid)]["userstatus"] = "complete";
-    } else {
-        if (fuelcars[vehicleid][1] >= 4000) {
-            msg( playerid, "job.fueldriver.truck.unloadingcompletedtruckisloaded", fuelcars[vehicleid][1], FUEL_JOB_COLOR );
+        if (job_fuel[getPlayerName(playerid)]["fuelcomplete"] == 8) {
+            msg( playerid, "job.fueldriver.truck.parking", FUEL_JOB_COLOR );
+            fuelJobWarehouseRemoveBlipText( playerid );
+            job_fuel[getPlayerName(playerid)]["userstatus"] = "complete";
         } else {
-            msg( playerid, "job.fueldriver.truck.unloadingcompletedfuelnotenough", FUEL_JOB_COLOR );
+            if (fuelcars[vehicleid][1] >= 4000) {
+                msg( playerid, "job.fueldriver.truck.unloadingcompletedtruckisloaded", fuelcars[vehicleid][1], FUEL_JOB_COLOR );
+            } else {
+                msg( playerid, "job.fueldriver.truck.unloadingcompletedfuelnotenough", FUEL_JOB_COLOR );
+            }
         }
-    }
-
+    });
 }
 
 
