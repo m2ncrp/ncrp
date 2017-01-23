@@ -4,7 +4,7 @@ local job_bus = {};
 local job_bus_blocked = {};
 local busStops = {};
 local routes = {};
-local BUS_TIMER = 180.0;
+local BUS_TIMER = 5.0;
 
 const RADIUS_BUS = 2.0;
 const BUS_JOB_X = -422.731;
@@ -433,6 +433,7 @@ function busJobStop( playerid ) {
     freezePlayer( playerid, true);
     msg( playerid, "job.bus.waitpasses", BUS_JOB_COLOR );
 
+    trigger(playerid, "hudCreateTimer", BUS_TIMER, true, true);
     delayedFunction(5000, function () {
         freezePlayer( playerid, false);
         delayedFunction(1000, function () { freezePlayer( playerid, false); });
@@ -451,7 +452,6 @@ function busJobStop( playerid ) {
         //job_bus[getPlayerName(playerid)]["busBlip"]   = playerid+"blip"; //надо вырезать
 
         trigger(playerid, "setGPS", busStops[busID].private.x, busStops[busID].private.y);
-        trigger(playerid, "hudCreateTimer", BUS_TIMER, true, true);
         msg( playerid, "job.bus.gotonextbusstop", busStops[busID].name, BUS_JOB_COLOR );
         //local gpsPos = busStops[busID].private;
         //trigger(playerid, "setGPS", gpsPos.x, gpsPos.y);
