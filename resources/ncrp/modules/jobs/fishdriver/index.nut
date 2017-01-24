@@ -63,6 +63,9 @@ const FISH_JOB_LEVEL = 1;
       FISH_JOB_COLOR <- CL_CRUSTA;
 
 
+local FISH_TRUNK1 = [375.173, 121.515, -20.2118];
+local FISH_TRUNK2 = [365.924, 121.734, -20.1988];
+
 
 local fishcoords = {};
 fishcoords["PortChinese"] <- [-217.298, -724.771, -21.423]; // PortPlace P3 06 Chinese
@@ -70,15 +73,34 @@ fishcoords["PortChinese"] <- [-217.298, -724.771, -21.423]; // PortPlace P3 06 C
 
 event("onServerStarted", function() {
     log("[jobs] loading fishdriver job...");
-    fishcars[createVehicle(38, 396.5, 101.977, -20.9432, -89.836, 0.40721, 0.0879066 )]  <- [ false ]; // SeagiftTruck0
-    fishcars[createVehicle(38, 396.5, 98.0385, -20.9359, -88.4165, 0.479715, -0.0220962)]  <- [ false ];  //SeagiftTruck1
-    fishcars[createVehicle(38, 365.481, 116.910, -20.9320, 179.810, -0.0470277, -0.456284)]  <- [ false ];  //SeagiftTruck3
-    fishcars[createVehicle(38, 375.196, 116.910, -20.9320, 179.810, -0.081981, -0.55936)]  <- [ false ];  //SeagiftTruck3
+    fishcars[createVehicle(38, 396.5, 101.977, -20.9432, -89.836, 0.40721, 0.0879066 )]  <- [ false, false ];// SeagiftTruck0
+    fishcars[createVehicle(38, 396.5, 98.0385, -20.9359, -88.4165, 0.479715, -0.0220962)]  <- [ false, false ];  //SeagiftTruck1
+
+    fishcars[createVehicle(38, 354.304, 85.7359, -20.9367, 0.794026, -0.0040194, 0.580053 )]  <- [ false, false ]; // SeagiftTruck0
+    fishcars[createVehicle(38, 350.304, 85.7359, -20.9367, 0.794026, -0.0040194, 0.580053 )]  <- [ false, false ];  //SeagiftTruck1
+    fishcars[createVehicle(38, 365.881, 117.01, -20.9320, 179.810, -0.0470277, -0.456284)]  <- [ false, false ];  //SeagiftTruck3
+    fishcars[createVehicle(38, 374.868, 117.029, -20.9333, -178.932, -0.0996764, -0.5405)]  <- [ false, false ];  //SeagiftTruck3
 
 
     //creating 3dtext for bus depot
     create3DText ( FISH_JOB_X, FISH_JOB_Y, FISH_JOB_Z+0.35, "SEAGIFT's OFFICE", CL_ROYALBLUE );
     create3DText ( FISH_JOB_X, FISH_JOB_Y, FISH_JOB_Z+0.20, "/help job fish", CL_WHITE.applyAlpha(100), 3 );
+/*
+    create3DText ( FISH_TRUNK1[0], FISH_TRUNK1[1], FISH_TRUNK1[2]+0.20, "Press E to open doors", CL_WHITE.applyAlpha(150), 10 );
+    create3DText ( FISH_TRUNK2[0], FISH_TRUNK2[1], FISH_TRUNK2[2]+0.20, "Press E to open doors", CL_WHITE.applyAlpha(150), 10 );
+
+    create3DText ( 375.059, 118.343, -20.0307+0.20, "Place1GetFish", CL_WHITE.applyAlpha(255), 10 );
+    create3DText ( 365.915, 118.305, -20.054+0.20, "Place2GetFish", CL_WHITE.applyAlpha(255), 10 );
+
+    create3DText ( 383.647, 139.518, -20.2027+0.20, "GetPoddon", CL_WHITE.applyAlpha(255), 10 );
+    create3DText ( 375.005, 132.174, -20.2027+0.20, "RazlozhitRibu", CL_WHITE.applyAlpha(255), 10 );
+
+
+
+    createPlace("SeaGiftParking1", 367.566, 119.839, 363.889, 113.871);
+    createPlace("SeaGiftParking2", 376.596, 119.857, 373.26, 113.995);
+
+ */
 
     registerPersonalJobBlip("fishdriver", FISH_JOB_X, FISH_JOB_Y);
 });
@@ -134,7 +156,7 @@ function fishJobRemovePrivateBlipText ( playerid ) {
  * @param  {int}  playerid
  * @return {Boolean} true/false
  */
-function isCargoDriver(playerid) {
+function isFishDriver(playerid) {
     return (isPlayerHaveValidJob(playerid, "fishdriver"));
 }
 
@@ -143,7 +165,7 @@ function isCargoDriver(playerid) {
  * @param  {int}  playerid
  * @return {Boolean} true/false
  */
-function isPlayerVehicleCargo(playerid) {
+function isPlayerVehicleFish(playerid) {
     return (isPlayerInValidVehicle(playerid, 38));
 }
 
@@ -154,7 +176,7 @@ function fishJob( playerid ) {
         return msg( playerid, "job.fishdriver.letsgo", FISH_JOB_COLOR );
     }
 
-    if(isCargoDriver( playerid )) {
+    if(isFishDriver( playerid )) {
         return msg( playerid, "job.fishdriver.already", FISH_JOB_COLOR );
     }
 
@@ -186,7 +208,7 @@ function fishJobLeave( playerid ) {
         return msg( playerid, "job.fishdriver.letsgo", FISH_JOB_COLOR );
     }
 
-    if(!isCargoDriver(playerid)) {
+    if(!isFishDriver(playerid)) {
         return msg( playerid, "job.fishdriver.not", FISH_JOB_COLOR );
     } else {
         screenFadeinFadeoutEx(playerid, 250, 200, function() {
@@ -207,11 +229,11 @@ function fishJobLeave( playerid ) {
 
 // working good, check
 function fishJobLoad( playerid ) {
-    if(!isCargoDriver(playerid)) {
+    if(!isFishDriver(playerid)) {
         return msg( playerid, "job.fishdriver.not", FISH_JOB_COLOR );
     }
 
-    if (!isPlayerVehicleCargo(playerid)) {
+    if (!isPlayerVehicleFish(playerid)) {
         return msg( playerid, "job.fishdriver.needfishtruck", FISH_JOB_COLOR );
     }
 
@@ -245,11 +267,11 @@ function fishJobLoad( playerid ) {
 
 // working good, check
 function fishJobUnload( playerid ) {
-    if(!isCargoDriver(playerid)) {
+    if(!isFishDriver(playerid)) {
         return msg( playerid, "job.fishdriver.not", FISH_JOB_COLOR );
     }
 
-    if (!isPlayerVehicleCargo(playerid)) {
+    if (!isPlayerVehicleFish(playerid)) {
         return msg( playerid, "job.fishdriver.needfishtruck", FISH_JOB_COLOR );
     }
 
@@ -283,7 +305,6 @@ function fishJobUnload( playerid ) {
         job_fish[playerid]["fishstatus"] = true;
         fishcars[vehicleid][0] = false;
         msg( playerid, "job.fishdriver.takemoney", FISH_JOB_COLOR );
-        removePlayerFromVehicle( playerid );
     });
 
 
@@ -294,7 +315,7 @@ function fishJobUnload( playerid ) {
 // working good, check
 function fishJobFinish( playerid ) {
 
-    if(!isCargoDriver(playerid)) {
+    if(!isFishDriver(playerid)) {
         return msg( playerid, "job.fishdriver.not", FISH_JOB_COLOR );
     }
 
@@ -324,6 +345,7 @@ addEventHandlerEx("onServerHourChange", function() {
        fish_limit_in_hour_current = fish_limit_in_hour_default;
 });
 
+/* ---------------------------------------------------------------------------------------------------------------------------- */
 
 function fishJobSetFishLimit( playerid, limit ) {
     fish_limit_in_hour_current = limit.tointeger();
@@ -338,3 +360,34 @@ function fishJobSetDefaultFishLimit( playerid, limit ) {
     fish_limit_in_hour_default = limit.tointeger();
     msg( playerid, "[FISH] New default fish limit in hour: "+limit, FISH_JOB_COLOR );
 }
+
+
+/*
+key("e", function(playerid) {
+    if(!isPlayerInValidPoint(playerid, FISH_TRUNK1[0], FISH_TRUNK1[1], RADIUS_FISH) && !isPlayerInValidPoint(playerid, FISH_TRUNK2[0], FISH_TRUNK2[1], RADIUS_FISH)) {
+        return;
+    }
+    local ppos = players[playerid].getPosition();
+    // special check for spawning inside closed truck
+    local found = false;
+    foreach (vehicleid, value in __vehicles) {
+        local vehModel = getVehicleModel(vehicleid);
+        if (vehModel == 38 || vehModel == 34) {
+            local vpos = getVehiclePosition(vehicleid);
+            // if inside vehicle, set offsetted position
+            if (getDistanceBetweenPoints3D(ppos.x, ppos.y, ppos.z, vpos[0], vpos[1], vpos[2]) < 6.0) {
+                found = true;
+                if (fishcars[vehicleid][1]) {
+                    setVehiclePartOpen(vehicleid, 1, false);
+                    fishcars[vehicleid][1] = false;
+                } else {
+                    setVehiclePartOpen(vehicleid, 1, true);
+                    fishcars[vehicleid][1] = true;
+                }
+                return;
+            }
+        }
+    }
+    if (!found) { msg(playerid, "No fish truck near"); }
+}, KEY_UP);
+*/
