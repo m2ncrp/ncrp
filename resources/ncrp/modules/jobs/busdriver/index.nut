@@ -320,11 +320,11 @@ function busJobGet( playerid ) {
 
 
 function busJobRefuseLeave( playerid ) {
-    if(!isPlayerInValidPoint(playerid, BUS_JOB_X, BUS_JOB_Y, RADIUS_BUS)) {
+    if(!isBusDriver(playerid)) {
         return;
     }
 
-    if(!isBusDriver(playerid)) {
+    if(!isPlayerInValidPoint(playerid, BUS_JOB_X, BUS_JOB_Y, RADIUS_BUS)) {
         return;
     }
 
