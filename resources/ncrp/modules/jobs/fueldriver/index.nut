@@ -364,11 +364,11 @@ function fuelGetSalary( playerid ) {
 
 
 function fuelJobRefuseLeave( playerid ) {
-    if(!isPlayerInValidPoint(playerid, FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_RADIUS)) {
+    if(!isFuelDriver(playerid)) {
         return;
     }
 
-    if(!isFuelDriver(playerid)) {
+    if(!isPlayerInValidPoint(playerid, FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_RADIUS)) {
         return;
     }
 
@@ -414,11 +414,11 @@ function fuelJobRefuseLeave( playerid ) {
 // working good, check
 function fuelJobLoadUnload ( playerid ) {
 
-    if(job_fuel[getPlayerName(playerid)]["userstatus"] == null || job_fuel[getPlayerName(playerid)]["userstatus"] == "complete" || !isPlayerInVehicle(playerid) || !isPlayerVehicleDriver(playerid)) {
+    if(!isFuelDriver(playerid)) {
         return;
     }
 
-    if(!isFuelDriver(playerid)) {
+    if(job_fuel[getPlayerName(playerid)]["userstatus"] == null || job_fuel[getPlayerName(playerid)]["userstatus"] == "complete" || !isPlayerInVehicle(playerid) || !isPlayerVehicleDriver(playerid)) {
         return;
     }
 
