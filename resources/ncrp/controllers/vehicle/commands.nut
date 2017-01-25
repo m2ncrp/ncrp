@@ -15,30 +15,22 @@ acmd(["tune"], function( playerid ) {
     }
 });
 
-acmd(["fix"], function( playerid, vehicleid = null ) {
-    if( isPlayerInVehicle( playerid ) )
-    {
-        vehicleid = getPlayerVehicle( playerid );
-    } else if (vehicleid != null) {
-        vehicleid = vehicleid.tointeger();
-    } else {
-        return;
-    }
-        repairVehicle( vehicleid );
-        setVehicleFuel(vehicleid, getDefaultVehicleFuel(vehicleid));
+acmd(["fix"], function( playerid, targetid = null ) {
+    if( !isPlayerInVehicle( playerid ) && !targetid )  return;
+    if( isPlayerInVehicle( playerid ) && !targetid )  targetid = getPlayerVehicle( playerid );
+    if( targetid )  targetid = targetid.tointeger();
+
+    repairVehicle( targetid );
+    setVehicleFuel(targetid, getDefaultVehicleFuel(targetid));
 });
 
-acmd(["rot"], function( playerid, vehicleid = null ) {
-    if( isPlayerInVehicle( playerid ) )
-    {
-        vehicleid = getPlayerVehicle( playerid );
-    } else if (vehicleid != null) {
-        vehicleid = vehicleid.tointeger();
-    } else {
-        return;
-    }
-        local vehRot = getVehicleRotation(vehicleid);
-        setVehicleRotation( vehicleid, vehRot[0], 0.0, 0.0 );
+acmd(["rot"], function( playerid, targetid = null ) {
+    if( !isPlayerInVehicle( playerid ) && !targetid )  return;
+    if( isPlayerInVehicle( playerid ) && !targetid )  targetid = getPlayerVehicle( playerid );
+    if( targetid )  targetid = targetid.tointeger();
+
+    local vehRot = getVehicleRotation(targetid);
+    setVehicleRotation( targetid, vehRot[0], 0.0, 0.0 );
 });
 
 acmd("checkcar", function( playerid ) {

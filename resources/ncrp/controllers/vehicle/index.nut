@@ -199,16 +199,16 @@ event("onPlayerSpawned", function(playerid) {
 
     // special check for spawning inside closed truck
     foreach (vehicleid, value in __vehicles) {
-        if (getVehicleModel(vehicleid) != 38) continue;
-        if (getVehicleModel(vehicleid) != 34) continue;
+        local vehModel = getVehicleModel(vehicleid);
+        if (vehModel == 38 || vehModel == 34) {
 
-        local vpos = getVehiclePosition(vehicleid);
-
-        // if inside vehicle, set offsetted position
-        if (getDistanceBetweenPoints3D(ppos.x, ppos.y, ppos.z, vpos[0], vpos[1], vpos[2]) < 4.0) {
-            dbg("player", "spawn", getIdentity(playerid), "inside closed truck, respawning...");
-            players[playerid].setPosition(ppos.x + 1.5, ppos.y + 1.5, ppos.z);
-            return;
+            local vpos = getVehiclePosition(vehicleid);
+            // if inside vehicle, set offsetted position
+            if (getDistanceBetweenPoints3D(ppos.x, ppos.y, ppos.z, vpos[0], vpos[1], vpos[2]) < 4.0) {
+                dbg("player", "spawn", getIdentity(playerid), "inside closed truck, respawning...");
+                players[playerid].setPosition(ppos.x + 1.5, ppos.y + 1.5, ppos.z);
+                return;
+            }
         }
     }
 });

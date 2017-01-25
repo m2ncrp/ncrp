@@ -123,7 +123,7 @@ key("i", function(playerid) {
 // });
 
 function planServerRestart(playerid) {
-    msga("Auto-Restart: Server will be restart in 15 minutes. Please, complete all your jobs. Thanks!", CL_RED);
+    msga("Auto-Restart: Server will be restarted in 15 minutes. Please, complete all your jobs. Thanks!", CL_RED);
 
     delayedFunction(5*60*1000, function() {
         msga("Auto-Restart: Server will be restarted in 10 minutes.", CL_RED);

@@ -521,7 +521,7 @@ function goToPhone(playerid, phoneid) {
 
 }
 
-
+local police_alarm_block = {};
 function callByPhone (playerid, number = null, isbind = false) {
     local budka = getPlayerPhoneName(playerid);
     local type = (budka) ? budka[4] : false;
@@ -531,17 +531,37 @@ function callByPhone (playerid, number = null, isbind = false) {
         return;
     }
 
+    // need phonebooth
     if (budka == false || (isbind == false && type == 2)) {
         msg(playerid, "telephone.needphone");
         showBlipNearestPhoneForPlayer ( playerid );
         return;
     }
 
+    // number empty
     if (number == null) {
         return msg(playerid, "telephone.neednumber");
     }
 
-    if(number == "taxi" || number == "police" || number == "dispatch" ) {
+    // police alarm box
+    if(number == "police" && isbind == true && type == 2) {
+        local plaName = getPlayerName(playerid);
+        if (!(plaName in police_alarm_block)) {
+            police_alarm_block[plaName] <- null;
+        }
+        if (police_alarm_block[plaName] != "block") {
+            police_alarm_block[plaName] = "block";
+            trigger("onPlayerPhoneCall", playerid, number, plocalize(playerid, budka[3]));
+            delayedFunction(180000, function() {
+                police_alarm_block[plaName] = null;
+            });
+        } else {
+            msg(playerid, "organizations.police.alarm.alreadyCall");
+        }
+        return;
+    }
+
+    if(number == "taxi" || number == "police" || number == "dispatch" || number == "towtruck" ) {
         return trigger("onPlayerPhoneCall", playerid, number, plocalize(playerid, budka[3]));
     }
 
