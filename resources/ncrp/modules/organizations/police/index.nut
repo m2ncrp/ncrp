@@ -85,6 +85,8 @@ translation("en", {
     "organizations.police.onrankdownsmbd"       : "%s was rank down to %s"
     "organizations.police.onbecame"             : "You became a police officer."
     "organizations.police.onleave"              : "You're not a police officer anymore."
+
+    "organizations.police.alarm.alreadyCall"    : "You've already called the police. Please, wait..."
 });
 
 
@@ -143,26 +145,26 @@ POLICE_MAX_RANK <- POLICE_RANK.len()-1;
  * @param  {Boolean} gun  could have a gun on duty
  * @return {obj}
  */
-function policeRankPermission(ride, gun) {
-    return {r = ride, g = gun};
+function policeRankPermission(ride, gun, getvehinfo) {
+    return {r = ride, g = gun, i = getvehinfo};
 }
 
 POLICE_RANK_SALLARY_PERMISSION_SKIN <- [ // calculated as: (-i^2 + 27*i + 28)/200; i - rank number
-    [0.14, policeRankPermission(false, false), [75, 76] ], // "police.cadet"
-    [0.27, policeRankPermission(false, true),  [75, 76] ], // "police.patrol"
-    [0.39, policeRankPermission(true, true),   [75, 76] ], // "police.officer"
-    [0.50, policeRankPermission(true, true),   [69]     ], // "police.detective"
-    [0.60, policeRankPermission(true, true),   [75, 76] ], // "police.sergeant.1"
-    [0.69, policeRankPermission(true, true),   [75, 76] ], // "police.sergeant.2"
-    [0.77, policeRankPermission(true, true),   [75, 76] ], // "police.lieutenant.1"
-    [0.84, policeRankPermission(true, true),   [75, 76] ], // "police.lieutenant.2"
-    [0.90, policeRankPermission(true, true),   [75, 76] ], // "police.Captain.1"
-    [0.95, policeRankPermission(true, true),   [75, 76] ], // "police.Captain.2"
-    [0.99, policeRankPermission(true, true),   [75, 76] ], // "police.Captain.3"
-    [1.02, policeRankPermission(true, true),   [75, 76] ], // "police.commander"
-    [1.04, policeRankPermission(true, true),   [75, 76] ], // "police.deputychief"
-    [1.05, policeRankPermission(true, true),   [75, 76] ], // "police.assistantchief"
-    [1.05, policeRankPermission(true, true),   [75, 76] ]  // "police.chief"
+    [0.14, policeRankPermission(false, false, false), [75, 76] ], // "police.cadet"
+    [0.27, policeRankPermission(false, true, false),  [75, 76] ], // "police.patrol"
+    [0.39, policeRankPermission(true, true, false),   [75, 76] ], // "police.officer"
+    [0.50, policeRankPermission(true, true, true),    [69]     ], // "police.detective"
+    [0.60, policeRankPermission(true, true, true),    [75, 76] ], // "police.sergeant.1"
+    [0.69, policeRankPermission(true, true, true),    [75, 76] ], // "police.sergeant.2"
+    [0.77, policeRankPermission(true, true, true),    [75, 76] ], // "police.lieutenant.1"
+    [0.84, policeRankPermission(true, true, true),    [75, 76] ], // "police.lieutenant.2"
+    [0.90, policeRankPermission(true, true, true),    [75, 76] ], // "police.Captain.1"
+    [0.95, policeRankPermission(true, true, true),    [75, 76] ], // "police.Captain.2"
+    [0.99, policeRankPermission(true, true, true),    [75, 76] ], // "police.Captain.3"
+    [1.02, policeRankPermission(true, true, true),    [75, 76] ], // "police.commander"
+    [1.04, policeRankPermission(true, true, true),    [75, 76] ], // "police.deputychief"
+    [1.05, policeRankPermission(true, true, true),    [75, 76] ], // "police.assistantchief"
+    [1.05, policeRankPermission(true, true, true),    [75, 76] ]  // "police.chief"
 ];
 
 
@@ -379,6 +381,7 @@ translation("en", {
     "organizations.police.phone.dispatch.online"            : "- Dispatcher on line."
     "organizations.police.phone.dispatch.badge"             : "%s says: %s, badge 00000."
     "organizations.police.phone.dispatch.policereply"       : "- How can I help, %s?"
+    "organizations.police.phone.dispatch.calltowtruck"      : "%s says: I need tow truck to transfer vehicle with plate %s to car pound."
 });
 
 translation("ru", {
@@ -387,8 +390,35 @@ translation("ru", {
     "organizations.police.phone.dispatch.online"            : "- Диспетчер на линии, слушаю."
     "organizations.police.phone.dispatch.badge"             : "%s сказал: %s, жетон 00000."
     "organizations.police.phone.dispatch.policereply"       : "- Чем могу помочь, %s?"
+    "organizations.police.phone.dispatch.calltowtruck"      : "%s сказал: Мне требуется тягач для транспортировки автомобиля с номерами %s на штрафстоянку."
 });
 
+function callPoliceDispatch(playerid) {
+    local message = "organizations.police.phone.dispatch.call"; //  - Operator, give me dispatch.  // Оператор, соедините с диспетчером.
+    // Operator, message for KJPL. // Оператор, сообщение для диспетчера.
+    sendLocalizedMsgToAll(playerid, message, [getPlayerName(playerid)], POLICE_PHONENORMAL_RADIUS, CL_WHITE);
+
+    local replyMessage = "organizations.police.phone.operator.connecttodispatch"; //  - Putting you through now.      // Соединяю
+    sendLocalizedMsgToAll(playerid, replyMessage, [""], POLICE_PHONEREPLY_RADIUS, CL_WHITE);
+
+    delayedFunction( random(1700, 2600), function() {
+        replyMessage = "organizations.police.phone.dispatch.online"; // - Dispatcher on line. // Диспетчер, слушаю.
+        sendLocalizedMsgToAll(playerid, replyMessage, [""], POLICE_PHONEREPLY_RADIUS, CL_WHITE);
+
+        message = "organizations.police.phone.dispatch.badge"; //  - <Name>, badge <number>.       // (Кто), жетон (номер)
+        sendLocalizedMsgToAll(playerid, message, [getPlayerName(playerid), getPlayerName(playerid)], POLICE_PHONENORMAL_RADIUS, CL_WHITE);
+    });
+
+    // Check if player has permission to take info
+    if ( getPoliceRank(playerid) < 3 ) {
+        return msg(playerid, "organizations.police.lowrank", [], CL_GRAY);
+    }
+
+    delayedFunction( random(2900, 3100), function() {
+        replyMessage = "organizations.police.phone.dispatch.policereply"; //  - How can I help, <rank>?       // Чем могу помочь, (ранг)?
+        sendLocalizedMsgToAll(playerid, replyMessage, [getLocalizedPlayerJob(playerid)], POLICE_PHONENORMAL_RADIUS, CL_WHITE);
+    });
+}
 
 event("onPlayerPhoneCall", function(playerid, number, place) {
     if (number == "police") {
@@ -397,25 +427,11 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
     }
 
     if (number == "dispatch" && isOfficer(playerid)) {
-        local message = "organizations.police.phone.dispatch.call"; //  - Operator, give me dispatch.  // Оператор, соедините с диспетчером.
-        // Operator, message for KJPL. // Оператор, сообщение для диспетчера.
-        sendLocalizedMsgToAll(playerid, message, [getPlayerName(playerid)], POLICE_PHONENORMAL_RADIUS, CL_WHITE);
+        // if ( getPoliceRank(playerid) < 3 ) {
+        //     return msg(playerid, "organizations.police.lowrank", [], CL_GRAY);
+        // }
 
-        local replyMessage = "organizations.police.phone.operator.connecttodispatch"; //  - Putting you through now.      // Соединяю
-        sendLocalizedMsgToAll(playerid, replyMessage, [""], POLICE_PHONEREPLY_RADIUS, CL_WHITE);
-
-        delayedFunction( random(1700, 2600), function() {
-            replyMessage = "organizations.police.phone.dispatch.online"; // - Dispatcher on line. // Диспетчер, слушаю.
-            sendLocalizedMsgToAll(playerid, replyMessage, [""], POLICE_PHONEREPLY_RADIUS, CL_WHITE);
-
-            message = "organizations.police.phone.dispatch.badge"; //  - <Name>, badge <number>.       // (Кто), жетон (номер)
-            sendLocalizedMsgToAll(playerid, message, [getPlayerName(playerid), getPlayerName(playerid)], POLICE_PHONENORMAL_RADIUS, CL_WHITE);
-        });
-
-        delayedFunction( random(2700, 2900), function() {
-            replyMessage = "organizations.police.phone.dispatch.policereply"; //  - How can I help, <rank>?       // Чем могу помочь, (ранг)?
-            sendLocalizedMsgToAll(playerid, replyMessage, [getLocalizedPlayerJob(playerid)], POLICE_PHONENORMAL_RADIUS, CL_WHITE);
-        });
+        callPoliceDispatch(playerid);
 
     //     // Show up anser choise with GUI
     //     //  1. Узнать адрес заведения
@@ -424,6 +440,24 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
     //     //  3. Сообщения от других игроков-полицейских и обращения в EBPD
     //     //  4. Транспортировка задержанного
     //     //  5. Буксировка авто на штрафстоянку
+    }
+
+    if (number == "towtruck") {
+        // if ( getPoliceRank(playerid) < 3 ) {
+        //     return msg(playerid, "organizations.police.lowrank", [], CL_GRAY);
+        // }
+
+        local message;
+        local replyMessage;
+
+        callPoliceDispatch(playerid);
+
+        delayedFunction( random(3200, 4000), function() {
+            message = "organizations.police.phone.dispatch.calltowtruck"; //  - I need tow truck to transfer vehicle with plate %s to car pound. Place: %s
+            // Мне требуется тягач для транспортировки автомобиля с номерами %s на штрафстоянку. Место: %s
+            sendLocalizedMsgToAll(playerid, message, [getPlayerName(playerid), place], POLICE_PHONENORMAL_RADIUS, CL_WHITE);
+            dbg( place );
+        });
     }
 });
 

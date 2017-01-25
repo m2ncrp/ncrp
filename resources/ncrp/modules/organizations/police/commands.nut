@@ -32,7 +32,7 @@ acmd("a", ["police", "set", "rank"], function(playerid, targetid, rank) {
         return msg(playerid, "organizations.police.notanofficer"); // not you, but target
     }
 
-    if (rank >= 0 && rank < POLICE_MAX_RANK) {
+    if (rank >= 0 && rank <= POLICE_MAX_RANK) {
         if ( isOnPoliceDuty(playerid) ) {
             trigger("onPoliceDutyOff", playerid);
             setPoliceRank( targetid, rank );
@@ -109,7 +109,7 @@ cmd("police", ["set", "rank"], function(playerid, targetid, rank) {
             return msg(playerid, "organizations.police.notanofficer"); // not you, but target
         }
 
-        if (rank >= 0 && rank < POLICE_MAX_RANK) {
+        if (rank >= 0 && rank <= POLICE_MAX_RANK) {
             if ( isOnPoliceDuty(playerid) ) {
                 trigger("onPoliceDutyOff", playerid);
                 setPoliceRank( targetid, rank );
@@ -349,3 +349,14 @@ function policeHelp(playerid, a = null, b = null) {
 cmd("help", ["job", "police"], policeHelp);
 cmd("help", ["police"], policeHelp);
 cmd("help", ["police", "job"], policeHelp);
+
+
+// // /park plate_number
+// cmd("call", ["towtruck"], function ( playerid, plate) {
+//     trigger("onVehicleSetToCarPound", playerid, plate);
+// });
+
+// // player need to be in car
+// cmd("unpark", function ( playerid ) {
+//     trigger("onVehicleGetFromCarPound", playerid);
+// });
