@@ -37,7 +37,7 @@ event("onServerStarted", function() {
 
 event("onPlayerCharacterLoaded", function(playerid, character) {
 	// get all the data
-	local data = isCharacterInBuffer(getPlayerName(playerid)); 
+	local data = isCharacterInBuffer(getPlayerName(playerid));
 	// if dat character's stored in buffer
 	if ( data.res ) {
 		// set up duty status
