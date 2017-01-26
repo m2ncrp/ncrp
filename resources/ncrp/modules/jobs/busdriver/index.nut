@@ -4,18 +4,18 @@ local job_bus = {};
 local job_bus_blocked = {};
 local busStops = {};
 local routes = {};
-local BUS_TIMER = 180.0;
 
-const RADIUS_BUS = 2.0;
-const BUS_JOB_X = -422.731;
-const BUS_JOB_Y = 479.372;
-const BUS_JOB_Z = 0.10922;
+local RADIUS_BUS = 2.0;
+local RADIUS_BUS_SMALL = 1.0;
+local BUS_JOB_X = -422.731;
+local BUS_JOB_Y = 479.372;
+local BUS_JOB_Z = 0.10922;
 
-const BUS_JOB_TIMEOUT = 1800; // 30 minutes
-const BUS_JOB_SKIN = 171;
-const BUS_JOB_BUSSTOP = "STOP HERE";
-const BUS_JOB_DISTANCE = 100;
-const BUS_JOB_LEVEL = 1;
+local BUS_JOB_TIMEOUT = 1800; // 30 minutes
+local BUS_JOB_SKIN = 171;
+local BUS_JOB_BUSSTOP = "STOP HERE";
+local BUS_JOB_DISTANCE = 100;
+local BUS_JOB_LEVEL = 1;
       BUS_JOB_COLOR <- CL_CRUSTA;
 
 translation("en", {
@@ -142,7 +142,6 @@ event("onPlayerConnect", function(playerid) {
      job_bus[getPlayerName(playerid)] <- {};
      job_bus[getPlayerName(playerid)]["route"] <- false;
      job_bus[getPlayerName(playerid)]["userstatus"] <- null;
-     job_bus[getPlayerName(playerid)]["leavejob3dtext"] <- null;
      job_bus[getPlayerName(playerid)]["bus3dtext"] <- [ null, null ];
      job_bus[getPlayerName(playerid)]["busBlip"] <- null;
     }
@@ -161,7 +160,7 @@ event("onServerPlayerStarted", function( playerid ){
         } else {
             msg( playerid, "job.bus.ifyouwantstart", BUS_JOB_COLOR );
         }
-        job_bus[getPlayerName(playerid)]["leavejob3dtext"] = createPrivate3DText (playerid, BUS_JOB_X, BUS_JOB_Y, BUS_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), RADIUS_BUS );
+        createText (playerid, "leavejob3dtext", BUS_JOB_X, BUS_JOB_Y, BUS_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), RADIUS_BUS_SMALL );
     }
 });
 
@@ -298,10 +297,8 @@ function busJobGet( playerid ) {
         }
 
         busJobStartRoute( playerid );
+        createText (playerid, "leavejob3dtext", BUS_JOB_X, BUS_JOB_Y, BUS_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), RADIUS_BUS_SMALL );
 
-        if(job_bus[getPlayerName(playerid)]["leavejob3dtext"] == null) {
-            job_bus[getPlayerName(playerid)]["leavejob3dtext"] = createPrivate3DText (playerid, BUS_JOB_X, BUS_JOB_Y, BUS_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), RADIUS_BUS );
-        }
         return;
     }
 
@@ -321,11 +318,11 @@ function busJobGet( playerid ) {
 
 
 function busJobRefuseLeave( playerid ) {
-    if(!isPlayerInValidPoint(playerid, BUS_JOB_X, BUS_JOB_Y, RADIUS_BUS)) {
+    if(!isBusDriver(playerid)) {
         return;
     }
 
-    if(!isBusDriver(playerid)) {
+    if(!isPlayerInValidPoint(playerid, BUS_JOB_X, BUS_JOB_Y, RADIUS_BUS_SMALL)) {
         return;
     }
 
@@ -433,7 +430,8 @@ function busJobStop( playerid ) {
     freezePlayer( playerid, true);
     msg( playerid, "job.bus.waitpasses", BUS_JOB_COLOR );
 
-    delayedFunction(5000, function () {
+    trigger(playerid, "hudCreateTimer", 8.0, true, true);
+    delayedFunction(8000, function () {
         freezePlayer( playerid, false);
         delayedFunction(1000, function () { freezePlayer( playerid, false); });
 
@@ -451,7 +449,6 @@ function busJobStop( playerid ) {
         //job_bus[getPlayerName(playerid)]["busBlip"]   = playerid+"blip"; //надо вырезать
 
         trigger(playerid, "setGPS", busStops[busID].private.x, busStops[busID].private.y);
-        trigger(playerid, "hudCreateTimer", BUS_TIMER, true, true);
         msg( playerid, "job.bus.gotonextbusstop", busStops[busID].name, BUS_JOB_COLOR );
         //local gpsPos = busStops[busID].private;
         //trigger(playerid, "setGPS", gpsPos.x, gpsPos.y);

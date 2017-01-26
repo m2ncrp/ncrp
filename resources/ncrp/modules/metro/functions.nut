@@ -124,6 +124,7 @@ function onTavelToStation(playerid, id) {
     togglePlayerControls( playerid, true );
     screenFadeinFadeout(playerid, travelTime, function() {
         subMoneyToPlayer(playerid, METRO_TICKET_COST); // don't forget took money for ticket ~ 25 cents
+        addMoneyToTreasury(METRO_TICKET_COST);
         msg(playerid, "metro.pay", METRO_TICKET_COST );
         msg(playerid, "metro.arrived", metroInfos[id][3]);
         setPlayerPosition(playerid, metroInfos[id][0], metroInfos[id][1], metroInfos[id][2]);

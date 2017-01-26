@@ -27,8 +27,8 @@ event("native:onPlayerPlaceExit", function(playerid, placeid) {
 
 event("onServerPlayerStarted", function(playerid) {
     foreach (idx, obj in placeRegister) {
-        trigger(playerid, "onServerPlaceAdded", idx, obj.pos1.x, obj.pos1.y, obj.pos2.x, obj.pos2.y);
-        dbg("sending place with", idx, idx, obj.pos1.x, obj.pos1.y, obj.pos2.x, obj.pos2.y);
+        trigger(playerid, "onServerPlaceAdded", idx, obj.a.x, obj.a.y, obj.b.x, obj.b.y);
+        dbg("sending place with", idx, idx, obj.a.x, obj.a.y, obj.b.x, obj.b.y);
     }
 });
 
@@ -49,13 +49,13 @@ function createPlace(name, x1, y1, x2, y2) {
         throw "createPlace: this name is already taken: " + name;
     }
 
-    placeRegister[id] <- { name = name, pos1 = { x = x1.tofloat(), y = y1.tofloat() },  pos2 = { x = x2.tofloat(), y = y2.tofloat() }};
+    placeRegister[id] <- { name = name, a = { x = x1.tofloat(), y = y1.tofloat() },  b = { x = x2.tofloat(), y = y2.tofloat() }};
 
     if ("players" in getroottable()) {
         local obj = placeRegister[id];
 
         players.each(function(playerid) {
-            trigger(playerid, "onServerPlaceAdded", id, obj.pos1.x, obj.pos1.y, obj.pos2.x, obj.pos2.y);
+            trigger(playerid, "onServerPlaceAdded", id, obj.a.x, obj.a.y, obj.b.x, obj.b.y);
         });
     }
 
@@ -84,6 +84,30 @@ function removePlace(name) {
     return true;
 }
 
+/**
+ * Check if coords are inside place
+ * @param  {String} name
+ * @param  {Float} x
+ * @param  {Float} y
+ * @return {Booelan}
+ */
+function isInPlace(name, x, y) {
+    local id = md5(name);
+
+    if (!(id in placeRegister)) {
+        return false;
+    }
+
+    local place = placeRegister[id];
+    x = x.tofloat();
+    y = y.tofloat();
+
+    return (
+        ((place.a.x < x && x < place.b.x) || (place.a.x > x && x > place.b.x)) &&
+        ((place.a.y < y && y < place.b.y) || (place.a.y > y && y > place.b.y))
+    );
+}
+
 // local temp = {};
 // acmd("a", function(playerid) {
 //     if (!(playerid in temp)) {
@@ -105,3 +129,8 @@ acmd("placedbg", function(playerid) {
 // event("onPlayerPlaceExit", function(playerid, place) {
 //     msg(playerid, "you've exited " + place, CL_ERROR);
 // });
+
+function isVehicleInPlace(vehicleid, name) {
+    local pos = getVehiclePosition(vehicleid);
+    return isInPlace(name, pos[0], pos[1]);
+}
