@@ -360,7 +360,7 @@ function fishJobRefuseLeave( playerid ) {
 
     if (job_fish[getPlayerName(playerid)]["userstatus"] == "working") {
         msg( playerid, "job.bus.badworker.onleave", FISH_JOB_COLOR);
-        job_fish[getPlayerName(playerid)]["userstatus"] = "nojob";
+        ///////////////////////////////////////job_fish[getPlayerName(playerid)]["userstatus"] = "nojob";
         //////////////////////////////////////job_fish_blocked[getPlayerName(playerid)] <- getTimestamp();
         //busJobRemovePrivateBlipText( playerid );
     }
@@ -591,6 +591,7 @@ function fishOpenCloseDoors(playerid) {
 
 
 key("1", function(playerid) {
+    /*
     local vehicleid = getNearestCarForPlayer(playerid, 6.0);
     msg(playerid, "Ближайшее авто: "+vehicleid);
                     local ppos = players[playerid].getPosition();
@@ -599,6 +600,9 @@ key("1", function(playerid) {
                     if (isInRadius(playerid, vpos[0], vpos[1], vpos[2]+0.7, 2.75) && ppos.z > (vpos[2]+0.7) && ppos.z < (vpos[2]+1.0)) {
                         msg(playerid, "Тебе крышка");
                     }
+    */
+    setPlayerAnimStyle(playerid, "common", "CarryBox");
+    setPlayerHandModel(playerid, 1, 98); // put box in hands
 }, KEY_UP);
 
 
@@ -643,3 +647,5 @@ function fishJobSync3DText(playerid) {
     if(!place1busy) createText (playerid, "fish_parking1_3dtext", 365.915, 118.305, -20.054+0.20, "Parking Place 1", CL_ROYALBLUE.applyAlpha(150), 35 );
     if(!place2busy) createText (playerid, "fish_parking2_3dtext", 375.059, 118.343, -20.0307+0.20, "Parking Place 2", CL_ROYALBLUE.applyAlpha(150), 35 );
 }
+
+
