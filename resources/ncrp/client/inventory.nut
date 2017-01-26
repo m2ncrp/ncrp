@@ -156,13 +156,3 @@ function formatLabelText(slot){
     return "";
 
 }
-/*
-addEventHandler("onClientFrameRender", function(isGUIdrawn) {
-    if(!isGUIdrawn) return;
-    if(invWindow){
-        if(guiIsVisible(invWindow)){
-            dxDrawRectangle( (screen[0] / 2), (screen[1] / 2), 400.0, 400.0, 0x99000000 );
-        }
-    }
-});
-*/
