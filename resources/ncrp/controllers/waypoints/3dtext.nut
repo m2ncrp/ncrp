@@ -1,7 +1,7 @@
 local __3dtexts = {};
 local __3dtext__autoincrement = 0;
 
-function add3DTextForPlayer(textid, playerid) {
+function create3DTextForPlayer(textid, playerid) {
     if (!(textid in __3dtexts)) {
         return dbg("[3dtext] tried to send non-existent 3dtext.");
     }
@@ -27,9 +27,9 @@ function remove3DTextForPlayer(textid, playerid) {
     return true;
 }
 
-function add3DTextForPlayers(textid) {
+function create3DTextForPlayers(textid) {
     foreach (playerid, player in players) {
-        add3DTextForPlayer(textid, playerid);
+        create3DTextForPlayer(textid, playerid);
     }
     return textid;
 }
@@ -49,7 +49,7 @@ function instantiate3DText(x, y, z, text, color, distance, private) {
 
 event("onServerPlayerStarted", function(playerid) {
     foreach (textid, t3d in __3dtexts) {
-        if (!t3d.private) { add3DTextForPlayer(textid, playerid); }
+        if (t3d.private == -1) { create3DTextForPlayer(textid, playerid); }
     }
 });
 
@@ -66,7 +66,7 @@ event("onServerPlayerStarted", function(playerid) {
  * @return {Integer} textid
  */
 function create3DText(x, y, z, text, color, distance = 35.0) {
-    return add3DTextForPlayers( instantiate3DText(x, y, z, text, color, distance, false) );
+    return create3DTextForPlayers( instantiate3DText(x, y, z, text, color, distance, -1) );
 }
 
 /**
@@ -83,7 +83,7 @@ function create3DText(x, y, z, text, color, distance = 35.0) {
  * @return {Integer} textid
  */
 function createPrivate3DText(playerid, x, y, z, text, color, distance = 35.0) {
-    return add3DTextForPlayer( instantiate3DText(x, y, z, text, color, distance, true), playerid );
+    return create3DTextForPlayer( instantiate3DText(x, y, z, text, color, distance, playerid), playerid );
 }
 
 /**
@@ -99,5 +99,29 @@ function remove3DText(textid) {
 
     remove3DTextForPlayers(textid);
     delete __3dtexts[textid];
+    return true;
+}
+
+/**
+ * Rename 3d text
+ * @param  {String} textid
+ * @param  {String} text
+ * @return {Boolean}
+ */
+function rename3DText(textid, text) {
+    if (!(textid in __3dtexts)) {
+        return false;
+    }
+
+    __3dtexts[textid].value = text;
+
+    if (__3dtexts[textid].private != -1) {
+        remove3DTextForPlayer(textid, __3dtexts[textid].private);
+        create3DTextForPlayer(textid, __3dtexts[textid].private);
+    } else {
+        remove3DTextForPlayers(textid);
+        create3DTextForPlayers(textid);
+    }
+
     return true;
 }

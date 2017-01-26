@@ -17,7 +17,7 @@
         {
             destroyHudTimer();
         }
-    createHudTimer( seconds.tofloat(), showed, started );
+    createHudTimer( seconds.tofloat() * 0.75, showed, started );
  });
 
  addEventHandler("hudDestroyTimer", function() {
