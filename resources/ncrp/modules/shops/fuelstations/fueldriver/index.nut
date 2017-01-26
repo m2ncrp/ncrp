@@ -48,7 +48,7 @@ translation("en", {
 });
 
 
-include("modules/jobs/fueldriver/commands.nut");
+include("modules/shops/fuelstations/fueldriver/commands.nut");
 
 local job_fuel = {};
 local job_fuel_blocked = {};

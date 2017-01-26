@@ -1,6 +1,8 @@
 include("modules/shops/fuelstations/commands.nut");
 include("modules/shops/fuelstations/functions.nut");
 
+include("modules/shops/fuelstations/fueldriver");
+
 translation("en", {
     "shops.fuelstations.toofar"             : "You are too far from any fuel station!"
     "shops.fuelstations.farfromvehicle"     : "You are too far from vehicle."

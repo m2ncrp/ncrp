@@ -31,7 +31,7 @@ translation("en", {
 "job.fishdriver.help.finish"           :   "Report about delivery and get money"
 });
 
-include("modules/jobs/fishdriver/commands.nut");
+include("modules/shops/restaurant/fishdriver/commands.nut");
 
 local job_fish = {};
 local job_fish_blocked = {};

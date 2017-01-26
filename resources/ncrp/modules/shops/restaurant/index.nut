@@ -1,5 +1,8 @@
 include("modules/shops/restaurant/commands.nut");
 
+include("modules/shops/restaurant/fishdriver");
+include("modules/shops/restaurant/milkdriver");
+
 const EAT_COST = 0.25;
 const DRINK_COST = 0.1;
 const MAX_HEALTH = 800.0;
@@ -54,7 +57,7 @@ function drink(playerid) {
         if (canMoneyBeSubstracted(playerid, DRINK_COST)) {
             return onDrinking(playerid);
         }
-        return msg(playerid, "shops.restaurant.money.notenough"); // !        
+        return msg(playerid, "shops.restaurant.money.notenough"); // !
     } else {
         return msg(playerid, "shops.restaurant.toofar");
     }
