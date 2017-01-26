@@ -600,9 +600,9 @@ key("1", function(playerid) {
                     if (isInRadius(playerid, vpos[0], vpos[1], vpos[2]+0.7, 2.75) && ppos.z > (vpos[2]+0.7) && ppos.z < (vpos[2]+1.0)) {
                         msg(playerid, "Тебе крышка");
                     }
-    */
     setPlayerAnimStyle(playerid, "common", "CarryBox");
     setPlayerHandModel(playerid, 1, 98); // put box in hands
+    */
 }, KEY_UP);
 
 
