@@ -19,7 +19,8 @@
     <script type="client">nametags.nut</script>
     <script type="client">place.nut</script>
 
-     <script type="client">inventory.nut</script>
+    <script type="client">inventory.nut</script>
+    <script type="client">empirediner.nut</script>
 
     <!-- <script type="client">carshop.nut</script> -->
     <!-- <script type="client">bus.nut</script> -->
@@ -64,9 +65,17 @@
         <file>Item.Ammo792x57mm.jpg</file>
         <file>Item.Ammo762x63mm.jpg</file>
         <file>Item.Ammo38Special.jpg</file>
+
         <file>Item.Clothes.jpg</file>
+
+        <file>Item.Burger.jpg</file>
+        <file>Item.Hotdog.jpg</file>
+        <file>Item.Sandwich.jpg</file>
+        <file>Item.Cola.jpg</file>
+
         <file>weight-front.jpg</file>
         <file>weight-bg.jpg</file>
 
+        <file>empirediner.png</file>
 
 </meta>
