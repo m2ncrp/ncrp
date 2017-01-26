@@ -100,7 +100,7 @@ const POLICE_TICKET_DISTANCE = 3.0;
 
 const POLICE_SALARY = 0.5; // for 1 minute
 
-const POLICE_PHONEREPLY_RADIUS = 0.2;
+const POLICE_PHONEREPLY_RADIUS = 0.25;
 const POLICE_PHONENORMAL_RADIUS = 20.0;
 
 POLICE_EBPD_ENTERES <- [
@@ -382,6 +382,20 @@ translation("en", {
     "organizations.police.phone.dispatch.badge"             : "%s says: %s, badge 00000."
     "organizations.police.phone.dispatch.policereply"       : "- How can I help, %s?"
     "organizations.police.phone.dispatch.calltowtruck"      : "%s says: I need tow truck to transfer vehicle with plate %s to car pound."
+
+    "organizations.police.phone.dispatch.hintanswer"        : "[HINT] Type a number one of the possible answers:"
+    "organizations.police.phone.dispatch.choiseanswer1"     : "#1. Get address"
+    "organizations.police.phone.dispatch.choiseanswer2"     : "#2. Get information on vehicle by plate number"
+    "organizations.police.phone.dispatch.choiseanswer3"     : "#3. Transfer for suspect"
+    "organizations.police.phone.dispatch.choiseanswer4"     : "#4. Call tow truck to transport vehicle to car pound"
+
+    "organizations.police.phone.dispatch.dunno"             : "%s says: Em, sorry i'm forgot what I want to ask about."
+    "organizations.police.phone.dispatch.policerefuse"      : "- Oh, okay. Call us if you'll need something. Good luck!"
+    "organizations.police.phone.dispatch.getaddress"        : "%s says: I want to get an address of (smth)"
+    "organizations.police.phone.dispatch.getvehicleinfo"    : "%s says: I want to get information about vehicle with plate number %s"
+    "organizations.police.phone.dispatch.transfersuspect"   : "%s says: I need to transfer the suspect."
+    "organizations.police.phone.dispatch.towtruck"          : "%s says: I need a tow truck to transfer vehicle with plate %s to car pound. Location: %s"
+    "organizations.police.phone.dispatch.repeatplease"      : "- Простите, я плохо вас слышу. Повторите, пожалуйста?"
 });
 
 translation("ru", {
@@ -391,15 +405,39 @@ translation("ru", {
     "organizations.police.phone.dispatch.badge"             : "%s сказал: %s, жетон 00000."
     "organizations.police.phone.dispatch.policereply"       : "- Чем могу помочь, %s?"
     "organizations.police.phone.dispatch.calltowtruck"      : "%s сказал: Мне требуется тягач для транспортировки автомобиля с номерами %s на штрафстоянку."
+
+    "organizations.police.phone.dispatch.hintanswer"        : "[ПОДСКАЗКА]. Напишите в чат номер одного из представленных вариантов:"
+    "organizations.police.phone.dispatch.choiseanswer1"     : "#1. Узнать адрес"
+    "organizations.police.phone.dispatch.choiseanswer2"     : "#2. Получить сведенья об автомобиле по номеру"
+    "organizations.police.phone.dispatch.choiseanswer3"     : "#3. Транспортировка подозреваемого"
+    "organizations.police.phone.dispatch.choiseanswer4"     : "#4. Вызов тягача для транспортировки автомобиля на штрафстоянку"
+
+    "organizations.police.phone.dispatch.dunno"             : "%s сказал: Эм, честно говоря я забыл что хотел."
+    "organizations.police.phone.dispatch.policerefuse"      : "- Хорошо. Позвоните, если вам что-то потребуется. Удачи!"
+    "organizations.police.phone.dispatch.getaddress"        : "%s сказал: Я хотел бы узнать где находится (заведение или ещё какая дичь)"
+    "organizations.police.phone.dispatch.getvehicleinfo"    : "%s сказал: Я хотел бы узнать информацию об автомобиле с номером %s"
+    "organizations.police.phone.dispatch.transfersuspect"   : "%s сказал: Мне необходима транспортировка подозреваемого."
+    "organizations.police.phone.dispatch.towtruck"          : "%s сказал: Необходим тягач для перевозки автомобиля с номерами %s на штрафстоянку. Местоположение: %s"
+    "organizations.police.phone.dispatch.repeatplease"      : "- Простите, я плохо вас слышу. Повторите, пожалуйста?"
 });
 
-function callPoliceDispatch(playerid) {
+POLICE_DISPATCH_ANSWER_TIMEOUT <- 90;
+
+function callPoliceDispatchByPhone(playerid, place = "") {
     local message = "organizations.police.phone.dispatch.call"; //  - Operator, give me dispatch.  // Оператор, соедините с диспетчером.
     // Operator, message for KJPL. // Оператор, сообщение для диспетчера.
     sendLocalizedMsgToAll(playerid, message, [getPlayerName(playerid)], POLICE_PHONENORMAL_RADIUS, CL_WHITE);
 
     local replyMessage = "organizations.police.phone.operator.connecttodispatch"; //  - Putting you through now.      // Соединяю
     sendLocalizedMsgToAll(playerid, replyMessage, [""], POLICE_PHONEREPLY_RADIUS, CL_WHITE);
+
+    // continue dialog
+    callPoliceDispatch(playerid, place);
+}
+
+function callPoliceDispatch(playerid, place = "") {
+    local message;
+    local replyMessage;
 
     delayedFunction( random(1700, 2600), function() {
         replyMessage = "organizations.police.phone.dispatch.online"; // - Dispatcher on line. // Диспетчер, слушаю.
@@ -416,9 +454,127 @@ function callPoliceDispatch(playerid) {
 
     delayedFunction( random(2900, 3100), function() {
         replyMessage = "organizations.police.phone.dispatch.policereply"; //  - How can I help, <rank>?       // Чем могу помочь, (ранг)?
-        sendLocalizedMsgToAll(playerid, replyMessage, [getLocalizedPlayerJob(playerid)], POLICE_PHONENORMAL_RADIUS, CL_WHITE);
+        sendLocalizedMsgToAll(playerid, replyMessage, [getLocalizedPlayerJob(playerid)], POLICE_PHONEREPLY_RADIUS, CL_WHITE); // "Чем могу помочь, Сержант %Familyname%"
+
+        trigger("onCallPoliceDispatch", playerid);
     });
 }
+
+// Waiting for player input or refuse
+event("onCallPoliceDispatch", function (playerid) {
+        local cancel = {
+        "0"                 :"",
+        "отмена"            :"",
+        "'отмена'"          :"",
+        "cancel"            :"",
+        "'cancel'"          :"",
+    }
+
+    local answer1 = {
+        "1"                 :"",
+        "#1"                :"",
+        "#1."               :"",
+        "1."                :"",
+        "#1. узнать адрес"  :"",
+        "#1. get address"   :"",
+        "#1.узнать адрес"   :"",
+        "#1.get address"    :"",
+    };
+
+    local answer2 = {
+        "2"                 :"",
+        "#2"                :"",
+        "#2."               :"",
+        "2."                :"",
+        "#2. Узнать адрес"  :"",
+        "#2. Get addres"    :"",
+        "#2.Узнать адрес"   :"",
+        "#2.Get addres"     :"",
+    };
+
+    local answer3 = {
+        "3"                 :"",
+        "#3"                :"",
+        "#3."               :"",
+        "3."                :"",
+        "#3. узнать адрес"  :"",
+        "#3. get addres"    :"",
+        "#3.узнать адрес"   :"",
+        "#3.get addres"     :"",
+    };
+
+    local answer4 = {
+        "4"                 :"",
+        "#4"                :"",
+        "#4."               :"",
+        "4."                :"",
+        "#4. Узнать адрес"  :"",
+        "#4. Get address"   :"",
+        "#4.узнать адрес"   :"",
+        "#4.get address"    :"",
+    };
+
+    msg( playerid, "");
+    msg(playerid, "organizations.police.phone.dispatch.hintanswer");
+
+    // Show up anser choise with GUI
+    //  1. Узнать адрес заведения
+    //  2. Пробить номер машины
+    //      Мишина зарегистрирована на (имя), (адрес постоянного проживания).
+    //  3. Сообщения от других игроков-полицейских и обращения в EBPD
+    //  4. Транспортировка задержанного
+    //  5. Буксировка авто на штрафстоянку
+    for (local i = 1; i <= 4; i++) {
+        msg( playerid, "organizations.police.phone.dispatch.choiseanswer" + i.tostring(), [], CL_YELLOW );
+    }
+
+    local message;
+    local replyMessage;
+
+    requestUserInput(playerid, function(playerid, ...) {
+        local text = concat( vargv );
+        if (text.tolower() in cancel) {
+            // FIX IT
+            message = "organizations.police.phone.dispatch.dunno"; // Эм, честно говоря я забыл что хотел. // Em, sorry i'm forgot what I want to ask about.
+            sendLocalizedMsgToAll(playerid, message, [getPlayerName(playerid)], POLICE_PHONENORMAL_RADIUS, CL_WHITE);
+
+            replyMessage = "organizations.police.phone.dispatch.policerefuse"; // "- Oh, okay. Call us if you'll need something. Good luck! (hang up)"
+            sendLocalizedMsgToAll(playerid, replyMessage, [], POLICE_PHONEREPLY_RADIUS, CL_WHITE);
+            return msg( playerid, "");
+        }
+
+        if (text.tolower() in answer1) {
+            message = "organizations.police.phone.dispatch.getaddress"; // Я хотел бы узнать где находится (заведение или ещё какая дичь) // I want to get addres of (smth)
+            sendLocalizedMsgToAll(playerid, message, [getPlayerName(playerid)], POLICE_PHONENORMAL_RADIUS, CL_WHITE);
+            return msg( playerid, "");;
+        }
+
+        if (text.tolower() in answer2) {
+            message = "organizations.police.phone.dispatch.getvehicleinfo"; // Я хотел бы узнать информацию об автомобиле с номером %s // I want to get information about vehicle with player number %s
+            sendLocalizedMsgToAll(playerid, message, [getPlayerName(playerid), "TEST-EB"], POLICE_PHONENORMAL_RADIUS, CL_WHITE);
+            return msg( playerid, "");;
+        }
+
+        if (text.tolower() in answer3) {
+            message = "organizations.police.phone.dispatch.transfersuspect"; // Мне необходима транспортировка подозреваемого. // I need to transfer the suspect.
+            sendLocalizedMsgToAll(playerid, message, [getPlayerName(playerid)], POLICE_PHONENORMAL_RADIUS, CL_WHITE);
+            return msg( playerid, "");;
+        }
+
+        if (text.tolower() in answer4) {
+            message = "organizations.police.phone.dispatch.towtruck"; // Необходим тягач для перевозки автомобиля с номерами %s на штрафстоянку. Местоположение: %s // I need tow truck to transfer vehicle with plate %s to car pound. Location: %s
+            sendLocalizedMsgToAll(playerid, message, [getPlayerName(playerid), "TEST-EB", place], POLICE_PHONENORMAL_RADIUS, CL_WHITE);
+            return msg( playerid, "");;
+        }
+
+        replyMessage = "organizations.police.phone.dispatch.repeatplease"; // Простите, я плохо вас слышу. Повторите, пожалуйста? // Sorry, I hear you poorly. Repeat please?
+        sendLocalizedMsgToAll(playerid, replyMessage, [], POLICE_PHONEREPLY_RADIUS, CL_WHITE);
+
+        delayedFunction( random(100, 200), function() {
+            trigger("onCallPoliceDispatch", playerid);
+        });
+    }, POLICE_DISPATCH_ANSWER_TIMEOUT);
+});
 
 event("onPlayerPhoneCall", function(playerid, number, place) {
     if (number == "police") {
@@ -431,33 +587,12 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
         //     return msg(playerid, "organizations.police.lowrank", [], CL_GRAY);
         // }
 
-        callPoliceDispatch(playerid);
-
-    //     // Show up anser choise with GUI
-    //     //  1. Узнать адрес заведения
-    //     //  2. Пробить номер машины
-    //     //      Мишина зарегистрирована на (имя), (адрес постоянного проживания).
-    //     //  3. Сообщения от других игроков-полицейских и обращения в EBPD
-    //     //  4. Транспортировка задержанного
-    //     //  5. Буксировка авто на штрафстоянку
-    }
-
-    if (number == "towtruck") {
-        // if ( getPoliceRank(playerid) < 3 ) {
-        //     return msg(playerid, "organizations.police.lowrank", [], CL_GRAY);
-        // }
-
-        local message;
-        local replyMessage;
-
-        callPoliceDispatch(playerid);
-
-        delayedFunction( random(3200, 4000), function() {
-            message = "organizations.police.phone.dispatch.calltowtruck"; //  - I need tow truck to transfer vehicle with plate %s to car pound. Place: %s
-            // Мне требуется тягач для транспортировки автомобиля с номерами %s на штрафстоянку. Место: %s
-            sendLocalizedMsgToAll(playerid, message, [getPlayerName(playerid), place], POLICE_PHONENORMAL_RADIUS, CL_WHITE);
-            dbg( place );
-        });
+        callPoliceDispatchByPhone(playerid, place);
     }
 });
 
+cmd(["r"],["dispatch"], function(playerid) {
+    if ( isPlayerInPoliceVehicle(playerid) && isOfficer(playerid) ) {
+        callPoliceDispatch(playerid, "не определено");
+    }
+});
