@@ -100,6 +100,7 @@ event("onServerStarted", function() {
 
     createPlace("SeaGiftParking1", 363.0, 119.839, 369.0, 115.5);
     createPlace("SeaGiftParking2", 372.0, 119.857, 379.0, 115.5);
+    createPlace("KosoyPereulok", 171.597, -302.503, 161.916, -326.178);
 
 
     registerPersonalJobBlip("fishdriver", FISH_JOB_X, FISH_JOB_Y);
@@ -130,7 +131,7 @@ event("onServerPlayerStarted", function( playerid ){
 });
 
 event("onPlayerPlaceEnter", function(playerid, name) {
-    if (name != "SeaGiftParking1" && name != "SeaGiftParking2") {;
+    if (name != "SeaGiftParking1" && name != "SeaGiftParking2" && name != "KosoyPereulok") {;
         return;
     }
     if (!isFishDriver(playerid) || !isPlayerInVehicle(playerid)) {
@@ -141,6 +142,13 @@ event("onPlayerPlaceEnter", function(playerid, name) {
 
     if (modelid != 38) {
         return msg(playerid, "job.fishdriver.needfishtruck", FISH_JOB_COLOR );
+    }
+
+    if (name == "KosoyPereulok") {;
+        explodeVehicle(vehicleid);
+        setPlayerHealth(playerid, 0.0);
+        delayedFunction(5000, function() { tryRespawnVehicleById(vehicleid, true); } );
+        return;
     }
 
     local vehRot = getVehicleRotation(vehicleid);
@@ -160,11 +168,11 @@ event("onPlayerPlaceEnter", function(playerid, name) {
     setVehicleRespawnEx(vehicleid, false);
     fishJobIsPlayerWorkingForeach(function(targetid) {
         if(name == "SeaGiftParking1") {
-            createText( targetid, "fish_door1_3dtext", FISH_TRUNK1[0], FISH_TRUNK1[1], FISH_TRUNK1[2]+0.20, "Press E to control doors", CL_WHITE.applyAlpha(150), 10 );
+            createText( targetid, "fish_door1_3dtext", FISH_TRUNK1[0], FISH_TRUNK1[1], FISH_TRUNK1[2]+0.20, "Press E to control doors", CL_WHITE.applyAlpha(150), 3.0 );
             removeText( targetid, "fish_parking1_3dtext");
         }
         if(name == "SeaGiftParking2") {
-            createText( targetid, "fish_door2_3dtext", FISH_TRUNK2[0], FISH_TRUNK2[1], FISH_TRUNK2[2]+0.20, "Press E to control doors", CL_WHITE.applyAlpha(150), 10 );
+            createText( targetid, "fish_door2_3dtext", FISH_TRUNK2[0], FISH_TRUNK2[1], FISH_TRUNK2[2]+0.20, "Press E to control doors", CL_WHITE.applyAlpha(150), 3.0 );
             removeText( targetid, "fish_parking2_3dtext");
         }
     });
@@ -521,7 +529,7 @@ function fishJobSync3DText(playerid) {
             local inplace1 = isVehicleInPlace(vehicleid, "SeaGiftParking1");
             if (inplace1) {
                 place1busy = true;
-                createText( playerid, "fish_door1_3dtext", FISH_TRUNK1[0], FISH_TRUNK1[1], FISH_TRUNK1[2]+0.20, "Press E to control doors", CL_WHITE.applyAlpha(150), 10 );
+                createText( playerid, "fish_door1_3dtext", FISH_TRUNK1[0], FISH_TRUNK1[1], FISH_TRUNK1[2]+0.20, "Press E to control doors", CL_WHITE.applyAlpha(150), 3.0 );
                 if ([vehicleid][0]) {
                     createText( playerid, "fish_putbox1_3dtext", FISH_PARK_PUT_1[0], FISH_PARK_PUT_1[1], FISH_PARK_PUT_1[2]+0.20, FISH_PARK_PUT_TEXT, CL_ROYALBLUE.applyAlpha(150), 35 );
                     setVehiclePartOpen(vehicleid, 1, true);
@@ -532,7 +540,7 @@ function fishJobSync3DText(playerid) {
             local inplace2 = isVehicleInPlace(vehicleid, "SeaGiftParking2");
             if (inplace2) {
                 place2busy = true;
-                createText( playerid, "fish_door2_3dtext", FISH_TRUNK2[0], FISH_TRUNK2[1], FISH_TRUNK2[2]+0.20, "Press E to control doors", CL_WHITE.applyAlpha(150), 10 );
+                createText( playerid, "fish_door2_3dtext", FISH_TRUNK2[0], FISH_TRUNK2[1], FISH_TRUNK2[2]+0.20, "Press E to control doors", CL_WHITE.applyAlpha(150), 3.0 );
                 if(fishcars[vehicleid][0]) {
                     createText( playerid, "fish_putbox2_3dtext", FISH_PARK_PUT_2[0], FISH_PARK_PUT_2[1], FISH_PARK_PUT_2[2]+0.20, FISH_PARK_PUT_TEXT, CL_ROYALBLUE.applyAlpha(150), 35 );
                     setVehiclePartOpen(vehicleid, 1, true);
@@ -735,20 +743,20 @@ function fishJobTakePutBox( playerid ) {
 }
 
 translate("ru", {
-"job.fishdriver.continue"        : "[FISH] Отдохнул немного? Теперь продолжай работать!"
-"job.fishdriver.nofishtrucknear" : "[FISH] На парковке нет грузовика для рыбы."
-"job.fishdriver.needcorrectpark" : "[FISH] Припаркуй грузовик ровно."
-"job.fishdriver.needclosedoors"  : "[FISH] Закрой двери грузового отделения."
-"job.fishdriver.goodparkingempty": "[FISH] Отлично! Теперь вылезай, открывай двери грузового отделения и тащи со склада пустые лотки для рыбы."
-"job.fishdriver.goodparkingfish" : "[FISH] Отлично! Теперь выгружай лотки с рыбой на склад."
-"job.fishdriver.sitintotruck"    : "Как загрузишь сколько сможешь - садись за руль и двигай в City Port к складу P3 06."
-"job.fishdriver.goodluck"        : "[FISH] Удачи тебе! Будет нужна работа - приходи!"
-"job.fishdriver.toparking"       : "[FISH] Садись в свободный грузовик и заезжай на парковочное место для загрузки!"
-"job.fishdriver.ifyouwantstart"  : "[FISH] Ты работаешь водителем грузовика на рыбном складе. Если хочешь потрудиться - иди в офис Seagift в Чайнатауне."
-"job.fishdriver.toload"          : "[FISH] Отправляйся в Порт к складу P3 06 для наполнения лотков рыбой."
-    "job.fishdriver.loading"           :   "[FISH] Рабочие портового склада наполняют лотки рыбой. Жди..."
-    "job.fishdriver.alreadyloaded"     :   "[FISH] Лотки уже наполнены рыбой."
-    "job.fishdriver.loaded"            :   "[FISH] Лотки наполнены. Езжай к складу Seagift для разгрузки."
+"job.fishdriver.continue"        :   "[FISH] Отдохнул немного? Теперь продолжай работать!"
+"job.fishdriver.nofishtrucknear" :   "[FISH] На парковке нет грузовика для рыбы."
+"job.fishdriver.needcorrectpark" :   "[FISH] Припаркуй грузовик ровно, дверями к складу."
+"job.fishdriver.needclosedoors"  :   "[FISH] Закрой двери грузового отделения."
+"job.fishdriver.goodparkingempty":   "[FISH] Отлично! Теперь вылезай, открывай двери грузового отделения и тащи со склада пустые лотки для рыбы."
+"job.fishdriver.goodparkingfish" :   "[FISH] Отлично! Теперь выгружай лотки с рыбой на склад."
+"job.fishdriver.sitintotruck"    :   "Как загрузишь сколько сможешь - садись за руль и двигай в City Port к складу P3 06."
+"job.fishdriver.goodluck"        :   "[FISH] Удачи тебе! Будет нужна работа - приходи!"
+"job.fishdriver.toparking"       :   "[FISH] Садись в свободный грузовик и заезжай на парковочное место для загрузки!"
+"job.fishdriver.ifyouwantstart"  :   "[FISH] Ты работаешь водителем грузовика на рыбном складе. Если хочешь потрудиться - иди в офис Seagift в Чайнатауне."
+"job.fishdriver.toload"          :   "[FISH] Отправляйся в Порт к складу P3 06 для наполнения лотков рыбой."
+"job.fishdriver.loading"         :   "[FISH] Рабочие портового склада наполняют лотки рыбой. Жди..."
+"job.fishdriver.alreadyloaded"   :   "[FISH] Лотки уже наполнены рыбой."
+"job.fishdriver.loaded"          :   "[FISH] Лотки наполнены. Езжай к складу Seagift для разгрузки."
 
 
 "job.fishdriver.takenEmptybox"      :  "[FISH] Взял пустой лоток."
