@@ -71,7 +71,7 @@ function removePlace(name) {
     local id = md5(name);
 
     if (!(id in placeRegister)) {
-        return dbg("trying to remove non-exiting place: " + place);
+        return dbg("trying to remove non-exiting place: " + name);
     }
 
     if ("players" in getroottable()) {

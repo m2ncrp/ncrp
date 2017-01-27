@@ -25,11 +25,6 @@ class PlayerContainer extends Container
      * @param {Character} value
      */
     function _set(playerid, value) {
-        // if (!(name in this.__data)) {
-        //     this.__data[playerid] <- value;
-        // } else {
-        //     this.__data[playerid] = value;
-        // }
         throw "PlayerContainer: you cant insert new data directly!";
     }
 

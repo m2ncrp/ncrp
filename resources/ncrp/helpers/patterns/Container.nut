@@ -154,17 +154,16 @@ class Container
 
     /**
      * Meta impelemtation for set
-     * @param {Integer} name
+     * @param {Integer} key
      * @param {Character} value
      */
-    // function _set(playerid, value) {
-        // if (!(name in this.__data)) {
-        //     this.__data[playerid] <- value;
-        // } else {
-        //     this.__data[playerid] = value;
-        // }
-        // throw "PlayerContainer: you cant insert new data directly!";
-    // }
+    function _set(key, value) {
+        if (!(value in this.__data)) {
+            this.__data[key] <- value;
+        } else {
+            this.__data[key] = value;
+        }
+    }
 
 
     /**
