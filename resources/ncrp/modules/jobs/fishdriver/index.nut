@@ -100,8 +100,6 @@ event("onServerStarted", function() {
 
     createPlace("SeaGiftParking1", 363.0, 119.839, 369.0, 115.5);
     createPlace("SeaGiftParking2", 372.0, 119.857, 379.0, 115.5);
-    createPlace("KosoyPereulok", 171.597, -302.503, 161.916, -326.178);
-
 
     registerPersonalJobBlip("fishdriver", FISH_JOB_X, FISH_JOB_Y);
 });
@@ -131,7 +129,7 @@ event("onServerPlayerStarted", function( playerid ){
 });
 
 event("onPlayerPlaceEnter", function(playerid, name) {
-    if (name != "SeaGiftParking1" && name != "SeaGiftParking2" && name != "KosoyPereulok") {;
+    if (name != "SeaGiftParking1" && name != "SeaGiftParking2") {;
         return;
     }
     if (!isFishDriver(playerid) || !isPlayerInVehicle(playerid)) {
@@ -142,13 +140,6 @@ event("onPlayerPlaceEnter", function(playerid, name) {
 
     if (modelid != 38) {
         return msg(playerid, "job.fishdriver.needfishtruck", FISH_JOB_COLOR );
-    }
-
-    if (name == "KosoyPereulok") {;
-        explodeVehicle(vehicleid);
-        setPlayerHealth(playerid, 0.0);
-        delayedFunction(5000, function() { tryRespawnVehicleById(vehicleid, true); } );
-        return;
     }
 
     local vehRot = getVehicleRotation(vehicleid);
