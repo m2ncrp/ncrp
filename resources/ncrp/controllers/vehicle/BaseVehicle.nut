@@ -10,7 +10,7 @@ class BaseVehicle {
     gabarites = null;
     fueltank = null;
     trunk = null;
-    
+
     constructor(model, px, py, pz, rx, ry, rz) {
         this.id = createVehicle(model, px, py, pz, rx, ry, rz);
         this.gabarites = Gabarites(id);
@@ -128,7 +128,7 @@ class Vehicle extends BaseVehicle {
     locked = null;
 
     owner = null;
-    
+
     constructor(model, px, py, pz, rx, ry, rz) {
         base.constructor(model, px, py, pz, rx, ry, rz);
         this.lights = Lights(id);
