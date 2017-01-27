@@ -260,7 +260,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
 
     local ticketcost = 8.5;
     local vehicleid = getPlayerVehicle(playerid);
-    if(!canMoneyBeSubstracted(playerid, ticketcost) { msg(playerid, "organizations.police.kosoypereulok.nomoney", CL_THUNDERBIRD); return; }
+    if(!canMoneyBeSubstracted(playerid, ticketcost)) { msg(playerid, "organizations.police.kosoypereulok.nomoney", CL_THUNDERBIRD); return; }
 
     subMoneyToPlayer(playerid, ticketcost);
     msg(playerid, "organizations.police.kosoypereulok.ticket", [ticketcost], CL_THUNDERBIRD); return;
