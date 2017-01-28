@@ -496,7 +496,6 @@ function fishOpenCloseDoors(playerid) {
                     delayedFunction(1000, function() {
                         ppos = players[playerid].getPosition();
                         vpos = getVehiclePosition(vehicleid);
-                        dbg((vpos[2]+0.5)+" "+ppos.z+" "+(vpos[2]+1.0));
                         if (isInRadius(playerid, vpos[0], vpos[1], vpos[2]+0.7, 2.75) && ppos.z > (vpos[2]+0.7) && ppos.z < (vpos[2]+1.0)) {
                             local health = getPlayerHealth(playerid) - 360.0;
                             setPlayerHealth( playerid, health);
@@ -570,50 +569,14 @@ function fishJobSync3DText(playerid) {
     if(!place2busy) createText (playerid, "fish_parking2_3dtext", FISH_PARK_PUT_2[0], FISH_PARK_PUT_2[1], FISH_PARK_PUT_2[2]+0.20, "Parking Place 2", CL_ROYALBLUE.applyAlpha(150), 35 );
 }
 
-
-
 /* -------------------------------------------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------------------------------------------- */
-/*
-█████████████████████████████████████████
-█────██────█───█─███─█───█─██─█─██─█────█
-█─██──█─██─█─███──█──█─███─██─█─██─█─██─█
-█────██────█───█─█─█─█───█────█────█─██─█
-█─██──█─████─███─███─█─███─██─█─██─█─██─█
-█────██─████───█─███─█───█─██─█─██─█────█
-█████████████████████████████████████████
-
-*/
-
 
 /*
 "job.fishdriver.alreadyhand" : "You already have something in hands."
 Truck is full. Sit into truck and go to Port.
 */
-
-key("1", function(playerid) {
-dbg(getPlayerPosition(playerid));
-    /*
-    if(job_fish[getPlayerName(playerid)]["hand"] == null) {
-        job_fish[getPlayerName(playerid)]["hand"] = "fishbox";
-    } else {
-        job_fish[getPlayerName(playerid)]["hand"] = "emptybox";
-    }
-    
-    local vehicleid = getNearestCarForPlayer(playerid, 6.0);
-    msg(playerid, "Ближайшее авто: "+vehicleid);
-                    local ppos = players[playerid].getPosition();
-                    local vpos = getVehiclePosition(vehicleid);
-                        dbg((vpos[2]+0.5)+" "+ppos.z+" "+(vpos[2]+1.0));
-                    if (isInRadius(playerid, vpos[0], vpos[1], vpos[2]+0.7, 2.75) && ppos.z > (vpos[2]+0.7) && ppos.z < (vpos[2]+1.0)) {
-                        msg(playerid, "Тебе крышка");
-                    }
-    setPlayerAnimStyle(playerid, "common", "CarryBox");
-    setPlayerHandModel(playerid, 1, 98); // put box in hands
-    */
-}, KEY_UP);
-
 
 /*
     delayedFunction(2000, function() {
@@ -622,32 +585,11 @@ dbg(getPlayerPosition(playerid));
     });
  */
 
+
+/*
 addEventHandlerEx("onServerHourChange", function() {
        fish_limit_in_hour_current = fish_limit_in_hour_default;
 });
-
-
-key("5", function(playerid) {
-
-    dbg(job_fish[getPlayerName(playerid)]["hand"]               );
-    dbg(job_fish[getPlayerName(playerid)]["userstatus"]         );
-    dbg(job_fish[getPlayerName(playerid)]["blip3dtext"]         );
-}, KEY_UP);
-
-key("6", function(playerid) {
-    if(job_fish[getPlayerName(playerid)]["userstatus"] == "working") {
-        job_fish[getPlayerName(playerid)]["userstatus"] = null;
-    } else {
-        job_fish[getPlayerName(playerid)]["userstatus"] = "working";
-    }
-}, KEY_UP);
-
-
-/* -------------------------------------------------------------------------------------------------------------------- */
-/* -------------------------------------------------------------------------------------------------------------------- */
-/* -------------------------------------------------------------------------------------------------------------------- */
-
-
 
 function fishJobSetFishLimit( playerid, limit ) {
     fish_limit_in_hour_current = limit.tointeger();
@@ -663,7 +605,10 @@ function fishJobSetDefaultFishLimit( playerid, limit ) {
     msg( playerid, "[FISH] New default fish limit in hour: "+limit, FISH_JOB_COLOR );
 }
 
+*/
 
+/* -------------------------------------------------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------------------------------------------- */
 
 function fishJobTakePutBox( playerid ) {
@@ -678,11 +623,9 @@ function fishJobTakePutBox( playerid ) {
         [  FISH_PUTBOX[0]      ,  FISH_PUTBOX[1]      , "putfishbox"   ]
     ];
 
-
     foreach (idx, placex in places) {
         if(isPlayerInValidPoint(playerid, placex[0], placex[1], 2.0)) {
             place = placex[2];
-            dbg("place: "+place);
         }
     }
             if(place == null) return;
@@ -717,12 +660,12 @@ function fishJobTakePutBox( playerid ) {
                 }
             }
 
-            if(place == "parking1" || place == "parking2") {                            dbg("v zone parkovki");
-                local vehicleid = getNearestCarForPlayer(playerid, 6.0);                dbg("vehicleid: "+vehicleid);
+            if(place == "parking1" || place == "parking2") {
+                local vehicleid = getNearestCarForPlayer(playerid, 6.0);
                 if(vehicleid <= 0) return;
-                local modelid = getVehicleModel(vehicleid);                             dbg("modelid: "+modelid);
+                local modelid = getVehicleModel(vehicleid);
                 if(modelid != 38) return;
-                local gruz = fishcars[vehicleid][1];                                    dbg("gruz: "+ gruz );
+                local gruz = fishcars[vehicleid][1];
                 local kolvo = fishcars[vehicleid][2];
 
                 if(hand == null) {
@@ -754,11 +697,8 @@ function fishJobTakePutBox( playerid ) {
 
                 fishcars[vehicleid][1] = gruz;
                 fishcars[vehicleid][2] = kolvo;
-
-                dbg("in truck: "+kolvo+" "+gruz);
             }
     job_fish[getPlayerName(playerid)]["hand"] = hand;
-    dbg("in my hand: "+hand);
 }
 
 translate("ru", {
