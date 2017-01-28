@@ -16,7 +16,7 @@ const VEHICLE_MAX_DIRT          = 0.75;
 const VEHICLE_DEFAULT_OWNER     = "";
 const VEHICLE_OWNERSHIP_NONE    = 0;
 const VEHICLE_OWNERSHIP_SINGLE  = 1;
-const VEHICLE_OWNER_CITY        = "__cityNCRP";
+// const VEHICLE_OWNER_CITY        = "__cityNCRP";
 
 translate("en", {
     "vehicle.sell.amount"       : "You need to set the amount you wish to sell your car for."
@@ -46,9 +46,14 @@ event("onServerStarted", function() {
     Vehicle.findAll(function(err, results) {
         foreach (idx, vehicle in results) {
             local veh = CustomVehicle( vehicle.model, vehicle.x, vehicle.y, vehicle.z, vehicle.rx, vehicle.ry, vehicle.rz );
-            veh.setPlate(vehicle.plate);
+            veh.setColor( vehicle.cra, vehicle.cga, vehicle.cba, vehicle.crb, vehicle.cgb, vehicle.cbb );
+            veh.setPlate( vehicle.plate );
+            veh.setOwner( vehicle.owner, vehicle.ownerid );
+            veh.setFuel( vehicle.fuellevel );
 
-            __vehicles.add(veh.id, veh);
+            dbg(veh.ownership.owner);
+
+            __vehicles.add(veh.vid, veh);
             counter++;
         }
 
@@ -63,7 +68,19 @@ event("onServerMinuteChange", function() {
 
 // handle vehicle enter
 event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
+    local vehicle = __vehicles.get(vehicleid);
+    // check blocking
+    dbg( "VEH " + vehicle.isOwned() );
+    if (vehicle.isOwned() && seat == 0) {
 
+        dbg("player", "vehicle", "enter", vehicle.getPlate(), getIdentity(playerid), "owned: " + vehicle.isOwner(playerid));
+
+        if (vehicle.isOwner(playerid)) {
+            msg(playerid, "It's your vehicle.");
+        } else {
+            msg(playerid, "It's not your vehicle!");
+        }
+    }
 });
 
 // handle vehicle exit

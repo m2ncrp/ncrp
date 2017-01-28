@@ -7,31 +7,42 @@ class OwnableVehicle extends NativeVehicle {
 
     /**
      * Set vehicle owner
-     * can be passed as playername or playerid(connected)
+     * can be passed as playername or connected playerid
      *
-     * @param {mixed} playerNameOrId
+     * @param {Mixed} playerNameOrId
      */
-    function setOwner(playerNameOrId) {
+    function setOwner(playerNameOrId, ownerid = null) {
+        local playerid = -1;
+
         // if its id - get name from it
         if (typeof playerNameOrId == "integer") {
             if (isPlayerConnected(playerNameOrId)) {
+                playerid = playerNameOrId;
                 playerNameOrId = getPlayerName(playerNameOrId);
             } else {
                 return dbg("[vehicle] OwnableVehicle.setOwner: trying to set for playerid that aint connected #" + playerNameOrId);
             }
+        } else {
+            playerid = getPlayerIdFromName(playerNameOrId);
         }
 
         this.ownership.status = VEHICLE_OWNERSHIP_SINGLE;
-        this.ownership.owner  = playerNameOrId;
+        this.ownership.owner = playerNameOrId;
+
+        if (playerid != -1 && isPlayerLoaded(playerid)) {
+            this.ownership.ownerid = players[playerid].id;
+        } else if (ownerid) {
+            this.ownership.ownerid = ownerid.tointeger();
+        }
+
+        dbg("id: " + this.vid + "; owner: " + this.ownership.owner);
         return true;
     }
-
 
 
     /**
      * Get vehicle owner name or null
      *
-     * @param  {integer} vehicleid
      * @return {mixed}
      */
     function getOwner() {
@@ -43,31 +54,28 @@ class OwnableVehicle extends NativeVehicle {
      * Check if current connected player is owner of ther car
      *
      * @param  {integer}  playerid
-     * @param  {integer}  vehicleid
      * @return {Boolean}
      */
     function isOwner(playerid) {
-        return (isPlayerConnected(playerid) && isPlayerLoaded(playerid) && getOwnerId(vehicleid) == players[playerid].id);
+        return (isPlayerConnected(playerid) && isPlayerLoaded(playerid) && getOwnerId() == players[playerid].id);
     }
 
 
     /**
      * Checks if current vehicle has owner
-     * @param  {Integer}  vehicleid
      * @return {Boolean}
      */
     function isOwned() {
-        return (getOwnerId(vehicleid) != -1);
+        return (getOwnerId() != -1);
     }
 
 
     /**
      * Get vehicle owner name or null
      *
-     * @param  {integer} vehicleid
      * @return {mixed}
      */
-    function getOwnerId(vehicleid) {
+    function getOwnerId() {
         return this.ownership.ownerid;
     }
 }

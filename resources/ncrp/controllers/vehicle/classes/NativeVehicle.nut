@@ -4,18 +4,19 @@
  * lights so their parts are different.
  */
 class NativeVehicle {
-    id = 0;
+    // Vehicle ID on the server
+    vid = 0;
 
     constructor(model, px, py, pz, rx = 0.0, ry = 0.0, rz = 0.0) {
-        this.id = createVehicle(model, px, py, pz, rx, ry, rz);
+        this.vid = createVehicle(model, px, py, pz, rx, ry, rz);
     }
 
     function destructor() {
-        destroyVehicle(id);
+        destroyVehicle(vid);
     }
 
     function getModel() {
-        return getVehicleModel( id );
+        return getVehicleModel( vid );
     }
 
     function getName() {
@@ -24,24 +25,24 @@ class NativeVehicle {
     }
 
     function getFuel() {
-        return getVehicleFuel(id);
+        return getVehicleFuel(vid);
     }
 
     function setFuel( to ) {
-        setVehicleFuel(id, to);
+        setVehicleFuel(vid, to);
     }
 
 
     function getPos() {
-        return getVehiclePosition(id);
+        return getVehiclePosition(vid);
     }
 
     function setPos(x,y,z) {
-        setVehiclePosition( id, x, y, z );
+        setVehiclePosition( vid, x, y, z );
     }
 
     function setPosVector(vector3d) {
-        setVehiclePosition( id, vector3d[0], vector3d[1], vector3d[2] );
+        setVehiclePosition( vid, vector3d[0], vector3d[1], vector3d[2] );
     }
 
 
@@ -50,67 +51,67 @@ class NativeVehicle {
     }
 
     function setRot(xr, yr, zr) {
-        setVehicleRotation( id, xr, yr, zr );
+        setVehicleRotation( vid, xr, yr, zr );
     }
 
 
     function getSpeed() {
-        return getVehicleSpeed( id );
+        return getVehicleSpeed( vid );
     }
 
     function setSpeed(xs, ys, zs) {
-        setVehicleSpeed( vehicleid, xs, ys, zs );
+        setVehicleSpeed( vid, xs, ys, zs );
     }
 
 
     function getEngineState() {
-        return getVehicleEngineState(id);
+        return getVehicleEngineState(vid);
     }
 
     function setEngineState(to) {
-        setVehicleEngineState( id, to );
+        setVehicleEngineState( vid, to );
     }
 
 
     function getColor() {
-        return getVehicleColour(id);
+        return getVehicleColour(vid);
     }
 
     function setColor(pr, pg, pb, sr, sg, sb) {
-        setVehicleColour( id, pr, pg, pb, sr, sg, sb );
+        setVehicleColour( vid, pr, pg, pb, sr, sg, sb );
     }
 
 
-    function getPlate () {
-        return getVehiclePlateText(id);
+    function getPlate() {
+        return getVehiclePlateText(vid);
     }
 
     function setPlate(to) {
-        setVehiclePlateText( id, to );
+        setVehiclePlateText( vid, to );
     }
 
 
     function getDirtLevel() {
-        return getVehicleDirtLevel(id);
+        return getVehicleDirtLevel(vid);
     }
 
     function setDirlLevel(to) {
-        setVehicleDirtLevel( id, to );
+        setVehicleDirtLevel( vid, to );
     }
 
     function getTuning() {
-        return getVehicleTuningTable(id);
+        return getVehicleTuningTable(vid);
     }
 
     function setTuning(to) {
-        setVehicleTuningTable( id, to );
+        setVehicleTuningTable( vid, to );
     }
 
     function getWheels(wheel_pair) {
-        return getVehicleWheelTexture( id, wheel_pair );;
+        return getVehicleWheelTexture( vid, wheel_pair );;
     }
 
     function setWheels(wheel_pair, to) {
-        setVehicleWheelTexture( id, wheel_pair, to );
+        setVehicleWheelTexture( vid, wheel_pair, to );
     }
 }
