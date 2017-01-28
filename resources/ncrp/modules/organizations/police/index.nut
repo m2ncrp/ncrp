@@ -87,6 +87,7 @@ translation("en", {
     "organizations.police.onleave"              : "You're not a police officer anymore."
 
     "organizations.police.alarm.alreadyCall"    : "You've already called the police. Please, wait..."
+    "organizations.police.kosoypereulok.ticket" : "You got fine for driving on sidewalk ($%.2f)."
 });
 
 
@@ -100,7 +101,7 @@ const POLICE_TICKET_DISTANCE = 3.0;
 
 const POLICE_SALARY = 0.5; // for 1 minute
 
-const POLICE_PHONEREPLY_RADIUS = 0.2;
+const POLICE_PHONEREPLY_RADIUS = 0.25;
 const POLICE_PHONENORMAL_RADIUS = 20.0;
 
 POLICE_EBPD_ENTERES <- [
@@ -231,6 +232,7 @@ include("modules/organizations/police/messages.nut");
 include("modules/organizations/police/PoliceBuffer.nut");
 include("modules/organizations/police/PoliceOfficersList.nut");
 include("modules/organizations/police/garage.nut");
+include("modules/organizations/police/dispatcher.nut");
 
 police <- {};
 
@@ -243,15 +245,26 @@ event("onServerStarted", function() {
     createVehicle(21, -324.296, 693.308, -17.4131, -179.874, -0.796982, -0.196363 );    // policeBusParking1
     createVehicle(51, -326.669, 658.13, -17.5624, 90.304, -3.56444, -0.040828 );        // policeOldCarParking1
     createVehicle(51, -326.781, 663.293, -17.5188, 93.214, -2.95046, -0.0939897 );      // policeOldCarParking2
+    createVehicle(42, 160.689, -351.494, -20.087, 0.292563, 0.457066, -0.15319 );       // policeCarKosoyPereulok
 
     create3DText( POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]+0.3, "=== EMPIRE BAY POLICE DEPARTMENT ===", CL_ROYALBLUE, TITLE_DRAW_DISTANCE );
     create3DText( POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]-0.05, "/police duty on/off", CL_WHITE.applyAlpha(150), EBPD_ENTER_RADIUS );
     create3DText( POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]-0.2, "or press E button", CL_WHITE.applyAlpha(150), EBPD_ENTER_RADIUS );
 
+    createPlace("KosoyPereulok", 171.597, -302.503, 161.916, -326.178);
     // Create Police Officers Manager here
     // POLICE_MANAGER = OfficerManager();
 });
 
+event("onPlayerPlaceEnter", function(playerid, name) {
+    if(name != "KosoyPereulok" || !isPlayerInVehicle(playerid)) return;
+
+    local ticketcost = 8.5;
+    //local vehicleid = getPlayerVehicle(playerid);
+    //if(!canMoneyBeSubstracted(playerid, ticketcost)) { msg(playerid, "organizations.police.kosoypereulok.nomoney", CL_THUNDERBIRD); return; }
+    subMoneyToPlayer(playerid, ticketcost);
+    msg(playerid, "organizations.police.kosoypereulok.ticket", [ticketcost], CL_THUNDERBIRD); return;
+});
 
 event("onPlayerSpawn", function( playerid ) {
     if (!isPlayerLoaded(playerid)) return;
@@ -375,89 +388,11 @@ event("onBatonBitStart", function (playerid) {
 });
 
 
-translation("en", {
-    "organizations.police.phone.dispatch.call"              : "%s says: Operator, give me dispatch."
-    "organizations.police.phone.operator.connecttodispatch" : "- Putting you through now."
-    "organizations.police.phone.dispatch.online"            : "- Dispatcher on line."
-    "organizations.police.phone.dispatch.badge"             : "%s says: %s, badge 00000."
-    "organizations.police.phone.dispatch.policereply"       : "- How can I help, %s?"
-    "organizations.police.phone.dispatch.calltowtruck"      : "%s says: I need tow truck to transfer vehicle with plate %s to car pound."
-});
-
-translation("ru", {
-    "organizations.police.phone.dispatch.call"              : "%s сказал: Оператор, соедините с диспетчером."
-    "organizations.police.phone.operator.connecttodispatch" : "- Соединяю."
-    "organizations.police.phone.dispatch.online"            : "- Диспетчер на линии, слушаю."
-    "organizations.police.phone.dispatch.badge"             : "%s сказал: %s, жетон 00000."
-    "organizations.police.phone.dispatch.policereply"       : "- Чем могу помочь, %s?"
-    "organizations.police.phone.dispatch.calltowtruck"      : "%s сказал: Мне требуется тягач для транспортировки автомобиля с номерами %s на штрафстоянку."
-});
-
-function callPoliceDispatch(playerid) {
-    local message = "organizations.police.phone.dispatch.call"; //  - Operator, give me dispatch.  // Оператор, соедините с диспетчером.
-    // Operator, message for KJPL. // Оператор, сообщение для диспетчера.
-    sendLocalizedMsgToAll(playerid, message, [getPlayerName(playerid)], POLICE_PHONENORMAL_RADIUS, CL_WHITE);
-
-    local replyMessage = "organizations.police.phone.operator.connecttodispatch"; //  - Putting you through now.      // Соединяю
-    sendLocalizedMsgToAll(playerid, replyMessage, [""], POLICE_PHONEREPLY_RADIUS, CL_WHITE);
-
-    delayedFunction( random(1700, 2600), function() {
-        replyMessage = "organizations.police.phone.dispatch.online"; // - Dispatcher on line. // Диспетчер, слушаю.
-        sendLocalizedMsgToAll(playerid, replyMessage, [""], POLICE_PHONEREPLY_RADIUS, CL_WHITE);
-
-        message = "organizations.police.phone.dispatch.badge"; //  - <Name>, badge <number>.       // (Кто), жетон (номер)
-        sendLocalizedMsgToAll(playerid, message, [getPlayerName(playerid), getPlayerName(playerid)], POLICE_PHONENORMAL_RADIUS, CL_WHITE);
-    });
-
-    // Check if player has permission to take info
-    if ( getPoliceRank(playerid) < 3 ) {
-        return msg(playerid, "organizations.police.lowrank", [], CL_GRAY);
-    }
-
-    delayedFunction( random(2900, 3100), function() {
-        replyMessage = "organizations.police.phone.dispatch.policereply"; //  - How can I help, <rank>?       // Чем могу помочь, (ранг)?
-        sendLocalizedMsgToAll(playerid, replyMessage, [getLocalizedPlayerJob(playerid)], POLICE_PHONENORMAL_RADIUS, CL_WHITE);
-    });
-}
 
 event("onPlayerPhoneCall", function(playerid, number, place) {
     if (number == "police") {
         policeCall(playerid, place);
         dbg("chat", "police", getAuthor(playerid), place);
-    }
-
-    if (number == "dispatch" && isOfficer(playerid)) {
-        // if ( getPoliceRank(playerid) < 3 ) {
-        //     return msg(playerid, "organizations.police.lowrank", [], CL_GRAY);
-        // }
-
-        callPoliceDispatch(playerid);
-
-    //     // Show up anser choise with GUI
-    //     //  1. Узнать адрес заведения
-    //     //  2. Пробить номер машины
-    //     //      Мишина зарегистрирована на (имя), (адрес постоянного проживания).
-    //     //  3. Сообщения от других игроков-полицейских и обращения в EBPD
-    //     //  4. Транспортировка задержанного
-    //     //  5. Буксировка авто на штрафстоянку
-    }
-
-    if (number == "towtruck") {
-        // if ( getPoliceRank(playerid) < 3 ) {
-        //     return msg(playerid, "organizations.police.lowrank", [], CL_GRAY);
-        // }
-
-        local message;
-        local replyMessage;
-
-        callPoliceDispatch(playerid);
-
-        delayedFunction( random(3200, 4000), function() {
-            message = "organizations.police.phone.dispatch.calltowtruck"; //  - I need tow truck to transfer vehicle with plate %s to car pound. Place: %s
-            // Мне требуется тягач для транспортировки автомобиля с номерами %s на штрафстоянку. Место: %s
-            sendLocalizedMsgToAll(playerid, message, [getPlayerName(playerid), place], POLICE_PHONENORMAL_RADIUS, CL_WHITE);
-            dbg( place );
-        });
     }
 });
 

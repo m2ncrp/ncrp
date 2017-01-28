@@ -76,7 +76,7 @@ function sendLocalizedMsgToAll(senderid, phrase_key, message, radius, color = 0)
  * @param  {RGB object} color
  * @return {void}
  */
-function sendMsgToAllInRadius(senderid, message, params, radius, color = 0) {
+function sendMsgToAllInRadius(senderid, message, params = null, color = 0, radius = 35) {
     foreach(playerid, player in players) {
         if ( isBothInRadius(senderid, playerid, radius) ) {
             if (color) {
@@ -239,3 +239,5 @@ function sendPlayerPrivateMessage(playerid, targetid, vargv) {
 // aliases
 msga <- msg_a;
 msgA <- msg_a;
+msgr <- sendMsgToAllInRadius;
+msgR <- sendMsgToAllInRadius;

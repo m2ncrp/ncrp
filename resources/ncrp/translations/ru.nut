@@ -161,26 +161,16 @@ translation("ru", {
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
     "job.fishdriver"                   :   "водитель грузовика"
-    "job.fishdriver.letsgo"            :   "[FISH] Отправляйтесь в офис City Port."
+
     "job.fishdriver.needlevel"         :   "[FISH] Водителем грузовика можно устроиться начиная с уровня %d."
-    "job.fishdriver.already"           :   "[FISH] Вы уже работаете водителем грузовика."
-    "job.fishdriver.now"               :   "[FISH] Вы стали водителем грузовика."
-    "job.fishdriver.sitintotruck"      :   "[FISH] Садитесь в грузовик для доставки рыбы и поезжайте в City Port к складу P3 06."
-    "job.fishdriver.not"               :   "[FISH] Вы не работаете водителем грузовика."
-    "job.fishdriver.needfishtruck"     :   "[FISH] Вам нужен грузовик для доставки рыбы."
-    "job.fishdriver.fishtoomuch"       :   "[FISH] На складе уже достаточно рыбы. Пока больше не требуется."
-    "job.fishdriver.toload"            :   "[FISH] Отправляйтесь в Порт к складу P3 06 для загрузки."
-    "job.fishdriver.driving"           :   "[FISH] Остановите грузовик."
-    "job.fishdriver.loading"           :   "[FISH] Грузовик загружается. Ждите..."
-    "job.fishdriver.unloading"         :   "[FISH] Грузовик разгружается. Ждите..."
-    "job.fishdriver.alreadyloaded"     :   "[FISH] Грузовик уже загружен."
-    "job.fishdriver.loaded"            :   "[FISH] Грузовик загружен. Езжайте к складу Seagift для разгрузки."
-    "job.fishdriver.empty"             :   "[FISH] Грузовик пуст. Отправляйтесь в City Port для загрузки."
-    "job.fishdriver.tounload"          :   "[FISH] Отправляйтесь к складу Seagift для разгрузки."
-    "job.fishdriver.takemoney"         :   "[FISH] Идите в офис Seagift и получите Ваш заработок."
-    "job.fishdriver.needcomplete"      :   "[FISH] Завершите доставку."
+    "job.fishdriver.already"           :   "[FISH] Ты уже работаешь водителем грузовика."
+    "job.fishdriver.now"               :   "[FISH] Ты устроился на работу водителем грузовика."
+
+    "job.fishdriver.not"               :   "[FISH] Ты не работаешь водителем грузовика."
+    "job.fishdriver.needfishtruck"     :   "[FISH] Тебе нужен грузовик для доставки рыбы."
+    "job.fishdriver.driving"           :   "[FISH] Останови грузовик."
+
     "job.fishdriver.nicejob"           :   "[FISH] Отличная работа, %s! Держи $%.2f."
-    "job.fishdriver.wantagain"         :   "[FISH] Если вы хотите выйти в рейс повторно - садитесь в грузовик и отправляйтесь в Порт к складу P3 06."
     "job.fishdriver.notpassenger"      :   "[FISH] Доставка может осуществляться только водителем, но не пассажиром."
 
     "job.fishdriver.help.title"        :   "Управление для водителя грузовика:"
@@ -803,6 +793,7 @@ translation("ru", {
     "organizations.police.onleave"              : "Вы более не являетесь офицером полиции."
 
     "organizations.police.alarm.alreadyCall"    : "Вы уже вызвали полицию. Ожидайте..."
+    "organizations.police.kosoypereulok.ticket" : "Вам выписан штраф за движение по тротуару ($%.2f)."
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 

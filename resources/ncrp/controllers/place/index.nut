@@ -91,7 +91,7 @@ function removePlace(name) {
  * @param  {Float} y
  * @return {Booelan}
  */
-function checkInPlace(name, x, y) {
+function isInPlace(name, x, y) {
     local id = md5(name);
 
     if (!(id in placeRegister)) {
@@ -130,7 +130,7 @@ acmd("placedbg", function(playerid) {
 //     msg(playerid, "you've exited " + place, CL_ERROR);
 // });
 
-function checkVehicleInPlace(vehicleid, name) {
+function isVehicleInPlace(vehicleid, name) {
     local pos = getVehiclePosition(vehicleid);
-    return checkInPlace(name, pos[0], pos[1]);
+    return isInPlace(name, pos[0], pos[1]);
 }

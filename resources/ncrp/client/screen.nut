@@ -245,7 +245,7 @@ addEventHandler("onServerIntefaceTime", function(time, date) {
 });
 
 addEventHandler("onServerIntefaceCharacterJob", function(job) {
-    drawdata.state = "Your job: " + job;
+    drawdata.state = "Job: " + job;
 });
 
 addEventHandler("onServerIntefaceCharacterLevel", function(level) {
@@ -253,7 +253,7 @@ addEventHandler("onServerIntefaceCharacterLevel", function(level) {
 });
 
 addEventHandler("onServerIntefaceCharacter", function(job, level) {
-    drawdata.state = "Your job: " + job;
+    drawdata.state = "Job: " + job;
     drawdata.level = "Your level: " + level;
 });
 

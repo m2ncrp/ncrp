@@ -41,7 +41,7 @@ function removeText(playeridOrAll, name) {
     }
 
     if (playeridOrAll != "all" && !(playeridOrAll in registry[name])) {
-        return dbg("text", "removing", name, "doenst exists for", playeridOrAll);
+        return dbg("text", "removing", name, "doesnt exists for", playeridOrAll);
     }
 
     if (playeridOrAll == "all") {
@@ -66,7 +66,7 @@ function renameText(playeridOrAll, name, text) {
     }
 
     if (playeridOrAll != "all" && !(playeridOrAll in registry[name])) {
-        return dbg("text", "renaming", name, "doenst exists for", playeridOrAll);
+        return dbg("text", "renaming", name, "doesnt exists for", playeridOrAll);
     }
 
     if (playeridOrAll == "all") {
