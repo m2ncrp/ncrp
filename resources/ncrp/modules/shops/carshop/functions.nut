@@ -19,34 +19,58 @@ local vehiclePositions = [
  * Array with current market car prices
  * @type {Array}
  */
-local carPrices = [
+local carPricesAll = [
     [   // diamond motors
-        { modelid = 9 , price = 2740, title = "Houston Wasp"        },  // houston_wasp_pha
-       // { modelid = 22, price = 2100, title = "Potomac Indian"      },  // potomac_indian
-        { modelid = 23, price = 2350, title = "Quicksilver Windsor" },  // quicksilver_windsor_pha
-        { modelid = 44, price = 1700, title = "Smith Mainline"      },  // smith mainline
-        { modelid = 48, price = 1500, title = "Smith Wagon"         },  // smith_wagon_pha
-        { modelid = 50, price = 1475, title = "Culver Empire"       },
-        { modelid = 53, price = 770 , title = "Walter Coupe"        },  // walter_coupe
-        { modelid = 47, price = 530,  title = "Smith V8" },  // quicksilver_windsor_pha
-        { modelid = 43, price = 450 , title = "Smith Coupe"         },  // smith_coupe
-       // { modelid = 25, price = 730 , title = "Shubert 38"          },  // shubert_38
-
+        { modelid = 9 , price = 2840, title = "Houston Wasp"            },
+        { modelid = 22, price = 2100, title = "Potomac Indian"          },
+        { modelid = 23, price = 2350, title = "Quicksilver Windsor"     },
+        { modelid = 44, price = 1950, title = "Smith Mainline"          },
+        { modelid = 48, price = 1380, title = "Smith Wagon"             },
+        { modelid = 50, price = 1650, title = "Culver Empire"           },
+        { modelid = 53, price = 870 , title = "Walter Coupe"            },
+        { modelid = 47, price = 610,  title = "Smith V8"                },
+        { modelid = 43, price = 470 , title = "Smith Coupe"             },
+        { modelid = 25, price = 750 , title = "Shubert 38"              },
+        { modelid = 25, price = 730 , title = "Shubert 38 Panel Truck"  },
     ],
     [   // bad guy
-       // { modelid = 10, price = 9000, title = "ISW 508"             },
-        { modelid = 18, price = 5170, title = "Lassiter Series 75 Hollywood" },
-        { modelid = 1 , price = 5000, title = "Berkley Kingfisher"  },
-        { modelid = 0 , price = 4995, title = "Ascot Bailey S200"   },
-       // { modelid = 15, price = 3500, title = "Lassiter Series 69"  },
-        { modelid = 29, price = 3500, title = "Shubert Frigate"       },
-        { modelid = 14, price = 3200, title = "Jefferson Provincial"},
-        { modelid = 45, price = 2700, title = "Smith Thunderbolt"   },
-        { modelid = 28, price = 2300, title = "Shubert Beverly"     },
-        { modelid = 41, price = 2140, title = "Smith Custom 200"    },
-       // { modelid = 52, price = 2450, title = "Walker Rocket"       },  /// super rare vehicles
+        { modelid = 10, price = 9400, title = "ISW 508"                 },
+        { modelid = 18, price = 7670, title = "Lassiter Series 75 Hollywood" },
+        { modelid = 1 , price = 5680, title = "Berkley Kingfisher"      },
+        { modelid = 0 , price = 6995, title = "Ascot Bailey S200"       },
+        { modelid = 15, price = 3500, title = "Lassiter Series 69"      },
+        { modelid = 29, price = 5070, title = "Shubert Frigate"         },
+        { modelid = 14, price = 4800, title = "Jefferson Provincial"    },
+        { modelid = 45, price = 4200, title = "Smith Thunderbolt"       },
+        { modelid = 28, price = 2530, title = "Shubert Beverly"         },
+        { modelid = 41, price = 3140, title = "Smith Custom 200"        },
+        { modelid = 52, price = 4550, title = "Walker Rocket"           },
     ]
 ];
+
+/*
+Automatically changing the range of cars both stores.
+Writing to carPrices[0] for Diamond Motors and carPrices[1] for Bad Guy
+ */
+
+local carPrices = [ [], [] ];
+
+local carPricesDiamond = clone(carPricesAll[0]);
+for (local i = 0; i < 8; i++) {
+    local rand = random(0, carPricesDiamond.len()-1);
+    carPrices[0].push(carPricesDiamond[rand]);
+    carPricesDiamond.remove(rand);
+}
+carPricesDiamond.clear();
+
+local carPricesBadGuy = clone(carPricesAll[1]);
+for (local i = 0; i < 8; i++) {
+    local rand = random(0, carPricesBadGuy.len()-1);
+    carPrices[1].push(carPricesBadGuy[rand]);
+    carPricesBadGuy.remove(rand);
+}
+carPricesBadGuy.clear();
+
 
 // /**
 //  * Regiser coordinates for players (4 doors at diamond motors)
