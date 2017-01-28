@@ -179,7 +179,7 @@ event("onPlayerPlaceExit", function(playerid, name) {
     if (name != "SeaGiftParking1" && name != "SeaGiftParking2") {;
         return;
     }
-    if (!isFishDriver(playerid) || !isPlayerInVehicle(playerid)) {
+    if (!isFishDriver(playerid) || !isPlayerInVehicle(playerid) || !isPlayerVehicleDriver(playerid)) {
         return;
     }
     local vehicleid = getPlayerVehicle(playerid);
@@ -414,7 +414,7 @@ function fishJobLoad( playerid ) {
     }
 
     if(!valid && fishcars[vehicleid][1] == "fishbox") {
-        return msg( playerid, "job.fishdriver.tounload", FISH_JOB_COLOR );
+        return;// msg( playerid, "job.fishdriver.tounload", FISH_JOB_COLOR );
     }
 
     if(valid && fishcars[vehicleid][1] == "fishbox") {
