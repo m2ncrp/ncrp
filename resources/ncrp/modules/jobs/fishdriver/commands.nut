@@ -1,3 +1,4 @@
+/*
 // usage: /fish job
 cmd("fish", "job", function(playerid) {
     fishJob( playerid );
@@ -22,7 +23,7 @@ cmd("fish", "unload", function(playerid) {
 cmd("fish", "finish", function(playerid) {
     fishJobFinish( playerid );
 });
-
+*/
 // usage: /help job fish
 cmd("help", ["job", "fish"], function(playerid) {
     fishJobHelp ( playerid );
@@ -35,14 +36,10 @@ cmd("help", ["fish", "job"], function(playerid) {
 
 function fishJobHelp ( playerid ) {
     local title = "job.fishdriver.help.title";
-    local commands = [
-        { name = "/fish job",        desc = "job.fishdriver.help.job" },
-        { name = "/fish job leave",  desc = "job.fishdriver.help.jobleave" },
-        { name = "/fish load",        desc = "job.fishdriver.help.load" },
-        { name = "/fish unload",      desc = "job.fishdriver.help.unload" },
-        { name = "/fish finish",      desc = "job.fishdriver.help.finish" }
-    ];
-    msg_help(playerid, title, commands);
+    local desc = "job.fishdriver.help.all";
+    msg(playerid, "==================================", CL_HELP_LINE);
+    msg(playerid, plocalize(playerid, title), CL_HELP_TITLE);
+    msg(playerid, plocalize(playerid, desc), CL_HELP);
 }
 
 
