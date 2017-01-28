@@ -109,6 +109,7 @@ event("onPlayerConnect", function(playerid) {
     job_fish[getPlayerName(playerid)] <- {};
     job_fish[getPlayerName(playerid)]["hand"] <- null;
     job_fish[getPlayerName(playerid)]["userstatus"] <- null;
+    job_fish[getPlayerName(playerid)]["sitting"] <- false;
     job_fish[getPlayerName(playerid)]["blip3dtext"] <- [null, null, null];
     }
 });
@@ -133,6 +134,10 @@ event("onPlayerPlaceEnter", function(playerid, name) {
         return;
     }
     if (!isFishDriver(playerid) || !isPlayerInVehicle(playerid)) {
+        return;
+    }
+
+    if(job_fish[getPlayerName(playerid)]["sitting"] == true) {
         return;
     }
     local vehicleid = getPlayerVehicle(playerid);
@@ -167,7 +172,6 @@ event("onPlayerPlaceEnter", function(playerid, name) {
             removeText( targetid, "fish_parking2_3dtext");
         }
     });
-
 });
 
 
@@ -213,6 +217,11 @@ event("onPlayerVehicleEnter", function (playerid, vehicleid, seat) {
     }
 
     if(isFishDriver(playerid) && job_fish[getPlayerName(playerid)]["userstatus"] == "working") {
+        job_fish[getPlayerName(playerid)]["hand"] = null;
+        job_fish[getPlayerName(playerid)]["sitting"] = true;
+        delayedFunction(3000, function() {
+            job_fish[getPlayerName(playerid)]["sitting"] = false;
+        });
         unblockVehicle(vehicleid);
         if (fishcars[vehicleid][0] != false) {
             blockVehicle(vehicleid);
@@ -257,7 +266,7 @@ key("q", function(playerid) {
 function fishJobCreatePrivateBlipText(playerid, x, y, z, text, cmd) {
     return [
             createText (playerid, "fish_load_title", x, y, z+0.35, text, CL_RIPELEMON, 40 ),
-            createText (playerid, "fish_load_desc", x, y, z+0.20, cmd, CL_WHITE.applyAlpha(150), 4.0 ),
+            createText (playerid, "fish_load_desc", x, y, z+0.10, cmd, CL_WHITE.applyAlpha(150), 4.0 ),
             //createPrivateBlip (playerid, x, y, ICON_YELLOW, 4000.0)
     ];
 }
@@ -334,7 +343,8 @@ function fishJobGet( playerid ) {
     }
 
     // если у игрока статус работы == выполняет работу
-    if (job_fish[getPlayerName(playerid)]["userstatus"] == "working") {
+    if (job_fish[getPlayerName(playerid)]["userstatus"] == "working" || job_fish[getPlayerName(playerid)]["userstatus"] == "wait") {
+        job_fish[getPlayerName(playerid)]["userstatus"] = "working";
         return msg( playerid, "job.fishdriver.continue", FISH_JOB_COLOR );
     }
 }
@@ -388,14 +398,29 @@ function fishJobLoad( playerid ) {
         return;
     }
 
+    local valid = false;
+    if(isVehicleInValidPoint(playerid, FISH_PORT[0], FISH_PORT[1], 4.0 )) {
+        valid = true;
+    }
+
     local vehicleid = getPlayerVehicle(playerid);
-    if(fishcars[vehicleid][1] == "fishbox") {
+
+    if(!valid && fishcars[vehicleid][1] == "emptybox" && fishcars[vehicleid][2] > 0) {
+        return; // msg( playerid, "job.fishdriver.toload", FISH_JOB_COLOR );
+    }
+
+    if(!valid && fishcars[vehicleid][1] == "emptybox" && fishcars[vehicleid][2] == 0) {
+        return; // msg( playerid, "job.fishdriver.truck.empty", FISH_JOB_COLOR );
+    }
+
+    if(!valid && fishcars[vehicleid][1] == "fishbox") {
+        return msg( playerid, "job.fishdriver.tounload", FISH_JOB_COLOR );
+    }
+
+    if(valid && fishcars[vehicleid][1] == "fishbox") {
         return msg( playerid, "job.fishdriver.alreadyloaded", FISH_JOB_COLOR );
     }
 
-    if(!isVehicleInValidPoint(playerid, FISH_PORT[0], FISH_PORT[1], 4.0 )) {
-        return msg( playerid, "job.fishdriver.toload", FISH_JOB_COLOR );
-    }
     local vehRot = getVehicleRotation(vehicleid);
     if (vehRot[0] < 172 && vehRot[0] > -172 ) {
         return msg(playerid, "job.fishdriver.needcorrectpark", CL_RED );
@@ -412,6 +437,7 @@ function fishJobLoad( playerid ) {
     fishJobRemovePrivateBlipText ( playerid );
 
     freezePlayer( playerid, true);
+    job_fish[getPlayerName(playerid)]["userstatus"] = "wait";
     setVehiclePartOpen(vehicleid, 1, true);
     msg( playerid, "job.fishdriver.loading", FISH_JOB_COLOR );
     trigger(playerid, "removeGPS");
@@ -420,7 +446,7 @@ function fishJobLoad( playerid ) {
         setVehiclePartOpen(vehicleid, 1, false);
         freezePlayer( playerid, false);
         delayedFunction(1000, function () { freezePlayer( playerid, false); });
-
+        job_fish[getPlayerName(playerid)]["userstatus"] = "working";
         fishcars[vehicleid][1] = "fishbox";
         trigger(playerid, "setGPS", 370.0, 118.0);
         msg( playerid, "job.fishdriver.loaded", FISH_JOB_COLOR );
@@ -467,7 +493,7 @@ function fishOpenCloseDoors(playerid) {
                         if (place == "place2") { removeText( targetid, "fish_putbox2_3dtext" ); }
                     });
 
-                    delayedFunction(2000, function() {
+                    delayedFunction(1000, function() {
                         ppos = players[playerid].getPosition();
                         vpos = getVehiclePosition(vehicleid);
                         dbg((vpos[2]+0.5)+" "+ppos.z+" "+(vpos[2]+1.0));
@@ -641,6 +667,8 @@ function fishJobSetDefaultFishLimit( playerid, limit ) {
 /* -------------------------------------------------------------------------------------------------------------------- */
 
 function fishJobTakePutBox( playerid ) {
+    if(isPlayerInVehicle(playerid)) return;
+
     local hand = job_fish[getPlayerName(playerid)]["hand"];
     local place = null;
     local places = [
@@ -702,7 +730,7 @@ function fishJobTakePutBox( playerid ) {
                     if(gruz == "fishbox" && kolvo > 0) {
                         hand = "fishbox";
                         kolvo -= 1;
-                        msg(playerid, "job.fishdriver.takenFishbox", FISH_JOB_COLOR );
+                        msg(playerid, "job.fishdriver.takenFishbox", [kolvo], FISH_JOB_COLOR );
                         } else {
                             gruz = "emptybox";
                             msg(playerid, "job.fishdriver.truck.empty", FISH_JOB_COLOR );
@@ -714,7 +742,7 @@ function fishJobTakePutBox( playerid ) {
                     if(gruz == "emptybox" && kolvo < FISH_TRUCK_CAPACITY) {
                         hand = null;
                         kolvo += 1;
-                        msg(playerid, "job.fishdriver.truck.putEmptybox", FISH_JOB_COLOR );
+                        msg(playerid, "job.fishdriver.truck.putEmptybox", [ kolvo, FISH_TRUCK_CAPACITY], FISH_JOB_COLOR );
                         }
                     if(kolvo == FISH_TRUCK_CAPACITY) msg(playerid, "job.fishdriver.truck.full", FISH_JOB_COLOR );
                 }
@@ -745,6 +773,7 @@ translate("ru", {
 "job.fishdriver.toparking"       :   "[FISH] Садись в свободный грузовик и заезжай на парковочное место для загрузки!"
 "job.fishdriver.ifyouwantstart"  :   "[FISH] Ты работаешь водителем грузовика на рыбном складе. Если хочешь потрудиться - иди в офис Seagift в Чайнатауне."
 "job.fishdriver.toload"          :   "[FISH] Отправляйся в Порт к складу P3 06 для наполнения лотков рыбой."
+"job.fishdriver.tounload"        :   "[FISH] Езжай к складу Seagift для разгрузки."
 "job.fishdriver.loading"         :   "[FISH] Рабочие портового склада наполняют лотки рыбой. Жди..."
 "job.fishdriver.alreadyloaded"   :   "[FISH] Лотки уже наполнены рыбой."
 "job.fishdriver.loaded"          :   "[FISH] Лотки наполнены. Езжай к складу Seagift для разгрузки."
@@ -757,10 +786,10 @@ translate("ru", {
 "job.fishdriver.putFishbox"         :  "[FISH] Положил лоток с рыбой."
 "job.fishdriver.onlyFishbox"        :  "[FISH] Не наводи беспорядок. Сюда только лотки с рыбой!"
 "job.fishdriver.goTakeEmptybox"     :  "[FISH] Иди возьми пустой лоток."
-"job.fishdriver.takenFishbox"       :  "[FISH] Взял лоток с рыбой из грузовика."
+"job.fishdriver.takenFishbox"       :  "[FISH] Взял лоток с рыбой из грузовика. Осталось %d."
 "job.fishdriver.truck.empty"        :  "[FISH] Грузовик пуст."
 "job.fishdriver.truck.onlyFishbox"  :  "[FISH] В грузовике лежат лотки с рыбой. Сначала разгрузи их."
-"job.fishdriver.truck.putEmptybox"  :  "[FISH] Положил пустой лоток в грузовик."
+"job.fishdriver.truck.putEmptybox"  :  "[FISH] Положил пустой лоток в грузовик (%d/%d)"
 "job.fishdriver.truck.full"         :  "[FISH] Грузовик полон."
 "job.fishdriver.truck.onlyEmptybox" :  "[FISH] Грузить лотки с рыбой не надо, отнеси их на склад."
 "job.fishdriver.truck.goPutFishbox" :  "[FISH] Чё ты носишься с этим лотком с рыбой? Отнеси его на склад."
