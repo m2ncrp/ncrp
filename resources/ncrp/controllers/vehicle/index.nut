@@ -113,7 +113,7 @@ event("onServerMinuteChange", function() {
 // handle vehicle enter
 event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     // handle vehicle passangers
-    addVehiclePassenger(vehicleid, playerid);
+    addVehiclePassenger(vehicleid, playerid, seat);
 
     if (seat == 0) {
         // set state of the engine as on
@@ -162,7 +162,7 @@ key(["w", "s"], function(playerid) {
 // handle vehicle exit
 event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     // handle vehicle passangers
-    removeVehiclePassenger(vehicleid, playerid);
+    removeVehiclePassenger(vehicleid, playerid, seat);
 
     // check blocking
     if (isVehicleOwned(vehicleid) && isPlayerVehicleOwner(playerid, vehicleid)) {

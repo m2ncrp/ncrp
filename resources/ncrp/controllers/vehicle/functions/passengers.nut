@@ -5,25 +5,15 @@ local passengers = {};
  * and fill array with ones that are passangers
  */
 function updateVehiclePassengers() {
-    local players = getPlayers();
+    foreach (vehicleid, value in __vehicles) {
+        if (!(vehicleid in passengers)) continue;
 
-    // reset vehicles
-    local occupatedVehicles = {};
-
-    foreach (playerid, value in players) {
-        if (isPlayerInVehicle(playerid)) {
-            local vehicleid = getPlayerVehicle(playerid);
-
-            if (!(vehicleid in occupatedVehicles)) {
-                occupatedVehicles[vehicleid] <- [];
+        foreach (seat, playerid in passengers[vehicleid]) {
+            if (!isPlayerConnected(playerid)) {
+                passengers[vehicleid][seat] = -1;
             }
-
-            // push player to vehicle
-            occupatedVehicles[vehicleid].push(playerid);
         }
     }
-
-    passengers = occupatedVehicles;
 }
 
 /**
@@ -31,13 +21,14 @@ function updateVehiclePassengers() {
  * @param {int} vehicleid
  * @param {int} playerid
  */
-function addVehiclePassenger(vehicleid, playerid) {
+function addVehiclePassenger(vehicleid, playerid, seat) {
     if (!(vehicleid in passengers)) {
-        passengers[vehicleid] <- [];
+        passengers[vehicleid] <- array(4, -1);
     }
 
     // push player to vehicle
-    passengers[vehicleid].push(playerid);
+    passengers[vehicleid][seat] = playerid;
+    return true;
 }
 
 /**
@@ -45,17 +36,20 @@ function addVehiclePassenger(vehicleid, playerid) {
  * @param {int} vehicleid
  * @param {int} playerid
  */
-function removeVehiclePassenger(vehicleid, playerid) {
+function removeVehiclePassenger(vehicleid, playerid, seat) {
     if (!(vehicleid in passengers)) {
         return;
     }
 
-    // push player to vehicle
-    local index = passengers[vehicleid].find(playerid);
-
-    if (index >= 0) {
-        passengers[vehicleid].remove(index);
+    // migrate passanger to driver
+    if (seat == 0 && passengers[vehicleid][1] != -1) {
+        passengers[vehicleid][0] = passengers[vehicleid][1];
+        passengers[vehicleid][1] = -1;
+        return true;
     }
+
+    passengers[vehicleid][seat] = -1;
+    return true;
 }
 
 /**
@@ -64,7 +58,18 @@ function removeVehiclePassenger(vehicleid, playerid) {
  * @return {array}
  */
 function getVehiclePassengers(vehicleid) {
-    return (vehicleid in passengers) ? passengers[vehicleid] : [];
+    local table = {};
+
+    if (!(vehicleid in passengers)) {
+        return table;
+    }
+
+    foreach (seat, playerid in passengers[vehicleid]) {
+        if (playerid == -1) continue;
+        table[seat] <- playerid;
+    }
+
+    return table;
 }
 
 /**
@@ -82,7 +87,7 @@ function getVehiclePassengersCount(vehicleid) {
  * @return {Boolean}
  */
 function isVehicleEmpty(vehicleid) {
-    return (getVehiclePassengers(vehicleid).len() < 1);
+    return (getVehiclePassengersCount(vehicleid) < 1);
 }
 
 /**
@@ -92,7 +97,17 @@ function isVehicleEmpty(vehicleid) {
  * @return {Integer} seat
  */
 function getPlayerVehicleSeat(playerid) {
-    return isPlayerInVehicle(playerid) ? getVehiclePassengers(getPlayerVehicle(playerid)).find(playerid) : null;
+    if (!isPlayerInVehicle(playerid)) {
+        return null;
+    }
+
+    local vehicleid  = getPlayerVehicle(playerid);
+
+    foreach (seat, targetid in passengers[vehicleid]) {
+        if (playerid == targetid) return seat;
+    }
+
+    return null;
 }
 
 /**
