@@ -28,9 +28,9 @@ event("onServerStarted", function() {
                 local vehicleid = getPlayerVehicle(playerid);
 
                 // block vehicle if player is driver and vehicle is blocked
-                if (isPlayerVehicleDriver(playerid) && isVehicleBlocked(vehicleid) && !isPlayerAdmin(playerid)) {
-                    blockVehicle(vehicleid);
-                }
+                // if (isPlayerVehicleDriver(playerid) && isVehicleBlocked(vehicleid) && !isPlayerAdmin(playerid)) {
+                //     blockVehicle(vehicleid);
+                // }
 
                 local speed = getVehicleSpeed(vehicleid);
                 local maxsp = max(fabs(speed[0]), fabs(speed[1]));

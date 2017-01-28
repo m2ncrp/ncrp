@@ -45,8 +45,10 @@ event("onServerStarted", function() {
     // load all vehicles from db
     Vehicle.findAll(function(err, results) {
         foreach (idx, vehicle in results) {
-            local vehicle = CustomVehicle( vehicle.model, vehicle.x, vehicle.y, vehicle.z, vehicle.rx, vehicle.ry, vehicle.rz );
-            __vehicles.add(vehicle.id, vehicle);
+            local veh = CustomVehicle( vehicle.model, vehicle.x, vehicle.y, vehicle.z, vehicle.rx, vehicle.ry, vehicle.rz );
+            veh.setPlate(vehicle.plate);
+
+            __vehicles.add(veh.id, veh);
             counter++;
         }
 
