@@ -26,6 +26,8 @@ translation("en", {
 "job.fishdriver.help.unload"           :   "Unload fish"
 "job.fishdriver.help.finish"           :   "Report about delivery and get money"
 
+"job.fishdriver.help.all"              :   "Read help messages and press E in process work."
+
 //"job.fishdriver.wantagain"     : "[FISH] If you want to go to route again - sit into fish truck and go to warehouse P3 06 at Port."
 //"job.fishdriver.empty"         : "[FISH] Truck is empty. Go to Port to load."
 //"job.fishdriver.needcomplete"  : "[FISH] You must complete delivery before."
@@ -733,6 +735,8 @@ translate("ru", {
 "job.fishdriver.truck.full"         :  "[FISH] Грузовик полон."
 "job.fishdriver.truck.onlyEmptybox" :  "[FISH] Грузить лотки с рыбой не надо, отнеси их на склад."
 "job.fishdriver.truck.goPutFishbox" :  "[FISH] Чё ты носишься с этим лотком с рыбой? Отнеси его на склад."
+
+"job.fishdriver.help.all"           :  "Читайте задания и используйте клавишу E для действия в процессе выполнения работы."
 });
 
 /*
