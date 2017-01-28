@@ -14,7 +14,7 @@ translation("en", {
 });
 
 const MAX_FUEL_LEVEL = 70.0;
-const GALLON_COST = 0.5; // 50 cents
+const GALLON_COST = 0.2; // 20 cents
 
 const TITLE_DRAW_DISTANCE = 40.0;
 const FUEL_RADIUS = 4.0;

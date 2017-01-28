@@ -100,3 +100,24 @@ event("native:onPlayerChat", function(playerid, message) {
 function requestUserInput(playerid, callback, timeout = 30) {
     return inputRequests[playerid] <- { callback = callback, timeout = (getTimestamp() + 30) };
 }
+
+/**
+ * Return true if there's timer in
+ * inputRequest for given player
+ * @param  {Integer}  playerid
+ * @return {Boolean}
+ */
+function isWaitingUserInput(playerid) {
+    return (playerid in inputRequests);
+}
+
+/**
+ * Delete waiting for player input timer
+ * @param  {Integer} playerid
+ * @return {void}
+ */
+function clearUserInput(playerid) {
+    if ( isWaitingUserInput(playerid) ) {
+        delete inputRequests[playerid];
+    }
+}

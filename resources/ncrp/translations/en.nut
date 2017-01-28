@@ -9,7 +9,7 @@ translation("en", {
     "hospital.money.deducted"           : "You've successfully payed $%.2f for your treatment!"
     "hospital.money.donthave"           : "You don't have enough money to pay for full treatment!"
 
-    "client.interface.job"              : "Your job: %s"
+    "client.interface.job"              : "Job: %s"
     "client.interface.level"            : "Level: %d"
 
     "job.leave"                         : "You leave this job."
