@@ -87,6 +87,7 @@ translation("en", {
     "organizations.police.onleave"              : "You're not a police officer anymore."
 
     "organizations.police.alarm.alreadyCall"    : "You've already called the police. Please, wait..."
+    "organizations.police.kosoypereulok.ticket" : "You got fine for driving on sidewalk ($%.2f)."
 });
 
 
@@ -259,9 +260,8 @@ event("onPlayerPlaceEnter", function(playerid, name) {
     if(name != "KosoyPereulok" || !isPlayerInVehicle(playerid)) return;
 
     local ticketcost = 8.5;
-    local vehicleid = getPlayerVehicle(playerid);
-    if(!canMoneyBeSubstracted(playerid, ticketcost)) { msg(playerid, "organizations.police.kosoypereulok.nomoney", CL_THUNDERBIRD); return; }
-
+    //local vehicleid = getPlayerVehicle(playerid);
+    //if(!canMoneyBeSubstracted(playerid, ticketcost)) { msg(playerid, "organizations.police.kosoypereulok.nomoney", CL_THUNDERBIRD); return; }
     subMoneyToPlayer(playerid, ticketcost);
     msg(playerid, "organizations.police.kosoypereulok.ticket", [ticketcost], CL_THUNDERBIRD); return;
 });
