@@ -1,12 +1,12 @@
 /**
  * Declaration of any type ingame vehicles including trailers.
- * Some vehicle, e.g. trailers, couldn't be upgaded or doesn't have
+ * Some vehicle, e.g. trailers, couldn't be upgaded or don't have
  * lights so their parts are different.
  */
 class NativeVehicle {
     id = 0;
 
-    constructor(model, px, py, pz, rx, ry, rz) {
+    constructor(model, px, py, pz, rx = 0.0, ry = 0.0, rz = 0.0) {
         this.id = createVehicle(model, px, py, pz, rx, ry, rz);
     }
 
@@ -24,11 +24,11 @@ class NativeVehicle {
     }
 
     function getFuel() {
-        return this.fueltank.getFuel();
+        return getVehicleFuel(id);
     }
 
     function setFuel( to ) {
-        this.fueltank.setFuel(to);
+        setVehicleFuel(id, to);
     }
 
 
@@ -64,11 +64,11 @@ class NativeVehicle {
 
 
     function getEngineState() {
-        return this.engine.getState();
+        return getVehicleEngineState(id);
     }
 
     function setEngineState(to) {
-        this.engine.setState(to);
+        setVehicleEngineState( id, to );
     }
 
 
@@ -96,5 +96,21 @@ class NativeVehicle {
 
     function setDirlLevel(to) {
         setVehicleDirtLevel( id, to );
+    }
+
+    function getTuning() {
+        return getVehicleTuningTable(id);
+    }
+
+    function setTuning(to) {
+        setVehicleTuningTable( id, to );
+    }
+
+    function getWheels(wheel_pair) {
+        return getVehicleWheelTexture( id, wheel_pair );;
+    }
+
+    function setWheels(wheel_pair, to) {
+        setVehicleWheelTexture( id, wheel_pair, to );
     }
 }

@@ -55,7 +55,7 @@ event("onServerStarted", function() {
             }
 
             // anticheat - remove weapons
-            if (!isOfficer(playerid) && !isPlayerAdmin(playerid)) {
+            if (/*!isOfficer(playerid) &&*/ !isPlayerAdmin(playerid)) {
                 local weaponlist = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 21];
                 weaponlist.apply(function(id) {
                     removePlayerWeapon( playerid, id );

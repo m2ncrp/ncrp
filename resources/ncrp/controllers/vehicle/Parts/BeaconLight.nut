@@ -2,7 +2,7 @@ class BeaconLight extends SwitchableVehiclePart {
     constructor (vehicleID) {
         base.constructor(vehicleID, null, false);
     }
-    
+
     function getState() {
         return getVehicleBeaconLight( vehicleID ); // || state;
     }
