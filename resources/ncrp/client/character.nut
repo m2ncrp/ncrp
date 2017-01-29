@@ -141,15 +141,15 @@ function loadTraslation(){
 		text.CreationWindow 		<- "Создание персонажа";
 		text.CreationChooseRace	 	<- "Выберите расу персонажа";
 		text.CreationChooseSkin 	<- "Выберите скин";
-		text.CreationFirstName 		<- "Имя";
-		text.CreationLastName 		<- "Фамилия";
-		text.CreationBirthday 		<- "Дата рождения";
+		text.CreationFirstName 		<- "Имя персонажа";
+		text.CreationLastName 		<- "Фамилия персонажа";
+		text.CreationBirthday 		<- "Дата рождения персонажа";
 		text.WrongLName				<- "Некорректное Имя";
 		text.WrongFName				<- "Некорректная Фамилия";
-		text.WrongDay				<- "'День' введен не корректно";
-		text.WrongMonth				<- "'Месяц' введен не корректно";
-		text.WrongYear				<- "'Год' введен не корректно";
-		text.ExampleFName			<- "Например'John'";
+		text.WrongDay				<- "'День' введён некорректно";
+		text.WrongMonth				<- "'Месяц' введён некорректно";
+		text.WrongYear				<- "'Год' введён некорректно";
+		text.ExampleFName			<- "Например 'John'";
 		text.ExampleLName			<- "Например 'Douglas'";
 
 		//other
