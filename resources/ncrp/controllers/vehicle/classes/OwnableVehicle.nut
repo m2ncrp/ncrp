@@ -1,9 +1,15 @@
 class OwnableVehicle extends NativeVehicle {
-    ownership = {
-        status   = VEHICLE_OWNERSHIP_NONE,
-        owner    = null,
-        ownerid  = -1,
-    };
+    ownership = null;
+
+    constructor (model, px, py, pz, rx = 0.0, ry = 0.0, rz = 0.0) {
+        base.constructor(model, px, py, pz, rx, ry, rz);
+
+        ownership = {
+            status   = VEHICLE_OWNERSHIP_NONE,
+            owner    = null,
+            ownerid  = -1,
+        };
+    }
 
     /**
      * Set vehicle owner
@@ -78,4 +84,25 @@ class OwnableVehicle extends NativeVehicle {
     function getOwnerId() {
         return this.ownership.ownerid;
     }
+
+
+    events = [
+        addEventHandler("native:onPlayerVehicleEnter", function( playerid, vehicleid, seat ) {
+            local vehicle = __vehicles.get(vehicleid);
+            // check blocking
+            dbg( "VEH " + vehicle.isOwned() );
+            if (vehicle.isOwned() && seat == 0) {
+                dbg("player", "vehicle", "enter", vehicle.getPlate(), getIdentity(playerid), "owned: " + vehicle.isOwner(playerid));
+
+                if (vehicle.isOwner(playerid)) {
+                    msg(playerid, "It's your vehicle.");
+                    // Don't block it
+                } else {
+                    msg(playerid, "It's not your vehicle!");
+                    // Block it
+                }
+            }
+            return 1;
+        })
+    ];
 }

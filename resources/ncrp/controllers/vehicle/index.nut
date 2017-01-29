@@ -48,10 +48,12 @@ event("onServerStarted", function() {
             local veh = CustomVehicle( vehicle.model, vehicle.x, vehicle.y, vehicle.z, vehicle.rx, vehicle.ry, vehicle.rz );
             veh.setColor( vehicle.cra, vehicle.cga, vehicle.cba, vehicle.crb, vehicle.cgb, vehicle.cbb );
             veh.setPlate( vehicle.plate );
+            veh.setTuning( vehicle.tunetable );
             veh.setOwner( vehicle.owner, vehicle.ownerid );
             veh.setFuel( vehicle.fuellevel );
+            veh.setDirlLevel( vehicle.dirtlevel );
 
-            dbg(veh.ownership.owner);
+            dbg("Owner: " + veh.ownership.owner + "; is owned: " + veh.isOwned());
 
             __vehicles.add(veh.vid, veh);
             counter++;
@@ -68,19 +70,7 @@ event("onServerMinuteChange", function() {
 
 // handle vehicle enter
 event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
-    local vehicle = __vehicles.get(vehicleid);
-    // check blocking
-    dbg( "VEH " + vehicle.isOwned() );
-    if (vehicle.isOwned() && seat == 0) {
 
-        dbg("player", "vehicle", "enter", vehicle.getPlate(), getIdentity(playerid), "owned: " + vehicle.isOwner(playerid));
-
-        if (vehicle.isOwner(playerid)) {
-            msg(playerid, "It's your vehicle.");
-        } else {
-            msg(playerid, "It's not your vehicle!");
-        }
-    }
 });
 
 // handle vehicle exit
