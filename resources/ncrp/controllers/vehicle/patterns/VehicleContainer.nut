@@ -9,6 +9,14 @@ class VehicleContainer extends Container
         this.__ref = CustomVehicle;
     }
 
+    /**
+     * Meta impelemtation for set
+     * @param {Integer} name
+     * @param {Character} value
+     */
+    function _set(playerid, value) {
+        throw "VehicleContainer: you cant insert new data directly!";
+    }
 
     /**
      * Find nearest vehicle id to particular player

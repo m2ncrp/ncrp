@@ -13,13 +13,11 @@ class SeatableVehicle extends OwnableVehicle
      * and fill array with ones that are passangers
      */
     function updatePassengers() {
-        foreach (vehicleid, value in __vehicles) {
-            if (!(vehicleid in passengers)) continue;
+        if (!(vid in passengers)) return;
 
-            foreach (seat, playerid in passengers[vehicleid]) {
-                if (!isPlayerConnected(playerid)) {
-                    passengers[vehicleid][seat] = -1;
-                }
+        foreach (seat, playerid in passengers[vid]) {
+            if (!isPlayerConnected(playerid)) {
+                passengers[vid][seat] = -1;
             }
         }
     }
@@ -39,7 +37,6 @@ class SeatableVehicle extends OwnableVehicle
             if (playerid == -1) continue;
             table[seat] <- playerid;
         }
-
         return table;
     }
 
@@ -82,11 +79,10 @@ class SeatableVehicle extends OwnableVehicle
 
     /**
      * Return count of all players in particular vehicle
-     * @param  {int} vehicleid
      * @return {int}
      */
-    function getPassengersCount(vehicleid) {
-        return (getVehiclePassengers(vehicleid).len());
+    function getPassengersCount() {
+        return (getPassengers().len());
     }
 
 
@@ -95,8 +91,8 @@ class SeatableVehicle extends OwnableVehicle
      * @param  {int}  vehicleid
      * @return {Boolean}
      */
-    function isEmpty(vehicleid) {
-        return (getVehiclePassengersCount(vehicleid) < 1);
+    function isEmpty() {
+        return (getVehiclePassengersCount() < 1);
     }
 
 

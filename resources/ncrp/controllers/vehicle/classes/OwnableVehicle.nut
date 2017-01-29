@@ -1,4 +1,4 @@
-class OwnableVehicle extends NativeVehicle {
+class OwnableVehicle extends LockableVehicle {
     ownership = null;
 
     constructor (model, px, py, pz, rx = 0.0, ry = 0.0, rz = 0.0) {
@@ -94,9 +94,11 @@ class OwnableVehicle extends NativeVehicle {
                 if (vehicle.isOwner(playerid)) {
                     msg(playerid, "It's your vehicle.");
                     // Don't block it
+                    vehicle.unblock();
                 } else {
                     msg(playerid, "It's not your vehicle!");
                     // Block it
+                    vehicle.block();
                 }
             }
         })

@@ -15,6 +15,10 @@ class NativeVehicle {
         destroyVehicle(vid);
     }
 
+    function respawn() {
+        respawnVehicle(vid);
+    }
+
     function getModel() {
         return getVehicleModel( vid );
     }
@@ -113,5 +117,13 @@ class NativeVehicle {
 
     function setWheels(wheel_pair, to) {
         setVehicleWheelTexture( vid, wheel_pair, to );
+    }
+
+    function repair() {
+        repairVehicle(vid);
+    }
+
+    function explode() {
+        explodeVehicle(vid);
     }
 }

@@ -79,16 +79,16 @@ class CustomVehicle extends RespawnableVehicle
         return (("model_" + modelid) in vehicleFuelTankData) ? vehicleFuelTankData["model_" + modelid] : VEHICLE_FUEL_DEFAULT;
     }
 
-    function getDistance() {
-        return distance;
-    }
+    // function getDistance() {
+    //     return distance;
+    // }
 
-    // Check every minute
-    function calculateDistance(startPoint, endPoint) {
-        local x = endPoint[0] - startPoint[0];
-        local y = endPoint[1] - startPoint[1];
-        local z = endPoint[2] - startPoint[2];
-        distance += sqrt( x*x + y*y + z*z );
-    }
+    // // Check every minute
+    // function calculateDistance(startPoint, endPoint) {
+    //     local x = endPoint[0] - startPoint[0];
+    //     local y = endPoint[1] - startPoint[1];
+    //     local z = endPoint[2] - startPoint[2];
+    //     distance += sqrt( x*x + y*y + z*z );
+    // }
 
 }
