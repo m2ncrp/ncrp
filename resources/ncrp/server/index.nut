@@ -187,6 +187,9 @@ proxy("registerGUIFunction",        "registerGUIFunction"               );
 proxy("updateMoveState",            "updateMoveState"                   );
 proxy("changeModel",                "changeModel"                       );
 
+// JustPilz
+proxy("PhoneCallGUI",               "PhoneCallGUI"                      );
+
 /**
  * Debug export
  * if constant is set to true

@@ -7,3 +7,4 @@ include("modules/rentcar");
 include("modules/interiors");
 include("modules/map");
 include("modules/radio");
+include("modules/policealarm");
