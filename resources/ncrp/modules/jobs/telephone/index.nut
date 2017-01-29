@@ -161,44 +161,6 @@ local telephones = [
     [  -629.376, -44.3486, 0.932261 , "telephone146" , 1 ],
 
     [ -1304.62, 1608.74, 1.22659    , "telephone147" , 1 ],
-
-
-    [-371.573,   1787.89, -23.589   , "policeAlarm1" , 2 ],
-    [-1292.88,   1484.98, -6.11190  , "policeAlarm2" , 2 ],
-    [-1176.64,   1457.64, -4.12012  , "policeAlarm3" , 2 ],
-    [-1171.7,    1387.29, -13.6239  , "policeAlarm4" , 2 ],
-    [-1317.53,   1402.58, -13.5725  , "policeAlarm5" , 2 ],
-    [-1299.35,   751.584, -15.7788  , "policeAlarm6" , 2 ],
-    [-1417.24,   497.773, -21.4151  , "policeAlarm7" , 2 ],
-    [ 36.4554,   235.118, -16.0193  , "policeAlarm8" , 2 ],
-    [-639.445,  -76.2884,  1.03814  , "policeAlarm9" , 2 ],
-    [-680.221,   182.574,  1.03806  , "policeAlarm10", 2 ],
-    [-474.135,   185.611,  1.02381  , "policeAlarm11", 2 ],
-    [-477.684,   382.254,  1.03808  , "policeAlarm12", 2 ],
-    [-477.376,   439.521,  1.03657  , "policeAlarm13", 2 ],
-    [-661.801,   455.444,  1.03789  , "policeAlarm14", 2 ],
-    [-512.606,   810.714, -19.6019  , "policeAlarm15", 2 ],
-    [-196.664,   382.899, -6.32934  , "policeAlarm16", 2 ],
-    [-191.619,   297.732, -6.45726  , "policeAlarm17", 2 ],
-    [-195.883,   162.1,   -10.5431  , "policeAlarm18", 2 ],
-    [-196.463,   82.5475, -11.1609  , "policeAlarm19", 2 ],
-    [-123.769,   232.632, -13.9932  , "policeAlarm20", 2 ],
-    [-122.238,   355.647, -13.9932  , "policeAlarm21", 2 ],
-    [-9.27437,   413.96,  -13.9914  , "policeAlarm22", 2 ],
-    [-69.3858,   723.144, -21.9343  , "policeAlarm23", 2 ],
-    [ 131.276,   780.688, -18.9663  , "policeAlarm24", 2 ],
-    [ 118.093,   904.171, -22.3053  , "policeAlarm25", 2 ],
-    [ 335.894,   829.788, -21.2524  , "policeAlarm26", 2 ],
-    [ 370.317,   808.668, -21.2487  , "policeAlarm27", 2 ],
-    [ 394.804,   797.771, -21.2487  , "policeAlarm28", 2 ],
-    [ 451.982,   751.116, -21.2541  , "policeAlarm29", 2 ],
-    [ 407.519,   674.809, -24.8892  , "policeAlarm30", 2 ],
-    [ 276.342,   606.728, -24.5672  , "policeAlarm31", 2 ],
-    [ 259.641,   466.762, -20.1637  , "policeAlarm32", 2 ],
-    [ 259.739,   333.152, -21.6012  , "policeAlarm33", 2 ],
-    [ 259.682,   399.147, -21.5767  , "policeAlarm34", 2 ],
-    [ 255.309,   31.6091, -23.3979  , "policeAlarm35", 2 ],
-    [  264.94,   841.694,   -20.38  , "policeAlarm36", 2 ],
 ];
 
 translation("en", {
@@ -360,47 +322,20 @@ translation("en", {
 "telephone.findphone"   : "You can see nearest phone booth on radar for 15 seconds."
 "telephone.findalready" : "Nearest phone booth already displayed on radar."
 "telephone.needphone"   : "You need a telephone to call."
-"telephone.neednumber"  : "You need enter telephone number to call: /call 555-XXXX"
+"telephone.neednumber"  : "You need enter telephone number to call: 555-XXXX"
 "telephone.youcall"     : "You call by number %s."
-"telephone.incorrect"   : "Incorrect number. Use: /call 555-XXXX"
+"telephone.incorrect"   : "Incorrect number. Use: 555-XXXX"
 "telephone.notregister" : "This phone number isn't registered."
 
-    "policeAlarm1"      : "Riverside. Police Alarm"
-    "policeAlarm2"      : "Kingston. River Street, opposite to Kingston Stadium. Police Alarm"
-    "policeAlarm3"      : "Kingston. Center of River Street. Police Alarm"
-    "policeAlarm4"      : "Kingston. Sculpture of a rider. Police Alarm"
-    "policeAlarm5"      : "Kingston. Kingston Stadium. Police Alarm"
-    "policeAlarm6"      : "Hunters Point. North of Evergreen Street. Police Alarm"
-    "policeAlarm7"      : "Hunters Point. Near bar Lone Star. Police Alarm"
-    "policeAlarm8"      : "East Side. Near boulevard. Police Alarm"
-    "policeAlarm9"      : "West Side. Near fuel station. Police Alarm"
-    "policeAlarm10"     : "West Side. Near automotive repair shop. Police Alarm"
-    "policeAlarm11"     : "West Side. Near Linkoln Park. South-West. Police Alarm"
-    "policeAlarm12"     : "West Side. Near Linkoln Park. North-West. Police Alarm"
-    "policeAlarm13"     : "Uptown. Opposite to bus station. Police Alarm"
-    "policeAlarm14"     : "West Side. North. Police Alarm"
-    "policeAlarm15"     : "East Side. Avenue. Police Alarm"
-    "policeAlarm16"     : "East Side. Near Linkoln Park. North-East. Police Alarm"
-    "policeAlarm17"     : "East Side. Near Linkoln Park. East entrance. Police Alarm"
-    "policeAlarm18"     : "East Side. Near Linkoln Park. East. Police Alarm"
-    "policeAlarm19"     : "East Side. Near Linkoln Park. South-East. Police Alarm"
-    "policeAlarm20"     : "East Side. Corner near automotive repair shop. Police Alarm"
-    "policeAlarm21"     : "East Side. Taxi Parking. Police Alarm"
-    "policeAlarm22"     : "East Side. Corner road to Little Italy. Police Alarm"
-    "policeAlarm23"     : "Little Italy. Near Freddy's Bar. Police Alarm"
-    "policeAlarm24"     : "Little Italy. Center. Police Alarm"
-    "policeAlarm25"     : "Little Italy. Near Joe's Apartment. Police Alarm"
-    "policeAlarm26"     : "Little Italy. East. Near fuel station. Police Alarm"
-    "policeAlarm27"     : "Little Italy. East. Police Alarm"
-    "policeAlarm28"     : "Little Italy. East. Police Alarm"
-    "policeAlarm29"     : "Little Italy. East. Near bus stop. Police Alarm"
-    "policeAlarm30"     : "Little Italy. Near Maria Agnello's Apartment. Police Alarm"
-    "policeAlarm31"     : "Little Italy. Border with Chinatown. Police Alarm"
-    "policeAlarm32"     : "Chinatown. West. Police Alarm"
-    "policeAlarm33"     : "Chinatown. Center. Police Alarm"
-    "policeAlarm34"     : "Chinatown. Subway. Police Alarm"
-    "policeAlarm35"     : "Oyster Bay. Near gentlemen's club Garden of Eden. Police Alarm"
-    "policeAlarm36"     : "Little Italy. Near Scaletta Apartment. Police Alarm"
+"phone.gui.window"          :   "Telephone"
+"phone.gui.callto"          :   "Select an action:"
+"phone.gui.buttonPolice"    :   "Call police"
+"phone.gui.buttonTaxi"      :   "Call taxi"
+"phone.gui.insertNumber"    :   "or enter number:"
+"phone.gui.buttonCall"      :   "Call"
+"phone.gui.buttonRefuse"    :   "Hang up"
+"phone.gui.exampleNumber"   :   "555-1234"
+
 
 });
 
@@ -425,15 +360,8 @@ event("onServerStarted", function() {
 */
     //creating public 3dtext
     foreach (phone in telephones) {
-        if (phone.len() == 5) {
-            if (phone[4] == 2) {
-                create3DText ( phone[0], phone[1], phone[2]+0.35, "POLICE ALARM" /* localize(phone[3], [], "en") */, CL_MALIBU, 6.0);
-                create3DText ( phone[0], phone[1], phone[2]+0.20, "Press E", CL_WHITE.applyAlpha(150), 0.4 );
-                continue;
-            }
-        }
         create3DText ( phone[0], phone[1], phone[2]+0.35, "TELEPHONE", CL_RIPELEMON, 6.0);
-        create3DText ( phone[0], phone[1], phone[2]+0.20, "/call", CL_WHITE.applyAlpha(150), 0.3 );
+        create3DText ( phone[0], phone[1], phone[2]+0.20, "Press 2", CL_WHITE.applyAlpha(150), 0.3 );
     }
 
 
@@ -443,7 +371,6 @@ event("onPlayerConnect", function(playerid){
     phone_nearest_blip[playerid] <- {};
     phone_nearest_blip[playerid]["blip3dtext"] <- null;
 });
-
 
 function phoneCreatePrivateBlipText(playerid, x, y, z, text, cmd) {
     return [
@@ -517,22 +444,37 @@ function showBlipNearestPhoneForPlayer ( playerid ) {
 function goToPhone(playerid, phoneid) {
     local phoneid = phoneid.tointeger();
     setPlayerPosition( playerid, telephones[phoneid][0], telephones[phoneid][1], telephones[phoneid][2] );
-
-
 }
 
-local police_alarm_block = {};
-function callByPhone (playerid, number = null, isbind = false) {
-    local budka = getPlayerPhoneName(playerid);
-    local type = (budka) ? budka[4] : false;
 
-    //dbg(budka+", "+type+", "+isbind);
-    if ((budka == false && isbind == true) || (isbind == true && type != 2)) {
+function phoneStartCall(playerid, number, isbind) {
+    local budka = getPlayerPhoneName(playerid);
+
+    if (budka == false && isbind == true) {
         return;
     }
 
     // need phonebooth
-    if (budka == false || (isbind == false && type == 2)) {
+    if (budka == false && isbind == false) {
+        msg(playerid, "telephone.needphone");
+        showBlipNearestPhoneForPlayer ( playerid );
+        return;
+    }
+
+    showPhoneGUI(playerid);
+}
+
+
+
+function callByPhone (playerid, number = null, isbind = false) {
+    local budka = getPlayerPhoneName(playerid);
+
+    if (budka == false && isbind == true) {
+        return;
+    }
+
+    // need phonebooth
+    if (budka == false && isbind == false) {
         msg(playerid, "telephone.needphone");
         showBlipNearestPhoneForPlayer ( playerid );
         return;
@@ -541,24 +483,6 @@ function callByPhone (playerid, number = null, isbind = false) {
     // number empty
     if (number == null) {
         return msg(playerid, "telephone.neednumber");
-    }
-
-    // police alarm box
-    if(number == "police" && isbind == true && type == 2) {
-        local plaName = getPlayerName(playerid);
-        if (!(plaName in police_alarm_block)) {
-            police_alarm_block[plaName] <- null;
-        }
-        if (police_alarm_block[plaName] != "block") {
-            police_alarm_block[plaName] = "block";
-            trigger("onPlayerPhoneCall", playerid, number, plocalize(playerid, budka[3]));
-            delayedFunction(180000, function() {
-                police_alarm_block[plaName] = null;
-            });
-        } else {
-            msg(playerid, "organizations.police.alarm.alreadyCall");
-        }
-        return;
     }
 
     if(number == "taxi" || number == "police" || number == "dispatch" || number == "towtruck" ) {
@@ -577,12 +501,43 @@ function callByPhone (playerid, number = null, isbind = false) {
                 trigger("onPlayerPhoneCall", playerid, number, plocalize(playerid, budka[3]));
             } else {
                 msg(playerid, "telephone.notregister");
+                delayedFunction(1000, function() { phoneStartCall (playerid, null, null); });
             }
         });
     } else {
         msg(playerid, "telephone.incorrect");
     }
 }
+
+/* -------------------------------------------------------------------------------------------------------- */
+
+event("PhoneCallGUI", function (playerid, number) {
+    callByPhone(playerid, number);
+});
+
+function showPhoneGUI(playerid){
+    local windowText            =  plocalize(playerid, "phone.gui.window");
+    local label0Callto          =  plocalize(playerid, "phone.gui.callto");
+    local label1insertNumber    =  plocalize(playerid, "phone.gui.insertNumber");
+    local button0Police         =  plocalize(playerid, "phone.gui.buttonPolice");
+    local button1Taxi           =  plocalize(playerid, "phone.gui.buttonTaxi");
+    local button2Call           =  plocalize(playerid, "phone.gui.buttonCall");
+    local button3Refuse         =  plocalize(playerid, "phone.gui.buttonRefuse");
+    local input0exampleNumber   =  plocalize(playerid, "phone.gui.exampleNumber");
+    triggerClientEvent(playerid, "showPhoneGUI", windowText, label0Callto, label1insertNumber, button0Police, button1Taxi, button2Call, button3Refuse, input0exampleNumber);
+}
+
+
+translation("ru", {
+"phone.gui.window"          :   "Телефонный аппарат"
+"phone.gui.callto"          :   "Выберите действие:"
+"phone.gui.buttonPolice"    :   "Вызвать полицию"
+"phone.gui.buttonTaxi"      :   "Заказать такси"
+"phone.gui.insertNumber"    :   "или введите номер:"
+"phone.gui.buttonCall"      :   "Набрать номер"
+"phone.gui.buttonRefuse"    :   "Повесить трубку"
+"phone.gui.exampleNumber"   :   "555-1234"
+});
 
 /*
 event("onPlayerPhoneCall", function(playerid, number, place) {
