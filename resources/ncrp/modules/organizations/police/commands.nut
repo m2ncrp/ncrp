@@ -321,11 +321,6 @@ cmd(["amnesty"], function(playerid, targetid) {
     takeOutOfJail(playerid, targetid);
 });
 
-
-key("e", function(playerid) {
-    __commands["call"][COMMANDS_DEFAULT](playerid, "police", true);
-});
-
 function policeHelp(playerid, a = null, b = null) {
     msg( playerid, "organizations.police.info.howjoin" );
     local title = "organizations.police.info.cmds.helptitle";
