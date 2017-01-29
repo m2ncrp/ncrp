@@ -26,7 +26,7 @@ translation("en", {
 });
 
 const METRO_RADIUS = 3.8;
-const METRO_TICKET_COST = 0.25;
+const METRO_TICKET_COST = 0.15;
 
 const METRO_KEY_AVALIABLE = "open";
 const METRO_KEY_UNAVALIABLE = "closed";
