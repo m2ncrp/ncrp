@@ -32,9 +32,9 @@ event("onServerStarted", function() {
     createVehicle(34, 45.0284, 1811.01, -17.5489, 180.0, 0.0, 0.0);
     createVehicle(34, 49.7049, 1811.26, -17.55  , 180.0, 0.0, 0.0);
 
-    create3DText( 13.9297, 1810.26, -16.9628, "get slaughterhouse worker job", CL_RIPELEMON, 4000.0);
+    create3DText( 13.9297, 1810.26, -16.9628, "get slaughterhouse worker job", CL_RIPELEMON, 40.0);
 
-    create3DText( 25.9416, 1830.11, -16.9628, "Storage on Clemente&Co", CL_RIPELEMON, 4000.0);
+    create3DText( 25.9416, 1830.11, -16.9628, "Storage on Clemente&Co", CL_RIPELEMON, 40.0);
 
     // cutting tables
     create3DText( 25.1438, 1843.63, -16.9627, "cutting table", CL_RIPELEMON, 2.0); // 1
@@ -49,7 +49,7 @@ event("onServerStarted", function() {
     create3DText( 33.6718, 1849.54, -16.9626, "cutting table", CL_RIPELEMON, 2.0); // 10
     create3DText( 12.0871, 1846.38, -16.9626, "cutting table", CL_RIPELEMON, 2.0); // 11
 
-    create3DText( 35.8693, 1791.79, -17.8628, "slaughterhouse driver get job", CL_RIPELEMON, 4000.0);
+    create3DText( 35.8693, 1791.79, -17.8628, "slaughterhouse driver get job", CL_RIPELEMON, 40.0);
     // 51.435, 1799.25, -17.141 // Get route list
     // 60.9491, 1803.31, -17.8655 // Get load from dat storage
 
@@ -60,6 +60,6 @@ event("onServerStarted", function() {
     // 49.7049, 1811.26, -17.55   // 5
 
 
-    create3DText( 797.488, 843.595, -11.7611, "load animals", CL_RIPELEMON, 4000.0);
-    create3DText( 777.391, 844.812, -11.7623, "load animals", CL_RIPELEMON, 4000.0);
+    create3DText( 797.488, 843.595, -11.7611, "load animals", CL_RIPELEMON, 40.0);
+    create3DText( 777.391, 844.812, -11.7623, "load animals", CL_RIPELEMON, 40.0);
 });
