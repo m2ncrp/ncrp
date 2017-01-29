@@ -45,15 +45,16 @@ event("onServerStarted", function() {
     // load all vehicles from db
     Vehicle.findAll(function(err, results) {
         foreach (idx, vehicle in results) {
-            local veh = CustomVehicle( vehicle.model, vehicle.x, vehicle.y, vehicle.z, vehicle.rx, vehicle.ry, vehicle.rz );
+            // Use data from vehicle-metainfo.nut file to get seats in given model
+            // local seats = getSeatsNumber(vehicle.model);
+            local seats = 2;
+            local veh = CustomVehicle( vehicle.model, seats, vehicle.x, vehicle.y, vehicle.z, vehicle.rx, vehicle.ry, vehicle.rz );
             veh.setColor( vehicle.cra, vehicle.cga, vehicle.cba, vehicle.crb, vehicle.cgb, vehicle.cbb );
             veh.setPlate( vehicle.plate );
             veh.setTuning( vehicle.tunetable );
             veh.setOwner( vehicle.owner, vehicle.ownerid );
             veh.setFuel( vehicle.fuellevel );
             veh.setDirlLevel( vehicle.dirtlevel );
-
-            dbg("Owner: " + veh.ownership.owner + "; is owned: " + veh.isOwned());
 
             __vehicles.add(veh.vid, veh);
             counter++;

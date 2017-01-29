@@ -40,8 +40,6 @@ class OwnableVehicle extends NativeVehicle {
         } else if (ownerid) {
             this.ownership.ownerid = ownerid.tointeger();
         }
-
-        dbg("id: " + this.vid + "; owner: " + this.ownership.owner);
         return true;
     }
 
@@ -90,7 +88,6 @@ class OwnableVehicle extends NativeVehicle {
         addEventHandler("native:onPlayerVehicleEnter", function( playerid, vehicleid, seat ) {
             local vehicle = __vehicles.get(vehicleid);
             // check blocking
-            dbg( "VEH " + vehicle.isOwned() );
             if (vehicle.isOwned() && seat == 0) {
                 dbg("player", "vehicle", "enter", vehicle.getPlate(), getIdentity(playerid), "owned: " + vehicle.isOwner(playerid));
 
@@ -102,7 +99,6 @@ class OwnableVehicle extends NativeVehicle {
                     // Block it
                 }
             }
-            return 1;
         })
     ];
 }

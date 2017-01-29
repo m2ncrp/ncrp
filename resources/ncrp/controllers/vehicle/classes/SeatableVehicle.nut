@@ -1,6 +1,12 @@
 class SeatableVehicle extends OwnableVehicle
 {
+    maxPassengers = null;
     passengers = {};
+
+    constructor (model, seats, px, py, pz, rx = 0.0, ry = 0.0, rz = 0.0) {
+        base.constructor(model, px, py, pz, rx, ry, rz);
+        maxPassengers = seats;
+    }
 
     /**
      * Iterate over all players
@@ -44,7 +50,7 @@ class SeatableVehicle extends OwnableVehicle
      */
     function addPassenger(playerid, seat) {
         if (!(vid in passengers)) {
-            passengers[vehicleid] <- array(4, -1);
+            passengers[vid] <- array(maxPassengers, -1);
         }
         // push player to vehicle
         passengers[vid][seat] = playerid;
@@ -134,4 +140,19 @@ class SeatableVehicle extends OwnableVehicle
     function isPlayerDriver(playerid) {
         return isPlayerInVehicleSeat(playerid, 0);
     }
+
+
+    events = [
+        event("native:onPlayerVehicleEnter", function( playerid, vehicleid, seat ) {
+            // handle vehicle passangers
+            local veh = __vehicles.get(vehicleid);
+            veh.addPassenger(playerid, seat);
+        }),
+
+        event("native:onPlayerVehicleExit", function( playerid, vehicleid, seat ) {
+            // handle vehicle passangers
+            local veh = __vehicles.get(vehicleid);
+            veh.removePassenger(playerid, seat);
+        })
+    ];
 }
