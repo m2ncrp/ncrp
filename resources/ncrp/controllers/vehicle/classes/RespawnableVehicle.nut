@@ -16,7 +16,6 @@ class RespawnableVehicle extends SeatableVehicle {
 
     /**
      * Set if vehicle can be automatically respawned
-     * @param  {int} vehicleid
      * @param  {bool} value
      * @return {bool}
      */
@@ -96,4 +95,26 @@ class RespawnableVehicle extends SeatableVehicle {
         this.respawn.time = getTimestamp();
         return true;
     }
+
+
+
+    events = [
+        event("native:onPlayerVehicleEnter", function( playerid, vehicleid, seat ) {
+            // handle vehicle passangers
+            __vehicles.get(vehicleid).resetRespawnTimer();
+            this.save();
+
+            // trigger other events
+            // trigger("onPlayerVehicleEnter", playerid, vehicleid, seat);
+        }),
+
+        event("native:onPlayerVehicleExit", function( playerid, vehicleid, seat ) {
+            // handle vehicle passangers
+            __vehicles.get(vehicleid).resetRespawnTimer();
+            this.save();
+
+            // trigger other events
+            // trigger("onPlayerVehicleExit", playerid, vehicleid, seat);
+        })
+    ];
 }

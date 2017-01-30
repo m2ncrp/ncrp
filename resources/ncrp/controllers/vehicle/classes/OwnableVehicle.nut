@@ -85,7 +85,7 @@ class OwnableVehicle extends LockableVehicle {
 
 
     events = [
-        addEventHandler("native:onPlayerVehicleEnter", function( playerid, vehicleid, seat ) {
+        event("native:onPlayerVehicleEnter", function( playerid, vehicleid, seat ) {
             local vehicle = __vehicles.get(vehicleid);
             // check blocking
             if (vehicle.isOwned() && seat == 0) {
@@ -100,6 +100,15 @@ class OwnableVehicle extends LockableVehicle {
                     // Block it
                     vehicle.block();
                 }
+            }
+        }),
+
+        event("native:onPlayerVehicleExit", function( playerid, vehicleid, seat ) {
+            // handle vehicle passangers
+            local veh = __vehicles.get(vehicleid);
+            // check blocking
+            if ( veh.isOwned() && isOwner(playerid) ) {
+                veh.block();
             }
         })
     ];

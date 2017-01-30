@@ -1,5 +1,6 @@
 include("controllers/vehicle/commands.nut");
 
+include("controllers/vehicle/models/Vehicle.nut");
 include("controllers/vehicle/patterns/VehicleContainer.nut");
 
 include("controllers/vehicle/classes/NativeVehicle.nut");
@@ -7,6 +8,7 @@ include("controllers/vehicle/classes/LockableVehicle.nut");
 include("controllers/vehicle/classes/OwnableVehicle.nut");
 include("controllers/vehicle/classes/SeatableVehicle.nut");
 include("controllers/vehicle/classes/RespawnableVehicle.nut");
+include("controllers/vehicle/classes/SaveableVehicle.nut");
 include("controllers/vehicle/classes/CustomVehicle.nut");
 
 
@@ -57,27 +59,24 @@ event("onServerStarted", function() {
             veh.setFuel( vehicle.fuellevel );
             veh.setDirlLevel( vehicle.dirtlevel );
 
+            veh.setRespawnEx(false);
+            veh.setSaveable(true);
+            veh.setEntity(vehicle);
+
             __vehicles.add(veh.vid, veh);
             counter++;
         }
 
-        log("[vehicles] loaded " + counter + " vehicles from database.");
+        log("[vehicles] loaded " + counter + " vehicles from database. Totally " + __vehicles.len() + " vehicles on server.");
     });
 });
 
 // respawn cars and update passangers
 event("onServerMinuteChange", function() {
-
-});
-
-// handle vehicle enter
-event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
-
-});
-
-// handle vehicle exit
-event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
-
+    __vehicles.each(function(vehicleid, vehicle) {
+        vehicle.updatePassengers();
+        vehicle.tryRespawn();
+    }, true);
 });
 
 // force resetting vehicle position to death point

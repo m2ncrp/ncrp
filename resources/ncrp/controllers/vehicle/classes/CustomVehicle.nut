@@ -59,7 +59,7 @@ local vehicleFuelTankData = {
     model_53 = 38.0  , // walter_coupe
 };
 
-class CustomVehicle extends RespawnableVehicle
+class CustomVehicle extends SaveableVehicle
 {
     /**
      * Get fuel level for vehicle by vehicleid

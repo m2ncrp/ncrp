@@ -3,7 +3,7 @@
  * Some vehicle, e.g. trailers, couldn't be upgaded or don't have
  * lights so their parts are different.
  */
-class NativeVehicle {
+class NativeVehicle extends Vehicle {
     // Vehicle ID on the server
     vid = 0;
 
