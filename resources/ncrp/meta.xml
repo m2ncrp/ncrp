@@ -21,7 +21,7 @@
 
     <script type="client">inventory.nut</script>
     <script type="client">empirediner.nut</script>
-
+    <script type="client">peddialogs.nut</script>
     <!-- <script type="client">carshop.nut</script> -->
     <!-- <script type="client">bus.nut</script> -->
     <!-- <script type="client">extrasync.nut</script> -->
@@ -77,5 +77,7 @@
         <file>weight-bg.jpg</file>
 
         <file>empirediner.png</file>
+
+        <file>tutorial1.png</file>
 
 </meta>
