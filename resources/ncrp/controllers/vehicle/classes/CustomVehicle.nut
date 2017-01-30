@@ -61,6 +61,7 @@ local vehicleFuelTankData = {
 
 class CustomVehicle extends SaveableVehicle
 {
+    static classname = "CustomVehicle";
     /**
      * Get fuel level for vehicle by vehicleid
      * @param  {Integer} vehicleid

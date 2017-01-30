@@ -4,6 +4,7 @@
  * lights so their parts are different.
  */
 class NativeVehicle extends Vehicle {
+    static classname = "NativeVehicle";
     // Vehicle ID on the server
     vid = 0;
 

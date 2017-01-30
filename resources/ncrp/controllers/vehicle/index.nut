@@ -61,7 +61,6 @@ event("onServerStarted", function() {
 
             veh.setRespawnEx(false);
             veh.setSaveable(true);
-            veh.setEntity(vehicle);
 
             __vehicles.add(veh.vid, veh);
             counter++;

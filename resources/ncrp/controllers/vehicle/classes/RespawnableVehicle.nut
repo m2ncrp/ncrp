@@ -1,6 +1,7 @@
 VEHICLE_RESPAWN_PLAYER_DISTANCE <- pow(20, 2);
 
 class RespawnableVehicle extends SeatableVehicle {
+    static classname = "RespawnableVehicle";
     respawn = null;
 
     constructor (model, seats, px, py, pz, rx = 0.0, ry = 0.0, rz = 0.0) {

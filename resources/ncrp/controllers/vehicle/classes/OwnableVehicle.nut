@@ -1,4 +1,5 @@
 class OwnableVehicle extends LockableVehicle {
+    static classname = "OwnableVehicle";
     ownership = null;
 
     constructor (model, px, py, pz, rx = 0.0, ry = 0.0, rz = 0.0) {

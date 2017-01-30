@@ -1,5 +1,6 @@
 class SeatableVehicle extends OwnableVehicle
 {
+    static classname = "SeatableVehicle";
     maxPassengers = null;
     passengers = {};
 

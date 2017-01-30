@@ -2,14 +2,13 @@
  * Contain frags set by true if object wil be saved into database
  */
 class SaveableVehicle extends RespawnableVehicle {
+    static classname = "SaveableVehicle";
     saving = false;
-    entity = null;
 
     constructor (model, seats, px, py, pz, rx = 0.0, ry = 0.0, rz = 0.0) {
         base.constructor(model, seats, px, py, pz, rx, ry, rz);
 
         saving = false;
-        entity = null;
     }
 
 
@@ -29,10 +28,5 @@ class SaveableVehicle extends RespawnableVehicle {
      */
     function isSaveable() {
         return this.saving;
-    }
-
-
-    function setEntity(entity) {
-        return this.entity = entity;
     }
 }
