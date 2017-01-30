@@ -8,6 +8,7 @@ addEventHandler("onServerClientStarted", function(version) {
         [62,    -342.6,  -952.716, -21.7457,    -10.052,  -0.00627452,   0.00265012, "Edgard Ross" ], // ped near small port office on the pierce
         [52,    389.032,  128.104, -20.2027,      135.0, 0.000657043, -0.00108726, "Lao Chen" ], // ped at Seagift
         [75,    169.415, -334.993, -20.1634, 270.0, -0.000566336, -0.00311189, "Oliver Parks" ], // ped at Seagift
+        [171,   -720.586, 248.261, 0.365978, 51.2061, 0.000172777, -0.00688932, "Daniel  Burns" ], // ped at Seagift
     ];
 
     if (ticker) {
