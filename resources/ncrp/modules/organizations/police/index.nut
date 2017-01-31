@@ -391,7 +391,7 @@ event("onBatonBitStart", function (playerid) {
 
 event("onPlayerPhoneCall", function(playerid, number, place) {
     if (number == "police") {
-        policeCall(playerid, place);
+        policeCall(playerid, plocalize(playerid, place));
         dbg("chat", "police", getAuthor(playerid), place);
     }
 });

@@ -248,7 +248,7 @@ translation("en", {
 "telephone81" : "Southport. Road to Southport Tunnel"
 "telephone82" : "East Side. Near Linkoln Park"
 "telephone83" : "West Side. Backyard of West Side Mall (Market Arcade)"
-"telephone84" : "West Side. Near automotive repair shop"
+"telephone84" : "West Side. Opposite to taxi station"
 "telephone85" : "Uptown. Hieroglyph sculpture"
 "telephone86" : "Uptown. Backyard of Uptown Parking"
 "telephone87" : "Uptown. Bus station. Pair box"
@@ -361,7 +361,7 @@ event("onServerStarted", function() {
     //creating public 3dtext
     foreach (phone in telephones) {
         create3DText ( phone[0], phone[1], phone[2]+0.35, "TELEPHONE", CL_RIPELEMON, 6.0);
-        create3DText ( phone[0], phone[1], phone[2]+0.20, "Press 2", CL_WHITE.applyAlpha(150), 0.3 );
+        create3DText ( phone[0], phone[1], phone[2]+0.20, "Press 2", CL_WHITE.applyAlpha(150), 0.4 );
     }
 
 
@@ -388,6 +388,10 @@ function phoneJobRemovePrivateBlipText ( phone ) {
         removeBlip   ( phone[0] );
         //remove3DText ( phone[1] );
         //remove3DText ( phone[2] );
+}
+
+function getPhoneObj(phoneName) {
+    return telephones[phoneName.slice(9).tointeger()];
 }
 
 
@@ -486,7 +490,7 @@ function callByPhone (playerid, number = null, isbind = false) {
     }
 
     if(number == "taxi" || number == "police" || number == "dispatch" || number == "towtruck" ) {
-        return trigger("onPlayerPhoneCall", playerid, number, plocalize(playerid, budka[3]));
+        return trigger("onPlayerPhoneCall", playerid, number, budka[3] /*plocalize(playerid, budka[3])*/ );
     }
 
     local number = str_replace("555-", "", number);
