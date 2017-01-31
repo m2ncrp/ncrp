@@ -38,8 +38,8 @@ const BANK_OFFICE_Z = -10.6255;
 
 event("onServerStarted", function() {
     log("[jobs] loading bank...");
-    createVehicle(27, 124.65, -240.0, -19.8645, 180.0, 0.0, 0.0);   // securityCAR1
-    createVehicle(27, 124.65, -222.5, -19.8645, 180.0, 0.0, 0.0);   // securityCAR2
+    createVehicle(27, 124.65, -240.0, -20.061, 180.0, 0.0, 0.0);   // securityCAR1
+    createVehicle(27, 124.65, -222.5, -20.061, 180.0, 0.0, 0.0);   // securityCAR2
 /*
     //creating 3dtext for Bank
     create3DText ( BANK_X, BANK_Y, BANK_Z+0.35, "GRAND IMERIAL BANK", CL_ROYALBLUE );
