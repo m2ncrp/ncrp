@@ -25,7 +25,7 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
 
         msg(playerid, "empirecustom.phone.enter");
         msg(playerid, "empirecustom.phone.help", AD_TIMEOUT, CL_GRAY);
-
+        trigger(playerid, "hudCreateTimer", AD_TIMEOUT, true, true);
         local ad_sended = false;
 
         delayedFunction(AD_TIMEOUT*1000, function() {
@@ -49,7 +49,7 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
                 trigger("onRadioMessageSend", text);
                 //msg(playerid, "empirecustom.phone.ad", text, AD_COLOR);
             });
-        }, 90);
+        }, AD_TIMEOUT);
     }
 
 });
