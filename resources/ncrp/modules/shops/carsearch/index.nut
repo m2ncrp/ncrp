@@ -3,27 +3,46 @@ event("onServerStarted", function() {
 });
 
 translate("en", {
-    "shops.findcar.hello"  : "[CALL] Empire Bay Car Searching Services. We can find all your cars. It's cost $%.2f from bank account."
-    "shops.findcar.wait"   : "Searching... Please, wait..."
-    "shops.findcar.found"  : "[CALL] We found all your cars. Thanks for choosing Empire Bay Car Searching Services."
-    "shops.findcar.seemap" : "All your cars are shown on the map in 90 seconds."
-    "shops.findcar.nomoney" : "[CALL] Sorry, you don't have enough money in bank account. Good bye."
+    "shops.findcar.hello"       : "[CALL] Empire Bay Car Searching Services. We can find all your cars. It's cost $%.2f from bank account."
+    "shops.findcar.help"        : "To begin searching write 'yes' in chat for %d seconds."
+    "shops.findcar.wait"        : "Searching... Please, wait..."
+    "shops.findcar.found"       : "[CALL] We found all your cars. Thanks for choosing Empire Bay Car Searching Services. (hang up)"
+    "shops.findcar.seemap"      : "All your cars are shown on the map in 90 seconds."
+    "shops.findcar.notenough"   : "[CALL] Sorry, you don't have enough money in bank account. Good bye. (hang up)"
+    "shops.findcar.canceled"    : "[CALL] If you want to find cars, call to us. Good luck! (hang up)"
 });
 
-const FINDCAR_COST = 29.90;
+local FINDCAR_COST = 29.90;
+local FINDCAR_TIMEOUT = 30; // in seconds
 
 event("onPlayerPhoneCall", function(playerid, number, place) {
     if(number == "0000") {
+
         msg(playerid, "shops.findcar.hello", FINDCAR_COST, TELEPHONE_TEXT_COLOR);
 
-        delayedFunction(5000, function() {
             if(!canBankMoneyBeSubstracted(playerid, FINDCAR_COST)) {
                 return msg(playerid, "shops.findcar.nomoney", TELEPHONE_TEXT_COLOR);
             }
 
+        msg(playerid, "shops.findcar.help", FINDCAR_TIMEOUT, CL_GRAY);
+        trigger(playerid, "hudCreateTimer", FINDCAR_TIMEOUT, true, true);
+        local findcar = false;
+
+        delayedFunction(FINDCAR_TIMEOUT*1000, function() {
+            if (findcar == false) {
+                msg(playerid, "shops.findcar.canceled", TELEPHONE_TEXT_COLOR);
+            }
+        });
+
+        requestUserInput(playerid, function(playerid, text) {
+            if (text.tolower() != "yes" && text.tolower() != "'yes'" && text.tolower() != "да" && text.tolower() != "'да'") {
+                findcar = "canceled";
+                return msg(playerid, "shops.findcar.canceled", TELEPHONE_TEXT_COLOR);
+            }
+
             msg(playerid, "shops.findcar.wait");
             subBankMoneyToPlayer(playerid, FINDCAR_COST);
-
+            findcar = true;
             delayedFunction(10000, function() {
 
                 foreach (vehicleid, obj in __vehicles) {
@@ -39,7 +58,6 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
                 msg(playerid, "shops.findcar.seemap");
 
             });
-
-        });
+        }, FINDCAR_TIMEOUT);
     }
 });
