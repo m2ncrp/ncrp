@@ -207,7 +207,7 @@ addKeyboardHandler("x", "up", function(playerid) {
 });
 
 addKeyboardHandler("2", "up", function(playerid) {
-    if (isPlayerInVehicle(playerid) && isPlayerAdmin(playerid)) {
+    if (isPlayerInVehicle(playerid) && isPlayerAdmin(playerid) && !isPlayerCarTaxi(playerid)) {
         local vehicleid = getPlayerVehicle(playerid);
         local sp = getVehicleSpeed(vehicleid);
         setVehicleSpeed(vehicleid, sp[0], sp[1], sp[2] + 5.0);
