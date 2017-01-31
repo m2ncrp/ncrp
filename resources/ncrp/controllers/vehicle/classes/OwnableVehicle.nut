@@ -108,7 +108,7 @@ class OwnableVehicle extends LockableVehicle {
             // handle vehicle passangers
             local veh = __vehicles.get(vehicleid);
             // check blocking
-            if ( veh.isOwned() && isOwner(playerid) ) {
+            if ( veh.isOwned() && veh.isOwner(playerid) ) {
                 veh.block();
             }
         })

@@ -9,6 +9,7 @@ class NativeVehicle extends Vehicle {
     vid = 0;
 
     constructor(model, px, py, pz, rx = 0.0, ry = 0.0, rz = 0.0) {
+        base.constructor();
         this.vid = createVehicle(model, px, py, pz, rx, ry, rz);
     }
 

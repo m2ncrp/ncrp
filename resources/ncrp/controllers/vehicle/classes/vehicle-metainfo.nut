@@ -52,7 +52,7 @@ local vehicleMetaData = {
         back_left_door        = null,
         back_right_door       = null,
             // Engine power meta data
-        max_velocity          = 70.0,
+        max_velocity          = 120.0, // In Stock
 
     model_1  = "berkley_kingfisher_pha",
         max_fuel              = 90.0,

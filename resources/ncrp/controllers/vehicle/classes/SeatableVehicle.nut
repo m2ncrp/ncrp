@@ -137,19 +137,17 @@ class SeatableVehicle extends OwnableVehicle
     function isPlayerDriver(playerid) {
         return isPlayerInVehicleSeat(playerid, 0);
     }
-
-
-    events = [
-        event("native:onPlayerVehicleEnter", function( playerid, vehicleid, seat ) {
-            // handle vehicle passangers
-            local veh = __vehicles.get(vehicleid);
-            veh.addPassenger(playerid, seat);
-        }),
-
-        event("native:onPlayerVehicleExit", function( playerid, vehicleid, seat ) {
-            // handle vehicle passangers
-            local veh = __vehicles.get(vehicleid);
-            veh.removePassenger(playerid, seat);
-        })
-    ];
 }
+
+
+event("native:onPlayerVehicleEnter", function( playerid, vehicleid, seat ) {
+    // handle vehicle passangers
+    local veh = __vehicles.get(vehicleid);
+    veh.addPassenger(playerid, seat);
+});
+
+event("native:onPlayerVehicleExit", function( playerid, vehicleid, seat ) {
+    // handle vehicle passangers
+    local veh = __vehicles.get(vehicleid);
+    veh.removePassenger(playerid, seat);
+});

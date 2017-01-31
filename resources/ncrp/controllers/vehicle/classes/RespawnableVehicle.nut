@@ -102,8 +102,9 @@ class RespawnableVehicle extends SeatableVehicle {
     events = [
         event("native:onPlayerVehicleEnter", function( playerid, vehicleid, seat ) {
             // handle vehicle passangers
-            __vehicles.get(vehicleid).resetRespawnTimer();
-            this.save();
+            local veh = __vehicles.get(vehicleid);
+            veh.resetRespawnTimer();
+            veh.save();
 
             // trigger other events
             // trigger("onPlayerVehicleEnter", playerid, vehicleid, seat);
@@ -111,8 +112,9 @@ class RespawnableVehicle extends SeatableVehicle {
 
         event("native:onPlayerVehicleExit", function( playerid, vehicleid, seat ) {
             // handle vehicle passangers
-            __vehicles.get(vehicleid).resetRespawnTimer();
-            this.save();
+            local veh = __vehicles.get(vehicleid);
+            veh.resetRespawnTimer();
+            veh.save();
 
             // trigger other events
             // trigger("onPlayerVehicleExit", playerid, vehicleid, seat);

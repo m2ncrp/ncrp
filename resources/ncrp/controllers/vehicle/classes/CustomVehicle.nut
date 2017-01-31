@@ -62,6 +62,13 @@ local vehicleFuelTankData = {
 class CustomVehicle extends SaveableVehicle
 {
     static classname = "CustomVehicle";
+    engine = null;
+
+    constructor (model, seats, px, py, pz, rx = 0.0, ry = 0.0, rz = 0.0) {
+        base.constructor(model, seats, px, py, pz, rx, ry, rz);
+        engine = ComponentEngine(this.vid, true);
+    }
+
     /**
      * Get fuel level for vehicle by vehicleid
      * @param  {Integer} vehicleid
@@ -93,3 +100,35 @@ class CustomVehicle extends SaveableVehicle
     // }
 
 }
+
+
+// function playerEnteredVehicle( playerid, vehicleid, seat ) {
+//     local veh = _vehicle_queue[vehicleid];
+//     log( getPlayerName(playerid) + " entered vehicle " + vehicleid.tostring() + " (seat: " + seat.tostring() + ")." );
+
+//     log( veh.lights.getState().tostring() );
+//     delayedFunction(5650, function () {
+//         log("------------------> Done?");
+//         veh.engine.onPlayerVehicleEnter(seat);
+//     });
+//     // veh.engine.correct();
+//     veh.lights.correct();
+//     veh.gabarites.correct();
+//     return 1;
+// }
+// addEventHandler ( "onPlayerVehicleEnter", playerEnteredVehicle);
+
+
+// addEventHandler("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
+//     log(getPlayerName(playerid) + " #" + playerid + " JUST LEFT VEHICLE " + vehicleid.tostring() + " (seat: " + seat.tostring() + ")." );
+
+//     local veh = _vehicle_queue[vehicleid];
+//     log( veh.lights.getState().tostring() );
+//     veh.engine.onPlayerVehicleExit(seat);
+//     //  veh.engine.correct();
+//     delayedFunction(3000, function () {
+//         log("------------------> Done?");
+//         veh.lights.correct();
+//     });
+//     veh.gabarites.correct();
+// });

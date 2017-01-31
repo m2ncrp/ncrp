@@ -3,6 +3,8 @@ include("controllers/vehicle/commands.nut");
 include("controllers/vehicle/models/Vehicle.nut");
 include("controllers/vehicle/patterns/VehicleContainer.nut");
 
+include("controllers/vehicle/models/VehicleComponent.nut");
+
 include("controllers/vehicle/classes/NativeVehicle.nut");
 include("controllers/vehicle/classes/LockableVehicle.nut");
 include("controllers/vehicle/classes/OwnableVehicle.nut");
