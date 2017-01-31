@@ -128,3 +128,16 @@ function isPlayerInVehicleSeat(playerid, seat = 0) {
 function isPlayerVehicleDriver(playerid) {
     return isPlayerInVehicleSeat(playerid, 0);
 }
+
+/**
+ * Return playerid of vehicle driver
+ * or null if no driver in the vehicle
+ * @param  {[type]}  vehicleid [description]
+ * @return {int}
+ */
+function getVehicleDriver(vehicleid) {
+    if (0 in getVehiclePassengers(vehicleid)) {
+        return getVehiclePassengers(vehicleid)[0];
+    }
+    return null;
+}
