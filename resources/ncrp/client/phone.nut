@@ -60,6 +60,7 @@ addEventHandler("showPhoneGUI",showPhoneGUI);
 function hidePhoneGUI () {
 	guiSetVisible(window,false);
 	guiSetText( label[0], "");
+	guiSetText( input[0], "555-");
 	delayedFunction(100, hideCursor); //todo fix
 }
 
