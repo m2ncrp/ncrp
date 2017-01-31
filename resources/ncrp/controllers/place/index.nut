@@ -134,3 +134,7 @@ function isVehicleInPlace(vehicleid, name) {
     local pos = getVehiclePosition(vehicleid);
     return isInPlace(name, pos[0], pos[1]);
 }
+
+function isPlaceExists(name) {
+    return md5(name) in placeRegister;
+}
