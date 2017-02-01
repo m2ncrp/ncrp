@@ -16,7 +16,8 @@ local playerItems = {};
 local labelItems = array(31, null);
 local selectedSlot = -1;
 local clickedSlot = -1;
-local labelItemOffset = 50.0;
+local labelItemOffsetX = 46.0;
+local labelItemOffsetY = 50.0;
 local weight = array(3);
 
 local invWinW = 356.0;
@@ -77,9 +78,6 @@ function updateImage (id) {
         invWindow = guiCreateElement( ELEMENT_TYPE_WINDOW, "Инвентарь", 0.0, 0.0, 356.0, 465.0);
         charWindow = guiCreateElement( ELEMENT_TYPE_WINDOW, "Персонаж", 0.0, 0.0, 300.0, 465.0);
 
-        invItemImg[30] = guiCreateElement( ELEMENT_TYPE_IMAGE, "Item.None.jpg", 50.0, 50.0, 64.0, 64.0, false, charWindow);
-        labelItems[30] = guiCreateElement( ELEMENT_TYPE_LABEL, "", 50.0+labelItemOffset, 50.0+labelItemOffset, 15.0, 15.0, false, charWindow);
-
         //weight[0] = guiCreateElement( 13,"weight-bg.jpg", 10.0, 435.0, 346.0, 20.0, false, invWindow);
         //weight[1] = guiCreateElement( 13,"weight-front.jpg", 10.0, 435.0, 180.0, 20.0, false, invWindow);
         weight[0] = guiCreateElement( ELEMENT_TYPE_LABEL, "Переносимый груз 1.3/5.0 kg", 100.0, 435.0, 190.0, 20.0, false, invWindow);
@@ -91,7 +89,7 @@ function updateImage (id) {
     if(invWindow){
         if(!invItemImg[id]){
             invItemImg[id] = guiCreateElement( ELEMENT_TYPE_IMAGE, playerItems[id].classname+".jpg", InvItemsPos[id][0], InvItemsPos[id][1], 64.0, 64.0, false, invWindow);
-            labelItems[id] = guiCreateElement( ELEMENT_TYPE_LABEL, formatLabelText(id), InvItemsPos[id][0]+labelItemOffset, InvItemsPos[id][1]+labelItemOffset, 15.0, 15.0, false, invWindow);
+            labelItems[id] = guiCreateElement( ELEMENT_TYPE_LABEL, formatLabelText(id), InvItemsPos[id][0]+labelItemOffsetX, InvItemsPos[id][1]+labelItemOffsetY, 16.0, 15.0, false, invWindow);
             guiSetAlwaysOnTop(labelItems[id], true);
             guiSetAlpha(invItemImg[id], 0.75);
             return;
@@ -150,7 +148,10 @@ function formatLabelText(slot){
     if(playerItems[slot].type == "ITEM_TYPE.WEAPON"){
         return playerItems[slot].amount.tostring();
     }
-     if(playerItems[slot].type == "ITEM_TYPE.AMMO"){
+    if(playerItems[slot].type == "ITEM_TYPE.AMMO"){
+        return playerItems[slot].amount.tostring();
+    }
+    if(playerItems[slot].type == "ITEM_TYPE.CLOTHES"){
         return playerItems[slot].amount.tostring();
     }
     return "";
