@@ -20,6 +20,7 @@ gource.mp4
 
 # databases
 *.db
+resources/ncrp/scriptfiles/ncrp.db-journal
 
 # logs
 *.log
