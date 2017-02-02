@@ -20,11 +20,11 @@ function resetPlayerItems(playerid) {
 /**
  * Main method for loading items
  * @param {Integer} playerid
- * @param {Item.Item} item
+ * @param {Item.Abstract} item
  */
 function addPlayerItem(playerid, item) {
-    if (!(item instanceof Item.Item)) {
-        throw "onItemLoading: you've provided invalid item instance. Make sure it extends Item.Item";
+    if (!(item instanceof Item.Abstract)) {
+        throw "onItemLoading: you've provided invalid item instance. Make sure it extends Item.Abstract";
     }
 
     if (!(playerid in invItems)) {
