@@ -1,32 +1,3 @@
-enum ITEM_TYPE {
-    NONE,
-    FOOD,
-    DRUNK,
-    CLOTHES,
-    OTHER,
-    WEAPON,
-    AMMO,
-};
-
-ITEM_STATE <- {
-    NONE            = 0,
-    GROUND          = 1,
-    PLAYER_HAND     = 2,
-    PLAYER_INV      = 3,
-    VEHICLE_INV     = 4,
-    BUILDING_INV    = 5,
-};
-
-
-// big separate entities
-include("controllers/inventory/classes/Item.nut");
-include("controllers/inventory/classes/Weapon.nut");
-include("controllers/inventory/classes/Ammo.nut");
-include("controllers/inventory/classes/Clothes.nut");
-
-// small similar entities
-include("controllers/inventory/classes/weapons.nut");
-
 itemID <- {};
 
 itemID[  0 ] <- Item.None;
