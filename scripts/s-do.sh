@@ -6,7 +6,7 @@
 
 DEBUG="false"
 exeName=m2online-svr.exe
-xmlFile=globalSettings/env.xml
+xmlFile=../globalSettings/env.xml
 
 # {url}: http://stackoverflow.com/questions/1417957/show-just-the-current-branch-in-git/1418022#1418022
 branchName=$(git rev-parse --abbrev-ref HEAD)
@@ -19,7 +19,7 @@ DEBUG_HEADER() {
 		./XML.exe el -a $xmlFile
 		echo ""
 		# Show xml content with values
-		./XML.exe el -v $xmlFile	
+		./XML.exe el -v $xmlFile
 	fi
 }
 
@@ -33,7 +33,7 @@ DEBUG_FOOTER() {
 
 # {url}: http://stackoverflow.com/questions/9726143/searching-for-xml-tag-by-value-between-them-and-inserting-a-new-tag-in-shell-scr
 	# xmlstarlet ed -a '//p[n="hello"]/r/s' -t elem -n s -v 2.0 input.xml
-	# 
+	#
 # So now command will look like:
 # ./XML.exe ed -u "//server/@major" -v 2 globalSettings/env.xml
 # xmlstarlet.exe edit update "tag_path" value content <xml_path>
@@ -129,7 +129,7 @@ checkCommit() {
 		# update minor value for branch
 		xmlPath="//branch[@name='"$branchName"']/commit/@minor"
 		./XML.exe ed --inplace -u $xmlPath -v "$branchMinor" $xmlFile
-		
+
 		# update commit hash
 		xmlPath="//branch[@name='"$branchName"']/commit"
 		commitHash=$(git rev-parse HEAD)
@@ -144,6 +144,7 @@ checkCommit() {
 launch() {
 	# checkCommit
 	./s-autoconfig.sh
+	cd ..
 	./$exeName
 }
 
@@ -186,21 +187,21 @@ if [ "$1" = "-l" ]; then
 fi
 
 # Output last commit hash
-# 
+#
 # Usage: ./s-do.sh -c
 if [ "$1" == "-c" ]; then
 	checkCommit
 fi
 
 # Update current branch version
-# 
+#
 # Usage: ./s-do.sh -ub <flag> <value> [OPTION]
 # Flags are:
 	# "--m1" update major version value
 	# "--m2" update middle version value
 	# "--m3" update minor version value
 # Option is:
-	# "--all" update all branches 
+	# "--all" update all branches
 if [ "$1" == "-ub" ]; then
 	if [ -z "$4" ];	then
 		updateBranchVersion $2 $3
