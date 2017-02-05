@@ -1,12 +1,12 @@
 # Libraries
-// include("libraries/JSONEncoder.class.nut", INCLUDE_GLOBAL);
-// include("libraries/JSONParser.class.nut", INCLUDE_GLOBAL);
-// include("libraries/debug.nut", INCLUDE_GLOBAL);
-// include("helpers/array.nut", INCLUDE_GLOBAL);
-// include("helpers/function.nut", INCLUDE_GLOBAL);
-// include("helpers/math.nut", INCLUDE_GLOBAL);
-// include("helpers/string.nut", INCLUDE_GLOBAL);
-// include("helpers/table.nut", INCLUDE_GLOBAL);
+include("libraries/JSONEncoder.class.nut", INCLUDE_GLOBAL);
+include("libraries/JSONParser.class.nut", INCLUDE_GLOBAL);
+include("libraries/debug.nut", INCLUDE_GLOBAL);
+include("helpers/array.nut", INCLUDE_GLOBAL);
+include("helpers/function.nut", INCLUDE_GLOBAL);
+include("helpers/math.nut", INCLUDE_GLOBAL);
+include("helpers/string.nut", INCLUDE_GLOBAL);
+include("helpers/table.nut", INCLUDE_GLOBAL);
 
 # aliases
 event <- addEventHandler;
