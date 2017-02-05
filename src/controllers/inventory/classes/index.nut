@@ -16,6 +16,7 @@ include("controllers/inventory/classes/Item/Ammo.nut");
 include("controllers/inventory/classes/Item/Clothes.nut");
 
 include("controllers/inventory/classes/ItemContainer.nut");
+include("controllers/inventory/classes/PlayerItemContainer.nut");
 
 // add shortcuts overrides
 Item.findBy <- function(condition, callback) {

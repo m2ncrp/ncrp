@@ -37,4 +37,21 @@ class Item.Abstract extends ORM.Entity
     function calculateWeight () {
         return this.weight;
     }
+
+    function serialize() {
+        local data = {
+            classname = this.classname,
+            type      = this.getType(),
+            slot      = this.slot,
+            amount    = this.amount,
+            weight    = this.weight,
+        };
+
+        return data;
+        // return JSONEncoder.encode(data);
+    }
+
+    static function getType() {
+        return "Item.Abstract";
+    }
 }

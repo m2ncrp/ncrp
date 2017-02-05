@@ -9,4 +9,8 @@ class Item.None extends Item.Abstract
     function save() {
         return;
     }
+
+    static function getType() {
+        return "Item.None";
+    }
 }

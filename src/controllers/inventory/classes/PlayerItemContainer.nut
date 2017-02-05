@@ -1,8 +1,11 @@
-class PlayerItemContainer extends Container
+class PlayerItemContainer extends ItemContainer
 {
     id      = null;
     parent  = null;
     limit   = 35;
+
+    sizeX = 5;
+    sizeY = 6;
 
     /**
      * Create new instance

@@ -5,4 +5,8 @@ class Item.Clothes extends Item.Abstract
     function use(playerid) {
         msg(playerid, format("you used: %s with model: %s", this.classname, this.amount));
     }
+
+    static function getType() {
+        return "Item.Clothes";
+    }
 }

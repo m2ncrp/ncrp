@@ -132,15 +132,15 @@ function include(filename, type = INCLUDE_LOCAL) {
 
 // prebind/redefine default client stuff
 addEventHandler <- function(...) {};
-getScreenSize <- function(...) { return [640, 480]; };
-bindKey <- function(...) {};
-MAX_PLAYERS <- 10;
+getScreenSize   <- function(...) { return [640, 480]; };
+bindKey         <- function(...) {};
+MAX_PLAYERS     <- 10;
 
 // load includes
 print("staring client build...\n");
 include("client.nut", INCLUDE_GLOBAL);
 
 print("saving to file...\t - ");
-writeclosuretofile("webserver/index.nut", compilestring(data));
+// writeclosuretofile("webserver/index.nut", compilestring(data));
 savedumptofile("resources/ncrp/client/index.nut", data);
 print("OK\n");
