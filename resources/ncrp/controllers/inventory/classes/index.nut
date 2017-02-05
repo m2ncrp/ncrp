@@ -17,6 +17,19 @@ include("controllers/inventory/classes/Item/Clothes.nut");
 
 include("controllers/inventory/classes/ItemContainer.nut");
 
+// add shortcuts overrides
+Item.findBy <- function(condition, callback) {
+    return Item.Abstract.findBy(condition, callback);
+};
+
+Item.findOneBy <- function(condition, callback) {
+    return Item.Abstract.findOneBy(condition, callback);
+};
+
+Item.findAll <- function(callback) {
+    return Item.Abstract.findAll(callback);
+};
+
 /**
  * Weapons
  */
