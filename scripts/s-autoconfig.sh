@@ -1,8 +1,8 @@
-name_begin=".:: [RC3] Night City RolePlay (Open Beta Test v"  
+name_begin=".:: [RC3] Night City RolePlay (Open Beta Test v"
 name_end=") FREE TODAY :D ::."
-cfg=config.xml
-envFile=globalSettings/env.xml
-versionFile=globalSettings/version.ver
+cfg=../config.xml
+envFile=../globalSettings/env.xml
+versionFile=../globalSettings/version.ver
 
 branchName=$(git rev-parse --abbrev-ref HEAD)
 
@@ -21,14 +21,14 @@ echo -e "\t<weburl>bit.ly/nc-rp</weburl>" >> $cfg
 echo -e "\t<password />" >> $cfg
 echo -e "\t<resources>" >> $cfg
 
-cd ./resources/
+cd ../resources/
 for i in $(find */ -maxdepth 0 -type d)
 do
 	i=${i%*/}
     # echo "$i"
-    echo -e "\t\t<resource>"${i##*/}"</resource>" >> ../$cfg
+    echo -e "\t\t<resource>"${i##*/}"</resource>" >> $cfg
 done
-cd ..
+#cd ..
 
 echo -e "\t</resources>" >> $cfg
 echo -e "\t<serverkey />" >> $cfg
