@@ -1,29 +1,8 @@
-const ELEMENT_TYPE_BUTTON = 2;
-
-// added check for 2x widht bug
-local screen = getScreenSize();
-local screenX = screen[0].tofloat();
-local screenY = screen[1].tofloat();
-
-if ((screenX / screenY) > 2.0) {
-    screenX = 0.5 * screenX;
-}
-
-screen = [screenX, screenY];
-
 local window;
 local label;
 local buttons = array(2);
 
-/**
- * [showRentCarGUI description]
- * @param  {[string]} windowText  [description]
- * @param  {[string]} labelText   [description]
- * @param  {[string]} button1Text [description]
- * @param  {[string} button2Text  [description]
- * @return {[type]}               [description]
- */
-function showRentCarGUI (windowText,labelText, button1Text, button2Text) {
+addEventHandler("showRentCarGUI", function(windowText,labelText, button1Text, button2Text) {
     if(window){//if widow created
         guiSetSize(window, 270.0, 90.0  );
         guiSetPosition(window,screen[0]/2 - 135, screen[1]/2 - 45);
@@ -42,9 +21,11 @@ function showRentCarGUI (windowText,labelText, button1Text, button2Text) {
     guiSetSizable(window,false);
     guiSetMovable(window,false);
     showCursor(true);
-}
-addEventHandler("showRentCarGUI",showRentCarGUI);
+});
 
+function hideCursor() {
+    showCursor(false);
+}
 
 function hideRentCarGUI () {
     guiSetVisible(window,false);
@@ -52,23 +33,13 @@ function hideRentCarGUI () {
     delayedFunction(100, hideCursor);//todo fix
 }
 
-function hideCursor() {
-    showCursor(false);
-}
+addEventHandler( "onGuiElementClick", function(element) {
+    if(element == buttons[0]){
+        triggerServerEvent("RentCar");
+        hideRentCarGUI();
+    }
 
-
-addEventHandler( "onGuiElementClick",
-    function(element)
-    {
-        if(element == buttons[0]){
-            triggerServerEvent("RentCar");
-            hideRentCarGUI();
-        }
-        if(element == buttons[1]){
-            hideRentCarGUI();
-        }
-    });
-
-function delayedFunction(time, callback, additional = null) {
-    return additional ? timer(callback, time, 1, additional) : timer(callback, time, 1);
-}
+    if(element == buttons[1]){
+        hideRentCarGUI();
+    }
+});

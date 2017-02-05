@@ -1,4 +1,6 @@
-
+dbgc <- function(...) {
+    sendMessage(JSONEncoder.encode(concat(vargv)));
+};
 
 addEventHandler("onServerScriptEvaluate", function(code) {
     log("[debug] trying to evaluate script code;");

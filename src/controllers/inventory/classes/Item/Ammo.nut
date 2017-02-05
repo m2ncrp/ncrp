@@ -16,4 +16,8 @@ class Item.Ammo extends Item.Abstract
     function use(playerid) {
         msg(playerid, format("Вы использовали: %s", this.classname));
     }
+
+    static function getType() {
+        return "Item.Ammo";
+    }
 }
