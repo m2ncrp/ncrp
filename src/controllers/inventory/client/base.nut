@@ -1,14 +1,4 @@
 const MAX_INVENTORY_SLOTS = 30;
-const ELEMENT_TYPE_IMAGE = 13;
-local screen = getScreenSize();
-local screenX = screen[0].tofloat();
-local screenY = screen[1].tofloat();
-
-if ((screenX / screenY) > 2.0) {
-    screenX = 0.5 * screenX;
-}
-
-screen = [screenX, screenY];
 
 local invWindow;
 local invItemImg = array(31, null);

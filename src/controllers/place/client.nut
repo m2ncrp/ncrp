@@ -3,10 +3,6 @@ local placeRegistry = {};
 local ticker = null;
 local buffer = [];
 
-addEventHandler("onServerClientStarted", function(version) {
-    ticker = timer(onPlayerTick, 100, -1);
-});
-
 addEventHandler("onServerPlaceAdded", function(id, x1, y1, x2, y2) {
     // log("registering place with id " + id);
     // log(format("x1: %f y1: %f;  x2: %f y2: %f;", x1, y1, x2, y2));
@@ -115,3 +111,7 @@ function onPlayerTick() {
         }
     }
 }
+
+addEventHandler("onServerClientStarted", function(version) {
+    ticker = timer(onPlayerTick, 100, -1);
+});

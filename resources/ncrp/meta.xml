@@ -6,7 +6,7 @@
     <!-- non-packed client scripts -->
     <script type="client">gui_bank.nut</script>
     <script type="client">gui_alert.nut</script>
-    <script type="client">gui_phtone.nut</script>
+    <script type="client">gui_phone.nut</script>
     <script type="client">gui_carshop.nut</script>
     <script type="client">gui_character.nut</script>
     <script type="client">gui_empirediner.nut</script>

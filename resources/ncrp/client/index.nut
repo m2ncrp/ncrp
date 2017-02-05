@@ -17,8 +17,25 @@
 
 
 
-# aliases
+
+# aliases and special stuff
 event <- addEventHandler;
+
+screen  <- getScreenSize();
+screenX <- screen[0].tofloat();
+screenY <- screen[1].tofloat();
+
+if ((screenX / screenY) > 2.0) {
+    screenX = 0.5 * screenX;
+}
+
+screen = [screenX, screenY];
+centerX <- screenX * 0.5;
+centerY <- screenY * 0.5;
+
+ELEMENT_TYPE_BUTTON <- 2;
+ELEMENT_TYPE_IMAGE <- 13;
+
 
 # Controllers
 
@@ -30,6 +47,9 @@ event <- addEventHandler;
 
 
 
+
+
+// 
 
 
 
@@ -1451,14 +1471,6 @@ function onSecondChanged() {
     );
 }
 
-local screen  = getScreenSize();
-local screenX = screen[0].tofloat();
-local screenY = screen[1].tofloat();
-
-if ((screenX / screenY) > 2.0) {
-    screenX = 0.5 * screenX;
-}
-
 local centerX = screenX * 0.5;
 local centerY = screenY * 0.5;
 
@@ -1755,10 +1767,6 @@ local placeRegistry = {};
 local ticker = null;
 local buffer = [];
 
-addEventHandler("onServerClientStarted", function(version) {
-    ticker = timer(onPlayerTick, 100, -1);
-});
-
 addEventHandler("onServerPlaceAdded", function(id, x1, y1, x2, y2) {
     // log("registering place with id " + id);
     // log(format("x1: %f y1: %f;  x2: %f y2: %f;", x1, y1, x2, y2));
@@ -1867,6 +1875,10 @@ function onPlayerTick() {
         }
     }
 }
+
+addEventHandler("onServerClientStarted", function(version) {
+    ticker = timer(onPlayerTick, 100, -1);
+});
 })();
 (function() {
 addEventHandler("onServerKeyboardRegistration", function(key, state) {
@@ -1903,7 +1915,9 @@ bindKey("enter", "down", function() {
 addEventHandler("onServerFreezePlayer", onServerFreezePlayer);
 })();
 (function() {
-
+dbgc <- function(...) {
+    sendMessage(JSONEncoder.encode(concat(vargv)));
+};
 
 addEventHandler("onServerScriptEvaluate", function(code) {
     log("[debug] trying to evaluate script code;");
@@ -2158,19 +2172,6 @@ event("onClientPlayerDisconnect", function(playerid) {
 });
 })();
 (function() {
-const ELEMENT_TYPE_BUTTON = 2;
-
-// added check for 2x widht bug
-local screen = getScreenSize();
-local screenX = screen[0].tofloat();
-local screenY = screen[1].tofloat();
-
-if ((screenX / screenY) > 2.0) {
-    screenX = 0.5 * screenX;
-}
-
-screen = [screenX, screenY];
-
 local window;
 local input = array(3);
 local label = array(4);
@@ -2379,193 +2380,100 @@ addEventHandler("onServerPressEnter", function() {
 });
 })();
 (function() {
-const MAX_INVENTORY_SLOTS = 30;
-const ELEMENT_TYPE_IMAGE = 13;
-local screen = getScreenSize();
-local screenX = screen[0].tofloat();
-local screenY = screen[1].tofloat();
+event("invetory:onServerItemAdd", function(id) {});
+event("invetory:onServerItemMove", function(id) {});
+event("invetory:onServerItemDrop", function(id) {});
+event("invetory:onServerItemRemove", function(id) {});
 
-if ((screenX / screenY) > 2.0) {
-    screenX = 0.5 * screenX;
-}
+local storage = {};
 
-screen = [screenX, screenY];
+class Inventory
+{
+    id      = null;
+    data    = null;
+    handle  = null;
+    items   = null;
 
-local invWindow;
-local invItemImg = array(31, null);
-local playerItems = {};
-local labelItems = array(31, null);
-local selectedSlot = -1;
-local clickedSlot = -1;
-local labelItemOffsetX = 46.0;
-local labelItemOffsetY = 50.0;
-local weight = array(3);
+    guiTopOffset    = 20.0;
+    guiPadding      = 5.0;
+    guiCellSize     = 64.0;
 
-local invWinW = 356.0;
-local invWinH = 465.0;
-local invWinPosOffsetX = 0.0;
-local invWinPosOffsetY = 232.5;
+    guiLableItemOffsetX = 46.0;
+    guiLableItemOffsetY = 50.0;
 
-local charWindow;
-local charItemImg = array(5, null);
-local charLabelsItem = array(5, null);
+    constructor(id, data) {
+        this.id     = id;
+        this.data   = data;
+        this.items  = {};
 
-local InvItemsPos =
-[
-    [10.0,25.0],    [78.0,25.0],    [146.0,25.0],   [214.0,25.0],   [282.0,25.0],
-    [10.0,93.0],    [78.0,93.0],    [146.0,93.0],   [214.0,93.0],   [282.0,93.0],
-    [10.0,161.0],   [78.0,161.0],   [146.0,161.0],  [214.0,161.0],  [282.0,161.0],
-    [10.0,229.0],   [78.0,229.0],   [146.0,229.0],  [214.0,229.0],  [282.0,229.0],
-    [10.0,297.0],   [78.0,297.0],   [146.0,297.0],  [214.0,297.0],  [282.0,297.0],
-    [10.0,365.0],   [78.0,365.0],   [146.0,365.0],  [214.0,365.0],  [282.0,365.0]
-];
-
-/*
-local CharItemsPos =
-[
-];
-*/
-
-addEventHandler("onServerSyncItems", function(slot,classname,amount, type, weight){  //slot, classname, amout, type
-    playerItems[slot.tointeger()] <- {classname = classname, amount = amount.tointeger(), type = type};
-    updateImage(slot.tointeger());
-    log(format("onServerSyncItems - slot: %s, classname: %s, amount: %s, type: %s, totalweight: %s", slot, classname,amount,type,weight));
-});
-
-function Inventory () {
-    if(guiIsVisible(invWindow)){
-        guiSetVisible(invWindow, false);
-        guiSetVisible(charWindow, false);
-        showCursor(false);
+        return this.createGUI();
     }
-    else {
-        guiSetPosition(invWindow,screen[0]/2, screen[1]/2 -232.5);
-        guiSetSize(invWindow,356.0, 465.0);
-        guiSetSizable(invWindow,false);
 
-        guiSetPosition(charWindow,screen[0]/2  - 305.0, screen[1]/2 - 232.5);
-        guiSetSize(charWindow,300.0, 465.0);
-        guiSetSizable(charWindow,false);
-
-        guiSetVisible(invWindow, true);
-        guiSetVisible(charWindow, true);
-        showCursor(true);
-    }
-}
-addEventHandler("onPlayerInventorySwitch", Inventory);
-
-function updateImage (id) {
-     if(!invWindow){
-        invWindow = guiCreateElement( ELEMENT_TYPE_WINDOW, "Инвентарь", 0.0, 0.0, 356.0, 465.0);
-        charWindow = guiCreateElement( ELEMENT_TYPE_WINDOW, "Персонаж", 0.0, 0.0, 300.0, 465.0);
-
-        //weight[0] = guiCreateElement( 13,"weight-bg.jpg", 10.0, 435.0, 346.0, 20.0, false, invWindow);
-        //weight[1] = guiCreateElement( 13,"weight-front.jpg", 10.0, 435.0, 180.0, 20.0, false, invWindow);
-        weight[0] = guiCreateElement( ELEMENT_TYPE_LABEL, "Переносимый груз 1.3/5.0 kg", 100.0, 435.0, 190.0, 20.0, false, invWindow);
-       // guiSetAlwaysOnTop(weight[1], true);
-        //guiSetAlwaysOnTop(weight[2], true);
-        guiSetVisible(invWindow, false);
-        guiSetVisible(charWindow, false);
-    }
-    if(invWindow){
-        if(!invItemImg[id]){
-            invItemImg[id] = guiCreateElement( ELEMENT_TYPE_IMAGE, playerItems[id].classname+".jpg", InvItemsPos[id][0], InvItemsPos[id][1], 64.0, 64.0, false, invWindow);
-            labelItems[id] = guiCreateElement( ELEMENT_TYPE_LABEL, formatLabelText(id), InvItemsPos[id][0]+labelItemOffsetX, InvItemsPos[id][1]+labelItemOffsetY, 16.0, 15.0, false, invWindow);
-            guiSetAlwaysOnTop(labelItems[id], true);
-            guiSetAlpha(invItemImg[id], 0.75);
-            return;
+    function formatLabelText(item) {
+        switch (item.type) {
+            case "Item.None":       return "";
+            case "Item.Weapon":     return item.amount.tostring();
+            case "Item.Ammo":       return item.amount.tostring();
+            case "Item.Clothes":    return item.amount.tostring();
         }
-        else {
-            guiDestroyElement(invItemImg[id]);
-            invItemImg[id] = guiCreateElement( ELEMENT_TYPE_IMAGE, playerItems[id].classname+".jpg", InvItemsPos[id][0], InvItemsPos[id][1], 64.0, 64.0, false, invWindow);
-            guiSetText(labelItems[id], formatLabelText(id));
-            guiSetAlpha(invItemImg[id], 0.75);
-            return;
-        }
-    }
-}
 
-
-addEventHandler( "onGuiElementClick",
-    function( element ){
-        for(local i = 0; i < MAX_INVENTORY_SLOTS; i++){
-            /*if(element == invWindow){
-                if(selectedSlot != -1){
-                    guiSetAlpha(invItemImg[selectedSlot], 0.8);
-                    return selectedSlot = -1;
-                }
-            }*/
-            if(element == invItemImg[i]){
-               clickedSlot = i;
-                if(selectedSlot != -1 && i != selectedSlot){
-                    triggerServerEvent("onPlayerMoveItem", selectedSlot, clickedSlot)
-                    //sendMessage("onPlayerMoveItem: selected: "+selectedSlot+ "clicked: "+clickedSlot);
-                    guiSetAlpha(invItemImg[selectedSlot], 0.75);
-                    return selectedSlot = -1; //reset select
-                }
-                if(selectedSlot != -1 && i == selectedSlot){
-                    //sendMessage("DOUBLE CLICK: selected: "+selectedSlot+ "clicked: "+clickedSlot);
-                    triggerServerEvent("onPlayerUseItem", selectedSlot.tostring());
-                    guiSetAlpha(invItemImg[selectedSlot], 0.75);
-                    return selectedSlot = -1;
-                }
-                if(playerItems[i].type != "ITEM_TYPE.NONE"){
-                    guiSetAlpha(invItemImg[i], 1.0);
-                    return selectedSlot = i;
-                }
-                //sendMessage("clickid: "+clickedSlot+ "selectid: "+selectedSlot+"");
-            }
-
-        }
-});
-
-
-
-
-function formatLabelText(slot){
-    if(playerItems[slot].type == "ITEM_TYPE.NONE"){
         return "";
     }
-    if(playerItems[slot].type == "ITEM_TYPE.WEAPON"){
-        return playerItems[slot].amount.tostring();
-    }
-    if(playerItems[slot].type == "ITEM_TYPE.AMMO"){
-        return playerItems[slot].amount.tostring();
-    }
-    if(playerItems[slot].type == "ITEM_TYPE.CLOTHES"){
-        return playerItems[slot].amount.tostring();
-    }
-    return "";
 
+    function updateGUI(data) {
+
+    }
+
+    function createGUI() {
+        local sizex = ((this.data.sizeX * (this.guiCellSize + this.guiPadding * 2)) + this.guiPadding * 2).tofloat();
+        local sizey = ((this.data.sizeY * (this.guiCellSize + this.guiPadding * 2)) + this.guiPadding * 2).tofloat();
+
+        this.handle = guiCreateElement(ELEMENT_TYPE_WINDOW, this.data.title, centerX - sizex / 2, centerY - sizey / 2, sizex, sizey);
+
+        foreach (idx, item in this.data.items) {
+            dbgc(item);
+            dbg(item);
+            local posx = this.guiPadding + (floor(item.slot % this.data.sizeX) * this.guiCellSize + this.guiPadding);
+            local posy = this.guiPadding + (floor(item.slot / this.data.sizeX) * this.guiCellSize + this.guiPadding) + this.guiTopOffset;
+
+            item.handle <- guiCreateElement( ELEMENT_TYPE_IMAGE, item.classname + ".jpg", posx, posy, this.guiCellSize, this.guiCellSize, false, this.handle);
+            item.label  <- guiCreateElement( ELEMENT_TYPE_LABEL, this.formatLabelText(item), posx + this.guiLableItemOffsetX, posy + this.guiLableItemOffsetY, 16.0, 15.0, false, this.handle);
+
+            this.items[item.slot] <- item;
+        }
+
+        return true;
+    }
 }
+
+event("invetory:onServerOpen", function(id, data) {
+    local data = JSONParser.parse(data);
+
+    dbgc("openning gui.");
+
+    if (!(id in storage)) {
+        storage[id] <- Inventory(id, data);
+        dbgc("creating gui.");
+    } else {
+        dbgc("updating gui.");
+        storage[id].updateGUI(data);
+        guiSetVisible(storage[id].handle, true);
+    }
+});
+
+event("inventory:onServerClose", function(id) {
+    dbgc("closing gui.");
+    if (id in storage) {
+        guiSetVisible(storage[id].handle, false);
+    }
+});
 })();
 (function() {
-const ELEMENT_TYPE_BUTTON = 2;
-
-// added check for 2x widht bug
-local screen = getScreenSize();
-local screenX = screen[0].tofloat();
-local screenY = screen[1].tofloat();
-
-if ((screenX / screenY) > 2.0) {
-    screenX = 0.5 * screenX;
-}
-
-screen = [screenX, screenY];
-
 local window;
 local label;
 local buttons = array(2);
 
-/**
- * [showRentCarGUI description]
- * @param  {[string]} windowText  [description]
- * @param  {[string]} labelText   [description]
- * @param  {[string]} button1Text [description]
- * @param  {[string} button2Text  [description]
- * @return {[type]}               [description]
- */
-function showRentCarGUI (windowText,labelText, button1Text, button2Text) {
+addEventHandler("showRentCarGUI", function(windowText,labelText, button1Text, button2Text) {
     if(window){//if widow created
         guiSetSize(window, 270.0, 90.0  );
         guiSetPosition(window,screen[0]/2 - 135, screen[1]/2 - 45);
@@ -2584,9 +2492,11 @@ function showRentCarGUI (windowText,labelText, button1Text, button2Text) {
     guiSetSizable(window,false);
     guiSetMovable(window,false);
     showCursor(true);
-}
-addEventHandler("showRentCarGUI",showRentCarGUI);
+});
 
+function hideCursor() {
+    showCursor(false);
+}
 
 function hideRentCarGUI () {
     guiSetVisible(window,false);
@@ -2594,24 +2504,14 @@ function hideRentCarGUI () {
     delayedFunction(100, hideCursor);//todo fix
 }
 
-function hideCursor() {
-    showCursor(false);
-}
+addEventHandler( "onGuiElementClick", function(element) {
+    if(element == buttons[0]){
+        triggerServerEvent("RentCar");
+        hideRentCarGUI();
+    }
 
-
-addEventHandler( "onGuiElementClick",
-    function(element)
-    {
-        if(element == buttons[0]){
-            triggerServerEvent("RentCar");
-            hideRentCarGUI();
-        }
-        if(element == buttons[1]){
-            hideRentCarGUI();
-        }
-    });
-
-function delayedFunction(time, callback, additional = null) {
-    return additional ? timer(callback, time, 1, additional) : timer(callback, time, 1);
-}
+    if(element == buttons[1]){
+        hideRentCarGUI();
+    }
+});
 })();
