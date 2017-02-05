@@ -8,6 +8,9 @@ include("helpers/math.nut", INCLUDE_GLOBAL);
 include("helpers/string.nut", INCLUDE_GLOBAL);
 include("helpers/table.nut", INCLUDE_GLOBAL);
 
+# aliases
+event <- addEventHandler;
+
 # Controllers
 include("controllers/3dtext/client.nut");
 include("controllers/blip/client.nut");
