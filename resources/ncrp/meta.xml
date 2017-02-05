@@ -3,15 +3,20 @@
     <script type="server">index.nut</script>
     <script type="client">index.nut</script>
 
-    <!-- <file>screamer.jpg</file> -->
+    <!-- non-packed client scripts -->
+    <script type="client">gui_bank.nut</script>
+    <script type="client">gui_alert.nut</script>
+    <script type="client">gui_phtone.nut</script>
+    <script type="client">gui_carshop.nut</script>
+    <script type="client">gui_character.nut</script>
+    <script type="client">gui_empirediner.nut</script>
+    <script type="client">ped_creation.nut</script>
+    <script type="client">ped_dialog.nut</script>
+    <script type="client">other_gps.nut</script>
+
+    <!-- images -->
     <file>logo.png</file>
     <file>other_mask.png</file>
-
-    <!-- <file>fine.png</file> -->
-    <!-- <file>diamondmotors.png</file> -->
-    <!-- <file>id_0.jpg</file> -->
-    <!-- <file>bank.png</file> -->
-
     <file>lang_en.png</file>
     <file>lang_ru.png</file>
 
