@@ -63,31 +63,6 @@ local modelsData =
 local playerLocale;
 
 
-
-addEventHandler("onServerCharacterLoading", function(id,firstname, lastname, race, sex, birthdate, money, deposit, cskin){
-    local char = {};
-    char.Id <- id.tointeger();
-    char.Firstname <- firstname;
-    char.Lastname <- lastname;
-    char.Race <- race.tointeger();
-    char.Sex <- sex.tointeger();
-    char.Bdate <- birthdate;
-    char.money <- money.tofloat();
-    char.deposit <- deposit.tofloat();
-    char.cskin <- cskin.tointeger();
-    characters.push( char );
-
-    log("pushing character with name:" + firstname + " " + lastname);
-});
-
-addEventHandler("onServerCharacterLoaded", function(locale){
-    playerLocale = locale;
-    loadTraslation();
-    charactersCount = characters.len();
-    formatCharacterSelection();
-    showChat(false);
-});
-
 function loadTraslation(){
     translation.clear();
     local text = {};
@@ -481,9 +456,6 @@ function getSexFromId (id) {
     }
 }
 
-function delayedFunction(time, callback, additional = null) {
-    return additional ? timer(callback, time, 1, additional) : timer(callback, time, 1);
-}
 
 
 addEventHandler("onClientFrameRender", function(a) {
@@ -502,10 +474,6 @@ addEventHandler("onClientFrameRender", function(a) {
     }
 });
 
-addEventHandler("onClientScriptInit", function() {
-    kektimer = timer(otherPlayerLock, 100, -1);
-});
-
 function otherPlayerLock(){
     if (!otherPlayerLocked){
         if(kektimer.IsActive()){
@@ -518,3 +486,31 @@ function otherPlayerLock(){
     }
 }
 
+addEventHandler("onServerCharacterLoading", function(id,firstname, lastname, race, sex, birthdate, money, deposit, cskin){
+    local char = {};
+    char.Id <- id.tointeger();
+    char.Firstname <- firstname;
+    char.Lastname <- lastname;
+    char.Race <- race.tointeger();
+    char.Sex <- sex.tointeger();
+    char.Bdate <- birthdate;
+    char.money <- money.tofloat();
+    char.deposit <- deposit.tofloat();
+    char.cskin <- cskin.tointeger();
+    characters.push( char );
+
+    log("pushing character with name:" + firstname + " " + lastname);
+});
+
+addEventHandler("onServerCharacterLoaded", function(locale){
+    playerLocale = locale;
+    loadTraslation();
+    charactersCount = characters.len();
+    formatCharacterSelection();
+    showChat(false);
+});
+
+
+addEventHandler("onClientScriptInit", function() {
+    kektimer = timer(otherPlayerLock, 100, -1);
+});

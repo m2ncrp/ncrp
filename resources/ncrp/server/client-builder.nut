@@ -25,6 +25,67 @@ function read(filename) {
 }
 
 /**
+ * Replace occurances of "search" to "replace" in the "subject"
+ * @param  {string} search
+ * @param  {string} replace
+ * @param  {string} subject
+ * @return {string}
+ */
+function str_replace(original, replacement, string) {
+    local expression = regexp(original);
+    local result = "";
+    local position = 0;
+    local captures = expression.capture(string);
+
+    while (captures != null) {
+        foreach (i, capture in captures) {
+            result += string.slice(position, capture.begin);
+            result += replacement;
+            position = capture.end;
+        }
+
+        captures = expression.capture(string, position);
+    }
+
+    result += string.slice(position);
+
+    return result;
+}
+
+/**
+ * Replace occurances of "search" to "replace" in the "subject"
+ * @param  {string} search
+ * @param  {string} replace
+ * @param  {string} subject
+ * @return {string}
+ */
+function preg_replace(original, replacement, string) {
+    local expression = regexp(original);
+    local result = "";
+    local position = 0;
+    local captures = expression.capture(string);
+
+    while (captures != null) {
+        local capture = captures[0];
+
+        result += string.slice(position, capture.begin);
+
+        local subsitute = replacement;
+
+        for (local i = 1; i < captures.len(); i++) {
+            subsitute = str_replace("\\$" + i, string.slice(captures[i].begin, captures[i].end), subsitute);
+        }
+
+        result += subsitute;
+        position = capture.end;
+        captures = expression.capture(string, position);
+    }
+
+    result += string.slice(position);
+    return result;
+}
+
+/**
  * Function for saving resulted built code
  * @param  {String} filename
  * @param  {String} data
@@ -57,11 +118,12 @@ function include(filename, type = INCLUDE_LOCAL) {
     print("OK\n");
 
     if (type == INCLUDE_LOCAL) {
-        // content = replace("function ");
+        // content = preg_replace(@"function\s([\w.]+)", "local $1 = function", content);
         content = "(function() {\n" + content + "})();\n";
     }
 
-    data += content;
+    // add content and remove includes
+    data += str_replace(@"include\([\S ,]+\);", "", content);
 
     // call recursive to get data (and validate file)
     dofile("src/" + filename, true);
