@@ -97,6 +97,38 @@ function str_replace(original, replacement, string) {
     return result;
 }
 
+/**
+ * Replace occurances of "search" to "replace" in the "subject"
+ * @param  {string} search
+ * @param  {string} replace
+ * @param  {string} subject
+ * @return {string}
+ */
+function preg_replace(original, replacement, string) {
+    local expression = regexp(original);
+    local result = "";
+    local position = 0;
+    local captures = expression.capture(string);
+
+    while (captures != null) {
+        local capture = captures[0];
+
+        result += string.slice(position, capture.begin);
+
+        local subsitute = replacement;
+
+        for (local i = 1; i < captures.len(); i++) {
+            subsitute = str_replace("\\$" + i, string.slice(captures[i].begin, captures[i].end), subsitute);
+        }
+
+        result += subsitute;
+        position = capture.end;
+        captures = expression.capture(string, position);
+    }
+
+    result += string.slice(position);
+    return result;
+}
 
 /**
  * Escape strings according to http://www.json.org/ spec

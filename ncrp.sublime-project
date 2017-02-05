@@ -1,0 +1,10 @@
+{
+	"folders":
+	[
+		{
+			"path": ".",
+            "folder_exclude_patterns": ["webserver", "globalSettings", "modules"],
+            "file_exclude_patterns": [".editorconfig", "bans.xml", "default.mysql", "*.sublime-project"],
+		}
+	]
+}
