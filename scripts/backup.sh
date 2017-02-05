@@ -1,8 +1,8 @@
 #!/bin/sh
 
-FILENAME="backup_"$(date +"%d%m%y_%H%M")".gz";
+FILENAME="backup_"$(date +"%y%m%d_%H%M")".gz";
 
-BACKUPS="/backups/";
+BACKUPS="/../../backups/";
 BASEDIR=$(dirname "$0")
 
 mkdir -p $BASEDIR$BACKUPS;
