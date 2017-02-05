@@ -1,6 +1,6 @@
-class Vehicle extends ORM.Entity {
+class CustomVehicle extends ORM.Entity {
 
-    static classname = "Vehicle";
+    static classname = "CustomVehicle";
     static table = "tbl_vehicles";
 
     static fields = [

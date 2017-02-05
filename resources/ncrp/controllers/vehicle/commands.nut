@@ -175,20 +175,21 @@
 //     }
 // });
 
-// /**
-//  * KEYBINDS
-//  */
-// key("q", function(playerid) {
-//     if (!isPlayerInVehicle(playerid)) {
-//         return;
-//     }
+/**
+ * KEYBINDS
+ */
+key("q", function(playerid) {
+    if (!isPlayerInVehicle(playerid)) {
+        return;
+    }
 
-//     if (!isPlayerVehicleDriver(playerid)) {
-//         return;
-//     }
+    // if (!isPlayerVehicleDriver(playerid)) {
+    //     return;
+    // }
 
-//     return switchEngine(getPlayerVehicle(playerid));
-// });
+    local veh = __vehicles.get( getPlayerVehicle(playerid) );
+    return veh.engine.action();
+});
 
 // addKeyboardHandler("r", "up", function(playerid) {
 //     switchLights(playerid);

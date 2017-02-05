@@ -3,14 +3,28 @@
  * Some vehicle, e.g. trailers, couldn't be upgaded or don't have
  * lights so their parts are different.
  */
-class NativeVehicle extends Vehicle {
+class NativeVehicle extends CustomVehicle {
     static classname = "NativeVehicle";
     // Vehicle ID on the server
     vid = 0;
-
-    constructor(model, px, py, pz, rx = 0.0, ry = 0.0, rz = 0.0) {
+    link = null;
+    constructor(DB_data) {
         base.constructor();
-        this.vid = createVehicle(model, px, py, pz, rx, ry, rz);
+        this.vid = createVehicle(DB_data.model,
+                                 DB_data.x,
+                                 DB_data.y,
+                                 DB_data.z,
+                                 DB_data.rx,
+                                 DB_data.ry,
+                                 DB_data.rz);
+
+        this.setColor( DB_data.cra, DB_data.cga, DB_data.cba, DB_data.crb, DB_data.cgb, DB_data.cbb );
+        this.setPlate( DB_data.plate );
+        this.setTuning( DB_data.tunetable );
+        this.setFuel( DB_data.fuellevel );
+        this.setDirlLevel( DB_data.dirtlevel );
+
+        this.link = DB_data;
     }
 
     function destructor() {
@@ -53,7 +67,7 @@ class NativeVehicle extends Vehicle {
 
 
     function getRot() {
-        return getVehicleRotation(id);
+        return getVehicleRotation(vid);
     }
 
     function setRot(xr, yr, zr) {

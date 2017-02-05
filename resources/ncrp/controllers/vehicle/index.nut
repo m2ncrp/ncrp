@@ -1,9 +1,10 @@
 include("controllers/vehicle/commands.nut");
 
-include("controllers/vehicle/models/Vehicle.nut");
+include("controllers/vehicle/models/CustomVehicle.nut");
 include("controllers/vehicle/patterns/VehicleContainer.nut");
 
 include("controllers/vehicle/models/VehicleComponent.nut");
+include("controllers/vehicle/parts/Engine.nut");
 
 include("controllers/vehicle/classes/NativeVehicle.nut");
 include("controllers/vehicle/classes/LockableVehicle.nut");
@@ -11,7 +12,7 @@ include("controllers/vehicle/classes/OwnableVehicle.nut");
 include("controllers/vehicle/classes/SeatableVehicle.nut");
 include("controllers/vehicle/classes/RespawnableVehicle.nut");
 include("controllers/vehicle/classes/SaveableVehicle.nut");
-include("controllers/vehicle/classes/CustomVehicle.nut");
+include("controllers/vehicle/classes/Vehicle.nut");
 
 
 const VEHICLE_RESPAWN_TIME      = 300; // 5 (real) minutes
@@ -53,13 +54,7 @@ event("onServerStarted", function() {
             // Use data from vehicle-metainfo.nut file to get seats in given model
             // local seats = getSeatsNumber(vehicle.model);
             local seats = 2;
-            local veh = CustomVehicle( vehicle.model, seats, vehicle.x, vehicle.y, vehicle.z, vehicle.rx, vehicle.ry, vehicle.rz );
-            veh.setColor( vehicle.cra, vehicle.cga, vehicle.cba, vehicle.crb, vehicle.cgb, vehicle.cbb );
-            veh.setPlate( vehicle.plate );
-            veh.setTuning( vehicle.tunetable );
-            veh.setOwner( vehicle.owner, vehicle.ownerid );
-            veh.setFuel( vehicle.fuellevel );
-            veh.setDirlLevel( vehicle.dirtlevel );
+            local veh = Vehicle( vehicle, seats );
 
             veh.setRespawnEx(false);
             veh.setSaveable(true);

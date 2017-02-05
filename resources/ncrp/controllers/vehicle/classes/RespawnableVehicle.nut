@@ -4,12 +4,12 @@ class RespawnableVehicle extends SeatableVehicle {
     static classname = "RespawnableVehicle";
     respawn = null;
 
-    constructor (model, seats, px, py, pz, rx = 0.0, ry = 0.0, rz = 0.0) {
-        base.constructor(model, seats, px, py, pz, rx, ry, rz);
+    constructor (DB_data, seats) {
+        base.constructor(DB_data, seats);
 
         respawn = {
             enabled = true,
-            position = { x = px.tofloat(), y = py.tofloat(), z = pz.tofloat() },
+            position = { x = x.tofloat(), y = y.tofloat(), z = z.tofloat() },
             rotation = { x = rx.tofloat(), y = ry.tofloat(), z = rz.tofloat() },
             time = getTimestamp(),
         };
@@ -96,28 +96,16 @@ class RespawnableVehicle extends SeatableVehicle {
         this.respawn.time = getTimestamp();
         return true;
     }
-
-
-
-    events = [
-        event("native:onPlayerVehicleEnter", function( playerid, vehicleid, seat ) {
-            // handle vehicle passangers
-            local veh = __vehicles.get(vehicleid);
-            veh.resetRespawnTimer();
-            veh.save();
-
-            // trigger other events
-            // trigger("onPlayerVehicleEnter", playerid, vehicleid, seat);
-        }),
-
-        event("native:onPlayerVehicleExit", function( playerid, vehicleid, seat ) {
-            // handle vehicle passangers
-            local veh = __vehicles.get(vehicleid);
-            veh.resetRespawnTimer();
-            veh.save();
-
-            // trigger other events
-            // trigger("onPlayerVehicleExit", playerid, vehicleid, seat);
-        })
-    ];
 }
+
+
+
+event("native:onPlayerVehicleEnter", function( playerid, vehicleid, seat ) {
+    local veh = __vehicles.get(vehicleid);
+    veh.resetRespawnTimer();
+});
+
+event("native:onPlayerVehicleExit", function( playerid, vehicleid, seat ) {
+    local veh = __vehicles.get(vehicleid);
+    veh.resetRespawnTimer();
+});

@@ -59,14 +59,14 @@ local vehicleFuelTankData = {
     model_53 = 38.0  , // walter_coupe
 };
 
-class CustomVehicle extends SaveableVehicle
+class Vehicle extends SaveableVehicle
 {
-    static classname = "CustomVehicle";
+    static classname = "Vehicle";
     engine = null;
 
-    constructor (model, seats, px, py, pz, rx = 0.0, ry = 0.0, rz = 0.0) {
-        base.constructor(model, seats, px, py, pz, rx, ry, rz);
-        engine = ComponentEngine(this.vid, true);
+    constructor (DB_data, seats) {
+        base.constructor(DB_data, seats);
+        engine = VehicleComponent.Engine(this.vid, true);
     }
 
     /**
@@ -87,48 +87,76 @@ class CustomVehicle extends SaveableVehicle
         return (("model_" + modelid) in vehicleFuelTankData) ? vehicleFuelTankData["model_" + modelid] : VEHICLE_FUEL_DEFAULT;
     }
 
-    // function getDistance() {
-    //     return distance;
-    // }
 
-    // // Check every minute
-    // function calculateDistance(startPoint, endPoint) {
-    //     local x = endPoint[0] - startPoint[0];
-    //     local y = endPoint[1] - startPoint[1];
-    //     local z = endPoint[2] - startPoint[2];
-    //     distance += sqrt( x*x + y*y + z*z );
-    // }
+    function save() {
+        if (!this.saving) {
+            return false;
+        }
 
+        if (!this.entity) {
+            this.entity = CustomVehicle();
+        }
+
+        // save data
+        local position = this.getPos();
+        local rotation = this.getRot();
+
+        this.respawn.position.x = position[0];
+        this.respawn.position.y = position[1];
+        this.respawn.position.z = position[2];
+
+        this.respawn.rotation.x = rotation[0];
+        this.respawn.rotation.y = rotation[1];
+        this.respawn.rotation.z = rotation[2];
+
+        this.entity.x  = position[0];
+        this.entity.y  = position[1];
+        this.entity.z  = position[2];
+        this.entity.rx = rotation[0];
+        this.entity.ry = rotation[1];
+        this.entity.rz = rotation[2];
+
+        local colors = getVehicleColour(this.vid);
+
+        this.entity.cra = colors[0];
+        this.entity.cga = colors[1];
+        this.entity.cba = colors[2];
+        this.entity.crb = colors[3];
+        this.entity.cgb = colors[4];
+        this.entity.cbb = colors[5];
+
+        this.entity.model     = getVehicleModel(this.vid);
+        this.entity.tunetable = getVehicleTuningTable(this.vid);
+        this.entity.dirtlevel = getVehicleDirtLevel(this.vid);
+        this.entity.fuellevel = this.fuellevel;
+        this.entity.plate     = getVehiclePlateText(this.vid);
+        this.entity.owner     = this.getOwner();
+        this.entity.ownerid   = this.getOwnerId();
+
+        this.entity.save();
+        return true;
+    }
 }
 
 
-// function playerEnteredVehicle( playerid, vehicleid, seat ) {
-//     local veh = _vehicle_queue[vehicleid];
-//     log( getPlayerName(playerid) + " entered vehicle " + vehicleid.tostring() + " (seat: " + seat.tostring() + ")." );
+event("native:onPlayerSpawn", function( playerid ) {
+    __vehicles.each(function(vehicleid, veh) {
+        veh.engine.correct();
+    }, true);
+});
 
-//     log( veh.lights.getState().tostring() );
-//     delayedFunction(5650, function () {
-//         log("------------------> Done?");
-//         veh.engine.onPlayerVehicleEnter(seat);
-//     });
-//     // veh.engine.correct();
-//     veh.lights.correct();
-//     veh.gabarites.correct();
-//     return 1;
-// }
-// addEventHandler ( "onPlayerVehicleEnter", playerEnteredVehicle);
+event("native:onPlayerVehicleEnter", function( playerid, vehicleid, seat ) {
+    local veh = __vehicles.get(vehicleid);
+    log( getPlayerName(playerid) + " entered vehicle " + vehicleid.tostring() + " (seat: " + seat.tostring() + ")." );
+    delayedFunction(5650, function () {
+        log("------------------> Done?");
+        veh.engine.correct();
+    });
+});
 
+event("native:onPlayerVehicleExit", function( playerid, vehicleid, seat ) {
+    log(getPlayerName(playerid) + " #" + playerid + " JUST LEFT VEHICLE " + vehicleid.tostring() + " (seat: " + seat.tostring() + ")." );
 
-// addEventHandler("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
-//     log(getPlayerName(playerid) + " #" + playerid + " JUST LEFT VEHICLE " + vehicleid.tostring() + " (seat: " + seat.tostring() + ")." );
-
-//     local veh = _vehicle_queue[vehicleid];
-//     log( veh.lights.getState().tostring() );
-//     veh.engine.onPlayerVehicleExit(seat);
-//     //  veh.engine.correct();
-//     delayedFunction(3000, function () {
-//         log("------------------> Done?");
-//         veh.lights.correct();
-//     });
-//     veh.gabarites.correct();
-// });
+    local veh = __vehicles.get(vehicleid);
+    veh.engine.correct();
+});

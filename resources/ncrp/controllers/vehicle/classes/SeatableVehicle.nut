@@ -4,8 +4,8 @@ class SeatableVehicle extends OwnableVehicle
     maxPassengers = null;
     passengers = {};
 
-    constructor (model, seats, px, py, pz, rx = 0.0, ry = 0.0, rz = 0.0) {
-        base.constructor(model, px, py, pz, rx, ry, rz);
+    constructor (DB_data, seats) {
+        base.constructor(DB_data);
         maxPassengers = seats;
     }
 

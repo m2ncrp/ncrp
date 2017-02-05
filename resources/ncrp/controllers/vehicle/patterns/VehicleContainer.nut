@@ -6,7 +6,7 @@ class VehicleContainer extends Container
      */
     constructor() {
         base.constructor();
-        this.__ref = CustomVehicle;
+        this.__ref = Vehicle;
     }
 
     /**

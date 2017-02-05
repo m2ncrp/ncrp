@@ -4,11 +4,12 @@
 class SaveableVehicle extends RespawnableVehicle {
     static classname = "SaveableVehicle";
     saving = false;
+    entity = null;
 
-    constructor (model, seats, px, py, pz, rx = 0.0, ry = 0.0, rz = 0.0) {
-        base.constructor(model, seats, px, py, pz, rx, ry, rz);
-
+    constructor (DB_data, seats) {
+        base.constructor(DB_data, seats);
         saving = false;
+        entity = DB_data;
     }
 
 
@@ -29,4 +30,19 @@ class SaveableVehicle extends RespawnableVehicle {
     function isSaveable() {
         return this.saving;
     }
+
+    function setEntity(entity) {
+        this.entity = entity;
+    }
 }
+
+
+event("native:onPlayerVehicleEnter", function( playerid, vehicleid, seat ) {
+    local veh = __vehicles.get(vehicleid);
+    veh.save();
+});
+
+event("native:onPlayerVehicleExit", function( playerid, vehicleid, seat ) {
+    local veh = __vehicles.get(vehicleid);
+    veh.save();
+});

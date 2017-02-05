@@ -3,8 +3,8 @@ class LockableVehicle extends NativeVehicle
     static classname = "LockableVehicle";
     isBlocked = null;
 
-    constructor (model, px, py, pz, rx = 0.0, ry = 0.0, rz = 0.0) {
-        base.constructor(model, px, py, pz, rx, ry, rz);
+    constructor (DB_data) {
+        base.constructor(DB_data);
         block();
     }
 
@@ -24,7 +24,7 @@ class LockableVehicle extends NativeVehicle
     function block() {
         this.setSpeed(0.0, 0.0, 0.0);
         this.setEngineState(false);
-        this.setFuel(0.0);
+        // this.setFuel(0.0);
         isBlocked = true;
     }
 
@@ -37,7 +37,7 @@ class LockableVehicle extends NativeVehicle
     function unblock(fuel = VEHICLE_FUEL_DEFAULT) {
         if (isBlocked) {
             isBlocked = false;
-            return this.setFuel(fuel);
+            // return this.setFuel(fuel);
         }
     }
 

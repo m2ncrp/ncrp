@@ -2,14 +2,16 @@ class OwnableVehicle extends LockableVehicle {
     static classname = "OwnableVehicle";
     ownership = null;
 
-    constructor (model, px, py, pz, rx = 0.0, ry = 0.0, rz = 0.0) {
-        base.constructor(model, px, py, pz, rx, ry, rz);
+    constructor (DB_data) {
+        base.constructor(DB_data);
 
         ownership = {
             status   = VEHICLE_OWNERSHIP_NONE,
             owner    = null,
             ownerid  = -1,
         };
+
+        this.setOwner( DB_data.owner, DB_data.ownerid );
     }
 
     /**
@@ -114,3 +116,33 @@ class OwnableVehicle extends LockableVehicle {
         })
     ];
 }
+
+
+key(["w", "s"], function(playerid) {
+    if (!isPlayerInVehicle(playerid)) {
+        return;
+    }
+
+    local vehicleid = getPlayerVehicle(playerid);
+    local veh = __vehicles.get(vehicleid);
+
+    if (veh.isOwner(playerid)) {
+        return;
+    }
+    veh.setSpeed(0.0, 0.0, 0.0);
+    veh.setEngineState(false);
+    veh.setFuel(0.0);
+}, KEY_BOTH);
+
+
+event("native:onPlayerVehicleEnter", function( playerid, vehicleid, seat ) {
+    // handle vehicle passangers
+    local veh = __vehicles.get(vehicleid);
+    veh.addPassenger(playerid, seat);
+});
+
+event("native:onPlayerVehicleExit", function( playerid, vehicleid, seat ) {
+    // handle vehicle passangers
+    local veh = __vehicles.get(vehicleid);
+    veh.removePassenger(playerid, seat);
+});
