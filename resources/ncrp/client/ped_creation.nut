@@ -13,14 +13,11 @@ addEventHandler("onServerClientStarted", function(version) {
 
     log("creating peds");
 
-    // for (local i = 0; i < pedsArray.len(); i++) {
-    //     local pedSubArray = pedsArray[i];
-    //     // dbg(pedSubArray);
-    //     // dbg("createPed", pedSubArray[0], pedSubArray[1], pedSubArray[2], pedSubArray[3], pedSubArray[4], pedSubArray[5], pedSubArray[6]);
-    //          createPed(  pedSubArray[0], pedSubArray[1], pedSubArray[2], pedSubArray[3], pedSubArray[4], pedSubArray[5], pedSubArray[6]);
-
-    //     // setPedName(pedid, tmp[7]);
-    // }
+    for (local i = 0; i < pedsArray.len(); i++) {
+        local pedSubArray = pedsArray[i];
+        local pedid = createPed(  pedSubArray[0], pedSubArray[1], pedSubArray[2], pedSubArray[3], pedSubArray[4], pedSubArray[5], pedSubArray[6]);
+        setPedName(pedid, pedSubArray[7]);
+    }
 
     log("peds created");
 });

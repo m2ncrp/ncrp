@@ -3,7 +3,7 @@
 	[
 		{
 			"path": ".",
-            "folder_exclude_patterns": ["webserver", "globalSettings", "modules"],
+            "folder_exclude_patterns": ["webserver", "globalSettings"],
             "file_exclude_patterns": [".editorconfig", "bans.xml", "default.mysql", "*.sublime-project"],
 		}
 	]
