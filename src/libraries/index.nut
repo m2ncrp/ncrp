@@ -26,7 +26,7 @@ function include(path) {
 
 // load libs
 include("libraries/squirrel-orm.nut");
-include("libraries/network.nut");
+// include("libraries/network.nut");
 include("libraries/JSONEncoder.class.nut");
 include("libraries/debug.nut");
 
