@@ -8,14 +8,14 @@
 
 
 # Libraries
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
+
+
+
+
+
+
+
+
 
 # aliases
 event <- addEventHandler;
@@ -44,6 +44,1157 @@ event <- addEventHandler;
 
 // 
 // 
+/**
+ * JSON encoder
+ *
+ * @author Mikhail Yurasov <mikhail@electricimp.com>
+ * @verion 0.7.0
+ */
+class JSONEncoder {
+
+    static version = [1, 0, 0];
+
+    // max structure depth
+    // anything above probably has a cyclic ref
+    static _maxDepth = 32;
+
+    /**
+     * Encode value to JSON
+     * @param {table|array|*} value
+     * @returns {string}
+     */
+    function encode(value) {
+        return this._encode(value);
+    }
+
+    /**
+     * @param {table|array} val
+     * @param {integer=0} depth – current depth level
+     * @private
+     */
+    function _encode(val, depth = 0) {
+
+        // detect cyclic reference
+        if (depth > this._maxDepth) {
+            throw "Possible cyclic reference";
+        }
+
+        local
+            r = "",
+            s = "",
+            i = 0;
+
+        switch (typeof val) {
+
+            case "table":
+            case "class":
+                s = "";
+
+                // serialize properties, but not functions
+                foreach (k, v in val) {
+                    if (typeof v != "function") {
+                        s += ",\"" + k + "\":" + this._encode(v, depth + 1);
+                    }
+                }
+
+                s = s.len() > 0 ? s.slice(1) : s;
+                r += "{" + s + "}";
+                break;
+
+            case "array":
+                s = "";
+
+                for (i = 0; i < val.len(); i++) {
+                    s += "," + this._encode(val[i], depth + 1);
+                }
+
+                s = (i > 0) ? s.slice(1) : s;
+                r += "[" + s + "]";
+                break;
+
+            case "integer":
+            case "float":
+            case "bool":
+                r += val;
+                break;
+
+            case "null":
+                r += "null";
+                break;
+
+            case "instance":
+
+                if ("_serializeRaw" in val && typeof val._serializeRaw == "function") {
+
+                        // include value produced by _serializeRaw()
+                        r += val._serializeRaw().tostring();
+
+                } else if ("_serialize" in val && typeof val._serialize == "function") {
+
+                    // serialize instances by calling _serialize method
+                    r += this._encode(val._serialize(), depth + 1);
+
+                } else {
+
+                    s = "";
+
+                    try {
+
+                        // iterate through instances which implement _nexti meta-method
+                        foreach (k, v in val) {
+                            s += ",\"" + k + "\":" + this._encode(v, depth + 1);
+                        }
+
+                    } catch (e) {
+
+                        // iterate through instances w/o _nexti
+                        // serialize properties, but not functions
+                        foreach (k, v in val.getclass()) {
+                            if (typeof v != "function") {
+                                s += ",\"" + k + "\":" + this._encode(val[k], depth + 1);
+                            }
+                        }
+
+                    }
+
+                    s = s.len() > 0 ? s.slice(1) : s;
+                    r += "{" + s + "}";
+                }
+
+                break;
+
+            // strings and all other
+            default:
+                r += "\"" + this._escape(val.tostring()) + "\"";
+                break;
+        }
+
+        return r;
+    }
+
+    /**
+     * Escape strings according to http://www.json.org/ spec
+     * @param {string} str
+     */
+    function _escape(str) {
+        local res = "";
+
+        for (local i = 0; i < str.len(); i++) {
+
+            local ch1 = (str[i] & 0xFF);
+
+            if ((ch1 & 0x80) == 0x00) {
+                // 7-bit Ascii
+
+                ch1 = format("%c", ch1);
+
+                if (ch1 == "\"") {
+                    res += "\\\"";
+                } else if (ch1 == "\\") {
+                    res += "\\\\";
+                } else if (ch1 == "/") {
+                    res += "\\/";
+                } else if (ch1 == "\b") {
+                    res += "\\b";
+                } else if (ch1 == "\f") {
+                    res += "\\f";
+                } else if (ch1 == "\n") {
+                    res += "\\n";
+                } else if (ch1 == "\r") {
+                    res += "\\r";
+                } else if (ch1 == "\t") {
+                    res += "\\t";
+                } else if (ch1 == "\0") {
+                    res += "\\u0000";
+                } else {
+                    res += ch1;
+                }
+
+            } else {
+
+                if ((ch1 & 0xE0) == 0xC0) {
+                    // 110xxxxx = 2-byte unicode
+                    local ch2 = (str[++i] & 0xFF);
+                    res += format("%c%c", ch1, ch2);
+                } else if ((ch1 & 0xF0) == 0xE0) {
+                    // 1110xxxx = 3-byte unicode
+                    local ch2 = (str[++i] & 0xFF);
+                    local ch3 = (str[++i] & 0xFF);
+                    res += format("%c%c%c", ch1, ch2, ch3);
+                } else if ((ch1 & 0xF8) == 0xF0) {
+                    // 11110xxx = 4 byte unicode
+                    local ch2 = (str[++i] & 0xFF);
+                    local ch3 = (str[++i] & 0xFF);
+                    local ch4 = (str[++i] & 0xFF);
+                    res += format("%c%c%c%c", ch1, ch2, ch3, ch4);
+                }
+
+            }
+        }
+
+        return res;
+    }
+}
+/**
+ * JSON Parser
+ *
+ * @author Mikhail Yurasov <mikhail@electricimp.com>
+ * @package JSONParser
+ * @version 0.3.1
+ */
+
+/**
+ * JSON Parser
+ * @package JSONParser
+ */
+class JSONParser {
+
+    // should be the same for all components within JSONParser package
+    static version = [1, 0, 0];
+
+    /**
+     * Parse JSON string into data structure
+     *
+     * @param {string} str
+     * @param {function({string} value[, "number"|"string"])|null} converter
+     * @return {*}
+     */
+    function parse(str, converter = null) {
+
+        local state;
+        local stack = []
+        local container;
+        local key;
+        local value;
+
+        // actions for string tokens
+        local string = {
+            go = function () {
+                state = "ok";
+            },
+            firstokey = function () {
+                key = value;
+                state = "colon";
+            },
+            okey = function () {
+                key = value;
+                state = "colon";
+            },
+            ovalue = function () {
+                value = this._convert(value, "string", converter);
+                state = "ocomma";
+            }.bindenv(this),
+            firstavalue = function () {
+                value = this._convert(value, "string", converter);
+                state = "acomma";
+            }.bindenv(this),
+            avalue = function () {
+                value = this._convert(value, "string", converter);
+                state = "acomma";
+            }.bindenv(this)
+        };
+
+        // the actions for number tokens
+        local number = {
+            go = function () {
+                state = "ok";
+            },
+            ovalue = function () {
+                value = this._convert(value, "number", converter);
+                state = "ocomma";
+            }.bindenv(this),
+            firstavalue = function () {
+                value = this._convert(value, "number", converter);
+                state = "acomma";
+            }.bindenv(this),
+            avalue = function () {
+                value = this._convert(value, "number", converter);
+                state = "acomma";
+            }.bindenv(this)
+        };
+
+        // action table
+        // describes where the state machine will go from each given state
+        local action = {
+
+            "{": {
+                go = function () {
+                    stack.push({state = "ok"});
+                    container = {};
+                    state = "firstokey";
+                },
+                ovalue = function () {
+                    stack.push({container = container, state = "ocomma", key = key});
+                    container = {};
+                    state = "firstokey";
+                },
+                firstavalue = function () {
+                    stack.push({container = container, state = "acomma"});
+                    container = {};
+                    state = "firstokey";
+                },
+                avalue = function () {
+                    stack.push({container = container, state = "acomma"});
+                    container = {};
+                    state = "firstokey";
+                }
+            },
+
+            "}" : {
+                firstokey = function () {
+                    local pop = stack.pop();
+                    value = container;
+                    container = ("container" in pop) ? pop.container : null;
+                    key = ("key" in pop) ? pop.key : null;
+                    state = pop.state;
+                },
+                ocomma = function () {
+                    local pop = stack.pop();
+                    container[key] <- value;
+                    value = container;
+                    container = ("container" in pop) ? pop.container : null;
+                    key = ("key" in pop) ? pop.key : null;
+                    state = pop.state;
+                }
+            },
+
+            "[" : {
+                go = function () {
+                    stack.push({state = "ok"});
+                    container = [];
+                    state = "firstavalue";
+                },
+                ovalue = function () {
+                    stack.push({container = container, state = "ocomma", key = key});
+                    container = [];
+                    state = "firstavalue";
+                },
+                firstavalue = function () {
+                    stack.push({container = container, state = "acomma"});
+                    container = [];
+                    state = "firstavalue";
+                },
+                avalue = function () {
+                    stack.push({container = container, state = "acomma"});
+                    container = [];
+                    state = "firstavalue";
+                }
+            },
+
+            "]" : {
+                firstavalue = function () {
+                    local pop = stack.pop();
+                    value = container;
+                    container = ("container" in pop) ? pop.container : null;
+                    key = ("key" in pop) ? pop.key : null;
+                    state = pop.state;
+                },
+                acomma = function () {
+                    local pop = stack.pop();
+                    container.push(value);
+                    value = container;
+                    container = ("container" in pop) ? pop.container : null;
+                    key = ("key" in pop) ? pop.key : null;
+                    state = pop.state;
+                }
+            },
+
+            ":" : {
+                colon = function () {
+                    // check if the key already exists
+                    if (key in container) {
+                        throw "Duplicate key \"" + key + "\"";
+                    }
+                    state = "ovalue";
+                }
+            },
+
+            "," : {
+                ocomma = function () {
+                    container[key] <- value;
+                    state = "okey";
+                },
+                acomma = function () {
+                    container.push(value);
+                    state = "avalue";
+                }
+            },
+
+            "true" : {
+                go = function () {
+                    value = true;
+                    state = "ok";
+                },
+                ovalue = function () {
+                    value = true;
+                    state = "ocomma";
+                },
+                firstavalue = function () {
+                    value = true;
+                    state = "acomma";
+                },
+                avalue = function () {
+                    value = true;
+                    state = "acomma";
+                }
+            },
+
+            "false" : {
+                go = function () {
+                    value = false;
+                    state = "ok";
+                },
+                ovalue = function () {
+                    value = false;
+                    state = "ocomma";
+                },
+                firstavalue = function () {
+                    value = false;
+                    state = "acomma";
+                },
+                avalue = function () {
+                    value = false;
+                    state = "acomma";
+                }
+            },
+
+            "null" : {
+                go = function () {
+                    value = null;
+                    state = "ok";
+                },
+                ovalue = function () {
+                    value = null;
+                    state = "ocomma";
+                },
+                firstavalue = function () {
+                    value = null;
+                    state = "acomma";
+                },
+                avalue = function () {
+                    value = null;
+                    state = "acomma";
+                }
+            }
+        };
+
+        //
+
+        state = "go";
+        stack = [];
+
+        // current tokenizeing position
+        local start = 0;
+
+        try {
+
+            local
+                result,
+                token,
+                tokenizer = _JSONTokenizer();
+
+            while (token = tokenizer.nextToken(str, start)) {
+
+                if ("ptfn" == token.type) {
+                    // punctuation/true/false/null
+                    action[token.value][state]();
+                } else if ("number" == token.type) {
+                    // number
+                    value = token.value;
+                    number[state]();
+                } else if ("string" == token.type) {
+                    // string
+                    value = tokenizer.unescape(token.value);
+                    string[state]();
+                }
+
+                start += token.length;
+            }
+
+        } catch (e) {
+            state = e;
+        }
+
+        // check is the final state is not ok
+        // or if there is somethign left in the str
+        if (state != "ok" || regexp("[^\\s]").capture(str, start)) {
+            local min = @(a, b) a < b ? a : b;
+            local near = str.slice(start, min(str.len(), start + 10));
+            throw "JSON Syntax Error near `" + near + "`";
+        }
+
+        return value;
+    }
+
+    /**
+     * Convert strings/numbers
+     * Uses custom converter function
+     *
+     * @param {string} value
+     * @param {string} type
+     * @param {function|null} converter
+     */
+    function _convert(value, type, converter) {
+        if ("function" == typeof converter) {
+
+            // # of params for converter function
+
+            local parametercCount = 2;
+
+            // .getinfos() is missing on ei platform
+            if ("getinfos" in converter) {
+                parametercCount = converter.getinfos().parameters.len()
+                    - 1 /* "this" is also included */;
+            }
+
+            if (parametercCount == 1) {
+                return converter(value);
+            } else if (parametercCount == 2) {
+                return converter(value, type);
+            } else {
+                throw "Error: converter function must take 1 or 2 parameters"
+            }
+
+        } else if ("number" == type) {
+            return (value.find(".") == null && value.find("e") == null && value.find("E") == null) ? value.tointeger() : value.tofloat();
+        } else {
+            return value;
+        }
+    }
+}
+
+/**
+ * JSON Tokenizer
+ * @package JSONParser
+ */
+class _JSONTokenizer {
+
+    _ptfnRegex = null;
+    _numberRegex = null;
+    _stringRegex = null;
+    _ltrimRegex = null;
+    _unescapeRegex = null;
+
+    constructor() {
+        // punctuation/true/false/null
+        this._ptfnRegex = regexp("^(?:\\,|\\:|\\[|\\]|\\{|\\}|true|false|null)");
+
+        // numbers
+        this._numberRegex = regexp("^(?:\\-?\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d+)?)");
+
+        // strings
+        this._stringRegex = regexp("^(?:\\\"((?:[^\\r\\n\\t\\\\\\\"]|\\\\(?:[\"\\\\\\/trnfb]|u[0-9a-fA-F]{4}))*)\\\")");
+
+        // ltrim pattern
+        this._ltrimRegex = regexp("^[\\s\\t\\n\\r]*");
+
+        // string unescaper tokenizer pattern
+        this._unescapeRegex = regexp("\\\\(?:(?:u\\d{4})|[\\\"\\\\/bfnrt])");
+    }
+
+    /**
+     * Get next available token
+     * @param {string} str
+     * @param {integer} start
+     * @return {{type,value,length}|null}
+     */
+    function nextToken(str, start = 0) {
+
+        local
+            m,
+            type,
+            token,
+            value,
+            length,
+            whitespaces;
+
+        // count # of left-side whitespace chars
+        whitespaces = this._leadingWhitespaces(str, start);
+        start += whitespaces;
+
+        if (m = this._ptfnRegex.capture(str, start)) {
+            // punctuation/true/false/null
+            value = str.slice(m[0].begin, m[0].end);
+            type = "ptfn";
+        } else if (m = this._numberRegex.capture(str, start)) {
+            // number
+            value = str.slice(m[0].begin, m[0].end);
+            type = "number";
+        } else if (m = this._stringRegex.capture(str, start)) {
+            // string
+            value = str.slice(m[1].begin, m[1].end);
+            type = "string";
+        } else {
+            return null;
+        }
+
+        token = {
+            type = type,
+            value = value,
+            length = m[0].end - m[0].begin + whitespaces
+        };
+
+        return token;
+    }
+
+    /**
+     * Count # of left-side whitespace chars
+     * @param {string} str
+     * @param {integer} start
+     * @return {integer} number of leading spaces
+     */
+    function _leadingWhitespaces(str, start) {
+        local r = this._ltrimRegex.capture(str, start);
+
+        if (r) {
+            return r[0].end - r[0].begin;
+        } else {
+            return 0;
+        }
+    }
+
+    // unesacape() replacements table
+    _unescapeReplacements = {
+        "b": "\b",
+        "f": "\f",
+        "n": "\n",
+        "r": "\r",
+        "t": "\t"
+    };
+
+    /**
+     * Unesacape string escaped per JSON standard
+     * @param {string} str
+     * @return {string}
+     */
+    function unescape(str) {
+
+        local start = 0;
+        local res = "";
+
+        while (start < str.len()) {
+            local m = this._unescapeRegex.capture(str, start);
+
+            if (m) {
+                local token = str.slice(m[0].begin, m[0].end);
+
+                // append chars before match
+                local pre = str.slice(start, m[0].begin);
+                res += pre;
+
+                if (token.len() == 6) {
+                    // unicode char in format \uhhhh, where hhhh is hex char code
+                    // todo: convert \uhhhh chars
+                    res += token;
+                } else {
+                    // escaped char
+                    // @see http://www.json.org/
+                    local char = token.slice(1);
+
+                    if (char in this._unescapeReplacements) {
+                        res += this._unescapeReplacements[char];
+                    } else {
+                        res += char;
+                    }
+                }
+
+            } else {
+                // append the rest of the source string
+                res += str.slice(start);
+                break;
+            }
+
+            start = m[0].end;
+        }
+
+        return res;
+    }
+}
+const DEBUG_ENABLED = true;
+
+/**
+ * Function that logs to server console
+ * provided any number of provided values
+ *
+ * @param  {...}  any number of arguments
+ * @return none
+ */
+function log(...) {
+    return ::print(JSONEncoder.encode(vargv).slice(2).slice(0, -2));
+};
+
+
+/**
+ * Function that logs to server console
+ * provided any number of provided values
+ * NOTE: addes prefix [debug] in front of output
+ *
+ * @param  {...}  any number of arguments
+ * @return none
+ */
+function dbg(...) {
+    return DEBUG_ENABLED ? ::print("[debug] " + JSONEncoder.encode(vargv)) : null;
+}
+
+/**
+ * Concatenate array using symbol as separator
+ * @param  {Array} vars
+ * @param  {String} symbol
+ * @return {String}
+ */
+function concat(vars, symbol = " ") {
+    return vars.reduce(function(carry, item) {
+        return item ? carry + symbol + item : "";
+    });
+}
+
+/**
+ * Return new array with elements
+ * shuffled in the random order
+ * @param  {Array} array
+ * @return {Array}
+ */
+function shuffle(input) {
+    local array  = clone(input);
+    local output = [];
+
+    if (!("random" in getroottable())) {
+        random <- function (min, max) {
+            return ((rand() % ((max + 1) - min)) + min);
+        };
+    }
+
+    while (array.len()) {
+        if (random(0, 1) == 1) {
+            array.reverse();
+        }
+
+        local idx = random(0, array.len() - 1);
+        output.push(array[idx]);
+        array.remove(idx);
+    }
+
+    return output;
+}
+
+/**
+ * Return new array with all unique elements
+ * @param  {Array} array
+ * @return {Array}
+ */
+function array_unique ( array ) {
+    local result = [];
+    foreach (idx, value in array) {
+        if(result.find(value) == null)
+        {
+            result.push(value);
+        }
+    }
+    return result;
+}
+
+
+function getRandomSubArray(arr, size = 1) {
+    local subarr = [];
+    local orig = arr.map(function(a) {return a;});
+
+    while (subarr.len() < size) {
+        local rand = random(0, orig.len() - 1);
+        subarr.push(orig[rand]);
+        orig.remove(rand)
+    }
+    return subarr;
+}
+/**
+ * Call a delayed function
+ *
+ * @param {int} time in ms
+ * @param {Function} callback
+ * @param {mixed} [additional] optional argument
+ *     that will be passed to a callback
+ *
+ * @return {int} timer id
+ */
+function delayedFunction(time, callback, additional = null) {
+    return additional ? timer(callback, time, 1, additional) : timer(callback, time, 1);
+}
+/**
+ * Generate random number (int)
+ * from a range
+ * by default range is 0...RAND_MAX
+ *
+ * @param  {int} min
+ * @param  {int} max
+ * @return {int}
+ */
+function random(min = 0, max = RAND_MAX) {
+    return (rand() % ((max + 1) - min)) + min;
+}
+
+/**
+ * Generate random number (float)
+ * from a range
+ * by default range is 0...RAND_MAX
+ *
+ * @param  {float} min
+ * @param  {float} max
+ * @return {float}
+ */
+function randomf(min = 0.0, max = RAND_MAX) {
+    return (rand() % (max - min + 0.001)) + min;
+}
+
+/**
+ * Max from a range (2 or more parameters)
+ * @return {int}
+ */
+function max(...) {
+    return vargv.reduce(function(carry, item) {
+        return item > carry ? item : carry;
+    });
+}
+
+/**
+ * Min from a range (2 or more parameters)
+ * @return {int}
+ */
+function min(...) {
+    return vargv.reduce(function(carry, item) {
+        return item < carry ? item : carry;
+    });
+}
+
+/**
+ * Generate arrray containing numbers
+ * which represents range from ... to
+ *
+ * @param  {int} from
+ * @param  {int} to
+ * @return {array}
+ */
+function range(from, to) {
+    local tmp = [];
+
+    for (local i = from; i <= to; i++) {
+        tmp.push(i);
+    }
+
+    return tmp;
+}
+
+/**
+ * Round <val> to <decimalPoints> after dot.
+ *
+ * @param  {float} val
+ * @param  {int} count number after dot
+ * @return {float} result
+ * URL: https://forums.electricimp.com/discussion/2128/round-float-to-fixed-decimal-places
+ */
+function round(val, decimalPoints) {
+    local f = pow(10, decimalPoints) * 1.0;
+    local newVal = val * f;
+    newVal = floor(newVal + 0.5)
+    newVal = (newVal * 1.0) / f;
+   return newVal;
+}
+
+/**
+ * Greatest common divisor
+ * @param  {float} a
+ * @param  {float} b
+ * @return {float}
+ */
+function nod (a, b) {
+    local a = abs(a);
+    local b = abs(b);
+    while (a != b) {
+        if (a > b) {
+            a -= b;
+        } else {
+            b -= a;
+        }
+    }
+    return a;
+}
+
+/**
+ *   !!! No use without testing
+ * Round to simple fraction
+ * @param  {float} num
+ * @return {string}
+ */
+function fractionSimple (num) {
+
+    local num = num.tofloat();
+    local chis = (num%1)*100;
+        dbg("chis: "+chis);
+    local tseloe = floor(num);
+        dbg("tseloe: "+tseloe);
+    local nodd = nod(chis, 100);
+        dbg("nodd: "+nodd);
+    local znam = 100 / nodd;
+    local chis = (tseloe * znam) + (chis / nodd);
+    dbg("chis|znam "+chis+"|"+znam);
+}
+
+/**
+ *   !!! No use without testing
+ * Round to periodoc fraction
+ * @param  {float} num
+ * @return {string}
+ */
+function fractionPeriodic (num) {
+
+    local num = num.tostring();
+        dbg("num: "+num);
+    num = num.slice(0, 4);
+        dbg("num slice: "+num);
+    local posle = num.slice(2, 4);
+        dbg("posle: "+posle);
+    if (posle.find("0")) {
+        posle = posle.slice(1, 2);
+            dbg("if posle: "+posle);
+    }  // если [0,]66 => 66, если [0,]06 => 6
+
+    local val_do = posle.slice(0, 1);
+        dbg("val_do: "+val_do);
+    local chis = posle.tofloat() - fabs(val_do.tofloat());   // выполнили 6 пункт
+        dbg("chis: "+chis);
+    local znam = 90.0;
+    local nd = nod(chis, znam);
+    local ekran_chis = chis/nd;
+    local ekran_znam = znam/nd;
+        dbg("ekran: "+ekran_chis+"|"+ekran_znam);
+    //return ekran;
+}
+
+
+
+class Vector3d {
+    X = null; 
+    Y = null; 
+    Z = null;
+
+    constructor (X = 0.0, Y = 0.0, Z = 0.0) {
+        this.X = X;
+        this.Y = Y
+        this.Z = Z;
+    }
+}
+local REGEXP_INTEGER = regexp("\\d+");
+local REGEXP_FLOAT   = regexp("[0-9\\.]+");
+
+/**
+ * isInteger in this value
+ * @param {Mixed} value
+ * @return {Boolean} [description]
+ */
+function isInteger(value) {
+    return (value != null && (typeof value == "integer" || REGEXP_INTEGER.match(value)));
+}
+
+/**
+ * isInteger in this value
+ * @param {Mixed} value
+ * @return {Boolean} [description]
+ */
+function isFloat(value) {
+    return (value != null && (typeof value == "float" || REGEXP_FLOAT.match(value)));
+}
+
+
+/**
+ * Combined resulted function
+ * check if number is numeric (float/integer)
+ * @param {Mixed} value
+ * @return {Boolean}
+ */
+function isNumeric(value) {
+    return (isInteger(value) || isFloat(value));
+}
+
+/**
+ * Convert value to string
+ * wihout scientific notation
+ * Useful for a long-ass values
+ *
+ * @param  {mixed} value
+ * @return {string}
+ */
+function floatToString(value) {
+    return format("%.0f", value.tofloat());
+}
+
+/**
+ * Strip all non integer data from the string
+ * and return plain, cleared value or 0
+ *
+ * @param  {Mixed} value
+ * @return {Integer}
+ */
+function toInteger(value) {
+    if (isInteger(value)) {
+        return value.tointeger();
+    }
+
+    if (value == null) {
+        return 0;
+    }
+
+    local result = REGEXP_INTEGER.search(value);
+
+    if (result != null) {
+        return value.slice(result.begin, result.end).tointeger();
+    }
+
+    return 0;
+}
+
+toInt <- toInteger;
+
+/**
+ * Replace occurances of "search" to "replace" in the "subject"
+ * @param  {string} search
+ * @param  {string} replace
+ * @param  {string} subject
+ * @return {string}
+ */
+function str_replace(original, replacement, string) {
+    local expression = regexp(original);
+    local result = "";
+    local position = 0;
+    local captures = expression.capture(string);
+
+    while (captures != null) {
+        foreach (i, capture in captures) {
+            result += string.slice(position, capture.begin);
+            result += replacement;
+            position = capture.end;
+        }
+
+        captures = expression.capture(string, position);
+    }
+
+    result += string.slice(position);
+
+    return result;
+}
+
+/**
+ * Replace occurances of "search" to "replace" in the "subject"
+ * @param  {string} search
+ * @param  {string} replace
+ * @param  {string} subject
+ * @return {string}
+ */
+function preg_replace(original, replacement, string) {
+    local expression = regexp(original);
+    local result = "";
+    local position = 0;
+    local captures = expression.capture(string);
+
+    while (captures != null) {
+        local capture = captures[0];
+
+        result += string.slice(position, capture.begin);
+
+        local subsitute = replacement;
+
+        for (local i = 1; i < captures.len(); i++) {
+            subsitute = str_replace("\\$" + i, string.slice(captures[i].begin, captures[i].end), subsitute);
+        }
+
+        result += subsitute;
+        position = capture.end;
+        captures = expression.capture(string, position);
+    }
+
+    result += string.slice(position);
+    return result;
+}
+
+/**
+ * Escape strings according to http://www.json.org/ spec
+ * @param {String} str
+ */
+function escape(str) {
+    local res = "";
+
+    for (local i = 0; i < str.len(); i++) {
+
+        local ch1 = (str[i] & 0xFF);
+
+        if ((ch1 & 0x80) == 0x00) {
+            // 7-bit Ascii
+
+            ch1 = format("%c", ch1);
+
+            if (ch1 == "\'") {
+                res += "\\\'";
+            } else if (ch1 == "\"") {
+                res += "\\\"";
+            } else if (ch1 == "\\") {
+                res += "\\\\";
+            } else if (ch1 == "/") {
+                res += "\\/";
+            } else if (ch1 == "\b") {
+                res += "\\b";
+            } else if (ch1 == "\f") {
+                res += "\\f";
+            } else if (ch1 == "\n") {
+                res += "\\n";
+            } else if (ch1 == "\r") {
+                res += "\\r";
+            } else if (ch1 == "\t") {
+                res += "\\t";
+            } else if (ch1 == "\0") {
+                res += "\\u0000";
+            } else {
+                res += ch1;
+            }
+
+        } else {
+
+            if ((ch1 & 0xE0) == 0xC0) {
+                // 110xxxxx = 2-byte unicode
+                local ch2 = (str[++i] & 0xFF);
+                res += format("%c%c", ch1, ch2);
+            } else if ((ch1 & 0xF0) == 0xE0) {
+                // 1110xxxx = 3-byte unicode
+                local ch2 = (str[++i] & 0xFF);
+                local ch3 = (str[++i] & 0xFF);
+                res += format("%c%c%c", ch1, ch2, ch3);
+            } else if ((ch1 & 0xF8) == 0xF0) {
+                // 11110xxx = 4 byte unicode
+                local ch2 = (str[++i] & 0xFF);
+                local ch3 = (str[++i] & 0xFF);
+                local ch4 = (str[++i] & 0xFF);
+                res += format("%c%c%c%c", ch1, ch2, ch3, ch4);
+            }
+
+        }
+    }
+
+    return res;
+}
+/**
+ * Return array of keys of the table
+ * @param  {Table} table
+ * @return {Array}
+ */
+function tableKeys(table) {
+    if (typeof table != "table") {
+        return error("tableKeys: provided data is not a table.");
+    }
+
+    local keys = [];
+
+    foreach (idx, value in table) {
+        keys.push(idx);
+    }
+
+    return keys;
+}
 (function() {
 local _3Dtext_vectors = {};
 local _3Dtext_objects = {};
