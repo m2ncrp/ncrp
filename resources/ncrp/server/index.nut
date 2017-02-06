@@ -190,6 +190,10 @@ proxy("changeModel",                "changeModel"                       );
 // JustPilz
 proxy("PhoneCallGUI",               "PhoneCallGUI"                      );
 
+//Inventory system
+proxy("onPlayerUseItem",           "native:onPlayerUseItem"             );
+proxy("onPlayerMoveItem",          "native:onPlayerMoveItem"            );
+
 /**
  * Debug export
  * if constant is set to true
