@@ -2431,15 +2431,24 @@ class Inventory
         this.handle = guiCreateElement(ELEMENT_TYPE_WINDOW, this.data.title, centerX - sizex / 2, centerY - sizey / 2, sizex, sizey);
 
         foreach (idx, item in this.data.items) {
-            dbgc(item);
-            dbg(item);
-            local posx = this.guiPadding + (floor(item.slot % this.data.sizeX) * this.guiCellSize + this.guiPadding);
-            local posy = this.guiPadding + (floor(item.slot / this.data.sizeX) * this.guiCellSize + this.guiPadding) + this.guiTopOffset;
+            this.items[item.slot] <- item;
+        }
+
+        local size = this.data.sizeX * this.data.sizeY;
+        for (local i = 0; i < size; i++) {
+            if (!(i in this.items)) {
+                this.items[i] <- { classname = "Item.None", type = "Item.None", slot = i, handle = null, label = null };
+            }
+
+            local item = this.items[i];
+
+            local posx = this.guiPadding + (floor(item.slot % this.data.sizeX) * (this.guiCellSize + this.guiPadding));
+            local posy = this.guiPadding + (floor(item.slot / this.data.sizeX) * (this.guiCellSize + this.guiPadding)) + this.guiTopOffset;
+
 
             item.handle <- guiCreateElement( ELEMENT_TYPE_IMAGE, item.classname + ".jpg", posx, posy, this.guiCellSize, this.guiCellSize, false, this.handle);
+            continue;
             item.label  <- guiCreateElement( ELEMENT_TYPE_LABEL, this.formatLabelText(item), posx + this.guiLableItemOffsetX, posy + this.guiLableItemOffsetY, 16.0, 15.0, false, this.handle);
-
-            this.items[item.slot] <- item;
         }
 
         return true;
