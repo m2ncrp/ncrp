@@ -28,6 +28,7 @@ function include(path) {
 include("libraries/squirrel-orm.nut");
 // include("libraries/network.nut");
 include("libraries/JSONEncoder.class.nut");
+include("libraries/JSONParser.class.nut");
 include("libraries/debug.nut");
 
 if (__DEBUG__EXPORT) {

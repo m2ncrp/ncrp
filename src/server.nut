@@ -41,9 +41,6 @@ include("modules/index.nut");
 include("translations/en.nut");
 include("translations/ru.nut");
 
-// unit testing
-// dofile("resources/ncrp/unittests/index.nut", true);
-
 local initializeEnvironment = function() {
     local envblob = file(".env", "a+");
 

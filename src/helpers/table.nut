@@ -16,3 +16,27 @@ function tableKeys(table) {
 
     return keys;
 }
+
+/**
+ * Merges given tables into one table
+ * Lastest table has bigger priority on resolving key collisions
+ * @param  {Table} 1
+ * @param  {Table} 2
+ * ...
+ * @param  {Table} n
+ *
+ * @return {Table}
+ */
+function merge(...) {
+    return vargv.reduce(function(carry, item) {
+        if (!item) {
+            return {};
+        }
+
+        foreach (idx, value in item) {
+            carry[idx] <- value;
+        }
+
+        return carry;
+    });
+}

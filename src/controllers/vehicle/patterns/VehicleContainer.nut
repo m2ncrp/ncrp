@@ -18,6 +18,10 @@ class VehicleContainer extends Container
         throw "VehicleContainer: you cant insert new data directly!";
     }
 
+    function push(object) {
+        return this.add(this.len(), object);
+    }
+
     /**
      * Find nearest vehicle id to particular player
      * @param  {Integer} playerid
