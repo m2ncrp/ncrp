@@ -151,7 +151,6 @@ class Container
         throw null;
     }
 
-
     /**
      * Meta impelemtation for set
      * @param {Integer} key
@@ -164,7 +163,6 @@ class Container
             this.__data[key] = value;
         }
     }
-
 
     /**
      * Meta method used for foreach loop
