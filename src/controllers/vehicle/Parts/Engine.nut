@@ -1,20 +1,24 @@
-class VehicleComponent.Engine extends VehicleComponent {
-    static classname = "VehicleComponent.Engine";
+class Engine extends SwitchableVehiclePart {
 
-    constructor (vehicleid, status = false) {
-        base.constructor(vehicleid, status);
-
-        this.type      = "Engine";
-        this.subtype   = "Engine";
-        this.partID    = 3;
+    constructor (vehicleID) {
+        base.constructor(vehicleID, null, false);
     }
 
-    function action() {
-        this.status = !status;
-        setVehicleEngineState( vehicleid, status );
+    function getState() {
+        local native = getVehicleEngineState( vehicleID );
+        return native || state;
     }
 
-    function correct() {
-        setVehicleEngineState( vehicleid, status );
+    function setState(to) {
+        setVehicleEngineState( vehicleID, to );
+        base.setState( to );
+    }
+
+    /**
+     * Return true if engine broken on server side.
+     * @return {Boolean}
+     */
+    function isBroken() {
+        return false;
     }
 }
