@@ -37,4 +37,18 @@ class VehicleComponent.Hull extends VehicleComponent
 
         return true;//this;
     }
+
+    function getDirt() {
+        return this.data.dirt;
+    }
+
+    function setDirt(value) {
+        this.data.model = model;
+
+        if (this.parent.state == Vehicle.State.Spawned) {
+            setVehicleDirtLevel(this.parent.vehicleid, this.data.dirt);
+        }
+
+        return true;//this;
+    }
 }
