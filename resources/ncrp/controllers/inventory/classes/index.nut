@@ -1,3 +1,22 @@
+Item <- {};
+Item.State <- {
+    NONE            = 0,
+    GROUND          = 1,
+    PLAYER_INV      = 3,
+    PLAYER          = 3,
+    VEHICLE_INV     = 4,
+    BUILDING_INV    = 5,
+};
+
+// include entities
+include("controllers/inventory/classes/Item/Abstract.nut");
+include("controllers/inventory/classes/Item/None.nut");
+include("controllers/inventory/classes/Item/Weapon.nut");
+include("controllers/inventory/classes/Item/Ammo.nut");
+include("controllers/inventory/classes/Item/Clothes.nut");
+
+include("controllers/inventory/classes/ItemContainer.nut");
+
 /**
  * Weapons
  */

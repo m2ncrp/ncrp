@@ -12,13 +12,11 @@ class Container
      */
     __data = null;
 
-
     /**
      * Array of ordered keys for __data
      * @type {Array}
      */
     __keys = null;
-
 
     /**
      * Reference to Class that'll be stored in Container
@@ -28,10 +26,9 @@ class Container
 
 
 
-
     /**
      * Create new instance
-     * @return {PlayerContainer}
+     * @return {Container}
      */
     constructor () {
         this.__data = {};
@@ -40,7 +37,6 @@ class Container
         this.__ref  = null;
     }
 
-
     /**
      * Return plain data table
      * @return {Table}
@@ -48,7 +44,6 @@ class Container
     function getAll() {
         return this.__data;
     }
-
 
     /**
      * Alias for getting single Object or null
@@ -59,7 +54,6 @@ class Container
         return this[key];
     }
 
-
     /**
      * Return if key is in the array
      * @param  {Integer} key
@@ -68,7 +62,6 @@ class Container
     function exists(key) {
         return (key in this.__data);
     }
-
 
     /**
      * Store new Object record inside
@@ -91,7 +84,6 @@ class Container
         return true;
     }
 
-
     /**
      * Remove Object from storage by key
      * @param  {Integer} key
@@ -113,6 +105,31 @@ class Container
         return temp;
     }
 
+    /**
+     * Swap 2 elements, if they exist
+     * @param  {Integer} key1
+     * @param  {Integer} key2
+     * @return {Boolean}
+     */
+    function swap(key1, key2)
+    {
+        // return null if no records
+        if (!this.exists(key1) || !this.exists(key2)) return false;
+
+        local indx1 = this.__keys.find(key1);
+        local indx2 = this.__keys.find(key2);
+
+        local temp        = this.__data[key1];
+        this.__data[key1] = this.__data[key2];
+        this.__data[key2] = temp;
+
+        this.__keys.remove(indx1);
+        this.__keys.insert(indx1, key2);
+        this.__keys.remove(indx2);
+        this.__keys.insert(indx2, key1);
+
+        return true;
+    }
 
     /**
      * Trigger callback for all objects
@@ -126,7 +143,6 @@ class Container
         }
     }
 
-
     /**
      * Override for default len method
      * Get size of current players array
@@ -135,9 +151,6 @@ class Container
     function len() {
         return this.__data.len();
     }
-
-
-
 
     /**
      * Meta implementation for get
@@ -153,15 +166,21 @@ class Container
 
     /**
      * Meta impelemtation for set
-     * @param {Integer} key
-     * @param {Character} value
+     * @param {Integer} name
+     * @param {Object} object
      */
-    function _set(key, value) {
-        if (!(value in this.__data)) {
-            this.__data[key] <- value;
-        } else {
-            this.__data[key] = value;
+    function _set(playerid, object) {
+        if (!(object instanceof __ref)) {
+            throw "Container: could not add unexpected entity."
         }
+
+        if (!(name in this.__data)) {
+            this.__data[playerid] <- object;
+        } else {
+            this.__data[playerid] = object;
+        }
+
+        return true;
     }
 
     /**

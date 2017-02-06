@@ -1,12 +1,12 @@
-class Item.Clothes extends Item.Item
+class Item.Ammo extends Item.Abstract
 {
-    static classname = "Item.Clothes";
+    static classname = "Item.Ammo";
     capacity = 0;
 
     constructor () {
         base.constructor();
-        this.type = ITEM_TYPE.CLOTHES;
-        this.stackable = false;
+        this.stackable = true;
+        this.maxstack  = 10;
     }
 
     function calculateWeight () {
@@ -16,5 +16,4 @@ class Item.Clothes extends Item.Item
     function use(playerid) {
         msg(playerid, format("Вы использовали: %s", this.classname));
     }
-
 }

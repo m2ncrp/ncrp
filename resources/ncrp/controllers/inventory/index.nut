@@ -1,33 +1,31 @@
-include("controllers/inventory/functions.nut");
+include("controllers/inventory/classes");
+// include("controllers/inventory/functions.nut"); // refactor
 
-const MAX_INVENTORY_SLOTS = 30;
-const MAX_INVENTORY_WEIGHT = 10.0;
-
-event("onServerPlayerStarted", function(playerid) {
-
+/**
+ * Try to load player inventory
+ * on player connected
+ */
+event("onPlayerConnect", function(playerid) {
     local character = players[playerid];
 
-    Item.Item.findBy({ state = ITEM_STATE.PLAYER_INV, parent = character.id }, function(err, items) {
-        //if (err || !items.len()) return;
-
-        local slots = {};
+    Item.findBy({ state = Item.State.PLAYER, parent = character.id }, function(err, items) {
+        local inventory = PlayerItemContainer(playerid);
 
         foreach (idx, item in items) {
-            slots[item.slot] <- item;
+            inventory.add(item.slot, item);
         }
 
-        for(local i = 0; i < MAX_INVENTORY_SLOTS; i++) {
-            if (!(i in slots)) {
-                slots[i] <- Item.None(i);
-            }
-
-            addPlayerItem(playerid, slots[i]);
-        }
+        // save inv, add fill in empty slots
+        character.inventory = inventory;
+        character.inventory.fillInEmpty();
     });
 });
 
+/**
+ * Try to save player's items on character save
+ */
 event("onCharacterSave", function(playerid, character) {
-    local items = getPlayerItems(playerid);
+    local items = character.inventory;
 
     foreach (idx, item in items) {
         item.save();

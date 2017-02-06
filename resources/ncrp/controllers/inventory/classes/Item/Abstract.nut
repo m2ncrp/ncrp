@@ -1,13 +1,11 @@
-Item <- {};
-
-class Item.Item extends ORM.Entity
+class Item.Abstract extends ORM.Entity
 {
-    static classname = "Item.Item";
+    static classname = "Item.Abstract";
     static table = "tbl_items";
 
     fields = [
-        ORM.Field.Integer({ name = "type",  value = ITEM_TYPE.NONE  }),
-        ORM.Field.Integer({ name = "state", value = ITEM_STATE.NONE }),
+        ORM.Field.Integer({ name = "type",  value = 0 }),
+        ORM.Field.Integer({ name = "state", value = Item.State.NONE }),
         ORM.Field.Integer({ name = "slot",  value = 0 }),
         ORM.Field.Integer("parent"),
         ORM.Field.Integer("amount"),
@@ -41,14 +39,15 @@ class Item.Item extends ORM.Entity
     }
 }
 
-class Item.None extends Item.Item {
-    static classname = "Item.None";
-    constructor (slot = 0) {
-        base.constructor();
-        this.slot = slot;
-    }
+// add shortcuts overrides
+Item.findBy <- function(condition, callback) {
+    return Item.Abstract.findBy(condition, callback);
+};
 
-    function save() {
-        return;
-    }
-}
+Item.findOneBy <- function(condition, callback) {
+    return Item.Abstract.findOneBy(condition, callback);
+};
+
+Item.findAll <- function(callback) {
+    return Item.Abstract.findAll(callback);
+};
