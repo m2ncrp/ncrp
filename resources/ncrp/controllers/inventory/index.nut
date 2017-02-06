@@ -33,5 +33,6 @@ event("onCharacterSave", function(playerid, character) {
 });
 
 key("i", function(playerid) {
-    trigger(playerid, "onPlayerInventorySwitch");
+    if (!isPlayerLoaded(playerid)) return;
+    players[playerid].inventory.toggle(playerid);
 });
