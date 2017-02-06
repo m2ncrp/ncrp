@@ -65,7 +65,7 @@ class VehicleComponentContainer extends Container
 
         if (typeof idOrType == "string") {
             foreach (idx, component in this) {
-                if (idx == id) {
+                if (idx == id || component.classname == idOrType) {
                     results.push(component);
                 }
             }
