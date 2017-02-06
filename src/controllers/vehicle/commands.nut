@@ -265,4 +265,3 @@ key("q", function(playerid) {
 //     switchBothLight(playerid);
 // });
 
-
