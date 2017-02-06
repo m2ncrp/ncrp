@@ -45,7 +45,7 @@ translation("en", {
 });
 
 
-include("modules/jobs/milkdriver/commands.nut");
+include("modules/shops/restaurant/milkdriver/commands.nut");
 
 local job_milk = {};
 local milktrucks = {};

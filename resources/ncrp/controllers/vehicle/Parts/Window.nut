@@ -2,7 +2,7 @@ class Window extends OpenableVehiclePart {
     constructor (vehicleID, seatID) {
         base.constructor(vehicleID, seatID, false);
     }
-    
+
     function open() {
         setVehicleWindowOpen(vehicleID, id, true);
         isOpen = true;
@@ -15,7 +15,7 @@ class Window extends OpenableVehiclePart {
 
     /**
      * Return true if window visually broken on server side.
-     * Needs for different message radius. 
+     * Needs for different message radius.
      * @return {Boolean}
      */
     function isBroken() {

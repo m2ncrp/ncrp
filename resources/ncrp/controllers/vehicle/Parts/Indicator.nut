@@ -1,5 +1,5 @@
 class Indicator extends SwitchableVehiclePart {
-    
+
     constructor (vehicleID, side) {
         base.constructor(vehicleID, side, false);
     }

@@ -35,7 +35,7 @@ translation("en", {
 //"job.fishdriver.fishtoomuch"   : "[FISH] There is enough fish in warehouse. No longer necessary now."
 });
 
-include("modules/jobs/fishdriver/commands.nut");
+include("modules/shops/restaurant/fishdriver/commands.nut");
 
 local job_fish = {};
 local job_fish_blocked = {};

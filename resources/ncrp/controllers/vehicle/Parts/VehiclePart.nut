@@ -19,7 +19,7 @@ class BaseVehiclePart {
 
 class OpenableVehiclePart extends BaseVehiclePart {
     isOpen = false;
-    
+
     constructor (vehicleID, partID, isOpen = false) {
         base.constructor(vehicleID, partID);
         this.isOpen = isOpen;
@@ -53,7 +53,7 @@ class OpenableVehiclePart extends BaseVehiclePart {
 
 class SwitchableVehiclePart extends BaseVehiclePart {
     state = null;
-    
+
     constructor (vehicleID, partID, state = 0) {
         base.constructor(vehicleID, partID);
         this.state = state;

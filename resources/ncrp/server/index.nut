@@ -9,7 +9,6 @@ dofile("resources/ncrp/libraries/index.nut", true);
 // load classes
 include("traits/Colorable.nut");
 include("models/Color.nut");
-include("models/Vehicle.nut");
 include("models/World.nut");
 include("models/TeleportPosition.nut");
 include("models/TimestampStorage.nut");
@@ -19,6 +18,7 @@ include("models/MigrationVersion.nut");
 include("models/Business.nut");
 
 // load helpers
+include("helpers/patterns");
 include("helpers/vector.nut");
 include("helpers/assert.nut");
 include("helpers/array.nut");
