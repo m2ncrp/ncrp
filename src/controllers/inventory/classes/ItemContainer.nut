@@ -1,5 +1,7 @@
 class ItemContainer extends Container
 {
+    static classname = "ItemContainer";
+
     id      = null;
     parent  = null;
     title   = "Default Container";
@@ -34,6 +36,8 @@ class ItemContainer extends Container
 
         this.id = md5(this.tostring());
         this.opened = {};
+
+        trigger("onInventoryRegistred", this);
     }
 
     /**
@@ -43,7 +47,7 @@ class ItemContainer extends Container
      */
     function show(playerid) {
         this.opened[playerid] <- true;
-        return trigger(playerid, "invetory:onServerOpen", this.id, this.serialize());
+        return trigger(playerid, "inventory:onServerOpen", this.id, this.serialize());
     }
 
     /**
@@ -60,6 +64,18 @@ class ItemContainer extends Container
     }
 
     /**
+     * Sync inventory containment for all currently viewing it players
+     * @return {Boolean}
+     */
+    function sync() {
+        foreach (playerid, value in this.opened) {
+            trigger(playerid, "inventory:onServerOpen", this.id, this.serialize());
+        }
+
+        return true;
+    }
+
+    /**
      * Switch current state of inventory for particular player
      * @param  {Integer} playerid
      * @return {Boolean} state
@@ -73,6 +89,15 @@ class ItemContainer extends Container
     }
 
     /**
+     * Check if current player have this inventory opened
+     * @param  {Integer} playerid
+     * @return {Boolean}
+     */
+    function isOpened(playerid) {
+        return (playerid in this.opened);
+    }
+
+    /**
      * Serializes containing items into json string
      * @return {String}
      */
@@ -83,6 +108,7 @@ class ItemContainer extends Container
             sizeY = this.sizeY,
             sizeY = this.sizeY,
             limit = this.limit,
+            type  = this.classname,
             items = [],
         };
 
@@ -93,7 +119,32 @@ class ItemContainer extends Container
         return JSONEncoder.encode(data);
     }
 
-    function fillInEmpty() {
-        // todo
+    /**
+     * Overrides for syncing
+     * @param {Mixed} key
+     * @param {Item.Abstract} value
+     */
+    function set(key, value) {
+        base.set(key, value);
+        return this.sync();
+    }
+
+    /**
+     * Overrides for syncing
+     * @param {Mixed} key
+     */
+    function remove(key) {
+        base.remove(key);
+        return this.sync();
+    }
+
+    /**
+     * Overrides for syncing
+     * @param {Mixed} key1
+     * @param {Mixed} key2
+     */
+    function swap(key1, key2) {
+        base.swap(key1, key2);
+        return this.sync();
     }
 }
