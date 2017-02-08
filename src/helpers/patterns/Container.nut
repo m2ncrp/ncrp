@@ -68,7 +68,7 @@ class Container
      * @param {Integer} key
      * @param {Object} Object
      */
-    function add(key, object) {
+    function set(key, object) {
         if (!(object instanceof __ref)) {
             throw "Container: could not add unexpected entity."
         }
@@ -82,6 +82,13 @@ class Container
         this.__keys.push(key);
 
         return true;
+    }
+
+    /**
+     * @deprectated
+     */
+    function add(key, object) {
+        return this.set(key, object);
     }
 
     /**
@@ -145,7 +152,7 @@ class Container
 
     /**
      * Override for default len method
-     * Get size of current players array
+     * Get size of current container
      * @return {Integer}
      */
     function len() {
@@ -169,18 +176,8 @@ class Container
      * @param {Integer} name
      * @param {Object} object
      */
-    function _set(playerid, object) {
-        if (!(object instanceof __ref)) {
-            throw "Container: could not add unexpected entity."
-        }
-
-        if (!(name in this.__data)) {
-            this.__data[playerid] <- object;
-        } else {
-            this.__data[playerid] = object;
-        }
-
-        return true;
+    function _set(key, object) {
+        return this.set(key, object);
     }
 
     /**
