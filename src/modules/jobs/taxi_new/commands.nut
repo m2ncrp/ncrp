@@ -42,10 +42,6 @@ cmd("taxi", "close", function(playerid) {
     taxiCallClose(playerid);
 });
 
-key("1", function(playerid) {
-    taxiSwitchAir(playerid);
-}, KEY_UP);
-
 // usage: /help taxi
 cmd("help", "taxi", function(playerid) {
     msg(playerid, "==================================", CL_HELP_LINE);

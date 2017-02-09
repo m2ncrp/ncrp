@@ -9,9 +9,10 @@ const TAXI_JOB_LEVEL = 2;
 local TAXI_BLIP = [-710.638, 255.64, 0.365978];
 local TAXI_COORDS = [-720.586, 248.261, 0.365978];
 local TAXI_RADIUS = 2.0;
+
 local TAXI_CALLS = {};
+// format: TAXI_CALLS[playerid] <- [place, "open" / "inprocess" / "close"];
 local TAXI_LASTCALL = null;
-local TAXI_QUEUE = "free";
 
 // general
 translation("en", {
@@ -93,6 +94,7 @@ createVehicle(   24, -658.287, 236.719, 1.17881, -179.192, 0.255169, -0.234465 )
         createVehicle(33, -714.508, 248.0, 0.504346, -0.44367, -0.00094714, -0.244627 ), // Taxi2
         createVehicle(24, -718.301, 261.576, 0.504056, 141.868, -0.025185, 0.340924 ), // Taxi3
         createVehicle(24, -712.0, 262.183, 0.504394, 141.868, -0.025185, 0.340924   ), // Taxi4
+
         createVehicle(33, -479.656, 702.3, 1.2, -179.983, -2.09183, 0.445576  ),     // taxi Uptown 1
         createVehicle(24, -483.363, 702.3, 1.2, -178.785, -2.16034, 0.16853   ),     // taxi Uptown 2
      // createVehicle(33, -487.191, 702.3, 1.2, -178.078, -2.24803, 0.0579244 ),     // taxi Uptown 3
@@ -106,14 +108,15 @@ createVehicle(   24, -658.287, 236.719, 1.17881, -179.192, 0.255169, -0.234465 )
 });
 
 event("onPlayerConnect", function(playerid) {
-    players[playerid]["taxi"] = {};
-    players[playerid]["taxi"]["call_address"] <- false; // Address from which was caused by a taxi
-    players[playerid]["taxi"]["call_state"] <- false; // Address from which was caused by a taxi
+    //players[playerid]["taxi"] = {};
+    //players[playerid]["taxi"]["call_address"] <- false; // Address from which was caused by a taxi
+    //players[playerid]["taxi"]["call_state"] <- false; // Address from which was caused by a taxi
 
     job_taxi[playerid] <- {};
     job_taxi[playerid]["userstatus"] <- "offair";
     job_taxi[playerid]["counter"] <- null; // counter / taximeter
     job_taxi[playerid]["customer"] <- null; // customer == playerid who called taxi car
+    job_taxi[playerid]["car"] <- null; // car == vehicleid of driver
 });
 
 
@@ -137,15 +140,15 @@ event( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
         }
     }
 
-    if(isPlayerCarTaxi(playerid) /*&& seat == 1 */) {
+    if(isPlayerCarTaxi(playerid) && seat == 1 ) {
         local driverid = getVehicleDriver(vehicleid);
         if(driverid == null) return;
         if(!isTaxiDriver(driverid) || job_taxi[driverid]["customer"] == null) return;
         if(playerid == job_taxi[driverid]["customer"]) {
             // start taximeter
-            taxiStartCounter(playerid);
-            msg_taxi_cu( playerid, "Taximeter ON");
-            msg_taxi_dr( playerid, "Taximeter ON. Press 2 to stop taximeter.");
+            taxiStartCounter(driverid);
+            msg_taxi_cu( playerid, "Такси бесплатное. Все расходы покрывает казна города.");
+            msg_taxi_dr( driverid, "Taximeter ON. Press 2 to stop taximeter.");
         }
     }
 });
@@ -159,7 +162,7 @@ event("onPlayerPlaceExit", function(playerid, name) {
     }
 
     if ("taxiBig" + playerid  == name) {
-        msg_taxi_cu(playerid, "Вы отошли слишком далеко. Такси не приедет.");
+        msg_taxi_cu(playerid, "Вы отошли слишком далеко.");
         removePlace("taxiSmall" + playerid);
         removePlace("taxiBig" + playerid);
         if(TAXI_LASTCALL == playerid) TAXI_LASTCALL = null;
@@ -228,61 +231,97 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
     }
 });
 
-/**
- * msg to taxi customer
- * @param  {int}  playerid
- * @param  {string} text
- * @param  {string} options
+
+
+/* ******************************************************************************************************************************************************* */
+
+/*
+
+███████████████████████████████████████████████████████████████████████████████████████████████████
+█─██─█─██─█──█──█─█─█────█████────█─██─█────█████─██─█───█████────█────█────█────█───█────█───█───█
+█─██─█─██─██───██─█─█─██─█████─██─█─██─█─██─█████─██─█─███████─██─█─██─█─████─██─██─██─██─█─████─██
+█────█─█──███─███───█────█████─██─█────█─██─█████────█───█████────█────█────█─██─██─██────█───██─██
+█─██─█──█─██───████─██─█─█████─██─█─██─█─██─█████─██─█─███████─████─██─█─██─█─██─██─██─██─█─████─██
+█─██─█─██─█──█──█───██─█─█████────█─██─█────█████─██─█───█████─████─██─█────█────██─██─██─█───██─██
+███████████████████████████████████████████████████████████████████████████████████████████████████
+
  */
-function msg_taxi_cu(playerid, text, options = []) {
-    return msg(playerid, text, options, CL_CREAMCAN);
+
+
+function taxiCounter (playerid, vx = null, vy = null, vz = null) {
+    if (!isPlayerConnected(playerid) || job_taxi[playerid]["counter"] == null || (job_taxi[playerid]["car"] != getPlayerVehicle(playerid) && getPlayerVehicle(playerid) != -1) ) {
+        return;
+    }
+
+    local vehicleid = job_taxi[playerid]["car"];
+    dbg(getDistanceBtwPlayerAndVehicle(playerid, vehicleid));
+    if( getPlayerVehicle(playerid) == -1) {
+        dbg(getDistanceBtwPlayerAndVehicle(playerid, vehicleid));
+        if (checkDistanceBtwPlayerAndVehicle(playerid, vehicleid, 25) == false) {
+            job_taxi[playerid]["counter"] = null;
+            dbg("bye");
+            return;
+        }
+    }
+
+    dbg("taxiCounter");
+
+    local vehPosOld = null;
+    if (vx != null) {
+        dbg("vx");
+        vehPosOld = [vx, vy, vz];
+    } else {
+        vehPosOld = getVehiclePosition(vehicleid);
+        dbg("else");
+    }
+
+    local vehPosNew = getVehiclePosition(vehicleid);
+    local dis = getDistanceBetweenPoints3D( vehPosOld[0], vehPosOld[1], vehPosOld[2], vehPosNew[0], vehPosNew[1], vehPosNew[2] );
+    job_taxi[playerid]["counter"] += dis;
+    //msg( playerid, "Distance: "+job_taxi[playerid]["counter"] );
+
+    delayedFunction(2500, function(){
+        taxiCounter (playerid, vehPosNew[0], vehPosNew[1], vehPosNew[2]);
+    });
 }
 
-/**
- * msg to taxi driver
- * @param  {int}  playerid
- * @param  {string} text
- * @param  {string} options
- */
+/* ******************************************************************************************************************************************************* */
 
-function msg_taxi_dr(playerid, text, options = []) {
-    return msg(playerid, text, options, CL_ECSTASY);
+
+function taxiStartCounter(playerid) {
+    job_taxi[playerid]["counter"] = 0;
+    taxiCounter (playerid);
 }
 
-/**
- * Check is player is a taxidriver
- * @param  {int}  playerid
- * @return {Boolean} true/false
- */
-function isTaxiDriver (playerid) {
-    return (isPlayerHaveValidJob(playerid, "taxidriver"));
+function taxiStopCounter(playerid) {
+    //msg( playerid, "End. Distance: "+job_taxi[playerid]["counter"], CL_EUCALYPTUS );
+    job_taxi[playerid]["counter"] = null;
+    taxiCounter (playerid);
 }
 
-/**
- * Check is player's vehicle is a taxi car
- * @param  {int}  playerid
- * @return {Boolean} true/false
- */
-function isPlayerCarTaxi(playerid) {
-    return (isPlayerInValidVehicle(playerid, 24) || isPlayerInValidVehicle(playerid, 33));
+function isCounterStarted(playerid) {
+    return (job_taxi[playerid]["counter"] == null) ? false : true;
 }
 
+
+/* ******************************************************************************************************************************************************* */
 /**
  * Call taxi car from <place>
  * @param  {int} playerid
  * @param  {string} place   - address place of call
  * @param  {int} again      - if set 1, message not be shown for playerid
  */
+
+
 function taxiCall(playerid, place, again = 0) {
-/*
-    if ((isTaxiDriver(playerid) && job_taxi[playerid]["userstatus"] == "onair") || (isTaxiDriver(playerid) && isPlayerCarTaxi(playerid))) {
+
+    if ((isTaxiDriver(playerid) && job_taxi[playerid]["userstatus"] != "offair") || (isTaxiDriver(playerid) && isPlayerCarTaxi(playerid))) {
         return msg_taxi_dr(playerid, "job.taxi.driver.dontfoolaround"); // don't fool around
     }
-*/
 
     local check = false;
     foreach (targetid, value in job_taxi) {
-        if (value["userstatus"] == "onair" /* && isPlayerCarTaxi(targetid)  */) { // need changed to onair for correct work !!!!!!!!!!!!!!!!!!!!!!!!
+        if (value["userstatus"] == "onair" && isPlayerCarTaxi(targetid) ) { // need changed to onair for correct work !!!!!!!!!!!!!!!!!!!!!!!!
             check = true;
             msg_taxi_dr(targetid, "job.taxi.call.new", [ plocalize(targetid, place), playerid]);
         }
@@ -342,29 +381,30 @@ function taxiCallTakeRefuse(playerid) {
         return; //msg_taxi_dr(playerid, "job.taxi.needcar");
     }
 
+    if (job_taxi[playerid]["car"] != getPlayerVehicle(playerid) && job_taxi[playerid]["car"] != null) {
+        return msg_taxi_dr(playerid, "Sit into your taxi car with plate "+getVehiclePlateText(job_taxi[playerid]["car"]));
+    }
+
     if(job_taxi[playerid]["userstatus"] == "offair") {
         return msg_taxi_dr(playerid, "job.taxi.canttakecall");
     }
 
     if(job_taxi[playerid]["userstatus"] == "onroute") {
-        // дописать условие: если таймер оффнутый
-        msg_taxi_dr( playerid, "End. Distance: "+job_taxi[playerid]["counter"], CL_EUCALYPTUS );
-        msg_taxi_cu( playerid, "End. Distance: "+job_taxi[playerid]["counter"], CL_EUCALYPTUS );
-        taxiStopCounter(playerid);
+        if(isCounterStarted(playerid)) {               
+            taxiCallDone(playerid);
+        }
         return;
     }
 
-    if(job_taxi[playerid]["customer"] != null) {  dbg("enter"); return taxiCallRefuse(playerid) };
+    if(job_taxi[playerid]["customer"] != null) {  dbg("refusing"); return taxiCallRefuse(playerid); };
 
     local customerid = TAXI_LASTCALL;
-
-    dbg("customerid: "+customerid);
 
     if ( customerid == null) {
         return msg_taxi_dr(playerid, "На текущий момент звонков нет.");
     }
 
-    if ( !isPlayerConnected(customerid) /*|| playerid == customerid */) {
+    if ( !isPlayerConnected(customerid) || playerid == customerid ) {
         return msg_taxi_dr(playerid, "job.taxi.callnotexist");
     }
 
@@ -447,7 +487,7 @@ function taxiCallRefuse(playerid) {
 
     msg_taxi_dr(playerid, "job.taxi.refusedcall");
     msg_taxi_cu(customerid, "taxi.call.refused");
-
+    removePlace("taxi"+playerid+"Customer"+customerid);
     trigger(playerid, "removeGPS");
 
     delayedFunction(5000,  function() {
@@ -465,15 +505,8 @@ function taxiCallRefuse(playerid) {
  * @param  {int} playerid
  * @param  {float} amount   - amount for trip at taxi. Default $3.0
  */
-function taxiCallDone(playerid, amount) {
+function taxiCallDone(playerid) {
 
-    if (!isTaxiDriver(playerid)) {
-        return msg_taxi_dr(playerid, "job.taxi.driver.not");
-    }
-
-    if (!isPlayerCarTaxi(playerid)) {
-        return msg_taxi_dr(playerid, "job.taxi.needcar");
-    }
 
     local customerid = job_taxi[playerid]["customer"];
 
@@ -481,6 +514,31 @@ function taxiCallDone(playerid, amount) {
         return msg_taxi_dr(playerid, "job.taxi.noanycalls");
     }
 
+    local distance = job_taxi[playerid]["counter"];
+    msg_taxi_dr( playerid, "End of trip. Distance: "+distance );
+    msg_taxi_cu( playerid, "End of trip. Distance: "+distance );
+    taxiStopCounter(playerid);
+
+    delete TAXI_CALLS[ job_taxi[playerid]["customer"] ];
+
+    job_taxi[playerid]["userstatus"] = "onair";
+    job_taxi[playerid]["counter"] <- null;
+    job_taxi[playerid]["customer"] <- null;
+
+    if(distance > 250.0) {
+    local amount = distance * 0.0015;
+        if(canTreasuryMoneyBeSubstracted(amount)) {
+            subMoneyToTreasury(amount);
+            addMoneyToPlayer(playerid, amount);
+            msg_taxi_dr( playerid, "You earned $"+amount );
+        } else {
+            msg_taxi_dr( playerid, "Not enough money in treasury to give salary." );
+        }
+    } else {
+        msg_taxi_dr( playerid, "Not enough money in treasury to give salary." );
+    }
+
+/*
     msg_taxi_dr(playerid, "job.taxi.requested", amount );
     msg_taxi_cu(customerid, "taxi.call.request", amount);
     sendInvoiceSilent(playerid, customerid, amount, function(customerid, driverid, result) {
@@ -498,6 +556,8 @@ function taxiCallDone(playerid, amount) {
         }
     }
     );
+*/
+
 }
 
 
@@ -539,6 +599,15 @@ function taxiSwitchAir(playerid) {
     if (!isTaxiDriver(playerid) || !isPlayerCarTaxi(playerid)) {
         return ;
     }
+
+    if (job_taxi[playerid]["car"] != getPlayerVehicle(playerid) && job_taxi[playerid]["car"] != null) {
+        return msg_taxi_dr(playerid, "Sit into your taxi car with plate "+getVehiclePlateText(job_taxi[playerid]["car"]));
+    }
+
+    if (job_taxi[playerid]["car"] != getPlayerVehicle(playerid) && isCarTaxiFreeForDriver(getPlayerVehicle(playerid)) == false ) {
+        return msg_taxi_dr(playerid, "This car is busy by another driver");
+    }
+
     local userstatus = job_taxi[playerid]["userstatus"];
     if(userstatus != "onair" && userstatus != "offair") {
         return msg_taxi_dr(playerid, "job.taxi.cantchangestatus");
@@ -546,10 +615,12 @@ function taxiSwitchAir(playerid) {
 
     if (userstatus == "offair") {
         job_taxi[playerid]["userstatus"] = "onair";
+        job_taxi[playerid]["car"] = getPlayerVehicle(playerid);
         setTaxiLightState(getPlayerVehicle(playerid), true);
         msg_taxi_dr(playerid, "job.taxi.statuson" );
     } else {
         job_taxi[playerid]["userstatus"] = "offair";
+        job_taxi[playerid]["car"] = null;
         setTaxiLightState(getPlayerVehicle(playerid), false);
         msg_taxi_dr(playerid, "job.taxi.statusoff");
     }
@@ -569,20 +640,42 @@ key("q", function(playerid) {
     taxiJobRefuseLeave ( playerid );
 }, KEY_UP);
 
+key("1", function(playerid) {
+    taxiSwitchAir(playerid);
+}, KEY_UP);
+
 key("2", function(playerid) {
     taxiCallTakeRefuse ( playerid );
 }, KEY_UP);
+
+
+cmd("ta", function(playerid) {
+    taxiStartCounter(playerid);
+});
+
+cmd("tb", function(playerid) {
+    taxiStopCounter(playerid)
+});
+
+
+
+
+
+
+
 
 key("3", function(playerid) {
     job_taxi[playerid]["userstatus"] <- "onair";
 }, KEY_UP);
 
 key("4", function(playerid) {
+    dbg("=====================================================");
     dbg("LASTCALL: "+TAXI_LASTCALL);
     dbg(TAXI_CALLS);
     dbg("userstatus: "+job_taxi[playerid]["userstatus"]);
     dbg("counter: "+job_taxi[playerid]["counter"]);
     dbg("customer: "+job_taxi[playerid]["customer"]);
+    dbg("car: "+job_taxi[playerid]["car"]);
 }, KEY_UP);
 
 
@@ -666,64 +759,66 @@ function taxiJobRefuseLeave(playerid) {
         restorePlayerModel(playerid);
         renameText ( playerid, "leavejob3dtext", "Press E to get job");
         job_taxi[playerid]["userstatus"] = "offair";
+
+        if(job_taxi[playerid]["car"] != null) {
+            setTaxiLightState(job_taxi[playerid]["car"], false);
+            job_taxi[playerid]["car"] = null;
+        }
     });
 }
 
 
 
+
 /* ******************************************************************************************************************************************************* */
 
 
+/**
+ * msg to taxi customer
+ * @param  {int}  playerid
+ * @param  {string} text
+ * @param  {string} options
+ */
+function msg_taxi_cu(playerid, text, options = []) {
+    return msg(playerid, text, options, CL_CREAMCAN);
+}
 
-function taxiCounter (playerid, vx = null, vy = null, vz = null) {
-    if (job_taxi[playerid]["counter"] == null) {
-        return;
+/**
+ * msg to taxi driver
+ * @param  {int}  playerid
+ * @param  {string} text
+ * @param  {string} options
+ */
+
+function msg_taxi_dr(playerid, text, options = []) {
+    return msg(playerid, text, options, CL_ECSTASY);
+}
+
+/**
+ * Check is player is a taxidriver
+ * @param  {int}  playerid
+ * @return {Boolean} true/false
+ */
+function isTaxiDriver (playerid) {
+    return (isPlayerHaveValidJob(playerid, "taxidriver"));
+}
+
+/**
+ * Check is player's vehicle is a taxi car
+ * @param  {int}  playerid
+ * @return {Boolean} true/false
+ */
+function isPlayerCarTaxi(playerid) {
+    return (isPlayerInValidVehicle(playerid, 24) || isPlayerInValidVehicle(playerid, 33));
+}
+
+
+function isCarTaxiFreeForDriver(vehicleid) {
+    local check = true;
+    foreach (targetid, value in job_taxi) {
+        if (value["car"] == vehicleid ) {
+            check = false;
+        }
     }
-    dbg("taxiCounter");
-    local vehicleid = getPlayerVehicle(playerid);
-    local vehPosOld = null;
-    if (vx != null) {
-        dbg("vx");
-        vehPosOld = [vx, vy, vz];
-    } else {
-        vehPosOld = getVehiclePosition(vehicleid);
-        dbg("else");
-    }
-
-    local vehPosNew = getVehiclePosition(vehicleid);
-    local dis = getDistanceBetweenPoints3D( vehPosOld[0], vehPosOld[1], vehPosOld[2], vehPosNew[0], vehPosNew[1], vehPosNew[2] );
-    job_taxi[playerid]["counter"] += dis;
-    msg( playerid, "Distance: "+job_taxi[playerid]["counter"] );
-
-    delayedFunction(2500, function(){
-        taxiCounter (playerid, vehPosNew[0], vehPosNew[1], vehPosNew[2]);
-    });
-}
-
-/* ******************************************************************************************************************************************************* */
-
-
-cmd("ta", function(playerid) {
-    taxiStartCounter(playerid);
-});
-
-cmd("tb", function(playerid) {
-    taxiStopCounter(playerid)
-});
-
-/* ******************************************************************************************************************************************************* */
-
-function taxiStartCounter(playerid) {
-    job_taxi[playerid]["counter"] = 0;
-    taxiCounter (playerid);
-}
-
-function taxiStopCounter(playerid) {
-    msg( playerid, "End. Distance: "+job_taxi[playerid]["counter"], CL_EUCALYPTUS );
-    job_taxi[playerid]["counter"] = null;
-    taxiCounter (playerid);
-}
-
-function isCounterStarted(playerid) {
-    return (job_taxi[playerid]["counter"] == null) ? false : true;
+    return check;
 }

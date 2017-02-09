@@ -141,3 +141,16 @@ function getVehicleDriver(vehicleid) {
     }
     return null;
 }
+
+/**
+ * Return playerid of vehicle passenger
+ * or null if no passenger in the vehicle
+ * @param  {[type]}  vehicleid [description]
+ * @return {int}
+ */
+function getVehiclePassenger(vehicleid) {
+    if (0 in getVehiclePassengers(vehicleid)) {
+        return getVehiclePassengers(vehicleid)[1];
+    }
+    return null;
+}
