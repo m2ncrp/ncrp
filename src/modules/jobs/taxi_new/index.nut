@@ -85,7 +85,6 @@ event("onServerStarted", function() {
         createVehicle(24, -127.650, 402.069, -13.98, -90.0, 0.2, -0.2),   // taxi East Side 4
         createVehicle(33, -127.650, 398.769, -13.98, -90.0, 0.2, -0.2),   // taxi East Side 5
     */
-   
 
 createVehicle(   24, -658.287, 236.719, 1.17881, -179.192, 0.255169, -0.234465 ), // TaxiDEVELOPER
 
@@ -154,6 +153,62 @@ event( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
 });
 
 
+event( "onPlayerVehicleExit", function ( playerid, vehicleid, seat ) {
+    if(seat == 0 && isTaxiDriver(playerid) && isVehicleCarTaxi(vehicleid) && job_taxi[playerid]["userstatus"] != "offair" ) {
+        local vehPos = getVehiclePosition(vehicleid);
+        createPlace("TaxiDriverZone"+playerid,   vehPos[0]-25, vehPos[1]+25, vehPos[0]+25, vehPos[1]-25);
+    }
+});
+
+
+event("onPlayerPlaceEnter", function(playerid, name) {
+
+    if (!isTaxiDriver(playerid)) {
+        return;
+    }
+
+    if (!isPlayerCarTaxi(playerid)) {
+        return;
+    }
+
+    if(isPlaceExists("TaxiDriverZone"+playerid)) {
+        removePlace("TaxiDriverZone"+playerid);
+    }
+
+    if(job_taxi[playerid]["customer"] == null) {
+        return;
+    }
+
+    local customerid = job_taxi[playerid]["customer"];
+    if ("taxi"+playerid+"Customer"+customerid  == name) {
+
+        removePlace("taxiSmall" + customerid);
+        removePlace("taxiBig" + customerid);
+        removePlace("taxi"+playerid+"Customer"+customerid);
+        trigger(playerid, "removeGPS");
+
+        local plate = getVehiclePlateText( getPlayerVehicle( playerid ) );
+        msg_taxi_dr(playerid, "job.taxi.wait");
+        msg_taxi_cu(customerid, "taxi.call.arrived", plate);
+        job_taxi[playerid]["userstatus"] = "onroute";
+    }
+});
+
+/* For driver */
+event("onPlayerPlaceExit", function(playerid, name) {
+    if(!isTaxiDriver(playerid) || job_taxi[playerid]["userstatus"] == "offair" || name != "TaxiDriverZone"+playerid ) {
+        return;
+    }
+    taxiStopCounter(playerid);
+    job_taxi[playerid]["userstatus"] = "offair";
+    setTaxiLightState(job_taxi[playerid]["car"], false);
+    job_taxi[playerid]["car"] = null;
+    removePlace("TaxiDriverZone"+playerid);
+    msg_taxi_dr(playerid, "Вы ушли с линии, потому что отошли от рабочего автомобиля слишком далеко.");
+
+});
+
+/* For customer */
 event("onPlayerPlaceExit", function(playerid, name) {
 
     if ("taxiSmall" + playerid  == name) {
@@ -183,33 +238,7 @@ event("onPlayerPlaceExit", function(playerid, name) {
 });
 
 
-event("onPlayerPlaceEnter", function(playerid, name) {
 
-    if (!isTaxiDriver(playerid)) {
-        return;
-    }
-
-    if (!isPlayerCarTaxi(playerid)) {
-        return;
-    }
-
-    if(job_taxi[playerid]["customer"] == null) {
-        return;
-    }
-    local customerid = job_taxi[playerid]["customer"];
-    if ("taxi"+playerid+"Customer"+customerid  == name) {
-
-        removePlace("taxiSmall" + customerid);
-        removePlace("taxiBig" + customerid);
-        removePlace("taxi"+playerid+"Customer"+customerid);
-        trigger(playerid, "removeGPS");
-
-        local plate = getVehiclePlateText( getPlayerVehicle( playerid ) );
-        msg_taxi_dr(playerid, "job.taxi.wait");
-        msg_taxi_cu(customerid, "taxi.call.arrived", plate);
-        job_taxi[playerid]["userstatus"] = "onroute";
-    }
-});
 
 /*
 cmd("drive", function(playerid) {
@@ -235,18 +264,6 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
 
 /* ******************************************************************************************************************************************************* */
 
-/*
-
-███████████████████████████████████████████████████████████████████████████████████████████████████
-█─██─█─██─█──█──█─█─█────█████────█─██─█────█████─██─█───█████────█────█────█────█───█────█───█───█
-█─██─█─██─██───██─█─█─██─█████─██─█─██─█─██─█████─██─█─███████─██─█─██─█─████─██─██─██─██─█─████─██
-█────█─█──███─███───█────█████─██─█────█─██─█████────█───█████────█────█────█─██─██─██────█───██─██
-█─██─█──█─██───████─██─█─█████─██─█─██─█─██─█████─██─█─███████─████─██─█─██─█─██─██─██─██─█─████─██
-█─██─█─██─█──█──█───██─█─█████────█─██─█────█████─██─█───█████─████─██─█────█────██─██─██─█───██─██
-███████████████████████████████████████████████████████████████████████████████████████████████████
-
- */
-
 
 function taxiCounter (playerid, vx = null, vy = null, vz = null) {
     if (!isPlayerConnected(playerid) || job_taxi[playerid]["counter"] == null || (job_taxi[playerid]["car"] != getPlayerVehicle(playerid) && getPlayerVehicle(playerid) != -1) ) {
@@ -254,26 +271,26 @@ function taxiCounter (playerid, vx = null, vy = null, vz = null) {
     }
 
     local vehicleid = job_taxi[playerid]["car"];
-    dbg(getDistanceBtwPlayerAndVehicle(playerid, vehicleid));
+   /*
+dbg(getDistanceBtwPlayerAndVehicle(playerid, vehicleid));
     if( getPlayerVehicle(playerid) == -1) {
-        dbg(getDistanceBtwPlayerAndVehicle(playerid, vehicleid));
-        if (checkDistanceBtwPlayerAndVehicle(playerid, vehicleid, 25) == false) {
-            job_taxi[playerid]["counter"] = null;
-            dbg("bye");
-            return;
-        }
+        delayedFunction(3000, function(){
+            if (checkDistanceBtwPlayerAndVehicle(playerid, vehicleid, 40) == false) {
+                job_taxi[playerid]["counter"] = null;
+                dbg("Taxi counter bye");
+                return;
+            }
+        });
     }
-
-    dbg("taxiCounter");
-
+*/
     local vehPosOld = null;
     if (vx != null) {
-        dbg("vx");
         vehPosOld = [vx, vy, vz];
     } else {
         vehPosOld = getVehiclePosition(vehicleid);
-        dbg("else");
     }
+
+    dbg("taxi counter");
 
     local vehPosNew = getVehiclePosition(vehicleid);
     local dis = getDistanceBetweenPoints3D( vehPosOld[0], vehPosOld[1], vehPosOld[2], vehPosNew[0], vehPosNew[1], vehPosNew[2] );
@@ -810,6 +827,16 @@ function isTaxiDriver (playerid) {
  */
 function isPlayerCarTaxi(playerid) {
     return (isPlayerInValidVehicle(playerid, 24) || isPlayerInValidVehicle(playerid, 33));
+}
+
+
+/**
+ * Check vehicle is a taxi car
+ * @param  {int}  vehicleid
+ * @return {Boolean} true/false
+ */
+function isVehicleCarTaxi(vehicleid) {
+    return (getVehicleModel( vehicleid ) == 24 || getVehicleModel( vehicleid ) == 33);
 }
 
 
