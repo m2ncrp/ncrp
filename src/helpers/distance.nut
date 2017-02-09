@@ -122,9 +122,6 @@ function checkDistance(playerid, targetid, radius) {
 
 
 
-
-
-
 function checkDistanceXYZ(X1, Y1, Z1, X2, Y2, Z2, radius) {
     local distance = getDistanceBetweenPoints3D( X1, Y1, Z1, X2, Y2, Z2 );
     return (distance <= radius);
@@ -133,4 +130,31 @@ function checkDistanceXYZ(X1, Y1, Z1, X2, Y2, Z2, radius) {
 function checkDistanceXY(X1, Y1, X2, Y2, radius) {
     local distance = getDistanceBetweenPoints2D( X1, Y1, X2, Y2 );
     return (distance <= radius);
+}
+
+
+/**
+* @temporary. Need changes
+*
+*   Check if a distance between two players less than radius.
+*
+* @param  {int} playerid
+* @param  {int} targetid
+* @param  {float} radius
+* @return {bool} true/false
+*/
+function checkDistanceBtwPlayerAndVehicle(playerid, vehicleid, radius = 35) {
+    local plaPos = getPlayerPosition( playerid );
+    local vehPos = getVehiclePosition( vehicleid.tointeger() );
+    local radius = radius.tofloat();
+    local distance = getDistanceBetweenPoints3D( plaPos[0], plaPos[1], plaPos[2], vehPos[0], vehPos[1], vehPos[2] );
+    return  (distance <= radius);
+}
+
+
+function getDistanceBtwPlayerAndVehicle(playerid, vehicleid) {
+    local plaPos = getPlayerPosition( playerid );
+    local vehPos = getVehiclePosition( vehicleid.tointeger() );
+    local distance = getDistanceBetweenPoints3D( plaPos[0], plaPos[1], plaPos[2], vehPos[0], vehPos[1], vehPos[2] );
+    return  distance;
 }
