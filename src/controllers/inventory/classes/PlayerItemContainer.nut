@@ -1,5 +1,7 @@
 class PlayerItemContainer extends ItemContainer
 {
+    static classname = "PlayerItemContainer";
+
     id      = null;
     parent  = null;
     limit   = 35;

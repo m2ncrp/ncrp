@@ -6,10 +6,12 @@ event("onServerStarted", function() {
 });
 
 event("onInventoryRegistred", function(inventory) {
-    storage.add(inventory.id, inventory);
+    storage.set(inventory.id, inventory);
 });
 
 event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
+    dbg("receiving moving item reueqst with ", id1, slot1, id2, slot2);
+
     if (id1 != id2) {
         // operations on different inventories
         if (!storage.exists(id1)) return;
@@ -36,6 +38,9 @@ event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
             }
         }
 
+        inventory1.sync();
+        inventory2.sync();
+
     } else {
         // operations in same inventory
         if (!storage.exists(id1)) return;
@@ -46,11 +51,17 @@ event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
             if (inventory.exists(slot1)) {
                 if (inventory.exists(slot2)) {
                     inventory.swap(slot1, slot2);
+                    // local item1 = inventory[slot1];
+                    // inventory.remove(slot1);
+                    // inventory.set(slot1, inventory[slot2]);
+                    // inventory.set(slot2, item1);
                 } else {
                     inventory.set(slot2, inventory[slot1]);
                     inventory.remove(slot1);
                 }
             }
         }
+
+        inventory.sync();
     }
 });

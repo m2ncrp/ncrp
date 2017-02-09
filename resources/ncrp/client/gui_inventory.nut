@@ -35,6 +35,7 @@ class Inventory
     data    = null;
     handle  = null;
     items   = null;
+    cache   = null;
     opened  = false;
 
     guiTopOffset    = 20.0;
@@ -48,6 +49,7 @@ class Inventory
         this.id     = id;
         this.data   = data;
         this.items  = {};
+        this.cache  = {};
 
         return this.createGUI();
     }
@@ -73,8 +75,99 @@ class Inventory
         return "";
     }
 
-    function updateGUI(data) {
+    /**
+     * Hiding old
+     */
+    function cacheItem(item) {
+        // disable drawing of this cell
+        guiSetVisible(item.handle, false);
+        guiSetVisible(item.label,  false);
+        guiSetPosition(item.handle, -this.guiCellSize, -this.guiCellSize, false);
+        guiSetPosition(item.label,  -this.guiCellSize, -this.guiCellSize, false);
 
+        // create cache if doent exsits
+        if (!(item.classname in this.cache)) {
+            this.cache[item.classname] <- [];
+        }
+
+        // store gui handle in cache, to reuse it later
+        this.cache[item.classname].push(item);
+        // this.items[item.slot]// ???
+        dbgc("adding", item.classname, "to cache");
+    }
+
+    function createItem(slot, classname, type, amount = 0) {
+        local item = { classname = classname, type = type, slot = slot, amount = amount, handle = null, label = null, active = false, parent = this };
+        local pos  = this.getItemPosition(item);
+
+        // do we have new item in cached
+        if (item.classname in this.cache && this.cache[item.classname].len()) {
+            dbgc("reusing cached item", item.classname);
+
+            local itemOld = this.cache[item.classname].pop();
+
+            item.handle = itemOld.handle;
+            item.label  = itemOld.label;
+
+            guiSetPosition(item.handle, pos.x, pos.y, false);
+            guiSetPosition(item.label,  pos.x + this.guiLableItemOffsetX, pos.y + this.guiLableItemOffsetY, false);
+            guiSetVisible(item.handle, true);
+            guiSetVisible(item.label,  true);
+
+            guiSetText(item.label, this.formatLabelText(item));
+
+        } else {
+
+            item.handle <- guiCreateElement( ELEMENT_TYPE_IMAGE, item.classname + ".jpg", pos.x, pos.y, this.guiCellSize, this.guiCellSize, false, this.handle);
+            item.label  <- guiCreateElement( ELEMENT_TYPE_LABEL, this.formatLabelText(item), pos.x + this.guiLableItemOffsetX, pos.y + this.guiLableItemOffsetY, 16.0, 15.0, false, this.handle);
+        }
+
+        guiSetAlpha(item.handle, 0.75);
+        guiSetAlwaysOnTop(item.label, true);
+
+        this.items[item.slot] <- item;
+    }
+
+    function updateGUI(data) {
+        local find = function(haystack, needed) {
+            foreach (idx, value in haystack) {
+                if (value.slot == needed) return value;
+            }
+            return null;
+        };
+
+        foreach (slot, item in this.items) {
+            local matched = find(data.items, slot);
+
+            // slot now supposed to be empty
+            // we should remove this slot
+            // and replace with empty one
+            if (!matched && item.classname != "Item.None") {
+                this.cacheItem(item);
+                this.createItem(slot, "Item.None", "Item.None");
+                continue;
+            }
+
+            // slot now should change image
+            // to one from cache, or create one
+            // and put old to cache
+            if (matched && matched.classname != item.classname) {
+                this.cacheItem(item);
+                this.createItem(slot, matched.classname, matched.type, matched.amount);
+                continue;
+            }
+
+            // items are same, but different amount
+            // only need to change text on picture
+            if (matched && matched.classname == item.classname && matched.amount != item.amount) {
+                item.amount = matched.amount;
+                guiSetText(item.label, this.formatLabelText(matched));
+                continue;
+            }
+
+            // do nothing
+            // items are purely identical
+        }
     }
 
     function createGUI() {
@@ -85,22 +178,22 @@ class Inventory
         this.opened = true;
 
         foreach (idx, item in this.data.items) {
-            item.handle <- null;
-            item.lable  <- null;
-            item.active <- false;
-            item.parent <- this;
-
-            this.items[item.slot] <- item;
+            this.createItem(item.slot, item.classname, item.type, item.amount);
         }
 
         local size = this.data.sizeX * this.data.sizeY;
         for (local i = 0; i < size; i++) {
             if (i in this.items) continue;
 
-            this.items[i] <- { classname = "Item.None", type = "Item.None", slot = i, handle = null, label = null, active = false, parent = this };
+            this.createItem(i, "Item.None", "Item.None");
         }
+    }
 
-        return this.drawItems();
+    function getItemPosition(item) {
+        return {
+            x = this.guiPadding + (floor(item.slot % this.data.sizeX) * (this.guiCellSize + this.guiPadding)) + 4,
+            y = this.guiPadding + (floor(item.slot / this.data.sizeX) * (this.guiCellSize + this.guiPadding)) + this.guiTopOffset + 4,
+        };
     }
 
     function show() {
@@ -118,7 +211,6 @@ class Inventory
             if (selectedItem) {
                 // toggling item move
                 trigger("onPlayerMoveItem", selectedItem.parent.id, selectedItem.slot, item.parent.id, item.slot);
-                // dbgc("spapping items on slots ", selectedItem.slot, item.slot, "for id: ", this.id);
 
                 guiSetAlpha(selectedItem.handle, INVENTORY_INACTIVE_ALPHA);
                 selectedItem.active = false;
@@ -140,21 +232,6 @@ class Inventory
             guiSetAlpha(item.handle, INVENTORY_INACTIVE_ALPHA);
         }
     }
-
-    function drawItems() {
-        foreach (slot, item in this.items) {
-            local posx = this.guiPadding + (floor(item.slot % this.data.sizeX) * (this.guiCellSize + this.guiPadding)) + 4;
-            local posy = this.guiPadding + (floor(item.slot / this.data.sizeX) * (this.guiCellSize + this.guiPadding)) + this.guiTopOffset + 4;
-
-            item.handle <- guiCreateElement( ELEMENT_TYPE_IMAGE, item.classname + ".jpg", posx, posy, this.guiCellSize, this.guiCellSize, false, this.handle);
-            item.label  <- guiCreateElement( ELEMENT_TYPE_LABEL, this.formatLabelText(item), posx + this.guiLableItemOffsetX, posy + this.guiLableItemOffsetY, 16.0, 15.0, false, this.handle);
-
-            guiSetAlpha(item.handle, 0.75);
-            guiSetAlwaysOnTop(item.label, true);
-        }
-
-        return true;
-    }
 }
 
 event("inventory:onServerOpen", function(id, data) {
@@ -164,6 +241,11 @@ event("inventory:onServerOpen", function(id, data) {
         defaultMouseState = isCursorShowing();
         showCursor(true);
     }
+
+    dbgc("");
+    dbgc("");
+    dbgc("");
+    dbgc("");
 
     if (!(id in storage)) {
         storage[id] <- Inventory(id, data);
