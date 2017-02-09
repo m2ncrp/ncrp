@@ -64,7 +64,7 @@ class Container
     }
 
     /**
-     * Store new Object record inside
+     * Store new Object record inside (with overridng existed value)
      * @param {Integer} key
      * @param {Object} Object
      */
@@ -73,8 +73,8 @@ class Container
             throw "Container: could not add unexpected entity."
         }
 
-        if (key in this.__data) {
-            throw "Container: can't insert key. It's already exists."
+        if (this.exists(key)) {
+            this.remove(key);
         }
 
         // store data
@@ -85,9 +85,15 @@ class Container
     }
 
     /**
-     * @deprectated
+     * Store new Object record inside
+     * @param {Integer} key
+     * @param {Object} Object
      */
     function add(key, object) {
+        if (key in this.__data) {
+            throw "Container: can't insert key. It's already exists."
+        }
+
         return this.set(key, object);
     }
 
@@ -123,17 +129,10 @@ class Container
         // return null if no records
         if (!this.exists(key1) || !this.exists(key2)) return false;
 
-        local indx1 = this.__keys.find(key1);
-        local indx2 = this.__keys.find(key2);
+        local item = this.get(key1);
 
-        local temp        = this.__data[key1];
-        this.__data[key1] = this.__data[key2];
-        this.__data[key2] = temp;
-
-        this.__keys.remove(indx1);
-        this.__keys.insert(indx1, key2);
-        this.__keys.remove(indx2);
-        this.__keys.insert(indx2, key1);
+        this.set(key1, this.get(key2));
+        this.set(key2, item);
 
         return true;
     }
@@ -177,7 +176,7 @@ class Container
      * @param {Object} object
      */
     function _set(key, object) {
-        return this.set(key, object);
+        return this.add(key, object);
     }
 
     /**

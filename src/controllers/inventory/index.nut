@@ -1,4 +1,5 @@
 include("controllers/inventory/classes");
+include("controllers/inventory/inventories.nut");
 // include("controllers/inventory/functions.nut"); // refactor
 
 /**
@@ -12,7 +13,7 @@ event("onPlayerConnect", function(playerid) {
         local inventory = PlayerItemContainer(playerid);
 
         foreach (idx, item in items) {
-            inventory.add(item.slot, item);
+            inventory.set(item.slot, item);
         }
 
         // save inv, add fill in empty slots

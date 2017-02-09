@@ -125,26 +125,19 @@ class ItemContainer extends Container
      * @param {Item.Abstract} value
      */
     function set(key, value) {
-        base.set(key, value);
-        return this.sync();
+        value.slot = key;
+        return base.set(key, value);
     }
 
     /**
      * Overrides for syncing
      * @param {Mixed} key
      */
-    function remove(key) {
-        base.remove(key);
-        return this.sync();
-    }
+    function remove(key, overrideKey = false) {
+        if (overrideKey && this.exists(key)) {
+            this.get(key).slot = -1;
+        }
 
-    /**
-     * Overrides for syncing
-     * @param {Mixed} key1
-     * @param {Mixed} key2
-     */
-    function swap(key1, key2) {
-        base.swap(key1, key2);
-        return this.sync();
+        return base.remove(key);
     }
 }
