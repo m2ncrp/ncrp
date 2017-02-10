@@ -44,7 +44,7 @@ class Item.Abstract extends ORM.Entity
             type      = this.getType(),
             slot      = this.slot,
             amount    = this.amount,
-            weight    = this.weight,
+            weight    = this.calculateWeight(),
         };
 
         return data;

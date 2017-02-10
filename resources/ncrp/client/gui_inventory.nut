@@ -97,7 +97,7 @@ class Inventory
     }
 
     function createItem(slot, classname, type, amount = 0, weight = 0.0) {
-        local item = { classname = classname, type = type, slot = slot, amount = amount, weight = 0.0, handle = null, label = null, active = false, parent = this };
+        local item = { classname = classname, type = type, slot = slot, amount = amount, weight = weight, handle = null, label = null, active = false, parent = this };
         local pos  = this.getItemPosition(item);
 
         // do we have new item in cached
@@ -248,13 +248,14 @@ event("onClientFrameRender", function(afterGUI) {
         local size   = inventory.getSize();
 
         foreach (idx, item in items) {
+            weight += item.weight;
+
             if (!item.active) continue;
 
             local pos = inventory.getItemPosition(item);
 
             pos.x += window[0];
             pos.y += window[1];
-            weight += item.weight;
 
             dxDrawRectangle(pos.x, pos.y, inventory.guiCellSize, inventory.guiCellSize, 0x61AF8E4D);
         }
