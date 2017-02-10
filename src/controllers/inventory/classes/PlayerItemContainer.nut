@@ -4,10 +4,10 @@ class PlayerItemContainer extends ItemContainer
 
     id      = null;
     parent  = null;
-    limit   = 35;
+    limit   = 35.0;
 
-    sizeX = 5;
-    sizeY = 6;
+    sizeX = 4;
+    sizeY = 5;
 
     /**
      * Create new instance
