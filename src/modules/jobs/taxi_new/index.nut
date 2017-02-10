@@ -217,7 +217,7 @@ event("onPlayerPlaceExit", function(playerid, name) {
     }
 
     if ("taxiBig" + playerid  == name) {
-        msg_taxi_cu(playerid, "Вы отошли слишком далеко.");
+        msg_taxi_cu(playerid, "Вы отошли слишком далеко. Вызов был помечен как ложный.");
         removePlace("taxiSmall" + playerid);
         removePlace("taxiBig" + playerid);
         if(TAXI_LASTCALL == playerid) TAXI_LASTCALL = null;
