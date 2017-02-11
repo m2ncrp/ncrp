@@ -152,14 +152,21 @@ event( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
     }
 });
 
-
+/* For driver */
 event( "onPlayerVehicleExit", function ( playerid, vehicleid, seat ) {
-    if(seat == 0 && isTaxiDriver(playerid) && isVehicleCarTaxi(vehicleid) && job_taxi[playerid]["userstatus"] != "offair" ) {
+    if(seat == 0 && isTaxiDriver(playerid) && isVehicleCarTaxi(vehicleid) && job_taxi[playerid]["userstatus"] != "offair" && job_taxi[playerid]["car"] == vehicleid) {
         local vehPos = getVehiclePosition(vehicleid);
         createPlace("TaxiDriverZone"+playerid,   vehPos[0]-25, vehPos[1]+25, vehPos[0]+25, vehPos[1]-25);
     }
 });
 
+
+/* For driver */
+event( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
+    if(seat == 0 && isTaxiDriver(playerid) && isVehicleCarTaxi(vehicleid) && job_taxi[playerid]["userstatus"] != "offair" && job_taxi[playerid]["car"] == vehicleid && isPlaceExists("TaxiDriverZone"+playerid)) {
+        removePlace("TaxiDriverZone"+playerid);
+    }
+});
 
 event("onPlayerPlaceEnter", function(playerid, name) {
 
@@ -169,10 +176,6 @@ event("onPlayerPlaceEnter", function(playerid, name) {
 
     if (!isPlayerCarTaxi(playerid)) {
         return;
-    }
-
-    if(isPlaceExists("TaxiDriverZone"+playerid)) {
-        removePlace("TaxiDriverZone"+playerid);
     }
 
     if(job_taxi[playerid]["customer"] == null) {
@@ -266,7 +269,7 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
 
 
 function taxiCounter (playerid, vx = null, vy = null, vz = null) {
-    if (!isPlayerConnected(playerid) || job_taxi[playerid]["counter"] == null || (job_taxi[playerid]["car"] != getPlayerVehicle(playerid) && getPlayerVehicle(playerid) != -1) ) {
+    if (!isPlayerConnected(playerid) || job_taxi[playerid]["customer"] == null || !isPlayerConnected(job_taxi[playerid]["customer"]) || job_taxi[playerid]["counter"] == null || (job_taxi[playerid]["car"] != getPlayerVehicle(playerid) && getPlayerVehicle(playerid) != -1) ) {
         return;
     }
 
@@ -533,7 +536,7 @@ function taxiCallDone(playerid) {
 
     local distance = job_taxi[playerid]["counter"];
     msg_taxi_dr( playerid, "End of trip. Distance: "+distance );
-    msg_taxi_cu( playerid, "End of trip. Distance: "+distance );
+    msg_taxi_cu( customerid, "End of trip. Distance: "+distance );
     taxiStopCounter(playerid);
 
     delete TAXI_CALLS[ job_taxi[playerid]["customer"] ];
