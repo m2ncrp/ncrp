@@ -1,4 +1,5 @@
 const ELEMENT_TYPE_BUTTON = 2;
+const ELEMENT_TYPE_IMAGE = 13;
 // check for 2x widht bug
 local screen = getScreenSize();
 local screenX = screen[0].tofloat();
