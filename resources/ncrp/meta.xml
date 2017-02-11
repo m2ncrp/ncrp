@@ -16,8 +16,10 @@
     <script type="client">other_blip.nut</script>
     <script type="client">other_gps.nut</script>
     <script type="client">other_keyboard.nut</script>
+    <script type="client">other_nametags.nut</script>
     <script type="client">other_place.nut</script>
     <script type="client">other_screen.nut</script>
+    <script type="client">other_tabpanel.nut</script>
     <script type="client">other_weather.nut</script>
     <script type="client">ped_creation.nut</script>
     <script type="client">ped_dialog.nut</script>
