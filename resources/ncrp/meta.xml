@@ -1,20 +1,26 @@
 <meta>
     <!-- basic scripts -->
     <script type="server">index.nut</script>
-    <script type="client">index.nut</script>
+    <!-- <script type="client">index.nut</script> -->
 
     <!-- non-packed client scripts -->
-    <script type="client">gui_bank.nut</script>
-    <script type="client">gui_auth.nut</script>
     <script type="client">gui_alert.nut</script>
-    <script type="client">gui_phone.nut</script>
+    <script type="client">gui_auth.nut</script>
+    <script type="client">gui_bank.nut</script>
     <script type="client">gui_carshop.nut</script>
     <script type="client">gui_character.nut</script>
     <script type="client">gui_empirediner.nut</script>
+    <script type="client">gui_phone.nut</script>
+    <script type="client">gui_rentcar.nut</script>
+    <script type="client">other_3dtext.nut</script>
+    <script type="client">other_blip.nut</script>
+    <script type="client">other_gps.nut</script>
+    <script type="client">other_keyboard.nut</script>
+    <script type="client">other_place.nut</script>
+    <script type="client">other_screen.nut</script>
+    <script type="client">other_weather.nut</script>
     <script type="client">ped_creation.nut</script>
     <script type="client">ped_dialog.nut</script>
-    <script type="client">other_gps.nut</script>
-    <script type="client">other_place.nut</script>
 
     <!-- invdev supa unstebla beyatch -->
     <script type="client">gui_inventory.nut</script>
