@@ -43,7 +43,7 @@ translation("en", {
 "job.fishdriver.truck.onlyEmptybox" :  "[FISH] Грузить лотки с рыбой не надо, отнеси их на склад."
 "job.fishdriver.truck.goPutFishbox" :  "[FISH] Чё ты носишься с этим лотком с рыбой? Отнеси его на склад."
 
-"job.fishdriver.help.title"            :   "Controls for fish truck  driver:"
+"job.fishdriver.help.title"            :   "Controls for fish truck driver:"
 "job.fishdriver.help.all"              :   "Read help messages and press E in process work."
 
 //"job.fishdriver.wantagain"     : "[FISH] If you want to go to route again - sit into fish truck and go to warehouse P3 06 at Port."
@@ -767,7 +767,7 @@ translate("ru", {
 "job.fishdriver.truck.onlyEmptybox" :  "[FISH] Грузить лотки с рыбой не надо, отнеси их на склад."
 "job.fishdriver.truck.goPutFishbox" :  "[FISH] Чё ты носишься с этим лотком с рыбой? Отнеси его на склад."
 
-"job.fishdriver.help.title"        :   "Управление для водителя грузовика с рыбой:"
+"job.fishdriver.help.title"         :   "Управление для водителя грузовика с рыбой:"
 "job.fishdriver.help.all"           :  "Читайте задания и используйте клавишу E для действия в процессе выполнения работы."
 
 });
