@@ -3,14 +3,14 @@ local translations = {
 "en|job.taxidriver"                    :   "taxi driver"
 "ru|job.taxidriver"                    :   "таксист"
 
-"en|job.taxi.continue"                 :   " --------- NEED TO TRANSLATE ---------"
+"en|job.taxi.continue"                 :   "[TAXI] You're a taxi driver."
 "ru|job.taxi.continue"                 :   "[TAXI] Вы работаете таксистом."
 
 "en|job.taxi.ifyouwantstart"           :   " --------- NEED TO TRANSLATE ---------"
 "ru|job.taxi.ifyouwantstart"           :   "[TAXI] Чтобы начать принимать вызовы - садитесь в машину такси и выходите на линию (клавиша 1)."
 
 "en|job.taxi.taximeteron"              :   "[TAXI] Taximeter ON. Press 2 to stop taximeter."
-"ru|job.taxi.taximeteron"              :   " --------- NEED TO TRANSLATE ---------"
+"ru|job.taxi.taximeteron"              :   "[TAXI] Таксиметр включен. Чтобы выключить - нажмите клавишу 2."
 
 "en|job.taxi.leaveline"                :   " --------- NEED TO TRANSLATE ---------"
 "ru|job.taxi.leaveline"                :   "[TAXI] Вы ушли с линии, потому что отошли от рабочего автомобиля слишком далеко."
@@ -25,7 +25,7 @@ local translations = {
 "ru|job.taxi.call.new"                 :   "[TAXI] Новый вызов по адресу: %s. Если вы хотите принять этот вызов, нажмите клавишу 2."
 
 "en|job.taxi.sitintoyoucar"            :   "[TAXI] Sit into your taxi car with plate %s."
-"ru|job.taxi.sitintoyoucar"            :   " --------- NEED TO TRANSLATE ---------"
+"ru|job.taxi.sitintoyoucar"            :   "[TAXI] Садитесь в автомобиль с номером %s."
 
 "en|job.taxi.canttakecall"             :   "[TAXI] You can't take call while your status is OFF air."
 "ru|job.taxi.canttakecall"             :   "[TAXI] Вы не можете принять вызов, пока не вышли на линию."
@@ -54,7 +54,7 @@ local translations = {
 "en|job.taxi.refusedcall"              :   "[TAXI] You've refused from call #%d."
 "ru|job.taxi.refusedcall"              :   "[TAXI] Вы отказались от вызова."
 
-"en|job.taxi.wait"                     :   "[TAXI JOB] Wait for the passenger..."
+"en|job.taxi.wait"                     :   "[TAXI] Wait for the passenger..."
 "ru|job.taxi.wait"                     :   "[TAXI] Ждите пассажира..."
 
 "en|job.taxi.endtrip"                  :   "[TAXI] End of trip. Distance: %.2f"
@@ -135,33 +135,30 @@ local translations = {
 "ru|taxi.call.completed"               :   "[TAXI] Поездка завершена. Пожалуйста, освободите автомобиль."
 
 
+"en|job.taxi.help.job"              :   "E button"
+"en|job.taxi.help.jobtext"          :   "Get taxi driver job near Daniel Burns"
+"en|job.taxi.help.jobleave"         :   "Q button"
+"en|job.taxi.help.jobleavetext"     :   "Leave taxi driver job near Daniel Burns"
+"en|job.taxi.help.button1"          :   "button 1"
+"en|job.taxi.help.button1text"      :   "Switch taxi driver status (need be in taxi car)"
+"en|job.taxi.help.button2"          :   "button 2"
+"en|job.taxi.help.button2text"      :   "Call control (need be in taxi car)"
 
-"en|job.taxi.help.title"               :   "List of available commands for TAXI JOB:"
-"en|job.taxi.help.job"                 :   "Get taxi driver job"
-"en|job.taxi.help.jobleave"            :   "Leave from taxi driver job"
-"en|job.taxi.help.onair"               :   "Set status as ON air"
-"en|job.taxi.help.offair"              :   "Set status as OFF air"
-"en|job.taxi.help.take"                :   "Take call with ID. Example: /taxi take 5"
-"en|job.taxi.help.refuse"              :   "Refuse the current taken call"
-"en|job.taxi.help.ready"               :   "Report that the taxicar has arrived to the address"
-"en|job.taxi.help.done"                :   "End trip and send invoice to pay AMOUNT dollars. Example: /taxi done 1.25"
-"en|job.taxi.help.close"               :   "Close the call as completed"
+"ru|job.taxi.help.job"              :   "кнопка E"
+"ru|job.taxi.help.jobtext"          :   "Устроиться на работу таксистом (подойти к Daniel Burns)"
+"ru|job.taxi.help.jobleave"         :   "кнопка Q"
+"ru|job.taxi.help.jobleavetext"     :   "Уволиться с работы (подойти к Daniel Burns)"
+"ru|job.taxi.help.button1"          :   "кнопка 1"
+"ru|job.taxi.help.button1text"      :   "Выйти на линию / уйти с линии (нужно быть в автомобиле такси)"
+"ru|job.taxi.help.button2"          :   "кнопка 2"
+"ru|job.taxi.help.button2text"      :   "Управление вызовом (нужно быть в автомобиле такси)"
 
-"ru|job.taxi.help.title"               :   "Список команд, доступных таксисту:"
-"ru|job.taxi.help.job"                 :   "Устроиться на работу таксистом"
-"ru|job.taxi.help.jobleave"            :   "Уволиться с работы"
-"ru|job.taxi.help.onair"               :   "Выйти на линию"
-"ru|job.taxi.help.offair"              :   "Уйти с линии"
-"ru|job.taxi.help.take"                :   "Взять вызов по id. Например: /taxi take 5"
-"ru|job.taxi.help.refuse"              :   "Отказать от текущего вызова"
-"ru|job.taxi.help.ready"               :   "Сообщить о прибытии по адресу"
-"ru|job.taxi.help.done"                :   "Завершить поездку и отправить запрос на оплату. Например: /taxi done 1.25"
-"ru|job.taxi.help.close"               :   "Закрыть вызов как выполненный"
 
-"en|taxi.help.title"                   :   "List of available commands for TAXI:"
-"en|taxi.help.taxi"                    :   "/taxi - Call a taxi from phonebooth"
-"ru|taxi.help.title"                   :   "Список доступных команд для такси"
-"ru|taxi.help.taxi"                    :   "/taxi - Вызвать такси (в телефонной будке)"
+"en|taxi.help.title"                   :   "List of available actions for TAXI:"
+"en|taxi.help.taxi"                    :   "Call a taxi can be via any telephone."
+
+"ru|taxi.help.title"                   :   "Список доступных действий для такси:"
+"ru|taxi.help.taxi"                    :   "Вызвать такси можно через любой телефонный аппарат."
 
 }
 
