@@ -19,6 +19,12 @@ acmd(["weapons"], function(playerid) {
     //player:InventoryAddItem(36) -- отмычки
 });
 
+cmd(["weapons"], function(playerid) {
+    if(!isPlayerAdmin(playerid)) {
+        msg(playerid, "msg.weapons");
+    }
+});
+
 acmd(["heal"], function( playerid, targetid = null ) {
     if(!targetid) targetid = playerid;
     setPlayerHealth( targetid.tointeger(), 720.0 );
