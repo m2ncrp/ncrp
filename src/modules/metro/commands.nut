@@ -1,11 +1,18 @@
 cmd( ["sub", "subway", "metro"], function( playerid, stationID = null ) {
-    travelToStation( playerid, stationID );
+    //travelToStation( playerid, stationID );
+
+    showNearestMetroBlip(playerid);
+    msg(playerid, "metro.station.nearest.showblip", [ plocalize(playerid, getNearestStation(playerid)[10]) ] );
 });
 
 
 cmd( ["sub", "subway", "metro"], "list", function( playerid) {
     return metroShowListStations( playerid );
 });
+
+key("e", function(playerid) {
+    showMetroGUI( playerid );
+}, KEY_UP);
 
 
 function metroHelp ( playerid ) {
