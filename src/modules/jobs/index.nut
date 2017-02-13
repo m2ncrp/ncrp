@@ -1,7 +1,7 @@
 include("modules/jobs/commands.nut");
 include("modules/jobs/busdriver");
 include("modules/jobs/fueldriver");
-include("modules/jobs/taxi");
+include("modules/jobs/taxi_new");
 include("modules/jobs/milkdriver");
 include("modules/jobs/fishdriver");
 include("modules/jobs/truckdriver");
