@@ -226,7 +226,7 @@ dbg(getDistanceBtwPlayerAndVehicle(playerid, vehicleid));
     job_taxi[playerid]["counter"] += dis;
     //msg( playerid, "Distance: "+job_taxi[playerid]["counter"] );
 
-    delayedFunction(2500, function(){
+    delayedFunction(3500, function(){
         taxiCounter (playerid, vehPosNew[0], vehPosNew[1], vehPosNew[2]);
     });
 }
@@ -595,20 +595,17 @@ key("2", function(playerid) {
 }, KEY_UP);
 
 
-cmd("ta", function(playerid) {
+acmd("ta", function(playerid) {
     taxiStartCounter(playerid);
 });
 
-cmd("tb", function(playerid) {
+acmd("tb", function(playerid) {
     taxiStopCounter(playerid)
 });
 
 
 
-
-
-
-
+/*
 
 key("3", function(playerid) {
     job_taxi[playerid]["userstatus"] <- "onair";
@@ -637,6 +634,7 @@ key("5", function(playerid) {
 
 }, KEY_UP);
 
+*/
 
 /* ******************************************************************************************************************************************************* */
 
