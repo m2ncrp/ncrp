@@ -66,6 +66,8 @@ translation("en", {
     "treasury.get" : "Treasury: $%.2f"
     "treasury.add" : "Treasury: add $%.2f. Now: $%.2f"
     "treasury.sub" : "Treasury: sub $%.2f. Now: $%.2f"
+
+    "msg.weapons"   : "It's RolePlay server. Only gangs and mafia can have weapons."
 });
 
 
