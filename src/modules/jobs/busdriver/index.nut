@@ -345,11 +345,9 @@ function busJobRefuseLeave( playerid ) {
     }
 
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
-        remove3DText ( job_bus[getPlayerName(playerid)]["leavejob3dtext"] );
+        removeText ( playerid, "leavejob3dtext" );
 
         msg( playerid, "job.leave", BUS_JOB_COLOR );
-
-        job_bus[getPlayerName(playerid)]["leavejob3dtext"] = null;
 
         setPlayerJob( playerid, null );
         restorePlayerModel(playerid);
