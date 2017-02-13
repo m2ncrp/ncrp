@@ -139,7 +139,6 @@ event("onServerPlayerStarted", function( playerid ){
     if(!isFishDriver(playerid)) {
         return;
     }
-
     if (job_fish[getPlayerName(playerid)]["userstatus"] == "working") {
         msg( playerid, "job.fishdriver.continue", FISH_JOB_COLOR );
         fishJobSync3DText(playerid);

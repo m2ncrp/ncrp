@@ -64,9 +64,9 @@ event("onServerPlayerStarted", function( playerid ){
     if(isTaxiDriver(playerid)) {
         msg_taxi_dr( playerid, "job.taxi.continue");
         msg_taxi_dr( playerid, "job.taxi.ifyouwantstart");
-        createText ( playerid, "leavejob3dtext", TAXI_COORDS[0], TAXI_COORDS[1], TAXI_COORDS[2]+0.20, "Press Q to leave job", CL_WHITE.applyAlpha(150), TAXI_RADIUS );
+        createText ( playerid, "taxileavejob3dtext", TAXI_COORDS[0], TAXI_COORDS[1], TAXI_COORDS[2]+0.20, "Press Q to leave job", CL_WHITE.applyAlpha(150), TAXI_RADIUS );
     } else {
-        createText ( playerid, "leavejob3dtext", TAXI_COORDS[0], TAXI_COORDS[1], TAXI_COORDS[2]+0.20, "Press E to get job", CL_WHITE.applyAlpha(150), TAXI_RADIUS );
+        createText ( playerid, "taxileavejob3dtext", TAXI_COORDS[0], TAXI_COORDS[1], TAXI_COORDS[2]+0.20, "Press E to get job", CL_WHITE.applyAlpha(150), TAXI_RADIUS );
     }
 });
 
@@ -664,7 +664,7 @@ function taxiJobGet(playerid) {
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
         msg_taxi_dr(playerid, "job.taxi.driver.now");
         msg_taxi_dr( playerid, "job.taxi.ifyouwantstart");
-        renameText ( playerid, "leavejob3dtext", "Press Q to leave job");
+        renameText ( playerid, "taxileavejob3dtext", "Press Q to leave job");
         setPlayerJob( playerid, "taxidriver");
         setPlayerModel( playerid, TAXI_JOB_SKIN );
     });
@@ -701,7 +701,7 @@ function taxiJobRefuseLeave(playerid) {
         msg(playerid, "job.leave");
         setPlayerJob( playerid, null );
         restorePlayerModel(playerid);
-        renameText ( playerid, "leavejob3dtext", "Press E to get job");
+        renameText ( playerid, "taxileavejob3dtext", "Press E to get job");
         job_taxi[playerid]["userstatus"] = "offair";
 
         if(job_taxi[playerid]["car"] != null) {
