@@ -140,6 +140,7 @@ event("onServerPlayerStarted", function( playerid ) {
     }
 });
 
+
 event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     if (!isPlayerVehicleFuel(playerid)) return;
 
@@ -247,7 +248,7 @@ function removeFuelJobStationMark(playerid, id) {
 }
 
 function clearFuelJobStationMarks(playerid) {
-    if (playerid in fuelJobStationMarks) {
+    if (getPlayerName(playerid) in fuelJobStationMarks) {
         foreach (id, value in fuelJobStationMarks[getPlayerName(playerid)]) {
             remove3DText(fuelJobStationMarks[getPlayerName(playerid)][id].text1);
             // remove3DText(fuelJobStationMarks[getPlayerName(playerid)][id].text2); // curenlty disabled
@@ -256,6 +257,8 @@ function clearFuelJobStationMarks(playerid) {
         delete fuelJobStationMarks[getPlayerName(playerid)];
     }
 }
+
+
 
 
 
@@ -450,6 +453,8 @@ function fuelJobLoadUnload ( playerid ) {
     if(isPlayerVehicleMoving(playerid)){
         return msg( playerid, "job.fueldriver.driving", CL_RED );
     }
+
+    setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
 
     if(check && job_fuel[getPlayerName(playerid)]["fuelstatus"][i]) {
         return msg( playerid, "job.fueldriver.alreadybeenhere", FUEL_JOB_COLOR );
