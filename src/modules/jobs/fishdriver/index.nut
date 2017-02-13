@@ -7,25 +7,43 @@ translation("en", {
 
 "job.fishdriver.not"           : "[FISH] You're not a fish truck driver."
 "job.fishdriver.needfishtruck" : "[FISH] You need a fish truck."
-"job.fishdriver.sitintotruck"  : "[FISH] Sit into fish truck and go to warehouse P3 06 at Port."
-"job.fishdriver.toload"        : "[FISH] Go to warehouse P3 06 at Port to load fish truck."
 "job.fishdriver.driving"       : "[FISH] You're driving. Please stop the truck."
-"job.fishdriver.loading"       : "[FISH] Loading truck. Wait..."
-"job.fishdriver.alreadyloaded" : "[FISH] Truck already loaded."
-"job.fishdriver.loaded"        : "[FISH] The truck loaded. Go back to Seagift to unload."
 
 "job.fishdriver.nicejob"       : "[FISH] Nice job, %s! Keep $%.2f."
-
 "job.fishdriver.notpassenger"  : "[FISH] Delivery can be performed only by driver, but not by passenger."
 
+"job.fishdriver.continue"           :  "[FISH] Отдохнул немного? Теперь продолжай работать!"
+"job.fishdriver.nofishtrucknear"    :  "[FISH] На парковке нет грузовика для рыбы."
+"job.fishdriver.needcorrectpark"    :  "[FISH] Припаркуй грузовик ровно, дверями к складу."
+"job.fishdriver.needclosedoors"     :  "[FISH] Закрой двери грузового отделения."
+"job.fishdriver.goodparkingempty"   :  "[FISH] Отлично! Теперь вылезай, открывай двери грузового отделения и тащи со склада пустые лотки для рыбы."
+"job.fishdriver.goodparkingfish"    :  "[FISH] Отлично! Теперь выгружай лотки с рыбой на склад."
+"job.fishdriver.sitintotruck"       :  "(приставку FISH сюда не надо) ..... NEED TO TRANSLATE........., sit into fish truck and go to warehouse P3 06 at Port."
+"job.fishdriver.goodluck"           :  "[FISH] Удачи тебе! Будет нужна работа - приходи!"
+"job.fishdriver.toparking"          :  "[FISH] Садись в свободный грузовик и заезжай на парковочное место для загрузки!"
+"job.fishdriver.ifyouwantstart"     :  "[FISH] Ты работаешь водителем грузовика на рыбном складе. Если хочешь потрудиться - иди в офис Seagift в Чайнатауне."
+"job.fishdriver.toload"             :  "[FISH] Отправляйся в Порт к складу P3 06 для наполнения лотков рыбой."
+"job.fishdriver.tounload"           :  "[FISH] Езжай к складу Seagift для разгрузки."
+"job.fishdriver.loading"            :  "[FISH] Рабочие портового склада наполняют лотки рыбой. Жди..."
+"job.fishdriver.alreadyloaded"      :  "[FISH] Boxes already loaded."
+"job.fishdriver.loaded"             :  "[FISH] Boxes loaded. Go back to Seagift to unload."
 
-"job.fishdriver.help.title"            :   "List of available commands for FISH TRUCK DRIVER:"
-"job.fishdriver.help.job"              :   "Get fish truck driver job"
-"job.fishdriver.help.jobleave"         :   "Leave fish truck driver job"
-"job.fishdriver.help.load"             :   "Load fish into truck"
-"job.fishdriver.help.unload"           :   "Unload fish"
-"job.fishdriver.help.finish"           :   "Report about delivery and get money"
+"job.fishdriver.takenEmptybox"      :  "[FISH] Взял пустой лоток."
+"job.fishdriver.putEmptybox"        :  "[FISH] Положил пустой лоток обратно."
+"job.fishdriver.alreadyHand"        :  "[FISH] Уже есть что-то в руках."
+"job.fishdriver.goTakeFishbox"      :  "[FISH] Иди возьми лоток с рыбой и неси сюда."
+"job.fishdriver.putFishbox"         :  "[FISH] Положил лоток с рыбой."
+"job.fishdriver.onlyFishbox"        :  "[FISH] Не наводи беспорядок. Сюда только лотки с рыбой!"
+"job.fishdriver.goTakeEmptybox"     :  "[FISH] Иди возьми пустой лоток."
+"job.fishdriver.takenFishbox"       :  "[FISH] Взял лоток с рыбой из грузовика. Осталось %d."
+"job.fishdriver.truck.empty"        :  "[FISH] Грузовик пуст."
+"job.fishdriver.truck.onlyFishbox"  :  "[FISH] В грузовике лежат лотки с рыбой. Сначала разгрузи их."
+"job.fishdriver.truck.putEmptybox"  :  "[FISH] Положил пустой лоток в грузовик (%d/%d)"
+"job.fishdriver.truck.full"         :  "[FISH] Грузовик полон."
+"job.fishdriver.truck.onlyEmptybox" :  "[FISH] Грузить лотки с рыбой не надо, отнеси их на склад."
+"job.fishdriver.truck.goPutFishbox" :  "[FISH] Чё ты носишься с этим лотком с рыбой? Отнеси его на склад."
 
+"job.fishdriver.help.title"            :   "Controls for fish truck  driver:"
 "job.fishdriver.help.all"              :   "Read help messages and press E in process work."
 
 //"job.fishdriver.wantagain"     : "[FISH] If you want to go to route again - sit into fish truck and go to warehouse P3 06 at Port."
@@ -90,8 +108,8 @@ event("onServerStarted", function() {
     fishcars[createVehicle(38, 396.5, 98.0385, -20.9359, -88.4165, 0.479715, -0.0220962)]       <- [ false, "emptybox", 0 ];  //SeagiftTruck1
     fishcars[createVehicle(38, 354.304, 85.7359, -20.9367, 0.794026, -0.0040194, 0.580053 )]    <- [ false, "emptybox", 0 ];  //SeagiftTruck0
     fishcars[createVehicle(38, 350.304, 85.7359, -20.9367, 0.794026, -0.0040194, 0.580053 )]    <- [ false, "emptybox", 0 ];  //SeagiftTruck1
-    fishcars[createVehicle(38, 365.881, 105.01, -20.9320, 179.810, -0.0470277, -0.456284)]      <- [ false, "emptybox", 0 ];  //SeagiftTruck3
-    fishcars[createVehicle(38, 374.868, 105.029, -20.9333, -178.932, -0.0996764, -0.5405)]      <- [ false, "emptybox", 0 ];  //SeagiftTruck3
+    //fishcars[createVehicle(38, 365.881, 105.01, -20.9320, 179.810, -0.0470277, -0.456284)]      <- [ false, "emptybox", 0 ];  //SeagiftTruck3
+    //fishcars[createVehicle(38, 374.868, 105.029, -20.9333, -178.932, -0.0996764, -0.5405)]      <- [ false, "emptybox", 0 ];  //SeagiftTruck3
 
 
     //creating 3dtext for bus depot
@@ -704,22 +722,35 @@ function fishJobTakePutBox( playerid ) {
 }
 
 translate("ru", {
-"job.fishdriver.continue"        :   "[FISH] Отдохнул немного? Теперь продолжай работать!"
-"job.fishdriver.nofishtrucknear" :   "[FISH] На парковке нет грузовика для рыбы."
-"job.fishdriver.needcorrectpark" :   "[FISH] Припаркуй грузовик ровно, дверями к складу."
-"job.fishdriver.needclosedoors"  :   "[FISH] Закрой двери грузового отделения."
-"job.fishdriver.goodparkingempty":   "[FISH] Отлично! Теперь вылезай, открывай двери грузового отделения и тащи со склада пустые лотки для рыбы."
-"job.fishdriver.goodparkingfish" :   "[FISH] Отлично! Теперь выгружай лотки с рыбой на склад."
-"job.fishdriver.sitintotruck"    :   "Как загрузишь сколько сможешь - садись за руль и двигай в City Port к складу P3 06."
-"job.fishdriver.goodluck"        :   "[FISH] Удачи тебе! Будет нужна работа - приходи!"
-"job.fishdriver.toparking"       :   "[FISH] Садись в свободный грузовик и заезжай на парковочное место для загрузки!"
-"job.fishdriver.ifyouwantstart"  :   "[FISH] Ты работаешь водителем грузовика на рыбном складе. Если хочешь потрудиться - иди в офис Seagift в Чайнатауне."
-"job.fishdriver.toload"          :   "[FISH] Отправляйся в Порт к складу P3 06 для наполнения лотков рыбой."
-"job.fishdriver.tounload"        :   "[FISH] Езжай к складу Seagift для разгрузки."
-"job.fishdriver.loading"         :   "[FISH] Рабочие портового склада наполняют лотки рыбой. Жди..."
-"job.fishdriver.alreadyloaded"   :   "[FISH] Лотки уже наполнены рыбой."
-"job.fishdriver.loaded"          :   "[FISH] Лотки наполнены. Езжай к складу Seagift для разгрузки."
 
+"job.fishdriver"                   :   "водитель грузовика"
+
+"job.fishdriver.needlevel"         :   "[FISH] Водителем грузовика можно устроиться начиная с уровня %d."
+"job.fishdriver.already"           :   "[FISH] Ты уже работаешь водителем грузовика."
+"job.fishdriver.now"               :   "[FISH] Ты устроился на работу водителем грузовика."
+
+"job.fishdriver.not"               :   "[FISH] Ты не работаешь водителем грузовика."
+"job.fishdriver.needfishtruck"     :   "[FISH] Тебе нужен грузовик для доставки рыбы."
+"job.fishdriver.driving"           :   "[FISH] Останови грузовик."
+
+"job.fishdriver.nicejob"           :   "[FISH] Отличная работа, %s! Держи $%.2f."
+"job.fishdriver.notpassenger"      :   "[FISH] Доставка может осуществляться только водителем, но не пассажиром."
+
+"job.fishdriver.continue"           :  "[FISH] Отдохнул немного? Теперь продолжай работать!"
+"job.fishdriver.nofishtrucknear"    :  "[FISH] На парковке нет грузовика для рыбы."
+"job.fishdriver.needcorrectpark"    :  "[FISH] Припаркуй грузовик ровно, дверями к складу."
+"job.fishdriver.needclosedoors"     :  "[FISH] Закрой двери грузового отделения."
+"job.fishdriver.goodparkingempty"   :  "[FISH] Отлично! Теперь вылезай, открывай двери грузового отделения и тащи со склада пустые лотки для рыбы."
+"job.fishdriver.goodparkingfish"    :  "[FISH] Отлично! Теперь выгружай лотки с рыбой на склад."
+"job.fishdriver.sitintotruck"       :  "Как загрузишь сколько сможешь - садись за руль и двигай в City Port к складу P3 06."
+"job.fishdriver.goodluck"           :  "[FISH] Удачи тебе! Будет нужна работа - приходи!"
+"job.fishdriver.toparking"          :  "[FISH] Садись в свободный грузовик и заезжай на парковочное место для загрузки!"
+"job.fishdriver.ifyouwantstart"     :  "[FISH] Ты работаешь водителем грузовика на рыбном складе. Если хочешь потрудиться - иди в офис Seagift в Чайнатауне."
+"job.fishdriver.toload"             :  "[FISH] Отправляйся в Порт к складу P3 06 для наполнения лотков рыбой."
+"job.fishdriver.tounload"           :  "[FISH] Езжай к складу Seagift для разгрузки."
+"job.fishdriver.loading"            :  "[FISH] Рабочие портового склада наполняют лотки рыбой. Жди..."
+"job.fishdriver.alreadyloaded"      :  "[FISH] Лотки уже наполнены рыбой."
+"job.fishdriver.loaded"             :  "[FISH] Лотки наполнены. Езжай к складу Seagift для разгрузки."
 
 "job.fishdriver.takenEmptybox"      :  "[FISH] Взял пустой лоток."
 "job.fishdriver.putEmptybox"        :  "[FISH] Положил пустой лоток обратно."
@@ -736,8 +767,20 @@ translate("ru", {
 "job.fishdriver.truck.onlyEmptybox" :  "[FISH] Грузить лотки с рыбой не надо, отнеси их на склад."
 "job.fishdriver.truck.goPutFishbox" :  "[FISH] Чё ты носишься с этим лотком с рыбой? Отнеси его на склад."
 
+"job.fishdriver.help.title"        :   "Управление для водителя грузовика с рыбой:"
 "job.fishdriver.help.all"           :  "Читайте задания и используйте клавишу E для действия в процессе выполнения работы."
+
 });
+
+/*
+
+"job.fishdriver.help.job"          :   "Устроиться на работу водителем грузовика"
+"job.fishdriver.help.jobleave"     :   "Уволиться с работы"
+"job.fishdriver.help.load"         :   "Загрузить грузовик"
+"job.fishdriver.help.unload"       :   "Разгрузить грузовик"
+"job.fishdriver.help.finish"       :   "Сообщить о доставке и получить деньги"
+
+ */
 
 /*
 translate("en", {
