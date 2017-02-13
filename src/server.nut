@@ -182,14 +182,19 @@ proxy("onClientSuccessfulyStarted", "onClientSuccessfulyStarted"        );
 proxy("onPlayerLanguageChange",     "onPlayerLanguageChange"            );
 
 // Klo's playground
-proxy("RentCar",                    "RentCar"                           );
 proxy("loginGUIFunction",           "loginGUIFunction"                  );
 proxy("registerGUIFunction",        "registerGUIFunction"               );
 proxy("updateMoveState",            "updateMoveState"                   );
 proxy("changeModel",                "changeModel"                       );
 
-// JustPilz
+// RentCar
+proxy("RentCar",                    "RentCar"                           );
+
+// Telephone
 proxy("PhoneCallGUI",               "PhoneCallGUI"                      );
+
+// Metro
+proxy("travelToStationGUI",         "travelToStationGUI"                );
 
 //Inventory system
 proxy("onPlayerUseItem",           "native:onPlayerUseItem"             );

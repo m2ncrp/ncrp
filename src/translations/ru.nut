@@ -670,6 +670,19 @@ translation("ru", {
 
     "metro.station.nearest.showblip"    : "[МЕТРО] Ближайшая станция (%s) отмечена на карте жёлтым маркером."
 
+    "metro.dipton"      : "Диптон"
+    "metro.uptown"      : "Аптаун"
+    "metro.chinatown"   : "Чайнатаун"
+    "metro.southport"   : "Сауспорт"
+    "metro.westside"    : "Вест-Сайд"
+    "metro.sandisland"  : "Сэнд-Айленд"
+    "metro.kingston"    : "Кингстон"
+
+    "metro.gui.window"   : "Метро Эмпайр-Бэй"
+    "metro.gui.youhere"  : "Станция %s"
+    "metro.gui.price"    : "Цена поздки: $%.2f"
+    "metro.gui.close"    : "Закрыть"
+
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
     "bank.letsgo"                       :   "Отправляйтесь к зданию Grand Imperial Bank в Мидтауне."

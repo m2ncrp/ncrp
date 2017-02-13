@@ -10,6 +10,7 @@
     <script type="client">gui_carshop.nut</script>
     <script type="client">gui_character.nut</script>
     <script type="client">gui_empirediner.nut</script>
+    <script type="client">gui_metro.nut</script>
     <script type="client">gui_phone.nut</script>
     <script type="client">gui_rentcar.nut</script>
     <script type="client">other_3dtext.nut</script>
