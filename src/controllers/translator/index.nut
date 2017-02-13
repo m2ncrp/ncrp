@@ -1,4 +1,5 @@
 include("controllers/translator/commands.nut");
+include("controllers/translator/alternativeFormat.nut");
 
 __translations <- {};
 
