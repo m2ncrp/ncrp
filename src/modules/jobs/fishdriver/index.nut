@@ -18,29 +18,29 @@ translation("en", {
 "job.fishdriver.needclosedoors"     :  "[FISH] Close your truck cargo doors."
 "job.fishdriver.goodparkingempty"   :  "[FISH] Nice job! Now get out, open the truck's cargo doors and bring some empty fish trays from warehouse inside."
 "job.fishdriver.goodparkingfish"    :  "[FISH] Nice job! Now unload fish trays to warehouse."
-"job.fishdriver.sitintotruck"       :  "Load as much as you can, and when you finish, sit into fish truck and go to warehouse P3 06 at Port."
+"job.fishdriver.sitintotruck"       :  "Load as much as you can, and when you finish, sit into fish truck and head to warehouse P3 06 at Port."
 "job.fishdriver.goodluck"           :  "[FISH] Have a nice day! If you need ever need job again, you are welcome!"
 "job.fishdriver.toparking"          :  "[FISH] Enter any free fish truck and head to the parking spot for loading!"
 "job.fishdriver.ifyouwantstart"     :  "[FISH] You are a driver at fish warehouse. If you want to work - head to Seagift office located in Chinatown."
-"job.fishdriver.toload"             :  "[FISH] To load fish trays head to the Port, warehouse P3 06."
+"job.fishdriver.toload"             :  "[FISH] To load fish trays, head to the Port, warehouse P3 06."
 "job.fishdriver.tounload"           :  "[FISH] Go to Seagift warehouse for unloading."
 "job.fishdriver.loading"            :  "[FISH] Port workers are filling up fish trays, wait please..."
-"job.fishdriver.alreadyloaded"      :  "[FISH] Boxes already loaded."
-"job.fishdriver.loaded"             :  "[FISH] Boxes loaded. Go back to Seagift to unload."
+"job.fishdriver.alreadyloaded"      :  "[FISH] Trays are already loaded."
+"job.fishdriver.loaded"             :  "[FISH] Trays are loaded. Go back to Seagift to unload."
 
 "job.fishdriver.takenEmptybox"      :  "[FISH] Took empty fish tray."
-"job.fishdriver.putEmptybox"        :  "[FISH] Put empty finsh tray back."
+"job.fishdriver.putEmptybox"        :  "[FISH] Put empty fish tray back."
 "job.fishdriver.alreadyHand"        :  "[FISH] Already have something in hands."
 "job.fishdriver.goTakeFishbox"      :  "[FISH] Go, take tray filled up with fish and get it there."
 "job.fishdriver.putFishbox"         :  "[FISH] Put tray filled with fish."
-"job.fishdriver.onlyFishbox"        :  "[FISH] Dont make a mess. Only tray trays filled with fish are supposed to go here!"
+"job.fishdriver.onlyFishbox"        :  "[FISH] Don't make a mess. Only trays filled with fish are supposed to go here!"
 "job.fishdriver.goTakeEmptybox"     :  "[FISH] Go and take empty fish tray."
 "job.fishdriver.takenFishbox"       :  "[FISH] Has taken tray filled with fish from the truck. %d left."
 "job.fishdriver.truck.empty"        :  "[FISH] Truck is empty."
 "job.fishdriver.truck.onlyFishbox"  :  "[FISH] Fish truck contains trays filled with fish. You supposed to unload them first."
 "job.fishdriver.truck.putEmptybox"  :  "[FISH] Put empty fish tray to the truck (%d/%d)"
 "job.fishdriver.truck.full"         :  "[FISH] The truck is full."
-"job.fishdriver.truck.onlyEmptybox" :  "[FISH] You dont need to load fish trays, just get them to the warehouse."
+"job.fishdriver.truck.onlyEmptybox" :  "[FISH] You don't need to load fish trays, just get them to the warehouse."
 "job.fishdriver.truck.goPutFishbox" :  "[FISH] What are you doing with this fish tray? Just get it to the warehouse."
 
 "job.fishdriver.help.title"            :   "Controls for fish truck driver:"
@@ -548,8 +548,8 @@ function fishJobIsPlayerWorkingForeach(func_callback) {
 }
 
 function fishJobSync3DText(playerid) {
-    createText ( playerid, "fish_takebox", FISH_TAKEBOX[0], FISH_TAKEBOX[1], FISH_TAKEBOX[2]+0.20, "Press E to take empty box", CL_WHITE.applyAlpha(150), 7.5 );
-    createText ( playerid, "fish_putbox",  FISH_PUTBOX[0],  FISH_PUTBOX[1],  FISH_PUTBOX[2]+0.20, "Press E to put box with fish", CL_WHITE.applyAlpha(150), 7.5 );
+    createText ( playerid, "fish_takebox", FISH_TAKEBOX[0], FISH_TAKEBOX[1], FISH_TAKEBOX[2]+0.20, "Press E to take empty tray", CL_WHITE.applyAlpha(150), 7.5 );
+    createText ( playerid, "fish_putbox",  FISH_PUTBOX[0],  FISH_PUTBOX[1],  FISH_PUTBOX[2]+0.20, "Press E to put tray with fish", CL_WHITE.applyAlpha(150), 7.5 );
 
     local place1busy = false;
     local place2busy = false;
@@ -584,8 +584,8 @@ function fishJobSync3DText(playerid) {
             }
         }
     }
-    if(!place1busy) createText (playerid, "fish_parking1_3dtext", FISH_PARK_PUT_1[0], FISH_PARK_PUT_1[1], FISH_PARK_PUT_1[2]+0.20, "Parking Place 1", CL_ROYALBLUE.applyAlpha(150), 35 );
-    if(!place2busy) createText (playerid, "fish_parking2_3dtext", FISH_PARK_PUT_2[0], FISH_PARK_PUT_2[1], FISH_PARK_PUT_2[2]+0.20, "Parking Place 2", CL_ROYALBLUE.applyAlpha(150), 35 );
+    if(!place1busy) createText (playerid, "fish_parking1_3dtext", FISH_PARK_PUT_1[0], FISH_PARK_PUT_1[1], FISH_PARK_PUT_1[2]+0.20, "Parking spot 1", CL_ROYALBLUE.applyAlpha(150), 35 );
+    if(!place2busy) createText (playerid, "fish_parking2_3dtext", FISH_PARK_PUT_2[0], FISH_PARK_PUT_2[1], FISH_PARK_PUT_2[2]+0.20, "Parking spot 2", CL_ROYALBLUE.applyAlpha(150), 35 );
 }
 
 /* -------------------------------------------------------------------------------------------------------------------- */
