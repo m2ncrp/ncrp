@@ -295,12 +295,9 @@ function fishJobCreatePrivateBlipText(playerid, x, y, z, text, cmd) {
  * @param  {int}  playerid
  */
 function fishJobRemovePrivateBlipText ( playerid ) {
-    if(job_fish[getPlayerName(playerid)]["blip3dtext"][0] != null) {
-        remove3DText ( job_fish[getPlayerName(playerid)]["blip3dtext"][0] );
-        remove3DText ( job_fish[getPlayerName(playerid)]["blip3dtext"][1] );
-        //removeBlip   ( job_fish[getPlayerName(playerid)]["blip3dtext"][2] );
-        job_fish[getPlayerName(playerid)]["blip3dtext"][0] = null;
-    }
+        removeText (playerid, "fish_load_title" );
+        removeText (playerid, "fish_load_desc" );
+        trigger(playerid, "removeGPS");
 }
 
 
