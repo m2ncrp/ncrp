@@ -729,7 +729,7 @@ function taxiJobRefuseLeave(playerid) {
     }
 
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
-        msg(playerid, "job.leave");
+        msg_taxi_dr(playerid, "job.leave");
         setPlayerJob( playerid, null );
         restorePlayerModel(playerid);
         renameText ( playerid, "taxileavejob3dtext", "Press E to get job");
