@@ -6,11 +6,14 @@ local translations = {
 "en|job.taxi.continue"                 :   "[TAXI] You're a taxi driver."
 "ru|job.taxi.continue"                 :   "[TAXI] Вы работаете таксистом."
 
-"en|job.taxi.ifyouwantstart"           :   "[TAXI] To start accepting calls, please enter taxi car, and press 1 to become available."
+"en|job.taxi.ifyouwantstart"           :   "[TAXI] To start accepting calls, please enter taxi car and press 1 to become available."
 "ru|job.taxi.ifyouwantstart"           :   "[TAXI] Чтобы начать принимать вызовы - садитесь в машину такси и выходите на линию (клавиша 1)."
 
-"en|job.taxi.taximeteron"              :   "[TAXI] Taximeter ON. Press 2 to stop taximeter."
-"ru|job.taxi.taximeteron"              :   "[TAXI] Таксиметр включен. Чтобы выключить - нажмите клавишу 2."
+"en|job.taxi.taximeteron"              :   "[TAXI] Taximeter ON. Press button 2 after completion of trip."
+"ru|job.taxi.taximeteron"              :   "[TAXI] Таксиметр включен. По окончании поездки нажмите клавишу 2."
+
+"en|job.taxi.iftripend"                :   "[TAXI] If the trip is completed - press button 2."
+"ru|job.taxi.iftripend"                :   "[TAXI] Если поездка завершена - нажмите клавишу 2."
 
 "en|job.taxi.leaveline"                :   "[TAXI] You've become unavailable, because you are too far from your taxi car."
 "ru|job.taxi.leaveline"                :   "[TAXI] Вы ушли с линии, потому что отошли от рабочего автомобиля слишком далеко."
@@ -21,8 +24,11 @@ local translations = {
 "en|job.taxi.driver.dontfoolaround"    :   "[TAXI] Don't fool around! You are a taxi driver."
 "ru|job.taxi.driver.dontfoolaround"    :   "[TAXI] Не валяй дурака! Ты сам таксист."
 
-"en|job.taxi.call.new"                 :   "[TAXI] New call from address: %s. If you want take this call, write /taxi take %d."
-"ru|job.taxi.call.new"                 :   "[TAXI] Новый вызов по адресу: %s. Если вы хотите принять этот вызов, нажмите клавишу 2."
+"en|job.taxi.call.new"                 :   "[TAXI] New call from address: %s."
+"ru|job.taxi.call.new"                 :   "[TAXI] Новый вызов по адресу: %s."
+
+"en|job.taxi.call.new.if"              :   "If you want take this call, press button 2."
+"ru|job.taxi.call.new.if"              :   "Если вы хотите принять этот вызов, нажмите клавишу 2."
 
 "en|job.taxi.sitintoyoucar"            :   "[TAXI] Sit into your taxi car with plate %s."
 "ru|job.taxi.sitintoyoucar"            :   "[TAXI] Садитесь в автомобиль с номером %s."
@@ -30,8 +36,8 @@ local translations = {
 "en|job.taxi.canttakecall"             :   "[TAXI] You can't take call while your status is OFF air."
 "ru|job.taxi.canttakecall"             :   "[TAXI] Вы не можете принять вызов, пока не вышли на линию."
 
-"en|job.taxi.nofreecalls"              :   "[TAXI] There are no taxi calls on the moment."
-"ru|job.taxi.nofreecalls"              :   "[TAXI] На текущий момент звонков нет."
+"en|job.taxi.nofreecalls"              :   "[TAXI] There are no taxi calls at the moment."
+"ru|job.taxi.nofreecalls"              :   "[TAXI] На данный момент звонков нет."
 
 "en|job.taxi.takenthiscall"            :   "[TAXI] You have already taken this call #%d."
 "ru|job.taxi.takenthiscall"            :   "[TAXI] Вы уже приняли этот вызов (#%d)."
@@ -57,8 +63,8 @@ local translations = {
 "en|job.taxi.wait"                     :   "[TAXI] Wait for the passenger..."
 "ru|job.taxi.wait"                     :   "[TAXI] Ждите пассажира..."
 
-"en|job.taxi.endtrip"                  :   "[TAXI] End of trip. Distance: %.2f"
-"ru|job.taxi.endtrip"                  :   "[TAXI] Поездка завершена. Расстояние: %.2f"
+"en|job.taxi.endtrip"                  :   "[TAXI] End of trip. Distance: %.2f meters."
+"ru|job.taxi.endtrip"                  :   "[TAXI] Поездка завершена. Расстояние: %.2f метров."
 
 "en|job.taxi.youearn"                  :   "[TAXI] You earned $%.2f"
 "ru|job.taxi.youearn"                  :   "[TAXI] Вы заработали $%.2f"
@@ -93,7 +99,7 @@ local translations = {
 "en|job.taxi.driver.already"           :   "[TAXI] You're Taxi Driver already."
 "ru|job.taxi.driver.already"           :   "[TAXI] Вы уже работаете таксистом."
 
-"en|job.taxi.driver.now"               :   "[TAXI] You became a taxi driver. Change status to ON air to begin to receive calls."
+"en|job.taxi.driver.now"               :   "[TAXI] You became a taxi driver."
 "ru|job.taxi.driver.now"               :   "[TAXI] Вы стали таксистом."
 
 "en|job.taxi.driver.not"               :   "[TAXI] You're not a Taxi Driver."
@@ -131,8 +137,8 @@ local translations = {
 "en|taxi.call.refused"                 :   "[TAXI] Driver refused from your call. Wait another driver."
 "ru|taxi.call.refused"                 :   "[TAXI] Водитель отказался от вызова. Ожидайте других водителей."
 
-"en|taxi.call.completed"               :   "[TAXI] The trip is completed. Please, leave the car."
-"ru|taxi.call.completed"               :   "[TAXI] Поездка завершена. Пожалуйста, освободите автомобиль."
+"en|taxi.call.completed"               :   "[TAXI] The trip is completed. Thank you for choosing our taxi service!"
+"ru|taxi.call.completed"               :   "[TAXI] Поездка завершена. Спасибо, что выбрали наше такси."
 
 
 "en|job.taxi.help.job"              :   "E button"
