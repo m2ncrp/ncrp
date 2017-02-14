@@ -6,13 +6,13 @@ local translations = {
 "en|job.taxi.continue"                 :   "[TAXI] You're a taxi driver."
 "ru|job.taxi.continue"                 :   "[TAXI] Вы работаете таксистом."
 
-"en|job.taxi.ifyouwantstart"           :   " --------- NEED TO TRANSLATE ---------"
+"en|job.taxi.ifyouwantstart"           :   "[TAXI] To start accepting calls, please enter taxi car, and press 1 to become available."
 "ru|job.taxi.ifyouwantstart"           :   "[TAXI] Чтобы начать принимать вызовы - садитесь в машину такси и выходите на линию (клавиша 1)."
 
 "en|job.taxi.taximeteron"              :   "[TAXI] Taximeter ON. Press 2 to stop taximeter."
 "ru|job.taxi.taximeteron"              :   "[TAXI] Таксиметр включен. Чтобы выключить - нажмите клавишу 2."
 
-"en|job.taxi.leaveline"                :   " --------- NEED TO TRANSLATE ---------"
+"en|job.taxi.leaveline"                :   "[TAXI] You've become unavailable, because you are too far from your taxi car."
 "ru|job.taxi.leaveline"                :   "[TAXI] Вы ушли с линии, потому что отошли от рабочего автомобиля слишком далеко."
 
 "en|job.taxi.callnotexist"             :   "[TAXI] Customer has canceled the call. Wait other calls..."
@@ -30,7 +30,7 @@ local translations = {
 "en|job.taxi.canttakecall"             :   "[TAXI] You can't take call while your status is OFF air."
 "ru|job.taxi.canttakecall"             :   "[TAXI] Вы не можете принять вызов, пока не вышли на линию."
 
-"en|job.taxi.nofreecalls"              :   " --------- NEED TO TRANSLATE ---------"
+"en|job.taxi.nofreecalls"              :   "[TAXI] There are no taxi calls on the moment."
 "ru|job.taxi.nofreecalls"              :   "[TAXI] На текущий момент звонков нет."
 
 "en|job.taxi.takenthiscall"            :   "[TAXI] You have already taken this call #%d."
@@ -107,13 +107,13 @@ local translations = {
 
 
 
-"en|taxi.call.ifyouaway"               :   " --------- NEED TO TRANSLATE ---------"
+"en|taxi.call.ifyouaway"               :   "[TAXI] Dont get too far away, from place taxi was called to. He won't be able to get yo you."
 "ru|taxi.call.ifyouaway"               :   "[TAXI] Если вы далеко отойдёте от места вызова - таксист не сможет подъехать."
 
-"en|taxi.call.fakecall"                :   " --------- NEED TO TRANSLATE ---------"
+"en|taxi.call.fakecall"                :   "[TAXI] You are too far away from call-place. Your taxi call marked as false."
 "ru|taxi.call.fakecall"                :   "[TAXI] Вы отошли слишком далеко. Вызов был помечен как ложный."
 
-"en|taxi.call.isfree"                  :   " --------- NEED TO TRANSLATE ---------"
+"en|taxi.call.isfree"                  :   "[TAXI] Taxi is free. All expenses are covered by city treasury."
 "ru|taxi.call.isfree"                  :   "[TAXI] Такси бесплатное. Все расходы покрывает казна города."
 
 "en|taxi.call.nofreecars"              :   "[TAXI] No free cars. Please try later."
