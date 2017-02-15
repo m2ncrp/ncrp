@@ -8,6 +8,7 @@ include("modules/shops/clothesshop");
 
 
 // TODO(inlife): move to other place
+/*
 event("onServerStarted", function() {
     create3DText(-645.075, 1293.6, 3.94464,         "HighbrookDinerRadio",              CL_WHITE);
     create3DText(-711.473, 1757.95, -14.9935,       "DiptonGasStationRadio",            CL_WHITE);
@@ -42,7 +43,7 @@ event("onServerStarted", function() {
     create3DText(-150.935, 606.023, -20.1787,       "LittleitalyGasstaion2Phone",       CL_WHITE);
     create3DText(-149.686, 604.01, -20.1886,        "LittleitalyGasstaion2Radio",       CL_WHITE);
 })
-
+*/
 
 local musiclist = [
     "m01_part1",
