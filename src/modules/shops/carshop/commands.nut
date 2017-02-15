@@ -49,7 +49,7 @@ cmd("car", "buy", function(playerid, modelid = null) {
         return msg(playerid, "shops.carshop.nofreespace", CL_ERROR);
     }
 
-    if (!modelid || !getCarShopModelById(modelid, carshopid)) {
+    if (modelid < 0 || !getCarShopModelById(modelid, carshopid)) {
         return msg(playerid, "shops.carshop.selectmodel");
     }
 
