@@ -57,3 +57,7 @@ addEventHandler( "onGuiElementClick", function(element) {
         hideRentCarGUI();
     }
 });
+
+function delayedFunction(time, callback, additional = null) {
+    return additional ? timer(callback, time, 1, additional) : timer(callback, time, 1);
+}
