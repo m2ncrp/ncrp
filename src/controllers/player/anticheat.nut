@@ -15,12 +15,28 @@ local vehicleSpeedLimits = {
 };
 
 vehicleSpeedLimits[05] <- [32.0, 35.0];
-vehicleSpeedLimits[38] <- [30.0, 32.5];
-vehicleSpeedLimits[35] <- [30.0, 32.5];
+vehicleSpeedLimits[14] <- [40.5, 41.5];
+vehicleSpeedLimits[15] <- [45.1, 46.0];
 vehicleSpeedLimits[19] <- [28.0, 30.0];
 vehicleSpeedLimits[20] <- [26.0, 28.0];
+vehicleSpeedLimits[24] <- [41.7, 42.5];
+vehicleSpeedLimits[25] <- [36.8, 37.5];
+vehicleSpeedLimits[31] <- [33.5, 35.0];
+vehicleSpeedLimits[33] <- [36.5, 37.5];
+vehicleSpeedLimits[35] <- [30.0, 32.5];
+vehicleSpeedLimits[38] <- [30.0, 32.5];
+vehicleSpeedLimits[43] <- [32.5, 34.0];
+vehicleSpeedLimits[47] <- [35.9, 36.7];
+vehicleSpeedLimits[50] <- [41.5, 43.0];
+vehicleSpeedLimits[52] <- [53.0, 57.0];
+vehicleSpeedLimits[53] <- [25.0, 27.0];
 
+/*
+local maxspeed = 0.0;
+createPlace("TestTeleport", -507.081, 599.982, -492.1, 618.343);
+*/
 event("onServerStarted", function() {
+
     local ticker = timer(function() {
         foreach (playerid, value in getPlayers()) {
             // anticheat check for speed-hack
@@ -41,7 +57,14 @@ event("onServerStarted", function() {
                 }
 
                 // debug
-                // msg(playerid, "your speed " + maxsp);
+                /*
+                if (maxsp > 5.0) {
+                    if (maxsp > maxspeed) {
+                        maxspeed = maxsp;
+                        msg(playerid, "your speed " + maxsp);
+                    }
+                }
+                */
 
                 // check soft limit
                 if (maxsp > limits[0]) {
@@ -85,3 +108,19 @@ event("onServerMinuteChange", function() {
         }
     }
 });
+
+/*
+event("onPlayerPlaceEnter", function(playerid, name) {
+    if (name != "TestTeleport") {
+        return;
+    }
+    setVehiclePosition(getPlayerVehicle(playerid), -892.147, 605.503, 20.7596);
+    setVehicleRotation(getPlayerVehicle(playerid), 89.4356, -1.09522, 0.220736);
+
+});
+
+
+key("7", function(playerid) {
+      maxspeed = 0.0;
+});
+*/
