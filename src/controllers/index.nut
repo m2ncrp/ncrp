@@ -26,3 +26,4 @@ include("controllers/objectpool");
 include("controllers/moderator");
 include("controllers/place");
 include("controllers/inventory");
+include("controllers/fraction");
