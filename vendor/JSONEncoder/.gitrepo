@@ -1,0 +1,11 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/electricimp/JSONEncoder.git
+	branch = master
+	commit = f814bceeba2aaf328ed88b441539d58f25be2fbb
+	parent = 639fdc066142ee6a8d419a6f23a8d9ab00caad68
+	cmdver = 0.3.1

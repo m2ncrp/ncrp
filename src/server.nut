@@ -3,8 +3,68 @@ VERSION <- "0.0.000";
 MOD_HOST <- "139.59.142.46";
 MOD_PORT <- 7790;
 
-// initialize libraries
-dofile("src/libraries/index.nut", true);
+const DEBUG_ENABLED = true;
+__DEBUG__EXPORT <- false;
+
+/**
+ * Updated module includer script version
+ * throws exceptions if module was not found
+ * returns true if module was loaded
+ *
+ * If ".nut" was not found in the path,
+ * "/index.nut" will be concatenated to path
+ *
+ * @param  {String} path
+ * @return {Boolean}
+ */
+function include(path) {
+    if (!path.find(".nut")) {
+        path += "/index.nut";
+    }
+
+    try {
+        return dofile("src/" + path, true) || true;
+    } catch (e) {
+        throw "\n============================\nSystem: File inclusion error\n(wrong filename or error in the file): " + path;
+    }
+}
+
+// load libs
+__FILE__ <- "vendor/squirrel-orm/index.nut";
+dofile("vendor/squirrel-orm/index.nut", true);
+dofile("vendor/JSONEncoder/JSONEncoder.class.nut", true);
+dofile("vendor/JSONParser/JSONParser.class.nut", true);
+
+
+/**
+ * Function that logs to server console
+ * provided any number of provided values
+ *
+ * @param  {...}  any number of arguments
+ * @return none
+ */
+function log(...) {
+    return ::print(JSONEncoder.encode(vargv).slice(2).slice(0, -2));
+};
+
+
+/**
+ * Function that logs to server console
+ * provided any number of provided values
+ * NOTE: addes prefix [debug] in front of output
+ *
+ * @param  {...}  any number of arguments
+ * @return none
+ */
+function dbg(...) {
+    return DEBUG_ENABLED ? ::print("[debug] " + JSONEncoder.encode(vargv)) : null;
+}
+
+if (__DEBUG__EXPORT) {
+    addEventHandler     <- function(...) {};
+    addCommandHandler   <- function(...) {};
+    createVehicle       <- function(...) {};
+}
 
 // load classes
 include("traits/Colorable.nut");
