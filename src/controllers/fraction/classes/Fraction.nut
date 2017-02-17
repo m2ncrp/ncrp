@@ -33,22 +33,40 @@ class Fraction extends ORM.Entity {
         return isPlayerLoaded(playerid) && this.members.exists(players[playerid].id);
     }
 
-    function _get(key) {
-        if (this.members && this.members.exists(key)) {
-            return this.members.get(players[key].id);
-        }
-
-        return base.get(key);
-    }
-
-    function _set(key, object) {
-        try {
-            base.set(key, object);
-        }
-        catch (e) {
-            if (isPlayerLoaded(key) && this.members) {
-                this.members.add(players[key].id, object);
+    function get(key) {
+        if (base.get(key) != null) {
+            return base.get(key);
+        } else {
+            dbg("asd");
+            if (this.exists(key)) {
+                return this.members.get(key);
             }
+
+            throw null;
         }
     }
+
+    // function _get(key) {
+    //     if (this.members && this.exists(key)) {
+    //         return this.members.get(players[key].id);
+    //     }
+
+    //     try {
+    //         base.get(key);
+    //     }
+    //     catch (e) {
+    //         throw null;
+    //     }
+    // }
+
+    // function _set(key, object) {
+    //     try {
+    //         base.set(key, object);
+    //     }
+    //     catch (e) {
+    //         if (isPlayerLoaded(key) && this.members) {
+    //             this.members.add(players[key].id, object);
+    //         }
+    //     }
+    // }
 }

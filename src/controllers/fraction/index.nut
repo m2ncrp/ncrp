@@ -4,13 +4,13 @@ include("controllers/fraction/classes/FractionMember.nut");
 include("controllers/fraction/classes/FractionContainer.nut");
 // require("controllers/fraction/classes/FractionRoleContainer.nut");
 
-fraction <- FractionContainer();
+fractions <- FractionContainer();
 
 event("onServerStarted", function() {
     local __globalroles = {};
 
-    Fraction.findAll(function(err, fractions) {
-        foreach (idx, fraction in fractions) {
+    Fraction.findAll(function(err, results) {
+        foreach (idx, fraction in results) {
             fractions.add(fraction.id, fraction);
 
             if (fraction.shortcut) {
@@ -19,10 +19,10 @@ event("onServerStarted", function() {
         }
     });
 
-    FractionRole.findAll(function(err, roles) {
-        foreach (idx, role in roles) {
+    FractionRole.findAll(function(err, results) {
+        foreach (idx, role in results) {
             if (!fractions.exists(role.fractionid)) {
-                dbg("non existant fraction", role.fractionid, "with attached role", role.id);
+                dbg("fractions", "non existant fraction", role.fractionid, "with attached role", role.id);
                 continue;
             }
 
@@ -36,15 +36,15 @@ event("onServerStarted", function() {
         }
     });
 
-    FractionMember.findAll(function(err, members) {
-        foreach (idx, memeber in members) {
+    FractionMember.findAll(function(err, results) {
+        foreach (idx, member in results) {
             if (!fractions.exists(member.fractionid)) {
-                dbg("non existant fraction", role.fractionid, "with attached member", member.characterid);
+                dbg("fractions", "non existant fraction", role.fractionid, "with attached member", member.characterid);
                 continue;
             }
 
-            if (!fractions.exists(member.fractionid).roles.exists(member.roleid)) {
-                dbg("non existant fraction role", member.roleid, "for fraction", member.fractionid, "with attached member", member.characterid);
+            if (!fractions.get(member.fractionid).roles.exists(member.roleid)) {
+                dbg("fractions", "non existant fraction role", member.roleid, "for fraction", member.fractionid, "with attached member", member.characterid);
                 continue;
             }
 
@@ -67,6 +67,8 @@ event("onServerStarted", function() {
     // fr.fractionid = 1;
     // fr.save();
 
+    // dbg(fr);
+
     // local fm = FractionMember();
     // fm.characterid = 1069;
     // fm.roleid = fr.id;
@@ -76,14 +78,14 @@ event("onServerStarted", function() {
 });
 
 cmd("f", "roles", function(playerid) {
-    local fractions = fractions.getManaged(playerid);
+    local fracs = fractions.getManaged(playerid);
 
-    if (!fractions.len()) {
+    if (!fracs.len()) {
         return msg(playerid, "You are not fraction admin.", CL_WARNING);
     }
 
     // for now take the first one
-    local fraction = fractions[0];
+    local fraction = fracs[0];
 
     msg(playerid, "List of roles in %s:", fraction.title, CL_INFO);
 
