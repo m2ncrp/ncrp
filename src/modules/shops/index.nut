@@ -7,6 +7,11 @@ include("modules/shops/carsearch");
 include("modules/shops/clothesshop");
 
 
+key("7", function(playerid) {
+      triggerClientEvent(playerid, "showShopGUI");
+});
+
+
 // TODO(inlife): move to other place
 /*
 event("onServerStarted", function() {
