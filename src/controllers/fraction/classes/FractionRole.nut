@@ -6,7 +6,7 @@ class FractionRole extends ORM.Entity {
     static fields = [
         ORM.Field.Integer({ name = "fractionid" }),
         ORM.Field.String({ name = "title" }),
-        ORM.Field.String({ name = "shortcut", value = null, nullable = true }),
+        ORM.Field.String({ name = "shortcut", value = "" }),
         ORM.Field.Integer({ name = "created" }),
         ORM.Field.Integer({ name = "level", value = 0 }),
     ];

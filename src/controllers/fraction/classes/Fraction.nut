@@ -6,19 +6,19 @@ class Fraction extends ORM.Entity {
     static fields = [
         ORM.Field.String({ name = "type", value = "default" }),
         ORM.Field.String({ name = "title", value = "Default Fraction" }),
-        ORM.Field.String({ name = "shortcut", value = null, nullable = true }),
+        ORM.Field.String({ name = "shortcut", value = "" }),
         ORM.Field.Integer({ name = "parent" }),
         ORM.Field.Integer({ name = "created" }),
         ORM.Field.Float({ name = "money" }),
     ];
 
     roles = null;
-    members = null;
+    memberRoles = null;
     // __globalroles = null;
 
     constructor () {
-        this.members = Container();
-        this.members.__ref = FractionMember;
+        this.memberRoles = Container();
+        this.memberRoles.__ref = FractionRole;
 
         this.roles = Container();
         this.roles.__ref = FractionRole;
@@ -30,16 +30,30 @@ class Fraction extends ORM.Entity {
     }
 
     function exists(playerid) {
-        return isPlayerLoaded(playerid) && this.members.exists(players[playerid].id);
+        return isPlayerLoaded(playerid) && this.memberRoles.exists(players[playerid].id);
+    }
+
+    function add(key, value) {
+        dbg(value);
+        return this.memberRoles.add(key, value);
     }
 
     function get(key) {
         if (base.get(key) != null) {
             return base.get(key);
         } else {
-            dbg("asd");
             if (this.exists(key)) {
-                return this.members.get(key);
+                return this.memberRoles.get(key);
+            }
+
+            throw null;
+        }
+    }
+
+    function set(key, value) {
+        if (base.set(key, value) == null) {
+            if (this.memberRoles.add(key, value)) {
+                return true;
             }
 
             throw null;
@@ -47,8 +61,8 @@ class Fraction extends ORM.Entity {
     }
 
     // function _get(key) {
-    //     if (this.members && this.exists(key)) {
-    //         return this.members.get(players[key].id);
+    //     if (this.memberRoles && this.exists(key)) {
+    //         return this.memberRoles.get(players[key].id);
     //     }
 
     //     try {
@@ -64,8 +78,8 @@ class Fraction extends ORM.Entity {
     //         base.set(key, object);
     //     }
     //     catch (e) {
-    //         if (isPlayerLoaded(key) && this.members) {
-    //             this.members.add(players[key].id, object);
+    //         if (isPlayerLoaded(key) && this.memberRoles) {
+    //             this.memberRoles.add(players[key].id, object);
     //         }
     //     }
     // }

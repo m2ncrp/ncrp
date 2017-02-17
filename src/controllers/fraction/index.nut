@@ -39,11 +39,11 @@ event("onServerStarted", function() {
     FractionMember.findAll(function(err, results) {
         foreach (idx, member in results) {
             if (!fractions.exists(member.fractionid)) {
-                dbg("fractions", "non existant fraction", role.fractionid, "with attached member", member.characterid);
+                dbg("fractions", "non existant fraction", member.fractionid, "with attached member", member.characterid);
                 continue;
             }
 
-            if (!fractions.get(member.fractionid).roles.exists(member.roleid)) {
+            if (!(member.roleid in __globalroles)) {
                 dbg("fractions", "non existant fraction role", member.roleid, "for fraction", member.fractionid, "with attached member", member.characterid);
                 continue;
             }
@@ -75,6 +75,44 @@ event("onServerStarted", function() {
     // fm.fractionid = 1;
     // fm.created = getTimestamp();
     // fm.save();
+
+
+    // fractions["WTF"][playerid] = fractions["WTF"].roles["Leader"]);
+
+    // add new member to fraction (aliases)
+    // fractions["brio"].add(playerid, 0);
+    // fractions["brio"].add(playerid, "boss1");
+    // fractions["brio"].add(playerid, fractions["brio"].roles[0]);
+    // fractions["brio"].add(playerid, fractions["brio"].roles["boss1"]);
+
+    // // check if player is int the fraction
+    // fractions["brio"].has(playerid);
+
+    // // remove player from fraction
+    // fractions["brio"].remove(playerid);
+
+    // // get player role
+    // local role = fractions["brio"][playerid];
+
+    // // operations
+    // if (role.level > 3 || role.shortcut == "boss1") {
+    //     dbg(playerid, "has role with title", role.title);
+    // }
+
+    // // rename role
+    // role.title = "New boss";
+    // role.save();
+
+    // // add new role
+    // local newrole = FractionRole();
+    // newrole.fractionid = fractions["brio"].id;
+    // newrole.title = "The Dvornik";
+    // newrole.level = 4;
+    // newrole.shortcut = "dvrn1";
+    // newrole.save();
+    // fractions["WTF"].roles.push(newrole);
+
+
 });
 
 cmd("f", "roles", function(playerid) {
