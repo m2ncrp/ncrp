@@ -260,7 +260,8 @@ event("onClientFrameRender", function(afterGUI) {
             dxDrawRectangle(pos.x, pos.y, inventory.guiCellSize, inventory.guiCellSize, 0x61AF8E4D);
         }
 
-        local width = (size.x - inventory.guiPadding * 2 - 7) * (weight / inventory.data.limit);
+        local coef  = (weight / inventory.data.limit);
+        local width = (size.x - inventory.guiPadding * 2 - 7) * (coef > 1.0 ? 1.0 : coef);
 
         dxDrawRectangle(window[0].tofloat() + inventory.guiPadding + 4, window[1] + size.y - inventory.guiBottomOffset - 3, size.x - inventory.guiPadding * 2 - 7, 15.0, 0xFF242522);
         dxDrawRectangle(window[0].tofloat() + inventory.guiPadding + 4, window[1] + size.y - inventory.guiBottomOffset - 3, width, 15.0, 0xFFAF8E4D);
