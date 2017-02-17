@@ -63,6 +63,16 @@ class Container
         return (key in this.__data);
     }
 
+    // alias
+    function has(key) {
+        return this.exists(key);
+    }
+
+    // alias
+    function exist(key) {
+        return this.has(key);
+    }
+
     /**
      * Store new Object record inside (with overridng existed value)
      * @param {Integer} key
