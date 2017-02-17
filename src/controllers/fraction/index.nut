@@ -60,19 +60,19 @@ event("onServerStarted", function() {
     // f.money = 124242.42;
     // f.save();
 
-    local fr = FractionRole();
-    fr.title = "BIG BO$$";
-    fr.created = getTimestamp();
-    fr.level = 0;
-    fr.fractionid = 1;
-    fr.save();
+    // local fr = FractionRole();
+    // fr.title = "BIG BO$$";
+    // fr.created = getTimestamp();
+    // fr.level = 0;
+    // fr.fractionid = 1;
+    // fr.save();
 
-    local fm = FractionMember();
-    fm.characterid = 1069;
-    fm.roleid = fr.id;
-    fm.fractionid = 1;
-    fm.created = getTimestamp();
-    fm.save();
+    // local fm = FractionMember();
+    // fm.characterid = 1069;
+    // fm.roleid = fr.id;
+    // fm.fractionid = 1;
+    // fm.created = getTimestamp();
+    // fm.save();
 });
 
 cmd("f", "roles", function(playerid) {
