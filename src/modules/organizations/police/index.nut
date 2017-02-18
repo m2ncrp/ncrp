@@ -43,6 +43,7 @@ translation("en", {
     "organizations.police.notanofficer"         : "You're not a police officer.",
     "organizations.police.duty.on"              : "You're on duty now.",
     "organizations.police.duty.off"             : "You're off duty now.",
+    "organizations.police.duty.not"             : "You're off duty.",
     "organizations.police.duty.alreadyon"       : "You're already on duty now.",
     "organizations.police.duty.alreadyoff"      : "You're already off duty now.",
     "organizations.police.notinpolicevehicle"   : "You should be in police vehicle!",
@@ -114,7 +115,7 @@ POLICE_JAIL_COORDS <- [
 ];
 
 const EBPD_ENTER_RADIUS = 2.0;
-const TITLE_DRAW_DISTANCE = 12.0;
+const EBPD_TITLE_DRAW_DISTANCE = 35.0;
 
 // jail
 const JAIL_X = -1018.93;
@@ -247,7 +248,7 @@ event("onServerStarted", function() {
     createVehicle(51, -326.781, 663.293, -17.5188, 93.214, -2.95046, -0.0939897 );      // policeOldCarParking2
     createVehicle(42, 160.689, -351.494, -20.087, 0.292563, 0.457066, -0.15319 );       // policeCarKosoyPereulok
 
-    create3DText( POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]+0.3, "=== EMPIRE BAY POLICE DEPARTMENT ===", CL_ROYALBLUE, TITLE_DRAW_DISTANCE );
+    create3DText( POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]+0.3, "=== EMPIRE BAY POLICE DEPARTMENT ===", CL_ROYALBLUE, EBPD_TITLE_DRAW_DISTANCE );
     create3DText( POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]-0.05, "/police duty on/off", CL_WHITE.applyAlpha(150), EBPD_ENTER_RADIUS );
     create3DText( POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]-0.2, "or press E button", CL_WHITE.applyAlpha(150), EBPD_ENTER_RADIUS );
 
