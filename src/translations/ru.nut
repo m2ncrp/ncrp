@@ -14,6 +14,13 @@ translation("ru", {
 
     "msg.weapons"   : "Это RolePlay сервер. Только банды и мафии могут владеть оружием."
 
+    "general.admins.serial.get"                 : "Cерийный номер игрока %s: %s"
+
+    "general.message.empty"                     : "[INFO] Вы не можете отправить пустое сообщение."
+    "general.playeroffline"                     : "[INFO] Данного игрока нет на сервере!"
+    "general.noonearound"                       : "Рядом с вами никого нет."
+    "general.job.anotherone"                    : "Вы работаете %s, а не %s!"
+
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
     "tips.money.earn"   :   "[TIPS] Вы можете зарабатывать деньги, устроившись на работу. Подробнее: /help job"
@@ -632,99 +639,6 @@ translation("ru", {
     "organizations.hobos.tired"         : "Вы устали, передохните."
     "organizations.hobos.trash.found"   : "Вы нашли $%.2f. Теперь у вас $%s."
     "organizations.unemployed.income"   : "Вы получили $%.2f в качестве пособия по безработице."
-
-/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
-
-    "general.admins.serial.get"                 : "Cерийный номер игрока %s: %s"
-
-    "general.message.empty"                     : "[INFO] Вы не можете отправить пустое сообщение."
-    "general.playeroffline"                     : "[INFO] Данного игрока нет на сервере!"
-    "general.noonearound"                       : "Рядом с вами никого нет."
-    "general.job.anotherone"                    : "Вы работаете %s, а не %s!"
-
-    "job.police.cadet"                          : "кадет"
-    "job.police.patrol"                         : "патрульный"
-    "job.police.officer"                        : "офицер"
-    "job.police.detective"                      : "детектив"
-    "job.police.sergeant.1"                     : "сержант I"
-    "job.police.sergeant.2"                     : "сержант II"
-    "job.police.lieutenant.1"                   : "лейтенант I"
-    "job.police.lieutenant.2"                   : "лейтенант II"
-    "job.police.Captain.1"                      : "капитан I"
-    "job.police.Captain.2"                      : "капитан II"
-    "job.police.Captain.3"                      : "капитан III"
-    "job.police.commander"                      : "командующий"
-    "job.police.deputychief"                    : "заместитель шефа"
-    "job.police.assistantchief"                 : "помощник шефа"
-    "job.police.chief"                          : "шеф полиции"
-    "organizations.police.job.getmaxrank"       : "Вы достигли высшего звания: %s."
-    "organizations.police.job.getminrank"       : "Вы понижены до низшего звания: %s."
-    "organizations.police.lowrank"              : "Ваша должность не позволяет вам этого."
-
-    "organizations.police.setjob.byadmin"       : "Вы устроили на работу игрока %s в качестве %s."
-    "organizations.police.leavejob.byadmin"     : "Вы уволили %s с работы %s."
-
-    "organizations.police.call.withoutaddress"  : "Вы не можете вызвать полицию, не указав адрес."
-    "organizations.police.call.new"             : "[POLICE RADIO] Происшествие по адресу: %s"
-    "organizations.police.call.foruser"         : "Вы вызвали полицию по адресу: %s"
-
-    "organizations.police.lawbreak.warning"     : "неповиновение сотруднику EBPD"
-    "organizations.police.lawbreak.trafficviolation" : "нарушение ПДД"
-    "organizations.police.lawbreak.roadaccident": "ДТП"
-
-    "organizations.police.income"               : "[EBPD] Ваша зарплата составляет $%.2f за службу в качестве %s."
-
-    "organizations.police.crime.wasdone"        : "Лучше бы ты этого не делал..."
-    "organizations.police.alreadyofficer"       : "Вы уже состоите в EBPD."
-    "organizations.police.notanofficer"         : "Вы не являетесь офицером полиции."
-    "organizations.police.duty.on"              : "Вы вышли на смену."
-    "organizations.police.duty.off"             : "Вы закончили свою смену."
-    "organizations.police.duty.not"             : "Вы не на смене."
-    "organizations.police.duty.alreadyon"       : "Вы уже начали свою смену."
-    "organizations.police.duty.alreadyoff"      : "Вы уже закончили свою смену."
-    "organizations.police.notinpolicevehicle"   : "Вы должны быть в служебной машине!"
-    "organizations.police.ticket.givewithreason": "%s выписал вам штраф за %s ($%.2f)." // Введите /accept %i.
-    "organizations.police.ticket.given"         : "Вы выписали штраф %s за %s ($%.2f)."
-    "organizations.police.offduty.notickets"    : "Вы закончили свою смену и не имеете квитанций с собой."
-    "organizations.police.offduty.nobaton"      : "У вас нет дубинки, т.к. вы не полицейский."
-    "organizations.police.offduty.nobadge"      : "У вас нет с собой жетона, т.к. вы не на смене."
-    "organizations.police.offduty.nokeys"       : "У вас нет ключей с собой, т.к. вы не на смене."
-
-    "organizations.police.bitsomeone.bybaton"   : "Вы ударили %s дубинкой."
-    "organizations.police.beenbit.bybaton"      : "Вас оглушили дубинкой."
-    "organizations.police.beencuffed"           : "%s надел на вас наручники."
-    "organizations.police.cuff.someone"         : "Вы арестовали %s."
-    "organizations.police.cuff.beenuncuffed"    : "%s снял с вас наручники."
-    "organizations.police.cuff.uncuffsomeone"   : "Вы сняли наручники с %s."
-
-    "organizations.police.beenshown.badge"      : "Вы показываете свой жетон %s."
-    "organizations.police.show.badge"           : "%s %s показывает Вам свой полицейский жетон."
-
-    "organizations.police.jail"                 : "Вас посадили в тюрьму."
-    "organizations.police.unjail"               : "Вы отсидели свой срок и были освобождены от тюремного заключения."
-
-    "organizations.police.info.howjoin"         : "Если вы хотите пополнить ряды офицеров департамента Empire Bay, напишите администраторам!"
-    "organizations.police.info.cmds.helptitle"  : "Список команд, доступных офицерам полиции:"
-    "organizations.police.info.cmds.ratio"      : "Сказать что-либо в полицейскую рацию"
-    "organizations.police.info.cmds.rupor"      : "Сказать что-либо в рупор служебной машины"
-    "organizations.police.info.cmds.ticket"     : "Выдать штраф игроку с указанным id. Пример: /ticket 0 1 или /ticket LA-132 1"
-    "organizations.police.info.cmds.baton"      : "Обездвижить ближайшего игрока"
-    "organizations.police.info.cmds.cuff"       : "Надеть наручники на ближайшего оглушенного игрока или снять их"
-    "organizations.police.info.cmds.prison"     : "Посадить игрока с указанным id в тюрьму"
-    "organizations.police.info.cmds.amnesty"    : "Вытащить игрока с указанным id из тюрьмы"
-    "organizations.police.info.cmds.dutyon"     : "Выйти на смену."
-    "organizations.police.info.cmds.dutyoff"    : "Закончить смену."
-
-    "organizations.police.onrankset"            : "Вы успешно изменили ранг %s на %s"
-    "organizations.police.onrankup"             : "Вы были повышены до %s"
-    "organizations.police.onrankupsmbd"         : "%s был повышен до %s"
-    "organizations.police.onrankdown"           : "Вы были понижены до %s"
-    "organizations.police.onrankdownsmbd"       : "%s был понижен до %s"
-    "organizations.police.onbecame"             : "Вы стали офицером полиции."
-    "organizations.police.onleave"              : "Вы более не являетесь офицером полиции."
-
-    "organizations.police.alarm.alreadyCall"    : "Вы уже вызвали полицию. Ожидайте..."
-    "organizations.police.kosoypereulok.ticket" : "Вам выписан штраф за движение по тротуару ($%.2f)."
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
