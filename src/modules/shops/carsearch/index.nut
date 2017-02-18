@@ -35,6 +35,7 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
         });
 
         requestUserInput(playerid, function(playerid, text) {
+            trigger(playerid, "hudDestroyTimer");
             if (text.tolower() != "yes" && text.tolower() != "'yes'" && text.tolower() != "да" && text.tolower() != "'да'") {
                 findcar = "canceled";
                 return msg(playerid, "shops.findcar.canceled", TELEPHONE_TEXT_COLOR);

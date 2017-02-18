@@ -35,7 +35,8 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
         });
 
         requestUserInput(playerid, function(playerid, text) {
-            if (text.tolower() == "отмена" || text.tolower() == "'отмена'" || text.tolower() == "cancel" || text.tolower() == "'cancel'" || text == "0") {
+            trigger(playerid, "hudDestroyTimer");
+            if (text.tolower() == "отмена" || text.tolower() == "'отмена'" || text.tolower() == "нет" || text.tolower() == "'нет'" || text.tolower() == "cancel" || text.tolower() == "'cancel'" || text == "0") {
                 ad_sended = "canceled";
                 return msg(playerid, "empirecustom.phone.canceled", TELEPHONE_TEXT_COLOR);
             }
