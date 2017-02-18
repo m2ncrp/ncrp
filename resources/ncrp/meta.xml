@@ -9,7 +9,7 @@
     <script type="client">gui_bank.nut</script>
     <script type="client">gui_carshop.nut</script>
     <script type="client">gui_character.nut</script>
-    <script type="client">gui_empirediner.nut</script>
+    <!-- <script type="client">gui_empirediner.nut</script> -->
     <script type="client">gui_metro.nut</script>
     <script type="client">gui_phone.nut</script>
     <script type="client">gui_rentcar.nut</script>
@@ -27,7 +27,7 @@
     <script type="client">ped_dialog.nut</script>
 
     <!-- invdev supa unstebla beyatch -->
-    <script type="client">gui_inventory.nut</script>
+    <!-- <script type="client">gui_inventory.nut</script> -->
 
     <!-- images -->
     <file>logo.png</file>
@@ -38,7 +38,7 @@
     <!-- Client inventory files -->
 
     <!-- ITEMS -->
-    <file>Item.None.jpg</file>
+  <!--   <file>Item.None.jpg</file>
     <file>Item.Revolver12.jpg</file>
     <file>Item.MauserC96.jpg</file>
     <file>Item.ColtM1911A1.jpg</file>
@@ -69,8 +69,8 @@
     <file>Item.Hotdog.jpg</file>
     <file>Item.Sandwich.jpg</file>
     <file>Item.Cola.jpg</file>
-
-    <file>shop.logo.empirediner.png</file>
+ -->
+    <!-- <file>shop.logo.empirediner.png</file> -->
 
     <file>ped_tutorial1.png</file>
 </meta>
