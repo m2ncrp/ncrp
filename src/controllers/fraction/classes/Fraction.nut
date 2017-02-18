@@ -34,7 +34,6 @@ class Fraction extends ORM.Entity {
     }
 
     function add(key, value) {
-        dbg(value);
         return this.memberRoles.add(key, value);
     }
 
