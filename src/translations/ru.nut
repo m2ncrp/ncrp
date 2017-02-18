@@ -679,6 +679,7 @@ translation("ru", {
     "organizations.police.notanofficer"         : "Вы не являетесь офицером полиции."
     "organizations.police.duty.on"              : "Вы вышли на смену."
     "organizations.police.duty.off"             : "Вы закончили свою смену."
+    "organizations.police.duty.not"             : "Вы не на смене."
     "organizations.police.duty.alreadyon"       : "Вы уже начали свою смену."
     "organizations.police.duty.alreadyoff"      : "Вы уже закончили свою смену."
     "organizations.police.notinpolicevehicle"   : "Вы должны быть в служебной машине!"
