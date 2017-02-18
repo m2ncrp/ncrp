@@ -21,7 +21,6 @@ local vehiclePositions = [
  */
 local carPricesAll = [
     [   // diamond motors
-        { modelid = 9 , price = 2840, title = "Houston Wasp"            },
         { modelid = 22, price = 2100, title = "Potomac Indian"          },
         { modelid = 23, price = 2350, title = "Quicksilver Windsor"     },
         { modelid = 44, price = 1950, title = "Smith Mainline"          },
@@ -35,7 +34,8 @@ local carPricesAll = [
     ],
     [   // bad guy
         { modelid = 10, price = 9400, title = "ISW 508"                 },
-        { modelid = 18, price = 7670, title = "Lassiter Series 75 Hollywood" },
+        //{ modelid = 18, price = 7670, title = "Lassiter Series 75 Hollywood" },
+        { modelid = 9 , price = 2840, title = "Houston Wasp"            },
         { modelid = 1 , price = 5680, title = "Berkley Kingfisher"      },
         { modelid = 0 , price = 6995, title = "Ascot Bailey S200"       },
         { modelid = 15, price = 3500, title = "Lassiter Series 69"      },
