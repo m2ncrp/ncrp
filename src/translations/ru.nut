@@ -762,7 +762,7 @@ translation("ru", {
     "empirecustom.phone.hello"      : "[ЗВОНОК] Рекламное агентство Empire Custom. Мы поможем Вам разместить объявление! Услуга стоит $%.2f."
     "empirecustom.phone.notenough"  : "[ЗВОНОК] К сожалению, денег на вашем банковском счёте недостаточно."
     "empirecustom.phone.enter"      : "Введите текст вашего объявления:"
-    "empirecustom.phone.help"       : "Напишите в чат текст объявления в течение %d секунд. Чтобы отказаться - напишите 'нет'."
+    "empirecustom.phone.help"       : "Напишите в чат текст объявления в течение %d секунд. Чтобы отказаться - напишите 0 или 'нет'."
     "empirecustom.phone.yourad"     : "Текст: %s"
     "empirecustom.phone.placed"     : "[ЗВОНОК] Ваше объявление будет опубликовано через 1 минуту. Благодарим за выбор Empire Custom. (повесили трубку)"
     "empirecustom.phone.ad"         : "[ОБЪЯВЛЕНИЕ] %s"
