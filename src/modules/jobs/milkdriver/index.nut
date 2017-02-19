@@ -107,7 +107,7 @@ event("onPlayerConnect", function(playerid) {
      job_milk[playerid] <- {};
      job_milk[playerid]["milkready"] <- false;
      job_milk[playerid]["milkcoords"] <- [];
-     job_milk[playerid]["milkstatus"] <- [false, false, false, false, false, false];
+     job_milk[playerid]["milkstatus"] <- [false, false, false, false, false, false, false];
      job_milk[playerid]["milkcomplete"] <- 0;  // number of completed milk address. Default is 0
 });
 
