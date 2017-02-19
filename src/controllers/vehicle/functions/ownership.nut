@@ -87,5 +87,5 @@ function isPlayerVehicleOwner(playerid, vehicleid) {
  * @return {Boolean}
  */
 function isVehicleOwned(vehicleid) {
-    return (vehicleid in __vehicles && getVehicleOwnerId(vehicleid) != -1);
+    return (vehicleid in __vehicles && (getVehicleOwnerId(vehicleid) != -1 || getVehicleOwner(vehicleid) == "__cityNCRP"));
 }
