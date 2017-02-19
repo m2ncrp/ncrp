@@ -57,7 +57,7 @@ local translations = {
 "en|job.taxi.cantrefuse"               :   "[TAXI] You can't refuse from call while you carry a passenger."
 "ru|job.taxi.cantrefuse"               :   "[TAXI] Вы не можете отказаться от вызова во время его выполнения."
 
-"en|job.taxi.refusedcall"              :   "[TAXI] You've refused from call #%d."
+"en|job.taxi.refusedcall"              :   "[TAXI] You've refused from call."
 "ru|job.taxi.refusedcall"              :   "[TAXI] Вы отказались от вызова."
 
 "en|job.taxi.wait"                     :   "[TAXI] Wait for the passenger..."
