@@ -28,7 +28,7 @@ event("native:onPlayerPlaceExit", function(playerid, placeid) {
 event("onServerPlayerStarted", function(playerid) {
     foreach (idx, obj in placeRegister) {
         trigger(playerid, "onServerPlaceAdded", idx, obj.a.x, obj.a.y, obj.b.x, obj.b.y);
-        dbg("sending place with", idx, idx, obj.a.x, obj.a.y, obj.b.x, obj.b.y);
+        // dbg("sending place with", idx, idx, obj.a.x, obj.a.y, obj.b.x, obj.b.y);
     }
 });
 
