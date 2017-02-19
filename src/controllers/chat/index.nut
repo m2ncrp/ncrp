@@ -98,7 +98,7 @@ event("native:onPlayerChat", function(playerid, message) {
  * @return {Boolean}
  */
 function requestUserInput(playerid, callback, timeout = 30) {
-    return inputRequests[playerid] <- { callback = callback, timeout = (getTimestamp() + 30) };
+    return inputRequests[playerid] <- { callback = callback, timeout = (getTimestamp() + timeout) };
 }
 
 /**
