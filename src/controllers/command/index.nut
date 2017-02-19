@@ -89,7 +89,16 @@ function advancedCommand(accessLevel, aliases, extensionOrCallback, callbackOrNu
 
         // if its admin command, and player is not admin - exit
         if (accessLevel != CMD_LEVEL.USER && !isPlayerAdmin(playerid)) {
-            if (players[playerid].mlvl < accessLevel) {
+            local playerLevel = players[playerid].mlvl;
+
+            try {
+                playerLevel = playerLevel.tointeger();
+            }
+            catch(e) {
+                playerLevel = 0;
+            }
+
+            if (playerLevel < accessLevel.tointeger()) {
                 return;
             }
         }
