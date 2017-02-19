@@ -381,15 +381,23 @@ function fishJobRefuseLeave( playerid ) {
         job_fish[getPlayerName(playerid)]["userstatus"] = null;
         job_fish[getPlayerName(playerid)]["hand"] = null;
 
-        removeText ( playerid, "leavejob3dtext" );
-        removeText ( playerid, "fish_putbox1_3dtext" );
-        removeText ( playerid, "fish_putbox1_3dtext_desc" );
-        removeText ( playerid, "fish_putbox2_3dtext" );
-        removeText ( playerid, "fish_putbox2_3dtext_desc" );
-        removeText ( playerid, "fish_parking1_3dtext" );
-        removeText ( playerid, "fish_parking2_3dtext" );
-        removeText ( playerid, "fish_door1_3dtext" );
-        removeText ( playerid, "fish_door2_3dtext" );
+        local arr_3dtext = [
+            "leavejob3dtext"           ,
+            "fish_putbox1_3dtext"      ,
+            "fish_putbox1_3dtext_desc" ,
+            "fish_putbox2_3dtext"      ,
+            "fish_putbox2_3dtext_desc" ,
+            "fish_parking1_3dtext"     ,
+            "fish_parking2_3dtext"     ,
+            "fish_door1_3dtext"        ,
+            "fish_door2_3dtext"        ,
+            "fish_takebox"             ,
+            "fish_putbox"
+        ];
+        foreach (idx, value in arr_3dtext) {
+            if(existsText( playerid, value )) removeText ( playerid, value );
+        }
+
 
         msg( playerid, "job.leave", FISH_JOB_COLOR );
 
