@@ -45,6 +45,7 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
             msg(playerid, "empirecustom.phone.placed", TELEPHONE_TEXT_COLOR);
             ad_sended = true;
             subBankMoneyToPlayer(playerid, AD_COST);
+            addMoneyToTreasury(AD_COST);
 
             delayedFunction(60000, function() {
                 trigger("onRadioMessageSend", text);

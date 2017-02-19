@@ -71,6 +71,7 @@ function repairShopRepairCar (playerid) {
             local vehicleid = getPlayerVehicle(playerid);
             repairVehicle( vehicleid );
             subMoneyToPlayer(playerid, SHOP_REPAIR_COST);
+            addMoneyToTreasury(SHOP_REPAIR_COST);
             return msg(playerid, "shops.repairshop.repair.payed", [SHOP_REPAIR_COST, getPlayerBalance(playerid)]);
         });
     }
