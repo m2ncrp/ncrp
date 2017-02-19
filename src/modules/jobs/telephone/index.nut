@@ -1,6 +1,7 @@
 include("modules/jobs/telephone/commands.nut");
 
 local phone_nearest_blip = {};
+local PHONE_CALL_PRICE = 0.50;
 
 local telephones = [
 /*
@@ -326,6 +327,7 @@ translation("en", {
 "telephone.youcall"     : "You call by number %s."
 "telephone.incorrect"   : "Incorrect number. Use: 555-XXXX"
 "telephone.notregister" : "This phone number isn't registered."
+"telephone.notenoughmoney" : "You don't have enough money to call."
 
 "phone.gui.window"          :   "Telephone"
 "phone.gui.callto"          :   "Select an action:"
@@ -484,10 +486,17 @@ function callByPhone (playerid, number = null, isbind = false) {
         return;
     }
 
+    if(!canBankMoneyBeSubstracted(playerid, PHONE_CALL_PRICE)) {
+        return msg(playerid, "telephone.notenoughmoney");
+    }
+
     // number empty
     if (number == null) {
         return msg(playerid, "telephone.neednumber");
     }
+
+    subMoneyToPlayer(playerid, PHONE_CALL_PRICE);
+    addMoneyToTreasury(PHONE_CALL_PRICE);
 
     if(number == "taxi" || number == "police" || number == "dispatch" || number == "towtruck" ) {
         return trigger("onPlayerPhoneCall", playerid, number, budka[3] /*plocalize(playerid, budka[3])*/ );

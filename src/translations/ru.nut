@@ -536,6 +536,7 @@ translation("ru", {
     "telephone.youcall"     : "Вы позвонили по номеру %s."
     "telephone.incorrect"   : "Неправильно набран номер. Образец: 555-XXXX"
     "telephone.notregister" : "Набранный телефонный номер не зарегистрирован в сети."
+    "telephone.notenoughmoney" : "У вас недостаточно денег для звонка."
 
     "policeAlarm1"      : "Риверсайд. Вызов по кнопке"
     "policeAlarm2"      : "Кингстон. Ривер-Стрит, напротив стадиона. Вызов по кнопке"
