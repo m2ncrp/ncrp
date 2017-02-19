@@ -180,7 +180,7 @@ function switchEngine(vehicleid) {
 }
 
 
-const VEHICLE_FUEL_STEP = 0.02;
+const VEHICLE_FUEL_STEP = 0.01;
 
 event("onServerMinuteChange", function() {
     foreach (vehicleid, object in __vehicles) {

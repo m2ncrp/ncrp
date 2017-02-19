@@ -45,9 +45,10 @@ function fuelup(playerid) {
         }
         if ( !canMoneyBeSubstracted(playerid, cost) ) {
             return msg(playerid, "shops.fuelstations.money.notenough", [cost, getPlayerBalance(playerid)], CL_THUNDERBIRD);
-        }        
+        }
         setVehicleFuel(vehicleid, getDefaultVehicleFuel(vehicleid));
         subMoneyToPlayer(playerid, cost);
+        addMoneyToTreasury(cost);
         return msg(playerid, "shops.fuelstations.fuel.payed", [cost, fuel, getPlayerBalance(playerid)]);
     }
 }

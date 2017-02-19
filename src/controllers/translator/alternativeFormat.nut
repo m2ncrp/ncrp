@@ -1,16 +1,18 @@
-event("onServerStarted", function() {
-local phrases = {
-     "ru|Test112" : "2222 ru 22222"
-     "en|Test112" : "2222 en 22222"
+/*
 
-     "ru|Test113" : "3333 ru 33333"
-     "en|Test113" : "3333 en 33333"
+EXAMPLE:
+
+local phrases = {
+     "en|Test1" : "1. Test EN"
+     "ru|Test1" : "1. Test RU"
+
+     "en|Test2" : "2. Test EN"
+     "ru|Test2" : "2. Test RU"
 }
 
-    alternativeTranslate(phrases);
+alternativeTranslate(phrases);
 
-});
-
+ */
 
 function alternativeTranslate(phrases) {
     foreach (idx, phrase in phrases) {
