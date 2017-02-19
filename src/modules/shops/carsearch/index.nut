@@ -21,7 +21,7 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
         msg(playerid, "shops.findcar.hello", FINDCAR_COST, TELEPHONE_TEXT_COLOR);
 
             if(!canBankMoneyBeSubstracted(playerid, FINDCAR_COST)) {
-                return msg(playerid, "shops.findcar.nomoney", TELEPHONE_TEXT_COLOR);
+                return msg(playerid, "shops.findcar.notenough", TELEPHONE_TEXT_COLOR);
             }
 
         msg(playerid, "shops.findcar.help", FINDCAR_TIMEOUT, CL_GRAY);
