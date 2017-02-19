@@ -22,11 +22,11 @@ translation("ru", {
     "organizations.police.tencode.10-16"   : "10-16 ((Офицер ранен))"
     "organizations.police.tencode.10-17"   : "10-17 ((Офицер убит))"
 
-    "organizations.police.tencode.code0"  : "code 0 ((Требуется срочная помощь. Всем экипажам без исключения ответить на code 0 как можно быстрее))"
-    "organizations.police.tencode.code1"  : "code 1 ((Опасная ситуация. Всем экипажам, находящимся на дежурстве, прибыть))"
-    "organizations.police.tencode.code2"  : "code 2 ((Мало приоритетный вызов. Прибыть без сирен и мигалок))"
-    "organizations.police.tencode.code3"  : "code 3 ((Высоко приоритетный вызов. Прибыть с сиреной и мигалками))"
-    "organizations.police.tencode.code4"  : "code 4 ((По офицерам открыт огонь!))"
+    "organizations.police.tencode.code0"  : "код 0 ((Требуется срочная помощь. Всем экипажам без исключения ответить на code 0 как можно быстрее))"
+    "organizations.police.tencode.code1"  : "код 1 ((Опасная ситуация. Всем экипажам, находящимся на дежурстве, прибыть))"
+    "organizations.police.tencode.code2"  : "код 2 ((Мало приоритетный вызов. Прибыть без сирен и мигалок))"
+    "organizations.police.tencode.code3"  : "код 3 ((Высоко приоритетный вызов. Прибыть с сиреной и мигалками))"
+    "organizations.police.tencode.code4"  : "код 4 ((По офицерам открыт огонь!))"
 });
 
 
@@ -223,35 +223,35 @@ cmd(["r"],["10-17"], function(playerid) {
     }
 });
 
-cmd(["r"],["code0"], function(playerid) {
+cmd(["r"],["code", "0"], function(playerid) {
     if ( isPlayerInPoliceVehicle(playerid) ) {
         sendLocalizedPoliceRadioMsgToAll( playerid, "code0", "" );
         createCrimePoint(playerid);
     }
 });
 
-cmd(["r"],["code1"], function(playerid) {
+cmd(["r"],["code", "1"], function(playerid) {
     if ( isPlayerInPoliceVehicle(playerid) ) {
         sendLocalizedPoliceRadioMsgToAll( playerid, "code1", "" );
         createCrimePoint(playerid);
     }
 });
 
-cmd(["r"],["code2"], function(playerid) {
+cmd(["r"],["code", "2"], function(playerid) {
     if ( isPlayerInPoliceVehicle(playerid) ) {
         sendLocalizedPoliceRadioMsgToAll( playerid, "code2", "" );
         createCrimePoint(playerid);
     }
 });
 
-cmd(["r"],["code3"], function(playerid) {
+cmd(["r"],["code", "3"], function(playerid) {
     if ( isPlayerInPoliceVehicle(playerid) ) {
         sendLocalizedPoliceRadioMsgToAll( playerid, "code3", "" );
         createCrimePoint(playerid);
     }
 });
 
-cmd(["r"],["code4"], function(playerid) {
+cmd(["r"],["code", "4"], function(playerid) {
     if ( isPlayerInPoliceVehicle(playerid) ) {
         sendLocalizedPoliceRadioMsgToAll( playerid, "code4", "" );
         createCrimePoint(playerid);
