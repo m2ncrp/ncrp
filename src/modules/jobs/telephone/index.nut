@@ -486,17 +486,18 @@ function callByPhone (playerid, number = null, isbind = false) {
         return;
     }
 
-    if(!canBankMoneyBeSubstracted(playerid, PHONE_CALL_PRICE)) {
-        return msg(playerid, "telephone.notenoughmoney");
-    }
-
     // number empty
     if (number == null) {
         return msg(playerid, "telephone.neednumber");
     }
 
-    subMoneyToPlayer(playerid, PHONE_CALL_PRICE);
-    addMoneyToTreasury(PHONE_CALL_PRICE);
+    if (budka[4] == 0) {
+        if(!canBankMoneyBeSubstracted(playerid, PHONE_CALL_PRICE)) {
+            return msg(playerid, "telephone.notenoughmoney");
+        }
+        subMoneyToPlayer(playerid, PHONE_CALL_PRICE);
+        addMoneyToTreasury(PHONE_CALL_PRICE);
+    }
 
     if(number == "taxi" || number == "police" || number == "dispatch" || number == "towtruck" ) {
         return trigger("onPlayerPhoneCall", playerid, number, budka[3] /*plocalize(playerid, budka[3])*/ );
