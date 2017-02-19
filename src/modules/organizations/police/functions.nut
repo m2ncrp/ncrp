@@ -299,7 +299,8 @@ function policeFindThatMotherfucker(playerid, IDorPLATE, reason) {
             // if (checkDistanceBtwTwoPlayersLess(playerid, targetid, POLICE_TICKET_DISTANCE)) {
                 msg(targetid, "organizations.police.ticket.givewithreason", [getAuthor(playerid), target_reason, price]);
                 msg(playerid, "organizations.police.ticket.given", [getAuthor(targetid), player_reason, price]);
-                subMoneyToPlayer(targetid, price); // FUCK U MEMB3R
+                subMoneyToPlayer(targetid, price);
+                addMoneyToTreasury(price);
                 // PoliceTicket( getPlayerName(targetid), POLICE_TICKET_PRICELIST[reason][1], price, "open", pos[0], pos[1], pos[2], getPlayerName(playerid))
                 //     .save();
             // }

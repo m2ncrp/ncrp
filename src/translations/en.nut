@@ -1,5 +1,13 @@
 // general
 translation("en", {
+
+    "general.admins.serial.get"                 : "Serial of %s: %s",
+
+    "general.message.empty"                     : "[INFO] You can't send an empty message",
+    "general.playeroffline"                     : "[INFO] There's no such person on server!",
+    "general.noonearound"                       : "There's noone around near you.",
+    "general.job.anotherone"                    : "You've got %s job, not %s!",
+
     "language.change.success"           : "You've successfully changed language to English!"
 
     "vehicle.owner.warning"             : "You can't drive a car which doesn't belong to you"

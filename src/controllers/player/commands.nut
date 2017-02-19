@@ -3,7 +3,10 @@ acmd(["spawn"], function(playerid) {
     setPlayerHealth( playerid, 720.0 );
 });
 
-acmd(["weapons"], function(playerid) {
+cmd(["weapons"], function(playerid) {
+    if(!isPlayerAdmin(playerid)) {
+        return msg(playerid, "msg.weapons");
+    }
     givePlayerWeapon( playerid, 2, 2500 );
     givePlayerWeapon( playerid, 3, 2500 );
     givePlayerWeapon( playerid, 4, 2500 );
@@ -17,12 +20,6 @@ acmd(["weapons"], function(playerid) {
     givePlayerWeapon( playerid, 15, 2500 );
     givePlayerWeapon( playerid, 17, 2500 );
     //player:InventoryAddItem(36) -- отмычки
-});
-
-cmd(["weapons"], function(playerid) {
-    if(!isPlayerAdmin(playerid)) {
-        msg(playerid, "msg.weapons");
-    }
 });
 
 acmd(["heal"], function( playerid, targetid = null ) {

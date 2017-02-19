@@ -346,12 +346,21 @@ cmd("help", ["police"], policeHelp);
 cmd("help", ["police", "job"], policeHelp);
 
 
-// // /park plate_number
-// cmd("call", ["towtruck"], function ( playerid, plate) {
-//     trigger("onVehicleSetToCarPound", playerid, plate);
-// });
+ // /park plate_number
+cmd("park", function ( playerid, plate) {
+    if ( isPlayerInVehicle(playerid) ) {
+        return;
+    }
+    if ( !isOfficer(playerid) ) { // check if not office
+        return;
+    }
+    if ( !isOnPoliceDuty(playerid) ) {
+        return msg( playerid, "organizations.police.duty.not" );
+    }
+     trigger("onVehicleSetToCarPound", playerid, plate);
+});
 
-// // player need to be in car
-// cmd("unpark", function ( playerid ) {
-//     trigger("onVehicleGetFromCarPound", playerid);
-// });
+// player need to be in car
+cmd("unpark", function ( playerid ) {
+    trigger("onVehicleGetFromCarPound", playerid);
+});

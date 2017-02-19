@@ -4,13 +4,13 @@ include("controllers/fraction/classes/FractionMember.nut");
 include("controllers/fraction/classes/FractionContainer.nut");
 // require("controllers/fraction/classes/FractionRoleContainer.nut");
 
-fraction <- FractionContainer();
+fractions <- FractionContainer();
 
 event("onServerStarted", function() {
     local __globalroles = {};
 
-    Fraction.findAll(function(err, fractions) {
-        foreach (idx, fraction in fractions) {
+    Fraction.findAll(function(err, results) {
+        foreach (idx, fraction in results) {
             fractions.add(fraction.id, fraction);
 
             if (fraction.shortcut) {
@@ -19,10 +19,10 @@ event("onServerStarted", function() {
         }
     });
 
-    FractionRole.findAll(function(err, roles) {
-        foreach (idx, role in roles) {
+    FractionRole.findAll(function(err, results) {
+        foreach (idx, role in results) {
             if (!fractions.exists(role.fractionid)) {
-                dbg("non existant fraction", role.fractionid, "with attached role", role.id);
+                dbg("fractions", "non existant fraction", role.fractionid, "with attached role", role.id);
                 continue;
             }
 
@@ -36,15 +36,15 @@ event("onServerStarted", function() {
         }
     });
 
-    FractionMember.findAll(function(err, members) {
-        foreach (idx, memeber in members) {
+    FractionMember.findAll(function(err, results) {
+        foreach (idx, member in results) {
             if (!fractions.exists(member.fractionid)) {
-                dbg("non existant fraction", role.fractionid, "with attached member", member.characterid);
+                dbg("fractions", "non existant fraction", member.fractionid, "with attached member", member.characterid);
                 continue;
             }
 
-            if (!fractions.exists(member.fractionid).roles.exists(member.roleid)) {
-                dbg("non existant fraction role", member.roleid, "for fraction", member.fractionid, "with attached member", member.characterid);
+            if (!(member.roleid in __globalroles)) {
+                dbg("fractions", "non existant fraction role", member.roleid, "for fraction", member.fractionid, "with attached member", member.characterid);
                 continue;
             }
 
@@ -60,30 +60,70 @@ event("onServerStarted", function() {
     // f.money = 124242.42;
     // f.save();
 
-    local fr = FractionRole();
-    fr.title = "BIG BO$$";
-    fr.created = getTimestamp();
-    fr.level = 0;
-    fr.fractionid = 1;
-    fr.save();
+    // local fr = FractionRole();
+    // fr.title = "BIG BO$$";
+    // fr.created = getTimestamp();
+    // fr.level = 0;
+    // fr.fractionid = 1;
+    // fr.save();
 
-    local fm = FractionMember();
-    fm.characterid = 1069;
-    fm.roleid = fr.id;
-    fm.fractionid = 1;
-    fm.created = getTimestamp();
-    fm.save();
+    // dbg(fr);
+
+    // local fm = FractionMember();
+    // fm.characterid = 1069;
+    // fm.roleid = fr.id;
+    // fm.fractionid = 1;
+    // fm.created = getTimestamp();
+    // fm.save();
+
+
+    // fractions["WTF"][playerid] = fractions["WTF"].roles["Leader"]);
+
+    // add new member to fraction (aliases)
+    // fractions["brio"].add(playerid, 0);
+    // fractions["brio"].add(playerid, "boss1");
+    // fractions["brio"].add(playerid, fractions["brio"].roles[0]);
+    // fractions["brio"].add(playerid, fractions["brio"].roles["boss1"]);
+
+    // // check if player is int the fraction
+    // fractions["brio"].has(playerid);
+
+    // // remove player from fraction
+    // fractions["brio"].remove(playerid);
+
+    // // get player role
+    // local role = fractions["brio"][playerid];
+
+    // // operations
+    // if (role.level > 3 || role.shortcut == "boss1") {
+    //     dbg(playerid, "has role with title", role.title);
+    // }
+
+    // // rename role
+    // role.title = "New boss";
+    // role.save();
+
+    // // add new role
+    // local newrole = FractionRole();
+    // newrole.fractionid = fractions["brio"].id;
+    // newrole.title = "The Dvornik";
+    // newrole.level = 4;
+    // newrole.shortcut = "dvrn1";
+    // newrole.save();
+    // fractions["WTF"].roles.push(newrole);
+
+
 });
 
 cmd("f", "roles", function(playerid) {
-    local fractions = fractions.getManaged(playerid);
+    local fracs = fractions.getManaged(playerid);
 
-    if (!fractions.len()) {
+    if (!fracs.len()) {
         return msg(playerid, "You are not fraction admin.", CL_WARNING);
     }
 
     // for now take the first one
-    local fraction = fractions[0];
+    local fraction = fracs[0];
 
     msg(playerid, "List of roles in %s:", fraction.title, CL_INFO);
 
