@@ -21,7 +21,7 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
         msg(playerid, "shops.findcar.hello", FINDCAR_COST, TELEPHONE_TEXT_COLOR);
 
             if(!canBankMoneyBeSubstracted(playerid, FINDCAR_COST)) {
-                return msg(playerid, "shops.findcar.nomoney", TELEPHONE_TEXT_COLOR);
+                return msg(playerid, "shops.findcar.notenough", TELEPHONE_TEXT_COLOR);
             }
 
         msg(playerid, "shops.findcar.help", FINDCAR_TIMEOUT, CL_GRAY);
@@ -35,6 +35,7 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
         });
 
         requestUserInput(playerid, function(playerid, text) {
+            trigger(playerid, "hudDestroyTimer");
             if (text.tolower() != "yes" && text.tolower() != "'yes'" && text.tolower() != "да" && text.tolower() != "'да'") {
                 findcar = "canceled";
                 return msg(playerid, "shops.findcar.canceled", TELEPHONE_TEXT_COLOR);
@@ -42,6 +43,7 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
 
             msg(playerid, "shops.findcar.wait");
             subBankMoneyToPlayer(playerid, FINDCAR_COST);
+            addMoneyToTreasury(FINDCAR_COST);
             findcar = true;
             delayedFunction(10000, function() {
 

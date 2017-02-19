@@ -11,23 +11,23 @@ include("controllers/weather/commands.nut");
 local WEATHERS = {
     SUMMER = [
         // This is between the hours of 00:00 and 02:00 (night)
-        [0, 2, ["DT07part04night_bordel", "DTFreerideNight", "DT14part11", "DT11part05", "DT_RTRrainy_day_night", "DT10part03Subquest", "DT_RTRfoggy_day_night"] ], // remove "DT_RTRclear_day_nigh"
+        [0, 2, ["DT07part04night_bordel", "DTFreerideNight", "DT14part11", "DT11part05", "DT_RTRrainy_day_night", "DT10part03Subquest", "DT_RTRfoggy_day_night", "DT_RTRfoggy_day_night", "DT_RTRfoggy_day_night"] ], // remove "DT_RTRclear_day_nigh"
 
         // This is between the hours of 03:00 and 05:00 (night / early morning)
-        [3, 5, ["DT_RTRclear_day_early_morn1", "DT_RTRfoggy_day_early_morn1", "DT_RTRrainy_day_early_morn"] ],
+        [3, 5, ["DT_RTRclear_day_early_morn1", "DT_RTRclear_day_early_morn1", "DT_RTRclear_day_early_morn1", "DT_RTRfoggy_day_early_morn1", "DT_RTRrainy_day_early_morn"] ],
 
         // This is between the hours of 06:00 and 08:00 (morning) etc.
-        [6, 9, ["DT_RTRclear_day_early_morn2", "DT_RTRclear_day_morning", "DT_RTRrainy_day_morning", "DT_RTRfoggy_day_morning"] ],
+        [6, 9, ["DT_RTRclear_day_early_morn2", "DT_RTRclear_day_morning", "DT_RTRclear_day_morning", "DT_RTRrainy_day_morning", "DT_RTRfoggy_day_morning", "DT_RTRfoggy_day_morning", "DT_RTRfoggy_day_morning"] ],
 
-        [10, 10, ["DTFreeRideDay", "DT06part03", "DTFreeRideDayRain", "DT11part01", "DT_RTRfoggy_day_noon"] ],
-        [11, 11, ["DT07part01fromprison", "DT13part01death", "DT09part1VitosFlat", "DT_RTRclear_day_noon", "DT06part01", "DT06part02", "DT11part02"] ],
-        [12, 12, ["DT07part02dereksubquest", "DT08part01cigarettesriver", "DT09part2MalteseFalcone", "DT14part1_6", "DT_RTRrainy_day_noon", "DT_RTRfoggy_day_afternoon"] ],
-        [13, 13, ["DT_RTRclear_day_afternoon", "DT10part02Roof", "DT09part3SlaughterHouseAfter", "DT_RTRrainy_day_afternoon", "DT_RTRfoggy_day_afternoon"] ],
+        [10, 10, ["DTFreeRideDay", "DT06part03", "DTFreeRideDayRain", "DT11part01", "DT_RTRfoggy_day_noon", "DT_RTRfoggy_day_noon", "DT_RTRfoggy_day_noon"] ],
+        [11, 11, ["DT07part01fromprison", "DT13part01death", "DT09part1VitosFlat", "DT_RTRclear_day_noon", "DT_RTRclear_day_noon", "DT_RTRclear_day_noon", "DT06part01", "DT06part02", "DT11part02"] ],
+        [12, 12, ["DT07part02dereksubquest", "DT08part01cigarettesriver", "DT09part2MalteseFalcone", "DT14part1_6", "DT_RTRrainy_day_noon", "DT_RTRfoggy_day_afternoon", "DT_RTRfoggy_day_afternoon", "DT_RTRfoggy_day_afternoon"] ],
+        [13, 13, ["DT_RTRclear_day_afternoon", "DT_RTRclear_day_afternoon", "DT10part02Roof", "DT09part3SlaughterHouseAfter", "DT_RTRrainy_day_afternoon", "DT_RTRfoggy_day_afternoon", "DT_RTRfoggy_day_afternoon", "DT_RTRfoggy_day_afternoon"] ],
         [14, 15, ["DT09part4MalteseFalcone2", "DT08part02cigarettesmill", "DT12_part_all", "DT15", "DT15end", "DT15_interier"] ],
-        [16, 17, ["DT13part02", "DT_RTRclear_day_late_afternoon", "DT01part01sicily_svit" "DT_RTRrainy_day_late_afternoon", "DT11part03", "DT_RTRfoggy_day_late_afternoon"] ],
-        [18, 18, ["DT08part03crazyhorse", "DT07part03prepadrestaurcie", "DT_RTRrainy_day_evening", "DT_RTRfoggy_day_late_afternoon"] ],
-        [19, 19, ["DT10part03Evening", "DT14part7_10", "DT11part04", "DT_RTRfoggy_day_evening"] ],
-        [20, 23, ["DT_RTRclear_day_evening", "DT08part04subquestwarning", "DT_RTRclear_day_late_even", "DT_RTRrainy_day_late_even", "DT_RTRfoggy_day_late_even"] ],
+        [16, 17, ["DT13part02", "DT_RTRclear_day_late_afternoon", "DT_RTRclear_day_late_afternoon", "DT01part01sicily_svit" "DT_RTRrainy_day_late_afternoon", "DT11part03", "DT_RTRfoggy_day_late_afternoon"] ],
+        [18, 18, ["DT08part03crazyhorse", "DT07part03prepadrestaurcie", "DT_RTRrainy_day_evening", "DT_RTRfoggy_day_late_afternoon", "DT_RTRfoggy_day_late_afternoon"] ],
+        [19, 19, ["DT10part03Evening", "DT14part7_10", "DT11part04", "DT_RTRfoggy_day_evening", "DT_RTRfoggy_day_evening", "DT_RTRfoggy_day_evening"] ],
+        [20, 23, ["DT_RTRclear_day_evening", "DT08part04subquestwarning", "DT_RTRclear_day_late_even", "DT_RTRclear_day_late_even", "DT_RTRclear_day_late_even", "DT_RTRrainy_day_late_even", "DT_RTRfoggy_day_late_even", "DT_RTRfoggy_day_late_even", "DT_RTRfoggy_day_late_even"] ],
     ],
 
     WINTER = [

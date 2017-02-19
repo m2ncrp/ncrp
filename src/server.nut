@@ -1,5 +1,5 @@
 DEBUG   <- false;
-VERSION <- "0.0.000";
+VERSION <- "0.3.421";
 MOD_HOST <- "139.59.142.46";
 MOD_PORT <- 7790;
 
@@ -128,7 +128,7 @@ local initializeEnvironment = function() {
     }
 
     if (version) {
-        VERSION = strip(version);
+        // VERSION = strip(version);
     }
 
     verblob.close();

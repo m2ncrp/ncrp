@@ -28,20 +28,6 @@ function showMetroGUI (windowText, label1Text, button1Text, button2Text, button3
     if(window){//if widow created
         guiSetSize(window, 200.0, 294.0  );
         guiSetPosition(window,screen[0]/2 - 100, screen[1]/2 - 147);
-        guiSetText( window, windowText);
-        guiSetText( label[0], label1Text);
-        guiSetText( label[1], label2Text);
-
-        guiSetText( buttons[0], button1Text );
-        guiSetText( buttons[1], button2Text );
-        guiSetText( buttons[2], button3Text );
-        guiSetText( buttons[3], button4Text );
-        guiSetText( buttons[4], button5Text );
-        guiSetText( buttons[5], button6Text );
-        guiSetText( buttons[6], button7Text );
-
-        metroAlignToCenter( label[0] );
-
         guiSetVisible( window, true);
     }
     else{//if widow doesn't created, create his
@@ -61,6 +47,23 @@ function showMetroGUI (windowText, label1Text, button1Text, button2Text, button3
 
         buttons[6] = guiCreateElement(  ELEMENT_TYPE_BUTTON, button7Text  ,     15.0,   253.0, 170.0, 25.0, false, window);
     }
+
+delayedFunction(5, function() { //todo fix
+        guiSetText( window, windowText);
+        guiSetText( label[0], label1Text);
+        guiSetText( label[1], label2Text);
+
+        guiSetText( buttons[0], button1Text );
+        guiSetText( buttons[1], button2Text );
+        guiSetText( buttons[2], button3Text );
+        guiSetText( buttons[3], button4Text );
+        guiSetText( buttons[4], button5Text );
+        guiSetText( buttons[5], button6Text );
+        guiSetText( buttons[6], button7Text );
+
+        metroAlignToCenter( label[0] );
+});
+
     guiSetSizable(window,false);
     guiSetMovable(window,false);
     showCursor(true);

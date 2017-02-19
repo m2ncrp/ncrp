@@ -18,29 +18,29 @@ translation("en", {
 "job.fishdriver.needclosedoors"     :  "[FISH] Close your truck cargo doors."
 "job.fishdriver.goodparkingempty"   :  "[FISH] Nice job! Now get out, open the truck's cargo doors and bring some empty fish trays from warehouse inside."
 "job.fishdriver.goodparkingfish"    :  "[FISH] Nice job! Now unload fish trays to warehouse."
-"job.fishdriver.sitintotruck"       :  "Load as much as you can, and when you finish, sit into fish truck and go to warehouse P3 06 at Port."
+"job.fishdriver.sitintotruck"       :  "Load as much as you can, and when you finish, sit into fish truck and head to warehouse P3 06 at Port."
 "job.fishdriver.goodluck"           :  "[FISH] Have a nice day! If you need ever need job again, you are welcome!"
 "job.fishdriver.toparking"          :  "[FISH] Enter any free fish truck and head to the parking spot for loading!"
 "job.fishdriver.ifyouwantstart"     :  "[FISH] You are a driver at fish warehouse. If you want to work - head to Seagift office located in Chinatown."
-"job.fishdriver.toload"             :  "[FISH] To load fish trays head to the Port, warehouse P3 06."
+"job.fishdriver.toload"             :  "[FISH] To load fish trays, head to the Port, warehouse P3 06."
 "job.fishdriver.tounload"           :  "[FISH] Go to Seagift warehouse for unloading."
 "job.fishdriver.loading"            :  "[FISH] Port workers are filling up fish trays, wait please..."
-"job.fishdriver.alreadyloaded"      :  "[FISH] Boxes already loaded."
-"job.fishdriver.loaded"             :  "[FISH] Boxes loaded. Go back to Seagift to unload."
+"job.fishdriver.alreadyloaded"      :  "[FISH] Trays are already loaded."
+"job.fishdriver.loaded"             :  "[FISH] Trays are loaded. Go back to Seagift to unload."
 
 "job.fishdriver.takenEmptybox"      :  "[FISH] Took empty fish tray."
-"job.fishdriver.putEmptybox"        :  "[FISH] Put empty finsh tray back."
+"job.fishdriver.putEmptybox"        :  "[FISH] Put empty fish tray back."
 "job.fishdriver.alreadyHand"        :  "[FISH] Already have something in hands."
 "job.fishdriver.goTakeFishbox"      :  "[FISH] Go, take tray filled up with fish and get it there."
 "job.fishdriver.putFishbox"         :  "[FISH] Put tray filled with fish."
-"job.fishdriver.onlyFishbox"        :  "[FISH] Dont make a mess. Only tray trays filled with fish are supposed to go here!"
+"job.fishdriver.onlyFishbox"        :  "[FISH] Don't make a mess. Only trays filled with fish are supposed to go here!"
 "job.fishdriver.goTakeEmptybox"     :  "[FISH] Go and take empty fish tray."
 "job.fishdriver.takenFishbox"       :  "[FISH] Has taken tray filled with fish from the truck. %d left."
 "job.fishdriver.truck.empty"        :  "[FISH] Truck is empty."
 "job.fishdriver.truck.onlyFishbox"  :  "[FISH] Fish truck contains trays filled with fish. You supposed to unload them first."
 "job.fishdriver.truck.putEmptybox"  :  "[FISH] Put empty fish tray to the truck (%d/%d)"
 "job.fishdriver.truck.full"         :  "[FISH] The truck is full."
-"job.fishdriver.truck.onlyEmptybox" :  "[FISH] You dont need to load fish trays, just get them to the warehouse."
+"job.fishdriver.truck.onlyEmptybox" :  "[FISH] You don't need to load fish trays, just get them to the warehouse."
 "job.fishdriver.truck.goPutFishbox" :  "[FISH] What are you doing with this fish tray? Just get it to the warehouse."
 
 "job.fishdriver.help.title"            :   "Controls for fish truck driver:"
@@ -64,7 +64,8 @@ local fish_limit_in_hour_default = 3;
 local RADIUS_FISH = 2.0;
 local RADIUS_FISH_SMALL = 1.0;
 
-local FISH_PARK_PUT_TEXT = "Truck freezer";
+local FISH_PARK_PUT_TEXT      = "Truck freezer";
+local FISH_PARK_PUT_TEXT_DESC = "Press E";
 //const FISH_JOB_X = -348.071; //Derek Cabinet
 //const FISH_JOB_Y = -731.48;  //Derek Cabinet
 //const FISH_JOB_X = -348.205; //Derek Door
@@ -295,12 +296,9 @@ function fishJobCreatePrivateBlipText(playerid, x, y, z, text, cmd) {
  * @param  {int}  playerid
  */
 function fishJobRemovePrivateBlipText ( playerid ) {
-    if(job_fish[getPlayerName(playerid)]["blip3dtext"][0] != null) {
-        remove3DText ( job_fish[getPlayerName(playerid)]["blip3dtext"][0] );
-        remove3DText ( job_fish[getPlayerName(playerid)]["blip3dtext"][1] );
-        //removeBlip   ( job_fish[getPlayerName(playerid)]["blip3dtext"][2] );
-        job_fish[getPlayerName(playerid)]["blip3dtext"][0] = null;
-    }
+        removeText (playerid, "fish_load_title" );
+        removeText (playerid, "fish_load_desc" );
+        trigger(playerid, "removeGPS");
 }
 
 
@@ -385,7 +383,9 @@ function fishJobRefuseLeave( playerid ) {
 
         removeText ( playerid, "leavejob3dtext" );
         removeText ( playerid, "fish_putbox1_3dtext" );
+        removeText ( playerid, "fish_putbox1_3dtext_desc" );
         removeText ( playerid, "fish_putbox2_3dtext" );
+        removeText ( playerid, "fish_putbox2_3dtext_desc" );
         removeText ( playerid, "fish_parking1_3dtext" );
         removeText ( playerid, "fish_parking2_3dtext" );
         removeText ( playerid, "fish_door1_3dtext" );
@@ -508,8 +508,8 @@ function fishOpenCloseDoors(playerid) {
                     fishcars[vehicleid][0] = false;
                     unblockVehicle(vehicleid);
                     fishJobIsPlayerWorkingForeach(function(targetid) {
-                        if (place == "place1") { removeText( targetid, "fish_putbox1_3dtext" ); }
-                        if (place == "place2") { removeText( targetid, "fish_putbox2_3dtext" ); }
+                        if (place == "place1") { removeText( targetid, "fish_putbox1_3dtext" ); removeText( targetid, "fish_putbox1_3dtext_desc" );}
+                        if (place == "place2") { removeText( targetid, "fish_putbox2_3dtext" ); removeText( targetid, "fish_putbox2_3dtext_desc" );}
                     });
 
                     delayedFunction(1000, function() {
@@ -526,8 +526,14 @@ function fishOpenCloseDoors(playerid) {
                     fishcars[vehicleid][0] = true;
                     blockVehicle(vehicleid);
                     fishJobIsPlayerWorkingForeach(function(targetid) {
-                        if (place == "place1") { createText (targetid, "fish_putbox1_3dtext", FISH_PARK_PUT_1[0], FISH_PARK_PUT_1[1], FISH_PARK_PUT_1[2]+0.20, FISH_PARK_PUT_TEXT, CL_ROYALBLUE.applyAlpha(150), 35 ); }
-                        if (place == "place2") { createText (targetid, "fish_putbox2_3dtext", FISH_PARK_PUT_2[0], FISH_PARK_PUT_2[1], FISH_PARK_PUT_2[2]+0.20, FISH_PARK_PUT_TEXT, CL_ROYALBLUE.applyAlpha(150), 35 ); }
+                        if (place == "place1") {
+                            createText(targetid, "fish_putbox1_3dtext", FISH_PARK_PUT_1[0], FISH_PARK_PUT_1[1], FISH_PARK_PUT_1[2]+0.20, FISH_PARK_PUT_TEXT, CL_ROYALBLUE.applyAlpha(150), 35 );
+                            createText(targetid, "fish_putbox1_3dtext_desc", FISH_PARK_PUT_1[0], FISH_PARK_PUT_1[1], FISH_PARK_PUT_1[2]+0.05, FISH_PARK_PUT_TEXT_DESC, CL_WHITE.applyAlpha(150), 3.0 );
+                        }
+                        if (place == "place2") {
+                            createText(targetid, "fish_putbox2_3dtext",      FISH_PARK_PUT_2[0], FISH_PARK_PUT_2[1], FISH_PARK_PUT_2[2]+0.20, FISH_PARK_PUT_TEXT, CL_ROYALBLUE.applyAlpha(150), 35 );
+                            createText(targetid, "fish_putbox2_3dtext_desc", FISH_PARK_PUT_2[0], FISH_PARK_PUT_2[1], FISH_PARK_PUT_2[2]+0.05, FISH_PARK_PUT_TEXT_DESC, CL_WHITE.applyAlpha(150), 3.0 );
+                        }
                     });
                 }
                 return;
@@ -548,8 +554,8 @@ function fishJobIsPlayerWorkingForeach(func_callback) {
 }
 
 function fishJobSync3DText(playerid) {
-    createText ( playerid, "fish_takebox", FISH_TAKEBOX[0], FISH_TAKEBOX[1], FISH_TAKEBOX[2]+0.20, "Press E to take empty box", CL_WHITE.applyAlpha(150), 7.5 );
-    createText ( playerid, "fish_putbox",  FISH_PUTBOX[0],  FISH_PUTBOX[1],  FISH_PUTBOX[2]+0.20, "Press E to put box with fish", CL_WHITE.applyAlpha(150), 7.5 );
+    createText ( playerid, "fish_takebox", FISH_TAKEBOX[0], FISH_TAKEBOX[1], FISH_TAKEBOX[2]+0.20, "Press E to take empty tray", CL_WHITE.applyAlpha(150), 7.5 );
+    createText ( playerid, "fish_putbox",  FISH_PUTBOX[0],  FISH_PUTBOX[1],  FISH_PUTBOX[2]+0.20, "Press E to put tray with fish", CL_WHITE.applyAlpha(150), 7.5 );
 
     local place1busy = false;
     local place2busy = false;
@@ -566,7 +572,8 @@ function fishJobSync3DText(playerid) {
                 place1busy = true;
                 createText( playerid, "fish_door1_3dtext", FISH_TRUNK1[0], FISH_TRUNK1[1], FISH_TRUNK1[2]+0.20, "Press E to control doors", CL_WHITE.applyAlpha(150), 3.0 );
                 if ([vehicleid][0]) {
-                    createText( playerid, "fish_putbox1_3dtext", FISH_PARK_PUT_1[0], FISH_PARK_PUT_1[1], FISH_PARK_PUT_1[2]+0.20, FISH_PARK_PUT_TEXT, CL_ROYALBLUE.applyAlpha(150), 35 );
+                    createText( playerid, "fish_putbox1_3dtext",      FISH_PARK_PUT_1[0], FISH_PARK_PUT_1[1], FISH_PARK_PUT_1[2]+0.20, FISH_PARK_PUT_TEXT, CL_ROYALBLUE.applyAlpha(150), 35 );
+                    createText( playerid, "fish_putbox1_3dtext_desc", FISH_PARK_PUT_1[0], FISH_PARK_PUT_1[1], FISH_PARK_PUT_1[2]+0.05, FISH_PARK_PUT_TEXT_DESC, CL_WHITE.applyAlpha(150), 3.0 );
                     setVehiclePartOpen(vehicleid, 1, true);
                 }
                 continue;
@@ -577,15 +584,16 @@ function fishJobSync3DText(playerid) {
                 place2busy = true;
                 createText( playerid, "fish_door2_3dtext", FISH_TRUNK2[0], FISH_TRUNK2[1], FISH_TRUNK2[2]+0.20, "Press E to control doors", CL_WHITE.applyAlpha(150), 3.0 );
                 if(fishcars[vehicleid][0]) {
-                    createText( playerid, "fish_putbox2_3dtext", FISH_PARK_PUT_2[0], FISH_PARK_PUT_2[1], FISH_PARK_PUT_2[2]+0.20, FISH_PARK_PUT_TEXT, CL_ROYALBLUE.applyAlpha(150), 35 );
+                    createText( playerid, "fish_putbox2_3dtext",      FISH_PARK_PUT_2[0], FISH_PARK_PUT_2[1], FISH_PARK_PUT_2[2]+0.20, FISH_PARK_PUT_TEXT, CL_ROYALBLUE.applyAlpha(150), 35 );
+                    createText( playerid, "fish_putbox2_3dtext_desc", FISH_PARK_PUT_2[0], FISH_PARK_PUT_2[1], FISH_PARK_PUT_2[2]+0.05, FISH_PARK_PUT_TEXT_DESC, CL_WHITE.applyAlpha(150), 3.0 );
                     setVehiclePartOpen(vehicleid, 1, true);
                 }
                 continue;
             }
         }
     }
-    if(!place1busy) createText (playerid, "fish_parking1_3dtext", FISH_PARK_PUT_1[0], FISH_PARK_PUT_1[1], FISH_PARK_PUT_1[2]+0.20, "Parking Place 1", CL_ROYALBLUE.applyAlpha(150), 35 );
-    if(!place2busy) createText (playerid, "fish_parking2_3dtext", FISH_PARK_PUT_2[0], FISH_PARK_PUT_2[1], FISH_PARK_PUT_2[2]+0.20, "Parking Place 2", CL_ROYALBLUE.applyAlpha(150), 35 );
+    if(!place1busy) createText (playerid, "fish_parking1_3dtext", FISH_PARK_PUT_1[0], FISH_PARK_PUT_1[1], FISH_PARK_PUT_1[2]+0.20, "Parking spot 1", CL_ROYALBLUE.applyAlpha(150), 35 );
+    if(!place2busy) createText (playerid, "fish_parking2_3dtext", FISH_PARK_PUT_2[0], FISH_PARK_PUT_2[1], FISH_PARK_PUT_2[2]+0.20, "Parking spot 2", CL_ROYALBLUE.applyAlpha(150), 35 );
 }
 
 /* -------------------------------------------------------------------------------------------------------------------- */
