@@ -56,9 +56,9 @@ const MILK_JOB_Y = 439.305;
 const MILK_JOB_Z = -20.1758;
 const MILK_JOB_SKIN = 171;
 const MILK_JOB_DISTANCE = 100;
-const MILK_JOB_NUMBER_STATIONS = 6;
+const MILK_JOB_NUMBER_STATIONS = 7;
 const MILK_JOB_LEVEL = 1;
-const MILK_JOB_SALARY = 17.0;
+const MILK_JOB_SALARY = 13.0;
       MILK_JOB_COLOR <- CL_CRUSTA;
 
 local milkname = [
@@ -404,14 +404,19 @@ function milkJobPark ( playerid ) {
     job_milk[playerid]["milkcomplete"] = 0;
     job_milk[playerid]["milkready"] = false;
     job_milk[playerid]["milkstatus"] <- [false, false, false, false, false, false];
-    local amount = MILK_JOB_SALARY;
-    msg( playerid, "job.milkdriver.nicejob", amount, MILK_JOB_COLOR );
-    addMoneyToPlayer(playerid, amount);
+
+    milkGetSalary( playerid );
 
     // clear all marks
     clearMilkJobStationMarks( playerid );
 }
 
+
+function milkGetSalary( playerid ) {
+    local amount = MILK_JOB_SALARY + (random(2, 2)).tofloat();
+    msg( playerid, "job.milkdriver.nicejob", amount, MILK_JOB_COLOR );
+    addMoneyToPlayer(playerid, amount);
+}
 
 // working good, check
 function milkJobList ( playerid ) {

@@ -20,6 +20,7 @@ translation("en", {
  */
 function onEating(playerid) {
     subMoneyToPlayer(playerid, EAT_COST);
+    addMoneyToTreasury(EAT_COST);
     msg(playerid, "shops.restaurant.diner.eat.success", [EAT_COST], CL_SUCCESS);
     return setPlayerHealth(playerid, MAX_HEALTH);
 }
@@ -44,6 +45,7 @@ function eat(playerid) {
  */
 function onDrinking(playerid) {
     subMoneyToPlayer(playerid, DRINK_COST);
+    addMoneyToTreasury(DRINK_COST);
     msg(playerid, "shops.restaurant.bar.drink.success", [DRINK_COST], CL_SUCCESS);
     return setPlayerHealth(playerid, MAX_HEALTH);
 }

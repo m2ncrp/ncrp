@@ -77,7 +77,7 @@ cmd("skin", "buy", function(playerid, skinid = null) {
 
     // take money
     subMoneyToPlayer(playerid, skin.price);
-
+    addMoneyToTreasury(skin.price);
     setPlayerModel(playerid, skin.skinid, true)
 
     //triggerClientEvent(playerid, "hideCarShopGUI");

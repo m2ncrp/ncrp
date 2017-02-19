@@ -171,6 +171,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
     //local vehicleid = getPlayerVehicle(playerid);
     //if(!canMoneyBeSubstracted(playerid, ticketcost)) { msg(playerid, "organizations.police.kosoypereulok.nomoney", CL_THUNDERBIRD); return; }
     subMoneyToPlayer(playerid, ticketcost);
+    addMoneyToTreasury(ticketcost);
     msg(playerid, "organizations.police.kosoypereulok.ticket", [ticketcost], CL_THUNDERBIRD); return;
 });
 

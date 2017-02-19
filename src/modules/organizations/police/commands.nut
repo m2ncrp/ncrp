@@ -359,3 +359,8 @@ cmd("park", function ( playerid, plate) {
     }
      trigger("onVehicleSetToCarPound", playerid, plate);
 });
+
+// player need to be in car
+cmd("unpark", function ( playerid ) {
+    trigger("onVehicleGetFromCarPound", playerid);
+});
