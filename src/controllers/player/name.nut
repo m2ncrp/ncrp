@@ -11,7 +11,7 @@ function getPlayerName(playerid) {
         return players[playerid].getName();
     }
 
-    return nativeGetPlayerName(playerid);
+    return "Unloaded";
 }
 
 /**
