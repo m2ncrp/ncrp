@@ -64,7 +64,8 @@ local fish_limit_in_hour_default = 3;
 local RADIUS_FISH = 2.0;
 local RADIUS_FISH_SMALL = 1.0;
 
-local FISH_PARK_PUT_TEXT = "Truck freezer";
+local FISH_PARK_PUT_TEXT      = "Truck freezer";
+local FISH_PARK_PUT_TEXT_DESC = "Press E";
 //const FISH_JOB_X = -348.071; //Derek Cabinet
 //const FISH_JOB_Y = -731.48;  //Derek Cabinet
 //const FISH_JOB_X = -348.205; //Derek Door
@@ -382,7 +383,9 @@ function fishJobRefuseLeave( playerid ) {
 
         removeText ( playerid, "leavejob3dtext" );
         removeText ( playerid, "fish_putbox1_3dtext" );
+        removeText ( playerid, "fish_putbox1_3dtext_desc" );
         removeText ( playerid, "fish_putbox2_3dtext" );
+        removeText ( playerid, "fish_putbox2_3dtext_desc" );
         removeText ( playerid, "fish_parking1_3dtext" );
         removeText ( playerid, "fish_parking2_3dtext" );
         removeText ( playerid, "fish_door1_3dtext" );
@@ -505,8 +508,8 @@ function fishOpenCloseDoors(playerid) {
                     fishcars[vehicleid][0] = false;
                     unblockVehicle(vehicleid);
                     fishJobIsPlayerWorkingForeach(function(targetid) {
-                        if (place == "place1") { removeText( targetid, "fish_putbox1_3dtext" ); }
-                        if (place == "place2") { removeText( targetid, "fish_putbox2_3dtext" ); }
+                        if (place == "place1") { removeText( targetid, "fish_putbox1_3dtext" ); removeText( targetid, "fish_putbox1_3dtext_desc" );}
+                        if (place == "place2") { removeText( targetid, "fish_putbox2_3dtext" ); removeText( targetid, "fish_putbox2_3dtext_desc" );}
                     });
 
                     delayedFunction(1000, function() {
@@ -523,8 +526,14 @@ function fishOpenCloseDoors(playerid) {
                     fishcars[vehicleid][0] = true;
                     blockVehicle(vehicleid);
                     fishJobIsPlayerWorkingForeach(function(targetid) {
-                        if (place == "place1") { createText (targetid, "fish_putbox1_3dtext", FISH_PARK_PUT_1[0], FISH_PARK_PUT_1[1], FISH_PARK_PUT_1[2]+0.20, FISH_PARK_PUT_TEXT, CL_ROYALBLUE.applyAlpha(150), 35 ); }
-                        if (place == "place2") { createText (targetid, "fish_putbox2_3dtext", FISH_PARK_PUT_2[0], FISH_PARK_PUT_2[1], FISH_PARK_PUT_2[2]+0.20, FISH_PARK_PUT_TEXT, CL_ROYALBLUE.applyAlpha(150), 35 ); }
+                        if (place == "place1") {
+                            createText(targetid, "fish_putbox1_3dtext", FISH_PARK_PUT_1[0], FISH_PARK_PUT_1[1], FISH_PARK_PUT_1[2]+0.20, FISH_PARK_PUT_TEXT, CL_ROYALBLUE.applyAlpha(150), 35 );
+                            createText(targetid, "fish_putbox1_3dtext_desc", FISH_PARK_PUT_1[0], FISH_PARK_PUT_1[1], FISH_PARK_PUT_1[2]+0.05, FISH_PARK_PUT_TEXT_DESC, CL_WHITE.applyAlpha(150), 3.0 );
+                        }
+                        if (place == "place2") {
+                            createText(targetid, "fish_putbox2_3dtext",      FISH_PARK_PUT_2[0], FISH_PARK_PUT_2[1], FISH_PARK_PUT_2[2]+0.20, FISH_PARK_PUT_TEXT, CL_ROYALBLUE.applyAlpha(150), 35 );
+                            createText(targetid, "fish_putbox2_3dtext_desc", FISH_PARK_PUT_2[0], FISH_PARK_PUT_2[1], FISH_PARK_PUT_2[2]+0.05, FISH_PARK_PUT_TEXT_DESC, CL_WHITE.applyAlpha(150), 3.0 );
+                        }
                     });
                 }
                 return;
@@ -563,7 +572,8 @@ function fishJobSync3DText(playerid) {
                 place1busy = true;
                 createText( playerid, "fish_door1_3dtext", FISH_TRUNK1[0], FISH_TRUNK1[1], FISH_TRUNK1[2]+0.20, "Press E to control doors", CL_WHITE.applyAlpha(150), 3.0 );
                 if ([vehicleid][0]) {
-                    createText( playerid, "fish_putbox1_3dtext", FISH_PARK_PUT_1[0], FISH_PARK_PUT_1[1], FISH_PARK_PUT_1[2]+0.20, FISH_PARK_PUT_TEXT, CL_ROYALBLUE.applyAlpha(150), 35 );
+                    createText( playerid, "fish_putbox1_3dtext",      FISH_PARK_PUT_1[0], FISH_PARK_PUT_1[1], FISH_PARK_PUT_1[2]+0.20, FISH_PARK_PUT_TEXT, CL_ROYALBLUE.applyAlpha(150), 35 );
+                    createText( playerid, "fish_putbox1_3dtext_desc", FISH_PARK_PUT_1[0], FISH_PARK_PUT_1[1], FISH_PARK_PUT_1[2]+0.05, FISH_PARK_PUT_TEXT_DESC, CL_WHITE.applyAlpha(150), 3.0 );
                     setVehiclePartOpen(vehicleid, 1, true);
                 }
                 continue;
@@ -574,7 +584,8 @@ function fishJobSync3DText(playerid) {
                 place2busy = true;
                 createText( playerid, "fish_door2_3dtext", FISH_TRUNK2[0], FISH_TRUNK2[1], FISH_TRUNK2[2]+0.20, "Press E to control doors", CL_WHITE.applyAlpha(150), 3.0 );
                 if(fishcars[vehicleid][0]) {
-                    createText( playerid, "fish_putbox2_3dtext", FISH_PARK_PUT_2[0], FISH_PARK_PUT_2[1], FISH_PARK_PUT_2[2]+0.20, FISH_PARK_PUT_TEXT, CL_ROYALBLUE.applyAlpha(150), 35 );
+                    createText( playerid, "fish_putbox2_3dtext",      FISH_PARK_PUT_2[0], FISH_PARK_PUT_2[1], FISH_PARK_PUT_2[2]+0.20, FISH_PARK_PUT_TEXT, CL_ROYALBLUE.applyAlpha(150), 35 );
+                    createText( playerid, "fish_putbox2_3dtext_desc", FISH_PARK_PUT_2[0], FISH_PARK_PUT_2[1], FISH_PARK_PUT_2[2]+0.05, FISH_PARK_PUT_TEXT_DESC, CL_WHITE.applyAlpha(150), 3.0 );
                     setVehiclePartOpen(vehicleid, 1, true);
                 }
                 continue;
