@@ -48,7 +48,7 @@ local translations = {
 "en|job.taxi.callalreadytaken"         :   "[TAXI] Call #%d is already taken."
 "ru|job.taxi.callalreadytaken"         :   "[TAXI] Вызов #%d уже принят другим водителем."
 
-"en|job.taxi.youtakencall"             :   "[TAXI] You've taken a call #%d."
+"en|job.taxi.youtakencall"             :   "[TAXI] You've taken a call."
 "ru|job.taxi.youtakencall"             :   "[TAXI] Вы приняли вызов."
 
 "en|job.taxi.noanycalls"               :   "[TAXI] You didn't take any calls."
