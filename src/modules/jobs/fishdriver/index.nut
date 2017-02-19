@@ -571,7 +571,7 @@ function fishJobSync3DText(playerid) {
             if (inplace1) {
                 place1busy = true;
                 createText( playerid, "fish_door1_3dtext", FISH_TRUNK1[0], FISH_TRUNK1[1], FISH_TRUNK1[2]+0.20, "Press E to control doors", CL_WHITE.applyAlpha(150), 3.0 );
-                if ([vehicleid][0]) {
+                if (fishcars[vehicleid][0]) {
                     createText( playerid, "fish_putbox1_3dtext",      FISH_PARK_PUT_1[0], FISH_PARK_PUT_1[1], FISH_PARK_PUT_1[2]+0.20, FISH_PARK_PUT_TEXT, CL_ROYALBLUE.applyAlpha(150), 35 );
                     createText( playerid, "fish_putbox1_3dtext_desc", FISH_PARK_PUT_1[0], FISH_PARK_PUT_1[1], FISH_PARK_PUT_1[2]+0.05, FISH_PARK_PUT_TEXT_DESC, CL_WHITE.applyAlpha(150), 3.0 );
                     setVehiclePartOpen(vehicleid, 1, true);

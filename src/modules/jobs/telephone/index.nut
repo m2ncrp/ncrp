@@ -492,7 +492,7 @@ function callByPhone (playerid, number = null, isbind = false) {
     }
 
     if (budka[4] == 0) {
-        if(!canBankMoneyBeSubstracted(playerid, PHONE_CALL_PRICE)) {
+        if(!canMoneyBeSubstracted(playerid, PHONE_CALL_PRICE)) {
             return msg(playerid, "telephone.notenoughmoney");
         }
         subMoneyToPlayer(playerid, PHONE_CALL_PRICE);
