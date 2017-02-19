@@ -43,6 +43,7 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
 
             msg(playerid, "shops.findcar.wait");
             subBankMoneyToPlayer(playerid, FINDCAR_COST);
+            addMoneyToTreasury(FINDCAR_COST);
             findcar = true;
             delayedFunction(10000, function() {
 

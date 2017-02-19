@@ -66,6 +66,9 @@ cmd("car", "buy", function(playerid, modelid = null) {
     // take money
     subMoneyToPlayer(playerid, car.price);
 
+    // add money to treasury
+    addMoneyToTreasury(car.price);
+
     // spawn it
     local vehicleid = createVehicle(car.modelid,
         point.position.x, point.position.y, point.position.z,
