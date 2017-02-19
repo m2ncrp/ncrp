@@ -149,7 +149,7 @@ event("native:onScriptInit", function() {
     log(format("[core] running version %s...", VERSION));
 
     // setup default values
-    setGameModeText( VERSION );
+    setGameModeText( "NCRP " + VERSION );
     setMapName( "Empire Bay" );
     srand(time()); // set random seed
 
