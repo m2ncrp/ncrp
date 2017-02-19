@@ -522,6 +522,7 @@ addEventHandler("onServerCharacterLoaded", function(locale){
     charactersCount = characters.len();
     formatCharacterSelection();
     showChat(false);
+    toggleHud(false);
 });
 
 
