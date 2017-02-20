@@ -347,7 +347,7 @@ function busJobRefuseLeave( playerid ) {
 
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
         removeText ( playerid, "leavejob3dtext" );
-
+        trigger(playerid, "removeGPS");
         msg( playerid, "job.leave", BUS_JOB_COLOR );
 
         setPlayerJob( playerid, null );
@@ -395,7 +395,7 @@ function busJobStartRoute( playerid ) {
 // coords bus at bus station in Hunters Point    -1562.5, 105.709, -13.0123, 0.966663, -0.00153991, 0.182542
 function busJobStop( playerid ) {
 
-    if(job_bus[getPlayerName(playerid)]["userstatus"] == null || job_bus[getPlayerName(playerid)]["userstatus"] == "complete" || !isPlayerInVehicle(playerid) || !isPlayerVehicleDriver(playerid)) {
+    if(job_bus[getPlayerName(playerid)]["userstatus"] != "working" || !isPlayerInVehicle(playerid) || !isPlayerVehicleBus(playerid) ) {
         return;
     }
 
