@@ -591,7 +591,7 @@ translation("ru", {
 
     "metro.station.closed.maintaince"   : "Станция %s закрыта по техническим причинам. Пожалуйста, воспользуйтесь другими станциями или используйте общественный транспорт."
 
-    "metro.help.title"                  : "Список доступных команд для метро:"
+    "metro.help.title"                  : "Найди ближайшую станцию для поездок на метро: /subway"
     "metro.help.subway"                 : "Отправиться на станцию по id"
     "metro.help.subwayList"             : "Посмотреть список всех станций"
     "metro.help.sub"                    : "Аналог /subway id"
