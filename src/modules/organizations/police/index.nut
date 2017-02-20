@@ -165,7 +165,7 @@ event("onServerStarted", function() {
 });
 
 event("onPlayerPlaceEnter", function(playerid, name) {
-    if(name != "KosoyPereulok" || !isPlayerInVehicle(playerid)) return;
+    if(name != "KosoyPereulok" || !isPlayerInVehicle(playerid) || !isPlayerVehicleDriver(playerid) ) return;
 
     local ticketcost = 8.5;
     //local vehicleid = getPlayerVehicle(playerid);
