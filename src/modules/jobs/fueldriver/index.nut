@@ -133,6 +133,7 @@ event("onServerPlayerStarted", function( playerid ) {
         } else {
             msg( playerid, "job.fueldriver.ifyouwantstart", FUEL_JOB_COLOR );
         }
+        if (job_fuel[getPlayerName(playerid)]["userstatus"] == "wait") { job_fuel[getPlayerName(playerid)]["userstatus"] = "working"; }
 
         job_fuel[getPlayerName(playerid)]["fuelBlipTextWarehouse"].clear();
         if ( getPlayerName(playerid) in fuelJobStationMarks ) { fuelJobStationMarks[getPlayerName(playerid)].clear(); }
@@ -421,7 +422,7 @@ function fuelJobLoadUnload ( playerid ) {
         return;
     }
 
-    if(job_fuel[getPlayerName(playerid)]["userstatus"] == null || job_fuel[getPlayerName(playerid)]["userstatus"] == "complete" || !isPlayerInVehicle(playerid) || !isPlayerVehicleDriver(playerid)) {
+    if(job_fuel[getPlayerName(playerid)]["userstatus"] != "working" || !isPlayerInVehicle(playerid) || !isPlayerVehicleDriver(playerid)) {
         return;
     }
 
@@ -471,12 +472,16 @@ function fuelJobLoadUnload ( playerid ) {
         return msg( playerid, "job.fueldriver.truck.alreadyloaded", FUEL_JOB_COLOR );
     }
 
+    job_fuel[getPlayerName(playerid)]["userstatus"] = "wait";
+
     // to load
     if(check_ware && fuelcars[vehicleid][1] < 16000) {
+
         msg( playerid, "job.fueldriver.truck.loading", FUEL_JOB_COLOR );
         freezePlayer( playerid, true);
         trigger(playerid, "hudCreateTimer", 30.0, true, true);
         delayedFunction(30000, function () {
+            job_fuel[getPlayerName(playerid)]["userstatus"] = "working";
             freezePlayer( playerid, false);
             delayedFunction(1000, function () { freezePlayer( playerid, false); });
 
@@ -507,6 +512,7 @@ function fuelJobLoadUnload ( playerid ) {
             fuelJobWarehouseRemoveBlipText( playerid );
             job_fuel[getPlayerName(playerid)]["userstatus"] = "complete";
         } else {
+            job_fuel[getPlayerName(playerid)]["userstatus"] = "working";
             if (fuelcars[vehicleid][1] >= 4000) {
                 msg( playerid, "job.fueldriver.truck.unloadingcompletedtruckisloaded", fuelcars[vehicleid][1], FUEL_JOB_COLOR );
             } else {

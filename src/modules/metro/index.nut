@@ -16,7 +16,7 @@ translation("en", {
 
     "metro.station.closed.maintaince"   : "Station %s is closed for maintaince. Please move to another station or use other public transport."
 
-    "metro.help.title"                  : "List of available commands for SUBWAY:"
+    "metro.help.title"                  : "Find nearest subway station for travel by Subway: /subway"
     "metro.help.subway"                 : "Move to station by id"
     "metro.help.subwayList"             : "Show list of all stations"
     "metro.help.sub"                    : "Analog /subway id"
