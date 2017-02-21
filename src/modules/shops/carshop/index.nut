@@ -1,6 +1,7 @@
 // constants
 const CARSHOP_STATE_FREE = "free";
 const CARSHOP_DISTANCE   = 5.0; // distance for command
+const CARSHOP_PRICE_DIFF = 50.0;
 
 const DIAMOND_CARSHOP_X = -204.324;
 const DIAMOND_CARSHOP_Y =  826.917;
