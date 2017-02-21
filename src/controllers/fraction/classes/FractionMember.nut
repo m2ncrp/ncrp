@@ -1,7 +1,5 @@
-// Fraction.types ??
-
-class FractionMember extends ORM.Entity {
-
+class FractionMember extends ORM.Entity
+{
     static classname = "FractionMember";
     static table = "tbl_fraction_members";
 
