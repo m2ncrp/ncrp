@@ -155,7 +155,7 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
         if(job_fuel[getPlayerName(playerid)]["userstatus"] == "working") {
             delayedFunction(4500, function() {
                     local vehicleid = getPlayerVehicle(playerid);
-
+                    if(vehicleid == -1) return;
                     // create blip and 3text for warehouse
                     fuelJobWarehouseCreateBlipText( playerid );
 
@@ -340,8 +340,8 @@ function fuelJobGet( playerid ) {
     }
     // если у игрока статус работы == завершил работу
     if (job_fuel[getPlayerName(playerid)]["userstatus"] == "complete") {
-        fuelGetSalary( playerid );
         job_fuel[getPlayerName(playerid)]["userstatus"] = null;
+        fuelGetSalary( playerid );
         job_fuel[getPlayerName(playerid)]["fuelstatus"] <- [false, false, false, false, false, false, false, false];
         job_fuel[getPlayerName(playerid)]["fuelcomplete"] = 0;
         return;
@@ -383,14 +383,13 @@ function fuelJobRefuseLeave( playerid ) {
     if (job_fuel[getPlayerName(playerid)]["userstatus"] == "working") {
         msg( playerid, "job.fueldriver.badworker.onleave", FUEL_JOB_COLOR);
         job_fuel[getPlayerName(playerid)]["userstatus"] = "nojob";
-                job_fuel[getPlayerName(playerid)]["userstatus"] = null;
+        job_fuel[getPlayerName(playerid)]["userstatus"] = null;
         job_fuel_blocked[getPlayerName(playerid)] <- getTimestamp();
     }
 
     if (job_fuel[getPlayerName(playerid)]["userstatus"] == "complete") {
-        fuelGetSalary( playerid );
-        job_fuel[getPlayerName(playerid)]["route"] = false;
         job_fuel[getPlayerName(playerid)]["userstatus"] = null;
+        fuelGetSalary( playerid );
         msg( playerid, "job.fueldriver.goodluck", FUEL_JOB_COLOR);
     }
 
