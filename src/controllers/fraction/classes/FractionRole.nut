@@ -1,5 +1,5 @@
-class FractionRole extends ORM.Entity {
-
+class FractionRole extends ORM.Entity
+{
     static classname = "FractionRole";
     static table = "tbl_fraction_roles";
 
