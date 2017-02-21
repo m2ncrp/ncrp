@@ -55,6 +55,7 @@ function RentCar(playerid) {
     local vehicleid = getPlayerVehicle(playerid);
     local minute = getMinute().tofloat();
     local minutesleft = ceil( minute / 10 ) * 10 - minute; // minutes to near largest round number: if minute == 36 then minutesleft = 4
+    if (minutesleft == 0) { minutesleft = 10; }
     local rentprice = rentcars[vehicleid][0].tofloat()*minutesleft;
 
     if(!canMoneyBeSubstracted(playerid, rentprice)) {
