@@ -309,9 +309,9 @@ function busJobGet( playerid ) {
     }
     // если у игрока статус работы == завершил работу
     if (job_bus[getPlayerName(playerid)]["userstatus"] == "complete") {
+        job_bus[getPlayerName(playerid)]["userstatus"] = null;
         busGetSalary( playerid );
         job_bus[getPlayerName(playerid)]["route"] = false;
-        job_bus[getPlayerName(playerid)]["userstatus"] = null;
         return;
     }
 
@@ -339,9 +339,9 @@ function busJobRefuseLeave( playerid ) {
     }
 
     if (job_bus[getPlayerName(playerid)]["userstatus"] == "complete") {
+        job_bus[getPlayerName(playerid)]["userstatus"] = null;
         busGetSalary( playerid );
         job_bus[getPlayerName(playerid)]["route"] = false;
-        job_bus[getPlayerName(playerid)]["userstatus"] = null;
         msg( playerid, "job.bus.goodluck", BUS_JOB_COLOR);
     }
 
