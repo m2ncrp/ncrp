@@ -48,28 +48,40 @@ local carPricesAll = [
     ]
 ];
 
-/*
-Automatically changing the range of cars both stores.
-Writing to carPrices[0] for Diamond Motors and carPrices[1] for Bad Guy
+/**
+ * Automatically changing the range of cars both stores.
+ * Writing to carPrices[0] for Diamond Motors and carPrices[1] for Bad Guy
  */
 
-local carPrices = [ [], [] ];
+function generateRandomCarPrices() {
+    local carPrices = [[],[]];
 
-local carPricesDiamond = clone(carPricesAll[0]);
-for (local i = 0; i < 8; i++) {
-    local rand = random(0, carPricesDiamond.len()-1);
-    carPrices[0].push(carPricesDiamond[rand]);
-    carPricesDiamond.remove(rand);
-}
-carPricesDiamond.clear();
+    local carPricesDiamond = clone(carPricesAll[0]);
+    for (local i = 0; i < 8; i++) {
+        local rand = random(0, carPricesDiamond.len() - 1);
+        carPrices[0].push(carPricesDiamond[rand]);
+        carPricesDiamond.remove(rand);
+    }
+    carPricesDiamond.clear();
 
-local carPricesBadGuy = clone(carPricesAll[1]);
-for (local i = 0; i < 8; i++) {
-    local rand = random(0, carPricesBadGuy.len()-1);
-    carPrices[1].push(carPricesBadGuy[rand]);
-    carPricesBadGuy.remove(rand);
+    local carPricesBadGuy = clone(carPricesAll[1]);
+    for (local i = 0; i < 8; i++) {
+        local rand = random(0, carPricesBadGuy.len() - 1);
+        carPrices[1].push(carPricesBadGuy[rand]);
+        carPricesBadGuy.remove(rand);
+    }
+    carPricesBadGuy.clear();
+
+    foreach (idx, subprices in carPrices) {
+        foreach (idx_, object in subprices) {
+            object.price = randomf(object.price - CARSHOP_PRICE_DIFF * 0.5, object.price + CARSHOP_PRICE_DIFF * 2.0);
+        }
+    }
+
+    return carPrices;
 }
-carPricesBadGuy.clear();
+
+local carPrices = generateRandomCarPrices();
 
 
 // /**
