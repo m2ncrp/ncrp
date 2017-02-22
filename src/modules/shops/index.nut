@@ -5,7 +5,7 @@ include("modules/shops/restaurant");
 include("modules/shops/washstations");
 include("modules/shops/carsearch");
 include("modules/shops/clothesshop");
-
+include("modules/shops/carpaint");
 /*
 key("7", function(playerid) {
       triggerClientEvent(playerid, "showShopGUI");

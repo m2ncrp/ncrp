@@ -206,8 +206,11 @@ addKeyboardHandler("x", "up", function(playerid) {
     switchBothLight(playerid);
 });
 
+// key("2") key(["2"])  bindkey("2") bind("2")
 addKeyboardHandler("2", "up", function(playerid) {
-    if (isPlayerInVehicle(playerid) && isPlayerAdmin(playerid) && !isPlayerCarTaxi(playerid)) {
+    if(!isPlayerInVehicle(playerid)) return;
+    local vehicleid = getPlayerVehicle(playerid);
+    if(!isVehicleInPlace(vehicleid, "CarPaint_outside") && isPlayerAdmin(playerid) && !isPlayerCarTaxi(playerid)) {
         local vehicleid = getPlayerVehicle(playerid);
         local sp = getVehicleSpeed(vehicleid);
         setVehicleSpeed(vehicleid, sp[0], sp[1], sp[2] + 5.0);
