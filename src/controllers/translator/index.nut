@@ -122,7 +122,6 @@ function localize(value, params = [], language = "en") {
         return format.acall(args);
     }
     catch (e) {
-        dbg(e);
         return str_replace("%", "$", value);
     }
 }
