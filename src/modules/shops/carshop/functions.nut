@@ -4,14 +4,14 @@
  */
 local vehiclePositions = [
     [   // diamond motors
-        { state = CARSHOP_STATE_FREE, position = vector3(-205.466, 835.142, -20.9735), rotation = vector3(159.300, 0.346464, 2.31108) },
-        { state = CARSHOP_STATE_FREE, position = vector3(-209.199, 833.547, -21.0283), rotation = vector3(160.662, 0.470803, 2.37895) },
-        { state = CARSHOP_STATE_FREE, position = vector3(-213.164, 832.172, -20.9392), rotation = vector3(160.965, 0.350293, 2.35895) },
-        { state = CARSHOP_STATE_FREE, position = vector3(-217.133, 830.954, -20.9312), rotation = vector3(159.368, 0.344307, 2.36111) },
+        { state = CARSHOP_STATE_FREE, position = Vector3(-205.466, 835.142, -20.9735), rotation = Vector3(159.300, 0.346464, 2.31108) },
+        { state = CARSHOP_STATE_FREE, position = Vector3(-209.199, 833.547, -21.0283), rotation = Vector3(160.662, 0.470803, 2.37895) },
+        { state = CARSHOP_STATE_FREE, position = Vector3(-213.164, 832.172, -20.9392), rotation = Vector3(160.965, 0.350293, 2.35895) },
+        { state = CARSHOP_STATE_FREE, position = Vector3(-217.133, 830.954, -20.9312), rotation = Vector3(159.368, 0.344307, 2.36111) },
     ],
     [   // bad guy
-        { state = CARSHOP_STATE_FREE, position = vector3(-626.011, 949.629, -18.7708), rotation = vector3(-89.2381, 1.3864, -0.456439) },
-        { state = CARSHOP_STATE_FREE, position = vector3(-625.906, 954.701, -18.7714), rotation = vector3(-89.3728, 1.50941, -0.26591) },
+        { state = CARSHOP_STATE_FREE, position = Vector3(-626.011, 949.629, -18.7708), rotation = Vector3(-89.2381, 1.3864, -0.456439) },
+        { state = CARSHOP_STATE_FREE, position = Vector3(-625.906, 954.701, -18.7714), rotation = Vector3(-89.3728, 1.50941, -0.26591) },
     ]
 ];
 
@@ -89,13 +89,13 @@ local carPrices = generateRandomCarPrices();
 //  * @type {Array}
 //  */
 // local humanPositions = [
-//     // vector3(-206.081, 836.666, -21.2459),
-//     // vector3(-209.93,  835.554, -21.2409),
-//     // vector3(-213.939, 833.966, -21.2204),
-//     // vector3(-217.467, 831.943, -21.1803),
+//     // Vector3(-206.081, 836.666, -21.2459),
+//     // Vector3(-209.93,  835.554, -21.2409),
+//     // Vector3(-213.939, 833.966, -21.2204),
+//     // Vector3(-217.467, 831.943, -21.1803),
 // ];
 
-// local carShopBlock = [vector3(-221.32, 834.918, -21.2491), vector3(-199.757, 828.45, -20.8919)];
+// local carShopBlock = [Vector3(-221.32, 834.918, -21.2491), Vector3(-199.757, 828.45, -20.8919)];
 
 /**
  * Get id of car shop were player is staying at

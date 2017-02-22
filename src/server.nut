@@ -1,5 +1,5 @@
 DEBUG   <- false;
-VERSION <- "0.3.421";
+VERSION <- "0.3.451";
 MOD_HOST <- "139.59.142.46";
 MOD_PORT <- 7790;
 
@@ -118,20 +118,20 @@ local initializeEnvironment = function() {
 
     envblob.close();
 
-    local verblob = file("globalSettings/version.ver", "r");
-    local version = "";
+    // local verblob = file("globalSettings/version.ver", "r");
+    // local version = "";
 
-    // try to read data from version
-    for (local i = 1; i < verblob.len(); i++) {
-        version += verblob.readn('b').tochar();
-        verblob.seek(i);
-    }
+    // // try to read data from version
+    // for (local i = 1; i < verblob.len(); i++) {
+    //     version += verblob.readn('b').tochar();
+    //     verblob.seek(i);
+    // }
 
-    if (version) {
-        // VERSION = strip(version);
-    }
+    // if (version) {
+    //     // VERSION = strip(version);
+    // }
 
-    verblob.close();
+    // verblob.close();
 };
 
 // bind general events
