@@ -4,7 +4,7 @@ local CARPAINT_NAME = "CarPaint";
 local CARPAINT_COORDS_INSIDE  = [ 19.4775, -437.571, 29.5091, -427.52 ];
 local CARPAINT_COORDS_OUTSIDE = [ 19.4349, -422.503, 35.0077, -442.85 ];
 local CARPAINT_COORDS_PLACE  = [ 23.8129, -432.991, -19.9632 ];
-local CARPAINT_COST   = 2.5;
+local CARPAINT_COST   = 80.0;
 local CARPAINT_RADIUS = 16.0;
 local CARPAINT_RADIUS_SMALL = 6.0;
 local CARPAINT_ROCKET_TIMER = 30; // in seconds
@@ -59,7 +59,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
             msg(playerid, "carpaint.help2", CARPAINT_COST);
 
         } else {
-            msg(playerid, "carpaint.nocolorsforthiscar", CL_MALIBU);
+            msg(playerid, "carpaint.cantrepaintthiscar", CL_MALIBU);
         }
     }
 });
