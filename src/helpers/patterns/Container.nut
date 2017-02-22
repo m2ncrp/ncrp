@@ -20,9 +20,9 @@ class Container
 
     /**
      * Reference to Class that'll be stored in Container
-     * @type {[type]}
+     * @type {Object}
      */
-    __ref  = null;
+    __interface = null;
 
 
 
@@ -30,11 +30,11 @@ class Container
      * Create new instance
      * @return {Container}
      */
-    constructor () {
+    constructor (type = null) {
         this.__data = {};
         this.__keys = [];
 
-        this.__ref  = null;
+        this.__interface = type;
     }
 
     /**
@@ -79,7 +79,7 @@ class Container
      * @param {Object} Object
      */
     function set(key, object) {
-        if (!(object instanceof __ref)) {
+        if (!(object instanceof __interface)) {
             throw "Container: could not add unexpected entity."
         }
 

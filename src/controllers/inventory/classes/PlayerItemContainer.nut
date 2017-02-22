@@ -14,8 +14,7 @@ class PlayerItemContainer extends ItemContainer
      * @return {PlayerContainer}
      */
     constructor(playerid) {
-        base.constructor();
-        this.__ref = Item.Abstract;
+        base.constructor(Item.Abstract);
 
         this.id     = md5(this.tostring());
         this.parent = playerid;
