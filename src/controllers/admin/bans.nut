@@ -73,7 +73,7 @@ function newmute(...) {
     local mutetime = time*60;
     Mute( getAccountName(playerid), getAccountName(targetid), getPlayerSerial(targetid), mutetime, reason).save();
 
-    msga(format("[Player %s has been muted by admin %s on %d minutes. Reason: %s]", getPlayerName(targetid),getAccountName(playerid), time, reason), CL_RED)
+    msga(format("[Player %s has been muted on %d minutes. Reason: %s]", getPlayerName(targetid), time, reason), CL_RED)
 
     setPlayerMuted(targetid, true);
     msg(targetid, format("[SERVER] You has been muted on: %d minutes, for: %s.", time, reason), CL_RED);
@@ -160,7 +160,7 @@ function newban(...) {
         msg(targetid, "");
     }
 
-    msga(format("[Player %s has been banned by admin %s on %d minutes.Reason: %s]", getPlayerName(targetid),getAccountName(playerid), time, reason), CL_RED);
+    msga(format("[Player %s has been banned on %d minutes. Reason: %s]", getPlayerName(targetid), time, reason), CL_RED);
 
     msg(targetid, format("[SERVER] You has been banned on: %d min. for: %s.", time, reason), CL_RED);
     msg(playerid, format("You've banned %s for: %s on %d min.", getPlayerName(targetid), reason, time), CL_SUCCESS);
@@ -244,6 +244,32 @@ function handleAdminInput(data) {
     data.insert(1, -1);
     callback.acall(data);
 }
+
+function warnUp(playerid, targetid) {
+    local targetid = targetid.tointeger();
+    local account = getAccount(targetid);
+    account.warns = account.warns + 1;
+    if (account.warns == 3) {
+        return msg(playerid, "Maximum warn-level = ban.");
+    }
+    msg(playerid, "You increased warn level for player %s", [ getPlayerName(targetid) ] );
+    dbg(getPlayerName(targetid));
+    msg(targetid, "You warn-level has been increased. Now: ");
+}
+acmd("warn", warnUp);
+
+function warnDown(playerid, targetid) {
+    local targetid = targetid.tointeger();
+    local account = getAccount(targetid);
+    if (account.warns == 0) {
+        return msg(playerid, "Minimum already");
+    }
+    account.warns = account.warns - 1;
+    msg(playerid, "You decreased warn level for player "+ getPlayerName(targetid) );
+    msg(targetid, "You warn-level has been decreased.");
+}
+acmd("unwarn", warnDown);
+
 
 /**
  * Ban player
