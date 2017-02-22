@@ -1,4 +1,5 @@
 include("controllers/property/classes/Property.nut");
+include("controllers/property/commands.nut");
 
 property <- null;
 
@@ -11,4 +12,3 @@ event("onServerStarted", function() {
         }
     });
 });
-
