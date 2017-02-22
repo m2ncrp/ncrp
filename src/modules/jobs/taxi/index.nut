@@ -1,5 +1,5 @@
-include("modules/jobs/taxi_new/commands.nut");
-include("modules/jobs/taxi_new/translations.nut");
+include("modules/jobs/taxi/commands.nut");
+include("modules/jobs/taxi/translations.nut");
 
 local job_taxi = {};
 local price = 0.0015; // for 1 meter
