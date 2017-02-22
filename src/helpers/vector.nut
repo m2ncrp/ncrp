@@ -70,6 +70,10 @@ class Vector3 {
         return this.length();
     }
 
+    function dist(v) {
+        return this.subtract(v).length();
+    }
+
     function unit() {
         return this.divide(this.length());
     }
