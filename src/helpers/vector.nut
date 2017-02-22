@@ -90,6 +90,10 @@ class Vector3 {
         return this.equals(0.0);
     }
 
+    function isNull() {
+        return this.empty();
+    }
+
     function toAngles() {
         return {
             theta = Math.atan2(this.z, this.x),
