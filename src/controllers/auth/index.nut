@@ -103,6 +103,8 @@ event("onClientSuccessfulyStarted", function(playerid) {
                         msg(playerid, "");
                     }
 
+                    trigger(playerid, "onServerChatTrigger");
+
                     msg(playerid, "[SERVER] You are banned from the server for: " + result.reason, CL_RED);
                     msg(playerid, "[SERVER] Try connecting again later."    );
 
