@@ -57,13 +57,13 @@ class Character extends ORM.Entity {
 
     /**
      * Try to set virtual position (not calling native setPlayerPosition)
-     * Can be passed either number sequence or vector3 object
+     * Can be passed either number sequence or Vector3 object
      *
      * @param {Float} x
      * @param {Float} y
      * @param {Float} z
      * or
-     * @param {vector3} position
+     * @param {Vector3} position
      *
      * @return {Boolean}
      */
@@ -77,7 +77,7 @@ class Character extends ORM.Entity {
             return;
         }
 
-        if (vargv[0] instanceof vector3) {
+        if (vargv[0] instanceof Vector3) {
             this.x = vargv[0].x;
             this.y = vargv[0].y;
             this.z = vargv[0].z;
@@ -96,7 +96,7 @@ class Character extends ORM.Entity {
 
     /**
      * Return current player position
-     * @return {vector3}
+     * @return {Vector3}
      */
     function getPosition() {
         // local position = getPlayerPosition(this.playerid);
@@ -106,7 +106,7 @@ class Character extends ORM.Entity {
         // this.z = position[2];
 
         // todo: refactor
-        return vector3(this.x, this.y, this.z);
+        return Vector3(this.x, this.y, this.z);
     }
 
     function getName() {
