@@ -31,8 +31,7 @@ class ItemContainer extends Container
      * @return {PlayerContainer}
      */
     constructor() {
-        base.constructor();
-        this.__ref = Item.Abstract;
+        base.constructor(Item.Abstract);
 
         this.id = md5(this.tostring());
         this.opened = {};

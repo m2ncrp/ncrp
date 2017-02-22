@@ -17,16 +17,10 @@ class Fraction extends ORM.Entity
     // __globalroles = null;
 
     constructor () {
-        this.memberRoles = Container();
-        this.memberRoles.__ref = FractionRole;
-
-        this.roles = Container();
-        this.roles.__ref = FractionRole;
+        this.memberRoles = Container(FractionRole);
+        this.roles = Container(FractionRole);
 
         base.constructor();
-
-        // this.__globalroles = Container();
-        // this.__globalroles.__ref = FractionRole;
     }
 
     function exists(playerid) {

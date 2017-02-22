@@ -22,9 +22,12 @@ include("controllers/extrasync");
 include("controllers/business");
 include("controllers/tips");
 // include("controllers/gui");
-include("controllers/objectpool");
+// include("controllers/objectpool");
 include("controllers/moderator");
 include("controllers/place");
+
+if (DEBUG) {
 include("controllers/property");
-// include("controllers/inventory");
-// include("controllers/fraction");
+include("controllers/inventory");
+include("controllers/fraction");
+}

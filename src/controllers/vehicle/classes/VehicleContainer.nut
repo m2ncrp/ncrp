@@ -5,8 +5,7 @@ class VehicleContainer extends Container
      * @return {PlayerContainer}
      */
     constructor() {
-        base.constructor();
-        this.__ref = Vehicle;
+        base.constructor(Vehicle);
     }
 
 
