@@ -67,3 +67,58 @@ function removePersonalJobBlip(playerid) {
 function getLocalizedPlayerJob(playerid, forced = null) {
     return localize("job." + getPlayerJob(playerid), [], (forced) ? forced : getPlayerLocale(playerid));
 }
+
+
+/**
+ * New job stating algo
+ */
+
+local job_state = {};
+local job_callbacks = {};
+
+function setPlayerJobState(playerid, state) {
+    job_state[playerid] <- state;
+}
+
+function addJobEvent(button, jobname, state, callback) {
+    if (!(button in job_callbacks)) {
+        job_callbacks[button] <- {};
+    }
+
+    if (!(jobname in job_callbacks[button])) {
+        job_callbacks[button][jobname] <- {};
+    }
+
+    if (!(state in job_callbacks[button][jobname])) {
+        job_callbacks[button][jobname][state] <- [];
+    }
+
+    job_callbacks[button][jobname][state].push(callback);
+}
+
+function callJobEvent(button, playerid) {
+    if (!(button in job_callbacks)) {
+        return;
+    }
+
+    local job = getPlayerJob(playerid);
+
+    if (!(job in job_callbacks[button])) {
+        return;
+    }
+
+    local states = job_callbacks[button][job];
+
+    if (!(playerid in job_state)) return;
+    if (!(job_state[playerid] in states)) return;
+
+    local callbacks = states[job_state[playerid]];
+
+    foreach (idx, callback in callbacks) {
+        callback(playerid);
+    }
+}
+
+key("e", function(playerid) { callJobEvent("e", playerid); });
+key("q", function(playerid) { callJobEvent("q", playerid); });
+key("2", function(playerid) { callJobEvent("2", playerid); });
