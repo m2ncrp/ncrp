@@ -1,8 +1,7 @@
 local storage = null;
 
 event("onServerStarted", function() {
-    storage = Container();
-    storage.__ref = ItemContainer;
+    storage = Container(ItemContainer);
 });
 
 event("onInventoryRegistred", function(inventory) {

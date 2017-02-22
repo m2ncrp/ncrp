@@ -7,8 +7,7 @@ class FractionRoleContainer extends Container
      * @return {PlayerContainer}
      */
     constructor() {
-        base.constructor();
-        this.__ref = Fraction;
+        base.constructor(Fraction);
     }
 
     function push(element) {
