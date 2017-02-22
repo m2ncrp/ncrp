@@ -154,7 +154,7 @@ function carPaintRocketCancel(playerid, vehicleid) {
     if(CARPAINT_PLAYERID != playerid) return;
     if(isVehicleEmpty(vehicleid)) return;
     trigger(playerid, "hudDestroyTimer");
-    if( CARPAINT_TIMER.IsActive() ) {
+    if (CARPAINT_TIMER && CARPAINT_TIMER.IsActive()) {
         CARPAINT_TIMER.Kill()
     }
 }
@@ -206,13 +206,13 @@ function checkVehiclePaintColorChanged(vehicleid) {
 
 local translations = {
 
-    "en|carpaint.goodluck"               :   "[PAINT] Nice choice! Good luck and we'll glad to see you again!"
+    "en|carpaint.goodluck"               :   "[PAINT] Nice! Good luck and we'll be glad to see you again!"
     "ru|carpaint.goodluck"               :   "[PAINT] Отличный выбор! Будем рады видеть вас снова!"
 
     "en|carpaint.payforcolor"            :   "Your paid $%.2f for car painting."
     "ru|carpaint.payforcolor"            :   "Вы заплатили $%.2f за покраску."
 
-    "en|carpaint.bye"                    :   "[PAINT] Come to us in convenient time! We'll glad to see you again!"
+    "en|carpaint.bye"                    :   "[PAINT] Return in any convenient time! We'll be glad to see you again!"
     "ru|carpaint.bye"                    :   "[PAINT] Заезжай к нам в удобное время! Покрасим на отлично!"
 
     "en|carpaint.notenoughmoney"         :   "Not enough money to pay!"
@@ -227,7 +227,7 @@ local translations = {
     "en|carpaint.rocketstart"            :   "[PAINT] Leave the car here is dangerous. Drive off better."
     "ru|carpaint.rocketstart"            :   "[PAINT] Оставлять здесь авто неприлично опасно. Лучше отъедь."
 
-    "en|carpaint.placebusy"              :   "[PAINT] Hay! Do you see that place is taken? Wait your turn!"
+    "en|carpaint.placebusy"              :   "[PAINT] Hey! Do you see that place is taken? Wait your turn!"
     "ru|carpaint.placebusy"              :   "[PAINT] Хэй! Не видишь, что место занято? Жди своей очереди!"
 
     "en|carpaint.help1"                  :   "To change color - press button 2. To reset color - press button 1."
