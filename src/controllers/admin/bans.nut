@@ -312,10 +312,10 @@ acmd("getwarn", warnGet);
 
 local translations = {
 
-    "en|admin.warn.increased"               :   "You decreased warn-level for player %s. Now: %d."
+    "en|admin.warn.increased"               :   "You increased warn-level for player %s. Now: %d."
     "ru|admin.warn.increased"               :   "Вы выдали предупреждение игроку %s. Всего: %d."
 
-    "en|admin.warn.hasbeenincreased"        :   "[ADMIN] Your warn-level has been decreased."
+    "en|admin.warn.hasbeenincreased"        :   "[ADMIN] Your warn-level has been increased."
     "ru|admin.warn.hasbeenincreased"        :   "[ADMIN] Вам выдано предупреждение."
 
     "en|admin.warn.decreased"               :   "You decreased warn-level for player %s. Now: %d."
