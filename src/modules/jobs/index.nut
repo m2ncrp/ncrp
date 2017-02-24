@@ -68,7 +68,6 @@ function getLocalizedPlayerJob(playerid, forced = null) {
     return localize("job." + getPlayerJob(playerid), [], (forced) ? forced : getPlayerLocale(playerid));
 }
 
-
 /**
  * New job stating algo
  */
@@ -79,6 +78,10 @@ local job_callbacks = {};
 function setPlayerJobState(playerid, state) {
     job_state[playerid] <- state;
 }
+
+event("onPlayerConnect", function(playerid) {
+    setPlayerJobState(playerid, null);
+});
 
 function addJobEvent(button, jobname, state, callback) {
     if (!(button in job_callbacks)) {
