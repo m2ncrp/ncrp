@@ -22,6 +22,8 @@ local drawdata = {
     money   = "",
     state   = "",
     level   = "",
+    hunger  = 0.0,
+    thirst  = 0.0,
     logos   = "bit.ly/tsoeb | vk.com/tsoeb",
 };
 local initialized = false;
@@ -159,6 +161,9 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
         compute("borders.y",    screenY - height);
         compute("borders.cx",   screenX - (length / 2) - (screenX / ROUND_TO_RIGHT_RATIO));
 
+        compute("health.size.x", screenX - get("borders.x") + get("roundy.width"));
+        // compute("health.size.y", screenY - get("borders.y") - get("roundy.width"));
+
         local radius = length / 2;
         local step   = 1.0;//0.5;
 
@@ -192,6 +197,9 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
 
     // draw level
     // dxDrawText( drawdata.level, get("borders.x") + 11.0, get("borders.y") + offset2 + 21.0, 0xFFA1A1A1, false, "tahoma-bold", 1.0 );
+
+    // draw hunger
+    // dxDrawRectangle(screenX - , get("borders.y"), get("roundy.width"), get("roundy.height") + 5.0, 0xA1000000);
 
 
     /**
@@ -268,6 +276,11 @@ addEventHandler("onServerInterfaceMoney", function(money) {
 
 addEventHandler("onServerAddedNofitication", function(type, data) {
     notifications.push({ type = type, data = data });
+});
+
+addEventHandler("onPlayerHungerUpdate", function(hunger, thirst) {
+    drawdata.hunger = hunger;
+    drawdata.thirst = thirst;
 });
 
 addEventHandler("onServerToggleHudDrawing", function() {
