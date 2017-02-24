@@ -31,7 +31,10 @@ class Character extends ORM.Entity {
         ORM.Field.Float     ({ name = "housey",     }), // @deprecated
         ORM.Field.Float     ({ name = "housez",     }), // @deprecated
 
-        ORM.Field.Integer   ({ name = "mlvl",       value = "0"}),
+        ORM.Field.Integer   ({ name = "mlvl",       value = 0 }),
+
+        ORM.Field.Float     ({ name = "hunger",     value = 0.0 }),
+        ORM.Field.Float     ({ name = "thirst",     value = 0.0 }),
     ];
 
     /**
