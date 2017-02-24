@@ -9,7 +9,7 @@ include("modules/jobs/telephone");
 include("modules/jobs/docker");
 include("modules/jobs/stationporter");
 // include("modules/jobs/realtor");
-include("modules/jobs/slaughterhouseworker");
+// include("modules/jobs/slaughterhouseworker");
 
 
 event("onServerStarted", function() {
@@ -78,6 +78,10 @@ local job_callbacks = {};
 
 function setPlayerJobState(playerid, state) {
     job_state[playerid] <- state;
+}
+
+function getPlayerJobState(playerid) {
+    return (playerid in job_state) ? job_state[playerid] : null;
 }
 
 function addJobEvent(button, jobname, state, callback) {
