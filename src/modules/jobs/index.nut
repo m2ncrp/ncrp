@@ -1,17 +1,3 @@
-include("modules/jobs/commands.nut");
-include("modules/jobs/busdriver");
-include("modules/jobs/fueldriver");
-include("modules/jobs/taxi");
-include("modules/jobs/milkdriver");
-include("modules/jobs/fishdriver");
-include("modules/jobs/truckdriver");
-include("modules/jobs/telephone");
-include("modules/jobs/docker");
-include("modules/jobs/stationporter");
-// include("modules/jobs/realtor");
-// include("modules/jobs/slaughterhouseworker");
-
-
 event("onServerStarted", function() {
     // nothing there anymore :C
     log("[jobs] starting...");
@@ -131,3 +117,16 @@ function callJobEvent(button, playerid) {
 key("e", function(playerid) { callJobEvent("e", playerid); });
 key("q", function(playerid) { callJobEvent("q", playerid); });
 key("2", function(playerid) { callJobEvent("2", playerid); });
+
+include("modules/jobs/commands.nut");
+include("modules/jobs/busdriver");
+include("modules/jobs/fueldriver");
+include("modules/jobs/taxi");
+include("modules/jobs/milkdriver");
+include("modules/jobs/fishdriver");
+include("modules/jobs/truckdriver");
+include("modules/jobs/telephone");
+include("modules/jobs/docker");
+include("modules/jobs/stationporter");
+// include("modules/jobs/realtor");
+// include("modules/jobs/slaughterhouseworker");
