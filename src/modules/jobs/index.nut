@@ -88,6 +88,9 @@ function addJobEvent(button, jobname, state, callback) {
         job_callbacks[button] <- {};
     }
 
+    if (jobname == null) jobname = "0";
+    if (state == null) state = "0";
+
     if (!(jobname in job_callbacks[button])) {
         job_callbacks[button][jobname] <- {};
     }
@@ -106,6 +109,8 @@ function callJobEvent(button, playerid) {
 
     local job = getPlayerJob(playerid);
 
+    if (job == null) jobname = "0";
+
     if (!(job in job_callbacks[button])) {
         return;
     }
@@ -113,6 +118,7 @@ function callJobEvent(button, playerid) {
     local states = job_callbacks[button][job];
     local state  = getPlayerJobState(playerid);
 
+    if (state == null) state = "0";
     if (!(state in states)) return;
 
     local callbacks = states[state];
