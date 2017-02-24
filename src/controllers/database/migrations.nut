@@ -210,7 +210,7 @@ migrate(function(query, type) {
 // 24.02.2017
 // added character hunger and thirst
 migrate(function(query, type) {
-    query("ALTER TABLE tbl_characters ADD COLUMN `hunger` FLOAT NOT NULL DEFAULT 0.0;");
-    query("ALTER TABLE tbl_characters ADD COLUMN `thirst` FLOAT NOT NULL DEFAULT 0.0;");
+    query("ALTER TABLE tbl_characters ADD COLUMN `hunger` FLOAT NOT NULL DEFAULT 100.0;");
+    query("ALTER TABLE tbl_characters ADD COLUMN `thirst` FLOAT NOT NULL DEFAULT 100.0;");
 });
 
