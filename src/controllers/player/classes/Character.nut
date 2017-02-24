@@ -33,8 +33,8 @@ class Character extends ORM.Entity {
 
         ORM.Field.Integer   ({ name = "mlvl",       value = 0 }),
 
-        ORM.Field.Float     ({ name = "hunger",     value = 0.0 }),
-        ORM.Field.Float     ({ name = "thirst",     value = 0.0 }),
+        ORM.Field.Float     ({ name = "hunger",     value = 100.0 }),
+        ORM.Field.Float     ({ name = "thirst",     value = 100.0 }),
     ];
 
     /**
