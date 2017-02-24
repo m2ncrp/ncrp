@@ -9,7 +9,7 @@ include("modules/jobs/telephone");
 include("modules/jobs/docker");
 include("modules/jobs/stationporter");
 // include("modules/jobs/realtor");
-include("modules/jobs/slaughterhouseworker");
+// include("modules/jobs/slaughterhouseworker");
 
 
 event("onServerStarted", function() {
@@ -79,9 +79,9 @@ function setPlayerJobState(playerid, state) {
     job_state[playerid] <- state;
 }
 
-event("onPlayerConnect", function(playerid) {
-    setPlayerJobState(playerid, null);
-});
+function getPlayerJobState(playerid) {
+    return (playerid in job_state) ? job_state[playerid] : null;
+}
 
 function addJobEvent(button, jobname, state, callback) {
     if (!(button in job_callbacks)) {
@@ -111,11 +111,11 @@ function callJobEvent(button, playerid) {
     }
 
     local states = job_callbacks[button][job];
+    local state  = getPlayerJobState(playerid);
 
-    if (!(playerid in job_state)) return;
-    if (!(job_state[playerid] in states)) return;
+    if (!(state in states)) return;
 
-    local callbacks = states[job_state[playerid]];
+    local callbacks = states[state];
 
     foreach (idx, callback in callbacks) {
         callback(playerid);
