@@ -97,8 +97,8 @@ function loadTraslation(){
         text.WrongLName             <- "Wrong firstname";
         text.WrongFName             <- "Wrong lastname";
         text.WrongDay               <- "Wrong 'Day'";
-        text.WrongMonth             <- "Wrong 'Month'";
-        text.WrongYear              <- "Wrong 'Year'";
+        text.WrongMonth             <- "Month: from 1 to 12";
+        text.WrongYear              <- "Year: from 1850 to 1932";
         text.ExampleFName           <- "eg 'John'";
         text.ExampleLName           <- "eg 'Douglas'";
 
@@ -133,11 +133,11 @@ function loadTraslation(){
         text.CreationBirthday       <- "Дата рождения персонажа";
         text.WrongLName             <- "Некорректное Имя";
         text.WrongFName             <- "Некорректная Фамилия";
-        text.WrongDay               <- "'День' введён некорректно";
-        text.WrongMonth             <- "'Месяц' введён некорректно";
-        text.WrongYear              <- "'Год' введён некорректно";
-        text.ExampleFName           <- "Например 'John'";
-        text.ExampleLName           <- "Например 'Douglas'";
+        text.WrongDay               <- "День введён некорректно";
+        text.WrongMonth             <- "Месяц: от 1 до 12";
+        text.WrongYear              <- "Год: от 1850 до 1932";
+        text.ExampleFName           <- "Например John";
+        text.ExampleLName           <- "Например Douglas";
 
         //other
         text.Male       <- "Мужчина";
