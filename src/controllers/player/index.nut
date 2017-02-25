@@ -69,6 +69,10 @@ event("onServerPlayerStarted", function(playerid) {
 event("onPlayerInit", function(playerid) {
     Character.findBy({ name = getAccountName(playerid) }, function(err, characters) {
         foreach (idx, c in characters) {
+            if (DEBUG) {
+                return trigger("onPlayerCharacterSelect", playerid, c.id);
+            }
+
             trigger(playerid, "onServerCharacterLoading",
                 c.id.tostring(),
                 c.firstname, c.lastname,
@@ -80,6 +84,8 @@ event("onPlayerInit", function(playerid) {
             );
         }
     });
+
+    if (DEBUG) return;
 
     trigger(playerid, "onServerCharacterLoaded", getPlayerLocale(playerid));
     screenFadeout(playerid, 250);
