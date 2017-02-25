@@ -13,39 +13,72 @@ class Fraction extends ORM.Entity
     ];
 
     roles = null;
+    members = null;
     memberRoles = null;
     // __globalroles = null;
 
     constructor () {
-        this.memberRoles = Container(FractionRole);
-        this.roles = Container(FractionRole);
-
         base.constructor();
+
+        this.memberRoles = Container(FractionRole);
+        this.roles       = Container(FractionRole);
+        this.members     = Container(null);
     }
 
+    /**
+     * Check if player exists inside fraction
+     * @param  {Integer} playerid
+     * @return {Boolean}
+     */
     function exists(playerid) {
-        return isPlayerLoaded(playerid) && this.memberRoles.exists(players[playerid].id);
+        return ::isPlayerLoaded(playerid) && this.memberRoles.exists(players[playerid].id);
     }
 
-    function add(key, value) {
-        return this.memberRoles.add(key, value);
-    }
-
-    function get(key) {
-        if (base.get(key) != null) {
-            return base.get(key);
-        } else {
-            if (this.exists(key)) {
-                return this.memberRoles.get(key);
+    /**
+     * Adding new member to the fraction
+     * @param {Integer}  key
+     * @param {FractionRole}  value
+     * @param {Boolean} useplayerid
+     */
+    function add(key, value, useplayerid = true) {
+        if (useplayerid) {
+            if (isPlayerLoaded(key)) {
+                key = players[playerid].id;
+            } else {
+                throw "Fraction: Cannot add non-existant player!";
             }
-
-            throw null;
         }
+
+        this.memberRoles.set(key, value);
     }
 
+    /**
+     * Try to get fraction value
+     * then try to find member by key(playerid)
+     * @param  {Mixed} key
+     * @return {Mixed}
+     */
+    function get(key) {
+        if (key in this.__data) {
+            return this.__data[key];
+        }
+
+        if (this.exists(key)) {
+            return this.memberRoles.get(players[key].id);
+        }
+
+        throw null;
+    }
+
+    /**
+     * Try to set fraction value
+     * then (if not found) try to set member by playerid
+     * @param {Mixed} key
+     * @param {Mixed} value
+     */
     function set(key, value) {
         if (base.set(key, value) == null) {
-            if (this.memberRoles.add(key, value)) {
+            if (::isPlayerLoaded(key) && this.memberRoles.add(players[key].id, value)) {
                 return true;
             }
 
@@ -53,27 +86,7 @@ class Fraction extends ORM.Entity
         }
     }
 
-    // function _get(key) {
-    //     if (this.memberRoles && this.exists(key)) {
-    //         return this.memberRoles.get(players[key].id);
-    //     }
-
-    //     try {
-    //         base.get(key);
-    //     }
-    //     catch (e) {
-    //         throw null;
-    //     }
-    // }
-
-    // function _set(key, object) {
-    //     try {
-    //         base.set(key, object);
-    //     }
-    //     catch (e) {
-    //         if (isPlayerLoaded(key) && this.memberRoles) {
-    //             this.memberRoles.add(players[key].id, object);
-    //         }
-    //     }
-    // }
+    function getMembers() {
+        return this.memberRoles;
+    }
 }

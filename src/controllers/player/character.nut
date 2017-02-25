@@ -26,6 +26,7 @@ event("onPlayerCharacterLoaded", function(playerid, character) {
     // store player id for current player
     character.playerid = playerid;
     players.add(playerid, character);
+    xPlayers.add(character.id, character); // alias for quick acess
 
     // trigger init events
     trigger("onPlayerConnect", playerid);
