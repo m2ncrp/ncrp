@@ -79,7 +79,7 @@ class Container
      * @param {Object} Object
      */
     function set(key, object) {
-        if (!(object instanceof __interface)) {
+        if (this.__interface != null && !(object instanceof this.__interface)) {
             throw "Container: could not add unexpected entity."
         }
 
