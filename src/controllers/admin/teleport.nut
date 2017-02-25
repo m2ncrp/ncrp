@@ -122,7 +122,7 @@ acmd(["tp"], function(playerid, targetid, nameOrId) {
 
         local targetid = targetid.tointeger();
 
-        if(!isPlayerConnected(targetid)) return sendPlayerMessage(playerid, "Player "+getPlayerName(targetid)+" ["+targetid+"] is not on server!", 240, 240, 200);
+        if(!isPlayerConnected(targetid)) return sendPlayerMessage(playerid, "Player with id ["+targetid+"] is not on server!", 240, 240, 200);
 
         if (!isPlayerInVehicle(targetid)) {
             setPlayerPosition(targetid, item.x, item.y, item.z);
