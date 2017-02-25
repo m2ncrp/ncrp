@@ -95,7 +95,7 @@ function callJobEvent(button, playerid) {
 
     local job = getPlayerJob(playerid);
 
-    if (job == null) jobname = "0";
+    if (!job) job = "0";
 
     if (!(job in job_callbacks[button])) {
         return;
