@@ -25,11 +25,11 @@ include("controllers/player/hunger.nut");
  */
 event("onScriptInit", function() {
     // create storage for players
-    players <- PlayerContainer();
+    players  <- PlayerContainer();
+    xPlayers <- PlayerContainer(); // character cache
 
     // register aliases (for old code)
     playerList  <- players;
-    xPlayers    <- players;
 
     // create timer for player object "alive" check (not related to health in any way)
     timer(function() { players.each(function(pid) { trigger("onServerPlayerAlive", pid); }) }, 500, -1);
