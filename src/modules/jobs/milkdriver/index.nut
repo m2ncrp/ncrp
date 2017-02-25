@@ -12,7 +12,7 @@ const MILK_JOB_Y = 439.305;
 const MILK_JOB_Z = -20.1758;
 
 const MILK_JOB_SKIN = 171;
-const MILK_JOB_DISTANCE = 100;
+const MILK_JOB_DISTANCE = 35;
 const MILK_JOB_NUMBER_STATIONS = 7;
 const MILK_JOB_LEVEL = 1;
 const MILK_JOB_SALARY = 13.0;
@@ -42,6 +42,16 @@ local milkcoordsall = [
     [-1546.54, -171.372,    -19.8428,   "Steaks & Chops (Sand Island)"      ]
 ];
 
+local function showMilkLoadBlip (playerid, visible) {
+    if (job_milk[getPlayerName(playerid)]["milkloadBlip"] != null) {
+        removeBlip(job_milk[getPlayerName(playerid)]["milkloadBlip"]);
+    }
+
+    if (visible) {
+        job_milk[getPlayerName(playerid)]["milkloadBlip"] = createPrivateBlip(playerid, MILK_JOB_LOAD[0], MILK_JOB_LOAD[1], ICON_YELLOW, 4000.0 );
+    }
+}
+
 local function showLeave3dText (playerid, visible) {
     if (visible) {
         createText (playerid, "leavejob3dtext", MILK_JOB_X, MILK_JOB_Y, MILK_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), MILK_JOB_RADIUS );
@@ -53,7 +63,6 @@ local function showLeave3dText (playerid, visible) {
         removeText(playerid, "milkload3dtext");
     }
 }
-
 
 event("onServerStarted", function() {
     log("[jobs] loading milkdriver job...");
@@ -79,6 +88,7 @@ event("onPlayerConnect", function(playerid) {
         job_milk[getPlayerName(playerid)]["milkcoords"] <- [];
         job_milk[getPlayerName(playerid)]["milkstatus"] <- [false, false, false, false, false, false, false];
         job_milk[getPlayerName(playerid)]["milkcomplete"] <- 0;  // number of completed milk address. Default is 0
+        job_milk[getPlayerName(playerid)]["milkloadBlip"] <- null;
     }
 });
 
@@ -89,13 +99,16 @@ event("onPlayerPlaceEnter", function(playerid, name) {
     if(getPlayerJobState(playerid) == "working" && job_milk[getPlayerName(playerid)]["milkcomplete"] < MILK_JOB_NUMBER_STATIONS) {
         return msg( playerid, "job.milkdriver.completedelivery", MILK_JOB_COLOR );
     }
+
+    if(getPlayerJobState(playerid) != "needparking") return;
+
     local vehicleid = getPlayerVehicle(playerid);
     local vehRot = getVehicleRotation(vehicleid);
 
     if (vehRot[0] < 172 && vehRot[0] > -172 ) {
         return msg(playerid, "job.milkdriver.needcorrectpark", MILK_JOB_COLOR );
     }
-
+    setPlayerJobState(playerid, "complete");
     blockVehicle(vehicleid);
     setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
     msg(playerid, "job.milkdriver.gototakemoney", MILK_JOB_COLOR );
@@ -139,7 +152,7 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
                     msg( playerid, "job.milkdriver.milktruckloaded", milktrucks[vehicleid], MILK_JOB_COLOR );
                 } else {
                     msg( playerid, "job.milkdriver.route.now.empty", MILK_JOB_COLOR );
-                    trigger(playerid, "setGPS", MILK_JOB_LOAD[0], MILK_JOB_LOAD[1]);
+                    showMilkLoadBlip (playerid, true);
                 }
             });
         }
@@ -162,7 +175,7 @@ function createMilkJobStationMarks(playerid, data) {
     foreach (id, value in data) {
         if (job_milk[getPlayerName(playerid)]["milkstatus"][id] == false) {
             milkJobStationMarks[getPlayerName(playerid)][id] <- {
-                text1 = createPrivate3DText(playerid, value[0], value[1], value[2]+0.35, "=== PARK HERE ===", CL_RIPELEMON, MILK_JOB_DISTANCE ),
+                text1 = createPrivate3DText(playerid, value[0], value[1], value[2]+0.35, "PARK HERE", CL_RIPELEMON, MILK_JOB_DISTANCE ),
                 text2 = createPrivate3DText(playerid, value[0], value[1], value[2]+0.20, "Press E", CL_WHITE.applyAlpha(100), 5.0 ),
                 blip  = createPrivateBlip(playerid, value[0], value[1], ICON_RED, 4000.0 )
             };
@@ -352,7 +365,7 @@ function milkJobLoad ( playerid ) {
     setVehiclePartOpen(vehicleid, 1, true);
     msg( playerid, "job.milkdriver.loading", FISH_JOB_COLOR );
     trigger(playerid, "hudCreateTimer", 25.0, true, true);
-    trigger(playerid, "removeGPS");
+    showMilkLoadBlip (playerid, false);
     delayedFunction(25000, function () {
         setVehiclePartOpen(vehicleid, 1, false);
         freezePlayer( playerid, false);
@@ -413,6 +426,9 @@ function milkJobUnload ( playerid ) {
     setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
     msg( playerid, "job.milkdriver.unloading", FISH_JOB_COLOR );
     trigger(playerid, "hudCreateTimer", 10.0, true, true);
+    // remove blip on complete unload
+    removeMilkJobStationMark(playerid, i);
+
     delayedFunction(10000, function () {
         setVehiclePartOpen(vehicleid, 1, false);
         freezePlayer( playerid, false);
@@ -420,11 +436,8 @@ function milkJobUnload ( playerid ) {
         setPlayerJobState(playerid, "working");
         milktrucks[vehicleid] -= 12;
 
-        // remove blip on complete unload
-        removeMilkJobStationMark(playerid, i);
-
         if (job_milk[getPlayerName(playerid)]["milkcomplete"] == MILK_JOB_NUMBER_STATIONS) {
-            setPlayerJobState(playerid, "complete");
+            setPlayerJobState(playerid, "needparking");
             msg( playerid, "job.milkdriver.nicejob.needpark", MILK_JOB_COLOR );
             trigger(playerid, "setGPS", 170.803, 436.015);
             showLeave3dText(playerid, false);
@@ -433,7 +446,7 @@ function milkJobUnload ( playerid ) {
                 msg( playerid, "job.milkdriver.unloadingcompleted.truckloaded", milktrucks[vehicleid], MILK_JOB_COLOR );
             } else {
                 msg( playerid, "job.milkdriver.unloadingcompleted.milknotenough", MILK_JOB_COLOR );
-                trigger(playerid, "setGPS", MILK_JOB_LOAD[0], MILK_JOB_LOAD[1]);
+                showMilkLoadBlip (playerid, true);
             }
         }
     });
