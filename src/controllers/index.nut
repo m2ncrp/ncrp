@@ -26,8 +26,6 @@ include("controllers/tips");
 include("controllers/moderator");
 include("controllers/place");
 
-if (DEBUG) {
-include("controllers/property");
-include("controllers/inventory");
+// include("controllers/property");
+// include("controllers/inventory");
 include("controllers/fraction");
-}
