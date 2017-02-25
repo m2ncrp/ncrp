@@ -23,8 +23,8 @@ local drawdata = {
     money   = "",
     state   = "",
     level   = "",
-    hunger  = 25.0,
-    thirst  = 86.2,
+    hunger  = 50.0,
+    thirst  = 50.0,
     logos   = "bit.ly/tsoeb | vk.com/tsoeb",
 };
 local textures = {};
@@ -310,10 +310,10 @@ addEventHandler("onServerAddedNofitication", function(type, data) {
     notifications.push({ type = type, data = data });
 });
 
-// addEventHandler("onPlayerHungerUpdate", function(hunger, thirst) {
-//     drawdata.hunger = hunger;
-//     drawdata.thirst = thirst;
-// });
+addEventHandler("onPlayerHungerUpdate", function(hunger, thirst) {
+    drawdata.hunger = hunger;
+    drawdata.thirst = thirst;
+});
 
 addEventHandler("onServerToggleHudDrawing", function() {
     drawing = !drawing;
@@ -379,9 +379,9 @@ addEventHandler("onServerClientStarted", function(version = null) {
 
     // asd = dxLoadTexture("fine.png");
     textures["ui_hunger_green"] <- dxLoadTexture("ui_hunger_green.png");
-    textures["ui_hunger_red"]   <- dxLoadTexture("ui_hunger_red.png");
     textures["ui_thirst_green"] <- dxLoadTexture("ui_thirst_green.png");
-    textures["ui_thirst_red"]   <- dxLoadTexture("ui_thirst_red.png");
+    // textures["ui_hunger_red"]   <- dxLoadTexture("ui_hunger_red.png");
+    // textures["ui_thirst_red"]   <- dxLoadTexture("ui_thirst_red.png");
 });
 
 addEventHandler("onClientScriptInit", function() {

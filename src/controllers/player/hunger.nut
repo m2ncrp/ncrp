@@ -4,7 +4,7 @@ const PLAYER_THIRST_MODIFIER = 0.02;
 const PLAYER_HUNGER_MAX = 100.0;
 const PLAYER_THIRST_MAX = 100.0;
 
-event("onPlayerStarted", function(playerid) {
+event("onServerPlayerStarted", function(playerid) {
     trigger(playerid, "onPlayerHungerUpdate", players[playerid].hunger, players[playerid].thirst);
 });
 
@@ -27,9 +27,11 @@ event("onServerMinuteChange", function() {
  * @param {Float} level
  */
 function addPlayerHunger(playerid, level = 0.0) {
-    if (!players.has(playerid)) return;
+    if (!players.has(playerid)) return false;
     local newlevel = players[playerid].hunger + level.tofloat();
-    players[playerid].hunger = newlevel > players[playerid].hunger ? PLAYER_HUNGER_MAX : newlevel;
+    players[playerid].hunger = newlevel > PLAYER_HUNGER_MAX ? PLAYER_HUNGER_MAX : newlevel;
+    trigger(playerid, "onPlayerHungerUpdate", players[playerid].hunger, players[playerid].thirst);
+    return true;
 }
 
 /**
@@ -38,9 +40,11 @@ function addPlayerHunger(playerid, level = 0.0) {
  * @param {Float} level
  */
 function addPlayerThirst(playerid, level = 0.0) {
-    if (!players.has(playerid)) return;
+    if (!players.has(playerid)) return false;
     local newlevel = players[playerid].thirst + level.tofloat();
-    players[playerid].thirst = newlevel > players[playerid].thirst ? PLAYER_THIRST_MAX : newlevel;
+    players[playerid].thirst = newlevel > PLAYER_THIRST_MAX ? PLAYER_THIRST_MAX : newlevel;
+    trigger(playerid, "onPlayerHungerUpdate", players[playerid].hunger, players[playerid].thirst);
+    return true;
 }
 
 /**
@@ -49,9 +53,11 @@ function addPlayerThirst(playerid, level = 0.0) {
  * @param {Float} level
  */
 function subPlayerHunger(playerid, level = 0.0) {
-    if (!players.has(playerid)) return;
+    if (!players.has(playerid)) return false;
     local newlevel = players[playerid].hunger - level.tofloat();
     players[playerid].hunger = newlevel < 0.0 ? 0.0 : newlevel;
+    trigger(playerid, "onPlayerHungerUpdate", players[playerid].hunger, players[playerid].thirst);
+    return true;
 }
 
 /**
@@ -60,7 +66,9 @@ function subPlayerHunger(playerid, level = 0.0) {
  * @param {Float} level
  */
 function subPlayerThirst(playerid, level = 0.0) {
-    if (!players.has(playerid)) return;
+    if (!players.has(playerid)) return false;
     local newlevel = players[playerid].thirst - level.tofloat();
     players[playerid].thirst = newlevel < 0.0 ? 0.0 : newlevel;
+    trigger(playerid, "onPlayerHungerUpdate", players[playerid].hunger, players[playerid].thirst);
+    return true;
 }
