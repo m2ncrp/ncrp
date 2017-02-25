@@ -75,8 +75,8 @@ local translations = {
 "en|job.milkdriver.route.nohave"                       :   "[MILK] You don't have routes list."
 "ru|job.milkdriver.route.nohave"                       :   "[MILK] У вас нет маршрутного листа."
 
-"en|job.milkdriver.route.now.empty"                    :   "[MILK] The truck is empty. Load milk to truck."
-"ru|job.milkdriver.route.now.empty"                    :   "[MILK] Молоковоз пуст. Загрузите молоко."
+"en|job.milkdriver.route.now.empty"                    :   "[MILK] The truck is empty. Load milk to truck (yellow icon)."
+"ru|job.milkdriver.route.now.empty"                    :   "[MILK] Молоковоз пуст. Загрузите молоко (жёлтая метка)."
 
 "en|job.milkdriver.gototakemoney"                      :   "[MILK] Leave the milk truck and take your money."
 "ru|job.milkdriver.gototakemoney"                      :   "[MILK] Вылезай из молковоза и забирай деньги."
