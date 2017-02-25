@@ -1,5 +1,5 @@
-const PLAYER_HUNGER_MODIFIER = 0.01;
-const PLAYER_THIRST_MODIFIER = 0.02;
+const PLAYER_HUNGER_MODIFIER = 0.1;
+const PLAYER_THIRST_MODIFIER = 0.15;
 
 const PLAYER_HUNGER_MAX = 100.0;
 const PLAYER_THIRST_MAX = 100.0;
@@ -13,12 +13,27 @@ event("onServerMinuteChange", function() {
         if (player.hunger > 0.0) player.hunger -= PLAYER_HUNGER_MODIFIER;
         if (player.thirst > 0.0) player.thirst -= PLAYER_THIRST_MODIFIER;
 
-        if (player.hunger < 35.0 || player.thirst < 35.0) {
+        if (player.hunger < 25.0 || player.thirst < 25.0) {
             setPlayerHealth(playerid, getPlayerHealth(playerid) - 1.0);
+        }
+
+        if (player.hunger > 85.0 && player.thirst > 85.0 && getPlayerHealth(playerid) < 720.0) {
+            setPlayerHealth(playerid, getPlayerHealth(playerid) + 1.0);
         }
 
         trigger(playerid, "onPlayerHungerUpdate", player.hunger, player.thirst);
     }
+});
+
+event("onPlayerDeath", function(playerid) {
+    if (!isPlayerLoaded(playerid)) return;
+    players[playerid].hunger = 25.0;
+    players[playerid].thirst = 25.0;
+});
+
+acmd("aeat", function(playerid) {
+    players[playerid].hunger = 100.0;
+    players[playerid].thirst = 100.0;
 });
 
 /**
