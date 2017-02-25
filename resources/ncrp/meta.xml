@@ -36,10 +36,10 @@
     <file>lang_ru.png</file>
 
     <file>ui_hunger_green.png</file>
-    <file>ui_hunger_red.png</file>
     <file>ui_thirst_green.png</file>
+    <!-- <file>ui_hunger_red.png</file>
     <file>ui_thirst_red.png</file>
-
+§ -->
     <!-- Client inventory files -->
 
     <!-- ITEMS -->
