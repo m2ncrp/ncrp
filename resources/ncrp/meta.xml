@@ -35,6 +35,11 @@
     <file>lang_en.png</file>
     <file>lang_ru.png</file>
 
+    <file>ui_hunger_green.png</file>
+    <file>ui_hunger_red.png</file>
+    <file>ui_thirst_green.png</file>
+    <file>ui_thirst_red.png</file>
+
     <!-- Client inventory files -->
 
     <!-- ITEMS -->
@@ -72,5 +77,5 @@
  -->
     <!-- <file>shop.logo.empirediner.png</file> -->
 
-    <file>ped_tutorial1.png</file>
+    <!-- <file>ped_tutorial1.png</file> -->
 </meta>
