@@ -13,7 +13,7 @@ event("onServerMinuteChange", function() {
         if (player.hunger > 0.0) player.hunger -= PLAYER_HUNGER_MODIFIER;
         if (player.thirst > 0.0) player.thirst -= PLAYER_THIRST_MODIFIER;
 
-        if (player.hunger < 25.0 || player.thirst < 25.0) {
+        if (player.hunger < 5.0 || player.thirst < 5.0) {
             setPlayerHealth(playerid, getPlayerHealth(playerid) - 72.0);
         }
 
@@ -29,6 +29,7 @@ event("onPlayerDeath", function(playerid) {
     if (!isPlayerLoaded(playerid)) return;
     players[playerid].hunger = 25.0;
     players[playerid].thirst = 25.0;
+    trigger(playerid, "onPlayerHungerUpdate", players[playerid].hunger, players[playerid].thirst);
 });
 
 acmd("aeat", function(playerid) {
