@@ -132,5 +132,7 @@ local translations = {
 "en|job.milkdriver.help.unload"                        :   "Unload milk"
 "ru|job.milkdriver.help.unload"                        :   "Выгрузить молоко"
 
+"en|job.milkdriver.help.title"                         :   "Управление для развозчика молока:"
+"ru|job.milkdriver.help.all"                           :   "Читайте задания и используйте клавишу E для действия в процессе выполнения работы."
 }
 alternativeTranslate(translations);
