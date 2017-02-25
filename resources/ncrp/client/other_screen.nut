@@ -176,8 +176,6 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
         compute("hunger.w", get("hunger.psx") * 0.30); // width of each bar (hunger or thirst)
         compute("hunger.icon", get("hunger.psx") / 54.0);
 
-        log("ssize of icons:" + get("hunger.icon"));
-
         local radius = length / 2;
         local step   = 1.0;//0.5;
 
