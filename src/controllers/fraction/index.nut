@@ -3,10 +3,12 @@ include("controllers/fraction/classes/FractionRole.nut");
 include("controllers/fraction/classes/FractionMember.nut");
 include("controllers/fraction/classes/FractionContainer.nut");
 
+include("controllers/fraction/commands/general.nut");
 include("controllers/fraction/commands/invite.nut");
 include("controllers/fraction/commands/roles.nut");
 include("controllers/fraction/commands/members.nut");
-include("controllers/fraction/commands/general.nut");
+include("controllers/fraction/commands/vehicle.nut");
+include("controllers/fraction/commands/money.nut");
 
 fractions <- FractionContainer();
 
