@@ -130,3 +130,7 @@ cmd("f", "accept", function(playerid, invitation = -1) {
 
     invites[playerid].remove(invitation);
 });
+
+cmd("f", "cancel", function(playerid, invitation) {
+    // todo
+});
