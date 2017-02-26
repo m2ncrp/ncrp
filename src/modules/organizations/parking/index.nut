@@ -1,6 +1,6 @@
 local PARKING_COORDS = [ -1211.12, 1342.12, -1390.86, 1364.81 ];
 local PARKING_NAME = "CarPound";
-local PARKING_COST = 17.0;
+local PARKING_COST = 17.5;
 
 local parkingPlaceStatus = [];
 
