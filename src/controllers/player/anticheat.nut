@@ -47,7 +47,7 @@ vehicleSpeedLimits[47] <- [35.9, 36.7];
 vehicleSpeedLimits[50] <- [41.5, 43.0];
 vehicleSpeedLimits[51] <- [42.5, 43.5];
 vehicleSpeedLimits[52] <- [53.0, 57.0];
-vehicleSpeedLimits[53] <- [25.0, 27.0];
+vehicleSpeedLimits[53] <- [26.7, 28.5];
 
 
 //local maxspeed = 0.0;
