@@ -240,6 +240,8 @@ proxy("onPlayerCharacterCreate",    "onPlayerCharacterCreate"           );
 proxy("onPlayerCharacterSelect",    "onPlayerCharacterSelect"           );
 proxy("onClientSuccessfulyStarted", "onClientSuccessfulyStarted"        );
 proxy("onPlayerLanguageChange",     "onPlayerLanguageChange"            );
+proxy("map:onClientOpen",           "map:onClientOpen"                  );
+proxy("map:onClientClose",          "map:onClientClose"                 );
 
 // Klo's playground
 proxy("loginGUIFunction",           "loginGUIFunction"                  );

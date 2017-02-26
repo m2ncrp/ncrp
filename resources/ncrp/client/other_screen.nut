@@ -257,7 +257,6 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
 });
 
 addEventHandler("onServerFadeScreen", function(time, type) {
-    log("calling fade" + type.tostring() + " with time " + time.tostring());
     screenFade.state    = type.tostring();
     screenFade.time     = time.tofloat();
     screenFade.current  = (type == "in") ? 0 : screenFade.time.tofloat();
@@ -338,17 +337,19 @@ addEventHandler("onServerChatSlotRequested", function(slot) {
 // })
 
 addEventHandler("onClientCloseMap", function() {
-    // drawing = true;
     return 1;
 });
 
+// addEventHandler("onClientOpenMap", function() {
 bindKey("m", "down", function() {
     if (!initialized) return;
 
     if (drawing) {
         drawing = false;
         openMap();
+        triggerServerEvent("map:onClientOpen");
     } else {
+        triggerServerEvent("map:onClientClose");
         drawing = true;
     }
 
