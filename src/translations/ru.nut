@@ -107,6 +107,11 @@ translation("ru", {
     "chat.togoocEnabled"            : "Вы включили отображение ООС чата!"
     "chat.togoocDisabled"           : "Вы отключили отображение ООС чата!"
 
+    "chat.togpmEnabled"            : "Вы включили личные сообщения!"
+    "chat.togpmDisabled"           : "Вы отключили личные сообщения!"
+
+    "chat.playerTogPm"              :"Игрок отключил возможность отправлять ему личные сообщения!"
+
     "chat.player.says"              : "%s: %s"
     "chat.player.shout"             : "%s крикнул: %s"
     "chat.player.whisper"           : "%s шепчет: %s"
