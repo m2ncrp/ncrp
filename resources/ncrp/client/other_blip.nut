@@ -12,14 +12,12 @@ function onBlipTimer() {
             if (!blip.visible) {
                 blip.id = createBlip(blip.x.tofloat(), blip.y.tofloat(), blip.library, blip.icon);
                 blip.visible = true;
-                log("creaing blip");
             }
         } else {
             if (blip.visible) {
                 blip.visible = false;
                 destroyBlip(blip.id);
                 blip.id = -1;
-                log("destrorying blip");
             }
         }
     }
@@ -47,13 +45,11 @@ addEventHandler("onServerBlipDelete", function(uid) {
 
 addEventHandler("map:onServerOpen", function() {
     drawall = true;
-    log("------>opening map");
     onBlipTimer();
 });
 
 addEventHandler("map:onServerClose", function() {
     drawall = false;
-    log("------>closing map");
     onBlipTimer();
 });
 
