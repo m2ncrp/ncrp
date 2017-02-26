@@ -119,16 +119,27 @@ event("onServerPlayerStarted", function( playerid ) {
 
     if(isMilkDriver(playerid)) {
 
+        showLeave3dText (playerid, true);
+
         if (getPlayerJobState(playerid) == "working") {
-            msg( playerid, "job.milkdriver.completedelivery", MILK_JOB_COLOR );
-        } else {
-            msg( playerid, "job.milkdriver.ifyouwantstart", MILK_JOB_COLOR );
+            if ( getPlayerName(playerid) in milkJobStationMarks ) {
+                milkJobStationMarks[getPlayerName(playerid)].clear();
+            }
+            return msg( playerid, "job.milkdriver.completedelivery", MILK_JOB_COLOR );
         }
-        if (getPlayerJobState(playerid) == "wait") { setPlayerJobState(playerid, "working"); }
+        if (getPlayerJobState(playerid) == null) {
+            return msg( playerid, "job.milkdriver.ifyouwantstart", MILK_JOB_COLOR );
+        }
+        if(getPlayerJobState(playerid) == "wait") {
+            return setPlayerJobState(playerid, "working");
+        }
 
-        if ( getPlayerName(playerid) in milkJobStationMarks ) { milkJobStationMarks[getPlayerName(playerid)].clear(); }
-
-        showLeave3dText(playerid, true);
+        if (getPlayerJobState(playerid) == "needparking") {
+            msg( playerid, "job.milkdriver.nicejob.needpark", MILK_JOB_COLOR );
+            trigger(playerid, "setGPS", 170.803, 436.015);
+            showLeave3dText(playerid, false);
+            return;
+        }
     }
 });
 
