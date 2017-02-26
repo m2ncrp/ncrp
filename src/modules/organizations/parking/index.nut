@@ -89,6 +89,8 @@ event("onServerStarted", function() {
 
     createPlace(PARKING_NAME, PARKING_COORDS[0], PARKING_COORDS[1], PARKING_COORDS[2], PARKING_COORDS[3]);
 
+    createBlip  (  -1300.0, 1358.0, [ 0, 5 ], 4000.0);
+
     findBusyPlaces();
 });
 
