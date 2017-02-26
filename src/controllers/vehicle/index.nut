@@ -161,6 +161,7 @@ key(["w", "s"], function(playerid) {
 
 // handle vehicle exit
 event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
+
     // handle vehicle passangers
     removeVehiclePassenger(vehicleid, playerid, seat);
 
