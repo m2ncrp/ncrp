@@ -1,12 +1,14 @@
 local ticker = null;
 local _blip_objects = {};
 local _blip_cooldown_ticks = 0;
+local drawall = false;
 
 function onBlipTimer() {
-    foreach(blip in _blip_objects) {
+    local blip_objects = clone(_blip_objects);
+    foreach(blip in blip_objects) {
         local pos = getPlayerPosition(getLocalPlayer());
         local dist = getDistanceBetweenPoints2D(pos[0], pos[1], blip.x, blip.y);
-        if (dist <= blip.r.tofloat() || blip.r.tointeger() == -1) {
+        if (dist <= blip.r.tofloat() || blip.r.tointeger() == -1 || drawall) {
             if (!blip.visible) {
                 blip.id = createBlip(blip.x.tofloat(), blip.y.tofloat(), blip.library, blip.icon);
                 blip.visible = true;
@@ -39,6 +41,16 @@ addEventHandler("onServerBlipDelete", function(uid) {
         }
         delete _blip_objects[uid];
     }
+});
+
+addEventHandler("map:onServerOpen", function() {
+    drawall = true;
+    onBlipTimer();
+});
+
+addEventHandler("map:onServerClose", function() {
+    drawall = false;
+    onBlipTimer();
 });
 
 /**
