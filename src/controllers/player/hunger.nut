@@ -35,6 +35,7 @@ event("onPlayerDeath", function(playerid) {
 acmd("aeat", function(playerid) {
     players[playerid].hunger = 100.0;
     players[playerid].thirst = 100.0;
+    trigger(playerid, "onPlayerHungerUpdate", players[playerid].hunger, players[playerid].thirst);
 });
 
 /**
