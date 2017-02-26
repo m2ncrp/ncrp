@@ -17,6 +17,7 @@ include("controllers/player/falldown.nut");
 include("controllers/player/commands.nut");
 include("controllers/player/spawn.nut");
 include("controllers/player/bannednames.nut");
+include("controllers/player/hunger.nut");
 
 /**
  * Basic event for registraion
@@ -24,11 +25,11 @@ include("controllers/player/bannednames.nut");
  */
 event("onScriptInit", function() {
     // create storage for players
-    players <- PlayerContainer();
+    players  <- PlayerContainer();
+    xPlayers <- PlayerContainer(); // character cache
 
     // register aliases (for old code)
     playerList  <- players;
-    xPlayers    <- players;
 
     // create timer for player object "alive" check (not related to health in any way)
     timer(function() { players.each(function(pid) { trigger("onServerPlayerAlive", pid); }) }, 500, -1);
@@ -68,6 +69,10 @@ event("onServerPlayerStarted", function(playerid) {
 event("onPlayerInit", function(playerid) {
     Character.findBy({ name = getAccountName(playerid) }, function(err, characters) {
         foreach (idx, c in characters) {
+            if (DEBUG) {
+                return trigger("onPlayerCharacterSelect", playerid, c.id);
+            }
+
             trigger(playerid, "onServerCharacterLoading",
                 c.id.tostring(),
                 c.firstname, c.lastname,
@@ -79,6 +84,8 @@ event("onPlayerInit", function(playerid) {
             );
         }
     });
+
+    if (DEBUG) return;
 
     trigger(playerid, "onServerCharacterLoaded", getPlayerLocale(playerid));
     screenFadeout(playerid, 250);

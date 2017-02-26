@@ -14,11 +14,40 @@ class FractionContainer extends Container
         this.add(this.len(), element);
     }
 
+    /**
+     * Get fractions containing current player
+     * @param  {Integer} playerid
+     * @return {Array}
+     */
+    function getContaining(playerid) {
+        local fractions = [];
+
+        foreach (idx, fraction in this.getAll()) {
+            // skip aliases
+            if (idx == fraction.shortcut) continue;
+
+            if (fraction.exists(playerid)) {
+                fractions.push(fraction);
+            }
+        }
+
+        return fractions;
+    }
+
+    /**
+     * Get fractions containing current player
+     * where he is manager (role.level == 0)
+     * @param  {Integer} playerid
+     * @return {Array}
+     */
     function getManaged(playerid) {
         local fractions = [];
 
-        foreach (idx, fraction in this) {
-            if (fraction.exists(playerid) && fraction[playerid].level < 1) {
+        foreach (idx, fraction in this.getAll()) {
+            // skip aliases
+            if (idx == fraction.shortcut) continue;
+
+            if (fraction.exists(playerid) && fraction.get(playerid).level < 1) {
                 fractions.push(fraction);
             }
         }

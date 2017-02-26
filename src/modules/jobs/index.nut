@@ -1,17 +1,3 @@
-include("modules/jobs/commands.nut");
-include("modules/jobs/busdriver");
-include("modules/jobs/fueldriver");
-include("modules/jobs/taxi_new");
-include("modules/jobs/milkdriver");
-include("modules/jobs/fishdriver");
-include("modules/jobs/truckdriver");
-include("modules/jobs/telephone");
-include("modules/jobs/docker");
-include("modules/jobs/stationporter");
-// include("modules/jobs/realtor");
-include("modules/jobs/slaughterhouseworker");
-
-
 event("onServerStarted", function() {
     // nothing there anymore :C
     log("[jobs] starting...");
@@ -67,3 +53,80 @@ function removePersonalJobBlip(playerid) {
 function getLocalizedPlayerJob(playerid, forced = null) {
     return localize("job." + getPlayerJob(playerid), [], (forced) ? forced : getPlayerLocale(playerid));
 }
+
+/**
+ * New job stating algo
+ */
+
+local job_state = {};
+local job_callbacks = {};
+
+function setPlayerJobState(playerid, state) {
+    job_state[playerid] <- state;
+}
+
+function getPlayerJobState(playerid) {
+    return (playerid in job_state) ? job_state[playerid] : null;
+}
+
+function addJobEvent(button, jobname, state, callback) {
+    if (!(button in job_callbacks)) {
+        job_callbacks[button] <- {};
+    }
+
+    if (jobname == null) jobname = "0";
+    if (state == null) state = "0";
+
+    if (!(jobname in job_callbacks[button])) {
+        job_callbacks[button][jobname] <- {};
+    }
+
+    if (!(state in job_callbacks[button][jobname])) {
+        job_callbacks[button][jobname][state] <- [];
+    }
+
+    job_callbacks[button][jobname][state].push(callback);
+}
+
+function callJobEvent(button, playerid) {
+    if (!(button in job_callbacks)) {
+        return;
+    }
+
+    local job = getPlayerJob(playerid);
+
+    if (!job) job = "0";
+
+    if (!(job in job_callbacks[button])) {
+        return;
+    }
+
+    local states = job_callbacks[button][job];
+    local state  = getPlayerJobState(playerid);
+
+    if (state == null) state = "0";
+    if (!(state in states)) return;
+
+    local callbacks = states[state];
+
+    foreach (idx, callback in callbacks) {
+        callback(playerid);
+    }
+}
+
+key("e", function(playerid) { callJobEvent("e", playerid); });
+key("q", function(playerid) { callJobEvent("q", playerid); });
+key("2", function(playerid) { callJobEvent("2", playerid); });
+
+include("modules/jobs/commands.nut");
+include("modules/jobs/busdriver");
+include("modules/jobs/fueldriver");
+include("modules/jobs/taxi");
+include("modules/jobs/milkdriver");
+include("modules/jobs/fishdriver");
+include("modules/jobs/truckdriver");
+include("modules/jobs/telephone");
+include("modules/jobs/docker");
+include("modules/jobs/stationporter");
+// include("modules/jobs/realtor");
+// include("modules/jobs/slaughterhouseworker");

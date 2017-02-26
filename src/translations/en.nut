@@ -69,6 +69,11 @@ translation("en", {
     "chat.togoocEnabled"                : "You have enabled display of general chat!"
     "chat.togoocDisabled"               : "You have disabled display of general chat!"
 
+    "chat.playerTogPm"                  :"Player has disabled a private message!"
+
+    "chat.togpmEnabled"                 : "You have enabled private message!"
+    "chat.togpmDisabled"                : "You have disabled private message!"
+
     "error.title"                       : "Error!"
 
     "msg.weapons"   : "It's RolePlay server. Only gangs and mafia can have weapons."

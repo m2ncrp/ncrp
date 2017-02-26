@@ -2,7 +2,13 @@ include("controllers/fraction/classes/Fraction.nut");
 include("controllers/fraction/classes/FractionRole.nut");
 include("controllers/fraction/classes/FractionMember.nut");
 include("controllers/fraction/classes/FractionContainer.nut");
-// require("controllers/fraction/classes/FractionRoleContainer.nut");
+
+include("controllers/fraction/commands/general.nut");
+include("controllers/fraction/commands/invite.nut");
+include("controllers/fraction/commands/roles.nut");
+include("controllers/fraction/commands/members.nut");
+include("controllers/fraction/commands/vehicle.nut");
+include("controllers/fraction/commands/money.nut");
 
 fractions <- FractionContainer();
 
@@ -13,7 +19,7 @@ event("onServerStarted", function() {
         foreach (idx, fraction in results) {
             fractions.add(fraction.id, fraction);
 
-            if (fraction.shortcut) {
+            if (fraction.shortcut && fraction.shortcut != "") {
                 fractions.add(fraction.shortcut, fraction);
             }
         }
@@ -30,12 +36,14 @@ event("onServerStarted", function() {
             fractions[role.fractionid].roles.add(fractions[role.fractionid].roles.len(), role);
             // fractions[role.fractionid].__globalroles.add(role.id, role);
 
-            if (role.shortcut) {
+            if (role.shortcut && role.shortcut != "") {
                 fractions[role.fractionid].roles.add(role.shortcut, role);
             }
         }
     });
 
+    // local customFractionMember = "select m.id, m.characterid, m.fractionid, m.roleid, c.firstname, c.lastname from @FractionMember m left join @Character c on c.id = m.characterid";
+    // ORM.Query(customFractionMember).getResult(function(err, results) {
     FractionMember.findAll(function(err, results) {
         foreach (idx, member in results) {
             if (!fractions.exists(member.fractionid)) {
@@ -49,7 +57,7 @@ event("onServerStarted", function() {
             }
 
             // fractions[member.fractionid].add(member.characterid, fractions[member.fractionid].__globalroles[member.roleid]);
-            fractions[member.fractionid].add(member.characterid, __globalroles[member.roleid]);
+            fractions[member.fractionid].memberRoles.set(member.characterid, __globalroles[member.roleid]);
         }
     });
 
@@ -115,43 +123,20 @@ event("onServerStarted", function() {
 
 });
 
-cmd("f", "roles", function(playerid) {
-    local fracs = fractions.getManaged(playerid);
+// cmd("tune", function(playerid, level) {
+//     if (!isPlayerInVehicle(playerid)) {
+//         return;
+//     }
 
-    if (!fracs.len()) {
-        return msg(playerid, "You are not fraction admin.", CL_WARNING);
-    }
+//     if (!fractions["brio"].exists(playerid)) {
+//         return;
+//     }
 
-    // for now take the first one
-    local fraction = fracs[0];
+//     local role = fractions["brio"][playerid];
 
-    msg(playerid, "List of roles in %s:", fraction.title, CL_INFO);
+//     if (role.level > 3) {
+//         return;
+//     }
 
-    foreach (idx, role in fraction.roles) {
-        local string = format("#%d, Title: %s, Level: %s", idx, role.title, role.level);
-        msg(playerid, string);
-        dbg(string);
-    }
-})
-
-cmd("f", "invite", function(playerid, invitee, rolenum) {
-
-});
-
-cmd("tune", function(playerid, level) {
-    if (!isPlayerInVehicle(playerid)) {
-        return;
-    }
-
-    if (!fractions["brio"].exists(playerid)) {
-        return;
-    }
-
-    local role = fractions["brio"][playerid];
-
-    if (role.level > 3) {
-        return;
-    }
-
-    // setVehicleTuningTable
-});
+//     // setVehicleTuningTable
+// });

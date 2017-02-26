@@ -1,6 +1,6 @@
 local PARKING_COORDS = [ -1211.12, 1342.12, -1390.86, 1364.81 ];
 local PARKING_NAME = "CarPound";
-local PARKING_COST = 17.0;
+local PARKING_COST = 17.5;
 
 local parkingPlaceStatus = [];
 
@@ -88,6 +88,8 @@ event("onServerStarted", function() {
     // POLICE_MANAGER = OfficerManager();
 
     createPlace(PARKING_NAME, PARKING_COORDS[0], PARKING_COORDS[1], PARKING_COORDS[2], PARKING_COORDS[3]);
+
+    createBlip  (  -1300.0, 1358.0, [ 0, 5 ], 4000.0);
 
     findBusyPlaces();
 });

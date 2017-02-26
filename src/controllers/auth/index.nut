@@ -76,6 +76,8 @@ event("onClientSuccessfulyStarted", function(playerid) {
 
             dbg("kick", "invalid unsername", getIdentity(playerid));
 
+            trigger(playerid, "onServerChatTrigger");
+
             return delayedFunction(12000, function () {
                 kickPlayer( playerid );
             });
@@ -102,6 +104,8 @@ event("onClientSuccessfulyStarted", function(playerid) {
                     for (local i = 0; i < 14; i++) {
                         msg(playerid, "");
                     }
+
+                    trigger(playerid, "onServerChatTrigger");
 
                     msg(playerid, "[SERVER] You are banned from the server for: " + result.reason, CL_RED);
                     msg(playerid, "[SERVER] Try connecting again later."    );

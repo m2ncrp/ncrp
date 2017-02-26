@@ -11,6 +11,7 @@ if ((screenX / screenY) > 2.0) {
 
 screen = [screenX, screenY];
 
+local baseScale = screenX / 1600.0;
 local drawing = true;
 local ticker = null;
 local microticker = null;
@@ -22,8 +23,11 @@ local drawdata = {
     money   = "",
     state   = "",
     level   = "",
+    hunger  = 50.0,
+    thirst  = 50.0,
     logos   = "bit.ly/tsoeb | vk.com/tsoeb",
 };
+local textures = {};
 local initialized = false;
 local datastore = {};
 local lines     = [];
@@ -159,6 +163,19 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
         compute("borders.y",    screenY - height);
         compute("borders.cx",   screenX - (length / 2) - (screenX / ROUND_TO_RIGHT_RATIO));
 
+        compute("hunger.x", get("borders.x") + get("roundy.width"));
+        compute("hunger.y", get("borders.y") - get("roundy.width"));
+        compute("hunger.size.x", screenX - get("hunger.x"));
+        compute("hunger.size.y", screenY - get("hunger.y"));
+
+        compute("hunger.px", get("hunger.x") + 32.0 * baseScale);
+        compute("hunger.py", get("hunger.y") + 74.0 * baseScale);
+        compute("hunger.psx", get("hunger.size.x") - 32.0 * baseScale * 2.0 + 1.0);
+        compute("hunger.psy", get("hunger.size.y") - 50.0 * baseScale * 2.0);
+
+        compute("hunger.w", get("hunger.psx") * 0.30); // width of each bar (hunger or thirst)
+        compute("hunger.icon", get("hunger.psx") / 54.0);
+
         local radius = length / 2;
         local step   = 1.0;//0.5;
 
@@ -193,6 +210,27 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
     // draw level
     // dxDrawText( drawdata.level, get("borders.x") + 11.0, get("borders.y") + offset2 + 21.0, 0xFFA1A1A1, false, "tahoma-bold", 1.0 );
 
+    /**
+     * Hunger and thirst
+     */
+
+    // debug stuff
+    // dxDrawRectangle(get("hunger.x"), get("hunger.y"), get("hunger.size.x"), get("hunger.size.y"), 0x99FFFFFF);
+    // dxDrawRectangle(get("hunger.px"), get("hunger.py"), get("hunger.psx"), get("hunger.psy"), 0x99FFFFFF);
+
+    local hungerY  = (drawdata.hunger / 100.0) * get("hunger.psy");
+    local thirstY = (drawdata.thirst / 100.0) * get("hunger.psy");
+
+    // draw hunger                         >>x<<                                                   >>y<<                                          >>w<<                     >>h<<             color
+    dxDrawRectangle( get("hunger.px") - 1.0,                                            get("hunger.py") - 1.0,                             get("hunger.w") + 2.0,      get("hunger.psy"),  0xA1000000);
+    dxDrawRectangle( get("hunger.px"),                                                  get("hunger.py") + get("hunger.psy") - hungerY,     get("hunger.w"),            hungerY,            0xFF569267);
+    // draw thirst
+    dxDrawRectangle( get("hunger.px") + get("hunger.psx") - get("hunger.w") - 1.0,      get("hunger.py") - 1.0,                             get("hunger.w") + 2.0,      get("hunger.psy"),  0xA1000000);
+    dxDrawRectangle( get("hunger.px") + get("hunger.psx") - get("hunger.w"),            get("hunger.py") + get("hunger.psy") - thirstY,     get("hunger.w"),            thirstY,            0xFF569267);
+
+    // draw icons
+    dxDrawTexture( textures.ui_hunger_green, get("hunger.px") + get("hunger.w") * 0.5,                              get("hunger.py") + get("hunger.psy"),   get("hunger.icon"),  get("hunger.icon"), 0.5, 0.5, 0.0, 255);
+    dxDrawTexture( textures.ui_thirst_green, get("hunger.px") + get("hunger.psx") - get("hunger.w") * 0.5 + 1.0,    get("hunger.py") + get("hunger.psy"),   get("hunger.icon"),  get("hunger.icon"), 0.5, 0.5, 0.0, 255);
 
     /**
      * Bottom left corner
@@ -219,7 +257,6 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
 });
 
 addEventHandler("onServerFadeScreen", function(time, type) {
-    log("calling fade" + type.tostring() + " with time " + time.tostring());
     screenFade.state    = type.tostring();
     screenFade.time     = time.tofloat();
     screenFade.current  = (type == "in") ? 0 : screenFade.time.tofloat();
@@ -270,6 +307,11 @@ addEventHandler("onServerAddedNofitication", function(type, data) {
     notifications.push({ type = type, data = data });
 });
 
+addEventHandler("onPlayerHungerUpdate", function(hunger, thirst) {
+    drawdata.hunger = hunger;
+    drawdata.thirst = thirst;
+});
+
 addEventHandler("onServerToggleHudDrawing", function() {
     drawing = !drawing;
 });
@@ -295,17 +337,19 @@ addEventHandler("onServerChatSlotRequested", function(slot) {
 // })
 
 addEventHandler("onClientCloseMap", function() {
-    // drawing = true;
     return 1;
 });
 
+// addEventHandler("onClientOpenMap", function() {
 bindKey("m", "down", function() {
     if (!initialized) return;
 
     if (drawing) {
         drawing = false;
         openMap();
+        triggerServerEvent("map:onClientOpen");
     } else {
+        triggerServerEvent("map:onClientClose");
         drawing = true;
     }
 
@@ -333,6 +377,10 @@ addEventHandler("onServerClientStarted", function(version = null) {
     initialized = true;
 
     // asd = dxLoadTexture("fine.png");
+    textures["ui_hunger_green"] <- dxLoadTexture("ui_hunger_green.png");
+    textures["ui_thirst_green"] <- dxLoadTexture("ui_thirst_green.png");
+    // textures["ui_hunger_red"]   <- dxLoadTexture("ui_hunger_red.png");
+    // textures["ui_thirst_red"]   <- dxLoadTexture("ui_thirst_red.png");
 });
 
 addEventHandler("onClientScriptInit", function() {

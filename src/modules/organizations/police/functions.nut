@@ -364,7 +364,7 @@ function baton( playerid ) {
                 setPlayerToggle( targetid, true );
                 setPlayerState(targetid, "tased");
                 local health_dmg = random(1,10);
-                local health = getPlayerHealth();
+                local health = getPlayerHealth(targetid);
                 setPlayerHealth(targetid, health - health_dmg);
             }
             screenFadeinFadeout(targetid, 1500, function() {
