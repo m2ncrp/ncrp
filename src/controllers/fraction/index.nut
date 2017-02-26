@@ -6,6 +6,7 @@ include("controllers/fraction/classes/FractionContainer.nut");
 include("controllers/fraction/commands/invite.nut");
 include("controllers/fraction/commands/roles.nut");
 include("controllers/fraction/commands/members.nut");
+include("controllers/fraction/commands/general.nut");
 
 fractions <- FractionContainer();
 
@@ -54,7 +55,7 @@ event("onServerStarted", function() {
             }
 
             // fractions[member.fractionid].add(member.characterid, fractions[member.fractionid].__globalroles[member.roleid]);
-            fractions[member.fractionid].add(member.characterid, __globalroles[member.roleid], false);
+            fractions[member.fractionid].memberRoles.set(member.characterid, __globalroles[member.roleid]);
         }
     });
 

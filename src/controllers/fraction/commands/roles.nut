@@ -14,6 +14,6 @@ cmd("f", "roles", function(playerid) {
         // skip duplicates for shortcuts
         if (idx == role.shortcut) continue;
 
-        msg(playerid, format("#%d, Title: %s, Level: %d", idx, role.title, role.level));
+        msg(playerid, format("#%d, Title: %s, Level: %d, Salary: %.2f", idx, role.title, role.level, role.salary));
     }
 });
