@@ -162,7 +162,15 @@ class ORM.Entity {
      * @param {mixed} value
      */
     function _set(name, value) {
-        return this.set(name, value);
+        if (!name in this.__data) {
+            throw null;
+        }
+
+        // set new data and mark as modified
+        if (this.__data[name] != value) {
+            this.__data[name] = value;
+            this.__modified.push(name);
+        }
     }
 
     /**
@@ -181,15 +189,7 @@ class ORM.Entity {
      * @param {mixed} value
      */
     function set(name, value) {
-        if (!name in this.__data) {
-            throw null;
-        }
-
-        // set new data and mark as modified
-        if (this.__data[name] != value) {
-            this.__data[name] = value;
-            this.__modified.push(name);
-        }
+        this[name] = value;
     }
 
     /**
@@ -241,6 +241,7 @@ class ORM.Entity {
 
         // entity came from storage
         entity.__persisted = true;
+        entity.hydrated();
 
         return entity;
     }
@@ -407,6 +408,10 @@ class ORM.Entity {
 
     function _serialize() {
         return this.export();
+    }
+
+    function hydrated() {
+
     }
 
     function clean() {

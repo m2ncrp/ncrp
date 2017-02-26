@@ -1,4 +1,3 @@
-
 local __blips = {};
 local __blip__autoincrement = 0;
 
@@ -90,3 +89,11 @@ function removeBlip(blipid) {
     return true;
 }
 
+
+event("map:onClientOpen", function(playerid) {
+    trigger(playerid, "map:onServerOpen");
+});
+
+event("map:onClientClose", function(playerid) {
+    trigger(playerid, "map:onServerClose");
+});

@@ -27,6 +27,11 @@ event("onPlayerCharacterLoaded", function(playerid, character) {
     character.playerid = playerid;
     players.add(playerid, character);
 
+    // cache player character
+    if (!xPlayers.has(character.id)) {
+        xPlayers.add(character.id, character);
+    }
+
     // trigger init events
     trigger("onPlayerConnect", playerid);
     trigger("native:onPlayerSpawn", playerid); // ?? move to later

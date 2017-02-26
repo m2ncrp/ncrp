@@ -267,7 +267,7 @@ cmd(["ticket"], function(playerid, target, reason) {
 key(["g"], function(playerid) {
     local targetid = playerList.nearestPlayer( playerid );
 
-    if ( isPlayerInVehicle(playerid) || isPlayerInVehicle(playerid) ) {
+    if ( isPlayerInVehicle(playerid) || isPlayerInVehicle(targetid) ) {
         return;
     }
     if ( !isOfficer(playerid) || isOfficer(targetid) ) {

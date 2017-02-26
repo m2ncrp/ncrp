@@ -73,18 +73,18 @@ function newmute(...) {
     local mutetime = time*60;
     Mute( getAccountName(playerid), getAccountName(targetid), getPlayerSerial(targetid), mutetime, reason).save();
 
-    msga(format("[Player %s has been muted by admin %s on %d minutes. Reason: %s]", getPlayerName(targetid),getAccountName(playerid), time, reason), CL_RED)
+    msga(format("[Player %s has been muted on %d minutes. Reason:%s]", getPlayerName(targetid), time, reason), CL_RED);
 
     setPlayerMuted(targetid, true);
-    msg(targetid, format("[SERVER] You has been muted on: %d minutes, for: %s.", time, reason), CL_RED);
-    msg(playerid, format("You've muted %s on: %d minutes, for: %s.", getPlayerName(targetid), time, reason), CL_SUCCESS);
+    msg(targetid, format("[SERVER] You has been muted on: %d minutes for:%s.", time, reason), CL_RED);
+    msg(playerid, format("You've muted %s on: %d minutes for:%s.", getPlayerName(targetid), time, reason), CL_SUCCESS);
     dbg("admin", "muted", getAuthor(targetid), time);
 
     // unmute
     return delayedFunction(time * 60000, function() {
         if (isPlayerMuted(targetid)) {
             setPlayerMuted(targetid, false);
-            msg(targetid, "[SERVER] You has been unmuted", CL_INFO);
+            msg(targetid, "[SERVER] You has been unmuted.", CL_INFO);
             dbg("admin", "unmuted", getAuthor(targetid), time);
         }
     });
@@ -160,12 +160,13 @@ function newban(...) {
         msg(targetid, "");
     }
 
-    msga(format("[Player %s has been banned by admin %s on %d minutes.Reason: %s]", getPlayerName(targetid),getAccountName(playerid), time, reason), CL_RED);
+    msga(format("[Player %s has been banned on %d minutes. Reason:%s]", getPlayerName(targetid), time, reason), CL_RED);
 
-    msg(targetid, format("[SERVER] You has been banned on: %d min. for: %s.", time, reason), CL_RED);
+    msg(targetid, format("[SERVER] You has been banned on: %d min.", time), CL_RED);
+    msg(targetid, format("Reason:%s.", reason), CL_RED);
     msg(playerid, format("You've banned %s for: %s on %d min.", getPlayerName(targetid), reason, time), CL_SUCCESS);
 
-    delayedFunction(5000, function () {
+    delayedFunction(6000, function () {
         kickPlayer( targetid );
         dbg("admin", "kicked", getAuthor(targetid), "banned");
     });
@@ -244,6 +245,104 @@ function handleAdminInput(data) {
     data.insert(1, -1);
     callback.acall(data);
 }
+
+/**
+ * Add warn to player
+ * Usage:
+ *     /warn targetid
+ * EG:
+ * /warn 3 (add 1 warn to player with id 3)
+ */
+function warnUp(playerid, targetid = null) {
+    if(targetid == null) return msg(playerid, "USE: /warn targetid");
+    local targetid = targetid.tointeger();
+    local account = getAccount(targetid);
+    account.warns = account.warns + 1;
+
+    msg(targetid, "admin.warn.hasbeenincreased", CL_RED);
+    msg(targetid, "admin.warn.info", [ account.warns ], CL_RED);
+    msg(playerid, "admin.warn.increased", [ getPlayerName(targetid), account.warns], CL_SUCCESS );
+
+    if (account.warns >= 3) {
+        freezePlayer(targetid, true);
+        delayedFunction(2000, function () {
+            newban(playerid, targetid, 4320, "Achieved success: 3 of 3 warns. Congratulations!");
+        });
+        account.warns = 0;
+        account.save();
+        return;
+    }
+    account.save();
+}
+acmd("warn", warnUp);
+
+/**
+ * Remove warn from player
+ * Usage:
+ *     /unwarn targetid
+ * EG:
+ * /unwarn 3 (remove 1 warn from player with id 3)
+ */
+function warnDown(playerid, targetid = null) {
+    if(targetid == null) return msg(playerid, "USE: /unwarn targetid");
+    local targetid = targetid.tointeger();
+    local account = getAccount(targetid);
+    if (account.warns == 0) {
+        return msg(playerid, "admin.warn.minimumlevel", [ getPlayerName(targetid) ], CL_SUCCESS);
+    }
+    account.warns = account.warns - 1;
+    account.save();
+
+    msg(targetid, "admin.warn.hasbeendecreased", CL_RED);
+    msg(targetid, "admin.warn.info", [ account.warns ], CL_RED);
+    msg(playerid, "admin.warn.decreased", [ getPlayerName(targetid), account.warns], CL_SUCCESS );
+}
+acmd("unwarn", warnDown);
+
+function warnGet(playerid, targetid = null) {
+    if(targetid == null) return msg(playerid, "USE: /getwarn targetid");
+    local targetid = targetid.tointeger();
+    local account = getAccount(targetid);
+    if (account.warns == 0) {
+        return msg(playerid, "admin.warn.minimumlevel", [ getPlayerName(targetid) ], CL_SUCCESS);
+    }
+    msg(playerid, "admin.warn.get", [ getPlayerName(targetid), account.warns], CL_SUCCESS );
+}
+acmd("getwarn", warnGet);
+
+local translations = {
+
+    "en|admin.warn.increased"               :   "You increased warn-level for player %s. Now: %d."
+    "ru|admin.warn.increased"               :   "Вы выдали предупреждение игроку %s. Всего: %d."
+
+    "en|admin.warn.hasbeenincreased"        :   "[ADMIN] Your warn-level has been increased."
+    "ru|admin.warn.hasbeenincreased"        :   "[ADMIN] Вам выдано предупреждение."
+
+    "en|admin.warn.decreased"               :   "You decreased warn-level for player %s. Now: %d."
+    "ru|admin.warn.decreased"               :   "Вы сняли предупреждение с игрока %s. Всего: %d."
+
+    "en|admin.warn.hasbeendecreased"        :   "[ADMIN] Your warn-level has been decreased."
+    "ru|admin.warn.hasbeendecreased"        :   "[ADMIN] С вас снято одно предупреждение."
+
+    "en|admin.warn.info"                    :   "You have %d from 3 warns-level. Level 3 = ban."
+    "ru|admin.warn.info"                    :   "У вас %d из 3 предупреждений. 3 предупреждения = бан."
+
+    "en|admin.warn.minimumlevel"            :   "Player %s have minimum warn-level."
+    "ru|admin.warn.minimumlevel"            :   "У игрока %s нет предупреждений."
+
+    "en|admin.warn.get"                     :   "Player %s have %d warn-level."
+    "ru|admin.warn.get"                     :   "У игрока %s предупреждений: %d."
+/*
+    "en|admin.warn.msga.playerreceived"     :   "Player %s received a warning."
+    "ru|admin.warn.msga.playerreceived"     :   "Игрок %s получил одно предупреждение."
+
+    "en|admin.warn.msga.removefromplayer"   :   "Warning removed from player %s."
+    "ru|admin.warn.msga.removefromplayer"   :   "С игрока %s снято одно предупреждение"
+*/
+}
+
+alternativeTranslate(translations);
+
 
 /**
  * Ban player

@@ -17,63 +17,149 @@ class Fraction extends ORM.Entity
     // __globalroles = null;
 
     constructor () {
-        this.memberRoles = Container(FractionRole);
-        this.roles = Container(FractionRole);
-
         base.constructor();
+
+        this.memberRoles = Container(FractionRole);
+        this.roles       = Container(FractionRole);
     }
 
+    /**
+     * Check if player exists inside fraction
+     * @param  {Integer} playerid
+     * @return {Boolean}
+     */
     function exists(playerid) {
-        return isPlayerLoaded(playerid) && this.memberRoles.exists(players[playerid].id);
+        return ::isPlayerLoaded(playerid) && this.memberRoles.exists(players[playerid].id);
     }
 
-    function add(key, value) {
-        return this.memberRoles.add(key, value);
-    }
-
-    function get(key) {
-        if (base.get(key) != null) {
-            return base.get(key);
-        } else {
-            if (this.exists(key)) {
-                return this.memberRoles.get(key);
+    /**
+     * Adding new member to the fraction
+     * or setting role for existant one
+     * @param {Integer}  key
+     * @param {FractionRole|Mixed} role
+     * @param {Boolean} useplayerid (use player id or character id)
+     */
+    function set(key, role, useplayerid = true) {
+        if (useplayerid) {
+            if (isPlayerLoaded(key)) {
+                key = players[key].id;
+            } else {
+                throw "Fraction: Cannot add non-existant player!";
             }
-
-            throw null;
         }
+
+        if (!(role instanceof FractionRole)) {
+            if (roles.has(role)) {
+                role = roles[role];
+            } else {
+                throw "Fraction: Cannot add member with non-existant role";
+            }
+        }
+
+        local object;
+
+        if (!this.memberRoles.has(key)) {
+            object = FractionMember();
+            object.created = getTimestamp();
+            object.fractionid = this.id;
+            object.characterid = key;
+        } else {
+            object = this.memberRoles.get(key);
+
+            // check if we already have this role
+            if (object.id == role.id) {
+                return false;
+            }
+        }
+
+        object.roleid = role.id;
+        object.save();
+
+        this.memberRoles.set(key, role);
+        return true;
     }
 
-    function set(key, value) {
-        if (base.set(key, value) == null) {
-            if (this.memberRoles.add(key, value)) {
+    /**
+     * Alias for set
+     */
+    function add(key, role, useplayerid = true) {
+        return this.set(key, role, useplayerid);
+    }
+
+    function len() {
+        return this.memberRoles.len();
+    }
+
+    /**
+     * Remove player from fraction
+     * @param  {Integer} key
+     * @param  {Boolean} useplayerid (use player id or character id)
+     */
+    function remove(key = 0, useplayerid = true) {
+        if (useplayerid) {
+            if (isPlayerLoaded(key)) {
+                key = players[key].id;
+            } else {
+                throw "Fraction: Cannot remove non-existant player!";
+            }
+        }
+
+        if (!this.memberRoles.has(key)) {
+            throw "Fraction: Cannot remove non-member from fraction!";
+        }
+
+        ORM.Query("delete from @FractionMember where fractionid = :fid and characterid = :cid")
+            .setParameter("fid", this.id)
+            .setParameter("cid", key)
+            .execute();
+
+        this.memberRoles.remove(key);
+    }
+
+    function hasRole(role) {
+        if (!(role instanceof FractionRole)) {
+            if (roles.has(role)) {
+                role = roles[role];
+            } else {
+                throw "Fraction: Cannot check non-existant role";
+            }
+        }
+
+        foreach (idx, value in this.roles) {
+            if (value.id == role.id) {
                 return true;
             }
-
-            throw null;
         }
+
+        return false;
     }
 
-    // function _get(key) {
-    //     if (this.memberRoles && this.exists(key)) {
-    //         return this.memberRoles.get(players[key].id);
-    //     }
+    /**
+     * Remove fraction
+     */
+    function removeFraction() {
+        base.remove();
+    }
 
-    //     try {
-    //         base.get(key);
-    //     }
-    //     catch (e) {
-    //         throw null;
-    //     }
-    // }
+    /**
+     * Try to get fraction value
+     * then try to find member by key(playerid)
+     * @param  {Mixed} key
+     * @return {Mixed}
+     */
+    function get(key) {
+        if (key in this.__data) {
+            return this.__data[key];
+        }
 
-    // function _set(key, object) {
-    //     try {
-    //         base.set(key, object);
-    //     }
-    //     catch (e) {
-    //         if (isPlayerLoaded(key) && this.memberRoles) {
-    //             this.memberRoles.add(players[key].id, object);
-    //         }
-    //     }
-    // }
+        if (this.exists(key)) {
+            return this.memberRoles.get(players[key].id);
+        }
+
+        throw null;
+    }
+
+    function getMembers() {
+        return this.memberRoles;
+    }
 }

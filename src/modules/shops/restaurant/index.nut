@@ -1,7 +1,7 @@
 include("modules/shops/restaurant/commands.nut");
 
 const EAT_COST = 0.25;
-const DRINK_COST = 0.1;
+const DRINK_COST = 0.10;
 const MAX_HEALTH = 800.0;
 
 translation("en", {
@@ -22,7 +22,8 @@ function onEating(playerid) {
     subMoneyToPlayer(playerid, EAT_COST);
     addMoneyToTreasury(EAT_COST);
     msg(playerid, "shops.restaurant.diner.eat.success", [EAT_COST], CL_SUCCESS);
-    return setPlayerHealth(playerid, MAX_HEALTH);
+    // return setPlayerHealth(playerid, MAX_HEALTH);
+    addPlayerHunger(playerid, 15.0);
 }
 
 function eat(playerid) {
@@ -47,7 +48,8 @@ function onDrinking(playerid) {
     subMoneyToPlayer(playerid, DRINK_COST);
     addMoneyToTreasury(DRINK_COST);
     msg(playerid, "shops.restaurant.bar.drink.success", [DRINK_COST], CL_SUCCESS);
-    return setPlayerHealth(playerid, MAX_HEALTH);
+    // setPlayerHealth(playerid, MAX_HEALTH);
+    addPlayerThirst(playerid, 15.0);
 }
 
 function drink(playerid) {
@@ -56,7 +58,7 @@ function drink(playerid) {
         if (canMoneyBeSubstracted(playerid, DRINK_COST)) {
             return onDrinking(playerid);
         }
-        return msg(playerid, "shops.restaurant.money.notenough"); // !        
+        return msg(playerid, "shops.restaurant.money.notenough"); // !
     } else {
         return msg(playerid, "shops.restaurant.toofar");
     }

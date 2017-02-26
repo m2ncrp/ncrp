@@ -9,10 +9,7 @@ function blockVehicle(vehicleid) {
     setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
     setVehicleEngineState(vehicleid, false);
     setVehicleFuel(vehicleid, 0.0, true);
-
-    if (!(vehicleid in blockedVehicles)) {
-        blockedVehicles[vehicleid] <- true;
-    }
+    blockedVehicles[vehicleid] <- true;
 
     return true;
 }
