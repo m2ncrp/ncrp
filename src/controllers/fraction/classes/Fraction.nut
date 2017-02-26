@@ -13,7 +13,6 @@ class Fraction extends ORM.Entity
     ];
 
     roles = null;
-    members = null;
     memberRoles = null;
     // __globalroles = null;
 
@@ -22,7 +21,6 @@ class Fraction extends ORM.Entity
 
         this.memberRoles = Container(FractionRole);
         this.roles       = Container(FractionRole);
-        this.members     = Container(null);
     }
 
     /**
@@ -36,20 +34,89 @@ class Fraction extends ORM.Entity
 
     /**
      * Adding new member to the fraction
+     * or setting role for existant one
      * @param {Integer}  key
-     * @param {FractionRole}  value
-     * @param {Boolean} useplayerid
+     * @param {FractionRole|Mixed} role
+     * @param {Boolean} useplayerid (use player id or character id)
      */
-    function add(key, value, useplayerid = true) {
+    function set(key, role, useplayerid = true) {
         if (useplayerid) {
             if (isPlayerLoaded(key)) {
-                key = players[playerid].id;
+                key = players[key].id;
             } else {
                 throw "Fraction: Cannot add non-existant player!";
             }
         }
 
-        this.memberRoles.set(key, value);
+        if (!(role instanceof FractionRole)) {
+            if (roles.has(role)) {
+                role = roles[role];
+            } else {
+                throw "Fraction: Cannot add member with non-existant role";
+            }
+        }
+
+        local object;
+
+        if (!this.memberRoles.has(key)) {
+            object = FractionMember();
+            object.created = getTimestamp();
+            object.fractionid = this.id;
+            object.characterid = key;
+        } else {
+            object = this.memberRoles.get(key);
+
+            // check if we already have this role
+            if (object.id == role.id) {
+                return false;
+            }
+        }
+
+        object.roleid = role.id;
+        object.save();
+
+        this.memberRoles.set(key, role);
+        return true;
+    }
+
+    /**
+     * Alias for set
+     */
+    function add(key, role, useplayerid = true) {
+        return this.set(key, role, useplayerid);
+    }
+
+    /**
+     * Remove player from fraction
+     * @param  {Integer} key
+     * @param  {Boolean} useplayerid (use player id or character id)
+     */
+    function remove(key = 0, useplayerid = true) {
+        if (useplayerid) {
+            if (isPlayerLoaded(key)) {
+                key = players[key].id;
+            } else {
+                throw "Fraction: Cannot remove non-existant player!";
+            }
+        }
+
+        if (!this.memberRoles.has(key)) {
+            throw "Fraction: Cannot remove non-member from fraction!";
+        }
+
+        ORM.Query("delete from @FractionMember where fractionid = :fid and characterid = :cid")
+            .setParameter("fid", this.id)
+            .setParameter("cid", key)
+            .execute();
+
+        this.memberRoles.remove(key);
+    }
+
+    /**
+     * Remove fraction
+     */
+    function removeFraction() {
+        base.remove();
     }
 
     /**
@@ -68,22 +135,6 @@ class Fraction extends ORM.Entity
         }
 
         throw null;
-    }
-
-    /**
-     * Try to set fraction value
-     * then (if not found) try to set member by playerid
-     * @param {Mixed} key
-     * @param {Mixed} value
-     */
-    function set(key, value) {
-        if (base.set(key, value) == null) {
-            if (::isPlayerLoaded(key) && this.memberRoles.add(players[key].id, value)) {
-                return true;
-            }
-
-            throw null;
-        }
     }
 
     function getMembers() {

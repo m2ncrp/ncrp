@@ -214,3 +214,9 @@ migrate(function(query, type) {
     query("ALTER TABLE tbl_characters ADD COLUMN `thirst` FLOAT NOT NULL DEFAULT 100.0;");
 });
 
+// 26.02.2017
+// added fraction role salary
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_fraction_role ADD COLUMN `salary` FLOAT NOT NULL DEFAULT 0.0;");
+});
+
