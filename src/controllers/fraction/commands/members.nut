@@ -34,3 +34,15 @@ cmd("f", "list", function(playerid) {
         // dbg(string);
     }
 });
+
+cmd("f", "leave", function(playerid) {
+    // todo ?
+});
+
+cmd("f", "kick", function(playerid) {
+    // todo!
+});
+
+cmd("f", "setrole", function(playerid, targetid, role) {
+
+});
