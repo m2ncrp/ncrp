@@ -28,7 +28,7 @@ cmd("f", "invite", function(playerid, targetid = -1, rolenum = -1) {
     rolenum = rolenum.tointeger();
 
     if (!fracs.len()) {
-        return msg(playerid, "You dont have permission to invite players to this fraction", CL_WARNING);
+        return msg(playerid, "You cannot invite players into fraction", CL_WARNING);
     }
 
     // for now take the first one
