@@ -86,6 +86,10 @@ class Fraction extends ORM.Entity
         return this.set(key, role, useplayerid);
     }
 
+    function len() {
+        return this.memberRoles.len();
+    }
+
     /**
      * Remove player from fraction
      * @param  {Integer} key
@@ -110,6 +114,24 @@ class Fraction extends ORM.Entity
             .execute();
 
         this.memberRoles.remove(key);
+    }
+
+    function hasRole(role) {
+        if (!(role instanceof FractionRole)) {
+            if (roles.has(role)) {
+                role = roles[role];
+            } else {
+                throw "Fraction: Cannot check non-existant role";
+            }
+        }
+
+        foreach (idx, value in this.roles) {
+            if (value.id == role.id) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

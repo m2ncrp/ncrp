@@ -8,10 +8,10 @@ local invites = {};
 local function clearInvitations(playerid) {
     if (!(playerid in invites)) return;
 
-    local cinvites = clone(invites);
+    local cinvites = clone(invites[playerid]);
 
     foreach (idx, value in cinvites) {
-        if (value.crated + INVITATION_TIMEOUT < getTimestamp()) {
+        if (value.created + INVITATION_TIMEOUT < getTimestamp()) {
             invites.remove(idx);
         }
     }
@@ -25,6 +25,7 @@ local function clearInvitations(playerid) {
  */
 cmd("f", "invite", function(playerid, targetid = -1, rolenum = -1) {
     local fracs = fractions.getManaged(playerid);
+    rolenum = rolenum.tointeger();
 
     if (!fracs.len()) {
         return msg(playerid, "You dont have permission to invite players to this fraction", CL_WARNING);
@@ -81,12 +82,16 @@ cmd("f", "invites", function (playerid) {
 
     msg(playerid, "Here is list of your current fraction invitations:", CL_INFO);
 
-    foreach (idx, invite in invites) {
+    foreach (idx, invite in invites[playerid]) {
         msg(playerid, format("#%d Fraction: %s, Role: %s, By: %s. To accept: /f accept %d", idx, invite.fraction.title, invite.role.title, invite.invitorName, idx));
     }
 });
 
-
+/**
+ * Accept created invite
+ * @param  {Integer} playerid
+ * @param  {Integer} invitation
+ */
 cmd("f", "accept", function(playerid, invitation = -1) {
     clearInvitations(playerid);
     invitation = invitation.tointeger();
@@ -95,19 +100,19 @@ cmd("f", "accept", function(playerid, invitation = -1) {
         return msg(playerid, "You dont have any fraction invites at the moment", CL_WARNING);
     }
 
-    if (!(invitation in invites)) {
+    if (!(invitation in invites[playerid])) {
         return msg(playerid, "You dont have invitation with provided id. To see full list, write: /f invites", CL_WARNING);
     }
 
-    local invite = invites[invitation];
+    local invite = invites[playerid][invitation];
 
     if (!fractions.has(invite.fraction.id)) {
-        invites.remove(invitation);
+        invites[playerid].remove(invitation);
         return msg(playerid, "You cannot accept invitation to fraction which doesnt exists.", CL_ERROR);
     }
 
-    if (!invite.fraction.roles.has(invite.role.id)) {
-        invites.remove(invitation);
+    if (!invite.fraction.hasRole(invite.role)) {
+        invites[playerid].remove(invitation);
         return msg(playerid, "You cannot accept invitation to fraction with role which doesnt exists.", CL_ERROR);
     }
 
@@ -122,4 +127,6 @@ cmd("f", "accept", function(playerid, invitation = -1) {
     if (isPlayerLoaded(invite.invitor)) {
         msg(invite.invitor, format("%s successfuly joined fraction %s as %s", getPlayerName(playerid), invite.fraction.title, invite.role.title), CL_SUCCESS);
     }
+
+    invites[playerid].remove(invitation);
 });
