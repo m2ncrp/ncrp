@@ -1,4 +1,4 @@
-local platePrefixes = "ABCDEFGHJKLMNPQRSTUVWXYZ";
+local platePrefixes = "ABCEFGHJKLMNPQRSTUVWXYZ";
 local plateRegistry = {};
 
 local old__setVehiclePlateText = setVehiclePlateText;
