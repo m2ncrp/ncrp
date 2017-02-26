@@ -76,6 +76,8 @@ event("onClientSuccessfulyStarted", function(playerid) {
 
             dbg("kick", "invalid unsername", getIdentity(playerid));
 
+            trigger(playerid, "onServerChatTrigger");
+
             return delayedFunction(12000, function () {
                 kickPlayer( playerid );
             });
