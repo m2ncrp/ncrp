@@ -15,7 +15,7 @@ cmd("f", "list", function(playerid) {
         // skip duplicates for shortcuts
         // if (idx == role.shortcut) continue;
 
-        local callback = function(character) {
+        local callback = function(err, character) {
             if (!xPlayers.has(idx)) {
                 xPlayers.add(idx, character);
             }
@@ -24,7 +24,7 @@ cmd("f", "list", function(playerid) {
         };
 
         if (xPlayers.has(idx)) {
-            callback(xPlayers[idx]);
+            callback(null, xPlayers[idx]);
         } else {
             Character.findOneBy({ id = idx }, callback);
         }
