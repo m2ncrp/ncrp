@@ -30,7 +30,7 @@ local carPricesAll = [
         { modelid = 47, price = 610,  title = "Smith V8"                },
         { modelid = 43, price = 470 , title = "Smith Coupe"             },
         { modelid = 25, price = 750 , title = "Shubert 38"              },
-        { modelid = 25, price = 730 , title = "Shubert 38 Panel Truck"  },
+        { modelid = 31, price = 730 , title = "Shubert 38 Panel Truck"  },
     ],
     [   // bad guy
         { modelid = 10, price = 9400, title = "ISW 508"                 },
