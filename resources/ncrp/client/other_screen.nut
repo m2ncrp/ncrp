@@ -340,13 +340,18 @@ addEventHandler("onClientCloseMap", function() {
     return 1;
 });
 
+addEventHandler("map:onServerOpen", function() {
+    delayedFunction(100, function() {
+        openMap();
+    });
+});
+
 // addEventHandler("onClientOpenMap", function() {
 bindKey("m", "down", function() {
     if (!initialized) return;
 
     if (drawing) {
         drawing = false;
-        openMap();
         triggerServerEvent("map:onClientOpen");
     } else {
         triggerServerEvent("map:onClientClose");
@@ -399,3 +404,7 @@ addEventHandler("onClientScriptInit", function() {
 
     triggerServerEvent("onClientSuccessfulyStarted");
 });
+
+function delayedFunction(time, callback, additional = null) {
+    return additional ? timer(callback, time, 1, additional) : timer(callback, time, 1);
+}
