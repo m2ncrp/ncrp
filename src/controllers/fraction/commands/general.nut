@@ -17,6 +17,6 @@ cmd("f", function(playerid) {
 
     // only for admins
     if (fraction[playerid].level == 0) {
-        msg(playerid, format("- Current money amount:", fraction.money));
+        msg(playerid, format("- Current money amount: %.2f", fraction.money));
     }
 });
