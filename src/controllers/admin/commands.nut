@@ -146,10 +146,6 @@ function planServerRestart(playerid) {
         delayedFunction(1000, function() {
             msga("Auto-Restart: Restarting now!", CL_RED);
 
-            foreach (idx, value in getPlayers()) {
-                kickPlayer(idx);
-            }
-
             delayedFunction(1000, function() {
                 // request restart
                 dbg("server", "restart", "requested");
