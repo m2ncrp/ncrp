@@ -55,6 +55,8 @@ event("onPlayerPlaceEnter", function(playerid, name) {
             car_paint[vehicleid]["availableColors"] = getVehicleColorsArray( vehicleid );
             car_paint[vehicleid]["currentColor"]    = getVehicleColour( vehicleid );
 
+            CARPAINT_INDEX = 0;
+
             msg(playerid, "carpaint.help1");
             msg(playerid, "carpaint.help2", CARPAINT_COST);
 
