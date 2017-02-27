@@ -41,7 +41,13 @@ function removePlayer(playerid, reason = "") {
  */
 function getIdentity(playerid) {
     try {
-        return playerid >= 0 ? format("id: %d, account: %s, character: %s", playerid.tointeger(), getAccountName(playerid).tostring(), getPlayerName(playerid).tostring()) : "unloaded";
+        local charactername = getPlayerName(playerid).tostring();
+
+        if (!isPlayerLoaded(playerid)) {
+            charactername = "unloaded";
+        }
+
+        return playerid >= 0 ? format("id: %d, account: %s, character: %s", playerid.tointeger(), getAccountName(playerid).tostring(), charactername) : "unloaded";
     }
     catch (e) {
         return "cannot format identity for playerid: " + playerid;
