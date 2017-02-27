@@ -23,7 +23,7 @@ function onEating(playerid) {
     addMoneyToTreasury(EAT_COST);
     msg(playerid, "shops.restaurant.diner.eat.success", [EAT_COST], CL_SUCCESS);
     // return setPlayerHealth(playerid, MAX_HEALTH);
-    addPlayerHunger(playerid, 15.0);
+    addPlayerHunger(playerid, randomf(30.0, 40.0));
 }
 
 function eat(playerid) {
@@ -49,7 +49,7 @@ function onDrinking(playerid) {
     addMoneyToTreasury(DRINK_COST);
     msg(playerid, "shops.restaurant.bar.drink.success", [DRINK_COST], CL_SUCCESS);
     // setPlayerHealth(playerid, MAX_HEALTH);
-    addPlayerThirst(playerid, 15.0);
+    addPlayerThirst(playerid, randomf(30.0, 40.0));
 }
 
 function drink(playerid) {
