@@ -141,4 +141,5 @@ event("onServerPlayerAlive", function(playerid) {
     // NOTE(inlife): might collide with other stuff
     local pos = (isPlayerInVehicle(playerid)) ? getVehiclePosition(getPlayerVehicle(playerid)) : getPlayerPosition(playerid);
     players[playerid].setPosition(pos[0], pos[1], pos[2]);
+    players[playerid].health = getPlayerHealth(playerid);
 });
