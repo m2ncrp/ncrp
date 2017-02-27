@@ -33,6 +33,36 @@ function getPlayerNameShort(playerid) {
     return false;
 }
 
+/**
+ * Return playerid by character first and last name in format: Mike Bruski
+ * or false if player was not found
+ * @param {Integer} characterName
+ * @return {Integer} playerid
+ */
+function getPlayerIdFromCharacterName(characterName) {
+    foreach(playerid, value in players) {
+        if(value.firstname+" "+value.lastname == characterName) {
+            return playerid;
+        }
+        return false;
+    }
+}
+
+/**
+ * Return playerid by CharacterId
+ * or false if player was not found
+ * @param {Integer} CharacterId
+ * @return {Integer} playerid
+ */
+function getPlayerIdFromCharacterId(CharacterId) {
+    foreach(playerid, value in players) {
+        if(value.id == CharacterId) {
+            return playerid;
+        }
+        return false;
+    }
+}
+
 event("onServerPlayerStarted", function(playerid) {
     // for local player
     trigger(playerid, "onServerPlayerAdded", playerid, getPlayerName(playerid));
