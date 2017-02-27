@@ -29,6 +29,7 @@ function removePlayer(playerid, reason = "") {
     trigger("onPlayerDisconnect", playerid, reason);
 
     // save player after disconnect
+    players[playerid].playerid = -1;
     players.remove(playerid).save();
 }
 
