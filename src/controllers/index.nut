@@ -25,6 +25,7 @@ include("controllers/tips");
 // include("controllers/objectpool");
 include("controllers/moderator");
 include("controllers/place");
+include("controllers/closedplaces");
 
 // include("controllers/property");
 // include("controllers/inventory");
