@@ -38,6 +38,7 @@ event("onPlayerCharacterLoaded", function(playerid, character) {
 
     // and trigger start events
     delayedFunction(1500, function() {
+        if (!isPlayerLoaded(playerid)) return;
         if (DEBUG) dbg("player", "started", getIdentity(playerid));
         trigger("onServerPlayerStarted", playerid);
         trigger(playerid, "onServerClientStarted", VERSION);

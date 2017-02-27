@@ -154,7 +154,9 @@ class Container
      *          Otherwise object itself also should be inserted too
      */
     function each(callback, full = false) {
-        foreach (key, object in this.__data) {
+        local data = clone(this.__data);
+
+        foreach (key, object in data) {
             if (full) callback(key, object); else callback(key);
         }
     }
