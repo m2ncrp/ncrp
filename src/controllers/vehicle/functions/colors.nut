@@ -195,7 +195,9 @@ function getVehicleColorsArray(vehicleid) {
     if (modelid in registry) {
         foreach (idx, color in registry[modelid]) {
             colors.push([color.a.r, color.a.g, color.a.b, color.b.r, color.b.g, color.b.b]);
-            colors.push([color.b.r, color.b.g, color.b.b, color.a.r, color.a.g, color.a.b]);
+            if(color.a.r != color.b.r || color.a.g != color.b.g || color.a.b != color.b.b) {
+                colors.push([color.b.r, color.b.g, color.b.b, color.a.r, color.a.g, color.a.b]);
+            }
         }
     }
     return colors;
