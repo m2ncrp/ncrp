@@ -40,16 +40,9 @@ event("onServerStarted", function() {
             __globalroles[role.id] <- role;
             fractions[role.fractionid].roles.add(fractions[role.fractionid].roles.len(), role);
             // fractions[role.fractionid].__globalroles.add(role.id, role);
-        }
-
-        foreach (idx, role in results) {
-            if (!fractions.exists(role.fractionid)) {
-                dbg("fractions", "non existant fraction", role.fractionid, "with attached role", role.id);
-                continue;
-            }
 
             if (role.shortcut && role.shortcut != "") {
-                fractions[role.fractionid].roles.add(role.shortcut, role);
+                fractions[role.fractionid].sroles.add(role.shortcut, role);
             }
         }
     });
