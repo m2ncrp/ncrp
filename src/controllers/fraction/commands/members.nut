@@ -35,7 +35,7 @@ cmd("f", "list", function(playerid) {
  * @param  {Integer} listid
  */
 cmd("f", "kick", function(playerid, listid = -1) {
-    local fracs = fractions.getManaged(playerid);
+    local fracs = fractions.getManaged(playerid, 2);
 
     if (!fracs.len()) {
         return msg(playerid, "You are not fraction admin.", CL_WARNING);
@@ -91,7 +91,7 @@ cmd("f", "kick", function(playerid, listid = -1) {
  * @param  {Integer} roleid
  */
 cmd("f", "setrole", function(playerid, listid = -1, roleid = -1) {
-    local fracs = fractions.getManaged(playerid);
+    local fracs = fractions.getManaged(playerid, 2);
 
     if (!fracs.len()) {
         return msg(playerid, "You are not fraction admin.", CL_WARNING);

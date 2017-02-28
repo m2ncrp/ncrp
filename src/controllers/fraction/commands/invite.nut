@@ -24,7 +24,7 @@ local function clearInvitations(playerid) {
  * @param  {Mixed} rolenum
  */
 cmd("f", "invite", function(playerid, targetid = -1, rolenum = -1) {
-    local fracs = fractions.getManaged(playerid);
+    local fracs = fractions.getManaged(playerid, 2);
     rolenum = rolenum.tointeger();
 
     if (!fracs.len()) {

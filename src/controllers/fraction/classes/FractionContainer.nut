@@ -40,14 +40,14 @@ class FractionContainer extends Container
      * @param  {Integer} playerid
      * @return {Array}
      */
-    function getManaged(playerid) {
+    function getManaged(playerid, level = 1) {
         local fractions = [];
 
         foreach (idx, fraction in this.getAll()) {
             // skip aliases
             if (idx == fraction.shortcut) continue;
 
-            if (fraction.exists(playerid) && fraction.get(playerid).level <= 1) {
+            if (fraction.exists(playerid) && fraction.get(playerid).level <= level) {
                 fractions.push(fraction);
             }
         }

@@ -19,18 +19,18 @@ include("controllers/player/spawn.nut");
 include("controllers/player/bannednames.nut");
 include("controllers/player/hunger.nut");
 
+// create storage for players
+players  <- PlayerContainer();
+xPlayers <- PlayerContainer(); // character cache
+
+// register aliases (for old code)
+playerList  <- players;
+
 /**
  * Basic event for registraion
  * all aliases and containers
  */
 event("onScriptInit", function() {
-    // create storage for players
-    players  <- PlayerContainer();
-    xPlayers <- PlayerContainer(); // character cache
-
-    // register aliases (for old code)
-    playerList  <- players;
-
     // create timer for player object "alive" check (not related to health in any way)
     timer(function() { players.each(function(pid) { trigger("onServerPlayerAlive", pid); }) }, 500, -1);
 });

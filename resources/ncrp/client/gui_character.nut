@@ -295,7 +295,7 @@ function switchCharacterSlot(){
     local idx = selectedCharacter;
     if(idx in characters){
         if(characters[idx].Firstname == ""){
-            PData.Id <- characters[0].Id;
+            PData.Id <- characters[idx].Id;
             migrateOldCharacter = true;
             return characterCreation();
         }
