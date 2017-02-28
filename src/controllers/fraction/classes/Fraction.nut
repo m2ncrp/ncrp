@@ -51,29 +51,29 @@ class Fraction extends ORM.Entity
         }
 
         if (!(role instanceof FractionRole)) {
-            if (roles.has(role)) {
-                role = roles[role];
+            if (this.roles.has(role)) {
+                role = this.roles[role];
             } else {
                 throw "Fraction: Cannot add member with non-existant role";
             }
         }
 
-        local object;
-
-        if (!this.memberRoles.has(key)) {
-            object = FractionMember();
-            object.created = getTimestamp();
-            object.fractionid = this.id;
-            object.characterid = key;
-        } else {
-            object = this.memberRoles.get(key);
+        // remove old member record
+        if (this.memberRoles.has(key)) {
+            local oldrole = this.memberRoles.get(key);
 
             // check if we already have this role
-            if (object.id == role.id) {
+            if (oldrole.id == role.id) {
                 return false;
             }
+
+            this.remove(key, false);
         }
 
+        local object = FractionMember();
+        object.created = getTimestamp();
+        object.fractionid = this.id;
+        object.characterid = key;
         object.roleid = role.id;
         object.save();
 
@@ -97,7 +97,7 @@ class Fraction extends ORM.Entity
      * @param  {Integer} key
      * @param  {Boolean} useplayerid (use player id or character id)
      */
-    function remove(key = 0, useplayerid = true) {
+    function remove(key = -1, useplayerid = true) {
         if (useplayerid) {
             if (isPlayerLoaded(key)) {
                 key = players[key].id;

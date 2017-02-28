@@ -1,1 +1,1 @@
-cmd("fooc", "")
+// cmd("fooc", "")
