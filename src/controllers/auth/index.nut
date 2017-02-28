@@ -78,7 +78,7 @@ event("onClientSuccessfulyStarted", function(playerid) {
 
             trigger(playerid, "onServerChatTrigger");
 
-            return delayedFunction(12000, function () {
+            return delayedFunction(20000, function () {
                 kickPlayer( playerid );
             });
         });
@@ -112,7 +112,7 @@ event("onClientSuccessfulyStarted", function(playerid) {
 
                     dbg("kick", "banned connected", getIdentity(playerid));
 
-                    return delayedFunction(6000, function () {
+                    return delayedFunction(20000, function () {
                         kickPlayer( playerid );
                     });
                 });
