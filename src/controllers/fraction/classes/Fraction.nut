@@ -13,14 +13,16 @@ class Fraction extends ORM.Entity
     ];
 
     roles = null;
+    property = null;
     memberRoles = null;
     // __globalroles = null;
 
     constructor () {
         base.constructor();
 
-        this.memberRoles = Container(FractionRole);
         this.roles       = Container(FractionRole);
+        this.memberRoles = Container(FractionRole);
+        this.property    = Container(FractionProperty);
     }
 
     /**
