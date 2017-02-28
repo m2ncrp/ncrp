@@ -66,11 +66,40 @@ cmd("f", ["car", "remove"], function(playerid) {
         return msg(playerid, "You canont remove vehicle from the fraction which is not added!", CL_ERROR);
     }
 
-    local relation = fraction.property.remove(__vehicles[vehicleid].entity.id);
-
-    dbg(relation);
-
-    relation.remove();
+    // remove car from fraction
+    fraction.property.remove(__vehicles[vehicleid].entity.id).remove();
 
     return msg(playerid, "You successfuly removed car from the fraction!", CL_SUCCESS);
 });
+
+/**
+ * List current cars
+ * added to the fraction
+ */
+cmd("f", "car", function(playerid) {
+    local fracs = fractions.getContaining(playerid);
+
+    if (!fracs.len()) {
+        return msg(playerid, "You are not fraction member.", CL_WARNING);
+    }
+
+    // for now take the first one
+    local fraction = fracs[0];
+
+    msg(playerid, "----------------------------------------------------", CL_RIPELEMON);
+    msg(playerid, "List of current vehicles added to this fraction:");
+    msg(playerid, "----------------------------------------------------", CL_RIPELEMON);
+
+    foreach (idx, relation in fraction.property) {
+        if (relation.type == "vehicle") {
+            if (!(relation.entityid in __vehiclesR)) continue;
+            local entity = __vehiclesR[relation.entityid];
+
+            msg(playerid, format("Vehicle model: %s, Plate number: %s", getVehicleModelNameFromId(entity.model), entity.plate));
+        }
+    }
+
+    msg(playerid, "To add a new car, seat inside it, and write /f car add", CL_INFO);
+});
+
+// cmd("f", "cars", cmdalias("f", "car"));

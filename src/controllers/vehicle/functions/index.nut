@@ -20,6 +20,7 @@ local old__setVehicleWheelTexture = setVehicleWheelTexture;
 
 // creating storage for vehicles
 __vehicles <- {};
+__vehiclesR <- {};
 
 // overriding to custom one
 createVehicle = function(modelid, x, y, z, rx, ry, rz) {
@@ -99,6 +100,8 @@ function removePlayerVehicle(vehicleid) {
 }
 
 function setVehicleEntity(vehicleid, entity) {
+    __vehiclesR[entity.id] <- entity;
+
     if (vehicleid in __vehicles) {
         return __vehicles[vehicleid].entity = entity;
     }

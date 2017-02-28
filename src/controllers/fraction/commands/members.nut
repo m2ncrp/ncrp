@@ -62,6 +62,11 @@ cmd("f", "kick", function(playerid, listid = -1) {
                 xPlayers.add(idx, character);
             }
 
+            // check for ability to change role of player which has same or bigger role
+            if (fraction.memberRoles[character.id].level >= fraction[playerid].level) {
+                return msg(playerid, "You cannot change a role of player which has higher role!", CL_WARNING);
+            }
+
             // remove player
             fraction.remove(character.id, false);
 
@@ -111,17 +116,24 @@ cmd("f", "setrole", function(playerid, listid = -1, roleid = -1) {
                 xPlayers.add(idx, character);
             }
 
+            // check for ability to change role of player which has same or bigger role
+            if (fraction.memberRoles[character.id].level >= fraction[playerid].level) {
+                return msg(playerid, "You cannot change a role of player which has higher role!", CL_WARNING);
+            }
+
             if (!fraction.roles.has(roleid)) {
                 return msg(playerid, "You cannot set member role to non-existant one", CL_ERROR);
             }
 
-            // set member role
-            fraction.set(character.id, fraction.roles.get(roleid), true);
+            local newrole = fraction.roles.get(roleid);
 
-            msg(playerid, format("You successfuly set role of %s to: %s", character.firstname + " " + character.lastname, role.title), CL_SUCCESS);
+            // set member role
+            fraction.set(character.id, newrole, false);
+
+            msg(playerid, format("You successfuly set role of %s to: %s", character.firstname + " " + character.lastname, newrole.title), CL_SUCCESS);
 
             if (isPlayerLoaded(character.playerid)) {
-                msg(character.playerid, format("Your role in fraction %s has been changed to %s", fraction.title, role.title), CL_SUCCESS);
+                msg(character.playerid, format("Your role in fraction %s has been changed to %s", fraction.title, newrole.title), CL_SUCCESS);
             }
         };
 

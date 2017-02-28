@@ -43,6 +43,11 @@ cmd("f", "invite", function(playerid, targetid = -1, rolenum = -1) {
         return msg(playerid, "You cannot invite player into fraction while he is in another fraction!", CL_ERROR);
     }
 
+    // get the lowest role (TODO: change to default role)
+    if (rolenum == -1) {
+        rolenum = fraction.roles.len() - 1;
+    }
+
     if (!fraction.roles.has(rolenum)) {
         return msg(playerid, "There is no such role. You can see fraction roles via: /f roles", CL_WARNING);
     }
@@ -83,7 +88,8 @@ cmd("f", "invites", function (playerid) {
     msg(playerid, "Here is list of your current fraction invitations:", CL_INFO);
 
     foreach (idx, invite in invites[playerid]) {
-        msg(playerid, format("#%d Fraction: %s, Role: %s, By: %s. To accept: /f accept %d", idx, invite.fraction.title, invite.role.title, invite.invitorName, idx));
+        msg(playerid, format("#%d Fraction: %s, Role: %s, By: %s.", idx, invite.fraction.title, invite.role.title, invite.invitorName));
+        msg(playerid, format("To accept: /f accept %d", idx), CL_INFO);
     }
 });
 
