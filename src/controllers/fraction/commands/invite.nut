@@ -1,4 +1,4 @@
-local INVITATION_TIMEOUT = 10 * 60; // 10 minutes
+local INVITATION_TIMEOUT = 5 * 60; // 5 minutes
 local invites = {};
 
 /**
@@ -68,7 +68,7 @@ cmd("f", "invite", function(playerid, targetid = -1, rolenum = -1) {
     });
 
     msg(playerid, format("You've invited %s, to join your fraction %s with role %s", getPlayerName(targetid), fraction.title, role.title), CL_SUCCESS);
-    msg(playerid, format("If you want to cancel invite, write /f cancel %d", (invites[targetid].len() - 1)), CL_INFO);
+    // msg(playerid, format("If you want to cancel invite, write /f cancel %d", (invites[targetid].len() - 1)), CL_INFO);
 
     msg(targetid, format("%s has invited you to join fraction %s with role %s", getPlayerName(playerid), fraction.title, role.title), CL_SUCCESS);
     msg(targetid, format("If you want to join, write /f accept %d", (invites[targetid].len() - 1)), CL_INFO);

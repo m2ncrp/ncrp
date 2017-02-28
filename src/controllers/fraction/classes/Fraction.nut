@@ -164,4 +164,27 @@ class Fraction extends ORM.Entity
     function getMembers() {
         return this.memberRoles;
     }
+
+    /**
+     * Return array of player ids
+     * of online fraction members
+     * @return {Array}
+     */
+    function getOnlineMembers() {
+        local members = [];
+
+        foreach (characterid, role in this.getMembers()) {
+            if (!xPlayers.has(characterid)) {
+                continue;
+            }
+
+            local character = xPlayers[characterid];
+
+            if (::isPlayerLoaded(character.playerid)) {
+                members.push(character.playerid);
+            }
+        }
+
+        return members;
+    }
 }

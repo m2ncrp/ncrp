@@ -64,7 +64,10 @@ cmd("f", "kick", function(playerid, listid = -1) {
 
             // check for ability to change role of player which has same or bigger role
             if (fraction.memberRoles[character.id].level >= fraction[playerid].level) {
-                return msg(playerid, "You cannot change a role of player which has higher role!", CL_WARNING);
+                // and we are not same person
+                if (character.id != players[playerid].id) {
+                    return msg(playerid, "You cannot change a role of player which has higher role!", CL_WARNING);
+                }
             }
 
             // remove player
@@ -118,7 +121,10 @@ cmd("f", "setrole", function(playerid, listid = -1, roleid = -1) {
 
             // check for ability to change role of player which has same or bigger role
             if (fraction.memberRoles[character.id].level >= fraction[playerid].level) {
-                return msg(playerid, "You cannot change a role of player which has higher role!", CL_WARNING);
+                // and we are not same person
+                if (character.id != players[playerid].id) {
+                    return msg(playerid, "You cannot change a role of player which has higher role!", CL_WARNING);
+                }
             }
 
             if (!fraction.roles.has(roleid)) {
