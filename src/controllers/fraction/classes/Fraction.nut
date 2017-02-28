@@ -13,14 +13,16 @@ class Fraction extends ORM.Entity
     ];
 
     roles = null;
+    property = null;
     memberRoles = null;
     // __globalroles = null;
 
     constructor () {
         base.constructor();
 
-        this.memberRoles = Container(FractionRole);
         this.roles       = Container(FractionRole);
+        this.memberRoles = Container(FractionRole);
+        this.property    = Container(FractionProperty);
     }
 
     /**
@@ -49,29 +51,29 @@ class Fraction extends ORM.Entity
         }
 
         if (!(role instanceof FractionRole)) {
-            if (roles.has(role)) {
-                role = roles[role];
+            if (this.roles.has(role)) {
+                role = this.roles[role];
             } else {
                 throw "Fraction: Cannot add member with non-existant role";
             }
         }
 
-        local object;
-
-        if (!this.memberRoles.has(key)) {
-            object = FractionMember();
-            object.created = getTimestamp();
-            object.fractionid = this.id;
-            object.characterid = key;
-        } else {
-            object = this.memberRoles.get(key);
+        // remove old member record
+        if (this.memberRoles.has(key)) {
+            local oldrole = this.memberRoles.get(key);
 
             // check if we already have this role
-            if (object.id == role.id) {
+            if (oldrole.id == role.id) {
                 return false;
             }
+
+            this.remove(key, false);
         }
 
+        local object = FractionMember();
+        object.created = getTimestamp();
+        object.fractionid = this.id;
+        object.characterid = key;
         object.roleid = role.id;
         object.save();
 
@@ -95,7 +97,7 @@ class Fraction extends ORM.Entity
      * @param  {Integer} key
      * @param  {Boolean} useplayerid (use player id or character id)
      */
-    function remove(key = 0, useplayerid = true) {
+    function remove(key = -1, useplayerid = true) {
         if (useplayerid) {
             if (isPlayerLoaded(key)) {
                 key = players[key].id;
@@ -159,7 +161,48 @@ class Fraction extends ORM.Entity
         throw null;
     }
 
+    function sortRoles() {
+        local rls = this.roles;
+
+        rls.__keys.sort(function(a, b) {
+            if (rls[a].level > rls[b].level) return 1;
+            if (rls[a].level < rls[b].level) return -1;
+            return 0;
+        });
+    }
+
     function getMembers() {
+        local mmrs = this.memberRoles;
+
+        this.memberRoles.__keys.sort(function(a, b) {
+            if (mmrs[a].level > mmrs[b].level) return 1;
+            if (mmrs[a].level < mmrs[b].level) return -1;
+            return 0;
+        });
+
         return this.memberRoles;
+    }
+
+    /**
+     * Return array of player ids
+     * of online fraction members
+     * @return {Array}
+     */
+    function getOnlineMembers() {
+        local members = [];
+
+        foreach (characterid, role in this.getMembers()) {
+            if (!xPlayers.has(characterid)) {
+                continue;
+            }
+
+            local character = xPlayers[characterid];
+
+            if (::isPlayerLoaded(character.playerid)) {
+                members.push(character.playerid);
+            }
+        }
+
+        return members;
     }
 }
