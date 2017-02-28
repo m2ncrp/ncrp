@@ -1,8 +1,8 @@
 cmd("f", "roles", function(playerid) {
-    local fracs = fractions.getManaged(playerid);
+    local fracs = fractions.getContaining(playerid);
 
     if (!fracs.len()) {
-        return msg(playerid, "You are not fraction admin.", CL_WARNING);
+        return msg(playerid, "You are not in the fraction.", CL_WARNING);
     }
 
     // for now take the first one
@@ -10,10 +10,13 @@ cmd("f", "roles", function(playerid) {
 
     msg(playerid, "List of roles in %s:", fraction.title, CL_INFO);
 
+    // fraction.sortRoles();
+
+    // local counter = 0;
     foreach (idx, role in fraction.roles) {
         // skip duplicates for shortcuts
         if (idx == role.shortcut) continue;
 
-        msg(playerid, format("#%d, Title: %s, Level: %d, Salary: %.2f", idx, role.title, role.level, role.salary));
+        msg(playerid, format("#%d, Title: %s", idx, role.title));
     }
 });

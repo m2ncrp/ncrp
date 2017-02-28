@@ -1,8 +1,8 @@
 cmd("f", "list", function(playerid) {
-    local fracs = fractions.getManaged(playerid);
+    local fracs = fractions.getContaining(playerid);
 
     if (!fracs.len()) {
-        return msg(playerid, "You are not fraction admin.", CL_WARNING);
+        return msg(playerid, "You are not in the fraction.", CL_WARNING);
     }
 
     // for now take the first one
@@ -12,15 +12,12 @@ cmd("f", "list", function(playerid) {
 
     local counter = 0;
     foreach (idx, role in fraction.getMembers()) {
-        // skip duplicates for shortcuts
-        // if (idx == role.shortcut) continue;
-
         local callback = function(err, character) {
             if (!xPlayers.has(idx)) {
                 xPlayers.add(idx, character);
             }
 
-            msg(playerid, format("#%d, Name: %s, Role: %s, Level: %d", counter++, character.firstname + " " + character.lastname, role.title, role.level));
+            msg(playerid, format("#%d, Name: %s, Role: %s", counter++, character.firstname + " " + character.lastname, role.title));
         };
 
         if (xPlayers.has(idx)) {
@@ -28,10 +25,6 @@ cmd("f", "list", function(playerid) {
         } else {
             Character.findOneBy({ id = idx }, callback);
         }
-
-        // local string = format("#%d, Title: %s, Level: %d", idx, role.title, role.level);
-        // msg(playerid, string);
-        // dbg(string);
     }
 });
 
@@ -43,7 +36,6 @@ cmd("f", "list", function(playerid) {
  */
 cmd("f", "kick", function(playerid, listid = -1) {
     local fracs = fractions.getManaged(playerid);
-    listid = listid.tointeger();
 
     if (!fracs.len()) {
         return msg(playerid, "You are not fraction admin.", CL_WARNING);
@@ -51,6 +43,8 @@ cmd("f", "kick", function(playerid, listid = -1) {
 
     // for now take the first one
     local fraction = fracs[0];
+
+    listid = listid.tointeger();
 
     local counter = 0;
     foreach (idx, role in fraction.getMembers()) {
@@ -61,8 +55,16 @@ cmd("f", "kick", function(playerid, listid = -1) {
                 xPlayers.add(idx, character);
             }
 
+            // check for ability to change role of player which has same or bigger role
+            if (fraction.memberRoles[character.id].level <= fraction[playerid].level) {
+                // and we are not same person
+                if (character.id != players[playerid].id) {
+                    return msg(playerid, "You cannot change a role of player which has higher role!", CL_WARNING);
+                }
+            }
+
             // remove player
-            fraction.remove(character.id, true);
+            fraction.remove(character.id, false);
 
             msg(playerid, format("You successfuly kicked member with name: %s and role: %s", character.firstname + " " + character.lastname, role.title), CL_SUCCESS);
 
@@ -90,7 +92,6 @@ cmd("f", "kick", function(playerid, listid = -1) {
  */
 cmd("f", "setrole", function(playerid, listid = -1, roleid = -1) {
     local fracs = fractions.getManaged(playerid);
-    roleid = roleid.tointeger();
 
     if (!fracs.len()) {
         return msg(playerid, "You are not fraction admin.", CL_WARNING);
@@ -98,6 +99,9 @@ cmd("f", "setrole", function(playerid, listid = -1, roleid = -1) {
 
     // for now take the first one
     local fraction = fracs[0];
+
+    listid = listid.tointeger();
+    roleid = roleid.tointeger();
 
     local counter = 0;
     foreach (idx, role in fraction.getMembers()) {
@@ -108,17 +112,27 @@ cmd("f", "setrole", function(playerid, listid = -1, roleid = -1) {
                 xPlayers.add(idx, character);
             }
 
+            // check for ability to change role of player which has same or bigger role
+            if (fraction.memberRoles[character.id].level <= fraction[playerid].level) {
+                // and we are not same person
+                if (character.id != players[playerid].id) {
+                    return msg(playerid, "You cannot change a role of player which has higher role!", CL_WARNING);
+                }
+            }
+
             if (!fraction.roles.has(roleid)) {
                 return msg(playerid, "You cannot set member role to non-existant one", CL_ERROR);
             }
 
-            // set member role
-            fraction.set(character.id, fraction.roles.get(roleid), true);
+            local newrole = fraction.roles.get(roleid);
 
-            msg(playerid, format("You successfuly set role of %s to: %s", character.firstname + " " + character.lastname, role.title), CL_SUCCESS);
+            // set member role
+            fraction.set(character.id, newrole, false);
+
+            msg(playerid, format("You successfuly set role of %s to: %s", character.firstname + " " + character.lastname, newrole.title), CL_SUCCESS);
 
             if (isPlayerLoaded(character.playerid)) {
-                msg(character.playerid, format("Your role in fraction %s has been changed to %s", fraction.title, role.title), CL_SUCCESS);
+                msg(character.playerid, format("Your role in fraction %s has been changed to %s", fraction.title, newrole.title), CL_SUCCESS);
             }
         };
 
@@ -129,7 +143,7 @@ cmd("f", "setrole", function(playerid, listid = -1, roleid = -1) {
         }
     }
 
-    return msg(playerid, "You cannot kick member which is not in the fraction", CL_WARNING);
+    return msg(playerid, "You cannot set role to a member which is not in the fraction", CL_WARNING);
 });
 
 

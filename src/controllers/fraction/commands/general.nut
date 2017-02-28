@@ -8,9 +8,9 @@ cmd("f", function(playerid) {
     // for now take only first
     local fraction = fracs[0];
 
-    msg(playerid, "-----------------------------------------------");
+    msg(playerid, "-------------------------------------------------------------", CL_RIPELEMON);
     msg(playerid, format("- Information about fraction %s", fraction.title));
-    msg(playerid, "----------------------------------------------");
+    msg(playerid, "-------------------------------------------------------------", CL_RIPELEMON);
 
     msg(playerid, format("- Current amount of roles: %d. To list, write: /f roles", fraction.roles.len()));
     msg(playerid, format("- Current amount of members %d. To list, write: /f list", fraction.len()));

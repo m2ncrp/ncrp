@@ -1,7 +1,10 @@
 include("controllers/fraction/classes/Fraction.nut");
 include("controllers/fraction/classes/FractionRole.nut");
 include("controllers/fraction/classes/FractionMember.nut");
+include("controllers/fraction/classes/FractionProperty.nut");
 include("controllers/fraction/classes/FractionContainer.nut");
+
+include("controllers/fraction/functions.nut");
 
 include("controllers/fraction/commands/general.nut");
 include("controllers/fraction/commands/invite.nut");
@@ -9,6 +12,7 @@ include("controllers/fraction/commands/roles.nut");
 include("controllers/fraction/commands/members.nut");
 include("controllers/fraction/commands/vehicle.nut");
 include("controllers/fraction/commands/money.nut");
+include("controllers/fraction/commands/chat.nut");
 
 fractions <- FractionContainer();
 
@@ -25,7 +29,8 @@ event("onServerStarted", function() {
         }
     });
 
-    FractionRole.findAll(function(err, results) {
+    // FractionRole.findAll(function(err, results) {
+    ORM.Query("select * from @FractionRole order by level").getResult(function(err, results) {
         foreach (idx, role in results) {
             if (!fractions.exists(role.fractionid)) {
                 dbg("fractions", "non existant fraction", role.fractionid, "with attached role", role.id);
@@ -42,8 +47,6 @@ event("onServerStarted", function() {
         }
     });
 
-    // local customFractionMember = "select m.id, m.characterid, m.fractionid, m.roleid, c.firstname, c.lastname from @FractionMember m left join @Character c on c.id = m.characterid";
-    // ORM.Query(customFractionMember).getResult(function(err, results) {
     FractionMember.findAll(function(err, results) {
         foreach (idx, member in results) {
             if (!fractions.exists(member.fractionid)) {
@@ -61,28 +64,61 @@ event("onServerStarted", function() {
         }
     });
 
+    FractionProperty.findAll(function(err, results) {
+        foreach (idx, object in results) {
+            if (!fractions.exists(object.fractionid)) {
+                dbg("fractions", "non existant fraction", object.fractionid, "with attached property", object.id);
+                continue;
+            }
+
+            fractions[object.fractionid].property.add(object.entityid, object);
+        }
+    });
+});
+
+
+
+
+
+
+
+
     // local f = Fraction();
-    // f.title = "ZE WATAFUCKZ";
+    // f.title = "Testing fraction #1";
     // f.created = getTimestamp();
-    // f.shortcut = "WTF";
-    // f.money = 124242.42;
+    // f.shortcut = "test1";
+    // f.money = 100.00;
     // f.save();
+// IS_DATABASE_DEBUG <- true;
+//     local fr = FractionRole();
+//     fr.title = "Leader";
+//     fr.created = getTimestamp();
+//     fr.level = 0;
+//     fr.fractionid = 2;
+//     fr.save();
+
+//     dbg(fr);
 
     // local fr = FractionRole();
-    // fr.title = "BIG BO$$";
+    // fr.title = "CoLeader";
     // fr.created = getTimestamp();
     // fr.level = 0;
-    // fr.fractionid = 1;
+    // fr.fractionid = 2;
     // fr.save();
 
-    // dbg(fr);
+    // local fr = FractionRole();
+    // fr.title = "Manager";
+    // fr.created = getTimestamp();
+    // fr.level = 1;
+    // fr.fractionid = 2;
+    // fr.save();
 
-    // local fm = FractionMember();
-    // fm.characterid = 1069;
-    // fm.roleid = fr.id;
-    // fm.fractionid = 1;
-    // fm.created = getTimestamp();
-    // fm.save();
+    // local fr = FractionRole();
+    // fr.title = "General Member";
+    // fr.created = getTimestamp();
+    // fr.level = 2;
+    // fr.fractionid = 2;
+    // fr.save();
 
 
     // fractions["WTF"][playerid] = fractions["WTF"].roles["Leader"]);
@@ -120,9 +156,6 @@ event("onServerStarted", function() {
     // newrole.save();
     // fractions["WTF"].roles.push(newrole);
 
-
-});
-
 // cmd("tune", function(playerid, level) {
 //     if (!isPlayerInVehicle(playerid)) {
 //         return;
@@ -140,3 +173,7 @@ event("onServerStarted", function() {
 
 //     // setVehicleTuningTable
 // });
+
+
+    // local customFractionMember = "select m.id, m.characterid, m.fractionid, m.roleid, c.firstname, c.lastname from @FractionMember m left join @Character c on c.id = m.characterid";
+    // ORM.Query(customFractionMember).getResult(function(err, results) {

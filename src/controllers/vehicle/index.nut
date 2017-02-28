@@ -127,7 +127,7 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
 
         dbg("player", "vehicle", "enter", getVehiclePlateText(vehicleid), getIdentity(playerid), "owned: " + isPlayerVehicleOwner(playerid, vehicleid));
 
-        if (isPlayerVehicleOwner(playerid, vehicleid)) {
+        if (isPlayerVehicleOwner(playerid, vehicleid) || isPlayerVehicleFraction(playerid, vehicleid)) {
             unblockVehicle(vehicleid);
         } else {
             blockVehicle(vehicleid);

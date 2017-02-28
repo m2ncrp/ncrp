@@ -217,6 +217,12 @@ migrate(function(query, type) {
 // 26.02.2017
 // added fraction role salary
 migrate(function(query, type) {
-    query("ALTER TABLE tbl_fraction_role ADD COLUMN `salary` FLOAT NOT NULL DEFAULT 0.0;");
+    // query("ALTER TABLE tbl_fraction_role ADD COLUMN `salary` FLOAT NOT NULL DEFAULT 0.0;");
+});
+
+// 26.02.2017
+// added fraction role salary
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_fraction_roles ADD COLUMN `salary` FLOAT NOT NULL DEFAULT 0.0;");
 });
 
