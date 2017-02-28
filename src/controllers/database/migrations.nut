@@ -226,3 +226,25 @@ migrate(function(query, type) {
     query("ALTER TABLE tbl_fraction_roles ADD COLUMN `salary` FLOAT NOT NULL DEFAULT 0.0;");
 });
 
+// 28.02.2017
+// added sanrea
+migrate(function(query, type) {
+    local fraction = fraction__Create("Sanreas", "sanreas", "mafia");
+
+    fraction__Role(fraction, "Capofamiglia",     "superadmin",   0);
+    fraction__Role(fraction, "Consigliere",      "admin",        1);
+    fraction__Role(fraction, "Capo Bastone",     "moderator1"    2);
+    fraction__Role(fraction, "Capo",             "moderator2",   3);
+    fraction__Role(fraction, "Soldato",          "user1",        4);
+
+    fraction__Role(fraction, "Picciotto",        "guest1",       6);
+    fraction__Role(fraction, "Giovane D\'Onore",  "guest2",      7);
+});
+
+// added hostipal
+migrate(function(query, type) {
+    local fraction = fraction__Create("Empire General Hospital", "hospital", "hospital");
+
+    fraction__Role(fraction, "Hospital Chief",   "superadmin",   0);
+    fraction__Role(fraction, "Doctor",           "doctor",       3);
+});
