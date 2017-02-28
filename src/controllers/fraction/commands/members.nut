@@ -1,8 +1,8 @@
 cmd("f", "list", function(playerid) {
-    local fracs = fractions.getManaged(playerid);
+    local fracs = fractions.getContaining(playerid);
 
     if (!fracs.len()) {
-        return msg(playerid, "You are not fraction admin.", CL_WARNING);
+        return msg(playerid, "You are not in the fraction.", CL_WARNING);
     }
 
     // for now take the first one
@@ -12,15 +12,12 @@ cmd("f", "list", function(playerid) {
 
     local counter = 0;
     foreach (idx, role in fraction.getMembers()) {
-        // skip duplicates for shortcuts
-        // if (idx == role.shortcut) continue;
-
         local callback = function(err, character) {
             if (!xPlayers.has(idx)) {
                 xPlayers.add(idx, character);
             }
 
-            msg(playerid, format("#%d, Name: %s, Role: %s, Level: %d", counter++, character.firstname + " " + character.lastname, role.title, role.level));
+            msg(playerid, format("#%d, Name: %s, Role: %s", counter++, character.firstname + " " + character.lastname, role.title));
         };
 
         if (xPlayers.has(idx)) {
@@ -28,10 +25,6 @@ cmd("f", "list", function(playerid) {
         } else {
             Character.findOneBy({ id = idx }, callback);
         }
-
-        // local string = format("#%d, Title: %s, Level: %d", idx, role.title, role.level);
-        // msg(playerid, string);
-        // dbg(string);
     }
 });
 
@@ -63,7 +56,7 @@ cmd("f", "kick", function(playerid, listid = -1) {
             }
 
             // check for ability to change role of player which has same or bigger role
-            if (fraction.memberRoles[character.id].level >= fraction[playerid].level) {
+            if (fraction.memberRoles[character.id].level <= fraction[playerid].level) {
                 // and we are not same person
                 if (character.id != players[playerid].id) {
                     return msg(playerid, "You cannot change a role of player which has higher role!", CL_WARNING);
@@ -120,7 +113,7 @@ cmd("f", "setrole", function(playerid, listid = -1, roleid = -1) {
             }
 
             // check for ability to change role of player which has same or bigger role
-            if (fraction.memberRoles[character.id].level >= fraction[playerid].level) {
+            if (fraction.memberRoles[character.id].level <= fraction[playerid].level) {
                 // and we are not same person
                 if (character.id != players[playerid].id) {
                     return msg(playerid, "You cannot change a role of player which has higher role!", CL_WARNING);
