@@ -47,7 +47,7 @@ class FractionContainer extends Container
             // skip aliases
             if (idx == fraction.shortcut) continue;
 
-            if (fraction.exists(playerid) && fraction.get(playerid).level < 1) {
+            if (fraction.exists(playerid) && fraction.get(playerid).level <= 1) {
                 fractions.push(fraction);
             }
         }
