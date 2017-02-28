@@ -29,7 +29,8 @@ event("onServerStarted", function() {
         }
     });
 
-    FractionRole.findAll(function(err, results) {
+    // FractionRole.findAll(function(err, results) {
+    ORM.Query("select * from @FractionRole order by level").getResult(function(err, results) {
         foreach (idx, role in results) {
             if (!fractions.exists(role.fractionid)) {
                 dbg("fractions", "non existant fraction", role.fractionid, "with attached role", role.id);
@@ -46,8 +47,6 @@ event("onServerStarted", function() {
         }
     });
 
-    // local customFractionMember = "select m.id, m.characterid, m.fractionid, m.roleid, c.firstname, c.lastname from @FractionMember m left join @Character c on c.id = m.characterid";
-    // ORM.Query(customFractionMember).getResult(function(err, results) {
     FractionMember.findAll(function(err, results) {
         foreach (idx, member in results) {
             if (!fractions.exists(member.fractionid)) {
@@ -75,6 +74,13 @@ event("onServerStarted", function() {
             fractions[object.fractionid].property.add(object.entityid, object);
         }
     });
+});
+
+
+
+
+
+
 
 
     // local f = Fraction();
@@ -150,9 +156,6 @@ event("onServerStarted", function() {
     // newrole.save();
     // fractions["WTF"].roles.push(newrole);
 
-
-});
-
 // cmd("tune", function(playerid, level) {
 //     if (!isPlayerInVehicle(playerid)) {
 //         return;
@@ -170,3 +173,7 @@ event("onServerStarted", function() {
 
 //     // setVehicleTuningTable
 // });
+
+
+    // local customFractionMember = "select m.id, m.characterid, m.fractionid, m.roleid, c.firstname, c.lastname from @FractionMember m left join @Character c on c.id = m.characterid";
+    // ORM.Query(customFractionMember).getResult(function(err, results) {

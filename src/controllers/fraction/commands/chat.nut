@@ -1,4 +1,4 @@
-chatcmd("fooc", function(playerid, message) {
+chatcmd("fc", function(playerid, message) {
     local fracs = fractions.getContaining(playerid);
 
     if (!fracs.len()) {
@@ -10,7 +10,7 @@ chatcmd("fooc", function(playerid, message) {
 
     foreach (idx, targetid in fraction.getOnlineMembers()) {
         if (fraction[targetid].level < 5) {
-            msg(targetid, format("[Fraction OOC] %s", message), CL_MING);
+            msg(targetid, format("[Fraction OOC] %s", message), CL_NIAGARA);
         }
     }
 });

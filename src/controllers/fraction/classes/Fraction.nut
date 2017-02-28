@@ -161,7 +161,25 @@ class Fraction extends ORM.Entity
         throw null;
     }
 
+    function sortRoles() {
+        local rls = this.roles;
+
+        rls.__keys.sort(function(a, b) {
+            if (rls[a].level > rls[b].level) return 1;
+            if (rls[a].level < rls[b].level) return -1;
+            return 0;
+        });
+    }
+
     function getMembers() {
+        local mmrs = this.memberRoles;
+
+        this.memberRoles.__keys.sort(function(a, b) {
+            if (mmrs[a].level > mmrs[b].level) return 1;
+            if (mmrs[a].level < mmrs[b].level) return -1;
+            return 0;
+        });
+
         return this.memberRoles;
     }
 
