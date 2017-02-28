@@ -16,7 +16,7 @@ cmd("f", function(playerid) {
     msg(playerid, format("- Current amount of members %d. To list, write: /f list", fraction.len()));
 
     // only for admins
-    if (fraction[playerid].level == 0) {
-        msg(playerid, format("- Current money amount: %.2f", fraction.money));
+    if (fraction[playerid].level <= 3) {
+        msg(playerid, format("- Current money amount: $%.2f", fraction.money));
     }
 });
