@@ -2,7 +2,7 @@
  * List amount of money in the current fraction
  */
 cmd("f", "money", function(playerid) {
-    local fracs = fractions.getManaged(playerid, 3);
+    local fracs = fractions.getManaged(playerid, FRACTION_MONEY_PERMISSION);
 
     if (!fracs.len()) {
         return msg(playerid, "You dont have access to that.", CL_WARNING);
@@ -41,7 +41,7 @@ cmd("f", ["money", "add"], function(playerid, amount = 0.0) {
 
     msg(playerid, format("You've successfuly added $%.2f to the fraction", amount), CL_SUCCESS);
 
-    if (fraction[playerid].level < 3) {
+    if (fraction[playerid].level <= FRACTION_MONEY_PERMISSION) {
         msg(playerid, format("Current money in the fraction %s: $%.2f", fraction.title, fraction.money), CL_INFO);
     }
 });
@@ -52,7 +52,7 @@ cmd("f", ["money", "add"], function(playerid, amount = 0.0) {
  * @param  {Float} amount
  */
 cmd("f", ["money", "sub"], function(playerid, amount = 0.0) {
-    local fracs = fractions.getManaged(playerid, 3);
+    local fracs = fractions.getManaged(playerid, FRACTION_MONEY_PERMISSION);
     amount = amount.tofloat();
 
     if (!fracs.len()) {
@@ -73,7 +73,7 @@ cmd("f", ["money", "sub"], function(playerid, amount = 0.0) {
 
     msg(playerid, format("You've successfuly subtracted %.2f from the fraction", amount), CL_SUCCESS);
 
-    if (fraction[playerid].level < 3) {
+    if (fraction[playerid].level <= FRACTION_MONEY_PERMISSION) {
         msg(playerid, format("Current amount money in the fraction %s: $%.2f", fraction.title, fraction.money), CL_INFO);
     }
 });

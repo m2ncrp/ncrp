@@ -9,7 +9,7 @@ chatcmd("fc", function(playerid, message) {
     local fraction = fracs[0];
 
     foreach (idx, targetid in fraction.getOnlineMembers()) {
-        if (fraction[targetid].level < 5) {
+        if (fraction[targetid].level <= FRACTION_CHAT_PERMISSION) {
             msg(targetid, format("[Fraction OOC] %s", message), CL_NIAGARA);
         }
     }
