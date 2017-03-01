@@ -86,6 +86,8 @@ class Fraction extends ORM.Entity
         this.memberRoles.__keys.sort(function(a, b) {
             if (mmrs[a].level > mmrs[b].level) return 1;
             if (mmrs[a].level < mmrs[b].level) return -1;
+            if (mmrs[a].id > mmrs[b].id) return 1;
+            if (mmrs[a].id < mmrs[b].id) return -1;
             return 0;
         });
 

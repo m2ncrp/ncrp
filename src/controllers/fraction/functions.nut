@@ -21,7 +21,7 @@ function isPlayerVehicleFraction(playerid, vehicleid) {
     }
 
     // 5 or lower - can driver cars
-    local fracts = fractions.getManaged(playerid, 5);
+    local fracts = fractions.getManaged(playerid, FRACTION_VEHICLE_PERMISSION);
 
     if (!fracts.len()) {
         return false;
