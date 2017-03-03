@@ -5,7 +5,7 @@ local BASIC_BANNED_NAMES = [
 ];
 
 translate("en", {
-    "character.invalid.rpname" : "Invalid (NON-RP) Character name.\nCharacter name will be resetted!\nPlease create new one! Your money and other will be saved."
+    "character.invalid.rpname" : "Invalid (NON-RP) Character name.\nCharacter name will be resetted! Please create new one! Your money and other will be saved."
 })
 
 event("onServerStarted", function() {
