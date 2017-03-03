@@ -4,6 +4,14 @@ include("controllers/fraction/classes/FractionMember.nut");
 include("controllers/fraction/classes/FractionProperty.nut");
 include("controllers/fraction/classes/FractionContainer.nut");
 
+FRACTION_FULL_PERMISSION      <- 0;
+FRACTION_MONEY_PERMISSION     <- 1;
+FRACTION_ROLESET_PERMISSION   <- 2;
+FRACTION_INVITE_PERMISSION    <- 3;
+FRACTION_VEHICLE_PERMISSION   <- 4;
+FRACTION_CHAT_PERMISSION      <- 5;
+FRACTION_NO_PERMISSION        <- 6;
+
 include("controllers/fraction/functions.nut");
 
 include("controllers/fraction/commands/general.nut");
@@ -21,6 +29,11 @@ event("onServerStarted", function() {
 
     Fraction.findAll(function(err, results) {
         foreach (idx, fraction in results) {
+            if (fractions.has(fraction.id) || fractions.has(fraction.shortcut)) {
+                dbg("fractions", "skipping duplicate:", fraction.id, fraction.shortcut);
+                continue;
+            }
+
             fractions.add(fraction.id, fraction);
 
             if (fraction.shortcut && fraction.shortcut != "") {
@@ -42,7 +55,7 @@ event("onServerStarted", function() {
             // fractions[role.fractionid].__globalroles.add(role.id, role);
 
             if (role.shortcut && role.shortcut != "") {
-                fractions[role.fractionid].roles.add(role.shortcut, role);
+                fractions[role.fractionid].sroles.add(role.shortcut, role);
             }
         }
     });

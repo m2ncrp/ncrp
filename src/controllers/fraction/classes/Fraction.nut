@@ -13,6 +13,7 @@ class Fraction extends ORM.Entity
     ];
 
     roles = null;
+    sroles = null;
     property = null;
     memberRoles = null;
     // __globalroles = null;
@@ -21,6 +22,7 @@ class Fraction extends ORM.Entity
         base.constructor();
 
         this.roles       = Container(FractionRole);
+        this.sroles      = Container(FractionRole);
         this.memberRoles = Container(FractionRole);
         this.property    = Container(FractionProperty);
     }
@@ -78,6 +80,17 @@ class Fraction extends ORM.Entity
         object.save();
 
         this.memberRoles.set(key, role);
+
+        local mmrs = this.memberRoles;
+
+        this.memberRoles.__keys.sort(function(a, b) {
+            if (mmrs[a].level > mmrs[b].level) return 1;
+            if (mmrs[a].level < mmrs[b].level) return -1;
+            if (mmrs[a].id > mmrs[b].id) return 1;
+            if (mmrs[a].id < mmrs[b].id) return -1;
+            return 0;
+        });
+
         return true;
     }
 
@@ -161,6 +174,10 @@ class Fraction extends ORM.Entity
         throw null;
     }
 
+    /**
+     * DEPREACTED
+     * @return {[type]} [description]
+     */
     function sortRoles() {
         local rls = this.roles;
 
@@ -171,15 +188,11 @@ class Fraction extends ORM.Entity
         });
     }
 
+    /**
+     * Get current members
+     * @return {Container}
+     */
     function getMembers() {
-        local mmrs = this.memberRoles;
-
-        this.memberRoles.__keys.sort(function(a, b) {
-            if (mmrs[a].level > mmrs[b].level) return 1;
-            if (mmrs[a].level < mmrs[b].level) return -1;
-            return 0;
-        });
-
         return this.memberRoles;
     }
 
