@@ -32,10 +32,10 @@ acmd(["die"], function( playerid, targetid = null ) {
     setPlayerHealth( targetid.tointeger(), 0.0 );
 });
 
-acmd("skin", function(playerid, id, targetid = null ) {
-    if(!targetid) targetid = playerid;
-    setPlayerModel(targetid.tointeger(), id.tointeger(), true);
-});
+// acmd("skin", function(playerid, id, targetid = null ) {
+//     if(!targetid) targetid = playerid;
+//     setPlayerModel(targetid.tointeger(), id.tointeger(), true);
+// });
 
 acmd(["skininc"], function ( playerid ) {
     local skin = getPlayerModel(playerid);
