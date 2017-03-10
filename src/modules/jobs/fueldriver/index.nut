@@ -478,6 +478,7 @@ function fuelJobLoadUnload ( playerid ) {
 
         msg( playerid, "job.fueldriver.truck.loading", FUEL_JOB_COLOR );
         freezePlayer( playerid, true);
+        setVehicleEngineState(vehicleid, false);
         trigger(playerid, "hudCreateTimer", 30.0, true, true);
         delayedFunction(30000, function () {
             job_fuel[getPlayerName(playerid)]["userstatus"] = "working";
@@ -494,6 +495,7 @@ function fuelJobLoadUnload ( playerid ) {
 
     msg( playerid, "job.fueldriver.truck.unloading", FUEL_JOB_COLOR );
     freezePlayer( playerid, true);
+    setVehicleEngineState(vehicleid, false);
     trigger(playerid, "hudCreateTimer", 10.0, true, true);
     delayedFunction(10000, function () {
         freezePlayer( playerid, false);
