@@ -311,12 +311,14 @@ key(["v"], function(playerid) {
 // put nearest cuffed player in jail
 cmd(["prison", "jail"], function(playerid, targetid) {
     targetid = targetid.tointeger();
+    if(getPoliceRank(playerid) < 2) return msg( playerid, "organizations.police.lowrank" );
     putInJail(playerid, targetid);
 });
 
 
 // take out player from jail
 cmd(["amnesty"], function(playerid, targetid) {
+    if(getPoliceRank(playerid) < 2) return msg( playerid, "organizations.police.lowrank" );
     targetid = targetid.tointeger();
     takeOutOfJail(playerid, targetid);
 });
@@ -351,13 +353,17 @@ cmd("park", function ( playerid, plate) {
     if ( isPlayerInVehicle(playerid) ) {
         return;
     }
-    if ( !isOfficer(playerid) ) { // check if not office
+    if ( !isOfficer(playerid) ) { // check if not officer
         return;
     }
     if ( !isOnPoliceDuty(playerid) ) {
         return msg( playerid, "organizations.police.duty.not" );
     }
-     trigger("onVehicleSetToCarPound", playerid, plate);
+    if ( getPoliceRank(playerid) < 2) {
+        return msg( playerid, "organizations.police.lowrank" );
+    }
+
+    trigger("onVehicleSetToCarPound", playerid, plate);
 });
 
 // player need to be in car
