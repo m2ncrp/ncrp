@@ -339,7 +339,7 @@ function showBadge(playerid, targetid = null) {
     }
 
     msg(playerid, "organizations.police.beenshown.badge", [getAuthor(targetid)]);
-    msg(targetid, "organizations.police.show.badge", [getLocalizedPlayerJob(playerid), getAuthor(targetid)]);
+    msg(targetid, "organizations.police.show.badge", [getLocalizedPlayerJob(playerid), getAuthor(playerid)]);
 }
 
 
