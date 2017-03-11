@@ -12,7 +12,7 @@ local function clearInvitations(playerid) {
 
     foreach (idx, value in cinvites) {
         if (value.created + INVITATION_TIMEOUT < getTimestamp()) {
-            invites.remove(idx);
+            invites[playerid].remove(idx);
         }
     }
 }
