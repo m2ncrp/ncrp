@@ -269,12 +269,12 @@ function busJobGet( playerid ) {
     if(isBusDriver(playerid)) {
         return msg( playerid, "job.bus.driver.already", BUS_JOB_COLOR );
     }
-*/
+
     // если у игрока недостаточный уровень
     if(!isPlayerLevelValid ( playerid, BUS_JOB_LEVEL )) {
         return msg(playerid, "job.bus.needlevel", BUS_JOB_LEVEL, BUS_JOB_COLOR );
     }
-
+*/
     if (getPlayerName(playerid) in job_bus_blocked) {
         if (getTimestamp() - job_bus_blocked[getPlayerName(playerid)] < BUS_JOB_TIMEOUT) {
             return msg( playerid, "job.bus.badworker", BUS_JOB_COLOR);
@@ -333,7 +333,6 @@ function busJobRefuseLeave( playerid ) {
 
     if (job_bus[getPlayerName(playerid)]["userstatus"] == "working") {
         msg( playerid, "job.bus.badworker.onleave", BUS_JOB_COLOR);
-        job_bus[getPlayerName(playerid)]["userstatus"] = "nojob";
         job_bus_blocked[getPlayerName(playerid)] <- getTimestamp();
         busJobRemovePrivateBlipText( playerid );
     }
@@ -345,9 +344,11 @@ function busJobRefuseLeave( playerid ) {
         msg( playerid, "job.bus.goodluck", BUS_JOB_COLOR);
     }
 
+    removeText ( playerid, "leavejob3dtext" );
+    trigger(playerid, "removeGPS");
+
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
-        removeText ( playerid, "leavejob3dtext" );
-        trigger(playerid, "removeGPS");
+
         msg( playerid, "job.leave", BUS_JOB_COLOR );
 
         setPlayerJob( playerid, null );
@@ -429,8 +430,8 @@ function busJobStop( playerid ) {
     freezePlayer( playerid, true);
     msg( playerid, "job.bus.waitpasses", BUS_JOB_COLOR );
 
-    trigger(playerid, "hudCreateTimer", 8.0, true, true);
-    delayedFunction(8000, function () {
+    trigger(playerid, "hudCreateTimer", 14.0, true, true);
+    delayedFunction(14000, function () {
         freezePlayer( playerid, false);
         delayedFunction(1000, function () { freezePlayer( playerid, false); });
 
@@ -470,7 +471,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
 
 event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     if (isBusDriver(playerid) && getVehicleModel(vehicleid) == 20 && job_bus[getPlayerName(playerid)]["userstatus"] == "complete") {
-        delayedFunction(8000, function () {
+        delayedFunction(14000, function () {
             tryRespawnVehicleById(vehicleid, true);
         });
     }

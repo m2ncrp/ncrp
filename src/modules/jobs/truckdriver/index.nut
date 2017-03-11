@@ -30,19 +30,19 @@ local truck_scens = {};
     LoadPointX = -370.788, LoadPointY = -347.463, LoadPointZ = -13.3999,
     UnloadPointX = 1189.01, UnloadPointY = 1148.07, UnloadPointZ = 3.3324 };
 
-    // сценарий 6: Мидтаун Разруха - Северный Миллвиль Свалка Далеко | All
+    // сценарий 6:  | All
     truck_scens[6] <- { LoadText = "job.truckdriver.scens6.load", UnloadText = "job.truckdriver.scens6.unload", vehicleid = 37,
     LoadPointX = -1544.27, LoadPointY = -108.465, LoadPointZ = -18.0451,
     UnloadPointX = -1163.7, UnloadPointY = 1594.2, UnloadPointZ = 6.53147 };
 
-    // сценарий 7: Мидтаун Разруха - Северный Миллвиль Свалка Далеко | All
+    // сценарий 7:  | All
     truck_scens[7] <- { LoadText = "job.truckdriver.scens7.load", UnloadText = "job.truckdriver.scens7.unload", vehicleid = 37,
     LoadPointX = -1544.27, LoadPointY = -108.465, LoadPointZ = -18.0451,
     UnloadPointX = 634.324, UnloadPointY = 906.558, UnloadPointZ = -12.4234 };
 
 // работы доступные в сезон
 local truck_scens_winter = [ 1, 3, 4, 5, 6, 7 ];
-local truck_scens_summer = [ 2, 4, 6, 7 ];
+local truck_scens_summer = [ 2, 4, 7 ];
 
     // сценарий 1: Северный Миллвиль - Мидтаун Разруха (доставка материалов) | All
     // truck_scens[10] <- { LoadText = "job.truckdriver.scens1.load", UnloadText = "job.truckdriver.scens1.unload", LoadPointX = 826.769, LoadPointY = 517.451, LoadPointZ = -11.7677, UnloadPointX = -370.788, UnloadPointY = -347.463, UnloadPointZ =  -13.3999 };
@@ -172,7 +172,7 @@ const TRUCK_JOB_Z = -6.86539; //
 
 const TRUCK_JOB_TIMEOUT = 1800; // 30 minutes
 const TRUCK_JOB_SKIN = 130;
-const TRUCK_JOB_SALARY = 14.0;
+const TRUCK_JOB_SALARY = 13.0;
 const TRUCK_JOB_LEVEL = 1;
       TRUCK_JOB_COLOR <- CL_CRUSTA;
 
@@ -184,12 +184,12 @@ local carp2 = false;
 event("onServerStarted", function() {
     log("[jobs] loading truckdriver job...");
                                                                                             //  loaded, playerid
-    truckcars[createVehicle(35, -705.155, 1456, -6.48204, -43.0174, -0.252974, -0.64192)]  <- [ false, null ]; //      Truck1
-    truckcars[createVehicle(37, -708.151, 1453.25, -6.50832, -43.1396, -0.445434, -1.12674)]  <- [ false, null ]; //   Covered
-    truckcars[createVehicle(35, -711.119, 1450.54, -6.52765, -41.8644, -0.613728, -1.6044)]  <- [ false, null ]; //    Truck2
-    truckcars[createVehicle(37, -714.315, 1447.55, -6.52792, -41.1587, -1.82778, -0.432325)]  <- [ false, null ]; //    Truck3
-    truckcars[createVehicle(37, -717.422, 1444.53, -6.33198, -39.2871, -1.59798, 3.26338)]  <- [ false, false ]; //    Covered
-
+    //truckcars[createVehicle(35, -705.155, 1456, -6.48204, -43.0174, -0.252974, -0.64192)]     <- [ false, null ]; //    Flatbed
+    truckcars[createVehicle(37, -708.151, 1453.25, -6.50832, -43.1396, -0.445434, -1.12674)]  <- [ false, null ]; //    Covered
+    truckcars[createVehicle(35, -711.119, 1450.54, -6.52765, -41.8644, -0.613728, -1.6044)]   <- [ false, null ]; //    Flatbed
+    //truckcars[createVehicle(37, -714.315, 1447.55, -6.52792, -41.1587, -1.82778, -0.432325)]  <- [ false, null ]; //    Covered
+    truckcars[createVehicle(37, -717.422, 1444.53, -6.33198, -39.2871, -1.59798, 3.26338)]    <- [ false, null ]; //    Covered
+/*
     carp = createVehicle(42, -364.809, -348.672, -13.5259, -0.540874, -0.0051816, -1.09775); // police Midtown
 
     createVehicle(27, -368.761, -330.329, -13.1167, 113.28, -0.503684, -1.39627); //Bron1
@@ -198,7 +198,7 @@ event("onServerStarted", function() {
     if (isSummer()) {
         carp2 = createVehicle(42, -1604.3, 569.969, -19.9775, -54.2438, 0.27688, -0.144837); // police Most
     }
-
+*/
     create3DText ( TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.35, "TRANSPORT COMPANY", CL_ROYALBLUE );
     create3DText ( TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.20, "Press E to action", CL_WHITE.applyAlpha(150), RADIUS_TRUCK );
 
@@ -251,8 +251,8 @@ event("onPlayerConnect", function(playerid) {
 });
 
 event("onPlayerSpawn", function(playerid) {
-    setVehicleBeaconLightState(carp, true);
-    if (isSummer()) { setVehicleBeaconLightState(carp2, true); }
+    //setVehicleBeaconLightState(carp, true);
+    //if (isSummer()) { setVehicleBeaconLightState(carp2, true); }
 });
 
 event("onServerPlayerStarted", function( playerid ){
@@ -434,7 +434,7 @@ function truckJobRefuseLeave( playerid ) {
 
     if (job_truck[playerid]["userstatus"] == "working") {
         msg( playerid, "job.truckdriver.badworker.onleave");
-        job_truck[playerid]["userstatus"] = "nojob";
+        job_truck[playerid]["userstatus"] = null;
         job_truck_blocked[getPlayerName(playerid)] <- getTimestamp();
     }
 
@@ -462,7 +462,7 @@ function truckJobRefuseLeave( playerid ) {
 
 
 function truckGetSalary( playerid ) {
-    local amount = TRUCK_JOB_SALARY + (random(-3, 2)).tofloat();
+    local amount = TRUCK_JOB_SALARY + (random(-3, 1)).tofloat();
     addMoneyToPlayer(playerid, amount);
     msg( playerid, "job.truckdriver.nicejob", [getPlayerName( playerid ), amount] );
 }
@@ -514,19 +514,23 @@ function truckJobLoadUnload( playerid ) {
     if( ( !truckcars[vehicleid][0] || ( truckcars[vehicleid][0] && truckcars[vehicleid][1] != playerid  ) ) && isVehicleInValidPoint(playerid, userjob.LoadPointX, userjob.LoadPointY, 4.0 )) {
         //loading
         truckJobRemovePrivateBlipText ( playerid );
-        freezePlayer( playerid, true );
+        freezePlayer( playerid, true);
+        setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
         setVehiclePartOpen(vehicleid, 1, true);
-
+        setVehicleEngineState(vehicleid, false);
         msg( playerid, "job.truckdriver.loading", TRUCK_JOB_COLOR );
-        delayedFunction(1500, function() {
-            screenFadeinFadeoutEx(playerid, 1000, 3000, null, function() {
-                truckcars[vehicleid][0] = true;
-                truckcars[vehicleid][1] = playerid;
-                job_truck[playerid]["truckblip3dtext"] = truckJobCreatePrivateBlipText(playerid, userjob.UnloadPointX, userjob.UnloadPointY, userjob.UnloadPointZ, "UNLOAD HERE", "Press E to unload");
-                msg( playerid, userjob.UnloadText, TRUCK_JOB_COLOR );
-                setVehiclePartOpen(vehicleid, 1, false);
-                freezePlayer( playerid, false );
-            });
+        trigger(playerid, "hudCreateTimer", 45.0, true, true);
+
+        delayedFunction(45000, function() {
+            dbg("[JOB TRUCK] "+getPlayerName(playerid)+"["+playerid+"] load truck.");
+            freezePlayer( playerid, false);
+            delayedFunction(1000, function () { freezePlayer( playerid, false); });
+            truckcars[vehicleid][0] = true;
+            truckcars[vehicleid][1] = playerid;
+            job_truck[playerid]["truckblip3dtext"] = truckJobCreatePrivateBlipText(playerid, userjob.UnloadPointX, userjob.UnloadPointY, userjob.UnloadPointZ, "UNLOAD HERE", "Press E to unload");
+            msg( playerid, userjob.UnloadText, TRUCK_JOB_COLOR );
+            setVehiclePartOpen(vehicleid, 1, false);
+
         });
 
     }
@@ -537,18 +541,22 @@ function truckJobLoadUnload( playerid ) {
         truckJobRemovePrivateBlipText ( playerid );
         //truck_limit_in_hour_current -= 1;
         freezePlayer( playerid, true );
+        setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
         setVehiclePartOpen(vehicleid, 1, true);
+        setVehicleEngineState(vehicleid, false);
 
         msg( playerid, "job.truckdriver.unloading", TRUCK_JOB_COLOR );
-        delayedFunction(1500, function() {
-            screenFadeinFadeoutEx(playerid, 1000, 3000, null, function() {
+        trigger(playerid, "hudCreateTimer", 45.0, true, true);
+
+        delayedFunction(45000, function() {
+                dbg("[JOB TRUCK] "+getPlayerName(playerid)+"["+playerid+"] unload truck.");
+                freezePlayer( playerid, false);
+                delayedFunction(1000, function () { freezePlayer( playerid, false); });
                 job_truck[playerid]["userstatus"] = "complete";
                 truckcars[vehicleid][0] = false;
                 truckcars[vehicleid][1] = null;
                 msg( playerid, "job.truckdriver.takemoney", TRUCK_JOB_COLOR );
                 setVehiclePartOpen(vehicleid, 1, false);
-                freezePlayer( playerid, false );
-            });
         });
     }
 }

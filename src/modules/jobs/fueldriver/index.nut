@@ -382,7 +382,6 @@ function fuelJobRefuseLeave( playerid ) {
 
     if (job_fuel[getPlayerName(playerid)]["userstatus"] == "working") {
         msg( playerid, "job.fueldriver.badworker.onleave", FUEL_JOB_COLOR);
-        job_fuel[getPlayerName(playerid)]["userstatus"] = "nojob";
         job_fuel[getPlayerName(playerid)]["userstatus"] = null;
         job_fuel_blocked[getPlayerName(playerid)] <- getTimestamp();
     }
