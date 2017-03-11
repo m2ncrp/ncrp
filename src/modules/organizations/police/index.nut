@@ -17,7 +17,7 @@ POLICE_EBPD_ENTERES <- [
 ];
 
 POLICE_JAIL_COORDS <- [
-    [-1018.93, 1731.82, 10.3252]
+    [-1054.28, 1725.5, 10.348]
 ];
 
 const EBPD_ENTER_RADIUS = 2.0;
@@ -33,8 +33,8 @@ POLICE_RANK <- [ // source: https://youtu.be/i7o0_PMv72A && https://en.wikipedia
     "police.patrol",         //"Police patrolman",  1
     "police.officer",        //"Police officer",    2
     "police.detective",      //"Detective"          3
-    "police.sergeant.1",     //"Sergant"            4
-    "police.sergeant.2",     //"Sergant"            5
+    "police.sergeant.1",     //"Sergeant"           4
+    "police.sergeant.2",     //"Sergeant"           5
     "police.lieutenant.1",   //"Lieutenant"         6
     "police.lieutenant.2",   //"Lieutenant"         7
     "police.Captain.1",      //"Captain I"          8
@@ -58,28 +58,28 @@ function policeRankPermission(ride, gun, getvehinfo) {
 }
 
 POLICE_RANK_SALLARY_PERMISSION_SKIN <- [ // calculated as: (-i^2 + 27*i + 28)/200; i - rank number
-    [0.14, policeRankPermission(false, false, false), [75, 76] ], // "police.cadet"
-    [0.27, policeRankPermission(false, true, false),  [75, 76] ], // "police.patrol"
-    [0.39, policeRankPermission(true, true, false),   [75, 76] ], // "police.officer"
-    [0.50, policeRankPermission(true, true, true),    [69]     ], // "police.detective"
-    [0.60, policeRankPermission(true, true, true),    [75, 76] ], // "police.sergeant.1"
-    [0.69, policeRankPermission(true, true, true),    [75, 76] ], // "police.sergeant.2"
-    [0.77, policeRankPermission(true, true, true),    [75, 76] ], // "police.lieutenant.1"
-    [0.84, policeRankPermission(true, true, true),    [75, 76] ], // "police.lieutenant.2"
-    [0.90, policeRankPermission(true, true, true),    [75, 76] ], // "police.Captain.1"
-    [0.95, policeRankPermission(true, true, true),    [75, 76] ], // "police.Captain.2"
-    [0.99, policeRankPermission(true, true, true),    [75, 76] ], // "police.Captain.3"
-    [1.02, policeRankPermission(true, true, true),    [75, 76] ], // "police.commander"
-    [1.04, policeRankPermission(true, true, true),    [75, 76] ], // "police.deputychief"
-    [1.05, policeRankPermission(true, true, true),    [75, 76] ], // "police.assistantchief"
-    [1.05, policeRankPermission(true, true, true),    [75, 76] ]  // "police.chief"
+    [0.14, policeRankPermission(false, false, false), [75, 76] ], // 0 - "police.cadet"
+    [0.27, policeRankPermission(false, true, false),  [75, 76] ], // 1 - "police.patrol"
+    [0.39, policeRankPermission(true, true, false),   [75, 76] ], // 2 - "police.officer"
+    [0.50, policeRankPermission(true, true, true),    [69]     ], // 3 - "police.detective"
+    [0.60, policeRankPermission(true, true, true),    [75, 76] ], // 4 - "police.sergeant.wa1"
+    [0.69, policeRankPermission(true, true, true),    [75, 76] ], // 5 - "police.sergeant.2"
+    [0.77, policeRankPermission(true, true, true),    [75, 76] ], // 6 - "police.lieutenant.1"
+    [0.84, policeRankPermission(true, true, true),    [75, 76] ], // 7 - "police.lieutenant.2"
+    [0.90, policeRankPermission(true, true, true),    [75, 76] ], // 8 - "police.Captain.1"
+    [0.95, policeRankPermission(true, true, true),    [75, 76] ], // 9 - "police.Captain.2"
+    [0.99, policeRankPermission(true, true, true),    [75, 76] ], // 10 - "police.Captain.3"
+    [1.02, policeRankPermission(true, true, true),    [75, 76] ], // 11 - "police.commander"
+    [1.04, policeRankPermission(true, true, true),    [75, 76] ], // 12 - "police.deputychief"
+    [1.05, policeRankPermission(true, true, true),    [75, 76] ], // 13 - "police.assistantchief"
+    [1.05, policeRankPermission(true, true, true),    [75, 76] ]  // 14 - "police.chief"
 ];
 
 
 POLICE_TICKET_PRICELIST <- [
-    [7.0, "organizations.police.lawbreak.warning"           ],  // Предупреждение aka warning
-    [8.5, "organizations.police.lawbreak.trafficviolation"  ],  // Нарушение ПДД aka traffic violation
-    [10.0,"organizations.police.lawbreak.roadaccident"      ]   // ДТП aka road acident
+    [7.0, "organizations.police.lawbreak.warning"           ],  // 0 - Предупреждение aka warning
+    [8.5, "organizations.police.lawbreak.trafficviolation"  ],  // 1 - Нарушение ПДД aka traffic violation
+    [10.0,"organizations.police.lawbreak.roadaccident"      ]   // 2 - ДТП aka road acident
 ];
 
 DENGER_LEVEL <- "green";
