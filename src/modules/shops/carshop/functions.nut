@@ -26,11 +26,11 @@ local carPricesAll = [
         { modelid = 44, price = 1950, title = "Smith Mainline"          },
         { modelid = 48, price = 1380, title = "Smith Wagon"             },
         { modelid = 50, price = 1650, title = "Culver Empire"           },
-        { modelid = 53, price = 870 , title = "Walter Coupe"            },
-        { modelid = 47, price = 610,  title = "Smith V8"                },
-        { modelid = 43, price = 470 , title = "Smith Coupe"             },
-        { modelid = 25, price = 750 , title = "Shubert 38"              },
-        { modelid = 31, price = 730 , title = "Shubert 38 Panel Truck"  },
+    //    { modelid = 53, price = 870 , title = "Walter Coupe"            },
+    //    { modelid = 47, price = 610,  title = "Smith V8"                },
+    //    { modelid = 43, price = 470 , title = "Smith Coupe"             },
+    //    { modelid = 25, price = 750 , title = "Shubert 38"              },
+    //   { modelid = 31, price = 730 , title = "Shubert 38 Panel Truck"  },
     ],
     [   // bad guy
         { modelid = 10, price = 9400, title = "ISW 508"                 },
@@ -41,9 +41,9 @@ local carPricesAll = [
         { modelid = 15, price = 3500, title = "Lassiter Series 69"      },
         { modelid = 29, price = 5070, title = "Shubert Frigate"         },
         { modelid = 14, price = 4800, title = "Jefferson Provincial"    },
-        { modelid = 45, price = 4200, title = "Smith Thunderbolt"       },
-        { modelid = 28, price = 2530, title = "Shubert Beverly"         },
-        { modelid = 41, price = 3140, title = "Smith Custom 200"        },
+    //    { modelid = 45, price = 4200, title = "Smith Thunderbolt"       },
+    //    { modelid = 28, price = 2530, title = "Shubert Beverly"         },
+    //    { modelid = 41, price = 3140, title = "Smith Custom 200"        },
         { modelid = 52, price = 4550, title = "Walker Rocket"           },
     ]
 ];
@@ -57,7 +57,7 @@ function generateRandomCarPrices() {
     local carPrices = [[],[]];
 
     local carPricesDiamond = clone(carPricesAll[0]);
-    for (local i = 0; i < 8; i++) {
+    for (local i = 0; i < 5; i++) {
         local rand = random(0, carPricesDiamond.len() - 1);
         carPrices[0].push(carPricesDiamond[rand]);
         carPricesDiamond.remove(rand);
