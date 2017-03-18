@@ -334,6 +334,7 @@ function busJobRefuseLeave( playerid ) {
     if (job_bus[getPlayerName(playerid)]["userstatus"] == "working") {
         msg( playerid, "job.bus.badworker.onleave", BUS_JOB_COLOR);
         job_bus_blocked[getPlayerName(playerid)] <- getTimestamp();
+        job_bus[getPlayerName(playerid)]["userstatus"] = null;
         busJobRemovePrivateBlipText( playerid );
     }
 
