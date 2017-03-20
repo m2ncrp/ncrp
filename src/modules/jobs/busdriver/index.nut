@@ -429,13 +429,15 @@ function busJobStop( playerid ) {
     job_bus[getPlayerName(playerid)]["route"][1].remove(0);
 
     freezePlayer( playerid, true);
+    local vehFuel = getVehicleFuel( vehicleid );
+    setVehicleFuel( vehicleid, 0.0 );
     msg( playerid, "job.bus.waitpasses", BUS_JOB_COLOR );
 
     trigger(playerid, "hudCreateTimer", 14.0, true, true);
     delayedFunction(14000, function () {
         freezePlayer( playerid, false);
         delayedFunction(1000, function () { freezePlayer( playerid, false); });
-
+        setVehicleFuel( vehicleid, vehFuel );
         if (job_bus[getPlayerName(playerid)]["route"][1].len() == 0) {
             msg( playerid, "job.bus.gototakemoney", BUS_JOB_COLOR );
             blockVehicle(vehicleid);
