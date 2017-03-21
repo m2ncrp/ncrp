@@ -176,6 +176,7 @@ event("onVehicleSetToCarPound", function(playerid, plate = null) {
         setVehicleRotation(vehicleid, 180.0, 0.0, 0.0 );
         delayedFunction(3000, function() {
             setVehiclePosition(vehicleid, parkingPlace[placeid][0], parkingPlace[placeid][1], parkingPlace[placeid][2] );
+            setVehicleRotation(vehicleid, 180.0, 0.0, 0.0 );
         });
         break;
     }
