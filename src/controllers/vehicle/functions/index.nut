@@ -140,3 +140,12 @@ function getCustomPlayerVehicles() {
 function getAllServerVehicles() {
     return __vehicles;
 }
+
+
+/**
+ * Return Entiry.id from tbl_vehicles by vehicleid
+ * @return {array}
+ */
+function getVehicleEntityId (vehicleid) {
+    return vehicleid in __vehicles && __vehicles[vehicleid].entity ? __vehicles[vehicleid].entity.id : -1;
+}
