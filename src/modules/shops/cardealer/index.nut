@@ -68,7 +68,7 @@ event ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
 });
 
 
-acmd("dealer", "sell", function(playerid, price) {
+cmd("dealer", "sell", function(playerid, price) {
     if (!isPlayerInVehicle(playerid)) return;
 
     local vehicleid     = getPlayerVehicle( playerid );
@@ -131,7 +131,7 @@ acmd("dealer", "sell", function(playerid, price) {
 });
 
 
-acmd("dealer", "buy", function(playerid) {
+cmd("dealer", "buy", function(playerid) {
     if (!isPlayerInVehicle(playerid)) return;
 
     local vehicleid     = getPlayerVehicle( playerid );
@@ -208,6 +208,22 @@ function carDealerLoadedDataRead() {
 }
 
 
+// usage: /dealer
+cmd("dealer",  function(playerid) {
+    carDealerHelp ( playerid );
+});
+
+
+function carDealerHelp ( playerid ) {
+    local title = "cardealer.help.title";
+    local commands = [
+        { name = "cardealer.help.cmd.sell",       desc = "cardealer.help.sell" },
+        { name = "cardealer.help.cmd.buy",        desc = "cardealer.help.buy" },
+    ];
+    msg_help(playerid, title, commands);
+}
+
+
 alternativeTranslate({
 
     "en|cardealer.onSaleYet"              :  "Your car «%s» with plate %s is on sale now."
@@ -261,5 +277,18 @@ alternativeTranslate({
     "en|cardealer.notenoughmoney"         :   "Not enough money to pay!"
     "ru|cardealer.notenoughmoney"         :   "Увы, у тебя недостаточно денег."
 
+    "en|cardealer.help.title"             :   "List of available commands for CAR DEALER:"
+    "ru|cardealer.help.title"             :   "Список доступных команд у автодилера:"
 
+    "en|cardealer.help.cmd.sell"          :   "/dealer sell PRICE"
+    "ru|cardealer.help.cmd.sell"          :   "/dealer sell ЦЕНА"
+
+    "en|cardealer.help.sell"              :   "Sell car (need to be in car). Example: /dealer sell 1000"
+    "ru|cardealer.help.sell"              :   "Выставить авто на продажу (нужно быть за рулём).  Например /dealer sell 1000"
+
+    "en|cardealer.help.cmd.buy"           :   "/dealer buy"
+    "ru|cardealer.help.cmd.buy"           :   "/dealer buy"
+
+    "en|cardealer.help.buy"               :   "Buy car (need to be in car)"
+    "ru|cardealer.help.buy"               :   "Купить автомобиль (нужно быть за рулём)"
 });
