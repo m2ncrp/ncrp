@@ -38,6 +38,34 @@ function isPlayerVehicleFraction(playerid, vehicleid) {
     return false;
 }
 
+function isPlayerVehicleInFraction(playerid) {
+
+    local fracs = fractions.getContaining(playerid);
+
+    if (!fracs.len()) {
+        return false;
+    }
+
+    // for now take the first one
+    local fraction = fracs[0];
+
+    if (!isPlayerInVehicle(playerid)) {
+        return false;
+    }
+
+    local vehicleid = getPlayerVehicle(playerid);
+
+    if (!isPlayerVehicleOwner(playerid, vehicleid)) {
+        return false;
+    }
+
+    if (fraction.property.has(__vehicles[vehicleid].entity.id)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function fraction__Create(title, shortcut = "", type = "default", money = 0.0) {
     local f = Fraction();
 
