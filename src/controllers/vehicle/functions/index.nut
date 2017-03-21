@@ -149,3 +149,18 @@ function getAllServerVehicles() {
 function getVehicleEntityId (vehicleid) {
     return vehicleid in __vehicles && __vehicles[vehicleid].entity ? __vehicles[vehicleid].entity.id : -1;
 }
+
+/**
+ * Return vehicleid by EntityId
+ * or false if vehicle was not found
+ * @param {Integer} EntityId
+ * @return {Integer} vehicleid
+ */
+function getVehicleIdFromEntityId(entityid) {
+    foreach(vehicleid, value in __vehicles) {
+        if(value.entity.id == entityid) {
+            return vehicleid;
+        }
+    }
+    return false;
+}
