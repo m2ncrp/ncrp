@@ -1,4 +1,4 @@
-const STATISICS_ENABLED = true;
+const STATISICS_ENABLED = false;
 
 function statisticsPushObject(object, type, additional = "") {
     // create object
