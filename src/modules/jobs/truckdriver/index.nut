@@ -331,7 +331,7 @@ function truckJobTalk( playerid ) {
         }
 
         job_truck[playerid]["userjob"] = userjob;
-        msg( playerid, userjob.LoadText, getVehicleNameByModelId( muserjob.vehicleid ), TRUCK_JOB_COLOR );
+        msg( playerid, userjob.LoadText, getVehicleNameByModelId( userjob.vehicleid ), TRUCK_JOB_COLOR );
         job_truck[playerid]["userstatus"] = "working";
 
 
@@ -432,7 +432,7 @@ function truckJobLoadUnload( playerid ) {
     local userjob = job_truck[playerid]["userjob"];
 
     if (!isPlayerVehicleTruck(playerid, userjob.vehicleid) && isVehicleInValidPoint(playerid, userjob.LoadPointX, userjob.LoadPointY, 4.0 )) {
-        return msg( playerid, "job.truckdriver.needtruck", getVehicleNameByModelId( muserjob.vehicleid ), TRUCK_JOB_COLOR );
+        return msg( playerid, "job.truckdriver.needtruck", getVehicleNameByModelId( userjob.vehicleid ), TRUCK_JOB_COLOR );
     }
 
     if(truckcars[vehicleid][0] && truckcars[vehicleid][1] == playerid && isVehicleInValidPoint(playerid, userjob.LoadPointX, userjob.LoadPointY, 4.0 )) {
