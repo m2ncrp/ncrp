@@ -23,6 +23,10 @@ cmd("f", ["car", "add"], function(playerid) {
         return msg(playerid, "You can add to fraction only your own vehicles!", CL_ERROR);
     }
 
+    if (isPlayerVehicleInPlayerFraction(playerid)) {
+        return msg(playerid, "You cannot add vehicle to this fraction again.", CL_WARNING);
+    }
+
     local relation = FractionProperty();
 
     relation.fractionid = fraction.id;
