@@ -1,4 +1,4 @@
-include("modules/shops/cardealer/models/cardealer.nut");
+include("modules/shops/cardealer/models/CarDealer.nut");
 
 local coords = [-1586.8, 1694.74, -0.336785, 150.868, 0.000169911, -0.00273992];
 
