@@ -164,33 +164,45 @@ cmd("dealer", "buy", function(playerid) {
 
     local margin = carInfo.price / 100 * margin_percent;
     local amount = carInfo.price + margin;
-
-    if(!canMoneyBeSubstracted(playerid, amount)) {
-        return msg(playerid, "cardealer.notenoughmoney", CL_ERROR);
-    }
-
-    subMoneyToPlayer(playerid, amount);
-    addMoneyToTreasury(margin);
-
     local playeridOldOwner = getPlayerIdFromCharacterId(carInfo.ownerid);
 
-    carInfo.sold = 1;
-    carInfo.save();
-
     if(playeridOldOwner != false) {
-        addMoneyToDeposit(playeridOldOwner, carInfo.price);
-        carInfo.remove();
 
+    /* возврат авто + оплата комиссии */
+        if(playeridOldOwner == playerid) {
+            if(!canMoneyBeSubstracted(playerid, margin)) {
+                return msg(playerid, "cardealer.notenoughmoney", CL_ERROR);
+            }
+            subMoneyToPlayer(playerid, margin);
+            addMoneyToTreasury(margin);
+            msg(playeridOldOwner, "cardealer.returnedCar", margin, CL_FIREBUSH);
+            carInfo.remove();
+        }
+
+    /* покупка авто. продавец онлайн */
         if(playeridOldOwner != playerid) {
+            if(!canMoneyBeSubstracted(playerid, amount)) {
+                return msg(playerid, "cardealer.notenoughmoney", CL_ERROR);
+            }
+            subMoneyToPlayer(playerid, amount);
+            addMoneyToDeposit(playeridOldOwner, amount);
+            msg(playerid, "cardealer.boughtCar", CL_SUCCESS);
             local plate   = getVehiclePlateText( vehicleid );
             local modelName = getVehicleNameByModelId( modelid );
             msg(playeridOldOwner, "cardealer.Sold", [modelName, plate], CL_FIREBUSH);
-            msg(playerid, "cardealer.boughtCar", CL_SUCCESS);
-        } else {
-            msg(playeridOldOwner, "cardealer.returnedCar", margin, CL_FIREBUSH);
+            carInfo.remove();
         }
-    } else {
+    }
+
+    /* покупка авто. продавец оффлайн */
+    if(playeridOldOwner == false) {
+        if(!canMoneyBeSubstracted(playerid, amount)) {
+            return msg(playerid, "cardealer.notenoughmoney", CL_ERROR);
+        }
+        subMoneyToPlayer(playerid, amount);
         msg(playerid, "cardealer.boughtCar", CL_SUCCESS);
+        carInfo.sold = 1;
+        carInfo.save();
     }
 
     carDealerLoadedDataRead();
