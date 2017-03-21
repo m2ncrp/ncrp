@@ -18,7 +18,7 @@ event("onServerStarted", function() {
 
     createBlip  ( -1600.67, 1687.52, [ 25, 0 ], 4000.0 );
 
-    createPlace("CarDealer", -1613.24, 1674.64, -1583.06, 1697.71703.82);
+    createPlace("CarDealer", -1613.24, 1674.64, -1583.06, 1703.82);
 });
 
 
