@@ -1,5 +1,6 @@
 include("controllers/vehicle/functions");
 include("controllers/vehicle/commands.nut");
+include("controllers/vehicle/modelName.nut");
 //include("controllers/vehicle/hiddencars.nut");
 
 const VEHICLE_RESPAWN_TIME      = 300; // 5 (real) minutes
