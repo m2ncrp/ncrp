@@ -38,7 +38,7 @@ function isPlayerVehicleFraction(playerid, vehicleid) {
     return false;
 }
 
-function isPlayerVehicleInFraction(playerid) {
+function isPlayerVehicleInPlayerFraction(playerid) {
 
     local fracs = fractions.getContaining(playerid);
 

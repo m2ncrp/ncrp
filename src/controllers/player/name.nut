@@ -44,8 +44,8 @@ function getPlayerIdFromCharacterName(characterName) {
         if(value.firstname+" "+value.lastname == characterName) {
             return playerid;
         }
-        return false;
     }
+    return false;
 }
 
 /**
@@ -59,8 +59,8 @@ function getPlayerIdFromCharacterId(CharacterId) {
         if(value.id == CharacterId) {
             return playerid;
         }
-        return false;
     }
+    return false;
 }
 
 event("onServerPlayerStarted", function(playerid) {
