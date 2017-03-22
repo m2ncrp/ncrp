@@ -13,17 +13,23 @@
 ## Игроки
 
 Массив игроков:
+
+```js
 Player players[]
+```
 
 Игрок:
+
+```js
 Player {
     string firstname;
     string lastname;
 }
-
+```
 
 ### Извлечение
 
-players[N]
+```js
 players[15]
 players.get(15)
+```
