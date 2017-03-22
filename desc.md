@@ -45,6 +45,17 @@ birthday
 birthmonth
 birthyear
 
+
+### Автомобили (tbl_vehicles)
+id
+_entity
+id документа, указывающего кто владеет тачкой (из таблиы предметов)
+model
+plate
+
+
+
+
 # Описание
 (черновик)
 
