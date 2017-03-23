@@ -63,12 +63,20 @@ const FUEL_JOB_Y = -266.866;
 const FUEL_JOB_Z = -20.1644;
 const FUEL_JOB_SKIN = 144;
 const FUEL_JOB_DISTANCE = 75;
-const FUEL_JOB_SALARY = 22.0;
+const FUEL_JOB_SALARY = 23.0;
 const FUEL_JOB_WAREHOUSE_X = 788.288;
 const FUEL_JOB_WAREHOUSE_Y = -78.0801;
 const FUEL_JOB_WAREHOUSE_Z = -20.0379;
 const FUEL_JOB_LEVEL = 3;
       FUEL_JOB_COLOR <- CL_CRUSTA;
+local FUEL_JOB_GET_HOUR_START = 12;
+local FUEL_JOB_GET_HOUR_END   = 15;
+local FUEL_JOB_LEAVE_HOUR_START = 18;
+local FUEL_JOB_LEAVE_HOUR_END   = 20;
+local FUEL_JOB_WORKING_HOUR_START = 12;
+local FUEL_JOB_WORKING_HOUR_END   = 20;
+local FUEL_ROUTE_IN_HOUR = 2;
+local FUEL_ROUTE_NOW = 2;
 
 local fuelname = [
     "Oyster Bay",                       // FuelStation Oyster Bay
@@ -100,8 +108,8 @@ event("onServerStarted", function() {
     log("[jobs] loading fueldriver job...");
     // DEPRECATED | fuelcars[i][0] - Truck ready: true/false DEPRECATED
     // fuelcars[i][1] - Fuel load: integer
-    fuelcars[createVehicle(5, 510.0, -277.5, -20.19, -179.464, -0.05, 0.1)]  <- [false, 0 ];
-    fuelcars[createVehicle(5, 515.0, -277.5, -20.19, -177.742, -0.05, 0.1)]  <- [false, 0 ];
+    // fuelcars[createVehicle(5, 510.0, -277.5, -20.19, -179.464, -0.05, 0.1)]  <- [false, 0 ];
+    // fuelcars[createVehicle(5, 515.0, -277.5, -20.19, -177.742, -0.05, 0.1)]  <- [false, 0 ];
     fuelcars[createVehicle(5, 520.0, -277.5, -20.19, -176.393, -0.05, 0.1)]  <- [false, 0 ];
     fuelcars[createVehicle(5, 525.0, -277.5, -20.19, -176.393, -0.05, 0.1)]  <- [false, 0 ];
 
@@ -178,6 +186,10 @@ event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     if (seat == 0) {
         blockVehicle(vehicleid);
     }
+});
+
+event("onServerHourChange", function() {
+    FUEL_ROUTE_NOW = FUEL_ROUTE_IN_HOUR + random(-1, 1);
 });
 
 /*
@@ -298,6 +310,11 @@ function fuelJobGet( playerid ) {
         return;
     }
 
+    local hour = getHour();
+    if(hour < FUEL_JOB_GET_HOUR_START || hour >= FUEL_JOB_GET_HOUR_END) {
+        return msg( playerid, "job.closed", [ FUEL_JOB_GET_HOUR_START.tostring(), FUEL_JOB_GET_HOUR_END.tostring()], FUEL_JOB_COLOR );
+    }
+
     // если у игрока недостаточный уровень
     if(!isPlayerLevelValid ( playerid, FUEL_JOB_LEVEL )) {
         return msg(playerid, "job.fueldriver.needlevel", FUEL_JOB_LEVEL, FUEL_JOB_COLOR );
@@ -352,13 +369,23 @@ function fuelJobGet( playerid ) {
 
 // working good, check
 function fuelJobStartRoute( playerid ) {
+
+    local hour = getHour();
+    if(hour < FUEL_JOB_WORKING_HOUR_START || hour >= FUEL_JOB_WORKING_HOUR_END) {
+        return msg( playerid, "job.closed", [ FUEL_JOB_WORKING_HOUR_START.tostring(), FUEL_JOB_WORKING_HOUR_END.tostring()], FUEL_JOB_COLOR );
+    }
+
+    if(FUEL_ROUTE_NOW < 1) {
+        return msg( playerid, "job.nojob", FUEL_JOB_COLOR );
+    }
+
     msg( playerid, "job.fueldriver.sitintotruck", FUEL_JOB_COLOR );
     job_fuel[getPlayerName(playerid)]["userstatus"] = "working";
 }
 
 
 function fuelGetSalary( playerid ) {
-    local amount = FUEL_JOB_SALARY + (random(-5, 1)).tofloat();
+    local amount = FUEL_JOB_SALARY + (random(-4, 1)).tofloat();
     msg( playerid, "job.fueldriver.nicejob", amount, FUEL_JOB_COLOR );
     addMoneyToPlayer(playerid, amount);
 }
@@ -374,6 +401,11 @@ function fuelJobRefuseLeave( playerid ) {
 
     if(!isPlayerInValidPoint(playerid, FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_RADIUS)) {
         return;
+    }
+
+    local hour = getHour();
+    if(hour < FUEL_JOB_LEAVE_HOUR_START || hour >= FUEL_JOB_LEAVE_HOUR_END) {
+        return msg( playerid, "job.closed", [ FUEL_JOB_LEAVE_HOUR_START.tostring(), FUEL_JOB_LEAVE_HOUR_END.tostring()], FUEL_JOB_COLOR );
     }
 
     if(job_fuel[getPlayerName(playerid)]["userstatus"] == null) {
