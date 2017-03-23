@@ -295,8 +295,8 @@ alternativeTranslate({
     "en|cardealer.help.cmd.sell"          :   "/dealer sell PRICE"
     "ru|cardealer.help.cmd.sell"          :   "/dealer sell ЦЕНА"
 
-    "en|cardealer.help.sell"              :   "Sell car (need to be in car). Example: /dealer sell 1000"
-    "ru|cardealer.help.sell"              :   "Выставить авто на продажу (нужно быть за рулём).  Например /dealer sell 1000"
+    "en|cardealer.help.sell"              :   "Sell car (need to be in car). 5 percent of price will be added to the final price. Example: /dealer sell 1000"
+    "ru|cardealer.help.sell"              :   "Выставить авто на продажу (нужно быть за рулём). К конечной цене будет прибавлено 5 процентов от указанной суммы. Образец: /dealer sell 1000"
 
     "en|cardealer.help.cmd.buy"           :   "/dealer buy"
     "ru|cardealer.help.cmd.buy"           :   "/dealer buy"
