@@ -15,12 +15,21 @@ const MILK_JOB_SKIN = 171;
 const MILK_JOB_DISTANCE = 35;
 const MILK_JOB_NUMBER_STATIONS = 7;
 const MILK_JOB_LEVEL = 1;
-const MILK_JOB_SALARY = 13.0;
+const MILK_JOB_SALARY = 28.0;
 local MILK_JOB_COLOR = CL_CRUSTA;
 local MILK_JOB_NAME = "milkdriver";
 local MILK_JOB_LOAD    = [185.295, 471.471, -19.9552];
 local MILK_JOB_PARKING = [170.803, 436.015, -20.221];
 local MILK_JOB_TIMEOUT = 1800;
+local MILK_JOB_GET_HOUR_START = 7;
+local MILK_JOB_GET_HOUR_END   = 8;
+local MILK_JOB_LEAVE_HOUR_START = 7;
+local MILK_JOB_LEAVE_HOUR_END   = 11;
+local MILK_JOB_WORKING_HOUR_START = 7;
+local MILK_JOB_WORKING_HOUR_END   = 8;
+local MILK_ROUTE_IN_HOUR = 1;
+local MILK_ROUTE_NOW = 1;
+
 
 // 788.288, -78.0801, -20.132   // coords of place to load milk truck
 // 551.762, -266.866, -20.1644  // coords of place to get job milkdriver
@@ -68,7 +77,7 @@ event("onServerStarted", function() {
     log("[jobs] loading milkdriver job...");
     // milktrucks[i][0] - Truck ready: true/false
     // milktrucks[i][1] - milk load: integer
-    milktrucks[createVehicle(19, 172.868, 436, -20.04, -178.634, 0.392045, -0.829271)]  <- 0 ;
+    //milktrucks[createVehicle(19, 172.868, 436, -20.04, -178.634, 0.392045, -0.829271)]  <- 0 ;
     milktrucks[createVehicle(19, 168.812, 436, -20.04, 179.681, 0.427494, -0.637235)]  <- 0 ;
 
     //creating 3dtext for milk ferm
@@ -172,6 +181,9 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     }
 });
 
+event("onServerHourChange", function() {
+    MILK_ROUTE_NOW = MILK_ROUTE_IN_HOUR;
+});
 
 function createMilkJobStationMarks(playerid, data) {
     if (!(getPlayerName(playerid) in milkJobStationMarks)) {
@@ -245,6 +257,11 @@ function milkJobGet ( playerid ) {
         return;
     }
 
+    local hour = getHour();
+    if(hour < MILK_JOB_GET_HOUR_START || hour >= MILK_JOB_GET_HOUR_END) {
+        return msg( playerid, "job.closed", [ MILK_JOB_GET_HOUR_START.tostring(), MILK_JOB_GET_HOUR_END.tostring()], MILK_JOB_COLOR );
+    }
+
     if(!isPlayerLevelValid ( playerid, MILK_JOB_LEVEL )) {
         return msg(playerid, "job.milkdriver.needlevel", MILK_JOB_LEVEL, MILK_JOB_COLOR );
     }
@@ -278,10 +295,16 @@ function milkJobLeave ( playerid ) {
         return;
     }
 
+    local hour = getHour();
+    if(hour < MILK_JOB_LEAVE_HOUR_START || hour >= MILK_JOB_LEAVE_HOUR_END) {
+        return msg( playerid, "job.closed", [ MILK_JOB_LEAVE_HOUR_START.tostring(), MILK_JOB_LEAVE_HOUR_END.tostring()], MILK_JOB_COLOR );
+    }
+
     if (getPlayerJobState(playerid) == "working") {
         msg( playerid, "job.milkdriver.badworker.onleave", MILK_JOB_COLOR);
         setPlayerJobState(playerid, "nojob");
         job_milk_blocked[getPlayerName(playerid)] <- getTimestamp();
+        showMilkLoadBlip (playerid, false);
     }
 
     if (getPlayerJobState(playerid) == "null") {
@@ -316,6 +339,15 @@ Event: JOB - Milk driver - Get route
 function milkJobGetRoute ( playerid ) {
     if(!isPlayerInValidPoint(playerid, MILK_JOB_X, MILK_JOB_Y, MILK_JOB_RADIUS)) {
         return;
+    }
+
+    local hour = getHour();
+    if(hour < MILK_JOB_WORKING_HOUR_START || hour >= MILK_JOB_WORKING_HOUR_END) {
+        return msg( playerid, "job.closed", [ MILK_JOB_WORKING_HOUR_START.tostring(), MILK_JOB_WORKING_HOUR_END.tostring()], MILK_JOB_COLOR );
+    }
+
+    if(MILK_ROUTE_NOW < 1) {
+        return msg( playerid, "job.nojob", MILK_JOB_COLOR );
     }
 
     setPlayerJobState( playerid, "working");

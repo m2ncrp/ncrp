@@ -17,6 +17,14 @@ local BUS_JOB_BUSSTOP = "STOP HERE";
 local BUS_JOB_DISTANCE = 100;
 local BUS_JOB_LEVEL = 1;
       BUS_JOB_COLOR <- CL_CRUSTA;
+local BUS_JOB_GET_HOUR_START = 6;
+local BUS_JOB_GET_HOUR_END   = 9;
+local BUS_JOB_LEAVE_HOUR_START = 20;
+local BUS_JOB_LEAVE_HOUR_END   = 22;
+local BUS_JOB_WORKING_HOUR_START = 6;
+local BUS_JOB_WORKING_HOUR_END   = 21;
+local BUS_ROUTE_IN_HOUR = 4;
+local BUS_ROUTE_NOW = 4;
 
 translation("en", {
     "job.busdriver"                     :   "bus driver"
@@ -188,6 +196,10 @@ event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     blockVehicle(vehicleid);
 });
 
+event("onServerHourChange", function() {
+    BUS_ROUTE_NOW = BUS_ROUTE_IN_HOUR + random(-2, 1);
+});
+
 function busStop(a, b, c) {
     return {name = a, public = b, private = c };
 }
@@ -265,6 +277,12 @@ function busJobGet( playerid ) {
     if(!isPlayerInValidPoint(playerid, BUS_JOB_X, BUS_JOB_Y, RADIUS_BUS)) {
         return;
     }
+
+    local hour = getHour();
+    if(hour < BUS_JOB_GET_HOUR_START || hour >= BUS_JOB_GET_HOUR_END) {
+        return msg( playerid, "job.closed", [ BUS_JOB_GET_HOUR_START.tostring(), BUS_JOB_GET_HOUR_END.tostring()], BUS_JOB_COLOR );
+    }
+
 /*
     if(isBusDriver(playerid)) {
         return msg( playerid, "job.bus.driver.already", BUS_JOB_COLOR );
@@ -327,6 +345,11 @@ function busJobRefuseLeave( playerid ) {
         return;
     }
 
+    local hour = getHour();
+    if(hour < BUS_JOB_LEAVE_HOUR_START || hour >= BUS_JOB_LEAVE_HOUR_END) {
+        return msg( playerid, "job.closed", [ BUS_JOB_LEAVE_HOUR_START.tostring(), BUS_JOB_LEAVE_HOUR_END.tostring()], BUS_JOB_COLOR );
+    }
+
     if(job_bus[getPlayerName(playerid)]["userstatus"] == null) {
         msg( playerid, "job.bus.goodluck", BUS_JOB_COLOR);
     }
@@ -370,6 +393,15 @@ function busGetSalary( playerid ) {
 
 // working good, check
 function busJobStartRoute( playerid ) {
+
+    local hour = getHour();
+    if(hour < BUS_JOB_WORKING_HOUR_START || hour >= BUS_JOB_WORKING_HOUR_END) {
+        return msg( playerid, "job.closed", [ BUS_JOB_WORKING_HOUR_START.tostring(), BUS_JOB_WORKING_HOUR_END.tostring()], TRUCK_JOB_COLOR );
+    }
+
+    if(BUS_ROUTE_NOW < 1) {
+        return msg( playerid, "job.nojob", BUS_JOB_COLOR );
+    }
 
     local route = random(1, 5);
 

@@ -57,8 +57,17 @@ const DOCKER_JOB_PUTBOX_Z = -21.7312;
 */
 
 const DOCKER_JOB_SKIN = 63;
-const DOCKER_SALARY = 0.2;
+const DOCKER_SALARY = 0.15;
       DOCKER_JOB_COLOR <- CL_CRUSTA;
+
+local DOCKER_JOB_GET_HOUR_START = 6;
+local DOCKER_JOB_GET_HOUR_END   = 18;
+local DOCKER_JOB_LEAVE_HOUR_START = 6;
+local DOCKER_JOB_LEAVE_HOUR_END   = 18;
+local DOCKER_JOB_WORKING_HOUR_START = 6;
+local DOCKER_JOB_WORKING_HOUR_END   = 18;
+local DOCKER_BOX_IN_HOUR = 35;
+local DOCKER_BOX_NOW = 29;
 
 event("onServerStarted", function() {
     log("[jobs] loading docker job...");
@@ -90,6 +99,9 @@ event("onServerPlayerStarted", function( playerid ) {
     }
 });
 
+event("onServerHourChange", function() {
+    DOCKER_BOX_NOW = DOCKER_BOX_IN_HOUR + random(-8, 9);
+});
 
 /**
  * Create private 3DTEXT AND BLIP
@@ -153,6 +165,11 @@ function dockerJob( playerid ) {
         return msg( playerid, "job.docker.already", DOCKER_JOB_COLOR );
     }
 
+    local hour = getHour();
+    if(hour < DOCKER_JOB_GET_HOUR_START || hour >= DOCKER_JOB_GET_HOUR_END) {
+        return msg( playerid, "job.closed", [ DOCKER_JOB_GET_HOUR_START.tostring(), DOCKER_JOB_GET_HOUR_END.tostring()], DOCKER_JOB_COLOR );
+    }
+
     if(isPlayerHaveJob(playerid)) {
         return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), DOCKER_JOB_COLOR );
     }
@@ -185,6 +202,12 @@ function dockerJobLeave( playerid ) {
     if(!isDocker( playerid )) {
         return msg( playerid, "job.docker.not", DOCKER_JOB_COLOR );
     }
+
+    local hour = getHour();
+    if(hour < DOCKER_JOB_LEAVE_HOUR_START || hour >= DOCKER_JOB_LEAVE_HOUR_END) {
+        return msg( playerid, "job.closed", [ DOCKER_JOB_LEAVE_HOUR_START.tostring(), DOCKER_JOB_LEAVE_HOUR_END.tostring()], DOCKER_JOB_COLOR );
+    }
+
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
         msg( playerid, "job.leave", DOCKER_JOB_COLOR );
 
@@ -218,6 +241,15 @@ function dockerJobTakeBox( playerid ) {
 
     if (isDockerHaveBox(playerid)) {
         return msg( playerid, "job.docker.havebox", DOCKER_JOB_COLOR );
+    }
+
+    local hour = getHour();
+    if(hour < DOCKER_JOB_WORKING_HOUR_START || hour >= DOCKER_JOB_WORKING_HOUR_END) {
+        return msg( playerid, "job.closed", [ DOCKER_JOB_WORKING_HOUR_START.tostring(), DOCKER_JOB_WORKING_HOUR_END.tostring()], DOCKER_JOB_COLOR );
+    }
+
+    if(DOCKER_BOX_NOW < 1) {
+        return msg( playerid, "job.nojob", DOCKER_JOB_COLOR );
     }
 
     if (job_docker[playerid]["moveState"] == 1 || job_docker[playerid]["moveState"] == 2){
