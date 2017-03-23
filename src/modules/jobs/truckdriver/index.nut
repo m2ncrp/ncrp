@@ -117,7 +117,14 @@ const TRUCK_JOB_SKIN = 130;
 const TRUCK_JOB_SALARY = 13.0;
 const TRUCK_JOB_LEVEL = 1;
       TRUCK_JOB_COLOR <- CL_CRUSTA;
-
+local TRUCK_JOB_GET_HOUR_START = 9;
+local TRUCK_JOB_GET_HOUR_END   = 11;
+local TRUCK_JOB_LEAVE_HOUR_START = 17;
+local TRUCK_JOB_LEAVE_HOUR_END   = 19;
+local TRUCK_JOB_WORKING_HOUR_START = 9;
+local TRUCK_JOB_WORKING_HOUR_END   = 19;
+local TRUCK_ROUTE_IN_HOUR = 4;
+local TRUCK_ROUTE_NOW = 3;
 
 local carp = false;
 local carp2 = false;
@@ -230,6 +237,9 @@ event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     }
 });
 
+event("onServerHourChange", function() {
+    TRUCK_ROUTE_NOW = TRUCK_ROUTE_IN_HOUR + random(-1, 1);
+});
 
 /**
  * Create private 3DTEXT AND BLIP
@@ -311,6 +321,15 @@ function truckJobTalk( playerid ) {
             return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), TRUCK_JOB_COLOR );
         }
 
+        local hour = getHour();
+        if(hour < TRUCK_JOB_WORKING_HOUR_START || hour >= TRUCK_JOB_WORKING_HOUR_END) {
+            return msg( playerid, "job.closed", [ TRUCK_JOB_WORKING_HOUR_START.tostring(), TRUCK_JOB_WORKING_HOUR_END.tostring()], TRUCK_JOB_COLOR );
+        }
+
+        if(TRUCK_ROUTE_NOW < 1) {
+            return msg( playerid, "job.nojob", BUS_JOB_COLOR );
+        }
+
         // create private blip job
         //createPersonalJobBlip( playerid, TRUCK_JOB_X, TRUCK_JOB_Y);
         //
@@ -370,6 +389,11 @@ function truckJobRefuseLeave( playerid ) {
         return;
     }
 
+    local hour = getHour();
+    if(hour < TRUCK_JOB_LEAVE_HOUR_START || hour >= TRUCK_JOB_LEAVE_HOUR_END) {
+        return msg( playerid, "job.closed", [ TRUCK_JOB_LEAVE_HOUR_START.tostring(), TRUCK_JOB_LEAVE_HOUR_END.tostring()], TRUCK_JOB_COLOR );
+    }
+
     if(job_truck[playerid]["userstatus"] == null) {
         msg( playerid, "job.truckdriver.goodluck");
     }
@@ -404,7 +428,7 @@ function truckJobRefuseLeave( playerid ) {
 
 
 function truckGetSalary( playerid ) {
-    local amount = TRUCK_JOB_SALARY + (random(-5, -1)).tofloat();
+    local amount = TRUCK_JOB_SALARY + (random(-3, 1)).tofloat();
     addMoneyToPlayer(playerid, amount);
     msg( playerid, "job.truckdriver.nicejob", [getPlayerName( playerid ), amount] );
 }

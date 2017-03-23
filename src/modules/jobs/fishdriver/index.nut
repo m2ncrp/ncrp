@@ -101,6 +101,12 @@ local FISH_PUTBOX = [375.963, 126.703, -20.2027];
 
 local FISH_PORT =  [-217.298, -724.771, -21.423]; // PortPlace P3 06 Chinese
 
+local FISH_JOB_GET_HOUR_START = 6;
+local FISH_JOB_GET_HOUR_END   = 22;
+local FISH_JOB_LEAVE_HOUR_START = 6;
+local FISH_JOB_LEAVE_HOUR_END   = 22;
+local FISH_JOB_WORKING_HOUR_START = 6;
+local FISH_JOB_WORKING_HOUR_END   = 21;
 
 event("onServerStarted", function() {
     log("[jobs] loading fishdriver job...");
@@ -328,6 +334,11 @@ function fishJobGet( playerid ) {
     if(!isPlayerInValidPoint(playerid, FISH_JOB_X, FISH_JOB_Y, RADIUS_FISH)) {
         return;
     }
+
+    local hour = getHour();
+    if(hour < FISH_JOB_GET_HOUR_START || hour >= FISH_JOB_GET_HOUR_END) {
+        return msg( playerid, "job.closed", [ FISH_JOB_GET_HOUR_START.tostring(), FISH_JOB_GET_HOUR_END.tostring()], FISH_JOB_COLOR );
+    }
 /*
     if(isFishDriver( playerid )) {
         return msg( playerid, "job.fishdriver.already", FISH_JOB_COLOR );
@@ -377,6 +388,11 @@ function fishJobRefuseLeave( playerid ) {
         return;
     }
 
+    local hour = getHour();
+    if(hour < FISH_JOB_LEAVE_HOUR_START || hour >= FISH_JOB_LEAVE_HOUR_END) {
+        return msg( playerid, "job.closed", [ FISH_JOB_LEAVE_HOUR_START.tostring(), FISH_JOB_LEAVE_HOUR_END.tostring()], FISH_JOB_COLOR );
+    }
+
         msg( playerid, "job.fishdriver.goodluck", FISH_JOB_COLOR);
         job_fish[getPlayerName(playerid)]["userstatus"] = null;
         job_fish[getPlayerName(playerid)]["hand"] = null;
@@ -413,6 +429,12 @@ function fishJobRefuseLeave( playerid ) {
 
 function fishJobStartRoute( playerid ) {
     //job_fish[getPlayerName(playerid)]["blip3dtext"] = fishJobCreatePrivateBlipText(playerid, 396.5, 98.0385, -21.2582, "UNLOAD HERE", "/fish unload");
+    //
+    local hour = getHour();
+    if(hour < FISH_JOB_WORKING_HOUR_START || hour >= FISH_JOB_WORKING_HOUR_END) {
+        return msg( playerid, "job.closed", [ FISH_JOB_WORKING_HOUR_START.tostring(), FISH_JOB_WORKING_HOUR_END.tostring()], FISH_JOB_COLOR );
+    }
+
     job_fish[getPlayerName(playerid)]["userstatus"] = "working";
     fishJobSync3DText(playerid);
     msg(playerid, "job.fishdriver.toparking", FISH_JOB_COLOR );

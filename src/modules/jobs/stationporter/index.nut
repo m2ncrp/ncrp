@@ -41,8 +41,17 @@ const PORTER_JOB_PUTBOX_X = -632.416;
 const PORTER_JOB_PUTBOX_Y = 1645.35;
 const PORTER_JOB_PUTBOX_Z = -23.2408;
 const PORTER_JOB_SKIN = 131;
-const PORTER_SALARY = 0.25;
+const PORTER_SALARY = 0.2;
       PORTER_JOB_COLOR <- CL_CRUSTA;
+local PORTER_JOB_GET_HOUR_START = 6;
+local PORTER_JOB_GET_HOUR_END   = 18;
+local PORTER_JOB_LEAVE_HOUR_START = 6;
+local PORTER_JOB_LEAVE_HOUR_END   = 18;
+local PORTER_JOB_WORKING_HOUR_START = 6;
+local PORTER_JOB_WORKING_HOUR_END   = 18;
+local PORTER_BOX_IN_HOUR = 35;
+local PORTER_BOX_NOW = 29;
+
 
 event("onServerStarted", function() {
     log("[jobs] loading porter job...");
@@ -72,6 +81,9 @@ event("onServerPlayerStarted", function( playerid ) {
     }
 });
 
+event("onServerHourChange", function() {
+    PORTER_BOX_NOW = PORTER_BOX_IN_HOUR + random(-11, 12);
+});
 
 /**
  * Create private 3DTEXT AND BLIP
@@ -134,6 +146,11 @@ function porterJob( playerid ) {
         return msg( playerid, "job.porter.already", PORTER_JOB_COLOR );
     }
 
+    local hour = getHour();
+    if(hour < PORTER_JOB_GET_HOUR_START || hour >= PORTER_JOB_GET_HOUR_END) {
+        return msg( playerid, "job.closed", [ PORTER_JOB_GET_HOUR_START.tostring(), PORTER_JOB_GET_HOUR_END.tostring()], PORTER_JOB_COLOR );
+    }
+
     if(isPlayerHaveJob(playerid)) {
         return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), PORTER_JOB_COLOR );
     }
@@ -166,6 +183,12 @@ function porterJobLeave( playerid ) {
     if(!isPorter( playerid )) {
         return msg( playerid, "job.porter.not", PORTER_JOB_COLOR );
     }
+
+    local hour = getHour();
+    if(hour < PORTER_JOB_LEAVE_HOUR_START || hour >= PORTER_JOB_LEAVE_HOUR_END) {
+        return msg( playerid, "job.closed", [ PORTER_JOB_LEAVE_HOUR_START.tostring(), PORTER_JOB_LEAVE_HOUR_END.tostring()], PORTER_JOB_COLOR );
+    }
+
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
         msg( playerid, "job.leave", PORTER_JOB_COLOR );
 
@@ -200,6 +223,15 @@ function porterJobTakeBox( playerid ) {
 
     if (isPorterHaveBox(playerid)) {
         return msg( playerid, "job.porter.havebox", PORTER_JOB_COLOR );
+    }
+
+    local hour = getHour();
+    if(hour < PORTER_JOB_WORKING_HOUR_START || hour >= PORTER_JOB_WORKING_HOUR_END) {
+        return msg( playerid, "job.closed", [ PORTER_JOB_WORKING_HOUR_START.tostring(), PORTER_JOB_WORKING_HOUR_END.tostring()], PORTER_JOB_COLOR );
+    }
+
+    if(PORTER_BOX_NOW < 1) {
+        return msg( playerid, "job.nojob", PORTER_JOB_COLOR );
     }
 
     if (job_porter[playerid]["moveState"] == 1 || job_porter[playerid]["moveState"] == 2){
