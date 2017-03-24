@@ -68,6 +68,13 @@ event ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
 });
 
 
+event("onPlayerPlaceEnter", function(playerid, name) {
+    if (isPlayerInVehicle(playerid) && name == "CarDealer") {
+        local vehicleid = getPlayerVehicle(playerid);
+        setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
+    }
+});
+
 cmd("dealer", "sell", function(playerid, price) {
     if (!isPlayerInVehicle(playerid)) return;
 
