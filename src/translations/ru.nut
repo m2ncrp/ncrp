@@ -158,6 +158,7 @@ translation("ru", {
     "job.bus.driving"                   :   "[BUS] Останови автобус."
     "job.bus.gototakemoney"             :   "[BUS] Оставляй автобус тут. Заработанные деньги получишь у центрального входа в здание депо."
     "job.bus.nicejob"                   :   "[BUS] Отличная работа! Ты заработал $%.2f."
+    "job.bus.needcorrectpark"           :   "[BUS] Подъедь к остановке правильно."
 
     "job.bus.help.title"            :   "Управление для водителя автобуса:"
     "job.bus.help.job"              :   "кнопка E"
