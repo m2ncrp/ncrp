@@ -72,7 +72,7 @@ const FUEL_JOB_LEVEL = 3;
 local FUEL_JOB_GET_HOUR_START = 12;
 local FUEL_JOB_GET_HOUR_END   = 15;
 local FUEL_JOB_LEAVE_HOUR_START = 18;
-local FUEL_JOB_LEAVE_HOUR_END   = 20;
+local FUEL_JOB_LEAVE_HOUR_END   = 21;
 local FUEL_JOB_WORKING_HOUR_START = 12;
 local FUEL_JOB_WORKING_HOUR_END   = 20;
 local FUEL_ROUTE_IN_HOUR = 2;
@@ -310,31 +310,32 @@ function fuelJobGet( playerid ) {
         return;
     }
 
-    local hour = getHour();
-    if(hour < FUEL_JOB_GET_HOUR_START || hour >= FUEL_JOB_GET_HOUR_END) {
-        return msg( playerid, "job.closed", [ FUEL_JOB_GET_HOUR_START.tostring(), FUEL_JOB_GET_HOUR_END.tostring()], FUEL_JOB_COLOR );
-    }
-
-    // если у игрока недостаточный уровень
-    if(!isPlayerLevelValid ( playerid, FUEL_JOB_LEVEL )) {
-        return msg(playerid, "job.fueldriver.needlevel", FUEL_JOB_LEVEL, FUEL_JOB_COLOR );
-    }
-
-    if (getPlayerName(playerid) in job_fuel_blocked) {
-        if (getTimestamp() - job_fuel_blocked[getPlayerName(playerid)] < FUEL_JOB_TIMEOUT) {
-            return msg( playerid, "job.fueldriver.badworker", FUEL_JOB_COLOR);
-        }
-    }
-
     // если у игрока статус работы == null
     if(job_fuel[getPlayerName(playerid)]["userstatus"] == null) {
 
-        // если у игрока уже есть другая работа
-        if(isPlayerHaveJob(playerid) && !isFuelDriver(playerid)) {
-            return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), FUEL_JOB_COLOR );
-        }
-
         if(!isPlayerHaveJob(playerid)) {
+
+            local hour = getHour();
+            if(hour < FUEL_JOB_GET_HOUR_START || hour >= FUEL_JOB_GET_HOUR_END) {
+                return msg( playerid, "job.closed", [ FUEL_JOB_GET_HOUR_START.tostring(), FUEL_JOB_GET_HOUR_END.tostring()], FUEL_JOB_COLOR );
+            }
+
+            // если у игрока уже есть другая работа
+            if(isPlayerHaveJob(playerid) && !isFuelDriver(playerid)) {
+                return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), FUEL_JOB_COLOR );
+            }
+
+            // если у игрока недостаточный уровень
+            if(!isPlayerLevelValid ( playerid, FUEL_JOB_LEVEL )) {
+                return msg(playerid, "job.fueldriver.needlevel", FUEL_JOB_LEVEL, FUEL_JOB_COLOR );
+            }
+
+            if (getPlayerName(playerid) in job_fuel_blocked) {
+                if (getTimestamp() - job_fuel_blocked[getPlayerName(playerid)] < FUEL_JOB_TIMEOUT) {
+                    return msg( playerid, "job.fueldriver.badworker", FUEL_JOB_COLOR);
+                }
+            }
+
             msg( playerid, "job.fueldriver.now", FUEL_JOB_COLOR );
 
             setPlayerJob( playerid, "fueldriver");
