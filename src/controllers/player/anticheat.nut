@@ -18,7 +18,7 @@ vehicleSpeedLimits[00] <- [56.0, 57.0];
 vehicleSpeedLimits[01] <- [46.0, 47.0];
 vehicleSpeedLimits[03] <- [21.0, 22.0];
 vehicleSpeedLimits[04] <- [21.0, 22.0];
-vehicleSpeedLimits[05] <- [32.0, 34.0];
+vehicleSpeedLimits[05] <- [32.5, 34.0];
 vehicleSpeedLimits[06] <- [58.5, 62.5];
 vehicleSpeedLimits[07] <- [51.5, 55.0];
 vehicleSpeedLimits[08] <- [51.5, 55.0]; // have problem
@@ -28,26 +28,26 @@ vehicleSpeedLimits[11] <- [30.5, 32.0];
 vehicleSpeedLimits[12] <- [30.5, 32.0];
 vehicleSpeedLimits[13] <- [50.5, 52.0];
 vehicleSpeedLimits[14] <- [40.5, 41.5];
-vehicleSpeedLimits[15] <- [45.1, 46.0];
+vehicleSpeedLimits[15] <- [45.7, 46.2];
 vehicleSpeedLimits[16] <- [45.1, 46.0]; // have problem
 vehicleSpeedLimits[17] <- [47.1, 49.0];
 vehicleSpeedLimits[18] <- [47.1, 49.0]; // have problem
 
-vehicleSpeedLimits[19] <- [28.0, 30.0];
+vehicleSpeedLimits[19] <- [28.2, 30.0];
 vehicleSpeedLimits[20] <- [26.0, 28.0];
 vehicleSpeedLimits[24] <- [41.7, 42.5];
 vehicleSpeedLimits[25] <- [36.8, 37.5];
-vehicleSpeedLimits[31] <- [33.5, 35.0];
+vehicleSpeedLimits[31] <- [33.8, 35.0];
 vehicleSpeedLimits[33] <- [36.5, 37.5];
-vehicleSpeedLimits[35] <- [30.0, 32.5];
+vehicleSpeedLimits[35] <- [30.4, 32.5];
 vehicleSpeedLimits[38] <- [30.0, 32.5];
 vehicleSpeedLimits[42] <- [53.0, 54.0];
 vehicleSpeedLimits[43] <- [32.5, 34.0];
-vehicleSpeedLimits[47] <- [35.9, 36.7];
+vehicleSpeedLimits[47] <- [36.2, 36.9];
 vehicleSpeedLimits[50] <- [41.5, 43.0];
 vehicleSpeedLimits[51] <- [42.5, 43.5];
 vehicleSpeedLimits[52] <- [53.0, 57.0];
-vehicleSpeedLimits[53] <- [26.7, 28.5];
+vehicleSpeedLimits[53] <- [27.4, 28.5];
 
 
 //local maxspeed = 0.0;
