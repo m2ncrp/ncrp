@@ -47,6 +47,7 @@ translation("en", {
     "job.bus.driving"                   :   "[BUS] You're driving. Please stop the bus."
     "job.bus.gototakemoney"             :   "[BUS] Leave the bus and take your money near central entrance."
     "job.bus.nicejob"                   :   "[BUS] Nice job! You earned $%.2f"
+    "job.bus.needcorrectpark"           :   "[BUS] Park the bus correctly."
 
     "job.bus.help.title"            :   "Controls for bus driver:"
     "job.bus.help.job"              :   "E button"
@@ -79,43 +80,43 @@ event("onServerStarted", function() {
     //createVehicle(20, -412.107, 410.674, -0.0407671, 89.4833, -3.28604, 1.37194);
 
   //busStops[0]   <-  busStop("NAME",                                              public ST                                   private
-    busStops[1]   <-  busStop("Uptown (path #1)",              busv3( -400.996,   476.106,  -1.01301 ),   busv3( -404.360,   488.435,   -0.568764 ));
-    busStops[2]   <-  busStop("Uptown (path #2)",              busv3( -400.996,   444.081,  -1.05144 ),   busv3( -404.360,   441.001,   -0.566925 ));
-    busStops[3]   <-  busStop("Uptown (path #3)",              busv3( -419.423,   444.183, 0.0254459 ),   busv3( -423.116,   441.001,    0.132165 ));
-    busStops[4]   <-  busStop("Uptown (path #4)",              busv3( -373.499,   468.245, - 1.27469 ),   busv3(  -376.67,   471.245,   -0.944843 ));
-    busStops[5]   <-  busStop("West Side",                        busv3( -474.538,   7.72202,  -1.33022 ),   busv3( -471.471,   10.2396,     -1.4627 ));
-    busStops[6]   <-  busStop("Midtown",                          busv3( -428.483,  -303.189,  -11.7407 ),   busv3( -431.421,  -299.824,    -11.8258 ));
-    busStops[7]   <-  busStop("SouthPort",                        busv3( -137.196,  -475.182,  -15.2725 ),   busv3( -140.946,   -472.49,    -15.4755 ));
-    busStops[8]   <-  busStop("Oyster Bay",                       busv3(  299.087,  -311.669,  -20.162  ),   busv3(  296.348,  -315.252,    -20.3024 ));
-    busStops[9]   <-  busStop("Chinatown",                        busv3(  277.134,   359.335,  -21.535  ),   busv3(  274.361,   355.601,    -21.6772 ));
-    busStops[10]  <-  busStop("Little Italy (East)",              busv3(   477.92,   733.942,  -21.2513 ),   busv3(  475.215,   736.735,    -21.3909 ));
-    busStops[11]  <-  busStop("Millville North (west platform)",  busv3(  691.839,   873.923,  -11.9926 ),   busv3(   688.59,   873.993,    -12.2225 ));
-    busStops[12]  <-  busStop("Millville North (east platform)",  busv3(  697.743,   873.697,  -11.9925 ),   busv3(  701.126,   873.666,    -11.8061 ));
-    busStops[13]  <-  busStop("Little Italy (East-West)",         busv3(  162.136,   835.064,  -19.6378 ),   busv3(  164.963,   832.472,    -19.7743 ));
-    busStops[14]  <-  busStop("Little Italy (Diamond Motors)",    busv3( -173.266,   724.155,  -20.4991 ),   busv3( -170.596,   727.372,    -20.6562 ));
-    busStops[15]  <-  busStop("East Side",                        busv3( -104.387,   377.106,  -13.9932 ),   busv3( -101.08,    374.001,    -14.1311 ));
-    busStops[16]  <-  busStop("Dipton",                           busv3( -582.427,   1604.64,  -16.4354 ),   busv3( -579.006,   1601.32,    -16.1774 )); // Dipton1
-    busStops[17]  <-  busStop("Dipton",                           busv3( -568.004,   1580.03,  -16.7092 ),   busv3( -571.569,   1582.89,    -16.1666 )); // Dipton2
-    busStops[18]  <-  busStop("Kingston",                         busv3( -1151.38,   1486.28,  -3.42484 ),   busv3( -1147.42,   1483.27,    -3.03844 )); // Kingston1
-    busStops[19]  <-  busStop("Kingston",                         busv3( -1063.9,    1457.63,  -3.97645 ),   busv3( -1067.98,    1460.7,    -3.57558 )); // Kingston2
-    busStops[20]  <-  busStop("Greenfield",                       busv3( -1669.57,   1089.86,  -6.95323 ),   busv3( -1667.56,   1094.36,    -6.71022 )); // Greenfield1
-    busStops[21]  <-  busStop("Greenfield",                       busv3( -1612.92,    996.92,  -5.90228 ),   busv3( -1615.41,   992.857,    -5.58949 )); // Greenfield2
-    busStops[22]  <-  busStop("Sand Island",                      busv3( -1601.16,   -190.15,  -20.3354 ),   busv3( -1597.43,  -193.281,    -19.9776 ));
-    busStops[23]  <-  busStop("Sand Island (North)",              busv3( -1559.15,   109.576,  -13.2876 ),   busv3(  -1562.2,    105.64,    -13.0085 ));
-    busStops[24]  <-  busStop("Hunters Point",                    busv3( -1344.5,    421.815,  -23.7303 ),   busv3( -1347.92,    418.11,    -23.4532 ));
-    busStops[25]  <-  busStop("Little Italy (South-North)",       busv3( 131.681,    789.366,  -19.3316 ),   busv3(  128.864,   787.641,    -19.0034 ));
-    busStops[26]  <-  busStop("Uptown (path #1)",                 busv3( 131.681,    789.366,  -19.3316 ),   busv3(  -397.527,    469.4,   -0.919742 ));
+    busStops[1]   <-  busStop("Uptown (path #1)",                 busv3( -400.996,   476.106,  -1.01301 ),   busv3( -404.360,   488.435,   -0.568764 ), 0);
+    busStops[2]   <-  busStop("Uptown (path #2)",                 busv3( -400.996,   444.081,  -1.05144 ),   busv3( -404.360,   441.001,   -0.566925 ), 0);
+    busStops[3]   <-  busStop("Uptown (path #3)",                 busv3( -419.423,   444.183, 0.0254459 ),   busv3( -423.116,   441.001,    0.132165 ), 0);
+    busStops[4]   <-  busStop("Uptown (path #4)",                 busv3( -373.499,   468.245, - 1.27469 ),   busv3(  -376.67,   471.245,   -0.944843 ), 0);
+    busStops[5]   <-  busStop("West Side",                        busv3( -474.538,   7.72202,  -1.33022 ),   busv3( -471.471,   10.2396,     -1.4627 ), 180);
+    busStops[6]   <-  busStop("Midtown",                          busv3( -428.483,  -303.189,  -11.7407 ),   busv3( -431.421,  -299.824,    -11.8258 ), 90);
+    busStops[7]   <-  busStop("SouthPort",                        busv3( -137.196,  -475.182,  -15.2725 ),   busv3( -140.946,   -472.49,    -15.4755 ), 90);
+    busStops[8]   <-  busStop("Oyster Bay",                       busv3(  299.087,  -311.669,  -20.162  ),   busv3(  296.348,  -315.252,    -20.3024 ), 0);
+    busStops[9]   <-  busStop("Chinatown",                        busv3(  277.134,   359.335,  -21.535  ),   busv3(  274.361,   355.601,    -21.6772 ), 0);
+    busStops[10]  <-  busStop("Little Italy (East)",              busv3(   477.92,   733.942,  -21.2513 ),   busv3(  475.215,   736.735,    -21.3909 ), 90);
+    busStops[11]  <-  busStop("Millville North (west platform)",  busv3(  691.839,   873.923,  -11.9926 ),   busv3(   688.59,   873.993,    -12.2225 ), 0);
+    busStops[12]  <-  busStop("Millville North (east platform)",  busv3(  697.743,   873.697,  -11.9925 ),   busv3(  701.126,   873.666,    -11.8061 ), 180);
+    busStops[13]  <-  busStop("Little Italy (East-West)",         busv3(  162.136,   835.064,  -19.6378 ),   busv3(  164.963,   832.472,    -19.7743 ), -90);
+    busStops[14]  <-  busStop("Little Italy (Diamond Motors)",    busv3( -173.266,   724.155,  -20.4991 ),   busv3( -170.596,   727.372,    -20.6562 ), 180);
+    busStops[15]  <-  busStop("East Side",                        busv3( -104.387,   377.106,  -13.9932 ),   busv3( -101.08,    374.001,    -14.1311 ), -90);
+    busStops[16]  <-  busStop("Dipton",                           busv3( -582.427,   1604.64,  -16.4354 ),   busv3( -579.006,   1601.32,    -16.1774 ), -90); // Dipton1
+    busStops[17]  <-  busStop("Dipton",                           busv3( -568.004,   1580.03,  -16.7092 ),   busv3( -571.569,   1582.89,    -16.1666 ), 90); // Dipton2
+    busStops[18]  <-  busStop("Kingston",                         busv3( -1151.38,   1486.28,  -3.42484 ),   busv3( -1147.42,   1483.27,    -3.03844 ), -90); // Kingston1
+    busStops[19]  <-  busStop("Kingston",                         busv3( -1063.9,    1457.63,  -3.97645 ),   busv3( -1067.98,    1460.7,    -3.57558 ), 90); // Kingston2
+    busStops[20]  <-  busStop("Greenfield",                       busv3( -1669.57,   1089.86,  -6.95323 ),   busv3( -1667.56,   1094.36,    -6.71022 ), 163); // Greenfield1
+    busStops[21]  <-  busStop("Greenfield",                       busv3( -1612.92,    996.92,  -5.90228 ),   busv3( -1615.41,   992.857,    -5.58949 ), -10); // Greenfield2
+    busStops[22]  <-  busStop("Sand Island",                      busv3( -1601.16,   -190.15,  -20.3354 ),   busv3( -1597.43,  -193.281,    -19.9776 ), -90);
+    busStops[23]  <-  busStop("Sand Island (North)",              busv3( -1559.15,   109.576,  -13.2876 ),   busv3(  -1562.2,    105.64,    -13.0085 ), 0);
+    busStops[24]  <-  busStop("Hunters Point",                    busv3( -1344.5,    421.815,  -23.7303 ),   busv3( -1347.92,    418.11,    -23.4532 ), 0);
+    busStops[25]  <-  busStop("Little Italy (South-North)",       busv3( 131.681,    789.366,  -19.3316 ),   busv3(  128.864,   787.641,    -19.0034 ), 0);
+    busStops[26]  <-  busStop("Uptown (path #1)",                 busv3( 131.681,    789.366,  -19.3316 ),   busv3(  -397.527,    469.4,   -0.919742 ), 180);
 
 
-    busStops[97]  <-  busStop("Sand Island",                      busv3( 0.0, 0.0, 0.0 ),                    busv3(  -1541.81, -231.531, -20.3354     )); // waypoint
-    busStops[98]  <-  busStop("Little Italy (South-North)",       busv3( 0.0, 0.0, 0.0 ),                    busv3(  -70.9254, 638.342, -20.237     )); // waypoint
-    busStops[99]  <-  busStop("Midtown",                          busv3( 0.0, 0.0, 0.0 ),                    busv3(  -530.473, -292.407, -10.0177    )); // waypoint
+    busStops[97]  <-  busStop("Sand Island",                      busv3( 0.0, 0.0, 0.0 ),                    busv3(  -1541.81, -231.531, -20.3354   ), null); // waypoint
+    busStops[98]  <-  busStop("Little Italy (South-North)",       busv3( 0.0, 0.0, 0.0 ),                    busv3(  -70.9254, 638.342, -20.237     ), null); // waypoint
+    busStops[99]  <-  busStop("Midtown",                          busv3( 0.0, 0.0, 0.0 ),                    busv3(  -530.473, -292.407, -10.0177   ), null); // waypoint
 
 
   //routes[0] <- [zarplata, [stop1, stop2, stop3, ..., stop562]];
     routes[1] <- [9.5, [1, 5, 99, 6, 97, 22, 23, 24, 26]]; //sand island
     routes[2] <- [9.5, [2, 21, 19, 17, 14, 15, 2]]; //
-    routes[3] <- [14, [4, 98, 25, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 4]];
+    routes[3] <- [14, [4, 98, 25, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];
     routes[4] <- [19, [3, 5, 99, 6, 7, 8, 9, 10, 11, 13, 14, 15, 3]];
     routes[5] <- [26, [4, 5, 99, 6, 7, 8, 9, 10, 12, 13, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];
 
@@ -200,8 +201,8 @@ event("onServerHourChange", function() {
     BUS_ROUTE_NOW = BUS_ROUTE_IN_HOUR + random(-2, 1);
 });
 
-function busStop(a, b, c) {
-    return {name = a, public = b, private = c };
+function busStop(a, b, c, d) {
+    return {name = a, public = b, private = c, rotation = d };
 }
 
 function busv3(a, b, c) {
@@ -278,11 +279,6 @@ function busJobGet( playerid ) {
         return;
     }
 
-    local hour = getHour();
-    if(hour < BUS_JOB_GET_HOUR_START || hour >= BUS_JOB_GET_HOUR_END) {
-        return msg( playerid, "job.closed", [ BUS_JOB_GET_HOUR_START.tostring(), BUS_JOB_GET_HOUR_END.tostring()], BUS_JOB_COLOR );
-    }
-
 /*
     if(isBusDriver(playerid)) {
         return msg( playerid, "job.bus.driver.already", BUS_JOB_COLOR );
@@ -293,21 +289,26 @@ function busJobGet( playerid ) {
         return msg(playerid, "job.bus.needlevel", BUS_JOB_LEVEL, BUS_JOB_COLOR );
     }
 */
-    if (getPlayerName(playerid) in job_bus_blocked) {
-        if (getTimestamp() - job_bus_blocked[getPlayerName(playerid)] < BUS_JOB_TIMEOUT) {
-            return msg( playerid, "job.bus.badworker", BUS_JOB_COLOR);
-        }
-    }
-
     // если у игрока статус работы == null
     if(job_bus[getPlayerName(playerid)]["userstatus"] == null) {
 
-        // если у игрока уже есть другая работа
-        if(isPlayerHaveJob(playerid) && !isBusDriver(playerid)) {
-            return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), BUS_JOB_COLOR );
-        }
-
         if(!isPlayerHaveJob(playerid)) {
+
+            local hour = getHour();
+            if(hour < BUS_JOB_GET_HOUR_START || hour >= BUS_JOB_GET_HOUR_END) {
+                return msg( playerid, "job.closed", [ BUS_JOB_GET_HOUR_START.tostring(), BUS_JOB_GET_HOUR_END.tostring()], BUS_JOB_COLOR );
+            }
+
+            if(isPlayerHaveJob(playerid) && !isBusDriver(playerid)) {
+                return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), BUS_JOB_COLOR );
+            }
+
+            if (getPlayerName(playerid) in job_bus_blocked) {
+                if (getTimestamp() - job_bus_blocked[getPlayerName(playerid)] < BUS_JOB_TIMEOUT) {
+                    return msg( playerid, "job.bus.badworker", BUS_JOB_COLOR);
+                }
+            }
+
             msg( playerid, "job.bus.driver.now", BUS_JOB_COLOR );
             setPlayerJob( playerid, "busdriver");
             screenFadeinFadeoutEx(playerid, 250, 200, function() {
@@ -452,6 +453,14 @@ function busJobStop( playerid ) {
     }
 
     local vehicleid = getPlayerVehicle(playerid);
+    if(busStops[busID].rotation != null) {
+        local vehRot = getVehicleRotation(vehicleid);
+        local offset = fabs(vehRot[0] - busStops[busID].rotation);
+        if (offset > 3) {
+            return msg(playerid, "job.bus.needcorrectpark", CL_RED );
+        }
+    }
+
     setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
 
     busJobRemovePrivateBlipText( playerid );
