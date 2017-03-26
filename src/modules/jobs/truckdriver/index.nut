@@ -117,12 +117,12 @@ const TRUCK_JOB_SKIN = 130;
 const TRUCK_JOB_SALARY = 13.0;
 const TRUCK_JOB_LEVEL = 1;
       TRUCK_JOB_COLOR <- CL_CRUSTA;
-local TRUCK_JOB_GET_HOUR_START = 9;
-local TRUCK_JOB_GET_HOUR_END   = 11;
-local TRUCK_JOB_LEAVE_HOUR_START = 17;
-local TRUCK_JOB_LEAVE_HOUR_END   = 19;
-local TRUCK_JOB_WORKING_HOUR_START = 9;
-local TRUCK_JOB_WORKING_HOUR_END   = 19;
+local TRUCK_JOB_GET_HOUR_START     = 0;
+local TRUCK_JOB_GET_HOUR_END       = 23;
+local TRUCK_JOB_LEAVE_HOUR_START   = 0;
+local TRUCK_JOB_LEAVE_HOUR_END     = 23;
+local TRUCK_JOB_WORKING_HOUR_START = 0;
+local TRUCK_JOB_WORKING_HOUR_END   = 23;
 local TRUCK_ROUTE_IN_HOUR = 4;
 local TRUCK_ROUTE_NOW = 3;
 
@@ -428,7 +428,7 @@ function truckJobRefuseLeave( playerid ) {
 
 
 function truckGetSalary( playerid ) {
-    local amount = TRUCK_JOB_SALARY + (random(-3, 1)).tofloat();
+    local amount = TRUCK_JOB_SALARY + (random(-5, -2)).tofloat();
     addMoneyToPlayer(playerid, amount);
     msg( playerid, "job.truckdriver.nicejob", [getPlayerName( playerid ), amount] );
 }

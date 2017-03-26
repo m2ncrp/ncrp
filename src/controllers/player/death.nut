@@ -1,7 +1,7 @@
 const HOSPITAL_X         = -393.429;
 const HOSPITAL_Y         = 912.044;
 const HOSPITAL_Z         = -20.0026;
-const HOSPITAL_AMOUNT    = 4.99;
+const HOSPITAL_AMOUNT    = 8.29;
 
 local lastDeaths = {};
 
