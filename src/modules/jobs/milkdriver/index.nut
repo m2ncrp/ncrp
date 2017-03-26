@@ -250,6 +250,20 @@ function isPlayerVehicleMilk(playerid) {
 
 
 /**
+Event: JOB - Milk driver - Already have job
+*/
+key("e", function(playerid) {
+
+    if(!isPlayerInValidPoint(playerid, MILK_JOB_X, MILK_JOB_Y, MILK_JOB_RADIUS)) {
+        return;
+    }
+
+    if (getPlayerJob(playerid) && getPlayerJob(playerid) != MILK_JOB_NAME) {
+        msg(playerid, "job.alreadyhavejob", [getPlayerJob(playerid)]);
+    }
+})
+
+/**
 Event: JOB - Milk driver - Get job
 */
 function milkJobGet ( playerid ) {
@@ -570,18 +584,3 @@ function milkJobCheck ( playerid ) {
     local vehicleid = getPlayerVehicle(playerid);
     msg( playerid, "job.milkdriver.milktruckloaded", milktrucks[vehicleid], MILK_JOB_COLOR );
 }
-
-
-/**
-Event: JOB - Milk driver - Already have job
-*/
-key("e", function(playerid) {
-
-    if(!isPlayerInValidPoint(playerid, MILK_JOB_X, MILK_JOB_Y, MILK_JOB_RADIUS)) {
-        return;
-    }
-
-    if (getPlayerJob(playerid) && getPlayerJob(playerid) != MILK_JOB_NAME) {
-        msg(playerid, "job.alreadyhavejob", [getPlayerJob(playerid)]);
-    }
-})
