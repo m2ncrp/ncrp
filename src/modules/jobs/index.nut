@@ -118,6 +118,20 @@ key("e", function(playerid) { callJobEvent("e", playerid); });
 key("q", function(playerid) { callJobEvent("q", playerid); });
 key("2", function(playerid) { callJobEvent("2", playerid); });
 
+
+function jobSetPlayerModel(playerid, skin) {
+    screenFadeinFadeoutEx(playerid, 250, 200, function() {
+        setPlayerModel( playerid, skin );
+    });
+}
+
+function jobRestorePlayerModel(playerid) {
+    screenFadeinFadeoutEx(playerid, 250, 200, function() {
+        restorePlayerModel(playerid);
+    });
+}
+
+
 include("modules/jobs/commands.nut");
 include("modules/jobs/busdriver");
 include("modules/jobs/fueldriver");
@@ -128,6 +142,6 @@ include("modules/jobs/truckdriver");
 include("modules/jobs/telephone");
 include("modules/jobs/docker");
 include("modules/jobs/stationporter");
-//include("modules/jobs/snowplower");
+//if (!isSummer()) { include("modules/jobs/snowplower"); }
 // include("modules/jobs/realtor");
 // include("modules/jobs/slaughterhouseworker");
