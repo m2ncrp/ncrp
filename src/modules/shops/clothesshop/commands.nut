@@ -3,14 +3,14 @@
  * @type {Array}
  */
 local clothesPrices = [
-    { skinid = 4 , price = 320, title = "shops.clothesshop.id4"    },  //
-    { skinid = 6 , price = 350, title = "shops.clothesshop.id6"    },  //
-    { skinid = 10, price = 300, title = "shops.clothesshop.id10"   },  //
-    { skinid = 48, price = 290, title = "shops.clothesshop.id48"   },  //
-    { skinid = 74, price = 290, title = "shops.clothesshop.id74"   },  //
-    { skinid = 90, price = 400, title = "shops.clothesshop.id90"   },  //
-    { skinid = 91, price = 250, title = "shops.clothesshop.id91"   },  //
-    { skinid = 92, price = 370, title = "shops.clothesshop.id92"   },  //
+    { skinid = 4 , price = 350, title = "shops.clothesshop.id4"    },  //
+    { skinid = 6 , price = 380, title = "shops.clothesshop.id6"    },  //
+    { skinid = 10, price = 320, title = "shops.clothesshop.id10"   },  //
+    { skinid = 48, price = 310, title = "shops.clothesshop.id48"   },  //
+    { skinid = 74, price = 310, title = "shops.clothesshop.id74"   },  //
+    { skinid = 90, price = 420, title = "shops.clothesshop.id90"   },  //
+    { skinid = 91, price = 270, title = "shops.clothesshop.id91"   },  //
+    { skinid = 92, price = 390, title = "shops.clothesshop.id92"   },  //
 ];
 
 translation("en", {

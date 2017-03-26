@@ -17,12 +17,12 @@ local BUS_JOB_BUSSTOP = "STOP HERE";
 local BUS_JOB_DISTANCE = 100;
 local BUS_JOB_LEVEL = 1;
       BUS_JOB_COLOR <- CL_CRUSTA;
-local BUS_JOB_GET_HOUR_START = 6;
-local BUS_JOB_GET_HOUR_END   = 9;
-local BUS_JOB_LEAVE_HOUR_START = 20;
-local BUS_JOB_LEAVE_HOUR_END   = 22;
-local BUS_JOB_WORKING_HOUR_START = 6;
-local BUS_JOB_WORKING_HOUR_END   = 21;
+local BUS_JOB_GET_HOUR_START        = 0  ;   // 6;
+local BUS_JOB_GET_HOUR_END          = 23 ;   // 9;
+local BUS_JOB_LEAVE_HOUR_START      = 0  ;   // 20;
+local BUS_JOB_LEAVE_HOUR_END        = 23 ;   // 22;
+local BUS_JOB_WORKING_HOUR_START    = 0  ;   // 6;
+local BUS_JOB_WORKING_HOUR_END      = 23 ;   // 21;
 local BUS_ROUTE_IN_HOUR = 4;
 local BUS_ROUTE_NOW = 4;
 
@@ -114,11 +114,11 @@ event("onServerStarted", function() {
 
 
   //routes[0] <- [zarplata, [stop1, stop2, stop3, ..., stop562]];
-    routes[1] <- [9.5, [1, 5, 99, 6, 97, 22, 23, 24, 26]]; //sand island
-    routes[2] <- [9.5, [2, 21, 19, 17, 14, 15, 2]]; //
-    routes[3] <- [14, [4, 98, 25, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];
-    routes[4] <- [19, [3, 5, 99, 6, 7, 8, 9, 10, 11, 13, 14, 15, 3]];
-    routes[5] <- [26, [4, 5, 99, 6, 7, 8, 9, 10, 12, 13, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];
+    routes[1] <- [9, [1, 5, 99, 6, 97, 22, 23, 24, 26]]; //sand island
+    routes[2] <- [9, [2, 21, 19, 17, 14, 15, 2]]; //
+    routes[3] <- [15, [4, 98, 25, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];
+    routes[4] <- [12, [3, 5, 99, 6, 7, 8, 9, 10, 11, 13, 14, 15, 3]];
+    routes[5] <- [23, [4, 5, 99, 6, 7, 8, 9, 10, 12, 13, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];
 
     //creating 3dtext for bus depot
     create3DText ( BUS_JOB_X, BUS_JOB_Y, BUS_JOB_Z+0.35, "ROADKING BUS DEPOT", CL_ROYALBLUE );
@@ -456,7 +456,7 @@ function busJobStop( playerid ) {
     if(busStops[busID].rotation != null) {
         local vehRot = getVehicleRotation(vehicleid);
         local offset = fabs(vehRot[0] - busStops[busID].rotation);
-        if (offset > 3) {
+        if (offset > 3.5) {
             return msg(playerid, "job.bus.needcorrectpark", CL_RED );
         }
     }

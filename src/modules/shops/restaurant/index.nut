@@ -1,7 +1,7 @@
 include("modules/shops/restaurant/commands.nut");
 
-const EAT_COST = 0.25;
-const DRINK_COST = 0.10;
+const EAT_COST = 0.35;
+const DRINK_COST = 0.15;
 const MAX_HEALTH = 800.0;
 
 translation("en", {
