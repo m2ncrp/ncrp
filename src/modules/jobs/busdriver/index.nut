@@ -1,4 +1,5 @@
 include("modules/jobs/busdriver/commands.nut");
+include("modules/jobs/busdriver/passengers.nut");
 
 local job_bus = {};
 local job_bus_blocked = {};
