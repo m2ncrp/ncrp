@@ -50,6 +50,7 @@ event("native:onPlayerDeath", function(playerid, killerid) {
  */
 event("onPlayerSpawn", function(playerid) {
     if (!isPlayerBeenDead(playerid)) return;
+    if ("isPlayerBusPassanger" in getroottable() && isPlayerBusPassanger(playerid)) return;
 
     dbg("player", "spawn", "after death", getIdentity(playerid));
 
