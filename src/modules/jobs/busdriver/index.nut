@@ -269,15 +269,18 @@ event("onPlayerConnect", function(playerid) {
 event("onServerPlayerStarted", function( playerid ){
 
     if(isBusDriver(playerid)) {
-        if (getPlayerJobState(playerid) == "working") {
+        if (getPlayerJobState(playerid) == "working" || getPlayerJobState(playerid) == "wait") {
             local busID = job_bus[getPlayerName(playerid)]["route"][1][0];
             if (busID < 90 ) job_bus[getPlayerName(playerid)]["bus3dtext"] = createPrivateBusStop3DText(playerid, busStops[busID].private);
+            setPlayerJobState(playerid, "working");
             trigger(playerid, "setGPS", busStops[busID].private.x, busStops[busID].private.y);
             trigger(playerid, "hudDestroyTimer");
             msg( playerid, "job.bus.continuebusstop", BUS_JOB_COLOR );
             msg( playerid, "job.bus.nextbusstop", plocalize(playerid, busStops[busID].name), BUS_JOB_COLOR );
         } else {
             msg( playerid, "job.bus.ifyouwantstart", BUS_JOB_COLOR );
+            restorePlayerModel(playerid);
+            setPlayerJobState(playerid, null);
         }
         createText (playerid, "leavejob3dtext", BUS_JOB_X, BUS_JOB_Y, BUS_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), RADIUS_BUS_SMALL );
     }
@@ -501,7 +504,6 @@ function busJobLeave( playerid ) {
     trigger(playerid, "removeGPS");
 
     setPlayerJob( playerid, null );
-    jobRestorePlayerModel(playerid);
 
     msg( playerid, "job.leave", BUS_JOB_COLOR );
 
@@ -561,12 +563,6 @@ addJobEvent("e", BUS_JOB_NAME, null, busJobStartRoute);
 
 
 
-
-
-
-
-
-
 // working good, check
 // coords bus at bus station in Sand Island    -1597.05, -193.64, -19.9622, -89.79, 0.235025, 3.47667
 // coords bus at bus station in Hunters Point    -1562.5, 105.709, -13.0123, 0.966663, -0.00153991, 0.182542
@@ -608,6 +604,7 @@ function busJobStop( playerid ) {
     job_bus[getPlayerName(playerid)]["route"][1].remove(0);
 
     freezePlayer( playerid, true);
+    setPlayerJobState(playerid, "wait");
     local vehFuel = getVehicleFuel( vehicleid );
     setVehicleFuel( vehicleid, 0.0 );
     msg( playerid, "job.bus.waitpasses", BUS_JOB_COLOR );
@@ -629,7 +626,7 @@ function busJobStop( playerid ) {
         if (busID < 90 ) job_bus[getPlayerName(playerid)]["bus3dtext"] = createPrivateBusStop3DText(playerid, busStops[busID].private);
         //job_bus[getPlayerName(playerid)]["busBlip"]   = createPrivateBlip(playerid, busStops[busID].private.x, busStops[busID].private.y, ICON_YELLOW, 2000.0);
         //job_bus[getPlayerName(playerid)]["busBlip"]   = playerid+"blip"; //надо вырезать
-
+        setPlayerJobState(playerid, "working");
         trigger(playerid, "setGPS", busStops[busID].private.x, busStops[busID].private.y);
         msg( playerid, "job.bus.gotonextbusstop", plocalize(playerid, busStops[busID].name), BUS_JOB_COLOR );
         //local gpsPos = busStops[busID].private;
