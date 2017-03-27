@@ -25,7 +25,7 @@ function putPlayerInBus(playerid, vehicleid) {
         return dbg("bus", "cannot put player in non-bus vehicle") && false;
     }
 
-    if (isPlayerBusPassanger(playerid)) {
+    if (isPlayerBusPassenger(playerid)) {
         return dbg("bus", "cannot put player, he is already in bus") && false;
     }
 
@@ -48,11 +48,11 @@ function putPlayerInBus(playerid, vehicleid) {
  * @return {Boolean} result
  */
 function removePlayerFromBus(playerid) {
-    if (!isPlayerBusPassanger(playerid)) {
+    if (!isPlayerBusPassenger(playerid)) {
         return dbg("bus", "cannot remove player, he is not in bus") && false;
     }
 
-    local vehicleid = getPlayerBusPassangerVehicle(playerid);
+    local vehicleid = getPlayerBusPassengerVehicle(playerid);
     busses[vehicleid].remove(busses[vehicleid].find(playerid));
 
     players.each(function(targetid) {
@@ -63,11 +63,11 @@ function removePlayerFromBus(playerid) {
 }
 
 /**
- * Get vehicle player is currently passanger is
+ * Get vehicle player is currently Passenger is
  * @param  {Integer} playerid
  * @return {Integer}
  */
-function getPlayerBusPassangerVehicle(playerid) {
+function getPlayerBusPassengerVehicle(playerid) {
     foreach (busid, bus_players in busses) {
         if (bus_players.find(playerid) != null) {
             return busid;
@@ -84,8 +84,8 @@ function getPlayerBusPassangerVehicle(playerid) {
  * @param  {Integer}  vehicleid
  * @return {Boolean}
  */
-function isPlayerBusPassanger(playerid, vehicleid = null) {
-    if (!vehicleid && getPlayerBusPassangerVehicle(playerid) != -1) {
+function isPlayerBusPassenger(playerid, vehicleid = null) {
+    if (!vehicleid && getPlayerBusPassengerVehicle(playerid) != -1) {
         return true;
     }
 
