@@ -83,6 +83,12 @@ alternativeTranslate({
     "en|job.bus.nextbusstop"               :   "Next bus stop: %s."
     "ru|job.bus.nextbusstop"               :   "Следующая остановка: %s."
 
+    "en|job.bus.nextbusstop2"              :   "Driver: %s. Next bus stop: %s"
+    "ru|job.bus.nextbusstop2"              :   "Водитель: %s. Следующая остановка: %s"
+
+    "en|job.bus.lastbusstop"               :   "Driver: %s. This is the last bus stop."
+    "ru|job.bus.lastbusstop"               :   "Водитель: %s. Конечная."
+
     "en|job.bus.waitpasses"                :   "[BUS] Wait passengers some time..."
     "ru|job.bus.waitpasses"                :   "[BUS] Подожди немного пассажиров..."
 
@@ -97,6 +103,23 @@ alternativeTranslate({
 
     "en|job.bus.needcorrectpark"           :   "[BUS] Park the bus correctly."
     "ru|job.bus.needcorrectpark"           :   "[BUS] Подъедь к остановке правильно."
+
+
+
+    "en|bus.passenger.leaveonly"           :   "You can leave the bus only at busstop."
+    "ru|bus.passenger.leaveonly"           :   "Выйти мз автобуса можно только на остановках."
+
+    "en|bus.passenger.leavebus"            :   "You got off the bus."
+    "ru|bus.passenger.leavebus"            :   "Вы вышли из автобуса."
+
+    "en|bus.passenger.enterbus"            :   "You got on the bus."
+    "ru|bus.passenger.enterbus"            :   "Вы сели в автобус."
+
+    "en|bus.passenger.passenter"            :   "Passenger has got on the bus."
+    "ru|bus.passenger.passenter"            :   "Пассажир сел в автобус."
+
+    "en|bus.passenger.passleave"            :   "Passenger has got off the bus."
+    "ru|bus.passenger.passleave"            :   "Пассажир вышел из автобуса."
 
 
 
@@ -259,10 +282,11 @@ event("onServerStarted", function() {
 
 event("onPlayerConnect", function(playerid) {
     if ( ! (getPlayerName(playerid) in job_bus) ) {
-     job_bus[getPlayerName(playerid)] <- {};
-     job_bus[getPlayerName(playerid)]["route"] <- false;
-     job_bus[getPlayerName(playerid)]["bus3dtext"] <- [ null, null ];
-     job_bus[getPlayerName(playerid)]["busBlip"] <- null;
+        job_bus[getPlayerName(playerid)] <- {};
+        job_bus[getPlayerName(playerid)]["route"] <- false;
+        job_bus[getPlayerName(playerid)]["bus3dtext"] <- [ null, null ];
+        job_bus[getPlayerName(playerid)]["busBlip"] <- null;
+        job_bus[getPlayerName(playerid)]["idBusStop"] <- null;
     }
 });
 
@@ -602,16 +626,26 @@ function busJobStop( playerid ) {
     trigger(playerid, "removeGPS");
     trigger(playerid, "hudDestroyTimer");
 
+    msg( playerid, "job.bus.waitpasses", BUS_JOB_COLOR );
+
+    if(job_bus[getPlayerName(playerid)]["route"][1].len() > 1) {
+        local nextBusID = job_bus[getPlayerName(playerid)]["route"][1][1];
+        //sendLocalizedMsgToAll(playerid, "chat.player.shout", [getPlayerName(playerid), message], SHOUT_RADIUS, CL_WHITE);
+        sendLocalizedMsgToAll(playerid, "job.bus.nextbusstop2", [ plocalize(playerid, busStops[busID].name), plocalize(playerid, busStops[nextBusID].name)], SHOUT_RADIUS, CL_WHITE);
+    } else {
+        sendLocalizedMsgToAll(playerid, "job.bus.lastbusstop", [plocalize(playerid, busStops[busID].name)], SHOUT_RADIUS, CL_WHITE);
+    }
+
     job_bus[getPlayerName(playerid)]["route"][1].remove(0);
 
     freezePlayer( playerid, true);
     setPlayerJobState(playerid, "wait");
+    job_bus[getPlayerName(playerid)]["idBusStop"] = busID;
     local vehFuel = getVehicleFuel( vehicleid );
     setVehicleFuel( vehicleid, 0.0 );
-    msg( playerid, "job.bus.waitpasses", BUS_JOB_COLOR );
 
-    trigger(playerid, "hudCreateTimer", 14.0, true, true);
-    delayedFunction(14000, function () {
+    trigger(playerid, "hudCreateTimer", 20.0, true, true);
+    delayedFunction(20000, function () {
         freezePlayer( playerid, false);
         delayedFunction(1000, function () { freezePlayer( playerid, false); });
         setVehicleFuel( vehicleid, vehFuel );
@@ -623,6 +657,8 @@ function busJobStop( playerid ) {
         }
 
         local busID = job_bus[getPlayerName(playerid)]["route"][1][0];
+
+        job_bus[getPlayerName(playerid)]["idBusStop"] = null;
 
         if (busID < 90 ) job_bus[getPlayerName(playerid)]["bus3dtext"] = createPrivateBusStop3DText(playerid, busStops[busID].private);
         //job_bus[getPlayerName(playerid)]["busBlip"]   = createPrivateBlip(playerid, busStops[busID].private.x, busStops[busID].private.y, ICON_YELLOW, 2000.0);
@@ -661,6 +697,71 @@ event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
 });
 
 
+function getNearestBusStationForPlayer(playerid) {
+    local pos = getPlayerPositionObj( playerid );
+    local dis = 5;
+    local busStopid = null;
+    foreach (key, value in busStops) {
+        local distance = getDistanceBetweenPoints3D( pos.x, pos.y, pos.z, value.public.x, value.public.y, value.public.z );
+        if (distance < dis) {
+           dis = distance;
+           busStopid = key;
+        }
+    }
+    return busStopid;
+}
+/* player is staying */
+key("e", function(playerid) {
+    if(isPlayerInVehicle(playerid)) return;
+
+
+    if(isPlayerBusPassenger(playerid)) {
+
+        local vehicleid = getPlayerBusPassengerVehicle(playerid);
+        if(vehicleid == -1) return;
+
+        local driverid = getVehicleDriver(vehicleid);
+        if(driverid == null) return removePlayerFromBus(playerid);
+
+        local busid = job_bus[getPlayerName(driverid)]["idBusStop"];
+        if(busid == null) return msg(playerid, "bus.passenger.leaveonly");
+
+        msg(playerid, "bus.passenger.leavebus");
+        msg(driverid, "bus.passenger.passleave");
+        removePlayerFromBus(playerid);
+        setPlayerPosition(playerid, busStops[busid].public.x, busStops[busid].public.y, busStops[busid].public.z);
+        reloadPlayerModel(playerid);
+
+    } else {
+
+        local busid = getNearestBusStationForPlayer(playerid);
+        if(busid == null) return ;
+
+        local vehicleid = getNearestCarForPlayer(playerid, 10.0);
+        if(vehicleid <= 0) return dbg("[BUS PASSENGER] playerid: "+playerid+" - Bus not found");
+
+        local modelid = getVehicleModel(vehicleid);
+        if(modelid != 20) return dbg("[BUS PASSENGER] playerid: "+playerid+" - There is no bus near you.");
+
+        local driverid = getVehicleDriver(vehicleid);
+        if(driverid == null) return dbg("[BUS PASSENGER] playerid: "+playerid+" - There is no driver in the bus with id #"+vehicleid);
+
+        if(job_bus[getPlayerName(driverid)]["idBusStop"] != busid) return;
+
+        msg(playerid, "bus.passenger.enterbus");
+        msg(driverid, "bus.passenger.passenter");
+
+        local res = putPlayerInBus(playerid, vehicleid);
+        msg(playerid, res.tostring());
+    }
+
+}, KEY_UP);
+
+/* exit from bus */
+key("e", function(playerid) {
+
+
+}, KEY_UP);
 
 // don't touch and don't replace. Service command for fast test!
 acmd("gotobusstop", function(playerid) {
