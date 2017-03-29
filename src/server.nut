@@ -29,6 +29,8 @@ function include(path) {
     }
 }
 
+local require = dofile("vendor/squirrel-require/src/require.nut", true)("./src");
+
 // load libs
 __FILE__ <- "vendor/squirrel-orm/index.nut";
 dofile("vendor/squirrel-orm/index.nut", true);
