@@ -224,8 +224,8 @@ event("onServerStarted", function() {
 
   //busStops[0]   <-  busStop("NAME",                                              public ST                                   private
     busStops[1]   <-  busStop("job.busstop.Uptown1",                          busv3( -400.996,   476.106,  -1.01301 ),   busv3( -404.360,   488.435,   -0.568764 ), 0);
-    busStops[2]   <-  busStop("job.busstop.Uptown2",                          busv3( -400.996,   444.081,  -1.05144 ),   busv3( -404.360,   441.001,   -0.566925 ), 0);
-    busStops[3]   <-  busStop("job.busstop.Uptown3",                          busv3( -419.423,   444.183, 0.0254459 ),   busv3( -423.116,   441.001,    0.132165 ), 0);
+    busStops[2]   <-  busStop("job.busstop.Uptown2",                          busv3( -400.996,   434.303,  -1.05144 ),   busv3( -404.360,   441.001,   -0.566925 ), 0);
+    busStops[3]   <-  busStop("job.busstop.Uptown3",                          busv3( -419.423,   434.303, 0.0254459 ),   busv3( -423.116,   441.001,    0.132165 ), 0);
     busStops[4]   <-  busStop("job.busstop.Uptown4",                          busv3( -373.499,   468.245, - 1.27469 ),   busv3(  -376.67,   471.245,   -0.944843 ), 0);
     busStops[5]   <-  busStop("job.busstop.WestSide",                         busv3( -474.538,   7.72202,  -1.33022 ),   busv3( -471.471,   10.2396,     -1.4627 ), 180);
     busStops[6]   <-  busStop("job.busstop.Midtown",                          busv3( -428.483,  -303.189,  -11.7407 ),   busv3( -431.421,  -299.824,    -11.8258 ), 90);
@@ -248,8 +248,35 @@ event("onServerStarted", function() {
     busStops[23]  <-  busStop("job.busstop.SandIslandNorth",                  busv3( -1559.15,   109.576,  -13.2876 ),   busv3(  -1562.2,    105.64,    -13.0085 ), 0);
     busStops[24]  <-  busStop("job.busstop.HuntersPoint",                     busv3( -1344.5,    421.815,  -23.7303 ),   busv3( -1347.92,    418.11,    -23.4532 ), 0);
     busStops[25]  <-  busStop("job.busstop.LittleItalySouthNorth",            busv3( 131.681,    789.366,  -19.3316 ),   busv3(  128.864,   787.641,    -19.0034 ), 0);
-    busStops[26]  <-  busStop("job.busstop.Uptown1",                          busv3( 131.681,    789.366,  -19.3316 ),   busv3(  -397.527,    469.4,   -0.919742 ), 180);
 
+busStops[26]   <-  busStop("job.busstop.UptownHotel",                   busv3(-746.149,  558.133,   -19.8641),    busv3( -743.111,   560.875,  -19.5941 ), 180);
+busStops[27]   <-  busStop("job.busstop.SouthsportWest",                busv3(-761.395, -445.937,   -22.5545),    busv3( -758.357,  -443.195,  -22.2845 ), 180);
+busStops[28]   <-  busStop("job.busstop.Port",                          busv3(-371.056, -597.779,    -20.157),    busv3( -368.314,  -600.817,   -19.887 ), -90);
+busStops[29]   <-  busStop("job.busstop.SouthPort",                     busv3(-250.571, -388.602,   -17.7316),    busv3( -253.313,  -385.564,  -17.4616 ), 90);
+busStops[30]   <-  busStop("job.busstop.Meria",                         busv3(-45.1856, -135.133,   -14.4352),    busv3( -48.2236,  -137.875,  -14.1652 ), 0);
+busStops[31]   <-  busStop("job.busstop.Twister",                       busv3(-95.4395, -221.978,   -13.6903),    busv3( -98.1815,   -218.94,  -13.4203 ), 90);
+busStops[32]   <-  busStop("job.busstop.EastSideAlley",                 busv3( 57.7815,  336.702,   -14.2565),    busv3(  54.7435,    333.96,  -13.9865 ), 0);
+busStops[33]   <-  busStop("job.busstop.EastSideNearAlley",             busv3(  23.411,   209.09,   -15.8912),    busv3(   20.669,   212.128,  -15.6212 ), 90);
+busStops[34]   <-  busStop("job.busstop.Chinatown2",                    busv3( 439.583,  311.419,   -20.1715),    busv3(  442.621,   314.161,  -19.9015 ), 180);
+busStops[35]   <-  busStop("job.busstop.OysterBayNorth",                busv3( 420.587,  12.7031,   -24.9261),    busv3(  417.845,   15.7411,  -24.6561 ), 90);
+busStops[36]   <-  busStop("job.busstop.OysterBayTrago",                busv3( 557.632,   -306.9,   -20.1562),    busv3(   560.67,  -304.158,  -19.8862 ), 180);
+busStops[37]   <-  busStop("job.busstop.OysterBayDiner",                busv3( 172.783, -459.168,   -20.1567),    busv3(  175.525,  -462.206,  -19.8867 ), -90);
+busStops[38]   <-  busStop("job.busstop.MidtownVangel",                 busv3(-282.204, -101.303,    -11.185),    busv3( -279.462,  -104.341,   -10.915 ), -90);
+busStops[39]   <-  busStop("job.busstop.MidtownHotel",                  busv3(-374.996,  -179.04,   -10.2722),    busv3( -371.958,  -176.298,  -10.0022 ), 180);
+busStops[40]   <-  busStop("job.busstop.Arcade",                        busv3(-581.778, -60.4754,    1.04647),    busv3( -579.036,  -63.5134,   1.31647 ), -90);
+busStops[41]   <-  busStop("job.busstop.MonaLisa",                      busv3(-663.505,  317.714,   0.482136),    busv3( -666.543,   314.972,  0.752136 ), 0);
+busStops[42]   <-  busStop("job.busstop.LincolnPark",                   busv3(-221.314,  127.139,   -10.7052),    busv3( -218.276,   129.881,  -10.4352 ), 180);
+busStops[43]   <-  busStop("job.busstop.LittleItalyAlley",              busv3(-125.626,  649.013,   -20.0742),    busv3( -122.884,   645.975,  -19.8042 ), -90);
+busStops[44]   <-  busStop("job.busstop.LittleItalyAlleyToEast",        busv3(-70.4062,  627.135,   -20.1466),    busv3( -73.1481,   630.173,  -19.8766 ), 90);
+busStops[45]   <-  busStop("job.busstop.Hospital",                      busv3(-376.318,  811.123,   -20.1355),    busv3( -373.576,   808.085,  -19.8655 ), -90);
+busStops[46]   <-  busStop("job.busstop.UptownDown",                    busv3(-639.583,  850.731,   -18.9095),    busv3( -636.545,   853.473,  -18.6395 ), 180);
+busStops[47]   <-  busStop("job.busstop.KingstonHorse",                 busv3(-1152.56,  1371.54,    -13.565),    busv3(  -1155.3,   1374.58,   -13.295 ), 90);
+busStops[48]   <-  busStop("job.busstop.KingstonNorth",                 busv3(-1446.66,  1695.94,    6.14513),    busv3( -1443.92,    1692.9,   6.41513 ), -90);
+
+
+    busStops[80]  <-  busStop("job.busstop.UptownPath1Revert",                busv3( 131.681,  789.366,  -19.3316 ),     busv3(  -397.527,    469.4,   -0.919742 ), 180);
+    busStops[81]  <-  busStop("job.busstop.UptownPath2Revert",                busv3(-400.515,  425.245,   -1.19457),     busv3( -397.477,   427.987,   -0.924575 ), 180);
+    busStops[82]  <-  busStop("job.busstop.UptownPath3Revert",                busv3(-419.14,   425.263,  -0.138386),     busv3( -416.102,   428.005,    0.131614 ), 180);
 
     busStops[97]  <-  busStop("job.busstop.SandIsland",                       busv3( 0.0, 0.0, 0.0 ),                    busv3(  -1541.81, -231.531, -20.3354   ), null); // waypoint
     busStops[98]  <-  busStop("job.busstop.LittleItalySouthNorth",            busv3( 0.0, 0.0, 0.0 ),                    busv3(  -70.9254, 638.342, -20.237     ), null); // waypoint
@@ -257,9 +284,15 @@ event("onServerStarted", function() {
 
 
   //routes[0] <- [zarplata, [stop1, stop2, stop3, ..., stop562]];
-    routes[1] <- [9, [1, 5, 99, 6, 97, 22, 23, 24, 26]]; //sand island
+   //routes[1] <- [9, [1, 5, 99, 6, 97, 22, 23, 24, 26]]; //sand island
+   //routes[2] <- [8, [2, 21, 19, 17, 14, 15, 2]]; //greenfield
+   //routes[3] <- [12, [3, 5, 99, 6, 7, 8, 9, 10, 11, 13, 14, 15, 3]]; //center
+   //routes[4] <- [15, [4, 98, 25, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];
+   //routes[5] <- [23, [4, 5, 99, 6, 7, 8, 9, 10, 12, 13, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];
+
+    routes[1] <- [9, [1, 5, 99, 6, 7, 28, 97, 22, 23, 24, 80]]; //sand island
     routes[2] <- [8, [2, 21, 19, 17, 14, 15, 2]]; //greenfield
-    routes[3] <- [12, [3, 5, 99, 6, 7, 8, 9, 10, 11, 13, 14, 15, 3]]; //center
+    routes[3] <- [12, [3, 5, 99, 6, 7, 8, 9, 10, 11, 13, 45, 3]]; //center
     routes[4] <- [15, [4, 98, 25, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];
     routes[5] <- [23, [4, 5, 99, 6, 7, 8, 9, 10, 12, 13, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];
 
@@ -269,7 +302,7 @@ event("onServerStarted", function() {
 
     //creating public 3dtext
     foreach (idx, value in busStops) {
-        if (idx < 90 && idx != 26) {
+        if (idx < 80) {
             create3DText ( value.public.x, value.public.y, value.public.z+0.35, "=== BUS STOP ===", CL_ROYALBLUE );
             create3DText ( value.public.x, value.public.y, value.public.z-0.15, localize( value.name, [], "en"), CL_WHITE.applyAlpha(150) );
         }
@@ -774,4 +807,69 @@ acmd("gotobusstop", function(playerid) {
 acmd("buscomplete", function(playerid) {
     setPlayerJobState(playerid, "complete");
 });
+
+local count = 27;
+
+cmd("busadd", function(playerid, busstopname) {
+    if(!isPlayerInValidVehicle(playerid, 20)) { return msg(playerid, "You need a bus."); }
+    local vehicleid = getPlayerVehicle(playerid);
+    local vehPos = getVehiclePosition(vehicleid);
+    local vehRot = getVehicleRotation(vehicleid);
+
+    local xR = vehRot[0];
+    local x = vehPos[0];
+    local y = vehPos[1];
+    local z = vehPos[2];
+    local xPass = 0;
+    local yPass = 0;
+    local zPass = 0;
+    local R = 0;
+    // when near 0
+    if(xR > -5 && xR < 5) {
+        dbg("0");
+        R = 0;
+        xPass = x + 3.038;
+        yPass = y + 2.742;
+    }
+    // when near 90
+    else if(xR > 85 && xR < 95) {
+        dbg("90");
+        R = 90;
+        xPass = x + 2.742;
+        yPass = y - 3.038;
+    }
+
+
+    // when near 180
+    else if( (xR > 175 && xR < 180) || (xR < -175 && xR > -179.99) ) {
+        dbg("180");
+        R = 180;
+        xPass = x - 3.038;
+        yPass = y - 2.742;
+    }
+
+    // when near -90
+    else if(xR > -95 && xR < -85) {
+        dbg("-90");
+        R = -90;
+        xPass = x - 2.742;
+        yPass = y + 3.038;
+    }
+
+    zPass = z - 0.27;
+    createText (playerid, "test"+count, xPass, yPass, zPass+0.35, "=== BUS STOP ===", CL_ROYALBLUE );
+    dbg("busStops["+count+"]   <-  busStop(\"job.busstop."+busstopname+"\",                          busv3("+ xPass +","+ yPass +","+ zPass +"),   busv3( "+ x +","+ y +","+ z +" ), "+R+");");
+    msg(playerid, "Bus stop has been created.", CL_SUCCESS );
+    count += 1;
+});
+
+/*
+
+[21:02:17] Vehicle:-446.888, 21.557, -1,01086, -0.21242, 2.96751e-05, 0.0160085
+[21:02:33] Player: -443.85,  24.299, -1,28093, -130.687, -0.00858336, 0.00669205
+
+ */
+
+
+
 
