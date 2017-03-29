@@ -290,3 +290,19 @@ migrate(function(query, type) {
     fraction__Role(fraction, "Bouncer",     "bouncer",      FRACTION_VEHICLE_PERMISSION);
     fraction__Role(fraction, "Quack",       "quack",        FRACTION_VEHICLE_PERMISSION);
 });
+
+// 29.03.2017
+// added Family Navarra
+migrate(function(query, type) {
+    local fraction = fraction__Create("Family Navarra", "navarra", "mafia");
+
+    fraction__Role(fraction, "Don",             "superadmin",   FRACTION_FULL_PERMISSION);
+    fraction__Role(fraction, "Consigliere",     "admin",        FRACTION_MONEY_PERMISSION);
+    fraction__Role(fraction, "Giovane Boss",    "moderator1"    FRACTION_ROLESET_PERMISSION);
+    fraction__Role(fraction, "Capo",            "moderator2",   FRACTION_ROLESET_PERMISSION);
+    fraction__Role(fraction, "Sotto-Capo",      "user1",        FRACTION_VEHICLE_PERMISSION);
+    fraction__Role(fraction, "Soldato",         "user2",        FRACTION_VEHICLE_PERMISSION);
+    fraction__Role(fraction, "Sombattente",     "guest2",       FRACTION_VEHICLE_PERMISSION);
+    fraction__Role(fraction, "Associate",       "guest2",       FRACTION_VEHICLE_PERMISSION);
+    fraction__Role(fraction, "Novizio",         "guest2",       FRACTION_VEHICLE_PERMISSION);
+});
