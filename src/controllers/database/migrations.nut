@@ -302,7 +302,7 @@ migrate(function(query, type) {
     fraction__Role(fraction, "Capo",            "moderator2",   FRACTION_ROLESET_PERMISSION);
     fraction__Role(fraction, "Sotto-Capo",      "user1",        FRACTION_VEHICLE_PERMISSION);
     fraction__Role(fraction, "Soldato",         "user2",        FRACTION_VEHICLE_PERMISSION);
-    fraction__Role(fraction, "Sombattente",     "guest2",       FRACTION_VEHICLE_PERMISSION);
+    fraction__Role(fraction, "Sombattente",     "guest1",       FRACTION_VEHICLE_PERMISSION);
     fraction__Role(fraction, "Associate",       "guest2",       FRACTION_VEHICLE_PERMISSION);
-    fraction__Role(fraction, "Novizio",         "guest2",       FRACTION_VEHICLE_PERMISSION);
+    fraction__Role(fraction, "Novizio",         "guest3",       FRACTION_VEHICLE_PERMISSION);
 });
