@@ -164,12 +164,16 @@ cmd("sell", function(playerid, amount = null) {
                 msg(invsender, "vehicle.sell.success", CL_SUCCESS);
                 msg(invreciever, "vehicle.buy.success" , CL_SUCCESS);
 
+                dbg("vehicle", "selling success", getIdentity(invsender), getIdentity(invreciever), getVehiclePlateText(vehicleid));
+
                 // block it
                 blockVehicle(vehicleid);
                 return;
             } else {
                 msg(invsender, "vehicle.sell.failure", [getPlayerName(invreciever)], CL_ERROR);
                 msg(invreciever, "vehicle.buy.failure", CL_ERROR);
+
+                dbg("vehicle", "selling error", getIdentity(invsender), getIdentity(invreciever), getVehiclePlateText(vehicleid));
             }
         });
     }
