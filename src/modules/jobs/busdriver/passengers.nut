@@ -97,7 +97,7 @@ function isPlayerBusPassenger(playerid, vehicleid = null) {
 }
 
 /**
- * Get all busses passangers
+ * Get all busses passenger
  * @param  {Integer} vehicleid
  * @return {Array}
  */
