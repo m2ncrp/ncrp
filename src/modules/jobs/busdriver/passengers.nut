@@ -95,3 +95,20 @@ function isPlayerBusPassenger(playerid, vehicleid = null) {
 
     return (busses[vehicleid].find() != null);
 }
+
+/**
+ * Get all busses passangers
+ * @param  {Integer} vehicleid
+ * @return {Array}
+ */
+function getAllBusPassengers(vehicleid) {
+    if (getVehicleModel( vehicleid ) != 20) {
+        return [];
+    }
+
+    if (!(vehicleid in busses)) {
+        return [];
+    }
+
+    return busses[vehicleid];
+}
