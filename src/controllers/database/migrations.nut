@@ -306,3 +306,15 @@ migrate(function(query, type) {
     fraction__Role(fraction, "Associate",       "guest2",       FRACTION_VEHICLE_PERMISSION);
     fraction__Role(fraction, "Novizio",         "guest3",       FRACTION_VEHICLE_PERMISSION);
 });
+
+
+// 01.04.2017
+// added Government
+migrate(function(query, type) {
+    local fraction = fraction__Create("Government", "gov", "government");
+
+    fraction__Role(fraction, "Governor",        "gov",          FRACTION_FULL_PERMISSION);
+    fraction__Role(fraction, "Vice Governor",   "vgov",         FRACTION_ROLESET_PERMISSION);
+    fraction__Role(fraction, "Driver",          "driver"        FRACTION_VEHICLE_PERMISSION);
+    fraction__Role(fraction, "Security",        "security",     FRACTION_VEHICLE_PERMISSION);
+});
