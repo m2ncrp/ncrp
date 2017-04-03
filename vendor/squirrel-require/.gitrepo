@@ -6,6 +6,6 @@
 [subrepo]
 	remote = git@github.com:Inlife/squirrel-require.git
 	branch = master
-	commit = ccf206b3105fa7dbab9c86759e03d34ec062d2f6
-	parent = 5b17b9499314ff1a7c1a9853f9907936ad7f2daf
+	commit = 29337bd7b633a8d8c7b7cd1e2e274ce952faf574
+	parent = fb1a8c0db39071687ce8f7bf18c49a37a8cc2733
 	cmdver = 0.3.1
