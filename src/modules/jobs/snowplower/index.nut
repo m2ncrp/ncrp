@@ -1,6 +1,8 @@
+include("modules/jobs/snowplower/commands.nut");
+
 local count = 0;
 
-cmd("snow", function(playerid) {
+acmd("snow", function(playerid) {
     if(!isPlayerInValidVehicle(playerid, 39)) { return msg(playerid, "You need Shubert SnowPlow."); }
     local vehicleid = getPlayerVehicle(playerid);
     local vehPos = getVehiclePosition(vehicleid);
@@ -68,7 +70,7 @@ local SNOWPLOW_JOB_Z = -10.2939;
 
 
 local SNOWPLOW_JOB_TIMEOUT = 1800; // 30 minutes
-local SNOWPLOW_JOB_SKIN = 132;
+local SNOWPLOW_JOB_SKIN = 87;
 local SNOWPLOW_JOB_NAME = "snowplowdriver";
 local SNOWPLOW_JOB_SNOWPLOWSTOP = "CHECKPOINT";
 local SNOWPLOW_JOB_DISTANCE = 100;
@@ -85,13 +87,10 @@ local SNOWPLOW_ROUTE_NOW = 4;
 
 alternativeTranslate({
     "en|job.snowplowdriver"                     :   "snowplow driver"
-    "ru|job.snowplowdriver"                     :   "водитель автобуса"
-
-    "en|job.snowplow.letsgo"                    :   "[SNOWPLOW] Let's go to central door at snowplow depot in Uptown."
-    "ru|job.snowplow.letsgo"                    :   "[SNOWPLOW] Подойди к центральной двери здания автобусного депо в Аптауне."
+    "ru|job.snowplowdriver"                     :   "водитель снегоуборочной машины"
 
     "en|job.snowplow.needlevel"                 :   "[SNOWPLOW] You need level %d to become snowplow driver."
-    "ru|job.snowplow.needlevel"                 :   "[SNOWPLOW] Стать водителем автобуса можно, начиная с %d уровня."
+    "ru|job.snowplow.needlevel"                 :   "[SNOWPLOW] Стать водителем снегоуборочной машины можно, начиная с %d уровня."
 
     "en|job.snowplow.badworker"                 :   "[SNOWPLOW] You are a bad worker. We haven't job for you."
     "ru|job.snowplow.badworker"                 :   "[SNOWPLOW] Увы, но нам нужны только ответственные водители."
@@ -103,22 +102,25 @@ alternativeTranslate({
     "ru|job.snowplow.goodluck"                  :   "[SNOWPLOW] Удачи тебе! Приходи, если нужна работа."
 
     "en|job.snowplow.driver.not"                :   "[SNOWPLOW] You're not a snowplow driver."
-    "ru|job.snowplow.driver.not"                :   "[SNOWPLOW] Ты не работаешь водителем автобуса."
+    "ru|job.snowplow.driver.not"                :   "[SNOWPLOW] Ты не работаешь водителем снегоуборочной машины."
 
     "en|job.snowplow.driver.now"                :   "[SNOWPLOW] You're a snowplow driver now! Congratulations!"
-    "ru|job.snowplow.driver.now"                :   "[SNOWPLOW] Ты стал водителем автобуса! Поздравляем!"
+    "ru|job.snowplow.driver.now"                :   "[SNOWPLOW] Ты стал водителем снегоуборочной машины!"
 
     "en|job.snowplow.driver.togetroute"         :   "Press E to get route."
     "ru|job.snowplow.driver.togetroute"         :   "Нажми клавишу E (латинская), чтобы получить маршрут."
 
     "en|job.snowplow.ifyouwantstart"            :   "[SNOWPLOW] You're snowplow driver. If you want to start route - take route at snowplow depot in Uptown."
-    "ru|job.snowplow.ifyouwantstart"            :   "[SNOWPLOW] Ты работаешь водителем автобуса. Если хочешь выйти в рейс - возьми маршрут в автобусном депо."
+    "ru|job.snowplow.ifyouwantstart"            :   "[SNOWPLOW] Ты работаешь водителем снегоуборочной машины. Если хочешь выйти в рейс - возьми маршрут."
 
     "en|job.snowplow.route.your"                :   "[SNOWPLOW] Your route:"
     "ru|job.snowplow.route.your"                :   "[SNOWPLOW] Твой текущий маршрут:"
 
-    "en|job.snowplow.startroute"                :   "Sit into snowplow and go to snowplow stop in %s."
-    "ru|job.snowplow.startroute"                :   "[SNOWPLOW] Подъезжай на автобусе к остановке %s."
+    "en|job.snowplow.startroute"                :   "[SNOWPLOW] Sit into snowplow truck and drive along the route."
+    "ru|job.snowplow.startroute"                :   "[SNOWPLOW] Садись в снегоуборочную машину и следуй по маршруту."
+
+    "en|job.snowplow.startroute2"               :   "Speed limit for effective scavenging - 40 miles."
+    "ru|job.snowplow.startroute2"               :   "Скоростное ограничение для эффективной уборки: 40 миль."
 
     "en|job.snowplow.route.needcomplete"        :   "[SNOWPLOW] Complete current route."
     "ru|job.snowplow.route.needcomplete"        :   "[SNOWPLOW] Заверши маршрут."
@@ -126,41 +128,21 @@ alternativeTranslate({
     "en|job.snowplow.needCompleteToLeave"       :   "[SNOWPLOW] You need to complete current route to leave job."
     "ru|job.snowplow.needCompleteToLeave"       :   "[SNOWPLOW] Чтобы уволиться, тебе надо завершить текущий маршрут."
 
-    "en|job.snowplow.needsnowplow"                   :   "[SNOWPLOW] You need a snowplow."
-    "ru|job.snowplow.needsnowplow"                   :   "[SNOWPLOW] Тебе нужен автобус."
+    "en|job.snowplow.needsnowplow"              :   "[SNOWPLOW] You need a snowplow truck."
+    "ru|job.snowplow.needsnowplow"              :   "[SNOWPLOW] Тебе нужна снегоуборочная машина."
 
-    "en|job.snowplow.gotonextsnowplowstop"           :   "[SNOWPLOW] Good! Go to next snowplow stop in %s."
-    "ru|job.snowplow.gotonextsnowplowstop"           :   "[SNOWPLOW] Отлично! Следующая остановка: %s."
+    "en|job.snowplow.continuesnowplowstop"      :   "[SNOWPLOW] Continue the route."
+    "ru|job.snowplow.continuesnowplowstop"      :   "[SNOWPLOW] Продолжай движение по маршруту."
 
-    "en|job.snowplow.continuesnowplowstop"           :   "[SNOWPLOW] Continue the route."
-    "ru|job.snowplow.continuesnowplowstop"           :   "[SNOWPLOW] Продолжай движение по маршруту."
-
-    "en|job.snowplow.nextsnowplowstop"               :   "Next snowplow stop: %s."
-    "ru|job.snowplow.nextsnowplowstop"               :   "Следующая остановка: %s."
-
-    "en|job.snowplow.nextsnowplowstop2"              :   "Driver: Route #%d. %s."
-    "ru|job.snowplow.nextsnowplowstop2"              :   "Водитель: Маршрут #%d. %s."
-
-    "en|job.snowplow.nextsnowplowstop3"              :   "Next snowplow stop: %s. Last snowplow stop"
-    "ru|job.snowplow.nextsnowplowstop3"              :   "Следующая остановка: %s. Конечная."
-
-    "en|job.snowplow.lastsnowplowstop"               :   "Driver: Route #%d. %s. Last snowplow stop."
-    "ru|job.snowplow.lastsnowplowstop"               :   "Водитель: Маршрут #%d. %s. Конечная."
-
-    "en|job.snowplow.waitpasses"                :   "[SNOWPLOW] Wait passengers some time..."
-    "ru|job.snowplow.waitpasses"                :   "[SNOWPLOW] Идёт посадка..."
 
     "en|job.snowplow.driving"                   :   "[SNOWPLOW] Reduce speed."
-    "ru|job.snowplow.driving"                   :   "[SNOWPLOW] Снизьте скорость."
+    "ru|job.snowplow.driving"                   :   "[SNOWPLOW] Снизь скорость."
 
-    "en|job.snowplow.gototakemoney"             :   "[SNOWPLOW] Leave the snowplow and take your money near central entrance."
-    "ru|job.snowplow.gototakemoney"             :   "[SNOWPLOW] Оставляй автобус тут. Заработанные деньги получишь у центрального входа в здание депо."
+    "en|job.snowplow.gototakemoney"             :   "[SNOWPLOW] Leave the snowplow truck and take your money."
+    "ru|job.snowplow.gototakemoney"             :   "[SNOWPLOW] Вылезай из машины и забирай деньги за работу."
 
     "en|job.snowplow.nicejob"                   :   "[SNOWPLOW] Nice job! You earned $%.2f"
     "ru|job.snowplow.nicejob"                   :   "[SNOWPLOW] Отличная работа! Ты заработал $%.2f."
-
-    "en|job.snowplow.needcorrectpark"           :   "[SNOWPLOW] Park the snowplow correctly."
-    "ru|job.snowplow.needcorrectpark"           :   "[SNOWPLOW] Подъедь к остановке правильно."
 
 
 
@@ -176,7 +158,7 @@ alternativeTranslate({
     "en|job.snowplow.help.jobleave"         :   "Q button"
     "ru|job.snowplow.help.jobleave"         :   "кнопка Q"
 
-    "en|job.snowplow.help.jobleavetext"     :   "Leave snowplow driver job at snowplow station in Uptown"
+    "en|job.snowplow.help.jobleavetext"     :   "Leave snowplow driver job at snowplowing company in Uptown"
     "ru|job.snowplow.help.jobleavetext"     :   "Уволиться с работы (напротив Полицейского Департамента)"
 
 });
@@ -756,16 +738,14 @@ function snowplowJobStartRoute( playerid ) {
     setPlayerJobState( playerid, "working");
     jobSetPlayerModel( playerid, SNOWPLOW_JOB_SKIN );
 
-    local route = random(5, 5);
+    local route = random(1, 5);
 
     job_snowplow[getPlayerName(playerid)]["route"] <- [route, routes[route][0], clone routes[route][1]]; //create clone of route
 
-    msg(playerid, "job.snowplow.route.your", SNOWPLOW_JOB_COLOR);
-    msg(playerid, "#"+route+" - "+plocalize(playerid, "job.snowplow.route."+route), SNOWPLOW_JOB_COLOR);
-
     local snowplowID = job_snowplow[getPlayerName(playerid)]["route"][2][0];
 
-    msg( playerid, "job.snowplow.startroute", [], SNOWPLOW_JOB_COLOR );
+    msg( playerid, "job.snowplow.startroute" , SNOWPLOW_JOB_COLOR );
+    msg( playerid, "job.snowplow.startroute2", SNOWPLOW_JOB_COLOR );
     job_snowplow[getPlayerName(playerid)]["snowplow3dtext"] = createPrivateSnowplowCheckpoint3DText(playerid, snowplowStops[snowplowID].coords);
 
     createPrivatePlace(playerid, "snowplowZone", snowplowStops[snowplowID].x1, snowplowStops[snowplowID].y1, snowplowStops[snowplowID].x2, snowplowStops[snowplowID].y2);
@@ -782,7 +762,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
             local vehicleid = getPlayerVehicle(playerid);
             local speed = getVehicleSpeed(vehicleid);
             local maxsp = max(fabs(speed[0]), fabs(speed[1]));
-            if(maxsp > 18.5) return msg(playerid, "Speed is very high", CL_RED);
+            if(maxsp > 18.5) return msg(playerid, "job.snowplow.driving", CL_RED);
             msg(playerid, "#"+job_snowplow[getPlayerName(playerid)]["route"][2][0]);
             removePrivatePlace(playerid, "snowplowZone");
             removeText( playerid, "snowplow_3dtext");
@@ -806,7 +786,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
 
 event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     if (isSnowplowDriver(playerid) && getVehicleModel(vehicleid) == 39 && getPlayerJobState(playerid) == "complete") {
-        delayedFunction(10000, function () {
+        delayedFunction(6000, function () {
             tryRespawnVehicleById(vehicleid, true);
         });
     }
