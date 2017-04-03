@@ -3,8 +3,8 @@ local module_log = require("./log");
 module.exports = function(string, ...) {
     local params = vargv;
 
-    params.insert(getroottable(), 0);
-    params.insert(string, 1);
+    params.insert(0, getroottable());
+    params.insert(1, string);
 
-    module_log.acall(params);
+    module_log(format.acall(params));
 };
