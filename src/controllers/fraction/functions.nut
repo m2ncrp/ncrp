@@ -38,6 +38,38 @@ function isPlayerVehicleFraction(playerid, vehicleid) {
     return false;
 }
 
+/**
+ * Check if this vehicle is fraction vehicle
+ * @param  {Integer}  vehicleid
+ * @return {Boolean}
+ */
+function isVehicleFraction(vehicleid) {
+    if (!(vehicleid in __vehicles)) {
+        return false;
+    }
+
+    if (!isVehicleOwned(vehicleid)) {
+        return false;
+    }
+
+    local vehicle = __vehicles[vehicleid];
+    local entity  = vehicle.entity;
+
+    if (!entity) {
+        return false;
+    }
+
+    foreach (idx, fraction in fractions) {
+        foreach (idx, relation in fraction.property) {
+            if (relation.type == "vehicle" && relation.entityid == entity.id) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
 function isPlayerVehicleInPlayerFraction(playerid) {
 
     local fracs = fractions.getContaining(playerid);
