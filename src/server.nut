@@ -37,6 +37,11 @@ dofile("vendor/squirrel-orm/index.nut", true);
 dofile("vendor/JSONEncoder/JSONEncoder.class.nut", true);
 dofile("vendor/JSONParser/JSONParser.class.nut", true);
 
+// setup logger
+logger <- require("./engine/logger")
+logger.use(function(data) {
+    ::print(data);
+});
 
 /**
  * Function that logs to server console

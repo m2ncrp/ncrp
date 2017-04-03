@@ -113,6 +113,18 @@ event("onServerMinuteChange", function() {
 
 // handle vehicle enter
 event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
+    logger.logf(
+        "[VEHICLE ENTER] [%s] %s [%d], car: [%d] %s [%d], owner: %s, fraction: %s",
+            getAccountName(playerid),
+            getPlayerName(playerid),
+            playerid,
+            getVehicleModel(vehicleid),
+            getVehiclePlateText(vehicleid),
+            vehicleid,
+            isVehicleOwned(vehicleid) ? isPlayerVehicleOwner(playerid, vehicleid) ? "true" : "false" : "city_ncrp",
+            isVehicleFraction(vehicleid) ? "true" : "false",
+    );
+
     // handle vehicle passangers
     addVehiclePassenger(vehicleid, playerid, seat);
 
@@ -162,6 +174,17 @@ key(["w", "s"], function(playerid) {
 
 // handle vehicle exit
 event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
+    logger.logf(
+        "[VEHICLE EXIT] [%s] %s [%d], car: [%d] %s [%d], owner: %s, fraction: %s",
+            getAccountName(playerid),
+            getPlayerName(playerid),
+            playerid,
+            getVehicleModel(vehicleid),
+            getVehiclePlateText(vehicleid),
+            vehicleid,
+            isVehicleOwned(vehicleid) ? isPlayerVehicleOwner(playerid, vehicleid) ? "true" : "false" : "city_ncrp",
+            isVehicleFraction(vehicleid) ? "true" : "false",
+    );
 
     // handle vehicle passangers
     removeVehiclePassenger(vehicleid, playerid, seat);
