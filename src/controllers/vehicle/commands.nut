@@ -35,9 +35,10 @@ acmd(["rot"], function( playerid, targetid = null ) {
 
 acmd("checkcar", function( playerid ) {
     local vehicleid = getPlayerVehicle( playerid );
-    local vehicleModel = getVehicleModel( vehicleid );
-
-    sendPlayerMessage( playerid, "Car: id #" + vehicleid + ", model #" + vehicleModel);
+    msg(playerid, format(
+        "Car: %d | Plate: %s | Model: %d | Owner: %s",
+        vehicleid, getVehiclePlateText(vehicleid), getVehicleModel(vehicleid), (getVehicleOwner(vehicleid) ? getVehicleOwner(vehicleid) : "none")
+    ));
 });
 
 acmd("paint", function(playerid, red, green, blue) {
