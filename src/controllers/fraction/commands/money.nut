@@ -5,13 +5,13 @@ cmd("f", "money", function(playerid) {
     local fracs = fractions.getManaged(playerid, FRACTION_MONEY_PERMISSION);
 
     if (!fracs.len()) {
-        return msg(playerid, "You dont have access to that.", CL_WARNING);
+        return msg(playerid, "fraction.money.notaccess", CL_WARNING);
     }
 
     // for now take the first one
     local fraction = fracs[0];
 
-    msg(playerid, format("Current amount money in the fraction %s: $%.2f", fraction.title, fraction.money), CL_INFO);
+    msg(playerid, "fraction.money.amount", [ fraction.title, fraction.money ], CL_INFO);
 });
 
 /**
@@ -24,14 +24,14 @@ cmd("f", ["money", "add"], function(playerid, amount = 0.0) {
     amount = amount.tofloat();
 
     if (!fracs.len()) {
-        return msg(playerid, "You dont have access to that.", CL_WARNING);
+        return msg(playerid, "fraction.money.notaccess", CL_WARNING);
     }
 
     // for now take the first one
     local fraction = fracs[0];
 
     if (!canMoneyBeSubstracted(playerid, amount)) {
-        return msg(playerid, "You dont have enough money!", CL_ERROR);
+        return msg(playerid, "fraction.money.notenough", CL_ERROR);
     }
 
     subMoneyToPlayer(playerid, amount);
@@ -39,10 +39,10 @@ cmd("f", ["money", "add"], function(playerid, amount = 0.0) {
     fraction.money = fraction.money + amount;
     fraction.save();
 
-    msg(playerid, format("You've successfuly added $%.2f to the fraction", amount), CL_SUCCESS);
+    msg(playerid, "fraction.money.add", [ amount, fraction.title ], CL_SUCCESS);
 
     if (fraction[playerid].level <= FRACTION_MONEY_PERMISSION) {
-        msg(playerid, format("Current money in the fraction %s: $%.2f", fraction.title, fraction.money), CL_INFO);
+        msg(playerid, "fraction.money.amount", [ fraction.title, fraction.money ], CL_INFO);
     }
 });
 
@@ -56,14 +56,14 @@ cmd("f", ["money", "sub"], function(playerid, amount = 0.0) {
     amount = amount.tofloat();
 
     if (!fracs.len()) {
-        return msg(playerid, "You dont have access to that.", CL_WARNING);
+        return msg(playerid, "fraction.money.notaccess", CL_WARNING);
     }
 
     // for now take the first one
     local fraction = fracs[0];
 
     if (fraction.money - amount < 0.0) {
-        return msg(playerid, "You cannot subtract more money then fraction has", CL_ERROR);
+        return msg(playerid, "fraction.money.cannotsubstract", CL_ERROR);
     }
 
     fraction.money = fraction.money - amount;
@@ -71,9 +71,9 @@ cmd("f", ["money", "sub"], function(playerid, amount = 0.0) {
 
     addMoneyToPlayer(playerid, amount);
 
-    msg(playerid, format("You've successfuly subtracted %.2f from the fraction", amount), CL_SUCCESS);
+    msg(playerid, "fraction.money.substract", [ amount ], CL_SUCCESS);
 
     if (fraction[playerid].level <= FRACTION_MONEY_PERMISSION) {
-        msg(playerid, format("Current amount money in the fraction %s: $%.2f", fraction.title, fraction.money), CL_INFO);
+        msg(playerid, "fraction.money.amount", [ fraction.title, fraction.money ], CL_INFO);
     }
 });
