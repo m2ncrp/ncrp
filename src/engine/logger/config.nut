@@ -4,10 +4,10 @@ local settings = {
 
 module.exports = {
     use = function(callback) {
-        setting.callback = callback;
+        settings.callback = callback;
     },
 
     call = function(data) {
-        return callback(data);
+        return settings.callback(data);
     },
 };

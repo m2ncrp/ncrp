@@ -121,8 +121,8 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
             getVehicleModel(vehicleid),
             getVehiclePlateText(vehicleid),
             vehicleid,
-            isVehicleOwned(vehicleid) ? isPlayerVehicleOwner(playerid, vehicleid) ? "true" : "false" : "city_ncrp",
-            isVehicleFraction(vehicleid) ? "true" : "false",
+            isVehicleOwned(vehicleid) ? (isPlayerVehicleOwner(playerid, vehicleid) ? "true" : "false") : "city_ncrp",
+            isVehicleFraction(vehicleid) ? "true" : "false"
     );
 
     // handle vehicle passangers
@@ -182,8 +182,8 @@ event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
             getVehicleModel(vehicleid),
             getVehiclePlateText(vehicleid),
             vehicleid,
-            isVehicleOwned(vehicleid) ? isPlayerVehicleOwner(playerid, vehicleid) ? "true" : "false" : "city_ncrp",
-            isVehicleFraction(vehicleid) ? "true" : "false",
+            isVehicleOwned(vehicleid) ? (isPlayerVehicleOwner(playerid, vehicleid) ? "true" : "false") : "city_ncrp",
+            isVehicleFraction(vehicleid) ? "true" : "false"
     );
 
     // handle vehicle passangers
