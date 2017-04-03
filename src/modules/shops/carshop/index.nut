@@ -16,7 +16,8 @@ include("modules/shops/carshop/functions.nut");
 
 // translations
 translation("en", {
-    "shops.carshop.gotothere"     : "If you want to buy a car go to Diamond Motors or to Bad Guy Motors!"
+    "shops.carshop.gotothere"     : "If you want to buy a car go to Diamond Motors!"
+    "shops.carshop.gotothere2"    : "If you want to buy a car go to Diamond Motors or to Bad Guy Motors!"
     "shops.carshop.welcome"       : "Hello there, %s! If you want to buy a car, you should first choose it via: /car list"
     "shops.carshop.nofreespace"   : "There is no free space near Parking. Please come again later!"
     "shops.carshop.money.error"   : "Sorry, you dont have enough money."
@@ -36,15 +37,19 @@ event("onServerStarted", function() {
 
     createBlip  ( DIAMOND_CARSHOP_X, DIAMOND_CARSHOP_Y, ICON_GEAR, ICON_RANGE_FULL );
 
+/*
     // Badbuy Motors
     create3DText( BADGUY_CARSHOP_X, BADGUY_CARSHOP_Y, BADGUY_CARSHOP_Z + 0.35, "BAD GUY MOTORS", CL_ROYALBLUE );
     create3DText( BADGUY_CARSHOP_X, BADGUY_CARSHOP_Y, BADGUY_CARSHOP_Z + 0.20, "/car", CL_WHITE.applyAlpha(75), CARSHOP_DISTANCE );
 
     createBlip  ( BADGUY_CARSHOP_X, BADGUY_CARSHOP_Y, ICON_GEAR, ICON_RANGE_FULL );
+*/
+
 
     /**
      * Decorations
      */
+/*
     local decorations = {
         // bad guy
         owner = createVehicle(10, -636.462, 974, -18.8841, 179.847, -0.177159, 0.506108), // isw_508 (its like owners car)
@@ -59,6 +64,7 @@ event("onServerStarted", function() {
         setVehicleOwner(vehicleid, VEHICLE_OWNER_CITY);
         setVehicleDirtLevel(vehicleid, 0.0);
     }
+*/
 });
 
 event("onPlayerVehicleEnter", function(playerid, vehiclid, seat) {
