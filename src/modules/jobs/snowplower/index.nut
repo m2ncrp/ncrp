@@ -759,7 +759,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
             local speed = getVehicleSpeed(vehicleid);
             local maxsp = max(fabs(speed[0]), fabs(speed[1]));
             if(maxsp > 18.5) return msg(playerid, "job.snowplow.driving", CL_RED);
-            msg(playerid, "#"+job_snowplow[getPlayerName(playerid)]["route"][2][0]);
+ //msg(playerid, "#"+job_snowplow[getPlayerName(playerid)]["route"][2][0]);
             removePrivatePlace(playerid, "snowplowZone");
             removeText( playerid, "snowplow_3dtext");
             trigger(playerid, "removeGPS");
