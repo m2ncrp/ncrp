@@ -76,8 +76,9 @@ cmd("business", "buy", function(playerid) {
         return msg(playerid, "business.error.cantbuy", CL_ERROR);
     }
 
-    subMoneyToPlayer(playerid, getBusinessPrice(bizid));
-    setBusinessOwner(bizid, getPlayerName(playerid));
+    // subMoneyToPlayer(playerid, getBusinessPrice(bizid));
+    // setBusinessOwner(bizid, getPlayerName(playerid));
 
-    msg(playerid, "business.purchase.success", [getBusinessName(bizid)], CL_SUCCESS);
+    // msg(playerid, "business.purchase.success", [getBusinessName(bizid)], CL_SUCCESS);
+    msg(playerid, "Покупка бизнеса осуществляется через форум, путем создания темы с отыгрышем РП-ситуации.", CL_SUCCESS);
 });
