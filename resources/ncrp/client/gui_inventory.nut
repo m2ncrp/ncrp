@@ -40,6 +40,7 @@ class Inventory
 
     guiTopOffset    = 20.0;
     guiBottomOffset = 20.0;
+    guiRightOffset  = 0.0;
     guiPadding      = 5.0;
     guiCellSize     = 64.0;
 
@@ -235,6 +236,11 @@ class Inventory
             guiSetAlpha(item.handle, INVENTORY_INACTIVE_ALPHA);
         }
     }
+}
+
+class InteractableInventory extends Inventory
+{
+    guiRightOffset = 100.0;
 }
 
 event("onClientFrameRender", function(afterGUI) {
