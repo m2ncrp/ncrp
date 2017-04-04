@@ -29,8 +29,8 @@ function setPlayerModel(playerid, skin, forced = false) {
  * @param  {Integer} playerid
  */
 function reloadPlayerModel(playerid) {
-    setPlayerModel(playerid, 10);
     local oldmodel = getPlayerModel(playerid);
+    setPlayerModel(playerid, 10);
 
     delayedFunction(250, function() {
         setPlayerModel(playerid, oldmodel);
