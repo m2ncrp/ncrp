@@ -1,4 +1,4 @@
-class PlayerItemContainer extends ItemContainer
+class PlayerItemContainer extends InteractableItemContainer
 {
     static classname = "PlayerItemContainer";
 
