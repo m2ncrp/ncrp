@@ -13,9 +13,9 @@ const MILK_JOB_Z = -20.1758;
 
 const MILK_JOB_SKIN = 171;
 const MILK_JOB_DISTANCE = 35;
-const MILK_JOB_NUMBER_STATIONS = 7;
+const MILK_JOB_NUMBER_STATIONS = 8;
 const MILK_JOB_LEVEL = 1;
-const MILK_JOB_SALARY = 24.0;
+const MILK_JOB_SALARY = 20.0;
 local MILK_JOB_COLOR = CL_CRUSTA;
 local MILK_JOB_NAME = "milkdriver";
 local MILK_JOB_LOAD    = [185.295, 471.471, -19.9552];
@@ -27,7 +27,7 @@ local MILK_JOB_LEAVE_HOUR_START = 7;
 local MILK_JOB_LEAVE_HOUR_END   = 11;
 local MILK_JOB_WORKING_HOUR_START = 7;
 local MILK_JOB_WORKING_HOUR_END   = 8;
-local MILK_ROUTE_IN_HOUR = 1;
+local MILK_ROUTE_IN_DAY = 1;
 local MILK_ROUTE_NOW = 1;
 
 
@@ -167,6 +167,15 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
                 local vehicleid = getPlayerVehicle(playerid);
                 //if(vehicleid == -1) return;
 
+                local hour = getHour();
+                if((hour < MILK_JOB_GET_HOUR_START || hour >= MILK_JOB_GET_HOUR_END) && job_milk[getPlayerName(playerid)]["milkcomplete"] == 0) {
+                    clearMilkJobStationMarks(playerid);
+                    setPlayerJobState(playerid, null);
+                    showMilkLoadBlip (playerid, false);
+                    blockVehicle(vehicleid);
+                    return msg( playerid, "job.toolate", [ MILK_JOB_GET_HOUR_START.tostring(), MILK_JOB_GET_HOUR_END.tostring()], MILK_JOB_COLOR );
+                }
+
                 if(milktrucks[vehicleid] >= 12) {
                     createMilkJobStationMarks(playerid, job_milk[getPlayerName(playerid)]["milkcoords"]);
                     msg( playerid, "job.milkdriver.milktruckloaded", milktrucks[vehicleid], MILK_JOB_COLOR );
@@ -181,8 +190,8 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     }
 });
 
-event("onServerHourChange", function() {
-    MILK_ROUTE_NOW = MILK_ROUTE_IN_HOUR;
+event("onServerDayChange", function() {
+    MILK_ROUTE_NOW = MILK_ROUTE_IN_DAY;
 });
 
 function createMilkJobStationMarks(playerid, data) {
@@ -368,6 +377,7 @@ function milkJobGetRoute ( playerid ) {
     job_milk[getPlayerName(playerid)]["milkcoords"] = getRandomSubArray(milkcoordsall, MILK_JOB_NUMBER_STATIONS);
     dbg(job_milk[getPlayerName(playerid)]["milkcoords"]);
 
+    MILK_ROUTE_NOW -= 1;
     // create milk marks
     createMilkJobStationMarks(playerid, job_milk[getPlayerName(playerid)]["milkcoords"]);
 
