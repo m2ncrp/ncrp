@@ -8,6 +8,7 @@ local routes = {};
 
 local RADIUS_BUS = 2.0;
 local RADIUS_BUS_SMALL = 1.0;
+local RADIUS_BUS_STOP = 1.0;
 local BUS_JOB_X = -422.731;
 local BUS_JOB_Y = 479.372;
 local BUS_JOB_Z = 0.10922;
@@ -27,7 +28,7 @@ local BUS_JOB_WORKING_HOUR_START    = 0  ;   // 6;
 local BUS_JOB_WORKING_HOUR_END      = 23 ;   // 21;
 local BUS_ROUTE_IN_HOUR = 4;
 local BUS_ROUTE_NOW = 4;
-local BUS_TICKET_PRICE = 1;
+local BUS_TICKET_PRICE = 0.4;
 
 alternativeTranslate({
     "en|job.busdriver"                     :   "bus driver"
@@ -84,14 +85,17 @@ alternativeTranslate({
     "en|job.bus.nextbusstop"               :   "Next bus stop: %s."
     "ru|job.bus.nextbusstop"               :   "Следующая остановка: %s."
 
-    "en|job.bus.nextbusstop2"              :   "Driver: Route #%d. %s."
-    "ru|job.bus.nextbusstop2"              :   "Водитель: Маршрут #%d. %s."
+    "en|job.bus.nextbusstop1"              :   "[CITY BUS] Driver says:"
+    "ru|job.bus.nextbusstop1"              :   "[АВТОБУС] Водитель объявил:"
+
+    "en|job.bus.nextbusstop2"              :   "Route #%d. %s."
+    "ru|job.bus.nextbusstop2"              :   "Маршрут #%d. %s."
 
     "en|job.bus.nextbusstop3"              :   "Next bus stop: %s. Last bus stop"
     "ru|job.bus.nextbusstop3"              :   "Следующая остановка: %s. Конечная."
 
-    "en|job.bus.lastbusstop"               :   "Driver: Route #%d. %s. Last bus stop."
-    "ru|job.bus.lastbusstop"               :   "Водитель: Маршрут #%d. %s. Конечная."
+    "en|job.bus.lastbusstop"               :   "Route #%d. %s. Last bus stop."
+    "ru|job.bus.lastbusstop"               :   "Маршрут #%d. %s. Конечная."
 
     "en|job.bus.waitpasses"                :   "[BUS] Wait passengers some time..."
     "ru|job.bus.waitpasses"                :   "[BUS] Идёт посадка..."
@@ -119,17 +123,17 @@ alternativeTranslate({
     "en|bus.passenger.leaveonly"           :   "You can leave the bus only at busstop."
     "ru|bus.passenger.leaveonly"           :   "Выйти мз автобуса можно только на остановках."
 
-    "en|bus.passenger.leavebus"            :   "You got off the bus."
-    "ru|bus.passenger.leavebus"            :   "Вы вышли из автобуса."
+    "en|bus.passenger.leavebus"            :   "[CITY BUS] You got off the bus."
+    "ru|bus.passenger.leavebus"            :   "[АВТОБУС] Вы вышли из автобуса."
 
-    "en|bus.passenger.enterbus"            :   "You got on the bus."
-    "ru|bus.passenger.enterbus"            :   "Вы сели в автобус."
+    "en|bus.passenger.enterbus"            :   "[CITY BUS] You got on the bus."
+    "ru|bus.passenger.enterbus"            :   "[АВТОБУС] Вы сели в автобус."
 
-    "en|bus.passenger.passenter"            :   "Passenger has got on the bus."
-    "ru|bus.passenger.passenter"            :   "Пассажир сел в автобус."
+    "en|bus.passenger.passenter"            :   "[CITY BUS] Passenger has got on the bus."
+    "ru|bus.passenger.passenter"            :   "[АВТОБУС] Пассажир сел в автобус."
 
-    "en|bus.passenger.passleave"            :   "Passenger has got off the bus."
-    "ru|bus.passenger.passleave"            :   "Пассажир вышел из автобуса."
+    "en|bus.passenger.passleave"            :   "[CITY BUS] Passenger has got off the bus."
+    "ru|bus.passenger.passleave"            :   "[АВТОБУС] Пассажир вышел из автобуса."
 
 
 
@@ -174,13 +178,17 @@ alternativeTranslate({
     "ru|job.bus.route.7"                   :   "«Малый центральный кольцевой» (7 остановок)"
 
 
-    "en|job.busstop.Uptown1"                    : "Uptown (path #1)"
-    "en|job.busstop.Uptown2"                    : "Uptown (path #2)"
-    "en|job.busstop.Uptown3"                    : "Uptown (path #3)"
-    "en|job.busstop.Uptown4"                    : "Uptown (path #4)"
+    "en|job.busstop.Uptown1a"                   : "Uptown (path 1A)"
+    "en|job.busstop.Uptown1b"                   : "Uptown (path 1B)"
+    "en|job.busstop.Uptown2a"                   : "Uptown (path 2A)"
+    "en|job.busstop.Uptown2b"                   : "Uptown (path 2B)"
+    "en|job.busstop.Uptown3a"                   : "Uptown (path 3A)"
+    "en|job.busstop.Uptown3b"                   : "Uptown (path 3B)"
+    "en|job.busstop.Uptown4"                    : "Uptown (path 4)"
+
     "en|job.busstop.WestSide"                   : "West Side"
     "en|job.busstop.Midtown"                    : "Midtown"
-    "en|job.busstop.SouthPort"                  : "SouthPort"
+    "en|job.busstop.SouthPort"                  : "Southport"
     "en|job.busstop.OysterBay"                  : "Oyster Bay"
     "en|job.busstop.Chinatown"                  : "Chinatown"
     "en|job.busstop.LittleItalyEast"            : "Little Italy (East)"
@@ -200,7 +208,7 @@ alternativeTranslate({
     "en|job.busstop.UptownHotel"                : "M-hotel"
     "en|job.busstop.SouthsportWest"             : "West of Southport"
     "en|job.busstop.Port"                       : "Port"
-    "en|job.busstop.SouthPort"                  : "North of Southport"
+    "en|job.busstop.SouthPortNorth"             : "North of Southport"
     "en|job.busstop.Meria"                      : "Government building"
     "en|job.busstop.Twister"                    : "Twister theater"
     "en|job.busstop.EastSideAlley"              : "Alley of East Side"
@@ -225,7 +233,7 @@ alternativeTranslate({
     "ru|job.busstop.UptownHotel"                : "М-отель"
     "ru|job.busstop.SouthsportWest"             : "Запад Сауспорта"
     "ru|job.busstop.Port"                       : "Порт"
-    "ru|job.busstop.SouthPort"                  : "Север Сауспорта"
+    "ru|job.busstop.SouthPortNorth"             : "Север Сауспорта"
     "ru|job.busstop.Meria"                      : "Здание правительства"
     "ru|job.busstop.Twister"                    : "Театр «Твистер»"
     "ru|job.busstop.EastSideAlley"              : "Аллея Ист-Сайда"
@@ -247,10 +255,15 @@ alternativeTranslate({
     "ru|job.busstop.KingstonNorth"              : "Север Кингстона"
     "ru|job.busstop.SouthportSubway"            : "Станция метро в Сауспорте"
 
-    "ru|job.busstop.Uptown1"                    : "Аптаун (путь 1)"
-    "ru|job.busstop.Uptown2"                    : "Аптаун (путь 2)"
-    "ru|job.busstop.Uptown3"                    : "Аптаун (путь 3)"
+
+    "ru|job.busstop.Uptown1a"                   : "Аптаун (путь 1A)"
+    "ru|job.busstop.Uptown1b"                   : "Аптаун (путь 1B)"
+    "ru|job.busstop.Uptown2a"                   : "Аптаун (путь 2A)"
+    "ru|job.busstop.Uptown2b"                   : "Аптаун (путь 2B)"
+    "ru|job.busstop.Uptown3a"                   : "Аптаун (путь 3A)"
+    "ru|job.busstop.Uptown3b"                   : "Аптаун (путь 3B)"
     "ru|job.busstop.Uptown4"                    : "Аптаун (путь 4)"
+
     "ru|job.busstop.WestSide"                   : "Вест-Сайд"
     "ru|job.busstop.Midtown"                    : "Мидтаун"
     "ru|job.busstop.SouthPort"                  : "Сауспорт"
@@ -282,16 +295,15 @@ event("onServerStarted", function() {
     createVehicle(20, -436.205, 417.33, 0.908799, 45.8896, -0.100647, 0.237746);
     createVehicle(20, -436.652, 427.656, 0.907598, 44.6088, -0.0841779, 0.205202);
     createVehicle(20, -437.04, 438.027, 0.907163, 45.1754, -0.100916, 0.242581);
-    //createVehicle(20, -410.198, 493.193, -0.21792, 180.0, -3.80509, -0.228946);
+    createVehicle(20, -410.198, 493.193, -0.21792, 180.0, -3.80509, -0.228946);
 
     //createVehicle(20, -426.371, 410.698, 0.742629, 90.2978, -3.42313, 0.371656);
     //createVehicle(20, -412.107, 410.674, -0.0407671, 89.4833, -3.28604, 1.37194);
 
   //busStops[0]   <-  busStop("NAME",                                              public ST                                   private
-    busStops[1]   <-  busStop("job.busstop.Uptown1",                          busv3( -400.996,   476.106,  -1.01301 ),   busv3( -404.360,   488.435,   -0.568764 ), 0);
-    busStops[2]   <-  busStop("job.busstop.Uptown2",                          busv3( -400.996,   434.303,  -1.05144 ),   busv3( -404.360,   441.001,   -0.566925 ), 0);
-    busStops[3]   <-  busStop("job.busstop.Uptown3",                          busv3( -419.423,   434.303, 0.0254459 ),   busv3( -423.116,   441.001,    0.132165 ), 0);
+
     busStops[4]   <-  busStop("job.busstop.Uptown4",                          busv3( -373.499,   468.245, - 1.27469 ),   busv3(  -376.67,   471.245,   -0.944843 ), 0);
+
     busStops[5]   <-  busStop("job.busstop.WestSide",                         busv3( -474.538,   7.72202,  -1.33022 ),   busv3( -471.471,   10.2396,     -1.4627 ), 180);
     busStops[6]   <-  busStop("job.busstop.Midtown",                          busv3( -428.483,  -303.189,  -11.7407 ),   busv3( -431.421,  -299.824,    -11.8258 ), 90);
     busStops[7]   <-  busStop("job.busstop.SouthPort",                        busv3( -137.196,  -475.182,  -15.2725 ),   busv3( -140.946,   -472.49,    -15.4755 ), 90);
@@ -314,54 +326,58 @@ event("onServerStarted", function() {
     busStops[24]  <-  busStop("job.busstop.HuntersPoint",                     busv3( -1344.5,    421.815,  -23.7303 ),   busv3( -1347.92,    418.11,    -23.4532 ), 0);
     busStops[25]  <-  busStop("job.busstop.LittleItalySouthNorth",            busv3( 131.681,    789.366,  -19.3316 ),   busv3(  128.864,   787.641,    -19.0034 ), 0);
 
-busStops[26]   <-  busStop("job.busstop.UptownHotel",                   busv3(-751.538,  674.475,   -17.5355),    busv3(   -748.5,   677.217,  -17.2655 ), 180);
-busStops[27]   <-  busStop("job.busstop.SouthsportWest",                busv3(-720.819, -494.274,   -22.7685),    busv3( -719.484,  -490.295,  -22.5009 ), 152);
-busStops[28]   <-  busStop("job.busstop.Port",                          busv3(  -392.1, -562.882,   -19.6869),    busv3( -395.138,  -565.624,  -19.4169 ), 0);
-busStops[29]   <-  busStop("job.busstop.SouthPort",                     busv3(-250.571, -388.602,   -17.7316),    busv3( -253.313,  -385.564,  -17.4616 ), 90);
-busStops[30]   <-  busStop("job.busstop.Meria",                         busv3(-45.1856, -135.133,   -14.4352),    busv3( -48.2236,  -137.875,  -14.1652 ), 0);
-busStops[31]   <-  busStop("job.busstop.Twister",                       busv3(-95.4395, -221.978,   -13.6903),    busv3( -98.1815,   -218.94,  -13.4203 ), 90);
-busStops[32]   <-  busStop("job.busstop.EastSideAlley",                 busv3( 57.7815,  336.702,   -14.2565),    busv3(  54.7435,    333.96,  -13.9865 ), 0);
-busStops[33]   <-  busStop("job.busstop.EastSideNearAlley",             busv3(  23.411,   209.09,   -15.8912),    busv3(   20.669,   212.128,  -15.6212 ), 90);
-busStops[34]   <-  busStop("job.busstop.Chinatown2",                    busv3( 439.583,  311.419,   -20.1715),    busv3(  442.621,   314.161,  -19.9015 ), 180);
-busStops[35]   <-  busStop("job.busstop.OysterBayNorth",                busv3( 420.587,  12.7031,   -24.9261),    busv3(  417.845,   15.7411,  -24.6561 ), 90);
-busStops[36]   <-  busStop("job.busstop.OysterBayTrago",                busv3( 557.632,   -306.9,   -20.1562),    busv3(   560.67,  -304.158,  -19.8862 ), 180);
-busStops[37]   <-  busStop("job.busstop.OysterBayDiner",                busv3( 172.783, -459.168,   -20.1567),    busv3(  175.525,  -462.206,  -19.8867 ), -90);
-busStops[38]   <-  busStop("job.busstop.MidtownVangel",                 busv3(-282.204, -101.303,    -11.185),    busv3( -279.462,  -104.341,   -10.915 ), -90);
-busStops[39]   <-  busStop("job.busstop.MidtownHotel",                  busv3(-374.996,  -179.04,   -10.2722),    busv3( -371.958,  -176.298,  -10.0022 ), 180);
-busStops[40]   <-  busStop("job.busstop.Arcade",                        busv3(-581.778, -60.4754,    1.04647),    busv3( -579.036,  -63.5134,   1.31647 ), -90);
-busStops[41]   <-  busStop("job.busstop.MonaLisa",                      busv3(-663.505,  317.714,   0.482136),    busv3( -666.543,   314.972,  0.752136 ), 0);
-busStops[42]   <-  busStop("job.busstop.LincolnPark",                   busv3(-221.314,  127.139,   -10.7052),    busv3( -218.276,   129.881,  -10.4352 ), 180);
-busStops[43]   <-  busStop("job.busstop.LittleItalyAlley",              busv3(-125.626,  649.013,   -20.0742),    busv3( -122.884,   645.975,  -19.8042 ), -90);
-busStops[44]   <-  busStop("job.busstop.LittleItalyAlleyToEast",        busv3(-70.4062,  627.135,   -20.1466),    busv3( -73.1481,   630.173,  -19.8766 ), 90);
-busStops[45]   <-  busStop("job.busstop.Hospital",                      busv3(-376.318,  811.123,   -20.1355),    busv3( -373.576,   808.085,  -19.8655 ), -90);
-busStops[46]   <-  busStop("job.busstop.UptownDown",                    busv3(-639.583,  850.731,   -18.9095),    busv3( -636.545,   853.473,  -18.6395 ), 180);
-busStops[47]   <-  busStop("job.busstop.KingstonSubway",                 busv3(-1152.56,  1371.54,    -13.565),    busv3(  -1155.3,   1374.58,   -13.295 ), 90);
-busStops[48]   <-  busStop("job.busstop.KingstonNorth",                 busv3(-1446.66,  1695.94,    6.14513),    busv3( -1443.92,    1692.9,   6.41513 ), -90);
-busStops[49]   <-  busStop("job.busstop.SouthportSubway",               busv3(-113.694, -521.534,    -16.708),    busv3( -110.656,  -518.792,   -16.438 ), 180);
+    busStops[26]   <-  busStop("job.busstop.UptownHotel",                   busv3(-751.538,  674.475,   -17.5355),    busv3(   -748.5,   677.217,  -17.2655 ), 180);
+    busStops[27]   <-  busStop("job.busstop.SouthsportWest",                busv3(-720.819, -494.274,   -22.7685),    busv3( -719.484,  -490.295,  -22.5009 ), 152);
+    busStops[28]   <-  busStop("job.busstop.Port",                          busv3(  -392.1, -562.882,   -19.6869),    busv3( -395.138,  -565.624,  -19.4169 ), 0);
+    busStops[29]   <-  busStop("job.busstop.SouthPortNorth",                busv3(-250.571, -388.602,   -17.7316),    busv3( -253.313,  -385.564,  -17.4616 ), 90);
+    busStops[30]   <-  busStop("job.busstop.Meria",                         busv3(-45.1856, -135.133,   -14.4352),    busv3( -48.2236,  -137.875,  -14.1652 ), 0);
+    busStops[31]   <-  busStop("job.busstop.Twister",                       busv3(-95.4395, -221.978,   -13.6903),    busv3( -98.1815,   -218.94,  -13.4203 ), 90);
+    busStops[32]   <-  busStop("job.busstop.EastSideAlley",                 busv3( 57.7815,  336.702,   -14.2565),    busv3(  54.7435,    333.96,  -13.9865 ), 0);
+    busStops[33]   <-  busStop("job.busstop.EastSideNearAlley",             busv3(  23.411,   209.09,   -15.8912),    busv3(   20.669,   212.128,  -15.6212 ), 90);
+    busStops[34]   <-  busStop("job.busstop.Chinatown2",                    busv3( 439.583,  311.419,   -20.1715),    busv3(  442.621,   314.161,  -19.9015 ), 180);
+    busStops[35]   <-  busStop("job.busstop.OysterBayNorth",                busv3( 420.587,  12.7031,   -24.9261),    busv3(  417.845,   15.7411,  -24.6561 ), 90);
+    busStops[36]   <-  busStop("job.busstop.OysterBayTrago",                busv3( 557.632,   -306.9,   -20.1562),    busv3(   560.67,  -304.158,  -19.8862 ), 180);
+    busStops[37]   <-  busStop("job.busstop.OysterBayDiner",                busv3( 172.783, -459.168,   -20.1567),    busv3(  175.525,  -462.206,  -19.8867 ), -90);
+    busStops[38]   <-  busStop("job.busstop.MidtownVangel",                 busv3(-282.204, -101.303,    -11.185),    busv3( -279.462,  -104.341,   -10.915 ), -90);
+    busStops[39]   <-  busStop("job.busstop.MidtownHotel",                  busv3(-374.996,  -179.04,   -10.2722),    busv3( -371.958,  -176.298,  -10.0022 ), 180);
+    busStops[40]   <-  busStop("job.busstop.Arcade",                        busv3(-581.778, -60.4754,    1.04647),    busv3( -579.036,  -63.5134,   1.31647 ), -90);
+    busStops[41]   <-  busStop("job.busstop.MonaLisa",                      busv3(-663.505,  317.714,   0.482136),    busv3( -666.543,   314.972,  0.752136 ), 0);
+    busStops[42]   <-  busStop("job.busstop.LincolnPark",                   busv3(-221.314,  127.139,   -10.7052),    busv3( -218.276,   129.881,  -10.4352 ), 180);
+    busStops[43]   <-  busStop("job.busstop.LittleItalyAlley",              busv3(-125.626,  649.013,   -20.0742),    busv3( -122.884,   645.975,  -19.8042 ), -90);
+    busStops[44]   <-  busStop("job.busstop.LittleItalyAlleyToEast",        busv3(-70.4062,  627.135,   -20.1466),    busv3( -73.1481,   630.173,  -19.8766 ), 90);
+    busStops[45]   <-  busStop("job.busstop.Hospital",                      busv3(-376.318,  811.123,   -20.1355),    busv3( -373.576,   808.085,  -19.8655 ), -90);
+    busStops[46]   <-  busStop("job.busstop.UptownDown",                    busv3(-639.583,  850.731,   -18.9095),    busv3( -636.545,   853.473,  -18.6395 ), 180);
+    busStops[47]   <-  busStop("job.busstop.KingstonSubway",                busv3(-1152.56,  1371.54,    -13.565),    busv3(  -1155.3,   1374.58,   -13.295 ), 90);
+    busStops[48]   <-  busStop("job.busstop.KingstonNorth",                 busv3(-1288.97,  1695.94,    11.0666),    busv3( -1286.23,    1692.9,   11.0666 ), -90);
+    busStops[49]   <-  busStop("job.busstop.SouthportSubway",               busv3(-113.694, -521.534,    -16.708),    busv3( -110.656,  -518.792,   -16.438 ), 180);
 
-    busStops[80]  <-  busStop("job.busstop.Uptown1",                          busv3( 131.681,  789.366,  -19.3316 ),     busv3(  -397.527,    469.4,   -0.919742 ), 180);
-    busStops[81]  <-  busStop("job.busstop.Uptown2",                          busv3(-400.515,  425.245,   -1.19457),     busv3( -397.477,   427.987,   -0.924575 ), 180);
-    busStops[82]  <-  busStop("job.busstop.Uptown3",                          busv3(-419.14,   425.263,  -0.138386),     busv3( -416.102,   428.005,    0.131614 ), 180);
+    busStops[51]   <-  busStop("job.busstop.Uptown1a",                      busv3( -400.996,   490.790,  -1.01301),   busv3( -404.360,   488.435,   -0.568764), 0);
+    busStops[52]   <-  busStop("job.busstop.Uptown1b",                      busv3( -400.996,   466.620,  -1.01301),   busv3( -397.527,     469.4,   -0.919742), 180);
+    busStops[53]   <-  busStop("job.busstop.Uptown2a",                      busv3( -400.996,   444.260,  -1.05144),   busv3( -404.360,   441.001,   -0.566925), 0);
+    busStops[54]   <-  busStop("job.busstop.Uptown2b",                      busv3( -400.996,   424.805,  -1.05144),   busv3( -397.477,   427.987,   -0.924575), 180);
+    busStops[55]   <-  busStop("job.busstop.Uptown3a",                      busv3( -419.423,   444.260, 0.0254459),   busv3( -423.116,   441.001,    0.132165), 0);
+    busStops[56]   <-  busStop("job.busstop.Uptown3b",                      busv3( -419.423,   424.805, 0.0254459),   busv3( -416.102,   428.005,    0.131614), 180);
+
 
     busStops[97]  <-  busStop("job.busstop.SandIsland",                       busv3( 0.0, 0.0, 0.0 ),                    busv3(  -1541.81, -231.531, -20.3354   ), null); // waypoint
     busStops[98]  <-  busStop("job.busstop.LittleItalySouthNorth",            busv3( 0.0, 0.0, 0.0 ),                    busv3(  -70.9254, 638.342, -20.237     ), null); // waypoint
     busStops[99]  <-  busStop("job.busstop.Midtown",                          busv3( 0.0, 0.0, 0.0 ),                    busv3(  -530.473, -292.407, -10.0177   ), null); // waypoint
 
 
-  //routes[0] <- [zarplata, [stop1, stop2, stop3, ..., stop562]];
+   //routes[0] <- [zarplata, [stop1, stop2, stop3, ..., stop562]];
    //routes[1] <- [9, [1, 5, 99, 6, 97, 22, 23, 24, 26]]; //sand island
    //routes[2] <- [8, [2, 21, 19, 17, 14, 15, 2]]; //greenfield
    //routes[3] <- [12, [3, 5, 99, 6, 7, 8, 9, 10, 11, 13, 14, 15, 3]]; //center
    //routes[4] <- [15, [4, 98, 25, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];
    //routes[5] <- [23, [4, 5, 99, 6, 7, 8, 9, 10, 12, 13, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];
 
-    routes[1] <- [9, [1, 5, 99, 6, 7, 28, 97, 22, 23, 24, 80]];                                             // sand island
-    routes[2] <- [7, [3, 21, 19, 17, 14, 15, 3]];                                                           // uptown-kingston
-    routes[3] <- [11, [2, 5, 99, 6, 7, 8, 9, 10, 11, 13, 45, 81]];                                          // center + hospital
-    routes[4] <- [14, [1, 44, 25, 16, 18, 48, 20, 22, 23, 24, 21, 47, 46, 80]];                             // kingston
+    routes[1] <- [9, [51, 5, 99, 6, 7, 28, 97, 22, 23, 24, 52]];                                             // sand island
+    routes[2] <- [7, [55, 21, 19, 17, 14, 15, 55]];                                                           // uptown-kingston
+    routes[3] <- [11, [53, 5, 99, 6, 7, 8, 9, 10, 11, 13, 45, 54]];                                          // center + hospital
+    routes[4] <- [14, [51, 44, 25, 16, 18, 48, 20, 22, 23, 24, 21, 47, 46, 52]];                             // kingston
     routes[5] <- [22, [4, 26, 27, 28, 7, 8, 9, 10, 12, 13, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]]; // big empire bay
-    routes[6] <- [15, [82, 33, 9, 34, 35, 36, 37, 49, 28, 29, 30, 38, 40, 41, 82]];                         // new center
-    routes[7] <- [7, [81, 42, 39, 31, 32, 43, 81]];                                                         // small
+    routes[6] <- [15, [56, 33, 9, 34, 35, 36, 37, 49, 28, 29, 30, 38, 40, 41, 56]];                         // new center
+    routes[7] <- [7, [54, 42, 39, 31, 32, 43, 54]];                                                         // small
 
     //creating 3dtext for bus depot
     create3DText ( BUS_JOB_X, BUS_JOB_Y, BUS_JOB_Z+0.35, "ROADKING BUS DEPOT", CL_ROYALBLUE );
@@ -372,6 +388,7 @@ busStops[49]   <-  busStop("job.busstop.SouthportSubway",               busv3(-1
         if (idx < 80) {
             create3DText ( value.public.x, value.public.y, value.public.z+0.35, "=== BUS STOP ===", CL_ROYALBLUE );
             create3DText ( value.public.x, value.public.y, value.public.z-0.15, localize( value.name, [], "en"), CL_WHITE.applyAlpha(150) );
+            create3DText ( value.public.x, value.public.y, value.public.z+0.10, "Price: $"+BUS_TICKET_PRICE+" | Press E", CL_WHITE.applyAlpha(125), 4.0 );
         }
     }
 
@@ -385,6 +402,7 @@ event("onPlayerConnect", function(playerid) {
         job_bus[getPlayerName(playerid)] <- {};
         job_bus[getPlayerName(playerid)]["route"] <- false;
         job_bus[getPlayerName(playerid)]["bus3dtext"] <- [ null, null ];
+        job_bus[getPlayerName(playerid)]["busload3dtext"] <- null;
         job_bus[getPlayerName(playerid)]["busBlip"] <- null;
         job_bus[getPlayerName(playerid)]["idBusStop"] <- null;
     }
@@ -455,7 +473,7 @@ function busv3(a, b, c) {
 function createPrivateBusStop3DText(playerid, busstop) {
     return [
         createPrivate3DText (playerid, busstop.x, busstop.y, busstop.z+0.35, BUS_JOB_BUSSTOP, CL_RIPELEMON, BUS_JOB_DISTANCE ),
-        createPrivate3DText (playerid, busstop.x, busstop.y, busstop.z-0.15, "Press E", CL_WHITE.applyAlpha(150), 5 )
+        createPrivate3DText (playerid, busstop.x, busstop.y, busstop.z-0.15, "Press E", CL_WHITE.applyAlpha(150), RADIUS_BUS_STOP )
     ];
 }
 
@@ -703,7 +721,7 @@ function busJobStop( playerid ) {
 
     local busID = job_bus[getPlayerName(playerid)]["route"][2][0];
 
-    if(!isPlayerVehicleInValidPoint(playerid, busStops[busID].private.x, busStops[busID].private.y, 5.0 )) {
+    if(!isPlayerVehicleInValidPoint(playerid, busStops[busID].private.x, busStops[busID].private.y, RADIUS_BUS_STOP )) {
         return/* msg( playerid, "job.bus.gotobusstop", busStops[busID].name, BUS_JOB_COLOR )*/;
     }
 
@@ -730,18 +748,23 @@ function busJobStop( playerid ) {
 
     local routenumber = job_bus[getPlayerName(playerid)]["route"][0];
     local busStopLeft = job_bus[getPlayerName(playerid)]["route"][2].len();
+    local nextBusID = null;
     if(busStopLeft > 1) {
-        local nextBusID = job_bus[getPlayerName(playerid)]["route"][2][1];
+        nextBusID = job_bus[getPlayerName(playerid)]["route"][2][1];
         //sendLocalizedMsgToAll(playerid, "chat.player.shout", [getPlayerName(playerid), message], SHOUT_RADIUS, CL_WHITE);
-        sendLocalizedMsgToAll(playerid, "job.bus.nextbusstop2", [ routenumber, plocalize(playerid, busStops[busID].name)], SHOUT_RADIUS, CL_WHITE);
+        sendLocalizedMsgToAll(playerid, "job.bus.nextbusstop1", [], SHOUT_RADIUS, CL_CREAMCAN);
+        sendLocalizedMsgToAll(playerid, "job.bus.nextbusstop2", [ routenumber, plocalize(playerid, busStops[busID].name)], SHOUT_RADIUS, CL_CREAMCAN);
         if (busStopLeft > 2) {
-            sendLocalizedMsgToAll(playerid, "job.bus.nextbusstop", [ plocalize(playerid, busStops[nextBusID].name)], SHOUT_RADIUS, CL_WHITE);
+            sendLocalizedMsgToAll(playerid, "job.bus.nextbusstop", [ plocalize(playerid, busStops[nextBusID].name)], SHOUT_RADIUS, CL_CREAMCAN);
         } else {
-            sendLocalizedMsgToAll(playerid, "job.bus.nextbusstop3", [ plocalize(playerid, busStops[nextBusID].name)], SHOUT_RADIUS, CL_WHITE);
+            sendLocalizedMsgToAll(playerid, "job.bus.nextbusstop3", [ plocalize(playerid, busStops[nextBusID].name)], SHOUT_RADIUS, CL_CREAMCAN);
         }
     } else {
-        sendLocalizedMsgToAll(playerid, "job.bus.lastbusstop", [ routenumber, plocalize(playerid, busStops[busID].name)], SHOUT_RADIUS, CL_WHITE);
+        sendLocalizedMsgToAll(playerid, "job.bus.lastbusstop", [ routenumber, plocalize(playerid, busStops[busID].name)], SHOUT_RADIUS, CL_CREAMCAN);
     }
+
+
+    job_bus[getPlayerName(playerid)]["busload3dtext"] = create3DText ( busStops[busID].private.x, busStops[busID].private.y, busStops[busID].public.z+3.0, "=== ROUTE #"+routenumber+"   NEXT: "+localize( busStops[nextBusID].name, [], "en")+" ===", CL_CREAMCAN );
 
     job_bus[getPlayerName(playerid)]["route"][2].remove(0);
 
@@ -756,6 +779,9 @@ function busJobStop( playerid ) {
         freezePlayer( playerid, false);
         delayedFunction(1000, function () { freezePlayer( playerid, false); });
         setVehicleFuel( vehicleid, vehFuel );
+
+        remove3DText( job_bus[getPlayerName(playerid)]["busload3dtext"] );
+
         if (job_bus[getPlayerName(playerid)]["route"][2].len() == 0) {
             msg( playerid, "job.bus.gototakemoney", BUS_JOB_COLOR );
             blockVehicle(vehicleid);
@@ -841,8 +867,8 @@ key("e", function(playerid) {
         local busid = job_bus[getPlayerName(driverid)]["idBusStop"];
         if(busid == null) return msg(playerid, "bus.passenger.leaveonly");
 
-        msg(playerid, "bus.passenger.leavebus");
-        msg(driverid, "bus.passenger.passleave");
+        msg(playerid, "bus.passenger.leavebus", CL_CREAMCAN);
+        msg(driverid, "bus.passenger.passleave", CL_CREAMCAN);
         removePlayerFromBus(playerid);
         setPlayerPosition(playerid, busStops[busid].public.x, busStops[busid].public.y, busStops[busid].public.z);
         reloadPlayerModel(playerid);
@@ -867,10 +893,11 @@ key("e", function(playerid) {
 
         if(!canMoneyBeSubstracted(playerid, BUS_TICKET_PRICE)) return msg(playerid, "bus.passenger.notenoughmoney", CL_RED);
 
-        msg(playerid, "bus.passenger.enterbus");
-        msg(driverid, "bus.passenger.passenter");
+        msg(playerid, "bus.passenger.enterbus", CL_CREAMCAN);
+        msg(driverid, "bus.passenger.passenter", CL_CREAMCAN);
 
         subMoneyToPlayer(playerid, BUS_TICKET_PRICE);
+        addMoneyToPlayer(driverid, BUS_TICKET_PRICE);
         putPlayerInBus(playerid, vehicleid);
 
     }
