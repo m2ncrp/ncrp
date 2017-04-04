@@ -26,6 +26,7 @@ translation("en", {
     "job.unemployed"                    : "You are unemployed."
     "job.false"                         : "unemployed"
     "job.closed"                        : "You have come to improper time. Opening hours: %s:00 - %s:00."
+    "job.toolate"                       : "Oh, it's too late! The job is no longer relevant."
     "job.nojob"                         : "There is no work now. Come to another time."
 
     "rentcar.goto"                      : "Go to parking CAR RENTAL in North Millville to rent a car."
