@@ -85,6 +85,9 @@ local SNOWPLOW_JOB_WORKING_HOUR_END      = 23 ;   // 21;
 local SNOWPLOW_ROUTE_IN_HOUR = 4;
 local SNOWPLOW_ROUTE_NOW = 4;
 
+local routes_list_all = [ 1, 2, 3, 4, 5 ];
+local routes_list = clone( routes_list_all );
+
 alternativeTranslate({
     "en|job.snowplowdriver"                     :   "snowplow driver"
     "ru|job.snowplowdriver"                     :   "водитель снегоуборочной машины"
@@ -490,6 +493,7 @@ event("onPlayerVehicleEnter", function (playerid, vehicleid, seat) {
 
     if(isSnowplowDriver(playerid) && getPlayerJobState(playerid) == "working") {
         unblockVehicle(vehicleid);
+        repairVehicle(vehicleid);
         //delayedFunction(4500, function() {
             //snowplowJobReady(playerid);
         //});
@@ -559,27 +563,6 @@ function isPlayerVehicleSnowplow(playerid) {
     return (isPlayerInValidVehicle(playerid, 39));
 }
 
-// /**
-//  * Check is route selected
-//  * @param  {int}  playerid
-//  * @return {Boolean} true/false
-//  */
-// function isSnowplowRouteSelected(playerid) {
-//     return (job_snowplow[getPlayerName(playerid)]["route"] != false) ? true : false;
-// }
-//
-// /**
-//  * Check is SnowplowReady
-//  * @param  {int}  playerid
-//  * @return {Boolean} true/false
-//  */
-// function isSnowplowReady(playerid) {
-//     return job_snowplow[getPlayerName(playerid)]["snowplowready"];
-// }
-//
-//
-
-
 /**
 Event: JOB - Snowplow driver - Already have job
 */
@@ -590,7 +573,7 @@ key("e", function(playerid) {
     }
 
     if (getPlayerJob(playerid) && getPlayerJob(playerid) != SNOWPLOW_JOB_NAME) {
-        msg(playerid, "job.alreadyhavejob", [getPlayerJob(playerid)]);
+        return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), SNOWPLOW_JOB_COLOR );
     }
 })
 
@@ -604,11 +587,6 @@ function snowplowJobGet( playerid ) {
     // если у игрока недостаточный уровень
     if(!isPlayerLevelValid ( playerid, SNOWPLOW_JOB_LEVEL )) {
         return msg(playerid, "job.snowplow.needlevel", SNOWPLOW_JOB_LEVEL, SNOWPLOW_JOB_COLOR );
-    }
-
-
-    if(isPlayerHaveJob(playerid) && !isSnowplowDriver(playerid)) {
-        return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), SNOWPLOW_JOB_COLOR );
     }
 
     local hour = getHour();
@@ -740,7 +718,10 @@ function snowplowJobStartRoute( playerid ) {
     setPlayerJobState( playerid, "working");
     jobSetPlayerModel( playerid, SNOWPLOW_JOB_SKIN );
 
-    local route = random(1, 5);
+    local rand = random(0, routes_list.len()-1);
+    local route = routes_list[rand];
+    routes_list.remove(rand);
+    if(routes_list.len() == 0) routes_list = clone( routes_list_all );
 
     job_snowplow[getPlayerName(playerid)]["route"] <- [route, routes[route][0], clone routes[route][1]]; //create clone of route
 
@@ -808,3 +789,23 @@ function getNearestSnowplowStationForPlayer(playerid) {
     }
     return snowplowStopid;
 }
+
+acmd("snow", "setroutesall", function(playerid, ...) {
+    if (!vargv.len()) msg(playerid, "Need to write numbers of snowplower routes separated by space.");
+
+    routes_list_all = [];
+    foreach (idx, value in vargv) {
+        routes_list_all.push(value.tointeger());
+    }
+    routes_list = clone (routes_list_all);
+    msg(playerid, "New list of snowplower routes: "+concat(routes_list_all) );
+});
+
+
+acmd("snow", "getroutes", function(playerid) {
+    msg(playerid, "List of available snowplower routes: "+concat(routes_list) );
+});
+
+acmd("snow", "getroutesall", function(playerid) {
+    msg(playerid, "List of all snowplower routes: "+concat(routes_list_all) );
+});

@@ -30,6 +30,10 @@ local BUS_ROUTE_IN_HOUR = 4;
 local BUS_ROUTE_NOW = 4;
 local BUS_TICKET_PRICE = 0.4;
 
+local routes_list_all = [ 1, 2, 3, 4, 5, 6, 7 ];
+local routes_list = clone( routes_list_all );
+
+
 alternativeTranslate({
     "en|job.busdriver"                     :   "bus driver"
     "ru|job.busdriver"                     :   "водитель автобуса"
@@ -85,8 +89,8 @@ alternativeTranslate({
     "en|job.bus.nextbusstop"               :   "Next bus stop: %s."
     "ru|job.bus.nextbusstop"               :   "Следующая остановка: %s."
 
-    "en|job.bus.nextbusstop1"              :   "[CITY BUS] Driver says:"
-    "ru|job.bus.nextbusstop1"              :   "[АВТОБУС] Водитель объявил:"
+    "en|job.bus.driversays"                :   "[CITY BUS] Driver says:"
+    "ru|job.bus.driversays"                :   "[АВТОБУС] Водитель объявил:"
 
     "en|job.bus.nextbusstop2"              :   "Route #%d. %s."
     "ru|job.bus.nextbusstop2"              :   "Маршрут #%d. %s."
@@ -109,8 +113,8 @@ alternativeTranslate({
     "en|job.bus.nicejob"                   :   "[BUS] Nice job! You earned $%.2f"
     "ru|job.bus.nicejob"                   :   "[BUS] Отличная работа! Ты заработал $%.2f."
 
-    "en|job.bus.needcorrectpark"           :   "[BUS] Park the bus correctly."
-    "ru|job.bus.needcorrectpark"           :   "[BUS] Подъедь к остановке правильно."
+    "en|job.bus.needcorrectpark"           :   "[BUS] Park the bus correctly (by doors to the stop)."
+    "ru|job.bus.needcorrectpark"           :   "[BUS] Подъедь правильно (дверями к остановке)."
 
     "en|job.bus.attention"                 :   "ATTENTION! You might experience disappearing passengers from time to time. They are not, it's normal. Keep following your route       and make sure to follow rules in any situation."
     "ru|job.bus.attention"                 :   "ВНИМАНИЕ! Во время движения может казаться, что пассажиры пропали. Это не так и это нормально. Следуй по маршруту и           соблюдай правила при любых обстоятельствах."
@@ -379,10 +383,10 @@ event("onServerStarted", function() {
    //routes[4] <- [15, [4, 98, 25, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];
    //routes[5] <- [23, [4, 5, 99, 6, 7, 8, 9, 10, 12, 13, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];
 
-    routes[1] <- [9, [51, 5, 99, 6, 7, 28, 97, 22, 23, 24, 52]];                                             // sand island
-    routes[2] <- [7, [55, 21, 19, 17, 14, 15, 55]];                                                           // uptown-kingston
-    routes[3] <- [11, [53, 5, 99, 6, 7, 8, 9, 10, 11, 13, 45, 54]];                                          // center + hospital
-    routes[4] <- [14, [51, 44, 25, 16, 18, 48, 20, 22, 23, 24, 21, 47, 46, 52]];                             // kingston
+    routes[1] <- [9, [51, 5, 99, 6, 7, 28, 97, 22, 23, 24, 52]];                                            // sand island
+    routes[2] <- [7, [55, 21, 19, 17, 14, 15, 55]];                                                         // uptown-kingston
+    routes[3] <- [11, [53, 5, 99, 6, 7, 8, 9, 10, 11, 13, 45, 54]];                                         // center + hospital
+    routes[4] <- [14, [51, 44, 25, 16, 18, 48, 20, 22, 23, 24, 21, 47, 46, 52]];                            // kingston
     routes[5] <- [22, [4, 26, 27, 28, 7, 8, 9, 10, 12, 13, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]]; // big empire bay
     routes[6] <- [15, [56, 33, 9, 34, 35, 36, 37, 49, 28, 29, 30, 38, 40, 41, 56]];                         // new center
     routes[7] <- [7, [54, 42, 39, 31, 32, 43, 54]];                                                         // small
@@ -396,7 +400,7 @@ event("onServerStarted", function() {
         if (idx < 80) {
             create3DText ( value.public.x, value.public.y, value.public.z+0.35, "=== BUS STOP ===", CL_ROYALBLUE );
             create3DText ( value.public.x, value.public.y, value.public.z-0.15, localize( value.name, [], "en"), CL_WHITE.applyAlpha(150) );
-            create3DText ( value.public.x, value.public.y, value.public.z+0.10, "Price: $"+BUS_TICKET_PRICE+" | Press E", CL_WHITE.applyAlpha(125), 4.0 );
+            create3DText ( value.public.x, value.public.y, value.public.z+0.10, "Price: $"+BUS_TICKET_PRICE+" | Press E", CL_WHITE.applyAlpha(125), 1.0 );
         }
     }
 
@@ -546,7 +550,7 @@ key("e", function(playerid) {
     }
 
     if (getPlayerJob(playerid) && getPlayerJob(playerid) != BUS_JOB_NAME) {
-        msg(playerid, "job.alreadyhavejob", [getPlayerJob(playerid)]);
+        return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), BUS_JOB_COLOR );
     }
 })
 
@@ -560,11 +564,6 @@ function busJobGet( playerid ) {
     // если у игрока недостаточный уровень
     if(!isPlayerLevelValid ( playerid, BUS_JOB_LEVEL )) {
         return msg(playerid, "job.bus.needlevel", BUS_JOB_LEVEL, BUS_JOB_COLOR );
-    }
-
-
-    if(isPlayerHaveJob(playerid) && !isBusDriver(playerid)) {
-        return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), BUS_JOB_COLOR );
     }
 
     local hour = getHour();
@@ -697,9 +696,13 @@ function busJobStartRoute( playerid ) {
     setPlayerJobState( playerid, "working");
     jobSetPlayerModel( playerid, BUS_JOB_SKIN );
 
-    local route = random(1, 7);
+    local rand = random(0, routes_list.len()-1);
+    local route = routes_list[rand];
+    routes_list.remove(rand);
+    if(routes_list.len() == 0) routes_list = clone( routes_list_all );
 
-    job_bus[getPlayerName(playerid)]["route"] <- [route, routes[route][0], clone routes[route][1]]; //create clone of route
+
+    job_bus[getPlayerName(playerid)]["route"] <- [route, routes[route][0], clone( routes[route][1] ) ]; //create clone of route
 
     msg(playerid, "job.bus.route.your", BUS_JOB_COLOR);
     msg(playerid, "#"+route+" - "+plocalize(playerid, "job.bus.route."+route), BUS_JOB_COLOR);
@@ -759,22 +762,23 @@ function busJobStop( playerid ) {
     local routenumber = job_bus[getPlayerName(playerid)]["route"][0];
     local busStopLeft = job_bus[getPlayerName(playerid)]["route"][2].len();
     local nextBusID = null;
+
+    sendLocalizedMsgToAll(playerid, "job.bus.driversays", [], SHOUT_RADIUS, CL_CREAMCAN);
+
     if(busStopLeft > 1) {
         nextBusID = job_bus[getPlayerName(playerid)]["route"][2][1];
         //sendLocalizedMsgToAll(playerid, "chat.player.shout", [getPlayerName(playerid), message], SHOUT_RADIUS, CL_WHITE);
-        sendLocalizedMsgToAll(playerid, "job.bus.nextbusstop1", [], SHOUT_RADIUS, CL_CREAMCAN);
         sendLocalizedMsgToAll(playerid, "job.bus.nextbusstop2", [ routenumber, plocalize(playerid, busStops[busID].name)], SHOUT_RADIUS, CL_CREAMCAN);
         if (busStopLeft > 2) {
             sendLocalizedMsgToAll(playerid, "job.bus.nextbusstop", [ plocalize(playerid, busStops[nextBusID].name)], SHOUT_RADIUS, CL_CREAMCAN);
         } else {
             sendLocalizedMsgToAll(playerid, "job.bus.nextbusstop3", [ plocalize(playerid, busStops[nextBusID].name)], SHOUT_RADIUS, CL_CREAMCAN);
         }
+        job_bus[getPlayerName(playerid)]["busload3dtext"] = create3DText ( busStops[busID].private.x, busStops[busID].private.y, busStops[busID].public.z+3.0, "=== ROUTE #"+routenumber+"   NEXT: "+localize( busStops[nextBusID].name, [], "en")+" ===", CL_CREAMCAN );
     } else {
         sendLocalizedMsgToAll(playerid, "job.bus.lastbusstop", [ routenumber, plocalize(playerid, busStops[busID].name)], SHOUT_RADIUS, CL_CREAMCAN);
+        job_bus[getPlayerName(playerid)]["busload3dtext"] = create3DText ( busStops[busID].private.x, busStops[busID].private.y, busStops[busID].public.z+3.0, "=== ROUTE #"+routenumber+"   END.", CL_CREAMCAN );
     }
-
-
-    job_bus[getPlayerName(playerid)]["busload3dtext"] = create3DText ( busStops[busID].private.x, busStops[busID].private.y, busStops[busID].public.z+3.0, "=== ROUTE #"+routenumber+"   NEXT: "+localize( busStops[nextBusID].name, [], "en")+" ===", CL_CREAMCAN );
 
     job_bus[getPlayerName(playerid)]["route"][2].remove(0);
 
@@ -798,10 +802,15 @@ function busJobStop( playerid ) {
             setPlayerJobState(playerid, "complete");
 
             local passengers = getAllBusPassengers(vehicleid);
+
             foreach (idx, passid in passengers) {
-                removePlayerFromBus(passid);
-                setPlayerPosition(passid, busStops[busID].public.x, busStops[busID].public.y, busStops[busID].public.z);
-                reloadPlayerModel(passid);
+                screenFadeinFadeoutEx(passid, 500, 1000, (function(pid) {
+                    return function() {
+                        removePlayerFromBus(pid);
+                        reloadPlayerModel(pid);
+                        setPlayerPosition(pid, busStops[busID].public.x, busStops[busID].public.y, busStops[busID].public.z);
+                    }
+                })(passid));
             }
 
             return;
@@ -881,7 +890,9 @@ key("e", function(playerid) {
         msg(driverid, "bus.passenger.passleave", CL_CREAMCAN);
         removePlayerFromBus(playerid);
         setPlayerPosition(playerid, busStops[busid].public.x, busStops[busid].public.y, busStops[busid].public.z);
-        reloadPlayerModel(playerid);
+        screenFadeinFadeoutEx(playerid, 500, 1000, function() {
+            reloadPlayerModel(playerid);
+        });
 
     } else {
     /* enter in bus */
@@ -981,4 +992,25 @@ acmd("busadd", function(playerid, busstopname) {
     dbg("busStops["+count+"]   <-  busStop(\"job.busstop."+busstopname+"\", busv3("+ xPass +","+ yPass +","+ zPass +"), busv3( "+ x +","+ y +","+ z +" ), "+R+");");
     msg(playerid, "Bus stop has been created. Copy coords from console.", CL_SUCCESS );
     count += 1;
+});
+
+
+acmd("bus", "setroutesall", function(playerid, ...) {
+    if (!vargv.len()) msg(playerid, "Need to write numbers of bus routes separated by space.");
+
+    routes_list_all = [];
+    foreach (idx, value in vargv) {
+        routes_list_all.push(value.tointeger());
+    }
+    routes_list = clone (routes_list_all);
+    msg(playerid, "New list of bus routes: "+concat(routes_list_all) );
+});
+
+
+acmd("bus", "getroutes", function(playerid) {
+    msg(playerid, "List of available bus routes: "+concat(routes_list) );
+});
+
+acmd("bus", "getroutesall", function(playerid) {
+    msg(playerid, "List of all bus routes: "+concat(routes_list_all) );
 });
