@@ -628,16 +628,6 @@ key("2", function(playerid) {
 }, KEY_UP);
 
 
-acmd("ta", function(playerid) {
-    taxiStartCounter(playerid);
-});
-
-acmd("tb", function(playerid) {
-    taxiStopCounter(playerid)
-});
-
-
-
 /*
 
 key("3", function(playerid) {

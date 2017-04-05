@@ -246,10 +246,10 @@ function carDealerHelp ( playerid ) {
 alternativeTranslate({
 
     "en|cardealer.onSaleYet"              :  "Your car «%s» with plate %s is on sale now."
-    "ru|cardealer.onSaleYet"              :  "Ваш автомобиль «%s» с номером %s пока ещё не продан."
+    "ru|cardealer.onSaleYet"              :  "Ваш автомобиль «%s» (%s) пока ещё не продан."
 
     "en|cardealer.Sold"                   :  "Your car «%s» with plate %s sold."
-    "ru|cardealer.Sold"                   :  "Ваш автомобиль «%s» с номером %s продан. Деньги переведены на счёт в банк."
+    "ru|cardealer.Sold"                   :  "Ваш автомобиль «%s» (%s) продан. Деньги переведены на счёт в банк."
 
     "en|cardealer.canBuy"                 :  "You can buy this car for $%.2f via /dealer buy"
     "ru|cardealer.canBuy"                 :  "Вы можете купить этот автомобиль за $%.2f: /dealer buy"
