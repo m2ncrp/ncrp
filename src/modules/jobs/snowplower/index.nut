@@ -485,6 +485,9 @@ event("onPlayerVehicleEnter", function (playerid, vehicleid, seat) {
         return;
     }
 
+    // skip check for non-drivers
+    if (seat != 0) return;
+
     if(isSnowplowDriver(playerid) && getPlayerJobState(playerid) == "working") {
         unblockVehicle(vehicleid);
         //delayedFunction(4500, function() {
@@ -499,6 +502,9 @@ event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     if (!isPlayerVehicleSnowplow(playerid)) {
         return;
     }
+
+    // skip check for non-drivers
+    if (seat != 0) return;
 
     blockVehicle(vehicleid);
 });
@@ -561,7 +567,7 @@ function isPlayerVehicleSnowplow(playerid) {
 // function isSnowplowRouteSelected(playerid) {
 //     return (job_snowplow[getPlayerName(playerid)]["route"] != false) ? true : false;
 // }
-// 
+//
 // /**
 //  * Check is SnowplowReady
 //  * @param  {int}  playerid
@@ -570,8 +576,8 @@ function isPlayerVehicleSnowplow(playerid) {
 // function isSnowplowReady(playerid) {
 //     return job_snowplow[getPlayerName(playerid)]["snowplowready"];
 // }
-// 
-// 
+//
+//
 
 
 /**
