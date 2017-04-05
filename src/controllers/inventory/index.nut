@@ -8,18 +8,19 @@ include("controllers/inventory/inventories.nut");
  */
 event("onPlayerConnect", function(playerid) {
     local character = players[playerid];
+    local inventory = PlayerItemContainer(playerid);
 
     Item.findBy({ state = Item.State.PLAYER, parent = character.id }, function(err, items) {
-        local inventory = PlayerItemContainer(playerid);
 
         foreach (idx, item in items) {
             inventory.set(item.slot, item);
         }
 
         // save inv, add fill in empty slots
-        character.inventory = inventory;
         // character.inventory.fillInEmpty();
     });
+
+    character.inventory = inventory;
 });
 
 /**

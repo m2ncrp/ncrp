@@ -1,6 +1,6 @@
 class ItemContainer extends Container
 {
-    static classname = "ItemContainer";
+    static classname = "Inventory";
 
     id      = null;
     parent  = null;
