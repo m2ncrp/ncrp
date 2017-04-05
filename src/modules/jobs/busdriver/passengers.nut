@@ -11,7 +11,9 @@ event("onServerPlayerStarted", function(targetid) {
 });
 
 event("onPlayerDisconnect", function(playerid, reason) {
-    removePlayerFromBus(playerid);
+    if (isPlayerBusPassenger(playerid)) {
+        removePlayerFromBus(playerid);
+    }
 });
 
 /**
