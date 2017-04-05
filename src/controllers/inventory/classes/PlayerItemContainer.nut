@@ -1,6 +1,6 @@
-class PlayerItemContainer extends InteractableItemContainer
+class PlayerItemContainer extends ItemContainer
 {
-    static classname = "PlayerItemContainer";
+    static classname = "InteractableInventory";
 
     id      = null;
     parent  = null;
@@ -17,6 +17,7 @@ class PlayerItemContainer extends InteractableItemContainer
         base.constructor();
 
         this.id     = md5(this.tostring());
+        this.title  = "Inventory of " + getPlayerName(playerid);
         this.parent = playerid;
     }
 }

@@ -35,8 +35,10 @@ class Inventory
     data    = null;
     handle  = null;
     items   = null;
-    cache   = null;
     opened  = false;
+    components = null;
+
+    static cache   = {};
 
     guiTopOffset    = 20.0;
     guiBottomOffset = 20.0;
@@ -51,7 +53,8 @@ class Inventory
         this.id     = id;
         this.data   = data;
         this.items  = {};
-        this.cache  = {};
+        this.components = {};
+        // this.cache  = {};
 
         return this.createGUI();
     }
@@ -168,10 +171,16 @@ class Inventory
         }
     }
 
+    function getInitialPosition() {
+        local size = this.getSize();
+        return { x = centerX - size.x / 2, y = centerY - size.y / 2 };
+    }
+
     function createGUI() {
         local size = this.getSize();
+        local posi = this.getInitialPosition();
 
-        this.handle = guiCreateElement(ELEMENT_TYPE_WINDOW, this.data.title, centerX - size.x / 2, centerY - size.y / 2, size.x, size.y);
+        this.handle = guiCreateElement(ELEMENT_TYPE_WINDOW, this.data.title, posi.x, posi.y, size.x, size.y);
         this.opened = true;
 
         guiSetSizable(this.handle, false);
@@ -190,7 +199,7 @@ class Inventory
 
     function getSize() {
         return {
-            x = ((this.data.sizeX * (this.guiCellSize + this.guiPadding)) + this.guiPadding * 2).tofloat() + 2,
+            x = ((this.data.sizeX * (this.guiCellSize + this.guiPadding)) + this.guiPadding * 2).tofloat() + this.guiRightOffset + 2,
             y = ((this.data.sizeY * (this.guiCellSize + this.guiPadding)) + this.guiPadding * 2).tofloat() + this.guiTopOffset + 2 + this.guiBottomOffset,
         };
     }
@@ -238,10 +247,86 @@ class Inventory
     }
 }
 
+
+
+
+
+
 class InteractableInventory extends Inventory
 {
-    guiRightOffset = 100.0;
+    guiRightOffset = 145.0;
+
+
+    function getInitialPosition() {
+        local size = this.getSize();
+        return { x = centerX + 5.0, y = centerY - size.y / 2 };
+    }
+
+    function addComponent(type, props, yoffset, title) {
+        local size = this.getSize();
+
+        return guiCreateElement(type, title
+            size.x - this.guiPadding - props.xoffs,
+            (yoffset < 0) ? size.y - this.guiPadding + yoffset : this.guiPadding + yoffset,
+            props.width, props.height, false, this.handle
+        );
+    }
+
+    function createGUI() {
+        base.createGUI();
+
+        guiSetMovable(this.handle, false);
+
+        local btnprops = {
+            width  = 125.0,
+            height = 30.0,
+            xoffs  = 135.0,
+        };
+
+        local lblprops = {
+            width  = 125.0,
+            height = 30.0,
+            xoffs  = 135.0,
+        };
+
+        // buttons
+        this.components["btn_use"]  <- this.addComponent(ELEMENT_TYPE_BUTTON, btnprops,  -40, "Использовать");
+        this.components["btn_hand"] <- this.addComponent(ELEMENT_TYPE_BUTTON, btnprops,  -80, "Взять в руку");
+        this.components["btn_drop"] <- this.addComponent(ELEMENT_TYPE_BUTTON, btnprops, -120, "Бросить на землю");
+        this.components["lbl_name"] <- this.addComponent(ELEMENT_TYPE_LABEL,  lblprops,   20, "Большое название айтема балабла");
+    }
+
+    function click(item) {
+        base.click(item);
+
+        if (item.classname == "Item.None") {
+            guiSetText(this.components["lbl_name"], "");
+        }
+
+        if (item.active) {
+            guiSetText(this.components["lbl_name"], item.classname);
+        }
+        else {
+            guiSetText(this.components["lbl_name"], "");
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+local class_map = {
+    Inventory = Inventory,
+    InteractableInventory = InteractableInventory,
+};
 
 event("onClientFrameRender", function(afterGUI) {
     if (!afterGUI) return;
@@ -267,9 +352,10 @@ event("onClientFrameRender", function(afterGUI) {
         }
 
         local coef  = (weight / inventory.data.limit);
-        local width = (size.x - inventory.guiPadding * 2 - 7) * (coef > 1.0 ? 1.0 : coef);
+        local invwidth = size.x - inventory.guiPadding * 2 - inventory.guiRightOffset - 7;
+        local width = invwidth * (coef > 1.0 ? 1.0 : coef);
 
-        dxDrawRectangle(window[0].tofloat() + inventory.guiPadding + 4, window[1] + size.y - inventory.guiBottomOffset - 3, size.x - inventory.guiPadding * 2 - 7, 15.0, 0xFF242522);
+        dxDrawRectangle(window[0].tofloat() + inventory.guiPadding + 4, window[1] + size.y - inventory.guiBottomOffset - 3, invwidth, 15.0, 0xFF242522);
         dxDrawRectangle(window[0].tofloat() + inventory.guiPadding + 4, window[1] + size.y - inventory.guiBottomOffset - 3, width, 15.0, 0xFFAF8E4D);
 
         // dxDrawText();
@@ -285,7 +371,12 @@ event("inventory:onServerOpen", function(id, data) {
     }
 
     if (!(id in storage)) {
-        storage[id] <- Inventory(id, data);
+        if (data.type in class_map) {
+            storage[id] <- class_map[data.type](id, data);
+        }
+        else {
+            storage[id] <- Inventory(id, data);
+        }
     } else {
         storage[id].updateGUI(data);
         storage[id].show();
@@ -307,7 +398,7 @@ event("onGuiElementClick", function(element) {
         if (!inventory.opened) continue;
 
         foreach (idx, item in inventory.items) {
-            if (element == item.handle) {
+            if (element == item.handle || element == item.label) {
                 return inventory.click(item);
             }
         }
