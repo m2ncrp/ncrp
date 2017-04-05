@@ -112,6 +112,10 @@ alternativeTranslate({
     "en|job.bus.needcorrectpark"           :   "[BUS] Park the bus correctly."
     "ru|job.bus.needcorrectpark"           :   "[BUS] Подъедь к остановке правильно."
 
+    "en|job.bus.attention"                 :   "ATTENTION! You might experience disappearing passengers from time to time. They are not, it's normal. Keep following your route       and make sure to follow rules in any situation."
+    "ru|job.bus.attention"                 :   "ВНИМАНИЕ! Во время движения может казаться, что пассажиры пропали. Это не так и это нормально. Следуй по маршруту и           соблюдай правила при любых обстоятельствах."
+
+
 
 
     "en|bus.passenger.notenoughmoney"      :   "You don't have enough money to buy ticket."
@@ -129,11 +133,15 @@ alternativeTranslate({
     "en|bus.passenger.enterbus"            :   "[CITY BUS] You got on the bus."
     "ru|bus.passenger.enterbus"            :   "[АВТОБУС] Вы сели в автобус."
 
-    "en|bus.passenger.passenter"            :   "[CITY BUS] Passenger has got on the bus."
-    "ru|bus.passenger.passenter"            :   "[АВТОБУС] Пассажир сел в автобус."
+    "en|bus.passenger.passenter"           :   "[CITY BUS] Passenger has got on the bus."
+    "ru|bus.passenger.passenter"           :   "[АВТОБУС] Пассажир сел в автобус."
 
-    "en|bus.passenger.passleave"            :   "[CITY BUS] Passenger has got off the bus."
-    "ru|bus.passenger.passleave"            :   "[АВТОБУС] Пассажир вышел из автобуса."
+    "en|bus.passenger.passleave"           :   "[CITY BUS] Passenger has got off the bus."
+    "ru|bus.passenger.passleave"           :   "[АВТОБУС] Пассажир вышел из автобуса."
+
+    "en|bus.passenger.attention"           :   "ATTENTION! You might experience your character's skin disappearing while driving the bus. It's normal. Skin will be returned after you exit the bus."
+    "ru|bus.passenger.attention"           :   "ВНИМАНИЕ! Во время движения скин вашего персонажа может исчезнуть. Это нормально. При выходе из автобуса он будет        автоматически возвращён."
+
 
 
 
@@ -696,6 +704,8 @@ function busJobStartRoute( playerid ) {
     msg(playerid, "job.bus.route.your", BUS_JOB_COLOR);
     msg(playerid, "#"+route+" - "+plocalize(playerid, "job.bus.route."+route), BUS_JOB_COLOR);
 
+    msg(playerid, "job.bus.attention", CL_GRAY);
+
     local busID = job_bus[getPlayerName(playerid)]["route"][2][0];
 
     msg( playerid, "job.bus.startroute", plocalize(playerid, busStops[busID].name), BUS_JOB_COLOR );
@@ -895,6 +905,7 @@ key("e", function(playerid) {
 
         msg(playerid, "bus.passenger.enterbus", CL_CREAMCAN);
         msg(driverid, "bus.passenger.passenter", CL_CREAMCAN);
+        msg(playerid, "bus.passenger.attention", CL_GRAY);
 
         subMoneyToPlayer(playerid, BUS_TICKET_PRICE);
         addMoneyToPlayer(driverid, BUS_TICKET_PRICE);
