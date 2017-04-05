@@ -813,10 +813,15 @@ function busJobStop( playerid ) {
             setPlayerJobState(playerid, "complete");
 
             local passengers = getAllBusPassengers(vehicleid);
+
             foreach (idx, passid in passengers) {
-                removePlayerFromBus(passid);
-                setPlayerPosition(passid, busStops[busID].public.x, busStops[busID].public.y, busStops[busID].public.z);
-                screenFadeinFadeoutEx(passid, 500, 1000, (function(pid){ return function(){reloadPlayerModel(pid);} })(passid));
+                screenFadeinFadeoutEx(passid, 500, 1000, (function(pid) {
+                    return function() {
+                        removePlayerFromBus(pid);
+                        reloadPlayerModel(pid);
+                        setPlayerPosition(pid, busStops[busID].public.x, busStops[busID].public.y, busStops[busID].public.z);
+                    }
+                })(passid));
             }
 
             return;
