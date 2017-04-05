@@ -89,8 +89,8 @@ alternativeTranslate({
     "en|job.bus.nextbusstop"               :   "Next bus stop: %s."
     "ru|job.bus.nextbusstop"               :   "Следующая остановка: %s."
 
-    "en|job.bus.driversays"              :   "[CITY BUS] Driver says:"
-    "ru|job.bus.driversays"              :   "[АВТОБУС] Водитель объявил:"
+    "en|job.bus.driversays"                :   "[CITY BUS] Driver says:"
+    "ru|job.bus.driversays"                :   "[АВТОБУС] Водитель объявил:"
 
     "en|job.bus.nextbusstop2"              :   "Route #%d. %s."
     "ru|job.bus.nextbusstop2"              :   "Маршрут #%d. %s."
@@ -391,8 +391,6 @@ event("onServerStarted", function() {
     routes[6] <- [15, [56, 33, 9, 34, 35, 36, 37, 49, 28, 29, 30, 38, 40, 41, 56]];                         // new center
     routes[7] <- [7, [54, 42, 39, 31, 32, 43, 54]];                                                         // small
 
-    routes[8] <- [9, [53, 51]];                                            // sand island
-
     //creating 3dtext for bus depot
     create3DText ( BUS_JOB_X, BUS_JOB_Y, BUS_JOB_Z+0.35, "ROADKING BUS DEPOT", CL_ROYALBLUE );
     create3DText ( BUS_JOB_X, BUS_JOB_Y, BUS_JOB_Z+0.20, "Press E to action", CL_WHITE.applyAlpha(150), RADIUS_BUS );
@@ -552,7 +550,7 @@ key("e", function(playerid) {
     }
 
     if (getPlayerJob(playerid) && getPlayerJob(playerid) != BUS_JOB_NAME) {
-        msg(playerid, "job.alreadyhavejob", [getPlayerJob(playerid)]);
+        return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), BUS_JOB_COLOR );
     }
 })
 
@@ -566,11 +564,6 @@ function busJobGet( playerid ) {
     // если у игрока недостаточный уровень
     if(!isPlayerLevelValid ( playerid, BUS_JOB_LEVEL )) {
         return msg(playerid, "job.bus.needlevel", BUS_JOB_LEVEL, BUS_JOB_COLOR );
-    }
-
-
-    if(isPlayerHaveJob(playerid) && !isBusDriver(playerid)) {
-        return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), BUS_JOB_COLOR );
     }
 
     local hour = getHour();
@@ -703,14 +696,10 @@ function busJobStartRoute( playerid ) {
     setPlayerJobState( playerid, "working");
     jobSetPlayerModel( playerid, BUS_JOB_SKIN );
 
-    //local route = random(1, 7);
-
     local rand = random(0, routes_list.len()-1);
-    local route = routes_list[rand];  /* need integer from 1 to 7 */
+    local route = routes_list[rand];
     routes_list.remove(rand);
-
     if(routes_list.len() == 0) routes_list = clone( routes_list_all );
-
 
 
     job_bus[getPlayerName(playerid)]["route"] <- [route, routes[route][0], clone( routes[route][1] ) ]; //create clone of route
@@ -1006,22 +995,22 @@ acmd("busadd", function(playerid, busstopname) {
 });
 
 
-acmd("setroutesall", function(playerid, ...) {
-    if (!vargv.len()) msg(playerid, "Need to write numbers of routes separated by space.");
+acmd("bus", "setroutesall", function(playerid, ...) {
+    if (!vargv.len()) msg(playerid, "Need to write numbers of bus routes separated by space.");
 
     routes_list_all = [];
     foreach (idx, value in vargv) {
         routes_list_all.push(value.tointeger());
     }
     routes_list = clone (routes_list_all);
-    msg(playerid, "New list of routes: "+concat(routes_list_all) );
+    msg(playerid, "New list of bus routes: "+concat(routes_list_all) );
 });
 
 
-acmd("getroutes", function(playerid) {
-    msg(playerid, "List of available routes: "+concat(routes_list) );
+acmd("bus", "getroutes", function(playerid) {
+    msg(playerid, "List of available bus routes: "+concat(routes_list) );
 });
 
-acmd("getroutesall", function(playerid) {
-    msg(playerid, "List of all routes: "+concat(routes_list_all) );
+acmd("bus", "getroutesall", function(playerid) {
+    msg(playerid, "List of all bus routes: "+concat(routes_list_all) );
 });
