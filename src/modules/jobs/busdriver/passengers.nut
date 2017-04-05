@@ -93,7 +93,7 @@ function isPlayerBusPassenger(playerid, vehicleid = null) {
         return false;
     }
 
-    return (busses[vehicleid].find() != null);
+    return (busses[vehicleid].find(playerid) != null);
 }
 
 /**
