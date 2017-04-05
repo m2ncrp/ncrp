@@ -32,7 +32,7 @@ function reloadPlayerModel(playerid) {
     local oldmodel = getPlayerModel(playerid);
     setPlayerModel(playerid, 10);
 
-    delayedFunction(250, function() {
+    delayedFunction(1000, function() {
         setPlayerModel(playerid, oldmodel);
     });
 }
