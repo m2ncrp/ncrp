@@ -23,6 +23,7 @@
     <script type="client">other_screen.nut</script>
     <script type="client">other_tabpanel.nut</script>
     <script type="client">other_weather.nut</script>
+    <script type="client">other_bus.nut</script>
     <script type="client">ped_creation.nut</script>
     <script type="client">ped_dialog.nut</script>
 

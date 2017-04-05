@@ -132,7 +132,7 @@ function(playerid, a = null, b = null) {
  */
 event("onServerPlayerAlive", function(playerid) {
     if (!isPlayerConnected(playerid)) {
-        players.remove(playerid);
+        removePlayer(playerid);
     }
 
     if (!isPlayerLoaded(playerid) || !players[playerid].spawned) return;
