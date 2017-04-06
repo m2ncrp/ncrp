@@ -131,6 +131,8 @@ function jobRestorePlayerModel(playerid) {
     });
 }
 
+playerDelayedFunction <- function(playerid, time, callback) { delayedFunction(time, callback); }
+
 
 include("modules/jobs/commands.nut");
 include("modules/jobs/busdriver");
