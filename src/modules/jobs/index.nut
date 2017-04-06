@@ -62,11 +62,11 @@ local job_state = {};
 local job_callbacks = {};
 
 function setPlayerJobState(playerid, state) {
-    job_state[playerid] <- state;
+    job_state[getPlayerName(playerid)] <- state;
 }
 
 function getPlayerJobState(playerid) {
-    return (playerid in job_state) ? job_state[playerid] : null;
+    return (getPlayerName(playerid) in job_state) ? job_state[getPlayerName(playerid)] : null;
 }
 
 function addJobEvent(button, jobname, state, callback) {
