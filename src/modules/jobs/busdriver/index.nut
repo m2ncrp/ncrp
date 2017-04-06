@@ -686,7 +686,7 @@ function busJobStartRoute( playerid ) {
 
     local hour = getHour();
     if(hour < BUS_JOB_WORKING_HOUR_START || hour >= BUS_JOB_WORKING_HOUR_END) {
-        return msg( playerid, "job.closed", [ BUS_JOB_WORKING_HOUR_START.tostring(), BUS_JOB_WORKING_HOUR_END.tostring()], TRUCK_JOB_COLOR );
+        return msg( playerid, "job.closed", [ BUS_JOB_WORKING_HOUR_START.tostring(), BUS_JOB_WORKING_HOUR_END.tostring()], SNOWPLOW_JOB_COLOR );
     }
 
     if(BUS_ROUTE_NOW < 1) {

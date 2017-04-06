@@ -704,7 +704,7 @@ function snowplowJobStartRoute( playerid ) {
 
     local hour = getHour();
     if(hour < SNOWPLOW_JOB_WORKING_HOUR_START || hour >= SNOWPLOW_JOB_WORKING_HOUR_END) {
-        return msg( playerid, "job.closed", [ SNOWPLOW_JOB_WORKING_HOUR_START.tostring(), SNOWPLOW_JOB_WORKING_HOUR_END.tostring()], TRUCK_JOB_COLOR );
+        return msg( playerid, "job.closed", [ SNOWPLOW_JOB_WORKING_HOUR_START.tostring(), SNOWPLOW_JOB_WORKING_HOUR_END.tostring()], SNOWPLOW_JOB_COLOR );
     }
 
     if(SNOWPLOW_ROUTE_NOW < 1) {
