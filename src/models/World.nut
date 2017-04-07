@@ -74,7 +74,7 @@ class World extends ORM.Entity
     {
         trigger("onServerDayChange");
         this.day++;
-        if (this.day >= WORLD_DAYS_PER_MONTH) {
+        if (this.day > WORLD_DAYS_PER_MONTH) {
             this.day = 1;
             this.onMonthChange();
         }
@@ -84,7 +84,7 @@ class World extends ORM.Entity
     {
         trigger("onServerMonthChange");
         this.month++;
-        if (this.month >= WORLD_MONTH_PER_YEAR) {
+        if (this.month > WORLD_MONTH_PER_YEAR) {
             this.month = 1;
             this.onYearChange();
         }
