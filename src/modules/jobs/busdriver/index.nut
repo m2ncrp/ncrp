@@ -425,6 +425,11 @@ event("onServerPlayerStarted", function( playerid ){
 
     if(isBusDriver(playerid)) {
         if (getPlayerJobState(playerid) == "working" || getPlayerJobState(playerid) == "wait") {
+            if(job_bus[getPlayerName(playerid)]["route"][2].len() == 0) {
+                setPlayerJobState(playerid, "complete");
+                msg( playerid, "job.bus.gototakemoney", BUS_JOB_COLOR );
+                return;
+            }
             local busID = job_bus[getPlayerName(playerid)]["route"][2][0];
             if (busID < 90 ) job_bus[getPlayerName(playerid)]["bus3dtext"] = createPrivateBusStop3DText(playerid, busStops[busID].private);
             setPlayerJobState(playerid, "working");
@@ -448,9 +453,6 @@ event("onPlayerVehicleEnter", function (playerid, vehicleid, seat) {
 
     if(isBusDriver(playerid) && getPlayerJobState(playerid) == "working") {
         unblockVehicle(vehicleid);
-        //delayedFunction(4500, function() {
-            //busJobReady(playerid);
-        //});
     } else {
         blockVehicle(vehicleid);
     }
@@ -788,10 +790,10 @@ function busJobStop( playerid ) {
     local vehFuel = getVehicleFuel( vehicleid );
     setVehicleFuel( vehicleid, 0.0 );
 
-    trigger(playerid, "hudCreateTimer", 20.0, true, true);
-    delayedFunction(20000, function () {
+    trigger(playerid, "hudCreateTimer", 10.0, true, true);
+    playerDelayedFunction(playerid, 10000, function () {
         freezePlayer( playerid, false);
-        delayedFunction(1000, function () { freezePlayer( playerid, false); });
+        playerDelayedFunction(playerid, 1000, function () { freezePlayer( playerid, false); });
         setVehicleFuel( vehicleid, vehFuel );
 
         remove3DText( job_bus[getPlayerName(playerid)]["busload3dtext"] );

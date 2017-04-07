@@ -487,7 +487,7 @@ function truckJobLoadUnload( playerid ) {
         msg( playerid, "job.truckdriver.loading", TRUCK_JOB_COLOR );
         trigger(playerid, "hudCreateTimer", 45.0, true, true);
 
-        delayedFunction(45000, function() {
+        playerDelayedFunction(playerid, 45000, function() {
             dbg("[JOB TRUCK] "+getPlayerName(playerid)+"["+playerid+"] load truck.");
             freezePlayer( playerid, false);
             delayedFunction(1000, function () { freezePlayer( playerid, false); });
@@ -514,7 +514,7 @@ function truckJobLoadUnload( playerid ) {
         msg( playerid, "job.truckdriver.unloading", TRUCK_JOB_COLOR );
         trigger(playerid, "hudCreateTimer", 45.0, true, true);
 
-        delayedFunction(45000, function() {
+        playerDelayedFunction(playerid, 45000, function() {
                 dbg("[JOB TRUCK] "+getPlayerName(playerid)+"["+playerid+"] unload truck.");
                 freezePlayer( playerid, false);
                 delayedFunction(1000, function () { freezePlayer( playerid, false); });
