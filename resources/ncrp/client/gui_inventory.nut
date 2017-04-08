@@ -220,7 +220,7 @@ class Inventory
             }
         }
 
-        if ("handle" in item) {
+        if ("handle" in item && typeof item.handle == "userdata") {
             guiSetAlpha(item.handle, 0.75);
             guiSetAlwaysOnTop(item.label, true);
         }

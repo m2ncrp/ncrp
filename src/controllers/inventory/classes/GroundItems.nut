@@ -19,6 +19,7 @@ class GroundItems
         this.data.push(item);
 
         item.state = Item.State.GROUND;
+        item.parent = 0;
         item.x = position.x;
         item.y = position.y;
         item.z = position.z;
