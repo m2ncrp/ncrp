@@ -134,6 +134,9 @@ alternativeTranslate({
     "en|bus.passenger.leaveonly"           :   "You can leave the bus only at busstop."
     "ru|bus.passenger.leaveonly"           :   "Выйти мз автобуса можно только на остановках."
 
+    "en|bus.passenger.busnotfound"         :   "[CITY BUS] The bus has not arrived yet."
+    "ru|bus.passenger.busnotfound"         :   "[АВТОБУС] Автобус ещё не приехал."
+
     "en|bus.passenger.leavebus"            :   "[CITY BUS] You got off the bus."
     "ru|bus.passenger.leavebus"            :   "[АВТОБУС] Вы вышли из автобуса."
 
@@ -912,13 +915,9 @@ key("e", function(playerid) {
         if(busid == null) return ;
 
         local vehicleid = getNearestCarForPlayer(playerid, 10.0);
-        if(vehicleid <= 0) return dbg("[BUS PASSENGER] playerid: "+playerid+" - Bus not found");
-
         local modelid = getVehicleModel(vehicleid);
-        if(modelid != 20) return dbg("[BUS PASSENGER] playerid: "+playerid+" - There is no bus near you.");
-
         local driverid = getVehicleDriver(vehicleid);
-        if(driverid == null) return dbg("[BUS PASSENGER] playerid: "+playerid+" - There is no driver in the bus with id #"+vehicleid);
+        if(vehicleid <= 0 || modelid != 20 || driverid == null) return msg(playerid, "bus.passenger.busnotfound", CL_CREAMCAN);
 
         if(job_bus[getPlayerName(driverid)]["idBusStop"] != busid) return;
 
