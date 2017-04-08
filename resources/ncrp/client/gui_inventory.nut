@@ -295,7 +295,6 @@ class PlayerInventory extends Inventory
 {
     guiRightOffset = 135.0;
 
-
     function getInitialPosition() {
         local size = this.getSize();
         return { x = centerX + 5.0, y = centerY - size.y / 2 };
@@ -321,16 +320,16 @@ class PlayerInventory extends Inventory
         guiSetAlwaysOnTop(this.handle, true);
         guiSetMovable(this.handle, false);
 
-        local btnprops = {
+        local props = {
             width  = 125.0,
             height = 30.0,
         };
 
         // buttons
-        this.components["lbl_name"] <- this.addComponent(ELEMENT_TYPE_LABEL,  btnprops,   0, "Большое название айтема балабла");
-        this.components["btn_use"]  <- this.addComponent(ELEMENT_TYPE_BUTTON, btnprops,  -3, "Использовать");
-        this.components["btn_hand"] <- this.addComponent(ELEMENT_TYPE_BUTTON, btnprops,  -2, "Взять в руку");
-        this.components["btn_drop"] <- this.addComponent(ELEMENT_TYPE_BUTTON, btnprops,  -1, "Бросить на землю");
+        this.components["lbl_name"] <- this.addComponent(ELEMENT_TYPE_LABEL,  props,  0, "");
+        this.components["btn_use"]  <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -3, "Использовать");
+        this.components["btn_hand"] <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -2, "Взять в руку");
+        this.components["btn_drop"] <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -1, "Бросить на землю");
     }
 
     function click(item) {
@@ -356,6 +355,13 @@ class PlayerInventory extends Inventory
 
             if (idx == "btn_hand" && backbone["ihands"]) {
                 backbone["ihands"].click(backbone["ihands"].items[0]);
+                return true;
+            }
+
+            if (idx == "btn_use" && selectedItem) {
+                selectedItem.active = false;
+                trigger("onPlayerUseItem", selectedItem.parent.id, selectedItem.slot);
+                selectedItem = null;
                 return true;
             }
         }
@@ -421,6 +427,7 @@ event("onClientFrameRender", function(afterGUI) {
     if (!afterGUI) return;
 
     local upd = guiTextUnqueue();
+    local drawed = false;
 
     foreach (idx, inventory in storage) {
         if (!inventory.opened) continue;
@@ -454,8 +461,16 @@ event("onClientFrameRender", function(afterGUI) {
         dxDrawRectangle(window[0].tofloat() + inventory.guiPadding + 4, window[1] + size.y - inventory.guiBottomOffset - 3, invwidth, 15.0, 0xFF242522);
         dxDrawRectangle(window[0].tofloat() + inventory.guiPadding + 4, window[1] + size.y - inventory.guiBottomOffset - 3, width, 15.0, 0xFFAF8E4D);
 
+        drawed = true;
+
         // dxDrawText();
     }
+
+    // if (drawed) {
+    //     local text   = "Hold left shift to select multiple items.";
+    //     local offset = dxGetTextDimensions(text, 2.0, "tahoma-bold")[1];
+    //     dxDrawText(text, 125.0, screenY - offset - 25.0, 0xAAFFFFFF, false, "tahoma-bold", 2.0);
+    // }
 });
 
 event("inventory:onServerOpen", function(id, data) {
