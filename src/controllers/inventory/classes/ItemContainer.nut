@@ -27,6 +27,12 @@ class ItemContainer extends Container
     opened = null;
 
     /**
+     * Item state setted up by this inventory
+     * @type {Integer}
+     */
+    item_state = Item.State.NONE;
+
+    /**
      * Create new instance
      * @return {PlayerContainer}
      */
@@ -125,6 +131,7 @@ class ItemContainer extends Container
      */
     function set(key, value) {
         value.slot = key;
+        value.state = this.item_state;
         return base.set(key, value);
     }
 

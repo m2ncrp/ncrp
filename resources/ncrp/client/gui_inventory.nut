@@ -28,6 +28,25 @@ const INVENTORY_ACTIVE_ALPHA   = 1.0;
 local storage = {};
 local defaultMouseState = false;
 local selectedItem = null;
+local backbone = {
+    ihands = null,
+};
+
+local native_guiSetText = guiSetText;
+local gui_text_queue = [];
+
+function guiSetText(handle, text) {
+    gui_text_queue.push({ handle = handle, text = text});
+}
+
+function guiTextUnqueue() {
+    local entry = gui_text_queue.len() ? gui_text_queue.pop() : null;
+
+    if (entry) {
+        native_guiSetText(entry.handle, entry.text);
+    }
+}
+
 
 class Inventory
 {
@@ -37,8 +56,7 @@ class Inventory
     items   = null;
     opened  = false;
     components = null;
-
-    static cache   = {};
+    cache   = null;
 
     guiTopOffset    = 20.0;
     guiBottomOffset = 20.0;
@@ -54,13 +72,17 @@ class Inventory
         this.data   = data;
         this.items  = {};
         this.components = {};
-        // this.cache  = {};
+        this.cache  = {};
 
         return this.createGUI();
     }
 
     static function isAnyOpened(objects) {
         foreach (idx, inventory in objects) {
+            if (inventory.data.type == "PlayerHands") {
+                continue;
+            }
+
             if (inventory.opened) {
                 return true;
             }
@@ -80,52 +102,25 @@ class Inventory
         return "";
     }
 
-    /**
-     * Hiding old
-     */
-    function cacheItem(item) {
-        // disable drawing of this cell
-        guiSetVisible(item.handle, false);
-        guiSetVisible(item.label,  false);
-        guiSetPosition(item.handle, -this.guiCellSize, -this.guiCellSize, false);
-        guiSetPosition(item.label,  -this.guiCellSize, -this.guiCellSize, false);
+    function createGUI() {
+        local size = this.getSize();
+        local posi = this.getInitialPosition();
 
-        // create cache if doent exsits
-        if (!(item.classname in this.cache)) {
-            this.cache[item.classname] <- [];
+        this.handle = guiCreateElement(ELEMENT_TYPE_WINDOW, this.data.title, posi.x, posi.y, size.x, size.y);
+        this.opened = true;
+
+        guiSetSizable(this.handle, false);
+
+        foreach (idx, item in this.data.items) {
+            this.createItem(item.slot, item.classname, item.type, item.amount, item.weight);
         }
 
-        // store gui handle in cache, to reuse it later
-        this.cache[item.classname].push(item);
-        // this.items[item.slot]// ???
-    }
+        local size = this.data.sizeX * this.data.sizeY;
+        for (local i = 0; i < size; i++) {
+            if (i in this.items) continue;
 
-    function createItem(slot, classname, type, amount = 0, weight = 0.0) {
-        local item = { classname = classname, type = type, slot = slot, amount = amount, weight = weight, handle = null, label = null, active = false, parent = this };
-        local pos  = this.getItemPosition(item);
-
-        // do we have new item in cached
-        if (item.classname in this.cache && this.cache[item.classname].len()) {
-            local itemOld = this.cache[item.classname].pop();
-
-            item.handle = itemOld.handle;
-            item.label  = itemOld.label;
-
-            guiSetPosition(item.handle, pos.x, pos.y, false);
-            guiSetPosition(item.label,  pos.x + this.guiLableItemOffsetX, pos.y + this.guiLableItemOffsetY, false);
-            guiSetVisible(item.handle, true);
-            guiSetVisible(item.label,  true);
-
-            guiSetText(item.label, this.formatLabelText(item));
-        } else {
-            item.handle <- guiCreateElement( ELEMENT_TYPE_IMAGE, item.classname + ".jpg", pos.x, pos.y, this.guiCellSize, this.guiCellSize, false, this.handle);
-            item.label  <- guiCreateElement( ELEMENT_TYPE_LABEL, this.formatLabelText(item), pos.x + this.guiLableItemOffsetX, pos.y + this.guiLableItemOffsetY, 16.0, 15.0, false, this.handle);
+            this.createItem(i, "Item.None", "Item.None");
         }
-
-        guiSetAlpha(item.handle, 0.75);
-        guiSetAlwaysOnTop(item.label, true);
-
-        this.items[item.slot] <- item;
     }
 
     function updateGUI(data) {
@@ -162,7 +157,7 @@ class Inventory
             if (matched && matched.classname == item.classname && matched.amount != item.amount) {
                 item.amount = matched.amount;
                 item.weight = matched.weight;
-                guiSetText(item.label, this.formatLabelText(matched));
+                guiSetText(item.label, Inventory.formatLabelText(item));
                 continue;
             }
 
@@ -171,30 +166,69 @@ class Inventory
         }
     }
 
+    function createItem(slot, classname, type, amount = 0, weight = 0.0, outside_form = false) {
+        local item = { classname = classname, type = type, slot = slot, amount = amount, weight = weight, handle = null, label = null, active = false, parent = this };
+        local pos  = this.getItemPosition(item);
+
+        // do we have new item in cached
+        if (item.classname in this.cache && this.cache[item.classname].len()) {
+            local itemOld = this.cache[item.classname].pop();
+
+            item.handle = itemOld.handle;
+            item.label  = itemOld.label;
+
+            guiSetPosition(item.handle, pos.x, pos.y, false);
+            guiSetPosition(item.label,  pos.x + this.guiLableItemOffsetX, pos.y + this.guiLableItemOffsetY, false);
+            guiSetVisible(item.handle, true);
+            guiSetVisible(item.label,  true);
+
+            guiSetText(item.label, this.formatLabelText(item));
+        } else {
+            if (outside_form) {
+                item.handle <- guiCreateElement( ELEMENT_TYPE_IMAGE, item.classname + ".jpg", pos.x, pos.y, this.guiCellSize, this.guiCellSize);
+                item.label  <- guiCreateElement( ELEMENT_TYPE_LABEL, this.formatLabelText(item), pos.x + this.guiLableItemOffsetX,
+                    pos.y + this.guiLableItemOffsetY, 16.0, 15.0
+                );
+            }
+            else {
+                item.handle <- guiCreateElement( ELEMENT_TYPE_IMAGE, item.classname + ".jpg", pos.x, pos.y, this.guiCellSize, this.guiCellSize, false, this.handle);
+                item.label  <- guiCreateElement( ELEMENT_TYPE_LABEL, this.formatLabelText(item), pos.x + this.guiLableItemOffsetX,
+                    pos.y + this.guiLableItemOffsetY, 16.0, 15.0, false, this.handle
+                );
+            }
+        }
+
+        if ("handle" in item) {
+            guiSetAlpha(item.handle, 0.75);
+            guiSetAlwaysOnTop(item.label, true);
+        }
+
+        this.items[item.slot] <- item;
+    }
+
+    /**
+     * Hiding old
+     */
+    function cacheItem(item) {
+        // disable drawing of this cell
+        guiSetVisible(item.handle, false);
+        guiSetVisible(item.label,  false);
+        guiSetPosition(item.handle, -this.guiCellSize, -this.guiCellSize, false);
+        guiSetPosition(item.label,  -this.guiCellSize, -this.guiCellSize, false);
+
+        // create cache if doent exsits
+        if (!(item.classname in this.cache)) {
+            this.cache[item.classname] <- [];
+        }
+
+        // store gui handle in cache, to reuse it later
+        this.cache[item.classname].push(item);
+        // this.items[item.slot]// ???
+    }
+
     function getInitialPosition() {
         local size = this.getSize();
         return { x = centerX - size.x / 2, y = centerY - size.y / 2 };
-    }
-
-    function createGUI() {
-        local size = this.getSize();
-        local posi = this.getInitialPosition();
-
-        this.handle = guiCreateElement(ELEMENT_TYPE_WINDOW, this.data.title, posi.x, posi.y, size.x, size.y);
-        this.opened = true;
-
-        guiSetSizable(this.handle, false);
-
-        foreach (idx, item in this.data.items) {
-            this.createItem(item.slot, item.classname, item.type, item.amount, item.weight);
-        }
-
-        local size = this.data.sizeX * this.data.sizeY;
-        for (local i = 0; i < size; i++) {
-            if (i in this.items) continue;
-
-            this.createItem(i, "Item.None", "Item.None");
-        }
     }
 
     function getSize() {
@@ -213,6 +247,7 @@ class Inventory
 
     function show() {
         guiSetVisible(this.handle, true);
+        guiBringToFront(this.handle);
         this.opened = true;
     }
 
@@ -245,6 +280,10 @@ class Inventory
             guiSetAlpha(item.handle, INVENTORY_INACTIVE_ALPHA);
         }
     }
+
+    function rawclick(element) {
+
+    }
 }
 
 
@@ -252,9 +291,9 @@ class Inventory
 
 
 
-class InteractableInventory extends Inventory
+class PlayerInventory extends Inventory
 {
-    guiRightOffset = 145.0;
+    guiRightOffset = 135.0;
 
 
     function getInitialPosition() {
@@ -264,10 +303,14 @@ class InteractableInventory extends Inventory
 
     function addComponent(type, props, yoffset, title) {
         local size = this.getSize();
+        local y = this.guiTopOffset + ((this.guiPadding + props.height) * yoffset);
+
+        if (yoffset < 0) {
+            y = size.y + ((this.guiPadding + props.height) * yoffset) - 3;
+        }
 
         return guiCreateElement(type, title
-            size.x - this.guiPadding - props.xoffs,
-            (yoffset < 0) ? size.y - this.guiPadding + yoffset : this.guiPadding + yoffset,
+            size.x - this.guiPadding * 2 - props.width, y,
             props.width, props.height, false, this.handle
         );
     }
@@ -275,25 +318,19 @@ class InteractableInventory extends Inventory
     function createGUI() {
         base.createGUI();
 
+        guiSetAlwaysOnTop(this.handle, true);
         guiSetMovable(this.handle, false);
 
         local btnprops = {
             width  = 125.0,
             height = 30.0,
-            xoffs  = 135.0,
-        };
-
-        local lblprops = {
-            width  = 125.0,
-            height = 30.0,
-            xoffs  = 135.0,
         };
 
         // buttons
-        this.components["btn_use"]  <- this.addComponent(ELEMENT_TYPE_BUTTON, btnprops,  -40, "Использовать");
-        this.components["btn_hand"] <- this.addComponent(ELEMENT_TYPE_BUTTON, btnprops,  -80, "Взять в руку");
-        this.components["btn_drop"] <- this.addComponent(ELEMENT_TYPE_BUTTON, btnprops, -120, "Бросить на землю");
-        this.components["lbl_name"] <- this.addComponent(ELEMENT_TYPE_LABEL,  lblprops,   20, "Большое название айтема балабла");
+        this.components["lbl_name"] <- this.addComponent(ELEMENT_TYPE_LABEL,  btnprops,   0, "Большое название айтема балабла");
+        this.components["btn_use"]  <- this.addComponent(ELEMENT_TYPE_BUTTON, btnprops,  -3, "Использовать");
+        this.components["btn_hand"] <- this.addComponent(ELEMENT_TYPE_BUTTON, btnprops,  -2, "Взять в руку");
+        this.components["btn_drop"] <- this.addComponent(ELEMENT_TYPE_BUTTON, btnprops,  -1, "Бросить на землю");
     }
 
     function click(item) {
@@ -310,29 +347,84 @@ class InteractableInventory extends Inventory
             guiSetText(this.components["lbl_name"], "");
         }
     }
+
+    function rawclick(element) {
+        foreach (idx, value in this.components) {
+            if (element != value) {
+                continue;
+            }
+
+            if (idx == "btn_hand" && backbone["ihands"]) {
+                backbone["ihands"].click(backbone["ihands"].items[0]);
+                return true;
+            }
+        }
+
+        return false;
+    }
+}
+
+
+class PlayerHands extends Inventory
+{
+    function getSize() {
+        return { x = 72.0, y = 128.0 };
+    }
+
+    function getItemPosition(item) {
+        return { x = 8.0, y = screenY - 72.0 };
+    }
+
+    function getInitialPosition() {
+        return { x = -screenX, y = -screenY };
+    }
+
+    function createGUI() {
+        base.createGUI();
+        guiSetAlpha(this.handle, 0.0);
+        guiSetAlwaysOnTop(this.items[0].handle, true);
+        guiSetAlwaysOnTop(this.items[0].label, true);
+        backbone["ihands"] = this;
+    }
+
+    function createItem(slot, classname, type, amount = 0, weight = 0.0) {
+        return base.createItem(slot, classname, type, amount, weight, true);
+    }
 }
 
 
 
 
 
-
-
-
-
-
-
-
 local class_map = {
-    Inventory = Inventory,
-    InteractableInventory = InteractableInventory,
+    Inventory       = Inventory,
+    PlayerInventory = PlayerInventory,
+    PlayerHands     = PlayerHands,
 };
+
+
+addEventHandler("onServerClientStarted", function(version = null) {
+    // backbone["ihands"] <- null;
+    backbone["window"] <- guiCreateElement( ELEMENT_TYPE_WINDOW, "", 0.0, 0.0, screenX, screenY);
+    backbone["bhands"] <- guiCreateElement( ELEMENT_TYPE_IMAGE, "ui_inv_hands.png", 0.0, screenY - 108.0, 108.0, 108.0);
+    // backbone["fhands"] <- guiCreateElement( ELEMENT_TYPE_IMAGE, "Item.None.jpg", 0.0, screenY - 64.0, 64.0, 64.0);
+
+    guiSetAlpha(backbone["window"], 0.0);
+    guiSetAlpha(backbone["bhands"], 0.6);
+
+    guiSetSizable(backbone["window"], false);
+    guiSetMovable(backbone["window"], false);
+});
+
 
 event("onClientFrameRender", function(afterGUI) {
     if (!afterGUI) return;
 
+    local upd = guiTextUnqueue();
+
     foreach (idx, inventory in storage) {
         if (!inventory.opened) continue;
+
         local items  = clone(inventory.items);
         local window = guiGetPosition(inventory.handle);
         local weight = 0.0;
@@ -345,11 +437,15 @@ event("onClientFrameRender", function(afterGUI) {
 
             local pos = inventory.getItemPosition(item);
 
-            pos.x += window[0];
-            pos.y += window[1];
+            if (inventory.data.type != "PlayerHands") {
+                pos.x += window[0];
+                pos.y += window[1];
+            }
 
             dxDrawRectangle(pos.x, pos.y, inventory.guiCellSize, inventory.guiCellSize, 0x61AF8E4D);
         }
+
+        if (inventory.data.type == "PlayerHands") continue;
 
         local coef  = (weight / inventory.data.limit);
         local invwidth = size.x - inventory.guiPadding * 2 - inventory.guiRightOffset - 7;
@@ -365,9 +461,11 @@ event("onClientFrameRender", function(afterGUI) {
 event("inventory:onServerOpen", function(id, data) {
     local data = JSONParser.parse(data);
 
-    if (!Inventory.isAnyOpened(storage)) {
-        defaultMouseState = isCursorShowing();
-        showCursor(true);
+    if (data.type != "PlayerHands") {
+        if (!Inventory.isAnyOpened(storage)) {
+            defaultMouseState = isCursorShowing();
+            showCursor(true);
+        }
     }
 
     if (!(id in storage)) {
@@ -401,11 +499,16 @@ event("onGuiElementClick", function(element) {
             if (element == item.handle || element == item.label) {
                 return inventory.click(item);
             }
+
+            if (inventory.rawclick(element)) {
+                return;
+            }
         }
     }
+
+    guiSendToBack(backbone["bhands"]);
+    guiSendToBack(backbone["window"]);
 });
-
-
 
 dbg <- function(...) {
     log(JSONEncoder.encode(concat(vargv)));
@@ -415,17 +518,26 @@ dbgc <- function(...) {
     sendMessage(JSONEncoder.encode(concat(vargv)));
 };
 
-/**
- * Concatenate array using symbol as separator
- * @param  {Array} vars
- * @param  {String} symbol
- * @return {String}
- */
+
 function concat(vars, symbol = " ") {
     return vars.reduce(function(carry, item) {
         return item ? carry + symbol + item : "";
     });
 }
+
+function delayedFunction(time, callback, additional = null) {
+    return additional ? timer(callback, time, 1, additional) : timer(callback, time, 1);
+}
+
+function random(min = 0, max = RAND_MAX) {
+    return (rand() % ((max + 1) - min)) + min;
+}
+
+
+function randomf(min = 0.0, max = RAND_MAX) {
+    return (rand() % (max - min + 0.001)) + min;
+}
+
 
 
 /**

@@ -9,29 +9,37 @@ include("controllers/inventory/inventories.nut");
 event("onPlayerConnect", function(playerid) {
     local character = players[playerid];
     local inventory = PlayerItemContainer(playerid);
+    local hands     = PlayerHandsContainer(playerid);
 
-    Item.findBy({ state = Item.State.PLAYER, parent = character.id }, function(err, items) {
 
+    ORM.Query("select * from tbl_items where parent = :id and state in (:states)")
+    .setParameter("id", character.id)
+    .setParameter("states", concat([Item.State.PLAYER, Item.State.PLAYER_HAND], ","), true)
+    .getResult(function(err, items) {
         foreach (idx, item in items) {
+            if (item.state == Item.State.PLAYER_HAND) {
+                hands.set(item.slot, item);
+                continue;
+            }
+
             inventory.set(item.slot, item);
         }
-
-        // save inv, add fill in empty slots
-        // character.inventory.fillInEmpty();
     });
 
     character.inventory = inventory;
+    character.hands     = hands;
+});
+
+event("onServerPlayerStarted", function(playerid) {
+    players[playerid].hands.toggle(playerid);
 });
 
 /**
  * Try to save player's items on character save
  */
 event("onCharacterSave", function(playerid, character) {
-    local items = character.inventory;
-
-    foreach (idx, item in items) {
-        item.save();
-    }
+    foreach (idx, item in character.inventory) item.save();
+    foreach (idx, item in character.hands) item.save();
 });
 
 key("i", function(playerid) {

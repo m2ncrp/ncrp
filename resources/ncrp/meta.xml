@@ -51,6 +51,7 @@
     <!-- hunger system -->
     <file>ui_hunger_green.png</file>
     <file>ui_thirst_green.png</file>
+    <file>ui_inv_hands.png</file>
 
     <!-- inventory system -->
         <!-- items -->
