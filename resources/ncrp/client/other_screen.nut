@@ -236,8 +236,8 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
      * Bottom left corner
      */
     // draw logos
-    offset = dxGetTextDimensions(drawdata.logos, 1.0, "tahoma-bold")[1].tofloat();
-    dxDrawText(drawdata.logos, 6.5, screenY - offset - 6.5, 0x88FFFFFF, false, "tahoma-bold");
+    // offset = dxGetTextDimensions(drawdata.logos, 1.0, "tahoma-bold")[1].tofloat();
+    // dxDrawText(drawdata.logos, 6.5, screenY - offset - 6.5, 0x88FFFFFF, false, "tahoma-bold");
 });
 
 // setup default animation

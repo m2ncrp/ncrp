@@ -1,15 +1,15 @@
-class PlayerItemContainer extends ItemContainer
+class PlayerHandsContainer extends ItemContainer
 {
-    static classname = "PlayerInventory";
+    static classname = "PlayerHands";
 
     id      = null;
     parent  = null;
     limit   = 35.0;
 
-    sizeX = 4;
-    sizeY = 5;
+    sizeX = 2;
+    sizeY = 2;
 
-    item_state = Item.State.PLAYER;
+    item_state = Item.State.PLAYER_HAND;
 
     /**
      * Create new instance
@@ -19,7 +19,7 @@ class PlayerItemContainer extends ItemContainer
         base.constructor();
 
         this.id     = md5(this.tostring());
-        this.title  = "Inventory of " + getPlayerName(playerid);
+        this.title  = "";
         this.parent = playerid;
     }
 }

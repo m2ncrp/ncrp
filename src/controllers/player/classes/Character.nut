@@ -50,6 +50,7 @@ class Character extends ORM.Entity {
     toggle      = null; // @deprecated
     request     = null; // @deprecated
     inventory   = null;
+    hands       = null;
     spawned     = false;
     playerid    = -1;
 

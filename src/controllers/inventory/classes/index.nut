@@ -2,7 +2,7 @@ Item <- {};
 Item.State <- {
     NONE            = 0,
     GROUND          = 1,
-    PLAYER_INV      = 3,
+    PLAYER_HAND     = 2,
     PLAYER          = 3,
     VEHICLE_INV     = 4,
     BUILDING_INV    = 5,
@@ -17,6 +17,7 @@ include("controllers/inventory/classes/Item/Clothes.nut");
 
 include("controllers/inventory/classes/ItemContainer.nut");
 include("controllers/inventory/classes/PlayerItemContainer.nut");
+include("controllers/inventory/classes/PlayerHandsContainer.nut");
 
 // add shortcuts overrides
 Item.findBy <- function(condition, callback) {
