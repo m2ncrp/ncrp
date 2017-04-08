@@ -290,6 +290,16 @@ class Inventory
             } else {
                 if (item.classname == "Item.None") return;
 
+                // drop if shift
+                if (key_modifiers.ctrl) {
+                    return trigger("onPlayerDropItem", item.parent.id, item.slot);
+                }
+
+                // try to move to hands
+                if (key_modifiers.shift) {
+                    return trigger("onPlayerMoveItem", item.parent.id, item.slot, backbone["ihands"].id, 0);
+                }
+
                 // select item
                 guiSetAlpha(item.handle, INVENTORY_ACTIVE_ALPHA);
                 selectedItem = item;
@@ -651,10 +661,10 @@ function drawWorldGround() {
         if (item_distance < ground.distance) {
             local scale = 1 - (((item_distance > ground.distance) ? ground.distance : item_distance) / ground.distance);
             dxDrawTexture(item_texture, item_screen[0], item_screen[1], scale, scale, 0.5, 0.5, 0.0, ground.alpha);
+        }
 
-            if (scale > 0.9) {
-                nearitem = true;
-            }
+        if (item_distance < 1.0) {
+            nearitem = true;
         }
     });
 
