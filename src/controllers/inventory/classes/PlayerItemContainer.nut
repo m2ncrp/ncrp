@@ -20,6 +20,16 @@ class PlayerItemContainer extends ItemContainer
 
         this.id     = md5(this.tostring());
         this.title  = "Inventory of " + getPlayerName(playerid);
-        this.parent = playerid;
+        this.parent = players[playerid];
+    }
+
+    /**
+     * Overrides for syncing
+     * @param {Mixed} key
+     * @param {Item.Abstract} value
+     */
+    function set(key, value) {
+        value.parent = this.parent.id;
+        return base.set(key, value);
     }
 }
