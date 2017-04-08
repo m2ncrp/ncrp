@@ -7,6 +7,8 @@ event("onPlayerConnect", function(playerid) {
 });
 
 event("onClientKeyboardPress", function(playerid, key, state) {
+    trigger(playerid, "onServerKeyboard", key, state);
+
     if (isPlayerLogined(playerid)) {
         triggerKeyboardPress(playerid, key, state);
         setPlayerAfk(playerid, false);

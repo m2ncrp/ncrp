@@ -42,6 +42,6 @@ event("onCharacterSave", function(playerid, character) {
     foreach (idx, item in character.hands) item.save();
 });
 
-key("i", function(playerid) {
+key(["tab", "i"], function(playerid) {
     players[playerid].inventory.toggle(playerid);
 });
