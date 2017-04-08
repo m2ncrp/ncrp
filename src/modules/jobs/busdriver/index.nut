@@ -86,6 +86,9 @@ alternativeTranslate({
     "en|job.bus.continuebusstop"           :   "[BUS] Continue the route."
     "ru|job.bus.continuebusstop"           :   "[BUS] Продолжай движение по маршруту."
 
+    "en|job.bus.takeyourmoney"             :   "[BUS] Take your money near central entrance."
+    "ru|job.bus.takeyourmoney"             :   "[BUS] Забери деньги у центрального входа в здание депо."
+
     "en|job.bus.nextbusstop"               :   "Next bus stop: %s."
     "ru|job.bus.nextbusstop"               :   "Следующая остановка: %s."
 
@@ -424,10 +427,13 @@ event("onPlayerConnect", function(playerid) {
 event("onServerPlayerStarted", function( playerid ){
 
     if(isBusDriver(playerid)) {
+
+        createText (playerid, "leavejob3dtext", BUS_JOB_X, BUS_JOB_Y, BUS_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), RADIUS_BUS_SMALL );
+
         if (getPlayerJobState(playerid) == "working" || getPlayerJobState(playerid) == "wait") {
             if(job_bus[getPlayerName(playerid)]["route"][2].len() == 0) {
                 setPlayerJobState(playerid, "complete");
-                msg( playerid, "job.bus.gototakemoney", BUS_JOB_COLOR );
+                msg( playerid, "job.bus.takeyourmoney", BUS_JOB_COLOR );
                 return;
             }
             local busID = job_bus[getPlayerName(playerid)]["route"][2][0];
@@ -437,12 +443,16 @@ event("onServerPlayerStarted", function( playerid ){
             trigger(playerid, "hudDestroyTimer");
             msg( playerid, "job.bus.continuebusstop", BUS_JOB_COLOR );
             msg( playerid, "job.bus.nextbusstop", plocalize(playerid, busStops[busID].name), BUS_JOB_COLOR );
-        } else {
-            msg( playerid, "job.bus.ifyouwantstart", BUS_JOB_COLOR );
-            restorePlayerModel(playerid);
-            setPlayerJobState(playerid, null);
+            return;
         }
-        createText (playerid, "leavejob3dtext", BUS_JOB_X, BUS_JOB_Y, BUS_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), RADIUS_BUS_SMALL );
+
+        if (getPlayerJobState(playerid) == "complete") {
+            return msg( playerid, "job.bus.takeyourmoney", BUS_JOB_COLOR );
+        }
+
+        msg( playerid, "job.bus.ifyouwantstart", BUS_JOB_COLOR );
+        restorePlayerModel(playerid);
+        setPlayerJobState(playerid, null);
     }
 });
 

@@ -116,6 +116,9 @@ alternativeTranslate({
     "en|job.snowplow.ifyouwantstart"            :   "[SNOWPLOW] You're snowplow driver. If you want to start route - take route at snowplow depot in Uptown."
     "ru|job.snowplow.ifyouwantstart"            :   "[SNOWPLOW] Ты работаешь водителем снегоуборочной машины. Если хочешь выйти в рейс - возьми маршрут."
 
+    "en|job.snowplow.takeyourmoney"             :   "[SNOWPLOW] Take your money."
+    "ru|job.snowplow.takeyourmoney"             :   "[SNOWPLOW] Забери деньги за работу."
+
     "en|job.snowplow.route.your"                :   "[SNOWPLOW] Your route:"
     "ru|job.snowplow.route.your"                :   "[SNOWPLOW] Твой текущий маршрут:"
 
@@ -466,16 +469,24 @@ event("onPlayerConnect", function(playerid) {
 event("onServerPlayerStarted", function( playerid ){
 
     if(isSnowplowDriver(playerid)) {
+        createText (playerid, "leavejob3dtext", SNOWPLOW_JOB_X, SNOWPLOW_JOB_Y, SNOWPLOW_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), RADIUS_SNOWPLOW_SMALL );
+
         if (getPlayerJobState(playerid) == "working") {
             local snowplowID = job_snowplow[getPlayerName(playerid)]["route"][2][0];
             job_snowplow[getPlayerName(playerid)]["snowplow3dtext"] = createPrivateSnowplowCheckpoint3DText(playerid, snowplowStops[snowplowID].coords);
             trigger(playerid, "setGPS", snowplowStops[snowplowID].coords.x, snowplowStops[snowplowID].coords.y);
             trigger(playerid, "hudDestroyTimer");
             msg( playerid, "job.snowplow.continuesnowplowstop", SNOWPLOW_JOB_COLOR );
-        } else {
-            msg( playerid, "job.snowplow.ifyouwantstart", SNOWPLOW_JOB_COLOR );
+            return;
         }
-        createText (playerid, "leavejob3dtext", SNOWPLOW_JOB_X, SNOWPLOW_JOB_Y, SNOWPLOW_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), RADIUS_SNOWPLOW_SMALL );
+
+        if (getPlayerJobState(playerid) == "complete") {
+            return msg( playerid, "job.snowplow.takeyourmoney", SNOWPLOW_JOB_COLOR );
+        }
+
+        msg( playerid, "job.snowplow.ifyouwantstart", SNOWPLOW_JOB_COLOR );
+        restorePlayerModel(playerid);
+        setPlayerJobState(playerid, null);
     }
 });
 
