@@ -1,5 +1,3 @@
-include("modules/shops/restaurant/commands.nut");
-
 const EAT_COST = 0.35;
 const DRINK_COST = 0.15;
 const MAX_HEALTH = 800.0;
@@ -26,19 +24,6 @@ function onEating(playerid) {
     addPlayerHunger(playerid, randomf(30.0, 40.0));
 }
 
-function eat(playerid) {
-    local bid = getBusinessNearPlayer(playerid);
-    if ( getBusinessType(bid) == 1 ) {
-        if (canMoneyBeSubstracted(playerid, EAT_COST)) {
-            return onEating(playerid);
-        }
-        return msg(playerid, "shops.restaurant.money.notenough"); // !
-    } else {
-        return msg(playerid, "shops.restaurant.toofar");
-    }
-}
-
-
 /**
  * Some actions on call drink function call
  * @param  {[type]} playerid [description]
@@ -52,8 +37,22 @@ function onDrinking(playerid) {
     addPlayerThirst(playerid, randomf(30.0, 40.0));
 }
 
-function drink(playerid) {
+cmd("eat", function(playerid) {
     local bid = getBusinessNearPlayer(playerid);
+
+    if ( getBusinessType(bid) == 1 ) {
+        if (canMoneyBeSubstracted(playerid, EAT_COST)) {
+            return onEating(playerid);
+        }
+        return msg(playerid, "shops.restaurant.money.notenough"); // !
+    } else {
+        return msg(playerid, "shops.restaurant.toofar");
+    }
+});
+
+cmd("drink", function(playerid) {
+    local bid = getBusinessNearPlayer(playerid);
+
     if ( getBusinessType(bid) == 2 ) {
         if (canMoneyBeSubstracted(playerid, DRINK_COST)) {
             return onDrinking(playerid);
@@ -62,4 +61,4 @@ function drink(playerid) {
     } else {
         return msg(playerid, "shops.restaurant.toofar");
     }
-}
+});
