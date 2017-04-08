@@ -30,7 +30,7 @@ class Item.Abstract extends ORM.Entity
         }
     }
 
-    function use(playerid) {
+    function use(playerid, inventory) {
         dbg("classes/Item.nut: trying to use item. Make sure you've overriden this method for your item", this.classname, getIdentity(playerid));
     }
 

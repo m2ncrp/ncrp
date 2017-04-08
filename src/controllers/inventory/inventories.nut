@@ -64,3 +64,15 @@ event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
         inventory.sync();
     }
 });
+
+event("native:onPlayerUseItem", function(playerid, id, slot) {
+    if (!storage.exists(id)) return;
+
+    local inventory = storage.get(id);
+
+    if (inventory.isOpened(playerid)) {
+        if (inventory.exists(slot)) {
+            inventory.get(slot).use(playerid, inventory);
+        }
+    }
+});
