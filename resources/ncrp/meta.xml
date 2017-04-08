@@ -16,7 +16,7 @@
         <script type="client">gui_metro.nut</script>
         <script type="client">gui_phone.nut</script>
         <script type="client">gui_rentcar.nut</script>
-        <!-- <script type="client">gui_empirediner.nut</script> -->
+        <script type="client">gui_empirediner.nut</script>
 
         <!-- other -->
         <script type="client">other_3dtext.nut</script>
@@ -87,6 +87,6 @@
         <file>Item.Sandwich.jpg</file>
         <file>Item.Cola.jpg</file>
 
-    <!-- <file>shop.logo.empirediner.png</file> -->
+    <file>shop.logo.empirediner.png</file>
     <!-- <file>ped_tutorial1.png</file> -->
 </meta>
