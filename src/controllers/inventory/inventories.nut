@@ -122,7 +122,7 @@ event("native:onPlayerUseItem", function(playerid, id, slot) {
 });
 
 event("native:onPlayerDropItem", function(playerid, id, slot) {
-        if (!storage.exists(id)) return;
+    if (!storage.exists(id)) return;
 
     local inventory = storage.get(id);
 
