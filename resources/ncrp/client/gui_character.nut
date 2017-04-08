@@ -322,16 +322,17 @@ function switchCharacterSlot(){
     }
 }
 
-bindKey("shift", "down", function() {
-    if(isCharacterCreationMenu || isCharacterSelectionMenu){
-        showCursor(false);
+addEventHandler("onServerKeyboard", function(key, state) {
+    if (key == "shift" && state == "down") {
+        if(isCharacterCreationMenu || isCharacterSelectionMenu) {
+            showCursor(false);
+        }
     }
-});
-
-bindKey("shift", "up", function() {
-   if(isCharacterCreationMenu || isCharacterSelectionMenu){
-        showCursor(true);
-   }
+    if (key == "shift" && state == "up") {
+        if(isCharacterCreationMenu || isCharacterSelectionMenu) {
+            showCursor(true);
+        }
+    }
 });
 
 function switchModel(){

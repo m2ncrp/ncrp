@@ -1,11 +1,25 @@
 local storage = null;
+local ground  = null;
 
 event("onServerStarted", function() {
+    ground  = GroundItems();
     storage = Container(ItemContainer);
+
+    Item.findBy({ state = Item.State.GROUND }, function(err, items) {
+        ground.extend(items);
+    });
+});
+
+event(["onServerStopping", "onServerAutosave"], function() {
+    ground.map(function(item) { item.save(); });
 });
 
 event("onInventoryRegistred", function(inventory) {
     storage.set(inventory.id, inventory);
+});
+
+event("onServerPlayerStarted", function(playerid) {
+    ground.sync(playerid);
 });
 
 event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
@@ -39,8 +53,8 @@ event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
 
         inventory1.sync();
         inventory2.sync();
-
-    } else {
+    }
+    else {
         // operations in same inventory
         if (!storage.exists(id1)) return;
 
@@ -65,6 +79,36 @@ event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
     }
 });
 
+key("e", function(playerid) {
+    local radius = 0.75;
+    local pos = getPlayerPositionObj(playerid);
+
+    local items = ground.filter(function(i, item) {
+        return (abs(pos.x - item.x) < radius) && (abs(pos.y - item.y) < radius) && (abs(pos.z - item.z) < radius);
+    });
+
+    if (!items.len()) {
+        return;
+    }
+
+    local closest = items.reduce(function(curr, next) {
+        if (
+            getDistanceBetweenPoints3D(pos.x, pos.y, pos.z, next.x, next.y, next.z) <
+            getDistanceBetweenPoints3D(pos.x, pos.y, pos.z, curr.x, curr.y, curr.z)
+        ) {
+            return next;
+        }
+
+        return curr;
+    });
+
+    if (players[playerid].inventory.push(closest)) {
+        players[playerid].inventory.sync();
+        ground.remove(closest);
+        return true;
+    }
+});
+
 event("native:onPlayerUseItem", function(playerid, id, slot) {
     if (!storage.exists(id)) return;
 
@@ -73,6 +117,22 @@ event("native:onPlayerUseItem", function(playerid, id, slot) {
     if (inventory.isOpened(playerid)) {
         if (inventory.exists(slot)) {
             inventory.get(slot).use(playerid, inventory);
+        }
+    }
+});
+
+event("native:onPlayerDropItem", function(playerid, id, slot) {
+        if (!storage.exists(id)) return;
+
+    local inventory = storage.get(id);
+
+    if (inventory.isOpened(playerid)) {
+        if (inventory.exists(slot)) {
+            local item = inventory.remove(slot);
+            local pos  = getPlayerPositionObj(playerid);
+
+            inventory.sync();
+            ground.push(item, pos);
         }
     }
 });

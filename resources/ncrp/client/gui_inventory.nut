@@ -1,3 +1,9 @@
+/**
+ * ************************
+ * * BASIC SETUP
+ * ************************
+ */
+
 # aliases and special stuff
 event   <- addEventHandler;
 trigger <- triggerServerEvent;
@@ -17,20 +23,26 @@ centerY <- screenY * 0.5;
 ELEMENT_TYPE_BUTTON <- 2;
 ELEMENT_TYPE_IMAGE <- 13;
 
-event("inventory:onServerItemAdd", function(id) {});
-event("inventory:onServerItemMove", function(id) {});
-event("inventory:onServerItemDrop", function(id) {});
-event("inventory:onServerItemRemove", function(id) {});
-
 const INVENTORY_INACTIVE_ALPHA = 0.65;
 const INVENTORY_ACTIVE_ALPHA   = 1.0;
 
 local storage = {};
 local defaultMouseState = false;
 local selectedItem = null;
+local key_modifiers = {
+    ctrl  = false,
+    shift = false,
+};
 local backbone = {
     ihands = null,
 };
+
+
+/**
+ * ************************
+ * * FIX FOR MUTLIFORM setGuiText
+ * ************************
+ */
 
 local native_guiSetText = guiSetText;
 local gui_text_queue = [];
@@ -47,6 +59,12 @@ function guiTextUnqueue() {
     }
 }
 
+
+/**
+ * ************************
+ * * INVENTORY BASE CLASS
+ * ************************
+ */
 
 class Inventory
 {
@@ -92,6 +110,10 @@ class Inventory
     }
 
     static function formatLabelText(item) {
+        if (!("amount" in item)) {
+            return "";
+        }
+
         switch (item.type) {
             case "Item.None":       return "";
             case "Item.Weapon":     return item.amount.tostring();
@@ -288,8 +310,11 @@ class Inventory
 
 
 
-
-
+/**
+ * ************************
+ * * PLAYER INVENTORY CLASS
+ * ************************
+ */
 
 class PlayerInventory extends Inventory
 {
@@ -364,12 +389,33 @@ class PlayerInventory extends Inventory
                 selectedItem = null;
                 return true;
             }
+
+            if (idx == "btn_drop" && selectedItem) {
+                selectedItem.active = false;
+                trigger("onPlayerDropItem", selectedItem.parent.id, selectedItem.slot);
+                selectedItem = null;
+                return true;
+            }
+        }
+
+        // drop item via clicking outside screen
+        if (element == backbone["window"] && selectedItem) {
+            selectedItem.active = false;
+            trigger("onPlayerDropItem", selectedItem.parent.id, selectedItem.slot);
+            selectedItem = null;
+            return true;
         }
 
         return false;
     }
 }
 
+
+/**
+ * ************************
+ * * PLAYER HANDS CLASS
+ * ************************
+ */
 
 class PlayerHands extends Inventory
 {
@@ -399,7 +445,11 @@ class PlayerHands extends Inventory
 }
 
 
-
+/**
+ * ************************
+ * * INVENTORY INTERACTIONS
+ * ************************
+ */
 
 
 local class_map = {
@@ -424,7 +474,9 @@ addEventHandler("onServerClientStarted", function(version = null) {
 
 
 event("onClientFrameRender", function(afterGUI) {
-    if (!afterGUI) return;
+    if (!afterGUI) {
+        return drawWorldGround();
+    }
 
     local upd = guiTextUnqueue();
     local drawed = false;
@@ -524,6 +576,103 @@ event("onGuiElementClick", function(element) {
     guiSendToBack(backbone["bhands"]);
     guiSendToBack(backbone["window"]);
 });
+
+event("onServerKeyboard", function(key, state) {
+    key_modifiers[key] <- (state == "down");
+});
+
+/**
+ * ************************
+ * * WORLD GROUND
+ * ************************
+ */
+local ground = {
+    textures = {},
+    current  = [],
+    distance = 15.0,
+    maxamt   = 25,
+    alpha    = 165,
+};
+
+event("inventory:onServerGroundSync", function(incoming_data) {
+    ground.current.extend(JSONParser.parse(incoming_data).items);
+});
+
+event("inventory:onServerGroundPush", function(incoming_data) {
+    ground.current.push(JSONParser.parse(incoming_data));
+});
+
+event("inventory:onServerGroundRemove", function(incoming_data) {
+    local item = JSONParser.parse(incoming_data);
+
+    ground.current = ground.current.filter(function(i, element) {
+        return (element.id != item.id);
+    });
+});
+
+function getGroundTexture(key) {
+    local name = key + ".jpg";
+
+    if (name in ground.textures) {
+        return ground.textures[name];
+    }
+
+    ground.textures[name] <- dxLoadTexture(name);
+    return ground.textures[name];
+}
+
+function drawWorldGround() {
+    local curpos = getPlayerPosition(getLocalPlayer());
+    local pos    = { x = curpos[0], y = curpos[1], z = curpos[2] };
+    local radius = ground.distance;
+    local nearitem = false;
+
+    local items = ground.current.filter(function(i, item) {
+        return (
+            ("x" in item) && (item.x != 0.0 || item.y != 0.0 || item.z != 0.0)
+            && (abs(pos.x - item.x) < radius) && (abs(pos.y - item.y) < radius) && (abs(pos.z - item.z) < radius)
+        );
+    });
+
+    // lastest should be the newest items
+    items.reverse();
+
+    // limit amount of drawing items
+    if (items.len() > ground.maxamt) {
+        items = items.slice(0, ground.maxamt);
+    }
+
+    // draw them !
+    items.map(function(item) {
+        local item_texture  = getGroundTexture(item.classname);
+        local item_screen   = getScreenFromWorld(item.x, item.y, item.z);
+        local item_distance = getDistanceBetweenPoints3D(item.x, item.y, item.z, pos.x, pos.y, pos.z);
+
+        if (item_distance < ground.distance) {
+            local scale = 1 - (((item_distance > ground.distance) ? ground.distance : item_distance) / ground.distance);
+            dxDrawTexture(item_texture, item_screen[0], item_screen[1], scale, scale, 0.5, 0.5, 0.0, ground.alpha);
+
+            if (scale > 0.9) {
+                nearitem = true;
+            }
+        }
+    });
+
+    if (nearitem) {
+        local text   = "Press E to pick up item.";
+        local offset = dxGetTextDimensions(text, 2.0, "tahoma-bold")[1];
+        dxDrawText(text, 125.0, screenY - offset - 25.0, 0xAAFFFFFF, false, "tahoma-bold", 2.0);
+    }
+}
+
+
+
+/**
+ * ************************
+ * * LIBRARIES
+ * ************************
+ */
+
 
 dbg <- function(...) {
     log(JSONEncoder.encode(concat(vargv)));

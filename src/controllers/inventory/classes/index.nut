@@ -15,6 +15,7 @@ include("controllers/inventory/classes/Item/Weapon.nut");
 include("controllers/inventory/classes/Item/Ammo.nut");
 include("controllers/inventory/classes/Item/Clothes.nut");
 
+include("controllers/inventory/classes/GroundItems.nut");
 include("controllers/inventory/classes/ItemContainer.nut");
 include("controllers/inventory/classes/PlayerItemContainer.nut");
 include("controllers/inventory/classes/PlayerHandsContainer.nut");

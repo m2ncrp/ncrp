@@ -136,6 +136,25 @@ class ItemContainer extends Container
     }
 
     /**
+     * Try to push item inside
+     * return false if there is no space
+     * @param  {Item} value
+     * @return {Boolean}
+     */
+    function push(value) {
+        for (local i = 0; i < this.sizeX * this.sizeY; i++) {
+            if (this.exists(i)) {
+                continue;
+            }
+
+            this.set(i, value);
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Overrides for syncing
      * @param {Mixed} key
      */

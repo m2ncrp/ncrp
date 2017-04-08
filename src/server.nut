@@ -268,6 +268,7 @@ proxy("travelToStationGUI",         "travelToStationGUI"                );
 //Inventory system
 proxy("onPlayerUseItem",           "native:onPlayerUseItem"             );
 proxy("onPlayerMoveItem",          "native:onPlayerMoveItem"            );
+proxy("onPlayerDropItem",          "native:onPlayerDropItem"            );
 
 /**
  * Debug export

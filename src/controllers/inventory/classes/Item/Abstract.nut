@@ -34,18 +34,25 @@ class Item.Abstract extends ORM.Entity
         dbg("classes/Item.nut: trying to use item. Make sure you've overriden this method for your item", this.classname, getIdentity(playerid));
     }
 
-    function calculateWeight () {
+    function calculateWeight() {
         return this.weight;
     }
 
     function serialize() {
         local data = {
-            classname = this.classname,
-            type      = this.getType(),
-            slot      = this.slot,
-            amount    = this.amount,
-            weight    = this.calculateWeight(),
+            classname   = this.classname,
+            type        = this.getType(),
+            slot        = this.slot,
+            amount      = this.amount,
+            weight      = this.calculateWeight(),
+            id          = this.id,
         };
+
+        if (this.x != 0.0 || this.y != 0.0 || this.z != 0.0) {
+            data.x <- this.x;
+            data.y <- this.y;
+            data.z <- this.z;
+        }
 
         return data;
         // return JSONEncoder.encode(data);

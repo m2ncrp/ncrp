@@ -346,21 +346,22 @@ addEventHandler("map:onServerOpen", function() {
     });
 });
 
-// addEventHandler("onClientOpenMap", function() {
-bindKey("m", "down", function() {
-    if (!initialized) return;
 
-    if (drawing) {
-        drawing = false;
-        triggerServerEvent("map:onClientOpen");
-    } else {
-        triggerServerEvent("map:onClientClose");
-        drawing = true;
+addEventHandler("onServerKeyboard", function(key, state) {
+    if (key == "m" && state == "down") {
+        if (!initialized) return;
+
+        if (drawing) {
+            drawing = false;
+            triggerServerEvent("map:onClientOpen");
+        } else {
+            triggerServerEvent("map:onClientClose");
+            drawing = true;
+        }
+
+        showChat(drawing);
     }
-
-    showChat(drawing);
 });
-
 /**
  * Initialization
  */

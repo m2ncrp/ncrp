@@ -30,7 +30,7 @@ class Container
      * Create new instance
      * @return {Container}
      */
-    constructor (type = null) {
+    constructor(type = null) {
         this.__data = {};
         this.__keys = [];
 
