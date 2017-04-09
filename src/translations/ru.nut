@@ -214,51 +214,7 @@ translation("ru", {
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
-    "job.fueldriver"                                        : "водитель бензовоза"
-    "job.fueldriver.letsgo"                                 : "[FUEL] Отправляйтесь к штаб-квартире Trago Oil в Ойстер-Бэй."
-    "job.fueldriver.needlevel"                              : "[FUEL] Водителем бензовоза можно устроиться начиная с уровня %d."
-    "job.fueldriver.already"                                : "[FUEL] Вы уже работает водителем бензовоза."
-    "job.fueldriver.now"                                    : "[FUEL] Вы стали водителем бензовоза!"
-    "job.fueldriver.sitintotruck"                           : "[FUEL] Вы взяли маршрут. Садитесь в бензовоз."
-    "job.fueldriver.not"                                    : "[FUEL] Вы не работаете водителем бензовоза."
-    "job.fueldriver.badworker"                              : "[FUEL] Увы, но нам нужны только ответственные водители."
-    "job.fueldriver.badworker.onleave"                      : "[FUEL] Плохой из тебя работник."
-    "job.fueldriver.goodluck"                               : "[FUEL] Удачи тебе! Приходи, если нужна работа."
-    "job.fueldriver.needfueltruck"                          : "[FUEL] Вам нужен бензовоз."
-    "job.fueldriver.truck.loaded"                           : "[FUEL] Бензовоз заполнен на %d из 16000. Развезите топливо по заправкам."
-    "job.fueldriver.truck.empty"                            : "[FUEL] Бензовоз пуст. Отправляйтесь к топливному хранилищу в Южный Милвилл для загрузки (жёлтая метка на радаре)."
-    "job.fueldriver.truck.toload"                           : "[FUEL] Отправляйтесь к топливному хранилищу в Южный Милвилл для загрузки (жёлтая метка на радаре)."
-    "job.fueldriver.driving"                                : "[FUEL] Остановите бензовоз."
-    "job.fueldriver.truck.loading"                          : "[FUEL] Идёт загрузка. Ожидайте..."
-    "job.fueldriver.truck.unloading"                        : "[FUEL] Идёт разгрузка. Ожидайте..."
-    "job.fueldriver.truck.alreadyloaded"                    : "[FUEL] Бензовоз уже заполнен."
-    "job.fueldriver.truck.fullloaded"                       : "[FUEL] Бензовоз заполнен на 16000 из 16000. Развезите топливо по заправкам."
-    "job.fueldriver.truck.fuelnotenough"                    : "[FUEL] Недостаточно топлива. Отправляйтесь к топливному хранилищу для загрузки (жёлтая метка на радаре)"
 
-    "job.fueldriver.alreadybeenhere"                        : "[FUEL] Вы уже были здесь. Направляйтесь к другой заправке."
-    "job.fueldriver.truck.parking"                          : "[FUEL] Хорошая работа! Возвращайтесь к штаб-квартире Trago Oil в Ойстер-Бэй за деньгами."
-    "job.fueldriver.truck.unloadingcompletedtruckisloaded"  : "[FUEL] Разгрузка выполнена. Бензовоз заполнен на %d из 16000. Направляйтесь к следующей заправке."
-    "job.fueldriver.truck.unloadingcompletedfuelnotenough"  : "[FUEL] Разгрузка выполнена. Топливо закончилось. Отправляйтесь к топливному хранилищу для загрузки (жёлтая метка на радаре)"
-    "job.fueldriver.truck.topark"                           : "[FUEL] Чтобы припарковать бензовоз, отправляйтесь к штаб-квартире Trago Oil в Ойстер-Бэй."
-    "job.fueldriver.completedelivery"                       : "[FUEL] Развезите топливо по всем заправкам."
-    "job.fueldriver.continuedelivery"                       : "[FUEL] Продолжите доставку топлива по заправкам."
-    "job.fueldriver.ifyouwantstart"                         : "[FUEL] Вы работаете водителем бензовоза. Если хотите выйти в рейс - возьмите маршрут в штаб-квартире Trago Oil в Ойстер-Бэй."
-    "job.fueldriver.nicejob"                                : "[FUEL] Отличная работа! Вы заработали $%.2f."
-    "job.fueldriver.routelist.title"                        : "[FUEL] ========== Маршрутный лист =========="
-    "job.fueldriver.routelist.completed"                    : "[FUEL] %d. Заправка в %s - доставлено"
-    "job.fueldriver.routelist.waiting"                      : "[FUEL] %d. Заправка в %s - ожидается"
-    "job.fueldriver.truck.loadedto"                         : "[FUEL] Бензовоз заполнен на %d из 16000."
-
-    "job.fueldriver.help.title"                             : "Список команд, доступных водителю бензовоза:"
-
-    "job.fueldriver.help.job"                               : "кнопка E"
-    "job.fueldriver.help.jobtext"                           : "Устроиться на работу водителем бензовоза (в штаб-квартире Ойстер-Бэй)"
-    "job.fueldriver.help.jobleave"                          : "кнопка Q"
-    "job.fueldriver.help.jobleavetext"                      : "Уволиться с работы (в штаб-квартире Ойстер-Бэй)"
-    "job.fueldriver.help.loadunload"                        : "кнопка E"
-    "job.fueldriver.help.loadunloadtext"                    : "Загрузить/разгрузить бензовоз"
-    "job.fueldriver.help.check"                             : "Проверить загруженность бензовоза"
-    "job.fueldriver.help.list"                              : "Посмотреть маршрутный лист"
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 

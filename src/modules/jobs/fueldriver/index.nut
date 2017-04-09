@@ -1,49 +1,127 @@
-translation("en", {
-"job.fueldriver"                                        : "fuel truck driver"
-"job.fueldriver.letsgo"                                 : "[FUEL] Let's go to Trago Oil headquartered in Oyster Bay."
-"job.fueldriver.needlevel"                              : "[FUEL] You need level %d to become fuel truck driver."
-"job.fueldriver.already"                                : "[FUEL] You're fuel truck driver already."
-"job.fueldriver.now"                                    : "[FUEL] You're a fuel truck driver now! Congratulations!"
-"job.fueldriver.sitintotruck"                           : "[FUEL] You taken a route. Sit into fuel truck."
-"job.fueldriver.not"                                    : "[FUEL] You're not a fuel truck driver."
-"job.fueldriver.badworker"                              : "[FUEL] You are a bad worker. We haven't job for you."
-"job.fueldriver.badworker.onleave"                      : "[FUEL] You are a bad worker. Get out of here."
-"job.fueldriver.goodluck"                               : "[FUEL] Good luck, guy! Come if you need a job."
-"job.fueldriver.needfueltruck"                          : "[FUEL] You need a fuel truck."
-"job.fueldriver.truck.loaded"                           : "[FUEL] Truck is loaded to %d / 16000. Deliver fuel to gas stations."
-"job.fueldriver.truck.empty"                            : "[FUEL] The truck is empty. Go to the warehouse of fuel in South Millville to load fuel truck (yellow icon on minimap)."
-"job.fueldriver.truck.toload"                           : "[FUEL] Go to the warehouse of fuel in South Millville to load fuel truck (yellow icon on minimap)."
-"job.fueldriver.driving"                                : "[FUEL] You're driving. Please stop the fuel truck."
-"job.fueldriver.truck.loading"                          : "[FUEL] Loading. Please, wait..."
-"job.fueldriver.truck.unloading"                        : "[FUEL] Unoading. Please, wait..."
-"job.fueldriver.truck.alreadyloaded"                    : "[FUEL] Fuel truck already loaded."
-"job.fueldriver.truck.fullloaded"                       : "[FUEL] Fuel truck is loaded to 16000 / 16000. Deliver fuel to gas stations."
-"job.fueldriver.truck.fuelnotenough"                    : "[FUEL] Fuel is not enough. Go to the warehouse to load fuel truck (yellow icon on minimap)."
+alternativeTranslate({
 
-"job.fueldriver.alreadybeenhere"                        : "[FUEL] You've already been here. Go to other gas station."
-"job.fueldriver.truck.parking"                          : "[FUEL] Nice job! Return the fuel truck to Trago Oil headquartered in Oyster Bay, park truck and take your money."
-"job.fueldriver.truck.unloadingcompletedtruckisloaded"  : "[FUEL] Unloading completed. Fuel truck is loaded to %d / 16000. Go to next gas station."
-"job.fueldriver.truck.unloadingcompletedfuelnotenough"  : "[FUEL] Unloading completed. Fuel is not enough. Go to the warehouse to load fuel truck (yellow icon on minimap)."
-"job.fueldriver.truck.topark"                           : "[FUEL] Go to Trago Oil headquartered to park the fuel truck."
-"job.fueldriver.completedelivery"                       : "[FUEL] Complete fuel delivery to all gas stations."
-"job.fueldriver.continuedelivery"                       : "[FUEL] Continue delivery to all gas stations."
-"job.fueldriver.ifyouwantstart"                         : "[FUEL] You're fuel truck driver. If you want to start route - take route at Trago Oil headquartered in Oyster Bay."
-"job.fueldriver.nicejob"                                : "[FUEL] Nice job! You earned $%.2f."
-"job.fueldriver.routelist.title"                        : "[FUEL] ========== List of route =========="
-"job.fueldriver.routelist.completed"                    : "[FUEL] %d. Gas station in %s - completed"
-"job.fueldriver.routelist.waiting"                      : "[FUEL] %d. Gas station in %s - waiting"
-"job.fueldriver.truck.loadedto"                         : "[FUEL] Fuel truck is loaded to %d / 16000"
+    "en|job.fueldriver"                                        : "fuel truck driver"
+    "ru|job.fueldriver"                                        : "водитель бензовоза"
 
-"job.fueldriver.help.title"                             : "List of available commands for FUELDRIVER JOB:"
+    "en|job.fueldriver.letsgo"                                 : "[FUEL] Let's go to Trago Oil headquartered in Oyster Bay."
+    "ru|job.fueldriver.letsgo"                                 : "[FUEL] Отправляйтесь к штаб-квартире Trago Oil в Ойстер-Бэй."
 
-"job.fueldriver.help.job"                               : "E button"
-"job.fueldriver.help.jobtext"                           : "Get fuel truck driver job at Trago Oil in Oyster Bay"
-"job.fueldriver.help.jobleave"                          : "Q button"
-"job.fueldriver.help.jobleavetext"                      : "Leave bus driver job at Trago Oil in Oyster Bay"
-"job.fueldriver.help.loadunload"                        : "E button"
-"job.fueldriver.help.loadunloadtext"                    : "Load/unload fuel truck"
-"job.fueldriver.help.check"                             : "Checking loading truck"
-"job.fueldriver.help.list"                              : "See list of route"
+    "en|job.fueldriver.needlevel"                              : "[FUEL] You need level %d to become fuel truck driver."
+    "ru|job.fueldriver.needlevel"                              : "[FUEL] Водителем бензовоза можно устроиться начиная с уровня %d."
+
+    "en|job.fueldriver.already"                                : "[FUEL] You're fuel truck driver already."
+    "ru|job.fueldriver.already"                                : "[FUEL] Вы уже работает водителем бензовоза."
+
+    "en|job.fueldriver.now"                                    : "[FUEL] You're a fuel truck driver now! Congratulations!"
+    "ru|job.fueldriver.now"                                    : "[FUEL] Вы стали водителем бензовоза!"
+
+    "en|job.fueldriver.sitintotruck"                           : "[FUEL] You taken a route. Sit into fuel truck."
+    "ru|job.fueldriver.sitintotruck"                           : "[FUEL] Вы взяли маршрут. Садитесь в бензовоз."
+
+    "en|job.fueldriver.not"                                    : "[FUEL] You're not a fuel truck driver."
+    "ru|job.fueldriver.not"                                    : "[FUEL] Вы не работаете водителем бензовоза."
+
+    "en|job.fueldriver.badworker"                              : "[FUEL] You are a bad worker. We haven't job for you."
+    "ru|job.fueldriver.badworker"                              : "[FUEL] Увы, но нам нужны только ответственные водители."
+
+    "en|job.fueldriver.badworker.onleave"                      : "[FUEL] You are a bad worker. Get out of here."
+    "ru|job.fueldriver.badworker.onleave"                      : "[FUEL] Плохой из тебя работник."
+
+    "en|job.fueldriver.goodluck"                               : "[FUEL] Good luck, guy! Come if you need a job."
+    "ru|job.fueldriver.goodluck"                               : "[FUEL] Удачи тебе! Приходи, если нужна работа."
+
+    "en|job.fueldriver.needfueltruck"                          : "[FUEL] You need a fuel truck."
+    "ru|job.fueldriver.needfueltruck"                          : "[FUEL] Вам нужен бензовоз."
+
+    "en|job.fueldriver.truck.loaded"                           : "[FUEL] Truck is loaded to %d / 16000. Deliver fuel to gas stations."
+    "ru|job.fueldriver.truck.loaded"                           : "[FUEL] Бензовоз заполнен на %d из 16000. Развезите топливо по заправкам."
+
+    "en|job.fueldriver.truck.empty"                            : "[FUEL] The truck is empty. Go to the warehouse of fuel in South Millville to load fuel truck (yellow icon on minimap)."
+    "ru|job.fueldriver.truck.empty"                            : "[FUEL] Бензовоз пуст. Отправляйтесь к топливному хранилищу в Южный Милвилл для загрузки (жёлтая метка на радаре)."
+
+    "en|job.fueldriver.truck.toload"                           : "[FUEL] Go to the warehouse of fuel in South Millville to load fuel truck (yellow icon on minimap)."
+    "ru|job.fueldriver.truck.toload"                           : "[FUEL] Отправляйтесь к топливному хранилищу в Южный Милвилл для загрузки (жёлтая метка на радаре)."
+
+    "en|job.fueldriver.driving"                                : "[FUEL] You're driving. Please stop the fuel truck."
+    "ru|job.fueldriver.driving"                                : "[FUEL] Остановите бензовоз."
+
+    "en|job.fueldriver.truck.loading"                          : "[FUEL] Loading. Please, wait..."
+    "ru|job.fueldriver.truck.loading"                          : "[FUEL] Идёт загрузка. Ожидайте..."
+
+    "en|job.fueldriver.truck.unloading"                        : "[FUEL] Unoading. Please, wait..."
+    "ru|job.fueldriver.truck.unloading"                        : "[FUEL] Идёт разгрузка. Ожидайте..."
+
+    "en|job.fueldriver.truck.alreadyloaded"                    : "[FUEL] Fuel truck already loaded."
+    "ru|job.fueldriver.truck.alreadyloaded"                    : "[FUEL] Бензовоз уже заполнен."
+
+    "en|job.fueldriver.truck.fullloaded"                       : "[FUEL] Fuel truck is loaded to 16000 / 16000. Deliver fuel to gas stations."
+    "ru|job.fueldriver.truck.fullloaded"                       : "[FUEL] Бензовоз заполнен на 16000 из 16000. Развезите топливо по заправкам."
+
+    "en|job.fueldriver.truck.fuelnotenough"                    : "[FUEL] Fuel is not enough. Go to the warehouse to load fuel truck (yellow icon on minimap)."
+    "ru|job.fueldriver.truck.fuelnotenough"                    : "[FUEL] Недостаточно топлива. Отправляйтесь к топливному хранилищу для загрузки (жёлтая метка на радаре)"
+
+
+    "en|job.fueldriver.alreadybeenhere"                        : "[FUEL] You've already been here. Go to other gas station."
+    "ru|job.fueldriver.alreadybeenhere"                        : "[FUEL] Вы уже были здесь. Направляйтесь к другой заправке."
+
+    "en|job.fueldriver.truck.parking"                          : "[FUEL] Nice job! Return the fuel truck to Trago Oil headquartered in Oyster Bay, park truck and take your money."
+    "ru|job.fueldriver.truck.parking"                          : "[FUEL] Хорошая работа! Возвращайтесь к штаб-квартире Trago Oil в Ойстер-Бэй за деньгами."
+
+    "en|job.fueldriver.truck.unloadingcompletedtruckisloaded"  : "[FUEL] Unloading completed. Fuel truck is loaded to %d / 16000. Go to next gas station."
+    "ru|job.fueldriver.truck.unloadingcompletedtruckisloaded"  : "[FUEL] Разгрузка выполнена. Бензовоз заполнен на %d из 16000. Направляйтесь к следующей заправке."
+
+    "en|job.fueldriver.truck.unloadingcompletedfuelnotenough"  : "[FUEL] Unloading completed. Fuel is not enough. Go to the warehouse to load fuel truck (yellow icon on minimap)."
+    "ru|job.fueldriver.truck.unloadingcompletedfuelnotenough"  : "[FUEL] Разгрузка выполнена. Топливо закончилось. Отправляйтесь к топливному хранилищу для загрузки (жёлтая метка на радаре)"
+
+    "en|job.fueldriver.truck.topark"                           : "[FUEL] Go to Trago Oil headquartered to park the fuel truck."
+    "ru|job.fueldriver.truck.topark"                           : "[FUEL] Чтобы припарковать бензовоз, отправляйтесь к штаб-квартире Trago Oil в Ойстер-Бэй."
+
+    "en|job.fueldriver.completedelivery"                       : "[FUEL] Complete fuel delivery to all gas stations."
+    "ru|job.fueldriver.completedelivery"                       : "[FUEL] Развезите топливо по всем заправкам."
+
+    "en|job.fueldriver.continuedelivery"                       : "[FUEL] Continue delivery to all gas stations."
+    "ru|job.fueldriver.continuedelivery"                       : "[FUEL] Продолжите доставку топлива по заправкам."
+
+    "en|job.fueldriver.ifyouwantstart"                         : "[FUEL] You're fuel truck driver. If you want to start route - take route at Trago Oil headquartered in Oyster Bay."
+    "ru|job.fueldriver.ifyouwantstart"                         : "[FUEL] Вы работаете водителем бензовоза. Если хотите выйти в рейс - возьмите маршрут в штаб-квартире Trago Oil в Ойстер-Бэй."
+
+    "en|job.fueldriver.nicejob"                                : "[FUEL] Nice job! You earned $%.2f."
+    "ru|job.fueldriver.nicejob"                                : "[FUEL] Отличная работа! Вы заработали $%.2f."
+
+    "en|job.fueldriver.needcorrectpark"                        : "[FUEL] Park the fuel truck correctly (cabin of truck to North)."
+    "ru|job.fueldriver.needcorrectpark"                        : "[FUEL] Подъедь правильно (кабиной на север)."
+
+"ru|job.fueldriver.routelist.title"                        : "[FUEL] ========== Маршрутный лист =========="
+"ru|job.fueldriver.routelist.completed"                    : "[FUEL] %d. Заправка в %s - доставлено"
+"ru|job.fueldriver.routelist.waiting"                      : "[FUEL] %d. Заправка в %s - ожидается"
+"ru|job.fueldriver.truck.loadedto"                         : "[FUEL] Бензовоз заполнен на %d из 16000."
+
+"ru|job.fueldriver.help.title"                             : "Список команд, доступных водителю бензовоза:"
+
+"ru|job.fueldriver.help.job"                               : "кнопка E"
+"ru|job.fueldriver.help.jobtext"                           : "Устроиться на работу водителем бензовоза (в штаб-квартире Ойстер-Бэй)"
+"ru|job.fueldriver.help.jobleave"                          : "кнопка Q"
+"ru|job.fueldriver.help.jobleavetext"                      : "Уволиться с работы (в штаб-квартире Ойстер-Бэй)"
+"ru|job.fueldriver.help.loadunload"                        : "кнопка E"
+"ru|job.fueldriver.help.loadunloadtext"                    : "Загрузить/разгрузить бензовоз"
+"ru|job.fueldriver.help.check"                             : "Проверить загруженность бензовоза"
+"ru|job.fueldriver.help.list"                              : "Посмотреть маршрутный лист"
+
+"en|job.fueldriver.routelist.title"                        : "[FUEL] ========== List of route =========="
+"en|job.fueldriver.routelist.completed"                    : "[FUEL] %d. Gas station in %s - completed"
+"en|job.fueldriver.routelist.waiting"                      : "[FUEL] %d. Gas station in %s - waiting"
+"en|job.fueldriver.truck.loadedto"                         : "[FUEL] Fuel truck is loaded to %d / 16000"
+
+"en|job.fueldriver.help.title"                             : "List of available commands for FUELDRIVER JOB:"
+
+"en|job.fueldriver.help.job"                               : "E button"
+"en|job.fueldriver.help.jobtext"                           : "Get fuel truck driver job at Trago Oil in Oyster Bay"
+"en|job.fueldriver.help.jobleave"                          : "Q button"
+"en|job.fueldriver.help.jobleavetext"                      : "Leave bus driver job at Trago Oil in Oyster Bay"
+"en|job.fueldriver.help.loadunload"                        : "E button"
+"en|job.fueldriver.help.loadunloadtext"                    : "Load/unload fuel truck"
+"en|job.fueldriver.help.check"                             : "Checking loading truck"
+"en|job.fueldriver.help.list"                              : "See list of route"
 
 });
 
@@ -117,6 +195,10 @@ event("onServerStarted", function() {
     create3DText ( FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.35, "TRAGO OIL", CL_ROYALBLUE );
     create3DText ( FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.20, "Press E to action", CL_WHITE.applyAlpha(150), FUEL_JOB_RADIUS );
 
+
+    createPlace("FuelBadZone1", 237.035, 179.954, 161.687, 181.747);
+    createPlace("FuelBadZone2", 826.551, 123.383, 843.323, 125.609);
+
     registerPersonalJobBlip("fueldriver", FUEL_JOB_X, FUEL_JOB_Y);
 
 });
@@ -187,6 +269,40 @@ event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
         blockVehicle(vehicleid);
     }
 });
+
+
+event("onPlayerPlaceEnter", function(playerid, name) {
+    if(name != "KosoyPereulok" || !isPlayerInVehicle(playerid) || !isPlayerVehicleDriver(playerid) ) return;
+
+    local ticketcost = 45.0;
+    //local vehicleid = getPlayerVehicle(playerid);
+    //if(!canMoneyBeSubstracted(playerid, ticketcost)) { msg(playerid, "organizations.police.kosoypereulok.nomoney", CL_THUNDERBIRD); return; }
+    subMoneyToPlayer(playerid, ticketcost);
+    addMoneyToTreasury(ticketcost);
+    msg(playerid, "organizations.police.kosoypereulok.ticket", [ticketcost], CL_THUNDERBIRD); return;
+});
+
+
+event("onPlayerPlaceEnter", function(playerid, name) {
+    if (name != "FuelBadZone1" && name != "FuelBadZone2") {
+        return;
+    }
+    if (!isFuelDriver(playerid) || !isPlayerInVehicle(playerid) || getPlayerJobState(playerid) == null || !isPlayerVehicleDriver(playerid)) {
+        return;
+    }
+
+    local vehicleid = getPlayerVehicle(playerid);
+    local modelid = getVehicleModel(vehicleid);
+    if (modelid != 5) return;
+
+    local ticketcost = 45.0;
+
+    //warnUp(0, playerid);
+    subMoneyToPlayer(playerid, ticketcost);
+    addMoneyToTreasury(ticketcost);
+    return msg(playerid, "organizations.police.kosoypereulok.ticket", [ticketcost], CL_THUNDERBIRD);
+});
+
 
 event("onServerHourChange", function() {
     FUEL_ROUTE_NOW = FUEL_ROUTE_IN_HOUR + random(-1, 1);
@@ -474,7 +590,7 @@ function fuelJobLoadUnload ( playerid ) {
         }
     }
 
-    if(isPlayerVehicleInValidPoint(playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, 5.0)) {
+    if(isPlayerVehicleInValidPoint(playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, 4.0)) {
         check_ware = true;
     }
 
@@ -507,6 +623,12 @@ function fuelJobLoadUnload ( playerid ) {
 
     // to load
     if(check_ware && fuelcars[vehicleid][1] < 16000) {
+
+        local vehRot = getVehicleRotation(vehicleid);
+        if(vehRot[0] < -5 || vehRot[0] > 5) {
+            job_fuel[getPlayerName(playerid)]["userstatus"] = "working";
+            return msg(playerid, "job.fueldriver.needcorrectpark", CL_RED );
+        }
 
         msg( playerid, "job.fueldriver.truck.loading", FUEL_JOB_COLOR );
         freezePlayer( playerid, true);
@@ -590,7 +712,7 @@ function fuelJobCheck ( playerid ) {
 function fuelJobWarehouseCreateBlipText( playerid ) {
     if(job_fuel[getPlayerName(playerid)]["fuelBlipTextWarehouse"].len() < 1) {
        job_fuel[getPlayerName(playerid)]["fuelBlipTextWarehouse"].push( createPrivate3DText (playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, FUEL_JOB_WAREHOUSE_Z+0.35, "=== FUEL WAREHOUSE ===", CL_RIPELEMON, 100.0 ));
-       job_fuel[getPlayerName(playerid)]["fuelBlipTextWarehouse"].push( createPrivate3DText (playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, FUEL_JOB_WAREHOUSE_Z-0.15, "Press E to load", CL_WHITE.applyAlpha(150), 5.0 ));
+       job_fuel[getPlayerName(playerid)]["fuelBlipTextWarehouse"].push( createPrivate3DText (playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, FUEL_JOB_WAREHOUSE_Z-0.15, "Press E to load", CL_WHITE.applyAlpha(150), 4.0 ));
        job_fuel[getPlayerName(playerid)]["fuelBlipTextWarehouse"].push( createPrivateBlip(playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, ICON_YELLOW, 4000.0));
     }
 }

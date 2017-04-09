@@ -389,13 +389,13 @@ event("onServerStarted", function() {
    //routes[4] <- [15, [4, 98, 25, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];
    //routes[5] <- [23, [4, 5, 99, 6, 7, 8, 9, 10, 12, 13, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];
 
-    routes[1] <- [9, [51, 5, 99, 6, 7, 28, 97, 22, 23, 24, 52]];                                            // sand island
-    routes[2] <- [7, [55, 21, 19, 17, 14, 15, 55]];                                                         // uptown-kingston
-    routes[3] <- [11, [53, 5, 99, 6, 7, 8, 9, 10, 11, 13, 45, 54]];                                         // center + hospital
-    routes[4] <- [14, [51, 44, 25, 16, 18, 48, 20, 22, 23, 24, 21, 47, 46, 52]];                            // kingston
-    routes[5] <- [20, [4, 26, 27, 28, 7, 8, 9, 10, 12, 13, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]]; // big empire bay
-    routes[6] <- [15, [56, 33, 9, 34, 35, 36, 37, 49, 28, 29, 30, 38, 40, 41, 56]];                         // new center
-    routes[7] <- [7, [54, 42, 39, 31, 32, 43, 54]];                                                         // small
+    routes[1] <- [7, [51, 5, 99, 6, 7, 28, 97, 22, 23, 24, 52]];                                            // sand island
+    routes[2] <- [6, [55, 21, 19, 17, 14, 15, 55]];                                                         // uptown-kingston
+    routes[3] <- [9, [53, 5, 99, 6, 7, 8, 9, 10, 11, 13, 45, 54]];                                          // center + hospital
+    routes[4] <- [12, [51, 44, 25, 16, 18, 48, 20, 22, 23, 24, 21, 47, 46, 52]];                            // kingston
+    routes[5] <- [18, [4, 26, 27, 28, 7, 8, 9, 10, 12, 13, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]]; // big empire bay
+    routes[6] <- [13, [56, 33, 9, 34, 35, 36, 37, 49, 28, 29, 30, 38, 40, 41, 56]];                         // new center
+    routes[7] <- [6, [54, 42, 39, 31, 32, 43, 54]];                                                         // small
 
     //creating 3dtext for bus depot
     create3DText ( BUS_JOB_X, BUS_JOB_Y, BUS_JOB_Z+0.35, "ROADKING BUS DEPOT", CL_ROYALBLUE );
@@ -804,6 +804,7 @@ function busJobStop( playerid ) {
     setVehicleFuel( vehicleid, 0.0 );
 
     trigger(playerid, "hudCreateTimer", 10.0, true, true);
+
     playerDelayedFunction(playerid, 10000, function () {
         freezePlayer( playerid, false);
         playerDelayedFunction(playerid, 1000, function () { freezePlayer( playerid, false); });
