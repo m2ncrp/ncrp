@@ -706,7 +706,7 @@ function drawWorldGround() {
         local item_screen   = getScreenFromWorld(item.x, item.y, item.z);
         local item_distance = getDistanceBetweenPoints3D(item.x, item.y, item.z, pos.x, pos.y, pos.z);
 
-        if (item_distance < ground.distance) {
+        if (item_distance < ground.distance && item_screen[2] < 1.0) {
             local scale = 1 - (((item_distance > ground.distance) ? ground.distance : item_distance) / ground.distance);
             dxDrawTexture(item_texture, item_screen[0], item_screen[1], scale, scale, 0.5, 0.5, 0.0, ground.alpha);
         }

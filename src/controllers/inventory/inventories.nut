@@ -131,6 +131,9 @@ event("native:onPlayerDropItem", function(playerid, id, slot) {
             local item = inventory.remove(slot);
             local pos  = getPlayerPositionObj(playerid);
 
+            pos.x += randomf(-0.3, 0.3);
+            pos.y += randomf(-0.3, 0.3);
+
             inventory.sync();
             ground.push(item, pos);
         }
