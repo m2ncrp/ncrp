@@ -98,15 +98,6 @@ event("native:shop:purchase", function(playerid, data) {
     }
 
     players[playerid].inventory.sync();
-
-    // local all_items = clone(empirediner_items).reverse();
-
-    // data.items.map(function(amount) {
-    //     local item = all_items.pop();
-    //     range(abs(amount)).map(function(i) {
-    //         players[playerid].inventory.push(item());
-    //     });
-    // });
 });
 
 event("native:shop:close", function(playerid, name) {

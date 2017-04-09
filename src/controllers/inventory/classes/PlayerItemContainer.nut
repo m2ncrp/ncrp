@@ -45,6 +45,8 @@ class PlayerItemContainer extends ItemContainer
         }
 
         base.show(playerid);
+        trigger(playerid, "onPlayerInventoryShow");
+        trigger("onPlayerInventoryShow", playerid);
     }
 
     /**
@@ -59,5 +61,7 @@ class PlayerItemContainer extends ItemContainer
         }
 
         base.hide(playerid);
+        trigger(playerid, "onPlayerInventoryHide");
+        trigger("onPlayerInventoryHide", playerid);
     }
 }
