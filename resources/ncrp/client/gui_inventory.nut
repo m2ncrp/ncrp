@@ -414,8 +414,13 @@ class PlayerInventory extends Inventory
             guiSetText(this.components["lbl_name"], "");
         }
 
-        if (item.active && item.classname in translations) {
-            guiSetText(this.components["lbl_name"], translations[item.classname]);
+        if (item.active) {
+            if (item.classname in translations) {
+                guiSetText(this.components["lbl_name"], translations[item.classname]);
+            }
+            else {
+                guiSetText(this.components["lbl_name"], item.classname);
+            }
         }
         else {
             guiSetText(this.components["lbl_name"], "");
