@@ -266,9 +266,11 @@ proxy("PhoneCallGUI",               "PhoneCallGUI"                      );
 proxy("travelToStationGUI",         "travelToStationGUI"                );
 
 //Inventory system
-proxy("onPlayerUseItem",           "native:onPlayerUseItem"             );
-proxy("onPlayerMoveItem",          "native:onPlayerMoveItem"            );
-proxy("onPlayerDropItem",          "native:onPlayerDropItem"            );
+proxy("inventory:use",              "native:onPlayerUseItem"             );
+proxy("inventory:move",             "native:onPlayerMoveItem"            );
+proxy("inventory:drop",             "native:onPlayerDropItem"            );
+proxy("shop:close",                 "native:shop:close"                  );
+proxy("shop:purchase",              "native:shop:purchase"               );
 
 /**
  * Debug export
