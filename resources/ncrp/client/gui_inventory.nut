@@ -38,6 +38,46 @@ local backbone = {
 };
 
 
+
+/**
+ * ************************
+ * * TRANSLATIONS
+ * ************************
+ */
+
+local translations = {
+    "Item.None"              = "",
+    "Item.Revolver12"        = "Револьвер",
+    "Item.MauserC96"         = "Mauser C96",
+    "Item.ColtM1911A1"       = "Colt M1911 A1",
+    "Item.ColtM1911Spec"     = "Colt M1911 Special",
+    "Item.Revolver19"        = "Revolver 19",
+    "Item.MK2"               = "MK2",
+    "Item.Remington870"      = "Remington 870",
+    "Item.M3GreaseGun"       = "MP Grease Gun",
+    "Item.MP40"              = "MP-40",
+    "Item.Thompson1928"      = "Thompson 1928",
+    "Item.M1A1Thompson"      = "M1A1 Thompson",
+    "Item.Beretta38A"        = "Beretta 38A",
+    "Item.MG42"              = "MG-42",
+    "Item.M1Garand"          = "M1 Grand",
+    "Item.Kar98k"            = "Kar 98k",
+    "Item.Molotov"           = "Molotov",
+    "Item.Ammo45ACP"         = "Ammo .45 ACP",
+    "Item.Ammo357magnum"     = "Ammo .357 Mangum",
+    "Item.Ammo12mm"          = "Ammo 12 mm",
+    "Item.Ammo9x19mm"        = "Ammo 9x19 mm",
+    "Item.Ammo792x57mm"      = "Ammo 7.92x57 mm",
+    "Item.Ammo762x63mm"      = "Ammo 7.62x63 mm",
+    "Item.Ammo38Special.jp"  = "Ammo .38 Special",
+    "Item.Clothes.jp"        = "Clothes",
+    "Item.Burger"            = "Burger",
+    "Item.Hotdog"            = "Hotdog",
+    "Item.Sandwich"          = "Sandwich",
+    "Item.Cola"              = "Cola",
+};
+
+
 /**
  * ************************
  * * FIX FOR MUTLIFORM setGuiText
@@ -374,8 +414,8 @@ class PlayerInventory extends Inventory
             guiSetText(this.components["lbl_name"], "");
         }
 
-        if (item.active) {
-            guiSetText(this.components["lbl_name"], item.classname);
+        if (item.active && item.classname in translations) {
+            guiSetText(this.components["lbl_name"], translations[item.classname]);
         }
         else {
             guiSetText(this.components["lbl_name"], "");
@@ -460,7 +500,6 @@ class PlayerHands extends Inventory
  * * INVENTORY INTERACTIONS
  * ************************
  */
-
 
 local class_map = {
     Inventory       = Inventory,
@@ -591,11 +630,13 @@ event("onServerKeyboard", function(key, state) {
     key_modifiers[key] <- (state == "down");
 });
 
+
 /**
  * ************************
  * * WORLD GROUND
  * ************************
  */
+
 local ground = {
     textures = {},
     current  = [],
