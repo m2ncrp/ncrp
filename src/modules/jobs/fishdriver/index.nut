@@ -156,7 +156,7 @@ event("onServerPlayerStarted", function( playerid ){
 });
 
 event("onPlayerPlaceEnter", function(playerid, name) {
-    if (name != "SeaGiftParking1" && name != "SeaGiftParking2") {;
+    if (name != "SeaGiftParking1" && name != "SeaGiftParking2") {
         return;
     }
     if (!isFishDriver(playerid) || !isPlayerInVehicle(playerid)) {
