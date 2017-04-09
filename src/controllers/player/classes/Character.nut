@@ -95,7 +95,7 @@ class Character extends ORM.Entity {
 
     function save() {
         base.save();
-        trigger("onCharacterSave", this.playerid, this);
+        ::trigger("onCharacterSave", this.playerid, this);
     }
 
     /**
@@ -115,5 +115,15 @@ class Character extends ORM.Entity {
 
     function getName() {
         return this.firstname + " " + this.lastname;
+    }
+
+    function trigger(event, ...) {
+        local args = vargv;
+
+        args.insert(0, getroottable());
+        args.insert(1, this.playerid);
+        args.insert(2, event);
+
+        return ::trigger.acall(args);
     }
 }

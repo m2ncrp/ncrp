@@ -1,4 +1,5 @@
 local REGEXP_INTEGER = regexp("\\d+");
+local REGEXP_FLOAT   = regexp("[0-9\\.]+");
 
 const ELEMENT_TYPE_BUTTON = 2;
 const ELEMENT_TYPE_IMAGE = 13;
@@ -51,22 +52,23 @@ addEventHandler("showShopGUI", function() {
 
         label[0]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "Бургер",         102.0, 208.0, 100.0, 15.0, false, window);
         label[1]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "$30.00",         207.0, 208.0, 100.0, 15.0, false, window);
-        label[2]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "256 ккал",       102.0, 234.0, 100.0, 15.0, false, window);
+        // label[2]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "256 ккал",       102.0, 234.0, 100.0, 15.0, false, window);
         label[3]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "0",              218.0, 234.0, 100.0, 15.0, false, window);
         label[4]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "Бургер",         102.0, 284.0, 100.0, 15.0, false, window);
         label[5]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "$30.00",         207.0, 284.0, 100.0, 15.0, false, window);
-        label[6]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "256 ккал",       102.0, 310.0, 100.0, 15.0, false, window);
+        // label[6]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "256 ккал",       102.0, 310.0, 100.0, 15.0, false, window);
         label[7]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "0",              218.0, 310.0, 100.0, 15.0, false, window);
         label[8]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "Бургер",         102.0, 360.0, 100.0, 15.0, false, window);
         label[9]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "$30.00",         207.0, 360.0, 100.0, 15.0, false, window);
-        label[10] =  guiCreateElement( ELEMENT_TYPE_LABEL, "256 ккал",       102.0, 386.0, 100.0, 15.0, false, window);
+        // label[10] =  guiCreateElement( ELEMENT_TYPE_LABEL, "256 ккал",       102.0, 386.0, 100.0, 15.0, false, window);
         label[11] =  guiCreateElement( ELEMENT_TYPE_LABEL, "0",              218.0, 386.0, 100.0, 15.0, false, window);
         label[12] =  guiCreateElement( ELEMENT_TYPE_LABEL, "Бургер",         102.0, 436.0, 100.0, 15.0, false, window);
         label[13] =  guiCreateElement( ELEMENT_TYPE_LABEL, "$30.00",         207.0, 436.0, 100.0, 15.0, false, window);
-        label[14] =  guiCreateElement( ELEMENT_TYPE_LABEL, "256 ккал",       102.0, 462.0, 100.0, 15.0, false, window);
+        // label[14] =  guiCreateElement( ELEMENT_TYPE_LABEL, "256 ккал",       102.0, 462.0, 100.0, 15.0, false, window);
         label[15] =  guiCreateElement( ELEMENT_TYPE_LABEL, "0",              218.0, 462.0, 100.0, 15.0, false, window);
 
         buttons.map(guiBringToFront);
+        guiBringToFront(logo);
     }
 
     // for repaint! It's final visible values
@@ -75,37 +77,37 @@ addEventHandler("showShopGUI", function() {
         guiSetText( buttons[0], buyText   );
         guiSetText( buttons[1], "Close" );
 
-        guiSetText( label[0]  , "Сэндвич"  );
-        guiSetText( label[1]  , "$10.00"    );
-        guiSetText( label[2]  , "128 ккал" );
-        guiSetText( label[3]  , "0"        );
-        guiSetText( label[4]  , "Сэндвич"  );
-        guiSetText( label[5]  , "$10.00"    );
-        guiSetText( label[6]  , "128 ккал" );
-        guiSetText( label[7]  , "0"        );
-        guiSetText( label[8]  , "Сэндвич"  );
-        guiSetText( label[9]  , "$10.00"    );
-        guiSetText( label[10] , "128 ккал" );
-        guiSetText( label[11] , "0"        );
-        guiSetText( label[12] , "Сэндвич"  );
-        guiSetText( label[13] , "$10.00"    );
-        guiSetText( label[14] , "128 ккал" );
-        guiSetText( label[15] , "0"        );
+        guiSetText( label[0]  , "Burger"    );
+        guiSetText( label[1]  , "$0.50"     );
+        // guiSetText( label[2]  , "128 ккал"  );
+        guiSetText( label[3]  , "0"         );
+        guiSetText( label[4]  , "Hotdog"    );
+        guiSetText( label[5]  , "$0.10"     );
+        // guiSetText( label[6]  , "128 ккал"  );
+        guiSetText( label[7]  , "0"         );
+        guiSetText( label[8]  , "Sandwich"  );
+        guiSetText( label[9]  , "$0.25"     );
+        // guiSetText( label[10] , "128 ккал"  );
+        guiSetText( label[11] , "0"         );
+        guiSetText( label[12] , "Cola"      );
+        guiSetText( label[13] , "$0.50"     );
+        // guiSetText( label[14] , "128 ккал"  );
+        guiSetText( label[15] , "0"         );
     });
 
     guiSetSizable(window,false);
     guiSetMovable(window,false);
-    showCursor(true);
+    // showCursor(true);
 });
 
 function hideShopGUI () {
     guiSetVisible(window,false);
     //guiSetText( label[0], ""); //don't touch, it's magic. Doesn't work without it
-    delayedFunction(100, hideCursor); //todo fix
+    // delayedFunction(100, hideCursor); //todo fix
 }
 
 function hideCursor() {
-    showCursor(false);
+    // showCursor(false);
 }
 
 function shopChangeCount(objname, offset) {
@@ -117,10 +119,10 @@ function shopChangeCount(objname, offset) {
 }
 
 function shopCalculate() {
-     local count = toInteger(guiGetText( label[1] )) * toInteger(guiGetText( label[3] ))+
-                   toInteger(guiGetText( label[5] )) * toInteger(guiGetText( label[7] ))+
-                   toInteger(guiGetText( label[9] )) * toInteger(guiGetText( label[11] ))+
-                   toInteger(guiGetText( label[13] )) * toInteger(guiGetText( label[15] ));
+     local count = toFloat(guiGetText( label[1] )) * toInteger(guiGetText( label[3] ))+
+                   toFloat(guiGetText( label[5] )) * toInteger(guiGetText( label[7] ))+
+                   toFloat(guiGetText( label[9] )) * toInteger(guiGetText( label[11] ))+
+                   toFloat(guiGetText( label[13] )) * toInteger(guiGetText( label[15] ));
     guiSetText( buttons[0], format("%s ($%.2f)", buyText, count ));
 }
 
@@ -128,8 +130,17 @@ addEventHandler("onGuiElementClick", function(element) {
     if(element == buttons[0]){
         // BUY HERE
         //triggerServerEvent("PhoneCallGUI", number);
+
+        local items = [3, 7, 11, 15].map(function(item) {
+            return guiGetText(label[item]);
+        }).reduce(function(curr, next) {
+            return curr + "," + next;
+        });
+
+        triggerServerEvent("shop:purchase", format("{\"type\":\"%s\",\"items\":[%s]}", "empirediner", items));
     }
     if(element == buttons[1]){
+        triggerServerEvent("shop:close", "empirediner");
         return hideShopGUI();
     }
     if(element == buttons[2]){
@@ -162,22 +173,15 @@ addEventHandler("onGuiElementClick", function(element) {
 function delayedFunction(time, callback, additional = null) {
     return additional ? timer(callback, time, 1, additional) : timer(callback, time, 1);
 }
-/**
- * isInteger in this value
- * @param {Mixed} value
- * @return {Boolean} [description]
- */
+
 function isInteger(value) {
     return (value != null && (typeof value == "integer" || REGEXP_INTEGER.match(value)));
 }
 
-/**
- * Strip all non integer data from the string
- * and return plain, cleared value or 0
- *
- * @param  {Mixed} value
- * @return {Integer}
- */
+function isFloat(value) {
+    return (value != null && (typeof value == "float" || REGEXP_FLOAT.match(value)));
+}
+
 function toInteger(value) {
     if (isInteger(value)) {
         return value.tointeger();
@@ -191,6 +195,25 @@ function toInteger(value) {
 
     if (result != null) {
         return value.slice(result.begin, result.end).tointeger();
+    }
+
+    return 0;
+}
+
+
+function toFloat(value) {
+    if (isFloat(value)) {
+        return value.tofloat();
+    }
+
+    if (value == null) {
+        return 0;
+    }
+
+    local result = REGEXP_FLOAT.search(value);
+
+    if (result != null) {
+        return value.slice(result.begin, result.end).tofloat();
     }
 
     return 0;

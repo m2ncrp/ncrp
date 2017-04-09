@@ -46,35 +46,35 @@ local backbone = {
  */
 
 local translations = {
-    "Item.None"              = "",
-    "Item.Revolver12"        = "Револьвер",
-    "Item.MauserC96"         = "Mauser C96",
-    "Item.ColtM1911A1"       = "Colt M1911 A1",
-    "Item.ColtM1911Spec"     = "Colt M1911 Special",
-    "Item.Revolver19"        = "Revolver 19",
-    "Item.MK2"               = "MK2",
-    "Item.Remington870"      = "Remington 870",
-    "Item.M3GreaseGun"       = "MP Grease Gun",
-    "Item.MP40"              = "MP-40",
-    "Item.Thompson1928"      = "Thompson 1928",
-    "Item.M1A1Thompson"      = "M1A1 Thompson",
-    "Item.Beretta38A"        = "Beretta 38A",
-    "Item.MG42"              = "MG-42",
-    "Item.M1Garand"          = "M1 Grand",
-    "Item.Kar98k"            = "Kar 98k",
-    "Item.Molotov"           = "Molotov",
-    "Item.Ammo45ACP"         = "Ammo .45 ACP",
-    "Item.Ammo357magnum"     = "Ammo .357 Mangum",
-    "Item.Ammo12mm"          = "Ammo 12 mm",
-    "Item.Ammo9x19mm"        = "Ammo 9x19 mm",
-    "Item.Ammo792x57mm"      = "Ammo 7.92x57 mm",
-    "Item.Ammo762x63mm"      = "Ammo 7.62x63 mm",
-    "Item.Ammo38Special.jp"  = "Ammo .38 Special",
-    "Item.Clothes.jp"        = "Clothes",
-    "Item.Burger"            = "Burger",
-    "Item.Hotdog"            = "Hotdog",
-    "Item.Sandwich"          = "Sandwich",
-    "Item.Cola"              = "Cola",
+    "Item.None"             : "",
+    "Item.Revolver12"       : "Revolver 12",
+    "Item.MauserC96"        : "Mauser C96",
+    "Item.ColtM1911A1"      : "Colt M1911 A1",
+    "Item.ColtM1911Spec"    : "Colt M1911 Special",
+    "Item.Revolver19"       : "Revolver 19",
+    "Item.MK2"              : "MK2",
+    "Item.Remington870"     : "Remington 870",
+    "Item.M3GreaseGun"      : "MP Grease Gun",
+    "Item.MP40"             : "MP-40",
+    "Item.Thompson1928"     : "Thompson 1928",
+    "Item.M1A1Thompson"     : "M1A1 Thompson",
+    "Item.Beretta38A"       : "Beretta 38A",
+    "Item.MG42"             : "MG-42",
+    "Item.M1Garand"         : "M1 Grand",
+    "Item.Kar98k"           : "Kar 98k",
+    "Item.Molotov"          : "Molotov",
+    "Item.Ammo45ACP"        : "Ammo .45 ACP",
+    "Item.Ammo357magnum"    : "Ammo .357 Mangum",
+    "Item.Ammo12mm"         : "Ammo 12 mm",
+    "Item.Ammo9x19mm"       : "Ammo 9x19 mm",
+    "Item.Ammo792x57mm"     : "Ammo 7.92x57 mm",
+    "Item.Ammo762x63mm"     : "Ammo 7.62x63 mm",
+    "Item.Ammo38Special.jp" : "Ammo .38 Special",
+    "Item.Clothes.jp"       : "Clothes",
+    "Item.Burger"           : "Burger",
+    "Item.Hotdog"           : "Hotdog",
+    "Item.Sandwich"         : "Sandwich",
+    "Item.Cola"             : "Cola",
 };
 
 
@@ -171,7 +171,9 @@ class Inventory
         this.handle = guiCreateElement(ELEMENT_TYPE_WINDOW, this.data.title, posi.x, posi.y, size.x, size.y);
         this.opened = true;
 
-        guiSetSizable(this.handle, false);
+        if (typeof this.handle == "userdata") {
+            guiSetSizable(this.handle, false);
+        }
 
         foreach (idx, item in this.data.items) {
             this.createItem(item.slot, item.classname, item.type, item.amount, item.weight);
@@ -322,7 +324,7 @@ class Inventory
         if (!item.active) {
             if (selectedItem) {
                 // toggling item move
-                trigger("onPlayerMoveItem", selectedItem.parent.id, selectedItem.slot, item.parent.id, item.slot);
+                trigger("inventory:move", selectedItem.parent.id, selectedItem.slot, item.parent.id, item.slot);
 
                 guiSetAlpha(selectedItem.handle, INVENTORY_INACTIVE_ALPHA);
                 selectedItem.active = false;
@@ -332,12 +334,12 @@ class Inventory
 
                 // drop if shift
                 if (key_modifiers.ctrl) {
-                    return trigger("onPlayerDropItem", item.parent.id, item.slot);
+                    return trigger("inventory:drop", item.parent.id, item.slot);
                 }
 
                 // try to move to hands
                 if (key_modifiers.shift) {
-                    return trigger("onPlayerMoveItem", item.parent.id, item.slot, backbone["ihands"].id, 0);
+                    return trigger("inventory:move", item.parent.id, item.slot, backbone["ihands"].id, 0);
                 }
 
                 // select item
@@ -440,14 +442,14 @@ class PlayerInventory extends Inventory
 
             if (idx == "btn_use" && selectedItem) {
                 selectedItem.active = false;
-                trigger("onPlayerUseItem", selectedItem.parent.id, selectedItem.slot);
+                trigger("inventory:use", selectedItem.parent.id, selectedItem.slot);
                 selectedItem = null;
                 return true;
             }
 
             if (idx == "btn_drop" && selectedItem) {
                 selectedItem.active = false;
-                trigger("onPlayerDropItem", selectedItem.parent.id, selectedItem.slot);
+                trigger("inventory:drop", selectedItem.parent.id, selectedItem.slot);
                 selectedItem = null;
                 return true;
             }
@@ -456,7 +458,7 @@ class PlayerInventory extends Inventory
         // drop item via clicking outside screen
         if (element == backbone["window"] && selectedItem) {
             selectedItem.active = false;
-            trigger("onPlayerDropItem", selectedItem.parent.id, selectedItem.slot);
+            trigger("inventory:drop", selectedItem.parent.id, selectedItem.slot);
             selectedItem = null;
             return true;
         }

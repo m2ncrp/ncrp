@@ -32,4 +32,32 @@ class PlayerItemContainer extends ItemContainer
         value.parent = this.parent.id;
         return base.set(key, value);
     }
+
+    /**
+     * Show invetory for particular player
+     * or for current player if no playerid
+     * @param  {Integer} playerid
+     * @return {Boolean}
+     */
+    function show(playerid = null) {
+        if (!playerid) {
+            playerid = this.parent.playerid;
+        }
+
+        base.show(playerid);
+    }
+
+    /**
+     * Hide invetory for particular player
+     * or for current player if no playerid
+     * @param  {Integer} playerid
+     * @return {Boolean}
+     */
+    function hide(playerid = null) {
+        if (!playerid) {
+            playerid = this.parent.playerid;
+        }
+
+        base.hide(playerid);
+    }
 }
