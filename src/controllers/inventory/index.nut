@@ -6,7 +6,10 @@ local inventory_script;
 
 event("onServerStarted", function() {
     logger.log("starting inventory...");
-    inventory_script = fread("./resources/ncrp/client/gui_inventory.nut");
+
+    delayedFunction(1, function() {
+        inventory_script = fread("./resources/ncrp/client/gui_inventory.nut");
+    });
 });
 
 event("onServerPlayerStarted", function(playerid) {

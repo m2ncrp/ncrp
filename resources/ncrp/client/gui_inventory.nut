@@ -332,15 +332,15 @@ class Inventory
             } else {
                 if (item.classname == "Item.None") return;
 
-                // drop if shift
+                // drop if ctrl
                 if (key_modifiers.ctrl) {
                     return trigger("inventory:drop", item.parent.id, item.slot);
                 }
 
                 // try to move to hands
-                if (key_modifiers.shift) {
-                    return trigger("inventory:move", item.parent.id, item.slot, backbone["ihands"].id, 0);
-                }
+                // if (key_modifiers.shift) {
+                //     return trigger("inventory:move", item.parent.id, item.slot, backbone["ihands"].id, 0);
+                // }
 
                 // select item
                 guiSetAlpha(item.handle, INVENTORY_ACTIVE_ALPHA);
@@ -526,17 +526,17 @@ event("onClientFrameRender", function(afterGUI) {
     foreach (idx, inventory in storage) {
         if (!inventory.opened) continue;
 
-        local items  = clone(inventory.items);
-        local window = guiGetPosition(inventory.handle);
+        local items  = clone(inventory.items);              if (typeof items != "table") return;
+        local window = guiGetPosition(inventory.handle);    if (typeof window != "array" || window.len() != 2) return;
         local weight = 0.0;
-        local size   = inventory.getSize();
+        local size   = inventory.getSize();                 if (typeof size != "table") return;
 
         foreach (idx, item in items) {
             weight += item.weight;
 
             if (!item.active) continue;
 
-            local pos = inventory.getItemPosition(item);
+            local pos = inventory.getItemPosition(item);    if (typeof pos != "table") return;
 
             if (inventory.data.type != "PlayerHands") {
                 pos.x += window[0];
@@ -548,7 +548,7 @@ event("onClientFrameRender", function(afterGUI) {
 
         if (inventory.data.type == "PlayerHands") continue;
 
-        local coef  = (weight / inventory.data.limit);
+        local coef = (weight / inventory.data.limit);       if (typeof coef != "float") return;
         local invwidth = size.x - inventory.guiPadding * 2 - inventory.guiRightOffset - 7;
         local width = invwidth * (coef > 1.0 ? 1.0 : coef);
 
@@ -567,8 +567,9 @@ event("onClientFrameRender", function(afterGUI) {
     // }
 });
 
-event("inventory:onServerOpen", function(id, data) {
-    local data = JSONParser.parse(data);
+event("inventory:onServerOpen", function(id, incoming_data) {
+    // local data = JSONParser.parse(data);
+    local data = compilestring.call(getroottable(), format("return %s", incoming_data))();
 
     if (data.type != "PlayerHands") {
         if (!Inventory.isAnyOpened(storage)) {
@@ -634,27 +635,20 @@ local ground = {
     textures = {},
     current  = [],
     distance = 15.0,
-    maxamt   = 25,
+    maxamt   = 100,
     alpha    = 165,
 };
 
 event("inventory:onServerGroundSync", function(incoming_data) {
-    try {
-        local data = compilestring(format("return %s", incoming_data))();
-
-        if ("items" in data) {
-            ground.current.extend(data.items);
-        }
-    }
-    catch (e) { log(e); }
+    ground.current.extend(compilestring.call(getroottable(), format("return %s", incoming_data), "ground_push")().items);
 });
 
 event("inventory:onServerGroundPush", function(incoming_data) {
-    ground.current.push(JSONParser.parse(incoming_data));
+    ground.current.push(compilestring.call(getroottable(), format("return %s", incoming_data), "ground_push")());
 });
 
 event("inventory:onServerGroundRemove", function(incoming_data) {
-    local item = JSONParser.parse(incoming_data);
+    local item = compilestring.call(getroottable(), format("return %s", incoming_data), "ground_push")();
 
     ground.current = ground.current.filter(function(i, element) {
         return (element.id != item.id);
@@ -673,9 +667,10 @@ function getGroundTexture(key) {
 }
 
 function drawWorldGround() {
-    local curpos = getPlayerPosition(getLocalPlayer());
-    local pos    = { x = curpos[0], y = curpos[1], z = curpos[2] };
-    local radius = ground.distance;
+    local playerid = getLocalPlayer();                              if (typeof playerid != "integer" || playerid > 1000 || playerid < 0) return;
+    local curpos = getPlayerPosition(playerid);                     if (typeof curpos != "array" || curpos.len() != 3) return;
+    local pos    = { x = curpos[0], y = curpos[1], z = curpos[2] }; if (typeof pos != "table" || pos.len() != 3) return;
+    local radius = ground.distance;                                 if (typeof radius != "float") return;
     local nearitem = false;
 
     local items = ground.current.filter(function(i, item) {
@@ -685,6 +680,8 @@ function drawWorldGround() {
         );
     });
 
+    if (typeof items != "array") return;
+
     // lastest should be the newest items
     items.reverse();
 
@@ -693,11 +690,14 @@ function drawWorldGround() {
         items = items.slice(0, ground.maxamt);
     }
 
+    if (typeof items != "array") return;
+    if (typeof ground.alpha != "integer") return;
+
     // draw them !
     items.map(function(item) {
-        local item_texture  = getGroundTexture(item.classname);
-        local item_screen   = getScreenFromWorld(item.x, item.y, item.z);
-        local item_distance = getDistanceBetweenPoints3D(item.x, item.y, item.z, pos.x, pos.y, pos.z);
+        local item_texture  = getGroundTexture(item.classname);           if (typeof item_texture != "userdata") return;
+        local item_screen   = getScreenFromWorld(item.x, item.y, item.z); if (typeof item_screen != "array" || item_screen.len() != 3) return;
+        local item_distance = getDistanceBetweenPoints3D(item.x, item.y, item.z, pos.x, pos.y, pos.z); if (typeof item_distance != "float") return;
 
         if (item_distance < ground.distance && item_screen[2] < 1.0) {
             local scale = 1 - (((item_distance > ground.distance) ? ground.distance : item_distance) / ground.distance);
@@ -1443,7 +1443,7 @@ class JSONEncoder {
 
 //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-////aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
