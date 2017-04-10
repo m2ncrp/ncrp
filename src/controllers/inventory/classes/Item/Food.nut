@@ -9,6 +9,9 @@ class Item.Food extends Item.Abstract
     }
 
     function use(playerid, inventory) {
-        msg(playerid, format("you used food: %s amout: %d", this.classname, this.amount));
+        msg(playerid, "Вы успешно употребили пищу");
+        addPlayerHunger(playerid, this.amount);
+        inventory.remove(this.slot).remove();
+        inventory.sync();
     }
 }
