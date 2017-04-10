@@ -9,6 +9,9 @@ class Item.Drink extends Item.Abstract
     }
 
     function use(playerid, inventory) {
-        msg(playerid, format("you used drink: %s amout: %d", this.classname, this.amount));
+        msg(playerid, "Вы успешно выпили напиток");
+        addPlayerThirst(playerid, this.amount);
+        inventory.remove(this.slot).remove();
+        inventory.sync();
     }
 }
