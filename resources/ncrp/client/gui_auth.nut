@@ -67,6 +67,7 @@ function showRegGUI(windowText,labelText, inputpText, inputrpText, inputEmailTex
     guiSetInputMasked( input[1], true );
     guiSetMovable(window,false);
     guiSetSizable(window,false);
+    input.map(guiBringToFront);
     showCursor(true);
     // guiSetAlpha(window, 0.1);
     isAuth = false;

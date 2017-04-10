@@ -501,7 +501,7 @@ class PlayerHands extends Inventory
 
     function createGUI() {
         base.createGUI();
-        // guiSetAlpha(this.handle, 0.0);
+        guiSetAlpha(this.handle, 0.0);
         guiSetAlwaysOnTop(this.items[0].handle, true);
         // guiSetAlwaysOnTop(this.items[0].label, true);
         backbone["ihands"] = this;
