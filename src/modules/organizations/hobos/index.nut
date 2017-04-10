@@ -11,7 +11,7 @@ const hobos_spawnID = 1;
 const DIG_RADIUS = 1.5;
 const HOBO_MODEL = 153;
 const DIG_TIME_DELAY = 150; // ~ 5 minutes in game or 2.5 minutes
-const UNEMPLOYED_MONEY_INCOME = 3.0; // randomf(X - 1, X + 2.5)
+const UNEMPLOYED_MONEY_INCOME = 1.0; // randomf(X - 1, X + 2.5)
 
 local hobosSkins = [
     87, 153, 154
@@ -140,7 +140,7 @@ event("onServerStarted", function() {
 });
 
 event("onServerHourChange", function() {
-    local originalAmount = randomf(UNEMPLOYED_MONEY_INCOME - 1.0, UNEMPLOYED_MONEY_INCOME + 2.5);
+    local originalAmount = randomf(UNEMPLOYED_MONEY_INCOME - 0.5, UNEMPLOYED_MONEY_INCOME + 0.2);
 
     foreach (playerid, value in players) {
         if (!getPlayerJob(playerid)) {
