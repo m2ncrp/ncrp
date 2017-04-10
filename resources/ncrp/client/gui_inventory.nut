@@ -283,11 +283,13 @@ class Inventory
      * Hiding old
      */
     function cacheItem(item) {
-        // disable drawing of this cell
-        guiSetVisible(item.handle, false);
-        // guiSetVisible(item.label,  false);
-        guiSetPosition(item.handle, -this.guiCellSize, -this.guiCellSize, false);
-        // guiSetPosition(item.label,  -this.guiCellSize, -this.guiCellSize, false);
+        if (item.handle && typeof item.handle == "userdata") {
+            // disable drawing of this cell
+            guiSetVisible(item.handle, false);
+            // guiSetVisible(item.label,  false);
+            guiSetPosition(item.handle, -this.guiCellSize, -this.guiCellSize, false);
+            // guiSetPosition(item.label,  -this.guiCellSize, -this.guiCellSize, false);
+        }
 
         // create cache if doent exsits
         if (!(item.classname in this.cache)) {
