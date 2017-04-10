@@ -25,7 +25,7 @@ event("onServerPlayerStarted", function(playerid) {
 });
 
 event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
-    dbg("receiving moving item reueqst with ", id1, slot1, id2, slot2);
+    // dbg("receiving moving item reueqst with ", id1, slot1, id2, slot2);
 
     if (id1 != id2) {
         // operations on different inventories
@@ -46,10 +46,15 @@ event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
                 // we should swap items
                 inventory1.set(slot1, inventory2[slot2]);
                 inventory2.set(slot2, item1);
+
+                trigger("onPlayerMovedItem", playerid, inventory.get(slot1));
+                trigger("onPlayerMovedItem", playerid, inventory.get(slot2));
             } else {
                 // we should just put item inside 2nd
                 inventory2.set(slot2, item1);
                 inventory1.remove(slot1);
+
+                trigger("onPlayerMovedItem", playerid, inventory.get(slot2));
             }
         }
 
@@ -70,9 +75,13 @@ event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
                     // inventory.remove(slot1);
                     // inventory.set(slot1, inventory[slot2]);
                     // inventory.set(slot2, item1);
+                    trigger("onPlayerMovedItem", playerid, inventory.get(slot1));
+                    trigger("onPlayerMovedItem", playerid, inventory.get(slot2));
                 } else {
                     inventory.set(slot2, inventory[slot1]);
                     inventory.remove(slot1);
+
+                    trigger("onPlayerMovedItem", playerid, inventory.get(slot2));
                 }
             }
         }
@@ -107,6 +116,7 @@ key("e", function(playerid) {
     if (players[playerid].inventory.push(closest)) {
         players[playerid].inventory.sync();
         ground.remove(closest);
+        msg(playerid, "Вы подобрали предмет.", CL_SUCCESS);
         return true;
     }
 });
@@ -138,6 +148,8 @@ event("native:onPlayerDropItem", function(playerid, id, slot) {
 
             inventory.sync();
             ground.push(item, pos);
+
+            msg(playerid, "Вы выбросили предмет.", CL_SUCCESS);
         }
     }
 });
