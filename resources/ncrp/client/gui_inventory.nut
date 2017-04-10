@@ -335,7 +335,7 @@ class Inventory
                 // toggling item move
                 trigger("inventory:move", selectedItem.parent.id, selectedItem.slot, item.parent.id, item.slot);
 
-                guiSetAlpha(selectedItem.handle, INVENTORY_INACTIVE_ALPHA);
+                // guiSetAlpha(selectedItem.handle, INVENTORY_INACTIVE_ALPHA);
                 selectedItem.active = false;
                 selectedItem = null;
             } else {
@@ -352,7 +352,7 @@ class Inventory
                 // }
 
                 // select item
-                guiSetAlpha(item.handle, INVENTORY_ACTIVE_ALPHA);
+                // guiSetAlpha(item.handle, INVENTORY_ACTIVE_ALPHA);
                 selectedItem = item;
                 item.active = true;
             }
@@ -360,7 +360,7 @@ class Inventory
             // deselect item
             selectedItem = null;
             item.active = false;
-            guiSetAlpha(item.handle, INVENTORY_INACTIVE_ALPHA);
+            // guiSetAlpha(item.handle, INVENTORY_INACTIVE_ALPHA);
         }
     }
 
@@ -501,7 +501,7 @@ class PlayerHands extends Inventory
 
     function createGUI() {
         base.createGUI();
-        guiSetAlpha(this.handle, 0.0);
+        // guiSetAlpha(this.handle, 0.0);
         guiSetAlwaysOnTop(this.items[0].handle, true);
         // guiSetAlwaysOnTop(this.items[0].label, true);
         backbone["ihands"] = this;
