@@ -106,6 +106,25 @@ function guiTextUnqueue() {
  * ************************
  */
 
+
+function formatLabelText(item) {
+    if (!("amount" in item)) {
+        return "";
+    }
+
+    try {
+        switch (item.type) {
+            case "Item.None":       return "";
+            case "Item.Weapon":     return item.amount.tostring();
+            case "Item.Ammo":       return item.amount.tostring();
+            case "Item.Clothes":    return item.amount.tostring();
+        }
+    }
+    catch (e) {}
+
+    return "";
+}
+
 class Inventory
 {
     id      = null;
@@ -149,42 +168,30 @@ class Inventory
         return false;
     }
 
-    static function formatLabelText(item) {
-        if (!("amount" in item)) {
-            return "";
-        }
-
-        switch (item.type) {
-            case "Item.None":       return "";
-            case "Item.Weapon":     return item.amount.tostring();
-            case "Item.Ammo":       return item.amount.tostring();
-            case "Item.Clothes":    return item.amount.tostring();
-        }
-
-        return "";
-    }
-
     function createGUI() {
         local size = this.getSize();
         local posi = this.getInitialPosition();
 
-        this.handle = guiCreateElement(ELEMENT_TYPE_WINDOW, this.data.title, posi.x, posi.y, size.x, size.y);
-        this.opened = true;
+        try {
+            this.handle = guiCreateElement(ELEMENT_TYPE_WINDOW, this.data.title, posi.x, posi.y, size.x, size.y);
+            this.opened = true;
 
-        if (typeof this.handle == "userdata") {
-            guiSetSizable(this.handle, false);
+            if (typeof this.handle == "userdata") {
+                guiSetSizable(this.handle, false);
+            }
+
+            foreach (idx, item in this.data.items) {
+                this.createItem(item.slot, item.classname, item.type, item.amount, item.weight);
+            }
+
+            local size = this.data.sizeX * this.data.sizeY;
+            for (local i = 0; i < size; i++) {
+                if (i in this.items) continue;
+
+                this.createItem(i, "Item.None", "Item.None");
+            }
         }
-
-        foreach (idx, item in this.data.items) {
-            this.createItem(item.slot, item.classname, item.type, item.amount, item.weight);
-        }
-
-        local size = this.data.sizeX * this.data.sizeY;
-        for (local i = 0; i < size; i++) {
-            if (i in this.items) continue;
-
-            this.createItem(i, "Item.None", "Item.None");
-        }
+        catch (e) { log(e) }
     }
 
     function updateGUI(data) {
@@ -221,7 +228,7 @@ class Inventory
             if (matched && matched.classname == item.classname && matched.amount != item.amount) {
                 item.amount = matched.amount;
                 item.weight = matched.weight;
-                guiSetText(item.label, Inventory.formatLabelText(item));
+                // guiSetText(item.label, formatLabelText(item));
                 continue;
             }
 
@@ -234,39 +241,41 @@ class Inventory
         local item = { classname = classname, type = type, slot = slot, amount = amount, weight = weight, handle = null, label = null, active = false, parent = this };
         local pos  = this.getItemPosition(item);
 
-        // do we have new item in cached
-        if (item.classname in this.cache && this.cache[item.classname].len()) {
-            local itemOld = this.cache[item.classname].pop();
+        try {
+            // do we have new item in cached
+            if (item.classname in this.cache && this.cache[item.classname].len()) {
+                local itemOld = this.cache[item.classname].pop();
 
-            item.handle = itemOld.handle;
-            item.label  = itemOld.label;
+                item.handle = itemOld.handle;
+                item.label  = itemOld.label;
 
-            guiSetPosition(item.handle, pos.x, pos.y, false);
-            guiSetPosition(item.label,  pos.x + this.guiLableItemOffsetX, pos.y + this.guiLableItemOffsetY, false);
-            guiSetVisible(item.handle, true);
-            guiSetVisible(item.label,  true);
+                guiSetPosition(item.handle, pos.x, pos.y, false);
+                // guiSetPosition(item.label,  pos.x + this.guiLableItemOffsetX, pos.y + this.guiLableItemOffsetY, false);
+                guiSetVisible(item.handle, true);
+                // guiSetVisible(item.label,  true);
 
-            guiSetText(item.label, this.formatLabelText(item));
-        } else {
-            if (outside_form) {
-                item.handle <- guiCreateElement( ELEMENT_TYPE_IMAGE, item.classname + ".jpg", pos.x, pos.y, this.guiCellSize, this.guiCellSize);
-                item.label  <- guiCreateElement( ELEMENT_TYPE_LABEL, this.formatLabelText(item), pos.x + this.guiLableItemOffsetX,
-                    pos.y + this.guiLableItemOffsetY, 16.0, 15.0
-                );
+                // guiSetText(item.label, formatLabelText(item));
+            } else {
+                if (outside_form) {
+                    item.handle <- guiCreateElement( ELEMENT_TYPE_IMAGE, item.classname + ".jpg", pos.x, pos.y, this.guiCellSize, this.guiCellSize);
+                    // item.label  <- guiCreateElement( ELEMENT_TYPE_LABEL, formatLabelText(item), pos.x + this.guiLableItemOffsetX,
+                    //     pos.y + this.guiLableItemOffsetY, 16.0, 15.0
+                    // );
+                }
+                else {
+                    item.handle <- guiCreateElement( ELEMENT_TYPE_IMAGE, item.classname + ".jpg", pos.x, pos.y, this.guiCellSize, this.guiCellSize, false, this.handle);
+                    // item.label  <- guiCreateElement( ELEMENT_TYPE_LABEL, formatLabelText(item), pos.x + this.guiLableItemOffsetX,
+                    //     pos.y + this.guiLableItemOffsetY, 16.0, 15.0, false, this.handle
+                    // );
+                }
             }
-            else {
-                item.handle <- guiCreateElement( ELEMENT_TYPE_IMAGE, item.classname + ".jpg", pos.x, pos.y, this.guiCellSize, this.guiCellSize, false, this.handle);
-                item.label  <- guiCreateElement( ELEMENT_TYPE_LABEL, this.formatLabelText(item), pos.x + this.guiLableItemOffsetX,
-                    pos.y + this.guiLableItemOffsetY, 16.0, 15.0, false, this.handle
-                );
+
+            if ("handle" in item && typeof item.handle == "userdata" && typeof item.label == "userdata") {
+                // guiSetAlpha(item.handle, 0.75);
+                // guiSetAlwaysOnTop(item.label, true);
             }
         }
-
-        if ("handle" in item && typeof item.handle == "userdata") {
-            guiSetAlpha(item.handle, 0.75);
-            guiSetAlwaysOnTop(item.label, true);
-        }
-
+        catch (e) { log(e); }
         this.items[item.slot] <- item;
     }
 
@@ -276,9 +285,9 @@ class Inventory
     function cacheItem(item) {
         // disable drawing of this cell
         guiSetVisible(item.handle, false);
-        guiSetVisible(item.label,  false);
+        // guiSetVisible(item.label,  false);
         guiSetPosition(item.handle, -this.guiCellSize, -this.guiCellSize, false);
-        guiSetPosition(item.label,  -this.guiCellSize, -this.guiCellSize, false);
+        // guiSetPosition(item.label,  -this.guiCellSize, -this.guiCellSize, false);
 
         // create cache if doent exsits
         if (!(item.classname in this.cache)) {
@@ -494,7 +503,7 @@ class PlayerHands extends Inventory
         base.createGUI();
         guiSetAlpha(this.handle, 0.0);
         guiSetAlwaysOnTop(this.items[0].handle, true);
-        guiSetAlwaysOnTop(this.items[0].label, true);
+        // guiSetAlwaysOnTop(this.items[0].label, true);
         backbone["ihands"] = this;
     }
 
@@ -607,7 +616,7 @@ event("onGuiElementClick", function(element) {
         if (!inventory.opened) continue;
 
         foreach (idx, item in inventory.items) {
-            if (element == item.handle || element == item.label) {
+            if (element == item.handle) {// || element == item.label) {
                 return inventory.click(item);
             }
 
