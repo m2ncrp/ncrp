@@ -112,6 +112,19 @@ include("translations/ru.nut");
 // unit testing
 // dofile("resources/ncrp/unittests/index.nut", true);
 
+function fread(filename) {
+    local handler = file(filename, "r");
+    local content = "";
+
+
+    for (local i = 0; i < handler.len(); i++) {
+        content += handler.readn('b').tochar();
+    }
+
+    handler.close();
+    return content;
+}
+
 local initializeEnvironment = function() {
     local envblob = file(".env", "a+");
 
@@ -140,6 +153,7 @@ local initializeEnvironment = function() {
 
     // verblob.close();
 };
+
 
 // bind general events
 event("native:onScriptInit", function() {
@@ -266,6 +280,7 @@ proxy("PhoneCallGUI",               "PhoneCallGUI"                      );
 proxy("travelToStationGUI",         "travelToStationGUI"                );
 
 //Inventory system
+proxy("inventory:loaded",           "native:inventory:loaded"            );
 proxy("inventory:use",              "native:onPlayerUseItem"             );
 proxy("inventory:move",             "native:onPlayerMoveItem"            );
 proxy("inventory:drop",             "native:onPlayerDropItem"            );

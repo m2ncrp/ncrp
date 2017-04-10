@@ -19,7 +19,9 @@ event("onInventoryRegistred", function(inventory) {
 });
 
 event("onServerPlayerStarted", function(playerid) {
-    ground.sync(playerid);
+    delayedFunction(2501, function() {
+        ground.sync(playerid);
+    });
 });
 
 event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
