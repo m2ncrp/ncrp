@@ -515,20 +515,6 @@ local class_map = {
 };
 
 
-addEventHandler("onServerClientStarted", function(version = null) {
-    // backbone["ihands"] <- null;
-    backbone["window"] <- guiCreateElement( ELEMENT_TYPE_WINDOW, "", 0.0, 0.0, screenX, screenY);
-    backbone["bhands"] <- guiCreateElement( ELEMENT_TYPE_IMAGE, "ui_inv_hands.png", 0.0, screenY - 108.0, 108.0, 108.0);
-    // backbone["fhands"] <- guiCreateElement( ELEMENT_TYPE_IMAGE, "Item.None.jpg", 0.0, screenY - 64.0, 64.0, 64.0);
-
-    guiSetAlpha(backbone["window"], 0.0);
-    guiSetAlpha(backbone["bhands"], 0.6);
-
-    guiSetSizable(backbone["window"], false);
-    guiSetMovable(backbone["window"], false);
-});
-
-
 event("onClientFrameRender", function(afterGUI) {
     if (!afterGUI) {
         return drawWorldGround();
@@ -653,7 +639,14 @@ local ground = {
 };
 
 event("inventory:onServerGroundSync", function(incoming_data) {
-    ground.current.extend(JSONParser.parse(incoming_data).items);
+    try {
+        local data = compilestring(format("return %s", incoming_data))();
+
+        if ("items" in data) {
+            ground.current.extend(data.items);
+        }
+    }
+    catch (e) { log(e); }
 });
 
 event("inventory:onServerGroundPush", function(incoming_data) {
@@ -760,6 +753,24 @@ function randomf(min = 0.0, max = RAND_MAX) {
     return (rand() % (max - min + 0.001)) + min;
 }
 
+
+// addEventHandler("onServerClientStarted", function(version = null) {
+delayedFunction(1, function(version = null) {
+    // backbone["ihands"] <- null;
+    backbone["window"] <- guiCreateElement( ELEMENT_TYPE_WINDOW, "", 0.0, 0.0, screenX, screenY);
+    backbone["bhands"] <- guiCreateElement( ELEMENT_TYPE_IMAGE, "ui_inv_hands.png", 0.0, screenY - 108.0, 108.0, 108.0);
+    // backbone["fhands"] <- guiCreateElement( ELEMENT_TYPE_IMAGE, "Item.None.jpg", 0.0, screenY - 64.0, 64.0, 64.0);
+
+    guiSetAlpha(backbone["window"], 0.0);
+    guiSetAlpha(backbone["bhands"], 0.6);
+
+    guiSetSizable(backbone["window"], false);
+    guiSetMovable(backbone["window"], false);
+
+    trigger("inventory:loaded");
+
+    sendMessage("my screen: %f %f", screenX.tofloat(), screenY.tofloat());
+});
 
 
 /**
@@ -1429,3 +1440,11 @@ class JSONEncoder {
         return res;
     }
 }
+
+//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+////aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa

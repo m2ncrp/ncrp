@@ -2,6 +2,18 @@ include("controllers/inventory/classes");
 include("controllers/inventory/inventories.nut");
 // include("controllers/inventory/functions.nut"); // refactor
 
+local inventory_script;
+
+event("onServerStarted", function() {
+    logger.log("starting inventory...");
+    inventory_script = fread("./resources/ncrp/client/gui_inventory.nut");
+});
+
+event("onServerPlayerStarted", function(playerid) {
+    dbg("sending inventory to", playerid, inventory_script.len());
+    trigger(playerid, "onServerProxy", "gui_inventory", inventory_script);
+});
+
 /**
  * Try to load player inventory
  * on player connected
@@ -30,8 +42,9 @@ event("onPlayerConnect", function(playerid) {
     character.hands     = hands;
 });
 
-event("onServerPlayerStarted", function(playerid) {
+event("native:inventory:loaded", function(playerid) {
     players[playerid].hands.toggle(playerid);
+    players[playerid].inventory.blocked = false;
 });
 
 /**
@@ -43,5 +56,7 @@ event("onCharacterSave", function(playerid, character) {
 });
 
 key(["tab", "i"], function(playerid) {
-    players[playerid].inventory.toggle(playerid);
+    if (!players[playerid].inventory.blocked) {
+        players[playerid].inventory.toggle(playerid);
+    }
 });
