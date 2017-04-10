@@ -46,8 +46,10 @@ event("onPlayerConnect", function(playerid) {
 });
 
 event("native:inventory:loaded", function(playerid) {
-    players[playerid].hands.toggle(playerid);
-    players[playerid].inventory.blocked = false;
+    delayedFunction(2500, function() {
+        players[playerid].hands.toggle(playerid);
+        players[playerid].inventory.blocked = false;
+    });
 });
 
 /**

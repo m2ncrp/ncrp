@@ -47,14 +47,14 @@ event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
                 inventory1.set(slot1, inventory2[slot2]);
                 inventory2.set(slot2, item1);
 
-                trigger("onPlayerMovedItem", playerid, inventory.get(slot1));
-                trigger("onPlayerMovedItem", playerid, inventory.get(slot2));
+                trigger("onPlayerMovedItem", playerid, inventory1.get(slot1));
+                trigger("onPlayerMovedItem", playerid, inventory2.get(slot2));
             } else {
                 // we should just put item inside 2nd
                 inventory2.set(slot2, item1);
                 inventory1.remove(slot1);
 
-                trigger("onPlayerMovedItem", playerid, inventory.get(slot2));
+                trigger("onPlayerMovedItem", playerid, inventory2.get(slot2));
             }
         }
 
@@ -147,7 +147,9 @@ event("native:onPlayerDropItem", function(playerid, id, slot) {
             pos.y += randomf(-0.3, 0.3);
 
             inventory.sync();
-            ground.push(item, pos);
+            delayedFunction(100, function() {
+                ground.push(item, pos);
+            });
 
             msg(playerid, "Вы выбросили предмет.", CL_SUCCESS);
         }
