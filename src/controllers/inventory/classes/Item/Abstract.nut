@@ -20,7 +20,10 @@ class Item.Abstract extends ORM.Entity
     stackable   = false;
     maxstack    = 0;
     weight      = 0.0;
-    name        = "Default Item"; // ?
+    decay       = 500;
+    decay_time  = 0;
+
+    static name = "Default Item"; // ?
 
     constructor () {
         base.constructor();

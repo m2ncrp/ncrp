@@ -69,7 +69,7 @@ class Item.Ammo38Special    extends Item.Ammo   { static classname = "Item.Ammo3
 /**
  * Ammo
  */
-class Item.Burger           extends Item.Food   { static classname = "Item.Burger";         constructor () { base.constructor(); this.amount = 25.0 }}
+class Item.Burger           extends Item.Food   { static classname = "Item.Burger";         constructor () { base.constructor(); this.amount = 25.0; this.decay = 10; }}
 class Item.Hotdog           extends Item.Food   { static classname = "Item.Hotdog";         constructor () { base.constructor(); this.amount = 20.0 }}
 class Item.Sandwich         extends Item.Food   { static classname = "Item.Sandwich";       constructor () { base.constructor(); this.amount = 17.0 }}
 class Item.Cola             extends Item.Drink  { static classname = "Item.Cola";           constructor () { base.constructor(); this.amount = 15.0 }}

@@ -24,6 +24,10 @@ event("onServerPlayerStarted", function(playerid) {
     });
 });
 
+event("onServerMinuteChange", function() {
+    ground.calculate_decay();
+});
+
 event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
     // dbg("receiving moving item reueqst with ", id1, slot1, id2, slot2);
 
