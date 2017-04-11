@@ -147,7 +147,7 @@ event("native:onPlayerDropItem", function(playerid, id, slot) {
             pos.y += randomf(-0.3, 0.3);
 
             inventory.sync();
-            delayedFunction(100, function() {
+            delayedFunction(150, function() {
                 ground.push(item, pos);
             });
 
