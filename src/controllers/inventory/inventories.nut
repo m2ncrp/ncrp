@@ -11,7 +11,7 @@ event("onServerStarted", function() {
 });
 
 event(["onServerStopping", "onServerAutosave"], function() {
-    ground.map(function(item) { item.save(); dbg("calling save for item", item.id) });
+    ground.map(function(item) { item.save() });
 });
 
 event("onInventoryRegistred", function(inventory) {
