@@ -69,8 +69,8 @@ local translations = {
     "Item.Ammo9x19mm"       : "Ammo 9x19 mm",
     "Item.Ammo792x57mm"     : "Ammo 7.92x57 mm",
     "Item.Ammo762x63mm"     : "Ammo 7.62x63 mm",
-    "Item.Ammo38Special.jp" : "Ammo .38 Special",
-    "Item.Clothes.jp"       : "Clothes",
+    "Item.Ammo38Special"    : "Ammo .38 Special",
+    "Item.Clothes"          : "Clothes",
     "Item.Burger"           : "Burger",
     "Item.Hotdog"           : "Hotdog",
     "Item.Sandwich"         : "Sandwich",
@@ -449,11 +449,13 @@ class PlayerInventory extends Inventory
             }
 
             if (idx == "btn_hand" && backbone["ihands"]) {
+                guiSetText(this.components["lbl_name"], "");
                 backbone["ihands"].click(backbone["ihands"].items[0]);
                 return true;
             }
 
             if (idx == "btn_use" && selectedItem) {
+                guiSetText(this.components["lbl_name"], "");
                 selectedItem.active = false;
                 trigger("inventory:use", selectedItem.parent.id, selectedItem.slot);
                 selectedItem = null;
@@ -461,6 +463,7 @@ class PlayerInventory extends Inventory
             }
 
             if (idx == "btn_drop" && selectedItem) {
+                guiSetText(this.components["lbl_name"], "");
                 selectedItem.active = false;
                 trigger("inventory:drop", selectedItem.parent.id, selectedItem.slot);
                 selectedItem = null;
@@ -470,6 +473,7 @@ class PlayerInventory extends Inventory
 
         // drop item via clicking outside screen
         if (element == backbone["window"] && selectedItem) {
+            guiSetText(this.components["lbl_name"], "");
             selectedItem.active = false;
             trigger("inventory:drop", selectedItem.parent.id, selectedItem.slot);
             selectedItem = null;
