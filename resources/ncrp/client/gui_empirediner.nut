@@ -115,7 +115,10 @@ addEventHandler("onPlayerInventoryHide", hideShopGUI);
 
 function resetShopValues() {
     [3, 7, 11, 15].map(function(id) {
-        guiSetText(label[id], "0");
+        local data = label[id];
+        if (typeof data == "userdata") {
+            guiSetText(data, "0");
+        }
     });
 
     guiSetText(buttons[0], "Buy");

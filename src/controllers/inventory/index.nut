@@ -3,46 +3,48 @@ include("controllers/inventory/inventories.nut");
 // include("controllers/inventory/functions.nut"); // refactor
 
 local inventory_script;
+local inventory_cache = {};
 
 event("onServerStarted", function() {
     logger.log("starting inventory...");
-
-    delayedFunction(1, function() {
-        // inventory_script = fread("./resources/ncrp/client/gui_inventory.nut");
-    });
-});
-
-event("onServerPlayerStarted", function(playerid) {
-    // dbg("sending inventory to", playerid, inventory_script.len());
-    // trigger(playerid, "onServerProxy", "gui_inventory", inventory_script);
 });
 
 /**
  * Try to load player inventory
  * on player connected
  */
-event("onPlayerConnect", function(playerid) {
+event("onServerPlayerStarted", function(playerid) {
     local character = players[playerid];
-    local inventory = PlayerItemContainer(playerid);
-    local hands     = PlayerHandsContainer(playerid);
 
+    if (!(character.id in inventory_cache)) {
+        local body = PlayerItemContainer(playerid);
+        local hand = PlayerHandsContainer(playerid);
 
-    ORM.Query("select * from tbl_items where parent = :id and state in (:states)")
-    .setParameter("id", character.id)
-    .setParameter("states", concat([Item.State.PLAYER, Item.State.PLAYER_HAND], ","), true)
-    .getResult(function(err, items) {
-        foreach (idx, item in items) {
-            if (item.state == Item.State.PLAYER_HAND) {
-                hands.set(item.slot, item);
-                continue;
-            }
+        ORM.Query("select * from tbl_items where parent = :id and state in (:states)")
+            .setParameter("id", character.id)
+            .setParameter("states", concat([Item.State.PLAYER, Item.State.PLAYER_HAND], ","), true)
+            .getResult(function(err, items) {
+                foreach (idx, item in items) {
+                    if (item.state == Item.State.PLAYER_HAND) {
+                        hand.set(item.slot, item);
+                        continue;
+                    }
 
-            inventory.set(item.slot, item);
-        }
-    });
+                    body.set(item.slot, item);
+                }
+            });
 
-    character.inventory = inventory;
-    character.hands     = hands;
+        inventory_cache[character.id] <- {
+            body = body, hand = hand
+        };
+    }
+    else {
+        inventory_cache[character.id].body.parent = character;
+        inventory_cache[character.id].hand.parent = character;
+    }
+
+    character.inventory = inventory_cache[character.id].body;
+    character.hands     = inventory_cache[character.id].hand;
 });
 
 event("native:inventory:loaded", function(playerid) {
