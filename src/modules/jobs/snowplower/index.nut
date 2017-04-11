@@ -125,8 +125,8 @@ alternativeTranslate({
     "en|job.snowplow.startroute"                :   "[SNOWPLOW] Sit into snowplow truck and drive along the route."
     "ru|job.snowplow.startroute"                :   "[SNOWPLOW] Садись в снегоуборочную машину и следуй по маршруту."
 
-    "en|job.snowplow.startroute2"               :   "Speed limit for effective scavenging - 40 miles."
-    "ru|job.snowplow.startroute2"               :   "Скоростное ограничение для эффективной уборки: 40 миль."
+    "en|job.snowplow.startroute2"               :   "Speed limit for effective scavenging - 30 miles."
+    "ru|job.snowplow.startroute2"               :   "Скоростное ограничение для эффективной уборки: 30 миль."
 
     "en|job.snowplow.route.needcomplete"        :   "[SNOWPLOW] Complete current route."
     "ru|job.snowplow.route.needcomplete"        :   "[SNOWPLOW] Заверши маршрут."
