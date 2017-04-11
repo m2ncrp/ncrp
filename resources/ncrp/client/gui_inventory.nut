@@ -699,10 +699,16 @@ function drawWorldGround() {
     if (typeof items != "array") return;
 
     // lastest should be the newest items
-    items.reverse();
+    // items.reverse();
+
+    local get_dist = function(item) {
+        return pow(item.x - pos.x, 2) + pow(item.y - pos.y, 2);
+    };
 
     // limit amount of drawing items
     if (items.len() > ground.maxamt) {
+        // items = items.slice(0, ground.maxamt);
+        items.sort(@(a, b) get_dist(a) <=> get_dist(b));
         items = items.slice(0, ground.maxamt);
     }
 
@@ -767,6 +773,10 @@ function random(min = 0, max = RAND_MAX) {
 
 function randomf(min = 0.0, max = RAND_MAX) {
     return (rand() % (max - min + 0.001)) + min;
+}
+
+function min(a, b) {
+    return a > b ? b : a;
 }
 
 
