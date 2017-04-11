@@ -36,7 +36,7 @@
         <script type="client">ped_dialog.nut</script>
 
         <!-- invdev supa unstebla beyatch -->
-        <!-- <script type="client">gui_inventory.nut</script> -->
+        <script type="client">gui_inventory.nut</script>
 
 
     <!--       -->
