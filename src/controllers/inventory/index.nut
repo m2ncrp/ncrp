@@ -8,13 +8,13 @@ event("onServerStarted", function() {
     logger.log("starting inventory...");
 
     delayedFunction(1, function() {
-        inventory_script = fread("./resources/ncrp/client/gui_inventory.nut");
+        // inventory_script = fread("./resources/ncrp/client/gui_inventory.nut");
     });
 });
 
 event("onServerPlayerStarted", function(playerid) {
-    dbg("sending inventory to", playerid, inventory_script.len());
-    trigger(playerid, "onServerProxy", "gui_inventory", inventory_script);
+    // dbg("sending inventory to", playerid, inventory_script.len());
+    // trigger(playerid, "onServerProxy", "gui_inventory", inventory_script);
 });
 
 /**
