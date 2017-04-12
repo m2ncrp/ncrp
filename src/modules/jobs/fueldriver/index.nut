@@ -270,19 +270,6 @@ event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     }
 });
 
-
-event("onPlayerPlaceEnter", function(playerid, name) {
-    if(name != "KosoyPereulok" || !isPlayerInVehicle(playerid) || !isPlayerVehicleDriver(playerid) ) return;
-
-    local ticketcost = 45.0;
-    //local vehicleid = getPlayerVehicle(playerid);
-    //if(!canMoneyBeSubstracted(playerid, ticketcost)) { msg(playerid, "organizations.police.kosoypereulok.nomoney", CL_THUNDERBIRD); return; }
-    subMoneyToPlayer(playerid, ticketcost);
-    addMoneyToTreasury(ticketcost);
-    msg(playerid, "organizations.police.kosoypereulok.ticket", [ticketcost], CL_THUNDERBIRD); return;
-});
-
-
 event("onPlayerPlaceEnter", function(playerid, name) {
     if (name != "FuelBadZone1" && name != "FuelBadZone2") {
         return;
