@@ -7,6 +7,7 @@ class Item.Abstract extends ORM.Entity
         ORM.Field.Integer({ name = "type",  value = 0 }),
         ORM.Field.Integer({ name = "state", value = Item.State.NONE }),
         ORM.Field.Integer({ name = "slot",  value = 0 }),
+        ORM.Field.Integer({ name = "decay", valie = 0 }),
         ORM.Field.Integer("parent"),
         ORM.Field.Integer("amount"),
         ORM.Field.Integer("created"),
@@ -20,7 +21,9 @@ class Item.Abstract extends ORM.Entity
     stackable   = false;
     maxstack    = 0;
     weight      = 0.0;
-    name        = "Default Item"; // ?
+    default_decay = 600;
+
+    static name = "Default Item"; // ?
 
     constructor () {
         base.constructor();
@@ -30,22 +33,29 @@ class Item.Abstract extends ORM.Entity
         }
     }
 
-    function use(playerid) {
+    function use(playerid, inventory) {
         dbg("classes/Item.nut: trying to use item. Make sure you've overriden this method for your item", this.classname, getIdentity(playerid));
     }
 
-    function calculateWeight () {
+    function calculateWeight() {
         return this.weight;
     }
 
     function serialize() {
         local data = {
-            classname = this.classname,
-            type      = this.getType(),
-            slot      = this.slot,
-            amount    = this.amount,
-            weight    = this.calculateWeight(),
+            classname   = this.classname,
+            type        = this.getType(),
+            slot        = this.slot,
+            amount      = this.amount,
+            weight      = this.calculateWeight(),
+            id          = this.id,
         };
+
+        if (this.x != 0.0 || this.y != 0.0 || this.z != 0.0) {
+            data.x <- this.x;
+            data.y <- this.y;
+            data.z <- this.z;
+        }
 
         return data;
         // return JSONEncoder.encode(data);
