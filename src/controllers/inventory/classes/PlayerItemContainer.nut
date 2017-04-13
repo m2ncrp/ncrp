@@ -4,7 +4,7 @@ class PlayerItemContainer extends ItemContainer
 
     id      = null;
     parent  = null;
-    limit   = 35.0;
+    limit   = 6.0;
     blocked = true;
 
     sizeX = 4;

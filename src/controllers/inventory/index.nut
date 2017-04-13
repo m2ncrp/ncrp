@@ -62,7 +62,15 @@ event("onCharacterSave", function(playerid, character) {
     foreach (idx, item in character.hands) item.save();
 });
 
-key(["tab", "i"], function(playerid) {
+key("i", function(playerid) {
+    if (isPlayerAdmin(playerid)) return;
+
+    if (!players[playerid].inventory.blocked) {
+        players[playerid].inventory.toggle(playerid);
+    }
+});
+
+key("tab", function(playerid) {
     if (!players[playerid].inventory.blocked) {
         players[playerid].inventory.toggle(playerid);
     }

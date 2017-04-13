@@ -64,7 +64,7 @@ addEventHandler("showShopGUI", function() {
         // label[10] =  guiCreateElement( ELEMENT_TYPE_LABEL, "256 ккал",       102.0, 386.0 - yoffset, 100.0, 15.0, false, window);
         label[11] =  guiCreateElement( ELEMENT_TYPE_LABEL, "0",             218.0, 386.0 - yoffset, 100.0, 15.0, false, window);
         label[12] =  guiCreateElement( ELEMENT_TYPE_LABEL, "Cola",          102.0, 436.0 - yoffset, 100.0, 15.0, false, window);
-        label[13] =  guiCreateElement( ELEMENT_TYPE_LABEL, "$1.53",         207.0, 436.0 - yoffset, 100.0, 15.0, false, window);
+        label[13] =  guiCreateElement( ELEMENT_TYPE_LABEL, "$1.24",         207.0, 436.0 - yoffset, 100.0, 15.0, false, window);
         // label[14] =  guiCreateElement( ELEMENT_TYPE_LABEL, "256 ккал",       102.0, 462.0 - yoffset, 100.0, 15.0, false, window);
         label[15] =  guiCreateElement( ELEMENT_TYPE_LABEL, "0",             218.0, 462.0 - yoffset, 100.0, 15.0, false, window);
 
