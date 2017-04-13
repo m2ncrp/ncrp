@@ -21,7 +21,7 @@ class Item.Abstract extends ORM.Entity
     stackable   = false;
     maxstack    = 0;
     weight      = 0.0;
-    default_decay  = 0;
+    default_decay = 600;
 
     static name = "Default Item"; // ?
 

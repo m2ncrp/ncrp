@@ -86,13 +86,13 @@ class GroundItems
 
     function calculate_decay() {
         this.data = this.data.filter(function(i, item) {
-            if (getTimestamp() > item.decay) {
+            if (getTimestamp() > item.decay && item.default_decay != 0) {
 
                 foreach (playerid, value in players) {
                     trigger(playerid, "inventory:onServerGroundRemove", JSONEncoder.encode(item.serialize()));
                 }
 
-                dbg("removing item", item.id, item.classname);
+                dbg("inventory", "removing item", item.id, item.classname, "at:", item.x, item.y, item.z);
 
                 return (item.remove() && false);
             }

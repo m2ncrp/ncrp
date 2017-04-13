@@ -52,19 +52,19 @@ addEventHandler("showShopGUI", function() {
 
 
         label[0]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "Burger",        102.0, 208.0 - yoffset, 100.0, 15.0, false, window);
-        label[1]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "$0.50",         207.0, 208.0 - yoffset, 100.0, 15.0, false, window);
+        label[1]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "$2.67",         207.0, 208.0 - yoffset, 100.0, 15.0, false, window);
         // label[2]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "256 ккал",       102.0, 234.0 - yoffset, 100.0, 15.0, false, window);
         label[3]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "0",             218.0, 234.0 - yoffset, 100.0, 15.0, false, window);
         label[4]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "Hotdog",        102.0, 284.0 - yoffset, 100.0, 15.0, false, window);
-        label[5]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "$0.10",         207.0, 284.0 - yoffset, 100.0, 15.0, false, window);
+        label[5]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "$1.75",         207.0, 284.0 - yoffset, 100.0, 15.0, false, window);
         // label[6]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "256 ккал",       102.0, 310.0 - yoffset, 100.0, 15.0, false, window);
         label[7]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "0",             218.0, 310.0 - yoffset, 100.0, 15.0, false, window);
         label[8]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "Sandwich",      102.0, 360.0 - yoffset, 100.0, 15.0, false, window);
-        label[9]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "$0.25",         207.0, 360.0 - yoffset, 100.0, 15.0, false, window);
+        label[9]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "$0.62",         207.0, 360.0 - yoffset, 100.0, 15.0, false, window);
         // label[10] =  guiCreateElement( ELEMENT_TYPE_LABEL, "256 ккал",       102.0, 386.0 - yoffset, 100.0, 15.0, false, window);
         label[11] =  guiCreateElement( ELEMENT_TYPE_LABEL, "0",             218.0, 386.0 - yoffset, 100.0, 15.0, false, window);
         label[12] =  guiCreateElement( ELEMENT_TYPE_LABEL, "Cola",          102.0, 436.0 - yoffset, 100.0, 15.0, false, window);
-        label[13] =  guiCreateElement( ELEMENT_TYPE_LABEL, "$0.50",         207.0, 436.0 - yoffset, 100.0, 15.0, false, window);
+        label[13] =  guiCreateElement( ELEMENT_TYPE_LABEL, "$1.53",         207.0, 436.0 - yoffset, 100.0, 15.0, false, window);
         // label[14] =  guiCreateElement( ELEMENT_TYPE_LABEL, "256 ккал",       102.0, 462.0 - yoffset, 100.0, 15.0, false, window);
         label[15] =  guiCreateElement( ELEMENT_TYPE_LABEL, "0",             218.0, 462.0 - yoffset, 100.0, 15.0, false, window);
 
