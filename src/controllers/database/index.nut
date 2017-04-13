@@ -128,7 +128,7 @@ function intializeMySQLDDrivers(conn) {
         }
 
         if (!query) {
-            return error(JSONEncoder.enode([mysql_errno(conn), mysql_error(conn)]));
+            return error(JSONEncoder.encode([mysql_errno(conn), mysql_error(conn)]));
         }
 
         local row = {};
