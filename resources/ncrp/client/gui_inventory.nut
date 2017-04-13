@@ -780,8 +780,8 @@ function min(a, b) {
 }
 
 
-// addEventHandler("onServerClientStarted", function(version = null) {
-delayedFunction(1, function(version = null) {
+addEventHandler("onServerClientStarted", function(version = null) {
+// delayedFunction(1, function(version = null) {
     // backbone["ihands"] <- null;
     backbone["window"] <- guiCreateElement( ELEMENT_TYPE_WINDOW, "", 0.0, 0.0, screenX, screenY);
     backbone["bhands"] <- guiCreateElement( ELEMENT_TYPE_IMAGE, "ui_inv_hands.png", 0.0, screenY - 108.0, 108.0, 108.0);
