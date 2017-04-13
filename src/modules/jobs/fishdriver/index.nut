@@ -727,16 +727,13 @@ function fishJobTakePutBox( playerid ) {
 
                 if(hand == null) {
                     if(gruz == "emptybox") return msg(playerid, "job.fishdriver.goTakeEmptybox", FISH_JOB_COLOR );
-                    if(gruz == "fishbox") {
-                        if(kolvo > 0) {
-                            hand = "fishbox";
-                            kolvo -= 1;
-                            gruz = "emptybox";
-                            msg(playerid, "job.fishdriver.takenFishbox", [kolvo], FISH_JOB_COLOR );
-                        } else {
-                            gruz = "emptybox";
-                            msg(playerid, "job.fishdriver.truck.empty", FISH_JOB_COLOR );
-                        }
+                    if(gruz == "fishbox" && kolvo > 0) {
+                        hand = "fishbox";
+                        kolvo -= 1;
+                        msg(playerid, "job.fishdriver.takenFishbox", [kolvo], FISH_JOB_COLOR );
+                    } else {
+                        gruz = "emptybox";
+                        msg(playerid, "job.fishdriver.truck.empty", FISH_JOB_COLOR );
                     }
                 }
                 else
