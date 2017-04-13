@@ -1,13 +1,3 @@
-addEventHandler("onServerKeyboardRegistration", function(key, state) {
-    bindKey(key, state, function() {
-        triggerServerEvent("onClientKeyboardPress", key, state);
-    });
-});
-
-addEventHandler("onServerKeyboardUnregistration", function(key, state) {
-    unbindKey(key, state);
-});
-
 local ticker;
 function onServerFreezePlayer(state) {
     if (state) return;
@@ -24,9 +14,32 @@ function onServerFreezePlayer(state) {
     }
 }
 
-bindKey("enter", "down", function() {
-    triggerServerEvent("onClientNativeKeyboardPress", "enter", "down");
-    triggerServerEvent("onClientKeyboardPress", "enter", "down");
+addEventHandler("onServerFreezePlayer", onServerFreezePlayer);
+
+
+
+local keyboard_proxy = [
+    "tab", "ctrl", "shift", "enter", "space",
+    // "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0",
+
+];
+
+keyboard_proxy.map(function(key) {
+    bindKey(key, "up",   function() { triggerServerEvent("onClientKeyboardPress", key, "up"); });
+    bindKey(key, "down", function() { triggerServerEvent("onClientKeyboardPress", key, "down"); });
 });
 
-addEventHandler("onServerFreezePlayer", onServerFreezePlayer);
+addEventHandler("onServerKeyboardRegistration", function(key, state) {
+    if (keyboard_proxy.find(key) != null) {
+        return;
+    }
+
+    bindKey(key, state, function() {
+        triggerServerEvent("onClientKeyboardPress", key, state);
+    });
+});
+
+addEventHandler("onServerKeyboardUnregistration", function(key, state) {
+    // unbindKey(key, state);
+});

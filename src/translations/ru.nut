@@ -617,8 +617,8 @@ translation("ru", {
 
     "shops.restaurant.toofar"               : "[INFO] Вы слишком далеко."
     "shops.restaurant.money.notenough"      : "У вас недостаточно денег для оплаты."
-    "shops.restaurant.diner.eat.success"    : "Вы потратили $%.2f на еду."
-    "shops.restaurant.bar.drink.success"    : "Вы потратили $%.2f на пиво."
+    "shops.restaurant.space.notenough"      : "У вас недостаточно места в инвентаре."
+    "shops.restaurant.buy.success"          : "Вы успешно купили предмет(ы) за $%.2f."
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
