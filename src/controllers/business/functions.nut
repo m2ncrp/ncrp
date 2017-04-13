@@ -2,8 +2,8 @@ local businessesIncr = 0;
 local businesses = {};
 local businessDefaults = [
     { type = BUSINESS_DEFAULT, blip = null,         info = null,        price = 15000.0,  income = 10.0 },
-    { type = BUSINESS_DINER,   blip = ICON_BURGER,  info = "/eat",      price = 25000.0,  income = 15.0 },
-    { type = BUSINESS_BAR,     blip = ICON_BAR,     info = "/drink",    price = 45000.0,  income = 40.0 },
+    { type = BUSINESS_DINER,   blip = ICON_BURGER,  info = "Press E",   price = 25000.0,  income = 15.0 },
+    { type = BUSINESS_BAR,     blip = ICON_BAR,     info = "Press E",   price = 45000.0,  income = 40.0 },
     { type = BUSINESS_WEAPON,  blip = ICON_WEAPON,  info = "/weapons",  price = 100000.0, income = 65.0 },
 ];
 
