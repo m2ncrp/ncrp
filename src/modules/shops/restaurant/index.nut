@@ -16,26 +16,26 @@ translation("en", {
  * @param  {[type]} playerid [description]
  * @return {[type]}          [description]
  */
-function onEating(playerid) {
-    subMoneyToPlayer(playerid, EAT_COST);
-    addMoneyToTreasury(EAT_COST);
-    msg(playerid, "shops.restaurant.diner.eat.success", [EAT_COST], CL_SUCCESS);
-    // return setPlayerHealth(playerid, MAX_HEALTH);
-    addPlayerHunger(playerid, randomf(30.0, 40.0));
-}
+// function onEating(playerid) {
+//     subMoneyToPlayer(playerid, EAT_COST);
+//     addMoneyToTreasury(EAT_COST);
+//     msg(playerid, "shops.restaurant.diner.eat.success", [EAT_COST], CL_SUCCESS);
+//     // return setPlayerHealth(playerid, MAX_HEALTH);
+//     addPlayerHunger(playerid, randomf(30.0, 40.0));
+// }
 
 /**
  * Some actions on call drink function call
  * @param  {[type]} playerid [description]
  * @return {[type]}          [description]
  */
-function onDrinking(playerid) {
-    subMoneyToPlayer(playerid, DRINK_COST);
-    addMoneyToTreasury(DRINK_COST);
-    msg(playerid, "shops.restaurant.bar.drink.success", [DRINK_COST], CL_SUCCESS);
-    // setPlayerHealth(playerid, MAX_HEALTH);
-    addPlayerThirst(playerid, randomf(30.0, 40.0));
-}
+// function onDrinking(playerid) {
+//     subMoneyToPlayer(playerid, DRINK_COST);
+//     addMoneyToTreasury(DRINK_COST);
+//     msg(playerid, "shops.restaurant.bar.drink.success", [DRINK_COST], CL_SUCCESS);
+//     // setPlayerHealth(playerid, MAX_HEALTH);
+//     addPlayerThirst(playerid, randomf(30.0, 40.0));
+// }
 
 // cmd("eat", function(playerid) {
 //     local bid = getBusinessNearPlayer(playerid);
@@ -63,7 +63,7 @@ function onDrinking(playerid) {
 //     }
 // });
 
-local empirediner_prices = [ 0.50, 0.10, 0.25, 0.50 ];
+local empirediner_prices = [ 2.67, 1.75, 0.62, 1.53 ];
 local empirediner_items  = [ Item.Burger, Item.Hotdog, Item.Sandwich, Item.Cola ];
 
 event("native:shop:purchase", function(playerid, data) {
@@ -108,6 +108,7 @@ key("e", function(playerid) {
     local bid = getBusinessNearPlayer(playerid);
 
     if (!bid) return;
+    if (!(getBusinessType(bid) == 1) && !(getBusinessType(bid) == 2)) return;
 
     players[playerid].trigger("showShopGUI");
     players[playerid].inventory.show();

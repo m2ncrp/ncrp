@@ -9,8 +9,8 @@ class Item.Drink extends Item.Abstract
     }
 
     function use(playerid, inventory) {
-        msg(playerid, "Вы успешно выпили напиток");
-        addPlayerThirst(playerid, this.amount);
+        msg(playerid, format("Вы выпили %s", plocalize(playerid, this.classname)));
+        addPlayerThirst(playerid, randomf(this.amount - 5.0, this.amount + 5.0));
         inventory.remove(this.slot).remove();
         inventory.sync();
     }
