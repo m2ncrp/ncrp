@@ -1,6 +1,6 @@
 const MAX_HEALTH = 800.0;
 
-local empirediner_prices = [ 2.67, 1.75, 0.62, 1.53 ];
+local empirediner_prices = [ 2.67, 1.75, 0.62, 1.24 ];
 local empirediner_items  = [ Item.Burger, Item.Hotdog, Item.Sandwich, Item.Cola ];
 
 translation("en", {

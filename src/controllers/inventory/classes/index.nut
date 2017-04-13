@@ -69,8 +69,8 @@ class Item.Ammo38Special    extends Item.Ammo   { static classname = "Item.Ammo3
 /**
  * Ammo
  */
-class Item.Burger           extends Item.Food   { static classname = "Item.Burger";         constructor () { base.constructor(); this.amount = 75.0 }}
-class Item.Hotdog           extends Item.Food   { static classname = "Item.Hotdog";         constructor () { base.constructor(); this.amount = 50.0 }}
-class Item.Sandwich         extends Item.Food   { static classname = "Item.Sandwich";       constructor () { base.constructor(); this.amount = 25.0 }}
-class Item.Cola             extends Item.Drink  { static classname = "Item.Cola";           constructor () { base.constructor(); this.amount = 70.0 }}
+class Item.Burger           extends Item.Food   { static classname = "Item.Burger";         constructor () { base.constructor(); this.weight = 0.230 this.amount = 75.0 }}
+class Item.Hotdog           extends Item.Food   { static classname = "Item.Hotdog";         constructor () { base.constructor(); this.weight = 0.185 this.amount = 50.0 }}
+class Item.Sandwich         extends Item.Food   { static classname = "Item.Sandwich";       constructor () { base.constructor(); this.weight = 0.130 this.amount = 25.0 }}
+class Item.Cola             extends Item.Drink  { static classname = "Item.Cola";           constructor () { base.constructor(); this.weight = 0.250 this.amount = 45.0 }}
 class Item.Whiskey          extends Item.Drink  { static classname = "Item.Whiskey";        constructor () { base.constructor(); this.amount = 10.0 }}
