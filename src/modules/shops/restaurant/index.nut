@@ -33,7 +33,7 @@ event("native:shop:purchase", function(playerid, data) {
     subMoneyToPlayer(playerid, price);
     addMoneyToTreasury(price);
 
-    msg(playerid, "shops.restaurant.buy.success", CL_SUCCESS);
+    msg(playerid, "shops.restaurant.buy.success", [price], CL_SUCCESS);
 
     foreach (j, amount in data.items) {
         for (local i = 0; i < amount; i++) {
