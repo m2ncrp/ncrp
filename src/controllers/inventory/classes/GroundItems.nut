@@ -9,7 +9,6 @@ class GroundItems
     function extend(data) {
         this.data.extend(data.map(function(item) {
             item.state = Item.State.GROUND;
-            item.decay_time = getTimestamp() + item.decay;
             item.parent = 0;
 
             return item;
@@ -26,7 +25,7 @@ class GroundItems
         this.data.push(item);
 
         item.state = Item.State.GROUND;
-        item.decay_time = getTimestamp() + item.decay;
+        item.decay = getTimestamp() + item.default_decay;
         item.parent = 0;
         item.x = position.x;
         item.y = position.y;
@@ -87,7 +86,7 @@ class GroundItems
 
     function calculate_decay() {
         this.data = this.data.filter(function(i, item) {
-            if (getTimestamp() > item.decay_time) {
+            if (getTimestamp() > item.decay) {
 
                 foreach (playerid, value in players) {
                     trigger(playerid, "inventory:onServerGroundRemove", JSONEncoder.encode(item.serialize()));

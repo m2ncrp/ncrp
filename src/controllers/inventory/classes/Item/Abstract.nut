@@ -7,6 +7,7 @@ class Item.Abstract extends ORM.Entity
         ORM.Field.Integer({ name = "type",  value = 0 }),
         ORM.Field.Integer({ name = "state", value = Item.State.NONE }),
         ORM.Field.Integer({ name = "slot",  value = 0 }),
+        ORM.Field.Integer({ name = "decay", valie = 0 }),
         ORM.Field.Integer("parent"),
         ORM.Field.Integer("amount"),
         ORM.Field.Integer("created"),
@@ -20,8 +21,7 @@ class Item.Abstract extends ORM.Entity
     stackable   = false;
     maxstack    = 0;
     weight      = 0.0;
-    decay       = 500;
-    decay_time  = 0;
+    default_decay  = 0;
 
     static name = "Default Item"; // ?
 
