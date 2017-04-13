@@ -7,6 +7,7 @@
     <!-- <script type="client">index.nut</script> -->
 
     <!-- non-packed client scripts -->
+
         <!-- gui -->
         <script type="client">gui_alert.nut</script>
         <script type="client">gui_auth.nut</script>
@@ -29,7 +30,8 @@
         <script type="client">other_screen.nut</script>
         <script type="client">other_tabpanel.nut</script>
         <script type="client">other_weather.nut</script>
-        <script type="client">other_proxy.nut</script>
+        <!-- <script type="client">other_proxy.nut</script> -->
+        <script type="client">other_bus.nut</script>
 
         <!-- peds -->
         <script type="client">ped_creation.nut</script>
@@ -37,7 +39,6 @@
 
         <!-- invdev supa unstebla beyatch -->
         <script type="client">gui_inventory.nut</script>
-
 
     <!--       -->
     <!-- files -->

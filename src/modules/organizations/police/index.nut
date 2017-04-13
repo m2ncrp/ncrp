@@ -77,9 +77,9 @@ POLICE_RANK_SALLARY_PERMISSION_SKIN <- [ // calculated as: (-i^2 + 27*i + 28)/20
 
 
 POLICE_TICKET_PRICELIST <- [
-    [7.0, "organizations.police.lawbreak.warning"           ],  // 0 - Предупреждение aka warning
-    [8.5, "organizations.police.lawbreak.trafficviolation"  ],  // 1 - Нарушение ПДД aka traffic violation
-    [10.0,"organizations.police.lawbreak.roadaccident"      ]   // 2 - ДТП aka road acident
+    [17.0, "organizations.police.lawbreak.warning"          ],  // 0 - Предупреждение aka warning
+    [18.5, "organizations.police.lawbreak.trafficviolation" ],  // 1 - Нарушение ПДД aka traffic violation
+    [20.0,"organizations.police.lawbreak.roadaccident"      ]   // 2 - ДТП aka road acident
 ];
 
 DENGER_LEVEL <- "green";
@@ -167,7 +167,7 @@ event("onServerStarted", function() {
 event("onPlayerPlaceEnter", function(playerid, name) {
     if(name != "KosoyPereulok" || !isPlayerInVehicle(playerid) || !isPlayerVehicleDriver(playerid) ) return;
 
-    local ticketcost = 8.5;
+    local ticketcost = 45.0;
     //local vehicleid = getPlayerVehicle(playerid);
     //if(!canMoneyBeSubstracted(playerid, ticketcost)) { msg(playerid, "organizations.police.kosoypereulok.nomoney", CL_THUNDERBIRD); return; }
     subMoneyToPlayer(playerid, ticketcost);

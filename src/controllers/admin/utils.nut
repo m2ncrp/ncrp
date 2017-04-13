@@ -99,9 +99,9 @@ acmd("plate", function(playerid, text = "") {
     foreach (plate, vehicleid in plates) {
         if (plate.tolower().find(text.tolower()) != null) {
             msg(playerid, format(
-                "Vehicle: %d | Model: %d | Plate: %s | Owner: %s", 
-                vehicleid, getVehicleModel(vehicleid), plate, (getVehicleOwner(vehicleid) ? getVehicleOwner(vehicleid) : "")
-            ))
+                "Vehicle: %d | Plate: %s | Model: %d | Owner: %s",
+                vehicleid, plate, getVehicleModel(vehicleid), (getVehicleOwner(vehicleid) ? getVehicleOwner(vehicleid) : "none")
+            ));
         }
     }
 });

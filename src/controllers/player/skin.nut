@@ -25,6 +25,19 @@ function setPlayerModel(playerid, skin, forced = false) {
 }
 
 /**
+ * Reload player model forcing player to appear
+ * @param  {Integer} playerid
+ */
+function reloadPlayerModel(playerid) {
+    local oldmodel = getPlayerModel(playerid);
+    setPlayerModel(playerid, 10);
+
+    delayedFunction(1000, function() {
+        setPlayerModel(playerid, oldmodel);
+    });
+}
+
+/**
  * Restore player model to default skin
  * @param  {Integer} playerid
  * @return {Boolean} result of execution
