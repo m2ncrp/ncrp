@@ -52,7 +52,12 @@ function min(...) {
  * @param  {int} to
  * @return {array}
  */
-function range(from, to) {
+function range(from, to = null) {
+    if (to == null) {
+        to = from;
+        from = 0;
+    }
+
     local tmp = [];
 
     for (local i = from; i <= to; i++) {

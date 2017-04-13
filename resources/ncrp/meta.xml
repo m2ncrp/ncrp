@@ -1,82 +1,95 @@
 <meta>
-    <!-- basic scripts -->
+    <!--         -->
+    <!-- scripts -->
+    <!--         -->
+
     <script type="server">index.nut</script>
     <!-- <script type="client">index.nut</script> -->
 
     <!-- non-packed client scripts -->
-    <script type="client">gui_alert.nut</script>
-    <script type="client">gui_auth.nut</script>
-    <script type="client">gui_bank.nut</script>
-    <script type="client">gui_carshop.nut</script>
-    <script type="client">gui_character.nut</script>
-    <!-- <script type="client">gui_empirediner.nut</script> -->
-    <script type="client">gui_metro.nut</script>
-    <script type="client">gui_phone.nut</script>
-    <script type="client">gui_rentcar.nut</script>
-    <script type="client">other_3dtext.nut</script>
-    <script type="client">other_blip.nut</script>
-    <script type="client">other_debug.nut</script>
-    <script type="client">other_gps.nut</script>
-    <script type="client">other_keyboard.nut</script>
-    <script type="client">other_nametags.nut</script>
-    <script type="client">other_place.nut</script>
-    <script type="client">other_screen.nut</script>
-    <script type="client">other_tabpanel.nut</script>
-    <script type="client">other_weather.nut</script>
-    <script type="client">other_bus.nut</script>
-    <script type="client">ped_creation.nut</script>
-    <script type="client">ped_dialog.nut</script>
 
-    <!-- invdev supa unstebla beyatch -->
-    <!-- <script type="client">gui_inventory.nut</script> -->
+        <!-- gui -->
+        <script type="client">gui_alert.nut</script>
+        <script type="client">gui_auth.nut</script>
+        <script type="client">gui_bank.nut</script>
+        <script type="client">gui_carshop.nut</script>
+        <script type="client">gui_character.nut</script>
+        <script type="client">gui_metro.nut</script>
+        <script type="client">gui_phone.nut</script>
+        <script type="client">gui_rentcar.nut</script>
+        <script type="client">gui_empirediner.nut</script>
 
-    <!-- images -->
+        <!-- other -->
+        <script type="client">other_3dtext.nut</script>
+        <script type="client">other_blip.nut</script>
+        <script type="client">other_debug.nut</script>
+        <script type="client">other_gps.nut</script>
+        <script type="client">other_keyboard.nut</script>
+        <script type="client">other_nametags.nut</script>
+        <script type="client">other_place.nut</script>
+        <script type="client">other_screen.nut</script>
+        <script type="client">other_tabpanel.nut</script>
+        <script type="client">other_weather.nut</script>
+        <!-- <script type="client">other_proxy.nut</script> -->
+        <script type="client">other_bus.nut</script>
+
+        <!-- peds -->
+        <script type="client">ped_creation.nut</script>
+        <script type="client">ped_dialog.nut</script>
+
+        <!-- invdev supa unstebla beyatch -->
+        <script type="client">gui_inventory.nut</script>
+
+    <!--       -->
+    <!-- files -->
+    <!--       -->
+
+    <!-- general images -->
     <file>logo.png</file>
     <file>other_mask.png</file>
     <file>lang_en.png</file>
     <file>lang_ru.png</file>
 
+    <!-- hunger system -->
     <file>ui_hunger_green.png</file>
     <file>ui_thirst_green.png</file>
-    <!-- <file>ui_hunger_red.png</file>
-    <file>ui_thirst_red.png</file>
-§ -->
-    <!-- Client inventory files -->
+    <file>ui_inv_hands.png</file>
 
-    <!-- ITEMS -->
-  <!--   <file>Item.None.jpg</file>
-    <file>Item.Revolver12.jpg</file>
-    <file>Item.MauserC96.jpg</file>
-    <file>Item.ColtM1911A1.jpg</file>
-    <file>Item.ColtM1911Spec.jpg</file>
-    <file>Item.Revolver19.jpg</file>
-    <file>Item.MK2.jpg</file>
-    <file>Item.Remington870.jpg</file>
-    <file>Item.M3GreaseGun.jpg</file>
-    <file>Item.MP40.jpg</file>
-    <file>Item.Thompson1928.jpg</file>
-    <file>Item.M1A1Thompson.jpg</file>
-    <file>Item.Beretta38A.jpg</file>
-    <file>Item.MG42.jpg</file>
-    <file>Item.M1Garand.jpg</file>
-    <file>Item.Kar98k.jpg</file>
-    <file>Item.Molotov.jpg</file>
-    <file>Item.Ammo45ACP.jpg</file>
-    <file>Item.Ammo357magnum.jpg</file>
-    <file>Item.Ammo12mm.jpg</file>
-    <file>Item.Ammo9x19mm.jpg</file>
-    <file>Item.Ammo792x57mm.jpg</file>
-    <file>Item.Ammo762x63mm.jpg</file>
-    <file>Item.Ammo38Special.jpg</file>
+    <!-- inventory system -->
+        <!-- items -->
+        <file>Item.None.jpg</file>
+        <file>Item.Revolver12.jpg</file>
+        <file>Item.MauserC96.jpg</file>
+        <file>Item.ColtM1911A1.jpg</file>
+        <file>Item.ColtM1911Spec.jpg</file>
+        <file>Item.Revolver19.jpg</file>
+        <file>Item.MK2.jpg</file>
+        <file>Item.Remington870.jpg</file>
+        <file>Item.M3GreaseGun.jpg</file>
+        <file>Item.MP40.jpg</file>
+        <file>Item.Thompson1928.jpg</file>
+        <file>Item.M1A1Thompson.jpg</file>
+        <file>Item.Beretta38A.jpg</file>
+        <file>Item.MG42.jpg</file>
+        <file>Item.M1Garand.jpg</file>
+        <file>Item.Kar98k.jpg</file>
+        <file>Item.Molotov.jpg</file>
+        <file>Item.Ammo45ACP.jpg</file>
+        <file>Item.Ammo357magnum.jpg</file>
+        <file>Item.Ammo12mm.jpg</file>
+        <file>Item.Ammo9x19mm.jpg</file>
+        <file>Item.Ammo792x57mm.jpg</file>
+        <file>Item.Ammo762x63mm.jpg</file>
+        <file>Item.Ammo38Special.jpg</file>
 
-    <file>Item.Clothes.jpg</file>
+        <file>Item.Clothes.jpg</file>
 
-    <file>Item.Burger.jpg</file>
-    <file>Item.Hotdog.jpg</file>
-    <file>Item.Sandwich.jpg</file>
-    <file>Item.Cola.jpg</file>
- -->
-    <!-- <file>shop.logo.empirediner.png</file> -->
+        <file>Item.Burger.jpg</file>
+        <file>Item.Hotdog.jpg</file>
+        <file>Item.Sandwich.jpg</file>
+        <file>Item.Cola.jpg</file>
+        <file>Item.Whiskey.jpg</file>
 
+    <file>shop.logo.empirediner.png</file>
     <!-- <file>ped_tutorial1.png</file> -->
 </meta>

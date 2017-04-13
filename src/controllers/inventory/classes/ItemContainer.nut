@@ -1,6 +1,6 @@
 class ItemContainer extends Container
 {
-    static classname = "ItemContainer";
+    static classname = "Inventory";
 
     id      = null;
     parent  = null;
@@ -25,6 +25,12 @@ class ItemContainer extends Container
      * @type {Table}
      */
     opened = null;
+
+    /**
+     * Item state setted up by this inventory
+     * @type {Integer}
+     */
+    item_state = Item.State.NONE;
 
     /**
      * Create new instance
@@ -125,7 +131,27 @@ class ItemContainer extends Container
      */
     function set(key, value) {
         value.slot = key;
+        value.state = this.item_state;
         return base.set(key, value);
+    }
+
+    /**
+     * Try to push item inside
+     * return false if there is no space
+     * @param  {Item} value
+     * @return {Boolean}
+     */
+    function push(value) {
+        for (local i = 0; i < this.sizeX * this.sizeY; i++) {
+            if (this.exists(i)) {
+                continue;
+            }
+
+            this.set(i, value);
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -138,5 +164,9 @@ class ItemContainer extends Container
         }
 
         return base.remove(key);
+    }
+
+    function freelen() {
+        return (this.sizeX * this.sizeY) - this.len();
     }
 }

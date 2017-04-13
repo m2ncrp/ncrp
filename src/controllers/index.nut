@@ -28,5 +28,5 @@ include("controllers/place");
 include("controllers/closedplaces");
 
 // include("controllers/property");
-// include("controllers/inventory");
+include("controllers/inventory");
 include("controllers/fraction");
