@@ -27,7 +27,7 @@ function tabDown()
             fHeight += fPaddingPlayer;
     }
 }
-bindKey("f6", "down", tabDown);
+bindKey( "back", "down", tabDown );
 
 function tabUp()
 {
@@ -38,7 +38,7 @@ function tabUp()
     // Reset the height
     fHeight = ((fPadding * 2) + (fTopToTitles * 3));
 }
-bindKey("f6", "up", tabUp);
+bindKey( "back", "up", tabUp );
 
 // addEventHandler("onServerKeyboard", function(key, state) {
 //     if (key == "tab" && state == "down") tabDown();
