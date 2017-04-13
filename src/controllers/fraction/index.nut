@@ -13,6 +13,7 @@ FRACTION_CHAT_PERMISSION      <- 5;
 FRACTION_NO_PERMISSION        <- 6;
 
 include("controllers/fraction/functions.nut");
+include("controllers/fraction/translations.nut");
 
 include("controllers/fraction/commands/general.nut");
 include("controllers/fraction/commands/invite.nut");

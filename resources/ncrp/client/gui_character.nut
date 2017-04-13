@@ -34,12 +34,15 @@ const DEFAULT_SPAWN_X    = 0.0;//-1620.15;
 const DEFAULT_SPAWN_Y    = 0.0;// 49.2881;
 const DEFAULT_SPAWN_Z    = 0.0;// -13.788;
 
-local CHARACTER_POS = [ 809.774, 361.933, 29.316 ];
+
+local CHARACTER_POS = [ -568.042, -28.7317, 22.2512 ];
+// 809.774, 361.933, 29.316  // North Millville
 // -1598.5,69.0,-13.0 // Garage
 // -765.704, 258.311, -20.2636  // WestSide near river
 // 809.629, 357.369, 29.316 // North Milville
 
-local WEATHER = "DT15_interier";
+local WEATHER = "DT03part02FreddysBar";
+    // DT15_interier
     // DT_RTRfoggy_day_early_morn1
     // DT_RTRclear_day_early_morn2
     // DT15_interier

@@ -133,47 +133,9 @@ translation("ru", {
     "job.checkmyjob"                    :   "Ваша работа: %s."
     "job.unemployed"                    :   "У вас нет работы."
     "job.false"                         :   "безработный"
-    "job.closed"                        :   "Вы пришли в неподходящее время. Приходите с %s:00 до %s:00."
+    "job.closed"                        :   "Ты пришёл в неподходящее время. Приходи с %s:00 до %s:00."
+    "job.toolate"                       :   "Поздновато ты опомнился. Работа уже неактуальна."
     "job.nojob"                         :   "Сейчас нет работы. Приходи в другое время."
-
-/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
-
-    "job.busdriver"                     :   "водитель автобуса"
-    "job.bus.letsgo"                    :   "[BUS] Подойди к центральной двери здания автобусного депо в Аптауне."
-    "job.bus.needlevel"                 :   "[BUS] Водителем автобуса можно устроиться начиная с уровня %d."
-    "job.bus.badworker"                 :   "[BUS] Увы, но нам нужны только ответственные водители."
-    "job.bus.badworker.onleave"         :   "[BUS] Плохой из тебя работник."
-    "job.bus.goodluck"                  :   "[BUS] Удачи тебе! Приходи, если нужна работа."
-    "job.bus.driver.not"                :   "[BUS] Ты не работаешь водителем автобуса."
-    "job.bus.driver.now"                :   "[BUS] Ты стал водителем автобуса! Поздравляем!"
-    "job.bus.ifyouwantstart"            :   "[BUS] Ты работаешь водителем автобуса. Если хочешь выйти в рейс - возьми маршрут в автобусном депо."
-    "job.bus.route.your"                :   "[BUS] Твой текущий маршрут #%d - %s."
-    "job.bus.startroute"                :   "[BUS] Садись в автобус и отправляйся к остановке в %s."
-    "job.bus.route.needcomplete"        :   "[BUS] Заверши маршрут."
-    "job.bus.needbus"                   :   "[BUS] Тебе нужен автобус."
-    "job.bus.gotonextbusstop"           :   "[BUS] Отлично! Направляйся к следующей остановке в %s."
-    "job.bus.continuebusstop"           :   "[BUS] Продолжай движение по маршруту. Следующая остановка в %s."
-    "job.bus.waitpasses"                :   "[BUS] Подожди немного пассажиров..."
-    "job.bus.gotobusstop"               :   "[BUS] Направляйся к остановке в %s."
-    "job.bus.driving"                   :   "[BUS] Останови автобус."
-    "job.bus.gototakemoney"             :   "[BUS] Оставляй автобус тут. Заработанные деньги получишь у центрального входа в здание депо."
-    "job.bus.nicejob"                   :   "[BUS] Отличная работа! Ты заработал $%.2f."
-    "job.bus.needcorrectpark"           :   "[BUS] Подъедь к остановке правильно."
-
-    "job.bus.help.title"            :   "Управление для водителя автобуса:"
-    "job.bus.help.job"              :   "кнопка E"
-    "job.bus.help.jobtext"          :   "Устроиться на работу водителем автобуса (в автобусном депо в Аптауне)"
-    "job.bus.help.jobleave"         :   "кнопка Q"
-    "job.bus.help.jobleavetext"     :   "Уволиться с работы (в автобусном депо в Аптауне)"
-    "job.bus.help.busstop"          :   "кнопка E"
-    "job.bus.help.busstoptext"      :   "Остановиться на остановке"
-
-    "job.bus.route.select"              :   "Выбери один из доступных маршрутов:"
-    "job.bus.route.1"                   :   "«Аптаун - Сэнд-Айленд» (7 остановок)"
-    "job.bus.route.2"                   :   "«Аптаун - Кингстон» (7 остановок)"
-    "job.bus.route.3"                   :   "«Правый берег реки Калвер» (9 остановок)"
-    "job.bus.route.4"                   :   "«Центральный кольцевой» (12 остановок)"
-    "job.bus.route.5"                   :   "«Большой Empire Bay» (21 остановка)"
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
@@ -252,51 +214,7 @@ translation("ru", {
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
-    "job.fueldriver"                                        : "водитель бензовоза"
-    "job.fueldriver.letsgo"                                 : "[FUEL] Отправляйтесь к штаб-квартире Trago Oil в Ойстер-Бэй."
-    "job.fueldriver.needlevel"                              : "[FUEL] Водителем бензовоза можно устроиться начиная с уровня %d."
-    "job.fueldriver.already"                                : "[FUEL] Вы уже работает водителем бензовоза."
-    "job.fueldriver.now"                                    : "[FUEL] Вы стали водителем бензовоза!"
-    "job.fueldriver.sitintotruck"                           : "[FUEL] Вы взяли маршрут. Садитесь в бензовоз."
-    "job.fueldriver.not"                                    : "[FUEL] Вы не работаете водителем бензовоза."
-    "job.fueldriver.badworker"                              : "[FUEL] Увы, но нам нужны только ответственные водители."
-    "job.fueldriver.badworker.onleave"                      : "[FUEL] Плохой из тебя работник."
-    "job.fueldriver.goodluck"                               : "[FUEL] Удачи тебе! Приходи, если нужна работа."
-    "job.fueldriver.needfueltruck"                          : "[FUEL] Вам нужен бензовоз."
-    "job.fueldriver.truck.loaded"                           : "[FUEL] Бензовоз заполнен на %d из 16000. Развезите топливо по заправкам."
-    "job.fueldriver.truck.empty"                            : "[FUEL] Бензовоз пуст. Отправляйтесь к топливному хранилищу в Южный Милвилл для загрузки (жёлтая метка на радаре)."
-    "job.fueldriver.truck.toload"                           : "[FUEL] Отправляйтесь к топливному хранилищу в Южный Милвилл для загрузки (жёлтая метка на радаре)."
-    "job.fueldriver.driving"                                : "[FUEL] Остановите бензовоз."
-    "job.fueldriver.truck.loading"                          : "[FUEL] Идёт загрузка. Ожидайте..."
-    "job.fueldriver.truck.unloading"                        : "[FUEL] Идёт разгрузка. Ожидайте..."
-    "job.fueldriver.truck.alreadyloaded"                    : "[FUEL] Бензовоз уже заполнен."
-    "job.fueldriver.truck.fullloaded"                       : "[FUEL] Бензовоз заполнен на 16000 из 16000. Развезите топливо по заправкам."
-    "job.fueldriver.truck.fuelnotenough"                    : "[FUEL] Недостаточно топлива. Отправляйтесь к топливному хранилищу для загрузки (жёлтая метка на радаре)"
 
-    "job.fueldriver.alreadybeenhere"                        : "[FUEL] Вы уже были здесь. Направляйтесь к другой заправке."
-    "job.fueldriver.truck.parking"                          : "[FUEL] Хорошая работа! Возвращайтесь к штаб-квартире Trago Oil в Ойстер-Бэй за деньгами."
-    "job.fueldriver.truck.unloadingcompletedtruckisloaded"  : "[FUEL] Разгрузка выполнена. Бензовоз заполнен на %d из 16000. Направляйтесь к следующей заправке."
-    "job.fueldriver.truck.unloadingcompletedfuelnotenough"  : "[FUEL] Разгрузка выполнена. Топливо закончилось. Отправляйтесь к топливному хранилищу для загрузки (жёлтая метка на радаре)"
-    "job.fueldriver.truck.topark"                           : "[FUEL] Чтобы припарковать бензовоз, отправляйтесь к штаб-квартире Trago Oil в Ойстер-Бэй."
-    "job.fueldriver.completedelivery"                       : "[FUEL] Развезите топливо по всем заправкам."
-    "job.fueldriver.continuedelivery"                       : "[FUEL] Продолжите доставку топлива по заправкам."
-    "job.fueldriver.ifyouwantstart"                         : "[FUEL] Вы работаете водителем бензовоза. Если хотите выйти в рейс - возьмите маршрут в штаб-квартире Trago Oil в Ойстер-Бэй."
-    "job.fueldriver.nicejob"                                : "[FUEL] Отличная работа! Вы заработали $%.2f."
-    "job.fueldriver.routelist.title"                        : "[FUEL] ========== Маршрутный лист =========="
-    "job.fueldriver.routelist.completed"                    : "[FUEL] %d. Заправка в %s - доставлено"
-    "job.fueldriver.routelist.waiting"                      : "[FUEL] %d. Заправка в %s - ожидается"
-    "job.fueldriver.truck.loadedto"                         : "[FUEL] Бензовоз заполнен на %d из 16000."
-
-    "job.fueldriver.help.title"                             : "Список команд, доступных водителю бензовоза:"
-
-    "job.fueldriver.help.job"                               : "кнопка E"
-    "job.fueldriver.help.jobtext"                           : "Устроиться на работу водителем бензовоза (в штаб-квартире Ойстер-Бэй)"
-    "job.fueldriver.help.jobleave"                          : "кнопка Q"
-    "job.fueldriver.help.jobleavetext"                      : "Уволиться с работы (в штаб-квартире Ойстер-Бэй)"
-    "job.fueldriver.help.loadunload"                        : "кнопка E"
-    "job.fueldriver.help.loadunloadtext"                    : "Загрузить/разгрузить бензовоз"
-    "job.fueldriver.help.check"                             : "Проверить загруженность бензовоза"
-    "job.fueldriver.help.list"                              : "Посмотреть маршрутный лист"
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
@@ -640,7 +558,8 @@ translation("ru", {
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
-    "shops.carshop.gotothere"     : "Если вы хотите купить авто, отправляйтесь в Diamond Motors или Bad Guy Motors!"
+    "shops.carshop.gotothere"     : "Если вы хотите купить авто, отправляйтесь в Diamond Motors!"
+    "shops.carshop.gotothere2"    : "Если вы хотите купить авто, отправляйтесь в Diamond Motors или Bad Guy Motors!"
     "shops.carshop.welcome"       : "Добро пожаловать, %s! Если вы хотите купить авто, выберите модель через: /car list"
     "shops.carshop.nofreespace"   : "К сожалению, на парковке нету свободных мест. Зайдите позже."
     "shops.carshop.money.error"   : "К сожалению, у вас недостаточно денег."

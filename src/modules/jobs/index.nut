@@ -62,11 +62,11 @@ local job_state = {};
 local job_callbacks = {};
 
 function setPlayerJobState(playerid, state) {
-    job_state[playerid] <- state;
+    job_state[getPlayerName(playerid)] <- state;
 }
 
 function getPlayerJobState(playerid) {
-    return (playerid in job_state) ? job_state[playerid] : null;
+    return (getPlayerName(playerid) in job_state) ? job_state[getPlayerName(playerid)] : null;
 }
 
 function addJobEvent(button, jobname, state, callback) {
@@ -131,6 +131,8 @@ function jobRestorePlayerModel(playerid) {
     });
 }
 
+playerDelayedFunction <- function(playerid, time, callback) { delayedFunction(time, callback); }
+
 
 include("modules/jobs/commands.nut");
 include("modules/jobs/busdriver");
@@ -138,10 +140,10 @@ include("modules/jobs/fueldriver");
 //include("modules/jobs/taxi");
 include("modules/jobs/milkdriver");
 include("modules/jobs/fishdriver");
-include("modules/jobs/truckdriver");
+//include("modules/jobs/truckdriver");
 include("modules/jobs/telephone");
 include("modules/jobs/docker");
 include("modules/jobs/stationporter");
-//if (!isSummer()) { include("modules/jobs/snowplower"); }
+include("modules/jobs/snowplower");
 // include("modules/jobs/realtor");
 // include("modules/jobs/slaughterhouseworker");
