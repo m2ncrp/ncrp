@@ -236,8 +236,8 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
      * Bottom left corner
      */
     // draw logos
-    offset = dxGetTextDimensions(drawdata.logos, 1.0, "tahoma-bold")[1].tofloat();
-    dxDrawText(drawdata.logos, 6.5, screenY - offset - 6.5, 0x88FFFFFF, false, "tahoma-bold");
+    // offset = dxGetTextDimensions(drawdata.logos, 1.0, "tahoma-bold")[1].tofloat();
+    // dxDrawText(drawdata.logos, 6.5, screenY - offset - 6.5, 0x88FFFFFF, false, "tahoma-bold");
 });
 
 // setup default animation
@@ -346,21 +346,22 @@ addEventHandler("map:onServerOpen", function() {
     });
 });
 
-// addEventHandler("onClientOpenMap", function() {
-bindKey("m", "down", function() {
-    if (!initialized) return;
 
-    if (drawing) {
-        drawing = false;
-        triggerServerEvent("map:onClientOpen");
-    } else {
-        triggerServerEvent("map:onClientClose");
-        drawing = true;
+addEventHandler("onServerKeyboard", function(key, state) {
+    if (key == "m" && state == "down") {
+        if (!initialized) return;
+
+        if (drawing) {
+            drawing = false;
+            triggerServerEvent("map:onClientOpen");
+        } else {
+            triggerServerEvent("map:onClientClose");
+            drawing = true;
+        }
+
+        showChat(drawing);
     }
-
-    showChat(drawing);
 });
-
 /**
  * Initialization
  */

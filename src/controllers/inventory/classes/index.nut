@@ -2,7 +2,7 @@ Item <- {};
 Item.State <- {
     NONE            = 0,
     GROUND          = 1,
-    PLAYER_INV      = 3,
+    PLAYER_HAND     = 2,
     PLAYER          = 3,
     VEHICLE_INV     = 4,
     BUILDING_INV    = 5,
@@ -14,9 +14,13 @@ include("controllers/inventory/classes/Item/None.nut");
 include("controllers/inventory/classes/Item/Weapon.nut");
 include("controllers/inventory/classes/Item/Ammo.nut");
 include("controllers/inventory/classes/Item/Clothes.nut");
+include("controllers/inventory/classes/Item/Food.nut");
+include("controllers/inventory/classes/Item/Drink.nut");
 
+include("controllers/inventory/classes/GroundItems.nut");
 include("controllers/inventory/classes/ItemContainer.nut");
 include("controllers/inventory/classes/PlayerItemContainer.nut");
+include("controllers/inventory/classes/PlayerHandsContainer.nut");
 
 // add shortcuts overrides
 Item.findBy <- function(condition, callback) {
@@ -61,3 +65,12 @@ class Item.Ammo9x19mm       extends Item.Ammo   { static classname = "Item.Ammo9
 class Item.Ammo792x57mm     extends Item.Ammo   { static classname = "Item.Ammo792x57mm";   constructor () { base.constructor(); this.weight = 0.012 }}
 class Item.Ammo762x63mm     extends Item.Ammo   { static classname = "Item.Ammo762x63mm";   constructor () { base.constructor(); this.weight = 0.010 }}
 class Item.Ammo38Special    extends Item.Ammo   { static classname = "Item.Ammo38Special";  constructor () { base.constructor(); this.weight = 0.007 }}
+
+/**
+ * Ammo
+ */
+class Item.Burger           extends Item.Food   { static classname = "Item.Burger";         constructor () { base.constructor(); this.weight = 0.230; this.amount = 75.0 }}
+class Item.Hotdog           extends Item.Food   { static classname = "Item.Hotdog";         constructor () { base.constructor(); this.weight = 0.185; this.amount = 50.0 }}
+class Item.Sandwich         extends Item.Food   { static classname = "Item.Sandwich";       constructor () { base.constructor(); this.weight = 0.130; this.amount = 25.0 }}
+class Item.Cola             extends Item.Drink  { static classname = "Item.Cola";           constructor () { base.constructor(); this.weight = 0.250; this.amount = 45.0 }}
+class Item.Whiskey          extends Item.Drink  { static classname = "Item.Whiskey";        constructor () { base.constructor(); this.amount = 10.0 }}
