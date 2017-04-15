@@ -47,7 +47,7 @@ event("native:shop:purchase", function(playerid, data) {
 });
 
 event("native:shop:close", function(playerid, name) {
-    players[playerid].inventory.hide();
+    players[playerid].inventory.hide(playerid);
 });
 
 key("e", function(playerid) {
@@ -57,5 +57,5 @@ key("e", function(playerid) {
     if (!(getBusinessType(bid) == 1) && !(getBusinessType(bid) == 2)) return;
 
     players[playerid].trigger("showShopGUI");
-    players[playerid].inventory.show();
+    players[playerid].inventory.show(playerid);
 });
