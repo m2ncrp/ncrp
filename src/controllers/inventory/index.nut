@@ -48,7 +48,7 @@ event("onServerPlayerStarted", function(playerid) {
 });
 
 event("native:inventory:loaded", function(playerid) {
-    delayedFunction(2500, function() {
+    delayedFunction(1500, function() {
         players[playerid].hands.toggle(playerid);
         players[playerid].inventory.blocked = false;
     });
