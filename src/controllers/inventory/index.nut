@@ -49,7 +49,7 @@ event("onServerPlayerStarted", function(playerid) {
 
 event("native:inventory:loaded", function(playerid) {
     delayedFunction(1500, function() {
-        players[playerid].hands.toggle(playerid);
+        players[playerid].hands.show(playerid);
         players[playerid].inventory.blocked = false;
     });
 });
