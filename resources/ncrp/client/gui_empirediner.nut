@@ -14,6 +14,7 @@ if ((screenX / screenY) > 2.0) {
 
 screen = [screenX, screenY];
 
+local showing = false;
 local window;
 local logo;
 local label = array(16);
@@ -69,7 +70,7 @@ addEventHandler("showShopGUI", function() {
         label[15] =  guiCreateElement( ELEMENT_TYPE_LABEL, "0",             218.0, 462.0 - yoffset, 100.0, 15.0, false, window);
 
         buttons.map(guiBringToFront);
-        image.map(guiBringToFront);
+        items.map(guiBringToFront);
         guiBringToFront(logo);
     }
 
@@ -100,9 +101,15 @@ addEventHandler("showShopGUI", function() {
     guiSetSizable(window, false);
     guiSetMovable(window, false);
     // showCursor(true);
+    showing = true;
 });
 
 function hideShopGUI () {
+    if (!showing) {
+        return;
+    }
+
+    showing = false;
     resetShopValues();
     delayedFunction(1, function() {
         guiSetVisible(window,false);

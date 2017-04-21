@@ -516,6 +516,17 @@ class PlayerHands extends Inventory
     function createItem(slot, classname, type, amount = 0, weight = 0.0) {
         return base.createItem(slot, classname, type, amount, weight, true);
     }
+
+    function hide() {
+        guiSetVisible(this.items[0].handle, false);
+        this.opened = false;
+    }
+
+    function show() {
+        guiSetVisible(this.items[0].handle, true);
+        guiBringToFront(this.items[0].handle);
+        this.opened = true;
+    }
 }
 
 

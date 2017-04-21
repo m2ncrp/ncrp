@@ -51,7 +51,9 @@ class ItemContainer extends Container
      * @return {Boolean}
      */
     function show(playerid) {
-        this.opened[playerid] <- true;
+        local character = players[playerid];
+        this.opened[character.id] <- character;
+
         return trigger(playerid, "inventory:onServerOpen", this.id, this.serialize());
     }
 
@@ -61,10 +63,13 @@ class ItemContainer extends Container
      * @return {Boolean}
      */
     function hide(playerid) {
-        if (playerid in this.opened) {
-            delete this.opened[playerid];
+        local character = players[playerid];
+
+        if (this.isOpened(playerid)) {
+            delete this.opened[character.id];
         }
 
+        dbg("sending hide for ", this.id);
         return trigger(playerid, "inventory:onServerClose", this.id);
     }
 
@@ -73,8 +78,13 @@ class ItemContainer extends Container
      * @return {Boolean}
      */
     function sync() {
-        foreach (playerid, value in this.opened) {
-            trigger(playerid, "inventory:onServerOpen", this.id, this.serialize());
+        foreach (characterid, character in this.opened) {
+            if (character.playerid != -1 && isPlayerConnected(character.playerid)) {
+                if (getPlayerName(character.playerid) == character.getName()) {
+                    dbg("syncing inventory");
+                    trigger(character.playerid, "inventory:onServerOpen", this.id, this.serialize());
+                }
+            }
         }
 
         return true;
@@ -86,7 +96,7 @@ class ItemContainer extends Container
      * @return {Boolean} state
      */
     function toggle(playerid) {
-        if (playerid in this.opened) {
+        if (this.isOpened(playerid)) {
             return this.hide(playerid);
         }
 
@@ -99,7 +109,7 @@ class ItemContainer extends Container
      * @return {Boolean}
      */
     function isOpened(playerid) {
-        return (playerid in this.opened);
+        return (players[playerid].id in this.opened);
     }
 
     /**
