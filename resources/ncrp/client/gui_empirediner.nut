@@ -23,6 +23,7 @@ local buttons = array(10);
 local buyText = "Buy";
 
 addEventHandler("showShopGUI", function() {
+    showing = true;
     local yoffset = 151.0;
     // if widow created
     if (window) {
@@ -101,7 +102,6 @@ addEventHandler("showShopGUI", function() {
     guiSetSizable(window, false);
     guiSetMovable(window, false);
     // showCursor(true);
-    showing = true;
 });
 
 function hideShopGUI () {
