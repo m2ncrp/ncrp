@@ -106,6 +106,8 @@ alternativeTranslate({
     "en|Item.Hotdog"           : "Hotdog"
     "en|Item.Sandwich"         : "Sandwich"
     "en|Item.Cola"             : "Cola"
+    "en|Item.Jerrycan"         : "Jerrycan"
+
     "ru|Item.None"             : ""
     "ru|Item.Revolver12"       : "Revolver 12"
     "ru|Item.MauserC96"        : "Mauser C96"
@@ -135,4 +137,5 @@ alternativeTranslate({
     "ru|Item.Hotdog"           : "Хот-дог"
     "ru|Item.Sandwich"         : "Сэндвич"
     "ru|Item.Cola"             : "Кола"
+    "ru|Item.Jerrycan"         : "Канистра"
 });
