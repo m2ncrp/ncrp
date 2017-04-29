@@ -4,6 +4,9 @@ const PLAYER_THIRST_MODIFIER = 0.20;
 const PLAYER_HUNGER_MAX = 100.0;
 const PLAYER_THIRST_MAX = 100.0;
 
+const PLAYER_HUNGER_REGEN_MINIMAL = 75.0;
+const PLAYER_THIRST_REGEN_MINIMAL = 75.0;
+
 event("onServerPlayerStarted", function(playerid) {
     trigger(playerid, "onPlayerHungerUpdate", players[playerid].hunger, players[playerid].thirst);
 });
@@ -17,7 +20,7 @@ event("onServerMinuteChange", function() {
             setPlayerHealth(playerid, getPlayerHealth(playerid) - 72.0);
         }
 
-        if (player.hunger > 85.0 && player.thirst > 85.0 && getPlayerHealth(playerid) < 720.0) {
+        if (player.hunger > PLAYER_HUNGER_REGEN_MINIMAL && player.thirst > PLAYER_THIRST_REGEN_MINIMAL && getPlayerHealth(playerid) < 720.0) {
             setPlayerHealth(playerid, getPlayerHealth(playerid) + 36.0);
         }
 
