@@ -25,7 +25,7 @@ local drawdata = {
     level   = "",
     hunger  = 50.0,
     thirst  = 50.0,
-    logos   = "bit.ly/tsoeb | vk.com/tsoeb",
+    logos   = "bit.ly/m2ncrp | vk.com/m2ncrp",
 };
 local textures = {};
 local initialized = false;

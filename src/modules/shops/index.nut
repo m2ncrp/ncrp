@@ -7,6 +7,7 @@ include("modules/shops/carsearch");
 include("modules/shops/clothesshop");
 include("modules/shops/carpaint");
 include("modules/shops/cardealer");
+include("modules/shops/canistershop");
 /*
 key("7", function(playerid) {
       triggerClientEvent(playerid, "showShopGUI");
