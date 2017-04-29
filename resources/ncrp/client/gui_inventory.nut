@@ -406,8 +406,8 @@ class PlayerInventory extends Inventory
         base.createGUI();
 
         if (typeof this.handle == "userdata") {
-            guiSetAlwaysOnTop(this.handle, true);
-            guiSetMovable(this.handle, false);
+            if (typeof guiSetAlwaysOnTop == "function") guiSetAlwaysOnTop(this.handle, true);
+            if (typeof guiSetMovable == "function")     guiSetMovable(this.handle, false);
         }
 
         local props = {

@@ -73,6 +73,16 @@ class Container
         return this.has(key);
     }
 
+    function map(callback) {
+        local elements = [];
+
+        foreach (idx, value in this.__data) {
+            elements = callback(value);
+        }
+
+        return elements;
+    }
+
     /**
      * Store new Object record inside (with overridng existed value)
      * @param {Integer} key
