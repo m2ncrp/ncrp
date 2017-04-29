@@ -149,6 +149,19 @@ function restoreVehicleFuel(vehicleid) {
 }
 
 /**
+ * Get fuel level for vehicle by vehicleid EX
+ * @param  {Integer} vehicleid
+ * @return {Float} level
+ */
+function getVehicleFuelEx(vehicleid) {
+    if (vehicleid in __vehicles) {
+        return __vehicles[vehicleid].fuel;
+    }
+
+    return 0;
+}
+
+/**
  * Get fuel level for vehicle by vehicleid
  * @param  {Integer} vehicleid
  * @return {Float} level
@@ -164,6 +177,24 @@ function getDefaultVehicleFuel(vehicleid) {
  */
 function getDefaultVehicleModelFuel(modelid) {
     return (("model_" + modelid) in vehicleFuelTankData) ? vehicleFuelTankData["model_" + modelid] : VEHICLE_FUEL_DEFAULT;
+}
+
+/**
+ * Return vehicle fuel level
+ * @param  {integer}    vehicleid
+ * @return {float}      fuel need
+ */
+function getVehicleFuelNeed(vehicleid) {
+    local modelid = getVehicleModel(vehicleid);
+    return getDefaultVehicleModelFuel(modelid) - getVehicleFuelEx(vehicleid);
+}
+
+/**
+ * Check if fuel is needed
+ * @return {boolean} true/false
+ */
+function isVehicleFuelNeeded(vehicleid) {
+    return (getVehicleFuelNeed(vehicleid) > 1.0 ? true : false);
 }
 
 /**
