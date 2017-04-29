@@ -151,6 +151,10 @@ class ItemContainer extends Container
      * @return {Boolean}
      */
     function push(value) {
+        if (!this.canBeInserted(value)) {
+            return false;
+        }
+
         for (local i = 0; i < this.sizeX * this.sizeY; i++) {
             if (this.exists(i)) {
                 continue;
