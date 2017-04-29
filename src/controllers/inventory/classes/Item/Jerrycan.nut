@@ -9,7 +9,7 @@ class Item.Jerrycan extends Item.Abstract
     }
 
     function use(playerid, inventory) {
-        if(isPlayerInVehicle(playerid)) return msg(playerid, "canister.use.leavethecar", CL_THUNDERBIRD);
+        if(isPlayerInVehicle(playerid)) return msg(playerid, "canister.leavethecar", CL_THUNDERBIRD);
         if(this.amount <= 0) return msg(playerid, "canister.use.empty", CL_THUNDERBIRD);
 
         local vehicleid = getNearestVehicleForPlayer(playerid, 3.0);

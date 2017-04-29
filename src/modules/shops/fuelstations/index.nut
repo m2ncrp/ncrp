@@ -34,6 +34,6 @@ addEventHandlerEx("onServerStarted", function() {
     log("[shops] loading fuel stations...");
     foreach (station in fuel_stations) {
         create3DText ( station[0], station[1], station[2]+0.35, "=== "+station[3]+" FUEL STATION ===", CL_ROYALBLUE, TITLE_DRAW_DISTANCE );
-        create3DText ( station[0], station[1], station[2]-0.15, "/fuel up", CL_WHITE.applyAlpha(150), FUEL_RADIUS );
+        create3DText ( station[0], station[1], station[2]-0.15, "/fuel up | /canister up", CL_WHITE.applyAlpha(150), FUEL_RADIUS );
     }
 });
