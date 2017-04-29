@@ -30,8 +30,8 @@ alternativeTranslate({
 "ru|shops.canistershop.bought"            : "[CANISTER] Вы купили канистру."
 
 
-"en|canister.use.leavethecar"             : "[CANISTER] Leave the car."
-"ru|canister.use.leavethecar"             : "[CANISTER] Выйдите из автомобиля."
+"en|canister.leavethecar"                 : "[CANISTER] Leave the car."
+"ru|canister.leavethecar"                 : "[CANISTER] Выйдите из автомобиля."
 
 "en|canister.use.empty"                   : "[CANISTER] Canister is empty."
 "ru|canister.use.empty"                   : "[CANISTER] Канистра пуста."
@@ -67,7 +67,7 @@ addEventHandlerEx("onServerStarted", function() {
     log("[shops] loading canister shops..");
     foreach (canister in canister_shops) {
         create3DText ( canister[0], canister[1], canister[2]+0.35, "CANISTER", CL_RIPELEMON, CANISTER_BUY_RADIUS );
-        create3DText ( canister[0], canister[1], canister[2]+0.20, "Price: $"+CANISTER_COST+"| Buy: /canister", CL_WHITE.applyAlpha(150), 1.0 );
+        create3DText ( canister[0], canister[1], canister[2]+0.20, "Price: $"+CANISTER_COST+" | Buy: /canister", CL_WHITE.applyAlpha(150), 1.0 );
     }
 });
 
@@ -95,11 +95,15 @@ cmd("canister", function( playerid ) {
     local canister = Item.Jerrycan();
     players[playerid].hands.push( canister );
     canister.save();
-    players[playerid].hands.show(playerid);
+    players[playerid].hands.sync();
     subMoneyToPlayer(playerid, CANISTER_COST);
 });
 
 cmd( ["canister"], "up", function( playerid ) {
+
+    if(isPlayerInVehicle(playerid)) {
+        return msg(playerid, "canister.leavethecar", CL_THUNDERBIRD);
+    }
 
     if ( !(players[playerid].hands.isFree()) || !(players[playerid].hands.get(0) instanceof Item.Jerrycan) ){
         return msg(playerid, "canister.fuelup.needinhands", CL_THUNDERBIRD);
@@ -124,6 +128,7 @@ cmd( ["canister"], "up", function( playerid ) {
     msg(playerid, "canister.fuelup.filled", [fuel, cost], CL_SUCCESS);
     players[playerid].hands.get(0).amount = 20.0;
     players[playerid].hands.get(0).save();
+    players[playerid].hands.sync();
     subMoneyToPlayer(playerid, cost);
     addMoneyToTreasury(cost);
 });
