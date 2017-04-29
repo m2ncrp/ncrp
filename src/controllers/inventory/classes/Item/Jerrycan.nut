@@ -2,23 +2,24 @@ class Item.Jerrycan extends Item.Abstract
 {
     static classname = "Item.Jerrycan";
     capacity = 20.0;
+    weight = 0.25;
 
     function calculateWeight () {
         return this.weight * this.amount;
     }
 
     function use(playerid, inventory) {
-        if(isPlayerInVehicle(playerid)) return msg(playerid, "Leave the car");
-        if(this.amount <= 0) return msg(playerid, "Jerrycan is empty.");
+        if(isPlayerInVehicle(playerid)) return msg(playerid, "canister.use.leavethecar", CL_THUNDERBIRD);
+        if(this.amount <= 0) return msg(playerid, "canister.use.empty", CL_THUNDERBIRD);
 
         local vehicleid = getNearestVehicleForPlayer(playerid, 3.0);
 
         if(vehicleid < 0) {
-            return msg(playerid, "no neear car");
+            return msg(playerid, "canister.use.farfromvehicle", CL_THUNDERBIRD);
         }
 
         if(!isVehicleFuelNeeded(vehicleid)) {
-            return msg(playerid, "shops.fuelstations.fueltank.full");
+            return msg(playerid, "canister.use.fueltankfull", CL_THUNDERBIRD);
         }
 
         local fuel = 0;
@@ -31,7 +32,7 @@ class Item.Jerrycan extends Item.Abstract
         setVehicleFuel(vehicleid, getVehicleFuelEx(vehicleid) + fuel);
         this.amount -= fuel;
         this.save();
-        msg(playerid, "Zalito: "+fuel+" litres.");
+        msg(playerid, "canister.use.spent", [fuel, this.amount], CL_SUCCESS);
     }
 
     static function getType() {

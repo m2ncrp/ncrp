@@ -106,7 +106,7 @@ alternativeTranslate({
     "en|Item.Hotdog"           : "Hotdog"
     "en|Item.Sandwich"         : "Sandwich"
     "en|Item.Cola"             : "Cola"
-    "en|Item.Jerrycan"         : "Jerrycan"
+    "en|Item.Jerrycan"         : "Canister"
 
     "ru|Item.None"             : ""
     "ru|Item.Revolver12"       : "Revolver 12"
