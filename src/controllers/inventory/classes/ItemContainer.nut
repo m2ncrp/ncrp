@@ -179,4 +179,35 @@ class ItemContainer extends Container
     function freelen() {
         return (this.sizeX * this.sizeY) - this.len();
     }
+
+    /**
+     * Get total weight for all current items
+     * @return {Float}
+     */
+    function getTotalWeight() {
+        local weight = 0.0;
+
+        foreach (idx, item in this.__data) {
+            weight += item.weight;
+        }
+
+        return weight;
+    }
+
+    /**
+     * Check wether item can be inserted
+     * @param  {Item} item
+     * @return {Boolean}
+     */
+    function canBeInserted(item) {
+        if (((this.sizeX * this.sizeY) - this.len()) < 1) {
+            return false;
+        }
+
+        if (this.getTotalWeight() + item.weight > this.limit) {
+            return false;
+        }
+
+        return true;
+    }
 }
