@@ -191,7 +191,7 @@ class ItemContainer extends Container
         local weight = 0.0;
 
         foreach (idx, item in this.__data) {
-            weight += item.weight;
+            weight += item.calculateWeight();
         }
 
         return weight;
@@ -207,7 +207,7 @@ class ItemContainer extends Container
             return false;
         }
 
-        if (this.getTotalWeight() + item.weight > this.limit) {
+        if (this.getTotalWeight() + item.calculateWeight() > this.limit) {
             return false;
         }
 
