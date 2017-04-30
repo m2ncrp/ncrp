@@ -684,7 +684,7 @@ function snowplowJobLeave( playerid ) {
     trigger(playerid, "removeGPS");
 
     setPlayerJob( playerid, null );
-
+    jobRestorePlayerModel(playerid);
     msg( playerid, "job.leave", SNOWPLOW_JOB_COLOR );
 
     // remove private blip job
