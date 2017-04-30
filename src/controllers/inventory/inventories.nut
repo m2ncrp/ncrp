@@ -47,6 +47,9 @@ event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
             local item1 = inventory1[slot1];
 
             if (inventory2.exists(slot2)) {
+                if (!inventory1.canBeInserted(inventory2[slot2])) return msg(playerid, "you cannot insert this item");
+                if (!inventory2.canBeInserted(inventory1[slot1])) return msg(playerid, "you cannot insert this item");
+
                 // we should swap items
                 inventory1.set(slot1, inventory2[slot2]);
                 inventory2.set(slot2, item1);
@@ -54,6 +57,8 @@ event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
                 trigger("onPlayerMovedItem", playerid, inventory1.get(slot1));
                 trigger("onPlayerMovedItem", playerid, inventory2.get(slot2));
             } else {
+                if (!inventory2.canBeInserted(inventory1[slot1])) return msg(playerid, "you cannot insert this item");
+
                 // we should just put item inside 2nd
                 inventory2.set(slot2, item1);
                 inventory1.remove(slot1);
@@ -122,7 +127,14 @@ key("e", function(playerid) {
         ground.remove(closest);
         msg(playerid, "Вы подобрали предмет.", CL_SUCCESS);
         return true;
-    } else {
+    }
+    else if (players[playerid].hands.push(closest)) {
+        players[playerid].hands.sync();
+        ground.remove(closest);
+        msg(playerid, "Вы подобрали предмет в руку.", CL_SUCCESS);
+        return true;
+    }
+    else {
         msg(playerid, "Вы не можете столько унести.", CL_WARNING);
         return false;
     }
