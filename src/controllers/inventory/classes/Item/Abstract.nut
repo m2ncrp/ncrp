@@ -38,11 +38,11 @@ class Item.Abstract extends ORM.Entity
     }
 
     function pick(playerid, inventory) {
-        if (inventory instanceof PlayerItemContainer) {
-            msg(playerid, "Вы подобрали предмет.", CL_SUCCESS);
+        if (inventory instanceof PlayerHandsContainer) {
+            msg(playerid, "inventory.pickupinhands", [ plocalize(playerid, this.classname )], CL_SUCCESS);
         }
-        else if (inventory instanceof PlayerHandsContainer) {
-            msg(playerid, "Вы подобрали предмет в руку.", CL_SUCCESS);
+        else if (inventory instanceof PlayerItemContainer) {
+            msg(playerid, "inventory.pickedup", [ plocalize(playerid, this.classname )], CL_SUCCESS);
         }
     }
 
@@ -55,7 +55,7 @@ class Item.Abstract extends ORM.Entity
     }
 
     function drop(playerid, inventory) {
-        msg(playerid, "Вы выбросили предмет.", CL_SUCCESS);
+        msg(playerid, "inventory.dropped", [ plocalize(playerid, this.classname )], CL_SUCCESS);
     }
 
     function calculateWeight() {

@@ -47,8 +47,8 @@ event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
             local item1 = inventory1[slot1];
 
             if (inventory2.exists(slot2)) {
-                if (!inventory1.canBeInserted(inventory2[slot2])) return msg(playerid, "you cannot insert this item");
-                if (!inventory2.canBeInserted(inventory1[slot1])) return msg(playerid, "you cannot insert this item");
+                if (!inventory1.canBeInserted(inventory2[slot2])) return msg(playerid, "inventory.cannotinsert", CL_WARNING);
+                if (!inventory2.canBeInserted(inventory1[slot1])) return msg(playerid, "inventory.cannotinsert", CL_WARNING);
 
                 // we should swap items
                 inventory1.set(slot1, inventory2[slot2]);
@@ -57,7 +57,7 @@ event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
                 inventory1.get(slot1).move(playerid, inventory1);
                 inventory2.get(slot2).move(playerid, inventory2);
             } else {
-                if (!inventory2.canBeInserted(inventory1[slot1])) return msg(playerid, "you cannot insert this item");
+                if (!inventory2.canBeInserted(inventory1[slot1])) return msg(playerid, "inventory.cannotinsert", CL_WARNING);
 
                 // we should just put item inside 2nd
                 inventory2.set(slot2, item1);
@@ -136,7 +136,7 @@ key("e", function(playerid) {
         return true;
     }
     else {
-        msg(playerid, "Вы не можете столько унести.", CL_WARNING);
+        msg(playerid, "inventory.cannotinsert", CL_WARNING);
         return false;
     }
 });

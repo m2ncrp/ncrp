@@ -77,6 +77,20 @@ key("tab", function(playerid) {
 });
 
 alternativeTranslate({
+    "en|inventory.cannotinsert"  : "You can't insert this item."
+    "ru|inventory.cannotinsert"  : "Вы не можете взять этот предмет с собой."
+
+    "en|inventory.dropped"       : "You dropped item: %s."
+    "ru|inventory.dropped"       : "Вы выбросили предмет: %s."
+
+    "en|inventory.pickedup"      : "You picked up and insert item: %s."
+    "ru|inventory.pickedup"      : "Вы подобрали и взяли с собой предмет: %s."
+
+    "en|inventory.pickupinhands" : "You picked up item: %s."
+    "ru|inventory.pickupinhands" : "Вы подобрали предмет: %s."
+
+
+
     "en|Item.None"             : ""
     "en|Item.Revolver12"       : "Revolver 12"
     "en|Item.MauserC96"        : "Mauser C96"
