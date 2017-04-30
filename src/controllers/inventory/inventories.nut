@@ -100,6 +100,10 @@ event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
 });
 
 key("e", function(playerid) {
+    if (isPlayerInVehicle(playerid)) {
+        return;
+    }
+
     local radius = 0.75;
     local pos = getPlayerPositionObj(playerid);
 
@@ -153,6 +157,7 @@ event("native:onPlayerUseItem", function(playerid, id, slot) {
 });
 
 event("native:onPlayerDropItem", function(playerid, id, slot) {
+    if (isPlayerInVehicle(playerid)) return; // maybe add message
     if (!storage.exists(id)) return;
 
     local inventory = storage.get(id);
