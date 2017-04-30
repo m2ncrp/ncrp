@@ -1,11 +1,12 @@
 class Item.Jerrycan extends Item.Abstract
 {
     static classname = "Item.Jerrycan";
-    capacity = 20.0;
-    weight = 0.25;
+    weight      = 0.5;
+    unitweight  = 0.1;
+    capacity    = 20.0;
 
     function calculateWeight () {
-        return this.weight * this.amount;
+        return this.weight + this.unitweight * this.amount;
     }
 
     function use(playerid, inventory) {
