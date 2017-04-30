@@ -83,7 +83,7 @@ alternativeTranslate({
     "en|inventory.dropped"       : "You dropped item: %s."
     "ru|inventory.dropped"       : "Вы выбросили предмет: %s."
 
-    "en|inventory.pickedup"      : "You picked up and insert item: %s."
+    "en|inventory.pickedup"      : "You picked up and inserted item: %s."
     "ru|inventory.pickedup"      : "Вы подобрали и взяли с собой предмет: %s."
 
     "en|inventory.pickupinhands" : "You picked up item: %s."
