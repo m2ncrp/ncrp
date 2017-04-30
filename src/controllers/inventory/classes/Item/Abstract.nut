@@ -4,14 +4,14 @@ class Item.Abstract extends ORM.Entity
     static table = "tbl_items";
 
     fields = [
-        ORM.Field.Integer({ name = "type",  value = 0 }),
+        ORM.Field.Integer({ name = "type", value = 0 }),
         ORM.Field.Integer({ name = "state", value = Item.State.NONE }),
-        ORM.Field.Integer({ name = "slot",  value = 0 }),
+        ORM.Field.Integer({ name = "slot", value = 0 }),
         ORM.Field.Integer({ name = "decay", valie = 0 }),
-        ORM.Field.Integer("parent"),
-        ORM.Field.Integer("amount"),
-        ORM.Field.Integer("created"),
-        ORM.Field.String({ name = "data",   value = "{}"}),
+        ORM.Field.Integer({ name = "parent", value = 0}),
+        ORM.Field.Integer({ name = "amount", value = 0}),
+        ORM.Field.Integer({ name = "created", value = 0 }),
+        ORM.Field.String({ name = "data", value = ""}),
     ];
 
     traits = [
@@ -31,6 +31,8 @@ class Item.Abstract extends ORM.Entity
         if (this.created == 0) {
             this.created = getTimestamp();
         }
+
+        this.data = {};
     }
 
     function use(playerid, inventory) {
@@ -59,6 +61,28 @@ class Item.Abstract extends ORM.Entity
 
         return data;
         // return JSONEncoder.encode(data);
+    }
+
+    function setData(name, value) {
+        this.data[name] <- value;
+    }
+
+    function getData(name) {
+        return name in this.data ? this.data[name] : null;
+    }
+
+    function hydrate(data) {
+        local entity = base.hydrate(data);
+        entity.data = JSONParser.parse(entity.data);
+        return entity;
+    }
+
+    function save() {
+        local temp = this.data;
+        this.data = JSONEncoder.encode(temp);
+        base.save();
+        this.data = temp;
+        return true;
     }
 
     static function getType() {
