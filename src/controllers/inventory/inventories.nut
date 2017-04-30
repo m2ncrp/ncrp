@@ -54,8 +54,8 @@ event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
                 inventory1.set(slot1, inventory2[slot2]);
                 inventory2.set(slot2, item1);
 
-                trigger("onPlayerMovedItem", playerid, inventory1.get(slot1));
-                trigger("onPlayerMovedItem", playerid, inventory2.get(slot2));
+                inventory1.get(slot1).move(playerid, inventory1);
+                inventory2.get(slot2).move(playerid, inventory2);
             } else {
                 if (!inventory2.canBeInserted(inventory1[slot1])) return msg(playerid, "you cannot insert this item");
 
@@ -63,7 +63,7 @@ event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
                 inventory2.set(slot2, item1);
                 inventory1.remove(slot1);
 
-                trigger("onPlayerMovedItem", playerid, inventory2.get(slot2));
+                inventory2.get(slot2).move(playerid, inventory2);
             }
         }
 
@@ -80,17 +80,14 @@ event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
             if (inventory.exists(slot1)) {
                 if (inventory.exists(slot2)) {
                     inventory.swap(slot1, slot2);
-                    // local item1 = inventory[slot1];
-                    // inventory.remove(slot1);
-                    // inventory.set(slot1, inventory[slot2]);
-                    // inventory.set(slot2, item1);
-                    trigger("onPlayerMovedItem", playerid, inventory.get(slot1));
-                    trigger("onPlayerMovedItem", playerid, inventory.get(slot2));
+
+                    inventory.get(slot1).move(playerid, inventory);
+                    inventory.get(slot2).move(playerid, inventory);
                 } else {
                     inventory.set(slot2, inventory[slot1]);
                     inventory.remove(slot1);
 
-                    trigger("onPlayerMovedItem", playerid, inventory.get(slot2));
+                    inventory.get(slot2).move(playerid, inventory);
                 }
             }
         }
@@ -128,14 +125,14 @@ key("e", function(playerid) {
 
     if (players[playerid].inventory.push(closest)) {
         players[playerid].inventory.sync();
+        closest.pick(playerid, players[playerid].inventory);
         ground.remove(closest);
-        msg(playerid, "Вы подобрали предмет.", CL_SUCCESS);
         return true;
     }
     else if (players[playerid].hands.push(closest)) {
         players[playerid].hands.sync();
+        closest.pick(playerid, players[playerid].hands);
         ground.remove(closest);
-        msg(playerid, "Вы подобрали предмет в руку.", CL_SUCCESS);
         return true;
     }
     else {
@@ -175,7 +172,7 @@ event("native:onPlayerDropItem", function(playerid, id, slot) {
                 ground.push(item, pos);
             });
 
-            msg(playerid, "Вы выбросили предмет.", CL_SUCCESS);
+            item.drop(playerid, inventory);
         }
     }
 });

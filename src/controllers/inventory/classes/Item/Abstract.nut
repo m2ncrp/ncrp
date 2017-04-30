@@ -37,8 +37,25 @@ class Item.Abstract extends ORM.Entity
         this.data = {};
     }
 
+    function pick(playerid, inventory) {
+        if (inventory instanceof PlayerItemContainer) {
+            msg(playerid, "Вы подобрали предмет.", CL_SUCCESS);
+        }
+        else if (inventory instanceof PlayerHandsContainer) {
+            msg(playerid, "Вы подобрали предмет в руку.", CL_SUCCESS);
+        }
+    }
+
     function use(playerid, inventory) {
         dbg("classes/Item.nut: trying to use item. Make sure you've overriden this method for your item", this.classname, getIdentity(playerid));
+    }
+
+    function move(playerid, inventory) {
+        // nothing here
+    }
+
+    function drop(playerid, inventory) {
+        msg(playerid, "Вы выбросили предмет.", CL_SUCCESS);
     }
 
     function calculateWeight() {
