@@ -7,7 +7,7 @@ class Item.Abstract extends ORM.Entity
         ORM.Field.Integer({ name = "type", value = 0 }),
         ORM.Field.Integer({ name = "state", value = Item.State.NONE }),
         ORM.Field.Integer({ name = "slot", value = 0 }),
-        ORM.Field.Integer({ name = "decay", valie = 0 }),
+        ORM.Field.Integer({ name = "decay", value = 0 }),
         ORM.Field.Integer({ name = "parent", value = 0}),
         ORM.Field.Integer({ name = "amount", value = 0}),
         ORM.Field.Integer({ name = "created", value = 0 }),
