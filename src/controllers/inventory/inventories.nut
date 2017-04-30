@@ -122,6 +122,9 @@ key("e", function(playerid) {
         ground.remove(closest);
         msg(playerid, "Вы подобрали предмет.", CL_SUCCESS);
         return true;
+    } else {
+        msg(playerid, "Вы не можете столько унести.", CL_WARNING);
+        return false;
     }
 });
 
