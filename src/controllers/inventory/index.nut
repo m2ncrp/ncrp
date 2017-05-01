@@ -121,6 +121,7 @@ alternativeTranslate({
     "en|Item.Sandwich"         : "Sandwich"
     "en|Item.Cola"             : "Cola"
     "en|Item.Jerrycan"         : "Canister"
+    "en|Item.VehicleTax"       : "Vehicle tax disc"
 
     "ru|Item.None"             : ""
     "ru|Item.Revolver12"       : "Revolver 12"
@@ -152,4 +153,5 @@ alternativeTranslate({
     "ru|Item.Sandwich"         : "Сэндвич"
     "ru|Item.Cola"             : "Кола"
     "ru|Item.Jerrycan"         : "Канистра"
+    "ru|Item.VehicleTax"       : "Диск налога на ТС"
 });
