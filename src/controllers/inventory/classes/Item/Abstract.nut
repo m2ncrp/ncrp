@@ -9,7 +9,7 @@ class Item.Abstract extends ORM.Entity
         ORM.Field.Integer({ name = "slot", value = 0 }),
         ORM.Field.Integer({ name = "decay", value = 0 }),
         ORM.Field.Integer({ name = "parent", value = 0}),
-        ORM.Field.Integer({ name = "amount", value = 0}),
+        ORM.Field.Float  ({ name = "amount", value = 0.0}),
         ORM.Field.Integer({ name = "created", value = 0 }),
         ORM.Field.String({ name = "data", value = ""}),
     ];
