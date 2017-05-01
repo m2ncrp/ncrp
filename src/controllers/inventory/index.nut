@@ -89,7 +89,20 @@ alternativeTranslate({
     "en|inventory.pickupinhands" : "You picked up item: %s."
     "ru|inventory.pickupinhands" : "Вы подобрали предмет: %s."
 
+    "en|inventory.hands.busy"    : "Your hands are busy."
+    "ru|inventory.hands.busy"    : "У вас заняты руки."
 
+    "en|inventory.space.notenough"      : "You don't have enough inventory space."
+    "ru|inventory.space.notenough"      : "У вас недостаточно места в инвентаре."
+
+    "en|inventory.clothes.use"      : "You put on %s."
+    "ru|inventory.clothes.use"      : "Вы надели %s."
+
+    "en|inventory.clothes.work"      : "You are in a working clothes."
+    "ru|inventory.clothes.work"      : "Вы в рабочей одежде."
+
+    "en|inventory.leavethecar"     : "Leave the car to use."
+    "ru|inventory.leavethecar"     : "Для использования выйдите из автомобиля."
 
     "en|Item.None"             : ""
     "en|Item.Revolver12"       : "Revolver 12"

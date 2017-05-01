@@ -23,15 +23,8 @@ alternativeTranslate({
 "en|shops.canistershop.money.notenough"   : "[CANISTER] Not enough money to buy canister. Need $%.2f."
 "ru|shops.canistershop.money.notenough"   : "[CANISTER] Недостаточно денег. Цена канистры: $%.2f."
 
-"en|shops.canistershop.hands.busy"        : "[CANISTER] Your hands are busy."
-"ru|shops.canistershop.hands.busy"        : "[CANISTER] У вас заняты руки."
-
 "en|shops.canistershop.bought"            : "[CANISTER] You bought canister."
 "ru|shops.canistershop.bought"            : "[CANISTER] Вы купили канистру."
-
-
-"en|canister.leavethecar"                 : "[CANISTER] Leave the car."
-"ru|canister.leavethecar"                 : "[CANISTER] Выйдите из автомобиля."
 
 "en|canister.use.empty"                   : "[CANISTER] Canister is empty."
 "ru|canister.use.empty"                   : "[CANISTER] Канистра пуста."
@@ -88,7 +81,7 @@ cmd("canister", function( playerid ) {
     }
 
     if(players[playerid].hands.freelen() <= 0) {
-        return msg(playerid, "shops.canistershop.hands.busy", CL_THUNDERBIRD);
+        return msg(playerid, "inventory.hands.busy", CL_THUNDERBIRD);
     }
 
     msg(playerid, "shops.canistershop.bought", CL_SUCCESS);

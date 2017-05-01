@@ -6,7 +6,6 @@ local empirediner_items  = [ Item.Burger, Item.Hotdog, Item.Sandwich, Item.Cola 
 translation("en", {
     "shops.restaurant.toofar"               : "[INFO] You're too far."
     "shops.restaurant.money.notenough"      : "Not enough money to buy that."
-    "shops.restaurant.space.notenough"      : "You dont have enough inventory space."
     "shops.restaurant.buy.success"          : "You've successfuly bought items(s) for $%.2f."
 });
 
@@ -23,7 +22,7 @@ event("native:shop:purchase", function(playerid, data) {
     local count = data.items.reduce(@(a,b) abs(a) + abs(b));
 
     if (count > players[playerid].inventory.freelen()) {
-        return msg(playerid, "shops.restaurant.space.notenough", CL_WARNING);
+        return msg(playerid, "inventory.space.notenough", CL_WARNING);
     }
 
     if (!canMoneyBeSubstracted(playerid, price)) {
