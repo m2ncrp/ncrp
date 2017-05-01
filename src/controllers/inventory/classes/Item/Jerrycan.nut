@@ -2,7 +2,7 @@ class Item.Jerrycan extends Item.Abstract
 {
     static classname = "Item.Jerrycan";
     weight      = 0.5;
-    unitweight  = 0.1;
+    unitweight  = 0.2;
     capacity    = 20.0;
 
     function calculateWeight () {
