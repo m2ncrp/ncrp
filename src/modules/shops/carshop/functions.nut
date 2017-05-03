@@ -65,8 +65,8 @@ function generateRandomCarPrices() {
     local carPricesDiamond = clone(carPricesAll[0]);
     for (local i = 0; i < 11; i++) {
         local rand = random(0, carPricesDiamond.len() - 1);
-        dbg(carPricesDiamond[rand].modelid);
-        if( carOnSale.find(carPricesDiamond[rand].modelid) == null ) { i--; dbg("nicht"); continue; }
+        // dbg(carPricesDiamond[rand].modelid);
+        if( carOnSale.find(carPricesDiamond[rand].modelid) == null ) { i--; /* dbg("nicht"); */ continue; }
 
         carPrices[0].push(carPricesDiamond[rand]);
         carPricesDiamond.remove(rand);
