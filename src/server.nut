@@ -108,7 +108,7 @@ include("modules/index.nut");
 // translations
 include("translations/en.nut");
 include("translations/ru.nut");
-
+IS_DATABASE_DEBUG <- true;
 // unit testing
 // dofile("resources/ncrp/unittests/index.nut", true);
 
