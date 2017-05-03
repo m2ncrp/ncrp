@@ -13,6 +13,7 @@ include("controllers/vehicle/functions/colors.nut");
 include("controllers/vehicle/functions/distance.nut");
 include("controllers/vehicle/functions/models.nut");
 include("controllers/vehicle/functions/dirt.nut");
+include("controllers/vehicle/functions/engine.nut");
 
 // saving original vehicle method
 local old__createVehicle = createVehicle;
