@@ -16,6 +16,18 @@ class Item.Clothes extends Item.Abstract
         this.save();
         inventory.sync();
     }
+    function pick(playerid, inventory) {
+        if (inventory instanceof PlayerHandsContainer) {
+            msg(playerid, "inventory.pickupinhands", [ plocalize(playerid, "shops.clothesshop.id"+this.amount) ], CL_SUCCESS);
+        }
+        else if (inventory instanceof PlayerItemContainer) {
+            msg(playerid, "inventory.pickedup", [ plocalize(playerid, "shops.clothesshop.id"+this.amount) ], CL_SUCCESS);
+        }
+    }
+
+    function drop(playerid, inventory) {
+        msg(playerid, "inventory.dropped", [ plocalize(playerid, "shops.clothesshop.id"+this.amount) ], CL_SUCCESS);
+    }
 
     static function getType() {
         return "Item.Clothes";

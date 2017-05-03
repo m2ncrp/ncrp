@@ -175,6 +175,13 @@ event("onPlayerPlaceEnter", function(playerid, name) {
     msg(playerid, "organizations.police.kosoypereulok.ticket", [ticketcost], CL_THUNDERBIRD); return;
 });
 
+event("onServerPlayerStarted", function( playerid ){
+    if (players[playerid].state == "cuffed") {
+        delayedFunction(1100, function() { freezePlayer(playerid, true); });
+        msg(playerid, "You cuffed.");
+    }
+});
+
 event("onPlayerSpawn", function( playerid ) {
     if (!isPlayerLoaded(playerid)) return;
     if (!(getPlayerState(playerid) == "jail")) return;
