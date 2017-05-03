@@ -6,7 +6,7 @@ local tax = 0.02;  // 2 percents
 event("onServerStarted", function() {
     log("[organizations] government...");
 
-    create3DText ( coords[0], coords[1], coords[2]+0.35, "SECRETARY OF GOVERNMENT", CL_ROYALBLUE, 4.0 );
+    create3DText ( coords[0], coords[1], coords[2]+0.35, "SECRETARY OF GOVERNMENT", CL_ROYALBLUE);
     create3DText ( coords[0], coords[1], coords[2]+0.20, "/tax", CL_WHITE.applyAlpha(100), 2.0 );
 
     createBlip  ( coords[0], coords[1], [ 24, 0 ], 4000.0 );
