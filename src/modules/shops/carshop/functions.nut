@@ -21,36 +21,38 @@ local vehiclePositions = [
  */
 local carPricesAll = [
     [   // diamond motors
-        { modelid = 22, price = 2500,  title = "Potomac Indian"          },
-        { modelid = 23, price = 2750,  title = "Quicksilver Windsor"     },
-        { modelid = 44, price = 2350,  title = "Smith Mainline"          },
-        { modelid = 48, price = 1780,  title = "Smith Wagon"             },
-        { modelid = 50, price = 2050,  title = "Culver Empire"           },
-        { modelid = 52, price = 4950,  title = "Walker Rocket"           },
-        { modelid = 9 , price = 3240,  title = "Houston Wasp"            },
-        { modelid = 1 , price = 6080,  title = "Berkley Kingfisher"      },
-        { modelid = 0 , price = 7395,  title = "Ascot Bailey S200"       },
-        { modelid = 15, price = 3900,  title = "Lassiter Series 69"      },
-        { modelid = 29, price = 5470,  title = "Shubert Frigate"         },
-        { modelid = 14, price = 5250,  title = "Jefferson Provincial"    },
-        { modelid = 10, price = 9800,  title = "ISW 508"                 },
-        { modelid = 13, price = 27000, title = "Jefferson Futura"        },
-        { modelid = 12, price = 2700,  title = "Walter Utility"          },
-    //    { modelid = 53, price = 870 , title = "Walter Coupe"            },
-    //    { modelid = 47, price = 610,  title = "Smith V8"                },
-    //    { modelid = 43, price = 470 , title = "Smith Coupe"             },
-    //    { modelid = 25, price = 750 , title = "Shubert 38"              },
-    //    { modelid = 31, price = 730 , title = "Shubert 38 Panel Truck"  },
+        { modelid = 22, price = 2500,  title = "Potomac Indian"               },
+        { modelid = 23, price = 2750,  title = "Quicksilver Windsor"          },
+        { modelid = 44, price = 2350,  title = "Smith Mainline"               },
+        { modelid = 48, price = 1780,  title = "Smith Wagon"                  },
+        { modelid = 50, price = 2050,  title = "Culver Empire"                },
+        { modelid = 52, price = 4950,  title = "Walker Rocket"                },
+        { modelid = 9 , price = 3240,  title = "Houston Wasp"                 },
+        { modelid = 1 , price = 6080,  title = "Berkley Kingfisher"           },
+        { modelid = 0 , price = 7395,  title = "Ascot Bailey S200"            },
+        { modelid = 15, price = 3900,  title = "Lassiter Series 69"           },
+        { modelid = 29, price = 5470,  title = "Shubert Frigate"              },
+        { modelid = 14, price = 5250,  title = "Jefferson Provincial"         },
+        { modelid = 10, price = 9800,  title = "ISW 508"                      },
+        { modelid = 13, price = 27000, title = "Jefferson Futura"             },
+        { modelid = 12, price = 2700,  title = "Walter Utility"               },
+        { modelid = 53, price = 870 ,  title = "Walter Coupe"                 },
+        { modelid = 47, price = 610,   title = "Smith V8"                     },
+        { modelid = 43, price = 470 ,  title = "Smith Coupe"                  },
+        { modelid = 25, price = 750 ,  title = "Shubert 38"                   },
+        { modelid = 31, price = 730 ,  title = "Shubert 38 Panel Truck"       },
+        { modelid = 18, price = 7670,  title = "Lassiter Series 75 Hollywood" },
+        { modelid = 45, price = 4200,  title = "Smith Thunderbolt"            },
+        { modelid = 28, price = 2530,  title = "Shubert Beverly"              },
+        { modelid = 41, price = 3140,  title = "Smith Custom 200"             },
     ],
-    [   // bad guy
-
-    //    { modelid = 18, price = 7670, title = "Lassiter Series 75 Hollywood" },
-    //    { modelid = 45, price = 4200, title = "Smith Thunderbolt"       },
-    //    { modelid = 28, price = 2530, title = "Shubert Beverly"         },
-    //    { modelid = 41, price = 3140, title = "Smith Custom 200"        },
-
+    [
+        // bad guy
     ]
 ];
+
+
+local carOnSale = [22, 23, 44, 48, 50, 52, 9, 1, 0, 15, 29, 14, 10, 13, 12];
 
 /**
  * Automatically changing the range of cars both stores.
@@ -63,10 +65,15 @@ function generateRandomCarPrices() {
     local carPricesDiamond = clone(carPricesAll[0]);
     for (local i = 0; i < 11; i++) {
         local rand = random(0, carPricesDiamond.len() - 1);
+        // dbg(carPricesDiamond[rand].modelid);
+        if( carOnSale.find(carPricesDiamond[rand].modelid) == null ) { i--; /* dbg("nicht"); */ continue; }
+
         carPrices[0].push(carPricesDiamond[rand]);
         carPricesDiamond.remove(rand);
     }
     carPricesDiamond.clear();
+
+
 /*
     local carPricesBadGuy = clone(carPricesAll[1]);
     for (local i = 0; i < 8; i++) {
@@ -164,6 +171,21 @@ function getCarShopSlotById(carShopIndex, id = CARSHOP_STATE_FREE) {
  */
 function getCarShopModelById(modelid, carShopIndex = 0) {
     foreach(idx, car in carPrices[carShopIndex]) {
+        if (car.modelid == modelid.tointeger()) {
+            return car;
+        }
+    }
+
+    return null;
+}
+
+/**
+ * Get car info by modelid
+ * @param  {Integer} modelid
+ * @return {Table}
+ */
+function getCarInfoModelById(modelid) {
+    foreach(idx, car in carPricesAll[0]) {
         if (car.modelid == modelid.tointeger()) {
             return car;
         }
