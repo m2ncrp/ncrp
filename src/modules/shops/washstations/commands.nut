@@ -1,4 +1,4 @@
-cmd( "wash", function( playerid ) {
+key("e", function(playerid) {
     washStationsWashCar (playerid);
 });
 

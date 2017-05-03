@@ -34,8 +34,8 @@ wash_stations <- [
 addEventHandlerEx("onServerStarted", function() {
     log("[shops] loading wash stations...");
     foreach (shop in wash_stations) {
-        create3DText ( shop[0], shop[1], shop[2]+0.35, "=== "+shop[3]+" WASH STATION ===", CL_SNUFF, SHOP_WASH_3DTEXT_DRAW_DISTANCE );
-        create3DText ( shop[0], shop[1], shop[2]+0.20, format("(price: $%.2f) Use: /wash", SHOP_WASH_COST), CL_WHITE.applyAlpha(150), SHOP_WASH_RADIUS );
+        create3DText ( shop[0], shop[1], shop[2]+0.35, "=== "+shop[3]+" WASH STATION ===", CL_WASH, SHOP_WASH_3DTEXT_DRAW_DISTANCE );
+        create3DText ( shop[0], shop[1], shop[2]+0.20, format("Press E | Price: $%.2f", SHOP_WASH_COST), CL_WHITE.applyAlpha(150), SHOP_WASH_RADIUS );
     }
 });
 
@@ -45,7 +45,6 @@ function isNearWashStations(playerid) {
             return true;
         }
     }
-    msg(playerid, "shops.washstations.toofar", [], CL_THUNDERBIRD);
     return false;
 }
 
@@ -61,13 +60,13 @@ function washStationsWashCar (playerid) {
         if ( !canMoneyBeSubstracted(playerid, SHOP_WASH_COST) ) {
             return msg(playerid, "shops.washstations.money.notenough", [SHOP_WASH_COST, getPlayerBalance(playerid)], CL_THUNDERBIRD);
         }
-        msg(playerid, "shops.washstations.needwait");
+        msg(playerid, "shops.washstations.needwait", CL_WASH);
         screenFadeinFadeoutEx(playerid, 250, 3000, null, function() {
             local vehicleid = getPlayerVehicle(playerid);
             setVehicleDirtLevel (vehicleid, 0.0);
             subMoneyToPlayer(playerid, SHOP_WASH_COST);
             addMoneyToTreasury(SHOP_WASH_COST);
-            return msg(playerid, "shops.washstations.wash.payed", [SHOP_WASH_COST, getPlayerBalance(playerid)]);
+            return msg(playerid, "shops.washstations.wash.payed", [SHOP_WASH_COST, getPlayerBalance(playerid)], CL_WASH);
         });
 
     }
