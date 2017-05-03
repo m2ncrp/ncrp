@@ -1,7 +1,7 @@
 // nothing there yet :p
 local coords = [-122.331, -62.9116, -12.041];
 local tax_fixprice = 20.0;
-local tax = 0.02;  // 2 percents
+local tax = 0.05;  // 2 percents
 
 event("onServerStarted", function() {
     log("[organizations] government...");
