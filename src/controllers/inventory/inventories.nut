@@ -28,6 +28,23 @@ event("onServerMinuteChange", function() {
     ground.calculate_decay();
 });
 
+event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
+    if (!players[playerid].hands.isFree()) {
+        local item = players[playerid].hands.remove(0);
+        local pos  = getPlayerPositionObj(playerid);
+
+        pos.x += randomf(-0.3, 0.3);
+        pos.y += randomf(-0.3, 0.3);
+
+        players[playerid].hands.sync();
+        delayedFunction(150, function() {
+            ground.push(item, pos);
+        });
+
+        item.drop(playerid, players[playerid].hands);
+    }
+});
+
 event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
     // dbg("receiving moving item reueqst with ", id1, slot1, id2, slot2);
 
