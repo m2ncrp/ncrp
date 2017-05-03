@@ -437,6 +437,9 @@ class PlayerInventory extends Inventory
                     guiSetText(this.components["lbl_name"], translations[item.classname] + " ["+item.amount+"]");
                 }
                 else {
+                    if (item.classname == "Item.Jerrycan") {
+                        return guiSetText(this.components["lbl_name"], translations[item.classname] + " ["+item.amount+"]");
+                    }
                     guiSetText(this.components["lbl_name"], translations[item.classname]);
                 }
             }
