@@ -54,3 +54,13 @@ function isVehicleNearPoint(vehicleid, x, y, radius = DEFAULT_NEAR_RADIUS) {
     local vehPos = getVehiclePosition(vehicleid);
     return isPointInCircle2D( vehPos[0], vehPos[1], x, y, radius );
 }
+
+/**
+ * Check if vehicle engine is started
+ * @param  {int}  vehicleid
+ * @return {Boolean}
+ */
+function isVehicleEngineStarted(vehicleid) {
+    return (getVehicleEngineStateEx(vehicleid) ? true : false);
+}
+
