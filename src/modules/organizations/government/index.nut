@@ -82,7 +82,7 @@ cmd("tax", function( playerid, plateText = 0 ) {
 
     local tax = Item.VehicleTax();
     if (!players[playerid].inventory.isFreeWeight(tax)) {
-        return msg(playerid, "inventory.capacity.notenough", CL_THUNDERBIRD);
+        return msg(playerid, "inventory.weight.notenough", CL_THUNDERBIRD);
     }
 
     local plateText = plateText.toupper();
