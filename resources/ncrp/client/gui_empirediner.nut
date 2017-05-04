@@ -72,7 +72,7 @@ addEventHandler("showShopGUI", function() {
 
         buttons.map(guiBringToFront);
         items.map(guiBringToFront);
-        guiBringToFront(logo);
+        // guiBringToFront(logo);
     }
 
     // // for repaint! It's final visible values
