@@ -179,10 +179,6 @@ class ItemContainer extends Container
         return base.remove(key);
     }
 
-    function freelen() {
-        return (this.sizeX * this.sizeY) - this.len();
-    }
-
     /**
      * Get total weight for all current items
      * @return {Float}
