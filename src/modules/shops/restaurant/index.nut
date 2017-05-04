@@ -12,15 +12,18 @@ translation("en", {
 event("native:shop:purchase", function(playerid, data) {
     local data = JSONParser.parse(data);
     if (data.type != "empirediner") return;
-    if (!data.items.len()) return;
 
     local all_prices = clone(empirediner_prices); all_prices.reverse();
     local cur_prices = data.items.map(function(amount) {
         return all_prices.pop() * amount;
-    })
+    });
 
     local price = cur_prices.reduce(@(total, price) fabs(total) + fabs(price));
     local count = data.items.reduce(@(a,b) abs(a) + abs(b));
+
+    if (!count) {
+        return;
+    }
 
     if (!canMoneyBeSubstracted(playerid, price)) {
         return msg(playerid, "shops.restaurant.money.notenough", CL_WARNING);
