@@ -2,8 +2,6 @@ class Item.Drink extends Item.Abstract
 {
     static classname = "Item.Drink";
 
-    amount = 0;
-
     static function getType() {
         return "Item.Drink";
     }
