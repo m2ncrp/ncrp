@@ -264,7 +264,7 @@ cmd("skin", "buy", function(playerid, skinid = null) {
 
     local clothes = Item.Clothes();
     if (!players[playerid].inventory.canBeInserted(clothes)) {
-        return msg(playerid, "inventory.space.notenough", CL_THUNDERBIRD);
+        return msg(playerid, "inventory.capacity.notenough", CL_THUNDERBIRD);
     }
     // take money
     subMoneyToPlayer(playerid, skin.price);

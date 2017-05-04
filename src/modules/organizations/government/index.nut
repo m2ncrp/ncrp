@@ -80,6 +80,11 @@ cmd("tax", function( playerid, plateText = 0 ) {
         return msg(playerid, "inventory.space.notenough", CL_THUNDERBIRD);
     }
 
+    local tax = Item.VehicleTax();
+    if (!players[playerid].inventory.canBeInserted(tax)) {
+        return msg(playerid, "inventory.capacity.notenough", CL_THUNDERBIRD);
+    }
+
     local plateText = plateText.toupper();
     local vehicleid = getVehicleByPlateText(plateText.toupper());
     if(vehicleid == null) {
@@ -101,7 +106,6 @@ cmd("tax", function( playerid, plateText = 0 ) {
     msg(playerid, "tax.payed", [ price, plateText ], CL_SUCCESS);
     subMoneyToPlayer(playerid, price);
 
-    local tax = Item.VehicleTax();
     tax.setData("plate", plateText);
     tax.setData("model",  modelid );
 
