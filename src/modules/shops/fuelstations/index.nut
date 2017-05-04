@@ -205,10 +205,10 @@ function fuelVehicleUp(playerid) {
     delayedFunction(fuelup_time * 1000, function () {
         freezePlayer( playerid, false);
         delayedFunction(1000, function () { freezePlayer( playerid, false); });
-        msg(playerid, "shops.fuelstations.fuel.payed", [cost, fuel, getPlayerBalance(playerid)], CL_CHESTNUT2);
         setVehicleFuel(vehicleid, getDefaultVehicleFuel(vehicleid));
         subMoneyToPlayer(playerid, cost);
         addMoneyToTreasury(cost);
+        msg(playerid, "shops.fuelstations.fuel.payed", [cost, fuel, getPlayerBalance(playerid)], CL_CHESTNUT2);
     });
 }
 
