@@ -187,7 +187,7 @@ class ItemContainer extends Container
      * Get total weight for all current items
      * @return {Float}
      */
-    function getTotalWeight() {
+    function calculateWeight() {
         local weight = 0.0;
 
         foreach (idx, item in this.__data) {
@@ -197,20 +197,47 @@ class ItemContainer extends Container
         return weight;
     }
 
+
+    /**
+     * Check wether or not particular weight
+     * or item can be inserted into
+     * @param  {Float|Item}  value
+     * @return {Boolean}
+     */
+    function isFreeWeight(value) {
+        if (typeof value == "object" && value instanceof Item.Abstract) {
+            value = value.calculateWeight();
+        }
+        else {
+            value = value.tofloat();
+        }
+
+        return this.calculateWeight() + value < this.limit;
+    }
+
+    /**
+     * Check wether or not number of
+     * items can be insterted
+     * @param  {Integer|Item} value (optional)
+     * @return {Boolean}
+     */
+    function isFreeSpace(value = 1) {
+        if (typeof value == "object" && value instanceof Item.Abstract) {
+            value = 1;
+        }
+        else {
+            value = value.tointeger();
+        }
+
+        return ((this.sizeX * this.sizeY - this.len()) >= value);
+    }
+
     /**
      * Check wether item can be inserted
      * @param  {Item} item
      * @return {Boolean}
      */
     function canBeInserted(item) {
-        if (((this.sizeX * this.sizeY) - this.len()) < 1) {
-            return false;
-        }
-
-        if (this.getTotalWeight() + item.calculateWeight() > this.limit) {
-            return false;
-        }
-
-        return true;
+        return this.isFreeSpace(1) && this.isFreeWeight(item);
     }
 }

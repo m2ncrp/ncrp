@@ -21,12 +21,22 @@ event("native:shop:purchase", function(playerid, data) {
     local price = cur_prices.reduce(@(total, price) fabs(total) + fabs(price));
     local count = data.items.reduce(@(a,b) abs(a) + abs(b));
 
-    if (count > players[playerid].inventory.freelen()) {
-        return msg(playerid, "inventory.space.notenough", CL_WARNING);
-    }
-
     if (!canMoneyBeSubstracted(playerid, price)) {
         return msg(playerid, "shops.restaurant.money.notenough", CL_WARNING);
+    }
+
+    local items = [];
+
+    foreach (j, amount in data.items) {
+        for (local i = 0; i < amount; i++) {
+            items.push(empirediner_items[j]());
+        }
+    }
+
+    local weight = items.map(@(a) a.calculateWeight()).reduce(@(a, b) a + b);
+
+    if (players[playerid].inventory.isFreeWeight(weight)) {
+        return msg(playerid, "inventory.space.notenough", CL_WARNING);
     }
 
     subMoneyToPlayer(playerid, price);
@@ -34,14 +44,7 @@ event("native:shop:purchase", function(playerid, data) {
 
     msg(playerid, "shops.restaurant.buy.success", [price], CL_SUCCESS);
 
-    foreach (j, amount in data.items) {
-        for (local i = 0; i < amount; i++) {
-            local item = empirediner_items[j]();
-            players[playerid].inventory.push(item);
-            item.save();
-        }
-    }
-
+    items.map(@(item) (players[playerid].inventory.push(item) || item.save()));
     players[playerid].inventory.sync();
 });
 
