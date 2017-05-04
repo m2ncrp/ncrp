@@ -215,7 +215,7 @@ function fuelVehicleUp(playerid) {
 
 function fuelJerrycanUp( playerid ) {
 
-    if ( !(players[playerid].hands.isFree()) || !(players[playerid].hands.get(0) instanceof Item.Jerrycan) ){
+    if ( !players[playerid].hands.exists(0) || !players[playerid].hands.get(0) instanceof Item.Jerrycan) {
         return msg(playerid, "canister.fuelup.needinhands", CL_THUNDERBIRD);
     }
 
@@ -264,15 +264,3 @@ key("e", function(playerid) {
     }
 
 });
-
-
-function fuelStationsHelp ( playerid ) {
-    local title = "job.taxi.help.title";
-    local commands = [
-        { name = "/fuel up",    desc = "shops.fuelstations.help.fuelup" }
-    ];
-    msg_help(playerid, title, commands);
-}
-
-
-cmd("help", "fuel", fuelStationsHelp); // Attention to developers: don't move this string to up.
