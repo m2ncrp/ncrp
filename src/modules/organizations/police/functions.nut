@@ -459,12 +459,11 @@ function getVehicleWantedForTax() {
             local dateArray = split(value.data["expired"],".");
             local dateStamp = dateArray[0].tointeger() + dateArray[1].tointeger()*30 + dateArray[2].tointeger()*360;
             if(curdateStamp < dateStamp) {
-                if (vehiclesWanted.find(value.data["plate"])) {
+                if (vehiclesWanted.find(value.data["plate"]) != null) {
                     vehiclesWanted.remove(vehiclesWanted.find(value.data["plate"]));
                 }
             }
         }
     });
-
     return vehiclesWanted;
 }
