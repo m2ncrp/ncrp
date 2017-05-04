@@ -144,6 +144,7 @@ include("modules/organizations/police/translations.nut");
 
 police <- {};
 
+vehicleWanted <- [];
 
 event("onServerStarted", function() {
     log("[police] starting police...");
@@ -157,6 +158,8 @@ event("onServerStarted", function() {
 
     create3DText( POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]+0.35, "=== EMPIRE BAY POLICE DEPARTMENT ===", CL_ROYALBLUE, EBPD_TITLE_DRAW_DISTANCE );
     create3DText( POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]+0.20, "Press E", CL_WHITE.applyAlpha(150), EBPD_ENTER_RADIUS );
+
+    vehicleWanted  = getVehicleWantedForTax();
 
     createPlace("KosoyPereulok", 171.597, -302.503, 161.916, -326.178);
     // Create Police Officers Manager here
@@ -240,6 +243,11 @@ event("onServerMinuteChange", function() {
     }
 });
 
+event("onServerHourChange", function() {
+    //if (getHour() == 6) {
+        vehicleWanted  = getVehicleWantedForTax();
+    //}
+});
 
 event("onPoliceDutyOn", function(playerid, rank = null) {
     if (rank == null) {

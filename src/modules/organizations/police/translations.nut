@@ -190,6 +190,8 @@ local phrases = {
 "ru|organizations.police.unjail"                    : "Вы отсидели свой срок и были освобождены от тюремного заключения."
 
 
+"en|organizations.police.carwantedtax"              : "[POLICE] Wanted cars for non-payment of tax: %s"
+"ru|organizations.police.carwantedtax"              : "[POLICE] Разыскиваемые автомобили за неуплату налога: %s"
 
 
 "en|organizations.police.info.howjoin"              : "If you want to join Police Department write one of admins!"
