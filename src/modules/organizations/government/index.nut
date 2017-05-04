@@ -34,8 +34,8 @@ alternativeTranslate({
     "en|tax.notrequired" : "This car not required to tax."
     "ru|tax.notrequired" : "Указанный автомобиль не облагается налогом."
 
-    "en|tax.payed"       : "You payed tax for vehicle with plate %s."
-    "ru|tax.payed"       : "Вы оплатили налог за автомобиль с номером %s."
+    "en|tax.payed"       : "You payed tax $%.2f for vehicle with plate %s."
+    "ru|tax.payed"       : "Вы оплатили налог $%.2f за автомобиль с номером %s."
 
 
     "en|tax.info.title"       : "Information about tax for vehicle:"
@@ -87,7 +87,7 @@ cmd("tax", function( playerid, plateText = 0 ) {
     local modelid = getVehicleModel( vehicleid );
     local carInfo = getCarInfoModelById( modelid );
 
-    if (carInfo == null) {
+    if (carInfo == null || isVehicleCarRent(vehicleid)) {
         return msg(playerid, "tax.notrequired");
     }
 
@@ -96,7 +96,7 @@ cmd("tax", function( playerid, plateText = 0 ) {
         return msg(playerid, "money.notenough", [ price ], CL_THUNDERBIRD);
     }
 
-    msg(playerid, "tax.payed", [ plateText ], CL_SUCCESS);
+    msg(playerid, "tax.payed", [ price, plateText ], CL_SUCCESS);
     subMoneyToPlayer(playerid, price);
 
     local tax = Item.VehicleTax();
