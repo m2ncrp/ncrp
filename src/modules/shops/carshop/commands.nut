@@ -13,7 +13,7 @@
 /**
  * RANAMED FROM CAR LIST
  * List car models available in the shop
- * Usage: /car list
+ * Usage: /car
  */
 cmd("car", function(playerid, page = null, a = null) {
     if (!isPlayerNearCarShop(playerid)) {
@@ -92,8 +92,8 @@ cmd("car", "buy", function(playerid, modelid = null) {
 function carShopHelp (playerid, a = null, b = null) {
     local title = "shops.carshop.help.title";
     local commands = [
-        { name = "/car list", desc = "shops.carshop.help.list" },
-        { name = "/car buy MODELID",  desc = "shops.carshop.help.buy" },
+        { name = "/car"            , desc = "shops.carshop.help.list" },
+        { name = "/car buy MODELID", desc = "shops.carshop.help.buy" },
     ];
     msg_help(playerid, title, commands);
 }

@@ -192,8 +192,6 @@ cmd(["help", "h", "halp", "info"], function(playerid) {
         { name = "/help job JOBNAME",       desc = "help.job" },
         { name = "/help bank",              desc = "help.ban" },
         { name = "/help car",               desc = "help.cars" },
-        { name = "/help fuel",              desc = "help.fuel" },
-        { name = "/help repair",            desc = "help.repair" },
         { name = "/report ID TEXT",         desc = "help.report" },
         { name = "/idea TEXT",              desc = "help.idea" }
     ];
