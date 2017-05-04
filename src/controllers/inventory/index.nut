@@ -95,8 +95,8 @@ alternativeTranslate({
     "en|inventory.space.notenough"      : "You don't have enough inventory space."
     "ru|inventory.space.notenough"      : "У вас недостаточно места в инвентаре."
 
-    "en|inventory.clothes.use"      : "You put on %s."
-    "ru|inventory.clothes.use"      : "Вы надели %s."
+    "en|inventory.clothes.use"      : "You put on: %s."
+    "ru|inventory.clothes.use"      : "Вы надели: %s."
 
     "en|inventory.clothes.work"      : "You are in a working clothes."
     "ru|inventory.clothes.work"      : "Вы в рабочей одежде."
