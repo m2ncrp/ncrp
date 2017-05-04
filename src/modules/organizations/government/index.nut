@@ -76,12 +76,12 @@ cmd("tax", function( playerid, plateText = 0 ) {
         return msg(playerid, "tax.toofar", [], CL_THUNDERBIRD);
     }
 
-    if(players[playerid].inventory.freelen() <= 0) {
+    if(players[playerid].inventory.isFreeSpace(1)) {
         return msg(playerid, "inventory.space.notenough", CL_THUNDERBIRD);
     }
 
     local tax = Item.VehicleTax();
-    if (!players[playerid].inventory.canBeInserted(tax)) {
+    if (!players[playerid].inventory.isFreeWeight(tax)) {
         return msg(playerid, "inventory.capacity.notenough", CL_THUNDERBIRD);
     }
 
