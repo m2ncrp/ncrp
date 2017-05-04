@@ -76,7 +76,7 @@ local translations = {
     "Item.Sandwich"         : "Sandwich",
     "Item.Cola"             : "Cola",
     "Item.Jerrycan"         : "Canister",
-    "Item.VehicleTax"       : "Vehicle tax disc"
+    "Item.VehicleTax"       : "Vehicle tax"
 };
 
 
