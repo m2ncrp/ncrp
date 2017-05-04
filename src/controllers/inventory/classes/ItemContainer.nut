@@ -201,7 +201,7 @@ class ItemContainer extends Container
      * @return {Boolean}
      */
     function isFreeWeight(value) {
-        if (typeof value == "object" && value instanceof Item.Abstract) {
+        if (value instanceof Item.Abstract) {
             value = value.calculateWeight();
         }
         else {
@@ -218,7 +218,7 @@ class ItemContainer extends Container
      * @return {Boolean}
      */
     function isFreeSpace(value = 1) {
-        if (typeof value == "object" && value instanceof Item.Abstract) {
+        if (value instanceof Item.Abstract) {
             value = 1;
         }
         else {
