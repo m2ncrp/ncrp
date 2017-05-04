@@ -442,3 +442,29 @@ function takeOutOfJail(playerid, targetid) {
         msg(targetid, "organizations.police.unjail", [], CL_THUNDERBIRD);
     }
 }
+
+
+function getVehicleWantedForTax() {
+    local vehiclesWanted = [];
+
+    foreach (idx, value in __vehicles) {
+        if(value.entity) {
+            vehiclesWanted.push( value.entity.plate );
+        }
+    }
+
+    Item.VehicleTax.findAll(function(err, result){
+        local curdateStamp = getDay() + getMonth()*30 + getYear()*360;
+        foreach (idx, value in result) {
+            local dateArray = split(value.data["expired"],".");
+            local dateStamp = dateArray[0].tointeger() + dateArray[1].tointeger()*30 + dateArray[2].tointeger()*360;
+            if(curdateStamp < dateStamp) {
+                if (vehiclesWanted.find(value.data["plate"])) {
+                    vehiclesWanted.remove(vehiclesWanted.find(value.data["plate"]));
+                }
+            }
+        }
+    });
+
+    return vehiclesWanted;
+}

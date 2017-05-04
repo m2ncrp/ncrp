@@ -21,30 +21,31 @@ local vehiclePositions = [
  */
 local carPricesAll = [
     [   // diamond motors
-        { modelid = 22, price = 2500,  title = "Potomac Indian"               },
-        { modelid = 23, price = 2750,  title = "Quicksilver Windsor"          },
-        { modelid = 44, price = 2350,  title = "Smith Mainline"               },
-        { modelid = 48, price = 1780,  title = "Smith Wagon"                  },
-        { modelid = 50, price = 2050,  title = "Culver Empire"                },
-        { modelid = 52, price = 4950,  title = "Walker Rocket"                },
-        { modelid = 9 , price = 3240,  title = "Houston Wasp"                 },
-        { modelid = 1 , price = 6080,  title = "Berkley Kingfisher"           },
-        { modelid = 0 , price = 7395,  title = "Ascot Bailey S200"            },
-        { modelid = 15, price = 3900,  title = "Lassiter Series 69"           },
-        { modelid = 29, price = 5470,  title = "Shubert Frigate"              },
-        { modelid = 14, price = 5250,  title = "Jefferson Provincial"         },
-        { modelid = 10, price = 9800,  title = "ISW 508"                      },
-        { modelid = 13, price = 27000, title = "Jefferson Futura"             },
-        { modelid = 12, price = 2700,  title = "Walter Utility"               },
-        { modelid = 53, price = 870 ,  title = "Walter Coupe"                 },
-        { modelid = 47, price = 610,   title = "Smith V8"                     },
-        { modelid = 43, price = 470 ,  title = "Smith Coupe"                  },
-        { modelid = 25, price = 750 ,  title = "Shubert 38"                   },
-        { modelid = 31, price = 730 ,  title = "Shubert 38 Panel Truck"       },
-        { modelid = 18, price = 7670,  title = "Lassiter Series 75 Hollywood" },
-        { modelid = 45, price = 4200,  title = "Smith Thunderbolt"            },
-        { modelid = 28, price = 2530,  title = "Shubert Beverly"              },
-        { modelid = 41, price = 3140,  title = "Smith Custom 200"             },
+        { modelid =  0  , price = 7395  , rent = 0.18  , title = "Ascot Bailey S200"             },
+        { modelid =  1  , price = 6080  , rent = 0.15  , title = "Berkley Kingfisher"            },
+        { modelid =  9  , price = 3240  , rent = 0.08  , title = "Houston Wasp"                  },
+        { modelid =  10 , price = 9800  , rent = 0.25  , title = "ISW 508"                       },
+        { modelid =  12 , price = 2700  , rent = 0.07  , title = "Walter Utility"                },
+        { modelid =  13 , price = 27000 , rent = 0.68  , title = "Jefferson Futura"              },
+        { modelid =  14 , price = 5250  , rent = 0.13  , title = "Jefferson Provincial"          },
+        { modelid =  15 , price = 3900  , rent = 0.10  , title = "Lassiter Series 69"            },
+        { modelid =  18 , price = 7670  , rent = 0.19  , title = "Lassiter Series 75 Hollywood"  },
+        { modelid =  22 , price = 2500  , rent = 0.06  , title = "Potomac Indian"                },
+        { modelid =  23 , price = 2750  , rent = 0.07  , title = "Quicksilver Windsor"           },
+        { modelid =  25 , price = 750   , rent = 0.02  , title = "Shubert 38"                    },
+        { modelid =  28 , price = 2530  , rent = 0.06  , title = "Shubert Beverly"               },
+        { modelid =  29 , price = 5470  , rent = 0.14  , title = "Shubert Frigate"               },
+        { modelid =  30 , price = 850   , rent = 0.02  , title = "Shubert 38 Hearse"             },
+        { modelid =  31 , price = 730   , rent = 0.02  , title = "Shubert 38 Panel Truck"        },
+        { modelid =  33 , price = 730   , rent = 0.02  , title = "Shubert 38 Taxi"               },
+        { modelid =  41 , price = 3140  , rent = 0.08  , title = "Smith Custom 200"              },
+        { modelid =  43 , price = 470   , rent = 0.01  , title = "Smith Coupe"                   },
+        { modelid =  44 , price = 2350  , rent = 0.06  , title = "Smith Mainline"                },
+        { modelid =  45 , price = 4200  , rent = 0.11  , title = "Smith Thunderbolt"             },
+        { modelid =  47 , price = 610   , rent = 0.02  , title = "Smith V8"                      },
+        { modelid =  48 , price = 1780  , rent = 0.04  , title = "Smith Deluxe Station Wagon"    },
+        { modelid =  50 , price = 2050  , rent = 0.05  , title = "Culver Empire"                 },
+        { modelid =  52 , price = 4950  , rent = 0.12  , title = "Walker Rocket"                 },
     ],
     [
         // bad guy
@@ -52,7 +53,7 @@ local carPricesAll = [
 ];
 
 
-local carOnSale = [22, 23, 44, 48, 50, 52, 9, 1, 0, 15, 29, 14, 10, 13, 12];
+local carOnSale = [ 0, 1, 9, 10, 12, 13, 14, 15, 22, 23, 29, 44, 48, 50, 52 ];
 
 /**
  * Automatically changing the range of cars both stores.

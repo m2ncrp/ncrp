@@ -370,3 +370,26 @@ cmd("park", function ( playerid, plate) {
 cmd("unpark", function ( playerid ) {
     trigger("onVehicleGetFromCarPound", playerid);
 });
+
+
+// player need to be in car
+cmd("wanted", function ( playerid ) {
+    if ( !isOfficer(playerid) ) {
+        return msg(playerid, "organizations.police.notanofficer");
+    }
+
+    if( !isPlayerInPoliceVehicle(playerid) ) {
+        return msg( playerid, "organizations.police.notinpolicevehicle");
+    }
+
+    if ( !isOnPoliceDuty(playerid) ) {
+        return msg( playerid, "organizations.police.duty.not" );
+    }
+    local list = "";
+    local count = vehicleWanted.len()
+    for (local i = 0; i < count; i++) {
+        list += vehicleWanted[i];
+        if(i < count-1) list += ", ";
+    }
+    msg(playerid, "organizations.police.carwantedtax", [ list ], CL_ROYALBLUE);
+});
