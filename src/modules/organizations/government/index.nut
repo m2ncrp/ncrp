@@ -37,6 +37,8 @@ alternativeTranslate({
     "en|tax.payed"       : "You payed tax $%.2f for vehicle with plate %s."
     "ru|tax.payed"       : "Вы оплатили налог $%.2f за автомобиль с номером %s."
 
+    "en|tax.money.notenough"  : "Not enough money. Need $%.2f."
+    "ru|tax.money.notenough"  : "Недостаточно денег. Для оплаты требуется $%.2f."
 
     "en|tax.info.title"       : "Information about tax for vehicle:"
     "ru|tax.info.title"       : "Информация об оплате налога на автомобиль:"
@@ -93,7 +95,7 @@ cmd("tax", function( playerid, plateText = 0 ) {
 
     local price = tax_fixprice + carInfo.price * tax;
     if (!canMoneyBeSubstracted(playerid, price)) {
-        return msg(playerid, "money.notenough", [ price ], CL_THUNDERBIRD);
+        return msg(playerid, "tax.money.notenough", [ price ], CL_THUNDERBIRD);
     }
 
     msg(playerid, "tax.payed", [ price, plateText ], CL_SUCCESS);
