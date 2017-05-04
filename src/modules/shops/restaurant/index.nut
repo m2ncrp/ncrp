@@ -12,6 +12,7 @@ translation("en", {
 event("native:shop:purchase", function(playerid, data) {
     local data = JSONParser.parse(data);
     if (data.type != "empirediner") return;
+    if (!data.items.len()) return;
 
     local all_prices = clone(empirediner_prices); all_prices.reverse();
     local cur_prices = data.items.map(function(amount) {
