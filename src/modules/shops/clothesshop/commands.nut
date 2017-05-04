@@ -251,7 +251,7 @@ cmd("skin", "buy", function(playerid, skinid = null) {
         return msg(playerid, "shops.clothesshop.selectskin");
     }
 
-    if(players[playerid].inventory.freelen() <= 0) {
+    if(players[playerid].inventory.isFreeSpace(1)) {
         return msg(playerid, "inventory.space.notenough", CL_THUNDERBIRD);
     }
 
