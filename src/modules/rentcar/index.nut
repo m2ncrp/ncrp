@@ -150,14 +150,15 @@ event ("onServerMinuteChange", function() {
             continue;
         }
         local playerid = value[0];
-        if(!canMoneyBeSubstracted(playerid, value[0])) {
+        local price = getVehicleRentPrice(vehicleid).tofloat();
+        if(!canMoneyBeSubstracted(playerid, price)) {
             setVehicleFuel(vehicleid, 0.0);
             setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
             rentcars[vehicleid][0] = "free";
             setVehicleRespawnEx(vehicleid, true);
             msg(playerid, "rentcar.cantrent");
         } else {
-            local rentprice = value[0] * 10;
+            local rentprice = price * 10;
             subMoneyToPlayer(playerid, rentprice );
             addMoneyToTreasury(rentprice);
             msg(playerid, "rentcar.paidcar", [ rentprice, getPlayerBalance(playerid)] );
