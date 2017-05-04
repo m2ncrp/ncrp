@@ -244,7 +244,7 @@ cmd("skin", "buy", function(playerid, skinid = null) {
     local skinid = toInteger(skinid);
 
     if(!isPlayerInValidPoint(playerid, CLOTHES_SHOP_X, CLOTHES_SHOP_Y, CLOTHES_SHOP_DISTANCE)) {
-        return msg(playerid, "shops.clothesshop.gotothere", getPlayerName(playerid), CL_WARNING);
+        return msg(playerid, "shops.clothesshop.gotothere", getPlayerName(playerid), CL_THUNDERBIRD);
     }
 
     if (!skinid || !getSkinBySkinId(skinid)) {
@@ -259,14 +259,17 @@ cmd("skin", "buy", function(playerid, skinid = null) {
 
     if (!canMoneyBeSubstracted(playerid, skin.price)) {
         //triggerClientEvent(playerid, "hideCarShopGUI");
-        return msg(playerid, "shops.clothesshop.money.error", CL_ERROR);
+        return msg(playerid, "shops.clothesshop.money.error", CL_THUNDERBIRD);
     }
 
+    local clothes = Item.Clothes();
+    if (!players[playerid].inventory.canBeInserted(clothes)) {
+        return msg(playerid, "inventory.space.notenough", CL_THUNDERBIRD);
+    }
     // take money
     subMoneyToPlayer(playerid, skin.price);
     addMoneyToTreasury(skin.price);
     msg(playerid, "shops.clothesshop.success", CL_SUCCESS);
-    local clothes = Item.Clothes();
     clothes.amount = skin.skinid;
     players[playerid].inventory.push( clothes );
     clothes.save();
