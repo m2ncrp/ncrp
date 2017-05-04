@@ -80,8 +80,8 @@ cmd("tax", function( playerid, plateText = 0 ) {
         return msg(playerid, "inventory.space.notenough", CL_THUNDERBIRD);
     }
 
-    local tax = Item.VehicleTax();
-    if (!players[playerid].inventory.isFreeWeight(tax)) {
+    local taxObj = Item.VehicleTax();
+    if (!players[playerid].inventory.isFreeWeight(taxObj)) {
         return msg(playerid, "inventory.weight.notenough", CL_THUNDERBIRD);
     }
 
@@ -106,8 +106,8 @@ cmd("tax", function( playerid, plateText = 0 ) {
     msg(playerid, "tax.payed", [ price, plateText ], CL_SUCCESS);
     subMoneyToPlayer(playerid, price);
 
-    tax.setData("plate", plateText);
-    tax.setData("model",  modelid );
+    taxObj.setData("plate", plateText);
+    taxObj.setData("model",  modelid );
 
     local day   = getDay();
     local month = getMonth() + 1;
@@ -115,11 +115,11 @@ cmd("tax", function( playerid, plateText = 0 ) {
     if (month == 13) { month = 1; year += 1; }
     if (day < 10)   { day = "0"+day; }
     if (month < 10) { month = "0"+month; }
-    tax.setData("issued",  getDate());
-    tax.setData("expired", day+"."+month+"."+year);
+    taxObj.setData("issued",  getDate());
+    taxObj.setData("expired", day+"."+month+"."+year);
 
-    players[playerid].inventory.push( tax );
-    tax.save();
+    players[playerid].inventory.push( taxObj );
+    taxObj.save();
     players[playerid].inventory.sync();
 
 });
