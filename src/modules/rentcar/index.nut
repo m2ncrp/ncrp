@@ -93,7 +93,7 @@ function RentCarRefuse(playerid) {
     }
 
     foreach (vehicleid, value in rentcars) {
-        if (value[1] == playerid) {
+        if (value[0] == playerid) {
             rentcars[vehicleid][0] = "free";
             setVehicleRespawnEx(vehicleid, true);
         }
@@ -122,10 +122,10 @@ event ( "onPlayerVehicleExit", function ( playerid, vehicleid, seat ) {
 
 event( "onPlayerDisconnect",  function ( playerid, reason ) {
         foreach (vehicleid, value in rentcars) {
-            if (value[1] == "free") {
+            if (value[0] == "free") {
                 continue;
             }
-            if (playerid == value[1]) {
+            if (playerid == value[0]) {
                 setVehicleFuel(vehicleid, 0.0);
                 setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
                 rentcars[vehicleid][0] = "free";
@@ -141,11 +141,11 @@ event ("onServerMinuteChange", function() {
     }
 // called every game time minute changes
     foreach (vehicleid, value in rentcars) {
-        if (value[1] == "free") {
+        if (value[0] == "free") {
             setVehicleFuel(vehicleid, 0.0);
             continue;
         }
-        local playerid = value[1];
+        local playerid = value[0];
         if(!canMoneyBeSubstracted(playerid, value[0])) {
             setVehicleFuel(vehicleid, 0.0);
             setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
