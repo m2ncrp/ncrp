@@ -264,7 +264,7 @@ cmd("skin", "buy", function(playerid, skinid = null) {
 
     local clothes = Item.Clothes();
     if (!players[playerid].inventory.isFreeWeight(clothes)) {
-        return msg(playerid, "inventory.capacity.notenough", CL_THUNDERBIRD);
+        return msg(playerid, "inventory.weight.notenough", CL_THUNDERBIRD);
     }
     // take money
     subMoneyToPlayer(playerid, skin.price);
