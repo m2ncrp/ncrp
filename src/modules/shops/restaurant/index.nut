@@ -35,8 +35,12 @@ event("native:shop:purchase", function(playerid, data) {
 
     local weight = items.map(@(a) a.calculateWeight()).reduce(@(a, b) a + b);
 
-    if (!players[playerid].inventory.canBeInserted(weight)) {
+    if (!players[playerid].inventory.isFreeSpace()) {
         return msg(playerid, "inventory.space.notenough", CL_WARNING);
+    }
+
+    if (!players[playerid].inventory.isFreeWeight(weight)) {
+        return msg(playerid, "inventory.weight.notenough", CL_WARNING);
     }
 
     subMoneyToPlayer(playerid, price);
