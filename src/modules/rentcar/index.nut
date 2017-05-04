@@ -48,6 +48,10 @@ function isPlayerCarRent(playerid) {
     return (getPlayerVehicle(playerid) in rentcars);
 }
 
+function isVehicleCarRent(vehicleid) {
+    return (vehicleid in rentcars);
+}
+
 function getVehicleRentPrice(vehicleid) {
     local modelid = getVehicleModel(vehicleid);
     return getCarInfoModelById(modelid).rent.tofloat();
