@@ -251,7 +251,7 @@ cmd("skin", "buy", function(playerid, skinid = null) {
         return msg(playerid, "shops.clothesshop.selectskin");
     }
 
-    if(players[playerid].inventory.isFreeSpace(1)) {
+    if(!players[playerid].inventory.isFreeSpace(1)) {
         return msg(playerid, "inventory.space.notenough", CL_THUNDERBIRD);
     }
 
@@ -263,7 +263,7 @@ cmd("skin", "buy", function(playerid, skinid = null) {
     }
 
     local clothes = Item.Clothes();
-    if (!players[playerid].inventory.canBeInserted(clothes)) {
+    if (!players[playerid].inventory.isFreeWeight(clothes)) {
         return msg(playerid, "inventory.capacity.notenough", CL_THUNDERBIRD);
     }
     // take money
