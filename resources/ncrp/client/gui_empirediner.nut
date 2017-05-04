@@ -99,6 +99,8 @@ addEventHandler("showShopGUI", function() {
     //     guiSetText( label[15] , "0"         );
     // });
 
+    if (typeof window != "userdata") return;
+
     guiSetSizable(window, false);
     guiSetMovable(window, false);
     // showCursor(true);
