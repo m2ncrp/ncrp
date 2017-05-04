@@ -47,6 +47,19 @@ POLICE_RANK <- [ // source: https://youtu.be/i7o0_PMv72A && https://en.wikipedia
 ];
 POLICE_MAX_RANK <- POLICE_RANK.len()-1;
 
+/*
+                                                    №   car  detective_car    wanted    ticket    park    arrest    jail    amnesty    weapons          change_rangs    give_key  civilian_clothes  salary
+    "police.cadet",          //"Police cadet"       0    -         -            -         -         -       -        -         -          -                  -              -             -          0.15
+    "police.patrol",         //"Police officer"     1    +         -            +         +         +       +        -         -          -                  -              -             -          0.20
+    "police.sergeant",       //"Sergeant"           2    +         -                      +         +       +        -         -          -                  -              -             -          0.20
+    "police.lieutenant",     //"Lieutenant"         3    +         -                      +         +       +        -         -          -                  -              -             -          0.20
+    "police.сaptain",        //"Captain"            4    +         -                      +         +       +        -         -          -                  -              +             -          0.20
+    "police.detective",      //"Detective"          5    -         +                      -         -       +        +         +          +                  -              -             +          0.20
+    "police.assistantchief", //"Assistant chief"    6    +         +                      +         +       +        +         +          +                  +              +             +          0.20
+    "police.chief",          //"Police chief"       7    +         +                      +         +       +        +         +          +                  +              +             +          0.20
+
+ */
+
 /**
  * Permission description for diffent ranks
  * @param  {Boolean} ride could ride vehicle on duty

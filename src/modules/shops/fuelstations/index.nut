@@ -162,7 +162,7 @@ key("e", function(playerid) {
         return msg(playerid, "shops.canistershop.money.notenough", [CANISTER_COST], CL_THUNDERBIRD);
     }
 
-    if(players[playerid].hands.freelen() <= 0) {
+    if(players[playerid].hands.isFreeSpace(1)) {
         return msg(playerid, "inventory.hands.busy", CL_THUNDERBIRD);
     }
 
