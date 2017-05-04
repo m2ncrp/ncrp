@@ -228,6 +228,9 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
     dxDrawRectangle( get("hunger.px") + get("hunger.psx") - get("hunger.w") - 1.0,      get("hunger.py") - 1.0,                             get("hunger.w") + 2.0,      get("hunger.psy"),  0xA1000000);
     dxDrawRectangle( get("hunger.px") + get("hunger.psx") - get("hunger.w"),            get("hunger.py") + get("hunger.psy") - thirstY,     get("hunger.w"),            thirstY,            0xFF569267);
 
+    if (!("ui_hunger_green" in textures)) return;
+    if (!("ui_thirst_green" in textures)) return;
+
     // draw icons
     dxDrawTexture( textures.ui_hunger_green, get("hunger.px") + get("hunger.w") * 0.5,                              get("hunger.py") + get("hunger.psy"),   get("hunger.icon"),  get("hunger.icon"), 0.5, 0.5, 0.0, 255);
     dxDrawTexture( textures.ui_thirst_green, get("hunger.px") + get("hunger.psx") - get("hunger.w") * 0.5 + 1.0,    get("hunger.py") + get("hunger.psy"),   get("hunger.icon"),  get("hunger.icon"), 0.5, 0.5, 0.0, 255);
