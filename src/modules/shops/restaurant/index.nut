@@ -35,7 +35,7 @@ event("native:shop:purchase", function(playerid, data) {
 
     local weight = items.map(@(a) a.calculateWeight()).reduce(@(a, b) a + b);
 
-    if (!players[playerid].inventory.isFreeSpace()) {
+    if (!players[playerid].inventory.isFreeSpace(count)) {
         return msg(playerid, "inventory.space.notenough", CL_WARNING);
     }
 
