@@ -12,7 +12,7 @@ class PlayerHandsContainer extends PlayerItemContainer
      * @return {Boolean}
      */
     function isFree() {
-        return this.exists(0);
+        return !this.exists(0);
     }
 
     /**

@@ -29,7 +29,7 @@ event("onServerMinuteChange", function() {
 });
 
 event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
-    if (!players[playerid].hands.isFree()) {
+    if (players[playerid].hands.exists(0)) {
         local item = players[playerid].hands.remove(0);
         local pos  = getPlayerPositionObj(playerid);
 
