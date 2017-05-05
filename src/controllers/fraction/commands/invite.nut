@@ -17,6 +17,10 @@ local function clearInvitations(playerid) {
     }
 }
 
+event("onPlayerDisconnect", function(playerid, reason = null) {
+    clearInvitations(playerid);
+});
+
 /**
  * Invite player to join fraction
  * @param  {Integer} playerid
