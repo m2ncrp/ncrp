@@ -8,7 +8,7 @@ function policeCall(playerid, place) {
         return msg(playerid, "organizations.police.call.withoutaddress");
     }
 
-    msg(playerid, "organizations.police.call.foruser", [place], CL_ROYALBLUE);
+    msg(playerid, "organizations.police.call.foruser", [ plocalize(playerid, place) ], CL_ROYALBLUE);
     local pos = getPlayerPositionObj(playerid);
 
     foreach (player in players) {
@@ -20,7 +20,7 @@ function policeCall(playerid, place) {
                 removeBlip( crime_hash );
             });
 
-            msg(id, "organizations.police.call.new", [place], CL_ROYALBLUE);
+            msg(id, "organizations.police.call.new", plocalize(id, place), CL_ROYALBLUE);
         }
     }
 }
