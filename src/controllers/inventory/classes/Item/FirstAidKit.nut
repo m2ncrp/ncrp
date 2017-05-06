@@ -11,7 +11,7 @@ class Item.FirstAidKit extends Item.Abstract
     }
 
     function use(playerid, inventory) {
-        if(isPlayerInVehicle(playerid) && isPlayerVehicleMoving (playerid)) return msg(playerid, "vehicle.stop", CL_THUNDERBIRD);
+        if(isPlayerInVehicle(playerid) && isPlayerVehicleMoving(playerid)) return msg(playerid, "vehicle.stop", CL_THUNDERBIRD);
 
         local targetid = playerList.nearestPlayer( playerid );
 
