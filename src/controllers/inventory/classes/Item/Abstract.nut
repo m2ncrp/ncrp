@@ -1,4 +1,4 @@
-class Item.Abstract extends ORM.Entity
+class Item.Abstract extends ORM.JsonEntity
 {
     static classname = "Item.Abstract";
     static table = "tbl_items";
@@ -11,7 +11,6 @@ class Item.Abstract extends ORM.Entity
         ORM.Field.Integer({ name = "parent", value = 0}),
         ORM.Field.Float  ({ name = "amount", value = 0.0}),
         ORM.Field.Integer({ name = "created", value = 0 }),
-        ORM.Field.String({ name = "data", value = "", escaping = false }),
     ];
 
     traits = [
@@ -33,8 +32,6 @@ class Item.Abstract extends ORM.Entity
         if (this.created == 0) {
             this.created = getTimestamp();
         }
-
-        this.data = {};
     }
 
     function pick(playerid, inventory) {
@@ -80,28 +77,6 @@ class Item.Abstract extends ORM.Entity
 
         return data;
         // return JSONEncoder.encode(data);
-    }
-
-    function setData(name, value) {
-        this.data[name] <- value;
-    }
-
-    function getData(name) {
-        return name in this.data ? this.data[name] : null;
-    }
-
-    function hydrate(data) {
-        local entity = base.hydrate(data);
-        entity.data = JSONParser.parse(entity.data);
-        return entity;
-    }
-
-    function save() {
-        local temp = this.data;
-        this.data = JSONEncoder.encode(temp);
-        base.save();
-        this.data = temp;
-        return true;
     }
 
     static function getType() {

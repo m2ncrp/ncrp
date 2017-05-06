@@ -26,15 +26,36 @@ include("controllers/inventory/classes/PlayerHandsContainer.nut");
 
 // add shortcuts overrides
 Item.findBy <- function(condition, callback) {
-    return Item.Abstract.findBy(condition, callback);
+    // call init (calls only one time per entity)
+    Item.Abstract.initialize();
+
+    local query = ORM.Query("SELECT * FROM `:table` :condition")
+
+    query.setParameter("table", Item.Abstract.table, true);
+    query.setParameter("condition", ORM.Utils.Formatter.calculateCondition(condition), true);
+
+    return query.getResult(callback);
 };
 
 Item.findOneBy <- function(condition, callback) {
-    return Item.Abstract.findOneBy(condition, callback);
+    // call init (calls only one time per entity)
+    Item.Abstract.initialize();
+
+    local query = ORM.Query("SELECT * FROM `:table` :condition LIMIT 1")
+
+    query.setParameter("table", Item.Abstract.table, true);
+    query.setParameter("condition", ORM.Utils.Formatter.calculateCondition(condition), true);
+
+    return query.getSingleResult(callback);
 };
 
 Item.findAll <- function(callback) {
-    return Item.Abstract.findAll(callback);
+    // call init (calls only one time per entity)
+    Item.Abstract.initialize();
+
+    return ORM.Query("SELECT * FROM `:table`")
+        .setParameter("table", Item.Abstract.table, true)
+        .getResult(callback);
 };
 
 /**
