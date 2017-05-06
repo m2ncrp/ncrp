@@ -1,6 +1,7 @@
 include("controllers/vehicle/functions");
 include("controllers/vehicle/commands.nut");
 include("controllers/vehicle/modelName.nut");
+include("controllers/vehicle/translations.nut");
 //include("controllers/vehicle/hiddencars.nut");
 
 const VEHICLE_RESPAWN_TIME      = 300; // 5 (real) minutes
@@ -114,13 +115,17 @@ event("onServerMinuteChange", function() {
 // handle vehicle enter
 event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     logger.logf(
-        "[VEHICLE ENTER] [%s] %s [%d], car: [%d] %s [%d], owner: %s, fraction: %s",
+        "[VEHICLE ENTER] (%s) %s (playerid: %d) | (vehid: %d) %s - %s (model: %d) | coords: [%.5f, %.5f, %.5f] | owner: %s | fraction: %s",
             getAccountName(playerid),
             getPlayerName(playerid),
             playerid,
-            getVehicleModel(vehicleid),
-            getVehiclePlateText(vehicleid),
             vehicleid,
+            getVehiclePlateText(vehicleid),
+            getVehicleNameByModelId(getVehicleModel(vehicleid)),
+            getVehicleModel(vehicleid),
+            getVehiclePositionObj(vehicleid).x,
+            getVehiclePositionObj(vehicleid).y,
+            getVehiclePositionObj(vehicleid).z,
             isVehicleOwned(vehicleid) ? (isPlayerVehicleOwner(playerid, vehicleid) ? "true" : "false") : "city_ncrp",
             isVehicleFraction(vehicleid) ? "true" : "false"
     );
@@ -175,13 +180,17 @@ key(["w", "s"], function(playerid) {
 // handle vehicle exit
 event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     logger.logf(
-        "[VEHICLE EXIT] [%s] %s [%d], car: [%d] %s [%d], owner: %s, fraction: %s",
+        "[VEHICLE EXIT] (%s) %s (playerid: %d) | (vehid: %d) %s - %s (model: %d) | coords: [%.5f, %.5f, %.5f] | owner: %s | fraction: %s",
             getAccountName(playerid),
             getPlayerName(playerid),
             playerid,
-            getVehicleModel(vehicleid),
-            getVehiclePlateText(vehicleid),
             vehicleid,
+            getVehiclePlateText(vehicleid),
+            getVehicleNameByModelId(getVehicleModel(vehicleid)),
+            getVehicleModel(vehicleid),
+            getVehiclePositionObj(vehicleid).x,
+            getVehiclePositionObj(vehicleid).y,
+            getVehiclePositionObj(vehicleid).z,
             isVehicleOwned(vehicleid) ? (isPlayerVehicleOwner(playerid, vehicleid) ? "true" : "false") : "city_ncrp",
             isVehicleFraction(vehicleid) ? "true" : "false"
     );
