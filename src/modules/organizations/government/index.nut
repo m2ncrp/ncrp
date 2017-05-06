@@ -52,8 +52,8 @@ alternativeTranslate({
     "en|tax.info.issued"      : "Issued: %s"
     "ru|tax.info.issued"      : "Выдан: %s"
 
-    "en|tax.info.expired"     : "Expired: %s"
-    "ru|tax.info.expired"     : "Истекает: %s"
+    "en|tax.info.expires"     : "Expires: %s"
+    "ru|tax.info.expires"     : "Истекает: %s"
 
 });
 
@@ -116,7 +116,7 @@ cmd("tax", function( playerid, plateText = 0 ) {
     if (day < 10)   { day = "0"+day; }
     if (month < 10) { month = "0"+month; }
     taxObj.setData("issued",  getDate());
-    taxObj.setData("expired", day+"."+month+"."+year);
+    taxObj.setData("expires", day+"."+month+"."+year);
 
     players[playerid].inventory.push( taxObj );
     taxObj.save();

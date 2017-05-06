@@ -327,8 +327,8 @@ event("onBatonBitStart", function (playerid) {
 
 event("onPlayerPhoneCall", function(playerid, number, place) {
     if (number == "police") {
-        policeCall(playerid, plocalize(playerid, place));
-        dbg("chat", "police", getAuthor(playerid), place);
+        policeCall(playerid, place);
+        dbg("chat", "police", getAuthor(playerid), localize( place, [], "ru") );
     }
 });
 
