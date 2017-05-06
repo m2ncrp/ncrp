@@ -1,4 +1,4 @@
-class Fraction extends ORM.Entity
+class Fraction extends ORM.JsonEntity
 {
     static classname = "Fraction";
     static table = "tbl_fractions";

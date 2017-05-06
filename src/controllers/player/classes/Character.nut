@@ -1,4 +1,4 @@
-class Character extends ORM.Entity {
+class Character extends ORM.JsonEntity {
 
     static classname = "Character";
     static table = "tbl_characters";
