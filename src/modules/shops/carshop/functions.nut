@@ -46,6 +46,7 @@ local carPricesAll = [
         { modelid =  48 , price = 1780  , rent = 0.18  , title = "Smith Deluxe Station Wagon"    },
         { modelid =  50 , price = 2050  , rent = 0.21  , title = "Culver Empire"                 },
         { modelid =  52 , price = 4950  , rent = 0.5   , title = "Walker Rocket"                 },
+        { modelid =  53 , price = 870   , rent = 0.09  , title = "Walter Coupe"                  },
     ],
     [
         // bad guy
