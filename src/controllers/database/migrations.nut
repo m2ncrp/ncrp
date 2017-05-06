@@ -226,6 +226,15 @@ migrate(function(query, type) {
     query("ALTER TABLE tbl_fraction_roles ADD COLUMN `salary` FLOAT NOT NULL DEFAULT 0.0;");
 });
 
+// moved migrations
+migrate(@(a,b) 1);
+migrate(@(a,b) 1);
+migrate(@(a,b) 1);
+migrate(@(a,b) 1);
+migrate(@(a,b) 1);
+migrate(@(a,b) 1);
+migrate(@(a,b) 1);
+
 // 07.05.2017
 // added data field for Character, Fraction, FractionRole
 migrate(function(query, type) {
