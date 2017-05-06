@@ -22,7 +22,7 @@ cmd(["weapons"], function(playerid) {
     //player:InventoryAddItem(36) -- отмычки
 });
 
-acmd(["heal"], function( playerid, targetid = null ) {
+acmd(["aheal"], function( playerid, targetid = null ) {
     if(!targetid) targetid = playerid;
     setPlayerHealth( targetid.tointeger(), 720.0 );
 });
@@ -74,3 +74,12 @@ cmd(["clearchat"], function(playerid) {
     }
 });
 
+acmd(["clearchatall"], function(playerid) {
+    foreach (idx, value in players) {
+        if (antiflood[idx]["togooc"]) {
+            for(local i = 0; i <15;i++){
+                sendPlayerMessage(idx,"");
+            }
+        }
+    }
+});

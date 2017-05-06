@@ -363,7 +363,7 @@ event("onServerStarted", function() {
     //creating public 3dtext
     foreach (phone in telephones) {
         create3DText ( phone[0], phone[1], phone[2]+0.35, "TELEPHONE", CL_RIPELEMON, 6.0);
-        create3DText ( phone[0], phone[1], phone[2]+0.20, "Press 2", CL_WHITE.applyAlpha(150), 0.4 );
+        create3DText ( phone[0], phone[1], phone[2]+0.20, "Press Q", CL_WHITE.applyAlpha(150), 0.4 );
     }
 
 
