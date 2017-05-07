@@ -456,7 +456,7 @@ function getVehicleWantedForTax() {
     Item.VehicleTax.findAll(function(err, result){
         local curdateStamp = getDay() + getMonth()*30 + getYear()*360;
         foreach (idx, value in result) {
-            local dateArray = split(value.data["expired"],".");
+            local dateArray = split(value.data["expires"],".");
             local dateStamp = dateArray[0].tointeger() + dateArray[1].tointeger()*30 + dateArray[2].tointeger()*360;
             if(curdateStamp < dateStamp) {
                 if (vehiclesWanted.find(value.data["plate"]) != null) {
