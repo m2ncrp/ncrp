@@ -381,6 +381,7 @@ cmd("passport", function( playerid, parametr = 0 ) {
                         local day   = getDay();
                         local month = getMonth();
                         local year  = getYear() + 1;
+                        if (month < 10) { month = "0"+month; }
                         passportObj.setData("issued",  getDate());
                         passportObj.setData("expires", day+"."+month+"."+year);
 
