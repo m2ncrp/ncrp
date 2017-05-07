@@ -93,6 +93,10 @@ class ORM.JsonEntity extends ORM.Entity {
     }
 
     function setData(name, value) {
+        if (typeof data != "table") {
+            this.data = {};
+        }
+
         this.data[name] <- value;
         return this;
     }
