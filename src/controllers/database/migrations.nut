@@ -238,7 +238,7 @@ migrate(@(a,b) 1);
 // 07.05.2017
 // added data field for Character, Fraction, FractionRole
 migrate(function(query, type) {
-    query("ALTER TABLE tbl_characters ADD COLUMN `data` TEXT NOT NULL DEFAULT '{}';");
-    query("ALTER TABLE tbl_fractions ADD COLUMN `data` TEXT NOT NULL DEFAULT '{}';");
-    query("ALTER TABLE tbl_fraction_roles ADD COLUMN `data` TEXT NOT NULL DEFAULT '{}';");
+    query("ALTER TABLE tbl_characters ADD COLUMN `data` TEXT NOT NULL;");
+    query("ALTER TABLE tbl_fractions ADD COLUMN `data` TEXT NOT NUL;");
+    query("ALTER TABLE tbl_fraction_roles ADD COLUMN `data` TEXT NOT;");
 });
