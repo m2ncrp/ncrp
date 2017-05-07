@@ -208,7 +208,7 @@ function msg_a(text, color = CL_WHITE) {
 
 function msg_help(playerid, title, commands){
 
-    msg(playerid, "==================================", CL_HELP_LINE);
+    msg(playerid, "===========================================", CL_HELP_LINE);
     msg(playerid, title, CL_HELP_TITLE);
 
     foreach (idx, icmd in commands) {
