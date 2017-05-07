@@ -85,6 +85,8 @@ class ORM.JsonEntity extends ORM.Entity {
 
         if (entity.data != "") {
             entity.data = JSONParser.parse(entity.data);
+        } else {
+            entity.data = {};
         }
 
         return entity;
