@@ -83,7 +83,7 @@ class ORM.JsonEntity extends ORM.Entity {
     function hydrate(data) {
         local entity = base.hydrate(data);
 
-        if (entity.data != "") {
+        if (entity.data.len() > 0) {
             entity.data = JSONParser.parse(entity.data);
         } else {
             entity.data = {};
