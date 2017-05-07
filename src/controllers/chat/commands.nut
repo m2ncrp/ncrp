@@ -304,3 +304,16 @@ cmd(["togpm"], function(playerid) {
         msg(playerid, "chat.togpmEnabled");
     }
 });
+
+
+function getPlayerOOC(playerid) {
+    return antiflood[playerid]["togooc"];
+}
+
+function setPlayerOOC(playerid, value = true) {
+    antiflood[playerid]["togooc"] = value;
+}
+
+function isPlayerOOCEnabled(playerid) {
+    return (antiflood[playerid]["togooc"]) ? true : false;
+}
