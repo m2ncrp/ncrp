@@ -86,6 +86,7 @@ alternativeTranslate({
     "en|Item.Jerrycan"         : "Canister"
     "en|Item.VehicleTax"       : "Vehicle tax"
     "en|Item.FirstAidKit"      : "First aid kit"
+    "en|Item.Passport"         : "Passport"
 
     "ru|Item.None"             : ""
     "ru|Item.Revolver12"       : "Revolver 12"
@@ -119,4 +120,5 @@ alternativeTranslate({
     "ru|Item.Jerrycan"         : "Канистра"
     "ru|Item.VehicleTax"       : "Квитанция налога на ТС"
     "ru|Item.FirstAidKit"      : "Аптечка"
+    "ru|Item.Passport"         : "Паспорт"
 });
