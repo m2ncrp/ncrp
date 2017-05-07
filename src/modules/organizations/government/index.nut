@@ -288,9 +288,9 @@ function passportHelp( playerid ) {
 }
 
 
-cmd("passport", function( playerid, plateText = 0 ) {
+cmd("passport", function( playerid, parametr = 0 ) {
 
-    if (plateText != "get") {
+    if (parametr != "get") {
         return passportHelp( playerid );
     }
 
@@ -313,7 +313,6 @@ cmd("passport", function( playerid, plateText = 0 ) {
 
     local defaulttogooc = getPlayerOOC(playerid);
     setPlayerOOC(playerid, false);
-    dbg(defaulttogooc);
 
     local sex = players[playerid].sex;
 
@@ -321,7 +320,6 @@ cmd("passport", function( playerid, plateText = 0 ) {
     passportObj.setData("birthdate", players[playerid].birthdate );
     passportObj.setData("sex", sex );
     passportObj.setData("race", players[playerid].race );
-
 
 
     //nationality
