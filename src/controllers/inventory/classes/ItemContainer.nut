@@ -69,7 +69,6 @@ class ItemContainer extends Container
             delete this.opened[character.id];
         }
 
-        dbg("sending hide for ", this.id);
         return trigger(playerid, "inventory:onServerClose", this.id);
     }
 
