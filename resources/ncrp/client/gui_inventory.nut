@@ -78,6 +78,7 @@ local translations = {
     "Item.Jerrycan"         : "Canister",
     "Item.VehicleTax"       : "Vehicle tax"
     "Item.FirstAidKit"      : "First aid kit"
+    "Item.Passport"         : "Passport"
 };
 
 
