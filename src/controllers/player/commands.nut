@@ -76,7 +76,7 @@ cmd(["clearchat"], function(playerid) {
 
 acmd(["clearchatall"], function(playerid) {
     foreach (idx, value in players) {
-        if (antiflood[idx]["togooc"]) {
+        if (getPlayerOOC(idx)) {
             for(local i = 0; i <15;i++){
                 sendPlayerMessage(idx,"");
             }
