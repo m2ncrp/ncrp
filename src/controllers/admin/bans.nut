@@ -1,5 +1,5 @@
-const DEFAULT_PLAYER_MUTE_TIME = 300; // 5 minutes
-const DEFAULT_PLAYER_BAN_TIME  = 30; // 30 minutes
+const DEFAULT_PLAYER_MUTE_TIME = 600; // 10 minutes
+const DEFAULT_PLAYER_BAN_TIME  = 60; // 30 minutes
 
 include("controllers/admin/models/Ban.nut");
 
@@ -14,7 +14,7 @@ function kick(playerid, targetid, ...) {
     local reason   = concat(vargv);
 
     if (targetid == null || !isPlayerConnected(targetid)) {
-        return msg(playerid, "You should provide playerid of connected player you want to kick", CL_ERROR);
+        return msg(playerid, "admin.error", CL_ERROR);
     }
 
     freezePlayer( targetid, true );
@@ -28,19 +28,19 @@ function kick(playerid, targetid, ...) {
         reason = "inappropriate behavior";
     }
 
-    // remove player from players array (disabling chats and stuff)
-    removePlayer(targetid, reason);
-
-    // move player to sky
-    movePlayer(targetid, 0.0, 0.0, 150.0);
-
     // clear chat
     for (local i = 0; i < 12; i++) {
         msg(targetid, "");
     }
 
-    msg(targetid, format("[SERVER] You has been kicked for: %s.", reason), CL_RED);
-    msg(playerid, format("You've kicked %s for: %s.", getPlayerName(targetid), reason), CL_SUCCESS);
+    msg(targetid, "admin.kick.hasbeenkicked", [ reason ], CL_RED);
+    msg(playerid, "admin.kick.kicked"        , [ getPlayerName(targetid), reason ], CL_SUCCESS);
+
+    // remove player from players array (disabling chats and stuff)
+    removePlayer(targetid, reason);
+
+    // move player to sky
+    movePlayer(targetid, 0.0, 0.0, 150.0);
 
     delayedFunction(5000, function () {
         kickPlayer( targetid );
@@ -60,7 +60,7 @@ acmd("kick", kick);
 function newmute(...) {
     local playerid  = vargv[0].tointeger();
     if(vargv.len() < 4){
-        return msg(playerid, "USE: /mute targetid time reason")
+        return msg(playerid, "USE: /mute id time_in_minutes reason")
     }
     local targetid = vargv[1].tointeger();
     local time = vargv[2].tointeger();
@@ -68,23 +68,23 @@ function newmute(...) {
     for(local i = 3; i < vargv.len(); i++) reason = reason+" "+vargv[i]; //get mute reason
 
     if (targetid == null || !isPlayerConnected(targetid)) {
-        return msg(playerid, "You should provide playerid of connected player you want to ban", CL_ERROR);
+        return msg(playerid, "admin.error", CL_ERROR);
     }
     local mutetime = time*60;
     Mute( getAccountName(playerid), getAccountName(targetid), getPlayerSerial(targetid), mutetime, reason).save();
 
-    msga(format("[Player %s has been muted on %d minutes. Reason:%s]", getPlayerName(targetid), time, reason), CL_RED);
+    msga("admin.mute.mutedforall", [ getPlayerName(targetid), time, reason ], CL_RED);
 
     setPlayerMuted(targetid, true);
-    msg(targetid, format("[SERVER] You has been muted on: %d minutes for:%s.", time, reason), CL_RED);
-    msg(playerid, format("You've muted %s on: %d minutes for:%s.", getPlayerName(targetid), time, reason), CL_SUCCESS);
+    msg(targetid, "admin.mute.hasbeenmuted", [time, reason], CL_RED);
+    msg(playerid, "admin.mute.muted", [ getPlayerName(targetid), time, reason ], CL_SUCCESS);
     dbg("admin", "muted", getAuthor(targetid), time);
 
     // unmute
     return delayedFunction(time * 60000, function() {
         if (isPlayerMuted(targetid)) {
             setPlayerMuted(targetid, false);
-            msg(targetid, "[SERVER] You has been unmuted.", CL_INFO);
+            msg(targetid, "admin.mute.unmute", CL_INFO);
             dbg("admin", "unmuted", getAuthor(targetid), time);
         }
     });
@@ -100,17 +100,17 @@ function unmute(playerid, targetid) {
     local targetid = toInteger(targetid);
 
     if (targetid == null || !isPlayerConnected(targetid)) {
-        return msg(playerid, "You should provide playerid of connected player you want to mute", CL_ERROR);
+        return msg(playerid, "admin.error", CL_ERROR);
     }
 
     if (!isPlayerMuted(targetid)) {
-        return msg(playerid, format("Player %s is not muted.", getPlayerName(targetid)), CL_INFO);
+        return msg(playerid, "admin.unmute.notmuted", getPlayerName(targetid), CL_INFO);
     }
 
     setPlayerMuted(targetid, false);
-    msg(playerid, format("Player %s is unmuted.", getPlayerName(targetid)), CL_SUCCESS);
-    msg(targetid, "[SERVER] You has been unmuted", CL_INFO);
-    dbg("admin", "unmuted", getAuthor(targetid))
+    msg(playerid, "admin.unmute.unmuted", getPlayerName(targetid), CL_SUCCESS);
+    msg(targetid, "admin.unmute.hasbeenunmuted", CL_INFO);
+    dbg("admin", "unmuted", getAuthor(targetid));
 };
 acmd("unmute", unmute);
 
@@ -126,7 +126,7 @@ acmd("unmute", unmute);
 function newban(...) {
     local playerid  = vargv[0].tointeger();
     if(vargv.len() < 4){
-        return msg(playerid, "USE: /ban targetid time reason")
+        return msg(playerid, "USE: /ban id time_in_minutes reason")
     }
     local targetid = vargv[1].tointeger();
     local time = vargv[2].tointeger();
@@ -135,7 +135,7 @@ function newban(...) {
     for(local i = 3; i < vargv.len(); i++) reason = reason+" "+vargv[i]; //get ban reason
 
     if (targetid == null || !isPlayerConnected(targetid)) {
-        return msg(playerid, "You should provide playerid of connected player you want to ban", CL_ERROR);
+        return msg(playerid, "admin.error", CL_ERROR);
     }
 
     local bantime = time*60;
@@ -160,11 +160,11 @@ function newban(...) {
         msg(targetid, "");
     }
 
-    msga(format("[Player %s has been banned on %d minutes. Reason:%s]", getPlayerName(targetid), time, reason), CL_RED);
+    msga("admin.ban.bannedforall", [ getPlayerName(targetid), time, reason ], CL_RED);
 
-    msg(targetid, format("[SERVER] You has been banned on: %d min.", time), CL_RED);
-    msg(targetid, format("Reason:%s.", reason), CL_RED);
-    msg(playerid, format("You've banned %s for: %s on %d min.", getPlayerName(targetid), reason, time), CL_SUCCESS);
+    msg(targetid, "admin.ban.hasbeenbanned", [ time ], CL_RED);
+    msg(targetid, "admin.ban.reason", [ reason ], CL_RED);
+    msg(playerid, "admin.ban.banned", [ getPlayerName(targetid), time, reason ], CL_SUCCESS);
 
     delayedFunction(6000, function () {
         kickPlayer( targetid );
@@ -266,7 +266,7 @@ function warnUp(playerid, targetid = null) {
     if (account.warns >= 3) {
         freezePlayer(targetid, true);
         delayedFunction(2000, function () {
-            newban(playerid, targetid, 4320, "Achieved success: 3 of 3 warns. Congratulations!");
+            newban(playerid, targetid, 4320, plocalize(targetid, "admin.warn.congratulations"));
         });
         account.warns = 0;
         account.save();
@@ -310,7 +310,60 @@ function warnGet(playerid, targetid = null) {
 }
 acmd("getwarn", warnGet);
 
-local translations = {
+alternativeTranslate({
+
+    "en|admin.error"                        :   "Error: id empty or player not connected."
+    "ru|admin.error"                        :   "Ошибка: id не указан или игрок не подключен."
+
+    "en|admin.kick.hasbeenkicked"           :   "[SERVER] You has been kicked for: %s."
+    "ru|admin.kick.hasbeenkicked"           :   "[CЕРВЕР] Вы были кикнуты по причине: %s."
+
+    "en|admin.kick.kicked"                  :   "You've kicked %s for: %s."
+    "ru|admin.kick.kicked"                  :   "Вы кикнули %s по причине: %s."
+
+
+
+    "en|admin.mute.hasbeenmuted"            :   "[SERVER] You has been muted on: %d minutes for:%s."
+    "ru|admin.mute.hasbeenmuted"            :   "[СЕРВЕР] Вы были заглушены на %d минут по причине:%s."
+
+    "en|admin.mute.muted"                   :   "You've muted %s on %d minutes for:%s."
+    "ru|admin.mute.muted"                   :   "Вы заглушили игрока %s на %d минут по причине:%s."
+
+    "en|admin.mute.mutedforall"             :   "[Player %s has been muted on %d minutes. Reason:%s]"
+    "ru|admin.mute.mutedforall"             :   "[Игрок %s заглушен на %d минут. Причина:%s]"
+
+    "en|admin.mute.unmute"                  :   "[SERVER] You has been unmuted."
+    "ru|admin.mute.unmute"                  :   "[СЕРВЕР] Заглушка чата снята."
+
+    "en|admin.mute.youhave"                  :   "[SERVER] You are muted."
+    "ru|admin.mute.youhave"                  :   "[СЕРВЕР] Вы заглушены."
+
+
+
+    "en|admin.unmute.hasbeenunmuted"        :   "[SERVER] You has been unmuted"
+    "ru|admin.unmute.hasbeenunmuted"        :   "[СЕРВЕР] Заглушка чата снята."
+
+    "en|admin.unmute.notmuted"              :   "Player %s is not muted."
+    "ru|admin.unmute.notmuted"              :   "Игрок %s не заглушен."
+
+    "en|admin.unmute.unmuted"               :   "Player %s is unmuted."
+    "ru|admin.unmute.unmuted"               :   "Заглушка чата с игрока %s снята."
+
+
+
+    "en|admin.ban.hasbeenbanned"            :   "[SERVER] You has been banned on: %d min."
+    "ru|admin.ban.hasbeenbanned"            :   "[СЕРВЕР] Вы забанена на "
+
+    "en|admin.ban.bannedforall"             :   "[Player %s has been banned on %d minutes. Reason: %s]"
+    "ru|admin.ban.bannedforall"             :   "[Игрок %s забанен на %d минут. Причина: %s]"
+
+    "en|admin.ban.reason"                   :   "Reason: %s."
+    "ru|admin.ban.reason"                   :   "Причина: %s."
+
+    "en|admin.ban.banned"                   :   "You've banned %s on %d min. Reason: %s."
+    "ru|admin.ban.banned"                   :   "Вы забанили игрока %s на %d минут. Причина: %s."
+
+
 
     "en|admin.warn.increased"               :   "You increased warn-level for player %s. Now: %d."
     "ru|admin.warn.increased"               :   "Вы выдали предупреждение игроку %s. Всего: %d."
@@ -332,6 +385,10 @@ local translations = {
 
     "en|admin.warn.get"                     :   "Player %s have %d warn-level."
     "ru|admin.warn.get"                     :   "У игрока %s предупреждений: %d."
+
+    "en|admin.warn.congratulations"         :   "Achieved success: 3 of 3 warns. Congratulations!"
+    "ru|admin.warn.congratulations"         :   "Достижение получено: 3 из 3 варнов. Поздравляем!"
+
 /*
     "en|admin.warn.msga.playerreceived"     :   "Player %s received a warning."
     "ru|admin.warn.msga.playerreceived"     :   "Игрок %s получил одно предупреждение."
@@ -339,9 +396,7 @@ local translations = {
     "en|admin.warn.msga.removefromplayer"   :   "Warning removed from player %s."
     "ru|admin.warn.msga.removefromplayer"   :   "С игрока %s снято одно предупреждение"
 */
-}
-
-alternativeTranslate(translations);
+});
 
 
 /**

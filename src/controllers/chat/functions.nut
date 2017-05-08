@@ -169,7 +169,7 @@ function chatcmd(names, callback)  {
         }
 
         if (isPlayerMuted(playerid)) {
-            return;
+            return msg(playerid, "admin.mute.youhave", CL_RED);
         }
 
         // call registered callback
@@ -199,10 +199,10 @@ function msg(playerid, text, ...) {
     ), color.r, color.g, color.b);
 }
 
-function msg_a(text, color = CL_WHITE) {
+function msg_a(text, args, color = CL_WHITE) {
     // return sendPlayerMessageToAll(text, color.r, color.g, color.b);
     foreach (playerid, value in players) {
-        msg(playerid, text, color);
+        msg(playerid, text, args, color);
     }
 }
 
