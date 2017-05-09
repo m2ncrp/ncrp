@@ -94,7 +94,7 @@ function loginFunc(playerid, password) {
     }, function(err, account) {
         // no accounts found
         if (!account){
-            trigger(playerid, "authErrorMessage", plocalize(playerid, "auth.error.notfound"));
+            trigger(playerid, "authErrorMessage", plocalize(playerid, "auth.GUI.error.notfound"));
             //msg(playerid, "auth.error.notfound", CL_ERROR);
             return ;
         }

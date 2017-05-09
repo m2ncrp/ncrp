@@ -26,28 +26,6 @@ local buffer = {};
 include("controllers/auth/functions.nut");
 include("controllers/auth/commands.nut");
 
-translation("en", {
-    "auth.wrongname"        : "Your name should be at least 4 symbols and should not contain any symbols except letters, nubmers, space and underscore."
-    // "auth.wrongname"        : "Sorry, your name should be original (not from the game) and have Firstname_Lastname format."
-    "auth.changename"       : "Please, change you name in the settings, and reconnect. Thank you!"
-    "auth.welcome"          : "* Welcome there, %s!"
-    "auth.registered"       : "* Your account is registered."
-    "auth.notregistered"    : "* Your account is not registered."
-    "auth.command.register" : "* Please register using /register PASSWORD"
-    "auth.command.regformat": "* Example: Joe_Barbaro"
-    "auth.command.login"    : "* Please enter using /login PASSWORD"
-    "auth.error.logined"    : "[AUTH] You are already logined!"
-    "auth.error.login"      : "[AUTH] You are already logined!"
-    "auth.error.register"   : "[AUTH] Account with this name is already registered!"
-    "auth.error.notfound"   : "[AUTH] This account is not registered"
-    "auth.success.register" : "[AUTH] You've successfuly registered!"
-    "auth.success.login"    : "[AUTH] You've successfuly logined!"
-    "auth.success.autologin": "[AUTH] You've been automatically logined!"
-    "auth.error.cmderror"   : "[AUTH] You can't execute commands without registration."
-    "auth.notification"     : "[AUTH] You should enter into your account via /login PASSWORD, or create new one via /register PASSWORD"
-    "auth.error.tomany"     : "[AUTH] You cant register more accounts."
-    "auth.client.notloaded" : "Seems like your client scripts were not properly loaded. Try reconnecting!"
-});
 
 /**
  * On player connects we will
