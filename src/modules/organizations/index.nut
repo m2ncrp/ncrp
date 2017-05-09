@@ -6,3 +6,4 @@ include("modules/organizations/empirecustom");
 include("modules/organizations/parking");
 include("modules/organizations/treasury");
 include("modules/organizations/government");
+include("modules/organizations/fractions");
