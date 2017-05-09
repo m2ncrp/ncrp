@@ -31,7 +31,7 @@ function showAuthGUI(windowLabel,labelText,inputText,buttonText){
     //setPlayerPosition( getLocalPlayer(), -412.0, 1371.0, 36.0 );
     //setPlayerPosition( getLocalPlayer(), -746.0, 1278.0, 15.5 );
     blackRoundFrame = guiCreateElement(13,"other_mask.png", 0, 0, screen[0], screen[1]);
-    image = guiCreateElement(13,"logo.png", screen[0]/2 - 148.0, screen[1]/2 - 220.0, 296.0, 102.0);
+    image = guiCreateElement(13,"logo.png", screen[0]/2 - 203.0, screen[1]/2 - 145.0, 406.0, 266.0);
     window = guiCreateElement( ELEMENT_TYPE_WINDOW, windowLabel, screen[0]/2 - 192.5, screen[1]/2 - 65.2, 385.0, 150.0 );
     label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, labelText, 58.0, 30.0, 300.0, 20.0, false, window);
     input[0] = guiCreateElement( ELEMENT_TYPE_EDIT, inputText, 92.0, 60.0, 200.0, 20.0, false, window);
@@ -48,19 +48,19 @@ function showAuthGUI(windowLabel,labelText,inputText,buttonText){
 addEventHandler("showAuthGUI", showAuthGUI);
 
 function showRegGUI(windowText,labelText, inputpText, inputrpText, inputEmailText, buttonText){
-    blackRoundFrame = guiCreateElement(13,"someweirdshit.png", 0, 0, screen[0], screen[1]);
-    image = guiCreateElement(13,"logo.png", screen[0]/2 - 148.0, screen[1]/2 - 220.0, 296.0, 102.0);
-    window = guiCreateElement( ELEMENT_TYPE_WINDOW, windowText, screen[0]/2 - 222.5, screen[1]/2 - 100.0, 445.0, 210.0 );
-    label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, labelText, 85.0, 30.0, 300.0, 20.0, false, window);
-    label[1] = guiCreateElement( ELEMENT_TYPE_LABEL, inputpText, 90.0, 60.0, 300.0, 20.0, false, window);
-    label[2] = guiCreateElement( ELEMENT_TYPE_LABEL, inputrpText, 90.0, 90.0, 300.0, 20.0, false, window);
-    label[3] = guiCreateElement( ELEMENT_TYPE_LABEL, inputEmailText, 90.0, 120.0, 300.0, 20.0, false, window);
-    input[0] = guiCreateElement( ELEMENT_TYPE_EDIT, "", 200.0, 60.0, 150.0, 20.0, false, window);
-    input[1] = guiCreateElement( ELEMENT_TYPE_EDIT, "", 200.0, 90.0, 150.0, 20.0, false, window);
-    input[2] = guiCreateElement( ELEMENT_TYPE_EDIT, "", 150.0, 120.0, 200.0, 20.0, false, window);
-    button[1] = guiCreateElement( 2, buttonText ,  150.0, 150.0, 150.0, 20.0, false, window);
-    langs[0] = guiCreateElement(13, "lang_en.png", screen[0]/2 - 16.0 - 20.0, screen[1]/2 + (200.0 / 2) - 20.0, 32.0, 18.0);
-    langs[1] = guiCreateElement(13, "lang_ru.png", screen[0]/2 - 16.0 + 20.0, screen[1]/2 + (200.0 / 2) - 20.0, 32.0, 18.0);
+    blackRoundFrame = guiCreateElement(13,"other_mask.png", 0, 0, screen[0], screen[1]);
+    image = guiCreateElement(13,"logo.png", screen[0]/2 - 203.0, screen[1]/2 - 145.0, 406.0, 266.0);
+    window = guiCreateElement( ELEMENT_TYPE_WINDOW, windowText, screen[0]/2 - 192.5, screen[1]/2 - 65.0, 385.0, 210.0 );
+    label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, labelText, 80.0, 30.0, 300.0, 20.0, false, window);
+    label[1] = guiCreateElement( ELEMENT_TYPE_LABEL, inputpText, 70.0, 60.0, 300.0, 20.0, false, window);
+    label[2] = guiCreateElement( ELEMENT_TYPE_LABEL, inputrpText, 70.0, 90.0, 300.0, 20.0, false, window);
+    label[3] = guiCreateElement( ELEMENT_TYPE_LABEL, inputEmailText, 70.0, 120.0, 300.0, 20.0, false, window);
+    input[0] = guiCreateElement( ELEMENT_TYPE_EDIT, "", 180.0, 60.0, 150.0, 20.0, false, window);
+    input[1] = guiCreateElement( ELEMENT_TYPE_EDIT, "", 180.0, 90.0, 150.0, 20.0, false, window);
+    input[2] = guiCreateElement( ELEMENT_TYPE_EDIT, "", 130.0, 120.0, 200.0, 20.0, false, window);
+    button[1] = guiCreateElement( 2, buttonText ,  117.0, 180.0, 150.0, 20.0, false, window);
+    langs[0] = guiCreateElement(13, "lang_en.png", screen[0]/2 - 16.0 - 20.0, screen[1]/2 + (210.0 / 2) - 19.0, 32.0, 18.0);
+    langs[1] = guiCreateElement(13, "lang_ru.png", screen[0]/2 - 16.0 + 20.0, screen[1]/2 + (210.0 / 2) - 19.0, 32.0, 18.0);
     guiSetAlwaysOnTop(langs[0], true);
     guiSetAlwaysOnTop(langs[1], true);
     guiSetInputMasked( input[0], true );
@@ -148,7 +148,7 @@ function buttonLoginClick() {
     }
     else{
         guiSetInputMasked( input[0], false);
-        guiSetText(input[0], "Пароль");
+        guiSetText(input[0], "Password | Пароль");
     }
 }
 
@@ -159,7 +159,7 @@ function buttonRegisterClick() {
      if(guiGetText(input[0]) == guiGetText(input[1])){
         if(guiGetText(input[2]).len() > 0){
             if(isValidEmail(guiGetText(input[2]))){
-                guiSetText(input[2], "Введён некорректный email");
+                guiSetText(input[2], "Invalid email | Некорректный email");
             }
             else {
                 local password = guiGetText(input[0]);
@@ -168,7 +168,7 @@ function buttonRegisterClick() {
             }
         }
         else {
-            guiSetText(label[0], "Введите ваш email адресс!");
+            guiSetText(label[0], "Enter your email | Введите ваш email адрес");
         }
     }
 }

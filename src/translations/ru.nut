@@ -53,46 +53,6 @@ translation("ru", {
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
-
-
-
-/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
-
-    "auth.wrongname"        : "К сожалению, имя аккаунта не может быть меньше 4 символов. Использовать можно английские буквы, цифры, пробел и нижнее подчеркивание."
-    "auth.changename"       : "Пожалуйста, смените имя аккаунта в настройках и переподключитесь!"
-    "auth.welcome"          : "* Добро пожаловать, %s!"
-    "auth.registered"       : "* Ваш аккаунт зарегистрирован."
-    "auth.notregistered"    : "* Ваш аккаунт НЕ зарегистрирован."
-    "auth.command.register" : "* Зарегистрируйтесь, используя /register ваш_пароль"
-    "auth.command.regformat": "* Пример: Joe Barbaro"
-    "auth.command.login"    : "* Войдите в аккаунт, используя: /login ваш_пароль"
-    "auth.error.logined"    : "[AUTH] Вы уже вошли в аккаунт!"
-    "auth.error.login"      : "[AUTH] Вы уже вошли в аккаунт!"
-    "auth.error.register"   : "[AUTH] Аккаунт с такими именем уже зарегистрирован."
-    "auth.error.notfound"   : "[AUTH] Логин или пароль были введены неправильно."
-    "auth.success.register" : "[AUTH] Вы успешно зарегистрировались!"
-    "auth.success.login"    : "[AUTH] Вы успешно вошли в аккаунт!"
-    "auth.success.autologin": "[AUTH] Вы были успешно авторизованы автоматически!"
-    "auth.error.cmderror"   : "[AUTH] Для выполнения команды Вам необходимо войти в аккаунт!"
-    "auth.notification"     : "[AUTH] Вам нужно войти в свой аккаунт используя /login ваш_пароль, или создать новый через /register ваш_пароль"
-    "auth.error.tomany"     : "[AUTH] Вы достигли лимита по количеству аккаунтов."
-    "auth.error.email"      : "Такой email адрес уже используется!"
-    "auth.client.notloaded" : "Кажется ваши клиент-скрипты не прогрузились. Попробуйте переподключиться!"
-
-    "auth.GUI.TitleRegister"            : "Регистрация"
-    "auth.GUI.TitleLabelRegister"       : "Регистрация нового аккаунта. Заполните поля ниже:"
-    "auth.GUI.PasswordInput"            : "Придумайте пароль:"
-    "auth.GUI.RepeatPasswordInput"      : "Повторите пароль:"
-    "auth.GUI.Email"                    : "Email:"
-    "auth.GUI.ButtonRegister"           : "Зарегистрироваться"
-
-    "auth.GUI.TitleLogin"       : "Авторизация"
-    "auth.GUI.TitleLabelLogin"  : "Аккаунт уже зарегистрирован. Введите ваш пароль:"
-    "auth.GUI.TitleInputLogin"  : "Пароль"
-    "auth.GUI.ButtonLogin"      : "Авторизоваться"
-
-/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
-
     "business.money.income"     : "Вы получили %.2f в качестве дохода от вашего бизнеса «%s»!"
     "business.error.cantbuy"    : "Сейчас у Вас нет возможности купить бизнес!"
     "business.error.faraway"    : "Вы далеко от бизнеса!"
@@ -737,4 +697,85 @@ translation("ru", {
     "character.alreadyregistered"   : "Указанная пара Имя и Фамилия\nзанята. Пожалуйста, придумайте другие."
     "character.wrongname"           : "Вы указали неправильные Имя\nили Фамилию. Пожалуйста,\nисправьте и попробуйте снова."
     "character.bannednames"         : "Указанное Имя и/или Фамилия\nзапрещены правилами сервера.\nПожалуйста, измените и попробуйте снова."
+});
+
+
+alternativeTranslate({
+
+    "en|auth.GUI.TitleRegister"            : "Registration"
+    "ru|auth.GUI.TitleRegister"            : "Регистрация"
+
+    "en|auth.GUI.TitleLogin"               : "Authorization"
+    "ru|auth.GUI.TitleLogin"               : "Авторизация"
+
+    "en|auth.GUI.TitleLabelLogin"          : "Account already registered. Enter your password:"
+    "ru|auth.GUI.TitleLabelLogin"          : "Аккаунт уже зарегистрирован. Введите пароль:"
+
+    "en|auth.GUI.TitleInputLogin"          : "password"
+    "ru|auth.GUI.TitleInputLogin"          : "Пароль"
+
+    "en|auth.GUI.ButtonLogin"              : "Log in"
+    "ru|auth.GUI.ButtonLogin"              : "Авторизоваться"
+
+    "en|auth.GUI.TitleLabelRegister"       : "Register a new account. Fill in the fields below:"
+    "ru|auth.GUI.TitleLabelRegister"       : "Регистрация нового аккаунта. Заполните поля:"
+
+    "en|auth.GUI.PasswordInput"            : "Create a password:"
+    "ru|auth.GUI.PasswordInput"            : "Придумайте пароль:"
+
+    "en|auth.GUI.RepeatPasswordInput"      : "Repeat password:"
+    "ru|auth.GUI.RepeatPasswordInput"      : "Повторите пароль:"
+
+    "en|auth.GUI.Email"                    : "Email:"
+    "ru|auth.GUI.Email"                    : "Email:"
+
+    "en|auth.GUI.ButtonRegister"           : "Sign up"
+    "ru|auth.GUI.ButtonRegister"           : "Зарегистрироваться"
+
+    "en|auth.GUI.error.notfound"           : "Incorrect login or password."
+    "ru|auth.GUI.error.notfound"           : "Логин или пароль были введены неправильно."
+
+
+    "en|auth.wrongname"        : "Your name should be at least 4 symbols and should not contain any symbols except letters, nubmers, space and underscore."
+    "en|auth.wrongname"        : "Sorry, your name should be original (not from the game) and have Firstname_Lastname format."
+    "en|auth.changename"       : "Please, change you name in the settings, and reconnect. Thank you!"
+    "en|auth.welcome"          : "* Welcome there, %s!"
+    "en|auth.registered"       : "* Your account is registered."
+    "en|auth.notregistered"    : "* Your account is not registered."
+    "en|auth.command.register" : "* Please register using /register PASSWORD"
+    "en|auth.command.regformat": "* Example: Joe_Barbaro"
+    "en|auth.command.login"    : "* Please enter using /login PASSWORD"
+    "en|auth.error.logined"    : "[AUTH] You are already logined!"
+    "en|auth.error.login"      : "[AUTH] You are already logined!"
+    "en|auth.error.register"   : "[AUTH] Account with this name is already registered!"
+    "en|auth.error.notfound"   : "[AUTH] Incorrect login or password."
+    "en|auth.success.register" : "[AUTH] You've successfuly registered!"
+    "en|auth.success.login"    : "[AUTH] You've successfuly logined!"
+    "en|auth.success.autologin": "[AUTH] You've been automatically logined!"
+    "en|auth.error.cmderror"   : "[AUTH] You can't execute commands without registration."
+    "en|auth.notification"     : "[AUTH] You should enter into your account via /login PASSWORD, or create new one via /register PASSWORD"
+    "en|auth.error.tomany"     : "[AUTH] You cant register more accounts."
+    "en|auth.client.notloaded" : "Seems like your client scripts were not properly loaded. Try reconnecting!"
+
+
+    "ru|auth.wrongname"        : "К сожалению, имя аккаунта не может быть меньше 4 символов. Использовать можно английские буквы, цифры, пробел и нижнее подчеркивание."
+    "ru|auth.changename"       : "Пожалуйста, смените имя аккаунта в настройках и переподключитесь!"
+    "ru|auth.welcome"          : "* Добро пожаловать, %s!"
+    "ru|auth.registered"       : "* Ваш аккаунт зарегистрирован."
+    "ru|auth.notregistered"    : "* Ваш аккаунт НЕ зарегистрирован."
+    "ru|auth.command.register" : "* Зарегистрируйтесь, используя /register ваш_пароль"
+    "ru|auth.command.regformat": "* Пример: Joe Barbaro"
+    "ru|auth.command.login"    : "* Войдите в аккаунт, используя: /login ваш_пароль"
+    "ru|auth.error.logined"    : "[AUTH] Вы уже вошли в аккаунт!"
+    "ru|auth.error.login"      : "[AUTH] Вы уже вошли в аккаунт!"
+    "ru|auth.error.register"   : "[AUTH] Аккаунт с такими именем уже зарегистрирован."
+    "ru|auth.error.notfound"   : "[AUTH] Логин или пароль были введены неправильно."
+    "ru|auth.success.register" : "[AUTH] Вы успешно зарегистрировались!"
+    "ru|auth.success.login"    : "[AUTH] Вы успешно вошли в аккаунт!"
+    "ru|auth.success.autologin": "[AUTH] Вы были успешно авторизованы автоматически!"
+    "ru|auth.error.cmderror"   : "[AUTH] Для выполнения команды Вам необходимо войти в аккаунт!"
+    "ru|auth.notification"     : "[AUTH] Вам нужно войти в свой аккаунт используя /login ваш_пароль, или создать новый через /register ваш_пароль"
+    "ru|auth.error.tomany"     : "[AUTH] Вы достигли лимита по количеству аккаунтов."
+    "ru|auth.error.email"      : "Такой email адрес уже используется!"
+    "ru|auth.client.notloaded" : "Кажется ваши клиент-скрипты не прогрузились. Попробуйте переподключиться!"
 });
