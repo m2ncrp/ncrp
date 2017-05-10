@@ -101,7 +101,7 @@ function __dont_run() {
     // 10.05.2017
     // added Police 2.0
     migrate(function(query, type) {
-        local fraction = fraction__Create("Police", "pd", "police");
+        local fraction = fraction__Create("Police", "police", "police");
         fraction__Role(fraction, "Police Chief"    ,    "police.chief"            ,  FRACTION_FULL_PERMISSION);
         fraction__Role(fraction, "Assist. chief"   ,    "police.assistantchief"   ,  FRACTION_FULL_PERMISSION);
         fraction__Role(fraction, "Detective"       ,    "police.detective"        ,  FRACTION_FULL_PERMISSION);
