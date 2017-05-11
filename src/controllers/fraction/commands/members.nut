@@ -66,10 +66,16 @@ cmd("f", "kick", function(playerid, listid = -1) {
             // remove player
             fraction.remove(character.id, false);
 
+            //todo: remove after all fractions update [1]
+            if(fraction.shortcut == "police") { character.job = ""; character.save(); }
+
             msg(playerid, "fraction.member.kick", [ character.firstname + " " + character.lastname ], CL_SUCCESS);
 
             if (isPlayerLoaded(character.playerid)) {
                 msg(character.playerid, "fraction.member.kicked", [ fraction.title ], CL_WARNING);
+
+                //todo: remove after all fractions update [2]
+                if(fraction.shortcut == "police") setPlayerJob(character.playerid, null);
             }
         };
 
@@ -129,10 +135,16 @@ cmd("f", "setrole", function(playerid, listid = -1, roleid = -1) {
             // set member role
             fraction.set(character.id, newrole, false);
 
+            //todo: remove after all fractions update [1]
+            if(fraction.shortcut == "police") { character.job = newrole.shortcut; character.save(); }
+
             msg(playerid, "fraction.member.setrolecomplete", [ character.firstname + " " + character.lastname, newrole.title ], CL_SUCCESS);
 
             if (isPlayerLoaded(character.playerid)) {
                 msg(character.playerid, "fraction.member.changedrole", [ fraction.title, newrole.title ], CL_SUCCESS);
+
+                //todo: remove after all fractions update [2]
+                if(fraction.shortcut == "police") setPlayerJob(character.playerid, newrole.shortcut);
             }
         };
 

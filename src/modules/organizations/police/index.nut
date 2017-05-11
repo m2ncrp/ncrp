@@ -75,13 +75,16 @@ local police_rank = [
 
 ];
 
-
-function yourcmd(name, callback) {
+/*
+function policecmd(name, callback) {
     cmd(name, function(playerid, args) {
+        local police = fractions["police"];
+        police.exists(playerid)
+
         return callback(playerid, args);
     });
 }
-
+*/
 /*
                                                     №   car  detective_car    wanted    ticket    park    arrest    jail    amnesty    weapons          change_rangs    give_key  civilian_clothes  salary
     "police.cadet",          //"Police cadet"       0    -         -            -         -         -       -        -         -          -                  -              -             -          0.15
@@ -131,25 +134,6 @@ POLICE_TICKET_PRICELIST <- [
 ];
 
 DENGER_LEVEL <- "green";
-
-/**
- * Any cmd only with any text, without specific parameters
- * @param  {[type]}   names    [description]
- * @param  {Function} callback [description]
- * @return {[type]}            [description]
- */
-function policecmd(names, callback)  {
-    cmd(names, function(playerid, ...) {
-        local text = concat(vargv);
-
-        if (!text || text.len() < 1) {
-            return msg(playerid, "general.message.empty", CL_YELLOW);
-        }
-
-        // call registered callback
-        return callback(playerid, text);
-    });
-}
 
 /**
  * Format message from parameters package (vargv)
