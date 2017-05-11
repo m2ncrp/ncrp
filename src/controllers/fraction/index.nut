@@ -23,7 +23,7 @@ include("controllers/fraction/commands/vehicle.nut");
 include("controllers/fraction/commands/money.nut");
 include("controllers/fraction/commands/chat.nut");
 
-fractions <- FractionContainer();
+fractions <- ContainerFractions();
 
 event("onServerStarted", function() {
     local __globalroles = {};

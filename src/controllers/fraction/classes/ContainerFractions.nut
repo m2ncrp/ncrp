@@ -1,4 +1,4 @@
-class FractionContainer extends Container
+class ContainerFractions extends Container
 {
     static classname = "FractionContainer";
 

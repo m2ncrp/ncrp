@@ -242,3 +242,12 @@ migrate(function(query, type) {
     query("ALTER TABLE tbl_fractions ADD COLUMN `data` TEXT NOT NULL;");
     query("ALTER TABLE tbl_fraction_roles ADD COLUMN `data` TEXT NOT NULL;");
 });
+
+migrate(@(a,b) 1);
+
+// 11.05.2017
+// added data,updated field for FractionMember
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_fraction_members ADD COLUMN `data` TEXT NOT NULL;");
+    query("ALTER TABLE tbl_fraction_members ADD COLUMN `updated` INT(255) NOT NULL DEFAULT 0;");
+});
