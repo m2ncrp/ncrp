@@ -78,7 +78,7 @@ local carPricesAll = [
 
 local carOnSale = [ 0, 1, 9, 10, 12, 13, 14, 15, 18, 22, 23, 25, 28, 29, 41, 43, 44, 45, 47, 48, 50, 52, 53 ];
 local currentcarcolor = {};
-
+local carPrices = {};
 // translations
 alternativeTranslate({
     "en|shops.carshop.gotothere"     : "If you want to buy a car go to Diamond Motors!"
@@ -143,6 +143,7 @@ event("onServerStarted", function() {
 
     createPlace(CARSHOP_PLACE_NAME, CARSHOP_PLACE_COORDS[0], CARSHOP_PLACE_COORDS[1], CARSHOP_PLACE_COORDS[2], CARSHOP_PLACE_COORDS[3]);
 
+    carPrices = generateRandomCarPrices();
 /*
     msg(playerid, "shops.carshop.list.title", CL_INFO);
 
@@ -451,9 +452,6 @@ function generateRandomCarPrices() {
 
     return carPrices;
 }
-
-local carPrices = generateRandomCarPrices();
-
 
 /* ==================================================================== COMMANDS ================================================================================= */
 
