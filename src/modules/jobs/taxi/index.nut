@@ -671,6 +671,9 @@ function taxiJobGet(playerid) {
         return;
     }
 
+    return msg(playerid, "job.taxi.novacancy", CL_WARNING);
+
+
     if(!isPlayerLevelValid ( playerid, TAXI_JOB_LEVEL )) {
         return msg(playerid, "job.taxi.needlevel", TAXI_JOB_LEVEL );
     }

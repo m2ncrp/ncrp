@@ -3,6 +3,9 @@ local translations = {
 "en|job.taxidriver"                    :   "taxi driver"
 "ru|job.taxidriver"                    :   "таксист"
 
+"en|job.taxi.novacancy"                :   "Sorry, there is no taxi driver vacancy now."
+"ru|job.taxi.novacancy"                :   "Извини, таксисты сейчас не требуются."
+
 "en|job.taxi.continue"                 :   "[TAXI] You're a taxi driver."
 "ru|job.taxi.continue"                 :   "[TAXI] Вы работаете таксистом."
 
@@ -139,7 +142,6 @@ local translations = {
 
 "en|taxi.call.completed"               :   "[TAXI] The trip is completed. Thank you for choosing our taxi service!"
 "ru|taxi.call.completed"               :   "[TAXI] Поездка завершена. Спасибо, что выбрали наше такси."
-
 
 "en|job.taxi.help.job"              :   "E button"
 "en|job.taxi.help.jobtext"          :   "Get taxi driver job near Daniel Burns"
