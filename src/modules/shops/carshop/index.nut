@@ -220,6 +220,7 @@ event("onPlayerPlaceExit", function(playerid, name) {
         blockVehicle(vehicleid);
         //kickPlayer( playerid );
         msg(playerid, "shops.carshop.dontsteal", CL_THUNDERBIRD);
+        setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
         tryRespawnVehicleById(vehicleid, true);
         setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
     }
