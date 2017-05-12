@@ -8,6 +8,11 @@ local vehiclePositions = [
         { state = CARSHOP_STATE_FREE, position = Vector3(-209.199, 833.547, -21.0283), rotation = Vector3(160.662, 0.470803, 2.37895) },
         { state = CARSHOP_STATE_FREE, position = Vector3(-213.164, 832.172, -20.9392), rotation = Vector3(160.965, 0.350293, 2.35895) },
         { state = CARSHOP_STATE_FREE, position = Vector3(-217.133, 830.954, -20.9312), rotation = Vector3(159.368, 0.344307, 2.36111) },
+
+        { state = CARSHOP_STATE_FREE, position = Vector3(-220.716, 827.691, -20.8228), rotation = Vector3(120.179, -0.570173, 3.1387) },
+        { state = CARSHOP_STATE_FREE, position = Vector3(-221.450, 822.812, -20.7874), rotation = Vector3(92.0500, 3.58971,  1.63252) },
+        { state = CARSHOP_STATE_FREE, position = Vector3(-221.450, 818.652, -20.6618), rotation = Vector3(92.0500, 3.72205, 0.869233) },
+        { state = CARSHOP_STATE_FREE, position = Vector3(-221.450, 814.535, -20.6319), rotation = Vector3(92.0500, 3.80713, 0.798234) },
     ],
     [   // bad guy
         { state = CARSHOP_STATE_FREE, position = Vector3(-626.011, 949.629, -18.7708), rotation = Vector3(-89.2381, 1.3864, -0.456439) },
@@ -21,81 +26,39 @@ local vehiclePositions = [
  */
 local carPricesAll = [
     [   // diamond motors
-        { modelid =  0  , price = 7395  , rent = 0.74  , title = "Ascot Bailey S200"             },
-        { modelid =  1  , price = 6080  , rent = 0.61  , title = "Berkley Kingfisher"            },
-        { modelid =  9  , price = 3240  , rent = 0.32  , title = "Houston Wasp"                  },
-        { modelid =  10 , price = 9800  , rent = 0.98  , title = "ISW 508"                       },
-        { modelid =  12 , price = 2700  , rent = 0.27  , title = "Walter Utility"                },
-        { modelid =  13 , price = 27000 , rent = 2.7   , title = "Jefferson Futura"              },
-        { modelid =  14 , price = 5250  , rent = 0.53  , title = "Jefferson Provincial"          },
-        { modelid =  15 , price = 3900  , rent = 0.39  , title = "Lassiter Series 69"            },
-        { modelid =  18 , price = 7670  , rent = 0.77  , title = "Lassiter Series 75 Hollywood"  },
-        { modelid =  22 , price = 2500  , rent = 0.25  , title = "Potomac Indian"                },
-        { modelid =  23 , price = 2750  , rent = 0.28  , title = "Quicksilver Windsor"           },
-        { modelid =  25 , price = 750   , rent = 0.08  , title = "Shubert 38"                    },
-        { modelid =  28 , price = 2530  , rent = 0.25  , title = "Shubert Beverly"               },
-        { modelid =  29 , price = 5470  , rent = 0.55  , title = "Shubert Frigate"               },
-        { modelid =  30 , price = 850   , rent = 0.09  , title = "Shubert 38 Hearse"             },
-        { modelid =  31 , price = 730   , rent = 0.07  , title = "Shubert 38 Panel Truck"        },
-        { modelid =  33 , price = 730   , rent = 0.07  , title = "Shubert 38 Taxi"               },
-        { modelid =  41 , price = 3140  , rent = 0.31  , title = "Smith Custom 200"              },
-        { modelid =  43 , price = 470   , rent = 0.05  , title = "Smith Coupe"                   },
-        { modelid =  44 , price = 2350  , rent = 0.24  , title = "Smith Mainline"                },
-        { modelid =  45 , price = 4200  , rent = 0.42  , title = "Smith Thunderbolt"             },
-        { modelid =  47 , price = 610   , rent = 0.06  , title = "Smith V8"                      },
-        { modelid =  48 , price = 1780  , rent = 0.18  , title = "Smith Deluxe Station Wagon"    },
-        { modelid =  50 , price = 2050  , rent = 0.21  , title = "Culver Empire"                 },
-        { modelid =  52 , price = 4950  , rent = 0.5   , title = "Walker Rocket"                 },
-        { modelid =  53 , price = 870   , rent = 0.09  , title = "Walter Coupe"                  },
+        { modelid = 0  , price = 7690 , rent = 0.74, title = "Ascot Bailey S200"            },
+        { modelid = 1  , price = 6325 , rent = 0.61, title = "Berkley Kingfisher"           },
+        { modelid = 9  , price = 2810 , rent = 0.32, title = "Houston Wasp"                 },
+        { modelid = 10 , price = 10070, rent = 0.98, title = "ISW 508"                      },
+        { modelid = 12 , price = 2400 , rent = 0.24, title = "Walter Utility"               },
+        { modelid = 13 , price = 26500, rent = 2.65, title = "Jefferson Futura"             },
+        { modelid = 14 , price = 5050 , rent = 0.51, title = "Jefferson Provincial"         },
+        { modelid = 15 , price = 3600 , rent = 0.36, title = "Lassiter Series 69"           },
+        { modelid = 18 , price = 7870 , rent = 0.79, title = "Lassiter Series 75 Hollywood" },
+        { modelid = 22 , price = 2200 , rent = 0.22, title = "Potomac Indian"               },
+        { modelid = 23 , price = 1800 , rent = 0.18, title = "Quicksilver Windsor"          },
+        { modelid = 25 , price = 650  , rent = 0.07, title = "Shubert 38"                   },
+        { modelid = 28 , price = 2600 , rent = 0.26, title = "Shubert Beverly"              },
+        { modelid = 29 , price = 4575 , rent = 0.46, title = "Shubert Frigate"              },
+        { modelid = 31 , price = 730  , rent = 0.07, title = "Shubert 38 Panel Truck"       },
+        { modelid = 41 , price = 2800 , rent = 0.28, title = "Smith Custom 200"             },
+        { modelid = 43 , price = 470  , rent = 0.05, title = "Smith Coupe"                  },
+        { modelid = 44 , price = 1650 , rent = 0.17, title = "Smith Mainline"               },
+        { modelid = 45 , price = 4800 , rent = 0.48, title = "Smith Thunderbolt"            },
+        { modelid = 47 , price = 570  , rent = 0.06, title = "Smith V8"                     },
+        { modelid = 48 , price = 1580 , rent = 0.16, title = "Smith Deluxe Station Wagon"   },
+        { modelid = 50 , price = 2050 , rent = 0.21, title = "Culver Empire"                },
+        { modelid = 52 , price = 4950 , rent = 0.5 , title = "Walker Rocket"                },
+        { modelid = 53 , price = 490  , rent = 0.05, title = "Walter Coupe"                 },
+
     ],
     [
         // bad guy
     ]
 ];
 
-
-local carOnSale = [ 0, 1, 9, 10, 12, 13, 14, 15, 22, 23, 29, 44, 48, 50, 52 ];
-
-/**
- * Automatically changing the range of cars both stores.
- * Writing to carPrices[0] for Diamond Motors and carPrices[1] for Bad Guy
- */
-
-function generateRandomCarPrices() {
-    local carPrices = [[],[]];
-
-    local carPricesDiamond = clone(carPricesAll[0]);
-    for (local i = 0; i < 11; i++) {
-        local rand = random(0, carPricesDiamond.len() - 1);
-        // dbg(carPricesDiamond[rand].modelid);
-        if( carOnSale.find(carPricesDiamond[rand].modelid) == null ) { i--; /* dbg("nicht"); */ continue; }
-
-        carPrices[0].push(carPricesDiamond[rand]);
-        carPricesDiamond.remove(rand);
-    }
-    carPricesDiamond.clear();
-
-
-/*
-    local carPricesBadGuy = clone(carPricesAll[1]);
-    for (local i = 0; i < 8; i++) {
-        local rand = random(0, carPricesBadGuy.len() - 1);
-        carPrices[1].push(carPricesBadGuy[rand]);
-        carPricesBadGuy.remove(rand);
-    }
-    carPricesBadGuy.clear();
-*/
-    foreach (idx, subprices in carPrices) {
-        foreach (idx_, object in subprices) {
-            object.price = randomf(object.price - CARSHOP_PRICE_DIFF * 0.5, object.price + CARSHOP_PRICE_DIFF * 2.0);
-        }
-    }
-
-    return carPrices;
-}
-
-local carPrices = generateRandomCarPrices();
-
+local carOnSale = [ 0, 1, 9, 10, 12, 13, 14, 15, 18, 22, 23, 25, 28, 29, 41, 43, 44, 45, 47, 48, 50, 52, 53 ];
+local currentcarcolor = {};
 
 // /**
 //  * Regiser coordinates for players (4 doors at diamond motors)
@@ -227,3 +190,74 @@ function carShopFreeCarSlot(playerid, vehicleid) {
         slot.state = CARSHOP_STATE_FREE;
     }
 }
+
+
+
+
+function carShopChangeColor(playerid) {
+
+    if (!isPlayerInVehicle(playerid)) {
+        return;
+    }
+
+    local vehicleid = getPlayerVehicle(playerid);
+    local plate = getVehiclePlateText(vehicleid);
+    if(plate != " SALE ") {
+        return;
+    }
+
+    local carpaints = getVehicleColorsArray( vehicleid );
+
+    local num = currentcarcolor[vehicleid] + 1;
+    if(num >= carpaints.len()) num = 0;
+
+    local cr = carpaints[num];
+    currentcarcolor[vehicleid] = num;
+
+    setVehicleColour(vehicleid, cr[0], cr[1], cr[2], cr[3], cr[4], cr[5]);
+}
+
+
+
+/**
+ * Automatically changing the range of cars both stores.
+ * Writing to carPrices[0] for Diamond Motors and carPrices[1] for Bad Guy
+ */
+
+function generateRandomCarPrices() {
+    local carPrices = [[],[]];
+    local shopDiamondSpaces = vehiclePositions[0];
+    local countFreeSpaces = shopDiamondSpaces.len();
+
+    local carPricesDiamond = clone(carPricesAll[0]);
+    for (local i = 0; i < countFreeSpaces; i++) {
+        local rand = random(0, carPricesDiamond.len() - 1);
+        // dbg(carPricesDiamond[rand].modelid);
+        if( carOnSale.find(carPricesDiamond[rand].modelid) == null ) { i--; /* dbg("nicht"); */ continue; }
+
+        local vehicleid = createVehicle(carPricesDiamond[rand].modelid,
+            shopDiamondSpaces[i].position.x, shopDiamondSpaces[i].position.y, shopDiamondSpaces[i].position.z,
+            shopDiamondSpaces[i].rotation.x, shopDiamondSpaces[i].rotation.y, shopDiamondSpaces[i].rotation.z
+        );
+        currentcarcolor[vehicleid] <- 0;
+        setVehiclePlateText(vehicleid, " SALE ");
+        setVehicleDirtLevel(vehicleid, 0.0);
+        delayedFunction(1000, function() { setRandomVehicleColors(vehicleid); });
+        repairVehicle(vehicleid);
+
+        carPrices[0].push(carPricesDiamond[rand]);
+        carPricesDiamond.remove(rand);
+    }
+    carPricesDiamond.clear();
+
+
+    foreach (idx, subprices in carPrices) {
+        foreach (idx_, object in subprices) {
+            object.price = randomf(object.price - CARSHOP_PRICE_DIFF * 0.5, object.price + CARSHOP_PRICE_DIFF * 2.0);
+        }
+    }
+
+    return carPrices;
+}
+
+local carPrices = generateRandomCarPrices();
