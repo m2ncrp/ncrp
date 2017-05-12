@@ -84,6 +84,7 @@ class ContainerFractionMembers extends Container
 
         local member = this.get(character);
 
+        member.role         = role;
         member.roleid       = role.id;
         member.fractionid   = role.fractionid;
         member.characterid  = character;

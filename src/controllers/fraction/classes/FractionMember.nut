@@ -11,9 +11,16 @@ class FractionMember extends ORM.JsonEntity
         ORM.Field.Integer({ name = "created" }),
     ];
 
+    role = null;
+
     function save() {
         if (!this.created) {
             this.created = getTimestamp();
+        }
+
+        // prevent db saving if no actuall changes happend
+        if (this.__modified.len() < 1) {
+            return;
         }
 
         this.updated = getTimestamp();
