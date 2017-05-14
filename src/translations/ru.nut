@@ -693,8 +693,8 @@ alternativeTranslate({
     "en|auth.GUI.TitleLogin"               : "Authorization"
     "ru|auth.GUI.TitleLogin"               : "Авторизация"
 
-    "en|auth.GUI.TitleLabelLogin"          : "Account already registered. Enter your password:"
-    "ru|auth.GUI.TitleLabelLogin"          : "Аккаунт уже зарегистрирован. Введите пароль:"
+    "en|auth.GUI.TitleLabelLogin"          : "Account %s already registered. Enter your password:"
+    "ru|auth.GUI.TitleLabelLogin"          : "Аккаунт %s уже зарегистрирован. Введите пароль:"
 
     "en|auth.GUI.TitleInputLogin"          : "password"
     "ru|auth.GUI.TitleInputLogin"          : "Пароль"
@@ -739,9 +739,9 @@ alternativeTranslate({
     "en|auth.success.autologin": "[AUTH] You've been automatically logined!"
     "en|auth.error.cmderror"   : "[AUTH] You can't execute commands without registration."
     "en|auth.notification"     : "[AUTH] You should enter into your account via /login PASSWORD, or create new one via /register PASSWORD"
-    "en|auth.error.tomany"     : "[AUTH] You cant register more accounts."
+    "en|auth.error.tomany"     : "You cant register more accounts."
     "en|auth.client.notloaded" : "Seems like your client scripts were not properly loaded. Try reconnecting!"
-
+    "en|auth.haveproblems"     : "Have problems or forget password? Go to: vk.com/m2ncrp"
 
     "ru|auth.wrongname"        : "К сожалению, имя аккаунта не может быть меньше 4 символов. Использовать можно английские буквы, цифры, пробел и нижнее подчеркивание."
     "ru|auth.changename"       : "Пожалуйста, смените имя аккаунта в настройках и переподключитесь!"
@@ -760,7 +760,9 @@ alternativeTranslate({
     "ru|auth.success.autologin": "[AUTH] Вы были успешно авторизованы автоматически!"
     "ru|auth.error.cmderror"   : "[AUTH] Для выполнения команды Вам необходимо войти в аккаунт!"
     "ru|auth.notification"     : "[AUTH] Вам нужно войти в свой аккаунт используя /login ваш_пароль, или создать новый через /register ваш_пароль"
-    "ru|auth.error.tomany"     : "[AUTH] Вы достигли лимита по количеству аккаунтов."
+    "ru|auth.error.tomany"     : "Вы достигли лимита по количеству аккаунтов."
     "ru|auth.error.email"      : "Такой email адрес уже используется!"
     "ru|auth.client.notloaded" : "Кажется ваши клиент-скрипты не прогрузились. Попробуйте переподключиться!"
+    "ru|auth.haveproblems"     : "Есть проблемы или забыл пароль? Пиши: vk.com/m2ncrp"
+
 });
