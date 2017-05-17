@@ -30,7 +30,9 @@ function fmd(shortcuts, permissions, pattern, callback) {
         }
 
         foreach (idx, fraction in fracts) {
-            cmd(str_replace("$f", fraction.shortcut, pattern), function(...) {
+            local command_parts = split(str_replace("$f", fraction.shortcut, pattern), " ");
+
+            cmd(command_parts[0], command_parts.slice(1), function(...) {
                 local character = players[vargv[0]];
 
                 if (!fraction.members.exists(character)) {
@@ -45,8 +47,8 @@ function fmd(shortcuts, permissions, pattern, callback) {
 
                 args.remove(0);
                 args.insert(0, getroottable());
-                args.insert(1, character);
-                args.insert(2, fraction);
+                args.insert(1, fraction);
+                args.insert(2, character);
 
                 callback.acall(args);
             });
