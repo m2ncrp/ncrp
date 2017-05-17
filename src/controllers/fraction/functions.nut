@@ -1,3 +1,59 @@
+local fmds = [];
+
+function register_fmds() {
+    return fmds.map(@(handle) handle());
+}
+
+function fmd(shortcuts, permissions, pattern, callback) {
+    fmds.push(function() {
+        local fracts = [];
+
+        if (shortcuts == "*") {
+            fractions.each(function(fraction) {
+                fracts.push(fraction);
+            });
+        }
+        else {
+            if (typeof shortcuts != "array") {
+                shortcuts = [shortcuts];
+            }
+
+            fracts = shortcuts.map(function(shortcut) {
+                return fractions.exists(shortcut) ? fractions.get(shortcut) : null;
+            }).filter(function(fraction, key) {
+                return fraction != null;
+            });
+        }
+
+        if (!fracts) {
+            return dbg("fmd: cannot apply command to unknown fractions", shortcuts);
+        }
+
+        foreach (idx, fraction in fracts) {
+            cmd(str_replace("$f", fraction.shortcut, pattern), function(...) {
+                local character = players[vargv[0]];
+
+                if (!fraction.members.exists(character)) {
+                    return;
+                }
+
+                if (!fraction.mebmers.get(character).permitted(permissions)) {
+                    return; // todo(inlife): maybe information to user about no permisison?
+                }
+
+                local args = clone(vargv);
+
+                args.remove(0);
+                args.insert(0, getroottable());
+                args.insert(1, character);
+                args.insert(2, fraction);
+
+                callback.acall(args);
+            });
+        }
+    });
+}
+
 /**
  * Check whether or player can access fraction vehicle
  * @param  {Integer}  playerid

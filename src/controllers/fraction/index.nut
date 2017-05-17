@@ -52,11 +52,11 @@ event("onServerStarted", function() {
             }
 
             __globalroles[role.id] <- role;
-            fractions[role.fractionid].roles.add(fractions[role.fractionid].roles.len(), role);
+            // fractions[role.fractionid].roles.add(fractions[role.fractionid].roles.len(), role);
             // fractions[role.fractionid].__globalroles.add(role.id, role);
 
             if (role.shortcut && role.shortcut != "") {
-                fractions[role.fractionid].sroles.add(role.shortcut, role);
+                fractions[role.fractionid].roles.add(role.shortcut, role);
             }
         }
     });
@@ -74,7 +74,7 @@ event("onServerStarted", function() {
             }
 
             // fractions[member.fractionid].add(member.characterid, fractions[member.fractionid].__globalroles[member.roleid]);
-            fractions[member.fractionid].memberRoles.set(member.characterid, __globalroles[member.roleid]);
+            fractions[member.fractionid].members.set(member.characterid, __globalroles[member.roleid]);
         }
     });
 
@@ -88,6 +88,8 @@ event("onServerStarted", function() {
             fractions[object.fractionid].property.add(object.entityid, object);
         }
     });
+
+    register_fmds();
 });
 
 

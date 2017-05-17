@@ -26,4 +26,42 @@ class FractionMember extends ORM.JsonEntity
         this.updated = getTimestamp();
         base.save();
     }
+
+    /**
+     * Try to find if particular permission is allowed for
+     * current member role
+     * @param  {Array|String} permissions
+     * @return {Boolean}
+     */
+    function permitted(permissions) {
+        if (!this.role) {
+            return false;
+        }
+
+        if (typeof permissions != "array") {
+            permissions = [permissions];
+        }
+
+        if (!permissions.len()) {
+            return true;
+        }
+
+        local perms = [];
+
+        if ("perms" in this.role.data) {
+            perms = this.role.data.perms;
+        }
+        else if ("permissions" in this.role.data) {
+            perms = this.role.data.permissions;
+        }
+
+        return permissions
+            .map(function(perm) {
+                return perms.find(perm) != null;
+            })
+            .reduce(function(a, b) {
+                return a && b;
+            })
+        ;
+    }
 }
