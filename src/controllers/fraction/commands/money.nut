@@ -1,79 +1,56 @@
 /**
  * List amount of money in the current fraction
  */
-cmd("f", "money", function(playerid) {
-    local fracs = fractions.getManaged(playerid, FRACTION_MONEY_PERMISSION);
-
-    if (!fracs.len()) {
-        return msg(playerid, "fraction.money.notaccess", CL_WARNING);
-    }
-
-    // for now take the first one
-    local fraction = fracs[0];
-
-    msg(playerid, "fraction.money.amount", [ fraction.title, fraction.money ], CL_INFO);
+fmd("*", ["money.list"], "$f money", function(fraction, character) {
+    msg(character.playerid, "fraction.money.amount", [ fraction.title, fraction.money ], CL_INFO);
 });
 
 /**
  * Add money to fraction from players account
- * @param  {Integer} playerid
+ * @param  {Fraction} fraction
+ * @param  {Character} character
  * @param  {Float} amount
  */
-cmd("f", ["money", "add"], function(playerid, amount = 0.0) {
-    local fracs = fractions.getContaining(playerid);
+fmd("*", ["money.add"], "$f money add", function(fraction, character, amount = "0") {
     amount = amount.tofloat();
 
-    if (!fracs.len()) {
-        return msg(playerid, "fraction.money.notaccess", CL_WARNING);
+    if (!canMoneyBeSubstracted(character.playerid, amount)) {
+        return msg(character.playerid, "fraction.money.notenough", CL_ERROR);
     }
 
-    // for now take the first one
-    local fraction = fracs[0];
-
-    if (!canMoneyBeSubstracted(playerid, amount)) {
-        return msg(playerid, "fraction.money.notenough", CL_ERROR);
-    }
-
-    subMoneyToPlayer(playerid, amount);
+    subMoneyToPlayer(character.playerid, amount);
 
     fraction.money = fraction.money + amount;
     fraction.save();
 
-    msg(playerid, "fraction.money.add", [ amount, fraction.title ], CL_SUCCESS);
+    msg(character.playerid, "fraction.money.add", [ amount, fraction.title ], CL_SUCCESS);
 
-    if (fraction[playerid].level <= FRACTION_MONEY_PERMISSION) {
-        msg(playerid, "fraction.money.amount", [ fraction.title, fraction.money ], CL_INFO);
+    if (fraction.members.get(character).permitted("money.list")) {
+        msg(character.playerid, "fraction.money.amount", [ fraction.title, fraction.money ], CL_INFO);
     }
 });
 
 /**
  * Subtract from fraction to players account
- * @param  {Integer} playerid
+ * @param  {Fraction} fraction
+ * @param  {Character} character
  * @param  {Float} amount
  */
-cmd("f", ["money", "sub"], function(playerid, amount = 0.0) {
-    local fracs = fractions.getManaged(playerid, FRACTION_MONEY_PERMISSION);
+fmd("*", ["money.remove"], "$f money sub", function(fraction, character, amount = "0") {
     amount = amount.tofloat();
 
-    if (!fracs.len()) {
-        return msg(playerid, "fraction.money.notaccess", CL_WARNING);
-    }
-
-    // for now take the first one
-    local fraction = fracs[0];
-
     if (fraction.money - amount < 0.0) {
-        return msg(playerid, "fraction.money.cannotsubstract", CL_ERROR);
+        return msg(character.playerid, "fraction.money.cannotsubstract", CL_ERROR);
     }
 
     fraction.money = fraction.money - amount;
     fraction.save();
 
-    addMoneyToPlayer(playerid, amount);
+    addMoneyToPlayer(character.playerid, amount);
 
-    msg(playerid, "fraction.money.substract", [ amount ], CL_SUCCESS);
+    msg(character.playerid, "fraction.money.substract", [ amount ], CL_SUCCESS);
 
-    if (fraction[playerid].level <= FRACTION_MONEY_PERMISSION) {
-        msg(playerid, "fraction.money.amount", [ fraction.title, fraction.money ], CL_INFO);
+    if (fraction.members.get(character).permitted("money.list")) {
+        msg(character.playerid, "fraction.money.amount", [ fraction.title, fraction.money ], CL_INFO);
     }
 });

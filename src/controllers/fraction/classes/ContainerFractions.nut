@@ -16,38 +16,14 @@ class ContainerFractions extends Container
 
     /**
      * Get fractions containing current player
-     * @param  {Integer} playerid
+     * @param  {Character|Integer} character or character.id
      * @return {Array}
      */
-    function getContaining(playerid) {
+    function getContaining(character) {
         local fractions = [];
 
         foreach (idx, fraction in this.getAll()) {
-            // skip aliases
-            if (idx == fraction.shortcut) continue;
-
-            if (fraction.exists(playerid)) {
-                fractions.push(fraction);
-            }
-        }
-
-        return fractions;
-    }
-
-    /**
-     * Get fractions containing current player
-     * where he is manager (role.level == 0)
-     * @param  {Integer} playerid
-     * @return {Array}
-     */
-    function getManaged(playerid, level = 1) {
-        local fractions = [];
-
-        foreach (idx, fraction in this.getAll()) {
-            // skip aliases
-            if (idx == fraction.shortcut) continue;
-
-            if (fraction.exists(playerid) && fraction.get(playerid).level <= level) {
+            if (fraction.members.exists(character)) {
                 fractions.push(fraction);
             }
         }

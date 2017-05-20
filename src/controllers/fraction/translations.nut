@@ -1,4 +1,7 @@
 alternativeTranslate({
+"en|fraction.permission.error"              :   "You dont have permission to use this action!"
+"ru|fraction.permission.error"              :   "У Вас нет прав для выполнения этого действия!"
+
 "en|fraction.rolenotexist"                  :   "There is no such role. You can see fraction roles via: /f roles"
 "ru|fraction.rolenotexist"                  :   "Указанная должность не существует. Список должностей: /f roles"
 

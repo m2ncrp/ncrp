@@ -7,7 +7,25 @@ class ContainerFractionMembers extends Container
      * @return {PlayerContainer}
      */
     constructor() {
-        base.constructor(FractionMember);
+        base.constructor(::FractionMember);
+    }
+
+    function sort() {
+        local self = this;
+
+        this.__keys.sort(function(a, b) {
+            if (!self[a].role || !self[b].role) {
+                return 0;
+            }
+
+            if (self[a].role.level > self[b].role.level) return 1;
+            if (self[a].role.level < self[b].role.level) return -1;
+            if (self[a].role.id > self[b].role.id) return 1;
+            if (self[a].role.id < self[b].role.id) return -1;
+            return 0;
+        });
+
+        return this;
     }
 
     /**
@@ -16,7 +34,7 @@ class ContainerFractionMembers extends Container
      * @return {Boolean}
      */
     function exists(character) {
-        if (character instanceof Character) {
+        if (character instanceof ::Character) {
             character = character.id;
         }
 
@@ -33,7 +51,7 @@ class ContainerFractionMembers extends Container
      * @return {FractionMember}
      */
     function _get(character) {
-        if (character instanceof Character) {
+        if (character instanceof ::Character) {
             character = character.id;
         }
 
@@ -41,11 +59,11 @@ class ContainerFractionMembers extends Container
             throw "ContainerFractionMembers: Unexpected provided type, use Character or Integer!"
         }
 
-        if (base.exists(character)) {
-            return base.get(character);
+        if (character in this.__data) {
+            return this.__data[character];
         }
         else {
-            return FractionMember();
+            return ::FractionMember();
         }
     }
 
@@ -70,7 +88,7 @@ class ContainerFractionMembers extends Container
      * @return {FractionMember} created/setted member
      */
     function set(character, role) {
-        if (character instanceof Character) {
+        if (character instanceof ::Character) {
             character = character.id;
         }
 
@@ -78,11 +96,11 @@ class ContainerFractionMembers extends Container
             throw "ContainerFractionMembers: Unexpected provided type, use Character or Integer!"
         }
 
-        if (!(role instanceof FractionRole)) {
+        if (!(role instanceof ::FractionRole)) {
             throw "ContainerFractionMembers: You should provide a valid role object as an argument!"
         }
 
-        local member = this.get(character);
+        local member = this[character];
 
         member.role         = role;
         member.roleid       = role.id;
@@ -92,6 +110,7 @@ class ContainerFractionMembers extends Container
         member.save();
 
         base.set(character, member);
+        this.sort();
 
         return member;
     }
@@ -102,7 +121,7 @@ class ContainerFractionMembers extends Container
      * @return {FractionMember}
      */
     function remove(character) {
-        if (character instanceof Character) {
+        if (character instanceof ::Character) {
             character = character.id;
         }
 
@@ -111,5 +130,28 @@ class ContainerFractionMembers extends Container
         }
 
         return base.remove(character);
+    }
+
+    /**
+     * Return array of character objects
+     * of online fraction members
+     * @return {Array}
+     */
+    function getOnline() {
+        local members = [];
+
+        foreach (characterid, member in this) {
+            if (!::xPlayers.has(characterid)) {
+                continue;
+            }
+
+            local character = ::xPlayers[characterid];
+
+            if (::isPlayerLoaded(character.playerid)) {
+                members.push(character);
+            }
+        }
+
+        return members;
     }
 }
