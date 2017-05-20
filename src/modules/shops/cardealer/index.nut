@@ -103,11 +103,11 @@ cmd("dealer", "sell", function(playerid, price) {
         }
     }
 
-    if(!owned) { return msg(playerid, "cardealer.notYourCar", CL_ERROR); }
+    if (!owned) { return msg(playerid, "cardealer.notYourCar", CL_ERROR); }
 
-    if(owned && onsale) {  return msg(playerid, "cardealer.carAlreadyOnSale", CL_ERROR); }
+    if (owned && onsale) {  return msg(playerid, "cardealer.carAlreadyOnSale", CL_ERROR); }
 
-    if(isPlayerVehicleInPlayerFraction(playerid)) {
+    if (isVehicleFraction(vehicleid)) {
         return msg(playerid, "cardealer.cantOffer", CL_ERROR);
     }
 

@@ -1,23 +1,16 @@
-cmd("f", "list", function(playerid) {
-    local fracs = fractions.getContaining(playerid);
+fmd("*", ["members.list"], ["$f list", "$f members"], function(fraction, character) {
+    msg(character.playerid, "------------------------------------------------------------------------------", CL_RIPELEMON);
+    msg(character.playerid, "fraction.members.title", [ fraction.title ], CL_INFO);
+    msg(character.playerid, "------------------------------------------------------------------------------", CL_RIPELEMON);
 
-    if (!fracs.len()) {
-        return msg(playerid, "fraction.notmember", CL_WARNING);
-    }
-
-    // for now take the first one
-    local fraction = fracs[0];
-    msg(playerid, "------------------------------------------------------------------------------", CL_RIPELEMON);
-    msg(playerid, "fraction.members.title", [ fraction.title ], CL_INFO);
-    msg(playerid, "------------------------------------------------------------------------------", CL_RIPELEMON);
     local counter = 0;
-    foreach (idx, role in fraction.getMembers()) {
+    foreach (idx, member in fraction.members) {
         local callback = function(err, character) {
             if (!xPlayers.has(idx)) {
                 xPlayers.add(idx, character);
             }
 
-            msg(playerid, "fraction.members.item", [ counter++, character.firstname + " " + character.lastname, role.title ] );
+            msg(playerid, "fraction.members.item", [ counter++, character.firstname + " " + character.lastname, member.role.title ] );
         };
 
         if (xPlayers.has(idx)) {
@@ -31,51 +24,40 @@ cmd("f", "list", function(playerid) {
 
 /**
  * Kick member from fraction
- * @param  {Integer} playerid
- * @param  {Integer} listid
  */
-cmd("f", "kick", function(playerid, listid = -1) {
-    local fracs = fractions.getManaged(playerid, FRACTION_ROLESET_PERMISSION);
-
-    if (!fracs.len()) {
-        return msg(playerid, "fraction.member.notadmin", CL_WARNING);
-    }
-
-    // for now take the first one
-    local fraction = fracs[0];
-
+cmd("*", ["members.remove"], ["$f kick", "$f members remove"], function(fraction, character, listid = -1) {
     listid = listid.tointeger();
 
     local counter = 0;
-    foreach (idx, role in fraction.getMembers()) {
+    foreach (idx, member in fraction.members) {
         if (listid != counter++) continue;
 
-        local callback = function(err, character) {
+        local callback = function(err, target) {
             if (!xPlayers.has(idx)) {
-                xPlayers.add(idx, character);
+                xPlayers.add(idx, target);
             }
 
             // check for ability to change role of player which has same or bigger role
-            if (fraction.memberRoles[character.id].level <= fraction[playerid].level) {
+            if (fraction.memberRoles[target.id].level <= fraction[playerid].level) {
                 // and we are not same person
-                if (character.id != players[playerid].id) {
+                if (target.id != players[playerid].id) {
                     return msg(playerid, "fraction.member.higherrole", CL_WARNING);
                 }
             }
 
             // remove player
-            fraction.remove(character.id, false);
+            fraction.remove(target.id, false);
 
-            //todo: remove after all fractions update [1]
-            if(fraction.shortcut == "police") { character.job = ""; character.save(); }
+            //todo: remove after all jobs to fractions update [1]
+            if(fraction.shortcut == "police") { target.job = ""; target.save(); }
 
-            msg(playerid, "fraction.member.kick", [ character.firstname + " " + character.lastname ], CL_SUCCESS);
+            msg(playerid, "fraction.member.kick", [ target.firstname + " " + target.lastname ], CL_SUCCESS);
 
-            if (isPlayerLoaded(character.playerid)) {
-                msg(character.playerid, "fraction.member.kicked", [ fraction.title ], CL_WARNING);
+            if (isPlayerLoaded(target.playerid)) {
+                msg(target.playerid, "fraction.member.kicked", [ fraction.title ], CL_WARNING);
 
-                //todo: remove after all fractions update [2]
-                if(fraction.shortcut == "police") setPlayerJob(character.playerid, null);
+                //todo: remove after all jobs to fractions update [2]
+                if(fraction.shortcut == "police") setPlayerJob(target.playerid, null);
             }
         };
 

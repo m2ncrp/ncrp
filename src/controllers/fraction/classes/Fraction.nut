@@ -19,7 +19,7 @@ class Fraction extends ORM.JsonEntity
     constructor () {
         base.constructor();
 
-        this.roles      = Container(FractionRole);
+        this.roles      = ContainerFractionRoles();
         this.members    = ContainerFractionMembers();
         this.property   = Container(FractionProperty);
     }

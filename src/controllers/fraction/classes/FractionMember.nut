@@ -60,7 +60,7 @@ class FractionMember extends ORM.JsonEntity
                 return perms.find(perm) != null;
             })
             .reduce(function(a, b) {
-                return a && b;
+                return a || b;
             })
         ;
     }
