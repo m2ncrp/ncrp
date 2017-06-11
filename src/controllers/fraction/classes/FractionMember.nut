@@ -12,6 +12,7 @@ class FractionMember extends ORM.JsonEntity
     ];
 
     role = null;
+    character = null; // not implemented
 
     function save() {
         if (!this.created) {
@@ -56,12 +57,8 @@ class FractionMember extends ORM.JsonEntity
         }
 
         return permissions
-            .map(function(perm) {
-                return perms.find(perm) != null;
-            })
-            .reduce(function(a, b) {
-                return a || b;
-            })
+            .map(@(perm) perms.find(perm) != null)
+            .reduce(@(a, b) a || b)
         ;
     }
 }

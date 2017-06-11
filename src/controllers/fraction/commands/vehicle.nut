@@ -2,7 +2,7 @@
  * List current cars
  * added to the fraction
  */
-fmd("*", ["vehicles.list"], "$f car", function(fraction, character) {
+fmd("*", ["vehicles.list"], ["$f car", "$f cars", "$f vehicles"], function(fraction, character) {
     msg(character.playerid, "------------------------------------------------------------------------------", CL_RIPELEMON);
     msg(character.playerid, "fraction.vehicle.title", [ fraction.title ]);
     msg(character.playerid, "------------------------------------------------------------------------------", CL_RIPELEMON);
@@ -16,14 +16,14 @@ fmd("*", ["vehicles.list"], "$f car", function(fraction, character) {
         }
     }
 
-    msg(character.playerid, "fraction.vehicle.toadd", CL_INFO);
+    msg(character.playerid, "fraction.vehicle.toadd", [fraction.shortcut], CL_INFO);
 });
 
 /**
  * Add car to the fraction
  * where player is seating in
  */
-fmd("*", ["vehicles.add"], "$f car add", function(fraction, character) {
+fmd("*", ["vehicles.add"], ["$f car add", "$f cars add"], function(fraction, character) {
     if (!isPlayerInVehicle(character.playerid)) {
         return msg(character.playerid, "fraction.vehicle.insidecar", CL_WARNING);
     }
@@ -56,7 +56,7 @@ fmd("*", ["vehicles.add"], "$f car add", function(fraction, character) {
  * Remove car from the fraction
  * where player is seating in
  */
-fmd("*", ["vehicles.remove"], "$f car remove", function(fraction, character) {
+fmd("*", ["vehicles.remove"], ["$f car remove", "$f cars remove"], function(fraction, character) {
     if (!isPlayerInVehicle(character.playerid)) {
         return msg(playerid, "fraction.vehicle.insidecar", CL_WARNING);
     }
