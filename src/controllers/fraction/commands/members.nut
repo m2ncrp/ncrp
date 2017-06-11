@@ -25,7 +25,7 @@ fmd("*", ["members.list"], ["$f list", "$f members"], function(fraction, charact
 /**
  * Kick member from fraction
  */
-cmd("*", ["members.remove"], ["$f kick", "$f members remove"], function(fraction, character, listid = -1) {
+fmd("*", ["members.remove"], ["$f kick", "$f members remove"], function(fraction, character, listid = -1) {
     listid = listid.tointeger();
 
     local counter = 0;
@@ -38,20 +38,20 @@ cmd("*", ["members.remove"], ["$f kick", "$f members remove"], function(fraction
             }
 
             // check for ability to change role of player which has same or bigger role
-            if (fraction.memberRoles[target.id].level <= fraction[playerid].level) {
+            if (fraction.members[target].level < fraction.members[character].level) {
                 // and we are not same person
-                if (target.id != players[playerid].id) {
-                    return msg(playerid, "fraction.member.higherrole", CL_WARNING);
+                if (target.id != character.id) {
+                    return msg(character.playerid, "fraction.member.higherrole", CL_WARNING);
                 }
             }
 
             // remove player
-            fraction.remove(target.id, false);
+            fraction.members.remove(target).remove();
 
             //todo: remove after all jobs to fractions update [1]
-            if(fraction.shortcut == "police") { target.job = ""; target.save(); }
+            if (fraction.shortcut == "police") { target.job = ""; target.save(); }
 
-            msg(playerid, "fraction.member.kick", [ target.firstname + " " + target.lastname ], CL_SUCCESS);
+            msg(character.playerid, "fraction.member.kick", [ target.getName() ], CL_SUCCESS);
 
             if (isPlayerLoaded(target.playerid)) {
                 msg(target.playerid, "fraction.member.kicked", [ fraction.title ], CL_WARNING);
@@ -68,65 +68,53 @@ cmd("*", ["members.remove"], ["$f kick", "$f members remove"], function(fraction
         }
     }
 
-    return msg(playerid, "fraction.member.doesntexist", CL_WARNING);
+    return msg(character.playerid, "fraction.member.doesntexist", CL_WARNING);
 });
 
 
 /**
  * Set member role
- * @param  {Integer} playerid
- * @param  {Integer} listid
- * @param  {Integer} roleid
  */
-cmd("f", "setrole", function(playerid, listid = -1, roleid = -1) {
-    local fracs = fractions.getManaged(playerid, FRACTION_ROLESET_PERMISSION);
-
-    if (!fracs.len()) {
-        return msg(playerid, "fraction.member.notadmin", CL_WARNING);
-    }
-
-    // for now take the first one
-    local fraction = fracs[0];
-
+fmd("*", ["members.setrole"], ["$f setrole"], function(fraction, character, listid = -1, rolenum = -1) {
     listid = listid.tointeger();
-    roleid = roleid.tointeger();
+    rolenum = rolenum.tointeger();
 
     local counter = 0;
-    foreach (idx, role in fraction.getMembers()) {
+    foreach (idx, member in fraction.members) {
         if (listid != counter++) continue;
 
-        local callback = function(err, character) {
+        local callback = function(err, target) {
             if (!xPlayers.has(idx)) {
-                xPlayers.add(idx, character);
+                xPlayers.add(idx, target);
             }
 
             // check for ability to change role of player which has same or bigger role
-            if (fraction.memberRoles[character.id].level <= fraction[playerid].level) {
+            if (fraction.members[target].level < fraction.members[character].level) {
                 // and we are not same person
-                if (character.id != players[playerid].id) {
-                    return msg(playerid, "fraction.member.higherrole", CL_WARNING);
+                if (target.id != character.id) {
+                    return msg(character.playerid, "fraction.member.higherrole", CL_WARNING);
                 }
             }
 
-            if (!fraction.roles.has(roleid)) {
-                return msg(playerid, "fraction.member.needrole", CL_ERROR);
+            if (!fraction.roles.has(rolenum)) {
+                return msg(character.playerid, "fraction.member.needrole", CL_ERROR);
             }
 
-            local newrole = fraction.roles.get(roleid);
+            local newrole = fraction.roles.get(rolenum);
 
             // set member role
-            fraction.set(character.id, newrole, false);
+            fraction.members.set(target.id, newrole);
 
             //todo: remove after all fractions update [1]
-            if(fraction.shortcut == "police") { character.job = newrole.shortcut; character.save(); }
+            if (fraction.shortcut == "police") { target.job = newrole.shortcut; target.save(); }
 
-            msg(playerid, "fraction.member.setrolecomplete", [ character.firstname + " " + character.lastname, newrole.title ], CL_SUCCESS);
+            msg(character.playerid, "fraction.member.setrolecomplete", [ target.getName(), newrole.title ], CL_SUCCESS);
 
-            if (isPlayerLoaded(character.playerid)) {
-                msg(character.playerid, "fraction.member.changedrole", [ fraction.title, newrole.title ], CL_SUCCESS);
+            if (isPlayerLoaded(target.playerid)) {
+                msg(target.playerid, "fraction.member.changedrole", [ fraction.title, newrole.title ], CL_SUCCESS);
 
                 //todo: remove after all fractions update [2]
-                if(fraction.shortcut == "police") setPlayerJob(character.playerid, newrole.shortcut);
+                if(fraction.shortcut == "police") setPlayerJob(target.playerid, newrole.shortcut);
             }
         };
 
@@ -137,7 +125,7 @@ cmd("f", "setrole", function(playerid, listid = -1, roleid = -1) {
         }
     }
 
-    return msg(playerid, "fraction.member.doesntexist", CL_WARNING);
+    return msg(character.playerid, "fraction.member.doesntexist", CL_WARNING);
 });
 
 

@@ -163,7 +163,7 @@ function isVehicleFraction(vehicleid) {
 // @deprectated
 function isPlayerVehicleInPlayerFraction(playerid) {
 
-    local fracs = fractions.getContaining(playerid);
+    local fracs = fractions.getContaining(players[playerid]);
 
     if (!fracs.len()) {
         return false;
