@@ -12,7 +12,7 @@ fmd("*", [], "$f", function(fraction, character) {
     }
 });
 
-cmd("f", function(playerid) {
+cmd("f", function(playerid, a = -1, b = -1, c = -1, d = -1) {
     local character = players[playerid];
 
     msg(playerid, "fraction.list.title", [fractions.getContaining(character).len()]);
