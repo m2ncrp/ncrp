@@ -111,6 +111,26 @@ cmd("dealer", "sell", function(playerid, price) {
         return msg(playerid, "cardealer.cantOffer", CL_ERROR);
     }
 
+    if ( !players[playerid].hands.exists(0) || !players[playerid].hands.get(0) instanceof Item.VehicleTax) {
+        return msg(playerid, "cardealer.needVehicleTaxInHands", CL_ERROR);
+    }
+
+    if ( players[playerid].hands.get(0).data.plate != getVehiclePlateText(vehicleid)) {
+        return msg(playerid, "cardealer.vehicleTaxNotForThisCar", CL_ERROR);
+    }
+
+    local data = split(players[playerid].hands.get(0).data.expires, ".");
+    local stampData = (data[2].tointeger()*12+data[1].tointeger())*30+data[0].tointeger();
+
+    local day   = getDay();
+    local month = getMonth() + 1;
+    local year  = getYear();
+    local stampNow = (year*12+month)*30+day;
+
+    if (stampData < stampNow) {
+        return msg(playerid, "cardealer.vehicleTaxExpired", CL_ERROR);
+    }
+
     if( availableCars.find(modelid) == null || isPlayerVehicleOwner(playerid, vehicleid) == false) {
         return;
     }
@@ -265,6 +285,15 @@ alternativeTranslate({
 
     "en|cardealer.carAlreadyOnSale"       :  "This car already on sale."
     "ru|cardealer.carAlreadyOnSale"       :  "Этот автомобиль уже выставлен на продажу."
+
+    "en|cardealer.needVehicleTaxInHands"  :  "Take vehicle tax in hands."
+    "ru|cardealer.needVehicleTaxInHands"  :  "Предъявите квитанцию об оплате налога (возьмите в руки)."
+
+    "en|cardealer.vehicleTaxNotForThisCar"  :  "Vehicle tax doesn't match the car being sold."
+    "ru|cardealer.vehicleTaxNotForThisCar"  :  "Квитанция не соответствует продаваемому автомобилю."
+
+    "en|cardealer.vehicleTaxExpired"      :  "Vehicle tax has expired."
+    "ru|cardealer.vehicleTaxExpired"      :  "Срок действия квитанции об оплате налога истёк."
 
     "en|cardealer.cantOffer"              :  "You can't offer the car for sale, which is in fraction."
     "ru|cardealer.cantOffer"              :  "Вы не можете выставить на продажу автомобиль, который числится на балансе фракции."
