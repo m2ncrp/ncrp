@@ -389,13 +389,13 @@ event("onServerStarted", function() {
    //routes[4] <- [15, [4, 98, 25, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];
    //routes[5] <- [23, [4, 5, 99, 6, 7, 8, 9, 10, 12, 13, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];
 
-    routes[1] <- [7, [51, 5, 99, 6, 7, 28, 97, 22, 23, 24, 52]];                                            // sand island
-    routes[2] <- [6, [55, 21, 19, 17, 14, 15, 55]];                                                         // uptown-kingston
-    routes[3] <- [9, [53, 5, 99, 6, 7, 8, 9, 10, 11, 13, 45, 54]];                                          // center + hospital
-    routes[4] <- [12, [51, 44, 25, 16, 18, 48, 20, 22, 23, 24, 21, 47, 46, 52]];                            // kingston
-    routes[5] <- [18, [4, 26, 27, 28, 7, 8, 9, 10, 12, 13, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]]; // big empire bay
-    routes[6] <- [13, [56, 33, 9, 34, 35, 36, 37, 49, 28, 29, 30, 38, 40, 41, 56]];                         // new center
-    routes[7] <- [6, [54, 42, 39, 31, 32, 43, 54]];                                                         // small
+    routes[1] <- [6, [51, 5, 99, 6, 7, 28, 97, 22, 23, 24, 52]];                                            // sand island
+    routes[2] <- [5, [55, 21, 19, 17, 14, 15, 55]];                                                         // uptown-kingston
+    routes[3] <- [8, [53, 5, 99, 6, 7, 8, 9, 10, 11, 13, 45, 54]];                                          // center + hospital
+    routes[4] <- [11, [51, 44, 25, 16, 18, 48, 20, 22, 23, 24, 21, 47, 46, 52]];                            // kingston
+    routes[5] <- [16, [4, 26, 27, 28, 7, 8, 9, 10, 12, 13, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]]; // big empire bay
+    routes[6] <- [12, [56, 33, 9, 34, 35, 36, 37, 49, 28, 29, 30, 38, 40, 41, 56]];                         // new center
+    routes[7] <- [4.5, [54, 42, 39, 31, 32, 43, 54]];                                                         // small
 
     //creating 3dtext for bus depot
     create3DText ( BUS_JOB_X, BUS_JOB_Y, BUS_JOB_Z+0.35, "ROADKING BUS DEPOT", CL_ROYALBLUE );
@@ -581,10 +581,10 @@ function busJobGet( playerid ) {
         return msg(playerid, "job.bus.needlevel", BUS_JOB_LEVEL, BUS_JOB_COLOR );
     }
 
-    local hour = getHour();
-    if(hour < BUS_JOB_GET_HOUR_START || hour >= BUS_JOB_GET_HOUR_END) {
-        return msg( playerid, "job.closed", [ BUS_JOB_GET_HOUR_START.tostring(), BUS_JOB_GET_HOUR_END.tostring()], BUS_JOB_COLOR );
-    }
+    // local hour = getHour();
+    // if(hour < BUS_JOB_GET_HOUR_START || hour >= BUS_JOB_GET_HOUR_END) {
+    //     return msg( playerid, "job.closed", [ BUS_JOB_GET_HOUR_START.tostring(), BUS_JOB_GET_HOUR_END.tostring()], BUS_JOB_COLOR );
+    // }
 
     if (getPlayerName(playerid) in job_bus_blocked) {
         if (getTimestamp() - job_bus_blocked[getPlayerName(playerid)] < BUS_JOB_TIMEOUT) {
@@ -645,10 +645,10 @@ function busJobLeave( playerid ) {
         return;
     }
 
-    local hour = getHour();
-    if(hour < BUS_JOB_LEAVE_HOUR_START || hour >= BUS_JOB_LEAVE_HOUR_END) {
-        return msg( playerid, "job.closed", [ BUS_JOB_LEAVE_HOUR_START.tostring(), BUS_JOB_LEAVE_HOUR_END.tostring()], BUS_JOB_COLOR );
-    }
+    //local hour = getHour();
+    //if(hour < BUS_JOB_LEAVE_HOUR_START || hour >= BUS_JOB_LEAVE_HOUR_END) {
+    //    return msg( playerid, "job.closed", [ BUS_JOB_LEAVE_HOUR_START.tostring(), BUS_JOB_LEAVE_HOUR_END.tostring()], BUS_JOB_COLOR );
+    //}
 
     if(getPlayerJobState(playerid) == null) {
         msg( playerid, "job.bus.goodluck", BUS_JOB_COLOR);
@@ -699,10 +699,10 @@ function busJobStartRoute( playerid ) {
         return;
     }
 
-    local hour = getHour();
-    if(hour < BUS_JOB_WORKING_HOUR_START || hour >= BUS_JOB_WORKING_HOUR_END) {
-        return msg( playerid, "job.closed", [ BUS_JOB_WORKING_HOUR_START.tostring(), BUS_JOB_WORKING_HOUR_END.tostring()], SNOWPLOW_JOB_COLOR );
-    }
+    //local hour = getHour();
+    //if(hour < BUS_JOB_WORKING_HOUR_START || hour >= BUS_JOB_WORKING_HOUR_END) {
+    //    return msg( playerid, "job.closed", [ BUS_JOB_WORKING_HOUR_START.tostring(), BUS_JOB_WORKING_HOUR_END.tostring()], SNOWPLOW_JOB_COLOR );
+    //}
 
     if(BUS_ROUTE_NOW < 1) {
         return msg( playerid, "job.nojob", BUS_JOB_COLOR );
