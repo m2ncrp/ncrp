@@ -141,7 +141,7 @@ const FUEL_JOB_Y = -266.866;
 const FUEL_JOB_Z = -20.1644;
 const FUEL_JOB_SKIN = 144;
 const FUEL_JOB_DISTANCE = 75;
-const FUEL_JOB_SALARY = 19.0;
+const FUEL_JOB_SALARY = 22.0;
 const FUEL_JOB_WAREHOUSE_X = 788.288;
 const FUEL_JOB_WAREHOUSE_Y = -78.0801;
 const FUEL_JOB_WAREHOUSE_Z = -20.0379;
@@ -489,7 +489,7 @@ function fuelJobStartRoute( playerid ) {
 
 
 function fuelGetSalary( playerid ) {
-    local amount = FUEL_JOB_SALARY + (random(-4, 1)).tofloat();
+    local amount = FUEL_JOB_SALARY + (random(-1, 5)).tofloat();
     msg( playerid, "job.fueldriver.nicejob", amount, FUEL_JOB_COLOR );
     addMoneyToPlayer(playerid, amount);
 }

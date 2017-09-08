@@ -167,15 +167,16 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
                 local vehicleid = getPlayerVehicle(playerid);
                 //if(vehicleid == -1) return;
 
+                /*
                 local hour = getHour();
-                if(/*(hour < MILK_JOB_GET_HOUR_START || hour >= MILK_JOB_GET_HOUR_END) && */job_milk[getPlayerName(playerid)]["milkcomplete"] == 0) {
+                if((hour < MILK_JOB_GET_HOUR_START || hour >= MILK_JOB_GET_HOUR_END) && job_milk[getPlayerName(playerid)]["milkcomplete"] == 0) {
                     clearMilkJobStationMarks(playerid);
                     setPlayerJobState(playerid, null);
                     showMilkLoadBlip (playerid, false);
                     blockVehicle(vehicleid);
                     return msg( playerid, "job.toolate", [ MILK_JOB_GET_HOUR_START.tostring(), MILK_JOB_GET_HOUR_END.tostring()], MILK_JOB_COLOR );
                 }
-
+                */
                 if(milktrucks[vehicleid] >= 12) {
                     createMilkJobStationMarks(playerid, job_milk[getPlayerName(playerid)]["milkcoords"]);
                     msg( playerid, "job.milkdriver.milktruckloaded", milktrucks[vehicleid], MILK_JOB_COLOR );
@@ -545,7 +546,7 @@ addJobEvent("e", MILK_JOB_NAME, "complete", milkJobComplete);
 Event: JOB - Milk driver - Get salary
 */
 function milkGetSalary( playerid ) {
-    local amount = MILK_JOB_SALARY + (random(-2, 1)).tofloat();
+    local amount = MILK_JOB_SALARY + (random(-1, 1)).tofloat();
     msg( playerid, "job.milkdriver.nicejob", amount, MILK_JOB_COLOR );
     addMoneyToPlayer(playerid, amount);
 }
