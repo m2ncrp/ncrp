@@ -189,8 +189,8 @@ event("onPlayerPlaceEnter", function(playerid, name) {
             local vehicleid = getPlayerVehicle(playerid);
             local vehSpeed = getVehicleSpeed(vehicleid);
             local vehSpeedNew = [];
-            if (vehSpeed[0] < 0) vehSpeed[0] = vehSpeed[0] * -1;
-            if (vehSpeed[1] > 0) vehSpeed[1] = vehSpeed[1] * -1;
+            if (vehSpeed[0] <= 0) vehSpeed[0] = (vehSpeed[0] - 1) * -1;
+            if (vehSpeed[1] >= 0) vehSpeed[1] = (vehSpeed[1] + 1) * -1;
             setVehicleSpeed(vehicleid, vehSpeed[0], vehSpeed[1], vehSpeed[2]);
         } else {
             local hour = getHour();
