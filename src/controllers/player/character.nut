@@ -192,5 +192,7 @@ function validateAndUpdateCharacter(playerid, character, firstname, lastname, ra
         trigger("onPlayerCharacterLoaded", playerid, character);
     });
 
+    dbg("new_character", getAccountName(playerid), firstname+" "+lastname);
+
     return true;
 }
