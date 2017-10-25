@@ -69,7 +69,7 @@ event("onServerStarted", function() {
     local counter = 0;
 
     // load all vehicles from db
-    Vehicle.findBy({ reserved = false }, function(err, results) {
+    Vehicle.findBy({ reserved = 0 }, function(err, results) {
         foreach (idx, vehicle in results) {
             // create vehicle
             local vehicleid = createVehicle( vehicle.model, vehicle.x, vehicle.y, vehicle.z, vehicle.rx, vehicle.ry, vehicle.rz );
