@@ -15,6 +15,7 @@ local TAXI_RADIUS = 2.0;
 
 
 local calls_counter = 0;
+local calls_priority = false;
 local TAXI_CALLS = {};
 
 
@@ -57,6 +58,8 @@ function getCalls() {
     log(TAXI_CALLS);
     return TAXI_CALLS;
 }
+
+
 
 // получить обьект звонка по id звонка
 function getTaxiCallObjectByCallNumber(callNumber) {
@@ -451,6 +454,11 @@ function taxiCall(playerid, place, again = 0) {
 
     local callNumber = addTaxiCall(place.slice(9).tointeger(), playerid).number;
 
+    // Устанавливаем приоритет звонков от игроков над звонками от ботов, сбрасываем через 30 секунд
+    calls_priority = true;
+    delayedFunction(30000, function() {
+        calls_priority = false;
+    });
 
     // если за 5 минут заказ никто не взял - заказ удаляется
     delayedFunction(300000, function() {
@@ -493,6 +501,16 @@ function taxiCall(playerid, place, again = 0) {
 
 function callTaxiByPed() {
 
+    // вызывать такси от бота каждый 5-15 секунд
+    delayedFunction(random(5, 15)*1000, function() {
+        callTaxiByPed();
+    });
+
+    if(calls_priority == true) {
+        return;
+    }
+
+
     //local pedid = (random(10, 99).tostring()+random(10, 99).tostring()+random(100, 999).tostring()).tointeger();
     local placeNumber = random(0, 93 /* 54, 54 */);
 
@@ -505,11 +523,6 @@ function callTaxiByPed() {
             msg_taxi_dr(driverid, "job.taxi.call.new.if" );
         }
     }
-
-    // вызывать такси от бота каждый 5-15 секунд
-    delayedFunction(random(5, 15)*1000, function() {
-        callTaxiByPed();
-    });
 
     if(!check) {
         //log("No free drivers");
@@ -659,10 +672,40 @@ function isCounterStarted(playerid) {
 
 
 
+/**
+ * Taking call
+ * @param  {int} playerid
+ * @param  {int} customerid - id customer
+ */
+function taxiTakeCall(playerid) {
 
+    if (!isTaxiDriver(playerid)) {
+        return;
+    }
 
+    local drid = getCharacterIdFromPlayerId(playerid);
+    local driverStatus = getTaxiDriverStatus(drid);
 
+    if(driverStatus == "offair") {
+        return msg_taxi_dr(playerid, "job.taxi.canttakecall");
+    }
 
+    if(driverStatus == "onroute") {
+        log("completeRoute");
+        //if(isCounterStarted(playerid)) {
+        //    taxiCallDone(playerid);
+        //}
+        return;
+    }
+
+    // здесь вызывается функция
+    // if(job_taxi[players[playerid].id]["customer"] != null) {  dbg("refusing"); return taxiCallRefuse(playerid); };
+
+    local callObject = getTaxiCallObjectByCallNumber(calls_counter - 1);
+
+    //if (callObject.drid)
+
+}
 
 /**
  * Taking call
@@ -679,18 +722,21 @@ log("if 1 complete");
         return; //msg_taxi_dr(playerid, "job.taxi.needcar");
     }
 log("if 2 complete");
-    if (job_taxi[players[playerid].id]["car"] != getPlayerVehicle(playerid) && job_taxi[players[playerid].id]["car"] != null) {
-        return msg_taxi_dr(playerid, "Sit into your taxi car with plate "+getVehiclePlateText(job_taxi[players[playerid].id]["car"]));
-    }
+//    if (job_taxi[players[playerid].id]["car"] != getPlayerVehicle(playerid) && job_taxi[players[playerid].id]["car"] != null) {
+//        return msg_taxi_dr(playerid, "Sit into your taxi car with plate "+getVehiclePlateText(job_taxi[players[playerid].id]["car"]));
+//    }
 log("if 3 complete");
-    if(getPlayerTaxiUserStatus(playerid) == "offair") {
+    local drid = getCharacterIdFromPlayerId(playerid);
+    local driverStatus = getTaxiDriverStatus(drid);
+    if(driverStatus == "offair") {
         return msg_taxi_dr(playerid, "job.taxi.canttakecall");
     }
 log("if 4 complete");
-    if(getPlayerTaxiUserStatus(playerid) == "onroute") {
-        if(isCounterStarted(playerid)) {
-            taxiCallDone(playerid);
-        }
+    if(driverStatus == "onroute") {
+        log("completeRoute");
+        //if(isCounterStarted(playerid)) {
+        //    taxiCallDone(playerid);
+        //}
         return;
     }
 log("if 5 complete");
@@ -936,7 +982,14 @@ key("1", function(playerid) {
 }, KEY_UP);
 
 key("2", function(playerid) {
-    taxiCallTakeRefuse ( playerid );
+    //taxiCallTakeRefuse ( playerid );
+    taxiTakeCall( playerid );
+}, KEY_UP);
+
+key("4", function(playerid) {
+    //taxiCallTakeRefuse ( playerid );
+    calls_priority = !calls_priority;
+    log("set priority to: "+calls_priority)
 }, KEY_UP);
 
 
