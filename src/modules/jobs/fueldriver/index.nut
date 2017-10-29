@@ -141,7 +141,7 @@ const FUEL_JOB_Y = -266.866;
 const FUEL_JOB_Z = -20.1644;
 const FUEL_JOB_SKIN = 144;
 const FUEL_JOB_DISTANCE = 75;
-const FUEL_JOB_SALARY = 21.0;
+const FUEL_JOB_SALARY = 22.0;
 const FUEL_JOB_WAREHOUSE_X = 788.288;
 const FUEL_JOB_WAREHOUSE_Y = -78.0801;
 const FUEL_JOB_WAREHOUSE_Z = -20.0379;
@@ -418,10 +418,10 @@ function fuelJobGet( playerid ) {
 
         if(!isPlayerHaveJob(playerid)) {
 
-            local hour = getHour();
-            if(hour < FUEL_JOB_GET_HOUR_START || hour >= FUEL_JOB_GET_HOUR_END) {
-                return msg( playerid, "job.closed", [ FUEL_JOB_GET_HOUR_START.tostring(), FUEL_JOB_GET_HOUR_END.tostring()], FUEL_JOB_COLOR );
-            }
+            //local hour = getHour();
+            //if(hour < FUEL_JOB_GET_HOUR_START || hour >= FUEL_JOB_GET_HOUR_END) {
+            //    return msg( playerid, "job.closed", [ FUEL_JOB_GET_HOUR_START.tostring(), FUEL_JOB_GET_HOUR_END.tostring()], FUEL_JOB_COLOR );
+            //}
 
             // если у игрока уже есть другая работа
             if(isPlayerHaveJob(playerid) && !isFuelDriver(playerid)) {
@@ -474,10 +474,10 @@ function fuelJobGet( playerid ) {
 // working good, check
 function fuelJobStartRoute( playerid ) {
 
-    local hour = getHour();
-    if(hour < FUEL_JOB_WORKING_HOUR_START || hour >= FUEL_JOB_WORKING_HOUR_END) {
-        return msg( playerid, "job.closed", [ FUEL_JOB_WORKING_HOUR_START.tostring(), FUEL_JOB_WORKING_HOUR_END.tostring()], FUEL_JOB_COLOR );
-    }
+    //local hour = getHour();
+    //if(hour < FUEL_JOB_WORKING_HOUR_START || hour >= FUEL_JOB_WORKING_HOUR_END) {
+    //    return msg( playerid, "job.closed", [ FUEL_JOB_WORKING_HOUR_START.tostring(), FUEL_JOB_WORKING_HOUR_END.tostring()], FUEL_JOB_COLOR );
+    //}
 
     if(FUEL_ROUTE_NOW < 1) {
         return msg( playerid, "job.nojob", FUEL_JOB_COLOR );
@@ -489,7 +489,7 @@ function fuelJobStartRoute( playerid ) {
 
 
 function fuelGetSalary( playerid ) {
-    local amount = FUEL_JOB_SALARY + (random(-4, 1)).tofloat();
+    local amount = FUEL_JOB_SALARY + (random(-1, 5)).tofloat();
     msg( playerid, "job.fueldriver.nicejob", amount, FUEL_JOB_COLOR );
     addMoneyToPlayer(playerid, amount);
 }
@@ -507,10 +507,10 @@ function fuelJobRefuseLeave( playerid ) {
         return;
     }
 
-    local hour = getHour();
-    if(hour < FUEL_JOB_LEAVE_HOUR_START || hour >= FUEL_JOB_LEAVE_HOUR_END) {
-        return msg( playerid, "job.closed", [ FUEL_JOB_LEAVE_HOUR_START.tostring(), FUEL_JOB_LEAVE_HOUR_END.tostring()], FUEL_JOB_COLOR );
-    }
+    //local hour = getHour();
+    //if(hour < FUEL_JOB_LEAVE_HOUR_START || hour >= FUEL_JOB_LEAVE_HOUR_END) {
+    //    return msg( playerid, "job.closed", [ FUEL_JOB_LEAVE_HOUR_START.tostring(), FUEL_JOB_LEAVE_HOUR_END.tostring()], FUEL_JOB_COLOR );
+    //}
 
     if(job_fuel[getPlayerName(playerid)]["userstatus"] == null) {
         msg( playerid, "job.fueldriver.goodluck", FUEL_JOB_COLOR);

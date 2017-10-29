@@ -43,10 +43,19 @@ acmd("list", function(playerid) {
 
 acmd(["admin", "adm"], function(playerid, ...) {
     if(getPlayerSerial(playerid) == "940A9BF3DC69DC56BCB6BDB5450961B4") {
-        return sendPlayerMessageToAll("[ADMIN] " + concat(vargv), CL_MEDIUMPURPLE.r, CL_MEDIUMPURPLE.g, CL_MEDIUMPURPLE.b);
+        return msga("[DEV] " + concat(vargv), [], CL_PETERRIVER);
     }
+    //else if(getPlayerSerial(playerid) == "856BE506BCEAEEC908F3577ABEFF9171") { // Oliver
+    //    return msga("[ADMIN #1] " + concat(vargv), [], CL_MEDIUMPURPLE);
+    //}
     else{
-        return sendPlayerMessageToAll("[A] "+getAccountName(playerid)+": " + concat(vargv), CL_MEDIUMPURPLE.r, CL_MEDIUMPURPLE.g, CL_MEDIUMPURPLE.b);
+        return msga("[ADMIN] "+getAccountName(playerid)+": " + concat(vargv), [], CL_MEDIUMPURPLE);
+    }
+});
+
+acmd(["dev"], function(playerid, ...) {
+    if(getPlayerSerial(playerid) == "940A9BF3DC69DC56BCB6BDB5450961B4") {
+        return msga("[DEV] " + concat(vargv), [], CL_PETERRIVER);
     }
 });
 

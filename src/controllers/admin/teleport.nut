@@ -114,6 +114,23 @@ acmd("tpc", function(playerid, x, y, z) {
 
 
 /**
+ * Set player coords
+ */
+acmd("move", function(playerid, x, y = 0, z = 0) {
+    if (!z) z = 0;
+    if (!y) y = 0;
+    if(isPlayerInVehicle(playerid)) {
+        local vehicleid = getPlayerVehicle(playerid);
+        local vehPos = getVehiclePositionObj(vehicleid);
+        setVehiclePosition(vehicleid, vehPos.x + x.tofloat(), vehPos.y + y.tofloat(), vehPos.z + z.tofloat());
+    } else {
+        local plaPos = getPlayerPositionObj(playerid);
+        setPlayerPosition(playerid, plaPos.x + x.tofloat(), plaPos.y + y.tofloat(), plaPos.z + z.tofloat());
+    }
+});
+
+
+/**
  * Player to position
  */
 acmd(["tp"], function(playerid, targetid, nameOrId) {

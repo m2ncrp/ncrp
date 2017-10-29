@@ -20,6 +20,7 @@ include("controllers/inventory/classes/Item/Jerrycan.nut");
 include("controllers/inventory/classes/Item/VehicleTax.nut");
 include("controllers/inventory/classes/Item/Passport.nut");
 include("controllers/inventory/classes/Item/FirstAidKit.nut");
+include("controllers/inventory/classes/Item/PoliceBadge.nut");
 
 include("controllers/inventory/classes/GroundItems.nut");
 include("controllers/inventory/classes/ItemContainer.nut");

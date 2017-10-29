@@ -188,12 +188,12 @@ function setLastActiveSession(playerid) {
  */
 function showLoginGUI(playerid) {
     local window    = plocalize(playerid, "auth.GUI.TitleLogin");
-    local label     = plocalize(playerid, "auth.GUI.TitleLabelLogin");
+    local label     = plocalize(playerid, "auth.GUI.TitleLabelLogin", [getPlayerName(playerid)]);
     local input     = plocalize(playerid, "auth.GUI.TitleInputLogin");
     local button    = plocalize(playerid, "auth.GUI.ButtonLogin");
-
+    local helpText  = plocalize(playerid, "auth.haveproblems");
     return delayedFunction(2500, function() {
-        trigger(playerid, "showAuthGUI", window, label, input, button);
+        trigger(playerid, "showAuthGUI", window, label, input, button, helpText);
     });
 }
 
@@ -210,15 +210,15 @@ function showRegisterGUI(playerid) {
     local inputrp   = plocalize(playerid, "auth.GUI.RepeatPasswordInput");
     local iptemail  = plocalize(playerid, "auth.GUI.Email");
     local button    = plocalize(playerid, "auth.GUI.ButtonRegister");
-
+    local helpText  = plocalize(playerid, "auth.haveproblems");
     return delayedFunction(2500, function() {
-        trigger(playerid, "showRegGUI", window, label, inputp, inputrp, iptemail, button);
+        trigger(playerid, "showRegGUI", window, label, inputp, inputrp, iptemail, button, helpText);
     });
 }
 
 event("onPlayerLanguageChange", function(playerid, locale) {
     local lwindow    = localize("auth.GUI.TitleLogin", [], locale);
-    local llabel     = localize("auth.GUI.TitleLabelLogin", [], locale);
+    local llabel     = localize("auth.GUI.TitleLabelLogin", [ getPlayerName(playerid) ], locale);
     local linput     = localize("auth.GUI.TitleInputLogin", [], locale);
     local lbutton    = localize("auth.GUI.ButtonLogin", [], locale);
     local rwindow    = localize("auth.GUI.TitleRegister", [], locale);
@@ -227,8 +227,8 @@ event("onPlayerLanguageChange", function(playerid, locale) {
     local rinputrp   = localize("auth.GUI.RepeatPasswordInput", [], locale);
     local riptemail  = localize("auth.GUI.Email", [], locale);
     local rbutton    = localize("auth.GUI.ButtonRegister", [], locale);
-
-    trigger(playerid, "changeAuthLanguage", lwindow, llabel, linput, lbutton, rwindow, rlabel, rinputp, rinputrp, riptemail, rbutton);
+    local helpText   = localize("auth.haveproblems", [], locale);
+    trigger(playerid, "changeAuthLanguage", lwindow, llabel, linput, lbutton, rwindow, rlabel, rinputp, rinputrp, riptemail, rbutton, helpText);
 });
 
 /**

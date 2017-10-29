@@ -13,7 +13,7 @@ screen = [screenX, screenY];
 
 local window;
 local input = array(3);
-local label = array(4);
+local label = array(5);
 local button = array(2);
 local image;
 local isAuth = null;
@@ -27,17 +27,18 @@ const DEFAULT_SPAWN_X    = -1027.02;
 const DEFAULT_SPAWN_Y    =  1746.63;
 const DEFAULT_SPAWN_Z    =  10.2325;
 
-function showAuthGUI(windowLabel,labelText,inputText,buttonText){
+function showAuthGUI(windowLabel,labelText,inputText,buttonText, helpText){
     //setPlayerPosition( getLocalPlayer(), -412.0, 1371.0, 36.0 );
     //setPlayerPosition( getLocalPlayer(), -746.0, 1278.0, 15.5 );
     blackRoundFrame = guiCreateElement(13,"other_mask.png", 0, 0, screen[0], screen[1]);
     image = guiCreateElement(13,"logo.png", screen[0]/2 - 203.0, screen[1]/2 - 145.0, 406.0, 266.0);
-    window = guiCreateElement( ELEMENT_TYPE_WINDOW, windowLabel, screen[0]/2 - 192.5, screen[1]/2 - 65.2, 385.0, 150.0 );
-    label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, labelText, 58.0, 30.0, 300.0, 20.0, false, window);
+    window = guiCreateElement( ELEMENT_TYPE_WINDOW, windowLabel, screen[0]/2 - 192.5, screen[1]/2 - 65.2, 385.0, 180.0 );
+    label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, labelText, 38.0, 30.0, 300.0, 20.0, false, window);
     input[0] = guiCreateElement( ELEMENT_TYPE_EDIT, inputText, 92.0, 60.0, 200.0, 20.0, false, window);
     button[0] = guiCreateElement( ELEMENT_TYPE_BUTTON, buttonText, 92.0, 90.0, 200.0, 20.0,false, window);
     langs[0] = guiCreateElement(13, "lang_en.png", screen[0]/2 - 16.0 - 20.0, screen[1]/2 + (135.0 / 2) - 14.0, 32.0, 18.0, false);
     langs[1] = guiCreateElement(13, "lang_ru.png", screen[0]/2 - 16.0 + 20.0, screen[1]/2 + (135.0 / 2) - 14.0, 32.0, 18.0, false);
+    label[1] = guiCreateElement( ELEMENT_TYPE_LABEL, helpText, 53.0, 148.0, 300.0, 20.0, false, window);
     guiSetAlwaysOnTop(langs[0], true);
     guiSetAlwaysOnTop(langs[1], true);
     guiSetMovable(window,false);
@@ -47,10 +48,10 @@ function showAuthGUI(windowLabel,labelText,inputText,buttonText){
 }
 addEventHandler("showAuthGUI", showAuthGUI);
 
-function showRegGUI(windowText,labelText, inputpText, inputrpText, inputEmailText, buttonText){
+function showRegGUI(windowText,labelText, inputpText, inputrpText, inputEmailText, buttonText, helpText){
     blackRoundFrame = guiCreateElement(13,"other_mask.png", 0, 0, screen[0], screen[1]);
     image = guiCreateElement(13,"logo.png", screen[0]/2 - 203.0, screen[1]/2 - 145.0, 406.0, 266.0);
-    window = guiCreateElement( ELEMENT_TYPE_WINDOW, windowText, screen[0]/2 - 192.5, screen[1]/2 - 65.0, 385.0, 210.0 );
+    window = guiCreateElement( ELEMENT_TYPE_WINDOW, windowText, screen[0]/2 - 192.5, screen[1]/2 - 65.0, 385.0, 240.0 );
     label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, labelText, 80.0, 30.0, 300.0, 20.0, false, window);
     label[1] = guiCreateElement( ELEMENT_TYPE_LABEL, inputpText, 70.0, 60.0, 300.0, 20.0, false, window);
     label[2] = guiCreateElement( ELEMENT_TYPE_LABEL, inputrpText, 70.0, 90.0, 300.0, 20.0, false, window);
@@ -61,6 +62,7 @@ function showRegGUI(windowText,labelText, inputpText, inputrpText, inputEmailTex
     button[1] = guiCreateElement( 2, buttonText ,  117.0, 180.0, 150.0, 20.0, false, window);
     langs[0] = guiCreateElement(13, "lang_en.png", screen[0]/2 - 16.0 - 20.0, screen[1]/2 + (210.0 / 2) - 19.0, 32.0, 18.0);
     langs[1] = guiCreateElement(13, "lang_ru.png", screen[0]/2 - 16.0 + 20.0, screen[1]/2 + (210.0 / 2) - 19.0, 32.0, 18.0);
+    label[4] = guiCreateElement( ELEMENT_TYPE_LABEL, helpText, 53.0, 208.0, 300.0, 20.0, false, window);
     guiSetAlwaysOnTop(langs[0], true);
     guiSetAlwaysOnTop(langs[1], true);
     guiSetInputMasked( input[0], true );
@@ -95,12 +97,13 @@ function destroyAuthGUI(){
 }
 addEventHandler("destroyAuthGUI", destroyAuthGUI);
 
-addEventHandler("changeAuthLanguage", function(lwindow, llabel, linput, lbutton, rwindow, rlabel, rinputp, rinputrp, riptemail, rbutton) {
+addEventHandler("changeAuthLanguage", function(lwindow, llabel, linput, lbutton, rwindow, rlabel, rinputp, rinputrp, riptemail, rbutton, helpText) {
     if (isAuth) {
         guiSetText(window, lwindow);
         guiSetText(label[0], llabel);
         guiSetText(input[0], linput);
         guiSetText(button[0], lbutton);
+        guiSetText(label[1], helpText);
     } else {
         guiSetText(window, rwindow);
         guiSetText(label[0], rlabel);
@@ -108,6 +111,7 @@ addEventHandler("changeAuthLanguage", function(lwindow, llabel, linput, lbutton,
         guiSetText(label[2], rinputrp);
         guiSetText(label[3], riptemail);
         guiSetText(button[1], rbutton);
+        guiSetText(label[4], helpText);
     }
 });
 

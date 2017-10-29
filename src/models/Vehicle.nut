@@ -13,6 +13,7 @@ class Vehicle extends ORM.Entity {
         ORM.Field.Float   ({ name = "fuellevel", value = 15.0 }),
         ORM.Field.Integer ({ name = "fwheel",   value = 0 }),
         ORM.Field.Integer ({ name = "rwheel",   value = 0 }),
+        ORM.Field.Integer ({ name = "reserved",   value = 0 }),
     ];
 
     // predefiend collections of fields
