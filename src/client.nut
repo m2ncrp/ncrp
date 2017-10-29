@@ -38,10 +38,9 @@ include("controllers/keyboard/client.nut");
 include("controllers/admin/client/sqdebug.nut");
 include("controllers/player/client/tabpanel.nut");
 include("controllers/player/client/nametags.nut");
-include("controllers/auth/client.nut");
 
 // include("controllers/inventory/client/base.nut");
-include("controllers/inventory/client/main.nut");
+// include("controllers/inventory/client/main.nut");
 
 
 # Modules

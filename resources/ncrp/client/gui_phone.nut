@@ -25,17 +25,10 @@ local input = array(1);
  * @return {[type]}               [description]
  */
 function showPhoneGUI (windowText, label0Callto, label1insertNumber, button0Police, button1Taxi, button2Call, button3Refuse, input0exampleNumber) {
+
     if(window){//if widow created
         guiSetSize(window, 200.0, 250.0  );
         guiSetPosition(window,screen[0]/2 - 100, screen[1]/2 - 125);
-        guiSetText( window, windowText);
-        guiSetText( label[0], label0Callto);
-        guiSetText( label[1], label1insertNumber);
-        guiSetText( buttons[0], button0Police);
-        guiSetText( buttons[1], button1Taxi);
-        guiSetText( buttons[2], button2Call);
-        guiSetText( buttons[3], button3Refuse);
-        guiSetText( input[0], input0exampleNumber);
         guiSetVisible( window, true);
     }
     else{//if widow doesn't created, create his
@@ -50,6 +43,18 @@ function showPhoneGUI (windowText, label0Callto, label1insertNumber, button0Poli
         buttons[2] = guiCreateElement(  ELEMENT_TYPE_BUTTON, button2Call,       15.0,   165.0, 170.0, 25.0, false, window);
         buttons[3] = guiCreateElement(  ELEMENT_TYPE_BUTTON, button3Refuse,     15.0,   208.0, 170.0, 25.0, false, window);
     }
+
+delayedFunction(5, function() { //todo fix
+        guiSetText( window, windowText);
+        guiSetText( label[0], label0Callto);
+        guiSetText( label[1], label1insertNumber);
+        guiSetText( buttons[0], button0Police);
+        guiSetText( buttons[1], button1Taxi);
+        guiSetText( buttons[2], button2Call);
+        guiSetText( buttons[3], button3Refuse);
+        guiSetText( input[0], input0exampleNumber);
+});
+
     guiSetSizable(window,false);
     guiSetMovable(window,false);
     showCursor(true);

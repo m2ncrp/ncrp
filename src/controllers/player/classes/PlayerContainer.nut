@@ -5,8 +5,7 @@ class PlayerContainer extends Container
      * @return {PlayerContainer}
      */
     constructor() {
-        base.constructor();
-        this.__ref = Character;
+        base.constructor(Character);
     }
 
 

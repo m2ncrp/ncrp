@@ -12,7 +12,9 @@ local defaultPlayerSpawns = [
  * Tirggers only for players which are already loaded (loaded character)
  */
 event("native:onPlayerSpawn", function(playerid) {
-    if (!isPlayerLoaded(playerid)) return;
+    if (!isPlayerLoaded(playerid)) {
+        return setPlayerHealth(playerid, 720.0);
+    }
 
     // draw default fadeout
     screenFadeout(playerid, calculateFPSDelay(playerid) + 50000);
@@ -32,6 +34,7 @@ event("native:onPlayerSpawn", function(playerid) {
 
     // set player position according to data
     setPlayerPosition(playerid, players[playerid].x, players[playerid].y, players[playerid].z);
+    setPlayerHealth(playerid, players[playerid].health);
 
     // maybe player spawned not far from spawn
     local isPlayerNearSpawn = (5.0 > getDistanceBetweenPoints3D (

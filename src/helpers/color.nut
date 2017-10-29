@@ -14,9 +14,9 @@ CL_JOB_LIST_R       <- rgb( 192, 57, 43  );
 CL_PHONE_CMPN       <- rgb( 125, 60, 20  );
 
 
-
 CL_FLAMINGO         <- rgb( 239,  72,  54  );
 CL_CHESTNUT         <- rgb( 210,  77,  87  );
+CL_CHESTNUT2        <- rgb( 217, 106,  115 );
 CL_THUNDERBIRD      <- rgb( 217,  30,  24  );
 CL_OLDBREAK         <- rgb( 150,  40,  27  );
 CL_WAXFLOWER        <- rgb( 241,  169, 160 );
@@ -49,6 +49,12 @@ CL_LYNCH            <- rgb( 108,  122, 137 );
 CL_SILVERSAND       <- rgb( 189,  195, 199 );
 CL_CASCADE          <- rgb( 149,  165, 166 );
 
+
+CL_CLOUDS           <- rgb( 179, 182, 183   );
+CL_ASBESTOS         <- rgb( 127, 140, 141   );
+CL_MIDNIGHTBLUE     <- rgb( 44, 62, 80      );
+CL_WASH             <- rgb( 176, 140, 217   );
+
 CL_GRAY             <- CL_CASCADE;
 
 CL_ERROR            <- CL_FLAMINGO;
@@ -56,3 +62,210 @@ CL_WARNING          <- CL_ECSTASY;
 CL_SUCCESS          <- CL_GOSSIP;
 CL_INFO             <- CL_PICTONBLUE;
 CL_PLAIN            <- CL_WHITE;
+
+CL_POMEGRANATE         <- rgb( 192, 57, 43     );
+CL_POMEGRANATE_5       <- rgb( 249, 235, 234   );
+CL_POMEGRANATE_10      <- rgb( 242, 215, 213   );
+CL_POMEGRANATE_20      <- rgb( 230, 176, 170   );
+CL_POMEGRANATE_30      <- rgb( 217, 136, 128   );
+CL_POMEGRANATE_40      <- rgb( 205, 97, 85     );
+CL_POMEGRANATE_50      <- rgb( 192, 57, 43     );
+CL_POMEGRANATE_60      <- rgb( 169, 50, 38     );
+CL_POMEGRANATE_70      <- rgb( 146, 43, 33     );
+CL_POMEGRANATE_80      <- rgb( 123, 36, 28     );
+CL_POMEGRANATE_90      <- rgb( 100, 30, 22     );
+
+CL_ALIZARIN            <- rgb( 231, 76, 60     );
+CL_ALIZARIN_5          <- rgb( 253, 237, 236   );
+CL_ALIZARIN_10         <- rgb( 250, 219, 216   );
+CL_ALIZARIN_20         <- rgb( 245, 183, 177   );
+CL_ALIZARIN_30         <- rgb( 241, 148, 138   );
+CL_ALIZARIN_40         <- rgb( 236, 112, 99    );
+CL_ALIZARIN_50         <- rgb( 231, 76, 60     );
+CL_ALIZARIN_60         <- rgb( 203, 67, 53     );
+CL_ALIZARIN_70         <- rgb( 176, 58, 46     );
+CL_ALIZARIN_80         <- rgb( 148, 49, 38     );
+CL_ALIZARIN_90         <- rgb( 120, 40, 31     );
+
+CL_AMETHYST            <- rgb( 155, 89, 182    );
+CL_AMETHYST_5          <- rgb( 245, 238, 248   );
+CL_AMETHYST_10         <- rgb( 235, 222, 240   );
+CL_AMETHYST_20         <- rgb( 215, 189, 226   );
+CL_AMETHYST_30         <- rgb( 195, 155, 211   );
+CL_AMETHYST_40         <- rgb( 175, 122, 197   );
+CL_AMETHYST_50         <- rgb( 155, 89, 182    );
+CL_AMETHYST_60         <- rgb( 136, 78, 160    );
+CL_AMETHYST_70         <- rgb( 118, 68, 138    );
+CL_AMETHYST_80         <- rgb( 99, 57, 116     );
+CL_AMETHYST_90         <- rgb( 81, 46, 95      );
+
+CL_WISTERIA            <- rgb( 142, 68, 173    );
+CL_WISTERIA_5          <- rgb( 244, 236, 247   );
+CL_WISTERIA_10         <- rgb( 232, 218, 239   );
+CL_WISTERIA_20         <- rgb( 210, 180, 222   );
+CL_WISTERIA_30         <- rgb( 187, 143, 206   );
+CL_WISTERIA_40         <- rgb( 165, 105, 189   );
+CL_WISTERIA_50         <- rgb( 142, 68, 173    );
+CL_WISTERIA_60         <- rgb( 125, 60, 152    );
+CL_WISTERIA_70         <- rgb( 108, 52, 131    );
+CL_WISTERIA_80         <- rgb( 91, 44, 111     );
+CL_WISTERIA_90         <- rgb( 74, 35, 90      );
+
+CL_BELIZEHOLE          <- rgb( 41, 128, 185    );
+CL_BELIZEHOLE_5        <- rgb( 234, 242, 248   );
+CL_BELIZEHOLE_10       <- rgb( 212, 230, 241   );
+CL_BELIZEHOLE_20       <- rgb( 169, 204, 227   );
+CL_BELIZEHOLE_30       <- rgb( 127, 179, 213   );
+CL_BELIZEHOLE_40       <- rgb( 84, 153, 199    );
+CL_BELIZEHOLE_50       <- rgb( 41, 128, 185    );
+CL_BELIZEHOLE_60       <- rgb( 36, 113, 163    );
+CL_BELIZEHOLE_70       <- rgb( 31, 97, 141     );
+CL_BELIZEHOLE_80       <- rgb( 26, 82, 118     );
+CL_BELIZEHOLE_90       <- rgb( 21, 67, 96      );
+
+CL_PETERRIVER          <- rgb( 52, 152, 219    );
+CL_PETERRIVER_5        <- rgb( 235, 245, 251   );
+CL_PETERRIVER_10       <- rgb( 214, 234, 248   );
+CL_PETERRIVER_20       <- rgb( 174, 214, 241   );
+CL_PETERRIVER_30       <- rgb( 133, 193, 233   );
+CL_PETERRIVER_40       <- rgb( 93, 173, 226    );
+CL_PETERRIVER_50       <- rgb( 52, 152, 219    );
+CL_PETERRIVER_60       <- rgb( 46, 134, 193    );
+CL_PETERRIVER_70       <- rgb( 40, 116, 166    );
+CL_PETERRIVER_80       <- rgb( 33, 97, 140     );
+CL_PETERRIVER_90       <- rgb( 27, 79, 114     );
+
+CL_TURQUOISE           <- rgb( 26, 188, 156    );
+CL_TURQUOISE_5         <- rgb( 232, 248, 245   );
+CL_TURQUOISE_10        <- rgb( 209, 242, 235   );
+CL_TURQUOISE_20        <- rgb( 163, 228, 215   );
+CL_TURQUOISE_30        <- rgb( 118, 215, 196   );
+CL_TURQUOISE_40        <- rgb( 72, 201, 176    );
+CL_TURQUOISE_50        <- rgb( 26, 188, 156    );
+CL_TURQUOISE_60        <- rgb( 23, 165, 137    );
+CL_TURQUOISE_70        <- rgb( 20, 143, 119    );
+CL_TURQUOISE_80        <- rgb( 17, 120, 100    );
+CL_TURQUOISE_90        <- rgb( 14, 98, 81      );
+
+CL_GREENSEA            <- rgb( 22, 160, 133    );
+CL_GREENSEA_5          <- rgb( 232, 246, 243   );
+CL_GREENSEA_10         <- rgb( 208, 236, 231   );
+CL_GREENSEA_20         <- rgb( 162, 217, 206   );
+CL_GREENSEA_30         <- rgb( 115, 198, 182   );
+CL_GREENSEA_40         <- rgb( 69, 179, 157    );
+CL_GREENSEA_50         <- rgb( 22, 160, 133    );
+CL_GREENSEA_60         <- rgb( 19, 141, 117    );
+CL_GREENSEA_70         <- rgb( 17, 122, 101    );
+CL_GREENSEA_80         <- rgb( 14, 102, 85     );
+CL_GREENSEA_90         <- rgb( 11, 83, 69      );
+
+CL_NEPHRITIS           <- rgb( 39, 174, 96     );
+CL_NEPHRITIS_5         <- rgb( 233, 247, 239   );
+CL_NEPHRITIS_10        <- rgb( 212, 239, 223   );
+CL_NEPHRITIS_20        <- rgb( 169, 223, 191   );
+CL_NEPHRITIS_30        <- rgb( 125, 206, 160   );
+CL_NEPHRITIS_40        <- rgb( 82, 190, 128    );
+CL_NEPHRITIS_50        <- rgb( 39, 174, 96     );
+CL_NEPHRITIS_60        <- rgb( 34, 153, 84     );
+CL_NEPHRITIS_70        <- rgb( 30, 132, 73     );
+CL_NEPHRITIS_80        <- rgb( 25, 111, 61     );
+CL_NEPHRITIS_90        <- rgb( 20, 90, 50      );
+
+CL_EMERALD             <- rgb( 46, 204, 113    );
+CL_EMERALD_5           <- rgb( 234, 250, 241   );
+CL_EMERALD_10          <- rgb( 213, 245, 227   );
+CL_EMERALD_20          <- rgb( 171, 235, 198   );
+CL_EMERALD_30          <- rgb( 130, 224, 170   );
+CL_EMERALD_40          <- rgb( 88, 214, 141    );
+CL_EMERALD_50          <- rgb( 46, 204, 113    );
+CL_EMERALD_60          <- rgb( 40, 180, 99     );
+CL_EMERALD_70          <- rgb( 35, 155, 86     );
+CL_EMERALD_80          <- rgb( 29, 131, 72     );
+CL_EMERALD_90          <- rgb( 24, 106, 59     );
+
+CL_SUNFLOWER           <- rgb( 241, 196, 15    );
+CL_SUNFLOWER_5         <- rgb( 254, 249, 231   );
+CL_SUNFLOWER_10        <- rgb( 252, 243, 207   );
+CL_SUNFLOWER_20        <- rgb( 249, 231, 159   );
+CL_SUNFLOWER_30        <- rgb( 247, 220, 111   );
+CL_SUNFLOWER_40        <- rgb( 244, 208, 63    );
+CL_SUNFLOWER_50        <- rgb( 241, 196, 15    );
+CL_SUNFLOWER_60        <- rgb( 212, 172, 13    );
+CL_SUNFLOWER_70        <- rgb( 183, 149, 11    );
+CL_SUNFLOWER_80        <- rgb( 154, 125, 10    );
+CL_SUNFLOWER_90        <- rgb( 125, 102, 8     );
+
+CL_ORANGE              <- rgb( 243, 156, 18    );
+CL_ORANGE_5            <- rgb( 254, 245, 231   );
+CL_ORANGE_10           <- rgb( 253, 235, 208   );
+CL_ORANGE_20           <- rgb( 250, 215, 160   );
+CL_ORANGE_30           <- rgb( 248, 196, 113   );
+CL_ORANGE_40           <- rgb( 245, 176, 65    );
+CL_ORANGE_50           <- rgb( 243, 156, 18    );
+CL_ORANGE_60           <- rgb( 214, 137, 16    );
+CL_ORANGE_70           <- rgb( 185, 119, 14    );
+CL_ORANGE_80           <- rgb( 156, 100, 12    );
+CL_ORANGE_90           <- rgb( 126, 81, 9      );
+
+CL_CARROT              <- rgb( 230, 126, 34    );
+CL_CARROT_5            <- rgb( 253, 242, 233   );
+CL_CARROT_10           <- rgb( 250, 229, 211   );
+CL_CARROT_20           <- rgb( 245, 203, 167   );
+CL_CARROT_30           <- rgb( 240, 178, 122   );
+CL_CARROT_40           <- rgb( 235, 152, 78    );
+CL_CARROT_50           <- rgb( 230, 126, 34    );
+CL_CARROT_60           <- rgb( 202, 111, 30    );
+CL_CARROT_70           <- rgb( 175, 96, 26     );
+CL_CARROT_80           <- rgb( 147, 81, 22     );
+CL_CARROT_90           <- rgb( 120, 66, 18     );
+
+CL_PUMPKIN             <- rgb( 211, 84, 0      );
+CL_PUMPKIN_5           <- rgb( 251, 238, 230   );
+CL_PUMPKIN_10          <- rgb( 246, 221, 204   );
+CL_PUMPKIN_20          <- rgb( 237, 187, 153   );
+CL_PUMPKIN_30          <- rgb( 229, 152, 102   );
+CL_PUMPKIN_40          <- rgb( 220, 118, 51    );
+CL_PUMPKIN_50          <- rgb( 211, 84, 0      );
+CL_PUMPKIN_60          <- rgb( 186, 74, 0      );
+CL_PUMPKIN_70          <- rgb( 160, 64, 0      );
+CL_PUMPKIN_80          <- rgb( 135, 54, 0      );
+CL_PUMPKIN_90          <- rgb( 110, 44, 0      );
+
+CL_SILVER              <- rgb( 189, 195, 199   );
+CL_SILVER_5            <- rgb( 248, 249, 249   );
+CL_SILVER_10           <- rgb( 242, 243, 244   );
+CL_SILVER_20           <- rgb( 229, 231, 233   );
+CL_SILVER_30           <- rgb( 215, 219, 221   );
+CL_SILVER_40           <- rgb( 202, 207, 210   );
+CL_SILVER_50           <- rgb( 189, 195, 199   );
+CL_SILVER_60           <- rgb( 166, 172, 175   );
+CL_SILVER_70           <- rgb( 144, 148, 151   );
+CL_SILVER_80           <- rgb( 121, 125, 127   );
+CL_SILVER_90           <- rgb( 98, 101, 103    );
+
+CL_CONCRETE            <- rgb( 149, 165, 166   );
+CL_CONCRETE_5          <- rgb( 244, 246, 246   );
+CL_CONCRETE_10         <- rgb( 234, 237, 237   );
+CL_CONCRETE_20         <- rgb( 213, 219, 219   );
+CL_CONCRETE_30         <- rgb( 191, 201, 202   );
+CL_CONCRETE_40         <- rgb( 170, 183, 184   );
+CL_CONCRETE_50         <- rgb( 149, 165, 166   );
+CL_CONCRETE_60         <- rgb( 131, 145, 146   );
+CL_CONCRETE_70         <- rgb( 113, 125, 126   );
+CL_CONCRETE_80         <- rgb( 95, 106, 106    );
+CL_CONCRETE_90         <- rgb( 77, 86, 86      );
+
+CL_WETASPHALT          <- rgb( 52, 73, 94      );
+CL_WETASPHALT_5        <- rgb( 235, 237, 239   );
+CL_WETASPHALT_10       <- rgb( 214, 219, 223   );
+CL_WETASPHALT_20       <- rgb( 174, 182, 191   );
+CL_WETASPHALT_30       <- rgb( 133, 146, 158   );
+CL_WETASPHALT_40       <- rgb( 93, 109, 126    );
+CL_WETASPHALT_50       <- rgb( 52, 73, 94      );
+CL_WETASPHALT_60       <- rgb( 46, 64, 83      );
+CL_WETASPHALT_70       <- rgb( 40, 55, 71      );
+CL_WETASPHALT_80       <- rgb( 33, 47, 60      );
+CL_WETASPHALT_90       <- rgb( 27, 38, 49      );
+
+
+

@@ -31,8 +31,8 @@ resources/ncrp/scriptfiles/ncrp.db-journal
 # specials
 config.xml
 positions.txt
+ncrp.sublime-workspace
 
 # env
 .env
 .mysql
-

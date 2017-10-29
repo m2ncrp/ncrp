@@ -57,8 +57,17 @@ const DOCKER_JOB_PUTBOX_Z = -21.7312;
 */
 
 const DOCKER_JOB_SKIN = 63;
-const DOCKER_SALARY = 0.2;
+const DOCKER_SALARY = 0.25;
       DOCKER_JOB_COLOR <- CL_CRUSTA;
+
+local DOCKER_JOB_GET_HOUR_START     = 0;    //6;
+local DOCKER_JOB_GET_HOUR_END       = 23;   //18;
+local DOCKER_JOB_LEAVE_HOUR_START   = 0;    //6;
+local DOCKER_JOB_LEAVE_HOUR_END     = 23;   //18;
+local DOCKER_JOB_WORKING_HOUR_START = 0;    //6;
+local DOCKER_JOB_WORKING_HOUR_END   = 23;   //18;
+local DOCKER_BOX_IN_HOUR = 35;
+local DOCKER_BOX_NOW = 29;
 
 event("onServerStarted", function() {
     log("[jobs] loading docker job...");
@@ -90,6 +99,9 @@ event("onServerPlayerStarted", function( playerid ) {
     }
 });
 
+event("onServerHourChange", function() {
+    DOCKER_BOX_NOW = DOCKER_BOX_IN_HOUR + random(-8, 9);
+});
 
 /**
  * Create private 3DTEXT AND BLIP
@@ -153,6 +165,11 @@ function dockerJob( playerid ) {
         return msg( playerid, "job.docker.already", DOCKER_JOB_COLOR );
     }
 
+    local hour = getHour();
+    if(hour < DOCKER_JOB_GET_HOUR_START || hour >= DOCKER_JOB_GET_HOUR_END) {
+        return msg( playerid, "job.closed", [ DOCKER_JOB_GET_HOUR_START.tostring(), DOCKER_JOB_GET_HOUR_END.tostring()], DOCKER_JOB_COLOR );
+    }
+
     if(isPlayerHaveJob(playerid)) {
         return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), DOCKER_JOB_COLOR );
     }
@@ -185,6 +202,12 @@ function dockerJobLeave( playerid ) {
     if(!isDocker( playerid )) {
         return msg( playerid, "job.docker.not", DOCKER_JOB_COLOR );
     }
+
+    local hour = getHour();
+    if(hour < DOCKER_JOB_LEAVE_HOUR_START || hour >= DOCKER_JOB_LEAVE_HOUR_END) {
+        return msg( playerid, "job.closed", [ DOCKER_JOB_LEAVE_HOUR_START.tostring(), DOCKER_JOB_LEAVE_HOUR_END.tostring()], DOCKER_JOB_COLOR );
+    }
+
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
         msg( playerid, "job.leave", DOCKER_JOB_COLOR );
 
@@ -218,6 +241,15 @@ function dockerJobTakeBox( playerid ) {
 
     if (isDockerHaveBox(playerid)) {
         return msg( playerid, "job.docker.havebox", DOCKER_JOB_COLOR );
+    }
+
+    local hour = getHour();
+    if(hour < DOCKER_JOB_WORKING_HOUR_START || hour >= DOCKER_JOB_WORKING_HOUR_END) {
+        return msg( playerid, "job.closed", [ DOCKER_JOB_WORKING_HOUR_START.tostring(), DOCKER_JOB_WORKING_HOUR_END.tostring()], DOCKER_JOB_COLOR );
+    }
+
+    if(DOCKER_BOX_NOW < 1) {
+        return msg( playerid, "job.nojob", DOCKER_JOB_COLOR );
     }
 
     if (job_docker[playerid]["moveState"] == 1 || job_docker[playerid]["moveState"] == 2){
@@ -277,20 +309,32 @@ event("updateMoveState", function(playerid, state) {
 
     if(isDocker( playerid ) && isDockerHaveBox(playerid)) {
         if(state == 1 || state == 2) {
-            setPlayerAnimStyle(playerid, "common", "default");
-            setPlayerHandModel(playerid, 1, 0);
-
-
-            dockerJobRemovePrivateBlipText ( playerid );
-
-            job_docker[playerid]["havebox"] = false;
             msg( playerid, "job.docker.dropped", DOCKER_JOB_COLOR );
-            msg( playerid, "job.docker.presscapslock" )
-            job_docker[playerid]["blip3dtext"] = dockerJobCreatePrivateBlipText(playerid, DOCKER_JOB_TAKEBOX_X, DOCKER_JOB_TAKEBOX_Y, DOCKER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "press E");
-            delayedFunction(250, function () { setPlayerAnimStyle(playerid, "common", "default"); });
-            delayedFunction(500, function () { setPlayerAnimStyle(playerid, "common", "default"); });
-            delayedFunction(750, function () { setPlayerAnimStyle(playerid, "common", "default"); });
-            delayedFunction(1000, function () { setPlayerAnimStyle(playerid, "common", "default"); });
+            msg( playerid, "job.docker.presscapslock" );
+
+            dockerJobLeaveBox( playerid );
         }
     }
 });
+
+
+key("c", function(playerid) {
+    if(isDocker( playerid ) && isDockerHaveBox(playerid)) {
+        msg( playerid, "job.docker.dropped", DOCKER_JOB_COLOR );
+
+        dockerJobLeaveBox( playerid );
+    }
+}, KEY_UP);
+
+
+function dockerJobLeaveBox( playerid ) {
+    setPlayerAnimStyle(playerid, "common", "default");
+    setPlayerHandModel(playerid, 1, 0);
+    dockerJobRemovePrivateBlipText ( playerid );
+    job_docker[playerid]["havebox"] = false;
+    job_docker[playerid]["blip3dtext"] = dockerJobCreatePrivateBlipText(playerid, DOCKER_JOB_TAKEBOX_X, DOCKER_JOB_TAKEBOX_Y, DOCKER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "press E");
+    delayedFunction(250, function () { setPlayerAnimStyle(playerid, "common", "default"); });
+    delayedFunction(500, function () { setPlayerAnimStyle(playerid, "common", "default"); });
+    delayedFunction(750, function () { setPlayerAnimStyle(playerid, "common", "default"); });
+    delayedFunction(1000, function () { setPlayerAnimStyle(playerid, "common", "default"); });
+}

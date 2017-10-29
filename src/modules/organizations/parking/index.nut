@@ -1,26 +1,46 @@
 local PARKING_COORDS = [ -1211.12, 1342.12, -1390.86, 1364.81 ];
 local PARKING_NAME = "CarPound";
-local PARKING_COST = 15.0;
+local PARKING_COST = 17.5;
 
-local parkingPlaceStatus = [ "free", "free", "free", "free", "free", "free", "free", "free", "free", "free", "free", "free", "free", "free", "free"];
+local parkingPlaceStatus = [];
 
 local parkingPlace = [
-    [-1300.0, 1358.0, -13.31],
-    [-1304.0, 1358.0, -13.31],
-    [-1296.0, 1358.0, -13.31],
-    [-1308.0, 1358.0, -13.31],
-    [-1292.0, 1358.0, -13.31],
-    [-1312.0, 1358.0, -13.31],
-    [-1288.0, 1358.0, -13.31],
-    [-1316.0, 1358.0, -13.31],
-    [-1284.0, 1358.0, -13.31],
-    [-1320.0, 1358.0, -13.31],
-    [-1280.0, 1358.0, -13.31],
-    [-1324.0, 1358.0, -13.31],
-    [-1276.0, 1358.0, -13.31],
+    [-1360.0, 1358.0, -13.31],
+    [-1356.0, 1358.0, -13.31],
+    [-1352.0, 1358.0, -13.31],
+    [-1348.0, 1358.0, -13.31],
+    [-1344.0, 1358.0, -13.31],
+    [-1340.0, 1358.0, -13.31],
+    [-1336.0, 1358.0, -13.31],
+    [-1332.0, 1358.0, -13.31],
     [-1328.0, 1358.0, -13.31],
+    [-1324.0, 1358.0, -13.31],
+    [-1320.0, 1358.0, -13.31],
+    [-1316.0, 1358.0, -13.31],
+    [-1312.0, 1358.0, -13.31],
+    [-1308.0, 1358.0, -13.31],
+    [-1304.0, 1358.0, -13.31],
+    [-1300.0, 1358.0, -13.31],
+    [-1296.0, 1358.0, -13.31],
+    [-1292.0, 1358.0, -13.31],
+    [-1288.0, 1358.0, -13.31],
+    [-1284.0, 1358.0, -13.31],
+    [-1280.0, 1358.0, -13.31],
+    [-1276.0, 1358.0, -13.31],
     [-1272.0, 1358.0, -13.31],
+    [-1268.0, 1358.0, -13.31],
+    [-1264.0, 1358.0, -13.31],
+    [-1260.0, 1358.0, -13.31],
+    [-1256.0, 1358.0, -13.31],
+    [-1252.0, 1358.0, -13.31],
+    [-1248.0, 1358.0, -13.31],
+    [-1244.0, 1358.0, -13.31],
+    [-1240.0, 1358.0, -13.31],
 ];
+
+    foreach (idx, value in parkingPlace) {
+        parkingPlaceStatus.push("free");
+    }
 
 translate("en", {
     "parking.needEnterPlate"    : "Need to enter plate number."
@@ -53,6 +73,8 @@ event("onServerStarted", function() {
     // POLICE_MANAGER = OfficerManager();
 
     createPlace(PARKING_NAME, PARKING_COORDS[0], PARKING_COORDS[1], PARKING_COORDS[2], PARKING_COORDS[3]);
+
+    createBlip  (  -1300.0, 1358.0, [ 0, 5 ], 4000.0);
 
     findBusyPlaces();
 });
@@ -137,6 +159,10 @@ event("onVehicleSetToCarPound", function(playerid, plate = null) {
         tpcomplete = true;
         setVehiclePosition(vehicleid, parkingPlace[placeid][0], parkingPlace[placeid][1], parkingPlace[placeid][2]);
         setVehicleRotation(vehicleid, 180.0, 0.0, 0.0 );
+        delayedFunction(8000, function() {
+            setVehiclePosition(vehicleid, parkingPlace[placeid][0], parkingPlace[placeid][1], parkingPlace[placeid][2] );
+            setVehicleRotation(vehicleid, 180.0, 0.0, 0.0 );
+        });
         break;
     }
     delayedFunction(1000, findBusyPlaces()); //read after
@@ -173,6 +199,7 @@ event("onVehicleGetFromCarPound", function(playerid) {
         parkingPlaceStatus[placeid] = "free";
         unblockVehicle(vehicleid);
         subBankMoneyToPlayer(playerid, PARKING_COST);
+        addMoneyToTreasury(PARKING_COST);
         msg(playerid, "parking.free");
         setVehicleSpeed(vehicleid, 0.0, -12.0, 0.0);
         break;

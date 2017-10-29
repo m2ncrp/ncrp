@@ -1,4 +1,4 @@
-class Character extends ORM.Entity {
+class Character extends ORM.JsonEntity {
 
     static classname = "Character";
     static table = "tbl_characters";
@@ -31,7 +31,10 @@ class Character extends ORM.Entity {
         ORM.Field.Float     ({ name = "housey",     }), // @deprecated
         ORM.Field.Float     ({ name = "housez",     }), // @deprecated
 
-        ORM.Field.Integer   ({ name = "mlvl",       value = "0"}),
+        ORM.Field.Integer   ({ name = "mlvl",       value = 0 }),
+
+        ORM.Field.Float     ({ name = "hunger",     value = 100.0 }),
+        ORM.Field.Float     ({ name = "thirst",     value = 100.0 }),
     ];
 
     /**
@@ -47,6 +50,7 @@ class Character extends ORM.Entity {
     toggle      = null; // @deprecated
     request     = null; // @deprecated
     inventory   = null;
+    hands       = null;
     spawned     = false;
     playerid    = -1;
 
@@ -57,13 +61,13 @@ class Character extends ORM.Entity {
 
     /**
      * Try to set virtual position (not calling native setPlayerPosition)
-     * Can be passed either number sequence or vector3 object
+     * Can be passed either number sequence or Vector3 object
      *
      * @param {Float} x
      * @param {Float} y
      * @param {Float} z
      * or
-     * @param {vector3} position
+     * @param {Vector3} position
      *
      * @return {Boolean}
      */
@@ -77,7 +81,7 @@ class Character extends ORM.Entity {
             return;
         }
 
-        if (vargv[0] instanceof vector3) {
+        if (vargv[0] instanceof Vector3) {
             this.x = vargv[0].x;
             this.y = vargv[0].y;
             this.z = vargv[0].z;
@@ -91,12 +95,12 @@ class Character extends ORM.Entity {
 
     function save() {
         base.save();
-        trigger("onCharacterSave", this.playerid, this);
+        ::trigger("onCharacterSave", this.playerid, this);
     }
 
     /**
      * Return current player position
-     * @return {vector3}
+     * @return {Vector3}
      */
     function getPosition() {
         // local position = getPlayerPosition(this.playerid);
@@ -106,10 +110,20 @@ class Character extends ORM.Entity {
         // this.z = position[2];
 
         // todo: refactor
-        return vector3(this.x, this.y, this.z);
+        return Vector3(this.x, this.y, this.z);
     }
 
     function getName() {
         return this.firstname + " " + this.lastname;
+    }
+
+    function trigger(event, ...) {
+        local args = vargv;
+
+        args.insert(0, getroottable());
+        args.insert(1, this.playerid);
+        args.insert(2, event);
+
+        return ::trigger.acall(args);
     }
 }

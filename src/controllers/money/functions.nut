@@ -1,10 +1,12 @@
 function addMoneyToPlayer(playerid, amount) {
     players[playerid]["money"] += amount.tofloat();
     setPlayerMoney(playerid, players[playerid]["money"]);
+    dbg("[MONEY] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] +"+amount+" dollars.");
 }
 
 function addMoneyToDeposit(playerid, amount) {
     players[playerid]["deposit"] += amount.tofloat();
+    dbg("[DEPOSIT] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] +"+amount+" dollars.");
 }
 
 
@@ -23,6 +25,7 @@ function canMoneyBeSubstracted(playerid, amount) {
 function subMoneyToPlayer(playerid, amount) {
     players[playerid]["money"] -= amount.tofloat();
     setPlayerMoney(playerid, players[playerid]["money"]);
+    dbg("[MONEY] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -"+amount+" dollars.");
 }
 
 function getPlayerBalance(playerid) {

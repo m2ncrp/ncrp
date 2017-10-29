@@ -2,8 +2,8 @@ local businessesIncr = 0;
 local businesses = {};
 local businessDefaults = [
     { type = BUSINESS_DEFAULT, blip = null,         info = null,        price = 15000.0,  income = 10.0 },
-    { type = BUSINESS_DINER,   blip = ICON_BURGER,  info = "/eat",      price = 25000.0,  income = 15.0 },
-    { type = BUSINESS_BAR,     blip = ICON_BAR,     info = "/drink",    price = 45000.0,  income = 40.0 },
+    { type = BUSINESS_DINER,   blip = ICON_BURGER,  info = "Press E",   price = 25000.0,  income = 15.0 },
+    { type = BUSINESS_BAR,     blip = ICON_BAR,     info = "Press E",   price = 45000.0,  income = 40.0 },
     { type = BUSINESS_WEAPON,  blip = ICON_WEAPON,  info = "/weapons",  price = 100000.0, income = 65.0 },
 ];
 
@@ -19,13 +19,13 @@ function loadBusinessResources(entity) {
 
     // LoOnyBiker from 11.01.2017
     // MSG: Business incone should be a private information on the Server.
-    // 
+    //
     // if (entity.owner == "") {
     //     pricetag = format("(Price: $%.2f, Income: $%.2f) /business buy", entity.price, entity.income, entity.servid);
     // } else {
     //     pricetag = format("(Owner: %s, Income: $%.2f)", entity.owner, entity.income);
     // }
-    
+
     if (entity.owner == "") {
         pricetag = format("(Price: $%.2f) /business buy", entity.price, entity.servid);
     } else {
@@ -38,7 +38,7 @@ function loadBusinessResources(entity) {
     local info = getBusinessInfo(entity.type);
     if (entity.type != BUSINESS_DEFAULT && info && info.info) {
         entity.text3 = create3DText( entity.x, entity.y, entity.z + 0.20, info.info, CL_WHITE.applyAlpha(75), BUSINESS_INTERACT_DISTANCE );
-        entity.blip  = createBlip(   entity.x, entity.y, info.blip );
+        entity.blip  = createBlip(   entity.x, entity.y, info.blip, 100.0 );
     }
 }
 

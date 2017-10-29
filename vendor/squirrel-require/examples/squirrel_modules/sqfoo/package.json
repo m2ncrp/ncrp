@@ -1,0 +1,10 @@
+{
+    "name": "sqfoo",
+    "version": "1.0.0",
+    "description": "sqfoo description",
+    "main": "index.nut",
+    "repository": {},
+    "author": "inlife",
+    "license": "MIT",
+    "dependencies": {}
+}

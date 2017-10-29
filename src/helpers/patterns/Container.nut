@@ -20,9 +20,9 @@ class Container
 
     /**
      * Reference to Class that'll be stored in Container
-     * @type {[type]}
+     * @type {Object}
      */
-    __ref  = null;
+    __interface = null;
 
 
 
@@ -30,11 +30,11 @@ class Container
      * Create new instance
      * @return {Container}
      */
-    constructor () {
+    constructor(type = null) {
         this.__data = {};
         this.__keys = [];
 
-        this.__ref  = null;
+        this.__interface = type;
     }
 
     /**
@@ -63,18 +63,38 @@ class Container
         return (key in this.__data);
     }
 
+    // alias
+    function has(key) {
+        return this.exists(key);
+    }
+
+    // alias
+    function exist(key) {
+        return this.has(key);
+    }
+
+    function map(callback) {
+        local elements = [];
+
+        foreach (idx, value in this.__data) {
+            elements = callback(value);
+        }
+
+        return elements;
+    }
+
     /**
-     * Store new Object record inside
+     * Store new Object record inside (with overridng existed value)
      * @param {Integer} key
      * @param {Object} Object
      */
-    function add(key, object) {
-        if (!(object instanceof __ref)) {
+    function set(key, object) {
+        if (this.__interface != null && !(object instanceof this.__interface)) {
             throw "Container: could not add unexpected entity."
         }
 
-        if (key in this.__data) {
-            throw "Container: can't insert key. It's already exists."
+        if (this.exists(key)) {
+            this.remove(key);
         }
 
         // store data
@@ -82,6 +102,19 @@ class Container
         this.__keys.push(key);
 
         return true;
+    }
+
+    /**
+     * Store new Object record inside
+     * @param {Integer} key
+     * @param {Object} Object
+     */
+    function add(key, object) {
+        if (key in this.__data) {
+            throw "Container: can't insert key. It already exists."
+        }
+
+        return this.set(key, object);
     }
 
     /**
@@ -116,17 +149,10 @@ class Container
         // return null if no records
         if (!this.exists(key1) || !this.exists(key2)) return false;
 
-        local indx1 = this.__keys.find(key1);
-        local indx2 = this.__keys.find(key2);
+        local item = this.get(key1);
 
-        local temp        = this.__data[key1];
-        this.__data[key1] = this.__data[key2];
-        this.__data[key2] = temp;
-
-        this.__keys.remove(indx1);
-        this.__keys.insert(indx1, key2);
-        this.__keys.remove(indx2);
-        this.__keys.insert(indx2, key1);
+        this.set(key1, this.get(key2));
+        this.set(key2, item);
 
         return true;
     }
@@ -138,14 +164,16 @@ class Container
      *          Otherwise object itself also should be inserted too
      */
     function each(callback, full = false) {
-        foreach (key, object in this.__data) {
+        local data = clone(this.__data);
+
+        foreach (key, object in data) {
             if (full) callback(key, object); else callback(key);
         }
     }
 
     /**
      * Override for default len method
-     * Get size of current players array
+     * Get size of current container
      * @return {Integer}
      */
     function len() {
@@ -169,18 +197,8 @@ class Container
      * @param {Integer} name
      * @param {Object} object
      */
-    function _set(playerid, object) {
-        if (!(object instanceof __ref)) {
-            throw "Container: could not add unexpected entity."
-        }
-
-        if (!(name in this.__data)) {
-            this.__data[playerid] <- object;
-        } else {
-            this.__data[playerid] = object;
-        }
-
-        return true;
+    function _set(key, object) {
+        return this.add(key, object);
     }
 
     /**

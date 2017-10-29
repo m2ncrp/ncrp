@@ -1,5 +1,13 @@
 // general
 translation("en", {
+
+    "general.admins.serial.get"                 : "Serial of %s: %s",
+
+    "general.message.empty"                     : "[INFO] You can't send an empty message",
+    "general.playeroffline"                     : "[INFO] There's no such person on server!",
+    "general.noonearound"                       : "There's noone around near you.",
+    "general.job.anotherone"                    : "You've got %s job, not %s!",
+
     "language.change.success"           : "You've successfully changed language to English!"
 
     "vehicle.owner.warning"             : "You can't drive a car which doesn't belong to you"
@@ -17,6 +25,9 @@ translation("en", {
     "job.checkmyjob"                    : "You are a %s."
     "job.unemployed"                    : "You are unemployed."
     "job.false"                         : "unemployed"
+    "job.closed"                        : "You have come to improper time. Opening hours: %s:00 - %s:00."
+    "job.toolate"                       : "Oh, it's too late! The job is no longer relevant."
+    "job.nojob"                         : "There is no work now. Come to another time."
 
     "rentcar.goto"                      : "Go to parking CAR RENTAL in North Millville to rent a car."
     "rentcar.notrent"                   : "This car can not be rented."
@@ -38,18 +49,6 @@ translation("en", {
     "rentcar.gui.buttonRefuse"          : "Refuse"
     "rentcar.gui.canrent"               : "You can rent this car.\nPrice: $%.2f in 10 minutes ($%.2f in hour) in game"
 
-    "auth.GUI.TitleLogin"               : "Authorization"
-    "auth.GUI.TitleLabelLogin"          : "Account already registered. Enter your password:"
-    "auth.GUI.TitleInputLogin"          : "password"
-    "auth.GUI.ButtonLogin"              : "Log in"
-
-    "auth.GUI.TitleRegister"            : "Registration"
-    "auth.GUI.TitleLabelRegister"       : "Register a new account. Fill in the fields below:"
-    "auth.GUI.PasswordInput"            : "Create a password:"
-    "auth.GUI.RepeatPasswordInput"      : "Repeat password:"
-    "auth.GUI.Email"                    : "Email:"
-    "auth.GUI.ButtonRegister"           : "Sign up"
-
     "admin.startRR.message"             :"SERVER: Hello guys! I need to restart itself in 15 minutes. Please, complete all your jobs. Thanks!"
     "admin.rrTime.message"              :"Server will be restarted in %i minutes."
 
@@ -61,11 +60,14 @@ translation("en", {
     "chat.togoocEnabled"                : "You have enabled display of general chat!"
     "chat.togoocDisabled"               : "You have disabled display of general chat!"
 
+    "chat.playerTogPm"                  :"Player has disabled a private message!"
+
+    "chat.togpmEnabled"                 : "You have enabled private message!"
+    "chat.togpmDisabled"                : "You have disabled private message!"
+
     "error.title"                       : "Error!"
 
-    "treasury.get" : "Treasury: $%.2f"
-    "treasury.add" : "Treasury: add $%.2f. Now: $%.2f"
-    "treasury.sub" : "Treasury: sub $%.2f. Now: $%.2f"
+    "msg.weapons"   : "It's RolePlay server. Only gangs and mafia can have weapons."
 });
 
 

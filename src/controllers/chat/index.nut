@@ -64,6 +64,10 @@ event("native:onPlayerChat", function(playerid, message) {
         return false;
     }
 
+    if (message.len() < 1 || message[0] == '.') {
+        return false;
+    }
+
     // reroute input to callbacks
     if (playerid in inputRequests) {
         if (inputRequests[playerid].timeout > getTimestamp()) {
@@ -98,7 +102,7 @@ event("native:onPlayerChat", function(playerid, message) {
  * @return {Boolean}
  */
 function requestUserInput(playerid, callback, timeout = 30) {
-    return inputRequests[playerid] <- { callback = callback, timeout = (getTimestamp() + 30) };
+    return inputRequests[playerid] <- { callback = callback, timeout = (getTimestamp() + timeout) };
 }
 
 /**

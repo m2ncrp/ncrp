@@ -45,7 +45,7 @@ acmd("biz", ["set", "owner"], function(playerid, id, ownerid) {
 });
 
 acmd("biz", ["set", "place"], function(playerid, id) {
-    if (setBusinessPosition(id, getPlayerPositionObj(playerid))) {
+    if (setBusinessPosition(id.tointeger(), getPlayerPositionObj(playerid))) {
         msg(playerid, "You've set business #" + id + " position on the map");
     } else {
         msg(playerid, "No business found by id " + id);
@@ -76,8 +76,9 @@ cmd("business", "buy", function(playerid) {
         return msg(playerid, "business.error.cantbuy", CL_ERROR);
     }
 
-    subMoneyToPlayer(playerid, getBusinessPrice(bizid));
-    setBusinessOwner(bizid, getPlayerName(playerid));
+    // subMoneyToPlayer(playerid, getBusinessPrice(bizid));
+    // setBusinessOwner(bizid, getPlayerName(playerid));
 
-    msg(playerid, "business.purchase.success", [getBusinessName(bizid)], CL_SUCCESS);
+    // msg(playerid, "business.purchase.success", [getBusinessName(bizid)], CL_SUCCESS);
+    msg(playerid, "Покупка бизнеса осуществляется через форум, путем создания темы с отыгрышем РП-ситуации.", CL_SUCCESS);
 });

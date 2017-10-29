@@ -1,7 +1,7 @@
 const HOSPITAL_X         = -393.429;
 const HOSPITAL_Y         = 912.044;
 const HOSPITAL_Z         = -20.0026;
-const HOSPITAL_AMOUNT    = 4.99;
+const HOSPITAL_AMOUNT    = 8.29;
 
 local lastDeaths = {};
 
@@ -50,6 +50,7 @@ event("native:onPlayerDeath", function(playerid, killerid) {
  */
 event("onPlayerSpawn", function(playerid) {
     if (!isPlayerBeenDead(playerid)) return;
+    if ("isPlayerBusPassenger" in getroottable() && isPlayerBusPassenger(playerid)) return;
 
     dbg("player", "spawn", "after death", getIdentity(playerid));
 
@@ -57,10 +58,10 @@ event("onPlayerSpawn", function(playerid) {
     if (canMoneyBeSubstracted(playerid, HOSPITAL_AMOUNT)) {
         subMoneyToPlayer(playerid, HOSPITAL_AMOUNT);
         msg(playerid, "hospital.money.deducted", [HOSPITAL_AMOUNT], CL_SUCCESS);
-        setPlayerHealth(playerid, 730.0);
+        players[playerid].health = 730.0;
     } else {
         msg(playerid, "hospital.money.donthave", [], CL_ERROR);
-        setPlayerHealth(playerid, 370.0);
+        players[playerid].health = 370.0;
     }
 
     // repsawn at the hospital

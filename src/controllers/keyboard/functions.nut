@@ -84,14 +84,9 @@ function triggerKeyboardPress(playerid, key, state) {
     local name = getRKey(key, playerid) + "_" + state;
 
     if (name in __keyboard) {
-        foreach (idx, __callback in __keyboard[name].callbacks) {
-            try {
-                __callback(playerid);
-            }
-            catch (e) {
-                return error(e + " for key " + name);
-            }
-        }
+        __keyboard[name].callbacks.map(function(__callback) {
+            __callback.call(getroottable(), playerid);
+        });
     } else {
         // return dbg("[keyboard] unknown keybind", key, state);
     }

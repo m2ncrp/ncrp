@@ -73,6 +73,7 @@ function canBankMoneyBeSubstracted(playerid, amount) {
 
 function subBankMoneyToPlayer(playerid, amount) {
     players[playerid]["deposit"] -= amount.tofloat();
+    dbg("[DEPOSIT] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -"+amount+" dollars.");
 }
 
 

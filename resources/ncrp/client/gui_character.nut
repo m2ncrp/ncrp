@@ -34,6 +34,23 @@ const DEFAULT_SPAWN_X    = 0.0;//-1620.15;
 const DEFAULT_SPAWN_Y    = 0.0;// 49.2881;
 const DEFAULT_SPAWN_Z    = 0.0;// -13.788;
 
+
+local CHARACTER_POS = [ 375.439, 727.43, -4.09301 ];
+
+// -143.0, 1206.0, 84.0 // Highbrook
+//-568.042, -28.7317, 22.2512 //Arcade
+// -1598.5,69.0,-13.0 // Garage
+// -765.704, 258.311, -20.2636  // WestSide near river
+// 809.629, 357.369, 29.316 // North Milville
+
+local WEATHER = "DT03part02FreddysBar";
+    // DT15_interier
+    // DT_RTRfoggy_day_early_morn1
+    // DT_RTRclear_day_early_morn2
+    // DT15_interier
+    // DT01part01sicily_svit
+    // DT_RTRclear_day_late_even
+
 local switchModelID = 0;
 
 local characters = [];
@@ -85,8 +102,8 @@ function loadTraslation(){
         text.WrongLName             <- "Wrong firstname";
         text.WrongFName             <- "Wrong lastname";
         text.WrongDay               <- "Wrong 'Day'";
-        text.WrongMonth             <- "Wrong 'Month'";
-        text.WrongYear              <- "Wrong 'Year'";
+        text.WrongMonth             <- "Month: from 1 to 12";
+        text.WrongYear              <- "Year: from 1850 to 1932";
         text.ExampleFName           <- "eg 'John'";
         text.ExampleLName           <- "eg 'Douglas'";
 
@@ -121,11 +138,11 @@ function loadTraslation(){
         text.CreationBirthday       <- "Дата рождения персонажа";
         text.WrongLName             <- "Некорректное Имя";
         text.WrongFName             <- "Некорректная Фамилия";
-        text.WrongDay               <- "'День' введён некорректно";
-        text.WrongMonth             <- "'Месяц' введён некорректно";
-        text.WrongYear              <- "'Год' введён некорректно";
-        text.ExampleFName           <- "Например 'John'";
-        text.ExampleLName           <- "Например 'Douglas'";
+        text.WrongDay               <- "День введён некорректно";
+        text.WrongMonth             <- "Месяц: от 1 до 12";
+        text.WrongYear              <- "Год: от 1850 до 1932";
+        text.ExampleFName           <- "Например John";
+        text.ExampleLName           <- "Например Douglas";
 
         //other
         text.Male       <- "Мужчина";
@@ -160,7 +177,8 @@ addEventHandler("characterSelection",characterSelection);
 
 function formatCharacterSelection () {
     local idx = selectedCharacter;
-    setPlayerPosition(getLocalPlayer(), -1598.5,69.0,-13.0);
+    setWeather(WEATHER);
+    setPlayerPosition(getLocalPlayer(), CHARACTER_POS[0], CHARACTER_POS[1], CHARACTER_POS[2]);
     setPlayerRotation(getLocalPlayer(), 180.0,0.0,0.0);
     if(charactersCount == 0){
         return characterCreation();
@@ -191,7 +209,8 @@ function characterCreation(){
     hideCharacterSelection();
     isCharacterCreationMenu = true;
     togglePlayerControls( true );
-    setPlayerPosition(getLocalPlayer(), -1598.5,69.0,-13.0);
+    setWeather(WEATHER);
+    setPlayerPosition(getLocalPlayer(), CHARACTER_POS[0], CHARACTER_POS[1], CHARACTER_POS[2]);
     setPlayerRotation(getLocalPlayer(), 180.0,0.0,180.0);
     window = guiCreateElement( ELEMENT_TYPE_WINDOW,  translation[0].CreationWindow, screen[0] - 300.0, screen[1]/2- 175.0, 190.0, 320.0 );
     label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationFirstName 20.0, 20.0, 300.0, 20.0, false, window));//label[0]
@@ -281,7 +300,7 @@ function switchCharacterSlot(){
     local idx = selectedCharacter;
     if(idx in characters){
         if(characters[idx].Firstname == ""){
-            PData.Id <- characters[0].Id;
+            PData.Id <- characters[idx].Id;
             migrateOldCharacter = true;
             return characterCreation();
         }
@@ -308,16 +327,17 @@ function switchCharacterSlot(){
     }
 }
 
-bindKey("shift", "down", function() {
-    if(isCharacterCreationMenu || isCharacterSelectionMenu){
-        showCursor(false);
+addEventHandler("onServerKeyboard", function(key, state) {
+    if (key == "shift" && state == "down") {
+        if(isCharacterCreationMenu || isCharacterSelectionMenu) {
+            showCursor(false);
+        }
     }
-});
-
-bindKey("shift", "up", function() {
-   if(isCharacterCreationMenu || isCharacterSelectionMenu){
-        showCursor(true);
-   }
+    if (key == "shift" && state == "up") {
+        if(isCharacterCreationMenu || isCharacterSelectionMenu) {
+            showCursor(true);
+        }
+    }
 });
 
 function switchModel(){
@@ -508,6 +528,7 @@ addEventHandler("onServerCharacterLoaded", function(locale){
     charactersCount = characters.len();
     formatCharacterSelection();
     showChat(false);
+    toggleHud(false);
 });
 
 

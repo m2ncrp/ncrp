@@ -169,7 +169,7 @@ function chatcmd(names, callback)  {
         }
 
         if (isPlayerMuted(playerid)) {
-            return;
+            return msg(playerid, "admin.mute.youhave", CL_RED);
         }
 
         // call registered callback
@@ -199,20 +199,25 @@ function msg(playerid, text, ...) {
     ), color.r, color.g, color.b);
 }
 
-function msg_a(text, color = CL_WHITE) {
+function msg_a(text, args, color = CL_WHITE) {
     // return sendPlayerMessageToAll(text, color.r, color.g, color.b);
     foreach (playerid, value in players) {
-        msg(playerid, text, color);
+        msg(playerid, text, args, color);
     }
 }
 
 function msg_help(playerid, title, commands){
 
-    msg(playerid, "==================================", CL_HELP_LINE);
+    msg(playerid, "===========================================", CL_HELP_LINE);
     msg(playerid, title, CL_HELP_TITLE);
 
     foreach (idx, icmd in commands) {
-        local text = localize(icmd.name, [], getPlayerLocale(playerid)) + "   -   " + localize(icmd.desc, [], getPlayerLocale(playerid));
+        local text = null;
+        if(icmd.desc.len() > 0) {
+            text = localize(icmd.name, [], getPlayerLocale(playerid)) + "   -   " + localize(icmd.desc, [], getPlayerLocale(playerid));
+        } else {
+            text = localize(icmd.name, [], getPlayerLocale(playerid));
+        }
         if ((idx % 2) == 0) {
             msg(playerid, text, CL_HELP);
         } else {

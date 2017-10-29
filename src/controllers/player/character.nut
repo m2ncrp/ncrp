@@ -27,12 +27,16 @@ event("onPlayerCharacterLoaded", function(playerid, character) {
     character.playerid = playerid;
     players.add(playerid, character);
 
+    // cache player character (replace)
+    xPlayers.set(character.id, character);
+
     // trigger init events
     trigger("onPlayerConnect", playerid);
     trigger("native:onPlayerSpawn", playerid); // ?? move to later
 
     // and trigger start events
     delayedFunction(1500, function() {
+        if (!isPlayerLoaded(playerid)) return;
         if (DEBUG) dbg("player", "started", getIdentity(playerid));
         trigger("onServerPlayerStarted", playerid);
         trigger(playerid, "onServerClientStarted", VERSION);
@@ -187,6 +191,8 @@ function validateAndUpdateCharacter(playerid, character, firstname, lastname, ra
         // add to container
         trigger("onPlayerCharacterLoaded", playerid, character);
     });
+
+    dbg("new_character", getAccountName(playerid), firstname+" "+lastname);
 
     return true;
 }

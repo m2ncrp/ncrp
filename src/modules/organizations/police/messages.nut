@@ -4,55 +4,55 @@
 
 
 translation("ru", {
-    "organizations.police.tencode.10-1"    : "10-1 ((Вышел в патруль.))"
-    "organizations.police.tencode.10-2"    : "10-2 ((Ушел на перерыв.))"
-    "organizations.police.tencode.10-3"    : "10-3 ((Запрашиваю напарника.)) Прием."
-    "organizations.police.tencode.10-4"    : "10-4 ((Запрашиваю информацию по активным патрулям.)) Прием."
-    "organizations.police.tencode.10-5"    : "10-5 ((Информация о человеке.)) %s"
-    "organizations.police.tencode.10-6"    : "10-6 ((Информация об автомобиле.)) %s"
+    "organizations.police.tencode.10-1"    : "10-1 ((Вышел в патруль))"
+    "organizations.police.tencode.10-2"    : "10-2 ((Ушел на перерыв))"
+    "organizations.police.tencode.10-3"    : "10-3 ((Запрашиваю напарника)) Прием."
+    "organizations.police.tencode.10-4"    : "10-4 ((Запрашиваю информацию по активным патрулям)) Прием."
+    "organizations.police.tencode.10-5"    : "10-5 ((Информация о человеке)) %s"
+    "organizations.police.tencode.10-6"    : "10-6 ((Информация об автомобиле)) %s"
     "organizations.police.tencode.10-7"    : "10-7 ((Запрашиваю ордер)) на %s."
-    "organizations.police.tencode.10-8"    : "10-8 ((Принято.)) %s"
-    "organizations.police.tencode.10-9"    : "10-9 ((Доложите обстановку.)) Прием."
-    "organizations.police.tencode.10-10"   : "10-10 ((Вызов принял.))"
-    "organizations.police.tencode.10-11"   : "10-11 ((Не могу выполнить.))"
-    "organizations.police.tencode.10-12"   : "10-12 ((Вижу нарушителя.))" // show blip
-    "organizations.police.tencode.10-13"   : "10-13 ((Веду преследование за автомобилем.)) %s"
-    "organizations.police.tencode.10-14"   : "10-14 ((Веду пешую погоню.)) Конец связи."
-    "organizations.police.tencode.10-15"   : "10-15 ((Требуется поддержка.))" // show blip
-    "organizations.police.tencode.10-16"   : "10-16 ((Офицер ранен.))"
-    "organizations.police.tencode.10-17"   : "10-17 ((Офицер убит.))"
+    "organizations.police.tencode.10-8"    : "10-8 ((Принято)) %s"
+    "organizations.police.tencode.10-9"    : "10-9 ((Доложите обстановку)) Прием."
+    "organizations.police.tencode.10-10"   : "10-10 ((Вызов принял))"
+    "organizations.police.tencode.10-11"   : "10-11 ((Не могу выполнить))"
+    "organizations.police.tencode.10-12"   : "10-12 ((Вижу нарушителя))" // show blip
+    "organizations.police.tencode.10-13"   : "10-13 ((Веду преследование за автомобилем)) %s"
+    "organizations.police.tencode.10-14"   : "10-14 ((Веду пешую погоню)) Конец связи."
+    "organizations.police.tencode.10-15"   : "10-15 ((Требуется поддержка))" // show blip
+    "organizations.police.tencode.10-16"   : "10-16 ((Офицер ранен))"
+    "organizations.police.tencode.10-17"   : "10-17 ((Офицер убит))"
 
-    "organizations.police.tencode.code0"  : "code 0 ((Требуется срочная помощь. Все экипажи на дежурстве и вне нее, должны бросить свои дела и ответить на code 0 как можно быстрее.))"
-    "organizations.police.tencode.code1"  : "code 1 ((Опасная ситуация. Всем экипажам, находящимся на дежурстве, прибыть.))"
-    "organizations.police.tencode.code2"  : "code 2 ((Мало приоритетный вызов. Прибыть без сирен и мигалок.))"
-    "organizations.police.tencode.code3"  : "code 3 ((Высоко приоритетный вызов. Прибыть с сиреной и мигалками.))"
-    "organizations.police.tencode.code4"  : "code 4 ((По офицерам открыт огонь!))"
+    "organizations.police.tencode.code0"  : "код 0 ((Требуется срочная помощь. Всем экипажам без исключения ответить на code 0 как можно быстрее))"
+    "organizations.police.tencode.code1"  : "код 1 ((Опасная ситуация. Всем экипажам, находящимся на дежурстве, прибыть))"
+    "organizations.police.tencode.code2"  : "код 2 ((Мало приоритетный вызов. Прибыть без сирен и мигалок))"
+    "organizations.police.tencode.code3"  : "код 3 ((Высоко приоритетный вызов. Прибыть с сиреной и мигалками))"
+    "organizations.police.tencode.code4"  : "код 4 ((По офицерам открыт огонь!))"
 });
 
 
 translation("en", {
-    "organizations.police.tencode.10-1"    : "10-1 ((On Duty, responding to calls.))"
-    "organizations.police.tencode.10-2"    : "10-2 ((Meal Break.))"
-    "organizations.police.tencode.10-3"    : "10-3 ((Request Cover Unit.)) Over."
-    "organizations.police.tencode.10-4"    : "10-4 ((Request information about patrols on duty.)) Over."
-    "organizations.police.tencode.10-5"    : "10-5 ((Information about citizen.)) %s"
-    "organizations.police.tencode.10-6"    : "10-6 ((Information about vehice.)) %s"
+    "organizations.police.tencode.10-1"    : "10-1 ((On duty, responding to calls))"
+    "organizations.police.tencode.10-2"    : "10-2 ((Meal break))"
+    "organizations.police.tencode.10-3"    : "10-3 ((Request cover unit)) Over."
+    "organizations.police.tencode.10-4"    : "10-4 ((Request information about patrols on duty)) Over."
+    "organizations.police.tencode.10-5"    : "10-5 ((Information about citizen)) %s"
+    "organizations.police.tencode.10-6"    : "10-6 ((Information about vehice)) %s"
     "organizations.police.tencode.10-7"    : "10-7 ((Request for order)) on %s."
-    "organizations.police.tencode.10-8"    : "10-8 ((Roger.)) %s"
-    "organizations.police.tencode.10-9"    : "10-9 ((Report the situation.)) Over."
-    "organizations.police.tencode.10-10"   : "10-10 ((Take call.))"
-    "organizations.police.tencode.10-11"   : "10-11 ((Can't perform order.))"
-    "organizations.police.tencode.10-12"   : "10-12 ((See the suspect.))" // show blip
-    "organizations.police.tencode.10-13"   : "10-13 ((Chaise in Progress.)) %s"
-    "organizations.police.tencode.10-14"   : "10-14 ((Pursuit in Progress.)) Over."
-    "organizations.police.tencode.10-15"   : "10-15 ((Need backup.))" // show blip
-    "organizations.police.tencode.10-16"   : "10-16 ((Officer injured.))"
-    "organizations.police.tencode.10-17"   : "10-17 ((Officer killed.))"
+    "organizations.police.tencode.10-8"    : "10-8 ((Roger)) %s"
+    "organizations.police.tencode.10-9"    : "10-9 ((Report the situation)) Over."
+    "organizations.police.tencode.10-10"   : "10-10 ((Take call))"
+    "organizations.police.tencode.10-11"   : "10-11 ((Can't perform order))"
+    "organizations.police.tencode.10-12"   : "10-12 ((See the suspect))" // show blip
+    "organizations.police.tencode.10-13"   : "10-13 ((Chaise in progress)) %s"
+    "organizations.police.tencode.10-14"   : "10-14 ((Pursuit in progress)) Over."
+    "organizations.police.tencode.10-15"   : "10-15 ((Need backup))" // show blip
+    "organizations.police.tencode.10-16"   : "10-16 ((Officer injured))"
+    "organizations.police.tencode.10-17"   : "10-17 ((Officer killed))"
 
-    "organizations.police.tencode.code0"  : "code 0 ((Need backup. All unit, take order on code 0 as fast as you can.))"
-    "organizations.police.tencode.code1"  : "code 1 ((Urgent Response Type. All units, Lights and Sirens at Intersections.))"
-    "organizations.police.tencode.code2"  : "code 2 ((Routine Response Type. No Lights or Sirens.))"
-    "organizations.police.tencode.code3"  : "code 3 ((High Response Type. All units, Lights and Sirens.))"
+    "organizations.police.tencode.code0"  : "code 0 ((Need backup. All unit, take order on code 0 as fast as you can))"
+    "organizations.police.tencode.code1"  : "code 1 ((Urgent Response Type. All units, lights and sirens at Intersections))"
+    "organizations.police.tencode.code2"  : "code 2 ((Routine Response Type. No lights or sirens))"
+    "organizations.police.tencode.code3"  : "code 3 ((High Response Type. All units, lights and sirens))"
     "organizations.police.tencode.code4"  : "code 4 ((Officer under the fire!))"
 });
 
@@ -223,35 +223,35 @@ cmd(["r"],["10-17"], function(playerid) {
     }
 });
 
-cmd(["r"],["code0"], function(playerid) {
+cmd(["r"],["code", "0"], function(playerid) {
     if ( isPlayerInPoliceVehicle(playerid) ) {
         sendLocalizedPoliceRadioMsgToAll( playerid, "code0", "" );
         createCrimePoint(playerid);
     }
 });
 
-cmd(["r"],["code1"], function(playerid) {
+cmd(["r"],["code", "1"], function(playerid) {
     if ( isPlayerInPoliceVehicle(playerid) ) {
         sendLocalizedPoliceRadioMsgToAll( playerid, "code1", "" );
         createCrimePoint(playerid);
     }
 });
 
-cmd(["r"],["code2"], function(playerid) {
+cmd(["r"],["code", "2"], function(playerid) {
     if ( isPlayerInPoliceVehicle(playerid) ) {
         sendLocalizedPoliceRadioMsgToAll( playerid, "code2", "" );
         createCrimePoint(playerid);
     }
 });
 
-cmd(["r"],["code3"], function(playerid) {
+cmd(["r"],["code", "3"], function(playerid) {
     if ( isPlayerInPoliceVehicle(playerid) ) {
         sendLocalizedPoliceRadioMsgToAll( playerid, "code3", "" );
         createCrimePoint(playerid);
     }
 });
 
-cmd(["r"],["code4"], function(playerid) {
+cmd(["r"],["code", "4"], function(playerid) {
     if ( isPlayerInPoliceVehicle(playerid) ) {
         sendLocalizedPoliceRadioMsgToAll( playerid, "code4", "" );
         createCrimePoint(playerid);

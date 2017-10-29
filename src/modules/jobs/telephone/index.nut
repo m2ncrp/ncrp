@@ -1,6 +1,7 @@
 include("modules/jobs/telephone/commands.nut");
 
 local phone_nearest_blip = {};
+local PHONE_CALL_PRICE = 0.50;
 
 local telephones = [
 /*
@@ -326,6 +327,7 @@ translation("en", {
 "telephone.youcall"     : "You call by number %s."
 "telephone.incorrect"   : "Incorrect number. Use: 555-XXXX"
 "telephone.notregister" : "This phone number isn't registered."
+"telephone.notenoughmoney" : "You don't have enough money to call."
 
 "phone.gui.window"          :   "Telephone"
 "phone.gui.callto"          :   "Select an action:"
@@ -361,7 +363,7 @@ event("onServerStarted", function() {
     //creating public 3dtext
     foreach (phone in telephones) {
         create3DText ( phone[0], phone[1], phone[2]+0.35, "TELEPHONE", CL_RIPELEMON, 6.0);
-        create3DText ( phone[0], phone[1], phone[2]+0.20, "Press 2", CL_WHITE.applyAlpha(150), 0.4 );
+        create3DText ( phone[0], phone[1], phone[2]+0.20, "Press Q", CL_WHITE.applyAlpha(150), 0.4 );
     }
 
 
@@ -487,6 +489,14 @@ function callByPhone (playerid, number = null, isbind = false) {
     // number empty
     if (number == null) {
         return msg(playerid, "telephone.neednumber");
+    }
+
+    if (budka[4] == 0) {
+        if(!canMoneyBeSubstracted(playerid, PHONE_CALL_PRICE)) {
+            return msg(playerid, "telephone.notenoughmoney");
+        }
+        subMoneyToPlayer(playerid, PHONE_CALL_PRICE);
+        addMoneyToTreasury(PHONE_CALL_PRICE);
     }
 
     if(number == "taxi" || number == "police" || number == "dispatch" || number == "towtruck" ) {

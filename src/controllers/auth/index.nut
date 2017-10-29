@@ -5,9 +5,14 @@ AUTH_ACCOUNTS_LIMIT      <- 2;
 AUTH_AUTOLOGIN_TIME      <- 900; // 15 minutes
 
 const DEFAULT_SPAWN_SKIN = 4;
-const DEFAULT_SPAWN_X    = -762.8;//-143.0;  //-1027.02;
-const DEFAULT_SPAWN_Y    = 722.5;//1206.0;  //1746.63;
-const DEFAULT_SPAWN_Z    = 4.15;//84.0;    //10.2325;
+const DEFAULT_SPAWN_X    =  375.439;  // -568.042;  //-143.0;  //-1027.02;
+const DEFAULT_SPAWN_Y    =   727.43;  // -28.7317;   //1206.0;  //1746.63;
+const DEFAULT_SPAWN_Z    = -4.09301;  //  22.2012;   //84.0;    //10.2325;
+
+// Roof in Uptown
+//-762.8;
+// 722.5;
+//  4.15;
 
 /**
  * Compiled regex object for
@@ -21,28 +26,6 @@ local buffer = {};
 include("controllers/auth/functions.nut");
 include("controllers/auth/commands.nut");
 
-translation("en", {
-    "auth.wrongname"        : "Your name should be at least 4 symbols and should not contain any symbols except letters, nubmers, space and underscore."
-    // "auth.wrongname"        : "Sorry, your name should be original (not from the game) and have Firstname_Lastname format."
-    "auth.changename"       : "Please, change you name in the settings, and reconnect. Thank you!"
-    "auth.welcome"          : "* Welcome there, %s!"
-    "auth.registered"       : "* Your account is registered."
-    "auth.notregistered"    : "* Your account is not registered."
-    "auth.command.register" : "* Please register using /register PASSWORD"
-    "auth.command.regformat": "* Example: Joe_Barbaro"
-    "auth.command.login"    : "* Please enter using /login PASSWORD"
-    "auth.error.logined"    : "[AUTH] You are already logined!"
-    "auth.error.login"      : "[AUTH] You are already logined!"
-    "auth.error.register"   : "[AUTH] Account with this name is already registered!"
-    "auth.error.notfound"   : "[AUTH] This account is not registered"
-    "auth.success.register" : "[AUTH] You've successfuly registered!"
-    "auth.success.login"    : "[AUTH] You've successfuly logined!"
-    "auth.success.autologin": "[AUTH] You've been automatically logined!"
-    "auth.error.cmderror"   : "[AUTH] You can't execute commands without registration."
-    "auth.notification"     : "[AUTH] You should enter into your account via /login PASSWORD, or create new one via /register PASSWORD"
-    "auth.error.tomany"     : "[AUTH] You cant register more accounts."
-    "auth.client.notloaded" : "Seems like your client scripts were not properly loaded. Try reconnecting!"
-});
 
 /**
  * On player connects we will
@@ -76,7 +59,9 @@ event("onClientSuccessfulyStarted", function(playerid) {
 
             dbg("kick", "invalid unsername", getIdentity(playerid));
 
-            return delayedFunction(12000, function () {
+            trigger(playerid, "onServerChatTrigger");
+
+            return delayedFunction(20000, function () {
                 kickPlayer( playerid );
             });
         });
@@ -103,12 +88,14 @@ event("onClientSuccessfulyStarted", function(playerid) {
                         msg(playerid, "");
                     }
 
+                    trigger(playerid, "onServerChatTrigger");
+
                     msg(playerid, "[SERVER] You are banned from the server for: " + result.reason, CL_RED);
                     msg(playerid, "[SERVER] Try connecting again later."    );
 
                     dbg("kick", "banned connected", getIdentity(playerid));
 
-                    return delayedFunction(6000, function () {
+                    return delayedFunction(20000, function () {
                         kickPlayer( playerid );
                     });
                 });

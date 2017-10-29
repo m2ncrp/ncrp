@@ -1,0 +1,11 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = git@github.com:Inlife/squirrel-orm.git
+	branch = master
+	commit = e91e5b0ecd260680a6df142591a4ea7c46fe2cf5
+	parent = 0bf77c01d3f192c4043514fc8c15656d0354d8ab
+	cmdver = 0.3.1

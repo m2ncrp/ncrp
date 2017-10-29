@@ -6,8 +6,10 @@ event("onPlayerConnect", function(playerid){
     antiflood[playerid] <- {};
     antiflood[playerid]["gooc"] <- 0;
     antiflood[playerid]["togooc"] <- true;
+    antiflood[playerid]["togpm"] <- true;
 
     lastPMs[playerid] <- -1;
+
 });
 
 event("onServerSecondChange", function() {
@@ -68,6 +70,10 @@ chatcmd(["global", "g"], function(playerid, message) {
 // private message
 cmd("pm", function(playerid, targetid, ...) {
     local targetid = toInteger(targetid);
+
+    if(!antiflood[targetid]["togpm"]){
+        return  msg(playerid, "chat.playerTogPm", CL_ERROR);
+    }
 
     sendPlayerPrivateMessage(playerid, targetid, vargv);
     lastPMs[targetid] <- playerid;
@@ -186,8 +192,6 @@ cmd(["help", "h", "halp", "info"], function(playerid) {
         { name = "/help job JOBNAME",       desc = "help.job" },
         { name = "/help bank",              desc = "help.ban" },
         { name = "/help car",               desc = "help.cars" },
-        { name = "/help fuel",              desc = "help.fuel" },
-        { name = "/help repair",            desc = "help.repair" },
         { name = "/report ID TEXT",         desc = "help.report" },
         { name = "/idea TEXT",              desc = "help.idea" }
     ];
@@ -288,3 +292,28 @@ cmd(["togooc"], function(playerid) {
         msg(playerid, "chat.togoocEnabled");
     }
 });
+
+
+cmd(["togpm"], function(playerid) {
+    if(antiflood[playerid]["togpm"]){
+        antiflood[playerid]["togpm"] = false;
+        msg(playerid, "chat.togpmDisabled");
+    }
+    else{
+        antiflood[playerid]["togpm"] = true;
+        msg(playerid, "chat.togpmEnabled");
+    }
+});
+
+
+function getPlayerOOC(playerid) {
+    return antiflood[playerid]["togooc"];
+}
+
+function setPlayerOOC(playerid, value = true) {
+    antiflood[playerid]["togooc"] = value;
+}
+
+function isPlayerOOCEnabled(playerid) {
+    return (antiflood[playerid]["togooc"]) ? true : false;
+}

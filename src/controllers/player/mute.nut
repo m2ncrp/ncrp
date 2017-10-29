@@ -7,12 +7,14 @@ local mutes = [];
  * @param {Boolean} state
  */
 function setPlayerMuted(playerid, state) {
-    if (state && mutes.find(playerid) == null) {
-        return mutes.push(playerid);
+    local key = getPlayerName(playerid);
+
+    if (state && mutes.find(key) == null) {
+        return mutes.push(key);
     }
 
-    if (!state && mutes.find(playerid) != null) {
-        return mutes.remove(mutes.find(playerid));
+    if (!state && mutes.find(key) != null) {
+        return mutes.remove(mutes.find(key));
     }
 
     return false;
@@ -24,5 +26,5 @@ function setPlayerMuted(playerid, state) {
  * @return {Boolean}
  */
 function isPlayerMuted(playerid) {
-    return mutes.find(playerid) != null;
+    return mutes.find(getPlayerName(playerid)) != null;
 }

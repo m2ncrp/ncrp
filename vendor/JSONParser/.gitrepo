@@ -1,0 +1,11 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/electricimp/JSONParser.git
+	branch = master
+	commit = 304a125aedea3fba03d140e2d49ef1f6408321ec
+	parent = 02110b50460c25961553db9b73db2105115e9c49
+	cmdver = 0.3.1

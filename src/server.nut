@@ -1,10 +1,77 @@
 DEBUG   <- false;
-VERSION <- "0.0.000";
+VERSION <- "1.1.7";
 MOD_HOST <- "139.59.142.46";
 MOD_PORT <- 7790;
 
-// initialize libraries
-dofile("src/libraries/index.nut", true);
+const DEBUG_ENABLED = true;
+__DEBUG__EXPORT <- false;
+
+/**
+ * Updated module includer script version
+ * throws exceptions if module was not found
+ * returns true if module was loaded
+ *
+ * If ".nut" was not found in the path,
+ * "/index.nut" will be concatenated to path
+ *
+ * @param  {String} path
+ * @return {Boolean}
+ */
+function include(path) {
+    if (!path.find(".nut")) {
+        path += "/index.nut";
+    }
+
+    try {
+        return dofile("src/" + path, true) || true;
+    } catch (e) {
+        throw "\n============================\nSystem: File inclusion error\n(wrong filename or error in the file): " + path;
+    }
+}
+
+local require = dofile("vendor/squirrel-require/src/require.nut", true)("./src");
+
+// load libs
+__FILE__ <- "vendor/squirrel-orm/index.nut";
+dofile("vendor/squirrel-orm/index.nut", true);
+dofile("vendor/JSONEncoder/JSONEncoder.class.nut", true);
+dofile("vendor/JSONParser/JSONParser.class.nut", true);
+
+// setup logger
+logger <- require("./engine/logger")
+logger.use(function(data) {
+    ::print(data);
+});
+
+/**
+ * Function that logs to server console
+ * provided any number of provided values
+ *
+ * @param  {...}  any number of arguments
+ * @return none
+ */
+function log(...) {
+    return ::print(JSONEncoder.encode(vargv).slice(2).slice(0, -2));
+};
+
+
+/**
+ * Function that logs to server console
+ * provided any number of provided values
+ * NOTE: addes prefix [debug] in front of output
+ *
+ * @param  {...}  any number of arguments
+ * @return none
+ */
+function dbg(...) {
+    return DEBUG_ENABLED ? ::print("[debug] " + JSONEncoder.encode(vargv)) : null;
+}
+
+if (__DEBUG__EXPORT) {
+    addEventHandler     <- function(...) {};
+    addCommandHandler   <- function(...) {};
+    createVehicle       <- function(...) {};
+}
 
 // load classes
 include("traits/Colorable.nut");
@@ -41,6 +108,22 @@ include("modules/index.nut");
 include("translations/en.nut");
 include("translations/ru.nut");
 
+// unit testing
+// dofile("resources/ncrp/unittests/index.nut", true);
+
+function fread(filename) {
+    local handler = file(filename, "r");
+    local content = "";
+
+
+    for (local i = 0; i < handler.len(); i++) {
+        content += handler.readn('b').tochar();
+    }
+
+    handler.close();
+    return content;
+}
+
 local initializeEnvironment = function() {
     local envblob = file(".env", "a+");
 
@@ -54,21 +137,22 @@ local initializeEnvironment = function() {
 
     envblob.close();
 
-    local verblob = file("globalSettings/version.ver", "r");
-    local version = "";
+    // local verblob = file("globalSettings/version.ver", "r");
+    // local version = "";
 
-    // try to read data from version
-    for (local i = 1; i < verblob.len(); i++) {
-        version += verblob.readn('b').tochar();
-        verblob.seek(i);
-    }
+    // // try to read data from version
+    // for (local i = 1; i < verblob.len(); i++) {
+    //     version += verblob.readn('b').tochar();
+    //     verblob.seek(i);
+    // }
 
-    if (version) {
-        VERSION = strip(version);
-    }
+    // if (version) {
+    //     // VERSION = strip(version);
+    // }
 
-    verblob.close();
+    // verblob.close();
 };
+
 
 // bind general events
 event("native:onScriptInit", function() {
@@ -85,7 +169,7 @@ event("native:onScriptInit", function() {
     log(format("[core] running version %s...", VERSION));
 
     // setup default values
-    setGameModeText( VERSION );
+    setGameModeText( "NCRP " + VERSION );
     setMapName( "Empire Bay" );
     srand(time()); // set random seed
 
@@ -176,20 +260,31 @@ proxy("onPlayerCharacterCreate",    "onPlayerCharacterCreate"           );
 proxy("onPlayerCharacterSelect",    "onPlayerCharacterSelect"           );
 proxy("onClientSuccessfulyStarted", "onClientSuccessfulyStarted"        );
 proxy("onPlayerLanguageChange",     "onPlayerLanguageChange"            );
+proxy("map:onClientOpen",           "map:onClientOpen"                  );
+proxy("map:onClientClose",          "map:onClientClose"                 );
 
 // Klo's playground
-proxy("RentCar",                    "RentCar"                           );
 proxy("loginGUIFunction",           "loginGUIFunction"                  );
 proxy("registerGUIFunction",        "registerGUIFunction"               );
 proxy("updateMoveState",            "updateMoveState"                   );
 proxy("changeModel",                "changeModel"                       );
 
-// JustPilz
+// RentCar
+proxy("RentCar",                    "RentCar"                           );
+
+// Telephone
 proxy("PhoneCallGUI",               "PhoneCallGUI"                      );
 
+// Metro
+proxy("travelToStationGUI",         "travelToStationGUI"                );
+
 //Inventory system
-proxy("onPlayerUseItem",           "native:onPlayerUseItem"             );
-proxy("onPlayerMoveItem",          "native:onPlayerMoveItem"            );
+proxy("inventory:loaded",           "native:inventory:loaded"            );
+proxy("inventory:use",              "native:onPlayerUseItem"             );
+proxy("inventory:move",             "native:onPlayerMoveItem"            );
+proxy("inventory:drop",             "native:onPlayerDropItem"            );
+proxy("shop:close",                 "native:shop:close"                  );
+proxy("shop:purchase",              "native:shop:purchase"               );
 
 /**
  * Debug export

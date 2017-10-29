@@ -3,7 +3,10 @@ acmd(["spawn"], function(playerid) {
     setPlayerHealth( playerid, 720.0 );
 });
 
-acmd(["weapons"], function(playerid) {
+cmd(["weapons"], function(playerid) {
+    if(!isPlayerAdmin(playerid)) {
+        return msg(playerid, "msg.weapons");
+    }
     givePlayerWeapon( playerid, 2, 2500 );
     givePlayerWeapon( playerid, 3, 2500 );
     givePlayerWeapon( playerid, 4, 2500 );
@@ -19,7 +22,7 @@ acmd(["weapons"], function(playerid) {
     //player:InventoryAddItem(36) -- отмычки
 });
 
-acmd(["heal"], function( playerid, targetid = null ) {
+acmd(["aheal"], function( playerid, targetid = null ) {
     if(!targetid) targetid = playerid;
     setPlayerHealth( targetid.tointeger(), 720.0 );
 });
@@ -29,10 +32,10 @@ acmd(["die"], function( playerid, targetid = null ) {
     setPlayerHealth( targetid.tointeger(), 0.0 );
 });
 
-acmd("skin", function(playerid, id, targetid = null ) {
-    if(!targetid) targetid = playerid;
-    setPlayerModel(targetid.tointeger(), id.tointeger(), true);
-});
+// acmd("skin", function(playerid, id, targetid = null ) {
+//     if(!targetid) targetid = playerid;
+//     setPlayerModel(targetid.tointeger(), id.tointeger(), true);
+// });
 
 acmd(["skininc"], function ( playerid ) {
     local skin = getPlayerModel(playerid);
@@ -71,3 +74,12 @@ cmd(["clearchat"], function(playerid) {
     }
 });
 
+acmd(["clearchatall"], function(playerid) {
+    foreach (idx, value in players) {
+        if (getPlayerOOC(idx)) {
+            for(local i = 0; i <15;i++){
+                sendPlayerMessage(idx,"");
+            }
+        }
+    }
+});

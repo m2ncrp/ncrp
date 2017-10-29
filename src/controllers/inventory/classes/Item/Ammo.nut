@@ -13,7 +13,7 @@ class Item.Ammo extends Item.Abstract
         return this.weight * this.amount;
     }
 
-    function use(playerid) {
+    function use(playerid, inventory) {
         msg(playerid, format("Вы использовали: %s", this.classname));
     }
 

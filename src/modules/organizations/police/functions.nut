@@ -8,7 +8,7 @@ function policeCall(playerid, place) {
         return msg(playerid, "organizations.police.call.withoutaddress");
     }
 
-    msg(playerid, "organizations.police.call.foruser", [place], CL_ROYALBLUE);
+    msg(playerid, "organizations.police.call.foruser", [ plocalize(playerid, place) ], CL_ROYALBLUE);
     local pos = getPlayerPositionObj(playerid);
 
     foreach (player in players) {
@@ -20,7 +20,7 @@ function policeCall(playerid, place) {
                 removeBlip( crime_hash );
             });
 
-            msg(id, "organizations.police.call.new", [place], CL_ROYALBLUE);
+            msg(id, "organizations.police.call.new", plocalize(id, place), CL_ROYALBLUE);
         }
     }
 }
@@ -299,7 +299,8 @@ function policeFindThatMotherfucker(playerid, IDorPLATE, reason) {
             // if (checkDistanceBtwTwoPlayersLess(playerid, targetid, POLICE_TICKET_DISTANCE)) {
                 msg(targetid, "organizations.police.ticket.givewithreason", [getAuthor(playerid), target_reason, price]);
                 msg(playerid, "organizations.police.ticket.given", [getAuthor(targetid), player_reason, price]);
-                subMoneyToPlayer(targetid, price); // FUCK U MEMB3R
+                subMoneyToPlayer(targetid, price);
+                addMoneyToTreasury(price);
                 // PoliceTicket( getPlayerName(targetid), POLICE_TICKET_PRICELIST[reason][1], price, "open", pos[0], pos[1], pos[2], getPlayerName(playerid))
                 //     .save();
             // }
@@ -338,7 +339,7 @@ function showBadge(playerid, targetid = null) {
     }
 
     msg(playerid, "organizations.police.beenshown.badge", [getAuthor(targetid)]);
-    msg(targetid, "organizations.police.show.badge", [getLocalizedPlayerJob(playerid), getAuthor(targetid)]);
+    msg(targetid, "organizations.police.show.badge", [getLocalizedPlayerJob(playerid), getAuthor(playerid)]);
 }
 
 
@@ -363,7 +364,7 @@ function baton( playerid ) {
                 setPlayerToggle( targetid, true );
                 setPlayerState(targetid, "tased");
                 local health_dmg = random(1,10);
-                local health = getPlayerHealth();
+                local health = getPlayerHealth(targetid);
                 setPlayerHealth(targetid, health - health_dmg);
             }
             screenFadeinFadeout(targetid, 1500, function() {
@@ -440,4 +441,29 @@ function takeOutOfJail(playerid, targetid) {
         });
         msg(targetid, "organizations.police.unjail", [], CL_THUNDERBIRD);
     }
+}
+
+
+function getVehicleWantedForTax() {
+    local vehiclesWanted = [];
+
+    foreach (idx, value in __vehicles) {
+        if(value.entity) {
+            vehiclesWanted.push( value.entity.plate );
+        }
+    }
+
+    Item.VehicleTax.findAll(function(err, result){
+        local curdateStamp = getDay() + getMonth()*30 + getYear()*360;
+        foreach (idx, value in result) {
+            local dateArray = split(value.data["expires"],".");
+            local dateStamp = dateArray[0].tointeger() + dateArray[1].tointeger()*30 + dateArray[2].tointeger()*360;
+            if(curdateStamp < dateStamp) {
+                if (vehiclesWanted.find(value.data["plate"]) != null) {
+                    vehiclesWanted.remove(vehiclesWanted.find(value.data["plate"]));
+                }
+            }
+        }
+    });
+    return vehiclesWanted;
 }

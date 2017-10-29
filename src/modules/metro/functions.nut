@@ -111,7 +111,6 @@ function travelToStation( playerid, stationID ) {
     }
 }
 
-
 /**
  * What happens while player travel from one station to another.
  * @param  {uint} playerid
@@ -126,7 +125,7 @@ function onTavelToStation(playerid, id) {
         subMoneyToPlayer(playerid, METRO_TICKET_COST); // don't forget took money for ticket ~ 25 cents
         addMoneyToTreasury(METRO_TICKET_COST);
         msg(playerid, "metro.pay", METRO_TICKET_COST );
-        msg(playerid, "metro.arrived", metroInfos[id][3]);
+        msg(playerid, "metro.arrived", plocalize(playerid, metroInfos[id][10]) );
         setPlayerPosition(playerid, metroInfos[id][0], metroInfos[id][1], metroInfos[id][2]);
     }, function() {
         afterTravelToStation(playerid);
@@ -150,7 +149,7 @@ function afterTravelToStation(playerid) {
  * @return {void}
  */
 function metroShowListStations( playerid ) {
-    return metroShowListStationsIncludingUnavaliable( playerid );
+    return metroGenerateListStationsIncludingUnavaliable( playerid );
 }
 
 
@@ -203,3 +202,5 @@ function showNearestMetroBlip( playerid ) {
         removeBlip( sblip_hash );
     });
 }
+
+

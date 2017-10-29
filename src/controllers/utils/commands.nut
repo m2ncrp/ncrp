@@ -92,8 +92,40 @@ acmd("gotovinchi", function(playerid) {
 //                                                          TEST COLORS BEGIN
 //================================================================================================================================================
 
+
 // working
-acmd("colors1", function ( playerid ) {
+acmd("colors1",  function ( playerid, color = "POMEGRANATE"  ) { colorMsgSelect(playerid, color); });
+acmd("colors2",  function ( playerid, color = "ALIZARIN"     ) { colorMsgSelect(playerid, color); });
+acmd("colors3",  function ( playerid, color = "AMETHYST"     ) { colorMsgSelect(playerid, color); });
+acmd("colors4",  function ( playerid, color = "WISTERIA"     ) { colorMsgSelect(playerid, color); });
+acmd("colors5",  function ( playerid, color = "BELIZEHOLE"   ) { colorMsgSelect(playerid, color); });
+acmd("colors6",  function ( playerid, color = "PETERRIVER"   ) { colorMsgSelect(playerid, color); });
+acmd("colors7",  function ( playerid, color = "TURQUOISE"    ) { colorMsgSelect(playerid, color); });
+acmd("colors8",  function ( playerid, color = "GREENSEA"     ) { colorMsgSelect(playerid, color); });
+acmd("colors9",  function ( playerid, color = "NEPHRITIS"    ) { colorMsgSelect(playerid, color); });
+acmd("colors10", function ( playerid, color = "EMERALD"      ) { colorMsgSelect(playerid, color); });
+
+acmd("colors11", function ( playerid, color = "SUNFLOWER"    ) { colorMsgSelect(playerid, color); });
+acmd("colors12", function ( playerid, color = "ORANGE"       ) { colorMsgSelect(playerid, color); });
+acmd("colors13", function ( playerid, color = "CARROT"       ) { colorMsgSelect(playerid, color); });
+acmd("colors14", function ( playerid, color = "PUMPKIN"      ) { colorMsgSelect(playerid, color); });
+acmd("colors15", function ( playerid, color = "SILVER"       ) { colorMsgSelect(playerid, color); });
+acmd("colors16", function ( playerid, color = "CONCRETE"     ) { colorMsgSelect(playerid, color); });
+acmd("colors17", function ( playerid, color = "WETASPHALT"   ) { colorMsgSelect(playerid, color); });
+
+
+function colorMsgSelect(playerid, color) {
+    msg(playerid, "============== "+color+" ===============", CL_WHITE);
+    msg(playerid, "This is Test color  CL_"+color,      getroottable()["CL_"+color] );
+
+    for (local i = 2; i < 8; i++) {
+        msg(playerid, "This is Test color  CL_"+color+"_"+(i * 10), getroottable()["CL_"+color+"_"+(i * 10)]);
+    }
+}
+
+
+// working
+acmd("colors101", function ( playerid ) {
     msg(playerid, "============== COLOR Page 1 ===============", CL_WHITE);
     msg(playerid, "This is Test color  CL_FLAMINGO", CL_FLAMINGO);
     msg(playerid, "This is Test color  CL_CHESTNUT", CL_CHESTNUT);
@@ -109,7 +141,7 @@ acmd("colors1", function ( playerid ) {
 });
 
 
-acmd("colors2", function ( playerid ) {
+acmd("colors102", function ( playerid ) {
     msg(playerid, "============== COLOR Page 2 ===============", CL_WHITE);
     msg(playerid, "This is Test color  CL_PICTONBLUE", CL_PICTONBLUE);
     msg(playerid, "This is Test color  CL_PICTONBLUEDARK", CL_PICTONBLUEDARK);
@@ -125,7 +157,7 @@ acmd("colors2", function ( playerid ) {
 });
 
 
-acmd("colors3", function ( playerid ) {
+acmd("colors103", function ( playerid ) {
     msg(playerid, "============== COLOR Page 3 ===============", CL_WHITE);
     msg(playerid, "This is Test color  CL_JADE", CL_JADE);
     msg(playerid, "This is Test color  CL_SALEM", CL_SALEM);
@@ -139,6 +171,20 @@ acmd("colors3", function ( playerid ) {
     msg(playerid, "This is Test color  CL_SILVERSAND", CL_SILVERSAND);
     msg(playerid, "This is Test color  CL_CASCADE", CL_CASCADE);
 });
+
+acmd("colors104", function ( playerid ) {
+    msg(playerid, "============== COLOR Page 4 ===============", CL_WHITE);
+    msg(playerid, "This is Test color  CL_CLOUDS"       ,  CL_CLOUDS       );
+    msg(playerid, "This is Test color  CL_ASBESTOS"     ,  CL_ASBESTOS     );
+    msg(playerid, "This is Test color  CL_MIDNIGHTBLUE" ,  CL_MIDNIGHTBLUE );
+    msg(playerid, "This is Test color  CL_ERROR"        ,  CL_ERROR        );
+    msg(playerid, "This is Test color  CL_WARNING"      ,  CL_WARNING      );
+    msg(playerid, "This is Test color  CL_SUCCESS"      ,  CL_SUCCESS      );
+    msg(playerid, "This is Test color  CL_INFO"         ,  CL_INFO         );
+    msg(playerid, "This is Test color  CL_PLAIN"        ,  CL_PLAIN        );
+    msg(playerid, "This is Test color  CL_WASH"         ,  CL_WASH         );
+});
+
 //================================================================================================================================================
 //                                                          TEST COLORS END
 //================================================================================================================================================

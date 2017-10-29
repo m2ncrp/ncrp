@@ -267,7 +267,7 @@ cmd(["ticket"], function(playerid, target, reason) {
 key(["g"], function(playerid) {
     local targetid = playerList.nearestPlayer( playerid );
 
-    if ( isPlayerInVehicle(playerid) || isPlayerInVehicle(playerid) ) {
+    if ( isPlayerInVehicle(playerid) || isPlayerInVehicle(targetid) ) {
         return;
     }
     if ( !isOfficer(playerid) || isOfficer(targetid) ) {
@@ -311,12 +311,14 @@ key(["v"], function(playerid) {
 // put nearest cuffed player in jail
 cmd(["prison", "jail"], function(playerid, targetid) {
     targetid = targetid.tointeger();
+    if(getPoliceRank(playerid) < 2) return msg( playerid, "organizations.police.lowrank" );
     putInJail(playerid, targetid);
 });
 
 
 // take out player from jail
 cmd(["amnesty"], function(playerid, targetid) {
+    if(getPoliceRank(playerid) < 2) return msg( playerid, "organizations.police.lowrank" );
     targetid = targetid.tointeger();
     takeOutOfJail(playerid, targetid);
 });
@@ -330,7 +332,7 @@ function policeHelp(playerid, a = null, b = null) {
         { name = "/police duty on",             desc = "organizations.police.info.cmds.dutyon"},
         { name = "/police duty off",            desc = "organizations.police.info.cmds.dutyoff"},
         { name = "/r TEXT",                     desc = "organizations.police.info.cmds.ratio"},
-        { name = "/rupor TEXT",                 desc = "organizations.police.info.cmds.rupor"},
+        { name = "/m TEXT",                     desc = "organizations.police.info.cmds.rupor"},
         { name = "/ticket ID REASON",           desc = "organizations.police.info.cmds.ticket" },
         { name = "G button",                    desc = "organizations.police.info.cmds.baton" },
         { name = "V button",                    desc = "organizations.police.info.cmds.cuff" },
@@ -346,12 +348,48 @@ cmd("help", ["police"], policeHelp);
 cmd("help", ["police", "job"], policeHelp);
 
 
-// // /park plate_number
-// cmd("call", ["towtruck"], function ( playerid, plate) {
-//     trigger("onVehicleSetToCarPound", playerid, plate);
-// });
+ // /park plate_number
+cmd("park", function ( playerid, plate) {
+    if ( isPlayerInVehicle(playerid) ) {
+        return;
+    }
+    if ( !isOfficer(playerid) ) { // check if not officer
+        return;
+    }
+    if ( !isOnPoliceDuty(playerid) ) {
+        return msg( playerid, "organizations.police.duty.not" );
+    }
+    if ( getPoliceRank(playerid) < 2) {
+        return msg( playerid, "organizations.police.lowrank" );
+    }
 
-// // player need to be in car
-// cmd("unpark", function ( playerid ) {
-//     trigger("onVehicleGetFromCarPound", playerid);
-// });
+    trigger("onVehicleSetToCarPound", playerid, plate);
+});
+
+// player need to be in car
+cmd("unpark", function ( playerid ) {
+    trigger("onVehicleGetFromCarPound", playerid);
+});
+
+
+// player need to be in car
+cmd("wanted", function ( playerid ) {
+    if ( !isOfficer(playerid) ) {
+        return msg(playerid, "organizations.police.notanofficer");
+    }
+
+    if( !isPlayerInPoliceVehicle(playerid) ) {
+        return msg( playerid, "organizations.police.notinpolicevehicle");
+    }
+
+    if ( !isOnPoliceDuty(playerid) ) {
+        return msg( playerid, "organizations.police.duty.not" );
+    }
+    local list = "";
+    local count = vehicleWanted.len()
+    for (local i = 0; i < count; i++) {
+        list += vehicleWanted[i];
+        if(i < count-1) list += ", ";
+    }
+    msg(playerid, "organizations.police.carwantedtax", [ list ], CL_ROYALBLUE);
+});
