@@ -3,6 +3,9 @@ local translations = {
 "en|job.taxidriver"                    :   "taxi driver"
 "ru|job.taxidriver"                    :   "таксист"
 
+"en|job.taxi.novacancy"                :   "Sorry, there is no taxi driver vacancy now."
+"ru|job.taxi.novacancy"                :   "Извини, таксисты сейчас не требуются."
+
 "en|job.taxi.continue"                 :   "[TAXI] You're a taxi driver."
 "ru|job.taxi.continue"                 :   "[TAXI] Вы работаете таксистом."
 
@@ -116,8 +119,8 @@ local translations = {
 "en|taxi.call.ifyouaway"               :   "[TAXI] Dont get too far away, from place taxi was called to. He won't be able to get yo you."
 "ru|taxi.call.ifyouaway"               :   "[TAXI] Если вы далеко отойдёте от места вызова - таксист не сможет подъехать."
 
-"en|taxi.call.fakecall"                :   "[TAXI] You are too far away from call-place. Your taxi call marked as false."
-"ru|taxi.call.fakecall"                :   "[TAXI] Вы отошли слишком далеко. Вызов был помечен как ложный."
+"en|taxi.call.fakecall"                :   "[TAXI] You are too far away from call-place. Your taxi call canceled."
+"ru|taxi.call.fakecall"                :   "[TAXI] Вы отошли слишком далеко. Вызов отменён."
 
 "en|taxi.call.isfree"                  :   "[TAXI] Taxi is free. All expenses are covered by city treasury."
 "ru|taxi.call.isfree"                  :   "[TAXI] Такси бесплатное. Все расходы покрывает казна города."
@@ -139,7 +142,6 @@ local translations = {
 
 "en|taxi.call.completed"               :   "[TAXI] The trip is completed. Thank you for choosing our taxi service!"
 "ru|taxi.call.completed"               :   "[TAXI] Поездка завершена. Спасибо, что выбрали наше такси."
-
 
 "en|job.taxi.help.job"              :   "E button"
 "en|job.taxi.help.jobtext"          :   "Get taxi driver job near Daniel Burns"

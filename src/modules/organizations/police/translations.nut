@@ -259,5 +259,10 @@ local phrases = {
 "en|organizations.police.kosoypereulok.ticket"      : "You got fine for driving on sidewalk ($%.2f)."
 "ru|organizations.police.kosoypereulok.ticket"      : "Вам выписан штраф за движение по тротуару ($%.2f)."
 
+"en|policebadge.title"                              : "Police badge:"
+"ru|policebadge.title"                              : "Полицейский жетон:"
+
+"en|policebadge.info.number"                        : "Number: %s"
+"ru|policebadge.info.number"                        : "Номер: %s"
 }
 alternativeTranslate(phrases); //don't delete!

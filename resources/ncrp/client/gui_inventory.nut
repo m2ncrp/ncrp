@@ -79,6 +79,7 @@ local translations = {
     "Item.VehicleTax"       : "Vehicle tax"
     "Item.FirstAidKit"      : "First aid kit"
     "Item.Passport"         : "Passport"
+    "Item.PoliceBadge"      : "Police badge"
 };
 
 

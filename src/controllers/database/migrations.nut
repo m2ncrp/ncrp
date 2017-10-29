@@ -243,7 +243,11 @@ migrate(function(query, type) {
     query("ALTER TABLE tbl_fraction_roles ADD COLUMN `data` TEXT NOT NULL;");
 });
 
-migrate(@(a,b) 1);
+// 13.05.2017
+// added vehicle state field
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_vehicles ADD COLUMN `reserved` INT(5) NOT NULL DEFAULT 0;");
+});
 
 // 10.05.2017
 // added Police 2.0

@@ -25,7 +25,7 @@ event("onClientFrameRender", function(isGUIDrawn) {
         {
             if (!(i in players) || !players[i]) continue;
 
-            local limit     = 50.0;
+            local limit     = 12.0;
             local pos       = getPlayerPosition( i );
             local lclPos    = getPlayerPosition( getLocalPlayer() );
             local fDistance = getDistanceBetweenPoints3D( pos[0], pos[1], pos[2], lclPos[0], lclPos[1], lclPos[2] );
