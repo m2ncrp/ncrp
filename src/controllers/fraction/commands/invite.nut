@@ -113,7 +113,7 @@ cmd("invites", "accept", function(playerid, invitation = -1) {
         return msg(playerid, "fraction.accept.fractionnotexist", CL_ERROR);
     }
 
-    if (!invite.fraction.hasRole(invite.role)) {
+    if (!invite.fraction.roles.has(invite.role)) {
         invites[playerid].remove(invitation);
         return msg(playerid, "fraction.accept.donthaverole", CL_ERROR);
     }
@@ -122,7 +122,13 @@ cmd("invites", "accept", function(playerid, invitation = -1) {
     //     return msg(playerid, "fraction.accept.cannotjoin", [invite.fraction.shortcut], CL_ERROR);
     // }
 
-    invite.fraction.add(playerid, invite.role);
+    local member = FractionMember();
+    member.fractionid = invite.fraction.id;
+    member.roleid = invite.role.id;
+    member.characterid = players[invite.invetee].id;
+    member.save();
+
+    invite.fraction.members.push(member);
 
     msg(playerid, "fraction.accept.complete", [ invite.fraction.title, invite.role.title ], CL_SUCCESS);
 
