@@ -6,7 +6,7 @@ class VehicleComponentContainer extends Container
      */
     constructor(jsondata) {
         base.constructor();
-        this.__ref = VehicleComponent;
+        this.__interface = VehicleComponent;
 
         local data = JSONParser.parse(str_replace("\\\\", "", jsondata));
 
