@@ -33,8 +33,9 @@ function fmd(shortcuts, permissions, patterns, callback) {
 
             fracts = shortcuts.map(function(shortcut) {
                 return fractions.exists(shortcut) ? fractions[shortcut] : null;
-            }).filter(function(fraction, key) {
-                return fraction != null;
+            });
+            fracts = fracts.filter(function(fraction, key) {
+                return !!fraction;
             });
         }
 
