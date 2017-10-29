@@ -248,3 +248,24 @@ migrate(function(query, type) {
 migrate(function(query, type) {
     query("ALTER TABLE tbl_vehicles ADD COLUMN `reserved` INT(5) NOT NULL DEFAULT 0;");
 });
+
+// 10.05.2017
+// added Police 2.0
+migrate(function(query, type) {
+    local fraction = fraction__Create("Police", "police", "police");
+    fraction__Role(fraction, "Police Chief"    ,    "police.chief"            ,  FRACTION_FULL_PERMISSION);
+    fraction__Role(fraction, "Assist. chief"   ,    "police.assistantchief"   ,  FRACTION_FULL_PERMISSION);
+    fraction__Role(fraction, "Detective"       ,    "police.detective"        ,  FRACTION_FULL_PERMISSION);
+    fraction__Role(fraction, "Captain"         ,    "police.сaptain"          ,  FRACTION_FULL_PERMISSION);
+    fraction__Role(fraction, "Lieutenant"      ,    "police.lieutenant"       ,  FRACTION_FULL_PERMISSION);
+    fraction__Role(fraction, "Sergeant"        ,    "police.sergeant"         ,  FRACTION_FULL_PERMISSION);
+    fraction__Role(fraction, "Patrol"          ,    "police.patrol"           ,  FRACTION_FULL_PERMISSION);
+    fraction__Role(fraction, "Cadet"           ,    "police.cadet"            ,  FRACTION_FULL_PERMISSION);
+});
+
+// 11.05.2017
+// added data,updated field for FractionMember
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_fraction_members ADD COLUMN `data` TEXT NOT NULL;");
+    query("ALTER TABLE tbl_fraction_members ADD COLUMN `updated` INT(255) NOT NULL DEFAULT 0;");
+});

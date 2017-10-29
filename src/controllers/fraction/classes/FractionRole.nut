@@ -9,6 +9,6 @@ class FractionRole extends ORM.JsonEntity
         ORM.Field.String    ({ name = "shortcut", value = "" }),
         ORM.Field.Integer   ({ name = "created"     }),
         ORM.Field.Integer   ({ name = "level",  value = 0   }),
-        ORM.Field.Float     ({ name = "salary", value = 0.0 })
+        ORM.Field.Float     ({ name = "salary", value = 0.0 }),
     ];
 }

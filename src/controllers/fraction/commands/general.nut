@@ -1,22 +1,23 @@
-cmd("f", function(playerid) {
-    local fracs = fractions.getContaining(playerid);
+fmd("*", [], "$f", function(fraction, character) {
+    msg(character.playerid, "------------------------------------------------------------------------------", CL_RIPELEMON);
+    msg(character.playerid, "fraction.info.title", [fraction.title] );
+    msg(character.playerid, "------------------------------------------------------------------------------", CL_RIPELEMON);
 
-    if (!fracs.len()) {
-        return msg(playerid, "fraction.notmember", CL_WARNING);
+    msg(character.playerid, "fraction.info.roles", [ fraction.roles.len(), fraction.shortcut ] );
+    msg(character.playerid, "fraction.info.members", [ fraction.members.len(), fraction.shortcut  ] );
+    msg(character.playerid, "fraction.info.vehicles", [ fraction.property.len(), fraction.shortcut  ] );
+
+    if (fraction.members.get(character).permitted("money.list")) {
+        msg(character.playerid, "fraction.info.money", [ fraction.money ]);
     }
+});
 
-    // for now take only first
-    local fraction = fracs[0];
+cmd("f", function(playerid, a = -1, b = -1, c = -1, d = -1) {
+    local character = players[playerid];
 
-    msg(playerid, "------------------------------------------------------------------------------", CL_RIPELEMON);
-    msg(playerid, "fraction.info.title", [fraction.title] );
-    msg(playerid, "------------------------------------------------------------------------------", CL_RIPELEMON);
+    msg(playerid, "fraction.list.title", [fractions.getContaining(character).len()]);
 
-    msg(playerid, "fraction.info.roles", [ fraction.roles.len() ] );
-    msg(playerid, "fraction.info.members", [ fraction.len() ] );
-
-    // only for admins
-    if (fraction[playerid].level <= FRACTION_MONEY_PERMISSION) {
-        msg(playerid, "fraction.info.money", [ fraction.money ]);
+    foreach (idx, fraction in fractions.getContaining(character)) {
+        msg(playerid, "fraction.list.entry", [fraction.title, fraction.members[character].role.title, fraction.shortcut], CL_INFO);
     }
 });

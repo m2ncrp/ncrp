@@ -111,7 +111,7 @@ class Container
      */
     function add(key, object) {
         if (key in this.__data) {
-            throw "Container: can't insert key. It's already exists."
+            throw "Container: can't insert key. It already exists."
         }
 
         return this.set(key, object);
