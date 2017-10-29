@@ -47,6 +47,44 @@ POLICE_RANK <- [ // source: https://youtu.be/i7o0_PMv72A && https://en.wikipedia
 ];
 POLICE_MAX_RANK <- POLICE_RANK.len()-1;
 
+
+
+local police_permissoins = {};
+
+
+police_permissoins[0]   <-  "wanted_read"      ; // смотреть розыск
+police_permissoins[1]   <-  "wanted_add"       ; // подавать в розыск
+police_permissoins[2]   <-  "wanted_delete"    ; // убирать из розыска
+police_permissoins[3]   <-  "ticket"           ; // выписывать штраф
+police_permissoins[4]   <-  "park"             ; // отправлять автомобиль на штрафстоянку
+police_permissoins[5]   <-  "jail"             ; // сажать в тюрьму
+police_permissoins[6]   <-  "amnesty"          ; // амнистировать
+police_permissoins[7]   <-  "give_key"         ; // давать ключи от служебных автомобилей
+police_permissoins[8]   <-  "civilian_clothes" ;
+
+police_permissoins[40]   <-  "weapons"          ; // доступ к оружию
+
+police_permissoins[51]    <-  "car40"            ; // пользоваться полицейским автомобилем 40х годов
+police_permissoins[52]    <-  "car50"            ; // пользоваться полицейским автомобилем 50х годов
+police_permissoins[53]    <-  "bus"              ; // пользоваться полицейским автобусом
+police_permissoins[54]    <-  "detective_car"    ; // пользоваться машиной детектива
+
+
+local police_rank = [
+
+
+];
+
+/*
+function policecmd(name, callback) {
+    cmd(name, function(playerid, args) {
+        local police = fractions["police"];
+        police.exists(playerid)
+
+        return callback(playerid, args);
+    });
+}
+*/
 /*
                                                     №   car  detective_car    wanted    ticket    park    arrest    jail    amnesty    weapons          change_rangs    give_key  civilian_clothes  salary
     "police.cadet",          //"Police cadet"       0    -         -            -         -         -       -        -         -          -                  -              -             -          0.15
@@ -96,25 +134,6 @@ POLICE_TICKET_PRICELIST <- [
 ];
 
 DENGER_LEVEL <- "green";
-
-/**
- * Any cmd only with any text, without specific parameters
- * @param  {[type]}   names    [description]
- * @param  {Function} callback [description]
- * @return {[type]}            [description]
- */
-function policecmd(names, callback)  {
-    cmd(names, function(playerid, ...) {
-        local text = concat(vargv);
-
-        if (!text || text.len() < 1) {
-            return msg(playerid, "general.message.empty", CL_YELLOW);
-        }
-
-        // call registered callback
-        return callback(playerid, text);
-    });
-}
 
 /**
  * Format message from parameters package (vargv)
