@@ -1,6 +1,6 @@
 All classes in that folder're describe properties of all types of vehicle on the server.
 
-NativeVehicle is simple wrap on base functions related to vehicle.
+NativeVehicle is simple wrap on base functions related to vehicle. Also that class extends from ORM.Entity, so it operates with all the data stored in DB such as vehicle components.
 
 OwnableVehicle describes all owner properties for vehicle such as character name, account ID from database.
 

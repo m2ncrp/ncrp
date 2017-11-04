@@ -19,19 +19,30 @@ class VehicleComponent
         return this;
     }
 
+    /**
+     * Overridable function that do whatever you want
+     * with this particular vehicle component before action.
+     */
     function beforeAction() {
-        // overridable function
-        // Some instructions before action starts
+        // code
     }
 
+    /**
+     * Overridable function that represent function
+     * of this component.
+     */
     function action() {
-        // overridable function
-        // Run action instructions
+        this.beforeAction();
+        // code
+        this.afterAction();
     }
 
+    /**
+     * Overridable function that do whatever you want
+     * with this particular vehicle component before action.
+     */
     function afterAction() {
-        // overridable function
-        // Some instructions after action's done
+        // code
     }
 
     /**
@@ -44,6 +55,10 @@ class VehicleComponent
 
     function serialize() {
         return merge(this.data, { id = this.id, type = this.classname });
+    }
+
+    function _serialize() {
+        return this.serialize();
     }
 
     function insertable(container)

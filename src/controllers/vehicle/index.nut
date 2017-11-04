@@ -1,4 +1,4 @@
-// include("controllers/vehicle/commands.nut");
+include("controllers/vehicle/commands.nut");
 
 // include("controllers/vehicle/models/CustomVehicle.nut");
 // include("controllers/vehicle/patterns/VehicleContainer.nut");
@@ -86,6 +86,7 @@
 include("controllers/vehicle/classes/Vehicle.nut");
 include("controllers/vehicle/classes/VehicleComponent.nut");
 include("controllers/vehicle/Parts/Hull.nut");
+include("controllers/vehicle/Parts/Engine.nut");
 include("controllers/vehicle/patterns/VehicleContainer.nut");
 include("controllers/vehicle/patterns/VehicleComponentContainer.nut");
 
@@ -121,11 +122,14 @@ event("onServerStarted", function() {
                 dbg(" + Component:", component.id, "with data:", component.data);
             }
 
+            if (vehicle.state == Vehicle.State.Spawned) {
+                vehicle.spawn();
+            }
+
             dbg("----------------");
         }
     });
 })
-
 
 // vehicles[15].compoenents.find(VehicleComponent.Hull).getDirtLevel()
 // vehicles[15].dirt

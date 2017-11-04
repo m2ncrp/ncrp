@@ -7,6 +7,10 @@ class VehicleComponent.Hull extends VehicleComponent
     constructor(data) {
         dbg("called hull creation");
         base.constructor(data);
+
+        if (this.data == null) {
+            this.data = {model = 0, color1 = 0, color2 = 0, dirt=1.0};
+        }
     }
 
     function correct() {

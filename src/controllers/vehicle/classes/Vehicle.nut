@@ -1,3 +1,5 @@
+_vehicle_queue <- [];
+
 class Vehicle extends ORM.Entity
 {
     static classname = "Vehicle";
@@ -38,6 +40,8 @@ class Vehicle extends ORM.Entity
     function hydrate(data) {
         local entity = base.hydrate(data);
         entity.components = VehicleComponentContainer(entity.components);
+        dbg(this);
+        // _vehicle_queue.push(this);
         return entity;
     }
 
@@ -73,7 +77,10 @@ class Vehicle extends ORM.Entity
             this.y = vargv[1].tofloat();
             this.z = vargv[2].tofloat();
 
-            return (this.state == this.States.Spawned) ? setVehiclePosition(this.vehicleid, this.x, this.y, this.z) : false;
+            if (this.state == this.State.Spawned)
+                setVehiclePosition(this.vehicleid, this.x, this.y, this.z);
+
+            return this;
         }
 
         if (vargv[0] instanceof vector3) {
@@ -81,10 +88,13 @@ class Vehicle extends ORM.Entity
             this.y = vargv[0].y;
             this.z = vargv[0].z;
 
-            return (this.state == this.States.Spawned) ? setVehiclePosition(this.vehicleid, this.x, this.y, this.z) : false;
+            if (this.state == this.State.Spawned)
+                setVehiclePosition(this.vehicleid, this.x, this.y, this.z);
+            return this;
         }
 
-        return dbg("player", "setPosition", "arguments are invalid", vargv) && false;
+        dbg("player", "setPosition", "arguments are invalid", vargv);
+        return this;
     }
 
     /**
@@ -110,9 +120,10 @@ class Vehicle extends ORM.Entity
      */
     function spawn() {
         local hull = this.components.findOne(VehicleComponent.Hull);
+        // local engine = this.components.findOne(VehicleComponent.Engine);
 
         if (!hull || !(hull instanceof VehicleComponent.Hull)) {
-            return false && dbg("Vehicle: cannot spawn vehicle wihtout hull!");
+            throw "Vehicle: cannot spawn vehicle wihtout hull!";
         }
 
         this.vehicleid = createVehicle(hull.getModel(), this.x, this.y, this.z, this.rx, this.ry, this.rz);

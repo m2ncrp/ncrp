@@ -102,7 +102,7 @@ include("helpers/table.nut");
 include("controllers");
 
 // load modules
-include("modules/index.nut");
+// include("modules/index.nut");
 
 // translations
 include("translations/en.nut");
