@@ -87,8 +87,8 @@ local translations = {
 "en|job.taxi.carbusy"                  :   "[TAXI] This car is busy by another driver. Find free car."
 "ru|job.taxi.carbusy"                  :   "[TAXI] Этот автомобиль занят другим таксистом. Возьмите свободный автомобиль."
 
-"en|job.taxi.cantchangestatus"         :   "[TAXI] You can't change status while you'll complete trip or refuse call."
-"ru|job.taxi.cantchangestatus"         :   "[TAXI] Вы сможете уйти с линии только когда завершите текущую поездку или откажетесь от вызова."
+"en|job.taxi.cantchangestatus"         :   "[TAXI] You can't change status while you'll complete the trip."
+"ru|job.taxi.cantchangestatus"         :   "[TAXI] Вы сможете уйти с линии только когда завершите текущую поездку."
 
 "en|job.taxi.statuson"                 :   "[TAXI] Your taxi driver status: ON air. Wait for a call..."
 "ru|job.taxi.statuson"                 :   "[TAXI] Вы вышли на линию. Ожидайте звонков..."

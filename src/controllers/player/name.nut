@@ -69,8 +69,11 @@ function getPlayerIdFromCharacterId(CharacterId) {
  * @param {Integer} PlayerId
  * @return {Integer} CharacterId
  */
-function getCharacterIdFromPlayerId(PlayerId) {
-    return players[PlayerId].id;
+function getCharacterIdFromPlayerId(playerid) {
+    if(playerid in players) {
+        return players[playerid].id;
+    }
+    return false;
 }
 
 event("onServerPlayerStarted", function(playerid) {

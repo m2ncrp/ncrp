@@ -97,8 +97,8 @@ local peds_coords = [
     [-266.144, 677.686, -19.9629, -61.1105]
 ];
 
-function getPedTaxiCoords(phoneName) {
-    local phoneid = phoneName.slice(9).tointeger();
+function getPedTaxiCoords(phoneid) {
+    //local phoneid = phoneName.slice(9).tointeger();
     if (phoneid >= 0 && phoneid <= 93) {
         log(peds_coords[phoneid])
         return peds_coords[phoneid];
