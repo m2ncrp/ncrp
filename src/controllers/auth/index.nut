@@ -151,7 +151,7 @@ event("onClientSuccessfulyStarted", function(playerid) {
                 msg(playerid, "auth.welcome", username);
 
                 if (username == "Player") {
-                    showBadPlayerNicknameGUI(playerid)
+                    showBadPlayerNicknameGUI(playerid);
                 } else {
                     if (account) {
                         showLoginGUI(playerid);
