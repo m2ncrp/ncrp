@@ -1,4 +1,4 @@
-_vehicle_queue <- [];
+include("controllers/vehicle/classes/Vehicle_hack.nut");
 
 class Vehicle extends ORM.Entity
 {
@@ -27,9 +27,12 @@ class Vehicle extends ORM.Entity
      */
     vehicleid = -1;
 
+    hack = null;
+
     constructor() {
         base.constructor();
         this.components = VehicleComponentContainer(this.components);
+        this.hack = DirtyHack(this);
     }
 
     /**
@@ -41,7 +44,6 @@ class Vehicle extends ORM.Entity
         local entity = base.hydrate(data);
         entity.components = VehicleComponentContainer(entity.components);
         dbg(this);
-        // _vehicle_queue.push(this);
         return entity;
     }
 
@@ -160,5 +162,11 @@ class Vehicle extends ORM.Entity
         this.vehicleid = -1;
 
         return true;
+    }
+
+    function correct() {
+        foreach (idx, component in this.components) {
+            component.correct();
+        }
     }
 }

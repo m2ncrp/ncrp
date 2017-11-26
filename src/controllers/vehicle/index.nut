@@ -129,7 +129,49 @@ event("onServerStarted", function() {
             dbg("----------------");
         }
     });
-})
+});
+
+
+event("onServerPlayerStarted", function(playerid) {
+    log("------------------> Started!");
+    delayedFunction(10000, function () {
+        log("------------------> Done!");
+
+        foreach (vehicle in vehicles) {
+            // if veh spawned
+            if (vehicle.state == 1) {
+                local vpos = getVehiclePosition( vehicle.vehicleid );
+
+                // dont respawn if player is near
+                foreach (component in vehicle.components) {
+                    component.correct();
+                }
+            }
+        }
+    });
+});
+
+
+
+
+event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
+    log( getPlayerName(playerid) + " entered vehicle " + vehicleid.tostring() + " (seat: " + seat.tostring() + ")." );
+    vehicles[vehicleid].hack.OnEnter(seat);
+
+    return 1;
+});
+
+event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
+    log(getPlayerName(playerid) + " #" + playerid + " JUST LEFT VEHICLE with ID=" + vehicleid.tostring() + " (seat: " + seat.tostring() + ")." );
+
+    vehicles[vehicleid].hack.OnExit(seat);
+    return 1;
+});
+
+
+
+
+
 
 // vehicles[15].compoenents.find(VehicleComponent.Hull).getDirtLevel()
 // vehicles[15].dirt
