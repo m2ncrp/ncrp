@@ -29,7 +29,17 @@ function include(path) {
     }
 }
 
-local require = dofile("vendor/squirrel-require/src/require.nut", true)("./src");
+local require = dofile("vendor/squirrel-require/src/require.nut", true)({
+    root        = "./src",
+    module_dir  = "./vendor",
+    aliases     = {
+        src             = "./src",
+        controllers     = "./src/controllers",
+        engine          = "./src/engine",
+        module          = "./src/modules",
+        jobs            = "./src/modules/jobs",
+    }
+});
 
 // load libs
 __FILE__ <- "vendor/squirrel-orm/index.nut";
