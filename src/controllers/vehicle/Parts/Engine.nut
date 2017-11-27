@@ -18,12 +18,12 @@ class VehicleComponent.Engine extends VehicleComponent
 
     constructor (data) {
         dbg("called engine creation");
-        base.constructor (data);
+        base.constructor(data);
 
         if (this.data == null) {
             this.data = {
-                status = true,
-                tune = 1,
+                status = false,
+                tune = Tune.Basic,
                 consumption = {
                     idle = 0.005,
                     move = 0.010
@@ -69,5 +69,9 @@ class VehicleComponent.Engine extends VehicleComponent
 
     function setConsumptionInIDLE(value) {
         this.data.consumption.idle = value;
+    }
+
+    function setConsumptionInMOVE(value) {
+        this.data.consumption.move = value;
     }
 }

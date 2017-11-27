@@ -26,13 +26,13 @@ class Vehicle extends ORM.Entity
      * @type {Integer}
      */
     vehicleid = -1;
+    passengers = null;
 
     hack = null;
 
     constructor() {
         base.constructor();
         this.components = VehicleComponentContainer(this.components);
-        this.hack = DirtyHack(this);
     }
 
     /**
@@ -144,6 +144,8 @@ class Vehicle extends ORM.Entity
 
         this.state = this.State.Spawned;
 
+        this.hack = DirtyHack(this);
+
         return true;
     }
 
@@ -164,9 +166,14 @@ class Vehicle extends ORM.Entity
         return true;
     }
 
+
     function correct() {
-        foreach (idx, component in this.components) {
-            component.correct();
+        if (this.state == this.State.Spawned) {
+            foreach (idx, component in this.components) {
+                component.correct();
+            }
+            return true;
         }
+        return false;
     }
 }

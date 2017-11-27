@@ -1,4 +1,3 @@
-
 vehicle_info <- [
     [0,  60.0,  "ascot_baileys200_pha"          , 5650, 2200, 1300],
     [1,  90.0,  "berkley_kingfisher_pha"        , 5650, 2200, 1300],//        price: $4,483
@@ -56,7 +55,9 @@ vehicle_info <- [
     [53, 40.0,  "walter_coupe"                  , 5650, 2200, 1200]
 ];
 
-
+function getDefaultVehicleFuel(model) {
+    return vehicle_info[model][1];
+}
 
 
 
@@ -66,7 +67,7 @@ class DirtyHack {
     engine_timing = [];
 
     function getEnterEngineTiming() {
-        return 5650; //vehicle_info[this.model][3];
+        return vehicle_info[this.veh.vehicleid][1]; //vehicle_info[this.model][3];
     }
 
     function getExitEngineTiming() {
