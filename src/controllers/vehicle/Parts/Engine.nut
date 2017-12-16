@@ -39,12 +39,17 @@ class VehicleComponent.Engine extends VehicleComponent
     function action() {
         this.data.status = !this.data.status;
         // stateSetter( this.parent.id, this.data.status );
-        setVehicleEngineState(this.parent.id-1, this.data.status);
+        this.correct();
     }
 
     function correct() {
         // stateSetter( this.parent.id, this.data.status );
         setVehicleEngineState(this.parent.id-1, this.data.status);
+    }
+
+    function setStatusTo(newStatus) {
+        this.data.status = newStatus;
+        setVehicleEngineState(this.parent.vehicleid, newStatus);
     }
 
     /**
@@ -75,3 +80,19 @@ class VehicleComponent.Engine extends VehicleComponent
         this.data.consumption.move = value;
     }
 }
+
+
+key("q", function(playerid) {
+    if (!isPlayerInVehicle(playerid)) {
+        return;
+    }
+
+    local vehicleid = vehicles.nearestVehicle(playerid);
+    local eng = vehicles[vehicleid].components.findOne(VehicleComponent.Engine);
+    // dbg(eng);
+
+    // if engine is in its place and has expected obj type
+    if ((eng || (eng instanceof VehicleComponent.Engine))) {
+        eng.action();
+    }
+});

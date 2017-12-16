@@ -143,7 +143,6 @@ class Vehicle extends ORM.Entity
         }
 
         this.state = this.State.Spawned;
-
         this.hack = DirtyHack(this);
 
         return true;

@@ -1,6 +1,8 @@
-class VehicleCompoent.FuelTank extends VehicleComponent {
-    volume = null;
-    model = null;
+include("controllers/vehicle/classes/Vehicle_hack.nut");
+
+class VehicleComponent.FuelTank extends VehicleComponent
+{
+    static classname = "VehicleComponent.FuelTank";
 
     constructor (data) {
         dbg("called fuel tank creation");
@@ -8,54 +10,138 @@ class VehicleCompoent.FuelTank extends VehicleComponent {
 
         if (this.data == null) {
             this.data = {
-                volume = vehicle_info[this.parent.vehicleid][1];
-                current = volume * 0.667; // 2/3 of full tank
+                volume = vehicle_info[this.parent.vehicleid][1],
+                fuellevel = this.volume * 0.667 // 2/3 of full tank
             }
         }
-        setVehicleFuel(vehicleID, current);
+        dbg("Volume for THIS veh is " + this.data.volume +
+                    "/" + this.data.fuellevel);
     }
 
-    function getFuelVolume() {
-        return vehicle_info[model][1];
-    }
-
+    // Returns fuel level by the Server
     function getFuel() {
-        return getVehicleFuel(vehicleID);
+        return getVehicleFuel(this.parent.vehicleid);
+    }
+
+    // Returns fuel level by the Script
+    function getCurrentFuelLevel() {
+        return this.data.fuellevel;
     }
 
     function setFuel( to ) {
-        setVehicleFuel(vehicleID, to);
+        setVehicleFuel(this.parent.vehicleid, to);
+        this.parent.correct();
     }
 
     function setFuelToMax() {
-        setFuel(volume);
+        setFuel(this.volume);
     }
 
     function setFuelToMin() {
         setFuel(0.0);
     }
 
-    /**
-     * Restore amount of fuel that was saved during
-     * temporary saving f.e.: setVehicleFuel(.., ..., true)
-     *
-     * @param  {Integer} vehicleid
-     * @return {Boolean}
-     */
-    function restoreVehicleFuel(vehicleid) {
-        if (vehicleid in __vehicles) {
-            return old__setVehicleFuel(vehicleid, __vehicles[vehicleid].fuel);
+    function correct() {
+        local eng = this.parent.components.findOne(VehicleComponent.Engine);
+
+        if (eng.data.status) {
+            setVehicleFuel(this.parent.vehicleid, this.data.fuellevel );
+            eng.correct();
+            return true;
+        }
+        setVehicleFuel(this.parent.vehicleid, 0.0 );
+        return false;
+    }
+
+    // /**
+    //  * Restore amount of fuel that was saved during
+    //  * temporary saving f.e.: setVehicleFuel(.., ..., true)
+    //  *
+    //  * @param  {Integer} vehicleid
+    //  * @return {Boolean}
+    //  */
+    // function restoreVehicleFuel(vehicleid) {
+    //     if (vehicleid in __vehicles) {
+    //         return old__setVehicleFuel(vehicleid, __vehicles[vehicleid].fuel);
+    //     }
+
+    //     return old__setVehicleFuel(vehicleid, getDefaultVehicleFuel(vehicleid));
+    // }
+
+    // /**
+    //  * Get fuel level for vehicle by vehicleid
+    //  * @param  {Integer} vehicleid
+    //  * @return {Float} level
+    //  */
+    // function getDefaultVehicleFuel(vehicleid) {
+    //     return getDefaultVehicleModelFuel(getVehicleModel(vehicleid));
+    // }
+}
+
+
+
+key("q", function(playerid) {
+    if (!isPlayerInVehicle(playerid)) {
+        return;
+    }
+    local vehicleid = vehicles.nearestVehicle(playerid);
+    local fuelTank = vehicles[vehicleid].components.findOne(VehicleComponent.FuelTank);
+
+    if  ((fuelTank || (fuelTank instanceof VehicleComponent.FuelTank))) {
+        delayedFunction(10, function () {
+            fuelTank.correct();
+        });
+    }
+});
+
+/**
+ * Fuel manipulation here.
+ */
+event("onServerMinuteChange", function() {
+    foreach (vehicle in vehicles) {
+        vehicle.correct(); // Sync all the visuals
+
+        local eng = vehicle.components.findOne(VehicleComponent.Engine);
+        local hull = vehicle.components.findOne(VehicleComponent.Hull);
+        local tank = vehicle.components.findOne(VehicleComponent.FuelTank);
+
+        if (!hull || !(hull instanceof VehicleComponent.Hull)) {
+            throw "Vehicle: cannot find hull!";
         }
 
-        return old__setVehicleFuel(vehicleid, getDefaultVehicleFuel(vehicleid));
-    }
+        if (!eng || !(eng instanceof VehicleComponent.Engine)) {
+            throw "Vehicle: cannot find engine!";
+        }
 
-    /**
-     * Get fuel level for vehicle by vehicleid
-     * @param  {Integer} vehicleid
-     * @return {Float} level
-     */
-    function getDefaultVehicleFuel(vehicleid) {
-        return getDefaultVehicleModelFuel(getVehicleModel(vehicleid));
+        if (!eng.data.status) continue;
+
+        local speed = getVehicleSpeed(vehicle.vehicleid);
+        speed = sqrt(speed[0]*speed[0] + speed[1]*speed[1] + speed[2]*speed[2]);
+        dbg(speed);
+        dbg("Model is " + hull.getModel());
+
+        local level = tank.data.fuellevel; //getVehicleFuel(vehicle.vehicleid);
+
+        if (vehicle.state && tank.data.fuellevel >= 0) {
+            local consumption;
+            if (speed > 0) {
+                consumption = eng.data.consumption.move * getDefaultVehicleFuel( hull.getModel() );
+                dbg("Veh is on the run. Consump: " + consumption);
+            } else {
+                consumption = eng.data.consumption.idle * getDefaultVehicleFuel( hull.getModel() );
+                dbg("Veh is stand still. Consump: " + consumption);
+            }
+
+            if (tank.data.fuellevel >= consumption) {
+                tank.data.fuellevel -= consumption;
+            } else {
+                tank.data.fuellevel = 0.0;
+                eng.setStatusTo(false); // eng.data.status = false;
+            }
+        }
+
+        setVehicleFuel(vehicle.vehicleid, tank.data.fuellevel);
+
+        dbg("Fuel level has been set for id[" + vehicle.vehicleid + "] vehicle. Now its: " + tank.data.fuellevel);
     }
-}
+});

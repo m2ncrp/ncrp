@@ -87,6 +87,7 @@ include("models/Business.nut");
 // load helpers
 include("helpers/patterns");
 include("helpers/vector.nut");
+include("helpers/matrix.nut");
 include("helpers/assert.nut");
 include("helpers/array.nut");
 include("helpers/function.nut");

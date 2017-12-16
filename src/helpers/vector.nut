@@ -153,4 +153,59 @@ class Vector3 {
     static function fromArray(a) {
         return Vector3(a[0], a[1], a[2]);
     }
+
+    function rotate(angle_x, angle_y, angle_z) {
+        // if (angle_x<0) {
+        //     angle_x = angle_x+180.0
+        // } else {
+        //     angle_x = angle_x;
+        // }
+
+        // if (angle_y<0) {
+        //     angle_y = angle_y+180.0
+        // } else {
+        //     angle_y = angle_y;
+        // }
+
+        // if (angle_z<0) {
+        //     angle_z = angle_z+180.0
+        // } else {
+        //     angle_z = angle_z;
+        // }
+        local angleX = torad(angle_x);
+        local angleY = torad(angle_y);
+        local angleZ = torad(angle_z);
+
+        local x = [1,0,0];
+        local y = [0,cos(angleX),-sin(angleX)];
+        local z = [0,sin(angleX),cos(angleX)];
+
+        local mX = Matrix( x, y, z );
+
+        x = [cos(angleY),0,sin(angleY)];
+        y = [0,1,0];
+        z = [-sin(angleY),0,cos(angleY)];
+
+        local mY = Matrix( x, y, z );
+
+        local res = mX.multiply(mY);
+        res.tostring();
+
+        x = [cos(angleZ),-sin(angleZ),0];
+        y = [sin(angleZ),cos(angleZ),0];
+        z = [0,0,1];
+
+        local mZ = Matrix( x, y, z );
+
+        res = res.multiply(mZ);
+        res.tostring();
+
+        return res.multiply(this);
+    }
+
+    function tostring() {
+        // print(this.x + "," + this.y + "," + this.z + "\n");
+        dbg(this);
+        dbg();
+    }
 }

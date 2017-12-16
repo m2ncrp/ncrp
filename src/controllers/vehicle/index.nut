@@ -87,7 +87,12 @@ include("controllers/vehicle/functions/passengers.nut");
 include("controllers/vehicle/classes/Vehicle.nut");
 include("controllers/vehicle/classes/VehicleComponent.nut");
 include("controllers/vehicle/Parts/Hull.nut");
+include("controllers/vehicle/Parts/FuelTank.nut");
 include("controllers/vehicle/Parts/Engine.nut");
+include("controllers/vehicle/Parts/Gabarites.nut");
+include("controllers/vehicle/Parts/Lights.nut");
+include("controllers/vehicle/Parts/WheelPair.nut");
+include("controllers/vehicle/Parts/Trunk.nut");
 include("controllers/vehicle/patterns/VehicleContainer.nut");
 include("controllers/vehicle/patterns/VehicleComponentContainer.nut");
 
@@ -165,6 +170,7 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     return 1;
 });
 
+
 event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     log(getPlayerName(playerid) + " #" + playerid + " JUST LEFT VEHICLE with ID=" + vehicleid.tostring() + " (seat: " + seat.tostring() + ")." );
     // remove player as a vehicle passenger
@@ -178,42 +184,7 @@ event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
 
 event("onServerMinuteChange", function() {
     foreach (vehicle in vehicles) {
-        local eng = vehicle.components.findOne(VehicleComponent.Engine);
-        local hull = vehicle.components.findOne(VehicleComponent.Hull);
-
-        if (!hull || !(hull instanceof VehicleComponent.Hull)) {
-            throw "Vehicle: cannot find hull!";
-        }
-
-        if (!eng || !(eng instanceof VehicleComponent.Engine)) {
-            throw "Vehicle: cannot find engine!";
-        }
-
-        if (!eng.data.status) continue;
-
-        local speed = getVehicleSpeed(vehicle.vehicleid);
-        speed = sqrt(speed[0]*speed[0] + speed[1]*speed[1] + speed[2]*speed[2]);
-        dbg(speed);
-        dbg("Model is " + hull.getModel());
-
-        local level = getVehicleFuel(vehicle.vehicleid);
-
-        if (vehicle.state && level >= 0) {
-            local consumption;
-            if (speed > 0) {
-                consumption = eng.data.consumption.move * getDefaultVehicleFuel( hull.getModel() );
-                level -= consumption;
-                dbg("Veh is on the run. Consump: " + consumption);
-            } else {
-                consumption = eng.data.consumption.idle * getDefaultVehicleFuel( hull.getModel() );
-                level -= consumption;
-                dbg("Veh is stand still. Consump: " + consumption);
-            }
-        }
-
-        setVehicleFuel(vehicle.vehicleid, level);
-
-        dbg("Fuel level has been set for id[" + vehicle.vehicleid + "] vehicle. Now its: " + getVehicleFuel(vehicle.vehicleid));
+        vehicle.correct(); // Sync all the visuals
     }
 });
 

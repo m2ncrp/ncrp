@@ -1,18 +1,26 @@
-class Lights extends SwitchableVehiclePart {
-    
-    constructor (vehicleID) {
-        base.constructor(vehicleID, null, false);
+class VehicleComponent.Lights extends VehicleComponent {
+
+    static classname = "VehicleComponent.Lights";
+
+    constructor (data) {
+        base.constructor(data);
+
+        if (this.data == null) {
+            this.data = {
+                status = false
+            }
+        }
     }
 
     function getState() {
-        // log( state.tostring() +"~"+ getVehicleLightState(vehicleID).tostring() );
-        local native = getVehicleLightState(vehicleID);
-        return native || state;
+        // log( status.tostring() +"~"+ getVehicleLightState(vehicleID).tostring() );
+        local native = getVehicleLightState(this.parent.vehicleid);
+        return native || status;
     }
 
     function setState(to) {
-        setVehicleLightState( vehicleID, to);
-        base.setState( to );
+        this.data.status = to;
+        this.correct();
     }
 
     /**
@@ -22,4 +30,14 @@ class Lights extends SwitchableVehiclePart {
     function isBroken() {
         return false;
     }
+
+    function correct() {
+        setVehicleLightState( this.parent.vehicleid, this.data.status);
+    }
 }
+
+key("r", function(playerid) {
+    local vehicleid = vehicles.nearestVehicle(playerid);
+    local lights = vehicles[vehicleid].components.findOne(VehicleComponent.Lights);
+    return lights.setState( !lights.data.status );
+});

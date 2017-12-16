@@ -29,16 +29,16 @@ class VehicleContainer extends Container
      */
     function nearestVehicle(playerid) {
         local min = null;
-        local closestid = null;
+        local closestid = -2;
 
         // iterate over player, and calculate distance with each one
         foreach(targetid, data in this.getAll()) {
-            local dist = getDistance(playerid, targetid);
+            local dist = getDistanceBtwPlayerAndVehicle(playerid, targetid);
 
             // compare with smallest, and if less - override smallest
             if ((dist < min || !min) && targetid != playerid) {
                 min = dist;
-                closestid = targetid;
+                closestid = targetid - 1;
             }
         }
         return closestid;

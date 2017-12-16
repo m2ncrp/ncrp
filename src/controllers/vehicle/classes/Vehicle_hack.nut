@@ -129,8 +129,21 @@ class DirtyHack {
             callback(v);
         });
         callback(veh);
-        // veh.engine.correct();
-        // veh.lights.correct(); // lights are not sync so we need another hack with it
-        // veh.gabarites.correct();
     }
 }
+
+
+
+// key("w", function(playerid) {
+//     if (!isPlayerInVehicle(playerid)) {
+//         return;
+//     }
+
+//     local eng = vehicles[0].components.findOne(VehicleComponent.Engine);
+//     dbg(eng);
+//     if (!eng.data.status) {
+//         setVehicleFuel(eng.parent.vehicleid, 0.0);
+//         return false;
+//     }
+//     return true;
+// });

@@ -194,18 +194,9 @@ acmd(["vehicle"], function( playerid, id ) {
 //     return veh.engine.action();
 // });
 
-key("q", function(playerid) {
-    if (!isPlayerInVehicle(playerid)) {
-        return;
-    }
-
-    local eng = vehicles[0].components.findOne(VehicleComponent.Engine);
-    dbg(eng);
-    return eng.action();
-});
-
 key("u", function(playerid) {
-    local eng = vehicles[0].components.findOne(VehicleComponent.Engine);
+    local vehicleid = vehicles.nearestVehicle(playerid);
+    local eng = vehicles[vehicleid].components.findOne(VehicleComponent.Engine);
     return eng.correct();
 });
 
