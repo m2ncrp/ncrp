@@ -103,13 +103,13 @@ __vehicles <- vehicles;
 // w before means "wrapper" for native
 function getPlayerVehicleid(playerid) {
     if (!isPlayerInVehicle(playerid)) {
-        local vehicle = vehicles.nearestVehicle(playerid);
-        if (vehicle == null) return -1;
-        return vehicle.vehicleid;
+        local vehicle = vehicles.nearestVehicle(playerid);  // get vehicle obj from DB
+        if (vehicle == null) return -1;                     // if there's no such return 1
+        return vehicle.vehicleid;                           // return id on server side after it's been spawned (starts with 0)
     }
 
-    local vehicleid = getPlayerVehicle(playerid);
-    return vehicles_native[vehicleid].id;
+    local vehicleid = getPlayerVehicle(playerid);           // get vehicle id from server
+    return vehicles_native[vehicleid].id;                   // get vehicle obj on MEM from DB (starts with 1)
 }
 
 // event("onServerStarted", function() {

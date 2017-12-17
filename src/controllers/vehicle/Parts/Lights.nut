@@ -41,8 +41,7 @@ key("r", function(playerid) {
         return;
     }
 
-    local vehicleid = getPlayerVehicle(playerid);
-    vehicleid = vehicles_native[vehicleid].id;
+    local vehicleid = getPlayerVehicleid(playerid);
     local lights = vehicles[vehicleid].components.findOne(VehicleComponent.Lights);
     return lights.setState( !lights.data.status );
 });

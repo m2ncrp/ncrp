@@ -55,4 +55,8 @@ class VehicleComponent.Hull extends VehicleComponent
 
         return true;//this;
     }
+
+    function repair() {
+        repairVehicle( this.parent.vehicleid );
+    }
 }

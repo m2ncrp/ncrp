@@ -16,6 +16,8 @@ class VehicleComponent.Engine extends VehicleComponent
     // Prevent developer from mistakes
     // setVehicleEngineState = null;
 
+    isTuneBeenSet = true;
+
     constructor (data) {
         dbg("called engine creation");
         base.constructor(data);
@@ -32,6 +34,30 @@ class VehicleComponent.Engine extends VehicleComponent
         }
     }
 
+    function getTune() {
+        return this.data.tune;
+    }
+
+    function setTune(level) {
+        switch (level) {
+            case VehicleComponent.Engine.Tune.Basic:
+                this.data.tune = level;
+                isTuneBeenSet = true;
+                break;
+            case VehicleComponent.Engine.Tune.Sport:
+                this.data.tune = level;
+                isTuneBeenSet = true;
+                break;
+            case VehicleComponent.Engine.Tune.Supercharged:
+                this.data.tune = level;
+                isTuneBeenSet = true;
+                break;
+            default:
+
+        }
+        this.correct();
+    }
+
     function beforeAction() {
         dbg("Engine Action method was called @line 21 Engine.nut");
     }
@@ -44,7 +70,11 @@ class VehicleComponent.Engine extends VehicleComponent
 
     function correct() {
         // stateSetter( this.parent.id, this.data.status );
-        setVehicleEngineState(this.parent.id-1, this.data.status);
+        if (isTuneBeenSet) {
+            setVehicleTuningTable(this.parent.vehicleid, this.data.tune);
+            isTuneBeenSet = false;
+        }
+        setVehicleEngineState(this.parent.vehicleid, this.data.status);
     }
 
     function setStatusTo(newStatus) {
@@ -87,8 +117,7 @@ key("q", function(playerid) {
         return;
     }
 
-    local vehicleid = getPlayerVehicle(playerid);
-    vehicleid = vehicles_native[vehicleid].id;
+    local vehicleid = getPlayerVehicleid(playerid);
     local eng = vehicles[vehicleid].components.findOne(VehicleComponent.Engine);
     // dbg(eng);
 

@@ -122,7 +122,6 @@ class Vehicle extends ORM.Entity
      */
     function spawn() {
         local hull = this.components.findOne(VehicleComponent.Hull);
-        // local engine = this.components.findOne(VehicleComponent.Engine);
 
         if (!hull || !(hull instanceof VehicleComponent.Hull)) {
             throw "Vehicle: cannot spawn vehicle wihtout hull!";

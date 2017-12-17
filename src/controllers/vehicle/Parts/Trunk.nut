@@ -39,36 +39,33 @@ key("e", function(playerid) {
     if (vehicle == null) return;
 
     local trunk = vehicle.components.findOne(VehicleComponent.Trunk);
+    local vid = vehicle.vehicleid;
 
-    local v_pos = getVehiclePosition(vehicle.vehicleid);
-    local v_ang = getVehicleRotation(vehicle.vehicleid);
+    local v_pos = getVehiclePosition(vid);
+    local v_ang = getVehicleRotation(vid);
     local p_pos = getPlayerPosition(playerid);
 
-    // local offsets = Vector3(0, -2.51, 0);
-    local trunk_offset_x = 0;
-    local trunk_offset_y = -2.51;
-    local trunk_offset_z = 0;
-
+    local offsets = Vector3(0, -2.51, 0);
     local radius = 0.7;
 
-    local t_v3 = Vector3(trunk_offset_x, trunk_offset_y, trunk_offset_z);
-    t_v3 = t_v3.rotate(v_ang[0], v_ang[1], v_ang[2] );
-    // dbg(t_v3); dbg();
+    offsets = offsets.rotate(v_ang[0], v_ang[1], v_ang[2] );
 
-    local x = v_pos[0] + t_v3.z;
-    local y = v_pos[1] + t_v3.y;
-    local z = v_pos[2] - t_v3.x;
+    local x = v_pos[0] + offsets.z;
+    local y = v_pos[1] + offsets.y;
+    local z = v_pos[2] - offsets.x;
 
-        // setPlayerPosition(playerid, x, y, z);
-
-    dbg( "Vehicle " + vehicle.vehicleid + " position is " + v_pos[0] + ", " + v_pos[1] + ", " + v_pos[2] + "." );
-    dbg( "Vehicle " + vehicle.vehicleid + " trunk position is " + x + ", " + y + ", " + z + "." );
+    dbg( "Vehicle " + vid + " position is " + v_pos[0] + ", " + v_pos[1] + ", " + v_pos[2] + "." );
+    dbg( "Vehicle " + vid + " trunk position is " + x + ", " + y + ", " + z + "." );
 
     // if ( isInRadius(playerid, x, y, z, radius) ) {
     if ( checkDistanceXY(x, y, p_pos[0], p_pos[1], radius) ) {
-        dbg( "Trunk status of " + vehicle.vehicleid  + " vehicle has been set to " + !trunk.data.status);
+        dbg( "Trunk status of " + vid  + " vehicle has been set to " + !trunk.data.status);
+        if (!trunk.data.status) {
+            msg(playerid, "Вы успешно открыли багажник " + vid + " машины. Грац!");
+        } else {
+            msg(playerid, "Вы успешно закрыли багажник " + vid + " машины. Грац!");
+        }
         trunk.setState( !trunk.data.status );
-        sendPlayerMessage(playerid, "Вы успешно открыли багажник " vehicle.vehicleid + " машины. Грац!");
         return true;
     }
     return false;

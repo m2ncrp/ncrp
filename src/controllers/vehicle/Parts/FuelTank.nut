@@ -11,7 +11,7 @@ class VehicleComponent.FuelTank extends VehicleComponent
         if (this.data == null) {
             this.data = {
                 volume = vehicle_info[this.parent.vehicleid][1],
-                fuellevel = this.volume * 0.667 // 2/3 of full tank
+                fuellevel = this.data.volume * 0.667 // 2/3 of full tank
             }
         }
         dbg("Volume for THIS veh is " + this.data.volume +
@@ -29,12 +29,12 @@ class VehicleComponent.FuelTank extends VehicleComponent
     }
 
     function setFuel( to ) {
-        setVehicleFuel(this.parent.vehicleid, to);
+        this.data.fuellevel = to;
         this.parent.correct();
     }
 
     function setFuelToMax() {
-        setFuel(this.volume);
+        setFuel(this.data.volume);
     }
 
     function setFuelToMin() {
@@ -84,8 +84,7 @@ key("q", function(playerid) {
     if (!isPlayerInVehicle(playerid)) {
         return;
     }
-    local vehicleid = getPlayerVehicle(playerid);
-    vehicleid = vehicles_native[vehicleid].id;
+    local vehicleid = getPlayerVehicleid(playerid);
     local fuelTank = vehicles[vehicleid].components.findOne(VehicleComponent.FuelTank);
 
     if  ((fuelTank || (fuelTank instanceof VehicleComponent.FuelTank))) {
@@ -121,7 +120,7 @@ event("onServerMinuteChange", function() {
         dbg(speed);
         dbg("Model is " + hull.getModel());
 
-        local level = tank.data.fuellevel; //getVehicleFuel(vehicle.vehicleid);
+        local level = tank.data.fuellevel;
 
         if (vehicle.state && tank.data.fuellevel >= 0) {
             local consumption;
@@ -137,7 +136,7 @@ event("onServerMinuteChange", function() {
                 tank.data.fuellevel -= consumption;
             } else {
                 tank.data.fuellevel = 0.0;
-                eng.setStatusTo(false); // eng.data.status = false;
+                eng.setStatusTo(false);
             }
         }
 

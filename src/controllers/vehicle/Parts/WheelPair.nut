@@ -3,9 +3,9 @@ class VehicleComponent.WheelPair extends VehicleComponent
     static classname = "VehicleComponent.WheelPair";
 
     static WheelPosition = {
-        front = 0,
+        front  = 0,
         middle = 1,
-        rear = 2
+        rear   = 2
     }
 
     constructor (data) {
@@ -13,9 +13,9 @@ class VehicleComponent.WheelPair extends VehicleComponent
 
         if (this.data == null) {
             this.data = {
-                front = getVehicleWheelTexture( this.parent.vehicleid, 0 ),
+                front  = getVehicleWheelTexture( this.parent.vehicleid, 0 ),
                 middle = getVehicleWheelTexture( this.parent.vehicleid, 1 ),
-                rear = getVehicleWheelTexture( this.parent.vehicleid, 2 )
+                rear   = getVehicleWheelTexture( this.parent.vehicleid, 2 )
             }
         }
     }
