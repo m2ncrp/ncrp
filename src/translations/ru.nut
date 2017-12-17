@@ -2,7 +2,7 @@
 translation("ru", {
     "language.change.success"           :   "Вы успешно изменили язык интерфейса на русский!"
 
-    "vehicle.owner.warning"             :   "Вы не можете передвигаться в чужом автомобиле."
+    "vehicle.owner.warning"             :   "У вас нет ключа от этого автомобиля."
     "vehicle.owner.true"                :   "Вы владелец данного авто."
     "vehicle.owner.false"               :   "Вы не владелец данного авто."
 
@@ -533,7 +533,7 @@ translation("ru", {
     "shops.restaurant.toofar"               : "[INFO] Вы слишком далеко."
     "shops.restaurant.money.notenough"      : "У вас недостаточно денег для оплаты."
     "shops.restaurant.space.notenough"      : "У вас недостаточно места в инвентаре."
-    "shops.restaurant.buy.success"          : "Вы успешно купили предмет(ы) за $%.2f."
+    "shops.restaurant.buy.success"          : "Вы успешно купили %s за $%.2f."
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 

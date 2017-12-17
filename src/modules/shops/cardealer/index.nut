@@ -8,7 +8,7 @@ local availableCars = [0, 1, 4, 6, 7, 8, 9, 10, 12, 13, 14, 15, 17, 18, 22, 23, 
 local margin_percent = 2; // наценка в процентах
 
 event("onServerStarted", function() {
-    log("[shops] car dealer...");
+    log("[shops] loading car dealer...");
 
     // load records (horses and etc.)
     carDealerLoadedDataRead();

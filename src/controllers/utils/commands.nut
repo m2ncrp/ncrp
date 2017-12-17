@@ -220,3 +220,17 @@ translate("en", {
     "utils.hat"             : "There are %d balls in the cap. %s pulled the ball with number %d."
     "utils.hatnull"         : "Need to set count of participants. Example: /hat 15"
 });
+
+
+acmd("shake", function(playerid, speed, strength, duration) {
+    trigger(playerid, "simpleShake", speed, strength, duration);
+});
+
+acmd("drunk", function(playerid, level) {
+    trigger(playerid, "setPlayerDrunkLevel", level);
+});
+
+acmd("stopdrunk", function(playerid) {
+    trigger(playerid, "resetPlayerDrunkLevel");
+});
+
