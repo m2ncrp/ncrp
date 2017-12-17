@@ -3,7 +3,7 @@ acmd(["spawn"], function(playerid) {
     setPlayerHealth( playerid, 720.0 );
 });
 
-cmd(["weapons"], function(playerid) {
+acmd(["weapons"], function(playerid) {
     if(!isPlayerAdmin(playerid)) {
         return msg(playerid, "msg.weapons");
     }
