@@ -100,6 +100,18 @@ vehicles <- VehicleContainer();
 vehicles_native <- {};
 __vehicles <- vehicles;
 
+// w before means "wrapper" for native
+function getPlayerVehicleid(playerid) {
+    if (!isPlayerInVehicle(playerid)) {
+        local vehicle = vehicles.nearestVehicle(playerid);
+        if (vehicle == null) return -1;
+        return vehicle.vehicleid;
+    }
+
+    local vehicleid = getPlayerVehicle(playerid);
+    return vehicles_native[vehicleid].id;
+}
+
 // event("onServerStarted", function() {
 //     local v = Vehicle();
 
