@@ -273,5 +273,6 @@ migrate(function(query, type) {
 // 10.12.2017
 // added data field for Businesses
 migrate(function(query, type) {
+    query("ALTER TABLE tbl_businesses ADD COLUMN `alias` TEXT NOT NULL DEFAULT '';");
     query("ALTER TABLE tbl_businesses ADD COLUMN `data` TEXT NOT NULL DEFAULT '{}';");
 });

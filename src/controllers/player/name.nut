@@ -70,7 +70,7 @@ function getPlayerIdFromCharacterId(CharacterId) {
  * @return {Integer} CharacterId
  */
 function getCharacterIdFromPlayerId(playerid) {
-    if(playerid in players) {
+    if(players.has(playerid)) {
         return players[playerid].id;
     }
     return false;

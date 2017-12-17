@@ -1,4 +1,8 @@
 alternativeTranslate({
+
+    "en|inventory.title"         : "Inventory of "
+    "ru|inventory.title"         : "Инвентарь "
+
     "en|inventory.cannotinsert"  : "You can't insert this item."
     "ru|inventory.cannotinsert"  : "Вы не можете взять этот предмет с собой."
 
@@ -68,7 +72,7 @@ alternativeTranslate({
     "en|Item.M1A1Thompson"     : "M1A1 Thompson"
     "en|Item.Beretta38A"       : "Beretta 38A"
     "en|Item.MG42"             : "MG-42"
-    "en|Item.M1Garand"         : "M1 Garand"
+    "en|Item.M1Garand"         : "M1 Grand"
     "en|Item.Kar98k"           : "Kar 98k"
     "en|Item.Molotov"          : "Molotov"
     "en|Item.Ammo45ACP"        : "Ammo .45 ACP"
@@ -78,16 +82,39 @@ alternativeTranslate({
     "en|Item.Ammo792x57mm"     : "Ammo 7.92x57 mm"
     "en|Item.Ammo762x63mm"     : "Ammo 7.62x63 mm"
     "en|Item.Ammo38Special"    : "Ammo .38 Special"
+
+
     "en|Item.Clothes"          : "Clothes"
+
+    "en|Item.Whiskey"          : "Whiskey"
+    "en|Item.MasterBeer"       : "Master Beer",
+    "en|Item.OldEmpiricalBeer" : "Old Empirical Beer",
+    "en|Item.StoltzBeer"       : "Stoltz Beer",
+    "en|Item.Wine"             : "Wine",
+    "en|Item.Brendy"           : "Brendy",
+
     "en|Item.Burger"           : "Burger"
     "en|Item.Hotdog"           : "Hotdog"
     "en|Item.Sandwich"         : "Sandwich"
     "en|Item.Cola"             : "Cola"
+    "en|Item.Gyros"            : "Gyros"
+    "en|Item.CoffeeCup"        : "Cup of coffee"
+
     "en|Item.Jerrycan"         : "Canister"
     "en|Item.VehicleTax"       : "Vehicle tax"
+    "en|Item.VehicleKey"       : "Vehicle key"
     "en|Item.FirstAidKit"      : "First aid kit"
     "en|Item.Passport"         : "Passport"
     "en|Item.PoliceBadge"      : "Police badge"
+
+    "en|Item.BigBreakRed"      :  "Big Break Red"
+    "en|Item.BigBreakBlue"     :  "Big Break Blue"
+    "en|Item.BigBreakWhite"    :  "Big Break White"
+
+    "en|Item.Methamnetamine"   : "Methamnetamine"
+
+
+
 
     "ru|Item.None"             : ""
     "ru|Item.Revolver12"       : "Revolver 12"
@@ -113,14 +140,33 @@ alternativeTranslate({
     "ru|Item.Ammo792x57mm"     : "Патроны 7.92x57 mm"
     "ru|Item.Ammo762x63mm"     : "Патроны 7.62x63 mm"
     "ru|Item.Ammo38Special"    : "Патроны .38 Special"
+
     "ru|Item.Clothes"          : "Одежда"
+
+    "ru|Item.Whiskey"          : "Виски",
+    "ru|Item.MasterBeer"       : "Пиво Мастер",
+    "ru|Item.OldEmpiricalBeer" : "Пиво Старый Эмпайр",
+    "ru|Item.StoltzBeer"       : "Пиво Штольц",
+    "ru|Item.Wine"             : "Вино",
+    "ru|Item.Brandy"           : "Бренди",
+
     "ru|Item.Burger"           : "Бургер"
     "ru|Item.Hotdog"           : "Хот-дог"
     "ru|Item.Sandwich"         : "Сэндвич"
     "ru|Item.Cola"             : "Кола"
+    "ru|Item.Gyros"            : "Гирос"
+    "ru|Item.CoffeeCup"        : "Чашка кофе"
+
     "ru|Item.Jerrycan"         : "Канистра"
     "ru|Item.VehicleTax"       : "Квитанция налога на ТС"
+    "ru|Item.VehicleKey"       : "Ключ от автомобиля"
     "ru|Item.FirstAidKit"      : "Аптечка"
     "ru|Item.Passport"         : "Паспорт"
     "ru|Item.PoliceBadge"      : "Полицейский жетон"
+
+    "ru|Item.BigBreakRed"    : "Big Break Red"
+    "ru|Item.BigBreakBlue"   : "Big Break Blue"
+    "ru|Item.BigBreakWhite"  : "Big Break White"
+
+    "ru|Item.Methamnetamine"   : "Метамфетамин"
 });

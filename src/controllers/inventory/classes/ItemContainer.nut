@@ -54,7 +54,7 @@ class ItemContainer extends Container
         local character = players[playerid];
         this.opened[character.id] <- character;
 
-        return trigger(playerid, "inventory:onServerOpen", this.id, this.serialize());
+        return trigger(playerid, "inventory:onServerOpen", this.id, this.serialize(), getPlayerLocale(playerid), getPlayerName(playerid));
     }
 
     /**
@@ -80,7 +80,7 @@ class ItemContainer extends Container
         foreach (characterid, character in this.opened) {
             if (character.playerid != -1 && isPlayerConnected(character.playerid)) {
                 if (getPlayerName(character.playerid) == character.getName()) {
-                    trigger(character.playerid, "inventory:onServerOpen", this.id, this.serialize());
+                    trigger(character.playerid, "inventory:onServerOpen", this.id, this.serialize(), getPlayerLocale(character.playerid), getPlayerName(character.playerid));
                 }
             }
         }

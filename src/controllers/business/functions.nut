@@ -226,6 +226,20 @@ function getBusinessIncome(bizid) {
     return businesses[bizid].income;
 }
 
+
+/**
+ * Get business alias
+ * @param  {Integer}
+ * @return {Float}
+ */
+function getBusinessAlias(bizid) {
+    if (!(bizid in businesses)) {
+        return false;
+    }
+
+    return businesses[bizid].alias;
+}
+
 /**
  * Set business owner
  * @param {Integer} bizid

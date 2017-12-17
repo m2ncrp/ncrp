@@ -20,7 +20,7 @@ class PlayerItemContainer extends ItemContainer
         base.constructor();
 
         this.id     = md5(this.tostring());
-        this.title  = "Inventory of " + getPlayerName(playerid);
+        this.title  = plocalize(playerid, "inventory.title") + getPlayerName(playerid);
         this.parent = players[playerid];
     }
 
