@@ -36,6 +36,7 @@ function loadBusinessResources(entity) {
     entity.text2 = create3DText( entity.x, entity.y, entity.z + 0.05, pricetag, CL_EUCALYPTUS.applyAlpha(125), BUSINESS_BUY_DISTANCE );
 
     local info = getBusinessInfo(entity.type);
+    if (info.type == 3) return;
     if (entity.type != BUSINESS_DEFAULT && info && info.info) {
         entity.text3 = create3DText( entity.x, entity.y, entity.z + 0.20, info.info, CL_WHITE.applyAlpha(75), BUSINESS_INTERACT_DISTANCE );
         entity.blip  = createBlip(   entity.x, entity.y, info.blip, 100.0 );
