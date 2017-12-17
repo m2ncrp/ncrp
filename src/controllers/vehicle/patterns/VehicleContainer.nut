@@ -29,16 +29,18 @@ class VehicleContainer extends Container
      */
     function nearestVehicle(playerid) {
         local min = null;
-        local closestid = -2;
+        local closestid = -1;
 
         // iterate over player, and calculate distance with each one
         foreach(targetid, data in this.getAll()) {
-            local dist = getDistanceBtwPlayerAndVehicle(playerid, targetid);
+            if (data.state != Vehicle.State.Spawned) continue;
+
+            local dist = getDistanceBtwPlayerAndVehicle(playerid, data.vehicleid);
 
             // compare with smallest, and if less - override smallest
-            if ((dist < min || !min) && targetid != playerid) {
+            if (dist < min || !min) {
                 min = dist;
-                closestid = targetid - 1;
+                closestid = data;
             }
         }
         return closestid;

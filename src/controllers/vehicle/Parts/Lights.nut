@@ -37,7 +37,12 @@ class VehicleComponent.Lights extends VehicleComponent {
 }
 
 key("r", function(playerid) {
-    local vehicleid = vehicles.nearestVehicle(playerid);
+    if (!isPlayerInVehicle(playerid)) {
+        return;
+    }
+
+    local vehicleid = getPlayerVehicle(playerid);
+    vehicleid = vehicles_native[vehicleid].id;
     local lights = vehicles[vehicleid].components.findOne(VehicleComponent.Lights);
     return lights.setState( !lights.data.status );
 });

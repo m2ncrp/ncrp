@@ -87,7 +87,8 @@ key("q", function(playerid) {
         return;
     }
 
-    local vehicleid = vehicles.nearestVehicle(playerid);
+    local vehicleid = getPlayerVehicle(playerid);
+    vehicleid = vehicles_native[vehicleid].id;
     local eng = vehicles[vehicleid].components.findOne(VehicleComponent.Engine);
     // dbg(eng);
 

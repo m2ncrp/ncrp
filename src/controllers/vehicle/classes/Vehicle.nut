@@ -129,6 +129,7 @@ class Vehicle extends ORM.Entity
         }
 
         this.vehicleid = createVehicle(hull.getModel(), this.x, this.y, this.z, this.rx, this.ry, this.rz);
+        vehicles_native[this.vehicleid] <- this;
 
         if (this.vehicleid < 0) {
             throw "Vehicle: cannot spawn vehicle with provided data!";
@@ -159,6 +160,7 @@ class Vehicle extends ORM.Entity
 
         destroyVehicle(this.vehicleid);
 
+        delete vehicles_native[this.vehicleid];
         this.state = this.State.Spawned;
         this.vehicleid = -1;
 

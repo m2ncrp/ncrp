@@ -35,13 +35,13 @@ class VehicleComponent.Trunk extends VehicleComponent {
 
 
 key("e", function(playerid) {
-    local vehicleid = vehicles.nearestVehicle(playerid)+1;
-    if (vehicleid == -1) return;
+    local vehicle = vehicles.nearestVehicle(playerid);
+    if (vehicle == null) return;
 
-    local trunk = vehicles[vehicleid].components.findOne(VehicleComponent.Trunk);
+    local trunk = vehicle.components.findOne(VehicleComponent.Trunk);
 
-    local v_pos = getVehiclePosition(vehicleid);
-    local v_ang = getVehicleRotation(vehicleid);
+    local v_pos = getVehiclePosition(vehicle.vehicleid);
+    local v_ang = getVehicleRotation(vehicle.vehicleid);
     local p_pos = getPlayerPosition(playerid);
 
     // local offsets = Vector3(0, -2.51, 0);
@@ -61,14 +61,14 @@ key("e", function(playerid) {
 
         // setPlayerPosition(playerid, x, y, z);
 
-    dbg( "Vehicle " + vehicleid + " position is " + v_pos[0] + ", " + v_pos[1] + ", " + v_pos[2] + "." );
-    dbg( "Vehicle " + vehicleid + " trunk position is " + x + ", " + y + ", " + z + "." );
+    dbg( "Vehicle " + vehicle.vehicleid + " position is " + v_pos[0] + ", " + v_pos[1] + ", " + v_pos[2] + "." );
+    dbg( "Vehicle " + vehicle.vehicleid + " trunk position is " + x + ", " + y + ", " + z + "." );
 
     // if ( isInRadius(playerid, x, y, z, radius) ) {
     if ( checkDistanceXY(x, y, p_pos[0], p_pos[1], radius) ) {
-        dbg( "Trunk status of " + vehicleid  + " vehicle has been set to " + !trunk.data.status);
+        dbg( "Trunk status of " + vehicle.vehicleid  + " vehicle has been set to " + !trunk.data.status);
         trunk.setState( !trunk.data.status );
-        sendPlayerMessage(playerid, "Вы успешно открыли багажник " vehicleid + " машины. Грац!");
+        sendPlayerMessage(playerid, "Вы успешно открыли багажник " vehicle.vehicleid + " машины. Грац!");
         return true;
     }
     return false;

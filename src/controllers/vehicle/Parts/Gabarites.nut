@@ -212,7 +212,8 @@ key("z", function(playerid) {
     if (!isPlayerInVehicle(playerid)) {
         return;
     }
-    local vehicleid = vehicles.nearestVehicle(playerid);
+    local vehicleid = getPlayerVehicle(playerid);
+    vehicleid = vehicles_native[vehicleid].id;
     local gabs = vehicles[vehicleid].components.findOne(VehicleComponent.Gabarites);
 
     // if engine is in its place and has expected obj type
@@ -228,7 +229,8 @@ key("x", function(playerid) {
         return;
     }
 
-    local vehicleid = vehicles.nearestVehicle(playerid);
+    local vehicleid = getPlayerVehicle(playerid);
+    vehicleid = vehicles_native[vehicleid].id;
     local gabs = vehicles[vehicleid].components.findOne(VehicleComponent.Gabarites);
 
     // if engine is in its place and has expected obj type
@@ -244,7 +246,8 @@ key("c", function(playerid) {
         return;
     }
 
-    local vehicleid = vehicles.nearestVehicle(playerid);
+    local vehicleid = getPlayerVehicle(playerid);
+    vehicleid = vehicles_native[vehicleid].id;
     local gabs = vehicles[vehicleid].components.findOne(VehicleComponent.Gabarites);
 
     // if engine is in its place and has expected obj type

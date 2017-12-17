@@ -84,7 +84,8 @@ key("q", function(playerid) {
     if (!isPlayerInVehicle(playerid)) {
         return;
     }
-    local vehicleid = vehicles.nearestVehicle(playerid);
+    local vehicleid = getPlayerVehicle(playerid);
+    vehicleid = vehicles_native[vehicleid].id;
     local fuelTank = vehicles[vehicleid].components.findOne(VehicleComponent.FuelTank);
 
     if  ((fuelTank || (fuelTank instanceof VehicleComponent.FuelTank))) {

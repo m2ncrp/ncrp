@@ -97,6 +97,7 @@ include("controllers/vehicle/patterns/VehicleContainer.nut");
 include("controllers/vehicle/patterns/VehicleComponentContainer.nut");
 
 vehicles <- VehicleContainer();
+vehicles_native <- {};
 __vehicles <- vehicles;
 
 // event("onServerStarted", function() {
@@ -117,7 +118,6 @@ event("onServerStarted", function() {
     // dbg(JSONParser.parse("[{\"id\":\"hood\",\"opened\":false},{\"id\":\"engine\",\"started\":true},{\"id\":\"fueltank\",\"amount\":14.24}]"));
     Vehicle.findAll(function(err, results) {
         foreach (idx, vehicle in results) {
-            vehicles.push(vehicle);
             dbg("Displaying info about ", vehicle.id);
 
             // if (vehicle.components.len()) {
@@ -129,6 +129,7 @@ event("onServerStarted", function() {
             }
 
             if (vehicle.state == Vehicle.State.Spawned) {
+                vehicles.set(vehicle.id, vehicle);
                 vehicle.spawn();
             }
 
@@ -161,22 +162,26 @@ event("onServerPlayerStarted", function(playerid) {
 
 
 event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
-    log( getPlayerName(playerid) + " entered vehicle " + vehicleid.tostring() + " (seat: " + seat.tostring() + ")." );
+    local vehicle = vehicles_native[vehicleid];
+
+    log( getPlayerName(playerid) + " entered vehicle " + vehicle.vehicleid.tostring() + " (seat: " + seat.tostring() + ")." );
     // correct state of all the vehicle components
-    vehicles[vehicleid].hack.OnEnter(seat);
+    vehicle.hack.OnEnter(seat);
     // add player as a vehicle passenger
-    addVehiclePassenger(vehicles[vehicleid], playerid, seat);
+    addVehiclePassenger(vehicle, playerid, seat);
 
     return 1;
 });
 
 
 event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
-    log(getPlayerName(playerid) + " #" + playerid + " JUST LEFT VEHICLE with ID=" + vehicleid.tostring() + " (seat: " + seat.tostring() + ")." );
+    local vehicle = vehicles_native[vehicleid];
+
+    log(getPlayerName(playerid) + " #" + playerid + " JUST LEFT VEHICLE with ID=" + vehicle.vehicleid.tostring() + " (seat: " + seat.tostring() + ")." );
     // remove player as a vehicle passenger
-    removeVehiclePassenger(vehicles[vehicleid], playerid, seat);
+    removeVehiclePassenger(vehicle, playerid, seat);
     // correct state of all the vehicle components
-    vehicles[vehicleid].hack.OnExit(seat);
+    vehicle.hack.OnExit(seat);
     return 1;
 });
 
