@@ -27,11 +27,54 @@ const DEFAULT_SPAWN_X    = -1027.02;
 const DEFAULT_SPAWN_Y    =  1746.63;
 const DEFAULT_SPAWN_Z    =  10.2325;
 
+local logos = [
+    {
+        "imgsrc": "logo.png",
+        "offsetX": 203.0,
+        "offsetY": 145.0,
+        "width": 406.0,
+        "height": 266.0,
+    },
+    {
+        "imgsrc": "logo-ny1.png",
+        "offsetX": 217.0,
+        "offsetY": 154.0,
+        "width": 420.0,
+        "height": 275.0,
+    },
+    {
+        "imgsrc": "logo-ny2.png",
+        "offsetX": 203.0,
+        "offsetY": 277.0,
+        "width": 406.0,
+        "height": 398.0,
+    },
+    {
+        "imgsrc": "logo-ny3.png",
+        "offsetX": 203.0,
+        "offsetY": 277.0,
+        "width": 406.0,
+        "height": 398.0,
+    },
+    {
+        "imgsrc": "logo-ny4.png",
+        "offsetX": 203.0,
+        "offsetY": 261.0,
+        "width": 406.0,
+        "height": 382.0,
+    }
+];
+
+//local logorand = random(1, logos.len()-1);
+local logorand = 0;
+
+//image = guiCreateElement(13, "logo.png", screen[0]/2 - 203.0, screen[1]/2 - 145.0, 406.0, 266.0);
+
 function showAuthGUI(windowLabel,labelText,inputText,buttonText, helpText){
     //setPlayerPosition( getLocalPlayer(), -412.0, 1371.0, 36.0 );
     //setPlayerPosition( getLocalPlayer(), -746.0, 1278.0, 15.5 );
     blackRoundFrame = guiCreateElement(13,"other_mask.png", 0, 0, screen[0], screen[1]);
-    image = guiCreateElement(13,"logo.png", screen[0]/2 - 203.0, screen[1]/2 - 145.0, 406.0, 266.0);
+    image = guiCreateElement(13, logos[logorand].imgsrc, screen[0]/2 - logos[logorand].offsetX, screen[1]/2 - logos[logorand].offsetY, logos[logorand].width, logos[logorand].height);
     window = guiCreateElement( ELEMENT_TYPE_WINDOW, windowLabel, screen[0]/2 - 192.5, screen[1]/2 - 65.2, 385.0, 180.0 );
     label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, labelText, 38.0, 30.0, 300.0, 20.0, false, window);
     input[0] = guiCreateElement( ELEMENT_TYPE_EDIT, inputText, 92.0, 60.0, 200.0, 20.0, false, window);
@@ -50,7 +93,7 @@ addEventHandler("showAuthGUI", showAuthGUI);
 
 function showRegGUI(windowText,labelText, inputpText, inputrpText, inputEmailText, buttonText, helpText){
     blackRoundFrame = guiCreateElement(13,"other_mask.png", 0, 0, screen[0], screen[1]);
-    image = guiCreateElement(13,"logo.png", screen[0]/2 - 203.0, screen[1]/2 - 145.0, 406.0, 266.0);
+    image = guiCreateElement(13, logos[logorand].imgsrc, screen[0]/2 - logos[logorand].offsetX, screen[1]/2 - logos[logorand].offsetY, logos[logorand].width, logos[logorand].height);
     window = guiCreateElement( ELEMENT_TYPE_WINDOW, windowText, screen[0]/2 - 192.5, screen[1]/2 - 65.0, 385.0, 240.0 );
     label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, labelText, 80.0, 30.0, 300.0, 20.0, false, window);
     label[1] = guiCreateElement( ELEMENT_TYPE_LABEL, inputpText, 70.0, 60.0, 300.0, 20.0, false, window);
@@ -140,6 +183,18 @@ addEventHandler( "onGuiElementClick",function(element){ //this shit need some re
     if (element == langs[1]) {
         triggerServerEvent("onPlayerLanguageChange", "ru");
     }
+    if (element == blackRoundFrame) {
+        guiSendToBack(blackRoundFrame);
+    }
+    if (element == image) {
+        guiSendToBack(image);
+        guiSendToBack(blackRoundFrame);
+    }
+    if (element == blackRoundFrame || element == image) {
+        //guiBringToFront( image );
+        guiBringToFront( window );
+    }
+
 });
 
 /**
