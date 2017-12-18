@@ -60,6 +60,7 @@
 
     <file>logo.png</file>
     <file>logo-ny1.png</file>
+
 <!--
     <file>logo-ny2.png</file>
     <file>logo-ny3.png</file>
@@ -125,6 +126,7 @@
         <file>Item.Cola.png</file>
         <file>Item.FineList.png</file>
         <file>Item.FirstAidKit.png</file>
+        <file>Item.Gift.png</file>
         <file>Item.Gyros.png</file>
         <file>Item.Hotdog.png</file>
         <file>Item.Jerrycan.png</file>
