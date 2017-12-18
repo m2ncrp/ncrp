@@ -65,4 +65,15 @@ class PlayerItemContainer extends ItemContainer
         trigger(playerid, "onPlayerInventoryHide");
         trigger("onPlayerInventoryHide", playerid);
     }
+
+    // не подбирать подарок, если уже был подобран
+    function canBeInserted(item) {
+        if (item instanceof Item.Gift) {
+            if(this.parent.getData("gift")) {
+                return false;
+            }
+        }
+
+        return base.canBeInserted(item);
+    }
 }

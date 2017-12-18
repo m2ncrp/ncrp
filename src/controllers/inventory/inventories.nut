@@ -193,3 +193,13 @@ event("native:onPlayerDropItem", function(playerid, id, slot) {
         }
     }
 });
+
+event("native:onPlayerCloseInventory", function(playerid, id) {
+    if (!storage.exists(id)) return;
+
+    local inventory = storage.get(id);
+
+    if (inventory.isOpened(playerid)) {
+        inventory.hide(playerid);
+    }
+});
