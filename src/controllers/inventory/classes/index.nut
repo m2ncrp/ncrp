@@ -4,8 +4,9 @@ Item.State <- {
     GROUND          = 1,
     PLAYER_HAND     = 2,
     PLAYER          = 3,
-    VEHICLE_INV     = 4,
-    BUILDING_INV    = 5,
+    STORAGE         = 4,
+    VEHICLE_INV     = 5,
+    BUILDING_INV    = 6,
 };
 
 // include entities
@@ -23,11 +24,13 @@ include("controllers/inventory/classes/Item/Passport.nut");
 include("controllers/inventory/classes/Item/FirstAidKit.nut");
 include("controllers/inventory/classes/Item/PoliceBadge.nut");
 include("controllers/inventory/classes/Item/Cigarettes.nut");
+include("controllers/inventory/classes/Item/Storage.nut");
 
 include("controllers/inventory/classes/GroundItems.nut");
 include("controllers/inventory/classes/ItemContainer.nut");
 include("controllers/inventory/classes/PlayerItemContainer.nut");
 include("controllers/inventory/classes/PlayerHandsContainer.nut");
+include("controllers/inventory/classes/StorageItemContainer.nut");
 
 // add shortcuts overrides
 Item.findBy <- function(condition, callback) {
@@ -121,3 +124,35 @@ class Item.OldEmpiricalBeer     extends Item.Drink  { static classname = "Item.O
 class Item.BigBreakRed      extends Item.Cigarettes { static classname = "Item.BigBreakRed";    constructor () { base.constructor(); this.weight = 0.0025; this.unitweight = 0.0015; this.effect = 9.0; this.timeout = 5; this.addiction = 15.0 }}
 class Item.BigBreakBlue     extends Item.Cigarettes { static classname = "Item.BigBreakBlue";   constructor () { base.constructor(); this.weight = 0.0025; this.unitweight = 0.0012; this.effect = 6.0; this.timeout = 6; this.addiction = 10.0 }}
 class Item.BigBreakWhite    extends Item.Cigarettes { static classname = "Item.BigBreakWhite";  constructor () { base.constructor(); this.weight = 0.0025; this.unitweight = 0.0009; this.effect = 3.0; this.timeout = 7; this.addiction =  5.0 }}
+
+
+class Item.Box              extends Item.Storage    { static classname = "Item.Box";            constructor () { base.constructor(); this.weight = 0.1; }}
+class Item.Gift             extends Item.Abstract    {
+    static classname = "Item.Gift";
+    constructor () {
+        base.constructor();
+        // this.container.sizeX = this.container.sizeY = 1;
+        this.weight = 0.5;
+        this.default_decay = 0;
+    }
+
+    function pick(playerid, inventory) {
+        msg(playerid, "inventory.pickedup", [ plocalize(playerid, this.classname )], CL_SUCCESS);
+        players[playerid].setData("gift", true);
+    }
+
+    function use(playerid, inventory) {
+        //if (players[playerid].getData("gift")) {
+        //    msg(playerid, "Nien! Nien! Nien!");
+        //    return false;
+        //}
+
+        inventory.remove(this.slot);
+
+        // код спавна
+        inventory.set(this.slot, Item.Burger());
+
+        inventory.sync();
+        this.remove();
+    }
+}

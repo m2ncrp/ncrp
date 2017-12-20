@@ -296,6 +296,7 @@ proxy("inventory:loaded",           "native:inventory:loaded"            );
 proxy("inventory:use",              "native:onPlayerUseItem"             );
 proxy("inventory:move",             "native:onPlayerMoveItem"            );
 proxy("inventory:drop",             "native:onPlayerDropItem"            );
+proxy("inventory:close",            "native:onPlayerCloseInventory"      );
 proxy("shop:close",                 "native:shop:close"                  );
 proxy("shop:purchase",              "native:shop:purchase"               );
 

@@ -492,7 +492,7 @@ class PlayerInventory extends Inventory
             y = size.y + ((this.guiPadding + props.height) * yoffset) - 3;
         }
 
-        return guiCreateElement(type, title
+        return guiCreateElement(type, title,
             size.x - this.guiPadding * 2 - props.width, y,
             props.width, props.height, false, this.handle
         );
@@ -638,6 +638,64 @@ class PlayerHands extends Inventory
 
 /**
  * ************************
+ * * STORAGE CLASS
+ * ************************
+ */
+
+class StorageInventory extends Inventory
+{
+
+    function getSize() {
+        local size = base.getSize();
+        return { x = size.x, y = size.y + 40 };
+    }
+
+    function getOriginalSize() {
+        return base.getSize();
+    }
+
+
+    function getInitialPosition() {
+        local size = this.getSize();
+        return { x = centerX - size.x - 5.0, y = centerY - size.y / 2 };
+    }
+
+    function createGUI() {
+        base.createGUI();
+
+        local props = {
+            width  = 32.0,
+            height = 32.0,
+        };
+
+        local size = this.getSize();
+
+        // buttons
+        this.components["btn_close"] <- guiCreateElement(ELEMENT_TYPE_BUTTON, "Close Box", 0, size.y - 30, props.width, props.height, false, this.handle );
+
+    }
+
+    function rawclick(element) {
+        foreach (idx, value in this.components) {
+            if (element != value) {
+                continue;
+            }
+
+            if (idx == "btn_close") {
+                trigger("inventory:close", this.id);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+}
+
+
+/**
+ * ************************
  * * INVENTORY INTERACTIONS
  * ************************
  */
@@ -646,6 +704,7 @@ local class_map = {
     Inventory       = Inventory,
     PlayerInventory = PlayerInventory,
     PlayerHands     = PlayerHands,
+    Storage         = StorageInventory,
 };
 
 
@@ -696,6 +755,9 @@ event("onClientFrameRender", function(afterGUI) {
         }
 
         if (inventory.data.type == "PlayerHands") continue;
+        if (inventory instanceof StorageInventory) {
+            size = inventory.getOriginalSize();
+        }
 
         local coef = (weight / inventory.data.limit);       if (typeof coef != "float") return;
         local invwidth = size.x - inventory.guiPadding * 2 - inventory.guiRightOffset - 7;
