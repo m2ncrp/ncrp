@@ -123,6 +123,16 @@ key("q", function(playerid) {
 
     // if engine is in its place and has expected obj type
     if ((eng || (eng instanceof VehicleComponent.Engine))) {
-        eng.action();
+        foreach (idx, item in players[playerid].inventory) {
+            if(item._entity == "Item.VehicleKey") {
+                dbg(item._entity);
+                dbg(item.data.id);
+                dbg(vehicleid);
+                if (item.data.id == vehicleid) {
+                    eng.action();
+                    break;
+                }
+            }
+        }
     }
 });

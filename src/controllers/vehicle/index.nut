@@ -93,6 +93,7 @@ include("controllers/vehicle/Parts/Gabarites.nut");
 include("controllers/vehicle/Parts/Lights.nut");
 include("controllers/vehicle/Parts/WheelPair.nut");
 include("controllers/vehicle/Parts/Trunk.nut");
+include("controllers/vehicle/Parts/Plate.nut");
 include("controllers/vehicle/patterns/VehicleContainer.nut");
 include("controllers/vehicle/patterns/VehicleComponentContainer.nut");
 
@@ -100,7 +101,6 @@ vehicles <- VehicleContainer();
 vehicles_native <- {};
 __vehicles <- vehicles;
 
-// w before means "wrapper" for native
 function getPlayerVehicleid(playerid) {
     if (!isPlayerInVehicle(playerid)) {
         local vehicle = vehicles.nearestVehicle(playerid);  // get vehicle obj from DB
@@ -110,6 +110,15 @@ function getPlayerVehicleid(playerid) {
 
     local vehicleid = getPlayerVehicle(playerid);           // get vehicle id from server
     return vehicles_native[vehicleid].id;                   // get vehicle obj on MEM from DB (starts with 1)
+}
+
+
+/**
+ * Return Entity.id from tbl_vehicles by vehicleid
+ * @return {array}
+ */
+function getVehicleEntityId (vehicleid) {
+    return vehicleid in __vehicles && __vehicles[vehicleid].entity ? __vehicles[vehicleid].entity.id : -1;
 }
 
 // event("onServerStarted", function() {
@@ -204,7 +213,6 @@ event("onServerMinuteChange", function() {
         vehicle.correct(); // Sync all the visuals
     }
 });
-
 
 
 // vehicles[15].compoenents.find(VehicleComponent.Hull).getDirtLevel()

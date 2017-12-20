@@ -144,7 +144,7 @@ function getAllServerVehicles() {
 
 
 /**
- * Return Entiry.id from tbl_vehicles by vehicleid
+ * Return Entity.id from tbl_vehicles by vehicleid
  * @return {array}
  */
 function getVehicleEntityId (vehicleid) {

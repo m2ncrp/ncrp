@@ -15,63 +15,184 @@ if ((screenX / screenY) > 2.0) {
 screen = [screenX, screenY];
 
 local showing = false;
-local window;
+local window = {};
+local lastWindowType;
 local logo;
+local labelTitle = array(8);
+local labelPrice = array(8);
 local label = array(16);
-local items = array(4);
-local buttons = array(10);
+local items = array(8);
+local buttons = array(9);
 local buyText = "Buy";
 
-addEventHandler("showShopGUI", function() {
+local  leftColumnX = 16.0; //leftColumnX
+local rightColumnX = 179.0;
+local columnYfirst = 35.0;
+
+local columnY1 =  35.0;
+local columnY2 = 114.0;
+local columnY3 = 193.0;
+local columnY4 = 272.0;
+
+local pBuy = [73.0, 41.0];
+local pTitle = [73.0, -1.0];
+local pPrice = [73.0, 16.0];
+
+local TRANSLATIONS = {
+
+    "en": {
+        "buy"                   : "Buy"
+        "close"                 : "Close"
+
+        "Item.None"             : ""
+        "Item.Revolver12"       : "Revolver 12"
+        "Item.MauserC96"        : "Mauser C96"
+        "Item.ColtM1911A1"      : "Colt M1911 A1"
+        "Item.ColtM1911Spec"    : "Colt M1911 Special"
+        "Item.Revolver19"       : "Revolver 19"
+        "Item.MK2"              : "MK2"
+        "Item.Remington870"     : "Remington 870"
+        "Item.M3GreaseGun"      : "MP Grease Gun"
+        "Item.MP40"             : "MP-40"
+        "Item.Thompson1928"     : "Thompson 1928"
+        "Item.M1A1Thompson"     : "M1A1 Thompson"
+        "Item.Beretta38A"       : "Beretta 38A"
+        "Item.MG42"             : "MG-42"
+        "Item.M1Garand"         : "M1 Garand"
+        "Item.Kar98k"           : "Kar 98k"
+        "Item.Molotov"          : "Molotov"
+        "Item.Ammo45ACP"        : "Ammo .45 ACP"
+        "Item.Ammo357magnum"    : "Ammo .357 Magnum"
+        "Item.Ammo12mm"         : "Ammo 12 mm"
+        "Item.Ammo9x19mm"       : "Ammo 9x19 mm"
+        "Item.Ammo792x57mm"     : "Ammo 7.92x57 mm"
+        "Item.Ammo762x63mm"     : "Ammo 7.62x63 mm"
+        "Item.Ammo38Special"    : "Ammo .38 Special"
+
+        "Item.Clothes"          : "Clothes"
+
+        "Item.Whiskey"          : "Whiskey"
+        "Item.MasterBeer"       : "Master Beer",
+        "Item.OldEmpiricalBeer" : "Old Empirical",
+        "Item.StoltzBeer"       : "Stoltz Beer",
+        "Item.Wine"             : "Wine",
+        "Item.Brendy"           : "Brendy",
+
+        "Item.Burger"           : "Burger"
+        "Item.Hotdog"           : "Hotdog"
+        "Item.Sandwich"         : "Sandwich"
+        "Item.Cola"             : "Cola"
+        "Item.Gyros"            : "Gyros"
+        "Item.CoffeeCup"        : "Cup of coffee"
+
+        "Item.Jerrycan"         : "Canister"
+        "Item.VehicleTax"       : "Vehicle tax"
+        "Item.VehicleKey"       : "Vehicle key"
+        "Item.FirstAidKit"      : "First aid kit"
+        "Item.Passport"         : "Passport"
+        "Item.PoliceBadge"      : "Police badge"
+
+        "Item.BigBreakRed"      : "Big Break Red"
+        "Item.BigBreakBlue"     : "Big Break Blue"
+        "Item.BigBreakWhite"    : "Big Break White"
+
+        "Item.Methamnetamine"   : "Methamnetamine"
+
+    },
+    "ru": {
+        "buy"                   : "Купить",
+        "close"                 : "Закрыть",
+
+        "Item.None"             : ""
+        "Item.Revolver12"       : "Revolver 12"
+        "Item.MauserC96"        : "Mauser C96"
+        "Item.ColtM1911A1"      : "Colt M1911 A1"
+        "Item.ColtM1911Spec"    : "Colt M1911 Special"
+        "Item.Revolver19"       : "Revolver 19"
+        "Item.MK2"              : "MK2"
+        "Item.Remington870"     : "Remington 870"
+        "Item.M3GreaseGun"      : "MP Grease Gun"
+        "Item.MP40"             : "MP-40"
+        "Item.Thompson1928"     : "Thompson 1928"
+        "Item.M1A1Thompson"     : "M1A1 Thompson"
+        "Item.Beretta38A"       : "Beretta 38A"
+        "Item.MG42"             : "MG-42"
+        "Item.M1Garand"         : "M1 Garand"
+        "Item.Kar98k"           : "Kar 98k"
+        "Item.Molotov"          : "Коктейль Молотова"
+        "Item.Ammo45ACP"        : "Патроны .45 ACP"
+        "Item.Ammo357magnum"    : "Патроны .357 Magnum"
+        "Item.Ammo12mm"         : "Патроны 12 mm"
+        "Item.Ammo9x19mm"       : "Патроны 9x19 mm"
+        "Item.Ammo792x57mm"     : "Патроны 7.92x57 mm"
+        "Item.Ammo762x63mm"     : "Патроны 7.62x63 mm"
+        "Item.Ammo38Special"    : "Патроны .38 Special"
+
+        "Item.Clothes"          : "Одежда"
+
+        "Item.Whiskey"          : "Виски",
+        "Item.MasterBeer"       : "Пиво Мастер",
+        "Item.OldEmpiricalBeer" : "Старый Эмпайр",
+        "Item.StoltzBeer"       : "Пиво Штольц",
+        "Item.Wine"             : "Вино",
+        "Item.Brandy"           : "Бренди",
+
+        "Item.Burger"           : "Бургер"
+        "Item.Hotdog"           : "Хот-дог"
+        "Item.Sandwich"         : "Сэндвич"
+        "Item.Cola"             : "Кола"
+        "Item.Gyros"            : "Гирос"
+        "Item.CoffeeCup"        : "Чашка кофе"
+
+        "Item.Jerrycan"         : "Канистра"
+        "Item.VehicleTax"       : "Квитанция налога на ТС"
+        "Item.VehicleKey"       : "Ключ от автомобиля"
+        "Item.FirstAidKit"      : "Аптечка"
+        "Item.Passport"         : "Паспорт"
+        "Item.PoliceBadge"      : "Полицейский жетон"
+
+        "Item.BigBreakRed"      : "Big Break Red"
+        "Item.BigBreakBlue"     : "Big Break Blue"
+        "Item.BigBreakWhite"    : "Big Break White"
+
+        "Item.Methamnetamine"   : "Метамфетамин"
+    }
+};
+
+
+
+
+addEventHandler("showShopGUI", function(dataSrc, lang) {
+    //log("assortment");
+    //log(dataSrc);
+    local data = compilestring.call(getroottable(), format("return %s", dataSrc))();
+    //local data2 = JSONParser.parse("{\"type\":\"empirediner\",\"items\":[4,8,15,16]}");
+    //log(data.type);
+    //log(data.items.len().tostring());
+    //log("------------------------------------------------------------------------------------");
+
     showing = true;
     local yoffset = 151.0;
+
+
     // if widow created
-    if (window) {
-        guiSetSize(window, 280.0, 548.0 - yoffset);
-        guiSetPosition(window,screen[0]/2 - 285.0, screen[1]/2 - (548.0 - yoffset)/2);
-        guiSetVisible( window, true);
+    if (lastWindowType == data.type) {
+        guiSetSize(window[lastWindowType], 338.0, 548.0 - yoffset);
+        guiSetPosition(window[lastWindowType], screen[0]/2 - 343.0, screen[1]/2 - (548.0 - yoffset)/2);
+        guiSetVisible( window[lastWindowType], true);
     }
     // if widow doesn't created, create his
     else {
-        window   =  guiCreateElement( ELEMENT_TYPE_WINDOW, "Restaurant", screen[0]/2 - 285.0, screen[1]/2 - (548.0 - yoffset)/2, 280.0, 548.0 - yoffset);
+
+        lastWindowType = data.type;
+        window[lastWindowType] <- guiCreateElement( ELEMENT_TYPE_WINDOW, data.title, screen[0]/2 - 343.0, screen[1]/2 - (548.0 - yoffset)/2, 338.0, 548.0 - yoffset);
+        createItems(data.items, lang);
         // logo     =  guiCreateElement( ELEMENT_TYPE_IMAGE, "shop.logo.empirediner.png",    16.0, 29.0, 248.0, 151.0, false, window);
-        items[0] =  guiCreateElement( ELEMENT_TYPE_IMAGE, "Item.Burger.jpg",    23.0, 199.0 - yoffset, 64.0, 64.0, false, window);
-        items[1] =  guiCreateElement( ELEMENT_TYPE_IMAGE, "Item.Hotdog.jpg",    23.0, 275.0 - yoffset, 64.0, 64.0, false, window);
-        items[2] =  guiCreateElement( ELEMENT_TYPE_IMAGE, "Item.Sandwich.jpg",  23.0, 351.0 - yoffset, 64.0, 64.0, false, window);
-        items[3] =  guiCreateElement( ELEMENT_TYPE_IMAGE, "Item.Cola.jpg",      23.0, 427.0 - yoffset, 64.0, 64.0, false, window);
 
-        buttons[0] = guiCreateElement(  ELEMENT_TYPE_BUTTON, "Buy"  ,     280/2 - 110.0, 508.0 - yoffset, 135.0, 24.0, false, window);
-        buttons[1] = guiCreateElement(  ELEMENT_TYPE_BUTTON, "Close"  ,   280/2 + 35.0,  508.0 - yoffset, 75.0, 24.0, false, window);
+        buttons[8] = guiCreateElement(  ELEMENT_TYPE_BUTTON, TRANSLATIONS[lang].close,   338/2 - 38.0,  508.0 - yoffset, 76.0, 24.0, false, window[lastWindowType]);
 
-        buttons[2] = guiCreateElement(  ELEMENT_TYPE_BUTTON, "<"  ,      183.0, 232.0 - yoffset, 26.0, 22.0, false, window);      // for
-        buttons[3] = guiCreateElement(  ELEMENT_TYPE_BUTTON, ">"  ,      232.0, 232.0 - yoffset, 26.0, 22.0, false, window);      // 3
-        buttons[4] = guiCreateElement(  ELEMENT_TYPE_BUTTON, "<"  ,      183.0, 308.0 - yoffset, 26.0, 22.0, false, window);      // for
-        buttons[5] = guiCreateElement(  ELEMENT_TYPE_BUTTON, ">"  ,      232.0, 308.0 - yoffset, 26.0, 22.0, false, window);      // 7
-        buttons[6] = guiCreateElement(  ELEMENT_TYPE_BUTTON, "<"  ,      183.0, 384.0 - yoffset, 26.0, 22.0, false, window);      // for
-        buttons[7] = guiCreateElement(  ELEMENT_TYPE_BUTTON, ">"  ,      232.0, 384.0 - yoffset, 26.0, 22.0, false, window);      // 11
-        buttons[8] = guiCreateElement(  ELEMENT_TYPE_BUTTON, "<"  ,      183.0, 460.0 - yoffset, 26.0, 22.0, false, window);      // for
-        buttons[9] = guiCreateElement(  ELEMENT_TYPE_BUTTON, ">"  ,      232.0, 460.0 - yoffset, 26.0, 22.0, false, window);      // 15
-
-
-        label[0]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "Burger",        102.0, 208.0 - yoffset, 100.0, 15.0, false, window);
-        label[1]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "$2.67",         207.0, 208.0 - yoffset, 100.0, 15.0, false, window);
-        // label[2]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "256 ккал",       102.0, 234.0 - yoffset, 100.0, 15.0, false, window);
-        label[3]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "0",             218.0, 234.0 - yoffset, 100.0, 15.0, false, window);
-        label[4]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "Hotdog",        102.0, 284.0 - yoffset, 100.0, 15.0, false, window);
-        label[5]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "$1.75",         207.0, 284.0 - yoffset, 100.0, 15.0, false, window);
-        // label[6]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "256 ккал",       102.0, 310.0 - yoffset, 100.0, 15.0, false, window);
-        label[7]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "0",             218.0, 310.0 - yoffset, 100.0, 15.0, false, window);
-        label[8]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "Sandwich",      102.0, 360.0 - yoffset, 100.0, 15.0, false, window);
-        label[9]  =  guiCreateElement( ELEMENT_TYPE_LABEL, "$0.62",         207.0, 360.0 - yoffset, 100.0, 15.0, false, window);
-        // label[10] =  guiCreateElement( ELEMENT_TYPE_LABEL, "256 ккал",       102.0, 386.0 - yoffset, 100.0, 15.0, false, window);
-        label[11] =  guiCreateElement( ELEMENT_TYPE_LABEL, "0",             218.0, 386.0 - yoffset, 100.0, 15.0, false, window);
-        label[12] =  guiCreateElement( ELEMENT_TYPE_LABEL, "Cola",          102.0, 436.0 - yoffset, 100.0, 15.0, false, window);
-        label[13] =  guiCreateElement( ELEMENT_TYPE_LABEL, "$1.24",         207.0, 436.0 - yoffset, 100.0, 15.0, false, window);
-        // label[14] =  guiCreateElement( ELEMENT_TYPE_LABEL, "256 ккал",       102.0, 462.0 - yoffset, 100.0, 15.0, false, window);
-        label[15] =  guiCreateElement( ELEMENT_TYPE_LABEL, "0",             218.0, 462.0 - yoffset, 100.0, 15.0, false, window);
-
-        buttons.map(guiBringToFront);
-        items.map(guiBringToFront);
+        // buttons.map(guiBringToFront);
+        // items.map(guiBringToFront);
         // guiBringToFront(logo);
     }
 
@@ -99,12 +220,34 @@ addEventHandler("showShopGUI", function() {
     //     guiSetText( label[15] , "0"         );
     // });
 
-    if (typeof window != "userdata") return;
+    if (typeof window[lastWindowType] != "userdata") return;
 
-    guiSetSizable(window, false);
-    guiSetMovable(window, false);
+    guiSetSizable(window[lastWindowType], false);
+    guiSetMovable(window[lastWindowType], false);
     // showCursor(true);
 });
+
+function createItems(itemsData, lang) {
+    for (local i = 0; i < 8; i++) {
+        if(i in itemsData) {
+            local posX = leftColumnX;
+            if(i % 2 == 1) {
+                posX = rightColumnX;
+            }
+
+            local posY = columnYfirst + 79 * floor(i / 2);
+
+            items[i]      = guiCreateElement( ELEMENT_TYPE_IMAGE,   itemsData[i].itemName.tostring()+".png",    posX           ,  posY           ,   64.0, 64.0, false, window[lastWindowType]);
+            buttons[i]    = guiCreateElement( ELEMENT_TYPE_BUTTON,  TRANSLATIONS[lang].buy,                     posX+pBuy[0]   ,  posY+pBuy[1]   ,   70.0, 22.0, false, window[lastWindowType]);
+            labelTitle[i] = guiCreateElement( ELEMENT_TYPE_LABEL,   TRANSLATIONS[lang][itemsData[i].itemName],  posX+pTitle[0] ,  posY+pTitle[1] ,  100.0, 15.0, false, window[lastWindowType]);
+            labelPrice[i] = guiCreateElement( ELEMENT_TYPE_LABEL,   "$"+itemsData[i].price.tostring(),          posX+pPrice[0] ,  posY+pPrice[1] ,  100.0, 15.0, false, window[lastWindowType]);
+
+            guiBringToFront(buttons[i]);
+            guiBringToFront(items[i]);
+        }
+    }
+
+}
 
 function hideShopGUI () {
     if (!showing) {
@@ -112,12 +255,14 @@ function hideShopGUI () {
     }
 
     showing = false;
-    resetShopValues();
+
     delayedFunction(1, function() {
-        guiSetVisible(window,false);
+        guiSetVisible(window[lastWindowType],false);
+        //window = null;
+        //guiDestroyElement( window );
     })
-    //guiSetText( label[0], ""); //don't touch, it's magic. Doesn't work without it
-    // delayedFunction(100, hideCursor); //todo fix
+    // guiSetText( label[0], ""); //don't touch, it's magic. Doesn't work without it
+    delayedFunction(100, hideCursor); //todo fix
 }
 
 addEventHandler("onPlayerInventoryHide", hideShopGUI);
@@ -130,11 +275,10 @@ function resetShopValues() {
         }
     });
 
-    guiSetText(buttons[0], "Buy");
 }
 
 function hideCursor() {
-    // showCursor(false);
+    showCursor(false);
 }
 
 function shopChangeCount(objname, offset) {
@@ -150,50 +294,40 @@ function shopCalculate() {
                    toFloat(guiGetText( label[5] )) * toInteger(guiGetText( label[7] ))+
                    toFloat(guiGetText( label[9] )) * toInteger(guiGetText( label[11] ))+
                    toFloat(guiGetText( label[13] )) * toInteger(guiGetText( label[15] ));
-    guiSetText( buttons[0], format("Buy ($%.2f)", count ));
+}
+
+function buyItem(index) {
+    triggerServerEvent("shop:purchase", format("{\"type\":\"%s\",\"itemIndex\":%s}", lastWindowType, index.tostring()));
 }
 
 addEventHandler("onGuiElementClick", function(element) {
-    if(element == buttons[0]){
-        // BUY HERE
-        //triggerServerEvent("PhoneCallGUI", number);
-
-        local items = [3, 7, 11, 15].map(function(item) {
-            return guiGetText(label[item]);
-        }).reduce(function(curr, next) {
-            return curr + "," + next;
-        });
-
-        triggerServerEvent("shop:purchase", format("{\"type\":\"%s\",\"items\":[%s]}", "empirediner", items));
-        resetShopValues();
-    }
-    if(element == buttons[1]){
-        triggerServerEvent("shop:close", "empirediner");
+    if(element == buttons[8]){
+        triggerServerEvent("shop:close", lastWindowType);
         return hideShopGUI();
     }
+    if(element == buttons[0]){
+        buyItem(0);
+    }
+    if(element == buttons[1]){
+        buyItem(1);
+    }
     if(element == buttons[2]){
-        shopChangeCount(label[3], -1);
+        buyItem(2);
     }
     if(element == buttons[3]){
-        shopChangeCount(label[3], 1);
+        buyItem(3);
     }
     if(element == buttons[4]){
-        shopChangeCount(label[7], -1);
+        buyItem(4);
     }
     if(element == buttons[5]){
-        shopChangeCount(label[7], 1);
+        buyItem(5);
     }
     if(element == buttons[6]){
-        shopChangeCount(label[11], -1);
+        buyItem(6);
     }
     if(element == buttons[7]){
-        shopChangeCount(label[11], 1);
-    }
-    if(element == buttons[8]){
-        shopChangeCount(label[15], -1);
-    }
-    if(element == buttons[9]){
-        shopChangeCount(label[15], 1);
+        buyItem(7);
     }
 });
 

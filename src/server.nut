@@ -1,5 +1,5 @@
 DEBUG   <- false;
-VERSION <- "1.1.7";
+VERSION <- "1.2.0";
 MOD_HOST <- "139.59.142.46";
 MOD_PORT <- 7790;
 
@@ -29,7 +29,17 @@ function include(path) {
     }
 }
 
-local require = dofile("vendor/squirrel-require/src/require.nut", true)("./src");
+local require = dofile("vendor/squirrel-require/src/require.nut", true)({
+    root        = "./src",
+    module_dir  = "./vendor",
+    aliases     = {
+        src             = "./src",
+        controllers     = "./src/controllers",
+        engine          = "./src/engine",
+        module          = "./src/modules",
+        jobs            = "./src/modules/jobs",
+    }
+});
 
 // load libs
 __FILE__ <- "vendor/squirrel-orm/index.nut";
@@ -66,6 +76,8 @@ function log(...) {
 function dbg(...) {
     return DEBUG_ENABLED ? ::print("[debug] " + JSONEncoder.encode(vargv)) : null;
 }
+
+console.log = dbg;
 
 if (__DEBUG__EXPORT) {
     addEventHandler     <- function(...) {};

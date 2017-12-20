@@ -13,15 +13,6 @@ class VehicleComponent.Hull extends VehicleComponent
         }
     }
 
-    function correct() {
-        local c1 = toRGBA(this.data.color1);
-        local c2 = toRGBA(this.data.color2);
-
-        setVehicleColour(this.parent.vehicleid, c1[0], c1[1], c1[2], c2[0], c2[1], c2[2]);
-
-        return true;
-    }
-
     function getModel() {
         return this.data.model;
     }
@@ -46,11 +37,14 @@ class VehicleComponent.Hull extends VehicleComponent
         return this.data.dirt;
     }
 
-    function setDirt(value) {
-        this.data.model = model;
+    function getDirtNative() {
+        return getVehicleDirtLevel(this.parent.vehicleid);
+    }
 
+    function setDirt(value) {
+        this.data.dirt = value;
         if (this.parent.state == Vehicle.State.Spawned) {
-            setVehicleDirtLevel(this.parent.vehicleid, this.data.dirt);
+            this.correct();
         }
 
         return true;//this;
@@ -59,4 +53,25 @@ class VehicleComponent.Hull extends VehicleComponent
     function repair() {
         repairVehicle( this.parent.vehicleid );
     }
+
+    function correct() {
+        local c1 = toRGBA(this.data.color1);
+        local c2 = toRGBA(this.data.color2);
+
+        setVehicleColour(this.parent.vehicleid, c1[0], c1[1], c1[2], c2[0], c2[1], c2[2]);
+        setVehicleDirtLevel(this.parent.vehicleid, this.data.dirt);
+
+        return true;
+    }
 }
+
+
+/**
+ * Fuel manipulation here.
+ */
+event("onServerMinuteChange", function() {
+    foreach (vehicle in vehicles) {
+        local hull = vehicle.components.findOne(VehicleComponent.Hull);
+        hull.setDirt( hull.getDirtNative() );
+    }
+});

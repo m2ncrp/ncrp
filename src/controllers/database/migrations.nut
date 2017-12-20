@@ -238,9 +238,9 @@ migrate(@(a,b) 1);
 // 07.05.2017
 // added data field for Character, Fraction, FractionRole
 migrate(function(query, type) {
-    query("ALTER TABLE tbl_characters ADD COLUMN `data` TEXT NOT NULL;");
-    query("ALTER TABLE tbl_fractions ADD COLUMN `data` TEXT NOT NULL;");
-    query("ALTER TABLE tbl_fraction_roles ADD COLUMN `data` TEXT NOT NULL;");
+    query("ALTER TABLE tbl_characters ADD COLUMN `data` TEXT NOT NULL DEFAULT '{}';");
+    query("ALTER TABLE tbl_fractions ADD COLUMN `data` TEXT NOT NULL DEFAULT '{}';");
+    query("ALTER TABLE tbl_fraction_roles ADD COLUMN `data` TEXT NOT NULL DEFAULT '{}';");
 });
 
 // 13.05.2017
@@ -266,6 +266,13 @@ migrate(function(query, type) {
 // 11.05.2017
 // added data,updated field for FractionMember
 migrate(function(query, type) {
-    query("ALTER TABLE tbl_fraction_members ADD COLUMN `data` TEXT NOT NULL;");
+    query("ALTER TABLE tbl_fraction_members ADD COLUMN `data` TEXT NOT NULL DEFAULT '{}';");
     query("ALTER TABLE tbl_fraction_members ADD COLUMN `updated` INT(255) NOT NULL DEFAULT 0;");
+});
+
+// 10.12.2017
+// added data field for Businesses
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_businesses ADD COLUMN `alias` TEXT NOT NULL DEFAULT '';");
+    query("ALTER TABLE tbl_businesses ADD COLUMN `data` TEXT NOT NULL DEFAULT '{}';");
 });

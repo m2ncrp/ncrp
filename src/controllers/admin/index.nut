@@ -12,16 +12,14 @@ serverAdmins["940A9BF3DC69DC56BCB6BDB5450961B4"] <- 1; // dima
 serverAdmins["E818234F219F14336D8FFD5C657B796C"] <- 1; // inlufz
 serverAdmins["EBD8F16123FA9DE5C3C64D64FF844953"] <- 1; // inlufz 2
 
-serverAdmins["981506EF83BF42095A62407C696A8515"] <- 1;
-serverAdmins["7980C4CF5E2DAAF062DF7AE08B6DDE67"] <- 1;
+serverAdmins["981506EF83BF42095A62407C696A8515"] <- 1; // Franko
+serverAdmins["7980C4CF5E2DAAF062DF7AE08B6DDE67"] <- 1; // Bertone
 
 //serverAdmins["68D6A6A2A380766FC30CA5C2B01F212F"] <- 1; // kloO
 //serverAdmins["0B4856B787A508D58E3330A2DAB7914C"] <- 1; // zaklaus
 //serverAdmins["1896AD32EFA8A60BDD3CC2F6197F40DC"] <- 1; // member3
 //serverAdmins["856BE506BCEAEEC908F3577ABEFF9171"] <- 1; // Oliver
-
-
-// serverAdmins["981506EF83BF42095A62407C696A8515"] <- 1; // Franko
+//
     // add your serials there :p
 
 function isPlayerAdmin(playerid) {

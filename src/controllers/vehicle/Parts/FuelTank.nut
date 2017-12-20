@@ -99,8 +99,6 @@ key("q", function(playerid) {
  */
 event("onServerMinuteChange", function() {
     foreach (vehicle in vehicles) {
-        vehicle.correct(); // Sync all the visuals
-
         local eng = vehicle.components.findOne(VehicleComponent.Engine);
         local hull = vehicle.components.findOne(VehicleComponent.Hull);
         local tank = vehicle.components.findOne(VehicleComponent.FuelTank);

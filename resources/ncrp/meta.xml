@@ -21,6 +21,9 @@
         <script type="client">gui_rentcar.nut</script>
         <script type="client">gui_empirediner.nut</script>
 
+        <!-- player -->
+        <script type="client">player_effects.nut</script>
+
         <!-- other -->
         <script type="client">other_3dtext.nut</script>
         <script type="client">other_blip.nut</script>
@@ -59,6 +62,8 @@
 
     <!-- inventory system -->
         <!-- items -->
+
+        <!--
         <file>Item.None.jpg</file>
         <file>Item.Revolver12.jpg</file>
         <file>Item.MauserC96.jpg</file>
@@ -83,7 +88,8 @@
         <file>Item.Ammo792x57mm.jpg</file>
         <file>Item.Ammo762x63mm.jpg</file>
         <file>Item.Ammo38Special.jpg</file>
-
+        -->
+        <!--
         <file>Item.Clothes.jpg</file>
 
         <file>Item.Burger.jpg</file>
@@ -93,11 +99,46 @@
         <file>Item.Whiskey.jpg</file>
 
         <file>Item.Jerrycan.jpg</file>
+        <file>Item.VehicleKey.jpg</file>
         <file>Item.VehicleTax.jpg</file>
         <file>Item.FirstAidKit.jpg</file>
         <file>Item.Passport.jpg</file>
         <file>Item.PoliceBadge.jpg</file>
+        <file>Item.Meth.jpg</file>
+        <file>Item.Test.png</file>
+-->
+        <file>Item.AlarmClock.png</file>
+        <file>Item.Bomb.png</file>
+        <file>Item.Box.png</file>
+        <file>Item.Brandy.png</file>
+        <file>Item.Burger.png</file>
+        <file>Item.BigBreakBlue.png</file>
+        <file>Item.BigBreakRed.png</file>
+        <file>Item.BigBreakWhite.png</file>
+        <file>Item.Clothes.png</file>
+        <file>Item.CoffeeCup.png</file>
+        <file>Item.Cola.png</file>
+        <file>Item.FineList.png</file>
+        <file>Item.FirstAidKit.png</file>
+        <file>Item.Gyros.png</file>
+        <file>Item.Hotdog.png</file>
+        <file>Item.Jerrycan.png</file>
+        <file>Item.MasterBeer.png</file>
+        <file>Item.Methamnetamine.png</file>
+        <file>Item.Newspaper.png</file>
+        <file>Item.OldEmpiricalBeer.png</file>
+        <file>Item.Passport.png</file>
+        <file>Item.PoliceBadge.png</file>
+        <file>Item.Sandwich.png</file>
+        <file>Item.StoltzBeer.png</file>
+        <file>Item.Suitcase.png</file>
+        <file>Item.Umbrella.png</file>
+        <file>Item.VehicleKey.png</file>
+        <file>Item.VehicleTax.png</file>
+        <file>Item.Whiskey.png</file>
+        <file>Item.Wine.png</file>
+        <file>Item.None.png</file>
 
-    <file>shop.logo.empirediner.png</file>
+    <!-- <file>shop.logo.empirediner.png</file> -->
     <!-- <file>ped_tutorial1.png</file> -->
 </meta>
