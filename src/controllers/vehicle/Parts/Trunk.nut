@@ -4,18 +4,14 @@ include("controllers/vehicle/classes/Vehicle_hack.nut");
 class VehicleComponent.Trunk extends VehicleComponent {
     static classname = "VehicleComponent.Trunk";
 
-    // static traits = [
-    //     Openable(),
-    // ];
-
     partID = VEHICLE_PART_TRUNK; // ~ 1
+    container = null;
+
+    loaded = false;
 
     constructor (data) {
         base.constructor(data);
-
-        // this.type      = "Engine";
-        // this.subtype   = "Engine";
-        // this.partID    = VEHICLE_PART_TRUNK; // ~ 1
+        container = TrunkItemContainer(this);
     }
 
     function setState(state) {
@@ -30,6 +26,24 @@ class VehicleComponent.Trunk extends VehicleComponent {
 
     function correct() {
         setVehiclePartOpen(this.parent.vehicleid, partID, this.data.status);
+    }
+
+    function load() {
+        local self = this;
+        ORM.Query("select * from tbl_items where parent = :id and state = :states")
+            .setParameter("id", this.id)
+            .setParameter("states", Item.State.TRUNK, true)
+            .getResult(function(err, items) {
+                foreach (idx, item in items) {
+                    self.container.set(item.slot, item);
+                }
+            });
+
+        this.loaded = true;
+    }
+
+    function isLoaded() {
+        return this.loaded;
     }
 }
 
@@ -62,8 +76,14 @@ key("e", function(playerid) {
         dbg( "Trunk status of " + vid  + " vehicle has been set to " + !trunk.data.status);
         if (!trunk.data.status) {
             msg(playerid, "Вы успешно открыли багажник " + vid + " машины. Грац!");
+            if (!trunk.isLoaded()) {
+                trunk.load();
+            }
+
+            trunk.container.show(playerid);
         } else {
             msg(playerid, "Вы успешно закрыли багажник " + vid + " машины. Грац!");
+            trunk.container.hide(playerid);
         }
         trunk.setState( !trunk.data.status );
         return true;

@@ -5,8 +5,7 @@ Item.State <- {
     PLAYER_HAND     = 2,
     PLAYER          = 3,
     STORAGE         = 4,
-    VEHICLE_INV     = 5,
-    BUILDING_INV    = 6,
+    TRUNK           = 5,
 };
 
 // include entities
@@ -31,6 +30,7 @@ include("controllers/inventory/classes/ItemContainer.nut");
 include("controllers/inventory/classes/PlayerItemContainer.nut");
 include("controllers/inventory/classes/PlayerHandsContainer.nut");
 include("controllers/inventory/classes/StorageItemContainer.nut");
+include("controllers/inventory/classes/TrunkItemContainer.nut");
 
 // add shortcuts overrides
 Item.findBy <- function(condition, callback) {

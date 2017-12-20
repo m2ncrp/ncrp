@@ -694,6 +694,9 @@ class StorageInventory extends Inventory
 }
 
 
+class TrunkInventory extends Inventory {}
+
+
 /**
  * ************************
  * * INVENTORY INTERACTIONS
@@ -705,6 +708,7 @@ local class_map = {
     PlayerInventory = PlayerInventory,
     PlayerHands     = PlayerHands,
     Storage         = StorageInventory,
+    Trunk           = TrunkInventory,
 };
 
 
