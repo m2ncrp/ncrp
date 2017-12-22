@@ -4,14 +4,14 @@ class VehicleComponent.FuelTank extends VehicleComponent
 {
     static classname = "VehicleComponent.FuelTank";
 
-    constructor (data) {
+    constructor (data = null) {
         dbg("called fuel tank creation");
         base.constructor(data);
 
         if (this.data == null) {
             this.data = {
-                volume = vehicle_info[this.parent.vehicleid][1],
-                fuellevel = this.data.volume * 0.667 // 2/3 of full tank
+                volume = 40.0,
+                fuellevel = 40.0
             }
         }
         dbg("Volume for THIS veh is " + this.data.volume +
@@ -45,7 +45,7 @@ class VehicleComponent.FuelTank extends VehicleComponent
         local eng = this.parent.components.findOne(VehicleComponent.Engine);
 
         if (eng.data.status) {
-            setVehicleFuel(this.parent.vehicleid, this.data.fuellevel );
+            setVehicleFuel(this.parent.vehicleid, this.data.fuellevel.tofloat() );
             eng.correct();
             return true;
         }

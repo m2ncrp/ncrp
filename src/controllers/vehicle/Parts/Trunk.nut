@@ -9,9 +9,27 @@ class VehicleComponent.Trunk extends VehicleComponent {
 
     loaded = false;
 
-    constructor (data) {
+    constructor (data = null) {
         base.constructor(data);
-        container = TrunkItemContainer(this);
+        this.container = TrunkItemContainer(this.parent);
+
+        if (data == null) {
+            this.data = {
+                status = false,
+            }
+        }
+    }
+
+    function setParent(parent) {
+        this.container.parent = parent;
+        return base.setParent(parent);
+    }
+
+    function save() {
+        foreach (idx, item in this.container) {
+            item.parent = this.parent.id;
+            item.save();
+        }
     }
 
     function setState(state) {
@@ -31,7 +49,7 @@ class VehicleComponent.Trunk extends VehicleComponent {
     function load() {
         local self = this;
         ORM.Query("select * from tbl_items where parent = :id and state = :states")
-            .setParameter("id", this.id)
+            .setParameter("id", this.parent.id)
             .setParameter("states", Item.State.TRUNK, true)
             .getResult(function(err, items) {
                 foreach (idx, item in items) {
@@ -53,10 +71,10 @@ key("e", function(playerid) {
     if (vehicle == null) return;
 
     local trunk = vehicle.components.findOne(VehicleComponent.Trunk);
-    local vid = vehicle.vehicleid;
+    local vid = vehicle.id;
 
-    local v_pos = getVehiclePosition(vid);
-    local v_ang = getVehicleRotation(vid);
+    local v_pos = getVehiclePosition(vehicle.vehicleid);
+    local v_ang = getVehicleRotation(vehicle.vehicleid);
     local p_pos = getPlayerPosition(playerid);
 
     local offsets = Vector3(0, -2.51, 0);

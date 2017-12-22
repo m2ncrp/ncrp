@@ -694,7 +694,43 @@ class StorageInventory extends Inventory
 }
 
 
-class TrunkInventory extends Inventory {}
+class TrunkInventory extends Inventory
+{
+    function getSize() {
+        local size = base.getSize();
+        return { x = size.x, y = size.y + 40 };
+    }
+
+    function createGUI() {
+        base.createGUI();
+
+        local props = {
+            width  = 32.0,
+            height = 32.0,
+        };
+
+        local size = this.getSize();
+
+        // buttons
+        this.components["btn_close"] <- guiCreateElement(ELEMENT_TYPE_BUTTON, "Close trunk", 95, size.y - 65, props.width, props.height, false, this.handle );
+
+    }
+
+    function rawclick(element) {
+        foreach (idx, value in this.components) {
+            if (element != value) {
+                continue;
+            }
+
+            if (idx == "btn_close") {
+                trigger("inventory:close", this.id);
+                return true;
+            }
+        }
+
+        return false;
+    }
+}
 
 
 /**

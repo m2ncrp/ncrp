@@ -2,7 +2,9 @@ acmd(["vehicle"], function( playerid, id ) {
     local pos = getPlayerPosition( playerid );
     // local vehicle = createVehicle( id.tointeger(), pos[0] + 2.0, pos[1], pos[2] + 1.0, 0.0, 0.0, 0.0 );
     // setVehicleColour(vehicle, 0, 0, 0, 0, 0, 0);
-    local veh = defaultVehicle().setPosition(pos[0] + 2.0, pos[1], pos[2] + 1.0);
+    local veh = Vehicle().setPosition(pos[0] + 2.0, pos[1], pos[2] + 1.0);
+    veh.save();
+    vehicles.set(veh.id, veh);
     // veh.components.find("Hull").setModel( id.tointeger() );
     veh.spawn();
 });

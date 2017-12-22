@@ -24,7 +24,7 @@ class StorageItemContainer extends ItemContainer
     }
 
     function canBeInserted(item) {
-        if (this.parent.id == item.id || item instanceof Item.Storage) {
+        if ((this.parent.id == item.id && (this.parent.id != 0 || item.id != 0)) || item instanceof Item.Storage) {
             return false;
         }
         return base.canBeInserted(item);
@@ -36,12 +36,12 @@ class StorageItemContainer extends ItemContainer
      * @param {Item.Abstract} item
      */
     function set(key, item) {
-        if (this.parent.id != item.id && !(item instanceof Item.Storage)) {
+        // if (this.parent.id != item.id && !(item instanceof Item.Storage)) {
             item.parent = this.parent.id;
             return base.set(key, item);
-        } else {
-            throw "Can't storage into storage in StorageItemContainer.nut";
+        // } else {
+        //     throw "Can't storage into storage in StorageItemContainer.nut";
             //return false;
-        }
+        // }
     }
 }

@@ -15,33 +15,21 @@ class TrunkItemContainer extends ItemContainer
      * Create new instance
      * @return {TrunkItemContainer}
      */
-    constructor(item) {
+    constructor(vehicle) {
         base.constructor();
 
         this.id     = md5(this.tostring());
-        this.parent = item;
+        this.parent = vehicle;
         this.title  = "Vehicle trunk";
     }
 
-    // function canBeInserted(item) {
-    //     if (this.parent.id == item.id || item instanceof Item.Storage) {
-    //         return false;
-    //     }
-    //     return base.canBeInserted(item);
-    // }
+    function canBeInserted(item) {
+        dbg("trying to insert item");
+        return base.canBeInserted(item);
+    }
 
-    // /**
-    //  * Overrides for syncing
-    //  * @param {Mixed} key
-    //  * @param {Item.Abstract} item
-    //  */
-    // function set(key, item) {
-    //     if (this.parent.id != item.id && !(item instanceof Item.Storage)) {
-    //         item.parent = this.parent.id;
-    //         return base.set(key, item);
-    //     } else {
-    //         throw "Can't storage into storage in TrunkItemContainer.nut";
-    //         //return false;
-    //     }
-    // }
+    function set(key, item) {
+        item.parent = this.parent.id;
+        return base.set(key, item);
+    }
 }

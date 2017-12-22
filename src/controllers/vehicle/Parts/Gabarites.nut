@@ -82,7 +82,7 @@ class VehicleComponent.Gabarites extends VehicleComponent
         both_on = 3,
     }
 
-    constructor (data) {
+    constructor (data = null) {
         base.constructor(data);
 
         if (this.data == null) {

@@ -34,7 +34,7 @@ class VehicleComponent.Plate extends VehicleComponent
 {
     static classname = "VehicleComponent.Plate";
 
-    constructor (data) {
+    constructor (data = null) {
         base.constructor(data);
 
         if (this.data == null) {

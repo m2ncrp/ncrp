@@ -4,12 +4,12 @@ class VehicleComponent.Hull extends VehicleComponent
 
     limit = 1;
 
-    constructor(data) {
+    constructor(data = null) {
         dbg("called hull creation");
         base.constructor(data);
 
         if (this.data == null) {
-            this.data = {model = 0, color1 = 0, color2 = 0, dirt=1.0};
+            this.data = {id = 0, model = 0, color1 = 0, color2 = 0, dirt=1.0};
         }
     }
 
@@ -59,7 +59,7 @@ class VehicleComponent.Hull extends VehicleComponent
         local c2 = toRGBA(this.data.color2);
 
         setVehicleColour(this.parent.vehicleid, c1[0], c1[1], c1[2], c2[0], c2[1], c2[2]);
-        setVehicleDirtLevel(this.parent.vehicleid, this.data.dirt);
+        setVehicleDirtLevel(this.parent.vehicleid, this.data.dirt.tofloat());
 
         return true;
     }

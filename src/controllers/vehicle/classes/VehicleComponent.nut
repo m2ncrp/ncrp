@@ -10,7 +10,7 @@ class VehicleComponent
     parent      = null;
 
     constructor(data) {
-        this.id     = data.id;
+        this.id     = "id" in data ? data.id : null;
         this.data   = data;
     }
 
@@ -51,6 +51,10 @@ class VehicleComponent
      */
     function correct() {
         // Code
+    }
+
+    function save() {
+
     }
 
     function serialize() {

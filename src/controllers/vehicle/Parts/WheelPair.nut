@@ -8,14 +8,14 @@ class VehicleComponent.WheelPair extends VehicleComponent
         rear   = 2
     }
 
-    constructor (data) {
+    constructor (data = null) {
         base.constructor(data);
 
         if (this.data == null) {
             this.data = {
-                front  = getVehicleWheelTexture( this.parent.vehicleid, 0 ),
-                middle = getVehicleWheelTexture( this.parent.vehicleid, 1 ),
-                rear   = getVehicleWheelTexture( this.parent.vehicleid, 2 )
+                front  = 0,//getVehicleWheelTexture( this.parent.vehicleid, 0 ),
+                middle = 0,//getVehicleWheelTexture( this.parent.vehicleid, 1 ),
+                rear   = 0,//getVehicleWheelTexture( this.parent.vehicleid, 2 )
             }
         }
     }

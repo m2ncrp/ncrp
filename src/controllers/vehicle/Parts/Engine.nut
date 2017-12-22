@@ -18,7 +18,7 @@ class VehicleComponent.Engine extends VehicleComponent
 
     isTuneBeenSet = true;
 
-    constructor (data) {
+    constructor (data = null) {
         dbg("called engine creation");
         base.constructor(data);
 

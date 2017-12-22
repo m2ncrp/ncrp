@@ -2,7 +2,7 @@ class VehicleComponent.Lights extends VehicleComponent {
 
     static classname = "VehicleComponent.Lights";
 
-    constructor (data) {
+    constructor (data = null) {
         base.constructor(data);
 
         if (this.data == null) {

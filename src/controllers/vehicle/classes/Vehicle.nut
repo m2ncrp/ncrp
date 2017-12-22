@@ -10,6 +10,15 @@ class Vehicle extends ORM.Entity
         Spawned = 1,
     };
 
+    static Type = {
+        sedan = 0,
+        hetch = 1,
+        truck = 2,
+        trailer = 3,
+        bus = 4,
+        semitrailertruck = 5,
+    };
+
     static fields = [
         ORM.Field.Integer({ name = "ownerid",   value = -1 }),
         ORM.Field.Integer({ name = "state",     value = 0 }),
@@ -30,9 +39,35 @@ class Vehicle extends ORM.Entity
 
     hack = null;
 
-    constructor() {
+    constructor( type = null ) {
         base.constructor();
-        this.components = VehicleComponentContainer(this.components);
+        this.components = VehicleComponentContainer(this, this.components);
+
+        if (type == null) {
+            type = Vehicle.Type.sedan;
+        }
+        // common components
+        this.components.push(VehicleComponent.Hull());
+        this.components.push(VehicleComponent.FuelTank());
+        this.components.push(VehicleComponent.Engine());
+        this.components.push(VehicleComponent.Plate());
+        this.components.push(VehicleComponent.WheelPair());
+        this.components.push(VehicleComponent.Gabarites());
+        switch (type) {
+            case Type.sedan:
+            case Type.truck:
+            case Type.hetch:
+                this.components.push(VehicleComponent.Trunk());
+                this.components.push(VehicleComponent.Lights());
+                break;
+            case Type.trailer:
+                this.components.push(VehicleComponent.Trunk());
+                break;
+            case Type.bus:
+            case Type.semitrailertruck:
+                this.components.push(VehicleComponent.Lights());
+                break;
+        }
     }
 
     /**
@@ -42,8 +77,8 @@ class Vehicle extends ORM.Entity
      */
     function hydrate(data) {
         local entity = base.hydrate(data);
-        entity.components = VehicleComponentContainer(entity.components);
-        dbg(this);
+        entity.components = VehicleComponentContainer(entity, entity.components);
+        // dbg(this);
         return entity;
     }
 
@@ -53,10 +88,15 @@ class Vehicle extends ORM.Entity
      * @return {Boolean}
      */
     function save() {
+        // due to refresh our local position in DB
+        this.getPosition();
+        this.getRotation();
         local temp = this.components;
         this.components = this.components.serialize();
         base.save();
         this.components = temp;
+
+        this.components.map( function(component) {component.save();});
         return true;
     }
 
@@ -85,7 +125,7 @@ class Vehicle extends ORM.Entity
             return this;
         }
 
-        if (vargv[0] instanceof vector3) {
+        if (vargv[0] instanceof Vector3) {
             this.x = vargv[0].x;
             this.y = vargv[0].y;
             this.z = vargv[0].z;
@@ -95,7 +135,7 @@ class Vehicle extends ORM.Entity
             return this;
         }
 
-        dbg("player", "setPosition", "arguments are invalid", vargv);
+        dbg("vehicle", "setPosition", "arguments are invalid", vargv);
         return this;
     }
 
@@ -113,9 +153,48 @@ class Vehicle extends ORM.Entity
         }
 
         // todo: refactor
-        return vector3(this.x, this.y, this.z);
+        return Vector3(this.x, this.y, this.z);
     }
 
+    function setRotation(...) {
+        if (vargv.len() == 3) {
+            this.rx = vargv[0].tofloat();
+            this.ry = vargv[1].tofloat();
+            this.rz = vargv[2].tofloat();
+
+            if (this.state == this.State.Spawned)
+                setVehicleRotation(this.vehicleid, this.rx, this.ry, this.rz);
+
+            return this;
+        }
+
+        if (vargv[0] instanceof Vector3) {
+            this.rx = vargv[0].x;
+            this.ry = vargv[0].y;
+            this.rz = vargv[0].z;
+
+            if (this.state == this.State.Spawned)
+                setVehicleRotation(this.vehicleid, this.rx, this.ry, this.rz);
+            return this;
+        }
+
+        dbg("vehicle", "setRotation", "arguments are invalid", vargv);
+        return this;
+    }
+
+
+    function getRotation() {
+        if (this.state == this.State.Spawned) {
+            local rotation = getVehicleRotation(this.vehicleid);
+
+            this.rx = rotation[0];
+            this.ry = rotation[1];
+            this.rz = rotation[2];
+        }
+
+        // todo: refactor
+        return Vector3(this.rx, this.ry, this.rz);
+    }
     /**
      * Spawning vehicle from local object data
      * @return {Boolean}
@@ -172,8 +251,15 @@ class Vehicle extends ORM.Entity
             foreach (idx, component in this.components) {
                 component.correct();
             }
+            // if (isVehicleEmpty(this)) {
+            //     this.setPosition( this.getPosition() );
+            // }
             return true;
         }
         return false;
+    }
+
+    function initAllComponents() {
+        this.components.add(component.id, entityClass(component));
     }
 }

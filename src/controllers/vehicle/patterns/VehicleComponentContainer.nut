@@ -1,11 +1,15 @@
 class VehicleComponentContainer extends Container
 {
+
+    __parent = null;
+
     /**
      * Create new instance
      * @return {VehicleComponentContainer}
      */
-    constructor(jsondata) {
+    constructor( parent, jsondata) {
         base.constructor();
+        this.__parent = parent;
         this.__interface = VehicleComponent;
 
         local data = JSONParser.parse(str_replace("\\\\", "", jsondata));
@@ -28,7 +32,14 @@ class VehicleComponentContainer extends Container
             throw "VehicleContainer: Cannot insert more entities of this type!";
         }
 
+        component.id = id;
+        component.parent = this.__parent;
+
         return base.add(id, component);
+    }
+
+    function push(component) {
+        return this.add(this.len(), component);
     }
 
     /**

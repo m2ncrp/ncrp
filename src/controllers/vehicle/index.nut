@@ -191,6 +191,8 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     // add player as a vehicle passenger
     addVehiclePassenger(vehicle, playerid, seat);
 
+    vehicle.save();
+
     return 1;
 });
 
@@ -203,10 +205,14 @@ event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     removeVehiclePassenger(vehicle, playerid, seat);
     // correct state of all the vehicle components
     vehicle.hack.OnExit(seat);
+    vehicle.save();
     return 1;
 });
 
 
+event(["onServerStopping", "onServerAutosave"], function() {
+    vehicles.map(function(vehicle) { vehicle.save() });
+});
 
 event("onServerMinuteChange", function() {
     foreach (vehicle in vehicles) {
