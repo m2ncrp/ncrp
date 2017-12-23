@@ -54,6 +54,7 @@ local translations = {
         "action:use"            : "Use",
         "action:takeInHand"     : "Take in hand",
         "action:throwToGround"  : "Throw to the ground",
+        "action:close"          : "Close",
 
         "Item.None"             : ""
         "Item.Revolver12"       : "Revolver 12"
@@ -102,6 +103,8 @@ local translations = {
         "Item.FirstAidKit"      : "First aid kit"
         "Item.Passport"         : "Passport"
         "Item.PoliceBadge"      : "Police badge"
+        "Item.Gift"             : "Gift"
+        "Item.Box"              : "Box"
 
         "Item.BigBreakRed"      :  "Big Break Red"
         "Item.BigBreakBlue"     :  "Big Break Blue"
@@ -116,6 +119,7 @@ local translations = {
         "action:use"            : "Использовать",
         "action:takeInHand"     : "Взять в руку",
         "action:throwToGround"  : "Бросить на землю",
+        "action:close"          : "Закрыть",
 
         "Item.None"             : ""
         "Item.Revolver12"       : "Revolver 12"
@@ -164,6 +168,8 @@ local translations = {
         "Item.FirstAidKit"      : "Аптечка"
         "Item.Passport"         : "Паспорт"
         "Item.PoliceBadge"      : "Полицейский жетон"
+        "Item.Gift"             : "Подарок"
+        "Item.Box"              : "Ящик"
 
         "Item.BigBreakRed"    : "Big Break Red"
         "Item.BigBreakBlue"   : "Big Break Blue"
@@ -647,7 +653,7 @@ class StorageInventory extends Inventory
 
     function getSize() {
         local size = base.getSize();
-        return { x = size.x, y = size.y + 40 };
+        return { x = size.x, y = size.y + 30 };
     }
 
     function getOriginalSize() {
@@ -671,7 +677,7 @@ class StorageInventory extends Inventory
         local size = this.getSize();
 
         // buttons
-        this.components["btn_close"] <- guiCreateElement(ELEMENT_TYPE_BUTTON, "Close Box", 0, size.y - 30, props.width, props.height, false, this.handle );
+        this.components["btn_close"] <- guiCreateElement(ELEMENT_TYPE_BUTTON, translations[playerLang]["action:close"], size.x / 2 - 38, size.y - 31, 76.0, 24.0, false, this.handle );
 
     }
 

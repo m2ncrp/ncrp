@@ -106,6 +106,9 @@ alternativeTranslate({
     "en|Item.FirstAidKit"      : "First aid kit"
     "en|Item.Passport"         : "Passport"
     "en|Item.PoliceBadge"      : "Police badge"
+    "en|Item.Gift"             : "Gift"
+    "en|Item.Box"              : "Box"
+
 
     "en|Item.BigBreakRed"      :  "Big Break Red"
     "en|Item.BigBreakBlue"     :  "Big Break Blue"
@@ -163,6 +166,9 @@ alternativeTranslate({
     "ru|Item.FirstAidKit"      : "Аптечка"
     "ru|Item.Passport"         : "Паспорт"
     "ru|Item.PoliceBadge"      : "Полицейский жетон"
+    "ru|Item.Gift"             : "Подарок"
+    "ru|Item.Box"              : "Ящик"
+
 
     "ru|Item.BigBreakRed"    : "Big Break Red"
     "ru|Item.BigBreakBlue"   : "Big Break Blue"

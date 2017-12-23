@@ -69,7 +69,7 @@ class PlayerItemContainer extends ItemContainer
     // не подбирать подарок, если уже был подобран
     function canBeInserted(item) {
         if (item instanceof Item.Gift) {
-            if(this.parent.getData("gift")) {
+            if(this.parent.getData("gift-ny18")) {
                 return false;
             }
         }
