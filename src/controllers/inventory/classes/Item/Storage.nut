@@ -28,6 +28,7 @@ class Item.Storage extends Item.Abstract
             this.load();
         }
 
+        this.container.title = plocalize(playerid, this._entity);
         this.container.toggle(playerid);
     }
 
