@@ -8,6 +8,7 @@ include("modules/shops/clothesshop");
 include("modules/shops/carpaint");
 include("modules/shops/cardealer");
 include("modules/shops/kiosks");
+include("modules/shops/santa-klaus");
 /*
 key("7", function(playerid) {
       triggerClientEvent(playerid, "showShopGUI");

@@ -91,6 +91,8 @@ local TRANSLATIONS = {
         "Item.FirstAidKit"      : "First aid kit"
         "Item.Passport"         : "Passport"
         "Item.PoliceBadge"      : "Police badge"
+        "Item.Gift"             : "Gift"
+        "Item.Box"              : "Box"
 
         "Item.BigBreakRed"      : "Big Break Red"
         "Item.BigBreakBlue"     : "Big Break Blue"
@@ -150,6 +152,8 @@ local TRANSLATIONS = {
         "Item.FirstAidKit"      : "Аптечка"
         "Item.Passport"         : "Паспорт"
         "Item.PoliceBadge"      : "Полицейский жетон"
+        "Item.Gift"             : "Подарок"
+        "Item.Box"              : "Ящик"
 
         "Item.BigBreakRed"      : "Big Break Red"
         "Item.BigBreakBlue"     : "Big Break Blue"
