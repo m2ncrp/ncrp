@@ -5,7 +5,7 @@ class VehicleComponent.FuelTank extends VehicleComponent
     static classname = "VehicleComponent.FuelTank";
 
     constructor (data = null) {
-        dbg("called fuel tank creation");
+        // dbg("called fuel tank creation");
         base.constructor(data);
 
         if (this.data == null) {
@@ -14,8 +14,8 @@ class VehicleComponent.FuelTank extends VehicleComponent
                 fuellevel = 40.0
             }
         }
-        dbg("Volume for THIS veh is " + this.data.volume +
-                    "/" + this.data.fuellevel);
+        // dbg("Volume for THIS veh is " + this.data.volume +
+        //             "/" + this.data.fuellevel);
     }
 
     // Returns fuel level by the Server

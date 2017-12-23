@@ -1,9 +1,9 @@
-// 
-// Should be independent module that loads data only from database 
+//
+// Should be independent module that loads data only from database
 // or include some by itself (if it's static in game data, such as subway stations).
-// 
+//
 // PROBLEM: if there's no TRAIT on mod module won't work at all
-// 
+//
 
 local bisnessies     = {};
 local jobs           = {};
@@ -22,13 +22,13 @@ event("onServerStarted", function() {
     });
 
     // Load jobs pos
-    // 
+    //
     // Load fuel station pos
-    // 
+    //
     // Load car rent pos
-    // 
+    //
     // Load car washes pos
-    // 
+    //
     // Load subway station pos
 });
 

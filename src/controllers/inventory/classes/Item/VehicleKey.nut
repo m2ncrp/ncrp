@@ -5,7 +5,7 @@ class Item.VehicleKey extends Item.Abstract
 
     constructor () {
         base.constructor();
-        this.correct();
+        this.dataCorrection();
     }
 
     /**
@@ -28,7 +28,7 @@ class Item.VehicleKey extends Item.Abstract
         msg(playerid, "Item.VehicleKey", CL_HELP_TITLE);
         // local vehicleid = getVehicleIdFromEntityId(this.data.id);
         // msg(playerid, getVehiclePlateText(vehicleid)+" - "+getVehicleNameByModelId( getVehicleModel(vehicleid) ), CL_WHITE);
-        msg(playerid, " - " + this.data.id, CL_WHITE);
+        msg(playerid, "  - " + this.data.id, CL_WHITE);
     }
 
     function setParentId(newParentId) {

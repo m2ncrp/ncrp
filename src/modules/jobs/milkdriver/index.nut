@@ -78,7 +78,7 @@ event("onServerStarted", function() {
     // milktrucks[i][0] - Truck ready: true/false
     // milktrucks[i][1] - milk load: integer
     //milktrucks[createVehicle(19, 172.868, 436, -20.04, -178.634, 0.392045, -0.829271)]  <- 0 ;
-    milktrucks[createVehicle(19, 168.812, 436, -20.04, 179.681, 0.427494, -0.637235)]  <- 0 ;
+    milktrucks[createVehicle(19, 168.812, 436.0, -20.04, 179.681, 0.427494, -0.637235)]  <- 0 ;
 
     //creating 3dtext for milk ferm
     create3DText ( MILK_JOB_X, MILK_JOB_Y, MILK_JOB_Z+0.35, "EMPIRE BAY MILK CO.", CL_ROYALBLUE );

@@ -22,6 +22,13 @@ class VehicleContainer extends Container
         return this.add(this.len(), object);
     }
 
+    /*
+        Swap two vehicles by its vehiclesid
+     */
+    function swap(object) {
+        // code
+    }
+
     /**
      * Find nearest vehicle id to particular player
      * @param  {Integer} playerid

@@ -245,12 +245,6 @@ acmd(["clean"], function( playerid, targetid = null ) {
 //     return veh.engine.action();
 // });
 
-key("u", function(playerid) {
-    local vehicleid = vehicles.nearestVehicle(playerid);
-    local eng = vehicles[vehicleid].components.findOne(VehicleComponent.Engine);
-    return eng.correct();
-});
-
 // addKeyboardHandler("r", "up", function(playerid) {
 //     switchLights(playerid);
 // });
@@ -326,8 +320,26 @@ key("u", function(playerid) {
 // });
 
 
-acmd(["get", "keys"], function( playerid, vehicleid = -2 ) {
+
+function keyCreation(playerid, vehicleid) {
     local VKey = Item.VehicleKey();
     players[playerid].inventory.push(VKey);
     VKey.setParentId( vehicleid );
+}
+
+
+acmd(["get", "keys"], function( playerid, vehicleid = -2 ) {
+    keyCreation(playerid, vehicleid);
+    // msg();
+});
+
+
+/**
+ * Create key for given vehicle by its DB id and five it to player with targetid
+ */
+acmd(["replicate", "keys"], function( playerid, vehicleid, targetid ) {
+    local VKey = Item.VehicleKey();
+    players[playerid].inventory.push(VKey);
+    VKey.setParentId( vehicleid );
+    // msg();
 });

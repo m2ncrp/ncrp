@@ -195,6 +195,8 @@ class Vehicle extends ORM.Entity
         // todo: refactor
         return Vector3(this.rx, this.ry, this.rz);
     }
+
+
     /**
      * Spawning vehicle from local object data
      * @return {Boolean}
@@ -251,9 +253,6 @@ class Vehicle extends ORM.Entity
             foreach (idx, component in this.components) {
                 component.correct();
             }
-            // if (isVehicleEmpty(this)) {
-            //     this.setPosition( this.getPosition() );
-            // }
             return true;
         }
         return false;

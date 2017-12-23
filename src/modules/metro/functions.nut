@@ -59,7 +59,7 @@ function setMetroStationStatus(stationID, close) {
     } else {
         metroInfos[stationID][9] = METRO_KEY_AVALIABLE;
     }
-    
+
 }
 
 /**
@@ -76,7 +76,7 @@ function travelToStation( playerid, stationID ) {
     if (stationID == null) {
         return metroShowListStations(playerid);
     }
-    
+
     local stationID = toInteger(stationID).tointeger() - 1;
 
     if (stationID < METRO_HEAD || stationID > METRO_TAIL) {
@@ -123,7 +123,7 @@ function onTavelToStation(playerid, id) {
     togglePlayerControls( playerid, true );
     screenFadeinFadeout(playerid, travelTime, function() {
         subMoneyToPlayer(playerid, METRO_TICKET_COST); // don't forget took money for ticket ~ 25 cents
-        addMoneyToTreasury(METRO_TICKET_COST);
+        // addMoneyToTreasury(METRO_TICKET_COST);
         msg(playerid, "metro.pay", METRO_TICKET_COST );
         msg(playerid, "metro.arrived", plocalize(playerid, metroInfos[id][10]) );
         setPlayerPosition(playerid, metroInfos[id][0], metroInfos[id][1], metroInfos[id][2]);
