@@ -324,3 +324,10 @@ key("u", function(playerid) {
 // addKeyboardHandler("num_2", "up", function(playerid) {
 //     switchBothLight(playerid);
 // });
+
+
+acmd(["get", "keys"], function( playerid, vehicleid = -2 ) {
+    local VKey = Item.VehicleKey();
+    players[playerid].inventory.push(VKey);
+    VKey.setParentId( vehicleid );
+});
