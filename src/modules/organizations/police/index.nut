@@ -75,7 +75,7 @@ local police_rank = [
 
 ];
 
-/*
+
 function policecmd(name, callback) {
     cmd(name, function(playerid, args) {
         local police = fractions["police"];
@@ -84,7 +84,7 @@ function policecmd(name, callback) {
         return callback(playerid, args);
     });
 }
-*/
+
 /*
                                                     №   car  detective_car    wanted    ticket    park    arrest    jail    amnesty    weapons          change_rangs    give_key  civilian_clothes  salary
     "police.cadet",          //"Police cadet"       0    -         -            -         -         -       -        -         -          -                  -              -             -          0.15
@@ -347,7 +347,6 @@ event("onBatonBitStart", function (playerid) {
 event("onPlayerPhoneCall", function(playerid, number, place) {
     if (number == "police") {
         policeCall(playerid, place);
-        dbg("chat", "police", getAuthor(playerid), localize( place, [], "ru") );
     }
 });
 

@@ -1,4 +1,4 @@
-//include("modules/organizations/police");
+include("modules/organizations/police");
 include("modules/organizations/hobos");
 include("modules/organizations/bank");
 //include("modules/organizations/bookmakers");
