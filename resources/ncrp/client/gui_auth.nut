@@ -65,14 +65,14 @@ local logos = [
     }
 ];
 
+function random(min = 0, max = RAND_MAX) {
+    return (rand() % ((max + 1) - min)) + min;
+}
+
 local logorand = random(1, logos.len()-1);
 //local logorand = 1;
 
 //image = guiCreateElement(13, "logo.png", screen[0]/2 - 203.0, screen[1]/2 - 145.0, 406.0, 266.0);
-
-function random(min = 0, max = RAND_MAX) {
-    return (rand() % ((max + 1) - min)) + min;
-}
 
 function showAuthGUI(windowLabel,labelText,inputText,buttonText, helpText){
     //setPlayerPosition( getLocalPlayer(), -412.0, 1371.0, 36.0 );
