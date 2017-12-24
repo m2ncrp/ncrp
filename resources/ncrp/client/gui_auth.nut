@@ -65,8 +65,8 @@ local logos = [
     }
 ];
 
-//local logorand = random(1, logos.len()-1);
-local logorand = 1;
+local logorand = random(1, logos.len()-1);
+//local logorand = 1;
 
 //image = guiCreateElement(13, "logo.png", screen[0]/2 - 203.0, screen[1]/2 - 145.0, 406.0, 266.0);
 
