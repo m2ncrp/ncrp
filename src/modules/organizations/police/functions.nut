@@ -8,7 +8,23 @@ function policeCall(playerid, place) {
         return msg(playerid, "organizations.police.call.withoutaddress");
     }
 
+    local policeOfficersOnline = false;
+
+    if(police.len() > 0) {
+        foreach (player in police) {
+            if(player.onduty == true) {
+                policeOfficersOnline = true;
+            }
+        }
+    }
+
+    if(!policeOfficersOnline) {
+        return msg(playerid, "organizations.police.call.no", [], CL_ROYALBLUE);
+    }
+
     msg(playerid, "organizations.police.call.foruser", [ plocalize(playerid, place) ], CL_ROYALBLUE);
+    dbg("chat", "police", getAuthor(playerid), localize( place, [], "ru") );
+
     local pos = getPlayerPositionObj(playerid);
 
     foreach (player in players) {
