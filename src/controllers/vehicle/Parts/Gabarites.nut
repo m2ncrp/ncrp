@@ -1,226 +1,106 @@
-// class SwitchableVehiclePart
-// {
-//     vehicleID = null;  // points which one is parent
-//     id = null;
-//     switchState = null;
+enum Gabarite_States {
+    both_off,   // 0
+    left_on,    // 1
+    right_on,   // 2
+    both_on     // 3
+}
 
-//     constructor (vehicleID, partID, state = 0) {
-//         this.vehicleID = vehicleID;
-//         this.id = partID;
-//         this.switchState = state;
-//     }
-
-//     function getState() {
-//         return this.switchState;
-//     }
-
-//     function setState( to ) {
-//         this.switchState = to;
-//     }
-
-//     function switches() {
-//         setState( !this.switchState );
-//     }
-
-//     function correct() {
-//         if (this.switchState) {
-//             setState( true );
-//         } else {
-//             setState( false );
-//         }
-//     }
-// }
-
-// class Indicator extends SwitchableVehiclePart
-// {
-
-//     constructor (vehicleID, side) {
-//         base.constructor(vehicleID, side, false);
-//     }
-
-//     // Works only if player in vehicle
-//     // Returns true if indicator's on, otherwise return false
-//     function getState() {
-//         local native = getIndicatorLightState(this.vehicleID, this.id);
-//         return this.switchState || native;
-//     }
-
-//     function setState(to) {
-//         setIndicatorLightState(this.vehicleID, this.id, to);
-//         base.setState(to);
-//     }
-
-//     function partSwitch() {
-//         setState( !this.switchState );
-//     }
-
-//     function turnOff() {
-//         setState(false);
-//     }
-
-//     function turnOn() {
-//         setState(true);
-//     }
-// }
-//
-
-// local audio_library = {
-//     track = null, //"https://wav-library.net/effect/pack-13/Povorotnik_tikaet.mp3"
-//     status = false,
-//     objectid = null
-// };
-
-
-class VehicleComponent.Gabarites extends VehicleComponent
-{
-    static classname = "VehicleComponent.Gabarites";
-
-    static Gabarite_States = {
-        both_off = 0,
-        left_on = 1,
-        right_on = 2,
-        both_on = 3,
-    }
-
-    constructor (data = null) {
-        base.constructor(data);
-
-        if (this.data == null) {
-            this.data = {
-                status = Gabarite_States.both_off
-            }
-        }
+class Gabarites {
+    left = null;
+    right = null;
+    current_state = null;
+    
+    constructor (vehicleID) {
+        left = Indicator(vehicleID, INDICATOR_LEFT);
+        right = Indicator(vehicleID, INDICATOR_RIGHT);
+        this.current_state = Gabarite_States.both_off;
     }
 
     function switchBoth() {
-        if( this.data.status == Gabarite_States.both_on) {
-            this.data.status = Gabarite_States.both_off;
-            this.correct();
+        if( current_state == Gabarite_States.both_on) {
+            left.setState(false);
+            right.setState(false);
+            current_state = Gabarite_States.both_off;
         } else {
-            data.status = Gabarite_States.both_on;
-            this.correct();
+            left.setState(true);
+            right.setState(true);
+            current_state = Gabarite_States.both_on;
         }
     }
 
     function switchLeft() {
-        if (this.data.status == Gabarite_States.both_on) {
-            this.data.status = Gabarite_States.left_on;
-            this.correct();
+        if (current_state == Gabarite_States.both_on) {
+            right.turnOff();
+            current_state = Gabarite_States.both_off;
             return;
         }
 
-        if (this.data.status == Gabarite_States.both_off) {
-            this.data.status = Gabarite_States.left_on;
-            this.correct();
+        if (current_state == Gabarite_States.both_off) {
+            left.partSwitch();
+            current_state = Gabarite_States.left_on;
             return;
         }
 
-        if (this.data.status == Gabarite_States.right_on) {
-            this.data.status = Gabarite_States.left_on;
-            this.correct();
+        if (current_state == Gabarite_States.right_on) {
+            right.turnOff();
+            left.partSwitch();
+            current_state = Gabarite_States.left_on;
             return;
         }
 
-        if(this.data.status == Gabarite_States.left_on) {
-            this.data.status = Gabarite_States.both_off;
-            this.correct();
+        if(current_state == Gabarite_States.left_on) {
+            left.partSwitch();
+            current_state = Gabarite_States.both_off;
             return;
         }
     }
 
     function switchRight() {
-        if (this.data.status == Gabarite_States.both_on) {
-            this.data.status = Gabarite_States.right_on;
-            this.correct();
+        if (current_state == Gabarite_States.both_on) {
+            left.turnOff();
+            current_state = Gabarite_States.right_on;
             return;
         }
 
-        if (this.data.status == Gabarite_States.both_off) {
-            this.data.status = Gabarite_States.right_on;
-            this.correct();
+        if (current_state == Gabarite_States.both_off) {
+            right.partSwitch();
+            current_state = Gabarite_States.right_on;
             return;
         }
 
-        if(this.data.status == Gabarite_States.left_on) {
-            this.data.status = Gabarite_States.right_on;
-            this.correct();
+        if(current_state == Gabarite_States.left_on) {
+            left.turnOff();
+            right.partSwitch();
+            current_state = Gabarite_States.right_on;
             return;
         }
 
-        if (this.data.status == Gabarite_States.right_on) {
-            this.data.status = Gabarite_States.both_off;
-            this.correct();
+        if (current_state == Gabarite_States.right_on) {
+            right.partSwitch();
+            current_state = Gabarite_States.both_off;
             return;
         }
     }
 
-
     function correct() {
-        if (this.data.status == Gabarite_States.both_on) {
-            setIndicatorLightState(this.parent.vehicleid, INDICATOR_LEFT, true);
-            setIndicatorLightState(this.parent.vehicleid, INDICATOR_RIGHT, true);
+        if (current_state == Gabarite_States.both_on) {
+            right.turnOn();
+            left.turnOn();
         }
 
-        if (this.data.status == Gabarite_States.both_off) {
-            setIndicatorLightState(this.parent.vehicleid, INDICATOR_LEFT, false);
-            setIndicatorLightState(this.parent.vehicleid, INDICATOR_RIGHT, false);
+        if (current_state == Gabarite_States.both_off) {
+            right.turnOff();
+            left.turnOff();
         }
 
-        if(this.data.status == Gabarite_States.left_on) {
-            setIndicatorLightState(this.parent.vehicleid, INDICATOR_RIGHT, false);
-            setIndicatorLightState(this.parent.vehicleid, INDICATOR_LEFT, true);
+        if(current_state == Gabarite_States.left_on) {
+            right.turnOff();
+            left.turnOn();
         }
 
-        if (this.data.status == Gabarite_States.right_on) {
-            setIndicatorLightState(this.parent.vehicleid, INDICATOR_LEFT, false);
-            setIndicatorLightState(this.parent.vehicleid, INDICATOR_RIGHT, true);
+        if (current_state == Gabarite_States.right_on) {
+            right.turnOn();
+            left.turnOff();
         }
     }
 }
-
-
-key("z", function(playerid) {
-    if (!isPlayerInVehicle(playerid)) {
-        return;
-    }
-    local vehicleid = getPlayerVehicleid(playerid);
-    local gabs = vehicles[vehicleid].components.findOne(VehicleComponent.Gabarites);
-
-    // if engine is in its place and has expected obj type
-    if ((gabs || (gabs instanceof VehicleComponent.Gabarites))) {
-        gabs.switchLeft();
-        triggerClientEvent(playerid, "indicator_check", gabs.parent.vehicleid, gabs.data.status);
-    }
-});
-
-
-key("x", function(playerid) {
-    if (!isPlayerInVehicle(playerid)) {
-        return;
-    }
-
-    local vehicleid = getPlayerVehicleid(playerid);
-    local gabs = vehicles[vehicleid].components.findOne(VehicleComponent.Gabarites);
-
-    // if engine is in its place and has expected obj type
-    if ((gabs || (gabs instanceof VehicleComponent.Gabarites))) {
-        gabs.switchBoth();
-        triggerClientEvent(playerid, "indicator_check", gabs.parent.vehicleid, gabs.data.status);
-    }
-});
-
-
-key("c", function(playerid) {
-    if (!isPlayerInVehicle(playerid)) {
-        return;
-    }
-
-    local vehicleid = getPlayerVehicleid(playerid);
-    local gabs = vehicles[vehicleid].components.findOne(VehicleComponent.Gabarites);
-
-    // if engine is in its place and has expected obj type
-    if ((gabs || (gabs instanceof VehicleComponent.Gabarites))) {
-        gabs.switchRight();
-        triggerClientEvent(playerid, "indicator_check", gabs.parent.vehicleid, gabs.data.status);
-    }
-});

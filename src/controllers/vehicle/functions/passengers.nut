@@ -1,12 +1,14 @@
-include("controllers/vehicle/classes/Vehicle_hack.nut");
+local passengers = {};
 
 /**
  * Iterate over all players
  * and fill array with ones that are passangers
  */
 function updateVehiclePassengers() {
-    foreach (vehicle in vehicles) {
-        foreach (seat, playerid in vehicle.passengers) {
+    foreach (vehicleid, value in __vehicles) {
+        if (!(vehicleid in passengers)) continue;
+
+        foreach (seat, playerid in passengers[vehicleid]) {
             if (!isPlayerConnected(playerid)) {
                 passengers[vehicleid][seat] = -1;
             }
@@ -19,13 +21,13 @@ function updateVehiclePassengers() {
  * @param {int} vehicleid
  * @param {int} playerid
  */
-function addVehiclePassenger(vehicleObj, playerid, seat) {
-    if (vehicleObj.passengers == null) {
-        vehicleObj.passengers = array(4, -1);
+function addVehiclePassenger(vehicleid, playerid, seat) {
+    if (!(vehicleid in passengers)) {
+        passengers[vehicleid] <- array(4, -1);
     }
 
     // push player to vehicle
-    vehicleObj.passengers[seat] = playerid;
+    passengers[vehicleid][seat] = playerid;
     return true;
 }
 
@@ -34,35 +36,35 @@ function addVehiclePassenger(vehicleObj, playerid, seat) {
  * @param {int} vehicleid
  * @param {int} playerid
  */
-function removeVehiclePassenger(vehicleObj, playerid, seat) {
-    if (vehicleObj.passengers == null) {
+function removeVehiclePassenger(vehicleid, playerid, seat) {
+    if (!(vehicleid in passengers)) {
         return;
     }
 
     // migrate passanger to driver
-    if (seat == 0 && vehicleObj.passengers[1] != -1) {
-        vehicleObj.passengers[0] = vehicleObj.passengers[1];
-        vehicleObj.passengers[1] = -1;
+    if (seat == 0 && passengers[vehicleid][1] != -1) {
+        passengers[vehicleid][0] = passengers[vehicleid][1];
+        passengers[vehicleid][1] = -1;
         return true;
     }
 
-    vehicleObj.passengers[seat] = -1;
+    passengers[vehicleid][seat] = -1;
     return true;
 }
 
 /**
  * Return all players in particular vehicle
- * @param  {obj} vehicleObj
+ * @param  {int} vehicleid
  * @return {array}
  */
-function getVehiclePassengers(vehicleObj) {
+function getVehiclePassengers(vehicleid) {
     local table = {};
 
-    if (!!vehicleObj) {
+    if (!(vehicleid in passengers)) {
         return table;
     }
 
-    foreach (seat, playerid in vehicleObj.passengers) {
+    foreach (seat, playerid in passengers[vehicleid]) {
         if (playerid == -1) continue;
         table[seat] <- playerid;
     }
@@ -72,20 +74,20 @@ function getVehiclePassengers(vehicleObj) {
 
 /**
  * Return count of all players in particular vehicle
- * @param  {obj} vehicleObj
+ * @param  {int} vehicleid
  * @return {int}
  */
-function getVehiclePassengersCount(vehicleObj) {
-    return (vehicleObj.passengers == null) ? 0 : vehicleObj.passengers.len();
+function getVehiclePassengersCount(vehicleid) {
+    return (getVehiclePassengers(vehicleid).len());
 }
 
 /**
  * Return if vehicle empty
- * @param  {obj}  vehicleObj
+ * @param  {int}  vehicleid
  * @return {Boolean}
  */
-function isVehicleEmpty(vehicleObj) {
-    return (getVehiclePassengersCount(vehicleObj) < 1);
+function isVehicleEmpty(vehicleid) {
+    return (getVehiclePassengersCount(vehicleid) < 1);
 }
 
 /**
@@ -101,7 +103,7 @@ function getPlayerVehicleSeat(playerid) {
 
     local vehicleid  = getPlayerVehicle(playerid);
 
-    foreach (seat, targetid in vehicles[vehicleid].passengers) {
+    foreach (seat, targetid in passengers[vehicleid]) {
         if (playerid == targetid) return seat;
     }
 
@@ -146,9 +148,9 @@ function getVehicleDriver(vehicleid) {
  * @param  {[type]}  vehicleid [description]
  * @return {int}
  */
-// function getVehiclePassenger(vehicleid) {
-//     if (0 in getVehiclePassengers(vehicleid)) {
-//         return getVehiclePassengers(vehicleid)[1];
-//     }
-//     return null;
-// }
+function getVehiclePassenger(vehicleid) {
+    if (0 in getVehiclePassengers(vehicleid)) {
+        return getVehiclePassengers(vehicleid)[1];
+    }
+    return null;
+}

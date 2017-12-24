@@ -1,26 +1,18 @@
-class VehicleComponent.Lights extends VehicleComponent {
-
-    static classname = "VehicleComponent.Lights";
-
-    constructor (data = null) {
-        base.constructor(data);
-
-        if (this.data == null) {
-            this.data = {
-                status = false
-            }
-        }
+class Lights extends SwitchableVehiclePart {
+    
+    constructor (vehicleID) {
+        base.constructor(vehicleID, null, false);
     }
 
     function getState() {
-        // log( status.tostring() +"~"+ getVehicleLightState(vehicleID).tostring() );
-        local native = getVehicleLightState(this.parent.vehicleid);
-        return native || status;
+        // log( state.tostring() +"~"+ getVehicleLightState(vehicleID).tostring() );
+        local native = getVehicleLightState(vehicleID);
+        return native || state;
     }
 
     function setState(to) {
-        this.data.status = to;
-        this.correct();
+        setVehicleLightState( vehicleID, to);
+        base.setState( to );
     }
 
     /**
@@ -30,18 +22,4 @@ class VehicleComponent.Lights extends VehicleComponent {
     function isBroken() {
         return false;
     }
-
-    function correct() {
-        setVehicleLightState( this.parent.vehicleid, this.data.status);
-    }
 }
-
-key("r", function(playerid) {
-    if (!isPlayerInVehicle(playerid)) {
-        return;
-    }
-
-    local vehicleid = getPlayerVehicleid(playerid);
-    local lights = vehicles[vehicleid].components.findOne(VehicleComponent.Lights);
-    return lights.setState( !lights.data.status );
-});

@@ -1,10 +1,12 @@
 local storage = null;
 local ground  = null;
 
-event("onServerStarted", function() {
+event("onScriptInit", function() {
     ground  = GroundItems();
     storage = Container(ItemContainer);
+});
 
+event("onServerStarted", function() {
     Item.findBy({ state = Item.State.GROUND }, function(err, items) {
         ground.extend(items);
     });

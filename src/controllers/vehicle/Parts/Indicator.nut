@@ -1,38 +1,5 @@
-class SwitchableVehiclePart
-{
-    vehicleID = null;  // points which one is parent
-    id = null;
-    switchState = null;
-
-    constructor (vehicleID, partID, state = 0) {
-        this.vehicleID = vehicleID;
-        this.id = partID;
-        this.switchState = state;
-    }
-
-    function getState() {
-        return this.switchState;
-    }
-
-    function setState( to ) {
-        this.switchState = to;
-    }
-
-    function switches() {
-        setState( !this.switchState );
-    }
-
-    function correct() {
-        if (this.switchState) {
-            setState( true );
-        } else {
-            setState( false );
-        }
-    }
-}
-
 class Indicator extends SwitchableVehiclePart {
-
+    
     constructor (vehicleID, side) {
         base.constructor(vehicleID, side, false);
     }

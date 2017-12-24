@@ -1,219 +1,261 @@
+include("controllers/vehicle/functions");
 include("controllers/vehicle/commands.nut");
-include("controllers/vehicle/functions/passengers.nut");
+include("controllers/vehicle/modelName.nut");
+include("controllers/vehicle/translations.nut");
+//include("controllers/vehicle/hiddencars.nut");
 
+const VEHICLE_RESPAWN_TIME      = 300; // 5 (real) minutes
 const VEHICLE_FUEL_DEFAULT      = 40.0;
+const VEHICLE_MIN_DIRT          = 0.25;
+const VEHICLE_MAX_DIRT          = 0.75;
+const VEHICLE_DEFAULT_OWNER     = "";
+const VEHICLE_OWNERSHIP_NONE    = 0;
+const VEHICLE_OWNERSHIP_SINGLE  = 1;
+const VEHICLE_OWNER_CITY        = "__cityNCRP";
 
-include("controllers/vehicle/dep_functions/blocking.nut");
-include("controllers/vehicle/dep_functions/models.nut");
-include("controllers/vehicle/dep_functions/colors.nut");
-include("controllers/vehicle/dep_functions/engine.nut");
-include("controllers/vehicle/dep_functions/fuel.nut");
-include("controllers/vehicle/dep_functions/ownership.nut");
-include("controllers/vehicle/dep_functions/plates.nut");
-include("controllers/vehicle/dep_functions/passengers.nut");
-include("controllers/vehicle/dep_functions/validators.nut");
+translate("en", {
+    "vehicle.sell.amount"       : "You need to set the amount you wish to sell your car for."
+    "vehicle.sell.2passangers"  : "You need potential buyer to sit in the vehicle with you."
+    "vehicle.sell.ask"          : "%s offers you to buy his vehicle for $%.2f."
+    "vehicle.sell.log"          : "You offered %s to buy your vehicle for $%.2f."
+    "vehicle.sell.success"      : "You've successfuly sold this car."
+    "vehicle.buy.success"       : "You've successfuly bought this car."
+    "vehicle.sell.failure"      : "%s refused to buy this car."
+    "vehicle.buy.failure"       : "You refused to buy this car."
+    "vehicle.sell.notowner"     : "You can't sell car tht doesn't belong to you."
+});
 
-include("controllers/vehicle/classes/Vehicle.nut");
-include("controllers/vehicle/classes/VehicleComponent.nut");
-include("controllers/vehicle/Parts/Hull.nut");
-include("controllers/vehicle/Parts/FuelTank.nut");
-include("controllers/vehicle/Parts/Engine.nut");
-include("controllers/vehicle/Parts/Gabarites.nut");
-include("controllers/vehicle/Parts/Lights.nut");
-include("controllers/vehicle/Parts/WheelPair.nut");
-include("controllers/vehicle/Parts/Trunk.nut");
-include("controllers/vehicle/Parts/Plate.nut");
-include("controllers/vehicle/patterns/VehicleContainer.nut");
-include("controllers/vehicle/patterns/VehicleComponentContainer.nut");
+event("onScriptInit", function() {
+    // police cars
+    addVehicleOverride(42, function(id) {
+        setVehicleColour(id, 255, 255, 255, 0, 0, 0);
+        setVehicleSirenState(id, false);
+        // setVehicleBeaconLight(id, false);
+        setVehiclePlateText(id, getRandomVehiclePlate("PD"));
+    });
 
-vehicles <- VehicleContainer();
-vehicles_native <- {};
-__vehicles <- vehicles;
+    addVehicleOverride(51, function(id) {
+        setVehicleColour(id, 0, 0, 0, 150, 150, 150);
+        setVehicleSirenState(id, false);
+        // setVehicleBeaconLight(id, false);
+        // added override for plate number
+        setVehiclePlateText(id, getRandomVehiclePlate("PD"));
+    });
 
-function getPlayerVehicleid(playerid) {
-    if (!isPlayerInVehicle(playerid)) {
-        local vehicle = vehicles.nearestVehicle(playerid);  // get vehicle obj from DB
-        if (vehicle == null) return -1;                     // if there's no such return 1
-        return vehicle.vehicleid;                           // return id on server side after it's been spawned (starts with 0)
-    }
+    // trucks
+    addVehicleOverride(range(34, 39), function(id) {
+        setVehicleColour(id, 30, 30, 30, 154, 154, 154);
+    });
 
-    local vehicleid = getPlayerVehicle(playerid);           // get vehicle id from server
-    return vehicles_native[vehicleid].id;                   // get vehicle obj on MEM from DB (starts with 1)
-}
+    // trucks fish
+    addVehicleOverride(38, function(id) {
+        setVehicleColour(id, 15, 32, 24, 80, 80, 80);
+    });
 
+    // armoured lassiter 75
+    addVehicleOverride(17, function(id) {
+        setVehicleColour(id, 0, 0, 0, 0, 0, 0);
+    });
 
-/**
- * Return Entity.id from tbl_vehicles by vehicleid
- * @return {array}
- */
-function getVehicleEntityId (vehicleid) {
-    return vehicleid in __vehicles && __vehicles[vehicleid].entity ? __vehicles[vehicleid].entity.id : -1;
-}
-
-
-event("onServerStarted", function() {
-    Vehicle.findAll(function(err, results) {
-        foreach (idx, vehicle in results) {
-            // dbg("Displaying info about ", vehicle.id);
-
-            // foreach (idx, component in vehicle.components) {
-            //     dbg(" + Component:", component.id, "with data:", component.data);
-            // }
-
-            if (vehicle.state == Vehicle.State.Spawned) {
-                vehicles.set(vehicle.id, vehicle);
-                vehicle.spawn();
-            }
-
-            // dbg("----------------");
-        }
+    // milk
+    addVehicleOverride(19, function(id) {
+        setVehicleColour(id, 154, 154, 154, 98, 26, 21);
     });
 });
 
+// binding events
+event("onServerStarted", function() {
+    log("[vehicles] starting...");
+    local counter = 0;
 
-event("onServerPlayerStarted", function(playerid) {
-    log("------------------> Started!");
-    delayedFunction(10000, function () {
-        log("------------------> Done!");
+    // load all vehicles from db
+    Vehicle.findBy({ reserved = 0 }, function(err, results) {
+        foreach (idx, vehicle in results) {
+            // create vehicle
+            local vehicleid = createVehicle( vehicle.model, vehicle.x, vehicle.y, vehicle.z, vehicle.rx, vehicle.ry, vehicle.rz );
 
-        foreach (vehicle in vehicles) {
-            // if veh spawned
-            if (vehicle.state == 1) {
-                local vpos = getVehiclePosition( vehicle.vehicleid );
+            // load all the data
+            setVehicleColour      ( vehicleid, vehicle.cra, vehicle.cga, vehicle.cba, vehicle.crb, vehicle.cgb, vehicle.cbb );
+            setVehicleRotation    ( vehicleid, vehicle.rx, vehicle.ry, vehicle.rz );
+            setVehicleTuningTable ( vehicleid, vehicle.tunetable );
+            setVehicleDirtLevel   ( vehicleid, vehicle.dirtlevel );
+            setVehicleFuel        ( vehicleid, vehicle.fuellevel );
+            setVehiclePlateText   ( vehicleid, vehicle.plate );
+            setVehicleOwner       ( vehicleid, vehicle.owner, vehicle.ownerid );
 
-                // dont respawn if player is near
-                foreach (component in vehicle.components) {
-                    component.correct();
+            // secial methods for custom vehicles
+            setVehicleRespawnEx   ( vehicleid, false );
+            setVehicleSaving      ( vehicleid, true );
+            setVehicleEntity      ( vehicleid, vehicle );
+
+            // block vehicle by default
+            blockVehicle          ( vehicleid );
+
+            local setWheelsGenerator = function(id, entity) {
+                return function() {
+                    setVehicleWheelTexture( id, 0, entity.fwheel );
+                    setVehicleWheelTexture( id, 1, entity.rwheel );
+                };
+            };
+
+            delayedFunction(1000, setWheelsGenerator(vehicleid, vehicle));
+            counter++;
+        }
+
+        log("[vehicles] loaded " + counter + " vehicles from database.");
+    });
+});
+
+// respawn cars and update passangers
+event("onServerMinuteChange", function() {
+    updateVehiclePassengers();
+    checkVehicleRespawns();
+});
+
+// handle vehicle enter
+event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
+    logger.logf(
+        "[VEHICLE ENTER] (%s) %s (playerid: %d) | (vehid: %d) %s - %s (model: %d) | coords: [%.5f, %.5f, %.5f] | owner: %s | fraction: %s",
+            getAccountName(playerid),
+            getPlayerName(playerid),
+            playerid,
+            vehicleid,
+            getVehiclePlateText(vehicleid),
+            getVehicleNameByModelId(getVehicleModel(vehicleid)),
+            getVehicleModel(vehicleid),
+            getVehiclePositionObj(vehicleid).x,
+            getVehiclePositionObj(vehicleid).y,
+            getVehiclePositionObj(vehicleid).z,
+            isVehicleOwned(vehicleid) ? (isPlayerVehicleOwner(playerid, vehicleid) ? "true" : "false") : "city_ncrp",
+            isVehicleFraction(vehicleid) ? "true" : "false"
+    );
+
+    // handle vehicle passangers
+    addVehiclePassenger(vehicleid, playerid, seat);
+
+    if (seat == 0) {
+        // set state of the engine as on
+        if (vehicleid in __vehicles) {
+            __vehicles[vehicleid].state = true;
+        }
+    }
+
+    // check blocking
+    if (isVehicleOwned(vehicleid) && seat == 0) {
+
+        dbg("player", "vehicle", "enter", getVehiclePlateText(vehicleid), getIdentity(playerid), "owned: " + isPlayerVehicleOwner(playerid, vehicleid));
+
+        local canDrive = false;
+        local entityid = getVehicleEntityId(vehicleid);
+
+        foreach (idx, item in players[playerid].inventory) {
+            if(item._entity == "Item.VehicleKey") {
+                if (item.data.id == entityid) {
+                    canDrive = true;
+                    break;
                 }
             }
         }
-    });
+
+        //if (isPlayerVehicleOwner(playerid, vehicleid) || isPlayerVehicleFraction(playerid, vehicleid)) {
+        if(canDrive == true) {
+            unblockVehicle(vehicleid);
+        } else {
+            blockVehicle(vehicleid);
+            msg(playerid, "vehicle.owner.warning", CL_WARNING);
+        }
+    }
+
+    // handle respawning and saving
+    resetVehicleRespawnTimer(vehicleid);
+    trySaveVehicle(vehicleid);
+
+    // trigger other events
+    trigger("onPlayerVehicleEnter", playerid, vehicleid, seat);
 });
 
+key(["w", "s"], function(playerid) {
+    if (!isPlayerInVehicle(playerid)) {
+        return;
+    }
 
+    local vehicleid = getPlayerVehicle(playerid);
 
+    if (!isPlayerVehicleDriver(playerid)) {
+        return;
+    }
 
-event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
-    // bug's prediction is here. Needs to separate player vehicles out of scripted one
-    local vehicle = vehicles_native[vehicleid];
+    if (vehicleid in __vehicles) {
+        __vehicles[vehicleid].state = true;
+    }
+}, KEY_BOTH);
 
-    log( getPlayerName(playerid) + " entered vehicle " + vehicle.vehicleid.tostring() + " (seat: " + seat.tostring() + ")." );
-    // correct state of all the vehicle components
-    vehicle.hack.OnEnter(seat);
-    // add player as a vehicle passenger
-    addVehiclePassenger(vehicle, playerid, seat);
-
-    vehicle.save();
-
-    return 1;
-});
-
-
+// handle vehicle exit
 event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
-    local vehicle = vehicles_native[vehicleid];
+    logger.logf(
+        "[VEHICLE EXIT] (%s) %s (playerid: %d) | (vehid: %d) %s - %s (model: %d) | coords: [%.5f, %.5f, %.5f] | owner: %s | fraction: %s",
+            getAccountName(playerid),
+            getPlayerName(playerid),
+            playerid,
+            vehicleid,
+            getVehiclePlateText(vehicleid),
+            getVehicleNameByModelId(getVehicleModel(vehicleid)),
+            getVehicleModel(vehicleid),
+            getVehiclePositionObj(vehicleid).x,
+            getVehiclePositionObj(vehicleid).y,
+            getVehiclePositionObj(vehicleid).z,
+            isVehicleOwned(vehicleid) ? (isPlayerVehicleOwner(playerid, vehicleid) ? "true" : "false") : "city_ncrp",
+            isVehicleFraction(vehicleid) ? "true" : "false"
+    );
 
-    log(getPlayerName(playerid) + " #" + playerid + " JUST LEFT VEHICLE with ID=" + vehicle.vehicleid.tostring() + " (seat: " + seat.tostring() + ")." );
-    // remove player as a vehicle passenger
-    removeVehiclePassenger(vehicle, playerid, seat);
-    // correct state of all the vehicle components
-    vehicle.hack.OnExit(seat);
-    vehicle.save();
-    return 1;
+    // handle vehicle passangers
+    removeVehiclePassenger(vehicleid, playerid, seat);
+
+    // check blocking
+    if (isVehicleOwned(vehicleid) && isPlayerVehicleOwner(playerid, vehicleid)) {
+        blockVehicle(vehicleid);
+    }
+
+    // handle respawning and saving
+    resetVehicleRespawnTimer(vehicleid);
+    trySaveVehicle(vehicleid);
+
+    // trigger other events
+    trigger("onPlayerVehicleExit", playerid, vehicleid, seat);
 });
 
+// force resetting vehicle position to death point
+event("onPlayerDeath", function(playerid) {
+    dbg("player", "death", "vehicle", getAuthor(playerid), getVehiclePlateText(getPlayerVehicle(playerid)));
 
-event(["onServerStopping", "onServerAutosave"], function() {
-    vehicles.map(function(vehicle) { vehicle.save() });
-});
+    if (isPlayerInVehicle(playerid)) {
+        local vehicleid = getPlayerVehicle(playerid);
 
-event("onServerMinuteChange", function() {
-    foreach (vehicle in vehicles) {
-        vehicle.correct(); // Sync all the visuals
+        delayedFunction(1500, function() {
+            setVehiclePositionObj(vehicleid, getVehiclePositionObj(vehicleid));
+        });
+
+        delayedFunction(5000, function() {
+            setVehiclePositionObj(vehicleid, getVehiclePositionObj(vehicleid));
+        });
     }
 });
 
+event("onPlayerSpawned", function(playerid) {
+    local ppos = players[playerid].getPosition();
 
-// vehicles[15].compoenents.find(VehicleComponent.Hull).getDirtLevel()
-// vehicles[15].dirt
+    // special check for spawning inside closed truck
+    foreach (vehicleid, value in __vehicles) {
+        local vehModel = getVehicleModel(vehicleid);
+        if (vehModel == 38 || vehModel == 34) {
 
-// Vehicle().setModel(15).setPosition(15, 25, 25).spawn();
-// Vehicle().setModel(15).setPosition(15, 25, 25).spawn();
-// Vehicle().setModel(15).setPosition(15, 25, 25).spawn();
-// Vehicle().setModel(15).setPosition(15, 25, 25).spawn();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const VEHICLE_RESPAWN_TIME      = 300; // 5 (real) minutes
-// const VEHICLE_FUEL_DEFAULT      = 40.0;
-// const VEHICLE_MIN_DIRT          = 0.25;
-// const VEHICLE_MAX_DIRT          = 0.75;
-// const VEHICLE_DEFAULT_OWNER     = "";
-// const VEHICLE_OWNERSHIP_NONE    = 0;
-// const VEHICLE_OWNERSHIP_SINGLE  = 1;
-// const VEHICLE_OWNER_CITY        = "__cityNCRP";
-
-// translate("en", {
-//     "vehicle.sell.amount"       : "You need to set the amount you wish to sell your car for."
-//     "vehicle.sell.2passangers"  : "You need potential buyer to sit in the vehicle with you."
-//     "vehicle.sell.ask"          : "%s offers you to buy his vehicle for $%.2f."
-//     "vehicle.sell.log"          : "You offered %s to buy your vehicle for $%.2f."
-//     "vehicle.sell.success"      : "You've successfuly sold this car."
-//     "vehicle.buy.success"       : "You've successfuly bought this car."
-//     "vehicle.sell.failure"      : "%s refused to buy this car."
-//     "vehicle.buy.failure"       : "You refused to buy this car."
-//     "vehicle.sell.notowner"     : "You can't sell car tht doesn't belong to you."
-// });
-
-
-
-
-// // binding events
-// event("onServerStarted", function() {
-//     log("[vehicles] starting...");
-//     local counter = 0;
-
-//     // load all vehicles from db
-//     Vehicle.findAll(function(err, results) {
-//         foreach (idx, vehicle in results) {
-//             // Use data from vehicle-metainfo.nut file to get seats in given model
-//             // local seats = getSeatsNumber(vehicle.model);
-//             local seats = 2;
-//             local veh = Vehicle( vehicle, seats );
-
-//             veh.setRespawnEx(false);
-//             veh.setSaveable(true);
-
-//             __vehicles.add(veh.vid, veh);
-//             counter++;
-//         }
-
-//         log("[vehicles] loaded " + counter + " vehicles from database. Totally " + __vehicles.len() + " vehicles on server.");
-//     });
-// });
-
-// // respawn cars and update passangers
-// event("onServerMinuteChange", function() {
-//     __vehicles.each(function(vehicleid, vehicle) {
-//         vehicle.updatePassengers();
-//         vehicle.tryRespawn();
-//     }, true);
-// });
+            local vpos = getVehiclePosition(vehicleid);
+            // if inside vehicle, set offsetted position
+            if (getDistanceBetweenPoints3D(ppos.x, ppos.y, ppos.z, vpos[0], vpos[1], vpos[2]) < 4.0) {
+                dbg("player", "spawn", getIdentity(playerid), "inside closed truck, respawning...");
+                players[playerid].setPosition(ppos.x + 1.5, ppos.y + 1.5, ppos.z);
+                return;
+            }
+        }
+    }
+});

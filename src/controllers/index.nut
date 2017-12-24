@@ -13,6 +13,10 @@ include("controllers/weather");
 include("controllers/world");
 include("controllers/player");
 include("controllers/money");
+include("controllers/vehicle");
+
+include("controllers/nvehicles");
+
 include("controllers/utils");
 include("controllers/screen");
 include("controllers/admin");
@@ -28,5 +32,4 @@ include("controllers/closedplaces");
 
 // include("controllers/property");
 include("controllers/inventory");
-include("controllers/vehicle");
 include("controllers/fraction");
