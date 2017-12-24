@@ -1,4 +1,4 @@
-const CHARACTER_LIMIT = 2;
+const CHARACTER_LIMIT = 1;
 
 /**
  * Compiled regex object for
