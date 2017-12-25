@@ -87,9 +87,8 @@ key("q", function(playerid) {
     // // check if vehicle is NVehicle Object or not
     if (!(original__getPlayerVehicle(playerid) in vehicles_native)) return;
 
-    local vehicleid = getPlayerVehicleid(playerid);
-
-    local fuelTank = vehicles[vehicleid].components.findOne(VehicleComponent.FuelTank);
+    local vehicle = getPlayerNVehicle(playerid);
+    local fuelTank = vehicle.components.findOne(VehicleComponent.FuelTank);
 
     if  ((fuelTank || (fuelTank instanceof VehicleComponent.FuelTank))) {
         delayedFunction(10, function () {

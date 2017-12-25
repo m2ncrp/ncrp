@@ -120,19 +120,18 @@ key("q", function(playerid) {
     // check if vehicle is NVehicle Object or not
     if (!(original__getPlayerVehicle(playerid) in vehicles_native)) return;
 
-    local vehicleid = getPlayerVehicleid(playerid);
+    local vehicle = getPlayerNVehicle(playerid);
 
-    local eng = vehicles[vehicleid].components.findOne(VehicleComponent.Engine);
+    local eng = vehicle.components.findOne(VehicleComponent.Engine);
     // dbg(eng);
 
     // if engine is in its place and has expected obj type
     if ((eng || (eng instanceof VehicleComponent.Engine))) {
         foreach (idx, item in players[playerid].inventory) {
             if(item._entity == "Item.VehicleKey") {
-                dbg(item._entity);
-                dbg(item.data.id);
-                dbg(vehicleid);
-                if (item.data.id == vehicleid) {
+                dbg(item._entity + " ~ " + item.data.id);
+                dbg(vehicle.id);
+                if (item.data.id == vehicle.id) {
                     eng.action();
                     break;
                 }

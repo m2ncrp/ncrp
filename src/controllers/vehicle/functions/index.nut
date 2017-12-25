@@ -36,6 +36,7 @@ isPlayerInVehicle <- function(playerid) {
 
     local vehicleid = original__getPlayerVehicle(playerid);
     if (!(vehicleid in __vehicles)) return false;
+    return true;
 }
 
 getPlayerVehicle <- function(playerid) {

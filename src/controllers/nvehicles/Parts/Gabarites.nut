@@ -114,8 +114,8 @@ key("z", function(playerid) {
     // check if vehicle is NVehicle Object or not
     if (!(original__getPlayerVehicle(playerid) in vehicles_native)) return;
 
-    local vehicleid = getPlayerVehicleid(playerid);
-    local gabs = vehicles[vehicleid].components.findOne(VehicleComponent.Gabarites);
+    local vehicle = getPlayerNVehicle(playerid);
+    local gabs = vehicle.components.findOne(VehicleComponent.Gabarites);
 
     // if engine is in its place and has expected obj type
     if ((gabs || (gabs instanceof VehicleComponent.Gabarites))) {
@@ -133,8 +133,8 @@ key("x", function(playerid) {
     // check if vehicle is NVehicle Object or not
     if (!(original__getPlayerVehicle(playerid) in vehicles_native)) return;
 
-    local vehicleid = getPlayerVehicleid(playerid);
-    local gabs = vehicles[vehicleid].components.findOne(VehicleComponent.Gabarites);
+    local vehicle = getPlayerNVehicle(playerid);
+    local gabs = vehicle.components.findOne(VehicleComponent.Gabarites);
 
     // if engine is in its place and has expected obj type
     if ((gabs || (gabs instanceof VehicleComponent.Gabarites))) {
@@ -152,8 +152,8 @@ key("c", function(playerid) {
     // check if vehicle is NVehicle Object or not
     if (!(original__getPlayerVehicle(playerid) in vehicles_native)) return;
 
-    local vehicleid = getPlayerVehicleid(playerid);
-    local gabs = vehicles[vehicleid].components.findOne(VehicleComponent.Gabarites);
+    local vehicle = getPlayerNVehicle(playerid);
+    local gabs = vehicle.components.findOne(VehicleComponent.Gabarites);
 
     // if engine is in its place and has expected obj type
     if ((gabs || (gabs instanceof VehicleComponent.Gabarites))) {

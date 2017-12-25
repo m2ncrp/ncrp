@@ -259,7 +259,7 @@ class Vehicle extends ORM.Entity
     }
 
     function onMinute() {
-        vehicle.correct();
+        this.correct();
 
         // update Passengers
         foreach (seat, character in this.passengers) {
@@ -333,7 +333,7 @@ class Vehicle extends ORM.Entity
     }
 
     function getDriver() {
-        if (0 this.getPassengers()) {
+        if (this.getPassengers()) {
             return this.passengers[0];
         }
 

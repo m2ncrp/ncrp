@@ -1,6 +1,3 @@
-vehicles <- VehicleContainer();
-vehicles_native <- {};
-
 /**
  * NEW NVEHICLE METHODS
  * should be used ONLY for native events ONLY INSIDE this module
@@ -68,7 +65,6 @@ vehicles_native <- {};
 include("controllers/nvehicles/classes/Vehicle_hack.nut");
 
 include("controllers/nvehicles/commands.nut");
-include("controllers/nvehicles/functions/passengers.nut");
 
 include("controllers/nvehicles/classes/Vehicle.nut");
 include("controllers/nvehicles/classes/VehicleComponent.nut");
@@ -84,6 +80,9 @@ include("controllers/nvehicles/Parts/Plate.nut");
 
 include("controllers/nvehicles/patterns/VehicleContainer.nut");
 include("controllers/nvehicles/patterns/VehicleComponentContainer.nut");
+
+vehicles <- VehicleContainer();
+vehicles_native <- {};
 
 event("onServerStarted", function() {
     Vehicle.findAll(function(err, results) {

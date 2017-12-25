@@ -44,7 +44,7 @@ key("r", function(playerid) {
     // check if vehicle is NVehicle Object or not
     if (!(original__getPlayerVehicle(playerid) in vehicles_native)) return;
 
-    local vehicleid = getPlayerVehicleid(playerid);
-    local lights = vehicles[vehicleid].components.findOne(VehicleComponent.Lights);
+    local vehicle = getPlayerNVehicle(playerid);
+    local lights = vehicle.components.findOne(VehicleComponent.Lights);
     return lights.setState( !lights.data.status );
 });
