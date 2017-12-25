@@ -13,8 +13,8 @@ include("controllers/weather");
 include("controllers/world");
 include("controllers/player");
 include("controllers/money");
-include("controllers/vehicle");
 
+include("controllers/vehicle");
 include("controllers/nvehicles");
 
 include("controllers/utils");

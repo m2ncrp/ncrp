@@ -42,10 +42,12 @@ class Vehicle extends ORM.Entity
     constructor( type = null ) {
         base.constructor();
         this.components = VehicleComponentContainer(this, this.components);
+        this.passengers = array(4, null);
 
         if (type == null) {
             type = Vehicle.Type.sedan;
         }
+
         // common components
         this.components.push(VehicleComponent.Hull());
         this.components.push(VehicleComponent.FuelTank());
@@ -247,18 +249,94 @@ class Vehicle extends ORM.Entity
         return true;
     }
 
-
     function correct() {
         if (this.state == this.State.Spawned) {
-            foreach (idx, component in this.components) {
-                component.correct();
-            }
+            this.components.map(function(comp) { comp.correct() })
             return true;
         }
+
         return false;
     }
 
-    function initAllComponents() {
-        this.components.add(component.id, entityClass(component));
+    function onMinute() {
+        vehicle.correct();
+
+        // update Passengers
+        foreach (seat, character in this.passengers) {
+            if (character && !isPlayerConnected(character.playerid)) {
+                this.passengers[seat] = null;
+            }
+        }
+
+        this.components.map(function(comp) { comp.onMinute() });
+    }
+
+    function onEnter(character, seat) {
+        log(character.getName() + " #" + character.playerid + " JUST ENTERED VEHICLE with ID=" + this.id.tostring() + " (seat: " + seat.tostring() + ")." );
+
+        // correct state of all the vehicle components
+        this.hack.OnEnter(seat);
+
+        // add player as a vehicle passenger
+        this.passengers[seat] = character;
+        this.components.map(function(comp) { comp.onEnter(character, seat) });
+    }
+
+    function onExit(character, seat) {
+        log(character.getName() + " #" + character.playerid + " JUST LEFT VEHICLE with ID=" + this.id.tostring() + " (seat: " + seat.tostring() + ")." );
+
+        // remove player as a vehicle passenger
+        this.passengers[seat] = null;
+
+        // correct state of all the vehicle components
+        this.hack.OnExit(seat);
+        this.components.map(function(comp) { comp.onExit(character, seat) });
+    }
+
+    function getPassengers() {
+        local table = {};
+
+        foreach (seat, character in this.passengers) {
+            if (character == null) continue;
+            table[seat] <- character;
+        }
+
+        return table;
+    }
+
+    function getPassengersCount() {
+        return this.getPassengers().len();
+    }
+
+    function isEmpty() {
+        return (this.getPassengers() < 1);
+    }
+
+    function getPlayerSeat(character) {
+        if (!(character instanceof Character)) {
+            throw "Vehicle.getPlayerSeat( Character ) : Character object should be provided, not playerid!"
+        }
+
+        foreach (seat, target in this.passengers) {
+            if (target.id == character.id) return seat;
+        }
+
+        return null;
+    }
+
+    function isPlayerOnSeat(character, seat) {
+        return getPlayerSeat(character) == seat;
+    }
+
+    function isPlayerDriver(character) {
+        return isPlayerOnSeat(character, 0);
+    }
+
+    function getDriver() {
+        if (0 this.getPassengers()) {
+            return this.passengers[0];
+        }
+
+        return null;
     }
 }

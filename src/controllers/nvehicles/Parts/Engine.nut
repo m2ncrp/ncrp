@@ -113,12 +113,12 @@ class VehicleComponent.Engine extends VehicleComponent
 
 
 key("q", function(playerid) {
-    if (!isPlayerInVehicle(playerid)) {
+    if (!original__isPlayerInVehicle(playerid)) {
         return;
     }
 
     // check if vehicle is NVehicle Object or not
-    if (!(getPlayerVehicle(playerid) in vehicles_native)) return;
+    if (!(original__getPlayerVehicle(playerid) in vehicles_native)) return;
 
     local vehicleid = getPlayerVehicleid(playerid);
 

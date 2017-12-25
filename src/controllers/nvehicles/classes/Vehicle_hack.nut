@@ -135,7 +135,7 @@ class DirtyHack {
 
 
 // key("w", function(playerid) {
-//     if (!isPlayerInVehicle(playerid)) {
+//     if (!original__isPlayerInVehicle(playerid)) {
 //         return;
 //     }
 

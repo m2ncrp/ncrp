@@ -63,48 +63,48 @@ event("onScriptInit", function() {
     });
 });
 
-// binding events
-event("onServerStarted", function() {
-    log("[vehicles] starting...");
-    local counter = 0;
+// // binding events
+// event("onServerStarted", function() {
+//     log("[vehicles] starting...");
+//     local counter = 0;
 
-    // load all vehicles from db
-    Vehicle.findBy({ reserved = 0 }, function(err, results) {
-        foreach (idx, vehicle in results) {
-            // create vehicle
-            local vehicleid = createVehicle( vehicle.model, vehicle.x, vehicle.y, vehicle.z, vehicle.rx, vehicle.ry, vehicle.rz );
+//     // load all vehicles from db
+//     Vehicle.findBy({ reserved = 0 }, function(err, results) {
+//         foreach (idx, vehicle in results) {
+//             // create vehicle
+//             local vehicleid = createVehicle( vehicle.model, vehicle.x, vehicle.y, vehicle.z, vehicle.rx, vehicle.ry, vehicle.rz );
 
-            // load all the data
-            setVehicleColour      ( vehicleid, vehicle.cra, vehicle.cga, vehicle.cba, vehicle.crb, vehicle.cgb, vehicle.cbb );
-            setVehicleRotation    ( vehicleid, vehicle.rx, vehicle.ry, vehicle.rz );
-            setVehicleTuningTable ( vehicleid, vehicle.tunetable );
-            setVehicleDirtLevel   ( vehicleid, vehicle.dirtlevel );
-            setVehicleFuel        ( vehicleid, vehicle.fuellevel );
-            setVehiclePlateText   ( vehicleid, vehicle.plate );
-            setVehicleOwner       ( vehicleid, vehicle.owner, vehicle.ownerid );
+//             // load all the data
+//             setVehicleColour      ( vehicleid, vehicle.cra, vehicle.cga, vehicle.cba, vehicle.crb, vehicle.cgb, vehicle.cbb );
+//             setVehicleRotation    ( vehicleid, vehicle.rx, vehicle.ry, vehicle.rz );
+//             setVehicleTuningTable ( vehicleid, vehicle.tunetable );
+//             setVehicleDirtLevel   ( vehicleid, vehicle.dirtlevel );
+//             setVehicleFuel        ( vehicleid, vehicle.fuellevel );
+//             setVehiclePlateText   ( vehicleid, vehicle.plate );
+//             setVehicleOwner       ( vehicleid, vehicle.owner, vehicle.ownerid );
 
-            // secial methods for custom vehicles
-            setVehicleRespawnEx   ( vehicleid, false );
-            setVehicleSaving      ( vehicleid, true );
-            setVehicleEntity      ( vehicleid, vehicle );
+//             // secial methods for custom vehicles
+//             setVehicleRespawnEx   ( vehicleid, false );
+//             setVehicleSaving      ( vehicleid, true );
+//             setVehicleEntity      ( vehicleid, vehicle );
 
-            // block vehicle by default
-            blockVehicle          ( vehicleid );
+//             // block vehicle by default
+//             blockVehicle          ( vehicleid );
 
-            local setWheelsGenerator = function(id, entity) {
-                return function() {
-                    setVehicleWheelTexture( id, 0, entity.fwheel );
-                    setVehicleWheelTexture( id, 1, entity.rwheel );
-                };
-            };
+//             local setWheelsGenerator = function(id, entity) {
+//                 return function() {
+//                     setVehicleWheelTexture( id, 0, entity.fwheel );
+//                     setVehicleWheelTexture( id, 1, entity.rwheel );
+//                 };
+//             };
 
-            delayedFunction(1000, setWheelsGenerator(vehicleid, vehicle));
-            counter++;
-        }
+//             delayedFunction(1000, setWheelsGenerator(vehicleid, vehicle));
+//             counter++;
+//         }
 
-        log("[vehicles] loaded " + counter + " vehicles from database.");
-    });
-});
+//         log("[vehicles] loaded " + counter + " vehicles from database.");
+//     });
+// });
 
 // respawn cars and update passangers
 event("onServerMinuteChange", function() {
@@ -114,6 +114,8 @@ event("onServerMinuteChange", function() {
 
 // handle vehicle enter
 event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
+    if (!(vehicleid in __vehicles)) return; // NVEHICLES: skip vehicle if its new system vehicle
+
     logger.logf(
         "[VEHICLE ENTER] (%s) %s (playerid: %d) | (vehid: %d) %s - %s (model: %d) | coords: [%.5f, %.5f, %.5f] | owner: %s | fraction: %s",
             getAccountName(playerid),
@@ -192,6 +194,8 @@ key(["w", "s"], function(playerid) {
 
 // handle vehicle exit
 event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
+    if (!(vehicleid in __vehicles)) return; // NVEHICLES: skip vehicle if its new system vehicle
+
     logger.logf(
         "[VEHICLE EXIT] (%s) %s (playerid: %d) | (vehid: %d) %s - %s (model: %d) | coords: [%.5f, %.5f, %.5f] | owner: %s | fraction: %s",
             getAccountName(playerid),

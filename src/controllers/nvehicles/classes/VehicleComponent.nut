@@ -57,6 +57,18 @@ class VehicleComponent
 
     }
 
+    function onMinute() {
+
+    }
+
+    function onEnter(character, seat) {
+
+    }
+
+    function onExit(character, seat) {
+
+    }
+
     function serialize() {
         return merge(this.data, { id = this.id, type = this.classname });
     }

@@ -10,9 +10,9 @@ acmd(["vehicle"], function( playerid, id ) {
 });
 
 // acmd(["tune"], function( playerid ) {
-//     if( isPlayerInVehicle( playerid ) )
+//     if( original__isPlayerInVehicle( playerid ) )
 //     {
-//         local vehicleid = getPlayerVehicle( playerid );
+//         local vehicleid = original__getPlayerVehicle( playerid );
 //         setVehicleTuningTable( vehicleid, 3 );
 
 //         setVehicleWheelTexture( vehicleid, 0, 11 );
@@ -21,14 +21,14 @@ acmd(["vehicle"], function( playerid, id ) {
 // });
 
 acmd(["fix"], function( playerid, targetid = null ) {
-    // if( !isPlayerInVehicle( playerid ) && !targetid )  return;
-    // if( isPlayerInVehicle( playerid ) && !targetid )  targetid = getPlayerVehicle( playerid );
+    // if( !original__isPlayerInVehicle( playerid ) && !targetid )  return;
+    // if( original__isPlayerInVehicle( playerid ) && !targetid )  targetid = original__getPlayerVehicle( playerid );
     // if( targetid )  targetid = targetid.tointeger();
 
     // repairVehicle( targetid );
     // setVehicleFuel(targetid, getDefaultVehicleFuel(targetid));
     //
-    if( !isPlayerInVehicle( playerid ) && targetid == null ) {
+    if( !original__isPlayerInVehicle( playerid ) && targetid == null ) {
         local vehicle = vehicles.nearestVehicle(playerid);
         local hull = vehicle.components.findOne(VehicleComponent.Hull);
         local fueltank = vehicle.components.findOne(VehicleComponent.FuelTank);
@@ -37,8 +37,8 @@ acmd(["fix"], function( playerid, targetid = null ) {
         vehicle.correct();
     }
 
-    if( isPlayerInVehicle( playerid ) && targetid == null ) {
-        local vehicleid = getPlayerVehicleid(playerid);
+    if( original__isPlayerInVehicle( playerid ) && targetid == null ) {
+        local vehicleid = original__getPlayerVehicleid(playerid);
         local hull = vehicles[vehicleid].components.findOne(VehicleComponent.Hull);
         local fueltank = vehicles[vehicleid].components.findOne(VehicleComponent.FuelTank);
         hull.repair();
@@ -46,7 +46,7 @@ acmd(["fix"], function( playerid, targetid = null ) {
         vehicles[vehicleid].correct();
     }
 
-    if( !isPlayerInVehicle( playerid ) && targetid != null ) {
+    if( !original__isPlayerInVehicle( playerid ) && targetid != null ) {
         local hull = vehicles[targetid].components.findOne(VehicleComponent.Hull);
         local fueltank = vehicles[targetid].components.findOne(VehicleComponent.FuelTank);
         hull.repair();
@@ -59,19 +59,19 @@ acmd(["fix"], function( playerid, targetid = null ) {
 
 
 acmd(["clean"], function( playerid, targetid = null ) {
-    if( !isPlayerInVehicle( playerid ) && targetid == null ) {
+    if( !original__isPlayerInVehicle( playerid ) && targetid == null ) {
         local vehicle = vehicles.nearestVehicle(playerid);
         local hull = vehicle.components.findOne(VehicleComponent.Hull);
         hull.setDirt(0.0);
     }
 
-    if( isPlayerInVehicle( playerid ) && targetid == null ) {
-        local vehicleid = getPlayerVehicleid(playerid);
+    if( original__isPlayerInVehicle( playerid ) && targetid == null ) {
+        local vehicleid = original__getPlayerVehicleid(playerid);
         local hull = vehicles[vehicleid].components.findOne(VehicleComponent.Hull);
         hull.setDirt(0.0);
     }
 
-    if( !isPlayerInVehicle( playerid ) && targetid != null ) {
+    if( !original__isPlayerInVehicle( playerid ) && targetid != null ) {
         local hull = vehicles[targetid].components.findOne(VehicleComponent.Hull);
         hull.setDirt(0.0);
     }
@@ -79,8 +79,8 @@ acmd(["clean"], function( playerid, targetid = null ) {
 });
 
 // acmd(["rot"], function( playerid, targetid = null ) {
-//     if( !isPlayerInVehicle( playerid ) && !targetid )  return;
-//     if( isPlayerInVehicle( playerid ) && !targetid )  targetid = getPlayerVehicle( playerid );
+//     if( !original__isPlayerInVehicle( playerid ) && !targetid )  return;
+//     if( original__isPlayerInVehicle( playerid ) && !targetid )  targetid = original__getPlayerVehicle( playerid );
 //     if( targetid )  targetid = targetid.tointeger();
 
 //     local vehRot = getVehicleRotation(targetid);
@@ -88,7 +88,7 @@ acmd(["clean"], function( playerid, targetid = null ) {
 // });
 
 // acmd("checkcar", function( playerid ) {
-//     local vehicleid = getPlayerVehicle( playerid );
+//     local vehicleid = original__getPlayerVehicle( playerid );
 //     local vehicleModel = getVehicleModel( vehicleid );
 
 //     sendPlayerMessage( playerid, "Car: id #" + vehicleid + ", model #" + vehicleModel);
@@ -99,11 +99,11 @@ acmd(["clean"], function( playerid, targetid = null ) {
 //     local g = min(green.tointeger(), 255);
 //     local b = min(blue.tointeger(), 255);
 
-//     if (!isPlayerInVehicle(playerid)) {
+//     if (!original__isPlayerInVehicle(playerid)) {
 //         return;
 //     }
 
-//     setVehicleColour(getPlayerVehicle(playerid), r, g, b, r, g, b);
+//     setVehicleColour(original__getPlayerVehicle(playerid), r, g, b, r, g, b);
 // });
 
 // acmd("p", function(playerid, r1 = 0, g1 = 0, b1 = 0, r2 = 0, g2 = 0, b2 = 0) {
@@ -114,15 +114,15 @@ acmd(["clean"], function( playerid, targetid = null ) {
 //     local g2 = min(g2.tointeger(), 255);
 //     local b2 = min(b2.tointeger(), 255);
 
-//     if (!isPlayerInVehicle(playerid)) {
+//     if (!original__isPlayerInVehicle(playerid)) {
 //         return;
 //     }
 
-//     setVehicleColour(getPlayerVehicle(playerid), r1, g1, b1, r2, g2, b2);
+//     setVehicleColour(original__getPlayerVehicle(playerid), r1, g1, b1, r2, g2, b2);
 // });
 
 // cmd("engine", "on", function(playerid) {
-//     local vehicleid = getPlayerVehicle( playerid );
+//     local vehicleid = original__getPlayerVehicle( playerid );
 
 //     if (!isPlayerVehicleDriver(playerid)) {
 //         return;
@@ -132,7 +132,7 @@ acmd(["clean"], function( playerid, targetid = null ) {
 // });
 
 // cmd("engine", "off", function(playerid) {
-//     local vehicleid = getPlayerVehicle( playerid );
+//     local vehicleid = original__getPlayerVehicle( playerid );
 
 //     if (!isPlayerVehicleDriver(playerid)) {
 //         return;
@@ -158,8 +158,8 @@ acmd(["clean"], function( playerid, targetid = null ) {
 // });
 
 // acmd("jump", function(playerid) {
-//     if (isPlayerInVehicle(playerid)) {
-//         local vehicleid = getPlayerVehicle(playerid);
+//     if (original__isPlayerInVehicle(playerid)) {
+//         local vehicleid = original__getPlayerVehicle(playerid);
 //         local sp = getVehicleSpeed(vehicleid);
 //         setVehicleSpeed(vehicleid, sp[0], sp[1], sp[2] + 4.0);
 //     }
@@ -175,8 +175,8 @@ acmd(["clean"], function( playerid, targetid = null ) {
 // });
 
 // acmd("who", function(playerid) {
-//     if (isPlayerInVehicle(playerid)) {
-//         if (isPlayerVehicleOwner(playerid, getPlayerVehicle(playerid))) {
+//     if (original__isPlayerInVehicle(playerid)) {
+//         if (isPlayerVehicleOwner(playerid, original__getPlayerVehicle(playerid))) {
 //             msg(playerid, "vehicle.owner.true", CL_SNUFF);
 //         } else {
 //             msg(playerid, "vehicle.owner.false", CL_SNUFF);
@@ -185,11 +185,11 @@ acmd(["clean"], function( playerid, targetid = null ) {
 // });
 
 // cmd("sell", function(playerid, amount = null) {
-//     if (!isPlayerInVehicle(playerid)) {
+//     if (!original__isPlayerInVehicle(playerid)) {
 //         return;
 //     }
 
-//     local vehicleid = getPlayerVehicle(playerid);
+//     local vehicleid = original__getPlayerVehicle(playerid);
 
 //     if (!isPlayerVehicleOwner(playerid, vehicleid)) {
 //         return msg(playerid, "vehicle.sell.notowner", CL_ERROR);
@@ -233,7 +233,7 @@ acmd(["clean"], function( playerid, targetid = null ) {
  * KEYBINDS
  */
 // key("q", function(playerid) {
-//     if (!isPlayerInVehicle(playerid)) {
+//     if (!original__isPlayerInVehicle(playerid)) {
 //         return;
 //     }
 
@@ -241,7 +241,7 @@ acmd(["clean"], function( playerid, targetid = null ) {
 //     //     return;
 //     // }
 
-//     local veh = __vehicles.get( getPlayerVehicle(playerid) );
+//     local veh = __vehicles.get( original__getPlayerVehicle(playerid) );
 //     return veh.engine.action();
 // });
 
@@ -262,16 +262,16 @@ acmd(["clean"], function( playerid, targetid = null ) {
 // });
 
 // addKeyboardHandler("2", "up", function(playerid) {
-//     if (isPlayerInVehicle(playerid) && isPlayerAdmin(playerid)) {
-//         local vehicleid = getPlayerVehicle(playerid);
+//     if (original__isPlayerInVehicle(playerid) && isPlayerAdmin(playerid)) {
+//         local vehicleid = original__getPlayerVehicle(playerid);
 //         local sp = getVehicleSpeed(vehicleid);
 //         setVehicleSpeed(vehicleid, sp[0], sp[1], sp[2] + 5.0);
 //     }
 // });
 
 // addKeyboardHandler("3", "up", function(playerid) {
-//     if (isPlayerInVehicle(playerid) && isPlayerAdmin(playerid)) {
-//         local vehicleid = getPlayerVehicle(playerid);
+//     if (original__isPlayerInVehicle(playerid) && isPlayerAdmin(playerid)) {
+//         local vehicleid = original__getPlayerVehicle(playerid);
 //         local rot = getVehicleRotation(vehicleid);
 //         //setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
 //         setVehicleRotation(vehicleid, rot[0], 0.0, 0.0);
@@ -279,24 +279,24 @@ acmd(["clean"], function( playerid, targetid = null ) {
 // });
 
 // addKeyboardHandler("e", "up", function(playerid) {
-//     if (isPlayerInVehicle(playerid) && getPlayerName(playerid) == "Inlife" && isPlayerAdmin(playerid)) {
-//         local vehicleid = getPlayerVehicle(playerid);
+//     if (original__isPlayerInVehicle(playerid) && getPlayerName(playerid) == "Inlife" && isPlayerAdmin(playerid)) {
+//         local vehicleid = original__getPlayerVehicle(playerid);
 //         local sp = getVehicleSpeed(vehicleid);
 //         setVehicleSpeed(vehicleid, sp[0], sp[1], sp[2] + 5.0);
 //     }
 // });
 
 // addKeyboardHandler("num_4", "up", function(playerid) {
-//     if (isPlayerInVehicle(playerid) && isPlayerAdmin(playerid)) {
-//         local vehicleid = getPlayerVehicle(playerid);
+//     if (original__isPlayerInVehicle(playerid) && isPlayerAdmin(playerid)) {
+//         local vehicleid = original__getPlayerVehicle(playerid);
 //         local rot = getVehicleRotation(vehicleid);
 //         setVehicleRotation(vehicleid, rot[0]-5.0, rot[1], rot[2]);
 //     }
 // });
 
 // addKeyboardHandler("num_6", "up", function(playerid) {
-//     if (isPlayerInVehicle(playerid) && isPlayerAdmin(playerid)) {
-//         local vehicleid = getPlayerVehicle(playerid);
+//     if (original__isPlayerInVehicle(playerid) && isPlayerAdmin(playerid)) {
+//         local vehicleid = original__getPlayerVehicle(playerid);
 //         local rot = getVehicleRotation(vehicleid);
 //         setVehicleRotation(vehicleid, rot[0]+5.0, rot[1], rot[2]);
 //     }

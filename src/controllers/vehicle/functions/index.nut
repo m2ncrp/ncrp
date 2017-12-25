@@ -23,6 +23,27 @@ local old__setVehicleWheelTexture = setVehicleWheelTexture;
 __vehicles <- {};
 __vehiclesR <- {};
 
+
+// NVEHICLES: overrides for new system
+original__createVehicle     <- createVehicle;
+original__isPlayerInVehicle <- isPlayerInVehicle;
+original__getPlayerVehicle  <- getPlayerVehicle;
+
+// NVEHICLES: overrides for old system
+isPlayerInVehicle <- function(playerid) {
+    local result = original__isPlayerInVehicle(playerid);
+    if (!result) return false;
+
+    local vehicleid = original__getPlayerVehicle(playerid);
+    if (!(vehicleid in __vehicles)) return false;
+}
+
+getPlayerVehicle <- function(playerid) {
+    return isPlayerInVehicle(playerid) ? original__getPlayerVehicle(playerid) : -1;
+}
+// NVEHICLES: END OF overrides for old system
+
+
 // overriding to custom one
 createVehicle = function(modelid, x, y, z, rx, ry, rz) {
     local vehicleid = old__createVehicle(
