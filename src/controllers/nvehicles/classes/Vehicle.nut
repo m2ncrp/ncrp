@@ -210,7 +210,7 @@ class Vehicle extends ORM.Entity
             throw "Vehicle: cannot spawn vehicle wihtout hull!";
         }
 
-        this.vehicleid = createVehicle(hull.getModel(), this.x, this.y, this.z, this.rx, this.ry, this.rz);
+        this.vehicleid = original__createVehicle(hull.getModel(), this.x, this.y, this.z, this.rx, this.ry, this.rz);
         vehicles_native[this.vehicleid] <- this;
 
         if (this.vehicleid < 0) {
