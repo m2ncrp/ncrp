@@ -10,7 +10,7 @@ ICON_KNUCKLES     <- [0 , 10];
 ICON_MAFIA        <- [0 , 11];
 ICON_MAP          <- [0 , 12];
 ICON_BURGER       <- [1 ,  4];
-ICON_CLOTH        <- [2 ,  4];
+ICON_CLOTHES      <- [2 ,  4];
 ICON_BRUSKI       <- [3 ,  4];
 ICON_WEAPON       <- [4 ,  4];
 ICON_ARMY         <- [5 ,  4];
