@@ -51,9 +51,9 @@ class Matrix
         // dbg(this.r2.x + ",\t" + this.r2.y + ",\t" + this.r2.z + "\n");
         // dbg(this.r3.x + ",\t" + this.r3.y + ",\t" + this.r3.z + "\n\n");
         //
-        dbg(this.r1);
-        dbg(this.r2);
-        dbg(this.r3);
-        dbg();
+        // dbg(this.r1);
+        // dbg(this.r2);
+        // dbg(this.r3);
+        // dbg();
     }
 }

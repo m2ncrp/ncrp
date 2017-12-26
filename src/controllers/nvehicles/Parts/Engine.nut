@@ -129,8 +129,7 @@ key("q", function(playerid) {
     if ((eng || (eng instanceof VehicleComponent.Engine))) {
         foreach (idx, item in players[playerid].inventory) {
             if(item._entity == "Item.VehicleKey") {
-                dbg(item._entity + " ~ " + item.data.id);
-                dbg(vehicle.id);
+                dbg(vehicle.id + " ~ " + item.data.id);
                 if (item.data.id == vehicle.id) {
                     eng.action();
                     break;

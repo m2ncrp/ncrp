@@ -204,8 +204,8 @@ class Vector3 {
     }
 
     function tostring() {
-        // print(this.x + "," + this.y + "," + this.z + "\n");
-        dbg(this);
-        dbg();
+        print(this.x + "," + this.y + "," + this.z + "\n");
+        // dbg(this);
+        // dbg();
     }
 }

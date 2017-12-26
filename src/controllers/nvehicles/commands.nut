@@ -38,7 +38,7 @@ acmd(["fix"], function( playerid, targetid = null ) {
     }
 
     if( original__isPlayerInVehicle( playerid ) && targetid == null ) {
-        local vehicleid = original__getPlayerVehicleid(playerid);
+        local vehicleid = original__getPlayerVehicle(playerid);
         local hull = vehicles[vehicleid].components.findOne(VehicleComponent.Hull);
         local fueltank = vehicles[vehicleid].components.findOne(VehicleComponent.FuelTank);
         hull.repair();
@@ -66,7 +66,7 @@ acmd(["clean"], function( playerid, targetid = null ) {
     }
 
     if( original__isPlayerInVehicle( playerid ) && targetid == null ) {
-        local vehicleid = original__getPlayerVehicleid(playerid);
+        local vehicleid = original__getPlayerVehicle(playerid);
         local hull = vehicles[vehicleid].components.findOne(VehicleComponent.Hull);
         hull.setDirt(0.0);
     }
@@ -227,38 +227,6 @@ acmd(["clean"], function( playerid, targetid = null ) {
 //             }
 //         });
 //     }
-// });
-
-/**
- * KEYBINDS
- */
-// key("q", function(playerid) {
-//     if (!original__isPlayerInVehicle(playerid)) {
-//         return;
-//     }
-
-//     // if (!isPlayerVehicleDriver(playerid)) {
-//     //     return;
-//     // }
-
-//     local veh = __vehicles.get( original__getPlayerVehicle(playerid) );
-//     return veh.engine.action();
-// });
-
-// addKeyboardHandler("r", "up", function(playerid) {
-//     switchLights(playerid);
-// });
-
-// addKeyboardHandler("z", "up", function(playerid) {
-//     switchLeftLight(playerid);
-// });
-
-// addKeyboardHandler("c", "up", function(playerid) {
-//     switchRightLight(playerid);
-// });
-
-// addKeyboardHandler("x", "up", function(playerid) {
-//     switchBothLight(playerid);
 // });
 
 // addKeyboardHandler("2", "up", function(playerid) {
