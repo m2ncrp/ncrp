@@ -240,10 +240,15 @@ function createItems(itemsData, lang) {
             }
 
             local posY = columnYfirst + 79 * floor(i / 2);
-
+            local title = "";
+            if (itemsData[i].itemName == "Item.Clothes") {
+                title = TRANSLATIONS[lang][itemsData[i].itemName]+" ["+itemsData[i].amount+"]";
+            } else {
+                title = TRANSLATIONS[lang][itemsData[i].itemName];
+            }
             items[i]      = guiCreateElement( ELEMENT_TYPE_IMAGE,   itemsData[i].itemName.tostring()+".png",    posX           ,  posY           ,   64.0, 64.0, false, window[lastWindowType]);
             buttons[i]    = guiCreateElement( ELEMENT_TYPE_BUTTON,  TRANSLATIONS[lang].buy,                     posX+pBuy[0]   ,  posY+pBuy[1]   ,   70.0, 22.0, false, window[lastWindowType]);
-            labelTitle[i] = guiCreateElement( ELEMENT_TYPE_LABEL,   TRANSLATIONS[lang][itemsData[i].itemName],  posX+pTitle[0] ,  posY+pTitle[1] ,  100.0, 15.0, false, window[lastWindowType]);
+            labelTitle[i] = guiCreateElement( ELEMENT_TYPE_LABEL,   title,                                      posX+pTitle[0] ,  posY+pTitle[1] ,  100.0, 15.0, false, window[lastWindowType]);
             labelPrice[i] = guiCreateElement( ELEMENT_TYPE_LABEL,   "$"+itemsData[i].price.tostring(),          posX+pPrice[0] ,  posY+pPrice[1] ,  100.0, 15.0, false, window[lastWindowType]);
 
             guiBringToFront(buttons[i]);

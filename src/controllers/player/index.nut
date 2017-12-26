@@ -105,6 +105,13 @@ event(["onServerAutosave", "onServerStopping"], function() {
 });
 
 /**
+ * Kick all players on server stopping
+ */
+event("onServerStopping", function() {
+    foreach (playerid, character in players) kickPlayer( playerid );
+});
+
+/**
  * Increase player xp level (minutes)
  */
 event("onServerMinuteChange", function() {
