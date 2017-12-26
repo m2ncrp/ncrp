@@ -276,3 +276,18 @@ migrate(function(query, type) {
     query("ALTER TABLE tbl_businesses ADD COLUMN `alias` TEXT NOT NULL DEFAULT '';");
     query("ALTER TABLE tbl_businesses ADD COLUMN `data` TEXT NOT NULL DEFAULT '{}';");
 });
+
+
+// 26.12.17
+// added new vehicle system
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_nvehicles ADD COLUMN `ownerid` INT(255) NOT NULL DEFAULT -1;");
+    query("ALTER TABLE tbl_nvehicles ADD COLUMN `state` INT(255) NOT NULL DEFAULT 0;");
+    query("ALTER TABLE tbl_nvehicles ADD COLUMN `components` TEXT NOT NULL DEFAULT '{}';");
+    query("ALTER TABLE tbl_nvehicles ADD COLUMN `x` FLOAT NOT NULL DEFAULT 0.0;");
+    query("ALTER TABLE tbl_nvehicles ADD COLUMN `y` FLOAT NOT NULL DEFAULT 0.0;");
+    query("ALTER TABLE tbl_nvehicles ADD COLUMN `z` FLOAT NOT NULL DEFAULT 0.0;");
+    query("ALTER TABLE tbl_nvehicles ADD COLUMN `rx` FLOAT NOT NULL DEFAULT 0.0;");
+    query("ALTER TABLE tbl_nvehicles ADD COLUMN `ry` FLOAT NOT NULL DEFAULT 0.0;");
+    query("ALTER TABLE tbl_nvehicles ADD COLUMN `rz` FLOAT NOT NULL DEFAULT 0.0;");
+});
