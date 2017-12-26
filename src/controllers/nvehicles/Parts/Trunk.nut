@@ -71,6 +71,10 @@ key("e", function(playerid) {
     if (vehicle == null) return;
 
     local trunk = vehicle.components.findOne(VehicleComponent.Trunk);
+    if (!trunk || !(trunk instanceof VehicleComponent.Trunk)) {
+        throw "Vehicle: cannot find any trunk!";
+    }
+
     local vid = vehicle.id;
 
     local v_pos = getVehiclePosition(vehicle.vehicleid);
@@ -86,12 +90,12 @@ key("e", function(playerid) {
     local y = v_pos[1] + offsets.y;
     local z = v_pos[2] - offsets.x;
 
-    dbg( "Vehicle " + vid + " position is " + v_pos[0] + ", " + v_pos[1] + ", " + v_pos[2] + "." );
-    dbg( "Vehicle " + vid + " trunk position is " + x + ", " + y + ", " + z + "." );
+    // dbg( "Vehicle " + vid + " position is " + v_pos[0] + ", " + v_pos[1] + ", " + v_pos[2] + "." );
+    // dbg( "Vehicle " + vid + " trunk position is " + x + ", " + y + ", " + z + "." );
 
     // if ( isInRadius(playerid, x, y, z, radius) ) {
     if ( checkDistanceXY(x, y, p_pos[0], p_pos[1], radius) ) {
-        dbg( "Trunk status of " + vid  + " vehicle has been set to " + !trunk.data.status);
+        // dbg( "Trunk status of " + vid  + " vehicle has been set to " + !trunk.data.status);
         if (!trunk.data.status) {
             msg(playerid, "Вы успешно открыли багажник " + vid + " машины. Грац!");
             if (!trunk.isLoaded()) {
