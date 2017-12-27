@@ -339,4 +339,9 @@ class Vehicle extends ORM.Entity
 
         return null;
     }
+
+    function isMoving(minimalspeed = 0.5) {
+        local velocity = getVehicleSpeed(this.vehicleid);
+        return (fabs(velocity[0]) > minimalspeed || fabs(velocity[1]) > minimalspeed);
+    }
 }

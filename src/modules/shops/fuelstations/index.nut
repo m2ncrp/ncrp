@@ -254,13 +254,56 @@ function fuelJerrycanUp( playerid ) {
 }
 
 
+function fuelNVehicleUp(playerid) {
+    local vehicle = getPlayerNVehicle(playerid);
+    local eng = vehicle.components.findOne(VehicleComponent.Engine);
+    local ft = vehicle.components.findOne(VehicleComponent.FuelTank);
+
+    if ( vehicle.isMoving() ) {
+        return msg( playerid, "shops.fuelstations.stopyourmoves", CL_THUNDERBIRD );
+    }
+
+    if ( eng.getState() ) {
+        return msg( playerid, "shops.fuelstations.stopengine", CL_THUNDERBIRD );
+    }
+
+    local fuel = ft.getNeed();
+    local cost = round(GALLON_COST * fuel, 2);
+
+    if ( fuel <= 0 ) {
+        return msg(playerid, "shops.fuelstations.fueltank.full"CL_THUNDERBIRD);
+    }
+
+    if ( !canMoneyBeSubstracted(playerid, cost) ) {
+        return msg(playerid, "shops.fuelstations.money.notenough", [cost, getPlayerBalance(playerid)], CL_THUNDERBIRD);
+    }
+
+    local fuelup_time = (fuel / FUELUP_SPEED).tointeger();
+    msg( playerid, "shops.fuelstations.loading", CL_CHESTNUT2 );
+    freezePlayer( playerid, true);
+    eng.setStatusTo(false);
+    trigger(playerid, "hudCreateTimer", fuelup_time, true, true);
+    delayedFunction(fuelup_time * 1000, function () {
+        freezePlayer( playerid, false);
+        delayedFunction(1000, function () { freezePlayer( playerid, false); });
+        ft.setFuelToMax();
+        subMoneyToPlayer(playerid, cost);
+        addMoneyToTreasury(cost);
+        msg(playerid, "shops.fuelstations.fuel.payed", [cost, fuel, getPlayerBalance(playerid)], CL_CHESTNUT2);
+    });
+}
+
 key("e", function(playerid) {
     if ( !isNearFuelStation(playerid) ) return;
+
+    if ( isPlayerInNVehicle(playerid) ) {
+        fuelNVehicleUp(playerid);
+        return;
+    }
 
     if (isPlayerInVehicle(playerid) ) {
         fuelVehicleUp(playerid);
     } else {
         fuelJerrycanUp(playerid);
     }
-
 });

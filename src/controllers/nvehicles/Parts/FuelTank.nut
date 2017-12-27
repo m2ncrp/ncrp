@@ -23,6 +23,11 @@ class VehicleComponent.FuelTank extends VehicleComponent
         return getVehicleFuel(this.parent.vehicleid);
     }
 
+    // how much do you need to fuel up it to max
+    function getNeed() {
+        return round(this.data.volume - this.data.fuellevel, 2);
+    }
+
     // Returns fuel level by the Script
     function getCurrentFuelLevel() {
         return this.data.fuellevel;

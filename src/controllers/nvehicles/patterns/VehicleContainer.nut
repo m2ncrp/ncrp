@@ -52,6 +52,15 @@ class VehicleContainer extends Container
         }
         return closestobj;
     }
+
+    // function getVehicle(playerid) {
+    //     return isPlayerInVehicle(playerid) ? original__getPlayerVehicle(playerid) : null;
+    // }
+
+    // function isNative(object) {
+    //     // Code
+    // }
+
 }
 
 

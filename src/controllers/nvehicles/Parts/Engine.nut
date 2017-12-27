@@ -82,6 +82,10 @@ class VehicleComponent.Engine extends VehicleComponent
         setVehicleEngineState(this.parent.vehicleid, newStatus);
     }
 
+    function getState() {
+        return this.data.status;
+    }
+
     /**
      * Returns how many gallons particular
      * engine will take fuel from fueltank
