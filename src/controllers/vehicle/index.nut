@@ -145,20 +145,7 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
 
         dbg("player", "vehicle", "enter", getVehiclePlateText(vehicleid), getIdentity(playerid), "owned: " + isPlayerVehicleOwner(playerid, vehicleid));
 
-        local canDrive = false;
-        local entityid = getVehicleEntityId(vehicleid);
-
-        foreach (idx, item in players[playerid].inventory) {
-            if(item._entity == "Item.VehicleKey") {
-                if (item.data.id == entityid) {
-                    canDrive = true;
-                    break;
-                }
-            }
-        }
-
-        //if (isPlayerVehicleOwner(playerid, vehicleid) || isPlayerVehicleFraction(playerid, vehicleid)) {
-        if(canDrive == true) {
+        if (isPlayerHaveVehicleKey(playerid, vehicleid)) {
             unblockVehicle(vehicleid);
         } else {
             blockVehicle(vehicleid);
