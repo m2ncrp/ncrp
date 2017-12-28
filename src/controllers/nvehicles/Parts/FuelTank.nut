@@ -4,6 +4,8 @@ class VehicleComponent.FuelTank extends VehicleComponent
 {
     static classname = "VehicleComponent.FuelTank";
 
+    isFillingup = false;
+
     constructor (data = null) {
         // dbg("called fuel tank creation");
         base.constructor(data);

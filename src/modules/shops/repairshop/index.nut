@@ -46,7 +46,8 @@ addEventHandlerEx("onServerStarted", function() {
 
 function isNearRepairShop(playerid) {
     foreach (key, value in repair_shops) {
-        if (isPlayerVehicleInValidPoint(playerid, value[0], value[1], SHOP_REPAIR_RADIUS )) {
+        if (isPlayerVehicleInValidPoint(playerid, value[0], value[1], SHOP_REPAIR_RADIUS ) ||
+            isPlayerNVehicleInValidPoint(playerid, value[0], value[1], SHOP_REPAIR_RADIUS )) {
             return true;
         }
     }
@@ -65,6 +66,19 @@ function repairShopRepairCar (playerid) {
         if ( !canMoneyBeSubstracted(playerid, SHOP_REPAIR_COST) ) {
             return msg(playerid, "shops.repairshop.money.notenough", [SHOP_REPAIR_COST, getPlayerBalance(playerid)], CL_THUNDERBIRD);
         }
+
+        if ( isPlayerInNVehicle(playerid) ) {
+            local hull = getPlayerNVehicle(playerid).getComponent(VehicleComponent.Hull);
+
+            msg(playerid, "shops.repairshop.needwait");
+            return screenFadeinFadeoutEx(playerid, 250, 3000, null, function() {
+                hull.repair();
+                subMoneyToPlayer(playerid, SHOP_REPAIR_COST);
+                addMoneyToTreasury(SHOP_REPAIR_COST);
+                msg(playerid, "shops.repairshop.repair.payed", [SHOP_REPAIR_COST, getPlayerBalance(playerid)]);
+            });
+        }
+
         msg(playerid, "shops.repairshop.needwait");
         screenFadeinFadeoutEx(playerid, 250, 3000, null, function() {
             local vehicleid = getPlayerVehicle(playerid);

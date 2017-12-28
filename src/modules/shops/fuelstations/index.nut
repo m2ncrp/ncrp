@@ -58,18 +58,18 @@ function isNearFuelStation(playerid) {
     return false;
 }
 
-acmd( ["fuel"], "low", function( playerid ) {
-    local vehicleid = getPlayerVehicle(playerid);
-    return setVehicleFuel(vehicleid, 10.0);
-});
+// acmd( ["fuel"], "low", function( playerid ) {
+//     local vehicleid = getPlayerVehicle(playerid);
+//     return setVehicleFuel(vehicleid, 10.0);
+// });
 
 
-acmd( ["fuel"], "test", function( playerid ) {
-    local vehicleid = getPlayerVehicle(playerid);
-    local volume = getVehicleFuel(vehicleid) + 1.0;
-    msg( playerid, "shops.fuelstations.fueltank.check", [volume] );
-    return setVehicleFuel(vehicleid, volume);
-});
+// acmd( ["fuel"], "test", function( playerid ) {
+//     local vehicleid = getPlayerVehicle(playerid);
+//     local volume = getVehicleFuel(vehicleid) + 1.0;
+//     msg( playerid, "shops.fuelstations.fueltank.check", [volume] );
+//     return setVehicleFuel(vehicleid, volume);
+// });
 
 alternativeTranslate({
 
@@ -84,6 +84,9 @@ alternativeTranslate({
 
     "en|shops.fuelstations.stopengine"         : "[FUEL] Please, stop the engine."
     "ru|shops.fuelstations.stopengine"         : "[FUEL] Заглушите двигатель."
+
+    "en|shops.fuelstations.fuelingalready"     : "[FUEL] Filling up your tank. Please wait a little."
+    "ru|shops.fuelstations.fuelingalready"     : "[FUEL] В бак уже заливается топливо. Подождите немного."
 
     "en|shops.fuelstations.loading"            : "[FUEL] Loading. Please, wait..."
     "ru|shops.fuelstations.loading"            : "[FUEL] Идёт заправка. Ждите..."
@@ -256,8 +259,8 @@ function fuelJerrycanUp( playerid ) {
 
 function fuelNVehicleUp(playerid) {
     local vehicle = getPlayerNVehicle(playerid);
-    local eng = vehicle.components.findOne(VehicleComponent.Engine);
-    local ft = vehicle.components.findOne(VehicleComponent.FuelTank);
+    local eng = vehicle.getComponent(VehicleComponent.Engine);
+    local ft = vehicle.getComponent(VehicleComponent.FuelTank);
 
     if ( vehicle.isMoving() ) {
         return msg( playerid, "shops.fuelstations.stopyourmoves", CL_THUNDERBIRD );
@@ -265,6 +268,10 @@ function fuelNVehicleUp(playerid) {
 
     if ( eng.getState() ) {
         return msg( playerid, "shops.fuelstations.stopengine", CL_THUNDERBIRD );
+    }
+
+    if ( ft.isFillingup ) {
+        return msg( playerid, "shops.fuelstations.fuelingalready", CL_THUNDERBIRD );
     }
 
     local fuel = ft.getNeed();
@@ -281,7 +288,7 @@ function fuelNVehicleUp(playerid) {
     local fuelup_time = (fuel / FUELUP_SPEED).tointeger();
     msg( playerid, "shops.fuelstations.loading", CL_CHESTNUT2 );
     freezePlayer( playerid, true);
-    eng.setStatusTo(false);
+    ft.isFillingup = true;
     trigger(playerid, "hudCreateTimer", fuelup_time, true, true);
     delayedFunction(fuelup_time * 1000, function () {
         freezePlayer( playerid, false);
@@ -289,6 +296,7 @@ function fuelNVehicleUp(playerid) {
         ft.setFuelToMax();
         subMoneyToPlayer(playerid, cost);
         addMoneyToTreasury(cost);
+        ft.isFillingup = false;
         msg(playerid, "shops.fuelstations.fuel.payed", [cost, fuel, getPlayerBalance(playerid)], CL_CHESTNUT2);
     });
 }

@@ -344,4 +344,13 @@ class Vehicle extends ORM.Entity
         local velocity = getVehicleSpeed(this.vehicleid);
         return (fabs(velocity[0]) > minimalspeed || fabs(velocity[1]) > minimalspeed);
     }
+
+    function getComponent(idOrType) {
+        local c = this.components.findOne(idOrType);
+
+        if (!c || !(c instanceof idOrType)) {
+            throw "Vehicle: cannot find " + idOrType + "!";
+        }
+        return c;
+    }
 }

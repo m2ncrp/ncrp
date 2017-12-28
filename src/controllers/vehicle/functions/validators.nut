@@ -42,6 +42,11 @@ function isPlayerVehicleInValidPoint(playerid, X, Y, radius) {
     return (isPlayerInVehicle(playerid) && isVehicleNearPoint( getPlayerVehicle(playerid), X, Y, radius));
 }
 
+// vehicleid's bad one here
+function isPlayerNVehicleInValidPoint(playerid, X, Y, radius) {
+    return (isPlayerInNVehicle(playerid) && isVehicleNearPoint( getPlayerNVehicle(playerid).vehicleid, X, Y, radius));
+}
+
 /**
  * Check if vehicle is in radius
  * @param  {int}  vehicleid

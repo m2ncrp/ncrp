@@ -41,7 +41,8 @@ addEventHandlerEx("onServerStarted", function() {
 
 function isNearWashStations(playerid) {
     foreach (key, value in wash_stations) {
-        if (isPlayerVehicleInValidPoint(playerid, value[0], value[1], SHOP_WASH_RADIUS )) {
+        if (isPlayerVehicleInValidPoint(playerid, value[0], value[1], SHOP_WASH_RADIUS ) ||
+            isPlayerNVehicleInValidPoint(playerid, value[0], value[1], SHOP_WASH_RADIUS )) {
             return true;
         }
     }
@@ -60,7 +61,20 @@ function washStationsWashCar (playerid) {
         if ( !canMoneyBeSubstracted(playerid, SHOP_WASH_COST) ) {
             return msg(playerid, "shops.washstations.money.notenough", [SHOP_WASH_COST, getPlayerBalance(playerid)], CL_THUNDERBIRD);
         }
+
         msg(playerid, "shops.washstations.needwait", CL_WASH);
+
+        if ( isPlayerInNVehicle(playerid) ) {
+            return screenFadeinFadeoutEx(playerid, 250, 3000, null, function() {
+                getPlayerNVehicle(playerid)
+                    .getComponent(VehicleComponent.Hull)
+                    .setDirt(0.0);
+                subMoneyToPlayer(playerid, SHOP_WASH_COST);
+                addMoneyToTreasury(SHOP_WASH_COST);
+                msg(playerid, "shops.washstations.wash.payed", [SHOP_WASH_COST, getPlayerBalance(playerid)], CL_WASH);
+            });
+        }
+
         screenFadeinFadeoutEx(playerid, 250, 3000, null, function() {
             local vehicleid = getPlayerVehicle(playerid);
             setVehicleDirtLevel (vehicleid, 0.0);
@@ -68,7 +82,6 @@ function washStationsWashCar (playerid) {
             addMoneyToTreasury(SHOP_WASH_COST);
             return msg(playerid, "shops.washstations.wash.payed", [SHOP_WASH_COST, getPlayerBalance(playerid)], CL_WASH);
         });
-
     }
 }
 
