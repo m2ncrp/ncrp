@@ -21,12 +21,12 @@ class VehicleComponent.FuelTank extends VehicleComponent
     }
 
     // Returns fuel level by the Server
-    function getFuel() {
+    function _getNativeFuelLevel() {
         return getVehicleFuel(this.parent.vehicleid);
     }
 
     // how much do you need to fuel up it to max
-    function getNeed() {
+    function getFuelToFillup() {
         return round(this.data.volume - this.data.fuellevel, 2);
     }
 

@@ -274,7 +274,7 @@ function fuelNVehicleUp(playerid) {
         return msg( playerid, "shops.fuelstations.fuelingalready", CL_THUNDERBIRD );
     }
 
-    local fuel = ft.getNeed();
+    local fuel = ft.getFuelToFillup();
     local cost = round(GALLON_COST * fuel, 2);
 
     if ( fuel <= 0 ) {
