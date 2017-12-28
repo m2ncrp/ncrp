@@ -552,7 +552,6 @@ cmd("car", "buy", function(playerid) {
     trySaveVehicle(vehicleid)
 
     vehicleKey.setData("id", __vehicles[vehicleid].entity.id);
-    vehicleKey.setData("plate", vehiclePlate);
 
     players[playerid].inventory.push( vehicleKey );
     vehicleKey.save();
