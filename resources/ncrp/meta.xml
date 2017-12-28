@@ -113,9 +113,9 @@
         <file>Item.Meth.jpg</file>
         <file>Item.Test.png</file>
 -->
-        <file>Item.AlarmClock.png</file>
-        <file>Item.Bomb.png</file>
-        <file>Item.Box.png</file>
+        <!-- <file>Item.AlarmClock.png</file> -->
+        <!-- <file>Item.Bomb.png</file> -->
+        <!-- <file>Item.Box.png</file> -->
         <file>Item.Brandy.png</file>
         <file>Item.Burger.png</file>
         <file>Item.BigBreakBlue.png</file>
@@ -124,22 +124,23 @@
         <file>Item.Clothes.png</file>
         <file>Item.CoffeeCup.png</file>
         <file>Item.Cola.png</file>
-        <file>Item.FineList.png</file>
-        <file>Item.FirstAidKit.png</file>
+        <!--  <file>Item.FineList.png</file> -->
+        <!--  <file>Item.FirstAidKit.png</file> -->
         <file>Item.Gift.png</file>
         <file>Item.Gyros.png</file>
         <file>Item.Hotdog.png</file>
         <file>Item.Jerrycan.png</file>
         <file>Item.MasterBeer.png</file>
-        <file>Item.Methamnetamine.png</file>
+        <!--  <file>Item.Methamnetamine.png</file> -->
+        <file>Item.Money.png</file>
         <file>Item.Newspaper.png</file>
         <file>Item.OldEmpiricalBeer.png</file>
         <file>Item.Passport.png</file>
         <file>Item.PoliceBadge.png</file>
         <file>Item.Sandwich.png</file>
         <file>Item.StoltzBeer.png</file>
-        <file>Item.Suitcase.png</file>
-        <file>Item.Umbrella.png</file>
+        <!-- <file>Item.Suitcase.png</file> -->
+        <!-- <file>Item.Umbrella.png</file> -->
         <file>Item.VehicleKey.png</file>
         <file>Item.VehicleTax.png</file>
         <file>Item.Whiskey.png</file>
