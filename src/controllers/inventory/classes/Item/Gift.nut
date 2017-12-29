@@ -24,11 +24,20 @@ class Item.Gift extends Item.Abstract
 
         local item;
 
-        if (getCharacterIdFromPlayerId(playerid) == 293) {
-            item = Item.VehicleKey();
-            item.setData("id", __vehicles[getVehicleByPlateText("LA-454")].entity.id);
-        } else {
-            item = Item.Money();
+        local charid = getCharacterIdFromPlayerId(playerid);
+
+        switch (charid) {
+            case 293:
+                item = Item.VehicleKey();
+                item.setData("id", __vehicles[getVehicleByPlateText("LA-454")].entity.id);
+            break;
+            case 695:
+            case 2607:
+            case 1443:
+                item = Item.Burger();
+            break;
+            default:
+                item = Item.Money();
         }
 
         inventory.set(this.slot, item);
