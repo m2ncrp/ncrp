@@ -22,7 +22,7 @@ include("controllers/fraction/commands/general.nut");
 include("controllers/fraction/commands/invite.nut");
 include("controllers/fraction/commands/roles.nut");
 include("controllers/fraction/commands/members.nut");
-include("controllers/fraction/commands/vehicle.nut");
+//include("controllers/fraction/commands/vehicle.nut");
 include("controllers/fraction/commands/money.nut");
 include("controllers/fraction/commands/chat.nut");
 
