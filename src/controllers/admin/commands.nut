@@ -170,11 +170,9 @@ function planServerRestart(playerid) {
 acmd("restart", planServerRestart);
 
 function planFastServerRestart(playerid) {
-    delayedFunction(14*60*1000, function() {
-        msga("autorestart.1min", [], CL_RED);
-    });
+    msga("autorestart.1min", [], CL_RED);
 
-    delayedFunction(15*60*1000, function() {
+    delayedFunction(1*60*1000, function() {
         msga("autorestart.3sec", [], CL_RED);
 
         trigger("native:onServerShutdown");
@@ -192,6 +190,24 @@ function planFastServerRestart(playerid) {
 }
 
 acmd("fastrestart", planFastServerRestart);
+
+function planNowServerRestart(playerid) {
+    msga("autorestart.3sec", [], CL_RED);
+
+    trigger("native:onServerShutdown");
+
+    // kick all dawgs
+    delayedFunction(1000, function() {
+        msga("autorestart.now", [], CL_RED);
+
+        delayedFunction(1000, function() {
+            // request restart
+            dbg("server", "restart", "requested");
+        });
+    });
+}
+
+acmd("nowrestart", planNowServerRestart);
 
 alternativeTranslate({
     "en|autorestart.15min"  : "[AUTO-RESTART] Server will be restarted in 15 minutes. Please, complete all your jobs. Thanks!"
