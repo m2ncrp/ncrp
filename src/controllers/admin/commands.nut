@@ -41,21 +41,25 @@ acmd("list", function(playerid) {
     }
 });
 
+function dev(text) {
+    msga("[DEV] " + text, [], CL_PETERRIVER);
+}
+
+acmd(["dev"], function(playerid, ...) {
+    if(getPlayerSerial(playerid) == "940A9BF3DC69DC56BCB6BDB5450961B4") {
+        return dev(oncat(vargv));
+    }
+});
+
 acmd(["admin", "adm"], function(playerid, ...) {
     if(getPlayerSerial(playerid) == "940A9BF3DC69DC56BCB6BDB5450961B4") {
-        return msga("[DEV] " + concat(vargv), [], CL_PETERRIVER);
+        return dev(oncat(vargv));
     }
     //else if(getPlayerSerial(playerid) == "856BE506BCEAEEC908F3577ABEFF9171") { // Oliver
     //    return msga("[ADMIN #1] " + concat(vargv), [], CL_MEDIUMPURPLE);
     //}
     else{
         return msga("[ADMIN] "+getAccountName(playerid)+": " + concat(vargv), [], CL_MEDIUMPURPLE);
-    }
-});
-
-acmd(["dev"], function(playerid, ...) {
-    if(getPlayerSerial(playerid) == "940A9BF3DC69DC56BCB6BDB5450961B4") {
-        return msga("[DEV] " + concat(vargv), [], CL_PETERRIVER);
     }
 });
 
@@ -164,6 +168,30 @@ function planServerRestart(playerid) {
 }
 
 acmd("restart", planServerRestart);
+
+function planFastServerRestart(playerid) {
+    delayedFunction(14*60*1000, function() {
+        msga("autorestart.1min", [], CL_RED);
+    });
+
+    delayedFunction(15*60*1000, function() {
+        msga("autorestart.3sec", [], CL_RED);
+
+        trigger("native:onServerShutdown");
+
+        // kick all dawgs
+        delayedFunction(1000, function() {
+            msga("autorestart.now", [], CL_RED);
+
+            delayedFunction(1000, function() {
+                // request restart
+                dbg("server", "restart", "requested");
+            });
+        });
+    });
+}
+
+acmd("fastrestart", planFastServerRestart);
 
 alternativeTranslate({
     "en|autorestart.15min"  : "[AUTO-RESTART] Server will be restarted in 15 minutes. Please, complete all your jobs. Thanks!"
