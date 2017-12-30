@@ -75,14 +75,14 @@ function addMoneyToDeposit(playerid, amount) {
     local old_amount = players[playerid]["deposit"];
     local new_amount = old_amount + amount.tofloat();
     players[playerid]["deposit"] = new_amount;
-    log("[DEPOSIT] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> Was: $"+old_amount+". Changed: +"+amount+" dollars. Now: $"+new_amount);
+    log("[DEPOSIT] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> +"+format("%.2f", amount)+" dollars. Was: $"+format("%.2f", old_amount)+". Now: $"+format("%.2f", new_amount));
 }
 
 function subMoneyToDeposit(playerid, amount) {
     local old_amount = players[playerid]["deposit"];
     local new_amount = old_amount - amount.tofloat();
     players[playerid]["deposit"] = new_amount;
-    log("[DEPOSIT] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> Was: $"+old_amount+". Changed: -"+amount+" dollars. Now: $"+new_amount);
+    log("[DEPOSIT] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> -"+format("%.2f", amount)+" dollars. Was: $"+format("%.2f", old_amount)+". Now: $"+format("%.2f", new_amount));
 }
 
 function bankAccount(playerid) {
