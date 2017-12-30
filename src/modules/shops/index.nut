@@ -9,6 +9,7 @@ include("modules/shops/carpaint");
 //include("modules/shops/cardealer");
 include("modules/shops/kiosks");
 include("modules/shops/santa-klaus");
+include("modules/shops/vehiclekeys_temporary");
 /*
 key("7", function(playerid) {
       triggerClientEvent(playerid, "showShopGUI");

@@ -1,7 +1,8 @@
 class Item.VehicleKey extends Item.Abstract
 {
     static classname = "Item.VehicleKey";
-    weight      = 0.10;
+    default_decay = 259200;
+    weight        = 0.10;
 
     function use(playerid, inventory) {
         msg(playerid, "==================================", CL_HELP_LINE);
