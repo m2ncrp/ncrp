@@ -52,7 +52,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
         CARPAINT_EMPTY    = vehicleid;
         CARPAINT_PLAYERID = playerid;
 
-        if( availableCars.find(modelid) != null && isPlayerVehicleOwner(playerid, vehicleid) ) {
+        if( availableCars.find(modelid) != null && isPlayerHaveVehicleKey(playerid, vehicleid) ) {
             car_paint[vehicleid]["availableColors"] = getVehicleColorsArray( vehicleid );
             car_paint[vehicleid]["currentColor"]    = getVehicleColour( vehicleid );
 
@@ -74,7 +74,7 @@ event("onPlayerPlaceExit", function(playerid, name) {
     local modelid   = getVehicleModel( vehicleid );
 
     if (name == CARPAINT_NAME+"_inside") {
-        if( availableCars.find(modelid) == null || isPlayerVehicleOwner(playerid, vehicleid) == false) return;
+        if( availableCars.find(modelid) == null || isPlayerHaveVehicleKey(playerid, vehicleid) == false) return;
         if(checkVehiclePaintColorChanged(vehicleid) == true) {
             if(!canMoneyBeSubstracted(playerid, CARPAINT_COST)) {
                 local cr = car_paint[vehicleid]["currentColor"];
@@ -138,7 +138,7 @@ function carPaintRocket(playerid) {
     CARPAINT_TIMER = delayedFunction(1000 * CARPAINT_ROCKET_TIMER, function() {
         if(!isVehicleEmpty(vehicleid)) return;
             local modelid   = getVehicleModel( vehicleid );
-        if( (vehicleid in car_paint) && (availableCars.find(modelid) != null) && isPlayerVehicleOwner(playerid, vehicleid) != false) {
+        if( (vehicleid in car_paint) && (availableCars.find(modelid) != null) && isPlayerHaveVehicleKey(playerid, vehicleid) != false) {
             local cr = car_paint[vehicleid]["currentColor"];
             setVehicleColour(vehicleid, cr[0], cr[1], cr[2], cr[3], cr[4], cr[5]);
         }
@@ -179,7 +179,7 @@ function carPaintChangeColor(playerid, setdefault = null) {
 
     if(CARPAINT_EMPTY != vehicleid) return;
 
-    if( availableCars.find(modelid) == null || isPlayerVehicleOwner(playerid, vehicleid) == false) {
+    if( availableCars.find(modelid) == null || isPlayerHaveVehicleKey(playerid, vehicleid) == false) {
         return msg(playerid, "carpaint.cantrepaintthiscar", CL_MALIBU);
     }
 
