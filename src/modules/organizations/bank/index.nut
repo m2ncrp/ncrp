@@ -71,11 +71,19 @@ function canBankMoneyBeSubstracted(playerid, amount) {
     return (players[playerid]["deposit"] >= amount);
 }
 
-function subBankMoneyToPlayer(playerid, amount) {
-    players[playerid]["deposit"] -= amount.tofloat();
-    dbg("[DEPOSIT] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -"+amount+" dollars.");
+function addMoneyToDeposit(playerid, amount) {
+    local old_amount = players[playerid]["deposit"];
+    local new_amount = old_amount + amount.tofloat();
+    players[playerid]["deposit"] = new_amount;
+    log("[DEPOSIT] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> Was: $"+old_amount+". Changed: +"+amount+" dollars. Now: $"+new_amount);
 }
 
+function subMoneyToDeposit(playerid, amount) {
+    local old_amount = players[playerid]["deposit"];
+    local new_amount = old_amount - amount.tofloat();
+    players[playerid]["deposit"] = new_amount;
+    log("[DEPOSIT] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> Was: $"+old_amount+". Changed: -"+amount+" dollars. Now: $"+new_amount);
+}
 
 function bankAccount(playerid) {
 
@@ -106,7 +114,7 @@ function bankDeposit(playerid, amount) {
     }
 
     subMoneyToPlayer(playerid, amount);
-    players[playerid]["deposit"] += amount;
+    addMoneyToDeposit(playerid, amount)
     msg( playerid, "You deposit to bank $"+formatMoney(amount)+". Balance: $"+bankGetPlayerDeposit(playerid) );
 }
 
@@ -129,7 +137,7 @@ function bankWithdraw(playerid, amount) {
         return msg( playerid, "bank.withdraw.notenough" );
     }
 
-    players[playerid]["deposit"] -= amount;
+    subMoneyToDeposit(playerid, amount)
     addMoneyToPlayer(playerid, amount);
     msg( playerid, "You withdraw from bank $"+formatMoney(amount)+". Balance: $"+bankGetPlayerDeposit(playerid) )
 }

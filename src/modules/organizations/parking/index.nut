@@ -220,7 +220,7 @@ event("onVehicleGetFromCarPound", function(playerid) {
         //local vehicleid = place;
         parkingPlaceStatus[placeid] = "free";
         unblockVehicle(vehicleid);
-        subBankMoneyToPlayer(playerid, PARKING_COST);
+        subMoneyToDeposit(playerid, PARKING_COST);
         addMoneyToTreasury(PARKING_COST);
         msg(playerid, "parking.free");
         setVehicleSpeed(vehicleid, 0.0, -12.0, 0.0);
