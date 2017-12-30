@@ -172,7 +172,7 @@ acmd("restart", planServerRestart);
 function planFastServerRestart(playerid) {
     msga("autorestart.1min", [], CL_RED);
 
-    delayedFunction(15*60*1000, function() {
+    delayedFunction(1*60*1000, function() {
         msga("autorestart.3sec", [], CL_RED);
 
         trigger("native:onServerShutdown");
