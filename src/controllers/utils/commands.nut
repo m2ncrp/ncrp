@@ -210,7 +210,7 @@ cmd("hat", function ( playerid, count = null) {
         local hat = random(1, count);
         msgr(playerid, "utils.hat", [ count, getAuthor2(playerid), hat ], CL_WHITE, 10);
         // statistics
-        statisticsPushMessage(playerid, hat, "hat");
+        statisticsPushMessage(playerid, hat.tostring(), "hat");
     }
 });
 
