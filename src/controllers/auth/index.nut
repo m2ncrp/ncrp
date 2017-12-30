@@ -150,19 +150,22 @@ event("onClientSuccessfulyStarted", function(playerid) {
                 msg(playerid, "---------------------------------------------", CL_SILVERSAND);
                 msg(playerid, "auth.welcome", username);
 
-                if (account) {
-                    showLoginGUI(playerid);
-                    msg(playerid, "auth.registered");
-                    msg(playerid, "*");
-                    msg(playerid, "auth.command.login");
+                if (username == "Player") {
+                    showBadPlayerNicknameGUI(playerid);
                 } else {
-                    showRegisterGUI(playerid);
-                    msg(playerid, "auth.notregistered");
-                    msg(playerid, "*");
-                    msg(playerid, "auth.command.register");
-                    msg(playerid, "auth.command.regformat");
+                    if (account) {
+                        showLoginGUI(playerid);
+                        msg(playerid, "auth.registered");
+                        msg(playerid, "*");
+                        msg(playerid, "auth.command.login");
+                    } else {
+                        showRegisterGUI(playerid);
+                        msg(playerid, "auth.notregistered");
+                        msg(playerid, "*");
+                        msg(playerid, "auth.command.register");
+                        msg(playerid, "auth.command.regformat");
+                    }
                 }
-
                 msg(playerid, "---------------------------------------------", CL_SILVERSAND);
             });
         });

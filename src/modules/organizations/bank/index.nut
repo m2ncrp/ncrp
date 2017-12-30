@@ -49,7 +49,7 @@ event("onServerStarted", function() {
     //creating 3dtext for Bank Office
     create3DText ( BANK_OFFICE_X, BANK_OFFICE_Y, BANK_OFFICE_Z+0.35, "GRAND IMERIAL BANK", CL_ROYALBLUE );
     create3DText ( BANK_OFFICE_X, BANK_OFFICE_Y, BANK_OFFICE_Z+0.20, "/bank", CL_WHITE.applyAlpha(75), BANK_RADIUS );
-    createBlip(BANK_OFFICE_X, BANK_OFFICE_Y, ICON_MAFIA, 4000.0 )
+    createBlip(BANK_OFFICE_X, BANK_OFFICE_Y, ICON_DOLLAR, 4000.0 )
 });
 
 function bankPlayerInValidPoint(playerid) {
@@ -71,11 +71,19 @@ function canBankMoneyBeSubstracted(playerid, amount) {
     return (players[playerid]["deposit"] >= amount);
 }
 
-function subBankMoneyToPlayer(playerid, amount) {
-    players[playerid]["deposit"] -= amount.tofloat();
-    dbg("[DEPOSIT] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -"+amount+" dollars.");
+function addMoneyToDeposit(playerid, amount) {
+    local old_amount = players[playerid]["deposit"];
+    local new_amount = old_amount + amount.tofloat();
+    players[playerid]["deposit"] = new_amount;
+    log("[DEPOSIT] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> +"+format("%.2f", amount)+" dollars. Was: $"+format("%.2f", old_amount)+". Now: $"+format("%.2f", new_amount));
 }
 
+function subMoneyToDeposit(playerid, amount) {
+    local old_amount = players[playerid]["deposit"];
+    local new_amount = old_amount - amount.tofloat();
+    players[playerid]["deposit"] = new_amount;
+    log("[DEPOSIT] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> -"+format("%.2f", amount)+" dollars. Was: $"+format("%.2f", old_amount)+". Now: $"+format("%.2f", new_amount));
+}
 
 function bankAccount(playerid) {
 
@@ -106,7 +114,7 @@ function bankDeposit(playerid, amount) {
     }
 
     subMoneyToPlayer(playerid, amount);
-    players[playerid]["deposit"] += amount;
+    addMoneyToDeposit(playerid, amount)
     msg( playerid, "You deposit to bank $"+formatMoney(amount)+". Balance: $"+bankGetPlayerDeposit(playerid) );
 }
 
@@ -129,7 +137,7 @@ function bankWithdraw(playerid, amount) {
         return msg( playerid, "bank.withdraw.notenough" );
     }
 
-    players[playerid]["deposit"] -= amount;
+    subMoneyToDeposit(playerid, amount)
     addMoneyToPlayer(playerid, amount);
     msg( playerid, "You withdraw from bank $"+formatMoney(amount)+". Balance: $"+bankGetPlayerDeposit(playerid) )
 }

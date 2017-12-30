@@ -89,7 +89,7 @@ alternativeTranslate({
     "ru|shops.fuelstations.loading"            : "[FUEL] Идёт заправка. Ждите..."
 
     "en|shops.fuelstations.fueltank.check"     : "Fuel level: %.2f gallons."
-    "ru|shops.fuelstations.fueltank.check"     : "В баке: %.2f литров."
+    "ru|shops.fuelstations.fueltank.check"     : "В баке: %.2f галлонов."
 
     "en|shops.fuelstations.fueltank.full"      : "[FUEL] Your fuel tank is full!"
     "ru|shops.fuelstations.fueltank.full"      : "[FUEL] Бак полон!"
@@ -98,7 +98,7 @@ alternativeTranslate({
     "ru|shops.fuelstations.money.notenough"    : "[FUEL] Недостаточно денег. Для оплаты требуется $%.2f, а у вас только $%s."
 
     "en|shops.fuelstations.fuel.payed"         : "[FUEL] You pay $%.2f for %.2f gallons. Current balance $%s. Come to us again!"
-    "ru|shops.fuelstations.fuel.payed"         : "[FUEL] Вы заплатили $%.2f за %.2f литров. Ваш баланс $%s. Будем рады видеть Вас снова!"
+    "ru|shops.fuelstations.fuel.payed"         : "[FUEL] Вы заплатили $%.2f за %.2f галлонов. Ваш баланс $%s. Будем рады видеть Вас снова!"
 
     "en|shops.fuelstations.help.fuelup"        : "To fill up vehicle fuel tank"
     "ru|shops.fuelstations.help.fuelup"        : "Заправить автомобиль"
@@ -126,7 +126,7 @@ alternativeTranslate({
     "ru|canister.use.farfromvehicle"          : "[CANISTER] Вы слишком далеко от автомобиля."
 
     "en|canister.use.spent"                   : "[CANISTER] %.2f gallons spent. Left litres: %.2f."
-    "ru|canister.use.spent"                   : "[CANISTER] Вылито %.2f литров. Осталось литров: %.2f."
+    "ru|canister.use.spent"                   : "[CANISTER] Вылито %.2f галлонов. Осталось галлонов: %.2f."
 
 
     "en|canister.fuelup.needinhands"          : "[CANISTER] Take canister in hands."
@@ -142,7 +142,7 @@ alternativeTranslate({
     "ru|canister.fuelup.money.notenough"      : "[FUEL] Недостаточно денег. Для оплаты требуется $%.2f."
 
     "en|canister.fuelup.filled"               : "[CANISTER] %.2f gallons poured for $%.2f. Сanister filled."
-    "ru|canister.fuelup.filled"               : "[CANISTER] Залито %.2f литров на $%.2f. Канистра заполнена."
+    "ru|canister.fuelup.filled"               : "[CANISTER] Залито %.2f галлонов на $%.2f. Канистра заполнена."
 
 });
 

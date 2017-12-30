@@ -63,6 +63,19 @@ function getPlayerIdFromCharacterId(CharacterId) {
     return false;
 }
 
+/**
+ * Return CharacterId by playerid
+ * or false if player was not found
+ * @param {Integer} PlayerId
+ * @return {Integer} CharacterId
+ */
+function getCharacterIdFromPlayerId(playerid) {
+    if(players.has(playerid)) {
+        return players[playerid].id;
+    }
+    return false;
+}
+
 event("onServerPlayerStarted", function(playerid) {
     // for local player
     trigger(playerid, "onServerPlayerAdded", playerid, getPlayerName(playerid));

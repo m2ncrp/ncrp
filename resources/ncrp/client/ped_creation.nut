@@ -22,3 +22,28 @@ addEventHandler("onServerClientStarted", function(version) {
 
     log("peds created");
 });
+
+function round(val, decimalPoints) {
+    local f = pow(10, decimalPoints) * 1.0;
+    local newVal = val * f;
+    newVal = floor(newVal + 0.5)
+    newVal = (newVal * 1.0) / f;
+   return newVal;
+}
+
+local pedsTaxiArray = {};
+addEventHandler("createPedTaxiPassenger", function(playerName, skin, x, y, z, rx, ry, rz) {
+   if ( ! (playerName in pedsTaxiArray) ) {
+       pedsTaxiArray[playerName] <- {};
+   }
+   // приводим угол поворота к правильному, округляем до 2 знаком после запятой
+   local nrx = round(rx.tofloat() * 0.016667, 2);
+   local pedid = createPed( skin, x.tofloat(), y.tofloat(), z.tofloat(), nrx, ry.tofloat(), rz.tofloat());
+   setPedName(pedid, " ");
+
+   pedsTaxiArray[playerName]["pedid"] <- pedid;
+});
+
+addEventHandler("destroyPedTaxiPassenger", function(playerName) {
+   destroyPed( pedsTaxiArray[playerName]["pedid"] );
+});

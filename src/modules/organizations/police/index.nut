@@ -47,6 +47,44 @@ POLICE_RANK <- [ // source: https://youtu.be/i7o0_PMv72A && https://en.wikipedia
 ];
 POLICE_MAX_RANK <- POLICE_RANK.len()-1;
 
+
+
+local police_permissoins = {};
+
+
+police_permissoins[0]   <-  "wanted_read"      ; // смотреть розыск
+police_permissoins[1]   <-  "wanted_add"       ; // подавать в розыск
+police_permissoins[2]   <-  "wanted_delete"    ; // убирать из розыска
+police_permissoins[3]   <-  "ticket"           ; // выписывать штраф
+police_permissoins[4]   <-  "park"             ; // отправлять автомобиль на штрафстоянку
+police_permissoins[5]   <-  "jail"             ; // сажать в тюрьму
+police_permissoins[6]   <-  "amnesty"          ; // амнистировать
+police_permissoins[7]   <-  "give_key"         ; // давать ключи от служебных автомобилей
+police_permissoins[8]   <-  "civilian_clothes" ;
+
+police_permissoins[40]   <-  "weapons"          ; // доступ к оружию
+
+police_permissoins[51]    <-  "car40"            ; // пользоваться полицейским автомобилем 40х годов
+police_permissoins[52]    <-  "car50"            ; // пользоваться полицейским автомобилем 50х годов
+police_permissoins[53]    <-  "bus"              ; // пользоваться полицейским автобусом
+police_permissoins[54]    <-  "detective_car"    ; // пользоваться машиной детектива
+
+
+local police_rank = [
+
+
+];
+
+
+function policecmd(name, callback) {
+    cmd(name, function(playerid, args) {
+        local police = fractions["police"];
+        police.exists(playerid)
+
+        return callback(playerid, args);
+    });
+}
+
 /*
                                                     №   car  detective_car    wanted    ticket    park    arrest    jail    amnesty    weapons          change_rangs    give_key  civilian_clothes  salary
     "police.cadet",          //"Police cadet"       0    -         -            -         -         -       -        -         -          -                  -              -             -          0.15
@@ -71,21 +109,21 @@ function policeRankPermission(ride, gun, getvehinfo) {
 }
 
 POLICE_RANK_SALLARY_PERMISSION_SKIN <- [ // calculated as: (-i^2 + 27*i + 28)/200; i - rank number
-    [0.14, policeRankPermission(false, false, false), [75, 76] ], // 0 - "police.cadet"
-    [0.27, policeRankPermission(false, true, false),  [75, 76] ], // 1 - "police.patrol"
-    [0.39, policeRankPermission(true, true, false),   [75, 76] ], // 2 - "police.officer"
-    [0.50, policeRankPermission(true, true, true),    [69]     ], // 3 - "police.detective"
-    [0.60, policeRankPermission(true, true, true),    [75, 76] ], // 4 - "police.sergeant.wa1"
-    [0.69, policeRankPermission(true, true, true),    [75, 76] ], // 5 - "police.sergeant.2"
-    [0.77, policeRankPermission(true, true, true),    [75, 76] ], // 6 - "police.lieutenant.1"
-    [0.84, policeRankPermission(true, true, true),    [75, 76] ], // 7 - "police.lieutenant.2"
-    [0.90, policeRankPermission(true, true, true),    [75, 76] ], // 8 - "police.Captain.1"
-    [0.95, policeRankPermission(true, true, true),    [75, 76] ], // 9 - "police.Captain.2"
-    [0.99, policeRankPermission(true, true, true),    [75, 76] ], // 10 - "police.Captain.3"
-    [1.02, policeRankPermission(true, true, true),    [75, 76] ], // 11 - "police.commander"
-    [1.04, policeRankPermission(true, true, true),    [75, 76] ], // 12 - "police.deputychief"
-    [1.05, policeRankPermission(true, true, true),    [75, 76] ], // 13 - "police.assistantchief"
-    [1.05, policeRankPermission(true, true, true),    [75, 76] ]  // 14 - "police.chief"
+   /* 0.14 */ [0.09, policeRankPermission(false, false, false), [75, 76] ], // 0 - "police.cadet"
+   /* 0.27 */ [0.14, policeRankPermission(false, true, false),  [75, 76] ], // 1 - "police.patrol"
+   /* 0.39 */ [0.19, policeRankPermission(true, true, false),   [75, 76] ], // 2 - "police.officer"
+   /* 0.50 */ [0.24, policeRankPermission(true, true, true),    [69]     ], // 3 - "police.detective"
+   /* 0.60 */ [0.29, policeRankPermission(true, true, true),    [75, 76] ], // 4 - "police.sergeant.wa1"
+   /* 0.69 */ [0.34, policeRankPermission(true, true, true),    [75, 76] ], // 5 - "police.sergeant.2"
+   /* 0.77 */ [0.39, policeRankPermission(true, true, true),    [75, 76] ], // 6 - "police.lieutenant.1"
+   /* 0.84 */ [0.44, policeRankPermission(true, true, true),    [75, 76] ], // 7 - "police.lieutenant.2"
+   /* 0.90 */ [0.49, policeRankPermission(true, true, true),    [75, 76] ], // 8 - "police.Captain.1"
+   /* 0.95 */ [0.54, policeRankPermission(true, true, true),    [75, 76] ], // 9 - "police.Captain.2"
+   /* 0.99 */ [0.59, policeRankPermission(true, true, true),    [75, 76] ], // 10 - "police.Captain.3"
+   /* 1.02 */ [0.64, policeRankPermission(true, true, true),    [75, 76] ], // 11 - "police.commander"
+   /* 1.04 */ [0.69, policeRankPermission(true, true, true),    [75, 76] ], // 12 - "police.deputychief"
+   /* 1.05 */ [0.74, policeRankPermission(true, true, true),    [75, 76] ], // 13 - "police.assistantchief"
+   /* 1.05 */ [0.79, policeRankPermission(true, true, true),    [75, 76] ]  // 14 - "police.chief"
 ];
 
 
@@ -96,25 +134,6 @@ POLICE_TICKET_PRICELIST <- [
 ];
 
 DENGER_LEVEL <- "green";
-
-/**
- * Any cmd only with any text, without specific parameters
- * @param  {[type]}   names    [description]
- * @param  {Function} callback [description]
- * @return {[type]}            [description]
- */
-function policecmd(names, callback)  {
-    cmd(names, function(playerid, ...) {
-        local text = concat(vargv);
-
-        if (!text || text.len() < 1) {
-            return msg(playerid, "general.message.empty", CL_YELLOW);
-        }
-
-        // call registered callback
-        return callback(playerid, text);
-    });
-}
 
 /**
  * Format message from parameters package (vargv)
@@ -328,7 +347,6 @@ event("onBatonBitStart", function (playerid) {
 event("onPlayerPhoneCall", function(playerid, number, place) {
     if (number == "police") {
         policeCall(playerid, place);
-        dbg("chat", "police", getAuthor(playerid), localize( place, [], "ru") );
     }
 });
 

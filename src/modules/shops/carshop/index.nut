@@ -139,7 +139,7 @@ event("onServerStarted", function() {
     //create3DText( DIAMOND_CARSHOP_X, DIAMOND_CARSHOP_Y, DIAMOND_CARSHOP_Z + 0.35, "DIAMOND MOTORS", CL_ROYALBLUE );
     //create3DText( DIAMOND_CARSHOP_X, DIAMOND_CARSHOP_Y, DIAMOND_CARSHOP_Z + 0.20, "/car", CL_WHITE.applyAlpha(75), CARSHOP_DISTANCE );
 
-    createBlip  ( DIAMOND_CARSHOP_X, DIAMOND_CARSHOP_Y, ICON_GEAR, ICON_RANGE_FULL );
+    createBlip  ( DIAMOND_CARSHOP_X, DIAMOND_CARSHOP_Y, ICON_LOGO_CAR, ICON_RANGE_FULL );
 
     createPlace(CARSHOP_PLACE_NAME, CARSHOP_PLACE_COORDS[0], CARSHOP_PLACE_COORDS[1], CARSHOP_PLACE_COORDS[2], CARSHOP_PLACE_COORDS[3]);
 
@@ -515,6 +515,10 @@ cmd("car", "buy", function(playerid) {
         return msg( playerid, "shops.carshop.closed", [ CARSHOP_WORKING_HOUR_START.tostring(), CARSHOP_WORKING_HOUR_END.tostring()], CL_ROYALBLUE );
     }
 
+    if(!players[playerid].inventory.isFreeSpace(1)) {
+        return msg(playerid, "inventory.space.notenough", CL_ERROR);
+    }
+
     local modelid = getVehicleModel(vehicleid);
     local car = getCarInfoModelById(modelid);
 
@@ -523,24 +527,93 @@ cmd("car", "buy", function(playerid) {
         return msg(playerid, "shops.carshop.money.error", CL_ERROR);
     }
 
+    local vehicleKey = Item.VehicleKey();
+    if (!players[playerid].inventory.isFreeWeight(vehicleKey)) {
+        return msg(playerid, "inventory.weight.notenough", CL_ERROR);
+    }
+
     // take money
     subMoneyToPlayer(playerid, car.price);
 
     // add money to treasury
     addMoneyToTreasury(car.price);
 
+    local vehiclePlate = getRandomVehiclePlate();
+
     // set params
     setVehicleOwner(vehicleid, playerid);
-    setVehiclePlateText(vehicleid, getRandomVehiclePlate());
+    setVehiclePlateText(vehicleid, vehiclePlate);
     setVehicleSaving(vehicleid, true);
     setVehicleRespawnEx(vehicleid, false);
     setVehicleDirtLevel(vehicleid, 0.0);
     repairVehicle(vehicleid);
     unblockVehicle(vehicleid);
 
+    trySaveVehicle(vehicleid)
+
+    vehicleKey.setData("id", __vehicles[vehicleid].entity.id);
+
+    players[playerid].inventory.push( vehicleKey );
+    vehicleKey.save();
+    players[playerid].inventory.sync();
+
     //triggerClientEvent(playerid, "hideCarShopGUI");
     return msg(playerid, "shops.carshop.success", CL_SUCCESS);
 });
+
+
+
+
+
+
+
+/*
+
+cmd("skin", "buy", function(playerid, skinid = null) {
+    local skinid = toInteger(skinid);
+
+    if(!isPlayerInValidPoint(playerid, CLOTHES_SHOP_X, CLOTHES_SHOP_Y, CLOTHES_SHOP_DISTANCE)) {
+        return msg(playerid, "shops.clothesshop.gotothere", getPlayerName(playerid), CL_THUNDERBIRD);
+    }
+
+    if (!skinid || !getSkinBySkinId(skinid)) {
+        return msg(playerid, "shops.clothesshop.selectskin");
+    }
+
+    if(!players[playerid].inventory.isFreeSpace(1)) {
+        return msg(playerid, "inventory.space.notenough", CL_THUNDERBIRD);
+    }
+
+    local skin = getSkinBySkinId(skinid);
+
+    if (!canMoneyBeSubstracted(playerid, skin.price)) {
+        //triggerClientEvent(playerid, "hideCarShopGUI");
+        return msg(playerid, "shops.clothesshop.money.error", CL_THUNDERBIRD);
+    }
+
+    local clothes = Item.Clothes();
+    if (!players[playerid].inventory.isFreeWeight(clothes)) {
+        return msg(playerid, "inventory.weight.notenough", CL_THUNDERBIRD);
+    }
+    // take money
+    subMoneyToPlayer(playerid, skin.price);
+    addMoneyToTreasury(skin.price);
+    msg(playerid, "shops.clothesshop.success", CL_SUCCESS);
+    clothes.amount = skin.skinid;
+    players[playerid].inventory.push( clothes );
+    clothes.save();
+    players[playerid].inventory.sync();
+
+    //setPlayerModel(playerid, skin.skinid, true);
+});
+
+
+
+
+
+*/
+
+
 
 
 function carShopHelp (playerid, a = null, b = null) {

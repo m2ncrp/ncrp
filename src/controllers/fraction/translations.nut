@@ -1,6 +1,9 @@
 alternativeTranslate({
-"en|fraction.rolenotexist"                  :   "There is no such role. You can see fraction roles via: /f roles"
-"ru|fraction.rolenotexist"                  :   "Указанная должность не существует. Список должностей: /f roles"
+"en|fraction.permission.error"              :   "You dont have permission to use this action!"
+"ru|fraction.permission.error"              :   "У Вас нет прав для выполнения этого действия!"
+
+"en|fraction.rolenotexist"                  :   "There is no such role. You can see fraction roles via: /%s roles"
+"ru|fraction.rolenotexist"                  :   "Указанная должность не существует. Список должностей: /%s roles"
 
 "en|fraction.nopermission"                  :   "You don't have permission to invite players to this fraction."
 "ru|fraction.nopermission"                  :   "Ваша должность не позволяет приглашать людей во фракцию."
@@ -16,17 +19,17 @@ alternativeTranslate({
 "en|fraction.invite.invited"                :   "You've invited %s to join your fraction %s with role %s."
 "ru|fraction.invite.invited"                :   "Вы пригласили %s вступить во фракцию %s на должность %s."
 
-"en|fraction.invite.tocancel"               :   "If you want to cancel invite, write /f cancel %d."
-"ru|fraction.invite.tocancel"               :   "Если хотите отказаться от приглашения, напишите /f cancel %d."
+"en|fraction.invite.tocancel"               :   "If you want to cancel invite, write /invites cancel %d."
+"ru|fraction.invite.tocancel"               :   "Если хотите отказаться от приглашения, напишите /invites cancel %d."
 
 "en|fraction.invite.hasinvited"             :   "%s has invited you to join fraction %s with role %s."
 "ru|fraction.invite.hasinvited"             :   "%s приглашает вас вступить во фракцию %s на должность %s."
 
-"en|fraction.invite.toaccept"               :   "If you want to join, write /f accept %d."
-"ru|fraction.invite.toaccept"               :   "Если хотите принять приглашение, напишите /f accept %d."
+"en|fraction.invite.toaccept"               :   "If you want to join, write /invites accept %d."
+"ru|fraction.invite.toaccept"               :   "Если хотите принять приглашение, напишите /invites accept %d."
 
-"en|fraction.invite.showallinvites"         :   "If you want to see all your invites, write /f invites"
-"ru|fraction.invite.showallinvites"         :   "Список доступных вам приглашений: /f invites"
+"en|fraction.invite.showallinvites"         :   "If you want to see all your invites, write /invites list"
+"ru|fraction.invite.showallinvites"         :   "Список доступных вам приглашений: /invites list"
 
 "en|fraction.invite.noinvites"              : "You don't have any fraction invites at the moment."
 "ru|fraction.invite.noinvites"              : "Вам не поступало приглашений на вступление во фракцию."
@@ -43,12 +46,12 @@ alternativeTranslate({
 "en|fraction.invitations.item"              : "#%d Fraction: %s, Role: %s, By: %s."
 "ru|fraction.invitations.item"              : "#%d Фракция: %s, Должность: %s, От: %s."
 
-"en|fraction.invitations.toaccept"          : "To accept: /f accept %d"
-"ru|fraction.invitations.toaccept"          : "Принять приглашение: /f accept %d"
+"en|fraction.invitations.toaccept"          : "To accept: /invites accept %d"
+"ru|fraction.invitations.toaccept"          : "Принять приглашение: /invites accept %d"
 
 
-"en|fraction.accept.donthaveinvitations"    : "You don't have invitation with provided id. To see full list, write: /f invites"
-"ru|fraction.accept.donthaveinvitations"    : "У вас нет приглашения с указанным id. Посмотреть список приглашений: /f invites"
+"en|fraction.accept.donthaveinvitations"    : "You don't have invitation with provided id. To see full list, write: /invites list"
+"ru|fraction.accept.donthaveinvitations"    : "У вас нет приглашения с указанным id. Посмотреть список приглашений: /invites list"
 
 
 "en|fraction.accept.fractionnotexist"       : "You can't accept invitation to fraction which doesn't exists."
@@ -57,8 +60,8 @@ alternativeTranslate({
 "en|fraction.accept.donthaverole"           : "You can't accept invitation to fraction with role which doesnt exists."
 "ru|fraction.accept.donthaverole"           : "Вступить во фракцию на несуществующую должность невозможно."
 
-"en|fraction.accept.cannotjoin"             : "You can't join this fraction while you are a member of other fraction. To leave current fraction write: /f leave"
-"ru|fraction.accept.cannotjoin"             : "Невозможно вступить во фракцию, являясь участником другой фракции. Покинуть текущую фракцию: /f leave"
+"en|fraction.accept.cannotjoin"             : "You can't join this fraction while you are a member of other fraction. To leave current fraction write: /%s leave"
+"ru|fraction.accept.cannotjoin"             : "Невозможно вступить во фракцию, являясь участником другой фракции. Покинуть текущую фракцию: /%s leave"
 
 "en|fraction.accept.complete"               : "You've successfuly joined fraction %s as %s."
 "ru|fraction.accept.complete"               : "Вы вступили во фракцию %s на должность %s."
@@ -173,20 +176,28 @@ alternativeTranslate({
 "en|fraction.vehicle.item"                  : "Vehicle model: %s, Plate number: %s"
 "ru|fraction.vehicle.item"                  : "Модель: %s, Номер: %s"
 
-"en|fraction.vehicle.toadd"                 : "To add a new car, seat inside it and write /f car add"
-"ru|fraction.vehicle.toadd"                 : "Добавить автомобиль во фракцию (находясь в нём): /f car add"
+"en|fraction.vehicle.toadd"                 : "To add a new car, seat inside it and write /%s car add"
+"ru|fraction.vehicle.toadd"                 : "Добавить автомобиль во фракцию (находясь в нём): /%s car add"
 
 
 
+"en|fraction.list.title"                    : "Fractions you are currently in (%d):"
+"ru|fraction.list.title"                    : "Фракции в которых вы состоите (%d шт):"
+
+"en|fraction.list.entry"                    : "  - '%s' role: %s. Info: /%s"
+"ru|fraction.list.entry"                    : "  - '%s' роль: %s. Инфо: /%s"
 
 "en|fraction.info.title"                    : " - Information about fraction %s"
 "ru|fraction.info.title"                    : " - Информация о фракции %s"
 
-"en|fraction.info.roles"                    : "- Current amount of roles: %d. To list, write: /f roles"
-"ru|fraction.info.roles"                    : "- Всего ролей: %d. Посмотреть список ролей: /f roles"
+"en|fraction.info.roles"                    : "- Current amount of roles: %d. To list, write: /%s roles"
+"ru|fraction.info.roles"                    : "- Всего ролей: %d. Посмотреть список ролей: /%s roles"
 
-"en|fraction.info.members"                  : "- Current amount of members: %d. To list, write: /f list"
-"ru|fraction.info.members"                  : "- Всего участников: %d. Посмотреть список участников: /f list"
+"en|fraction.info.members"                  : "- Current amount of members: %d. To list, write: /%s members"
+"ru|fraction.info.members"                  : "- Всего участников: %d. Посмотреть список участников: /%s members"
+
+"en|fraction.info.vehicles"                 : "- Current amount of vehicles: %d. To list, write: /%s cars"
+"ru|fraction.info.vehicles"                 : "- Всего автомобилей: %d. Посмотреть список автомобилей: /%s cars"
 
 "en|fraction.info.money"                    : "- Current money amount: $%.2f"
 "ru|fraction.info.money"                    : "- Сумма на счёте фракции: $%.2f"

@@ -198,7 +198,18 @@ function showLoginGUI(playerid) {
 }
 
 /**
- * Tigger showing regisration gui
+ * Trigger showing gui window with message about bad nickname: Player
+ * @param  {Integer} playerid
+ * @return {Boolean}
+ */
+function showBadPlayerNicknameGUI(playerid) {
+    return delayedFunction(2500, function() {
+        trigger(playerid, "showBadPlayerNicknameGUI");
+    });
+}
+
+/**
+ * Trigger showing regisration gui
  * for player addding translations
  * @param  {Integer} playerid
  * @return {Boolean}
