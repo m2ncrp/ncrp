@@ -116,9 +116,19 @@ acmd("myveh", function(playerid, modelid) {
     local pos = getPlayerPosition( playerid );
     local vehicleid = createVehicle( modelid.tointeger(), pos[0] + 2.0, pos[1], pos[2] + 1.0, 0.0, 0.0, 0.0 );
     // setVehicleColour(vehicleid, 0, 0, 0, 0, 0, 0);
-    setVehicleOwner(vehicleid, "__cityNCRP");
+    setVehicleOwner(vehicleid, playerid);
     setVehicleSaving(vehicleid, true); // it will be saved to database
     setVehicleRespawnEx(vehicleid, false); // it will respawn (specially)
+});
+
+acmd(["deletecar", "removecar", "deleteveh", "removeveh"], function(playerid, plate) {
+    local vehicleid = getVehicleByPlateText(plate.toupper());
+    if (vehicleid) {
+        removePlayerVehicle(vehicleid);
+        msg(playerid, "Vehicle "+plate.toupper()+" deleted.", CL_SNUFF);
+    } else {
+        msg(playerid, "Vehicle "+plate.toupper()+" not found. Enter full plate number.", CL_POMEGRANATE_50);
+    }
 });
 
 acmd("who", function(playerid) {
@@ -130,7 +140,7 @@ acmd("who", function(playerid) {
         }
     }
 });
-
+/*
 cmd("sell", function(playerid, amount = null) {
     if (!isPlayerInVehicle(playerid)) {
         return;
@@ -179,7 +189,7 @@ cmd("sell", function(playerid, amount = null) {
         });
     }
 });
-
+*/
 /**
  * KEYBINDS
  */

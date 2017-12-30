@@ -10,7 +10,8 @@ translation("en", {
 
     "language.change.success"           : "You've successfully changed language to English!"
 
-    "vehicle.owner.warning"             : "You can't drive a car which doesn't belong to you"
+    "vehicle.owner.warning"             : "You don't have key for this vehicle."
+    //"vehicle.owner.warning"             : "You can't drive a car which doesn't belong to you"
     "vehicle.owner.true"                : "You are owner."
     "vehicle.owner.false"               : "You are not an owner."
 

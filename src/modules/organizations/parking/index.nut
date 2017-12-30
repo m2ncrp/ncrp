@@ -52,18 +52,30 @@ local parkingPlace = [
         parkingPlaceStatus.push("free");
     }
 
-translate("en", {
-    "parking.needEnterPlate"    : "Need to enter plate number."
-    "parking.checkPlate"        : "Check the correct plate number of the car."
-    "parking.peoopleInside"     : "Impossible pick up the car at car pound with people."
-    "parking.alreadyParking"    : "Car already parked."
-    "parking.complete"          : "Car has been parked at car pound."
-    "parking.noFreeSpace"       : "No free space at car pound."
-    "parking.carNotParked"      : "Car with plate number %s is not parked."
-    "parking.notenoughmoney"    : "You don't have enough money."
-    "parking.notYourCar"        : "This is not your car."
-    "parking.free"              : "The car has been freed sucsessfully."
-    "parking.pay"               : "Need to pay $%d to unpark: /unpark"
+alternativeTranslate({
+    "en|parking.needEnterPlate"    : "Need to enter plate number."
+    "en|parking.checkPlate"        : "Check the correct plate number of the car."
+    "en|parking.peoopleInside"     : "Impossible pick up the car at car pound with people."
+    "en|parking.alreadyParking"    : "Car already parked."
+    "en|parking.complete"          : "Car has been parked at car pound."
+    "en|parking.noFreeSpace"       : "No free space at car pound."
+    "en|parking.carNotParked"      : "Car with plate number %s is not parked."
+    "en|parking.notenoughmoney"    : "You don't have enough money."
+    "en|parking.notYourCar"        : "This is not your car."
+    "en|parking.free"              : "The car has been freed sucsessfully."
+    "en|parking.pay"               : "If you have the key, need to pay $%d to unpark: /unpark"
+
+    "ru|parking.needEnterPlate"    : "Необходимо указать номер автомобиля."
+    "ru|parking.checkPlate"        : "Проверьте правильность указанного номера автомобиля."
+    "ru|parking.peoopleInside"     : "Невозможно эвакуировать авто на штрафстоянку с людьми внутри."
+    "ru|parking.alreadyParking"    : "Автомобиль уже находится на штрафстоянке."
+    "ru|parking.complete"          : "Автомобиль эвакуирован на штрафстоянку."
+    "ru|parking.noFreeSpace"       : "На штрафстоянке нет свободных мест."
+    "ru|parking.carNotParked"      : "Автомобиль с номером %s отсутствует на штрафстоянке."
+    "ru|parking.notenoughmoney"    : "У вас недостаточно денег."
+    "ru|parking.notYourCar"        : "Этот автомобиль вам не принадлежит."
+    "ru|parking.free"              : "Вы забрали автомобиль со штрафстоянки."
+    "ru|parking.pay"               : "Если у вас есть ключ от этого автомобиля, то, чтобы его забрать, нужно заплатить $%d: /unpark"
 });
 
 event("onServerStarted", function() {
@@ -199,8 +211,8 @@ event("onVehicleGetFromCarPound", function(playerid) {
         return msg(playerid, "parking.notenoughmoney");
     }
 
-    if (!isPlayerVehicleOwner(playerid, vehicleid)) {
-        return msg(playerid, "parking.notYourCar");
+    if (!isPlayerHaveVehicleKey(playerid, vehicleid)) {
+        return msg(playerid, "vehicle.owner.warning", CL_WARNING);
     }
 
     foreach (placeid, place in parkingPlaceStatus) {
@@ -208,7 +220,7 @@ event("onVehicleGetFromCarPound", function(playerid) {
         //local vehicleid = place;
         parkingPlaceStatus[placeid] = "free";
         unblockVehicle(vehicleid);
-        subBankMoneyToPlayer(playerid, PARKING_COST);
+        subMoneyToDeposit(playerid, PARKING_COST);
         addMoneyToTreasury(PARKING_COST);
         msg(playerid, "parking.free");
         setVehicleSpeed(vehicleid, 0.0, -12.0, 0.0);
@@ -225,9 +237,9 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     if(vehPos[0] <= PARKING_COORDS[0] && vehPos[0] >= PARKING_COORDS[2] && vehPos[1] <= PARKING_COORDS[3] && vehPos[1] >= PARKING_COORDS[1])
     {
         blockVehicle(vehicleid);
-        if (!isPlayerVehicleOwner(playerid, vehicleid)) {
-            return msg(playerid, "parking.notYourCar");
-        }
+        //if (!isPlayerVehicleOwner(playerid, vehicleid)) {
+        //    return msg(playerid, "parking.notYourCar");
+        //}
         msg(playerid, "parking.pay", PARKING_COST);
     }
 });

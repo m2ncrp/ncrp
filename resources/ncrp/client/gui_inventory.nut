@@ -37,7 +37,8 @@ local backbone = {
     ihands = null,
 };
 
-
+local playerLang = "en";
+local characterName = "";
 
 /**
  * ************************
@@ -46,40 +47,138 @@ local backbone = {
  */
 
 local translations = {
-    "Item.None"             : "",
-    "Item.Revolver12"       : "Revolver 12",
-    "Item.MauserC96"        : "Mauser C96",
-    "Item.ColtM1911A1"      : "Colt M1911 A1",
-    "Item.ColtM1911Spec"    : "Colt M1911 Special",
-    "Item.Revolver19"       : "Revolver 19",
-    "Item.MK2"              : "MK2",
-    "Item.Remington870"     : "Remington 870",
-    "Item.M3GreaseGun"      : "MP Grease Gun",
-    "Item.MP40"             : "MP-40",
-    "Item.Thompson1928"     : "Thompson 1928",
-    "Item.M1A1Thompson"     : "M1A1 Thompson",
-    "Item.Beretta38A"       : "Beretta 38A",
-    "Item.MG42"             : "MG-42",
-    "Item.M1Garand"         : "M1 Grand",
-    "Item.Kar98k"           : "Kar 98k",
-    "Item.Molotov"          : "Molotov",
-    "Item.Ammo45ACP"        : "Ammo .45 ACP",
-    "Item.Ammo357magnum"    : "Ammo .357 Mangum",
-    "Item.Ammo12mm"         : "Ammo 12 mm",
-    "Item.Ammo9x19mm"       : "Ammo 9x19 mm",
-    "Item.Ammo792x57mm"     : "Ammo 7.92x57 mm",
-    "Item.Ammo762x63mm"     : "Ammo 7.62x63 mm",
-    "Item.Ammo38Special"    : "Ammo .38 Special",
-    "Item.Clothes"          : "Clothes",
-    "Item.Burger"           : "Burger",
-    "Item.Hotdog"           : "Hotdog",
-    "Item.Sandwich"         : "Sandwich",
-    "Item.Cola"             : "Cola",
-    "Item.Jerrycan"         : "Canister",
-    "Item.VehicleTax"       : "Vehicle tax"
-    "Item.FirstAidKit"      : "First aid kit"
-    "Item.Passport"         : "Passport"
-    "Item.PoliceBadge"      : "Police badge"
+
+    "en": {
+        "title"                 : "Inventory of ",
+
+        "action:use"            : "Use",
+        "action:takeInHand"     : "Take in hand",
+        "action:throwToGround"  : "Throw to the ground",
+        "action:close"          : "Close",
+
+        "Item.None"             : ""
+        "Item.Revolver12"       : "Revolver 12"
+        "Item.MauserC96"        : "Mauser C96"
+        "Item.ColtM1911A1"      : "Colt M1911 A1"
+        "Item.ColtM1911Spec"    : "Colt M1911 Special"
+        "Item.Revolver19"       : "Revolver 19"
+        "Item.MK2"              : "MK2"
+        "Item.Remington870"     : "Remington 870"
+        "Item.M3GreaseGun"      : "MP Grease Gun"
+        "Item.MP40"             : "MP-40"
+        "Item.Thompson1928"     : "Thompson 1928"
+        "Item.M1A1Thompson"     : "M1A1 Thompson"
+        "Item.Beretta38A"       : "Beretta 38A"
+        "Item.MG42"             : "MG-42"
+        "Item.M1Garand"         : "M1 Garand"
+        "Item.Kar98k"           : "Kar 98k"
+        "Item.Molotov"          : "Molotov"
+        "Item.Ammo45ACP"        : "Ammo .45 ACP"
+        "Item.Ammo357magnum"    : "Ammo .357 Magnum"
+        "Item.Ammo12mm"         : "Ammo 12 mm"
+        "Item.Ammo9x19mm"       : "Ammo 9x19 mm"
+        "Item.Ammo792x57mm"     : "Ammo 7.92x57 mm"
+        "Item.Ammo762x63mm"     : "Ammo 7.62x63 mm"
+        "Item.Ammo38Special"    : "Ammo .38 Special"
+
+        "Item.Clothes"          : "Clothes"
+
+        "Item.Whiskey"          : "Whiskey"
+        "Item.MasterBeer"       : "Master Beer",
+        "Item.OldEmpiricalBeer" : "Old Empirical Beer",
+        "Item.StoltzBeer"       : "Stoltz Beer",
+        "Item.Wine"             : "Wine",
+        "Item.Brendy"           : "Brendy",
+
+        "Item.Burger"           : "Burger"
+        "Item.Hotdog"           : "Hotdog"
+        "Item.Sandwich"         : "Sandwich"
+        "Item.Cola"             : "Cola"
+        "Item.Gyros"            : "Gyros"
+        "Item.CoffeeCup"        : "Cup of coffee"
+
+        "Item.Jerrycan"         : "Canister"
+        "Item.VehicleTax"       : "Vehicle tax"
+        "Item.VehicleKey"       : "Vehicle key"
+        "Item.FirstAidKit"      : "First aid kit"
+        "Item.Passport"         : "Passport"
+        "Item.PoliceBadge"      : "Police badge"
+        "Item.Gift"             : "Gift"
+        "Item.Box"              : "Box"
+        "Item.Money"            : "Money"
+
+        "Item.BigBreakRed"      :  "Big Break Red"
+        "Item.BigBreakBlue"     :  "Big Break Blue"
+        "Item.BigBreakWhite"    :  "Big Break White"
+
+        "Item.Methamnetamine"   : "Methamnetamine"
+
+    },
+    "ru": {
+        "title"                 : "Инвентарь ",
+
+        "action:use"            : "Использовать",
+        "action:takeInHand"     : "Взять в руку",
+        "action:throwToGround"  : "Бросить на землю",
+        "action:close"          : "Закрыть",
+
+        "Item.None"             : ""
+        "Item.Revolver12"       : "Revolver 12"
+        "Item.MauserC96"        : "Mauser C96"
+        "Item.ColtM1911A1"      : "Colt M1911 A1"
+        "Item.ColtM1911Spec"    : "Colt M1911 Special"
+        "Item.Revolver19"       : "Revolver 19"
+        "Item.MK2"              : "MK2"
+        "Item.Remington870"     : "Remington 870"
+        "Item.M3GreaseGun"      : "MP Grease Gun"
+        "Item.MP40"             : "MP-40"
+        "Item.Thompson1928"     : "Thompson 1928"
+        "Item.M1A1Thompson"     : "M1A1 Thompson"
+        "Item.Beretta38A"       : "Beretta 38A"
+        "Item.MG42"             : "MG-42"
+        "Item.M1Garand"         : "M1 Garand"
+        "Item.Kar98k"           : "Kar 98k"
+        "Item.Molotov"          : "Коктейль Молотова"
+        "Item.Ammo45ACP"        : "Патроны .45 ACP"
+        "Item.Ammo357magnum"    : "Патроны .357 Magnum"
+        "Item.Ammo12mm"         : "Патроны 12 mm"
+        "Item.Ammo9x19mm"       : "Патроны 9x19 mm"
+        "Item.Ammo792x57mm"     : "Патроны 7.92x57 mm"
+        "Item.Ammo762x63mm"     : "Патроны 7.62x63 mm"
+        "Item.Ammo38Special"    : "Патроны .38 Special"
+
+        "Item.Clothes"          : "Одежда"
+
+        "Item.Whiskey"          : "Виски",
+        "Item.MasterBeer"       : "Пиво Мастер",
+        "Item.OldEmpiricalBeer" : "Пиво Старый Эмпайр",
+        "Item.StoltzBeer"       : "Пиво Штольц",
+        "Item.Wine"             : "Вино",
+        "Item.Brandy"           : "Бренди",
+
+        "Item.Burger"           : "Бургер"
+        "Item.Hotdog"           : "Хот-дог"
+        "Item.Sandwich"         : "Сэндвич"
+        "Item.Cola"             : "Кола"
+        "Item.Gyros"            : "Гирос"
+        "Item.CoffeeCup"        : "Чашка кофе"
+
+        "Item.Jerrycan"         : "Канистра"
+        "Item.VehicleTax"       : "Квитанция налога на ТС"
+        "Item.VehicleKey"       : "Ключ от автомобиля"
+        "Item.FirstAidKit"      : "Аптечка"
+        "Item.Passport"         : "Паспорт"
+        "Item.PoliceBadge"      : "Полицейский жетон"
+        "Item.Gift"             : "Подарок"
+        "Item.Box"              : "Ящик"
+        "Item.Money"            : "Деньги"
+
+        "Item.BigBreakRed"    : "Big Break Red"
+        "Item.BigBreakBlue"   : "Big Break Blue"
+        "Item.BigBreakWhite"  : "Big Break White"
+
+        "Item.Methamnetamine"   : "Метамфетамин"
+    }
 };
 
 
@@ -262,13 +361,13 @@ class Inventory
                 // guiSetText(item.label, formatLabelText(item));
             } else {
                 if (outside_form) {
-                    item.handle <- guiCreateElement( ELEMENT_TYPE_IMAGE, item.classname + ".jpg", pos.x, pos.y, this.guiCellSize, this.guiCellSize);
+                    item.handle <- guiCreateElement( ELEMENT_TYPE_IMAGE, item.classname + ".png", pos.x, pos.y, this.guiCellSize, this.guiCellSize);
                     // item.label  <- guiCreateElement( ELEMENT_TYPE_LABEL, formatLabelText(item), pos.x + this.guiLableItemOffsetX,
                     //     pos.y + this.guiLableItemOffsetY, 16.0, 15.0
                     // );
                 }
                 else {
-                    item.handle <- guiCreateElement( ELEMENT_TYPE_IMAGE, item.classname + ".jpg", pos.x, pos.y, this.guiCellSize, this.guiCellSize, false, this.handle);
+                    item.handle <- guiCreateElement( ELEMENT_TYPE_IMAGE, item.classname + ".png", pos.x, pos.y, this.guiCellSize, this.guiCellSize, false, this.handle);
                     // item.label  <- guiCreateElement( ELEMENT_TYPE_LABEL, formatLabelText(item), pos.x + this.guiLableItemOffsetX,
                     //     pos.y + this.guiLableItemOffsetY, 16.0, 15.0, false, this.handle
                     // );
@@ -401,7 +500,7 @@ class PlayerInventory extends Inventory
             y = size.y + ((this.guiPadding + props.height) * yoffset) - 3;
         }
 
-        return guiCreateElement(type, title
+        return guiCreateElement(type, title,
             size.x - this.guiPadding * 2 - props.width, y,
             props.width, props.height, false, this.handle
         );
@@ -413,6 +512,7 @@ class PlayerInventory extends Inventory
         if (typeof this.handle == "userdata") {
             if (typeof guiSetAlwaysOnTop == "function") guiSetAlwaysOnTop(this.handle, true);
             if (typeof guiSetMovable == "function")     guiSetMovable(this.handle, false);
+            if (typeof guiSetText == "function")        guiSetText(this.handle, translations[playerLang]["title"]+characterName);
         }
 
         local props = {
@@ -422,9 +522,10 @@ class PlayerInventory extends Inventory
 
         // buttons
         this.components["lbl_name"] <- this.addComponent(ELEMENT_TYPE_LABEL,  props,  0, "");
-        this.components["btn_use"]  <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -3, "Использовать");
-        this.components["btn_hand"] <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -2, "Взять в руку");
-        this.components["btn_drop"] <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -1, "Бросить на землю");
+        this.components["btn_use"]  <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -3, translations[playerLang]["action:use"]);
+        this.components["btn_hand"] <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -2, translations[playerLang]["action:takeInHand"]);
+        this.components["btn_drop"] <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -1, translations[playerLang]["action:throwToGround"]);
+
     }
 
     function click(item) {
@@ -435,15 +536,18 @@ class PlayerInventory extends Inventory
         }
 
         if (item.active) {
-            if (item.classname in translations) {
+            if (item.classname in translations[playerLang]) {
                 if(item.amount != 0) {
-                    guiSetText(this.components["lbl_name"], translations[item.classname] + " ["+item.amount+"]");
+                    if (item.classname == "Item.Money") {
+                        return guiSetText(this.components["lbl_name"], translations[playerLang][item.classname] + " [$"+item.amount+"]");
+                    }
+                    guiSetText(this.components["lbl_name"], translations[playerLang][item.classname] + " ["+item.amount+"]");
                 }
                 else {
                     if (item.classname == "Item.Jerrycan") {
-                        return guiSetText(this.components["lbl_name"], translations[item.classname] + " ["+item.amount+"]");
+                        return guiSetText(this.components["lbl_name"], translations[playerLang][item.classname] + " ["+item.amount+"]");
                     }
-                    guiSetText(this.components["lbl_name"], translations[item.classname]);
+                    guiSetText(this.components["lbl_name"], translations[playerLang][item.classname]);
                 }
             }
             else {
@@ -545,6 +649,64 @@ class PlayerHands extends Inventory
 
 /**
  * ************************
+ * * STORAGE CLASS
+ * ************************
+ */
+
+class StorageInventory extends Inventory
+{
+
+    function getSize() {
+        local size = base.getSize();
+        return { x = size.x, y = size.y + 30 };
+    }
+
+    function getOriginalSize() {
+        return base.getSize();
+    }
+
+
+    function getInitialPosition() {
+        local size = this.getSize();
+        return { x = centerX - size.x - 5.0, y = centerY - size.y / 2 };
+    }
+
+    function createGUI() {
+        base.createGUI();
+
+        local props = {
+            width  = 32.0,
+            height = 32.0,
+        };
+
+        local size = this.getSize();
+
+        // buttons
+        this.components["btn_close"] <- guiCreateElement(ELEMENT_TYPE_BUTTON, translations[playerLang]["action:close"], size.x / 2 - 38, size.y - 31, 76.0, 24.0, false, this.handle );
+
+    }
+
+    function rawclick(element) {
+        foreach (idx, value in this.components) {
+            if (element != value) {
+                continue;
+            }
+
+            if (idx == "btn_close") {
+                trigger("inventory:close", this.id);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+}
+
+
+/**
+ * ************************
  * * INVENTORY INTERACTIONS
  * ************************
  */
@@ -553,8 +715,24 @@ local class_map = {
     Inventory       = Inventory,
     PlayerInventory = PlayerInventory,
     PlayerHands     = PlayerHands,
+    Storage         = StorageInventory,
 };
 
+
+function roundedRectangle(x, y, w, h, bgColor){
+    if (x && y && w && h) {
+
+        if( !bgColor ) {
+            bgColor = 0x61AF8E4D;
+        }
+
+        dxDrawRectangle(x, y, w, h, bgColor);
+        dxDrawRectangle(x + 2.0, y - 1.0, w - 4.0, 1.0, bgColor);
+        dxDrawRectangle(x + 2.0, y + h, w - 4.0, 1.0, bgColor);
+        dxDrawRectangle(x - 1.0, y + 2.0, 1.0, h - 4.0, bgColor);
+        dxDrawRectangle(x + w, y + 2.0, 1.0, h - 4.0, bgColor);
+    }
+}
 
 event("onClientFrameRender", function(afterGUI) {
     if (!afterGUI) {
@@ -583,11 +761,14 @@ event("onClientFrameRender", function(afterGUI) {
                 pos.x += window[0];
                 pos.y += window[1];
             }
-
-            dxDrawRectangle(pos.x, pos.y, inventory.guiCellSize, inventory.guiCellSize, 0x61AF8E4D);
+            roundedRectangle(pos.x+1.0, pos.y+1.0, inventory.guiCellSize-2.0, inventory.guiCellSize-2.0, 0x50AF8E4D)
+            //dxDrawRectangle(pos.x, pos.y, inventory.guiCellSize, inventory.guiCellSize, 0x61AF8E4D);
         }
 
         if (inventory.data.type == "PlayerHands") continue;
+        if (inventory instanceof StorageInventory) {
+            size = inventory.getOriginalSize();
+        }
 
         local coef = (weight / inventory.data.limit);       if (typeof coef != "float") return;
         local invwidth = size.x - inventory.guiPadding * 2 - inventory.guiRightOffset - 7;
@@ -595,6 +776,8 @@ event("onClientFrameRender", function(afterGUI) {
 
         dxDrawRectangle(window[0].tofloat() + inventory.guiPadding + 4, window[1] + size.y - inventory.guiBottomOffset - 3, invwidth, 15.0, 0xFF242522);
         dxDrawRectangle(window[0].tofloat() + inventory.guiPadding + 4, window[1] + size.y - inventory.guiBottomOffset - 3, width, 15.0, 0xFFAF8E4D);
+
+
 
         drawed = true;
 
@@ -608,8 +791,10 @@ event("onClientFrameRender", function(afterGUI) {
     // }
 });
 
-event("inventory:onServerOpen", function(id, incoming_data) {
+event("inventory:onServerOpen", function(id, incoming_data, playerLanguage, charName) {
     local data = compilestring.call(getroottable(), format("return %s", incoming_data))();
+    playerLang = playerLanguage;
+    characterName = charName;
 
     if (data.type != "PlayerHands") {
         if (!Inventory.isAnyOpened(storage)) {
@@ -696,7 +881,7 @@ event("inventory:onServerGroundRemove", function(incoming_data) {
 });
 
 function getGroundTexture(key) {
-    local name = key + ".jpg";
+    local name = key + ".png";
 
     if (name in ground.textures) {
         return ground.textures[name];

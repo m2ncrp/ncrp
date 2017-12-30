@@ -69,7 +69,7 @@ event("onServerStarted", function() {
     local counter = 0;
 
     // load all vehicles from db
-    Vehicle.findBy({ reserved = false }, function(err, results) {
+    Vehicle.findBy({ reserved = 0 }, function(err, results) {
         foreach (idx, vehicle in results) {
             // create vehicle
             local vehicleid = createVehicle( vehicle.model, vehicle.x, vehicle.y, vehicle.z, vehicle.rx, vehicle.ry, vehicle.rz );
@@ -115,7 +115,7 @@ event("onServerMinuteChange", function() {
 // handle vehicle enter
 event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     logger.logf(
-        "[VEHICLE ENTER] (%s) %s (playerid: %d) | (vehid: %d) %s - %s (model: %d) | coords: [%.5f, %.5f, %.5f] | owner: %s | fraction: %s",
+        "[VEHICLE ENTER] (%s) %s (playerid: %d) | (vehid: %d) %s - %s (model: %d) | coords: [%.5f, %.5f, %.5f] | haveKey: %s",
             getAccountName(playerid),
             getPlayerName(playerid),
             playerid,
@@ -126,8 +126,7 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
             getVehiclePositionObj(vehicleid).x,
             getVehiclePositionObj(vehicleid).y,
             getVehiclePositionObj(vehicleid).z,
-            isVehicleOwned(vehicleid) ? (isPlayerVehicleOwner(playerid, vehicleid) ? "true" : "false") : "city_ncrp",
-            isVehicleFraction(vehicleid) ? "true" : "false"
+            isVehicleOwned(vehicleid) ? (isPlayerHaveVehicleKey(playerid, vehicleid) ? "true" : "false") : "city_ncrp"
     );
 
     // handle vehicle passangers
@@ -143,9 +142,9 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     // check blocking
     if (isVehicleOwned(vehicleid) && seat == 0) {
 
-        dbg("player", "vehicle", "enter", getVehiclePlateText(vehicleid), getIdentity(playerid), "owned: " + isPlayerVehicleOwner(playerid, vehicleid));
+        dbg("player", "vehicle", "enter", getVehiclePlateText(vehicleid), getIdentity(playerid), "haveKey: " + isPlayerHaveVehicleKey(playerid, vehicleid));
 
-        if (isPlayerVehicleOwner(playerid, vehicleid) || isPlayerVehicleFraction(playerid, vehicleid)) {
+        if (isPlayerHaveVehicleKey(playerid, vehicleid)) {
             unblockVehicle(vehicleid);
         } else {
             blockVehicle(vehicleid);

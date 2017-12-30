@@ -59,8 +59,10 @@ event("native:inventory:loaded", function(playerid) {
  * Try to save player's items on character save
  */
 event("onCharacterSave", function(playerid, character) {
-    foreach (idx, item in character.inventory) item.save();
-    foreach (idx, item in character.hands) item.save();
+    if (character.inventory) {
+        foreach (idx, item in character.inventory) item.save();
+        foreach (idx, item in character.hands) item.save();
+    }
 });
 
 key("i", function(playerid) {

@@ -20,7 +20,7 @@ class PlayerItemContainer extends ItemContainer
         base.constructor();
 
         this.id     = md5(this.tostring());
-        this.title  = "Inventory of " + getPlayerName(playerid);
+        this.title  = plocalize(playerid, "inventory.title") + getPlayerName(playerid);
         this.parent = players[playerid];
     }
 
@@ -64,5 +64,16 @@ class PlayerItemContainer extends ItemContainer
         base.hide(playerid);
         trigger(playerid, "onPlayerInventoryHide");
         trigger("onPlayerInventoryHide", playerid);
+    }
+
+    // не подбирать подарок, если уже был подобран
+    function canBeInserted(item) {
+        if (item instanceof Item.Gift) {
+            if(this.parent.getData("gift-ny18")) {
+                return false;
+            }
+        }
+
+        return base.canBeInserted(item);
     }
 }

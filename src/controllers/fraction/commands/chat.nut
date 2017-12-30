@@ -1,16 +1,17 @@
-chatcmd("fc", function(playerid, message) {
-    local fracs = fractions.getContaining(playerid);
+fmd("*", ["chat.write"], ["$fc",  "$f ooc"], function(fraction, character, ...) {
+    local message = strip(concat(vargv));
 
-    if (!fracs.len()) {
-        return msg(playerid, "fraction.notmember", CL_WARNING);
+    if (!message.len()) {
+        return;
     }
 
-    // for now take the first one
-    local fraction = fracs[0];
+    local color = fraction.hasData("color") ? Color.fromHex(fraction.getData("color")) : CL_NIAGARA;
 
-    foreach (idx, targetid in fraction.getOnlineMembers()) {
-        if (fraction[targetid].level <= FRACTION_CHAT_PERMISSION) {
-            msg(targetid, format("[Fraction OOC|%s] %s: %s", fraction[playerid].title, getPlayerName(playerid), message), CL_NIAGARA);
+    foreach (idx, target in fraction.members.getOnline()) {
+        if (!fraction.members.get(target).permitted("chat.read")) {
+            return;
         }
+
+        msg(target.playerid, format("[Fraction OOC|%s] %s: %s", fraction.members.get(character).role.title, character.getName(), message), color);
     }
 });
