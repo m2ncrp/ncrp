@@ -170,9 +170,7 @@ function planServerRestart(playerid) {
 acmd("restart", planServerRestart);
 
 function planFastServerRestart(playerid) {
-    delayedFunction(14*60*1000, function() {
-        msga("autorestart.1min", [], CL_RED);
-    });
+    msga("autorestart.1min", [], CL_RED);
 
     delayedFunction(15*60*1000, function() {
         msga("autorestart.3sec", [], CL_RED);
