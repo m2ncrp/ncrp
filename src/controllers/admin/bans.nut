@@ -50,6 +50,13 @@ function kick(playerid, targetid, ...) {
 acmd("kick", kick);
 
 /**
+ * Kick all players on server stopping
+ */
+function kickAll() {
+    foreach (playerid, character in players) kickPlayer( playerid );
+}
+
+/**
  * Mute player
  * Usage:
  *     /mute target time(minutes) reason
