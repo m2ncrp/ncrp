@@ -135,6 +135,8 @@ key("i", function(playerid) {
 //     });
 // });
 
+
+
 function planServerRestart(playerid) {
     msga("autorestart.15min", [], CL_RED);
 
@@ -150,13 +152,20 @@ function planServerRestart(playerid) {
         msga("autorestart.1min", [], CL_RED);
     });
 
+    delayedFunction(14*60*1000+30000, function() {
+        msga("autorestart.30sec", [], CL_RED);
+    });
+
     delayedFunction(15*60*1000, function() {
         msga("autorestart.3sec", [], CL_RED);
 
-        trigger("native:onServerShutdown");
+        // kick all
+        kickAll();
 
-        // kick all dawgs
-        delayedFunction(1000, function() {
+        delayedFunction(4000, function() {
+
+            trigger("native:onServerShutdown");
+
             msga("autorestart.now", [], CL_RED);
 
             delayedFunction(1000, function() {
@@ -172,13 +181,19 @@ acmd("restart", planServerRestart);
 function planFastServerRestart(playerid) {
     msga("autorestart.1min", [], CL_RED);
 
-    delayedFunction(1*60*1000, function() {
+    delayedFunction(30*1000, function() {
+        msga("autorestart.30sec", [], CL_RED);
+    });
+
+    delayedFunction(57*1000, function() {
         msga("autorestart.3sec", [], CL_RED);
 
-        trigger("native:onServerShutdown");
+        // kick all
+        kickAll();
 
-        // kick all dawgs
-        delayedFunction(1000, function() {
+        delayedFunction(4000, function() {
+
+            trigger("native:onServerShutdown");
             msga("autorestart.now", [], CL_RED);
 
             delayedFunction(1000, function() {
@@ -194,15 +209,20 @@ acmd("fastrestart", planFastServerRestart);
 function planNowServerRestart(playerid) {
     msga("autorestart.3sec", [], CL_RED);
 
-    trigger("native:onServerShutdown");
+    delayedFunction(300, function() {
+        // kick all
+        kickAll();
 
-    // kick all dawgs
-    delayedFunction(1000, function() {
-        msga("autorestart.now", [], CL_RED);
+        delayedFunction(4000, function() {
 
-        delayedFunction(1000, function() {
-            // request restart
-            dbg("server", "restart", "requested");
+            trigger("native:onServerShutdown");
+
+            msga("autorestart.now", [], CL_RED);
+
+            delayedFunction(1000, function() {
+                // request restart
+                dbg("server", "restart", "requested");
+            });
         });
     });
 }
@@ -218,6 +238,8 @@ alternativeTranslate({
     "ru|autorestart.5min"   : "[АВТО-РЕСТАРТ] Сервер будет перезагружен через 5 минут."
     "en|autorestart.1min"   : "[AUTO-RESTART] Server will be restarted in 1 minute."
     "ru|autorestart.1min"   : "[АВТО-РЕСТАРТ] Сервер будет перезагружен через 1 минуту."
+    "en|autorestart.30sec"  : "[AUTO-RESTART] Server will be restarted in 30 seconds. Please, disconnect!"
+    "ru|autorestart.30sec"  : "[АВТО-РЕСТАРТ] Сервер будет перезагружен через 30 секунд. Пожалуйста, отключитесь от сервера!"
     "en|autorestart.3sec"   : "[AUTO-RESTART] Server will be restarted in 3 seconds. See you soon ;)"
     "ru|autorestart.3sec"   : "[АВТО-РЕСТАРТ] Сервер будет перезагружен через 3 секунды. До скорой встречи ;)"
     "en|autorestart.now"    : "[AUTO-RESTART] Restarting now!"
