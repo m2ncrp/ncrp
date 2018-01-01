@@ -1,6 +1,6 @@
 fmd("*", [], "$f", function(fraction, character) {
     msg(character.playerid, "------------------------------------------------------------------------------", CL_RIPELEMON);
-    msg(character.playerid, "fraction.info.title", [fraction.title] );
+    msg(character.playerid, "fraction.info.title", [ plocalize(character.playerid, fraction.title) ], CL_INFO);
     msg(character.playerid, "------------------------------------------------------------------------------", CL_RIPELEMON);
 
     msg(character.playerid, "fraction.info.roles", [ fraction.roles.len(), fraction.shortcut ] );

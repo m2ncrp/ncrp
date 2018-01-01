@@ -190,8 +190,8 @@ alternativeTranslate({
 "en|fraction.list.entry"                    : "  - '%s' role: %s. Info: /%s"
 "ru|fraction.list.entry"                    : "  - '%s' роль: %s. Инфо: /%s"
 
-"en|fraction.info.title"                    : " - Information about fraction %s"
-"ru|fraction.info.title"                    : " - Информация о фракции %s"
+"en|fraction.info.title"                    : "Information about fraction %s"
+"ru|fraction.info.title"                    : "Информация о фракции %s"
 
 "en|fraction.info.roles"                    : "- Current amount of roles: %d. To list, write: /%s roles"
 "ru|fraction.info.roles"                    : "- Всего ролей: %d. Посмотреть все: /%s roles"
