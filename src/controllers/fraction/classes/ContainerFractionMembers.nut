@@ -81,6 +81,16 @@ class ContainerFractionMembers extends Container
         return this.set(character, role);
     }
 
+    function baseSet(character, member, role) {
+        if (character instanceof ::Character) {
+            character = character.id;
+        }
+
+        member.role = role;
+
+        base.set(character, member);
+    }
+
     /**
      * Change role for particular member
      * @param {Character|Integer} character
