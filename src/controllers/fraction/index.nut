@@ -63,7 +63,7 @@ event("onServerStarted", function() {
             return dbg("fractions", "error", "cannot find roleid:", result.roleid, "for", result.classname);
         }
 
-        temp.fractions[result.fractionid].members.add(result.characterid, temp.roles[result.roleid]);
+        temp.fractions[result.fractionid].members.baseSet(result.characterid, result, temp.roles[result.roleid]);
     }));
 
     FractionProperty.findAll(add_results_to(temp.property, 1, function(result) {

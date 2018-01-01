@@ -57,11 +57,9 @@ function fmd(shortcuts, permissions, patterns, callback) {
                     if (!fraction.members.exists(character)) {
                         return;
                     }
-
                     if (!fraction.members.get(character).permitted(permissions)) {
                         return msg(vargv[0], "fraction.permission.error", CL_ERROR);
                     }
-
                     local args = clone(vargv);
 
                     args.remove(0);
