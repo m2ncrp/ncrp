@@ -35,7 +35,9 @@ class FractionMember extends ORM.JsonEntity
      * @return {Boolean}
      */
     function permitted(permissions) {
+        log("permitted")
         if (!this.role) {
+            log("!this.role")
             return false;
         }
 
@@ -44,6 +46,7 @@ class FractionMember extends ORM.JsonEntity
         }
 
         if (!permissions.len()) {
+            log("!permissions.len()")
             return true;
         }
 
@@ -55,7 +58,10 @@ class FractionMember extends ORM.JsonEntity
         else if ("permissions" in this.role.data) {
             perms = this.role.data.permissions;
         }
-
+        log("====================");
+        log(permissions);
+        log(perms);
+        log("before map")
         return permissions
             .map(@(perm) perms.find(perm) != null)
             .reduce(@(a, b) a || b)

@@ -10,7 +10,7 @@ fmd("*", ["members.list"], ["$f list", "$f members"], function(fraction, charact
                 xPlayers.add(idx, character);
             }
 
-            msg(playerid, "fraction.members.item", [ counter++, character.firstname + " " + character.lastname, member.role.title ] );
+            msg(character.playerid, "fraction.members.item", [ counter++, character.firstname + " " + character.lastname, member.role.title ] );
         };
 
         if (xPlayers.has(idx)) {
@@ -89,12 +89,12 @@ fmd("*", ["members.setrole"], ["$f setrole"], function(fraction, character, list
             }
 
             // check for ability to change role of player which has same or bigger role
-            if (fraction.members[target].level < fraction.members[character].level) {
-                // and we are not same person
-                if (target.id != character.id) {
-                    return msg(character.playerid, "fraction.member.higherrole", CL_WARNING);
-                }
-            }
+            //if (fraction.members[target].level < fraction.members[character].level) {
+            //    // and we are not same person
+            //    if (target.id != character.id) {
+            //        return msg(character.playerid, "fraction.member.higherrole", CL_WARNING);
+            //    }
+            //}
 
             if (!fraction.roles.has(rolenum)) {
                 return msg(character.playerid, "fraction.member.needrole", CL_ERROR);

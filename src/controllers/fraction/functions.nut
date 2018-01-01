@@ -53,15 +53,18 @@ function fmd(shortcuts, permissions, patterns, callback) {
 
                 cmd(command_parts[0], command_parts.slice(1), function(...) {
                     local character = players[vargv[0]];
+                    log(character);
 
                     if (!fraction.members.exists(character)) {
                         return;
                     }
-
+                    log("before");
+                    log(permissions);
                     if (!fraction.members.get(character).permitted(permissions)) {
+                        log("try permitted");
                         return msg(vargv[0], "fraction.permission.error", CL_ERROR);
                     }
-
+                    log("after");
                     local args = clone(vargv);
 
                     args.remove(0);
