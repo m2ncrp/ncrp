@@ -1,16 +1,16 @@
 fmd("*", ["members.list"], ["$f list", "$f members"], function(fraction, character) {
     msg(character.playerid, "------------------------------------------------------------------------------", CL_RIPELEMON);
-    msg(character.playerid, "fraction.members.title", [ fraction.title ], CL_INFO);
+    msg(character.playerid, "fraction.members.title", [ plocalize(character.playerid, fraction.title) ], CL_INFO);
     msg(character.playerid, "------------------------------------------------------------------------------", CL_RIPELEMON);
 
     local counter = 0;
     foreach (characterid, member in fraction.members) {
-        local callback = function(err, character) {
+        local callback = function(err, target_character) {
             if (!xPlayers.has(characterid)) {
-                xPlayers.add(characterid, character);
+                xPlayers.add(characterid, target_character);
             }
 
-            msg(character.playerid, "fraction.members.item", [ counter++, character.firstname + " " + character.lastname, member.role.title ] );
+            msg(character.playerid, "fraction.members.item", [ counter++, target_character.firstname + " " + target_character.lastname, plocalize(character.playerid, member.role.title) ] );
         };
 
         if (xPlayers.has(characterid)) {

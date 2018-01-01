@@ -1,5 +1,5 @@
 alternativeTranslate({
-"en|fraction.permission.error"              :   "You dont have permission to use this action!"
+"en|fraction.permission.error"              :   "You don't have permission to use this action!"
 "ru|fraction.permission.error"              :   "У Вас нет прав для выполнения этого действия!"
 
 "en|fraction.rolenotexist"                  :   "There is no such role. You can see fraction roles via: /%s roles"
@@ -14,6 +14,11 @@ alternativeTranslate({
 "en|fraction.invite.inanotherfraction"      :   "You can't invite %s into fraction!"
 "ru|fraction.invite.inanotherfraction"      :   "Вы не можете пригласить %s вступить во фракцию!"
 
+"en|fraction.invite.alreadyinfraction"      :   "You can't invite player, who already in fraction!"
+"ru|fraction.invite.alreadyinfraction"      :   "Нельзя пригласить игрока, который уже во фракции!"
+
+"en|fraction.chat.noempty"                  :   "You can't send an empty message"
+"ru|fraction.chat.noempty"                  :   "Вы не можете отправить пустое сообщение."
 
 
 "en|fraction.invite.invited"                :   "You've invited %s to join your fraction %s with role %s."
@@ -69,14 +74,15 @@ alternativeTranslate({
 "en|fraction.accept.joined"                 : "%s successfuly joined fraction %s as %s."
 "ru|fraction.accept.joined"                 : "%s вступил во фракцию %s на должность %s."
 
-
+"en|fraction.accept.alreadyinfraction"      : "You are fraction member already!"
+"ru|fraction.accept.alreadyinfraction"      : "Вы уже состоите в этой фракции!"
 
 
 "en|fraction.members.title"                 : "List of members in %s:"
 "ru|fraction.members.title"                 : "Список участников фракции %s:"
 
-"en|fraction.members.item"                  : "#%d. %s - %s."
-"ru|fraction.members.item"                  : "#%d. %s - %s."
+"en|fraction.members.item"                  : "#%d. %s - %s"
+"ru|fraction.members.item"                  : "#%d. %s - %s"
 
 
 
@@ -121,21 +127,18 @@ alternativeTranslate({
 "en|fraction.money.add"                     : "You've successfuly added $%.2f to %s."
 "ru|fraction.money.add"                     : "Вы положили $%.2f на счёт фракции %s."
 
+"en|fraction.money.substract"               : "You've successfuly subtracted $%.2f from the fraction %s."
+"ru|fraction.money.substract"               : "Вы сняли $%.2f со счёта фракции %s."
+
 "en|fraction.money.cannotsubstract"         : "You cannot subtract more money then fraction has"
 "ru|fraction.money.cannotsubstract"         : "Вы не можете снять больше денег, чем есть на счёте фракции."
-
-"en|fraction.money.substract"               : "You've successfuly subtracted %.2f from the fraction"
-"ru|fraction.money.substract"               : "You've successfuly subtracted %.2f from the fraction"
-
-
-
 
 
 "en|fraction.roles.title"                   : "List of roles in %s:"
 "ru|fraction.roles.title"                   : "Список должностей фракции %s:"
 
-"en|fraction.roles.item"                    : "#%s. %s"
-"ru|fraction.roles.item"                    : "#%s. %s"
+"en|fraction.roles.item"                    : "%s (%s)"
+"ru|fraction.roles.item"                    : "%s (%s)"
 
 
 
@@ -191,15 +194,53 @@ alternativeTranslate({
 "ru|fraction.info.title"                    : " - Информация о фракции %s"
 
 "en|fraction.info.roles"                    : "- Current amount of roles: %d. To list, write: /%s roles"
-"ru|fraction.info.roles"                    : "- Всего ролей: %d. Посмотреть список ролей: /%s roles"
+"ru|fraction.info.roles"                    : "- Всего ролей: %d. Посмотреть все: /%s roles"
 
 "en|fraction.info.members"                  : "- Current amount of members: %d. To list, write: /%s members"
-"ru|fraction.info.members"                  : "- Всего участников: %d. Посмотреть список участников: /%s members"
+"ru|fraction.info.members"                  : "- Всего участников: %d. Посмотреть всех: /%s members"
 
 "en|fraction.info.vehicles"                 : "- Current amount of vehicles: %d. To list, write: /%s cars"
 "ru|fraction.info.vehicles"                 : "- Всего автомобилей: %d. Посмотреть список автомобилей: /%s cars"
 
 "en|fraction.info.money"                    : "- Current money amount: $%.2f"
 "ru|fraction.info.money"                    : "- Сумма на счёте фракции: $%.2f"
+
+
+
+
+"en|Police"                                 : "Police"
+"ru|Police"                                 : "Полиция"
+
+"en|Cadet"                                  : "Cadet"
+"ru|Cadet"                                  : "Кадет"
+
+"en|Patrol"                                 : "Patrol"
+"ru|Patrol"                                 : "Патрульный"
+
+"en|Sergeant"                               : "Sergeant"
+"ru|Sergeant"                               : "Сержант"
+
+"en|Lieutenant"                             : "Lieutenant"
+"ru|Lieutenant"                             : "Лейтенант"
+
+"en|Captain"                                : "Captain"
+"ru|Captain"                                : "Капитан"
+
+"en|Detective"                              : "Detective"
+"ru|Detective"                              : "Детектив"
+
+"en|Assist. chief"                          : "Assist. chief"
+"ru|Assist. chief"                          : "Заместитель шефа"
+
+"en|Police Chief"                           : "Police Chief"
+"ru|Police Chief"                           : "Шеф полиции"
+
+
+
+
+
+
+
+
 
 });

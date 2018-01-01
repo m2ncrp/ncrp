@@ -35,9 +35,9 @@ fmd("*", ["members.invite"], ["$f invite"], function(fraction, character, target
         return msg(playerid, "fraction.invite.notconnected", CL_ERROR);
     }
 
-    // if (fractions.getContaining(targetid).len() > 0) {
-    //     return msg(playerid, "fraction.invite.inanotherfraction", CL_ERROR);
-    // }
+    if (fraction.members.has(players[targetid].id)) {
+        return msg(playerid, "fraction.invite.alreadyinfraction", CL_ERROR);
+    }
 
     // get the lowest role (TODO: change to default role)
     if (role_shortcut == -1) {
@@ -118,9 +118,9 @@ cmd("invites", "accept", function(playerid, invitation = -1) {
         return msg(playerid, "fraction.accept.donthaverole", CL_ERROR);
     }
 
-    // if (fractions.getContaining(playerid).len() > 0) {
-    //     return msg(playerid, "fraction.accept.cannotjoin", [invite.fraction.shortcut], CL_ERROR);
-    // }
+    if (invite.fraction.members.has(players[invite.invetee].id)) {
+        return msg(playerid, "fraction.accept.alreadyinfraction", CL_ERROR);
+    }
 
     invite.fraction.members.add(players[invite.invetee].id, invite.role);
 
