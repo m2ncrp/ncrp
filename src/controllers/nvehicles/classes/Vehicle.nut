@@ -8,7 +8,13 @@ class Vehicle extends ORM.Entity
     static State = {
         Loaded  = 0,
         Spawned = 1,
+        Parked  = 2,
     };
+
+    static Owner = {
+        Player  = 0,
+        Company = 1,
+    }
 
     static Type = {
         sedan = 0,
