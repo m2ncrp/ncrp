@@ -10,7 +10,7 @@ class VehicleComponent.KeySwitch extends VehicleComponent
         if (this.data == null) {
             this.data = {
                 status = false,
-                }
+                code = getRandomHash();
             }
         }
     }
@@ -22,8 +22,8 @@ class VehicleComponent.KeySwitch extends VehicleComponent
     function action() {
         local eng = getPlayerNVehicle(playerid).getComponent(VehicleComponent.Engine);
 
-        players[playerid].inventory.each( function() {
-            if (item.data.id == this.parent.id) {
+        players[playerid].inventory.each( function(item) {
+            if (item.data.id == this.data.code) {
                 this.setStatusTo( !this.data.status );
                 eng.data.status = !this.data.status;
                 eng.correct();

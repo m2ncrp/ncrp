@@ -5,12 +5,20 @@ class Vehicle extends ORM.Entity
     static classname = "Vehicle";
     static table     = "tbl_nvehicles";
 
+/**
+ * if veh parked in garage with some visual contact assign 2
+ * if not just despawn it to make room for someone else veh to be spawed
+ */
     static State = {
         Loaded  = 0,
         Spawned = 1,
         Parked  = 2,
     };
 
+/**
+ * if owner is player row in db linked with player's db id
+ * if company - business id its owned
+ */
     static Owner = {
         Player  = 0,
         Company = 1,

@@ -113,3 +113,8 @@ key("e", function(playerid) {
     return false;
 });
 
+// open up key switch and bardachok at the same time with players invenory
+key("tab", function(playerid) {
+    // Code
+})
+
