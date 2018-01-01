@@ -134,8 +134,8 @@ alternativeTranslate({
 "en|fraction.roles.title"                   : "List of roles in %s:"
 "ru|fraction.roles.title"                   : "Список должностей фракции %s:"
 
-"en|fraction.roles.item"                    : "#%d. %s"
-"ru|fraction.roles.item"                    : "#%d. %s"
+"en|fraction.roles.item"                    : "#%s. %s"
+"ru|fraction.roles.item"                    : "#%s. %s"
 
 
 
