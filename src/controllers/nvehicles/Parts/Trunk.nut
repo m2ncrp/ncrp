@@ -1,6 +1,3 @@
-// include("controllers/vehicle/traits/Openable.nut");
-// include("controllers/vehicle/classes/Vehicle_hack.nut");
-
 class VehicleComponent.Trunk extends VehicleComponent {
     static classname = "VehicleComponent.Trunk";
 
@@ -70,12 +67,10 @@ key("e", function(playerid) {
     local vehicle = vehicles.nearestVehicle(playerid);
     if (vehicle == null) return;
 
-    local trunk = vehicle.components.findOne(VehicleComponent.Trunk);
-    if (!trunk || !(trunk instanceof VehicleComponent.Trunk)) {
-        throw "Vehicle: cannot find any trunk!";
-    }
-
+    local trunk = vehicle.getComponent(VehicleComponent.Trunk);
     local vid = vehicle.id;
+
+
 
     local v_pos = getVehiclePosition(vehicle.vehicleid);
     local v_ang = getVehicleRotation(vehicle.vehicleid);
@@ -112,9 +107,3 @@ key("e", function(playerid) {
     }
     return false;
 });
-
-// open up key switch and bardachok at the same time with players invenory
-key("tab", function(playerid) {
-    // Code
-})
-

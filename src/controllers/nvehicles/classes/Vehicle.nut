@@ -73,14 +73,17 @@ class Vehicle extends ORM.Entity
             case Type.sedan:
             case Type.truck:
             case Type.hetch:
+                this.components.push(VehicleComponent.KeySwitch());
                 this.components.push(VehicleComponent.Trunk());
                 this.components.push(VehicleComponent.Lights());
+                this.components.push(VehicleComponent.GloveCompartment());
                 break;
             case Type.trailer:
                 this.components.push(VehicleComponent.Trunk());
                 break;
             case Type.bus:
             case Type.semitrailertruck:
+                this.components.push(VehicleComponent.KeySwitch());
                 this.components.push(VehicleComponent.Lights());
                 break;
         }

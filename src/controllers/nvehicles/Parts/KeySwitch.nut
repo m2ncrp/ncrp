@@ -10,9 +10,17 @@ class VehicleComponent.KeySwitch extends VehicleComponent
         if (this.data == null) {
             this.data = {
                 status = false,
-                code = getRandomHash();
+                code = null,
             }
         }
+    }
+
+    function _getHash(value) {
+        return md5(value);
+    }
+
+    function _setHash(value) {
+        this.data.code = md5(value);
     }
 
     function beforeAction() {
@@ -20,21 +28,15 @@ class VehicleComponent.KeySwitch extends VehicleComponent
     }
 
     function action() {
-        local eng = getPlayerNVehicle(playerid).getComponent(VehicleComponent.Engine);
-
-        players[playerid].inventory.each( function(item) {
-            if (item.data.id == this.data.code) {
-                this.setStatusTo( !this.data.status );
-                eng.data.status = !this.data.status;
-                eng.correct();
-                return;
-            }
-        });
+        this.setStatusTo( !this.getState() );
     }
 
     function correct() { }
 
     function setStatusTo(newStatus) {
+        if (this.data.code == null) {
+            this.data.code = _getHash(this.parent.id);
+        }
         this.data.status = newStatus;
     }
 
@@ -51,5 +53,16 @@ key("q", function(playerid) {
 
     if (!(original__getPlayerVehicle(playerid) in vehicles_native)) return;
 
-    this.action();
+    local v = getPlayerNVehicle(playerid);
+    local eng = v.getComponent(VehicleComponent.Engine);
+    local ks = v.getComponent(VehicleComponent.KeySwitch);
+
+    foreach (idx, item in players[playerid].inventory) {
+        if ((item._entity == "Item.VehicleKey") && (item.data.id == ks.data.code)) {
+            eng.setStatusTo( !ks.data.status );
+            eng.correct();
+            ks.action();
+            return;
+        }
+    }
 });

@@ -72,10 +72,12 @@ include("controllers/nvehicles/classes/VehicleComponent.nut");
 include("controllers/nvehicles/Parts/Hull.nut");
 include("controllers/nvehicles/Parts/FuelTank.nut");
 include("controllers/nvehicles/Parts/Engine.nut");
+include("controllers/nvehicles/Parts/KeySwitch.nut");
 include("controllers/nvehicles/Parts/Gabarites.nut");
 include("controllers/nvehicles/Parts/Lights.nut");
 include("controllers/nvehicles/Parts/WheelPair.nut");
 include("controllers/nvehicles/Parts/Trunk.nut");
+include("controllers/nvehicles/Parts/GloveCompartment.nut");
 include("controllers/nvehicles/Parts/Plate.nut");
 
 include("controllers/nvehicles/patterns/VehicleContainer.nut");
