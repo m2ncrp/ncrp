@@ -1,4 +1,9 @@
 fmd("*", ["chat.write"], ["$fc",  "$f ooc"], function(fraction, character, ...) {
+
+    if(vargv.len() == 0) {
+        return msg(character.playerid, "fraction.chat.noempty", CL_WARNING);
+    }
+
     local message = strip(concat(vargv));
 
     if (!message.len()) {
@@ -9,7 +14,7 @@ fmd("*", ["chat.write"], ["$fc",  "$f ooc"], function(fraction, character, ...) 
 
     foreach (idx, target in fraction.members.getOnline()) {
         if (!fraction.members.get(target).permitted("chat.read")) {
-            return;
+            continue;
         }
 
         msg(target.playerid, format("[Fraction OOC|%s] %s: %s", fraction.members.get(character).role.title, character.getName(), message), color);

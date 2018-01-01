@@ -1,22 +1,22 @@
 fmd("*", ["members.list"], ["$f list", "$f members"], function(fraction, character) {
     msg(character.playerid, "------------------------------------------------------------------------------", CL_RIPELEMON);
-    msg(character.playerid, "fraction.members.title", [ fraction.title ], CL_INFO);
+    msg(character.playerid, "fraction.members.title", [ plocalize(character.playerid, fraction.title) ], CL_INFO);
     msg(character.playerid, "------------------------------------------------------------------------------", CL_RIPELEMON);
 
     local counter = 0;
-    foreach (idx, member in fraction.members) {
-        local callback = function(err, character) {
-            if (!xPlayers.has(idx)) {
-                xPlayers.add(idx, character);
+    foreach (characterid, member in fraction.members) {
+        local callback = function(err, target_character) {
+            if (!xPlayers.has(characterid)) {
+                xPlayers.add(characterid, target_character);
             }
 
-            msg(playerid, "fraction.members.item", [ counter++, character.firstname + " " + character.lastname, member.role.title ] );
+            msg(character.playerid, "fraction.members.item", [ counter++, target_character.firstname + " " + target_character.lastname, plocalize(character.playerid, member.role.title) ] );
         };
 
-        if (xPlayers.has(idx)) {
-            callback(null, xPlayers[idx]);
+        if (xPlayers.has(characterid)) {
+            callback(null, xPlayers[characterid]);
         } else {
-            Character.findOneBy({ id = idx }, callback);
+            Character.findOneBy({ id = characterid }, callback);
         }
     }
 });
@@ -29,16 +29,16 @@ fmd("*", ["members.remove"], ["$f kick", "$f members remove"], function(fraction
     listid = listid.tointeger();
 
     local counter = 0;
-    foreach (idx, member in fraction.members) {
+    foreach (characterid, member in fraction.members) {
         if (listid != counter++) continue;
 
         local callback = function(err, target) {
-            if (!xPlayers.has(idx)) {
-                xPlayers.add(idx, target);
+            if (!xPlayers.has(characterid)) {
+                xPlayers.add(characterid, target);
             }
 
             // check for ability to change role of player which has same or bigger role
-            if (fraction.members[target].level < fraction.members[character].level) {
+            if (fraction.members[target].role.level < fraction.members[character].role.level) {
                 // and we are not same person
                 if (target.id != character.id) {
                     return msg(character.playerid, "fraction.member.higherrole", CL_WARNING);
@@ -61,10 +61,10 @@ fmd("*", ["members.remove"], ["$f kick", "$f members remove"], function(fraction
             }
         };
 
-        if (xPlayers.has(idx)) {
-            return callback(null, xPlayers[idx]);
+        if (xPlayers.has(characterid)) {
+            return callback(null, xPlayers[characterid]);
         } else {
-            return Character.findOneBy({ id = idx }, callback);
+            return Character.findOneBy({ id = characterid }, callback);
         }
     }
 
@@ -75,32 +75,31 @@ fmd("*", ["members.remove"], ["$f kick", "$f members remove"], function(fraction
 /**
  * Set member role
  */
-fmd("*", ["members.setrole"], ["$f setrole"], function(fraction, character, listid = -1, rolenum = -1) {
+fmd("*", ["members.setrole"], ["$f setrole"], function(fraction, character, listid = -1, role_shortcut = -1) {
     listid = listid.tointeger();
-    rolenum = rolenum.tointeger();
 
     local counter = 0;
-    foreach (idx, member in fraction.members) {
+    foreach (characterid, member in fraction.members) {
         if (listid != counter++) continue;
 
         local callback = function(err, target) {
-            if (!xPlayers.has(idx)) {
-                xPlayers.add(idx, target);
+            if (!xPlayers.has(characterid)) {
+                xPlayers.add(characterid, target);
             }
 
             // check for ability to change role of player which has same or bigger role
-            if (fraction.members[target].level < fraction.members[character].level) {
-                // and we are not same person
-                if (target.id != character.id) {
-                    return msg(character.playerid, "fraction.member.higherrole", CL_WARNING);
-                }
+            if (fraction.members[target].role.level < fraction.members[character].role.level) {
+               // and we are not same person
+               if (target.id != character.id) {
+                   return msg(character.playerid, "fraction.member.higherrole", CL_WARNING);
+               }
             }
 
-            if (!fraction.roles.has(rolenum)) {
+            if (!fraction.roles.has(role_shortcut)) {
                 return msg(character.playerid, "fraction.member.needrole", CL_ERROR);
             }
 
-            local newrole = fraction.roles.get(rolenum);
+            local newrole = fraction.roles.get(role_shortcut);
 
             // set member role
             fraction.members.set(target.id, newrole);
@@ -118,10 +117,10 @@ fmd("*", ["members.setrole"], ["$f setrole"], function(fraction, character, list
             }
         };
 
-        if (xPlayers.has(idx)) {
-            return callback(null, xPlayers[idx]);
+        if (xPlayers.has(characterid)) {
+            return callback(null, xPlayers[characterid]);
         } else {
-            return Character.findOneBy({ id = idx }, callback);
+            return Character.findOneBy({ id = characterid }, callback);
         }
     }
 

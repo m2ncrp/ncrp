@@ -2,7 +2,7 @@
  * List amount of money in the current fraction
  */
 fmd("*", ["money.list"], "$f money", function(fraction, character) {
-    msg(character.playerid, "fraction.money.amount", [ fraction.title, fraction.money ], CL_INFO);
+    msg(character.playerid, "fraction.money.amount", [ plocalize(character.playerid, fraction.title), fraction.money ], CL_INFO);
 });
 
 /**
@@ -23,10 +23,10 @@ fmd("*", ["money.add"], "$f money add", function(fraction, character, amount = "
     fraction.money = fraction.money + amount;
     fraction.save();
 
-    msg(character.playerid, "fraction.money.add", [ amount, fraction.title ], CL_SUCCESS);
+    msg(character.playerid, "fraction.money.add", [ amount, plocalize(character.playerid, fraction.title) ], CL_SUCCESS);
 
     if (fraction.members.get(character).permitted("money.list")) {
-        msg(character.playerid, "fraction.money.amount", [ fraction.title, fraction.money ], CL_INFO);
+        msg(character.playerid, "fraction.money.amount", [ plocalize(character.playerid, fraction.title), fraction.money ], CL_INFO);
     }
 });
 
@@ -48,9 +48,9 @@ fmd("*", ["money.remove"], "$f money sub", function(fraction, character, amount 
 
     addMoneyToPlayer(character.playerid, amount);
 
-    msg(character.playerid, "fraction.money.substract", [ amount ], CL_SUCCESS);
+    msg(character.playerid, "fraction.money.substract", [ amount, plocalize(character.playerid, fraction.title) ], CL_SUCCESS);
 
     if (fraction.members.get(character).permitted("money.list")) {
-        msg(character.playerid, "fraction.money.amount", [ fraction.title, fraction.money ], CL_INFO);
+        msg(character.playerid, "fraction.money.amount", [ plocalize(character.playerid, fraction.title), fraction.money ], CL_INFO);
     }
 });
