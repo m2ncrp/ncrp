@@ -57,7 +57,7 @@ class FractionMember extends ORM.JsonEntity
         }
 
         return permissions
-            .map(@(perm) perms.find(perm) != null)
+            .map(@(perm) requiredPerms.find(perm) != null)
             .reduce(@(a, b) a || b)
         ;
     }
