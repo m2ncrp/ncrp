@@ -25,9 +25,9 @@ event("onPlayerDisconnect", function(playerid, reason = null) {
  * Invite player to join fraction
  * @param  {Integer} playerid
  * @param  {Integer} targetid
- * @param  {Mixed} rolenum
+ * @param  {Mixed} role_shortcut
  */
-fmd("*", ["members.invite"], ["$f invite"], function(fraction, character, listid = -1, rolenum = -1) {
+fmd("*", ["members.invite"], ["$f invite"], function(fraction, character, targetid = -1, role_shortcut = -1) {
     targetid = targetid.tointeger();
     local playerid = character.playerid;
 
@@ -40,15 +40,15 @@ fmd("*", ["members.invite"], ["$f invite"], function(fraction, character, listid
     // }
 
     // get the lowest role (TODO: change to default role)
-    if (rolenum == -1) {
-        rolenum = fraction.roles.len() - 1;
-    }
-
-    if (!fraction.roles.has(rolenum)) {
+    if (role_shortcut == -1) {
         return msg(playerid, "fraction.rolenotexist", [fraction.shortcut], CL_WARNING);
     }
 
-    local role = fraction.roles[rolenum];
+    if (!fraction.roles.has(role_shortcut)) {
+        return msg(playerid, "fraction.rolenotexist", [fraction.shortcut], CL_WARNING);
+    }
+
+    local role = fraction.roles[role_shortcut];
 
     if (!(targetid in invites)) {
         invites[targetid] <- [];
