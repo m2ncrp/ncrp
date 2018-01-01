@@ -34,9 +34,11 @@ function fmd(shortcuts, permissions, patterns, callback) {
             fracts = shortcuts.map(function(shortcut) {
                 return fractions.exists(shortcut) ? fractions[shortcut] : null;
             });
-            fracts = fracts.filter(function(fraction, key) {
-                return !!fraction;
-            });
+
+            //fracts = fracts.filter(function(fraction, key) {
+            //    return !!fraction;
+            //});
+
         }
 
         if (typeof patterns != "array") {
