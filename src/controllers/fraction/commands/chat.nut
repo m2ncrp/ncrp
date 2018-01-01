@@ -1,4 +1,9 @@
 fmd("*", ["chat.write"], ["$fc",  "$f ooc"], function(fraction, character, ...) {
+
+    if(vargv.len() == 0) {
+        return msg(character.playerid, "fraction.chat.noempty", CL_WARNING);
+    }
+
     local message = strip(concat(vargv));
 
     if (!message.len()) {
