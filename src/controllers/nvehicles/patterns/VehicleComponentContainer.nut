@@ -12,6 +12,7 @@ class VehicleComponentContainer extends Container
         this.__parent = parent;
         this.__interface = VehicleComponent;
 
+        // TODO: Remove slashes
         local data = JSONParser.parse(str_replace("\\\\", "", jsondata));
 
         foreach (idx, component in data) {

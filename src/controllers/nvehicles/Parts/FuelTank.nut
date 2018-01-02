@@ -16,8 +16,6 @@ class VehicleComponent.FuelTank extends VehicleComponent
                 fuellevel = 40.0
             }
         }
-        // dbg("Volume for THIS veh is " + this.data.volume +
-        //             "/" + this.data.fuellevel);
     }
 
     // Returns fuel level by the Server
@@ -59,30 +57,6 @@ class VehicleComponent.FuelTank extends VehicleComponent
         setVehicleFuel(this.parent.vehicleid, 0.0 );
         return false;
     }
-
-    // /**
-    //  * Restore amount of fuel that was saved during
-    //  * temporary saving f.e.: setVehicleFuel(.., ..., true)
-    //  *
-    //  * @param  {Integer} vehicleid
-    //  * @return {Boolean}
-    //  */
-    // function restoreVehicleFuel(vehicleid) {
-    //     if (vehicleid in __vehicles) {
-    //         return old__setVehicleFuel(vehicleid, __vehicles[vehicleid].fuel);
-    //     }
-
-    //     return old__setVehicleFuel(vehicleid, getDefaultVehicleFuel(vehicleid));
-    // }
-
-    // /**
-    //  * Get fuel level for vehicle by vehicleid
-    //  * @param  {Integer} vehicleid
-    //  * @return {Float} level
-    //  */
-    // function getDefaultVehicleFuel(vehicleid) {
-    //     return getDefaultVehicleModelFuel(getVehicleModel(vehicleid));
-    // }
 }
 
 

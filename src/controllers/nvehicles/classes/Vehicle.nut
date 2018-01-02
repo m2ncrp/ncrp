@@ -22,7 +22,7 @@ class Vehicle extends ORM.Entity
     static Owner = {
         Player  = 0,
         Company = 1,
-    }
+    };
 
     static Type = {
         sedan = 0,
@@ -53,14 +53,14 @@ class Vehicle extends ORM.Entity
 
     hack = null;
 
-    constructor( type = null ) {
+    constructor( model = 0 ) {
         base.constructor();
         this.components = VehicleComponentContainer(this, this.components);
         this.passengers = array(4, null);
 
-        if (type == null) {
-            type = Vehicle.Type.sedan;
-        }
+        // if (type == null) {
+        //     type = Vehicle.Type.sedan;
+        // }
 
         // common components
         this.components.push(VehicleComponent.Hull());
@@ -69,7 +69,7 @@ class Vehicle extends ORM.Entity
         this.components.push(VehicleComponent.Plate());
         this.components.push(VehicleComponent.WheelPair());
         this.components.push(VehicleComponent.Gabarites());
-        switch (type) {
+        switch ( getModelType(model) ) {
             case Type.sedan:
             case Type.truck:
             case Type.hetch:

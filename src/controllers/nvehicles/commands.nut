@@ -1,11 +1,11 @@
-acmd(["vehicle"], function( playerid, id ) {
+acmd(["vehicle"], function( playerid, model ) {
     local pos = getPlayerPosition( playerid );
     // local vehicle = createVehicle( id.tointeger(), pos[0] + 2.0, pos[1], pos[2] + 1.0, 0.0, 0.0, 0.0 );
     // setVehicleColour(vehicle, 0, 0, 0, 0, 0, 0);
-    local veh = Vehicle().setPosition(pos[0] + 2.0, pos[1], pos[2] + 1.0);
-    veh.save();
-    vehicles.set(veh.id, veh);
-    // veh.components.find("Hull").setModel( id.tointeger() );
+    local veh = Vehicle( model.tointeger() ).setPosition(pos[0] + 2.0, pos[1], pos[2] + 1.0);
+    // veh.save();
+    // vehicles.set(veh.model, veh);
+    // veh.components.find("Hull").setModel( model.tointeger() );
     veh.spawn();
 });
 
