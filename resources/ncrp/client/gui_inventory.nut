@@ -682,7 +682,7 @@ class StorageInventory extends Inventory
         local size = this.getSize();
 
         // buttons
-        this.components["btn_close"] <- guiCreateElement(ELEMENT_TYPE_BUTTON, translations[playerLang]["action:close"], size.x / 2 - 38, size.y - 31, 76.0, 24.0, false, this.handle );
+        this.components["btn_close"] <- guiCreateElement(ELEMENT_TYPE_BUTTON, translations[playerLang]["action:close"], size.x / 2 - 38, size.y - 31, 76.0, 22.0, false, this.handle );
 
     }
 
