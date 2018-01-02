@@ -292,7 +292,7 @@ class Vehicle extends ORM.Entity
         log(character.getName() + " #" + character.playerid + " JUST ENTERED VEHICLE with ID=" + this.id.tostring() + " (seat: " + seat.tostring() + ")." );
 
         // correct state of all the vehicle components
-        this.hack.OnEnter(seat);
+        this.hack.onEnter(seat);
 
         // add player as a vehicle passenger
         this.passengers[seat] = character;
@@ -306,7 +306,7 @@ class Vehicle extends ORM.Entity
         this.passengers[seat] = null;
 
         // correct state of all the vehicle components
-        this.hack.OnExit(seat);
+        this.hack.onExit(seat);
         this.components.map(function(comp) { comp.onExit(character, seat) });
     }
 

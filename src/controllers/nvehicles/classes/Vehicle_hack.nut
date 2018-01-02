@@ -93,14 +93,14 @@ class DirtyHack {
         ];
     }
 
-    function __OnExit(vehicle) {
+    function __onExit(vehicle) {
         vehicle.correct();
     }
 
-    function OnEnter(seat) {
+    function onEnter(seat) {
         // hack in hack: without this little trick script'll throw error that veh is undefined in delayedFunction
         local v = this.veh;
-        local callback = __OnExit;
+        local callback = __onExit;
 
         delayedFunction( engine_timing[0], function () {
             log("------------------> Done!");
@@ -113,10 +113,10 @@ class DirtyHack {
         // veh.gabarites.correct();
     }
 
-    function OnExit(seat) {
+    function onExit(seat) {
         // hack in hack: without this little trick script'll throw error that veh is undefined in delayedFunction
         local v = this.veh;
-        local callback = __OnExit;
+        local callback = __onExit;
 
         // in case that play fast forward the exit process there's two dalayed functions
         delayedFunction( engine_timing[1], function () {
