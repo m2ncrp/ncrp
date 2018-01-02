@@ -128,5 +128,5 @@ class Item.BigBreakBlue     extends Item.Cigarettes { static classname = "Item.B
 class Item.BigBreakWhite    extends Item.Cigarettes { static classname = "Item.BigBreakWhite";  constructor () { base.constructor(); this.weight = 0.0025; this.unitweight = 0.0009; this.effect = 3.0; this.timeout = 7; this.addiction =  5.0 }}
 
 
-class Item.Box              extends Item.Storage    { static classname = "Item.Box";            constructor () { base.constructor(); this.weight = 7.0; }}
+class Item.Box              extends Item.Storage    { static classname = "Item.Box";            constructor () { base.constructor(); this.weight = 4.0; }}
 

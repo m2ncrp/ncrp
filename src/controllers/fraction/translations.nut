@@ -20,6 +20,10 @@ alternativeTranslate({
 "en|fraction.chat.noempty"                  :   "You can't send an empty message"
 "ru|fraction.chat.noempty"                  :   "Вы не можете отправить пустое сообщение."
 
+"en|fraction.chat.msg"                      :   "[%s OOC|%s] %s: %s"
+"ru|fraction.chat.msg"                      :   "[%s OOC|%s] %s: %s"
+
+
 
 "en|fraction.invite.invited"                :   "You've invited %s to join your fraction %s with role %s."
 "ru|fraction.invite.invited"                :   "Вы пригласили %s вступить во фракцию %s на должность %s."
@@ -199,6 +203,9 @@ alternativeTranslate({
 "en|fraction.info.members"                  : "- Current amount of members: %d. To list, write: /%s members"
 "ru|fraction.info.members"                  : "- Всего участников: %d. Посмотреть всех: /%s members"
 
+"en|fraction.info.chat"                     : "- Fraction OOC-chat: /%sc"
+"ru|fraction.info.chat"                     : "- OOC-чат фракции: /%sc"
+
 "en|fraction.info.vehicles"                 : "- Current amount of vehicles: %d. To list, write: /%s cars"
 "ru|fraction.info.vehicles"                 : "- Всего автомобилей: %d. Посмотреть список автомобилей: /%s cars"
 
@@ -238,9 +245,43 @@ alternativeTranslate({
 
 
 
+"en|Ringleader"                             : "Ringleader"
+"ru|Ringleader"                             : "Лидер"
+
+"en|Proxy"                                  : "Proxy"
+"ru|Proxy"                                  : "Заместитель"
+
+"en|Mechanic"                               : "Mechanic"
+"ru|Mechanic"                               : "Механик"
+
+"en|Getter"                                 : "Getter"
+"ru|Getter"                                 : "Добытчик"
+
+"en|Scout"                                  : "Scout"
+"ru|Scout"                                  : "Разведчик"
+
+"en|Assistant"                              : "Assistant"
+"ru|Assistant"                              : "Помощник"
+
+"en|Bouncer"                                : "Bouncer"
+"ru|Bouncer"                                : "Вышибала"
+
+"en|Quack"                                  : "Quack"
+"ru|Quack"                                  : "Знахарь"
 
 
 
+"en|Mayor"                                  : "Mayor"
+"ru|Mayor"                                  : "Мэр"
+
+"en|Deputy mayor"                           : "Deputy mayor"
+"ru|Deputy mayor"                           : "Зам. мэра"
+
+"en|Driver"                                 : "Driver"
+"ru|Driver"                                 : "Водитель"
+
+"en|Security"                               : "Security"
+"ru|Security"                               : "Охранник"
 
 
 });
