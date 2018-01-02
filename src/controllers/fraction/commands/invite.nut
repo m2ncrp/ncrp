@@ -136,3 +136,9 @@ cmd("invites", "accept", function(playerid, invitation = -1) {
 // cmd("f", "cancel", function(playerid, invitation) {
 //     // todo
 // });
+
+
+
+fmd(["police"], ["police.ticket"], ["$f ticket"], function(fraction, character, targetId = -1) {
+    msg(character.playerid, "Test msg about police ticket "+targetId);
+});
