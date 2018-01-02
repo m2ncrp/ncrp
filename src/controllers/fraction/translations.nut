@@ -245,9 +245,43 @@ alternativeTranslate({
 
 
 
+"en|Ringleader"                             : "Ringleader"
+"ru|Ringleader"                             : "Лидер"
+
+"en|Proxy"                                  : "Proxy"
+"ru|Proxy"                                  : "Заместитель"
+
+"en|Mechanic"                               : "Mechanic"
+"ru|Mechanic"                               : "Механик"
+
+"en|Getter"                                 : "Getter"
+"ru|Getter"                                 : "Добытчик"
+
+"en|Scout"                                  : "Scout"
+"ru|Scout"                                  : "Разведчик"
+
+"en|Assistant"                              : "Assistant"
+"ru|Assistant"                              : "Помощник"
+
+"en|Bouncer"                                : "Bouncer"
+"ru|Bouncer"                                : "Вышибала"
+
+"en|Quack"                                  : "Quack"
+"ru|Quack"                                  : "Знахарь"
 
 
 
+"en|Mayor"                                  : "Mayor"
+"ru|Mayor"                                  : "Мэр"
+
+"en|Deputy mayor"                           : "Deputy mayor"
+"ru|Deputy mayor"                           : "Зам. мэра"
+
+"en|Driver"                                 : "Driver"
+"ru|Driver"                                 : "Водитель"
+
+"en|Security"                               : "Security"
+"ru|Security"                               : "Охранник"
 
 
 });
