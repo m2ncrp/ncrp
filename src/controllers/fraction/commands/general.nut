@@ -5,6 +5,7 @@ fmd("*", [], "$f", function(fraction, character) {
 
     msg(character.playerid, "fraction.info.roles", [ fraction.roles.len(), fraction.shortcut ] );
     msg(character.playerid, "fraction.info.members", [ fraction.members.len(), fraction.shortcut  ] );
+    msg(character.playerid, "fraction.info.chat", [ fraction.shortcut ] );
     //msg(character.playerid, "fraction.info.vehicles", [ fraction.property.len(), fraction.shortcut  ] );
 
     if (fraction.members.get(character).permitted("money.list")) {
