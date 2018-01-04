@@ -299,7 +299,9 @@ cmd("passport", function( playerid, parametr = 0 ) {
     }
 
     if ("passport" in players[playerid].data) {
-        return msg(playerid, "passport.alreadyget", CL_THUNDERBIRD);
+        if (players[playerid].data.passport == true) {
+            return msg(playerid, "passport.alreadyget", CL_THUNDERBIRD);
+        }
     }
 
     if(!players[playerid].inventory.isFreeSpace(1)) {
