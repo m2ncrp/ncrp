@@ -58,10 +58,6 @@ class Vehicle extends ORM.Entity
         this.components = VehicleComponentContainer(this, this.components);
         this.passengers = array(4, null);
 
-        // if (type == null) {
-        //     type = Vehicle.Type.sedan;
-        // }
-
         // common components
         this.components.push(VehicleComponent.Hull());
         this.components.push(VehicleComponent.FuelTank());
@@ -260,7 +256,7 @@ class Vehicle extends ORM.Entity
         destroyVehicle(this.vehicleid);
 
         delete vehicles_native[this.vehicleid];
-        this.state = this.State.Spawned;
+        this.state = this.State.Loaded;
         this.vehicleid = -1;
 
         return true;

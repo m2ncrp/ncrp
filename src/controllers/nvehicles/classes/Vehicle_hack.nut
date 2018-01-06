@@ -70,7 +70,7 @@ class DirtyHack {
     engine_timing = [];
 
     function getEnterEngineTiming() {
-        return vehicle_info[this.veh.vehicleid][1]; //vehicle_info[this.model][3];
+        return vehicle_info[this.model][1]; //vehicle_info[this.model][3];
     }
 
     function getExitEngineTiming() {
@@ -87,7 +87,7 @@ class DirtyHack {
 
     constructor(vehicle) {
         this.veh = vehicle;
-        //this.model = vehicle.components.findOne(VehicleComponent.Hull).getModel;
+        this.model = vehicle.components.findOne(VehicleComponent.Hull).getModel();
 
         engine_timing = [
             getEnterEngineTiming(),

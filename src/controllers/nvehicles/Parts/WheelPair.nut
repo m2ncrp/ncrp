@@ -40,6 +40,13 @@ class VehicleComponent.WheelPair extends VehicleComponent
         setVehicleWheelTexture( this.parent.vehicleid, pair_num, to );
     }
 
+    /**
+     * Check if capacity of component isn't more than 0, disable brakes at all
+     */
+    function isBroken() {
+        return false;
+    }
+
     function correct() {
         this.set(this.WheelPosition.front,
                 this.data.front);

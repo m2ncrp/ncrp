@@ -1,12 +1,33 @@
+function keyCreation(playerid, vehicle) {
+    if (vehicle == null) return;
+
+    local VKey = Item.VehicleKey();
+    VKey.setParentId( md5(vehicle.id.tostring()) );
+
+    players[playerid].inventory.push(VKey);
+}
+
+
 acmd(["vehicle"], function( playerid, model ) {
+    local model = model.tointeger();
     local pos = getPlayerPosition( playerid );
-    // local vehicle = createVehicle( id.tointeger(), pos[0] + 2.0, pos[1], pos[2] + 1.0, 0.0, 0.0, 0.0 );
-    // setVehicleColour(vehicle, 0, 0, 0, 0, 0, 0);
-    local veh = Vehicle( model.tointeger() ).setPosition(pos[0] + 2.0, pos[1], pos[2] + 1.0);
-    // veh.save();
-    // vehicles.set(veh.model, veh);
-    // veh.components.find("Hull").setModel( model.tointeger() );
+    local veh = Vehicle( model ).setPosition(pos[0] + 2.0, pos[1], pos[2] + 1.0);
+
+    veh.getComponent(VehicleComponent.Hull).setModel( model );
+    vehicles.set(veh.id, veh);
+    veh.save();
+
     veh.spawn();
+    keyCreation(playerid, veh);
+});
+
+
+acmd(["vehicle"], ["despawn"], function( playerid, vehicle = null ) {
+    if (vehicle == null) {
+        vehicles.nearestVehicle(playerid).despawn();
+        return;
+    }
+    vehicle.despawn();
 });
 
 // acmd(["tune"], function( playerid ) {
@@ -288,24 +309,15 @@ acmd(["clean"], function( playerid, targetid = null ) {
 // });
 
 
-
-function keyCreation(playerid, vehicleid) {
-    local VKey = Item.VehicleKey();
-    players[playerid].inventory.push(VKey);
-    VKey.setParentId( vehicleid );
-}
-
-
-acmd(["get", "keys"], function( playerid, vehicleid = -2 ) {
-    keyCreation(playerid, vehicleid);
-    // msg();
+acmd(["get"], ["keys"], function( playerid ) {
+    keyCreation(playerid, vehicles.nearestVehicle(playerid));
 });
 
 
 /**
  * Create key for given vehicle by its DB id and five it to player with targetid
  */
-acmd(["replicate", "keys"], function( playerid, vehicleid, targetid ) {
+acmd(["replicate"], ["keys"], function( playerid, vehicleid, targetid ) {
     local VKey = Item.VehicleKey();
     players[playerid].inventory.push(VKey);
     VKey.setParentId( vehicleid );

@@ -16,11 +16,11 @@ class VehicleComponent.KeySwitch extends VehicleComponent
     }
 
     function _getHash(value) {
-        return md5(value);
+        return md5(value.tostring());
     }
 
     function _setHash(value) {
-        this.data.code = md5(value);
+        this.data.code = md5(value.tostring());
     }
 
     function beforeAction() {
@@ -34,14 +34,17 @@ class VehicleComponent.KeySwitch extends VehicleComponent
     function correct() { }
 
     function setStatusTo(newStatus) {
-        if (this.data.code == null) {
-            this.data.code = _getHash(this.parent.id);
-        }
         this.data.status = newStatus;
     }
 
     function getState() {
         return this.data.status;
+    }
+
+    function onEnter(character, seat) {
+        if (this.data.code == null) {
+            this.data.code = _getHash(this.parent.id);
+        }
     }
 }
 

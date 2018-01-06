@@ -2,16 +2,34 @@ class VehicleComponent
 {
     static classname = "VehicleComponent";
 
+    static AbilityToDecay = {
+        immortal = 0,
+        destroyable = 1,
+    };
+
     id          = null;
     limit       = 4;
     // vehicleid   = null;
     // state       = null;
     data        = null;
     parent      = null;
+    capacity    = 100.0;
+    decay       = 0.0;
+    created_ingame = 0;
+    created_real   = null;
+
+    default_decay = 10368000; // ~ 4 месяца (8 внутриигровых)
+
+    decayFlag = 0;
 
     constructor(data) {
         this.id     = "id" in data ? data.id : null;
         this.data   = data;
+
+        if (this.created_ingame == 0 && this.decayFlag == this.AbilityToDecay.destroyable) {
+            this.created_ingame = getTimestamp();
+            this.created_real = date();
+        }
     }
 
     function setParent(parent) {
@@ -70,7 +88,7 @@ class VehicleComponent
     }
 
     function serialize() {
-        return merge(this.data, { id = this.id, type = this.classname });
+        return merge(this.data, { id = this.id, type = this.classname, decay = this.decay });
     }
 
     function _serialize() {
@@ -90,5 +108,45 @@ class VehicleComponent
         }
 
         return true;
+    }
+
+    /**
+     * Get timestamp of time's left for 0 component capacity
+     */
+    function _getDecay() {
+        return this.decay;
+    }
+
+    /**
+     * Sets timestamp to a new one
+     * @param {uint} to is new timestamp
+     */
+    function _setDecay(to) {
+        this.decay = to;
+        return this;
+    }
+
+    /**
+     * Add given number to the current timestamp
+     * @param  {with} with [description]
+     * @return {[type]}      [description]
+     */
+    function _appendDecay(with) {
+        this.decay += with;
+        return this;
+    }
+
+    function getCapacity() {
+        return this.capacity;
+    }
+
+    function setCapacity(to) {
+        if (to > 100 || this.capacity >= 100) {
+            return;
+        }
+
+        // get the difference
+        // local diff = 100.0 - this.capacity;
+        // local newTimestamp =
     }
 }
