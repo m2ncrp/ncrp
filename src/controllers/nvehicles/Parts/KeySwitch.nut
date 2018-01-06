@@ -16,7 +16,7 @@ class VehicleComponent.KeySwitch extends VehicleComponent
     }
 
     function _getHash(value) {
-        return md5(value.tostring());
+        return this.data.code;
     }
 
     function _setHash(value) {
@@ -43,7 +43,7 @@ class VehicleComponent.KeySwitch extends VehicleComponent
 
     function onEnter(character, seat) {
         if (this.data.code == null) {
-            this.data.code = _getHash(this.parent.id);
+            this._setHash(this.parent.id);
         }
     }
 }

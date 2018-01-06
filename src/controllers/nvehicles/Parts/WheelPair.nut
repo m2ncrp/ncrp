@@ -11,6 +11,7 @@ class VehicleComponent.WheelPair extends VehicleComponent
     constructor (data = null) {
         base.constructor(data);
 
+        // TODO: setup wheel's textute properly with meta info
         if (this.data == null) {
             this.data = {
                 front  = 0,//getVehicleWheelTexture( this.parent.vehicleid, 0 ),
@@ -48,11 +49,18 @@ class VehicleComponent.WheelPair extends VehicleComponent
     }
 
     function correct() {
-        this.set(this.WheelPosition.front,
+        local model = this.parent.getComponent(VehicleComponent.Hull).getModel();
+        local type = getModelType(model);
+
+        // TODO: cut off IF statement
+        if ( type == Vehicle.Type.sedan  ||
+             type == Vehicle.Type.hetch ) {
+            this.set(this.WheelPosition.front,
                 this.data.front);
-        this.set(this.WheelPosition.middle,
+            this.set(this.WheelPosition.middle,
                 this.data.middle);
-        this.set(this.WheelPosition.rear,
+            this.set(this.WheelPosition.rear,
                 this.data.rear);
+        }
     }
 }

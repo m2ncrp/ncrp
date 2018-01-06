@@ -13,7 +13,6 @@ acmd(["vehicle"], function( playerid, model ) {
     local pos = getPlayerPosition( playerid );
     local veh = Vehicle( model ).setPosition(pos[0] + 2.0, pos[1], pos[2] + 1.0);
 
-    veh.getComponent(VehicleComponent.Hull).setModel( model );
     vehicles.set(veh.id, veh);
     veh.save();
 

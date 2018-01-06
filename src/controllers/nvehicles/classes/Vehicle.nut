@@ -60,6 +60,8 @@ class Vehicle extends ORM.Entity
 
         // common components
         this.components.push(VehicleComponent.Hull());
+        this.setModel(model);
+
         this.components.push(VehicleComponent.FuelTank());
         this.components.push(VehicleComponent.Engine());
         this.components.push(VehicleComponent.Plate());
@@ -365,5 +367,17 @@ class Vehicle extends ORM.Entity
             throw "Vehicle: cannot find " + idOrType + "!";
         }
         return c;
+    }
+
+
+
+
+    function getModel() {
+        return this.getComponent(VehicleComponent.Hull).getModel();
+    }
+
+    function setModel(model, runTimeRespawn = false) {
+        this.getComponent(VehicleComponent.Hull).setModel(model, runTimeRespawn);
+        return this;
     }
 }
