@@ -32,7 +32,7 @@ class VehicleComponent.GloveCompartment extends VehicleComponent {
     }
 
     function action() {
-        this.status = !this.status;
+        this.setState( !this.status );
     }
 
     function correct() {}
@@ -63,7 +63,7 @@ key("tab", function(playerid) {
     local vehicle = getPlayerNVehicle(playerid);
     local gc = vehicle.getComponent(VehicleComponent.GloveCompartment);
 
-    if ( vehicle.isPlayerOnSeat(players[playerid], 0) ||
+    if ( vehicle.isPlayerDriver(players[playerid]) ||
          vehicle.isPlayerOnSeat(players[playerid], 1) )
     {
         if (!gc.status) {

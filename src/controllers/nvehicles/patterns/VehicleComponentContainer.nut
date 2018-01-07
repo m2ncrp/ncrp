@@ -79,7 +79,8 @@ class VehicleComponentContainer extends Container
 
         if (typeof idOrType == "string") {
             foreach (idx, component in this) {
-                if (idx == id || component.classname == idOrType) {
+                // is it suppose to be a hard link by component id?
+                if (idx == component.id || component.classname == idOrType) {
                     results.push(component);
                 }
             }
