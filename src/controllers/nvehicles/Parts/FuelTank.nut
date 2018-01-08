@@ -11,8 +11,8 @@ class VehicleComponent.FuelTank extends VehicleComponent
 
         if (this.data == null) {
             this.data = {
-                volume = 40.0,
-                fuellevel = 40.0,
+                volume = 50.0,
+                fuellevel = 50.0,
             }
         }
     }

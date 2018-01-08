@@ -6,9 +6,9 @@ class VehicleComponent.Trunk extends VehicleComponent {
 
     loaded = false;
 
-    constructor (data = null) {
+    constructor (data = null, model = null) {
         base.constructor(data);
-        this.container = TrunkItemContainer(this.parent);
+        this.container = TrunkItemContainer(this.parent, model);
 
         if (data == null) {
             this.data = {
@@ -64,6 +64,7 @@ class VehicleComponent.Trunk extends VehicleComponent {
 
 
 key("e", function(playerid) {
+    if (isPlayerInNVehicle(playerid)) return;
     local vehicle = vehicles.nearestVehicle(playerid);
     if (vehicle == null) return;
 

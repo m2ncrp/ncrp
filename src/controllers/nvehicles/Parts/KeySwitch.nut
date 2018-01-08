@@ -15,7 +15,7 @@ class VehicleComponent.KeySwitch extends VehicleComponent
         }
     }
 
-    function _getHash(value) {
+    function _getHash() {
         return this.data.code;
     }
 

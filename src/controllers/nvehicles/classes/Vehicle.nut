@@ -60,9 +60,12 @@ class Vehicle extends ORM.Entity
 
         // common components
         this.components.push(VehicleComponent.Hull());
-        this.setModel(model);
+        this.getComponent(VehicleComponent.Hull).setModel(model);
 
-        this.components.push(VehicleComponent.FuelTank());
+        this.components.push(VehicleComponent.FuelTank({
+            volume = getDefaultVehicleFuel(model),
+            fuellevel = getDefaultVehicleFuel(model),
+        }));
         this.components.push(VehicleComponent.Engine());
         this.components.push(VehicleComponent.Plate());
         this.components.push(VehicleComponent.WheelPair());
@@ -72,12 +75,12 @@ class Vehicle extends ORM.Entity
             case Type.truck:
             case Type.hetch:
                 this.components.push(VehicleComponent.KeySwitch());
-                this.components.push(VehicleComponent.Trunk());
+                this.components.push(VehicleComponent.Trunk(null, model));
                 this.components.push(VehicleComponent.Lights());
                 this.components.push(VehicleComponent.GloveCompartment());
                 break;
             case Type.trailer:
-                this.components.push(VehicleComponent.Trunk());
+                this.components.push(VehicleComponent.Trunk(null, model));
                 break;
             case Type.bus:
             case Type.semitrailertruck:
@@ -85,9 +88,6 @@ class Vehicle extends ORM.Entity
                 this.components.push(VehicleComponent.Lights());
                 break;
         }
-
-        // dunno if it suppose to be here actually
-        vehicles.set(this.id, this);
     }
 
     /**
@@ -386,12 +386,12 @@ class Vehicle extends ORM.Entity
 
 
 
-    function getModel() {
-        return this.getComponent(VehicleComponent.Hull).getModel();
-    }
+    // function getModel() {
+    //     return this.getComponent(VehicleComponent.Hull).getModel();
+    // }
 
-    function setModel(model, runTimeRespawn = false) {
-        this.getComponent(VehicleComponent.Hull).setModel(model, runTimeRespawn);
-        return this;
-    }
+    // function setModel(model, runTimeRespawn = false) {
+    //     this.getComponent(VehicleComponent.Hull).setModel(model, runTimeRespawn);
+    //     return this;
+    // }
 }
