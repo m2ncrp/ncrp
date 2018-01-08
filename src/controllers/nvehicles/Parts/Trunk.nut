@@ -8,13 +8,17 @@ class VehicleComponent.Trunk extends VehicleComponent {
 
     constructor (data = null, model = null) {
         base.constructor(data);
-        this.container = TrunkItemContainer(this.parent, model);
 
         if (data == null) {
             this.data = {
                 status = false,
+                sizeX  = getTrunkDefaultSizeX(model),
+                sizeY  = getTrunkDefaultSizeY(model),
+                limit  = getTrunkDefaultWeightLimit(model),
             }
         }
+
+        this.container = TrunkItemContainer(this.parent, this.data);
     }
 
     function setParent(parent) {

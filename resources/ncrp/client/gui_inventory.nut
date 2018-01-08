@@ -718,7 +718,13 @@ class TrunkInventory extends Inventory
         local size = this.getSize();
 
         // buttons
-        this.components["btn_close"] <- guiCreateElement(ELEMENT_TYPE_BUTTON, "Close trunk", 95, size.y - 65, props.width, props.height, false, this.handle );
+        this.components["btn_close"] <- guiCreateElement(
+                ELEMENT_TYPE_BUTTON,
+                "Close trunk",
+                size.x / 2,  size.y - 65,
+                props.width, props.height,
+                false,       this.handle
+        );
 
     }
 

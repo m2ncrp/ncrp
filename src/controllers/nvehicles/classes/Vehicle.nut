@@ -382,16 +382,4 @@ class Vehicle extends ORM.Entity
         }
         return c;
     }
-
-
-
-
-    // function getModel() {
-    //     return this.getComponent(VehicleComponent.Hull).getModel();
-    // }
-
-    // function setModel(model, runTimeRespawn = false) {
-    //     this.getComponent(VehicleComponent.Hull).setModel(model, runTimeRespawn);
-    //     return this;
-    // }
 }

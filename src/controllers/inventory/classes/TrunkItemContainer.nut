@@ -15,17 +15,17 @@ class TrunkItemContainer extends ItemContainer
      * Create new instance
      * @return {TrunkItemContainer}
      */
-    constructor(vehicle, model = null) {
+    constructor(vehicle, data = null) {
         base.constructor();
 
         this.id     = md5(this.tostring());
         this.parent = vehicle;
         this.title  = "Vehicle trunk";
 
-        if (model != null) {
-            this.sizeX = getTrunkDefaultSizeX(model);
-            this.sizeY = getTrunkDefaultSizeY(model);
-            this.limit = getTrunkDefaultWeightLimit(model);
+        if (data != null) {
+            this.sizeX = data.sizeX;
+            this.sizeY = data.sizeY;
+            this.limit = data.limit;
         }
     }
 

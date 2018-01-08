@@ -8,7 +8,7 @@ class VehicleComponent.Hull extends VehicleComponent
         base.constructor(data);
 
         if (this.data == null) {
-            this.data = {id = 0, model = 0, color1 = 0, color2 = 0, dirt=1.0};
+            this.data = {id = 0, model = 0, color1 = 0, color2 = 0, dirt=0.0};
         }
     }
 
