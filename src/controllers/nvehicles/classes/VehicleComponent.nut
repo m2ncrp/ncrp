@@ -146,7 +146,10 @@ class VehicleComponent
         }
 
         // get the difference
-        // local diff = 100.0 - this.capacity;
+        // local diff = this.capacity - to;
+        // 
+        // is it more than before
+        // if (diff)
         // local newTimestamp =
     }
 }

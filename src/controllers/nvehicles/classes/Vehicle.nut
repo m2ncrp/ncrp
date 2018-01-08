@@ -85,6 +85,9 @@ class Vehicle extends ORM.Entity
                 this.components.push(VehicleComponent.Lights());
                 break;
         }
+
+        // dunno if it suppose to be here actually
+        vehicles.set(this.id, this);
     }
 
     /**
@@ -243,6 +246,11 @@ class Vehicle extends ORM.Entity
         this.state = this.State.Spawned;
         this.hack = DirtyHack(this);
 
+        local ks = this.getComponent(VehicleComponent.KeySwitch);
+        if (ks._getHash() == null) {
+            ks._setHash(this.id);
+        }
+
         return true;
     }
 
@@ -360,11 +368,17 @@ class Vehicle extends ORM.Entity
         return (fabs(velocity[0]) > minimalspeed || fabs(velocity[1]) > minimalspeed);
     }
 
+    /**
+     * Check if there's given component in vehicle data field.
+     * Return VehicleComponent tobj is it's exist otherwise throw an exception
+     * @param  {Mixed} idOrType
+     * @return {VehicleComponent}
+     */
     function getComponent(idOrType) {
         local c = this.components.findOne(idOrType);
 
         if (!c || !(c instanceof idOrType)) {
-            throw "Vehicle: cannot find " + idOrType + "!";
+            throw "Vehicle: cannot find " + idOrType.classname + "!";
         }
         return c;
     }

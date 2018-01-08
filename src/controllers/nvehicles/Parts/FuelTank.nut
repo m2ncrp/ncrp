@@ -7,13 +7,12 @@ class VehicleComponent.FuelTank extends VehicleComponent
     isFillingup = false;
 
     constructor (data = null) {
-        // dbg("called fuel tank creation");
         base.constructor(data);
 
         if (this.data == null) {
             this.data = {
                 volume = 40.0,
-                fuellevel = 40.0
+                fuellevel = 40.0,
             }
         }
     }
@@ -48,6 +47,7 @@ class VehicleComponent.FuelTank extends VehicleComponent
 
     function correct() {
         local eng = this.parent.components.findOne(VehicleComponent.Engine);
+        local hull = this.parent.getComponent(VehicleComponent.Hull);
 
         if (eng.data.status) {
             setVehicleFuel(this.parent.vehicleid, this.data.fuellevel.tofloat() );

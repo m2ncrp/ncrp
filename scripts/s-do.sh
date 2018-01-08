@@ -4,9 +4,12 @@
 # Data: november 2016
 # GitHub: https://github.com/LoOnyBiker
 
-DEBUG="false"
+ROOTPATH="$PWD/scripts"
+
+DEBUG="true"
 exeName=m2online-svr.exe
-xmlFile=../globalSettings/env.xml
+xmlFile=./scripts/globalSettings/env.xml
+xmlEXE="$ROOTPATH/xml.exe"
 
 # {url}: http://stackoverflow.com/questions/1417957/show-just-the-current-branch-in-git/1418022#1418022
 branchName=$(git rev-parse --abbrev-ref HEAD)
@@ -16,10 +19,10 @@ DEBUG_HEADER() {
 	if [ $DEBUG == "true" ]; then
 		echo ""
 		# Show xml content
-		./XML.exe el -a $xmlFile
+		$xmlEXE el -a $xmlFile
 		echo ""
 		# Show xml content with values
-		./XML.exe el -v $xmlFile
+		$xmlEXE el -v $xmlFile
 	fi
 }
 
@@ -27,7 +30,7 @@ DEBUG_FOOTER() {
 	if [ $DEBUG == "true" ]; then
 		echo ""
 		echo "= = After changes = ="
-		./XML.exe el -v $xmlFile
+		$xmlEXE el -v $xmlFile
 	fi
 }
 
@@ -35,7 +38,7 @@ DEBUG_FOOTER() {
 	# xmlstarlet ed -a '//p[n="hello"]/r/s' -t elem -n s -v 2.0 input.xml
 	#
 # So now command will look like:
-# ./XML.exe ed -u "//server/@major" -v 2 globalSettings/env.xml
+# ./xml.exe ed -u "//server/@major" -v 2 globalSettings/env.xml
 # xmlstarlet.exe edit update "tag_path" value content <xml_path>
 
 # Update all branches value
@@ -50,18 +53,18 @@ updateAllBranches() {
 
 	if [ "$1" == "--m1" ]; then
 		# Update all major values
-		# ./XML.exe ed --inplace -u "//server/subversion/branch/commit/@major" -v "$1" $xmlFile
-		./XML.exe ed --inplace -u $xmlPath -v "$2" $xmlFile
+		# ./xml.exe ed --inplace -u "//server/subversion/branch/commit/@major" -v "$1" $xmlFile
+		$xmlEXE ed --inplace -u $xmlPath -v "$2" $xmlFile
 	fi
 
 	if [ "$1" == "--m2" ]; then
 		xmlPath="//server/subversion/branch/commit/@middle"
-		./XML.exe ed --inplace -u $xmlPath -v "$2" $xmlFile
+		$xmlEXE ed --inplace -u $xmlPath -v "$2" $xmlFile
 	fi
 
 	if [ "$1" == "--m3" ]; then
 		xmlPath="//server/subversion/branch/commit/@minor"
-		./XML.exe ed --inplace -u $xmlPath -v "$2" $xmlFile
+		$xmlEXE ed --inplace -u $xmlPath -v "$2" $xmlFile
 	fi
 
 	DEBUG_FOOTER
@@ -79,18 +82,18 @@ updateBranchVersion() {
 	if [ "$1" == "--m1" ]; then
 		# Update specific attribute
 			# {url}: http://stackoverflow.com/questions/7837879/xmlstarlet-update-an-attribute
-			# ./XML.exe ed --inplace -u //property[@name='XF86Display']/@value -v "$1" $xmlFile
-		./XML.exe ed --inplace -u $xmlPath -v "$2" $xmlFile
+			# ./xml.exe ed --inplace -u //property[@name='XF86Display']/@value -v "$1" $xmlFile
+		$xmlEXE ed --inplace -u $xmlPath -v "$2" $xmlFile
 	fi
 
 	if [ "$1" == "--m2" ]; then
 		xmlPath="//branch[@name='"$branchName"']/commit/@middle"
-		./XML.exe ed --inplace -u $xmlPath -v "$2" $xmlFile
+		$xmlEXE ed --inplace -u $xmlPath -v "$2" $xmlFile
 	fi
 
 	if [ "$1" == "--m3" ]; then
 		xmlPath="//branch[@name='"$branchName"']/commit/@minor"
-		./XML.exe ed --inplace -u $xmlPath -v "$2" $xmlFile
+		$xmlEXE ed --inplace -u $xmlPath -v "$2" $xmlFile
 	fi
 
 	DEBUG_FOOTER
@@ -99,7 +102,7 @@ updateBranchVersion() {
 getMinor() {
 	xmlPath="//branch[@name='"$branchName"']/commit/@minor"
 	# {url}: http://stackoverflow.com/questions/12640152/xmlstarlet-select-value
-	branchMinor=$(./XML.exe sel -t -v $xmlPath $xmlFile)
+	branchMinor=$($xmlEXE sel -t -v $xmlPath $xmlFile)
 }
 
 checkCommit() {
@@ -110,8 +113,8 @@ checkCommit() {
 	getMinor
 
 	xmlPath="//branch[@name='"$branchName"']/commit"
-	commitHash=$(./XML.exe sel -t -v $xmlPath $xmlFile)
-	echo -e "env.xml commit hash: \t"$commitHash
+	commitHash=$($xmlEXE sel -t -v $xmlPath $xmlFile)
+	echo -e "commit hash: \t"$commitHash
 
 	# Get number of commits since certain commit hash
 		# {url}: http://stackoverflow.com/questions/7693249/commits-since-a-certain-commit-number
@@ -128,12 +131,12 @@ checkCommit() {
 
 		# update minor value for branch
 		xmlPath="//branch[@name='"$branchName"']/commit/@minor"
-		./XML.exe ed --inplace -u $xmlPath -v "$branchMinor" $xmlFile
+		$xmlEXE ed --inplace -u $xmlPath -v "$branchMinor" $xmlFile
 
 		# update commit hash
 		xmlPath="//branch[@name='"$branchName"']/commit"
 		commitHash=$(git rev-parse HEAD)
-		./XML.exe ed --inplace -u $xmlPath -v "$commitHash" $xmlFile
+		$xmlEXE ed --inplace -u $xmlPath -v "$commitHash" $xmlFile
 	fi
 
 	DEBUG_FOOTER

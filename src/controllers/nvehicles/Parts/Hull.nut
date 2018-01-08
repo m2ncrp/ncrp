@@ -5,7 +5,6 @@ class VehicleComponent.Hull extends VehicleComponent
     limit = 1;
 
     constructor(data = null) {
-        // dbg("called hull creation");
         base.constructor(data);
 
         if (this.data == null) {

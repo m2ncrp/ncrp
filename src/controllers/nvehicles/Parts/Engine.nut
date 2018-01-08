@@ -114,30 +114,3 @@ class VehicleComponent.Engine extends VehicleComponent
         this.data.consumption.move = value;
     }
 }
-
-
-// key("q", function(playerid) {
-//     if (!original__isPlayerInVehicle(playerid)) {
-//         return;
-//     }
-
-//     // check if vehicle is NVehicle Object or not
-//     if (!(original__getPlayerVehicle(playerid) in vehicles_native)) return;
-
-//     local vehicle = getPlayerNVehicle(playerid);
-
-//     local eng = vehicle.components.findOne(VehicleComponent.Engine);
-
-//     // if engine is in its place and has expected obj type
-//     if ((eng || (eng instanceof VehicleComponent.Engine))) {
-//         foreach (idx, item in players[playerid].inventory) {
-//             if(item._entity == "Item.VehicleKey") {
-//                 dbg(vehicle.id + " ~ " + item.data.id);
-//                 if (item.data.id == vehicle.id) {
-//                     eng.action();
-//                     break;
-//                 }
-//             }
-//         }
-//     }
-// });
