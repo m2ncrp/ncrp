@@ -236,11 +236,11 @@ alternativeTranslate({
 "en|Detective"                              : "Detective"
 "ru|Detective"                              : "Детектив"
 
-"en|Assist. chief"                          : "Assist. chief"
-"ru|Assist. chief"                          : "Заместитель шефа"
+"en|Deputy chief"                           : "Deputy chief"
+"ru|Deputy chief"                           : "Заместитель шефа"
 
-"en|Police Chief"                           : "Police Chief"
-"ru|Police Chief"                           : "Шеф полиции"
+"en|Police chief"                           : "Chief"
+"ru|Police chief"                           : "Шеф"
 
 
 
@@ -282,6 +282,33 @@ alternativeTranslate({
 
 "en|Security"                               : "Security"
 "ru|Security"                               : "Охранник"
+
+
+
+
+"en|Boss"                                   : "Boss"
+"ru|Boss"                                   : "Дон"
+
+"en|Consigliere"                            : "Consigliere"
+"ru|Consigliere"                            : "Советник"
+
+"en|Assistentes"                            : "Assistentes"
+"ru|Assistentes"                            : "Правая рука"
+
+"en|Interfectorem"                          : "Interfectorem"
+"ru|Interfectorem"                          : "Убийца"
+
+"en|Capo"                                   : "Capo"
+"ru|Capo"                                   : "Капо"
+
+"en|Milites"                                : "Milites"
+"ru|Milites"                                : "Солдат"
+
+"en|Prope"                                  : "Prope"
+"ru|Prope"                                  : "Приближенный"
+
+"en|Opus"                                   : "Opus"
+"ru|Opus"                                   : "Рабочий"
 
 
 });
