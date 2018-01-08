@@ -251,6 +251,11 @@ class Vehicle extends ORM.Entity
             ks._setHash(this.id);
         }
 
+        local trunk = this.getComponent(VehicleComponent.Trunk);
+        if (trunk._getHash() == null) {
+            trunk._setHash(this.id);
+        }
+
         return true;
     }
 

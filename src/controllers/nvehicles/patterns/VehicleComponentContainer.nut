@@ -36,7 +36,9 @@ class VehicleComponentContainer extends Container
         component.id = id;
         component.parent = this.__parent;
         // NOTE: afte transformation form component to item instance the last one should've 0 decay
-        component.decay = getTimestamp() + component.default_decay;
+        if (component.decayFlag == VehicleComponent.AbilityToDecay.destroyable) {
+            component.decay = getTimestamp() + component.default_decay;
+        }
 
         return base.add(id, component);
     }

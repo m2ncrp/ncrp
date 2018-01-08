@@ -6,12 +6,19 @@ class VehicleComponent.Trunk extends VehicleComponent {
 
     loaded = false;
 
+    static Status = {
+        locked = 0,
+        opened = 1,
+        closed = 2, // doors closed, but not locked with key
+    }
+
     constructor (data = null, model = null) {
         base.constructor(data);
 
         if (data == null) {
             this.data = {
-                status = false,
+                status = this.Status.locked,
+                code   = null,
                 sizeX  = getTrunkDefaultSizeX(model),
                 sizeY  = getTrunkDefaultSizeY(model),
                 limit  = getTrunkDefaultWeightLimit(model),
@@ -33,8 +40,12 @@ class VehicleComponent.Trunk extends VehicleComponent {
         }
     }
 
+    function getStatus() {
+        return this.data.status;
+    }
+
     function setState(state) {
-        this.data.status = !this.data.status;
+        this.data.status = state;
         this.correct();
     }
 
@@ -44,7 +55,12 @@ class VehicleComponent.Trunk extends VehicleComponent {
     }
 
     function correct() {
-        setVehiclePartOpen(this.parent.vehicleid, partID, this.data.status);
+        if (this.isLocked() || this.isClosed()) {
+            setVehiclePartOpen(this.parent.vehicleid, partID, false);
+        }
+        if (this.isOpened()) {
+            setVehiclePartOpen(this.parent.vehicleid, partID, true);
+        }
     }
 
     function load() {
@@ -64,18 +80,36 @@ class VehicleComponent.Trunk extends VehicleComponent {
     function isLoaded() {
         return this.loaded;
     }
+
+    function _getHash() {
+        return this.data.code;
+    }
+
+    function _setHash(value) {
+        this.data.code = md5(value.tostring());
+    }
+
+    function isLocked() {
+        return this.getStatus() == this.Status.locked;
+    }
+
+    function isClosed() {
+        return this.getStatus() == this.Status.closed;
+    }
+
+    function isOpened() {
+        return this.getStatus() == this.Status.opened;
+    }
 }
 
 
-key("e", function(playerid) {
+function _getTrunk(playerid) {
     if (isPlayerInNVehicle(playerid)) return;
     local vehicle = vehicles.nearestVehicle(playerid);
     if (vehicle == null) return;
 
     local trunk = vehicle.getComponent(VehicleComponent.Trunk);
     local vid = vehicle.id;
-
-
 
     local v_pos = getVehiclePosition(vehicle.vehicleid);
     local v_ang = getVehicleRotation(vehicle.vehicleid);
@@ -90,24 +124,70 @@ key("e", function(playerid) {
     local y = v_pos[1] + offsets.y;
     local z = v_pos[2] - offsets.x;
 
-    // dbg( "Vehicle " + vid + " position is " + v_pos[0] + ", " + v_pos[1] + ", " + v_pos[2] + "." );
-    // dbg( "Vehicle " + vid + " trunk position is " + x + ", " + y + ", " + z + "." );
-
-    // if ( isInRadius(playerid, x, y, z, radius) ) {
     if ( checkDistanceXY(x, y, p_pos[0], p_pos[1], radius) ) {
-        // dbg( "Trunk status of " + vid  + " vehicle has been set to " + !trunk.data.status);
-        if (!trunk.data.status) {
-            msg(playerid, "Вы успешно открыли багажник " + vid + " машины. Грац!");
-            if (!trunk.isLoaded()) {
-                trunk.load();
-            }
+        return trunk;
+    }
+    return null;
+}
 
+
+key("e", function(playerid) {
+    local trunk = _getTrunk(playerid);
+    if (trunk == null) return;
+
+    local hasKey = false;
+    foreach (idx, item in players[playerid].inventory) {
+        if ((item._entity == "Item.VehicleKey") && (item.data.id == trunk.data.code)) {
+            hasKey = true;
+            break;
+        }
+    }
+
+    if ( trunk.isLocked() && hasKey ) {
+        trunk.setState( VehicleComponent.Trunk.Status.opened );
+        return msg(playerid, "Вы успешно отперли багажник " + trunk.parent.id + " машины. Грац!");
+    }
+
+    if ( trunk.isOpened() && hasKey ) {
+        trunk.setState( VehicleComponent.Trunk.Status.locked );
+        return msg(playerid, "Вы успешно заперли багажник " + trunk.parent.id + " машины. Грац!");
+    }
+
+    if ( trunk.isClosed() && hasKey ) {
+        trunk.setState( VehicleComponent.Trunk.Status.locked );
+        return msg(playerid, "Вы успешно заперли багажник " + trunk.parent.id + " машины. Грац!");
+    }
+
+    if ( trunk.isLocked() && !hasKey ) {
+        return msg(playerid, "Вы дергаете за ручку багажника машины, но она не поддается!");
+    }
+
+    if ( trunk.isOpened() && !hasKey ) {
+        trunk.setState( VehicleComponent.Trunk.Status.closed );
+        return msg(playerid, "Вы прикрыли багажник " + trunk.parent.id + " машины.");
+    }
+
+    if ( trunk.isClosed() && !hasKey ) {
+        trunk.setState( VehicleComponent.Trunk.Status.opened );
+        return msg(playerid, "Вы успешно открыли багажник " + trunk.parent.id + " машины. Он оказался не заперт. Грац!");
+    }
+});
+
+
+key("tab", function(playerid) {
+    local trunk = _getTrunk(playerid);
+    if (trunk == null) return;
+
+    if ( trunk.isOpened() ) {
+        if (!trunk.isLoaded()) {
+            trunk.load();
+        }
+
+        if (!trunk.container.isOpened(playerid)){
             trunk.container.show(playerid);
         } else {
-            msg(playerid, "Вы успешно закрыли багажник " + vid + " машины. Грац!");
             trunk.container.hide(playerid);
         }
-        trunk.setState( !trunk.data.status );
         return true;
     }
     return false;
