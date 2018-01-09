@@ -44,7 +44,7 @@ class VehicleComponent.Trunk extends VehicleComponent {
         return this.data.status;
     }
 
-    function setState(state) {
+    function setStatus(state) {
         this.data.status = state;
         this.correct();
     }
@@ -131,6 +131,10 @@ function _getTrunk(playerid) {
 }
 
 
+// TODO:
+// 1. Fix trunk.show when you'r not openup it actually. Mb you still in trunk.container.opened array?
+// 2. Sync player and trunk inventory. Close both when trunk's been closed
+
 key("e", function(playerid) {
     local trunk = _getTrunk(playerid);
     if (trunk == null) return;
@@ -144,31 +148,41 @@ key("e", function(playerid) {
     }
 
     if ( trunk.isLocked() && hasKey ) {
-        trunk.setState( VehicleComponent.Trunk.Status.opened );
+        trunk.setStatus( VehicleComponent.Trunk.Status.opened );
         return msg(playerid, "Вы успешно отперли багажник " + trunk.parent.id + " машины. Грац!");
     }
 
     if ( trunk.isOpened() && hasKey ) {
-        trunk.setState( VehicleComponent.Trunk.Status.locked );
+        if (trunk.container.isOpenedBySomebody()){
+            trunk.container.hideForAll();
+        }
+        trunk.setStatus( VehicleComponent.Trunk.Status.locked );
         return msg(playerid, "Вы успешно заперли багажник " + trunk.parent.id + " машины. Грац!");
     }
 
     if ( trunk.isClosed() && hasKey ) {
-        trunk.setState( VehicleComponent.Trunk.Status.locked );
+        if (trunk.container.isOpenedBySomebody()){
+            trunk.container.hideForAll();
+        }
+        trunk.setStatus( VehicleComponent.Trunk.Status.locked );
         return msg(playerid, "Вы успешно заперли багажник " + trunk.parent.id + " машины. Грац!");
     }
 
     if ( trunk.isLocked() && !hasKey ) {
+        trunk.setStatus( VehicleComponent.Trunk.Status.locked );
         return msg(playerid, "Вы дергаете за ручку багажника машины, но она не поддается!");
     }
 
     if ( trunk.isOpened() && !hasKey ) {
-        trunk.setState( VehicleComponent.Trunk.Status.closed );
+        if (trunk.container.isOpenedBySomebody()){
+            trunk.container.hideForAll();
+        }
+        trunk.setStatus( VehicleComponent.Trunk.Status.closed );
         return msg(playerid, "Вы прикрыли багажник " + trunk.parent.id + " машины.");
     }
 
     if ( trunk.isClosed() && !hasKey ) {
-        trunk.setState( VehicleComponent.Trunk.Status.opened );
+        trunk.setStatus( VehicleComponent.Trunk.Status.opened );
         return msg(playerid, "Вы успешно открыли багажник " + trunk.parent.id + " машины. Он оказался не заперт. Грац!");
     }
 });

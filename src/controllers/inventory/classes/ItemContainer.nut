@@ -73,6 +73,22 @@ class ItemContainer extends Container
     }
 
     /**
+     * Method hides inventory for players
+     * @param  {Integer} playerid
+     * @return {Boolean}
+     */
+    function hideForAll() {
+        foreach (characterid, character in this.opened) {
+            if (character.playerid != -1 && isPlayerConnected(character.playerid)) {
+                if (getPlayerName(character.playerid) == character.getName()) {
+                    trigger(character.playerid, "inventory:onServerClose", this.id);
+                    delete this.opened[character.id];
+                }
+            }
+        }
+    }
+
+    /**
      * Sync inventory containment for all currently viewing it players
      * @return {Boolean}
      */
@@ -108,6 +124,10 @@ class ItemContainer extends Container
      */
     function isOpened(playerid) {
         return (players[playerid].id in this.opened);
+    }
+
+    function isOpenedBySomebody() {
+        return this.opened.len() > 0;
     }
 
     /**
