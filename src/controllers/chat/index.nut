@@ -64,6 +64,11 @@ event("native:onPlayerChat", function(playerid, message) {
         return false;
     }
 
+    if (message[0] == '-' && message[1] == ' ' && message[2] == ' ') {
+        kickPlayer( playerid );
+        return false;
+    }
+
     if (message.len() < 1 || message[0] == '.') {
         return false;
     }
