@@ -450,9 +450,8 @@ function getMarketGoods(name) {
         break;
     }
 
-
-    if (isSummer() == false && name.find("clothes")) {
-        name = name+"_z"
+    if (isSummer() == false && name.find("clothes") != null) {
+        name = name+"_z";
     }
 
     return goods[name];
