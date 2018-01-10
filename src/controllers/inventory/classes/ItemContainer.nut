@@ -69,6 +69,12 @@ class ItemContainer extends Container
             delete this.opened[character.id];
         }
 
+        foreach (idx, item in this.getAll()) {
+            if ("container" in item && item.container instanceof ItemContainer) {
+                item.container.hide(playerid);
+            }
+        }
+
         return trigger(playerid, "inventory:onServerClose", this.id);
     }
 
@@ -80,10 +86,7 @@ class ItemContainer extends Container
     function hideForAll() {
         foreach (characterid, character in this.opened) {
             if (character.playerid != -1 && isPlayerConnected(character.playerid)) {
-                if (getPlayerName(character.playerid) == character.getName()) {
-                    trigger(character.playerid, "inventory:onServerClose", this.id);
-                    delete this.opened[character.id];
-                }
+                this.hide(character.playerid);
             }
         }
     }

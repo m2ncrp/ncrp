@@ -131,13 +131,12 @@ function _getTrunk(playerid) {
 }
 
 
-// TODO:
-// 1. Fix trunk.show when you'r not openup it actually. Mb you still in trunk.container.opened array?
-// 2. Sync player and trunk inventory. Close both when trunk's been closed
 
 key("e", function(playerid) {
     local trunk = _getTrunk(playerid);
     if (trunk == null) return;
+
+    local charInventory = players[playerid].inventory;
 
     local hasKey = false;
     foreach (idx, item in players[playerid].inventory) {
@@ -157,6 +156,7 @@ key("e", function(playerid) {
             trunk.container.hideForAll();
         }
         trunk.setStatus( VehicleComponent.Trunk.Status.locked );
+        charInventory.hide(playerid);
         return msg(playerid, "Вы успешно заперли багажник " + trunk.parent.id + " машины. Грац!");
     }
 
@@ -165,6 +165,7 @@ key("e", function(playerid) {
             trunk.container.hideForAll();
         }
         trunk.setStatus( VehicleComponent.Trunk.Status.locked );
+        charInventory.hide(playerid);
         return msg(playerid, "Вы успешно заперли багажник " + trunk.parent.id + " машины. Грац!");
     }
 
@@ -178,6 +179,7 @@ key("e", function(playerid) {
             trunk.container.hideForAll();
         }
         trunk.setStatus( VehicleComponent.Trunk.Status.closed );
+        charInventory.hide(playerid);
         return msg(playerid, "Вы прикрыли багажник " + trunk.parent.id + " машины.");
     }
 
@@ -192,17 +194,18 @@ key("tab", function(playerid) {
     local trunk = _getTrunk(playerid);
     if (trunk == null) return;
 
+    local charInventory = players[playerid].inventory;
+
     if ( trunk.isOpened() ) {
         if (!trunk.isLoaded()) {
             trunk.load();
         }
 
-        if (!trunk.container.isOpened(playerid)){
+        if (!trunk.container.isOpened(playerid)) {
             trunk.container.show(playerid);
+            charInventory.hide(playerid);
         } else {
             trunk.container.hide(playerid);
         }
-        return true;
     }
-    return false;
 });
