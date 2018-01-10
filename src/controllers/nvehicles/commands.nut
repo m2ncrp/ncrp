@@ -1,23 +1,28 @@
-function keyCreation(playerid, vehicle) {
+function createKey(playerid, vehicle) {
     if (vehicle == null) return;
 
     local VKey = Item.VehicleKey();
     VKey.setParentId( md5(vehicle.id.tostring()) );
+}
 
-    players[playerid].inventory.push(VKey);
+function giveKey(playerid, vehicle) {
+    local key = createKey(playerid, vehicle);
+    if (key != null) {
+        players[playerid].inventory.push(VKey);
+    }
 }
 
 
-acmd(["vehicle"], function( playerid, model ) {
+acmd(["vehicle"],["create"], function( playerid, model ) {
     local model = model.tointeger();
     local pos = getPlayerPosition( playerid );
     local veh = Vehicle( model ).setPosition(pos[0] + 2.0, pos[1], pos[2] + 1.0);
 
-    vehicles.set(veh.id, veh);
     veh.save();
+    vehicles.set(veh.id, veh);
 
     veh.spawn();
-    keyCreation(playerid, veh);
+    createKey(playerid, veh);
 });
 
 
@@ -309,7 +314,7 @@ acmd(["clean"], function( playerid, targetid = null ) {
 
 
 acmd(["get"], ["keys"], function( playerid ) {
-    keyCreation(playerid, vehicles.nearestVehicle(playerid));
+    createKey(playerid, vehicles.nearestVehicle(playerid));
 });
 
 
