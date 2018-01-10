@@ -19,6 +19,6 @@ cmd("f", function(playerid, a = -1, b = -1, c = -1, d = -1) {
     msg(playerid, "fraction.list.title", [fractions.getContaining(character).len()]);
 
     foreach (idx, fraction in fractions.getContaining(character)) {
-        msg(playerid, "fraction.list.entry", [fraction.title, fraction.members[character].role.title, fraction.shortcut], CL_INFO);
+        msg(playerid, "fraction.list.entry", [plocalize(playerid, fraction.title), plocalize(playerid, fraction.members[character].role.title), fraction.shortcut], CL_INFO);
     }
 });
