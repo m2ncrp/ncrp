@@ -28,8 +28,11 @@ alternativeTranslate({
     "en|inventory.clothes.use"      : "You put on: %s."
     "ru|inventory.clothes.use"      : "Вы надели: %s."
 
-    "en|inventory.clothes.work"      : "You are in a working clothes."
-    "ru|inventory.clothes.work"      : "Вы в рабочей одежде."
+    "en|inventory.clothes.work"     : "You are in a working clothes."
+    "ru|inventory.clothes.work"     : "Вы в рабочей одежде."
+
+    "en|inventory.leavethecar"      : "Leave the car to use."
+    "ru|inventory.leavethecar"      : "Для использования выйдите из автомобиля."
 
 
     "en|inventory.firstaidkit.use"              : "You begin to cure."
@@ -56,8 +59,9 @@ alternativeTranslate({
     "en|inventory.money.added"                  : "Your pocket has been replenished with $%.2f."
     "ru|inventory.money.added"                  : "Ваш карман пополнился на $%.2f."
 
-    "en|inventory.leavethecar"     : "Leave the car to use."
-    "ru|inventory.leavethecar"     : "Для использования выйдите из автомобиля."
+    "en|inventory.vehiclekey.removedcar"     : "It's a key from the car which I once owned. I don't even know where it now..."
+    "ru|inventory.vehiclekey.removedcar"     : "Это ключ от автомобиля, которым я когда-то владел. Даже не знаю где он сейчас..."
+
 
     "en|Item.None"             : ""
     "en|Item.Revolver12"       : "Revolver 12"
