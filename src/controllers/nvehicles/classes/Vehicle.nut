@@ -70,6 +70,7 @@ class Vehicle extends ORM.Entity
         this.components.push(VehicleComponent.Plate());
         this.components.push(VehicleComponent.WheelPair());
         this.components.push(VehicleComponent.Gabarites());
+
         switch ( getModelType(model) ) {
             case Type.sedan:
             case Type.truck:
@@ -251,9 +252,11 @@ class Vehicle extends ORM.Entity
             ks._setHash(this.id);
         }
 
-        local trunk = this.getComponent(VehicleComponent.Trunk);
-        if (trunk._getHash() == null) {
-            trunk._setHash(this.id);
+        if (this.getType() != Vehicle.Type.semitrailertruck) {
+            local trunk = this.getComponent(VehicleComponent.Trunk);
+            if (trunk._getHash() == null) {
+                trunk._setHash(this.id);
+            }
         }
 
         return true;
@@ -371,6 +374,11 @@ class Vehicle extends ORM.Entity
     function isMoving(minimalspeed = 0.5) {
         local velocity = getVehicleSpeed(this.vehicleid);
         return (fabs(velocity[0]) > minimalspeed || fabs(velocity[1]) > minimalspeed);
+    }
+
+    function getType() {
+        local model = this.getComponent(VehicleComponent.Hull).getModel();
+        return getModelType(model);
     }
 
     /**

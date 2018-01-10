@@ -106,7 +106,7 @@ class VehicleComponent.Trunk extends VehicleComponent {
 function _getTrunk(playerid) {
     if (isPlayerInNVehicle(playerid)) return;
     local vehicle = vehicles.nearestVehicle(playerid);
-    if (vehicle == null) return;
+    if (vehicle == null || vehicle.getType() == Vehicle.Type.semitrailertruck) return;
 
     local trunk = vehicle.getComponent(VehicleComponent.Trunk);
     local vid = vehicle.id;
