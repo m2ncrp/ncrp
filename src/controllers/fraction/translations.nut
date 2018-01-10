@@ -189,25 +189,25 @@ alternativeTranslate({
 
 
 "en|fraction.list.title"                    : "Fractions you are currently in (%d):"
-"ru|fraction.list.title"                    : "Фракции в которых вы состоите (%d шт):"
+"ru|fraction.list.title"                    : "Фракции, в которых вы состоите (%d шт):"
 
-"en|fraction.list.entry"                    : "  - '%s' role: %s. Info: /%s"
-"ru|fraction.list.entry"                    : "  - '%s' роль: %s. Инфо: /%s"
+"en|fraction.list.entry"                    : "- %s (%s). Info: /%s"
+"ru|fraction.list.entry"                    : "- %s (%s). Инфо: /%s"
 
 "en|fraction.info.title"                    : "Information about fraction %s"
 "ru|fraction.info.title"                    : "Информация о фракции %s"
 
 "en|fraction.info.roles"                    : "- Current amount of roles: %d. To list, write: /%s roles"
-"ru|fraction.info.roles"                    : "- Всего ролей: %d. Посмотреть все: /%s roles"
+"ru|fraction.info.roles"                    : "- Ролей: %d. Посмотреть все: /%s roles"
 
 "en|fraction.info.members"                  : "- Current amount of members: %d. To list, write: /%s members"
-"ru|fraction.info.members"                  : "- Всего участников: %d. Посмотреть всех: /%s members"
+"ru|fraction.info.members"                  : "- Участников: %d. Посмотреть всех: /%s members"
 
 "en|fraction.info.chat"                     : "- Fraction OOC-chat: /%sc"
 "ru|fraction.info.chat"                     : "- OOC-чат фракции: /%sc"
 
 "en|fraction.info.vehicles"                 : "- Current amount of vehicles: %d. To list, write: /%s cars"
-"ru|fraction.info.vehicles"                 : "- Всего автомобилей: %d. Посмотреть список автомобилей: /%s cars"
+"ru|fraction.info.vehicles"                 : "- Автомобилей: %d. Посмотреть список автомобилей: /%s cars"
 
 "en|fraction.info.money"                    : "- Current money amount: $%.2f"
 "ru|fraction.info.money"                    : "- Сумма на счёте фракции: $%.2f"
