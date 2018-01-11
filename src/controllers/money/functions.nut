@@ -2,7 +2,7 @@ function addMoneyToPlayer(playerid, amount) {
     local old_amount = players[playerid]["money"];
     local new_amount = old_amount + amount.tofloat();
     setPlayerMoney(playerid, new_amount);
-    log("[ MONEY ] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> +"+format("%.2f", amount)+" dollars. Was: $"+format("%.2f", old_amount)+". Now: $"+format("%.2f", new_amount));
+    dbg("[ MONEY ] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> +"+format("%.2f", amount)+" dollars. Was: $"+format("%.2f", old_amount)+". Now: $"+format("%.2f", new_amount));
 }
 
 /**
@@ -21,7 +21,7 @@ function subMoneyToPlayer(playerid, amount) {
     local old_amount = players[playerid]["money"];
     local new_amount = old_amount - amount.tofloat();
     setPlayerMoney(playerid, new_amount);
-    log("[ MONEY ] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> -"+format("%.2f", amount)+" dollars. Was: $"+format("%.2f", old_amount)+". Now: $"+format("%.2f", new_amount));
+    dbg("[ MONEY ] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> -"+format("%.2f", amount)+" dollars. Was: $"+format("%.2f", old_amount)+". Now: $"+format("%.2f", new_amount));
 }
 
 function getPlayerBalance(playerid) {
