@@ -41,8 +41,8 @@ local interiors = [
 ["onfoot",  "Exit",     -348.085, -730.38, -15.4208,   "DerrekExit"],
 ["onfoot",  "Enter",     -83.3192, -886.394, -15.8433,  "PortDockEnter"],
 ["onfoot",  "Exit",     -81.4264, -882.224, -15.8433,  "PortDockExit"],
-["onfoot",  "Enter",     -1552.7, -169.291, -19.628,    "SanIslandBarEnter"],
-["onfoot",  "Exit",     -1553.27, -168.626, -19.6113,  "SanIslandBarExit"],
+["onfoot",  "Enter",     -1552.7, -169.291, -19.628,    "SandIslandBarEnter"],
+["onfoot",  "Exit",     -1553.27, -168.626, -19.6113,  "SandIslandBarExit"],
 ["onfoot",  "Enter",     -1379.57, 471.409, -22.2337,   "LoneStarEnter1"],
 ["onfoot",  "Exit",     -1380.33, 471.386, -22.1321,   "LoneStarExit1"],
 ["onfoot",  "Enter",     -1381.72, 480.922, -23.182,    "LoneStarEnter2"],
@@ -184,54 +184,54 @@ local interiors = [
 ["onfoot",  "Enter",   -1302.92, 1613.28, 1.22659, "HarryVitrinaExit"],
 ["onfoot",  "Exit",    -1304.76, 1613.28, 1.22659, "HarryVitrinaEnter"],
 
-["onfoot",  "Enter", 545.215, 0.606471, -18.26,    "GasStationOysterBayEnter1"],
-["onfoot",  "Exit",  544.477, 0.636801, -18.2491,  "GasStationOysterBayExit1"],
-["onfoot",  "Enter", 540.2, 5.07567, -18.26,     "GasStationOysterBayEnter2"],
-["onfoot",  "Exit",  540.2, 4.34056, -18.2491,    "GasStationOysterBayExit2"],
-["onfoot",  "Enter", 538.638, 5.0681, -18.26,      "GasStationOysterBayEnter3"],
-["onfoot",  "Exit",  538.619, 4.37051, -18.2491,   "GasStationOysterBayExit3"],
-["onfoot",  "Enter", 109.224, 179.406, -20.0307,   "GasStationEastSideEnter1"],
-["onfoot",  "Exit",  108.335, 179.478, -20.0394,   "GasStationEastSideExit1"],
-["onfoot",  "Enter", 104.205, 183.962, -20.0307,   "GasStationEastSideEnter2"],
-["onfoot",  "Exit",  104.159, 183.112, -20.0394,   "GasStationEastSideExit2"],
-["onfoot",  "Enter", 102.624, 183.889, -20.0307,   "GasStationEastSideEnter3"],
-["onfoot",  "Exit",  102.511, 183.191, -20.0394,   "GasStationEastSideExit3"],
-["onfoot",  "Enter", -632.135, -45.7719, 0.898507, "GasStationWestSideEnter1"],
-["onfoot",  "Exit",  -632.149, -45.0437, 0.922397, "GasStationWestSideExit1"],
-["onfoot",  "Enter", -627.675, -40.787, 0.898235,  "GasStationWestSideEnter2"],
-["onfoot",  "Exit",  -628.506, -40.6717, 0.922397, "GasStationWestSideExit2"],
-["onfoot",  "Enter", -627.682, -39.2351, 0.898214, "GasStationWestSideEnter3"],
-["onfoot",  "Exit",  -628.449, -39.1388, 0.922397, "GasStationWestSideExit3"],
-["onfoot",  "Enter", -148.154, 607.446, -20.1877,  "GasStationLittleItalyCenterEnter1"],
-["onfoot",  "Exit",  -148.238, 606.676, -20.1886,  "GasStationLittleItalyCenterExit1"],
-["onfoot",  "Enter", -152.643, 602.442, -20.221,   "GasStationLittleItalyCenterEnter2"],
-["onfoot",  "Exit",  -151.939, 602.444, -20.1886,  "GasStationLittleItalyCenterExit2"],
-["onfoot",  "Enter", -152.629, 600.89, -20.2261,   "GasStationLittleItalyCenterEnter3"],
-["onfoot",  "Exit",  -151.932, 600.885, -20.1886,  "GasStationLittleItalyCenterExit3"],
-["onfoot",  "Enter", 336.850, 878.114, -21.3149,   "GasStationLittleItalyWestEnter1"],
-["onfoot",  "Exit",  336.850, 878.831, -21.3066,   "GasStationLittleItalyWestExit1"],
-["onfoot",  "Enter", 341.349, 883.100, -21.3149,   "GasStationLittleItalyWestEnter2"],
-["onfoot",  "Exit",  340.648, 883.100, -21.3066,   "GasStationLittleItalyWestExit2"],
-["onfoot",  "Enter", 341.342, 884.660, -21.3149,   "GasStationLittleItalyWestEnter3"],
-["onfoot",  "Exit",  340.644, 884.660, -21.3066,   "GasStationLittleItalyWestExit3"],
-["onfoot",  "Enter", -708.404, 1759.91, -15.0082,  "GasStationDiptonEnter1"],
-["onfoot",  "Exit",  -708.454, 1759.08, -15.0062,  "GasStationDiptonExit1"],
-["onfoot",  "Enter", -712.898, 1754.76, -15.002,   "GasStationDiptonEnter2"],
-["onfoot",  "Exit",  -712.2,   1754.77, -15.0062,    "GasStationDiptonExit2"],
-["onfoot",  "Enter", -712.908, 1753.2, -15.0015,  "GasStationDiptonEnter3"],
-["onfoot",  "Exit",  -712.191, 1753.2, -15.0062,  "GasStationDiptonExit3"],
-["onfoot",  "Enter", -1589.33, 944.220, -5.22379,  "GasStationGreenfieldEnter1"],
-["onfoot",  "Exit",  -1588.4,  944.220, -5.2064,    "GasStationGreenfieldExit1"],
-["onfoot",  "Enter", -1584.24, 939.762, -5.22327,  "GasStationGreenfieldEnter2"],
-["onfoot",  "Exit",  -1584.24, 940.459, -5.2064,   "GasStationGreenfieldExit2"],
-["onfoot",  "Enter", -1582.60, 939.678, -5.22265,  "GasStationGreenfieldEnter3"],
-["onfoot",  "Exit",  -1582.60, 940.466, -5.2064,   "GasStationGreenfieldExit3"],
-["onfoot",  "Enter", -1682.75, -233.56, -20.3412, "GasStationSandIslandEnter1"],
-["onfoot",  "Exit",  -1683.45, -233.56, -20.328,  "GasStationSandIslandExit1"],
-["onfoot",  "Enter", -1687.77, -229.126, -20.3346, "GasStationSandIslandEnter2"],
-["onfoot",  "Exit",  -1687.77, -229.823, -20.328,  "GasStationSandIslandExit2"],
-["onfoot",  "Enter", -1689.35, -229.082, -20.3342, "GasStationSandIslandEnter3"],
-["onfoot",  "Exit",  -1689.35, -229.831, -20.328,  "GasStationSandIslandExit3"]
+["onfoot",  "Enter", 545.215,   0.606471, -18.26,      "Gas Station Oyster Bay door1"           ],
+["onfoot",  "Exit",  544.477,   0.636801, -18.2491,    "Gas Station Oyster Bay door1"           ],
+["onfoot",  "Enter", 540.2,     5.07567,  -18.26,      "Gas Station Oyster Bay door2"           ],
+["onfoot",  "Exit",  540.2,     4.34056,  -18.2491,    "Gas Station Oyster Bay door2"           ],
+["onfoot",  "Enter", 538.638,   5.0681,   -18.26,      "Gas Station Oyster Bay door3"           ],
+["onfoot",  "Exit",  538.619,   4.37051,  -18.2491,    "Gas Station Oyster Bay door3"           ],
+["onfoot",  "Enter", 109.224,   179.406,  -20.0307,    "Gas Station East Side door1"            ],
+["onfoot",  "Exit",  108.335,   179.478,  -20.0394,    "Gas Station East Side door1"            ],
+["onfoot",  "Enter", 104.205,   183.962,  -20.0307,    "Gas Station East Side door2"            ],
+["onfoot",  "Exit",  104.159,   183.112,  -20.0394,    "Gas Station East Side door2"            ],
+["onfoot",  "Enter", 102.624,   183.889,  -20.0307,    "Gas Station East Side door3"            ],
+["onfoot",  "Exit",  102.511,   183.191,  -20.0394,    "Gas Station East Side door3"            ],
+["onfoot",  "Enter", -632.135, -45.7719,  0.898507,    "Gas Station West Side door1"            ],
+["onfoot",  "Exit",  -632.149, -45.0437,  0.922397,    "Gas Station West Side door1"            ],
+["onfoot",  "Enter", -627.675, -40.787,   0.898235,    "Gas Station West Side door2"            ],
+["onfoot",  "Exit",  -628.506, -40.6717,  0.922397,    "Gas Station West Side door2"            ],
+["onfoot",  "Enter", -627.682, -39.2351,  0.898214,    "Gas Station West Side door3"            ],
+["onfoot",  "Exit",  -628.449, -39.1388,  0.922397,    "Gas Station West Side door3"            ],
+["onfoot",  "Enter", -148.154,  607.446,  -20.1877,    "Gas Station Little Italy Center door1"  ],
+["onfoot",  "Exit",  -148.238,  606.676,  -20.1886,    "Gas Station Little Italy Center door1"  ],
+["onfoot",  "Enter", -152.643,  602.442,  -20.221,     "Gas Station Little Italy Center door2"  ],
+["onfoot",  "Exit",  -151.939,  602.444,  -20.1886,    "Gas Station Little Italy Center door2"  ],
+["onfoot",  "Enter", -152.629,  600.89,   -20.2261,    "Gas Station Little Italy Center door3"  ],
+["onfoot",  "Exit",  -151.932,  600.885,  -20.1886,    "Gas Station Little Italy Center door3"  ],
+["onfoot",  "Enter", 336.850,   878.114,  -21.3149,    "Gas Station Little Italy West door1"    ],
+["onfoot",  "Exit",  336.850,   878.831,  -21.3066,    "Gas Station Little Italy West door1"    ],
+["onfoot",  "Enter", 341.349,   883.100,  -21.3149,    "Gas Station Little Italy West door2"    ],
+["onfoot",  "Exit",  340.648,   883.100,  -21.3066,    "Gas Station Little Italy West door2"    ],
+["onfoot",  "Enter", 341.342,   884.660,  -21.3149,    "Gas Station Little Italy West door3"    ],
+["onfoot",  "Exit",  340.644,   884.660,  -21.3066,    "Gas Station Little Italy West door3"    ],
+["onfoot",  "Enter", -708.404,  1759.91,  -15.0082,    "Gas Station Dipton door1"               ],
+["onfoot",  "Exit",  -708.454,  1759.08,  -15.0062,    "Gas Station Dipton door1"               ],
+["onfoot",  "Enter", -712.898,  1754.76,  -15.002,     "Gas Station Dipton door2"               ],
+["onfoot",  "Exit",  -712.2,    1754.77,  -15.0062,    "Gas Station Dipton door2"               ],
+["onfoot",  "Enter", -712.908,  1753.2,   -15.0015,    "Gas Station Dipton door3"               ],
+["onfoot",  "Exit",  -712.191,  1753.2,   -15.0062,    "Gas Station Dipton door3"               ],
+["onfoot",  "Enter", -1589.33,  944.220,  -5.22379,    "Gas Station Greenfield door1"           ],
+["onfoot",  "Exit",  -1588.4,   944.220,  -5.2064,     "Gas Station Greenfield door1"           ],
+["onfoot",  "Enter", -1584.24,  939.762,  -5.22327,    "Gas Station Greenfield door2"           ],
+["onfoot",  "Exit",  -1584.24,  940.459,  -5.2064,     "Gas Station Greenfield door2"           ],
+["onfoot",  "Enter", -1582.60,  939.678,  -5.22265,    "Gas Station Greenfield door3"           ],
+["onfoot",  "Exit",  -1582.60,  940.466,  -5.2064,     "Gas Station Greenfield door3"           ],
+["onfoot",  "Enter", -1682.75, -233.56,   -20.3412,    "Gas Station Sand Island door1"          ],
+["onfoot",  "Exit",  -1683.45, -233.56,   -20.328,     "Gas Station Sand Island door1"          ],
+["onfoot",  "Enter", -1687.77, -229.126,  -20.3346,    "Gas Station Sand Island door2"          ],
+["onfoot",  "Exit",  -1687.77, -229.823,  -20.328,     "Gas Station Sand Island door2"          ],
+["onfoot",  "Enter", -1689.35, -229.082,  -20.3342,    "Gas Station Sand Island door3"          ],
+["onfoot",  "Exit",  -1689.35, -229.831,  -20.328,     "Gas Station Sand Island door3"          ]
 
 
 ];
@@ -280,7 +280,7 @@ key(["e"], function(playerid) {
     }
 
     if (interiors[i][1] == "Enter") {
-        dbg(interiors[i][5]);
+        dbg("[ INTERIOR ] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> Enter >| "+interiors[i][5]+".");
         if (interiors[i].len() <= 6) {
             i += 1;
             setPlayerPosition(playerid, interiors[i][2], interiors[i][3], interiors[i][4]);
@@ -297,7 +297,7 @@ key(["e"], function(playerid) {
         }
 
     } else  {
-        dbg(interiors[i][5]);
+        dbg("[ INTERIOR ] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> Exit |> "+interiors[i][5]+".");
         i -= 1;
         setPlayerPosition(playerid, interiors[i][2], interiors[i][3], interiors[i][4]);
         removePlayerWeaponChina ( playerid );

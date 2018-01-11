@@ -29,9 +29,8 @@ translation("en", {
 });
 
 event("native:shop:purchase", function(playerid, data) {
-    log(data)
-    local data = JSONParser.parse(data);
 
+    local data = JSONParser.parse(data);
     local goods = getMarketGoods(data.type);
     local item = goods.items[data.itemIndex];
     local price = item.price;
@@ -65,6 +64,8 @@ event("native:shop:purchase", function(playerid, data) {
 
     players[playerid].inventory.push(itemObject) || itemObject.save();
     players[playerid].inventory.sync();
+
+    dbg("[ MARKET ] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> Bought "+localize(item.itemName)+" for "+ format("%.2f", price)+" dollars.");
 
 });
 
