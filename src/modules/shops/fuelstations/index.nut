@@ -259,22 +259,22 @@ function fuelJerrycanUp( playerid ) {
 
 function fuelNVehicleUp(playerid) {
     local vehicle = getPlayerNVehicle(playerid);
-    local eng = vehicle.getComponent(VehicleComponent.Engine);
-    local ft = vehicle.getComponent(VehicleComponent.FuelTank);
+    local engine = vehicle.getComponent(VehicleComponent.Engine);
+    local fuelTank = vehicle.getComponent(VehicleComponent.FuelTank);
 
     if ( vehicle.isMoving() ) {
         return msg( playerid, "shops.fuelstations.stopyourmoves", CL_THUNDERBIRD );
     }
 
-    if ( eng.getState() ) {
+    if ( engine.getState() ) {
         return msg( playerid, "shops.fuelstations.stopengine", CL_THUNDERBIRD );
     }
 
-    if ( ft.isFillingup ) {
+    if ( fuelTank.isFillingup ) {
         return msg( playerid, "shops.fuelstations.fuelingalready", CL_THUNDERBIRD );
     }
 
-    local fuel = ft.getFuelToFillup();
+    local fuel = fuelTank.getFuelToFillup();
     local cost = round(GALLON_COST * fuel, 2);
 
     if ( fuel <= 0 ) {
@@ -288,15 +288,15 @@ function fuelNVehicleUp(playerid) {
     local fuelup_time = (fuel / FUELUP_SPEED).tointeger();
     msg( playerid, "shops.fuelstations.loading", CL_CHESTNUT2 );
     freezePlayer( playerid, true);
-    ft.isFillingup = true;
+    fuelTank.isFillingup = true;
     trigger(playerid, "hudCreateTimer", fuelup_time, true, true);
     delayedFunction(fuelup_time * 1000, function () {
         freezePlayer( playerid, false);
         delayedFunction(1000, function () { freezePlayer( playerid, false); });
-        ft.setFuelToMax();
+        fuelTank.setFuelToMax();
         subMoneyToPlayer(playerid, cost);
         addMoneyToTreasury(cost);
-        ft.isFillingup = false;
+        fuelTank.isFillingup = false;
         msg(playerid, "shops.fuelstations.fuel.payed", [cost, fuel, getPlayerBalance(playerid)], CL_CHESTNUT2);
     });
 }
