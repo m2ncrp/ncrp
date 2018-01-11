@@ -4,7 +4,7 @@ class VehicleComponent.FuelTank extends VehicleComponent
 {
     static classname = "VehicleComponent.FuelTank";
 
-    isFillingup = false;
+    isFillingUp = false;
 
     constructor (data = null) {
         base.constructor(data);

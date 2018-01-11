@@ -14,6 +14,11 @@ function giveKey(playerid, vehicle) {
 
 
 acmd(["vehicle"],["create"], function( playerid, model ) {
+
+    if(!players[playerid].inventory.isFreeSpace(1)) {
+        return msg(playerid, "inventory.space.notenough", CL_ERROR);
+    }
+
     local model = model.tointeger();
     local pos = getPlayerPosition( playerid );
     local veh = Vehicle( model ).setPosition(pos[0] + 2.0, pos[1], pos[2] + 1.0);

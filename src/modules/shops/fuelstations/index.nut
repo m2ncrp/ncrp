@@ -270,7 +270,7 @@ function fuelNVehicleUp(playerid) {
         return msg( playerid, "shops.fuelstations.stopengine", CL_THUNDERBIRD );
     }
 
-    if ( fuelTank.isFillingup ) {
+    if ( fuelTank.isFillingUp ) {
         return msg( playerid, "shops.fuelstations.fuelingalready", CL_THUNDERBIRD );
     }
 
@@ -288,7 +288,7 @@ function fuelNVehicleUp(playerid) {
     local fuelup_time = (fuel / FUELUP_SPEED).tointeger();
     msg( playerid, "shops.fuelstations.loading", CL_CHESTNUT2 );
     freezePlayer( playerid, true);
-    fuelTank.isFillingup = true;
+    fuelTank.isFillingUp = true;
     trigger(playerid, "hudCreateTimer", fuelup_time, true, true);
     delayedFunction(fuelup_time * 1000, function () {
         freezePlayer( playerid, false);
@@ -296,7 +296,7 @@ function fuelNVehicleUp(playerid) {
         fuelTank.setFuelToMax();
         subMoneyToPlayer(playerid, cost);
         addMoneyToTreasury(cost);
-        fuelTank.isFillingup = false;
+        fuelTank.isFillingUp = false;
         msg(playerid, "shops.fuelstations.fuel.payed", [cost, fuel, getPlayerBalance(playerid)], CL_CHESTNUT2);
     });
 }
