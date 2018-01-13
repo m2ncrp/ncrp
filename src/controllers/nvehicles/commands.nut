@@ -3,12 +3,14 @@ function createKey(playerid, vehicle) {
 
     local VKey = Item.VehicleKey();
     VKey.setParentId( md5(vehicle.id.tostring()) );
+    return VKey;
 }
 
 function giveKey(playerid, vehicle) {
     local key = createKey(playerid, vehicle);
+
     if (key != null) {
-        players[playerid].inventory.push(VKey);
+        players[playerid].inventory.push(key);
     }
 }
 
@@ -27,7 +29,7 @@ acmd(["vehicle"],["create"], function( playerid, model ) {
     vehicles.set(veh.id, veh);
 
     veh.spawn();
-    createKey(playerid, veh);
+    giveKey(playerid, veh);
 });
 
 
