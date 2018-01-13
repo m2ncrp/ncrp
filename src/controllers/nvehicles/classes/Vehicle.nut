@@ -36,7 +36,7 @@ class Vehicle extends ORM.Entity
     static fields = [
         ORM.Field.Integer({ name = "ownerid",   value = -1 }),
         ORM.Field.Integer({ name = "state",     value = 0 }),
-        ORM.Field.String( { name = "components",value = "[]" }),
+        ORM.Field.String ({ name = "components", value = "[]", escaping = false }),
     ];
 
     static traits = [
@@ -112,7 +112,7 @@ class Vehicle extends ORM.Entity
         // due to refresh our local position in DB
         this.getPosition();
         this.getRotation();
-        local temp = this.components;
+        local temp = clone this.components;
         this.components = this.components.serialize();
         base.save();
         this.components = temp;
