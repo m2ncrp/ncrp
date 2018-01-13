@@ -14,22 +14,22 @@ function createKey(entity) {
     return Key;
 }
 
-function giveKey(entity, vehicle) {
-    local key = createKey(vehicle);
+function giveKey(keyOwnerEntity, entity) {
+    local key = createKey(entity);
     if (key == null) { throw "Error: Couldn't create key for some reason @giveKey func."; }
 
-    if (entity instanceof Character) {
-        entity.inventory.push(key);
+    if (keyOwnerEntity instanceof Character) {
+        keyOwnerEntity.inventory.push(key);
     }
 
-    if (entity instanceof Vehicle) {
-        local trunk = entity.getComponent(VehicleComponent.Trunk);
+    if (keyOwnerEntity instanceof Vehicle) {
+        local trunk = keyOwnerEntity.getComponent(VehicleComponent.Trunk);
         if (trunk != null) {
             trunk.container.push(key);
         }
     }
 
-    // if (entity instanceof Fraction) {
+    // if (keyOwnerEntity instanceof Fraction) {
     //     // put key in any fraction storage
     // }
 }
