@@ -1,23 +1,36 @@
-function createKey(playerid, vehicle) {
-    if (vehicle == null) return;
+function createKey(entity) {
+    if (entity == null) return;
 
     local VKey = Item.VehicleKey();
-    VKey.setParentId( md5(vehicle.id.tostring()) );
+    VKey.setParentId( md5(entity.id.tostring()) );
     return VKey;
 }
 
-function giveKey(playerid, vehicle) {
-    local key = createKey(playerid, vehicle);
+function giveKey(entity, vehicle) {
+    local key = createKey(vehicle);
+    if (key == null) { throw "Error: Couldn't create key for some reason @giveKey func."; }
 
-    if (key != null) {
-        players[playerid].inventory.push(key);
+    if (entity instanceof Character) {
+        entity.inventory.push(key);
+    }
+
+    if (entity instanceof Vehicle) {
+        local trunk = entity.getComponent(VehicleComponent.Trunk);
+        if (trunk != null) {
+            trunk.container.push(key);
+        }
+    }
+
+    if (entity instanceof Fraction) {
+        // put key in any fraction storage
     }
 }
 
 
 acmd(["vehicle"],["create"], function( playerid, model ) {
+    local character = players[playerid];
 
-    if(!players[playerid].inventory.isFreeSpace(1)) {
+    if(!character.inventory.isFreeSpace(1)) {
         return msg(playerid, "inventory.space.notenough", CL_ERROR);
     }
 
@@ -29,7 +42,7 @@ acmd(["vehicle"],["create"], function( playerid, model ) {
     vehicles.set(veh.id, veh);
 
     veh.spawn();
-    giveKey(playerid, veh);
+    giveKey(character, veh);
 });
 
 
@@ -321,7 +334,12 @@ acmd(["clean"], function( playerid, targetid = null ) {
 
 
 acmd(["get"], ["keys"], function( playerid ) {
-    createKey(playerid, vehicles.nearestVehicle(playerid));
+    local character = players[playerid];
+
+    if(!character.inventory.isFreeSpace(1)) {
+        return msg(playerid, "inventory.space.notenough", CL_ERROR);
+    }
+    giveKey(character, vehicles.nearestVehicle(playerid));
 });
 
 
@@ -329,8 +347,10 @@ acmd(["get"], ["keys"], function( playerid ) {
  * Create key for given vehicle by its DB id and five it to player with targetid
  */
 acmd(["replicate"], ["keys"], function( playerid, vehicleid, targetid ) {
-    local VKey = Item.VehicleKey();
-    players[playerid].inventory.push(VKey);
-    VKey.setParentId( vehicleid );
-    // msg();
+    local character = players[targetid];
+
+    if(!character.inventory.isFreeSpace(1)) {
+        return msg(playerid, "inventory.space.notenough", CL_ERROR);
+    }
+    giveKey(players[targetid], vehicles[vehicleid]);
 });
