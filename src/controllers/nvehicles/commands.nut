@@ -1,9 +1,17 @@
 function createKey(entity) {
     if (entity == null) return;
+    local Key = null;
 
-    local VKey = Item.VehicleKey();
-    VKey.setParentId( md5(entity.id.tostring()) );
-    return VKey;
+    if (entity instanceof Vehicle) {
+        Key = Item.VehicleKey();
+        Key.setIdBy( entity.id );
+    }
+
+    // if (entity instanceof House) {
+    //     // do smth
+    // }
+
+    return Key;
 }
 
 function giveKey(entity, vehicle) {
@@ -21,9 +29,9 @@ function giveKey(entity, vehicle) {
         }
     }
 
-    if (entity instanceof Fraction) {
-        // put key in any fraction storage
-    }
+    // if (entity instanceof Fraction) {
+    //     // put key in any fraction storage
+    // }
 }
 
 
