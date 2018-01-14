@@ -54,6 +54,18 @@ class VehicleContainer extends Container
     //     // Code
     // }
 
+    function getByHash(hash) {
+        local vehicle = null;
+        foreach(targetid, data in this.getAll()) {
+            local h = data.getComponent(VehicleComponent.KeySwitch)._getHash();
+            if (h == hash) {
+                vehicle = data;
+                break;
+            }
+        }
+        return vehicle;
+    }
+
 }
 
 

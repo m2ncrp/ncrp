@@ -16,9 +16,11 @@ class Item.VehicleKey extends Item.Abstract
     function use(playerid, inventory) {
         msg(playerid, "==================================", CL_HELP_LINE);
         msg(playerid, "Item.VehicleKey", CL_HELP_TITLE);
-        // local vehicleid = getVehicleIdFromEntityId(this.data.id);
-        // msg(playerid, getVehiclePlateText(vehicleid)+" - "+getVehicleNameByModelId( getVehicleModel(vehicleid) ), CL_WHITE);
-        msg(playerid, "  - " + this.data.id, CL_WHITE);
+
+        local vehicle = vehicles.getByHash(this.data.id);
+        local plate = vehicle.getComponent(VehicleComponent.Plate);
+        msg(playerid, plate.get() + " - " + getVehicleNameByModelId( getVehicleModel(vehicle.vehicleid) ), CL_WHITE);
+        // msg(playerid, "  - " + this.data.id, CL_WHITE);
     }
 
     function setIdBy(parentId) {
