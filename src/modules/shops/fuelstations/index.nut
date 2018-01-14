@@ -85,11 +85,8 @@ alternativeTranslate({
     "en|shops.fuelstations.stopengine"         : "[FUEL] Please, stop the engine."
     "ru|shops.fuelstations.stopengine"         : "[FUEL] Заглушите двигатель."
 
-    "en|shops.fuelstations.fuelingalready"     : "[FUEL] Filling up your tank. Please wait a little."
-    "ru|shops.fuelstations.fuelingalready"     : "[FUEL] В бак уже заливается топливо. Подождите немного."
-
-    "en|shops.fuelstations.loading"            : "[FUEL] Loading. Please, wait..."
-    "ru|shops.fuelstations.loading"            : "[FUEL] Идёт заправка. Ждите..."
+    "en|shops.fuelstations.loading"            : "[FUEL] Filling up your tank. Please wait."
+    "ru|shops.fuelstations.loading"            : "[FUEL] Топливо заливается в бак. Подождите немного."
 
     "en|shops.fuelstations.fueltank.check"     : "Fuel level: %.2f gallons."
     "ru|shops.fuelstations.fueltank.check"     : "В баке: %.2f галлонов."
@@ -193,7 +190,7 @@ function fuelVehicleUp(playerid) {
     local cost = round(GALLON_COST * fuel, 2);
 
     if ( !isVehicleFuelNeeded(vehicleid) ) {
-        return msg(playerid, "shops.fuelstations.fueltank.full"CL_THUNDERBIRD);
+        return msg(playerid, "shops.fuelstations.fueltank.full", CL_THUNDERBIRD);
     }
 
     if ( !canMoneyBeSubstracted(playerid, cost) ) {
@@ -271,7 +268,7 @@ function fuelNVehicleUp(playerid) {
     }
 
     if ( fuelTank.isFillingUp ) {
-        return msg( playerid, "shops.fuelstations.fuelingalready", CL_THUNDERBIRD );
+        return msg( playerid, "shops.fuelstations.loading", CL_THUNDERBIRD );
     }
 
     local fuel = fuelTank.getFuelToFillup();
