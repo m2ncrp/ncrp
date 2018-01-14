@@ -140,7 +140,7 @@ acmd("who", function(playerid) {
         }
     }
 });
-
+/*
 cmd("sell", function(playerid, amount = null) {
     if (!isPlayerInVehicle(playerid)) {
         return;
@@ -189,7 +189,7 @@ cmd("sell", function(playerid, amount = null) {
         });
     }
 });
-
+*/
 /**
  * KEYBINDS
  */

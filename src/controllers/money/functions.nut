@@ -1,14 +1,9 @@
 function addMoneyToPlayer(playerid, amount) {
-    players[playerid]["money"] += amount.tofloat();
-    setPlayerMoney(playerid, players[playerid]["money"]);
-    dbg("[MONEY] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] +"+amount+" dollars.");
+    local old_amount = players[playerid]["money"];
+    local new_amount = old_amount + amount.tofloat();
+    setPlayerMoney(playerid, new_amount);
+    dbg("[ MONEY ] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> +"+format("%.2f", amount)+" dollars. Was: $"+format("%.2f", old_amount)+". Now: $"+format("%.2f", new_amount));
 }
-
-function addMoneyToDeposit(playerid, amount) {
-    players[playerid]["deposit"] += amount.tofloat();
-    dbg("[DEPOSIT] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] +"+amount+" dollars.");
-}
-
 
 /**
  * Check if <amount> money can be subsctracted from <playerid>
@@ -23,9 +18,10 @@ function canMoneyBeSubstracted(playerid, amount) {
 }
 
 function subMoneyToPlayer(playerid, amount) {
-    players[playerid]["money"] -= amount.tofloat();
-    setPlayerMoney(playerid, players[playerid]["money"]);
-    dbg("[MONEY] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -"+amount+" dollars.");
+    local old_amount = players[playerid]["money"];
+    local new_amount = old_amount - amount.tofloat();
+    setPlayerMoney(playerid, new_amount);
+    dbg("[ MONEY ] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> -"+format("%.2f", amount)+" dollars. Was: $"+format("%.2f", old_amount)+". Now: $"+format("%.2f", new_amount));
 }
 
 function getPlayerBalance(playerid) {

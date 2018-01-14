@@ -1,7 +1,8 @@
 class Item.VehicleKey extends Item.Abstract
 {
     static classname = "Item.VehicleKey";
-    weight      = 0.10;
+    default_decay = 259200;
+    weight        = 0.10;
 
     constructor (data = null) {
         base.constructor();
@@ -13,7 +14,6 @@ class Item.VehicleKey extends Item.Abstract
     }
 
     function use(playerid, inventory) {
-
         msg(playerid, "==================================", CL_HELP_LINE);
         msg(playerid, "Item.VehicleKey", CL_HELP_TITLE);
         // local vehicleid = getVehicleIdFromEntityId(this.data.id);
@@ -29,3 +29,15 @@ class Item.VehicleKey extends Item.Abstract
         return "Item.VehicleKey";
     }
 }
+
+//=======
+//        local vehicleid = getVehicleIdFromEntityId(this.data.id);
+//
+//        if (!vehicleid) {
+//            return msg(playerid, "inventory.vehiclekey.removedcar", CL_HELP_TITLE);
+//        }
+//
+//        msg(playerid, "==================================", CL_HELP_LINE);
+//        msg(playerid, "Item.VehicleKey", CL_HELP_TITLE);
+//        msg(playerid, getVehiclePlateText(vehicleid)+" - "+getVehicleNameByModelId( getVehicleModel(vehicleid) ), CL_WHITE);
+//>>>>>>> develop

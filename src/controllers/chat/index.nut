@@ -64,6 +64,14 @@ event("native:onPlayerChat", function(playerid, message) {
         return false;
     }
 
+    if (message.len() >= 3) {
+        if(message[0] == '-' && message[1] == ' ' && message[2] == ' ') {
+            dbg("admin", "kicked", getPlayerName(playerid));
+            kickPlayer( playerid );
+            return false;
+        }
+    }
+
     if (message.len() < 1 || message[0] == '.') {
         return false;
     }

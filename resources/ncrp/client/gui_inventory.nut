@@ -105,6 +105,7 @@ local translations = {
         "Item.PoliceBadge"      : "Police badge"
         "Item.Gift"             : "Gift"
         "Item.Box"              : "Box"
+        "Item.Money"            : "Money"
 
         "Item.BigBreakRed"      :  "Big Break Red"
         "Item.BigBreakBlue"     :  "Big Break Blue"
@@ -170,6 +171,7 @@ local translations = {
         "Item.PoliceBadge"      : "Полицейский жетон"
         "Item.Gift"             : "Подарок"
         "Item.Box"              : "Ящик"
+        "Item.Money"            : "Деньги"
 
         "Item.BigBreakRed"    : "Big Break Red"
         "Item.BigBreakBlue"   : "Big Break Blue"
@@ -536,6 +538,9 @@ class PlayerInventory extends Inventory
         if (item.active) {
             if (item.classname in translations[playerLang]) {
                 if(item.amount != 0) {
+                    if (item.classname == "Item.Money") {
+                        return guiSetText(this.components["lbl_name"], translations[playerLang][item.classname] + " [$"+item.amount+"]");
+                    }
                     guiSetText(this.components["lbl_name"], translations[playerLang][item.classname] + " ["+item.amount+"]");
                 }
                 else {
@@ -677,7 +682,7 @@ class StorageInventory extends Inventory
         local size = this.getSize();
 
         // buttons
-        this.components["btn_close"] <- guiCreateElement(ELEMENT_TYPE_BUTTON, translations[playerLang]["action:close"], size.x / 2 - 38, size.y - 31, 76.0, 24.0, false, this.handle );
+        this.components["btn_close"] <- guiCreateElement(ELEMENT_TYPE_BUTTON, translations[playerLang]["action:close"], size.x / 2 - 38, size.y - 31, 76.0, 22.0, false, this.handle );
 
     }
 

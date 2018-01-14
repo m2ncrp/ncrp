@@ -34,9 +34,11 @@ function fmd(shortcuts, permissions, patterns, callback) {
             fracts = shortcuts.map(function(shortcut) {
                 return fractions.exists(shortcut) ? fractions[shortcut] : null;
             });
-            fracts = fracts.filter(function(fraction, key) {
-                return !!fraction;
-            });
+
+            //fracts = fracts.filter(function(fraction, key) {
+            //    return !!fraction;
+            //});
+
         }
 
         if (typeof patterns != "array") {
@@ -57,11 +59,9 @@ function fmd(shortcuts, permissions, patterns, callback) {
                     if (!fraction.members.exists(character)) {
                         return;
                     }
-
                     if (!fraction.members.get(character).permitted(permissions)) {
                         return msg(vargv[0], "fraction.permission.error", CL_ERROR);
                     }
-
                     local args = clone(vargv);
 
                     args.remove(0);

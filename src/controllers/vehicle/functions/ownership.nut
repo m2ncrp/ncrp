@@ -81,6 +81,33 @@ function isPlayerVehicleOwner(playerid, vehicleid) {
     return (isPlayerConnected(playerid) && isPlayerLoaded(playerid) && getVehicleOwnerId(vehicleid) == players[playerid].id);
 }
 
+
+/**
+ * Check if current connected player is have key from vehicleid
+ *
+ * @param  {integer}  playerid
+ * @param  {integer}  vehicleid
+ * @return {Boolean}
+ */
+function isPlayerHaveVehicleKey(playerid, vehicleid) {
+
+    local canDrive = false;
+    local entityid = getVehicleEntityId(vehicleid);
+
+    foreach (idx, item in players[playerid].inventory) {
+        if(item._entity == "Item.VehicleKey") {
+            if (item.data.id == entityid) {
+                canDrive = true;
+                break;
+            }
+        }
+    }
+
+    return canDrive;
+}
+
+
+
 /**
  * Checks if current vehicle has owner
  * @param  {Integer}  vehicleid

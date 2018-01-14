@@ -25,9 +25,9 @@ event("onPlayerDisconnect", function(playerid, reason = null) {
  * Invite player to join fraction
  * @param  {Integer} playerid
  * @param  {Integer} targetid
- * @param  {Mixed} rolenum
+ * @param  {Mixed} role_shortcut
  */
-fmd("*", ["members.invite"], ["$f invite"], function(fraction, character, listid = -1, rolenum = -1) {
+fmd("*", ["members.invite"], ["$f invite"], function(fraction, character, targetid = -1, role_shortcut = -1) {
     targetid = targetid.tointeger();
     local playerid = character.playerid;
 
@@ -35,20 +35,20 @@ fmd("*", ["members.invite"], ["$f invite"], function(fraction, character, listid
         return msg(playerid, "fraction.invite.notconnected", CL_ERROR);
     }
 
-    // if (fractions.getContaining(targetid).len() > 0) {
-    //     return msg(playerid, "fraction.invite.inanotherfraction", CL_ERROR);
-    // }
-
-    // get the lowest role (TODO: change to default role)
-    if (rolenum == -1) {
-        rolenum = fraction.roles.len() - 1;
+    if (fraction.members.has(players[targetid].id)) {
+        return msg(playerid, "fraction.invite.alreadyinfraction", CL_ERROR);
     }
 
-    if (!fraction.roles.has(rolenum)) {
+    // get the lowest role (TODO: change to default role)
+    if (role_shortcut == -1) {
         return msg(playerid, "fraction.rolenotexist", [fraction.shortcut], CL_WARNING);
     }
 
-    local role = fraction.roles[rolenum];
+    if (!fraction.roles.has(role_shortcut)) {
+        return msg(playerid, "fraction.rolenotexist", [fraction.shortcut], CL_WARNING);
+    }
+
+    local role = fraction.roles[role_shortcut];
 
     if (!(targetid in invites)) {
         invites[targetid] <- [];
@@ -108,27 +108,21 @@ cmd("invites", "accept", function(playerid, invitation = -1) {
 
     local invite = invites[playerid][invitation];
 
-    if (!fractions.has(invite.fraction.id)) {
-        invites[playerid].remove(invitation);
-        return msg(playerid, "fraction.accept.fractionnotexist", CL_ERROR);
-    }
+    //if (!fractions.has(invite.fraction.shortcut)) {
+    //    invites[playerid].remove(invitation);
+    //    return msg(playerid, "fraction.accept.fractionnotexist", CL_ERROR);
+    //}
 
-    if (!invite.fraction.roles.has(invite.role)) {
+    if (!invite.fraction.roles.has(invite.role.shortcut)) {
         invites[playerid].remove(invitation);
         return msg(playerid, "fraction.accept.donthaverole", CL_ERROR);
     }
 
-    // if (fractions.getContaining(playerid).len() > 0) {
-    //     return msg(playerid, "fraction.accept.cannotjoin", [invite.fraction.shortcut], CL_ERROR);
-    // }
+    if (invite.fraction.members.has(players[invite.invetee].id)) {
+        return msg(playerid, "fraction.accept.alreadyinfraction", CL_ERROR);
+    }
 
-    local member = FractionMember();
-    member.fractionid = invite.fraction.id;
-    member.roleid = invite.role.id;
-    member.characterid = players[invite.invetee].id;
-    member.save();
-
-    invite.fraction.members.push(member);
+    invite.fraction.members.add(players[invite.invetee].id, invite.role);
 
     msg(playerid, "fraction.accept.complete", [ invite.fraction.title, invite.role.title ], CL_SUCCESS);
 

@@ -47,17 +47,17 @@ class FractionMember extends ORM.JsonEntity
             return true;
         }
 
-        local perms = [];
+        local requiredPerms = [];
 
         if ("perms" in this.role.data) {
-            perms = this.role.data.perms;
+            requiredPerms = this.role.data.perms;
         }
         else if ("permissions" in this.role.data) {
-            perms = this.role.data.permissions;
+            requiredPerms = this.role.data.permissions;
         }
 
         return permissions
-            .map(@(perm) perms.find(perm) != null)
+            .map(@(perm) requiredPerms.find(perm) != null)
             .reduce(@(a, b) a || b)
         ;
     }

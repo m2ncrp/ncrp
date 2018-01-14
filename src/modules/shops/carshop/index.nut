@@ -139,7 +139,7 @@ event("onServerStarted", function() {
     //create3DText( DIAMOND_CARSHOP_X, DIAMOND_CARSHOP_Y, DIAMOND_CARSHOP_Z + 0.35, "DIAMOND MOTORS", CL_ROYALBLUE );
     //create3DText( DIAMOND_CARSHOP_X, DIAMOND_CARSHOP_Y, DIAMOND_CARSHOP_Z + 0.20, "/car", CL_WHITE.applyAlpha(75), CARSHOP_DISTANCE );
 
-    createBlip  ( DIAMOND_CARSHOP_X, DIAMOND_CARSHOP_Y, ICON_GEAR, ICON_RANGE_FULL );
+    createBlip  ( DIAMOND_CARSHOP_X, DIAMOND_CARSHOP_Y, ICON_LOGO_CAR, ICON_RANGE_FULL );
 
     createPlace(CARSHOP_PLACE_NAME, CARSHOP_PLACE_COORDS[0], CARSHOP_PLACE_COORDS[1], CARSHOP_PLACE_COORDS[2], CARSHOP_PLACE_COORDS[3]);
 
@@ -552,7 +552,6 @@ cmd("car", "buy", function(playerid) {
     trySaveVehicle(vehicleid)
 
     vehicleKey.setData("id", __vehicles[vehicleid].entity.id);
-    vehicleKey.setData("plate", vehiclePlate);
 
     players[playerid].inventory.push( vehicleKey );
     vehicleKey.save();

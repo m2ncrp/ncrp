@@ -83,3 +83,38 @@ acmd(["clearchatall"], function(playerid) {
         }
     }
 });
+
+
+acmd(["firstname"], function(playerid, targetid = null, newname = null) {
+
+    if (targetid == null || !isPlayerConnected(targetid.tointeger())) {
+        return msg(playerid, "ID игрока не указан! Формат: /firstname id имя", CL_ERROR);
+    }
+
+    if (newname == null || newname.len() == 0) {
+        return msg(playerid, "Новое имя персонажа не указано! Формат: /firstname id имя", CL_ERROR);
+    }
+
+    targetid = targetid.tointeger();
+
+    players[targetid].firstname = newname;
+    msg(playerid, format("Имя персонажа для игрока с ID %d изменено на %s.", targetid, newname), CL_SUCCESS);
+
+});
+
+acmd(["lastname"], function(playerid, targetid = null, newname = null) {
+
+    if (targetid == null || !isPlayerConnected(targetid.tointeger())) {
+        return msg(playerid, "ID игрока не указан! Формат: /lastname id фамилия", CL_ERROR);
+    }
+
+    if (newname == null || newname.len() == 0) {
+        return msg(playerid, "Новая фамилия персонажа не указана! Формат: /lastname id фамилия", CL_ERROR);
+    }
+
+    targetid = targetid.tointeger();
+
+    players[targetid].lastname = newname;
+    msg(playerid, format("Фамилия персонажа для игрока с ID %d изменена на %s.", targetid, newname), CL_SUCCESS);
+
+});

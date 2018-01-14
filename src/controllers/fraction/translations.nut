@@ -1,5 +1,5 @@
 alternativeTranslate({
-"en|fraction.permission.error"              :   "You dont have permission to use this action!"
+"en|fraction.permission.error"              :   "You don't have permission to use this action!"
 "ru|fraction.permission.error"              :   "У Вас нет прав для выполнения этого действия!"
 
 "en|fraction.rolenotexist"                  :   "There is no such role. You can see fraction roles via: /%s roles"
@@ -13,6 +13,15 @@ alternativeTranslate({
 
 "en|fraction.invite.inanotherfraction"      :   "You can't invite %s into fraction!"
 "ru|fraction.invite.inanotherfraction"      :   "Вы не можете пригласить %s вступить во фракцию!"
+
+"en|fraction.invite.alreadyinfraction"      :   "You can't invite player, who already in fraction!"
+"ru|fraction.invite.alreadyinfraction"      :   "Нельзя пригласить игрока, который уже во фракции!"
+
+"en|fraction.chat.noempty"                  :   "You can't send an empty message"
+"ru|fraction.chat.noempty"                  :   "Вы не можете отправить пустое сообщение."
+
+"en|fraction.chat.msg"                      :   "[%s OOC|%s] %s: %s"
+"ru|fraction.chat.msg"                      :   "[%s OOC|%s] %s: %s"
 
 
 
@@ -69,14 +78,15 @@ alternativeTranslate({
 "en|fraction.accept.joined"                 : "%s successfuly joined fraction %s as %s."
 "ru|fraction.accept.joined"                 : "%s вступил во фракцию %s на должность %s."
 
-
+"en|fraction.accept.alreadyinfraction"      : "You are fraction member already!"
+"ru|fraction.accept.alreadyinfraction"      : "Вы уже состоите в этой фракции!"
 
 
 "en|fraction.members.title"                 : "List of members in %s:"
 "ru|fraction.members.title"                 : "Список участников фракции %s:"
 
-"en|fraction.members.item"                  : "#%d. %s - %s."
-"ru|fraction.members.item"                  : "#%d. %s - %s."
+"en|fraction.members.item"                  : "#%d. %s - %s"
+"ru|fraction.members.item"                  : "#%d. %s - %s"
 
 
 
@@ -121,21 +131,18 @@ alternativeTranslate({
 "en|fraction.money.add"                     : "You've successfuly added $%.2f to %s."
 "ru|fraction.money.add"                     : "Вы положили $%.2f на счёт фракции %s."
 
+"en|fraction.money.substract"               : "You've successfuly subtracted $%.2f from the fraction %s."
+"ru|fraction.money.substract"               : "Вы сняли $%.2f со счёта фракции %s."
+
 "en|fraction.money.cannotsubstract"         : "You cannot subtract more money then fraction has"
 "ru|fraction.money.cannotsubstract"         : "Вы не можете снять больше денег, чем есть на счёте фракции."
-
-"en|fraction.money.substract"               : "You've successfuly subtracted %.2f from the fraction"
-"ru|fraction.money.substract"               : "You've successfuly subtracted %.2f from the fraction"
-
-
-
 
 
 "en|fraction.roles.title"                   : "List of roles in %s:"
 "ru|fraction.roles.title"                   : "Список должностей фракции %s:"
 
-"en|fraction.roles.item"                    : "#%d. %s"
-"ru|fraction.roles.item"                    : "#%d. %s"
+"en|fraction.roles.item"                    : "%s (%s)"
+"ru|fraction.roles.item"                    : "%s (%s)"
 
 
 
@@ -182,24 +189,126 @@ alternativeTranslate({
 
 
 "en|fraction.list.title"                    : "Fractions you are currently in (%d):"
-"ru|fraction.list.title"                    : "Фракции в которых вы состоите (%d шт):"
+"ru|fraction.list.title"                    : "Фракции, в которых вы состоите (%d шт):"
 
-"en|fraction.list.entry"                    : "  - '%s' role: %s. Info: /%s"
-"ru|fraction.list.entry"                    : "  - '%s' роль: %s. Инфо: /%s"
+"en|fraction.list.entry"                    : "- %s (%s). Info: /%s"
+"ru|fraction.list.entry"                    : "- %s (%s). Инфо: /%s"
 
-"en|fraction.info.title"                    : " - Information about fraction %s"
-"ru|fraction.info.title"                    : " - Информация о фракции %s"
+"en|fraction.info.title"                    : "Information about fraction %s"
+"ru|fraction.info.title"                    : "Информация о фракции %s"
 
 "en|fraction.info.roles"                    : "- Current amount of roles: %d. To list, write: /%s roles"
-"ru|fraction.info.roles"                    : "- Всего ролей: %d. Посмотреть список ролей: /%s roles"
+"ru|fraction.info.roles"                    : "- Ролей: %d. Посмотреть все: /%s roles"
 
 "en|fraction.info.members"                  : "- Current amount of members: %d. To list, write: /%s members"
-"ru|fraction.info.members"                  : "- Всего участников: %d. Посмотреть список участников: /%s members"
+"ru|fraction.info.members"                  : "- Участников: %d. Посмотреть всех: /%s members"
+
+"en|fraction.info.chat"                     : "- Fraction OOC-chat: /%sc"
+"ru|fraction.info.chat"                     : "- OOC-чат фракции: /%sc"
 
 "en|fraction.info.vehicles"                 : "- Current amount of vehicles: %d. To list, write: /%s cars"
-"ru|fraction.info.vehicles"                 : "- Всего автомобилей: %d. Посмотреть список автомобилей: /%s cars"
+"ru|fraction.info.vehicles"                 : "- Автомобилей: %d. Посмотреть список автомобилей: /%s cars"
 
 "en|fraction.info.money"                    : "- Current money amount: $%.2f"
 "ru|fraction.info.money"                    : "- Сумма на счёте фракции: $%.2f"
+
+
+
+
+"en|Police"                                 : "Police"
+"ru|Police"                                 : "Полиция"
+
+"en|Cadet"                                  : "Cadet"
+"ru|Cadet"                                  : "Кадет"
+
+"en|Patrol"                                 : "Patrol"
+"ru|Patrol"                                 : "Патрульный"
+
+"en|Sergeant"                               : "Sergeant"
+"ru|Sergeant"                               : "Сержант"
+
+"en|Lieutenant"                             : "Lieutenant"
+"ru|Lieutenant"                             : "Лейтенант"
+
+"en|Captain"                                : "Captain"
+"ru|Captain"                                : "Капитан"
+
+"en|Detective"                              : "Detective"
+"ru|Detective"                              : "Детектив"
+
+"en|Deputy chief"                           : "Deputy chief"
+"ru|Deputy chief"                           : "Заместитель шефа"
+
+"en|Police chief"                           : "Chief"
+"ru|Police chief"                           : "Шеф"
+
+
+
+
+"en|Ringleader"                             : "Ringleader"
+"ru|Ringleader"                             : "Лидер"
+
+"en|Proxy"                                  : "Proxy"
+"ru|Proxy"                                  : "Заместитель"
+
+"en|Mechanic"                               : "Mechanic"
+"ru|Mechanic"                               : "Механик"
+
+"en|Getter"                                 : "Getter"
+"ru|Getter"                                 : "Добытчик"
+
+"en|Scout"                                  : "Scout"
+"ru|Scout"                                  : "Разведчик"
+
+"en|Assistant"                              : "Assistant"
+"ru|Assistant"                              : "Помощник"
+
+"en|Bouncer"                                : "Bouncer"
+"ru|Bouncer"                                : "Вышибала"
+
+"en|Quack"                                  : "Quack"
+"ru|Quack"                                  : "Знахарь"
+
+
+
+"en|Mayor"                                  : "Mayor"
+"ru|Mayor"                                  : "Мэр"
+
+"en|Deputy mayor"                           : "Deputy mayor"
+"ru|Deputy mayor"                           : "Зам. мэра"
+
+"en|Driver"                                 : "Driver"
+"ru|Driver"                                 : "Водитель"
+
+"en|Security"                               : "Security"
+"ru|Security"                               : "Охранник"
+
+
+
+
+"en|Boss"                                   : "Boss"
+"ru|Boss"                                   : "Дон"
+
+"en|Consigliere"                            : "Consigliere"
+"ru|Consigliere"                            : "Советник"
+
+"en|Assistentes"                            : "Assistentes"
+"ru|Assistentes"                            : "Правая рука"
+
+"en|Interfectorem"                          : "Interfectorem"
+"ru|Interfectorem"                          : "Убийца"
+
+"en|Capo"                                   : "Capo"
+"ru|Capo"                                   : "Капо"
+
+"en|Milites"                                : "Milites"
+"ru|Milites"                                : "Солдат"
+
+"en|Prope"                                  : "Prope"
+"ru|Prope"                                  : "Приближенный"
+
+"en|Opus"                                   : "Opus"
+"ru|Opus"                                   : "Рабочий"
+
 
 });

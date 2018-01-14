@@ -1,3 +1,8 @@
+event("onServerStarted", function() {
+    log("[FRACTION | HOSPITAL] starting...");
+});
+
+
 // cmd("hl", function(playerid, targeit) {
 
 //     local fracs = fractions.getContaining(playerid);

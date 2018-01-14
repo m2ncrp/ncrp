@@ -41,21 +41,25 @@ acmd("list", function(playerid) {
     }
 });
 
+function dev(text) {
+    msga("[DEV] " + text, [], CL_PETERRIVER);
+}
+
+acmd(["dev"], function(playerid, ...) {
+    if(getPlayerSerial(playerid) == "940A9BF3DC69DC56BCB6BDB5450961B4") {
+        return dev(concat(vargv));
+    }
+});
+
 acmd(["admin", "adm"], function(playerid, ...) {
     if(getPlayerSerial(playerid) == "940A9BF3DC69DC56BCB6BDB5450961B4") {
-        return msga("[DEV] " + concat(vargv), [], CL_PETERRIVER);
+        return dev(concat(vargv));
     }
     //else if(getPlayerSerial(playerid) == "856BE506BCEAEEC908F3577ABEFF9171") { // Oliver
     //    return msga("[ADMIN #1] " + concat(vargv), [], CL_MEDIUMPURPLE);
     //}
     else{
         return msga("[ADMIN] "+getAccountName(playerid)+": " + concat(vargv), [], CL_MEDIUMPURPLE);
-    }
-});
-
-acmd(["dev"], function(playerid, ...) {
-    if(getPlayerSerial(playerid) == "940A9BF3DC69DC56BCB6BDB5450961B4") {
-        return msga("[DEV] " + concat(vargv), [], CL_PETERRIVER);
     }
 });
 
@@ -131,6 +135,8 @@ key("i", function(playerid) {
 //     });
 // });
 
+
+
 function planServerRestart(playerid) {
     msga("autorestart.15min", [], CL_RED);
 
@@ -146,13 +152,20 @@ function planServerRestart(playerid) {
         msga("autorestart.1min", [], CL_RED);
     });
 
+    delayedFunction(14*60*1000+30000, function() {
+        msga("autorestart.30sec", [], CL_RED);
+    });
+
     delayedFunction(15*60*1000, function() {
         msga("autorestart.3sec", [], CL_RED);
 
-        trigger("native:onServerShutdown");
+        // kick all
+        kickAll();
 
-        // kick all dawgs
-        delayedFunction(1000, function() {
+        delayedFunction(4000, function() {
+
+            trigger("native:onServerShutdown");
+
             msga("autorestart.now", [], CL_RED);
 
             delayedFunction(1000, function() {
@@ -165,6 +178,57 @@ function planServerRestart(playerid) {
 
 acmd("restart", planServerRestart);
 
+function planFastServerRestart(playerid) {
+    msga("autorestart.1min", [], CL_RED);
+
+    delayedFunction(30*1000, function() {
+        msga("autorestart.30sec", [], CL_RED);
+    });
+
+    delayedFunction(57*1000, function() {
+        msga("autorestart.3sec", [], CL_RED);
+
+        // kick all
+        kickAll();
+
+        delayedFunction(4000, function() {
+
+            trigger("native:onServerShutdown");
+            msga("autorestart.now", [], CL_RED);
+
+            delayedFunction(1000, function() {
+                // request restart
+                dbg("server", "restart", "requested");
+            });
+        });
+    });
+}
+
+acmd("fastrestart", planFastServerRestart);
+
+function planNowServerRestart(playerid) {
+    msga("autorestart.3sec", [], CL_RED);
+
+    delayedFunction(300, function() {
+        // kick all
+        kickAll();
+
+        delayedFunction(4000, function() {
+
+            trigger("native:onServerShutdown");
+
+            msga("autorestart.now", [], CL_RED);
+
+            delayedFunction(1000, function() {
+                // request restart
+                dbg("server", "restart", "requested");
+            });
+        });
+    });
+}
+
+acmd("nowrestart", planNowServerRestart);
+
 alternativeTranslate({
     "en|autorestart.15min"  : "[AUTO-RESTART] Server will be restarted in 15 minutes. Please, complete all your jobs. Thanks!"
     "ru|autorestart.15min"  : "[АВТО-РЕСТАРТ] Сервер будет перезагружен через 15 минут. Пожалуйста, завершите все свои задания. Спасибо!"
@@ -174,6 +238,8 @@ alternativeTranslate({
     "ru|autorestart.5min"   : "[АВТО-РЕСТАРТ] Сервер будет перезагружен через 5 минут."
     "en|autorestart.1min"   : "[AUTO-RESTART] Server will be restarted in 1 minute."
     "ru|autorestart.1min"   : "[АВТО-РЕСТАРТ] Сервер будет перезагружен через 1 минуту."
+    "en|autorestart.30sec"  : "[AUTO-RESTART] Server will be restarted in 30 seconds. Please, disconnect!"
+    "ru|autorestart.30sec"  : "[АВТО-РЕСТАРТ] Сервер будет перезагружен через 30 секунд. Пожалуйста, отключитесь от сервера!"
     "en|autorestart.3sec"   : "[AUTO-RESTART] Server will be restarted in 3 seconds. See you soon ;)"
     "ru|autorestart.3sec"   : "[АВТО-РЕСТАРТ] Сервер будет перезагружен через 3 секунды. До скорой встречи ;)"
     "en|autorestart.now"    : "[AUTO-RESTART] Restarting now!"
