@@ -49,13 +49,38 @@ class VehicleComponent.Hull extends VehicleComponent
         return true;//this;
     }
 
+    function getColor() {
+        local c1 = split(this.data.color1, "|");
+        local c2 = split(this.data.color2, "|");
+
+        return c1[0]+", "+c1[1]+", "+c1[2]+", "+c2[0]+", "+c2[1]+", "+c2[2];
+    }
+
+
+    function setColor(r1, g1, b1, r2, g2, b2) {
+
+        this.data.color1 = r1+"|"+g1+"|"+b1;
+        this.data.color2 = r2+"|"+g2+"|"+b2;
+
+        if (this.parent.state == Vehicle.State.Spawned) {
+            this.correct();
+        }
+
+        return true;
+    }
+
+
     function repair() {
         repairVehicle( this.parent.vehicleid );
     }
 
     function correct() {
-        local c1 = toRGBA(this.data.color1);
-        local c2 = toRGBA(this.data.color2);
+        local c1 = split(this.data.color1, "|").map(function(value){
+            return value.tointeger();
+        });
+        local c2 = split(this.data.color2, "|").map(function(value){
+            return value.tointeger();
+        });
 
         setVehicleColour(this.parent.vehicleid, c1[0], c1[1], c1[2], c2[0], c2[1], c2[2]);
         setVehicleDirtLevel(this.parent.vehicleid, this.data.dirt.tofloat());
