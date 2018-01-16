@@ -25,6 +25,16 @@
     }
 
     /**
+     * Return Vehicle by vehicleid
+     * @param  {integer} vehicleid
+     * @return {Vehicle}
+     */
+    function getNVehicleByVehicleId(vehicleid) {
+        if (!(vehicleid in vehicles_native)) return null;
+        return vehicles_native[vehicleid];
+    }
+
+    /**
      * Return Vehicle player is currently in
      * @param  {Character|Integer} player/playerid
      * @return {Vehicle}
@@ -65,6 +75,7 @@
 include("controllers/nvehicles/classes/Vehicle_hack.nut");
 
 include("controllers/nvehicles/commands.nut");
+include("controllers/nvehicles/functions.nut");
 
 include("controllers/nvehicles/classes/Vehicle.nut");
 include("controllers/nvehicles/classes/VehicleComponent.nut");
