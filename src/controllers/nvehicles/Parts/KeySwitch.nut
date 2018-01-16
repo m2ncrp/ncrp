@@ -56,16 +56,14 @@ key("q", function(playerid) {
 
     if (!(original__getPlayerVehicle(playerid) in vehicles_native)) return;
 
-    local v = getPlayerNVehicle(playerid);
-    local eng = v.getComponent(VehicleComponent.Engine);
-    local ks = v.getComponent(VehicleComponent.KeySwitch);
+    local vehicle = getPlayerNVehicle(playerid);
 
-    foreach (idx, item in players[playerid].inventory) {
-        if ((item._entity == "Item.VehicleKey") && (item.data.id == ks.data.code)) {
-            eng.setStatusTo( !ks.data.status );
-            eng.correct();
-            ks.action();
-            return;
-        }
+    if(isPlayerHaveVehicleKey(playerid, vehicle)) {
+        local engine = vehicle.getComponent(VehicleComponent.Engine);
+        local keyswitch = vehicle.getComponent(VehicleComponent.KeySwitch);
+        engine.setStatusTo( !keyswitch.data.status );
+        engine.correct();
+        keyswitch.action();
     }
+
 });
