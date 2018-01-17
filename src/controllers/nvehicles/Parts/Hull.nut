@@ -8,7 +8,7 @@ class VehicleComponent.Hull extends VehicleComponent
         base.constructor(data);
 
         if (this.data == null) {
-            this.data = {id = 0, model = 0, color1 = 0, color2 = 0, dirt=0.0};
+            this.data = {id = 0, model = 0, color1 = "0|0|0", color2 = "0|0|0", dirt=0.0};
         }
     }
 
@@ -75,10 +75,10 @@ class VehicleComponent.Hull extends VehicleComponent
     }
 
     function correct() {
-        local c1 = split(this.data.color1, "|").map(function(value){
+        local c1 = split(this.data.color1, "|").map(function(value) {
             return value.tointeger();
         });
-        local c2 = split(this.data.color2, "|").map(function(value){
+        local c2 = split(this.data.color2, "|").map(function(value) {
             return value.tointeger();
         });
 

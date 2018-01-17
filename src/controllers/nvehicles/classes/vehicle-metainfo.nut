@@ -29,2529 +29,429 @@
  * - create vehicle links (means Hank B truck + trailer with fish or oil)
  * @type {Table}
  */
-local vehicleMetaData = {
-    model_0  = "ascot_baileys200_pha",
-        // Passanger meta data
-        seats                 = 2,
-        // Geometry meta data (relative positions from vehicle center)
-        front_left_wheel      = [ 1.2160, -1.6690],
-        front_right_wheel     = [-1.1320, -1.6690],
-        middle_left_wheel     = null,
-        middle_right_wheel    = null,
-        rear_left_wheel       = [-1.1320,  1.1520],
-        rear_right_wheel      = [ 1.2800,  1.1520],
-        hood                  = [-0.0280, -2.5850],
-        trunk                 = [ 0.0990,  2.5090],
-            // Doors
-        front_left_door       = [ 1.1600,  0.0930],
-        front_right_door      = [-1.1300,  0.0930],
-        back_left_door        = null,
-        back_right_door       = null,
-            // Engine power meta data
-        max_velocity          = 120.0, // In Stock
-            // Stock components
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 60.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
+vehicleMetaData <- {
+    model_0  = {
+        names = ["ascot_baileys200_pha"],
+            // Passanger meta data
+        seats = 2,
+            // Geometry meta data (relative positions from vehicle center)
+        triggers = {
+            front_left_wheel      = [ 1.2160, -1.6690],
+            front_right_wheel     = [-1.1320, -1.6690],
+            middle_left_wheel     = null,
+            middle_right_wheel    = null,
+            rear_left_wheel       = [-1.1320,  1.1520],
+            rear_right_wheel      = [ 1.2800,  1.1520],
+            hood                  = [-0.0280, -2.5850],
+            trunk                 = [ 0.0990,  2.5090],
+                // Doors
+            front_left_door       = [ 1.1600,  0.0930],
+            front_right_door      = [-1.1300,  0.0930],
+            back_left_door        = null,
+            back_right_door       = null,
         },
+            // actual vel physical limit you could get drive full speed ahead
+        velocity_limit = [120.0],
+    },
 
-    model_1  = "berkley_kingfisher_pha",
-        seats                 = 2,
-        front_left_wheel      = [ 1.2810, -1.7240],
-        front_right_wheel     = [-1.2610, -1.7240],
-        middle_left_wheel     = null,
-        middle_right_wheel    = null,
-        rear_left_wheel       = [ 1.2620,  1.4080],
-        rear_right_wheel      = [ 1.2670,  1.4080],
-        hood                  = [-0.0520, -3.0330],
-        trunk                 = [ 0.0810,  3.1130],
-        front_left_door       = [ 1.3240, -0.1700],
-        front_right_door      = [-1.2620, -0.1700],
-        back_left_door        = null,
-        back_right_door       = null,
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 90.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
+    model_1  = {
+        names = ["berkley_kingfisher_pha"],
+        seats = 2,
+        triggers = {
+            front_left_wheel      = [ 1.2810, -1.7240],
+            front_right_wheel     = [-1.2610, -1.7240],
+            middle_left_wheel     = null,
+            middle_right_wheel    = null,
+            rear_left_wheel       = [ 1.2620,  1.4080],
+            rear_right_wheel      = [ 1.2670,  1.4080],
+            hood                  = [-0.0520, -3.0330],
+            trunk                 = [ 0.0810,  3.1130],
+            front_left_door       = [ 1.3240, -0.1700],
+            front_right_door      = [-1.2620, -0.1700],
+            back_left_door        = null,
+            back_right_door       = null,
         },
+        max_velocity = [70.0],
+    },
 
-    model_2  = "fuel_tank", // fuel trailer
+    model_2  = {
+        names = ["fuel_tank"], // fuel trailer
+        seats = 0,
+        triggers = {
+            front_left_wheel      = [ 1.7280,  2.9430],
+            front_right_wheel     = [-1.6760,  2.9430],
+            middle_left_wheel     = null,
+            middle_right_wheel    = null,
+            rear_left_wheel       = [ 1.7200,  4.4400],
+            rear_right_wheel      = [-1.7930,  4.4400],
+            hood                  = null,
+            trunk                 = null,
+            front_left_door       = null,
+            front_right_door      = null,
+            back_left_door        = null,
+            back_right_door       = null,
+        },
+        max_velocity = [70.0],
+    },
+
+    model_3  = {
+        names = ["gai_353_military_truck"],
+        seats = 2,
+        triggers = {
+            front_left_wheel      = [ 1.3910, -2.7980],
+            front_right_wheel     = [-1.3030, -2.7980],
+            middle_left_wheel     = [ 1.4770,  1.3260],
+            middle_right_wheel    = [-1.4690,  1.3260],
+            rear_left_wheel       = [ 1.4660,  2.5990],
+            rear_right_wheel      = [-1.5990,  2.5900],
+            hood                  = [-0.0530, -3.6930],
+            trunk                 = [ 0.0530,  4.0660],
+            front_left_door       = [ 1.2590, -1.2020],
+            front_right_door      = [-1.2890, -1.2020],
+            back_left_door        = null,
+            back_right_door       = null,
+        },
+        max_velocity = [70.0],
+    },
+
+    model_4  = {
+        names = ["hank_b"],
+        seats = 2,
+        triggers = {
+            front_left_wheel      = [ 1.6180, -3.0280],
+            front_right_wheel     = [-1.6360, -3.0280],
+            middle_left_wheel     = [ 1.5220,  1.6770],
+            middle_right_wheel    = [-1.5250,  1.6770],
+            rear_left_wheel       = [ 1.5720,  3.1370],
+            rear_right_wheel      = [-1.6380,  3.1370],
+            hood                  = null,
+            trunk                 = [-0.0500, -4.2000],
+            front_left_door       = [ 1.5820, -1.4890],
+            front_right_door      = [-1.6750, -1.4890],
+            back_left_door        = null,
+            back_right_door       = null,
+        },
+        max_velocity = [70.0],
+    },
+
+    model_5  = {
+        names = ["hank_fueltank"],
+        seats = 2,
+        triggers = {
+            front_left_wheel      = [ 1.6180, -4.0060],
+            front_right_wheel     = [-1.6180, -3.8680],
+            middle_left_wheel     = [ 1.6800,  2.0590],
+            middle_right_wheel    = [-1.6340,  2.0590],
+            rear_left_wheel       = [ 1.6810,  3.5630],
+            rear_right_wheel      = [-1.6340,  3.5630],
+            hood                  = null,
+            trunk                 = [-0.0360, -5.1640],
+            front_left_door       = [ 1.5800, -2.3970],
+            front_right_door      = [-1.6430, -2.3970],
+            back_left_door        = null,
+            back_right_door       = null,
+        },
+        max_velocity          = [70.0],
+    },
+
+    model_6  = {
+        names = ["hot_rod_1"],
+        seats = 2,
+        max_velocity = [70.0],
+    },
+
+    model_7  = {
+        names = ["hot_rod_2"],
+        seats = 2,
+        max_velocity = [70.0],
+    },
+
+    model_8  = {
+        names = ["hot_rod_3"],
+        seats                 = 2,
+        max_velocity          = [70.0],
+    },
+
+
+    model_9  = {
+        names = ["houston_wasp_pha"],
+        seats                 = 4,
+        max_velocity          = [70.0],
+    },
+
+    model_10 = {
+        names = ["isw_508"],
+        seats                 = 2,
+        max_velocity          = [70.0],
+    },
+
+    model_11 = {
+        names = ["jeep"],
+        seats                 = 2,
+        max_velocity          = [70.0],
+    },
+
+    model_12 = {
+        names = ["jeep_civil"],
+        seats                 = 2,
+        max_velocity          = [70.0],
+    },
+
+    model_13 = {
+        names = ["jefferson_futura_pha"],
+        seats                 = 2,
+        max_velocity          = [70.0],
+    },
+
+    model_14 = {
+        names = ["jefferson_provincial"],
+        seats                 = 2,
+        max_velocity          = [70.0],
+    },
+
+    model_15 = {
+        names = ["lassiter_69"],
+        seats                 = 4,
+        max_velocity          = [70.0],
+    },
+
+    model_16 = {
+        names = ["lassiter_69_destr"],
+        seats                 = 4,
+        max_velocity          = [70.0],
+    },
+
+    model_17 = {
+        names = ["lassiter_75_fmv"],
+        seats                 = 4,
+        max_velocity          = [70.0],
+    },
+
+    model_18 = {
+        names = ["lassiter_75_pha"],
+        seats                 = 4,
+        max_velocity          = [70.0],
+    },
+
+    model_19 = {
+        names = ["milk_truck"],
+        seats                 = 1,
+        max_velocity          = [70.0],
+    },
+
+    model_20 = {
+        names = ["parry_bus"],
+        seats                 = 1,
+        max_velocity          = [70.0],
+    },
+
+    model_21 = {
+        names = ["parry_prison"],
+        seats                 = 1,
+        max_velocity          = [70.0],
+    },
+
+    model_22 = {
+        names = ["potomac_indian"],
+        seats                 = 4,
+        max_velocity          = [70.0],
+    },
+
+    model_23 = {
+        names = ["quicksilver_windsor_pha"],
+        seats                 = 4,
+        max_velocity          = [70.0],
+    },
+
+    model_24 = {
+        names = ["quicksilver_windsor_taxi_pha"],
+        seats                 = 4,
+        max_velocity          = [70.0],
+    },
+
+    model_25 = {
+        names = ["shubert_38"],
+        seats                 = 4,
+        max_velocity          = [70.0],
+    },
+
+    model_26 = {
+        names = ["shubert_38_destr"],
+        seats                 = 4,
+        max_velocity          = [70.0],
+    },
+
+    model_27 = {
+        names = ["shubert_armoured"],
+        seats                 = 2,
+        max_velocity          = [70.0],
+    },
+
+    model_28 = {
+        names = ["shubert_beverly"],
+        seats                 = 2,
+        max_velocity          = [70.0],
+    },
+
+    model_29 = {
+        names = ["shubert_frigate_pha"],
+        seats                 = 2,
+        max_velocity          = [70.0],
+    },
+
+    model_30 = {
+        names = ["shubert_hearse"],
+        seats                 = 2,
+        max_velocity          = [70.0],
+    },
+
+    model_31 = {
+        names = ["shubert_panel"],
+        seats                 = 2,
+        max_velocity          = [70.0],
+    },
+
+    model_32 = {
+        names = ["shubert_panel_m14"],
+        seats                 = 2,
+        max_velocity          = [70.0],
+    },
+
+    model_33 = {
+        names = ["shubert_taxi"],
+        seats                 = 4,
+        max_velocity          = [70.0],
+    },
+
+    model_34 = {
+        names = ["shubert_truck_cc"],
+        seats                 = 2,
+        max_velocity          = [70.0],
+    },
+
+    model_35 = {
+        names = ["shubert_truck_ct"],
+        seats                 = 2,
+        max_velocity          = [70.0],
+    },
+
+    model_36 = {
+        names = ["shubert_truck_ct_cigar"],
+        seats                 = 2,
+        max_velocity          = [70.0],
+    },
+
+    model_37 = {
+        names = ["shubert_truck_qd"],
+        seats                 = 2,
+        max_velocity          = [70.0],
+    },
+
+    model_38 = {
+        names = ["shubert_truck_sg"],
+        seats                 = 2,
+        max_velocity          = [70.0],
+    },
+
+    model_39 = {
+        names = ["shubert_truck_sp"],
+        seats                 = 2,
+        max_velocity          = [70.0],
+    },
+
+    model_40 = {
+        names = ["sicily_military_truck"],
+        seats                 = 2,
+        max_velocity          = [70.0],
+    },
+
+    model_41 = {
+        names = ["smith_200_pha"],
+        seats                 = 4,
+        max_velocity          = [70.0],
+    },
+
+    model_42 = {
+        names = ["smith_200_p_pha"],
+        seats                 = 4,
+        max_velocity          = [70.0],
+    },
+
+    model_43 = {
+        names = ["smith_coupe"],
+        seats                 = 2,
+        max_velocity          = [70.0],
+    },
+
+    model_44 = {
+        names = ["smith_mainline_pha"],
+        seats                 = 2,
+        max_velocity          = [70.0],
+    },
+
+    model_45 = {
+        names = ["smith_stingray_pha"],
+        seats                 = 2,
+        max_velocity          = [70.0],
+    },
+
+    model_46 = {
+        names = ["smith_truck"],
+        seats                 = 2,
+        max_velocity          = [70.0],
+    },
+
+    model_47 = {
+        names = ["smith_v8"],
+        seats                 = 4,
+        max_velocity          = [70.0],
+    },
+
+    model_48 = {
+        names = ["smith_wagon_pha"],
+        seats                 = 4,
+        max_velocity          = [70.0],
+    },
+
+    model_49 = {
+        names = ["trailer"],
         seats                 = 0,
-        front_left_wheel      = [ 1.7280,  2.9430],
-        front_right_wheel     = [-1.6760,  2.9430],
-        middle_left_wheel     = null,
-        middle_right_wheel    = null,
-        rear_left_wheel       = [ 1.7200,  4.4400],
-        rear_right_wheel      = [-1.7930,  4.4400],
-        hood                  = null,
-        trunk                 = null,
-        front_left_door       = null,
-        front_right_door      = null,
-        back_left_door        = null,
-        back_right_door       = null,
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 50.0, // gallons total
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
+        max_velocity          = [70.0],
+    },
 
-    model_3  = "gai_353_military_truck",
-        seats                 = 2,
-        front_left_wheel      = [ 1.3910, -2.7980],
-        front_right_wheel     = [-1.3030, -2.7980],
-        middle_left_wheel     = [ 1.4770,  1.3260],
-        middle_right_wheel    = [-1.4690,  1.3260],
-        rear_left_wheel       = [ 1.4660,  2.5990],
-        rear_right_wheel      = [-1.5990,  2.5900],
-        hood                  = [-0.0530, -3.6930],
-        trunk                 = [ 0.0530,  4.0660],
-        front_left_door       = [ 1.2590, -1.2020],
-        front_right_door      = [-1.2890, -1.2020],
-        back_left_door        = null,
-        back_right_door       = null,
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 200.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_4  = "hank_b",
-        seats                 = 2,
-        front_left_wheel      = [ 1.6180, -3.0280],
-        front_right_wheel     = [-1.6360, -3.0280],
-        middle_left_wheel     = [ 1.5220,  1.6770],
-        middle_right_wheel    = [-1.5250,  1.6770],
-        rear_left_wheel       = [ 1.5720,  3.1370],
-        rear_right_wheel      = [-1.6380,  3.1370],
-        hood                  = null,
-        trunk                 = [-0.0500, -4.2000],
-        front_left_door       = [ 1.5820, -1.4890],
-        front_right_door      = [-1.6750, -1.4890],
-        back_left_door        = null,
-        back_right_door       = null,
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 200.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_5  = "hank_fueltank",
-        seats                 = 2,
-        front_left_wheel      = [ 1.6180, -4.0060],
-        front_right_wheel     = [-1.6180, -3.8680],
-        middle_left_wheel     = [ 1.6800,  2.0590],
-        middle_right_wheel    = [-1.6340,  2.0590],
-        rear_left_wheel       = [ 1.6810,  3.5630],
-        rear_right_wheel      = [-1.6340,  3.5630],
-        hood                  = null,
-        trunk                 = [-0.0360, -5.1640],
-        front_left_door       = [ 1.5800, -2.3970],
-        front_right_door      = [-1.6430, -2.3970],
-        back_left_door        = null,
-        back_right_door       = null,
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 200.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_6  = "hot_rod_1",
-        seats                 = 2,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 70.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_7  = "hot_rod_2",
-        seats                 = 2,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 70.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_8  = "hot_rod_3",
-        seats                 = 2,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 70.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_9  = "houston_wasp_pha",
+    model_50 = {
+        names = ["ulver_newyorker"],
         seats                 = 4,
+        max_velocity          = [70.0],
+    },
 
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 70.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_10 = "isw_508",
-        seats                 = 2,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 70.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_11 = "jeep",
-        seats                 = 2,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 58.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_12 = "jeep_civil",
-        seats                 = 2,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 58.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_13 = "jefferson_futura_pha",
-        seats                 = 2,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 90.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_14 = "jefferson_provincial",
-        seats                 = 2,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 70.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_15 = "lassiter_69",
+    model_51 = {
+        names = ["ulver_newyorker_p"],
         seats                 = 4,
+        max_velocity          = [70.0],
+    },
 
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 90.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_16 = "lassiter_69_destr",
+    model_52 = {
+        names = ["walker_rocket"],
         seats                 = 4,
+        max_velocity          = [70.0],
+    },
 
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 90.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_17 = "lassiter_75_fmv",
-        seats                 = 4,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 90.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_18 = "lassiter_75_pha",
-        seats                 = 4,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 90.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_19 = "milk_truck",
-        seats                 = 1,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 80.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_20 = "parry_bus",
-        seats                 = 1,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 150.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_21 = "parry_prison",
-        seats                 = 1,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 150.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_22 = "potomac_indian",
-        seats                 = 4,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 70.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_23 = "quicksilver_windsor_pha",
-        seats                 = 4,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 60.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_24 = "quicksilver_windsor_taxi_pha",
-        seats                 = 4,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 60.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_25 = "shubert_38",
-        seats                 = 4,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 65.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_26 = "shubert_38_destr",
-        seats                 = 4,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 65.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_27 = "shubert_armoured",
+    model_53 = {
+        names = ["walter_coupe"],
         seats                 = 2,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 100.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_28 = "shubert_beverly",
-        seats                 = 2,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 80.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_29 = "shubert_frigate_pha",
-        seats                 = 2,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 70.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_30 = "shubert_hearse",
-        seats                 = 2,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 65.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_31 = "shubert_panel",
-        seats                 = 2,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 65.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_32 = "shubert_panel_m14",
-        seats                 = 2,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 65.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_33 = "shubert_taxi",
-        seats                 = 4,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 65.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_34 = "shubert_truck_cc",
-        seats                 = 2,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 100.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_35 = "shubert_truck_ct",
-        seats                 = 2,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 100.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_36 = "shubert_truck_ct_cigar",
-        seats                 = 2,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 100.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_37 = "shubert_truck_qd",
-        seats                 = 2,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 100.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_38 = "shubert_truck_sg",
-        seats                 = 2,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 100.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_39 = "shubert_truck_sp",
-        seats                 = 2,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 100.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_40 = "sicily_military_truck",
-        seats                 = 2,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 80.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_41 = "smith_200_pha",
-        seats                 = 4,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 80.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_42 = "smith_200_p_pha",
-        seats                 = 4,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 80.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_43 = "smith_coupe",
-        seats                 = 2,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 50.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_44 = "smith_mainline_pha",
-        seats                 = 2,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 65.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_45 = "smith_stingray_pha",
-        seats                 = 2,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 70.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_46 = "smith_truck",
-        seats                 = 2,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 80.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_47 = "smith_v8",
-        seats                 = 4,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 65.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_48 = "smith_wagon_pha",
-        seats                 = 4,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 50.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_49 = "trailer",
-        seats                 = 0,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 50.0, // gallons total
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_50 = "ulver_newyorker",
-        seats                 = 4,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 70.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_51 = "ulver_newyorker_p",
-        seats                 = 4,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 70.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_52 = "walker_rocket",
-        seats                 = 4,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 80.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
-
-    model_53 = "walter_coupe",
-        seats                 = 2,
-
-        max_velocity          = 70.0,
-        components            = {
-            engine = {
-                cl_name  = VehicleComponent.Engine,
-                type     = "Engine",
-                subtype  = "Engine",
-                partID   = 2,
-                fuel_consumption_idle = 0.01,
-                fuel_consumption_move = 0.02,
-            },
-            fueltank = {
-                cl_name  = VehicleComponent.FuelTank,
-                type     = "Tank",
-                subtype  = "Fuel",
-                partID   = 3,
-                capacity = 40.0, // gallons total
-            },
-            hood = {
-                cl_name  = VehicleComponent.Hood,
-                type     = "Hood",
-                subtype  = "Hood",
-                partID   = 4,
-            },
-            trunk = {
-                cl_name  = VehicleComponent.Trunk,
-                type     = "Trunk",
-                subtype  = "Trunk",
-                partID   = 5,
-            },
-            lights = {
-                cl_name  = VehicleComponent.Lights,
-                type     = "Lights",
-                subtype  = "Lights",
-                partID   = 6,
-            },
-            gabarites = {
-                cl_name  = VehicleComponent.GabariteLights,
-                type     = "Lights",
-                subtype  = "Gabarite",
-                partID   = 7,
-            },
-        },
+        max_velocity          = [70.0],
+    },
 };
+
+function getVehicleMeta(modelid) {
+    return vehicleMetaData["model_" + modelid];
+}
+
+function getVehicleNameByModelId(modelid) {
+    return vehicleMetaData["model_" + modelid].names[0];
+}
+
+function getVehicleSeatsNumberByModelId(modelid) {
+    return vehicleMetaData["model_" + modelid].seats;
+}

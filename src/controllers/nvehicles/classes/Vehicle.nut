@@ -55,8 +55,11 @@ class Vehicle extends ORM.Entity
 
     constructor( model = 0 ) {
         base.constructor();
+
+        local seats = getVehicleSeatsNumberByModelId(model);
+
         this.components = VehicleComponentContainer(this, this.components);
-        this.passengers = array(4, null);
+        this.passengers = array(seats, null);
 
         // common components
         this.components.push(VehicleComponent.Hull());

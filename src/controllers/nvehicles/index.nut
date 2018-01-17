@@ -73,6 +73,7 @@
  */
 
 include("controllers/nvehicles/classes/Vehicle_hack.nut");
+include("controllers/nvehicles/classes/vehicle-metainfo.nut");
 
 include("controllers/nvehicles/commands.nut");
 include("controllers/nvehicles/functions.nut");
