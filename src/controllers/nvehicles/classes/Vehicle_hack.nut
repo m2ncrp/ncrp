@@ -71,17 +71,17 @@ function getDefaltEngineConsumptionInMOVE(model) {
     return vehicle_info[model][8];
 }
 
-function getTrunkDefaultSizeX(model) {
-    return vehicle_info[model][9];
-}
+// function getTrunkDefaultSizeX(model) {
+//     return vehicle_info[model][9];
+// }
 
-function getTrunkDefaultSizeY(model) {
-    return vehicle_info[model][10];
-}
+// function getTrunkDefaultSizeY(model) {
+//     return vehicle_info[model][10];
+// }
 
-function getTrunkDefaultWeightLimit(model) {
-    return vehicle_info[model][11];
-}
+// function getTrunkDefaultWeightLimit(model) {
+//     return vehicle_info[model][11];
+// }
 
 class DirtyHack {
     veh = null;

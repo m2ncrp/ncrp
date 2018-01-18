@@ -50,8 +50,14 @@ vehicleMetaData <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
             // actual vel physical limit you could get drive full speed ahead
         velocity_limit = [120.0],
+        heat_limit = null,
     },
 
     model_1  = {
@@ -71,7 +77,13 @@ vehicleMetaData <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity = [70.0],
+        heat_limit = null,
     },
 
     model_2  = {
@@ -91,7 +103,13 @@ vehicleMetaData <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity = [70.0],
+        heat_limit = null,
     },
 
     model_3  = {
@@ -111,7 +129,13 @@ vehicleMetaData <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity = [70.0],
+        heat_limit = null,
     },
 
     model_4  = {
@@ -131,7 +155,13 @@ vehicleMetaData <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity = [70.0],
+        heat_limit = null,
     },
 
     model_5  = {
@@ -151,296 +181,590 @@ vehicleMetaData <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_6  = {
         names = ["hot_rod_1"],
         seats = 2,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity = [70.0],
+        heat_limit = null,
     },
 
     model_7  = {
         names = ["hot_rod_2"],
         seats = 2,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity = [70.0],
+        heat_limit = null,
     },
 
     model_8  = {
         names = ["hot_rod_3"],
         seats                 = 2,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
 
     model_9  = {
         names = ["houston_wasp_pha"],
         seats                 = 4,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_10 = {
         names = ["isw_508"],
         seats                 = 2,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_11 = {
         names = ["jeep"],
         seats                 = 2,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_12 = {
         names = ["jeep_civil"],
         seats                 = 2,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_13 = {
         names = ["jefferson_futura_pha"],
         seats                 = 2,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_14 = {
         names = ["jefferson_provincial"],
         seats                 = 2,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_15 = {
         names = ["lassiter_69"],
         seats                 = 4,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_16 = {
         names = ["lassiter_69_destr"],
         seats                 = 4,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_17 = {
         names = ["lassiter_75_fmv"],
         seats                 = 4,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_18 = {
         names = ["lassiter_75_pha"],
         seats                 = 4,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_19 = {
         names = ["milk_truck"],
         seats                 = 1,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_20 = {
         names = ["parry_bus"],
         seats                 = 1,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_21 = {
         names = ["parry_prison"],
         seats                 = 1,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_22 = {
         names = ["potomac_indian"],
         seats                 = 4,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_23 = {
         names = ["quicksilver_windsor_pha"],
         seats                 = 4,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_24 = {
         names = ["quicksilver_windsor_taxi_pha"],
         seats                 = 4,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_25 = {
         names = ["shubert_38"],
         seats                 = 4,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_26 = {
         names = ["shubert_38_destr"],
         seats                 = 4,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_27 = {
         names = ["shubert_armoured"],
         seats                 = 2,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_28 = {
         names = ["shubert_beverly"],
         seats                 = 2,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_29 = {
         names = ["shubert_frigate_pha"],
         seats                 = 2,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_30 = {
         names = ["shubert_hearse"],
         seats                 = 2,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_31 = {
         names = ["shubert_panel"],
         seats                 = 2,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_32 = {
         names = ["shubert_panel_m14"],
         seats                 = 2,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_33 = {
         names = ["shubert_taxi"],
         seats                 = 4,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_34 = {
         names = ["shubert_truck_cc"],
         seats                 = 2,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_35 = {
         names = ["shubert_truck_ct"],
         seats                 = 2,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_36 = {
         names = ["shubert_truck_ct_cigar"],
         seats                 = 2,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_37 = {
         names = ["shubert_truck_qd"],
         seats                 = 2,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_38 = {
         names = ["shubert_truck_sg"],
         seats                 = 2,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_39 = {
         names = ["shubert_truck_sp"],
         seats                 = 2,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_40 = {
         names = ["sicily_military_truck"],
         seats                 = 2,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_41 = {
         names = ["smith_200_pha"],
         seats                 = 4,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_42 = {
         names = ["smith_200_p_pha"],
         seats                 = 4,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_43 = {
         names = ["smith_coupe"],
         seats                 = 2,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_44 = {
         names = ["smith_mainline_pha"],
         seats                 = 2,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_45 = {
         names = ["smith_stingray_pha"],
         seats                 = 2,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_46 = {
         names = ["smith_truck"],
         seats                 = 2,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_47 = {
         names = ["smith_v8"],
         seats                 = 4,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_48 = {
         names = ["smith_wagon_pha"],
         seats                 = 4,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_49 = {
         names = ["trailer"],
         seats                 = 0,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_50 = {
         names = ["ulver_newyorker"],
         seats                 = 4,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_51 = {
         names = ["ulver_newyorker_p"],
         seats                 = 4,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_52 = {
         names = ["walker_rocket"],
         seats                 = 4,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 
     model_53 = {
         names = ["walter_coupe"],
         seats                 = 2,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            weightLimit = 100,
+        },
         max_velocity          = [70.0],
+        heat_limit = null,
     },
 };
 
@@ -454,4 +778,17 @@ function getVehicleNameByModelId(modelid) {
 
 function getVehicleSeatsNumberByModelId(modelid) {
     return vehicleMetaData["model_" + modelid].seats;
+}
+
+
+function getTrunkDefaultSizeX(modelid) {
+    return vehicleMetaData["model_" + modelid].trunk.gridSizeX;
+}
+
+function getTrunkDefaultSizeY(modelid) {
+    return vehicleMetaData["model_" + modelid].trunk.gridSizeY;
+}
+
+function getTrunkDefaultWeightLimit(modelid) {
+    return vehicleMetaData["model_" + modelid].trunk.weightLimit;
 }
