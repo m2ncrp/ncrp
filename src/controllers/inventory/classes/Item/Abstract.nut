@@ -47,6 +47,10 @@ class Item.Abstract extends ORM.JsonEntity
         dbg("classes/Item.nut: trying to use item. Make sure you've overriden this method for your item", this.classname, getIdentity(playerid));
     }
 
+    function destroy(playerid, inventory) {
+        msg(playerid, "inventory.destroyed", [ plocalize(playerid, this.classname )], CL_FLAMINGO);
+    }
+
     function move(playerid, inventory) {
         // nothing here
     }

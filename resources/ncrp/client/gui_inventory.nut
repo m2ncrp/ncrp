@@ -52,6 +52,7 @@ local translations = {
         "title"                 : "Inventory of ",
 
         "action:use"            : "Use",
+        "action:destroy"        : "Destroy",
         "action:takeInHand"     : "Take in hand",
         "action:throwToGround"  : "Throw to the ground",
         "action:close"          : "Close",
@@ -118,6 +119,7 @@ local translations = {
         "title"                 : "Инвентарь ",
 
         "action:use"            : "Использовать",
+        "action:destroy"        : "Уничтожить",
         "action:takeInHand"     : "Взять в руку",
         "action:throwToGround"  : "Бросить на землю",
         "action:close"          : "Закрыть",
@@ -521,10 +523,11 @@ class PlayerInventory extends Inventory
         };
 
         // buttons
-        this.components["lbl_name"] <- this.addComponent(ELEMENT_TYPE_LABEL,  props,  0, "");
-        this.components["btn_use"]  <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -3, translations[playerLang]["action:use"]);
-        this.components["btn_hand"] <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -2, translations[playerLang]["action:takeInHand"]);
-        this.components["btn_drop"] <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -1, translations[playerLang]["action:throwToGround"]);
+        this.components["lbl_name"]     <- this.addComponent(ELEMENT_TYPE_LABEL,  props,  0, "");
+        this.components["btn_use"]      <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -4, translations[playerLang]["action:use"]);
+        this.components["btn_destroy"]  <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -3, translations[playerLang]["action:destroy"]);
+        this.components["btn_hand"]     <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -2, translations[playerLang]["action:takeInHand"]);
+        this.components["btn_drop"]     <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -1, translations[playerLang]["action:throwToGround"]);
 
     }
 
@@ -575,6 +578,14 @@ class PlayerInventory extends Inventory
                 guiSetText(this.components["lbl_name"], "");
                 selectedItem.active = false;
                 trigger("inventory:use", selectedItem.parent.id, selectedItem.slot);
+                selectedItem = null;
+                return true;
+            }
+
+            if (idx == "btn_destroy" && selectedItem) {
+                guiSetText(this.components["lbl_name"], "");
+                selectedItem.active = false;
+                trigger("inventory:destroy", selectedItem.parent.id, selectedItem.slot);
                 selectedItem = null;
                 return true;
             }

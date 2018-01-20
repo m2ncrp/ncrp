@@ -172,6 +172,21 @@ event("native:onPlayerUseItem", function(playerid, id, slot) {
     }
 });
 
+event("native:onPlayerDestroyItem", function(playerid, id, slot) {
+    if (!storage.exists(id)) return;
+
+    local inventory = storage.get(id);
+
+    if (inventory.isOpened(playerid)) {
+        if (inventory.exists(slot)) {
+            local item = inventory.remove(slot);
+            inventory.sync();
+            item.destroy(playerid, inventory);
+            item.remove();
+        }
+    }
+});
+
 event("native:onPlayerDropItem", function(playerid, id, slot) {
     if (isPlayerInVehicle(playerid)) return; // maybe add message
     if (!storage.exists(id)) return;

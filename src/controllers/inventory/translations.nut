@@ -6,6 +6,9 @@ alternativeTranslate({
     "en|inventory.cannotinsert"  : "You can't insert this item."
     "ru|inventory.cannotinsert"  : "Вы не можете взять этот предмет с собой."
 
+    "en|inventory.destroyed"     : "You destroyed item: %s."
+    "ru|inventory.destroyed"     : "Вы уничтожили предмет: %s."
+
     "en|inventory.dropped"       : "You dropped item: %s."
     "ru|inventory.dropped"       : "Вы выбросили предмет: %s."
 
