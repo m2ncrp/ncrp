@@ -4,23 +4,43 @@ local rentcars = {};
 event ("onServerStarted", function() {
     log("[vehicles] loading rent cars module...");
 
+/*
     rentcars[createVehicle(43, 579.762, 802.5, -12.5, 34.939,  0.37609, -0.0309878)]    <- [ "free" ];
     rentcars[createVehicle(53, 575.099, 802.5, -12.5, 36.7076, 0.287637, 0.0469708)]    <- [ "free" ];
+
     rentcars[createVehicle(44, 570.128, 802.5, -12.5, 38.578,  0.206956, -0.591333)]    <- [ "free" ];
     rentcars[createVehicle(25, 565.087, 802.5, -12.5, 40.5424, 0.668225, -0.409561)]    <- [ "free" ];
     rentcars[createVehicle(50, 560.053, 802.5, -12.5, 42.1816, 0.300678, 0.0441727)]    <- [ "free" ];
     rentcars[createVehicle(22, 554.652, 802.5, -12.5, 38.7988, 0.134398, -0.381655)]    <- [ "free" ];
     rentcars[createVehicle(52, 548.724, 802.5, -12.5, 45.0359, 0.392815, 0.00316114)]   <- [ "free" ];
+*/
+
+    rentcars[createVehicle( 43, 554.652, 802.5, -12.5, 38.7988, 0.134398, -0.381655 )]    <- [ "free" ];
+    rentcars[createVehicle( 53, 548.724, 802.5, -12.5, 45.0359, 0.392815, 0.00316114)]    <- [ "free" ];
+
+    //bus staion
+    rentcars[createVehicle( 43, -429.728,  454.828, 0.667904, 91.3037, -0.623671, 0.609639 )]    <- [ "free" ];
+
+    // trago oil
+    rentcars[createVehicle( 43,  532.395, -336.788, -20.0606, -8.815 , 0.0442939, 0.574663 )]    <- [ "free" ];
+
+    //chinatown
+    rentcars[createVehicle( 43,  306.911,96.4485,-21.3215, 27.8837,0.570526,-0.479447 )]    <- [ "free" ];
+
 
     // Vokzal
     rentcars[createVehicle(43, -547.328, 1583.16, -16.3215, 1.03211, 0.00669244, -0.743004)]  <- [ "free" ];
-  //rentcars[createVehicle(44, -539.312, 1600.12, -16.3687, -179.923, -0.285566, 0.826165)]   <- [ "free" ];
-    rentcars[createVehicle(44, -536.281, 1599.85, -16.4633, -179.624, -0.121403, 0.225714)]   <- [ "free" ];
+    //rentcars[createVehicle(44, -539.312, 1600.12, -16.3687, -179.923, -0.285566, 0.826165)]   <- [ "free" ];
+    //rentcars[createVehicle(44, -536.281, 1599.85, -16.4633, -179.624, -0.121403, 0.225714)]   <- [ "free" ];
 
     //Port
-  //rentcars[createVehicle(44, -419.388, -667.238, -20.8829, 87.5226, -0.29715, -1.18796)]  <- [ "free" ];
-    rentcars[createVehicle(43, -419.57, -670.935, -21.0624, 88.1328, -0.25944, -1.9095)]    <- [ "free" ];
-    rentcars[createVehicle(23, -419.314, -677.798, -21.2509, 90.0, 0.213046, -1.64081)]     <- [ "free" ];
+    //rentcars[createVehicle(44, -419.388, -667.238, -20.8829, 87.5226, -0.29715, -1.18796)]  <- [ "free" ];
+    rentcars[createVehicle(43, -419.314, -677.798, -21.2509, 90.0, 0.213046, -1.64081)]    <- [ "free" ];
+    //rentcars[createVehicle(43, -419.57, -670.935, -21.0624, 88.1328, -0.25944, -1.9095)]    <- [ "free" ];
+    //rentcars[createVehicle(23, -419.314, -677.798, -21.2509, 90.0, 0.213046, -1.64081)]     <- [ "free" ];
+
+    // Stadium
+    rentcars[createVehicle(43, -1280.16,1332.96,-13.5016, -90.4743,-0.686156,-0.328493)]    <- [ "free" ];
 
     foreach (idx, value in rentcars) {
         setVehiclePlateText(idx, getRandomVehiclePlate("CR"));
