@@ -355,6 +355,7 @@ function milkJobLeave ( playerid ) {
 }
 addJobEvent("q", MILK_JOB_NAME,      null, milkJobLeave);
 addJobEvent("q", MILK_JOB_NAME, "working", milkJobLeave);
+addJobEvent("q", MILK_JOB_NAME,   "nojob", milkJobLeave);
 
 
 /**
