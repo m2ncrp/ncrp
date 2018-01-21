@@ -146,6 +146,7 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
 
         if (isPlayerHaveVehicleKey(playerid, vehicleid)) {
             unblockVehicle(vehicleid);
+            setVehicleOwner(vehicleid, playerid);
         } else {
             blockVehicle(vehicleid);
             msg(playerid, "vehicle.owner.warning", CL_WARNING);
