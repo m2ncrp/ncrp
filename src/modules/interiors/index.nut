@@ -259,6 +259,15 @@ event("onServerStarted", function() {
     foreach (value in interiors) {
         create3DText ( value[2], value[3], value[4]+0.35, value[1]+" | Press E", CL_WHITE, 0.5 );
     }
+
+    createPlace("ChinaTownPodvalExit", 308.871, 425.365, 306.927, 426.858);
+
+});
+
+event("onPlayerPlaceEnter", function(playerid, name) {
+    if(name != "ChinaTownPodvalExit") return;
+
+    removePlayerWeaponChina ( playerid );
 });
 
 key(["e"], function(playerid) {
