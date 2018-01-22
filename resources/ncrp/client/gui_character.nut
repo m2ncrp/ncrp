@@ -87,6 +87,9 @@ function loadTraslation(){
     local text = {};
     if(playerLocale == "en"){
         //selection
+        text.Info1                  <- "IMPORTANT: Name and lastname of character";
+        text.Info2                  <- "must match the America of the 1950s!";
+        text.Info3                  <- "Slavic names and lastnames are FORBIDDEN !!!";
         text.SelectionWindow        <- "Selection of character";
         text.CharacterDesc          <- "First name: %s\nLast name: %s\nRace: %s\nSex: %s\nBirthday: %s\nMoney: $%.2f\nDeposit: $%.2f";
         text.SelectButtonDesc       <- "Select character";
@@ -95,19 +98,21 @@ function loadTraslation(){
         text.CharacterSwitchlabel   <- "Character";
 
         //creation
-        text.CreationWindow         <- "Character Creation";
+        text.CreationWindow         <- "Character creation";
         text.CreationChooseRace     <- "Choose a character race";
         text.CreationChooseSkin     <- "Choose skin";
+        text.ChooseSkinX            <- 100.0;
+
         text.CreationFirstName      <- "Firstname";
         text.CreationLastName       <- "Lastname";
         text.CreationBirthday       <- "Birthday";
         text.WrongLName             <- "Wrong firstname";
         text.WrongFName             <- "Wrong lastname";
-        text.WrongDay               <- "Wrong 'Day'";
+        text.WrongDay               <- "Day: from 1 to 30'";
         text.WrongMonth             <- "Month: from 1 to 12";
         text.WrongYear              <- "Year: from 1850 to 1932";
-        text.ExampleFName           <- "eg 'John'";
-        text.ExampleLName           <- "eg 'Douglas'";
+        text.ExampleFName           <- "Firstname";
+        text.ExampleLName           <- "Lastname";
 
         //other
         text.Male       <- "Male";
@@ -124,6 +129,9 @@ function loadTraslation(){
     else if(playerLocale == "ru")
     {
         //selection
+        text.Info1                  <- "ВАЖНО: Имя и фамилия персонажа должны";
+        text.Info2                  <- "соответствовать Америке 50-х годов 20 века!";
+        text.Info3                  <- "Славянские имена и фамилии ЗАПРЕЩЕНЫ !!!";
         text.SelectionWindow        <- "Выбор персонажа";
         text.CharacterDesc          <- "Имя: %s\nФамилия: %s\nРаса: %s\nПол: %s\nДата рождения: %s\nДенежных средств: $%.2f\nСчёт в банке: $%.2f";
         text.SelectButtonDesc       <- "Выбрать персонажа";
@@ -135,20 +143,22 @@ function loadTraslation(){
         text.CreationWindow         <- "Создание персонажа";
         text.CreationChooseRace     <- "Выберите расу персонажа";
         text.CreationChooseSkin     <- "Выберите скин";
-        text.CreationFirstName      <- "Имя персонажа";
-        text.CreationLastName       <- "Фамилия персонажа";
+        text.ChooseSkinX            <- 92.0;
+
+        text.CreationFirstName      <- "Имя";
+        text.CreationLastName       <- "Фамилия";
         text.CreationBirthday       <- "Дата рождения персонажа";
-        text.WrongLName             <- "Некорректное Имя";
-        text.WrongFName             <- "Некорректная Фамилия";
+        text.WrongLName             <- "Некорректное имя";
+        text.WrongFName             <- "Некорректная фамилия";
         text.WrongDay               <- "День введён некорректно";
         text.WrongMonth             <- "Месяц: от 1 до 12";
         text.WrongYear              <- "Год: от 1850 до 1932";
-        text.ExampleFName           <- "Например John";
-        text.ExampleLName           <- "Например Douglas";
+        text.ExampleFName           <- "Имя персонажа";
+        text.ExampleLName           <- "Фамилия персонажа";
 
         //other
-        text.Male       <- "Мужчина";
-        text.Female     <- "Женщина";
+        text.Male       <- "Мужской";
+        text.Female     <- "Женский";
         text.Europide   <- "Европеоидная";
         text.Negroid    <- "Негроидная";
         text.Mongoloid  <- "Монголоидная";
@@ -160,21 +170,21 @@ function loadTraslation(){
     }
 }
 
-function characterSelection(){
-    hideCharacterCreation();
-    isCharacterSelectionMenu = true;
-    togglePlayerControls( true );
-    window = guiCreateElement( ELEMENT_TYPE_WINDOW, translation[0].SelectionWindow, screen[0] - 300.0, screen[1]/2- 90.0, 190.0, 180.0 );
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, charDesc[0], 20.0, 20.0, 300.0, 100.0, false, window));//label[0]
-    button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, charDescButton[0], 20, 125.0, 150.0, 20.0,false, window));//button[0]
-    //button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "<<", 20.0, 150.0, 30.0, 20.0,false, window));//button[2]
-    //label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CharacterSwitchlabel, 70.0, 148.0, 300.0, 20.0, false, window))
-    //button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, ">>", 140.0, 150.0, 30.0, 20.0,false, window));//button[3]
-    guiSetAlwaysOnTop(window,true);
-    guiSetSizable(window,false);
-    showCursor(true);
-}
-addEventHandler("characterSelection",characterSelection);
+//function characterSelection(){
+//    hideCharacterCreation();
+//    isCharacterSelectionMenu = true;
+//    togglePlayerControls( true );
+//    window = guiCreateElement( ELEMENT_TYPE_WINDOW, translation[0].SelectionWindow, screen[0] - 300.0, screen[1]/2- 90.0, 190.0, 180.0 );
+//    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, charDesc[0], 20.0, 20.0, 300.0, 100.0, false, window));//label[0]
+//    button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, charDescButton[0], 20, 125.0, 150.0, 20.0,false, window));//button[0]
+//    //button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "<<", 20.0, 150.0, 30.0, 20.0,false, window));//button[2]
+//    //label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CharacterSwitchlabel, 70.0, 148.0, 300.0, 20.0, false, window))
+//    //button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, ">>", 140.0, 150.0, 30.0, 20.0,false, window));//button[3]
+//    guiSetAlwaysOnTop(window,true);
+//    guiSetSizable(window,false);
+//    showCursor(true);
+//}
+//addEventHandler("characterSelection",characterSelection);
 
 
 function formatCharacterSelection () {
@@ -192,17 +202,20 @@ function formatCharacterSelection () {
             migrateOldCharacter = true;
             return characterCreation();
         }
-        local race = getRaceFromId(characters[idx].Race);
-        local sex = getSexFromId(characters[idx].Sex);
-        local fname = characters[idx].Firstname;
-        local lname = characters[idx].Lastname;
-        local bday = characters[idx].Bdate.tostring()
-        local money = characters[idx].money.tofloat();
-        local deposit = characters[idx].deposit.tofloat();
-        charDesc[0] = format(translation[0].CharacterDesc,fname,lname,race,sex,bday,money,deposit);
-        charDescButton[0] = translation[0].SelectButtonDesc;
-        triggerServerEvent("changeModel", characters[idx].cskin.tostring());
-        characterSelection();
+
+                selectCharacter(idx);
+
+        //local race = getRaceFromId(characters[idx].Race);
+        //local sex = getSexFromId(characters[idx].Sex);
+        //local fname = characters[idx].Firstname;
+        //local lname = characters[idx].Lastname;
+        //local bday = characters[idx].Bdate.tostring()
+        //local money = characters[idx].money.tofloat();
+        //local deposit = characters[idx].deposit.tofloat();
+        //charDesc[0] = format(translation[0].CharacterDesc,fname,lname,race,sex,bday,money,deposit);
+        //charDescButton[0] = translation[0].SelectButtonDesc;
+        //triggerServerEvent("changeModel", characters[idx].cskin.tostring());
+        //characterSelection();
     }
 }
 
@@ -214,28 +227,47 @@ function characterCreation(){
     setWeather(WEATHER);
     setPlayerPosition(getLocalPlayer(), CHARACTER_POS[0], CHARACTER_POS[1], CHARACTER_POS[2]);
     setPlayerRotation(getLocalPlayer(), 180.0,0.0,180.0);
-    window = guiCreateElement( ELEMENT_TYPE_WINDOW,  translation[0].CreationWindow, screen[0] - 300.0, screen[1]/2- 175.0, 190.0, 320.0 );
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationFirstName 20.0, 20.0, 300.0, 20.0, false, window));//label[0]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationLastName, 20.0, 60.0, 300.0, 20.0, false, window));//label[1]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationBirthday, 20.0, 100.0, 300.0, 20.0, false, window));//label[2]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationChooseRace, 28.0, 175.0, 300.0, 20.0, false, window));//label[3]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Europide, 55.0, 195.0, 300.0, 20.0, false, window));//label[4]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Negroid, 55.0, 215.0, 300.0, 20.0, false, window));//label[5]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Mongoloid, 55.0, 235.0, 300.0, 20.0, false, window));//label[6]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationChooseSkin, 57.0, 260.0, 300.0, 20.0, false, window));//label[7]
-    input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].ExampleFName, 20.0, 40.0, 150.0, 20.0, false, window));//input[0]
-    input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].ExampleLName, 20.0, 80.0, 150.0, 20.0, false, window));//input[1]
-    input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].Day, 20.0, 120.0, 50.0, 20.0, false, window));//input[2]
-    input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].Month, 70.0, 120.0, 50.0, 20.0, false, window));//input[3]
-    input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].Year, 120.0, 120.0, 50.0, 20.0, false, window));//input[4]
-    radio.push(guiCreateElement( ELEMENT_TYPE_RADIOBUTTON, "", 25, 200.0, 15.0, 15.0,false, window));//radio[0]
-    radio.push(guiCreateElement( ELEMENT_TYPE_RADIOBUTTON, "", 25, 220.0, 15.0, 15.0,false, window));//radio[1]
-    radio.push(guiCreateElement( ELEMENT_TYPE_RADIOBUTTON, "", 25, 240.0, 15.0, 15.0,false, window));//radio[2]
-    button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[0].Male, 20, 150.0, 70.0, 20.0,false, window));//button[0]
-    button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[0].Female, 100, 150.0, 70.0, 20.0,false, window));//button[1]
-    button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "<<", 20.0, 260.0, 30.0, 20.0,false, window));//button[2]
-    button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, ">>", 140.0, 260.0, 30.0, 20.0,false, window));//button[3]
-    button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[0].Next, 20.0, 290.0, 150.0, 20.0,false, window));//button[4]
+    window = guiCreateElement( ELEMENT_TYPE_WINDOW,  translation[0].CreationWindow, screen[0] - 400.0, screen[1]/2- 175.0, 260.0, 350.0 );
+
+
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationFirstName 12.0,  80.0, 105.0, 20.0, false, window));//label[0]
+    input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].ExampleFName,     12.0, 100.0, 105.0, 20.0, false, window));//input[0]
+
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationLastName, 122.0, 80.0, 125.0, 20.0, false, window));//label[1]
+    input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].ExampleLName,     122.0, 100.0, 125.0, 20.0, false, window));//input[1]
+
+
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationBirthday, 12.0,   120.0, 256.0, 20.0, false, window));//label[2]
+    input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].Day,              12.0,   140.0, 74.0, 20.0, false, window));//input[2]
+    input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].Month,            92.0,   140.0, 75.0, 20.0, false, window));//input[3]
+    input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].Year,            173.0,   140.0, 74.0, 20.0, false, window));//input[4]
+
+
+    button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[0].Male,    57, 170.0, 70.0, 22.0,false, window));//button[0]
+    button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[0].Female, 133, 170.0, 70.0, 22.0,false, window));//button[1]
+
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationChooseRace, 65.0, 195.0, 300.0, 20.0, false, window));//label[3]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Europide,           100.0, 215.0, 300.0, 20.0, false, window));//label[4]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Negroid,            100.0, 235.0, 300.0, 20.0, false, window));//label[5]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Mongoloid,          100.0, 255.0, 300.0, 20.0, false, window));//label[6]
+    radio.push(guiCreateElement( ELEMENT_TYPE_RADIOBUTTON, "",                          75.0, 220.0, 15.0, 15.0, false, window));//radio[0]
+    radio.push(guiCreateElement( ELEMENT_TYPE_RADIOBUTTON, "",                          75.0, 240.0, 15.0, 15.0, false, window));//radio[1]
+    radio.push(guiCreateElement( ELEMENT_TYPE_RADIOBUTTON, "",                          75.0, 260.0, 15.0, 15.0, false, window));//radio[2]
+
+
+
+
+
+
+
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationChooseSkin, translation[0].ChooseSkinX, 285.0, 300.0, 20.0, false, window));//label[7]
+    button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "<<",                            57.0, 285.0, 30.0, 20.0,false, window));//button[2]
+    button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, ">>",                           173.0, 285.0, 30.0, 20.0,false, window));//button[3]
+    button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[0].Next,             57.0, 310.0, 146.0, 30.0,false, window));//button[4]
+
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Info1, 12.0, 20.0, 236.0, 20.0, false, window));//label[7]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Info2, 12.0, 35.0, 236.0, 20.0, false, window));//label[7]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Info3, 12.0, 57.0, 236.0, 20.0, false, window));//label[7]
     guiSetAlwaysOnTop(window,true);
     guiSetSizable(window,false);
     showCursor(true);
@@ -273,6 +305,8 @@ addEventHandler( "onGuiElementClick",function(element){
         if(element == input[4])  return guiSetText(input[4], "");
         if(element == button[4]) return checkFields();
     }
+
+
     if(isCharacterSelectionMenu)
     {
         if(element == button[0]){
@@ -283,15 +317,15 @@ addEventHandler( "onGuiElementClick",function(element){
                 return characterCreation();
             }
         }
-        if(element == button[1] || element == button[2]){
-            if(selectedCharacter == 0){
-                selectedCharacter = 1;
-            }
-            else {
-                selectedCharacter = 0;
-            }
-            return switchCharacterSlot();
-        }
+        //if(element == button[1] || element == button[2]){
+        //    if(selectedCharacter == 0){
+        //        selectedCharacter = 1;
+        //    }
+        //    else {
+        //        selectedCharacter = 0;
+        //    }
+        //    return switchCharacterSlot();
+        //}
     }
 });
 

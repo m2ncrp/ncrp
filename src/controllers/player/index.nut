@@ -48,7 +48,7 @@ event("onPlayerConnectInit", function(playerid, name, ip, serial) {
  */
 event("onServerPlayerStarted", function(playerid) {
     local rednicks = [
-        "Ray Bacon", "Klo Douglas", "John Barbarossa"
+        "Ray Bacon"
     ];
 
     // admins
