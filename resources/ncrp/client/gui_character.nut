@@ -203,22 +203,10 @@ function formatCharacterSelection () {
             return characterCreation();
         }
 
-            hideCharacterSelection();
-            triggerServerEvent("changeModel", characters[idx].cskin.tostring());
-            //isCharacterSelectionMenu = true;
-            selectCharacter(idx);
-
-        //local race = getRaceFromId(characters[idx].Race);
-        //local sex = getSexFromId(characters[idx].Sex);
-        //local fname = characters[idx].Firstname;
-        //local lname = characters[idx].Lastname;
-        //local bday = characters[idx].Bdate.tostring()
-        //local money = characters[idx].money.tofloat();
-        //local deposit = characters[idx].deposit.tofloat();
-        //charDesc[0] = format(translation[0].CharacterDesc,fname,lname,race,sex,bday,money,deposit);
-        //charDescButton[0] = translation[0].SelectButtonDesc;
-        //triggerServerEvent("changeModel", characters[idx].cskin.tostring());
-        //characterSelection();
+        togglePlayerControls( true );
+        otherPlayerLocked = false;
+        triggerServerEvent("onPlayerCharacterSelect", characters[idx].Id.tostring());
+        delayedFunction(500, function() {showCursor(false);});
     }
 }
 
@@ -450,7 +438,7 @@ function createCharacter() {
 function selectCharacter (id) {
     hideCharacterSelection();
     triggerServerEvent("onPlayerCharacterSelect",characters[id].Id.tostring());
-    delayedFunction(200, function() {showCursor(false);});
+    delayedFunction(500, function() {showCursor(false);});
 }
 
 function hideCharacterCreation() {
@@ -462,7 +450,7 @@ function hideCharacterCreation() {
         label.clear();
         radio.clear();
         isCharacterCreationMenu = false;
-        otherPlayerLocked = false
+        otherPlayerLocked = false;
         delayedFunction(500, function() {showCursor(false);});
     }
 }
@@ -558,7 +546,7 @@ addEventHandler("onServerCharacterLoading", function(id,firstname, lastname, rac
     char.cskin <- cskin.tointeger();
     characters.push( char );
 
-    log("pushing character with name:" + firstname + " " + lastname);
+    log("pushing character with name: " + firstname + " " + lastname);
 });
 
 addEventHandler("onServerCharacterLoaded", function(locale){
