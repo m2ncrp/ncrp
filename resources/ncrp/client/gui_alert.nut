@@ -25,9 +25,9 @@ addEventHandler("onAlert", function (title, message) {
         guiSetText(label, message.tostring());
     }
     else{
-        window = guiCreateElement( ELEMENT_TYPE_WINDOW, title, screen[0]/2 - 100, screen[1]/2 - 50, 200.0, 100.0 );
-        label = guiCreateElement( ELEMENT_TYPE_LABEL, message.tostring(), 10.0, 20.0, 300.0, 50.0, false, window);
-        button = guiCreateElement( ELEMENT_TYPE_BUTTON, "OK" ,  10.0, 70, 180.0, 20.0, false, window);
+        window = guiCreateElement( ELEMENT_TYPE_WINDOW, title, screen[0]/2 - 150, screen[1]/2 - 50, 300.0, 100.0 );
+        label = guiCreateElement( ELEMENT_TYPE_LABEL, message.tostring(), 12.0, 20.0, 300.0, 50.0, false, window);
+        button = guiCreateElement( ELEMENT_TYPE_BUTTON, "OK" , 100, 70, 100.0, 20.0, false, window);
     }
     if(!oldCursorState){
         showCursor(true);
