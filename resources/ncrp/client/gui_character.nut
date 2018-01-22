@@ -203,7 +203,10 @@ function formatCharacterSelection () {
             return characterCreation();
         }
 
-                selectCharacter(idx);
+            //hideCharacterSelection();
+            //isCharacterSelectionMenu = true;
+            selectCharacter(idx);
+            triggerServerEvent("changeModel", characters[idx].cskin.tostring());
 
         //local race = getRaceFromId(characters[idx].Race);
         //local sex = getSexFromId(characters[idx].Sex);
@@ -460,7 +463,7 @@ function hideCharacterCreation() {
         radio.clear();
         isCharacterCreationMenu = false;
         otherPlayerLocked = false
-        delayedFunction(200, function() {showCursor(false);});
+        delayedFunction(500, function() {showCursor(false);});
     }
 }
 addEventHandler("hideCharacterCreation",hideCharacterCreation);
