@@ -203,10 +203,10 @@ function formatCharacterSelection () {
             return characterCreation();
         }
 
-            //hideCharacterSelection();
+            hideCharacterSelection();
+            triggerServerEvent("changeModel", characters[idx].cskin.tostring());
             //isCharacterSelectionMenu = true;
             selectCharacter(idx);
-            triggerServerEvent("changeModel", characters[idx].cskin.tostring());
 
         //local race = getRaceFromId(characters[idx].Race);
         //local sex = getSexFromId(characters[idx].Sex);
