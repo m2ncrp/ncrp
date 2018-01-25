@@ -91,6 +91,25 @@ event("native:onPlayerChat", function(playerid, message) {
     local chatslots = ["ooc", "say", "me", "do"];
     local slot = getPlayerChatSlot(playerid);
 
+    /**
+     * убираем пробелы в начале и конце сообщения
+     * пытаемся определить слот поиском " me" и "do" в конце сообщения
+     * если находим - определяем номер слота и обрезаем тип слота
+     */
+    local message = strip(message);
+    local match = regexp(@"(.+)([ me]|[ do])($)").search(message);
+
+    if (match) {
+        local slotText = message.slice(match.begin, match.end);
+        local slotNumber = chatslots.find(slotText);
+        if (slotNumber != null) {
+            slot = slotNumber;
+            message = message.slice(0, match.begin);
+        }
+    }
+
+    /**  end  */
+
     // push to selected chat
     if (slot in chatslots) {
         __commands[chatslots[slot]][COMMANDS_DEFAULT](playerid, message);
