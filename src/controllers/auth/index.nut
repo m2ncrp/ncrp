@@ -55,6 +55,7 @@ event("onClientSuccessfulyStarted", function(playerid) {
             }
 
             msg(playerid, "auth.wrongname", CL_WARNING);
+            msg(playerid, "auth.wrongname2", CL_GRAY);
             msg(playerid, "auth.changename");
 
             dbg("kick", "invalid unsername", getIdentity(playerid));

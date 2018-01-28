@@ -98,6 +98,30 @@ function str_replace(original, replacement, string) {
 }
 
 /**
+ * Replace occurances of "search" to "replace" in the "string"
+ * @param  {string} search
+ * @param  {string} replace
+ * @param  {string} string
+ * @return {string}
+ */
+function str_replace_ex(search, replace, string) {
+
+    local pos = string.find(search);
+
+    if(pos == null) return string;
+
+    while (pos != null) {
+        local stringBefore = string.slice(0, pos);
+        local stringAfter = string.slice(pos+search.len());
+
+        string = stringBefore+replace+stringAfter;
+        pos = string.find(search);
+    }
+
+    return string;
+}
+
+/**
  * Replace occurances of "search" to "replace" in the "subject"
  * @param  {string} search
  * @param  {string} replace

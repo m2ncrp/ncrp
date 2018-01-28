@@ -1,4 +1,4 @@
-class Account extends ORM.Entity {
+class Account extends ORM.JsonEntity {
 
     static classname = "Account";
     static table = "tbl_accounts";
@@ -8,7 +8,7 @@ class Account extends ORM.Entity {
         ORM.Field.String({ name = "password" }),
         ORM.Field.String({ name = "ip" }),
         ORM.Field.String({ name = "serial" }),
-        ORM.Field.String({ name = "locale", value = "en" }),
+        ORM.Field.String({ name = "locale", value = "ru" }),
         ORM.Field.String({ name = "layout", value = "qwerty" }),
         ORM.Field.Integer({ name = "created", value = 0 }),
         ORM.Field.Integer({ name = "logined", value = 0 }),

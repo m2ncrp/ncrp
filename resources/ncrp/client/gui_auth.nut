@@ -69,8 +69,8 @@ function random(min = 0, max = RAND_MAX) {
     return (rand() % ((max + 1) - min)) + min;
 }
 
-local logorand = random(1, logos.len()-1);
-//local logorand = 1;
+//local logorand = random(1, logos.len()-1);
+local logorand = 0;
 
 //image = guiCreateElement(13, "logo.png", screen[0]/2 - 203.0, screen[1]/2 - 145.0, 406.0, 266.0);
 
@@ -79,15 +79,17 @@ function showAuthGUI(windowLabel,labelText,inputText,buttonText, helpText){
     //setPlayerPosition( getLocalPlayer(), -746.0, 1278.0, 15.5 );
     blackRoundFrame = guiCreateElement(13,"other_mask.png", 0, 0, screen[0], screen[1]);
     image = guiCreateElement(13, logos[logorand].imgsrc, screen[0]/2 - logos[logorand].offsetX, screen[1]/2 - logos[logorand].offsetY, logos[logorand].width, logos[logorand].height);
-    window = guiCreateElement( ELEMENT_TYPE_WINDOW, windowLabel, screen[0]/2 - 192.5, screen[1]/2 - 65.2, 385.0, 180.0 );
+    local width = 385.0;
+    local height = 205.0;
+    window = guiCreateElement( ELEMENT_TYPE_WINDOW, windowLabel,  screen[0]/2 - 192.5, screen[1]/2 - 65.2, width, height );
     label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, labelText, 38.0, 30.0, 300.0, 20.0, false, window);
     input[0] = guiCreateElement( ELEMENT_TYPE_EDIT, inputText, 92.0, 60.0, 200.0, 20.0, false, window);
     button[0] = guiCreateElement( ELEMENT_TYPE_BUTTON, buttonText, 92.0, 85.0, 200.0, 30.0, false, window);
-    langs[0] = guiCreateElement(13, "lang_en.png", screen[0]/2 - 16.0 - 20.0, screen[1]/2 + (138.0 / 2) - 10.0, 32.0, 18.0, false);
-    langs[1] = guiCreateElement(13, "lang_ru.png", screen[0]/2 - 16.0 + 20.0, screen[1]/2 + (138.0 / 2) - 10.0, 32.0, 18.0, false);
-    label[1] = guiCreateElement( ELEMENT_TYPE_LABEL, helpText, 53.0, 148.0, 300.0, 20.0, false, window);
-    guiSetAlwaysOnTop(langs[0], true);
-    guiSetAlwaysOnTop(langs[1], true);
+        langs[0] = guiCreateElement(13, "lang_ru.png", screen[0]/2 - 16.0 + 20.0, screen[1]/2 + (138.0 / 2) - 10.0, 32.0, 18.0, false);
+        langs[1] = guiCreateElement(13, "lang_en.png", screen[0]/2 - 16.0 - 20.0, screen[1]/2 + (138.0 / 2) - 10.0, 32.0, 18.0, false);
+    label[1] = guiCreateElement( ELEMENT_TYPE_LABEL, helpText, 48.0, 148.0, 310.0, 50.0, false, window);
+        guiSetAlwaysOnTop(langs[0], true);
+        guiSetAlwaysOnTop(langs[1], true);
     guiSetMovable(window,false);
     guiSetSizable(window,false);
     showCursor(true);    // guiSetAlpha(window, 0.1);
@@ -98,9 +100,12 @@ addEventHandler("showAuthGUI", showAuthGUI);
 
 function showBadPlayerNicknameGUI(){
     blackRoundFrame = guiCreateElement(13,"other_mask.png", 0, 0, screen[0], screen[1]);
-    window = guiCreateElement( ELEMENT_TYPE_WINDOW, "Information / Информация", screen[0]/2 - 192.5, screen[1]/2 - 130.0, 385.0, 260.0 );
-    label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, "[ru] Измените никнейм на свой\r\n\r\nДля этого:\r\n1. Нажмите на клавиатуре кнопку Escape (Esc)\r\n2. Выберите в меню пункт SETTINGS\r\n3. Введите в поле Nickname ваш никнейм (вместо Player)\r\n4. Переподключитесь к серверу\r\n", 38.0, 30.0, 300.0, 110.0, false, window);
-    label[1] = guiCreateElement( ELEMENT_TYPE_LABEL, "[en] Change nickname\r\n\r\nHow to do it:\r\n1. Press Escape (Esc) button on your keyboard\r\n2. Choose SETTINGS item in top menu\r\n3. Enter your nickname into Nickname field (instead of Player)\r\n4. Disconnect and connect to server again\r\n", 38.0, 140.0, 300.0, 110.0, false, window);
+    local width = 385.0;
+    local height = 260.0;
+    window = guiCreateElement( ELEMENT_TYPE_WINDOW, "Информация / Information", screen[0]/2 - width/2, screen[1]/2 - height/2, width, height );
+    //window = guiCreateElement( ELEMENT_TYPE_WINDOW, "Информация", screen[0]/2 - 192.5, screen[1]/2 - 72.0, 385.0, 144.0 );
+    label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, "[RU] Измените никнейм на свой\r\n\r\nДля этого:\r\n1. Нажмите на клавиатуре кнопку Escape (Esc)\r\n2. Выберите в меню пункт SETTINGS\r\n3. Введите в поле Nickname ваш никнейм (вместо Player)\r\n4. Переподключитесь к серверу\r\n", 38.0, 30.0, 300.0, 110.0, false, window);
+    label[1] = guiCreateElement( ELEMENT_TYPE_LABEL, "[EN] Change nickname\r\n\r\nHow to do it:\r\n1. Press Escape (Esc) button on your keyboard\r\n2. Choose SETTINGS item in top menu\r\n3. Enter your nickname into Nickname field (instead of Player)\r\n4. Disconnect and connect to server again\r\n", 38.0, 140.0, 300.0, 110.0, false, window);
     guiSetMovable(window,false);
     guiSetSizable(window,false);
     showCursor(true);
@@ -111,8 +116,10 @@ addEventHandler("showBadPlayerNicknameGUI", showBadPlayerNicknameGUI);
 function showRegGUI(windowText,labelText, inputpText, inputrpText, inputEmailText, buttonText, helpText){
     blackRoundFrame = guiCreateElement(13,"other_mask.png", 0, 0, screen[0], screen[1]);
     //image = guiCreateElement(13, "logo.png", screen[0]/2 - 203.0, screen[1]/2 - 145.0, 406.0, 266.0);
+    local width = 385.0;
+    local height = 240.0;
     image = guiCreateElement(13, logos[logorand].imgsrc, screen[0]/2 - logos[logorand].offsetX, screen[1]/2 - logos[logorand].offsetY, logos[logorand].width, logos[logorand].height);
-    window = guiCreateElement( ELEMENT_TYPE_WINDOW, windowText, screen[0]/2 - 192.5, screen[1]/2 - 65.0, 385.0, 240.0 );
+    window = guiCreateElement( ELEMENT_TYPE_WINDOW, windowText, screen[0]/2 - 192.5, screen[1]/2 - 65.0, width, height );
     label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, labelText, 80.0, 30.0, 300.0, 20.0, false, window);
     label[1] = guiCreateElement( ELEMENT_TYPE_LABEL, inputpText, 70.0, 60.0, 300.0, 20.0, false, window);
     label[2] = guiCreateElement( ELEMENT_TYPE_LABEL, inputrpText, 70.0, 90.0, 300.0, 20.0, false, window);
@@ -120,12 +127,12 @@ function showRegGUI(windowText,labelText, inputpText, inputrpText, inputEmailTex
     input[0] = guiCreateElement( ELEMENT_TYPE_EDIT, "", 180.0, 60.0, 150.0, 20.0, false, window);
     input[1] = guiCreateElement( ELEMENT_TYPE_EDIT, "", 180.0, 90.0, 150.0, 20.0, false, window);
     input[2] = guiCreateElement( ELEMENT_TYPE_EDIT, "", 130.0, 120.0, 200.0, 20.0, false, window);
-    button[1] = guiCreateElement( 2, buttonText ,  117.0, 180.0, 150.0, 20.0, false, window);
-    langs[0] = guiCreateElement(13, "lang_en.png", screen[0]/2 - 16.0 - 20.0, screen[1]/2 + (210.0 / 2) - 19.0, 32.0, 18.0);
-    langs[1] = guiCreateElement(13, "lang_ru.png", screen[0]/2 - 16.0 + 20.0, screen[1]/2 + (210.0 / 2) - 19.0, 32.0, 18.0);
-    label[4] = guiCreateElement( ELEMENT_TYPE_LABEL, helpText, 53.0, 208.0, 300.0, 20.0, false, window);
-    guiSetAlwaysOnTop(langs[0], true);
-    guiSetAlwaysOnTop(langs[1], true);
+    button[1] = guiCreateElement( 2, buttonText ,  180.0, 150.0, 150.0, 30.0, false, window);
+        langs[0] = guiCreateElement(13, "lang_ru.png", screen[0]/2 - 110.0, screen[1]/2 + (210.0 / 2) - 14.0, 32.0, 18.0);
+        langs[1] = guiCreateElement(13, "lang_en.png", screen[0]/2 - 70.0, screen[1]/2 + (210.0 / 2) - 14.0, 32.0, 18.0);
+    label[4] = guiCreateElement( ELEMENT_TYPE_LABEL, helpText, 48.0, 182.0, 310.0, 50.0, false, window);
+        guiSetAlwaysOnTop(langs[0], true);
+        guiSetAlwaysOnTop(langs[1], true);
     guiSetInputMasked( input[0], true );
     guiSetInputMasked( input[1], true );
     guiSetMovable(window,false);
@@ -203,10 +210,10 @@ addEventHandler( "onGuiElementClick",function(element){ //this shit need some re
     }
 
     if (element == langs[0]) {
-        triggerServerEvent("onPlayerLanguageChange", "en");
+        triggerServerEvent("onPlayerLanguageChange", "ru");
     }
     if (element == langs[1]) {
-        triggerServerEvent("onPlayerLanguageChange", "ru");
+        triggerServerEvent("onPlayerLanguageChange", "en");
     }
     if (element == blackRoundFrame) {
         guiSendToBack(blackRoundFrame);
@@ -232,7 +239,8 @@ function buttonLoginClick() {
     }
     else{
         guiSetInputMasked( input[0], false);
-        guiSetText(input[0], "Enter password | Введите пароль");
+        guiSetText(input[0], "Введите пароль | Enter password");
+        //guiSetText(input[0], "Введите пароль");
     }
 }
 
@@ -243,7 +251,8 @@ function buttonRegisterClick() {
      if(guiGetText(input[0]) == guiGetText(input[1])){
         if(guiGetText(input[2]).len() > 0){
             if(isValidEmail(guiGetText(input[2]))){
-                guiSetText(input[2], "Invalid email | Некорректный email");
+                guiSetText(input[2], "Некорректный email | Invalid email");
+                //guiSetText(input[2], "Некорректный email");
             }
             else {
                 local password = guiGetText(input[0]);
@@ -252,7 +261,8 @@ function buttonRegisterClick() {
             }
         }
         else {
-            guiSetText(label[0], "Enter your email | Введите ваш email адрес");
+            guiSetText(label[0], "Введите ваш email адрес | Enter your email");
+            //guiSetText(label[0], "Введите ваш email адрес");
         }
     }
 }

@@ -42,7 +42,9 @@ acmd("list", function(playerid) {
 });
 
 function dev(text) {
-    msga("[DEV] " + text, [], CL_PETERRIVER);
+    local message = "[DEV] " + text;
+    msga(message, [], CL_PETERRIVER);
+    return dbg("chat", "ooc", "[DEV]", text);
 }
 
 acmd(["dev"], function(playerid, ...) {
@@ -58,8 +60,30 @@ acmd(["admin", "adm"], function(playerid, ...) {
     //else if(getPlayerSerial(playerid) == "856BE506BCEAEEC908F3577ABEFF9171") { // Oliver
     //    return msga("[ADMIN #1] " + concat(vargv), [], CL_MEDIUMPURPLE);
     //}
-    else{
-        return msga("[ADMIN] "+getAccountName(playerid)+": " + concat(vargv), [], CL_MEDIUMPURPLE);
+    else {
+
+        local nick = "";
+
+        // Bertone
+        if(getPlayerSerial(playerid) == "7980C4CF5E2DAAF062DF7AE08B6DDE67") {
+            nick = "Bertone";
+        }
+
+        // Oliver
+        if(getPlayerSerial(playerid) == "856BE506BCEAEEC908F3577ABEFF9171") {
+            nick = "Selvatico";
+        }
+
+        // Franko Soprano
+        if(getPlayerSerial(playerid) == "981506EF83BF42095A62407C696A8515") {
+            nick = "Franko Soprano";
+        }
+
+        local author = "[ADMIN] "+nick;
+        local message = concat(vargv);
+
+        msga(author+": " + message, [], CL_MEDIUMPURPLE);
+        return dbg("chat", "ooc", author, message);
     }
 });
 

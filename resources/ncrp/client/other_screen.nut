@@ -32,7 +32,7 @@ local initialized = false;
 local datastore = {};
 local lines     = [];
 
-local chatslots = ["ooc", "ic", "me", "do"];
+local chatslots = ["ooc", "ic", "b"];
 local selectedslot = 0;
 
 local asd = null;
@@ -127,7 +127,7 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
 
     // draw chat slots
     offset = 0;
-    for (local i = 0; i < 4; i++) {
+    for (local i = 0; i < 3; i++) {
         local size = dxGetTextDimensions(chatslots[i], 1.0, "tahoma-bold")[0].tofloat() + 20.0;
 
         if (i == selectedslot) {
