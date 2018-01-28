@@ -291,3 +291,9 @@ migrate(function(query, type) {
     query("ALTER TABLE tbl_nvehicles ADD COLUMN `ry` FLOAT NOT NULL DEFAULT 0.0;");
     query("ALTER TABLE tbl_nvehicles ADD COLUMN `rz` FLOAT NOT NULL DEFAULT 0.0;");
 });
+
+// 29.01.18
+// added data field for accounts
+migrate(function(query, type) {
+    query("ALTER TABLE tbl_accounts ADD COLUMN `data` TEXT NOT NULL DEFAULT '{}';");
+});
