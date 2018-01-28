@@ -11,9 +11,9 @@ translate("en", {
     "character.doesnotexist"        : "Character with provided data\ndoes not exist."
     "character.alreadymigrated"     : "Provided character has already\nbeen migrated."
     "character.limitexceeded"       : "You cant create more characters!"
-    "character.alreadyregistered"   : "Character with provided firstname\nand lastname already exists.\nPlease use different!"
-    "character.wrongname"           : "You provided non-valid firstname\nor lastname. Please,\ntry again using other name."
-    "character.bannednames"         : "Provided firstname or lastname\nis banned. Please,\ntry again using other name."
+    "character.alreadyregistered"   : "Character with provided firstname and lastname\nalready exists. Please use different!"
+    "character.wrongname"           : "You provided non-valid firstname or lastname.\nPlease, try again using other name."
+    "character.bannednames"         : "Provided firstname or lastname is banned.\nPlease, try again using other name."
 });
 
 /**

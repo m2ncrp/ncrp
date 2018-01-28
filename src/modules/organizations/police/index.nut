@@ -77,11 +77,14 @@ local police_rank = [
 
 
 function policecmd(name, callback) {
-    cmd(name, function(playerid, args) {
-        local police = fractions["police"];
-        police.exists(playerid)
+    cmd(name, function(playerid, ...) {
+        if(!isOfficer(playerid)) {
+            return log("Bad Police");
+        }
+        //local police = fractions["police"];
+        //police.exists(playerid)
 
-        return callback(playerid, args);
+        return callback(playerid, concat(vargv));
     });
 }
 

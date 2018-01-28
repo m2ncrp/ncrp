@@ -5,12 +5,36 @@ local IS_OOC_ENABLED = true;
 event("onPlayerConnect", function(playerid){
     antiflood[playerid] <- {};
     antiflood[playerid]["gooc"] <- 0;
-    antiflood[playerid]["togooc"] <- true;
-    antiflood[playerid]["togpm"] <- true;
 
     lastPMs[playerid] <- -1;
 
 });
+
+event("onServerPlayerStarted", function( playerid ){
+
+    local account = getAccount(playerid);
+
+    antiflood[playerid]["togooc"] <- true;
+    antiflood[playerid]["togpm"] <- true;
+
+    if (account.hasData("showOOC")) {
+        local showOOC = account.getData("showOOC");
+        antiflood[playerid]["togooc"] = showOOC;
+        if (showOOC == false) {
+            msg(playerid, "chat.togoocDisabledAlready", CL_WHITE);
+        }
+    }
+
+    if (account.hasData("showPM")) {
+        local showPM = account.getData("showPM");
+        antiflood[playerid]["togpm"] = showPM;
+        if (showPM == false) {
+            msg(playerid, "chat.togpmDisabledAlready", CL_WHITE);
+        }
+    }
+
+});
+
 
 event("onServerSecondChange", function() {
     foreach (pid, value in players) {
@@ -38,10 +62,44 @@ chatcmd(["s", "shout"], function(playerid, message) {
     statisticsPushMessage(playerid, message, "shout");
 });
 
+chatcmd(["me"], function(playerid, message) {
+    inRadiusSendToAll(playerid, "[ME] " + getPlayerName(playerid) + " " + message, NORMAL_RADIUS, CL_WAXFLOWER);
+
+    // statistics
+    statisticsPushMessage(playerid, message, "me");
+});
+
 chatcmd("do", function(playerid, message) {
-    inRadiusSendToAll(playerid, format("[DO] %s - (%s)", message, getPlayerName(playerid)), NORMAL_RADIUS, CL_CARIBBEANGREEN);
+    inRadiusSendToAll(playerid, format("[DO] %s (%s)", message, getPlayerName(playerid)), NORMAL_RADIUS, CL_CARIBBEANGREEN);
     statisticsPushMessage(playerid, message, "do");
 });
+
+
+chatcmd("todo", function(playerid, message) {
+    local lang = getPlayerLocale(playerid);
+    if(lang == "ru") {
+        message = str_replace_ex("!я", getPlayerName(playerid), message);
+    } else {
+        message = str_replace_ex("!me", getPlayerName(playerid), message);
+    }
+    //local character = getCharacterIdFromPlayerId(playerid);
+
+    inRadiusSendToAll(playerid, format("%s", message), NORMAL_RADIUS, CL_CARIBBEANGREEN);
+    statisticsPushMessage(playerid, message, "todo");
+});
+
+//chatcmd("another_todo", function(playerid, message) {
+//    local starPos = message.find("*");
+//    if(starPos == null || message.len() == starPos) {
+//        msg(playerid, "chat.player.todo.badformat1", CL_ERROR);
+//        return msg(playerid, "chat.player.todo.badformat2");
+//    }
+//    local messageBefore = message.slice(0, starPos-1);
+//    local messageAfter = message.slice(starPos+2);
+//
+//    inRadiusSendToAll(playerid, format("%s - %s", messageBefore, messageAfter), NORMAL_RADIUS, CL_CARIBBEANGREEN);
+//    statisticsPushMessage(playerid, message, "todo");
+//});
 
 // whisper
 chatcmd(["w", "whisper"], function(playerid, message) {
@@ -93,7 +151,7 @@ cmd(["re", "reply"], function(playerid, ...) {
 
 // nonRP local chat
 chatcmd(["b"], function(playerid, message) {
-    inRadiusSendToAll(playerid, format("%s: (( %s ))", getAuthor3( playerid ), message), NORMAL_RADIUS, CL_GRAY);
+    inRadiusSendToAll(playerid, format("%s: %s", getAuthor( playerid ), message), NORMAL_RADIUS, CL_GRAY);
 
     // statistics
     statisticsPushMessage(playerid, message, "non-rp-local");
@@ -112,7 +170,7 @@ chatcmd(["o","ooc"], function(playerid, message) {
             // send message to all enabled chat
             foreach (targetid, value in players) {
                 if (antiflood[targetid]["togooc"]) {
-                    msg(targetid, "[Global OOC] " + getAuthor3( playerid ) + ": " + message, CL_GRAY);
+                    msg(targetid, "[Global OOC] " + getAuthor( playerid ) + ": " + message, CL_GRAY);
                 }
             }
 
@@ -127,7 +185,7 @@ chatcmd(["o","ooc"], function(playerid, message) {
     else {
         // msg(playerid, "admin.oocDisabled.message",CL_LIGHTWISTERIA);
         // forward to /b
-        inRadiusSendToAll(playerid, format("[OOC] %s: (( %s ))", getAuthor3( playerid ), message), NORMAL_RADIUS, CL_GRAY);
+        inRadiusSendToAll(playerid, format("[Local nonRP] %s: (( %s ))", getAuthor( playerid ), message), NORMAL_RADIUS, CL_GRAY);
 
         // statistics
         statisticsPushMessage(playerid, message, "non-rp-local");
@@ -135,12 +193,11 @@ chatcmd(["o","ooc"], function(playerid, message) {
 
 });
 
-chatcmd(["me"], function(playerid, message) {
-    inRadiusSendToAll(playerid, "[ME] " + getAuthor( playerid ) + " " + message, NORMAL_RADIUS, CL_WAXFLOWER);
 
-    // statistics
-    statisticsPushMessage(playerid, message, "me");
+cmd(["text"], function(playerid, r, g, b) {
+    msg(playerid, "Тестовое сообщение - Test message - 987654321", rgb(r.tointeger(), g.tointeger(), b.tointeger()));
 });
+
 
 cmd("idea", function(playerid, ...) {
     msg(playerid, "chat.idea.success", CL_SUCCESS);
@@ -187,13 +244,13 @@ cmd(["help", "h", "halp", "info"], function(playerid) {
     local commands = [
         { name = "/help chat",              desc = "help.chat" },
         { name = "/help subway",            desc = "help.subway" },
-        { name = "/help taxi",              desc = "help.taxi" },
+     // { name = "/help taxi",              desc = "help.taxi" },
         { name = "/help rent",              desc = "help.rentcar" },
         { name = "/help job JOBNAME",       desc = "help.job" },
         { name = "/help bank",              desc = "help.ban" },
         { name = "/help car",               desc = "help.cars" },
-        { name = "/report ID TEXT",         desc = "help.report" },
-        { name = "/idea TEXT",              desc = "help.idea" }
+    //  { name = "/report ID TEXT",         desc = "help.report" },
+    //  { name = "/idea TEXT",              desc = "help.idea" }
     ];
     msg_help(playerid, title, commands);
 
@@ -215,14 +272,14 @@ function eggScreamer(playerid) {
 cmd(["help", "h", "halp", "info"], "chat", function(playerid) {
     local title = "List of available commands for CHAT:";
     local commands = [
-        { name = "/say TEXT",         desc = "help.chat.say"},
-        { name = "/shout TEXT",       desc = "help.chat.shout"},
-        { name = "/whisper TEXT",     desc = "help.chat.whisper"},
-        { name = "/b TEXT",           desc = "help.chat.localooc"},
-        { name = "/ooc TEXT",         desc = "help.chat.ooc"},
-        { name = "/pm ID TEXT",       desc = "help.chat.privatemsg"},
-        { name = "/me ACTION_TEXT",   desc = "help.chat.me"},
-        { name = "/try ACTION_TEXT",  desc = "help.chat.try"}
+        { name = "/ic text",     desc = "help.chat.say"},
+        { name = "/s text",      desc = "help.chat.shout"},
+        { name = "/w text",      desc = "help.chat.whisper"},
+        { name = "/b text",      desc = "help.chat.localooc"},
+        { name = "/ooc text",    desc = "help.chat.ooc"},
+        { name = "/pm id text",  desc = "help.chat.privatemsg"},
+        { name = "/me text",     desc = "help.chat.me"},
+        { name = "/try text",    desc = "help.chat.try"}
     ];
     msg_help(playerid, title, commands);
 });
@@ -252,9 +309,9 @@ key("f3", function(playerid) {
     return setPlayerChatSlot(playerid, 2);
 });
 
-key("f4", function(playerid) {
-    return setPlayerChatSlot(playerid, 3);
-});
+//key("f4", function(playerid) {
+//    return setPlayerChatSlot(playerid, 3);
+//});
 
 key("f5", function(playerid) {
     return trigger(playerid, "onServerChatTrigger");
@@ -283,26 +340,38 @@ chatcmd(["try"], function(playerid, message) {
 });
 
 cmd(["togooc"], function(playerid) {
+
+    local account = getAccount(playerid);
+
     if(antiflood[playerid]["togooc"]){
         antiflood[playerid]["togooc"] = false;
+        account.setData("showOOC", false);
         msg(playerid, "chat.togoocDisabled");
     }
     else{
         antiflood[playerid]["togooc"] = true;
+        account.setData("showOOC", true);
         msg(playerid, "chat.togoocEnabled");
     }
+    account.save();
 });
 
 
 cmd(["togpm"], function(playerid) {
+
+    local account = getAccount(playerid);
+
     if(antiflood[playerid]["togpm"]){
         antiflood[playerid]["togpm"] = false;
+        account.setData("showPM", false);
         msg(playerid, "chat.togpmDisabled");
     }
     else{
         antiflood[playerid]["togpm"] = true;
+        account.setData("showPM", true);
         msg(playerid, "chat.togpmEnabled");
     }
+    account.save();
 });
 
 
