@@ -3,8 +3,6 @@ translation("ru", {
     "language.change.success"           :   "Вы успешно изменили язык интерфейса на русский!"
 
     "vehicle.owner.warning"             :   "У вас нет ключа от этого автомобиля."
-    "vehicle.owner.true"                :   "Вы владелец данного авто."
-    "vehicle.owner.false"               :   "Вы не владелец данного авто."
 
     "hospital.money.deducted"           :   "Вас выписали из госпиталя. Лечение обошлось вам в $%.2f."
     "hospital.money.donthave"           :   "У вас недостаточно денег для оплаты полного лечения."
@@ -16,40 +14,9 @@ translation("ru", {
 
     "general.admins.serial.get"                 : "Cерийный номер игрока %s: %s"
 
-    "general.message.empty"                     : "[INFO] Вы не можете отправить пустое сообщение."
-    "general.playeroffline"                     : "[INFO] Данного игрока нет на сервере!"
-    "general.noonearound"                       : "Рядом с вами никого нет."
-    "general.job.anotherone"                    : "Вы работаете %s, а не %s!"
-
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
-    "tips.money.earn"   :   "[TIPS] Вы можете зарабатывать деньги, устроившись на работу. Подробнее: /help job"
-    "tips.money.bank"   :   "[TIPS] Вы можете получать доход от депозита в банке (иконка доллара на карте)."
-    "tips.car"          :   "[TIPS] Вы можете купить собственный автомобиль в Diamond Motors (цветная иконка с автомобилем на карте)."
-    "tips.car.repair"   :   "[TIPS] Вы можете починить свой автомобиль в автомастерских."
-    "tips.eat"          :   "[TIPS] Вы можете восстанавливать уровень здоровья, обедая в ресторанах."
-    "tips.police"       :   "[TIPS] Если вы стали свидетелем преступления - бегите к телефонной будке и вызывайте полицию. Команда: /police"
-    "tips.hobos"        :   "[TIPS] Вы можете найти деньги в мусорных контейнерах. Используйте команду: /dig"
-    "tips.engine.howto" :   "[TIPS] Не забывайте экономить топливо, используйте кнопку Q для выключения двигателя."
-    "tips.taxi"         :   "[TIPS] Если вам нужно куда-то добраться, вы можете вызвать такси из телефонной будки: /taxi"
-    "tips.metro"        :   "[TIPS] Метро - это удобный и дешевый способ передвижения. Найдите ближайшую станцию с помощью /subway"
-    "tips.house"        :   "[TIPS] Вы можете купить дом. Найдите риелтора, чтобы заключить сделку."
-    "tips.report"       :   "[TIPS] Увидели читера? Или игрока нарушающего правила? Сообщите администрации: /report ID ТЕКСТ"
-    "tips.idea"         :   "[TIPS] У вас есть идея или предложение, сообщите об этом нам, используя команду: /idea ТЕКСТ"
-    "tips.discord"      :   "[TIPS] Вы можете следить за новостями разработки на официальном сервере Discord: bit.ly/m2ncrp"
-    "tips.vk"           :   "[TIPS] Вступайте в нашу группу ВКонтакте: vk.com/m2ncrp"
-    "tips.layout"       :   "[TIPS] Вы можете сменить раскладку клавиатуры (бинды останутся на прежних местах как для qwerty). См. /layout"
-    "tips.business"     :   "[TIPS] Вы можете приобрести бизнес. Находясь у бизнеса, напишите команду /business buy"
-    "tips.sellcar"      :   "[TIPS] Вы можете продать свой автомобиль другому игроку. Находясь в авто, используйте команду /sell"
-    "tips.bugreport"    :   "[TIPS] Обнаружили ошибку или баг? Напишите нам: /bug ТЕКСТ"
-    "tips.openmap"      :   "[TIPS] Вы можете открыть карту города, нажав на клавишу M (английскую)."
-    "tips.switchchats"  :   "[TIPS] Для переключения между слотами чата используйте клавиши F1-F4."
-    "tips.chatvisible"  :   "[TIPS] Если вы хотите скрыть чат - нажмите клавишу F5. Повторное нажатие отобразит чат."
-    "tips.turnlights"   :   "[TIPS] Z - левый поворотник; X - аварийка; C - правый поворотник."
-    "tips.dice"         :   "[TIPS] Чтобы бросить кубик, используйте: /dice"
-    "tips.hat"          :   "[TIPS] /hat X - вытащить из шляпы один шар из X шаров."
-    "tips.enabled"      :   "[TIPS] Подсказки были включены."
-    "tips.disabled"     :   "[TIPS] Подсказки были выключены."
+
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
@@ -58,30 +25,6 @@ translation("ru", {
     "business.error.faraway"    : "Вы далеко от бизнеса!"
     "business.error.owned"      : "Вы не можете приобрести бизнес, который уже находится в собственности!"
     "business.purchase.success" : "Вы успешно приобрели «%s»!"
-
-/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
-
-    "chat.togoocEnabled"            : "Вы включили отображение ООС чата!"
-    "chat.togoocDisabled"           : "Вы отключили отображение ООС чата!"
-
-    "chat.togpmEnabled"            : "Вы включили личные сообщения!"
-    "chat.togpmDisabled"           : "Вы отключили личные сообщения!"
-
-    "chat.playerTogPm"              :"Игрок отключил возможность отправлять ему личные сообщения!"
-
-    "chat.player.says"              : "%s: %s"
-    "chat.player.shout"             : "%s крикнул: %s"
-    "chat.player.whisper"           : "%s шепчет: %s"
-    "chat.player.message.private"   : "[PM] %s пишет %s: %s"
-    "chat.player.try.end.success"   : "[TRY] %s: %s (успех)."
-    "chat.player.try.end.fail"      : "[TRY] %s: %s (провал)."
-    "chat.player.message.noplayer"  : "[PM] Такого игрока нет на сервере.",
-
-    "chat.bug.success"              : "[BUG] Ваше сообщение об ошибке успешно отправлено. Спасибо! ;)"
-    "chat.idea.success"             : "[IDEA] Ваша идея успешно отправлена!"
-    "chat.report.success"           : "[REPORT] Ваш репорт успешно отправлен!"
-    "chat.report.noplayer"          : "[REPORT] Вы не можете создать репорт на игрока, который находится в оффлайн!"
-    "chat.report.error"             : "[REPORT] Вам необходимо отправить репорт в виде: /report ID TEXT"
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
@@ -551,29 +494,6 @@ translation("ru", {
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
-    "help.chat"        : "Показать список команд для чата"
-    "help.subway"      : "Показать список команд для метро"
-    "help.taxi"        : "Показать список команд для такси"
-    "help.rentcar"     : "Показать список команд для аренды авто"
-    "help.job"         : "Показать список команд для работ. Пример: /help job taxi"
-    "help.ban"         : "Показать список команд для банка"
-    "help.cars"        : "Показать список команд для авто"
-    "help.fuel"        : "Показать список команд для автозаправок"
-    "help.repair"      : "Показать список команд для автомастерских"
-    "help.report"      : "Сообщить о читере или игроке, нарушающем правила"
-    "help.idea"        : "Отправить идею/сообщение разработчикам"
-
-/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
-
-    "help.chat.say"         : "(Сказать) Отправить сообщение в локальный чат."
-    "help.chat.shout"       : "(Крикнуть) Отправить сообщение в локальный (большого радиуса) чат."
-    "help.chat.whisper"     : "(Прошептать) Отправить сообщение ближайшему игроку."
-    "help.chat.localooc"    : "Отправить сообщение в локальный нон-РП чат"
-    "help.chat.ooc"         : "Отправить сообщение в глобальный нон-РП чат"
-    "help.chat.privatemsg"  : "Отправить личное сообщение другому игроку. Например: /pm 3 hello!"
-    "help.chat.me"          : "Сообщить о действии вашего персонажа"
-    "help.chat.try"         : "Сообщить о попытке выполнения действия со случайным результатом"
-
     "telephone.findphone"   : "В течение 15 секунд на радаре отображается метка ближайшей телефонной будки."
     "telephone.findalready" : "Ближайшая телефонная будка уже отображена на радаре."
     "telephone.needphone"   : "Чтобы позвонить, нужно найти телефон."
@@ -651,7 +571,7 @@ translation("ru", {
     "admin.oocEnabled.message"  :"Общий чат был включен администратором!"
     "admin.oocDisabled.message" :"Общий чат был отключен администратором!"
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
-    "antiflood.message"         :"Антифлуд: Для отправки сообщения подождите еще %i секунд"
+    
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
@@ -679,7 +599,7 @@ alternativeTranslate({
     "en|auth.GUI.TitleLabelLogin"          : "Account %s already registered. Enter your password:"
     "ru|auth.GUI.TitleLabelLogin"          : "Аккаунт %s уже зарегистрирован. Введите пароль:"
 
-    "en|auth.GUI.TitleInputLogin"          : "password"
+    "en|auth.GUI.TitleInputLogin"          : "Password"
     "ru|auth.GUI.TitleInputLogin"          : "Пароль"
 
     "en|auth.GUI.ButtonLogin"              : "Log in"
@@ -704,8 +624,9 @@ alternativeTranslate({
     "ru|auth.GUI.error.notfound"           : "Логин или пароль были введены неправильно."
 
 
-    "en|auth.wrongname"        : "Your name should be at least 4 symbols and should not contain any symbols except letters, nubmers, space and underscore."
-    "en|auth.wrongname"        : "Sorry, your name should be original (not from the game) and have Firstname_Lastname format."
+    "en|auth.wrongname"        : "Invalid name!"
+    "en|auth.wrongname2"       : "Your name should be at least 4 symbols and should not contain any symbols except letters, nubmers, space and underscore."
+    //"en|auth.wrongname"        : "Sorry, your name should be original (not from the game) and have Firstname_Lastname format."
     "en|auth.changename"       : "Please, change you name in the settings, and reconnect. Thank you!"
     "en|auth.welcome"          : "* Welcome there, %s!"
     "en|auth.registered"       : "* Your account is registered."
@@ -724,10 +645,11 @@ alternativeTranslate({
     "en|auth.notification"     : "[AUTH] You should enter into your account via /login PASSWORD, or create new one via /register PASSWORD"
     "en|auth.error.tomany"     : "You cant register more accounts."
     "en|auth.client.notloaded" : "Seems like your client scripts were not properly loaded. Try reconnecting!"
-    "en|auth.haveproblems"     : "Have problems or forget password? Go to: vk.com/m2ncrp"
+    "en|auth.haveproblems"     : "Have problems or forget password? Go to Discord: bit.ly/m2ncrp"
 
-    "ru|auth.wrongname"        : "К сожалению, имя аккаунта не может быть меньше 4 символов. Использовать можно английские буквы, цифры, пробел и нижнее подчеркивание."
-    "ru|auth.changename"       : "Пожалуйста, смените имя аккаунта в настройках и переподключитесь!"
+    "ru|auth.wrongname"        : "Некорректное имя аккаунта!"
+    "ru|auth.wrongname2"       : "Имя аккаунта должно быть больше 4 символов и может содержать ТОЛЬКО английские буквы, цифры, пробел и нижнее подчеркивание."
+    "ru|auth.changename"       : "Пожалуйста, смените имя аккаунта в настройках (SETTINGS -> поле Nickname) и переподключитесь!"
     "ru|auth.welcome"          : "* Добро пожаловать, %s!"
     "ru|auth.registered"       : "* Ваш аккаунт зарегистрирован."
     "ru|auth.notregistered"    : "* Ваш аккаунт НЕ зарегистрирован."
@@ -746,6 +668,6 @@ alternativeTranslate({
     "ru|auth.error.tomany"     : "Вы достигли лимита по количеству аккаунтов."
     "ru|auth.error.email"      : "Такой email адрес уже используется!"
     "ru|auth.client.notloaded" : "Кажется ваши клиент-скрипты не прогрузились. Попробуйте переподключиться!"
-    "ru|auth.haveproblems"     : "Есть проблемы или забыл пароль? Пиши: vk.com/m2ncrp"
+    "ru|auth.haveproblems"     : "Есть проблемы или забыл пароль? Пиши: vk.com/m2ncrp\r\nСайт игрового сервера: mafia2online.ru\r\nМы в Discord-чате: bit.ly/m2ncrp"
 
 });

@@ -127,7 +127,7 @@ function getPlayerLocale(playerid) {
         return baseData[playerid].locale;
     }
 
-    return "en";
+    return "ru";
 }
 
 /**
@@ -136,7 +136,7 @@ function getPlayerLocale(playerid) {
  * @param  {Integer} playerid
  * @return {String}
  */
-function setPlayerLocale(playerid, locale = "en") {
+function setPlayerLocale(playerid, locale = "ru") {
     if (isPlayerAuthed(playerid)) {
         accounts[playerid].locale = locale;
         accounts[playerid].save();
@@ -267,7 +267,7 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
         username = username,
         ip = ip,
         serial = serial,
-        locale = "en",
+        locale = "ru",
         overriden = false,
     };
 

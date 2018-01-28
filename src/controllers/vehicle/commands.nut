@@ -131,15 +131,7 @@ acmd(["deletecar", "removecar", "deleteveh", "removeveh"], function(playerid, pl
     }
 });
 
-acmd("who", function(playerid) {
-    if (isPlayerInVehicle(playerid)) {
-        if (isPlayerVehicleOwner(playerid, getPlayerVehicle(playerid))) {
-            msg(playerid, "vehicle.owner.true", CL_SNUFF);
-        } else {
-            msg(playerid, "vehicle.owner.false", CL_SNUFF);
-        }
-    }
-});
+
 /*
 cmd("sell", function(playerid, amount = null) {
     if (!isPlayerInVehicle(playerid)) {

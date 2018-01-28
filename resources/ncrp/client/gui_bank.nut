@@ -17,6 +17,6 @@ function showBankGUI(){
 addEventHandler("showBankGUI",showBankGUI)
 
 function hideBankGUI(){
-    guiSetVisivle(window,false);
+    guiSetVisible(window,false);
     showCursor(false);
 }

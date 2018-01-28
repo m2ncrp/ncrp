@@ -158,8 +158,8 @@ local radioMsgs = [
 ];
 
 translation("en", {
-    "radio.enabled"         :   "[RADIO] Tips has been enabled."
-    "radio.disabled"        :   "[RADIO] Tips has been disabled."
+    "radio.enabled"         :   "[RADIO] Radio has been enabled."
+    "radio.disabled"        :   "[RADIO] Radio has been disabled."
     "radio.prefix"          :   "[RADIO]"
     "radio.noise"           :   "Pschschsch-chchshschschsch-pffffzzzziiiiuuuuschschschsch"
 
