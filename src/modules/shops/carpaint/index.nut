@@ -21,10 +21,11 @@ local car_paint = {};
 
 
 event("onPlayerPlaceEnter", function(playerid, name) {
-    if (!isPlayerInVehicle(playerid)) return;
+    if (!isPlayerInNVehicle(playerid)) return;
 
-    local vehicleid = getPlayerVehicle( playerid );
-    local modelid   = getVehicleModel( vehicleid );
+    local vehicle = getPlayerNVehicle(playerid);
+    local vehicleid = vehicle.vehicleid;
+    local modelid = vehicle.getComponent(VehicleComponent.Hull).getModel();
 
     if (name == CARPAINT_NAME+"_outside") {
         if( CARPAINT_EMPTY != null) {
@@ -68,17 +69,20 @@ event("onPlayerPlaceEnter", function(playerid, name) {
 });
 
 event("onPlayerPlaceExit", function(playerid, name) {
-    if (!isPlayerInVehicle(playerid)) return;
+    if (!isPlayerInNVehicle(playerid)) return;
 
-    local vehicleid = getPlayerVehicle( playerid );
-    local modelid   = getVehicleModel( vehicleid );
+    local vehicle = getPlayerNVehicle(playerid);
+    local hull = vehicle.getComponent(VehicleComponent.Hull);
+    local modelid = hull.getModel();
+    local vehicleid = vehicle.vehicleid;
 
     if (name == CARPAINT_NAME+"_inside") {
         if( availableCars.find(modelid) == null || isPlayerHaveVehicleKey(playerid, vehicleid) == false) return;
         if(checkVehiclePaintColorChanged(vehicleid) == true) {
             if(!canMoneyBeSubstracted(playerid, CARPAINT_COST)) {
                 local cr = car_paint[vehicleid]["currentColor"];
-                setVehicleColour(vehicleid, cr[0], cr[1], cr[2], cr[3], cr[4], cr[5]);
+                hull.setColor(cr[0], cr[1], cr[2], cr[3], cr[4], cr[5]);
+                vehicle.save();
                 return msg(playerid, "carpaint.notenoughmoney", CL_MALIBU);
             }
             msg(playerid, "carpaint.goodluck", CL_MALIBU);
@@ -137,6 +141,11 @@ function carPaintRocket(playerid) {
 
     CARPAINT_TIMER = delayedFunction(1000 * CARPAINT_ROCKET_TIMER, function() {
         if(!isVehicleEmpty(vehicleid)) return;
+
+    //hull.setColor(cr[0], cr[1], cr[2], cr[3], cr[4], cr[5]);
+    //vehicle.save();
+
+
             local modelid   = getVehicleModel( vehicleid );
         if( (vehicleid in car_paint) && (availableCars.find(modelid) != null) && isPlayerHaveVehicleKey(playerid, vehicleid) != false) {
             local cr = car_paint[vehicleid]["currentColor"];
@@ -166,20 +175,23 @@ function carPaintRocketCancel(playerid, vehicleid) {
 
 function carPaintChangeColor(playerid, setdefault = null) {
 
-    if (!isPlayerInVehicle(playerid)) {
+    if (!isPlayerInNVehicle(playerid)) {
         return;
     }
 
-    if(!isVehicleInValidPoint(playerid, CARPAINT_COORDS_PLACE[0], CARPAINT_COORDS_PLACE[1], CARPAINT_RADIUS_SMALL)) {
+    if(!isPlayerNVehicleInValidPoint(playerid, CARPAINT_COORDS_PLACE[0], CARPAINT_COORDS_PLACE[1], CARPAINT_RADIUS_SMALL)) {
+        log("isVehicleInValidPoint")
         return;
     }
 
-    local vehicleid = getPlayerVehicle(playerid);
-    local modelid = getVehicleModel(vehicleid);
+    local vehicle = getPlayerNVehicle(playerid);
+    local hull = vehicle.getComponent(VehicleComponent.Hull);
+    local modelid = hull.getModel();
+    local vehicleid = vehicle.vehicleid;
 
     if(CARPAINT_EMPTY != vehicleid) return;
 
-    if( availableCars.find(modelid) == null || isPlayerHaveVehicleKey(playerid, vehicleid) == false) {
+    if( availableCars.find(modelid) == null || isPlayerHaveVehicleKey(playerid, vehicle) == false) {
         return msg(playerid, "carpaint.cantrepaintthiscar", CL_MALIBU);
     }
 
@@ -195,7 +207,10 @@ function carPaintChangeColor(playerid, setdefault = null) {
     } else {
         cr = car_paint[vehicleid]["currentColor"];
     }
-    setVehicleColour(vehicleid, cr[0], cr[1], cr[2], cr[3], cr[4], cr[5]);
+    hull.setColor(cr[0], cr[1], cr[2], cr[3], cr[4], cr[5]);
+    vehicle.save();
+
+    //setVehicleColour(vehicleid, cr[0], cr[1], cr[2], cr[3], cr[4], cr[5]);
 }
 
 function checkVehiclePaintColorChanged(vehicleid) {
