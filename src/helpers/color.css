@@ -56,3 +56,43 @@ CL_WARNING          <- CL_ECSTASY;
 CL_SUCCESS          <- CL_GOSSIP;
 CL_INFO             <- CL_PICTONBLUE;
 CL_PLAIN            <- CL_WHITE;
+
+/*
+
+rgb(255, 140, 0)
+rgb(255, 222, 173)
+rgb(0, 206, 209)
+
+102 204 0
+76 153 0
+255, 105, 180
+
+ */
+
+
+/*
+
+ooc: CL_GRAY
+ic: CL_YELLOW
+b: CL_GRAY
+s: CL_WHITE
+w: CL_WHITE
+me: CL_WAXFLOWER
+do: CL_CARIBBEANGREEN)
+todo: ???????
+try: CL_WHITE
+pm: CL_LIGHTWISTERIA
+
+
+job: CL_CRUSTA
+job_hint: CL_LYNCH
+
+
+job_bus_3dtext_stop_title: CL_ROYALBLUE
+job_bus_3dtext_private_stop_title: CL_RIPELEMON
+job_bus_error: CL_RED
+job_bus_driversays: CL_CREAMCAN
+
+
+
+ */

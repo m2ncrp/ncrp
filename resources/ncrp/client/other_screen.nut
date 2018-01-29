@@ -317,6 +317,7 @@ addEventHandler("onPlayerHungerUpdate", function(hunger, thirst) {
 
 addEventHandler("onServerToggleHudDrawing", function() {
     drawing = !drawing;
+    toggleHud(drawing);
 });
 
 addEventHandler("onServerChatTrigger", function() {
