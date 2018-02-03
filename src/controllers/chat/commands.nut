@@ -48,7 +48,7 @@ event("onServerSecondChange", function() {
 
 // local chat
 chatcmd(["i", "ic", "say"], function(playerid, message) {
-    sendLocalizedMsgToAll(playerid, "chat.player.says", [getPlayerName(playerid), message], NORMAL_RADIUS, CL_YELLOW);
+    sendLocalizedMsgToAll(playerid, "chat.player.says", [getPlayerName(playerid), message], NORMAL_RADIUS, CL_CHAT_IC);
 
     // statistics
     statisticsPushMessage(playerid, message, "say");
@@ -56,21 +56,21 @@ chatcmd(["i", "ic", "say"], function(playerid, message) {
 
 // shout
 chatcmd(["s", "shout"], function(playerid, message) {
-    sendLocalizedMsgToAll(playerid, "chat.player.shout", [getPlayerName(playerid), message], SHOUT_RADIUS, CL_WHITE);
+    sendLocalizedMsgToAll(playerid, "chat.player.shout", [getPlayerName(playerid), message], SHOUT_RADIUS, CL_CHAT_SHOUT);
 
     // statistics
     statisticsPushMessage(playerid, message, "shout");
 });
 
 chatcmd(["me"], function(playerid, message) {
-    inRadiusSendToAll(playerid, "[ME] " + getPlayerName(playerid) + " " + message, NORMAL_RADIUS, CL_WAXFLOWER);
+    inRadiusSendToAll(playerid, "[ME] " + getPlayerName(playerid) + " " + message, NORMAL_RADIUS, CL_CHAT_ME);
 
     // statistics
     statisticsPushMessage(playerid, message, "me");
 });
 
 chatcmd("do", function(playerid, message) {
-    inRadiusSendToAll(playerid, format("[DO] %s (%s)", message, getPlayerName(playerid)), NORMAL_RADIUS, CL_CARIBBEANGREEN);
+    inRadiusSendToAll(playerid, format("[DO] %s (%s)", message, getPlayerName(playerid)), NORMAL_RADIUS, CL_CHAT_DO);
     statisticsPushMessage(playerid, message, "do");
 });
 
@@ -84,7 +84,7 @@ chatcmd("todo", function(playerid, message) {
     }
     //local character = getCharacterIdFromPlayerId(playerid);
 
-    inRadiusSendToAll(playerid, format("%s", message), NORMAL_RADIUS, CL_CARIBBEANGREEN);
+    inRadiusSendToAll(playerid, format("%s", message), NORMAL_RADIUS, CL_CHAT_TODO);
     statisticsPushMessage(playerid, message, "todo");
 });
 
@@ -109,8 +109,8 @@ chatcmd(["w", "whisper"], function(playerid, message) {
         return;
     }
     if ( isBothInRadius(playerid, targetid, WHISPER_RADIUS) ) {
-        msg(targetid, "chat.player.whisper", [getAuthor( playerid ), message]);
-        msg(playerid, "chat.player.whisper", [getAuthor( playerid ), message]);
+        msg(targetid, "chat.player.whisper", [getAuthor( playerid ), message], CL_CHAT_WHISPER);
+        msg(playerid, "chat.player.whisper", [getAuthor( playerid ), message], CL_CHAT_WHISPER);
     }
 
     // statistics
@@ -151,7 +151,7 @@ cmd(["re", "reply"], function(playerid, ...) {
 
 // nonRP local chat
 chatcmd(["b"], function(playerid, message) {
-    inRadiusSendToAll(playerid, format("%s: %s", getAuthor( playerid ), message), NORMAL_RADIUS, CL_GRAY);
+    inRadiusSendToAll(playerid, format("%s: %s", getAuthor( playerid ), message), NORMAL_RADIUS, CL_CHAT_B);
 
     // statistics
     statisticsPushMessage(playerid, message, "non-rp-local");
@@ -170,7 +170,7 @@ chatcmd(["o","ooc"], function(playerid, message) {
             // send message to all enabled chat
             foreach (targetid, value in players) {
                 if (antiflood[targetid]["togooc"]) {
-                    msg(targetid, "[Global OOC] " + getAuthor( playerid ) + ": " + message, CL_GRAY);
+                    msg(targetid, "[Global OOC] " + getAuthor( playerid ) + ": " + message, CL_CHAT_OOC);
                 }
             }
 
@@ -179,13 +179,13 @@ chatcmd(["o","ooc"], function(playerid, message) {
             antiflood[playerid]["gooc"] = ANTIFLOOD_GLOBAL_OOC_CHAT;
         }
         else {
-            msg(playerid, "antiflood.message", antiflood[playerid]["gooc"], CL_LIGHTWISTERIA);
+            msg(playerid, "antiflood.message", antiflood[playerid]["gooc"], CL_CHAT_B);
         }
     }
     else {
-        // msg(playerid, "admin.oocDisabled.message",CL_LIGHTWISTERIA);
+        // msg(playerid, "admin.oocDisabled.message",CL_CHAT_B);
         // forward to /b
-        inRadiusSendToAll(playerid, format("[Local nonRP] %s: (( %s ))", getAuthor( playerid ), message), NORMAL_RADIUS, CL_GRAY);
+        inRadiusSendToAll(playerid, format("[Local nonRP] %s: (( %s ))", getAuthor( playerid ), message), NORMAL_RADIUS, CL_CHAT_B);
 
         // statistics
         statisticsPushMessage(playerid, message, "non-rp-local");
