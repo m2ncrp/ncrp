@@ -86,6 +86,11 @@ chatcmd("todo", function(playerid, message) {
 
     local match = regexp(@"(.*)(\*)(.*)$").capture(message);
 
+    if(match == null) {
+        msg(playerid, "chat.player.todo.badformat1", CL_ERROR);
+        return msg(playerid, "chat.player.todo.badformat2");
+    }
+
     local messageBefore = strip(message.slice(match[1].begin, match[1].end));
     local messageAfter = strip(message.slice(match[3].begin, match[3].end));
 
