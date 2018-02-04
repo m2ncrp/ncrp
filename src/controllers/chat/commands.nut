@@ -76,30 +76,25 @@ chatcmd("do", function(playerid, message) {
 
 
 chatcmd("todo", function(playerid, message) {
+
     local lang = getPlayerLocale(playerid);
     if(lang == "ru") {
         message = str_replace_ex("!я", getPlayerName(playerid), message);
     } else {
         message = str_replace_ex("!me", getPlayerName(playerid), message);
     }
-    //local character = getCharacterIdFromPlayerId(playerid);
 
-    inRadiusSendToAll(playerid, format("%s", message), NORMAL_RADIUS, CL_CHAT_TODO);
+    local match = regexp(@"(.*)(\*)(.*)$").capture(message);
+
+    local messageBefore = strip(message.slice(match[1].begin, match[1].end));
+    local messageAfter = strip(message.slice(match[3].begin, match[3].end));
+
+    sendLocalizedMsgToAll(playerid, "chat.player.says", [getPlayerName(playerid), messageBefore], NORMAL_RADIUS, CL_CHAT_IC);
+    inRadiusSendToAll(playerid, "[ME] " + messageAfter, NORMAL_RADIUS, CL_CHAT_ME);
+
     statisticsPushMessage(playerid, message, "todo");
 });
 
-//chatcmd("another_todo", function(playerid, message) {
-//    local starPos = message.find("*");
-//    if(starPos == null || message.len() == starPos) {
-//        msg(playerid, "chat.player.todo.badformat1", CL_ERROR);
-//        return msg(playerid, "chat.player.todo.badformat2");
-//    }
-//    local messageBefore = message.slice(0, starPos-1);
-//    local messageAfter = message.slice(starPos+2);
-//
-//    inRadiusSendToAll(playerid, format("%s - %s", messageBefore, messageAfter), NORMAL_RADIUS, CL_CARIBBEANGREEN);
-//    statisticsPushMessage(playerid, message, "todo");
-//});
 
 // whisper
 chatcmd(["w", "whisper"], function(playerid, message) {
@@ -227,18 +222,6 @@ cmd("report", function(playerid, id, ...) {
     dbg("chat", "report", getAuthor(playerid), ">>" + getAuthor(id) + "<< " + concat(vargv));
 });
 
-// random for some actions
-chatcmd(["try"], function(playerid, message) {
-    local res = random(0,1);
-    if(res)
-        sendLocalizedMsgToAll(playerid, "chat.player.try.end.success", [getPlayerName(playerid), message], NORMAL_RADIUS);
-    else
-        sendLocalizedMsgToAll(playerid, "chat.player.try.end.fail", [getPlayerName(playerid), message], NORMAL_RADIUS);
-
-    // statistics
-    statisticsPushMessage(playerid, message, "try");
-});
-
 cmd(["help", "h", "halp", "info"], function(playerid) {
     local title = "Here is list of available commands:";
     local commands = [
@@ -331,9 +314,9 @@ acmd(["noooc"], function ( playerid ) {
 chatcmd(["try"], function(playerid, message) {
     local res = random(0,1);
     if(res)
-        sendLocalizedMsgToAll(playerid, "chat.player.try.end.success", [getPlayerName(playerid), message], NORMAL_RADIUS);
+        sendLocalizedMsgToAll(playerid, "chat.player.try.end.success", [getPlayerName(playerid), message], SHOUT_RADIUS, CL_CHAT_TRY_SUCCESS);
     else
-        sendLocalizedMsgToAll(playerid, "chat.player.try.end.fail", [getPlayerName(playerid), message], NORMAL_RADIUS);
+        sendLocalizedMsgToAll(playerid, "chat.player.try.end.fail", [getPlayerName(playerid), message], SHOUT_RADIUS, CL_CHAT_TRY_FAILED);
 
     // statistics
     statisticsPushMessage(playerid, message, "try");

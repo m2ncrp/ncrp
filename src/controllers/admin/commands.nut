@@ -66,20 +66,20 @@ acmd(["admin", "adm"], function(playerid, ...) {
 
         // Bertone
         if(getPlayerSerial(playerid) == "7980C4CF5E2DAAF062DF7AE08B6DDE67") {
-            nick = "Bertone";
+            nick = " Bertone";
         }
 
         // Oliver
         if(getPlayerSerial(playerid) == "856BE506BCEAEEC908F3577ABEFF9171") {
-            nick = "Selvatico";
+            nick = " Selvatico";
         }
 
         // Franko Soprano
         if(getPlayerSerial(playerid) == "981506EF83BF42095A62407C696A8515") {
-            nick = "Franko Soprano";
+            nick = " Franko Soprano";
         }
 
-        local author = "[ADMIN] "+nick;
+        local author = "[ADMIN]"+nick;
         local message = concat(vargv);
 
         msga(author+": " + message, [], CL_MEDIUMPURPLE);

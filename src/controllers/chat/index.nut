@@ -237,9 +237,7 @@ event("native:onPlayerChat", function(playerid, message) {
 
     if (match) {
         local slotText = message.slice(match.begin, match.end);
-        log(slotText);
         local slotNumber = chatslots.find(strip(slotText));
-        log(slotNumber.tostring());
         if (slotNumber != null) {
             slot = slotNumber;
             message = message.slice(0, match.begin);
