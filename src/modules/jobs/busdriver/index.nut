@@ -389,13 +389,13 @@ event("onServerStarted", function() {
    //routes[4] <- [15, [4, 98, 25, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];
    //routes[5] <- [23, [4, 5, 99, 6, 7, 8, 9, 10, 12, 13, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];
 
-    routes[1] <- [12, [51, 5, 99, 6, 7, 28, 97, 22, 23, 24, 52]];                                            // sand island
-    routes[2] <- [10, [55, 21, 19, 17, 14, 15, 55]];                                                         // uptown-kingston
+    routes[1] <- [13, [51, 5, 99, 6, 7, 28, 97, 22, 23, 24, 52]];                                            // sand island
+    routes[2] <- [11, [55, 21, 19, 17, 14, 15, 55]];                                                         // uptown-kingston
     routes[3] <- [14, [53, 5, 99, 6, 7, 8, 9, 10, 11, 13, 45, 54]];                                          // center + hospital
-    routes[4] <- [17, [51, 44, 25, 16, 18, 48, 20, 22, 23, 24, 21, 47, 46, 52]];                            // kingston
-    routes[5] <- [22, [4, 26, 27, 28, 7, 8, 9, 10, 12, 13, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]]; // big empire bay
-    routes[6] <- [18, [56, 33, 9, 34, 35, 36, 37, 49, 28, 29, 30, 38, 40, 41, 56]];                         // new center
-    routes[7] <- [11, [54, 42, 39, 31, 32, 43, 54]];                                                         // small
+    routes[4] <- [17, [51, 44, 25, 16, 18, 48, 20, 22, 23, 24, 21, 47, 46, 52]];                             // kingston
+    routes[5] <- [21, [4, 26, 27, 28, 7, 8, 9, 10, 12, 13, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];  // big empire bay
+    routes[6] <- [17, [56, 33, 9, 34, 35, 36, 37, 49, 28, 29, 30, 38, 40, 41, 56]];                          // new center
+    routes[7] <- [10, [54, 42, 39, 31, 32, 43, 54]];                                                         // small
 
     //creating 3dtext for bus depot
     create3DText ( BUS_JOB_X, BUS_JOB_Y, BUS_JOB_Z+0.35, "ROADKING BUS DEPOT", CL_ROYALBLUE );
@@ -416,13 +416,14 @@ event("onServerStarted", function() {
 
 
 event("onPlayerConnect", function(playerid) {
-    if ( ! (getPlayerName(playerid) in job_bus) ) {
-        job_bus[getPlayerName(playerid)] <- {};
-        job_bus[getPlayerName(playerid)]["route"] <- false;
-        job_bus[getPlayerName(playerid)]["bus3dtext"] <- [ null, null ];
-        job_bus[getPlayerName(playerid)]["busload3dtext"] <- null;
-        job_bus[getPlayerName(playerid)]["busBlip"] <- null;
-        job_bus[getPlayerName(playerid)]["idBusStop"] <- null;
+    local charId = getCharacterIdFromPlayerId(playerid);
+    if ( ! (charId in job_bus) ) {
+        job_bus[charId] <- {};
+        job_bus[charId]["route"] <- false;
+        job_bus[charId]["bus3dtext"] <- [ null, null ];
+        job_bus[charId]["busload3dtext"] <- null;
+        job_bus[charId]["busBlip"] <- null;
+        job_bus[charId]["idBusStop"] <- null;
     }
 });
 
@@ -434,13 +435,13 @@ event("onServerPlayerStarted", function( playerid ){
         createText (playerid, "leavejob3dtext", BUS_JOB_X, BUS_JOB_Y, BUS_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), RADIUS_BUS_SMALL );
 
         if (getPlayerJobState(playerid) == "working" || getPlayerJobState(playerid) == "wait") {
-            if(job_bus[getPlayerName(playerid)]["route"][2].len() == 0) {
+            if(job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2].len() == 0) {
                 setPlayerJobState(playerid, "complete");
                 msg( playerid, "job.bus.takeyourmoney", BUS_JOB_COLOR );
                 return;
             }
-            local busID = job_bus[getPlayerName(playerid)]["route"][2][0];
-            if (busID < 90 ) job_bus[getPlayerName(playerid)]["bus3dtext"] = createPrivateBusStop3DText(playerid, busStops[busID].private);
+            local busID = job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2][0];
+            if (busID < 90 ) job_bus[getCharacterIdFromPlayerId(playerid)]["bus3dtext"] = createPrivateBusStop3DText(playerid, busStops[busID].private);
             setPlayerJobState(playerid, "working");
             trigger(playerid, "setGPS", busStops[busID].private.x, busStops[busID].private.y);
             trigger(playerid, "hudDestroyTimer");
@@ -509,12 +510,12 @@ function createPrivateBusStop3DText(playerid, busstop) {
  * @param  {int}  playerid
  */
 function busJobRemovePrivateBlipText ( playerid ) {
-    if(job_bus[getPlayerName(playerid)]["bus3dtext"][0] != null) {
-        remove3DText ( job_bus[getPlayerName(playerid)]["bus3dtext"][0] );
-        remove3DText ( job_bus[getPlayerName(playerid)]["bus3dtext"][1] );
+    if(job_bus[getCharacterIdFromPlayerId(playerid)]["bus3dtext"][0] != null) {
+        remove3DText ( job_bus[getCharacterIdFromPlayerId(playerid)]["bus3dtext"][0] );
+        remove3DText ( job_bus[getCharacterIdFromPlayerId(playerid)]["bus3dtext"][1] );
     }
-    if (job_bus[getPlayerName(playerid)]["busBlip"] != null) {
-        removeBlip ( job_bus[getPlayerName(playerid)]["busBlip"] );
+    if (job_bus[getCharacterIdFromPlayerId(playerid)]["busBlip"] != null) {
+        removeBlip ( job_bus[getCharacterIdFromPlayerId(playerid)]["busBlip"] );
     }
 }
 
@@ -542,7 +543,7 @@ function isPlayerVehicleBus(playerid) {
  * @return {Boolean} true/false
  */
 function isBusRouteSelected(playerid) {
-    return (job_bus[getPlayerName(playerid)]["route"] != false) ? true : false;
+    return (job_bus[getCharacterIdFromPlayerId(playerid)]["route"] != false) ? true : false;
 }
 
 /**
@@ -551,7 +552,7 @@ function isBusRouteSelected(playerid) {
  * @return {Boolean} true/false
  */
 function isBusReady(playerid) {
-    return job_bus[getPlayerName(playerid)]["busready"];
+    return job_bus[getCharacterIdFromPlayerId(playerid)]["busready"];
 }
 
 
@@ -586,8 +587,8 @@ function busJobGet( playerid ) {
     //     return msg( playerid, "job.closed", [ BUS_JOB_GET_HOUR_START.tostring(), BUS_JOB_GET_HOUR_END.tostring()], BUS_JOB_COLOR );
     // }
 
-    if (getPlayerName(playerid) in job_bus_blocked) {
-        if (getTimestamp() - job_bus_blocked[getPlayerName(playerid)] < BUS_JOB_TIMEOUT) {
+    if (getCharacterIdFromPlayerId(playerid) in job_bus_blocked) {
+        if (getTimestamp() - job_bus_blocked[getCharacterIdFromPlayerId(playerid)] < BUS_JOB_TIMEOUT) {
             return msg( playerid, "job.bus.badworker", BUS_JOB_COLOR);
         }
     }
@@ -626,7 +627,7 @@ function busJobCompleted( playerid ) {
 
     setPlayerJobState(playerid, null);
     busGetSalary( playerid );
-    job_bus[getPlayerName(playerid)]["route"] = false;
+    job_bus[getCharacterIdFromPlayerId(playerid)]["route"] = false;
     jobRestorePlayerModel(playerid);
     return;
 }
@@ -661,7 +662,7 @@ function busJobLeave( playerid ) {
     if(getPlayerJobState(playerid) == "complete") {
         setPlayerJobState(playerid, null);
         busGetSalary( playerid );
-        job_bus[getPlayerName(playerid)]["route"] = false;
+        job_bus[getCharacterIdFromPlayerId(playerid)]["route"] = false;
         msg( playerid, "job.bus.goodluck", BUS_JOB_COLOR);
     }
 
@@ -685,7 +686,7 @@ addJobEvent("q", BUS_JOB_NAME, "complete", busJobLeave);
 Event: JOB - Bus driver - Get salary
 */
 function busGetSalary( playerid ) {
-    local amount = job_bus[getPlayerName(playerid)]["route"][1];
+    local amount = job_bus[getCharacterIdFromPlayerId(playerid)]["route"][1];
     addMoneyToPlayer(playerid, amount);
     msg( playerid, "job.bus.nicejob", amount, BUS_JOB_COLOR );
 }
@@ -717,17 +718,17 @@ function busJobStartRoute( playerid ) {
     if(routes_list.len() == 0) routes_list = clone( routes_list_all );
 
 
-    job_bus[getPlayerName(playerid)]["route"] <- [route, routes[route][0], clone( routes[route][1] ) ]; //create clone of route
+    job_bus[getCharacterIdFromPlayerId(playerid)]["route"] <- [route, routes[route][0], clone( routes[route][1] ) ]; //create clone of route
 
     msg(playerid, "job.bus.route.your", BUS_JOB_COLOR);
     msg(playerid, "#"+route+" - "+plocalize(playerid, "job.bus.route."+route), BUS_JOB_COLOR);
 
     msg(playerid, "job.bus.attention", CL_GRAY);
 
-    local busID = job_bus[getPlayerName(playerid)]["route"][2][0];
+    local busID = job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2][0];
 
     msg( playerid, "job.bus.startroute", plocalize(playerid, busStops[busID].name), BUS_JOB_COLOR );
-    if (busID < 90 ) job_bus[getPlayerName(playerid)]["bus3dtext"] = createPrivateBusStop3DText(playerid, busStops[busID].private);
+    if (busID < 90 ) job_bus[getCharacterIdFromPlayerId(playerid)]["bus3dtext"] = createPrivateBusStop3DText(playerid, busStops[busID].private);
     trigger(playerid, "setGPS", busStops[busID].private.x, busStops[busID].private.y);
 }
 addJobEvent("e", BUS_JOB_NAME, null, busJobStartRoute);
@@ -747,7 +748,7 @@ function busJobStop( playerid ) {
         return msg(playerid, "job.bus.needbus", BUS_JOB_COLOR );
     }
 
-    local busID = job_bus[getPlayerName(playerid)]["route"][2][0];
+    local busID = job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2][0];
 
     if(!isPlayerVehicleInValidPoint(playerid, busStops[busID].private.x, busStops[busID].private.y, RADIUS_BUS_STOP )) {
         return/* msg( playerid, "job.bus.gotobusstop", busStops[busID].name, BUS_JOB_COLOR )*/;
@@ -774,32 +775,32 @@ function busJobStop( playerid ) {
 
     msg( playerid, "job.bus.waitpasses", BUS_JOB_COLOR );
 
-    local routenumber = job_bus[getPlayerName(playerid)]["route"][0];
-    local busStopLeft = job_bus[getPlayerName(playerid)]["route"][2].len();
+    local routenumber = job_bus[getCharacterIdFromPlayerId(playerid)]["route"][0];
+    local busStopLeft = job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2].len();
     local nextBusID = null;
 
     sendLocalizedMsgToAll(playerid, "job.bus.driversays", [], SHOUT_RADIUS, CL_CREAMCAN);
 
     if(busStopLeft > 1) {
-        nextBusID = job_bus[getPlayerName(playerid)]["route"][2][1];
-        //sendLocalizedMsgToAll(playerid, "chat.player.shout", [getPlayerName(playerid), message], SHOUT_RADIUS, CL_WHITE);
+        nextBusID = job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2][1];
+        //sendLocalizedMsgToAll(playerid, "chat.player.shout", [getCharacterIdFromPlayerId(playerid), message], SHOUT_RADIUS, CL_WHITE);
         sendLocalizedMsgToAll(playerid, "job.bus.nextbusstop2", [ routenumber, plocalize(playerid, busStops[busID].name)], SHOUT_RADIUS, CL_CREAMCAN);
         if (busStopLeft > 2) {
             sendLocalizedMsgToAll(playerid, "job.bus.nextbusstop", [ plocalize(playerid, busStops[nextBusID].name)], SHOUT_RADIUS, CL_CREAMCAN);
         } else {
             sendLocalizedMsgToAll(playerid, "job.bus.nextbusstop3", [ plocalize(playerid, busStops[nextBusID].name)], SHOUT_RADIUS, CL_CREAMCAN);
         }
-        job_bus[getPlayerName(playerid)]["busload3dtext"] = create3DText ( busStops[busID].private.x, busStops[busID].private.y, busStops[busID].public.z+3.0, "=== ROUTE #"+routenumber+"   NEXT: "+localize( busStops[nextBusID].name, [], "en")+" ===", CL_CREAMCAN );
+        job_bus[getCharacterIdFromPlayerId(playerid)]["busload3dtext"] = create3DText ( busStops[busID].private.x, busStops[busID].private.y, busStops[busID].public.z+3.0, "=== ROUTE #"+routenumber+"   NEXT: "+localize( busStops[nextBusID].name, [], "en")+" ===", CL_CREAMCAN );
     } else {
         sendLocalizedMsgToAll(playerid, "job.bus.lastbusstop", [ routenumber, plocalize(playerid, busStops[busID].name)], SHOUT_RADIUS, CL_CREAMCAN);
-        job_bus[getPlayerName(playerid)]["busload3dtext"] = create3DText ( busStops[busID].private.x, busStops[busID].private.y, busStops[busID].public.z+3.0, "=== ROUTE #"+routenumber+"   END.", CL_CREAMCAN );
+        job_bus[getCharacterIdFromPlayerId(playerid)]["busload3dtext"] = create3DText ( busStops[busID].private.x, busStops[busID].private.y, busStops[busID].public.z+3.0, "=== ROUTE #"+routenumber+"   END.", CL_CREAMCAN );
     }
 
-    job_bus[getPlayerName(playerid)]["route"][2].remove(0);
+    job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2].remove(0);
 
     freezePlayer( playerid, true);
     setPlayerJobState(playerid, "wait");
-    job_bus[getPlayerName(playerid)]["idBusStop"] = busID;
+    job_bus[getCharacterIdFromPlayerId(playerid)]["idBusStop"] = busID;
     local vehFuel = getVehicleFuel( vehicleid );
     setVehicleFuel( vehicleid, 0.0 );
 
@@ -810,9 +811,9 @@ function busJobStop( playerid ) {
         playerDelayedFunction(playerid, 1000, function () { freezePlayer( playerid, false); });
         setVehicleFuel( vehicleid, vehFuel );
 
-        remove3DText( job_bus[getPlayerName(playerid)]["busload3dtext"] );
+        remove3DText( job_bus[getCharacterIdFromPlayerId(playerid)]["busload3dtext"] );
 
-        if (job_bus[getPlayerName(playerid)]["route"][2].len() == 0) {
+        if (job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2].len() == 0) {
             msg( playerid, "job.bus.gototakemoney", BUS_JOB_COLOR );
             blockVehicle(vehicleid);
             setPlayerJobState(playerid, "complete");
@@ -832,13 +833,13 @@ function busJobStop( playerid ) {
             return;
         }
 
-        local busID = job_bus[getPlayerName(playerid)]["route"][2][0];
+        local busID = job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2][0];
 
-        job_bus[getPlayerName(playerid)]["idBusStop"] = null;
+        job_bus[getCharacterIdFromPlayerId(playerid)]["idBusStop"] = null;
 
-        if (busID < 90 ) job_bus[getPlayerName(playerid)]["bus3dtext"] = createPrivateBusStop3DText(playerid, busStops[busID].private);
-        //job_bus[getPlayerName(playerid)]["busBlip"]   = createPrivateBlip(playerid, busStops[busID].private.x, busStops[busID].private.y, ICON_YELLOW, 2000.0);
-        //job_bus[getPlayerName(playerid)]["busBlip"]   = playerid+"blip"; //надо вырезать
+        if (busID < 90 ) job_bus[getCharacterIdFromPlayerId(playerid)]["bus3dtext"] = createPrivateBusStop3DText(playerid, busStops[busID].private);
+        //job_bus[getCharacterIdFromPlayerId(playerid)]["busBlip"]   = createPrivateBlip(playerid, busStops[busID].private.x, busStops[busID].private.y, ICON_YELLOW, 2000.0);
+        //job_bus[getCharacterIdFromPlayerId(playerid)]["busBlip"]   = playerid+"blip"; //надо вырезать
         setPlayerJobState(playerid, "working");
         trigger(playerid, "setGPS", busStops[busID].private.x, busStops[busID].private.y);
         msg( playerid, "job.bus.gotonextbusstop", plocalize(playerid, busStops[busID].name), BUS_JOB_COLOR );
@@ -853,12 +854,12 @@ addJobEvent("e", BUS_JOB_NAME, "working", busJobStop);
 
 event("onPlayerPlaceEnter", function(playerid, name) {
     if (isBusDriver(playerid) && isPlayerVehicleBus(playerid) && getPlayerJobState(playerid) == "working") {
-        if((name == "LittleItalyWaypoint" && job_bus[getPlayerName(playerid)]["route"][2][0] == 98) || (name == "WestSideWaypoint" && job_bus[getPlayerName(playerid)]["route"][2][0] == 99) || (name == "SandIslandWaypoint" && job_bus[getPlayerName(playerid)]["route"][2][0] == 97)) {
+        if((name == "LittleItalyWaypoint" && job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2][0] == 98) || (name == "WestSideWaypoint" && job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2][0] == 99) || (name == "SandIslandWaypoint" && job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2][0] == 97)) {
             trigger(playerid, "removeGPS");
-            job_bus[getPlayerName(playerid)]["route"][2].remove(0);
-            local busID = job_bus[getPlayerName(playerid)]["route"][2][0];
+            job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2].remove(0);
+            local busID = job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2][0];
             trigger(playerid, "setGPS", busStops[busID].private.x, busStops[busID].private.y);
-            job_bus[getPlayerName(playerid)]["bus3dtext"] = createPrivateBusStop3DText(playerid, busStops[busID].private);
+            job_bus[getCharacterIdFromPlayerId(playerid)]["bus3dtext"] = createPrivateBusStop3DText(playerid, busStops[busID].private);
         }
     }
 });
@@ -899,7 +900,7 @@ key("e", function(playerid) {
         local driverid = getVehicleDriver(vehicleid);
         if(driverid == null) return removePlayerFromBus(playerid);
 
-        local busid = job_bus[getPlayerName(driverid)]["idBusStop"];
+        local busid = job_bus[getCharacterIdFromPlayerId(driverid)]["idBusStop"];
         if(busid == null) return msg(playerid, "bus.passenger.leaveonly");
 
         msg(playerid, "bus.passenger.leavebus", CL_CREAMCAN);
@@ -920,9 +921,9 @@ key("e", function(playerid) {
         local driverid = getVehicleDriver(vehicleid);
         if(vehicleid <= 0 || modelid != 20 || driverid == null) return msg(playerid, "bus.passenger.busnotfound", CL_CREAMCAN);
 
-        if(job_bus[getPlayerName(driverid)]["idBusStop"] != busid) return;
+        if(job_bus[getCharacterIdFromPlayerId(driverid)]["idBusStop"] != busid) return;
 
-        if(job_bus[getPlayerName(driverid)]["route"][2].len() < 1) return msg(playerid, "bus.passenger.lastbusstop", BUS_JOB_COLOR);
+        if(job_bus[getCharacterIdFromPlayerId(driverid)]["route"][2].len() < 1) return msg(playerid, "bus.passenger.lastbusstop", BUS_JOB_COLOR);
 
         if(!canMoneyBeSubstracted(playerid, BUS_TICKET_PRICE)) return msg(playerid, "bus.passenger.notenoughmoney", CL_RED);
 
@@ -941,7 +942,7 @@ key("e", function(playerid) {
 
 // don't touch and don't replace. Service command for fast test!
 acmd("gotobusstop", function(playerid) {
-    local busid = job_bus[getPlayerName(playerid)]["route"][2][0];
+    local busid = job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2][0];
     local poss = busStops[busid].private;
     setVehiclePosition( getPlayerVehicle(playerid), poss.x, poss.y, poss.z );
     busJobStop( playerid );

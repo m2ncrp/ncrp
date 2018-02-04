@@ -41,7 +41,7 @@ const PORTER_JOB_PUTBOX_X = -632.416;
 const PORTER_JOB_PUTBOX_Y = 1645.35;
 const PORTER_JOB_PUTBOX_Z = -23.2408;
 const PORTER_JOB_SKIN = 131;
-const PORTER_SALARY = 0.35;
+const PORTER_SALARY = 0.30;
       PORTER_JOB_COLOR <- CL_CRUSTA;
 local PORTER_JOB_GET_HOUR_START = 6;
 local PORTER_JOB_GET_HOUR_END   = 18;
@@ -65,19 +65,19 @@ event("onServerStarted", function() {
 });
 
 event("onPlayerConnect", function(playerid) {
-    job_porter[playerid] <- {};
-    job_porter[playerid]["havebox"] <- false;
-    job_porter[playerid]["blip3dtext"] <- [null, null, null];
-    job_porter[playerid]["moveState"] <- null;
-    job_porter[playerid]["press3Dtext"] <- null;
+    job_porter[getCharacterIdFromPlayerId(playerid)] <- {};
+    job_porter[getCharacterIdFromPlayerId(playerid)]["havebox"] <- false;
+    job_porter[getCharacterIdFromPlayerId(playerid)]["blip3dtext"] <- [null, null, null];
+    job_porter[getCharacterIdFromPlayerId(playerid)]["moveState"] <- null;
+    job_porter[getCharacterIdFromPlayerId(playerid)]["press3Dtext"] <- null;
 });
 
 event("onServerPlayerStarted", function( playerid ) {
     if(players[playerid]["job"] == "porter") {
-        job_porter[playerid]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_TAKEBOX_X, PORTER_JOB_TAKEBOX_Y, PORTER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "press E");
-        job_porter[playerid]["press3Dtext"] = createPrivate3DText (playerid, PORTER_JOB_X, PORTER_JOB_Y, PORTER_JOB_Z+0.20, "Press Q to leave job", CL_WHITE.applyAlpha(100), 3.0 );
+        job_porter[getCharacterIdFromPlayerId(playerid)]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_TAKEBOX_X, PORTER_JOB_TAKEBOX_Y, PORTER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "press E");
+        job_porter[getCharacterIdFromPlayerId(playerid)]["press3Dtext"] = createPrivate3DText (playerid, PORTER_JOB_X, PORTER_JOB_Y, PORTER_JOB_Z+0.20, "Press Q to leave job", CL_WHITE.applyAlpha(100), 3.0 );
     } else {
-        job_porter[playerid]["press3Dtext"] = createPrivate3DText (playerid, PORTER_JOB_X, PORTER_JOB_Y, PORTER_JOB_Z+0.20, "Press E to get job", CL_WHITE.applyAlpha(100), 3.0 );
+        job_porter[getCharacterIdFromPlayerId(playerid)]["press3Dtext"] = createPrivate3DText (playerid, PORTER_JOB_X, PORTER_JOB_Y, PORTER_JOB_Z+0.20, "Press E to get job", CL_WHITE.applyAlpha(100), 3.0 );
     }
 });
 
@@ -108,10 +108,10 @@ function porterJobCreatePrivateBlipText(playerid, x, y, z, text, cmd) {
  * @param  {int}  playerid
  */
 function porterJobRemovePrivateBlipText ( playerid ) {
-    if(job_porter[playerid]["blip3dtext"][0] != null) {
-        remove3DText ( job_porter[playerid]["blip3dtext"][0] );
-        remove3DText ( job_porter[playerid]["blip3dtext"][1] );
-        removeBlip   ( job_porter[playerid]["blip3dtext"][2] );
+    if(job_porter[getCharacterIdFromPlayerId(playerid)]["blip3dtext"][0] != null) {
+        remove3DText ( job_porter[getCharacterIdFromPlayerId(playerid)]["blip3dtext"][0] );
+        remove3DText ( job_porter[getCharacterIdFromPlayerId(playerid)]["blip3dtext"][1] );
+        removeBlip   ( job_porter[getCharacterIdFromPlayerId(playerid)]["blip3dtext"][2] );
     }
 }
 
@@ -132,7 +132,7 @@ function isPorter(playerid) {
  * @return {Boolean} true/false
  */
 function isPorterHaveBox(playerid) {
-    return job_porter[playerid]["havebox"];
+    return job_porter[getCharacterIdFromPlayerId(playerid)]["havebox"];
 }
 
 
@@ -165,9 +165,9 @@ function porterJob( playerid ) {
         // create private blip job
         // createPersonalJobBlip( playerid, PORTER_JOB_X, PORTER_JOB_Y);
 
-        remove3DText(job_porter[playerid]["press3Dtext"]);
-        job_porter[playerid]["press3Dtext"] = createPrivate3DText (playerid, PORTER_JOB_X, PORTER_JOB_Y, PORTER_JOB_Z+0.20, "Press Q to leave job", CL_WHITE.applyAlpha(100), 3.0 );
-        job_porter[playerid]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_TAKEBOX_X, PORTER_JOB_TAKEBOX_Y, PORTER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "Press E");
+        remove3DText(job_porter[getCharacterIdFromPlayerId(playerid)]["press3Dtext"]);
+        job_porter[getCharacterIdFromPlayerId(playerid)]["press3Dtext"] = createPrivate3DText (playerid, PORTER_JOB_X, PORTER_JOB_Y, PORTER_JOB_Z+0.20, "Press Q to leave job", CL_WHITE.applyAlpha(100), 3.0 );
+        job_porter[getCharacterIdFromPlayerId(playerid)]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_TAKEBOX_X, PORTER_JOB_TAKEBOX_Y, PORTER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "Press E");
 
     });
 }
@@ -195,7 +195,7 @@ function porterJobLeave( playerid ) {
         setPlayerJob( playerid, null );
         restorePlayerModel(playerid);
 
-        job_porter[playerid]["havebox"] = false;
+        job_porter[getCharacterIdFromPlayerId(playerid)]["havebox"] = false;
 
         //setPlayerAnimStyle(playerid, "common", "default");
         //setPlayerHandModel(playerid, 1, 0);
@@ -205,8 +205,8 @@ function porterJobLeave( playerid ) {
 
         porterJobRemovePrivateBlipText ( playerid );
 
-        remove3DText(job_porter[playerid]["press3Dtext"]);
-        job_porter[playerid]["press3Dtext"] = createPrivate3DText (playerid, PORTER_JOB_X, PORTER_JOB_Y, PORTER_JOB_Z+0.20, "Press E to get job", CL_WHITE.applyAlpha(100), 3.0 );
+        remove3DText(job_porter[getCharacterIdFromPlayerId(playerid)]["press3Dtext"]);
+        job_porter[getCharacterIdFromPlayerId(playerid)]["press3Dtext"] = createPrivate3DText (playerid, PORTER_JOB_X, PORTER_JOB_Y, PORTER_JOB_Z+0.20, "Press E to get job", CL_WHITE.applyAlpha(100), 3.0 );
 
     });
 }
@@ -234,19 +234,19 @@ function porterJobTakeBox( playerid ) {
         return msg( playerid, "job.nojob", PORTER_JOB_COLOR );
     }
 
-    if (job_porter[playerid]["moveState"] == 1 || job_porter[playerid]["moveState"] == 2){
+    if (job_porter[getCharacterIdFromPlayerId(playerid)]["moveState"] == 1 || job_porter[getCharacterIdFromPlayerId(playerid)]["moveState"] == 2){
         return  msg( playerid, "job.porter.presscapslock" );
     }
 
     porterJobRemovePrivateBlipText ( playerid );
 
-    job_porter[playerid]["havebox"] = true;
+    job_porter[getCharacterIdFromPlayerId(playerid)]["havebox"] = true;
 
     //setPlayerAnimStyle(playerid, "common", "CarryBox");
     //setPlayerHandModel(playerid, 1, 98); // put box in hands
     msg( playerid, "job.porter.tookbox", PORTER_JOB_COLOR );
 
-    job_porter[playerid]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_PUTBOX_X, PORTER_JOB_PUTBOX_Y, PORTER_JOB_PUTBOX_Z, "PUT BOX HERE", "Press E");
+    job_porter[getCharacterIdFromPlayerId(playerid)]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_PUTBOX_X, PORTER_JOB_PUTBOX_Y, PORTER_JOB_PUTBOX_Z, "PUT BOX HERE", "Press E");
     //delayedFunction(250, function () { setPlayerAnimStyle(playerid, "common", "CarryBox"); });
     //delayedFunction(500, function () { setPlayerAnimStyle(playerid, "common", "CarryBox"); });
     //delayedFunction(750, function () { setPlayerAnimStyle(playerid, "common", "CarryBox"); });
@@ -272,11 +272,11 @@ function porterJobPutBox( playerid ) {
 
     porterJobRemovePrivateBlipText ( playerid );
 
-    job_porter[playerid]["havebox"] = false;
+    job_porter[getCharacterIdFromPlayerId(playerid)]["havebox"] = false;
     msg( playerid, "job.porter.nicejob", PORTER_SALARY, PORTER_JOB_COLOR );
     addMoneyToPlayer(playerid, PORTER_SALARY);
 
-    job_porter[playerid]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_TAKEBOX_X, PORTER_JOB_TAKEBOX_Y, PORTER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "Press E");
+    job_porter[getCharacterIdFromPlayerId(playerid)]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_TAKEBOX_X, PORTER_JOB_TAKEBOX_Y, PORTER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "Press E");
     //delayedFunction(250, function () { setPlayerAnimStyle(playerid, "common", "default"); });
     //delayedFunction(500, function () { setPlayerAnimStyle(playerid, "common", "default"); });
     //delayedFunction(750, function () { setPlayerAnimStyle(playerid, "common", "default"); });
@@ -285,7 +285,7 @@ function porterJobPutBox( playerid ) {
 
 /*
 event("updateMoveState", function(playerid, state) {
-    job_porter[playerid]["moveState"] = state;
+    job_porter[getCharacterIdFromPlayerId(playerid)]["moveState"] = state;
     if(isPorter( playerid ) && isPorterHaveBox(playerid)) {
         if(state == 1 || state == 2) {
             setPlayerAnimStyle(playerid, "common", "default");
@@ -294,10 +294,10 @@ event("updateMoveState", function(playerid, state) {
 
             porterJobRemovePrivateBlipText ( playerid );
 
-            job_porter[playerid]["havebox"] = false;
+            job_porter[getCharacterIdFromPlayerId(playerid)]["havebox"] = false;
             msg( playerid, "job.porter.dropped", PORTER_JOB_COLOR );
             msg( playerid, "job.porter.presscapslock" )
-            job_porter[playerid]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_TAKEBOX_X, PORTER_JOB_TAKEBOX_Y, PORTER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "press E");
+            job_porter[getCharacterIdFromPlayerId(playerid)]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_TAKEBOX_X, PORTER_JOB_TAKEBOX_Y, PORTER_JOB_TAKEBOX_Z, "TAKE BOX HERE", "press E");
             delayedFunction(250, function () { setPlayerAnimStyle(playerid, "common", "default"); });
             delayedFunction(500, function () { setPlayerAnimStyle(playerid, "common", "default"); });
             delayedFunction(750, function () { setPlayerAnimStyle(playerid, "common", "default"); });

@@ -63,10 +63,10 @@ translation("ru", {
     "job.truckdriver.scens7.unload"     : "Грузовик загружен. Отправляйся к бару «Дрэгстрип» в Северном Милвилле для разгрузки ящиков с алкоголем."
 
     "job.truckdriver.badworker"         : "Robert Casey: Плохой из тебя работник. Для такого как ты у меня нет работы."
-    "job.truckdriver.badworker.onleave" : "Robert Casey: Херовый ты работник. Вали нахрен."
+    "job.truckdriver.badworker.onleave" : "Robert Casey: Значит отказываешься от задания? Хреновый ты работник, гуляй!"
     "job.truckdriver.goodluck"          : "Robert Casey: Удачи тебе, пацан! Приходи, если нужна работа."
     "job.truckdriver.needcomplete"      : "Robert Casey: Сначала заверши доставку."
-    "job.truckdriver.nicejob"           : "Robert Casey: Отличная работа, %s! Держи $%.2f."
+    "job.truckdriver.nicejob"           : "Robert Casey: Отличная работа! Держи $%.2f."
     "job.truckdriver.now"               : "Robert Casey: Добро пожаловать в ряды шофёров!"
 
     "job.truckdriver.needtruck"         : "Вам нужен грузовик %s."
