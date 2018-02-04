@@ -37,16 +37,16 @@ event("onPlayerJobChanged", function(playerid) {
 });
 
 function createPersonalJobBlip(playerid, x, y, icon = ICON_STAR) {
-    if (!(playerid in playerJobBlips)) {
-        playerJobBlips[playerid] <- [];
+    if (!(getCharacterIdFromPlayerId(playerid) in playerJobBlips)) {
+        playerJobBlips[getCharacterIdFromPlayerId(playerid)] <- [];
     }
-    playerJobBlips[playerid].push(createPrivateBlip(playerid, x, y, icon, 4000.0));
+    playerJobBlips[getCharacterIdFromPlayerId(playerid)].push(createPrivateBlip(playerid, x, y, icon, 4000.0));
 }
 
 function removePersonalJobBlip(playerid) {
-   if (playerid in playerJobBlips) {
-        playerJobBlips[playerid].apply(removeBlip)
-        playerJobBlips[playerid] = [];
+   if (getCharacterIdFromPlayerId(playerid) in playerJobBlips) {
+        playerJobBlips[getCharacterIdFromPlayerId(playerid)].apply(removeBlip)
+        playerJobBlips[getCharacterIdFromPlayerId(playerid)] = [];
    }
 }
 
@@ -62,11 +62,11 @@ local job_state = {};
 local job_callbacks = {};
 
 function setPlayerJobState(playerid, state) {
-    job_state[getPlayerName(playerid)] <- state;
+    job_state[getCharacterIdFromPlayerId(playerid)] <- state;
 }
 
 function getPlayerJobState(playerid) {
-    return (getPlayerName(playerid) in job_state) ? job_state[getPlayerName(playerid)] : null;
+    return (getCharacterIdFromPlayerId(playerid) in job_state) ? job_state[getCharacterIdFromPlayerId(playerid)] : null;
 }
 
 function addJobEvent(button, jobname, state, callback) {
@@ -140,7 +140,7 @@ include("modules/jobs/fueldriver");
 //include("modules/jobs/taxi");
 include("modules/jobs/milkdriver");
 include("modules/jobs/fishdriver");
-//include("modules/jobs/truckdriver");
+include("modules/jobs/truckdriver");
 include("modules/jobs/telephone");
 include("modules/jobs/docker");
 include("modules/jobs/stationporter");

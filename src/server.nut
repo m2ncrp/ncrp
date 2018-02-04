@@ -1,5 +1,5 @@
 DEBUG   <- false;
-VERSION <- "1.2.0";
+VERSION <- "1.3.0";
 MOD_HOST <- "139.59.142.46";
 MOD_PORT <- 7790;
 

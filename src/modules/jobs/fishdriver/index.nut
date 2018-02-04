@@ -85,7 +85,7 @@ const FISH_JOB_UNLOAD_Y = 98.0385;
 const FISH_JOB_UNLOAD_Z = -21.2582;
 
 const FISH_JOB_SKIN = 130;
-const FISH_JOB_SALARY = 0.7;
+const FISH_JOB_SALARY = 0.65;
 const FISH_JOB_LEVEL = 1;
       FISH_JOB_COLOR <- CL_CRUSTA;
 
@@ -132,12 +132,13 @@ event("onServerStarted", function() {
 });
 
 event("onPlayerConnect", function(playerid) {
-    if ( ! (getPlayerName(playerid) in job_fish) ) {
-    job_fish[getPlayerName(playerid)] <- {};
-    job_fish[getPlayerName(playerid)]["hand"] <- null;
-    job_fish[getPlayerName(playerid)]["userstatus"] <- null;
-    job_fish[getPlayerName(playerid)]["sitting"] <- false;
-    job_fish[getPlayerName(playerid)]["blip3dtext"] <- [null, null, null];
+    local charId = getCharacterIdFromPlayerId(playerid);
+    if ( ! (charId in job_fish) ) {
+    job_fish[charId] <- {};
+    job_fish[charId]["hand"] <- null;
+    job_fish[charId]["userstatus"] <- null;
+    job_fish[charId]["sitting"] <- false;
+    job_fish[charId]["blip3dtext"] <- [null, null, null];
     }
 });
 
@@ -146,7 +147,7 @@ event("onServerPlayerStarted", function( playerid ){
     if(!isFishDriver(playerid)) {
         return;
     }
-    if (job_fish[getPlayerName(playerid)]["userstatus"] == "working") {
+    if (job_fish[getCharacterIdFromPlayerId(playerid)]["userstatus"] == "working") {
         msg( playerid, "job.fishdriver.continue", FISH_JOB_COLOR );
         fishJobSync3DText(playerid);
     } else {
@@ -163,7 +164,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
         return;
     }
 
-    if(job_fish[getPlayerName(playerid)]["sitting"] == true) {
+    if(job_fish[getCharacterIdFromPlayerId(playerid)]["sitting"] == true) {
         return;
     }
     local vehicleid = getPlayerVehicle(playerid);
@@ -217,7 +218,7 @@ event("onPlayerPlaceExit", function(playerid, name) {
     setVehicleRespawnEx(vehicleid, true);
 
     if(fishcars[vehicleid][1] == "emptybox" && fishcars[vehicleid][2] > 0) {
-        job_fish[getPlayerName(playerid)]["blip3dtext"] = fishJobCreatePrivateBlipText(playerid, FISH_JOB_LOAD_X, FISH_JOB_LOAD_Y, FISH_JOB_LOAD_Z, "LOAD FISH", "Press E");
+        job_fish[getCharacterIdFromPlayerId(playerid)]["blip3dtext"] = fishJobCreatePrivateBlipText(playerid, FISH_JOB_LOAD_X, FISH_JOB_LOAD_Y, FISH_JOB_LOAD_Z, "LOAD FISH", "Press E");
         trigger(playerid, "setGPS", FISH_JOB_LOAD_X, FISH_JOB_LOAD_Y);
         msg(playerid, "job.fishdriver.toload", FISH_JOB_COLOR );
     }
@@ -242,11 +243,11 @@ event("onPlayerVehicleEnter", function (playerid, vehicleid, seat) {
         return;
     }
 
-    if(isFishDriver(playerid) && job_fish[getPlayerName(playerid)]["userstatus"] == "working") {
-        job_fish[getPlayerName(playerid)]["hand"] = null;
-        job_fish[getPlayerName(playerid)]["sitting"] = true;
+    if(isFishDriver(playerid) && job_fish[getCharacterIdFromPlayerId(playerid)]["userstatus"] == "working") {
+        job_fish[getCharacterIdFromPlayerId(playerid)]["hand"] = null;
+        job_fish[getCharacterIdFromPlayerId(playerid)]["sitting"] = true;
         delayedFunction(3000, function() {
-            job_fish[getPlayerName(playerid)]["sitting"] = false;
+            job_fish[getCharacterIdFromPlayerId(playerid)]["sitting"] = false;
         });
         unblockVehicle(vehicleid);
         if (fishcars[vehicleid][0] != false) {
@@ -266,7 +267,7 @@ key("e", function(playerid) {
     if(!isFishDriver(playerid)) {
         return;
     }
-    if (job_fish[getPlayerName(playerid)]["userstatus"] != "working") {
+    if (job_fish[getCharacterIdFromPlayerId(playerid)]["userstatus"] != "working") {
         return;
     }
 
@@ -349,7 +350,7 @@ function fishJobGet( playerid ) {
     }
 
     // если у игрока статус работы == null
-    if(job_fish[getPlayerName(playerid)]["userstatus"] == null) {
+    if(job_fish[getCharacterIdFromPlayerId(playerid)]["userstatus"] == null) {
 
         // если у игрока уже есть другая работа
         if(isPlayerHaveJob(playerid) && !isFishDriver(playerid)) {
@@ -371,8 +372,8 @@ function fishJobGet( playerid ) {
     }
 
     // если у игрока статус работы == выполняет работу
-    if (job_fish[getPlayerName(playerid)]["userstatus"] == "working" || job_fish[getPlayerName(playerid)]["userstatus"] == "wait") {
-        job_fish[getPlayerName(playerid)]["userstatus"] = "working";
+    if (job_fish[getCharacterIdFromPlayerId(playerid)]["userstatus"] == "working" || job_fish[getCharacterIdFromPlayerId(playerid)]["userstatus"] == "wait") {
+        job_fish[getCharacterIdFromPlayerId(playerid)]["userstatus"] = "working";
         return msg( playerid, "job.fishdriver.continue", FISH_JOB_COLOR );
     }
 }
@@ -394,8 +395,8 @@ function fishJobRefuseLeave( playerid ) {
     }
 
         msg( playerid, "job.fishdriver.goodluck", FISH_JOB_COLOR);
-        job_fish[getPlayerName(playerid)]["userstatus"] = null;
-        job_fish[getPlayerName(playerid)]["hand"] = null;
+        job_fish[getCharacterIdFromPlayerId(playerid)]["userstatus"] = null;
+        job_fish[getCharacterIdFromPlayerId(playerid)]["hand"] = null;
 
         local arr_3dtext = [
             "leavejob3dtext"           ,
@@ -428,14 +429,14 @@ function fishJobRefuseLeave( playerid ) {
 
 
 function fishJobStartRoute( playerid ) {
-    //job_fish[getPlayerName(playerid)]["blip3dtext"] = fishJobCreatePrivateBlipText(playerid, 396.5, 98.0385, -21.2582, "UNLOAD HERE", "/fish unload");
+    //job_fish[getCharacterIdFromPlayerId(playerid)]["blip3dtext"] = fishJobCreatePrivateBlipText(playerid, 396.5, 98.0385, -21.2582, "UNLOAD HERE", "/fish unload");
     //
     local hour = getHour();
     if(hour < FISH_JOB_WORKING_HOUR_START || hour >= FISH_JOB_WORKING_HOUR_END) {
         return msg( playerid, "job.closed", [ FISH_JOB_WORKING_HOUR_START.tostring(), FISH_JOB_WORKING_HOUR_END.tostring()], FISH_JOB_COLOR );
     }
 
-    job_fish[getPlayerName(playerid)]["userstatus"] = "working";
+    job_fish[getCharacterIdFromPlayerId(playerid)]["userstatus"] = "working";
     fishJobSync3DText(playerid);
     msg(playerid, "job.fishdriver.toparking", FISH_JOB_COLOR );
 }
@@ -486,7 +487,7 @@ function fishJobLoad( playerid ) {
     fishJobRemovePrivateBlipText ( playerid );
 
     freezePlayer( playerid, true);
-    job_fish[getPlayerName(playerid)]["userstatus"] = "wait";
+    job_fish[getCharacterIdFromPlayerId(playerid)]["userstatus"] = "wait";
     setVehiclePartOpen(vehicleid, 1, true);
     msg( playerid, "job.fishdriver.loading", FISH_JOB_COLOR );
     trigger(playerid, "removeGPS");
@@ -495,7 +496,7 @@ function fishJobLoad( playerid ) {
         setVehiclePartOpen(vehicleid, 1, false);
         freezePlayer( playerid, false);
         delayedFunction(1000, function () { freezePlayer( playerid, false); });
-        job_fish[getPlayerName(playerid)]["userstatus"] = "working";
+        job_fish[getCharacterIdFromPlayerId(playerid)]["userstatus"] = "working";
         fishcars[vehicleid][1] = "fishbox";
         trigger(playerid, "setGPS", 370.0, 118.0);
         msg( playerid, "job.fishdriver.loaded", FISH_JOB_COLOR );
@@ -577,7 +578,7 @@ function fishOpenCloseDoors(playerid) {
 function fishJobIsPlayerWorkingForeach(func_callback) {
     foreach (targetid, player in players) {
         if (!isFishDriver(targetid)) continue;
-        if (job_fish[getPlayerName(targetid)]["userstatus"] != "working") continue;
+        if (job_fish[getCharacterIdFromPlayerId(targetid)]["userstatus"] != "working") continue;
 
         func_callback(targetid);
     }
@@ -671,7 +672,7 @@ function fishJobSetDefaultFishLimit( playerid, limit ) {
 function fishJobTakePutBox( playerid ) {
     if(isPlayerInVehicle(playerid)) return;
 
-    local hand = job_fish[getPlayerName(playerid)]["hand"];
+    local hand = job_fish[getCharacterIdFromPlayerId(playerid)]["hand"];
     local place = null;
     local places = [
         [  FISH_TAKEBOX[0]     ,  FISH_TAKEBOX[1]     , "takeemptybox" ],
@@ -755,7 +756,7 @@ function fishJobTakePutBox( playerid ) {
                 fishcars[vehicleid][1] = gruz;
                 fishcars[vehicleid][2] = kolvo;
             }
-    job_fish[getPlayerName(playerid)]["hand"] = hand;
+    job_fish[getCharacterIdFromPlayerId(playerid)]["hand"] = hand;
 }
 
 translate("ru", {
