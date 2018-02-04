@@ -74,11 +74,11 @@ CL_GOLDENSAND           <- rgb(242,209,107      );
 CL_PERUSIENNA           <- rgb(182,108,54)      ;
 CL_LIMEGREEN            <- rgb(37,181,44        );
 CL_SUNSETORANGE         <- rgb(234,82,68        );
-CL_HOKI                            <- rgb( 103,  128, 159 );
+CL_HOKI                 <- rgb( 103,  128, 159 );
 
 
-CL_CHAT_OOC             <- CL_CASCADE; //CL_GRAY; CL_SILVERSAND;
-CL_CHAT_B               <- CL_HOKI; //CL_WISTFUL;
+CL_CHAT_OOC             <- CL_CASCADE;
+CL_CHAT_B               <- CL_HOKI;
 CL_CHAT_PM              <- CL_TEAROSE;
 CL_CHAT_SHOUT           <- CL_WHEAT;
 CL_CHAT_IC              <- CL_GOLDENSAND;
