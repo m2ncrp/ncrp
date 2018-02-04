@@ -76,7 +76,7 @@ local carPricesAll = [
     ]
 ];
 
-local carOnSale = [ 0, 1, 9, 10, 12, 13, 14, 15, 18, 22, 23, 25, 28, 29, 41, 43, 44, 45, 47, 48, 50, 52, 53 ];
+local carOnSale = [ 0, 1, 9, 10, 12, 13, 14, 15, 22, 23, 25, 28, 29, 41, 43, 44, 45, 47, 48, 50, 52, 53 ];
 local currentcarcolor = {};
 local carPrices = {};
 // translations

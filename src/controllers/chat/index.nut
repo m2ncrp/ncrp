@@ -1,52 +1,188 @@
 include("controllers/chat/functions.nut");
 include("controllers/chat/commands.nut");
 
-translation("en", {
-    "general.message.empty"         : "[INFO] You can't send an empty message",
-    "general.noonearound"           : "There's noone around near you.",
 
-    "chat.player.says"              : "%s: %s",
-    "chat.player.shout"             : "%s shout: %s",
-    "chat.player.whisper"           : "%s whisper: %s",
-    "chat.player.message.private"   : "[PM] %s to %s: %s",
-    "chat.player.message.error"     : "[PM] You should provide pm in a following format: /pm ID TEXT",
-    "chat.player.message.noplayer"  : "[PM] Player is not connected",
-    "chat.player.try.end.success"   : "[TRY] %s: %s (success).",
-    "chat.player.try.end.fail"      : "[TRY] %s: %s (failed)."
+alternativeTranslate({
 
-    "chat.bug.success"              : "[BUG] Your bug report is successfuly saved. Thank you!"
-    "chat.idea.success"             : "[IDEA] Your idea has been successfuly submitted!"
-    "chat.report.success"           : "[REPORT] Your report has been successfuly submitted!"
-    "chat.report.noplayer"          : "[REPORT] You can't report about player, which is not connected!"
-    "chat.report.error"             : "[REPORT] You should provide report in a following format: /report ID TEXT"
-});
+    "en|admin.oocEnabled.message"      : "General chat enabled by administrator!"
+    "en|admin.oocDisabled.message"     : "General chat disabled by administrator!"
+
+
+
+    "en|general.message.empty"         : "[INFO] You can't send an empty message",
+    "ru|general.message.empty"         : "[INFO] Вы не можете отправить пустое сообщение."
+
+    "en|general.playeroffline"         : "[INFO] There's no such person on server!",
+    "ru|general.playeroffline"         : "[INFO] Данного игрока нет на сервере!"
+
+    "en|general.noonearound"           : "There's noone around near you.",
+    "ru|general.noonearound"           : "Рядом с вами никого нет."
+
+
+
+    "en|chat.togoocEnabled"            : "Displaying OOC chat has been enabled!"
+    "ru|chat.togoocEnabled"            : "Вы включили отображение ООС чата!"
+
+    "en|chat.togoocDisabled"           : "Displaying OOC chat has been disabled!"
+    "ru|chat.togoocDisabled"           : "Вы отключили отображение ООС чата!"
+
+    "en|chat.togoocDisabledAlready"    : "You have disabled display of general chat! To enable: /togooc"
+    "ru|chat.togoocDisabledAlready"    : "У вас отключено отображение ООС чата! Включить: /togooc"
+
+
+    "en|chat.togpmEnabled"             : "Receiving private messages has been enabled!"
+    "ru|chat.togpmEnabled"             : "Вы включили получение личных сообщений!"
+
+    "en|chat.togpmDisabled"            : "Receiving private messages has been disabled!"
+    "ru|chat.togpmDisabled"            : "Вы отключили получение личных сообщений!"
+
+    "en|chat.togpmDisabledAlready"     : "You have disabled private message! To enable: /togpm"
+    "ru|chat.togpmDisabledAlready"     : "У вас отключены личные сообщения! Включить: /togpm"
+
+    "en|chat.playerTogPm"              : "Player has disabled a private message!"
+    "ru|chat.playerTogPm"              : "Игрок отключил возможность отправлять ему личные сообщения!"
+
+    "ru|antiflood.message"             : "Антифлуд: Для отправки сообщения подождите еще %i секунд"
+    "en|antiflood.message"             : "Aniflood: wait a %i seconds."
+
+
+
+    "en|chat.player.says"              : "%s: %s",
+    "ru|chat.player.says"              : "%s: %s"
+
+    "en|chat.player.shout"             : "%s shout: %s",
+    "ru|chat.player.shout"             : "%s крикнул: %s"
+
+    "en|chat.player.whisper"           : "%s whisper: %s",
+    "ru|chat.player.whisper"           : "%s шепчет: %s"
+
+    "en|chat.player.try.end.success"   : "[TRY] %s: %s (success)"
+    "ru|chat.player.try.end.success"   : "[TRY] %s: %s (успех)"
+
+    "en|chat.player.try.end.fail"      : "[TRY] %s: %s (failed)"
+    "ru|chat.player.try.end.fail"      : "[TRY] %s: %s (провал)"
+
+    "en|chat.player.todo.badformat1"   : "Invalid format message!"
+    "ru|chat.player.todo.badformat1"   : "Неверный формат сообщения!"
+
+    "en|chat.player.todo.badformat2"   : "Use: /todo words * action"
+    "ru|chat.player.todo.badformat2"   : "Используй: /todo реплика персонажа * действие"
+
+    "en|chat.player.message.error"     : "[PM] You should provide pm in a following format: /pm id text",
+    "ru|chat.player.message.error"     : "[PM] Формат личного сообщения: /pm id текст",
+
+    "en|chat.player.message.private"   : "[PM] %s to %s: %s",
+    "ru|chat.player.message.private"   : "[PM] %s пишет %s: %s"
+
+    "en|chat.player.message.noplayer"  : "[PM] Player is not connected",
+    "ru|chat.player.message.noplayer"  : "[PM] Такого игрока нет на сервере.",
+
+
+
+    "en|chat.bug.success"              : "[BUG] Your bug report is successfuly saved. Thank you!"
+    "ru|chat.bug.success"              : "[BUG] Ваше сообщение об ошибке успешно отправлено. Спасибо! ;)"
+
+    "en|chat.idea.success"             : "[IDEA] Your idea has been successfuly submitted!"
+    "ru|chat.idea.success"             : "[IDEA] Ваша идея успешно отправлена!"
+
+    "en|chat.report.success"           : "[REPORT] Your report has been successfuly submitted!"
+    "ru|chat.report.success"           : "[REPORT] Ваш репорт успешно отправлен!"
+
+
+    "en|chat.report.noplayer"          : "[REPORT] You can't report about player, which is not connected!"
+    "ru|chat.report.noplayer"          : "[REPORT] Вы не можете создать репорт на игрока, который находится в оффлайн!"
+
+    "en|chat.report.error"             : "[REPORT] You should provide report in a following format: /report ID TEXT"
+    "ru|chat.report.error"             : "[REPORT] Вам необходимо отправить репорт в виде: /report id text"
+
 
 // help
-translation("en", {
-    "help.chat"        : "Show list of commands for chat"
-    "help.subway"      : "Show list of commands for subway"
-    "help.taxi"        : "Show list of commands for taxi"
-    "help.rentcar"     : "Show list of commands for rent car"
-    "help.job"         : "Show list of commands for job. Example: /help job taxi"
-    "help.ban"         : "Show list of commands for bank"
-    "help.cars"        : "Show list of commands for cars"
-    "help.fuel"        : "Show list of commands for fuel stations"
-    "help.repair"      : "Show list of commands for repiair shop"
-    "help.report"      : "Report about player which is braking the rules"
-    "help.idea"        : "Send your idea to developers"
+
+    "en|help.chat"              : "Show list of commands for chat"
+    "ru|help.chat"              : "Показать список команд для чата"
+
+    "en|help.subway"            : "Show list of commands for subway"
+    "ru|help.subway"            : "Показать список команд для метро"
+
+    "en|help.taxi"              : "Show list of commands for taxi"
+    "ru|help.taxi"              : "Показать список команд для такси"
+
+    "en|help.rentcar"           : "Show list of commands for rent car"
+    "ru|help.rentcar"           : "Показать список команд для аренды авто"
+
+    "en|help.job"               : "Show list of commands for job. Example: /help job taxi"
+    "ru|help.job"               : "Показать список команд для работ. Пример: /help job taxi"
+
+    "en|help.ban"               : "Show list of commands for bank"
+    "ru|help.ban"               : "Показать список команд для банка"
+
+    "en|help.cars"              : "Show list of commands for cars"
+    "ru|help.cars"              : "Показать список команд для авто"
+
+    "en|help.fuel"              : "Show list of commands for fuel stations"
+    "ru|help.fuel"              : "Показать список команд для автозаправок"
+
+    "en|help.repair"            : "Show list of commands for repiair shop"
+    "ru|help.repair"            : "Показать список команд для автомастерских"
+
+    "en|help.report"            : "Report about player which is braking the rules"
+    "ru|help.report"            : "Сообщить о читере или игроке, нарушающем правила"
+
+    "en|help.idea"              : "Send your idea to developers"
+    "ru|help.idea"              : "Отправить идею/сообщение разработчикам"
+
+
+// /help chat
+
+    "en|help.chat.ooc"         : "Global nonRP chat"
+    "ru|help.chat.ooc"         : "Отправить сообщение в глобальный нон-РП чат"
+
+    "en|help.chat.localooc"    : "Local nonRP chat"
+    "ru|help.chat.localooc"    : "Отправить сообщение в локальный нон-РП чат"
+
+    "en|help.chat.say"         : "Put your text in local RP chat (also use /i TEXT)"
+    "ru|help.chat.say"         : "Сказать от имени персонажа в РП чат."
+
+    "en|help.chat.shout"       : "Your message could be heard far enough"
+    "ru|help.chat.shout"       : "Крикнуть от имени персонажа в РП чат."
+
+    "en|help.chat.whisper"     : "Say something to nearest player very quiet"
+    "ru|help.chat.whisper"     : "Прошептать от имени персонажа ближайшему игроку в РП чат."
+
+    "en|help.chat.me"          : "Some action of your person"
+    "ru|help.chat.me"          : "Сообщить о действии вашего персонажа"
+
+    "en|help.chat.do"          : "Some action of the game world at now"
+    "ru|help.chat.do"          : "Сообщить о подробностях игрового мира в данный момнет"
+
+    "en|help.chat.todo"        : "Combination of /ic and /me"
+    "ru|help.chat.todo"        : "Совмещение /ic и /me"
+
+    "en|help.chat.try"         : "Any action simulation that could be failed"
+    "ru|help.chat.try"         : "Сообщить о попытке выполнения действия со случайным результатом"
+
+    "en|help.chat.privatemsg"  : "Send private message to other player with ID. Example: /pm 3 Hello!"
+    "ru|help.chat.privatemsg"  : "Отправить личное сообщение другому игроку. Образец: /pm 3 Привет!"
+
+    "en|help.chat.reply"       : "Reply to private message. Example: /re Hello!"
+    "ru|help.chat.reply"       : "Ответить на личное сообщение. Образец: /re Привет!"
+
+
 });
 
-translation("en", {
-    "help.chat.say"         : "Put your text in local RP chat (also use /i TEXT)"
-    "help.chat.shout"       : "Your message could be heard far enough :) (also use /s TEXT)"
-    "help.chat.whisper"     : "Say something to nearest player very quiet (also use /w TEXT)"
-    "help.chat.localooc"    : "Local nonRP chat"
-    "help.chat.ooc"         : "Global nonRP chat"
-    "help.chat.privatemsg"  : "Send private message to other player with ID. Example: /pm 3 hello!"
-    "help.chat.reply"       : "Reply to private message. Example: /re hello!"
-    "help.chat.me"          : "Some action of your person"
-    "help.chat.try"         : "Any action simulation that could be failed"
-});
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // settings
 const NORMAL_RADIUS = 20.0;
@@ -88,8 +224,27 @@ event("native:onPlayerChat", function(playerid, message) {
     }
 
     // NOTE(inlife): make sure array looks exactly like the one in the client/screen.nut
-    local chatslots = ["ooc", "say", "me", "do"];
+    local chatslots = ["ooc", "ic", "b", "s", "w", "me", "todo", "do", "try"];
     local slot = getPlayerChatSlot(playerid);
+
+    /**
+     * убираем пробелы в начале и конце сообщения
+     * пытаемся определить слот поиском " me" и "do" в конце сообщения
+     * если находим - определяем номер слота и обрезаем тип слота
+     */
+    local message = strip(message);
+    local match = regexp(@"\s(ooc|ic|b|s|w|me|todo|do|try)$").search(message);
+
+    if (match) {
+        local slotText = message.slice(match.begin, match.end);
+        local slotNumber = chatslots.find(strip(slotText));
+        if (slotNumber != null) {
+            slot = slotNumber;
+            message = message.slice(0, match.begin);
+        }
+    }
+
+    /**  end  */
 
     // push to selected chat
     if (slot in chatslots) {

@@ -132,6 +132,7 @@ function screenFadeinFadeoutEx(playerid, fadetime, pause, callback1 = null, call
 }
 
 key("p", function(playerid) {
+    players[playerid].hands.toggle(playerid);
     trigger(playerid, "onServerToggleHudDrawing")
 });
 

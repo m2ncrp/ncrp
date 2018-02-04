@@ -55,6 +55,7 @@ event("onClientSuccessfulyStarted", function(playerid) {
             }
 
             msg(playerid, "auth.wrongname", CL_WARNING);
+            msg(playerid, "auth.wrongname2", CL_GRAY);
             msg(playerid, "auth.changename");
 
             dbg("kick", "invalid unsername", getIdentity(playerid));
@@ -116,7 +117,7 @@ event("onClientSuccessfulyStarted", function(playerid) {
                 /**
                  * Maybe we shoudl apply autologin ?
                  */
-                if (getTimestamp() - getLastActiveSession(playerid) < AUTH_AUTOLOGIN_TIME) {
+                if (account && getTimestamp() - getLastActiveSession(playerid) < AUTH_AUTOLOGIN_TIME) {
                     // update data
                     account.ip       = getPlayerIp(playerid);
                     account.serial   = getPlayerSerial(playerid);

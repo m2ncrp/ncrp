@@ -134,21 +134,21 @@ function sendMsgToAllInRadiusFromPoint(X, Y, Z, message, params, radius, color =
 // }
 
 /**
- * Return string "player_name[playerid]"
+ * Return string "player_name [playerid]"
  * @param  {int}    playerid
  * @return {string}
  */
 function getAuthor( playerid ) {
-    return getPlayerName( playerid.tointeger() ) + "[" + playerid.tostring() + "]";
+    return getPlayerName( playerid.tointeger() ) + " [" + playerid.tostring() + "]";
 }
 
 /**
- * Return string "player_name(#playerid)"
+ * Return string "player_name (#playerid)"
  * @param  {int}    playerid
  * @return {string}
  */
 function getAuthor2( playerid ) {
-    return getPlayerName( playerid.tointeger() ) + "(#" + playerid.tostring() + ")";
+    return getPlayerName( playerid.tointeger() ) + " (#" + playerid.tostring() + ")";
 }
 
 /**
@@ -157,7 +157,7 @@ function getAuthor2( playerid ) {
  * @return {string}
  */
 function getAuthor3( playerid ) {
-    return getPlayerName( playerid.tointeger() ) + "(" + playerid.tostring() + ")";
+    return getPlayerName( playerid.tointeger() ) + " (" + playerid.tostring() + ")";
 }
 
 function chatcmd(names, callback)  {
@@ -165,7 +165,7 @@ function chatcmd(names, callback)  {
         local text = (concat(vargv));
 
         if (!text || strip(text).len() < 1) {
-            return msg(playerid, "[INFO] You can't send an empty message.", CL_YELLOW);
+            return msg(playerid, "general.message.empty", CL_ERROR);
         }
 
         if (isPlayerMuted(playerid)) {
@@ -236,8 +236,8 @@ function sendPlayerPrivateMessage(playerid, targetid, vargv) {
     }
 
     local message = concat(vargv);
-    msg(playerid, "chat.player.message.private", [getAuthor( playerid ), getAuthor( targetid ), message], CL_LIGHTWISTERIA);
-    msg(targetid, "chat.player.message.private", [getAuthor( playerid ), getAuthor( targetid ), message], CL_LIGHTWISTERIA);
+    msg(playerid, "chat.player.message.private", [getAuthor( playerid ), getAuthor( targetid ), message], CL_CHAT_PM );
+    msg(targetid, "chat.player.message.private", [getAuthor( playerid ), getAuthor( targetid ), message], CL_CHAT_PM );
     statisticsPushText("pm", playerid, "to: " + getAuthor( targetid ) + message);
 }
 
