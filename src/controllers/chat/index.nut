@@ -65,7 +65,7 @@ alternativeTranslate({
     "en|chat.player.todo.badformat1"   : "Invalid format message!"
     "ru|chat.player.todo.badformat1"   : "Неверный формат сообщения!"
 
-    "ru|chat.player.todo.badformat2"   : "Use: /todo words * action"
+    "en|chat.player.todo.badformat2"   : "Use: /todo words * action"
     "ru|chat.player.todo.badformat2"   : "Используй: /todo реплика персонажа * действие"
 
     "en|chat.player.message.error"     : "[PM] You should provide pm in a following format: /pm id text",
