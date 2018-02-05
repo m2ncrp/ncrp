@@ -5,6 +5,8 @@ local IS_OOC_ENABLED = true;
 event("onPlayerConnect", function(playerid){
     antiflood[playerid] <- {};
     antiflood[playerid]["gooc"] <- 0;
+    antiflood[playerid]["togooc"] <- true;
+    antiflood[playerid]["togpm"] <- true;
 
     lastPMs[playerid] <- -1;
 
@@ -13,9 +15,6 @@ event("onPlayerConnect", function(playerid){
 event("onServerPlayerStarted", function( playerid ){
 
     local account = getAccount(playerid);
-
-    antiflood[playerid]["togooc"] <- true;
-    antiflood[playerid]["togpm"] <- true;
 
     if (account.hasData("showOOC")) {
         local showOOC = account.getData("showOOC");
