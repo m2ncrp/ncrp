@@ -47,6 +47,8 @@ cmd(["treasury"], "add", function( playerid, amount = 0.0) {
         return;
     }
 
+    amount = amount.tofloat();
+
     if (!canMoneyBeSubstracted(playerid, amount)) {
         return msg(playerid, "treasury.player.notenough", CL_THUNDERBIRD);
     }
@@ -54,6 +56,7 @@ cmd(["treasury"], "add", function( playerid, amount = 0.0) {
     addMoneyToTreasury(amount);
     subMoneyToPlayer(playerid, amount);
     msg(playerid, "treasury.add", [ amount.tofloat(), getMoneyTreasury() ], CL_EUCALYPTUS );
+    dbg("chat", "idea", getAuthor(playerid), "Добавлено в казну: "+amount.tostring());
 });
 
 
@@ -67,6 +70,8 @@ cmd(["treasury"], "sub", function( playerid, amount = 0.0) {
         return;
     }
 
+    amount = amount.tofloat();
+
     if(amount.tofloat() > getMoneyTreasury().tofloat()) {
         return msg(playerid, "treasury.notenough", CL_THUNDERBIRD );
     }
@@ -74,6 +79,7 @@ cmd(["treasury"], "sub", function( playerid, amount = 0.0) {
     subMoneyToTreasury(amount);
     addMoneyToPlayer(playerid, amount);
     msg(playerid, "treasury.sub", [ amount.tofloat(), getMoneyTreasury() ], CL_THUNDERBIRD );
+    dbg("chat", "idea", getAuthor(playerid), "Взято из казны: "+amount.tostring());
 });
 
 
