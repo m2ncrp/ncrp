@@ -319,7 +319,7 @@ alternativeTranslate({
 "ru|Deputy"                                 : "Заместитель"
 
 "en|Soldier"                                : "Soldier"
-"ru|Associate"                              : "Солдат"
+"ru|Soldier"                                : "Солдат"
 
 "en|Associate"                              : "Associate"
 "ru|Associate"                              : "Cоучастник"
