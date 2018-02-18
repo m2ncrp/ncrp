@@ -294,6 +294,7 @@ proxy("travelToStationGUI",         "travelToStationGUI"                );
 //Inventory system
 proxy("inventory:loaded",           "native:inventory:loaded"            );
 proxy("inventory:use",              "native:onPlayerUseItem"             );
+proxy("inventory:destroy",          "native:onPlayerDestroyItem"         );
 proxy("inventory:move",             "native:onPlayerMoveItem"            );
 proxy("inventory:drop",             "native:onPlayerDropItem"            );
 proxy("inventory:close",            "native:onPlayerCloseInventory"      );

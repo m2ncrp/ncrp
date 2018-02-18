@@ -48,7 +48,7 @@ CL_ECSTASY          <- rgb( 249,  105, 14  );
 CL_LYNCH            <- rgb( 108,  122, 137 );
 CL_SILVERSAND       <- rgb( 189,  195, 199 );
 CL_CASCADE          <- rgb( 149,  165, 166 );
-
+CL_LIGHTGRAY        <- rgb( 169,  169, 169);
 
 CL_CLOUDS           <- rgb( 179, 182, 183   );
 CL_ASBESTOS         <- rgb( 127, 140, 141   );

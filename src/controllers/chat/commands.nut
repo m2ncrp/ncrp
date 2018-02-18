@@ -233,7 +233,7 @@ cmd(["help", "h", "halp", "info"], function(playerid) {
         { name = "/help subway",            desc = "help.subway" },
      // { name = "/help taxi",              desc = "help.taxi" },
         { name = "/help rent",              desc = "help.rentcar" },
-        { name = "/help job JOBNAME",       desc = "help.job" },
+        { name = "/help job",               desc = "help.job" },
         { name = "/help bank",              desc = "help.ban" },
         { name = "/help car",               desc = "help.cars" },
     //  { name = "/report ID TEXT",         desc = "help.report" },
