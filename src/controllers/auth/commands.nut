@@ -123,6 +123,7 @@ function loginFunc(playerid, password) {
         msg(playerid, "hello.3", CL_LIGHTGRAY);
         msg(playerid, "hello.4", CL_CASCADE);
         msg(playerid, "hello.5", CL_LIGHTGRAY);
+        msg(playerid, "hello.6", CL_CASCADE);
         msg(playerid, "");
         msg(playerid, "hello.end", CL_SUCCESS);
         msg(playerid, "");
