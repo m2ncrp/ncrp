@@ -639,12 +639,14 @@ alternativeTranslate({
     "en|auth.error.register"   : "[AUTH] Account with this name is already registered!"
     "en|auth.error.notfound"   : "[AUTH] Incorrect login or password."
     "en|auth.success.register" : "[AUTH] You've successfuly registered!"
-    "en|auth.success.login"    : "[AUTH] You've successfuly logined!"
+    //"en|auth.success.login"    : "[AUTH] You've successfuly logined!"
+    "en|auth.success.login"    : "Welcome to server Night City RolePlay!"
     "en|auth.success.autologin": "[AUTH] You've been automatically logined!"
     "en|auth.error.cmderror"   : "[AUTH] You can't execute commands without registration."
     "en|auth.notification"     : "[AUTH] You should enter into your account via /login PASSWORD, or create new one via /register PASSWORD"
     "en|auth.error.tomany"     : "You cant register more accounts."
-    "en|auth.client.notloaded" : "Seems like your client scripts were not properly loaded. Try reconnecting!"
+    //"en|auth.client.notloaded" : "Seems like your client scripts were not properly loaded. Try reconnecting!"
+    "en|auth.client.notloaded" : "Please wait until download files has finished!"
     "en|auth.haveproblems"     : "Have problems or forget password? Go to Discord: bit.ly/m2ncrp"
 
     "ru|auth.wrongname"        : "Некорректное имя аккаунта!"
@@ -661,13 +663,34 @@ alternativeTranslate({
     "ru|auth.error.register"   : "[AUTH] Аккаунт с такими именем уже зарегистрирован."
     "ru|auth.error.notfound"   : "[AUTH] Логин или пароль были введены неправильно."
     "ru|auth.success.register" : "[AUTH] Вы успешно зарегистрировались!"
-    "ru|auth.success.login"    : "[AUTH] Вы успешно вошли в аккаунт!"
+    //"ru|auth.success.login"    : "[AUTH] Вы успешно вошли в аккаунт!"
+    "ru|auth.success.login"    : "Добро пожаловать на сервер Night City RolePlay!"
     "ru|auth.success.autologin": "[AUTH] Вы были успешно авторизованы автоматически!"
     "ru|auth.error.cmderror"   : "[AUTH] Для выполнения команды Вам необходимо войти в аккаунт!"
     "ru|auth.notification"     : "[AUTH] Вам нужно войти в свой аккаунт используя /login ваш_пароль, или создать новый через /register ваш_пароль"
     "ru|auth.error.tomany"     : "Вы достигли лимита по количеству аккаунтов."
     "ru|auth.error.email"      : "Такой email адрес уже используется!"
-    "ru|auth.client.notloaded" : "Кажется ваши клиент-скрипты не прогрузились. Попробуйте переподключиться!"
+    //"ru|auth.client.notloaded" : "Кажется ваши клиент-скрипты не прогрузились. Попробуйте переподключиться!"
+    "ru|auth.client.notloaded" : "Дождитесь пока завершится загрузка всех файлов и появится окно регистрации или воода пароля!"
     "ru|auth.haveproblems"     : "Есть проблемы или забыл пароль? Пиши: vk.com/m2ncrp\r\nСайт игрового сервера: mafia2online.ru\r\nМы в Discord-чате: bit.ly/m2ncrp"
 
+
+    "en|hello.1"     : ".:: Jobs are marked a gray stars on map."
+    "ru|hello.1"     : ".:: Работы отмечены на карте серыми звёздами."
+
+    "en|hello.2"     : ".:: Open map - key M. Open chat - key Enter."
+    "ru|hello.2"     : ".:: Открыть карту - кнопка М (англ). Открыть чат - кнопка Enter."
+
+    "en|hello.3"     : ".:: You can get to the right place by metro, rented or private car."
+    "ru|hello.3"     : ".:: Добраться до нужного места можно на метро, арендованном или личном автомобиле."
+
+    "en|hello.4"     : ".:: Increase indicators of hunger and thirst above 75 percent and wait to restore the level of health."
+    "ru|hello.4"     : ".:: Чтобы восстановить уровень здоровья - повысь индикатор голода и жажды выше 75 процентов и жди регенерации."
+
+    "en|hello.5"     : ".:: Need help? Write in chat: /help"
+    "ru|hello.5"     : ".:: Нужна помощь? Напиши в чат: /help"
+
+
+    "en|hello.end"     : "We wish you a successful and enjoyable game!"
+    "ru|hello.end"     : "Приятной игры!"
 });
