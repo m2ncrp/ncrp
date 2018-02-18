@@ -110,8 +110,23 @@ function loginFunc(playerid, password) {
         addAccount(playerid, account);
         setLastActiveSession(playerid);
 
+        // clear chat
+        for (local i = 0; i < 15; i++) {
+            msg(playerid, "");
+        }
+
         // send message success
         msg(playerid, "auth.success.login", CL_SUCCESS);
+        msg(playerid, "");
+        msg(playerid, "hello.1", CL_LIGHTGRAY);
+        msg(playerid, "hello.2", CL_CASCADE);
+        msg(playerid, "hello.3", CL_LIGHTGRAY);
+        msg(playerid, "hello.4", CL_CASCADE);
+        msg(playerid, "hello.5", CL_LIGHTGRAY);
+        msg(playerid, "");
+        msg(playerid, "hello.end", CL_SUCCESS);
+        msg(playerid, "");
+
         dbg("login", getIdentity(playerid));
         trigger(playerid, "destroyAuthGUI");
 

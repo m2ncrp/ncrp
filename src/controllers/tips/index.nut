@@ -95,8 +95,8 @@ alternativeTranslate({
         "en|tips.openmap"      :   "[TIPS] You can open map - press key M."
         "ru|tips.openmap"      :   "[TIPS] Вы можете открыть карту города, нажав на клавишу M (английскую)."
 
-        "en|tips.switchchats"  :   "[TIPS] Use F1-F4 keys to switch between different types of the chat."
-        "ru|tips.switchchats"  :   "[TIPS] Для переключения между слотами чата используйте клавиши F1-F4."
+        "en|tips.switchchats"  :   "[TIPS] Use F1-F3 keys to switch between different types of the chat."
+        "ru|tips.switchchats"  :   "[TIPS] Для переключения между слотами чата используйте клавиши F1-F3."
 
         "en|tips.chatvisible"  :   "[TIPS] Press F5 to show/hide window of chat."
         "ru|tips.chatvisible"  :   "[TIPS] Если вы хотите скрыть чат - нажмите клавишу F5. Повторное нажатие отобразит чат."
