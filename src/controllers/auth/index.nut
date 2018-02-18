@@ -136,7 +136,7 @@ event("onClientSuccessfulyStarted", function(playerid) {
                     });
 
                     msg(playerid, "auth.success.autologin", CL_SUCCESS);
-
+                    printStartedTips(playerid);
                     return;
                 }
 
