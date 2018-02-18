@@ -674,17 +674,20 @@ alternativeTranslate({
     "en|hello.1"     : ".:: Jobs are marked a gray stars on map."
     "ru|hello.1"     : ".:: Работы отмечены на карте серыми звёздами."
 
-    "en|hello.2"     : ".:: Open map - key M. Open chat - key Enter."
-    "ru|hello.2"     : ".:: Открыть карту - кнопка М (англ). Открыть чат - кнопка Enter."
+    "en|hello.2"     : ".:: Open map - key M."
+    "ru|hello.2"     : ".:: Открыть карту - кнопка М (англ)."
 
-    "en|hello.3"     : ".:: You can get to the right place by metro, rented or private car."
-    "ru|hello.3"     : ".:: Добраться до нужного места можно на метро, арендованном или личном автомобиле."
+    "en|hello.3"     : ".:: Write in chat - key Enter. Show*hide chat - key F5."
+    "ru|hello.3"     : ".:: Сообщение в чат - Enter или T (англ). Показать/скрыть чат - F5."
 
-    "en|hello.4"     : ".:: Increase indicators of hunger and thirst above 75 percent and wait to restore the level of health."
-    "ru|hello.4"     : ".:: Чтобы восстановить уровень здоровья - повысь индикатор голода и жажды выше 75 процентов и жди регенерации."
+    "en|hello.4"     : ".:: You can get to the right place by metro, rented or private car."
+    "ru|hello.4"     : ".:: Добраться до нужного места можно на метро, арендованном или личном автомобиле."
 
-    "en|hello.5"     : ".:: Need help? Write in chat: /help"
-    "ru|hello.5"     : ".:: Нужна помощь? Напиши в чат: /help"
+    "en|hello.5"     : ".:: Increase indicators of hunger and thirst above 75 percent and wait to restore the level of health."
+    "ru|hello.5"     : ".:: Чтобы восстановить уровень здоровья - повысь индикаторы голода и жажды выше 75 процентов и жди регенерации."
+
+    "en|hello.6"     : ".:: Need help? Write in chat: /help"
+    "ru|hello.6"     : ".:: Нужна помощь? Напиши в чат: /help"
 
 
     "en|hello.end"     : "We wish you a successful and enjoyable game!"
