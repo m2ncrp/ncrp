@@ -56,6 +56,11 @@ event("onServerPlayerStarted", function(playerid) {
         setPlayerColour(playerid, 0x99FF3333);
     }
 
+    // clear chat
+    for (local i = 0; i < 2; i++) {
+      msg(playerid, "");
+    }
+
 });
 
 /**
