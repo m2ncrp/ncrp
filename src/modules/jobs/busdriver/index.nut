@@ -248,6 +248,9 @@ alternativeTranslate({
     "en|job.busstop.KingstonNorth"              : "North of Kingston"
     "en|job.busstop.SouthportSubway"            : "Southport Subway Station"
 
+    "en|job.busstop.Titania"                     : "Titania building"
+    "en|job.busstop.FirstChurchOfChrist"         : "First Church of Christ"
+
     "ru|job.busstop.UptownHotel"                : "М-отель"
     "ru|job.busstop.SouthsportWest"             : "Запад Сауспорта"
     "ru|job.busstop.Port"                       : "Порт"
@@ -273,6 +276,8 @@ alternativeTranslate({
     "ru|job.busstop.KingstonNorth"              : "Север Кингстона"
     "ru|job.busstop.SouthportSubway"            : "Станция метро в Сауспорте"
 
+    "ru|job.busstop.Titania"                    : "Титаниа-билдинг"
+    "ru|job.busstop.FirstChurchOfChrist"        : "Церковь Христа-ученого"
 
     "ru|job.busstop.Uptown1a"                   : "Аптаун (путь 1A)"
     "ru|job.busstop.Uptown1b"                   : "Аптаун (путь 1B)"
@@ -307,7 +312,7 @@ event("onServerStarted", function() {
     log("[jobs] loading busdriver job...");
 
     createPlace("LittleItalyWaypoint",  -215.876, 625.305, -221.062, 650.786);
-    createPlace("WestSideWaypoint",  -536.377, -126.749, -561.389, -142.504);
+    //createPlace("WestSideWaypoint",  -536.377, -126.749, -561.389, -142.504);
     createPlace("SandIslandWaypoint",  -1552.11, -238.172, -1537.36, -215.447);
 
     createVehicle(20, -436.205, 417.33, 0.908799, 45.8896, -0.100647, 0.237746);
@@ -376,10 +381,15 @@ event("onServerStarted", function() {
     busStops[55]   <-  busStop("job.busstop.Uptown3a",                      busv3( -419.423,   444.260, 0.0254459),   busv3( -423.116,   441.001,    0.132165), 0);
     busStops[56]   <-  busStop("job.busstop.Uptown3b",                      busv3( -419.423,   424.805, 0.0254459),   busv3( -416.102,   428.005,    0.131614), 180);
 
+    busStops[57]   <-  busStop("job.busstop.Titania",                       busv3( -541.287,  -195.892,  -4.47402),   busv3( -537.546,  -193.893,    -4.12014), 176);
+    busStops[58]   <-  busStop("job.busstop.FirstChurchOfChrist",           busv3( -555.034,   241.919,  0.114311),   busv3( -551.781,   243.949,    0.347858), 180);
+    busStops[59]   <-  busStop("job.busstop.Arcade",                        busv3( -607.171,  -77.7955,   1.03814),   busv3( -608.978,  -74.7061,     1.31292), 90);
 
-    busStops[97]  <-  busStop("job.busstop.SandIsland",                       busv3( 0.0, 0.0, 0.0 ),                    busv3(  -1541.81, -231.531, -20.3354   ), null); // waypoint
-    busStops[98]  <-  busStop("job.busstop.LittleItalySouthNorth",            busv3( 0.0, 0.0, 0.0 ),                    busv3(  -70.9254, 638.342, -20.237     ), null); // waypoint
-    busStops[99]  <-  busStop("job.busstop.Midtown",                          busv3( 0.0, 0.0, 0.0 ),                    busv3(  -530.473, -292.407, -10.0177   ), null); // waypoint
+// FirstChurchofChrist, Scientist http://www.nycago.org/Organs/NYC/html/FirstCS.html
+
+    busStops[97]  <-  busStop("job.busstop.SandIsland",                     busv3( 0.0, 0.0, 0.0 ),                    busv3(  -1541.81, -231.531, -20.3354   ), null); // waypoint
+    busStops[98]  <-  busStop("job.busstop.LittleItalySouthNorth",          busv3( 0.0, 0.0, 0.0 ),                    busv3(  -70.9254, 638.342, -20.237     ), null); // waypoint
+    busStops[99]  <-  busStop("job.busstop.Midtown",                        busv3( 0.0, 0.0, 0.0 ),                    busv3(  -530.473, -292.407, -10.0177   ), null); // waypoint
 
 
    //routes[0] <- [zarplata, [stop1, stop2, stop3, ..., stop562]];
@@ -389,9 +399,9 @@ event("onServerStarted", function() {
    //routes[4] <- [15, [4, 98, 25, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];
    //routes[5] <- [23, [4, 5, 99, 6, 7, 8, 9, 10, 12, 13, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];
 
-    routes[1] <- [13, [51, 5, 99, 6, 7, 28, 97, 22, 23, 24, 52]];                                            // sand island
+    routes[1] <- [13, [51, 5, 57, 7, 28, 97, 22, 23, 24, 52]];                                            // sand island
     routes[2] <- [11, [55, 21, 19, 17, 14, 15, 55]];                                                         // uptown-kingston
-    routes[3] <- [14, [53, 5, 99, 6, 7, 8, 9, 10, 11, 13, 45, 54]];                                          // center + hospital
+    routes[3] <- [14, [53, 58, 59, 6, 7, 8, 9, 10, 11, 13, 45, 54]];                                          // center + hospital
     routes[4] <- [17, [51, 44, 25, 16, 18, 48, 20, 22, 23, 24, 21, 47, 46, 52]];                             // kingston
     routes[5] <- [21, [4, 26, 27, 28, 7, 8, 9, 10, 12, 13, 16, 18, 20, 22, 23, 24, 21, 19, 17, 14, 15, 4]];  // big empire bay
     routes[6] <- [17, [56, 33, 9, 34, 35, 36, 37, 49, 28, 29, 30, 38, 40, 41, 56]];                          // new center
@@ -854,7 +864,7 @@ addJobEvent("e", BUS_JOB_NAME, "working", busJobStop);
 
 event("onPlayerPlaceEnter", function(playerid, name) {
     if (isBusDriver(playerid) && isPlayerVehicleBus(playerid) && getPlayerJobState(playerid) == "working") {
-        if((name == "LittleItalyWaypoint" && job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2][0] == 98) || (name == "WestSideWaypoint" && job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2][0] == 99) || (name == "SandIslandWaypoint" && job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2][0] == 97)) {
+        if((name == "LittleItalyWaypoint" && job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2][0] == 98) /*|| (name == "WestSideWaypoint" && job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2][0] == 99)*/ || (name == "SandIslandWaypoint" && job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2][0] == 97)) {
             trigger(playerid, "removeGPS");
             job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2].remove(0);
             local busID = job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2][0];
