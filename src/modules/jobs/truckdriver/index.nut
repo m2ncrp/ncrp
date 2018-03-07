@@ -40,63 +40,160 @@ local truck_scens = {};
     LoadPointX = -1544.27, LoadPointY = -108.465, LoadPointZ = -18.0451,
     UnloadPointX = 634.324, UnloadPointY = 906.558, UnloadPointZ = -12.4234 };
 
-// работы доступные в сезон
-local truck_scens_winter = [ 1, 3, 4, 5, 6, 7 ];
-local truck_scens_summer = [ 2, 4, 7 ];
+    // сценарий 8: Порт - Литейная в Северном Миллвиле | All
+    truck_scens[8] <- { LoadText = "job.truckdriver.scens8.load", UnloadText = "job.truckdriver.scens8.unload", vehicleid = 35,
+    LoadPointX = 167.902, LoadPointY = -760.497, LoadPointZ = -21.7744,
+    UnloadPointX = 1248.75, UnloadPointY = 1239.23, UnloadPointZ = 0.823301 };
+
+    // сценарий 9: Угольный склад в Северном Миллвиле - пристань в Кингстоне | All
+    truck_scens[9] <- { LoadText = "job.truckdriver.scens9.load", UnloadText = "job.truckdriver.scens9.unload", vehicleid = 35,
+    LoadPointX = 606.194, LoadPointY = 566.754, LoadPointZ = -12.0788,
+    UnloadPointX = -1140.78, UnloadPointY = 1189.37, UnloadPointZ = -21.7018 };
+
+    // сценарий 10: Мидтаун Отель - Прачечная в Маленькой Италии | Only summer
+    truck_scens[10] <- { LoadText = "job.truckdriver.scens10.load", UnloadText = "job.truckdriver.scens10.unload", vehicleid = 37,
+    LoadPointX = -606.833, LoadPointY = -340.543, LoadPointZ = -9.41061,
+    UnloadPointX = -69.693, UnloadPointY = 500.871, UnloadPointZ = -19.7248 };
+
+    // сценарий 11: Диптон - Аркада (товары) | All
+    truck_scens[11] <- { LoadText = "job.truckdriver.scens11.load", UnloadText = "job.truckdriver.scens11.unload", vehicleid = 37,
+    LoadPointX = -471.886, LoadPointY = 1735.74, LoadPointZ = -23.0622,
+    UnloadPointX = -586.659, UnloadPointY = 51.6276, UnloadPointZ = 0.0326465 };
+
+    // работы доступные в сезон
+    local truck_scens_winter = [ 1, 3, 4, 5, 6, 7, 8, 9, 11 ];
+    local truck_scens_summer = [ 2, 4, 6, 7, 8, 9, 10, 11 ];
 
     // сценарий 1: Северный Миллвиль - Мидтаун Разруха (доставка материалов) | All
     // truck_scens[10] <- { LoadText = "job.truckdriver.scens1.load", UnloadText = "job.truckdriver.scens1.unload", LoadPointX = 826.769, LoadPointY = 517.451, LoadPointZ = -11.7677, UnloadPointX = -370.788, UnloadPointY = -347.463, UnloadPointZ =  -13.3999 };
 
+alternativeTranslate({
 
-translation("en", {
-    "job.truckdriver"                   : "truck driver"
+    "ru|job.truckdriver"                   : "шофёр"
 
-    "job.truckdriver.scens1.load"       : "Sit into %s and go to North Millville to load construction materials."
-    "job.truckdriver.scens1.unload"     : "The truck loaded. Go to Midtown to unload construction materials."
+    "ru|job.truckdriver.scens1.load"       : "Садись в открытый грузовик %s и отправляйся в Северный Милвилл для загрузки строительных материалов."
+    "ru|job.truckdriver.scens1.unload"     : "Грузовик загружен. Отправляйся в Мидтаун для разгрузки строительных материалов."
 
-    "job.truckdriver.scens2.load"       : "Sit into %s and go to Hunters Point to load debris of burnt building."
-    "job.truckdriver.scens2.unload"     : "The truck loaded. Go to North Millville to unload debris of burnt building."
+    "ru|job.truckdriver.scens2.load"       : "Садись в открытый грузовик %s и отправляйся в Хантерс-Пойнт для погрузки обломков сгоревшего дома."
+    "ru|job.truckdriver.scens2.unload"     : "Грузовик загружен. Отправляйся в Северный Милвилл для разгрузки обломков сгоревшего дома."
 
-    "job.truckdriver.scens3.load"       : "Sit into %s and go to Midtown to load debris of destroyed building."
-    "job.truckdriver.scens3.unload"     : "The truck loaded. Go to North Millville to unload debris of destroyed building."
+    "ru|job.truckdriver.scens3.load"       : "Садись в открытый грузовик %s и отправляйся в Мидтаун для погрузки обломков разрушенного здания."
+    "ru|job.truckdriver.scens3.unload"     : "Грузовик загружен. Отправляйся в Северный Милвилл для разгрузки обломков разрушенного здания."
 
-    "job.truckdriver.scens4.load"       : "Sit into %s and go to South Millville to load cargo."
-    "job.truckdriver.scens4.unload"     : "The truck loaded. Go to Sand Island to unload cargo."
+    "ru|job.truckdriver.scens4.load"       : "Садись в крытый грузовик %s и отправляйся в Южный Милвилл для погрузки товара."
+    "ru|job.truckdriver.scens4.unload"     : "Грузовик загружен. Отправляйся в Сэнд-Айленд для разгрузки."
 
-    "job.truckdriver.scens5.load"       : "Sit into %s and go to Midtown to load debris of destroyed building."
-    "job.truckdriver.scens5.unload"     : "The truck loaded. Go to North Millville to unload debris of destroyed building."
+    "ru|job.truckdriver.scens5.load"       : "Садись в открытый грузовик %s и отправляйся в Мидтаун для погрузки обломков разрушенного здания."
+    "ru|job.truckdriver.scens5.unload"     : "Грузовик загружен. Отправляйся в Северный Милвилл для разгрузки обломков разрушенного здания."
 
-    "job.truckdriver.scens6.load"       : "Sit into %s and go to the Distillery in Sand Island to load alcohol."
-    "job.truckdriver.scens6.unload"     : "The truck loaded. Go to Hill of Tara in Kingston to unload alcohol."
+    "ru|job.truckdriver.scens6.load"       : "В одном из баров намечается фуршет серьёзных людей. Нужно доставить грузовик с алкоголем. Садись в крытый грузовик %s и отправляйся к ликёро-водочному заводу для погрузки ящиков. Всё уже оплачено."
+    "ru|job.truckdriver.scens6.unload"     : "Грузовик загружен. Отправляйся к бару «Зелёный холм» в Кингстоне для разгрузки ящиков с алкоголем."
 
-    "job.truckdriver.scens7.load"       : "Sit into %s and go to the Distillery in Sand Island to load alcohol."
-    "job.truckdriver.scens7.unload"     : "The truck loaded. Go to Dragsrtip in North Millville to unload alcohol."
+    "ru|job.truckdriver.scens7.load"       : "Во время бурной пирушки в баре завязался знатный мордобой: все бутылки с алкоголем пошли в расход. Нужно восполнить ассортимент. Садись в крытый грузовик %s и отправляйся к ликёро-водочному заводу для погрузки ящиков."
+    "ru|job.truckdriver.scens7.unload"     : "Грузовик загружен. Отправляйся к бару «Дрэгстрип» в Северном Милвилле для разгрузки ящиков с алкоголем."
 
-    "job.truckdriver.needtruck"         : "You need a %s."
-    "job.truckdriver.badworker"         : "Robert Casey: You are a bad worker. I'll not give you a job."
-    "job.truckdriver.badworker.onleave" : "Robert Casey: You are a bad worker. Get out of here."
-    "job.truckdriver.goodluck"          : "Robert Casey: Good luck, guy! Come if you need a job."
-    "job.truckdriver.needcomplete"      : "Robert Casey: You must complete delivery before."
-    "job.truckdriver.nicejob"           : "Robert Casey: Nice job! Keep $%.2f."
-    "job.truckdriver.now"               : "Robert Casey: You're a truck driver now. Welcome!"
+    "ru|job.truckdriver.scens8.load"       : "Бери открытый грузовик %s и езжай в порт. Надо доставить очередную партию руды для обработки."
+    "ru|job.truckdriver.scens8.unload"     : "Грузовик загружен. Отправляйся к литейной в Северный Миллвил для выгрузки руды."
 
-    "job.truckdriver.needlevel"         : "[TRUCK] You need level %d to become truck driver."
-    "job.truckdriver.wantwork"          : "[TRUCK] You're a truck driver. If you want to work - go to transport facilities near Highbrook Bridge."
-    "job.truckdriver.already"           : "[TRUCK] You're truck driver already."
-    "job.truckdriver.notpassenger"      : "[TRUCK] Delivery can be performed only by driver, but not by passenger."
-    "job.truckdriver.loading"           : "[TRUCK] Loading truck. Wait..."
-    "job.truckdriver.unloading"         : "[TRUCK] Unloading truck. Wait..."
-    "job.truckdriver.alreadyloaded"     : "[TRUCK] Truck already loaded."
-    "job.truckdriver.empty"             : "[TRUCK] Truck is empty."
-    "job.truckdriver.takemoney"         : "[TRUCK] Go back to transport facilities near Highbrook Bridge to park truck and get money."
+    "ru|job.truckdriver.scens9.load"       : "На пристани заканчивается топливо для катеров. Садись в открытый грузовик %s и отправляйся на угольный склад в Северном Миллвиле."
+    "ru|job.truckdriver.scens9.unload"     : "Грузовик загружен. Доставь уголь на пристань в Кингстоне."
 
-    "job.truckdriver.help.title"            :   "Controls for TRUCK DRIVER:"
-    "job.truckdriver.help.job"              :   "E button"
-    "job.truckdriver.help.jobtext"          :   "Get truck driver job near Robert Casey"
-    "job.truckdriver.help.jobleave"         :   "Q button"
-    "job.truckdriver.help.jobleavetext"     :   "Leave truck driver job near Robert Casey"
-    "job.truckdriver.help.loadunload"       :   "E button"
-    "job.truckdriver.help.loadunloadtext"   :   "Load/unload truck (need be in truck)"
+    "ru|job.truckdriver.scens10.load"      : "Из отеля съехала очередная толпа гуляк, оставив после себя много грязного белья. Садись в крытый грузовик %s и побыстрее доставь эти тряпки в прачечную в Маленькой Италии."
+    "ru|job.truckdriver.scens10.unload"    : "Грузовик загружен. Отвези белье в прачечную в Маленькой Италии."
+
+    "ru|job.truckdriver.scens11.load"      : "Недавно прибыл поезд с товарами для продажи. Садись в крытый грузовик %s и поезжай на железнодорожный вокзал в Диптоне для загрузки."
+    "ru|job.truckdriver.scens11.unload"    : "Грузовик загружен. Доставь товары к торговому центру Аркада в Вест-Сайде."
+
+    "ru|job.truckdriver.badworker"         : "Robert Casey: Плохой из тебя работник. Для такого как ты у меня нет работы."
+    "ru|job.truckdriver.badworker.onleave" : "Robert Casey: Значит отказываешься от задания? Хреновый ты работник, гуляй!"
+    "ru|job.truckdriver.goodluck"          : "Robert Casey: Удачи тебе, пацан! Приходи, если нужна работа."
+    "ru|job.truckdriver.needcomplete"      : "Robert Casey: Сначала заверши доставку."
+    "ru|job.truckdriver.nicejob"           : "Robert Casey: Отличная работа! Держи $%.2f."
+    "ru|job.truckdriver.now"               : "Robert Casey: Добро пожаловать в ряды шофёров!"
+
+    "ru|job.truckdriver.needtruck"         : "Вам нужен грузовик %s."
+    "ru|job.truckdriver.needlevel"         : "[TRUCK] Шофёром можно устроиться начиная с уровня %d."
+    "ru|job.truckdriver.wantwork"          : "[TRUCK] Ты работаешь шофёром. Если хочешь поработать - отправляйся к транспортной базе у моста в Хайбрук."
+    "ru|job.truckdriver.already"           : "[TRUCK] Ты уже работаешь шофёром."
+    "ru|job.truckdriver.notpassenger"      : "[TRUCK] Доставка может осуществляться только водителем, но не пассажиром."
+    "ru|job.truckdriver.loading"           : "[TRUCK] Грузовик загружается. Подожди..."
+    "ru|job.truckdriver.unloading"         : "[TRUCK] Грузовик разгружается. Подожди..."
+    "ru|job.truckdriver.alreadyloaded"     : "[TRUCK] Грузовик уже загружен."
+    "ru|job.truckdriver.empty"             : "[TRUCK] Грузовик пуст."
+    "ru|job.truckdriver.takemoney"         : "[TRUCK] Возвращайся на базу к мосту в Хайбрук, припаркуй грузовик и получи заработанные деньги."
+
+    "ru|job.truckdriver.help.title"        : "Список команд, доступных шофёру:"
+    "ru|job.truckdriver.help.job"              :   "кнопка E"
+    "ru|job.truckdriver.help.jobtext"          :   "Устроиться на работу шофёром (подойти к Robert Casey)"
+    "ru|job.truckdriver.help.jobleave"         :   "кнопка Q"
+    "ru|job.truckdriver.help.jobleavetext"     :   "Уволиться с работы (подойти к Robert Casey)"
+    "ru|job.truckdriver.help.loadunload"       :   "кнопка E"
+    "ru|job.truckdriver.help.loadunloadtext"   :   "Загрузить/разгрузить грузовик (нужно быть в грузовике)"
+
+
+
+
+
+    "en|job.truckdriver"                   : "truck driver"
+
+    "en|job.truckdriver.scens1.load"       : "Sit into %s and go to North Millville to load construction materials."
+    "en|job.truckdriver.scens1.unload"     : "The truck loaded. Go to Midtown to unload construction materials."
+
+    "en|job.truckdriver.scens2.load"       : "Sit into %s and go to Hunters Point to load debris of burnt building."
+    "en|job.truckdriver.scens2.unload"     : "The truck loaded. Go to North Millville to unload debris of burnt building."
+
+    "en|job.truckdriver.scens3.load"       : "Sit into %s and go to Midtown to load debris of destroyed building."
+    "en|job.truckdriver.scens3.unload"     : "The truck loaded. Go to North Millville to unload debris of destroyed building."
+
+    "en|job.truckdriver.scens4.load"       : "Sit into %s and go to South Millville to load cargo."
+    "en|job.truckdriver.scens4.unload"     : "The truck loaded. Go to Sand Island to unload cargo."
+
+    "en|job.truckdriver.scens5.load"       : "Sit into %s and go to Midtown to load debris of destroyed building."
+    "en|job.truckdriver.scens5.unload"     : "The truck loaded. Go to North Millville to unload debris of destroyed building."
+
+    "en|job.truckdriver.scens6.load"       : "Sit into %s and go to the Distillery in Sand Island to load alcohol."
+    "en|job.truckdriver.scens6.unload"     : "The truck loaded. Go to Hill of Tara in Kingston to unload alcohol."
+
+    "en|job.truckdriver.scens7.load"       : "Sit into %s and go to the Distillery in Sand Island to load alcohol."
+    "en|job.truckdriver.scens7.unload"     : "The truck loaded. Go to Dragsrtip in North Millville to unload alcohol."
+
+    "en|job.truckdriver.scens8.load"       : "Бери открытый грузовик %s и езжай в порт. Надо доставить очередную партию руды для обработки."
+    "en|job.truckdriver.scens8.unload"     : "Грузовик загружен. Отправляйся к литейной в Северный Миллвил для выгрузки руды."
+
+    "en|job.truckdriver.scens9.load"       : "На пристани заканчивается топливо для катеров. Садись в открытый грузовик %s и отправляйся на угольный склад в Северном Миллвиле."
+    "en|job.truckdriver.scens9.unload"     : "Грузовик загружен. Доставь уголь на пристань в Кингстоне."
+
+    "en|job.truckdriver.scens10.load"      : "Из отеля съехала очередная толпа гуляк, оставив после себя много грязного белья. Садись в открытый грузовик %s и побыстрее доставь эти тряпки в прачечную в Маленькой Италии."
+    "en|job.truckdriver.scens10.unload"    : "Грузовик загружен. Отвези белье в прачечную в Маленькой Италии."
+
+    "en|job.truckdriver.scens11.load"      : "Недавно прибыл поезд с товарами для продажи. Садись в крытый грузовик %s и поезжай на железнодорожный вокзал в Диптоне для загрузки."
+    "en|job.truckdriver.scens11.unload"    : "Грузовик загружен. Доставь товары к торговому центру Аркада в Вест-Сайде."
+
+    "en|job.truckdriver.needtruck"         : "You need a %s."
+    "en|job.truckdriver.badworker"         : "Robert Casey: You are a bad worker. I'll not give you a job."
+    "en|job.truckdriver.badworker.onleave" : "Robert Casey: You are a bad worker. Get out of here."
+    "en|job.truckdriver.goodluck"          : "Robert Casey: Good luck, guy! Come if you need a job."
+    "en|job.truckdriver.needcomplete"      : "Robert Casey: You must complete delivery before."
+    "en|job.truckdriver.nicejob"           : "Robert Casey: Nice job! Keep $%.2f."
+    "en|job.truckdriver.now"               : "Robert Casey: You're a truck driver now. Welcome!"
+
+    "en|job.truckdriver.needlevel"         : "[TRUCK] You need level %d to become truck driver."
+    "en|job.truckdriver.wantwork"          : "[TRUCK] You're a truck driver. If you want to work - go to transport facilities near Highbrook Bridge."
+    "en|job.truckdriver.already"           : "[TRUCK] You're truck driver already."
+    "en|job.truckdriver.notpassenger"      : "[TRUCK] Delivery can be performed only by driver, but not by passenger."
+    "en|job.truckdriver.loading"           : "[TRUCK] Loading truck. Wait..."
+    "en|job.truckdriver.unloading"         : "[TRUCK] Unloading truck. Wait..."
+    "en|job.truckdriver.alreadyloaded"     : "[TRUCK] Truck already loaded."
+    "en|job.truckdriver.empty"             : "[TRUCK] Truck is empty."
+    "en|job.truckdriver.takemoney"         : "[TRUCK] Go back to transport facilities near Highbrook Bridge to park truck and get money."
+
+    "en|job.truckdriver.help.title"            :   "Controls for TRUCK DRIVER:"
+    "en|job.truckdriver.help.job"              :   "E button"
+    "en|job.truckdriver.help.jobtext"          :   "Get truck driver job near Robert Casey"
+    "en|job.truckdriver.help.jobleave"         :   "Q button"
+    "en|job.truckdriver.help.jobleavetext"     :   "Leave truck driver job near Robert Casey"
+    "en|job.truckdriver.help.loadunload"       :   "E button"
+    "en|job.truckdriver.help.loadunloadtext"   :   "Load/unload truck (need be in truck)"
 
 });
 
@@ -114,7 +211,7 @@ const TRUCK_JOB_Z = -6.86539; //
 
 const TRUCK_JOB_TIMEOUT = 1800; // 30 minutes
 const TRUCK_JOB_SKIN = 130;
-const TRUCK_JOB_SALARY = 12.0;
+const TRUCK_JOB_SALARY = 10.0;
 const TRUCK_JOB_LEVEL = 1;
       TRUCK_JOB_COLOR <- CL_CRUSTA;
 local TRUCK_JOB_GET_HOUR_START     = 0;
@@ -428,7 +525,7 @@ function truckJobRefuseLeave( playerid ) {
 
 
 function truckGetSalary( playerid ) {
-    local amount = TRUCK_JOB_SALARY + (random(-5, -2)).tofloat();
+    local amount = TRUCK_JOB_SALARY + (random(-1, 3)).tofloat();
     addMoneyToPlayer(playerid, amount);
     msg( playerid, "job.truckdriver.nicejob", [amount] );
 }
