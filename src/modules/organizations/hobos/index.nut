@@ -132,10 +132,11 @@ hobos_points <- [
 
 event("onServerStarted", function() {
     log("[hobos] loading trash containers...");
+});
 
-    //creating public 3dtext
+event("onServerPlayerStarted", function( playerid ) {
     foreach (trashContainer in hobos_points) {
-        create3DText ( trashContainer[0], trashContainer[1], trashContainer[2]+0.35, "Press E or use /dig to find something in that", CL_EUCALYPTUS, DIG_RADIUS );
+        createPrivate3DText ( playerid, trashContainer[0], trashContainer[1], trashContainer[2]+0.35, plocalize(playerid, "3dtext.job.press.hobos"), CL_EUCALYPTUS, DIG_RADIUS );
     }
 });
 

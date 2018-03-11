@@ -8,6 +8,10 @@ function create3DTextForPlayer(textid, playerid) {
 
     local text = __3dtexts[textid];
 
+    if(typeof text.value == "array") {
+        text.value = partLocalize(playerid, text.value[0], text.value[1]);
+    }
+
     trigger(playerid,
         "onServer3DTextAdd",
         textid,
