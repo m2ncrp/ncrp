@@ -79,29 +79,3 @@ acmd("vp", function(playerid, targetid1 = null, targetid2 = null, offset = 1.0) 
     setVehiclePosition(targetid1, pos[0] + 2.0, pos[1], pos[2] + offset.tofloat());
     msg(playerid, format("You've successuly tp'd vehicle #%d to player %d", targetid1, targetid2), CL_SUCCESS);
 });
-
-/**
- * Find vehicle id, owner by full, or partial plate number
- * Usage:
- *     /plate 25
- *     /plate PD
- *     /plate LA-1
- */
-acmd("plate", function(playerid, text = "") {
-    local plates = getRegisteredVehiclePlates();
-
-    if (text.len() < 2) {
-        return msg(playerid, "Enter at least 2 letters of the number", CL_ERROR);
-    }
-
-    msg(playerid, "Found plate numbers:", CL_INFO);
-
-    foreach (plate, vehicleid in plates) {
-        if (plate.tolower().find(text.tolower()) != null) {
-            msg(playerid, format(
-                "Vehicle: %d | Plate: %s | Model: %d | Owner: %s",
-                vehicleid, plate, getVehicleModel(vehicleid), (getVehicleOwner(vehicleid) ? getVehicleOwner(vehicleid) : "none")
-            ));
-        }
-    }
-});
