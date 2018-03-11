@@ -1,8 +1,15 @@
-include("controllers/admin/commands.nut");
 include("controllers/admin/sqdebug.nut");
-include("controllers/admin/teleport.nut");
-include("controllers/admin/utils.nut");
-include("controllers/admin/bans.nut");
+
+include("controllers/admin/commands/ban.nut");
+include("controllers/admin/commands/chat.nut");
+include("controllers/admin/commands/help.nut");
+include("controllers/admin/commands/player.nut");
+include("controllers/admin/commands/restart.nut");
+include("controllers/admin/commands/teleport.nut");
+include("controllers/admin/commands/tp.nut");
+include("controllers/admin/commands/vehicles.nut");
+include("controllers/admin/commands/weapons.nut");
+include("controllers/admin/translations.nut");
 
 local serverAdmins = {};
 
@@ -61,12 +68,3 @@ event("native:onConsoleInput", function(name, data) {
         case "migratedb": migrateSQLiteToMySQL(); break;
     }
 });
-
-// local a = null;
-// acmd("tst", function(playerid, id) {
-//     if (a) {
-//         destroyVehicle(a);
-//     }
-//     local pos = getPlayerPosition( playerid );
-//     a = createVehicle( id.tointeger(), pos[0] + 2.0, pos[1], pos[2] + 1.0, 0.0, 0.0, 0.0 );
-// });
