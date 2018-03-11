@@ -63,9 +63,9 @@ local function showMilkLoadBlip (playerid, visible) {
 
 local function showLeave3dText (playerid, visible) {
     if (visible) {
-        createText (playerid, "leavejob3dtext", MILK_JOB_X, MILK_JOB_Y, MILK_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), MILK_JOB_RADIUS );
-        createText (playerid, "milkload3dtextTitle", MILK_JOB_LOAD[0], MILK_JOB_LOAD[1], MILK_JOB_LOAD[2]+0.35, "LOAD MILK", CL_ROYALBLUE, 40 );
-        createText (playerid, "milkload3dtext", MILK_JOB_LOAD[0], MILK_JOB_LOAD[1], MILK_JOB_LOAD[2]+0.10, "Press E to load", CL_WHITE.applyAlpha(100), MILK_JOB_RADIUS );
+        createText (playerid, "leavejob3dtext", MILK_JOB_X, MILK_JOB_Y, MILK_JOB_Z+0.05, plocalize(playerid, "3dtext.job.press.leave"), CL_WHITE.applyAlpha(100), MILK_JOB_RADIUS );
+        createText (playerid, "milkload3dtextTitle", MILK_JOB_LOAD[0], MILK_JOB_LOAD[1], MILK_JOB_LOAD[2]+0.35, plocalize(playerid, "3dtext.job.loadhere"), CL_ROYALBLUE, 40 );
+        createText (playerid, "milkload3dtext", MILK_JOB_LOAD[0], MILK_JOB_LOAD[1], MILK_JOB_LOAD[2]+0.10, plocalize(playerid, "3dtext.job.press.load"), CL_WHITE.applyAlpha(100), MILK_JOB_RADIUS );
     } else {
         removeText(playerid, "leavejob3dtext");
         removeText(playerid, "milkload3dtextTitle");
@@ -79,10 +79,6 @@ event("onServerStarted", function() {
     // milktrucks[i][1] - milk load: integer
     //milktrucks[createVehicle(19, 172.868, 436, -20.04, -178.634, 0.392045, -0.829271)]  <- 0 ;
     milktrucks[createVehicle(19, 168.812, 436, -20.04, 179.681, 0.427494, -0.637235)]  <- 0 ;
-
-    //creating 3dtext for milk ferm
-    create3DText ( MILK_JOB_X, MILK_JOB_Y, MILK_JOB_Z+0.35, "EMPIRE BAY MILK CO.", CL_ROYALBLUE );
-    create3DText ( MILK_JOB_X, MILK_JOB_Y, MILK_JOB_Z+0.20, "Press E", CL_WHITE.applyAlpha(150), 2.0 );
 
     registerPersonalJobBlip(MILK_JOB_NAME, MILK_JOB_X, MILK_JOB_Y);
 
@@ -126,6 +122,10 @@ event("onPlayerPlaceEnter", function(playerid, name) {
 });
 
 event("onServerPlayerStarted", function( playerid ) {
+
+    //creating 3dtext for milk ferm
+    createPrivate3DText ( playerid, MILK_JOB_X, MILK_JOB_Y, MILK_JOB_Z+0.35, plocalize(playerid, "3dtext.job.milkdriver"), CL_ROYALBLUE );
+    createPrivate3DText ( playerid, MILK_JOB_X, MILK_JOB_Y, MILK_JOB_Z+0.20, plocalize(playerid, "3dtext.job.press.E"), CL_WHITE.applyAlpha(150), 2.0 );
 
     if(isMilkDriver(playerid)) {
 
@@ -209,8 +209,8 @@ function createMilkJobStationMarks(playerid, data) {
     foreach (id, value in data) {
         if (job_milk[getCharacterIdFromPlayerId(playerid)]["milkstatus"][id] == false) {
             milkJobStationMarks[getCharacterIdFromPlayerId(playerid)][id] <- {
-                text1 = createPrivate3DText(playerid, value[0], value[1], value[2]+0.35, "PARK HERE", CL_RIPELEMON, MILK_JOB_DISTANCE ),
-                text2 = createPrivate3DText(playerid, value[0], value[1], value[2]+0.20, "Press E", CL_WHITE.applyAlpha(100), 5.0 ),
+                text1 = createPrivate3DText(playerid, value[0], value[1], value[2]+0.35, plocalize(playerid, "PARKHERE"), CL_RIPELEMON, MILK_JOB_DISTANCE ),
+                text2 = createPrivate3DText(playerid, value[0], value[1], value[2]+0.20, plocalize(playerid, "3dtext.job.press.E"), CL_WHITE.applyAlpha(100), 5.0 ),
                 blip  = createPrivateBlip(playerid, value[0], value[1], ICON_RED, 4000.0 )
             };
         }
