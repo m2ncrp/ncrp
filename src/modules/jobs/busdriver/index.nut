@@ -158,7 +158,7 @@ event("onServerPlayerStarted", function( playerid ){
         if (idx < 80) {
             createPrivate3DText ( playerid, value.public.x, value.public.y, value.public.z+0.35, plocalize(playerid, "3dtext.busstop.title"), CL_ROYALBLUE );
             createPrivate3DText ( playerid, value.public.x, value.public.y, value.public.z-0.15, plocalize(playerid, "3dtext."+value.name), CL_WHITE.applyAlpha(150) );
-            createPrivate3DText ( playerid, value.public.x, value.public.y, value.public.z+0.10, [[ "PRICE", "3dtext.job.press.E"], "%s: $"+BUS_TICKET_PRICE+" | %s" ], CL_WHITE.applyAlpha(125), 1.0 );
+            createPrivate3DText ( playerid, value.public.x, value.public.y, value.public.z+0.10, [[ "3dtext.job.press.E", "PRICE", ], "%s | %s: $"+BUS_TICKET_PRICE ], CL_WHITE.applyAlpha(125), 1.0 );
         }
     }
 
@@ -558,6 +558,7 @@ function busJobStop( playerid ) {
     playerDelayedFunction(playerid, 10000, function () {
         freezePlayer( playerid, false);
         playerDelayedFunction(playerid, 1000, function () { freezePlayer( playerid, false); });
+        playerDelayedFunction(playerid, 3000, function () { freezePlayer( playerid, false); });
         setVehicleFuel( vehicleid, vehFuel );
 
         remove3DText( job_bus[getCharacterIdFromPlayerId(playerid)]["busload3dtext"] );
