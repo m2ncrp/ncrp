@@ -37,9 +37,6 @@ alternativeTranslate({
     "ru|3dtext.job.unloadhere"          : "леярн пюгцпсгйх"
 
 
-
-
-
     "en|3dtext.job.truckdriver"         : "CARGO DELIVERY"
     "ru|3dtext.job.truckdriver"         : "цпсгноепебнгйх"
 
@@ -54,6 +51,10 @@ alternativeTranslate({
 
     "en|3dtext.job.port"                : "CITY PORT OFFICE"
     "ru|3dtext.job.port"                : "нтхя онпрю"
+
+    "en|3dtext.job.porter"              : "PORTER"
+    "ru|3dtext.job.porter"              : "цпсгвхй"
+
 
     "en|3dtext.organizations.bank"      : "GRAND IMERIAL BANK"
     "ru|3dtext.organizations.bank"      : "аюмй"
@@ -95,6 +96,9 @@ alternativeTranslate({
     "en|STOPHERE"                       : "STOP HERE"
     "ru|STOPHERE"                       : "леярн нярюмнбйх"
 
+    "en|PARKHERE"                       : "PARK HERE"
+    "ru|PARKHERE"                       : "нярюмнбхяэ гдеяэ"
+
     "en|PRICE"                          : "Price"
     "ru|PRICE"                          : "жЕМЮ"
 
@@ -103,6 +107,37 @@ alternativeTranslate({
 
     "en|PUTBOXHERE"                     : "PUT BOX HERE"
     "ru|PUTBOXHERE"                     : "онкнфх ъыхй гдеяэ"
+
+
+    "en|WASHSTATION"                    : "WASH STATION"
+    "ru|WASHSTATION"                    : "юбрнлнийю"
+
+
+    "en|WESTSIDE"                   : "WEST SIDE"
+    "en|MIDTOWN"                    : "MIDTOWN"
+    "en|SOUTHPORT"                  : "SOUTHPORT"
+    "en|OYSTERBAY"                  : "OYSTER BAY"
+    "en|CHINATOWN"                  : "CHINATOWN"
+    "en|LITTLEITALY"                : "LITTLE ITALY"
+    "en|EASTSIDE"                   : "EAST SIDE"
+    "en|DIPTON"                     : "DIPTON"
+    "en|KINGSTON"                   : "KINGSTON"
+    "en|GREENFIELD"                 : "GREENFIELD"
+    "en|SANDISLAND"                 : "SAND ISLAND"
+    "en|HUNTERSPOINT"               : "HUNTERS POINT"
+
+    "ru|WESTSIDE"                   : "беяр-яюид"
+    "ru|MIDTOWN"                    : "лхдрюсм"
+    "ru|SOUTHPORT"                  : "яюсяонпр"
+    "ru|OYSTERBAY"                  : "нияреп-ащи"
+    "ru|CHINATOWN"                  : "вюимюрюсм"
+    "ru|LITTLEITALY"                : "люкемэйюъ хрюкхъ"
+    "ru|EASTSIDE"                   : "хяр-яюид"
+    "ru|DIPTON"                     : "дхорнм"
+    "ru|KINGSTON"                   : "йхмцярнм"
+    "ru|GREENFIELD"                 : "цпхмтхкд"
+    "ru|SANDISLAND"                 : "ящмд-юикемд"
+    "ru|HUNTERSPOINT"               : "уюмрепя-онимр"
 
 
     "en|3dtext.busstop.Uptown1a"                   : "Uptown (path 1A)"
