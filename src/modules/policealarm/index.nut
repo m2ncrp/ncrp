@@ -83,13 +83,14 @@ translation("en", {
 
 event("onServerStarted", function() {
     log("[jobs] loading police alarm box...");
+});
 
+event("onServerPlayerStarted", function( playerid ){
     //creating public 3dtext
     foreach (policeAlarm in policeAlarms) {
-        create3DText ( policeAlarm[0], policeAlarm[1], policeAlarm[2]+0.35, "POLICE ALARM", CL_MALIBU, 6.0);
-        create3DText ( policeAlarm[0], policeAlarm[1], policeAlarm[2]+0.20, "Press E", CL_WHITE.applyAlpha(150), 0.4 );
+        createPrivate3DText ( playerid, policeAlarm[0], policeAlarm[1], policeAlarm[2]+0.35, plocalize(playerid, "POLICEALARM"), CL_MALIBU, 6.0);
+        createPrivate3DText ( playerid, policeAlarm[0], policeAlarm[1], policeAlarm[2]+0.20, plocalize(playerid, "3dtext.job.press.E"), CL_WHITE.applyAlpha(150), 0.4 );
     }
-
 });
 
 

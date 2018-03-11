@@ -3,8 +3,8 @@ include("modules/organizations/government/passport.nut");
 // nothing there yet :p
 local coords = [-122.331, -62.9116, -12.041];
 local tax_fixprice = 20.0;
-local tax = 0.025;  // 2 percents
-
+local tax = 0.025;  // 2.5 percents
+local months = [1, 3, 6, 12];
 function getGovCoords(i) {
     return coords[i];
 }
@@ -12,21 +12,24 @@ function getGovCoords(i) {
 event("onServerStarted", function() {
     log("[organizations] government...");
 
-    create3DText ( coords[0], coords[1], coords[2]+0.35, "SECRETARY OF GOVERNMENT", CL_ROYALBLUE);
+
     create3DText ( coords[0], coords[1], coords[2]+0.20, "/tax | /passport", CL_WHITE.applyAlpha(100), 2.0 );
 
     createBlip  ( coords[0], coords[1], [ 24, 0 ], 4000.0 );
 
 });
 
+event("onServerPlayerStarted", function( playerid ) {
+    createPrivate3DText ( playerid, coords[0], coords[1], coords[2]+0.35, plocalize(playerid, "3dtext.organizations.meria"), CL_ROYALBLUE);
+});
 
 alternativeTranslate({
 
     "en|tax.help.title"  : "Tax for vehicle:"
     "ru|tax.help.title"  : "Налог на автомобиль:"
 
-    "en|tax.help.tax"    : "/tax  PlateNumber"
-    "ru|tax.help.tax"    : "/tax  НомерАвтомобиля"
+    "en|tax.help.tax"    : "/tax  PlateNumber NumberOfMonths"
+    "ru|tax.help.tax"    : "/tax  НомерАвтомобиля КоличествоМесяцев"
 
     "en|tax.help.desc"   : "Pay tax"
     "ru|tax.help.desc"   : "Оплатить налог"
@@ -37,11 +40,14 @@ alternativeTranslate({
     "en|tax.notrequired" : "This car not required to tax."
     "ru|tax.notrequired" : "Указанный автомобиль не облагается налогом."
 
-    "en|tax.payed"       : "You payed tax $%.2f for vehicle with plate %s."
-    "ru|tax.payed"       : "Вы оплатили налог $%.2f за автомобиль с номером %s."
+    "en|tax.payed"       : "You payed tax $%.2f for vehicle with plate %s for %d months."
+    "ru|tax.payed"       : "Вы оплатили налог $%.2f за авто с номером %s на %d мес."
 
     "en|tax.money.notenough"  : "Not enough money. Need $%.2f."
     "ru|tax.money.notenough"  : "Недостаточно денег. Для оплаты требуется $%.2f."
+
+    "en|tax.monthUp"          : "Choose correct number of months: 1, 3, 6 or 12 "
+    "ru|tax.monthUp"          : "Выберите корректное число месяцев: 1, 3, 6 или 12"
 
     "en|tax.info.title"       : "Information about tax for vehicle:"
     "ru|tax.info.title"       : "Информация об оплате налога на автомобиль:"
@@ -68,7 +74,7 @@ function taxHelp( playerid ) {
 }
 
 
-cmd("tax", function( playerid, plateText = 0 ) {
+cmd("tax", function( playerid, plateText = 0, monthUp = 1 ) {
 
     if (plateText == 0) {
         return taxHelp( playerid );
@@ -87,6 +93,13 @@ cmd("tax", function( playerid, plateText = 0 ) {
         return msg(playerid, "inventory.weight.notenough", CL_THUNDERBIRD);
     }
 
+    if(monthUp) {
+        monthUp = monthUp.tointeger();
+        if(months.find(monthUp) == null) {
+            return msg(playerid, "tax.monthUp", CL_THUNDERBIRD);
+        }
+    }
+
     local plateText = plateText.toupper();
     local vehicleid = getVehicleByPlateText(plateText.toupper());
     if(vehicleid == null) {
@@ -100,19 +113,19 @@ cmd("tax", function( playerid, plateText = 0 ) {
         return msg(playerid, "tax.notrequired");
     }
 
-    local price = tax_fixprice + carInfo.price * tax;
+    local price = tax_fixprice + carInfo.price * tax * monthUp;
     if (!canMoneyBeSubstracted(playerid, price)) {
         return msg(playerid, "tax.money.notenough", [ price ], CL_THUNDERBIRD);
     }
 
-    msg(playerid, "tax.payed", [ price, plateText ], CL_SUCCESS);
+    msg(playerid, "tax.payed", [ price, plateText, monthUp ], CL_SUCCESS);
     subMoneyToPlayer(playerid, price);
 
     taxObj.setData("plate", plateText);
     taxObj.setData("model",  modelid );
 
     local day   = getDay();
-    local month = getMonth() + 1;
+    local month = getMonth() + monthUp;
     local year  = getYear();
     if (month == 13) { month = 1; year += 1; }
     if (day < 10)   { day = "0"+day; }

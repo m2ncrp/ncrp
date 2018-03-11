@@ -255,13 +255,16 @@ local interiors = [
 
 event("onServerStarted", function() {
     log("[interiors] loading interiors enteries...");
-    //creating public 3dtext
-    foreach (value in interiors) {
-        create3DText ( value[2], value[3], value[4]+0.35, value[1]+" | Press E", CL_WHITE, 0.5 );
-    }
 
     createPlace("ChinaTownPodvalExit", 308.871, 425.365, 306.927, 426.858);
 
+});
+
+event("onServerPlayerStarted", function( playerid ){
+    //creating public 3dtext
+    foreach (value in interiors) {
+        createPrivate3DText ( playerid, value[2], value[3], value[4]+0.35, [[value[1], "3dtext.job.press.E"], "%s | %s"], CL_WHITE, 0.5 );
+    }
 });
 
 event("onPlayerPlaceEnter", function(playerid, name) {
