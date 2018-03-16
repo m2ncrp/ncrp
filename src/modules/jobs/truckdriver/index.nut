@@ -1,4 +1,5 @@
 include("modules/jobs/truckdriver/commands.nut");
+include("modules/jobs/truckdriver/translations.nut");
 
 local job_truck = {};
 local job_truck_blocked = {};
@@ -67,141 +68,6 @@ local truck_scens = {};
     // сценарий 1: Северный Миллвиль - Мидтаун Разруха (доставка материалов) | All
     // truck_scens[10] <- { LoadText = "job.truckdriver.scens1.load", UnloadText = "job.truckdriver.scens1.unload", LoadPointX = 826.769, LoadPointY = 517.451, LoadPointZ = -11.7677, UnloadPointX = -370.788, UnloadPointY = -347.463, UnloadPointZ =  -13.3999 };
 
-alternativeTranslate({
-
-    "ru|job.truckdriver"                   : "шофёр"
-
-    "ru|job.truckdriver.scens1.load"       : "Садись в открытый грузовик %s и отправляйся в Северный Милвилл для загрузки строительных материалов."
-    "ru|job.truckdriver.scens1.unload"     : "Грузовик загружен. Отправляйся в Мидтаун для разгрузки строительных материалов."
-
-    "ru|job.truckdriver.scens2.load"       : "Садись в открытый грузовик %s и отправляйся в Хантерс-Пойнт для погрузки обломков сгоревшего дома."
-    "ru|job.truckdriver.scens2.unload"     : "Грузовик загружен. Отправляйся в Северный Милвилл для разгрузки обломков сгоревшего дома."
-
-    "ru|job.truckdriver.scens3.load"       : "Садись в открытый грузовик %s и отправляйся в Мидтаун для погрузки обломков разрушенного здания."
-    "ru|job.truckdriver.scens3.unload"     : "Грузовик загружен. Отправляйся в Северный Милвилл для разгрузки обломков разрушенного здания."
-
-    "ru|job.truckdriver.scens4.load"       : "Садись в крытый грузовик %s и отправляйся в Южный Милвилл для погрузки товара."
-    "ru|job.truckdriver.scens4.unload"     : "Грузовик загружен. Отправляйся в Сэнд-Айленд для разгрузки."
-
-    "ru|job.truckdriver.scens5.load"       : "Садись в открытый грузовик %s и отправляйся в Мидтаун для погрузки обломков разрушенного здания."
-    "ru|job.truckdriver.scens5.unload"     : "Грузовик загружен. Отправляйся в Северный Милвилл для разгрузки обломков разрушенного здания."
-
-    "ru|job.truckdriver.scens6.load"       : "В одном из баров намечается фуршет серьёзных людей. Нужно доставить грузовик с алкоголем. Садись в крытый грузовик %s и отправляйся к ликёро-водочному заводу для погрузки ящиков. Всё уже оплачено."
-    "ru|job.truckdriver.scens6.unload"     : "Грузовик загружен. Отправляйся к бару «Зелёный холм» в Кингстоне для разгрузки ящиков с алкоголем."
-
-    "ru|job.truckdriver.scens7.load"       : "Во время бурной пирушки в баре завязался знатный мордобой: все бутылки с алкоголем пошли в расход. Нужно восполнить ассортимент. Садись в крытый грузовик %s и отправляйся к ликёро-водочному заводу для погрузки ящиков."
-    "ru|job.truckdriver.scens7.unload"     : "Грузовик загружен. Отправляйся к бару «Дрэгстрип» в Северном Милвилле для разгрузки ящиков с алкоголем."
-
-    "ru|job.truckdriver.scens8.load"       : "Бери открытый грузовик %s и езжай в порт. Надо доставить очередную партию руды для обработки."
-    "ru|job.truckdriver.scens8.unload"     : "Грузовик загружен. Отправляйся к литейной в Северный Миллвил для выгрузки руды."
-
-    "ru|job.truckdriver.scens9.load"       : "На пристани заканчивается топливо для катеров. Садись в открытый грузовик %s и отправляйся на угольный склад в Северном Миллвиле."
-    "ru|job.truckdriver.scens9.unload"     : "Грузовик загружен. Доставь уголь на пристань в Кингстоне."
-
-    "ru|job.truckdriver.scens10.load"      : "Из отеля съехала очередная толпа гуляк, оставив после себя много грязного белья. Садись в крытый грузовик %s и побыстрее доставь эти тряпки в прачечную в Маленькой Италии."
-    "ru|job.truckdriver.scens10.unload"    : "Грузовик загружен. Отвези белье в прачечную в Маленькой Италии."
-
-    "ru|job.truckdriver.scens11.load"      : "Недавно прибыл поезд с товарами для продажи. Садись в крытый грузовик %s и поезжай на железнодорожный вокзал в Диптоне для загрузки."
-    "ru|job.truckdriver.scens11.unload"    : "Грузовик загружен. Доставь товары к торговому центру Аркада в Вест-Сайде."
-
-    "ru|job.truckdriver.badworker"         : "Robert Casey: Плохой из тебя работник. Для такого как ты у меня нет работы."
-    "ru|job.truckdriver.badworker.onleave" : "Robert Casey: Значит отказываешься от задания? Хреновый ты работник, гуляй!"
-    "ru|job.truckdriver.goodluck"          : "Robert Casey: Удачи тебе, пацан! Приходи, если нужна работа."
-    "ru|job.truckdriver.needcomplete"      : "Robert Casey: Сначала заверши доставку."
-    "ru|job.truckdriver.nicejob"           : "Robert Casey: Отличная работа! Держи $%.2f."
-    "ru|job.truckdriver.now"               : "Robert Casey: Добро пожаловать в ряды шофёров!"
-
-    "ru|job.truckdriver.needtruck"         : "Вам нужен грузовик %s."
-    "ru|job.truckdriver.needlevel"         : "[TRUCK] Шофёром можно устроиться начиная с уровня %d."
-    "ru|job.truckdriver.wantwork"          : "[TRUCK] Ты работаешь шофёром. Если хочешь поработать - отправляйся к транспортной базе у моста в Хайбрук."
-    "ru|job.truckdriver.already"           : "[TRUCK] Ты уже работаешь шофёром."
-    "ru|job.truckdriver.notpassenger"      : "[TRUCK] Доставка может осуществляться только водителем, но не пассажиром."
-    "ru|job.truckdriver.loading"           : "[TRUCK] Грузовик загружается. Подожди..."
-    "ru|job.truckdriver.unloading"         : "[TRUCK] Грузовик разгружается. Подожди..."
-    "ru|job.truckdriver.alreadyloaded"     : "[TRUCK] Грузовик уже загружен."
-    "ru|job.truckdriver.empty"             : "[TRUCK] Грузовик пуст."
-    "ru|job.truckdriver.takemoney"         : "[TRUCK] Возвращайся на базу к мосту в Хайбрук, припаркуй грузовик и получи заработанные деньги."
-
-    "ru|job.truckdriver.help.title"        : "Список команд, доступных шофёру:"
-    "ru|job.truckdriver.help.job"              :   "кнопка E"
-    "ru|job.truckdriver.help.jobtext"          :   "Устроиться на работу шофёром (подойти к Robert Casey)"
-    "ru|job.truckdriver.help.jobleave"         :   "кнопка Q"
-    "ru|job.truckdriver.help.jobleavetext"     :   "Уволиться с работы (подойти к Robert Casey)"
-    "ru|job.truckdriver.help.loadunload"       :   "кнопка E"
-    "ru|job.truckdriver.help.loadunloadtext"   :   "Загрузить/разгрузить грузовик (нужно быть в грузовике)"
-
-
-
-
-
-    "en|job.truckdriver"                   : "truck driver"
-
-    "en|job.truckdriver.scens1.load"       : "Sit into %s and go to North Millville to load construction materials."
-    "en|job.truckdriver.scens1.unload"     : "The truck loaded. Go to Midtown to unload construction materials."
-
-    "en|job.truckdriver.scens2.load"       : "Sit into %s and go to Hunters Point to load debris of burnt building."
-    "en|job.truckdriver.scens2.unload"     : "The truck loaded. Go to North Millville to unload debris of burnt building."
-
-    "en|job.truckdriver.scens3.load"       : "Sit into %s and go to Midtown to load debris of destroyed building."
-    "en|job.truckdriver.scens3.unload"     : "The truck loaded. Go to North Millville to unload debris of destroyed building."
-
-    "en|job.truckdriver.scens4.load"       : "Sit into %s and go to South Millville to load cargo."
-    "en|job.truckdriver.scens4.unload"     : "The truck loaded. Go to Sand Island to unload cargo."
-
-    "en|job.truckdriver.scens5.load"       : "Sit into %s and go to Midtown to load debris of destroyed building."
-    "en|job.truckdriver.scens5.unload"     : "The truck loaded. Go to North Millville to unload debris of destroyed building."
-
-    "en|job.truckdriver.scens6.load"       : "Sit into %s and go to the Distillery in Sand Island to load alcohol."
-    "en|job.truckdriver.scens6.unload"     : "The truck loaded. Go to Hill of Tara in Kingston to unload alcohol."
-
-    "en|job.truckdriver.scens7.load"       : "Sit into %s and go to the Distillery in Sand Island to load alcohol."
-    "en|job.truckdriver.scens7.unload"     : "The truck loaded. Go to Dragsrtip in North Millville to unload alcohol."
-
-    "en|job.truckdriver.scens8.load"       : "Бери открытый грузовик %s и езжай в порт. Надо доставить очередную партию руды для обработки."
-    "en|job.truckdriver.scens8.unload"     : "Грузовик загружен. Отправляйся к литейной в Северный Миллвил для выгрузки руды."
-
-    "en|job.truckdriver.scens9.load"       : "На пристани заканчивается топливо для катеров. Садись в открытый грузовик %s и отправляйся на угольный склад в Северном Миллвиле."
-    "en|job.truckdriver.scens9.unload"     : "Грузовик загружен. Доставь уголь на пристань в Кингстоне."
-
-    "en|job.truckdriver.scens10.load"      : "Из отеля съехала очередная толпа гуляк, оставив после себя много грязного белья. Садись в открытый грузовик %s и побыстрее доставь эти тряпки в прачечную в Маленькой Италии."
-    "en|job.truckdriver.scens10.unload"    : "Грузовик загружен. Отвези белье в прачечную в Маленькой Италии."
-
-    "en|job.truckdriver.scens11.load"      : "Недавно прибыл поезд с товарами для продажи. Садись в крытый грузовик %s и поезжай на железнодорожный вокзал в Диптоне для загрузки."
-    "en|job.truckdriver.scens11.unload"    : "Грузовик загружен. Доставь товары к торговому центру Аркада в Вест-Сайде."
-
-    "en|job.truckdriver.needtruck"         : "You need a %s."
-    "en|job.truckdriver.badworker"         : "Robert Casey: You are a bad worker. I'll not give you a job."
-    "en|job.truckdriver.badworker.onleave" : "Robert Casey: You are a bad worker. Get out of here."
-    "en|job.truckdriver.goodluck"          : "Robert Casey: Good luck, guy! Come if you need a job."
-    "en|job.truckdriver.needcomplete"      : "Robert Casey: You must complete delivery before."
-    "en|job.truckdriver.nicejob"           : "Robert Casey: Nice job! Keep $%.2f."
-    "en|job.truckdriver.now"               : "Robert Casey: You're a truck driver now. Welcome!"
-
-    "en|job.truckdriver.needlevel"         : "[TRUCK] You need level %d to become truck driver."
-    "en|job.truckdriver.wantwork"          : "[TRUCK] You're a truck driver. If you want to work - go to transport facilities near Highbrook Bridge."
-    "en|job.truckdriver.already"           : "[TRUCK] You're truck driver already."
-    "en|job.truckdriver.notpassenger"      : "[TRUCK] Delivery can be performed only by driver, but not by passenger."
-    "en|job.truckdriver.loading"           : "[TRUCK] Loading truck. Wait..."
-    "en|job.truckdriver.unloading"         : "[TRUCK] Unloading truck. Wait..."
-    "en|job.truckdriver.alreadyloaded"     : "[TRUCK] Truck already loaded."
-    "en|job.truckdriver.empty"             : "[TRUCK] Truck is empty."
-    "en|job.truckdriver.takemoney"         : "[TRUCK] Go back to transport facilities near Highbrook Bridge to park truck and get money."
-
-    "en|job.truckdriver.help.title"            :   "Controls for TRUCK DRIVER:"
-    "en|job.truckdriver.help.job"              :   "E button"
-    "en|job.truckdriver.help.jobtext"          :   "Get truck driver job near Robert Casey"
-    "en|job.truckdriver.help.jobleave"         :   "Q button"
-    "en|job.truckdriver.help.jobleavetext"     :   "Leave truck driver job near Robert Casey"
-    "en|job.truckdriver.help.loadunload"       :   "E button"
-    "en|job.truckdriver.help.loadunloadtext"   :   "Load/unload truck (need be in truck)"
-
-});
-
-/*
-826.769, 517.451, -11.7677, 89.8741, -0.213281, 0.213751, NorthMillVilleLoadMaterials
--370.788, -347.463, -13.3999, -179.469, -0.0121328, -1.44906, MidtownUnloadMaterials
-*/
-
 
 const RADIUS_TRUCK = 2.0;
 
@@ -223,30 +89,15 @@ local TRUCK_JOB_WORKING_HOUR_END   = 23;
 local TRUCK_ROUTE_IN_HOUR = 4;
 local TRUCK_ROUTE_NOW = 3;
 
-local carp = false;
-local carp2 = false;
-
 
 event("onServerStarted", function() {
     log("[jobs] loading truckdriver job...");
-                                                                                            //  loaded, playerid
+    //  loaded, playerid
     //truckcars[createVehicle(35, -705.155, 1456, -6.48204, -43.0174, -0.252974, -0.64192)]     <- [ false, null ]; //    Flatbed
     truckcars[createVehicle(37, -708.151, 1453.25, -6.50832, -43.1396, -0.445434, -1.12674)]  <- [ false, null ]; //    Covered
     truckcars[createVehicle(35, -711.119, 1450.54, -6.52765, -41.8644, -0.613728, -1.6044)]   <- [ false, null ]; //    Flatbed
     truckcars[createVehicle(35, -714.315, 1447.55, -6.52792, -41.1587, -1.82778, -0.432325)]  <- [ false, null ]; //    Flatbed
     truckcars[createVehicle(37, -717.422, 1444.53, -6.33198, -39.2871, -1.59798, 3.26338)]    <- [ false, null ]; //    Covered
-/*
-    carp = createVehicle(42, -364.809, -348.672, -13.5259, -0.540874, -0.0051816, -1.09775); // police Midtown
-
-    createVehicle(27, -368.761, -330.329, -13.1167, 113.28, -0.503684, -1.39627); //Bron1
-    createVehicle(27, -368.435, -366.052, -13.8605, 63.8406, -0.365066, -1.26762); //Bron2
-
-    if (isSummer()) {
-        carp2 = createVehicle(42, -1604.3, 569.969, -19.9775, -54.2438, 0.27688, -0.144837); // police Most
-    }
-*/
-    create3DText ( TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.35, "TRANSPORT COMPANY", CL_ROYALBLUE );
-    create3DText ( TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.20, "Press E to action", CL_WHITE.applyAlpha(150), RADIUS_TRUCK );
 
     registerPersonalJobBlip("truckdriver", TRUCK_JOB_X, TRUCK_JOB_Y);
 });
@@ -288,25 +139,32 @@ key("q", function(playerid) {
     truckJobRefuseLeave( playerid );
 }, KEY_UP);
 
+// соединение с игроком
 event("onPlayerConnect", function(playerid) {
-     job_truck[getCharacterIdFromPlayerId(playerid)] <- {};
-     job_truck[getCharacterIdFromPlayerId(playerid)]["userjob"] <- null;
-     job_truck[getCharacterIdFromPlayerId(playerid)]["userstatus"] <- null;
-     job_truck[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] <- null;
-     job_truck[getCharacterIdFromPlayerId(playerid)]["truckblip3dtext"] <- [null, null, null];
+    if ( ! (getCharacterIdFromPlayerId(playerid) in job_truck) ) {
+        job_truck[getCharacterIdFromPlayerId(playerid)] <- {};
+        job_truck[getCharacterIdFromPlayerId(playerid)]["userjob"] <- null;
+        job_truck[getCharacterIdFromPlayerId(playerid)]["userstatus"] <- null;
+        job_truck[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] <- null;
+        job_truck[getCharacterIdFromPlayerId(playerid)]["truckblip3dtext"] <- [null, null, null];
+    }
 });
 
+// игрок заспавнен
 event("onPlayerSpawn", function(playerid) {
     //setVehicleBeaconLightState(carp, true);
     //if (isSummer()) { setVehicleBeaconLightState(carp2, true); }
 });
 
+// прошли авторизацию
 event("onServerPlayerStarted", function( playerid ){
 
+    createPrivate3DText ( playerid, TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.35, plocalize(playerid, "3dtext.job.truckdriver"), CL_ROYALBLUE );
+    createPrivate3DText ( playerid, TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.20, plocalize(playerid, "3dtext.job.press.action"), CL_WHITE.applyAlpha(150), RADIUS_TRUCK );
 
     if(players[playerid]["job"] == "truckdriver") {
         msg( playerid, "job.truckdriver.wantwork", TRUCK_JOB_COLOR );
-        job_truck[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] = createPrivate3DText (playerid, TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), RADIUS_TRUCK );
+        job_truck[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] = createPrivate3DText (playerid, TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.05, plocalize(playerid, "3dtext.job.press.leave"), CL_WHITE.applyAlpha(100), RADIUS_TRUCK );
     }
 });
 
@@ -452,9 +310,9 @@ function truckJobTalk( playerid ) {
 
 
 
-        job_truck[getCharacterIdFromPlayerId(playerid)]["truckblip3dtext"] = truckJobCreatePrivateBlipText(playerid, userjob.LoadPointX, userjob.LoadPointY, userjob.LoadPointZ, "LOAD HERE", "Press E to load");
+        job_truck[getCharacterIdFromPlayerId(playerid)]["truckblip3dtext"] = truckJobCreatePrivateBlipText(playerid, userjob.LoadPointX, userjob.LoadPointY, userjob.LoadPointZ, plocalize(playerid, "3dtext.job.loadhere"), plocalize(playerid, "3dtext.job.press.load"));
         if(job_truck[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] == null) {
-            job_truck[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] = createPrivate3DText (playerid, TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), RADIUS_TRUCK );
+            job_truck[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] = createPrivate3DText (playerid, TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.05, plocalize(playerid, "3dtext.job.press.leave"), CL_WHITE.applyAlpha(100), RADIUS_TRUCK );
         }
         return;
     }
@@ -590,7 +448,7 @@ function truckJobLoadUnload( playerid ) {
             delayedFunction(1000, function () { freezePlayer( playerid, false); });
             truckcars[vehicleid][0] = true;
             truckcars[vehicleid][1] = playerid;
-            job_truck[getCharacterIdFromPlayerId(playerid)]["truckblip3dtext"] = truckJobCreatePrivateBlipText(playerid, userjob.UnloadPointX, userjob.UnloadPointY, userjob.UnloadPointZ, "UNLOAD HERE", "Press E to unload");
+            job_truck[getCharacterIdFromPlayerId(playerid)]["truckblip3dtext"] = truckJobCreatePrivateBlipText(playerid, userjob.UnloadPointX, userjob.UnloadPointY, userjob.UnloadPointZ, plocalize(playerid, "3dtext.job.unloadhere"), plocalize(playerid, "3dtext.job.press.unload"));
             msg( playerid, userjob.UnloadText, TRUCK_JOB_COLOR );
             setVehiclePartOpen(vehicleid, 1, false);
 

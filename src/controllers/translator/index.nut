@@ -130,6 +130,27 @@ function plocalize(playerid, value, params = []) {
     return localize(value, params, getPlayerLocale(playerid));
 }
 
+function partLocalize(playerid, values, template) {
+    local lang = getPlayerLocale(playerid);
+    local phrases = values.map(function(value) {
+        return localize(value, [], lang);
+    })
+
+    local args = clone(phrases);
+
+    // insert params
+    args.insert(0, getroottable());
+    args.insert(1, template);
+
+    // format `value` if replaces are not found
+    try {
+        return format.acall(args);
+    }
+    catch (e) {
+        return str_replace("%", "$", template);
+    }
+}
+
 /**
  * Testing
  */

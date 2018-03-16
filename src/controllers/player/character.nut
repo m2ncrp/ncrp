@@ -145,7 +145,7 @@ function validateAndUpdateCharacter(playerid, character, firstname, lastname, ra
     firstname = strip(firstname).slice(0, 1).toupper() + strip(firstname).slice(1).tolower();
     lastname  = strip(lastname ).slice(0, 1).toupper() + strip(lastname ).slice(1).tolower();
 
-    if (!REGEX_NAME.match(firstname) || !REGEX_NAME.match(lastname)) {
+    if (!REGEX_NAME.match(firstname) || !REGEX_NAME.match(lastname) || firstname == lastname) {
         return alert(playerid, "character.wrongname");
     }
 

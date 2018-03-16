@@ -1,9 +1,12 @@
 POLICE_EBPD_GARAGE <- [-313.822, 697.219, -18.8391];
 
 event("onServerStarted", function() {
-    create3DText( POLICE_EBPD_GARAGE[0], POLICE_EBPD_GARAGE[1], POLICE_EBPD_GARAGE[2]+0.35, "=== EMPIRE BAY POLICE DEPARTMENT GARAGE ===", CL_ROYALBLUE, EBPD_TITLE_DRAW_DISTANCE );
     create3DText( POLICE_EBPD_GARAGE[0], POLICE_EBPD_GARAGE[1], POLICE_EBPD_GARAGE[2]+0.20, "/police repair", CL_WHITE.applyAlpha(150), EBPD_ENTER_RADIUS );
     create3DText( POLICE_EBPD_GARAGE[0], POLICE_EBPD_GARAGE[1], POLICE_EBPD_GARAGE[2]+0.05, "/police wash", CL_WHITE.applyAlpha(150), EBPD_ENTER_RADIUS );
+});
+
+event("onServerPlayerStarted", function(playerid) {
+    createPrivate3DText( playerid, POLICE_EBPD_GARAGE[0], POLICE_EBPD_GARAGE[1], POLICE_EBPD_GARAGE[2]+0.35, plocalize(playerid, "3dtext.organizations.policegarage"), CL_ROYALBLUE, EBPD_TITLE_DRAW_DISTANCE );
 });
 
 function isNearPoliceGarage(playerid) {

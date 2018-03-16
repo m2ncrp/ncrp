@@ -46,10 +46,14 @@ event("onServerStarted", function() {
     create3DText ( BANK_X, BANK_Y, BANK_Z+0.20, "/bank", CL_WHITE.applyAlpha(75), BANK_RADIUS );
     createBlip(BANK_X, BANK_Y, ICON_MAFIA, 4000.0 )
 */
-    //creating 3dtext for Bank Office
-    create3DText ( BANK_OFFICE_X, BANK_OFFICE_Y, BANK_OFFICE_Z+0.35, "GRAND IMERIAL BANK", CL_ROYALBLUE );
     create3DText ( BANK_OFFICE_X, BANK_OFFICE_Y, BANK_OFFICE_Z+0.20, "/bank", CL_WHITE.applyAlpha(75), BANK_RADIUS );
+
     createBlip(BANK_OFFICE_X, BANK_OFFICE_Y, ICON_DOLLAR, 4000.0 )
+});
+
+event("onServerPlayerStarted", function( playerid ) {
+    //creating 3dtext for Bank Office
+    createPrivate3DText ( playerid, BANK_OFFICE_X, BANK_OFFICE_Y, BANK_OFFICE_Z+0.35, plocalize(playerid, "3dtext.organizations.bank"), CL_ROYALBLUE );
 });
 
 function bankPlayerInValidPoint(playerid) {

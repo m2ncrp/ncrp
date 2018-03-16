@@ -193,7 +193,6 @@ event("onServerStarted", function() {
 
     //creating 3dtext for Trago Oil
     create3DText ( FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.35, "TRAGO OIL", CL_ROYALBLUE );
-    create3DText ( FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.20, "Press E to action", CL_WHITE.applyAlpha(150), FUEL_JOB_RADIUS );
 
 
     createPlace("FuelBadZone1", 237.035, 179.954, 161.687, 181.747);
@@ -218,6 +217,8 @@ event("onPlayerConnect", function(playerid) {
 
 event("onServerPlayerStarted", function( playerid ) {
 
+    createPrivate3DText ( playerid, FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.20, plocalize(playerid, "3dtext.job.press.action"), CL_WHITE.applyAlpha(150), FUEL_JOB_RADIUS );
+
     if(isFuelDriver(playerid)) {
         if (job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"] == "working") {
             msg( playerid, "job.fueldriver.continuedelivery", FUEL_JOB_COLOR );
@@ -228,7 +229,7 @@ event("onServerPlayerStarted", function( playerid ) {
 
         job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelBlipTextWarehouse"].clear();
         if ( getCharacterIdFromPlayerId(playerid) in fuelJobStationMarks ) { fuelJobStationMarks[getCharacterIdFromPlayerId(playerid)].clear(); }
-        job_fuel[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] = createPrivate3DText (playerid, FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), FUEL_JOB_RADIUS );
+        job_fuel[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] = createPrivate3DText (playerid, FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.05, plocalize(playerid, "3dtext.job.press.leave"), CL_WHITE.applyAlpha(100), FUEL_JOB_RADIUS );
     }
 });
 
@@ -344,7 +345,7 @@ function createFuelJobStationMarks(playerid, data) {
     foreach (id, value in data) {
         if (job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelstatus"][id] == false) {
             fuelJobStationMarks[getCharacterIdFromPlayerId(playerid)][id] <- {
-                text1 = createPrivate3DText(playerid, value[0], value[1], value[2]-0.15, "Press E to unload", CL_WHITE.applyAlpha(150), 8.0 ),
+                text1 = createPrivate3DText(playerid, value[0], value[1], value[2]-0.15, plocalize(playerid, "3dtext.job.press.unload"), CL_WHITE.applyAlpha(150), 8.0 ),
                 text2 = null, // maybe add later
                 blip  = createPrivateBlip(playerid, value[0], value[1], ICON_RED, 4000.0 )
             };
@@ -451,7 +452,7 @@ function fuelJobGet( playerid ) {
         fuelJobStartRoute( playerid );
 
         if(job_fuel[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] == null) {
-            job_fuel[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] = createPrivate3DText (playerid, FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), FUEL_JOB_RADIUS );
+            job_fuel[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] = createPrivate3DText (playerid, FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.05, plocalize(playerid, "3dtext.job.press.leave"), CL_WHITE.applyAlpha(100), FUEL_JOB_RADIUS );
         }
         return;
     }
@@ -700,7 +701,7 @@ function fuelJobCheck ( playerid ) {
 function fuelJobWarehouseCreateBlipText( playerid ) {
     if(job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelBlipTextWarehouse"].len() < 1) {
        job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelBlipTextWarehouse"].push( createPrivate3DText (playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, FUEL_JOB_WAREHOUSE_Z+0.35, "=== FUEL WAREHOUSE ===", CL_RIPELEMON, 100.0 ));
-       job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelBlipTextWarehouse"].push( createPrivate3DText (playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, FUEL_JOB_WAREHOUSE_Z-0.15, "Press E to load", CL_WHITE.applyAlpha(150), 4.0 ));
+       job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelBlipTextWarehouse"].push( createPrivate3DText (playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, FUEL_JOB_WAREHOUSE_Z-0.15, plocalize(playerid, "3dtext.job.press.load"), CL_WHITE.applyAlpha(150), 4.0 ));
        job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelBlipTextWarehouse"].push( createPrivateBlip(playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, ICON_YELLOW, 4000.0));
     }
 }

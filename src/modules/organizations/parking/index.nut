@@ -238,7 +238,7 @@ event("onVehicleGetFromCarPound", function(playerid) {
 
     local vehicleid = getPlayerVehicle( playerid ) ;
     if(parkingPlaceStatus.find(vehicleid) == null) {
-        return msg(playerid, "parking.carNotParked", CL_CHAT_MONEY_SUB);
+        return msg(playerid, "parking.carNotParked", getVehiclePlateText(vehicleid), CL_CHAT_MONEY_SUB);
     }
 
     local price = PARKING_COST + getParkingPeniForVehicle(vehicleid);
