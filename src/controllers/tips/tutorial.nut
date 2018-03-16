@@ -39,12 +39,17 @@ event("onServerStarted", function() {
         }
     }
 
-    // create helper text for peds
-    foreach (idx, pos in spawnHelperPositions) {
-        create3DText ( pos[0], pos[1], pos[2] + 0.20, "Press E", CL_WHITE.applyAlpha(150), TUTORIAL_RADIUS );
-        create3DText ( pos[0], pos[1], pos[2] + 0.5, "== TUTORIAL ==", CL_ROYALBLUE, 15.0);
-    }
 });
+
+event("onServerPlayerStarted", function(playerid) {
+
+    foreach (idx, pos in spawnHelperPositions) {
+        createPrivate3DText ( playerid, pos[0], pos[1], pos[2] + 0.5, plocalize(playerid, "TUTORIAL"), CL_ROYALBLUE, 15.0);
+        createPrivate3DText ( playerid, pos[0], pos[1], pos[2] + 0.20, plocalize(playerid, "3dtext.job.press.E"), CL_WHITE.applyAlpha(150), TUTORIAL_RADIUS );
+    }
+
+});
+
 
 /**
  * Bind on key

@@ -52,8 +52,8 @@ metroInfos <- [
     [ -293.068512,  553.138000, -2.273677,  "Uptown",      40, "up",   null,       null,       null,        METRO_KEY_AVALIABLE, "metro.uptown"     ],
     [  234.378662,  396.031830, -9.407516,  "Chinatown",   15, "up",   259.013,    395.816,    -21.6287,    METRO_KEY_AVALIABLE, "metro.chinatown"  ],
     [ -98.685043,   -481.715393,-8.921828,  "Southport",   15, "up",   -98.6563,   -498.904,   -15.7404,    METRO_KEY_AVALIABLE, "metro.southport"  ],
-    [ -498.224,     21.5297,    -4.50967,   "West Side",    4, "down", -498.266,   -2.04015,   -0.539263,   METRO_KEY_AVALIABLE, "metro.westside"   ],
-    [ -1550.738159, -231.029968,-13.589154, "Sand Island", 15, "up",   -1550.59,   -213.811,   -20.3354,    METRO_KEY_AVALIABLE, "metro.sandisland" ],
+    [ -498.224,     21.5297,    -4.50967,   "WestSide",     4, "down", -498.266,   -2.04015,   -0.539263,   METRO_KEY_AVALIABLE, "metro.westside"   ],
+    [ -1550.738159, -231.029968,-13.589154, "SandIsland",  15, "up",   -1550.59,   -213.811,   -20.3354,    METRO_KEY_AVALIABLE, "metro.sandisland" ],
     [ -1117.73,     1363.49,    -17.5724,   "Kingston",     4, "down", -1141.32,   1363.65,    -13.5724,    METRO_KEY_AVALIABLE, "metro.kingston"   ]
 ];
 
@@ -63,13 +63,17 @@ const METRO_TAIL = 6; // total number of stations-1
 event("onServerStarted", function() {
     log("[metro] loading metro stations...");
     //creating public 3dtext
+
+});
+
+event("onServerPlayerStarted", function(playerid) {
     foreach (station in metroInfos) {
 
-        create3DText ( station[0], station[1], station[2]+0.35, "=== " + station[3].toupper() + " SUBWAY STATION ===", CL_EUCALYPTUS, station[4] );
-        create3DText ( station[0], station[1], station[2]+0.20, "Press E", CL_WHITE.applyAlpha(150), METRO_RADIUS );
+        createPrivate3DText ( playerid, station[0], station[1], station[2]+0.35, [[ "SUBWAYSTATION", station[3].toupper()], "%s: %s"], CL_EUCALYPTUS, station[4] );
+        createPrivate3DText ( playerid, station[0], station[1], station[2]+0.20, plocalize(playerid, "3dtext.job.press.E"), CL_WHITE.applyAlpha(150), METRO_RADIUS );
 
         if(station[6]) {
-            create3DText ( station[6], station[7], station[8]+0.35, "Go "+station[5]+" to enter the subway", CL_EUCALYPTUS, 30 );
+            createPrivate3DText ( playerid, station[6], station[7], station[8]+0.35, [[ "GO", station[5].toupper(), "TOTHESUBWAY"], "%s %s %s"], CL_EUCALYPTUS, 30 );
         }
     }
 });

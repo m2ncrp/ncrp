@@ -2,7 +2,7 @@
 //    msg(character.playerid, "hey hostital member with 'heal' permission");
 //});
 
-
+/*
 cmd("d", function(playerid) {
     msg(playerid, "CMD testing");
 });
@@ -21,7 +21,7 @@ mcmd(["admin.kick2"], "dddd", function(playerid) {
 
 fmd("*", ["admin.kick2"], "$f hhh", function(fraction, character) {
     msg(character.playerid, "тесто");
-});
+});*/
 
 event("onServerStarted", function() {
     log("[hospital]=========================================...");

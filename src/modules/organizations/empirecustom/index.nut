@@ -10,7 +10,7 @@ translation("en", {
     "empirecustom.phone.canceled"   : "[CALL] If you want to advertise, call to us. Good luck! (hang up)"
 });
 
-local AD_COST = 7.52;
+local AD_COST = 0.75;
 local AD_TIMEOUT = 90; // in seconds
 local AD_COLOR = CL_CARIBBEANGREEN;
 
