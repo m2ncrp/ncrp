@@ -1,7 +1,4 @@
 acmd(["weapons"], function(playerid) {
-    if(!isPlayerAdmin(playerid)) {
-        return msg(playerid, "msg.weapons");
-    }
     givePlayerWeapon( playerid, 2, 2500 );
     givePlayerWeapon( playerid, 3, 2500 );
     givePlayerWeapon( playerid, 4, 2500 );

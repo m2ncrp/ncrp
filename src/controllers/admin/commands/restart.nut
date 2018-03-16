@@ -102,6 +102,6 @@ alternativeTranslate({
 });
 
 
-acmd("restart", planServerRestart);
-acmd("fastrestart", planFastServerRestart);
-acmd("nowrestart", planNowServerRestart);
+mcmd(["admin.restart"], "restart", planServerRestart);
+mcmd(["admin.restart"], "fastrestart", planFastServerRestart);
+mcmd(["admin.restart"], "nowrestart", planNowServerRestart);
