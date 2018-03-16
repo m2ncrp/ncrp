@@ -1,19 +1,19 @@
 acmd("name", function(playerid, targetid) {
     if (isPlayerConnected(playerid)) {
-        msg(playerid, "Info: " + getIdentity(targetid.tointeger()), CL_MEDIUMPURPLE);
+        msg(playerid, "Инфо: " + getIdentity(targetid.tointeger()), CL_MEDIUMPURPLE);
     } else {
         msg(playerid, "Player is not connected", CL_MEDIUMPURPLE);
     }
 });
 
 acmd("list", function(playerid) {
-    msg(playerid, "Current player list:", CL_MEDIUMPURPLE);
+    msg(playerid, "Список игроков онлайн:", CL_MEDIUMPURPLE);
     foreach (pid, value in getPlayers()) {
-        msg(playerid, "Info: " + getIdentity(pid));
+        msg(playerid, "Инфо: " + getIdentity(pid));
     }
 });
 
-acmd(["aheal"], function( playerid, targetid = null ) {
+mcmd(["admin.heal"], ["heal"], function( playerid, targetid = null ) {
     targetid = targetid ? targetid.tointeger() : playerid;
     setPlayerHealth( targetid, 720.0 );
 });

@@ -1,47 +1,97 @@
-function dev(text) {
-    local message = "[DEV] " + text;
-    msga(message, [], CL_PETERRIVER);
-    return dbg("chat", "ooc", "[DEV]", text);
+function generateAdminNick (playerid) {
+    local nick = "";
+
+    // Bertone
+    if(getPlayerSerial(playerid) == "7980C4CF5E2DAAF062DF7AE08B6DDE67") {
+        nick = " Bertone";
+    }
+
+    // Oliver
+    if(getPlayerSerial(playerid) == "856BE506BCEAEEC908F3577ABEFF9171") {
+        nick = " Selvatico";
+    }
+
+    // Franko Soprano
+    if(getPlayerSerial(playerid) == "981506EF83BF42095A62407C696A8515") {
+        nick = " Odin";
+    }
+
+    // Hurfy
+    if(getPlayerSerial(playerid) == "2F3701604B3669FCA3D3B7BC1BF3F6B8") {
+        nick = " Hurfy";
+    }
+
+    return "[ADMIN]"+nick;
 }
 
-acmd(["dev"], function(playerid, ...) {
-    if(getPlayerSerial(playerid) == "940A9BF3DC69DC56BCB6BDB5450961B4") {
-        return dev(concat(vargv));
+function sendAdminDevMsg(playerid, author, message, color, important, targetid) {
+    if(targetid != null) {
+        trigger(targetid, "onServerShowChatTrigger");
+        msg(playerid, "chat.player.message.private", [author, getAuthor( targetid ), message], color );
+        msg(targetid, "chat.player.message.private", [author, getAuthor( targetid ), message], color );
+        return statisticsPushText("pm", playerid, "to: " + getAuthor( targetid ) + message);
     }
+
+    local text = author+": " + message;
+
+    if(important) {
+        foreach (plaid, character in players) {
+            trigger(plaid, "onServerShowChatTrigger");
+        }
+        return msga(text, [], color);
+    }
+
+    // send message to all enabled chat
+    foreach (plaid, value in players) {
+        if (isPlayerOOCEnabled(plaid) && plaid != playerid) {
+            msg(plaid, text, color);
+        }
+    }
+    msg(playerid, text, color);
+    return dbg("chat", "ooc", author, message);
+}
+
+function devMsg(playerid, message, important = false, targetid = null) {
+    sendAdminDevMsg(playerid, "[DEV]", message, CL_PETERRIVER, important, targetid);
+}
+
+function adminMsg(playerid, message, important = false, targetid = null) {
+    sendAdminDevMsg(playerid, generateAdminNick(playerid), message, CL_MEDIUMPURPLE, important, targetid);
+}
+
+mcmd(["admin.chat"], "adm", function(playerid, ...) {
+    adminMsg(playerid, concat(vargv));
 });
 
-acmd(["admin", "adm"], function(playerid, ...) {
-    if(getPlayerSerial(playerid) == "940A9BF3DC69DC56BCB6BDB5450961B4") {
-        return dev(concat(vargv));
+mcmd(["admin.chat.important"], "admw", function(playerid, ...) {
+    adminMsg(playerid, concat(vargv), true);
+});
+
+mcmd(["admin.chat.pm"], "apm", function(playerid, targetid, ...) {
+    targetid = targetid ? targetid.tointeger() : null;
+    if (targetid == null || !isPlayerConnected(targetid)) {
+               msg(playerid, "admin.error", CL_ERROR);
+        return msg(playerid, "Формат: /apm id текст");
     }
-    //else if(getPlayerSerial(playerid) == "856BE506BCEAEEC908F3577ABEFF9171") { // Oliver
-    //    return msga("[ADMIN #1] " + concat(vargv), [], CL_MEDIUMPURPLE);
-    //}
-    else {
 
-        local nick = "";
+    adminMsg(playerid, concat(vargv), false, targetid);
+});
 
-        // Bertone
-        if(getPlayerSerial(playerid) == "7980C4CF5E2DAAF062DF7AE08B6DDE67") {
-            nick = " Bertone";
-        }
+mcmd(["dev.chat"], "dev", function(playerid, ...) {
+    return devMsg(playerid, concat(vargv));
+});
 
-        // Oliver
-        if(getPlayerSerial(playerid) == "856BE506BCEAEEC908F3577ABEFF9171") {
-            nick = " Selvatico";
-        }
+mcmd(["dev.chat.important"], "devw", function(playerid, ...) {
+    return devMsg(playerid, concat(vargv), true);
+});
 
-        // Franko Soprano
-        if(getPlayerSerial(playerid) == "981506EF83BF42095A62407C696A8515") {
-            nick = " Franko Soprano";
-        }
-
-        local author = "[ADMIN]"+nick;
-        local message = concat(vargv);
-
-        msga(author+": " + message, [], CL_MEDIUMPURPLE);
-        return dbg("chat", "ooc", author, message);
+mcmd(["dev.chat.pm"], "pmd", function(playerid, targetid, ...) {
+    targetid = targetid ? targetid.tointeger() : null;
+    if (targetid == null || !isPlayerConnected(targetid)) {
+               msg(playerid, "admin.error", CL_ERROR);
+        return msg(playerid, "Формат: /pmd id текст");
     }
+    return devMsg(playerid, concat(vargv), false, targetid);
 });
 
 
@@ -54,3 +104,5 @@ acmd(["clearchatall"], function(playerid) {
         }
     }
 });
+
+

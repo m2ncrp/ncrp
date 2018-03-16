@@ -24,18 +24,29 @@ acmd("plate", function(playerid, text = "") {
     }
 });
 
-acmd(["tune"], function( playerid ) {
+cmd("show", function(playerid) {
+    trigger(playerid, "onServerShowChatTrigger");
+})
+
+cmd("hide", function(playerid) {
+    trigger(playerid, "onServerHideChatTrigger");
+    delayedFunction(2000, function() {
+        trigger(playerid, "onServerShowChatTrigger");
+    });
+})
+
+mcmd(["admin.car"], ["tune"], function( playerid, tune = 3 ) {
     if( isPlayerInVehicle( playerid ) )
     {
         local vehicleid = getPlayerVehicle( playerid );
-        setVehicleTuningTable( vehicleid, 3 );
+        setVehicleTuningTable( vehicleid, tune.tointeger() );
 
         setVehicleWheelTexture( vehicleid, 0, 11 );
         setVehicleWheelTexture( vehicleid, 1, 11 );
     }
 });
 
-acmd(["fix"], function( playerid, targetid = null ) {
+mcmd(["admin.fix"], ["fix"], function( playerid, targetid = null ) {
     if( !isPlayerInVehicle( playerid ) && !targetid )  return;
     if( isPlayerInVehicle( playerid ) && !targetid )  targetid = getPlayerVehicle( playerid );
     if( targetid )  targetid = targetid.tointeger();
@@ -107,7 +118,7 @@ acmd(["stop"], function( playerid, targetid = null ) {
 //    }
 //});
 
-acmd("myveh", function(playerid, modelid) {
+mcmd(["admin.car"], "myveh", function(playerid, modelid) {
     local pos = getPlayerPosition( playerid );
     local vehicleid = createVehicle( modelid.tointeger(), pos[0] + 2.0, pos[1], pos[2] + 1.0, 0.0, 0.0, 0.0 );
     // setVehicleColour(vehicleid, 0, 0, 0, 0, 0, 0);
@@ -116,7 +127,7 @@ acmd("myveh", function(playerid, modelid) {
     setVehicleRespawnEx(vehicleid, false); // it will respawn (specially)
 });
 
-acmd(["deletecar", "removecar", "deleteveh", "removeveh"], function(playerid, plate) {
+mcmd(["admin.car"], ["deletecar", "removecar", "deleteveh", "removeveh"], function(playerid, plate) {
     local vehicleid = getVehicleByPlateText(plate.toupper());
     if (vehicleid) {
         removePlayerVehicle(vehicleid);
