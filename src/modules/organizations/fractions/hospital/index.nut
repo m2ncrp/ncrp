@@ -1,28 +1,44 @@
-// cmd("hl", function(playerid, targeit) {
+//fmd("hospital", ["heal"], "$f heal", function(fraction, character, targetid) {
+//    msg(character.playerid, "hey hostital member with 'heal' permission");
+//});
 
-//     local fracs = fractions.getContaining(playerid);
-
-//     if (fracs.len() < 0) {
-//         return msg(playerid, "no");
-//     }
-
-//     local fraction = fracs[0];
-
-//         if (! (fraction.shortcut == "hospital")) {
-//             return msg(playerid, "no");
-//         }
-
-//         local role = fraction[playerid];
-
-//         if (role.shortcut == "doctor") {
-//             return msg(playerid, "hey doctor");
-//         }
-// })
-
-fmd("hospital", ["heal"], "$f heal", function(fraction, character, targetid) {
-    msg(character.playerid, "hey hostital member with 'heal' permission");
+/*
+cmd("d", function(playerid) {
+    msg(playerid, "CMD testing");
 });
 
+acmd("dd", function(playerid) {
+    msg(playerid, "ACMD testing");
+});
+
+mcmd(["admin.kick1"], "ddd", function(playerid) {
+    msg(playerid, "Admin CMD testing");
+});
+
+mcmd(["admin.kick2"], "dddd", function(playerid) {
+    msg(playerid, "Developer CMD testing");
+});
+
+fmd("*", ["admin.kick2"], "$f hhh", function(fraction, character) {
+    msg(character.playerid, "тесто");
+});*/
+
+event("onServerStarted", function() {
+    log("[hospital]=========================================...");
+});
+
+/*
+1. fractions.exists(shortcut)
+2.
+                    if (!fraction.members.exists(characterID)) {
+                     fractions.hospital.members.exists(4)
+                        return;
+                    }
+3.
+                   if (!fraction.members.get(character).permitted(permissions)) {
+                        return msg(vargv[0], "fraction.permission.error", CL_ERROR);
+                    }
+        */
 /* EXAMPLE:
 function killEveryone() {
     local hospital = Fraction();

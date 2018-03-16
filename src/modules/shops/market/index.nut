@@ -21,7 +21,6 @@ function selectShopAssortment(bizAlias) {
 
 }
 
-
 translation("en", {
     "shops.restaurant.toofar"               : "[INFO] You're too far."
     "shops.restaurant.money.notenough"      : "Not enough money to buy that."
