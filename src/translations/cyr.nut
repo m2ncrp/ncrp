@@ -65,6 +65,8 @@ alternativeTranslate({
     "en|3dtext.organizations.police"    : "EMPIRE BAY POLICE DEPARTMENT"
     "ru|3dtext.organizations.police"    : "онкхжеияйхи деоюпрюлемр щлоюип-ащи"
 
+    "en|3dtext.organizations.policegarage"    : "EMPIRE BAY POLICE DEPARTMENT GARAGE"
+    "ru|3dtext.organizations.policegarage"    : "цюпюф онкхжхх"
 
 
     "en|3dtext.organizations.kiosks"    : "Press E to find something in that"
@@ -112,8 +114,35 @@ alternativeTranslate({
     "en|WASHSTATION"                    : "WASH STATION"
     "ru|WASHSTATION"                    : "юбрнлнийю"
 
+    "en|REPAIRSHOP"                     : "REPAIR SHOP"
+    "ru|REPAIRSHOP"                     : "юбрнлюярепяйюъ"
+
+    "en|FUELSTATION"                    : "FUEL STATION"
+    "ru|FUELSTATION"                    : "юбрнгюопюбйю"
+
+    "en|SUBWAYSTATION"                  : "SUBWAY STATION"
+    "ru|SUBWAYSTATION"                  : "ярюмжхъ лерпн"
+
+    "en|CANISTER"                       : "CANISTER"
+    "ru|CANISTER"                       : "йюмхярпю"
+
+    "en|TUTORIAL"                       : "TUTORIAL"
+    "ru|TUTORIAL"                       : "хмтнплюжхъ"
+
+    "en|GO"                             : "Go"
+    "ru|GO"                             : "хДХ"
+
+    "en|DOWN"                           : "down"
+    "ru|DOWN"                           : "БМХГ"
+
+    "en|UP"                             : "up"
+    "ru|UP"                             : "ББЕПУ"
+
+    "en|TOTHESUBWAY"                    : "to enter the subway"
+    "ru|TOTHESUBWAY"                    : "Й БУНДС Б ЛЕРПН"
 
     "en|WESTSIDE"                   : "WEST SIDE"
+    "en|UPTOWN"                     : "UPTOWN"
     "en|MIDTOWN"                    : "MIDTOWN"
     "en|SOUTHPORT"                  : "SOUTHPORT"
     "en|OYSTERBAY"                  : "OYSTER BAY"
@@ -126,7 +155,9 @@ alternativeTranslate({
     "en|SANDISLAND"                 : "SAND ISLAND"
     "en|HUNTERSPOINT"               : "HUNTERS POINT"
 
+
     "ru|WESTSIDE"                   : "беяр-яюид"
+    "ru|UPTOWN"                     : "юорюсм"
     "ru|MIDTOWN"                    : "лхдрюсм"
     "ru|SOUTHPORT"                  : "яюсяонпр"
     "ru|OYSTERBAY"                  : "нияреп-ащи"

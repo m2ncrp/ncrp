@@ -25,8 +25,8 @@ wash_stations <- [
     [ 318.459, 873.165,   -21.0677,  "LITTLEITALY"  ],
     [ 549.954, -17.8149,  -18.0524,  "OYSTERBAY"    ],
     [ -1677.71, -252.047, -20.1124,  "SANDISLAND"   ],
-    [ -1594.26, 962.701,  -4.96899,  "GREENFIELD"    ],
-    [ -689.994, 1764.51,  -14.7776,  "DIPTON"        ],
+    [ -1594.26, 962.701,  -4.96899,  "GREENFIELD"   ],
+    [ -689.994, 1764.51,  -14.7776,  "DIPTON"       ],
     [  114.305, 160.961,  -19.7987,  "EASTSIDE"     ]
 ];
 
@@ -74,12 +74,3 @@ function washStationsWashCar (playerid) {
 
     }
 }
-
-
-/*
-        if( isPlayerInVehicle( playerid ) )
-        {
-            local vehicleid = getPlayerVehicle( playerid );
-            setVehicleTuningTable( vehicleid, 3 );
-        }
- */
