@@ -105,5 +105,6 @@ acmd(["lastname"], function(playerid, targetid = null, newname = null) {
 key("i", function(playerid) {
     if (isPlayerAdmin(playerid)) {
         trigger(playerid, "onServerToggleBlip", "p");
+        trigger(playerid, "onServerToggleNametags");
     }
 });

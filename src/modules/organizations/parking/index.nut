@@ -144,7 +144,10 @@ function findBusyPlaces() {
 }
 
 function getParkingDaysForVehicle(vehicleid) {
-    return floor((getTimestamp() - __vehicles[vehicleid].entity.parking) / 43200);  // делим на реальных 12 часов = 1 игровым суткам
+    if(__vehicles[vehicleid].entity.parking > 0) {
+        return floor((getTimestamp() - __vehicles[vehicleid].entity.parking) / 43200);  // делим на реальных 12 часов = 1 игровым суткам
+    }
+    return 0;
 }
 
 function getParkingPeniForVehicle(vehicleid) {

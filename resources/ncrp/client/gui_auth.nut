@@ -235,7 +235,6 @@ addEventHandler( "onGuiElementClick",function(element){ //this shit need some re
 function buttonLoginClick() {
     local password = guiGetText(input[0]);
     if(password.len() > 0){
-        showCursor(false);
         triggerServerEvent("loginGUIFunction", password);
     }
     else{
