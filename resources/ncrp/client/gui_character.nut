@@ -556,6 +556,7 @@ addEventHandler("onServerCharacterLoaded", function(locale){
     formatCharacterSelection();
     showChat(false);
     toggleHud(false);
+    showCursor(false);
 });
 
 

@@ -125,7 +125,7 @@ function loginFunc(playerid, password) {
 }
 
 simplecmd("login", loginFunc);
-addEventHandler("loginGUIFunction",loginFunc);
+addEventHandler("loginGUIFunction", loginFunc);
 
 
 function printStartedTips (playerid) {
