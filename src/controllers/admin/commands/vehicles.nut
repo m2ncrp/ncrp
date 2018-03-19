@@ -9,10 +9,10 @@ acmd("plate", function(playerid, text = "") {
     local plates = getRegisteredVehiclePlates();
 
     if (text.len() < 2) {
-        return msg(playerid, "Enter at least 2 letters of the number", CL_ERROR);
+        return msg(playerid, "Введите не менее 2 символов номера авто", CL_ERROR);
     }
 
-    msg(playerid, "Found plate numbers:", CL_INFO);
+    msg(playerid, "Найдены автомобили:", CL_INFO);
 
     foreach (plate, vehicleid in plates) {
         if (plate.tolower().find(text.tolower()) != null) {
@@ -24,15 +24,55 @@ acmd("plate", function(playerid, text = "") {
     }
 });
 
-cmd("show", function(playerid) {
-    trigger(playerid, "onServerShowChatTrigger");
-})
+/**
+ * /history - сидя в авто, получить его историю
+ * /history 5 - сидя в авто, показать его историю игроку с id 5
+ * /history PV-557 - получить историю авто с номером PV-557
+ * /history PV-557 5 - показать игроку с id 5 историю авто с номером PV-557
+ */
+acmd("history", function(playerid, plate = null, targetid = null) {
 
-cmd("hide", function(playerid) {
-    trigger(playerid, "onServerHideChatTrigger");
-    delayedFunction(2000, function() {
-        trigger(playerid, "onServerShowChatTrigger");
-    });
+    local vehicleid;
+
+    if (plate == null) {
+        if( !isPlayerInVehicle( playerid ) ) {
+            return msg( playerid, "Сядьте в автомобиль или введите его номер.");
+        }
+        vehicleid = getPlayerVehicle(playerid);
+        plate = getVehiclePlateText(vehicleid);
+    } else {
+        if(plate.len() < 6) {
+            targetid = plate.tointeger();
+            vehicleid = getPlayerVehicle(playerid);
+            plate = getVehiclePlateText(vehicleid);
+        } else {
+            vehicleid = getVehicleByPlateText(plate.toupper());
+        }
+    }
+
+    if(vehicleid == -1) {
+        return msg( playerid, "parking.checkPlate");
+    }
+
+    local history = JSONParser.parse(__vehicles[vehicleid].entity.history);
+
+    if(history.len() == 0) {
+        return msg( playerid, "В автомобиль пока ещё никто не садился.");
+    }
+
+    if (targetid != null) {
+        msg(playerid, format("Вы отправили %s историю автомобиля %s.", getPlayerName(targetid.tointeger()), plate.toupper()), CL_SUCCESS );
+        playerid = targetid.tointeger();
+    }
+
+    msg( playerid, "=== История автомобиля с номером "+plate.toupper()+" ===", CL_HELP_TITLE);
+
+    foreach (line in history) {
+        local message = format("%s - %s - %.2f", line[0], line[1], line[2]);
+
+        msg(playerid, message, CL_CASCADE );
+    }
+
 })
 
 mcmd(["admin.car"], ["tune"], function( playerid, tune = 3 ) {
