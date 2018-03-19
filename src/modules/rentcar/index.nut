@@ -19,7 +19,7 @@ event ("onServerStarted", function() {
     rentcars[createVehicle( 53, 548.724, 802.5, -12.5, 45.0359, 0.392815, 0.00316114)]    <- [ "free" ];
 
     //bus staion
-    rentcars[createVehicle( 43, -429.728,  454.828, 0.667904, 91.3037, -0.623671, 0.609639 )]    <- [ "free" ];
+    rentcars[createVehicle( 43, -430.506, 453.544, 0.763816, 179.807, -0.185194, 0.771896 )]    <- [ "free" ];
 
     // trago oil
     rentcars[createVehicle( 43,  532.395, -336.788, -20.0606, -8.815 , 0.0442939, 0.574663 )]    <- [ "free" ];
@@ -41,6 +41,9 @@ event ("onServerStarted", function() {
 
     // Stadium
     rentcars[createVehicle(43, -1280.16,1332.96,-13.5016, -90.4743,-0.686156,-0.328493)]    <- [ "free" ];
+
+    // Hospital
+    rentcars[createVehicle( 43, -411.542, 898.964, -19.8691, 135.539, 0.374965, 0.695333 )]    <- [ "free" ];
 
     foreach (idx, value in rentcars) {
         setVehiclePlateText(idx, getRandomVehiclePlate("CR"));
