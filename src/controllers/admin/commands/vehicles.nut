@@ -62,7 +62,7 @@ acmd("history", function(playerid, plate = null, targetid = null) {
         return msg( playerid, "parking.checkPlate");
     }
 
-    local history = __vehicles[vehicleid].entity && __vehicles[vehicleid].entity.history ? JSONParser.parse(__vehicles[vehicleid].entity.history) : [];
+    local history = __vehicles[vehicleid].entity && __vehicles[vehicleid].entity.history && __vehicles[vehicleid].entity.history != "" ? JSONParser.parse(__vehicles[vehicleid].entity.history) : [];
 
     if(history.len() == 0) {
         return msg( playerid, "В автомобиль пока ещё никто не садился.");
