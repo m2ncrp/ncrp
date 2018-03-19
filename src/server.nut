@@ -107,6 +107,7 @@ include("helpers/string.nut");
 include("helpers/math.nut");
 include("helpers/distance.nut");
 include("helpers/color.nut");
+include("helpers/datetime.nut");
 include("helpers/base64.nut");
 include("helpers/urlencode.nut");
 include("helpers/table.nut");
