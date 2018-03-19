@@ -206,7 +206,7 @@ event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
         local posOld = __vehicles[vehicleid].seatPos;
         local posNew = getVehiclePosition( vehicleid );
         local dis = getDistanceBetweenPoints3D( posOld[0], posOld[1], posOld[2], posNew[0], posNew[1], posNew[2] );
-        if(dis > 0.4) {
+        if(dis > 0.4 && __vehicles[vehicleid].entity) {
             local history = __vehicles[vehicleid].entity.history == "" ? [] : JSONParser.parse(__vehicles[vehicleid].entity.history);
             if(history.len() == 10) {
                 history.remove(0);
