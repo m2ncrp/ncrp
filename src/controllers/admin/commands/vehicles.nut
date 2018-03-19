@@ -17,9 +17,17 @@ acmd("plate", function(playerid, text = "") {
     foreach (plate, vehicleid in plates) {
         if (plate.tolower().find(text.tolower()) != null) {
             msg(playerid, format(
-                "Vehicle: %d | Plate: %s | Model: %d | Owner: %s",
+                "ID: %d | Номер: %s | Модель: %d | Владелец: %s",
                 vehicleid, plate, getVehicleModel(vehicleid), (getVehicleOwner(vehicleid) ? getVehicleOwner(vehicleid) : "none")
             ));
+            local parkingDays = getParkingDaysForVehicle(vehicleid);
+            if(parkingDays > 0) {
+                local lostDays = 90 - parkingDays;
+                msg(playerid, format(
+                    "На штрафстоянке: %d игр. дн. (осталось: %d) | Штраф: $%.2f",
+                    getParkingDaysForVehicle(vehicleid), lostDays, getParkingPeniForVehicle(vehicleid)
+                ), CL_HELP);
+            }
         }
     }
 });
