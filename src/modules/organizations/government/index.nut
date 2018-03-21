@@ -106,6 +106,8 @@ cmd("tax", function( playerid, plateText = 0, monthUp = 1 ) {
         return msg( playerid, "parking.checkPlate");
     }
 
+    if (!isOriginalVehicleExists(vehicleid)) { return dbg("TODO: add support for NVEHICLE") }
+
     local modelid = getVehicleModel( vehicleid );
     local carInfo = getCarInfoModelById( modelid );
 

@@ -30,6 +30,8 @@ fmd("pd", ["pd.ticket"], "$f ticket", function(fraction, character, target) {
         targetid = getVehicleByPlateText(target);
     }
 
+    if (!isOriginalVehicleExists(targetid)) { return dbg("TODO: add support for NVEHICLE") }
+
     msg(playerid, "empirecustom.phone.enter");
     msg(playerid, "empirecustom.phone.help", AD_TIMEOUT, CL_GRAY);
     trigger(playerid, "hudCreateTimer", AD_TIMEOUT, true, true);

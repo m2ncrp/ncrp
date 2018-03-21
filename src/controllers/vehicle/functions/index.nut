@@ -39,6 +39,10 @@ isPlayerInVehicle <- function(playerid) {
     return true;
 }
 
+isOriginalVehicleExists <- function(vehicleid) {
+    return (vehicleid in __vehicles);
+}
+
 getPlayerVehicle <- function(playerid) {
     return isPlayerInVehicle(playerid) ? original__getPlayerVehicle(playerid) : -1;
 }

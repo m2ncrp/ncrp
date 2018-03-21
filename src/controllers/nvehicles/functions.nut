@@ -5,7 +5,7 @@
  * @param  {integer}  vehicleid
  * @return {Boolean}
  */
-function isPlayerHaveVehicleKey(playerid, veh) {
+function isPlayerHaveNVehicleKey(playerid, veh) {
 
     local vehicle = veh;
     if (typeof veh == "integer") {

@@ -58,8 +58,12 @@ acmd("history", function(playerid, plate = null, targetid = null) {
         }
     }
 
-    if(vehicleid == -1) {
+    if (vehicleid == -1) {
         return msg( playerid, "parking.checkPlate");
+    }
+
+    if (!isOriginalVehicleExists(vehicleid)) {
+        return dbg("TODO: add support for NVEHICLE");
     }
 
     local history = __vehicles[vehicleid].entity && __vehicles[vehicleid].entity.history && __vehicles[vehicleid].entity.history != "" ? JSONParser.parse(__vehicles[vehicleid].entity.history) : [];
@@ -177,6 +181,8 @@ mcmd(["admin.car"], "myveh", function(playerid, modelid) {
 
 mcmd(["admin.car"], ["deletecar", "removecar", "deleteveh", "removeveh"], function(playerid, plate) {
     local vehicleid = getVehicleByPlateText(plate.toupper());
+    if (!isOriginalVehicleExists(vehicleid)) { return dbg("TODO: add support for NVEHICLE") }
+
     if (vehicleid) {
         removePlayerVehicle(vehicleid);
         msg(playerid, "Vehicle "+plate.toupper()+" deleted.", CL_SNUFF);

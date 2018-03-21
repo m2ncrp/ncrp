@@ -193,6 +193,8 @@ event("onVehicleSetToCarPound", function(playerid, plate = null) {
         return msg( playerid, "parking.checkPlate");
     }
 
+    if (!isOriginalVehicleExists(vehicleid)) { return dbg("TODO: add support for NVEHICLE") }
+
     if (!isVehicleEmpty(vehicleid)) {
         return msg( playerid, "parking.peoopleInside");
     }

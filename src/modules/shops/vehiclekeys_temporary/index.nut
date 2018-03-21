@@ -64,6 +64,8 @@ cmd("key", function( playerid, plateText = 0 ) {
         return msg( playerid, "parking.checkPlate", CL_THUNDERBIRD);
     }
 
+    if (!isOriginalVehicleExists(vehicleid)) { return dbg("TODO: add support for NVEHICLE") }
+
     if(__vehicles[vehicleid].ownership.ownerid == 3) {
         return msg( playerid, "vehkeys.alreadygot", CL_THUNDERBIRD);
     }

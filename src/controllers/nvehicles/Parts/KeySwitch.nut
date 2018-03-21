@@ -50,15 +50,11 @@ class VehicleComponent.KeySwitch extends VehicleComponent
 
 
 key("q", function(playerid) {
-    if (!original__isPlayerInVehicle(playerid)) {
-        return;
-    }
-
-    if (!(original__getPlayerVehicle(playerid) in vehicles_native)) return;
+    if (!isPlayerInNVehicle(playerid)) return;
 
     local vehicle = getPlayerNVehicle(playerid);
 
-    if(isPlayerHaveVehicleKey(playerid, vehicle)) {
+    if (isPlayerHaveNVehicleKey(playerid, vehicle)) {
         local engine = vehicle.getComponent(VehicleComponent.Engine);
         local keyswitch = vehicle.getComponent(VehicleComponent.KeySwitch);
         engine.setStatusTo( !keyswitch.data.status );
