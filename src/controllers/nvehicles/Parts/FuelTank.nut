@@ -1,5 +1,3 @@
-// include("controllers/vehicle/classes/Vehicle_hack.nut");
-
 class VehicleComponent.FuelTank extends VehicleComponent
 {
     static classname = "VehicleComponent.FuelTank";
@@ -107,10 +105,10 @@ event("onServerMinuteChange", function() {
         if (vehicle.state && tank.data.fuellevel >= 0) {
             local consumption;
             if (speed > 0) {
-                consumption = eng.data.consumption.move * getDefaultVehicleFuel( hull.getModel() );
+                consumption = eng.data.consumption.move * getDefaultVehicleFuelForModel( hull.getModel() );
                 dbg("Veh is on the run. Consump: " + consumption);
             } else {
-                consumption = eng.data.consumption.idle * getDefaultVehicleFuel( hull.getModel() );
+                consumption = eng.data.consumption.idle * getDefaultVehicleFuelForModel( hull.getModel() );
                 dbg("Veh is stand still. Consump: " + consumption);
             }
 

@@ -1,5 +1,3 @@
-include("controllers/nvehicles/classes/Vehicle_hack.nut");
-
 class Vehicle extends ORM.Entity
 {
     static classname = "Vehicle";
@@ -66,8 +64,8 @@ class Vehicle extends ORM.Entity
         this.getComponent(VehicleComponent.Hull).setDefaultModel(model);
 
         this.components.push(VehicleComponent.FuelTank({
-            volume = getDefaultVehicleFuel(model),
-            fuellevel = getDefaultVehicleFuel(model),
+            volume = getDefaultVehicleFuelForModel(model),
+            fuellevel = getDefaultVehicleFuelForModel(model),
         }));
         this.components.push(VehicleComponent.Engine());
         this.components.push(VehicleComponent.Plate());

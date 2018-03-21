@@ -95,41 +95,41 @@ acmd(["vehicle"], ["despawn"], function( playerid, vehicle = null ) {
 //     }
 // });
 
-acmd(["fix"], function( playerid, targetid = null ) {
-    // if( !original__isPlayerInVehicle( playerid ) && !targetid )  return;
-    // if( original__isPlayerInVehicle( playerid ) && !targetid )  targetid = original__getPlayerVehicle( playerid );
-    // if( targetid )  targetid = targetid.tointeger();
+// acmd(["fix"], function( playerid, targetid = null ) {
+//     // if( !original__isPlayerInVehicle( playerid ) && !targetid )  return;
+//     // if( original__isPlayerInVehicle( playerid ) && !targetid )  targetid = original__getPlayerVehicle( playerid );
+//     // if( targetid )  targetid = targetid.tointeger();
 
-    // repairVehicle( targetid );
-    // setVehicleFuel(targetid, getDefaultVehicleFuel(targetid));
-    //
-    if( !original__isPlayerInVehicle( playerid ) && targetid == null ) {
-        local vehicle = vehicles.nearestVehicle(playerid);
-        local hull = vehicle.components.findOne(VehicleComponent.Hull);
-        local fueltank = vehicle.components.findOne(VehicleComponent.FuelTank);
-        hull.repair();
-        fueltank.setFuelToMax();
-        vehicle.correct();
-    }
+//     // repairVehicle( targetid );
+//     // setVehicleFuel(targetid, getDefaultVehicleFuel(targetid));
+//     //
+//     if( !original__isPlayerInVehicle( playerid ) && targetid == null ) {
+//         local vehicle = vehicles.nearestVehicle(playerid);
+//         local hull = vehicle.components.findOne(VehicleComponent.Hull);
+//         local fueltank = vehicle.components.findOne(VehicleComponent.FuelTank);
+//         hull.repair();
+//         fueltank.setFuelToMax();
+//         vehicle.correct();
+//     }
 
-    if( original__isPlayerInVehicle( playerid ) && targetid == null ) {
-        local vehicleid = original__getPlayerVehicle(playerid);
-        local hull = vehicles[vehicleid].components.findOne(VehicleComponent.Hull);
-        local fueltank = vehicles[vehicleid].components.findOne(VehicleComponent.FuelTank);
-        hull.repair();
-        fueltank.setFuelToMax();
-        vehicles[vehicleid].correct();
-    }
+//     if( original__isPlayerInVehicle( playerid ) && targetid == null ) {
+//         local vehicleid = original__getPlayerVehicle(playerid);
+//         local hull = vehicles[vehicleid].components.findOne(VehicleComponent.Hull);
+//         local fueltank = vehicles[vehicleid].components.findOne(VehicleComponent.FuelTank);
+//         hull.repair();
+//         fueltank.setFuelToMax();
+//         vehicles[vehicleid].correct();
+//     }
 
-    if( !original__isPlayerInVehicle( playerid ) && targetid != null ) {
-        local hull = vehicles[targetid].components.findOne(VehicleComponent.Hull);
-        local fueltank = vehicles[targetid].components.findOne(VehicleComponent.FuelTank);
-        hull.repair();
-        fueltank.setFuelToMax();
-        vehicles[targetid].correct();
-    }
+//     if( !original__isPlayerInVehicle( playerid ) && targetid != null ) {
+//         local hull = vehicles[targetid].components.findOne(VehicleComponent.Hull);
+//         local fueltank = vehicles[targetid].components.findOne(VehicleComponent.FuelTank);
+//         hull.repair();
+//         fueltank.setFuelToMax();
+//         vehicles[targetid].correct();
+//     }
 
-});
+// });
 
 
 
