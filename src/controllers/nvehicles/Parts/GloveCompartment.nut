@@ -57,22 +57,22 @@ class VehicleComponent.GloveCompartment extends VehicleComponent {
 }
 
 // open up key switch and bardachok at the same time with players invenory
-key("tab", function(playerid) {
-    if ( !isPlayerInNVehicle(playerid) ) return;
-
-    local vehicle = getPlayerNVehicle(playerid);
-    local gc = vehicle.getComponent(VehicleComponent.GloveCompartment);
-
-    if ( vehicle.isPlayerDriver(players[playerid]) ||
-         vehicle.isPlayerOnSeat(players[playerid], 1) )
-    {
-        if (!gc.status) {
-            gc.container.show(playerid);
-            gc.setState(true);
-        } else {
-            gc.container.hide(playerid);
-            gc.setState(false);
-        }
-    }
-});
+//key("tab", function(playerid) {
+//    if ( !isPlayerInNVehicle(playerid) ) return;
+//
+//    local vehicle = getPlayerNVehicle(playerid);
+//    local gc = vehicle.getComponent(VehicleComponent.GloveCompartment);
+//
+//    if ( vehicle.isPlayerDriver(players[playerid]) ||
+//         vehicle.isPlayerOnSeat(players[playerid], 1) )
+//    {
+//        if (!gc.status) {
+//            gc.container.show(playerid);
+//            gc.setState(true);
+//        } else {
+//            gc.container.hide(playerid);
+//            gc.setState(false);
+//        }
+//    }
+//});
 
