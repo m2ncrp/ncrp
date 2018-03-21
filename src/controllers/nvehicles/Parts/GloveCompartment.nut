@@ -61,6 +61,7 @@ key("tab", function(playerid) {
     if ( !isPlayerInNVehicle(playerid) ) return;
 
     local vehicle = getPlayerNVehicle(playerid);
+    if (vehicle == null || vehicle.getType() == Vehicle.Type.semitrailertruck || vehicle.getType() == Vehicle.Type.bus) return null;
     local gc = vehicle.getComponent(VehicleComponent.GloveCompartment);
 
     if ( vehicle.isPlayerDriver(players[playerid]) ||

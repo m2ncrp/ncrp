@@ -25,11 +25,11 @@ class Vehicle extends ORM.Entity
     };
 
     static Type = {
-        sedan = 0,
-        hetch = 1,
-        truck = 2,
+        sedan   = 0,
+        hetch   = 1,
+        truck   = 2,
         trailer = 3,
-        bus = 4,
+        bus     = 4,
         semitrailertruck = 5,
     };
 
@@ -63,7 +63,7 @@ class Vehicle extends ORM.Entity
 
         // common components
         this.components.push(VehicleComponent.Hull());
-        this.getComponent(VehicleComponent.Hull).setModel(model);
+        this.getComponent(VehicleComponent.Hull).setDefaultModel(model);
 
         this.components.push(VehicleComponent.FuelTank({
             volume = getDefaultVehicleFuel(model),
@@ -255,7 +255,7 @@ class Vehicle extends ORM.Entity
             ks._setHash(this.id);
         }
 
-        if (this.getType() != Vehicle.Type.semitrailertruck) {
+        if (this.getType() != Vehicle.Type.semitrailertruck && this.getType() != Vehicle.Type.bus) {
             local trunk = this.getComponent(VehicleComponent.Trunk);
             if (trunk._getHash() == null) {
                 trunk._setHash(this.id);
@@ -343,7 +343,7 @@ class Vehicle extends ORM.Entity
     }
 
     function isEmpty() {
-        return (this.getPassengers() < 1);
+        return (this.getPassengersCount() < 1);
     }
 
     function getPlayerSeat(character) {
@@ -398,4 +398,77 @@ class Vehicle extends ORM.Entity
         }
         return c;
     }
+
+    function getSpeed() {
+        return getVehicleSpeed(this.vehicleid);
+    }
+
+    function setSpeed(v = Vector3(0.0, 0.0, 0.0) ) {
+        setVehicleSpeed(this.vehicleid, v.x, v.y, v.z);
+    }
 }
+
+
+
+
+local door_test = false;
+local door_radius = 0.7;
+
+function drawVehicleDoorPositions(playerid, doors) {
+    foreach (idx, door in doors) {
+        if (door == null) continue;
+        create3DText ( door.x, door.y, door.z, "TRIGGER: "+idx, CL_ROYALBLUE );
+    }
+}
+
+// // print to console
+// key("f", function(playerid) {
+//     local vehicle = vehicles.nearestVehicle(playerid);
+//     if ( vehicle.getType() != Vehicle.Type.bus ) return;
+
+//     local model = vehicle.getComponent(VehicleComponent.Hull).getModel();
+//     local doors = getVehicleDoorsPosition(model);
+
+//     local character = players[playerid];
+//     local p_pos = character.getPosition();
+
+//     // dbg(doors);
+
+//     calcTriggerPositions(playerid, vehicle.vehicleid, doors);
+// });
+
+
+// // print and draw
+// key("g", function(playerid) {
+//     local vehicle = vehicles.nearestVehicle(playerid);
+//     if ( vehicle.getType() != Vehicle.Type.bus ) return;
+
+//     local model = vehicle.getComponent(VehicleComponent.Hull).getModel();
+//     local doors = getVehicleDoorsPosition(model);
+
+//     local character = players[playerid];
+//     local p_pos = character.getPosition();
+
+//     dbg(doors);
+
+//     doors = calcTriggerPositions(playerid, vehicle.vehicleid, doors);
+//     drawVehicleDoorPositions(playerid, doors);
+// });
+
+
+// print and draw
+key("h", function(playerid) {
+    local vehicle = vehicles.nearestVehicle(playerid);
+    // if ( vehicle.getType() != Vehicle.Type.bus ) return;
+
+    local model = vehicle.getComponent(VehicleComponent.Hull).getModel();
+    local doors = getVehicleTriggersPosition(model);
+
+    local character = players[playerid];
+    local p_pos = character.getPosition();
+
+    // dbg(doors);
+
+    doors = calcTriggerPositions(playerid, vehicle.vehicleid, doors);
+    drawVehicleDoorPositions(playerid, doors);
+});
