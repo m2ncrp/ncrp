@@ -106,13 +106,8 @@ class VehicleComponent.Gabarites extends VehicleComponent
 }
 
 
-key("z", function(playerid) {
-    if (!original__isPlayerInVehicle(playerid)) {
-        return;
-    }
-
-    // check if vehicle is NVehicle Object or not
-    if (!(original__getPlayerVehicle(playerid) in vehicles_native)) return;
+key(["z", "num_1"], function(playerid) {
+    if (!isPlayerInNVehicle(playerid)) return;
 
     local vehicle = getPlayerNVehicle(playerid);
     local gabs = vehicle.components.findOne(VehicleComponent.Gabarites);
@@ -124,14 +119,8 @@ key("z", function(playerid) {
     }
 });
 
-
-key("x", function(playerid) {
-    if (!original__isPlayerInVehicle(playerid)) {
-        return;
-    }
-
-    // check if vehicle is NVehicle Object or not
-    if (!(original__getPlayerVehicle(playerid) in vehicles_native)) return;
+key(["x", "num_2"], function(playerid) {
+    if (!isPlayerInNVehicle(playerid)) return;
 
     local vehicle = getPlayerNVehicle(playerid);
     local gabs = vehicle.components.findOne(VehicleComponent.Gabarites);
@@ -143,14 +132,8 @@ key("x", function(playerid) {
     }
 });
 
-
-key("c", function(playerid) {
-    if (!original__isPlayerInVehicle(playerid)) {
-        return;
-    }
-
-    // check if vehicle is NVehicle Object or not
-    if (!(original__getPlayerVehicle(playerid) in vehicles_native)) return;
+key(["c", "num_3"], function(playerid) {
+    if (!isPlayerInNVehicle(playerid)) return;
 
     local vehicle = getPlayerNVehicle(playerid);
     local gabs = vehicle.components.findOne(VehicleComponent.Gabarites);
