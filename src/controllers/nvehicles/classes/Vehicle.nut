@@ -393,9 +393,10 @@ class Vehicle extends ORM.Entity
     function getComponent(idOrType) {
         local c = this.components.findOne(idOrType);
 
-        if (!c || !(c instanceof idOrType)) {
+        if (!c) {
             throw "Vehicle: cannot find " + idOrType.classname + "!";
         }
+
         return c;
     }
 
