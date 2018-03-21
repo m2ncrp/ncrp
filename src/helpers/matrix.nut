@@ -1,59 +1,208 @@
 class Matrix
 {
-    r1 = Vector3(0, 0, 0);
-    r2 = Vector3(0, 0, 0);
-    r3 = Vector3(0, 0, 0);
+    _data = [];
 
-    constructor (x, y, z) {
-        if (typeof x == "array") {
-            this.r1 = Vector3(x[0], x[1], x[2]);
-            this.r2 = Vector3(y[0], y[1], y[2]);
-            this.r3 = Vector3(z[0], z[1], z[2]);
+    length = 0;
+    function __checksForDimentions(arg) {
+        if ( !this.length ) {
+            this.length = arg.len();
         }
 
-        if (x instanceof Vector3) {
-            this.r1.init(x.x, x.y, x.z);
-            this.r2.init(y.x, y.y, y.z);
-            this.r3.init(z.x, z.y, z.z);
+        if ( this.length != arg.len() ) {
+            throw "Dimensions of matrices being concatenated are not consistent.";
         }
-
-        // this.tostring();
     }
 
-    function add(m) {
-        if (m instanceof Matrix) return Matrix(this.r1 + m.r1, this.r2 + m.r2, this.r3 + m.r3);
-        else return Matrix(this.r1 + m, this.r2 + m, this.r3 + m);
+    constructor (...) {
+        this._data = array( vargv.len() );
+        foreach (i, arg in vargv) {
+            if (typeof arg != "array") {
+                throw "[MATH] Couldn't figure out matrix creation... Check args!";
+            }
+
+            this.__checksForDimentions(arg);
+
+            if (arg.len() > 0 && typeof arg[0] == "array") {
+                this._data = clone(arg);
+                return;
+            }
+
+            // print( "[ARG] " + arg +"\n");
+            this._data[i] = arg;
+        }
     }
 
-    function multiply(m) {
-        if (m instanceof Matrix) {
-            local x = Vector3(m.r1.x, m.r2.x, m.r3.x);
-            local y = Vector3(m.r1.y, m.r2.y, m.r3.y);
-            local z = Vector3(m.r1.z, m.r2.z, m.r3.z);
-
-            local s1 = Vector3(this.r1.dot(x), this.r1.dot(y), this.r1.dot(z));
-            local s2 = Vector3(this.r2.dot(x), this.r2.dot(y), this.r2.dot(z));
-            local s3 = Vector3(this.r3.dot(x), this.r3.dot(y), this.r3.dot(z));
-
-            return Matrix(s1, s2, s3);
+    function zeros(r = null, c = null, defautValue = 0) {
+        if (!r || !c) {
+            r = this.getRowNumber();
+            c = this.getColumnNumber();
         }
-        if (m instanceof Vector3) {
-            local x = this.r1.dot(m);
-            local y = this.r2.dot(m);
-            local z = this.r3.dot(m);
-            return Vector3( x, y, z );
+        // local data = [];
+        // for (local i = 0; i <= r; i++) {
+        //     data.push( array(c, defautValue) );
+        // }
+        local tmp_data = array(r);
+        foreach (idx, row in tmp_data) {
+            tmp_data[idx] = array(c, defautValue);
         }
-        else return Matrix(this.r1 * m, this.r2 * m, this.r3 * m);
+        return Matrix(tmp_data);
+    }
+
+    // function eye(r,c) {
+    //     // if size was not given
+    //     // local r = this.getRowNumber();
+    //     // local c = this.getColumnNumber();
+
+    //     local tmp_data = zeros(r, c);
+    //     for (local i = 0; i < c; i++) {
+    //         tmp_data[i][i] = 1;
+    //     }
+    //     return Matrix(tmp_data);
+    // }
+
+    function getColumn(index = 1) {
+        local index = index - 1;
+        local column = [];
+        foreach (row in this._data) {
+            column.push( row[index] );
+        }
+        return Matrix(column);
+    }
+
+    function getRow(index = 1) {
+        local index = index - 1;
+        return Matrix( this._data[index] );
+    }
+
+    // function swapColumns() {
+    //     // Code
+    // }
+
+    // function swapRows() {
+    //     // Code
+    // }
+
+    function transp() {
+        local data = [];
+        for (local i = 0; i < this.length; i++) {
+            data.push( this.getColumn(i+1)._data[0] );
+        }
+        return Matrix(data);
+    }
+
+    function  getColumnNumber() {
+        return this._data[0].len();
+    }
+
+    function getRowNumber() {
+        return this._data.len();
+    }
+
+    function __multiplyRowByColumn(row, column) {
+        local value = 0;
+        foreach (i, element in row) {
+            value += element * column[0][i];
+            // print(value + " = " + value + " + " + element + " * " + column[0][i] + "\n");
+        }
+        // print("\n");
+        return value;
+    }
+
+    // A * B
+    function __multiplyDot(mtrx) {
+        if ( mtrx._data.len() < 1 ) {
+            throw "[MATH] __multiplyDot impossible: mtrx hasn't been initialized yet"
+        }
+
+        if ( this.getColumnNumber() != mtrx.getRowNumber() ) {
+            throw "[MATH] Breaking rules of matrices multiplication @__multiplyDot";
+        }
+
+        local r = this.getRowNumber();
+        local c = mtrx.getColumnNumber();
+
+        // print("size: (" + r + "x" + c + ")\n");
+
+        local tmp_mtrx = array(r);
+        foreach (idx, row in tmp_mtrx) {
+            tmp_mtrx[idx] = array(c, 0);
+        }
+
+        for (local i = 0; i < r; i++) {
+            for (local j = 0; j < c; j++) {
+                tmp_mtrx[i][j] = __multiplyRowByColumn( this._data[i], mtrx.getColumn(j+1)._data );
+                // print(tmp_mtrx[i][j] + " = " + tmp_mtrx[i][j] + " + " + this._data[i][j] + " * " + mtrx._data[j][i] + "\n");
+            }
+        }
+        return Matrix(tmp_mtrx);
+    }
+
+
+    function _mul(m) {
+        return this.__multiplyDot(m);
     }
 
     function tostring() {
-        // dbg(this.r1.x + ",\t" + this.r1.y + ",\t" + this.r1.z + "\n");
-        // dbg(this.r2.x + ",\t" + this.r2.y + ",\t" + this.r2.z + "\n");
-        // dbg(this.r3.x + ",\t" + this.r3.y + ",\t" + this.r3.z + "\n\n");
-        //
-        // dbg(this.r1);
-        // dbg(this.r2);
-        // dbg(this.r3);
-        // dbg();
+        // foreach (row in this._data) {
+        //     print("[ ");
+        //     foreach (element in row) {
+        //         print( element + " " );
+        //     }
+        //     print("]\n");
+        // }
+        // print("\n");
+        local str = "";
+        foreach (row in this._data) {
+            str += "[ ";
+            foreach (element in row) {
+                str+= " " + element.tostring();
+            }
+            str += " ]";
+            dbg(str);
+            str="";
+        };
     }
+}
+
+
+function EulerAngles(rotationVector) {
+    local angleX = torad( rotationVector[2] );
+    local angleY = torad( rotationVector[1] );
+    local angleZ = torad( rotationVector[0] );
+
+    local mX = Matrix(
+                [ 1, 0,          0               ],
+                [ 0, cos(angleX), -sin(angleX)   ],
+                [ 0, sin(angleX),  cos(angleX)   ]
+            );
+    // mX.tostring();
+
+    // A = A * mX;
+    // A.tostring();
+
+    local mY = Matrix(
+                [ cos(angleY),  0,  sin(angleY) ],
+                [ 0,            1,  0           ],
+                [-sin(angleY),  0,  cos(angleY) ]
+            );
+    // mY.tostring();
+
+    // A = A * mY;
+    // A.tostring();
+
+    local mZ = Matrix(
+                [ cos(angleZ), -sin(angleZ), 0 ],
+                [ sin(angleZ),  cos(angleZ), 0 ],
+                [ 0,            0,           1 ]
+            );
+    // mZ.tostring();
+
+    // C = A * mZ;
+    // C.tostring();
+
+    local res = (mY * mX * mZ);
+    // log("= = = = = = = = = = = = = =");
+    // res.tostring();
+    // log("= = = = = = = = = = = = = =");
+    return res;
 }

@@ -129,10 +129,6 @@ class DirtyHack {
             callback(v);
         });
         callback(veh);
-
-        // veh.engine.correct();
-        // veh.lights.correct();
-        // veh.gabarites.correct();
     }
 
     function onExit(seat) {
@@ -155,17 +151,51 @@ class DirtyHack {
 }
 
 
+key("f", function(playerid) {
+    local vehicle = vehicles.nearestVehicle(playerid);
+    local model = vehicle.getComponent(VehicleComponent.Hull).getModel();
+    local doors = getVehicleDoorsPosition(model);
 
-// key("w", function(playerid) {
-//     if (!original__isPlayerInVehicle(playerid)) {
-//         return;
-//     }
+    onVehicleDoorTriggerPosition(playerid,
+                                vehicle.vehicleid,
+                                doors,
+        function (playerid, vehicleid, door) {
+            // there's natives won't affect on wrapper at all
+            // so all should work as it should be working
+            setVehicleFuel(vehicleid, getVehicleFuel(vehicleid) + 0.1);
+            setVehicleEngineState( vehicleid, true );
+            setVehicleLightState(vehicleid, false);
+            delayedFunction( 150, function () {
+                setVehicleEngineState( vehicleid, false );
+            });
+        });
+});
 
-//     local eng = vehicles[0].components.findOne(VehicleComponent.Engine);
-//     dbg(eng);
-//     if (!eng.data.status) {
-//         setVehicleFuel(eng.parent.vehicleid, 0.0);
-//         return false;
-//     }
-//     return true;
-// });
+// полицейская люстра
+key("3", function(playerid) {
+    local vehicle = vehicles.nearestVehicle(playerid);
+    local model = vehicle.getComponent(VehicleComponent.Hull).getModel();
+
+    // if (model != 51 || model != 42) return;
+
+    setVehicleBeaconLightState( vehicle.vehicleid, true );
+});
+
+key("4", function(playerid) {
+    local vehicle = vehicles.nearestVehicle(playerid);
+    local model = vehicle.getComponent(VehicleComponent.Hull).getModel();
+
+    // if (model != 51 || model != 42) return;
+
+    setVehicleBeaconLightState( vehicle.vehicleid, false );
+});
+
+
+function serverPulseEvent() {
+    foreach (idx, veh in vehicles) {
+        if (veh.isEmpty)
+            veh.correct();
+    }
+    return 1;
+}
+addEventHandler( "onServerPulse", serverPulseEvent );

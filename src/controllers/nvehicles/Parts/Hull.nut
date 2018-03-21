@@ -8,12 +8,22 @@ class VehicleComponent.Hull extends VehicleComponent
         base.constructor(data);
 
         if (this.data == null) {
-            this.data = {id = 0, model = 0, color1 = "0|0|0", color2 = "0|0|0", dirt=0.0};
+            this.data = {id = 0,
+                model   = 0,
+                chassis = 0,
+                color1  = "0|0|0",
+                color2  = "0|0|0",
+                dirt    =0.0};
         }
     }
 
     function getModel() {
         return this.data.model;
+    }
+
+    function setDefaultModel(model, respawn = false) {
+        this.data.chassis = model;
+        this.setModel(model, respawn);
     }
 
     function setModel(model, respawn = false) {
@@ -26,7 +36,7 @@ class VehicleComponent.Hull extends VehicleComponent
             local self = this;
             delayedFunction(500, function(){
                 self.parent.spawn();
-            })
+            });
         }
 
         return true;//this;

@@ -53,6 +53,28 @@ acmd(["vehicle"],["create"], function( playerid, model ) {
     giveKey(character, veh);
 });
 
+acmd(["vehicle"],["tune"], function( playerid, text = "", level = 1 ) {
+    local plates = getRegisteredVehiclePlates();
+    local level  = level.tointeger();
+
+    if (text.len() < 2) {
+        return msg(playerid, "Enter at least 2 letters of the number", CL_ERROR);
+    }
+
+    foreach (plate, vehicleid in plates) {
+        if (plate.tolower().find(text.tolower()) != null) {
+            setVehicleTuningTable(vehicleid, level);
+        }
+    }
+});
+
+acmd(["vehicle"],["set", "model"], function( playerid, model ) {
+    local model = model.tointeger();
+    local vehicle = vehicles.nearestVehicle(playerid);
+    if (vehicle == null) return;
+
+    vehicle.getComponent(VehicleComponent.Hull).setModel(model, true);
+});
 
 acmd(["vehicle"], ["despawn"], function( playerid, vehicle = null ) {
     if (vehicle == null) {
@@ -128,7 +150,6 @@ acmd(["clean"], function( playerid, targetid = null ) {
         local hull = vehicles[targetid].components.findOne(VehicleComponent.Hull);
         hull.setDirt(0.0);
     }
-
 });
 
 // acmd(["rot"], function( playerid, targetid = null ) {

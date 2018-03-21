@@ -106,28 +106,44 @@ class VehicleComponent.Trunk extends VehicleComponent {
 function _getTrunk(playerid) {
     if (isPlayerInNVehicle(playerid)) return;
     local vehicle = vehicles.nearestVehicle(playerid);
-    if (vehicle == null || vehicle.getType() == Vehicle.Type.semitrailertruck) return;
+    if (vehicle == null || vehicle.getType() == Vehicle.Type.semitrailertruck || vehicle.getType() == Vehicle.Type.bus) return null;
 
+    local model = vehicle.getComponent(VehicleComponent.Hull).getModel();
     local trunk = vehicle.getComponent(VehicleComponent.Trunk);
-    local vid = vehicle.id;
 
     local v_pos = getVehiclePosition(vehicle.vehicleid);
     local v_ang = getVehicleRotation(vehicle.vehicleid);
-    local p_pos = getPlayerPosition(playerid);
+    // local p_pos = getPlayerPosition(playerid);
+    local p_pos = players[playerid].getPosition();
 
-    local offsets = Vector3(0, -2.51, 0);
     local radius = 0.7;
+    local offsets = getVehicleTruckPosition(model);//Vector3(0, -2.51, 0);
 
-    offsets = offsets.rotate(v_ang[0], v_ang[1], v_ang[2] );
+    if (offsets == null) return null;
 
-    local x = v_pos[0] + offsets.z;
-    local y = v_pos[1] + offsets.y;
-    local z = v_pos[2] - offsets.x;
+    local d_pos = Matrix([offsets.x, offsets.y, offsets.z]) * EulerAngles(v_ang);
 
-    if ( checkDistanceXY(x, y, p_pos[0], p_pos[1], radius) ) {
+    offsets.x = v_pos[0] + d_pos._data[0][0];
+    offsets.y = v_pos[1] + d_pos._data[0][1];
+    offsets.z = v_pos[2] + d_pos._data[0][2] / 2.0;
+
+    if ( checkDistanceXY( offsets.x, offsets.y, p_pos.x, p_pos.y, radius) ) {
+        msg(playerid, "Your are staning on Trunk trigger");
         return trunk;
     }
     return null;
+
+
+
+    // offsets = offsets.rotate(v_ang[0], v_ang[1], v_ang[2] );
+
+    // local x = v_pos[0] + offsets.z;
+    // local y = v_pos[1] + offsets.y;
+    // local z = v_pos[2] - offsets.x;
+
+    // if ( checkDistanceXY(x, y, p_pos[0], p_pos[1], radius) ) {
+    //     return trunk;
+    // }
 }
 
 
