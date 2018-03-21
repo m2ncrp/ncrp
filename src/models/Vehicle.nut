@@ -1,3 +1,10 @@
+// OLD
+// NOT USED ANYMORE
+// DONT TOUCH IT
+//
+//
+// DONT
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 class Vehicle extends ORM.Entity {
 
     static classname = "Vehicle";

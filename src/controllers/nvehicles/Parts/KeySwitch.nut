@@ -4,34 +4,17 @@ class NVC.KeySwitch extends NVC
 
     limit = 1;
 
-    constructor (data = null) {
+    constructor(data = null) {
         base.constructor(data);
 
         if (this.data == null) {
-            this.data = {
-                status = false,
-                code = null,
-            }
+            this.data = { status = false, id = -1, num = 0 }
         }
-    }
-
-    function _getHash() {
-        return this.data.code;
-    }
-
-    function _setHash(value) {
-        this.data.code = md5(value.tostring());
-    }
-
-    function beforeAction() {
-        dbg("Key switch action method was called @line 22 KeySwitch.nut");
     }
 
     function action() {
         this.setStatusTo( !this.getState() );
     }
-
-    function correct() { }
 
     function setStatusTo(newStatus) {
         this.data.status = newStatus;
@@ -42,24 +25,19 @@ class NVC.KeySwitch extends NVC
     }
 
     function onEnter(character, seat) {
-        if (this.data.code == null) {
-            this._setHash(this.parent.id);
-        }
+        this.data.id = this.parent.id;
     }
 }
-
 
 key("q", function(playerid) {
     if (!isPlayerInNVehicle(playerid)) return;
 
     local vehicle = getPlayerNVehicle(playerid);
 
-    if (isPlayerHaveNVehicleKey(playerid, vehicle)) {
-        local engine = vehicle.getComponent(NVC.Engine);
-        local keyswitch = vehicle.getComponent(NVC.KeySwitch);
-        engine.setStatusTo( !keyswitch.data.status );
-        engine.correct();
-        keyswitch.action();
+    if (isPlayerHaveNVehicleKey(players[playerid], vehicle)) {
+        vehicle.getComponent(NVC.KeySwitch).action();
+        vehicle.getComponent(NVC.Engine).setStatusTo(keyswitch.data.status);
+        vehicle.getComponent(NVC.Engine).correct();
     }
 
 });

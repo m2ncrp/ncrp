@@ -83,6 +83,18 @@ class Container
         return elements;
     }
 
+    function filter(callback) {
+        local elements = [];
+
+        foreach (idx, value in this.__data) {
+            if (callback(value)) {
+                elements.push(value)
+            }
+        }
+
+        return elements;
+    }
+
     /**
      * Store new Object record inside (with overridng existed value)
      * @param {Integer} key
