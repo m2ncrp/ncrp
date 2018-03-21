@@ -57,7 +57,7 @@ class VehicleContainer extends Container
     function getByHash(hash) {
         local vehicle = null;
         foreach(targetid, data in this.getAll()) {
-            local h = data.getComponent(VehicleComponent.KeySwitch)._getHash();
+            local h = data.getComponent(NVC.KeySwitch)._getHash();
             if (h == hash) {
                 vehicle = data;
                 break;

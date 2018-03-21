@@ -13,8 +13,8 @@ function isPlayerHaveNVehicleKey(playerid, veh) {
     }
 
     local canDrive = false;
-    local engine = vehicle.getComponent(VehicleComponent.Engine);
-    local keyswitch = vehicle.getComponent(VehicleComponent.KeySwitch);
+    local engine = vehicle.getComponent(NVC.Engine);
+    local keyswitch = vehicle.getComponent(NVC.KeySwitch);
 
     foreach (idx, item in players[playerid].inventory) {
         if ((item._entity == "Item.VehicleKey") && (item.data.id == keyswitch._getHash())) {

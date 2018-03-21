@@ -1,4 +1,4 @@
-class VComponent.Hood extends VehicleComponent {
+class NVC.Hood extends NVC {
     static classname = "ComponentHood";
 
     traits = [

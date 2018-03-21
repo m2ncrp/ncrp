@@ -56,38 +56,38 @@ class Vehicle extends ORM.Entity
 
         local seats = getVehicleSeatsNumberByModelId(model);
 
-        this.components = VehicleComponentContainer(this, this.components);
+        this.components = NVCContainer(this, this.components);
         this.passengers = array(seats, null);
 
         // common components
-        this.components.push(VehicleComponent.Hull());
-        this.getComponent(VehicleComponent.Hull).setDefaultModel(model);
+        this.components.push(NVC.Hull());
+        this.getComponent(NVC.Hull).setDefaultModel(model);
 
-        this.components.push(VehicleComponent.FuelTank({
+        this.components.push(NVC.FuelTank({
             volume = getDefaultVehicleFuelForModel(model),
             fuellevel = getDefaultVehicleFuelForModel(model),
         }));
-        this.components.push(VehicleComponent.Engine());
-        this.components.push(VehicleComponent.Plate());
-        this.components.push(VehicleComponent.WheelPair());
-        this.components.push(VehicleComponent.Gabarites());
+        this.components.push(NVC.Engine());
+        this.components.push(NVC.Plate());
+        this.components.push(NVC.WheelPair());
+        this.components.push(NVC.Gabarites());
 
         switch ( getModelType(model) ) {
             case Type.sedan:
             case Type.truck:
             case Type.hetch:
-                this.components.push(VehicleComponent.KeySwitch());
-                this.components.push(VehicleComponent.Trunk(null, model));
-                this.components.push(VehicleComponent.Lights());
-                this.components.push(VehicleComponent.GloveCompartment());
+                this.components.push(NVC.KeySwitch());
+                this.components.push(NVC.Trunk(null, model));
+                this.components.push(NVC.Lights());
+                this.components.push(NVC.GloveCompartment());
                 break;
             case Type.trailer:
-                this.components.push(VehicleComponent.Trunk(null, model));
+                this.components.push(NVC.Trunk(null, model));
                 break;
             case Type.bus:
             case Type.semitrailertruck:
-                this.components.push(VehicleComponent.KeySwitch());
-                this.components.push(VehicleComponent.Lights());
+                this.components.push(NVC.KeySwitch());
+                this.components.push(NVC.Lights());
                 break;
         }
     }
@@ -99,7 +99,7 @@ class Vehicle extends ORM.Entity
      */
     function hydrate(data) {
         local entity = base.hydrate(data);
-        entity.components = VehicleComponentContainer(entity, entity.components);
+        entity.components = NVCContainer(entity, entity.components);
         // dbg(this);
         return entity;
     }
@@ -224,9 +224,9 @@ class Vehicle extends ORM.Entity
      * @return {Boolean}
      */
     function spawn() {
-        local hull = this.components.findOne(VehicleComponent.Hull);
+        local hull = this.components.findOne(NVC.Hull);
 
-        if (!hull || !(hull instanceof VehicleComponent.Hull)) {
+        if (!hull || !(hull instanceof NVC.Hull)) {
             throw "Vehicle: cannot spawn vehicle wihtout hull!";
         }
 
@@ -248,13 +248,13 @@ class Vehicle extends ORM.Entity
         this.state = this.State.Spawned;
         this.hack = DirtyHack(this);
 
-        local ks = this.getComponent(VehicleComponent.KeySwitch);
+        local ks = this.getComponent(NVC.KeySwitch);
         if (ks._getHash() == null) {
             ks._setHash(this.id);
         }
 
         if (this.getType() != Vehicle.Type.semitrailertruck && this.getType() != Vehicle.Type.bus) {
-            local trunk = this.getComponent(VehicleComponent.Trunk);
+            local trunk = this.getComponent(NVC.Trunk);
             if (trunk._getHash() == null) {
                 trunk._setHash(this.id);
             }
@@ -378,15 +378,15 @@ class Vehicle extends ORM.Entity
     }
 
     function getType() {
-        local model = this.getComponent(VehicleComponent.Hull).getModel();
+        local model = this.getComponent(NVC.Hull).getModel();
         return getModelType(model);
     }
 
     /**
      * Check if there's given component in vehicle data field.
-     * Return VehicleComponent tobj is it's exist otherwise throw an exception
+     * Return NVC tobj is it's exist otherwise throw an exception
      * @param  {Mixed} idOrType
-     * @return {VehicleComponent}
+     * @return {NVC}
      */
     function getComponent(idOrType) {
         local c = this.components.findOne(idOrType);
@@ -425,7 +425,7 @@ function drawVehicleDoorPositions(playerid, doors) {
 //     local vehicle = vehicles.nearestVehicle(playerid);
 //     if ( vehicle.getType() != Vehicle.Type.bus ) return;
 
-//     local model = vehicle.getComponent(VehicleComponent.Hull).getModel();
+//     local model = vehicle.getComponent(NVC.Hull).getModel();
 //     local doors = getVehicleDoorsPosition(model);
 
 //     local character = players[playerid];
@@ -442,7 +442,7 @@ function drawVehicleDoorPositions(playerid, doors) {
 //     local vehicle = vehicles.nearestVehicle(playerid);
 //     if ( vehicle.getType() != Vehicle.Type.bus ) return;
 
-//     local model = vehicle.getComponent(VehicleComponent.Hull).getModel();
+//     local model = vehicle.getComponent(NVC.Hull).getModel();
 //     local doors = getVehicleDoorsPosition(model);
 
 //     local character = players[playerid];
@@ -460,7 +460,7 @@ key("h", function(playerid) {
     local vehicle = vehicles.nearestVehicle(playerid);
     // if ( vehicle.getType() != Vehicle.Type.bus ) return;
 
-    local model = vehicle.getComponent(VehicleComponent.Hull).getModel();
+    local model = vehicle.getComponent(NVC.Hull).getModel();
     local doors = getVehicleTriggersPosition(model);
 
     local character = players[playerid];

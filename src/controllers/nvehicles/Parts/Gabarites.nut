@@ -1,6 +1,6 @@
-class VehicleComponent.Gabarites extends VehicleComponent
+class NVC.Gabarites extends NVC
 {
-    static classname = "VehicleComponent.Gabarites";
+    static classname = "NVC.Gabarites";
 
     static Gabarite_States = {
         both_off = 0,
@@ -110,10 +110,10 @@ key(["z", "num_1"], function(playerid) {
     if (!isPlayerInNVehicle(playerid)) return;
 
     local vehicle = getPlayerNVehicle(playerid);
-    local gabs = vehicle.components.findOne(VehicleComponent.Gabarites);
+    local gabs = vehicle.components.findOne(NVC.Gabarites);
 
     // if engine is in its place and has expected obj type
-    if ((gabs || (gabs instanceof VehicleComponent.Gabarites))) {
+    if ((gabs || (gabs instanceof NVC.Gabarites))) {
         gabs.switchLeft();
         triggerClientEvent(playerid, "indicator_check", gabs.parent.vehicleid, gabs.data.status);
     }
@@ -123,10 +123,10 @@ key(["x", "num_2"], function(playerid) {
     if (!isPlayerInNVehicle(playerid)) return;
 
     local vehicle = getPlayerNVehicle(playerid);
-    local gabs = vehicle.components.findOne(VehicleComponent.Gabarites);
+    local gabs = vehicle.components.findOne(NVC.Gabarites);
 
     // if engine is in its place and has expected obj type
-    if ((gabs || (gabs instanceof VehicleComponent.Gabarites))) {
+    if ((gabs || (gabs instanceof NVC.Gabarites))) {
         gabs.switchBoth();
         triggerClientEvent(playerid, "indicator_check", gabs.parent.vehicleid, gabs.data.status);
     }
@@ -136,10 +136,10 @@ key(["c", "num_3"], function(playerid) {
     if (!isPlayerInNVehicle(playerid)) return;
 
     local vehicle = getPlayerNVehicle(playerid);
-    local gabs = vehicle.components.findOne(VehicleComponent.Gabarites);
+    local gabs = vehicle.components.findOne(NVC.Gabarites);
 
     // if engine is in its place and has expected obj type
-    if ((gabs || (gabs instanceof VehicleComponent.Gabarites))) {
+    if ((gabs || (gabs instanceof NVC.Gabarites))) {
         gabs.switchRight();
         triggerClientEvent(playerid, "indicator_check", gabs.parent.vehicleid, gabs.data.status);
     }

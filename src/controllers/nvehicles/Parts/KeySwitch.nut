@@ -1,6 +1,6 @@
-class VehicleComponent.KeySwitch extends VehicleComponent
+class NVC.KeySwitch extends NVC
 {
-    static classname = "VehicleComponent.KeySwitch";
+    static classname = "NVC.KeySwitch";
 
     limit = 1;
 
@@ -55,8 +55,8 @@ key("q", function(playerid) {
     local vehicle = getPlayerNVehicle(playerid);
 
     if (isPlayerHaveNVehicleKey(playerid, vehicle)) {
-        local engine = vehicle.getComponent(VehicleComponent.Engine);
-        local keyswitch = vehicle.getComponent(VehicleComponent.KeySwitch);
+        local engine = vehicle.getComponent(NVC.Engine);
+        local keyswitch = vehicle.getComponent(NVC.KeySwitch);
         engine.setStatusTo( !keyswitch.data.status );
         engine.correct();
         keyswitch.action();

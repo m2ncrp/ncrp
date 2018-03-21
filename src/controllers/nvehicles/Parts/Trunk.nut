@@ -1,5 +1,5 @@
-class VehicleComponent.Trunk extends VehicleComponent {
-    static classname = "VehicleComponent.Trunk";
+class NVC.Trunk extends NVC {
+    static classname = "NVC.Trunk";
 
     partID = VEHICLE_PART_TRUNK; // ~ 1
     container = null;
@@ -108,8 +108,8 @@ function _getTrunk(playerid) {
     local vehicle = vehicles.nearestVehicle(playerid);
     if (vehicle == null || vehicle.getType() == Vehicle.Type.semitrailertruck || vehicle.getType() == Vehicle.Type.bus) return null;
 
-    local model = vehicle.getComponent(VehicleComponent.Hull).getModel();
-    local trunk = vehicle.getComponent(VehicleComponent.Trunk);
+    local model = vehicle.getComponent(NVC.Hull).getModel();
+    local trunk = vehicle.getComponent(NVC.Trunk);
 
     local v_pos = getVehiclePosition(vehicle.vehicleid);
     local v_ang = getVehicleRotation(vehicle.vehicleid);
@@ -163,7 +163,7 @@ key("e", function(playerid) {
     }
 
     if ( trunk.isLocked() && hasKey ) {
-        trunk.setStatus( VehicleComponent.Trunk.Status.opened );
+        trunk.setStatus( NVC.Trunk.Status.opened );
         return msg(playerid, "Вы успешно отперли багажник " + trunk.parent.id + " машины. Грац!");
     }
 
@@ -171,7 +171,7 @@ key("e", function(playerid) {
         if (trunk.container.isOpenedBySomebody()){
             trunk.container.hideForAll();
         }
-        trunk.setStatus( VehicleComponent.Trunk.Status.locked );
+        trunk.setStatus( NVC.Trunk.Status.locked );
         charInventory.hide(playerid);
         return msg(playerid, "Вы успешно заперли багажник " + trunk.parent.id + " машины. Грац!");
     }
@@ -180,13 +180,13 @@ key("e", function(playerid) {
         if (trunk.container.isOpenedBySomebody()){
             trunk.container.hideForAll();
         }
-        trunk.setStatus( VehicleComponent.Trunk.Status.locked );
+        trunk.setStatus( NVC.Trunk.Status.locked );
         charInventory.hide(playerid);
         return msg(playerid, "Вы успешно заперли багажник " + trunk.parent.id + " машины. Грац!");
     }
 
     if ( trunk.isLocked() && !hasKey ) {
-        trunk.setStatus( VehicleComponent.Trunk.Status.locked );
+        trunk.setStatus( NVC.Trunk.Status.locked );
         return msg(playerid, "Вы дергаете за ручку багажника машины, но она не поддается!");
     }
 
@@ -194,13 +194,13 @@ key("e", function(playerid) {
         if (trunk.container.isOpenedBySomebody()){
             trunk.container.hideForAll();
         }
-        trunk.setStatus( VehicleComponent.Trunk.Status.closed );
+        trunk.setStatus( NVC.Trunk.Status.closed );
         charInventory.hide(playerid);
         return msg(playerid, "Вы прикрыли багажник " + trunk.parent.id + " машины.");
     }
 
     if ( trunk.isClosed() && !hasKey ) {
-        trunk.setStatus( VehicleComponent.Trunk.Status.opened );
+        trunk.setStatus( NVC.Trunk.Status.opened );
         return msg(playerid, "Вы успешно открыли багажник " + trunk.parent.id + " машины. Он оказался не заперт. Грац!");
     }
 });

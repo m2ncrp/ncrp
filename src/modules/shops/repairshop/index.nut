@@ -73,7 +73,7 @@ function repairShopRepairCar (playerid) {
         }
 
         if ( isPlayerInNVehicle(playerid) ) {
-            local hull = getPlayerNVehicle(playerid).getComponent(VehicleComponent.Hull);
+            local hull = getPlayerNVehicle(playerid).getComponent(NVC.Hull);
 
             msg(playerid, "shops.repairshop.needwait");
             return screenFadeinFadeoutEx(playerid, 250, 3000, null, function() {

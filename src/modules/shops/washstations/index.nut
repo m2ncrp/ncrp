@@ -70,7 +70,7 @@ function washStationsWashCar (playerid) {
         if ( isPlayerInNVehicle(playerid) ) {
             return screenFadeinFadeoutEx(playerid, 250, 3000, null, function() {
                 getPlayerNVehicle(playerid)
-                    .getComponent(VehicleComponent.Hull)
+                    .getComponent(NVC.Hull)
                     .setDirt(0.0);
                 subMoneyToPlayer(playerid, SHOP_WASH_COST);
                 addMoneyToTreasury(SHOP_WASH_COST);

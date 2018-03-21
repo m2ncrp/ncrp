@@ -106,7 +106,7 @@ class DirtyHack {
 
     constructor(vehicle) {
         this.veh = vehicle;
-        this.model = vehicle.components.findOne(VehicleComponent.Hull).getModel();
+        this.model = vehicle.components.findOne(NVC.Hull).getModel();
 
         engine_timing = [
             getEnterEngineTiming(),
@@ -153,7 +153,7 @@ class DirtyHack {
 
 key("f", function(playerid) {
     local vehicle = vehicles.nearestVehicle(playerid);
-    local model = vehicle.getComponent(VehicleComponent.Hull).getModel();
+    local model = vehicle.getComponent(NVC.Hull).getModel();
     local doors = getVehicleDoorsPosition(model);
 
     onVehicleDoorTriggerPosition(playerid,
@@ -174,7 +174,7 @@ key("f", function(playerid) {
 // полицейская люстра
 key("3", function(playerid) {
     local vehicle = vehicles.nearestVehicle(playerid);
-    local model = vehicle.getComponent(VehicleComponent.Hull).getModel();
+    local model = vehicle.getComponent(NVC.Hull).getModel();
 
     // if (model != 51 || model != 42) return;
 
@@ -183,7 +183,7 @@ key("3", function(playerid) {
 
 key("4", function(playerid) {
     local vehicle = vehicles.nearestVehicle(playerid);
-    local model = vehicle.getComponent(VehicleComponent.Hull).getModel();
+    local model = vehicle.getComponent(NVC.Hull).getModel();
 
     // if (model != 51 || model != 42) return;
 

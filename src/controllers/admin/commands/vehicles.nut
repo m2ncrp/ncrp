@@ -101,8 +101,8 @@ mcmd(["admin.car"], ["tune"], function( playerid, tune = 3 ) {
 mcmd(["admin.fix"], ["fix"], function( playerid, targetid = null ) {
     if (isPlayerInNVehicle(playerid)) {
         local vehicle = getPlayerNearestNVehicle(playerid);
-        vehicle.getComponent(VehicleComponent.Hull).repair();
-        vehicle.getComponent(VehicleComponent.FuelTank).setFuelToMax();
+        vehicle.getComponent(NVC.Hull).repair();
+        vehicle.getComponent(NVC.FuelTank).setFuelToMax();
         vehicle.correct();
     }
 

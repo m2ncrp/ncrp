@@ -1,5 +1,5 @@
-class VehicleComponent.GloveCompartment extends VehicleComponent {
-    static classname = "VehicleComponent.GloveCompartment";
+class NVC.GloveCompartment extends NVC {
+    static classname = "NVC.GloveCompartment";
 
     container = null;
 
@@ -62,7 +62,7 @@ class VehicleComponent.GloveCompartment extends VehicleComponent {
 
 //     local vehicle = getPlayerNVehicle(playerid);
 //     if (vehicle == null || vehicle.getType() == Vehicle.Type.semitrailertruck || vehicle.getType() == Vehicle.Type.bus) return null;
-//     local gc = vehicle.getComponent(VehicleComponent.GloveCompartment);
+//     local gc = vehicle.getComponent(NVC.GloveCompartment);
 
 //     if ( vehicle.isPlayerDriver(players[playerid]) ||
 //          vehicle.isPlayerOnSeat(players[playerid], 1) )

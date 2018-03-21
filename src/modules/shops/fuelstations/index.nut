@@ -261,8 +261,8 @@ function fuelJerrycanUp( playerid ) {
 
 function fuelNVehicleUp(playerid) {
     local vehicle = getPlayerNVehicle(playerid);
-    local engine = vehicle.getComponent(VehicleComponent.Engine);
-    local fuelTank = vehicle.getComponent(VehicleComponent.FuelTank);
+    local engine = vehicle.getComponent(NVC.Engine);
+    local fuelTank = vehicle.getComponent(NVC.FuelTank);
 
     if ( vehicle.isMoving() ) {
         return msg( playerid, "shops.fuelstations.stopyourmoves", CL_THUNDERBIRD );

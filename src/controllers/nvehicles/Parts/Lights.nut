@@ -1,6 +1,6 @@
-class VehicleComponent.Lights extends VehicleComponent {
+class NVC.Lights extends NVC {
 
-    static classname = "VehicleComponent.Lights";
+    static classname = "NVC.Lights";
 
     constructor (data = null) {
         base.constructor(data);
@@ -45,6 +45,6 @@ key("r", function(playerid) {
     if (!(original__getPlayerVehicle(playerid) in vehicles_native)) return;
 
     local vehicle = getPlayerNVehicle(playerid);
-    local lights = vehicle.components.findOne(VehicleComponent.Lights);
+    local lights = vehicle.components.findOne(NVC.Lights);
     return lights.setState( !lights.data.status );
 });

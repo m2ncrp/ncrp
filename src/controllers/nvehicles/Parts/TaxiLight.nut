@@ -1,6 +1,6 @@
-class TaxiLight extends VehicleComponent {
+class TaxiLight extends NVC {
 
-    static classname = "VehicleComponent.TaxiLight";
+    static classname = "NVC.TaxiLight";
 
     constructor (data = null) {
         base.constructor(data);

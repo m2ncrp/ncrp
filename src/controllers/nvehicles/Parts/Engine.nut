@@ -1,6 +1,6 @@
-class VehicleComponent.Engine extends VehicleComponent
+class NVC.Engine extends NVC
 {
-    static classname = "VehicleComponent.Engine";
+    static classname = "NVC.Engine";
 
     static Tune = {
         Basic = 1,
@@ -40,15 +40,15 @@ class VehicleComponent.Engine extends VehicleComponent
 
     function setTune(level) {
         switch (level) {
-            case VehicleComponent.Engine.Tune.Basic:
+            case NVC.Engine.Tune.Basic:
                 this.data.tune = level;
                 isTuneBeenSet = true;
                 break;
-            case VehicleComponent.Engine.Tune.Sport:
+            case NVC.Engine.Tune.Sport:
                 this.data.tune = level;
                 isTuneBeenSet = true;
                 break;
-            case VehicleComponent.Engine.Tune.Supercharged:
+            case NVC.Engine.Tune.Supercharged:
                 this.data.tune = level;
                 isTuneBeenSet = true;
                 break;

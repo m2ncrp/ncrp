@@ -1,6 +1,6 @@
-class VehicleComponent.FuelTank extends VehicleComponent
+class NVC.FuelTank extends NVC
 {
-    static classname = "VehicleComponent.FuelTank";
+    static classname = "NVC.FuelTank";
 
     isFillingUp = false;
 
@@ -44,8 +44,8 @@ class VehicleComponent.FuelTank extends VehicleComponent
     }
 
     function correct() {
-        local eng = this.parent.components.findOne(VehicleComponent.Engine);
-        local hull = this.parent.getComponent(VehicleComponent.Hull);
+        local eng = this.parent.components.findOne(NVC.Engine);
+        local hull = this.parent.getComponent(NVC.Hull);
 
         if (eng.data.status) {
             setVehicleFuel(this.parent.vehicleid, this.data.fuellevel.tofloat() );
@@ -67,9 +67,9 @@ key("q", function(playerid) {
     if (!(original__getPlayerVehicle(playerid) in vehicles_native)) return;
 
     local vehicle = getPlayerNVehicle(playerid);
-    local fuelTank = vehicle.components.findOne(VehicleComponent.FuelTank);
+    local fuelTank = vehicle.components.findOne(NVC.FuelTank);
 
-    if  ((fuelTank || (fuelTank instanceof VehicleComponent.FuelTank))) {
+    if  ((fuelTank || (fuelTank instanceof NVC.FuelTank))) {
         delayedFunction(10, function () {
             fuelTank.correct();
         });
@@ -81,15 +81,15 @@ key("q", function(playerid) {
  */
 event("onServerMinuteChange", function() {
     foreach (vehicle in vehicles) {
-        local eng = vehicle.components.findOne(VehicleComponent.Engine);
-        local hull = vehicle.components.findOne(VehicleComponent.Hull);
-        local tank = vehicle.components.findOne(VehicleComponent.FuelTank);
+        local eng = vehicle.components.findOne(NVC.Engine);
+        local hull = vehicle.components.findOne(NVC.Hull);
+        local tank = vehicle.components.findOne(NVC.FuelTank);
 
-        if (!hull || !(hull instanceof VehicleComponent.Hull)) {
+        if (!hull || !(hull instanceof NVC.Hull)) {
             throw "Vehicle: cannot find hull!";
         }
 
-        if (!eng || !(eng instanceof VehicleComponent.Engine)) {
+        if (!eng || !(eng instanceof NVC.Engine)) {
             throw "Vehicle: cannot find engine!";
         }
 

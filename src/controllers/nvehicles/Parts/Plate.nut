@@ -1,6 +1,6 @@
-class VehicleComponent.Plate extends VehicleComponent
+class NVC.Plate extends NVC
 {
-    static classname = "VehicleComponent.Plate";
+    static classname = "NVC.Plate";
 
     constructor (data = null) {
         base.constructor(data);

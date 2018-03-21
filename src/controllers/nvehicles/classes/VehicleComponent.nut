@@ -1,6 +1,6 @@
-class VehicleComponent
+class NVC
 {
-    static classname = "VehicleComponent";
+    static classname = "NVC";
 
     static AbilityToDecay = {
         immortal = 0,
@@ -147,7 +147,7 @@ class VehicleComponent
 
         // get the difference
         // local diff = this.capacity - to;
-        // 
+        //
         // is it more than before
         // if (diff)
         // local newTimestamp =

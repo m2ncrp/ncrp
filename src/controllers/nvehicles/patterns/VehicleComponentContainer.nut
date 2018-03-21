@@ -1,16 +1,16 @@
-class VehicleComponentContainer extends Container
+class NVCContainer extends Container
 {
 
     __parent = null;
 
     /**
      * Create new instance
-     * @return {VehicleComponentContainer}
+     * @return {NVCContainer}
      */
     constructor( parent, jsondata) {
         base.constructor();
         this.__parent = parent;
-        this.__interface = VehicleComponent;
+        this.__interface = NVC;
 
         // TODO: Remove slashes
         //local data = JSONParser.parse(str_replace("\\\\", "", jsondata));
@@ -37,7 +37,7 @@ class VehicleComponentContainer extends Container
         component.id = id;
         component.parent = this.__parent;
         // NOTE: afte transformation form component to item instance the last one should've 0 decay
-        if (component.decayFlag == VehicleComponent.AbilityToDecay.destroyable) {
+        if (component.decayFlag == NVC.AbilityToDecay.destroyable) {
             component.decay = getTimestamp() + component.default_decay;
         }
 

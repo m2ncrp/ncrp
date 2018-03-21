@@ -1,6 +1,6 @@
-class VehicleComponent.Hull extends VehicleComponent
+class NVC.Hull extends NVC
 {
-    static classname = "VehicleComponent.Hull";
+    static classname = "NVC.Hull";
 
     limit = 1;
 
@@ -105,7 +105,7 @@ class VehicleComponent.Hull extends VehicleComponent
  */
 event("onServerMinuteChange", function() {
     foreach (vehicle in vehicles) {
-        local hull = vehicle.components.findOne(VehicleComponent.Hull);
+        local hull = vehicle.components.findOne(NVC.Hull);
         hull.setDirt( hull.getDirtNative() );
     }
 });

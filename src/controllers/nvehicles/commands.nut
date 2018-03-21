@@ -23,7 +23,7 @@ function giveKey(keyOwnerEntity, entity) {
     }
 
     if (keyOwnerEntity instanceof Vehicle) {
-        local trunk = keyOwnerEntity.getComponent(VehicleComponent.Trunk);
+        local trunk = keyOwnerEntity.getComponent(NVC.Trunk);
         if (trunk != null) {
             trunk.container.push(key);
         }
@@ -73,7 +73,7 @@ acmd(["vehicle"],["set", "model"], function( playerid, model ) {
     local vehicle = vehicles.nearestVehicle(playerid);
     if (vehicle == null) return;
 
-    vehicle.getComponent(VehicleComponent.Hull).setModel(model, true);
+    vehicle.getComponent(NVC.Hull).setModel(model, true);
 });
 
 acmd(["vehicle"], ["despawn"], function( playerid, vehicle = null ) {
@@ -105,8 +105,8 @@ acmd(["vehicle"], ["despawn"], function( playerid, vehicle = null ) {
 //     //
 //     if( !original__isPlayerInVehicle( playerid ) && targetid == null ) {
 //         local vehicle = vehicles.nearestVehicle(playerid);
-//         local hull = vehicle.components.findOne(VehicleComponent.Hull);
-//         local fueltank = vehicle.components.findOne(VehicleComponent.FuelTank);
+//         local hull = vehicle.components.findOne(NVC.Hull);
+//         local fueltank = vehicle.components.findOne(NVC.FuelTank);
 //         hull.repair();
 //         fueltank.setFuelToMax();
 //         vehicle.correct();
@@ -114,16 +114,16 @@ acmd(["vehicle"], ["despawn"], function( playerid, vehicle = null ) {
 
 //     if( original__isPlayerInVehicle( playerid ) && targetid == null ) {
 //         local vehicleid = original__getPlayerVehicle(playerid);
-//         local hull = vehicles[vehicleid].components.findOne(VehicleComponent.Hull);
-//         local fueltank = vehicles[vehicleid].components.findOne(VehicleComponent.FuelTank);
+//         local hull = vehicles[vehicleid].components.findOne(NVC.Hull);
+//         local fueltank = vehicles[vehicleid].components.findOne(NVC.FuelTank);
 //         hull.repair();
 //         fueltank.setFuelToMax();
 //         vehicles[vehicleid].correct();
 //     }
 
 //     if( !original__isPlayerInVehicle( playerid ) && targetid != null ) {
-//         local hull = vehicles[targetid].components.findOne(VehicleComponent.Hull);
-//         local fueltank = vehicles[targetid].components.findOne(VehicleComponent.FuelTank);
+//         local hull = vehicles[targetid].components.findOne(NVC.Hull);
+//         local fueltank = vehicles[targetid].components.findOne(NVC.FuelTank);
 //         hull.repair();
 //         fueltank.setFuelToMax();
 //         vehicles[targetid].correct();
@@ -136,18 +136,18 @@ acmd(["vehicle"], ["despawn"], function( playerid, vehicle = null ) {
 acmd(["clean"], function( playerid, targetid = null ) {
     if( !original__isPlayerInVehicle( playerid ) && targetid == null ) {
         local vehicle = vehicles.nearestVehicle(playerid);
-        local hull = vehicle.components.findOne(VehicleComponent.Hull);
+        local hull = vehicle.components.findOne(NVC.Hull);
         hull.setDirt(0.0);
     }
 
     if( original__isPlayerInVehicle( playerid ) && targetid == null ) {
         local vehicleid = original__getPlayerVehicle(playerid);
-        local hull = vehicles[vehicleid].components.findOne(VehicleComponent.Hull);
+        local hull = vehicles[vehicleid].components.findOne(NVC.Hull);
         hull.setDirt(0.0);
     }
 
     if( !original__isPlayerInVehicle( playerid ) && targetid != null ) {
-        local hull = vehicles[targetid].components.findOne(VehicleComponent.Hull);
+        local hull = vehicles[targetid].components.findOne(NVC.Hull);
         hull.setDirt(0.0);
     }
 });

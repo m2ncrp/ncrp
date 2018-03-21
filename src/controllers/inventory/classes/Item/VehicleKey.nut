@@ -18,7 +18,7 @@ class Item.VehicleKey extends Item.Abstract
         msg(playerid, "Item.VehicleKey", CL_HELP_TITLE);
 
         local vehicle = vehicles.getByHash(this.data.id);
-        local plate = vehicle.getComponent(VehicleComponent.Plate);
+        local plate = vehicle.getComponent(NVC.Plate);
         msg(playerid, plate.get() + " - " + getVehicleNameByModelId( getVehicleModel(vehicle.vehicleid) ), CL_WHITE);
         // msg(playerid, "  - " + this.data.id, CL_WHITE);
     }

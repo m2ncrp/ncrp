@@ -25,7 +25,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
 
     local vehicle = getPlayerNVehicle(playerid);
     local vehicleid = vehicle.vehicleid;
-    local modelid = vehicle.getComponent(VehicleComponent.Hull).getModel();
+    local modelid = vehicle.getComponent(NVC.Hull).getModel();
 
     if (name == CARPAINT_NAME+"_outside") {
         if( CARPAINT_EMPTY != null) {
@@ -72,7 +72,7 @@ event("onPlayerPlaceExit", function(playerid, name) {
     if (!isPlayerInNVehicle(playerid)) return;
 
     local vehicle = getPlayerNVehicle(playerid);
-    local hull = vehicle.getComponent(VehicleComponent.Hull);
+    local hull = vehicle.getComponent(NVC.Hull);
     local modelid = hull.getModel();
     local vehicleid = vehicle.vehicleid;
 
@@ -185,7 +185,7 @@ function carPaintChangeColor(playerid, setdefault = null) {
     }
 
     local vehicle = getPlayerNVehicle(playerid);
-    local hull = vehicle.getComponent(VehicleComponent.Hull);
+    local hull = vehicle.getComponent(NVC.Hull);
     local modelid = hull.getModel();
     local vehicleid = vehicle.vehicleid;
 

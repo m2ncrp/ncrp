@@ -1,6 +1,6 @@
-class VehicleComponent.WheelPair extends VehicleComponent
+class NVC.WheelPair extends NVC
 {
-    static classname = "VehicleComponent.WheelPair";
+    static classname = "NVC.WheelPair";
 
     static WheelPosition = {
         front  = 0,
@@ -49,7 +49,7 @@ class VehicleComponent.WheelPair extends VehicleComponent
     }
 
     function correct() {
-        local model = this.parent.getComponent(VehicleComponent.Hull).getModel();
+        local model = this.parent.getComponent(NVC.Hull).getModel();
         local type = getModelType(model);
 
         // TODO: cut off IF statement
