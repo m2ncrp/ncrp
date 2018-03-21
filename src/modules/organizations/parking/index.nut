@@ -1,6 +1,6 @@
 local PARKING_COORDS = [ -1211.12, 1342.12, -1390.86, 1364.81 ];
 local PARKING_NAME = "CarPound";
-local PARKING_COST = 17.5;
+local PARKING_COST = 15.0;
 
 local parkingPlaceStatus = [];
 
@@ -60,10 +60,13 @@ alternativeTranslate({
     "en|parking.complete"          : "Car has been parked at car pound."
     "en|parking.noFreeSpace"       : "No free space at car pound."
     "en|parking.carNotParked"      : "Car with plate number %s is not parked."
-    "en|parking.notenoughmoney"    : "You don't have enough money."
+    "en|parking.notenoughmoney"    : "You don't have enough money at bank account."
     "en|parking.notYourCar"        : "This is not your car."
     "en|parking.free"              : "The car has been freed sucsessfully."
-    "en|parking.pay"               : "If you have the key, need to pay $%d to unpark: /unpark"
+    "en|parking.pay"               : "If you have the key, need to pay to unpark (/unpark):"
+    "en|parking.pay.fix"           : " - $%.2f (fixed rate)"
+    "en|parking.pay.peni"          : " - $%.2f (storage)"
+    "en|parking.pay.payment"       : "Payment is made from the bank account."
 
     "ru|parking.needEnterPlate"    : "Необходимо указать номер автомобиля."
     "ru|parking.checkPlate"        : "Проверьте правильность указанного номера автомобиля."
@@ -72,10 +75,13 @@ alternativeTranslate({
     "ru|parking.complete"          : "Автомобиль эвакуирован на штрафстоянку."
     "ru|parking.noFreeSpace"       : "На штрафстоянке нет свободных мест."
     "ru|parking.carNotParked"      : "Автомобиль с номером %s отсутствует на штрафстоянке."
-    "ru|parking.notenoughmoney"    : "У вас недостаточно денег."
+    "ru|parking.notenoughmoney"    : "Недостаточно денег на банковском счёте."
     "ru|parking.notYourCar"        : "Этот автомобиль вам не принадлежит."
     "ru|parking.free"              : "Вы забрали автомобиль со штрафстоянки."
-    "ru|parking.pay"               : "Если у вас есть ключ от этого автомобиля, то, чтобы его забрать, нужно заплатить $%d: /unpark"
+    "ru|parking.pay"               : "Если у вас есть ключ от этого автомобиля, то, чтобы его забрать (/unpark), нужно заплатить:"
+    "ru|parking.pay.fix"           : " - $%.2f (фиксированный тариф)"
+    "ru|parking.pay.peni"          : " - $%.2f (хранение)"
+    "ru|parking.pay.payment"       : "Оплата производится со счёта в банке."
 });
 
 event("onServerStarted", function() {
@@ -137,6 +143,35 @@ function findBusyPlaces() {
     }
 }
 
+function getParkingDaysForVehicle(vehicleid) {
+    if(__vehicles[vehicleid].entity.parking > 0) {
+        return floor((getTimestamp() - __vehicles[vehicleid].entity.parking) / 43200);  // делим на реальных 12 часов = 1 игровым суткам
+    }
+    return 0;
+}
+
+function getParkingPeniForVehicle(vehicleid) {
+    local modelid = getVehicleModel(vehicleid);
+    local car = getCarInfoModelById(modelid);
+
+    local days = getParkingDaysForVehicle(vehicleid);
+
+    local peni = 0.0;
+
+    days -= 2; // 2 бесплатных игровых дня
+
+    if (days > 0) {
+        // если авто стоит на штрафке меньше либо равно 8 игровым дням
+        if (days <= 8) {
+           peni = 0.005 * car.price * days;
+        } else {
+           peni = 0.005 * car.price * 8 + 0.012 * car.price * (days - 8);
+        }
+    }
+
+    return peni;
+}
+
 // /park plate_number
 acmd("apark", function ( playerid, plate) {
     trigger("onVehicleSetToCarPound", playerid, plate);
@@ -179,6 +214,8 @@ event("onVehicleSetToCarPound", function(playerid, plate = null) {
         }
         parkingPlaceStatus[placeid] = vehicleid;
         tpcomplete = true;
+        __vehicles[vehicleid].entity.parking = getTimestamp();
+        __vehicles[vehicleid].entity.save();
         setVehiclePosition(vehicleid, parkingPlace[placeid][0], parkingPlace[placeid][1], parkingPlace[placeid][2]);
         setVehicleRotation(vehicleid, 180.0, 0.0, 0.0 );
         delayedFunction(8000, function() {
@@ -204,15 +241,17 @@ event("onVehicleGetFromCarPound", function(playerid) {
 
     local vehicleid = getPlayerVehicle( playerid ) ;
     if(parkingPlaceStatus.find(vehicleid) == null) {
-        return msg(playerid, "parking.carNotParked");
+        return msg(playerid, "parking.carNotParked", getVehiclePlateText(vehicleid), CL_CHAT_MONEY_SUB);
     }
 
-     if(!canBankMoneyBeSubstracted(playerid, PARKING_COST)) {
-        return msg(playerid, "parking.notenoughmoney");
+    local price = PARKING_COST + getParkingPeniForVehicle(vehicleid);
+
+    if(!canBankMoneyBeSubstracted(playerid, price)) {
+        return msg(playerid, "parking.notenoughmoney", CL_CHAT_MONEY_SUB);
     }
 
     if (!isPlayerHaveVehicleKey(playerid, vehicleid)) {
-        return msg(playerid, "vehicle.owner.warning", CL_WARNING);
+        return msg(playerid, "vehicle.owner.warning", CL_CHAT_MONEY_SUB);
     }
 
     foreach (placeid, place in parkingPlaceStatus) {
@@ -220,9 +259,11 @@ event("onVehicleGetFromCarPound", function(playerid) {
         //local vehicleid = place;
         parkingPlaceStatus[placeid] = "free";
         unblockVehicle(vehicleid);
-        subMoneyToDeposit(playerid, PARKING_COST);
-        addMoneyToTreasury(PARKING_COST);
-        msg(playerid, "parking.free");
+        __vehicles[vehicleid].entity.parking = 0;
+        __vehicles[vehicleid].entity.save();
+        subMoneyToDeposit(playerid, price);
+        addMoneyToTreasury(price);
+        msg(playerid, "parking.free", CL_SUCCESS);
         setVehicleSpeed(vehicleid, 0.0, -12.0, 0.0);
         break;
         }
@@ -240,7 +281,23 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
         //if (!isPlayerVehicleOwner(playerid, vehicleid)) {
         //    return msg(playerid, "parking.notYourCar");
         //}
-        msg(playerid, "parking.pay", PARKING_COST);
+        msg(playerid, "parking.pay", CL_PETERRIVER);
+        msg(playerid, "parking.pay.fix", PARKING_COST );
+        msg(playerid, "parking.pay.peni", getParkingPeniForVehicle(vehicleid) );
+        msg(playerid, "parking.pay.payment", CL_PETERRIVER);
+    }
+});
+
+event("onServerDayChange", function() {
+    foreach (placeid, place in parkingPlaceStatus) {
+        if(place != "free") {
+            local vehicleid = place;
+            if(getParkingDaysForVehicle(vehicleid) >= 90) {
+                parkingPlaceStatus[placeid] = "free";
+                dbg("Vehicle with plate "+getVehiclePlateText(vehicleid)+" has been removed from parking"+ (getVehicleOwner(vehicleid) ? " ("+getVehicleOwner(vehicleid)+")" : ""));
+                removePlayerVehicle(vehicleid);
+            }
+        }
     }
 });
 

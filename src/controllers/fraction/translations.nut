@@ -290,7 +290,7 @@ alternativeTranslate({
 "ru|Boss"                                   : "Дон"
 
 "en|Consigliere"                            : "Consigliere"
-"ru|Consigliere"                            : "Советник"
+"ru|Consigliere"                            : "Консильери"
 
 "en|Assistentes"                            : "Assistentes"
 "ru|Assistentes"                            : "Правая рука"
@@ -309,6 +309,20 @@ alternativeTranslate({
 
 "en|Opus"                                   : "Opus"
 "ru|Opus"                                   : "Рабочий"
+
+
+
+"en|Head"                                   : "Head"
+"ru|Head"                                   : "Глава"
+
+"en|Deputy"                                 : "Deputy"
+"ru|Deputy"                                 : "Заместитель"
+
+"en|Soldier"                                : "Soldier"
+"ru|Soldier"                                : "Солдат"
+
+"en|Associate"                              : "Associate"
+"ru|Associate"                              : "Cоучастник"
 
 
 });

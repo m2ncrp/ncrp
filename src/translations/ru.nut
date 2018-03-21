@@ -39,58 +39,6 @@ translation("ru", {
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
-    "job.truckdriver"                   : "шофёр"
-
-    "job.truckdriver.scens1.load"       : "Садись в открытый грузовик %s и отправляйся в Северный Милвилл для загрузки строительных материалов."
-    "job.truckdriver.scens1.unload"     : "Грузовик загружен. Отправляйся в Мидтаун для разгрузки строительных материалов."
-
-    "job.truckdriver.scens2.load"       : "Садись в открытый грузовик %s и отправляйся в Хантерс-Пойнт для погрузки обломков сгоревшего дома."
-    "job.truckdriver.scens2.unload"     : "Грузовик загружен. Отправляйся в Северный Милвилл для разгрузки обломков сгоревшего дома."
-
-    "job.truckdriver.scens3.load"       : "Садись в открытый грузовик %s и отправляйся в Мидтаун для погрузки обломков разрушенного здания."
-    "job.truckdriver.scens3.unload"     : "Грузовик загружен. Отправляйся в Северный Милвилл для разгрузки обломков разрушенного здания."
-
-    "job.truckdriver.scens4.load"       : "Садись в крытый грузовик %s и отправляйся в Южный Милвилл для погрузки товара."
-    "job.truckdriver.scens4.unload"     : "Грузовик загружен. Отправляйся в Сэнд-Айленд для разгрузки."
-
-    "job.truckdriver.scens5.load"       : "Садись в открытый грузовик %s и отправляйся в Мидтаун для погрузки обломков разрушенного здания."
-    "job.truckdriver.scens5.unload"     : "Грузовик загружен. Отправляйся в Северный Милвилл для разгрузки обломков разрушенного здания."
-
-    "job.truckdriver.scens6.load"       : "В одном из баров намечается фуршет серьёзных людей. Нужно доставить грузовик с алкоголем. Садись в крытый грузовик %s и отправляйся к ликёро-водочному заводу для погрузки ящиков. Всё уже оплачено."
-    "job.truckdriver.scens6.unload"     : "Грузовик загружен. Отправляйся к бару «Зелёный холм» в Кингстоне для разгрузки ящиков с алкоголем."
-
-    "job.truckdriver.scens7.load"       : "Во время бурной пирушки в баре завязался знатный мордобой: все бутылки с алкоголем пошли в расход. Нужно восполнить ассортимент. Садись в крытый грузовик %s и отправляйся к ликёро-водочному заводу для погрузки ящиков."
-    "job.truckdriver.scens7.unload"     : "Грузовик загружен. Отправляйся к бару «Дрэгстрип» в Северном Милвилле для разгрузки ящиков с алкоголем."
-
-    "job.truckdriver.badworker"         : "Robert Casey: Плохой из тебя работник. Для такого как ты у меня нет работы."
-    "job.truckdriver.badworker.onleave" : "Robert Casey: Херовый ты работник. Вали нахрен."
-    "job.truckdriver.goodluck"          : "Robert Casey: Удачи тебе, пацан! Приходи, если нужна работа."
-    "job.truckdriver.needcomplete"      : "Robert Casey: Сначала заверши доставку."
-    "job.truckdriver.nicejob"           : "Robert Casey: Отличная работа, %s! Держи $%.2f."
-    "job.truckdriver.now"               : "Robert Casey: Добро пожаловать в ряды шофёров!"
-
-    "job.truckdriver.needtruck"         : "Вам нужен грузовик %s."
-    "job.truckdriver.needlevel"         : "[TRUCK] Шофёром можно устроиться начиная с уровня %d."
-    "job.truckdriver.wantwork"          : "[TRUCK] Ты работаешь шофёром. Если хочешь поработать - отправляйся к транспортной базе у моста в Хайбрук."
-    "job.truckdriver.already"           : "[TRUCK] Ты уже работаешь шофёром."
-    "job.truckdriver.notpassenger"      : "[TRUCK] Доставка может осуществляться только водителем, но не пассажиром."
-    "job.truckdriver.loading"           : "[TRUCK] Грузовик загружается. Подожди..."
-    "job.truckdriver.unloading"         : "[TRUCK] Грузовик разгружается. Подожди..."
-    "job.truckdriver.alreadyloaded"     : "[TRUCK] Грузовик уже загружен."
-    "job.truckdriver.empty"             : "[TRUCK] Грузовик пуст."
-    "job.truckdriver.takemoney"         : "[TRUCK] Возвращайся на базу к мосту в Хайбрук, припаркуй грузовик и получи заработанные деньги."
-
-    "job.truckdriver.help.title"        : "Список команд, доступных шофёру:"
-    "job.truckdriver.help.job"              :   "кнопка E"
-    "job.truckdriver.help.jobtext"          :   "Устроиться на работу шофёром (подойти к Robert Casey)"
-    "job.truckdriver.help.jobleave"         :   "кнопка Q"
-    "job.truckdriver.help.jobleavetext"     :   "Уволиться с работы (подойти к Robert Casey)"
-    "job.truckdriver.help.loadunload"       :   "кнопка E"
-    "job.truckdriver.help.loadunloadtext"   :   "Загрузить/разгрузить грузовик (нужно быть в грузовике)"
-
-
-/* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
-
     "job.docker"                        :   "портовый рабочий"
     "job.docker.letsgo"                 :   "[DOCKER] Отправляйтесь в офис City Port."
     "job.docker.already"                :   "[DOCKER] Ты уже работаешь портовым рабочим."
@@ -639,12 +587,14 @@ alternativeTranslate({
     "en|auth.error.register"   : "[AUTH] Account with this name is already registered!"
     "en|auth.error.notfound"   : "[AUTH] Incorrect login or password."
     "en|auth.success.register" : "[AUTH] You've successfuly registered!"
-    "en|auth.success.login"    : "[AUTH] You've successfuly logined!"
+    //"en|auth.success.login"    : "[AUTH] You've successfuly logined!"
+    "en|auth.success.login"    : "Welcome to server Night City RolePlay!"
     "en|auth.success.autologin": "[AUTH] You've been automatically logined!"
     "en|auth.error.cmderror"   : "[AUTH] You can't execute commands without registration."
     "en|auth.notification"     : "[AUTH] You should enter into your account via /login PASSWORD, or create new one via /register PASSWORD"
     "en|auth.error.tomany"     : "You cant register more accounts."
-    "en|auth.client.notloaded" : "Seems like your client scripts were not properly loaded. Try reconnecting!"
+    //"en|auth.client.notloaded" : "Seems like your client scripts were not properly loaded. Try reconnecting!"
+    "en|auth.client.notloaded" : "Please wait until download files has finished!"
     "en|auth.haveproblems"     : "Have problems or forget password? Go to Discord: bit.ly/m2ncrp"
 
     "ru|auth.wrongname"        : "Некорректное имя аккаунта!"
@@ -661,13 +611,37 @@ alternativeTranslate({
     "ru|auth.error.register"   : "[AUTH] Аккаунт с такими именем уже зарегистрирован."
     "ru|auth.error.notfound"   : "[AUTH] Логин или пароль были введены неправильно."
     "ru|auth.success.register" : "[AUTH] Вы успешно зарегистрировались!"
-    "ru|auth.success.login"    : "[AUTH] Вы успешно вошли в аккаунт!"
+    //"ru|auth.success.login"    : "[AUTH] Вы успешно вошли в аккаунт!"
+    "ru|auth.success.login"    : "Добро пожаловать на сервер Night City RolePlay!"
     "ru|auth.success.autologin": "[AUTH] Вы были успешно авторизованы автоматически!"
     "ru|auth.error.cmderror"   : "[AUTH] Для выполнения команды Вам необходимо войти в аккаунт!"
     "ru|auth.notification"     : "[AUTH] Вам нужно войти в свой аккаунт используя /login ваш_пароль, или создать новый через /register ваш_пароль"
     "ru|auth.error.tomany"     : "Вы достигли лимита по количеству аккаунтов."
     "ru|auth.error.email"      : "Такой email адрес уже используется!"
-    "ru|auth.client.notloaded" : "Кажется ваши клиент-скрипты не прогрузились. Попробуйте переподключиться!"
+    //"ru|auth.client.notloaded" : "Кажется ваши клиент-скрипты не прогрузились. Попробуйте переподключиться!"
+    "ru|auth.client.notloaded" : "Дождитесь пока завершится загрузка всех файлов и появится окно регистрации или воода пароля!"
     "ru|auth.haveproblems"     : "Есть проблемы или забыл пароль? Пиши: vk.com/m2ncrp\r\nСайт игрового сервера: mafia2online.ru\r\nМы в Discord-чате: bit.ly/m2ncrp"
 
+
+    "en|hello.1"     : ".:: Jobs are marked a gray stars on map."
+    "ru|hello.1"     : ".:: Работы отмечены на карте серыми звёздами."
+
+    "en|hello.2"     : ".:: Open map - key M."
+    "ru|hello.2"     : ".:: Открыть карту - кнопка М (англ)."
+
+    "en|hello.3"     : ".:: Write in chat - key Enter. Show*hide chat - key F5."
+    "ru|hello.3"     : ".:: Сообщение в чат - Enter или T (англ). Показать/скрыть чат - F5."
+
+    "en|hello.4"     : ".:: You can get to the right place by metro, rented or private car."
+    "ru|hello.4"     : ".:: Добраться до нужного места можно на метро, арендованном или личном автомобиле."
+
+    "en|hello.5"     : ".:: Increase indicators of hunger and thirst above 75 percent and wait to restore the level of health."
+    "ru|hello.5"     : ".:: Чтобы восстановить уровень здоровья - повысь индикаторы голода и жажды выше 75 процентов и жди регенерации."
+
+    "en|hello.6"     : ".:: Need help? Write in chat: /help"
+    "ru|hello.6"     : ".:: Нужна помощь? Напиши в чат: /help"
+
+
+    "en|hello.end"     : "We wish you a successful and enjoyable game!"
+    "ru|hello.end"     : "Приятной игры!"
 });

@@ -317,11 +317,20 @@ addEventHandler("onPlayerHungerUpdate", function(hunger, thirst) {
 
 addEventHandler("onServerToggleHudDrawing", function() {
     drawing = !drawing;
+    toggleHud(drawing);
 });
 
 addEventHandler("onServerChatTrigger", function() {
     showChat(!isChatVisible());
 });
+
+ addEventHandler("onServerShowChatTrigger", function() {
+    showChat(true);
+ });
+
+ addEventHandler("onServerHideChatTrigger", function() {
+    showChat(false);
+ });
 
 addEventHandler("onServerChatSlotRequested", function(slot) {
     slot = slot.tointeger();

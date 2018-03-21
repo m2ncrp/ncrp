@@ -2,9 +2,9 @@ include("modules/organizations/bank/commands.nut");
 
 translation("en", {
     "bank.letsgo"                       :   "Let's go to building of Grand Imperial Bank at Midtown."
-    "bank.deposit.minimum"              :   "You can't deposit this amount. Minimum deposit is $100."
+    "bank.deposit.minimum"              :   "You can't deposit this amount. Minimum deposit is $10."
     "bank.deposit.notenough"            :   "You can't deposit this amount: not enough money."
-    "bank.withdraw.minimum"             :   "You can't withdraw this amount. Minimum withdrawal amount is $100."
+    "bank.withdraw.minimum"             :   "You can't withdraw this amount. Minimum withdrawal amount is $10."
     "bank.withdraw.notenough"           :   "You can't withdraw this amount: not enough money at account."
     "bank.provideamount"                :   "You must provide amount."
     "bank.help.commandslist"            :   "List of available commands for BANK:"
@@ -46,10 +46,14 @@ event("onServerStarted", function() {
     create3DText ( BANK_X, BANK_Y, BANK_Z+0.20, "/bank", CL_WHITE.applyAlpha(75), BANK_RADIUS );
     createBlip(BANK_X, BANK_Y, ICON_MAFIA, 4000.0 )
 */
-    //creating 3dtext for Bank Office
-    create3DText ( BANK_OFFICE_X, BANK_OFFICE_Y, BANK_OFFICE_Z+0.35, "GRAND IMERIAL BANK", CL_ROYALBLUE );
     create3DText ( BANK_OFFICE_X, BANK_OFFICE_Y, BANK_OFFICE_Z+0.20, "/bank", CL_WHITE.applyAlpha(75), BANK_RADIUS );
+
     createBlip(BANK_OFFICE_X, BANK_OFFICE_Y, ICON_DOLLAR, 4000.0 )
+});
+
+event("onServerPlayerStarted", function( playerid ) {
+    //creating 3dtext for Bank Office
+    createPrivate3DText ( playerid, BANK_OFFICE_X, BANK_OFFICE_Y, BANK_OFFICE_Z+0.35, plocalize(playerid, "3dtext.organizations.bank"), CL_ROYALBLUE );
 });
 
 function bankPlayerInValidPoint(playerid) {
@@ -105,7 +109,7 @@ function bankDeposit(playerid, amount) {
     }
 
     local amount = round(fabs(amount.tofloat()), 2);
-    if(amount < 100.0) {
+    if(amount < 10.0) {
         return msg(playerid, "bank.deposit.minimum");
     }
 
@@ -129,7 +133,7 @@ function bankWithdraw(playerid, amount) {
     }
 
     local amount = round(fabs(amount.tofloat()), 2);
-    if(amount < 100.0) {
+    if(amount < 10.0) {
         return msg( playerid, "bank.withdraw.minimum" );
     }
 

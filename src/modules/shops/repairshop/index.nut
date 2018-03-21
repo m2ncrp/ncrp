@@ -12,7 +12,7 @@ translation("en", {
     "shops.repairshop.help.repair"        : "Repair car"
 });
 
-const SHOP_REPAIR_COST = 19.99;
+const SHOP_REPAIR_COST = 4.99;
 const SHOP_REPAINT_COST = 84.00;
 
 const SHOP_REPAIR_3DTEXT_DRAW_DISTANCE = 35.0;
@@ -20,27 +20,32 @@ const SHOP_REPAIR_RADIUS = 4.0;
 
 repair_shops <- [
     [ 283.703,    296.812,    -21.3215, "CHINATOWN"         ],
-    [ 427.703,    780.306,    -21.0342, "LITTLE ITALY"      ],
-    [ -120.695,   530.662,    -20.0303, "LITTLE ITALY"      ],
-    [ -68.9644,   204.738,    -14.2976, "EAST SIDE"         ],
+    [ 427.703,    780.306,    -21.0342, "LITTLEITALY"      ],
+    [ -120.695,   530.662,    -20.0303, "LITTLEITALY"      ],
+    [ -68.9644,   204.738,    -14.2976, "EASTSIDE"         ],
     [ 49.2922,   -405.444,    -19.9571, "SOUTHPORT"         ],
-    [ 719.814,   -447.579,    -19.9535, "SOUTH MILLVILLE"   ],
-    [ 554.52,     -122.35,    -20.0935, "SOUTH MILLVILLE"   ],
+    [ 719.814,   -447.579,    -19.9535, "SOUTHMILLVILLE"   ],
+    [ 554.52,     -122.35,    -20.0935, "SOUTHMILLVILLE"   ],
     [ -282.625,   699.927,    -19.7625, "UPTOWN"            ],
-    [ -686.074,   188.778,     1.20266, "WEST SIDE"         ],
+    [ -686.074,   188.778,     1.20266, "WESTSIDE"         ],
     [ -1439.38,   1381.07,     -13.362, "GREENFIELD"        ],
     [ -377.372,   1735.65,    -22.8186, "DIPTON"            ],
-    [ -1583.72,   68.9308,    -13.0742, "SAND ISLAND"       ]
+    [ -1583.72,   68.9308,    -13.0742, "SANDISLAND"       ]
 ];
-
-
 
 addEventHandlerEx("onServerStarted", function() {
     log("[shops] loading repair shops...");
+    //foreach (shop in repair_shops) {
+    //    create3DText ( shop[0], shop[1], shop[2]+0.35, "=== "+shop[3]+" REPAIR SHOP ===", CL_ROYALBLUE, SHOP_REPAIR_3DTEXT_DRAW_DISTANCE );
+    //    create3DText ( shop[0], shop[1], shop[2]+0.20, "Press E | Price: $"+SHOP_REPAIR_COST, CL_WHITE.applyAlpha(150), SHOP_REPAIR_RADIUS );
+    //    // create3DText ( shop[0], shop[1], shop[2], format("(price: $%.2f) Use: /repaint r g b", SHOP_REPAINT_COST), CL_WHITE.applyAlpha(150), SHOP_REPAIR_RADIUS );
+    //}
+});
+
+event("onServerPlayerStarted", function(playerid) {
     foreach (shop in repair_shops) {
-        create3DText ( shop[0], shop[1], shop[2]+0.35, "=== "+shop[3]+" REPAIR SHOP ===", CL_ROYALBLUE, SHOP_REPAIR_3DTEXT_DRAW_DISTANCE );
-        create3DText ( shop[0], shop[1], shop[2]+0.20, "Press E | Price: $"+SHOP_REPAIR_COST, CL_WHITE.applyAlpha(150), SHOP_REPAIR_RADIUS );
-        // create3DText ( shop[0], shop[1], shop[2], format("(price: $%.2f) Use: /repaint r g b", SHOP_REPAINT_COST), CL_WHITE.applyAlpha(150), SHOP_REPAIR_RADIUS );
+        createPrivate3DText ( playerid, shop[0], shop[1], shop[2]+0.35, [[ "REPAIRSHOP", shop[3]], "%s | %s"], CL_ROYALBLUE, SHOP_REPAIR_3DTEXT_DRAW_DISTANCE );
+        createPrivate3DText ( playerid, shop[0], shop[1], shop[2]+0.20, [[ "3dtext.job.press.E", "PRICE"], "%s | %s: $"+SHOP_REPAIR_COST ], CL_WHITE.applyAlpha(150), SHOP_REPAIR_RADIUS );
     }
 });
 

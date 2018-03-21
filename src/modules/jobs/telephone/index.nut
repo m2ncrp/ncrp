@@ -360,11 +360,7 @@ event("onServerStarted", function() {
     setVehiclePlateText(ets1, "ETS-01");
     setVehiclePlateText(ets2, "ETS-02");
 */
-    //creating public 3dtext
-    foreach (phone in telephones) {
-        create3DText ( phone[0], phone[1], phone[2]+0.35, "TELEPHONE", CL_RIPELEMON, 6.0);
-        create3DText ( phone[0], phone[1], phone[2]+0.20, "Press Q", CL_WHITE.applyAlpha(150), 0.4 );
-    }
+
 
 
 });
@@ -372,6 +368,14 @@ event("onServerStarted", function() {
 event("onPlayerConnect", function(playerid){
     phone_nearest_blip[playerid] <- {};
     phone_nearest_blip[playerid]["blip3dtext"] <- null;
+});
+
+event("onServerPlayerStarted", function( playerid ){
+    //creating public 3dtext
+    foreach (phone in telephones) {
+        createPrivate3DText ( playerid, phone[0], phone[1], phone[2]+0.35, plocalize(playerid, "TELEPHONE"), CL_RIPELEMON, 6.0);
+        createPrivate3DText ( playerid, phone[0], phone[1], phone[2]+0.20, plocalize(playerid, "3dtext.job.press.Q"), CL_WHITE.applyAlpha(150), 0.4 );
+    }
 });
 
 function phoneCreatePrivateBlipText(playerid, x, y, z, text, cmd) {

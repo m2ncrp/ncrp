@@ -193,7 +193,6 @@ event("onServerStarted", function() {
 
     //creating 3dtext for Trago Oil
     create3DText ( FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.35, "TRAGO OIL", CL_ROYALBLUE );
-    create3DText ( FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.20, "Press E to action", CL_WHITE.applyAlpha(150), FUEL_JOB_RADIUS );
 
 
     createPlace("FuelBadZone1", 237.035, 179.954, 161.687, 181.747);
@@ -204,30 +203,33 @@ event("onServerStarted", function() {
 });
 
 event("onPlayerConnect", function(playerid) {
-    if ( ! (getPlayerName(playerid) in job_fuel) ) {
-        job_fuel[getPlayerName(playerid)] <- {};
-        job_fuel[getPlayerName(playerid)]["userstatus"] <- null;
-        job_fuel[getPlayerName(playerid)]["fuelstatus"] <- [false, false, false, false, false, false, false, false]; // see sequence of gas stations in variable fuelname
-        job_fuel[getPlayerName(playerid)]["fuelBlipTextWarehouse"] <- [];
-        job_fuel[getPlayerName(playerid)]["leavejob3dtext"] <- null;
-        job_fuel[getPlayerName(playerid)]["fuelcomplete"] <- 0;  // number of completed fuel stations. Default is 0
+    local charId = getCharacterIdFromPlayerId(playerid);
+    if ( ! (charId in job_fuel) ) {
+        job_fuel[charId] <- {};
+        job_fuel[charId]["userstatus"] <- null;
+        job_fuel[charId]["fuelstatus"] <- [false, false, false, false, false, false, false, false]; // see sequence of gas stations in variable fuelname
+        job_fuel[charId]["fuelBlipTextWarehouse"] <- [];
+        job_fuel[charId]["leavejob3dtext"] <- null;
+        job_fuel[charId]["fuelcomplete"] <- 0;  // number of completed fuel stations. Default is 0
     }
 });
 
 
 event("onServerPlayerStarted", function( playerid ) {
 
+    createPrivate3DText ( playerid, FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.20, plocalize(playerid, "3dtext.job.press.action"), CL_WHITE.applyAlpha(150), FUEL_JOB_RADIUS );
+
     if(isFuelDriver(playerid)) {
-        if (job_fuel[getPlayerName(playerid)]["userstatus"] == "working") {
+        if (job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"] == "working") {
             msg( playerid, "job.fueldriver.continuedelivery", FUEL_JOB_COLOR );
         } else {
             msg( playerid, "job.fueldriver.ifyouwantstart", FUEL_JOB_COLOR );
         }
-        if (job_fuel[getPlayerName(playerid)]["userstatus"] == "wait") { job_fuel[getPlayerName(playerid)]["userstatus"] = "working"; }
+        if (job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"] == "wait") { job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"] = "working"; }
 
-        job_fuel[getPlayerName(playerid)]["fuelBlipTextWarehouse"].clear();
-        if ( getPlayerName(playerid) in fuelJobStationMarks ) { fuelJobStationMarks[getPlayerName(playerid)].clear(); }
-        job_fuel[getPlayerName(playerid)]["leavejob3dtext"] = createPrivate3DText (playerid, FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), FUEL_JOB_RADIUS );
+        job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelBlipTextWarehouse"].clear();
+        if ( getCharacterIdFromPlayerId(playerid) in fuelJobStationMarks ) { fuelJobStationMarks[getCharacterIdFromPlayerId(playerid)].clear(); }
+        job_fuel[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] = createPrivate3DText (playerid, FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.05, plocalize(playerid, "3dtext.job.press.leave"), CL_WHITE.applyAlpha(100), FUEL_JOB_RADIUS );
     }
 });
 
@@ -239,10 +241,10 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     if (seat != 0) return;
 
     // if player on seat 0 is a fuel driver
-    if (isFuelDriver(playerid) && job_fuel[getPlayerName(playerid)]["userstatus"] != null) {
+    if (isFuelDriver(playerid) && job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"] != null) {
         unblockVehicle(vehicleid);
 
-        if(job_fuel[getPlayerName(playerid)]["userstatus"] == "working") {
+        if(job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"] == "working") {
             delayedFunction(4500, function() {
                     local vehicleid = getPlayerVehicle(playerid);
                     if(vehicleid == -1) return;
@@ -297,13 +299,13 @@ event("onServerHourChange", function() {
 
 /*
 key("5", function(playerid) {
-    dbg(job_fuel[getPlayerName(playerid)]["userstatus"]);
-    dbg(job_fuel[getPlayerName(playerid)]["fuelstatus"]);
-    //dbg(job_fuel[getPlayerName(playerid)]["fuelBlipText"]);
-    dbg(job_fuel[getPlayerName(playerid)]["fuelBlipTextWarehouse"]);
-    dbg(job_fuel[getPlayerName(playerid)]["leavejob3dtext"]);
-    dbg(job_fuel[getPlayerName(playerid)]["fuelcomplete"]);
-    dbg(fuelJobStationMarks[getPlayerName(playerid)]);
+    dbg(job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"]);
+    dbg(job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelstatus"]);
+    //dbg(job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelBlipText"]);
+    dbg(job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelBlipTextWarehouse"]);
+    dbg(job_fuel[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"]);
+    dbg(job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelcomplete"]);
+    dbg(fuelJobStationMarks[getCharacterIdFromPlayerId(playerid)]);
 }, KEY_UP);
 
 key("6", function(playerid) {
@@ -331,19 +333,19 @@ key("q", function(playerid) {
 
 
 function createFuelJobStationMarks(playerid, data) {
-    if (!(getPlayerName(playerid) in fuelJobStationMarks)) {
-        fuelJobStationMarks[getPlayerName(playerid)] <- {};
+    if (!(getCharacterIdFromPlayerId(playerid) in fuelJobStationMarks)) {
+        fuelJobStationMarks[getCharacterIdFromPlayerId(playerid)] <- {};
     }
 
     // ignore creation if they already set
-    if (fuelJobStationMarks[getPlayerName(playerid)].len()) {
+    if (fuelJobStationMarks[getCharacterIdFromPlayerId(playerid)].len()) {
         return;
     }
 
     foreach (id, value in data) {
-        if (job_fuel[getPlayerName(playerid)]["fuelstatus"][id] == false) {
-            fuelJobStationMarks[getPlayerName(playerid)][id] <- {
-                text1 = createPrivate3DText(playerid, value[0], value[1], value[2]-0.15, "Press E to unload", CL_WHITE.applyAlpha(150), 8.0 ),
+        if (job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelstatus"][id] == false) {
+            fuelJobStationMarks[getCharacterIdFromPlayerId(playerid)][id] <- {
+                text1 = createPrivate3DText(playerid, value[0], value[1], value[2]-0.15, plocalize(playerid, "3dtext.job.press.unload"), CL_WHITE.applyAlpha(150), 8.0 ),
                 text2 = null, // maybe add later
                 blip  = createPrivateBlip(playerid, value[0], value[1], ICON_RED, 4000.0 )
             };
@@ -352,25 +354,25 @@ function createFuelJobStationMarks(playerid, data) {
 }
 
 function removeFuelJobStationMark(playerid, id) {
-    if (getPlayerName(playerid) in fuelJobStationMarks) {
-        if (id in fuelJobStationMarks[getPlayerName(playerid)]) {
-            remove3DText(fuelJobStationMarks[getPlayerName(playerid)][id].text1);
-            // remove3DText(fuelJobStationMarks[getPlayerName(playerid)][id].text2); // curenlty disabled
-            removeBlip(fuelJobStationMarks[getPlayerName(playerid)][id].blip);
+    if (getCharacterIdFromPlayerId(playerid) in fuelJobStationMarks) {
+        if (id in fuelJobStationMarks[getCharacterIdFromPlayerId(playerid)]) {
+            remove3DText(fuelJobStationMarks[getCharacterIdFromPlayerId(playerid)][id].text1);
+            // remove3DText(fuelJobStationMarks[getCharacterIdFromPlayerId(playerid)][id].text2); // curenlty disabled
+            removeBlip(fuelJobStationMarks[getCharacterIdFromPlayerId(playerid)][id].blip);
 
-            delete fuelJobStationMarks[getPlayerName(playerid)][id];
+            delete fuelJobStationMarks[getCharacterIdFromPlayerId(playerid)][id];
         }
     }
 }
 
 function clearFuelJobStationMarks(playerid) {
-    if (getPlayerName(playerid) in fuelJobStationMarks) {
-        foreach (id, value in fuelJobStationMarks[getPlayerName(playerid)]) {
-            remove3DText(fuelJobStationMarks[getPlayerName(playerid)][id].text1);
-            // remove3DText(fuelJobStationMarks[getPlayerName(playerid)][id].text2); // curenlty disabled
-            removeBlip(fuelJobStationMarks[getPlayerName(playerid)][id].blip);
+    if (getCharacterIdFromPlayerId(playerid) in fuelJobStationMarks) {
+        foreach (id, value in fuelJobStationMarks[getCharacterIdFromPlayerId(playerid)]) {
+            remove3DText(fuelJobStationMarks[getCharacterIdFromPlayerId(playerid)][id].text1);
+            // remove3DText(fuelJobStationMarks[getCharacterIdFromPlayerId(playerid)][id].text2); // curenlty disabled
+            removeBlip(fuelJobStationMarks[getCharacterIdFromPlayerId(playerid)][id].blip);
         }
-        delete fuelJobStationMarks[getPlayerName(playerid)];
+        delete fuelJobStationMarks[getCharacterIdFromPlayerId(playerid)];
     }
 }
 
@@ -414,7 +416,7 @@ function fuelJobGet( playerid ) {
     }
 
     // если у игрока статус работы == null
-    if(job_fuel[getPlayerName(playerid)]["userstatus"] == null) {
+    if(job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"] == null) {
 
         if(!isPlayerHaveJob(playerid)) {
 
@@ -433,8 +435,8 @@ function fuelJobGet( playerid ) {
                 return msg(playerid, "job.fueldriver.needlevel", FUEL_JOB_LEVEL, FUEL_JOB_COLOR );
             }
 
-            if (getPlayerName(playerid) in job_fuel_blocked) {
-                if (getTimestamp() - job_fuel_blocked[getPlayerName(playerid)] < FUEL_JOB_TIMEOUT) {
+            if (getCharacterIdFromPlayerId(playerid) in job_fuel_blocked) {
+                if (getTimestamp() - job_fuel_blocked[getCharacterIdFromPlayerId(playerid)] < FUEL_JOB_TIMEOUT) {
                     return msg( playerid, "job.fueldriver.badworker", FUEL_JOB_COLOR);
                 }
             }
@@ -449,22 +451,22 @@ function fuelJobGet( playerid ) {
 
         fuelJobStartRoute( playerid );
 
-        if(job_fuel[getPlayerName(playerid)]["leavejob3dtext"] == null) {
-            job_fuel[getPlayerName(playerid)]["leavejob3dtext"] = createPrivate3DText (playerid, FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), FUEL_JOB_RADIUS );
+        if(job_fuel[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] == null) {
+            job_fuel[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] = createPrivate3DText (playerid, FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.05, plocalize(playerid, "3dtext.job.press.leave"), CL_WHITE.applyAlpha(100), FUEL_JOB_RADIUS );
         }
         return;
     }
 
     // если у игрока статус работы == выполняет работу
-    if (job_fuel[getPlayerName(playerid)]["userstatus"] == "working") {
+    if (job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"] == "working") {
         return msg( playerid, "job.fueldriver.completedelivery", FUEL_JOB_COLOR );
     }
     // если у игрока статус работы == завершил работу
-    if (job_fuel[getPlayerName(playerid)]["userstatus"] == "complete") {
-        job_fuel[getPlayerName(playerid)]["userstatus"] = null;
+    if (job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"] == "complete") {
+        job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"] = null;
         fuelGetSalary( playerid );
-        job_fuel[getPlayerName(playerid)]["fuelstatus"] <- [false, false, false, false, false, false, false, false];
-        job_fuel[getPlayerName(playerid)]["fuelcomplete"] = 0;
+        job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelstatus"] <- [false, false, false, false, false, false, false, false];
+        job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelcomplete"] = 0;
         return;
     }
 
@@ -484,12 +486,12 @@ function fuelJobStartRoute( playerid ) {
     }
 
     msg( playerid, "job.fueldriver.sitintotruck", FUEL_JOB_COLOR );
-    job_fuel[getPlayerName(playerid)]["userstatus"] = "working";
+    job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"] = "working";
 }
 
 
 function fuelGetSalary( playerid ) {
-    local amount = FUEL_JOB_SALARY + (random(-1, 5)).tofloat();
+    local amount = FUEL_JOB_SALARY + (random(-1, 2)).tofloat();
     msg( playerid, "job.fueldriver.nicejob", amount, FUEL_JOB_COLOR );
     addMoneyToPlayer(playerid, amount);
 }
@@ -512,28 +514,28 @@ function fuelJobRefuseLeave( playerid ) {
     //    return msg( playerid, "job.closed", [ FUEL_JOB_LEAVE_HOUR_START.tostring(), FUEL_JOB_LEAVE_HOUR_END.tostring()], FUEL_JOB_COLOR );
     //}
 
-    if(job_fuel[getPlayerName(playerid)]["userstatus"] == null) {
+    if(job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"] == null) {
         msg( playerid, "job.fueldriver.goodluck", FUEL_JOB_COLOR);
     }
 
-    if (job_fuel[getPlayerName(playerid)]["userstatus"] == "working") {
+    if (job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"] == "working") {
         msg( playerid, "job.fueldriver.badworker.onleave", FUEL_JOB_COLOR);
-        job_fuel[getPlayerName(playerid)]["userstatus"] = null;
-        job_fuel_blocked[getPlayerName(playerid)] <- getTimestamp();
+        job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"] = null;
+        job_fuel_blocked[getCharacterIdFromPlayerId(playerid)] <- getTimestamp();
     }
 
-    if (job_fuel[getPlayerName(playerid)]["userstatus"] == "complete") {
-        job_fuel[getPlayerName(playerid)]["userstatus"] = null;
+    if (job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"] == "complete") {
+        job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"] = null;
         fuelGetSalary( playerid );
         msg( playerid, "job.fueldriver.goodluck", FUEL_JOB_COLOR);
     }
 
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
-        remove3DText ( job_fuel[getPlayerName(playerid)]["leavejob3dtext"] );
+        remove3DText ( job_fuel[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] );
 
         msg( playerid, "job.leave", FUEL_JOB_COLOR );
 
-        job_fuel[getPlayerName(playerid)]["leavejob3dtext"] = null;
+        job_fuel[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] = null;
 
         setPlayerJob( playerid, null );
         restorePlayerModel(playerid);
@@ -556,7 +558,7 @@ function fuelJobLoadUnload ( playerid ) {
         return;
     }
 
-    if(job_fuel[getPlayerName(playerid)]["userstatus"] != "working" || !isPlayerInVehicle(playerid) || !isPlayerVehicleDriver(playerid)) {
+    if(job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"] != "working" || !isPlayerInVehicle(playerid) || !isPlayerVehicleDriver(playerid)) {
         return;
     }
 
@@ -591,7 +593,7 @@ function fuelJobLoadUnload ( playerid ) {
 
     setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
 
-    if(check && job_fuel[getPlayerName(playerid)]["fuelstatus"][i]) {
+    if(check && job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelstatus"][i]) {
         return msg( playerid, "job.fueldriver.alreadybeenhere", FUEL_JOB_COLOR );
     }
 
@@ -606,14 +608,14 @@ function fuelJobLoadUnload ( playerid ) {
         return msg( playerid, "job.fueldriver.truck.alreadyloaded", FUEL_JOB_COLOR );
     }
 
-    job_fuel[getPlayerName(playerid)]["userstatus"] = "wait";
+    job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"] = "wait";
 
     // to load
     if(check_ware && fuelcars[vehicleid][1] < 16000) {
 
         local vehRot = getVehicleRotation(vehicleid);
         if(vehRot[0] < -5 || vehRot[0] > 5) {
-            job_fuel[getPlayerName(playerid)]["userstatus"] = "working";
+            job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"] = "working";
             return msg(playerid, "job.fueldriver.needcorrectpark", CL_RED );
         }
 
@@ -622,7 +624,7 @@ function fuelJobLoadUnload ( playerid ) {
         setVehicleEngineState(vehicleid, false);
         trigger(playerid, "hudCreateTimer", 30.0, true, true);
         delayedFunction(30000, function () {
-            job_fuel[getPlayerName(playerid)]["userstatus"] = "working";
+            job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"] = "working";
             freezePlayer( playerid, false);
             delayedFunction(1000, function () { freezePlayer( playerid, false); });
 
@@ -643,18 +645,18 @@ function fuelJobLoadUnload ( playerid ) {
         delayedFunction(1000, function () { freezePlayer( playerid, false); });
 
         fuelcars[vehicleid][1] -= 4000;
-        job_fuel[getPlayerName(playerid)]["fuelstatus"][i] = true;
-        job_fuel[getPlayerName(playerid)]["fuelcomplete"] += 1;
+        job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelstatus"][i] = true;
+        job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelcomplete"] += 1;
 
         // remove blip on complete unload
         removeFuelJobStationMark(playerid, i);
 
-        if (job_fuel[getPlayerName(playerid)]["fuelcomplete"] == 8) {
+        if (job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelcomplete"] == 8) {
             msg( playerid, "job.fueldriver.truck.parking", FUEL_JOB_COLOR );
             fuelJobWarehouseRemoveBlipText( playerid );
-            job_fuel[getPlayerName(playerid)]["userstatus"] = "complete";
+            job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"] = "complete";
         } else {
-            job_fuel[getPlayerName(playerid)]["userstatus"] = "working";
+            job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"] = "working";
             if (fuelcars[vehicleid][1] >= 4000) {
                 msg( playerid, "job.fueldriver.truck.unloadingcompletedtruckisloaded", fuelcars[vehicleid][1], FUEL_JOB_COLOR );
             } else {
@@ -669,7 +671,7 @@ function fuelJobLoadUnload ( playerid ) {
 function fuelJobList ( playerid ) {
     if(isFuelDriver(playerid))    {
         msg( playerid, "job.fueldriver.routelist.title", CL_JOB_LIST);
-        foreach (key, value in job_fuel[getPlayerName(playerid)]["fuelstatus"]) {
+        foreach (key, value in job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelstatus"]) {
             local i = key+1;
             if (value == true) {
                 msg( playerid, "job.fueldriver.routelist.completed", [i , fuelname[key]], CL_JOB_LIST_GR);
@@ -697,18 +699,18 @@ function fuelJobCheck ( playerid ) {
 
 
 function fuelJobWarehouseCreateBlipText( playerid ) {
-    if(job_fuel[getPlayerName(playerid)]["fuelBlipTextWarehouse"].len() < 1) {
-       job_fuel[getPlayerName(playerid)]["fuelBlipTextWarehouse"].push( createPrivate3DText (playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, FUEL_JOB_WAREHOUSE_Z+0.35, "=== FUEL WAREHOUSE ===", CL_RIPELEMON, 100.0 ));
-       job_fuel[getPlayerName(playerid)]["fuelBlipTextWarehouse"].push( createPrivate3DText (playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, FUEL_JOB_WAREHOUSE_Z-0.15, "Press E to load", CL_WHITE.applyAlpha(150), 4.0 ));
-       job_fuel[getPlayerName(playerid)]["fuelBlipTextWarehouse"].push( createPrivateBlip(playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, ICON_YELLOW, 4000.0));
+    if(job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelBlipTextWarehouse"].len() < 1) {
+       job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelBlipTextWarehouse"].push( createPrivate3DText (playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, FUEL_JOB_WAREHOUSE_Z+0.35, "=== FUEL WAREHOUSE ===", CL_RIPELEMON, 100.0 ));
+       job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelBlipTextWarehouse"].push( createPrivate3DText (playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, FUEL_JOB_WAREHOUSE_Z-0.15, plocalize(playerid, "3dtext.job.press.load"), CL_WHITE.applyAlpha(150), 4.0 ));
+       job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelBlipTextWarehouse"].push( createPrivateBlip(playerid, FUEL_JOB_WAREHOUSE_X, FUEL_JOB_WAREHOUSE_Y, ICON_YELLOW, 4000.0));
     }
 }
 
 function fuelJobWarehouseRemoveBlipText( playerid ) {
-    if(job_fuel[getPlayerName(playerid)]["fuelBlipTextWarehouse"].len() > 0) {
-        remove3DText(job_fuel[getPlayerName(playerid)]["fuelBlipTextWarehouse"][0]);
-        remove3DText(job_fuel[getPlayerName(playerid)]["fuelBlipTextWarehouse"][1]);
-        removeBlip(job_fuel[getPlayerName(playerid)]["fuelBlipTextWarehouse"][2]);
-        job_fuel[getPlayerName(playerid)]["fuelBlipTextWarehouse"].clear();
+    if(job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelBlipTextWarehouse"].len() > 0) {
+        remove3DText(job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelBlipTextWarehouse"][0]);
+        remove3DText(job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelBlipTextWarehouse"][1]);
+        removeBlip(job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelBlipTextWarehouse"][2]);
+        job_fuel[getCharacterIdFromPlayerId(playerid)]["fuelBlipTextWarehouse"].clear();
     }
 }

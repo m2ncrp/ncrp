@@ -54,6 +54,7 @@ function registerFunc(playerid, password, email = null) {
 
                             // send success registration message
                             msg(playerid, "auth.success.register", CL_SUCCESS);
+                            printStartedTips(playerid);
                             dbg("registration", getIdentity(playerid));
                             trigger(playerid, "destroyAuthGUI");
 
@@ -112,6 +113,8 @@ function loginFunc(playerid, password) {
 
         // send message success
         msg(playerid, "auth.success.login", CL_SUCCESS);
+        printStartedTips(playerid);
+
         dbg("login", getIdentity(playerid));
         trigger(playerid, "destroyAuthGUI");
 
@@ -122,4 +125,19 @@ function loginFunc(playerid, password) {
 }
 
 simplecmd("login", loginFunc);
-addEventHandler("loginGUIFunction",loginFunc);
+addEventHandler("loginGUIFunction", loginFunc);
+
+
+function printStartedTips (playerid) {
+        // send message success
+        msg(playerid, "");
+        msg(playerid, "hello.1", CL_LIGHTGRAY);
+        msg(playerid, "hello.2", CL_CASCADE);
+        msg(playerid, "hello.3", CL_LIGHTGRAY);
+        msg(playerid, "hello.4", CL_CASCADE);
+        msg(playerid, "hello.5", CL_LIGHTGRAY);
+        msg(playerid, "hello.6", CL_CASCADE);
+        msg(playerid, "");
+        msg(playerid, "hello.end", CL_SUCCESS);
+        msg(playerid, "");
+}

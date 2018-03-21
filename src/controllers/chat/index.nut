@@ -65,7 +65,7 @@ alternativeTranslate({
     "en|chat.player.todo.badformat1"   : "Invalid format message!"
     "ru|chat.player.todo.badformat1"   : "Неверный формат сообщения!"
 
-    "ru|chat.player.todo.badformat2"   : "Use: /todo words * action"
+    "en|chat.player.todo.badformat2"   : "Use: /todo words * action"
     "ru|chat.player.todo.badformat2"   : "Используй: /todo реплика персонажа * действие"
 
     "en|chat.player.message.error"     : "[PM] You should provide pm in a following format: /pm id text",
@@ -99,28 +99,28 @@ alternativeTranslate({
 // help
 
     "en|help.chat"              : "Show list of commands for chat"
-    "ru|help.chat"              : "Показать список команд для чата"
+    "ru|help.chat"              : "команды чата"
 
     "en|help.subway"            : "Show list of commands for subway"
-    "ru|help.subway"            : "Показать список команд для метро"
+    "ru|help.subway"            : "команды метро"
 
     "en|help.taxi"              : "Show list of commands for taxi"
-    "ru|help.taxi"              : "Показать список команд для такси"
+    "ru|help.taxi"              : "команды такси"
 
     "en|help.rentcar"           : "Show list of commands for rent car"
-    "ru|help.rentcar"           : "Показать список команд для аренды авто"
+    "ru|help.rentcar"           : "команды аренды авто"
 
-    "en|help.job"               : "Show list of commands for job. Example: /help job taxi"
-    "ru|help.job"               : "Показать список команд для работ. Пример: /help job taxi"
+    "en|help.job"               : "Show list of commands for job. Example: /help job"
+    "ru|help.job"               : "команды работ"
 
     "en|help.ban"               : "Show list of commands for bank"
-    "ru|help.ban"               : "Показать список команд для банка"
+    "ru|help.ban"               : "команды банка"
 
     "en|help.cars"              : "Show list of commands for cars"
-    "ru|help.cars"              : "Показать список команд для авто"
+    "ru|help.cars"              : "команды для автомобилей"
 
     "en|help.fuel"              : "Show list of commands for fuel stations"
-    "ru|help.fuel"              : "Показать список команд для автозаправок"
+    "ru|help.fuel"              : "команд для автозаправок"
 
     "en|help.repair"            : "Show list of commands for repiair shop"
     "ru|help.repair"            : "Показать список команд для автомастерских"
@@ -237,9 +237,7 @@ event("native:onPlayerChat", function(playerid, message) {
 
     if (match) {
         local slotText = message.slice(match.begin, match.end);
-        log(slotText);
         local slotNumber = chatslots.find(strip(slotText));
-        log(slotNumber.tostring());
         if (slotNumber != null) {
             slot = slotNumber;
             message = message.slice(0, match.begin);

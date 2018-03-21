@@ -1,5 +1,5 @@
 DEBUG   <- false;
-VERSION <- "1.3.0";
+VERSION <- "1.3.1";
 MOD_HOST <- "139.59.142.46";
 MOD_PORT <- 7790;
 
@@ -107,6 +107,7 @@ include("helpers/string.nut");
 include("helpers/math.nut");
 include("helpers/distance.nut");
 include("helpers/color.nut");
+include("helpers/datetime.nut");
 include("helpers/base64.nut");
 include("helpers/urlencode.nut");
 include("helpers/table.nut");
@@ -120,6 +121,7 @@ include("modules/index.nut");
 // translations
 include("translations/en.nut");
 include("translations/ru.nut");
+include("translations/cyr.nut");
 
 // unit testing
 // dofile("resources/ncrp/unittests/index.nut", true);
@@ -182,7 +184,7 @@ event("native:onScriptInit", function() {
     log(format("[core] running version %s...", VERSION));
 
     // setup default values
-    setGameModeText( "NCRP " + VERSION );
+    setGameModeText( "NCRP " + VERSION + " | vk.com/m2ncrp");
     setMapName( "Empire Bay" );
     srand(time()); // set random seed
 

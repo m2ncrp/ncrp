@@ -1,29 +1,45 @@
-include("controllers/admin/commands.nut");
 include("controllers/admin/sqdebug.nut");
-include("controllers/admin/teleport.nut");
-include("controllers/admin/utils.nut");
-include("controllers/admin/bans.nut");
+
+include("controllers/admin/commands/ban.nut");
+include("controllers/admin/commands/chat.nut");
+include("controllers/admin/commands/help.nut");
+include("controllers/admin/commands/player.nut");
+include("controllers/admin/commands/restart.nut");
+include("controllers/admin/commands/teleport.nut");
+include("controllers/admin/commands/tp.nut");
+include("controllers/admin/commands/vehicles.nut");
+include("controllers/admin/commands/weapons.nut");
+include("controllers/admin/translations.nut");
 
 local serverAdmins = {};
 
 //serverAdmins["CD19A5029AE81BB50B023291846C0DF3"] <- 1; // max
-serverAdmins["83CA98D93A29F5F548E65E4DBBA41379"] <- 1; // max 2
-serverAdmins["940A9BF3DC69DC56BCB6BDB5450961B4"] <- 1; // dima
-serverAdmins["E818234F219F14336D8FFD5C657B796C"] <- 1; // inlufz
-serverAdmins["EBD8F16123FA9DE5C3C64D64FF844953"] <- 1; // inlufz 2
-
-serverAdmins["856BE506BCEAEEC908F3577ABEFF9171"] <- 1; // Oliver
-serverAdmins["981506EF83BF42095A62407C696A8515"] <- 1; // Franko
-serverAdmins["7980C4CF5E2DAAF062DF7AE08B6DDE67"] <- 1; // Bertone
-
+//serverAdmins["83CA98D93A29F5F548E65E4DBBA41379"] <- 1; // max 2
+//serverAdmins["940A9BF3DC69DC56BCB6BDB5450961B4"] <- 1; // dima
+//serverAdmins["E818234F219F14336D8FFD5C657B796C"] <- 1; // inlufz
+//serverAdmins["EBD8F16123FA9DE5C3C64D64FF844953"] <- 1; // inlufz 2
+//serverAdmins["7980C4CF5E2DAAF062DF7AE08B6DDE67"] <- 1; // Bertone
 //serverAdmins["68D6A6A2A380766FC30CA5C2B01F212F"] <- 1; // kloO
 //serverAdmins["0B4856B787A508D58E3330A2DAB7914C"] <- 1; // zaklaus
 //serverAdmins["1896AD32EFA8A60BDD3CC2F6197F40DC"] <- 1; // member3
+//serverAdmins["856BE506BCEAEEC908F3577ABEFF9171"] <- 1; // Oliver
+//serverAdmins["981506EF83BF42095A62407C696A8515"] <- 1; // Franko
+
 
 // add your serials there :p
 
 function isPlayerAdmin(playerid) {
-    return (getPlayerSerial(playerid) in serverAdmins);
+    //return (getPlayerSerial(playerid) in serverAdmins);
+
+    if(!fractions.exists("admin")) {
+        return false;
+    }
+
+    local character = players[playerid];
+    if(!fractions.admin.members.exists(character)) {
+        return false;
+    }
+    return true;
 }
 
 function freezePlayer( targetid, value ) {
@@ -62,12 +78,3 @@ event("native:onConsoleInput", function(name, data) {
         case "migratedb": migrateSQLiteToMySQL(); break;
     }
 });
-
-// local a = null;
-// acmd("tst", function(playerid, id) {
-//     if (a) {
-//         destroyVehicle(a);
-//     }
-//     local pos = getPlayerPosition( playerid );
-//     a = createVehicle( id.tointeger(), pos[0] + 2.0, pos[1], pos[2] + 1.0, 0.0, 0.0, 0.0 );
-// });

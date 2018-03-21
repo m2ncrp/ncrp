@@ -13,14 +13,14 @@ local CANISTER_BUY_RADIUS = 5.0;
 local FUELUP_SPEED = 2.5; // litres in second
 
 local fuel_stations = [
-    [-1676.81,   -231.85, -20.1853, "SAND ISLAND"   ],
-    [-1595.19,   942.496, -5.06366, "GREENFIELD"    ],
-    [-710.17,    1765.73, -14.902,  "DIPTON"        ],
-    [338.56,     872.179, -21.1526, "LITTLE ITALY"  ],
-    [-149.94,    613.368, -20.0459, "LITTLE ITALY"  ],
-    [115.146,    181.259, -19.8966, "EAST SIDE"     ],
-    [551.154,    2.33366, -18.1063, "OYSTER BAY"    ],
-    [-630.299,   -51.715, 1.06515,  "WEST SIDE"     ]
+    [-1676.81,   -231.85, -20.1853, "SANDISLAND"   ],
+    [-1595.19,   942.496, -5.06366, "GREENFIELD"   ],
+    [-710.17,    1765.73, -14.902,  "DIPTON"       ],
+    [338.56,     872.179, -21.1526, "LITTLEITALY"  ],
+    [-149.94,    613.368, -20.0459, "LITTLEITALY"  ],
+    [115.146,    181.259, -19.8966, "EASTSIDE"     ],
+    [551.154,    2.33366, -18.1063, "OYSTERBAY"    ],
+    [-630.299,   -51.715, 1.06515,  "WESTSIDE"     ]
 ];
 
 local canister_shops = [
@@ -36,16 +36,21 @@ local canister_shops = [
 
 addEventHandlerEx("onServerStarted", function() {
     log("[shops] loading fuel stations and canister shops...");
+});
+
+
+event("onServerPlayerStarted", function(playerid) {
 
     foreach (station in fuel_stations) {
-        create3DText ( station[0], station[1], station[2]+0.35, "=== "+station[3]+" FUEL STATION ===", CL_CHESTNUT, TITLE_DRAW_DISTANCE );
-        create3DText ( station[0], station[1], station[2]-0.15, "Press E", CL_WHITE.applyAlpha(150), FUEL_RADIUS );
+        createPrivate3DText ( playerid, station[0], station[1], station[2]+0.35, [[ "FUELSTATION", station[3]], "%s | %s"], CL_CHESTNUT, TITLE_DRAW_DISTANCE );
+        createPrivate3DText ( playerid, station[0], station[1], station[2]-0.15, plocalize(playerid, "3dtext.job.press.E"), CL_WHITE.applyAlpha(150), FUEL_RADIUS );
     }
 
     foreach (canister in canister_shops) {
-        create3DText ( canister[0], canister[1], canister[2]+0.35, "CANISTER", CL_RIPELEMON, CANISTER_BUY_RADIUS );
-        create3DText ( canister[0], canister[1], canister[2]+0.20, "Press E | Price: $"+CANISTER_COST, CL_WHITE.applyAlpha(150), 1.0 );
+        createPrivate3DText ( playerid, canister[0], canister[1], canister[2]+0.35, plocalize(playerid, "CANISTER"), CL_RIPELEMON, CANISTER_BUY_RADIUS );
+        createPrivate3DText ( playerid, canister[0], canister[1], canister[2]+0.20, [[ "3dtext.job.press.E", "PRICE"], "%s | %s: $"+CANISTER_COST ], CL_WHITE.applyAlpha(150), 1.0 );
     }
+
 });
 
 

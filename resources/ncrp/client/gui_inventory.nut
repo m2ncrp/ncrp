@@ -37,8 +37,10 @@ local backbone = {
     ihands = null,
 };
 
-local playerLang = "en";
+local playerLang = "ru";
 local characterName = "";
+
+local drawing = true;
 
 /**
  * ************************
@@ -1064,11 +1066,12 @@ addEventHandler("onServerClientStarted", function(version = null) {
     sendMessage("my screen: %f %f", screenX.tofloat(), screenY.tofloat());
 });
 
+addEventHandler("onServerToggleHudDrawing", function() {
+    drawing = !drawing;
+    if(drawing == false) {
+        guiSetAlpha(backbone["bhands"], 0.0);
+    } else {
+        guiSetAlpha(backbone["bhands"], 0.6);
+    }
 
-//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-//aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+});

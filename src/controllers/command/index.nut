@@ -38,7 +38,7 @@ enum CMD_LEVEL {
  * @param  {function} callbackOrNull
  * @return {bool} true
  */
-function advancedCommand(accessLevel, aliases, extensionOrCallback, callbackOrNull = null) {
+function advancedCommand(permissions, aliases, extensionOrCallback, callbackOrNull = null) {
     // create storage
     local cmdnames  = [];
     local extension = [];
@@ -88,18 +88,36 @@ function advancedCommand(accessLevel, aliases, extensionOrCallback, callbackOrNu
         trigger("onServerPlayerCommand", playerid, cmdlog);
 
         // if its admin command, and player is not admin - exit
-        if (accessLevel != CMD_LEVEL.USER && !isPlayerAdmin(playerid)) {
-            local playerLevel = players[playerid].mlvl;
+        //if (accessLevel != CMD_LEVEL.USER && !isPlayerAdmin(playerid)) {
+        //    local playerLevel = players[playerid].mlvl;
 
-            try {
-                playerLevel = playerLevel.tointeger();
-            }
-            catch(e) {
-                playerLevel = 0;
-            }
+        //    try {
+        //        playerLevel = playerLevel.tointeger();
+        //    }
+        //    catch(e) {
+        //        playerLevel = 0;
+        //    }
 
-            if (playerLevel < accessLevel.tointeger()) {
+        //    if (playerLevel < accessLevel.tointeger()) {
+        //        return;
+        //    }
+        //}
+
+        if(permissions != "-") {
+            if(!fractions.exists("admin")) {
+                log("fraction ADMIN doesn't exist");
                 return;
+            }
+
+            local character = players[playerid];
+
+            if(!fractions.admin.members.exists(character)) {
+                log("player is not a member");
+                return;
+            }
+
+            if (permissions != "*" && !fractions.admin.members.get(character).permitted(permissions)) {
+                return msg(playerid, "fraction.permission.error", CL_ERROR);
             }
         }
 
@@ -124,12 +142,12 @@ function advancedCommand(accessLevel, aliases, extensionOrCallback, callbackOrNu
             // call registered handler
             try {
                 cursor[COMMANDS_DEFAULT].acall(args);
-                statisticsPushCommand(playerid, cmdlog, "success; level = " + accessLevel);
+                statisticsPushCommand(playerid, cmdlog, "success");
             } catch (e) {
-                statisticsPushCommand(playerid, cmdlog, "error; level = " + accessLevel + "; " + e);
+                statisticsPushCommand(playerid, cmdlog, "error" + e);
             }
         } else {
-            statisticsPushCommand(playerid, cmdlog, "error; level = " + accessLevel);
+            statisticsPushCommand(playerid, cmdlog, "error");
         }
     };
 
@@ -263,7 +281,8 @@ function advancedCommand(accessLevel, aliases, extensionOrCallback, callbackOrNu
 // default command
 function cmd(...) {
     vargv.insert(0, getroottable());
-    vargv.insert(1, CMD_LEVEL.USER);
+    //vargv.insert(1, CMD_LEVEL.USER);
+    vargv.insert(1, "-");
     advancedCommand.acall(vargv);
 }
 
@@ -272,10 +291,10 @@ mcmd <- advancedCommand;
 // admin command
 function acmd(...) {
     vargv.insert(0, getroottable());
-    vargv.insert(1, CMD_LEVEL.ADMIN);
+    //vargv.insert(1, CMD_LEVEL.ADMIN);
+    vargv.insert(1, "*");
     advancedCommand.acall(vargv);
 }
-
 
 simplecmd <- old__addCommandHandler;
 addCommandHandler <- cmd;

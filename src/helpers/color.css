@@ -1,58 +1,273 @@
-CL_WHITE            <- rgb( 245, 245, 245 );
-// CL_GRAY             <- rgb( 92,  92,  112 );
-CL_RED              <- rgb( 255, 0,   0   );
-CL_GREEN            <- rgb( 0,   255, 0   );
-CL_BLUE             <- rgb( 0,   0,   255 );
-CL_BLACK            <- rgb( 0,   0,   0   );
-CL_YELLOW           <- rgb( 255, 255, 0   );
-CL_HELP             <- rgb( 200, 230, 255 );
-CL_HELP_TITLE       <- rgb( 200, 200, 0   );
-CL_HELP_LINE        <- rgb( 200, 100, 100 );
-CL_JOB_LIST         <- rgb( 247, 202, 24  );
-CL_JOB_LIST_GR      <- rgb( 38, 166, 91  );
-CL_JOB_LIST_R       <- rgb( 192, 57, 43  );
-CL_PHONE_CMPN       <- rgb( 125, 60, 20  );
+CL_WHITE                           <- rgb( 245, 245, 245 );
+CL_HELP                            <- rgb( 200, 230, 255 );
+CL_HELP_TITLE                      <- rgb( 200, 200, 0   );
+CL_HELP_LINE                       <- rgb( 200, 100, 100 );
+CL_JOB_LIST                        <- rgb( 247, 202, 24  );
+CL_JOB_LIST_GR                     <- rgb( 38, 166, 91  );
+CL_JOB_LIST_R                      <- rgb( 192, 57, 43  );
+CL_PHONE_CMPN                      <- rgb( 125, 60, 20  );
+CL_FLAMINGO                        <- rgb( 239,  72,  54  );
+CL_CHESTNUT                        <- rgb( 210,  77,  87  );
+CL_THUNDERBIRD                     <- rgb( 217,  30,  24  );
+CL_OLDBREAK                        <- rgb( 150,  40,  27  );
+CL_WAXFLOWER                       <- rgb( 241,  169, 160 );
+CL_SNUFF                           <- rgb( 220,  198, 224 );
+CL_REBECCAPURPLE                   <- rgb( 102,  51,  153 );
+CL_WISTFUL                         <- rgb( 174,  168, 211 );
+CL_MEDIUMPURPLE                    <- rgb( 191,  85,  236 );
+CL_LIGHTWISTERIA                   <- rgb( 190,  144, 212 );
+CL_PICTONBLUE                      <- rgb( 89,   171, 227 );
+CL_PICTONBLUEDARK                  <- rgb( 34,   167, 240 );
+CL_MING                            <- rgb( 51,   110, 123 );
+CL_MALIBU                          <- rgb( 107,  185, 240 );
+CL_MALIBU2                         <- rgb(91, 194, 213);
+CL_HOKI                            <- rgb( 103,  128, 159 );
+CL_JORDYBLUE                       <- rgb( 137,  196, 244 );
+CL_GOSSIP                          <- rgb( 135,  211, 124 );
+CL_EUCALYPTUS                      <- rgb( 38,   166, 91  );
+CL_EUCALYPTUS_DOUBLE               <- rgb(32,164,110);
+CL_CARIBBEANGREEN                  <- rgb( 3,    201, 169 );
+CL_NIAGARA                         <- rgb( 22,   160, 133 );
+CL_OCEANGREEN                      <- rgb( 77,   175, 124 );
+CL_SALEM                           <- rgb( 30,   130, 76  );
+CL_CREAMCAN                        <- rgb( 245,  215, 110 );
+CL_RIPELEMON                       <- rgb( 247,  202, 24  );
+CL_FIREBUSH                        <- rgb( 235,  149, 50  );
+CL_CRUSTA                          <- rgb( 242,  120, 75  );
+CL_BURNTORANGE                     <- rgb( 211,  84,  0   );
+CL_ECSTASY                         <- rgb( 249,  105, 14  );
+CL_LYNCH                           <- rgb( 108,  122, 137 );
+CL_SILVERSAND                      <- rgb( 189,  195, 199 );
+CL_CASCADE                         <- rgb( 149,  165, 166 );
+CL_BOPSTER                         <- rgb( 92,  92,  112 );
+CL_ERROR                           <- CL_FLAMINGO;
+CL_WARNING                         <- CL_ECSTASY;
+CL_SUCCESS                         <- CL_GOSSIP;
+CL_INFO                            <- CL_PICTONBLUE;
+CL_PLAIN                           <- CL_WHITE;
+CL_CHAMBRAY                        <- rgb(73,92,112);
+CL_BLUELAGOON                      <- rgb(0,92,112);
+CL_MEDIUMSLATE                     <- rgb(139,85,235);
+CL_DAISYBUSH                       <- rgb(102,71,145);
+CL_PIZAZZ                          <- rgb(243,122,65);
+CL_SPRINGRAIN                      <- rgb(162,182,162);
+CL_KOBI                            <- rgb(232,141,175);
+CL_SUMMERSKY                       <- rgb(51,186,251);
+CL_MANDY                           <- rgb(186,86,88);
+CL_CONIFER                         <- rgb(164,210,98);
+CL_BUDDHAGOLD                      <- rgb(188,153,30);
+CL_CUPID                           <- rgb(250,168,189);
+CL_TEAROSE                         <- rgb(237,140,195);
+CL_AMARANTH                        <- rgb(230,41,91);
+CL_SUNSETORANGE                    <- rgb(234,82,68);
+CL_TURKISHROSE                     <- rgb(159,106,121);
+CL_STUDIO                          <- rgb(132,74,175);
+CL_TUSCANY                         <- rgb(177,99,71);
+CL_CITRUS                          <- rgb(151,200,18);
+CL_LIMEGREEN                       <- rgb(37,181,44);
+CL_MULBERRY                        <- rgb(172,82,137);
+CL_OCHRE                           <- rgb(212,119,35);
+CL_PERSIMMON                       <- rgb(239,99,2);
+CL_EDWARD                          <- rgb(144,154,148);
+CL_BUTTERCUP                       <- rgb(226,158,50);
+CL_PERSIANGREEN                    <- rgb(9,172,141);
+CL_NEBULA                          <- rgb(185,208,195);
+CL_JAVA                            <- rgb(18,160,159);
+CL_COLDPURPLE                      <- rgb(158,141,185);
+CL_ELFGREEN                        <- rgb(36,152,108);
+CL_EASTSIDE                        <- rgb(162,129,183);
+CL_TRINIDAD                        <- rgb(204,79,38);
+CL_SPECTRA                         <- rgb(50,104,81);
+CL_JADE                            <- rgb( 0,    177, 106 );
+CL_JADE_DOUBLE                     <- rgb(0,185,123);
+CL_MARIGOLD                        <- rgb(186,139,67);
+CL_TOSCA                           <- rgb(111,76,77);
+CL_ATOLL                           <- rgb(48,128,124);
+CL_CHOCOLATE                       <- rgb(191,103,22);
+CL_NEONBLUE                        <- rgb(68,63,222);
+CL_SPUNPEARL                       <- rgb(171,169,180);
+CL_MEDIUMAQUAMARINE                <- rgb(101,210,166);
+CL_EQUATOR                         <- rgb(225,182,93);
+CL_GOLDENSAND                      <- rgb(242,209,107);
+CL_INDIANRED                       <- rgb(205,92,92);
+CL_LIGHTCORAL                      <- rgb(240,128,128);
+CL_SALMON                          <- rgb(250,128,114);
+CL_DARKSALMON                      <- rgb(233,150,122);
+CL_LIGHTSALMON                     <- rgb(255,160,122);
+CL_CRIMSON                         <- rgb(220,20,60);
+CL_RED                             <- rgb(255,0,0);
+CL_FIREBRICK                       <- rgb(178,34,34);
+CL_DARKRED                         <- rgb(139,0,0);
+CL_PINK                            <- rgb(255,192,203);
+CL_LIGHTPINK                       <- rgb(255,182,193);
+CL_HOTPINK                         <- rgb(255,105,180);
+CL_DEEPPINK                        <- rgb(255,20,147);
+CL_MEDIUMVIOLETRED                 <- rgb(199,21,133);
+CL_PALEVIOLETRED                   <- rgb(219,112,147);
+CL_CORAL                           <- rgb(255,127,80);
+CL_TOMATO                          <- rgb(255,99,71);
+CL_ORANGERED                       <- rgb(255,69,0);
+CL_DARKORANGE                      <- rgb(255,140,0);
+CL_ORANGE                          <- rgb(255,165,0);
+CL_GOLD                            <- rgb(255,215,0);
+CL_YELLOW                          <- rgb(255,255,0);
+CL_LIGHTYELLOW                     <- rgb(255,255,224);
+CL_LEMONCHIFFON                    <- rgb(255,250,205);
+CL_LIGHTGOLDENRODYELLOW            <- rgb(250,250,210);
+CL_PAPAYAWHIP                      <- rgb(255,239,213);
+CL_MOCCASIN                        <- rgb(255,228,181);
+CL_PEACHPUFF                       <- rgb(255,218,185);
+CL_PALEGOLDENROD                   <- rgb(238,232,170);
+CL_KHAKI                           <- rgb(240,230,140);
+CL_DARKKHAKI                       <- rgb(189,183,107);
+CL_LAVENDER                        <- rgb(230,230,250);
+CL_THISTLE                         <- rgb(216,191,216);
+CL_PLUM                            <- rgb(221,160,221);
+CL_VIOLET                          <- rgb(238,130,238);
+CL_ORCHID                          <- rgb(218,112,214);
+CL_FUCHSIA                         <- rgb(255,0,255);
+CL_MAGENTA                         <- rgb(255,0,255);
+CL_MEDIUMORCHID                    <- rgb(186,85,211);
+CL_MEDIUMPURPLE2                   <- rgb(147,112,219);
+CL_BLUEVIOLET                      <- rgb(138,43,226);
+CL_DARKVIOLET                      <- rgb(148,0,211);
+CL_DARKORCHID                      <- rgb(153,50,204);
+CL_DARKORCHID_DOUBLE               <- rgb(149,38,189);
+CL_DARKMAGENTA                     <- rgb(139,0,139);
+CL_PURPLE                          <- rgb(128,0,128);
+CL_INDIGO                          <- rgb(75,0,130);
+CL_SLATEBLUE                       <- rgb(106,90,205);
+CL_DARKSLATEBLUE                   <- rgb(72,61,139);
+CL_MEDIUMSLATEBLUE                 <- rgb(123,104,238);
+CL_GREENYELLOW                     <- rgb(173,255,47);
+CL_CHARTREUSE                      <- rgb(127,255,0);
+CL_LAWNGREEN                       <- rgb(124,252,0);
+CL_LIME                            <- rgb(0,255,0);
+CL_LIMEGREEN_DOUBLE                <- rgb(50,205,50);
+CL_PALEGREEN                       <- rgb(152,251,152);
+CL_LIGHTGREEN                      <- rgb(144,238,144);
+CL_MEDIUMSPRINGGREEN               <- rgb(0,250,154);
+CL_SPRINGGREEN                     <- rgb(0,255,127);
+CL_MEDIUMSEAGREEN                  <- rgb(60,179,113);
+CL_SEAGREEN                        <- rgb(46,139,87);
+CL_FORESTGREEN                     <- rgb(34,139,34);
+CL_GREEN                           <- rgb(0,128,0);
+CL_DARKGREEN                       <- rgb(0,100,0);
+CL_YELLOWGREEN                     <- rgb(154,205,50);
+CL_OLIVEDRAB                       <- rgb(107,142,35);
+CL_OLIVE                           <- rgb(128,128,0);
+CL_DARKOLIVEGREEN                  <- rgb(85,107,47);
+CL_MEDIUMAQUAMARINE                <- rgb(102,205,170);
+CL_DARKSEAGREEN                    <- rgb(143,188,139);
+CL_LIGHTSEAGREEN                   <- rgb(32,178,170);
+CL_DARKCYAN                        <- rgb(0,139,139);
+CL_TEAL                            <- rgb(0,128,128);
+CL_AQUA                            <- rgb(0,255,255);
+CL_CYAN                            <- rgb(0,255,255);
+CL_LIGHTCYAN                       <- rgb(224,255,255);
+CL_PALETURQUOISE                   <- rgb(175,238,238);
+CL_AQUAMARINE                      <- rgb(127,255,212);
+CL_TURQUOISE                       <- rgb(64,224,208);
+CL_MEDIUMTURQUOISE                 <- rgb(72,209,204);
+CL_DARKTURQUOISE                   <- rgb(0,206,209);
+CL_CADETBLUE                       <- rgb(95,158,160);
+CL_STEELBLUE                       <- rgb(70,130,180);
+CL_LIGHTSTEELBLUE                  <- rgb(176,196,222);
+CL_POWDERBLUE                      <- rgb(176,224,230);
+CL_LIGHTBLUE                       <- rgb(173,216,230);
+CL_SKYBLUE                         <- rgb(135,206,235);
+CL_LIGHTSKYBLUE                    <- rgb(135,206,250);
+CL_DEEPSKYBLUE                     <- rgb(0,191,255);
+CL_DODGERBLUE                      <- rgb(30,144,255);
+CL_CORNFLOWERBLUE                  <- rgb(100,149,237);
+CL_ROYALBLUE                       <- rgb(65,131,215);
+CL_ROYALBLUE_DOUBLE                <- rgb(65,105,225);
+CL_BLUE                            <- rgb(0,0,255);
+CL_MEDIUMBLUE                      <- rgb(0,0,205);
+CL_DARKBLUE                        <- rgb(0,0,139);
+CL_NAVY                            <- rgb(0,0,128);
+CL_MIDNIGHTBLUE                    <- rgb(25,25,112);
+CL_CORNSILK                        <- rgb(255,248,220);
+CL_BLANCHEDALMOND                  <- rgb(255,235,205);
+CL_BISQUE                          <- rgb(255,228,196);
+CL_NAVAJOWHITE                     <- rgb(255,222,173);
+CL_WHEAT                           <- rgb(245,222,179);
+CL_BURLYWOOD                       <- rgb(222,184,135);
+CL_TAN                             <- rgb(210,180,140);
+CL_ROSYBROWN                       <- rgb(188,143,143);
+CL_SANDYBROWN                      <- rgb(244,164,96);
+CL_GOLDENROD                       <- rgb(218,165,32);
+CL_DARKGOLDENROD                   <- rgb(184,134,11);
+CL_PERU                            <- rgb(205,133,63);
+CL_CHOCOLATE                       <- rgb(210,105,30);
+CL_SADDLEBROWN                     <- rgb(139,69,19);
+CL_SIENNA                          <- rgb(160,82,45);
+CL_BROWN                           <- rgb(165,42,42);
+CL_MAROON                          <- rgb(128,0,0);
+CL_WHITE                           <- rgb(245,245,245);
+CL_SNOW                            <- rgb(255,250,250);
+CL_HONEYDEW                        <- rgb(240,255,240);
+CL_MINTCREAM                       <- rgb(245,255,250);
+CL_AZURE                           <- rgb(240,255,255);
+CL_ALICEBLUE                       <- rgb(240,248,255);
+CL_GHOSTWHITE                      <- rgb(248,248,255);
+CL_WHITESMOKE                      <- rgb(245,245,245);
+CL_SEASHELL                        <- rgb(255,245,238);
+CL_BEIGE                           <- rgb(245,245,220);
+CL_OLDLACE                         <- rgb(253,245,230);
+CL_FLORALWHITE                     <- rgb(255,250,240);
+CL_IVORY                           <- rgb(255,255,240);
+CL_ANTIQUEWHITE                    <- rgb(250,235,215);
+CL_LINEN                           <- rgb(250,240,230);
+CL_LAVENDERBLUSH                   <- rgb(255,240,245);
+CL_MISTYROSE                       <- rgb(255,228,225);
+CL_GAINSBORO                       <- rgb(220,220,220);
+CL_LIGHTGRAY                       <- rgb(211,211,211);
+CL_SILVER                          <- rgb(192,192,192);
+CL_DARKGRAY                        <- rgb(169,169,169);
+CL_GRAY                            <- rgb(128,128,128);
+CL_DIMGRAY                         <- rgb(105,105,105);
+CL_LIGHTSLATEGRAY                  <- rgb(119,136,153);
+CL_SLATEGRAY                       <- rgb(112,128,144);
+CL_DARKSLATEGRAY                   <- rgb(47,79,79);
+CL_BLACK                           <- rgb(0,0,0);
+
+/*
+
+rgb(255, 140, 0)
+rgb(255, 222, 173)
+rgb(0, 206, 209)
+
+102 204 0
+76 153 0
+255, 105, 180
+
+ */
+
+
+/*
+
+ooc: CL_GRAY
+ic: CL_YELLOW
+b: CL_GRAY
+s: CL_WHITE
+w: CL_WHITE
+me: CL_WAXFLOWER
+do: CL_CARIBBEANGREEN)
+todo: ???????
+try: CL_WHITE
+pm: CL_LIGHTWISTERIA
+
+
+job: CL_CRUSTA
+job_hint: CL_LYNCH
+
+
+job_bus_3dtext_stop_title: CL_ROYALBLUE
+job_bus_3dtext_private_stop_title: CL_RIPELEMON
+job_bus_error: CL_RED
+job_bus_driversays: CL_CREAMCAN
 
 
 
-CL_FLAMINGO         <- rgb( 239,  72,  54  );
-CL_CHESTNUT         <- rgb( 210,  77,  87  );
-CL_THUNDERBIRD      <- rgb( 217,  30,  24  );
-CL_OLDBREAK         <- rgb( 150,  40,  27  );
-CL_WAXFLOWER        <- rgb( 241,  169, 160 );
-CL_SNUFF            <- rgb( 220,  198, 224 );
-CL_REBECCAPURPLE    <- rgb( 102,  51,  153 );
-CL_WISTFUL          <- rgb( 174,  168, 211 );
-CL_MEDIUMPURPLE     <- rgb( 191,  85,  236 );
-CL_LIGHTWISTERIA    <- rgb( 190,  144, 212 );
-CL_ROYALBLUE        <- rgb( 65,   131, 215 );
-CL_PICTONBLUE       <- rgb( 89,   171, 227 );
-CL_PICTONBLUEDARK   <- rgb( 34,   167, 240 );
-CL_MING             <- rgb( 51,   110, 123 );
-CL_MALIBU           <- rgb( 107,  185, 240 );
-CL_HOKI             <- rgb( 103,  128, 159 );
-CL_JORDYBLUE        <- rgb( 137,  196, 244 );
-CL_GOSSIP           <- rgb( 135,  211, 124 );
-CL_EUCALYPTUS       <- rgb( 38,   166, 91  );
-CL_CARIBBEANGREEN   <- rgb( 3,    201, 169 );
-CL_NIAGARA          <- rgb( 22,   160, 133 );
-CL_OCEANGREEN       <- rgb( 77,   175, 124 );
-CL_JADE             <- rgb( 0,    177, 106 );
-CL_SALEM            <- rgb( 30,   130, 76  );
-CL_CREAMCAN         <- rgb( 245,  215, 110 );
-CL_RIPELEMON        <- rgb( 247,  202, 24  );
-CL_FIREBUSH         <- rgb( 235,  149, 50  );
-CL_CRUSTA           <- rgb( 242,  120, 75  );
-CL_BURNTORANGE      <- rgb( 211,  84,  0   );
-CL_ECSTASY          <- rgb( 249,  105, 14  );
-CL_LYNCH            <- rgb( 108,  122, 137 );
-CL_SILVERSAND       <- rgb( 189,  195, 199 );
-CL_CASCADE          <- rgb( 149,  165, 166 );
-
-CL_GRAY             <- CL_LYNCH;
-
-CL_ERROR            <- CL_FLAMINGO;
-CL_WARNING          <- CL_ECSTASY;
-CL_SUCCESS          <- CL_GOSSIP;
-CL_INFO             <- CL_PICTONBLUE;
-CL_PLAIN            <- CL_WHITE;
+ */

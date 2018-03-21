@@ -47,14 +47,15 @@ local kiosks = [
 
 event("onServerStarted", function() {
     log("[shops] loading kiosks...");
-
-    //creating public 3dtext
-    foreach (kiosk in kiosks) {
-        create3DText ( kiosk[0], kiosk[1], kiosk[2]+0.35, "NEWS STAND", CL_RIPELEMON, 6.0);
-        create3DText ( kiosk[0], kiosk[1], kiosk[2]+0.20, "Press E", CL_WHITE.applyAlpha(150), 0.4 );
-    }
 });
 
+event("onServerPlayerStarted", function( playerid ){
+    //creating public 3dtext
+    foreach (kiosk in kiosks) {
+        createPrivate3DText ( playerid, kiosk[0], kiosk[1], kiosk[2]+0.35, plocalize(playerid, "NEWSSTAND"), CL_RIPELEMON, 6.0);
+        createPrivate3DText ( playerid, kiosk[0], kiosk[1], kiosk[2]+0.20, plocalize(playerid, "3dtext.job.press.E"), CL_WHITE.applyAlpha(150), 0.4 );
+    }
+});
 
 function isPlayerNearKiosk(playerid) {
     local check = false;

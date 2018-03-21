@@ -18,7 +18,7 @@ include("controllers/nvehicles");
 
 include("controllers/utils");
 include("controllers/screen");
-include("controllers/admin");
+
 include("controllers/statistics");
 include("controllers/extrasync");
 include("controllers/business");
@@ -26,10 +26,11 @@ include("controllers/chat");
 include("controllers/tips");
 // include("controllers/gui");
 // include("controllers/objectpool");
-include("controllers/moderator");
+// include("controllers/moderator");
 include("controllers/place");
 include("controllers/closedplaces");
 
 // include("controllers/property");
 include("controllers/inventory");
 include("controllers/fraction");
+include("controllers/admin");

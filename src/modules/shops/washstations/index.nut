@@ -20,22 +20,25 @@ const SHOP_WASH_3DTEXT_DRAW_DISTANCE = 35.0;
 const SHOP_WASH_RADIUS = 4.0;
 
 wash_stations <- [
-    [ -650.72, -51.2855,   1.11898,  "WEST SIDE"     ],
-    [ -129.748, 612.73,   -19.9173,  "LITTLE ITALY"  ],
-    [ 318.459, 873.165,   -21.0677,  "LITTLE ITALY"  ],
-    [ 549.954, -17.8149,  -18.0524,  "OYSTER BAY"    ],
-    [ -1677.71, -252.047, -20.1124,  "SAND ISLAND"   ],
-    [ -1594.26, 962.701,  -4.96899,  "GREENFIELD"    ],
-    [ -689.994, 1764.51,  -14.7776,  "DIPTON"        ],
-    [  114.305, 160.961,  -19.7987,  "EAST SIDE"     ]
+    [ -650.72, -51.2855,   1.11898,  "WESTSIDE"     ],
+    [ -129.748, 612.73,   -19.9173,  "LITTLEITALY"  ],
+    [ 318.459, 873.165,   -21.0677,  "LITTLEITALY"  ],
+    [ 549.954, -17.8149,  -18.0524,  "OYSTERBAY"    ],
+    [ -1677.71, -252.047, -20.1124,  "SANDISLAND"   ],
+    [ -1594.26, 962.701,  -4.96899,  "GREENFIELD"   ],
+    [ -689.994, 1764.51,  -14.7776,  "DIPTON"       ],
+    [  114.305, 160.961,  -19.7987,  "EASTSIDE"     ]
 ];
 
 
-addEventHandlerEx("onServerStarted", function() {
+event("onServerStarted", function() {
     log("[shops] loading wash stations...");
+});
+
+event("onServerPlayerStarted", function(playerid) {
     foreach (shop in wash_stations) {
-        create3DText ( shop[0], shop[1], shop[2]+0.35, "=== "+shop[3]+" WASH STATION ===", CL_WASH, SHOP_WASH_3DTEXT_DRAW_DISTANCE );
-        create3DText ( shop[0], shop[1], shop[2]+0.20, format("Press E | Price: $%.2f", SHOP_WASH_COST), CL_WHITE.applyAlpha(150), SHOP_WASH_RADIUS );
+        createPrivate3DText ( playerid, shop[0], shop[1], shop[2]+0.35, [[ "WASHSTATION", shop[3]], "%s | %s"], CL_WASH, SHOP_WASH_3DTEXT_DRAW_DISTANCE );
+        createPrivate3DText ( playerid, shop[0], shop[1], shop[2]+0.20, [[ "3dtext.job.press.E", "PRICE"], "%s | %s: $"+SHOP_WASH_COST ], CL_WHITE.applyAlpha(150), SHOP_WASH_RADIUS );
     }
 });
 
@@ -84,12 +87,3 @@ function washStationsWashCar (playerid) {
         });
     }
 }
-
-
-/*
-        if( isPlayerInVehicle( playerid ) )
-        {
-            local vehicleid = getPlayerVehicle( playerid );
-            setVehicleTuningTable( vehicleid, 3 );
-        }
- */

@@ -1,4 +1,5 @@
 include("modules/jobs/truckdriver/commands.nut");
+include("modules/jobs/truckdriver/translations.nut");
 
 local job_truck = {};
 local job_truck_blocked = {};
@@ -40,70 +41,32 @@ local truck_scens = {};
     LoadPointX = -1544.27, LoadPointY = -108.465, LoadPointZ = -18.0451,
     UnloadPointX = 634.324, UnloadPointY = 906.558, UnloadPointZ = -12.4234 };
 
-// работы доступные в сезон
-local truck_scens_winter = [ 1, 3, 4, 5, 6, 7 ];
-local truck_scens_summer = [ 2, 4, 7 ];
+    // сценарий 8: Порт - Литейная в Северном Миллвиле | All
+    truck_scens[8] <- { LoadText = "job.truckdriver.scens8.load", UnloadText = "job.truckdriver.scens8.unload", vehicleid = 35,
+    LoadPointX = 167.902, LoadPointY = -760.497, LoadPointZ = -21.7744,
+    UnloadPointX = 1248.75, UnloadPointY = 1239.23, UnloadPointZ = 0.823301 };
+
+    // сценарий 9: Угольный склад в Северном Миллвиле - пристань в Кингстоне | All
+    truck_scens[9] <- { LoadText = "job.truckdriver.scens9.load", UnloadText = "job.truckdriver.scens9.unload", vehicleid = 35,
+    LoadPointX = 606.194, LoadPointY = 566.754, LoadPointZ = -12.0788,
+    UnloadPointX = -1140.78, UnloadPointY = 1189.37, UnloadPointZ = -21.7018 };
+
+    // сценарий 10: Мидтаун Отель - Прачечная в Маленькой Италии | Only summer
+    truck_scens[10] <- { LoadText = "job.truckdriver.scens10.load", UnloadText = "job.truckdriver.scens10.unload", vehicleid = 37,
+    LoadPointX = -606.833, LoadPointY = -340.543, LoadPointZ = -9.41061,
+    UnloadPointX = -69.693, UnloadPointY = 500.871, UnloadPointZ = -19.7248 };
+
+    // сценарий 11: Диптон - Аркада (товары) | All
+    truck_scens[11] <- { LoadText = "job.truckdriver.scens11.load", UnloadText = "job.truckdriver.scens11.unload", vehicleid = 37,
+    LoadPointX = -471.886, LoadPointY = 1735.74, LoadPointZ = -23.0622,
+    UnloadPointX = -586.659, UnloadPointY = 51.6276, UnloadPointZ = 0.0326465 };
+
+    // работы доступные в сезон
+    local truck_scens_winter = [ 1, 3, 4, 5, 6, 7, 8, 9, 11 ];
+    local truck_scens_summer = [ 2, 4, 6, 7, 8, 9, 10, 11 ];
 
     // сценарий 1: Северный Миллвиль - Мидтаун Разруха (доставка материалов) | All
     // truck_scens[10] <- { LoadText = "job.truckdriver.scens1.load", UnloadText = "job.truckdriver.scens1.unload", LoadPointX = 826.769, LoadPointY = 517.451, LoadPointZ = -11.7677, UnloadPointX = -370.788, UnloadPointY = -347.463, UnloadPointZ =  -13.3999 };
-
-
-translation("en", {
-    "job.truckdriver"                   : "truck driver"
-
-    "job.truckdriver.scens1.load"       : "Sit into %s and go to North Millville to load construction materials."
-    "job.truckdriver.scens1.unload"     : "The truck loaded. Go to Midtown to unload construction materials."
-
-    "job.truckdriver.scens2.load"       : "Sit into %s and go to Hunters Point to load debris of burnt building."
-    "job.truckdriver.scens2.unload"     : "The truck loaded. Go to North Millville to unload debris of burnt building."
-
-    "job.truckdriver.scens3.load"       : "Sit into %s and go to Midtown to load debris of destroyed building."
-    "job.truckdriver.scens3.unload"     : "The truck loaded. Go to North Millville to unload debris of destroyed building."
-
-    "job.truckdriver.scens4.load"       : "Sit into %s and go to South Millville to load cargo."
-    "job.truckdriver.scens4.unload"     : "The truck loaded. Go to Sand Island to unload cargo."
-
-    "job.truckdriver.scens5.load"       : "Sit into %s and go to Midtown to load debris of destroyed building."
-    "job.truckdriver.scens5.unload"     : "The truck loaded. Go to North Millville to unload debris of destroyed building."
-
-    "job.truckdriver.scens6.load"       : "Sit into %s and go to the Distillery in Sand Island to load alcohol."
-    "job.truckdriver.scens6.unload"     : "The truck loaded. Go to Hill of Tara in Kingston to unload alcohol."
-
-    "job.truckdriver.scens7.load"       : "Sit into %s and go to the Distillery in Sand Island to load alcohol."
-    "job.truckdriver.scens7.unload"     : "The truck loaded. Go to Dragsrtip in North Millville to unload alcohol."
-
-    "job.truckdriver.needtruck"         : "You need a %s."
-    "job.truckdriver.badworker"         : "Robert Casey: You are a bad worker. I'll not give you a job."
-    "job.truckdriver.badworker.onleave" : "Robert Casey: You are a bad worker. Get out of here."
-    "job.truckdriver.goodluck"          : "Robert Casey: Good luck, guy! Come if you need a job."
-    "job.truckdriver.needcomplete"      : "Robert Casey: You must complete delivery before."
-    "job.truckdriver.nicejob"           : "Robert Casey: Nice job, %s! Keep $%.2f."
-    "job.truckdriver.now"               : "Robert Casey: You're a truck driver now. Welcome!"
-
-    "job.truckdriver.needlevel"         : "[TRUCK] You need level %d to become truck driver."
-    "job.truckdriver.wantwork"          : "[TRUCK] You're a truck driver. If you want to work - go to transport facilities near Highbrook Bridge."
-    "job.truckdriver.already"           : "[TRUCK] You're truck driver already."
-    "job.truckdriver.notpassenger"      : "[TRUCK] Delivery can be performed only by driver, but not by passenger."
-    "job.truckdriver.loading"           : "[TRUCK] Loading truck. Wait..."
-    "job.truckdriver.unloading"         : "[TRUCK] Unloading truck. Wait..."
-    "job.truckdriver.alreadyloaded"     : "[TRUCK] Truck already loaded."
-    "job.truckdriver.empty"             : "[TRUCK] Truck is empty."
-    "job.truckdriver.takemoney"         : "[TRUCK] Go back to transport facilities near Highbrook Bridge to park truck and get money."
-
-    "job.truckdriver.help.title"            :   "Controls for TRUCK DRIVER:"
-    "job.truckdriver.help.job"              :   "E button"
-    "job.truckdriver.help.jobtext"          :   "Get truck driver job near Robert Casey"
-    "job.truckdriver.help.jobleave"         :   "Q button"
-    "job.truckdriver.help.jobleavetext"     :   "Leave truck driver job near Robert Casey"
-    "job.truckdriver.help.loadunload"       :   "E button"
-    "job.truckdriver.help.loadunloadtext"   :   "Load/unload truck (need be in truck)"
-
-});
-
-/*
-826.769, 517.451, -11.7677, 89.8741, -0.213281, 0.213751, NorthMillVilleLoadMaterials
--370.788, -347.463, -13.3999, -179.469, -0.0121328, -1.44906, MidtownUnloadMaterials
-*/
 
 
 const RADIUS_TRUCK = 2.0;
@@ -114,7 +77,7 @@ const TRUCK_JOB_Z = -6.86539; //
 
 const TRUCK_JOB_TIMEOUT = 1800; // 30 minutes
 const TRUCK_JOB_SKIN = 130;
-const TRUCK_JOB_SALARY = 13.0;
+const TRUCK_JOB_SALARY = 10.0;
 const TRUCK_JOB_LEVEL = 1;
       TRUCK_JOB_COLOR <- CL_CRUSTA;
 local TRUCK_JOB_GET_HOUR_START     = 0;
@@ -126,30 +89,15 @@ local TRUCK_JOB_WORKING_HOUR_END   = 23;
 local TRUCK_ROUTE_IN_HOUR = 4;
 local TRUCK_ROUTE_NOW = 3;
 
-local carp = false;
-local carp2 = false;
-
 
 event("onServerStarted", function() {
     log("[jobs] loading truckdriver job...");
-                                                                                            //  loaded, playerid
+    //  loaded, playerid
     //truckcars[createVehicle(35, -705.155, 1456, -6.48204, -43.0174, -0.252974, -0.64192)]     <- [ false, null ]; //    Flatbed
     truckcars[createVehicle(37, -708.151, 1453.25, -6.50832, -43.1396, -0.445434, -1.12674)]  <- [ false, null ]; //    Covered
     truckcars[createVehicle(35, -711.119, 1450.54, -6.52765, -41.8644, -0.613728, -1.6044)]   <- [ false, null ]; //    Flatbed
-    //truckcars[createVehicle(37, -714.315, 1447.55, -6.52792, -41.1587, -1.82778, -0.432325)]  <- [ false, null ]; //    Covered
+    truckcars[createVehicle(35, -714.315, 1447.55, -6.52792, -41.1587, -1.82778, -0.432325)]  <- [ false, null ]; //    Flatbed
     truckcars[createVehicle(37, -717.422, 1444.53, -6.33198, -39.2871, -1.59798, 3.26338)]    <- [ false, null ]; //    Covered
-/*
-    carp = createVehicle(42, -364.809, -348.672, -13.5259, -0.540874, -0.0051816, -1.09775); // police Midtown
-
-    createVehicle(27, -368.761, -330.329, -13.1167, 113.28, -0.503684, -1.39627); //Bron1
-    createVehicle(27, -368.435, -366.052, -13.8605, 63.8406, -0.365066, -1.26762); //Bron2
-
-    if (isSummer()) {
-        carp2 = createVehicle(42, -1604.3, 569.969, -19.9775, -54.2438, 0.27688, -0.144837); // police Most
-    }
-*/
-    create3DText ( TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.35, "TRANSPORT COMPANY", CL_ROYALBLUE );
-    create3DText ( TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.20, "Press E to action", CL_WHITE.applyAlpha(150), RADIUS_TRUCK );
 
     registerPersonalJobBlip("truckdriver", TRUCK_JOB_X, TRUCK_JOB_Y);
 });
@@ -175,10 +123,10 @@ event("onServerStarted", function() {
 
 
 
-job_truck[playerid]["userstatus"] == null;         -  если есть работа для игрока
-job_truck[playerid]["userstatus"] == "nojob";      -  если нет работы для игрока
-job_truck[playerid]["userstatus"] == "working";    -  если игрок работает
-job_truck[playerid]["userstatus"] == "complete";    -  если игрок выполнил работу
+job_truck[getCharacterIdFromPlayerId(playerid)]["userstatus"] == null;         -  если есть работа для игрока
+job_truck[getCharacterIdFromPlayerId(playerid)]["userstatus"] == "nojob";      -  если нет работы для игрока
+job_truck[getCharacterIdFromPlayerId(playerid)]["userstatus"] == "working";    -  если игрок работает
+job_truck[getCharacterIdFromPlayerId(playerid)]["userstatus"] == "complete";    -  если игрок выполнил работу
 */
 
 
@@ -191,25 +139,32 @@ key("q", function(playerid) {
     truckJobRefuseLeave( playerid );
 }, KEY_UP);
 
+// соединение с игроком
 event("onPlayerConnect", function(playerid) {
-     job_truck[playerid] <- {};
-     job_truck[playerid]["userjob"] <- null;
-     job_truck[playerid]["userstatus"] <- null;
-     job_truck[playerid]["leavejob3dtext"] <- null;
-     job_truck[playerid]["truckblip3dtext"] <- [null, null, null];
+    if ( ! (getCharacterIdFromPlayerId(playerid) in job_truck) ) {
+        job_truck[getCharacterIdFromPlayerId(playerid)] <- {};
+        job_truck[getCharacterIdFromPlayerId(playerid)]["userjob"] <- null;
+        job_truck[getCharacterIdFromPlayerId(playerid)]["userstatus"] <- null;
+        job_truck[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] <- null;
+        job_truck[getCharacterIdFromPlayerId(playerid)]["truckblip3dtext"] <- [null, null, null];
+    }
 });
 
+// игрок заспавнен
 event("onPlayerSpawn", function(playerid) {
     //setVehicleBeaconLightState(carp, true);
     //if (isSummer()) { setVehicleBeaconLightState(carp2, true); }
 });
 
+// прошли авторизацию
 event("onServerPlayerStarted", function( playerid ){
 
+    createPrivate3DText ( playerid, TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.35, plocalize(playerid, "3dtext.job.truckdriver"), CL_ROYALBLUE );
+    createPrivate3DText ( playerid, TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.20, plocalize(playerid, "3dtext.job.press.action"), CL_WHITE.applyAlpha(150), RADIUS_TRUCK );
 
     if(players[playerid]["job"] == "truckdriver") {
         msg( playerid, "job.truckdriver.wantwork", TRUCK_JOB_COLOR );
-        job_truck[playerid]["leavejob3dtext"] = createPrivate3DText (playerid, TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), RADIUS_TRUCK );
+        job_truck[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] = createPrivate3DText (playerid, TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.05, plocalize(playerid, "3dtext.job.press.leave"), CL_WHITE.applyAlpha(100), RADIUS_TRUCK );
     }
 });
 
@@ -264,11 +219,11 @@ function truckJobCreatePrivateBlipText(playerid, x, y, z, text, cmd) {
  * @param  {int}  playerid
  */
 function truckJobRemovePrivateBlipText ( playerid ) {
-    if(job_truck[playerid]["truckblip3dtext"][0] != null) {
-        remove3DText ( job_truck[playerid]["truckblip3dtext"][0] );
-        remove3DText ( job_truck[playerid]["truckblip3dtext"][1] );
-        removeBlip   ( job_truck[playerid]["truckblip3dtext"][2] );
-        job_truck[playerid]["truckblip3dtext"][0] = null;
+    if(job_truck[getCharacterIdFromPlayerId(playerid)]["truckblip3dtext"][0] != null) {
+        remove3DText ( job_truck[getCharacterIdFromPlayerId(playerid)]["truckblip3dtext"][0] );
+        remove3DText ( job_truck[getCharacterIdFromPlayerId(playerid)]["truckblip3dtext"][1] );
+        removeBlip   ( job_truck[getCharacterIdFromPlayerId(playerid)]["truckblip3dtext"][2] );
+        job_truck[getCharacterIdFromPlayerId(playerid)]["truckblip3dtext"][0] = null;
     }
 }
 
@@ -302,14 +257,14 @@ function truckJobTalk( playerid ) {
         return msg(playerid, "job.truckdriver.needlevel", TRUCK_JOB_LEVEL, TRUCK_JOB_COLOR );
     }
 
-    if (getPlayerName(playerid) in job_truck_blocked) {
-        if (getTimestamp() - job_truck_blocked[getPlayerName(playerid)] < TRUCK_JOB_TIMEOUT) {
+    if (getCharacterIdFromPlayerId(playerid) in job_truck_blocked) {
+        if (getTimestamp() - job_truck_blocked[getCharacterIdFromPlayerId(playerid)] < TRUCK_JOB_TIMEOUT) {
             return msg( playerid, "job.truckdriver.badworker");
         }
     }
 
     // если у игрока статус работы == null
-    if(job_truck[playerid]["userstatus"] == null) {
+    if(job_truck[getCharacterIdFromPlayerId(playerid)]["userstatus"] == null) {
 /*
         // если игрок уже работает водителем грузовика
         if(!isTruckDriver( playerid )) {
@@ -349,31 +304,31 @@ function truckJobTalk( playerid ) {
             userjob = truck_scens[truck_scens_winter[random(0, truck_scens_winter.len()-1)]];
         }
 
-        job_truck[playerid]["userjob"] = userjob;
+        job_truck[getCharacterIdFromPlayerId(playerid)]["userjob"] = userjob;
         msg( playerid, userjob.LoadText, getVehicleNameByModelId( userjob.vehicleid ), TRUCK_JOB_COLOR );
-        job_truck[playerid]["userstatus"] = "working";
+        job_truck[getCharacterIdFromPlayerId(playerid)]["userstatus"] = "working";
 
 
 
-        job_truck[playerid]["truckblip3dtext"] = truckJobCreatePrivateBlipText(playerid, userjob.LoadPointX, userjob.LoadPointY, userjob.LoadPointZ, "LOAD HERE", "Press E to load");
-        if(job_truck[playerid]["leavejob3dtext"] == null) {
-            job_truck[playerid]["leavejob3dtext"] = createPrivate3DText (playerid, TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), RADIUS_TRUCK );
+        job_truck[getCharacterIdFromPlayerId(playerid)]["truckblip3dtext"] = truckJobCreatePrivateBlipText(playerid, userjob.LoadPointX, userjob.LoadPointY, userjob.LoadPointZ, plocalize(playerid, "3dtext.job.loadhere"), plocalize(playerid, "3dtext.job.press.load"));
+        if(job_truck[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] == null) {
+            job_truck[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] = createPrivate3DText (playerid, TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.05, plocalize(playerid, "3dtext.job.press.leave"), CL_WHITE.applyAlpha(100), RADIUS_TRUCK );
         }
         return;
     }
 
     // если у игрока статус работы == для тебя нет работы
-    // if (job_truck[playerid]["userstatus"] == "nojob") {
+    // if (job_truck[getCharacterIdFromPlayerId(playerid)]["userstatus"] == "nojob") {
     //     return msg( playerid, "job.truckdriver.badworker");
     // }
 
     // если у игрока статус работы == выполняет работу
-    if (job_truck[playerid]["userstatus"] == "working") {
+    if (job_truck[getCharacterIdFromPlayerId(playerid)]["userstatus"] == "working") {
         return msg( playerid, "job.truckdriver.needcomplete" );
     }
     // если у игрока статус работы == завершил работу
-    if (job_truck[playerid]["userstatus"] == "complete") {
-        job_truck[playerid]["userstatus"] = null;
+    if (job_truck[getCharacterIdFromPlayerId(playerid)]["userstatus"] == "complete") {
+        job_truck[getCharacterIdFromPlayerId(playerid)]["userstatus"] = null;
         truckGetSalary( playerid );
         return;
     }
@@ -394,26 +349,26 @@ function truckJobRefuseLeave( playerid ) {
         return msg( playerid, "job.closed", [ TRUCK_JOB_LEAVE_HOUR_START.tostring(), TRUCK_JOB_LEAVE_HOUR_END.tostring()], TRUCK_JOB_COLOR );
     }
 
-    if(job_truck[playerid]["userstatus"] == null) {
+    if(job_truck[getCharacterIdFromPlayerId(playerid)]["userstatus"] == null) {
         msg( playerid, "job.truckdriver.goodluck");
     }
 
-    if (job_truck[playerid]["userstatus"] == "working") {
+    if (job_truck[getCharacterIdFromPlayerId(playerid)]["userstatus"] == "working") {
         msg( playerid, "job.truckdriver.badworker.onleave");
-        job_truck[playerid]["userstatus"] = null;
-        job_truck_blocked[getPlayerName(playerid)] <- getTimestamp();
+        job_truck[getCharacterIdFromPlayerId(playerid)]["userstatus"] = null;
+        job_truck_blocked[getCharacterIdFromPlayerId(playerid)] <- getTimestamp();
     }
 
-    if (job_truck[playerid]["userstatus"] == "complete") {
+    if (job_truck[getCharacterIdFromPlayerId(playerid)]["userstatus"] == "complete") {
         truckGetSalary( playerid );
         msg( playerid, "job.truckdriver.goodluck");
-        job_truck[playerid]["userstatus"] = null;
+        job_truck[getCharacterIdFromPlayerId(playerid)]["userstatus"] = null;
     }
 
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
         msg( playerid, "job.leave", TRUCK_JOB_COLOR );
-        remove3DText ( job_truck[playerid]["leavejob3dtext"] );
-        job_truck[playerid]["leavejob3dtext"] = null;
+        remove3DText ( job_truck[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] );
+        job_truck[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] = null;
 
         setPlayerJob( playerid, null );
         restorePlayerModel(playerid);
@@ -428,9 +383,9 @@ function truckJobRefuseLeave( playerid ) {
 
 
 function truckGetSalary( playerid ) {
-    local amount = TRUCK_JOB_SALARY + (random(-5, -2)).tofloat();
+    local amount = TRUCK_JOB_SALARY + (random(-1, 3)).tofloat();
     addMoneyToPlayer(playerid, amount);
-    msg( playerid, "job.truckdriver.nicejob", [getPlayerName( playerid ), amount] );
+    msg( playerid, "job.truckdriver.nicejob", [amount] );
 }
 
 
@@ -438,7 +393,7 @@ function truckGetSalary( playerid ) {
 function truckJobLoadUnload( playerid ) {
 
     local vehicleid = getPlayerVehicle( playerid );
-    if(job_truck[playerid]["userjob"] == null || !isPlayerInVehicle(playerid) || !isPlayerVehicleDriver(playerid) || !(vehicleid in truckcars)) {
+    if(job_truck[getCharacterIdFromPlayerId(playerid)]["userjob"] == null || !isPlayerInVehicle(playerid) || !isPlayerVehicleDriver(playerid) || !(vehicleid in truckcars)) {
         return;
     }
     if (isPlayerVehicleMoving(playerid)) {
@@ -453,7 +408,7 @@ function truckJobLoadUnload( playerid ) {
 */
 
 
-    local userjob = job_truck[playerid]["userjob"];
+    local userjob = job_truck[getCharacterIdFromPlayerId(playerid)]["userjob"];
 
     if (!isPlayerVehicleTruck(playerid, userjob.vehicleid) && isVehicleInValidPoint(playerid, userjob.LoadPointX, userjob.LoadPointY, 4.0 )) {
         return msg( playerid, "job.truckdriver.needtruck", getVehicleNameByModelId( userjob.vehicleid ), TRUCK_JOB_COLOR );
@@ -493,7 +448,7 @@ function truckJobLoadUnload( playerid ) {
             delayedFunction(1000, function () { freezePlayer( playerid, false); });
             truckcars[vehicleid][0] = true;
             truckcars[vehicleid][1] = playerid;
-            job_truck[playerid]["truckblip3dtext"] = truckJobCreatePrivateBlipText(playerid, userjob.UnloadPointX, userjob.UnloadPointY, userjob.UnloadPointZ, "UNLOAD HERE", "Press E to unload");
+            job_truck[getCharacterIdFromPlayerId(playerid)]["truckblip3dtext"] = truckJobCreatePrivateBlipText(playerid, userjob.UnloadPointX, userjob.UnloadPointY, userjob.UnloadPointZ, plocalize(playerid, "3dtext.job.unloadhere"), plocalize(playerid, "3dtext.job.press.unload"));
             msg( playerid, userjob.UnloadText, TRUCK_JOB_COLOR );
             setVehiclePartOpen(vehicleid, 1, false);
 
@@ -518,7 +473,7 @@ function truckJobLoadUnload( playerid ) {
                 dbg("[JOB TRUCK] "+getPlayerName(playerid)+"["+playerid+"] unload truck.");
                 freezePlayer( playerid, false);
                 delayedFunction(1000, function () { freezePlayer( playerid, false); });
-                job_truck[playerid]["userstatus"] = "complete";
+                job_truck[getCharacterIdFromPlayerId(playerid)]["userstatus"] = "complete";
                 truckcars[vehicleid][0] = false;
                 truckcars[vehicleid][1] = null;
                 msg( playerid, "job.truckdriver.takemoney", TRUCK_JOB_COLOR );
