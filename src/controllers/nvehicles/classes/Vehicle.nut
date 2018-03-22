@@ -274,8 +274,8 @@ class Vehicle extends ORM.Entity
 
             if (this.isEmpty()) {
                 setVehicleSpeed(this.vehicleid, 0.0, 0.0, 0.0);
-                setVehiclePosition(this.vehicleid, this.x, this.y, this.z);
-                setVehicleRotation(this.vehicleid, this.rx, this.ry, this.rz);
+                this.setPosition(this.getPosition())
+                this.setRotation(this.getRotation())
             }
 
             return true;
