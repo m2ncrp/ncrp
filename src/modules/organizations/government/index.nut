@@ -127,11 +127,21 @@ cmd("tax", function( playerid, plateText = 0, monthUp = 1 ) {
     taxObj.setData("model",  modelid );
 
     local day   = getDay();
-    local month = getMonth() + monthUp;
+    local month = getMonth();
     local year  = getYear();
-    if (month == 13) { month = 1; year += 1; }
+
+    local intMonth = year * 12 + month + monthUp;
+
+    year = floor(intMonth / 12);
+    month = intMonth % 12;
+
+    if (month == 0) {
+        month = 12;
+        year -= 1;
+    }
     if (day < 10)   { day = "0"+day; }
     if (month < 10) { month = "0"+month; }
+
     taxObj.setData("issued",  getDate());
     taxObj.setData("expires", day+"."+month+"."+year);
 
@@ -143,3 +153,20 @@ cmd("tax", function( playerid, plateText = 0, monthUp = 1 ) {
 
 
 
+//function tax(monthUp = 12, day = null, month = null, year = null, ) {
+//    day   = day   ? day   : getDay();
+//    month = month ? month : getMonth();
+//    year  = year  ? year  : getYear();
+//    dbg(day+"."+month+"."+year)
+//
+//    local intMonth = year * 12 + month + monthUp;
+//    local intYear = floor(intMonth / 12);
+//    local lostMonth = intMonth % 12;
+//
+//    if (lostMonth == 0) {
+//        lostMonth = 12;
+//        intYear -= 1;
+//    }
+//
+//    dbg(day+"."+lostMonth+"."+intYear)
+//}
