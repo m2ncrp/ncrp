@@ -11,6 +11,10 @@ class Item.VehicleKey extends Item.Abstract
         }
     }
 
+    function getCode() {
+        return this.data.code;
+    }
+
     function use(playerid, inventory) {
         // TODO: add new print
         msg(playerid, "ADD NICE KEY PRINT STUFF", CL_HELP_LINE);

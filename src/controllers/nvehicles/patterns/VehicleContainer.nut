@@ -14,7 +14,7 @@ class VehicleContainer extends Container
      * @param {Integer} name
      * @param {Character} value
      */
-    function _set(playerid, value) {
+    function _set(id, value) {
         throw "VehicleContainer: you cant insert new data directly!";
     }
 
@@ -46,26 +46,23 @@ class VehicleContainer extends Container
         return closestobj;
     }
 
-    // function getVehicle(playerid) {
-    //     return isPlayerInVehicle(playerid) ? original__getPlayerVehicle(playerid) : null;
-    // }
+    /**
+     * Try to find a vehicle by a given key code
+     * @param  {String} code Example codes: "AZ3", "QW2"
+     * @return {Vehicle|null}
+     */
+    function byKeyCode(code) {
+        local result = null;
 
-    // function isNative(object) {
-    //     // Code
-    // }
-
-    function getByHash(hash) {
-        local vehicle = null;
-        foreach(targetid, data in this.getAll()) {
-            local h = data.getComponent(NVC.KeySwitch)._getHash();
-            if (h == hash) {
-                vehicle = data;
-                break;
+        foreach(id, vehicle in this.getAll()) {
+            local keylock = vehicle.components.findOne(NVC.KeySwitch);
+            if (keylock && keylock.getCode() == code) {
+                return vehicle;
             }
         }
-        return vehicle;
-    }
 
+        return result
+    }
 }
 
 

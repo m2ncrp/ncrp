@@ -1,41 +1,25 @@
-function createKey(entity) {
-    if (entity == null) return;
-    local Key = null;
+acmd(["vehicle"], ["setuplock"], function(playerid) {
+    local character = players[playerid];
 
-    if (entity instanceof Vehicle) {
-        Key = Item.VehicleKey();
-        Key.setIdBy( entity.id );
+    if (!character.inventory.isFreeSpace(1)) {
+        return msg(playerid, "inventory.space.notenough", CL_ERROR);
     }
 
-    // if (entity instanceof House) {
-    //     // do smth
-    // }
-
-    return Key;
-}
-
-function giveKey(keyOwnerEntity, entity) {
-    local key = createKey(entity);
-    if (key == null) { throw "Error: Couldn't create key for some reason @giveKey func."; }
-
-    if (keyOwnerEntity instanceof Character) {
-        keyOwnerEntity.inventory.push(key);
+    local vehicle = vehicles.nearestVehicle(playerid);
+    if (vehicle.components.has(NVC.KeySwitch)) {
+        return msg(playerid, "vehicle already has a keylock");
     }
 
-    if (keyOwnerEntity instanceof Vehicle) {
-        local trunk = keyOwnerEntity.getComponent(NVC.Trunk);
-        if (trunk != null) {
-            trunk.container.push(key);
-        }
-    }
+    local key = Item.VehicleKey();
 
-    // if (keyOwnerEntity instanceof Fraction) {
-    //     // put key in any fraction storage
-    // }
-}
+    vehicle.components.push(NVC.KeySwitch({ code = key.getCode() }));
+    player.inventory.push(key);
 
+    vehicle.save();
+    key.save();
+})
 
-acmd(["vehicle"],["create"], function( playerid, model ) {
+acmd(["vehicle"],["create"], function( playerid, model) {
     local character = players[playerid];
 
     if(!character.inventory.isFreeSpace(1)) {
@@ -50,7 +34,6 @@ acmd(["vehicle"],["create"], function( playerid, model ) {
     vehicles.set(veh.id, veh);
 
     veh.spawn();
-    // giveKey(character, veh);
 });
 
 acmd(["vehicle"],["tune"], function( playerid, text = "", level = 1 ) {
@@ -360,26 +343,3 @@ acmd(["clean"], function( playerid, targetid = null ) {
 // addKeyboardHandler("num_2", "up", function(playerid) {
 //     switchBothLight(playerid);
 // });
-
-
-acmd(["get"], ["keys"], function( playerid ) {
-    local character = players[playerid];
-
-    if(!character.inventory.isFreeSpace(1)) {
-        return msg(playerid, "inventory.space.notenough", CL_ERROR);
-    }
-    giveKey(character, vehicles.nearestVehicle(playerid));
-});
-
-
-/**
- * Create key for given vehicle by its DB id and five it to player with targetid
- */
-acmd(["replicate"], ["keys"], function( playerid, vehicleid, targetid ) {
-    local character = players[targetid];
-
-    if(!character.inventory.isFreeSpace(1)) {
-        return msg(playerid, "inventory.space.notenough", CL_ERROR);
-    }
-    giveKey(players[targetid], vehicles[vehicleid]);
-});

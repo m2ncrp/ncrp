@@ -11,6 +11,10 @@ class NVC.KeySwitch extends NVC
         }
     }
 
+    function getCode() {
+        return this.data.code;
+    }
+
     function isUnlockableBy(character) {
         return character.inventory
             .filter(@(item) (item instanceof Item.VehicleKey))
