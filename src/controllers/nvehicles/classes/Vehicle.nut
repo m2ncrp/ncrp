@@ -271,6 +271,13 @@ class Vehicle extends ORM.Entity
     function correct() {
         if (this.state == this.State.Spawned) {
             this.components.map(function(comp) { comp.correct() })
+
+            if (this.isEmpty()) {
+                setVehicleSpeed(this.vehicleid, 0.0, 0.0, 0.0);
+                setVehiclePosition(this.vehicleid, this.x, this.y, this.z);
+                setVehicleRotation(this.vehicleid, this.rx, this.ry, this.rz);
+            }
+
             return true;
         }
 
