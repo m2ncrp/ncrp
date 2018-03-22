@@ -1798,8 +1798,6 @@ function calcTriggerPositions(playerid, vehicleid, doors) {
     local v_pos = getVehiclePosition(vehicleid);
     local v_ang = getVehicleRotation(vehicleid);
 
-    v_ang[2] *= -1;
-
     local p_pos = players[playerid].getPosition();
 
     // dbg(doors);
