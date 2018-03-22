@@ -1,15 +1,18 @@
 class NVC.Trunk extends NVC {
     static classname = "NVC.Trunk";
 
-    partID = VEHICLE_PART_TRUNK; // ~ 1
+    partID    = VEHICLE_PART_TRUNK; // ~ 1
     container = null;
+    loaded    = false;
 
-    loaded = false;
+    static LockStatus = {
+        unlocked = 0,
+        locked   = 1,
+    }
 
-    static Status = {
-        locked = 0,
+    static OpenStatus = {
+        closed = 0,
         opened = 1,
-        closed = 2, // doors closed, but not locked with key
     }
 
     constructor (data = null, model = null) {
@@ -17,8 +20,8 @@ class NVC.Trunk extends NVC {
 
         if (data == null) {
             this.data = {
-                status = this.Status.locked,
-                code   = null,
+                locked = this.LockStatus.unlocked,
+                status = this.OpenStatus.closed,
                 sizeX  = getTrunkDefaultSizeX(model),
                 sizeY  = getTrunkDefaultSizeY(model),
                 limit  = getTrunkDefaultWeightLimit(model),
@@ -40,13 +43,29 @@ class NVC.Trunk extends NVC {
         }
     }
 
-    function getStatus() {
-        return this.data.status;
+    function lock() {
+        if (this.isUnlocked()) {
+            this.close();
+            this.data.locked = this.LockStatus.locked;
+        }
     }
 
-    function setStatus(state) {
-        this.data.status = state;
-        this.correct();
+    function unlock() {
+        this.data.locked = this.LockStatus.unlocked;
+    }
+
+    function open() {
+        if (!this.isOpened()) {
+            this.data.status = this.OpenStatus.opened;
+            this.correct()
+        }
+    }
+
+    function close() {
+        if (this.isOpened()) {
+            this.data.status = this.OpenStatus.closed;
+            this.correct()
+        }
     }
 
     function action() {
@@ -58,6 +77,7 @@ class NVC.Trunk extends NVC {
         if (this.isLocked() || this.isClosed()) {
             setVehiclePartOpen(this.parent.vehicleid, partID, false);
         }
+
         if (this.isOpened()) {
             setVehiclePartOpen(this.parent.vehicleid, partID, true);
         }
@@ -81,29 +101,25 @@ class NVC.Trunk extends NVC {
         return this.loaded;
     }
 
-    function _getHash() {
-        return this.data.code;
-    }
-
-    function _setHash(value) {
-        this.data.code = md5(value.tostring());
-    }
-
     function isLocked() {
-        return this.getStatus() == this.Status.locked;
+        return this.data.locked == this.LockStatus.locked;
+    }
+
+    function isUnlocked() {
+        return this.data.locked == this.LockStatus.unlocked;
     }
 
     function isClosed() {
-        return this.getStatus() == this.Status.closed;
+        return this.data.status == this.OpenStatus.closed;
     }
 
     function isOpened() {
-        return this.getStatus() == this.Status.opened;
+        return this.data.status == this.OpenStatus.opened;
     }
 }
 
 
-function _getTrunk(playerid) {
+function _getTrunkPlayerIsNear(playerid) {
     if (isPlayerInNVehicle(playerid)) return;
     local vehicle = vehicles.nearestVehicle(playerid);
     if (vehicle == null || vehicle.getType() == Vehicle.Type.semitrailertruck || vehicle.getType() == Vehicle.Type.bus) return null;
@@ -131,6 +147,7 @@ function _getTrunk(playerid) {
         msg(playerid, "Your are staning on Trunk trigger");
         return trunk;
     }
+
     return null;
 
 
@@ -146,82 +163,70 @@ function _getTrunk(playerid) {
     // }
 }
 
+/**
+ * Lock/unlock the trunk
+ */
+key("q", function(playerid) {
+    local trunk = _getTrunkPlayerIsNear(playerid);
 
+    /* if we are not near a trunk or vehicle doesnt have a keylock - exit */
+    if (!trunk || !trunk.parent.components.has(NVC.KeySwitch)) return;
+    local keylock = trunk.parent.components.findOne(NVC.KeySwitch);
 
-key("e", function(playerid) {
-    local trunk = _getTrunk(playerid);
-    if (trunk == null) return;
-
-    local charInventory = players[playerid].inventory;
-
-    local hasKey = false;
-    foreach (idx, item in players[playerid].inventory) {
-        if ((item._entity == "Item.VehicleKey") && (item.data.id == trunk.data.code)) {
-            hasKey = true;
-            break;
+    if (trunk.isLocked()) {
+        if (keylock.isUnlockableBy(players[playerid])) {
+            trunk.unlock();
+            msg(playerid, "Вы успешно отперли багажник " + trunk.parent.id + " машины. Грац!");
+        } else {
+            msg(playerid, "Вы дергаете за ручку багажника машины, но она не поддается!");
         }
-    }
-
-    if ( trunk.isLocked() && hasKey ) {
-        trunk.setStatus( NVC.Trunk.Status.opened );
-        return msg(playerid, "Вы успешно отперли багажник " + trunk.parent.id + " машины. Грац!");
-    }
-
-    if ( trunk.isOpened() && hasKey ) {
-        if (trunk.container.isOpenedBySomebody()){
-            trunk.container.hideForAll();
+    } else {
+        if (keylock.isUnlockableBy(players[playerid])) {
+            trunk.lock();
+            msg(playerid, "Вы успешно заперли багажник " + trunk.parent.id + " машины. Грац!");
+        } else {
+            msg(playerid, "Вы не можете запереть багажник этим ключем!");
         }
-        trunk.setStatus( NVC.Trunk.Status.locked );
-        charInventory.hide(playerid);
-        return msg(playerid, "Вы успешно заперли багажник " + trunk.parent.id + " машины. Грац!");
-    }
-
-    if ( trunk.isClosed() && hasKey ) {
-        if (trunk.container.isOpenedBySomebody()){
-            trunk.container.hideForAll();
-        }
-        trunk.setStatus( NVC.Trunk.Status.locked );
-        charInventory.hide(playerid);
-        return msg(playerid, "Вы успешно заперли багажник " + trunk.parent.id + " машины. Грац!");
-    }
-
-    if ( trunk.isLocked() && !hasKey ) {
-        trunk.setStatus( NVC.Trunk.Status.locked );
-        return msg(playerid, "Вы дергаете за ручку багажника машины, но она не поддается!");
-    }
-
-    if ( trunk.isOpened() && !hasKey ) {
-        if (trunk.container.isOpenedBySomebody()){
-            trunk.container.hideForAll();
-        }
-        trunk.setStatus( NVC.Trunk.Status.closed );
-        charInventory.hide(playerid);
-        return msg(playerid, "Вы прикрыли багажник " + trunk.parent.id + " машины.");
-    }
-
-    if ( trunk.isClosed() && !hasKey ) {
-        trunk.setStatus( NVC.Trunk.Status.opened );
-        return msg(playerid, "Вы успешно открыли багажник " + trunk.parent.id + " машины. Он оказался не заперт. Грац!");
     }
 });
 
+/**
+ * Open/close trunk
+ */
+key("e", function(playerid) {
+    /* if we are not near a trunk or vehicle doesnt have trunk - exit */
+    local trunk   = _getTrunkPlayerIsNear(playerid); if (!trunk) return;
+    local keylock = trunk.parent.components.findOne(NVC.KeySwitch);
 
+    if (trunk.isOpened()) {
+        trunk.close();
+        msg(playerid, "Вы прикрыли багажник " + trunk.parent.id + " машины.");
+    } else {
+        if (!keylock || trunk.isUnlocked()) {
+            trunk.open();
+            msg(playerid, "Вы успешно открыли багажник " + trunk.parent.id + " машины. Грац!");
+        } else {
+            msg(playerid, "Вы дергаете за ручку багажника машины, но она не поддается (заперт)!");
+        }
+    }
+});
+
+/**
+ * Show/hide trunk inventory
+ */
 key("tab", function(playerid) {
-    local trunk = _getTrunk(playerid);
-    if (trunk == null) return;
-
+    /* if we are not near a trunk or vehicle doesnt have trunk - exit */
+    local trunk = _getTrunkPlayerIsNear(playerid); if (!trunk) return;
     local charInventory = players[playerid].inventory;
 
-    if ( trunk.isOpened() ) {
-        if (!trunk.isLoaded()) {
-            trunk.load();
-        }
+    /* if trunk not opened - exit, else load the content of the trunk (from database) */
+    if (!trunk.isOpened()) return;
+    if (!trunk.isLoaded()) trunk.load();
 
-        if (!trunk.container.isOpened(playerid)) {
-            trunk.container.show(playerid);
-            charInventory.hide(playerid);
-        } else {
-            trunk.container.hide(playerid);
-        }
+    if (!trunk.container.isOpened(playerid)) {
+        trunk.container.show(playerid);
+        // charInventory.hide(playerid);
+    } else {
+        trunk.container.hide(playerid);
     }
 });

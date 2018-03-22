@@ -3,20 +3,20 @@ class Vehicle extends ORM.Entity
     static classname = "Vehicle";
     static table     = "tbl_nvehicles";
 
-/**
- * if veh parked in garage with some visual contact assign 2
- * if not just despawn it to make room for someone else veh to be spawed
- */
+    /**
+     * if veh parked in garage with some visual contact assign 2
+     * if not just despawn it to make room for someone else veh to be spawed
+     */
     static State = {
         Loaded  = 0,
         Spawned = 1,
         Parked  = 2,
     };
 
-/**
- * if owner is player row in db linked with player's db id
- * if company - business id its owned
- */
+    /**
+     * if owner is player row in db linked with player's db id
+     * if company - business id its owned
+     */
     static Owner = {
         Player  = 0,
         Company = 1,
@@ -64,9 +64,10 @@ class Vehicle extends ORM.Entity
         this.getComponent(NVC.Hull).setDefaultModel(model);
 
         this.components.push(NVC.FuelTank({
-            volume = getDefaultVehicleFuelForModel(model),
+            volume    = getDefaultVehicleFuelForModel(model),
             fuellevel = getDefaultVehicleFuelForModel(model),
         }));
+
         this.components.push(NVC.Engine());
         this.components.push(NVC.Plate());
         this.components.push(NVC.WheelPair());
@@ -76,7 +77,6 @@ class Vehicle extends ORM.Entity
             case Type.sedan:
             case Type.truck:
             case Type.hetch:
-                this.components.push(NVC.KeySwitch());
                 this.components.push(NVC.Trunk(null, model));
                 this.components.push(NVC.Lights());
                 this.components.push(NVC.GloveCompartment());
@@ -86,7 +86,6 @@ class Vehicle extends ORM.Entity
                 break;
             case Type.bus:
             case Type.semitrailertruck:
-                this.components.push(NVC.KeySwitch());
                 this.components.push(NVC.Lights());
                 break;
         }
@@ -247,18 +246,6 @@ class Vehicle extends ORM.Entity
 
         this.state = this.State.Spawned;
         this.hack = DirtyHack(this);
-
-        local ks = this.getComponent(NVC.KeySwitch);
-        if (ks._getHash() == null) {
-            ks._setHash(this.id);
-        }
-
-        if (this.getType() != Vehicle.Type.semitrailertruck && this.getType() != Vehicle.Type.bus) {
-            local trunk = this.getComponent(NVC.Trunk);
-            if (trunk._getHash() == null) {
-                trunk._setHash(this.id);
-            }
-        }
 
         return true;
     }

@@ -218,3 +218,14 @@ function escape(str) {
 
     return res;
 }
+
+function generateHash(length = 8, alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890") {
+    local result = "";
+
+    for (local i = 0; i < length; i++) {
+        local pos = rand() % alphabet.len();
+        result += alphabet.slice(pos, pos + 1);
+    }
+
+    return result
+}
