@@ -129,18 +129,16 @@ cmd("tax", function( playerid, plateText = 0, monthUp = 1 ) {
     local year  = getYear();
 
     local intMonth = year * 12 + month + monthUp;
-    local intYear = floor(intMonth / 12);
-    local month = intMonth % 12;
+
+    year = floor(intMonth / 12);
+    month = intMonth % 12;
 
     if (month == 0) {
         month = 12;
-        intYear -= 1;
+        year -= 1;
     }
     if (day < 10)   { day = "0"+day; }
     if (month < 10) { month = "0"+month; }
-    dbg(day+"."+lostMonth+"."+intYear)
-
-    if (month == 13) { month = 1; year += 1; }
 
     taxObj.setData("issued",  getDate());
     taxObj.setData("expires", day+"."+month+"."+year);
