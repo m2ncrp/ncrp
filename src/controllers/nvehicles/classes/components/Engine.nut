@@ -62,7 +62,7 @@ class NVC.Engine extends NVC
         dbg("Engine Action method was called @line 21 Engine.nut");
     }
 
-    function action() {
+    function toggle() {
         this.data.status = !this.data.status;
         // stateSetter( this.parent.id, this.data.status );
         this.correct();
@@ -114,3 +114,18 @@ class NVC.Engine extends NVC
         this.data.consumption.move = value;
     }
 }
+
+key("q", function(playerid) {
+    local character = players[playerid];
+    if (!isPlayerInNVehicle(playerid)) return;
+
+    local vehicle = getPlayerNVehicle(playerid);
+    local keylock = vehicle.components.findOne(NVC.KeyLock);
+    local engine  = vehicle.components.findOne(NVC.Engine);
+
+    if (!keylock || keylock.isUnlockableBy(character)) {
+        if (engine) engine.toggle();
+    } else {
+        msg(playerid, "you dont have a proper key")
+    }
+})
