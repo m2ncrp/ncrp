@@ -17,6 +17,7 @@ acmd(["vehicle"], ["setuplock"], function(playerid) {
 
     vehicle.save();
     key.save();
+    msg(playerid, "you received the keylock");
 })
 
 acmd(["vehicle"],["create"], function( playerid, model) {
