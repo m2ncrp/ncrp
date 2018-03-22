@@ -722,7 +722,12 @@ class TrunkInventory extends Inventory
 {
     function getSize() {
         local size = base.getSize();
-        return { x = size.x, y = size.y + 40 };
+        return { x = size.x, y = size.y};
+    }
+
+    function getInitialPosition() {
+        local size = this.getSize();
+        return { x = centerX - size.x - 5.0, y = centerY - size.y / 2 };
     }
 
     function createGUI() {
@@ -734,15 +739,6 @@ class TrunkInventory extends Inventory
         };
 
         local size = this.getSize();
-
-        // buttons
-        this.components["btn_close"] <- guiCreateElement(
-                ELEMENT_TYPE_BUTTON,
-                "Close trunk",
-                size.x / 2,  size.y - 65,
-                props.width, props.height,
-                false,       this.handle
-        );
 
     }
 

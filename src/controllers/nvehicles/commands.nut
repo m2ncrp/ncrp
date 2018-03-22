@@ -50,7 +50,7 @@ acmd(["vehicle"],["create"], function( playerid, model ) {
     vehicles.set(veh.id, veh);
 
     veh.spawn();
-    giveKey(character, veh);
+    //giveKey(character, veh);
 });
 
 acmd(["vehicle"],["tune"], function( playerid, text = "", level = 1 ) {
