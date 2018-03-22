@@ -1,99 +1,23 @@
-/**
- * NEW NVEHICLE METHODS
- * should be used ONLY for native events ONLY INSIDE this module
- * for scripting use the OOP aproach
- */
-
-    /**
-     * Check if player is in the new vehicle
-     * @param  {Character|Integer}  playerOrId
-     * @return {Boolean}
-     */
-    function isPlayerInNVehicle(playerOrId) {
-        if (playerOrId instanceof Character) {
-            playerOrId = playerOrId.playerid;
-        }
-
-        if (!original__isPlayerInVehicle(playerOrId)) {
-            return false;
-        }
-
-        local vehicleid = original__getPlayerVehicle(playerOrId);
-        if (!(vehicleid in vehicles_native)) return false;
-
-        return true;
-    }
-
-    /**
-     * Return Vehicle by vehicleid
-     * @param  {integer} vehicleid
-     * @return {Vehicle}
-     */
-    function getNVehicleByVehicleId(vehicleid) {
-        if (!(vehicleid in vehicles_native)) return null;
-        return vehicles_native[vehicleid];
-    }
-
-    /**
-     * Return Vehicle player is currently in
-     * @param  {Character|Integer} player/playerid
-     * @return {Vehicle}
-     */
-    function getPlayerNVehicle(playerOrId) {
-        if (playerOrId instanceof Character) {
-            playerOrId = playerOrId.playerid;
-        }
-
-        if (!isPlayerInNVehicle(playerOrId)) {
-            return null;
-        }
-
-        return vehicles_native[original__getPlayerVehicle(playerOrId)];
-    }
-
-    /**
-     * Return closest vehicle to player, or the one he is sitting in
-     * @param  {Character|Integer} playerOrId
-     * @return {Vehicle}
-     */
-    function getPlayerNearestNVehicle(playerOrId) {
-        if (playerOrId instanceof Character) {
-            playerOrId = playerOrId.playerid;
-        }
-
-        if (isPlayerInNVehicle(playerOrId)) {
-            return getPlayerNVehicle(playerOrId);
-        }
-
-        return vehicles.nearestVehicle(playerid);
-    }
-
-/**
- * ENDOF NEW NVEHICLE METHODS
- */
+include("contorllers/nvehicles/functions.nut");
+include("controllers/nvehicles/commands.nut");
 
 include("controllers/nvehicles/classes/Vehicle_hack.nut");
 include("controllers/nvehicles/classes/vehicle-metainfo.nut");
-
-include("controllers/nvehicles/commands.nut");
-include("controllers/nvehicles/functions.nut");
-
 include("controllers/nvehicles/classes/Vehicle.nut");
 include("controllers/nvehicles/classes/VehicleComponent.nut");
+include("controllers/nvehicles/classes/VehicleContainer.nut");
+include("controllers/nvehicles/classes/VehicleComponentContainer.nut");
 
-include("controllers/nvehicles/Parts/Hull.nut");
-include("controllers/nvehicles/Parts/FuelTank.nut");
-include("controllers/nvehicles/Parts/Engine.nut");
-include("controllers/nvehicles/Parts/KeyLock.nut");
-include("controllers/nvehicles/Parts/Gabarites.nut");
-include("controllers/nvehicles/Parts/Lights.nut");
-include("controllers/nvehicles/Parts/WheelPair.nut");
-include("controllers/nvehicles/Parts/Trunk.nut");
-include("controllers/nvehicles/Parts/GloveCompartment.nut");
-include("controllers/nvehicles/Parts/Plate.nut");
-
-include("controllers/nvehicles/patterns/VehicleContainer.nut");
-include("controllers/nvehicles/patterns/VehicleComponentContainer.nut");
+include("controllers/nvehicles/classes/components/Hull.nut");
+include("controllers/nvehicles/classes/components/FuelTank.nut");
+include("controllers/nvehicles/classes/components/Engine.nut");
+include("controllers/nvehicles/classes/components/KeyLock.nut");
+include("controllers/nvehicles/classes/components/Gabarites.nut");
+include("controllers/nvehicles/classes/components/Lights.nut");
+include("controllers/nvehicles/classes/components/WheelPair.nut");
+include("controllers/nvehicles/classes/components/Trunk.nut");
+include("controllers/nvehicles/classes/components/GloveCompartment.nut");
+include("controllers/nvehicles/classes/components/Plate.nut");
 
 vehicles <- VehicleContainer();
 vehicles_native <- {};
