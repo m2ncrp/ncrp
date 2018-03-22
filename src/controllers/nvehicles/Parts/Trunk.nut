@@ -64,6 +64,7 @@ class NVC.Trunk extends NVC {
     function close() {
         if (this.isOpened()) {
             this.data.status = this.OpenStatus.closed;
+            this.container.hideForAll();
             this.correct()
         }
     }
@@ -217,15 +218,14 @@ key("e", function(playerid) {
 key("tab", function(playerid) {
     /* if we are not near a trunk or vehicle doesnt have trunk - exit */
     local trunk = _getTrunkPlayerIsNear(playerid); if (!trunk) return;
-    local charInventory = players[playerid].inventory;
 
-    /* if trunk not opened - exit, else load the content of the trunk (from database) */
+    // if trunk not opened - exit, else
+    // load the content of the trunk (from database)
     if (!trunk.isOpened()) return;
     if (!trunk.isLoaded()) trunk.load();
 
     if (!trunk.container.isOpened(playerid)) {
         trunk.container.show(playerid);
-        // charInventory.hide(playerid);
     } else {
         trunk.container.hide(playerid);
     }

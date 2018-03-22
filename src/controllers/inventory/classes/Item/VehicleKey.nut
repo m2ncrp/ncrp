@@ -7,7 +7,7 @@ class Item.VehicleKey extends Item.Abstract
     constructor (data = null) {
         base.constructor();
         if (data == null) {
-            this.data = { code = geenrateHash(3) };
+            this.data = { code = generateHash(3) };
         }
     }
 
