@@ -48,6 +48,7 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     vehicle.onEnter(players[playerid], seat);
     vehicle.save();
 
+    trigger("onPlayerNVehicleEnter", players[playerid], vehicle, seat);
     return 1;
 });
 
@@ -58,6 +59,7 @@ event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     vehicle.onExit(players[playerid], seat);
     vehicle.save();
 
+    trigger("onPlayerNVehicleExit", players[playerid], vehicle, seat);
     return 1;
 });
 
