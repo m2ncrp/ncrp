@@ -171,8 +171,8 @@ key("q", function(playerid) {
     local trunk = _getTrunkPlayerIsNear(playerid);
 
     /* if we are not near a trunk or vehicle doesnt have a keylock - exit */
-    if (!trunk || !trunk.parent.components.findOne(NVC.KeySwitch)) return;
-    local keylock = trunk.parent.components.findOne(NVC.KeySwitch);
+    if (!trunk || !trunk.parent.components.findOne(NVC.KeyLock)) return;
+    local keylock = trunk.parent.components.findOne(NVC.KeyLock);
 
     if (trunk.isLocked()) {
         if (keylock.isUnlockableBy(players[playerid])) {
@@ -197,7 +197,7 @@ key("q", function(playerid) {
 key("e", function(playerid) {
     /* if we are not near a trunk or vehicle doesnt have trunk - exit */
     local trunk   = _getTrunkPlayerIsNear(playerid); if (!trunk) return;
-    local keylock = trunk.parent.components.findOne(NVC.KeySwitch);
+    local keylock = trunk.parent.components.findOne(NVC.KeyLock);
 
     if (trunk.isOpened()) {
         trunk.close();

@@ -55,7 +55,7 @@ class VehicleContainer extends Container
         local result = null;
 
         foreach(id, vehicle in this.getAll()) {
-            local keylock = vehicle.components.findOne(NVC.KeySwitch);
+            local keylock = vehicle.components.findOne(NVC.KeyLock);
             if (keylock && keylock.getCode() == code) {
                 return vehicle;
             }

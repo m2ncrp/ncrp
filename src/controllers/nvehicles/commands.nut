@@ -6,13 +6,13 @@ acmd(["vehicle"], ["setuplock"], function(playerid) {
     }
 
     local vehicle = vehicles.nearestVehicle(playerid);
-    if (vehicle.components.findOne(NVC.KeySwitch)) {
+    if (vehicle.components.findOne(NVC.KeyLock)) {
         return msg(playerid, "vehicle already has a keylock");
     }
 
     local key = Item.VehicleKey();
 
-    vehicle.components.push(NVC.KeySwitch({ code = key.getCode() }));
+    vehicle.components.push(NVC.KeyLock({ code = key.getCode() }));
     character.inventory.push(key);
 
     vehicle.save();
