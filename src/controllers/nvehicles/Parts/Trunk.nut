@@ -171,7 +171,7 @@ key("q", function(playerid) {
     local trunk = _getTrunkPlayerIsNear(playerid);
 
     /* if we are not near a trunk or vehicle doesnt have a keylock - exit */
-    if (!trunk || !trunk.parent.components.has(NVC.KeySwitch)) return;
+    if (!trunk || !trunk.parent.components.findOne(NVC.KeySwitch)) return;
     local keylock = trunk.parent.components.findOne(NVC.KeySwitch);
 
     if (trunk.isLocked()) {
