@@ -218,6 +218,7 @@ key("e", function(playerid) {
 key("tab", function(playerid) {
     /* if we are not near a trunk or vehicle doesnt have trunk - exit */
     local trunk = _getTrunkPlayerIsNear(playerid); if (!trunk) return;
+    local character = players[playerid]
 
     // if trunk not opened - exit, else
     // load the content of the trunk (from database)
@@ -226,6 +227,13 @@ key("tab", function(playerid) {
 
     if (!trunk.container.isOpened(playerid)) {
         trunk.container.show(playerid);
+
+        // this is a HACK
+        // if inventory is opened, we gonna hide it
+        // however it will be opened again, by other TAB handler
+        if (character.inventory.isOpened(playerid)) {
+            character.inventory.hide(playerid);
+        }
     } else {
         trunk.container.hide(playerid);
     }

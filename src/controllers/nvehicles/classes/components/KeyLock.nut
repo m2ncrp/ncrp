@@ -24,15 +24,3 @@ class NVC.KeyLock extends NVC
             .reduce(@(a,b) a || b)
     }
 }
-
-// key("q", function(playerid) {
-//     if (!isPlayerInNVehicle(playerid)) return;
-//     local vehicle = getPlayerNVehicle(playerid);
-
-//     if (isPlayerHaveNVehicleKey(players[playerid], vehicle)) {
-//         vehicle.getComponent(NVC.KeyLock).action();
-//         vehicle.getComponent(NVC.Engine).setStatusTo(KeyLock.data.status);
-//         vehicle.getComponent(NVC.Engine).correct();
-//     }
-
-// });
