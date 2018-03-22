@@ -18,7 +18,7 @@ class NVC.KeyLock extends NVC
     function isUnlockableBy(character) {
         return character.inventory
             .filter(@(item) (item instanceof Item.VehicleKey))
-            .map(@(key) key.code == lock.data.code)
+            .map(@(key) key.getCode() == this.getCode())
             .reduce(@(a,b) a || b)
     }
 }

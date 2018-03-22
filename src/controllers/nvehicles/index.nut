@@ -1,4 +1,4 @@
-include("contorllers/nvehicles/functions.nut");
+include("controllers/nvehicles/functions.nut");
 include("controllers/nvehicles/commands.nut");
 
 include("controllers/nvehicles/classes/Vehicle_hack.nut");
