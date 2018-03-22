@@ -195,6 +195,8 @@ key("q", function(playerid) {
  * Open/close trunk
  */
 key("e", function(playerid) {
+    local character = players[playerid]
+
     /* if we are not near a trunk or vehicle doesnt have trunk - exit */
     local trunk   = _getTrunkPlayerIsNear(playerid); if (!trunk) return;
     local keylock = trunk.parent.components.findOne(NVC.KeyLock);
@@ -209,6 +211,10 @@ key("e", function(playerid) {
         if (!keylock || trunk.isUnlocked()) {
             trunk.open();
             msg(playerid, "Вы успешно открыли багажник " + trunk.parent.id + " машины. Грац!");
+
+            if (character.inventory.isOpened(playerid)) {
+                trunk.container.show(playerid);
+            }
         } else {
             msg(playerid, "Вы дергаете за ручку багажника машины, но она не поддается (заперт)!");
         }
@@ -230,13 +236,6 @@ key("tab", function(playerid) {
 
     if (!trunk.container.isOpened(playerid)) {
         trunk.container.show(playerid);
-
-        // this is a HACK
-        // if inventory is opened, we gonna hide it
-        // however it will be opened again, by other TAB handler
-        if (character.inventory.isOpened(playerid)) {
-            character.inventory.hide(playerid);
-        }
     } else {
         trunk.container.hide(playerid);
     }

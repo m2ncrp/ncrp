@@ -41,10 +41,6 @@ event("onServerPlayerStarted", function(playerid) {
     });
 });
 
-event("onServerStopping", function() {
-    vehicles.map(@(vehicle) vehicle.despawn());
-});
-
 event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     if (!(vehicleid in vehicles_native)) return; // NVEHICLES: this is only for our new vehicles
 
@@ -67,6 +63,10 @@ event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
 
 event(["onServerStopping", "onServerAutosave"], function() {
     vehicles.map(function(vehicle) { vehicle.save() });
+});
+
+event("onServerStopping", function() {
+    vehicles.map(@(vehicle) vehicle.despawn(true));
 });
 
 event("onServerMinuteChange", function() {

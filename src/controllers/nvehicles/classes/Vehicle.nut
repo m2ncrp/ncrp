@@ -252,18 +252,22 @@ class Vehicle extends ORM.Entity
 
     /**
      * Despawning (destryoing) created vehicles
+     * @param {Boolean} light - if true it will only destroy a
+     *     car w/o changing the state (used for removing vehicle before stopping server)
      * @return {Boolean}
      */
-    function despawn() {
+    function despawn(light = false) {
         if (this.state != this.State.Spawned) {
             throw "Vehicle: trying to despawn non-spawned vehicle!";
         }
 
         destroyVehicle(this.vehicleid);
-
         delete vehicles_native[this.vehicleid];
-        this.state = this.State.Loaded;
-        this.vehicleid = -1;
+
+        if (!light) {
+            this.state = this.State.Loaded;
+            this.vehicleid = -1;
+        }
 
         return true;
     }
