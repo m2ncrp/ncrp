@@ -13,10 +13,11 @@ acmd(["vehicle"], ["setuplock"], function(playerid) {
     local key = Item.VehicleKey();
 
     vehicle.components.push(NVC.KeySwitch({ code = key.getCode() }));
-    player.inventory.push(key);
+    character.inventory.push(key);
 
     vehicle.save();
     key.save();
+    msg(playerid, "you received the keylock");
 })
 
 acmd(["vehicle"],["create"], function( playerid, model) {
