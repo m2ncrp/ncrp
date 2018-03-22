@@ -25,25 +25,15 @@ vehicles_native <- {};
 event("onServerStarted", function() {
     Vehicle.findAll(function(err, results) {
         foreach (idx, vehicle in results) {
-            // dbg("Displaying info about ", vehicle.id);
-
-            // foreach (idx, component in vehicle.components) {
-            //     dbg(" + Component:", component.id, "with data:", component.data);
-            // }
-
             if (vehicle.state == Vehicle.State.Spawned) {
                 vehicles.set(vehicle.id, vehicle);
                 vehicle.spawn();
             }
-
-            // dbg("----------------");
         }
     });
 });
 
 event("onServerPlayerStarted", function(playerid) {
-    log("------------------> Started!");
-
     delayedFunction(10000, function () {
         log("------------------> started correct!");
         vehicles.map(function(vehicle) { vehicle.correct(); })
@@ -80,7 +70,5 @@ event(["onServerStopping", "onServerAutosave"], function() {
 });
 
 event("onServerMinuteChange", function() {
-    vehicles.map(function(vehicle) {
-        vehicle.onMinute();
-    })
+    vehicles.map(@(vehicle) vehicle.onMinute());
 });
