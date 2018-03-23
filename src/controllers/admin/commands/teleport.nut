@@ -101,13 +101,13 @@ acmd(["tcoords", "tc"], function(playerid, nameOrId) {
 /**
  * Rendering tgs in the world
  */
-addEventHandlerEx("onServerStarted", function() {
-    TeleportPosition.findAll(function(err, positions) {
-        foreach (idx, teleport in positions) {
-            // create3DText(teleport.x, teleport.y, teleport.z, "Teleport: " + teleport.name, CL_ROYALBLUE.applyAlpha(150));
-        }
-    });
-});
+//addEventHandlerEx("onServerStarted", function() {
+//    TeleportPosition.findAll(function(err, positions) {
+//        foreach (idx, teleport in positions) {
+//            create3DText(teleport.x, teleport.y, teleport.z, "Teleport: " + teleport.name, CL_ROYALBLUE.applyAlpha(150));
+//        }
+//    });
+//});
 
 
 /**
@@ -121,18 +121,18 @@ acmd("tpc", function(playerid, x, y, z) {
 /**
  * Set player coords
  */
-acmd("move", function(playerid, x, y = 0, z = 0) {
-    if (!z) z = 0;
-    if (!y) y = 0;
-    if(isPlayerInVehicle(playerid)) {
-        local vehicleid = getPlayerVehicle(playerid);
-        local vehPos = getVehiclePositionObj(vehicleid);
-        setVehiclePosition(vehicleid, vehPos.x + x.tofloat(), vehPos.y + y.tofloat(), vehPos.z + z.tofloat());
-    } else {
-        local plaPos = getPlayerPositionObj(playerid);
-        setPlayerPosition(playerid, plaPos.x + x.tofloat(), plaPos.y + y.tofloat(), plaPos.z + z.tofloat());
-    }
-});
+//acmd("move", function(playerid, x, y = 0, z = 0) {
+//    if (!z) z = 0;
+//    if (!y) y = 0;
+//    if(isPlayerInVehicle(playerid)) {
+//        local vehicleid = getPlayerVehicle(playerid);
+//        local vehPos = getVehiclePositionObj(vehicleid);
+//        setVehiclePosition(vehicleid, vehPos.x + x.tofloat(), vehPos.y + y.tofloat(), vehPos.z + z.tofloat());
+//    } else {
+//        local plaPos = getPlayerPositionObj(playerid);
+//        setPlayerPosition(playerid, plaPos.x + x.tofloat(), plaPos.y + y.tofloat(), plaPos.z + z.tofloat());
+//    }
+//});
 
 
 /**
@@ -146,11 +146,16 @@ acmd(["tp"], function(playerid, targetid, nameOrId) {
 
         if(!isPlayerConnected(targetid)) return sendPlayerMessage(playerid, "Player with id ["+targetid+"] is not on server!", 240, 240, 200);
 
-        if (!isPlayerInVehicle(targetid)) {
-            setPlayerPosition(targetid, item.x, item.y, item.z);
+        if (!isPlayerInNVehicle(targetid)) {
+            if(isPlayerInVehicle(targetid)) {
+                local vehicleid = getPlayerVehicle(targetid);
+                setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
+                setVehiclePosition(vehicleid, item.x, item.y, item.z+0.5);
+            } else {
+                setPlayerPosition(targetid, item.x, item.y, item.z);
+            }
         } else {
-            setVehicleSpeed(getPlayerVehicle(targetid), 0.0, 0.0, 0.0);
-            setVehiclePosition(getPlayerVehicle(targetid), item.x, item.y, item.z+0.5);
+            getPlayerNVehicle(targetid).setPosition(item.x, item.y, item.z+0.5).setSpeed();
         }
 
         sendPlayerMessage(playerid, "Teleport "+getPlayerName(targetid)+" ["+targetid+"] to " + item.name +" (#" + item.id + ") completed.", 240, 240, 200);
