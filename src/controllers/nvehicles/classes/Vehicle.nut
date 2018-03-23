@@ -92,6 +92,26 @@ class Vehicle extends ORM.JsonEntity
     }
 
     /**
+     * Create a vehicle from a old plain native vehicle
+     * @param  {Integer} vehicleid
+     * @return {Vehicle}
+     */
+    static function convertFromNative(vehicleid) {
+        local vehicle = Vehicle(getVehicleModel(vehicleid));
+
+        vehicle.vehicleid = vehicleid;
+        vehicle.state = Vehicle.State.Spawned;
+
+        local c = getVehicleColourEx(vehicleid);
+
+        vehicle.getComponent(NVC.Hull).color1 = format("%d|%d|%d", c[0].r, c[0].g, c[0].b);
+        vehicle.getComponent(NVC.Hull).color2 = format("%d|%d|%d", c[1].r, c[1].g, c[1].b);
+
+        vehicle.save();
+        return vehicle;
+    }
+
+    /**
      * Override hydration to parse custom values
      * @param  {Object} data
      * @return {Vehicle}
