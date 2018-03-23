@@ -42,11 +42,18 @@ acmd(["tgoto", "tg"], function(playerid, nameOrId) {
     local callback = function(err, item) {
         if (!item) return sendPlayerMessage(playerid, "No point were found by " + nameOrId);
 
-        if (!isPlayerInVehicle(playerid)) {
-            setPlayerPosition(playerid, item.x, item.y, item.z);
+        if (!isPlayerInNVehicle(playerid)) {
+            if(isPlayerInVehicle(playerid)) {
+                local vehicleid = getPlayerVehicle(playerid);
+                setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
+                setVehiclePosition(vehicleid, item.x, item.y, item.z+0.5);
+            } else {
+                setPlayerPosition(playerid, item.x, item.y, item.z);
+            }
         } else {
-            setVehicleSpeed(getPlayerVehicle(playerid), 0.0, 0.0, 0.0);
-            setVehiclePosition(getPlayerVehicle(playerid), item.x, item.y, item.z+0.5);
+            local vehicle = getPlayerNVehicle(playerid);
+            vehicle.setSpeed();
+            vehicle.setPosition(item.x, item.y, item.z+0.5);
         }
 
         sendPlayerMessage(playerid, "Teleport to " + item.name +" (#" + item.id + ") completed.", 240, 240, 200);
