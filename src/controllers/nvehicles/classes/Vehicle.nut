@@ -280,9 +280,10 @@ class Vehicle extends ORM.JsonEntity
                 setVehicleSpeed(this.vehicleid, 0.0, 0.0, 0.0);
                 this.setPosition(this.getPosition())
                 this.setRotation(this.getRotation())
+
+                repairVehicle(this.vehicleid);
             }
 
-            repairVehicle(this.vehicleid);
             return true;
         }
 
