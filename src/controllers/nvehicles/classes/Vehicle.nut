@@ -282,6 +282,7 @@ class Vehicle extends ORM.JsonEntity
                 this.setRotation(this.getRotation())
             }
 
+            repairVehicle(this.vehicleid);
             return true;
         }
 
