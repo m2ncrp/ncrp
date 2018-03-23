@@ -51,9 +51,7 @@ acmd(["tgoto", "tg"], function(playerid, nameOrId) {
                 setPlayerPosition(playerid, item.x, item.y, item.z);
             }
         } else {
-            local vehicle = getPlayerNVehicle(playerid);
-            vehicle.setSpeed();
-            vehicle.setPosition(item.x, item.y, item.z+0.5);
+            getPlayerNVehicle(playerid).setPosition(item.x, item.y, item.z+0.5).setSpeed();
         }
 
         sendPlayerMessage(playerid, "Teleport to " + item.name +" (#" + item.id + ") completed.", 240, 240, 200);

@@ -402,6 +402,7 @@ class Vehicle extends ORM.Entity
 
     function setSpeed(v = Vector3(0.0, 0.0, 0.0) ) {
         setVehicleSpeed(this.vehicleid, v.x, v.y, v.z);
+        return this;
     }
 }
 
