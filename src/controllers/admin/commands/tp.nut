@@ -21,6 +21,21 @@ acmd("pp", function(playerid, targetid1 = null, targetid2 = null, offset = 1.0) 
     msg(playerid, format("You've successuly tp'd player #%d to player %d", targetid1, targetid2), CL_SUCCESS);
 });
 
+/*
+
+        if (!isPlayerInNVehicle(playerid)) {
+            if(isPlayerInVehicle(playerid)) {
+                local vehicleid = getPlayerVehicle(playerid);
+                setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
+                setVehiclePosition(vehicleid, item.x, item.y, item.z+0.5);
+            } else {
+                setPlayerPosition(playerid, item.x, item.y, item.z);
+            }
+        } else {
+            getPlayerNVehicle(playerid).setPosition(item.x, item.y, item.z+0.5).setSpeed();
+        }
+ */
+
 /**
  * Teleport vehicle to vehicle
  * NOTE: always offseted +2 by x axis

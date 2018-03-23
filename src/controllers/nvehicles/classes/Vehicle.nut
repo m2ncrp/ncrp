@@ -108,10 +108,12 @@ class Vehicle extends ORM.JsonEntity
      * to encode string serialize data to stirng
      * @return {Boolean}
      */
-    function save() {
+    function save(light = false) {
         // due to refresh our local position in DB
-        this.getPosition();
-        this.getRotation();
+        if(!light) {
+            this.getPosition();
+            this.getRotation();
+        }
         local temp = clone this.components;
         this.components = this.components.serialize();
         base.save();

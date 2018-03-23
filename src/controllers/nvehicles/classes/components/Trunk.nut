@@ -20,7 +20,7 @@ class NVC.Trunk extends NVC {
 
         if (data == null) {
             this.data = {
-                locked = this.LockStatus.unlocked,
+                locked = this.LockStatus.locked,
                 status = this.OpenStatus.closed,
                 sizeX  = getTrunkDefaultSizeX(model),
                 sizeY  = getTrunkDefaultSizeY(model),
