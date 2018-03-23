@@ -25,8 +25,9 @@ vehicles_native <- {};
 event("onServerStarted", function() {
     Vehicle.findAll(function(err, results) {
         foreach (idx, vehicle in results) {
+            vehicles.set(vehicle.id, vehicle);
+
             if (vehicle.state == Vehicle.State.Spawned) {
-                vehicles.set(vehicle.id, vehicle);
                 vehicle.spawn();
             }
         }
