@@ -64,8 +64,8 @@ class Vehicle extends ORM.JsonEntity
         this.getComponent(NVC.Hull).setDefaultModel(model);
 
         this.components.push(NVC.FuelTank({
-            volume    = getDefaultVehicleFuelForModel(model),
-            fuellevel = getDefaultVehicleFuelForModel(model),
+            volume  = getDefaultVehicleFuelForModel(model),
+            level   = getDefaultVehicleFuelForModel(model),
         }));
 
         this.components.push(NVC.Engine());

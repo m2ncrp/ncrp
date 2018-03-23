@@ -88,6 +88,7 @@ if (__DEBUG__EXPORT) {
 // load classes
 include("traits/Colorable.nut");
 include("models/Color.nut");
+include("models/VehicleOld.nut");
 include("models/World.nut");
 include("models/TeleportPosition.nut");
 include("models/TimestampStorage.nut");

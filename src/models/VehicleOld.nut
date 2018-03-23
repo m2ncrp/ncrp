@@ -5,9 +5,9 @@
 //
 // DONT
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-class Vehicle extends ORM.Entity {
+class VehicleOld extends ORM.Entity {
 
-    static classname = "Vehicle";
+    static classname = "VehicleOld";
     static table = "tbl_vehicles";
 
     static fields = [

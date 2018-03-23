@@ -10,28 +10,28 @@ class NVC.FuelTank extends NVC
         if (this.data == null) {
             this.data = {
                 volume = 50.0,
-                fuellevel = 50.0,
+                level  = 50.0,
             }
         }
     }
 
     // Returns fuel level by the Server
-    function _getNativeFuelLevel() {
+    function _getNativelevel() {
         return getVehicleFuel(this.parent.vehicleid);
     }
 
     // how much do you need to fuel up it to max
     function getFuelToFillup() {
-        return round(this.data.volume - this.data.fuellevel, 2);
+        return round(this.data.volume - this.data.level, 2);
     }
 
     // Returns fuel level by the Script
-    function getCurrentFuelLevel() {
-        return this.data.fuellevel;
+    function getCurrentlevel() {
+        return this.data.level;
     }
 
     function setFuel( to ) {
-        this.data.fuellevel = to;
+        this.data.level = to;
         this.parent.correct();
     }
 
@@ -48,7 +48,7 @@ class NVC.FuelTank extends NVC
         local hull = this.parent.getComponent(NVC.Hull);
 
         if (eng.data.status) {
-            setVehicleFuel(this.parent.vehicleid, this.data.fuellevel.tofloat() );
+            setVehicleFuel(this.parent.vehicleid, this.data.level.tofloat() );
             eng.correct();
             return true;
         }
@@ -100,9 +100,9 @@ event("onServerMinuteChange", function() {
         dbg(speed);
         dbg("Model is " + hull.getModel());
 
-        local level = tank.data.fuellevel;
+        local level = tank.data.level;
 
-        if (vehicle.state && tank.data.fuellevel >= 0) {
+        if (vehicle.state && tank.data.level >= 0) {
             local consumption;
             if (speed > 0) {
                 consumption = eng.data.consumption.move * getDefaultVehicleFuelForModel( hull.getModel() );
@@ -112,16 +112,16 @@ event("onServerMinuteChange", function() {
                 dbg("Veh is stand still. Consump: " + consumption);
             }
 
-            if (tank.data.fuellevel >= consumption) {
-                tank.data.fuellevel -= consumption;
+            if (tank.data.level >= consumption) {
+                tank.data.level -= consumption;
             } else {
-                tank.data.fuellevel = 0.0;
+                tank.data.level = 0.0;
                 eng.setStatusTo(false);
             }
         }
 
-        setVehicleFuel(vehicle.vehicleid, tank.data.fuellevel);
+        setVehicleFuel(vehicle.vehicleid, tank.data.level);
 
-        dbg("Fuel level has been set for id[" + vehicle.vehicleid + "] vehicle. Now its: " + tank.data.fuellevel);
+        dbg("Fuel level has been set for id[" + vehicle.vehicleid + "] vehicle. Now its: " + tank.data.level);
     }
 });

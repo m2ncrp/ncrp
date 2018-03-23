@@ -52,15 +52,15 @@ class NVC.WheelPair extends NVC
         local model = this.parent.getComponent(NVC.Hull).getModel();
         local type = getModelType(model);
 
-        // TODO: cut off IF statement
-        if ( type == Vehicle.Type.sedan  ||
-             type == Vehicle.Type.hetch ) {
-            this.set(this.WheelPosition.front,
-                this.data.front);
-            this.set(this.WheelPosition.middle,
-                this.data.middle);
-            this.set(this.WheelPosition.rear,
-                this.data.rear);
-        }
+        // // TODO: cut off IF statement
+        // if ( type == Vehicle.Type.sedan  ||
+        //      type == Vehicle.Type.hetch ) {
+        //     this.set(this.WheelPosition.front,
+        //         this.data.front);
+        //     this.set(this.WheelPosition.middle,
+        //         this.data.middle);
+        //     this.set(this.WheelPosition.rear,
+        //         this.data.rear);
+        // }
     }
 }

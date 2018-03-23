@@ -75,6 +75,6 @@ event("native:onConsoleInput", function(name, data) {
             webRequest(HTTP_TYPE_GET, MOD_HOST, "/discord?type=test&data=" + data, function(a,b,c) {}, MOD_PORT);
         break;
         case "admin": handleAdminInput(split(data, " ")); break;
-        case "migratedb": migrateSQLiteToMySQL(); break;
+        case "migratedb": migrateNVehicles(); break;
     }
 });
