@@ -1,4 +1,4 @@
-class Vehicle extends ORM.Entity
+class Vehicle extends ORM.JsonEntity
 {
     static classname = "Vehicle";
     static table     = "tbl_nvehicles";
