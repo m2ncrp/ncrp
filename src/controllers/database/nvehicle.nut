@@ -43,14 +43,16 @@ function migrateNVehicles() {
             continue;
         }
 
-        local key = matching[0]
         local hash = generateHash(3);
 
         nveh.components.push(NVC.KeyLock({ code = hash }));
         nveh.save(true);
 
-        key.data = { code = hash, id = oveh.id, nid = nveh.id }
-        key.save();
+        // iterate all assosiated keys, and update them
+        matching.map(function(key) {
+            key.data = { code = hash, id = oveh.id, nid = nveh.id }
+            key.save();
+        })
 
         dbg("vehicle", oveh.id, "converted ok to", nveh.id);
     }
