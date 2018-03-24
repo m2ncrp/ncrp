@@ -16,18 +16,22 @@ class Item.VehicleKey extends Item.Abstract
     }
 
     function use(playerid, inventory) {
-        // TODO: add new print
-        msg(playerid, "ADD NICE KEY PRINT STUFF", CL_HELP_LINE);
 
-        // local vehicleid = getVehicleIdFromEntityId(this.data.id);
+        local vehicle = vehicles.byKeyCode(this.getCode());
 
-        // if (!vehicleid) {
-        //     return msg(playerid, "inventory.vehiclekey.removedcar", CL_HELP_TITLE);
-        // }
+        if (!vehicle) {
+            return msg(playerid, "inventory.vehiclekey.removedcar", CL_HELP_TITLE);
+        }
 
-        // msg(playerid, "==================================", CL_HELP_LINE);
-        // msg(playerid, "Item.VehicleKey", CL_HELP_TITLE);
-        // msg(playerid, getVehiclePlateText(vehicleid)+" - "+getVehicleNameByModelId( getVehicleModel(vehicleid) ), CL_WHITE);
+        local plateComponent = vehicle.components.findOne(NVC.Plate);
+
+        if(!plateComponent) {
+            return msg(playerid, "inventory.vehiclekey.withoutplate", CL_HELP_TITLE);
+        }
+
+        msg(playerid, "==================================", CL_HELP_LINE);
+        msg(playerid, "Item.VehicleKey", CL_HELP_TITLE);
+        msg(playerid, plateComponent.get()+" - "+getVehicleNameByModelId( vehicle.components.findOne(NVC.Hull).getModel() ), CL_WHITE);
     }
 
     static function getType() {

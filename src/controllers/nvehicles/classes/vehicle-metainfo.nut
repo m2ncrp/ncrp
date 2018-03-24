@@ -31,7 +31,7 @@
  */
 vehicleMetaData <- {
     model_0  = {
-        names = ["ascot_baileys200_pha"],
+        names = ["ascot_baileys200_pha", "Ascot Bailey S200"],
             // Passanger meta data
         seats = 2,
             // Geometry meta data (relative positions from vehicle center)
@@ -65,7 +65,7 @@ vehicleMetaData <- {
     },
 
     model_1  = {
-        names = ["berkley_kingfisher_pha"],
+        names = ["berkley_kingfisher_pha", "Berkley Kingfisher"],
         seats = 2,
         triggers = {
             front_left_wheel      = [-1.2600,  1.6000],
@@ -95,7 +95,7 @@ vehicleMetaData <- {
     },
 
     model_2  = {
-        names = ["fuel_tank"], // fuel trailer
+        names = ["fuel_tank", "Fuel Tank"], // fuel trailer
         seats = 0,
         triggers = {
             front_left_wheel      = null,
@@ -126,7 +126,7 @@ vehicleMetaData <- {
     },
 
     model_3  = {
-        names = ["gai_353_military_truck"],
+        names = ["gai_353_military_truck", "GAI 353 Military Truck"],
         seats = 2,
         triggers = {
             front_left_wheel      = [-1.3900,  2.5900],
@@ -156,7 +156,7 @@ vehicleMetaData <- {
     },
 
     model_4  = {
-        names = ["hank_b"],
+        names = ["hank_b", "Hank B"],
         seats = 2,
         triggers = {
             front_left_wheel      = [-1.6000,  3.0000],
@@ -187,7 +187,7 @@ vehicleMetaData <- {
     },
 
     model_5  = {
-        names = ["hank_fueltank"],
+        names = ["hank_fueltank", "Hank B Fuel Tank"],
         seats = 2,
         triggers = {
             front_left_wheel      = [-1.6500,  3.6000],
@@ -218,7 +218,7 @@ vehicleMetaData <- {
     },
 
     model_6  = {
-        names = ["hot_rod_1"],
+        names = ["hot_rod_1", "Walter Hot Rod"],
         seats = 2,
         triggers = {
             front_left_wheel      = [-1.1320,  1.4000],
@@ -249,7 +249,7 @@ vehicleMetaData <- {
     },
 
     model_7  = {
-        names = ["hot_rod_2"],
+        names = ["hot_rod_2", "Smith 34 Hot Rod"],
         seats = 2,
         triggers = {
             front_left_wheel      = [-1.1320,  1.4000],
@@ -280,8 +280,8 @@ vehicleMetaData <- {
     },
 
     model_8  = {
-        names = ["hot_rod_3"],
-        seats                 = 2,
+        names = ["hot_rod_3", "Shuber Pickup Hot Rod"],
+        seats = 2,
         triggers = {
             front_left_wheel      = [-1.1320,  1.4500],
             front_right_wheel     = [ 1.2800,  1.4500],
@@ -312,8 +312,8 @@ vehicleMetaData <- {
 
 
     model_9  = {
-        names = ["houston_wasp_pha"],
-        seats                 = 4,
+        names = ["houston_wasp_pha", "Houston Wasp"],
+        seats = 4,
         triggers = {
             front_left_wheel      = [-1.2800,  1.4500],
             front_right_wheel     = [ 1.2800,  1.4500],
@@ -343,8 +343,8 @@ vehicleMetaData <- {
     },
 
     model_10 = {
-        names = ["isw_508"],
-        seats                 = 2,
+        names = ["isw_508", "ISW 508"],
+        seats = 2,
         triggers = {
             front_left_wheel      = [-1.2500,  1.3000],
             front_right_wheel     = [ 1.2500,  1.3000],
@@ -374,8 +374,8 @@ vehicleMetaData <- {
     },
 
     model_11 = {
-        names = ["jeep"],
-        seats                 = 2,
+        names = ["jeep", "Jeep"],
+        seats = 2,
         triggers = {
             front_left_wheel      = [-1.2800,  1.1520],
             front_right_wheel     = [ 1.2800,  1.1520],
@@ -405,8 +405,8 @@ vehicleMetaData <- {
     },
 
     model_12 = {
-        names = ["jeep_civil"],
-        seats                 = 2,
+        names = ["jeep_civil", "Jeep Civil"],
+        seats = 2,
         triggers = {
             front_left_wheel      = [-1.2800,  1.1520],
             front_right_wheel     = [ 1.2800,  1.1520],
@@ -436,8 +436,8 @@ vehicleMetaData <- {
     },
 
     model_13 = {
-        names = ["jefferson_futura_pha"],
-        seats                 = 2,
+        names = ["jefferson_futura_pha", "Jefferson Futura"],
+        seats = 2,
         triggers = {
             front_left_wheel      = [-1.2800,  1.7000],
             front_right_wheel     = [ 1.2800,  1.7000],
@@ -467,8 +467,8 @@ vehicleMetaData <- {
     },
 
     model_14 = {
-        names = ["jefferson_provincial"],
-        seats                 = 2,
+        names = ["jefferson_provincial", "Jefferson Provincial"],
+        seats = 2,
         triggers = {
             front_left_wheel      = [-1.2800,  1.6000],
             front_right_wheel     = [ 1.2800,  1.6000],
@@ -498,8 +498,8 @@ vehicleMetaData <- {
     },
 
     model_15 = {
-        names = ["lassiter_69"],
-        seats                 = 4,
+        names = ["lassiter_69", "Lassiter 69"],
+        seats = 4,
         triggers = {
             front_left_wheel      = [-1.2800,  1.7000],
             front_right_wheel     = [ 1.2800,  1.7000],
@@ -529,8 +529,8 @@ vehicleMetaData <- {
     },
 
     model_16 = {
-        names = ["lassiter_69_destr"],
-        seats                 = 4,
+        names = ["lassiter_69_destr", "Lassiter 69 Destroy"],
+        seats = 4,
         triggers = {
             front_left_wheel      = [-1.2800,  1.7000],
             front_right_wheel     = [ 1.2800,  1.7000],
@@ -560,8 +560,8 @@ vehicleMetaData <- {
     },
 
     model_17 = {
-        names = ["lassiter_75_fmv"],
-        seats                 = 4,
+        names = ["lassiter_75_fmv", "Lassiter 75 FMV"],
+        seats = 4,
         triggers = {
             front_left_wheel      = [-1.2800,  1.8500],
             front_right_wheel     = [ 1.2800,  1.8500],
@@ -591,8 +591,8 @@ vehicleMetaData <- {
     },
 
     model_18 = {
-        names = ["lassiter_75_pha"],
-        seats                 = 4,
+        names = ["lassiter_75_pha", "Lassiter 75"],
+        seats = 4,
         triggers = {
             front_left_wheel      = [-1.2800,  1.8500],
             front_right_wheel     = [ 1.2800,  1.8500],
@@ -622,8 +622,8 @@ vehicleMetaData <- {
     },
 
     model_19 = {
-        names = ["milk_truck"],
-        seats                 = 1,
+        names = ["milk_truck", "Milk Truck"],
+        seats = 1,
         triggers = {
             front_left_wheel      = [-1.2800,  1.0000],
             front_right_wheel     = [ 1.2800,  1.0000],
@@ -653,8 +653,8 @@ vehicleMetaData <- {
     },
 
     model_20 = {
-        names = ["parry_bus"],
-        seats                 = 1,
+        names = ["parry_bus", "Parry Bus"],
+        seats = 1,
         triggers = {
             front_left_wheel      = [  1.5500, -2.9100],
             front_right_wheel     = [ -1.5500, -2.9100],
@@ -684,8 +684,8 @@ vehicleMetaData <- {
     },
 
     model_21 = {
-        names = ["parry_prison"],
-        seats                 = 1,
+        names = ["parry_prison", "Parry Bus Police"],
+        seats = 1,
         trunk = {
             gridSizeX = 3,
             gridSizeY = 3,
@@ -715,8 +715,8 @@ vehicleMetaData <- {
     },
 
     model_22 = {
-        names = ["potomac_indian"],
-        seats                 = 4,
+        names = ["potomac_indian" , "Potomac Indian"],
+        seats = 4,
         triggers = {
             front_left_wheel      = [-1.2800,  1.6000],
             front_right_wheel     = [ 1.2800,  1.6000],
@@ -746,8 +746,8 @@ vehicleMetaData <- {
     },
 
     model_23 = {
-        names = ["quicksilver_windsor_pha"],
-        seats                 = 4,
+        names = ["quicksilver_windsor_pha", "Quicksilver Windsor"],
+        seats = 4,
         triggers = {
             front_left_wheel      = [-1.2800,  1.7000],
             front_right_wheel     = [ 1.2800,  1.7000],
@@ -777,8 +777,8 @@ vehicleMetaData <- {
     },
 
     model_24 = {
-        names = ["quicksilver_windsor_taxi_pha"],
-        seats                 = 4,
+        names = ["quicksilver_windsor_taxi_pha", "Quicksilver Windsor Taxi"],
+        seats = 4,
         triggers = {
             front_left_wheel      = [-1.2800,  1.7000],
             front_right_wheel     = [ 1.2800,  1.7000],
@@ -808,8 +808,8 @@ vehicleMetaData <- {
     },
 
     model_25 = {
-        names = ["shubert_38"],
-        seats                 = 4,
+        names = ["shubert_38", "Shubert 38"],
+        seats = 4,
         triggers = {
             front_left_wheel      = [-1.2800,  1.6000],
             front_right_wheel     = [ 1.2800,  1.6000],
@@ -839,8 +839,8 @@ vehicleMetaData <- {
     },
 
     model_26 = {
-        names = ["shubert_38_destr"],
-        seats                 = 4,
+        names = ["shubert_38_destr", "Shubert 38 Destroy"],
+        seats = 4,
         triggers = {
             front_left_wheel      = [-1.2800,  1.6000],
             front_right_wheel     = [ 1.2800,  1.6000],
@@ -870,8 +870,8 @@ vehicleMetaData <- {
     },
 
     model_27 = {
-        names = ["shubert_armoured"],
-        seats                 = 2,
+        names = ["shubert_armoured", "Shubert Armored Truck"],
+        seats = 2,
         triggers = {
             front_left_wheel      = [-1.2800,  1.9000],
             front_right_wheel     = [ 1.2800,  1.9000],
@@ -902,8 +902,8 @@ vehicleMetaData <- {
     },
 
     model_28 = {
-        names = ["shubert_beverly"],
-        seats                 = 2,
+        names = ["shubert_beverly", "Shubert Beverly"],
+        seats = 2,
         triggers = {
             front_left_wheel      = [-1.2800,  1.6000],
             front_right_wheel     = [ 1.2800,  1.6000],
@@ -933,8 +933,8 @@ vehicleMetaData <- {
     },
 
     model_29 = {
-        names = ["shubert_frigate_pha"],
-        seats                 = 2,
+        names = ["shubert_frigate_pha", "Shubert Frigate"],
+        seats = 2,
         triggers = {
             front_left_wheel      = [-1.2800,  1.2500],
             front_right_wheel     = [ 1.2800,  1.2500],
@@ -964,8 +964,8 @@ vehicleMetaData <- {
     },
 
     model_30 = {
-        names = ["shubert_hearse"],
-        seats                 = 2,
+        names = ["shubert_hearse", "Shubert Hearse"],
+        seats = 2,
         triggers = {
             front_left_wheel      = [-1.2800,  1.6000],
             front_right_wheel     = [ 1.2800,  1.6000],
@@ -995,8 +995,8 @@ vehicleMetaData <- {
     },
 
     model_31 = {
-        names = ["shubert_panel"],
-        seats                 = 2,
+        names = ["shubert_panel" , "Shubert Panel"],
+        seats = 2,
         triggers = {
             front_left_wheel      = [-1.2800,  1.5000],
             front_right_wheel     = [ 1.2800,  1.5000],
@@ -1026,8 +1026,8 @@ vehicleMetaData <- {
     },
 
     model_32 = {
-        names = ["shubert_panel_m14"],
-        seats                 = 2,
+        names = ["shubert_panel_m14", "Shubert Panel M14"],
+        seats = 2,
         triggers = {
             front_left_wheel      = [-1.2800,  1.5000],
             front_right_wheel     = [ 1.2800,  1.5000],
@@ -1057,8 +1057,8 @@ vehicleMetaData <- {
     },
 
     model_33 = {
-        names = ["shubert_taxi"],
-        seats                 = 4,
+        names = ["shubert_taxi", "Shubert Taxi"],
+        seats = 4,
         triggers = {
             front_left_wheel      = [-1.2800,  1.6000],
             front_right_wheel     = [ 1.2800,  1.6000],
@@ -1088,8 +1088,8 @@ vehicleMetaData <- {
     },
 
     model_34 = {
-        names = ["shubert_truck_cc"],
-        seats                 = 2,
+        names = ["shubert_truck_cc", "Shubert Truck Fresh Meat"],
+        seats = 2,
         triggers = {
             front_left_wheel      = [-1.3000,  2.0000],
             front_right_wheel     = [ 1.3000,  2.0000],
@@ -1119,8 +1119,8 @@ vehicleMetaData <- {
     },
 
     model_35 = {
-        names = ["shubert_truck_ct"],
-        seats                 = 2,
+        names = ["shubert_truck_ct", "Shubert Truck Flatbed"],
+        seats = 2,
         triggers = {
             front_left_wheel      = [-1.3000,  2.2500],
             front_right_wheel     = [ 1.3000,  2.2500],
@@ -1150,8 +1150,8 @@ vehicleMetaData <- {
     },
 
     model_36 = {
-        names = ["shubert_truck_ct_cigar"],
-        seats                 = 2,
+        names = ["shubert_truck_ct_cigar", "Shubert Truck Cigars"],
+        seats = 2,
         triggers = {
             front_left_wheel      = [-1.3000,  2.2500],
             front_right_wheel     = [ 1.3000,  2.2500],
@@ -1181,8 +1181,8 @@ vehicleMetaData <- {
     },
 
     model_37 = {
-        names = ["shubert_truck_qd"],
-        seats                 = 2,
+        names = ["shubert_truck_qd", "Shubert Truck Covered"],
+        seats = 2,
         triggers = {
             front_left_wheel      = [-1.3000,  2.2500],
             front_right_wheel     = [ 1.3000,  2.2500],
@@ -1212,8 +1212,8 @@ vehicleMetaData <- {
     },
 
     model_38 = {
-        names = ["shubert_truck_sg"],
-        seats                 = 2,
+        names = ["shubert_truck_sg", "Shubert Truck Seagift"],
+        seats = 2,
         triggers = {
             front_left_wheel      = [-1.3000,  2.2500],
             front_right_wheel     = [ 1.3000,  2.2500],
@@ -1243,8 +1243,8 @@ vehicleMetaData <- {
     },
 
     model_39 = {
-        names = ["shubert_truck_sp"],
-        seats                 = 2,
+        names = ["shubert_truck_sp", "Shubert Snow Plow"],
+        seats = 2,
         triggers = {
             front_left_wheel      = [-1.3000,  2.2500],
             front_right_wheel     = [ 1.3000,  2.2500],
@@ -1274,8 +1274,8 @@ vehicleMetaData <- {
     },
 
     model_40 = {
-        names = ["sicily_military_truck"],
-        seats                 = 2,
+        names = ["sicily_military_truck", "Sicily Military Truck"],
+        seats = 2,
         triggers = {
             front_left_wheel      = [-1.2800,  2.2000],
             front_right_wheel     = [ 1.2800,  2.2000],
@@ -1306,8 +1306,8 @@ vehicleMetaData <- {
     },
 
     model_41 = {
-        names = ["smith_200_pha"],
-        seats                 = 4,
+        names = ["smith_200_pha", "Smith Custom 200"],
+        seats = 4,
         triggers = {
             front_left_wheel      = [-1.2800,  1.7000],
             front_right_wheel     = [ 1.2800,  1.7000],
@@ -1337,8 +1337,8 @@ vehicleMetaData <- {
     },
 
     model_42 = {
-        names = ["smith_200_p_pha"],
-        seats                 = 4,
+        names = ["smith_200_p_pha", "Smith Custom 200 Police Special"],
+        seats = 4,
         triggers = {
             front_left_wheel      = [-1.2800,  1.7000],
             front_right_wheel     = [ 1.2800,  1.7000],
@@ -1368,8 +1368,8 @@ vehicleMetaData <- {
     },
 
     model_43 = {
-        names = ["smith_coupe"],
-        seats                 = 2,
+        names = ["smith_coupe", "Smith Coupe"],
+        seats = 2,
         triggers = {
             front_left_wheel      = [-1.2800,  1.3000],
             front_right_wheel     = [ 1.2800,  1.3000],
@@ -1399,8 +1399,8 @@ vehicleMetaData <- {
     },
 
     model_44 = {
-        names = ["smith_mainline_pha"],
-        seats                 = 2,
+        names = ["smith_mainline_pha", "Smith Mainline"],
+        seats = 2,
         triggers = {
             front_left_wheel      = [-1.2800,  1.5000],
             front_right_wheel     = [ 1.2800,  1.5000],
@@ -1430,8 +1430,8 @@ vehicleMetaData <- {
     },
 
     model_45 = {
-        names = ["smith_stingray_pha"],
-        seats                 = 2,
+        names = ["smith_stingray_pha", "Smith Thunderbolt"],
+        seats = 2,
         triggers = {
             front_left_wheel      = [-1.2800,  1.5000],
             front_right_wheel     = [ 1.2800,  1.5000],
@@ -1461,8 +1461,8 @@ vehicleMetaData <- {
     },
 
     model_46 = {
-        names = ["smith_truck"],
-        seats                 = 2,
+        names = ["smith_truck", "Smith Truck"],
+        seats = 2,
         triggers = {
             front_left_wheel      = [-1.2800,  2.5000],
             front_right_wheel     = [ 1.2800,  2.5000],
@@ -1493,8 +1493,8 @@ vehicleMetaData <- {
     },
 
     model_47 = {
-        names = ["smith_v8"],
-        seats                 = 4,
+        names = ["smith_v8", "Smith V8"],
+        seats = 4,
         triggers = {
             front_left_wheel      = [-1.2800,  1.6500],
             front_right_wheel     = [ 1.2800,  1.6500],
@@ -1525,8 +1525,8 @@ vehicleMetaData <- {
     },
 
     model_48 = {
-        names = ["smith_wagon_pha"],
-        seats                 = 4,
+        names = ["smith_wagon_pha", "Smith Wagon"],
+        seats = 4,
         triggers = {
             front_left_wheel      = [-1.2800,  1.3000],
             front_right_wheel     = [ 1.2800,  1.3000],
@@ -1552,8 +1552,8 @@ vehicleMetaData <- {
     },
 
     model_49 = {
-        names = ["trailer"],
-        seats                 = 0,
+        names = ["trailer", "Trailer"],
+        seats = 0,
         triggers = {
             front_left_wheel      = null,
             front_right_wheel     = null,
@@ -1580,8 +1580,8 @@ vehicleMetaData <- {
     },
 
     model_50 = {
-        names = ["ulver_newyorker"],
-        seats                 = 4,
+        names = ["ulver_newyorker", "Culver Empire"],
+        seats = 4,
         triggers = {
             front_left_wheel      = [-1.2800,  1.4500],
             front_right_wheel     = [ 1.2800,  1.4500],
@@ -1611,8 +1611,8 @@ vehicleMetaData <- {
     },
 
     model_51 = {
-        names = ["ulver_newyorker_p"],
-        seats                 = 4,
+        names = ["ulver_newyorker_p", "Culver Empire Police Special"],
+        seats = 4,
         triggers = {
             front_left_wheel      = [-1.2800,  1.4500],
             front_right_wheel     = [ 1.2800,  1.4500],
@@ -1642,8 +1642,8 @@ vehicleMetaData <- {
     },
 
     model_52 = {
-        names = ["walker_rocket"],
-        seats                 = 4,
+        names = ["walker_rocket", "Walker Rocket"],
+        seats = 4,
         triggers = {
             front_left_wheel      = [-1.2800,  1.6000],
             front_right_wheel     = [ 1.2800,  1.6000],
@@ -1673,8 +1673,8 @@ vehicleMetaData <- {
     },
 
     model_53 = {
-        names = ["walter_coupe"],
-        seats                 = 2,
+        names = ["walter_coupe", "Walter Coupe"],
+        seats = 2,
         triggers = {
             front_left_wheel      = [-1.2800,  1.4500],
             front_right_wheel     = [ 1.2800,  1.4500],
@@ -1709,7 +1709,7 @@ function getVehicleMeta(modelid) {
 }
 
 function getVehicleNameByModelId(modelid) {
-    return vehicleMetaData["model_" + modelid].names[0];
+    return vehicleMetaData["model_" + modelid].names[1];
 }
 
 function getVehicleSeatsNumberByModelId(modelid) {

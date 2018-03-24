@@ -62,9 +62,11 @@ alternativeTranslate({
     "en|inventory.money.added"                  : "Your pocket has been replenished with $%.2f."
     "ru|inventory.money.added"                  : "Ваш карман пополнился на $%.2f."
 
-    "en|inventory.vehiclekey.removedcar"     : "It's a key from the car which I once owned. I don't even know where it now..."
-    "ru|inventory.vehiclekey.removedcar"     : "Это ключ от автомобиля, которым я когда-то владел. Даже не знаю где он сейчас..."
+    "en|inventory.vehiclekey.removedcar"        : "It's a key from the car which I once owned. I don't even know where it now..."
+    "ru|inventory.vehiclekey.removedcar"        : "Это ключ от автомобиля, которым я когда-то владел. Даже не знаю где он сейчас..."
 
+    "en|inventory.vehiclekey.withoutplate"      : "There is no vehicle plate."
+    "ru|inventory.vehiclekey.withoutplate"      : "Номерной знак не установлен."
 
     "en|Item.None"             : ""
     "en|Item.Revolver12"       : "Revolver 12"
