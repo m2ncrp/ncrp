@@ -125,8 +125,13 @@ key("q", function(playerid) {
     local engine  = vehicle.components.findOne(NVC.Engine);
 
     if (!keylock || keylock.isUnlockableBy(character)) {
+        if(vehicle.data.parking > 0) {
+            return msg(playerid, "parking.needPay", CL_CHAT_MONEY_SUB)
+        }
         if (engine) engine.toggle();
     } else {
-        msg(playerid, "you dont have a proper key")
+        msg(playerid, "vehicle.owner.warning", CL_CHAT_MONEY_SUB);
     }
+
+
 })
