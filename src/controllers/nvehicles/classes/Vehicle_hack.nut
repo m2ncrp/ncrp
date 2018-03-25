@@ -162,11 +162,12 @@ key("f", function(playerid) {
         function (playerid, vehicleid, door) {
             // there's natives won't affect on wrapper at all
             // so all should work as it should be working
-            setVehicleFuel(vehicleid, getVehicleFuel(vehicleid) + 0.1);
+            setVehicleFuel(vehicleid, getVehicleFuel(vehicleid) + 0.05);
             setVehicleEngineState( vehicleid, true );
             setVehicleLightState(vehicleid, false);
             delayedFunction( 150, function () {
                 setVehicleEngineState( vehicleid, false );
+                setVehicleFuel(vehicleid, 0.0);
             });
         });
 });
