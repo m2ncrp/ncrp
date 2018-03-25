@@ -16,11 +16,20 @@ acmd("plate", function(playerid, text = "") {
 
     foreach (plate, vehicleid in plates) {
         if (plate.tolower().find(text.tolower()) != null) {
+            local vehicle = getNVehicleByVehicleId(vehicleid);
+
+            if(vehicle == null) {
+                return msg(playerid, format(
+                    "ID: %d | Номер: %s | Модель: %d | Владелец: %s",
+                    vehicleid, plate, getVehicleModel(vehicleid), (getVehicleOwner(vehicleid) ? getVehicleOwner(vehicleid) : "none")
+                ));
+            }
+
             msg(playerid, format(
-                "ID: %d | Номер: %s | Модель: %d | Владелец: %s",
-                vehicleid, plate, getVehicleModel(vehicleid), (getVehicleOwner(vehicleid) ? getVehicleOwner(vehicleid) : "none")
+                "ID: %d/%d | Номер: %s | Модель: %d | Владелец: %s",
+                vehicleid, vehicle.id, plate, vehicle.getComponent(NVC.Hull).getModel(), getPlayerName(getPlayerIdFromCharacterId(vehicle.ownerid))
             ));
-            local parkingDays = getParkingDaysForVehicle(vehicleid);
+            local parkingDays = getParkingDaysForVehicle(vehicle);
             if(parkingDays > 0) {
                 local lostDays = 90 - parkingDays;
                 msg(playerid, format(
@@ -98,20 +107,32 @@ mcmd(["admin.car"], ["tune"], function( playerid, tune = 3 ) {
     }
 });
 
-mcmd(["admin.fix"], ["fix"], function( playerid, targetid = null ) {
+mcmd(["admin.engine"], ["engine"], function( playerid ) {
     if (isPlayerInNVehicle(playerid)) {
         local vehicle = getPlayerNearestNVehicle(playerid);
-        vehicle.getComponent(NVC.Hull).repair();
-        vehicle.getComponent(NVC.FuelTank).setFuelToMax();
+        vehicle.getComponent(NVC.Engine).toggle();
         vehicle.correct();
+        return;
+    }
+});
+
+mcmd(["admin.fix"], ["fix"], function( playerid, vehicleid = null ) {
+
+    if( isPlayerInVehicle( playerid ) == false && isPlayerInNVehicle(playerid) == false && !vehicleid )  return;
+
+    vehicleid = vehicleid ? vehicleid.tointeger() : ( isPlayerInNVehicle( playerid ) ? null : getPlayerVehicle( playerid ));
+
+    if (vehicleid != null || vehicleid in vehicles_native) {
+        repairVehicle( vehicleid );
+        setVehicleFuel(vehicleid, getDefaultVehicleFuel(vehicleid));
+        return;
     }
 
-    if( !isPlayerInVehicle( playerid ) && !targetid )  return;
-    if( isPlayerInVehicle( playerid ) && !targetid )  targetid = getPlayerVehicle( playerid );
-    if( targetid )  targetid = targetid.tointeger();
-
-    repairVehicle( targetid );
-    setVehicleFuel(targetid, getDefaultVehicleFuel(targetid));
+    local vehicle = getPlayerNearestNVehicle(playerid);
+    vehicle.getComponent(NVC.Hull).repair();
+    vehicle.getComponent(NVC.FuelTank).setFuelToMax();
+    vehicle.getComponent(NVC.Engine).toggle();
+    vehicle.correct();
 });
 
 acmd(["rot"], function( playerid, targetid = null ) {
