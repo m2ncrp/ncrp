@@ -104,8 +104,7 @@ class Vehicle extends ORM.JsonEntity
 
         local c = getVehicleColourEx(vehicleid);
 
-        vehicle.getComponent(NVC.Hull).color1 = format("%d|%d|%d", c[0].r, c[0].g, c[0].b);
-        vehicle.getComponent(NVC.Hull).color2 = format("%d|%d|%d", c[1].r, c[1].g, c[1].b);
+        vehicle.getComponent(NVC.Hull).setColor(c[0].r, c[0].g, c[0].b, c[1].r, c[1].g, c[1].b);
 
         vehicle.save();
         return vehicle;
@@ -405,7 +404,13 @@ class Vehicle extends ORM.JsonEntity
     }
 
     function getSpeed() {
-        return getVehicleSpeed(this.vehicleid);
+        if (this.state == this.State.Spawned) {
+            local speed = getVehicleSpeed(this.vehicleid);
+
+            return Vector3(speed[0], speed[1], speed[2]);
+        }
+
+        return null;
     }
 
     function setSpeed(...) {
@@ -482,18 +487,18 @@ function drawVehicleDoorPositions(playerid, doors) {
 
 
 // print and draw
-key("h", function(playerid) {
-    local vehicle = vehicles.nearestVehicle(playerid);
-    // if ( vehicle.getType() != Vehicle.Type.bus ) return;
-
-    local model = vehicle.getComponent(NVC.Hull).getModel();
-    local doors = getVehicleTriggersPosition(model);
-
-    local character = players[playerid];
-    local p_pos = character.getPosition();
-
-    // dbg(doors);
-
-    doors = calcTriggerPositions(playerid, vehicle.vehicleid, doors);
-    drawVehicleDoorPositions(playerid, doors);
-});
+//key("h", function(playerid) {
+//    local vehicle = vehicles.nearestVehicle(playerid);
+//    // if ( vehicle.getType() != Vehicle.Type.bus ) return;
+//
+//    local model = vehicle.getComponent(NVC.Hull).getModel();
+//    local doors = getVehicleTriggersPosition(model);
+//
+//    local character = players[playerid];
+//    local p_pos = character.getPosition();
+//
+//    // dbg(doors);
+//
+//    doors = calcTriggerPositions(playerid, vehicle.vehicleid, doors);
+//    drawVehicleDoorPositions(playerid, doors);
+//});

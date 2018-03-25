@@ -60,8 +60,8 @@ function setBusyParkingPlaces() {
                 parkingPlaceStatus[placeid] = vehicle.id;
             }
         }
+
     }
-    dbg("PARKING", "parkingPlaceStatus", parkingPlaceStatus);
 }
 
 function isNVehicleInParking(vehicle) {

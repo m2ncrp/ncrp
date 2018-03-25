@@ -189,13 +189,3 @@ key("4", function(playerid) {
 
     setVehicleBeaconLightState( vehicle.vehicleid, false );
 });
-
-
-function serverPulseEvent() {
-    foreach (idx, veh in vehicles) {
-        if (veh.isEmpty)
-            veh.correct();
-    }
-    return 1;
-}
-addEventHandler( "onServerPulse", serverPulseEvent );

@@ -35,7 +35,7 @@ event("onServerStarted", function() {
 });
 
 event("onServerPlayerStarted", function(playerid) {
-    delayedFunction(10000, function () {
+    delayedFunction(4000, function () {
         log("------------------> started correct!");
         vehicles.map(function(vehicle) { vehicle.correct(); })
         log("------------------> finished correct!");
