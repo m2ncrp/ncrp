@@ -138,12 +138,12 @@ class DirtyHack {
 
         // in case that play fast forward the exit process there's two dalayed functions
         delayedFunction( engine_timing[1], function () {
-            log("------------------> Done? [1]");
+            //log("------------------> Done? [1]");
             callback(v);
         });
 
         delayedFunction( engine_timing[2], function () {
-            log("------------------> Done? [2]");
+            //log("------------------> Done? [2]");
             callback(v);
         });
         callback(veh);
