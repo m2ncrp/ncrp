@@ -143,9 +143,9 @@ function findBusyPlaces() {
     }
 }
 
-function getParkingDaysForVehicle(vehicleid) {
-    if(__vehicles[vehicleid].entity.parking > 0) {
-        return floor((getTimestamp() - __vehicles[vehicleid].entity.parking) / 43200);  // делим на реальных 12 часов = 1 игровым суткам
+function getParkingDaysForVehicle(vehicle) {
+    if(vehicle.data.parking > 0) {
+        return floor((getTimestamp() - vehicle.data.parking) / 43200);  // делим на реальных 12 часов = 1 игровым суткам
     }
     return 0;
 }
@@ -189,7 +189,14 @@ event("onVehicleSetToCarPound", function(playerid, plate = null) {
     }
 
     local vehicleid = getVehicleByPlateText(plate.toupper());
+
     if(vehicleid == null) {
+        return msg( playerid, "parking.checkPlate");
+    }
+
+    local vehicle = getNVehicleByVehicleId(vehicleid);
+
+    if(vehicle == null) {
         return msg( playerid, "parking.checkPlate");
     }
 
