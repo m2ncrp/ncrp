@@ -184,25 +184,36 @@ event("onServerStarted", function() {
 */
 });
 
+
 event("onPlayerPlaceEnter", function(playerid, name) {
     if (name == CARSHOP_PLACE_NAME) {
+
         if(isPlayerInVehicle(playerid)) {
             local vehicleid = getPlayerVehicle(playerid);
             local vehSpeed = getVehicleSpeed(vehicleid);
-            local vehSpeedNew = [];
             if (vehSpeed[0] <= 0) vehSpeed[0] = (vehSpeed[0] - 1) * -1;
             if (vehSpeed[1] >= 0) vehSpeed[1] = (vehSpeed[1] + 1) * -1;
             setVehicleSpeed(vehicleid, vehSpeed[0], vehSpeed[1], vehSpeed[2]);
-        } else {
-            local hour = getHour();
-            if(hour < CARSHOP_WORKING_HOUR_START || hour >= CARSHOP_WORKING_HOUR_END) {
-                return msg( playerid, "shops.carshop.closed", [ CARSHOP_WORKING_HOUR_START.tostring(), CARSHOP_WORKING_HOUR_END.tostring()], CL_ROYALBLUE );
-            }
-            msg(playerid, "===========================================", CL_HELP_LINE);
-            msg(playerid, "shops.carshop.welcome1", CL_FIREBUSH);
-            msg(playerid, "shops.carshop.welcome2", CL_FIREBUSH);
-            msg(playerid, "shops.carshop.welcome3", CL_SILVERSAND);
+            return;
         }
+
+        if(isPlayerInNVehicle(playerid)) {
+            local vehicle = getPlayerNVehicle(playerid);
+            local vehSpeed = vehicle.getSpeed();
+            if (vehSpeed.x <= 0) vehSpeed.x = (vehSpeed.x - 1) * -1;
+            if (vehSpeed.y >= 0) vehSpeed.y = (vehSpeed.y + 1) * -1;
+            vehicle.setSpeed(vehSpeed);
+            return;
+        }
+
+        local hour = getHour();
+        if(hour < CARSHOP_WORKING_HOUR_START || hour >= CARSHOP_WORKING_HOUR_END) {
+            return msg( playerid, "shops.carshop.closed", [ CARSHOP_WORKING_HOUR_START.tostring(), CARSHOP_WORKING_HOUR_END.tostring()], CL_ROYALBLUE );
+        }
+        msg(playerid, "===========================================", CL_HELP_LINE);
+        msg(playerid, "shops.carshop.welcome1", CL_FIREBUSH);
+        msg(playerid, "shops.carshop.welcome2", CL_FIREBUSH);
+        msg(playerid, "shops.carshop.welcome3", CL_SILVERSAND);
     }
 });
 
@@ -228,12 +239,7 @@ event("onPlayerPlaceExit", function(playerid, name) {
 });
 
 event ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
-    if (isPlayerVehicleOwner(playerid, vehicleid)) {
-        return;
-    }
-    local plate = getVehiclePlateText( vehicleid );
-
-    if(plate != " SALE ") {
+    if(getVehiclePlateText( vehicleid ) != " SALE ") {
         return;
     }
 
@@ -250,8 +256,8 @@ event ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
            msg(playerid, "shops.carshop.canbuy", [car.price], CL_FIREBUSH);
     return msg(playerid, "shops.carshop.paint", CL_SILVERSAND);
 
-
 });
+
 
 /*
 event("onPlayerVehicleEnter", function(playerid, vehiclid, seat) {
@@ -533,32 +539,49 @@ cmd("car", "buy", function(playerid) {
         return msg(playerid, "inventory.weight.notenough", CL_ERROR);
     }
 
+    local vehicle = Vehicle.convertFromNative(vehicleid);
+    vehicle.components.findOne(NVC.FuelTank).setFuelToMax();
+    local hull = vehicle.components.findOne(NVC.Hull);
+    hull.setDirt(0);
+    hull.repair();
+
+    local code = vehicleKey.getCode();
+
+    vehicle.components.push(NVC.KeyLock({ code = code }));
+
+    vehicle.ownerid = players[playerid].id;
+    vehicle.data.parking <- 0;
+    vehicle.data.history <- [];
+
+    vehicle.save();
+    vehicles.set(vehicle.id, vehicle);
+
+    vehicleKey.setData("id", vehicle.id);
+    vehicleKey.setData("code", code);
+
+    players[playerid].inventory.push( vehicleKey );
+    vehicleKey.save();
+    players[playerid].inventory.sync();
+
     // take money
     subMoneyToPlayer(playerid, car.price);
 
     // add money to treasury
     addMoneyToTreasury(car.price);
 
-    local vehiclePlate = getRandomVehiclePlate();
+    //local vehiclePlate = getRandomVehiclePlate();
 
     // set params
-    setVehicleOwner(vehicleid, playerid);
-    setVehiclePlateText(vehicleid, vehiclePlate);
-    setVehicleSaving(vehicleid, true);
-    setVehicleRespawnEx(vehicleid, false);
-    setVehicleDirtLevel(vehicleid, 0.0);
-    repairVehicle(vehicleid);
-    unblockVehicle(vehicleid);
+    //setVehicleOwner(vehicleid, playerid);
+    //setVehiclePlateText(vehicleid, vehiclePlate);
+    //setVehicleSaving(vehicleid, true);
+    //setVehicleRespawnEx(vehicleid, false);
+    //setVehicleDirtLevel(vehicleid, 0.0);
+    //repairVehicle(vehicleid);
+    //unblockVehicle(vehicleid);
 
-    trySaveVehicle(vehicleid)
+    //trySaveVehicle(vehicleid)
 
-    vehicleKey.setData("id", __vehicles[vehicleid].entity.id);
-
-    players[playerid].inventory.push( vehicleKey );
-    vehicleKey.save();
-    players[playerid].inventory.sync();
-
-    //triggerClientEvent(playerid, "hideCarShopGUI");
     return msg(playerid, "shops.carshop.success", CL_SUCCESS);
 });
 
