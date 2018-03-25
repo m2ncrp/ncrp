@@ -178,6 +178,11 @@ function chatcmd(names, callback)  {
 }
 
 function msg(playerid, text, ...) {
+
+    if (playerid instanceof Character) {
+        playerid = playerid.playerid;
+    }
+
     local args  = vargv;
     local color = CL_WHITE;
     local params = [];
