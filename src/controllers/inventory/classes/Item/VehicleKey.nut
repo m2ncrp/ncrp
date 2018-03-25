@@ -15,9 +15,13 @@ class Item.VehicleKey extends Item.Abstract
         return this.data.code;
     }
 
+    function getId() {
+        return this.data.id;
+    }
+
     function use(playerid, inventory) {
 
-        local vehicle = vehicles.byKeyCode(this.getCode());
+        local vehicle = vehicles.get(this.getId());
 
         if (!vehicle) {
             return msg(playerid, "inventory.vehiclekey.removedcar", CL_HELP_TITLE);
