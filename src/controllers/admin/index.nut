@@ -78,3 +78,45 @@ event("native:onConsoleInput", function(name, data) {
         case "migratedb": migrateNVehicles(); break;
     }
 });
+
+
+function loggerVehicleEnterExit(character, vehicle, direction) {
+    local playerid = character.playerid;
+    local hull = vehicle.getComponent(NVC.Hull);
+    local keylock = vehicle.components.findOne(NVC.KeyLock);
+
+    local haveKey = false;
+
+    if(keylock != null && keylock.isUnlockableBy(character)) {
+        vehicle.ownerid = character.id;
+        haveKey = true;
+    }
+
+    logger.logf(
+        "[VEHICLE %s] (%s) %s (charid: %d, playerid: %d) | (carid: %d, vehid: %d) %s - %s (model: %d) | coords: [%.5f, %.5f, %.5f] | haveKey: %s",
+            direction,
+            getAccountName(playerid),
+            character.getName(),
+            character.id,
+            playerid,
+            vehicle.id,
+            vehicle.vehicleid,
+            vehicle.components.findOne(NVC.Plate) ? vehicle.components.findOne(NVC.Plate).get() : "none",
+            getVehicleNameByModelId(hull.getModel()),
+            hull.getModel(),
+            vehicle.getPosition().x,
+            vehicle.getPosition().y,
+            vehicle.getPosition().z,
+            haveKey.tostring()
+    );
+}
+
+
+event("onPlayerNVehicleEnter", function(character, vehicle, seat) {
+    loggerVehicleEnterExit(character, vehicle, "ENTER");
+});
+
+
+event("onPlayerNVehicleExit", function(character, vehicle, seat) {
+    loggerVehicleEnterExit(character, vehicle, "EXIT");
+});
