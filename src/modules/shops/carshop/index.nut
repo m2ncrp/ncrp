@@ -540,6 +540,10 @@ cmd("car", "buy", function(playerid) {
     }
 
     local vehicle = Vehicle.convertFromNative(vehicleid);
+
+    delete __vehicles[vehicleid];
+    unblockVehicle(vehicleid);
+
     vehicle.components.findOne(NVC.FuelTank).setFuelToMax();
     local hull = vehicle.components.findOne(NVC.Hull);
     hull.setDirt(0);

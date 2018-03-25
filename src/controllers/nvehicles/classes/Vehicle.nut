@@ -101,6 +101,7 @@ class Vehicle extends ORM.JsonEntity
 
         vehicle.vehicleid = vehicleid;
         vehicle.state = Vehicle.State.Spawned;
+        vehicles_native[vehicleid] <- vehicle;
 
         local c = getVehicleColourEx(vehicleid);
 
