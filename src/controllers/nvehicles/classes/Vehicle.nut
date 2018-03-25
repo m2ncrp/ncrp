@@ -161,24 +161,17 @@ class Vehicle extends ORM.JsonEntity
             this.x = vargv[0].tofloat();
             this.y = vargv[1].tofloat();
             this.z = vargv[2].tofloat();
-
-            if (this.state == this.State.Spawned)
-                setVehiclePosition(this.vehicleid, this.x, this.y, this.z);
-
-            return this;
         }
 
         if (vargv[0] instanceof Vector3) {
             this.x = vargv[0].x;
             this.y = vargv[0].y;
             this.z = vargv[0].z;
-
-            if (this.state == this.State.Spawned)
-                setVehiclePosition(this.vehicleid, this.x, this.y, this.z);
-            return this;
         }
 
-        dbg("vehicle", "setPosition", "arguments are invalid", vargv);
+        if (this.state == this.State.Spawned)
+            setVehiclePosition(this.vehicleid, this.x, this.y, this.z);
+
         return this;
     }
 
@@ -204,24 +197,17 @@ class Vehicle extends ORM.JsonEntity
             this.rx = vargv[0].tofloat();
             this.ry = vargv[1].tofloat();
             this.rz = vargv[2].tofloat();
-
-            if (this.state == this.State.Spawned)
-                setVehicleRotation(this.vehicleid, this.rx, this.ry, this.rz);
-
-            return this;
         }
 
         if (vargv[0] instanceof Vector3) {
             this.rx = vargv[0].x;
             this.ry = vargv[0].y;
             this.rz = vargv[0].z;
-
-            if (this.state == this.State.Spawned)
-                setVehicleRotation(this.vehicleid, this.rx, this.ry, this.rz);
-            return this;
         }
 
-        dbg("vehicle", "setRotation", "arguments are invalid", vargv);
+        if (this.state == this.State.Spawned)
+            setVehicleRotation(this.vehicleid, this.rx, this.ry, this.rz);
+
         return this;
     }
 
@@ -422,8 +408,27 @@ class Vehicle extends ORM.JsonEntity
         return getVehicleSpeed(this.vehicleid);
     }
 
-    function setSpeed(v = Vector3(0.0, 0.0, 0.0) ) {
-        setVehicleSpeed(this.vehicleid, v.x, v.y, v.z);
+    function setSpeed(...) {
+
+        local v = Vector3();
+
+        if(vargv.len() > 0) {
+            if (vargv[0] instanceof Vector3) {
+                v.x = vargv[0].x;
+                v.y = vargv[0].y;
+                v.z = vargv[0].z;
+            }
+
+            if (vargv.len() == 3) {
+                v.x = vargv[0].tofloat();
+                v.y = vargv[1].tofloat();
+                v.z = vargv[2].tofloat();
+            }
+        }
+
+        if (this.state == this.State.Spawned)
+            setVehicleSpeed(this.vehicleid, v.x, v.y, v.z);
+
         return this;
     }
 }
