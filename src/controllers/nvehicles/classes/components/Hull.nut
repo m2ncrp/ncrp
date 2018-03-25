@@ -63,7 +63,7 @@ class NVC.Hull extends NVC
         local c1 = split(this.data.color1, "|");
         local c2 = split(this.data.color2, "|");
 
-        return c1[0]+", "+c1[1]+", "+c1[2]+", "+c2[0]+", "+c2[1]+", "+c2[2];
+        return [ c1[0], c1[1], c1[2], c2[0], c2[1], c2[2] ].map(@(color) color.tointeger());
     }
 
 

@@ -280,7 +280,7 @@ class Vehicle extends ORM.JsonEntity
      */
     function despawn(light = false) {
         if (this.state != this.State.Spawned) {
-            throw "Vehicle: trying to despawn non-spawned vehicle!";
+            return dbg("Vehicle: trying to despawn non-spawned vehicle!");
         }
 
         destroyVehicle(this.vehicleid);
@@ -326,7 +326,6 @@ class Vehicle extends ORM.JsonEntity
     }
 
     function onEnter(character, seat) {
-        log(character.getName() + " #" + character.playerid + " JUST ENTERED VEHICLE with ID=" + this.id.tostring() + " (seat: " + seat.tostring() + ")." );
 
         // correct state of all the vehicle components
         this.hack.onEnter(seat);
@@ -337,7 +336,6 @@ class Vehicle extends ORM.JsonEntity
     }
 
     function onExit(character, seat) {
-        log(character.getName() + " #" + character.playerid + " JUST LEFT VEHICLE with ID=" + this.id.tostring() + " (seat: " + seat.tostring() + ")." );
 
         // remove player as a vehicle passenger
         this.passengers[seat] = null;

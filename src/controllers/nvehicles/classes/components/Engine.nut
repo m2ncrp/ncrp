@@ -116,8 +116,9 @@ class NVC.Engine extends NVC
 }
 
 key("q", function(playerid) {
-    local character = players[playerid];
     if (!isPlayerInNVehicle(playerid)) return;
+
+    local character = players[playerid];
 
     local vehicle = getPlayerNVehicle(playerid);
     local keylock = vehicle.components.findOne(NVC.KeyLock);
