@@ -1,7 +1,5 @@
 /**
  * NEW NVEHICLE METHODS
- * should be used ONLY for native events ONLY INSIDE this module
- * for scripting use the OOP aproach
  */
 
     /**
@@ -66,6 +64,15 @@
         }
 
         return vehicles.nearestVehicle(playerid);
+    }
+
+    /**
+     * Return vehicle by plate text
+     * @param  {string} full plate number
+     * @return {Vehicle}
+     */
+    function getNVehicleByPlateText(plate) {
+        return getNVehicleByVehicleId(getVehicleByPlateText(plate));
     }
 
 /**
