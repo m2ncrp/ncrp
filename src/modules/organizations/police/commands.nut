@@ -367,12 +367,6 @@ cmd("park", function ( playerid, plate) {
 });
 
 // player need to be in car
-cmd("unpark", function ( playerid ) {
-    trigger("onVehicleGetFromCarPound", playerid);
-});
-
-
-// player need to be in car
 cmd("wanted", function ( playerid ) {
     if ( !isOfficer(playerid) ) {
         return msg(playerid, "organizations.police.notanofficer");
