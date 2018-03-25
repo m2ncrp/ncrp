@@ -5,12 +5,12 @@ local CARPAINT_COORDS_INSIDE  = [ 25.280, -432.900, 35.280, -422.900 ];
 local CARPAINT_COORDS_OUTSIDE = [ 20.280, -437.900, 40.280, -417.900 ];
 local CARPAINT_COORDS_PLACE  = [ 30.2854, -427.900, -20.0367 ];
 
-local CARPAINT_COST   = 84.26;
+local CARPAINT_COST   = 80.0;
 local CARPAINT_RADIUS = 16.0;
 local CARPAINT_RADIUS_SMALL = 6.0;
 local CARPAINT_ROCKET_TIMER = 30; // in seconds
 
-local CARPAINT_EMPTY    = null; // null or last vehicleid
+local CARPAINT_CARID    = null;    // null or last carid
 local CARPAINT_PLAYERID = null; // null or last playerid
 
 local CARPAINT_TIMER    = null; // timer hash
@@ -20,6 +20,25 @@ local availableCars = [0, 1, 4, 6, 7, 8, 9, 10, 12, 13, 14, 15, 17, 18, 22, 23, 
 local car_paint = {};
 
 
+/*
+
+key("q", function(playerid) {
+    local character = players[playerid];
+    if (!isPlayerInNVehicle(playerid)) return;
+
+    local vehicle = getPlayerNVehicle(playerid);
+    local keylock = vehicle.components.findOne(NVC.KeyLock);
+    local engine  = vehicle.components.findOne(NVC.Engine);
+
+    if (!keylock || keylock.isUnlockableBy(character)) {
+        if (engine) engine.toggle();
+    } else {
+        msg(playerid, "you dont have a proper key")
+    }
+})
+
+ */
+
 event("onPlayerPlaceEnter", function(playerid, name) {
     if (!isPlayerInNVehicle(playerid)) return;
 
@@ -27,13 +46,17 @@ event("onPlayerPlaceEnter", function(playerid, name) {
     local vehicleid = vehicle.vehicleid;
     local modelid = vehicle.getComponent(NVC.Hull).getModel();
 
+    local carid = vehicle.id;
+    local character = players[playerid];
+
     if (name == CARPAINT_NAME+"_outside") {
-        if( CARPAINT_EMPTY != null) {
-            local vehPos = getVehiclePosition(vehicleid);
-            local vehRot = getVehicleRotation(vehicleid);
-            setVehicleRotation(vehicleid, 90.0, vehRot[1], vehRot[2]);
-            setVehiclePosition(vehicleid, 45.1, -427.8, vehPos[2]);
-            setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
+        if( CARPAINT_CARID != null) {
+
+            vehicle
+                .setPosition(45.1, -427.8, vehicle.getPosition().z)
+                .setRotation(90.0, vehicle.getRotation().y, vehicle.getRotation().z)
+                .setSpeed();
+
             msg(playerid, "carpaint.placebusy", CL_MALIBU);
             return;
         }
@@ -41,21 +64,23 @@ event("onPlayerPlaceEnter", function(playerid, name) {
 
     if (name == CARPAINT_NAME+"_inside") {
 
-        if((vehicleid in car_paint) == false) {
-            car_paint[vehicleid] <- {};
+        if((carid in car_paint) == false) {
+            car_paint[carid] <- {};
         }
 
-        if(!("availableColors" in car_paint[vehicleid])) {
-            car_paint[vehicleid]["availableColors"] <- null;
-            car_paint[vehicleid]["currentColor"] <- null;
+        if(!("availableColors" in car_paint[carid])) {
+            car_paint[carid]["availableColors"] <- null;
+            car_paint[carid]["currentColor"] <- null;
         }
 
-        CARPAINT_EMPTY    = vehicleid;
-        CARPAINT_PLAYERID = playerid;
+        CARPAINT_CARID     = carid;
+        CARPAINT_PLAYERID  = playerid;
 
-        if( availableCars.find(modelid) != null && isPlayerHaveVehicleKey(playerid, vehicleid) ) {
-            car_paint[vehicleid]["availableColors"] = getVehicleColorsArray( vehicleid );
-            car_paint[vehicleid]["currentColor"]    = getVehicleColour( vehicleid );
+        local keylock = vehicle.components.findOne(NVC.KeyLock);
+
+        if( availableCars.find(modelid) != null && (!keylock || keylock.isUnlockableBy(character)) ) {
+            car_paint[carid]["availableColors"] = getVehicleColorsArray( vehicleid );
+            car_paint[carid]["currentColor"]    = vehicle.getComponent(NVC.Hull).getColor();
 
             CARPAINT_INDEX = 0;
 
@@ -75,12 +100,18 @@ event("onPlayerPlaceExit", function(playerid, name) {
     local hull = vehicle.getComponent(NVC.Hull);
     local modelid = hull.getModel();
     local vehicleid = vehicle.vehicleid;
+    local carid = vehicle.id;
+
+    local character = players[playerid];
 
     if (name == CARPAINT_NAME+"_inside") {
-        if( availableCars.find(modelid) == null || isPlayerHaveVehicleKey(playerid, vehicleid) == false) return;
-        if(checkVehiclePaintColorChanged(vehicleid) == true) {
+        local keylock = vehicle.components.findOne(NVC.KeyLock);
+
+        if( availableCars.find(modelid) == null || keylock == null || keylock.isUnlockableBy(character) == false) return;
+
+        if(checkVehiclePaintColorChanged(carid) == true) {
             if(!canMoneyBeSubstracted(playerid, CARPAINT_COST)) {
-                local cr = car_paint[vehicleid]["currentColor"];
+                local cr = car_paint[carid]["currentColor"];
                 hull.setColor(cr[0], cr[1], cr[2], cr[3], cr[4], cr[5]);
                 vehicle.save();
                 return msg(playerid, "carpaint.notenoughmoney", CL_MALIBU);
@@ -91,12 +122,12 @@ event("onPlayerPlaceExit", function(playerid, name) {
         } else {
             msg(playerid, "carpaint.bye", CL_MALIBU);
         }
-        car_paint[vehicleid].clear();
+        car_paint[carid].clear();
     }
 
     if (name == CARPAINT_NAME+"_outside") {
-        if(CARPAINT_EMPTY == vehicleid) {
-            CARPAINT_EMPTY    = null;
+        if(CARPAINT_CARID == carid) {
+            CARPAINT_CARID    = null;
             CARPAINT_PLAYERID = null;
         }
     }
@@ -104,15 +135,15 @@ event("onPlayerPlaceExit", function(playerid, name) {
 });
 
 event("onPlayerDisconnect", function(playerid, reason) {
-    carPaintRocket(playerid);
+    carPaintRocket(players[playerid]);
 });
 
-event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
-    carPaintRocket(playerid);
+event("onPlayerNVehicleExit", function(character, vehicle, seat) {
+    carPaintRocket(character);
 });
 
-event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
-    carPaintRocketCancel(playerid, vehicleid);
+event("onPlayerNVehicleEnter", function(character, vehicle, seat) {
+    carPaintRocketCancel(character, vehicle);
 });
 
 event("onServerStarted", function() {
@@ -130,43 +161,52 @@ event("onServerStarted", function() {
 
 
 
-function carPaintRocket(playerid) {
-    if(CARPAINT_EMPTY == null) return;
+function carPaintRocket(character) {
+    local playerid = character.playerid;
+    if(CARPAINT_CARID == null) return;
     if(CARPAINT_PLAYERID != playerid) return;
-    local vehicleid = CARPAINT_EMPTY;
+    local vehicle = vehicles[CARPAINT_CARID];
+    local carid = CARPAINT_CARID;
+    local vehicleid = vehicle.vehicleid;
 
     if(isPlayerConnected(playerid)) msg(playerid, "carpaint.rocketstart", CL_MALIBU);
 
     trigger(playerid, "hudCreateTimer", CARPAINT_ROCKET_TIMER, true, true);
 
     CARPAINT_TIMER = delayedFunction(1000 * CARPAINT_ROCKET_TIMER, function() {
-        if(!isVehicleEmpty(vehicleid)) return;
 
-    //hull.setColor(cr[0], cr[1], cr[2], cr[3], cr[4], cr[5]);
-    //vehicle.save();
+        if(!vehicle.isEmpty()) return;
 
+        local hull = vehicle.getComponent(NVC.Hull);
+        local modelid = hull.getModel();
+        local keylock = vehicle.components.findOne(NVC.KeyLock);
+        local character = players[playerid];
 
-            local modelid   = getVehicleModel( vehicleid );
-        if( (vehicleid in car_paint) && (availableCars.find(modelid) != null) && isPlayerHaveVehicleKey(playerid, vehicleid) != false) {
-            local cr = car_paint[vehicleid]["currentColor"];
-            setVehicleColour(vehicleid, cr[0], cr[1], cr[2], cr[3], cr[4], cr[5]);
+        if( (carid in car_paint) && (availableCars.find(modelid) != null) && ( !keylock || keylock.isUnlockableBy(character))) {
+            local cr = car_paint[carid]["currentColor"];
+
+            hull.setColor(cr[0], cr[1], cr[2], cr[3], cr[4], cr[5]);
+            vehicle.save();
         }
-        local vehRot = getVehicleRotation(vehicleid);
-        local vehPos = getVehiclePosition(vehicleid);
 
-        setVehicleRotation(vehicleid, 90.0, vehRot[1], vehRot[2]);
-        setVehiclePosition(vehicleid, 46.4,  -428.107, vehPos[2]);
-        CARPAINT_EMPTY    = null;
+        vehicle
+            .setPosition(46.4, -428.107, vehicle.getPosition().z)
+            .setRotation(90.0, vehicle.getRotation().y, vehicle.getRotation().z)
+            .setSpeed();
+
+        CARPAINT_CARID    = null;
         CARPAINT_PLAYERID = null;
 
-        car_paint[vehicleid].clear();
+        car_paint[carid].clear();
     });
 }
 
-function carPaintRocketCancel(playerid, vehicleid) {
-    if(CARPAINT_EMPTY == null || vehicleid != CARPAINT_EMPTY) return;
+function carPaintRocketCancel(character, vehicle) {
+    local playerid = character.playerid;
+    local carid = vehicle.id;
+    if(CARPAINT_CARID == null || carid != CARPAINT_CARID) return;
     if(CARPAINT_PLAYERID != playerid) return;
-    if(isVehicleEmpty(vehicleid)) return;
+    if(vehicle.isEmpty()) return;
     trigger(playerid, "hudDestroyTimer");
     if (CARPAINT_TIMER && CARPAINT_TIMER.IsActive()) {
         CARPAINT_TIMER.Kill()
@@ -188,24 +228,28 @@ function carPaintChangeColor(playerid, setdefault = null) {
     local hull = vehicle.getComponent(NVC.Hull);
     local modelid = hull.getModel();
     local vehicleid = vehicle.vehicleid;
+    local carid = vehicle.id;
 
-    if(CARPAINT_EMPTY != vehicleid) return;
+    if(CARPAINT_CARID != carid) return;
 
-    if( availableCars.find(modelid) == null || isPlayerHaveVehicleKey(playerid, vehicle) == false) {
+    local keylock = vehicle.components.findOne(NVC.KeyLock);
+    local character = players[playerid];
+
+    if( availableCars.find(modelid) == null || keylock == null || keylock.isUnlockableBy(character) == false) {
         return msg(playerid, "carpaint.cantrepaintthiscar", CL_MALIBU);
     }
 
-    if( car_paint[vehicleid]["availableColors"] == null ) {
+    if( car_paint[carid]["availableColors"] == null ) {
         return msg(playerid, "carpaint.nocolorsforthiscar", CL_MALIBU);
     }
 
     local cr = null;
     if (setdefault == null) {
-        cr = car_paint[vehicleid]["availableColors"][CARPAINT_INDEX];
+        cr = car_paint[carid]["availableColors"][CARPAINT_INDEX];
         CARPAINT_INDEX += 1;
-        if(CARPAINT_INDEX >= car_paint[vehicleid]["availableColors"].len()) CARPAINT_INDEX = 0;
+        if(CARPAINT_INDEX >= car_paint[carid]["availableColors"].len()) CARPAINT_INDEX = 0;
     } else {
-        cr = car_paint[vehicleid]["currentColor"];
+        cr = car_paint[carid]["currentColor"];
     }
     hull.setColor(cr[0], cr[1], cr[2], cr[3], cr[4], cr[5]);
     vehicle.save();
@@ -213,9 +257,9 @@ function carPaintChangeColor(playerid, setdefault = null) {
     //setVehicleColour(vehicleid, cr[0], cr[1], cr[2], cr[3], cr[4], cr[5]);
 }
 
-function checkVehiclePaintColorChanged(vehicleid) {
-    local cr = car_paint[vehicleid]["currentColor"];
-    local nowcr = getVehicleColour( vehicleid );
+function checkVehiclePaintColorChanged(carid) {
+    local cr = car_paint[carid]["currentColor"];
+    local nowcr = vehicles[carid].getComponent(NVC.Hull).getColor();
     for (local i = 0; i < cr.len(); i++) {
         if(cr[i] != nowcr[i]) {
             return true;
