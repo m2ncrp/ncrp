@@ -586,7 +586,7 @@ cmd("car", "buy", function(playerid) {
 
     //trySaveVehicle(vehicleid)
     msg(playerid, "shops.carshop.success", CL_SUCCESS);
-    msg(playerid, "vehicle.startengine", CL_CASCADE);
+    msg(playerid, "vehicle.startEngine", CL_CASCADE);
 });
 
 

@@ -6,8 +6,10 @@ translation("en", {
     "language.change.success"           : "You've successfully changed language to English!"
 
     "vehicle.owner.warning"             : "You don't have key for this vehicle."
-    "vehicle.startengine"               : "Press Q to start the engine."
-    "vehicle.trystartengine"            : "Press Q to try to start the engine."
+    "vehicle.startEngine"               : "Press Q to start the engine."
+    "vehicle.tryStartEngine"            : "Press Q to try to start the engine."
+    "vehicle.triedOpenDoor"             : "You tried to open the door, but it's closed."
+
 
     //"vehicle.owner.warning"             : "You can't drive a car which doesn't belong to you"
 

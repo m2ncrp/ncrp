@@ -156,12 +156,18 @@ key("f", function(playerid) {
     local model = vehicle.getComponent(NVC.Hull).getModel();
     local doors = getVehicleDoorsPosition(model);
 
-    onVehicleDoorTriggerPosition(playerid,
-                                vehicle.vehicleid,
-                                doors,
+    onVehicleDoorTriggerPosition(playerid, vehicle.vehicleid, doors,
         function (playerid, vehicleid, door) {
             // there's natives won't affect on wrapper at all
             // so all should work as it should be working
+
+            local character = players[playerid];
+            local keylock = vehicle.components.findOne(NVC.KeyLock);
+
+            if (keylock && keylock.isUnlockableBy(character) == false) {
+                return msg(playerid, "vehicle.triedOpenDoor", CL_CHAT_MONEY_SUB);
+            }
+
             setVehicleFuel(vehicleid, getVehicleFuel(vehicleid) + 0.05);
             setVehicleEngineState( vehicleid, true );
             setVehicleLightState(vehicleid, false);
@@ -169,6 +175,7 @@ key("f", function(playerid) {
                 setVehicleEngineState( vehicleid, false );
                 setVehicleFuel(vehicleid, 0.0);
             });
+
         });
 });
 

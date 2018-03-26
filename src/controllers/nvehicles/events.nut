@@ -1,3 +1,3 @@
 event("onPlayerNVehicleEnter", function(character, vehicle, seat) {
-    msg(character, "vehicle.trystartengine", CL_CASCADE);
+    msg(character, "vehicle.tryStartEngine", CL_CASCADE);
 });
