@@ -59,6 +59,11 @@ class Vehicle extends ORM.JsonEntity
         this.components = NVCContainer(this, this.components);
         this.passengers = array(seats, null);
 
+        this.set("data", {
+            parking = 0,
+            history = []
+        })
+
         // common components
         this.components.push(NVC.Hull());
         this.getComponent(NVC.Hull).setDefaultModel(model);
