@@ -585,8 +585,8 @@ cmd("car", "buy", function(playerid) {
     //unblockVehicle(vehicleid);
 
     //trySaveVehicle(vehicleid)
-
-    return msg(playerid, "shops.carshop.success", CL_SUCCESS);
+    msg(playerid, "shops.carshop.success", CL_SUCCESS);
+    msg(playerid, "vehicle.startengine", CL_CASCADE);
 });
 
 

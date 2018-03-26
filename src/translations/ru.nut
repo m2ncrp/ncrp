@@ -3,6 +3,8 @@ translation("ru", {
     "language.change.success"           :   "Вы успешно изменили язык интерфейса на русский!"
 
     "vehicle.owner.warning"             :   "У вас нет ключа от этого автомобиля."
+    "vehicle.startengine"               :   "Нажми Q, чтобы завести двигатель."
+    "vehicle.trystartengine"            :   "Нажми Q, чтобы попытаться завести двигатель."
 
     "hospital.money.deducted"           :   "Вас выписали из госпиталя. Лечение обошлось вам в $%.2f."
     "hospital.money.donthave"           :   "У вас недостаточно денег для оплаты полного лечения."
