@@ -158,3 +158,7 @@ function getDistanceBtwPlayerAndVehicle(playerid, vehicleid) {
     local distance = getDistanceBetweenPoints3D( plaPos[0], plaPos[1], plaPos[2], vehPos[0], vehPos[1], vehPos[2] );
     return  distance;
 }
+
+function getDistanceBtwObjCoords(c1, c2) {
+    return getDistanceBetweenPoints3D( c1.x, c1.y, c1.z, c2.x, c2.y, c2.z );
+}

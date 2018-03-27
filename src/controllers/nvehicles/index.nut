@@ -18,10 +18,6 @@ include("controllers/nvehicles/classes/components/Trunk.nut");
 include("controllers/nvehicles/classes/components/GloveCompartment.nut");
 include("controllers/nvehicles/classes/components/Plate.nut");
 
-include("controllers/nvehicles/commands.nut");
-include("controllers/nvehicles/events.nut");
-
-
 vehicles <- VehicleContainer();
 vehicles_native <- {};
 
@@ -78,3 +74,6 @@ event("onServerStopping", function() {
 event("onServerMinuteChange", function() {
     vehicles.map(@(vehicle) vehicle.onMinute());
 });
+
+include("controllers/nvehicles/commands.nut");
+include("controllers/nvehicles/events.nut");
