@@ -32,6 +32,7 @@ translation("en", {
     "rentcar.canrent"                   : "You can rent this car for $%.2f in 10 minutes ($%.2f in hour) in game. If you agree: /rent"
     "rentcar.cantrent"                  : "You can't drive this car more, because you don't have enough money. Please, get out of the car."
     "rentcar.paidcar"                   : "You paid for car $%.2f. Your balance: $%s."
+    "rentcar.refuse"                    : "If you want to refuse from rent: /unrent"
 
     "rentcar.help.title"                : "List of available commands for CAR RENTAL:"
     "rentcar.help.rent"                 : "Rent this car (need to be in a car)"

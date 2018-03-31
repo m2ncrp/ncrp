@@ -88,8 +88,8 @@ alternativeTranslate({
     "en|job.fueldriver.nicejob"                                : "[FUEL] Nice job! You earned $%.2f."
     "ru|job.fueldriver.nicejob"                                : "[FUEL] Отличная работа! Вы заработали $%.2f."
 
-    "en|job.fueldriver.needcorrectpark"                        : "[FUEL] Park the fuel truck correctly (cabin of truck to North)."
-    "ru|job.fueldriver.needcorrectpark"                        : "[FUEL] Подъедь правильно (кабиной на север)."
+    "en|job.fueldriver.needcorrectpark"                        : "[FUEL] Park the fuel truck correctly (cabin of truck to East)."
+    "ru|job.fueldriver.needcorrectpark"                        : "[FUEL] Подъедь правильно (кабиной на восток)."
 
 "ru|job.fueldriver.routelist.title"                        : "[FUEL] ========== Маршрутный лист =========="
 "ru|job.fueldriver.routelist.completed"                    : "[FUEL] %d. Заправка в %s - доставлено"
@@ -141,10 +141,10 @@ const FUEL_JOB_Y = -266.866;
 const FUEL_JOB_Z = -20.1644;
 const FUEL_JOB_SKIN = 144;
 const FUEL_JOB_DISTANCE = 75;
-const FUEL_JOB_SALARY = 22.0;
-const FUEL_JOB_WAREHOUSE_X = 788.288;
-const FUEL_JOB_WAREHOUSE_Y = -78.0801;
-const FUEL_JOB_WAREHOUSE_Z = -20.0379;
+const FUEL_JOB_SALARY = 24.0;
+const FUEL_JOB_WAREHOUSE_X = 156.195;
+const FUEL_JOB_WAREHOUSE_Y = -876.451;
+const FUEL_JOB_WAREHOUSE_Z = -21.7358;
 const FUEL_JOB_LEVEL = 3;
       FUEL_JOB_COLOR <- CL_CRUSTA;
 local FUEL_JOB_GET_HOUR_START = 12;
@@ -614,7 +614,7 @@ function fuelJobLoadUnload ( playerid ) {
     if(check_ware && fuelcars[vehicleid][1] < 16000) {
 
         local vehRot = getVehicleRotation(vehicleid);
-        if(vehRot[0] < -5 || vehRot[0] > 5) {
+        if(vehRot[0] < 85 || vehRot[0] > 95) {
             job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"] = "working";
             return msg(playerid, "job.fueldriver.needcorrectpark", CL_RED );
         }
