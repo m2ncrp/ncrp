@@ -112,21 +112,21 @@ function policeRankPermission(ride, gun, getvehinfo) {
 }
 
 POLICE_RANK_SALLARY_PERMISSION_SKIN <- [ // calculated as: (-i^2 + 27*i + 28)/200; i - rank number
-   /* 0.14 */ [0.09, policeRankPermission(false, false, false), [75, 76] ], // 0 - "police.cadet"
-   /* 0.27 */ [0.14, policeRankPermission(false, true, false),  [75, 76] ], // 1 - "police.patrol"
-   /* 0.39 */ [0.19, policeRankPermission(true, true, false),   [75, 76] ], // 2 - "police.officer"
-   /* 0.50 */ [0.24, policeRankPermission(true, true, true),    [69]     ], // 3 - "police.detective"
-   /* 0.60 */ [0.29, policeRankPermission(true, true, true),    [75, 76] ], // 4 - "police.sergeant.wa1"
+   /* 0.14 */ [0.14, policeRankPermission(true, false, false),  [75, 76] ], // 0 - "police.cadet"
+   /* 0.27 */ [0.18, policeRankPermission(true, true, false),   [75, 76] ], // 1 - "police.patrol"
+   /* 0.39 */ [0.22, policeRankPermission(true, true, false),   [75, 76] ], // 2 - "police.officer"
+   /* 0.50 */ [0.26, policeRankPermission(true, true, true),    [69]     ], // 3 - "police.detective"
+   /* 0.60 */ [0.30, policeRankPermission(true, true, true),    [75, 76] ], // 4 - "police.sergeant.wa1"
    /* 0.69 */ [0.34, policeRankPermission(true, true, true),    [75, 76] ], // 5 - "police.sergeant.2"
-   /* 0.77 */ [0.39, policeRankPermission(true, true, true),    [75, 76] ], // 6 - "police.lieutenant.1"
-   /* 0.84 */ [0.44, policeRankPermission(true, true, true),    [75, 76] ], // 7 - "police.lieutenant.2"
-   /* 0.90 */ [0.49, policeRankPermission(true, true, true),    [75, 76] ], // 8 - "police.Captain.1"
-   /* 0.95 */ [0.54, policeRankPermission(true, true, true),    [75, 76] ], // 9 - "police.Captain.2"
-   /* 0.99 */ [0.59, policeRankPermission(true, true, true),    [75, 76] ], // 10 - "police.Captain.3"
-   /* 1.02 */ [0.64, policeRankPermission(true, true, true),    [75, 76] ], // 11 - "police.commander"
-   /* 1.04 */ [0.69, policeRankPermission(true, true, true),    [75, 76] ], // 12 - "police.deputychief"
-   /* 1.05 */ [0.74, policeRankPermission(true, true, true),    [75, 76] ], // 13 - "police.assistantchief"
-   /* 1.05 */ [0.79, policeRankPermission(true, true, true),    [75, 76] ]  // 14 - "police.chief"
+   /* 0.77 */ [0.38, policeRankPermission(true, true, true),    [75, 76] ], // 6 - "police.lieutenant.1"
+   /* 0.84 */ [0.42, policeRankPermission(true, true, true),    [75, 76] ], // 7 - "police.lieutenant.2"
+   /* 0.90 */ [0.46, policeRankPermission(true, true, true),    [75, 76] ], // 8 - "police.Captain.1"
+   /* 0.95 */ [0.50, policeRankPermission(true, true, true),    [75, 76] ], // 9 - "police.Captain.2"
+   /* 0.99 */ [0.54, policeRankPermission(true, true, true),    [75, 76] ], // 10 - "police.Captain.3"
+   /* 1.02 */ [0.58, policeRankPermission(true, true, true),    [75, 76] ], // 11 - "police.commander"
+   /* 1.04 */ [0.62, policeRankPermission(true, true, true),    [75, 76] ], // 12 - "police.deputychief"
+   /* 1.05 */ [0.66, policeRankPermission(true, true, true),    [75, 76] ], // 13 - "police.assistantchief"
+   /* 1.05 */ [0.70, policeRankPermission(true, true, true),    [75, 76] ]  // 14 - "police.chief"
 ];
 
 
