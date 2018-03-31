@@ -296,8 +296,9 @@ function dockerJobPutBox( playerid ) {
     dockerJobRemovePrivateBlipText ( playerid );
 
     job_docker[getCharacterIdFromPlayerId(playerid)]["havebox"] = false;
-    msg( playerid, "job.docker.nicejob", DOCKER_SALARY, DOCKER_JOB_COLOR );
-    addMoneyToPlayer(playerid, DOCKER_SALARY);
+    local amount = DOCKER_SALARY + round(getSalaryBonus() / 100, 2);
+    msg( playerid, "job.docker.nicejob", amount, DOCKER_JOB_COLOR );
+    addMoneyToPlayer(playerid, amount);
 
     job_docker[getCharacterIdFromPlayerId(playerid)]["blip3dtext"] = dockerJobCreatePrivateBlipText(playerid, DOCKER_JOB_TAKEBOX_X, DOCKER_JOB_TAKEBOX_Y, DOCKER_JOB_TAKEBOX_Z, plocalize(playerid, "TAKEBOXHERE"), plocalize(playerid, "3dtext.job.press.E"));
     delayedFunction(250, function () { setPlayerAnimStyle(playerid, "common", "default"); });

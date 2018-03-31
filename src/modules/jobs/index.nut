@@ -3,6 +3,24 @@ event("onServerStarted", function() {
     log("[jobs] starting...");
 });
 
+/* ************************************************************************* */
+local SALARY_BONUS = 0.0;
+event("onServerPlayerStarted", function(playerid) {
+    calcSalaryBonus();
+});
+
+event("onPlayerDisconnect", function(playerid, reason) {
+    calcSalaryBonus();
+});
+
+function getSalaryBonus() {
+    return SALARY_BONUS;
+}
+
+function calcSalaryBonus() {
+    SALARY_BONUS = getPlayerCount() >= 7 ? 0.25 * getPlayerCount() : 0.0;
+}
+/* ************************************************************************* */
 
 local jobBlips = {};
 local playerJobBlips = {};
