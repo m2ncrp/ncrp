@@ -49,10 +49,12 @@
 
     <!-- general images -->
     <file>logo.png</file>
+    <!--
     <file>logo-ny1.png</file>
     <file>logo-ny2.png</file>
     <file>logo-ny3.png</file>
     <file>logo-ny4.png</file>
+    -->
     <file>other_mask.png</file>
     <file>lang_en.png</file>
     <file>lang_ru.png</file>
@@ -62,14 +64,6 @@
     <file>ui_thirst_green.png</file>
     <file>ui_inv_hands.png</file>
 
-    <file>logo.png</file>
-    <file>logo-ny1.png</file>
-
-<!--
-    <file>logo-ny2.png</file>
-    <file>logo-ny3.png</file>
-    <file>logo-ny4.png</file>
--->
     <!-- inventory system -->
         <!-- items -->
 
