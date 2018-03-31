@@ -108,7 +108,7 @@ function RentCar(playerid) {
     subMoneyToPlayer( playerid, rentprice );
     addMoneyToTreasury(rentprice);
     msg(playerid, "rentcar.rented");
-    msg(playerid, "rentcar.paidcar", [ rentprice, getPlayerBalance(playerid)] );
+    msg(playerid, "rentcar.paidcar", [ rentprice ] );
 }
 addEventHandler("RentCar", RentCar);
 
@@ -184,7 +184,7 @@ event ("onServerMinuteChange", function() {
             local rentprice = price * 10;
             subMoneyToPlayer(playerid, rentprice );
             addMoneyToTreasury(rentprice);
-            msg(playerid, "rentcar.paidcar", [ rentprice, getPlayerBalance(playerid)] );
+            msg(playerid, "rentcar.paidcar", [ rentprice ] );
             msg(playerid, "rentcar.refuse");
         }
     }
