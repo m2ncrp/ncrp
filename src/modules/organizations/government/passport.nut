@@ -201,8 +201,8 @@ alternativeTranslate({
     "en|passport.rejected.badname"  : "Reason: Invalid (NON-RP) сharacter name."
     "ru|passport.rejected.badname"  : "Причина: имя персонажа не соответствует временному интервалу игры."
 
-    "en|passport.needsolution"      : "Contact the government official for obtaining a passport."
-    "ru|passport.needsolution"      : "Для получения паспорта обратитесь к сотруднику мэрии."
+    "en|passport.needsolution"      : "Contact the government official (not NPC) for obtaining a passport."
+    "ru|passport.needsolution"      : "Для получения паспорта обратитесь к сотруднику мэрии (реальному живому игроку)."
 
     "en|passport.solution.invalid"  : "Invalid status."
     "ru|passport.solution.invalid"  : "Статус указан неверно."
