@@ -273,7 +273,7 @@ function porterJobPutBox( playerid ) {
     porterJobRemovePrivateBlipText ( playerid );
 
     job_porter[getCharacterIdFromPlayerId(playerid)]["havebox"] = false;
-    local amount = PORTER_SALARY + round(getSalaryBonus() / 100, 2);
+    local amount = PORTER_SALARY + round(getSalaryBonus() / 50, 2);
     msg( playerid, "job.porter.nicejob", amount, PORTER_JOB_COLOR );
     addMoneyToPlayer(playerid, amount);
 

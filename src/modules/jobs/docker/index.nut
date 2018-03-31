@@ -296,7 +296,7 @@ function dockerJobPutBox( playerid ) {
     dockerJobRemovePrivateBlipText ( playerid );
 
     job_docker[getCharacterIdFromPlayerId(playerid)]["havebox"] = false;
-    local amount = DOCKER_SALARY + round(getSalaryBonus() / 100, 2);
+    local amount = DOCKER_SALARY + round(getSalaryBonus() / 50, 2);
     msg( playerid, "job.docker.nicejob", amount, DOCKER_JOB_COLOR );
     addMoneyToPlayer(playerid, amount);
 

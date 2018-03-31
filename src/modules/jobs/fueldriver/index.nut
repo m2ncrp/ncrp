@@ -491,7 +491,7 @@ function fuelJobStartRoute( playerid ) {
 
 
 function fuelGetSalary( playerid ) {
-    local amount = FUEL_JOB_SALARY + (random(-1, 2)).tofloat() + getSalaryBonus();
+    local amount = FUEL_JOB_SALARY + (random(-1, 1)).tofloat() + getSalaryBonus();
     msg( playerid, "job.fueldriver.nicejob", amount, FUEL_JOB_COLOR );
     addMoneyToPlayer(playerid, amount);
 }

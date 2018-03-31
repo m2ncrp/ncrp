@@ -5,7 +5,7 @@ event("onServerStarted", function() {
 
 /* ************************************************************************* */
 local SALARY_BONUS = 0.0;
-event("onServerPlayerStarted", function(playerid) {
+event("onPlayerConnect", function(playerid) {
     calcSalaryBonus();
 });
 
