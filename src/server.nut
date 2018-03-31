@@ -91,6 +91,7 @@ include("models/Color.nut");
 include("models/VehicleOld.nut");
 include("models/World.nut");
 include("models/TeleportPosition.nut");
+include("models/ClosedAreas.nut");
 include("models/TimestampStorage.nut");
 include("models/StatisticPoint.nut");
 include("models/StatisticText.nut");

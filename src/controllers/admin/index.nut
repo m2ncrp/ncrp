@@ -9,6 +9,7 @@ include("controllers/admin/commands/teleport.nut");
 include("controllers/admin/commands/tp.nut");
 include("controllers/admin/commands/vehicles.nut");
 include("controllers/admin/commands/weapons.nut");
+include("controllers/admin/commands/closedareas.nut");
 include("controllers/admin/translations.nut");
 
 local serverAdmins = {};

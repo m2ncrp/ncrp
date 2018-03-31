@@ -29,8 +29,8 @@ event("onServerSecondChange", function() {
 });
 
 cmd("mile", function(playerid) {
-    local mil = getPlayerNVehicle(players[playerid]).data.mileage;
-    msg(playerid, "Пробег: "+mil);
+    local mile = getPlayerNVehicle(players[playerid]).data.mileage;
+    msg(playerid, "Пробег: "+mile);
 });
 
 //
