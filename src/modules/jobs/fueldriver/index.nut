@@ -36,11 +36,11 @@ alternativeTranslate({
     "en|job.fueldriver.truck.loaded"                           : "[FUEL] Truck is loaded to %d / 16000. Deliver fuel to gas stations."
     "ru|job.fueldriver.truck.loaded"                           : "[FUEL] Бензовоз заполнен на %d из 16000. Развезите топливо по заправкам."
 
-    "en|job.fueldriver.truck.empty"                            : "[FUEL] The truck is empty. Go to the warehouse of fuel in South Millville to load fuel truck (yellow icon on minimap)."
-    "ru|job.fueldriver.truck.empty"                            : "[FUEL] Бензовоз пуст. Отправляйтесь к топливному хранилищу в Южный Милвилл для загрузки (жёлтая метка на радаре)."
+    "en|job.fueldriver.truck.empty"                            : "[FUEL] The truck is empty. Go to the warehouse of fuel in Port to load fuel truck (yellow icon on minimap)."
+    "ru|job.fueldriver.truck.empty"                            : "[FUEL] Бензовоз пуст. Отправляйтесь к топливному хранилищу в Порт для загрузки (жёлтая метка на радаре)."
 
-    "en|job.fueldriver.truck.toload"                           : "[FUEL] Go to the warehouse of fuel in South Millville to load fuel truck (yellow icon on minimap)."
-    "ru|job.fueldriver.truck.toload"                           : "[FUEL] Отправляйтесь к топливному хранилищу в Южный Милвилл для загрузки (жёлтая метка на радаре)."
+    "en|job.fueldriver.truck.toload"                           : "[FUEL] Go to the warehouse of fuel in Port to load fuel truck (yellow icon on minimap)."
+    "ru|job.fueldriver.truck.toload"                           : "[FUEL] Отправляйтесь к топливному хранилищу в Порт для загрузки (жёлтая метка на радаре)."
 
     "en|job.fueldriver.driving"                                : "[FUEL] You're driving. Please stop the fuel truck."
     "ru|job.fueldriver.driving"                                : "[FUEL] Остановите бензовоз."
