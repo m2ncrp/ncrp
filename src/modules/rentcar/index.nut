@@ -185,6 +185,7 @@ event ("onServerMinuteChange", function() {
             subMoneyToPlayer(playerid, rentprice );
             addMoneyToTreasury(rentprice);
             msg(playerid, "rentcar.paidcar", [ rentprice, getPlayerBalance(playerid)] );
+            msg(playerid, "rentcar.refuse");
         }
     }
 });
