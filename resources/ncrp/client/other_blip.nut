@@ -30,7 +30,7 @@ addEventHandler("onServerBlipAdd", function(uid, x, y, r, library, icon) {
     _blip_objects[uid] <- obj;
 
     if (!ticker) {
-        ticker = timer(onBlipTimer, 500, -1);
+        ticker = timer(onBlipTimer, 1000, -1);
     }
 });
 
