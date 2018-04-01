@@ -73,6 +73,7 @@ local centerY = screenY * 0.5;
  * Main rendering callback
  */
 addEventHandler("onClientFrameRender", function(isGUIdrawn) {
+    return;
     if (!drawing) return;
     if (isGUIdrawn) return;
 
@@ -251,6 +252,7 @@ local screenFade = {
 };
 
 addEventHandler("onClientFrameRender", function(isGUIdrawn) {
+    return;
     if (!isGUIdrawn) return;
 
     if ( screenFade.current > 0 ) {
