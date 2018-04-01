@@ -26,7 +26,7 @@
 
         <!-- other -->
         <!-- <script type="client">other_3dtext.nut</script> -->
-        <!-- <script type="client">other_blip.nut</script> -->
+        <script type="client">other_blip.nut</script>
         <script type="client">other_debug.nut</script>
         <script type="client">other_gps.nut</script>
         <script type="client">other_keyboard.nut</script>
