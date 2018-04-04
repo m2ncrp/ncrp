@@ -77,3 +77,4 @@ event("onServerMinuteChange", function() {
 
 include("controllers/nvehicles/commands.nut");
 include("controllers/nvehicles/events.nut");
+include("controllers/nvehicles/properties/mileage.nut");

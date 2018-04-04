@@ -16,6 +16,7 @@ acmd(["vehicle"], ["setuplock"], function(playerid) {
     character.inventory.push(key);
 
     vehicle.save();
+
     key.save();
     msg(playerid, "you received the keylock");
 })
@@ -29,10 +30,11 @@ acmd(["vehicle"],["create"], function( playerid, model) {
 
     local model = model.tointeger();
     local pos = getPlayerPosition( playerid );
-    local veh = Vehicle( model ).setPosition(pos[0] + 2.0, pos[1], pos[2] + 1.0);
+    local veh = Vehicle( model ).setPosition(pos[0] + 2.0, pos[1], pos[2] + 0.25);
 
     veh.save();
     vehicles.set(veh.id, veh);
+    addNVehicleMileageListener(veh, veh.id);
 
     veh.spawn();
 });

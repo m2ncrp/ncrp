@@ -203,7 +203,7 @@ acmd(["areas"], ["delete", "del", "remove", "rem"], function(playerid, nameOrId)
 
 
 
-
+/*
 /areas point - поставить точку
 
 /areas save name [group] - сохранение под именем name, тут же записывается позиция возврата, если есть номер группы - записывается parent
@@ -219,3 +219,21 @@ acmd(["areas"], ["delete", "del", "remove", "rem"], function(playerid, nameOrId)
 
 имя: areas_name_groupName (groupName если есть)
 
+
+acmd("rims", function(playerid) {
+    local vehicleid = vehicles.nearestVehicle(playerid).vehicleid;
+    local rimsId = getVehicleWheelTexture(vehicleid, 0);
+    if(rimsId == 255) rimsId = -1;
+    rimsId += 1;
+    setVehicleWheelTexture(vehicleid, 0, rimsId);
+    setVehicleWheelTexture(vehicleid, 1, rimsId);
+    setVehicleWheelTexture(vehicleid, 3, rimsId);
+})
+acmd("resetrims", function(playerid) {
+    local vehicleid = vehicles.nearestVehicle(playerid).vehicleid;
+    setVehicleWheelTexture(vehicleid, 0, 0);
+    setVehicleWheelTexture(vehicleid, 1, 0);
+    setVehicleWheelTexture(vehicleid, 3, 0);
+})
+
+*/

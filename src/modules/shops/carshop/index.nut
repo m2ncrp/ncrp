@@ -560,6 +560,8 @@ cmd("car", "buy", function(playerid) {
     vehicle.save();
     vehicles.set(vehicle.id, vehicle);
 
+    addNVehicleMileageListener(vehicle, vehicle.id);
+
     vehicleKey.setData("id", vehicle.id);
     vehicleKey.setData("code", code);
 

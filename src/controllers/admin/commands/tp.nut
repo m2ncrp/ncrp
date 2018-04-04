@@ -43,7 +43,7 @@ acmd("pp", function(playerid, targetid1 = null, targetid2 = null, offset = 1.0) 
  *     /v2v 0 15
  *     /v2v 0 15 32.0
  */
-acmd("vv", function(playerid, targetid1 = null, targetid2 = null, offset = 1.0) {
+acmd("vv", function(playerid, targetid1 = null, targetid2 = null, offset = 0.5) {
     local targetid1 = toInteger(targetid1);
     local targetid2 = toInteger(targetid2);
 
@@ -62,7 +62,7 @@ acmd("vv", function(playerid, targetid1 = null, targetid2 = null, offset = 1.0) 
  *     /p2v 0 15
  *     /p2v 0 15 32.0
  */
-acmd("pv", function(playerid, targetid1 = null, targetid2 = null, offset = 1.0) {
+acmd("pv", function(playerid, targetid1 = null, targetid2 = null, offset = 0.5) {
     local targetid1 = toInteger(targetid1);
     local targetid2 = toInteger(targetid2);
 
@@ -82,15 +82,15 @@ acmd("pv", function(playerid, targetid1 = null, targetid2 = null, offset = 1.0) 
  *     /v2p 0 15
  *     /v2p 0 15 32.0
  */
-acmd("vp", function(playerid, targetid1 = null, targetid2 = null, offset = 1.0) {
+acmd("vp", function(playerid, targetid1 = null, targetid2 = null, offset = 0.5) {
     local targetid1 = toInteger(targetid1);
     local targetid2 = toInteger(targetid2);
 
-    if (targetid1 == null || targetid2 == null || !(targetid1 in __vehicles) || !isPlayerConnected(targetid2)) {
+    if (targetid1 == null || targetid2 == null || !(vehicles.has(targetid1)) || !isPlayerConnected(targetid2)) {
         return msg(playerid, "Provide created vehicleid and connected player.", CL_ERROR);
     }
 
     local pos = getPlayerPosition(targetid2);
-    setVehiclePosition(targetid1, pos[0] + 2.0, pos[1], pos[2] + offset.tofloat());
+    vehicles[targetid1].setPosition(pos[0] + 2.0, pos[1], pos[2] + offset.tofloat())
     msg(playerid, format("You've successuly tp'd vehicle #%d to player %d", targetid1, targetid2), CL_SUCCESS);
 });

@@ -27,7 +27,7 @@ vehicleSpeedLimits[10] <- [55.0, 57.0];
 vehicleSpeedLimits[11] <- [30.5, 32.0];
 vehicleSpeedLimits[12] <- [30.5, 32.0];
 vehicleSpeedLimits[13] <- [50.5, 52.0];
-vehicleSpeedLimits[14] <- [40.5, 41.5];
+vehicleSpeedLimits[14] <- [41.5, 43.0];
 vehicleSpeedLimits[15] <- [45.7, 46.2];
 vehicleSpeedLimits[16] <- [45.1, 46.0]; // have problem
 vehicleSpeedLimits[17] <- [47.1, 49.0];
@@ -131,7 +131,7 @@ event("onServerMinuteChange", function() {
     }
 });
 
-/*
+
 event("onPlayerPlaceEnter", function(playerid, name) {
     if (name != "TestTeleport") {
         return;
@@ -146,4 +146,4 @@ key("7", function(playerid) {
       maxspeed = 0.0;
 });
 
-*/
+

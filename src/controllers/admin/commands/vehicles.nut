@@ -17,7 +17,6 @@ acmd("plate", function(playerid, text = "") {
     foreach (plate, vehicleid in plates) {
         if (plate.tolower().find(text.tolower()) != null) {
             local vehicle = getNVehicleByVehicleId(vehicleid);
-
             if(vehicle == null) {
                 return msg(playerid, format(
                     "ID: %d | Номер: %s | Модель: %d | Владелец: %s",
@@ -27,7 +26,7 @@ acmd("plate", function(playerid, text = "") {
 
             msg(playerid, format(
                 "ID: %d/%d | Номер: %s | Модель: %d | Владелец: %s",
-                vehicleid, vehicle.id, plate, vehicle.getComponent(NVC.Hull).getModel(), getPlayerName(getPlayerIdFromCharacterId(vehicle.ownerid))
+                vehicleid, vehicle.id, plate, vehicle.getComponent(NVC.Hull).getModel(), vehicle.ownerid != -1 ? getPlayerName(getPlayerIdFromCharacterId(vehicle.ownerid)) : "none"
             ));
             local parkingDays = getParkingDaysForVehicle(vehicle);
             if(parkingDays > 0) {
