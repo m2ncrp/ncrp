@@ -196,7 +196,6 @@ function formatCharacterSelection () {
         return characterCreation();
     }
     else{
-
         if(characters[0].Firstname == ""){
             PData.Id <- characters[0].Id; // add data to push it later
             migrateOldCharacter = true;
@@ -451,7 +450,8 @@ function hideCharacterCreation() {
         radio.clear();
         isCharacterCreationMenu = false;
         otherPlayerLocked = false;
-        delayedFunction(500, function() {showCursor(false);});
+        //delayedFunction(500, function() { showCursor(true); showCursor(false); });
+        delayedFunction(1000, function() { showCursor(false); });
     }
 }
 addEventHandler("hideCharacterCreation",hideCharacterCreation);
@@ -556,7 +556,6 @@ addEventHandler("onServerCharacterLoaded", function(locale){
     formatCharacterSelection();
     showChat(false);
     toggleHud(false);
-    showCursor(false);
 });
 
 
