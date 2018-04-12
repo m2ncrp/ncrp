@@ -87,8 +87,8 @@ acmd(["verify"], function(playerid, targetid = null) {
 
     // for all players
     foreach (memberid, player in players) {
-        trigger(memberid, "onCharacterChangedVerified", playerid, players[playerid].data.verified ); // create name of current player for remote players
-        trigger(playerid, "onCharacterChangedVerified", memberid, players[memberid].data.verified ); // create name of remote player for current player
+        trigger(memberid, "onCharacterChangedVerified", playerid, ("verified" in players[playerid].data) ? players[playerid].data.verified : false ); // create name of current player for remote players
+        trigger(playerid, "onCharacterChangedVerified", memberid, ("verified" in players[memberid].data) ? players[memberid].data.verified : false ); // create name of remote player for current player
     }
 
 });
