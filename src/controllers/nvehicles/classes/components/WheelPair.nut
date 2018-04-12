@@ -25,6 +25,13 @@ class NVC.WheelPair extends NVC
         return getVehicleWheelTexture( this.parent.vehicleid, pair_num );
     }
 
+    function getAll() {
+        return [ this.get(0),
+                 this.get(1),
+                 this.get(2)
+               ];
+    }
+
     function set(pair_num, to) {
         if (pair_num == this.WheelPosition.front) {
             this.data.front = to;

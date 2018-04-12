@@ -246,7 +246,7 @@ proxy("onConsoleInput",             "native:onConsoleInput"             );
 proxy("onServerShutdown",           "native:onServerShutdown"           );
 // onScriptError
 // onServerPulse
-//proxy("onServerPulse", "onServerPulse");
+//proxy("onServerPulse", "native:onServerPulse");
 
 // player
 proxy("onPlayerConnect",            "native:onPlayerConnect"            );

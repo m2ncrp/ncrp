@@ -5,7 +5,7 @@ include("modules/shops/market");
 include("modules/shops/washstations");
 include("modules/shops/carsearch");
 //include("modules/shops/clothesshop");
-include("modules/shops/carpaint");
+include("modules/shops/charlieshop");
 //include("modules/shops/cardealer");
 include("modules/shops/kiosks");
 //include("modules/shops/santa-klaus");
