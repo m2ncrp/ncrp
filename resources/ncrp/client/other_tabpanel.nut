@@ -103,7 +103,7 @@ function frameRender( post_gui )
                 if( isPlayerConnected(i) && i in players && players[i])
                 {
 
-                    local lineColor = isVerified ? 0XFF26A65B : 0xFF999999;
+                    local lineColor = verified[i] ? 0XFF26A65B : 0xFF999999;
 
                     fOffsetX = (fX + fPadding + 25.0);
                     fOffsetY += fPaddingPlayer;
