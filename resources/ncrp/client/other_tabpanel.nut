@@ -78,22 +78,22 @@ function frameRender( post_gui )
         dxDrawText( "Ping", fOffsetX, fOffsetY, 0xFFFFFFFF, true, "tahoma-bold" );
 
         local localname = (getLocalPlayer() in players && players[getLocalPlayer()]) ? players[getLocalPlayer()] : getPlayerName(getLocalPlayer());
-        local isVerified = (getLocalPlayer() in verified && verified[getLocalPlayer()]) ? "+" : "";
-
+        local isVerified = (getLocalPlayer() in verified && verified[getLocalPlayer()]);
+        // old color for current player: 0xFF019875
         // Draw the localplayer
         fOffsetX = (fX + fPadding + 25.0);
         fOffsetY += 20.0;
-        dxDrawText( getLocalPlayer().tostring(), fOffsetX, fOffsetY, 0xFF019875, true, "tahoma-bold" );
+        dxDrawText( getLocalPlayer().tostring(), fOffsetX, fOffsetY, 0XFF4183D7, true, "tahoma-bold" );
 
         fOffsetX += fOffsetIDlist;
-        dxDrawText( isVerified, fOffsetX, fOffsetY, 0xFF019875, true, "tahoma-bold" );
+        dxDrawText( isVerified ? "+" : "", fOffsetX, fOffsetY, 0XFF4183D7, true, "tahoma-bold" );
         fOffsetX -= 18;
 
         fOffsetX += fOffsetVerified;
-        dxDrawText( localname, fOffsetX, fOffsetY, 0xFF019875, true, "tahoma-bold" );
+        dxDrawText( localname, fOffsetX, fOffsetY, 0XFF4183D7, true, "tahoma-bold" );
 
         fOffsetX += fOffsetName;
-        dxDrawText( getPlayerPing(getLocalPlayer()).tostring(), fOffsetX, fOffsetY, 0xFF019875, true, "tahoma-bold" );
+        dxDrawText( getPlayerPing(getLocalPlayer()).tostring(), fOffsetX, fOffsetY, 0XFF4183D7, true, "tahoma-bold" );
 
         // Draw remote players
         for( local i = 0; i < MAX_PLAYERS; i++ )
@@ -102,19 +102,22 @@ function frameRender( post_gui )
             {
                 if( isPlayerConnected(i) && i in players && players[i])
                 {
+
+                    local lineColor = isVerified ? 0XFF26A65B : 0xFF999999;
+
                     fOffsetX = (fX + fPadding + 25.0);
                     fOffsetY += fPaddingPlayer;
-                    dxDrawText( i.tostring(), fOffsetX, fOffsetY, getPlayerColour(i), true, "tahoma-bold" );
+                    dxDrawText( i.tostring(), fOffsetX, fOffsetY, lineColor, true, "tahoma-bold" );
 
                     fOffsetX += fOffsetIDlist;
-                    dxDrawText( verified[i] ? "+" : "", fOffsetX, fOffsetY, getPlayerColour(i), true, "tahoma-bold" );
+                    dxDrawText( verified[i] ? "+" : "", fOffsetX, fOffsetY, lineColor, true, "tahoma-bold" );
                     fOffsetX -= 18;
 
                     fOffsetX += fOffsetVerified;
-                    dxDrawText( players[i], fOffsetX, fOffsetY, getPlayerColour(i), true, "tahoma-bold" );
+                    dxDrawText( players[i], fOffsetX, fOffsetY, lineColor, true, "tahoma-bold" );
 
                     fOffsetX += fOffsetName;
-                    dxDrawText( getPlayerPing(i).tostring(), fOffsetX, fOffsetY, getPlayerColour(i), true, "tahoma-bold" );
+                    dxDrawText( getPlayerPing(i).tostring(), fOffsetX, fOffsetY, lineColor, true, "tahoma-bold" );
                 }
             }
         }
