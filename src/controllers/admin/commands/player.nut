@@ -83,12 +83,12 @@ acmd(["verify"], function(playerid, targetid = null) {
     msg(playerid, format("Персонаж %s верифицирован.", getPlayerName(targetid)), CL_SUCCESS);
 
     // for local player
-    trigger(playerid, "onCharacterChangedVerified", playerid, players[playerid].data.verified );
+    trigger(playerid, "onCharacterChangedVerified", targetid, players[targetid].data.verified );
 
     // for all players
-    foreach (targetid, player in players) {
-        trigger(targetid, "onCharacterChangedVerified", playerid, players[playerid].data.verified ); // create name of current player for remote players
-        trigger(playerid, "onCharacterChangedVerified", targetid, players[targetid].data.verified ); // create name of remote player for current player
+    foreach (memberid, player in players) {
+        trigger(memberid, "onCharacterChangedVerified", playerid, players[playerid].data.verified ); // create name of current player for remote players
+        trigger(playerid, "onCharacterChangedVerified", memberid, players[memberid].data.verified ); // create name of remote player for current player
     }
 
 });
