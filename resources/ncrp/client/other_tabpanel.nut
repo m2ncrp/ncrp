@@ -7,12 +7,13 @@ local screenSize = getScreenSize( );
 // Scoreboard math stuff
 local fPadding = 5.0, fTopToTitles = 25.0;
 local fWidth = 600.0, fHeight = ((fPadding * 2) + (fTopToTitles * 3));
-local fOffsetID = 50.0, fOffsetName = 450.0;
+local fOffsetID = 30.0, fOffsetIDlist = 48.0, fOffsetVerified = 60.0, fOffsetName = 420.0;
 local fPaddingPlayer = 20.0;
 local fX = 0.0, fY = 0.0, fOffsetX = 0.0, fOffsetY = 0.0;
 
 local initialized = false;
 local players = array(MAX_PLAYERS, 0);
+local verified = array(MAX_PLAYERS, 0);
 
 function tabDown()
 {
@@ -68,19 +69,27 @@ function frameRender( post_gui )
         dxDrawText( "ID", fOffsetX, fOffsetY, 0xFFFFFFFF, true, "tahoma-bold" );
 
         fOffsetX += fOffsetID;
+        dxDrawText( "Verified", fOffsetX, fOffsetY, 0xFFFFFFFF, true, "tahoma-bold" );
+
+        fOffsetX += fOffsetVerified;
         dxDrawText( "Character", fOffsetX, fOffsetY, 0xFFFFFFFF, true, "tahoma-bold" );
 
         fOffsetX += fOffsetName;
         dxDrawText( "Ping", fOffsetX, fOffsetY, 0xFFFFFFFF, true, "tahoma-bold" );
 
         local localname = (getLocalPlayer() in players && players[getLocalPlayer()]) ? players[getLocalPlayer()] : getPlayerName(getLocalPlayer());
+        local isVerified = (getLocalPlayer() in verified && verified[getLocalPlayer()]) ? "+" : "";
 
         // Draw the localplayer
         fOffsetX = (fX + fPadding + 25.0);
         fOffsetY += 20.0;
         dxDrawText( getLocalPlayer().tostring(), fOffsetX, fOffsetY, 0xFF019875, true, "tahoma-bold" );
 
-        fOffsetX += fOffsetID;
+        fOffsetX += fOffsetIDlist;
+        dxDrawText( isVerified, fOffsetX, fOffsetY, 0xFF019875, true, "tahoma-bold" );
+        fOffsetX -= 18;
+
+        fOffsetX += fOffsetVerified;
         dxDrawText( localname, fOffsetX, fOffsetY, 0xFF019875, true, "tahoma-bold" );
 
         fOffsetX += fOffsetName;
@@ -97,7 +106,11 @@ function frameRender( post_gui )
                     fOffsetY += fPaddingPlayer;
                     dxDrawText( i.tostring(), fOffsetX, fOffsetY, getPlayerColour(i), true, "tahoma-bold" );
 
-                    fOffsetX += fOffsetID;
+                    fOffsetX += fOffsetIDlist;
+                    dxDrawText( verified[i] ? "+" : "", fOffsetX, fOffsetY, getPlayerColour(i), true, "tahoma-bold" );
+                    fOffsetX -= 18;
+
+                    fOffsetX += fOffsetVerified;
                     dxDrawText( players[i], fOffsetX, fOffsetY, getPlayerColour(i), true, "tahoma-bold" );
 
                     fOffsetX += fOffsetName;
@@ -109,7 +122,7 @@ function frameRender( post_gui )
 }
 addEventHandler( "onClientFrameRender", frameRender );
 
-addEventHandler("onServerPlayerAdded", function(playerid, charname) {
+addEventHandler("onServerPlayerAdded", function(playerid, charname, isVerified) {
     initialized = true;
 
     if( drawScoreboard ) {
@@ -117,6 +130,7 @@ addEventHandler("onServerPlayerAdded", function(playerid, charname) {
     }
 
     players[playerid] = charname;
+    verified[playerid] = isVerified;
 });
 
 addEventHandler("onClientPlayerDisconnect", function(playerid) {
@@ -126,4 +140,9 @@ addEventHandler("onClientPlayerDisconnect", function(playerid) {
         fHeight = fHeight - fPaddingPlayer;
     }
     players[playerid] = null;
+    verified[playerid] = false;
+});
+
+addEventHandler("onCharacterChangedVerified", function(playerid, isVerified) {
+    verified[playerid] = isVerified;
 });

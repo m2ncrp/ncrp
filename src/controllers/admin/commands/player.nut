@@ -71,6 +71,28 @@ acmd(["lastname"], function(playerid, targetid = null, newname = null) {
 
 });
 
+acmd(["verify"], function(playerid, targetid = null) {
+
+    if (targetid == null || !isPlayerConnected(targetid.tointeger())) {
+        return msg(playerid, "ID игрока не указан! Формат: /verify id", CL_ERROR);
+    }
+
+    targetid = targetid.tointeger();
+
+    players[targetid].setData("verified", true);
+    msg(playerid, format("Персонаж %s верифицирован.", getPlayerName(targetid)), CL_SUCCESS);
+
+    // for local player
+    trigger(playerid, "onCharacterChangedVerified", playerid, players[playerid].data.verified );
+
+    // for all players
+    foreach (targetid, player in players) {
+        trigger(targetid, "onCharacterChangedVerified", playerid, players[playerid].data.verified ); // create name of current player for remote players
+        trigger(playerid, "onCharacterChangedVerified", targetid, players[targetid].data.verified ); // create name of remote player for current player
+    }
+
+});
+
 // acmd("skin", function(playerid, id, targetid = null ) {
 //     if(!targetid) targetid = playerid;
 //     setPlayerModel(targetid.tointeger(), id.tointeger(), true);
