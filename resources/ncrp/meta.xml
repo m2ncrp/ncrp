@@ -117,7 +117,7 @@
 -->
         <!-- <file>Item.AlarmClock.png</file> -->
         <!-- <file>Item.Bomb.png</file> -->
-        <!-- <file>Item.Box.png</file> -->
+        <file>Item.Box.png</file>
         <file>Item.Brandy.png</file>
         <file>Item.Burger.png</file>
         <file>Item.BigBreakBlue.png</file>
@@ -147,6 +147,9 @@
         <file>Item.VehicleTax.png</file>
         <file>Item.Whiskey.png</file>
         <file>Item.Wine.png</file>
+
+        <file>Item.CouponWheels11.png</file>
+
         <file>Item.None.png</file>
 
     <!-- <file>shop.logo.empirediner.png</file> -->

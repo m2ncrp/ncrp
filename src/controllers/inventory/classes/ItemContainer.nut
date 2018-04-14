@@ -258,4 +258,5 @@ class ItemContainer extends Container
     function canBeInserted(item) {
         return this.isFreeSpace(1) && this.isFreeWeight(item);
     }
+
 }

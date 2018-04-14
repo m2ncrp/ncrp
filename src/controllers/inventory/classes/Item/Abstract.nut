@@ -83,6 +83,10 @@ class Item.Abstract extends ORM.JsonEntity
         // return JSONEncoder.encode(data);
     }
 
+    function canBeDestroyed() {
+        return true;
+    }
+
     static function getType() {
         return "Item.Abstract";
     }

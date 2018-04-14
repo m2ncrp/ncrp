@@ -27,6 +27,8 @@ include("controllers/inventory/classes/Item/Cigarettes.nut");
 include("controllers/inventory/classes/Item/Storage.nut");
 include("controllers/inventory/classes/Item/Money.nut");
 include("controllers/inventory/classes/Item/Gift.nut");
+include("controllers/inventory/classes/Item/Coupon.nut");
+include("controllers/inventory/classes/Item/Box.nut");
 
 include("controllers/inventory/classes/GroundItems.nut");
 include("controllers/inventory/classes/ItemContainer.nut");
@@ -129,6 +131,9 @@ class Item.BigBreakRed      extends Item.Cigarettes { static classname = "Item.B
 class Item.BigBreakBlue     extends Item.Cigarettes { static classname = "Item.BigBreakBlue";   constructor () { base.constructor(); this.weight = 0.0025; this.unitweight = 0.0012; this.effect = 6.0; this.timeout = 6; this.addiction = 10.0 }}
 class Item.BigBreakWhite    extends Item.Cigarettes { static classname = "Item.BigBreakWhite";  constructor () { base.constructor(); this.weight = 0.0025; this.unitweight = 0.0009; this.effect = 3.0; this.timeout = 7; this.addiction =  5.0 }}
 
-
-class Item.Box              extends Item.Storage    { static classname = "Item.Box";            constructor () { base.constructor(); this.weight = 4.0; }}
-
+class Item.CouponWheels       extends Item.Coupon        { static classname = "Item.CouponWheels";    constructor () { base.constructor(); }}
+class Item.CouponWheels3      extends Item.CouponWheels  { static classname = "Item.CouponWheels3";   constructor () { base.constructor(); this.model = 3  }}
+class Item.CouponWheels4      extends Item.CouponWheels  { static classname = "Item.CouponWheels4";   constructor () { base.constructor(); this.model = 4  }}
+class Item.CouponWheels7      extends Item.CouponWheels  { static classname = "Item.CouponWheels7";   constructor () { base.constructor(); this.model = 7  }}
+class Item.CouponWheels8      extends Item.CouponWheels  { static classname = "Item.CouponWheels8";   constructor () { base.constructor(); this.model = 8  }}
+class Item.CouponWheels11     extends Item.CouponWheels  { static classname = "Item.CouponWheels11";  constructor () { base.constructor(); this.model = 11 }}

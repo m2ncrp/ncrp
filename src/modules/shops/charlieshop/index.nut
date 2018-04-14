@@ -22,86 +22,121 @@ local availableWheelCars = [0, 1, 4, 6, 7, 8, 9, 10, 12, 13, 14, 15, 17, 18, 22,
 local car_info = {};
 local car_wheels = [
     {
-        number: 0,
-        price: 70.0,
-        available: true,
-        name: "Dunniel Spinner"
+        model = 0,
+        price = 70.0,
+        available = true,
+        name = "Dunniel Spinner"
     },
     {
-        number: 1,
-        price: 75.0,
-        available: true,
-        name: "Dunniel Black Rook"
+        model = 1,
+        price = 75.0,
+        available = true,
+        name = "Dunniel Black Rook"
     },
     {
-        number: 2,
-        price: 90.0,
-        available: true,
-        name: "Speedstone Alpha"
+        model = 2,
+        price = 90.0,
+        available = true,
+        name = "Speedstone Alpha"
     },
     {
-        number: 3,
-        price: 95.0,
-        available: false,
-        name: "Speedstone Beta"
+        model = 3,
+        price = 95.0,
+        available = false,
+        name = "Speedstone Beta"
     },
     {
-        number: 4,
-        price: 105.0,
-        available: false,
-        name: "Speedstone Top Speed"
+        model = 4,
+        price = 105.0,
+        available = false,
+        name = "Speedstone Top Speed"
     },
     {
-        number: 5,
-        price: 114.0,
-        available: true,
-        name: "Galahad Tiara"
+        model = 5,
+        price = 114.0,
+        available = true,
+        name = "Galahad Tiara"
     },
     {
-        number: 6,
-        price: 119.0,
-        available: true,
-        name: "Galahad Silver Band"
+        model = 6,
+        price = 119.0,
+        available = true,
+        name = "Galahad Silver Band"
     },
     {
-        number: 7,
-        price: 130.0,
-        available: false,
-        name: "Speedstone Diabolica"
+        model = 7,
+        price = 130.0,
+        available = false,
+        name = "Speedstone Diabolica"
     },
     {
-        number: 8,
-        price: 134.0,
-        available: false,
-        name: "Galahad Coronet"
+        model = 8,
+        price = 134.0,
+        available = false,
+        name = "Galahad Coronet"
     },
     {
-        number: 9,
-        price: 139.0,
-        available: true,
-        name: "Galahad Gold Crown"
+        model = 9,
+        price = 139.0,
+        available = true,
+        name = "Galahad Gold Crown"
     },
     {
-        number: 10,
-        price: 155.0,
-        available: true,
-        name: "Speedstone Pacific"
+        model = 10,
+        price = 155.0,
+        available = true,
+        name = "Speedstone Pacific"
     },
     {
-        number: 11,
-        price: 160.0,
-        available: false,
-        name: "Paytone Mistyhawk"
+        model = 11,
+        price = 160.0,
+        available = false,
+        name = "Paytone Mistyhawk"
     },
     {
-        number: 12,
-        price: 60.0,
-        available: true,
-        name: "Jeep Offroad"
+        model = 12,
+        price = 60.0,
+        available = true,
+        name = "Jeep Offroad"
     }
-};
+];
 
 // pay for [3, 4, 7, 8, 11]
+
+cmd("wheels", function(playerid) {
+    local character = players[playerid];
+    getVehicleWheelsArray( character.inventory );
+});
+
+
+cmd("kupon", function(playerid) {
+    local coupon = Item.CouponWheels11();
+    players[playerid].inventory.push( coupon );
+    coupon.save();
+    players[playerid].inventory.sync();
+});
+
+cmd("box", function(playerid) {
+    local box = Item.Box();
+    players[playerid].inventory.push( box );
+    box.save();
+    players[playerid].inventory.sync();
+});
+
+function tt() {
+    local privateWheels = players[0].inventory
+        .filter(@(item) (item instanceof Item.CouponWheels))
+        .map(@(key) key.model);
+
+    log(privateWheels);
+}
+
+function tt2() {
+    local availableWheels = car_wheels.filter(function(i, item) {
+        if(item.available) return item.model;
+    });
+    log(availableWheels)
+}
 
 /*
 
@@ -189,6 +224,9 @@ event("onPlayerPlaceEnter", function(playerid, name) {
             car_info[carid]["currentWheels"] = vehicle.getComponent(NVC.Hull).getColor();
 
             CHARLIESHOP_WHEEL_INDEX = 0;
+
+            log(car_info[carid]["availableWheels"]);
+            log(car_info[carid]["currentWheels"]);
 
             msg(character, "charlie.help2");
         }
@@ -401,11 +439,20 @@ function getVehicleWheelsArray( playerInventory ) {
 
     local privateWheels = playerInventory
         .filter(@(item) (item instanceof Item.CouponWheels))
-        .map(@(key) key.field)
+        .map(@(wheel) wheel.model);
 
-    local availableWheels = car_wheels.map(@(item) item.available == true)
+    local preAvailableWheels = car_wheels
+        .filter(@(i, item) (item.available))
+        .map(@(item) item.model);
 
-    availableWheels.extend(privateWheels);
+    preAvailableWheels.extend(privateWheels);
+
+    preAvailableWheels.sort();
+
+    return preAvailableWheels.filter(function(pos, item) {
+        return !pos || item != preAvailableWheels[pos - 1];
+    })
+
 }
 
 local translations = {
@@ -439,7 +486,7 @@ local translations = {
     "ru|charlie.welcome"                :   "Добро пожаловать в автомастерскую Чарли"
 
     "en|charlie.help1"                  :   "To change color - press button 1. Price: $%.2f."
-    "ru|charlie.help1"                  :   "Смена цвета - кнопка 1. Price: $%.2f."
+    "ru|charlie.help1"                  :   "Смена цвета - кнопка 1. Цена: $%.2f."
 
     "en|charlie.help2"                  :   "To change wheels - press button 2. The price is different."
     "ru|charlie.help2"                  :   "Смена колёс - кнопка 2. Цена различается."
