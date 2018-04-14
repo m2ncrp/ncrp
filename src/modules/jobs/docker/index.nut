@@ -325,12 +325,25 @@ event("updateMoveState", function(playerid, state) {
 
 
 key("c", function(playerid) {
+    dockerJobBoxCanDropped(playerid);
+}, KEY_UP);
+
+key("ctrl", function(playerid) {
+    dockerJobBoxCanDropped(playerid);
+}, KEY_UP);
+
+key("space", function(playerid) {
+    dockerJobBoxCanDropped(playerid);
+}, KEY_UP);
+
+
+function dockerJobBoxCanDropped(playerid) {
     if(isDocker( playerid ) && isDockerHaveBox(playerid)) {
         msg( playerid, "job.docker.dropped", DOCKER_JOB_COLOR );
 
         dockerJobLeaveBox( playerid );
     }
-}, KEY_UP);
+}
 
 
 function dockerJobLeaveBox( playerid ) {
