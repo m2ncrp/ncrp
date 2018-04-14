@@ -52,6 +52,7 @@ vehicleSpeedLimits[53] <- [27.4, 28.5];
 
 //local maxspeed = 0.0;
 local playersInfo = {};
+local maxToBan = 6; // minimun 2
 
 event("onServerStarted", function() {
 
@@ -114,7 +115,8 @@ event("onServerStarted", function() {
                         ) {
                             //log("================================================================ WARNING ===");
                             playersInfo[charId].counter += 1;
-                            if(playersInfo[charId].counter > 6) {
+                            if(playersInfo[charId].counter > maxToBan) {
+                                log("@everyone WARNING!!! "+getAuthor(playerid)+" - maybe using trainer");
                                 dbg("chat", "report", getAuthor(playerid), "Подозрение на использование трейнера. Наблюдаем. Никаких мер не предпринимать!!!");
                                 //log("================================================================ BAN >>>");
                                 playersInfo[charId].counter = 0;
