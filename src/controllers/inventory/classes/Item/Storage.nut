@@ -62,6 +62,10 @@ class Item.Storage extends Item.Abstract
         this.container.hide(playerid)
     }
 
+    function destroy(playerid, inventory) {
+        this.container.hide(playerid)
+    }
+
     static function getType() {
         return "Item.Storage";
     }
