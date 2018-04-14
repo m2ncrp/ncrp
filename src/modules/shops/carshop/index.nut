@@ -556,6 +556,7 @@ cmd("car", "buy", function(playerid) {
     vehicle.ownerid = players[playerid].id;
     vehicle.data.parking <- 0;
     vehicle.data.history <- [];
+    vehicle.hack = DirtyHack(vehicle);
 
     vehicle.save();
     vehicles.set(vehicle.id, vehicle);
