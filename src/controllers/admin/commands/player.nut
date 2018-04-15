@@ -85,10 +85,38 @@ acmd(["verify"], function(playerid, targetid = null) {
     // for local player
     trigger(playerid, "onCharacterChangedVerified", targetid, players[targetid].data.verified );
 
+    // for target players
+    trigger(targetid, "onCharacterChangedVerified", targetid, players[targetid].data.verified );
+
     // for all players
     foreach (memberid, player in players) {
-        trigger(memberid, "onCharacterChangedVerified", playerid, ("verified" in players[playerid].data) ? players[playerid].data.verified : false ); // create name of current player for remote players
-        trigger(playerid, "onCharacterChangedVerified", memberid, ("verified" in players[memberid].data) ? players[memberid].data.verified : false ); // create name of remote player for current player
+        //trigger(memberid, "onCharacterChangedVerified", playerid, ("verified" in players[playerid].data) ? players[playerid].data.verified : false ); // create name of current player for remote players
+        trigger(memberid, "onCharacterChangedVerified", targetid, ("verified" in players[targetid].data) ? players[targetid].data.verified : false ); // create name of remote player for current player
+    }
+
+});
+
+acmd(["unverify"], function(playerid, targetid = null) {
+
+    if (targetid == null || !isPlayerConnected(targetid.tointeger())) {
+        return msg(playerid, "ID игрока не указан! Формат: /unverify id", CL_ERROR);
+    }
+
+    targetid = targetid.tointeger();
+
+    players[targetid].setData("verified", false);
+    msg(playerid, format("Верификация персонажа %s отменена.", getPlayerName(targetid)), CL_SUCCESS);
+
+    // for local player
+    trigger(playerid, "onCharacterChangedVerified", targetid, players[targetid].data.verified );
+
+    // for target players
+    trigger(targetid, "onCharacterChangedVerified", targetid, players[targetid].data.verified );
+
+    // for all players
+    foreach (memberid, player in players) {
+        //trigger(memberid, "onCharacterChangedVerified", playerid, ("verified" in players[playerid].data) ? players[playerid].data.verified : false ); // create name of current player for remote players
+        trigger(memberid, "onCharacterChangedVerified", targetid, ("verified" in players[targetid].data) ? players[targetid].data.verified : false ); // create name of remote player for current player
     }
 
 });
