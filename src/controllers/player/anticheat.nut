@@ -144,6 +144,7 @@ event("onServerStarted", function() {
 });
 
 event("updateMoveState", function(playerid, state) {
+    if (!players.has(playerid)) return;
     if (players[playerid].id in playersInfo) {
         playersInfo[players[playerid].id].state = state;
     }
