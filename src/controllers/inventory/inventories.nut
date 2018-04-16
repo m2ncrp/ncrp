@@ -179,7 +179,8 @@ event("native:onPlayerDestroyItem", function(playerid, id, slot) {
 
     if (inventory.isOpened(playerid)) {
         if (inventory.exists(slot)) {
-            if (!inventory.canBeDestroyed(inventory[slot])) return msg(playerid, "can not destroyed", CL_WARNING);
+
+            if (!inventory[slot].canBeDestroyed()) return msg(playerid, "inventory.cannotdestroy", CL_WARNING);
 
             local item = inventory.remove(slot);
             inventory.sync();

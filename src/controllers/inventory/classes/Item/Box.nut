@@ -14,6 +14,6 @@ class Item.Box extends Item.Storage
     }
 
     function canBeDestroyed() {
-        
+        return (this.calculateWeight() == this.weight);
     }
 }
