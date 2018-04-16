@@ -235,4 +235,13 @@ class ItemContainer extends Container
     function canBeInserted(item) {
         return this.isFreeSpace(1) && this.isFreeWeight(item);
     }
+
+    /**
+     * Check item can be destroyed
+     * @param  {Item} item
+     * @return {Boolean}
+     */
+    function canBeDestroyed() {
+        return true;
+    }
 }
