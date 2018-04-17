@@ -219,7 +219,6 @@ class ItemContainer extends Container
             }
         }
 
-        dbg(weight)
         return weight;
     }
 
@@ -275,5 +274,4 @@ class ItemContainer extends Container
     function canBeDestroyed() {
         return true;
     }
-
 }

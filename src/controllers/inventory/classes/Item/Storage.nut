@@ -6,18 +6,18 @@ class Item.Storage extends Item.Abstract
     loaded = false;
     // default_decay = 0; // бесконечное хранение на земле
 
-    function calculateWeight () {
+    constructor() {
+        base.constructor();
+        container = StorageItemContainer(this);
+    }
+
+    function calculateWeight() {
         if (!this.isLoaded()) {
             this.load();
         }
 
         this.amount = container.calculateWeight();
         return this.weight + this.amount;
-    }
-
-    constructor () {
-        base.constructor();
-        container = StorageItemContainer(this);
     }
 
     function use(playerid, inventory) {

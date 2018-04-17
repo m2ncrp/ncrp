@@ -30,27 +30,13 @@ class StorageItemContainer extends ItemContainer
         return base.canBeInserted(item);
     }
 
-    function sync() {
-        base.sync();
-
-        local item = this.parent;
-        if (item.inventory) {
-            item.inventory.sync();
-        }
-    }
-
     /**
      * Overrides for syncing
      * @param {Mixed} key
      * @param {Item.Abstract} item
      */
     function set(key, item) {
-        // if (this.parent.id != item.id && !(item instanceof Item.Storage)) {
-            item.parent = this.parent.id;
-            return base.set(key, item);
-        // } else {
-        //     throw "Can't storage into storage in StorageItemContainer.nut";
-            //return false;
-        // }
+        item.parent = this.parent.id;
+        return base.set(key, item);
     }
 }
