@@ -212,11 +212,10 @@ class ItemContainer extends Container
             // skip item weight check if the 1 time flag is set
             // (and reset it to false afterwards)
             if (item.unweightable) {
-                item.unweightable = false
-                continue;
+                item.unweightable = false;
+            } else {
+                weight += item.calculateWeight();
             }
-
-            weight += item.calculateWeight();
         }
 
         dbg(weight)

@@ -11,13 +11,7 @@ class Item.Storage extends Item.Abstract
             this.load();
         }
 
-        local sum = 0;
-
-        foreach (idx, item in this.container) {
-            sum += item.calculateWeight();
-        }
-
-        this.amount = sum;
+        this.amount = container.calculateWeight();
         return this.weight + this.amount;
     }
 
