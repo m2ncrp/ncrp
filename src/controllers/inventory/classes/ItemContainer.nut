@@ -211,7 +211,7 @@ class ItemContainer extends Container
         foreach (idx, item in this.__data) {
             weight += item.calculateWeight();
         }
-
+        dbg(weight)
         return weight;
     }
 

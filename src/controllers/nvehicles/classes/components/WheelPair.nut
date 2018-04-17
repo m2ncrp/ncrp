@@ -32,20 +32,26 @@ class NVC.WheelPair extends NVC
                ];
     }
 
-    function set(pair_num, to) {
+    function setAll(model) {
+        this.set(0, model);
+        this.set(1, model);
+        this.set(2, model);
+    }
+
+    function set(pair_num, model) {
         if (pair_num == this.WheelPosition.front) {
-            this.data.front = to;
+            this.data.front = model;
         }
 
         if (pair_num == this.WheelPosition.middle) {
-            this.data.middle = to;
+            this.data.middle = model;
         }
 
         if (pair_num == this.WheelPosition.rear) {
-            this.data.rear = to;
+            this.data.rear = model;
         }
 
-        setVehicleWheelTexture( this.parent.vehicleid, pair_num, to );
+        setVehicleWheelTexture( this.parent.vehicleid, pair_num, model );
     }
 
     /**

@@ -4,6 +4,7 @@ class PlayerHandsContainer extends PlayerItemContainer
 
     sizeX = 1;
     sizeY = 1;
+    limit = 10.0;
 
     item_state = Item.State.PLAYER_HAND;
 

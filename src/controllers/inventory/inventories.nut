@@ -50,6 +50,8 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
 event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
     // dbg("receiving moving item reueqst with ", id1, slot1, id2, slot2);
 
+    msg(playerid, "["+slot1+"]   ---->    ["+slot2+"]")
+
     if (id1 != id2) {
         // operations on different inventories
         if (!storage.exists(id1)) return;
@@ -66,6 +68,7 @@ event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
             local item1 = inventory1[slot1];
 
             if (inventory2.exists(slot2)) {
+                msg(playerid, "ac1")
                 if (!inventory1.canBeInserted(inventory2[slot2])) return msg(playerid, "inventory.cannotinsert", CL_WARNING);
                 if (!inventory2.canBeInserted(inventory1[slot1])) return msg(playerid, "inventory.cannotinsert", CL_WARNING);
 
@@ -76,8 +79,15 @@ event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
                 inventory1.get(slot1).move(playerid, inventory1);
                 inventory2.get(slot2).move(playerid, inventory2);
             } else {
-                if (!inventory2.canBeInserted(inventory1[slot1])) return msg(playerid, "inventory.cannotinsert", CL_WARNING);
+                dbg("Item", inventory1[slot1])
+                dbg("Item.parent", inventory1[slot1].parent)
+                dbg("From ID", inventory1[slot1].parent)
+                dbg("inventory2", inventory2)
+                dbg("inventory2.parent", inventory2.parent)
 
+                if (!inventory2.canBeInserted(inventory1[slot1])) {
+                    return msg(playerid, "inventory.cannotinsert", CL_WARNING);
+                }
                 // we should just put item inside 2nd
                 inventory2.set(slot2, item1);
                 inventory1.remove(slot1);
@@ -90,6 +100,7 @@ event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
         inventory2.sync();
     }
     else {
+        msg(playerid, "ac3")
         // operations in same inventory
         if (!storage.exists(id1)) return;
 

@@ -48,13 +48,13 @@ local car_wheels = [
     {
         model = 4,
         price = 105.0,
-        available = false,
+        available = true,
         name = "Speedstone Top Speed"
     },
     {
         model = 5,
         price = 114.0,
-        available = true,
+        available = false,
         name = "Galahad Tiara"
     },
     {
@@ -101,7 +101,7 @@ local car_wheels = [
     }
 ];
 
-// pay for [3, 4, 7, 8, 11]
+// pay for [3, 5, 7, 8, 11]
 
 cmd("wheels", function(playerid) {
     local character = players[playerid];
@@ -121,6 +121,21 @@ cmd("box", function(playerid) {
     players[playerid].inventory.push( box );
     box.save();
     players[playerid].inventory.sync();
+});
+
+cmd("setwheel", function(playerid, model) {
+    if (!isPlayerInNVehicle(playerid)) return;
+
+    local vehicle = getPlayerNVehicle(playerid);
+    vehicle.getComponent(NVC.WheelPair).setAll(model.tointeger());
+
+});
+
+cmd("ch", function(playerid, char) {
+
+    local ch = char.tointeger();
+    msg(playerid, "symbol: "+ch.tochar())
+
 });
 
 function tt() {
@@ -221,7 +236,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
 
         if(isWheel) {
             car_info[carid]["availableWheels"] = getVehicleWheelsArray( character.inventory );
-            car_info[carid]["currentWheels"] = vehicle.getComponent(NVC.Hull).getColor();
+            car_info[carid]["currentWheels"] = vehicle.getComponent(NVC.WheelPair).getAll();
 
             CHARLIESHOP_WHEEL_INDEX = 0;
 
