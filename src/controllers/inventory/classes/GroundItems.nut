@@ -27,6 +27,7 @@ class GroundItems
         item.state = Item.State.GROUND;
         item.decay = getTimestamp() + item.default_decay;
         item.parent = 0;
+        item.inventory = null;
         item.x = position.x;
         item.y = position.y;
         item.z = position.z;

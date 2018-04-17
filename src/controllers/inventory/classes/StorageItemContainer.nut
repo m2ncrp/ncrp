@@ -30,6 +30,15 @@ class StorageItemContainer extends ItemContainer
         return base.canBeInserted(item);
     }
 
+    function sync() {
+        base.sync();
+
+        local item = this.parent;
+        if (item.inventory) {
+            item.inventory.sync();
+        }
+    }
+
     /**
      * Overrides for syncing
      * @param {Mixed} key

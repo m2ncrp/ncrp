@@ -163,6 +163,7 @@ class ItemContainer extends Container
     function set(key, value) {
         value.slot = key;
         value.state = this.item_state;
+        value.inventory = this;
         return base.set(key, value);
     }
 

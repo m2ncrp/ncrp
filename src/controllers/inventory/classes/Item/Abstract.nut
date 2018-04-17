@@ -17,7 +17,9 @@ class Item.Abstract extends ORM.JsonEntity
         ORM.Trait.Positionable(),
     ];
 
-    unweightable = false;
+    inventory    = null; /* pointer to parent inventory which holds the item */
+    unweightable = false; /* marker for proper weight calculation (technical) */
+
     stackable   = false;
     maxstack    = 0;
     weight      = 0.0;
