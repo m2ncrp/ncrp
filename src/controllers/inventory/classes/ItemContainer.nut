@@ -209,8 +209,16 @@ class ItemContainer extends Container
         local weight = 0.0;
 
         foreach (idx, item in this.__data) {
+            // skip item weight check if the 1 time flag is set
+            // (and reset it to false afterwards)
+            if (item.unweightable) {
+                item.unweightable = false
+                continue;
+            }
+
             weight += item.calculateWeight();
         }
+
         dbg(weight)
         return weight;
     }

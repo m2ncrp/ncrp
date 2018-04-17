@@ -7,14 +7,17 @@ class Item.Storage extends Item.Abstract
     // default_decay = 0; // бесконечное хранение на земле
 
     function calculateWeight () {
-        if (this.isLoaded()) {
-            local sum = 0;
-            foreach (idx, item in this.container) {
-                sum += item.calculateWeight();
-            }
-            this.amount = sum;
-            return this.weight + sum;
+        if (!this.isLoaded()) {
+            this.load();
         }
+
+        local sum = 0;
+
+        foreach (idx, item in this.container) {
+            sum += item.calculateWeight();
+        }
+
+        this.amount = sum;
         return this.weight + this.amount;
     }
 
