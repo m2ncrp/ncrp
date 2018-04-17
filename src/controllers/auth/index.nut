@@ -7,7 +7,7 @@ AUTH_AUTOLOGIN_TIME      <- 900; // 15 minutes
 const DEFAULT_SPAWN_SKIN = 4;
 const DEFAULT_SPAWN_X    = -143.0; // 375.439;  // -568.042;  //-143.0;  //-1027.02;
 const DEFAULT_SPAWN_Y    =  1206.0;//  727.43;  // -28.7317;   //1206.0;  //1746.63;
-const DEFAULT_SPAWN_Z    =  84.0;  //-4.09301;  //  22.2012;   //84.0;    //10.2325;
+const DEFAULT_SPAWN_Z    =  83.5;  //-4.09301;  //  22.2012;   //84.0;    //10.2325;
 
 // Roof in Uptown
 //-762.8;
