@@ -303,6 +303,8 @@ class Inventory
     }
 
     function updateGUI(data) {
+        this.data = data;
+
         local find = function(haystack, needed) {
             foreach (idx, value in haystack) {
                 if (value.slot == needed) return value;
@@ -802,12 +804,9 @@ event("onClientFrameRender", function(afterGUI) {
 
         local items  = clone(inventory.items);              if (typeof items != "table") return;
         local window = guiGetPosition(inventory.handle);    if (typeof window != "array" || window.len() != 2) return;
-        local weight = 0.0;
         local size   = inventory.getSize();                 if (typeof size != "table") return;
 
         foreach (idx, item in items) {
-            weight += item.weight;
-
             if (!item.active) continue;
 
             local pos = inventory.getItemPosition(item);    if (typeof pos != "table") return;
@@ -825,7 +824,7 @@ event("onClientFrameRender", function(afterGUI) {
             size = inventory.getOriginalSize();
         }
 
-        local coef = (weight / inventory.data.limit);       if (typeof coef != "float") return;
+        local coef = (inventory.data.weight / inventory.data.limit);       if (typeof coef != "float") return;
         local invwidth = size.x - inventory.guiPadding * 2 - inventory.guiRightOffset - 7;
         local width = invwidth * (coef > 1.0 ? 1.0 : coef);
 

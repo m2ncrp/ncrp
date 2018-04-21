@@ -96,10 +96,16 @@ class ItemContainer extends Container
      * @return {Boolean}
      */
     function sync() {
+        if (!this.isOpenedBySomebody()) {
+            return false;
+        }
+
+        local serialized = this.serialize();
+
         foreach (characterid, character in this.opened) {
             if (character.playerid != -1 && isPlayerConnected(character.playerid)) {
                 if (getPlayerName(character.playerid) == character.getName()) {
-                    trigger(character.playerid, "inventory:onServerOpen", this.id, this.serialize(), getPlayerLocale(character.playerid), getPlayerName(character.playerid));
+                    trigger(character.playerid, "inventory:onServerOpen", this.id, serialized, getPlayerLocale(character.playerid), getPlayerName(character.playerid));
                 }
             }
         }
@@ -145,6 +151,7 @@ class ItemContainer extends Container
             sizeY = this.sizeY,
             limit = this.limit,
             type  = this.classname,
+            weight = this.calculateWeight(),
             items = [],
         };
 
