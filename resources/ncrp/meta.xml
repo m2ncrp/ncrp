@@ -8,7 +8,7 @@
 
     <!-- non-packed client scripts -->
         <!-- audio -->
-        <script type="client">audio_player.nut</script>
+        <!-- <script type="client">audio_player.nut</script> -->
 
         <!-- gui -->
         <script type="client">gui_alert.nut</script>
