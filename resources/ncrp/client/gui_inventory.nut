@@ -824,7 +824,7 @@ event("onClientFrameRender", function(afterGUI) {
             size = inventory.getOriginalSize();
         }
 
-        local coef = (inventory.data.weight / inventory.data.limit);       if (typeof coef != "float") return;
+        local coef = (inventory.data.weight / inventory.data.limit);       //if (typeof coef != "float") return;
         local invwidth = size.x - inventory.guiPadding * 2 - inventory.guiRightOffset - 7;
         local width = invwidth * (coef > 1.0 ? 1.0 : coef);
 
