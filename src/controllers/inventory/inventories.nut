@@ -64,7 +64,7 @@ event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
             }
 
             local item1 = inventory1[slot1];
-            item1.unweightable = true; /* mark item to skip weight calculation for parent inventory for this round */
+            //item1.unweightable = true; /* mark item to skip weight calculation for parent inventory for this round */
 
             if (inventory2.exists(slot2)) {
                 msg(playerid, "ac1")
