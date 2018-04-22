@@ -813,7 +813,6 @@ event("inventory:onServerOpen", function(id, incoming_data, playerLanguage, char
         if (!Inventory.isAnyOpened(storage)) {
             defaultMouseState = isCursorShowing();
             showCursor(true);
-            delayedFunction(500, function() { showCursor(true); });
         }
     }
 
