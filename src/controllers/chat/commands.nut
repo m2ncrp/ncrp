@@ -296,6 +296,12 @@ key("f3", function(playerid) {
     return setPlayerChatSlot(playerid, 2);
 });
 
+key("f4", function(playerid) {
+    if(isPlayerLogined(playerid)) {
+        return trigger(playerid, "onServerCursorTrigger");
+    }
+});
+
 //key("f4", function(playerid) {
 //    return setPlayerChatSlot(playerid, 3);
 //});
