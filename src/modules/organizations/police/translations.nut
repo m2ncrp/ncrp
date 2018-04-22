@@ -1,4 +1,4 @@
-local phrases = {
+alternativeTranslate({
 
 "en|job.police.cadet"                               : "cadet"
 "ru|job.police.cadet"                               : "кадет"
@@ -118,6 +118,8 @@ local phrases = {
 "ru|organizations.police.duty.alreadyoff"           : "Вы уже закончили свою смену."
 
 
+"en|organizations.police.toofarfromoffender"        : "You're too far from offender!"
+"ru|organizations.police.toofarfromoffender"        : "Вы слишком далеко от нарушителя!"
 
 "en|organizations.police.toofarfromgarage"          : "You're too far from police garage!"
 "ru|organizations.police.toofarfromgarage"          : "Вы слишком далеко от полицейского гаража!"
@@ -267,5 +269,4 @@ local phrases = {
 
 "en|policebadge.info.number"                        : "Number: %s"
 "ru|policebadge.info.number"                        : "Номер: %s"
-}
-alternativeTranslate(phrases); //don't delete!
+});
