@@ -198,6 +198,11 @@ alternativeTranslate({
 "en|organizations.police.carwantedtax"              : "[POLICE] Wanted cars for non-payment of tax: %s"
 "ru|organizations.police.carwantedtax"              : "[POLICE] Разыскиваемые автомобили за неуплату налога: %s"
 
+"en|organizations.police.carwanted"                 : "[POLICE] Car with number %s is wanted."
+"ru|organizations.police.carwanted"                 : "[POLICE] Автомобиль с номером %s находится в розыске."
+
+"en|organizations.police.carnotwanted"              : "[POLICE] Car with number %s isn't wanted."
+"ru|organizations.police.carnotwanted"              : "[POLICE] Автомобиль с номером %s не находится в розыске."
 
 "en|organizations.police.info.howjoin"              : "If you want to join Police Department write one of admins!"
 "ru|organizations.police.info.howjoin"              : "Если вы хотите пополнить ряды офицеров департамента Empire Bay, напишите администраторам!"
