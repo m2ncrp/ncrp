@@ -465,8 +465,8 @@ function takeOutOfJail(playerid, targetid) {
 function getVehicleWantedForTax() {
     local vehiclesWanted = [];
 
-    foreach (idx, value in __vehicles) {
-        if(value.entity) {
+    foreach (vehicleid, value in __vehicles) {
+        if(value.entity && !isVehicleInParking(vehicleid)) {
             vehiclesWanted.push( value.entity.plate );
         }
     }

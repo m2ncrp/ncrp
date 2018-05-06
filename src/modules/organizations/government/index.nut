@@ -147,6 +147,8 @@ cmd("tax", function( playerid, plateText = 0, monthUp = 1 ) {
     taxObj.save();
     players[playerid].inventory.sync();
 
+    vehicleWanted = getVehicleWantedForTax();
+
 });
 
 

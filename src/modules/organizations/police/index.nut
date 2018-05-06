@@ -191,7 +191,7 @@ event("onServerStarted", function() {
     createVehicle(51, -326.781, 663.293, -17.5188, 93.214, -2.95046, -0.0939897 );      // policeOldCarParking2
     createVehicle(42, 160.689, -351.494, -20.087, 0.292563, 0.457066, -0.15319 );       // policeCarKosoyPereulok
 
-    vehicleWanted  = getVehicleWantedForTax();
+    vehicleWanted = getVehicleWantedForTax();
 
     createPlace("KosoyPereulok", 171.597, -302.503, 161.916, -326.178);
     // Create Police Officers Manager here

@@ -393,3 +393,33 @@ cmd("wanted", function ( playerid ) {
     }
     msg(playerid, "organizations.police.carwantedtax", [ list ], CL_ROYALBLUE);
 });
+
+// player need to be in car
+cmd("wanted", "car", function ( playerid, plate = null) {
+    if ( !isOfficer(playerid) ) {
+        return msg(playerid, "organizations.police.notanofficer");
+    }
+
+    if( !isPlayerInPoliceVehicle(playerid) ) {
+        return msg( playerid, "organizations.police.notinpolicevehicle");
+    }
+
+    if ( !isOnPoliceDuty(playerid) ) {
+        return msg( playerid, "organizations.police.duty.not" );
+    }
+
+    if (plate == null || plate.len() < 6) {
+        return msg( playerid, "parking.needEnterPlate");
+    }
+
+    local vehicleid = getVehicleByPlateText(plate.toupper());
+    if(vehicleid == null) {
+        return msg( playerid, "parking.checkPlate");
+    }
+
+    if(vehicleWanted.find(plate.toupper()) == null) {
+        return msg(playerid, "organizations.police.carnotwanted", plate.toupper(), CL_SUCCESS);
+    }
+
+    return msg(playerid, "organizations.police.carwanted", plate.toupper(), CL_ERROR);
+});
