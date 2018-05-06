@@ -1,3 +1,9 @@
+local isRestarting = false;
+
+event("native:onPlayerConnect", function(playerid, name, ip, serial) {
+    if(isRestarting) kickPlayer( playerid );
+});
+
 function planServerRestart(playerid) {
     msga("autorestart.15min", [], CL_RED);
 
@@ -22,6 +28,8 @@ function planServerRestart(playerid) {
 
         // kick all
         kickAll();
+
+        isRestarting = true;
 
         delayedFunction(4000, function() {
 
@@ -50,6 +58,8 @@ function planFastServerRestart(playerid) {
         // kick all
         kickAll();
 
+        isRestarting = true;
+
         delayedFunction(4000, function() {
 
             trigger("native:onServerShutdown");
@@ -69,6 +79,8 @@ function planNowServerRestart(playerid) {
     delayedFunction(300, function() {
         // kick all
         kickAll();
+
+        isRestarting = true;
 
         delayedFunction(4000, function() {
 
