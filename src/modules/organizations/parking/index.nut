@@ -98,7 +98,8 @@ event("onVehicleSetToCarPound", function(playerid, plate = null) {
         setBusyParkingPlaces(); //read before
         vehicleWanted = getVehicleWantedForTax();
         msg(playerid, "parking.complete");
-        dbg("chat", "police", getAuthor(playerid), format("Отправил на штрафстоянку автомобиль с номером %s", getVehiclePlateText(vehicleid)) );
+        local plate = vehicle.components.findOne(NVC.Plate).get();
+        dbg("chat", "police", getAuthor(playerid), format("Отправил на штрафстоянку автомобиль с номером %s", plate) );
     } else {
         msg(playerid, "parking.noFreeSpace");
         dbg("chat", "police", getAuthor(playerid), "Нет своободных мест на штрафстоянке" );
@@ -139,7 +140,8 @@ event("onVehicleGetFromCarPound", function(playerid) {
         addMoneyToTreasury(price);
         msg(playerid, "parking.free", CL_SUCCESS);
         vehicleWanted = getVehicleWantedForTax();
-        dbg("chat", "police", getAuthor(playerid), format("Забрал со штрафстоянки автомобиль с номером %s", getVehiclePlateText(vehicleid)) );
+        local plate = vehicle.components.findOne(NVC.Plate).get();
+        dbg("chat", "police", getAuthor(playerid), format("Забрал со штрафстоянки автомобиль с номером %s", plate) );
         return;
     }
     msg(playerid, "Something went wrong. Ask an admin!", CL_CHAT_MONEY_SUB);
