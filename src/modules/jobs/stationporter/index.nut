@@ -273,8 +273,9 @@ function porterJobPutBox( playerid ) {
     porterJobRemovePrivateBlipText ( playerid );
 
     job_porter[getCharacterIdFromPlayerId(playerid)]["havebox"] = false;
-    msg( playerid, "job.porter.nicejob", PORTER_SALARY, PORTER_JOB_COLOR );
-    addMoneyToPlayer(playerid, PORTER_SALARY);
+    local amount = PORTER_SALARY + round(getSalaryBonus() / 50, 2);
+    msg( playerid, "job.porter.nicejob", amount, PORTER_JOB_COLOR );
+    addMoneyToPlayer(playerid, amount);
 
     job_porter[getCharacterIdFromPlayerId(playerid)]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_TAKEBOX_X, PORTER_JOB_TAKEBOX_Y, PORTER_JOB_TAKEBOX_Z, plocalize(playerid, "TAKEBOXHERE"), plocalize(playerid, "3dtext.job.press.E"));
     //delayedFunction(250, function () { setPlayerAnimStyle(playerid, "common", "default"); });

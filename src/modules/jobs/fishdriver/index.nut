@@ -508,7 +508,7 @@ function fishJobLoad( playerid ) {
 
 // working good, check
 function fishGetSalary( playerid ) {
-    local amount = FISH_JOB_SALARY;
+    local amount = FISH_JOB_SALARY + round(getSalaryBonus() / 25, 2);
     msg( playerid, "job.fishdriver.nicejob", [getPlayerName( playerid ), amount], FISH_JOB_COLOR );
     addMoneyToPlayer(playerid, amount);
 }

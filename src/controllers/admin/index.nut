@@ -32,7 +32,7 @@ local serverAdmins = {};
 function isPlayerAdmin(playerid) {
     //return (getPlayerSerial(playerid) in serverAdmins);
 
-    if(!fractions.exists("admin")) {
+    if(!fractions.exists("admin") || !players.has(playerid)) {
         return false;
     }
 

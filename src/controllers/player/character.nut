@@ -153,6 +153,8 @@ function validateAndUpdateCharacter(playerid, character, firstname, lastname, ra
      * Check for name bans
      */
     local banned = false;
+    local regexpBannedFirstname = false;
+    local regexpBannedLastname = false;
     local q = ORM.Query("select * from @BannedName where ((firstname like :firstname and lastname = '') or (firstname like :lastname and lastname = '') or (firstname like :firstname and lastname like :lastname))");
 
     q.setParameter("firstname", firstname);
@@ -162,7 +164,11 @@ function validateAndUpdateCharacter(playerid, character, firstname, lastname, ra
         banned = (!err && bans.len() > 0);
     });
 
-    if (banned) {
+    regexpBannedLastname = regexp(@"([^ae]in|ov|ev|off|iy|yan|dze|[^sia|]ko|[^a]nko|vich|ik)$").search(lastname);
+
+    //([^ae]in|ov|ev|off|iy|yan|dze|[^sia|]ko|[^a]nko|vich|ik)$
+
+    if (banned || regexpBannedFirstname || regexpBannedLastname) {
         return alert(playerid, "character.bannednames");
     }
 

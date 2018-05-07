@@ -51,7 +51,8 @@ vehicleSpeedLimits[53] <- [27.4, 28.5];
 
 
 //local maxspeed = 0.0;
-
+local playersInfo = {};
+local maxToBan = 6; // minimun 2
 
 event("onServerStarted", function() {
 
@@ -95,19 +96,66 @@ event("onServerStarted", function() {
                 if (maxsp > limits[1]) {
                     kick( -1, playerid, "speed-hack protection" );
                 }
+            } else {
+                if(players.has(playerid)) {
+
+                    local plaPos = getPlayerPosition(playerid);
+                    local charId = players[playerid].id;
+                    if( !(charId in playersInfo) ) return;
+
+                    local oldPos = playersInfo[charId].pos;
+                    local state = playersInfo[charId].state;
+
+                    if(oldPos && state != null) {
+                        local distance = getDistanceBetweenPoints2D( plaPos[0], plaPos[1], oldPos[0], oldPos[1] );
+                        if(distance == 0) return;
+                        if((state == 0 && distance > 1.1)
+                        || (state == 1 && distance > 6.0)
+                        || (state == 2 && distance > 4.0)
+                        ) {
+                            //log("================================================================ WARNING ===");
+                            playersInfo[charId].counter += 1;
+                            if(playersInfo[charId].counter > maxToBan) {
+                                log("@everyone WARNING!!! "+getAuthor(playerid)+" - maybe using trainer");
+                                dbg("chat", "report", getAuthor(playerid), "Подозрение на использование трейнера. Наблюдаем. Никаких мер не предпринимать!!!");
+                                //log("================================================================ BAN >>>");
+                                playersInfo[charId].counter = 0;
+                            }
+                        } else {
+                            playersInfo[charId].counter = 0;
+                        }
+                        //log("distance distance distance distance distance "+state.tostring()+" distance: "+distance.tostring());
+                    }
+                    playersInfo[charId].pos = [plaPos[0], plaPos[1]];
+                }
+
             }
 
             // anticheat - remove weapons
-            /*
             if (!isOfficer(playerid) && !isPlayerAdmin(playerid)) {
                 local weaponlist = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 21];
                 weaponlist.apply(function(id) {
                     removePlayerWeapon( playerid, id );
                 })
             }
-            */
+
         }
     }, 500, -1);
+});
+
+event("updateMoveState", function(playerid, state) {
+    if (!players.has(playerid)) return;
+    if (players[playerid].id in playersInfo) {
+        playersInfo[players[playerid].id].state = state;
+    }
+});
+
+event("onServerPlayerStarted", function(playerid) {
+    local charId = getCharacterIdFromPlayerId(playerid);
+    playersInfo[charId] <- {};
+    playersInfo[charId].state <- null;
+    playersInfo[charId].pos <- null;
+    playersInfo[charId].counter <- 0;
 });
 
 event("onPlayerConnect", function(playerid) {

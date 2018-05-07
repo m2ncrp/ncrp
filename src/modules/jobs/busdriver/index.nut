@@ -422,7 +422,7 @@ addJobEvent("q", BUS_JOB_NAME, "complete", busJobLeave);
 Event: JOB - Bus driver - Get salary
 */
 function busGetSalary( playerid ) {
-    local amount = job_bus[getCharacterIdFromPlayerId(playerid)]["route"][1];
+    local amount = job_bus[getCharacterIdFromPlayerId(playerid)]["route"][1] + getSalaryBonus();
     addMoneyToPlayer(playerid, amount);
     msg( playerid, "job.bus.nicejob", amount, BUS_JOB_COLOR );
 }

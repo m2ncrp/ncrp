@@ -548,7 +548,7 @@ addJobEvent("e", MILK_JOB_NAME, "complete", milkJobComplete);
 Event: JOB - Milk driver - Get salary
 */
 function milkGetSalary( playerid ) {
-    local amount = MILK_JOB_SALARY + (random(-1, 1)).tofloat();
+    local amount = MILK_JOB_SALARY + (random(-1, 1)).tofloat() + getSalaryBonus();
     msg( playerid, "job.milkdriver.nicejob", amount, MILK_JOB_COLOR );
     addMoneyToPlayer(playerid, amount);
 }

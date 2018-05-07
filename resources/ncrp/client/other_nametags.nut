@@ -48,7 +48,7 @@ event("onClientFrameRender", function(isGUIDrawn) {
     }
 });
 
-event("onServerPlayerAdded", function(playerid, charname) {
+event("onServerPlayerAdded", function(playerid, charname, isVerified) {
     players[playerid] = charname;
 });
 

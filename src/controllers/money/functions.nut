@@ -64,7 +64,6 @@ function setPlayerMoney(playerid, money) {
 
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
 /**
  * Send <amount> dollars from <playerid> to <targetid>
  *
@@ -72,39 +71,86 @@ function setPlayerMoney(playerid, money) {
  * @param  {int} targetid
  * @param  {float} amount
  */
+
+local moneyTransferRequest = {};
+
 function sendMoney(playerid, targetid = null, amount = null) {
 
     if (targetid == null || amount == null) {
-        return msg(playerid, "You must provide player id and amount for transfer money.");
+        return msg(playerid, "moneysend.provide");
     }
 
     local targetid = targetid.tointeger();
     local amount = round(fabs(amount.tofloat()), 2);
     if (playerid == targetid) {
-        return msg(playerid, "You can't give money to yourself.");
+        return msg(playerid, "moneysend.yourself");
     }
     if ( !isPlayerConnected(targetid) ) {
-        return msg(playerid, "There's no such person on server!");
+        return msg(playerid, "moneysend.noplayer");
     }
 
-    if(getPlayerState( playerid ) != "free" || getPlayerState( targetid ) != "free") {
-        return msg(playerid, "You can't send money." );
+    if (!checkDistanceBtwTwoPlayersLess(playerid, targetid, 2.0)) {
+        return msg(playerid, "moneysend.largedistance");
     }
 
-    if (checkDistanceBtwTwoPlayersLess(playerid, targetid, 2.0)) {
-        if(canMoneyBeSubstracted(playerid, amount)) {
-            subMoneyToPlayer(playerid, amount);
-            addMoneyToPlayer(targetid, amount);
-            msg(playerid, "You've given $" + amount + " to " + getPlayerName(targetid) + " (#" + targetid + "). Your balance: $" + getPlayerBalance(playerid) );
-            msg(targetid, "You've taken $" + amount + " from " + getPlayerName(playerid) + " (#" + playerid + "). Your balance: $" + getPlayerBalance(targetid) );
+    local pair = getCharacterIdFromPlayerId(playerid)+"-"+getCharacterIdFromPlayerId(targetid);
 
-            dbg("money", "send", getPlayerName(playerid), getPlayerName(targetid), amount);
-            statisticsPushText("money", playerid, format("to: %s, amount: %.2f", getPlayerName(targetid), amount), "send");
-        } else {
-            msg(playerid, "Not enough money to give!");
-            msg(targetid, getPlayerName(playerid) + " (#" + playerid + ") can't give you money!");
+    if ( ! (pair in moneyTransferRequest) ) {
+        moneyTransferRequest[pair] <- "open";
+    }
+
+    if (moneyTransferRequest[pair] != "open") {
+        return msg(playerid, "moneysend.inprocess");
+    }
+
+    moneyTransferRequest[pair] = "inprocess";
+
+    msg(playerid, "moneysend.request", [amount, getPlayerName(targetid)], CL_THUNDERBIRD);
+    msg(playerid, "moneysend.accept", CL_CASCADE);
+    msg(playerid, "moneysend.cancel", CL_CASCADE);
+
+    trigger(playerid, "hudCreateTimer", 15.0, true, true);
+
+    delayedFunction(15000, function() {
+        if (moneyTransferRequest[pair] == "inprocess") {
+            msg(playerid, "moneysend.canceled");
+            moneyTransferRequest[pair] = "open";
         }
-    } else { msg(playerid, "Distance between both players is too large!"); }
+    });
+
+    requestUserInput(playerid, function(playerid, text) {
+
+        trigger(playerid, "hudDestroyTimer");
+        if (text.tolower() == "нет" || text.tolower() == "no") {
+            moneyTransferRequest[pair] = "open";
+            return msg(playerid, "moneysend.canceled");
+        }
+
+        if(getPlayerState( playerid ) != "free" || getPlayerState( targetid ) != "free") {
+            moneyTransferRequest[pair] = "open";
+            return msg(playerid, "moneysend.cantsend" );
+        }
+
+        if(!canMoneyBeSubstracted(playerid, amount)) {
+            moneyTransferRequest[pair] = "open";
+            msg(playerid, "moneysend.notenough");
+            msg(targetid, "moneysend.cantgive", getPlayerName(playerid));
+            return;
+        }
+
+        subMoneyToPlayer(playerid, amount);
+        addMoneyToPlayer(targetid, amount);
+
+        moneyTransferRequest[pair] = "open";
+
+        msg(playerid, "moneysend.given", [amount, getPlayerName(targetid)]);
+        msg(targetid, "moneysend.taken", [amount, getPlayerName(playerid)]);
+
+        dbg("money", "send", getPlayerName(playerid), getPlayerName(targetid), amount);
+        statisticsPushText("money", playerid, format("to: %s, amount: %.2f", getPlayerName(targetid), amount), "send");
+
+    }, 15);
+
 }
 
 /**

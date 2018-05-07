@@ -1,6 +1,6 @@
-local VEHKEYS_X = -199.524;
-local VEHKEYS_Y = 838.586;
-local VEHKEYS_Z = -21.2431;
+local VEHKEYS_X = 582.687;  //-199.524;
+local VEHKEYS_Y = 942.741;  // 838.586;
+local VEHKEYS_Z = 0.926393; //-21.2431;
 local VEHKEYS_RADIUS = 2.0;
 
 alternativeTranslate({

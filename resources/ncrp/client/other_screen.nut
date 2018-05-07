@@ -38,6 +38,8 @@ local selectedslot = 0;
 local asd = null;
 local notifications = [];
 
+local cursorVisible = false;
+
 function compute(x, y) {
     datastore[x] <- y;
 }
@@ -324,13 +326,26 @@ addEventHandler("onServerChatTrigger", function() {
     showChat(!isChatVisible());
 });
 
- addEventHandler("onServerShowChatTrigger", function() {
+addEventHandler("onServerShowChatTrigger", function() {
     showChat(true);
- });
+});
 
- addEventHandler("onServerHideChatTrigger", function() {
+addEventHandler("onServerHideChatTrigger", function() {
     showChat(false);
- });
+});
+
+addEventHandler("onServerCursorTrigger", function() {
+    cursorVisible = !cursorVisible;
+    showCursor(cursorVisible);
+});
+
+addEventHandler("onServerShowCursorTrigger", function() {
+    showCursor(true);
+});
+
+addEventHandler("onServerHideCursorTrigger", function() {
+    showCursor(false);
+});
 
 addEventHandler("onServerChatSlotRequested", function(slot) {
     slot = slot.tointeger();

@@ -312,14 +312,16 @@ function policeFindThatMotherfucker(playerid, IDorPLATE, reason) {
             local player_reason = plocalize(playerid, POLICE_TICKET_PRICELIST[reason][1]);
             local target_reason = plocalize(targetid, POLICE_TICKET_PRICELIST[reason][1]);
 
-            // if (checkDistanceBtwTwoPlayersLess(playerid, targetid, POLICE_TICKET_DISTANCE)) {
-                msg(targetid, "organizations.police.ticket.givewithreason", [getAuthor(playerid), target_reason, price]);
-                msg(playerid, "organizations.police.ticket.given", [getAuthor(targetid), player_reason, price]);
-                subMoneyToPlayer(targetid, price);
-                addMoneyToTreasury(price);
-                // PoliceTicket( getPlayerName(targetid), POLICE_TICKET_PRICELIST[reason][1], price, "open", pos[0], pos[1], pos[2], getPlayerName(playerid))
-                //     .save();
-            // }
+            if (!checkDistanceBtwTwoPlayersLess(playerid, targetid, POLICE_TICKET_DISTANCE)) {
+                return msg(playerid, "organizations.police.toofarfromoffender", CL_ERROR);
+            }
+
+            msg(targetid, "organizations.police.ticket.givewithreason", [getAuthor(playerid), target_reason, price]);
+            msg(playerid, "organizations.police.ticket.given", [getAuthor(targetid), player_reason, price]);
+            subMoneyToPlayer(targetid, price);
+            addMoneyToTreasury(price);
+            // PoliceTicket( getPlayerName(targetid), POLICE_TICKET_PRICELIST[reason][1], price, "open", pos[0], pos[1], pos[2], getPlayerName(playerid))
+            //     .save();
         } else {
             getVehicleOwnerAndPinTicket(playerid, IDorPLATE, reason);
         }
@@ -463,9 +465,9 @@ function takeOutOfJail(playerid, targetid) {
 function getVehicleWantedForTax() {
     local vehiclesWanted = [];
 
-    foreach (idx, value in __vehicles) {
-        if(value.entity) {
-            vehiclesWanted.push( value.entity.plate );
+    foreach (vehicle in vehicles) {
+        if(!isNVehicleInParking(vehicle)) {
+            vehiclesWanted.push( vehicle.components.findOne(NVC.Plate).get());
         }
     }
 

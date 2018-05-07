@@ -77,12 +77,16 @@ function getCharacterIdFromPlayerId(playerid) {
 }
 
 event("onServerPlayerStarted", function(playerid) {
+
+    local isVerified = ("verified" in players[playerid].data) ? players[playerid].data.verified : false;
+
     // for local player
-    trigger(playerid, "onServerPlayerAdded", playerid, getPlayerName(playerid));
+    trigger(playerid, "onServerPlayerAdded", playerid, getPlayerName(playerid), isVerified);
 
     // for all players
     foreach (targetid, player in players) {
-        trigger(targetid, "onServerPlayerAdded", playerid, getPlayerName(playerid)); // create name of current player for remote players
-        trigger(playerid, "onServerPlayerAdded", targetid, getPlayerName(targetid)); // create name of remote player for current player
+        trigger(targetid, "onServerPlayerAdded", playerid, getPlayerName(playerid), isVerified ); // create name of current player for remote players
+        trigger(playerid, "onServerPlayerAdded", targetid, getPlayerName(targetid), ("verified" in players[targetid].data) ? players[targetid].data.verified : false ); // create name of remote player for current player
     }
 });
+

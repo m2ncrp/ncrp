@@ -92,17 +92,17 @@ event("onVehicleSetToCarPound", function(playerid, plate = null) {
         return msg(playerid, "parking.alreadyParking");
     }
 
-    //setBusyParkingPlaces(); //read before
-
     local tpcomplete = sendNVehicleToParking(vehicle);
 
-    //delayedFunction(1000, setBusyParkingPlaces()); //read after
-
     if(tpcomplete) {
-        return msg(playerid, "parking.complete");
+        setBusyParkingPlaces(); //read before
+        vehicleWanted = getVehicleWantedForTax();
+        msg(playerid, "parking.complete");
+        dbg("chat", "police", getAuthor(playerid), format("Отправил на штрафстоянку автомобиль с номером %s", getVehiclePlateText(vehicleid)) );
+    } else {
+        msg(playerid, "parking.noFreeSpace");
+        dbg("chat", "police", getAuthor(playerid), "Нет своободных мест на штрафстоянке" );
     }
-    msg(playerid, "parking.noFreeSpace");
-
 });
 
 
@@ -138,6 +138,8 @@ event("onVehicleGetFromCarPound", function(playerid) {
         subMoneyToDeposit(playerid, price);
         addMoneyToTreasury(price);
         msg(playerid, "parking.free", CL_SUCCESS);
+        vehicleWanted = getVehicleWantedForTax();
+        dbg("chat", "police", getAuthor(playerid), format("Забрал со штрафстоянки автомобиль с номером %s", getVehiclePlateText(vehicleid)) );
         return;
     }
     msg(playerid, "Something went wrong. Ask an admin!", CL_CHAT_MONEY_SUB);

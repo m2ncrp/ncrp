@@ -1,4 +1,4 @@
-local phrases = {
+alternativeTranslate({
 
 "en|job.police.cadet"                               : "cadet"
 "ru|job.police.cadet"                               : "кадет"
@@ -118,6 +118,8 @@ local phrases = {
 "ru|organizations.police.duty.alreadyoff"           : "Вы уже закончили свою смену."
 
 
+"en|organizations.police.toofarfromoffender"        : "You're too far from offender!"
+"ru|organizations.police.toofarfromoffender"        : "Вы слишком далеко от нарушителя!"
 
 "en|organizations.police.toofarfromgarage"          : "You're too far from police garage!"
 "ru|organizations.police.toofarfromgarage"          : "Вы слишком далеко от полицейского гаража!"
@@ -196,6 +198,11 @@ local phrases = {
 "en|organizations.police.carwantedtax"              : "[POLICE] Wanted cars for non-payment of tax: %s"
 "ru|organizations.police.carwantedtax"              : "[POLICE] Разыскиваемые автомобили за неуплату налога: %s"
 
+"en|organizations.police.carwanted"                 : "[POLICE] Car with number %s is wanted."
+"ru|organizations.police.carwanted"                 : "[POLICE] Автомобиль с номером %s находится в розыске."
+
+"en|organizations.police.carnotwanted"              : "[POLICE] Car with number %s isn't wanted."
+"ru|organizations.police.carnotwanted"              : "[POLICE] Автомобиль с номером %s не находится в розыске."
 
 "en|organizations.police.info.howjoin"              : "If you want to join Police Department write one of admins!"
 "ru|organizations.police.info.howjoin"              : "Если вы хотите пополнить ряды офицеров департамента Empire Bay, напишите администраторам!"
@@ -267,5 +274,4 @@ local phrases = {
 
 "en|policebadge.info.number"                        : "Number: %s"
 "ru|policebadge.info.number"                        : "Номер: %s"
-}
-alternativeTranslate(phrases); //don't delete!
+});

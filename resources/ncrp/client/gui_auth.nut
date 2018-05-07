@@ -21,12 +21,6 @@ local isAuth = null;
 local blackRoundFrame;
 local langs = array(2);
 
-// stuff needed for hiding players
-local otherPlayerLocked = true;
-const DEFAULT_SPAWN_X    = -1027.02;
-const DEFAULT_SPAWN_Y    =  1746.63;
-const DEFAULT_SPAWN_Z    =  10.2325;
-
 local logos = [
     {
         "imgsrc": "logo.png",
