@@ -1828,7 +1828,7 @@ function calcTriggerPositions(playerid, vehicleid, doors) {
 // call callback when player is on any of vehicle door trigger
 // callback should get playerid, vehicleid and door struct as args
 function onVehicleDoorTriggerPosition(playerid, vehicleid, doors, callback) {
-    local door_radius = 0.7;
+    local door_radius = 0.35;
     local v_pos = getVehiclePosition(vehicleid);
     local v_ang = getVehicleRotation(vehicleid);
     local p_pos = players[playerid].getPosition();

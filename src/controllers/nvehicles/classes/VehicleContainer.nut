@@ -61,7 +61,7 @@ class VehicleContainer extends Container
             }
         }
 
-        return result
+        return result;
     }
 }
 
