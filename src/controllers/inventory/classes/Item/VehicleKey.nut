@@ -21,7 +21,7 @@ class Item.VehicleKey extends Item.Abstract
 
     function use(playerid, inventory) {
 
-        local vehicle = vehicles.get(this.getId());
+        local vehicle = vehicles.byKeyCode(this.getCode());
 
         if (!vehicle) {
             return msg(playerid, "inventory.vehiclekey.removedcar", CL_HELP_TITLE);
