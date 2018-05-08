@@ -60,6 +60,15 @@ event("onServerStarted", function() {
 
     local ticker = timer(function() {
         foreach (playerid, value in getPlayers()) {
+
+            // anticheat - remove weapons
+            if (!isOfficer(playerid) && !isPlayerAdmin(playerid)) {
+                local weaponlist = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 21];
+                weaponlist.apply(function(id) {
+                    removePlayerWeapon( playerid, id );
+                })
+            }
+
             // anticheat check for speed-hack
             if (isPlayerInVehicle(playerid)) {
                 local vehicleid = getPlayerVehicle(playerid);
@@ -96,47 +105,51 @@ event("onServerStarted", function() {
                 if (maxsp > limits[1]) {
                     kick( -1, playerid, "speed-hack protection" );
                 }
-            } else {
-                if(players.has(playerid)) {
+                continue;
+            }
+            // NEED IMPROVE
+            //if(isPlayerInNVehicle(playerid)) {
+            //    local vehicle = getPlayerNVehicle(playerid);
+            //    local speed = vehicle.getSpeed();
+            //    local modelid = vehicle.getComponent(NVC.Hull).getModel();
+            //    //local limits = getVehicleSpeedLimit(modelid, tuneLevel)
 
-                    local plaPos = getPlayerPosition(playerid);
-                    local charId = players[playerid].id;
-                    if( !(charId in playersInfo) ) return;
 
-                    local oldPos = playersInfo[charId].pos;
-                    local state = playersInfo[charId].state;
+            //    local maxsp = max(fabs(speed[0]), fabs(speed[1]));
 
-                    if(oldPos && state != null) {
-                        local distance = getDistanceBetweenPoints2D( plaPos[0], plaPos[1], oldPos[0], oldPos[1] );
-                        if(distance == 0) return;
-                        if((state == 0 && distance > 1.1)
-                        || (state == 1 && distance > 6.0)
-                        || (state == 2 && distance > 4.0)
-                        ) {
-                            //log("================================================================ WARNING ===");
-                            playersInfo[charId].counter += 1;
-                            if(playersInfo[charId].counter > maxToBan) {
-                                log("@everyone WARNING!!! "+getAuthor(playerid)+" - maybe using trainer");
-                                dbg("chat", "report", getAuthor(playerid), "Подозрение на использование трейнера. Наблюдаем. Никаких мер не предпринимать!!!");
-                                //log("================================================================ BAN >>>");
-                                playersInfo[charId].counter = 0;
-                            }
-                        } else {
+            //    continue;
+            //}
+
+            if(players.has(playerid)) {
+
+                local plaPos = getPlayerPosition(playerid);
+                local charId = players[playerid].id;
+                if( !(charId in playersInfo) ) return;
+
+                local oldPos = playersInfo[charId].pos;
+                local state = playersInfo[charId].state;
+
+                if(oldPos && state != null) {
+                    local distance = getDistanceBetweenPoints2D( plaPos[0], plaPos[1], oldPos[0], oldPos[1] );
+                    if(distance == 0) return;
+                    if((state == 0 && distance > 1.1)
+                    || (state == 1 && distance > 6.0)
+                    || (state == 2 && distance > 4.0)
+                    ) {
+                        //log("================================================================ WARNING ===");
+                        playersInfo[charId].counter += 1;
+                        if(playersInfo[charId].counter > maxToBan) {
+                            log("@everyone WARNING!!! "+getAuthor(playerid)+" - maybe using trainer");
+                            dbg("chat", "report", getAuthor(playerid), "Подозрение на использование трейнера. Наблюдаем. Никаких мер не предпринимать!!!");
+                            //log("================================================================ BAN >>>");
                             playersInfo[charId].counter = 0;
                         }
-                        //log("distance distance distance distance distance "+state.tostring()+" distance: "+distance.tostring());
+                    } else {
+                        playersInfo[charId].counter = 0;
                     }
-                    playersInfo[charId].pos = [plaPos[0], plaPos[1]];
+                    //log("distance distance distance distance distance "+state.tostring()+" distance: "+distance.tostring());
                 }
-
-            }
-
-            // anticheat - remove weapons
-            if (!isOfficer(playerid) && !isPlayerAdmin(playerid)) {
-                local weaponlist = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 21];
-                weaponlist.apply(function(id) {
-                    removePlayerWeapon( playerid, id );
-                })
+                playersInfo[charId].pos = [plaPos[0], plaPos[1]];
             }
 
         }

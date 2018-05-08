@@ -453,7 +453,7 @@ local door_radius = 0.7;
 function drawVehicleDoorPositions(playerid, doors) {
     foreach (idx, door in doors) {
         if (door == null) continue;
-        create3DText ( door.x, door.y, door.z, "TRIGGER: "+idx, CL_ROYALBLUE );
+        create3DText ( door.x, door.y, door.z, "\\/"+idx, CL_ROYALBLUE );
     }
 }
 
@@ -493,18 +493,18 @@ function drawVehicleDoorPositions(playerid, doors) {
 
 
 // print and draw
-//key("h", function(playerid) {
-//    local vehicle = vehicles.nearestVehicle(playerid);
-//    // if ( vehicle.getType() != Vehicle.Type.bus ) return;
-//
-//    local model = vehicle.getComponent(NVC.Hull).getModel();
-//    local doors = getVehicleTriggersPosition(model);
-//
-//    local character = players[playerid];
-//    local p_pos = character.getPosition();
-//
-//    // dbg(doors);
-//
-//    doors = calcTriggerPositions(playerid, vehicle.vehicleid, doors);
-//    drawVehicleDoorPositions(playerid, doors);
-//});
+key("h", function(playerid) {
+    local vehicle = vehicles.nearestVehicle(playerid);
+    // if ( vehicle.getType() != Vehicle.Type.bus ) return;
+
+    local model = vehicle.getComponent(NVC.Hull).getModel();
+    local doors = getVehicleTriggersPosition(model);
+
+    local character = players[playerid];
+    local p_pos = character.getPosition();
+
+    // dbg(doors);
+
+    doors = calcTriggerPositions(playerid, vehicle.vehicleid, doors);
+    drawVehicleDoorPositions(playerid, doors);
+});

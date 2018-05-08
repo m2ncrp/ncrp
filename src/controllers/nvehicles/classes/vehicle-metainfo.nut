@@ -1730,7 +1730,7 @@ function getTrunkDefaultWeightLimit(modelid) {
 }
 
 function getVehicleSpeedLimit(modelid, tuneLevel) {
-    local tuneLevel = (tuneLevel<=0) ? 1 : tuneLevel.tointeger();
+    local tuneLevel = (tuneLevel <= 0) ? 1 : tuneLevel.tointeger();
     return vehicleMetaData["model_" + modelid].engine.top_speed_mph[tuneLevel];
 }
 
