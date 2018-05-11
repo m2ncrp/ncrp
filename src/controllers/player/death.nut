@@ -1,7 +1,7 @@
 const HOSPITAL_X         = -393.429;
 const HOSPITAL_Y         = 912.044;
 const HOSPITAL_Z         = -20.0026;
-const HOSPITAL_AMOUNT    = 8.29;
+const HOSPITAL_AMOUNT    = 12.65;
 
 local lastDeaths = {};
 
@@ -38,6 +38,11 @@ event("native:onPlayerDeath", function(playerid, killerid) {
     trigger("onPlayerDeath", playerid);
     dbg("player", "death", getIdentity(playerid), (killerid != INVALID_ENTITY_ID) ? getIdentity(killerid) : "self");
 
+    // maybe deduct some money...
+    if (canMoneyBeSubstracted(playerid, HOSPITAL_AMOUNT)) {
+        subMoneyToPlayer(playerid, HOSPITAL_AMOUNT);
+    }
+
     if (killerid != INVALID_ENTITY_ID) {
         trigger("onPlayerMurdered", playerid, killerid);
         trigger("onPlayerKill", killerid, playerid);
@@ -56,7 +61,6 @@ event("onPlayerSpawn", function(playerid) {
 
     // maybe deduct some money...
     if (canMoneyBeSubstracted(playerid, HOSPITAL_AMOUNT)) {
-        subMoneyToPlayer(playerid, HOSPITAL_AMOUNT);
         msg(playerid, "hospital.money.deducted", [HOSPITAL_AMOUNT], CL_SUCCESS);
         players[playerid].health = 730.0;
     } else {
