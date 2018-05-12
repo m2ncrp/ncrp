@@ -5,6 +5,9 @@ local coords = [-122.331, -62.9116, -12.041];
 local tax_fixprice = 20.0;
 local tax = 0.025;  // 2.5 percents
 local months = [1, 3, 6, 12];
+
+local SIDEWALK = [-118.966, -73.4, -66.4244, -52.5];
+
 function getGovCoords(i) {
     return coords[i];
 }
@@ -12,10 +15,11 @@ function getGovCoords(i) {
 event("onServerStarted", function() {
     log("[organizations] government...");
 
-
     create3DText ( coords[0], coords[1], coords[2]+0.20, "/tax | /passport", CL_WHITE.applyAlpha(100), 2.0 );
 
     createBlip  ( coords[0], coords[1], [ 24, 0 ], 4000.0 );
+
+    createPlace("GovernmentSidewalk", SIDEWALK[0], SIDEWALK[1], SIDEWALK[2], SIDEWALK[3]);
 
 });
 
@@ -151,7 +155,35 @@ cmd("tax", function( playerid, plateText = 0, monthUp = 1 ) {
 
 });
 
+event("onPlayerPlaceEnter", function(playerid, name) {
+    if (isPlayerInVehicle(playerid) && name == "GovernmentSidewalk") {
+        local vehicleid = getPlayerVehicle(playerid);
+        local vehSpeed = getVehicleSpeed(vehicleid);
+        local vehPos = getVehiclePosition(vehicleid);
 
+        local vehSpeedNew = [];
+
+        if (vehPos[0] > SIDEWALK[0] && vehPos[0] < SIDEWALK[2]) {
+            // для нижней границы
+            if (vehPos[1] > (SIDEWALK[1] - 4.0) && vehPos[1] < (SIDEWALK[1] + 4.0)) {
+                if (vehSpeed[1] >= 0) vehSpeed[1] = (vehSpeed[1] + 1) * -1;
+            }
+            // для верхней границы
+            if (vehPos[1] > (SIDEWALK[3] - 4.0) && vehPos[1] < (SIDEWALK[3] + 4.0)) {
+                if (vehSpeed[1] <= 0) vehSpeed[1] = (vehSpeed[1] - 1) * -1;
+            }
+        }
+
+        // для правой боковой границы
+        if (vehPos[0] > (SIDEWALK[2] - 4.0) && vehPos[0] < (SIDEWALK[2] + 4.0)) {
+            if (vehPos[1] > SIDEWALK[1] && vehPos[1] < SIDEWALK[3]) {
+                if (vehSpeed[0] <= 0) vehSpeed[0] = (vehSpeed[0] - 1) * -1;
+            }
+        }
+
+        setVehicleSpeed(vehicleid, vehSpeed[0], vehSpeed[1], vehSpeed[2]);
+    }
+});
 
 //function tax(monthUp = 12, day = null, month = null, year = null, ) {
 //    day   = day   ? day   : getDay();
