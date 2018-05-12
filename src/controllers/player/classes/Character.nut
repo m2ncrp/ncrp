@@ -15,7 +15,7 @@ class Character extends ORM.JsonEntity {
         ORM.Field.Integer   ({ name = "cskin"       }),
         ORM.Field.Integer   ({ name = "xp",         })
         ORM.Field.Float     ({ name = "health",     value = 720.0 }),
-        ORM.Field.String    ({ name = "state"       }),
+        ORM.Field.String    ({ name = "state",      value = "free" }),
 
         ORM.Field.String    ({ name = "firstname"   }),
         ORM.Field.String    ({ name = "lastname"    }),
