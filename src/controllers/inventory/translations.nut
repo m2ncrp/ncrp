@@ -65,6 +65,8 @@ alternativeTranslate({
     "en|inventory.vehiclekey.removedcar"     : "It's a key from the car which I once owned. I don't even know where it now..."
     "ru|inventory.vehiclekey.removedcar"     : "Это ключ от автомобиля, которым я когда-то владел. Даже не знаю где он сейчас..."
 
+    "en|inventory.vehicletitle.removedcar"     : "It's certificate of title for the car which I once owned. I don't even know where it now..."
+    "ru|inventory.vehicletitle.removedcar"     : "Это свидетельство о праве собственности на автомобиль, которым я когда-то владел. Даже не знаю где он сейчас..."
 
     "en|Item.None"             : ""
     "en|Item.Revolver12"       : "Revolver 12"
