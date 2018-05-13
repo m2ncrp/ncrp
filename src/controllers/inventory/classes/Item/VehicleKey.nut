@@ -7,7 +7,7 @@ class Item.VehicleKey extends Item.Abstract
     function use(playerid, inventory) {
         local vehicleid = getVehicleIdFromEntityId(this.data.id);
 
-        if (!vehicleid) {
+        if (vehicleid == false) {
             return msg(playerid, "inventory.vehiclekey.removedcar", CL_HELP_TITLE);
         }
 

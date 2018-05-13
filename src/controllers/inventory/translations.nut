@@ -65,11 +65,23 @@ alternativeTranslate({
     "en|inventory.money.added"                  : "Your pocket has been replenished with $%.2f."
     "ru|inventory.money.added"                  : "Ваш карман пополнился на $%.2f."
 
-    "en|inventory.vehiclekey.removedcar"     : "It's a key from the car which I once owned. I don't even know where it now..."
-    "ru|inventory.vehiclekey.removedcar"     : "Это ключ от автомобиля, которым я когда-то владел. Даже не знаю где он сейчас..."
+    "en|inventory.vehiclekey.removedcar"        : "It's a key from the car which I once owned. I don't even know where it now..."
+    "ru|inventory.vehiclekey.removedcar"        : "Это ключ от автомобиля, которым я когда-то владел. Даже не знаю где он сейчас..."
 
-    "en|inventory.vehicletitle.removedcar"     : "It's certificate of title for the car which I once owned. I don't even know where it now..."
-    "ru|inventory.vehicletitle.removedcar"     : "Это свидетельство о праве собственности на автомобиль, которым я когда-то владел. Даже не знаю где он сейчас..."
+    "en|inventory.vehicletitle.removedcar"      : "It's certificate of title for the car which I once owned. I don't even know where it now..."
+    "ru|inventory.vehicletitle.removedcar"      : "Это свидетельство о праве собственности на автомобиль, которым я когда-то владел. Даже не знаю где он сейчас..."
+
+    "en|inventory.vehicletitle.modelandplate"   : "Model name and plate: %s - %s"
+    "ru|inventory.vehicletitle.modelandplate"   : "Модель и номер: %s - %s"
+
+    "en|inventory.vehicletitle.manufactureprice" : "Manufacture price: $%.2f"
+    "ru|inventory.vehicletitle.manufactureprice" : "Отпускная цена: $%.2f"
+
+    "en|inventory.vehicletitle.manufactureyear" : "Manufacture year: %d"
+    "ru|inventory.vehicletitle.manufactureyear" : "Год производства: %d"
+
+    "en|inventory.vehicletitle.owners"          : "Owners (%d):"
+    "ru|inventory.vehicletitle.owners"          : "Владельцы (%d):"
 
     "en|Item.None"             : ""
     "en|Item.Revolver12"       : "Revolver 12"
@@ -115,6 +127,7 @@ alternativeTranslate({
 
     "en|Item.Jerrycan"         : "Canister"
     "en|Item.VehicleTax"       : "Vehicle tax"
+    "en|Item.VehicleTitle"     : "Vehicle title"
     "en|Item.VehicleKey"       : "Vehicle key"
     "en|Item.FirstAidKit"      : "First aid kit"
     "en|Item.Passport"         : "Passport"
@@ -177,6 +190,7 @@ alternativeTranslate({
     "ru|Item.Jerrycan"         : "Канистра"
     "ru|Item.VehicleTax"       : "Квитанция налога на ТС"
     "ru|Item.VehicleKey"       : "Ключ от автомобиля"
+    "ru|Item.VehicleTitle"     : "Свидетельство на ТС"
     "ru|Item.FirstAidKit"      : "Аптечка"
     "ru|Item.Passport"         : "Паспорт"
     "ru|Item.PoliceBadge"      : "Полицейский жетон"
