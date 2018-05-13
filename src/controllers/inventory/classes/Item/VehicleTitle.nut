@@ -17,7 +17,7 @@ class Item.VehicleTitle extends Item.Abstract
         local year      = this.data.year;
         local price     = this.data.price;
         local owners    = this.data.owners;
-        local ownersCount = this.data.owners.len();
+        local ownersCount = this.data.owners.len() + 1;
 
         msg(playerid, "==================================", CL_HELP_LINE);
         msg(playerid, "Item.VehicleTitle", CL_HELP_TITLE);
