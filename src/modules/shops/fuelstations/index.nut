@@ -11,6 +11,7 @@ local CANISTER_COST = 14.0;
 local CANISTER_BUY_RADIUS = 5.0;
 
 local FUELUP_SPEED = 2.5; // litres in second
+local fueltank_loading = {};
 
 local fuel_stations = [
     [-1676.81,   -231.85, -20.1853, "SANDISLAND"   ],
@@ -87,6 +88,9 @@ alternativeTranslate({
     "en|shops.fuelstations.stopyourmoves"      : "[FUEL] Please, stop car to fuel up."
     "ru|shops.fuelstations.stopyourmoves"      : "[FUEL] Остановите автомобиль, чтобы заправиться."
 
+    "en|shops.fuelstations.notdriver"          : "[FUEL] You are not driver."
+    "ru|shops.fuelstations.notdriver"          : "[FUEL] Вы не водитель автомобиля."
+
     "en|shops.fuelstations.stopengine"         : "[FUEL] Please, stop the engine."
     "ru|shops.fuelstations.stopengine"         : "[FUEL] Заглушите двигатель."
 
@@ -96,8 +100,11 @@ alternativeTranslate({
     "en|shops.fuelstations.fueltank.check"     : "Fuel level: %.2f gallons."
     "ru|shops.fuelstations.fueltank.check"     : "В баке: %.2f галлонов."
 
-    "en|shops.fuelstations.fueltank.full"      : "[FUEL] Your fuel tank is full!"
+    "en|shops.fuelstations.fueltank.full"      : "[FUEL] Fuel tank is full!"
     "ru|shops.fuelstations.fueltank.full"      : "[FUEL] Бак полон!"
+
+    "en|shops.fuelstations.fueltank.loading"   : "[FUEL] Fuel tank is loading!"
+    "ru|shops.fuelstations.fueltank.loading"   : "[FUEL] Бак заправляется!"
 
     "en|shops.fuelstations.money.notenough"    : "[FUEL] Not enough money. Need $%.2f, but you have only $%s"
     "ru|shops.fuelstations.money.notenough"    : "[FUEL] Недостаточно денег. Для оплаты требуется $%.2f, а у вас только $%s."
@@ -187,15 +194,31 @@ function fuelVehicleUp(playerid) {
 
     local vehicleid = getPlayerVehicle(playerid);
 
+    if(!isPlayerHaveVehicleKey(playerid, vehicleid)) {
+        return msg( playerid, "vehicle.owner.warning", CL_THUNDERBIRD );
+    }
+
+    if(!isPlayerVehicleDriver(playerid)) {
+        return msg( playerid, "shops.fuelstations.notdriver", CL_THUNDERBIRD );
+    }
+
     if(isVehicleEngineStarted(vehicleid)) {
         return msg( playerid, "shops.fuelstations.stopengine", CL_THUNDERBIRD );
+    }
+
+    if( ! (vehicleid in fueltank_loading) ) {
+        fueltank_loading[vehicleid] <- false;
+    }
+
+    if(fueltank_loading[vehicleid] == true) {
+        return msg( playerid, "shops.fuelstations.fueltank.loading", CL_THUNDERBIRD );
     }
 
     local fuel = round(getVehicleFuelNeed(vehicleid), 2);
     local cost = round(GALLON_COST * fuel, 2);
 
     if ( !isVehicleFuelNeeded(vehicleid) ) {
-        return msg(playerid, "shops.fuelstations.fueltank.full"CL_THUNDERBIRD);
+        return msg(playerid, "shops.fuelstations.fueltank.full", CL_THUNDERBIRD);
     }
 
     if ( !canMoneyBeSubstracted(playerid, cost) ) {
@@ -205,10 +228,12 @@ function fuelVehicleUp(playerid) {
     local fuelup_time = (fuel / FUELUP_SPEED).tointeger();
     msg( playerid, "shops.fuelstations.loading", CL_CHESTNUT2 );
     freezePlayer( playerid, true);
+    fueltank_loading[vehicleid] = true;
     setVehicleEngineState(vehicleid, false);
     trigger(playerid, "hudCreateTimer", fuelup_time, true, true);
     delayedFunction(fuelup_time * 1000, function () {
         freezePlayer( playerid, false);
+        fueltank_loading[vehicleid] = false;
         delayedFunction(1000, function () { freezePlayer( playerid, false); });
         setVehicleFuel(vehicleid, getDefaultVehicleFuel(vehicleid));
         subMoneyToPlayer(playerid, cost);
