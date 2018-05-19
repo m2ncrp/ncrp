@@ -10,6 +10,7 @@ include("modules/shops/carpaint");
 include("modules/shops/kiosks");
 //include("modules/shops/santa-klaus");
 include("modules/shops/vehiclekeys_temporary");
+include("modules/shops/harryshop");
 
 /*
 key("7", function(playerid) {

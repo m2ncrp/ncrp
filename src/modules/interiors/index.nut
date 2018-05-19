@@ -81,8 +81,8 @@ local interiors = [
 ["onfoot",  "Exit",     74.7301, 897.725, -19.1137,    "JoeBlackExit"],
 ["onfoot",  "Enter",   82.2117, 889.32, -13.3036,      "JoeApartmentEnter"],
 ["onfoot",  "Exit",    82.3615, 890.083, -13.3207,      "JoeApartmentExit"],
-["onfoot",  "Enter",   -1292.64, 1608.74, 4.30491,      "GarryShopEnter"],
-["onfoot",  "Exit",    -1293.31, 1608.81, 4.33968,      "GarryShopExit"],
+//["onfoot",  "Enter",   -1292.64, 1608.74, 4.30491,      "GarryShopEnter"],
+//["onfoot",  "Exit",    -1293.31, 1608.81, 4.33968,      "GarryShopExit"],
 
 ["onfoot",  "Enter",   -1534.51,    -4.53208,    -17.8467,    "ClothesSandIslandEnter"],
 ["onfoot",  "Exit",    -1534.45,    -3.90291,    -17.8467,    "ClothesSandIslandExit"],
