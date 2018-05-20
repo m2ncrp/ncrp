@@ -20,11 +20,11 @@ local harryShopCoordsEnter = [-1292.64, 1608.74, 4.30491];
 local harryShopCoordsExit  = [-1293.31, 1608.81, 4.33968];
 local ENTER_TIMEOUT = 30; // in seconds
 local harry_COLOR = CL_CARIBBEANGREEN;
+local timers = {};
 
 event("onServerStarted", function() {
     createBlip(harryShopCoordsEnter[0], harryShopCoordsEnter[1], ICON_ARMY, 4000.0);
- });
-
+});
 
 event("onServerPlayerStarted", function( playerid ){
     createPrivate3DText ( playerid, harryShopCoordsEnter[0], harryShopCoordsEnter[1], harryShopCoordsEnter[2]+0.35, "ARMY NAVY", rgb(240, 202, 144) );
@@ -40,16 +40,24 @@ key("e", function(playerid) {
         return;
     }
 
+    local charId = getCharacterIdFromPlayerId(playerid);
+    if ( ! (charId in timers) ) {
+        timers[charId] <- null;
+    }
+
+    if (timers[charId] && timers[charId].IsActive()) {
+        return;
+    }
+
     msg(playerid, "harryshop.hello", CL_INFO);
     msg(playerid, "harryshop.introduce", CL_GRAY);
 
     freezePlayer(playerid, true);
 
     trigger(playerid, "hudCreateTimer", ENTER_TIMEOUT, true, true);
-    local enter_success = false;
 
-    delayedFunction(ENTER_TIMEOUT*1000, function() {
-        if (enter_success == false) {
+    timers[charId] = delayedFunction(ENTER_TIMEOUT*1000, function() {
+        if (timers[charId].IsActive()) {
             msg(playerid, "harryshop.getout", CL_INFO);
             freezePlayer(playerid, false);
         }
@@ -58,14 +66,14 @@ key("e", function(playerid) {
     requestUserInput(playerid, function(playerid, text) {
         trigger(playerid, "hudDestroyTimer");
         freezePlayer(playerid, false);
-        if (text.find("Джонсон") == null && text.find("Johnson") == null) {
-            enter_success = "canceled";
-            return msg(playerid, "harryshop.getout", CL_INFO);
-        }
+        timers[charId].Kill();
 
-        msg(playerid, "harryshop.comeon", CL_INFO);
-        enter_success = true;
-        setPlayerPosition(playerid, harryShopCoordsExit[0], harryShopCoordsExit[1], harryShopCoordsExit[2]);
+        if ( (text.find("Дэвид") != null && text.find("Джонсон") != null ) || ( text.find("David") != null && text.find("Johnson") != null ) ) {
+            msg(playerid, "harryshop.comeon", CL_INFO);
+            setPlayerPosition(playerid, harryShopCoordsExit[0], harryShopCoordsExit[1], harryShopCoordsExit[2]);
+            return;
+        }
+        return msg(playerid, "harryshop.getout", CL_INFO);
 
     }, ENTER_TIMEOUT);
 
