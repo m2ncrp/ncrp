@@ -71,8 +71,10 @@ key("e", function(playerid) {
         if ( (text.find("Дэвид") != null && text.find("Джонсон") != null ) || ( text.find("David") != null && text.find("Johnson") != null ) ) {
             msg(playerid, "harryshop.comeon", CL_INFO);
             setPlayerPosition(playerid, harryShopCoordsExit[0], harryShopCoordsExit[1], harryShopCoordsExit[2]);
+            dbg("[ INTERIOR ] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> Enter >| Harry Shop. Keyword: "+text);
             return;
         }
+        dbg("[ INTERIOR ] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> TRY to Enter >| Harry Shop. Keyword: "+text);
         return msg(playerid, "harryshop.getout", CL_INFO);
 
     }, ENTER_TIMEOUT);
@@ -85,5 +87,6 @@ key("e", function(playerid) {
         return;
     }
     setPlayerPosition(playerid, harryShopCoordsEnter[0], harryShopCoordsEnter[1], harryShopCoordsEnter[2]);
+    dbg("[ INTERIOR ] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> Exit >| Harry Shop");
 
 });
