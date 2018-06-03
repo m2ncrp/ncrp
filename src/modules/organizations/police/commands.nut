@@ -243,13 +243,6 @@ policecmd("m", function(playerid, text) {
     inRadiusSendToAll(playerid, "[POLICE RUPOR] " + text, RUPOR_RADIUS, CL_ROYALBLUE);
 });
 
-
-// /ticket <id or plate> <reason-id>
-cmd(["ticket"], function(playerid, target, reason) {
-    policeFindThatMotherfucker(playerid, target, reason);
-});
-
-
 // cmd(["tickets"], function( playerid, page = 0 ) {
 //     local q = ORM.Query("select * from tbl_policetickets where player in (:player) limit :page, 10");
 //     q.setParameter("player", getPlayerName(playerid), true);
