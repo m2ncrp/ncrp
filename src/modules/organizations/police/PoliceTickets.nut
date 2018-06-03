@@ -1,5 +1,5 @@
 // /ticket <id or plate> <reason-id>
-cmd(["ticket"], function(playerid, target) {
+cmd(["ticket"], function(playerid, target = null) {
     policeGiveTicket(playerid, target);
 });
 
@@ -40,11 +40,14 @@ function policeGiveTicket(playerid, value) {
 
     if ( isOnPoliceDuty(playerid) ) {
 
+        if(value == null) {
+            return msg(playerid, "Формат: /ticket id", CL_ERROR)
+        }
+
         local charId = getCharacterIdFromPlayerId(playerid);
         if ( ! (charId in timers) ) {
             timers[charId] <- null;
         }
-
 
         if (timers[charId] && timers[charId].IsActive()) {
             return;
