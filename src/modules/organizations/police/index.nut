@@ -129,13 +129,6 @@ POLICE_RANK_SALLARY_PERMISSION_SKIN <- [ // calculated as: (-i^2 + 27*i + 28)/20
    /* 1.05 */ [0.70, policeRankPermission(true, true, true),    [75, 76] ]  // 14 - "police.chief"
 ];
 
-
-POLICE_TICKET_PRICELIST <- [
-    [17.0, "organizations.police.lawbreak.warning"          ],  // 0 - Предупреждение aka warning
-    [18.5, "organizations.police.lawbreak.trafficviolation" ],  // 1 - Нарушение ПДД aka traffic violation
-    [20.0,"organizations.police.lawbreak.roadaccident"      ]   // 2 - ДТП aka road acident
-];
-
 DENGER_LEVEL <- "green";
 
 /**
@@ -173,6 +166,7 @@ include("modules/organizations/police/messages.nut");
 // include("modules/organizations/police/Gun.nut");
 include("modules/organizations/police/PoliceBuffer.nut");
 include("modules/organizations/police/PoliceOfficersList.nut");
+include("modules/organizations/police/PoliceTickets.nut");
 include("modules/organizations/police/garage.nut");
 //include("modules/organizations/police/dispatcher.nut");
 include("modules/organizations/police/translations.nut");

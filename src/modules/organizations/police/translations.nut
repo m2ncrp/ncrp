@@ -87,14 +87,22 @@ alternativeTranslate({
 "ru|organizations.police.lawbreak.roadaccident"     : "ДТП"
 
 
+
+
+"en|organizations.police.ticket1" : ""
+"ru|organizations.police.ticket1" : ""
+
+"en|organizations.police.ticket2" : ""
+"ru|organizations.police.ticket2" : ""
+
+"en|organizations.police.ticket3" : ""
+"ru|organizations.police.ticket3" : ""
+
 "en|organizations.police.income"                    : "[EBPD] We send $%.2f to you for duty as %s."
 "ru|organizations.police.income"                    : "[EBPD] Ваша зарплата составляет $%.2f за службу в качестве %s."
 
 "en|organizations.police.crime.wasdone"             : "You would better not to do it..."
 "ru|organizations.police.crime.wasdone"             : "Лучше бы ты этого не делал..."
-
-
-
 
 "en|organizations.police.alreadyofficer"            : "You're already working in EBPD."
 "ru|organizations.police.alreadyofficer"            : "Вы уже состоите в EBPD."
@@ -117,9 +125,20 @@ alternativeTranslate({
 "en|organizations.police.duty.alreadyoff"           : "You're already off duty now."
 "ru|organizations.police.duty.alreadyoff"           : "Вы уже закончили свою смену."
 
-
 "en|organizations.police.toofarfromoffender"        : "You're too far from offender!"
 "ru|organizations.police.toofarfromoffender"        : "Вы слишком далеко от нарушителя!"
+
+"en|organizations.police.cantgivetickethimself"     : "You can't give ticket to himself!"
+"ru|organizations.police.cantgivetickethimself"     : "Вы не можете выписать штраф сами себе!"
+
+"en|organizations.police.ticket.cancel"             : "Выдача отменена. Неверно указан номер штрафа!"
+"ru|organizations.police.ticket.cancel"             : "Выдача отменена. Неверно указан номер штрафа!"
+
+"en|organizations.police.ticket.neednumber"         : "Write number corresponding to reason for the ticket."
+"ru|organizations.police.ticket.neednumber"         : "Напишите в чат номер, соответствующий причине штрафа."
+
+"en|organizations.police.ticket.list"               : "List of tickets:"
+"ru|organizations.police.ticket.list"               : "Список штрафов:"
 
 "en|organizations.police.toofarfromgarage"          : "You're too far from police garage!"
 "ru|organizations.police.toofarfromgarage"          : "Вы слишком далеко от полицейского гаража!"
