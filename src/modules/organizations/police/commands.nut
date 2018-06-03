@@ -326,7 +326,7 @@ function policeHelp(playerid, a = null, b = null) {
         { name = "/police duty off",            desc = "organizations.police.info.cmds.dutyoff"},
         { name = "/r TEXT",                     desc = "organizations.police.info.cmds.ratio"},
         { name = "/m TEXT",                     desc = "organizations.police.info.cmds.rupor"},
-        { name = "/ticket ID REASON",           desc = "organizations.police.info.cmds.ticket" },
+        { name = "/ticket ID",                  desc = "organizations.police.info.cmds.ticket" },
         { name = "G button",                    desc = "organizations.police.info.cmds.baton" },
         { name = "V button",                    desc = "organizations.police.info.cmds.cuff" },
         { name = "/prison ID",                  desc = "organizations.police.info.cmds.prison" },

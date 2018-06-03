@@ -235,8 +235,8 @@ alternativeTranslate({
 "en|organizations.police.info.cmds.rupor"           : "Say something to police vehicle rupor"
 "ru|organizations.police.info.cmds.rupor"           : "Сказать что-либо в рупор служебной машины"
 
-"en|organizations.police.info.cmds.ticket"          : "Give ticket to player with given id. Example: /ticket 0 1 or /ticket LA-132 1"
-"ru|organizations.police.info.cmds.ticket"          : "Выдать штраф игроку с указанным id. Пример: /ticket 0 1 или /ticket LA-132 1"
+"en|organizations.police.info.cmds.ticket"          : "Give ticket to player. Example: /ticket 2"
+"ru|organizations.police.info.cmds.ticket"          : "Выдать штраф игроку. Пример: /ticket 2"
 
 "en|organizations.police.info.cmds.baton"           : "Stun nearset player"
 "ru|organizations.police.info.cmds.baton"           : "Обездвижить ближайшего игрока"
