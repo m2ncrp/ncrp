@@ -2,8 +2,8 @@ function generateAdminNick (playerid) {
     local nick = "";
 
     // Bertone
-    if(getPlayerSerial(playerid) == "7980C4CF5E2DAAF062DF7AE08B6DDE67") {
-        nick = " Bertone";
+    if(getPlayerSerial(playerid) == "561A1E7BB51FD437E210E932FA296DD5") {
+        nick = " Ovsianka";
     }
 
     // Oliver
@@ -19,6 +19,11 @@ function generateAdminNick (playerid) {
     // Hurfy
     if(getPlayerSerial(playerid) == "2F3701604B3669FCA3D3B7BC1BF3F6B8") {
         nick = " Hurfy";
+    }
+
+    // Vittorio Genovese
+    if(getPlayerSerial(playerid) == "71818C229464A61DA21C9FC522BA7B08") {
+        nick = " MadHatter";
     }
 
     return "[ADMIN]"+nick;
@@ -49,6 +54,10 @@ function sendAdminDevMsg(playerid, author, message, color, important, targetid) 
     }
     msg(playerid, text, color);
     return dbg("chat", "ooc", author, message);
+}
+
+function dev(message) {
+    msga("[DEV] "+message, [], CL_PETERRIVER);
 }
 
 function devMsg(playerid, message, important = false, targetid = null) {

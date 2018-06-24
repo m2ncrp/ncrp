@@ -45,30 +45,30 @@ local vehiclePositions = [
  */
 local carPricesAll = [
     [   // diamond motors
-        { modelid = 0  , price = 7690 , rent = 0.74, title = "Ascot Bailey S200"            },
-        { modelid = 1  , price = 6325 , rent = 0.61, title = "Berkley Kingfisher"           },
-        { modelid = 9  , price = 2810 , rent = 0.32, title = "Houston Wasp"                 },
-        { modelid = 10 , price = 10070, rent = 0.98, title = "ISW 508"                      },
-        { modelid = 12 , price = 2400 , rent = 0.24, title = "Walter Utility"               },
-        { modelid = 13 , price = 26500, rent = 2.65, title = "Jefferson Futura"             },
+        { modelid = 0  , price = 7100 , rent = 0.74, title = "Ascot Bailey S200"            },
+        { modelid = 1  , price = 6125 , rent = 0.61, title = "Berkley Kingfisher"           },
+        { modelid = 9  , price = 2510 , rent = 0.32, title = "Houston Wasp"                 },
+        { modelid = 10 , price = 9800 , rent = 0.98, title = "ISW 508"                      },
+        { modelid = 12 , price = 2100 , rent = 0.24, title = "Walter Utility"               },
+        { modelid = 13 , price = 14700, rent = 2.65, title = "Jefferson Futura"             },
         { modelid = 14 , price = 5050 , rent = 0.51, title = "Jefferson Provincial"         },
-        { modelid = 15 , price = 3600 , rent = 0.36, title = "Lassiter Series 69"           },
+        { modelid = 15 , price = 2800 , rent = 0.36, title = "Lassiter Series 69"           },
         { modelid = 18 , price = 7870 , rent = 0.79, title = "Lassiter Series 75 Hollywood" },
-        { modelid = 22 , price = 2200 , rent = 0.22, title = "Potomac Indian"               },
-        { modelid = 23 , price = 1800 , rent = 0.18, title = "Quicksilver Windsor"          },
+        { modelid = 22 , price = 1900 , rent = 0.22, title = "Potomac Indian"               },
+        { modelid = 23 , price = 1500 , rent = 0.18, title = "Quicksilver Windsor"          },
         { modelid = 25 , price = 650  , rent = 0.07, title = "Shubert 38"                   },
-        { modelid = 28 , price = 2600 , rent = 0.26, title = "Shubert Beverly"              },
-        { modelid = 29 , price = 4575 , rent = 0.46, title = "Shubert Frigate"              },
-        { modelid = 31 , price = 730  , rent = 0.07, title = "Shubert 38 Panel Truck"       },
-        { modelid = 41 , price = 2800 , rent = 0.28, title = "Smith Custom 200"             },
-        { modelid = 43 , price = 470  , rent = 0.05, title = "Smith Coupe"                  },
+        { modelid = 28 , price = 3200 , rent = 0.26, title = "Shubert Beverly"              },
+        { modelid = 29 , price = 5575 , rent = 0.46, title = "Shubert Frigate"              },
+        { modelid = 31 , price = 920  , rent = 0.07, title = "Shubert 38 Panel Truck"       },
+        { modelid = 41 , price = 3800 , rent = 0.28, title = "Smith Custom 200"             },
+        { modelid = 43 , price = 295  , rent = 0.05, title = "Smith Coupe"                  },
         { modelid = 44 , price = 1650 , rent = 0.17, title = "Smith Mainline"               },
-        { modelid = 45 , price = 4800 , rent = 0.48, title = "Smith Thunderbolt"            },
+        { modelid = 45 , price = 4500 , rent = 0.48, title = "Smith Thunderbolt"            },
         { modelid = 47 , price = 570  , rent = 0.06, title = "Smith V8"                     },
         { modelid = 48 , price = 1580 , rent = 0.16, title = "Smith Deluxe Station Wagon"   },
-        { modelid = 50 , price = 2050 , rent = 0.21, title = "Culver Empire"                },
-        { modelid = 52 , price = 4950 , rent = 0.5 , title = "Walker Rocket"                },
-        { modelid = 53 , price = 490  , rent = 0.05, title = "Walter Coupe"                 },
+        { modelid = 50 , price = 1850 , rent = 0.21, title = "Culver Empire"                },
+        { modelid = 52 , price = 4150 , rent = 0.5 , title = "Walker Rocket"                },
+        { modelid = 53 , price = 410  , rent = 0.05, title = "Walter Coupe"                 },
 
     ],
     [
@@ -77,7 +77,7 @@ local carPricesAll = [
 ];
 
 //local carOnSale = [ 0, 1, 9, 10, 12, 13, 14, 15, 22, 23, 25, 28, 29, 41, 43, 44, 45, 47, 48, 50, 52, 53 ];
-local carOnSale = [ 9, 10, 12, 13, 22, 23, 25, 29, 41, 44, 45, 47, 48, 50, 52, 53 ];
+local carOnSale = [ 0, 1, 9, 10, 12, 13, 14, 15, 22, 23, 25, 28, 29, 41, 43, 44, 45, 47, 48, 50, 52, 53 ];
 local currentcarcolor = {};
 local carPrices = {};
 // translations
