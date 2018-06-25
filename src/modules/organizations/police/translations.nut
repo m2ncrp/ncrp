@@ -161,6 +161,9 @@ alternativeTranslate({
 "en|organizations.police.ticket.given"              : "You've given ticket to %s for %s ($%.2f)."
 "ru|organizations.police.ticket.given"              : "Вы выписали штраф %s за %s ($%.2f)."
 
+"en|organizations.police.ticket.targetnomoney"      : "The offender hasn't enough money to pay ticket."
+"ru|organizations.police.ticket.targetnomoney"      : "У нарушителя недостаточно денег на оплату штрафа."
+
 "en|organizations.police.offduty.notickets"         : "You off the duty now and you haven't tickets."
 "ru|organizations.police.offduty.notickets"         : "Вы закончили свою смену и не имеете квитанций с собой."
 
