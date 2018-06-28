@@ -109,7 +109,7 @@ function policeGiveTicket(playerid, value) {
                     return msg(playerid, "organizations.police.toofarfromoffender", CL_ERROR);
                 }
 
-                if (canMoneyBeSubstracted(targetid, price)) {
+                if (!canMoneyBeSubstracted(targetid, price)) {
                     dbg("chat", "police", getAuthor(playerid), format("У нарушителя **%s** недостаточно денег для оплаты штрафа за %s ($%.2f)", getPlayerName(targetid), reasonText, price) );
                     return msg(playerid, "organizations.police.ticket.targetnomoney", CL_ERROR);
                 }
