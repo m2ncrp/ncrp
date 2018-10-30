@@ -701,6 +701,7 @@ Event: JOB - Snowplow driver - Get salary
 */
 function snowplowGetSalary( playerid ) {
     local amount = job_snowplow[getCharacterIdFromPlayerId(playerid)]["route"][1] + getSalaryBonus();
+    players[playerid].data.jobs.snowplowdriver.count += 1;
     addMoneyToPlayer(playerid, amount);
     msg( playerid, "job.snowplow.nicejob", amount, SNOWPLOW_JOB_COLOR );
 }
