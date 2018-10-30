@@ -77,7 +77,7 @@ const TRUCK_JOB_Z = -6.86539; //
 
 const TRUCK_JOB_TIMEOUT = 1800; // 30 minutes
 const TRUCK_JOB_SKIN = 130;
-const TRUCK_JOB_SALARY = 10.0;
+const TRUCK_JOB_SALARY = 9.5;
 const TRUCK_JOB_LEVEL = 1;
       TRUCK_JOB_COLOR <- CL_CRUSTA;
 local TRUCK_JOB_GET_HOUR_START     = 0;
@@ -383,7 +383,8 @@ function truckJobRefuseLeave( playerid ) {
 
 
 function truckGetSalary( playerid ) {
-    local amount = TRUCK_JOB_SALARY + (random(-1, 3)).tofloat() + getSalaryBonus();
+    local amount = TRUCK_JOB_SALARY + (random(-1, 2.5)).tofloat() + getSalaryBonus();
+    players[playerid].data.jobs.truckdriver.count += 1;
     addMoneyToPlayer(playerid, amount);
     msg( playerid, "job.truckdriver.nicejob", [amount] );
 }
