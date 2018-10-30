@@ -85,7 +85,7 @@ const FISH_JOB_UNLOAD_Y = 98.0385;
 const FISH_JOB_UNLOAD_Z = -21.2582;
 
 const FISH_JOB_SKIN = 130;
-const FISH_JOB_SALARY = 0.75;
+const FISH_JOB_SALARY = 0.65;
 const FISH_JOB_LEVEL = 1;
       FISH_JOB_COLOR <- CL_CRUSTA;
 
@@ -509,6 +509,7 @@ function fishJobLoad( playerid ) {
 // working good, check
 function fishGetSalary( playerid ) {
     local amount = FISH_JOB_SALARY + round(getSalaryBonus() / 25, 2);
+    players[playerid].data.jobs.fishdriver.count += 1;
     msg( playerid, "job.fishdriver.nicejob", [getPlayerName( playerid ), amount], FISH_JOB_COLOR );
     addMoneyToPlayer(playerid, amount);
 }
