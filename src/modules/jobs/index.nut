@@ -7,6 +7,20 @@ event("onServerStarted", function() {
 local SALARY_BONUS = 0.0;
 event("onPlayerConnect", function(playerid) {
     calcSalaryBonus();
+
+    if(!("jobsrang" in players[playerid].data)) {
+        local value = { count = 0, rang = 0 };
+        players[playerid].data.jobs <- {
+            docker          = value,
+            busdriver       = value,
+            porter          = value,
+            fishdriver      = value,
+            fueldriver      = value,
+            snowplowdriver  = value,
+            milkdriver      = value,
+            truckdriver     = value,
+        }
+    }
 });
 
 event("onPlayerDisconnect", function(playerid, reason) {
@@ -18,7 +32,7 @@ function getSalaryBonus() {
 }
 
 function calcSalaryBonus() {
-    SALARY_BONUS = getPlayerCount() >= 7 ? 0.25 * getPlayerCount() : 0.0;
+    SALARY_BONUS = getPlayerCount() >= 9 ? 0.2 * getPlayerCount() : 0.0;
 }
 /* ************************************************************************* */
 

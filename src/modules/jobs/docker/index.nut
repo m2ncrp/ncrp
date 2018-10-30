@@ -60,6 +60,8 @@ const DOCKER_JOB_SKIN = 63;
 const DOCKER_SALARY = 0.20;
       DOCKER_JOB_COLOR <- CL_CRUSTA;
 
+// local DOCKER_RANGS_MAX = 20;
+
 local DOCKER_JOB_GET_HOUR_START     = 0;    //6;
 local DOCKER_JOB_GET_HOUR_END       = 23;   //18;
 local DOCKER_JOB_LEAVE_HOUR_START   = 0;    //6;
@@ -296,7 +298,15 @@ function dockerJobPutBox( playerid ) {
     dockerJobRemovePrivateBlipText ( playerid );
 
     job_docker[getCharacterIdFromPlayerId(playerid)]["havebox"] = false;
+
+    // local rang = players[playerid].data.jobsrang.docker.rang;
+
+    // coef for max 20 level == $0.8
+    // local amount = round(DOCKER_SALARY * pow(1.07177345, rang), 2) + round(getSalaryBonus() / 50, 2);
     local amount = DOCKER_SALARY + round(getSalaryBonus() / 50, 2);
+
+    players[playerid].data.jobs.docker.count += 1;
+
     msg( playerid, "job.docker.nicejob", amount, DOCKER_JOB_COLOR );
     addMoneyToPlayer(playerid, amount);
 

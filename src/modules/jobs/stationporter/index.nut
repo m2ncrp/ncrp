@@ -274,6 +274,7 @@ function porterJobPutBox( playerid ) {
 
     job_porter[getCharacterIdFromPlayerId(playerid)]["havebox"] = false;
     local amount = PORTER_SALARY + round(getSalaryBonus() / 50, 2);
+    players[playerid].data.jobs.porter.count += 1;
     msg( playerid, "job.porter.nicejob", amount, PORTER_JOB_COLOR );
     addMoneyToPlayer(playerid, amount);
 
