@@ -8,17 +8,17 @@ local SALARY_BONUS = 0.0;
 event("onPlayerConnect", function(playerid) {
     calcSalaryBonus();
 
-    if(!("jobsrang" in players[playerid].data)) {
+    if(!("jobs" in players[playerid].data)) {
         local value = { count = 0, rang = 0 };
         players[playerid].data.jobs <- {
-            docker          = value,
-            busdriver       = value,
-            porter          = value,
-            fishdriver      = value,
-            fueldriver      = value,
-            snowplowdriver  = value,
-            milkdriver      = value,
-            truckdriver     = value,
+            docker          = clone(value),
+            busdriver       = clone(value),
+            porter          = clone(value),
+            fishdriver      = clone(value),
+            fueldriver      = clone(value),
+            snowplowdriver  = clone(value),
+            milkdriver      = clone(value),
+            truckdriver     = clone(value),
         }
     }
 });
