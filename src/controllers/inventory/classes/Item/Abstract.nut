@@ -47,6 +47,11 @@ class Item.Abstract extends ORM.JsonEntity
         dbg("classes/Item.nut: trying to use item. Make sure you've overriden this method for your item", this.classname, getIdentity(playerid));
     }
 
+    function transfer(playerid, inventory, targetid) {
+        sendMsgToAllInRadius(playerid, "inventory.transfered", [ getPlayerName(playerid), getPlayerName(targetid), plocalize(playerid, this.classname ) ], CL_CHAT_ME, NORMAL_RADIUS);
+        sendMsgToAllInRadius(targetid, "inventory.transferedfrom", [ getPlayerName(targetid), getPlayerName(playerid), plocalize(playerid, this.classname ) ], CL_CHAT_ME, NORMAL_RADIUS);
+    }
+
     function destroy(playerid, inventory) {
         msg(playerid, "inventory.destroyed", [ plocalize(playerid, this.classname )], CL_FLAMINGO);
     }

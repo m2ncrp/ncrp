@@ -9,6 +9,36 @@ alternativeTranslate({
     "en|inventory.cannotdestroy" : "You can't destroy this item."
     "ru|inventory.cannotdestroy" : "Вы не можете уничтожить этот предмет."
 
+    "en|inventory.transfered"    : "[ME] %s transfer in hands to %s: %s"
+    "ru|inventory.transfered"    : "[ME] %s передал в руки %s: %s"
+
+    "en|inventory.transferedfrom"    : "[ME] %s taken in hands from %s: %s"
+    "ru|inventory.transferedfrom"    : "[ME] %s взял в руки от %s: %s"
+
+    "en|inventory.transfer.enter"    : "Enter player id to transfer item:"
+    "ru|inventory.transfer.enter"    : "Введите id игрока, чтобы передать предмет:"
+
+    "en|inventory.transfer.provide"  : "You must provide player id to transfer item."
+    "ru|inventory.transfer.provide"  : "Вы должны указать id игрока, чтобы передать предмет."
+
+    "en|inventory.transfer.canceled" : "Item transfer has been canceled."
+    "ru|inventory.transfer.canceled" : "Передача предмета отменена."
+
+    "en|inventory.transfer.largedistance" : "Distance between both players is too large!"
+    "ru|inventory.transfer.largedistance" : "Слишком большая дистанция между персонажами!"
+
+    "en|inventory.transfer.handsbusy" : "%s can't transfer item to you, bacause your hands are busy."
+    "ru|inventory.transfer.handsbusy" : "%s не может передать вам предмет, потому что у вас заняты руки."
+
+    "en|inventory.transfer.targethandsbusy"  : "Hands of %s are busy."
+    "ru|inventory.transfer.targethandsbusy"  : "У %s заняты руки."
+
+    "en|inventory.transfer.yourself" : "You can't give item to yourself."
+    "ru|inventory.transfer.yourself" : "Вы не можете передать предмет сами себе."
+
+    "en|inventory.transfer.noplayer" : "There's no such person on server!"
+    "ru|inventory.transfer.noplayer" : "Указанный игрок оффлайн."
+
     "en|inventory.destroyed"     : "You destroyed item: %s."
     "ru|inventory.destroyed"     : "Вы уничтожили предмет: %s."
 
@@ -135,7 +165,8 @@ alternativeTranslate({
     "en|Item.Gift"             : "Gift"
     "en|Item.Box"              : "Box"
     "en|Item.Money"            : "Money"
-
+    "en|Item.LTC"              : "LTC"
+    "en|Item.DriverLicense"    : "Driver License"
 
     "en|Item.BigBreakRed"      :  "Big Break Red"
     "en|Item.BigBreakBlue"     :  "Big Break Blue"
@@ -197,6 +228,8 @@ alternativeTranslate({
     "ru|Item.Gift"             : "Подарок"
     "ru|Item.Box"              : "Ящик"
     "ru|Item.Money"            : "Деньги"
+    "ru|Item.LTC"              : "Лицензия на оружие"
+    "ru|Item.DriverLicense"    : "Водительские права"
 
     "ru|Item.BigBreakRed"      : "Big Break Red"
     "ru|Item.BigBreakBlue"     : "Big Break Blue"
