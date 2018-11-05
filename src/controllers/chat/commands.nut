@@ -62,7 +62,7 @@ chatcmd(["s", "shout"], function(playerid, message) {
 });
 
 chatcmd(["me"], function(playerid, message) {
-    inRadiusSendToAll(playerid, "[ME] " + getPlayerName(playerid) + " " + message, NORMAL_RADIUS, CL_CHAT_ME);
+    sendMsgToAllInRadius(playerid, "chat.player.me", [ getPlayerName(playerid), message ], CL_CHAT_ME, NORMAL_RADIUS);
 
     // statistics
     statisticsPushMessage(playerid, message, "me");

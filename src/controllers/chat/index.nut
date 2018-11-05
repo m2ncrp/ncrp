@@ -47,13 +47,16 @@ alternativeTranslate({
 
 
 
-    "en|chat.player.says"              : "%s: %s",
+    "en|chat.player.says"              : "%s: %s"
     "ru|chat.player.says"              : "%s: %s"
 
-    "en|chat.player.shout"             : "%s shout: %s",
+    "en|chat.player.me"                : "[ME] %s %s"
+    "ru|chat.player.me"                : "[ME] %s %s"
+
+    "en|chat.player.shout"             : "%s shout: %s"
     "ru|chat.player.shout"             : "%s крикнул: %s"
 
-    "en|chat.player.whisper"           : "%s whisper: %s",
+    "en|chat.player.whisper"           : "%s whisper: %s"
     "ru|chat.player.whisper"           : "%s шепчет: %s"
 
     "en|chat.player.try.end.success"   : "[TRY] %s: %s (success)"
