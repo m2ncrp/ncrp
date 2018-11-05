@@ -170,6 +170,68 @@ event("native:onPlayerUseItem", function(playerid, id, slot) {
     }
 });
 
+event("native:onPlayerTransferItem", function(playerid, id, slot) {
+    if (!storage.exists(id)) return;
+
+    local inventory = storage.get(id);
+
+    if (inventory.isOpened(playerid)) {
+        if (inventory.exists(slot)) {
+
+            local targetid = null;
+
+            delayedFunction(12000, function() {
+                if (targetid == null) {
+                    msg(playerid, "inventory.transfer.canceled");
+                }
+            });
+
+            msg(playerid, "inventory.transfer.enter");
+
+            trigger(playerid, "hudCreateTimer", 12.0, true, true);
+
+            requestUserInput(playerid, function(playerid, text) {
+                trigger(playerid, "hudDestroyTimer");
+
+                if (!text || !isNumeric(text)) {
+                    targetid = -1;
+                    return msg(playerid, "inventory.transfer.provide", CL_THUNDERBIRD);
+                }
+                targetid = text.tointeger();
+
+                if (playerid == targetid) {
+                    return msg(playerid, "inventory.transfer.yourself");
+                }
+
+                if ( !isPlayerConnected(targetid) ) {
+                    return msg(playerid, "inventory.transfer.noplayer");
+                }
+
+                if (!checkDistanceBtwTwoPlayersLess(playerid, targetid, 2.0)) {
+                    return msg(playerid, "inventory.transfer.largedistance");
+                }
+
+                if(!players[targetid].hands.isFreeSpace(1)) {
+                           msg(playerid, "inventory.transfer.targethandsbusy", getPlayerName(targetid), CL_THUNDERBIRD);
+                    return msg(targetid, "inventory.transfer.handsbusy", getPlayerName(playerid), CL_THUNDERBIRD);
+                }
+
+                local item = inventory.remove(slot);
+                inventory.sync();
+
+                players[targetid].hands.push( item );
+                item.save();
+
+                players[targetid].hands.sync();
+
+                item.transfer(playerid, inventory, targetid);
+
+            }, 12);
+
+        }
+    }
+});
+
 event("native:onPlayerDestroyItem", function(playerid, id, slot) {
     if (!storage.exists(id)) return;
 

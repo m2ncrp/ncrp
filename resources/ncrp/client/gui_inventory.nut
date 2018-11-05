@@ -54,6 +54,7 @@ local translations = {
         "title"                 : "Inventory of ",
 
         "action:use"            : "Use",
+        "action:transfer"       : "Transfer",
         "action:destroy"        : "Destroy",
         "action:takeInHand"     : "Take in hand",
         "action:throwToGround"  : "Throw to the ground",
@@ -110,6 +111,8 @@ local translations = {
         "Item.Gift"             : "Gift"
         "Item.Box"              : "Box"
         "Item.Money"            : "Money"
+        "Item.LTC"              : "LTC"
+        "Item.DriverLicense"    : "Driver License"
 
         "Item.BigBreakRed"      :  "Big Break Red"
         "Item.BigBreakBlue"     :  "Big Break Blue"
@@ -122,6 +125,7 @@ local translations = {
         "title"                 : "Инвентарь ",
 
         "action:use"            : "Использовать",
+        "action:transfer"       : "Передать",
         "action:destroy"        : "Уничтожить",
         "action:takeInHand"     : "Взять в руку",
         "action:throwToGround"  : "Бросить на землю",
@@ -178,6 +182,8 @@ local translations = {
         "Item.Gift"             : "Подарок"
         "Item.Box"              : "Ящик"
         "Item.Money"            : "Деньги"
+        "Item.LTC"              : "Лицензия на оружие"
+        "Item.DriverLicense"    : "Водительские права"
 
         "Item.BigBreakRed"    : "Big Break Red"
         "Item.BigBreakBlue"   : "Big Break Blue"
@@ -528,7 +534,8 @@ class PlayerInventory extends Inventory
 
         // buttons
         this.components["lbl_name"]     <- this.addComponent(ELEMENT_TYPE_LABEL,  props,  0, "");
-        this.components["btn_use"]      <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -4, translations[playerLang]["action:use"]);
+        this.components["btn_use"]      <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -5, translations[playerLang]["action:use"]);
+        this.components["btn_transfer"] <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -4, translations[playerLang]["action:transfer"]);
         this.components["btn_destroy"]  <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -3, translations[playerLang]["action:destroy"]);
         this.components["btn_hand"]     <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -2, translations[playerLang]["action:takeInHand"]);
         this.components["btn_drop"]     <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -1, translations[playerLang]["action:throwToGround"]);
@@ -582,6 +589,14 @@ class PlayerInventory extends Inventory
                 guiSetText(this.components["lbl_name"], "");
                 selectedItem.active = false;
                 trigger("inventory:use", selectedItem.parent.id, selectedItem.slot);
+                selectedItem = null;
+                return true;
+            }
+
+            if (idx == "btn_transfer" && selectedItem) {
+                guiSetText(this.components["lbl_name"], "");
+                selectedItem.active = false;
+                trigger("inventory:transfer", selectedItem.parent.id, selectedItem.slot);
                 selectedItem = null;
                 return true;
             }
