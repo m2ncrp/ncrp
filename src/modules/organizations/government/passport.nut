@@ -126,7 +126,7 @@ cmd("passport", function( playerid, parametr = 0 ) {
 
                         local day   = getDay();
                         local month = getMonth();
-                        local year  = getYear() + 1;
+                        local year  = getYear() + 10;
                         if (month < 10) { month = "0"+month; }
                         passportObj.setData("issued",  getDate());
                         passportObj.setData("expires", day+"."+month+"."+year);
@@ -326,8 +326,8 @@ alternativeTranslate({
     "ru|passport.nationality.0-7"   : "Афроамериканец"
     "en|passport.nationality.0-8"   : "Chinese"
     "ru|passport.nationality.0-8"   : "Китаец"
-    "en|passport.nationality.0-9"   : "Mexican"
-    "ru|passport.nationality.0-9"   : "Мексиканец"
+    "en|passport.nationality.0-9"   : "Jewish"
+    "ru|passport.nationality.0-9"   : "Еврей"
     "en|passport.nationality.0-10"  : "German"
     "ru|passport.nationality.0-10"  : "Немец"
 
@@ -347,8 +347,8 @@ alternativeTranslate({
     "ru|passport.nationality.1-7"   : "Афроамериканка"
     "en|passport.nationality.1-8"   : "Chinese"
     "ru|passport.nationality.1-8"   : "Китаянка"
-    "en|passport.nationality.1-9"   : "Mexican"
-    "ru|passport.nationality.1-9"   : "Мексиканка"
+    "en|passport.nationality.1-9"   : "Jewish"
+    "ru|passport.nationality.1-9"   : "Еврейка"
     "en|passport.nationality.1-10"  : "German"
     "ru|passport.nationality.1-10"  : "Немка"
 
