@@ -67,20 +67,27 @@ cmd("passport", function( playerid, parametr = 0 ) {
     passportObj.setData("sex", sex );
     passportObj.setData("race", players[playerid].race );
 
+    local complete = false;
+
+    delayedFunction(90000, function() {
+        if (complete == false) {
+            if(defaulttogooc) setPlayerOOC(playerid, true);
+            return msg(playerid, "passport.insert.incorrect", CL_THUNDERBIRD);
+        }
+    });
 
     //nationality
     msg(playerid, "passport.insert.nationality", CL_CHESTNUT2);
 
-    for (local i = 1; i <= 10; i++) {
+    for (local i = 1; i <= 11; i++) {
         msg(playerid,  i+". "+ plocalize(playerid, "passport.nationality."+sex+"-"+i));
     }
 
-    trigger(playerid, "hudCreateTimer", 60, true, true);
+    trigger(playerid, "hudCreateTimer", 90, true, true);
 
     requestUserInput(playerid, function(playerid, text) {
-        trigger(playerid, "hudDestroyTimer");
 
-        if (!text || !isNumeric(text) || text.tointeger() < 1 || text.tointeger() > 10) {
+        if (!text || !isNumeric(text) || text.tointeger() < 1 || text.tointeger() > 11) {
             if(defaulttogooc) setPlayerOOC(playerid, true);
             return msg(playerid, "passport.insert.incorrect", CL_THUNDERBIRD);
         }
@@ -93,11 +100,9 @@ cmd("passport", function( playerid, parametr = 0 ) {
             msg(playerid,  i+". "+ plocalize(playerid, "passport.hair."+i));
         }
 
-        trigger(playerid, "hudCreateTimer", 60, true, true);
-
         delayedFunction( 1000, function() {
             requestUserInput(playerid, function(playerid, text) {
-                trigger(playerid, "hudDestroyTimer");
+
                 if (!text || !isNumeric(text) || text.tointeger() < 1 || text.tointeger() > 9) {
                     if(defaulttogooc) setPlayerOOC(playerid, true);
                     return msg(playerid, "passport.insert.incorrect", CL_THUNDERBIRD);
@@ -110,8 +115,6 @@ cmd("passport", function( playerid, parametr = 0 ) {
                 for (local i = 1; i <= 9; i++) {
                     msg(playerid,  i+". "+ plocalize(playerid, "passport.eyes."+i));
                 }
-
-                trigger(playerid, "hudCreateTimer", 60, true, true);
 
                 delayedFunction( 1000, function() {
                     requestUserInput(playerid, function(playerid, text) {
@@ -138,13 +141,15 @@ cmd("passport", function( playerid, parametr = 0 ) {
                         players[playerid].setData("passport", true);
                         players[playerid].save();
 
+                        complete = true;
+
                         if(defaulttogooc) setPlayerOOC(playerid, true);
 
-                    }, 60);
+                    }, 30);
                 });
-            }, 60);
+            }, 30);
         });
-    }, 60);
+    }, 30);
 
 });
 
@@ -326,10 +331,12 @@ alternativeTranslate({
     "ru|passport.nationality.0-7"   : "Афроамериканец"
     "en|passport.nationality.0-8"   : "Chinese"
     "ru|passport.nationality.0-8"   : "Китаец"
-    "en|passport.nationality.0-9"   : "Jewish"
-    "ru|passport.nationality.0-9"   : "Еврей"
+    "en|passport.nationality.0-9"   : "Mexican"
+    "ru|passport.nationality.0-9"   : "Мексиканец"
     "en|passport.nationality.0-10"  : "German"
     "ru|passport.nationality.0-10"  : "Немец"
+    "en|passport.nationality.0-11"  : "Jewish"
+    "ru|passport.nationality.0-11"  : "Еврей"
 
     "en|passport.nationality.1-1"   : "Englishwoman"
     "ru|passport.nationality.1-1"   : "Англичанка"
@@ -347,9 +354,11 @@ alternativeTranslate({
     "ru|passport.nationality.1-7"   : "Афроамериканка"
     "en|passport.nationality.1-8"   : "Chinese"
     "ru|passport.nationality.1-8"   : "Китаянка"
-    "en|passport.nationality.1-9"   : "Jewish"
-    "ru|passport.nationality.1-9"   : "Еврейка"
+    "en|passport.nationality.1-9"   : "Mexican"
+    "ru|passport.nationality.1-9"   : "Мексиканка"
     "en|passport.nationality.1-10"  : "German"
     "ru|passport.nationality.1-10"  : "Немка"
+    "en|passport.nationality.1-11"  : "Jewish"
+    "ru|passport.nationality.1-11"  : "Еврейка"
 
 });
