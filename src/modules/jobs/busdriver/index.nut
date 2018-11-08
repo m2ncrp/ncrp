@@ -33,7 +33,7 @@ local BUS_TICKET_PRICE = 0.4;
 local routes_list_all = [ 1, 2, 3, 4, 5, 6, 7 ];
 local routes_list = clone( routes_list_all );
 
-local BUS_DEPOT_SIDEWALK = [-436.409, 461.904, -410.006, 498.025];
+local BUS_DEPOT_SIDEWALK = [-436.409, 461.904, -411.006, 498.025];
 
 event("onServerStarted", function() {
     log("[jobs] loading busdriver job...");
