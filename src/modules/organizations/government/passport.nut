@@ -156,9 +156,9 @@ cmd("passport", function( playerid, parametr = 0 ) {
 
 fmd("gov", ["gov.passport"], "$f passport", function(fraction, character, result, targetid = null) {
 
-    if (!isPlayerInValidPoint(character.playerid, getGovCoords(0), getGovCoords(1), 1.0 )) {
-        return msg(character.playerid, "passport.toofar", CL_THUNDERBIRD);
-    }
+    // if (!isPlayerInValidPoint(character.playerid, getGovCoords(0), getGovCoords(1), 1.0 )) {
+    //     return msg(character.playerid, "passport.toofar", CL_THUNDERBIRD);
+    // }
 
     targetid = toInteger(targetid);
 
