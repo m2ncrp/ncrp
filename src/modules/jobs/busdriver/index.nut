@@ -33,6 +33,7 @@ local BUS_TICKET_PRICE = 0.4;
 local routes_list_all = [ 1, 2, 3, 4, 5, 6, 7 ];
 local routes_list = clone( routes_list_all );
 
+local BUS_DEPOT_SIDEWALK = [-436.409, 461.904, -410.006, 498.025];
 
 event("onServerStarted", function() {
     log("[jobs] loading busdriver job...");
@@ -135,8 +136,39 @@ event("onServerStarted", function() {
 
     registerPersonalJobBlip("busdriver", BUS_JOB_X, BUS_JOB_Y);
 
+    createPlace("BusDepotSidewalk", BUS_DEPOT_SIDEWALK[0], BUS_DEPOT_SIDEWALK[1], BUS_DEPOT_SIDEWALK[2], BUS_DEPOT_SIDEWALK[3]);
+
 });
 
+event("onPlayerPlaceEnter", function(playerid, name) {
+    if (isPlayerInVehicle(playerid) && name == "BusDepotSidewalk") {
+        local vehicleid = getPlayerVehicle(playerid);
+        local vehSpeed = getVehicleSpeed(vehicleid);
+        local vehPos = getVehiclePosition(vehicleid);
+
+        local vehSpeedNew = [];
+
+        if (vehPos[0] > BUS_DEPOT_SIDEWALK[0] && vehPos[0] < BUS_DEPOT_SIDEWALK[2]) {
+            // для нижней границы
+            if (vehPos[1] > (BUS_DEPOT_SIDEWALK[1] - 4.0) && vehPos[1] < (BUS_DEPOT_SIDEWALK[1] + 4.0)) {
+                if (vehSpeed[1] >= 0) vehSpeed[1] = (vehSpeed[1] + 1) * -1;
+            }
+            // для верхней границы
+            if (vehPos[1] > (BUS_DEPOT_SIDEWALK[3] - 4.0) && vehPos[1] < (BUS_DEPOT_SIDEWALK[3] + 4.0)) {
+                if (vehSpeed[1] <= 0) vehSpeed[1] = (vehSpeed[1] - 1) * -1;
+            }
+        }
+
+        // для правой боковой границы
+        if (vehPos[0] > (BUS_DEPOT_SIDEWALK[2] - 4.0) && vehPos[0] < (BUS_DEPOT_SIDEWALK[2] + 4.0)) {
+            if (vehPos[1] > BUS_DEPOT_SIDEWALK[1] && vehPos[1] < BUS_DEPOT_SIDEWALK[3]) {
+                if (vehSpeed[0] <= 0) vehSpeed[0] = (vehSpeed[0] - 1) * -1;
+            }
+        }
+
+        setVehicleSpeed(vehicleid, vehSpeed[0], vehSpeed[1], vehSpeed[2]);
+    }
+});
 
 event("onPlayerConnect", function(playerid) {
     local charId = getCharacterIdFromPlayerId(playerid);
