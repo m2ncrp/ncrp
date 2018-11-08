@@ -151,18 +151,18 @@ event("onPlayerPlaceEnter", function(playerid, name) {
         if (vehPos[0] > BUS_DEPOT_SIDEWALK[0] && vehPos[0] < BUS_DEPOT_SIDEWALK[2]) {
             // для нижней границы
             if (vehPos[1] > (BUS_DEPOT_SIDEWALK[1] - 4.0) && vehPos[1] < (BUS_DEPOT_SIDEWALK[1] + 4.0)) {
-                if (vehSpeed[1] >= 0) vehSpeed[1] = (vehSpeed[1] + 1) * -1;
+                if (vehSpeed[1] >= 0) vehSpeed[1] = (vehSpeed[1] + 2) * -1;
             }
             // для верхней границы
             if (vehPos[1] > (BUS_DEPOT_SIDEWALK[3] - 4.0) && vehPos[1] < (BUS_DEPOT_SIDEWALK[3] + 4.0)) {
-                if (vehSpeed[1] <= 0) vehSpeed[1] = (vehSpeed[1] - 1) * -1;
+                if (vehSpeed[1] <= 0) vehSpeed[1] = (vehSpeed[1] - 2) * -1;
             }
         }
 
         // для правой боковой границы
         if (vehPos[0] > (BUS_DEPOT_SIDEWALK[2] - 4.0) && vehPos[0] < (BUS_DEPOT_SIDEWALK[2] + 4.0)) {
-            if (vehPos[1] > BUS_DEPOT_SIDEWALK[1] && vehPos[1] < BUS_DEPOT_SIDEWALK[3]) {
-                if (vehSpeed[0] <= 0) vehSpeed[0] = (vehSpeed[0] - 1) * -1;
+            if (vehPos[1] > (BUS_DEPOT_SIDEWALK[1] - 2.0) && vehPos[1] < (BUS_DEPOT_SIDEWALK[3] + 2.0)) {
+                if (vehSpeed[0] <= 0) vehSpeed[0] = (vehSpeed[0] - 2) * -1;
             }
         }
 
