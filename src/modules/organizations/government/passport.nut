@@ -130,6 +130,7 @@ cmd("passport", function( playerid, parametr = 0 ) {
                         local day   = getDay();
                         local month = getMonth();
                         local year  = getYear() + 10;
+                        if (day < 10) { day = "0"+day; }
                         if (month < 10) { month = "0"+month; }
                         passportObj.setData("issued",  getDate());
                         passportObj.setData("expires", day+"."+month+"."+year);
@@ -156,9 +157,9 @@ cmd("passport", function( playerid, parametr = 0 ) {
 
 fmd("gov", ["gov.passport"], "$f passport", function(fraction, character, result, targetid = null) {
 
-    if (!isPlayerInValidPoint(character.playerid, getGovCoords(0), getGovCoords(1), 1.0 )) {
-        return msg(character.playerid, "passport.toofar", CL_THUNDERBIRD);
-    }
+    // if (!isPlayerInValidPoint(character.playerid, getGovCoords(0), getGovCoords(1), 1.0 )) {
+    //     return msg(character.playerid, "passport.toofar", CL_THUNDERBIRD);
+    // }
 
     targetid = toInteger(targetid);
 
