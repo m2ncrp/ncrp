@@ -28,13 +28,6 @@ local raceBlockingCars = [
   // бас перекрывает дорогу у поворота на между домами
   ["PT-102", [-1649.55,366.728,-19.2007], [91.6659,-0.206044,-0.0653862]],
 
-  /*
-  координаты парковки автобусов парковка
-  [-1566.50,532.754,-20.1182]
-  следующий:
-  [-1566.50,518.903,-20.0685]
-  */
-
   // полицейская над тоннелем метро
   ["PD-054", [-1636.54,683.937,-9.4598], [-173.885,-11.4418,-0.40165]],
 
@@ -359,7 +352,7 @@ acmd( "race", "timer", function( playerid ) {
 
 function syncRaceBlockingCar() {
   foreach(car in raceBlockingCars) {
-    local vehicleid = getVehicleByPlateText(vehicle[0]);
+    local vehicleid = getVehicleByPlateText(car[0]);
     if(vehicleid) {
       setVehiclePosition(vehicleid, car[1][0], car[1][1], car[1][2])
       setVehicleRotation(vehicleid, car[2][0], car[2][1], car[2][2]);
@@ -371,12 +364,33 @@ acmd( "race", "sync", function( playerid ) {
   syncRaceBlockingCar();
 });
 
-// acmd( "race", "park", function( playerid ) {
-//   foreach(car in raceBlockingCars) {
-//     local vehicleid = getVehicleByPlateText(vehicle[0]);
-//     if(vehicleid) {
-//       setVehiclePosition(vehicleid, car[1][0], car[1][1], car[1][2]);
-//       setVehicleRotation(vehicleid, car[2][0], car[2][1], car[2][2]);
-//     }
-//   }
-// });
+acmd( "race", "park", function( playerid ) {
+  local i = 0;
+  local x = -1566.5;
+  local y = 535.7;
+  local z = -20.1;
+  local rx = 0.0;
+
+  foreach(car in raceBlockingCars) {
+
+    local vehicleid = getVehicleByPlateText(car[0]);
+
+    if(vehicleid && getVehicleModel(vehicleid) == 21) {
+
+      setVehiclePosition(vehicleid, x, y, z);
+      setVehicleRotation(vehicleid, rx, 0.0, 0.0);
+
+      i++;
+      y += 12.5;
+
+      if(i == 7) {
+        y = 535.7;
+      }
+
+      if(i >= 7) {
+        x = -1575.0;
+        rx = 180.0
+      }
+    }
+  }
+});
