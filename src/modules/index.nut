@@ -8,3 +8,4 @@ include("modules/interiors");
 include("modules/map");
 include("modules/radio");
 include("modules/policealarm");
+include("modules/racing");

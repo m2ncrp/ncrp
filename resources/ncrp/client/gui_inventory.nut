@@ -113,6 +113,7 @@ local translations = {
         "Item.Money"            : "Money"
         "Item.LTC"              : "LTC"
         "Item.DriverLicense"    : "Driver License"
+        "Item.Race"             : "Racing form"
 
         "Item.BigBreakRed"      :  "Big Break Red"
         "Item.BigBreakBlue"     :  "Big Break Blue"
@@ -184,6 +185,7 @@ local translations = {
         "Item.Money"            : "Деньги"
         "Item.LTC"              : "Лицензия на оружие"
         "Item.DriverLicense"    : "Водительские права"
+        "Item.Race"             : "Бланк гонки"
 
         "Item.BigBreakRed"    : "Big Break Red"
         "Item.BigBreakBlue"   : "Big Break Blue"
