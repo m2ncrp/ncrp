@@ -21,6 +21,7 @@ include("controllers/inventory/classes/Item/Jerrycan.nut");
 include("controllers/inventory/classes/Item/VehicleTax.nut");
 include("controllers/inventory/classes/Item/VehicleKey.nut");
 include("controllers/inventory/classes/Item/VehicleTitle.nut");
+include("controllers/inventory/classes/Item/Race.nut");
 include("controllers/inventory/classes/Item/Passport.nut");
 include("controllers/inventory/classes/Item/FirstAidKit.nut");
 include("controllers/inventory/classes/Item/PoliceBadge.nut");

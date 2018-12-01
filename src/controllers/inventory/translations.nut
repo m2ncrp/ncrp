@@ -167,6 +167,7 @@ alternativeTranslate({
     "en|Item.Money"            : "Money"
     "en|Item.LTC"              : "LTC"
     "en|Item.DriverLicense"    : "Driver License"
+    "en|Item.Race"             : "Racing form"
 
     "en|Item.BigBreakRed"      :  "Big Break Red"
     "en|Item.BigBreakBlue"     :  "Big Break Blue"
@@ -230,6 +231,7 @@ alternativeTranslate({
     "ru|Item.Money"            : "Деньги"
     "ru|Item.LTC"              : "Лицензия на оружие"
     "ru|Item.DriverLicense"    : "Водительские права"
+    "ru|Item.Race"             : "Бланк гонки"
 
     "ru|Item.BigBreakRed"      : "Big Break Red"
     "ru|Item.BigBreakBlue"     : "Big Break Blue"
