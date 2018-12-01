@@ -362,6 +362,7 @@ function syncRaceBlockingCar() {
     local vehicleid = getVehicleByPlateText(vehicle[0]);
     if(vehicleid) {
       setVehiclePosition(vehicleid, car[1][0], car[1][1], car[1][2])
+      setVehicleRotation(vehicleid, car[2][0], car[2][1], car[2][2]);
     }
   }
 }
