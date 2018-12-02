@@ -62,6 +62,17 @@ event("onServerStarted", function() {
 
 });
 
+event("onPlayerConnect", function(playerid) {
+  if(raceStatus != "notload") {
+    syncRaceBlockingCar();
+  }
+});
+
+event("onServerMinuteChange", function() {
+  if(raceStatus != "notload") {
+    syncRaceBlockingCar();
+  }
+});
 
 event("onPlayerPlaceEnter", function(playerid, name) {
   if(name.find("RACE-") == null) return;
@@ -112,6 +123,32 @@ event("onPlayerPlaceEnter", function(playerid, name) {
     msga(format("[ГОНКА] %s финишировал", getPlayerName(playerid)), [], CL_CHAT_MONEY_ADD);
     raceMembers[charid].nextPoint = "END";
   }
+});
+
+function raceCarsParkSync (x, y) {
+
+   for(local i = 1; i <= 8; i++) {
+
+    local vehicleid = getVehicleByPlateText("RACE0"+i);
+
+    if(vehicleid) {
+      setVehiclePosition(vehicleid, x, y, -13.1953);
+      setVehicleRotation(vehicleid, 0.0, 0.0, 0.0);
+      repairVehicle( vehicleid );
+      setVehicleFuel( vehicleid, 50.0);
+      setVehicleDirtLevel(vehicleid, 0.0);
+      x -= 2.5;
+    }
+  }
+}
+
+
+acmd( "race", "carpark", function( playerid ) {
+  raceCarsParkSync(-1694.44, 234.617);
+});
+
+acmd( "race", "carsync", function( playerid ) {
+  raceCarsParkSync(-1560.7, 157.342);
 });
 
 
@@ -356,6 +393,7 @@ function syncRaceBlockingCar() {
     if(vehicleid) {
       setVehiclePosition(vehicleid, car[1][0], car[1][1], car[1][2])
       setVehicleRotation(vehicleid, car[2][0], car[2][1], car[2][2]);
+      repairVehicle( vehicleid );
     }
   }
 }
@@ -379,6 +417,7 @@ acmd( "race", "park", function( playerid ) {
 
       setVehiclePosition(vehicleid, x, y, z);
       setVehicleRotation(vehicleid, rx, 0.0, 0.0);
+      repairVehicle( vehicleid );
 
       i++;
       y -= 12.5;
