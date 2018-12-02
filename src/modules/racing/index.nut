@@ -386,6 +386,12 @@ acmd( "race", "timer", function( playerid ) {
   raceStartCounter();
 });
 
+acmd( "race", "reset", function( playerid ) {
+  raceName = null;
+  raceStatus = "notload";
+  raceLaps = 0;
+  raceMembers = {};
+});
 
 function syncRaceBlockingCar() {
   foreach(car in raceBlockingCars) {
