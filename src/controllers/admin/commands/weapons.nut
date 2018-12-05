@@ -1,4 +1,4 @@
-acmd(["weapons"], function(playerid) {
+mcmd(["admin.weapons"], ["weapons"], function( playerid ) {
     givePlayerWeapon( playerid, 2, 2500 );
     givePlayerWeapon( playerid, 3, 2500 );
     givePlayerWeapon( playerid, 4, 2500 );
