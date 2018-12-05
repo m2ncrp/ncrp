@@ -2,9 +2,9 @@ function generateAdminNick (playerid) {
     local nick = "";
 
     // Bertone
-    if(getPlayerSerial(playerid) == "561A1E7BB51FD437E210E932FA296DD5") {
-        nick = " Ovsianka";
-    }
+    // if(getPlayerSerial(playerid) == "561A1E7BB51FD437E210E932FA296DD5") {
+    //     nick = " Ovsianka";
+    // }
 
     // Oliver
     if(getPlayerSerial(playerid) == "856BE506BCEAEEC908F3577ABEFF9171") {
@@ -12,9 +12,9 @@ function generateAdminNick (playerid) {
     }
 
     // Franko Soprano
-    if(getPlayerSerial(playerid) == "981506EF83BF42095A62407C696A8515") {
-        nick = " Odin";
-    }
+    // if(getPlayerSerial(playerid) == "981506EF83BF42095A62407C696A8515") {
+    //     nick = " Odin";
+    // }
 
     // Hurfy
     if(getPlayerSerial(playerid) == "2F3701604B3669FCA3D3B7BC1BF3F6B8") {
