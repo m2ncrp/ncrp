@@ -116,8 +116,11 @@ alternativeTranslate({
     "en|help.job"               : "Show list of commands for job. Example: /help job"
     "ru|help.job"               : "команды работ"
 
-    "en|help.ban"               : "Show list of commands for bank"
-    "ru|help.ban"               : "команды банка"
+    "en|help.bank"              : "Show list of commands for bank"
+    "ru|help.bank"              : "команды банка"
+
+    "en|help.donate"            : "Not available for english-speaking players"
+    "ru|help.donate"            : "информация о донате"
 
     "en|help.cars"              : "Show list of commands for cars"
     "ru|help.cars"              : "команды для автомобилей"

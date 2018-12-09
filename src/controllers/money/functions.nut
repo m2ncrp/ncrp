@@ -74,6 +74,10 @@ function setPlayerMoney(playerid, money) {
 
 local moneyTransferRequest = {};
 
+function sendMoneyBlock(playerid, ...) {
+    msg(playerid, "moneysend.tempunavailable", CL_THUNDERBIRD);
+}
+
 function sendMoney(playerid, targetid = null, amount = null) {
 
     if (targetid == null || amount == null) {
