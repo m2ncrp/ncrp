@@ -28,7 +28,6 @@ class ORM.Utils.Formatter {
 
         foreach (idx, field in entity.fields) {
             if (field instanceof ORM.Field.Id) continue;
-            if (field.)
             result.push(format("`%s`", field.getName()));
         }
 
