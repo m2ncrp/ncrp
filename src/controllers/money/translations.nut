@@ -42,4 +42,7 @@ alternativeTranslate({
     "en|moneysend.cantgive" : "%s can't give you money!"
     "ru|moneysend.cantgive" : "%s не может передать вам деньги!"
 
+    "en|moneysend.tempunavailable" : "Money transfer is temporarily unavailable"
+    "ru|moneysend.tempunavailable" : "Возможность передачи денег временно недоступна"
+
 });
