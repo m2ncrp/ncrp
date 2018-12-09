@@ -10,7 +10,7 @@ class Character extends ORM.JsonEntity {
     static fields = [
         ORM.Field.Integer   ({ name = "accountid"   }), // for relation to @Account
 
-        ORM.Field.Float     ({ name = "money"       }),
+        ORM.Field.Float     ({ name = "money",      value = 0.0 }),
         ORM.Field.Integer   ({ name = "dskin"       }),
         ORM.Field.Integer   ({ name = "cskin"       }),
         ORM.Field.Integer   ({ name = "xp",         })
