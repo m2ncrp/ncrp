@@ -10,7 +10,7 @@ class Business extends ORM.Entity {
         ORM.Field.Float   ({ name = "price",   value = 10000.0 }),
         ORM.Field.Float   ({ name = "income",  value = 15.0 }),
         ORM.Field.Integer ({ name = "type",    value = 0 }),
-        ORM.Field.String  ({ name = "data",    value = "", nullable = true }),
+        ORM.Field.String  ({ name = "data",    value = null, nullable = true }),
         ORM.Field.String  ({ name = "alias",   value = "" }),
     ];
 
