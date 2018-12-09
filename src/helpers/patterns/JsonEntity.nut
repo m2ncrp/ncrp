@@ -33,7 +33,7 @@ class ORM.JsonEntity extends ORM.Entity {
         this.fields.reverse();
 
         // add default fields
-        this.fields.push(ORM.Field.Text({ name = "data", value = "", nullable = true, escaping = false }));
+        this.fields.push(ORM.Field.Text({ name = "data", value = null, nullable = true, escaping = false }));
         this.fields.push(ORM.Field.String({ name = "_entity", value = this.classname }));
         this.fields.push(ORM.Field.Id({ name = "id" }));
 

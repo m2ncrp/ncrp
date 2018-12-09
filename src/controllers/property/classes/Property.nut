@@ -9,7 +9,7 @@ class Property extends ORM.Entity
         ORM.Field.Integer({ name = "state" }),
         ORM.Field.Integer({ name = "type" }),
         ORM.Field.String ({ name = "area", value = "" }),
-        ORM.Field.String ({ name = "data", value = "", nullable = true }),
+        ORM.Field.String ({ name = "data", value = null, nullable = true }),
         ORM.Field.Float  ({ name = "price", value = 0.0 }),
     ];
 
