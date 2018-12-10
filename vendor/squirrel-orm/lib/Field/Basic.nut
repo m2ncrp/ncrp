@@ -136,7 +136,7 @@ class ORM.Field.Basic {
         }
 
         // default value
-        local defval = this.__value && this.__name != "_entity" ? "DEFAULT " + this.encode(this.__value) : "";
+        local defval = this.__value && this.__name != "_entity" && this.__value != "" ? "DEFAULT " + this.encode(this.__value) : "";
 
         // insert and return;
         return strip(format("`%s` %s %s %s %s %s",
