@@ -6,7 +6,7 @@ class StatisticText extends ORM.Entity {
     static fields = [
         ORM.Field.String({ name = "type" }),
         ORM.Field.String({ name = "author", value = "" }),
-        ORM.Field.Text  ({ name = "content", value = null }),
+        ORM.Field.Text  ({ name = "content", value = "" }),
         ORM.Field.String({ name = "additional", value = "" }),
         ORM.Field.String({ name = "created" })
     ];

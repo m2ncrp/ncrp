@@ -45,11 +45,7 @@ class ORM.Utils.Formatter {
 
         foreach (idx, field in entity.fields) {
             if (field instanceof ORM.Field.Id) continue;
-            if (field.__nullable && field.__value == null) {
-                result.push("NULL");
-            } else {
-                result.push(field.encode(entity.__data[field.__name]));
-            }
+            result.push(field.encode(entity.__data[field.__name]));
         }
 
         return ORM.Utils.Array.join(result, ",");
