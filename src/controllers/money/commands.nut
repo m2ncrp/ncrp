@@ -2,7 +2,7 @@ cmd( ["money"], function( playerid ) {
     msg( playerid, "Your cash: $" + getPlayerBalance(playerid) );
 });
 
-cmd( ["give", "send"], sendMoneyBlock );
+cmd( ["give", "send"], sendMoney );
 cmd( ["invoice"], sendInvoice );
 cmd( ["accept"], invoiceAccept );
 cmd( ["decline"], invoiceDecline );
