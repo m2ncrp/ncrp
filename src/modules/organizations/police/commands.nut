@@ -155,6 +155,11 @@ key(["b"], function(playerid) {
     if ( !isOfficer(playerid) ) {
         return;
     }
+
+    if ( isPlayerInVehicle(playerid) ) {
+        return;
+    }
+
     if ( isOfficer(playerid) && !isOnPoliceDuty(playerid) ) {
         return msg( playerid, "organizations.police.duty.off" );
     }
