@@ -53,6 +53,8 @@ alternativeTranslate({
     "en|admin.ban.banned"                   :   "You've banned %s on %d min. Reason: %s."
     "ru|admin.ban.banned"                   :   "Вы забанили игрока %s на %d минут. Причина: %s."
 
+    "en|admin.ban.trainer"                  :   "Using trainer (speed-hack)"
+    "ru|admin.ban.trainer"                  :   "Использование трейнера (спидхак)"
 
 
     "en|admin.warn.increased"               :   "You increased warn-level for player %s. Now: %d."

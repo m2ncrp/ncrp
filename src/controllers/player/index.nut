@@ -5,6 +5,7 @@ include("controllers/player/classes/SpawnPosition.nut");
 include("controllers/player/functions.nut");
 include("controllers/player/anticheat.nut");
 include("controllers/player/afk.nut");
+include("controllers/player/binder.nut");
 include("controllers/player/character.nut");
 include("controllers/player/death.nut");
 include("controllers/player/mute.nut");
