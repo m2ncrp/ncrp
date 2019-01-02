@@ -417,19 +417,23 @@ local goods = {
         ]
     },
 
-
-/*
     "gunshop" : {
-        title = "Fernando's Shop",
+        title = "Gun Shop",
         type  = "gunshop",
         items = [
-            { itemName = "Item.BigBreakRed",    price = 2.50 },
-            { itemName = "Item.BigBreakBlue",   price = 1.65 },
-            { itemName = "Item.BigBreakWhite",  price = 0.90 },
-            { itemName = "Item.Whiskey", price = 7.25 },
+            { itemName = "Item.Revolver",       price = 2.50 },
+            { itemName = "Item.Colt",           price = 2.50 },
+            { itemName = "Item.Magnum",         price = 2.50 },
+            { itemName = "Item.Remington870",   price = 2.50 },
+            { itemName = "Item.M1Garand",       price = 2.50 },
+            { itemName = "Item.Ammo38Special",  price = 1.65 },
+            { itemName = "Item.Ammo45ACP",      price = 1.65 },
+            { itemName = "Item.Ammo357Magnum",  price = 1.65 },
+            { itemName = "Item.Ammo12",         price = 1.65 },
+            { itemName = "Item.Ammo762x63mm",   price = 1.65 },
         ]
     },
-*/
+
 
 }
 

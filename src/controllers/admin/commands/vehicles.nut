@@ -188,17 +188,17 @@ mcmd(["admin.car"], ["deletecar", "removecar", "deleteveh", "removeveh"], functi
 
 
 // key("2") key(["2"])  bindkey("2") bind("2")
-//addKeyboardHandler("2", "up", function(playerid) {
-//    if(!isPlayerInVehicle(playerid)) return;
-//    local vehicleid = getPlayerVehicle(playerid);
-//    if(!isVehicleInPlace(vehicleid, "CarPaint_outside") && !isVehicleInPlace(vehicleid, "CarShop") && isPlayerAdmin(playerid) && !isPlayerCarTaxi(playerid)) {
-//        local vehicleid = getPlayerVehicle(playerid);
-//        local sp = getVehicleSpeed(vehicleid);
-//        setVehicleSpeed(vehicleid, sp[0], sp[1], sp[2] + 5.0);
-//    }
-//});
+addKeyboardHandler("num_8", "up", function(playerid) {
+    if(!isPlayerInVehicle(playerid)) return;
+    local vehicleid = getPlayerVehicle(playerid);
+    if(!isVehicleInPlace(vehicleid, "CarPaint_outside") && !isVehicleInPlace(vehicleid, "CarShop") && isPlayerAdmin(playerid) /*&& !isPlayerCarTaxi(playerid)*/) {
+        local vehicleid = getPlayerVehicle(playerid);
+        local sp = getVehicleSpeed(vehicleid);
+        setVehicleSpeed(vehicleid, sp[0], sp[1], sp[2] + 5.0);
+    }
+});
 
-addKeyboardHandler("3", "up", function(playerid) {
+addKeyboardHandler("num_5", "up", function(playerid) {
     if (isPlayerInVehicle(playerid) && isPlayerAdmin(playerid)) {
         local vehicleid = getPlayerVehicle(playerid);
         local rot = getVehicleRotation(vehicleid);
