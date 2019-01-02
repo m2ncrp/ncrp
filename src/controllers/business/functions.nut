@@ -4,7 +4,7 @@ local businessDefaults = [
     { type = BUSINESS_DEFAULT, blip = null,         info = null,        price = 15000.0,  income = 10.0 },
     { type = BUSINESS_DINER,   blip = ICON_BURGER,  info = "Press E",   price = 25000.0,  income = 15.0 },
     { type = BUSINESS_BAR,     blip = ICON_BAR,     info = "Press E",   price = 45000.0,  income = 40.0 },
-    { type = BUSINESS_WEAPON,  blip = ICON_WEAPON,  info = "/weapons",  price = 100000.0, income = 65.0 },
+    { type = BUSINESS_WEAPON,  blip = ICON_WEAPON,  info = "Press E",  price = 100000.0, income = 65.0 },
     { type = BUSINESS_CLOTHES, blip = ICON_CLOTHES, info = "Press E",  price = 100000.0, income = 65.0 },
 ];
 
@@ -37,8 +37,10 @@ function loadBusinessResources(entity) {
     //entity.text2 = create3DText( entity.x, entity.y, entity.z + 0.05, pricetag, CL_EUCALYPTUS.applyAlpha(125), BUSINESS_BUY_DISTANCE );
 
     local info = getBusinessInfo(entity.type);
+
     // не создавать оружейки
-    if (info.type == 3) return;
+    // if (info.type == 3) return;
+
     if (entity.type != BUSINESS_DEFAULT && info && info.info) {
         entity.text3 = create3DText( entity.x, entity.y, entity.z + 0.20, info.info, CL_WHITE.applyAlpha(75), BUSINESS_INTERACT_DISTANCE );
         entity.blip  = createBlip(   entity.x, entity.y, info.blip, 100.0 );
