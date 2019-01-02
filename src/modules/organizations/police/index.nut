@@ -168,6 +168,7 @@ include("modules/organizations/police/PoliceBuffer.nut");
 include("modules/organizations/police/PoliceOfficersList.nut");
 include("modules/organizations/police/PoliceTickets.nut");
 include("modules/organizations/police/garage.nut");
+include("modules/organizations/police/binder.nut");
 //include("modules/organizations/police/dispatcher.nut");
 include("modules/organizations/police/translations.nut");
 

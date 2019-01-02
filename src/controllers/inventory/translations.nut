@@ -114,7 +114,7 @@ alternativeTranslate({
     "ru|inventory.vehicletitle.owners"          : "Владельцы (%d):"
 
     "en|Item.None"             : ""
-    "en|Item.Revolver12"       : "Revolver 12"
+    "en|Item.Revolver"         : "Revolver 12"
     "en|Item.MauserC96"        : "Mauser C96"
     "en|Item.ColtM1911A1"      : "Colt M1911 A1"
     "en|Item.ColtM1911Spec"    : "Colt M1911 Special"

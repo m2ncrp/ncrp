@@ -52,7 +52,7 @@ vehicleSpeedLimits[53] <- [27.4, 28.5];
 
 //local maxspeed = 0.0;
 local playersInfo = {};
-local maxToBan = 6; // minimun 2
+local maxToBan = 10; // minimun 2
 
 event("onServerStarted", function() {
 
@@ -116,9 +116,14 @@ event("onServerStarted", function() {
                             //log("================================================================ WARNING ===");
                             playersInfo[charId].counter += 1;
                             if(playersInfo[charId].counter > maxToBan) {
-                                log("@everyone WARNING!!! "+getAuthor(playerid)+" - maybe using trainer");
-                                dbg("chat", "report", getAuthor(playerid), "Подозрение на использование трейнера. Наблюдаем. Никаких мер не предпринимать!!!");
-                                //log("================================================================ BAN >>>");
+                                log("@everyone WARNING!!! "+getAuthor(playerid)+" - using trainer");
+                                dbg("chat", "report", getAuthor(playerid), "Забанен на 10 суток за использование трейнера.");
+
+                                freezePlayer(targetid, true);
+                                delayedFunction(6000, function () {
+                                    newban(playerid, targetid, 14400, plocalize(targetid, "admin.ban.trainer"));
+                                });
+
                                 playersInfo[charId].counter = 0;
                             }
                         } else {
@@ -133,7 +138,7 @@ event("onServerStarted", function() {
 
             // anticheat - remove weapons
             if (!isOfficer(playerid) && !isPlayerAdmin(playerid)) {
-                local weaponlist = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 21];
+                local weaponlist = [3, 5, 7, 9, 10, 11, 12, 13, 14, 17, 21];
                 weaponlist.apply(function(id) {
                     removePlayerWeapon( playerid, id );
                 })
