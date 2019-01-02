@@ -24,6 +24,7 @@ function selectShopAssortment(bizAlias) {
 translation("en", {
     "shops.restaurant.toofar"               : "[INFO] You're too far."
     "shops.restaurant.money.notenough"      : "Not enough money to buy that."
+    "shops.needLTC"                         : "Show your LTC (in hands)"
     "shops.restaurant.buy.success"          : "You've successfuly bought %s for $%.2f."
 });
 
@@ -33,6 +34,12 @@ event("native:shop:purchase", function(playerid, data) {
     local goods = getMarketGoods(data.type);
     local item = goods.items[data.itemIndex];
     local price = item.price;
+
+    if (data.type == "gunshop") {
+        if ( !players[playerid].hands.exists(0) || !players[playerid].hands.get(0) instanceof Item.LTC) {
+            return msg(playerid, "shops.needLTC", CL_THUNDERBIRD);
+        }
+    }
 
     if (!canMoneyBeSubstracted(playerid, price)) {
         return msg(playerid, "shops.restaurant.money.notenough", CL_WARNING);
@@ -80,6 +87,17 @@ key("e", function(playerid) {
     //if (!(getBusinessType(bid) == 1) && !(getBusinessType(bid) == 2)) return;
 
     local bizAlias = getBusinessAlias(bid);
+
+    local type = split(bizAlias, "_")[0];
+
+    if(type == "gunshop") {
+        local hour = getHour();
+        if(hour < 10 || hour >= 20) {
+                 msg(playerid, "interiors.gunshop.closed", CL_THUNDERBIRD);
+          return msg(playerid, "interiors.gunshop.workinghours", CL_THUNDERBIRD);
+        }
+    }
+
     // log(bizAlias);
     players[playerid].trigger("showShopGUI", selectShopAssortment(bizAlias), getPlayerLocale(playerid));
     players[playerid].inventory.show(playerid);

@@ -26,7 +26,7 @@ local buttons = array(9);
 local buyText = "Buy";
 
 local  leftColumnX = 16.0; //leftColumnX
-local rightColumnX = 179.0;
+local rightColumnX = 199.0;
 local columnYfirst = 35.0;
 
 local columnY1 =  35.0;
@@ -45,11 +45,11 @@ local TRANSLATIONS = {
         "close"                 : "Close"
 
         "Item.None"             : ""
-        "Item.Revolver12"       : "Revolver 12"
+        "Item.Revolver"         : "Revolver .38"
         "Item.MauserC96"        : "Mauser C96"
-        "Item.ColtM1911A1"      : "Colt M1911 A1"
-        "Item.ColtM1911Spec"    : "Colt M1911 Special"
-        "Item.Revolver19"       : "Revolver 19"
+        "Item.Colt"             : "Colt M1911"
+        "Item.ColtSpec"         : "Colt M1911 Special"
+        "Item.Magnum"           : "Magnum"
         "Item.MK2"              : "MK2"
         "Item.Remington870"     : "Remington 870"
         "Item.M3GreaseGun"      : "MP Grease Gun"
@@ -62,12 +62,12 @@ local TRANSLATIONS = {
         "Item.Kar98k"           : "Kar 98k"
         "Item.Molotov"          : "Molotov"
         "Item.Ammo45ACP"        : "Ammo .45 ACP"
-        "Item.Ammo357magnum"    : "Ammo .357 Magnum"
-        "Item.Ammo12mm"         : "Ammo 12 mm"
+        "Item.Ammo357Magnum"    : "Ammo .357"
+        "Item.Ammo12"           : "Ammo .12"
         "Item.Ammo9x19mm"       : "Ammo 9x19 mm"
         "Item.Ammo792x57mm"     : "Ammo 7.92x57 mm"
         "Item.Ammo762x63mm"     : "Ammo 7.62x63 mm"
-        "Item.Ammo38Special"    : "Ammo .38 Special"
+        "Item.Ammo38Special"    : "Ammo .38"
 
         "Item.Clothes"          : "Clothes"
 
@@ -106,11 +106,11 @@ local TRANSLATIONS = {
         "close"                 : "Закрыть",
 
         "Item.None"             : ""
-        "Item.Revolver12"       : "Revolver 12"
+        "Item.Revolver"         : "Revolver .38"
         "Item.MauserC96"        : "Mauser C96"
-        "Item.ColtM1911A1"      : "Colt M1911 A1"
-        "Item.ColtM1911Spec"    : "Colt M1911 Special"
-        "Item.Revolver19"       : "Revolver 19"
+        "Item.Colt"             : "Colt M1911"
+        "Item.ColtSpec"         : "Colt M1911 Special"
+        "Item.Magnum"           : "Magnum"
         "Item.MK2"              : "MK2"
         "Item.Remington870"     : "Remington 870"
         "Item.M3GreaseGun"      : "MP Grease Gun"
@@ -123,12 +123,12 @@ local TRANSLATIONS = {
         "Item.Kar98k"           : "Kar 98k"
         "Item.Molotov"          : "Коктейль Молотова"
         "Item.Ammo45ACP"        : "Патроны .45 ACP"
-        "Item.Ammo357magnum"    : "Патроны .357 Magnum"
-        "Item.Ammo12mm"         : "Патроны 12 mm"
+        "Item.Ammo357Magnum"    : "Патроны .357"
+        "Item.Ammo12"           : "Патроны .12"
         "Item.Ammo9x19mm"       : "Патроны 9x19 mm"
         "Item.Ammo792x57mm"     : "Патроны 7.92x57 mm"
         "Item.Ammo762x63mm"     : "Патроны 7.62x63 mm"
-        "Item.Ammo38Special"    : "Патроны .38 Special"
+        "Item.Ammo38Special"    : "Патроны .38"
 
         "Item.Clothes"          : "Одежда"
 
@@ -181,19 +181,19 @@ addEventHandler("showShopGUI", function(dataSrc, lang) {
 
     // if widow created
     if (lastWindowType == data.type) {
-        guiSetSize(window[lastWindowType], 338.0, 548.0 - yoffset);
-        guiSetPosition(window[lastWindowType], screen[0]/2 - 343.0, screen[1]/2 - (548.0 - yoffset)/2);
+        guiSetSize(window[lastWindowType], 378.0, 548.0 - yoffset);
+        guiSetPosition(window[lastWindowType], screen[0]/2 - 383.0, screen[1]/2 - (548.0 - yoffset)/2);
         guiSetVisible( window[lastWindowType], true);
     }
     // if widow doesn't created, create his
     else {
 
         lastWindowType = data.type;
-        window[lastWindowType] <- guiCreateElement( ELEMENT_TYPE_WINDOW, data.title, screen[0]/2 - 343.0, screen[1]/2 - (548.0 - yoffset)/2, 338.0, 548.0 - yoffset);
+        window[lastWindowType] <- guiCreateElement( ELEMENT_TYPE_WINDOW, data.title, screen[0]/2 - 383.0, screen[1]/2 - (548.0 - yoffset)/2, 378.0, 548.0 - yoffset);
         createItems(data.items, lang);
         // logo     =  guiCreateElement( ELEMENT_TYPE_IMAGE, "shop.logo.empirediner.png",    16.0, 29.0, 248.0, 151.0, false, window);
 
-        buttons[8] = guiCreateElement(  ELEMENT_TYPE_BUTTON, TRANSLATIONS[lang].close,   338/2 - 38.0,  508.0 - yoffset, 76.0, 24.0, false, window[lastWindowType]);
+        buttons[8] = guiCreateElement(  ELEMENT_TYPE_BUTTON, TRANSLATIONS[lang].close,   378/2 - 38.0,  508.0 - yoffset, 76.0, 24.0, false, window[lastWindowType]);
 
         // buttons.map(guiBringToFront);
         // items.map(guiBringToFront);

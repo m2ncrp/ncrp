@@ -61,12 +61,11 @@ local translations = {
         "action:close"          : "Close",
 
         "Item.None"             : ""
-        "Item.Revolver12"       : "Revolver 12"
+        "Item.Revolver"         : "Revolver .38"
         "Item.MauserC96"        : "Mauser C96"
-        "Item.ColtM1911A1"      : "Colt M1911 A1"
-        "Item.ColtM1911Spec"    : "Colt M1911 Special"
-        "Item.Revolver19"       : "Revolver 19"
-        "Item.MK2"              : "MK2"
+        "Item.Colt"             : "Colt 1911"
+        "Item.ColtSpec"         : "Colt 1911 Special"
+        "Item.Magnum"           : "Magnum"
         "Item.Remington870"     : "Remington 870"
         "Item.M3GreaseGun"      : "MP Grease Gun"
         "Item.MP40"             : "MP-40"
@@ -76,6 +75,8 @@ local translations = {
         "Item.MG42"             : "MG-42"
         "Item.M1Garand"         : "M1 Garand"
         "Item.Kar98k"           : "Kar 98k"
+
+        "Item.MK2"              : "MK2"
         "Item.Molotov"          : "Molotov"
         "Item.Ammo45ACP"        : "Ammo .45 ACP"
         "Item.Ammo357magnum"    : "Ammo .357 Magnum"
@@ -133,12 +134,11 @@ local translations = {
         "action:close"          : "Закрыть",
 
         "Item.None"             : ""
-        "Item.Revolver12"       : "Revolver 12"
+        "Item.Revolver"         : "Revolver .38"
         "Item.MauserC96"        : "Mauser C96"
-        "Item.ColtM1911A1"      : "Colt M1911 A1"
-        "Item.ColtM1911Spec"    : "Colt M1911 Special"
-        "Item.Revolver19"       : "Revolver 19"
-        "Item.MK2"              : "MK2"
+        "Item.Colt"             : "Colt 1911"
+        "Item.ColtSpec"         : "Colt 1911 Special"
+        "Item.Magnum"           : "Magnum"
         "Item.Remington870"     : "Remington 870"
         "Item.M3GreaseGun"      : "MP Grease Gun"
         "Item.MP40"             : "MP-40"
@@ -148,7 +148,10 @@ local translations = {
         "Item.MG42"             : "MG-42"
         "Item.M1Garand"         : "M1 Garand"
         "Item.Kar98k"           : "Kar 98k"
+
+        "Item.MK2"              : "MK2"
         "Item.Molotov"          : "Коктейль Молотова"
+
         "Item.Ammo45ACP"        : "Патроны .45 ACP"
         "Item.Ammo357magnum"    : "Патроны .357 Magnum"
         "Item.Ammo12mm"         : "Патроны 12 mm"

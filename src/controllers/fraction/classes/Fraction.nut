@@ -9,7 +9,7 @@ class Fraction extends ORM.JsonEntity
         ORM.Field.String({ name = "shortcut", value = "" }),
         ORM.Field.Integer({ name = "parent" }),
         ORM.Field.Integer({ name = "created" }),
-        ORM.Field.Float({ name = "money", value = 0.0 }),
+        ORM.Field.Float({ name = "money", value = null }),
     ];
 
     roles    = null;
