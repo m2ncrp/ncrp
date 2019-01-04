@@ -82,6 +82,11 @@ cmd("police", ["job"], function(playerid, targetid) {
             return;
         }
 
+        if (players[playerid].xp < 1200) {
+                   msg(targetid, "organizations.police.lowxp.target", CL_RED);
+            return msg(playerid, "organizations.police.lowxp", [ getPlayerName(targetid) ], CL_RED);
+        }
+
         getPoliceJob(targetid);
         msg(playerid, "organizations.police.setjob.byadmin", [getAuthor(targetid), getLocalizedPlayerJob(targetid)]);
         dbg( "[POLICE JOIN]" + getAuthor(playerid) + " add " + getAuthor(targetid) + "to Police" );

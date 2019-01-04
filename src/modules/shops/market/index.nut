@@ -9,9 +9,9 @@ function selectShopAssortment(bizAlias) {
         name = "empirediner";
     }
 
-    if( bizAlias.find("gunshop") != null) {
-        name = "gunshop";
-    }
+    // if( bizAlias.find("gunshop") != null) {
+    //     name = "gunshop";
+    // }
 
     //if( bizAlias.find("clothes") != null) {
     //    name = "clothes";
@@ -87,6 +87,7 @@ key("e", function(playerid) {
     //if (!(getBusinessType(bid) == 1) && !(getBusinessType(bid) == 2)) return;
 
     local bizAlias = getBusinessAlias(bid);
+    if(bizAlias == "") return;
 
     local type = split(bizAlias, "_")[0];
 

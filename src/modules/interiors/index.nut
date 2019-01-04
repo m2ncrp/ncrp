@@ -170,18 +170,18 @@ local interiors = [
 ["onfoot",  "Exit",  "type",  149.652,    -430.939,    -19.429,      "EmpireDinerOysterBayExit3"],
 
 
-["onfoot",  "Enter", "type",  310.27,      432.974,    -22.8998,     "ChinaTownEnter", 310.0, 432.0, -25.0],
-["onfoot",  "Exit",  "type",  312.828,     426.763,    -25.7714,     "ChinaTownExit"],
+// ["onfoot",  "Enter", "type",  310.27,      432.974,    -22.8998,     "ChinaTownEnter", 310.0, 432.0, -25.0],
+// ["onfoot",  "Exit",  "type",  312.828,     426.763,    -25.7714,     "ChinaTownExit"],
 
-["onfoot",  "Enter", "type",  305.434,     400.538,    -25.7734,     "ChinaTownLiftEnter"],
-["onfoot",  "Exit",  "type",  307.673,     397.318,    -29.5913,     "ChinaTownLiftExit"],
+// ["onfoot",  "Enter", "type",  305.434,     400.538,    -25.7734,     "ChinaTownLiftEnter"],
+// ["onfoot",  "Exit",  "type",  307.673,     397.318,    -29.5913,     "ChinaTownLiftExit"],
 
-["onfoot",  "Enter", "type",  306.285,     397.738,    -26.5533,      "ChinaTownLiftEnterHelp"],
-["onfoot",  "Exit",  "type",  307.673,     397.318,    -29.5913,      "ChinaTownLiftExitHelp"],
+// ["onfoot",  "Enter", "type",  306.285,     397.738,    -26.5533,      "ChinaTownLiftEnterHelp"],
+// ["onfoot",  "Exit",  "type",  307.673,     397.318,    -29.5913,      "ChinaTownLiftExitHelp"],
 
 
-["onfoot",  "Enter", "type",  326.867,     412.519,    -25.7734,      "ChinaTownLift2EnterHelp"],
-["onfoot",  "Exit",  "type",  326.784,     411.757,     -26.467,      "ChinaTownLift2ExitHelp"],
+// ["onfoot",  "Enter", "type",  326.867,     412.519,    -25.7734,      "ChinaTownLift2EnterHelp"],
+// ["onfoot",  "Exit",  "type",  326.784,     411.757,     -26.467,      "ChinaTownLift2ExitHelp"],
 
 ["onfoot",  "Enter", "type",  -1302.92, 1613.28, 1.22659, "HarryVitrinaExit"],
 ["onfoot",  "Exit",  "type",  -1304.76, 1613.28, 1.22659, "HarryVitrinaEnter"],
