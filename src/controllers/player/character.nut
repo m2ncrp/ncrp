@@ -185,7 +185,7 @@ function validateAndUpdateCharacter(playerid, character, firstname, lastname, ra
         character.name      = getAccountName(playerid);
         character.firstname = firstname;
         character.lastname  = lastname;
-        character.race      = race == 1 ? 1 : 0;
+        character.race      = race;
         character.sex       = sex  == 1 ? 1 : 0;
         character.birthdate = birthdate.tostring();
         character.cskin     = cskin.tointeger();

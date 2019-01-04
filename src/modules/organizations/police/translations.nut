@@ -54,7 +54,11 @@ alternativeTranslate({
 "en|organizations.police.lowrank"                   : "Your rank is too low for that."
 "ru|organizations.police.lowrank"                   : "Ваша должность не позволяет вам этого."
 
+"en|organizations.police.lowxp"                     : "The length of stay of %s in Empire Bay is insufficient to get job in Police Department."
+"ru|organizations.police.lowxp"                     : "Срок пребывания %s в Empire Bay недостаточен для трудоустройства в Полицейский Департамент."
 
+"en|organizations.police.lowxp.target"              : "The length of your stay in Empire Bay is insufficient to get job in Police Department."
+"ru|organizations.police.lowxp.target"              : "Срок вашего пребывания в Empire Bay недостаточен для трудоустройства в Полицейский Департамент."
 
 
 "en|organizations.police.setjob.byadmin"            : "You've successfully set job for %s as %s."

@@ -10,7 +10,7 @@ const BUSINESS_CLOTHES = 4;
 
 const BUSINESS_INTERACT_DISTANCE = 1.0;
 const BUSINESS_BUY_DISTANCE      = 1.0;
-const BUSINESS_VIEW_DISTANCE     = 10.0;
+const BUSINESS_VIEW_DISTANCE     = 5.0;
 
 event("onServerStarted", function() {
     log("[business] loading all businesses...");
