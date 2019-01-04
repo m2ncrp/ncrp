@@ -416,26 +416,72 @@ local goods = {
             { itemName = "Item.Clothes", amount = 70,  price = 150.0 },
         ]
     },
-
-    "gunshop" : {
-        title = "Gun Shop",
-        type  = "gunshop",
-        items = [
-            { itemName = "Item.Revolver",       price = 2.50 },
-            { itemName = "Item.Colt",           price = 2.50 },
-            { itemName = "Item.Magnum",         price = 2.50 },
-            { itemName = "Item.Remington870",   price = 2.50 },
-            { itemName = "Item.M1Garand",       price = 2.50 },
-            { itemName = "Item.Ammo38Special",  price = 1.65 },
-            { itemName = "Item.Ammo45ACP",      price = 1.65 },
-            { itemName = "Item.Ammo357Magnum",  price = 1.65 },
-            { itemName = "Item.Ammo12",         price = 1.65 },
-            { itemName = "Item.Ammo762x63mm",   price = 1.65 },
-        ]
-    },
-
-
 }
+
+
+local gunshopTemplatesItems = [
+
+        [
+            { itemName = "Item.Revolver",       price = 62.99 + (random(-5, 5)).tofloat() },
+            { itemName = "Item.Ammo38Special",  price = 2.49 + (random(-5, 5).tofloat() / 10) },
+            { itemName = "Item.Magnum",         price = 149.99 + (random(-20, 20)).tofloat() },
+            { itemName = "Item.Ammo357Magnum",  price = 4.25 + (random(-8, 8).tofloat() / 10) },
+            { itemName = "Item.Remington870",   price = 399.99 + (random(-50, 50)).tofloat() },
+            { itemName = "Item.Ammo12",         price = 9.99 + (random(-12, 12).tofloat() / 4) },
+        ],
+        [
+            { itemName = "Item.Revolver",       price = 62.99 + (random(-5, 5)).tofloat() },
+            { itemName = "Item.Ammo38Special",  price = 2.49 + (random(-5, 5).tofloat() / 10) },
+            { itemName = "Item.Colt",           price = 122.99 + (random(-10, 10)).tofloat() },
+            { itemName = "Item.Ammo45ACP",      price = 4.99 + (random(-10, 10).tofloat() / 5) },
+            { itemName = "Item.M1Garand",       price = 249.99 + (random(-35, 35)).tofloat() },
+            { itemName = "Item.Ammo762x63mm",   price = 2.49 + (random(-5, 5).tofloat() / 10) },
+            { itemName = "Item.Remington870",   price = 399.99 + (random(-50, 50)).tofloat() },
+            { itemName = "Item.Ammo12",         price = 9.99 + (random(-12, 12).tofloat() / 4) },
+        ],
+        [
+            { itemName = "Item.Colt",           price = 122.99 + (random(-10, 10)).tofloat() },
+            { itemName = "Item.Ammo45ACP",      price = 4.99 + (random(-10, 10).tofloat() / 5) },
+            { itemName = "Item.Magnum",         price = 149.99 + (random(-20, 20)).tofloat() },
+            { itemName = "Item.Ammo357Magnum",  price = 4.25 + (random(-8, 8).tofloat() / 10) },
+            { itemName = "Item.M1Garand",       price = 249.99 + (random(-35, 35)).tofloat() },
+            { itemName = "Item.Ammo762x63mm",   price = 2.49 + (random(-5, 5).tofloat() / 10) },
+        ],
+        [
+            { itemName = "Item.Revolver",       price = 62.99 + (random(-5, 5)).tofloat() },
+            { itemName = "Item.Ammo38Special",  price = 2.49 + (random(-5, 5).tofloat() / 10) },
+            { itemName = "Item.Colt",           price = 122.99 + (random(-10, 10)).tofloat() },
+            { itemName = "Item.Ammo45ACP",      price = 4.99 + (random(-10, 10).tofloat() / 5) },
+            { itemName = "Item.Magnum",         price = 149.99 + (random(-20, 20)).tofloat() },
+            { itemName = "Item.Ammo357Magnum",  price = 4.25 + (random(-8, 8).tofloat() / 10) },
+        ],
+        [
+            { itemName = "Item.Revolver",       price = 62.99 + (random(-5, 5)).tofloat() },
+            { itemName = "Item.Ammo38Special",  price = 2.49 + (random(-5, 5).tofloat() / 10) },
+            { itemName = "Item.M1Garand",       price = 249.99 + (random(-35, 35)).tofloat() },
+            { itemName = "Item.Ammo762x63mm",   price = 2.49 + (random(-5, 5).tofloat() / 10) },
+            { itemName = "Item.Remington870",   price = 399.99 + (random(-50, 50)).tofloat() },
+            { itemName = "Item.Ammo12",         price = 9.99 + (random(-12, 12).tofloat() / 4) },
+        ]
+]
+
+local gunshopTemplatesItemsAvailable = [0, 1, 2, 3, 4];
+
+function addGunShopRandom() {
+
+    for (local i = 1; i <= 5; i++) {
+        local index = random(0, gunshopTemplatesItemsAvailable.len() - 1);
+        local id = i;
+        goods["gunshop_"+id] <- {
+                title = "Gun Shop",
+                type  = "gunshop_"+id,
+                items = gunshopTemplatesItems[gunshopTemplatesItemsAvailable[index]]
+        }
+        gunshopTemplatesItemsAvailable.remove(index);
+    }
+}
+
+addGunShopRandom();
 
 
 function getMarketGoods(name) {
