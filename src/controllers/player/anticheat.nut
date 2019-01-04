@@ -145,7 +145,7 @@ event("onServerStarted", function() {
                 })
 
                 if(getPlayerWeapon(playerid) > 1) {
-                    kick(-1, playerid, "Неправомерное получение оружия.");(
+                    kick(-1, playerid, "Неправомерное получение оружия.");
                     dbg("chat", "report", getAuthor(playerid), "Кикнут за неправомерное получение оружия.");
                 }
             }
