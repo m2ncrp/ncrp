@@ -9,9 +9,9 @@ function selectShopAssortment(bizAlias) {
         name = "empirediner";
     }
 
-    if( bizAlias.find("gunshop") != null) {
-        name = "gunshop";
-    }
+    // if( bizAlias.find("gunshop") != null) {
+    //     name = "gunshop";
+    // }
 
     //if( bizAlias.find("clothes") != null) {
     //    name = "clothes";
