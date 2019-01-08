@@ -94,7 +94,7 @@ event("onPlayerGetEmailBySerial", function(playerid) {
 
     Account.findOneBy({ serial = serial }, function(err, account) {
 
-        if (account) {
+        if (account && account.email != "") {
             trigger(playerid, "showFindEmailResult", true, plocalize(playerid, "auth.forgot.detect", [encodeEmail(account.email)]));
         } else {
             trigger(playerid, "showFindEmailResult", false, plocalize(playerid, "auth.forgot.notdetect"));
