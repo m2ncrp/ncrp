@@ -16,7 +16,10 @@ local input = array(3);
 local label = array(5);
 local button = array(2);
 local image;
+local question;
+
 local isAuth = null;
+local locale = "ru";
 
 local blackRoundFrame;
 local langs = array(2);
@@ -68,20 +71,21 @@ local logorand = random(1, logos.len()-1);
 
 //image = guiCreateElement(13, "logo.png", screen[0]/2 - 203.0, screen[1]/2 - 145.0, 406.0, 266.0);
 
-function showAuthGUI(windowLabel,labelText,inputText,buttonText, helpText){
+function showAuthGUI(windowLabel, labelText, inputText, buttonText, helpText, forgotText){
     //setPlayerPosition( getLocalPlayer(), -412.0, 1371.0, 36.0 );
     //setPlayerPosition( getLocalPlayer(), -746.0, 1278.0, 15.5 );
     blackRoundFrame = guiCreateElement(13,"other_mask.png", 0, 0, screen[0], screen[1]);
     image = guiCreateElement(13, logos[logorand].imgsrc, screen[0]/2 - logos[logorand].offsetX, screen[1]/2 - logos[logorand].offsetY, logos[logorand].width, logos[logorand].height);
     local width = 385.0;
-    local height = 205.0;
+    local height = 225.0;
     window = guiCreateElement( ELEMENT_TYPE_WINDOW, windowLabel,  screen[0]/2 - 192.5, screen[1]/2 - 65.2, width, height );
     label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, labelText, 38.0, 30.0, 300.0, 20.0, false, window);
     input[0] = guiCreateElement( ELEMENT_TYPE_EDIT, inputText, 92.0, 60.0, 200.0, 20.0, false, window);
     button[0] = guiCreateElement( ELEMENT_TYPE_BUTTON, buttonText, 92.0, 85.0, 200.0, 30.0, false, window);
-        langs[0] = guiCreateElement(13, "lang_ru.png", screen[0]/2 - 16.0 + 20.0, screen[1]/2 + (138.0 / 2) - 10.0, 32.0, 18.0, false);
-        langs[1] = guiCreateElement(13, "lang_en.png", screen[0]/2 - 16.0 - 20.0, screen[1]/2 + (138.0 / 2) - 10.0, 32.0, 18.0, false);
-    label[1] = guiCreateElement( ELEMENT_TYPE_LABEL, helpText, 48.0, 148.0, 310.0, 50.0, false, window);
+        langs[0] = guiCreateElement(13, "lang_ru.png", screen[0]/2 - 16.0 + 20.0, screen[1]/2 + (138.0 / 2) + 28.0, 32.0, 18.0, false);
+        langs[1] = guiCreateElement(13, "lang_en.png", screen[0]/2 - 16.0 - 20.0, screen[1]/2 + (138.0 / 2) + 28.0, 32.0, 18.0, false);
+    button[1] = guiCreateElement( ELEMENT_TYPE_BUTTON, forgotText, 92.0, 120.0, 200.0, 30.0, false, window);
+    label[1] = guiCreateElement( ELEMENT_TYPE_LABEL, helpText, 20.0, 188.0, 355.0, 20.0, false, window);
         guiSetAlwaysOnTop(langs[0], true);
         guiSetAlwaysOnTop(langs[1], true);
     guiSetMovable(window,false);
@@ -107,11 +111,12 @@ function showBadPlayerNicknameGUI(){
 }
 addEventHandler("showBadPlayerNicknameGUI", showBadPlayerNicknameGUI);
 
-function showRegGUI(windowText,labelText, inputpText, inputrpText, inputEmailText, buttonText, helpText){
+function showRegGUI(windowText,labelText, inputpText, inputrpText, inputEmailText, buttonText, helpText, forgotText){
     blackRoundFrame = guiCreateElement(13,"other_mask.png", 0, 0, screen[0], screen[1]);
     //image = guiCreateElement(13, "logo.png", screen[0]/2 - 203.0, screen[1]/2 - 145.0, 406.0, 266.0);
     local width = 385.0;
-    local height = 240.0;
+    local height = 280.0;
+    log((screen[0]/2).tostring());
     image = guiCreateElement(13, logos[logorand].imgsrc, screen[0]/2 - logos[logorand].offsetX, screen[1]/2 - logos[logorand].offsetY, logos[logorand].width, logos[logorand].height);
     window = guiCreateElement( ELEMENT_TYPE_WINDOW, windowText, screen[0]/2 - 192.5, screen[1]/2 - 65.0, width, height );
     label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, labelText, 80.0, 30.0, 300.0, 20.0, false, window);
@@ -121,12 +126,20 @@ function showRegGUI(windowText,labelText, inputpText, inputrpText, inputEmailTex
     input[0] = guiCreateElement( ELEMENT_TYPE_EDIT, "", 180.0, 60.0, 150.0, 20.0, false, window);
     input[1] = guiCreateElement( ELEMENT_TYPE_EDIT, "", 180.0, 90.0, 150.0, 20.0, false, window);
     input[2] = guiCreateElement( ELEMENT_TYPE_EDIT, "", 130.0, 120.0, 200.0, 20.0, false, window);
-    button[1] = guiCreateElement( 2, buttonText ,  180.0, 150.0, 150.0, 30.0, false, window);
-        langs[0] = guiCreateElement(13, "lang_ru.png", screen[0]/2 - 110.0, screen[1]/2 + (210.0 / 2) - 14.0, 32.0, 18.0);
-        langs[1] = guiCreateElement(13, "lang_en.png", screen[0]/2 - 70.0, screen[1]/2 + (210.0 / 2) - 14.0, 32.0, 18.0);
-    label[4] = guiCreateElement( ELEMENT_TYPE_LABEL, helpText, 48.0, 182.0, 310.0, 50.0, false, window);
-        guiSetAlwaysOnTop(langs[0], true);
-        guiSetAlwaysOnTop(langs[1], true);
+    button[0] = guiCreateElement( 2, buttonText, width/2 - 75.0, 150.0, 150.0, 30.0, false, window);
+    button[1] = guiCreateElement( 2, forgotText, width/2 - 75.0, 185.0, 150.0, 30.0, false, window);
+
+    langs[0] = guiCreateElement(13, "lang_ru.png", width/2 - 35.0, 225.0, 32.0, 18.0, false, window);
+    langs[1] = guiCreateElement(13, "lang_en.png", width/2 + 3.0, 225.0, 32.0, 18.0, false, window);
+    guiSetAlwaysOnTop(langs[0], true);
+    guiSetAlwaysOnTop(langs[1], true);
+
+
+    label[4] = guiCreateElement( ELEMENT_TYPE_LABEL, helpText, 20.0, 250.0, 355.0, 20.0, false, window);
+
+    question = guiCreateElement(13, "question.png", 100.0, 122.0, 16.0, 16.0, false, window);
+    guiSetAlwaysOnTop(question, true);
+
     guiSetInputMasked( input[0], true );
     guiSetInputMasked( input[1], true );
     guiSetMovable(window,false);
@@ -142,12 +155,7 @@ function showRegGUI(windowText,labelText, inputpText, inputrpText, inputEmailTex
 addEventHandler("showRegGUI", showRegGUI);
 
 function destroyAuthGUI(){
-    if(window){
-        //guiSetVisible(window,false);
-        //guiSetVisible(image,false);
-        //guiSetVisible(blackRoundFrame,false);
-        //guiSetVisible(langs[0],false);
-        //guiSetVisible(langs[1],false);
+    if(window) {
 
         guiDestroyElement(window);
         guiDestroyElement(image);
@@ -155,31 +163,31 @@ function destroyAuthGUI(){
         guiDestroyElement(langs[0]);
         guiDestroyElement(langs[1]);
 
-
-        delayedFunction(500, function() {
-            showCursor(false);
-        })
         blackRoundFrame = null;
         image = null;
+        question = null;
         window = null;
     }
 }
 addEventHandler("destroyAuthGUI", destroyAuthGUI);
 
-addEventHandler("changeAuthLanguage", function(lwindow, llabel, linput, lbutton, rwindow, rlabel, rinputp, rinputrp, riptemail, rbutton, helpText) {
+addEventHandler("changeAuthLanguage", function(lwindow, llabel, linput, lbutton, rwindow, rlabel, rinputp, rinputrp, riptemail, rbutton, helpText, forgotText) {
     if (isAuth) {
         guiSetText(window, lwindow);
         guiSetText(label[0], llabel);
         guiSetText(input[0], linput);
         guiSetText(button[0], lbutton);
+        guiSetText(button[1], forgotText);
         guiSetText(label[1], helpText);
+
     } else {
         guiSetText(window, rwindow);
         guiSetText(label[0], rlabel);
         guiSetText(label[1], rinputp);
         guiSetText(label[2], rinputrp);
         guiSetText(label[3], riptemail);
-        guiSetText(button[1], rbutton);
+        guiSetText(button[0], rbutton);
+        guiSetText(button[1], forgotText);
         guiSetText(label[4], helpText);
     }
 });
@@ -187,12 +195,24 @@ addEventHandler("changeAuthLanguage", function(lwindow, llabel, linput, lbutton,
 addEventHandler( "onGuiElementClick",function(element){ //this shit need some refactor
     if(element == button[0]){
         if(isAuth) {
-           buttonLoginClick();
+            buttonLoginClick();
+            delayedFunction(500, function() {
+                showCursor(false);
+            })
+        } else {
+            buttonRegisterClick();
         }
     }
+
     if(element == button[1]){
-       buttonRegisterClick();
+        log("showForgotGUIServerEvent click");
+        triggerServerEvent("onPlayerShowForgotGUI");
     }
+
+    if(element == question) {
+        callEvent("onAlert", "Email", (locale == "ru" ? "Мы просим Вас указать действительный email\r\n на случай, если вы забудете логин или пароль.\r\nЕсли вы укажите недействительный email -\r\nвы не сможете восстановить доступ к аккаунту." : "Please enter your correct email to have opportunity\r\nto restore access to your game account\r\nin the event of loss."), 2);
+    }
+
     if(element == input[0]){
         if(isAuth) {
             guiSetText(input[0], "");
@@ -204,9 +224,11 @@ addEventHandler( "onGuiElementClick",function(element){ //this shit need some re
     }
 
     if (element == langs[0]) {
+        locale = "ru";
         triggerServerEvent("onPlayerLanguageChange", "ru");
     }
     if (element == langs[1]) {
+        locale = "en";
         triggerServerEvent("onPlayerLanguageChange", "en");
     }
     if (element == blackRoundFrame) {
@@ -233,8 +255,7 @@ function buttonLoginClick() {
     }
     else{
         guiSetInputMasked( input[0], false);
-        guiSetText(input[0], "Введите пароль | Enter password");
-        //guiSetText(input[0], "Введите пароль");
+        callEvent("onAlert", "", (locale == "ru" ? "Введите пароль" : "Enter password"));
     }
 }
 
@@ -242,28 +263,37 @@ function buttonLoginClick() {
  * Trigger button register click
  */
 function buttonRegisterClick() {
-     if(guiGetText(input[0]) == guiGetText(input[1])){
-        if(guiGetText(input[2]).len() > 0){
-            if(isValidEmail(guiGetText(input[2]))){
-                guiSetText(input[2], "Некорректный email | Invalid email");
-                //guiSetText(input[2], "Некорректный email");
-            }
-            else {
-                local password = guiGetText(input[0]);
-                local email = guiGetText(input[2]);
-                triggerServerEvent("registerGUIFunction", password, email.tolower());
-            }
-        }
-        else {
-            guiSetText(label[0], "Введите ваш email адрес | Enter your email");
-            //guiSetText(label[0], "Введите ваш email адрес");
-        }
+    local password = guiGetText(input[0]);
+    local passwordRepeat = guiGetText(input[1]);
+
+    if (password.len() == 0 && passwordRepeat.len() == 0) {
+        callEvent("onAlert", "", (locale == "ru" ? "Введите пароль" : "Enter password"));
+        return;
     }
+
+    if (password != passwordRepeat) {
+        callEvent("onAlert", "", (locale == "ru" ? "Пароли не совпадают" : "Passwords are not equal"));
+        return;
+    }
+
+    local email = guiGetText(input[2]);
+
+    if (email.len() == 0) {
+        callEvent("onAlert", "Email", (locale == "ru" ? "Введите ваш email адрес" : "Enter your email"));
+        return;
+    }
+
+    if (!isValidEmail(email)) {
+        callEvent("onAlert", "Email", (locale == "ru" ? "Некорректный email" : "Invalid email"));
+        return;
+    }
+
+    triggerServerEvent("registerGUIFunction", password, email.tolower());
 }
 
 function isValidEmail(email)
 {
-    local check = regexp("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"); //Email Validation Regex
+    local check = regexp(@"[a-zA-Z0-9\_\.\+\-]{4,}+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-]+$"); //Email Validation Regex
     return check.match(email);
 }
 

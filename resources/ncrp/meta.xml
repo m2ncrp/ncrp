@@ -11,6 +11,7 @@
         <!-- gui -->
         <script type="client">gui_alert.nut</script>
         <script type="client">gui_auth.nut</script>
+        <script type="client">gui_forgotpage.nut</script>
         <script type="client">gui_bank.nut</script>
         <script type="client">gui_carshop.nut</script>
         <script type="client">gui_character.nut</script>
@@ -46,7 +47,9 @@
     <!--       -->
     <!-- files -->
     <!--       -->
-
+    <file>question.png</file>
+    <file>dot.jpg</file>
+    <file>shadow.jpg</file>
     <!-- general images -->
     <!-- <file>logo.png</file> -->
     <file>logo-ny1.png</file>

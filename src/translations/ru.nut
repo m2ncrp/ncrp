@@ -592,7 +592,8 @@ alternativeTranslate({
     "en|auth.error.tomany"     : "You cant register more accounts."
     //"en|auth.client.notloaded" : "Seems like your client scripts were not properly loaded. Try reconnecting!"
     "en|auth.client.notloaded" : "Please wait until download files has finished!"
-    "en|auth.haveproblems"     : "Have problems or forget password? Go to Discord: bit.ly/m2ncrp"
+    "en|auth.haveproblems"     : "     RU-localized site: mafia2online.ru | We're in Discord: bit.ly/m2ncrp"
+
 
     "ru|auth.wrongname"        : "Некорректное имя аккаунта!"
     "ru|auth.wrongname2"       : "Имя аккаунта должно быть больше 4 символов и может содержать ТОЛЬКО английские буквы, цифры, пробел и нижнее подчеркивание."
@@ -617,7 +618,7 @@ alternativeTranslate({
     "ru|auth.error.email"      : "Такой email адрес уже используется!"
     //"ru|auth.client.notloaded" : "Кажется ваши клиент-скрипты не прогрузились. Попробуйте переподключиться!"
     "ru|auth.client.notloaded" : "Дождитесь пока завершится загрузка всех файлов и появится окно регистрации или воода пароля!"
-    "ru|auth.haveproblems"     : "Есть проблемы или забыл пароль? Пиши: vk.com/m2ncrp\r\nСайт игрового сервера: mafia2online.ru\r\nМы в Discord-чате: bit.ly/m2ncrp"
+    "ru|auth.haveproblems"     : "  Сайт: mafia2online.ru | vk.com/m2ncrp | Мы в Discord: bit.ly/m2ncrp"
 
 
     "en|hello.1"     : ".:: Jobs are marked a gray stars on map."
