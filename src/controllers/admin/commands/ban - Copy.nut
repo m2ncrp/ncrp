@@ -1,7 +1,36 @@
-const DEFAULT_PLAYER_MUTE_TIME = 600; // 10 minutes
-const DEFAULT_PLAYER_BAN_TIME  = 60; // 30 minutes
-
 include("controllers/admin/models/Ban.nut");
+
+// + означает, что значение суммируемое, to - необходимо установить указанное
+BANLIST <- [
+    [ "+",  15,          "Ты не збагоен"                  ],
+    [ "+",  180,         "Несоблюдение РП-режима (нонРП)" ],
+    [ "+",  720,         "Неадекватность"                 ],
+    [ "+",  1440,        "Хамство"                        ],
+    [ "+",  4320,        "Оскорбления"                    ],
+    [ "+",  20160,       "Реклама стороннего ресурса"     ],
+    [ "to", 2051254800,  "Спидхак"                        ],
+    [ "to", 2051254800,  "Использование трейнера"         ],
+    [ "+",  0,           "На выбор (до 1 дня)"            ],
+];
+
+MUTELIST <- [
+    [ 1,    "Цыц"                         ],
+    [ 10,   "Узбагойся"                   ],
+    [ 15,   "Капс (15 мин.)"              ],
+    [ 30,   "Капс (30 мин.)"              ],
+    [ 60,   "Мат (60 мин.)"               ],
+    [ 120,  "Мат (120 мин.)"              ],
+    [ 0     "На выбор (макс. 6 часов)"    ],
+];
+// На выбор -  (от 1 минуты до 6 часов), если указано больше 6 часов - брать 6 часов.
+
+KICKLIST <- [
+    "Неадекватное поведение",
+    "Несоблюдение РП-режима (нонРП)",
+    "Злоупотребление вызовом полиции",
+    "Удержание чужого автомобиля",
+    "Высокий пинг"
+];
 
 /**
  * Kick player with 5 sec delay
@@ -9,10 +38,10 @@ include("controllers/admin/models/Ban.nut");
  *     /kick 0 shitposting
  *     /kick 0
  */
-function kick(playerid, targetid, ...) {
+function kick(playerid, targetid) {
 
     local targetid = toInteger(targetid);
-    local reason   = concat(vargv);
+    //local reason   = concat(vargv);
 
     if (!isPlayerConnected(targetid)) {
         return msg(playerid, "admin.error", CL_ERROR);
@@ -49,8 +78,9 @@ function kick(playerid, targetid, ...) {
     });
 };
 acmd("kick", kick);
-event("onPlayerKicked", kick);
-
+event("onPlayerKicked", function(playerid, reason) {
+    kick(playerid, targetid)
+});
 /**
  * Kick all players on server stopping
  */
@@ -123,19 +153,16 @@ function unmute(playerid, targetid) {
 };
 acmd("unmute", unmute);
 
-
 /**
  * Ban player
  * Usage:
- *     /ban target time(minutes) reason
- * EG:
- * /ban 10 20 noob (ban player with id 10 on 20 minutes for reason 'noob')
+ *     /ban target
  */
 
 function newban(...) {
     local playerid  = vargv[0].tointeger();
     if(vargv.len() < 4){
-        return msg(playerid, "USE: /ban id time_in_minutes reason")
+        return msg(playerid, "Формат: /ban id")
     }
     local targetid = vargv[1].tointeger();
     local time = vargv[2].tointeger();
@@ -274,7 +301,7 @@ function warnUp(playerid, targetid = null) {
 
     if (account.warns >= 3) {
         freezePlayer(targetid, true);
-        delayedFunction(2000, function () {
+        delayedFunction(6000, function () {
             newban(playerid, targetid, 4320, plocalize(targetid, "admin.warn.congratulations"));
         });
         account.warns = 0;

@@ -8,6 +8,7 @@ include("controllers/blip");
 // include("controllers/waypoints");
 include("controllers/time");
 include("controllers/auth");
+include("controllers/forgotpage");
 include("controllers/weather");
 include("controllers/world");
 include("controllers/player");
