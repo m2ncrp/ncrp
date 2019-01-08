@@ -35,6 +35,7 @@ include("controllers/auth/commands.nut");
  * depending if he is logined or not
  */
 event("onClientSuccessfulyStarted", function(playerid) {
+
     if (playerid in buffer) delete buffer[playerid];
 
     local username = getPlayerName(playerid);
@@ -207,6 +208,7 @@ event("native:onPlayerSpawn", function(playerid) {
     // disable hud and show
     trigger(playerid, "setPlayerIntroScreen");
     togglePlayerHud(playerid, true);
+    freezePlayer(playerid, true);
 });
 
 /**
