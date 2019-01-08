@@ -275,6 +275,15 @@ proxy("onPlayerCharacterCreate",    "onPlayerCharacterCreate"           );
 proxy("onPlayerCharacterSelect",    "onPlayerCharacterSelect"           );
 proxy("onClientSuccessfulyStarted", "onClientSuccessfulyStarted"        );
 proxy("onPlayerLanguageChange",     "onPlayerLanguageChange"            );
+
+proxy("onPlayerShowForgotGUI",      "onPlayerShowForgotGUI"             );
+proxy("onPlayerHideForgotGUI",      "onPlayerHideForgotGUI"             );
+proxy("onPlayerGetLoginByEmail",    "onPlayerGetLoginByEmail"           );
+proxy("onPlayerGetEmailBySerial",   "onPlayerGetEmailBySerial"          );
+proxy("onPlayerChangePassword",     "onPlayerChangePassword"            );
+
+proxy("onPlayerKicked",             "onPlayerKicked"                    );
+
 proxy("map:onClientOpen",           "map:onClientOpen"                  );
 proxy("map:onClientClose",          "map:onClientClose"                 );
 
