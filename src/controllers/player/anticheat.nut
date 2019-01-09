@@ -138,13 +138,14 @@ event("onServerStarted", function() {
 
             // anticheat - remove weapons
             if (!isOfficer(playerid) && !isPlayerAdmin(playerid)) {
-                //local weaponlist = [23, 5, 7, 9, 10, 11, 12, 13, 14, 17, 21];
-                local weaponlist = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 21];
-                weaponlist.apply(function(id) {
-                    removePlayerWeapon( playerid, id );
-                })
 
-                if(getPlayerWeapon(playerid) > 1) {
+                local weapon = getPlayerWeapon(playerid);
+                if(weapon > 1 && weapon <= 21) {
+                    //local weaponlist = [23, 5, 7, 9, 10, 11, 12, 13, 14, 17, 21];
+                    local weaponlist = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 21];
+                    weaponlist.apply(function(id) {
+                        removePlayerWeapon( playerid, id );
+                    });
                     kick(-1, playerid, "Неправомерное получение оружия.");
                     dbg("chat", "report", getAuthor(playerid), "Кикнут за неправомерное получение оружия.");
                 }
