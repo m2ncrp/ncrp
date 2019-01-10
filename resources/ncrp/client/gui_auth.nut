@@ -116,7 +116,6 @@ function showRegGUI(windowText,labelText, inputpText, inputrpText, inputEmailTex
     //image = guiCreateElement(13, "logo.png", screen[0]/2 - 203.0, screen[1]/2 - 145.0, 406.0, 266.0);
     local width = 385.0;
     local height = 280.0;
-    log((screen[0]/2).tostring());
     image = guiCreateElement(13, logos[logorand].imgsrc, screen[0]/2 - logos[logorand].offsetX, screen[1]/2 - logos[logorand].offsetY, logos[logorand].width, logos[logorand].height);
     window = guiCreateElement( ELEMENT_TYPE_WINDOW, windowText, screen[0]/2 - 192.5, screen[1]/2 - 65.0, width, height );
     label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, labelText, 80.0, 30.0, 300.0, 20.0, false, window);
