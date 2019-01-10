@@ -151,7 +151,7 @@ function findBusyPlaces() {
 }
 
 function getParkingDaysForVehicle(vehicleid) {
-    if("parking" in __vehicles[vehicleid].entity && __vehicles[vehicleid].entity.parking > 0) {
+    if(__vehicles[vehicleid].entity && __vehicles[vehicleid].entity.parking && __vehicles[vehicleid].entity.parking > 0) {
         return floor((getTimestamp() - __vehicles[vehicleid].entity.parking) / 43200);  // делим на реальных 12 часов = 1 игровым суткам
     }
     return 0;
