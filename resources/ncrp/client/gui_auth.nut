@@ -219,9 +219,6 @@ addEventHandler( "onGuiElementClick",function(element){ //this shit need some re
             guiSetInputMasked(input[0], true );
         }
     }
-    if(element == input[2]){
-        guiSetText(input[2], "");
-    }
 
     if (element == langs[0]) {
         locale = "ru";
@@ -293,7 +290,7 @@ function buttonRegisterClick() {
 
 function isValidEmail(email)
 {
-    local check = regexp(@"[a-zA-Z0-9\_\.\+\-]{4,}+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-]+$"); //Email Validation Regex
+    local check = regexp(@"([a-zA-Z0-9\_\.\+\-]{4,})+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-]+$"); //Email Validation Regex
     return check.match(email);
 }
 
