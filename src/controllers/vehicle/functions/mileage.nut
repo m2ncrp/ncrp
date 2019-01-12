@@ -3,7 +3,9 @@ local vehiclesPositions = {};
 
 event("onServerSecondChange", function() {
     foreach (vehicleid, object in __vehicles) {
-        
+
+        if (isVehicleEmpty(vehicleid)) continue;
+
         local id = vehicleid;
         if(!(vehicleid in vehiclesPositions)) {
             vehiclesPositions[vehicleid] <- getVehiclePositionObj(vehicleid);
