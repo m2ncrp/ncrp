@@ -14,6 +14,7 @@ include("controllers/vehicle/functions/distance.nut");
 include("controllers/vehicle/functions/models.nut");
 include("controllers/vehicle/functions/dirt.nut");
 include("controllers/vehicle/functions/engine.nut");
+include("controllers/vehicle/functions/mileage.nut");
 
 // saving original vehicle method
 local old__createVehicle = createVehicle;
@@ -51,6 +52,7 @@ createVehicle = function(modelid, x, y, z, rx, ry, rz) {
         dirt = 0.0,
         state = false,
         fuel = getDefaultVehicleFuel(vehicleid),
+        data = {}
     };
 
     // apply default functions
