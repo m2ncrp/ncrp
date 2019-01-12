@@ -52,7 +52,6 @@ createVehicle = function(modelid, x, y, z, rx, ry, rz) {
         dirt = 0.0,
         state = false,
         fuel = getDefaultVehicleFuel(vehicleid),
-        data = {}
     };
 
     // apply default functions
