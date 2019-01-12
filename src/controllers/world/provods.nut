@@ -1,4 +1,4 @@
-/*
+
 local stolbs_current = 0;
 
 local stolbs_iskri =
@@ -262,8 +262,8 @@ local stolbs =
 [-1547.85,-125.191,-18.4526   , 242  ],
 [-1713.75,-7.66918,-9.0226    , 243  ]
 ];
-*/
-/*
+
+
 key(["e"], function(playerid) {
     stolbs_current += 1;
     setPlayerPosition(playerid, stolbs[stolbs_current][0], stolbs[stolbs_current][1], stolbs[stolbs_current][2]+7);
@@ -276,4 +276,4 @@ key(["q"], function(playerid) {
     dbg(stolbs[stolbs_current][3]);
 }, KEY_UP);
 
-*/
+

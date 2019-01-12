@@ -68,3 +68,9 @@ function isPlayerNearKiosk(playerid) {
 
     return check;
 }
+
+local kioskId = 0;
+cmd("gotokiosk", function(playerid) {
+    setPlayerPosition(playerid, kiosks[kioskId][0], kiosks[kioskId][1], kiosks[kioskId][2])
+    kioskId += 1;
+});
