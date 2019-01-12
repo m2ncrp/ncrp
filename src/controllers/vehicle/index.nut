@@ -71,6 +71,8 @@ event("onServerStarted", function() {
     // load all vehicles from db
     Vehicle.findBy({ reserved = 0 }, function(err, results) {
         foreach (idx, vehicle in results) {
+
+            vehicle.data = JSONParser.parse(vehicle.data);
             // create vehicle
             local vehicleid = createVehicle( vehicle.model, vehicle.x, vehicle.y, vehicle.z, vehicle.rx, vehicle.ry, vehicle.rz );
 
