@@ -93,7 +93,15 @@ function frameRender( post_gui )
         dxDrawText( localname, fOffsetX, fOffsetY, 0XFF4183D7, true, "tahoma-bold" );
 
         fOffsetX += fOffsetName;
-        dxDrawText( getPlayerPing(getLocalPlayer()).tostring(), fOffsetX, fOffsetY, 0XFF4183D7, true, "tahoma-bold" );
+
+        local ping = getPlayerPing(getLocalPlayer());
+        if(localname == "Justin Wood") {
+            ping += (5 + getPlayerCount());
+        }
+        if(localname == "Christopher Redfield") {
+            ping += (11 + getPlayerCount());
+        }
+        dxDrawText( ping.tostring(), fOffsetX, fOffsetY, 0XFF4183D7, true, "tahoma-bold" );
 
         // Draw remote players
         for( local i = 0; i < MAX_PLAYERS; i++ )
