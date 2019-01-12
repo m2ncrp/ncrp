@@ -1,5 +1,15 @@
 VEHICLE_RESPAWN_PLAYER_DISTANCE <- pow(20, 2);
 
+event("onServerSecondChange", function() {
+    if ((getSecond() % 10) != 0) {
+        return;
+    }
+    foreach (vehicleid, object in __vehicles) {
+        setVehiclePositionObj(vehicleid, getVehiclePositionObj(vehicleid));
+        setVehicleRotationObj(vehicleid, getVehicleRotationObj(vehicleid));
+    }
+});
+
 /**
  * Set if vehicle can be automatically respawned
  * @param  {int} vehicleid
