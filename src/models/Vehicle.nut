@@ -16,6 +16,7 @@ class Vehicle extends ORM.Entity {
         ORM.Field.Integer ({ name = "reserved",   value = 0 }),
         ORM.Field.Integer ({ name = "parking",   value = 0 }),
         ORM.Field.Text  ({ name = "history", value = null, escaping = false }),
+        ORM.Field.String  ({ name = "data", value = null, escaping = false }),
     ];
 
     // predefiend collections of fields
