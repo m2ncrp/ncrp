@@ -110,7 +110,7 @@ event("onPlayerChangePassword", function(playerid, email, password) {
         if (account) {
             account.password = md5(password);
             account.save();
-            dbg("chat", "report", getAuthor(playerid), "Изменён пароль");
+            dbg("chat", "report", account.username, "Изменён пароль");
             trigger(playerid, "onChangedPassword", true);
         } else {
             trigger(playerid, "onChangedPassword", false);
