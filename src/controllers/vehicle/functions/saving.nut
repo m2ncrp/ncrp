@@ -89,7 +89,7 @@ function trySaveVehicle(vehicleid) {
     vehicle.entity.ownerid   = getVehicleOwnerId(vehicleid);
     vehicle.entity.fwheel    = vehicle.wheels.front;
     vehicle.entity.rwheel    = vehicle.wheels.rear;
-    vehicle.entity.data      = JSONEncoder.encode(vehicle.entity.data);
+    vehicle.entity.data      = getVehicleData(vehicleid);
 
     vehicle.entity.save();
     vehicle.entity.data      = JSONParser.parse(vehicle.entity.data);
