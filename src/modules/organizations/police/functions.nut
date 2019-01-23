@@ -151,7 +151,7 @@ function policeSetOnDuty(playerid, bool) {
         });
     } else {
         trigger("onPoliceDutyOff", playerid);
-        policeJobPaySalary( playerid );
+        //policeJobPaySalary( playerid );
         return screenFadeinFadeout(playerid, 100, function() {
             restorePlayerModel(playerid);
             msg(playerid, "organizations.police.duty.off");
