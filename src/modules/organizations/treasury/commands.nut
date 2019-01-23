@@ -21,7 +21,7 @@ acmd(["treas"], "sub", function( playerid, amount = 0.0) {
 local coords = [-122.331, -62.9116, -12.041];
 
 // Name of governor
-local govName = "Fernando Fabbri";
+local govName = "Lucia Fuentes";
 
 cmd(["treasury"], "get", function( playerid) {
 
