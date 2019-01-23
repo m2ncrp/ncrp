@@ -70,7 +70,7 @@ class Officer {
                 restorePlayerModel(playerid);
                 msg(playerid, "organizations.police.duty.off");
 
-                policeJobPaySalary( playerid );
+                //policeJobPaySalary( playerid );
             });
         }
     }
