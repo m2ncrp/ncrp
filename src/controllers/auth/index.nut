@@ -5,9 +5,11 @@ AUTH_ACCOUNTS_LIMIT      <- 1;
 AUTH_AUTOLOGIN_TIME      <- 900; // 15 minutes
 
 const DEFAULT_SPAWN_SKIN = 4;
-const DEFAULT_SPAWN_X    = -143.0; // 375.439;  // -568.042;  //-143.0;  //-1027.02;
-const DEFAULT_SPAWN_Y    =  1206.0;//  727.43;  // -28.7317;   //1206.0;  //1746.63;
-const DEFAULT_SPAWN_Z    =  83.5;  //-4.09301;  //  22.2012;   //84.0;    //10.2325;
+// const DEFAULT_SPAWN_POS    = -143.0; // 375.439;  // -568.042;  //-143.0;  //-1027.02;
+// const DEFAULT_SPAWN_POS    =  1206.0;//  727.43;  // -28.7317;   //1206.0;  //1746.63;
+// const DEFAULT_SPAWN_POS    =  83.5;  //-4.09301;  //  22.2012;   //84.0;    //10.2325;
+
+DEFAULT_SPAWN_POS <- [ -5.47346,1400.62,-17.4179 ];
 
 // Roof in Uptown
 //-762.8;
@@ -202,7 +204,7 @@ event("native:onPlayerSpawn", function(playerid) {
     // togglePlayerControls(playerid, true);
 
     // set player position and skin
-    setPlayerPosition(playerid, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z);
+    setPlayerPosition(playerid, DEFAULT_SPAWN_POS[0], DEFAULT_SPAWN_POS[1], DEFAULT_SPAWN_POS[2]);
     nativeSetPlayerModel(playerid, DEFAULT_SPAWN_SKIN);
 
     // disable hud and show
