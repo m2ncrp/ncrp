@@ -35,7 +35,7 @@ const DEFAULT_SPAWN_Y    = 0.0;// 49.2881;
 const DEFAULT_SPAWN_Z    = 0.0;// -13.788;
 
 
-local CHARACTER_POS = [ -5.47346,1400.62,-17.4179 ];
+local CHARACTER_POS = [ -143.0, 1206.0, 84.25 ];
 
 // 375.439, 727.43, -4.09301 // Little Italy Hollywood
 // -143.0, 1206.0, 84.0 // Highbrook
@@ -529,7 +529,7 @@ function otherPlayerLock(){
     }
     foreach (idx, value in getPlayers()) {
         if (idx == getLocalPlayer()) continue;
-        setPlayerPosition(idx, CHARACTER_POS[0], CHARACTER_POS[1], CHARACTER_POS[2]);
+        setPlayerPosition(idx, DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z);
     }
 }
 
