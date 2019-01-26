@@ -39,7 +39,7 @@ event("native:onPlayerSpawn", function(playerid) {
     // maybe player spawned not far from spawn
     local isPlayerNearSpawn = (5.0 > getDistanceBetweenPoints3D (
         players[playerid].x, players[playerid].y, players[playerid].z
-        DEFAULT_SPAWN_POS[0], DEFAULT_SPAWN_POS[1], DEFAULT_SPAWN_POS[2]
+        DEFAULT_SPAWN_X, DEFAULT_SPAWN_Y, DEFAULT_SPAWN_Z
     ));
 
     // maybe position was not yet set or spanwed in 0, 0, 0
