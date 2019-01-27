@@ -157,6 +157,12 @@ function newban(...) {
         removePlayerFromVehicle(targetid);
     }
 
+    msga("admin.ban.bannedforall", [ getPlayerName(targetid), time, reason ], CL_RED);
+
+    msg(targetid, "admin.ban.hasbeenbanned", [ time ], CL_RED);
+    msg(targetid, "admin.ban.reason", [ reason ], CL_RED);
+    msg(playerid, "admin.ban.banned", [ getPlayerName(targetid), time, reason ], CL_SUCCESS);
+
     // remove player from players array (disabling chats and stuff)
     removePlayer(targetid, reason);
     dbg("admin", "banned", getAuthor(targetid), bantime, reason);
@@ -168,12 +174,6 @@ function newban(...) {
     for (local i = 0; i < 12; i++) {
         msg(targetid, "");
     }
-
-    msga("admin.ban.bannedforall", [ getPlayerName(targetid), time, reason ], CL_RED);
-
-    msg(targetid, "admin.ban.hasbeenbanned", [ time ], CL_RED);
-    msg(targetid, "admin.ban.reason", [ reason ], CL_RED);
-    msg(playerid, "admin.ban.banned", [ getPlayerName(targetid), time, reason ], CL_SUCCESS);
 
     delayedFunction(6000, function () {
         kickPlayer( targetid );
