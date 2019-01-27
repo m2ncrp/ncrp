@@ -144,7 +144,7 @@ key("p", function(playerid) {
  * @param  {Array}   params optional
  * @return {Boolean}
  */
-function alert(playerid, message, params = []) {
+function alert(playerid, message, params = [], lines = 2) {
     if (DEBUG) dbg("alert", getIdentity(playerid), plocalize(playerid, message, params));
-    return trigger(playerid, "onAlert", plocalize(playerid, "error.title"), plocalize(playerid, message, params))
+    return trigger(playerid, "onAlert", plocalize(playerid, "error.title"), plocalize(playerid, message, params), lines)
 }

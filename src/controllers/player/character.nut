@@ -11,9 +11,9 @@ translate("en", {
     "character.doesnotexist"        : "Character with provided data\ndoes not exist."
     "character.alreadymigrated"     : "Provided character has already\nbeen migrated."
     "character.limitexceeded"       : "You cant create more characters!"
-    "character.alreadyregistered"   : "Character with provided firstname and lastname\nalready exists. Please use different!"
-    "character.wrongname"           : "You provided non-valid firstname or lastname.\nPlease, try again using other name."
-    "character.bannednames"         : "Provided firstname or lastname is banned.\nPlease, try again using other name."
+    "character.alreadyregistered"   : "Character with provided firstname and lastname\nalready exists. Please use different!\n\nIt's forbidden to use all the Slavic, Turkish,\nAzerbaijan, Czech, Slovak names and surnames,\nmost popular names such as Tom, Tommy, Joe, Vito,\nHenry, John, and surnames such as Johnson, Angelo,\nScaletta, Barbaro, Corleone, Capone etc,\nnames and surnames of politicians, famous actors, \nmusical performers, athletes, heroes of popular games\nand any other known personalities.\n\nBe original and creative!"
+    "character.wrongname"           : "You provided non-valid firstname or lastname.\nPlease, try again using other name.\n\nIt's forbidden to use all the Slavic, Turkish,\nAzerbaijan, Czech, Slovak names and surnames,\nmost popular names such as Tom, Tommy, Joe, Vito,\nHenry, John, and surnames such as Johnson, Angelo,\nScaletta, Barbaro, Corleone, Capone etc,\nnames and surnames of politicians, famous actors, \nmusical performers, athletes, heroes of popular games\nand any other known personalities.\n\nBe original and creative!"
+    "character.bannednames"         : "Provided firstname or lastname is banned.\nPlease, try again using other name.\n\nIt's forbidden to use all the Slavic, Turkish,\nAzerbaijan, Czech, Slovak names and surnames,\nmost popular names such as Tom, Tommy, Joe, Vito,\nHenry, John, and surnames such as Johnson, Angelo,\nScaletta, Barbaro, Corleone, Capone etc,\nnames and surnames of politicians, famous actors, \nmusical performers, athletes, heroes of popular games\nand any other known personalities.\n\nBe original and creative!"
 });
 
 /**
@@ -146,7 +146,7 @@ function validateAndUpdateCharacter(playerid, character, firstname, lastname, ra
     lastname  = strip(lastname ).slice(0, 1).toupper() + strip(lastname ).slice(1).tolower();
 
     if (!REGEX_NAME.match(firstname) || !REGEX_NAME.match(lastname) || firstname == lastname) {
-        return alert(playerid, "character.wrongname");
+        return alert(playerid, "character.wrongname", [], 10);
     }
 
     /**
@@ -169,7 +169,7 @@ function validateAndUpdateCharacter(playerid, character, firstname, lastname, ra
     //([^ae]in|ov|ev|off|iy|yan|dze|[^sia|]ko|[^a]nko|vich|ik)$
 
     if (banned || regexpBannedFirstname || regexpBannedLastname) {
-        return alert(playerid, "character.bannednames");
+        return alert(playerid, "character.bannednames", [], 10);
     }
 
     /**
@@ -177,7 +177,7 @@ function validateAndUpdateCharacter(playerid, character, firstname, lastname, ra
      */
     Character.findBy({ firstname = firstname, lastname = lastname }, function(err, characters) {
         if (err || characters.len()) {
-            return alert(playerid, "character.alreadyregistered");
+            return alert(playerid, "character.alreadyregistered", [], 10);
         }
 
         // update data
