@@ -3,7 +3,10 @@ include("controllers/keyboard/commands.nut");
 
 // register events
 event("onPlayerConnect", function(playerid) {
-    delayedFunction(1000, function() { sendKeyboardRegistration(playerid); });
+    delayedFunction(1000, function() {
+        sendKeyboardRegistration(playerid);
+        sendPrivateKeyboardRegistration(playerid);
+    });
 });
 
 event("onClientKeyboardPress", function(playerid, key, state) {
