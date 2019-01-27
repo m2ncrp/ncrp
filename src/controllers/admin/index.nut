@@ -61,7 +61,7 @@ event("onPlayerTeleportRequested", function(playerid, x, y, z) {
 });
 
 event("onClientDebugToggle", function(playerid) {
-    return (isPlayerAdmin(playerid)) ? trigger(playerid, "onServerDebugToggle") : null;
+    return (isPlayerAdmin(playerid) && isPlayerInVehicle(playerid) == false) ? trigger(playerid, "onServerDebugToggle") : null;
 })
 
 event("native:onConsoleInput", function(name, data) {
