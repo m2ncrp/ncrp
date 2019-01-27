@@ -169,6 +169,7 @@ include("modules/organizations/police/PoliceOfficersList.nut");
 include("modules/organizations/police/PoliceTickets.nut");
 include("modules/organizations/police/garage.nut");
 include("modules/organizations/police/binder.nut");
+include("modules/organizations/police/beacon.nut");
 //include("modules/organizations/police/dispatcher.nut");
 include("modules/organizations/police/translations.nut");
 
@@ -239,6 +240,8 @@ event("onPlayerVehicleEnter", function( playerid, vehicleid, seat ) {
             return msg(playerid, "organizations.police.offduty.nokeys", [], CL_GRAY);
         } else {
             unblockVehicle(vehicleid);
+            privateKey(playerid, "k", "policeBeacon", switchBeaconLight)
+            privateKey(playerid, "b", "policeBinder", policeVehicleBinder)
         }
     }
 
@@ -251,6 +254,13 @@ event("onPlayerVehicleEnter", function( playerid, vehicleid, seat ) {
 event("onPlayerVehicleExit", function( playerid, vehicleid, seat ) {
     if ( getPlayerState(playerid) == "cuffed" ) {
         setPlayerToggle(playerid, true);
+    }
+
+    if (isVehicleidPoliceVehicle(vehicleid)) {
+        if (isOfficer(playerid) && isOnPoliceDuty(playerid) ) {
+            removePrivateKey(playerid, "k", "policeBeacon")
+            removePrivateKey(playerid, "b", "policeBinder")
+        }
     }
 });
 
