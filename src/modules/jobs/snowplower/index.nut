@@ -394,7 +394,6 @@ event("onServerPlayerStarted", function( playerid ){
             local snowplowID = job_snowplow[getCharacterIdFromPlayerId(playerid)]["route"][2][0];
             job_snowplow[getCharacterIdFromPlayerId(playerid)]["snowplow3dtext"] = createPrivateSnowplowCheckpoint3DText(playerid, snowplowStops[snowplowID].coords);
             trigger(playerid, "setGPS", snowplowStops[snowplowID].coords.x, snowplowStops[snowplowID].coords.y);
-            trigger(playerid, "hudDestroyTimer");
             msg( playerid, "job.snowplow.continuesnowplowstop", SNOWPLOW_JOB_COLOR );
             return;
         }

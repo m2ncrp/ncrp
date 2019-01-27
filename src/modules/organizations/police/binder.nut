@@ -28,7 +28,7 @@ function isCopInPoliceCarOnDuty(playerid) {
 }
 
 
-key(["b"], function(playerid) {
+function policeVehicleBinder (playerid) {
     if (!isCopInPoliceCarOnDuty(playerid) || (playerid in timers && timers[playerid].IsActive() )) return;
 
     setPlayerBinderState(playerid, "b_policecar");
@@ -53,7 +53,7 @@ key(["b"], function(playerid) {
         msg(playerid, "Действие отменено");
     });
 
-}, KEY_UP);
+}
 
 function policeCarRuporBinderCreator() {
 
