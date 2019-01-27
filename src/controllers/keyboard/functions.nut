@@ -144,7 +144,7 @@ function key(names, callback, state = KEY_DOWN) {
  */
 function addPrivateKeyboardHandler(playerid, key, subname, state, callback) {
     local name = key.tolower() + "_" + state.tolower();
-    subname = subname ? subname.tolower() : "_default";
+    subname = subname ? subname : "_default";
     local charid = getCharacterIdFromPlayerId(playerid);
 
     if (!(charid in __privateKeyboard)) {
