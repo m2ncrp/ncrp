@@ -195,9 +195,6 @@ addEventHandler( "onGuiElementClick",function(element){ //this shit need some re
     if(element == button[0]){
         if(isAuth) {
             buttonLoginClick();
-            delayedFunction(500, function() {
-                showCursor(false);
-            })
         } else {
             buttonRegisterClick();
         }
