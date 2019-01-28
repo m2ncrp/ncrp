@@ -132,6 +132,9 @@ alternativeTranslate({
 "en|organizations.police.toofarfromoffender"        : "You're too far from offender!"
 "ru|organizations.police.toofarfromoffender"        : "Вы слишком далеко от нарушителя!"
 
+"en|organizations.police.toofarfromvehicle"         : "You're too far from target vehicle!"
+"ru|organizations.police.toofarfromvehicle"         : "Вы слишком далеко от указанного автомобиля!"
+
 "en|organizations.police.cantgivetickethimself"     : "You can't give ticket to himself!"
 "ru|organizations.police.cantgivetickethimself"     : "Вы не можете выписать штраф сами себе!"
 

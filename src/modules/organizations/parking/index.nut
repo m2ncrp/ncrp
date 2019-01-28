@@ -192,20 +192,20 @@ acmd("aunpark", function ( playerid ) {
 
 event("onVehicleSetToCarPound", function(playerid, plate = null) {
     if (plate == null) {
-        return msg( playerid, "parking.needEnterPlate");
+        return msg( playerid, "parking.needEnterPlate", CL_ERROR);
     }
 
     local vehicleid = getVehicleByPlateText(plate.toupper());
     if(vehicleid == null) {
-        return msg( playerid, "parking.checkPlate");
+        return msg( playerid, "parking.checkPlate", CL_ERROR);
     }
 
     if (!isVehicleEmpty(vehicleid)) {
-        return msg( playerid, "parking.peoopleInside");
+        return msg( playerid, "parking.peoopleInside", CL_ERROR);
     }
 
     if(parkingPlaceStatus.find(vehicleid) != null) {
-        return msg(playerid, "parking.alreadyParking");
+        return msg(playerid, "parking.alreadyParking", CL_ERROR);
     }
 
     if (!isVehicleOwned(vehicleid)) {
