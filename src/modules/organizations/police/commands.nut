@@ -360,10 +360,14 @@ cmd("park", function ( playerid, plate) {
         return;
     }
     if ( !isOnPoliceDuty(playerid) ) {
-        return msg( playerid, "organizations.police.duty.not" );
+        return msg( playerid, "organizations.police.duty.not", CL_ERROR );
     }
     if ( getPoliceRank(playerid) < 2) {
-        return msg( playerid, "organizations.police.lowrank" );
+        return msg( playerid, "organizations.police.lowrank", CL_ERROR );
+    }
+
+    if ( getDistanceBtwPlayerAndVehicle(playerid, getVehicleByPlateText(plate.toupper())) > 3.0) {
+        return msg( playerid, "organizations.police.toofarfromvehicle", CL_ERROR );
     }
 
     trigger("onVehicleSetToCarPound", playerid, plate);
