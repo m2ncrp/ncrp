@@ -400,6 +400,9 @@ function getPhoneObj(phoneName) {
     return telephones[phoneName.slice(9).tointeger()];
 }
 
+function getPhoneObjById(phoneId) {
+    return telephones[phoneId];
+}
 
 function getPlayerPhoneName(playerid) {
     local check = false;
@@ -503,7 +506,8 @@ function callByPhone (playerid, number = null, isbind = false) {
         addMoneyToTreasury(PHONE_CALL_PRICE);
     }
 
-    if(number == "taxi" || number == "police" || number == "dispatch" || number == "towtruck" ) {
+    if(typeof number == "string") {
+        log("number: "+number);
         return trigger("onPlayerPhoneCall", playerid, number, budka[3] /*plocalize(playerid, budka[3])*/ );
     }
 

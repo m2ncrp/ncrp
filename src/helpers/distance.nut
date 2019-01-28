@@ -24,6 +24,18 @@ function getDistance( senderID, targetID ) {
 
 
 /**
+ * Return distance between to positions by two cathetuses
+ * @param  {vector3}    pos1    
+ * @param  {vector3}    pos2    
+ * @return {float}  distance
+ */
+function getDistanceByRect( pos1, pos2 ) {
+    local width = fabs(pos1.x - pos2.x);
+    local height = fabs(pos1.y - pos2.y);
+    return width + height;
+}
+
+/**
  * Return true if both players in radius
  * @param  {int}    playerid
  * @param  {int}    targetid

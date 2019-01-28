@@ -12,14 +12,17 @@ local translations = {
 "en|job.taxi.ifyouwantstart"           :   "[TAXI] To start accepting calls, please enter taxi car and press 1 to become available."
 "ru|job.taxi.ifyouwantstart"           :   "[TAXI] Чтобы начать принимать вызовы - садитесь в машину такси и выходите на линию (клавиша 1)."
 
-"en|job.taxi.taximeteron"              :   "[TAXI] Taximeter ON. Press button 2 after completion of trip."
-"ru|job.taxi.taximeteron"              :   "[TAXI] Таксиметр включен. По окончании поездки нажмите клавишу 2."
+"en|job.taxi.taximeteron"              :   "[TAXI] Taximeter ON. Press button 3 after completion of trip."
+"ru|job.taxi.taximeteron"              :   "[TAXI] Таксометр включен. По окончании поездки нажмите клавишу 3."
 
 "en|job.taxi.iftripend"                :   "[TAXI] If the trip is completed - press button 2."
 "ru|job.taxi.iftripend"                :   "[TAXI] Если поездка завершена - нажмите клавишу 2."
 
 "en|job.taxi.leaveline"                :   "[TAXI] You've become unavailable, because you are too far from your taxi car."
 "ru|job.taxi.leaveline"                :   "[TAXI] Вы ушли с линии, потому что отошли от рабочего автомобиля слишком далеко."
+
+"en|job.taxi.leaveline_fine"           :   "At the same time you had an active call. You are fined: $%d"
+"ru|job.taxi.leaveline_fine"           :   "При этом у вас был активный звонок. Вам выписан штраф: $%d"
 
 "en|job.taxi.callnotexist"             :   "[TAXI] Customer has canceled the call. Wait other calls..."
 "ru|job.taxi.callnotexist"             :   "[TAXI] Клиент отменил вызов. Ждите других звонков..."
@@ -30,6 +33,9 @@ local translations = {
 "en|job.taxi.call.new"                 :   "[TAXI] New call from address: %s."
 "ru|job.taxi.call.new"                 :   "[TAXI] Новый вызов по адресу: %s."
 
+"en|job.taxi.call.goto"                :   "[TAXI] Go to the address: %s."
+"ru|job.taxi.call.goto"                :   "[TAXI] Отправялйся по адресу: %s."
+
 "en|job.taxi.call.new.if"              :   "If you want take this call, press button 2."
 "ru|job.taxi.call.new.if"              :   "Если вы хотите принять этот вызов, нажмите клавишу 2."
 
@@ -38,6 +44,9 @@ local translations = {
 
 "en|job.taxi.canttakecall"             :   "[TAXI] You can't take call while your status is OFF air."
 "ru|job.taxi.canttakecall"             :   "[TAXI] Вы не можете принять вызов, пока не вышли на линию."
+
+"en|job.taxi.cantmanagecall"           :   "[TAXI] You can't manage calls while your status is OFF air."
+"ru|job.taxi.cantmanagecall"           :   "[TAXI] Вы не можете управлять вызовами, пока не вышли на линию."
 
 "en|job.taxi.nofreecalls"              :   "[TAXI] There are no taxi calls at the moment."
 "ru|job.taxi.nofreecalls"              :   "[TAXI] На данный момент звонков нет."
@@ -56,6 +65,15 @@ local translations = {
 
 "en|job.taxi.noanycalls"               :   "[TAXI] You didn't take any calls."
 "ru|job.taxi.noanycalls"               :   "[TAXI] Сейчас у вас нет принятого вызова."
+
+"en|job.taxi.needdrive"                :   "[TAXI] Need to drive a customer to destination point"
+"ru|job.taxi.needdrive"                :   "[TAXI] Необходимо отвезти клиента до пункта назначения."
+
+"en|job.taxi.pickup"                   :   "[TAXI] Pick up the passenger"
+"ru|job.taxi.pickup"                   :   "[TAXI] Подбери пассажира"
+
+"en|job.taxi.pickup"                   :   "[TAXI] Pick up the passenger"
+"ru|job.taxi.pickup"                   :   "[TAXI] Подбери пассажира"
 
 "en|job.taxi.cantrefuse"               :   "[TAXI] You can't refuse from call while you carry a passenger."
 "ru|job.taxi.cantrefuse"               :   "[TAXI] Вы не можете отказаться от вызова во время его выполнения."
@@ -115,6 +133,8 @@ local translations = {
 "ru|job.taxi.cantleavejob2"            :   "[TAXI] Вы не можете уволиться во время выполнения вызова."
 
 
+"en|taxi.call.notenoughmoney"          :   "[TAXI] You don't have enough money to call taxi. A minimum of $%.2f is required to confirm your solvency."
+"ru|taxi.call.notenoughmoney"          :   "[TAXI] У вас недостаточно наличных денег для вызова такси. Для подтверждения вашей платёжеспособности необходимо минимум $%.2f"
 
 "en|taxi.call.ifyouaway"               :   "[TAXI] Dont get too far away, from place taxi was called to. He won't be able to get yo you."
 "ru|taxi.call.ifyouaway"               :   "[TAXI] Если вы далеко отойдёте от места вызова - таксист не сможет подъехать."
@@ -140,8 +160,34 @@ local translations = {
 "en|taxi.call.refused"                 :   "[TAXI] Driver refused from your call. Wait another driver."
 "ru|taxi.call.refused"                 :   "[TAXI] Водитель отказался от вызова. Ожидайте других водителей."
 
-"en|taxi.call.completed"               :   "[TAXI] The trip is completed. Thank you for choosing our taxi service!"
-"ru|taxi.call.completed"               :   "[TAXI] Поездка завершена. Спасибо, что выбрали наше такси."
+"en|taxi.call.leftline"                :   "[TAXI] Driver left from the on air. Your call will be accepted again."
+"ru|taxi.call.leftline"                :   "[TAXI] Ваш водитель ушёл с линии. Ваш вызов будет принят повторно."
+
+
+
+"en|taxi.call.finish.needpay"          :   "[TAXI] The trip is completed. Pay the driver $%.2f for %.2f km."
+"ru|taxi.call.finish.needpay"          :   "[TAXI] Поездка завершена. Заплатите водителю $%.2f за %.2f км."
+
+"en|taxi.call.finish.needpay.hint"     :   "Send $%.2f to driver by command: /send %d %.2f"
+"ru|taxi.call.finish.needpay.hint"     :   "Передайте водителю $%.2f командой: /send %d %.2f"
+
+"en|taxi.call.finish.waitpaying"       :   "[TAXI] The trip is completed. Wait a payment $%.2f for %.2f km."
+"ru|taxi.call.finish.waitpaying"       :   "[TAXI] Поездка завершена. Ожидайте оплаты $%.2f за %.2f км."
+
+"en|taxi.call.finish.waitpaying.hint1" :   "Press button 4 to complete call"
+"ru|taxi.call.finish.waitpaying.hint1" :   "Нажмите клавишу 4 для закрытия заказа"
+
+"en|taxi.call.finish.waitpaying.hint2" :   "If passenger didn't pay for the trip, you can add the passenger to the blacklist of clients by pressing button 0"
+"ru|taxi.call.finish.waitpaying.hint2" :   "Если пассажир не оплатил поездку, вы можете добавить его в чёрный список клиентов, нажав на кнопку 0"
+
+"en|taxi.call.finish.waitpaying.offline" :   "There's no such person on server!"
+"ru|taxi.call.finish.waitpaying.offline" :   "Игрок оффлайн."
+
+
+
+
+"en|taxi.call.congrat"               :   "[TAXI] The trip is completed. Thank you for choosing our taxi service!"
+"ru|taxi.call.congrat"               :   "[TAXI] Поездка завершена. Спасибо, что выбрали наше такси."
 
 "en|job.taxi.help.job"              :   "E button"
 "en|job.taxi.help.jobtext"          :   "Get taxi driver job near Daniel Burns"

@@ -119,9 +119,9 @@ event("onServerStarted", function() {
                                 log("@everyone WARNING!!! "+getAuthor(playerid)+" - using trainer");
                                 dbg("chat", "report", getAuthor(playerid), "Забанен на 10 суток за использование трейнера.");
 
-                                freezePlayer(targetid, true);
+                                freezePlayer(playerid, true);
                                 delayedFunction(6000, function () {
-                                    newban(playerid, targetid, 14400, plocalize(targetid, "admin.ban.trainer"));
+                                    newban(-1, playerid, 14400, plocalize(playerid, "admin.ban.trainer"));
                                 });
 
                                 playersInfo[charId].counter = 0;

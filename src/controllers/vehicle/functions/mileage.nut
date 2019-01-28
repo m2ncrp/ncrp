@@ -15,7 +15,7 @@ event("onServerSecondChange", function() {
             continue;
         }
 
-        if(__vehicles[vehicleid].entity && __vehicles[vehicleid].entity && ("mileage" in __vehicles[vehicleid].entity.data) == false) {
+        if(__vehicles[vehicleid].entity && ("mileage" in __vehicles[vehicleid].entity.data) == false) {
             __vehicles[vehicleid].entity.data.mileage <- 0;
         }
 
@@ -26,3 +26,12 @@ event("onServerSecondChange", function() {
 
     }
 });
+
+function getVehicleMileage(vehicleid) {
+
+    if(!!__vehicles[vehicleid].entity == false || ("mileage" in __vehicles[vehicleid].entity.data) == false) {
+        return 0;
+    }
+
+    return __vehicles[vehicleid].entity.data.mileage;
+}

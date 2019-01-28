@@ -1,10 +1,12 @@
 include("modules/jobs/taxi/commands.nut");
 include("modules/jobs/taxi/translations.nut");
 include("modules/jobs/taxi/peds_coords.nut");
+include("modules/jobs/taxi/taxicalls.nut");
+include("modules/jobs/taxi/events_places.nut");
+include("modules/jobs/taxi/events_vehicles.nut");
 
-local DRIVERS = {}; // таблица водителей
-
-local price = 0.0015; // тариф за 1 метр
+DRIVERS <- {}; // таблица водителей
+TAXI_CHARACTERS_LIMIT <- 1000000;
 
 const TAXI_JOB_SKIN = 171;
 const TAXI_JOB_LEVEL = 2;
@@ -13,43 +15,23 @@ local TAXI_BLIP = [-710.638, 255.64, 0.365978];
 local TAXI_COORDS = [-720.586, 248.261, 0.365978];
 local TAXI_RADIUS = 2.0;
 
-local TAXI_CHARACTERS_LIMIT = 1000000;
+
 
 
 event("onServerStarted", function() {
     log("[jobs] loading taxi job...");
-    local taxicars = [
-        createVehicle(24, -127.650, 412.521, -13.98, -90.0, 0.2, -0.2),   // taxi East Side 1
-        createVehicle(24, -127.650, 408.872, -13.98, -90.0, 0.2, -0.2),   // taxi East Side 2
-        createVehicle(24, -127.650, 405.611, -13.98, -90.0, 0.2, -0.2),   // taxi East Side 3
-        createVehicle(24, -127.650, 402.069, -13.98, -90.0, 0.2, -0.2),   // taxi East Side 4
-        createVehicle(33, -127.650, 398.769, -13.98, -90.0, 0.2, -0.2),   // taxi East Side 5
-        createVehicle(33, -708.733, 248.0, 0.504346, -0.44367, -0.00094714, -0.230679 ), // Taxi1
-        createVehicle(33, -714.508, 248.0, 0.504346, -0.44367, -0.00094714, -0.244627 ), // Taxi2
-        createVehicle(24, -718.301, 261.576, 0.504056, 141.868, -0.025185, 0.340924 ), // Taxi3
-        createVehicle(24, -712.0, 262.183, 0.504394, 141.868, -0.025185, 0.340924   ), // Taxi4
-        createVehicle(33, -479.656, 702.3, 1.2, -179.983, -2.09183, 0.445576  ),     // taxi Uptown 1
-        createVehicle(24, -483.363, 702.3, 1.2, -178.785, -2.16034, 0.16853   ),     // taxi Uptown 2
-
-        createVehicle(24, -533.348, 1583.63, -16.4578, 0.272268, 0.379557, -0.261274 ),         // taxi_naprotiv_vokzala_1
-        createVehicle(33, -547.207, 1600.14, -16.4299, -179.116, -0.221615, 0.447305 ),         // taxi_naprotiv_vokzala_2
-                createVehicle(24, -551.133, 1583.27, -16.4543, 0.443711, 0.00174642, -0.451021 ),    // taxi_naprotiv_vokzala_3
-                createVehicle(   24, -658.287, 236.719, 1.17881, -179.192, 0.255169, -0.234465 ),    // TaxiDEVELOPER
-                createVehicle(33, -487.191, 702.3, 1.2, -178.078, -2.24803, 0.0579244 ),             // taxi Uptown 3
-    ];
 
     registerPersonalJobBlip("taxidriver", TAXI_BLIP[0], TAXI_BLIP[1]);
 
     // вызываем такси каждые 15 секунд
-    delayedFunction(15000, function() {
-        callTaxiByPed();
-    });
+    // delayedFunction(15000, function() {
+    //     callTaxiByPed();
+    // });
 
 });
 
-
 event("onPlayerConnect", function(playerid) {
-    // Если игрок работает таксистом, получаем id персонажа, проверяем сущетсвует ли он в DRIVERS и если нет - добавляем.
+    // Если игрок работает таксистом, получаем id персонажа, проверяем существует ли он в DRIVERS и если нет - добавляем.
     if(isTaxiDriver(playerid)) {
         local drid = getCharacterIdFromPlayerId(playerid);
         if ( !(drid in DRIVERS) ) {
@@ -58,10 +40,262 @@ event("onPlayerConnect", function(playerid) {
     }
 });
 
+event("onPlayerDisconnect", function(playerid, reason) {
+    if(isTaxiDriver(playerid)) {
+        local drid = getCharacterIdFromPlayerId(playerid);
+        if(getTaxiDriverStatus(drid) == "onair") {
+            setTaxiDriverStatus(drid, "offair");
+        }
+
+        local vehicleid = getTaxiDriverCar(drid);
+        if(vehicleid) setTaxiLightState(vehicleid, false);
+        setTaxiDriverCar(drid, null);
+    }
+});
+
+event("onServerPlayerStarted", function( playerid ){
+
+    if(isTaxiDriver(playerid)) {
+        createText (playerid, "leavejob3dtext", TAXI_COORDS[0], TAXI_COORDS[1], TAXI_COORDS[2]+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), TAXI_RADIUS );
+
+        local drid = getCharacterIdFromPlayerId(playerid);
+        local callObject = getTaxiCallObjectByDrid(drid);
+
+        if(callObject) {
+
+            // автомобиль такси не доехал до клиента
+            if(callObject.mileageStart == null) {
+                local phoneObj = getPhoneObjById(callObject.placeId);
+
+                trigger(playerid, "setGPS", phoneObj[0], phoneObj[1]);
+                msg_taxi_dr( playerid, "job.taxi.call.goto", [ plocalize(playerid, "telephone"+callObject.placeId) ]);
+                return;
+            }
+
+            // таксисит везёт бота, нужно восстановить маршрут
+            if(callObject.targetPlaceId == null) {
+                local targetPhoneObj = getPhoneObjById(callObject.targetPlaceId);
+
+                trigger(playerid, "setGPS", targetPhoneObj[0], targetPhoneObj[1]);
+                msg_taxi_dr( playerid, "job.taxi.call.goto", [ plocalize(playerid, "telephone"+callObject.targetPlaceId) ]);
+                return;
+            }
+        }
+
+        msg_taxi_dr( playerid, "job.taxi.ifyouwantstart");
+        restorePlayerModel(playerid);
+        setPlayerJobState(playerid, null);
+    }
+});
+
 // добавить водителя такси по charid
 function addTaxiDriver(drid) {
     DRIVERS[drid] <- {
         status = "offair",
-        vehicleid = null
+        vehicleid = null,
     };
+}
+
+function setTaxiDriverStatus(drid, status) {
+    log("Set status to "+status);
+    return DRIVERS[drid].status = status;
+}
+
+function getTaxiDriverStatus(drid) {
+    //if(byPlayerid) xid = getCharacterIdFromPlayerId(xid);
+    return DRIVERS[drid].status;
+}
+
+function setTaxiDriverCar(drid, vehicleid) {
+    log("Set vehicleid to "+vehicleid);
+    return DRIVERS[drid].vehicleid = vehicleid;
+}
+
+function getTaxiDriverCar(drid) {
+    log("get vehicleid");
+    return DRIVERS[drid].vehicleid;
+}
+
+// есть ли свободная машина?
+function isHaveFreeTaxiDriver() {
+    foreach(drid, value in DRIVERS) {
+        local driverid = getPlayerIdFromCharacterId(drid);
+        if(value.status == "onair" && isPlayerCarTaxi(driverid)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+/* JOB ***************************************************************************************************************************************************** */
+
+/**
+ * Get taxi driver job
+ * @param  {int} playerid
+ */
+function taxiJobGet(playerid) {
+    if(!isPlayerInValidPoint(playerid, TAXI_COORDS[0], TAXI_COORDS[1], TAXI_RADIUS)) {
+        return;
+    }
+
+    //return msg(playerid, "job.taxi.novacancy", CL_WARNING);
+
+
+    //if(!isPlayerLevelValid ( playerid, TAXI_JOB_LEVEL )) {
+    //    return msg(playerid, "job.taxi.needlevel", TAXI_JOB_LEVEL );
+    //}
+
+    if(isTaxiDriver(playerid)) {
+        return msg(playerid, "job.taxi.driver.already");
+    }
+
+    if(isPlayerHaveJob(playerid)) {
+        return msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid) );
+    }
+
+    screenFadeinFadeoutEx(playerid, 250, 200, function() {
+        msg_taxi_dr(playerid, "job.taxi.driver.now");
+        msg_taxi_dr( playerid, "job.taxi.ifyouwantstart");
+        renameText ( playerid, "taxiJob3dText", "Press Q to leave job");
+        setPlayerJob( playerid, "taxidriver");
+        setPlayerModel( playerid, TAXI_JOB_SKIN );
+    });
+}
+
+/**
+ * Leave from taxi driver job
+ * @param  {int} playerid
+ */
+function taxiJobRefuseLeave(playerid) {
+    if(!isPlayerInValidPoint(playerid, TAXI_COORDS[0], TAXI_COORDS[1], TAXI_RADIUS)) {
+        return;
+    }
+
+    if(!isTaxiDriver(playerid)) {
+        return msg(playerid, "job.taxi.driver.not");
+    }
+
+    local drid = getCharacterIdFromPlayerId(playerid);
+
+    if(getTaxiDriverStatus(drid) == "busy") {
+        return msg_taxi_dr(playerid, "job.taxi.cantleavejob1");
+    }
+
+    // if(getPlayerTaxiUserStatus(playerid) == "onroute") {
+    //     return msg_taxi_dr(playerid, "job.taxi.cantleavejob2");
+    // }
+
+    screenFadeinFadeoutEx(playerid, 250, 200, function() {
+        msg_taxi_dr(playerid, "job.leave");
+        setPlayerJob( playerid, null );
+        restorePlayerModel(playerid);
+        renameText ( playerid, "taxiJob3dText", "Press E to get job");
+        // setPlayerTaxiUserStatus(playerid, "offair");
+
+        // if(job_taxi[players[playerid].id]["car"] != null) {
+        //     setTaxiLightState(job_taxi[players[playerid].id]["car"], false);
+        //     job_taxi[players[playerid].id]["car"] = null;
+        // }
+    });
+}
+
+/* MANAGE ***************************************************************************************************************************************************** */
+
+/**
+ * Switch userstatus air
+ * @param  {int} playerid
+ */
+function taxiSwitchAir(playerid) {
+
+    if (!isTaxiDriver(playerid) || !isPlayerCarTaxi(playerid)) {
+        return ;
+    }
+
+    local drid = getCharacterIdFromPlayerId(playerid);
+    local status = getTaxiDriverStatus(drid);
+    local vehicleid = getPlayerVehicle(playerid);
+
+    if(status == "busy") {
+        return msg_taxi_dr(playerid, "job.taxi.cantchangestatus");
+    }
+
+    if(status == "offair") {
+        unblockVehicle(vehicleid);
+        setTaxiDriverStatus(drid, "onair");
+        setTaxiDriverCar(drid, vehicleid);
+        setTaxiLightState(vehicleid, true);
+        msg_taxi_dr(playerid, "job.taxi.statuson" );
+
+    } else {
+        blockVehicle(vehicleid);
+        setTaxiDriverStatus(drid, "offair");
+        setTaxiDriverCar(drid, null);
+        setTaxiLightState(vehicleid, false);
+        msg_taxi_dr(playerid, "job.taxi.statusoff");
+    }
+}
+
+
+/* SYSTEM FUNCTIONS ***************************************************************************************************************************************************** */
+
+
+/**
+ * msg to taxi customer
+ * @param  {int}  playerid
+ * @param  {string} text
+ * @param  {string} options
+ */
+function msg_taxi_cu(playerid, text, options = []) {
+    return msg(playerid, text, options, CL_CREAMCAN);
+}
+
+/**
+ * msg to taxi driver
+ * @param  {int}  playerid
+ * @param  {string} text
+ * @param  {string} options
+ */
+
+function msg_taxi_dr(playerid, text, options = []) {
+    return msg(playerid, text, options, CL_ECSTASY);
+}
+
+/**
+ * Check is player is a taxidriver
+ * @param  {int}  playerid
+ * @return {Boolean} true/false
+ */
+function isTaxiDriver (playerid) {
+    return (isPlayerHaveValidJob(playerid, "taxidriver"));
+}
+
+/**
+ * Check is player's vehicle is a taxi car
+ * @param  {int}  playerid
+ * @return {Boolean} true/false
+ */
+function isPlayerCarTaxi(playerid) {
+    return (isPlayerInValidVehicle(playerid, 24) || isPlayerInValidVehicle(playerid, 33));
+}
+
+
+/**
+ * Check vehicle is a taxi car
+ * @param  {int}  vehicleid
+ * @return {Boolean} true/false
+ */
+function isVehicleCarTaxi(vehicleid) {
+    return (getVehicleModel( vehicleid ) == 24 || getVehicleModel( vehicleid ) == 33);
+}
+
+
+function isCarTaxiFreeForDriver(vehicleid) {
+    local check = true;
+    foreach (targetid, value in job_taxi) {
+        if (value["car"] == vehicleid ) {
+            check = false;
+        }
+    }
+    return check;
 }

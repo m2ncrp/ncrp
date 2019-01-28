@@ -158,7 +158,13 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
             setVehicleOwner(vehicleid, playerid);
         } else {
             blockVehicle(vehicleid);
-            msg(playerid, "vehicle.owner.warning", CL_WARNING);
+
+            // не показывать отсутствие ключа у рабочих авто
+            local modelsArr = [5, 19, 20, 21, 24, 27, 33, 34, 35, 36, 37, 38, 39, 42, 51];
+            local vehicleModel = getVehicleModel(vehicleid);
+            if(modelsArr.find(vehicleModel) == null) {
+                msg(playerid, "vehicle.owner.warning", CL_WARNING);
+            }
         }
     }
 
