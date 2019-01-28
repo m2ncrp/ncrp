@@ -89,7 +89,7 @@ function loadTraslation(){
         //selection
         text.Info1                  <- "IMPORTANT: Name and lastname of character";
         text.Info2                  <- "must match the America of the 1950s!";
-        text.Info3                  <- "Slavic names and lastnames are FORBIDDEN !!!";
+        text.Info3                  <- "Be original and creative!";
         text.SelectionWindow        <- "Selection of character";
         text.CharacterDesc          <- "First name: %s\nLast name: %s\nRace: %s\nSex: %s\nBirthday: %s\nMoney: $%.2f\nDeposit: $%.2f";
         text.SelectButtonDesc       <- "Select character";
@@ -131,7 +131,7 @@ function loadTraslation(){
         //selection
         text.Info1                  <- "ВАЖНО: Имя и фамилия персонажа должны";
         text.Info2                  <- "соответствовать Америке 50-х годов 20 века!";
-        text.Info3                  <- "Славянские имена и фамилии ЗАПРЕЩЕНЫ !!!";
+        text.Info3                  <- "Будьте оригинальными и креативными!";
         text.SelectionWindow        <- "Выбор персонажа";
         text.CharacterDesc          <- "Имя: %s\nФамилия: %s\nРаса: %s\nПол: %s\nДата рождения: %s\nДенежных средств: $%.2f\nСчёт в банке: $%.2f";
         text.SelectButtonDesc       <- "Выбрать персонажа";
