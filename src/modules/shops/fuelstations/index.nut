@@ -231,14 +231,16 @@ function fuelVehicleUp(playerid) {
     fueltank_loading[vehicleid] = true;
     setVehicleEngineState(vehicleid, false);
     trigger(playerid, "hudCreateTimer", fuelup_time, true, true);
+    subMoneyToPlayer(playerid, cost);
+    addMoneyToTreasury(cost);
     delayedFunction(fuelup_time * 1000, function () {
-        freezePlayer( playerid, false);
+        if(isPlayerConnected(playerid)) {
+            freezePlayer( playerid, false);
+            delayedFunction(1000, function () { freezePlayer( playerid, false); });
+            msg(playerid, "shops.fuelstations.fuel.payed", [cost, fuel, getPlayerBalance(playerid)], CL_CHESTNUT2);
+        }
         fueltank_loading[vehicleid] = false;
-        delayedFunction(1000, function () { freezePlayer( playerid, false); });
         setVehicleFuel(vehicleid, getDefaultVehicleFuel(vehicleid));
-        subMoneyToPlayer(playerid, cost);
-        addMoneyToTreasury(cost);
-        msg(playerid, "shops.fuelstations.fuel.payed", [cost, fuel, getPlayerBalance(playerid)], CL_CHESTNUT2);
     });
 }
 
