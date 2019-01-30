@@ -35,3 +35,4 @@ ncrp.sublime-workspace
 # env
 .env
 .mysql
+config.xml
