@@ -70,11 +70,11 @@ event("onClientSuccessfulyStarted", function(playerid) {
     }
 
     // maybe he is banned
-    ORM.Query("select * from @Ban where serial = :serial and until > :current")
+    ORM.Query("select * from @Ban where (serial = :serial or name = :name) and until > :current")
         .setParameter("serial", getPlayerSerial(playerid))
+        .setParameter("name", getAccountName(playerid))
         .setParameter("current", getTimestamp())
         .getSingleResult(function(err, result) {
-
             /**
              * Account is banned!
              * Applying actions
