@@ -92,3 +92,14 @@ function setPlayerState(playerid, to) {
     players[playerid].state = to;
     trigger("onPlayerStateChange", playerid);
 }
+
+function isAccountConnected(accountName) {
+    local result = false;
+    foreach (idx, value in players) {
+        if(value.name == accountName) {
+            result = true;
+            break;
+        }
+    }
+    return result;
+}
