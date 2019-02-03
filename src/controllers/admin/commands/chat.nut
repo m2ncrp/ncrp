@@ -17,13 +17,18 @@ function generateAdminNick (playerid) {
     // }
 
     // Hurfy
-    if(getPlayerSerial(playerid) == "2F3701604B3669FCA3D3B7BC1BF3F6B8") {
-        nick = " Hurfy";
-    }
+    // if(getPlayerSerial(playerid) == "2F3701604B3669FCA3D3B7BC1BF3F6B8") {
+    //     nick = " Hurfy";
+    // }
 
     // Vittorio Genovese
     if(getPlayerSerial(playerid) == "71818C229464A61DA21C9FC522BA7B08") {
         nick = " MadHatter";
+    }
+
+    // Lucia Feuntes
+    if(getPlayerSerial(playerid) == "D9B5B1ED43AB3E11AD453B3CE553335B") {
+        nick = " Lana";
     }
 
     return "[ADMIN]"+nick;
