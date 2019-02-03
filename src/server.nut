@@ -78,6 +78,7 @@ function dbg(...) {
 }
 
 console.log = dbg;
+trim <- strip;
 
 if (__DEBUG__EXPORT) {
     addEventHandler     <- function(...) {};
