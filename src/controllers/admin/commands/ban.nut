@@ -82,7 +82,7 @@ acmd("ban", newban);
  *     /ban list
  */
 function banlist(playerid, page = "0") {
-    local q = ORM.Query("select * from @Ban where until > :current limit :page, 10");
+    local q = ORM.Query("select * from @Ban where until > :current order by id DESC limit :page, 10");
 
     q.setParameter("current", getTimestamp())
     q.setParameter("page", max(0, page.tointeger()) * 10);
