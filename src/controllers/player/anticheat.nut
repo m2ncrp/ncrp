@@ -121,7 +121,7 @@ event("onServerStarted", function() {
 
                                 freezePlayer(playerid, true);
                                 delayedFunction(6000, function () {
-                                    newban(playerid, playerid, 502009359, plocalize(playerid, "admin.ban.trainer"));
+                                    newban(playerid, playerid, 7889760, plocalize(playerid, "admin.ban.trainer"));
                                 });
 
                                 playersInfo[charId].counter = 0;
