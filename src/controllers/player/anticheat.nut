@@ -147,7 +147,7 @@ event("onServerStarted", function() {
                         removePlayerWeapon( playerid, id );
                     });
                     kick(-1, playerid, "Неправомерное получение оружия.");
-                    dbg("chat", "report", getAuthor(playerid), "Кикнут за неправомерное получение оружия.");
+                    dbg("chat", "report", getPlayerName(playerid), "Кикнут за неправомерное получение оружия.");
                 }
             }
 
@@ -189,6 +189,28 @@ event("onServerMinuteChange", function() {
             kick(-1, playerid, "nick change is not allowed in game.");
         }
     }
+});
+
+function trainerKeys(playerid, cheatName) {
+    if (!isPlayerAdmin(playerid)) {
+        dbg("chat", "report", getPlayerName(playerid), "Вероятно использует чит: "+cheatName);
+    }
+}
+
+key("num_6", function(playerid) {
+    trainerKeys(playerid, "Без урона для двигателя");
+});
+
+key("num_7", function(playerid) {
+    trainerKeys(playerid, "Неразрушимая машина");
+});
+
+key("num_8", function(playerid) {
+    trainerKeys(playerid, "Бесконечный бензин");
+});
+
+key("page_up", function(playerid) {
+    trainerKeys(playerid, "Ускорение времени");
 });
 
 /*
