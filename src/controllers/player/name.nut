@@ -45,7 +45,7 @@ function getPlayerIdFromCharacterName(characterName) {
             return playerid;
         }
     }
-    return false;
+    return -1;
 }
 
 /**
@@ -60,7 +60,7 @@ function getPlayerIdFromCharacterId(CharacterId) {
             return playerid;
         }
     }
-    return false;
+    return -1;
 }
 
 /**
