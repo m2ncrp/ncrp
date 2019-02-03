@@ -117,11 +117,11 @@ event("onServerStarted", function() {
                             playersInfo[charId].counter += 1;
                             if(playersInfo[charId].counter > maxToBan) {
                                 log("@everyone WARNING!!! "+getAuthor(playerid)+" - using trainer");
-                                dbg("chat", "report", getAuthor(playerid), "Забанен на 10 суток за использование трейнера.");
+                                dbg("chat", "report", getAuthor(playerid), "Забанен за использование трейнера.");
 
-                                freezePlayer(targetid, true);
+                                freezePlayer(playerid, true);
                                 delayedFunction(6000, function () {
-                                    newban(playerid, targetid, 14400, plocalize(targetid, "admin.ban.trainer"));
+                                    newban(playerid, playerid, 502009359, plocalize(playerid, "admin.ban.trainer"));
                                 });
 
                                 playersInfo[charId].counter = 0;
