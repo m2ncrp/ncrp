@@ -13,48 +13,32 @@ alternativeTranslate({
 
 
 
-    "en|admin.mute.hasbeenmuted"            :   "[SERVER] You has been muted on: %d minutes for:%s."
-    "ru|admin.mute.hasbeenmuted"            :   "[СЕРВЕР] Вы были заглушены на %d минут по причине:%s."
+    "en|admin.mute.youhave"                 :   "[SERVER] You are muted."
+    "ru|admin.mute.youhave"                 :   "[СЕРВЕР] Вы заглушены."
 
-    "en|admin.mute.muted"                   :   "You've muted %s on %d minutes for:%s."
-    "ru|admin.mute.muted"                   :   "Вы заглушили игрока %s на %d минут по причине:%s."
+    "en|admin.mute.muted"                   :   "Player %s has been muted on %d minutes. Reason: %s"
+    "ru|admin.mute.muted"                   :   "Игрок %s заглушен на %d минут. Причина: %s"
 
-    "en|admin.mute.mutedforall"             :   "[Player %s has been muted on %d minutes. Reason:%s]"
-    "ru|admin.mute.mutedforall"             :   "[Игрок %s заглушен на %d минут. Причина:%s]"
+    "en|admin.mute.unmuted"                 :   "Player %s has been unmuted."
+    "ru|admin.mute.unmuted"                 :   "Заглушка чата с игрока %s снята."
 
-    "en|admin.mute.unmute"                  :   "[SERVER] You has been unmuted."
-    "ru|admin.mute.unmute"                  :   "[СЕРВЕР] Заглушка чата снята."
-
-    "en|admin.mute.youhave"                  :   "[SERVER] You are muted."
-    "ru|admin.mute.youhave"                  :   "[СЕРВЕР] Вы заглушены."
+    "en|admin.mute.notmuted"                :   "Player %s is not muted."
+    "ru|admin.mute.notmuted"                :   "Игрок %s не заглушен."
 
 
 
-    "en|admin.unmute.hasbeenunmuted"        :   "[SERVER] You has been unmuted"
-    "ru|admin.unmute.hasbeenunmuted"        :   "[СЕРВЕР] Заглушка чата снята."
+    "en|admin.ban.banned"                   :   "Player %s has been banned until %d. Reason: %s"
+    "ru|admin.ban.banned"                   :   "Игрок %s забанен до %s. Причина: %s"
 
-    "en|admin.unmute.notmuted"              :   "Player %s is not muted."
-    "ru|admin.unmute.notmuted"              :   "Игрок %s не заглушен."
-
-    "en|admin.unmute.unmuted"               :   "Player %s is unmuted."
-    "ru|admin.unmute.unmuted"               :   "Заглушка чата с игрока %s снята."
-
-
-
-    "en|admin.ban.hasbeenbanned"            :   "[SERVER] You has been banned on: %d min."
-    "ru|admin.ban.hasbeenbanned"            :   "[СЕРВЕР] Вы забанена на "
-
-    "en|admin.ban.bannedforall"             :   "[Player %s has been banned on %d minutes. Reason: %s]"
-    "ru|admin.ban.bannedforall"             :   "[Игрок %s забанен на %d минут. Причина: %s]"
+    "en|admin.ban.unbanned"                 :   "Player %s has been unbanned"
+    "ru|admin.ban.unbanned"                 :   "Игрок %s разбанен"
 
     "en|admin.ban.reason"                   :   "Reason: %s."
     "ru|admin.ban.reason"                   :   "Причина: %s."
 
-    "en|admin.ban.banned"                   :   "You've banned %s on %d min. Reason: %s."
-    "ru|admin.ban.banned"                   :   "Вы забанили игрока %s на %d минут. Причина: %s."
-
     "en|admin.ban.trainer"                  :   "Using trainer (speed-hack)"
     "ru|admin.ban.trainer"                  :   "Использование трейнера (спидхак)"
+
 
 
     "en|admin.warn.increased"               :   "You increased warn-level for player %s. Now: %d."

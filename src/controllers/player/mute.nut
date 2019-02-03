@@ -1,20 +1,24 @@
 // storage for mutes
-local mutes = [];
+local mutes = {};
 
 /**
  * Set particular player mute
  * @param {Integer} playerid
  * @param {Boolean} state
  */
-function setPlayerMuted(playerid, state) {
-    local key = getPlayerName(playerid);
+function setPlayerMuted(playerid, params = null) {
+    local key = getAccountName(playerid);
 
-    if (state && mutes.find(key) == null) {
-        return mutes.push(key);
+    if (key in mutes == false) {
+        mutes[key] <- {};
     }
 
-    if (!state && mutes.find(key) != null) {
-        return mutes.remove(mutes.find(key));
+    if (params && key in mutes) {
+        return mutes[key] = { amount = params.amount, until = params.until, created = params.created, reason = params.reason };
+    }
+
+    if (!params && key in mutes == true) {
+        return delete mutes[key];
     }
 
     return false;
@@ -26,5 +30,7 @@ function setPlayerMuted(playerid, state) {
  * @return {Boolean}
  */
 function isPlayerMuted(playerid) {
-    return mutes.find(getPlayerName(playerid)) != null;
+    local key = getAccountName(playerid);
+    return key in mutes == true && mutes[key].until > getTimestamp();
 }
+

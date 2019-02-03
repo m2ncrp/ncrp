@@ -86,14 +86,16 @@ event("onClientSuccessfulyStarted", function(playerid) {
                 // wait to load client chat and then display message
                 return delayedFunction(2000, function() {
                     // clear chat
-                    for (local i = 0; i < 14; i++) {
+                    for (local i = 0; i < 12; i++) {
                         msg(playerid, "");
                     }
 
                     trigger(playerid, "onServerChatTrigger");
 
-                    msg(playerid, "[SERVER] You are banned from the server for: " + result.reason, CL_RED);
-                    msg(playerid, "[SERVER] Try connecting again later."    );
+                    msg(playerid, "[SERVER] You are banned from the server!", CL_RED);
+                    msg(playerid, "[SERVER] Reason: " + result.reason, CL_RED);
+                    msg(playerid, "[SERVER] Expired: " + epochToHuman(result.until).format("d.m.Y H:i:s") + " MSK", CL_RED);
+                    msg(playerid, "[SERVER] Try connecting after expired date.");
 
                     dbg("kick", "banned connected", getIdentity(playerid));
 
@@ -114,6 +116,24 @@ event("onClientSuccessfulyStarted", function(playerid) {
                     setPlayerLocale(playerid, account.locale);
                     setPlayerLayout(playerid, account.layout, false);
                 }
+
+                ORM.Query("select * from @Mute where serial = :serial and until > :current")
+                    .setParameter("serial", getPlayerSerial(playerid))
+                    .setParameter("current", getTimestamp())
+                    .getSingleResult(function(err, result) {
+                        /**
+                         * Account is muted!
+                         * Applying actions
+                         */
+                        if (result) {
+                            setPlayerMuted(playerid, {
+                                amount = result.amount,
+                                until = result.until,
+                                created = result.created,
+                                reason = result.reason
+                            });
+                        }
+                });
 
                 /**
                  * Maybe we shoudl apply autologin ?
@@ -221,6 +241,7 @@ event("onPlayerDisconnect", function(playerid, reason) {
     }
 
     setPlayerAuthBlocked(playerid, false);
+    setPlayerMuted(playerid, false);
     if (!isPlayerAuthed(playerid)) return;
 
     setLastActiveSession(playerid);

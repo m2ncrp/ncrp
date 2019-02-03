@@ -1,6 +1,9 @@
 include("controllers/admin/sqdebug.nut");
 
 include("controllers/admin/commands/ban.nut");
+include("controllers/admin/commands/kick.nut");
+include("controllers/admin/commands/mute.nut");
+include("controllers/admin/commands/warn.nut");
 include("controllers/admin/commands/chat.nut");
 include("controllers/admin/commands/help.nut");
 include("controllers/admin/commands/player.nut");
