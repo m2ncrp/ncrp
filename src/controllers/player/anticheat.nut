@@ -115,14 +115,15 @@ event("onServerStarted", function() {
                         ) {
                             //log("================================================================ WARNING ===");
                             playersInfo[charId].counter += 1;
+                            dbg("chat", "report", getAuthor(playerid), "Подозрение на использование трейнера");
                             if(playersInfo[charId].counter > maxToBan) {
-                                log("@everyone WARNING!!! "+getAuthor(playerid)+" - using trainer");
-                                dbg("chat", "report", getAuthor(playerid), "Забанен за использование трейнера.");
+                                //log("@everyone WARNING!!! "+getAuthor(playerid)+" - using trainer");
+                                dbg("chat", "report", getAuthor(playerid), "Высокий риск наличия трейнера.");
 
-                                freezePlayer(playerid, true);
-                                delayedFunction(6000, function () {
-                                    newban(playerid, playerid, 7889760, plocalize(playerid, "admin.ban.trainer"));
-                                });
+                                //freezePlayer(playerid, true);
+                                //delayedFunction(6000, function () {
+                                //    newban(playerid, playerid, 7889760, plocalize(playerid, "admin.ban.trainer"));
+                                //});
 
                                 playersInfo[charId].counter = 0;
                             }
