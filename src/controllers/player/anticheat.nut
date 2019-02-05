@@ -109,9 +109,9 @@ event("onServerStarted", function() {
                     if(oldPos && state != null) {
                         local distance = getDistanceBetweenPoints2D( plaPos[0], plaPos[1], oldPos[0], oldPos[1] );
                         if(distance == 0) return;
-                        if((state == 0 && distance > 1.1)
-                        || (state == 1 && distance > 6.0)
-                        || (state == 2 && distance > 4.0)
+                        if((state == 0 && distance > 2.0)
+                        || (state == 1 && distance > 5.0)
+                        || (state == 2 && distance > 8.0)
                         ) {
                             //log("================================================================ WARNING ===");
                             playersInfo[charId].counter += 1;
