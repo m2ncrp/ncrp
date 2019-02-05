@@ -38,15 +38,15 @@ function getVehicleKeysHelp( playerid ) {
 }
 
 
-cmd("key", function( playerid, plateText = 0 ) {
+acmd("key", function( playerid, plateText = 0 ) {
 
     if (plateText == 0) {
         return getVehicleKeysHelp( playerid );
     }
 
-    if (!isPlayerInValidPoint(playerid, VEHKEYS_X, VEHKEYS_Y, 1.0 )) {
-        return msg(playerid, "vehkeys.toofar", CL_THUNDERBIRD);
-    }
+    // if (!isPlayerInValidPoint(playerid, VEHKEYS_X, VEHKEYS_Y, 1.0 )) {
+    //     return msg(playerid, "vehkeys.toofar", CL_THUNDERBIRD);
+    // }
 
     if(!players[playerid].inventory.isFreeSpace(1)) {
         return msg(playerid, "inventory.space.notenough", CL_THUNDERBIRD);
