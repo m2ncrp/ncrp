@@ -82,7 +82,20 @@ event("onPlayerPlaceEnter", function(playerid, name) {
 });
 
 cmd("dealer", function(playerid) {
-    if (!isPlayerInVehicle(playerid)) return;
+
+    local plaPos = getPlayerPosition(playerid);
+
+    if(!isInPlace("CarDealer", plaPos[0], plaPos[1])) {
+        return msg(playerid, "cardealer.info.hint", CL_HELP);
+    }
+
+    if (!isPlayerInVehicle(playerid)) {
+        msg(playerid, "cardealer.info.title", CL_HELP_LINE);
+        msg(playerid, "cardealer.info.youcan", CL_HELP);
+        msg(playerid, "cardealer.info.buy");
+        msg(playerid, "cardealer.info.sell");
+        return;
+    }
 
     local vehicleid     = getPlayerVehicle( playerid );
     local vehPos        = getVehiclePosition( vehicleid );
@@ -325,6 +338,18 @@ function carDealerLoadedDataRead() {
 }
 
 alternativeTranslate({
+
+    "en|cardealer.info.hint"              :  "Want to see the range or sell your car through a dealer - visit the area in the northwest of Kingston."
+    "ru|cardealer.info.hint"              :  "Хочешь посмотреть ассортимент или продать свой автомобиль через дилера - посети площадку на северо-западе Кингстона."
+
+    "en|cardealer.info.youcan"            :  "You can buy or sell car by dealer."
+    "ru|cardealer.info.youcan"            :  "Ты можешь купить или продать машину с помощью дилера."
+
+    "en|cardealer.info.buy"               :  "Choose the car on the right hand of the dealer and sit in it to buy. If there are no cars in the area, nobody sells cars through the dealer.   Glance here later."
+    "ru|cardealer.info.buy"               :  "Для покупки - выбери автомобиль по правую руку от дилера, и садись в него. Если автомобилей нет, значит сейчас их никто не   продаёт через дилера. В этом случае загляни сюда позже."
+
+    "en|cardealer.info.sell"              :  "Drive the car to the dealer's area and type /dealer in chat to sell."
+    "ru|cardealer.info.sell"              :  "Для продажи - загони автомобиль на территорию и напиши /dealer."
 
     "en|cardealer.onSaleYet"              :  "Your car «%s» with plate %s is on sale now."
     "ru|cardealer.onSaleYet"              :  "Ваш автомобиль «%s» (%s) пока ещё не продан."
