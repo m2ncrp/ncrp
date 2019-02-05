@@ -55,6 +55,45 @@ function taxHelp( playerid ) {
 }
 
 
+/**
+ * Check if current connected player is have key from vehicleid
+ *
+ * @param  {integer}  playerid
+ * @param  {any}      param - vehicleid or plateText
+ * @return {Boolean}
+ */
+function isPlayerHaveValidVehicleTax(playerid, param, days = 0) {
+
+    local plate = null;
+
+    if (typeof param == "string") {
+        plate = param;
+    }
+
+    if (typeof param == "integer") {
+        plate = getVehiclePlateText(param);
+    }
+
+    local curdateStamp = getDay() + getMonth()*30 + getYear()*360 + days;
+
+    local isHave = false;
+
+    foreach (idx, item in players[playerid].inventory) {
+
+        if(item._entity == "Item.VehicleTax") {
+            local dateArray = split(item.data.expires,".");
+            local dateStamp = dateArray[0].tointeger() + dateArray[1].tointeger()*30 + dateArray[2].tointeger()*360;
+            if (item.data.plate == plate && curdateStamp <= dateStamp) {
+                isHave = true;
+                break;
+            }
+        }
+    }
+
+    return isHave;
+}
+
+
 cmd("tax", function( playerid, plateText = 0, monthUp = 1 ) {
 
     if (plateText == 0) {
