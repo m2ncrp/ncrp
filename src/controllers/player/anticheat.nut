@@ -115,7 +115,9 @@ event("onServerStarted", function() {
                         ) {
                             //log("================================================================ WARNING ===");
                             playersInfo[charId].counter += 1;
-                            dbg("chat", "report", getAuthor(playerid), "Подозрение на использование трейнера");
+                            if(playersInfo[charId].counter >= 5) {
+                                dbg("chat", "report", getAuthor(playerid), "Подозрение на использование трейнера");
+                            }
                             if(playersInfo[charId].counter > maxToBan) {
                                 //log("@everyone WARNING!!! "+getAuthor(playerid)+" - using trainer");
                                 dbg("chat", "report", getAuthor(playerid), "Высокий риск наличия трейнера.");
