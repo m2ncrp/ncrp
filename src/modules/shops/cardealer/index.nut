@@ -8,6 +8,10 @@ local availableCars = [0, 1, 4, 6, 7, 8, 9, 10, 12, 13, 14, 15, 17, 18, 22, 23, 
 local margin_percent = 0.02; // наценка в процентах
 local sell_percent = 0.65; // наценка в процентах
 
+local time_to_sale_dealer = 2592000;    // время на продажу дилеру - 30 дней
+local time_to_sale = 864000;            // время на продажу игроку - 10 дней
+local time_to_await_owner = 432000;     // время ожидания игрока, чтобы забрал авто - 5 дней
+
 event("onServerStarted", function() {
     log("[shops] loading car dealer...");
 
@@ -29,9 +33,24 @@ event("onServerPlayerStarted", function( playerid ){
     local timestamp = getTimestamp();
     foreach (idx, car in carDealerLoadedData) {
 
-        // снять с продажи если истёк срок
-        if (car.until < timestamp && car.status == "sale") {
-            car.status = "canceled_offline";
+        // отправить на штрафстоянку если владелец не забрал в течение 5 суток с момента окончания срока (15 суток от начала продажи)
+        if (timestamp > car.until && car.status == "await_owner") {
+            car.status = "canceled";
+            car.save();
+            local vehicleid = getVehicleIdFromEntityId( car.vehicleid );
+            if(setVehicleToCarPound(vehicleid)) {
+                local plate = getVehiclePlateText(vehicleid);
+                dbg("chat", "report", "Автодилер", format("Отправил на штрафстоянку автомобиль с номером %s", plate));
+                dbg("chat", "police", "Автодилер", format("Отправил на штрафстоянку автомобиль с номером %s", plate));
+            } else {
+                dbg("chat", "report", "Автодилер", format("Не удалось отправить на штрафстоянку автомобиль с номером %s", plate));
+            }
+        }
+
+        // снять с продажи если истёк срок, и начать информировать и ждать владельца, чтобы забрал
+        if (timestamp > car.until && car.status == "sale") {
+            car.status = "await_owner";
+            car.until = timestamp + time_to_await_owner;
             car.save();
         }
 
@@ -53,14 +72,11 @@ event("onServerPlayerStarted", function( playerid ){
                 //carDealerLoadedData.remove(idx);
             }
 
-            if (car.status == "canceled_offline") {
-                msg(playerid, "cardealer.removed", [modelName, plate], CL_SUCCESS);
-                car.status = "canceled";
-                car.save();
+            if (car.status == "await_owner") {
+                msg(playerid, "cardealer.removed", [modelName, plate], CL_WARNING);
             }
         }
     }
-    //delete temp;
 });
 
 
@@ -72,9 +88,13 @@ event ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
     local entityid = getVehicleEntityId( vehicleid );
 
     foreach (idx, car in carDealerLoadedData) {
-        if (car.vehicleid == entityid && car.status == "sale") {
-            local characterid = players[playerid].id;
+        local characterid = players[playerid].id;
 
+        if (car.vehicleid == entityid && car.status == "await_owner") {
+            return msg(playerid, "cardealer.takeBack", CL_FIREBUSH);
+        }
+
+        if (car.vehicleid == entityid && car.status == "sale") {
             local margin = car.price * margin_percent;
 
             if (characterid != car.ownerid) {
@@ -220,13 +240,13 @@ cmd("dealer", "sell", function(playerid, price) {
         addMoneyToPlayer(playerid, amount);
         car.ownerid = 4;
         car.price = round(carInfo.price * 0.85, 2);
-        car.until = car.created.tointeger() + 2592000;
+        car.until = car.created.tointeger() + time_to_sale_dealer;
         msg(playerid, "cardealer.soldNow", [ amount ], CL_SUCCESS);
         dbg("chat", "report", getPlayerName(playerid), format("Продал автомобиль «%s» (%s) за $%.2f", modelName, plate, amount));
     } else {
         car.ownerid = getVehicleOwnerId( vehicleid );
         car.price   = round(fabs(price.tofloat()), 2);
-        car.until   = car.created.tointeger() + 864000;
+        car.until   = car.created.tointeger() + time_to_sale;
         msg(playerid, "cardealer.onSaleNow", CL_SUCCESS);
         dbg("chat", "report", getPlayerName(playerid), format("Выставил на продажу автомобиль «%s» (%s) за $%.2f", modelName, plate, car.price));
     }
@@ -249,10 +269,13 @@ cmd("dealer", "buy", function(playerid) {
     local characterid   = players[playerid].id;
 
     if(!isInPlace("CarDealer", vehPos[0], vehPos[1])) {
-        return msg(playerid, "cardealer.buyingAvailable", CL_ERROR);
+        return msg(playerid, "cardealer.action", CL_ERROR);
     }
 
-    local owned  = false;
+    if (isPlayerHaveVehicleKey(playerid, vehicleid)) {
+        return msg(playerid, "cardealer.thisYourCarAlready", CL_ERROR);
+    }
+
     local onsale = false;
     local car = null;
 
@@ -265,23 +288,17 @@ cmd("dealer", "buy", function(playerid) {
         }
     }
 
-    if (isPlayerHaveVehicleKey(playerid, vehicleid)) {
-        owned = true;
+    if(!onsale) {
+        return msg(playerid, "cardealer.notForSale", CL_ERROR);
     }
-
-    if (owned) {
-        return msg(playerid, "cardealer.thisYourCarAlready", CL_ERROR);
-    }
-
-    if(!onsale) { return msg(playerid, "cardealer.notForSale", CL_ERROR); }
 
     if(!players[playerid].inventory.isFreeSpace(1)) {
-        return msg(playerid, "inventory.space.notenough", CL_THUNDERBIRD);
+        return msg(playerid, "inventory.space.notenough", CL_ERROR);
     }
 
     local vehicleKey = Item.VehicleKey();
     if (!players[playerid].inventory.isFreeWeight(vehicleKey)) {
-        return msg(playerid, "inventory.weight.notenough", CL_THUNDERBIRD);
+        return msg(playerid, "inventory.weight.notenough", CL_ERROR);
     }
 
     local margin = car.price * margin_percent;
@@ -346,6 +363,71 @@ cmd("dealer", "buy", function(playerid) {
 
 });
 
+cmd("dealer", "take", function(playerid) {
+    if (!isPlayerInVehicle(playerid)) return;
+
+    local vehicleid     = getPlayerVehicle( playerid );
+    local entityid      = getVehicleEntityId( vehicleid );
+    local vehPos        = getVehiclePosition( vehicleid );
+    local modelid       = getVehicleModel( vehicleid );
+    local modelName     = getVehicleNameByModelId( modelid );
+    local plate         = getVehiclePlateText( vehicleid );
+    local characterid   = players[playerid].id;
+
+    if(!isInPlace("CarDealer", vehPos[0], vehPos[1])) {
+        return msg(playerid, "cardealer.action", CL_ERROR);
+    }
+
+    if (isPlayerHaveVehicleKey(playerid, vehicleid)) {
+        return msg(playerid, "cardealer.thisYourCarAlready", CL_ERROR);
+    }
+
+    local onremoving = false;
+    local car = null;
+
+    foreach (idx, carItem in carDealerLoadedData) {
+        if (carItem.vehicleid == entityid) {
+            if(carItem.status == "await_owner") {
+                onremoving = true;
+                car = carItem;
+            }
+        }
+    }
+
+    if(!onremoving) {
+        return msg(playerid, "cardealer.notForRemoving", CL_ERROR);
+    }
+
+    if(characterid != car.ownerid) {
+        return msg(playerid, "cardealer.notYourCar", CL_ERROR);
+    }
+
+    if(!players[playerid].inventory.isFreeSpace(1)) {
+        return msg(playerid, "inventory.space.notenough", CL_ERROR);
+    }
+
+    local vehicleKey = Item.VehicleKey();
+    if (!players[playerid].inventory.isFreeWeight(vehicleKey)) {
+        return msg(playerid, "inventory.weight.notenough", CL_ERROR);
+    }
+
+    msg(playerid, "cardealer.returnedCarFree", CL_SUCCESS);
+    car.status = "canceled";
+    car.save();
+
+    vehicleKey.setData("id", entityid);
+    players[playerid].inventory.push( vehicleKey );
+    vehicleKey.save();
+    players[playerid].inventory.sync();
+
+    carDealerLoadedDataRead();
+
+    setVehicleOwner(vehicleid, playerid);
+    __vehicles[vehicleid].entity.save();
+    unblockVehicle(vehicleid);
+
+});
+
 function carDealerLoadedDataRead() {
     CarDealer.findAll(function(err, results) {
         carDealerLoadedData = (results.len()) ? results : [];
@@ -372,8 +454,8 @@ alternativeTranslate({
     "en|cardealer.sold"                   :  "Your car «%s» with plate %s sold. Money transferred to the bank account."
     "ru|cardealer.sold"                   :  "Ваш автомобиль «%s» (%s) продан. Деньги переведены на счёт в банк."
 
-    "en|cardealer.removed"                :  "Your car «%s» with plate %s is removed from sale due to lack of demand. Take it from the dealer's area."
-    "ru|cardealer.removed"                :  "Ваш автомобиль «%s» (%s) снят с продажи из-за невостребованности. Заберите его с площадки дилера."
+    "en|cardealer.removed"                :  "Your car «%s» with plate %s is removed from sale due to lack of demand. Take it from the dealer's area as soon as possible, otherwise it will be move to the paid parking, and you will be left without key."
+    "ru|cardealer.removed"                :  "Ваш автомобиль «%s» (%s) снят с продажи из-за невостребованности. Заберите его с площадки дилера как можно скорее, иначе он будет отправлен на штрафстоянку, а вы останетесь без ключа."
 
     "en|cardealer.soldNow"                :  "You sold you car for $%.2f"
     "ru|cardealer.soldNow"                :  "Вы продали автомобиль за $%.2f"
@@ -383,6 +465,9 @@ alternativeTranslate({
 
     "en|cardealer.canReturn"              :  "This is your car, but it on sale. You can return it with $%.2f commission via /dealer buy"
     "ru|cardealer.canReturn"              :  "Это ваш автомобиль, но он выставлен на продажу. Вы можете забрать его c комиссией в $%.2f: /dealer buy"
+
+    "en|cardealer.takeBack"               :  "This is your car, and it is removed from sale. Take it back via /dealer take"
+    "ru|cardealer.takeBack"               :  "Это ваш автомобиль, и он снят с продажи из-за невостребованности. Заберите его: /dealer take"
 
     "en|cardealer.enterZone"              :  "Want to sell car? Park the car neatly."
     "ru|cardealer.enterZone"              :  "Хотите продать автомобиль? Припаркуйтесь аккуратно."
@@ -408,8 +493,8 @@ alternativeTranslate({
     "en|cardealer.onSaleNow"              :  "The car is on sale now."
     "ru|cardealer.onSaleNow"              :  "Вы выставили автомобиль на продажу."
 
-    "en|cardealer.buyingAvailable"        :  "Buying car available only in dealer area."
-    "ru|cardealer.buyingAvailable"        :  "Приобрести автомобиль можно только на территории дилера."
+    "en|cardealer.action"                 :  "This action can be carried out only in the dealer's area."
+    "ru|cardealer.action"                 :  "Данное действие можно осуществить только на территории дилера."
 
     "en|cardealer.thisYourCarAlready"     :  "This is your car already."
     "ru|cardealer.thisYourCarAlready"     :  "Этот автомобиль уже ваш."
@@ -417,11 +502,17 @@ alternativeTranslate({
     "en|cardealer.notForSale"             :  "This car is not for sale."
     "ru|cardealer.notForSale"             :  "Этот автомобиль не выставлен на продажу."
 
+    "en|cardealer.notForRemoving"         :  "This car still is on sale."
+    "ru|cardealer.notForRemoving"         :  "Этот автомобиль ещё продатёся."
+
     "en|cardealer.boughtCar"              :  "You bought this car."
     "ru|cardealer.boughtCar"              :  "Вы приобрели этот автомобиль."
 
     "en|cardealer.returnedCar"            :  "You returned your car back for $%.2f."
     "ru|cardealer.returnedCar"            :  "Вы забрали автомобиль, заплатив $%.2f."
+
+    "en|cardealer.returnedCarFree"        :  "You returned your car back."
+    "ru|cardealer.returnedCarFree"        :  "Вы забрали свой автомобиль."
 
     "en|cardealer.notenoughmoney"         :   "Not enough money to pay!"
     "ru|cardealer.notenoughmoney"         :   "Увы, у тебя недостаточно денег."
