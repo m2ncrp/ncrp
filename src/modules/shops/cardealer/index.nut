@@ -26,22 +26,37 @@ event("onServerStarted", function() {
 event("onServerPlayerStarted", function( playerid ){
     local characterid = players[playerid].id;
     //local temp = clone(carDealerLoadedData);
+    local timestamp = getTimestamp();
     foreach (idx, car in carDealerLoadedData) {
+
+        // снять с продажи если истёк срок
+        if (car.until < timestamp && car.status == "sale") {
+            car.status = "canceled_offline";
+            car.save();
+        }
+
         if (car.ownerid == characterid) {
             local vehicleid = getVehicleIdFromEntityId( car.vehicleid );
             local plate   = getVehiclePlateText( vehicleid );
             local modelid = getVehicleModel( vehicleid );
             local modelName = getVehicleNameByModelId( modelid );
 
-            if(car.status == "sale") {
+            if (car.status == "sale") {
                 msg (playerid, "cardealer.onSaleYet", [modelName, plate], CL_SUCCESS);
             }
-            if(car.status == "sold_offline") {
-                msg (playerid, "cardealer.Sold", [modelName, plate], CL_SUCCESS);
+
+            if (car.status == "sold_offline") {
+                msg(playerid, "cardealer.sold", [modelName, plate], CL_SUCCESS);
                 addMoneyToDeposit(playerid, car.price);
                 car.status = "completed";
                 car.save();
                 //carDealerLoadedData.remove(idx);
+            }
+
+            if (car.status == "canceled_offline") {
+                msg(playerid, "cardealer.removed", [modelName, plate], CL_SUCCESS);
+                car.status = "canceled";
+                car.save();
             }
         }
     }
@@ -205,13 +220,13 @@ cmd("dealer", "sell", function(playerid, price) {
         addMoneyToPlayer(playerid, amount);
         car.ownerid = 4;
         car.price = round(carInfo.price * 0.85, 2);
-        car.until = car.created.tointeger() + 86400;
+        car.until = car.created.tointeger() + 2592000;
         msg(playerid, "cardealer.soldNow", [ amount ], CL_SUCCESS);
         dbg("chat", "report", getPlayerName(playerid), format("Продал автомобиль «%s» (%s) за $%.2f", modelName, plate, amount));
     } else {
         car.ownerid = getVehicleOwnerId( vehicleid );
         car.price   = round(fabs(price.tofloat()), 2);
-        car.until   = car.created.tointeger() + 14400;
+        car.until   = car.created.tointeger() + 864000;
         msg(playerid, "cardealer.onSaleNow", CL_SUCCESS);
         dbg("chat", "report", getPlayerName(playerid), format("Выставил на продажу автомобиль «%s» (%s) за $%.2f", modelName, plate, car.price));
     }
@@ -297,7 +312,7 @@ cmd("dealer", "buy", function(playerid) {
             subMoneyToPlayer(playerid, amount);
             addMoneyToDeposit(playeridOldOwner, amount);
             msg(playerid, "cardealer.boughtCar", CL_SUCCESS);
-            msg(playeridOldOwner, "cardealer.Sold", [modelName, plate], CL_FIREBUSH);
+            msg(playeridOldOwner, "cardealer.sold", [modelName, plate], CL_FIREBUSH);
             car.total_price = amount;
             car.status = "sold";
             dbg("chat", "report", getPlayerName(playerid), format("Купил автомобиль «%s» (%s) за $%.2f", modelName, plate, amount));
@@ -354,8 +369,11 @@ alternativeTranslate({
     "en|cardealer.onSaleYet"              :  "Your car «%s» with plate %s is on sale now."
     "ru|cardealer.onSaleYet"              :  "Ваш автомобиль «%s» (%s) пока ещё не продан."
 
-    "en|cardealer.Sold"                   :  "Your car «%s» with plate %s sold. Money transferred to the bank account."
-    "ru|cardealer.Sold"                   :  "Ваш автомобиль «%s» (%s) продан. Деньги переведены на счёт в банк."
+    "en|cardealer.sold"                   :  "Your car «%s» with plate %s sold. Money transferred to the bank account."
+    "ru|cardealer.sold"                   :  "Ваш автомобиль «%s» (%s) продан. Деньги переведены на счёт в банк."
+
+    "en|cardealer.removed"                :  "Your car «%s» with plate %s is removed from sale due to lack of demand. Take it from the dealer's area."
+    "ru|cardealer.removed"                :  "Ваш автомобиль «%s» (%s) снят с продажи из-за невостребованности. Заберите его с площадки дилера."
 
     "en|cardealer.soldNow"                :  "You sold you car for $%.2f"
     "ru|cardealer.soldNow"                :  "Вы продали автомобиль за $%.2f"
