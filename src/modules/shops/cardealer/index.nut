@@ -194,8 +194,8 @@ cmd("dealer", "sell", function(playerid, price) {
         return msg(playerid, "cardealer.carAlreadyOnSale", CL_ERROR);
     }
 
-    if (!isPlayerHaveValidVehicleTax(playerid, vehicleid, 10)) {
-        return msg(playerid, "cardealer.needValidVehicleTax", [ plate, 10 ], CL_ERROR);
+    if (!isPlayerHaveValidVehicleTax(playerid, vehicleid, 20)) {
+        return msg(playerid, "cardealer.needValidVehicleTax", [ plate, 20 ], CL_ERROR);
     }
 
     if (availableCars.find(modelid) == null) {
