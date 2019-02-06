@@ -9,7 +9,6 @@
         <resource>ncrp</resource>
     </resources>
     <serverkey>D0F9UjRa58ZQtIVmlWuT1weS</serverkey>
-    <modules>
         <module>mysql</module>
     </modules>
 </settings>
