@@ -344,7 +344,7 @@ cmd("dealer", "buy", function(playerid) {
         subMoneyToPlayer(playerid, amount);
         msg(playerid, "cardealer.boughtCar", CL_SUCCESS);
         car.total_price = amount;
-        car.status = "sold_offline";
+        car.status = car.ownerid == 4 ? "completed" : "sold_offline";
         dbg("chat", "report", getPlayerName(playerid), format("Купил автомобиль «%s» (%s) за $%.2f (offine)", modelName, plate, amount));
     }
 
