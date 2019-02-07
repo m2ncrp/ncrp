@@ -105,6 +105,12 @@ alternativeTranslate({
 "en|organizations.police.income"                    : "[EBPD] We send $%.2f to you for duty as %s."
 "ru|organizations.police.income"                    : "[EBPD] Ваша зарплата составляет $%.2f за службу в качестве %s."
 
+"en|organizations.police.addminutes"                : "[EBPD] Added %d minutes in you personal stats."
+"ru|organizations.police.addminutes"                : "[EBPD] В вашу личную статистику добавлено %d мин."
+
+"en|organizations.police.subminutes"                : "[EBPD] Subtracted %d minutes from you personal stats."
+"ru|organizations.police.subminutes"                : "[EBPD] Из вашей личной статистики вычтено %d мин. (штрафная санкция)"
+
 "en|organizations.police.crime.wasdone"             : "You would better not to do it..."
 "ru|organizations.police.crime.wasdone"             : "Лучше бы ты этого не делал..."
 
