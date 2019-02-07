@@ -160,6 +160,20 @@ function policeJobPaySalary(playerid) {
     police[playerid]["ondutyminutes"] = 0;
 }
 
+/**
+ * Calculate minutes for police based on time on duty
+ * @param  {[type]} playerid [description]
+ * @return {[type]}          [description]
+ */
+function policeJobDuteMinute(playerid) {
+    if(!("police" in players[playerid].data.jobs)) {
+        players[playerid].data.jobs.police <- { count = 0 }
+    }
+    players[playerid].data.jobs.police.count += police[playerid]["ondutyminutes"];
+    msg(playerid, "organizations.police.addminutes", [ police[playerid]["ondutyminutes"] ], CL_SUCCESS);
+    police[playerid]["ondutyminutes"] = 0;
+}
+
 include("modules/organizations/police/commands.nut");
 include("modules/organizations/police/functions.nut");
 include("modules/organizations/police/messages.nut");
@@ -231,19 +245,30 @@ event("onPlayerVehicleEnter", function( playerid, vehicleid, seat ) {
             blockVehicle(vehicleid);
             return msg(playerid, "organizations.police.crime.wasdone", [], CL_GRAY);
         }
-        if ( isOfficer(playerid) && getPoliceRank(playerid) < 1 ) {
-            blockVehicle(vehicleid);
-            return msg(playerid, "organizations.police.lowrank", [], CL_GRAY);
-        }
-        if ( isOfficer(playerid) && !isOnPoliceDuty(playerid) ) {
-            blockVehicle(vehicleid);
-            return msg(playerid, "organizations.police.offduty.nokeys", [], CL_GRAY);
-        } else {
-            unblockVehicle(vehicleid);
-            privateKey(playerid, "k", "policeBeacon", switchBeaconLight)
-            privateKey(playerid, "b", "policeBinder", policeVehicleBinder)
+
+        if ( isOfficer(playerid)) {
+
+            if(getPoliceRank(playerid) < 1) {
+                blockVehicle(vehicleid);
+                return msg(playerid, "organizations.police.lowrank", [], CL_GRAY);
+            }
+
+            if (!isOnPoliceDuty(playerid)) {
+                blockVehicle(vehicleid);
+                return msg(playerid, "organizations.police.offduty.nokeys", [], CL_GRAY);
+            } else {
+                unblockVehicle(vehicleid);
+                privateKey(playerid, "k", "policeBeacon", switchBeaconLight)
+                privateKey(playerid, "b", "policeBinder", policeVehicleBinder)
+            }
         }
     }
+
+    if (!isPlayerInPoliceVehicle(playerid) && seat == 0 && isOfficer(playerid) && isOnPoliceDuty(playerid) && isPlayerVehicleOwner(playerid, vehicleid)) {
+        players[playerid].data.jobs.police.count -= 30;
+        return msg(playerid, "organizations.police.subminutes", [ 30 ], CL_ERROR);
+    }
+
 
     if ( getPlayerState(playerid) == "cuffed" ) { //  && seat != 0
         setPlayerToggle(playerid, false);
