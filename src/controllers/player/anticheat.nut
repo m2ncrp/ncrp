@@ -52,6 +52,7 @@ vehicleSpeedLimits[53] <- [27.4, 28.5];
 
 //local maxspeed = 0.0;
 local playersInfo = {};
+local vehiclesInfo = {};
 local maxToBan = 10; // minimun 2
 
 event("onServerStarted", function() {
@@ -96,8 +97,22 @@ event("onServerStarted", function() {
                 if (maxsp > limits[1]) {
                     kick( -1, playerid, "speed-hack protection" );
                 }
+
+                // античит на бесконечное топливо
+                local oldFuel = vehiclesInfo[vehicleid].fuel;
+                local newFuel = getVehicleFuel(vehicleid);
+
+                if(oldFuel == newFuel && getDefaultVehicleFuel(vehicleid) == newFuel && maxsp > 10.0) {
+                    vehiclesInfo[vehicleid].fuelCheatCounter += 1;
+                    if(vehiclesInfo[vehicleid].fuelCheatCounter > 20) {
+                        vehiclesInfo[vehicleid].fuelCheatCounter = 0;
+                        trainerKeysEx(playerid, "Бесконечный бензин");
+                    }
+                }
+                vehiclesInfo[vehicleid].fuel = newFuel;
+
             } else {
-                if(players.has(playerid)) {
+                if(players.has(playerid) && !isPlayerBusPassenger(playerid)) {
 
                     local plaPos = getPlayerPosition(playerid);
                     local charId = players[playerid].id;
@@ -173,6 +188,14 @@ event("onServerPlayerStarted", function(playerid) {
     playersInfo[charId].counter <- 0;
 });
 
+event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
+    if ( ! (vehicleid in vehiclesInfo) ) {
+        vehiclesInfo[vehicleid] <- {};
+        vehiclesInfo[vehicleid].fuel <- 0.0;
+        vehiclesInfo[vehicleid].fuelCheatCounter <- 0;
+    }
+});
+
 event("onPlayerConnect", function(playerid) {
     local weaponlist = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 21];
     weaponlist.apply(function(id) {
@@ -194,6 +217,12 @@ event("onServerMinuteChange", function() {
     }
 });
 
+function trainerKeysEx(playerid, cheatName) {
+    if (!isPlayerAdmin(playerid)) {
+        dbg("chat", "report", getPlayerName(playerid), "Точно использует чит: "+cheatName);
+    }
+}
+
 function trainerKeys(playerid, cheatName) {
     if (!isPlayerAdmin(playerid)) {
         dbg("chat", "report", getPlayerName(playerid), "Вероятно использует чит: "+cheatName);
@@ -206,10 +235,6 @@ key("num_6", function(playerid) {
 
 key("num_7", function(playerid) {
     trainerKeys(playerid, "Неразрушимая машина");
-});
-
-key("num_8", function(playerid) {
-    trainerKeys(playerid, "Бесконечный бензин");
 });
 
 key("page_up", function(playerid) {
