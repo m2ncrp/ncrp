@@ -1,25 +1,17 @@
 /**
  * Switch vehicle FRONT lights
- * @param  {int} playerid
+ * @param  {int} vehicleid
  */
-function switchLights(playerid) {
-    if ( !isPlayerInVehicle(playerid) ) {
-        return;
-    }
-    local vehicleid = getPlayerVehicle( playerid );
+function switchLights(vehicleid) {
     local prevState = getVehicleLightState( vehicleid );
     setVehicleLightState( vehicleid, !prevState );
 }
 
 /**
  * Switch vehicle BOTH Indicator Light
- * @param  {int} playerid
+ * @param  {int} vehicleid
  */
-function switchBothLight(playerid) {
-    if ( !isPlayerInVehicle(playerid) ) {
-        return;
-    }
-    local vehicleid = getPlayerVehicle(playerid);
+function switchBothLight(vehicleid) {
 
     local leftState = getIndicatorLightState(vehicleid, INDICATOR_LEFT);
     local rightState = getIndicatorLightState(vehicleid, INDICATOR_RIGHT);
@@ -38,13 +30,9 @@ function switchBothLight(playerid) {
 
 /**
  * Switch vehicle RIGHT Indicator Light
- * @param  {int} playerid
+ * @param  {int} vehicleid
  */
-function switchRightLight(playerid) {
-    if ( !isPlayerInVehicle(playerid) ) {
-        return;
-    }
-    local vehicleid = getPlayerVehicle(playerid);
+function switchRightLight(vehicleid) {
     local rightState = getIndicatorLightState(vehicleid, INDICATOR_RIGHT);
 
     setIndicatorLightState(vehicleid, INDICATOR_RIGHT, !rightState);
@@ -53,13 +41,9 @@ function switchRightLight(playerid) {
 
 /**
  * Switch vehicle LEFT Indicator Light
- * @param  {int} playerid
+ * @param  {int} vehicleid
  */
-function switchLeftLight(playerid) {
-    if ( !isPlayerInVehicle(playerid) ) {
-        return;
-    }
-    local vehicleid = getPlayerVehicle(playerid);
+function switchLeftLight(vehicleid) {
     local leftState = getIndicatorLightState(vehicleid, INDICATOR_LEFT);
 
     setIndicatorLightState(vehicleid, INDICATOR_LEFT, !leftState);

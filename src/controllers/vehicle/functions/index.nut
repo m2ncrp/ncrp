@@ -167,3 +167,24 @@ function getVehicleIdFromEntityId(entityid) {
     }
     return false;
 }
+
+/**
+ * Unblock vehicle driving
+ * @param {int} vehicleid
+ * @param {float} fuel
+ * @return {bool}
+ */
+function unblockDriving(vehicleid) {
+    unblockVehicle(vehicleid);
+    addPrivateVehicleLightsKeys(vehicleid);
+}
+
+/**
+ * Block vehicle driving
+ * @param int vehicleid
+ * @return bool
+ */
+function blockDriving(playerid, vehicleid) {
+    blockVehicle(vehicleid);
+    removePrivateVehicleLightsKeys(playerid);
+}

@@ -154,10 +154,10 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
         dbg("player", "vehicle", "enter", getVehiclePlateText(vehicleid), getIdentity(playerid), "haveKey: " + isPlayerHaveVehicleKey(playerid, vehicleid));
 
         if (isPlayerHaveVehicleKey(playerid, vehicleid)) {
-            unblockVehicle(vehicleid);
+            unblockDriving(vehicleid);
             setVehicleOwner(vehicleid, playerid);
         } else {
-            blockVehicle(vehicleid);
+            blockDriving(playerid, vehicleid);
             msg(playerid, "vehicle.owner.warning", CL_WARNING);
         }
     }
@@ -223,7 +223,7 @@ event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
 
     // check blocking
     if (isVehicleOwned(vehicleid) && isPlayerVehicleOwner(playerid, vehicleid)) {
-        blockVehicle(vehicleid);
+        blockDriving(playerid, vehicleid);
     }
 
     // handle respawning and saving

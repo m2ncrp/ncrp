@@ -242,22 +242,22 @@ event("onPlayerVehicleEnter", function( playerid, vehicleid, seat ) {
     if (isPlayerInPoliceVehicle(playerid) && seat == 0) {
         if (!isOfficer(playerid)) {
             // set player wanted level or smth like that
-            blockVehicle(vehicleid);
+            blockDriving(playerid, vehicleid);
             return msg(playerid, "organizations.police.crime.wasdone", [], CL_GRAY);
         }
 
         if ( isOfficer(playerid)) {
 
             if(getPoliceRank(playerid) < 1) {
-                blockVehicle(vehicleid);
+                blockDriving(playerid, vehicleid);
                 return msg(playerid, "organizations.police.lowrank", [], CL_GRAY);
             }
 
             if (!isOnPoliceDuty(playerid)) {
-                blockVehicle(vehicleid);
+                blockDriving(playerid, vehicleid);
                 return msg(playerid, "organizations.police.offduty.nokeys", [], CL_GRAY);
             } else {
-                unblockVehicle(vehicleid);
+                unblockDriving(vehicleid);
                 privateKey(playerid, "k", "policeBeacon", switchBeaconLight)
                 privateKey(playerid, "b", "policeBinder", policeVehicleBinder)
             }
@@ -283,6 +283,7 @@ event("onPlayerVehicleExit", function( playerid, vehicleid, seat ) {
 
     if (isVehicleidPoliceVehicle(vehicleid)) {
         if (isOfficer(playerid) && isOnPoliceDuty(playerid) ) {
+            blockDriving(playerid, vehicleid);
             removePrivateKey(playerid, "k", "policeBeacon")
             removePrivateKey(playerid, "b", "policeBinder")
         }

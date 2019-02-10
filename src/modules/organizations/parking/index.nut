@@ -278,7 +278,7 @@ event("onVehicleGetFromCarPound", function(playerid) {
         if(place == vehicleid) {
         //local vehicleid = place;
         parkingPlaceStatus[placeid] = "free";
-        unblockVehicle(vehicleid);
+        unblockDriving(vehicleid);
         __vehicles[vehicleid].entity.parking = 0;
         __vehicles[vehicleid].entity.save();
         subMoneyToDeposit(playerid, price);
@@ -299,7 +299,7 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
 
     if(vehPos[0] <= PARKING_COORDS[0] && vehPos[0] >= PARKING_COORDS[2] && vehPos[1] <= PARKING_COORDS[3] && vehPos[1] >= PARKING_COORDS[1])
     {
-        blockVehicle(vehicleid);
+        blockDriving(playerid, vehicleid);
         //if (!isPlayerVehicleOwner(playerid, vehicleid)) {
         //    return msg(playerid, "parking.notYourCar");
         //}

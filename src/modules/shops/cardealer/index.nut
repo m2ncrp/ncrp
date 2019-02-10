@@ -206,7 +206,7 @@ cmd("dealer", "sell", function(playerid, price) {
         return msg(playerid, "cardealer.needPrice", CL_ERROR);
     }
 
-    blockVehicle(vehicleid);
+    blockDriving(playerid, vehicleid);
 
     local positionInInventory = -1;
     foreach (idx, item in players[playerid].inventory) {
@@ -359,7 +359,7 @@ cmd("dealer", "buy", function(playerid) {
 
     setVehicleOwner(vehicleid, playerid);
     __vehicles[vehicleid].entity.save();
-    unblockVehicle(vehicleid);
+    unblockDriving(vehicleid);
 
 });
 
@@ -424,7 +424,7 @@ cmd("dealer", "take", function(playerid) {
 
     setVehicleOwner(vehicleid, playerid);
     __vehicles[vehicleid].entity.save();
-    unblockVehicle(vehicleid);
+    unblockDriving(vehicleid);
 
 });
 
