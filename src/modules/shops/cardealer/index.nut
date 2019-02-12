@@ -206,7 +206,7 @@ cmd("dealer", "sell", function(playerid, price) {
         return msg(playerid, "cardealer.needPrice", CL_ERROR);
     }
 
-    blockVehicle(vehicleid);
+    blockDriving(playerid, vehicleid);
 
     local positionInInventory = -1;
     foreach (idx, item in players[playerid].inventory) {
@@ -242,7 +242,7 @@ cmd("dealer", "sell", function(playerid, price) {
         car.price = round(carInfo.price * 0.85, 2);
         car.until = car.created.tointeger() + time_to_sale_dealer;
         msg(playerid, "cardealer.soldNow", [ amount ], CL_SUCCESS);
-        dbg("chat", "report", getPlayerName(playerid), format("Продал автомобиль «%s» (%s) за $%.2f", modelName, plate, amount));
+        dbg("chat", "report", getPlayerName(playerid), format("Продал дилеру автомобиль «%s» (%s) за $%.2f", modelName, plate, amount));
     } else {
         car.ownerid = getVehicleOwnerId( vehicleid );
         car.price   = round(fabs(price.tofloat()), 2);
@@ -359,7 +359,7 @@ cmd("dealer", "buy", function(playerid) {
 
     setVehicleOwner(vehicleid, playerid);
     __vehicles[vehicleid].entity.save();
-    unblockVehicle(vehicleid);
+    unblockDriving(vehicleid);
 
 });
 
@@ -424,7 +424,7 @@ cmd("dealer", "take", function(playerid) {
 
     setVehicleOwner(vehicleid, playerid);
     __vehicles[vehicleid].entity.save();
-    unblockVehicle(vehicleid);
+    unblockDriving(vehicleid);
 
 });
 

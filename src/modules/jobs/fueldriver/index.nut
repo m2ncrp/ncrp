@@ -242,7 +242,7 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
 
     // if player on seat 0 is a fuel driver
     if (isFuelDriver(playerid) && job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"] != null) {
-        unblockVehicle(vehicleid);
+        unblockDriving(vehicleid);
 
         if(job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"] == "working") {
             delayedFunction(4500, function() {
@@ -260,7 +260,7 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
             });
         }
     } else {
-        blockVehicle(vehicleid);
+        blockDriving(playerid, vehicleid);
     }
 });
 
@@ -268,7 +268,7 @@ event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     if (!isPlayerVehicleFuel(playerid)) return;
 
     if (seat == 0) {
-        blockVehicle(vehicleid);
+        blockDriving(playerid, vehicleid);
     }
 });
 

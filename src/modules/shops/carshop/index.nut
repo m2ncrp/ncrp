@@ -217,7 +217,7 @@ event("onPlayerPlaceExit", function(playerid, name) {
             return;
         }
 
-        blockVehicle(vehicleid);
+        blockDriving(playerid, vehicleid);
         //kickPlayer( playerid );
         msg(playerid, "shops.carshop.dontsteal", CL_THUNDERBIRD);
         setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
@@ -236,7 +236,7 @@ event ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
         return;
     }
 
-    blockVehicle(vehicleid);
+    blockDriving(playerid, vehicleid);
 
     local hour = getHour();
     if(hour < CARSHOP_WORKING_HOUR_START || hour >= CARSHOP_WORKING_HOUR_END) {
@@ -547,7 +547,7 @@ cmd("car", "buy", function(playerid) {
     setVehicleRespawnEx(vehicleid, false);
     setVehicleDirtLevel(vehicleid, 0.0);
     repairVehicle(vehicleid);
-    unblockVehicle(vehicleid);
+    unblockDriving(vehicleid);
 
     trySaveVehicle(vehicleid)
 

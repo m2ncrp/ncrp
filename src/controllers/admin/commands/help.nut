@@ -11,6 +11,7 @@ acmd("help", "admin", adminCmdHelp );
 
 /*
 { name = "/mute id", desc = "время_в_минутах причина - заглушить чат" },
+{ name = "/mute list", desc = "- список заглушек" },
 { name = "/ban id", desc = "время_в_минутах причина - забанить" },
 { name = "/kick id", desc = "причина - кикнуть" },
 { name = "/warn id", desc = "выдать варн игрока" },
