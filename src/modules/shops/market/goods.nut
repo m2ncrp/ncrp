@@ -5,12 +5,12 @@ local goods = {
         title = "Empire Diner",
         type  = "empirediner",
         items = [
-            { itemName = "Item.MasterBeer",         price = 0.53 * coef },
-            { itemName = "Item.CoffeeCup",          price = 0.08 * coef },
+            { itemName = "Item.MasterBeer",         price = 0.26 * coef },
+            { itemName = "Item.CoffeeCup",          price = 0.15 * coef },
             { itemName = "Item.Sandwich",           price = 0.17 * coef },
-            { itemName = "Item.Burger",             price = 0.12 * coef },
-            { itemName = "Item.Hotdog",             price = 0.17 * coef },
-            { itemName = "Item.Cola",               price = 0.04 * coef },
+            { itemName = "Item.Burger",             price = 0.33 * coef },
+            { itemName = "Item.Hotdog",             price = 0.26 * coef },
+            { itemName = "Item.Cola",               price = 0.15 * coef },
         ]
     },
 
@@ -18,13 +18,13 @@ local goods = {
         title = "Maltese Falcon",
         type  = "maltesefalcon",
         items = [
-            { itemName = "Item.OldEmpiricalBeer",   price = 0.54 * coef },
-            { itemName = "Item.StoltzBeer",         price = 0.64 * coef },
-            { itemName = "Item.MasterBeer",         price = 0.60 * coef },
-            { itemName = "Item.Wine",               price = 0.80 * coef },
-            { itemName = "Item.Whiskey",            price = 0.78 * coef },
-            { itemName = "Item.Brandy",             price = 0.83 * coef },
-            { itemName = "Item.CoffeeCup",          price = 0.20 * coef },
+            { itemName = "Item.OldEmpiricalBeer",   price = 0.32 * coef },
+            { itemName = "Item.StoltzBeer",         price = 0.29 * coef },
+            { itemName = "Item.MasterBeer",         price = 0.27 * coef },
+            { itemName = "Item.Wine",               price = 0.43 * coef },
+            { itemName = "Item.Whiskey",            price = 0.30 * coef },
+            { itemName = "Item.Brandy",             price = 0.44 * coef },
+            { itemName = "Item.CoffeeCup",          price = 0.17 * coef },
         ]
     },
 
@@ -32,12 +32,12 @@ local goods = {
         title = "Stella's Diner",
         type  = "stellasdiner",
         items = [
-            { itemName = "Item.Cola",               price = 0.04 * coef },
-            { itemName = "Item.Hotdog",             price = 0.18 * coef },
+            { itemName = "Item.Cola",               price = 0.17 * coef },
+            { itemName = "Item.Hotdog",             price = 0.25 * coef },
             { itemName = "Item.Sandwich",           price = 0.19 * coef },
-            { itemName = "Item.CoffeeCup",          price = 0.18 * coef },
-            { itemName = "Item.Gyros",              price = 0.23 * coef },
-            { itemName = "Item.StoltzBeer",         price = 0.54 * coef },
+            { itemName = "Item.CoffeeCup",          price = 0.16 * coef },
+            { itemName = "Item.Gyros",              price = 0.37 * coef },
+            { itemName = "Item.StoltzBeer",         price = 0.25 * coef },
         ]
     },
 
@@ -46,12 +46,12 @@ local goods = {
         title = "The Lone Star",
         type  = "lonestar",
         items = [
-            { itemName = "Item.OldEmpiricalBeer",   price = 0.42 * coef },
-            { itemName = "Item.CoffeeCup",          price = 0.08 * coef },
-            { itemName = "Item.Brandy",             price = 0.73 * coef },
-            { itemName = "Item.MasterBeer",         price = 0.47 * coef },
-            { itemName = "Item.StoltzBeer",         price = 0.43 * coef },
-            { itemName = "Item.Whiskey",            price = 0.68 * coef },
+            { itemName = "Item.OldEmpiricalBeer",   price = 0.29 * coef },
+            { itemName = "Item.CoffeeCup",          price = 0.15 * coef },
+            { itemName = "Item.Brandy",             price = 0.49 * coef },
+            { itemName = "Item.MasterBeer",         price = 0.27 * coef },
+            { itemName = "Item.StoltzBeer",         price = 0.28 * coef },
+            { itemName = "Item.Whiskey",            price = 0.32 * coef },
         ]
     },
 
@@ -59,11 +59,11 @@ local goods = {
         title = "The Dragstrip",
         type  = "dragstrip",
         items = [
-            { itemName = "Item.CoffeeCup",          price = 0.10 * coef },
-            { itemName = "Item.OldEmpiricalBeer",   price = 0.50 * coef },
-            { itemName = "Item.Wine",               price = 0.65 * coef },
-            { itemName = "Item.Whiskey",            price = 0.80 * coef },
-            { itemName = "Item.Brandy",             price = 0.85 * coef },
+            { itemName = "Item.CoffeeCup",          price = 0.14 * coef },
+            { itemName = "Item.OldEmpiricalBeer",   price = 0.31 * coef },
+            { itemName = "Item.Wine",               price = 0.43 * coef },
+            { itemName = "Item.Whiskey",            price = 0.32 * coef },
+            { itemName = "Item.Brandy",             price = 0.50 * coef },
         ]
     },
 
@@ -71,12 +71,12 @@ local goods = {
         title = "Steaks & Chops",
         type  = "steaksnchops",
         items = [
-            { itemName = "Item.MasterBeer",         price = 0.47 * coef },
-            { itemName = "Item.CoffeeCup",          price = 0.06 * coef },
+            { itemName = "Item.MasterBeer",         price = 0.29 * coef },
+            { itemName = "Item.CoffeeCup",          price = 0.14 * coef },
             { itemName = "Item.Sandwich",           price = 0.17 * coef },
-            { itemName = "Item.Burger",             price = 0.13 * coef },
-            { itemName = "Item.Hotdog",             price = 0.18 * coef },
-            { itemName = "Item.Cola",               price = 0.04 * coef },
+            { itemName = "Item.Burger",             price = 0.37 * coef },
+            { itemName = "Item.Hotdog",             price = 0.26 * coef },
+            { itemName = "Item.Cola",               price = 0.14 * coef },
         ]
     },
 
@@ -84,13 +84,13 @@ local goods = {
         title = "Freddy's Bar",
         type  = "freddysbar",
         items = [
-            { itemName = "Item.OldEmpiricalBeer",   price = 0.53 * coef },
-            { itemName = "Item.Whiskey",            price = 0.73 * coef },
-            { itemName = "Item.Brandy",             price = 0.86 * coef },
-            { itemName = "Item.StoltzBeer",         price = 0.65 * coef },
-            { itemName = "Item.MasterBeer",         price = 0.57 * coef },
-            { itemName = "Item.Wine",               price = 0.70 * coef },
-            { itemName = "Item.CoffeeCup",          price = 0.12 * coef },
+            { itemName = "Item.OldEmpiricalBeer",   price = 0.29 * coef },
+            { itemName = "Item.Whiskey",            price = 0.29 * coef },
+            { itemName = "Item.Brandy",             price = 0.49 * coef },
+            { itemName = "Item.StoltzBeer",         price = 0.29 * coef },
+            { itemName = "Item.MasterBeer",         price = 0.26 * coef },
+            { itemName = "Item.Wine",               price = 0.42 * coef },
+            { itemName = "Item.CoffeeCup",          price = 0.14 * coef },
         ]
     },
 
@@ -98,13 +98,13 @@ local goods = {
         title = "Hill of Tara",
         type  = "hilloftara",
         items = [
-            { itemName = "Item.OldEmpiricalBeer",   price = 0.45 * coef },
-            { itemName = "Item.CoffeeCup",          price = 0.08 * coef },
-            { itemName = "Item.StoltzBeer",         price = 0.55 * coef },
-            { itemName = "Item.MasterBeer",         price = 0.49 * coef },
-            { itemName = "Item.Whiskey",            price = 0.75 * coef },
-            { itemName = "Item.Wine",               price = 0.60 * coef },
-            { itemName = "Item.Brandy",             price = 0.71 * coef },
+            { itemName = "Item.OldEmpiricalBeer",   price = 0.29 * coef },
+            { itemName = "Item.CoffeeCup",          price = 0.14 * coef },
+            { itemName = "Item.StoltzBeer",         price = 0.28 * coef },
+            { itemName = "Item.MasterBeer",         price = 0.27 * coef },
+            { itemName = "Item.Whiskey",            price = 0.29 * coef },
+            { itemName = "Item.Wine",               price = 0.41 * coef },
+            { itemName = "Item.Brandy",             price = 0.49 * coef },
         ]
     },
 
@@ -112,11 +112,11 @@ local goods = {
         title = "The Mona Lisa",
         type  = "monalisa",
         items = [
-            { itemName = "Item.Brandy",             price = 0.78 * coef },
-            { itemName = "Item.Whiskey",            price = 0.78 * coef },
-            { itemName = "Item.Wine",               price = 0.70 * coef },
-            { itemName = "Item.OldEmpiricalBeer",   price = 0.52 * coef },
-            { itemName = "Item.CoffeeCup",          price = 0.18 * coef },
+            { itemName = "Item.Brandy",             price = 0.49 * coef },
+            { itemName = "Item.Whiskey",            price = 0.28 * coef },
+            { itemName = "Item.Wine",               price = 0.44 * coef },
+            { itemName = "Item.OldEmpiricalBeer",   price = 0.32 * coef },
+            { itemName = "Item.CoffeeCup",          price = 0.17 * coef },
         ]
     },
 
@@ -125,12 +125,12 @@ local goods = {
         type  = "kiosk",
         items = [
             //{ itemName = "Item.Newspaper",          price = 0.05},
-            { itemName = "Item.BigBreakRed",        price = 2.50 },
-            { itemName = "Item.BigBreakBlue",       price = 1.65 },
-            { itemName = "Item.BigBreakWhite",      price = 0.90 },
-            { itemName = "Item.Cola",               price = 0.05 * coef },
-            { itemName = "Item.MasterBeer",         price = 0.55 * coef },
-            { itemName = "Item.StoltzBeer",         price = 0.58 * coef },
+            { itemName = "Item.BigBreakRed",        price = 1.48 },
+            { itemName = "Item.BigBreakBlue",       price = 0.95 },
+            { itemName = "Item.BigBreakWhite",      price = 0.43 },
+            { itemName = "Item.Cola",               price = 0.17 * coef },
+            { itemName = "Item.MasterBeer",         price = 0.25 * coef },
+            { itemName = "Item.StoltzBeer",         price = 0.26 * coef },
         ]
     },
 
