@@ -102,7 +102,7 @@ function RentCar(playerid) {
         return msg(playerid, "rentcar.notenough");
     }
     rentcars[vehicleid][0] = playerid;
-    unblockVehicle(vehicleid);
+    unblockDriving(vehicleid);
     setVehicleFuel(vehicleid, 28.0);
     setVehicleRespawnEx(vehicleid, false);
     subMoneyToPlayer( playerid, rentprice );
@@ -132,18 +132,18 @@ event ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
     if(isPlayerCarRent(playerid) && seat == 0) {
         local whorent = getPlayerWhoRentVehicle(vehicleid);
         if(whorent != playerid) {
-            blockVehicle(vehicleid);
+            blockDriving(playerid, vehicleid);
             //msg(playerid, "rentcar.canrent", [getVehicleRentPrice(vehicleid)*10, getVehicleRentPrice(vehicleid)*60 ]);
             showRentCarGUI(playerid, vehicleid);
         } else {
-            unblockVehicle(vehicleid);
+            unblockDriving(vehicleid);
         }
     }
 });
 
 event ( "onPlayerVehicleExit", function ( playerid, vehicleid, seat ) {
     if (vehicleid in rentcars && seat == 0) {
-        blockVehicle(vehicleid);
+        blockDriving(playerid, vehicleid);
     }
 });
 

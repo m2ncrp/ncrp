@@ -234,9 +234,9 @@ event("onPlayerVehicleEnter", function (playerid, vehicleid, seat) {
     }
 
     if(isBusDriver(playerid) && getPlayerJobState(playerid) == "working") {
-        unblockVehicle(vehicleid);
+        unblockDriving(vehicleid);
     } else {
-        blockVehicle(vehicleid);
+        blockDriving(playerid, vehicleid);
     }
 });
 
@@ -245,7 +245,7 @@ event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
         return;
     }
 
-    blockVehicle(vehicleid);
+    blockDriving(playerid, vehicleid);
 });
 
 event("onServerHourChange", function() {
@@ -598,7 +598,7 @@ function busJobStop( playerid ) {
 
         if (job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2].len() == 0) {
             msg( playerid, "job.bus.gototakemoney", BUS_JOB_COLOR );
-            blockVehicle(vehicleid);
+            blockDriving(playerid, vehicleid);
             setPlayerJobState(playerid, "complete");
 
             local passengers = getAllBusPassengers(vehicleid);

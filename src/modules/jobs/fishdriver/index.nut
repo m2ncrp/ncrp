@@ -249,13 +249,13 @@ event("onPlayerVehicleEnter", function (playerid, vehicleid, seat) {
         delayedFunction(3000, function() {
             job_fish[getCharacterIdFromPlayerId(playerid)]["sitting"] = false;
         });
-        unblockVehicle(vehicleid);
+        unblockDriving(vehicleid);
         if (fishcars[vehicleid][0] != false) {
-            blockVehicle(vehicleid);
+            blockDriving(playerid, vehicleid);
             msg(playerid, "job.fishdriver.needclosedoors", FISH_JOB_COLOR );
         }
     } else {
-        blockVehicle(vehicleid);
+        blockDriving(playerid, vehicleid);
     }
 });
 
@@ -538,7 +538,7 @@ function fishOpenCloseDoors(playerid) {
                 if (fishcars[vehicleid][0]) {
                     setVehiclePartOpen(vehicleid, 1, false);
                     fishcars[vehicleid][0] = false;
-                    unblockVehicle(vehicleid);
+                    unblockDriving(vehicleid);
                     fishJobIsPlayerWorkingForeach(function(targetid) {
                         if (place == "place1") { removeText( targetid, "fish_putbox1_3dtext" ); removeText( targetid, "fish_putbox1_3dtext_desc" );}
                         if (place == "place2") { removeText( targetid, "fish_putbox2_3dtext" ); removeText( targetid, "fish_putbox2_3dtext_desc" );}
@@ -556,7 +556,7 @@ function fishOpenCloseDoors(playerid) {
                 } else {
                     setVehiclePartOpen(vehicleid, 1, true);
                     fishcars[vehicleid][0] = true;
-                    blockVehicle(vehicleid);
+                    blockDriving(playerid, vehicleid);
                     fishJobIsPlayerWorkingForeach(function(targetid) {
                         if (place == "place1") {
                             createText(targetid, "fish_putbox1_3dtext", FISH_PARK_PUT_1[0], FISH_PARK_PUT_1[1], FISH_PARK_PUT_1[2]+0.20, FISH_PARK_PUT_TEXT, CL_ROYALBLUE.applyAlpha(150), 35 );

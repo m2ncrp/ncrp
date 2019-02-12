@@ -176,9 +176,9 @@ event("onPlayerVehicleEnter", function (playerid, vehicleid, seat) {
     if (seat != 0) return;
 
     if (isTruckDriver(playerid)) {
-        unblockVehicle(vehicleid);
+        unblockDriving(vehicleid);
     } else {
-        blockVehicle(vehicleid);
+        blockDriving(playerid, vehicleid);
     }
 });
 
@@ -188,7 +188,7 @@ event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     }
 
     if (seat == 0) {
-        blockVehicle(vehicleid);
+        blockDriving(playerid, vehicleid);
     }
 });
 

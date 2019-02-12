@@ -76,9 +76,9 @@ event( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
     /* for DRIVER */
     if(isPlayerCarTaxi(playerid) && seat == 0) {
         if(isTaxiDriver (playerid)) {
-            unblockVehicle(vehicleid);
+            unblockDriving(vehicleid);
         } else {
-            blockVehicle(vehicleid);
+            blockDriving(vehicleid);
         }
     }
     /* for CUSTOMER */
