@@ -154,10 +154,9 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
         dbg("player", "vehicle", "enter", getVehiclePlateText(vehicleid), getIdentity(playerid), "haveKey: " + isPlayerHaveVehicleKey(playerid, vehicleid));
 
         if (isPlayerHaveVehicleKey(playerid, vehicleid)) {
-            unblockVehicle(vehicleid);
+            unblockDriving(vehicleid);
             setVehicleOwner(vehicleid, playerid);
         } else {
-            blockVehicle(vehicleid);
 
             // не показывать отсутствие ключа у рабочих авто
             local modelsArr = [5, 19, 20, 21, 24, 27, 33, 34, 35, 36, 37, 38, 39, 42, 51];
@@ -229,7 +228,7 @@ event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
 
     // check blocking
     if (isVehicleOwned(vehicleid) && isPlayerVehicleOwner(playerid, vehicleid)) {
-        blockVehicle(vehicleid);
+        blockDriving(playerid, vehicleid);
     }
 
     // handle respawning and saving

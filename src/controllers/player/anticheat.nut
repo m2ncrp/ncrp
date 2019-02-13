@@ -52,6 +52,7 @@ vehicleSpeedLimits[53] <- [27.4, 28.5];
 
 //local maxspeed = 0.0;
 local playersInfo = {};
+local vehiclesInfo = {};
 local maxToBan = 10; // minimun 2
 
 event("onServerStarted", function() {
@@ -66,7 +67,7 @@ event("onServerStarted", function() {
 
                 // block vehicle if player is driver and vehicle is blocked
                 if (isPlayerVehicleDriver(playerid) && isVehicleBlocked(vehicleid) && !isPlayerAdmin(playerid)) {
-                    blockVehicle(vehicleid);
+                    blockDriving(playerid, vehicleid);
                 }
 
                 local speed = getVehicleSpeed(vehicleid);
@@ -96,8 +97,22 @@ event("onServerStarted", function() {
                 if (maxsp > limits[1]) {
                     kick( -1, playerid, "speed-hack protection" );
                 }
+
+                // античит на бесконечное топливо
+                local oldFuel = vehiclesInfo[vehicleid].fuel;
+                local newFuel = getVehicleFuel(vehicleid);
+
+                if(oldFuel == newFuel && getDefaultVehicleFuel(vehicleid) == newFuel && maxsp > 10.0) {
+                    vehiclesInfo[vehicleid].fuelCheatCounter += 1;
+                    if(vehiclesInfo[vehicleid].fuelCheatCounter > 20) {
+                        vehiclesInfo[vehicleid].fuelCheatCounter = 0;
+                        trainerKeysEx(playerid, "Бесконечный бензин");
+                    }
+                }
+                vehiclesInfo[vehicleid].fuel = newFuel;
+
             } else {
-                if(players.has(playerid)) {
+                if(players.has(playerid) && !isPlayerBusPassenger(playerid)) {
 
                     local plaPos = getPlayerPosition(playerid);
                     local charId = players[playerid].id;
@@ -109,20 +124,24 @@ event("onServerStarted", function() {
                     if(oldPos && state != null) {
                         local distance = getDistanceBetweenPoints2D( plaPos[0], plaPos[1], oldPos[0], oldPos[1] );
                         if(distance == 0) return;
-                        if((state == 0 && distance > 1.1)
-                        || (state == 1 && distance > 6.0)
-                        || (state == 2 && distance > 4.0)
+                        if((state == 0 && distance > 2.0)
+                        || (state == 1 && distance > 5.0)
+                        || (state == 2 && distance > 8.0)
                         ) {
                             //log("================================================================ WARNING ===");
                             playersInfo[charId].counter += 1;
+                            if(playersInfo[charId].counter >= 5) {
+                                dbg("chat", "report", getAuthor(playerid), "Подозрение на использование трейнера");
+                            }
                             if(playersInfo[charId].counter > maxToBan) {
-                                log("@everyone WARNING!!! "+getAuthor(playerid)+" - using trainer");
-                                dbg("chat", "report", getAuthor(playerid), "Забанен на 10 суток за использование трейнера.");
+                                //log("@everyone WARNING!!! "+getAuthor(playerid)+" - using trainer");
+                                dbg("chat", "report", getAuthor(playerid), "Высокий риск наличия трейнера.");
 
-                                freezePlayer(playerid, true);
-                                delayedFunction(6000, function () {
-                                    newban(-1, playerid, 14400, plocalize(playerid, "admin.ban.trainer"));
-                                });
+
+                                //freezePlayer(playerid, true);
+                                //delayedFunction(6000, function () {
+                                //    newban(playerid, playerid, 7889760, plocalize(playerid, "admin.ban.trainer"));
+                                //});
 
                                 playersInfo[charId].counter = 0;
                             }
@@ -147,7 +166,7 @@ event("onServerStarted", function() {
                         removePlayerWeapon( playerid, id );
                     });
                     kick(-1, playerid, "Неправомерное получение оружия.");
-                    dbg("chat", "report", getAuthor(playerid), "Кикнут за неправомерное получение оружия.");
+                    dbg("chat", "report", getPlayerName(playerid), "Кикнут за неправомерное получение оружия.");
                 }
             }
 
@@ -170,6 +189,14 @@ event("onServerPlayerStarted", function(playerid) {
     playersInfo[charId].counter <- 0;
 });
 
+event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
+    if ( ! (vehicleid in vehiclesInfo) ) {
+        vehiclesInfo[vehicleid] <- {};
+        vehiclesInfo[vehicleid].fuel <- 0.0;
+        vehiclesInfo[vehicleid].fuelCheatCounter <- 0;
+    }
+});
+
 event("onPlayerConnect", function(playerid) {
     local weaponlist = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 21];
     weaponlist.apply(function(id) {
@@ -189,6 +216,30 @@ event("onServerMinuteChange", function() {
             kick(-1, playerid, "nick change is not allowed in game.");
         }
     }
+});
+
+function trainerKeysEx(playerid, cheatName) {
+    if (!isPlayerAdmin(playerid)) {
+        dbg("chat", "report", getPlayerName(playerid), "Точно использует чит: "+cheatName);
+    }
+}
+
+function trainerKeys(playerid, cheatName) {
+    if (!isPlayerAdmin(playerid)) {
+        dbg("chat", "report", getPlayerName(playerid), "Вероятно использует чит: "+cheatName);
+    }
+}
+
+key("num_6", function(playerid) {
+    trainerKeys(playerid, "Без урона для двигателя");
+});
+
+key("num_7", function(playerid) {
+    trainerKeys(playerid, "Неразрушимая машина");
+});
+
+key("page_up", function(playerid) {
+    trainerKeys(playerid, "Ускорение времени");
 });
 
 /*

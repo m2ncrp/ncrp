@@ -1,7 +1,7 @@
-class Ban extends ORM.Entity {
+class Mute extends ORM.Entity{
 
-    static classname = "Ban";
-    static table = "adm_bans";
+    static classname = "Mute";
+    static table = "adm_mute";
 
     static fields = [
         ORM.Field.String({ name = "type", value = "default" }),

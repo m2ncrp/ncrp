@@ -236,10 +236,10 @@ event( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
     if(isVehicleCarTaxi(vehicleid) && seat == 0) {
         // если водитель не таксист - блочим тачку
         if(!isTaxiDriver(playerid)) {
-            blockVehicle(vehicleid);
+            blockDriving(vehicleid);
         } else {
             // иначе разблочим тачку
-            unblockVehicle(vehicleid);
+            unblockDriving(vehicleid);
             // устанавливаем новый айди авто для таксиста
             local drid = getCharacterIdFromPlayerId(playerid);
             setTaxiDriverCar(drid, vehicleid);

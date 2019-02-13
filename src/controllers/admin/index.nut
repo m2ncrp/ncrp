@@ -1,6 +1,9 @@
 include("controllers/admin/sqdebug.nut");
 
 include("controllers/admin/commands/ban.nut");
+include("controllers/admin/commands/kick.nut");
+include("controllers/admin/commands/mute.nut");
+include("controllers/admin/commands/warn.nut");
 include("controllers/admin/commands/chat.nut");
 include("controllers/admin/commands/help.nut");
 include("controllers/admin/commands/player.nut");
@@ -61,7 +64,7 @@ event("onPlayerTeleportRequested", function(playerid, x, y, z) {
 });
 
 event("onClientDebugToggle", function(playerid) {
-    return (isPlayerAdmin(playerid)) ? trigger(playerid, "onServerDebugToggle") : null;
+    return (isPlayerAdmin(playerid) && isPlayerInVehicle(playerid) == false) ? trigger(playerid, "onServerDebugToggle") : null;
 })
 
 event("native:onConsoleInput", function(name, data) {

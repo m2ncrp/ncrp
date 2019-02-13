@@ -55,7 +55,7 @@ local parkingPlace = [
 alternativeTranslate({
     "en|parking.needEnterPlate"    : "Need to enter plate number."
     "en|parking.checkPlate"        : "Check the correct plate number of the car."
-    "en|parking.peoopleInside"     : "Impossible pick up the car at car pound with people."
+    "en|parking.peopleInside"     : "Impossible pick up the car at car pound with people."
     "en|parking.alreadyParking"    : "Car already parked."
     "en|parking.complete"          : "Car has been parked at car pound."
     "en|parking.noFreeSpace"       : "No free space at car pound."
@@ -70,7 +70,7 @@ alternativeTranslate({
 
     "ru|parking.needEnterPlate"    : "Необходимо указать номер автомобиля."
     "ru|parking.checkPlate"        : "Проверьте правильность указанного номера автомобиля."
-    "ru|parking.peoopleInside"     : "Невозможно эвакуировать авто на штрафстоянку с людьми внутри."
+    "ru|parking.peopleInside"     : "Невозможно эвакуировать авто на штрафстоянку с людьми внутри."
     "ru|parking.alreadyParking"    : "Автомобиль уже находится на штрафстоянке."
     "ru|parking.complete"          : "Автомобиль эвакуирован на штрафстоянку."
     "ru|parking.noFreeSpace"       : "На штрафстоянке нет свободных мест."
@@ -192,25 +192,37 @@ acmd("aunpark", function ( playerid ) {
 
 event("onVehicleSetToCarPound", function(playerid, plate = null) {
     if (plate == null) {
-        return msg( playerid, "parking.needEnterPlate");
+        return msg( playerid, "parking.needEnterPlate", CL_ERROR);
     }
 
     local vehicleid = getVehicleByPlateText(plate.toupper());
     if(vehicleid == null) {
-        return msg( playerid, "parking.checkPlate");
+        return msg( playerid, "parking.checkPlate", CL_ERROR);
     }
 
     if (!isVehicleEmpty(vehicleid)) {
-        return msg( playerid, "parking.peoopleInside");
+        return msg( playerid, "parking.peopleInside", CL_ERROR);
     }
 
     if(parkingPlaceStatus.find(vehicleid) != null) {
-        return msg(playerid, "parking.alreadyParking");
+        return msg(playerid, "parking.alreadyParking", CL_ERROR);
     }
 
     if (!isVehicleOwned(vehicleid)) {
         return tryRespawnVehicleById(vehicleid, true);
     }
+
+    if(setVehicleToCarPound(vehicleid)) {
+        msg(playerid, "parking.complete");
+        dbg("chat", "police", getAuthor(playerid), format("Отправил на штрафстоянку автомобиль с номером %s", getVehiclePlateText(vehicleid)) );
+    } else {
+        msg(playerid, "parking.noFreeSpace");
+        dbg("chat", "police", getAuthor(playerid), "Нет своободных мест на штрафстоянке" );
+    }
+});
+
+
+function setVehicleToCarPound (vehicleid) {
 
     findBusyPlaces(); //read before
     dbg(parkingPlaceStatus);
@@ -235,14 +247,8 @@ event("onVehicleSetToCarPound", function(playerid, plate = null) {
         break;
     }
 
-    if(tpcomplete) {
-        msg(playerid, "parking.complete");
-        dbg("chat", "police", getAuthor(playerid), format("Отправил на штрафстоянку автомобиль с номером %s", getVehiclePlateText(vehicleid)) );
-    } else {
-        msg(playerid, "parking.noFreeSpace");
-        dbg("chat", "police", getAuthor(playerid), "Нет своободных мест на штрафстоянке" );
-    }
-});
+    return tpcomplete;
+}
 
 
 event("onVehicleGetFromCarPound", function(playerid) {
@@ -272,7 +278,7 @@ event("onVehicleGetFromCarPound", function(playerid) {
         if(place == vehicleid) {
         //local vehicleid = place;
         parkingPlaceStatus[placeid] = "free";
-        unblockVehicle(vehicleid);
+        unblockDriving(vehicleid);
         __vehicles[vehicleid].entity.parking = 0;
         __vehicles[vehicleid].entity.save();
         subMoneyToDeposit(playerid, price);
@@ -293,7 +299,7 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
 
     if(vehPos[0] <= PARKING_COORDS[0] && vehPos[0] >= PARKING_COORDS[2] && vehPos[1] <= PARKING_COORDS[3] && vehPos[1] >= PARKING_COORDS[1])
     {
-        blockVehicle(vehicleid);
+        blockDriving(playerid, vehicleid);
         //if (!isPlayerVehicleOwner(playerid, vehicleid)) {
         //    return msg(playerid, "parking.notYourCar");
         //}

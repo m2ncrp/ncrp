@@ -29,10 +29,10 @@ resources/ncrp/scriptfiles/ncrp.db-journal
 .DS_Store
 
 # specials
-config.xml
 positions.txt
 ncrp.sublime-workspace
 
 # env
 .env
 .mysql
+config.xml

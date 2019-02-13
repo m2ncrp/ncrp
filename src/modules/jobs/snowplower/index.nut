@@ -394,7 +394,6 @@ event("onServerPlayerStarted", function( playerid ){
             local snowplowID = job_snowplow[getCharacterIdFromPlayerId(playerid)]["route"][2][0];
             job_snowplow[getCharacterIdFromPlayerId(playerid)]["snowplow3dtext"] = createPrivateSnowplowCheckpoint3DText(playerid, snowplowStops[snowplowID].coords);
             trigger(playerid, "setGPS", snowplowStops[snowplowID].coords.x, snowplowStops[snowplowID].coords.y);
-            trigger(playerid, "hudDestroyTimer");
             msg( playerid, "job.snowplow.continuesnowplowstop", SNOWPLOW_JOB_COLOR );
             return;
         }
@@ -418,13 +417,13 @@ event("onPlayerVehicleEnter", function (playerid, vehicleid, seat) {
     if (seat != 0) return;
 
     if(isSnowplowDriver(playerid) && getPlayerJobState(playerid) == "working") {
-        unblockVehicle(vehicleid);
+        unblockDriving(vehicleid);
         repairVehicle(vehicleid);
         //delayedFunction(4500, function() {
             //snowplowJobReady(playerid);
         //});
     } else {
-        blockVehicle(vehicleid);
+        blockDriving(playerid, vehicleid);
     }
 });
 
@@ -436,7 +435,7 @@ event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     // skip check for non-drivers
     if (seat != 0) return;
 
-    blockVehicle(vehicleid);
+    blockDriving(playerid, vehicleid);
 });
 
 event("onServerHourChange", function() {
@@ -680,7 +679,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
             job_snowplow[getCharacterIdFromPlayerId(playerid)]["route"][2].remove(0);
             if (job_snowplow[getCharacterIdFromPlayerId(playerid)]["route"][2].len() == 0) {
 
-                blockVehicle(vehicleid);
+                blockDriving(playerid, vehicleid);
                 msg( playerid, "job.snowplow.gototakemoney", SNOWPLOW_JOB_COLOR );
                 setPlayerJobState(playerid, "complete");
                 return;

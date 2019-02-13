@@ -3,6 +3,7 @@ const KEY_DOWN  = "down";
 const KEY_BOTH  = "both";
 
 local __keyboard = {};
+local __privateKeyboard = {};
 local __layouts  = {};
 local __playerLayouts = {};
 
@@ -82,15 +83,25 @@ function sendKeyboardUnregistration(playerid) {
  */
 function triggerKeyboardPress(playerid, key, state) {
     local name = getRKey(key, playerid) + "_" + state;
+    local charid = getCharacterIdFromPlayerId(playerid);
 
     if (name in __keyboard) {
+
         __keyboard[name].callbacks.map(function(__callback) {
             __callback.call(getroottable(), playerid);
         });
-    } else {
-        // return dbg("[keyboard] unknown keybind", key, state);
-    }
 
+    }
+    if(charid in __privateKeyboard) {
+        if (name in __privateKeyboard[charid]) {
+            foreach (idx, subname in __privateKeyboard[charid][name]) {
+                subname.callbacks.map(function(__callback) {
+                    __callback.call(getroottable(), playerid);
+                });
+            }
+
+        }
+    }
     return true;
 }
 
@@ -117,6 +128,113 @@ function key(names, callback, state = KEY_DOWN) {
     }
 
     return true;
+}
+
+
+/**
+ * Add private key bind handler for client by playerid
+ * using key and key state [up/down]
+ * If key is pressed on client, callback will be triggered
+ *
+ * @param {int}      playerid
+ * @param {string}   key - ["a", "f1", "tab", ...]
+ * @param {string}   subname - name of bind (must unique for button)
+ * @param {string}   state - ["up", "down"]
+ * @param {Function} callback -  only one argument of callback will be playerid
+ */
+function addPrivateKeyboardHandler(playerid, key, subname, state, callback) {
+    local name = key.tolower() + "_" + state.tolower();
+    subname = subname ? subname : "_default";
+    local charid = getCharacterIdFromPlayerId(playerid);
+
+    if (!(charid in __privateKeyboard)) {
+        __privateKeyboard[charid] <- {};
+    }
+
+    if (!(name in __privateKeyboard[charid])) {
+        __privateKeyboard[charid][name] <- {};
+    }
+
+    if(!(subname in __privateKeyboard[charid][name])) {
+        __privateKeyboard[charid][name][subname] <- { key = key.tolower(), state = state.tolower(), callbacks = [callback] };
+    } else {
+        __privateKeyboard[charid][name][subname].callbacks.push(callback);
+    }
+}
+
+
+/**
+ * Send private registered keyboard events to player by id
+ * @param  {int} playerid
+ */
+function sendPrivateKeyboardRegistration(playerid) {
+    local charid = getCharacterIdFromPlayerId(playerid);
+
+    if (charid in __privateKeyboard) {
+        foreach (idx, name in __privateKeyboard[charid]) {
+            foreach (idy, value in name) {
+                triggerClientEvent(playerid, "onServerKeyboardRegistration", getPKey(value.key, playerid), value.state);
+            }
+        }
+    }
+
+}
+
+/**
+ * (Shortcut)
+ * Register private keyboard event on key press (down state)
+ *
+ * @param  {int} playerid
+ * @param  {Array|String} names
+ * @param  {string}   subname - name of bind (must unique for button)
+ * @param  {Function} callback
+ * @return {Boolean}
+ */
+function privateKey(playerid, names, subname, callback, state = KEY_DOWN ) {
+    if (typeof names != "array") {
+        names = [names];
+    }
+
+    foreach (idx, value in names) {
+        if (state == KEY_UP || state == KEY_DOWN) {
+            addPrivateKeyboardHandler(playerid, value, subname, state, callback);
+        } else if (state == KEY_BOTH) {
+            addPrivateKeyboardHandler(playerid, value, subname, KEY_UP  , callback);
+            addPrivateKeyboardHandler(playerid, value, subname, KEY_DOWN, callback);
+        }
+    }
+
+    // перегистрируем бинды
+    sendPrivateKeyboardRegistration(playerid);
+
+    return true;
+}
+
+/**
+ * Remove private key bind for client
+ * using key and key state [up/down]
+ *
+ * @param {int}      playerid
+ * @param {string}   key - ["a", "f1", "tab", ...]
+ * @param {string}   subname - name of bind
+ * @param {string}   state - ["up", "down"]
+ */
+function removePrivateKey(playerid, key, subname, state = KEY_DOWN) {
+    local name = key.tolower() + "_" + state.tolower();
+    local charid = getCharacterIdFromPlayerId(playerid);
+
+    if (charid in __privateKeyboard) {
+        if (name in __privateKeyboard[charid]) {
+                if (subname in __privateKeyboard[charid][name]) {
+                    delete __privateKeyboard[charid][name][subname];
+                }
+        } else {
+            return dbg("[keyboard] deleting unknown keybind", key, state);
+        }
+    } else {
+        return dbg("[keyboard] deleting keybind for unknown charid", key, state);
+    }
+
 }
 
 /**
@@ -178,6 +296,7 @@ function setPlayerLayout(playerid, name, resend = true) {
     // should resend new mappings ?
     if (resend) {
         sendKeyboardRegistration(playerid);
+        sendPrivateKeyboardRegistration(playerid);
     }
 
     return true;

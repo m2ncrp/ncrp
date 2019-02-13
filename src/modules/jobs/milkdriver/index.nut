@@ -115,7 +115,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
         return msg(playerid, "job.milkdriver.needcorrectpark", MILK_JOB_COLOR );
     }
     setPlayerJobState(playerid, "complete");
-    blockVehicle(vehicleid);
+    blockDriving(playerid, vehicleid);
     setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
     msg(playerid, "job.milkdriver.gototakemoney", MILK_JOB_COLOR );
     trigger(playerid, "removeGPS");
@@ -159,7 +159,7 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
 
     // if player on seat 0 is a fuel driver
     if (isMilkDriver(playerid) && getPlayerJobState(playerid) != null) {
-        unblockVehicle(vehicleid);
+        unblockDriving(vehicleid);
 
         if(getPlayerJobState(playerid) == "working") {
             setPlayerJobState(playerid, "sitting");
@@ -174,7 +174,7 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
                     clearMilkJobStationMarks(playerid);
                     setPlayerJobState(playerid, null);
                     showMilkLoadBlip (playerid, false);
-                    blockVehicle(vehicleid);
+                    blockDriving(playerid, vehicleid);
                     return msg( playerid, "job.toolate", [ MILK_JOB_GET_HOUR_START.tostring(), MILK_JOB_GET_HOUR_END.tostring()], MILK_JOB_COLOR );
                 }
                 */
@@ -188,7 +188,7 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
             });
         }
     } else {
-        blockVehicle(vehicleid);
+        blockDriving(playerid, vehicleid);
     }
 });
 
