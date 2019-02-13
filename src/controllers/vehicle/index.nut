@@ -164,6 +164,34 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     trigger("onPlayerVehicleEnter", playerid, vehicleid, seat);
 });
 
+key(["f"], function(playerid) {
+    if (isPlayerInVehicle(playerid)) {
+        return;
+    }
+
+    local vehicleid = getNearestVehicleForPlayer(playerid, 3.0);
+
+    if (vehicleid == -1) {
+        return;
+    }
+
+    if (!isPlayerHaveVehicleKey(playerid, vehicleid)) {
+        return;
+    }
+
+    unblockVehicle(vehicleid);
+    setVehicleEngineState(vehicleid, true)
+    delayedFunction(100, function() {
+        if(getPlayerVehicle(playerid) == vehicleid && isPlayerVehicleOwner(playerid, vehicleid)) {
+            return
+        }
+        setVehicleEngineState(vehicleid, false);
+        blockVehicle(vehicleid);
+    });
+
+
+}, KEY_UP);
+
 key(["w", "s"], function(playerid) {
     if (!isPlayerInVehicle(playerid)) {
         return;
