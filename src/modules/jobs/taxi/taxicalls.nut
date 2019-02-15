@@ -5,7 +5,7 @@ local price = 0.001; // тариф за 1 метр // доллар за 1 км
 local moneyMinimum = 12.5; // минимальный баланс наличных денег для вызова
 
 TAXICALLS <- {};
-local TAXI_CHARACTERS_LIMIT = 1000000;
+TAXI_CHARACTERS_LIMIT <- 1000000;
 local TAXI_LASTCALL_ID = null;
 
 local TAXI_PLACE_SMALL = 10;
@@ -26,6 +26,7 @@ function addTaxiCall(placeNumber, playerid, drid) {
                 drid = drid,
         mileageStart = null,
        positionStart = null,
+            distance = null,
              placeId = placeNumber,
        targetPlaceId = null,
     };
@@ -211,6 +212,8 @@ function taxiAddCall(playerid, place) {
 
 function taxiCallStartNew () {
 
+privateKey(playerid, "3", "taxiCallFinishForPlayer", taxiCallFinishForPlayer);
+
 }
 
 /* ******************************************************************************************************************************************************* */
@@ -304,26 +307,6 @@ function taxiCallFinishForPlayer (playerid) {
         }
     }
 
-
-/*
-    local finishPos = getVehiclePositionObj(vehicleid);
-
-
-    local startPos = null;
-
-    // если пассажир вызывал по телефону
-    if(callObject.positionStart) {
-        local phoneObj = getPhoneObjById(callObject.placeId);
-        startPos = { x = phoneObj[0], y = phoneObj[1] };
-    }
-
-    // если пассажира подобрали
-    if(callObject.positionStart) {
-        startPos = callObject.positionStart;
-    }
-
-*/
-
     local amount = round(distance * price, 2);
     local distanceKm = round(distance / 1000, 2);
 
@@ -345,6 +328,24 @@ function taxiCallFinishForPlayer (playerid) {
 
 
 
+/*
+    local finishPos = getVehiclePositionObj(vehicleid);
+
+
+    local startPos = null;
+
+    // если пассажир вызывал по телефону
+    if(callObject.positionStart) {
+        local phoneObj = getPhoneObjById(callObject.placeId);
+        startPos = { x = phoneObj[0], y = phoneObj[1] };
+    }
+
+    // если пассажира подобрали
+    if(callObject.positionStart) {
+        startPos = callObject.positionStart;
+    }
+
+*/
 
 
 

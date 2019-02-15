@@ -48,7 +48,10 @@ event("onPlayerDisconnect", function(playerid, reason) {
         }
 
         local vehicleid = getTaxiDriverCar(drid);
-        if(vehicleid) setTaxiLightState(vehicleid, false);
+        if(vehicleid) {
+            setTaxiLightState(vehicleid, false);
+            removePrivateKey(playerid, "1", "taxiSwitchAir")
+        }
         setTaxiDriverCar(drid, null);
     }
 });
@@ -73,7 +76,7 @@ event("onServerPlayerStarted", function( playerid ){
             }
 
             // таксисит везёт бота, нужно восстановить маршрут
-            if(callObject.targetPlaceId == null) {
+            if(callObject.cuid >= TAXI_CHARACTERS_LIMIT) {
                 local targetPhoneObj = getPhoneObjById(callObject.targetPlaceId);
 
                 trigger(playerid, "setGPS", targetPhoneObj[0], targetPhoneObj[1]);
@@ -154,11 +157,17 @@ function taxiJobGet(playerid) {
         return msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid) );
     }
 
+    setPlayerJob( playerid, "taxidriver");
+
+    local drid = getCharacterIdFromPlayerId(playerid);
+    if ( !(drid in DRIVERS) ) {
+        addTaxiDriver(drid);
+    }
+
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
         msg_taxi_dr(playerid, "job.taxi.driver.now");
         msg_taxi_dr( playerid, "job.taxi.ifyouwantstart");
         renameText ( playerid, "taxiJob3dText", "Press Q to leave job");
-        setPlayerJob( playerid, "taxidriver");
         setPlayerModel( playerid, TAXI_JOB_SKIN );
     });
 }
@@ -220,21 +229,37 @@ function taxiSwitchAir(playerid) {
         return msg_taxi_dr(playerid, "job.taxi.cantchangestatus");
     }
 
+    if(isPlayerVehicleMoving(playerid)) {
+        return msg_taxi_dr(playerid, "job.taxi.stoptochangestatus");
+    }
+
     if(status == "offair") {
-        unblockVehicle(vehicleid);
+        unblockDriving(vehicleid);
+        repairVehicle(vehicleid);
         setTaxiDriverStatus(drid, "onair");
         setTaxiDriverCar(drid, vehicleid);
         setTaxiLightState(vehicleid, true);
         msg_taxi_dr(playerid, "job.taxi.statuson" );
 
+        privateKey(playerid, "2", "taxiCallStartNew", taxiCallStartNew);
+        privateKey(playerid, "3", "taxiCallFinishForPlayer", taxiCallFinishForPlayer);
+
     } else {
-        blockVehicle(vehicleid);
+        blockDriving(playerid, vehicleid);
         setTaxiDriverStatus(drid, "offair");
         setTaxiDriverCar(drid, null);
         setTaxiLightState(vehicleid, false);
         msg_taxi_dr(playerid, "job.taxi.statusoff");
+
+        removePrivateKey(playerid, "2", "taxiCallStartNew");
+        removePrivateKey(playerid, "3", "taxiCallFinishForPlayer");
     }
 }
+
+
+/* KEY BUTTONS ***************************************************************************************************************************************************** */
+
+
 
 
 /* SYSTEM FUNCTIONS ***************************************************************************************************************************************************** */

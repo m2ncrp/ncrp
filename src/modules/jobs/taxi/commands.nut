@@ -31,26 +31,10 @@ function taxiJobHelp ( playerid ) {
     msg_help(playerid, title, commands);
 }
 
-
-
-/* KEY BUTTONS ***************************************************************************************************************************************************** */
-
 key("e", function(playerid) {
     taxiJobGet ( playerid );
 }, KEY_UP);
 
 key("q", function(playerid) {
     taxiJobRefuseLeave( playerid );
-}, KEY_UP);
-
-key("1", function(playerid) {
-    taxiSwitchAir(playerid);
-}, KEY_UP);
-
-key("2", function(playerid) {
-    taxiCallStartNew( playerid );
-}, KEY_UP);
-
-key("3", function(playerid) {
-    taxiCallFinishForPlayer( playerid );
 }, KEY_UP);

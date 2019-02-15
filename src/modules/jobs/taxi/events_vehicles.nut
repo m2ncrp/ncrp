@@ -6,12 +6,25 @@ event( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
     if(isVehicleCarTaxi(vehicleid) && seat == 0) {
         local drid = getCharacterIdFromPlayerId(playerid);
         // если водитель не таксист - блочим тачку
-        if(!isTaxiDriver(playerid) || getTaxiDriverStatus(drid) == "offair") {
+        if(!isTaxiDriver(playerid)) {
+            return blockVehicle(vehicleid);
+        }
+
+        privateKey(playerid, "1", "taxiSwitchAir", taxiSwitchAir);
+
+        if(getTaxiDriverStatus(drid) == "offair") {
+            msg_taxi_dr(playerid, "job.taxi.tostart");
             blockVehicle(vehicleid);
         } else {
             // иначе разблочим тачку
-            unblockVehicle(vehicleid);
+            unblockDriving(vehicleid);
             local drid = getCharacterIdFromPlayerId(playerid);
+
+            local callObject = getTaxiCallNumberByDrid(drid);
+            if(callObject && callObject.status == "active" && callObject.cuid < TAXI_CHARACTERS_LIMIT) {
+                privateKey(playerid, "3", "taxiCallFinishForPlayer", taxiCallFinishForPlayer);
+            }
+
             //setTaxiDriverCar(drid, vehicleid);
             // удаляем зону сброса если таковая существует
             if(getTaxiDriverStatus(drid) != "offair" && isPlaceExists("TaxiDriverZone"+drid)) {
@@ -32,6 +45,7 @@ event( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
 
         local driverStatus = getTaxiDriverStatus(drid);
         if(driverStatus == "onair") {
+            privateKey(playerid, "2", "taxiCallStartNew", taxiCallStartNew);
             msg_taxi_dr(driverid, "Потенциальный пассажир сел в автомобиль. Нажмите клавишу 2, чтобы начать поездку");
             msg_taxi_dr(driverid, "Завершить поездку - клавиша 3");
             msg_taxi_cu(playerid, "Вы сели в свободное такси. Договоритесь с водителем о поездке");
@@ -51,11 +65,13 @@ event( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
             msg_taxi_dr( driverid, "job.taxi.taximeteron");
             removePlace("taxi"+drid+"Customer"+cuid);
 
+            privateKey(playerid, "3", "taxiCallFinishForPlayer", taxiCallFinishForPlayer);
+
             // Сменим статус на active
             setTaxiCallStatus(callObject.id, "active");
 
             // Запишем значение пробега авто в обьект звонка
-            setTaxiCallMileage ( callObject.id, getVehicleMileage( getPlayerVehicle(driverid) ) );
+            setTaxiCallMileage ( callObject.id, getVehicleMileage( vehicleid) );
         }
 
     }
@@ -79,13 +95,24 @@ event( "onPlayerVehicleExit", function ( playerid, vehicleid, seat ) {
                 // вывести сумму для оплаты
             }
         }
+        log("seat: "+seat)
 
-        // Выход ВОДИТЕЛЯ из авто - создания зоны сброса
-        local drid = getCharacterIdFromPlayerId(playerid);
-        if(seat == 0 && isTaxiDriver(playerid) && getTaxiDriverStatus(drid) != "offair") {
-            local vehPos = getVehiclePosition(vehicleid);
-            createPlace("TaxiDriverZone"+drid, vehPos[0]-25, vehPos[1]+25, vehPos[0]+25, vehPos[1]-25);
+
+        if(seat == 0) {
+            local drid = getCharacterIdFromPlayerId(playerid);
+
+            if(isTaxiDriver(playerid)) {
+
+                removePrivateKey(playerid, "1", "taxiSwitchAir")
+
+                // Выход ВОДИТЕЛЯ из авто - создание зоны сброса
+                if(getTaxiDriverStatus(drid) != "offair") {
+                    removePrivateKey(playerid, "2", "taxiCallStartNew");
+                    removePrivateKey(playerid, "3", "taxiCallFinishForPlayer");
+                    local vehPos = getVehiclePosition(vehicleid);
+                    createPlace("TaxiDriverZone"+drid, vehPos[0]-25, vehPos[1]+25, vehPos[0]+25, vehPos[1]-25);
+            }
+            }
         }
-
     }
 });

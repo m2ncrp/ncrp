@@ -12,6 +12,9 @@ local translations = {
 "en|job.taxi.ifyouwantstart"           :   "[TAXI] To start accepting calls, please enter taxi car and press 1 to become available."
 "ru|job.taxi.ifyouwantstart"           :   "[TAXI] Чтобы начать принимать вызовы - садитесь в машину такси и выходите на линию (клавиша 1)."
 
+"en|job.taxi.tostart"                  :   "[TAXI] To start accepting calls, press 1 to become available."
+"ru|job.taxi.tostart"                  :   "[TAXI] Чтобы начать принимать вызовы - выходите на линию (клавиша 1)."
+
 "en|job.taxi.taximeteron"              :   "[TAXI] Taximeter ON. Press button 3 after completion of trip."
 "ru|job.taxi.taximeteron"              :   "[TAXI] Таксометр включен. По окончании поездки нажмите клавишу 3."
 
@@ -72,9 +75,6 @@ local translations = {
 "en|job.taxi.pickup"                   :   "[TAXI] Pick up the passenger"
 "ru|job.taxi.pickup"                   :   "[TAXI] Подбери пассажира"
 
-"en|job.taxi.pickup"                   :   "[TAXI] Pick up the passenger"
-"ru|job.taxi.pickup"                   :   "[TAXI] Подбери пассажира"
-
 "en|job.taxi.cantrefuse"               :   "[TAXI] You can't refuse from call while you carry a passenger."
 "ru|job.taxi.cantrefuse"               :   "[TAXI] Вы не можете отказаться от вызова во время его выполнения."
 
@@ -104,6 +104,9 @@ local translations = {
 
 "en|job.taxi.carbusy"                  :   "[TAXI] This car is busy by another driver. Find free car."
 "ru|job.taxi.carbusy"                  :   "[TAXI] Этот автомобиль занят другим таксистом. Возьмите свободный автомобиль."
+
+"en|job.taxi.stoptochangestatus"       :   "[TAXI] Stop the vehicle at a curb to become unavailable."
+"ru|job.taxi.stoptochangestatus"       :   "[TAXI] Остановите автомобиль у обочины, чтобы уйти с линии."
 
 "en|job.taxi.cantchangestatus"         :   "[TAXI] You can't change status while you'll complete the trip."
 "ru|job.taxi.cantchangestatus"         :   "[TAXI] Вы сможете уйти с линии только когда завершите текущую поездку."
