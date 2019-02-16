@@ -1,4 +1,4 @@
-class Property extends ORM.Entity
+class Property extends ORM.JSONEntity
 {
     static classname = "Property";
     static table = "tbl_property";
@@ -9,7 +9,6 @@ class Property extends ORM.Entity
         ORM.Field.Integer({ name = "state" }),
         ORM.Field.Integer({ name = "type" }),
         ORM.Field.String ({ name = "area", value = "" }),
-        ORM.Field.String ({ name = "data", value = "" }),
         ORM.Field.Float  ({ name = "price", value = 0.0 }),
     ];
 
