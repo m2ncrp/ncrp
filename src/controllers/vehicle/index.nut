@@ -1,9 +1,3 @@
-include("controllers/vehicle/functions");
-include("controllers/vehicle/commands.nut");
-include("controllers/vehicle/modelName.nut");
-include("controllers/vehicle/translations.nut");
-//include("controllers/vehicle/hiddencars.nut");
-
 const VEHICLE_RESPAWN_TIME      = 300; // 5 (real) minutes
 const VEHICLE_FUEL_DEFAULT      = 40.0;
 const VEHICLE_MIN_DIRT          = 0.25;
@@ -269,3 +263,9 @@ event("onPlayerSpawned", function(playerid) {
         }
     }
 });
+
+include("controllers/vehicle/functions");
+include("controllers/vehicle/commands.nut");
+include("controllers/vehicle/vehicleInfo.nut");
+include("controllers/vehicle/translations.nut");
+//include("controllers/vehicle/hiddencars.nut");

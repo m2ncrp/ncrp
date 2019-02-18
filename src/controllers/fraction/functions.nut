@@ -83,7 +83,7 @@ function fmd(shortcuts, permissions, patterns, callback) {
 
 function isVehicleInFraction(vehicle, fraction) {
     if (!(vehicle instanceof Vehicle)) {
-        vehicle = __vehicles[vehicleid].entity;
+        vehicle = getVehicleEntity(vehicleid);
     }
 
     return fraction.property.has(vehicle.id);
@@ -183,7 +183,7 @@ function isPlayerVehicleInPlayerFraction(playerid) {
         return false;
     }
 
-    if (fraction.property.has(__vehicles[vehicleid].entity.id)) {
+    if (fraction.property.has(getVehicleEntityId(vehicleid))) {
         return true;
     } else {
         return false;

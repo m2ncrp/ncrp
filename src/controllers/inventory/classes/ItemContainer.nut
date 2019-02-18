@@ -73,6 +73,19 @@ class ItemContainer extends Container
     }
 
     /**
+     * Method hides inventory for players
+     * @param  {Integer} playerid
+     * @return {Boolean}
+     */
+    function hideForAll() {
+        foreach (characterid, character in this.opened) {
+            if (character.playerid != -1 && isPlayerConnected(character.playerid)) {
+                this.hide(character.playerid);
+            }
+        }
+    }
+
+    /**
      * Sync inventory containment for all currently viewing it players
      * @return {Boolean}
      */

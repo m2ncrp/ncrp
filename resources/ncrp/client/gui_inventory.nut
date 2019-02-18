@@ -747,10 +747,11 @@ class StorageInventory extends Inventory
  */
 
 local class_map = {
-    Inventory       = Inventory,
-    PlayerInventory = PlayerInventory,
-    PlayerHands     = PlayerHands,
-    Storage         = StorageInventory,
+    Inventory           = Inventory,
+    PlayerInventory     = PlayerInventory,
+    PlayerHands         = PlayerHands,
+    Storage             = StorageInventory,
+    VehicleInventory    = StorageInventory
 };
 
 
@@ -895,7 +896,7 @@ local ground = {
     textures = {},
     current  = [],
     distance = 15.0,
-    maxamt   = 100,
+    maxamt   = 50,
     alpha    = 165,
 };
 
@@ -976,7 +977,7 @@ function drawWorldGround() {
     });
 
     if (nearitem) {
-        local text   = "Press E to pick up item.";
+        local text   = "Press E to pick up item";
         local offset = dxGetTextDimensions(text, 2.0, "tahoma-bold")[1];
         dxDrawText(text, 125.0, screenY - offset - 25.0, 0xAAFFFFFF, false, "tahoma-bold", 2.0);
     }

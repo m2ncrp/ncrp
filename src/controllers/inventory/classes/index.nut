@@ -36,6 +36,7 @@ include("controllers/inventory/classes/ItemContainer.nut");
 include("controllers/inventory/classes/PlayerItemContainer.nut");
 include("controllers/inventory/classes/PlayerHandsContainer.nut");
 include("controllers/inventory/classes/StorageItemContainer.nut");
+include("controllers/inventory/classes/VehicleItemContainer.nut");
 
 // add shortcuts overrides
 Item.findBy <- function(condition, callback) {

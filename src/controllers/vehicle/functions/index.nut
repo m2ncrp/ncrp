@@ -16,6 +16,7 @@ include("controllers/vehicle/functions/models.nut");
 include("controllers/vehicle/functions/dirt.nut");
 include("controllers/vehicle/functions/engine.nut");
 include("controllers/vehicle/functions/mileage.nut");
+include("controllers/vehicle/functions/trunk.nut");
 
 // saving original vehicle method
 local old__createVehicle = createVehicle;
@@ -110,6 +111,20 @@ function setVehicleEntity(vehicleid, entity) {
     }
 }
 
+function loadVehicleInventory(entity) {
+
+    entity.inventory = VehicleItemContainer(entity);
+
+    ORM.Query("select * from tbl_items where parent = :id and state = :states")
+        .setParameter("id", entity.id)
+        .setParameter("states", Item.State.VEHICLE_INV, true)
+        .getResult(function(err, items) {
+            foreach (idx, item in items) {
+                entity.inventory.set(item.slot, item);
+            }
+        });
+}
+
 /**
  * Destroy all vehicles spawned on server
  */
@@ -142,6 +157,15 @@ function getCustomPlayerVehicles() {
  */
 function getAllServerVehicles() {
     return __vehicles;
+}
+
+
+/**
+ * Return Entity.id from tbl_vehicles by vehicleid
+ * @return {array}
+ */
+function getVehicleEntity(vehicleid) {
+    return vehicleid in __vehicles && __vehicles[vehicleid].entity ? __vehicles[vehicleid].entity : null;
 }
 
 
