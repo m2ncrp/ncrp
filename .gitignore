@@ -36,3 +36,4 @@ ncrp.sublime-workspace
 .env
 .mysql
 config.xml
+*.sublime-project
