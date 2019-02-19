@@ -178,19 +178,19 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
         compute("hunger.w", get("hunger.psx") * 0.30); // width of each bar (hunger or thirst)
         compute("hunger.icon", get("hunger.psx") / 54.0);
 
-        local radius = length / 2;
-        local step   = 1.0;//0.5;
+        // local radius = length / 2;
+        // local step   = 1.0;//0.5;
 
-        for (local x = 0; x < length; x += step) {
-            local len = sqrt( pow(radius, 2) - pow(radius - x, 2) );
+        // for (local x = 0; x < length; x += step) {
+        //     local len = sqrt( pow(radius, 2) - pow(radius - x, 2) );
 
-            lines.push({
-                x = get("borders.x") + x,
-                y = get("borders.y") - radius + len - 2.5,
-                step = step,
-                height = radius - len + 2.5
-            });
-        }
+        //     lines.push({
+        //         x = get("borders.x") + x,
+        //         y = get("borders.y") - radius + len - 2.5,
+        //         step = step,
+        //         height = radius - len + 2.5
+        //     });
+        // }
     }
 /*
     // draw base
@@ -199,7 +199,7 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
         local line = lines[i];
         dxDrawRectangle(line.x, line.y, line.step, line.height, 0xA1000000);
     }
-
+*/
     // draw money
     local offset1 = dxGetTextDimensions(drawdata.money, 1.6, "tahoma-bold")[0].tofloat();
     local offset2 = dxGetTextDimensions(drawdata.money, 1.6, "tahoma-bold")[1].tofloat();
@@ -207,11 +207,12 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
     dxDrawText( drawdata.money, get("borders.cx") - ( offset1 / 2 )      , get("borders.y") + 3.0      , 0xFF569267, false, "tahoma-bold", 1.6 );
 
     // draw state
+    dxDrawText( drawdata.state, get("borders.x") + 12.0, get("borders.y") + offset2 + 6.0, 0xFF000000, false, "tahoma-bold", 1.0 );
     dxDrawText( drawdata.state, get("borders.x") + 11.0, get("borders.y") + offset2 + 5.0, 0xFFA1A1A1, false, "tahoma-bold", 1.0 );
 
     // draw level
     // dxDrawText( drawdata.level, get("borders.x") + 11.0, get("borders.y") + offset2 + 21.0, 0xFFA1A1A1, false, "tahoma-bold", 1.0 );
-*/
+
     /**
      * Hunger and thirst
      */
