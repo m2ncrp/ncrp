@@ -1,5 +1,8 @@
 alternativeTranslate({
 
+    "en|money.cash" : "Your cash: $%s"
+    "ru|money.cash" : "Наличных денег: $%s"
+
     "en|moneysend.request" : "You are going to transfer $%.2f to %s."
     "ru|moneysend.request" : "Вы собираетесь передать $%.2f -> %s."
 
