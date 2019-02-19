@@ -51,7 +51,8 @@ local drawing = true;
 local translations = {
 
     "en": {
-        "title"                 : "Inventory of ",
+        "inventory"             : "Inventory of ",
+        "trunk"                 : "Trunk",
 
         "action:use"            : "Use",
         "action:transfer"       : "Transfer",
@@ -122,16 +123,18 @@ local translations = {
 
         "Item.Methamnetamine"   : "Methamnetamine"
 
+
     },
     "ru": {
-        "title"                 : "Инвентарь ",
+        "inventory"             : "Инвентарь "
+        "trunk"                 : "Багажник",
 
-        "action:use"            : "Использовать",
-        "action:transfer"       : "Передать",
-        "action:destroy"        : "Уничтожить",
-        "action:takeInHand"     : "Взять в руку",
-        "action:throwToGround"  : "Бросить на землю",
-        "action:close"          : "Закрыть",
+        "action:use"            : "Использовать"
+        "action:transfer"       : "Передать"
+        "action:destroy"        : "Уничтожить"
+        "action:takeInHand"     : "Взять в руку"
+        "action:throwToGround"  : "Бросить на землю"
+        "action:close"          : "Закрыть"
 
         "Item.None"             : ""
         "Item.Revolver"         : "Revolver .38"
@@ -529,7 +532,7 @@ class PlayerInventory extends Inventory
         if (typeof this.handle == "userdata") {
             if (typeof guiSetAlwaysOnTop == "function") guiSetAlwaysOnTop(this.handle, true);
             if (typeof guiSetMovable == "function")     guiSetMovable(this.handle, false);
-            if (typeof guiSetText == "function")        guiSetText(this.handle, translations[playerLang]["title"]+characterName);
+            if (typeof guiSetText == "function")        guiSetText(this.handle, translations[playerLang]["inventory"]+characterName);
         }
 
         local props = {
@@ -706,6 +709,12 @@ class StorageInventory extends Inventory
         return { x = centerX - size.x - 5.0, y = centerY - size.y / 2 };
     }
 
+    function setTitle() {
+        if (typeof this.handle == "userdata") {
+            if (typeof guiSetText == "function")        guiSetText(this.handle, translations[playerLang]["Item.Box"]);
+        }
+    }
+
     function createGUI() {
         base.createGUI();
 
@@ -713,6 +722,8 @@ class StorageInventory extends Inventory
             width  = 32.0,
             height = 32.0,
         };
+
+        this.setTitle();
 
         local size = this.getSize();
 
@@ -736,9 +747,25 @@ class StorageInventory extends Inventory
         return false;
     }
 
-
 }
 
+
+/**
+ * ************************
+ * * TRUNK CLASS
+ * ************************
+ */
+
+class VehicleInventory extends StorageInventory
+{
+
+    function setTitle() {
+        if (typeof this.handle == "userdata") {
+            if (typeof guiSetText == "function")        guiSetText(this.handle, translations[playerLang]["trunk"]);
+        }
+    }
+
+}
 
 /**
  * ************************
@@ -751,7 +778,7 @@ local class_map = {
     PlayerInventory     = PlayerInventory,
     PlayerHands         = PlayerHands,
     Storage             = StorageInventory,
-    VehicleInventory    = StorageInventory
+    VehicleInventory    = VehicleInventory
 };
 
 

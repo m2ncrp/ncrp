@@ -1498,8 +1498,8 @@ vehicleInfo <- {
             back_right_door       = null,
         },
         trunk = {
-            gridSizeX = 3,
-            gridSizeY = 3,
+            gridSizeX = 6,
+            gridSizeY = 6,
             weightLimit = 100,
         },
         engine = {

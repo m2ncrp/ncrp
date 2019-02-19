@@ -20,7 +20,7 @@ class VehicleItemContainer extends ItemContainer
 
         this.id     = md5(this.tostring());
         this.parent = vehicle;
-        this.title  = "Vehicle trunk";
+        this.title  = "inventory.trunk.title";
 
         if (data != null) {
             this.sizeX = data.sizeX;

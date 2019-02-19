@@ -113,7 +113,13 @@ function setVehicleEntity(vehicleid, entity) {
 
 function loadVehicleInventory(entity) {
 
-    entity.inventory = VehicleItemContainer(entity);
+    local data = {
+        sizeX  = getVehicleTrunkDefaultSizeX(entity.model),
+        sizeY  = getVehicleTrunkDefaultSizeY(entity.model),
+        limit  = getVehicleTrunkDefaultWeightLimit(entity.model),
+    }
+
+    entity.inventory = VehicleItemContainer(entity, data);
 
     ORM.Query("select * from tbl_items where parent = :id and state = :states")
         .setParameter("id", entity.id)
