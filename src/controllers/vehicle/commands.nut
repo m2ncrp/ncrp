@@ -51,6 +51,8 @@ key("q", function (playerid) {
 
     local veh = getVehicleEntity(vehicleid);
 
+    if(veh == null) return;
+
     local locked = veh.data.parts.trunk.locked;
     local opened = veh.data.parts.trunk.opened;
 
@@ -97,6 +99,8 @@ key("e", function (playerid) {
 
     local veh = getVehicleEntity(vehicleid);
 
+    if(veh == null) return;
+
     local locked = veh.data.parts.trunk.locked;
     local opened = veh.data.parts.trunk.opened;
 
@@ -132,6 +136,8 @@ key("z", function (playerid) {
     if(vehicleid == false) return;
 
     local veh = getVehicleEntity(vehicleid);
+
+    if(veh == null) return;
 
     local opened = veh.data.parts.trunk.opened;
 
