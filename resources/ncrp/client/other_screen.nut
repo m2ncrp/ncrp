@@ -192,7 +192,7 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
             });
         }
     }
-
+/*
     // draw base
     dxDrawRectangle(get("borders.x"), get("borders.y"), get("roundy.width"), get("roundy.height") + 5.0, 0xA1000000);
     for (local i = 0; i < lines.len(); i++) {
@@ -211,7 +211,7 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
 
     // draw level
     // dxDrawText( drawdata.level, get("borders.x") + 11.0, get("borders.y") + offset2 + 21.0, 0xFFA1A1A1, false, "tahoma-bold", 1.0 );
-
+*/
     /**
      * Hunger and thirst
      */
