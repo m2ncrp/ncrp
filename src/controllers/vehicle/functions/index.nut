@@ -16,7 +16,7 @@ include("controllers/vehicle/functions/models.nut");
 include("controllers/vehicle/functions/dirt.nut");
 include("controllers/vehicle/functions/engine.nut");
 include("controllers/vehicle/functions/mileage.nut");
-include("controllers/vehicle/functions/trunk.nut");
+include("controllers/vehicle/functions/parts.nut");
 
 // saving original vehicle method
 local old__createVehicle = createVehicle;

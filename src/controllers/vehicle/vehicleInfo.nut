@@ -24,7 +24,7 @@ vehicleInfo <- {
         },
         trunk = {
             gridSizeX = 3,
-            gridSizeY = 3,
+            gridSizeY = 1,
             weightLimit = 100,
         },
             // actual vel physical limit you could get drive full speed ahead
@@ -55,8 +55,8 @@ vehicleInfo <- {
             back_right_door       = null,
         },
         trunk = {
-            gridSizeX = 3,
-            gridSizeY = 3,
+            gridSizeX = 4,
+            gridSizeY = 2,
             weightLimit = 100,
         },
         engine = {
@@ -214,7 +214,7 @@ vehicleInfo <- {
             back_right_door       = null,
         },
         trunk = {
-            gridSizeX = 3,
+            gridSizeX = 2,
             gridSizeY = 3,
             weightLimit = 100,
         },
@@ -246,7 +246,7 @@ vehicleInfo <- {
             back_right_door       = null,
         },
         trunk = {
-            gridSizeX = 3,
+            gridSizeX = 2,
             gridSizeY = 3,
             weightLimit = 100,
         },
@@ -303,7 +303,7 @@ vehicleInfo <- {
             rear_left_wheel       = [-1.2800, -1.6000],
             rear_right_wheel      = [ 1.2800, -1.6000],
             hood                  = [ 0.0000,  2.6400],
-            trunk                 = [ 0.0000, -2.7000],
+            trunk                 = [ 0.0000, -3.0000],
                 // Doors
             front_left_door       = [-1.2800,  0.3200],
             front_right_door      = [ 1.2800,  0.3200],
@@ -311,8 +311,8 @@ vehicleInfo <- {
             back_right_door       = [ 1.2800, -0.5000],
         },
         trunk = {
-            gridSizeX = 3,
-            gridSizeY = 3,
+            gridSizeX = 4,
+            gridSizeY = 2,
             weightLimit = 100,
         },
         engine = {
@@ -335,7 +335,7 @@ vehicleInfo <- {
             rear_left_wheel       = [-1.2500, -1.4500],
             rear_right_wheel      = [ 1.2500, -1.4500],
             hood                  = [ 0.0000,  2.5500],
-            trunk                 = [ 0.0000, -2.3500],
+            trunk                 = [ 0.0000, -2.5500],
                 // Doors
             front_left_door       = [-1.2500, -0.2500],
             front_right_door      = [ 1.2500, -0.2500],
@@ -344,7 +344,7 @@ vehicleInfo <- {
         },
         trunk = {
             gridSizeX = 3,
-            gridSizeY = 3,
+            gridSizeY = 2,
             weightLimit = 100,
         },
         engine = {
@@ -376,7 +376,7 @@ vehicleInfo <- {
         },
         trunk = {
             gridSizeX = 3,
-            gridSizeY = 3,
+            gridSizeY = 2,
             weightLimit = 100,
         },
         engine = {
@@ -408,7 +408,7 @@ vehicleInfo <- {
         },
         trunk = {
             gridSizeX = 3,
-            gridSizeY = 3,
+            gridSizeY = 2,
             weightLimit = 100,
         },
         engine = {
@@ -431,7 +431,7 @@ vehicleInfo <- {
             rear_left_wheel       = [-1.2800, -1.5000],
             rear_right_wheel      = [ 1.2800, -1.5000],
             hood                  = [ 0.0000,  2.7000],
-            trunk                 = [ 0.0000, -2.9000],
+            trunk                 = [ 0.0000, -3.1000],
                 // Doors
             front_left_door       = [-1.2800,  0.0930],
             front_right_door      = [ 1.2800,  0.0930],
@@ -439,8 +439,8 @@ vehicleInfo <- {
             back_right_door       = null,
         },
         trunk = {
-            gridSizeX = 3,
-            gridSizeY = 3,
+            gridSizeX = 2,
+            gridSizeY = 2,
             weightLimit = 100,
         },
         engine = {
@@ -463,7 +463,7 @@ vehicleInfo <- {
             rear_left_wheel       = [-1.2800, -1.6000],
             rear_right_wheel      = [ 1.2800, -1.6000],
             hood                  = [ 0.0000,  2.6500],
-            trunk                 = [ 0.0000, -2.6500],
+            trunk                 = [ 0.0000, -2.8500],
                 // Doors
             front_left_door       = [-1.2800,  0.0500],
             front_right_door      = [ 1.2800,  0.0500],
@@ -471,8 +471,8 @@ vehicleInfo <- {
             back_right_door       = null,
         },
         trunk = {
-            gridSizeX = 3,
-            gridSizeY = 3,
+            gridSizeX = 2,
+            gridSizeY = 1,
             weightLimit = 100,
         },
         engine = {
@@ -495,7 +495,7 @@ vehicleInfo <- {
             rear_left_wheel       = [-1.2800, -1.5500],
             rear_right_wheel      = [ 1.2800, -1.5500],
             hood                  = [ 0.0000,  2.7000],
-            trunk                 = [ 0.0000, -2.7500],
+            trunk                 = [ 0.0000, -3.1000],
                 // Doors
             front_left_door       = [-1.2800,  0.1500],
             front_right_door      = [ 1.2800,  0.1500],
@@ -527,7 +527,7 @@ vehicleInfo <- {
             rear_left_wheel       = [-1.2800, -1.5500],
             rear_right_wheel      = [ 1.2800, -1.5500],
             hood                  = [ 0.0000,  2.7000],
-            trunk                 = [ 0.0000, -2.7500],
+            trunk                 = [ 0.0000, -3.1000],
                 // Doors
             front_left_door       = [-1.2800,  0.1500],
             front_right_door      = [ 1.2800,  0.1500],
@@ -552,14 +552,14 @@ vehicleInfo <- {
         name = "Lassiter 75 FMV",
         seats = 4,
         triggers = {
-            front_left_wheel      = [-1.2800,  1.8500],
-            front_right_wheel     = [ 1.2800,  1.8500],
+            front_left_wheel      = [-1.2800,  2.1500],
+            front_right_wheel     = [ 1.2800,  2.1500],
             middle_left_wheel     = null,
             middle_right_wheel    = null,
             rear_left_wheel       = [-1.2800, -1.6700],
             rear_right_wheel      = [ 1.2800, -1.6700],
             hood                  = [ 0.0000,  2.9000],
-            trunk                 = [ 0.0000, -3.1000],
+            trunk                 = [ 0.0000, -3.5000],
                 // Doors
             front_left_door       = [-1.2800,  0.2500],
             front_right_door      = [ 1.2800,  0.2500],
@@ -567,8 +567,8 @@ vehicleInfo <- {
             back_right_door       = [ 1.2800, -0.6100],
         },
         trunk = {
-            gridSizeX = 3,
-            gridSizeY = 3,
+            gridSizeX = 2,
+            gridSizeY = 2,
             weightLimit = 100,
         },
         engine = {
@@ -584,14 +584,14 @@ vehicleInfo <- {
         name = "Lassiter 75",
         seats = 4,
         triggers = {
-            front_left_wheel      = [-1.2800,  1.8500],
-            front_right_wheel     = [ 1.2800,  1.8500],
+            front_left_wheel      = [-1.2800,  2.1500],
+            front_right_wheel     = [ 1.2800,  2.1500],
             middle_left_wheel     = null,
             middle_right_wheel    = null,
             rear_left_wheel       = [-1.2800, -1.6700],
             rear_right_wheel      = [ 1.2800, -1.6700],
             hood                  = [ 0.0000,  2.9000],
-            trunk                 = [ 0.0000, -3.1000],
+            trunk                 = [ 0.0000, -3.5000],
                 // Doors
             front_left_door       = [-1.2800,  0.2500],
             front_right_door      = [ 1.2800,  0.2500],
@@ -599,8 +599,8 @@ vehicleInfo <- {
             back_right_door       = [ 1.2800, -0.6100],
         },
         trunk = {
-            gridSizeX = 3,
-            gridSizeY = 3,
+            gridSizeX = 2,
+            gridSizeY = 2,
             weightLimit = 100,
         },
         engine = {
@@ -719,7 +719,7 @@ vehicleInfo <- {
             rear_left_wheel       = [-1.2800, -1.5000],
             rear_right_wheel      = [ 1.2800, -1.5000],
             hood                  = [ 0.0000,  2.7000],
-            trunk                 = [ 0.0000, -2.6500],
+            trunk                 = [ 0.0000, -2.8500],
                 // Doors
             front_left_door       = [-1.3000,  0.2500],
             front_right_door      = [ 1.3000,  0.2500],
@@ -727,8 +727,8 @@ vehicleInfo <- {
             back_right_door       = [ 1.3000, -0.6100],
         },
         trunk = {
-            gridSizeX = 3,
-            gridSizeY = 3,
+            gridSizeX = 4,
+            gridSizeY = 2,
             weightLimit = 100,
         },
         engine = {
@@ -751,7 +751,7 @@ vehicleInfo <- {
             rear_left_wheel       = [-1.2800, -1.3000],
             rear_right_wheel      = [ 1.2800, -1.3000],
             hood                  = [ 0.0000,  2.5800],
-            trunk                 = [ 0.0000, -2.5800],
+            trunk                 = [ 0.0000, -2.7800],
                 // Doors
             front_left_door       = [-1.2800,  0.2500],
             front_right_door      = [ 1.2800,  0.2500],
@@ -759,8 +759,8 @@ vehicleInfo <- {
             back_right_door       = [ 1.2800, -0.6000],
         },
         trunk = {
-            gridSizeX = 3,
-            gridSizeY = 3,
+            gridSizeX = 4,
+            gridSizeY = 2,
             weightLimit = 100,
         },
         engine = {
@@ -783,7 +783,7 @@ vehicleInfo <- {
             rear_left_wheel       = [-1.2800, -1.3000],
             rear_right_wheel      = [ 1.2800, -1.3000],
             hood                  = [ 0.0000,  2.5800],
-            trunk                 = [ 0.0000, -2.5800],
+            trunk                 = [ 0.0000, -2.7800],
                 // Doors
             front_left_door       = [-1.2800,  0.2500],
             front_right_door      = [ 1.2800,  0.2500],
@@ -791,8 +791,8 @@ vehicleInfo <- {
             back_right_door       = [ 1.2800, -0.6000],
         },
         trunk = {
-            gridSizeX = 3,
-            gridSizeY = 3,
+            gridSizeX = 4,
+            gridSizeY = 2,
             weightLimit = 100,
         },
         engine = {
@@ -815,7 +815,7 @@ vehicleInfo <- {
             rear_left_wheel       = [-1.2100, -1.2500],
             rear_right_wheel      = [ 1.2100, -1.2500],
             hood                  = [ 0.0000,  2.5800],
-            trunk                 = [ 0.0000, -2.4800],
+            trunk                 = [ 0.0000, -2.6800],
                 // Doors
             front_left_door       = [-1.1700,  0.0000],
             front_right_door      = [ 1.1700,  0.0000],
@@ -823,8 +823,8 @@ vehicleInfo <- {
             back_right_door       = [ 1.1700, -0.7500],
         },
         trunk = {
-            gridSizeX = 3,
-            gridSizeY = 3,
+            gridSizeX = 2,
+            gridSizeY = 2,
             weightLimit = 100,
         },
         engine = {
@@ -847,7 +847,7 @@ vehicleInfo <- {
             rear_left_wheel       = [-1.2100, -1.2500],
             rear_right_wheel      = [ 1.2100, -1.2500],
             hood                  = [ 0.0000,  2.5800],
-            trunk                 = [ 0.0000, -2.5800],
+            trunk                 = [ 0.0000, -2.6800],
                 // Doors
             front_left_door       = [-1.1700,  0.0000],
             front_right_door      = [ 1.1700,  0.0000],
@@ -855,8 +855,8 @@ vehicleInfo <- {
             back_right_door       = [ 1.1700, -0.7500],
         },
         trunk = {
-            gridSizeX = 3,
-            gridSizeY = 3,
+            gridSizeX = 2,
+            gridSizeY = 2,
             weightLimit = 100,
         },
         engine = {
@@ -880,7 +880,7 @@ vehicleInfo <- {
             rear_right_wheel      = [ 1.2800, -1.5500],
             hood_wing_left        = [-1.2800,  1.7500],
             hood_wing_right       = [ 1.2800,  1.7500],
-            trunk                 = [ 0.0000, -3.4500],
+            trunk                 = [ 0.0000, -3.1000],
                 // Doors
             front_left_door       = [-1.2800,  0.5500],
             front_right_door      = [ 1.2800,  0.5500],
@@ -889,7 +889,7 @@ vehicleInfo <- {
         },
         trunk = {
             gridSizeX = 4,
-            gridSizeY = 3,
+            gridSizeY = 5,
             weightLimit = 200,
         },
         engine = {
@@ -912,7 +912,7 @@ vehicleInfo <- {
             rear_left_wheel       = [-1.2800, -1.4500],
             rear_right_wheel      = [ 1.2800, -1.4500],
             hood                  = [ 0.0000,  2.7000],
-            trunk                 = [ 0.0000, -2.6500],
+            trunk                 = [ 0.0000, -2.8500],
                 // Doors
             front_left_door       = [-1.2800,  0.0000],
             front_right_door      = [ 1.2800,  0.0000],
@@ -920,8 +920,8 @@ vehicleInfo <- {
             back_right_door       = null,
         },
         trunk = {
-            gridSizeX = 3,
-            gridSizeY = 3,
+            gridSizeX = 4,
+            gridSizeY = 2,
             weightLimit = 100,
         },
         engine = {
@@ -944,7 +944,7 @@ vehicleInfo <- {
             rear_left_wheel       = [-1.2800, -1.6000],
             rear_right_wheel      = [ 1.2800, -1.6000],
             hood                  = [ 0.0000,  2.6000],
-            trunk                 = [ 0.0000, -2.6000],
+            trunk                 = [ 0.0000, -2.8000],
                 // Doors
             front_left_door       = [-1.2800, -0.3500],
             front_right_door      = [ 1.2800, -0.3500],
@@ -953,7 +953,7 @@ vehicleInfo <- {
         },
         trunk = {
             gridSizeX = 3,
-            gridSizeY = 3,
+            gridSizeY = 1,
             weightLimit = 100,
         },
         engine = {
@@ -976,7 +976,7 @@ vehicleInfo <- {
             rear_left_wheel       = [-1.2800, -1.8000],
             rear_right_wheel      = [ 1.2800, -1.8000],
             hood                  = [ 0.0000,  2.8000],
-            trunk                 = [ 0.0000, -2.9500],
+            trunk                 = [ 0.0000, -3.1500],
                 // Doors
             front_left_door       = [-1.2800, -0.1000],
             front_right_door      = [ 1.2800, -0.1000],
@@ -985,7 +985,7 @@ vehicleInfo <- {
         },
         trunk = {
             gridSizeX = 3,
-            gridSizeY = 3,
+            gridSizeY = 5,
             weightLimit = 100,
         },
         engine = {
@@ -1008,7 +1008,7 @@ vehicleInfo <- {
             rear_left_wheel       = [ 1.2100, -1.6690],
             rear_right_wheel      = [-1.2100, -1.6690],
             hood                  = [ 0.0000,  2.5800],
-            trunk                 = [ 0.0000, -2.5800],
+            trunk                 = [ 0.0000, -2.7800],
                 // Doors
             front_left_door       = [ 1.1600, -0.1000],
             front_right_door      = [-1.1300, -0.1000],
@@ -1017,7 +1017,7 @@ vehicleInfo <- {
         },
         trunk = {
             gridSizeX = 3,
-            gridSizeY = 3,
+            gridSizeY = 4,
             weightLimit = 100,
         },
         engine = {
@@ -1040,7 +1040,7 @@ vehicleInfo <- {
             rear_left_wheel       = [ 1.2100, -1.6690],
             rear_right_wheel      = [-1.2100, -1.6690],
             hood                  = [ 0.0000,  2.5800],
-            trunk                 = [ 0.0000, -2.5800],
+            trunk                 = [ 0.0000, -2.7800],
                 // Doors
             front_left_door       = [ 1.1600, -0.1000],
             front_right_door      = [-1.1300, -0.1000],
@@ -1049,7 +1049,7 @@ vehicleInfo <- {
         },
         trunk = {
             gridSizeX = 3,
-            gridSizeY = 3,
+            gridSizeY = 4,
             weightLimit = 100,
         },
         engine = {
@@ -1072,7 +1072,7 @@ vehicleInfo <- {
             rear_left_wheel       = [-1.2100, -1.2000],
             rear_right_wheel      = [ 1.2100, -1.2000],
             hood                  = [ 0.0000,  2.5800],
-            trunk                 = [ 0.0000, -2.5800],
+            trunk                 = [ 0.0000, -2.6800],
                 // Doors
             front_left_door       = [-1.1700,  0.0000],
             front_right_door      = [ 1.1700,  0.0000],
@@ -1080,8 +1080,8 @@ vehicleInfo <- {
             back_right_door       = [ 1.1700, -0.7500],
         },
         trunk = {
-            gridSizeX = 3,
-            gridSizeY = 3,
+            gridSizeX = 2,
+            gridSizeY = 2,
             weightLimit = 100,
         },
         engine = {
@@ -1136,7 +1136,7 @@ vehicleInfo <- {
             rear_left_wheel       = [-1.3000, -1.6690],
             rear_right_wheel      = [ 1.3000, -1.6690],
             hood                  = [ 0.0000,  3.4000],
-            trunk                 = [ 0.0000, -4.0000],
+            trunk                 = [ 0.0000, -4.2000],
                 // Doors
             front_left_door       = [-1.3000,  1.6000],
             front_right_door      = [ 1.3000,  1.6000],
@@ -1168,7 +1168,7 @@ vehicleInfo <- {
             rear_left_wheel       = [-1.3000, -1.6690],
             rear_right_wheel      = [ 1.3000, -1.6690],
             hood                  = [ 0.0000,  3.4000],
-            trunk                 = [ 0.0000, -4.0000],
+            trunk                 = [ 0.0000, -4.2000],
                 // Doors
             front_left_door       = [-1.3000,  1.6000],
             front_right_door      = [ 1.3000,  1.6000],
@@ -1200,7 +1200,7 @@ vehicleInfo <- {
             rear_left_wheel       = [-1.3000, -1.6690],
             rear_right_wheel      = [ 1.3000, -1.6690],
             hood                  = [ 0.0000,  3.4000],
-            trunk                 = [ 0.0000, -4.0000],
+            trunk                 = [ 0.0000, -3.6000],
                 // Doors
             front_left_door       = [-1.3000,  1.6000],
             front_right_door      = [ 1.3000,  1.6000],
@@ -1264,7 +1264,7 @@ vehicleInfo <- {
             rear_left_wheel       = [-1.3000, -1.6690],
             rear_right_wheel      = [ 1.3000, -1.6690],
             hood                  = [ 0.0000,  4.5000],
-            trunk                 = [ 0.0000, -4.0000],
+            trunk                 = [ 0.0000, -4.2000],
                 // Doors
             front_left_door       = [-1.3000,  1.6000],
             front_right_door      = [ 1.3000,  1.6000],
@@ -1329,7 +1329,7 @@ vehicleInfo <- {
             rear_left_wheel       = [-1.2800, -1.3500],
             rear_right_wheel      = [ 1.2800, -1.3500],
             hood                  = [ 0.0000,  3.0000],
-            trunk                 = [ 0.0000, -2.7000],
+            trunk                 = [ 0.0000, -2.9500],
                 // Doors
             front_left_door       = [-1.2800,  0.2500],
             front_right_door      = [ 1.2800,  0.2500],
@@ -1361,7 +1361,7 @@ vehicleInfo <- {
             rear_left_wheel       = [-1.2800, -1.3500],
             rear_right_wheel      = [ 1.2800, -1.3500],
             hood                  = [ 0.0000,  3.0000],
-            trunk                 = [ 0.0000, -2.7000],
+            trunk                 = [ 0.0000, -2.9500],
                 // Doors
             front_left_door       = [-1.2800,  0.2500],
             front_right_door      = [ 1.2800,  0.2500],
@@ -1425,7 +1425,7 @@ vehicleInfo <- {
             rear_left_wheel       = [-1.2800, -1.4500],
             rear_right_wheel      = [ 1.2800, -1.4500],
             hood                  = [ 0.0000,  2.6000],
-            trunk                 = [ 0.0000, -2.6000],
+            trunk                 = [ 0.0000, -2.8000],
                 // Doors
             front_left_door       = [-1.2800,  0.1000],
             front_right_door      = [ 1.2800,  0.1000],
@@ -1457,7 +1457,7 @@ vehicleInfo <- {
             rear_left_wheel       = [-1.2800, -1.3000],
             rear_right_wheel      = [ 1.2800, -1.3000],
             hood                  = [ 0.0000,  2.5800],
-            trunk                 = [ 0.0000, -2.3800],
+            trunk                 = [ 0.0000, -2.5800],
                 // Doors
             front_left_door       = [-1.2800, -0.2500],
             front_right_door      = [ 1.2800, -0.2500],
@@ -1523,7 +1523,7 @@ vehicleInfo <- {
             rear_right_wheel      = [ 1.2800, -1.6690],
             hood_wing_left        = [-1.2800,  1.0000],
             hood_wing_right       = [ 1.2800,  1.0000],
-            trunk                 = [ 0.0000, -2.5800],
+            trunk                 = null,
                 // Doors
             front_left_door       = [-1.2800,  0.0000],
             front_right_door      = [ 1.2800,  0.0000],
@@ -1555,7 +1555,7 @@ vehicleInfo <- {
             rear_left_wheel       = [-1.2800, -1.5000],
             rear_right_wheel      = [ 1.2800, -1.5000],
             hood                  = [ 0.0000,  2.6000],
-            trunk                 = [ 0.0000, -2.6000],
+            trunk                 = [ 0.0000, -2.7500],
                 // Doors
             front_left_door       = [-1.2800,  0.0930],
             front_right_door      = [ 1.2800,  0.0930],
@@ -1612,7 +1612,7 @@ vehicleInfo <- {
             rear_left_wheel       = [-1.2800, -1.4500],
             rear_right_wheel      = [ 1.2800, -1.4500],
             hood                  = [ 0.0000,  2.5800],
-            trunk                 = [ 0.0000, -2.5800],
+            trunk                 = [ 0.0000, -2.8500],
                 // Doors
             front_left_door       = [-1.2800,  0.1000],
             front_right_door      = [ 1.2800,  0.1000],
@@ -1644,7 +1644,7 @@ vehicleInfo <- {
             rear_left_wheel       = [-1.2800, -1.4500],
             rear_right_wheel      = [ 1.2800, -1.4500],
             hood                  = [ 0.0000,  2.5800],
-            trunk                 = [ 0.0000, -2.5800],
+            trunk                 = [ 0.0000, -2.8500],
                 // Doors
             front_left_door       = [-1.2800,  0.1000],
             front_right_door      = [ 1.2800,  0.1000],
@@ -1676,7 +1676,7 @@ vehicleInfo <- {
             rear_left_wheel       = [-1.2800, -1.5000],
             rear_right_wheel      = [ 1.2800, -1.5000],
             hood                  = [ 0.0000,  2.7500],
-            trunk                 = [ 0.0000, -2.7500],
+            trunk                 = [ 0.0000, -3.100],
                 // Doors
             front_left_door       = [-1.2800,  0.2000],
             front_right_door      = [ 1.2800,  0.2000],
@@ -1717,7 +1717,7 @@ vehicleInfo <- {
         },
         trunk = {
             gridSizeX = 2,
-            gridSizeY = 2,
+            gridSizeY = 3,
             weightLimit = 70,
         },
         engine = {

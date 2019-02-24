@@ -20,28 +20,7 @@ function removePrivateVehicleLightsKeys (playerid) {
     removePrivateKey(playerid, "x", "switchBothLight");
 }
 
-function getNearestVehicleForPlayerForTrunk(playerid) {
 
-    if (isPlayerInVehicle(playerid)) {
-        return false;
-    }
-
-    local vehicleid = getNearestVehicleForPlayer(playerid, 5.0);
-    if(vehicleid == -1) {
-        return false;
-    }
-
-    local pos = getVehicleTrunkPosition(vehicleid);
-
-    // createPrivate3DText ( playerid, pos.x, pos.y, pos.z, plocalize(playerid, "V"), CL_ROYALBLUE, 50.0);
-
-    if(!isInRadius(playerid, pos.x, pos.y, pos.z, 0.75)) {
-        log("not in Radius")
-        return false;
-    }
-
-    return vehicleid;
-}
 
 // Lock/unlock vehicle trunk
 key("q", function (playerid) {
@@ -149,8 +128,12 @@ key("z", function (playerid) {
         loadVehicleInventory(veh);
     }
 
-    veh.inventory.toggle(playerid);
+    if(veh.inventory.isOpened(playerid)) {
+        sendMsgToAllInRadius(playerid, "vehicle.parts.trunk.endinspecting", [ getPlayerName(playerid), getVehiclePlateText(vehicleid) ], CL_CHAT_ME, NORMAL_RADIUS);
+    } else {
+        sendMsgToAllInRadius(playerid, "vehicle.parts.trunk.inspecting", [ getPlayerName(playerid), getVehiclePlateText(vehicleid) ], CL_CHAT_ME, NORMAL_RADIUS);
+    }
 
-    sendMsgToAllInRadius(playerid, "vehicle.parts.trunk.inspecting", [ getPlayerName(playerid), getVehiclePlateText(vehicleid) ], CL_CHAT_ME, NORMAL_RADIUS);
+    veh.inventory.toggle(playerid);
 
 })

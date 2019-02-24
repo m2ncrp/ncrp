@@ -27,4 +27,7 @@ alternativeTranslate({
     "en|vehicle.parts.trunk.inspecting"   : "[ME] %s is inspecting the trunk of vehicle %s"
     "ru|vehicle.parts.trunk.inspecting"   : "[ME] %s осматривает багажник авто %s"
 
+    "en|vehicle.parts.trunk.endinspecting"   : "[ME] %s finished trunk inspection of vehicle %s"
+    "ru|vehicle.parts.trunk.endinspecting"   : "[ME] %s закончил осмотр багажника авто %s"
+
 });
