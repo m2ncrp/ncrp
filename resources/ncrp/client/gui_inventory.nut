@@ -756,8 +756,18 @@ class StorageInventory extends Inventory
  * ************************
  */
 
-class VehicleInventory extends StorageInventory
+class VehicleInventory extends Inventory
 {
+
+    function getOriginalSize() {
+        return base.getSize();
+    }
+
+
+    function getInitialPosition() {
+        local size = this.getSize();
+        return { x = centerX - size.x - 5.0, y = centerY - size.y / 2 };
+    }
 
     function setTitle() {
         if (typeof this.handle == "userdata") {
@@ -765,7 +775,21 @@ class VehicleInventory extends StorageInventory
         }
     }
 
+    function createGUI() {
+        base.createGUI();
+
+        local props = {
+            width  = 32.0,
+            height = 32.0,
+        };
+
+        this.setTitle();
+
+        local size = this.getSize();
+    }
+
 }
+
 
 /**
  * ************************
