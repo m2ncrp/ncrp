@@ -1,16 +1,13 @@
-class Property extends ORM.Entity
-{
+class Property extends ORM.JsonEntity {
+
     static classname = "Property";
     static table = "tbl_property";
 
     static fields = [
-        ORM.Field.Integer({ name = "ownerid" }),
+        ORM.Field.String ({ name = "type" }),
+        ORM.Field.String ({ name = "building" }),
         ORM.Field.String ({ name = "title" }),
-        ORM.Field.Integer({ name = "state" }),
-        ORM.Field.Integer({ name = "type" }),
-        ORM.Field.String ({ name = "area", value = "" }),
-        ORM.Field.String ({ name = "data", value = "" }),
-        ORM.Field.Float  ({ name = "price", value = 0.0 }),
+        ORM.Field.String ({ name = "state" }),
     ];
 
     static State = {
@@ -18,25 +15,21 @@ class Property extends ORM.Entity
         Purchased   = 1,
     };
 
-    static traits = [
-        ORM.Trait.Positionable(),
-    ];
 
-    temp = null;
+    temp = {};
 
     // constructor () {
     //     base.constructor();
     // }
 
     function hydrated() {
-        this.temp = {
-            text = create3DText(this.x, this.y, this.z, format("Property: %s", this.title), CL_CRUSTA);
-        };
+        log(this.title)
+        //temp.text <- create3DText(this.data.coords.x, this.data.coords.y, this.data.coords.z, format("Property: %s", this.title), CL_CRUSTA);
     }
 
-    function clear() {
-        if (this.temp && this.temp.text) {
-            remove3DText(this.temp.text);
-        }
-    }
-}
+    // function clear() {
+    //     if (this.temp && this.temp.text) {
+    //         remove3DText(this.temp.text);
+    //     }
+    //
+ }

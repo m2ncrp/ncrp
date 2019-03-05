@@ -29,7 +29,7 @@ include("controllers/tips");
 include("controllers/place");
 include("controllers/closedplaces");
 
-// include("controllers/property");
+include("controllers/property");
 include("controllers/inventory");
 include("controllers/fraction");
 include("controllers/admin");
