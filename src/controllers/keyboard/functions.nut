@@ -3,7 +3,7 @@ const KEY_DOWN  = "down";
 const KEY_BOTH  = "both";
 
 local __keyboard = {};
-local __privateKeyboard = {};
+__privateKeyboard <- {};
 local __layouts  = {};
 local __playerLayouts = {};
 
@@ -233,6 +233,20 @@ function removePrivateKey(playerid, key, subname, state = KEY_DOWN) {
         }
     } else {
         return dbg("[keyboard] deleting keybind for unknown charid", key, state);
+    }
+
+}
+
+/**
+ * Clear all private key bind for client
+ *
+ * @param {int}      playerid
+ */
+function clearAllPrivateKey(playerid) {
+    local charid = getCharacterIdFromPlayerId(playerid);
+
+    if (charid in __privateKeyboard) {
+        delete __privateKeyboard[charid];
     }
 
 }

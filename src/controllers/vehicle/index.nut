@@ -292,6 +292,14 @@ event("onPlayerSpawned", function(playerid) {
     }
 });
 
+event("onPlayerDisconnect", function(playerid, reason) {
+    clearAllPrivateKey(playerid);
+});
+
+event("onServerPlayerStarted", function( playerid ){
+    clearAllPrivateKey(playerid);
+});
+
 include("controllers/vehicle/functions");
 include("controllers/vehicle/commands.nut");
 include("controllers/vehicle/vehicleInfo.nut");
