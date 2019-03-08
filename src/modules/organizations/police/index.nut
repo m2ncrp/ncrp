@@ -258,8 +258,9 @@ event("onPlayerVehicleEnter", function( playerid, vehicleid, seat ) {
                 return msg(playerid, "organizations.police.offduty.nokeys", [], CL_GRAY);
             } else {
                 unblockDriving(vehicleid);
-                privateKey(playerid, "k", "policeBeacon", switchBeaconLight)
-                privateKey(playerid, "b", "policeBinder", policeVehicleBinder)
+                privateKey(playerid, "k", "policeBeacon", switchBeaconLight);
+                privateKey(playerid, "b", "policeBinder", policeVehicleBinder);
+                policeCarRuporBinderCreator(playerid);
             }
         }
     }
@@ -284,8 +285,9 @@ event("onPlayerVehicleExit", function( playerid, vehicleid, seat ) {
     if (isVehicleidPoliceVehicle(vehicleid)) {
         if (isOfficer(playerid) && isOnPoliceDuty(playerid) ) {
             blockDriving(playerid, vehicleid);
-            removePrivateKey(playerid, "k", "policeBeacon")
-            removePrivateKey(playerid, "b", "policeBinder")
+            removePrivateKey(playerid, "k", "policeBeacon");
+            removePrivateKey(playerid, "b", "policeBinder");
+            policeCarRuporBinderRemover(playerid);
         }
     }
 });
@@ -378,10 +380,8 @@ event("onBatonBitStart", function (playerid) {
 });
 
 
-
 event("onPlayerPhoneCall", function(playerid, number, place) {
     if (number == "police") {
         policeCall(playerid, place);
     }
 });
-
