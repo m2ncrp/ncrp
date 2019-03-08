@@ -273,6 +273,13 @@ function dockerJobLeave( playerid ) {
     //     return msg( playerid, "job.closed", [ DOCKER_JOB_LEAVE_HOUR_START.tostring(), DOCKER_JOB_LEAVE_HOUR_END.tostring()], DOCKER_JOB_COLOR );
     // }
 
+    if (isDockerHaveBox(playerid)) {
+        delayedFunction(250, function() {
+            setPlayerAnimStyle(playerid, "common", "default");
+            setPlayerHandModel(playerid, 1, 0);
+        })
+    }
+
     setPlayerJob( playerid, null );
     dockerJobUnregisterPrivateKeys( playerid );
 
@@ -283,9 +290,6 @@ function dockerJobLeave( playerid ) {
 
         local charId = getCharacterIdFromPlayerId(playerid);
         job_docker[charId]["havebox"] = false;
-
-        //setPlayerAnimStyle(playerid, "common", "default");
-        //setPlayerHandModel(playerid, 1, 0);
 
         // remove private blip job
         removePersonalJobBlip ( playerid );
