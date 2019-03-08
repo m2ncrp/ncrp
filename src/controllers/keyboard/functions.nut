@@ -232,7 +232,7 @@ function removePrivateKey(playerid, key, subname, state = KEY_DOWN) {
             return dbg("[keyboard] deleting unknown keybind", key, state);
         }
     } else {
-        return dbg("[keyboard] deleting keybind for unknown charid", key, state);
+        return dbg("[keyboard] deleting keybind for unknown charid", charid, getPlayerName(playerid), key, state);
     }
 
 }

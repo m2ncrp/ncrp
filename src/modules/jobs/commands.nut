@@ -5,7 +5,7 @@ cmd("help", "job", function(playerid) {
 
 // usage: /job
 cmd("job", function(playerid) {
-    jobHelp ( playerid );
+    msg( playerid, "client.interface.job", [ getLocalizedPlayerJob(playerid) ], CL_SUCCESS );
 });
 
 function jobHelp ( playerid ) {

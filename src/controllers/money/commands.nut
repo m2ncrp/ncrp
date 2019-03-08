@@ -1,5 +1,5 @@
 cmd( ["money"], function( playerid ) {
-    msg( playerid, "Your cash: $" + getPlayerBalance(playerid) );
+    msg( playerid, "money.cash", [ getPlayerBalance(playerid) ], CL_SUCCESS );
 });
 
 cmd( ["give", "send"], sendMoney );
