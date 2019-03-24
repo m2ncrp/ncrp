@@ -21,7 +21,7 @@ function removePrivateVehicleLightsKeys (playerid) {
 }
 
 
-
+/*
 // Lock/unlock vehicle trunk
 key("q", function (playerid) {
 
@@ -137,3 +137,4 @@ key("z", function (playerid) {
     veh.inventory.toggle(playerid);
 
 })
+*/
