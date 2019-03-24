@@ -387,7 +387,7 @@ function getVehicleWantedForTax() {
     local vehiclesWanted = [];
 
     foreach (vehicleid, value in __vehicles) {
-        if(value.entity && !isVehicleInParking(vehicleid)) {
+        if(value.entity && (!isVehicleInParking(vehicleid) || value.ownership.ownerid != 4 || value.entity.plate.find("GOV-") == null )) {
             vehiclesWanted.push( value.entity.plate );
         }
     }
