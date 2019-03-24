@@ -117,6 +117,7 @@ local goods = {
             { itemName = "Item.Wine",               price = 0.70 * coef },
             { itemName = "Item.OldEmpiricalBeer",   price = 0.52 * coef },
             { itemName = "Item.CoffeeCup",          price = 0.18 * coef },
+            { itemName = "Item.Box",                price = 0.18 * coef },
         ]
     },
 

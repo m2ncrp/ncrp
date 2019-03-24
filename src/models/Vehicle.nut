@@ -26,4 +26,6 @@ class Vehicle extends ORM.Entity {
         ColorableA() // adds cra, cga, cba
         ColorableB() // adds crb, cgb, cbb
     ];
+
+    inventory = null;
 }

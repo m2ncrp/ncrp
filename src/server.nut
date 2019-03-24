@@ -106,6 +106,7 @@ include("helpers/array.nut");
 include("helpers/function.nut");
 include("helpers/string.nut");
 include("helpers/math.nut");
+include("helpers/matrix.nut");
 include("helpers/distance.nut");
 include("helpers/color.nut");
 include("helpers/datetime.nut");

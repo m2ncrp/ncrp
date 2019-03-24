@@ -91,7 +91,11 @@ event ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
         local characterid = players[playerid].id;
 
         if (car.vehicleid == entityid && car.status == "await_owner") {
-            return msg(playerid, "cardealer.takeBack", CL_FIREBUSH);
+            if(characterid == car.ownerid) {
+                return msg(playerid, "cardealer.takeBack", CL_FIREBUSH);
+            }
+
+            return msg(playerid, "cardealer.notForSale", CL_FIREBUSH);
         }
 
         if (car.vehicleid == entityid && car.status == "sale") {
@@ -469,6 +473,9 @@ alternativeTranslate({
     "en|cardealer.takeBack"               :  "This is your car, and it is removed from sale. Take it back via /dealer take"
     "ru|cardealer.takeBack"               :  "Это ваш автомобиль, и он снят с продажи из-за невостребованности. Заберите его: /dealer take"
 
+    "en|cardealer.outofsale"              :  "This is your car, and it is removed from sale. Take it back via /dealer take"
+    "ru|cardealer.outofsale"              :  "Это ваш автомобиль, и он снят с продажи из-за невостребованности. Заберите его: /dealer take"
+
     "en|cardealer.enterZone"              :  "Want to sell car? Park the car neatly."
     "ru|cardealer.enterZone"              :  "Хотите продать автомобиль? Припаркуйтесь аккуратно."
 
@@ -503,7 +510,7 @@ alternativeTranslate({
     "ru|cardealer.notForSale"             :  "Этот автомобиль не выставлен на продажу."
 
     "en|cardealer.notForRemoving"         :  "This car still is on sale."
-    "ru|cardealer.notForRemoving"         :  "Этот автомобиль ещё продатёся."
+    "ru|cardealer.notForRemoving"         :  "Этот автомобиль ещё продаётся."
 
     "en|cardealer.boughtCar"              :  "You bought this car."
     "ru|cardealer.boughtCar"              :  "Вы приобрели этот автомобиль."

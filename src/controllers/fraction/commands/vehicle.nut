@@ -43,7 +43,7 @@ fmd("*", ["vehicles.add"], ["$f car add", "$f cars add"], function(fraction, cha
     relation.fractionid = fraction.id;
     relation.type       = "vehicle";
     relation.created    = getTimestamp();
-    relation.entityid   = __vehicles[vehicleid].entity.id;
+    relation.entityid   = getVehicleEntityId(vehicleid);
 
     relation.save();
 
@@ -72,7 +72,7 @@ fmd("*", ["vehicles.remove"], ["$f car remove", "$f cars remove"], function(frac
     }
 
     // remove car from fraction
-    fraction.property.remove(__vehicles[vehicleid].entity.id).remove();
+    fraction.property.remove(getVehicleEntityId(vehicleid)).remove();
 
     return msg(character.playerid, "fraction.vehicle.removed", CL_SUCCESS);
 });

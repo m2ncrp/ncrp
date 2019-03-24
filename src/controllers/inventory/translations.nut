@@ -3,6 +3,9 @@ alternativeTranslate({
     "en|inventory.title"         : "Inventory of "
     "ru|inventory.title"         : "Инвентарь "
 
+    "en|inventory.trunk.title"   : "Trunk"
+    "ru|inventory.trunk.title"   : "Багажник"
+
     "en|inventory.cannotinsert"  : "You can't insert this item."
     "ru|inventory.cannotinsert"  : "Вы не можете взять этот предмет с собой."
 

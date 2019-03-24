@@ -55,14 +55,14 @@ function policeVehicleBinder (playerid) {
 
 }
 
-function policeCarRuporBinderCreator() {
-
+/**
+ * Create private bindings for playerid
+ */
+function policeCarRuporBinderCreator(playerid) {
     for (local i = 1; i <= phrases.len(); i++) {
-        local keyButton = i;
-        key(keyButton.tostring(), function(playerid) {
-            if (!isCopInPoliceCarOnDuty(playerid) || getPlayerBinderState(playerid) != "b_policecar") return;
-
-            inRadiusSendToAll(playerid, "[POLICE RUPOR] "+phrases[keyButton.tostring()], RUPOR_RADIUS, CL_ROYALBLUE);
+        local keyButton = i.tostring();
+        privateKey(playerid, keyButton, "policeBinder"+keyButton, function(playerid) {
+            inRadiusSendToAll(playerid, "[POLICE RUPOR] "+phrases[keyButton], RUPOR_RADIUS, CL_ROYALBLUE);
             clearPlayerBinderState(playerid);
             trigger(playerid, "hudDestroyTimer");
             if( timers[playerid].IsActive() ) {
@@ -72,4 +72,12 @@ function policeCarRuporBinderCreator() {
     }
 }
 
-policeCarRuporBinderCreator();
+/**
+ * Remove private bindings for playerid
+ */
+function policeCarRuporBinderRemover(playerid) {
+    for (local i = 1; i <= phrases.len(); i++) {
+        local keyButton = i.tostring();
+        removePrivateKey(playerid, keyButton, "policeBinder"+keyButton);
+    }
+}

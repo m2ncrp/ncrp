@@ -1,9 +1,3 @@
-include("controllers/vehicle/functions");
-include("controllers/vehicle/commands.nut");
-include("controllers/vehicle/modelName.nut");
-include("controllers/vehicle/translations.nut");
-//include("controllers/vehicle/hiddencars.nut");
-
 const VEHICLE_RESPAWN_TIME      = 300; // 5 (real) minutes
 const VEHICLE_FUEL_DEFAULT      = 40.0;
 const VEHICLE_MIN_DIRT          = 0.25;
@@ -170,6 +164,34 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     trigger("onPlayerVehicleEnter", playerid, vehicleid, seat);
 });
 
+key(["f"], function(playerid) {
+    if (isPlayerInVehicle(playerid)) {
+        return;
+    }
+
+    local vehicleid = getNearestVehicleForPlayer(playerid, 3.0);
+
+    if (vehicleid == -1) {
+        return;
+    }
+
+    if (!isPlayerHaveVehicleKey(playerid, vehicleid)) {
+        return;
+    }
+
+    unblockVehicle(vehicleid);
+    setVehicleEngineState(vehicleid, true)
+    delayedFunction(100, function() {
+        if(getPlayerVehicle(playerid) == vehicleid && isPlayerVehicleOwner(playerid, vehicleid)) {
+            return
+        }
+        setVehicleEngineState(vehicleid, false);
+        blockVehicle(vehicleid);
+    });
+
+
+}, KEY_UP);
+
 key(["w", "s"], function(playerid) {
     if (!isPlayerInVehicle(playerid)) {
         return;
@@ -269,3 +291,17 @@ event("onPlayerSpawned", function(playerid) {
         }
     }
 });
+
+event("onPlayerDisconnect", function(playerid, reason) {
+    clearAllPrivateKey(playerid);
+});
+
+event("onServerPlayerStarted", function( playerid ){
+    clearAllPrivateKey(playerid);
+});
+
+include("controllers/vehicle/functions");
+include("controllers/vehicle/commands.nut");
+include("controllers/vehicle/vehicleInfo.nut");
+include("controllers/vehicle/translations.nut");
+//include("controllers/vehicle/hiddencars.nut");

@@ -152,3 +152,11 @@ function fractionPeriodic (num) {
         dbg("ekran: "+ekran_chis+"|"+ekran_znam);
     //return ekran;
 }
+
+function todeg(angle) {
+    return angle / PI * 180.0;
+}
+
+function torad(angle) {
+    return angle * PI / 180.0;
+}

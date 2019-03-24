@@ -238,6 +238,20 @@ function removePrivateKey(playerid, key, subname, state = KEY_DOWN) {
 }
 
 /**
+ * Clear all private key bind for client
+ *
+ * @param {int}      playerid
+ */
+function clearAllPrivateKey(playerid) {
+    local charid = getCharacterIdFromPlayerId(playerid);
+
+    if (charid in __privateKeyboard) {
+        delete __privateKeyboard[charid];
+    }
+
+}
+
+/**
  * Register new layout mapping by given name
  * @param {String} name
  * @param {Table} mapping
