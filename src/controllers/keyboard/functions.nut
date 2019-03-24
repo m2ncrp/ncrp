@@ -114,6 +114,7 @@ function triggerKeyboardPress(playerid, key, state) {
  * @return {Boolean}
  */
 function key(names, callback, state = KEY_DOWN) {
+    // log("key", names);
     if (typeof names != "array") {
         names = [names];
     }
@@ -228,8 +229,6 @@ function removePrivateKey(playerid, key, subname, state = KEY_DOWN) {
                 if (subname in __privateKeyboard[charid][name]) {
                     delete __privateKeyboard[charid][name][subname];
                 }
-        } else {
-            return dbg("[keyboard] deleting unknown keybind", key, state);
         }
     } else {
         return dbg("[keyboard] deleting keybind for unknown charid", charid, getPlayerName(playerid), key, state);
