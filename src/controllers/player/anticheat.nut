@@ -66,8 +66,8 @@ event("onServerStarted", function() {
                 local vehicleid = getPlayerVehicle(playerid);
 
                 // block vehicle if player is driver and vehicle is blocked
-                if (isPlayerVehicleDriver(playerid) && isVehicleBlocked(vehicleid) && !isPlayerAdmin(playerid)) {
-                    blockDriving(playerid, vehicleid);
+                if (isPlayerVehicleDriver(playerid) && isVehicleBlocked(vehicleid)) {
+                    blockVehicle(vehicleid);
                 }
 
                 local speed = getVehicleSpeed(vehicleid);
