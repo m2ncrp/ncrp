@@ -31,9 +31,6 @@ fmd("gov", ["gov.treasury"], "$f treasury get", function(fraction, character) {
 
 fmd("gov", ["gov.treasury"], "$f treasury add", function(fraction, character, amount = "0") {
 
-    amount = amount.tofloat();
-
-
     if (!isPlayerInValidPoint(character.playerid, coords[0], coords[1], 1.0 )) {
         return;
     }
