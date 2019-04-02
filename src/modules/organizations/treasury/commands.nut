@@ -23,7 +23,7 @@ local coords = [-122.331, -62.9116, -12.041];
 fmd("gov", ["gov.treasury"], "$f treasury get", function(fraction, character) {
 
     if (!isPlayerInValidPoint(character.playerid, coords[0], coords[1], 1.0 )) {
-        return;
+        return msg(character.playerid, "treasury.toofar", CL_THUNDERBIRD );
     }
 
     msg(character.playerid, "treasury.get", getMoneyTreasury() );
@@ -32,7 +32,7 @@ fmd("gov", ["gov.treasury"], "$f treasury get", function(fraction, character) {
 fmd("gov", ["gov.treasury"], "$f treasury add", function(fraction, character, amount = "0") {
 
     if (!isPlayerInValidPoint(character.playerid, coords[0], coords[1], 1.0 )) {
-        return;
+        return msg(character.playerid, "treasury.toofar", CL_THUNDERBIRD );
     }
 
     amount = amount.tofloat();
@@ -50,7 +50,7 @@ fmd("gov", ["gov.treasury"], "$f treasury add", function(fraction, character, am
 fmd("gov", ["gov.treasury"], "$f treasury sub", function(fraction, character, amount = "0") {
 
     if (!isPlayerInValidPoint(character.playerid, coords[0], coords[1], 1.0 )) {
-        return;
+        return msg(character.playerid, "treasury.toofar", CL_THUNDERBIRD );
     }
 
     amount = amount.tofloat();
@@ -84,6 +84,9 @@ local phrases = {
 
     "en|treasury.player.notenough" : "You dont have enough money!"
     "ru|treasury.player.notenough" : "У вас недостаточно денег!"
+
+    "en|treasury.toofar"            : "Operations with the city treasury are available only in the city hall."
+    "ru|treasury.toofar"            : "Операции с городской казной доступны только в мэрии города."
 }
 alternativeTranslate(phrases);
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
