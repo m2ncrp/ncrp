@@ -2,6 +2,7 @@ include("modules/organizations/government/passport.nut");
 include("modules/organizations/government/ltc.nut");
 include("modules/organizations/government/tax.nut");
 include("modules/organizations/government/vehicleTitle.nut");
+include("modules/organizations/government/voting.nut");
 
 local coords = [-122.331, -62.9116, -12.041];
 
@@ -14,7 +15,7 @@ function getGovCoords(i) {
 event("onServerStarted", function() {
     log("[organizations] government...");
 
-    create3DText ( coords[0], coords[1], coords[2]+0.20, "/tax | /passport", CL_WHITE.applyAlpha(100), 2.0 );
+    create3DText ( coords[0], coords[1], coords[2]+0.20, "/tax | /passport | /vote", CL_WHITE.applyAlpha(100), 2.0 );
 
     createBlip  ( coords[0], coords[1], [ 24, 0 ], 4000.0 );
 
