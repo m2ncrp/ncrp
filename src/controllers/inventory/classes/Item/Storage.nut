@@ -4,7 +4,7 @@ class Item.Storage extends Item.Abstract
 
     container = null;
     loaded = false;
-    // default_decay = 0; // бесконечное хранение на земле
+    default_decay = 0; // бесконечное хранение на земле
 
     function calculateWeight () {
         if (this.isLoaded()) {

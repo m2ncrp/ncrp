@@ -6,23 +6,24 @@ event("onServerSecondChange", function() {
 
         if (isVehicleEmpty(vehicleid)) continue;
 
-        local id = vehicleid;
         if(!(vehicleid in vehiclesPositions)) {
             vehiclesPositions[vehicleid] <- getVehiclePositionObj(vehicleid);
         }
 
-        if(__vehicles[vehicleid].entity == null) {
+        local veh = getVehicleEntity(vehicleid);
+
+        if(veh == null) {
             continue;
         }
 
-        if(__vehicles[vehicleid].entity && ("mileage" in __vehicles[vehicleid].entity.data) == false) {
-            __vehicles[vehicleid].entity.data.mileage <- 0;
+        if(("mileage" in veh.data) == false) {
+            veh.data.mileage <- 0;
         }
 
         local currentPosition = getVehiclePositionObj(vehicleid);
         local distance = getDistanceBetweenPoints2D(vehiclesPositions[vehicleid].x, vehiclesPositions[vehicleid].y, currentPosition.x, currentPosition.y);
         vehiclesPositions[vehicleid] = currentPosition;
-        __vehicles[vehicleid].entity.data.mileage += distance;
+        veh.data.mileage += distance;
 
     }
 });

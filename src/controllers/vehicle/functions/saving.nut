@@ -94,6 +94,13 @@ function trySaveVehicle(vehicleid) {
     vehicle.entity.save();
     vehicle.entity.data      = JSONParser.parse(vehicle.entity.data);
 
+    if(vehicle.entity.inventory) {
+        foreach (idx, item in vehicle.entity.inventory) {
+            item.parent = vehicle.entity.id;
+            item.save();
+        }
+    }
+
     return true;
 }
 

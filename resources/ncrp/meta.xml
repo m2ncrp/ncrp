@@ -134,7 +134,7 @@
 -->
         <!-- <file>Item.AlarmClock.png</file> -->
         <!-- <file>Item.Bomb.png</file> -->
-        <!-- <file>Item.Box.png</file> -->
+        <file>Item.Box.png</file>
         <file>Item.Brandy.png</file>
         <file>Item.Burger.png</file>
         <file>Item.BigBreakBlue.png</file>

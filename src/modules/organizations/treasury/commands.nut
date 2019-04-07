@@ -20,66 +20,49 @@ acmd(["treas"], "sub", function( playerid, amount = 0.0) {
 // meria coords
 local coords = [-122.331, -62.9116, -12.041];
 
-// Name of governor
-local govName = "Lucia Fuentes";
+fmd("gov", ["gov.treasury"], "$f treasury get", function(fraction, character) {
 
-cmd(["treasury"], "get", function( playerid) {
-
-    if (!isPlayerInValidPoint(playerid, coords[0], coords[1], 1.0 )) {
-        return;
+    if (!isPlayerInValidPoint(character.playerid, coords[0], coords[1], 1.0 )) {
+        return msg(character.playerid, "treasury.toofar", CL_THUNDERBIRD );
     }
 
-    if (getPlayerName(playerid) != govName) {
-        return;
-    }
-
-    msg(playerid, "treasury.get", getMoneyTreasury() );
+    msg(character.playerid, "treasury.get", getMoneyTreasury() );
 });
 
+fmd("gov", ["gov.treasury"], "$f treasury add", function(fraction, character, amount = "0") {
 
-cmd(["treasury"], "add", function( playerid, amount = 0.0) {
-
-    if (!isPlayerInValidPoint(playerid, coords[0], coords[1], 1.0 )) {
-        return;
-    }
-
-    if (getPlayerName(playerid) != govName) {
-        return;
+    if (!isPlayerInValidPoint(character.playerid, coords[0], coords[1], 1.0 )) {
+        return msg(character.playerid, "treasury.toofar", CL_THUNDERBIRD );
     }
 
     amount = amount.tofloat();
 
-    if (!canMoneyBeSubstracted(playerid, amount)) {
-        return msg(playerid, "treasury.player.notenough", CL_THUNDERBIRD);
+    if (!canMoneyBeSubstracted(character.playerid, amount)) {
+        return msg(character.playerid, "treasury.player.notenough", CL_THUNDERBIRD);
     }
 
     addMoneyToTreasury(amount);
-    subMoneyToPlayer(playerid, amount);
-    msg(playerid, "treasury.add", [ amount.tofloat(), getMoneyTreasury() ], CL_EUCALYPTUS );
-    dbg("chat", "idea", getAuthor(playerid), "Добавлено в казну: "+amount.tostring());
+    subMoneyToPlayer(character.playerid, amount);
+    msg(character.playerid, "treasury.add", [ amount.tofloat(), getMoneyTreasury() ], CL_EUCALYPTUS );
+    dbg("chat", "idea", getAuthor(character.playerid), "Добавлено в казну: "+amount.tostring());
 });
 
+fmd("gov", ["gov.treasury"], "$f treasury sub", function(fraction, character, amount = "0") {
 
-cmd(["treasury"], "sub", function( playerid, amount = 0.0) {
-
-    if (!isPlayerInValidPoint(playerid, coords[0], coords[1], 1.0 )) {
-        return;
-    }
-
-    if (getPlayerName(playerid) != govName) {
-        return;
+    if (!isPlayerInValidPoint(character.playerid, coords[0], coords[1], 1.0 )) {
+        return msg(character.playerid, "treasury.toofar", CL_THUNDERBIRD );
     }
 
     amount = amount.tofloat();
 
     if(amount.tofloat() > getMoneyTreasury().tofloat()) {
-        return msg(playerid, "treasury.notenough", CL_THUNDERBIRD );
+        return msg(character.playerid, "treasury.notenough", CL_THUNDERBIRD );
     }
 
     subMoneyToTreasury(amount);
-    addMoneyToPlayer(playerid, amount);
-    msg(playerid, "treasury.sub", [ amount.tofloat(), getMoneyTreasury() ], CL_THUNDERBIRD );
-    dbg("chat", "idea", getAuthor(playerid), "Взято из казны: "+amount.tostring());
+    addMoneyToPlayer(character.playerid, amount);
+    msg(character.playerid, "treasury.sub", [ amount.tofloat(), getMoneyTreasury() ], CL_THUNDERBIRD );
+    dbg("chat", "idea", getAuthor(character.playerid), "Взято из казны: "+amount.tostring());
 });
 
 
@@ -101,6 +84,9 @@ local phrases = {
 
     "en|treasury.player.notenough" : "You dont have enough money!"
     "ru|treasury.player.notenough" : "У вас недостаточно денег!"
+
+    "en|treasury.toofar"            : "Operations with the city treasury are available only in the city hall."
+    "ru|treasury.toofar"            : "Операции с городской казной доступны только в мэрии города."
 }
 alternativeTranslate(phrases);
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */

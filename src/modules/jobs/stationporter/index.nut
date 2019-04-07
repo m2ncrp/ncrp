@@ -71,7 +71,7 @@ event("onPlayerConnect", function(playerid) {
 event("onServerPlayerStarted", function( playerid ) {
 
     //creating 3dtext for bus depot
-    create3DText ( PORTER_JOB_X, PORTER_JOB_Y, PORTER_JOB_Z+0.35, plocalize(playerid, "3dtext.job.porter"), CL_ROYALBLUE );
+    createPrivate3DText ( playerid, PORTER_JOB_X, PORTER_JOB_Y, PORTER_JOB_Z+0.35, plocalize(playerid, "3dtext.job.porter"), CL_ROYALBLUE );
 
     if(players[playerid]["job"] == "porter") {
         job_porter[getCharacterIdFromPlayerId(playerid)]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_TAKEBOX_X, PORTER_JOB_TAKEBOX_Y, PORTER_JOB_TAKEBOX_Z, plocalize(playerid, "TAKEBOXHERE"), plocalize(playerid, "3dtext.job.press.E"));

@@ -36,6 +36,7 @@ include("controllers/inventory/classes/ItemContainer.nut");
 include("controllers/inventory/classes/PlayerItemContainer.nut");
 include("controllers/inventory/classes/PlayerHandsContainer.nut");
 include("controllers/inventory/classes/StorageItemContainer.nut");
+include("controllers/inventory/classes/VehicleItemContainer.nut");
 
 // add shortcuts overrides
 Item.findBy <- function(condition, callback) {
@@ -132,5 +133,5 @@ class Item.BigBreakBlue     extends Item.Cigarettes { static classname = "Item.B
 class Item.BigBreakWhite    extends Item.Cigarettes { static classname = "Item.BigBreakWhite";  constructor () { base.constructor(); this.weight = 0.0025; this.unitweight = 0.0009; this.effect = 3.0; this.timeout = 7; this.addiction =  5.0 }}
 
 
-class Item.Box              extends Item.Storage    { static classname = "Item.Box";            constructor () { base.constructor(); this.weight = 4.0; }}
+class Item.Box              extends Item.Storage    { static classname = "Item.Box";            constructor () { base.constructor(); this.weight = 4.0; this.container.sizeX = 3; this.container.sizeY = 4; }}
 

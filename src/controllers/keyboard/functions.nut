@@ -3,7 +3,7 @@ const KEY_DOWN  = "down";
 const KEY_BOTH  = "both";
 
 local __keyboard = {};
-local __privateKeyboard = {};
+__privateKeyboard <- {};
 local __layouts  = {};
 local __playerLayouts = {};
 
@@ -114,6 +114,7 @@ function triggerKeyboardPress(playerid, key, state) {
  * @return {Boolean}
  */
 function key(names, callback, state = KEY_DOWN) {
+    // log("key", names);
     if (typeof names != "array") {
         names = [names];
     }
@@ -228,11 +229,23 @@ function removePrivateKey(playerid, key, subname, state = KEY_DOWN) {
                 if (subname in __privateKeyboard[charid][name]) {
                     delete __privateKeyboard[charid][name][subname];
                 }
-        } else {
-            return dbg("[keyboard] deleting unknown keybind", key, state);
         }
     } else {
-        return dbg("[keyboard] deleting keybind for unknown charid", key, state);
+        return dbg("[keyboard] deleting keybind for unknown charid", charid, getPlayerName(playerid), key, state);
+    }
+
+}
+
+/**
+ * Clear all private key bind for client
+ *
+ * @param {int}      playerid
+ */
+function clearAllPrivateKey(playerid) {
+    local charid = getCharacterIdFromPlayerId(playerid);
+
+    if (charid in __privateKeyboard) {
+        delete __privateKeyboard[charid];
     }
 
 }

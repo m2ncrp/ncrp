@@ -172,6 +172,23 @@ function validateAndUpdateCharacter(playerid, character, firstname, lastname, ra
         return alert(playerid, "character.bannednames", [], 10);
     }
 
+/*
+
+    local qc = ORM.Query("select * from tbl_items where _entity = 'Item.Passport' and data->'$.fio' = concat(:firstname, ' ', :lastname) and STR_TO_DATE(data->'$.expires','\"%d.%m.%Y\"') >= STR_TO_DATE(:date, '%d.%m.%Y')");
+
+    qc.setParameter("firstname", firstname);
+    qc.setParameter("lastname",  lastname );
+    qc.setParameter("date",  getDate() );
+
+    qc.getResult(function(err, characters) {
+        if (err || characters.len()) {
+            return alert(playerid, "character.alreadyregistered", [], 10);
+        }
+
+        // альтернативный вариант проверки имён по наличию действующего паспорта.
+    })
+ */
+
     /**
      * Check for used names
      */
@@ -186,7 +203,7 @@ function validateAndUpdateCharacter(playerid, character, firstname, lastname, ra
         character.firstname = firstname;
         character.lastname  = lastname;
         character.race      = race;
-        character.sex       = sex  == 1 ? 1 : 0;
+        character.sex       = sex == 1 ? 1 : 0;
         character.birthdate = birthdate.tostring();
         character.cskin     = cskin.tointeger();
         character.dskin     = cskin.tointeger();

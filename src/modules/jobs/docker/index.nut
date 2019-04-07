@@ -5,14 +5,19 @@ translation("en", {
 "job.docker.now"                : "[DOCKER] You're a docker now. Welcome... to hell! Ha-ha..."
 "job.docker.takeboxandcarry"    : "[DOCKER] Take a crate and carry it to the truck."
 "job.docker.not"                : "[DOCKER] You're not a docker."
-"job.docker.takebox"            : "[DOCKER] Go and take a crate."
 "job.docker.havebox"            : "[DOCKER] You have a crate already."
 "job.docker.tookbox"            : "[DOCKER] You took the crate. Go to truck."
-"job.docker.haventbox"          : "[DOCKER] You haven't a crate."
+
 "job.docker.dropped"            : "[DOCKER] You dropped the crate."
 "job.docker.presscapslock"      : "Press CAPS LOCK to walk."
-"job.docker.gotowarehouse"      : "[DOCKER] Go to truck."
+
 "job.docker.nicejob"            : "[DOCKER] You put the crate. You earned $%.2f."
+
+
+
+"job.docker.haventbox"          : "[DOCKER] You haven't a crate."
+"job.docker.gotowarehouse"      : "[DOCKER] Go to truck."
+
 
 "job.docker.help.title"         : "List of available commands for DOCKER JOB:"
 "job.docker.help.job"           : "Get docker job"
@@ -21,6 +26,32 @@ translation("en", {
 "job.docker.help.put"           : "Put crate to truck"
 });
 
+translation("ru", {
+    "job.docker"                        :   "портовый рабочий"
+    "job.docker.letsgo"                 :   "[DOCKER] Отправляйтесь в офис City Port."
+    "job.docker.already"                :   "[DOCKER] Ты уже работаешь портовым рабочим."
+    "job.docker.now"                    :   "[DOCKER] Ты стал портовым рабочим. Добро пожаловать... в ад! Аха-ха..."
+    "job.docker.takeboxandcarry"        :   "[DOCKER] Бери ящик и неси к грузовику."
+    "job.docker.not"                    :   "[DOCKER] Вы не работаете портовым рабочим."
+    "job.docker.havebox"                :   "[DOCKER] Ты уже несёшь ящик. Тебе мало что ли?"
+    "job.docker.tookbox"                :   "[DOCKER] Ты взял ящик. Теперь неси его к грузовику."
+    "job.docker.haventbox"              :   "[DOCKER] Ты не брал ящик."
+    "job.docker.dropped"                :   "[DOCKER] Ты уронил ящик."
+    "job.docker.presscapslock"          :   "Нажми CAPS LOCK для включения режима ходьбы."
+    "job.docker.nicejob"                :   "[DOCKER] Ты принёс ящик. Твой заработок $%.2f."
+
+
+
+    "job.docker.haventbox"              :   "[DOCKER] You haven't a crate."
+    "job.docker.gotowarehouse"          :   "[DOCKER] Неси ящик к грузовику."
+
+    "job.docker.help.title"             :   "Список команд, доступных портовому рабочему:"
+    "job.docker.help.job"               :   "Устроиться на работу портовым рабочим"
+    "job.docker.help.jobleave"          :   "Уволиться с работы"
+    "job.docker.help.take"              :   "Взять ящик"
+    "job.docker.help.put"               :   "Положить ящик на склад"
+
+});
 
 include("modules/jobs/docker/commands.nut");
 
@@ -97,9 +128,13 @@ event("onServerPlayerStarted", function( playerid ) {
     createPrivate3DText ( playerid, DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z+0.35, plocalize(playerid, "3dtext.job.port"), CL_ROYALBLUE );
 
     if(players[playerid]["job"] == "docker") {
+
+        dockerJobRegisterPrivateKeys(playerid);
+
         job_docker[getCharacterIdFromPlayerId(playerid)]["blip3dtext"] = dockerJobCreatePrivateBlipText(playerid, DOCKER_JOB_TAKEBOX_X, DOCKER_JOB_TAKEBOX_Y, DOCKER_JOB_TAKEBOX_Z, plocalize(playerid, "TAKEBOXHERE"), plocalize(playerid, "3dtext.job.press.E"));
         job_docker[getCharacterIdFromPlayerId(playerid)]["press3Dtext"] = createPrivate3DText (playerid, DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z+0.20, plocalize(playerid, "3dtext.job.press.leave"), CL_WHITE.applyAlpha(100), 3.0 );
     } else {
+        privateKey(playerid, "e", "dockerJobGet", dockerJob);
         job_docker[getCharacterIdFromPlayerId(playerid)]["press3Dtext"] = createPrivate3DText (playerid, DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z+0.20, plocalize(playerid, "3dtext.job.press.getjob"), CL_WHITE.applyAlpha(100), 3.0 );
     }
 });
@@ -107,6 +142,28 @@ event("onServerPlayerStarted", function( playerid ) {
 event("onServerHourChange", function() {
     DOCKER_BOX_NOW = DOCKER_BOX_IN_HOUR + random(-8, 9);
 });
+
+function dockerJobRegisterPrivateKeys(playerid) {
+    privateKey(playerid, "q", "dockerJobLeave", dockerJobLeave);
+    privateKey(playerid, "e", "dockerJobTakeBox", dockerJobTakeBox);
+    privateKey(playerid, "e", "dockerJobPutBox", dockerJobPutBox);
+    privateKey(playerid, "c", "dockerJobBoxCanDroppedC", dockerJobBoxCanDropped);
+    privateKey(playerid, "ctrl", "dockerJobBoxCanDroppedCtrl", dockerJobBoxCanDropped);
+    privateKey(playerid, "space", "dockerJobBoxCanDroppedSpace", dockerJobBoxCanDropped);
+
+    removePrivateKey(playerid, "e", "dockerJobGet");
+}
+
+function dockerJobUnregisterPrivateKeys(playerid) {
+    removePrivateKey(playerid, "q", "dockerJobLeave");
+    removePrivateKey(playerid, "e", "dockerJobTakeBox");
+    removePrivateKey(playerid, "e", "dockerJobPutBox");
+    removePrivateKey(playerid, "c", "dockerJobBoxCanDroppedC")
+    removePrivateKey(playerid, "ctrl", "dockerJobBoxCanDroppedCtrl");
+    removePrivateKey(playerid, "space", "dockerJobBoxCanDroppedSpace");
+
+    privateKey(playerid, "e", "dockerJobGet", dockerJob);
+}
 
 /**
  * Create private 3DTEXT AND BLIP
@@ -171,20 +228,22 @@ function dockerJob( playerid ) {
         return msg( playerid, "job.docker.already", DOCKER_JOB_COLOR );
     }
 
-    local hour = getHour();
-    if(hour < DOCKER_JOB_GET_HOUR_START || hour >= DOCKER_JOB_GET_HOUR_END) {
-        return msg( playerid, "job.closed", [ DOCKER_JOB_GET_HOUR_START.tostring(), DOCKER_JOB_GET_HOUR_END.tostring()], DOCKER_JOB_COLOR );
-    }
+    // local hour = getHour();
+    // if(hour < DOCKER_JOB_GET_HOUR_START || hour >= DOCKER_JOB_GET_HOUR_END) {
+    //     return msg( playerid, "job.closed", [ DOCKER_JOB_GET_HOUR_START.tostring(), DOCKER_JOB_GET_HOUR_END.tostring()], DOCKER_JOB_COLOR );
+    // }
 
     if(isPlayerHaveJob(playerid)) {
         return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), DOCKER_JOB_COLOR );
     }
 
+    setPlayerJob( playerid, "docker");
+    dockerJobRegisterPrivateKeys(playerid);
+
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
         msg( playerid, "job.docker.now", DOCKER_JOB_COLOR );
         msg( playerid, "job.docker.takeboxandcarry", DOCKER_JOB_COLOR );
 
-        setPlayerJob( playerid, "docker");
         setPlayerModel( playerid, DOCKER_JOB_SKIN );
 
         // create private blip job
@@ -209,26 +268,31 @@ function dockerJobLeave( playerid ) {
         return msg( playerid, "job.docker.not", DOCKER_JOB_COLOR );
     }
 
-    local hour = getHour();
-    if(hour < DOCKER_JOB_LEAVE_HOUR_START || hour >= DOCKER_JOB_LEAVE_HOUR_END) {
-        return msg( playerid, "job.closed", [ DOCKER_JOB_LEAVE_HOUR_START.tostring(), DOCKER_JOB_LEAVE_HOUR_END.tostring()], DOCKER_JOB_COLOR );
+    // local hour = getHour();
+    // if(hour < DOCKER_JOB_LEAVE_HOUR_START || hour >= DOCKER_JOB_LEAVE_HOUR_END) {
+    //     return msg( playerid, "job.closed", [ DOCKER_JOB_LEAVE_HOUR_START.tostring(), DOCKER_JOB_LEAVE_HOUR_END.tostring()], DOCKER_JOB_COLOR );
+    // }
+
+    if (isDockerHaveBox(playerid)) {
+        delayedFunction(250, function() {
+            setPlayerAnimStyle(playerid, "common", "default");
+            setPlayerHandModel(playerid, 1, 0);
+        })
     }
+
+    setPlayerJob( playerid, null );
+    dockerJobUnregisterPrivateKeys( playerid );
 
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
         msg( playerid, "job.leave", DOCKER_JOB_COLOR );
 
-        setPlayerJob( playerid, null );
         restorePlayerModel(playerid);
 
         local charId = getCharacterIdFromPlayerId(playerid);
         job_docker[charId]["havebox"] = false;
 
-        //setPlayerAnimStyle(playerid, "common", "default");
-        //setPlayerHandModel(playerid, 1, 0);
-
         // remove private blip job
         removePersonalJobBlip ( playerid );
-
         dockerJobRemovePrivateBlipText ( playerid );
 
         remove3DText(job_docker[charId]["press3Dtext"]);
@@ -285,11 +349,11 @@ function dockerJobPutBox( playerid ) {
     }
 
     if (!isDockerHaveBox(playerid)) {
-        return msg( playerid, "job.docker.haventbox", DOCKER_JOB_COLOR );
+        return;// msg( playerid, "job.docker.haventbox", DOCKER_JOB_COLOR );
     }
 
     if(!isPlayerInValidPoint(playerid, DOCKER_JOB_PUTBOX_X, DOCKER_JOB_PUTBOX_Y, DOCKER_RADIUS)) {
-        return msg( playerid, "job.docker.gotowarehouse", DOCKER_JOB_COLOR );
+        return; // msg( playerid, "job.docker.gotowarehouse", DOCKER_JOB_COLOR );
     }
 
     setPlayerAnimStyle(playerid, "common", "default");
@@ -333,21 +397,8 @@ event("updateMoveState", function(playerid, state) {
     }
 });
 
-
-key("c", function(playerid) {
-    dockerJobBoxCanDropped(playerid);
-}, KEY_UP);
-
-key("ctrl", function(playerid) {
-    dockerJobBoxCanDropped(playerid);
-}, KEY_UP);
-
-key("space", function(playerid) {
-    dockerJobBoxCanDropped(playerid);
-}, KEY_UP);
-
-
 function dockerJobBoxCanDropped(playerid) {
+    log("dockerJobBoxCanDropped");
     if(isDocker( playerid ) && isDockerHaveBox(playerid)) {
         msg( playerid, "job.docker.dropped", DOCKER_JOB_COLOR );
 

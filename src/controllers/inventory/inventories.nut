@@ -33,8 +33,8 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
         local item = players[playerid].hands.remove(0);
         local pos  = getPlayerPositionObj(playerid);
 
-        pos.x += randomf(-0.3, 0.3);
-        pos.y += randomf(-0.3, 0.3);
+        pos.x += randomf(-0.1, 0.1);
+        pos.y += randomf(-0.1, 0.1);
 
         players[playerid].hands.sync();
         delayedFunction(150, function() {
@@ -139,7 +139,6 @@ key("e", function(playerid) {
 
         return curr;
     });
-
     if (players[playerid].inventory.push(closest)) {
         players[playerid].inventory.sync();
         closest.pick(playerid, players[playerid].inventory);

@@ -44,7 +44,7 @@ alternativeTranslate({
         "en|tips.car"          :   "[TIPS] You can buy own car at the Diamond Motors (colored icon with car on the map)."
         "ru|tips.car"          :   "[TIPS] Вы можете купить собственный автомобиль в Diamond Motors (цветная иконка с автомобилем на карте)."
 
-        "en|tips.car.repair"   :   "[TIPS] You can repair your car at the repair shops. Use /repair"
+        "en|tips.car.repair"   :   "[TIPS] You can repair your car at the repair shops."
         "ru|tips.car.repair"   :   "[TIPS] Вы можете починить свой автомобиль в автомастерских."
 
         "en|tips.eat"          :   "[TIPS] You can restore health by eating in the restaurants."
@@ -53,10 +53,10 @@ alternativeTranslate({
         "en|tips.police"       :   "[TIPS] If you see a crime, don't hesitate calling a police from phone booth. Use: /police"
         "ru|tips.police"       :   "[TIPS] Если вы стали свидетелем преступления - бегите к телефонной будке и вызывайте полицию. Команда: /police"
 
-        "en|tips.hobos"        :   "[TIPS] You can search trash containers and find something in it using /dig command"
-        "ru|tips.hobos"        :   "[TIPS] Вы можете найти деньги в мусорных контейнерах. Используйте команду: /dig"
+        "en|tips.hobos"        :   "[TIPS] You can search trash containers and find something in it"
+        "ru|tips.hobos"        :   "[TIPS] Вы можете найти деньги в мусорных контейнерах"
 
-        "en|tips.engine.howto" :   "[TIPS] Do not waste fuel, don't forget to off the engine using /engine off or press Q button"
+        "en|tips.engine.howto" :   "[TIPS] Do not waste fuel, don't forget to off the engine by press Q button"
         "ru|tips.engine.howto" :   "[TIPS] Не забывайте экономить топливо, используйте кнопку Q для выключения двигателя."
 
         "en|tips.taxi"         :   "[TIPS] If you need a ride, you can take a taxi from phone booth. Use: /taxi"
@@ -137,7 +137,7 @@ event("onServerPlayerStarted", function( playerid ){
 });
 
 event("onServerMinuteChange", function() {
-    if ((getMinute() % 30) != 0) {
+    if ((getMinute() % 15) != 0) {
         return;
     }
 
