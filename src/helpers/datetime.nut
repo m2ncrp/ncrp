@@ -127,3 +127,8 @@ function epochToHuman(t) {
 
     return res;
 }
+
+function convertDateToTimestamp(date) {
+    local dateArray = split(date,".");
+    return dateArray[0].tointeger() + dateArray[1].tointeger()*30 + dateArray[2].tointeger()*360;
+}

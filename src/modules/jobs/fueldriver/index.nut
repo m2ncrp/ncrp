@@ -415,6 +415,11 @@ function fuelJobGet( playerid ) {
         return;
     }
 
+    if(!isPlayerHaveValidPassport(playerid)) {
+               msg(playerid, "job.needpassport", FUEL_JOB_COLOR );
+        return msg(playerid, "passport.toofar", CL_LYNCH );
+    }
+
     // если у игрока статус работы == null
     if(job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"] == null) {
 
@@ -480,6 +485,11 @@ function fuelJobStartRoute( playerid ) {
     //if(hour < FUEL_JOB_WORKING_HOUR_START || hour >= FUEL_JOB_WORKING_HOUR_END) {
     //    return msg( playerid, "job.closed", [ FUEL_JOB_WORKING_HOUR_START.tostring(), FUEL_JOB_WORKING_HOUR_END.tostring()], FUEL_JOB_COLOR );
     //}
+
+    if(!isPlayerHaveValidPassport(playerid)) {
+               msg(playerid, "job.needpassport", FUEL_JOB_COLOR );
+        return msg(playerid, "passport.toofar", CL_LYNCH );
+    }
 
     if(FUEL_ROUTE_NOW < 1) {
         return msg( playerid, "job.nojob", FUEL_JOB_COLOR );

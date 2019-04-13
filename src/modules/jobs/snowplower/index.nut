@@ -509,6 +509,11 @@ function snowplowJobGet( playerid ) {
         return;
     }
 
+    if(!isPlayerHaveValidPassport(playerid)) {
+               msg(playerid, "job.needpassport", SNOWPLOW_JOB_COLOR );
+        return msg(playerid, "passport.toofar", CL_LYNCH );
+    }
+
     // если у игрока недостаточный уровень
     if(!isPlayerLevelValid ( playerid, SNOWPLOW_JOB_LEVEL )) {
         return msg(playerid, "job.snowplow.needlevel", SNOWPLOW_JOB_LEVEL, SNOWPLOW_JOB_COLOR );
@@ -630,6 +635,11 @@ Event: JOB - SNOWPLOW driver - Start route
 function snowplowJobStartRoute( playerid ) {
     if(!isPlayerInValidPoint(playerid, SNOWPLOW_JOB_X, SNOWPLOW_JOB_Y, RADIUS_SNOWPLOW)) {
         return;
+    }
+
+    if(!isPlayerHaveValidPassport(playerid)) {
+               msg(playerid, "job.needpassport", SNOWPLOW_JOB_COLOR );
+        return msg(playerid, "passport.toofar", CL_LYNCH );
     }
 
     local hour = getHour();

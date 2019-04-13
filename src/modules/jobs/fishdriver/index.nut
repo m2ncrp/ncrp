@@ -336,6 +336,12 @@ function fishJobGet( playerid ) {
         return;
     }
 
+    // если у игрока нет действительного паспорта
+    if(!isPlayerHaveValidPassport(playerid)) {
+               msg(playerid, "job.needpassport", FISH_JOB_COLOR );
+        return msg(playerid, "passport.toofar", CL_LYNCH );
+    }
+
     local hour = getHour();
     if(hour < FISH_JOB_GET_HOUR_START || hour >= FISH_JOB_GET_HOUR_END) {
         return msg( playerid, "job.closed", [ FISH_JOB_GET_HOUR_START.tostring(), FISH_JOB_GET_HOUR_END.tostring()], FISH_JOB_COLOR );

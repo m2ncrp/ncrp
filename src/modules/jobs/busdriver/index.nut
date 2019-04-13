@@ -350,6 +350,11 @@ function busJobGet( playerid ) {
         return msg(playerid, "job.bus.needlevel", BUS_JOB_LEVEL, BUS_JOB_COLOR );
     }
 
+    if(!isPlayerHaveValidPassport(playerid)) {
+               msg(playerid, "job.needpassport", BUS_JOB_COLOR );
+        return msg(playerid, "passport.toofar", CL_LYNCH );
+    }
+
     // local hour = getHour();
     // if(hour < BUS_JOB_GET_HOUR_START || hour >= BUS_JOB_GET_HOUR_END) {
     //     return msg( playerid, "job.closed", [ BUS_JOB_GET_HOUR_START.tostring(), BUS_JOB_GET_HOUR_END.tostring()], BUS_JOB_COLOR );
@@ -467,6 +472,11 @@ Event: JOB - BUS driver - Start route
 function busJobStartRoute( playerid ) {
     if(!isPlayerInValidPoint(playerid, BUS_JOB_X, BUS_JOB_Y, RADIUS_BUS)) {
         return;
+    }
+
+    if(!isPlayerHaveValidPassport(playerid)) {
+               msg(playerid, "job.needpassport", BUS_JOB_COLOR );
+        return msg(playerid, "passport.toofar", CL_LYNCH );
     }
 
     //local hour = getHour();

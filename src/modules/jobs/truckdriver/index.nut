@@ -6,27 +6,27 @@ local job_truck_blocked = {};
 local truckcars = {};
 local truck_scens = {};
 
-    // сценарий 1: Северный Миллвиль - Мидтаун Отель (доставка материалов) | Only winter
+    // сценарий 1: Северный Милвилл - Мидтаун Отель (доставка материалов) | Only winter
     truck_scens[1] <- { LoadText = "job.truckdriver.scens1.load", UnloadText = "job.truckdriver.scens1.unload", vehicleid = 35,
     LoadPointX = 826.769, LoadPointY = 517.451, LoadPointZ = -11.7677,
     UnloadPointX = -602.528, UnloadPointY = -223.786, UnloadPointZ = -4.22442 };
 
-    // сценарий 2: Хантерс Поинт - Северный Миллвиль (обломки здания) | Only summer
+    // сценарий 2: Хантерс Поинт - Северный Милвилл (обломки здания) | Only summer
     truck_scens[2] <- { LoadText = "job.truckdriver.scens2.load", UnloadText = "job.truckdriver.scens2.unload", vehicleid = 35,
     LoadPointX = -1582.51, LoadPointY = 571.176, LoadPointZ = -19.8774,
     UnloadPointX = 628.368, UnloadPointY = 382.828, UnloadPointZ = -6.70368 };
 
-    // сценарий 3: Мидтаун Разруха- Северный Миллвиль Свалка | Only winter
+    // сценарий 3: Мидтаун Разруха- Северный Милвилл Свалка | Only winter
     truck_scens[3] <- { LoadText = "job.truckdriver.scens3.load", UnloadText = "job.truckdriver.scens3.unload", vehicleid = 35,
     LoadPointX = -370.788, LoadPointY = -347.463, LoadPointZ =  -13.3999,
     UnloadPointX = 628.368, UnloadPointY = 382.828, UnloadPointZ = -6.70368 };
 
-    // сценарий 4: Доставка Южный Миллвилл склад 12 -> Сенд Айленд В глубине | All
+    // сценарий 4: Доставка Южный Милвилл склад 12 -> Сенд Айленд В глубине | All
     truck_scens[4] <- { LoadText = "job.truckdriver.scens4.load", UnloadText = "job.truckdriver.scens4.unload", vehicleid = 37,
     LoadPointX = 958.227, LoadPointY = -364.286, LoadPointZ =  -19.8471,
     UnloadPointX = -1526.77, UnloadPointY = 185.209, UnloadPointZ = -12.9613 };
 
-    // сценарий 5: Мидтаун Разруха - Северный Миллвиль Свалка Далеко | Only winter
+    // сценарий 5: Мидтаун Разруха - Северный Милвилл Свалка Далеко | Only winter
     truck_scens[5] <- { LoadText = "job.truckdriver.scens5.load", UnloadText = "job.truckdriver.scens5.unload", vehicleid = 35,
     LoadPointX = -370.788, LoadPointY = -347.463, LoadPointZ = -13.3999,
     UnloadPointX = 1189.01, UnloadPointY = 1148.07, UnloadPointZ = 3.3324 };
@@ -41,12 +41,12 @@ local truck_scens = {};
     LoadPointX = -1544.27, LoadPointY = -108.465, LoadPointZ = -18.0451,
     UnloadPointX = 634.324, UnloadPointY = 906.558, UnloadPointZ = -12.4234 };
 
-    // сценарий 8: Порт - Литейная в Северном Миллвиле | All
+    // сценарий 8: Порт - Литейная в Северном Милвилле | All
     truck_scens[8] <- { LoadText = "job.truckdriver.scens8.load", UnloadText = "job.truckdriver.scens8.unload", vehicleid = 35,
     LoadPointX = 167.902, LoadPointY = -760.497, LoadPointZ = -21.7744,
     UnloadPointX = 1248.75, UnloadPointY = 1239.23, UnloadPointZ = 0.823301 };
 
-    // сценарий 9: Угольный склад в Северном Миллвиле - пристань в Кингстоне | All
+    // сценарий 9: Угольный склад в Северном Милвилле - пристань в Кингстоне | All
     truck_scens[9] <- { LoadText = "job.truckdriver.scens9.load", UnloadText = "job.truckdriver.scens9.unload", vehicleid = 35,
     LoadPointX = 606.194, LoadPointY = 566.754, LoadPointZ = -12.0788,
     UnloadPointX = -1140.78, UnloadPointY = 1189.37, UnloadPointZ = -21.7018 };
@@ -65,7 +65,7 @@ local truck_scens = {};
     local truck_scens_winter = [ 1, 3, 4, 5, 6, 7, 8, 9, 11 ];
     local truck_scens_summer = [ 2, 4, 6, 7, 8, 9, 10, 11 ];
 
-    // сценарий 1: Северный Миллвиль - Мидтаун Разруха (доставка материалов) | All
+    // сценарий 1: Северный Милвилл - Мидтаун Разруха (доставка материалов) | All
     // truck_scens[10] <- { LoadText = "job.truckdriver.scens1.load", UnloadText = "job.truckdriver.scens1.unload", LoadPointX = 826.769, LoadPointY = 517.451, LoadPointZ = -11.7677, UnloadPointX = -370.788, UnloadPointY = -347.463, UnloadPointZ =  -13.3999 };
 
 
@@ -252,6 +252,13 @@ function truckJobTalk( playerid ) {
     if(!isPlayerInValidPoint(playerid, TRUCK_JOB_X, TRUCK_JOB_Y, RADIUS_TRUCK)) {
         return;
     }
+
+    // если у игрока нет действительного паспорта
+    if(!isPlayerHaveValidPassport(playerid)) {
+               msg(playerid, "job.needpassport", TRUCK_JOB_COLOR );
+        return msg(playerid, "passport.toofar", CL_LYNCH );
+    }
+
     // если у игрока недостаточный уровень
     if(!isPlayerLevelValid ( playerid, TRUCK_JOB_LEVEL )) {
         return msg(playerid, "job.truckdriver.needlevel", TRUCK_JOB_LEVEL, TRUCK_JOB_COLOR );

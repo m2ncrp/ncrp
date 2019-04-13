@@ -282,6 +282,11 @@ function milkJobGet ( playerid ) {
         return;
     }
 
+    if(!isPlayerHaveValidPassport(playerid)) {
+               msg(playerid, "job.needpassport", MILK_JOB_COLOR );
+        return msg(playerid, "passport.toofar", CL_LYNCH );
+    }
+
     //local hour = getHour();
     //if(hour < MILK_JOB_GET_HOUR_START || hour >= MILK_JOB_GET_HOUR_END) {
     //    return msg( playerid, "job.closed", [ MILK_JOB_GET_HOUR_START.tostring(), MILK_JOB_GET_HOUR_END.tostring()], MILK_JOB_COLOR );
@@ -364,6 +369,11 @@ Event: JOB - Milk driver - Get route
 function milkJobGetRoute ( playerid ) {
     if(!isPlayerInValidPoint(playerid, MILK_JOB_X, MILK_JOB_Y, MILK_JOB_RADIUS)) {
         return;
+    }
+
+    if(!isPlayerHaveValidPassport(playerid)) {
+               msg(playerid, "job.needpassport", MILK_JOB_COLOR );
+        return msg(playerid, "passport.toofar", CL_LYNCH );
     }
 
     //local hour = getHour();

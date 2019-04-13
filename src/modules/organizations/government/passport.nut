@@ -8,6 +8,25 @@ function passportHelp( playerid ) {
     msg_help(playerid, title, commands);
 }
 
+function isPlayerHaveValidPassport( playerid ) {
+    local haveValidPassport = false;
+
+    foreach (idx, item in players[playerid].inventory) {
+        if(item._entity == "Item.Passport") {
+            if(item.data.fio == getPlayerName(playerid)) {
+                local curdateStamp = getDay() + getMonth()*30 + getYear()*360;
+                local dateStamp = convertDateToTimestamp(item.data.expires);
+                if(curdateStamp <= dateStamp) {
+                    haveValidPassport = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    return haveValidPassport;
+}
+
 
 cmd("passport", function( playerid, parametr = 0 ) {
 
