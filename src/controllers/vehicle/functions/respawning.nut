@@ -6,13 +6,22 @@ event("onServerSecondChange", function() {
         return;
     }
 
+   resetVehiclePositionAndRotation();
+});
+
+event("onServerPlayerStarted", function(playerid) {
+    resetVehiclePositionAndRotation();
+});
+
+
+function resetVehiclePositionAndRotation() {
     foreach (vehicleid, object in __vehicles) {
         if (!isVehicleEmpty(vehicleid)) continue;
         setVehiclePositionObj(vehicleid, getVehiclePositionObj(vehicleid));
         setVehicleRotationObj(vehicleid, getVehicleRotationObj(vehicleid));
         setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
     }
-});
+}
 
 /**
  * Set if vehicle can be automatically respawned
