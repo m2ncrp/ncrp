@@ -283,7 +283,8 @@ alternativeTranslate({
 "en|Security"                               : "Security"
 "ru|Security"                               : "Охранник"
 
-
+"en|Passportist"                            : "Passportist"
+"ru|Passportist"                            : "Паспортист"
 
 
 "en|Boss"                                   : "Boss"
