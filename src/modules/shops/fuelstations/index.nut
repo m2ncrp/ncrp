@@ -32,7 +32,13 @@ local canister_shops = [
     [ -148.361, 602.842,    -20.1886],
     [ -708.623, 1755.18,    -15.0062],
     [ -1687.41, -233.401,   -20.328],
-    [ -1584.6,  944.037,    -5.2064]
+    [ -1584.6,  944.037,    -5.2064],
+
+    [ -590.481, -5894.12, -6.93749], // LH-CentraIsland
+    [  1332.21, -3831.19, 32.2895], // LH-HotelClark
+    [ -995.144, -6044.87, -5.22449], // LH-WorksQuarter
+    [  690.747, -5943.18, 8.33174], // LH-Downtown
+
 ];
 
 addEventHandlerEx("onServerStarted", function() {
@@ -232,7 +238,7 @@ function fuelVehicleUp(playerid) {
     setVehicleEngineState(vehicleid, false);
     trigger(playerid, "hudCreateTimer", fuelup_time, true, true);
     subMoneyToPlayer(playerid, cost);
-    addMoneyToTreasury(cost);
+    //addMoneyToTreasury(cost);
     delayedFunction(fuelup_time * 1000, function () {
         if(isPlayerConnected(playerid)) {
             freezePlayer( playerid, false);

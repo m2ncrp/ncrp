@@ -233,7 +233,35 @@ local interiors = [
 ["onfoot",  "Enter", "type",  -1687.77, -229.126,  -20.3346,    "Gas Station Sand Island door2"          ],
 ["onfoot",  "Exit",  "type",  -1687.77, -229.823,  -20.328,     "Gas Station Sand Island door2"          ],
 ["onfoot",  "Enter", "type",  -1689.35, -229.082,  -20.3342,    "Gas Station Sand Island door3"          ],
-["onfoot",  "Exit",  "type",  -1689.35, -229.831,  -20.328,     "Gas Station Sand Island door3"          ]
+["onfoot",  "Exit",  "type",  -1689.35, -229.831,  -20.328,     "Gas Station Sand Island door3"          ],
+
+["onfoot",  "Enter", "type",  693.296, -5946.62, 8.2942,  "Gas Station Downtown door1" ],
+["onfoot",  "Exit",  "type",  692.862, -5946.07, 8.32851, "Gas Station Downtown door1" ],
+["onfoot",  "Enter", "type",  693.399, -5939.88, 8.22501, "Gas Station Downtown door2"],
+["onfoot",  "Exit",  "type",  692.734, -5940.32, 8.32851, "Gas Station Downtown door2"],
+["onfoot",  "Enter", "type",  692.3, -5938.8, 8.24894,    "Gas Station Downtown door3"],
+["onfoot",  "Exit",  "type",  691.689, -5939.16, 8.32851, "Gas Station Downtown door3"],
+
+["onfoot",  "Enter", "type",  1328.27, -3829.36, 32.25,   "Gas Station Hotel Clark door1"],
+["onfoot",  "Exit",  "type",  1328.89, -3829.71, 32.2895, "Gas Station Hotel Clark door1"],
+["onfoot",  "Enter", "type",  1331.41, -3835.17, 32.25,   "Gas Station Hotel Clark door2"],
+["onfoot",  "Exit",  "type",  1331.87, -3834.58, 32.2895, "Gas Station Hotel Clark door2"],
+["onfoot",  "Enter", "type",  1332.93, -3835.82, 32.25 ,  "Gas Station Hotel Clark door3"],
+["onfoot",  "Exit",  "type",  1333.34, -3835.09, 32.2895, "Gas Station Hotel Clark door3"],
+
+["onfoot",  "Enter", "type", -590.002, -5889.8, -6.97514,  "Gas Station Central Island door1"],
+["onfoot",  "Exit",  "type", -590.239, -5890.51, -6.93749, "Gas Station Central Island door1"],
+["onfoot",  "Enter", "type", -594.567, -5894.77, -6.99561, "Gas Station Central Island door2"],
+["onfoot",  "Exit",  "type", -593.87, -5894.81, -6.93749,  "Gas Station Central Island door2"],
+["onfoot",  "Enter", "type", -594.696, -5896.35, -6.99083, "Gas Station Central Island door3"],
+["onfoot",  "Exit",  "type", -593.83, -5896.4, -6.93749,   "Gas Station Central Island door3"],
+
+["onfoot",  "Enter", "type", -994.697, -6040.38, -5.23837, "Gas Station Works Quarter door1"],
+["onfoot",  "Exit",  "type", -994.794, -6041.09, -5.22449, "Gas Station Works Quarter door1"],
+["onfoot",  "Enter", "type", -999.191, -6045.37, -5.27117, "Gas Station Works Quarter door2"],
+["onfoot",  "Exit",  "type", -998.472, -6045.43, -5.22449, "Gas Station Works Quarter door2"],
+["onfoot",  "Enter", "type", -999.291, -6046.96, -5.28076, "Gas Station Works Quarter door3"],
+["onfoot",  "Exit",  "type", -998.473, -6047.01, -5.22449, "Gas Station Works Quarter door3"],
 
 
 ];

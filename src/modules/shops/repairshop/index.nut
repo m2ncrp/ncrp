@@ -30,7 +30,8 @@ repair_shops <- [
     [ -686.074,   188.778,     1.20266, "WESTSIDE"         ],
     [ -1439.38,   1381.07,     -13.362, "GREENFIELD"        ],
     [ -377.372,   1735.65,    -22.8186, "DIPTON"            ],
-    [ -1583.72,   68.9308,    -13.0742, "SANDISLAND"       ]
+    [ -1583.72,   68.9308,    -13.0742, "SANDISLAND"       ],
+    [  832.358,  -4857.47,     18.1211, "AIRPORT"          ],
 ];
 
 addEventHandlerEx("onServerStarted", function() {
