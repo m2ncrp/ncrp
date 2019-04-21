@@ -1,6 +1,6 @@
 // constants
 const CARSHOP_STATE_FREE = "free";
-const CARSHOP_DISTANCE   = 5.0; // distance for command
+const CARSHOP_DISTANCE   = 50.0; // distance for command
 const CARSHOP_PRICE_DIFF = 50.0;
 
 const DIAMOND_CARSHOP_X = -204.324;
@@ -11,18 +11,33 @@ const BADGUY_CARSHOP_X  = -632.584;
 const BADGUY_CARSHOP_Y  =  959.446;
 const BADGUY_CARSHOP_Z  = -19.0542;
 
-local CARSHOP_PLACE_COORDS = [ -188.079, 812.369, -224.955, 843.047 ];
-local CARSHOP_PLACE_NAME = "CarShop";
+const TRUCK_SHOP_X  = -704.88;
+const TRUCK_SHOP_Y  = 1461.06;
+const TRUCK_SHOP_Z  = -6.82665;
 
-local CARSHOP_WORKING_HOUR_START = 8;
-local CARSHOP_WORKING_HOUR_END = 18;
+local DIAMOND_MOTORS_PLACE_COORDS = [ -188.079, 812.369, -224.955, 843.047 ];
+local DIAMOND_MOTORS_PLACE_NAME = "DiamondMotors";
+
+local TRUCK_SHOP_PLACE_COORDS = [ -704.074, 1463.32, -707.376, 1459.98 ];
+local TRUCK_SHOP_PLACE_NAME = "TruckShop";
+
+local WORKING_HOUR = {
+    "diamondMotors": {
+        "start": 9,
+        "end": 19
+    },
+    "truckShop": {
+        "start": 8,
+        "end": 18
+    }
+}
 
 /**
  * Regiser coordinates for vehicles (4 doors at diamond motors)
  * @type {Array}
  */
-local vehiclePositions = [
-    [   // diamond motors
+local vehiclePositions = {
+    "diamondMotors": [ // diamond motors
         { state = CARSHOP_STATE_FREE, position = Vector3(-205.466, 835.142, -20.9735), rotation = Vector3(159.300, 0.346464, 2.31108) },
         { state = CARSHOP_STATE_FREE, position = Vector3(-209.199, 833.547, -21.0283), rotation = Vector3(160.662, 0.470803, 2.37895) },
         { state = CARSHOP_STATE_FREE, position = Vector3(-213.164, 832.172, -20.9392), rotation = Vector3(160.965, 0.350293, 2.35895) },
@@ -33,18 +48,23 @@ local vehiclePositions = [
         { state = CARSHOP_STATE_FREE, position = Vector3(-221.450, 818.652, -20.6618), rotation = Vector3(92.0500, 3.72205, 0.869233) },
         { state = CARSHOP_STATE_FREE, position = Vector3(-221.450, 814.535, -20.6319), rotation = Vector3(92.0500, 3.80713, 0.798234) },
     ],
-    [   // bad guy
-        { state = CARSHOP_STATE_FREE, position = Vector3(-626.011, 949.629, -18.7708), rotation = Vector3(-89.2381, 1.3864, -0.456439) },
-        { state = CARSHOP_STATE_FREE, position = Vector3(-625.906, 954.701, -18.7714), rotation = Vector3(-89.3728, 1.50941, -0.26591) },
+    "badGuy": [   // bad guy
+        //{ state = CARSHOP_STATE_FREE, position = Vector3(-626.011, 949.629, -18.7708), rotation = Vector3(-89.2381, 1.3864, -0.456439) },
+        //{ state = CARSHOP_STATE_FREE, position = Vector3(-625.906, 954.701, -18.7714), rotation = Vector3(-89.3728, 1.50941, -0.26591) },
+    ],
+    "truckShop": [ // truck shop
+        { state = CARSHOP_STATE_FREE, position = Vector3(-705.155, 1456.00, -6.48204), rotation = Vector3(-43.0174, -0.252974, -0.64192) },
+        { state = CARSHOP_STATE_FREE, position = Vector3(-708.151, 1453.25, -6.50832), rotation = Vector3(-43.1396, -0.445434, -1.12674) },
+        { state = CARSHOP_STATE_FREE, position = Vector3(-711.119, 1450.54, -6.52765), rotation = Vector3(-41.8644, -0.613728,  -1.6044) },
+        //{ state = CARSHOP_STATE_FREE, position = Vector3(-714.315, 1447.55, -6.52792), rotation = Vector3(-41.1587, -1.82778, -0.432325) },
     ]
-];
+}
 
 /**
  * Array with current market car prices
  * @type {Array}
  */
 local carPricesAll = [
-    [   // diamond motors
        { modelid = 0   , price = 7200  , rent = 0.84, title = "Ascot Bailey S200"            },
        { modelid = 1   , price = 6400  , rent = 0.71, title = "Berkley Kingfisher"           },
        { modelid = 9   , price = 2510  , rent = 0.42, title = "Houston Wasp"                 },
@@ -69,65 +89,76 @@ local carPricesAll = [
        { modelid = 50  , price = 1850  , rent = 0.31, title = "Culver Empire"                },
        { modelid = 52  , price = 3150  , rent = 0.60, title = "Walker Rocket"                },
        { modelid = 53  , price = 380   , rent = 0.20, title = "Walter Coupe"                 },
-    ],
-    [
-        // bad guy
-    ]
+       { modelid = 37  , price = 1430  , rent = 0.0 , title = "Shubert Truck Covered"        },
+       { modelid = 35  , price = 1210  , rent = 0.0 , title = "Shubert Truck Flatbed"        },
+       { modelid = 46  , price = 960   , rent = 0.0 , title = "Smith Truck"                  },
 ];
 
 //local carOnSale = [ 0, 1, 9, 10, 12, 13, 14, 15, 22, 23, 25, 28, 29, 41, 43, 44, 45, 47, 48, 50, 52, 53 ];
-local carOnSale = [ 0, 1, 9, 10, 12, 13, 14, 15, 18, 22, 23, 25, 28, 29, 41, 43, 44, 45, 47, 48, 50, 52, 53 ];
+local carOnSale = {
+    "diamondMotors": [ 0, 1, 9, 10, 12, 13, 14, 15, 18, 22, 23, 25, 28, 29, 41, 43, 44, 45, 47, 48, 50, 52, 53 ],
+    "truckShop": [ 35, 37, 46 ]
+};
+
 local currentcarcolor = {};
 local carPrices = {};
+
 // translations
 alternativeTranslate({
-    "en|shops.carshop.gotothere"     : "If you want to buy a car go to Diamond Motors!"
-    "en|shops.carshop.gotothere2"    : "If you want to buy a car go to Diamond Motors or to Bad Guy Motors!"
-    "en|shops.carshop.welcome"       : "Hello there, %s! If you want to buy a car, you should first choose it via: /car list"
-    "en|shops.carshop.nofreespace"   : "There is no free space near Parking. Please come again later!"
-    "en|shops.carshop.money.error"   : "Sorry, you dont have enough money."
-    "en|shops.carshop.selectmodel"   : "You can browse vehicle models, and their prices via: /car list"
-    "en|shops.carshop.list.title"    : "Select car you like, and proceed to buying via: /car buy MODELID"
-    "en|shops.carshop.list.entry"    : " - Model #%d, '%s'. Cost: $%.2f"
-    "en|shops.carshop.success"       : "Congratulations on your purchase! Drive safe and enjoy your trip!"
-    "en|shops.carshop.notforsale"    : "This car is not for sale."
-    "en|shops.carshop.canbuy"        : "You can buy this car for $%.2f: /car buy"
-    "en|shops.carshop.paint"         : "To change color - press 2."
-    "en|shops.carshop.paint2"        : "To change main color - press 1. To change advanced color - press 2."
-    "en|shops.carshop.closed"        : "The car shop is closed. Opening hours: %s:00 - %s:00."
-    "en|shops.carshop.welcome1"      : "Welcome to the car shop Diamond Motors."
-    "en|shops.carshop.welcome2"      : "We are pleased to offer you a wide range of cars."
-    "en|shops.carshop.welcome3"      : "Select a car that suits your needs and sit into."
-    "en|shops.carshop.waitingyou"    : "We are waiting for you to buy your «Diamond Motor»!"
-    "en|shops.carshop.dontsteal"     : "Don't try to steal the car!"
+    "en|shops.carshop.gotothere"            : "If you want to buy a car go to Diamond Motors or to uncle Jonathan!"
+    "en|shops.carshop.gotothere2"           : "If you want to buy a car go to Diamond Motors or to Bad Guy Motors!"
+    "en|shops.carshop.welcome"              : "Hello there, %s! If you want to buy a car, you should first choose it via: /car list"
+    "en|shops.carshop.nofreespace"          : "There is no free space near Parking. Please come again later!"
+    "en|shops.carshop.money.error"          : "Sorry, you dont have enough money."
+    "en|shops.carshop.selectmodel"          : "You can browse vehicle models, and their prices via: /car list"
+    "en|shops.carshop.list.title"           : "Select car you like, and proceed to buying via: /car buy MODELID"
+    "en|shops.carshop.list.entry"           : " - Model #%d, '%s'. Cost: $%.2f"
+    "en|shops.carshop.success"              : "Congratulations on your purchase! Drive safe and enjoy your trip!"
+    "en|shops.carshop.notforsale"           : "This car is not for sale."
+    "en|shops.carshop.canbuy"               : "You can buy this car for $%.2f: /car buy"
+    "en|shops.carshop.paint"                : "To change color - press 2."
+    "en|shops.carshop.paint2"               : "To change main color - press 1. To change advanced color - press 2."
+    "en|shops.carshop.diamondMotors.closed" : "The car shop is closed. Opening hours: %s:00 - %s:00."
+    "en|shops.carshop.welcome1"             : "Welcome to the car shop Diamond Motors."
+    "en|shops.carshop.welcome2"             : "We are pleased to offer you a wide range of cars."
+    "en|shops.carshop.welcome3"             : "Select a car that suits your needs and sit into."
+    "en|shops.carshop.waitingyou"           : "We are waiting for you to buy your «Diamond Motor»!"
+    "en|shops.carshop.dontsteal"            : "Don't try to steal the car!"
 
-    "en|shops.carshop.help.title"    : "List of available commands for CAR SHOP:"
-    "en|shops.carshop.help.list"     : "Lists cars which are available to buy"
-    "en|shops.carshop.help.buy"      : "Attempt to buy car by provided modelid"
+    "en|shops.carshop.truck.welcome1"       : "Hello! My name is uncle Jonathan. I sell trucks. Do you want to buy?"
+    "en|shops.carshop.truck.welcome2"       : "Select a truck that suits your needs and sit into."
+    "en|shops.carshop.truckShop.closed"     : "Come back tomorrow from %s:00 to %s:00."
+
+    "en|shops.carshop.help.title"           : "List of available commands for CAR SHOP:"
+    "en|shops.carshop.help.list"            : "Lists cars which are available to buy"
+    "en|shops.carshop.help.buy"             : "Attempt to buy car by provided modelid"
+
+    "ru|shops.carshop.gotothere"            : "Если вы хотите купить авто, отправляйтесь в Diamond Motors или к дядюшке Джонатану!"
+    "ru|shops.carshop.gotothere2"           : "Если вы хотите купить авто, отправляйтесь в Diamond Motors или Bad Guy Motors!"
+    "ru|shops.carshop.welcome"              : "Добро пожаловать, %s! Если вы хотите купить авто, выберите модель через: /car list"
+    "ru|shops.carshop.nofreespace"          : "К сожалению, на парковке нету свободных мест. Зайдите позже."
+    "ru|shops.carshop.money.error"          : "К сожалению, у вас недостаточно денег."
+    "ru|shops.carshop.selectmodel"          : "Вы можете посмотреть модели авто и их цены, используя: /car list"
+    "ru|shops.carshop.list.title"           : "Выберите модель, которая вам нравится, и купите её, используя: /car buy MODELID"
+    "ru|shops.carshop.list.entry"           : " - Модель #%d, «%s». Цена: $%.2f"
+    "ru|shops.carshop.success"              : "Поздравляем с покупкой! Наслаждайтесь поездкой!"
+    "ru|shops.carshop.notforsale"           : "Этот автомобиль нельзя купить."
+    "ru|shops.carshop.canbuy"               : "Вы можете купить этот автомобиль за $%.2f: /car buy"
+    "ru|shops.carshop.paint"                : "Выбор цвета покраски - кнопка 2."
+    "ru|shops.carshop.paint2"               : "Смена основого цвета - кнопка 1. Смена доп. цвета - кнопка 2."
+    "ru|shops.carshop.diamondMotors.closed" : "Автосалон закрыт. Чаcы работы с %s:00 до %s:00."
+    "ru|shops.carshop.welcome1"             : "Добро пожаловать в автосалон Diamond Motors."
+    "ru|shops.carshop.welcome2"             : "Мы рады предложить вам широкий ассортимент автомобилей."
+    "ru|shops.carshop.welcome3"             : "Выбирайте любое понравившееся авто и садитесь в него."
+    "ru|shops.carshop.waitingyou"           : "Ждём вас за покупкой «бриллиантового мотора»!"
+    "ru|shops.carshop.dontsteal"            : "Не пытайтесь угнать автомобиль!"
+
+    "ru|shops.carshop.truck.welcome1"       : "Привет! Меня зовут дядюшка Джонатан. Я продаю грузовики. Не желаешь приобрести?"
+    "ru|shops.carshop.truck.welcome2"       : "Выбирай любой понравившийся трак и садись в него."
+    "ru|shops.carshop.truckShop.closed"     : "Я отдыхаю. Приходи завтра с %s:00 до %s:00."
 
 
-
-    "ru|shops.carshop.gotothere"     : "Если вы хотите купить авто, отправляйтесь в Diamond Motors!"
-    "ru|shops.carshop.gotothere2"    : "Если вы хотите купить авто, отправляйтесь в Diamond Motors или Bad Guy Motors!"
-    "ru|shops.carshop.welcome"       : "Добро пожаловать, %s! Если вы хотите купить авто, выберите модель через: /car list"
-    "ru|shops.carshop.nofreespace"   : "К сожалению, на парковке нету свободных мест. Зайдите позже."
-    "ru|shops.carshop.money.error"   : "К сожалению, у вас недостаточно денег."
-    "ru|shops.carshop.selectmodel"   : "Вы можете посмотреть модели авто и их цены, используя: /car list"
-    "ru|shops.carshop.list.title"    : "Выберите модель, которая вам нравится, и купите её, используя: /car buy MODELID"
-    "ru|shops.carshop.list.entry"    : " - Модель #%d, «%s». Цена: $%.2f"
-    "ru|shops.carshop.success"       : "Поздравляем с покупкой! Наслаждайтесь поездкой!"
-    "ru|shops.carshop.notforsale"    : "Этот автомобиль нельзя купить."
-    "ru|shops.carshop.canbuy"        : "Вы можете купить этот автомобиль за $%.2f: /car buy"
-    "ru|shops.carshop.paint"         : "Выбор цвета покраски - кнопка 2."
-    "ru|shops.carshop.paint2"        : "Смена основого цвета - кнопка 1. Смена доп. цвета - кнопка 2."
-    "ru|shops.carshop.closed"        : "Автосалон закрыт. Чаcы работы с %s:00 до %s:00."
-    "ru|shops.carshop.welcome1"      : "Добро пожаловать в автосалон Diamond Motors."
-    "ru|shops.carshop.welcome2"      : "Мы рады предложить вам широкий ассортимент автомобилей."
-    "ru|shops.carshop.welcome3"      : "Выбирайте любое понравившееся авто и садитесь в него."
-    "ru|shops.carshop.waitingyou"    : "Ждём вас за покупкой «бриллиантового мотора»!"
-    "ru|shops.carshop.dontsteal"     : "Не пытайтесь угнать автомобиль!"
-
-    "ru|shops.carshop.help.title"    : "Список команд для автосалона Diamond Motors:"
+    "ru|shops.carshop.help.title"    : "Список команд для покупки автомобиля:"
     "ru|shops.carshop.help.list"     : "Посмотреть список авто, доступных для покупки"
     "ru|shops.carshop.help.buy"      : "Купить выбранный автомобиль"
 });
@@ -140,10 +171,13 @@ event("onServerStarted", function() {
     //create3DText( DIAMOND_CARSHOP_X, DIAMOND_CARSHOP_Y, DIAMOND_CARSHOP_Z + 0.20, "/car", CL_WHITE.applyAlpha(75), CARSHOP_DISTANCE );
 
     createBlip  ( DIAMOND_CARSHOP_X, DIAMOND_CARSHOP_Y, ICON_LOGO_CAR, ICON_RANGE_FULL );
+    //createBlip  ( TRUCK_SHOP_X, TRUCK_SHOP_Y, ICON_LOGO_CAR, ICON_RANGE_FULL );
 
-    createPlace(CARSHOP_PLACE_NAME, CARSHOP_PLACE_COORDS[0], CARSHOP_PLACE_COORDS[1], CARSHOP_PLACE_COORDS[2], CARSHOP_PLACE_COORDS[3]);
+    createPlace(DIAMOND_MOTORS_PLACE_NAME, DIAMOND_MOTORS_PLACE_COORDS[0], DIAMOND_MOTORS_PLACE_COORDS[1], DIAMOND_MOTORS_PLACE_COORDS[2], DIAMOND_MOTORS_PLACE_COORDS[3]);
+    createPlace(TRUCK_SHOP_PLACE_NAME, TRUCK_SHOP_PLACE_COORDS[0], TRUCK_SHOP_PLACE_COORDS[1], TRUCK_SHOP_PLACE_COORDS[2], TRUCK_SHOP_PLACE_COORDS[3]);
 
-    carPrices = generateRandomCarPrices();
+    carPrices = generateRandomCars();
+
 /*
     msg(playerid, "shops.carshop.list.title", CL_INFO);
 
@@ -184,7 +218,7 @@ event("onServerStarted", function() {
 });
 
 event("onPlayerPlaceEnter", function(playerid, name) {
-    if (name == CARSHOP_PLACE_NAME) {
+    if (name == DIAMOND_MOTORS_PLACE_NAME) {
         if(isPlayerInVehicle(playerid)) {
             local vehicleid = getPlayerVehicle(playerid);
             local vehSpeed = getVehicleSpeed(vehicleid);
@@ -194,8 +228,8 @@ event("onPlayerPlaceEnter", function(playerid, name) {
             setVehicleSpeed(vehicleid, vehSpeed[0], vehSpeed[1], vehSpeed[2]);
         } else {
             local hour = getHour();
-            if(hour < CARSHOP_WORKING_HOUR_START || hour >= CARSHOP_WORKING_HOUR_END) {
-                return msg( playerid, "shops.carshop.closed", [ CARSHOP_WORKING_HOUR_START.tostring(), CARSHOP_WORKING_HOUR_END.tostring()], CL_ROYALBLUE );
+            if(hour < WORKING_HOUR.diamondMotors.start || hour >= WORKING_HOUR.diamondMotors.end) {
+                return msg( playerid, "shops.carshop.closed", [ WORKING_HOUR.diamondMotors.start.tostring(), WORKING_HOUR.diamondMotors.end.tostring()], CL_ROYALBLUE );
             }
             msg(playerid, "===========================================", CL_HELP_LINE);
             msg(playerid, "shops.carshop.welcome1", CL_FIREBUSH);
@@ -203,10 +237,20 @@ event("onPlayerPlaceEnter", function(playerid, name) {
             msg(playerid, "shops.carshop.welcome3", CL_SILVERSAND);
         }
     }
+
+    if (name == TRUCK_SHOP_PLACE_NAME) {
+        local hour = getHour();
+        if(hour < WORKING_HOUR.truckShop.start || hour >= WORKING_HOUR.truckShop.end) {
+            return msg( playerid, "shops.carshop.truckShop.closed", [ WORKING_HOUR.truckShop.start.tostring(), WORKING_HOUR.truckShop.end.tostring()], CL_ROYALBLUE );
+        }
+        msg(playerid, "===========================================", CL_HELP_LINE);
+        msg(playerid, "shops.carshop.truck.welcome1", CL_FIREBUSH);
+        msg(playerid, "shops.carshop.truck.welcome2", CL_SILVERSAND);
+    }
 });
 
 event("onPlayerPlaceExit", function(playerid, name) {
-    if (name == CARSHOP_PLACE_NAME) {
+    if (name == DIAMOND_MOTORS_PLACE_NAME) {
 
         if (!isPlayerInVehicle(playerid)) return msg(playerid, "shops.carshop.waitingyou", CL_FIREBUSH);
 
@@ -238,9 +282,10 @@ event ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
 
     blockDriving(playerid, vehicleid);
 
+    local shopName = getPlayerCarShopName(playerid);
     local hour = getHour();
-    if(hour < CARSHOP_WORKING_HOUR_START || hour >= CARSHOP_WORKING_HOUR_END) {
-        return msg( playerid, "shops.carshop.closed", [ CARSHOP_WORKING_HOUR_START.tostring(), CARSHOP_WORKING_HOUR_END.tostring()], CL_ROYALBLUE );
+    if(hour < WORKING_HOUR[shopName].start || hour >= WORKING_HOUR[shopName].end) {
+        return msg( playerid, "shops.carshop."+shopName+".closed", [ WORKING_HOUR[shopName].start.tostring(), WORKING_HOUR[shopName].end.tostring()], CL_ROYALBLUE );
     }
 
     local modelid = getVehicleModel(vehicleid);
@@ -248,6 +293,7 @@ event ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
 
            msg(playerid, "shops.carshop.canbuy", [car.price], CL_FIREBUSH);
     return msg(playerid, "shops.carshop.paint", CL_SILVERSAND);
+
 
 
 });
@@ -269,15 +315,19 @@ event("onServerMinuteChange", function() {
  * @param  {Inerger} playerid
  * @return {Integer}
  */
-function getPlayerCarShopIndex(playerid) {
+function getPlayerCarShopName(playerid) {
     if (getDistanceToPoint(playerid, DIAMOND_CARSHOP_X, DIAMOND_CARSHOP_Y, DIAMOND_CARSHOP_Z) <= CARSHOP_DISTANCE) {
-        return 0;
+        return "diamondMotors";
     }
-/*
-    if (getDistanceToPoint(playerid, BADGUY_CARSHOP_X , BADGUY_CARSHOP_Y , BADGUY_CARSHOP_Z ) <= CARSHOP_DISTANCE) {
-        return 1;
+
+    // if (getDistanceToPoint(playerid, BADGUY_CARSHOP_X , BADGUY_CARSHOP_Y , BADGUY_CARSHOP_Z ) <= CARSHOP_DISTANCE) {
+    //     return "truckShop";
+    // }
+
+    if (getDistanceToPoint(playerid, TRUCK_SHOP_X, TRUCK_SHOP_Y , TRUCK_SHOP_Z ) <= CARSHOP_DISTANCE) {
+        return "truckShop";
     }
-*/
+
     return null;
 }
 
@@ -341,7 +391,7 @@ function getCarShopModelById(modelid, carShopIndex = 0) {
  * @return {Table}
  */
 function getCarInfoModelById(modelid) {
-    foreach(idx, car in carPricesAll[0]) {
+    foreach(idx, car in carPricesAll) {
         if (car.modelid == modelid.tointeger()) {
             return car;
         }
@@ -395,8 +445,9 @@ function carShopChangeColor(playerid) {
         return;
     }
 
+    local shopName = getPlayerCarShopName(playerid);
     local hour = getHour();
-    if(hour < CARSHOP_WORKING_HOUR_START || hour >= CARSHOP_WORKING_HOUR_END) {
+    if(hour < WORKING_HOUR[shopName].start || hour >= WORKING_HOUR[shopName].end) {
         return;
     }
 
@@ -412,86 +463,45 @@ function carShopChangeColor(playerid) {
 }
 
 
+function generateRandomCars() {
 
-/**
- * Automatically changing the range of cars both stores.
- * Writing to carPrices[0] for Diamond Motors and carPrices[1] for Bad Guy
- */
+    local shops = ["diamondMotors"/*, "truckShop"*/];
 
-function generateRandomCarPrices() {
-    local carPrices = [[],[]];
-    local shopDiamondSpaces = vehiclePositions[0];
-    local countFreeSpaces = shopDiamondSpaces.len();
+    local carPricesArray = [];
 
-    local carPricesDiamond = clone(carPricesAll[0]);
-    for (local i = 0; i < countFreeSpaces; i++) {
-        local rand = random(0, carPricesDiamond.len() - 1);
-        // dbg(carPricesDiamond[rand].modelid);
-        if( carOnSale.find(carPricesDiamond[rand].modelid) == null ) { i--; /* dbg("nicht"); */ continue; }
+    foreach (idx, shopName in shops) {
 
-        local vehicleid = createVehicle(carPricesDiamond[rand].modelid,
-            shopDiamondSpaces[i].position.x, shopDiamondSpaces[i].position.y, shopDiamondSpaces[i].position.z,
-            shopDiamondSpaces[i].rotation.x, shopDiamondSpaces[i].rotation.y, shopDiamondSpaces[i].rotation.z
-        );
-        currentcarcolor[vehicleid] <- 0;
-        setVehiclePlateText(vehicleid, " SALE ");
-        setVehicleDirtLevel(vehicleid, 0.0);
-        delayedFunction(1000, function() { setRandomVehicleColors(vehicleid); });
-        repairVehicle(vehicleid);
+        local spaces = vehiclePositions[shopName];
+        local countFreeSpaces = spaces.len();
 
-        carPrices[0].push(carPricesDiamond[rand]);
-        carPricesDiamond.remove(rand);
-    }
-    carPricesDiamond.clear();
+        local carPricesClone = clone(carPricesAll);
 
+        for (local i = 0; i < countFreeSpaces; i++) {
+            local rand = random(0, carPricesClone.len() - 1);
+            if( carOnSale[shopName].find(carPricesClone[rand].modelid) == null ) { i--; /* dbg("nicht"); */ continue; }
 
-    foreach (idx, subprices in carPrices) {
-        foreach (idx_, object in subprices) {
-            object.price = randomf(object.price - CARSHOP_PRICE_DIFF * 0.5, object.price + CARSHOP_PRICE_DIFF * 2.0);
+            local vehicleid = createVehicle(carPricesClone[rand].modelid,
+                spaces[i].position.x, spaces[i].position.y, spaces[i].position.z,
+                spaces[i].rotation.x, spaces[i].rotation.y, spaces[i].rotation.z
+            );
+            currentcarcolor[vehicleid] <- 0;
+            setVehiclePlateText(vehicleid, " SALE ");
+            setVehicleDirtLevel(vehicleid, 0.0);
+            delayedFunction(1000, function() { setRandomVehicleColors(vehicleid); });
+            repairVehicle(vehicleid);
+
+            carPricesArray.push(carPricesClone[rand]);
+            carPricesClone.remove(rand);
         }
+        carPricesClone.clear();
     }
 
-    return carPrices;
+    return carPricesArray;
+
 }
 
+
 /* ==================================================================== COMMANDS ================================================================================= */
-
-
-/**
- * Car help
- * Usage: /car
- */
-// cmd("car", function(playerid) {
-//     if (isPlayerNearCarShop(playerid)) {
-//         return msg(playerid, "shops.carshop.welcome", getPlayerName(playerid), CL_INFO);
-//     }
-
-//     return msg(playerid, "shops.carshop.gotothere", getPlayerName(playerid), CL_WARNING);
-// });
-
-/**
- * RANAMED FROM CAR LIST
- * List car models available in the shop
- * Usage: /car
-
-cmd("car", function(playerid, page = null, a = null) {
-    if (!isPlayerNearCarShop(playerid)) {
-        return msg(playerid, "shops.carshop.gotothere", getPlayerName(playerid), CL_WARNING);
-    }
-
-    local carshopid = getPlayerCarShopIndex(playerid);
-
-    msg(playerid, "shops.carshop.list.title", CL_INFO);
-
-    foreach (idx, car in getCarPrices(carshopid)) {
-        msg(playerid, "shops.carshop.list.entry", [car.modelid, car.title, car.price])
-    }
-
-
-    //triggerClientEvent(playerid, "showCarShopGUI");
-});
- */
-
 
 /**
  * Attempt to by car model
@@ -510,9 +520,11 @@ cmd("car", "buy", function(playerid) {
         return msg(playerid, "shops.carshop.notforsale", CL_WARNING);
     }
 
+
+    local shopName = getPlayerCarShopName(playerid);
     local hour = getHour();
-    if(hour < CARSHOP_WORKING_HOUR_START || hour >= CARSHOP_WORKING_HOUR_END) {
-        return msg( playerid, "shops.carshop.closed", [ CARSHOP_WORKING_HOUR_START.tostring(), CARSHOP_WORKING_HOUR_END.tostring()], CL_ROYALBLUE );
+    if(hour < WORKING_HOUR[shopName].start || hour >= WORKING_HOUR[shopName].end) {
+        return msg( playerid, "shops.carshop."+shopName+".closed", [ WORKING_HOUR[shopName].start.tostring(), WORKING_HOUR[shopName].end.tostring()], CL_ROYALBLUE );
     }
 
     if(!players[playerid].inventory.isFreeSpace(1)) {
@@ -536,7 +548,7 @@ cmd("car", "buy", function(playerid) {
     subMoneyToPlayer(playerid, car.price);
 
     // add money to treasury
-    addMoneyToTreasury(car.price);
+    // addMoneyToTreasury(car.price);
 
     local vehiclePlate = getRandomVehiclePlate();
 
@@ -560,61 +572,6 @@ cmd("car", "buy", function(playerid) {
     //triggerClientEvent(playerid, "hideCarShopGUI");
     return msg(playerid, "shops.carshop.success", CL_SUCCESS);
 });
-
-
-
-
-
-
-
-/*
-
-cmd("skin", "buy", function(playerid, skinid = null) {
-    local skinid = toInteger(skinid);
-
-    if(!isPlayerInValidPoint(playerid, CLOTHES_SHOP_X, CLOTHES_SHOP_Y, CLOTHES_SHOP_DISTANCE)) {
-        return msg(playerid, "shops.clothesshop.gotothere", getPlayerName(playerid), CL_THUNDERBIRD);
-    }
-
-    if (!skinid || !getSkinBySkinId(skinid)) {
-        return msg(playerid, "shops.clothesshop.selectskin");
-    }
-
-    if(!players[playerid].inventory.isFreeSpace(1)) {
-        return msg(playerid, "inventory.space.notenough", CL_THUNDERBIRD);
-    }
-
-    local skin = getSkinBySkinId(skinid);
-
-    if (!canMoneyBeSubstracted(playerid, skin.price)) {
-        //triggerClientEvent(playerid, "hideCarShopGUI");
-        return msg(playerid, "shops.clothesshop.money.error", CL_THUNDERBIRD);
-    }
-
-    local clothes = Item.Clothes();
-    if (!players[playerid].inventory.isFreeWeight(clothes)) {
-        return msg(playerid, "inventory.weight.notenough", CL_THUNDERBIRD);
-    }
-    // take money
-    subMoneyToPlayer(playerid, skin.price);
-    addMoneyToTreasury(skin.price);
-    msg(playerid, "shops.clothesshop.success", CL_SUCCESS);
-    clothes.amount = skin.skinid;
-    players[playerid].inventory.push( clothes );
-    clothes.save();
-    players[playerid].inventory.sync();
-
-    //setPlayerModel(playerid, skin.skinid, true);
-});
-
-
-
-
-
-*/
-
-
-
 
 function carShopHelp (playerid, a = null, b = null) {
     local title = "shops.carshop.help.title";
