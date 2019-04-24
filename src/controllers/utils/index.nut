@@ -1,6 +1,7 @@
 include("controllers/utils/commands.nut");
 //include("controllers/utils/presledovanie.nut"); // also need enable OnServerPulse event
 include("controllers/utils/distanceCounter.nut");
+//include("controllers/utils/coordsRecorder.nut");
 
 class DataFile {
     filename = null;
