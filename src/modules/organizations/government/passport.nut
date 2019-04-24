@@ -72,8 +72,8 @@ cmd("passport", function( playerid, parametr = 0 ) {
     }
 
     local passportObj = Item.Passport();
-    if (!players[playerid].inventory.isFreeWeight(passportObj)) {
-        return msg(playerid, "inventory.weight.notenough", CL_THUNDERBIRD);
+    if (!players[playerid].inventory.isFreeVolume(passportObj)) {
+        return msg(playerid, "inventory.volume.notenough", CL_THUNDERBIRD);
     }
 
     local defaulttogooc = getPlayerOOC(playerid);

@@ -14,7 +14,7 @@ class ItemContainer extends Container
     sizeY = 3;
 
     /**
-     * Curent container size limit (weight)
+     * Curent container size limit (volume)
      * @type {Number}
      */
     limit = -1;
@@ -192,35 +192,35 @@ class ItemContainer extends Container
     }
 
     /**
-     * Get total weight for all current items
+     * Get total volume for all current items
      * @return {Float}
      */
-    function calculateWeight() {
-        local weight = 0.0;
+    function calculateVolume() {
+        local volume = 0.0;
 
         foreach (idx, item in this.__data) {
-            weight += item.calculateWeight();
+            volume += item.calculateVolume();
         }
 
-        return weight;
+        return volume;
     }
 
 
     /**
-     * Check wether or not particular weight
+     * Check wether or not particular volume
      * or item can be inserted into
      * @param  {Float|Item}  value
      * @return {Boolean}
      */
-    function isFreeWeight(value) {
+    function isFreeVolume(value) {
         if (value instanceof Item.Abstract) {
-            value = value.calculateWeight();
+            value = value.calculateVolume();
         }
         else {
             value = value.tofloat();
         }
 
-        return this.calculateWeight() + value < this.limit;
+        return this.calculateVolume() + value < this.limit;
     }
 
     /**
@@ -246,7 +246,7 @@ class ItemContainer extends Container
      * @return {Boolean}
      */
     function canBeInserted(item) {
-        return this.isFreeSpace(1) && this.isFreeWeight(item);
+        return this.isFreeSpace(1) && this.isFreeVolume(item);
     }
 
     /**

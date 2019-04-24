@@ -6,8 +6,8 @@ class Item.Weapon extends Item.Abstract
     model       = 0;
     ammo        = "";
 
-    function calculateWeight () {
-        return this.weight;
+    function calculateVolume () {
+        return this.volume;
     }
 
     function use(playerid, inventory) {

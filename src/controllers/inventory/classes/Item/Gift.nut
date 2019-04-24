@@ -5,7 +5,7 @@ class Item.Gift extends Item.Abstract
     constructor () {
         base.constructor();
         // this.container.sizeX = this.container.sizeY = 1;
-        this.weight = 0.10;
+        this.volume = 0.10;
         this.default_decay = 0;
     }
 

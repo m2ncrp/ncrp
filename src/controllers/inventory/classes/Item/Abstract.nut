@@ -19,8 +19,8 @@ class Item.Abstract extends ORM.JsonEntity
 
     stackable   = false;
     maxstack    = 0;
-    weight      = 0.0;
-    unitweight  = 0.0;
+    volume      = 0.0;
+    unitvolume  = 0.0;
     capacity    = 0.0;
     default_decay = 600;
 
@@ -64,8 +64,8 @@ class Item.Abstract extends ORM.JsonEntity
         msg(playerid, "inventory.dropped", [ plocalize(playerid, this.classname )], CL_SUCCESS);
     }
 
-    function calculateWeight() {
-        return this.weight;
+    function calculateVolume() {
+        return this.volume;
     }
 
     function serialize() {
@@ -74,7 +74,7 @@ class Item.Abstract extends ORM.JsonEntity
             type        = this.getType(),
             slot        = this.slot,
             amount      = this.amount,
-            weight      = this.calculateWeight(),
+            volume      = this.calculateVolume(),
             id          = this.id,
         };
 

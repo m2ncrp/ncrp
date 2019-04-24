@@ -1,7 +1,7 @@
 class Item.VehicleTax extends Item.Abstract
 {
     static classname = "Item.VehicleTax";
-    weight      = 0.02;
+    volume      = 0.02;
 
     function use(playerid, inventory) {
         msg(playerid, "==================================", CL_HELP_LINE);

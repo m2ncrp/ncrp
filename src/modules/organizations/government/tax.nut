@@ -109,8 +109,8 @@ cmd("tax", function( playerid, plateText = 0, monthUp = 1 ) {
     }
 
     local taxObj = Item.VehicleTax();
-    if (!players[playerid].inventory.isFreeWeight(taxObj)) {
-        return msg(playerid, "inventory.weight.notenough", CL_THUNDERBIRD);
+    if (!players[playerid].inventory.isFreeVolume(taxObj)) {
+        return msg(playerid, "inventory.volume.notenough", CL_THUNDERBIRD);
     }
 
     if(monthUp) {

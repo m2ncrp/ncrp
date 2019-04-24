@@ -66,8 +66,8 @@ acmd("vt", function(playerid, plateText = 0, ownerid = null) {
     }
 
     local vehicleTitle = Item.VehicleTitle();
-    if (!players[playerid].inventory.isFreeWeight(vehicleTitle)) {
-        return msg(playerid, "inventory.weight.notenough", CL_THUNDERBIRD);
+    if (!players[playerid].inventory.isFreeVolume(vehicleTitle)) {
+        return msg(playerid, "inventory.volume.notenough", CL_THUNDERBIRD);
     }
 
     local plateText = plateText.toupper();

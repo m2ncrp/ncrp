@@ -2,12 +2,12 @@ class Item.FirstAidKit extends Item.Abstract
 {
     static classname = "Item.FirstAidKit";
 
-    weight = 0.75;
-    unitweight = 0.25;
+    volume = 0.75;
+    unitvolume = 0.25;
     amount = 4;
 
-    function calculateWeight () {
-        return this.weight + this.unitweight * this.amount;
+    function calculateVolume () {
+        return this.volume + this.unitvolume * this.amount;
     }
 
     function use(playerid, inventory) {

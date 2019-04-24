@@ -301,8 +301,8 @@ cmd("dealer", "buy", function(playerid) {
     }
 
     local vehicleKey = Item.VehicleKey();
-    if (!players[playerid].inventory.isFreeWeight(vehicleKey)) {
-        return msg(playerid, "inventory.weight.notenough", CL_ERROR);
+    if (!players[playerid].inventory.isFreeVolume(vehicleKey)) {
+        return msg(playerid, "inventory.volume.notenough", CL_ERROR);
     }
 
     local margin = car.price * margin_percent;
@@ -411,8 +411,8 @@ cmd("dealer", "take", function(playerid) {
     }
 
     local vehicleKey = Item.VehicleKey();
-    if (!players[playerid].inventory.isFreeWeight(vehicleKey)) {
-        return msg(playerid, "inventory.weight.notenough", CL_ERROR);
+    if (!players[playerid].inventory.isFreeVolume(vehicleKey)) {
+        return msg(playerid, "inventory.volume.notenough", CL_ERROR);
     }
 
     msg(playerid, "cardealer.returnedCarFree", CL_SUCCESS);

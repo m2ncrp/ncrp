@@ -1,7 +1,7 @@
 class Item.Cigarettes extends Item.Abstract
 {
     static classname = "Item.Cigarettes";
-    weight = 0.025;
+    volume = 0.025;
     effect = 0;
     timeout = 0;
     steps = 4;

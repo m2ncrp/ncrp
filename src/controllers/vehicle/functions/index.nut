@@ -116,7 +116,7 @@ function loadVehicleInventory(entity) {
     local data = {
         sizeX  = getVehicleTrunkDefaultSizeX(entity.model),
         sizeY  = getVehicleTrunkDefaultSizeY(entity.model),
-        limit  = getVehicleTrunkDefaultWeightLimit(entity.model),
+        limit  = getVehicleTrunkDefaultVolumeLimit(entity.model),
     }
 
     entity.inventory = VehicleItemContainer(entity, data);

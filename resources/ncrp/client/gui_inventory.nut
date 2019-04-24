@@ -305,7 +305,7 @@ class Inventory
             }
 
             foreach (idx, item in this.data.items) {
-                this.createItem(item.slot, item.classname, item.type, item.amount, item.weight);
+                this.createItem(item.slot, item.classname, item.type, item.amount, item.volume);
             }
 
             local size = this.data.sizeX * this.data.sizeY;
@@ -343,7 +343,7 @@ class Inventory
             // and put old to cache
             if (matched && matched.classname != item.classname) {
                 this.cacheItem(item);
-                this.createItem(slot, matched.classname, matched.type, matched.amount, matched.weight);
+                this.createItem(slot, matched.classname, matched.type, matched.amount, matched.volume);
                 continue;
             }
 
@@ -351,7 +351,7 @@ class Inventory
             // only need to change text on picture
             if (matched && matched.classname == item.classname && matched.amount != item.amount) {
                 item.amount = matched.amount;
-                item.weight = matched.weight;
+                item.volume = matched.volume;
                 // guiSetText(item.label, formatLabelText(item));
                 continue;
             }
@@ -361,8 +361,8 @@ class Inventory
         }
     }
 
-    function createItem(slot, classname, type, amount = 0, weight = 0.0, outside_form = false) {
-        local item = { classname = classname, type = type, slot = slot, amount = amount, weight = weight, handle = null, label = null, active = false, parent = this };
+    function createItem(slot, classname, type, amount = 0, volume = 0.0, outside_form = false) {
+        local item = { classname = classname, type = type, slot = slot, amount = amount, volume = volume, handle = null, label = null, active = false, parent = this };
         local pos  = this.getItemPosition(item);
 
         try {
@@ -668,8 +668,8 @@ class PlayerHands extends Inventory
         backbone["ihands"] = this;
     }
 
-    function createItem(slot, classname, type, amount = 0, weight = 0.0) {
-        return base.createItem(slot, classname, type, amount, weight, true);
+    function createItem(slot, classname, type, amount = 0, volume = 0.0) {
+        return base.createItem(slot, classname, type, amount, volume, true);
     }
 
     function hide() {
@@ -834,11 +834,11 @@ event("onClientFrameRender", function(afterGUI) {
 
         local items  = clone(inventory.items);              if (typeof items != "table") return;
         local window = guiGetPosition(inventory.handle);    if (typeof window != "array" || window.len() != 2) return;
-        local weight = 0.0;
+        local volume = 0.0;
         local size   = inventory.getSize();                 if (typeof size != "table") return;
 
         foreach (idx, item in items) {
-            weight += item.weight;
+            volume += item.volume;
 
             if (!item.active) continue;
 
@@ -857,7 +857,7 @@ event("onClientFrameRender", function(afterGUI) {
             size = inventory.getOriginalSize();
         }
 
-        local coef = (weight / inventory.data.limit);       if (typeof coef != "float") return;
+        local coef = (volume / inventory.data.limit);       if (typeof coef != "float") return;
         local invwidth = size.x - inventory.guiPadding * 2 - inventory.guiRightOffset - 7;
         local width = invwidth * (coef > 1.0 ? 1.0 : coef);
 

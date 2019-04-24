@@ -30,6 +30,27 @@ class StorageItemContainer extends ItemContainer
         return base.canBeInserted(item);
     }
 
+    function isFreeVolume(value) {
+
+        if (value instanceof Item.Abstract) {
+            value = value.calculateVolume();
+        } else {
+            value = value.tofloat();
+        }
+
+        if (this.parent && (this.parent.state == Item.State.PLAYER || this.parent.state == Item.State.VEHICLE_INV || this.parent.state == Item.State.BUILDING_INV)) {
+                // item is in some inventory (player, vehicle) (do the new code)
+                msga("Base: "+base.calculateVolume(), [], CL_CHAT_MONEY_ADD)
+                msga("Value: "+value, [], CL_CHAT_MONEY_ADD)
+                msga("Limit: "+this.limit, [], CL_CHAT_MONEY_ADD)
+                // алгоритм расчёта если ящик находится у игрока/авто/здания
+                return base.isFreeVolume(value)
+        } else {
+            // item is on ground or elsewhere (do the old code)
+            return base.isFreeVolume(value)
+        }
+    }
+
     /**
      * Overrides for syncing
      * @param {Mixed} key

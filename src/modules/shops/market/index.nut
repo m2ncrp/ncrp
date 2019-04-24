@@ -57,10 +57,10 @@ event("native:shop:purchase", function(playerid, data) {
         itemObject.amount = item.amount;
     }
 
-    local weight = itemObject.calculateWeight();
+    local volume = itemObject.calculateVolume();
 
-    if (!players[playerid].inventory.isFreeWeight(weight)) {
-        return msg(playerid, "inventory.weight.notenough", CL_WARNING);
+    if (!players[playerid].inventory.isFreeVolume(volume)) {
+        return msg(playerid, "inventory.volume.notenough", CL_WARNING);
     }
 
     subMoneyToPlayer(playerid, price);

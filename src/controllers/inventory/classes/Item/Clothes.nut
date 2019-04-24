@@ -2,7 +2,7 @@ class Item.Clothes extends Item.Abstract
 {
     static classname = "Item.Clothes";
 
-    weight = 0.4;
+    volume = 0.4;
 
     function use(playerid, inventory) {
         if(isPlayerInVehicle(playerid)) return msg(playerid, "inventory.leavethecar", CL_THUNDERBIRD);

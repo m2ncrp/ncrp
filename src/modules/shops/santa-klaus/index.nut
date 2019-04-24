@@ -79,8 +79,8 @@ cmd("gift", function(playerid, ...) {
             return msg(playerid, "santa.gift.alreadyget", CL_WARNING);
         }
 
-        if (!players[playerid].inventory.isFreeWeight(gift)) {
-            return msg(playerid, "inventory.weight.notenough", CL_ERROR);
+        if (!players[playerid].inventory.isFreeVolume(gift)) {
+            return msg(playerid, "inventory.volume.notenough", CL_ERROR);
         }
 
         players[playerid].inventory.push( gift );

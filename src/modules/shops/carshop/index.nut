@@ -540,8 +540,8 @@ cmd("car", "buy", function(playerid) {
     }
 
     local vehicleKey = Item.VehicleKey();
-    if (!players[playerid].inventory.isFreeWeight(vehicleKey)) {
-        return msg(playerid, "inventory.weight.notenough", CL_ERROR);
+    if (!players[playerid].inventory.isFreeVolume(vehicleKey)) {
+        return msg(playerid, "inventory.volume.notenough", CL_ERROR);
     }
 
     // take money

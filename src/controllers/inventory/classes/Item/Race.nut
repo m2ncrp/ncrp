@@ -2,7 +2,7 @@ class Item.Race extends Item.Abstract
 {
     static classname = "Item.Race";
     default_decay = 0;
-    weight        = 0.05;
+    volume        = 0.05;
 
     function use(playerid, inventory) {
 

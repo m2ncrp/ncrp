@@ -1,7 +1,7 @@
 class Item.Passport extends Item.Abstract
 {
     static classname = "Item.Passport";
-    weight      = 0.05;
+    volume      = 0.05;
 
     function use(playerid, inventory) {
         msg(playerid, "===========================================", CL_HELP_LINE);

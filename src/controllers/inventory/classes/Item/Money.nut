@@ -2,7 +2,7 @@ class Item.Money extends Item.Abstract
 {
     static classname = "Item.Money";
     amount = 350.0;
-    weight = 0.05;
+    volume = 0.05;
 
 
     function use(playerid, inventory) {

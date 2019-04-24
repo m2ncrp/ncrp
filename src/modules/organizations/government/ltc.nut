@@ -75,8 +75,8 @@ cmd("ltc", function( playerid, parametr = 0 ) {
     }
 
     local ltcObj = Item.LTC();
-    if (!players[playerid].inventory.isFreeWeight(ltcObj)) {
-        return msg(playerid, "inventory.weight.notenough", CL_THUNDERBIRD);
+    if (!players[playerid].inventory.isFreeVolume(ltcObj)) {
+        return msg(playerid, "inventory.volume.notenough", CL_THUNDERBIRD);
     }
 
     subMoneyToPlayer(playerid, 250.0);
