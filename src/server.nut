@@ -113,6 +113,7 @@ include("helpers/datetime.nut");
 include("helpers/base64.nut");
 include("helpers/urlencode.nut");
 include("helpers/table.nut");
+include("helpers/constants.nut");
 
 // load controllers
 include("controllers");
