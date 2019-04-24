@@ -279,7 +279,7 @@ event("onPlayerSpawned", function(playerid) {
     // special check for spawning inside closed truck
     foreach (vehicleid, value in __vehicles) {
         local vehModel = getVehicleModel(vehicleid);
-        if (vehModel == 38 || vehModel == 34) {
+        if (vehModel == 38 || vehModel == 34 || vehModel == 46) {
 
             local vpos = getVehiclePosition(vehicleid);
             // if inside vehicle, set offsetted position
