@@ -1,13 +1,13 @@
 class Item.Jerrycan extends Item.Abstract
 {
     static classname = "Item.Jerrycan";
-    weight      = 0.5;
-    unitweight  = 0.2;
-    capacity    = 20.0;
+    volume      = 23.46;  // объём канистры снаружи
+    //unitvolume  = 1; // вес 1 литра бензина 730 грамм
+    capacity    = 20;  // количество литров в канистре
 
-    function calculateWeight () {
-        return this.weight + this.unitweight * this.amount;
-    }
+    //function calculateVolume () {
+    //    return this.volume + this.unitvolume * this.amount;
+    //}
 
     function use(playerid, inventory) {
         if(isPlayerInVehicle(playerid)) return msg(playerid, "inventory.leavethecar", CL_THUNDERBIRD);
@@ -33,7 +33,7 @@ class Item.Jerrycan extends Item.Abstract
         setVehicleFuel(vehicleid, getVehicleFuelEx(vehicleid) + fuel);
         this.amount -= fuel;
         this.save();
-        msg(playerid, "canister.use.spent", [fuel, this.amount], CL_SUCCESS);
+        msg(playerid, "canister.use.spent", [fuel * GALLONS_PER_LITRE, this.amount * GALLONS_PER_LITRE], CL_SUCCESS);
         inventory.sync();
     }
 

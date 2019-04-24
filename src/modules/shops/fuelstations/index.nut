@@ -221,7 +221,8 @@ function fuelVehicleUp(playerid) {
     }
 
     local fuel = round(getVehicleFuelNeed(vehicleid), 2);
-    local cost = round(GALLON_COST * fuel, 2);
+    local fuelInGallons = round(fuel * GALLONS_PER_LITRE, 2);
+    local cost = round(GALLON_COST * fuelInGallons, 2);
 
     if ( !isVehicleFuelNeeded(vehicleid) ) {
         return msg(playerid, "shops.fuelstations.fueltank.full", CL_THUNDERBIRD);
@@ -243,7 +244,7 @@ function fuelVehicleUp(playerid) {
         if(isPlayerConnected(playerid)) {
             freezePlayer( playerid, false);
             delayedFunction(1000, function () { freezePlayer( playerid, false); });
-            msg(playerid, "shops.fuelstations.fuel.payed", [cost, fuel, getPlayerBalance(playerid)], CL_CHESTNUT2);
+            msg(playerid, "shops.fuelstations.fuel.payed", [cost, fuelInGallons, getPlayerBalance(playerid)], CL_CHESTNUT2);
         }
         fueltank_loading[vehicleid] = false;
         setVehicleFuel(vehicleid, getDefaultVehicleFuel(vehicleid));
@@ -261,11 +262,14 @@ function fuelJerrycanUp( playerid ) {
         return msg(playerid, "canister.fuelup.toofar", [], CL_THUNDERBIRD);
     }
 
-    if ( players[playerid].hands.get(0).amount == 20.0 ) {
+    local jerrycanObj = players[playerid].hands.get(0);
+
+    if ( jerrycanObj.amount == jerrycanObj.capacity ) {
         return msg(playerid, "canister.fuelup.isfull", CL_THUNDERBIRD);
     }
 
-    local fuel = round(20.0 - players[playerid].hands.get(0).amount, 2);
+    local fuel = round(jerrycanObj.capacity - jerrycanObj.amount, 2);
+    local fuelInGallons = round(fuel * GALLONS_PER_LITRE, 2);
     local cost = round(GALLON_COST * fuel, 2);
 
     if ( !canMoneyBeSubstracted(playerid, cost) ) {
@@ -282,9 +286,9 @@ function fuelJerrycanUp( playerid ) {
         freezePlayer( playerid, false);
         players[playerid].inventory.blocked = false;
         delayedFunction(1000, function () { freezePlayer( playerid, false); });
-        msg(playerid, "canister.fuelup.filled", [fuel, cost], CL_CHESTNUT2);
-        players[playerid].hands.get(0).amount = 20.0;
-        players[playerid].hands.get(0).save();
+        msg(playerid, "canister.fuelup.filled", [fuelInGallons, cost], CL_CHESTNUT2);
+        jerrycanObj.amount = jerrycanObj.capacity;
+        jerrycanObj.save();
         players[playerid].hands.sync();
         subMoneyToPlayer(playerid, cost);
         addMoneyToTreasury(cost);
