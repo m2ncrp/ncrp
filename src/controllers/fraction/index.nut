@@ -27,7 +27,7 @@ include("controllers/fraction/commands/money.nut");
 include("controllers/fraction/commands/chat.nut");
 
 fractions <- ContainerFractions();
-
+/*
 event("onServerStarted", function() {
     local temp = {
         fractions = {},
@@ -72,3 +72,4 @@ event("onServerStarted", function() {
 
     register_fmds();
 });
+*/
