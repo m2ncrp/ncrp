@@ -31,6 +31,6 @@ include("controllers/closedplaces");
 
 include("controllers/property");
 include("controllers/inventory");
-include("controllers/fraction");
+//include("controllers/fraction");
 include("controllers/admin");
 include("controllers/donate");
