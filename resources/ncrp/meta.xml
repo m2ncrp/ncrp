@@ -9,7 +9,7 @@
     <!-- non-packed client scripts -->
 
         <!-- gui -->
-        <script type="client">gui_alert.nut</script>
+     <!--    <script type="client">gui_alert.nut</script>
         <script type="client">gui_auth.nut</script>
         <script type="client">gui_forgotpage.nut</script>
         <script type="client">gui_bank.nut</script>
@@ -19,31 +19,31 @@
         <script type="client">gui_phone.nut</script>
         <script type="client">gui_rentcar.nut</script>
         <script type="client">gui_empirediner.nut</script>
-
+ -->
         <!-- player -->
-        <script type="client">player_effects.nut</script>
+<!--         <script type="client">player_effects.nut</script> -->
 
-        <!-- other -->
+        <!-- other --><!-- 
         <script type="client">other_3dtext.nut</script>
         <script type="client">other_blip.nut</script>
         <script type="client">other_debug.nut</script>
         <script type="client">other_gps.nut</script>
         <script type="client">other_keyboard.nut</script>
         <script type="client">other_nametags.nut</script>
-        <script type="client">other_place.nut</script>
+        <script type="client">other_place.nut</script> -->
         <script type="client">other_screen.nut</script>
-        <script type="client">other_tabpanel.nut</script>
-        <script type="client">other_weather.nut</script>
+<!--         <script type="client">other_tabpanel.nut</script>
+        <script type="client">other_weather.nut</script> -->
         <!-- <script type="client">other_proxy.nut</script> -->
-        <script type="client">other_bus.nut</script>
+        <!-- <script type="client">other_bus.nut</script> -->
 
         <!-- peds -->
-        <script type="client">ped_creation.nut</script>
+<!--         <script type="client">ped_creation.nut</script>
         <script type="client">ped_dialog.nut</script>
-
+ -->
         <!-- invdev supa unstebla beyatch -->
-        <script type="client">gui_inventory.nut</script>
-
+<!--         <script type="client">gui_inventory.nut</script>
+ -->
     <!--       -->
     <!-- files -->
     <!--       -->
