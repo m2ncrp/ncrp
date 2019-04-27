@@ -9,7 +9,7 @@
     <!-- non-packed client scripts -->
 
         <!-- gui -->
-        <script type="client">gui_alert.nut</script>
+<!--         <script type="client">gui_alert.nut</script>
         <script type="client">gui_auth.nut</script>
         <script type="client">gui_forgotpage.nut</script>
         <script type="client">gui_bank.nut</script>
@@ -18,13 +18,13 @@
         <script type="client">gui_metro.nut</script>
         <script type="client">gui_phone.nut</script>
         <script type="client">gui_rentcar.nut</script>
-        <script type="client">gui_empirediner.nut</script>
+        <script type="client">gui_empirediner.nut</script> -->
 
         <!-- player -->
-        <script type="client">player_effects.nut</script>
+<!--         <script type="client">player_effects.nut</script> -->
 
         <!-- other -->
-        <script type="client">other_3dtext.nut</script>
+<!--         <script type="client">other_3dtext.nut</script>
         <script type="client">other_blip.nut</script>
         <script type="client">other_debug.nut</script>
         <script type="client">other_gps.nut</script>
@@ -33,40 +33,41 @@
         <script type="client">other_place.nut</script>
         <script type="client">other_screen.nut</script>
         <script type="client">other_tabpanel.nut</script>
-        <script type="client">other_weather.nut</script>
+        <script type="client">other_weather.nut</script> -->
         <!-- <script type="client">other_proxy.nut</script> -->
-        <script type="client">other_bus.nut</script>
+<!--         <script type="client">other_bus.nut</script> -->
 
         <!-- peds -->
-        <script type="client">ped_creation.nut</script>
-        <script type="client">ped_dialog.nut</script>
+<!--         <script type="client">ped_creation.nut</script>
+        <script type="client">ped_dialog.nut</script> -->
 
         <!-- invdev supa unstebla beyatch -->
-        <script type="client">gui_inventory.nut</script>
+        <!-- <script type="client">gui_inventory.nut</script> -->
 
     <!--       -->
     <!-- files -->
     <!--       -->
-    <file>question.png</file>
+<!--     <file>question.png</file>
     <file>dot.jpg</file>
-    <file>shadow.jpg</file>
+    <file>shadow.jpg</file> -->
     <!-- general images -->
-    <file>logo.png</file>
+<!--     <file>logo.png</file> -->
     <!-- <file>logo-ny1.png</file> -->
     <!-- <file>logo-ny2.png</file> -->
     <!-- <file>logo-ny3.png</file> -->
     <!-- <file>logo-ny4.png</file> -->
-    <file>other_mask.png</file>
+<!--     <file>other_mask.png</file>
     <file>lang_en.png</file>
-    <file>lang_ru.png</file>
+    <file>lang_ru.png</file> -->
 
     <!-- hunger system -->
-    <file>ui_hunger_green.png</file>
+<!--     <file>ui_hunger_green.png</file>
     <file>ui_thirst_green.png</file>
-    <file>ui_inv_hands.png</file>
+    <file>ui_inv_hands.png</file> -->
 
     <!-- inventory system -->
         <!-- items -->
+           <!--
         <file>Item.Revolver.png</file>
         <file>Item.Colt.png</file>
         <file>Item.Magnum.png</file>
@@ -79,7 +80,7 @@
         <file>Item.Ammo12.png</file>
         <file>Item.Ammo762x63mm.png</file>
 
-
+-->
 
         <!--
 
@@ -134,7 +135,7 @@
 -->
         <!-- <file>Item.AlarmClock.png</file> -->
         <!-- <file>Item.Bomb.png</file> -->
-        <file>Item.Box.png</file>
+<!--         <file>Item.Box.png</file>
         <file>Item.Brandy.png</file>
         <file>Item.Burger.png</file>
         <file>Item.BigBreakBlue.png</file>
@@ -142,15 +143,15 @@
         <file>Item.BigBreakWhite.png</file>
         <file>Item.Clothes.png</file>
         <file>Item.CoffeeCup.png</file>
-        <file>Item.Cola.png</file>
+        <file>Item.Cola.png</file> -->
         <!--  <file>Item.FineList.png</file> -->
         <!--  <file>Item.FirstAidKit.png</file> -->
-        <file>Item.Gift.png</file>
+<!--         <file>Item.Gift.png</file>
         <file>Item.Gyros.png</file>
         <file>Item.Hotdog.png</file>
         <file>Item.Jerrycan.png</file>
         <file>Item.MasterBeer.png</file>
-        <!--  <file>Item.Methamnetamine.png</file> -->
+         <file>Item.Methamnetamine.png</file>
         <file>Item.Money.png</file>
         <file>Item.Newspaper.png</file>
         <file>Item.OldEmpiricalBeer.png</file>
@@ -158,16 +159,16 @@
         <file>Item.LTC.png</file>
         <file>Item.PoliceBadge.png</file>
         <file>Item.Sandwich.png</file>
-        <file>Item.StoltzBeer.png</file>
+        <file>Item.StoltzBeer.png</file> -->
         <!-- <file>Item.Suitcase.png</file> -->
         <!-- <file>Item.Umbrella.png</file> -->
-        <file>Item.VehicleKey.png</file>
+<!--         <file>Item.VehicleKey.png</file>
         <file>Item.VehicleTax.png</file>
         <file>Item.VehicleTitle.png</file>
         <file>Item.Race.png</file>
         <file>Item.Whiskey.png</file>
         <file>Item.Wine.png</file>
-        <file>Item.None.png</file>
+        <file>Item.None.png</file> -->
 
     <!-- <file>shop.logo.empirediner.png</file> -->
     <!-- <file>ped_tutorial1.png</file> -->
