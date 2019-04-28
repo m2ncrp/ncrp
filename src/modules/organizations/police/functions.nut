@@ -361,7 +361,7 @@ function putInJail(playerid, targetid) {
         screenFadeinFadeoutEx(targetid, 250, 200, function() {
         //  output "Wasted" and set player position
             setPlayerState(targetid, "jail");
-            setPlayerPosition( targetid, POLICE_JAIL_COORDS[0][0], POLICE_JAIL_COORDS[0][1], POLICE_JAIL_COORDS[0][2] );
+            setPlayerPosition( targetid, POLICE_JAIL_COORDS.jail[0], POLICE_JAIL_COORDS.jail[1], POLICE_JAIL_COORDS.jail[2] );
         });
         msg(targetid, "organizations.police.jail", [], CL_THUNDERBIRD);
         dbg( "[JAIL] " + getAuthor(playerid) + " put " + getAuthor(targetid) + "in jail." );
@@ -371,7 +371,7 @@ function putInJail(playerid, targetid) {
 
 function takeOutOfJail(playerid, targetid) {
     if ( isOnPoliceDuty(playerid) ) {
-        setPlayerPosition(targetid, POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]); // police department
+        setPlayerPosition(targetid, POLICE_JAIL_COORDS.exit[0], POLICE_JAIL_COORDS.exit[1], POLICE_JAIL_COORDS.exit[2]);
         //setPlayerRotation(targetid, -137.53, 0.00309768, -0.00414733);
 
         screenFadeinFadeoutEx(targetid, 250, 200, function() {

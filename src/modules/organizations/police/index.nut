@@ -16,17 +16,13 @@ POLICE_EBPD_ENTERES <- [
     [-379.444, 654.207, -11.6451]   // stuff only
 ];
 
-POLICE_JAIL_COORDS <- [
-    [-1054.28, 1725.5, 10.348]
-];
+POLICE_JAIL_COORDS <- {
+    jail = [-1053.56, 1725.15, 10.3481],
+    exit = [-1041.07, 1727.79, 10.2823]
+};
 
 const EBPD_ENTER_RADIUS = 2.0;
 const EBPD_TITLE_DRAW_DISTANCE = 35.0;
-
-// jail
-const JAIL_X = -1018.93;
-const JAIL_Y = 1731.82;
-const JAIL_Z = 10.3252;
 
 POLICE_RANK <- [ // source: https://youtu.be/i7o0_PMv72A && https://en.wikipedia.org/wiki/Los_Angeles_Police_Department#Rank_structure_and_insignia
     "police.cadet",          //"Police cadet"       0
@@ -47,10 +43,7 @@ POLICE_RANK <- [ // source: https://youtu.be/i7o0_PMv72A && https://en.wikipedia
 ];
 POLICE_MAX_RANK <- POLICE_RANK.len()-1;
 
-
-
 local police_permissoins = {};
-
 
 police_permissoins[0]   <-  "wanted_read"      ; // смотреть розыск
 police_permissoins[1]   <-  "wanted_add"       ; // подавать в розыск
@@ -221,6 +214,8 @@ event("onPlayerPlaceEnter", function(playerid, name) {
 
 event("onServerPlayerStarted", function( playerid ){
 
+    createPrivate3DText( playerid, POLICE_JAIL_COORDS.exit[0], POLICE_JAIL_COORDS.exit[1], POLICE_JAIL_COORDS.exit[2]+0.35, plocalize(playerid, "3dtext.organizations.prison"), CL_ROYALBLUE, EBPD_TITLE_DRAW_DISTANCE );
+
     createPrivate3DText( playerid, POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]+0.35, plocalize(playerid, "3dtext.organizations.police"), CL_ROYALBLUE, EBPD_TITLE_DRAW_DISTANCE );
     createPrivate3DText( playerid, POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]+0.20, plocalize(playerid, "3dtext.job.press.E"), CL_WHITE.applyAlpha(150), EBPD_ENTER_RADIUS );
 
@@ -234,7 +229,7 @@ event("onPlayerSpawn", function( playerid ) {
     if (!isPlayerLoaded(playerid)) return;
     if (!(getPlayerState(playerid) == "jail")) return;
 
-    players[playerid].setPosition(JAIL_X, JAIL_Y, JAIL_Z);
+    players[playerid].setPosition(POLICE_JAIL_COORDS.jail[0], POLICE_JAIL_COORDS.jail[1], POLICE_JAIL_COORDS.jail[2]);
 });
 
 
