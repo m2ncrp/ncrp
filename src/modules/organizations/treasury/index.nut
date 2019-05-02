@@ -24,6 +24,7 @@ function addMoneyToTreasury(amount) {
     local amount = round(fabs(amount.tofloat()), 2);
     TREASURY.amount += amount;
     TREASURY.save();
+    dbg("chat", "idea", "Городская казна", "Пополнение на сумму: "+amount.tostring());
 }
 
 
@@ -31,6 +32,7 @@ function subMoneyToTreasury(amount) {
     local amount = round(fabs(amount.tofloat()), 2);
     TREASURY.amount -= amount;
     TREASURY.save();
+    dbg("chat", "idea", "Городская казна", "Списание на сумму: "+amount.tostring());
 }
 
 

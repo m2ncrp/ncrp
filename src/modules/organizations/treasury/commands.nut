@@ -29,11 +29,13 @@ fmd("gov", ["gov.treasury"], "$f treasury get", function(fraction, character) {
     msg(character.playerid, "treasury.get", getMoneyTreasury() );
 });
 
-fmd("gov", ["gov.treasury"], "$f treasury add", function(fraction, character, amount = "0") {
+fmd("gov", ["gov.treasury"], "$f treasury add", function(fraction, character, amount = "0", reason = null) {
 
     if (!isPlayerInValidPoint(character.playerid, coords[0], coords[1], 1.0 )) {
         return msg(character.playerid, "treasury.toofar", CL_THUNDERBIRD );
     }
+
+    if(!reason) return msg(character.playerid, "treasury.enterreason", CL_THUNDERBIRD );
 
     amount = amount.tofloat();
 
@@ -44,14 +46,16 @@ fmd("gov", ["gov.treasury"], "$f treasury add", function(fraction, character, am
     addMoneyToTreasury(amount);
     subMoneyToPlayer(character.playerid, amount);
     msg(character.playerid, "treasury.add", [ amount.tofloat(), getMoneyTreasury() ], CL_EUCALYPTUS );
-    dbg("chat", "idea", getAuthor(character.playerid), "Добавлено в казну: "+amount.tostring());
+    dbg("chat", "idea", getAuthor(character.playerid), "Добавлено в казну: "+amount.tostring()+". Основание: "+reason);
 });
 
-fmd("gov", ["gov.treasury"], "$f treasury sub", function(fraction, character, amount = "0") {
+fmd("gov", ["gov.treasury"], "$f treasury sub", function(fraction, character, amount = "0", reason = null) {
 
     if (!isPlayerInValidPoint(character.playerid, coords[0], coords[1], 1.0 )) {
         return msg(character.playerid, "treasury.toofar", CL_THUNDERBIRD );
     }
+
+    if(!reason) return msg(character.playerid, "treasury.enterreason", CL_THUNDERBIRD );
 
     amount = amount.tofloat();
 
@@ -62,7 +66,7 @@ fmd("gov", ["gov.treasury"], "$f treasury sub", function(fraction, character, am
     subMoneyToTreasury(amount);
     addMoneyToPlayer(character.playerid, amount);
     msg(character.playerid, "treasury.sub", [ amount.tofloat(), getMoneyTreasury() ], CL_THUNDERBIRD );
-    dbg("chat", "idea", getAuthor(character.playerid), "Взято из казны: "+amount.tostring());
+    dbg("chat", "idea", getAuthor(character.playerid), "Взято из казны: "+amount.tostring()+". Основание: "+reason);
 });
 
 
@@ -81,6 +85,9 @@ local phrases = {
 
     "en|treasury.notenough" : "Not enought money in treasury."
     "ru|treasury.notenough" : "В казне нет такой суммы."
+
+    "en|treasury.enterreason" : "Enter purpose of transaction."
+    "ru|treasury.enterreason" : "Укажите основание для проведения операции."
 
     "en|treasury.player.notenough" : "You dont have enough money!"
     "ru|treasury.player.notenough" : "У вас недостаточно денег!"
