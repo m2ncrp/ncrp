@@ -1,14 +1,6 @@
-
-local vehiclesPositions = {};
-
 event("onServerSecondChange", function() {
     foreach (vehicleid, object in __vehicles) {
-
-        if (isVehicleEmpty(vehicleid)) continue;
-
-        if(!(vehicleid in vehiclesPositions)) {
-            vehiclesPositions[vehicleid] <- getVehiclePositionObj(vehicleid);
-        }
+        if(!object || isVehicleEmpty(vehicleid)) continue;
 
         local veh = getVehicleEntity(vehicleid);
 
@@ -20,10 +12,7 @@ event("onServerSecondChange", function() {
             veh.data.mileage <- 0;
         }
 
-        local currentPosition = getVehiclePositionObj(vehicleid);
-        local distance = getDistanceBetweenPoints2D(vehiclesPositions[vehicleid].x, vehiclesPositions[vehicleid].y, currentPosition.x, currentPosition.y);
-        vehiclesPositions[vehicleid] = currentPosition;
+        local distance = getVehicleRealSpeed(vehicleid, "mps");
         veh.data.mileage += distance;
-
     }
 });
