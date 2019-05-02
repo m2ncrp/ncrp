@@ -6,6 +6,8 @@ event("onServerSecondChange", function() {
 
     foreach (vehicleid, object in __vehicles) {
 
+        if (!object) continue;
+
         local veh = getVehicleEntity(vehicleid);
 
         if(veh == null) {

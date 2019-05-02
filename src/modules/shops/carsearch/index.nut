@@ -48,6 +48,7 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
             delayedFunction(10000, function() {
 
                 foreach (vehicleid, obj in __vehicles) {
+                    if (!obj) continue;
                     if (isPlayerVehicleOwner(playerid, vehicleid)) {
                         local pos = getVehiclePositionObj(vehicleid);
                         local blip = createPrivateBlip(playerid, pos.x, pos.y, ICON_RED, 4000);

@@ -5,7 +5,8 @@ local passengers = {};
  * and fill array with ones that are passangers
  */
 function updateVehiclePassengers() {
-    foreach (vehicleid, value in __vehicles) {
+    foreach (vehicleid, vehicle in __vehicles) {
+        if (!vehicle) continue;
         if (!(vehicleid in passengers)) continue;
 
         foreach (seat, playerid in passengers[vehicleid]) {

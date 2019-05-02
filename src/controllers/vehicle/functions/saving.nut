@@ -24,7 +24,7 @@ function getVehicleSaving(vehicleid) {
  */
 function saveAllVehicles() {
     foreach (vehicleid, vehicle in __vehicles) {
-        if (vehicle.saving) {
+        if (vehicle && vehicle.saving) {
             trySaveVehicle(vehicleid);
         }
     }

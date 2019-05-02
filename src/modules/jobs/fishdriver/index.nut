@@ -535,6 +535,7 @@ function fishOpenCloseDoors(playerid) {
     // special check for spawning inside closed truck
     local found = false;
     foreach (vehicleid, value in __vehicles) {
+        if(!value) continue;
         local vehModel = getVehicleModel(vehicleid);
         if (vehModel == 38 || vehModel == 34) {
             local vpos = getVehiclePosition(vehicleid);
@@ -598,6 +599,7 @@ function fishJobSync3DText(playerid) {
     local place1busy = false;
     local place2busy = false;
     foreach (vehicleid, value in __vehicles) {
+        if(!value) continue;
         local vehModel = getVehicleModel(vehicleid);
         if (vehModel == 38) {
             local vehRot = getVehicleRotation(vehicleid);
