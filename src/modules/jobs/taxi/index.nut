@@ -50,16 +50,17 @@ event("onPlayerDisconnect", function(playerid, reason) {
         local vehicleid = getTaxiDriverCar(drid);
         if(vehicleid) {
             setTaxiLightState(vehicleid, false);
-            removePrivateKey(playerid, "1", "taxiSwitchAir")
+            removePrivateKey(playerid, "b", "taxiSwitchAir")
         }
         setTaxiDriverCar(drid, null);
     }
 });
 
 event("onServerPlayerStarted", function( playerid ){
+    createText ( playerid, "taxiJob3dText", TAXI_COORDS[0], TAXI_COORDS[1], TAXI_COORDS[2]+0.20, "...", CL_WHITE.applyAlpha(150), TAXI_RADIUS );
 
     if(isTaxiDriver(playerid)) {
-        createText (playerid, "leavejob3dtext", TAXI_COORDS[0], TAXI_COORDS[1], TAXI_COORDS[2]+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), TAXI_RADIUS );
+        renameText ( playerid, "taxiJob3dText", "Press Q to leave job");
 
         local drid = getCharacterIdFromPlayerId(playerid);
         local callObject = getTaxiCallObjectByDrid(drid);
@@ -88,6 +89,8 @@ event("onServerPlayerStarted", function( playerid ){
         msg_taxi_dr( playerid, "job.taxi.ifyouwantstart");
         restorePlayerModel(playerid);
         setPlayerJobState(playerid, null);
+    } else {
+        renameText ( playerid, "taxiJob3dText", "Press E to get job");
     }
 });
 

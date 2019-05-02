@@ -10,7 +10,7 @@ event( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
             return blockVehicle(vehicleid);
         }
 
-        privateKey(playerid, "1", "taxiSwitchAir", taxiSwitchAir);
+        privateKey(playerid, "b", "taxiSwitchAir", taxiSwitchAir);
 
         if(getTaxiDriverStatus(drid) == "offair") {
             msg_taxi_dr(playerid, "job.taxi.tostart");
@@ -103,7 +103,7 @@ event( "onPlayerVehicleExit", function ( playerid, vehicleid, seat ) {
 
             if(isTaxiDriver(playerid)) {
 
-                removePrivateKey(playerid, "1", "taxiSwitchAir")
+                removePrivateKey(playerid, "b", "taxiSwitchAir")
 
                 // Выход ВОДИТЕЛЯ из авто - создание зоны сброса
                 if(getTaxiDriverStatus(drid) != "offair") {

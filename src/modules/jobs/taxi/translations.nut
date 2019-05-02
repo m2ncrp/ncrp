@@ -10,10 +10,10 @@ local translations = {
 "ru|job.taxi.continue"                 :   "[TAXI] Вы работаете таксистом."
 
 "en|job.taxi.ifyouwantstart"           :   "[TAXI] To start accepting calls, please enter taxi car and press 1 to become available."
-"ru|job.taxi.ifyouwantstart"           :   "[TAXI] Чтобы начать принимать вызовы - садитесь в машину такси и выходите на линию (клавиша 1)."
+"ru|job.taxi.ifyouwantstart"           :   "[TAXI] Чтобы начать принимать вызовы - садитесь в машину такси и выходите на линию (клавиша b)."
 
 "en|job.taxi.tostart"                  :   "[TAXI] To start accepting calls, press 1 to become available."
-"ru|job.taxi.tostart"                  :   "[TAXI] Чтобы начать принимать вызовы - выходите на линию (клавиша 1)."
+"ru|job.taxi.tostart"                  :   "[TAXI] Чтобы начать принимать вызовы - выходите на линию (клавиша b)."
 
 "en|job.taxi.taximeteron"              :   "[TAXI] Taximeter ON. Press button 3 after completion of trip."
 "ru|job.taxi.taximeteron"              :   "[TAXI] Таксометр включен. По окончании поездки нажмите клавишу 3."
