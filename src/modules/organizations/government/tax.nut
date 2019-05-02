@@ -1,5 +1,5 @@
 local tax_fixprice = 20.0;
-local tax = 0.025;  // 2.5 percents
+local tax = 0.01;  // 1 percents
 local months = [3];
 
 alternativeTranslate({
