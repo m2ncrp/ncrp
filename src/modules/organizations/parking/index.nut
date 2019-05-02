@@ -135,6 +135,9 @@ function isVehicleInParking(vehicleid) {
 
 function findBusyPlaces() {
     foreach (vehicleid, vehicle in __vehicles) {
+
+        if (!vehicle) continue;
+
         if (!isVehicleOwned(vehicleid)) {
             continue;
         }
@@ -150,9 +153,13 @@ function findBusyPlaces() {
     }
 }
 
+function getParkingDaysByTimestamp(timestamp) {
+    return floor((getTimestamp() - timestamp) / 43200);  // делим на реальных 12 часов = 1 игровым суткам
+}
+
 function getParkingDaysForVehicle(vehicleid) {
     if(__vehicles[vehicleid].entity && __vehicles[vehicleid].entity.parking && __vehicles[vehicleid].entity.parking > 0) {
-        return floor((getTimestamp() - __vehicles[vehicleid].entity.parking) / 43200);  // делим на реальных 12 часов = 1 игровым суткам
+        return getParkingDaysByTimestamp(__vehicles[vehicleid].entity.parking);
     }
     return 0;
 }

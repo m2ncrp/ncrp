@@ -66,6 +66,11 @@ event("onServerStarted", function() {
     Vehicle.findBy({ reserved = 0 }, function(err, results) {
         foreach (idx, vehicle in results) {
 
+            /*
+            if (vehicle.parking > 0 && getParkingDaysByTimestamp(vehicle.parking) >= 90) {
+                continue;
+            }
+            */
             // create vehicle
             local vehicleid = createVehicle( vehicle.model, vehicle.x, vehicle.y, vehicle.z, vehicle.rx, vehicle.ry, vehicle.rz );
 
@@ -278,6 +283,7 @@ event("onPlayerSpawned", function(playerid) {
 
     // special check for spawning inside closed truck
     foreach (vehicleid, value in __vehicles) {
+        if(!value) continue;
         local vehModel = getVehicleModel(vehicleid);
         if (vehModel == 38 || vehModel == 34) {
 
