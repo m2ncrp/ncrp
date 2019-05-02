@@ -40,6 +40,8 @@ event("onServerPlayerStarted", function( playerid ){
             local vehicleid = getVehicleIdFromEntityId( car.vehicleid );
             if(setVehicleToCarPound(vehicleid)) {
                 local plate = getVehiclePlateText(vehicleid);
+                __vehicles[vehicleid].entity.parking = getTimestamp() - 3456000; // поправка на 80 игровых дней, чтобы тачка долго не стояла
+                __vehicles[vehicleid].entity.save();
                 dbg("chat", "report", "Автодилер", format("Отправил на штрафстоянку автомобиль с номером %s", plate));
                 dbg("chat", "police", "Автодилер", format("Отправил на штрафстоянку автомобиль с номером %s", plate));
             } else {

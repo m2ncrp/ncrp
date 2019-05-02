@@ -21,6 +21,7 @@ function isPlayerNearCar(playerid, vehicleid, limit = 5.0) {
  */
 function isPlayerNearCarModel(playerid, modelid, limit = 5.0) {
     foreach (vehicleid, value in __vehicles) {
+        if(!value) continue;
         local pos = getVehiclePosition(vehicleid);
         local dis = getDistanceToPoint(playerid, pos[0], pos[1], pos[2]);
 
@@ -56,6 +57,7 @@ function getNearestCarForPlayer(playerid, limit = 500.0) {
     local vid = -1;
 
     foreach (vehicleid, value in __vehicles) {
+        if(!value) continue;
         local pos = getVehiclePosition(vehicleid);
         local dis = getDistanceToPoint(playerid, pos[0], pos[1], pos[2]);
 

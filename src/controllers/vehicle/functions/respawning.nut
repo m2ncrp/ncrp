@@ -6,19 +6,25 @@ event("onServerSecondChange", function() {
         return;
     }
 
-   resetVehiclePositionAndRotation();
+   resetVehiclesInstances();
 });
 
 event("onServerPlayerStarted", function(playerid) {
-    resetVehiclePositionAndRotation();
+    resetVehiclesInstances();
 });
 
 
-function resetVehiclePositionAndRotation() {
-    foreach (vehicleid, object in __vehicles) {
+function resetVehiclesInstances() {
+    foreach (vehicleid, vehicle in __vehicles) {
+        if (!vehicle) continue;
         if (!isVehicleEmpty(vehicleid)) continue;
         setVehiclePositionObj(vehicleid, getVehiclePositionObj(vehicleid));
         setVehicleRotationObj(vehicleid, getVehicleRotationObj(vehicleid));
+
+        if(vehicle.entity) {
+            if(vehicle.entity.fwheel > -1) setVehicleWheelTexture( vehicleid, 0, vehicle.entity.fwheel );
+            if(vehicle.entity.rwheel > -1) setVehicleWheelTexture( vehicleid, 1, vehicle.entity.rwheel );
+        }
         setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
     }
 }
@@ -42,6 +48,7 @@ function setVehicleRespawnEx(vehicleid, value) {
  */
 function checkVehicleRespawns() {
     foreach (vehicleid, vehicle in __vehicles) {
+        if (!vehicle) continue;
         tryRespawnVehicleById(vehicleid);
     }
 }
@@ -79,6 +86,8 @@ function tryRespawnVehicleById(vehicleid, forced = false) {
         delete __vehicles[vehicleid];
         return false;
     }
+
+    if(!__vehicles[vehicleid]) return false;
 
     local data = __vehicles[vehicleid].respawn;
 

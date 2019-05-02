@@ -4,6 +4,21 @@ local months = [1, 3, 6, 12];
 
 alternativeTranslate({
 
+    "en|inventory.vehicletitle.removedcar"      : "It's certificate of title for the car which I once owned. I don't even know where it now..."
+    "ru|inventory.vehicletitle.removedcar"      : "Это свидетельство о праве собственности на автомобиль, которым я когда-то владел. Даже не знаю где он сейчас..."
+
+    "en|inventory.vehicletitle.modelandplate"   : "Model name and plate: %s - %s"
+    "ru|inventory.vehicletitle.modelandplate"   : "Модель и номер: %s - %s"
+
+    "en|inventory.vehicletitle.manufactureprice" : "Manufacture price: $%.2f"
+    "ru|inventory.vehicletitle.manufactureprice" : "Отпускная цена: $%.2f"
+
+    "en|inventory.vehicletitle.manufactureyear" : "Manufacture year: %d"
+    "ru|inventory.vehicletitle.manufactureyear" : "Год производства: %d"
+
+    "en|inventory.vehicletitle.owners"          : "Owners (%d):"
+    "ru|inventory.vehicletitle.owners"          : "Владельцы (%d):"
+
     "en|tax.help.title"  : "Tax for vehicle:"
     "ru|tax.help.title"  : "Налог на автомобиль:"
 

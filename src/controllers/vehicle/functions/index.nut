@@ -95,7 +95,8 @@ function removePlayerVehicle(vehicleid) {
         dbg("removing player vehicle from database", getVehiclePlateText(vehicleid));
         if (__vehicles[vehicleid].entity) {
             __vehicles[vehicleid].entity.remove();
-            delete __vehicles[vehicleid];
+            __vehicles[vehicleid] = null;
+            //delete __vehicles[vehicleid];
         }
 
         destroyVehicle(vehicleid);
@@ -192,6 +193,7 @@ function getVehicleEntityId (vehicleid) {
  */
 function getVehicleIdFromEntityId(entityid) {
     foreach(vehicleid, value in __vehicles) {
+        if(!value) return false;
         if(value.entity != null && value.entity.id == entityid) {
             return vehicleid;
         }
