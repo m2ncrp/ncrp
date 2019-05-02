@@ -1,6 +1,6 @@
 local tax_fixprice = 20.0;
 local tax = 0.025;  // 2.5 percents
-local months = [1, 3, 6, 12];
+local months = [3];
 
 alternativeTranslate({
 
@@ -25,8 +25,8 @@ alternativeTranslate({
     "en|tax.money.notenough"  : "Not enough money. Need $%.2f."
     "ru|tax.money.notenough"  : "Недостаточно денег. Для оплаты требуется $%.2f."
 
-    "en|tax.monthUp"          : "Choose correct number of months: 1, 3, 6 or 12 "
-    "ru|tax.monthUp"          : "Выберите корректное число месяцев: 1, 3, 6 или 12"
+    "en|tax.monthUp"          : "Choose correct number of months: 3"
+    "ru|tax.monthUp"          : "Выберите корректное число месяцев: 3"
 
     "en|tax.info.title"       : "Information about tax for vehicle:"
     "ru|tax.info.title"       : "Информация об оплате налога на автомобиль:"
@@ -94,7 +94,7 @@ function isPlayerHaveValidVehicleTax(playerid, param, days = 0) {
 }
 
 
-cmd("tax", function( playerid, plateText = 0, monthUp = 1 ) {
+cmd("tax", function( playerid, plateText = 0) {
 
     if (plateText == 0) {
         return taxHelp( playerid );
@@ -113,13 +113,15 @@ cmd("tax", function( playerid, plateText = 0, monthUp = 1 ) {
         return msg(playerid, "inventory.weight.notenough", CL_THUNDERBIRD);
     }
 
+    local monthUp = 3;
+/*
     if(monthUp) {
         monthUp = monthUp.tointeger();
         if(months.find(monthUp) == null) {
             return msg(playerid, "tax.monthUp", CL_THUNDERBIRD);
         }
     }
-
+*/
     local plateText = plateText.toupper();
     local vehicleid = getVehicleByPlateText(plateText.toupper());
     if(vehicleid == null) {
@@ -140,6 +142,7 @@ cmd("tax", function( playerid, plateText = 0, monthUp = 1 ) {
 
     msg(playerid, "tax.payed", [ price, plateText, monthUp ], CL_SUCCESS);
     subMoneyToPlayer(playerid, price);
+    addMoneyToTreasury(price);
 
     taxObj.setData("plate", plateText);
     taxObj.setData("model",  modelid );
