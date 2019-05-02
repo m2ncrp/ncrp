@@ -118,6 +118,23 @@ event("onServerStarted", function() {
                     local charId = players[playerid].id;
                     if( !(charId in playersInfo) ) return;
 
+                    // anticheat - remove weapons
+                    if (!isOfficer(playerid) && !isPlayerAdmin(playerid)) {
+
+                        local weapon = getPlayerWeapon(playerid);
+                        if(weapon > 1 && weapon <= 21 && !playersInfo[charId].kicked) {
+                            //local weaponlist = [23, 5, 7, 9, 10, 11, 12, 13, 14, 17, 21];
+                            local weaponlist = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 21];
+                            weaponlist.apply(function(id) {
+                                removePlayerWeapon( playerid, id );
+                            });
+                            kick(-1, playerid, "Неправомерное получение оружия.");
+                            playersInfo[charId].kicked = true;
+                            dbg("chat", "report", getPlayerName(playerid), "Кикнут за неправомерное получение оружия.");
+                        }
+                    }
+                    // anticheat
+
                     local oldPos = playersInfo[charId].pos;
                     local state = playersInfo[charId].state;
 
@@ -154,20 +171,6 @@ event("onServerStarted", function() {
 
             }
 
-            // anticheat - remove weapons
-            if (!isOfficer(playerid) && !isPlayerAdmin(playerid)) {
-
-                local weapon = getPlayerWeapon(playerid);
-                if(weapon > 1 && weapon <= 21) {
-                    //local weaponlist = [23, 5, 7, 9, 10, 11, 12, 13, 14, 17, 21];
-                    local weaponlist = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 21];
-                    weaponlist.apply(function(id) {
-                        removePlayerWeapon( playerid, id );
-                    });
-                    kick(-1, playerid, "Неправомерное получение оружия.");
-                    dbg("chat", "report", getPlayerName(playerid), "Кикнут за неправомерное получение оружия.");
-                }
-            }
 
         }
     }, 500, -1);
@@ -186,6 +189,7 @@ event("onServerPlayerStarted", function(playerid) {
     playersInfo[charId].state <- null;
     playersInfo[charId].pos <- null;
     playersInfo[charId].counter <- 0;
+    playersInfo[charId].kicked <- false;
 });
 
 event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
@@ -238,7 +242,23 @@ key("num_7", function(playerid) {
 });
 
 key("page_up", function(playerid) {
-    trainerKeys(playerid, "Ускорение времени");
+    trainerKeys(playerid, "Ускорение времени: UP");
+    if (isPlayerInVehicle(playerid)) {
+        local vehicleid = getPlayerVehicle(playerid);
+        local modelId = getVehicleModel(vehicleid);
+        local jobState = getPlayerJobState(playerid);
+        dbg("chat", "report", getPlayerName(playerid), getVehicleNameByModelId(modelId)+" "+getVehiclePlateText(vehicleid)+" "+(jobState ? jobState : "null"));
+    }
+});
+
+key("page_down", function(playerid) {
+    trainerKeys(playerid, "Ускорение времени: DOWN");
+    if (isPlayerInVehicle(playerid)) {
+        local vehicleid = getPlayerVehicle(playerid);
+        local modelId = getVehicleModel(vehicleid)
+        local jobState = getPlayerJobState(playerid);
+        dbg("chat", "report", getPlayerName(playerid), getVehicleNameByModelId(modelId)+" "+getVehiclePlateText(vehicleid)+" "+(jobState ? jobState : "null"));
+    }
 });
 
 /*
