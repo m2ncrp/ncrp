@@ -2,8 +2,7 @@ class Item.Money extends Item.Abstract
 {
     static classname = "Item.Money";
     amount = 350.0;
-    volume = 0.05;
-
+    volume = 0.1345;
 
     function use(playerid, inventory) {
         inventory.remove(this.slot).remove();

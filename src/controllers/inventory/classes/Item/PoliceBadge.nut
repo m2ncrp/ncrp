@@ -1,7 +1,7 @@
 class Item.PoliceBadge extends Item.Abstract
 {
     static classname = "Item.PoliceBadge";
-    volume      = 0.2;
+    volume      = 0.0212;
 
     function use(playerid, inventory) {
         local radius = 5.0;

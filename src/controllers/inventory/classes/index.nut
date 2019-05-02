@@ -107,31 +107,31 @@ class Item.Ammo38Special    extends Item.Ammo   { static classname = "Item.Ammo3
 /**
  * Food
  */
-class Item.Burger           extends Item.Food   { static classname = "Item.Burger";         constructor () { base.constructor(); this.volume = 0.230; this.amount = 60.0 }}
-class Item.Hotdog           extends Item.Food   { static classname = "Item.Hotdog";         constructor () { base.constructor(); this.volume = 0.185; this.amount = 45.0 }}
-class Item.Sandwich         extends Item.Food   { static classname = "Item.Sandwich";       constructor () { base.constructor(); this.volume = 0.150; this.amount = 30.0 }}
-class Item.Gyros            extends Item.Food   { static classname = "Item.Gyros";          constructor () { base.constructor(); this.volume = 0.290; this.amount = 75.0 }}
+class Item.Burger           extends Item.Food   { static classname = "Item.Burger";         constructor () { base.constructor(); this.volume = 1.5680; this.amount = 75.0 }}
+class Item.Hotdog           extends Item.Food   { static classname = "Item.Hotdog";         constructor () { base.constructor(); this.volume = 0.6760; this.amount = 30.0 }}
+class Item.Sandwich         extends Item.Food   { static classname = "Item.Sandwich";       constructor () { base.constructor(); this.volume = 0.3776; this.amount = 20.0 }}
+class Item.Gyros            extends Item.Food   { static classname = "Item.Gyros";          constructor () { base.constructor(); this.volume = 1.0080; this.amount = 50.0 }}
 
 
 /**
  * Drinks
  */
-class Item.Cola                 extends Item.Drink  { static classname = "Item.Cola";             constructor () { base.constructor(); this.volume = 0.50; this.amount = 20.0 }}
-class Item.Whiskey              extends Item.Drink  { static classname = "Item.Whiskey";          constructor () { base.constructor(); this.volume = 0.70; this.amount = 50.0 }}
-class Item.Brandy               extends Item.Drink  { static classname = "Item.Brandy";           constructor () { base.constructor(); this.volume = 0.70; this.amount = 60.0 }}
-class Item.Wine                 extends Item.Drink  { static classname = "Item.Wine";             constructor () { base.constructor(); this.volume = 0.70; this.amount = 55.0 }}
-class Item.CoffeeCup            extends Item.Drink  { static classname = "Item.CoffeeCup";        constructor () { base.constructor(); this.volume = 0.70; this.amount = 25.0 }}
-class Item.MasterBeer           extends Item.Drink  { static classname = "Item.MasterBeer";       constructor () { base.constructor(); this.volume = 0.70; this.amount = 30.0 }}
-class Item.StoltzBeer           extends Item.Drink  { static classname = "Item.StoltzBeer";       constructor () { base.constructor(); this.volume = 0.70; this.amount = 35.0 }}
-class Item.OldEmpiricalBeer     extends Item.Drink  { static classname = "Item.OldEmpiricalBeer"; constructor () { base.constructor(); this.volume = 0.70; this.amount = 40.0 }}
+class Item.Cola                 extends Item.Drink  { static classname = "Item.Cola";             constructor () { base.constructor(); this.volume = 0.6429; this.amount = 20.0 }}
+class Item.Whiskey              extends Item.Drink  { static classname = "Item.Whiskey";          constructor () { base.constructor(); this.volume = 1.3766; this.amount = 50.0 }}
+class Item.Brandy               extends Item.Drink  { static classname = "Item.Brandy";           constructor () { base.constructor(); this.volume = 1.8025; this.amount = 60.0 }}
+class Item.Wine                 extends Item.Drink  { static classname = "Item.Wine";             constructor () { base.constructor(); this.volume = 1.7388; this.amount = 55.0 }}
+class Item.CoffeeCup            extends Item.Drink  { static classname = "Item.CoffeeCup";        constructor () { base.constructor(); this.volume = 0.5475; this.amount = 25.0 }}
+class Item.MasterBeer           extends Item.Drink  { static classname = "Item.MasterBeer";       constructor () { base.constructor(); this.volume = 0.8263; this.amount = 30.0 }}
+class Item.StoltzBeer           extends Item.Drink  { static classname = "Item.StoltzBeer";       constructor () { base.constructor(); this.volume = 1.1741; this.amount = 35.0 }}
+class Item.OldEmpiricalBeer     extends Item.Drink  { static classname = "Item.OldEmpiricalBeer"; constructor () { base.constructor(); this.volume = 1.1605; this.amount = 40.0 }}
 
 /**
  * Cigarrets
  */
-class Item.BigBreakRed      extends Item.Cigarettes { static classname = "Item.BigBreakRed";    constructor () { base.constructor(); this.volume = 0.0025; this.unitvolume = 0.0015; this.effect = 9.0; this.timeout = 5; this.addiction = 15.0 }}
-class Item.BigBreakBlue     extends Item.Cigarettes { static classname = "Item.BigBreakBlue";   constructor () { base.constructor(); this.volume = 0.0025; this.unitvolume = 0.0012; this.effect = 6.0; this.timeout = 6; this.addiction = 10.0 }}
-class Item.BigBreakWhite    extends Item.Cigarettes { static classname = "Item.BigBreakWhite";  constructor () { base.constructor(); this.volume = 0.0025; this.unitvolume = 0.0009; this.effect = 3.0; this.timeout = 7; this.addiction =  5.0 }}
+class Item.BigBreakRed      extends Item.Cigarettes { static classname = "Item.BigBreakRed";    constructor () { base.constructor(); this.volume = 0.11; this.effect = 9.0; this.timeout = 5; this.addiction = 15.0 }}
+class Item.BigBreakBlue     extends Item.Cigarettes { static classname = "Item.BigBreakBlue";   constructor () { base.constructor(); this.volume = 0.11; this.effect = 6.0; this.timeout = 6; this.addiction = 10.0 }}
+class Item.BigBreakWhite    extends Item.Cigarettes { static classname = "Item.BigBreakWhite";  constructor () { base.constructor(); this.volume = 0.11; this.effect = 3.0; this.timeout = 7; this.addiction =  5.0 }}
 
 
-class Item.Box              extends Item.Storage    { static classname = "Item.Box";            constructor () { base.constructor(); this.volume = 4.0; this.container.sizeX = 3; this.container.sizeY = 4; }}
+class Item.Box              extends Item.Storage    { static classname = "Item.Box";            constructor () { base.constructor(); this.volume = 180.0; this.container.limit = 128.0; this.container.sizeX = 3; this.container.sizeY = 4; }}
 

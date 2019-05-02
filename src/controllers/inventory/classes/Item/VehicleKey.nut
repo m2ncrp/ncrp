@@ -2,7 +2,7 @@ class Item.VehicleKey extends Item.Abstract
 {
     static classname = "Item.VehicleKey";
     default_decay = 0;
-    volume        = 0.10;
+    volume        = 0.0105;
 
     function use(playerid, inventory) {
         local vehicleid = getVehicleIdFromEntityId(this.data.id);

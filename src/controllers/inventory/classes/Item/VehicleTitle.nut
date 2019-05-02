@@ -2,7 +2,7 @@ class Item.VehicleTitle extends Item.Abstract
 {
     static classname = "Item.VehicleTitle";
     default_decay = 0;
-    volume        = 0.05;
+    volume        = 0.0063;
 
     function use(playerid, inventory) {
 

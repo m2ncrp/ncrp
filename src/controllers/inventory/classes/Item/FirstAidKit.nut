@@ -3,12 +3,7 @@ class Item.FirstAidKit extends Item.Abstract
     static classname = "Item.FirstAidKit";
 
     volume = 0.75;
-    unitvolume = 0.25;
     amount = 4;
-
-    function calculateVolume () {
-        return this.volume + this.unitvolume * this.amount;
-    }
 
     function use(playerid, inventory) {
         if(isPlayerInVehicle(playerid) && isPlayerVehicleMoving(playerid)) return msg(playerid, "vehicle.stop", CL_THUNDERBIRD);

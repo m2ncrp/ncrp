@@ -9,10 +9,6 @@ class Item.Ammo extends Item.Abstract
         this.maxstack  = 10;
     }
 
-    function calculateVolume () {
-        return this.volume * this.amount;
-    }
-
     function use(playerid, inventory) {
         msg(playerid, format("Вы использовали: %s", this.classname));
     }

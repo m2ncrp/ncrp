@@ -5,7 +5,7 @@ class Item.Storage extends Item.Abstract
     container = null;
     loaded = false;
     default_decay = 0; // бесконечное хранение на земле
-
+/*
     function calculateVolume () {
         if (this.isLoaded()) {
             local sum = 0;
@@ -17,7 +17,7 @@ class Item.Storage extends Item.Abstract
         }
         return this.volume + this.amount;
     }
-
+*/
     constructor () {
         base.constructor();
         container = StorageItemContainer(this);

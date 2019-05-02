@@ -6,10 +6,6 @@ class Item.Weapon extends Item.Abstract
     model       = 0;
     ammo        = "";
 
-    function calculateVolume () {
-        return this.volume;
-    }
-
     function use(playerid, inventory) {
         msg(playerid, format("Вы использовали: %s", this.classname));
     }
