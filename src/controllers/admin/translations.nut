@@ -40,31 +40,6 @@ alternativeTranslate({
     "ru|admin.ban.trainer"                  :   "Использование трейнера (спидхак)"
 
 
-
-    "en|admin.warn.increased"               :   "You increased warn-level for player %s. Now: %d."
-    "ru|admin.warn.increased"               :   "Вы выдали предупреждение игроку %s. Всего: %d."
-
-    "en|admin.warn.hasbeenincreased"        :   "[ADMIN] Your warn-level has been increased."
-    "ru|admin.warn.hasbeenincreased"        :   "[ADMIN] Вам выдано предупреждение."
-
-    "en|admin.warn.decreased"               :   "You decreased warn-level for player %s. Now: %d."
-    "ru|admin.warn.decreased"               :   "Вы сняли предупреждение с игрока %s. Всего: %d."
-
-    "en|admin.warn.hasbeendecreased"        :   "[ADMIN] Your warn-level has been decreased."
-    "ru|admin.warn.hasbeendecreased"        :   "[ADMIN] С вас снято одно предупреждение."
-
-    "en|admin.warn.info"                    :   "You have %d from 3 warns-level. Level 3 = ban."
-    "ru|admin.warn.info"                    :   "У вас %d из 3 предупреждений. 3 предупреждения = бан."
-
-    "en|admin.warn.minimumlevel"            :   "Player %s have minimum warn-level."
-    "ru|admin.warn.minimumlevel"            :   "У игрока %s нет предупреждений."
-
-    "en|admin.warn.get"                     :   "Player %s have %d warn-level."
-    "ru|admin.warn.get"                     :   "У игрока %s предупреждений: %d."
-
-    "en|admin.warn.congratulations"         :   "Achieved success: 3 of 3 warns. Congratulations!"
-    "ru|admin.warn.congratulations"         :   "Достижение получено: 3 из 3 варнов. Поздравляем!"
-
 /*
     "en|admin.warn.msga.playerreceived"     :   "Player %s received a warning."
     "ru|admin.warn.msga.playerreceived"     :   "Игрок %s получил одно предупреждение."
