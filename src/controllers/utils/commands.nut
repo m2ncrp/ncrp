@@ -189,17 +189,6 @@ acmd("colors104", function ( playerid ) {
 //                                                          TEST COLORS END
 //================================================================================================================================================
 
-
-cmd("dice", function ( playerid ) {
-    local dice = random(1, 6);
-    msgr(playerid, "utils.diсe", [ getAuthor2(playerid), dice ], CL_WHITE, 10);
-
-    // statistics
-    statisticsPushMessage(playerid, dice, "dice");
-});
-
-
-
 cmd("hat", function ( playerid, count = null) {
     if (count == null || !isNumeric(count)) {
         return msg( playerid, "utils.hatnull");
@@ -216,7 +205,6 @@ cmd("hat", function ( playerid, count = null) {
 
 
 translate("en", {
-    "utils.diсe"            : "%s threw the dice: %d"
     "utils.hat"             : "There are %d balls in the cap. %s pulled the ball with number %d."
     "utils.hatnull"         : "Need to set count of participants. Example: /hat 15"
 });

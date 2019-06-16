@@ -101,6 +101,7 @@ mcmd(["admin.fix"], ["fix"], function( playerid, targetid = null ) {
 
     repairVehicle( targetid );
     setVehicleFuel(targetid, getDefaultVehicleFuel(targetid));
+    unblockVehicle(targetid)
 });
 
 acmd(["rot"], function( playerid, targetid = null ) {
@@ -238,5 +239,3 @@ key("o", function(playerid) {
         trigger(playerid, "onServerToggleBlip", "v");
     }
 });
-
-

@@ -27,13 +27,10 @@ local infoTips = [
     "tips.switchchats"  ,
     "tips.chatvisible"  ,
     "tips.turnlights"   ,
-    "tips.dice"         ,
     "tips.hat"
 ];
 
 alternativeTranslate({
-
-
 
         "en|tips.money.earn"   :   "[TIPS] You can get money by working. For more info: /help job"
         "ru|tips.money.earn"   :   "[TIPS] Вы можете зарабатывать деньги, устроившись на работу. Подробнее: /help job"
@@ -103,9 +100,6 @@ alternativeTranslate({
 
         "en|tips.turnlights"   :   "[TIPS] Z - left turn lights; X - hazard lights; C - right turn lights."
         "ru|tips.turnlights"   :   "[TIPS] Z - левый поворотник; X - аварийка; C - правый поворотник."
-
-        "en|tips.dice"         :   "[TIPS] Use /dice for throwing dice."
-        "ru|tips.dice"         :   "[TIPS] Чтобы бросить кубик, используйте: /dice"
 
         "en|tips.hat"          :   "[TIPS] Use /hat COUNT for pull a ball from hat, where COUNT balls in hat."
         "ru|tips.hat"          :   "[TIPS] /hat X - вытащить из шляпы один шар из X шаров."
