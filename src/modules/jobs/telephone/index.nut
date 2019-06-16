@@ -500,7 +500,7 @@ function callByPhone (playerid, number = null, isbind = false) {
             return msg(playerid, "telephone.notenoughmoney");
         }
         subMoneyToPlayer(playerid, PHONE_CALL_PRICE);
-        addMoneyToTreasury(PHONE_CALL_PRICE);
+        //addMoneyToTreasury(PHONE_CALL_PRICE);
     }
 
     if(number == "taxi" || number == "police" || number == "dispatch" || number == "towtruck" ) {

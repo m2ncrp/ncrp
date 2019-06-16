@@ -64,7 +64,6 @@ event("native:shop:purchase", function(playerid, data) {
     }
 
     subMoneyToPlayer(playerid, price);
-    addMoneyToTreasury(price);
 
     msg(playerid, "shops.restaurant.buy.success", [ plocalize(playerid, item.itemName), price ], CL_SUCCESS);
 

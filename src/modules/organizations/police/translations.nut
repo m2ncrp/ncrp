@@ -191,29 +191,6 @@ alternativeTranslate({
 
 
 
-
-
-"en|organizations.police.bitsomeone.bybaton"        : "You bet %s by baton."
-"ru|organizations.police.bitsomeone.bybaton"        : "Вы ударили %s дубинкой."
-
-"en|organizations.police.beenbit.bybaton"           : "You's been bet by baton"
-"ru|organizations.police.beenbit.bybaton"           : "Вас оглушили дубинкой."
-
-"en|organizations.police.beencuffed"                : "You've been cuffed by %s."
-"ru|organizations.police.beencuffed"                : "%s надел на вас наручники."
-
-"en|organizations.police.cuff.someone"              : "You cuffed %s."
-"ru|organizations.police.cuff.someone"              : "Вы арестовали %s."
-
-"en|organizations.police.cuff.beenuncuffed"         : "You've been uncuffed by %s"
-"ru|organizations.police.cuff.beenuncuffed"         : "%s снял с вас наручники."
-
-"en|organizations.police.cuff.uncuffsomeone"        : "You uncuffed %s"
-"ru|organizations.police.cuff.uncuffsomeone"        : "Вы сняли наручники с %s."
-
-
-
-
 "en|organizations.police.beenshown.badge"           : "You're showing your badge to %s."
 "ru|organizations.police.beenshown.badge"           : "Вы показываете свой жетон %s."
 

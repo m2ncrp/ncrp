@@ -261,6 +261,11 @@ key("page_down", function(playerid) {
     }
 });
 
+function getPlayerMoveState(playerid) {
+    if (!players.has(playerid) || !(players[playerid].id in playersInfo)) return null;
+    return playersInfo[players[playerid].id].state;
+}
+
 /*
 event("onPlayerPlaceEnter", function(playerid, name) {
     if (name != "TestTeleport") {
