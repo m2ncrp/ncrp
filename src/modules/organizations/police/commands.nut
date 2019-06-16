@@ -266,43 +266,8 @@ policecmd("m", function(playerid, text) {
 // });
 
 
-// stun nearest player for some time
-key(["g"], function(playerid) {
-    local targetid = playerList.nearestPlayer( playerid );
-
-    if ( isPlayerInVehicle(playerid) || isPlayerInVehicle(targetid) ) {
-        return;
-    }
-    if ( !isOfficer(playerid) || isOfficer(targetid) ) {
-        return;
-    }
-    if ( isOfficer(playerid) && !isOnPoliceDuty(playerid) ) {
-        return msg( playerid, "organizations.police.duty.off" );
-    }
-    baton(playerid);
-});
-
-
-// cuff nearest stunned player
-key(["v"], function(playerid) {
-    local targetid = playerList.nearestPlayer( playerid );
-
-    if ( isPlayerInVehicle(playerid) ) {
-        return;
-    }
-    if ( !isOfficer(playerid) || isOfficer(targetid) ) { // check if not office
-        return;
-    }
-    if ( isOfficer(playerid) && !isOnPoliceDuty(playerid) ) {
-        return msg( playerid, "organizations.police.duty.off" );
-    }
-    cuff(playerid);
-});
-
-
 // local function policetestitout(playerid, targetid, vehid) {
 //     putPlayerInVehicle(targetid, vehid, 1);
-//     setPlayerToggle(playerid, false);
 // }
 
 // acmd(["transport", "suspect"], function(playerid, targetid) {
@@ -313,6 +278,10 @@ key(["v"], function(playerid) {
 
 // put nearest cuffed player in jail
 cmd(["prison", "jail"], function(playerid, targetid) {
+    if ( !isOfficer(playerid) ) {
+        return;
+    }
+    if(targetid == null) return msg(playerid, "USE: /jail id");
     targetid = targetid.tointeger();
     if(getPoliceRank(playerid) < 2) return msg( playerid, "organizations.police.lowrank" );
     putInJail(playerid, targetid);
@@ -321,6 +290,10 @@ cmd(["prison", "jail"], function(playerid, targetid) {
 
 // take out player from jail
 cmd(["amnesty"], function(playerid, targetid) {
+    if ( !isOfficer(playerid) ) {
+        return;
+    }
+    if(targetid == null) return msg(playerid, "USE: /amnesty id");
     if(getPoliceRank(playerid) < 2) return msg( playerid, "organizations.police.lowrank" );
     targetid = targetid.tointeger();
     takeOutOfJail(playerid, targetid);

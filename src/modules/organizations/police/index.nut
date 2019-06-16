@@ -1,7 +1,6 @@
 const RUPOR_RADIUS = 75.0;
 const POLICERADIO_RADIUS = 10.0;
-const CUFF_RADIUS = 3.0;
-const BATON_RADIUS = 6.0;
+
 const POLICE_MODEL = 75;
 const POLICE_BADGE_RADIUS = 3.5;
 const POLICE_TICKET_DISTANCE = 3.0;
@@ -177,6 +176,8 @@ include("modules/organizations/police/PoliceTickets.nut");
 include("modules/organizations/police/garage.nut");
 include("modules/organizations/police/binder.nut");
 include("modules/organizations/police/beacon.nut");
+include("modules/organizations/police/cuff.nut");
+include("modules/organizations/police/baton.nut");
 //include("modules/organizations/police/dispatcher.nut");
 include("modules/organizations/police/translations.nut");
 
@@ -219,7 +220,7 @@ event("onServerPlayerStarted", function( playerid ){
     createPrivate3DText( playerid, POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]+0.35, plocalize(playerid, "3dtext.organizations.police"), CL_ROYALBLUE, EBPD_TITLE_DRAW_DISTANCE );
     createPrivate3DText( playerid, POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], POLICE_EBPD_ENTERES[1][2]+0.20, plocalize(playerid, "3dtext.job.press.E"), CL_WHITE.applyAlpha(150), EBPD_ENTER_RADIUS );
 
-    if (players[playerid].state == "cuffed") {
+    if (getPlayerState(playerid) == "cuffed") {
         delayedFunction(1100, function() { freezePlayer(playerid, true); });
         msg(playerid, "You cuffed.");
     }
@@ -267,14 +268,14 @@ event("onPlayerVehicleEnter", function( playerid, vehicleid, seat ) {
 
 
     if ( getPlayerState(playerid) == "cuffed" ) { //  && seat != 0
-        setPlayerToggle(playerid, false);
+        freezePlayer(playerid, false);
     }
 });
 
 
 event("onPlayerVehicleExit", function( playerid, vehicleid, seat ) {
     if ( getPlayerState(playerid) == "cuffed" ) {
-        setPlayerToggle(playerid, true);
+        freezePlayer(playerid, true);
     }
 
     if (isVehicleidPoliceVehicle(vehicleid)) {
@@ -289,7 +290,8 @@ event("onPlayerVehicleExit", function( playerid, vehicleid, seat ) {
 
 
 event("onPlayerDisconnect", function(playerid, reason) {
-    if ( getPlayerState(playerid) == "cuffed" ) {
+    local playersState = getPlayerState(playerid);
+    if (playersState == "cuffed" || playersState == "immobilized") {
         setPlayerState(playerid, "jail");
     }
 });

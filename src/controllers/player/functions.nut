@@ -72,18 +72,6 @@ function sendPlayerNotification(playerid, type, message) {
     return trigger(playeridm "onServerAddedNofitication", type, message);
 }
 
-
-function getPlayerToggle(playerid) {
-    return players[playerid]["toggle"];
-}
-
-function setPlayerToggle(playerid, to) {
-    players[playerid]["toggle"] = to;
-    // togglePlayerControls(playerid, to);
-    freezePlayer(playerid, to);
-}
-
-
 function getPlayerState(playerid) {
     return players.has(playerid) ? players[playerid].state : "free";
 }

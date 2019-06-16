@@ -132,6 +132,15 @@ function isOnPoliceDuty(playerid) {
     return (isOfficer(playerid) && playerid in police && police[playerid].onduty);
 }
 
+/**
+ * Check if officer on duty now
+ * @param  {int}  playerid
+ * @return {Boolean} true/false
+ */
+function isOfficerOnDuty(playerid) {
+    return police[playerid].onduty;
+}
+
 function policeSetOnDuty(playerid, bool) {
     if (!(playerid in police)) {
         police[playerid] <- {};
@@ -281,87 +290,13 @@ function showBadge(playerid, targetid = null) {
     msg(targetid, "organizations.police.show.badge", [getLocalizedPlayerJob(playerid), getAuthor(playerid)]);
 }
 
-
-function baton( playerid ) {
-    if ( !isOfficer(playerid) ) {
-        return msg( playerid, "organizations.police.notanofficer" );
-    }
-
-    if ( isOnPoliceDuty(playerid) ) {
-        local targetid = playerList.nearestPlayer( playerid );
-        if ( targetid == null ) {
-            return msg(playerid, "general.noonearound");
-        }
-
-        if ( isPlayerInVehicle(targetid) ) {
-            return;
-        }
-
-        if ( isBothInRadius(playerid, targetid, BATON_RADIUS) ) {
-            trigger("onBatonBitStart", playerid);
-            if ( players[targetid].state == "free" || players[targetid].state == "" ) {
-                setPlayerToggle( targetid, true );
-                setPlayerState(targetid, "tased");
-                local health_dmg = random(1,10);
-                local health = getPlayerHealth(targetid);
-                setPlayerHealth(targetid, health - health_dmg);
-            }
-            screenFadeinFadeout(targetid, 1500, function() {
-                msg( playerid, "organizations.police.bitsomeone.bybaton", [getAuthor(targetid)] );
-                msg( targetid, "organizations.police.beenbit.bybaton" );
-            }, function() {
-                if ( players[targetid].state == "tased" ) {
-                    setPlayerToggle( targetid, false );
-                    setPlayerState(targetid, "free");
-                }
-            });
-
-            // setPlayerAnimStyle(playerid, "common", "default");
-            // setPlayerHandModel(playerid, 1, 0); // remove policedubinka right hand
-        }
-    } else {
-        return msg(playerid, "organizations.police.offduty.nobaton")
-    }
-}
-
-
-function cuff(playerid) {
-    if ( isOnPoliceDuty(playerid) ) {
-        local targetid = playerList.nearestPlayer( playerid );
-
-        if ( targetid == null ) {
-            return msg(playerid, "general.noonearound");
-        }
-
-        if ( isBothInRadius(playerid, targetid, CUFF_RADIUS) ) {
-            if ( players[targetid].state == "tased" ) {
-                setPlayerToggle( targetid, true ); // cuff dat bitch
-                setPlayerState(targetid, "cuffed");
-                msg(targetid, "organizations.police.beencuffed", [getAuthor( playerid )]);
-                msg(playerid, "organizations.police.cuff.someone", [getAuthor( targetid )]);
-                return;
-            }
-            if ( players[targetid].state == "cuffed" ) {
-                setPlayerToggle( targetid, false ); // uncuff him...
-                setPlayerState(targetid, "free");
-                msg(targetid, "organizations.police.cuff.beenuncuffed", [getAuthor( playerid )] );
-                msg(playerid, "organizations.police.cuff.uncuffsomeone", [getAuthor( targetid )] );
-                return;
-            }
-            // throw out cuffes and disable arrest any players till officer didn't take them from the ground
-        }
-    }
-}
-
-
 function putInJail(playerid, targetid) {
-    if ( isOnPoliceDuty(playerid) && players[targetid].state == "cuffed" ) {
+    if ( isOnPoliceDuty(playerid) && getPlayerState(targetid) == "cuffed" ) {
         setPlayerState(targetid, "jail");
-        setPlayerToggle(targetid, false);
         screenFadeinFadeoutEx(targetid, 250, 200, function() {
         //  output "Wasted" and set player position
-            setPlayerState(targetid, "jail");
             setPlayerPosition( targetid, POLICE_JAIL_COORDS.jail[0], POLICE_JAIL_COORDS.jail[1], POLICE_JAIL_COORDS.jail[2] );
+            freezePlayer(targetid, false);
         });
         msg(targetid, "organizations.police.jail", [], CL_THUNDERBIRD);
         dbg( "[JAIL] " + getAuthor(playerid) + " put " + getAuthor(targetid) + "in jail." );
@@ -375,7 +310,6 @@ function takeOutOfJail(playerid, targetid) {
         //setPlayerRotation(targetid, -137.53, 0.00309768, -0.00414733);
 
         screenFadeinFadeoutEx(targetid, 250, 200, function() {
-            // setPlayerToggle(targetid, false);
             setPlayerState(targetid, "free");
         });
         msg(targetid, "organizations.police.unjail", [], CL_THUNDERBIRD);
