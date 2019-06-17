@@ -33,6 +33,10 @@ event("onServerPlayerStarted", function( playerid ){
     local timestamp = getTimestamp();
     foreach (idx, car in carDealerLoadedData) {
 
+        if (car.status == "canceled" || car.status == "completed") {
+            continue;
+        }
+
         // отправить на штрафстоянку если владелец не забрал в течение 5 суток с момента окончания срока (15 суток от начала продажи)
         if (timestamp > car.until && car.status == "await_owner") {
             car.status = "canceled";
