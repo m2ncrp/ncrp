@@ -11,14 +11,14 @@ const BADGUY_CARSHOP_X  = -632.584;
 const BADGUY_CARSHOP_Y  =  959.446;
 const BADGUY_CARSHOP_Z  = -19.0542;
 
-const TRUCK_SHOP_X  = -704.88;
-const TRUCK_SHOP_Y  = 1461.06;
-const TRUCK_SHOP_Z  = -6.82665;
+const TRUCK_SHOP_X  = 602.769;
+const TRUCK_SHOP_Y  = 739.019;
+const TRUCK_SHOP_Z  = -16.5903;
 
 local DIAMOND_MOTORS_PLACE_COORDS = [ -188.079, 812.369, -224.955, 843.047 ];
 local DIAMOND_MOTORS_PLACE_NAME = "DiamondMotors";
 
-local TRUCK_SHOP_PLACE_COORDS = [ -704.074, 1463.32, -707.376, 1459.98 ];
+local TRUCK_SHOP_PLACE_COORDS = [ 597.339, 751.284, 610.922, 724.341 ];
 local TRUCK_SHOP_PLACE_NAME = "TruckShop";
 
 local WORKING_HOUR = {
@@ -53,10 +53,14 @@ local vehiclePositions = {
         //{ state = CARSHOP_STATE_FREE, position = Vector3(-625.906, 954.701, -18.7714), rotation = Vector3(-89.3728, 1.50941, -0.26591) },
     ],
     "truckShop": [ // truck shop
-        { state = CARSHOP_STATE_FREE, position = Vector3(-705.155, 1456.00, -6.48204), rotation = Vector3(-43.0174, -0.252974, -0.64192) },
-        { state = CARSHOP_STATE_FREE, position = Vector3(-708.151, 1453.25, -6.50832), rotation = Vector3(-43.1396, -0.445434, -1.12674) },
-        { state = CARSHOP_STATE_FREE, position = Vector3(-711.119, 1450.54, -6.52765), rotation = Vector3(-41.8644, -0.613728,  -1.6044) },
+        //{ state = CARSHOP_STATE_FREE, position = Vector3(-705.155, 1456.00, -6.48204), rotation = Vector3(-43.0174, -0.252974, -0.64192) },
+        //{ state = CARSHOP_STATE_FREE, position = Vector3(-708.151, 1453.25, -6.50832), rotation = Vector3(-43.1396, -0.445434, -1.12674) },
+        //{ state = CARSHOP_STATE_FREE, position = Vector3(-711.119, 1450.54, -6.52765), rotation = Vector3(-41.8644, -0.613728,  -1.6044) },
         //{ state = CARSHOP_STATE_FREE, position = Vector3(-714.315, 1447.55, -6.52792), rotation = Vector3(-41.1587, -1.82778, -0.432325) },
+        //
+        { state = CARSHOP_STATE_FREE, position = Vector3(  605.94, 731.011, -16.2717), rotation = Vector3(-45.6876, 0.0817516, 0.254064) },
+        { state = CARSHOP_STATE_FREE, position = Vector3(  605.94, 737.011, -16.2717), rotation = Vector3(-45.6876, 0.0817516, 0.254064) },
+        { state = CARSHOP_STATE_FREE, position = Vector3(  605.94, 743.011, -16.2717), rotation = Vector3(-45.6876, 0.0817516, 0.254064) },
     ]
 }
 
@@ -89,9 +93,9 @@ local carPricesAll = [
        { modelid = 50  , price = 1950  , rent = 0.31, title = "Culver Empire"                },
        { modelid = 52  , price = 3250  , rent = 0.60, title = "Walker Rocket"                },
        { modelid = 53  , price = 510   , rent = 0.20, title = "Walter Coupe"                 },
-       { modelid = 37  , price = 1430  , rent = 0.0 , title = "Shubert Truck Covered"        },
-       { modelid = 35  , price = 1210  , rent = 0.0 , title = "Shubert Truck Flatbed"        },
-       { modelid = 46  , price = 960   , rent = 0.0 , title = "Smith Truck"                  },
+       { modelid = 37  , price = 2830  , rent = 0.0 , title = "Shubert Truck Covered"        },
+       { modelid = 35  , price = 2410  , rent = 0.0 , title = "Shubert Truck Flatbed"        },
+       { modelid = 46  , price = 1960  , rent = 0.0 , title = "Smith Truck"                  },
 ];
 
 //local carOnSale = [ 0, 1, 9, 10, 12, 13, 14, 15, 22, 23, 25, 28, 29, 41, 43, 44, 45, 47, 48, 50, 52, 53 ];
@@ -166,12 +170,8 @@ alternativeTranslate({
 /* ==================================================================== EVENTS ================================================================================= */
 
 event("onServerStarted", function() {
-    // Diamond Motors motors
-    //create3DText( DIAMOND_CARSHOP_X, DIAMOND_CARSHOP_Y, DIAMOND_CARSHOP_Z + 0.35, "DIAMOND MOTORS", CL_ROYALBLUE );
-    //create3DText( DIAMOND_CARSHOP_X, DIAMOND_CARSHOP_Y, DIAMOND_CARSHOP_Z + 0.20, "/car", CL_WHITE.applyAlpha(75), CARSHOP_DISTANCE );
-
     createBlip  ( DIAMOND_CARSHOP_X, DIAMOND_CARSHOP_Y, ICON_LOGO_CAR, ICON_RANGE_FULL );
-    //createBlip  ( TRUCK_SHOP_X, TRUCK_SHOP_Y, ICON_LOGO_CAR, ICON_RANGE_FULL );
+    createBlip  ( TRUCK_SHOP_X, TRUCK_SHOP_Y, ICON_LOGO_CAR, ICON_RANGE_FULL );
 
     createPlace(DIAMOND_MOTORS_PLACE_NAME, DIAMOND_MOTORS_PLACE_COORDS[0], DIAMOND_MOTORS_PLACE_COORDS[1], DIAMOND_MOTORS_PLACE_COORDS[2], DIAMOND_MOTORS_PLACE_COORDS[3]);
     createPlace(TRUCK_SHOP_PLACE_NAME, TRUCK_SHOP_PLACE_COORDS[0], TRUCK_SHOP_PLACE_COORDS[1], TRUCK_SHOP_PLACE_COORDS[2], TRUCK_SHOP_PLACE_COORDS[3]);
@@ -239,13 +239,21 @@ event("onPlayerPlaceEnter", function(playerid, name) {
     }
 
     if (name == TRUCK_SHOP_PLACE_NAME) {
-        local hour = getHour();
-        if(hour < WORKING_HOUR.truckShop.start || hour >= WORKING_HOUR.truckShop.end) {
-            return msg( playerid, "shops.carshop.truckShop.closed", [ WORKING_HOUR.truckShop.start.tostring(), WORKING_HOUR.truckShop.end.tostring()], CL_ROYALBLUE );
+        if(isPlayerInVehicle(playerid)) {
+            local vehicleid = getPlayerVehicle(playerid);
+            local vehSpeed = getVehicleSpeed(vehicleid);
+            local vehSpeedNew = [];
+            if (vehSpeed[1] <= 0) vehSpeed[1] = (vehSpeed[1] + 1) * -1;
+            setVehicleSpeed(vehicleid, vehSpeed[0], vehSpeed[1], vehSpeed[2]);
+        } else {
+            local hour = getHour();
+            if(hour < WORKING_HOUR.truckShop.start || hour >= WORKING_HOUR.truckShop.end) {
+                return msg( playerid, "shops.carshop.truckShop.closed", [ WORKING_HOUR.truckShop.start.tostring(), WORKING_HOUR.truckShop.end.tostring()], CL_ROYALBLUE );
+            }
+            msg(playerid, "===========================================", CL_HELP_LINE);
+            msg(playerid, "shops.carshop.truck.welcome1", CL_FIREBUSH);
+            msg(playerid, "shops.carshop.truck.welcome2", CL_SILVERSAND);
         }
-        msg(playerid, "===========================================", CL_HELP_LINE);
-        msg(playerid, "shops.carshop.truck.welcome1", CL_FIREBUSH);
-        msg(playerid, "shops.carshop.truck.welcome2", CL_SILVERSAND);
     }
 });
 
@@ -465,7 +473,7 @@ function carShopChangeColor(playerid) {
 
 function generateRandomCars() {
 
-    local shops = ["diamondMotors"/*, "truckShop"*/];
+    local shops = ["diamondMotors", "truckShop"];
 
     local carPricesArray = [];
 
@@ -480,8 +488,13 @@ function generateRandomCars() {
             local rand = random(0, carPricesClone.len() - 1);
             if( carOnSale[shopName].find(carPricesClone[rand].modelid) == null ) { i--; /* dbg("nicht"); */ continue; }
 
+            local offsetY = 0;
+            if(carPricesClone[rand].modelid == 46) {
+                offsetY = 0.184;
+            }
+
             local vehicleid = createVehicle(carPricesClone[rand].modelid,
-                spaces[i].position.x, spaces[i].position.y, spaces[i].position.z,
+                spaces[i].position.x, spaces[i].position.y, spaces[i].position.z + offsetY,
                 spaces[i].rotation.x, spaces[i].rotation.y, spaces[i].rotation.z
             );
             currentcarcolor[vehicleid] <- 0;
