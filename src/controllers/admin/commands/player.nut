@@ -158,3 +158,16 @@ key("i", function(playerid) {
         trigger(playerid, "onServerToggleNametags");
     }
 });
+
+key("back", function(playerid) {
+    if (isPlayerAdmin(playerid)) {
+        triggerClientEvent(playerid, "tabpanel:show");
+    }
+}, KEY_DOWN);
+
+key("back", function(playerid) {
+    if (isPlayerAdmin(playerid)) {
+        triggerClientEvent(playerid, "tabpanel:hide");
+    }
+}, KEY_UP);
+
