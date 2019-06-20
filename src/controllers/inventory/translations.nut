@@ -63,6 +63,11 @@ alternativeTranslate({
     "en|inventory.volume.notenough"      : "You can't carry more."
     "ru|inventory.volume.notenough"      : "Вы не можете столько унести."
 
+    "en|inventory.space.notenough-for-target"      : "%s doesn't have enough inventory space."
+    "ru|inventory.space.notenough-for-target"      : "У %s недостаточно места в инвентаре."
+
+    "en|inventory.volume.notenough-for-target"      : "%s can't carry more."
+    "ru|inventory.volume.notenough-for-target"      : "%s не может столько унести."
 
     "en|inventory.clothes.use"      : "You put on: %s."
     "ru|inventory.clothes.use"      : "Вы надели: %s."

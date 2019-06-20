@@ -95,12 +95,14 @@ function leavePoliceJob(playerid) {
  * @return {Boolean} true/false
  */
 function isPlayerInPoliceVehicle(playerid) {
-    return (isPlayerInValidVehicle(playerid, 42) || isPlayerInValidVehicle(playerid, 51) || isPlayerInValidVehicle(playerid, 21));
+    if(!isPlayerInVehicle(playerid)) return false;
+    local vehicleid = getPlayerVehicle(playerid);
+    return isVehicleidPoliceVehicle(vehicleid)
 }
 
 function isVehicleidPoliceVehicle(vehicleid) {
     local model = getVehicleModel( vehicleid );
-    return ( model == 42 ) || ( model == 51 ) || ( model == 21 );
+    return ( model == 42 ) || ( model == 51 ) || ( model == 21 ) || ( model == 50 && getVehiclePlateText(vehicleid) == "PD-191");
 }
 
 
@@ -138,7 +140,7 @@ function isOnPoliceDuty(playerid) {
  * @return {Boolean} true/false
  */
 function isOfficerOnDuty(playerid) {
-    return police[playerid].onduty;
+    return (playerid in police && police[playerid].onduty);
 }
 
 function policeSetOnDuty(playerid, bool) {
@@ -339,4 +341,26 @@ function getVehicleWantedForTax() {
         }
     });
     return vehiclesWanted;
+}
+
+
+function getHashToPoliceBadge(fullname) {
+    local alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+    local hash = md5(fullname);
+    local s = hash.slice(0, 8);
+
+    foreach (idy, letter in alphabet) {
+        s = str_replace_ex(letter, "", s)
+    }
+
+    if (s.len() > 4) {
+        s = s.slice(0, 4);
+    } else {
+        while(s.len() < 4) {
+            s = "0"+s;
+        }
+    }
+
+    return s;
 }

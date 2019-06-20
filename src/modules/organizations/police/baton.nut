@@ -3,7 +3,7 @@ const BATON_RADIUS = 6.0;
 local batonBumps = {};
 
 // stun nearest player for some time
-key(["g"], function(playerid) {
+key(["b"], function(playerid) {
 
     // если игрок в авто
     if ( isPlayerInVehicle(playerid) ) {

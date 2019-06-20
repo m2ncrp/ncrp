@@ -82,14 +82,35 @@ cmd("police", ["job"], function(playerid, targetid) {
             return;
         }
 
-        if (players[playerid].xp < 1200) {
+        if (players[targetid].xp < 1200) {
                    msg(targetid, "organizations.police.lowxp.target", CL_RED);
             return msg(playerid, "organizations.police.lowxp", [ getPlayerName(targetid) ], CL_RED);
         }
 
+        local targetName = getPlayerName(targetid);
+
+        if(!players[targetid].inventory.isFreeSpace(1)) {
+                   msg(playerid, "inventory.space.notenough-for-target", [ targetName ], CL_THUNDERBIRD);
+            return msg(targetid, "inventory.space.notenough", CL_THUNDERBIRD);
+        }
+
+        local policeBadge = Item.PoliceBadge();
+
+        if (!players[targetid].inventory.isFreeVolume(policeBadge)) {
+                   msg(playerid, "inventory.volume.notenough-for-target", [ targetName ], CL_THUNDERBIRD);
+            return msg(targetid, "inventory.volume.notenough", CL_THUNDERBIRD);
+        }
+
+        policeBadge.setData("number", getHashToPoliceBadge(targetName));
+        policeBadge.setData("fio", targetName);
+
+        players[targetid].inventory.push( policeBadge );
+        policeBadge.save();
+        players[targetid].inventory.sync();
+
         getPoliceJob(targetid);
         msg(playerid, "organizations.police.setjob.byadmin", [getAuthor(targetid), getLocalizedPlayerJob(targetid)]);
-        dbg( "[POLICE JOIN]" + getAuthor(playerid) + " add " + getAuthor(targetid) + "to Police" );
+        dbg( "[POLICE JOIN] " + getAuthor(playerid) + " add " + getAuthor(targetid) + " to Police" );
     }
 });
 
@@ -98,7 +119,7 @@ cmd("police", ["job"], function(playerid, targetid) {
 cmd("police", ["job", "leave"], function(playerid, targetid) {
     local targetid = targetid.tointeger();
     if ( getPoliceRank(playerid) == POLICE_MAX_RANK ) {
-        dbg( "[POLICE LEAVE]" + getAuthor(playerid) + " remove " + getAuthor(targetid) + "from Police" );
+        dbg( "[POLICE LEAVE] " + getAuthor(playerid) + " remove " + getAuthor(targetid) + " from Police" );
         msg(playerid, "organizations.police.leavejob.byadmin", [ getAuthor(targetid), getLocalizedPlayerJob(targetid) ]);
         leavePoliceJob(targetid);
     }
@@ -154,7 +175,7 @@ cmd("police", ["badge"], function(playerid, targetid = null) {
     showBadge(playerid, targetid);
 });
 
-
+/*
 // show badge
 key(["b"], function(playerid) {
     if ( !isOfficer(playerid) ) {
@@ -178,7 +199,7 @@ key(["b"], function(playerid) {
         showBadge(playerid);
     }
 }, KEY_UP);
-
+*/
 
 
 // usage: /police duty on
@@ -224,23 +245,6 @@ key(["e"], function(playerid) {
         policeSetOnDuty(playerid, !bool);
     }
 }, KEY_UP);
-
-
-policecmd(["r", "radio"], function(playerid, text) {
-    if ( !isOfficer(playerid) ) {
-        return msg(playerid, "organizations.police.notanofficer");
-    }
-    if( !isPlayerInPoliceVehicle(playerid) ) {
-        return msg( playerid, "organizations.police.notinpolicevehicle");
-    }
-
-    // Enhaincment: loop through not players, but police vehicles with radio has on
-    foreach (targetid, player in players) {
-        if ( (isOfficer(targetid) && isPlayerInPoliceVehicle(targetid)) || isPlayerAdmin(targetid) ) {
-            msg( targetid, "[POLICE RADIO] " + getAuthor(playerid) + ": " + text, CL_ROYALBLUE );
-        }
-    }
-});
 
 
 policecmd("m", function(playerid, text) {
@@ -310,8 +314,9 @@ function policeHelp(playerid, a = null, b = null) {
         { name = "/r TEXT",                     desc = "organizations.police.info.cmds.ratio"},
         { name = "/m TEXT",                     desc = "organizations.police.info.cmds.rupor"},
         { name = "/ticket ID",                  desc = "organizations.police.info.cmds.ticket" },
-        { name = "G button",                    desc = "organizations.police.info.cmds.baton" },
+        { name = "B button",                    desc = "organizations.police.info.cmds.baton" },
         { name = "V button",                    desc = "organizations.police.info.cmds.cuff" },
+        { name = "/uncuff ID",                  desc = "organizations.police.info.cmds.uncuff" },
         { name = "/prison ID",                  desc = "organizations.police.info.cmds.prison" },
         { name = "/amnesty ID",                 desc = "organizations.police.info.cmds.amnesty" }
     ];

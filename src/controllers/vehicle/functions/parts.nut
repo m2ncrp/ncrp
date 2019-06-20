@@ -14,6 +14,10 @@ event("onServerSecondChange", function() {
             continue;
         }
 
+        if(("options" in veh.data) == false) {
+            veh.data.options <- {};
+        }
+
         if(("parts" in veh.data) == false) {
             veh.data.parts <- {};
             veh.data.parts.trunk <- {

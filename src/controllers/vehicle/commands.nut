@@ -35,7 +35,10 @@ key("q", function (playerid) {
     local locked = veh.data.parts.trunk.locked;
     local opened = veh.data.parts.trunk.opened;
 
-    if(!isPlayerHaveVehicleKey(playerid, vehicleid)) {
+
+    local hasAccess = isPlayerHaveVehicleKey(playerid, vehicleid) || ( isOfficer(playerid) && isOfficerOnDuty(playerid) && isVehicleidPoliceVehicle(vehicleid) );
+
+    if(!hasAccess) {
         msg(playerid, "vehicle.owner.warning", CL_ERROR);
         // нельзя делать return, поскольку надо предотвратить открытие залоченного багажника (мало ли игрок поменял кнопку).
     } else {
@@ -138,3 +141,18 @@ key("z", function (playerid) {
 
 })
 
+
+acmd(["setdefault"], function( playerid ) {
+    if(!isPlayerInVehicle(playerid)) return msg(playerid, "Нужно быть в машине");
+    local vehicleid = getPlayerVehicle(playerid);
+    local veh = getVehicleEntity(vehicleid);
+    if(veh == null) return;
+
+    local vehPos = getVehiclePositionObj(vehicleid);
+    local vehRot = getVehicleRotationObj(vehicleid);
+
+    veh.data.defaultPos <- vehPos;
+    veh.data.defaultRot <- vehRot;
+    veh.save();
+    msg(playerid, "Позиция и поворот по-умолчанию установлены");
+});

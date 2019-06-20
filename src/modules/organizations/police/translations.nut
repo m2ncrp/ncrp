@@ -234,8 +234,11 @@ alternativeTranslate({
 "en|organizations.police.info.cmds.baton"           : "Stun nearset player"
 "ru|organizations.police.info.cmds.baton"           : "Обездвижить ближайшего игрока"
 
-"en|organizations.police.info.cmds.cuff"            : "Cuff or uncuff nearest stunned player"
-"ru|organizations.police.info.cmds.cuff"            : "Надеть наручники на ближайшего оглушенного игрока или снять их"
+"en|organizations.police.info.cmds.cuff"            : "Cuff nearest stunned player"
+"ru|organizations.police.info.cmds.cuff"            : "Надеть наручники на ближайшего игрока"
+
+"en|organizations.police.info.cmds.uncuff"          : "Uncuff nearest stunned player"
+"ru|organizations.police.info.cmds.uncuff"          : "Снять наручники с ближайшего игрока"
 
 "en|organizations.police.info.cmds.prison"          : "Put nearest cuffed player in jail"
 "ru|organizations.police.info.cmds.prison"          : "Посадить игрока с указанным id в тюрьму"
@@ -282,7 +285,7 @@ alternativeTranslate({
 "ru|organizations.police.kosoypereulok.ticket"      : "Вам выписан штраф за движение по тротуару ($%.2f)."
 
 "en|policebadge.title"                              : "Police badge:"
-"ru|policebadge.title"                              : "Полицейский жетон:"
+"ru|policebadge.title"                              : "Полицейский жетон сотрудника EBPD:"
 
 "en|policebadge.info.number"                        : "Number: %s"
 "ru|policebadge.info.number"                        : "Номер: %s"

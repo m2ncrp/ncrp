@@ -1,8 +1,3 @@
-local VEHKEYS_X = 582.687;  //-199.524;
-local VEHKEYS_Y = 942.741;  // 838.586;
-local VEHKEYS_Z = 0.926393; //-21.2431;
-local VEHKEYS_RADIUS = 2.0;
-
 alternativeTranslate({
     "en|vehkeys.help.title"  : "Ключ от автомобиля:"
     "ru|vehkeys.help.title"  : "Ключ от автомобиля:"
@@ -13,9 +8,6 @@ alternativeTranslate({
     "en|vehkeys.help.desc"   : "Get key of car"
     "ru|vehkeys.help.desc"   : "Получить ключ от автомобиля"
 
-    "en|vehkeys.toofar"      : "You can get key of car at auto shop."
-    "ru|vehkeys.toofar"      : "Получить ключ от автомобиля можно в автосалоне."
-
     "en|vehkeys.got"         : "You received key of car for %s."
     "ru|vehkeys.got"         : "Вы получили ключ от автомобиля с номером %s."
 
@@ -23,11 +15,6 @@ alternativeTranslate({
     "ru|vehkeys.alreadygot"  :  "Вы уже получили ключ от этого автомобиля."
 
 });
-
-event("onServerStarted", function() {
-    create3DText (VEHKEYS_X, VEHKEYS_Y, VEHKEYS_Z+0.35, "GET CAR KEYS", CL_FLAMINGO );
-    create3DText (VEHKEYS_X, VEHKEYS_Y, VEHKEYS_Z+0.20, "/key", CL_WHITE.applyAlpha(150), VEHKEYS_RADIUS );
- });
 
 function getVehicleKeysHelp( playerid ) {
     local title = "vehkeys.help.title";
@@ -44,17 +31,13 @@ acmd("key", function( playerid, plateText = 0 ) {
         return getVehicleKeysHelp( playerid );
     }
 
-    // if (!isPlayerInValidPoint(playerid, VEHKEYS_X, VEHKEYS_Y, 1.0 )) {
-    //     return msg(playerid, "vehkeys.toofar", CL_THUNDERBIRD);
-    // }
-
     if(!players[playerid].inventory.isFreeSpace(1)) {
         return msg(playerid, "inventory.space.notenough", CL_THUNDERBIRD);
     }
 
     local vehicleKey = Item.VehicleKey();
     if (!players[playerid].inventory.isFreeVolume(vehicleKey)) {
-        return msg(playerid, "inventory.Volume.notenough", CL_THUNDERBIRD);
+        return msg(playerid, "inventory.volume.notenough", CL_THUNDERBIRD);
     }
 
     local plateText = plateText.toupper();
