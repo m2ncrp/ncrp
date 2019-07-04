@@ -1,7 +1,8 @@
 class Item.VehicleTax extends Item.Abstract
 {
     static classname = "Item.VehicleTax";
-    weight      = 0.02;
+    weight          = 0.02;
+    default_decay   = 60 * 60 * 2; // 2 hrs
 
     function use(playerid, inventory) {
         msg(playerid, "==================================", CL_HELP_LINE);
