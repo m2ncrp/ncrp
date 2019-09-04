@@ -40,7 +40,8 @@ event("onClientFrameRender", function(isGUIDrawn) {
                 if(adminLimit) {
                     local text = players[i] + " [" + i.tostring() + "]";
                     local dimensions = dxGetTextDimensions( text, fScale, "tahoma-bold" );
-                    dxDrawText( text, (vectors[i][0] - (dimensions[0] / 2))+1, vectors[i][1]+1,  fromRGB(0, 0, 0, 255), false, "tahoma-bold", fScale );
+                    dxDrawText( text, (vectors[i][0] - (dimensions[0] / 2))+1, vectors[i][1]+1, fromRGB(0, 0, 0, 255), false, "tahoma-bold", fScale );
+                    dxDrawText( text, (vectors[i][0] - (dimensions[0] / 2)), vectors[i][1]+1, color, false, "tahoma-bold", fScale );
                     continue;
                 }
                 local text = "[" + i.tostring() + "]";
