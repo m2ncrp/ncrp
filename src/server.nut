@@ -324,3 +324,13 @@ proxy("shop:purchase",              "native:shop:purchase"               );
 if (__DEBUG__EXPORT) {
     dbg(__commands);
 }
+
+function ex(json) {
+    nnTrigger(json);
+};
+
+nnListen(function(data) {
+    //local parsedData = JSONParser.parse(data);
+    dbg("from node json: "+ data)
+    //log("from node json: " + parsedData.type + ": "+data);
+});
