@@ -197,7 +197,7 @@ cmd(["text"], function(playerid, r, g, b) {
     msg(playerid, "Тестовое сообщение - Test message - 987654321", rgb(r.tointeger(), g.tointeger(), b.tointeger()));
 });
 
-
+/*
 cmd("idea", function(playerid, ...) {
     msg(playerid, "chat.idea.success", CL_SUCCESS);
     statisticsPushText("idea", playerid, concat(vargv));
@@ -209,7 +209,7 @@ cmd("bug", function(playerid, ...) {
     statisticsPushText("bug", playerid, concat(vargv));
     dbg("chat", "bug", getAuthor(playerid), concat(vargv));
 });
-
+*/
 cmd("report", function(playerid, id, ...) {
     if (!isInteger(id) || !vargv.len()) {
         return msg(playerid, "chat.report.error", CL_ERROR);
