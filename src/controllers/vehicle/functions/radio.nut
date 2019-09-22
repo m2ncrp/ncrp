@@ -62,7 +62,7 @@ alternativeTranslate({
     "en|vehicle.options.radio.not-installed"   : "There's no radio in the car."
     "ru|vehicle.options.radio.not-installed"   : "В автомобиле не установлена рация."
 
-    "en|vehicle.options.radio.channel-limit"   : "Channel must be a number from 0 to 10"
+    "en|vehicle.options.radio.channel-limit"   : "Channel must be a number from 0 to %d"
     "ru|vehicle.options.radio.channel-limit"   : "Канал должен быть числом от 0 до %d."
 
     "en|vehicle.options.radio.channel-changed" : "New channel: %d."
