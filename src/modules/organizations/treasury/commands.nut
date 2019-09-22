@@ -29,44 +29,50 @@ fmd("gov", ["gov.treasury"], "$f treasury get", function(fraction, character) {
     msg(character.playerid, "treasury.get", getMoneyTreasury() );
 });
 
-fmd("gov", ["gov.treasury"], "$f treasury add", function(fraction, character, amount = "0", reason = null) {
+fmd("gov", ["gov.treasury"], "$f treasury add", function(fraction, character, amount, ...) {
 
     if (!isPlayerInValidPoint(character.playerid, coords[0], coords[1], 1.0 )) {
         return msg(character.playerid, "treasury.toofar", CL_THUNDERBIRD );
     }
 
-    if(!reason) return msg(character.playerid, "treasury.enterreason", CL_THUNDERBIRD );
+    if(!vargv) return msg(character.playerid, "treasury.enterreason", CL_THUNDERBIRD );
 
-    amount = amount.tofloat();
+    amount = amount.tofloat() || 0;
 
     if (!canMoneyBeSubstracted(character.playerid, amount)) {
         return msg(character.playerid, "treasury.player.notenough", CL_THUNDERBIRD);
     }
 
+		local moneyInTreasuryOld = getMoneyTreasury();
     addMoneyToTreasury(amount);
+		local moneyInTreasuryNow = getMoneyTreasury();
+
     subMoneyToPlayer(character.playerid, amount);
-    msg(character.playerid, "treasury.add", [ amount.tofloat(), getMoneyTreasury() ], CL_EUCALYPTUS );
-    dbg("chat", "idea", getAuthor(character.playerid), "Добавлено в казну: "+amount.tostring()+". Основание: "+reason);
+    msg(character.playerid, "treasury.add", [ amount.tofloat(), moneyInTreasuryNow ], CL_EUCALYPTUS );
+		dbg("gov", "treasury", "add", getPlayerName(character.playerid), getDateTime(), [["Было", "$"+moneyInTreasuryOld.tostring()], ["Сумма", "+$"+amount.tostring()], ["Стало", "$"+moneyInTreasuryNow.tostring()],["Основание", concat(vargv)]]);
 });
 
-fmd("gov", ["gov.treasury"], "$f treasury sub", function(fraction, character, amount = "0", reason = null) {
+fmd("gov", ["gov.treasury"], "$f treasury sub", function(fraction, character, amount, ...) {
 
     if (!isPlayerInValidPoint(character.playerid, coords[0], coords[1], 1.0 )) {
         return msg(character.playerid, "treasury.toofar", CL_THUNDERBIRD );
     }
 
-    if(!reason) return msg(character.playerid, "treasury.enterreason", CL_THUNDERBIRD );
+    if(!vargv) return msg(character.playerid, "treasury.enterreason", CL_THUNDERBIRD );
 
-    amount = amount.tofloat();
+    amount = amount.tofloat() || 0;
 
     if(amount.tofloat() > getMoneyTreasury().tofloat()) {
         return msg(character.playerid, "treasury.notenough", CL_THUNDERBIRD );
     }
 
+		local moneyInTreasuryOld = getMoneyTreasury();
     subMoneyToTreasury(amount);
+		local moneyInTreasuryNow = getMoneyTreasury();
+
     addMoneyToPlayer(character.playerid, amount);
     msg(character.playerid, "treasury.sub", [ amount.tofloat(), getMoneyTreasury() ], CL_THUNDERBIRD );
-    dbg("chat", "idea", getAuthor(character.playerid), "Взято из казны: "+amount.tostring()+". Основание: "+reason);
+    dbg("gov", "treasury", "sub", getPlayerName(character.playerid), getDateTime(), [["Было", "$"+moneyInTreasuryOld.tostring()], ["Сумма", "-$"+amount.tostring()], ["Стало", "$"+moneyInTreasuryNow.tostring()],["Основание", concat(vargv)]]);
 });
 
 

@@ -215,7 +215,7 @@ function validateAndUpdateCharacter(playerid, character, firstname, lastname, ra
         trigger("onPlayerCharacterLoaded", playerid, character);
     });
 
-    dbg("new_character", getAccountName(playerid), firstname+" "+lastname);
+    dbg("ncrp", "newcomers", firstname+" "+lastname);
 
     return true;
 }

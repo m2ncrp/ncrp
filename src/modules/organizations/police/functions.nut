@@ -299,7 +299,9 @@ function putInJail(playerid, targetid) {
             freezePlayer(targetid, false);
         });
         msg(targetid, "organizations.police.jail", [], CL_THUNDERBIRD);
-        dbg( "[JAIL] " + getAuthor(playerid) + " put " + getAuthor(targetid) + "in jail." );
+        //dbg( "[JAIL] " + getAuthor(playerid) + " put " + getAuthor(targetid) + "in jail." );
+
+        dbg("police", "jail", "put", getPlayerName(playerid), getPlayerName(targetid), getDateTime());
     }
 }
 

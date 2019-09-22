@@ -103,6 +103,19 @@ function advancedCommand(permissions, aliases, extensionOrCallback, callbackOrNu
         //    }
         //}
 
+        // iterate over arguments
+        // and try to find appropriate sequence
+        while (args.len() > 0 && args[0] in cursor) {
+            cmdlog += " " + args[0];
+            cursor = cursor[args[0]];
+            args   = args.slice(1);
+        }
+
+        // add detalied log with all parameters
+        for (local i = 0; i < args.len(); i++) {
+            cmdlog += " " + args[i];
+        }
+
         if(permissions != "-") {
             if(!fractions.exists("admin")) {
                 log("fraction ADMIN doesn't exist");
@@ -118,20 +131,9 @@ function advancedCommand(permissions, aliases, extensionOrCallback, callbackOrNu
 
             if (permissions != "*" && !fractions.admin.members.get(character).permitted(permissions)) {
                 return msg(playerid, "fraction.permission.error", CL_ERROR);
+            } else {
+            		dbg("ncrp", "commands", getPlayerName(playerid), character.name, cmdlog)
             }
-        }
-
-        // iterate over arguments
-        // and try to find appropriate sequence
-        while (args.len() > 0 && args[0] in cursor) {
-            cmdlog += " " + args[0];
-            cursor = cursor[args[0]];
-            args   = args.slice(1);
-        }
-
-        // add detalied log with all parameters
-        for (local i = 0; i < args.len(); i++) {
-            cmdlog += " " + args[i];
         }
 
         if (COMMANDS_DEFAULT in cursor && typeof cursor[COMMANDS_DEFAULT] == "function") {
