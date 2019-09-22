@@ -28,7 +28,7 @@ function tabDown()
             fHeight += fPaddingPlayer;
     }
 }
-bindKey( "back", "down", tabDown );
+//bindKey( "back", "down", tabDown );
 
 function tabUp()
 {
@@ -39,12 +39,10 @@ function tabUp()
     // Reset the height
     fHeight = ((fPadding * 2) + (fTopToTitles * 3));
 }
-bindKey( "back", "up", tabUp );
+//bindKey( "back", "up", tabUp );
 
-// addEventHandler("onServerKeyboard", function(key, state) {
-//     if (key == "tab" && state == "down") tabDown();
-//     if (key == "tab" && state == "up") tabUp();
-// });
+addEventHandler("tabpanel:show", tabDown);
+addEventHandler("tabpanel:hide", tabUp);
 
 function deviceReset()
 {

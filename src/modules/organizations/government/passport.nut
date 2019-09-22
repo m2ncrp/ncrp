@@ -9,6 +9,7 @@ function passportHelp( playerid ) {
 }
 
 function isPlayerHaveValidPassport( playerid ) {
+		return true;
     local haveValidPassport = false;
 
     foreach (idx, item in players[playerid].inventory) {

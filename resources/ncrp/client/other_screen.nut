@@ -60,11 +60,11 @@ function onSecondChanged() {
     triggerServerEvent("onClientSendFPSData", getFPS());
 
     drawdata.status = format(
-        "ID: %d  |  FPS: %d  |  Ping: %d  |  Online: %d",
+        "ID: %d  |  FPS: %d  |  Ping: %d", /*   |  Online: %d" */
         getLocalPlayer(),
         getFPS(),
-        getPlayerPing(getLocalPlayer()),
-        (getPlayerCount() + 1)
+        getPlayerPing(getLocalPlayer())
+        //(getPlayerCount() + 1)
     );
 }
 

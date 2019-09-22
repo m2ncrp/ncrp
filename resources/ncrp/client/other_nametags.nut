@@ -36,12 +36,16 @@ event("onClientFrameRender", function(isGUIDrawn) {
 
                 local fScale = adminfScale ? adminfScale : 1.05 - (((fDistance > limit) ? limit : fDistance) / limit);
 
-                local text = players[i] + " [" + i.tostring() + "]";
-                local dimensions = dxGetTextDimensions( text, fScale, "tahoma-bold" );
                 local color = adminLimit ? fromRGB(255, 255, 255, 213) : fromRGB(255, 255, 255, (50 + 125.0 * fScale).tointeger());
                 if(adminLimit) {
-                    dxDrawText( text, (vectors[i][0] - (dimensions[0] / 2))+1, vectors[i][1]+1,  fromRGB(0, 0, 0, 255), false, "tahoma-bold", fScale );
+                    local text = players[i] + " [" + i.tostring() + "]";
+                    local dimensions = dxGetTextDimensions( text, fScale, "tahoma-bold" );
+                    dxDrawText( text, (vectors[i][0] - (dimensions[0] / 2))+1, vectors[i][1]+1, fromRGB(0, 0, 0, 255), false, "tahoma-bold", fScale );
+                    dxDrawText( text, (vectors[i][0] - (dimensions[0] / 2)), vectors[i][1]+1, color, false, "tahoma-bold", fScale );
+                    continue;
                 }
+                local text = "[" + i.tostring() + "]";
+                local dimensions = dxGetTextDimensions( text, fScale, "tahoma-bold" );
                 dxDrawText( text, (vectors[i][0] - (dimensions[0] / 2)), vectors[i][1], color, false, "tahoma-bold", fScale );
             }
         }
