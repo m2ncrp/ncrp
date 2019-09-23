@@ -67,8 +67,13 @@ event("native:shop:purchase", function(playerid, data) {
 
     msg(playerid, "shops.restaurant.buy.success", [ plocalize(playerid, item.itemName), price ], CL_SUCCESS);
 
-    players[playerid].inventory.push(itemObject) || itemObject.save();
-    players[playerid].inventory.sync();
+    if(itemObject.handsOnly) {
+        players[playerid].hands.push(itemObject) || itemObject.save();
+        players[playerid].hands.sync();
+    } else {
+        players[playerid].inventory.push(itemObject) || itemObject.save();
+        players[playerid].inventory.sync();
+    }
 
     dbg("[ MARKET ] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> Bought "+localize(item.itemName)+" for "+ format("%.2f", price)+" dollars.");
 

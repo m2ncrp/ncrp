@@ -66,6 +66,8 @@ event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
             if (inventory2.exists(slot2)) {
                 if (!inventory1.canBeInserted(inventory2[slot2])) return msg(playerid, "inventory.cannotinsert", CL_WARNING);
                 if (!inventory2.canBeInserted(inventory1[slot1])) return msg(playerid, "inventory.cannotinsert", CL_WARNING);
+                if (inventory1[slot1].handsOnly && !(inventory2 instanceof PlayerHandsContainer) ) return msg(playerid, "inventory.cannotinsert", CL_WARNING);
+
 
                 // we should swap items
                 inventory1.set(slot1, inventory2[slot2]);

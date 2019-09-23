@@ -33,6 +33,7 @@ include("controllers/inventory/classes/Item/Money.nut");
 include("controllers/inventory/classes/Item/Gift.nut");
 include("controllers/inventory/classes/Item/Wheels.nut");
 include("controllers/inventory/classes/Item/Dice.nut");
+include("controllers/inventory/classes/Item/CoffeeCup.nut");
 
 include("controllers/inventory/classes/GroundItems.nut");
 include("controllers/inventory/classes/ItemContainer.nut");
@@ -125,7 +126,6 @@ class Item.Cola                 extends Item.Drink  { static classname = "Item.C
 class Item.Whiskey              extends Item.Drink  { static classname = "Item.Whiskey";          constructor () { base.constructor(); this.volume = 1.3766; this.amount = 50.0 }}
 class Item.Brandy               extends Item.Drink  { static classname = "Item.Brandy";           constructor () { base.constructor(); this.volume = 1.8025; this.amount = 60.0 }}
 class Item.Wine                 extends Item.Drink  { static classname = "Item.Wine";             constructor () { base.constructor(); this.volume = 1.7388; this.amount = 55.0 }}
-class Item.CoffeeCup            extends Item.Drink  { static classname = "Item.CoffeeCup";        constructor () { base.constructor(); this.volume = 0.5475; this.amount = 25.0 }}
 class Item.MasterBeer           extends Item.Drink  { static classname = "Item.MasterBeer";       constructor () { base.constructor(); this.volume = 0.8263; this.amount = 30.0 }}
 class Item.StoltzBeer           extends Item.Drink  { static classname = "Item.StoltzBeer";       constructor () { base.constructor(); this.volume = 1.1741; this.amount = 35.0 }}
 class Item.OldEmpiricalBeer     extends Item.Drink  { static classname = "Item.OldEmpiricalBeer"; constructor () { base.constructor(); this.volume = 1.1605; this.amount = 40.0 }}
