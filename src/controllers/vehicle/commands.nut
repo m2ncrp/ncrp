@@ -141,6 +141,25 @@ key("z", function (playerid) {
 
 })
 
+// Open vehicle interior
+key("z", function (playerid) {
+    if(!isPlayerInVehicleSeat(playerid, 0)) return;
+
+    local vehicleid = getPlayerVehicle(playerid);
+    if(vehicleid == false) return;
+
+    if(!isPlayerHaveVehicleKey(playerid, vehicleid)) return;
+
+    local veh = getVehicleEntity(vehicleid);
+    if(veh == null) return;
+
+    if(veh.interior == null) {
+        loadVehicleInterior(veh);
+    }
+
+    veh.interior.toggle(playerid);
+
+})
 
 acmd(["setdefault"], function( playerid ) {
     if(!isPlayerInVehicle(playerid)) return msg(playerid, "Нужно быть в машине");

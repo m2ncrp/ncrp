@@ -122,7 +122,7 @@ function loadVehicleInventory(entity) {
         limit  = getVehicleTrunkDefaultVolumeLimit(entity.model),
     }
 
-    entity.inventory = VehicleItemContainer(entity, data);
+    entity.inventory = VehicleInventoryItemContainer(entity, data);
 
     ORM.Query("select * from tbl_items where parent = :id and state = :states")
         .setParameter("id", entity.id)
@@ -130,6 +130,26 @@ function loadVehicleInventory(entity) {
         .getResult(function(err, items) {
             foreach (idx, item in items) {
                 entity.inventory.set(item.slot, item);
+            }
+        });
+}
+
+function loadVehicleInterior(entity) {
+
+    local data = {
+        sizeX  = 3,
+        sizeY  = 1,
+        limit  = 50,
+    }
+
+    entity.interior = VehicleInteriorItemContainer(entity, data);
+
+    ORM.Query("select * from tbl_items where parent = :id and state = :states")
+        .setParameter("id", entity.id)
+        .setParameter("states", Item.State.VEHICLE_INTERIOR, true)
+        .getResult(function(err, items) {
+            foreach (idx, item in items) {
+                entity.interior.set(item.slot, item);
             }
         });
 }

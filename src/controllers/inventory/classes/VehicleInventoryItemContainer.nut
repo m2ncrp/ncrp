@@ -1,4 +1,4 @@
-class VehicleItemContainer extends ItemContainer
+class VehicleInventoryItemContainer extends ItemContainer
 {
     static classname = "VehicleInventory";
 
@@ -13,7 +13,7 @@ class VehicleItemContainer extends ItemContainer
 
     /**
      * Create new instance
-     * @return {VehicleItemContainer}
+     * @return {VehicleInventoryItemContainer}
      */
     constructor(vehicle, data = null) {
         base.constructor();
