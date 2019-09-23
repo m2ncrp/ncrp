@@ -53,6 +53,7 @@ local translations = {
     "en": {
         "inventory"             : "Inventory of ",
         "trunk"                 : "Trunk",
+        "interior"              : "Interior",
 
         "action:use"            : "Use",
         "action:transfer"       : "Transfer",
@@ -128,6 +129,7 @@ local translations = {
     "ru": {
         "inventory"             : "Инвентарь "
         "trunk"                 : "Багажник",
+        "interior"              : "Салон",
 
         "action:use"            : "Использовать"
         "action:transfer"       : "Передать"
@@ -771,7 +773,46 @@ class VehicleInventory extends Inventory
 
     function setTitle() {
         if (typeof this.handle == "userdata") {
-            if (typeof guiSetText == "function")        guiSetText(this.handle, translations[playerLang]["trunk"]);
+            if (typeof guiSetText == "function") guiSetText(this.handle, translations[playerLang]["trunk"]);
+        }
+    }
+
+    function createGUI() {
+        base.createGUI();
+
+        local props = {
+            width  = 32.0,
+            height = 32.0,
+        };
+
+        this.setTitle();
+
+        local size = this.getSize();
+    }
+
+}
+
+/* ************************
+ * * VEHICLE INTERIOR CLASS
+ * ************************
+ */
+
+class VehicleInterior extends Inventory
+{
+
+    function getOriginalSize() {
+        return base.getSize();
+    }
+
+
+    function getInitialPosition() {
+        local size = this.getSize();
+        return { x = centerX - size.x - 5.0, y = centerY - size.y / 2 };
+    }
+
+    function setTitle() {
+        if (typeof this.handle == "userdata") {
+            if (typeof guiSetText == "function") guiSetText(this.handle, translations[playerLang]["interior"]);
         }
     }
 
@@ -802,7 +843,8 @@ local class_map = {
     PlayerInventory     = PlayerInventory,
     PlayerHands         = PlayerHands,
     Storage             = StorageInventory,
-    VehicleInventory    = VehicleInventory
+    VehicleInventory    = VehicleInventory,
+    VehicleInterior     = VehicleInterior,
 };
 
 
