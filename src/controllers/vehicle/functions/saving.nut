@@ -101,6 +101,13 @@ function trySaveVehicle(vehicleid) {
         }
     }
 
+    if(vehicle.entity.interior) {
+        foreach (idx, item in vehicle.entity.interior) {
+            item.parent = vehicle.entity.id;
+            item.save();
+        }
+    }
+
     return true;
 }
 

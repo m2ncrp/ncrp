@@ -28,4 +28,5 @@ class Vehicle extends ORM.Entity {
     ];
 
     inventory = null;
+    interior = null;
 }
