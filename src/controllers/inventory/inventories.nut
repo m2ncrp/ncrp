@@ -31,15 +31,18 @@ event("onServerMinuteChange", function() {
 event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     if (players[playerid].hands.exists(0)) {
         local item = players[playerid].hands.remove(0);
-        local pos  = getPlayerPositionObj(playerid);
 
-        pos.x += randomf(-0.1, 0.1);
-        pos.y += randomf(-0.1, 0.1);
+        if(!item.destroyOnDrop) {
+          local pos  = getPlayerPositionObj(playerid);
 
-        players[playerid].hands.sync();
-        delayedFunction(150, function() {
-            ground.push(item, pos);
-        });
+          pos.x += randomf(-0.1, 0.1);
+          pos.y += randomf(-0.1, 0.1);
+
+          players[playerid].hands.sync();
+          delayedFunction(150, function() {
+              ground.push(item, pos);
+          });
+        }
 
         item.drop(playerid, players[playerid].hands);
     }
@@ -63,11 +66,12 @@ event("native:onPlayerMoveItem", function(playerid, id1, slot1, id2, slot2) {
 
             local item1 = inventory1[slot1];
 
+            // cannot insert handsOnly item in inventory
+            if (inventory1[slot1].handsOnly && !(inventory2 instanceof PlayerHandsContainer) ) return msg(playerid, "inventory.cannotinsert", CL_WARNING);
+
             if (inventory2.exists(slot2)) {
                 if (!inventory1.canBeInserted(inventory2[slot2])) return msg(playerid, "inventory.cannotinsert", CL_WARNING);
                 if (!inventory2.canBeInserted(inventory1[slot1])) return msg(playerid, "inventory.cannotinsert", CL_WARNING);
-                if (inventory1[slot1].handsOnly && !(inventory2 instanceof PlayerHandsContainer) ) return msg(playerid, "inventory.cannotinsert", CL_WARNING);
-
 
                 // we should swap items
                 inventory1.set(slot1, inventory2[slot2]);
@@ -141,7 +145,7 @@ key("e", function(playerid) {
 
         return curr;
     });
-    if (players[playerid].inventory.push(closest)) {
+    if (!closest.handsOnly && players[playerid].inventory.push(closest)) {
         players[playerid].inventory.sync();
         closest.pick(playerid, players[playerid].inventory);
         ground.remove(closest);
@@ -260,15 +264,18 @@ event("native:onPlayerDropItem", function(playerid, id, slot) {
     if (inventory.isOpened(playerid)) {
         if (inventory.exists(slot)) {
             local item = inventory.remove(slot);
-            local pos  = getPlayerPositionObj(playerid);
 
-            pos.x += randomf(-0.3, 0.3);
-            pos.y += randomf(-0.3, 0.3);
+            if(!item.destroyOnDrop) {
+              local pos  = getPlayerPositionObj(playerid);
 
-            inventory.sync();
-            delayedFunction(150, function() {
-                ground.push(item, pos);
-            });
+              pos.x += randomf(-0.3, 0.3);
+              pos.y += randomf(-0.3, 0.3);
+
+              inventory.sync();
+              delayedFunction(150, function() {
+                  ground.push(item, pos);
+              });
+            }
 
             item.drop(playerid, inventory);
         }

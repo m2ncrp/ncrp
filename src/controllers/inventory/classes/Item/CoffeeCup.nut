@@ -2,6 +2,7 @@ class Item.CoffeeCup extends Item.Drink  {
 
     static classname = "Item.CoffeeCup";
     handsOnly = true;
+    destroyOnDrop = true;
 
     static function getType() {
         return "Item.CoffeeCup";
@@ -14,7 +15,8 @@ class Item.CoffeeCup extends Item.Drink  {
     }
 
     function drop(playerid, inventory) {
-        base.drop(playerid, inventory);
+        inventory.remove(this.slot);
+        inventory.sync();
         msgr(playerid, "inventory.coffee.crashed", [], CL_WHITE, 10);
     }
 }
