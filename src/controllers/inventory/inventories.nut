@@ -32,7 +32,10 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     if (players[playerid].hands.exists(0)) {
         local item = players[playerid].hands.remove(0);
 
-        if(!item.destroyOnDrop) {
+        if(item.destroyOnDrop) {
+            inventory.sync();
+            item.remove();
+        } else {
           local pos  = getPlayerPositionObj(playerid);
 
           pos.x += randomf(-0.1, 0.1);
@@ -265,7 +268,10 @@ event("native:onPlayerDropItem", function(playerid, id, slot) {
         if (inventory.exists(slot)) {
             local item = inventory.remove(slot);
 
-            if(!item.destroyOnDrop) {
+            if(item.destroyOnDrop) {
+              inventory.sync();
+              item.remove();
+            } else {
               local pos  = getPlayerPositionObj(playerid);
 
               pos.x += randomf(-0.3, 0.3);

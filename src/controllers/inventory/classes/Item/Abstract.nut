@@ -17,6 +17,8 @@ class Item.Abstract extends ORM.JsonEntity
         ORM.Trait.Positionable(),
     ];
 
+    handsOnly = false;
+    destroyOnDrop = false;
     stackable   = false;
     maxstack    = 0;
     volume      = 0.0;
