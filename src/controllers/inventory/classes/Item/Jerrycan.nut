@@ -33,7 +33,9 @@ class Item.Jerrycan extends Item.Abstract
         setVehicleFuel(vehicleid, getVehicleFuelEx(vehicleid) + fuel);
         this.amount -= fuel;
         this.save();
-        msg(playerid, "canister.use.spent", [fuel * GALLONS_PER_LITRE, this.amount * GALLONS_PER_LITRE], CL_SUCCESS);
+        local fuelInGallonsSpent = fuel * GALLONS_PER_LITRE;
+        local fuelInGallonsLost = this.amount * GALLONS_PER_LITRE;
+        msg(playerid, "canister.use.spent", [fuelInGallons, formatGallons(fuelInGallonsSpent), fuelInGallonsLost, formatGallons(fuelInGallonsLost)], CL_SUCCESS);
         inventory.sync();
     }
 

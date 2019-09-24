@@ -7,11 +7,19 @@ local GALLON_COST = 0.2; // 20 cents
 local TITLE_DRAW_DISTANCE = 40.0;
 local FUEL_RADIUS = 3.0;
 
-local CANISTER_COST = 14.0;
-local CANISTER_BUY_RADIUS = 5.0;
+local JERRYCAN_COST = 14.0;
+local JERRYCAN_BUY_RADIUS = 5.0;
 
 local FUELUP_SPEED = 2.5; // litres in second
 local fueltank_loading = {};
+
+function formatLitres(value) {
+    return value+" "+declOfNum(value, ["литр", "литра", "литров"]);
+}
+
+function formatGallons(value) {
+    return value+" "+declOfNum(value, ["галлон", "галлона", "галлонов"]);
+}
 
 local fuel_stations = [
     [-1676.81,   -231.85, -20.1853, "SANDISLAND"   ],
@@ -54,8 +62,8 @@ event("onServerPlayerStarted", function(playerid) {
     }
 
     foreach (canister in canister_shops) {
-        createPrivate3DText ( playerid, canister[0], canister[1], canister[2]+0.35, plocalize(playerid, "CANISTER"), CL_RIPELEMON, CANISTER_BUY_RADIUS );
-        createPrivate3DText ( playerid, canister[0], canister[1], canister[2]+0.20, [[ "3dtext.job.press.E", "PRICE"], "%s | %s: $"+CANISTER_COST ], CL_WHITE.applyAlpha(150), 1.0 );
+        createPrivate3DText ( playerid, canister[0], canister[1], canister[2]+0.35, plocalize(playerid, "CANISTER"), CL_RIPELEMON, JERRYCAN_BUY_RADIUS );
+        createPrivate3DText ( playerid, canister[0], canister[1], canister[2]+0.20, [[ "3dtext.job.press.E", "PRICE"], "%s | %s: $"+JERRYCAN_COST ], CL_WHITE.applyAlpha(150), 1.0 );
     }
 
 });
@@ -79,7 +87,7 @@ acmd( ["fuel"], "low", function( playerid ) {
 acmd( ["fuel"], "test", function( playerid ) {
     local vehicleid = getPlayerVehicle(playerid);
     local volume = getVehicleFuel(vehicleid) + 1.0;
-    msg( playerid, "shops.fuelstations.fueltank.check", [volume] );
+    msg( playerid, "shops.fuelstations.fueltank.check", [volume, formatLitres(volume)] );
     return setVehicleFuel(vehicleid, volume);
 });
 
@@ -103,8 +111,8 @@ alternativeTranslate({
     "en|shops.fuelstations.loading"            : "[FUEL] Loading. Please, wait..."
     "ru|shops.fuelstations.loading"            : "[FUEL] Идёт заправка. Ждите..."
 
-    "en|shops.fuelstations.fueltank.check"     : "Fuel level: %.2f gallons."
-    "ru|shops.fuelstations.fueltank.check"     : "В баке: %.2f галлонов."
+    "en|shops.fuelstations.fueltank.check"     : "Fuel level: %.2f %s."
+    "ru|shops.fuelstations.fueltank.check"     : "В баке: %.2f %s."
 
     "en|shops.fuelstations.fueltank.full"      : "[FUEL] Fuel tank is full!"
     "ru|shops.fuelstations.fueltank.full"      : "[FUEL] Бак полон!"
@@ -112,55 +120,55 @@ alternativeTranslate({
     "en|shops.fuelstations.fueltank.loading"   : "[FUEL] Fuel tank is loading!"
     "ru|shops.fuelstations.fueltank.loading"   : "[FUEL] Бак заправляется!"
 
-    "en|shops.fuelstations.money.notenough"    : "[FUEL] Not enough money. Need $%.2f, but you have only $%s"
-    "ru|shops.fuelstations.money.notenough"    : "[FUEL] Недостаточно денег. Для оплаты требуется $%.2f, а у вас только $%s."
+    "en|shops.fuelstations.money.notenough"    : "[FUEL] Not enough money. Need $%.2f."
+    "ru|shops.fuelstations.money.notenough"    : "[FUEL] Недостаточно денег. Для оплаты требуется $%.2f."
 
-    "en|shops.fuelstations.fuel.payed"         : "[FUEL] You pay $%.2f for %.2f gallons. Current balance $%s. Come to us again!"
-    "ru|shops.fuelstations.fuel.payed"         : "[FUEL] Вы заплатили $%.2f за %.2f галлонов. Ваш баланс $%s. Будем рады видеть Вас снова!"
+    "en|shops.fuelstations.fuel.payed"         : "[FUEL] You pay $%.2f for %.2f %s. Come to us again!"
+    "ru|shops.fuelstations.fuel.payed"         : "[FUEL] Вы заплатили $%.2f за %.2f %s. Будем рады видеть Вас снова!"
 
     "en|shops.fuelstations.help.fuelup"        : "To fill up vehicle fuel tank"
     "ru|shops.fuelstations.help.fuelup"        : "Заправить автомобиль"
 
 
-    "en|shops.canistershop.toofar"            : "[CANISTER] You are too far from place of purchase!"
-    "ru|shops.canistershop.toofar"            : "[CANISTER] Вы слишком далеко от места покупки!"
+    "en|shops.canistershop.toofar"            : "[JERRYCAN] You are too far from place of purchase!"
+    "ru|shops.canistershop.toofar"            : "[JERRYCAN] Вы слишком далеко от места покупки!"
 
-    "en|shops.canistershop.jerrycan.full"     : "[CANISTER] Your fuel tank is full!"
-    "ru|shops.canistershop.jerrycan.full"     : "[CANISTER] Бак полон!"
+    "en|shops.canistershop.jerrycan.full"     : "[JERRYCAN] Your fuel tank is full!"
+    "ru|shops.canistershop.jerrycan.full"     : "[JERRYCAN] Бак полон!"
 
-    "en|shops.canistershop.money.notenough"   : "[CANISTER] Not enough money to buy canister. Need $%.2f."
-    "ru|shops.canistershop.money.notenough"   : "[CANISTER] Недостаточно денег. Цена канистры: $%.2f."
+    "en|shops.canistershop.money.notenough"   : "[JERRYCAN] Not enough money to buy canister. Need $%.2f."
+    "ru|shops.canistershop.money.notenough"   : "[JERRYCAN] Недостаточно денег. Цена канистры: $%.2f."
 
-    "en|shops.canistershop.bought"            : "[CANISTER] You bought canister."
-    "ru|shops.canistershop.bought"            : "[CANISTER] Вы купили канистру."
+    "en|shops.canistershop.bought"            : "[JERRYCAN] You bought canister."
+    "ru|shops.canistershop.bought"            : "[JERRYCAN] Вы купили канистру."
 
-    "en|canister.use.empty"                   : "[CANISTER] Canister is empty."
-    "ru|canister.use.empty"                   : "[CANISTER] Канистра пуста."
+    "en|canister.use.empty"                   : "[JERRYCAN] Jerrycan is empty."
+    "ru|canister.use.empty"                   : "[JERRYCAN] Канистра пуста."
 
-    "en|canister.use.fueltankfull"            : "[CANISTER] Fuel tank is full."
-    "ru|canister.use.fueltankfull"            : "[CANISTER] Бак полон."
+    "en|canister.use.fueltankfull"            : "[JERRYCAN] Fuel tank is full."
+    "ru|canister.use.fueltankfull"            : "[JERRYCAN] Бак полон."
 
-    "en|canister.use.farfromvehicle"          : "[CANISTER] You are too far from vehicle."
-    "ru|canister.use.farfromvehicle"          : "[CANISTER] Вы слишком далеко от автомобиля."
+    "en|canister.use.farfromvehicle"          : "[JERRYCAN] You are too far from vehicle."
+    "ru|canister.use.farfromvehicle"          : "[JERRYCAN] Вы слишком далеко от автомобиля."
 
-    "en|canister.use.spent"                   : "[CANISTER] %.2f gallons spent. Left litres: %.2f."
-    "ru|canister.use.spent"                   : "[CANISTER] Вылито %.2f галлонов. Осталось галлонов: %.2f."
+    "en|canister.use.spent"                   : "[JERRYCAN] %.2f %s spent. Left %.2f %s."
+    "ru|canister.use.spent"                   : "[JERRYCAN] Вылито %.2f %s. Осталось %.2f %s."
 
 
-    "en|canister.fuelup.needinhands"          : "[CANISTER] Take canister in hands."
-    "ru|canister.fuelup.needinhands"          : "[CANISTER] Возьмите в руки канистру."
+    "en|canister.fuelup.needinhands"          : "[JERRYCAN] Take canister in hands."
+    "ru|canister.fuelup.needinhands"          : "[JERRYCAN] Возьмите в руки канистру."
 
-    "en|canister.fuelup.toofar"               : "[CANISTER] You are too far from any fuel station!"
-    "ru|canister.fuelup.toofar"               : "[CANISTER] Залить топливо в канистру можно только на заправке!"
+    "en|canister.fuelup.toofar"               : "[JERRYCAN] You are too far from any fuel station!"
+    "ru|canister.fuelup.toofar"               : "[JERRYCAN] Залить топливо в канистру можно только на заправке!"
 
-    "en|canister.fuelup.isfull"               : "[CANISTER] Сanister is full."
-    "ru|canister.fuelup.isfull"               : "[CANISTER] Канистра полная."
+    "en|canister.fuelup.isfull"               : "[JERRYCAN] Jerrycan is full."
+    "ru|canister.fuelup.isfull"               : "[JERRYCAN] Канистра полная."
 
     "en|canister.fuelup.money.notenough"      : "[FUEL] Not enough money. Need $%.2f."
     "ru|canister.fuelup.money.notenough"      : "[FUEL] Недостаточно денег. Для оплаты требуется $%.2f."
 
-    "en|canister.fuelup.filled"               : "[CANISTER] %.2f gallons poured for $%.2f. Сanister filled."
-    "ru|canister.fuelup.filled"               : "[CANISTER] Залито %.2f галлонов на $%.2f. Канистра заполнена."
+    "en|canister.fuelup.filled"               : "[JERRYCAN] %.2f %s poured for $%.2f. Jerrycan filled."
+    "ru|canister.fuelup.filled"               : "[JERRYCAN] Залито %.2f %s на $%.2f. Канистра заполнена."
 
 });
 
@@ -176,8 +184,8 @@ key("e", function(playerid) {
         return;
     }
 
-    if (!canMoneyBeSubstracted(playerid, CANISTER_COST)) {
-        return msg(playerid, "shops.canistershop.money.notenough", [CANISTER_COST], CL_THUNDERBIRD);
+    if (!canMoneyBeSubstracted(playerid, JERRYCAN_COST)) {
+        return msg(playerid, "shops.canistershop.money.notenough", [JERRYCAN_COST], CL_THUNDERBIRD);
     }
 
     if(!players[playerid].hands.isFreeSpace(1)) {
@@ -189,7 +197,7 @@ key("e", function(playerid) {
     players[playerid].hands.push( canister );
     canister.save();
     players[playerid].hands.sync();
-    subMoneyToPlayer(playerid, CANISTER_COST);
+    subMoneyToPlayer(playerid, JERRYCAN_COST);
 });
 
 
@@ -229,7 +237,7 @@ function fuelVehicleUp(playerid) {
     }
 
     if ( !canMoneyBeSubstracted(playerid, cost) ) {
-        return msg(playerid, "shops.fuelstations.money.notenough", [cost, getPlayerBalance(playerid)], CL_THUNDERBIRD);
+        return msg(playerid, "shops.fuelstations.money.notenough", [cost], CL_THUNDERBIRD);
     }
 
     local fuelup_time = (fuel / FUELUP_SPEED).tointeger();
@@ -244,7 +252,7 @@ function fuelVehicleUp(playerid) {
         if(isPlayerConnected(playerid)) {
             freezePlayer( playerid, false);
             delayedFunction(1000, function () { freezePlayer( playerid, false); });
-            msg(playerid, "shops.fuelstations.fuel.payed", [cost, fuelInGallons, getPlayerBalance(playerid)], CL_CHESTNUT2);
+            msg(playerid, "shops.fuelstations.fuel.payed", [cost, fuelInGallons, formatGallons(fuelInGallons)], CL_CHESTNUT2);
         }
         fueltank_loading[vehicleid] = false;
         setVehicleFuel(vehicleid, getDefaultVehicleFuel(vehicleid));
@@ -286,7 +294,7 @@ function fuelJerrycanUp( playerid ) {
         freezePlayer( playerid, false);
         players[playerid].inventory.blocked = false;
         delayedFunction(1000, function () { freezePlayer( playerid, false); });
-        msg(playerid, "canister.fuelup.filled", [fuelInGallons, cost], CL_CHESTNUT2);
+        msg(playerid, "canister.fuelup.filled", [fuelInGallons, formatGallons(fuelInGallons), cost], CL_CHESTNUT2);
         jerrycanObj.amount = jerrycanObj.capacity;
         jerrycanObj.save();
         players[playerid].hands.sync();
