@@ -1,5 +1,7 @@
 include("controllers/chat/functions.nut");
 include("controllers/chat/commands.nut");
+include("controllers/chat/history.nut");
+
 
 
 alternativeTranslate({

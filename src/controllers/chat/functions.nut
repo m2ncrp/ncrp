@@ -194,9 +194,11 @@ function msg(playerid, text, ...) {
         }
     }
 
-    return sendPlayerMessage(playerid.tointeger(), localize(
-        text, params, getPlayerLocale(playerid.tointeger())
-    ), color.r, color.g, color.b);
+    local message = localize(text, params, getPlayerLocale(playerid.tointeger()));
+
+    addMessageToChatHistory(playerid.tointeger(), message, color);
+
+    return sendPlayerMessage(playerid.tointeger(), message, color.r, color.g, color.b);
 }
 
 function msg_a(text, args, color = CL_WHITE) {

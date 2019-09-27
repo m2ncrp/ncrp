@@ -241,6 +241,7 @@ key("num_7", function(playerid) {
     trainerKeys(playerid, "Неразрушимая машина");
 });
 
+/*
 key("page_up", function(playerid) {
     trainerKeys(playerid, "Ускорение времени: UP");
     if (isPlayerInVehicle(playerid)) {
@@ -260,6 +261,7 @@ key("page_down", function(playerid) {
         dbg("chat", "report", getPlayerName(playerid), getVehicleNameByModelId(modelId)+" "+getVehiclePlateText(vehicleid)+" "+(jobState ? jobState : "null"));
     }
 });
+*/
 
 function getPlayerMoveState(playerid) {
     if (!players.has(playerid) || !(players[playerid].id in playersInfo)) return null;
