@@ -82,12 +82,12 @@ function showAuthGUI(windowLabel, labelText, inputText, buttonText, helpText, fo
     label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, labelText, 38.0, 30.0, 300.0, 20.0, false, window);
     input[0] = guiCreateElement( ELEMENT_TYPE_EDIT, inputText, 92.0, 60.0, 200.0, 20.0, false, window);
     button[0] = guiCreateElement( ELEMENT_TYPE_BUTTON, buttonText, 92.0, 85.0, 200.0, 30.0, false, window);
-        langs[0] = guiCreateElement(13, "lang_ru.png", screen[0]/2 - 16.0 + 20.0, screen[1]/2 + (138.0 / 2) + 28.0, 32.0, 18.0, false);
-        langs[1] = guiCreateElement(13, "lang_en.png", screen[0]/2 - 16.0 - 20.0, screen[1]/2 + (138.0 / 2) + 28.0, 32.0, 18.0, false);
+        //langs[0] = guiCreateElement(13, "lang_ru.png", screen[0]/2 - 16.0 + 20.0, screen[1]/2 + (138.0 / 2) + 28.0, 32.0, 18.0, false);
+        //langs[1] = guiCreateElement(13, "lang_en.png", screen[0]/2 - 16.0 - 20.0, screen[1]/2 + (138.0 / 2) + 28.0, 32.0, 18.0, false);
     button[1] = guiCreateElement( ELEMENT_TYPE_BUTTON, forgotText, 92.0, 120.0, 200.0, 30.0, false, window);
     label[1] = guiCreateElement( ELEMENT_TYPE_LABEL, helpText, 20.0, 188.0, 355.0, 20.0, false, window);
-        guiSetAlwaysOnTop(langs[0], true);
-        guiSetAlwaysOnTop(langs[1], true);
+        //guiSetAlwaysOnTop(langs[0], true);
+        //guiSetAlwaysOnTop(langs[1], true);
     guiSetMovable(window,false);
     guiSetSizable(window,false);
     showCursor(true);    // guiSetAlpha(window, 0.1);
@@ -128,10 +128,10 @@ function showRegGUI(windowText,labelText, inputpText, inputrpText, inputEmailTex
     button[0] = guiCreateElement( 2, buttonText, width/2 - 75.0, 150.0, 150.0, 30.0, false, window);
     button[1] = guiCreateElement( 2, forgotText, width/2 - 75.0, 185.0, 150.0, 30.0, false, window);
 
-    langs[0] = guiCreateElement(13, "lang_ru.png", width/2 - 35.0, 225.0, 32.0, 18.0, false, window);
-    langs[1] = guiCreateElement(13, "lang_en.png", width/2 + 3.0, 225.0, 32.0, 18.0, false, window);
-    guiSetAlwaysOnTop(langs[0], true);
-    guiSetAlwaysOnTop(langs[1], true);
+    //langs[0] = guiCreateElement(13, "lang_ru.png", width/2 - 35.0, 225.0, 32.0, 18.0, false, window);
+    //langs[1] = guiCreateElement(13, "lang_en.png", width/2 + 3.0, 225.0, 32.0, 18.0, false, window);
+    //guiSetAlwaysOnTop(langs[0], true);
+    //guiSetAlwaysOnTop(langs[1], true);
 
 
     label[4] = guiCreateElement( ELEMENT_TYPE_LABEL, helpText, 20.0, 250.0, 355.0, 20.0, false, window);
@@ -159,8 +159,8 @@ function destroyAuthGUI(){
         guiDestroyElement(window);
         guiDestroyElement(image);
         guiDestroyElement(blackRoundFrame);
-        guiDestroyElement(langs[0]);
-        guiDestroyElement(langs[1]);
+        //guiDestroyElement(langs[0]);
+        //guiDestroyElement(langs[1]);
 
         blackRoundFrame = null;
         image = null;
@@ -216,14 +216,14 @@ addEventHandler( "onGuiElementClick",function(element){ //this shit need some re
         }
     }
 
-    if (element == langs[0]) {
-        locale = "ru";
-        triggerServerEvent("onPlayerLanguageChange", "ru");
-    }
-    if (element == langs[1]) {
-        locale = "en";
-        triggerServerEvent("onPlayerLanguageChange", "en");
-    }
+    // if (element == langs[0]) {
+    //     locale = "ru";
+    //     triggerServerEvent("onPlayerLanguageChange", "ru");
+    // }
+    // if (element == langs[1]) {
+    //     locale = "en";
+    //     triggerServerEvent("onPlayerLanguageChange", "en");
+    // }
     if (element == blackRoundFrame) {
         guiSendToBack(blackRoundFrame);
     }
