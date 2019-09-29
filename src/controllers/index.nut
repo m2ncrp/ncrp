@@ -34,3 +34,4 @@ include("controllers/inventory");
 include("controllers/fraction");
 include("controllers/admin");
 include("controllers/donate");
+include("controllers/handshakes");

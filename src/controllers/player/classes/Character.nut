@@ -49,6 +49,7 @@ class Character extends ORM.JsonEntity {
     taxi        = null; // @deprecated
     toggle      = null; // @deprecated
     request     = null; // @deprecated
+    handshakes  = null;
     inventory   = null;
     hands       = null;
     spawned     = false;
