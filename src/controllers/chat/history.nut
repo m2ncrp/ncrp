@@ -1,40 +1,70 @@
 local history = {};
-local messagePosition = {};
-const MESSAGE_STEP = 5;
-const MESSAGE_COUNT = 15;
+local minPosition = {};
+const MESSAGE_STEP = 4;
 
 event("onPlayerConnect", function(playerid){
     local charId = getCharacterIdFromPlayerId(playerid);
     if (!(charId in history)) {
         history[charId] <- [];
+				minPosition[charId] <- 0;
     }
 });
 
 function addMessageToChatHistory(playerid, message, color) {
     local charId = getCharacterIdFromPlayerId(playerid);
-    history[cherId].push([message, color]);
-    messagePosition[charId] += 1;
+		if(!charId) return;
+    history[charId].push([message, color]);
 }
 
-function showChatHistory(charId) {
-    for(local i = messagePosition[charId]; i < messagePosition[charId] + MESSAGE_COUNT; i++){
-        local color = history[i][1];
+function showChatHistory(playerid, posStart) {
+		local charId = getCharacterIdFromPlayerId(playerid);
+		if(!charId) return;
+    for(local i = minPosition[charId]; i < maxPosition[charId]; i++){
+        local color = history[charId][i][1];
         sendPlayerMessage(playerid, history[charId][i][0], color.r, color.g, color.b);
     }
 }
 
+function getMaxPositionMessage(playerid) {
+		local charId = getCharacterIdFromPlayerId(playerid);
+		if(!charId) return 0;
+
+		return maxPosition[charId];
+}
+
+function getHistoryLength(playerid) {
+		local charId = getCharacterIdFromPlayerId(playerid);
+		if(!charId) return 0;
+
+		return history[charId].len();
+}
+
 key("page_up", function(playerid) {
     local charId = getCharacterIdFromPlayerId(playerid);
-    if(messagePosition[charId] - MESSAGE_STEP < 0) return;
-    messagePosition[charId] -= MESSAGE_STEP;
+    if(minPosition[charId] - MESSAGE_STEP < 0) return;
 
-    showChatHistory(charId);
+		minPosition[charId] -= MESSAGE_STEP;
+
+    showChatHistory(playerid, posStart);
 });
 
 key("page_down", function(playerid) {
     local charId = getCharacterIdFromPlayerId(playerid);
-    if(messagePosition[charId] + MESSAGE_STEP > history[charId].length - MESSAGE_COUNT) return;
-    messagePosition[charId] += MESSAGE_STEP;
 
-    showChatHistory(charId);
+    if(minPosition[charId] + MESSAGE_STEP > history[charId].len()) return;
+
+		minPosition[charId] += MESSAGE_STEP;
+
+    showChatHistory(playerid, posStart);
 });
+
+cmd("hi", function(playerid) {
+	    for(local i = 0; i < 30; i++){
+				local str = "";
+				for(local j = 0; j < random(100, 250); j++){
+					str += i;
+				}
+					msg(playerid, (i+1)+". "+str);
+    }
+})
+
