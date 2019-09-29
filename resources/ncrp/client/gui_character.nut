@@ -110,7 +110,7 @@ function loadTraslation(){
         text.WrongFName             <- "Wrong lastname";
         text.WrongDay               <- "Day: from 1 to 30'";
         text.WrongMonth             <- "Month: from 1 to 12";
-        text.WrongYear              <- "Year: from 1850 to 1932";
+        text.WrongYear              <- "Year: from 1880 to 1927";
         text.ExampleFName           <- "Firstname";
         text.ExampleLName           <- "Lastname";
 
@@ -152,7 +152,7 @@ function loadTraslation(){
         text.WrongFName             <- "Некорректная фамилия";
         text.WrongDay               <- "День введён некорректно";
         text.WrongMonth             <- "Месяц: от 1 до 12";
-        text.WrongYear              <- "Год: от 1850 до 1932";
+        text.WrongYear              <- "Год: от 1880 до 1927";
         text.ExampleFName           <- "Имя персонажа";
         text.ExampleLName           <- "Фамилия персонажа";
 
@@ -415,7 +415,7 @@ function checkFields () {
     }
     else {guiSetText(label[2],translation[0].CreationBirthday);}
 
-    if(!isValidRange(guiGetText(input[4]),1871,1933)){
+    if(!isValidRange(guiGetText(input[4]),1879,1928)){
         guiSetText(label[2],translation[0].WrongYear);
         guiSetText(input[4],translation[0].Year);
         return fieldsErrors++;
