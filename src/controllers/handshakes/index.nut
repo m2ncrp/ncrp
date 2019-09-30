@@ -5,20 +5,22 @@ event("onServerStarted", function() {
     logger.log("starting handshakes...");
 });
 
-local handshakes_cache <- {};
+local handshakes_cache = {};
 
 /**
  * Try to load player handshakes
  * on player connected
  */
 event("onServerPlayerStarted", function(playerid) {
-    local character = players[playerid];
 
-    if (!(character.id in handshakes_cache)) {
-        handshakes_cache = handshakesLoadData(character.id)
+    local character = players[playerid];
+    local charId = character.id;
+
+    if (!(charId in handshakes_cache)) {
+        handshakesLoadData(charId)
     }
 
-    character.handshakes = handshakes_cache[character.id];
+    character.handshakes = handshakes_cache[charId];
 });
 
 
