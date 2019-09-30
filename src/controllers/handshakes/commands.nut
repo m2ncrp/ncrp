@@ -1,27 +1,35 @@
 // сказать имя другому игроку
-cmd(["shake", "handshake"], function(playerid, targetId, ...) {
+cmd(["shake", "handshake"], function(playerid, targetid, ...) {
 
-  targetid = toInteger(targetid);
-  local nickname = concat(vargv);
+    targetid = toInteger(targetid);
+    local nickname = concat(vargv);
 
-  if (!targetid || !isNumeric(targetId) || !nickname.len()) {
-           msg(playerid, "handshake.rule",  CL_THUNDERBIRD);
-           msg(playerid, "handshake.example", CL_LYNCH );
-    return msg(playerid, "handshake.real-name", CL_LYNCH );
-  }
+    if (!targetid || !isNumeric(targetId) || !nickname.len()) {
+             msg(playerid, "handshake.rule",  CL_THUNDERBIRD);
+             msg(playerid, "handshake.example", CL_LYNCH );
+      return msg(playerid, "handshake.real-name", CL_LYNCH );
+    }
 
-  if (playerid == targetid) {
-    return msg(playerid, "handshake.yourself");
-  }
+    if (playerid == targetid) {
+      return msg(playerid, "handshake.yourself");
+    }
 
-  if ( !isPlayerConnected(targetid) ) {
-  	return msg(playerid, "handshake.noplayer");
-  }
+    if ( !isPlayerConnected(targetid) ) {
+    	return msg(playerid, "handshake.noplayer");
+    }
 
-  if (!checkDistanceBtwTwoPlayersLess(playerid, targetid, 3.0)) {
-    return msg(playerid, "handshake.largedistance");
-  }
+    if (!checkDistanceBtwTwoPlayersLess(playerid, targetid, 3.0)) {
+      return msg(playerid, "handshake.largedistance");
+    }
 
+    local handshake = Handshake();
+    local charId = getCharacterIdFromPlayerId(playerid);
+    local targetCharId = getCharacterIdFromPlayerId(targetid);
+
+    handshake.char = charId;
+    handshake.target = targetCharId;
+    handshake.text = nickname;
+    handshake.save();
 
   // Если не знаком: Меня зовут name
 
@@ -32,6 +40,20 @@ cmd(["shake", "handshake"], function(playerid, targetId, ...) {
 
 });
 
+function ss() {
+    local handshake = Handshake();
+
+    handshake.char = 2;
+    handshake.target = 5;
+    handshake.text = "test123";
+    handshake.save();
+}
+
+// записать/запомнить имя указанного игрока
+cmd("remember", function(playerid, targetid, ...) {
+
+
+})
 
 alternativeTranslate({
 
