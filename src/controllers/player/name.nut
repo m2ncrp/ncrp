@@ -76,6 +76,36 @@ function getCharacterIdFromPlayerId(playerid) {
     return false;
 }
 
+/**
+ * Return known character name by playerid and targetid
+ * or false
+ * @param  {int}    playerid
+ * @param  {int}    targetid
+ * @return {string}
+ */
+function getKnownCharacterName(playerid, targetid) {
+    local idStr = " [" + targetid.tostring() + "]";
+    local unknown = "Незнакомец" + idStr;
+
+    if(!isPlayerConnected(targetid)) {
+        return unknown;
+    }
+
+    // Раскомментировать для прода
+    // if(playerid == targetid) {
+    //     return getPlayerName(playerid) + idStr;
+    // }
+
+    local targetCharId = getCharacterIdFromPlayerId(targetid);
+
+    if(!(targetCharId in players[playerid].handshakes)) {
+      return unknown;
+    }
+
+
+    return players[playerid].handshakes[targetCharId].text + idStr;
+}
+
 event("onServerPlayerStarted", function(playerid) {
 
     local isVerified = ("verified" in players[playerid].data) ? players[playerid].data.verified : false;
