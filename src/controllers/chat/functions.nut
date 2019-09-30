@@ -34,6 +34,7 @@ event("onPlayerDisconnect", function(playerid, reason) {
 });
 
 /**
+ * DEPRECATED. Use sendLocalizedMsgToAll or sendMsgToAllInRadius (attention! no handshakes system)
  * Add a comment to this line
  * Send message to all players in radius
  * @param  {int}        sender
@@ -55,20 +56,27 @@ function inRadiusSendToAll(senderid, message, radius, color = 0) {
 }
 
 
-function sendLocalizedMsgToAll(senderid, phrase_key, message, radius, color = 0) {
+function sendLocalizedMsgToAll(senderid, phrase_key, params, radius, color = 0) {
     foreach(playerid, player in players) {
         if ( isBothInRadius(senderid, playerid, radius) ) {
+						foreach (idx, param in params) {
+
+							// TODO: сделать - если массив, то 0й элемент - функция, 1й элемент - массив с параметрами этой функции
+							if(typeof param == "function") {
+								params[idx] = param(senderid, playerid);
+							}
+						}
             if (color) {
-                msg(playerid, localize(phrase_key, message, getPlayerLocale(player.playerid)), color);
+                msg(playerid, localize(phrase_key, params, getPlayerLocale(player.playerid)), color);
             } else {
-                msg(playerid, localize(phrase_key, message, getPlayerLocale(player.playerid)));
+                msg(playerid, localize(phrase_key, params, getPlayerLocale(player.playerid)));
             }
         }
     }
 }
 
 /**
- * Send localized message to all players (in radius from SENDER) with parameters. Working GOOD!!!
+ * Send localized message to all players (in radius from SENDER) with parameters. Working GOOD!!! Attention! no handshakes system)
  * @param  {int}        sender
  * @param  {string}     message
  * @param  {string}     params

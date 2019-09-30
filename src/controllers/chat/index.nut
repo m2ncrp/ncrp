@@ -55,6 +55,9 @@ alternativeTranslate({
     "en|chat.player.me"                : "[ME] %s %s"
     "ru|chat.player.me"                : "[ME] %s %s"
 
+    "en|chat.player.do"                : "[DO] %s (%s)"
+    "ru|chat.player.do"                : "[DO] %s (%s)"
+
     "en|chat.player.shout"             : "%s shout: %s"
     "ru|chat.player.shout"             : "%s крикнул: %s"
 

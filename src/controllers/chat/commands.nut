@@ -47,7 +47,7 @@ event("onServerSecondChange", function() {
 
 // local chat
 chatcmd(["i", "ic", "say"], function(playerid, message) {
-    sendLocalizedMsgToAll(playerid, "chat.player.says", [getPlayerName(playerid), message], NORMAL_RADIUS, CL_CHAT_IC);
+    sendLocalizedMsgToAll(playerid, "chat.player.says", [getKnownCharacterName, message], NORMAL_RADIUS, CL_CHAT_IC);
 
     // statistics
     statisticsPushMessage(playerid, message, "say");
@@ -55,21 +55,22 @@ chatcmd(["i", "ic", "say"], function(playerid, message) {
 
 // shout
 chatcmd(["s", "shout"], function(playerid, message) {
-    sendLocalizedMsgToAll(playerid, "chat.player.shout", [getPlayerName(playerid), message], SHOUT_RADIUS, CL_CHAT_SHOUT);
+    sendLocalizedMsgToAll(playerid, "chat.player.shout", [getKnownCharacterName, message], SHOUT_RADIUS, CL_CHAT_SHOUT);
 
     // statistics
     statisticsPushMessage(playerid, message, "shout");
 });
 
 chatcmd(["me"], function(playerid, message) {
-    sendMsgToAllInRadius(playerid, "chat.player.me", [ getPlayerName(playerid), message ], CL_CHAT_ME, NORMAL_RADIUS);
+	  sendLocalizedMsgToAll(playerid, "chat.player.me", [getKnownCharacterName, message], NORMAL_RADIUS, CL_CHAT_ME);
 
     // statistics
     statisticsPushMessage(playerid, message, "me");
 });
 
 chatcmd("do", function(playerid, message) {
-    inRadiusSendToAll(playerid, format("[DO] %s (%s)", message, getPlayerName(playerid)), NORMAL_RADIUS, CL_CHAT_DO);
+		sendLocalizedMsgToAll(playerid, "chat.player.do", [message, getKnownCharacterName], NORMAL_RADIUS, CL_CHAT_DO);
+
     statisticsPushMessage(playerid, message, "do");
 });
 
