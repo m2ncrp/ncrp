@@ -3,9 +3,9 @@ cmd( ["money"], function( playerid ) {
 });
 
 cmd( ["give", "send"], sendMoney );
-cmd( ["invoice"], sendInvoice );
-cmd( ["accept"], invoiceAccept );
-cmd( ["decline"], invoiceDecline );
+//cmd( ["invoice"], sendInvoice );
+//cmd( ["accept"], invoiceAccept );
+//cmd( ["decline"], invoiceDecline );
 
 cmd( ["pay"], invoiceAcceptNew );
 cmd( ["cancel"], invoiceDeclineNew );
