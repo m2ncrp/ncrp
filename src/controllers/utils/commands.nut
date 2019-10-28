@@ -197,7 +197,7 @@ cmd("hat", function ( playerid, count = null) {
     local count = count.tointeger();
     if (count > 1) {
         local hat = random(1, count);
-        msgr(playerid, "utils.hat", [ count, getAuthor2(playerid), hat ], CL_WHITE, 10);
+        msgr(playerid, "utils.hat", [ count, getKnownCharacterNameWithId, hat ], 10, CL_WHITE);
         // statistics
         statisticsPushMessage(playerid, hat.tostring(), "hat");
     }

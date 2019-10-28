@@ -32,10 +32,10 @@ key(["v"], function(playerid) {
     freezePlayer(targetid, true);
     setPlayerState(targetid, "cuffed");
 
-    msg(targetid, "police.cuff.beencuffed", [ getAuthor(playerid) ]);
+    msg(targetid, "police.cuff.beencuffed", [ getKnownCharacterNameWithId(targetid, playerid) ]);
     msg(targetid, "police.cuff-baton.info", CL_LYNCH);
 
-    msg(playerid, "police.cuff.cuffed", [ getAuthor(targetid) ]);
+    msg(playerid, "police.cuff.cuffed", [ getKnownCharacterNameWithId(playerid, targetid) ]);
 
 });
 
@@ -66,14 +66,14 @@ cmd(["uncuff"], function(playerid, targetid) {
     }
 
     if ( getPlayerState(targetid) != "cuffed" ) {
-        return msg(playerid, "police.cuff.notcuffed", [ getAuthor(targetid) ]);
+        return msg(playerid, "police.cuff.notcuffed", [ getKnownCharacterNameWithId(playerid, targetid) ]);
     }
 
     freezePlayer(targetid, false );
     setPlayerState(targetid, "free");
 
-    msg(targetid, "police.cuff.beenuncuffed", [ getAuthor(playerid) ] );
-    msg(playerid, "police.cuff.uncuffed", [ getAuthor(targetid) ] );
+    msg(targetid, "police.cuff.beenuncuffed", [ getKnownCharacterNameWithId(targetid, playerid) ] );
+    msg(playerid, "police.cuff.uncuffed", [ getKnownCharacterNameWithId(playerid, targetid) ] );
 });
 
 

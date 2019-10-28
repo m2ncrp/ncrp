@@ -55,7 +55,7 @@ fmd("*", ["members.invite"], ["$f invite"], function(fraction, character, target
     }
 
     invites[targetid].push({
-        invitorName = getPlayerName(playerid),
+        invitorName = getKnownCharacterName(playerid, targetid),
         invitor  = playerid,
         invetee  = targetid,
         role     = role,
@@ -63,10 +63,10 @@ fmd("*", ["members.invite"], ["$f invite"], function(fraction, character, target
         created  = getTimestamp(),
     });
 
-    msg(playerid, "fraction.invite.invited", [getPlayerName(targetid), fraction.title, role.title], CL_SUCCESS);
+    msg(playerid, "fraction.invite.invited", [getKnownCharacterName(playerid, targetid), fraction.title, role.title], CL_SUCCESS);
     // msg(playerid, format("If you want to cancel invite, write /f cancel %d", (invites[targetid].len() - 1)), CL_INFO);
 
-    msg(targetid, "fraction.invite.hasinvited", [ getPlayerName(playerid), fraction.title, role.title ], CL_SUCCESS);
+    msg(targetid, "fraction.invite.hasinvited", [ getKnownCharacterName(targetid, playerid), fraction.title, role.title ], CL_SUCCESS);
     msg(targetid, "fraction.invite.toaccept", [ (invites[targetid].len() - 1) ], CL_INFO);
     msg(targetid, "fraction.invite.showallinvites", CL_INFO);
 });
@@ -127,7 +127,7 @@ cmd("invites", "accept", function(playerid, invitation = -1) {
     msg(playerid, "fraction.accept.complete", [ invite.fraction.title, invite.role.title ], CL_SUCCESS);
 
     if (isPlayerLoaded(invite.invitor)) {
-        msg(invite.invitor, "fraction.accept.joined", [ getPlayerName(playerid), invite.fraction.title, invite.role.title ], CL_SUCCESS);
+        msg(invite.invitor, "fraction.accept.joined", [ getKnownCharacterName(invite.invitor, playerid), invite.fraction.title, invite.role.title ], CL_SUCCESS);
     }
 
     invites[playerid].remove(invitation);

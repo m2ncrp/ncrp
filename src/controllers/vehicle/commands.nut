@@ -132,9 +132,9 @@ key("z", function (playerid) {
     }
 
     if(veh.inventory.isOpened(playerid)) {
-        sendMsgToAllInRadius(playerid, "vehicle.parts.trunk.endinspecting", [ getPlayerName(playerid), getVehiclePlateText(vehicleid) ], CL_CHAT_ME, NORMAL_RADIUS);
+        sendLocalizedMsgToAll(playerid, "vehicle.parts.trunk.endinspecting", [ getKnownCharacterNameWithId, getVehiclePlateText(vehicleid) ], NORMAL_RADIUS, CL_CHAT_ME, );
     } else {
-        sendMsgToAllInRadius(playerid, "vehicle.parts.trunk.inspecting", [ getPlayerName(playerid), getVehiclePlateText(vehicleid) ], CL_CHAT_ME, NORMAL_RADIUS);
+        sendLocalizedMsgToAll(playerid, "vehicle.parts.trunk.inspecting", [ getKnownCharacterNameWithId, getVehiclePlateText(vehicleid) ], NORMAL_RADIUS, CL_CHAT_ME);
     }
 
     veh.inventory.toggle(playerid);

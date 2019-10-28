@@ -27,8 +27,8 @@ alternativeTranslate({
 
 
 
-    "en|admin.ban.banned"                   :   "Player %s has been banned until %d. Reason: %s"
-    "ru|admin.ban.banned"                   :   "Игрок %s забанен до %s. Причина: %s"
+    "en|admin.ban.banned"                   :   "Player with id %s has been banned until %d"
+    "ru|admin.ban.banned"                   :   "Игрок c id %s забанен до %s"
 
     "en|admin.ban.unbanned"                 :   "Player %s has been unbanned"
     "ru|admin.ban.unbanned"                 :   "Игрок %s разбанен"

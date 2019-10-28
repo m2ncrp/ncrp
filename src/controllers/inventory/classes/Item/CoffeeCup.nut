@@ -15,7 +15,7 @@ class Item.CoffeeCup extends Item.Drink  {
     }
 
     function drop(playerid, inventory) {
-        msgr(playerid, "inventory.coffee.crashed", [], CL_WHITE, 10);
+        msgr(playerid, "inventory.coffee.crashed", [], 10, CL_WHITE);
     }
 }
 

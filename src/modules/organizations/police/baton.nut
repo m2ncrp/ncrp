@@ -61,7 +61,7 @@ key(["b"], function(playerid) {
       return;
     }
 
-    msg( playerid, "police.baton.betby", [getAuthor(targetid)] );
+    msg( playerid, "police.baton.betby", [getKnownCharacterNameWithId] );
     msg( targetid, "police.baton.beenbet" );
 });
 

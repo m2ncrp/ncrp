@@ -58,6 +58,12 @@ alternativeTranslate({
     "en|chat.player.do"                : "[DO] %s (%s)"
     "ru|chat.player.do"                : "[DO] %s (%s)"
 
+    "en|chat.player.todo.me"           : "[ME] %s"
+    "ru|chat.player.todo.me"           : "[ME] %s"
+
+    "en|chat.player.b"                 : "%s: %s"
+    "ru|chat.player.b"                 : "%s: %s"
+
     "en|chat.player.shout"             : "%s shout: %s"
     "ru|chat.player.shout"             : "%s крикнул: %s"
 
@@ -152,19 +158,19 @@ alternativeTranslate({
     "ru|help.chat.localooc"    : "Отправить сообщение в локальный нон-РП чат"
 
     "en|help.chat.say"         : "Put your text in local RP chat (also use /i TEXT)"
-    "ru|help.chat.say"         : "Сказать от имени персонажа в РП чат."
+    "ru|help.chat.say"         : "Сказать от имени персонажа."
 
     "en|help.chat.shout"       : "Your message could be heard far enough"
-    "ru|help.chat.shout"       : "Крикнуть от имени персонажа в РП чат."
+    "ru|help.chat.shout"       : "Крикнуть от имени персонажа."
 
     "en|help.chat.whisper"     : "Say something to nearest player very quiet"
-    "ru|help.chat.whisper"     : "Прошептать от имени персонажа ближайшему игроку в РП чат."
+    "ru|help.chat.whisper"     : "Прошептать от имени персонажа ближайшему игроку."
 
     "en|help.chat.me"          : "Some action of your person"
     "ru|help.chat.me"          : "Сообщить о действии вашего персонажа"
 
     "en|help.chat.do"          : "Some action of the game world at now"
-    "ru|help.chat.do"          : "Сообщить о подробностях игрового мира в данный момнет"
+    "ru|help.chat.do"          : "Сообщить о подробностях игрового мира в данный момент"
 
     "en|help.chat.todo"        : "Combination of /ic and /me"
     "ru|help.chat.todo"        : "Совмещение /ic и /me"

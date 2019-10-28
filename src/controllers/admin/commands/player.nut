@@ -121,6 +121,33 @@ acmd(["unverify"], function(playerid, targetid = null) {
 
 });
 
+
+
+acmd("hs", "off", function(playerid, targetid = null) {
+
+    if (targetid == null || !isPlayerConnected(targetid.tointeger())) {
+        return msg(playerid, "ID игрока не указан! Формат: /hs off id", CL_ERROR);
+    }
+
+    targetid = targetid.tointeger();
+
+    players[targetid].setData("handshake", "off");
+    msg(playerid, format("Система знакомств для игрока с ID %d отключена.", targetid), CL_SUCCESS);
+});
+
+acmd("hs", "on", function(playerid, targetid = null) {
+
+    if (targetid == null || !isPlayerConnected(targetid.tointeger())) {
+        return msg(playerid, "ID игрока не указан! Формат: /hs on id", CL_ERROR);
+    }
+
+    targetid = targetid.tointeger();
+
+    players[targetid].setData("handshake", "on");
+    msg(playerid, format("Система знакомств для игрока с ID %d подключена.", targetid), CL_SUCCESS);
+
+});
+
 // acmd("skin", function(playerid, id, targetid = null ) {
 //     if(!targetid) targetid = playerid;
 //     setPlayerModel(targetid.tointeger(), id.tointeger(), true);

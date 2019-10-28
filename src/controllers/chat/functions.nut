@@ -33,39 +33,29 @@ event("onPlayerDisconnect", function(playerid, reason) {
     }
 });
 
-/**
- * DEPRECATED. Use sendLocalizedMsgToAll or sendMsgToAllInRadius (attention! no handshakes system)
- * Add a comment to this line
- * Send message to all players in radius
- * @param  {int}        sender
- * @param  {string}     message
- * @param  {float}      radius
- * @param  {RGB object} color
- * @return {void}
- */
-function inRadiusSendToAll(senderid, message, radius, color = 0) {
-    foreach(playerid, player in players) {
-        if ( isBothInRadius(senderid, playerid, radius) ) {
-            if (color) {
-                msg(playerid, message, color);
-            } else {
-                msg(playerid, message);
-            }
-        }
-    }
-}
 
+/**
+ * Основная функция оправки массовых сообщения игрокам.
+ * Поддерживает систему рукопожатий и локализацию
+ * Поддерживает отправку в радиусе от игрока-отправителя
+ */
 
 function sendLocalizedMsgToAll(senderid, phrase_key, params, radius, color = 0) {
     foreach(playerid, player in players) {
         if ( isBothInRadius(senderid, playerid, radius) ) {
-						foreach (idx, param in params) {
 
-							// TODO: сделать - если массив, то 0й элемент - функция, 1й элемент - массив с параметрами этой функции
-							if(typeof param == "function") {
-								params[idx] = param(senderid, playerid);
-							}
-						}
+            // перебираем массив параметров
+            foreach (idx, param in params) {
+
+                if(typeof param == "function") {
+                    params[idx] = param(senderid, playerid);
+                }
+
+                //  Если параметр является массивом, то 0й элемент в нём - это функция, а 1й элемент - массив с параметрами этой функции
+                if(typeof param == "array") {
+                    params[idx] = param[0].acall(param[1]);
+                }
+            }
             if (color) {
                 msg(playerid, localize(phrase_key, params, getPlayerLocale(player.playerid)), color);
             } else {
@@ -76,28 +66,9 @@ function sendLocalizedMsgToAll(senderid, phrase_key, params, radius, color = 0) 
 }
 
 /**
- * Send localized message to all players (in radius from SENDER) with parameters. Working GOOD!!! Attention! no handshakes system)
- * @param  {int}        sender
- * @param  {string}     message
- * @param  {string}     params
- * @param  {float}      radius
- * @param  {RGB object} color
- * @return {void}
- */
-function sendMsgToAllInRadius(senderid, message, params = null, color = 0, radius = 35) {
-    foreach(playerid, player in players) {
-        if ( isBothInRadius(senderid, playerid, radius) ) {
-            if (color) {
-                msg(playerid, message, params, color);
-            } else {
-                msg(playerid, message, params);
-            }
-        }
-    }
-}
-
-/**
- * Send localized message to all players (in radius from POINT with coords X, Y, Z) with parameters. Working GOOD!!!
+ * Send localized message to all players (in radius from POINT with coords X, Y, Z) with parameters.
+ * Не имеет системы рукопожатий.
+ * В проекте нигде не используется, поэтому не стоит и начинать
  * @param  {float}      X
  * @param  {float}      Y
  * @param  {float}      Z
@@ -119,28 +90,6 @@ function sendMsgToAllInRadiusFromPoint(X, Y, Z, message, params, radius, color =
     }
 }
 
-
-// /**
-//  * Send message to all players in radius
-//  * @param  {int}        sender
-//  * @param  {string}     message
-//  * @param  {float}      radius
-//  * @param  {RGB object} color
-//  * @return {void}
-//  */
-// function inRadiusSendToAll(sender, message, radius, color = 0) {
-//     local players = playerList.getPlayers();
-//     foreach(player in players) {
-//         intoRadiusDo(sender, player, radius, function() {
-//             if (color) {
-//                 msg(player, message, color);
-//             } else {
-//                 msg(player, message);
-//             }
-//         });
-//     }
-// }
-
 /**
  * Return string "player_name [playerid]"
  * @param  {int}    playerid
@@ -148,24 +97,6 @@ function sendMsgToAllInRadiusFromPoint(X, Y, Z, message, params, radius, color =
  */
 function getAuthor( playerid ) {
     return getPlayerName( playerid.tointeger() ) + " [" + playerid.tostring() + "]";
-}
-
-/**
- * Return string "player_name (#playerid)"
- * @param  {int}    playerid
- * @return {string}
- */
-function getAuthor2( playerid ) {
-    return getPlayerName( playerid.tointeger() ) + " (#" + playerid.tostring() + ")";
-}
-
-/**
- * Return string "player_name(#playerid)"
- * @param  {int}    playerid
- * @return {string}
- */
-function getAuthor3( playerid ) {
-    return getPlayerName( playerid.tointeger() ) + " (" + playerid.tostring() + ")";
 }
 
 function chatcmd(names, callback)  {
@@ -236,6 +167,26 @@ function msg_help(playerid, title, commands){
     }
 }
 
+function msg_help_new(playerid, title, commands){
+
+    msg(playerid, "===========================================", CL_HELP_LINE);
+    msg(playerid, title, CL_HELP_TITLE);
+
+    foreach (idx, icmd in commands) {
+        local text = null;
+        if(icmd.desc.len() > 0) {
+            text = localize(icmd.name, [], getPlayerLocale(playerid)) + "   -   " + localize(icmd.desc, [], getPlayerLocale(playerid));
+        } else {
+            text = localize(icmd.name, [], getPlayerLocale(playerid));
+        }
+        if ((idx % 2) == 0) {
+            msg(playerid, "  "+text, CL_LYNCH);
+        } else {
+            msg(playerid, text);
+        }
+    }
+}
+
 function sendPlayerPrivateMessage(playerid, targetid, vargv) {
     if (!isInteger(targetid) || !vargv.len()) {
         return msg(playerid, "chat.player.message.error", CL_ERROR);
@@ -246,13 +197,11 @@ function sendPlayerPrivateMessage(playerid, targetid, vargv) {
     }
 
     local message = concat(vargv);
-    msg(playerid, "chat.player.message.private", [getAuthor( playerid ), getAuthor( targetid ), message], CL_CHAT_PM );
-    msg(targetid, "chat.player.message.private", [getAuthor( playerid ), getAuthor( targetid ), message], CL_CHAT_PM );
-    statisticsPushText("pm", playerid, "to: " + getAuthor( targetid ) + message);
+    msg(playerid, "chat.player.message.private", [getAuthor( playerid ), getKnownCharacterNameWithId( playerid, targetid ), message], CL_CHAT_PM );
+    msg(targetid, "chat.player.message.private", [getKnownCharacterNameWithId( targetid, playerid ), getAuthor( targetid ), message], CL_CHAT_PM );
+    statisticsPushText("pm", playerid, getPlayerName( playerid ) + " to " + getPlayerName( targetid ) + ": " + message);
 }
 
 // aliases
 msga <- msg_a;
-msgA <- msg_a;
-msgr <- sendMsgToAllInRadius;
-msgR <- sendMsgToAllInRadius;
+msgr <- sendLocalizedMsgToAll;

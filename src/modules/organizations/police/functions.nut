@@ -269,22 +269,14 @@ function rankDownPolice(playerid) {
  * @param  {[type]} targetid [description]
  * @return {[type]}          [description]
  */
-function showBadge(playerid, targetid = null) {
-    if ( !isOfficer(playerid) ) {
-        return msg(playerid, "organizations.police.notanofficer");
-    }
-
-    if ( !isOnPoliceDuty(playerid) ) {
-        return msg(playerid, "organizations.police.offduty.nobadge");
-    }
-
+function showPoliceBadge(playerid, targetid = null) {
     if (targetid != null) {
         targetid = targetid.tointeger();
     } else {
         targetid = playerList.nearestPlayer( playerid );
     }
 
-    if ( targetid == null) {
+    if (targetid == null) {
         return msg(playerid, "general.noonearound");
     }
 

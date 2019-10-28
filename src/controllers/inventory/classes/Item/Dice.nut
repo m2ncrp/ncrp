@@ -8,7 +8,7 @@ class Item.Dice extends Item.Abstract
 
     function use(playerid, inventory) {
         local dice = random(1, 6);
-        msgr(playerid, "utils.diсe", [ getAuthor2(playerid), dice ], CL_WHITE, 10);
+        msgr(playerid, "utils.diсe", [ getKnownCharacterNameWithId, dice ], 10, CL_WHITE);
     }
 }
 

@@ -34,7 +34,6 @@ event("onServerPlayerStarted", function( playerid ){
 
 });
 
-
 event("onServerSecondChange", function() {
     foreach (pid, value in players) {
         if (isPlayerLogined(pid) && pid in antiflood) {
@@ -47,7 +46,7 @@ event("onServerSecondChange", function() {
 
 // local chat
 chatcmd(["i", "ic", "say"], function(playerid, message) {
-    sendLocalizedMsgToAll(playerid, "chat.player.says", [getKnownCharacterName, message], NORMAL_RADIUS, CL_CHAT_IC);
+    sendLocalizedMsgToAll(playerid, "chat.player.says", [getKnownCharacterNameWithId, message], NORMAL_RADIUS, CL_CHAT_IC);
 
     // statistics
     statisticsPushMessage(playerid, message, "say");
@@ -55,21 +54,21 @@ chatcmd(["i", "ic", "say"], function(playerid, message) {
 
 // shout
 chatcmd(["s", "shout"], function(playerid, message) {
-    sendLocalizedMsgToAll(playerid, "chat.player.shout", [getKnownCharacterName, message], SHOUT_RADIUS, CL_CHAT_SHOUT);
+    sendLocalizedMsgToAll(playerid, "chat.player.shout", [getKnownCharacterNameWithId, message], SHOUT_RADIUS, CL_CHAT_SHOUT);
 
     // statistics
     statisticsPushMessage(playerid, message, "shout");
 });
 
 chatcmd(["me"], function(playerid, message) {
-	  sendLocalizedMsgToAll(playerid, "chat.player.me", [getKnownCharacterName, message], NORMAL_RADIUS, CL_CHAT_ME);
+    sendLocalizedMsgToAll(playerid, "chat.player.me", [getKnownCharacterNameWithId, message], NORMAL_RADIUS, CL_CHAT_ME);
 
     // statistics
     statisticsPushMessage(playerid, message, "me");
 });
 
 chatcmd("do", function(playerid, message) {
-		sendLocalizedMsgToAll(playerid, "chat.player.do", [message, getKnownCharacterName], NORMAL_RADIUS, CL_CHAT_DO);
+    sendLocalizedMsgToAll(playerid, "chat.player.do", [message, getKnownCharacterNameWithId], NORMAL_RADIUS, CL_CHAT_DO);
 
     statisticsPushMessage(playerid, message, "do");
 });
@@ -77,12 +76,12 @@ chatcmd("do", function(playerid, message) {
 
 chatcmd("todo", function(playerid, message) {
 
-    local lang = getPlayerLocale(playerid);
-    if(lang == "ru") {
-        message = str_replace_ex("!я", getPlayerName(playerid), message);
-    } else {
-        message = str_replace_ex("!me", getPlayerName(playerid), message);
-    }
+    // local lang = getPlayerLocale(playerid);
+    // if(lang == "ru") {
+    //     message = str_replace_ex("!я", getPlayerName(playerid), message);
+    // } else {
+    //     message = str_replace_ex("!me", getPlayerName(playerid), message);
+    // }
 
     local match = regexp(@"(.*)(\*)(.*)$").capture(message);
 
@@ -94,8 +93,8 @@ chatcmd("todo", function(playerid, message) {
     local messageBefore = strip(message.slice(match[1].begin, match[1].end));
     local messageAfter = strip(message.slice(match[3].begin, match[3].end));
 
-    sendLocalizedMsgToAll(playerid, "chat.player.says", [getPlayerName(playerid), messageBefore], NORMAL_RADIUS, CL_CHAT_IC);
-    inRadiusSendToAll(playerid, "[ME] " + messageAfter, NORMAL_RADIUS, CL_CHAT_ME);
+    sendLocalizedMsgToAll(playerid, "chat.player.says", [getKnownCharacterNameWithId, messageBefore], NORMAL_RADIUS, CL_CHAT_IC);
+    sendLocalizedMsgToAll(playerid, "chat.player.todo.me", [messageAfter], NORMAL_RADIUS, CL_CHAT_ME);
 
     statisticsPushMessage(playerid, message, "todo");
 });
@@ -109,8 +108,8 @@ chatcmd(["w", "whisper"], function(playerid, message) {
         return;
     }
     if ( isBothInRadius(playerid, targetid, WHISPER_RADIUS) ) {
-        msg(targetid, "chat.player.whisper", [getAuthor( playerid ), message], CL_CHAT_WHISPER);
-        msg(playerid, "chat.player.whisper", [getAuthor( playerid ), message], CL_CHAT_WHISPER);
+        msg(targetid, "chat.player.whisper", [ getKnownCharacterNameWithId(targetid, playerid), message], CL_CHAT_WHISPER);
+        msg(playerid, "chat.player.whisper", [ getAuthor( playerid ), message], CL_CHAT_WHISPER);
     }
 
     // statistics
@@ -151,7 +150,7 @@ cmd(["re", "reply"], function(playerid, ...) {
 
 // nonRP local chat
 chatcmd(["b"], function(playerid, message) {
-    inRadiusSendToAll(playerid, format("%s: %s", getAuthor( playerid ), message), NORMAL_RADIUS, CL_CHAT_B);
+    sendLocalizedMsgToAll(playerid, "chat.player.b", [getKnownCharacterNameWithId, message], NORMAL_RADIUS, CL_CHAT_B);
 
     // statistics
     statisticsPushMessage(playerid, message, "non-rp-local");
@@ -162,30 +161,24 @@ chatcmd(["o","ooc"], function(playerid, message) {
 
     // is global chat enabled and user writing this message
     // did not disable his global chat
-    if (IS_OOC_ENABLED && antiflood[playerid]["togooc"])
-    {
+    if (IS_OOC_ENABLED && antiflood[playerid]["togooc"]) {
         // matybe he has some time to be antiflooded yet
-        if(antiflood[playerid]["gooc"] == 0)
-        {
+        if(antiflood[playerid]["gooc"] == 0) {
             // send message to all enabled chat
             foreach (targetid, value in players) {
                 if (antiflood[targetid]["togooc"]) {
-                    msg(targetid, "[Global OOC] " + getAuthor( playerid ) + ": " + message, CL_CHAT_OOC);
+                    msg(targetid, "[Global OOC] " + getKnownCharacterNameWithId( targetid, playerid ) + ": " + message, CL_CHAT_OOC);
                 }
             }
 
             // statistics
             statisticsPushMessage(playerid, message, "ooc_");
             antiflood[playerid]["gooc"] = ANTIFLOOD_GLOBAL_OOC_CHAT;
-        }
-        else {
+        } else {
             msg(playerid, "antiflood.message", antiflood[playerid]["gooc"], CL_CHAT_B);
         }
-    }
-    else {
-        // msg(playerid, "admin.oocDisabled.message",CL_CHAT_B);
-        // forward to /b
-        inRadiusSendToAll(playerid, format("[Local nonRP] %s: (( %s ))", getAuthor( playerid ), message), NORMAL_RADIUS, CL_CHAT_B);
+    } else {
+        sendLocalizedMsgToAll(playerid, "chat.player.b", [getKnownCharacterNameWithId, message], NORMAL_RADIUS, CL_CHAT_B);
 
         // statistics
         statisticsPushMessage(playerid, message, "non-rp-local");
@@ -193,23 +186,10 @@ chatcmd(["o","ooc"], function(playerid, message) {
 
 });
 
-
 cmd(["text"], function(playerid, r, g, b) {
     msg(playerid, "Тестовое сообщение - Test message - 987654321", rgb(r.tointeger(), g.tointeger(), b.tointeger()));
 });
 
-
-cmd("idea", function(playerid, ...) {
-    msg(playerid, "chat.idea.success", CL_SUCCESS);
-    statisticsPushText("idea", playerid, concat(vargv));
-    dbg("chat", "idea", getAuthor(playerid), concat(vargv));
-});
-
-cmd("bug", function(playerid, ...) {
-    msg(playerid, "chat.bug.success", CL_SUCCESS);
-    statisticsPushText("bug", playerid, concat(vargv));
-    dbg("chat", "bug", getAuthor(playerid), concat(vargv));
-});
 
 cmd("report", function(playerid, id, ...) {
     if (!isInteger(id) || !vargv.len()) {
@@ -273,19 +253,6 @@ cmd(["help", "h", "halp", "info"], "chat", function(playerid) {
     msg_help(playerid, title, commands);
 });
 
-/*
-cmd(["help", "h", "halp", "info"], "vehicle", function(playerid) {
-    local title = "List of available commands for VEHICLES:";
-    local commands = [
-        { name = "/vehicle <id>",       desc = "Spawn vehicle. Example: /vehicle 45" },
-        { name = "/tune",               desc = "Tune up your vehicle!" },
-        { name = "/fix",                desc = "Fix up your super vehicle" },
-        { name = "/destroyVehicle",     desc = "Remove car you are in" }
-    ];
-    msg_help(playerid, title, commands);
-});
-*/
-
 key("f1", function(playerid) {
     return setPlayerChatSlot(playerid, 0);
 });
@@ -326,9 +293,9 @@ acmd(["noooc"], function ( playerid ) {
 chatcmd(["try"], function(playerid, message) {
     local res = random(0,1);
     if(res)
-        sendLocalizedMsgToAll(playerid, "chat.player.try.end.success", [getPlayerName(playerid), message], SHOUT_RADIUS, CL_CHAT_TRY_SUCCESS);
+        sendLocalizedMsgToAll(playerid, "chat.player.try.end.success", [getKnownCharacterNameWithId, message], SHOUT_RADIUS, CL_CHAT_TRY_SUCCESS);
     else
-        sendLocalizedMsgToAll(playerid, "chat.player.try.end.fail", [getPlayerName(playerid), message], SHOUT_RADIUS, CL_CHAT_TRY_FAILED);
+        sendLocalizedMsgToAll(playerid, "chat.player.try.end.fail", [getKnownCharacterNameWithId, message], SHOUT_RADIUS, CL_CHAT_TRY_FAILED);
 
     // statistics
     statisticsPushMessage(playerid, message, "try");

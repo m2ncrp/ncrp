@@ -62,7 +62,7 @@ function policeCarRuporBinderCreator(playerid) {
     for (local i = 1; i <= phrases.len(); i++) {
         local keyButton = i.tostring();
         privateKey(playerid, keyButton, "policeBinder"+keyButton, function(playerid) {
-            inRadiusSendToAll(playerid, "[POLICE RUPOR] "+phrases[keyButton], RUPOR_RADIUS, CL_ROYALBLUE);
+            sendLocalizedMsgToAll(playerid, "[POLICE RUPOR] "+phrases[keyButton], [], RUPOR_RADIUS, CL_ROYALBLUE);
             clearPlayerBinderState(playerid);
             trigger(playerid, "hudDestroyTimer");
             if( timers[playerid].IsActive() ) {

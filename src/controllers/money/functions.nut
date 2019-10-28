@@ -109,7 +109,7 @@ function sendMoney(playerid, targetid = null, amount = null) {
 
     moneyTransferRequest[pair] = "inprocess";
 
-    msg(playerid, "moneysend.request", [amount, getPlayerName(targetid)], CL_THUNDERBIRD);
+    msg(playerid, "moneysend.request", [amount, getKnownCharacterName(playerid, targetid)], CL_THUNDERBIRD);
     msg(playerid, "moneysend.accept", CL_CASCADE);
     msg(playerid, "moneysend.cancel", CL_CASCADE);
 
@@ -138,7 +138,7 @@ function sendMoney(playerid, targetid = null, amount = null) {
         if(!canMoneyBeSubstracted(playerid, amount)) {
             moneyTransferRequest[pair] = "open";
             msg(playerid, "moneysend.notenough");
-            msg(targetid, "moneysend.cantgive", getPlayerName(playerid));
+            msg(targetid, "moneysend.cantgive", getKnownCharacterName(targetid, playerid));
             return;
         }
 
@@ -147,8 +147,8 @@ function sendMoney(playerid, targetid = null, amount = null) {
 
         moneyTransferRequest[pair] = "open";
 
-        msg(playerid, "moneysend.given", [amount, getPlayerName(targetid)]);
-        msg(targetid, "moneysend.taken", [amount, getPlayerName(playerid)]);
+        msg(playerid, "moneysend.given", [amount, getKnownCharacterNameWithId(playerid, targetid)]);
+        msg(targetid, "moneysend.taken", [amount, getKnownCharacterNameWithId(targetid, playerid)]);
 
         dbg("money", "send", getPlayerName(playerid), getPlayerName(targetid), amount);
         statisticsPushText("money", playerid, format("to: %s, amount: %.2f", getPlayerName(targetid), amount), "send");

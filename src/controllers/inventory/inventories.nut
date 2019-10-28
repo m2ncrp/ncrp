@@ -220,8 +220,8 @@ event("native:onPlayerTransferItem", function(playerid, id, slot) {
                 }
 
                 if(!players[targetid].hands.isFreeSpace(1)) {
-                           msg(playerid, "inventory.transfer.targethandsbusy", getPlayerName(targetid), CL_THUNDERBIRD);
-                    return msg(targetid, "inventory.transfer.handsbusy", getPlayerName(playerid), CL_THUNDERBIRD);
+                           msg(playerid, "inventory.transfer.targethandsbusy", getKnownCharacterNameWithId(playerid, targetid), CL_THUNDERBIRD);
+                    return msg(targetid, "inventory.transfer.handsbusy", getKnownCharacterNameWithId(targetid, playerid), CL_THUNDERBIRD);
                 }
 
                 local item = inventory.remove(slot);

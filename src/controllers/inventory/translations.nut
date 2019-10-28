@@ -15,11 +15,11 @@ alternativeTranslate({
     "en|inventory.cannotdestroy" : "You can't destroy this item."
     "ru|inventory.cannotdestroy" : "Вы не можете уничтожить этот предмет."
 
-    "en|inventory.transfered"    : "[ME] %s transfer in hands to %s: %s"
-    "ru|inventory.transfered"    : "[ME] %s передал в руки %s: %s"
+    "en|inventory.transfered"    : "[ME] %s transfer: %s"
+    "ru|inventory.transfered"    : "[ME] %s передал: %s"
 
-    "en|inventory.transferedfrom"    : "[ME] %s taken in hands from %s: %s"
-    "ru|inventory.transferedfrom"    : "[ME] %s взял в руки от %s: %s"
+    "en|inventory.transferedfrom"    : "[ME] %s taken in hands: %s"
+    "ru|inventory.transferedfrom"    : "[ME] %s взял в руки: %s"
 
     "en|inventory.transfer.enter"    : "Enter player id to transfer item:"
     "ru|inventory.transfer.enter"    : "Введите id игрока, чтобы передать предмет:"

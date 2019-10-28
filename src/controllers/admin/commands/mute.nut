@@ -44,7 +44,7 @@ function newmute(...) {
 
     Mute( getAccountName(playerid), getAccountName(targetid), getPlayerName(targetid), getPlayerSerial(targetid), mutetime, reason).save();
 
-    msga("admin.mute.muted", [ getPlayerName(targetid), time, reason ], CL_RED);
+    msga("admin.mute.muted", [ targetid.tostring(), time, reason ], CL_RED);
 
     local timestamp = getTimestamp();
 
@@ -111,9 +111,9 @@ function unmute(playerid, id = null) {
 
         result.remove();
 
-        msga("admin.mute.unmuted", [ charname ], CL_RED);
-
         local targetid = getPlayerIdFromCharacterName(charname);
+
+        msga("admin.mute.unmuted", [ targetid.tostring() ], CL_RED);
 
         if(targetid >= 0) {
             setPlayerMuted(targetid, false);

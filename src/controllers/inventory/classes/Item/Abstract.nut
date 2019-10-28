@@ -50,8 +50,9 @@ class Item.Abstract extends ORM.JsonEntity
     }
 
     function transfer(playerid, inventory, targetid) {
-        sendMsgToAllInRadius(playerid, "inventory.transfered", [ getPlayerName(playerid), getPlayerName(targetid), plocalize(playerid, this.classname ) ], CL_CHAT_ME, NORMAL_RADIUS);
-        sendMsgToAllInRadius(targetid, "inventory.transferedfrom", [ getPlayerName(targetid), getPlayerName(playerid), plocalize(playerid, this.classname ) ], CL_CHAT_ME, NORMAL_RADIUS);
+        sendLocalizedMsgToAll(playerid, "inventory.transfered", [ getKnownCharacterNameWithId, plocalize(playerid, this.classname ) ], NORMAL_RADIUS, CL_CHAT_ME);
+
+        sendLocalizedMsgToAll(targetid, "inventory.transferedfrom", [ getKnownCharacterNameWithId, plocalize(playerid, this.classname ) ], NORMAL_RADIUS, CL_CHAT_ME);
     }
 
     function destroy(playerid, inventory) {

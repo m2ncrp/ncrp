@@ -84,8 +84,7 @@ function getCharacterIdFromPlayerId(playerid) {
  * @return {string}
  */
 function getKnownCharacterName(playerid, targetid) {
-    local idStr = " [" + targetid.tostring() + "]";
-    local unknown = "Незнакомец" + idStr;
+    local unknown = "Незнакомец";
 
     if(!isPlayerConnected(targetid)) {
         return unknown;
@@ -93,8 +92,13 @@ function getKnownCharacterName(playerid, targetid) {
 
     // Раскомментировать для прода
     // if(playerid == targetid) {
-    //     return getPlayerName(playerid) + idStr;
+    //     return getPlayerName(playerid);
     // }
+
+    // Если возможность рукопожатий запрещена для targetid - отдавать настоящее имя
+    if("handshake" in players[targetid].data && players[targetid].data.handshake == "off") {
+        return getPlayerName(targetid);
+    }
 
     local targetCharId = getCharacterIdFromPlayerId(targetid);
 
@@ -102,8 +106,11 @@ function getKnownCharacterName(playerid, targetid) {
       return unknown;
     }
 
+    return players[playerid].handshakes[targetCharId].text;
+}
 
-    return players[playerid].handshakes[targetCharId].text + idStr;
+function getKnownCharacterNameWithId(playerid, targetid) {
+    return getKnownCharacterName(playerid, targetid) + " [" + targetid.tostring() + "]";
 }
 
 event("onServerPlayerStarted", function(playerid) {
