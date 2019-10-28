@@ -174,15 +174,15 @@ function msg_help_new(playerid, title, commands){
 
     foreach (idx, icmd in commands) {
         local text = null;
-        if(icmd.desc.len() > 0) {
+        if("desc" in icmd) {
             text = localize(icmd.name, [], getPlayerLocale(playerid)) + "   -   " + localize(icmd.desc, [], getPlayerLocale(playerid));
         } else {
             text = localize(icmd.name, [], getPlayerLocale(playerid));
         }
         if ((idx % 2) == 0) {
-            msg(playerid, "  "+text, CL_LYNCH);
+            msg(playerid, text, CL_SILVERSAND);
         } else {
-            msg(playerid, text);
+            msg(playerid, "  "+text, CL_LYNCH);
         }
     }
 }

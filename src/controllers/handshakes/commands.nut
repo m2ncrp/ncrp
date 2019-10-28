@@ -253,16 +253,25 @@ function handshakeHelp(playerid) {
 cmd("help", "handshake", handshakeHelp );
 
 function handshakeRules(playerid) {
-    local title = "К запрещенным именам и псевдонимам относятся";
-    local commands = [
-        { name = "1) любые известные людей любых профессий и сфер деятельности (актеры, спортсмены, блоггеры и др. знаменитости)"},
-        { name = "2) любые персонажи игр, фильмов, сериалов, тв-шоу" },
-        { name = "3) любые упоминания администрации сервера" },
-        { name = "4) титулы, должности, звания (император, король и т.д.)" },
-        { name = "5) любые оскорбительные слова (дурак, мудак, дебил и т.д.)" },
+	  local title = "К запрещенным именам и псевдонимам относятся";
+    local phrases = [
+        "1) любые известные люди любых профессий и сфер деятельности (актеры, спортсмены, блоггеры и др. знаменитости);",
+        "2) любые персонажи игр, фильмов, сериалов, тв-шоу;",
+        "3) любые упоминания администрации сервера;",
+        "4) титулы, должности, звания (император, король и т.д.);",
+        "5) любые оскорбительные слова" ,
     ];
-    msg_help_new(playerid, title, commands);
+
+	  msg(playerid, "===========================================", CL_HELP_LINE);
+    msg(playerid, title, CL_HELP_TITLE);
+
+    foreach (idx, value in phrases) {
+        local text = localize(value, [], getPlayerLocale(playerid));
+        msg(playerid, text, CL_SILVERSAND);
+    }
 }
+
+cmd("rules", "handshake", handshakeRules );
 
 alternativeTranslate({
 
