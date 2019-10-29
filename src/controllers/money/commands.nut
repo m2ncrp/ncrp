@@ -7,5 +7,5 @@ cmd( ["give", "send"], sendMoney );
 //cmd( ["accept"], invoiceAccept );
 //cmd( ["decline"], invoiceDecline );
 
-cmd( ["pay"], invoiceAcceptNew );
-cmd( ["cancel"], invoiceDeclineNew );
+//cmd( ["pay"], invoiceAcceptNew );
+//cmd( ["cancel"], invoiceDeclineNew );

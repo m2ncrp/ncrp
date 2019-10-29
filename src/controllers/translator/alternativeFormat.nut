@@ -12,7 +12,7 @@ local phrases = {
 
 alternativeTranslate(phrases);
 
- */
+*/
 
 function alternativeTranslate(phrases) {
     foreach (idx, phrase in phrases) {
@@ -22,22 +22,3 @@ function alternativeTranslate(phrases) {
         translate(split[0], temp );
     }
 }
-
-
-/*
-foreach (idx, phrase in phrases) {
-    local temp = {};
-    temp[phrase[1]] <- phrase[2];
-    translate(phrase[0], temp );
-}
-*/
-
-/*
-foreach (idx, phrase in phrases) {
-    local ins = {};
-    foreach (idy, ph in phrase) {
-        ins[idy] <- ph;
-        translate(idx, ins );
-    }
-}
-*/
