@@ -23,7 +23,7 @@ function policeCall(playerid, place) {
     }
 
     msg(playerid, "organizations.police.call.foruser", [ plocalize(playerid, place) ], CL_ROYALBLUE);
-    dbg("chat", "police", getAuthor(playerid), localize( place, [], "ru") );
+    // dbg("chat", "police", getAuthor(playerid), localize( place, [], "ru") );
 
     local pos = getPlayerPositionObj(playerid);
 
