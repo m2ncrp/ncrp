@@ -1,3 +1,4 @@
+/*
 event("onServerStarted", function() {
     log("[shops] loading car searching services...");
 });
@@ -63,3 +64,4 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
         }, FINDCAR_TIMEOUT);
     }
 });
+*/
