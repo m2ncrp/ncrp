@@ -106,7 +106,6 @@ function RentCar(playerid) {
     setVehicleFuel(vehicleid, 28.0);
     setVehicleRespawnEx(vehicleid, false);
     subMoneyToPlayer( playerid, rentprice );
-    addMoneyToTreasury(rentprice);
     msg(playerid, "rentcar.rented");
     msg(playerid, "rentcar.paidcar", [ rentprice ] );
 }
@@ -183,7 +182,6 @@ event ("onServerMinuteChange", function() {
         } else {
             local rentprice = price * 10;
             subMoneyToPlayer(playerid, rentprice );
-            addMoneyToTreasury(rentprice);
             msg(playerid, "rentcar.paidcar", [ rentprice ] );
             msg(playerid, "rentcar.refuse");
         }

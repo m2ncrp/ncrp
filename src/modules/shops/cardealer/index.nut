@@ -324,7 +324,6 @@ cmd("dealer", "buy", function(playerid) {
                 return msg(playerid, "cardealer.notenoughmoney", CL_ERROR);
             }
             subMoneyToPlayer(playerid, margin);
-            //addMoneyToTreasury(margin);
             msg(playeridOldOwner, "cardealer.returnedCar", margin, CL_FIREBUSH);
             car.status = "canceled";
             car.total_price = margin;

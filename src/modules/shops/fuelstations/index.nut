@@ -247,7 +247,6 @@ function fuelVehicleUp(playerid) {
     setVehicleEngineState(vehicleid, false);
     trigger(playerid, "hudCreateTimer", fuelup_time, true, true);
     subMoneyToPlayer(playerid, cost);
-    //addMoneyToTreasury(cost);
     delayedFunction(fuelup_time * 1000, function () {
         if(isPlayerConnected(playerid)) {
             freezePlayer( playerid, false);
@@ -299,7 +298,6 @@ function fuelJerrycanUp( playerid ) {
         jerrycanObj.save();
         players[playerid].hands.sync();
         subMoneyToPlayer(playerid, cost);
-        addMoneyToTreasury(cost);
     });
 }
 

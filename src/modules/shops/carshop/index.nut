@@ -560,9 +560,6 @@ cmd("car", "buy", function(playerid) {
     // take money
     subMoneyToPlayer(playerid, car.price);
 
-    // add money to treasury
-    // addMoneyToTreasury(car.price);
-
     local vehiclePlate = getRandomVehiclePlate();
 
     // set params
