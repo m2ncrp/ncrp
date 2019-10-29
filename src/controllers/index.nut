@@ -6,7 +6,6 @@ include("controllers/keyboard");
 include("controllers/chat");
 include("controllers/3dtext");
 include("controllers/blip");
-// include("controllers/waypoints");
 include("controllers/time");
 include("controllers/auth");
 include("controllers/forgotpage");
@@ -23,9 +22,6 @@ include("controllers/extrasync");
 include("controllers/business");
 
 include("controllers/tips");
-// include("controllers/gui");
-// include("controllers/objectpool");
-// include("controllers/moderator");
 include("controllers/place");
 include("controllers/closedplaces");
 
