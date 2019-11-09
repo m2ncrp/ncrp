@@ -51,9 +51,9 @@ acmd("key", function( playerid, plateText = 0 ) {
         return msg( playerid, "vehkeys.alreadygot", CL_THUNDERBIRD);
     }
 
-    if (!isPlayerVehicleOwner(playerid, vehicleid)) {
-        return msg(playerid, "parking.notYourCar", CL_THUNDERBIRD);
-    }
+    // if (!isPlayerVehicleOwner(playerid, vehicleid)) {
+    //     return msg(playerid, "parking.notYourCar", CL_THUNDERBIRD);
+    // }
 
     local entityid = getVehicleEntityId(vehicleid);
 
