@@ -6,6 +6,8 @@ include("controllers/admin/commands/mute.nut");
 include("controllers/admin/commands/warn.nut");
 include("controllers/admin/commands/chat.nut");
 include("controllers/admin/commands/help.nut");
+include("controllers/admin/commands/item.nut");
+include("controllers/admin/commands/vehicleKey.nut");
 include("controllers/admin/commands/player.nut");
 include("controllers/admin/commands/restart.nut");
 include("controllers/admin/commands/teleport.nut");
