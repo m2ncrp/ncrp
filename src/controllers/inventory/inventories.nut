@@ -148,22 +148,31 @@ key("e", function(playerid) {
 
         return curr;
     });
+
+    // Если предмет нельзя поднять -> использовать
+    if (!closest.isPickable) {
+        closest.useGround(playerid);
+        return true;
+    }
+
+    // Если предмет может быть помещён в инвентарь (не только для рук) - поднять в инвентарь
     if (!closest.handsOnly && players[playerid].inventory.push(closest)) {
         players[playerid].inventory.sync();
         closest.pick(playerid, players[playerid].inventory);
         ground.remove(closest);
         return true;
     }
-    else if (players[playerid].hands.push(closest)) {
+
+    // Если предмет может быть помещён в руки - поднять в руки
+    if (players[playerid].hands.push(closest)) {
         players[playerid].hands.sync();
         closest.pick(playerid, players[playerid].hands);
         ground.remove(closest);
         return true;
     }
-    else {
-        msg(playerid, "inventory.cannotinsert", CL_WARNING);
-        return false;
-    }
+
+    msg(playerid, "inventory.cannotinsert", CL_WARNING);
+    return false;
 });
 
 event("native:onPlayerUseItem", function(playerid, id, slot) {

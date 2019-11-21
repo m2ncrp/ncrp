@@ -19,7 +19,7 @@ class Item.Abstract extends ORM.JsonEntity
 
     handsOnly = false;
     destroyOnDrop = false;
-		isPickable = true;
+    isPickable = true;
     stackable   = false;
     maxstack    = 0;
     volume      = 0.0;
@@ -80,7 +80,7 @@ class Item.Abstract extends ORM.JsonEntity
             amount      = this.amount,
             volume      = this.calculateVolume(),
             id          = this.id,
-						isPickable  = this.isPickable,
+            isPickable  = this.isPickable,
         };
 
         if (this.x != 0.0 || this.y != 0.0 || this.z != 0.0) {
