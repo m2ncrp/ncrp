@@ -786,8 +786,6 @@ class VehicleInventory extends Inventory
         };
 
         this.setTitle();
-
-        local size = this.getSize();
     }
 
 }
@@ -825,12 +823,9 @@ class VehicleInterior extends Inventory
         };
 
         this.setTitle();
-
-        local size = this.getSize();
     }
 
 }
-
 
 /**
  * ************************
@@ -899,14 +894,12 @@ event("onClientFrameRender", function(afterGUI) {
             size = inventory.getOriginalSize();
         }
 
-        local coef = (volume / inventory.data.limit);       if (typeof coef != "float") return;
+        local coef = (volume / inventory.data.limit);     if (typeof coef != "float") return;
         local invwidth = size.x - inventory.guiPadding * 2 - inventory.guiRightOffset - 7;
         local width = invwidth * (coef > 1.0 ? 1.0 : coef);
 
         dxDrawRectangle(window[0].tofloat() + inventory.guiPadding + 4, window[1] + size.y - inventory.guiBottomOffset - 3, invwidth, 15.0, 0xFF242522);
         dxDrawRectangle(window[0].tofloat() + inventory.guiPadding + 4, window[1] + size.y - inventory.guiBottomOffset - 3, width, 15.0, 0xFFAF8E4D);
-
-
 
         drawed = true;
 
@@ -1026,6 +1019,7 @@ function drawWorldGround() {
     local pos    = { x = curpos[0], y = curpos[1], z = curpos[2] }; if (typeof pos != "table" || pos.len() != 3) return;
     local radius = ground.distance;                                 if (typeof radius != "float") return;
     local nearitem = false;
+    local text = "Press E to pick up item";
 
     local items = ground.current.filter(function(i, item) {
         return (
@@ -1067,10 +1061,13 @@ function drawWorldGround() {
         if (item_distance < 1.0) {
             nearitem = true;
         }
+
+        if(!item.isPickable) {
+            text = "Press E to explore";
+        }
     });
 
     if (nearitem) {
-        local text   = "Press E to pick up item";
         local offset = dxGetTextDimensions(text, 2.0, "tahoma-bold")[1];
         dxDrawText(text, 125.0, screenY - offset - 25.0, 0xAAFFFFFF, false, "tahoma-bold", 2.0);
     }

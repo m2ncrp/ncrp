@@ -11,13 +11,18 @@ Item.State <- {
 };
 
 // include entities
-include("controllers/inventory/classes/Item/Abstract.nut");
-include("controllers/inventory/classes/Item/None.nut");
-include("controllers/inventory/classes/Item/Weapon.nut");
-include("controllers/inventory/classes/Item/Ammo.nut");
-include("controllers/inventory/classes/Item/Clothes.nut");
-include("controllers/inventory/classes/Item/Food.nut");
-include("controllers/inventory/classes/Item/Drink.nut");
+include("controllers/inventory/classes/templates/Abstract.nut");
+include("controllers/inventory/classes/templates/Cigarettes.nut");
+include("controllers/inventory/classes/templates/None.nut");
+include("controllers/inventory/classes/templates/Weapon.nut");
+include("controllers/inventory/classes/templates/Ammo.nut");
+include("controllers/inventory/classes/templates/Clothes.nut");
+include("controllers/inventory/classes/templates/Food.nut");
+include("controllers/inventory/classes/templates/Drink.nut");
+include("controllers/inventory/classes/templates/Storage.nut");
+include("controllers/inventory/classes/templates/Wheels.nut");
+include("controllers/inventory/classes/templates/Equipment.nut");
+
 include("controllers/inventory/classes/Item/Jerrycan.nut");
 include("controllers/inventory/classes/Item/VehicleTax.nut");
 include("controllers/inventory/classes/Item/VehicleKey.nut");
@@ -27,11 +32,8 @@ include("controllers/inventory/classes/Item/Passport.nut");
 include("controllers/inventory/classes/Item/LTC.nut");
 include("controllers/inventory/classes/Item/FirstAidKit.nut");
 include("controllers/inventory/classes/Item/PoliceBadge.nut");
-include("controllers/inventory/classes/Item/Cigarettes.nut");
-include("controllers/inventory/classes/Item/Storage.nut");
 include("controllers/inventory/classes/Item/Money.nut");
 include("controllers/inventory/classes/Item/Gift.nut");
-include("controllers/inventory/classes/Item/Wheels.nut");
 include("controllers/inventory/classes/Item/Dice.nut");
 include("controllers/inventory/classes/Item/CoffeeCup.nut");
 
@@ -139,7 +141,6 @@ class Item.BigBreakWhite    extends Item.Cigarettes { static classname = "Item.B
 
 
 class Item.Box              extends Item.Storage    { static classname = "Item.Box";            constructor () { base.constructor(); this.volume = 180.0; this.container.limit = 128.0; this.container.sizeX = 3; this.container.sizeY = 4; }}
-
 
 /**
  * Wheels

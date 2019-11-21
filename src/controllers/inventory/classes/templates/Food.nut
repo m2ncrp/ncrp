@@ -12,4 +12,7 @@ class Item.Food extends Item.Abstract
         inventory.remove(this.slot).remove();
         inventory.sync();
     }
+    function useGround(playerid) {
+      msg(playerid, "You are loser");
+    }
 }
