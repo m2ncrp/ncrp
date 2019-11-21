@@ -132,7 +132,6 @@ class ItemContainer extends Container
             title = this.title,
             sizeX = this.sizeX,
             sizeY = this.sizeY,
-            sizeY = this.sizeY,
             limit = this.limit,
             type  = this.classname,
             items = [],
