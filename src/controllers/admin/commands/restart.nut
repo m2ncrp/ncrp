@@ -1,7 +1,19 @@
 local isRestarting = false;
+local isRestartWhenNoOnline = false;
 
 event("native:onPlayerConnect", function(playerid, name, ip, serial) {
     if(isRestarting) kickPlayer( playerid );
+});
+
+event("native:onPlayerDisconnect", function(playerid, reason) {
+    if(isRestartWhenNoOnline) {
+      isRestarting = true;
+      delayedFunction(1000, function() {
+        if(getPlayerCount() == 0) {
+          dbg("server", "restart", "requested");
+        }
+      });
+    }
 });
 
 function planServerRestart(playerid) {
@@ -96,6 +108,11 @@ function planNowServerRestart(playerid) {
     });
 }
 
+function planZeroServerRestart(playerid) {
+    isRestartWhenNoOnline = true;
+    msg(playerid, "Restart (when online will be 0) has been planned.")
+}
+
 alternativeTranslate({
     "en|autorestart.15min"  : "[AUTO-RESTART] Server will be restarted in 15 minutes. Please, complete all your jobs. Thanks!"
     "ru|autorestart.15min"  : "[АВТО-РЕСТАРТ] Сервер будет перезагружен через 15 минут. Пожалуйста, завершите все свои задания. Спасибо!"
@@ -117,3 +134,4 @@ alternativeTranslate({
 mcmd(["admin.restart"], "restart", planServerRestart);
 mcmd(["admin.restart"], "fastrestart", planFastServerRestart);
 mcmd(["admin.restart"], "nowrestart", planNowServerRestart);
+mcmd(["admin.restart"], "zerorestart", planZeroServerRestart);
