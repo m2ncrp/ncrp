@@ -236,8 +236,8 @@ function sendPlayerPrivateMessage(playerid, targetid, vargv) {
     }
 
     local message = concat(vargv);
-    msg(playerid, "chat.player.message.private", [getAuthor( playerid ), getAuthor( targetid ), message], CL_CHAT_PM );
-    msg(targetid, "chat.player.message.private", [getAuthor( playerid ), getAuthor( targetid ), message], CL_CHAT_PM );
+    msg(playerid, "chat.player.message.private.from", [targetid, message], CL_CHAT_PM );
+    msg(targetid, "chat.player.message.private.to", [playerid, message], CL_CHAT_PM );
     statisticsPushText("pm", playerid, "to: " + getAuthor( targetid ) + message);
 }
 
