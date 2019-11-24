@@ -45,7 +45,11 @@ alternativeTranslate({
     "ru|antiflood.message"             : "Антифлуд: Для отправки сообщения подождите еще %i секунд"
     "en|antiflood.message"             : "Aniflood: wait a %i seconds."
 
+    "ru|newplayer.message1"             : "Общий чат доступен игрокам, которые провели на сервере суммарно больше %d минут."
+    "en|newplayer.message1"             : "General chat is available for players with total online more %d minutes."
 
+    "ru|newplayer.message2"             : "Ваш онлайн: %d %s"
+    "en|newplayer.message2"             : "Your online: %d %s"
 
     "en|chat.player.says"              : "%s: %s"
     "ru|chat.player.says"              : "%s: %s"
@@ -74,8 +78,11 @@ alternativeTranslate({
     "en|chat.player.message.error"     : "[PM] You should provide pm in a following format: /pm id text",
     "ru|chat.player.message.error"     : "[PM] Формат личного сообщения: /pm id текст",
 
-    "en|chat.player.message.private"   : "[PM] %s to %s: %s",
-    "ru|chat.player.message.private"   : "[PM] %s пишет %s: %s"
+    "en|chat.player.message.private.from" : "[PM] You to [%d]: %s",
+    "ru|chat.player.message.private.from" : "[PM] Вы пишете [%d]: %s"
+
+    "en|chat.player.message.private.to"   : "[PM] Message from [%d]: %s",
+    "ru|chat.player.message.private.to"   : "[PM] Сообщение от [%d]: %s"
 
     "en|chat.player.message.noplayer"  : "[PM] Player is not connected",
     "ru|chat.player.message.noplayer"  : "[PM] Такого игрока нет на сервере.",
