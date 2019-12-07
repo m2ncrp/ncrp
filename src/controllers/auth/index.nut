@@ -45,8 +45,6 @@ event("onClientSuccessfulyStarted", function(playerid) {
         username.find("  ") != null ||
         username.find("__") != null
     ) {
-        // disable ability to login
-        setPlayerAuthBlocked(playerid, true);
 
         // wait to load client chat and then display message
         return delayedFunction(2000, function() {
@@ -80,8 +78,6 @@ event("onClientSuccessfulyStarted", function(playerid) {
              * Applying actions
              */
             if (result) {
-                // disable ability to login
-                setPlayerAuthBlocked(playerid, true);
 
                 // wait to load client chat and then display message
                 return delayedFunction(2000, function() {
@@ -92,10 +88,10 @@ event("onClientSuccessfulyStarted", function(playerid) {
 
                     trigger(playerid, "onServerChatTrigger");
 
-                    msg(playerid, "[SERVER] You are banned from the server!", CL_RED);
-                    msg(playerid, "[SERVER] Reason: " + result.reason, CL_RED);
-                    msg(playerid, "[SERVER] Expired: " + epochToHuman(result.until).format("d.m.Y H:i:s") + " MSK", CL_RED);
-                    msg(playerid, "[SERVER] Try connecting after expired date.");
+                    msg(playerid, "Вы забанены!", CL_RED);
+                    msg(playerid, "Причина: " + result.reason, CL_RED);
+                    msg(playerid, "Дата окончания: " + epochToHuman(result.until).format("d.m.Y H:i:s") + " по Москве", CL_RED);
+                    msg(playerid, "Попробуйте подключиться после даты окончания бана.");
 
                     dbg("kick", "banned connected", getIdentity(playerid));
 
@@ -165,30 +161,25 @@ event("onClientSuccessfulyStarted", function(playerid) {
                     return dbg("skipping auth forms for debug mode");
                 }
 
+
                 /**
                  * Or just show the forms
                  * for login or registration
                  */
-                msg(playerid, "---------------------------------------------", CL_SILVERSAND);
-                msg(playerid, "auth.welcome", username);
-
                 if (username == "Player") {
                     showBadPlayerNicknameGUI(playerid);
                 } else {
                     if (account) {
                         showLoginGUI(playerid);
-                        msg(playerid, "auth.registered");
-                        msg(playerid, "*");
-                        msg(playerid, "auth.command.login");
                     } else {
                         showRegisterGUI(playerid);
-                        msg(playerid, "auth.notregistered");
-                        msg(playerid, "*");
-                        msg(playerid, "auth.command.register");
-                        msg(playerid, "auth.command.regformat");
                     }
+                    msg(playerid, "Что-то пошло не так :(", CL_RED);
+                    msg(playerid, "Попробуйте переподключиться к серверу.", CL_SILVERSAND);
+                    msg(playerid, "Если данная проблема повторяется более 5 раз - напишите нам:", CL_SILVERSAND);
+                    msg(playerid, "VK: vk.com/m2ncrp", CL_SILVERSAND);
+                    msg(playerid, "Discord: bit.ly/m2ncrp", CL_SILVERSAND);
                 }
-                msg(playerid, "---------------------------------------------", CL_SILVERSAND);
             });
         });
 });
@@ -240,7 +231,6 @@ event("onPlayerDisconnect", function(playerid, reason) {
         delete buffer[playerid];
     }
 
-    setPlayerAuthBlocked(playerid, false);
     setPlayerMuted(playerid, false);
     if (!isPlayerAuthed(playerid)) return;
 
@@ -253,13 +243,3 @@ event("onPlayerAccountChanged", function(playerid) {
 
     getPlayerSession(playerid).save();
 });
-
-// event("onServerSecondChange", function() {
-//     if (getSecond() % 15) return; // each 15 seconds
-
-//     foreach (playerid, data in baseData) {
-//         if (isPlayerConnected(playerid) && !isPlayerLogined(playerid) && !isPlayerAuthBlocked(playerid)) {
-//             msg(playerid, "auth.notification");
-//         }
-//     }
-// });

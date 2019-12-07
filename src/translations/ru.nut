@@ -496,7 +496,7 @@ translation("ru", {
     "admin.oocEnabled.message"  :"Общий чат был включен администратором!"
     "admin.oocDisabled.message" :"Общий чат был отключен администратором!"
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
-    
+
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
@@ -551,26 +551,17 @@ alternativeTranslate({
 
     "en|auth.wrongname"        : "Invalid name!"
     "en|auth.wrongname2"       : "Your name should be at least 4 symbols and should not contain any symbols except letters, nubmers, space and underscore."
-    //"en|auth.wrongname"        : "Sorry, your name should be original (not from the game) and have Firstname_Lastname format."
     "en|auth.changename"       : "Please, change you name in the settings, and reconnect. Thank you!"
-    "en|auth.welcome"          : "* Welcome there, %s!"
-    "en|auth.registered"       : "* Your account is registered."
-    "en|auth.notregistered"    : "* Your account is not registered."
-    "en|auth.command.register" : "* Please register using /register PASSWORD"
-    "en|auth.command.regformat": "* Example: Joe_Barbaro"
-    "en|auth.command.login"    : "* Please enter using /login PASSWORD"
-    "en|auth.error.logined"    : "[AUTH] You are already logined!"
+
     "en|auth.error.login"      : "[AUTH] You are already logined!"
     "en|auth.error.register"   : "[AUTH] Account with this name is already registered!"
     "en|auth.error.notfound"   : "[AUTH] Incorrect login or password."
     "en|auth.success.register" : "[AUTH] You've successfuly registered!"
-    //"en|auth.success.login"    : "[AUTH] You've successfuly logined!"
     "en|auth.success.login"    : "Welcome to server Night City RolePlay!"
     "en|auth.success.autologin": "[AUTH] You've been automatically logined!"
     "en|auth.error.cmderror"   : "[AUTH] You can't execute commands without registration."
     "en|auth.notification"     : "[AUTH] You should enter into your account via /login PASSWORD, or create new one via /register PASSWORD"
     "en|auth.error.tomany"     : "You cant register more accounts."
-    //"en|auth.client.notloaded" : "Seems like your client scripts were not properly loaded. Try reconnecting!"
     "en|auth.client.notloaded" : "Please wait until download files has finished!"
     "en|auth.haveproblems"     : "     RU-localized site: mafia2online.ru | We're in Discord: bit.ly/m2ncrp"
 
@@ -578,36 +569,28 @@ alternativeTranslate({
     "ru|auth.wrongname"        : "Некорректное имя аккаунта!"
     "ru|auth.wrongname2"       : "Имя аккаунта должно быть больше 4 символов и может содержать ТОЛЬКО английские буквы, цифры, пробел и нижнее подчеркивание."
     "ru|auth.changename"       : "Пожалуйста, смените имя аккаунта в настройках (SETTINGS -> поле Nickname) и переподключитесь!"
-    "ru|auth.welcome"          : "* Добро пожаловать, %s!"
-    "ru|auth.registered"       : "* Ваш аккаунт зарегистрирован."
-    "ru|auth.notregistered"    : "* Ваш аккаунт НЕ зарегистрирован."
-    "ru|auth.command.register" : "* Зарегистрируйтесь, используя /register ваш_пароль"
-    "ru|auth.command.regformat": "* Пример: Joe Barbaro"
-    "ru|auth.command.login"    : "* Войдите в аккаунт, используя: /login ваш_пароль"
-    "ru|auth.error.logined"    : "[AUTH] Вы уже вошли в аккаунт!"
+
     "ru|auth.error.login"      : "[AUTH] Вы уже вошли в аккаунт!"
-    "ru|auth.error.register"   : "[AUTH] Аккаунт с такими именем уже зарегистрирован."
+    "ru|auth.error.register"   : "[AUTH] Аккаунт с таким именем уже зарегистрирован."
     "ru|auth.error.notfound"   : "[AUTH] Логин или пароль были введены неправильно."
     "ru|auth.success.register" : "[AUTH] Вы успешно зарегистрировались!"
-    //"ru|auth.success.login"    : "[AUTH] Вы успешно вошли в аккаунт!"
     "ru|auth.success.login"    : "Добро пожаловать на сервер Night City RolePlay!"
     "ru|auth.success.autologin": "[AUTH] Вы были успешно авторизованы автоматически!"
     "ru|auth.error.cmderror"   : "[AUTH] Для выполнения команды Вам необходимо войти в аккаунт!"
     "ru|auth.notification"     : "[AUTH] Вам нужно войти в свой аккаунт используя /login ваш_пароль, или создать новый через /register ваш_пароль"
     "ru|auth.error.tomany"     : "Вы достигли лимита по количеству аккаунтов."
     "ru|auth.error.email"      : "Такой email адрес уже используется!"
-    //"ru|auth.client.notloaded" : "Кажется ваши клиент-скрипты не прогрузились. Попробуйте переподключиться!"
-    "ru|auth.client.notloaded" : "Дождитесь пока завершится загрузка всех файлов и появится окно регистрации или воода пароля!"
+    "ru|auth.client.notloaded" : "Дождитесь пока завершится загрузка всех файлов и появится окно регистрации или ввода пароля!"
     "ru|auth.haveproblems"     : "  Сайт: mafia2online.ru | vk.com/m2ncrp | Мы в Discord: bit.ly/m2ncrp"
 
 
-    "en|hello.1"     : ".:: Jobs are marked a gray stars on map."
+    "en|hello.1"     : ".:: Jobs are marked a gray star on map."
     "ru|hello.1"     : ".:: Работы отмечены на карте серыми звёздами."
 
     "en|hello.2"     : ".:: Open map - key M."
     "ru|hello.2"     : ".:: Открыть карту - кнопка М (англ)."
 
-    "en|hello.3"     : ".:: Write in chat - key Enter. Show*hide chat - key F5."
+    "en|hello.3"     : ".:: Write in chat - key Enter. Show/hide chat - key F5."
     "ru|hello.3"     : ".:: Сообщение в чат - Enter или T (англ). Показать/скрыть чат - F5."
 
     "en|hello.4"     : ".:: You can get to the right place by metro, rented or private car."

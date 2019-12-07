@@ -5,33 +5,6 @@
 local accounts = {};
 local baseData = {};
 local sessions = {};
-local blockedAccounts = [];
-
-/**
- * Check if player account is blocked via kick or ban
- * @param  {Integer} playerid
- * @return {Boolean}
- */
-function isPlayerAuthBlocked(playerid) {
-    return false;//blockedAccounts.find(getPlayerName(playerid)) != null;
-}
-
-/**
- * Sets player account blocked
- * @param {Integer} playerid
- * @param {Boolean} value
- */
-function setPlayerAuthBlocked(playerid, value) {
-    // if (value && !isPlayerAuthBlocked(playerid)) {
-    //     return blockedAccounts.push(getPlayerName(playerid));
-    // }
-
-    // if (!value && isPlayerAuthBlocked(playerid)) {
-    //     return blockedAccounts.remove(blockedAccounts.find(getPlayerName(playerid)));
-    // }
-
-    return false;
-}
 
 /**
  * Return true if player is authed

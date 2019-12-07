@@ -15,7 +15,6 @@ function isPlayerInValidVehicle(playerid, modelid) {
  */
 function removePlayer(playerid, reason = "") {
     dbg("player", "disconnect", getIdentity(playerid));
-    setPlayerAuthBlocked(playerid, false);
 
     if (!isPlayerAuthed(playerid)) {
         return dbg(format("player %s exited without login", getIdentity(playerid)));

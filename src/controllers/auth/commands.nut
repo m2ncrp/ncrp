@@ -3,17 +3,9 @@
  * using their current username and specified password
  */
 function registerFunc(playerid, password, email = null) {
-    if (isPlayerAuthBlocked(playerid)) {
-        return;
-    }
 
     if (!email) {
-        return msg(playerid, "please use /register PASSWORD EMAIL to register");
-    }
-
-    // if player is logined
-    if (isPlayerAuthed(playerid)) {
-        return trigger(playerid, "authErrorMessage", plocalize(playerid, "auth.error.login"));
+        return msg(playerid, "Error: email is empty");
     }
 
     // create account
@@ -70,7 +62,7 @@ function registerFunc(playerid, password, email = null) {
 
 }
 
-simplecmd("register", registerFunc); // removed, doesn't work with field email
+//simplecmd("register", registerFunc); // removed, doesn't work with field email
 addEventHandler("registerGUIFunction",registerFunc);
 
 /**
@@ -78,9 +70,6 @@ addEventHandler("registerGUIFunction",registerFunc);
  * using their current username and specified password
  */
 function loginFunc(playerid, password) {
-    if (isPlayerAuthBlocked(playerid)) {
-        return;
-    }
 
     if (isPlayerAuthed(playerid)) {
         trigger(playerid, "authErrorMessage", plocalize(playerid, "auth.error.login"));
@@ -124,7 +113,7 @@ function loginFunc(playerid, password) {
     });
 }
 
-simplecmd("login", loginFunc);
+//simplecmd("login", loginFunc);
 addEventHandler("loginGUIFunction", loginFunc);
 
 
