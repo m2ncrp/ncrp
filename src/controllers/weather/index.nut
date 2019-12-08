@@ -157,6 +157,6 @@ event("onServerSecondChange", function() {
 });
 
 // register auto weather sync on player spawn
-event("onPlayerSpawn", function(playerid) {
+event("onClientSuccessfulyStarted", function(playerid) {
     trigger(playerid, "onServerWeatherSync", SERVER_WEATHER);
 });

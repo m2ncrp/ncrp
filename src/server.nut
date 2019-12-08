@@ -277,6 +277,7 @@ proxy("onPlayerPlaceExit",          "native:onPlayerPlaceExit"          );
 proxy("onPlayerCharacterCreate",    "onPlayerCharacterCreate"           );
 proxy("onPlayerCharacterSelect",    "onPlayerCharacterSelect"           );
 proxy("onClientSuccessfulyStarted", "onClientSuccessfulyStarted"        );
+proxy("onClientSuccessfulyStartedAgain", "onClientSuccessfulyStartedAgain" );
 proxy("onPlayerLanguageChange",     "onPlayerLanguageChange"            );
 
 proxy("onPlayerShowForgotGUI",      "onPlayerShowForgotGUI"             );

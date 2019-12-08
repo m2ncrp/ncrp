@@ -35,7 +35,7 @@ const DEFAULT_SPAWN_Y    = 0.0;// 49.2881;
 const DEFAULT_SPAWN_Z    = 0.0;// -13.788;
 
 
-local CHARACTER_POS = [ -143.0, 1206.0, 84.25 ];
+local CHARACTER_POS = [ -479.234, -689.805, -18.9356 ];
 
 // 375.439, 727.43, -4.09301 // Little Italy Hollywood
 // -143.0, 1206.0, 84.0 // Highbrook
@@ -82,7 +82,7 @@ local modelsData =
 local playerLocale;
 
 
-function loadTraslation(){
+function loadTranslation(){
     translation.clear();
     local text = {};
     if(playerLocale == "en"){
@@ -189,7 +189,7 @@ function loadTraslation(){
 
 function formatCharacterSelection () {
     local idx = selectedCharacter;
-    setWeather(WEATHER);
+    // setWeather(WEATHER);
     setPlayerPosition(getLocalPlayer(), CHARACTER_POS[0], CHARACTER_POS[1], CHARACTER_POS[2]);
     setPlayerRotation(getLocalPlayer(), 180.0,0.0,0.0);
     if(charactersCount == 0){
@@ -214,7 +214,7 @@ function characterCreation(){
     hideCharacterSelection();
     isCharacterCreationMenu = true;
     togglePlayerControls( true );
-    setWeather(WEATHER);
+    // setWeather(WEATHER);
     setPlayerPosition(getLocalPlayer(), CHARACTER_POS[0], CHARACTER_POS[1], CHARACTER_POS[2]);
     setPlayerRotation(getLocalPlayer(), 180.0,0.0,180.0);
     window = guiCreateElement( ELEMENT_TYPE_WINDOW,  translation[0].CreationWindow, screen[0] - 400.0, screen[1]/2- 175.0, 260.0, 350.0 );
@@ -551,7 +551,7 @@ addEventHandler("onServerCharacterLoading", function(id,firstname, lastname, rac
 
 addEventHandler("onServerCharacterLoaded", function(locale){
     playerLocale = locale;
-    loadTraslation();
+    loadTranslation();
     charactersCount = characters.len();
     formatCharacterSelection();
     showChat(false);
