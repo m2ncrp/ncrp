@@ -36,6 +36,13 @@ local carnames = {
     Shubert_Truck_SP         = 39,
     Shubert_Truck_QD         = 37,
     Hank_B                   = 04,
+    Delizia_Grandeamerica    = 54,
+    Desta                    = 55,
+    Elysium                  = 56,
+    Roller                   = 57,
+    Waybar                   = 58,
+    Chaffeque                = 59
+
 };
 
 function getVehicleModelNameFromId(modelid) {
