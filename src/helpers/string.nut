@@ -219,7 +219,7 @@ function escape(str) {
     return res;
 }
 
-// declOfNum(25, ["литр", "литра", "литров"])
+// declOfNum(21, ["литр", "литра", "литров"]));
 function declOfNum(number, titles) {
     local cases = [2, 0, 1, 1, 1, 2];
     return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];

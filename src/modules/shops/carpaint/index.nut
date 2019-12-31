@@ -15,7 +15,7 @@ local CARPAINT_PLAYERID = null; // null or last playerid
 
 local CARPAINT_TIMER    = null; // timer hash
 local CARPAINT_INDEX    = 0;    // index of colors array
-local availableCars = [0, 1, 4, 6, 7, 8, 9, 10, 12, 13, 14, 15, 17, 18, 22, 23, 25, 28, 29, 30, 31, 32, 41, 43, 44, 45, 46, 47, 48, 50, 52, 53];
+local availableCars = [0, 1, 4, 6, 7, 8, 9, 10, 12, 13, 14, 15, 17, 18, 22, 23, 25, 28, 29, 30, 31, 32, 41, 43, 44, 45, 46, 47, 48, 50, 52, 53, 54, 55, 56, 57, 58, 59];
 
 local car_paint = {};
 

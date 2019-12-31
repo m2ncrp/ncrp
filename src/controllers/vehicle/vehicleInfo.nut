@@ -22,6 +22,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 60.0,
         trunk = {
             gridSizeX = 4,
             gridSizeY = 1,
@@ -54,6 +55,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 90.0,
         trunk = {
             gridSizeX = 3,
             gridSizeY = 2,
@@ -119,6 +121,7 @@ vehicleInfo <- {
             back_right_door       = null,
             hook                  = [ 0.0000,  3.0000],
         },
+        tank = 50.0,
         trunk = {
             gridSizeX = 3,
             gridSizeY = 3,
@@ -150,6 +153,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 200.0,
         trunk = {
             gridSizeX = 8,
             gridSizeY = 5,
@@ -182,6 +186,7 @@ vehicleInfo <- {
             back_right_door       = null,
             cargo_connector       = [ 0.0000, -2.2500],
         },
+        tank = 180.0,
         trunk = {
             gridSizeX = 0,
             gridSizeY = 0,
@@ -214,6 +219,7 @@ vehicleInfo <- {
             back_right_door       = null,
             cargo                 = [ 0.0000, -5.2500],
         },
+        tank = 180.0,
         trunk = {
             gridSizeX = 0,
             gridSizeY = 0,
@@ -246,6 +252,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 70.0,
         trunk = {
             gridSizeX = 3,
             gridSizeY = 3,
@@ -278,6 +285,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 70.0,
         trunk = {
             gridSizeX = 2,
             gridSizeY = 4,
@@ -310,6 +318,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 70.0,
         trunk = {
             gridSizeX = 3,
             gridSizeY = 3,
@@ -322,7 +331,6 @@ vehicleInfo <- {
         weight_kg  = [1086.0, 1086.0, 978.0],
         heat_limit = null,
     },
-
 
     model_9  = {
         gamename = "houston_wasp_pha",
@@ -343,6 +351,7 @@ vehicleInfo <- {
             back_left_door        = [-1.2800, -0.5000],
             back_right_door       = [ 1.2800, -0.5000],
         },
+        tank = 70.0,
         trunk = {
             gridSizeX = 3,
             gridSizeY = 2,
@@ -375,6 +384,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 70.0,
         trunk = {
             gridSizeX = 3,
             gridSizeY = 2,
@@ -407,6 +417,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 58.0,
         trunk = {
             gridSizeX = 4,
             gridSizeY = 2,
@@ -439,6 +450,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 58.0,
         trunk = {
             gridSizeX = 4,
             gridSizeY = 3,
@@ -471,6 +483,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 90.0,
         trunk = {
             gridSizeX = 2,
             gridSizeY = 4,
@@ -503,6 +516,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 70.0,
         trunk = {
             gridSizeX = 3,
             gridSizeY = 2,
@@ -535,6 +549,7 @@ vehicleInfo <- {
             back_left_door        = [-1.2800, -0.6000],
             back_right_door       = [ 1.2800, -0.6000],
         },
+        tank = 90.0,
         trunk = {
             gridSizeX = 3,
             gridSizeY = 3,
@@ -567,6 +582,7 @@ vehicleInfo <- {
             back_left_door        = [-1.2800, -0.6000],
             back_right_door       = [ 1.2800, -0.6000],
         },
+        tank = 90.0,
         trunk = {
             gridSizeX = 3,
             gridSizeY = 3,
@@ -599,6 +615,7 @@ vehicleInfo <- {
             back_left_door        = [-1.2800, -0.6100],
             back_right_door       = [ 1.2800, -0.6100],
         },
+        tank = 90.0,
         trunk = {
             gridSizeX = 3,
             gridSizeY = 3,
@@ -631,6 +648,7 @@ vehicleInfo <- {
             back_left_door        = [-1.2800, -0.6100],
             back_right_door       = [ 1.2800, -0.6100],
         },
+        tank = 90.0,
         trunk = {
             gridSizeX = 3,
             gridSizeY = 3,
@@ -663,6 +681,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 80.0,
         trunk = {
             gridSizeX = 4,
             gridSizeY = 5,
@@ -695,6 +714,7 @@ vehicleInfo <- {
             back_left_door        = [ -1.5500, -1.5000],
             back_right_door       = [  1.5500, -1.5000],
         },
+        tank = 150.0,
         trunk = {
             gridSizeX = 3,
             gridSizeY = 3,
@@ -732,6 +752,7 @@ vehicleInfo <- {
             back_left_door        = [ -1.5500, -1.5000],
             back_right_door       = [  1.5500, -1.5000],
         },
+        tank = 150.0,
         engine = {
             top_speed_mph = [82.0, 82.0, 82.0],
             top_speed_kmh = [132.0, 132.0, 132.0],
@@ -759,6 +780,7 @@ vehicleInfo <- {
             back_left_door        = [-1.3000, -0.6100],
             back_right_door       = [ 1.3000, -0.6100],
         },
+        tank = 70.0,
         trunk = {
             gridSizeX = 5,
             gridSizeY = 2,
@@ -791,6 +813,7 @@ vehicleInfo <- {
             back_left_door        = [-1.2800, -0.6000],
             back_right_door       = [ 1.2800, -0.6000],
         },
+        tank = 60.0,
         trunk = {
             gridSizeX = 5,
             gridSizeY = 2,
@@ -823,6 +846,7 @@ vehicleInfo <- {
             back_left_door        = [-1.2800, -0.6000],
             back_right_door       = [ 1.2800, -0.6000],
         },
+        tank = 60.0,
         trunk = {
             gridSizeX = 5,
             gridSizeY = 2,
@@ -855,6 +879,7 @@ vehicleInfo <- {
             back_left_door        = [-1.1700, -0.7500],
             back_right_door       = [ 1.1700, -0.7500],
         },
+        tank = 65.0,
         trunk = {
             gridSizeX = 3,
             gridSizeY = 3,
@@ -919,6 +944,7 @@ vehicleInfo <- {
             back_left_door        = [-1.1700, -0.7500],
             back_right_door       = [ 1.1700, -0.7500],
         },
+        tank = 65.0,
         trunk = {
             gridSizeX = 3,
             gridSizeY = 3,
@@ -952,6 +978,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 100.0,
         trunk = {
             gridSizeX = 6,
             gridSizeY = 5,
@@ -984,6 +1011,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 80.0,
         trunk = {
             gridSizeX = 4,
             gridSizeY = 3,
@@ -1016,6 +1044,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 70.0,
         trunk = {
             gridSizeX = 3,
             gridSizeY = 1,
@@ -1048,6 +1077,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 65.0,
         trunk = {
             gridSizeX = 3,
             gridSizeY = 5,
@@ -1080,6 +1110,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 65.0,
         trunk = {
             gridSizeX = 3,
             gridSizeY = 4,
@@ -1112,6 +1143,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 65.0,
         trunk = {
             gridSizeX = 3,
             gridSizeY = 4,
@@ -1144,6 +1176,7 @@ vehicleInfo <- {
             back_left_door        = [-1.1700, -0.7500],
             back_right_door       = [ 1.1700, -0.7500],
         },
+        tank = 65.0,
         trunk = {
             gridSizeX = 3,
             gridSizeY = 3,
@@ -1176,6 +1209,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 100.0,
         trunk = {
             gridSizeX = 5,
             gridSizeY = 5,
@@ -1208,6 +1242,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 100.0,
         trunk = {
             gridSizeX = 4,
             gridSizeY = 5,
@@ -1240,6 +1275,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 100.0,
         trunk = {
             gridSizeX = 4,
             gridSizeY = 5,
@@ -1272,6 +1308,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 100.0,
         trunk = {
             gridSizeX = 5,
             gridSizeY = 5,
@@ -1304,6 +1341,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 100.0,
         trunk = {
             gridSizeX = 5,
             gridSizeY = 5,
@@ -1336,6 +1374,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 100.0,
         trunk = {
             gridSizeX = 4,
             gridSizeY = 5,
@@ -1369,6 +1408,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 80.0,
         trunk = {
             gridSizeX = 0,
             gridSizeY = 0,
@@ -1401,6 +1441,7 @@ vehicleInfo <- {
             back_left_door        = [-1.2800, -0.4800],
             back_right_door       = [ 1.2800, -0.4800],
         },
+        tank = 80.0,
         trunk = {
             gridSizeX = 4,
             gridSizeY = 2,
@@ -1433,6 +1474,7 @@ vehicleInfo <- {
             back_left_door        = [-1.2800, -0.4800],
             back_right_door       = [ 1.2800, -0.4800],
         },
+        tank = 80.0,
         trunk = {
             gridSizeX = 4,
             gridSizeY = 2,
@@ -1465,6 +1507,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 50.0,
         trunk = {
             gridSizeX = 2,
             gridSizeY = 2,
@@ -1497,6 +1540,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 65.0,
         trunk = {
             gridSizeX = 4,
             gridSizeY = 2,
@@ -1529,6 +1573,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 70.0,
         trunk = {
             gridSizeX = 3,
             gridSizeY = 2,
@@ -1562,6 +1607,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 80.0,
         trunk = {
             gridSizeX = 5,
             gridSizeY = 5,
@@ -1595,6 +1641,7 @@ vehicleInfo <- {
             back_left_door        = [-1.2800, -0.7000],
             back_right_door       = [ 1.2800, -0.7000],
         },
+        tank = 65.0,
         trunk = {
             gridSizeX = 0,
             gridSizeY = 0,
@@ -1627,6 +1674,7 @@ vehicleInfo <- {
             back_left_door        = [-1.2800, -0.7500],
             back_right_door       = [ 1.2800, -0.7500],
         },
+        tank = 50.0,
         trunk = {
             gridSizeX = 4,
             gridSizeY = 4,
@@ -1689,6 +1737,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 50.0,
         trunk = {
             gridSizeX = 3,
             gridSizeY = 3,
@@ -1717,6 +1766,7 @@ vehicleInfo <- {
             back_left_door        = [-1.2800, -0.6000],
             back_right_door       = [ 1.2800, -0.6000],
         },
+        tank = 70.0,
         trunk = {
             gridSizeX = 2,
             gridSizeY = 3,
@@ -1749,6 +1799,7 @@ vehicleInfo <- {
             back_left_door        = [-1.2800, -0.6000],
             back_right_door       = [ 1.2800, -0.6000],
         },
+        tank = 70.0,
         trunk = {
             gridSizeX = 2,
             gridSizeY = 3,
@@ -1781,6 +1832,7 @@ vehicleInfo <- {
             back_left_door        = [-1.2800, -0.5500],
             back_right_door       = [ 1.2800, -0.5500],
         },
+        tank = 80.0,
         trunk = {
             gridSizeX = 4,
             gridSizeY = 2,
@@ -1813,6 +1865,207 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
+        tank = 40.0,
+        trunk = {
+            gridSizeX = 2,
+            gridSizeY = 3,
+            weightLimit = 70,
+        },
+        engine = {
+            top_speed_mph = [66.0,  66.0,  90.0],
+            top_speed_kmh = [107.0, 107.0, 145.0],
+        },
+        weight_kg  = [942.0, 870.0, 870.0],
+        heat_limit = null,
+    },
+
+
+    model_54 = {
+        gamename = "delizia_grandeamerica",
+        name = "Delizia Grandeamerica",
+        seats = 2,
+        triggers = {
+            front_left_wheel      = [-1.2800,  1.4500],
+            front_right_wheel     = [ 1.2800,  1.4500],
+            middle_left_wheel     = null,
+            middle_right_wheel    = null,
+            rear_left_wheel       = [-1.2800, -1.4000],
+            rear_right_wheel      = [ 1.2800, -1.4000],
+            hood                  = [ 0.0000,  2.5500],
+            trunk                 = [ 0.0000, -2.5500],
+                // Doors
+            front_left_door       = [-1.2800,  0.1000],
+            front_right_door      = [ 1.2800,  0.1000],
+            back_left_door        = null,
+            back_right_door       = null,
+        },
+        tank = 80.0,
+        trunk = {
+            gridSizeX = 2,
+            gridSizeY = 3,
+            weightLimit = 70,
+        },
+        engine = {
+            top_speed_mph = [66.0,  66.0,  90.0],
+            top_speed_kmh = [107.0, 107.0, 145.0],
+        },
+        weight_kg  = [942.0, 870.0, 870.0],
+        heat_limit = null,
+    },
+
+    model_55 = {
+        gamename = "desta",
+        name = "Desta",
+        seats = 2,
+        triggers = {
+            front_left_wheel      = [-1.2800,  1.4500],
+            front_right_wheel     = [ 1.2800,  1.4500],
+            middle_left_wheel     = null,
+            middle_right_wheel    = null,
+            rear_left_wheel       = [-1.2800, -1.4000],
+            rear_right_wheel      = [ 1.2800, -1.4000],
+            hood                  = [ 0.0000,  2.5500],
+            trunk                 = [ 0.0000, -2.5500],
+                // Doors
+            front_left_door       = [-1.2800,  0.1000],
+            front_right_door      = [ 1.2800,  0.1000],
+            back_left_door        = null,
+            back_right_door       = null,
+        },
+        tank = 85.0,
+        trunk = {
+            gridSizeX = 2,
+            gridSizeY = 3,
+            weightLimit = 70,
+        },
+        engine = {
+            top_speed_mph = [66.0,  66.0,  90.0],
+            top_speed_kmh = [107.0, 107.0, 145.0],
+        },
+        weight_kg  = [942.0, 870.0, 870.0],
+        heat_limit = null,
+    },
+
+    model_56 = {
+        gamename = "elysium",
+        name = "Potomac Elysium",
+        seats = 2,
+        triggers = {
+            front_left_wheel      = [-1.2800,  1.4500],
+            front_right_wheel     = [ 1.2800,  1.4500],
+            middle_left_wheel     = null,
+            middle_right_wheel    = null,
+            rear_left_wheel       = [-1.2800, -1.4000],
+            rear_right_wheel      = [ 1.2800, -1.4000],
+            hood                  = [ 0.0000,  2.5500],
+            trunk                 = [ 0.0000, -2.5500],
+                // Doors
+            front_left_door       = [-1.2800,  0.1000],
+            front_right_door      = [ 1.2800,  0.1000],
+            back_left_door        = null,
+            back_right_door       = null,
+        },
+        tank = 80.0,
+        trunk = {
+            gridSizeX = 2,
+            gridSizeY = 3,
+            weightLimit = 70,
+        },
+        engine = {
+            top_speed_mph = [66.0,  66.0,  90.0],
+            top_speed_kmh = [107.0, 107.0, 145.0],
+        },
+        weight_kg  = [942.0, 870.0, 870.0],
+        heat_limit = null,
+    },
+
+
+    model_57 = {
+        gamename = "roller",
+        name = "Roller GL300",
+        seats = 2,
+        triggers = {
+            front_left_wheel      = [-1.2800,  1.4500],
+            front_right_wheel     = [ 1.2800,  1.4500],
+            middle_left_wheel     = null,
+            middle_right_wheel    = null,
+            rear_left_wheel       = [-1.2800, -1.4000],
+            rear_right_wheel      = [ 1.2800, -1.4000],
+            hood                  = [ 0.0000,  2.5500],
+            trunk                 = [ 0.0000, -2.5500],
+                // Doors
+            front_left_door       = [-1.2800,  0.1000],
+            front_right_door      = [ 1.2800,  0.1000],
+            back_left_door        = null,
+            back_right_door       = null,
+        },
+        tank = 100.0,
+        trunk = {
+            gridSizeX = 2,
+            gridSizeY = 3,
+            weightLimit = 70,
+        },
+        engine = {
+            top_speed_mph = [66.0,  66.0,  90.0],
+            top_speed_kmh = [107.0, 107.0, 145.0],
+        },
+        weight_kg  = [942.0, 870.0, 870.0],
+        heat_limit = null,
+    },
+
+    model_58 = {
+        gamename = "waybar",
+        name = "Waybar Hot Rod",
+        seats = 2,
+        triggers = {
+            front_left_wheel      = [-1.2800,  1.4500],
+            front_right_wheel     = [ 1.2800,  1.4500],
+            middle_left_wheel     = null,
+            middle_right_wheel    = null,
+            rear_left_wheel       = [-1.2800, -1.4000],
+            rear_right_wheel      = [ 1.2800, -1.4000],
+            hood                  = [ 0.0000,  2.5500],
+            trunk                 = [ 0.0000, -2.5500],
+                // Doors
+            front_left_door       = [-1.2800,  0.1000],
+            front_right_door      = [ 1.2800,  0.1000],
+            back_left_door        = null,
+            back_right_door       = null,
+        },
+        tank = 70.0,
+        trunk = {
+            gridSizeX = 2,
+            gridSizeY = 3,
+            weightLimit = 70,
+        },
+        engine = {
+            top_speed_mph = [66.0,  66.0,  90.0],
+            top_speed_kmh = [107.0, 107.0, 145.0],
+        },
+        weight_kg  = [942.0, 870.0, 870.0],
+        heat_limit = null,
+    },
+
+    model_59 = {
+        gamename = "chaffeque",
+        name = "Chaffeque XT",
+        seats = 4,
+        triggers = {
+            front_left_wheel      = [-1.2800,  1.4500],
+            front_right_wheel     = [ 1.2800,  1.4500],
+            middle_left_wheel     = null,
+            middle_right_wheel    = null,
+            rear_left_wheel       = [-1.2800, -1.4000],
+            rear_right_wheel      = [ 1.2800, -1.4000],
+            hood                  = [ 0.0000,  2.5500],
+            trunk                 = [ 0.0000, -2.5500],
+                // Doors
+            front_left_door       = [-1.2800,  0.1000],
+            front_right_door      = [ 1.2800,  0.1000],
+            back_left_door        = null,
+            back_right_door       = null,
+        },
+        tank = 50.0,
         trunk = {
             gridSizeX = 2,
             gridSizeY = 3,

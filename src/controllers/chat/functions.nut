@@ -197,9 +197,9 @@ function sendPlayerPrivateMessage(playerid, targetid, vargv) {
     }
 
     local message = concat(vargv);
-    msg(playerid, "chat.player.message.private", [getAuthor( playerid ), getKnownCharacterNameWithId( playerid, targetid ), message], CL_CHAT_PM );
-    msg(targetid, "chat.player.message.private", [getKnownCharacterNameWithId( targetid, playerid ), getAuthor( targetid ), message], CL_CHAT_PM );
-    statisticsPushText("pm", playerid, getPlayerName( playerid ) + " to " + getPlayerName( targetid ) + ": " + message);
+    msg(playerid, "chat.player.message.private.from", [targetid, message], CL_CHAT_PM );
+    msg(targetid, "chat.player.message.private.to", [playerid, message], CL_CHAT_PM );
+    statisticsPushText("pm", playerid, "to: " + getAuthor( targetid ) + message);
 }
 
 // aliases

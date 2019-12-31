@@ -161,9 +161,22 @@ chatcmd(["o","ooc"], function(playerid, message) {
 
     // is global chat enabled and user writing this message
     // did not disable his global chat
-    if (IS_OOC_ENABLED && antiflood[playerid]["togooc"]) {
-        // matybe he has some time to be antiflooded yet
-        if(antiflood[playerid]["gooc"] == 0) {
+    if (IS_OOC_ENABLED && antiflood[playerid]["togooc"])
+    {
+        local xp = players[playerid].xp;
+        local minXp = 360;
+        if(xp < minXp) {
+          msg(playerid, "newplayer.message1", [ minXp / 2 ], CL_ERROR);
+
+          local lang = getPlayerLocale(playerid);
+          local titles = lang == "ru" ? ["минута", "минуты", "минут"] : ["minute", "minutes", "minutes"]
+          msg(playerid, "newplayer.message2", [ xp / 2, declOfNum(xp / 2, titles) ], CL_CHAT_OOC);
+          return;
+        }
+
+        // maybe he has some time to be antiflooded yet
+        if(antiflood[playerid]["gooc"] == 0)
+        {
             // send message to all enabled chat
             foreach (targetid, value in players) {
                 if (antiflood[targetid]["togooc"]) {

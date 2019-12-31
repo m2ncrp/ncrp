@@ -8,6 +8,7 @@ Item.State <- {
     VEHICLE_INV      = 5
     VEHICLE_INTERIOR = 6,
     BUILDING_INV     = 7,
+    EQUIPMENT_INV    = 8
 };
 
 // include entities
@@ -42,8 +43,10 @@ include("controllers/inventory/classes/ItemContainer.nut");
 include("controllers/inventory/classes/PlayerItemContainer.nut");
 include("controllers/inventory/classes/PlayerHandsContainer.nut");
 include("controllers/inventory/classes/StorageItemContainer.nut");
-include("controllers/inventory/classes/VehicleInventoryItemContainer.nut");
-include("controllers/inventory/classes/VehicleInteriorItemContainer.nut");
+include("controllers/inventory/classes/VehicleItemContainer.nut");
+// include("controllers/inventory/classes/VehicleInventoryItemContainer.nut");
+// include("controllers/inventory/classes/VehicleInteriorItemContainer.nut");
+// include("controllers/inventory/classes/EquipmentItemContainer.nut");
 
 
 // add shortcuts overrides
@@ -142,18 +145,20 @@ class Item.BigBreakWhite    extends Item.Cigarettes { static classname = "Item.B
 
 class Item.Box              extends Item.Storage    { static classname = "Item.Box";            constructor () { base.constructor(); this.volume = 180.0; this.container.limit = 128.0; this.container.sizeX = 3; this.container.sizeY = 4; }}
 
+// class Item.Factory        extends Item.Equipment    { static classname = "Item.Factory";      constructor () { base.constructor(); this.volume = 0.1; }}
+
 /**
  * Wheels
  */
-class Item.Wheels00     extends Item.Wheels  { static classname = "Item.Wheels00"; constructor () { base.constructor(); this.volume = 67.0; this.name = "Dunniel Spinner";       }}
-class Item.Wheels01     extends Item.Wheels  { static classname = "Item.Wheels01"; constructor () { base.constructor(); this.volume = 67.0; this.name = "Dunniel Black Rook";    }}
-class Item.Wheels02     extends Item.Wheels  { static classname = "Item.Wheels02"; constructor () { base.constructor(); this.volume = 67.0; this.name = "Speedstone Alpha";      }}
-class Item.Wheels03     extends Item.Wheels  { static classname = "Item.Wheels03"; constructor () { base.constructor(); this.volume = 67.0; this.name = "Speedstone Beta";       }}
-class Item.Wheels04     extends Item.Wheels  { static classname = "Item.Wheels04"; constructor () { base.constructor(); this.volume = 67.0; this.name = "Speedstone Top Speed";  }}
-class Item.Wheels05     extends Item.Wheels  { static classname = "Item.Wheels05"; constructor () { base.constructor(); this.volume = 67.0; this.name = "Galahad Tiara";         }}
-class Item.Wheels06     extends Item.Wheels  { static classname = "Item.Wheels06"; constructor () { base.constructor(); this.volume = 67.0; this.name = "Galahad Silver Band";   }}
-class Item.Wheels07     extends Item.Wheels  { static classname = "Item.Wheels07"; constructor () { base.constructor(); this.volume = 67.0; this.name = "Speedstone Diabolic";   }}
-class Item.Wheels08     extends Item.Wheels  { static classname = "Item.Wheels08"; constructor () { base.constructor(); this.volume = 67.0; this.name = "Galahad Coronet";       }}
-class Item.Wheels09     extends Item.Wheels  { static classname = "Item.Wheels09"; constructor () { base.constructor(); this.volume = 67.0; this.name = "Galahad Gold Crown";    }}
-class Item.Wheels10     extends Item.Wheels  { static classname = "Item.Wheels10"; constructor () { base.constructor(); this.volume = 67.0; this.name = "Speedstone Pacific";    }}
-class Item.Wheels11     extends Item.Wheels  { static classname = "Item.Wheels11"; constructor () { base.constructor(); this.volume = 67.0; this.name = "Paytone Mistyhawk";     }}
+// class Item.Wheels00     extends Item.Wheels  { static classname = "Item.Wheels00"; constructor () { base.constructor(); this.volume = 67.0; this.name = "Dunniel Spinner";       }}
+// class Item.Wheels01     extends Item.Wheels  { static classname = "Item.Wheels01"; constructor () { base.constructor(); this.volume = 67.0; this.name = "Dunniel Black Rook";    }}
+// class Item.Wheels02     extends Item.Wheels  { static classname = "Item.Wheels02"; constructor () { base.constructor(); this.volume = 67.0; this.name = "Speedstone Alpha";      }}
+// class Item.Wheels03     extends Item.Wheels  { static classname = "Item.Wheels03"; constructor () { base.constructor(); this.volume = 67.0; this.name = "Speedstone Beta";       }}
+// class Item.Wheels04     extends Item.Wheels  { static classname = "Item.Wheels04"; constructor () { base.constructor(); this.volume = 67.0; this.name = "Speedstone Top Speed";  }}
+// class Item.Wheels05     extends Item.Wheels  { static classname = "Item.Wheels05"; constructor () { base.constructor(); this.volume = 67.0; this.name = "Galahad Tiara";         }}
+// class Item.Wheels06     extends Item.Wheels  { static classname = "Item.Wheels06"; constructor () { base.constructor(); this.volume = 67.0; this.name = "Galahad Silver Band";   }}
+// class Item.Wheels07     extends Item.Wheels  { static classname = "Item.Wheels07"; constructor () { base.constructor(); this.volume = 67.0; this.name = "Speedstone Diabolic";   }}
+// class Item.Wheels08     extends Item.Wheels  { static classname = "Item.Wheels08"; constructor () { base.constructor(); this.volume = 67.0; this.name = "Galahad Coronet";       }}
+// class Item.Wheels09     extends Item.Wheels  { static classname = "Item.Wheels09"; constructor () { base.constructor(); this.volume = 67.0; this.name = "Galahad Gold Crown";    }}
+// class Item.Wheels10     extends Item.Wheels  { static classname = "Item.Wheels10"; constructor () { base.constructor(); this.volume = 67.0; this.name = "Speedstone Pacific";    }}
+// class Item.Wheels11     extends Item.Wheels  { static classname = "Item.Wheels11"; constructor () { base.constructor(); this.volume = 67.0; this.name = "Paytone Mistyhawk";     }}
