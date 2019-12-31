@@ -43,6 +43,7 @@
 
         <!-- invdev supa unstebla beyatch -->
         <script type="client">gui_inventory.nut</script>
+        <!-- <script type="client">gui_grid.nut</script> -->
 
     <!--       -->
     <!-- files -->
@@ -169,6 +170,24 @@
         <file>Item.Wine.png</file>
         <file>Item.None.png</file>
 
+
+<!--
+        <file>Item.Wheels00.png</file>
+        <file>Item.Wheels01.png</file>
+        <file>Item.Wheels02.png</file>
+        <file>Item.Wheels03.png</file>
+        <file>Item.Wheels04.png</file>
+        <file>Item.Wheels05.png</file>
+        <file>Item.Wheels06.png</file>
+        <file>Item.Wheels07.png</file>
+        <file>Item.Wheels08.png</file>
+        <file>Item.Wheels09.png</file>
+        <file>Item.Wheels10.png</file>
+        <file>Item.Wheels11.png</file>
+
+        <file>Item.Dice.png</file>
+        <file>Item.Factory.png</file>
+-->
     <!-- <file>shop.logo.empirediner.png</file> -->
     <!-- <file>ped_tutorial1.png</file> -->
 </meta>

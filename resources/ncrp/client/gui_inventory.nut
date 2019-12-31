@@ -53,6 +53,8 @@ local translations = {
     "en": {
         "inventory"             : "Inventory of ",
         "trunk"                 : "Trunk",
+        "interior"              : "Interior",
+        "equipment"             : "Equipment",
 
         "action:use"            : "Use",
         "action:transfer"       : "Transfer",
@@ -60,6 +62,7 @@ local translations = {
         "action:takeInHand"     : "Take in hand",
         "action:throwToGround"  : "Throw to the ground",
         "action:close"          : "Close",
+        "action:craft"          : "Craft",
 
         "Item.None"             : ""
         "Item.Revolver"         : "Revolver .38"
@@ -128,6 +131,8 @@ local translations = {
     "ru": {
         "inventory"             : "Инвентарь "
         "trunk"                 : "Багажник",
+        "interior"              : "Салон",
+        "equipment"             : "Оборудование",
 
         "action:use"            : "Использовать"
         "action:transfer"       : "Передать"
@@ -135,6 +140,7 @@ local translations = {
         "action:takeInHand"     : "Взять в руку"
         "action:throwToGround"  : "Бросить на землю"
         "action:close"          : "Закрыть"
+        "action:craft"          : "Скрафтить",
 
         "Item.None"             : ""
         "Item.Revolver"         : "Revolver .38"
@@ -791,6 +797,82 @@ class VehicleInventory extends Inventory
 }
 
 
+/* ************************
+ * * EQUIPMENT CLASS
+ * ************************
+ */
+
+class Equipment extends Inventory
+{
+    guiRightOffset = 135.0;
+
+    function addComponent(type, props, yoffset, title) {
+        local size = this.getSize();
+        local y = this.guiTopOffset + ((this.guiPadding + props.height) * yoffset);
+
+        if (yoffset < 0) {
+            y = size.y + ((this.guiPadding + props.height) * yoffset) - 3;
+        }
+
+        return guiCreateElement(type, title,
+            size.x - this.guiPadding * 2 - props.width, y,
+            props.width, props.height, false, this.handle
+        );
+    }
+
+    function getOriginalSize() {
+        local size = base.getSize();
+        return { x = size.x, y = size.y + 30 };
+    }
+
+
+    function getInitialPosition() {
+        local size = this.getSize();
+        return { x = centerX - size.x - 5.0, y = centerY - size.y / 2 };
+    }
+
+    function setTitle() {
+        if (typeof this.handle == "userdata") {
+            if (typeof guiSetText == "function") guiSetText(this.handle, translations[playerLang]["equipment"]);
+        }
+    }
+
+    function createGUI() {
+        base.createGUI();
+
+        local props = {
+            width  = 125.0,
+            height = 30.0,
+        };
+
+        this.setTitle();
+
+        local size = this.getSize();
+
+        // buttons
+        this.components["lbl_name"]     <- this.addComponent(ELEMENT_TYPE_LABEL,  props,  0, "");
+        this.components["btn_craft"]     <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -2, translations[playerLang]["action:craft"]);
+        this.components["btn_close"]     <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -1, translations[playerLang]["action:close"]);
+    }
+
+    function rawclick(element) {
+        foreach (idx, value in this.components) {
+            if (element != value) {
+                continue;
+            }
+
+            if (idx == "btn_close") {
+                trigger("inventory:close", this.id);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+}
+
+
 /**
  * ************************
  * * INVENTORY INTERACTIONS
@@ -802,7 +884,9 @@ local class_map = {
     PlayerInventory     = PlayerInventory,
     PlayerHands         = PlayerHands,
     Storage             = StorageInventory,
-    VehicleInventory    = VehicleInventory
+    VehicleInventory    = VehicleInventory,
+    VehicleInterior     = VehicleInterior,
+    Equipment           = Equipment,
 };
 
 

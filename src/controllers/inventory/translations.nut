@@ -6,6 +6,12 @@ alternativeTranslate({
     "en|inventory.trunk.title"   : "Trunk"
     "ru|inventory.trunk.title"   : "Багажник"
 
+    "en|inventory.interior.title"   : "Interior"
+    "ru|inventory.interior.title"   : "Салон"
+
+    "en|inventory.equipment.title"   : "Equipment"
+    "ru|inventory.equipment.title"   : "Оборудование"
+
     "en|inventory.cannotinsert"  : "You can't insert this item."
     "ru|inventory.cannotinsert"  : "Вы не можете взять этот предмет с собой."
 
@@ -338,7 +344,7 @@ alternativeTranslate({
     "ru|shops.clothesshop.id86"        : "Костюм с жилеткой для ирландца"
 
     "en|shops.clothesshop.id87"        : "Grey coat with cap for Irish"
-    "ru|shops.clothesshop.id87"        : "Серое пальто с шапкой для ирландаца"
+    "ru|shops.clothesshop.id87"        : "Серое пальто с шапкой для ирландца"
 
     "en|shops.clothesshop.id88"        : "Gray jacket with cap for Irish"
     "ru|shops.clothesshop.id88"        : "Серая куртка с кепкой для ирландца"
