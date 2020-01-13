@@ -1,4 +1,4 @@
-local coef = 9;
+local coef = 8;
 local goods = {
 
     "empirediner" : {
