@@ -22,9 +22,9 @@ function generateAdminNick (playerid) {
     // }
 
     // Vittorio Genovese
-    if(getPlayerSerial(playerid) == "71818C229464A61DA21C9FC522BA7B08") {
-        nick = " MadHatter";
-    }
+    // if(getPlayerSerial(playerid) == "71818C229464A61DA21C9FC522BA7B08") {
+    //     nick = " MadHatter";
+    // }
 
     // Lucia Feuntes
     if(getPlayerSerial(playerid) == "D9B5B1ED43AB3E11AD453B3CE553335B") {
