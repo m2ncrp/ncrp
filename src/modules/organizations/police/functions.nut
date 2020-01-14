@@ -321,11 +321,11 @@ function getVehicleWantedForTax() {
     local vehiclesWanted = [];
 
     foreach (vehicleid, value in __vehicles) {
-        if (!value  || !value.entity || isVehicleInParking(vehicleid) || value.ownership.ownerid == 4 || value.entity.plate.find("GOV-") == 0) continue;
+        if (!value || !value.entity || isVehicleInParking(vehicleid) || value.ownership.ownerid == 4 || value.entity.plate.find("GOV-") == 0) continue;
 
         local carInfo = getCarInfoModelById( value.entity.model );
 
-        if(value.entity.data.tax >= carInfo.price * 0.15) {
+        if(("tax" in value.entity.data) && value.entity.data.tax >= carInfo.price * 0.15) {
             vehiclesWanted.push( value.entity.plate );
         }
     }
