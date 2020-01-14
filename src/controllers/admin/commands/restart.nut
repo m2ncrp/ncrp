@@ -7,10 +7,16 @@ event("native:onPlayerConnect", function(playerid, name, ip, serial) {
 
 event("native:onPlayerDisconnect", function(playerid, reason) {
     if(isRestartWhenNoOnline) {
-      isRestarting = true;
       delayedFunction(1000, function() {
         if(getPlayerCount() == 0) {
-          dbg("server", "restart", "requested");
+          isRestarting = true;
+
+          kickAll();
+
+          delayedFunction(1000, function() {
+              // request restart
+              dbg("server", "restart", "requested");
+          });
         }
       });
     }
