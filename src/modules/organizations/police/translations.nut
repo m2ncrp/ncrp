@@ -208,7 +208,7 @@ alternativeTranslate({
 
 
 "en|organizations.police.carwantedtax"              : "[POLICE] Wanted cars for non-payment of tax: %s"
-"ru|organizations.police.carwantedtax"              : "[POLICE] Разыскиваемые автомобили за неуплату налога: %s"
+"ru|organizations.police.carwantedtax"              : "[POLICE] Разыскиваемые автомобили за долг по оплате налога: %s"
 
 "en|organizations.police.carwanted"                 : "[POLICE] Car with number %s is wanted."
 "ru|organizations.police.carwanted"                 : "[POLICE] Автомобиль с номером %s находится в розыске."

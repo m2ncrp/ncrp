@@ -1,14 +1,72 @@
-local tax_fixprice = 20.0;
-local tax = 0.01;  // 1 percents
-local months = [3];
+
+local tax = 0.01 / 30;                  // 1 percents for 30 day
+local vehiclesLimit = 2;                // рекомендуемое количество автомобилей на игрока
+local vehiclesWithoutIncreaseTax = 2;   // количество автомобилей без повышения налогового коэффициента
+
+event("onServerDayChange", function() {
+    local vehiclesCountForPlayer = {};
+    local coefForPlayer = {};
+
+    foreach (vehicleid, object in __vehicles) {
+
+        if (!object) continue;
+
+        local veh = getVehicleEntity(vehicleid);
+
+        if(veh == null) {
+            continue;
+        }
+
+        local ownerid = veh.ownerid;
+
+        if((ownerid in vehiclesCountForPlayer) == false) {
+            vehiclesCountForPlayer[ownerid] <- 0;
+        }
+
+        vehiclesCountForPlayer[ownerid] += 1;
+    }
+
+    foreach (vehicleid, object in __vehicles) {
+
+        if (!object) continue;
+
+        local veh = getVehicleEntity(vehicleid);
+
+        if(veh == null) {
+            continue;
+        }
+
+        local ownerid = veh.ownerid;
+
+        if((ownerid in coefForPlayer) == false) {
+            local coef = (1 + (vehiclesCountForPlayer[ownerid] - vehiclesWithoutIncreaseTax) / vehiclesLimit.tofloat());
+            if(coef < 1) coef = 1;
+
+            coefForPlayer[ownerid] <- coef;
+        }
+
+        local modelid = veh.model;
+        local carInfo = getCarInfoModelById( modelid );
+
+        if (carInfo == null || isVehicleCarRent(vehicleid)) {
+            continue;
+        }
+
+        if(("tax" in veh.data) == false) {
+            veh.data.tax <- 0;
+        }
+        veh.data.tax += (carInfo.price * tax * coefForPlayer[ownerid]);
+    }
+});
+
 
 alternativeTranslate({
 
     "en|tax.help.title"  : "Tax for vehicle:"
     "ru|tax.help.title"  : "Налог на автомобиль:"
 
-    "en|tax.help.tax"    : "/tax  PlateNumber NumberOfMonths"
-    "ru|tax.help.tax"    : "/tax  НомерАвтомобиля КоличествоМесяцев"
+    "en|tax.help.tax"    : "/tax PlateNumber"
+    "ru|tax.help.tax"    : "/tax НомерАвтомобиля"
 
     "en|tax.help.desc"   : "Pay tax"
     "ru|tax.help.desc"   : "Оплатить налог"
@@ -19,14 +77,14 @@ alternativeTranslate({
     "en|tax.notrequired" : "This car not required to tax."
     "ru|tax.notrequired" : "Указанный автомобиль не облагается налогом."
 
-    "en|tax.payed"       : "You payed tax $%.2f for vehicle with plate %s for %d months."
-    "ru|tax.payed"       : "Вы оплатили налог $%.2f за авто с номером %s на %d мес."
+    "en|tax.iszero"      : "Tax is zero."
+    "ru|tax.iszero"      : "Налог ещё не начислен."
+
+    "en|tax.payed"       : "You payed tax $%.2f for vehicle with plate %s."
+    "ru|tax.payed"       : "Вы оплатили налог $%.2f за авто с номером %s."
 
     "en|tax.money.notenough"  : "Not enough money. Need $%.2f."
     "ru|tax.money.notenough"  : "Недостаточно денег. Для оплаты требуется $%.2f."
-
-    "en|tax.monthUp"          : "Choose correct number of months: 3"
-    "ru|tax.monthUp"          : "Выберите корректное число месяцев: 3"
 
     "en|tax.info.title"       : "Information about tax for vehicle:"
     "ru|tax.info.title"       : "Информация об оплате налога на автомобиль:"
@@ -93,7 +151,6 @@ function isPlayerHaveValidVehicleTax(playerid, param, days = 0) {
     return isHave;
 }
 
-
 cmd("tax", function( playerid, plateText = 0) {
 
     if (plateText == 0) {
@@ -104,45 +161,53 @@ cmd("tax", function( playerid, plateText = 0) {
         return msg(playerid, "tax.toofar", CL_THUNDERBIRD);
     }
 
-    if(!players[playerid].inventory.isFreeSpace(1)) {
-        return msg(playerid, "inventory.space.notenough", CL_THUNDERBIRD);
-    }
-
-    local taxObj = Item.VehicleTax();
-    if (!players[playerid].inventory.isFreeWeight(taxObj)) {
-        return msg(playerid, "inventory.weight.notenough", CL_THUNDERBIRD);
-    }
-
-    local monthUp = 3;
-/*
-    if(monthUp) {
-        monthUp = monthUp.tointeger();
-        if(months.find(monthUp) == null) {
-            return msg(playerid, "tax.monthUp", CL_THUNDERBIRD);
-        }
-    }
-*/
     local plateText = plateText.toupper();
     local vehicleid = getVehicleByPlateText(plateText.toupper());
-    if(vehicleid == null) {
+    local veh = getVehicleEntity(vehicleid);
+
+    if(veh == null) {
         return msg( playerid, "parking.checkPlate");
     }
 
-    local modelid = getVehicleModel( vehicleid );
+    local modelid = veh.model;
     local carInfo = getCarInfoModelById( modelid );
 
     if (carInfo == null || isVehicleCarRent(vehicleid)) {
         return msg(playerid, "tax.notrequired");
     }
 
-    local price = tax_fixprice + carInfo.price * tax * monthUp;
+    if(("tax" in veh.data) == false) {
+        veh.data.tax <- 0;
+    }
+
+    if (veh.data.tax == 0) {
+        return msg(playerid, "tax.iszero");
+    }
+
+    local price = veh.data.tax;
     if (!canMoneyBeSubstracted(playerid, price)) {
         return msg(playerid, "tax.money.notenough", [ price ], CL_THUNDERBIRD);
     }
 
-    msg(playerid, "tax.payed", [ price, plateText, monthUp ], CL_SUCCESS);
+    msg(playerid, "tax.payed", [ price, plateText ], CL_SUCCESS);
     subMoneyToPlayer(playerid, price);
     addMoneyToTreasury(price);
+    veh.data.tax = 0;
+
+    vehicleWanted = getVehicleWantedForTax();
+
+});
+
+/*
+
+    // if(!players[playerid].inventory.isFreeSpace(1)) {
+        // return msg(playerid, "inventory.space.notenough", CL_THUNDERBIRD);
+    // }
+
+    // local taxObj = Item.VehicleTax();
+    // if (!players[playerid].inventory.isFreeWeight(taxObj)) {
+        // return msg(playerid, "inventory.weight.notenough", CL_THUNDERBIRD);
+    // }
 
     taxObj.setData("plate", plateText);
     taxObj.setData("model",  modelid );
@@ -170,6 +235,4 @@ cmd("tax", function( playerid, plateText = 0) {
     taxObj.save();
     players[playerid].inventory.sync();
 
-    vehicleWanted = getVehicleWantedForTax();
-
-});
+*/
