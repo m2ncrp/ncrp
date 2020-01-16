@@ -55,7 +55,7 @@ event("onServerDayChange", function() {
         if(("tax" in veh.data) == false) {
             veh.data.tax <- 0;
         }
-        veh.data.tax += (carInfo.price * tax * coefForPlayer[ownerid]);
+        veh.data.tax += round((carInfo.price * tax * coefForPlayer[ownerid]), 2);
     }
 });
 
@@ -105,15 +105,37 @@ alternativeTranslate({
 
 
 function taxHelp( playerid ) {
-    local title = "tax.help.title";
-    local commands = [
-        { name = "tax.help.tax",    desc = "tax.help.desc" }
-    ];
-    msg_help(playerid, title, commands);
+
+    local charid = getCharacterIdFromPlayerId(playerid);
+
+    msg(playerid, "");
+    msg(playerid, "============== Налог на автомобиль ==============", CL_RIPELEMON);
+
+    foreach (vehicleid, object in __vehicles) {
+
+        if (!object) continue;
+
+        local veh = getVehicleEntity(vehicleid);
+
+        if(veh == null) {
+            continue;
+        }
+
+        local ownerid = veh.ownerid;
+
+        if(ownerid == charid) {
+            local taxAmount = ("tax" in veh.data) ? veh.data.tax : 0;
+            local color = taxAmount > 0 ?  CL_FLAT_RED : CL_FLAT_GREEN;
+            local status = taxAmount > 0 ? format("начислено $%.2f", taxAmount) : "не начислено";
+
+            msg(playerid, format("%s - %s - %s", veh.plate, getVehicleNameByModelId(veh.model), status), color);
+        }
+    }
 }
 
 
 /**
+ * DEPRECATED
  * Check if current connected player is have key from vehicleid
  *
  * @param  {integer}  playerid
