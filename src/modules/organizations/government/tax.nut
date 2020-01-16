@@ -72,7 +72,7 @@ alternativeTranslate({
     "ru|tax.help.desc"   : "Оплатить налог"
 
     "en|tax.toofar"      : "You can pay tax at city government."
-    "ru|tax.toofar"      : "Оплатить налог можно в мэрии города."
+    "ru|tax.toofar"      : "Узнать и оплатить налог можно в мэрии города."
 
     "en|tax.notrequired" : "This car not required to tax."
     "ru|tax.notrequired" : "Указанный автомобиль не облагается налогом."
@@ -104,7 +104,7 @@ alternativeTranslate({
 
 
 
-function taxHelp( playerid ) {
+function getVehicleTaxList( playerid ) {
 
     local charid = getCharacterIdFromPlayerId(playerid);
 
@@ -176,12 +176,12 @@ function isPlayerHaveValidVehicleTax(playerid, param, days = 0) {
 
 cmd("tax", function( playerid, plateText = 0) {
 
-    if (plateText == 0) {
-        return taxHelp( playerid );
-    }
-
     if (!isPlayerInValidPoint(playerid, getGovCoords(0), getGovCoords(1), 1.0 )) {
         return msg(playerid, "tax.toofar", CL_THUNDERBIRD);
+    }
+
+    if (plateText == 0) {
+        return getVehicleTaxList( playerid );
     }
 
     local plateText = plateText.toupper();
