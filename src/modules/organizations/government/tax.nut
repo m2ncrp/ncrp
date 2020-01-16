@@ -131,6 +131,7 @@ function taxHelp( playerid ) {
             msg(playerid, format("%s - %s - %s", veh.plate, getVehicleNameByModelId(veh.model), status), color);
         }
     }
+    msg(playerid, "Оплатить: /tax  номер-автомобиля (например, /tax AB-123)", CL_GRAY);
 }
 
 
