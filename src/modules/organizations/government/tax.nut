@@ -102,7 +102,10 @@ alternativeTranslate({
     "ru|tax.info.expires"     : "Истекает: %s"
 });
 
-
+function getVehicleTax(vehicleid) {
+    local veh = getVehicleEntity(vehicleid);
+    return (!veh || ("tax" in veh.data) == false) ? 0 : veh.data.tax;
+}
 
 function getVehicleTaxList( playerid ) {
 
