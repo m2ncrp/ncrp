@@ -102,7 +102,10 @@ alternativeTranslate({
     "ru|tax.info.expires"     : "Истекает: %s"
 });
 
-
+function getVehicleTax(vehicleid) {
+    local veh = getVehicleEntity(vehicleid);
+    return (!veh || ("tax" in veh.data) == false) ? 0 : veh.data.tax;
+}
 
 function getVehicleTaxList( playerid ) {
 
@@ -219,6 +222,21 @@ cmd("tax", function( playerid, plateText = 0) {
 
     vehicleWanted = getVehicleWantedForTax();
 
+});
+
+acmd("resettax", function(playerid) {
+    foreach (vehicleid, object in __vehicles) {
+
+        if (!object) continue;
+
+        local veh = getVehicleEntity(vehicleid);
+
+        if(veh == null) {
+            continue;
+        }
+
+        veh.data.tax <- 0;
+    }
 });
 
 /*

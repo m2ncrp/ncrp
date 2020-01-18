@@ -325,7 +325,7 @@ function getVehicleWantedForTax() {
 
         local carInfo = getCarInfoModelById( value.entity.model );
 
-        if(("tax" in value.entity.data) && value.entity.data.tax >= carInfo.price * 0.15) {
+        if(("tax" in value.entity.data) && value.entity.data.tax >= carInfo.price * 0.02) {
             vehiclesWanted.push( value.entity.plate );
         }
     }
