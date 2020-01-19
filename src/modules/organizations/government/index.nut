@@ -58,6 +58,30 @@ event("onPlayerPlaceEnter", function(playerid, name) {
     }
 });
 
+/**
+ * Check vehicleid/plate/vehInstance is government
+ * @param  {any}  plate, vehicleid or instance
+ * @return {boolean}
+**/
+function isGovVehicle(value) {
+
+  function checkGovPlate(plate) {
+    return plate.find("GOV-") == 0;
+  }
+
+  if(typeof value == "string") {
+    return checkGovPlate(value);
+  }
+  if(typeof value == "integer") {
+    local plate = getVehiclePlateText(value);
+    return checkGovPlate(plate);
+  }
+  if(typeof value == "instance") {
+    return checkGovPlate(value.entity.plate);
+  }
+
+}
+
 //function tax(monthUp = 12, day = null, month = null, year = null, ) {
 //    day   = day   ? day   : getDay();
 //    month = month ? month : getMonth();
