@@ -13,7 +13,7 @@ event("onServerDayChange", function() {
 
         local veh = getVehicleEntity(vehicleid);
 
-        if(veh == null) {
+        if(veh == null || isGovVehicle(veh.plate)) {
             continue;
         }
 
@@ -32,7 +32,7 @@ event("onServerDayChange", function() {
 
         local veh = getVehicleEntity(vehicleid);
 
-        if(veh == null) {
+        if(veh == null || isGovVehicle(veh.plate)) {
             continue;
         }
 
@@ -74,6 +74,9 @@ alternativeTranslate({
     "en|tax.toofar"      : "You can pay tax at city government."
     "ru|tax.toofar"      : "Узнать и оплатить налог можно в мэрии города."
 
+    "en|tax.novehicles"   : "You don't gave a vehicles"
+    "ru|tax.novehicles"   : "У вас нет автомобилей"
+
     "en|tax.notrequired" : "This car not required to tax."
     "ru|tax.notrequired" : "Указанный автомобиль не облагается налогом."
 
@@ -114,13 +117,15 @@ function getVehicleTaxList( playerid ) {
     msg(playerid, "");
     msg(playerid, "============== Налог на автомобиль ==============", CL_RIPELEMON);
 
+    local taxes = [];
+
     foreach (vehicleid, object in __vehicles) {
 
         if (!object) continue;
 
         local veh = getVehicleEntity(vehicleid);
 
-        if(veh == null) {
+        if(veh == null || isGovVehicle(veh.plate)) {
             continue;
         }
 
@@ -131,9 +136,23 @@ function getVehicleTaxList( playerid ) {
             local color = taxAmount > 0 ?  CL_FLAT_RED : CL_FLAT_GREEN;
             local status = taxAmount > 0 ? format("начислено $%.2f", taxAmount) : "не начислено";
 
-            msg(playerid, format("%s - %s - %s", veh.plate, getVehicleNameByModelId(veh.model), status), color);
+            local carLine = {
+              text = format("%s - %s - %s", veh.plate, getVehicleNameByModelId(veh.model), status),
+              color = color
+            }
+
+            taxes.push(carLine)
         }
     }
+
+    if(taxes.len() == 0) {
+      return msg(playerid, "tax.novehicles");
+    }
+
+    foreach (idx, taxLine in taxes) {
+      msg(playerid, taxLine.text, taxLine.color);
+    }
+
     msg(playerid, "Оплатить: /tax  номер-автомобиля (например, /tax AB-123)", CL_GRAY);
 }
 
@@ -198,7 +217,7 @@ cmd("tax", function( playerid, plateText = 0) {
     local modelid = veh.model;
     local carInfo = getCarInfoModelById( modelid );
 
-    if (carInfo == null || isVehicleCarRent(vehicleid)) {
+    if (carInfo == null || isVehicleCarRent(vehicleid) || isGovVehicle(veh.plate)) {
         return msg(playerid, "tax.notrequired");
     }
 
@@ -231,7 +250,7 @@ acmd("resettax", function(playerid) {
 
         local veh = getVehicleEntity(vehicleid);
 
-        if(veh == null) {
+        if(veh == null || isGovVehicle(veh.plate)) {
             continue;
         }
 
