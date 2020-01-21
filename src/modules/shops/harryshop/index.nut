@@ -23,7 +23,7 @@ local harry_COLOR = CL_CARIBBEANGREEN;
 local timers = {};
 
 event("onServerStarted", function() {
-    createBlip(harryShopCoordsEnter[0], harryShopCoordsEnter[1], ICON_ARMY, 4000.0);
+    createBlip(harryShopCoordsEnter[0], harryShopCoordsEnter[1], ICON_ARMY, 150.0);
 });
 
 event("onServerPlayerStarted", function( playerid ){
