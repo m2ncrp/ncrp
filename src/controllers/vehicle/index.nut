@@ -181,6 +181,10 @@ key(["f"], function(playerid) {
     }
 
     if (!isPlayerHaveVehicleKey(playerid, vehicleid)) {
+        setVehicleEngineState(vehicleid, true)
+        delayedFunction(125, function() {
+            setVehicleEngineState(vehicleid, false)
+        })
         return;
     }
 
