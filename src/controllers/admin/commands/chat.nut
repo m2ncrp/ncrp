@@ -37,12 +37,12 @@ function generateAdminNick (playerid) {
 function sendAdminDevMsg(playerid, author, message, color, important, targetid) {
     if(targetid != null) {
         trigger(targetid, "onServerShowChatTrigger");
-        msg(playerid, "chat.player.message.private", [author, getAuthor( targetid ), message], color );
-        msg(targetid, "chat.player.message.private", [author, getAuthor( targetid ), message], color );
+        msg(playerid, "chat.player.message.private.from", [targetid.tostring(), message], color );
+        msg(targetid, "chat.player.message.private.to", [author, message], color );
         return statisticsPushText("pm", playerid, "to: " + getAuthor( targetid ) + message);
     }
 
-    local text = author+": " + message;
+    local text = "["+author+"]: " + message;
 
     if(important) {
         foreach (plaid, character in players) {
@@ -66,7 +66,7 @@ function dev(message) {
 }
 
 function devMsg(playerid, message, important = false, targetid = null) {
-    sendAdminDevMsg(playerid, "[DEV]", message, CL_PETERRIVER, important, targetid);
+    sendAdminDevMsg(playerid, "DEV", message, CL_PETERRIVER, important, targetid);
 }
 
 function adminMsg(playerid, message, important = false, targetid = null) {
