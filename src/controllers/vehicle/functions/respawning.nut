@@ -42,6 +42,30 @@ function setVehicleRespawnEx(vehicleid, value) {
 }
 
 /**
+ * Set vehicle respawn position as object
+ * @param  {int} vehicleid
+ * @param  {bool} value
+ * @return {bool}
+ */
+function setVehicleRespawnPositionObj(vehicleid, obj) {
+    if (vehicleid in __vehicles) {
+        return __vehicles[vehicleid].respawn.position = obj;
+    }
+}
+
+/**
+ * Set vehicle respawn position as object
+ * @param  {int} vehicleid
+ * @param  {bool} value
+ * @return {bool}
+ */
+function setVehicleRespawnRotationObj(vehicleid, obj) {
+    if (vehicleid in __vehicles) {
+        return __vehicles[vehicleid].respawn.rotation = obj;
+    }
+}
+
+/**
  * Iterate over __vehicles
  * check their timestamps
  * and removes ones which are standing too long
@@ -89,28 +113,33 @@ function tryRespawnVehicleById(vehicleid, forced = false) {
 
     if(!__vehicles[vehicleid]) return false;
 
-    local data = __vehicles[vehicleid].respawn;
+    local respawnData = __vehicles[vehicleid].respawn;
 
     if (!forced) {
 
-        if (!data.enabled) {
+        if (!respawnData.enabled) {
             return false;
         }
 
-        if ((getTimestamp() - data.time) < VEHICLE_RESPAWN_TIME) {
+        if ((getTimestamp() - respawnData.time) < VEHICLE_RESPAWN_TIME) {
             return false;
         }
 
-        // if vehicle not emtpty - reset timestamp
+        // if vehicle not empty - reset timestamp
         if (!isVehicleEmpty(vehicleid)) {
-            data.time = getTimestamp();
+            respawnData.time = getTimestamp();
             return false;
         }
     }
 
-    // repair and refuel
-    repairVehicle(vehicleid);
-    setVehicleFuel(vehicleid, getDefaultVehicleFuel(vehicleid));
+    local veh = getVehicleEntity(vehicleid);
+
+    if(veh == null) {
+        // repair and refuel
+        repairVehicle(vehicleid);
+        setVehicleFuel(vehicleid, getDefaultVehicleFuel(vehicleid));
+    }
+
     setIndicatorLightState(vehicleid, INDICATOR_LEFT, false);
     setIndicatorLightState(vehicleid, INDICATOR_RIGHT, false);
     setVehicleLightState( vehicleid, false );
@@ -121,7 +150,7 @@ function tryRespawnVehicleById(vehicleid, forced = false) {
     if (!forced) {
 
         // maybe vehicle already near its default place
-        if (isVehicleNearPoint(vehicleid, data.position.x, data.position.y, 3.0)) {
+        if (isVehicleNearPoint(vehicleid, respawnData.position.x, respawnData.position.y, 3.0)) {
             return false;
         }
 
@@ -132,18 +161,18 @@ function tryRespawnVehicleById(vehicleid, forced = false) {
             // dont respawn if player is near
             if ((pow(ppos[0] - vpos[0], 2) + pow(ppos[1] - vpos[1], 2)) < VEHICLE_RESPAWN_PLAYER_DISTANCE) {
                 dbg("vehicle", "respawn", "not respawning because of close player distance", getVehiclePlateText(vehicleid), getAuthor(playerid));
-                data.time = getTimestamp();
+                respawnData.time = getTimestamp();
                 return false;
             }
         }
     }
 
     // reset respawn time
-    data.time = getTimestamp();
+    respawnData.time = getTimestamp();
 
     // reset position/rotation
-    setVehiclePosition(vehicleid, data.position.x, data.position.y, data.position.z);
-    setVehicleRotation(vehicleid, data.rotation.x, data.rotation.y, data.rotation.z);
+    setVehiclePosition(vehicleid, respawnData.position.x, respawnData.position.y, respawnData.position.z);
+    setVehicleRotation(vehicleid, respawnData.rotation.x, respawnData.rotation.y, respawnData.rotation.z);
 
     // reset other parameters
     setVehicleEngineState(vehicleid, false);
