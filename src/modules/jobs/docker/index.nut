@@ -88,7 +88,7 @@ const DOCKER_JOB_PUTBOX_Z = -21.7312;
 */
 
 const DOCKER_JOB_SKIN = 63;
-const DOCKER_SALARY = 0.15;
+const DOCKER_SALARY = 0.20;
       DOCKER_JOB_COLOR <- CL_CRUSTA;
 
 // local DOCKER_RANGS_MAX = 20;

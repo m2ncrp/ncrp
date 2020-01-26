@@ -68,7 +68,7 @@ local WEATHERS = {
 
 
 
-local SERVER_IS_SUMMER = false;
+local SERVER_IS_SUMMER = true;
 local WEATHER_CHANGE_TRIGGER = 0;
 local SERVER_WEATHER = null;
 

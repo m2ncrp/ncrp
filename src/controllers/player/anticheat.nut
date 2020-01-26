@@ -49,22 +49,15 @@ vehicleSpeedLimits[51] <- [42.5, 43.5];
 vehicleSpeedLimits[52] <- [53.0, 57.0];
 vehicleSpeedLimits[53] <- [27.4, 28.5];
 
-vehicleSpeedLimits[54] <- [74.85, 77.0];
-vehicleSpeedLimits[55] <- [15.5, 17.0];
-vehicleSpeedLimits[56] <- [61.7, 63.0];
-vehicleSpeedLimits[57] <- [66.8, 68.5];
-vehicleSpeedLimits[58] <- [55.27, 57.0];
-vehicleSpeedLimits[59] <- [41.2, 43.0];
 
-// local maxspeed = 0.0;
-
+//local maxspeed = 0.0;
 local playersInfo = {};
 local vehiclesInfo = {};
 local maxToBan = 10; // minimun 2
 
 event("onServerStarted", function() {
 
-// createPlace("TestTeleport", -507.081, 599.982, -492.1, 618.343);
+//createPlace("TestTeleport", -507.081, 599.982, -492.1, 618.343);
 
     local ticker = timer(function() {
         foreach (playerid, value in getPlayers()) {
