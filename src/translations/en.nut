@@ -25,26 +25,10 @@ translation("en", {
     "job.nojob"                         : "There is no work now. Come to another time."
     "job.needpassport"                  : "You need a valid passport to be employed in this job."
 
-    "rentcar.goto"                      : "Go to parking CAR RENTAL in North Millville to rent a car."
-    "rentcar.notrent"                   : "This car can not be rented."
-    "rentcar.notenough"                 : "You don't have enough money."
-    "rentcar.rented"                    : "You rented this car. If you want to refuse from rent: /unrent"
-    "rentcar.refused"                   : "You refused from rent all cars. Thank you for choosing North Millville Car Rental!"
-    "rentcar.canrent"                   : "You can rent this car for $%.2f in 10 minutes ($%.2f in hour) in game. If you agree: /rent"
-    "rentcar.cantrent"                  : "You can't drive this car more, because you don't have enough money. Please, get out of the car."
-    "rentcar.paidcar"                   : "You paid for car $%.2f."
-    "rentcar.refuse"                    : "If you want to refuse from rent: /unrent"
 
-    "rentcar.help.title"                : "List of available commands for CAR RENTAL:"
-    "rentcar.help.rent"                 : "Rent this car (need to be in a car)"
-    "rentcar.help.refuse"               : "Refuse from all rented cars"
 
     "auth.error.email"                  : "This email address is already in use!"
-    //GUI
-    "rentcar.gui.window"                : "Car rent"
-    "rentcar.gui.buttonRent"            : "Rent"
-    "rentcar.gui.buttonRefuse"          : "Refuse"
-    "rentcar.gui.canrent"               : "You can rent this car.\nPrice: $%.2f in 10 minutes ($%.2f in hour) in game"
+
 
     "admin.startRR.message"             : "SERVER: Hello guys! I need to restart itself in 15 minutes. Please, complete all your jobs. Thanks!"
     "admin.rrTime.message"              : "Server will be restarted in %i minutes."
