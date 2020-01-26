@@ -21,7 +21,7 @@ include("controllers/inventory/classes/templates/Food.nut");
 include("controllers/inventory/classes/templates/Drink.nut");
 include("controllers/inventory/classes/templates/Storage.nut");
 include("controllers/inventory/classes/templates/Wheels.nut");
-include("controllers/inventory/classes/templates/Equipment.nut");
+//include("controllers/inventory/classes/templates/Equipment.nut");
 
 include("controllers/inventory/classes/Item/Jerrycan.nut");
 include("controllers/inventory/classes/Item/VehicleTax.nut");
