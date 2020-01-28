@@ -36,5 +36,5 @@ function getVehicleData(vehicleid) {
 
     local vehicle = __vehicles[vehicleid];
 
-    return vehicle.entity.data;
+    return JSONEncoder.encode(vehicle.entity.data);
 }
