@@ -508,6 +508,7 @@ function callByPhone (playerid, number = null, isbind = false) {
 
     local number = str_replace("555-", "", number);
     if(isNumeric(number) && number.len() == 4) {
+        trigger(playerid, "onServerShowChatTrigger");
         msg(playerid, "telephone.youcall", ["555-"+number]);
         delayedFunction(3000, function () {
             local check = false;

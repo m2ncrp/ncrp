@@ -3,7 +3,7 @@ include("modules/shops/cardealer/models/CarDealer.nut");
 local coords = [-1586.8, 1694.74, -0.336785, 150.868, 0.000169911, -0.00273992];
 
 local carDealerLoadedData = [];
-local availableCars = [0, 1, 4, 6, 7, 8, 9, 10, 12, 13, 14, 15, 17, 18, 22, 23, 25, 28, 29, 30, 31, 32, 41, 43, 44, 45, 46, 47, 48, 50, 52, 53];
+local availableCars = [0, 1, 4, 6, 7, 8, 9, 10, 12, 13, 14, 15, 17, 18, 22, 23, 25, 28, 29, 30, 31, 32, 41, 43, 44, 45, 46, 47, 48, 50, 52, 53, 54, 56, 57, 59];
 
 local margin_percent = 0.02; // наценка в процентах
 local sell_percent = 0.65; // наценка в процентах
@@ -21,7 +21,7 @@ event("onServerStarted", function() {
     create3DText ( coords[0], coords[1], coords[2]+0.35, "CAR DEALER", CL_ROYALBLUE, 4.0 );
     create3DText ( coords[0], coords[1], coords[2]+0.20, "/dealer", CL_WHITE.applyAlpha(100), 2.0 );
 
-    createBlip  ( -1600.67, 1687.52, [ 25, 0 ], 4000.0 );
+    createBlip  ( -1600.67, 1687.52, [ 25, 0 ], 150.0 );
 
     createPlace("CarDealer", -1613.24, 1674.64, -1583.06, 1703.82);
 });
@@ -60,8 +60,21 @@ event("onServerPlayerStarted", function( playerid ){
             car.save();
         }
 
-        if (car.ownerid == characterid) {
+
+
+        if (car.ownerid == characterid && car.status != "completed" && car.status != "canceled") {
             local vehicleid = getVehicleIdFromEntityId( car.vehicleid );
+            // если пока игрок отсутствовал, автомобиль был продан и пропал с сервера
+            if(!vehicleid) {
+              if (car.status == "sold_offline") {
+                msg(playerid, "cardealer.soldEarlier", CL_SUCCESS);
+                addMoneyToDeposit(playerid, car.price);
+                car.status = "completed";
+                car.save();
+              }
+              return;
+            }
+
             local plate   = getVehiclePlateText( vehicleid );
             local modelid = getVehicleModel( vehicleid );
             local modelName = getVehicleNameByModelId( modelid );
@@ -108,7 +121,8 @@ event ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
             local margin = car.price * margin_percent;
 
             if (characterid != car.ownerid) {
-                return msg(playerid, "cardealer.canBuy", [car.price+margin], CL_FIREBUSH);
+                msg(playerid, "cardealer.canBuy", [car.price+margin], CL_FIREBUSH);
+                return msg(playerid, "cardealer.hintTaxForBuyers", CL_HELP);
             }
 
             return msg(playerid, "cardealer.canReturn", [margin], CL_FIREBUSH);
@@ -204,12 +218,15 @@ cmd("dealer", "sell", function(playerid, price) {
         return msg(playerid, "cardealer.carAlreadyOnSale", CL_ERROR);
     }
 
-    if (!isPlayerHaveValidVehicleTax(playerid, vehicleid, 20)) {
-        return msg(playerid, "cardealer.needValidVehicleTax", [ plate, 20 ], CL_ERROR);
-    }
-
     if (availableCars.find(modelid) == null) {
         return;
+    }
+
+    local veh = getVehicleEntity(vehicleid);
+
+    if (veh.data.tax >= 50.0) {
+               msg(playerid, "cardealer.needPayTax", CL_ERROR);
+        return msg(playerid, "cardealer.hintTaxForSellers", CL_HELP);
     }
 
     if (!price) {
@@ -460,6 +477,9 @@ alternativeTranslate({
     "en|cardealer.onSaleYet"              :  "Your car «%s» with plate %s is on sale now."
     "ru|cardealer.onSaleYet"              :  "Ваш автомобиль «%s» (%s) пока ещё не продан."
 
+    "en|cardealer.soldEarlier"            :  "Your car sold. Money transferred to the bank account."
+    "ru|cardealer.soldEarlier"            :  "Ваш автомобиль продан. Деньги переведены на счёт в банк."
+
     "en|cardealer.sold"                   :  "Your car «%s» with plate %s sold. Money transferred to the bank account."
     "ru|cardealer.sold"                   :  "Ваш автомобиль «%s» (%s) продан. Деньги переведены на счёт в банк."
 
@@ -498,6 +518,15 @@ alternativeTranslate({
 
     "en|cardealer.needValidVehicleTax"    :  "Need valid vehicle tax for car with plate %s minimum for %d days."
     "ru|cardealer.needValidVehicleTax"    :  "Нужна действительная квитанция об оплате налога на автомобиль %s минимум на %d ближайших дней."
+
+    "en|cardealer.needPayTax"             :  "Need to pay off the tax on the vehicle."
+    "ru|cardealer.needPayTax"             :  "Необходимо погасить налог на транспортное средство."
+
+    "en|cardealer.hintTaxForSellers"      :  "You can sell vehicle only if tax debt lower than $50."
+    "ru|cardealer.hintTaxForSellers"      :  "Вы можете продать автомобиль, только если долг по оплате налога меньше $50."
+
+    "en|cardealer.hintTaxForBuyers"       :  "When buying, keep in mind that tax can be up to $50."
+    "ru|cardealer.hintTaxForBuyers"       :  "При покупке учитывайте, что неоплаченный за автомобиль налог может составлять до $50."
 
     "en|cardealer.needPrice"              :  "You need to set price or sell immediately. More /dealer"
     "ru|cardealer.needPrice"              :  "Необходимо указать цену продажи или продать немедленно. Подробнее /dealer"

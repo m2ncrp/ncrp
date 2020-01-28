@@ -1,6 +1,6 @@
 local PARKING_COORDS = [ -1211.12, 1342.12, -1390.86, 1364.81 ];
 local PARKING_NAME = "CarPound";
-local PARKING_COST = 15.0;
+local PARKING_COST = 45.0;
 
 local parkingPlaceStatus = [];
 
@@ -60,12 +60,13 @@ alternativeTranslate({
     "en|parking.complete"          : "Car has been parked at car pound."
     "en|parking.noFreeSpace"       : "No free space at car pound."
     "en|parking.carNotParked"      : "Car with plate number %s is not parked."
-    "en|parking.notenoughmoney"    : "You don't have enough money at bank account."
+    "en|parking.notenoughmoney"    : "You don't have enough money."
     "en|parking.notYourCar"        : "This is not your car."
     "en|parking.free"              : "The car has been freed sucsessfully."
     "en|parking.pay"               : "If you have the key, need to pay to unpark (/unpark):"
     "en|parking.pay.fix"           : " - $%.2f (fixed rate)"
     "en|parking.pay.peni"          : " - $%.2f (storage)"
+    "en|parking.pay.tax"           : " - $%.2f (tax)"
     "en|parking.pay.payment"       : "Payment is made from the bank account."
 
     "ru|parking.needEnterPlate"    : "Необходимо указать номер автомобиля."
@@ -75,12 +76,13 @@ alternativeTranslate({
     "ru|parking.complete"          : "Автомобиль эвакуирован на штрафстоянку."
     "ru|parking.noFreeSpace"       : "На штрафстоянке нет свободных мест."
     "ru|parking.carNotParked"      : "Автомобиль с номером %s отсутствует на штрафстоянке."
-    "ru|parking.notenoughmoney"    : "Недостаточно денег на банковском счёте."
+    "ru|parking.notenoughmoney"    : "Недостаточно наличных денег."
     "ru|parking.notYourCar"        : "Этот автомобиль вам не принадлежит."
     "ru|parking.free"              : "Вы забрали автомобиль со штрафстоянки."
     "ru|parking.pay"               : "Если у вас есть ключ от этого автомобиля, то, чтобы его забрать (/unpark), нужно заплатить:"
     "ru|parking.pay.fix"           : " - $%.2f (фиксированный тариф)"
     "ru|parking.pay.peni"          : " - $%.2f (хранение)"
+    "ru|parking.pay.tax"           : " - $%.2f (начисленный налог)"
     "ru|parking.pay.payment"       : "Оплата производится со счёта в банке."
 });
 
@@ -102,7 +104,7 @@ event("onServerStarted", function() {
 
     createPlace(PARKING_NAME, PARKING_COORDS[0], PARKING_COORDS[1], PARKING_COORDS[2], PARKING_COORDS[3]);
 
-    createBlip  (  -1300.0, 1358.0, [ 0, 5 ], 4000.0);
+    createBlip  (  -1300.0, 1358.0, [ 0, 5 ], 150.0);
 
     findBusyPlaces();
 });
@@ -271,9 +273,9 @@ event("onVehicleGetFromCarPound", function(playerid) {
         return msg(playerid, "parking.carNotParked", getVehiclePlateText(vehicleid), CL_CHAT_MONEY_SUB);
     }
 
-    local price = PARKING_COST + getParkingPeniForVehicle(vehicleid);
+    local price = PARKING_COST + getVehicleTax(vehicleid);
 
-    if(!canBankMoneyBeSubstracted(playerid, price)) {
+    if(!canMoneyBeSubstracted(playerid, price)) {
         return msg(playerid, "parking.notenoughmoney", CL_CHAT_MONEY_SUB);
     }
 
@@ -287,8 +289,9 @@ event("onVehicleGetFromCarPound", function(playerid) {
         parkingPlaceStatus[placeid] = "free";
         unblockDriving(vehicleid);
         __vehicles[vehicleid].entity.parking = 0;
+        __vehicles[vehicleid].entity.data.tax = 0;
         __vehicles[vehicleid].entity.save();
-        subMoneyToDeposit(playerid, price);
+        subMoneyToPlayer(playerid, price);
         addMoneyToTreasury(price);
         msg(playerid, "parking.free", CL_SUCCESS);
         setVehicleSpeed(vehicleid, 0.0, -12.0, 0.0);
@@ -312,8 +315,9 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
         //}
         msg(playerid, "parking.pay", CL_PETERRIVER);
         msg(playerid, "parking.pay.fix", PARKING_COST );
-        msg(playerid, "parking.pay.peni", getParkingPeniForVehicle(vehicleid) );
-        msg(playerid, "parking.pay.payment", CL_PETERRIVER);
+        // msg(playerid, "parking.pay.peni", getParkingPeniForVehicle(vehicleid) );
+        msg(playerid, "parking.pay.tax", getVehicleTax(vehicleid) );
+        // msg(playerid, "parking.pay.payment", CL_PETERRIVER);
     }
 });
 

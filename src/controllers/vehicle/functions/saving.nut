@@ -92,7 +92,8 @@ function trySaveVehicle(vehicleid) {
     vehicle.entity.data      = getVehicleData(vehicleid);
 
     vehicle.entity.save();
-    vehicle.entity.data      = JSONParser.parse(vehicle.entity.data);
+    // wtf?
+    // vehicle.entity.data      = JSONParser.parse(vehicle.entity.data);
 
     if(vehicle.entity.inventory) {
         foreach (idx, item in vehicle.entity.inventory) {

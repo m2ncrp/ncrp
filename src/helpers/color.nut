@@ -11,6 +11,8 @@ CL_HELP_LINE        <- rgb( 200, 100, 100 );
 CL_JOB_LIST         <- rgb( 247, 202, 24  );
 CL_JOB_LIST_GR      <- rgb( 38, 166, 91  );
 CL_JOB_LIST_R       <- rgb( 192, 57, 43  );
+CL_FLAT_GREEN       <- rgb( 38, 166, 91  );
+CL_FLAT_RED         <- rgb( 192, 57, 43  );
 CL_PHONE_CMPN       <- rgb( 125, 60, 20  );
 
 
@@ -45,17 +47,17 @@ CL_FIREBUSH         <- rgb( 235,  149, 50  );
 CL_CRUSTA           <- rgb( 242,  120, 75  );
 CL_BURNTORANGE      <- rgb( 211,  84,  0   );
 CL_ECSTASY          <- rgb( 249,  105, 14  );
-CL_LYNCH            <- rgb( 108,  122, 137 );
-CL_SILVERSAND       <- rgb( 189,  195, 199 );
-CL_CASCADE          <- rgb( 149,  165, 166 );
-CL_LIGHTGRAY        <- rgb( 169,  169, 169);
-
-CL_CLOUDS           <- rgb( 179, 182, 183   );
-CL_ASBESTOS         <- rgb( 127, 140, 141   );
 CL_MIDNIGHTBLUE     <- rgb( 44, 62, 80      );
 CL_WASH             <- rgb( 176, 140, 217   );
 
-CL_GRAY             <- CL_CASCADE;
+CL_SILVERSAND       <- rgb( 189, 195, 199 );
+CL_CLOUDS           <- rgb( 181, 181, 181 );
+CL_LIGHTGRAY        <- rgb( 169, 169, 169 );
+CL_CASCADE          <- rgb( 149, 165, 166 );
+CL_ASBESTOS         <- rgb( 127, 140, 141 );
+CL_GRAY             <- rgb( 140, 140, 140 );
+CL_DARKGRAY         <- rgb( 120, 120, 120 );
+CL_LYNCH            <- rgb( 108, 122, 137 );
 
 //CL_ERROR            <- CL_FLAMINGO;
 CL_ERROR            <- CL_THUNDERBIRD;

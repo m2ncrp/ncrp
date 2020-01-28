@@ -96,7 +96,7 @@ function getVehicleTrunkPositionOld (vehicleid) {
     local distance = trunkOffset.y; // offset by Y
 
     local vehPos = getVehiclePositionObj(vehicleid);
-    local angel = 90 - getVehicleRotationObj(vehicleid).rx;
+    local angel = 90 - getVehicleRotationObj(vehicleid).x;
 
     local y = vehPos.y + Math.sin(torad(angel)) * distance;
     local x = vehPos.x + Math.cos(torad(angel)) * distance;

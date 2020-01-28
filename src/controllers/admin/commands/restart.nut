@@ -4,6 +4,23 @@ event("native:onPlayerConnect", function(playerid, name, ip, serial) {
     if(isRestarting) kickPlayer( playerid );
 });
 
+event("native:onPlayerDisconnect", function(playerid, reason) {
+    if(isRestartWhenNoOnline) {
+      delayedFunction(1000, function() {
+        if(getPlayerCount() == 0) {
+          isRestarting = true;
+
+          kickAll();
+
+          delayedFunction(1000, function() {
+              // request restart
+              dbg("server", "restart", "requested");
+          });
+        }
+      });
+    }
+});
+
 function planServerRestart(playerid) {
     msga("autorestart.15min", [], CL_RED);
 

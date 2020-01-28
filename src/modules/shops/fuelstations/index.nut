@@ -102,6 +102,9 @@ alternativeTranslate({
     "en|shops.fuelstations.stopyourmoves"      : "[FUEL] Please, stop car to fuel up."
     "ru|shops.fuelstations.stopyourmoves"      : "[FUEL] Остановите автомобиль, чтобы заправиться."
 
+    "en|shops.fuelstations.noaccess"           : "[FUEL] You can not fuel up this car."
+    "ru|shops.fuelstations.noaccess"           : "[FUEL] Вы не можете заправить этот автомобиль."
+
     "en|shops.fuelstations.notdriver"          : "[FUEL] You are not driver."
     "ru|shops.fuelstations.notdriver"          : "[FUEL] Вы не водитель автомобиля."
 
@@ -123,8 +126,8 @@ alternativeTranslate({
     "en|shops.fuelstations.money.notenough"    : "[FUEL] Not enough money. Need $%.2f."
     "ru|shops.fuelstations.money.notenough"    : "[FUEL] Недостаточно денег. Для оплаты требуется $%.2f."
 
-    "en|shops.fuelstations.fuel.payed"         : "[FUEL] You pay $%.2f for %.2f %s. Come to us again!"
-    "ru|shops.fuelstations.fuel.payed"         : "[FUEL] Вы заплатили $%.2f за %.2f %s. Будем рады видеть Вас снова!"
+    "en|shops.fuelstations.fuel.payed"         : "[FUEL] Payment amounted $%.2f for %.2f %s. Come to us again!"
+    "ru|shops.fuelstations.fuel.payed"         : "[FUEL] Оплата составила $%.2f за %.2f %s. Будем рады видеть Вас снова!"
 
     "en|shops.fuelstations.help.fuelup"        : "To fill up vehicle fuel tank"
     "ru|shops.fuelstations.help.fuelup"        : "Заправить автомобиль"
@@ -207,9 +210,10 @@ function fuelVehicleUp(playerid) {
     }
 
     local vehicleid = getPlayerVehicle(playerid);
+    local charid = getCharacterIdFromPlayerId(playerid);
 
-    if(!isPlayerHaveVehicleKey(playerid, vehicleid)) {
-        return msg( playerid, "vehicle.owner.warning", CL_THUNDERBIRD );
+    if(!isPlayerHaveVehicleKey(playerid, vehicleid) && (isVehicleCarRent(vehicleid) && getPlayerWhoRentVehicle(vehicleid) != charid)) {
+        return msg( playerid, "shops.fuelstations.noaccess", CL_THUNDERBIRD );
     }
 
     if(!isPlayerVehicleDriver(playerid)) {
@@ -236,8 +240,18 @@ function fuelVehicleUp(playerid) {
         return msg(playerid, "shops.fuelstations.fueltank.full", CL_THUNDERBIRD);
     }
 
-    if ( !canMoneyBeSubstracted(playerid, cost) ) {
-        return msg(playerid, "shops.fuelstations.money.notenough", [cost], CL_THUNDERBIRD);
+    if(isVehicleCarRent(vehicleid)) {
+        local veh = getVehicleEntity(vehicleid);
+        if(veh.data.rent.money < cost) {
+            return msg(playerid, "rentcar.notenoughbill", CL_THUNDERBIRD);
+        }
+        veh.data.rent.money -= cost;
+    } else {
+        if (!canMoneyBeSubstracted(playerid, cost) ) {
+            return msg(playerid, "shops.fuelstations.money.notenough", [cost], CL_THUNDERBIRD);
+        }
+        subMoneyToPlayer(playerid, cost);
+        // addMoneyToTreasury(cost);
     }
 
     local fuelup_time = (fuel / FUELUP_SPEED).tointeger();
@@ -246,7 +260,6 @@ function fuelVehicleUp(playerid) {
     fueltank_loading[vehicleid] = true;
     setVehicleEngineState(vehicleid, false);
     trigger(playerid, "hudCreateTimer", fuelup_time, true, true);
-    subMoneyToPlayer(playerid, cost);
     delayedFunction(fuelup_time * 1000, function () {
         if(isPlayerConnected(playerid)) {
             freezePlayer( playerid, false);

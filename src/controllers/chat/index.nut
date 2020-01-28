@@ -121,8 +121,11 @@ alternativeTranslate({
     "en|help.taxi"              : "Show list of commands for taxi"
     "ru|help.taxi"              : "команды такси"
 
-    "en|help.rentcar"           : "Show list of commands for rent car"
-    "ru|help.rentcar"           : "команды аренды авто"
+    "en|help.rentcar"           : "rent car"
+    "ru|help.rentcar"           : "аренда автомобиля"
+
+    "en|help.leasecar"           : "lease car"
+    "ru|help.leasecar"           : "сдача автомобиля в аренду"
 
     "en|help.job"               : "Show list of commands for job. Example: /help job"
     "ru|help.job"               : "команды работ"

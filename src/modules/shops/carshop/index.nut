@@ -72,9 +72,9 @@ local carPricesAll = [
        { modelid = 0   , price = 8200  , rent = 0.84, title = "Ascot Bailey S200"            },
        { modelid = 1   , price = 5600  , rent = 0.71, title = "Berkley Kingfisher"           },
        { modelid = 9   , price = 2710  , rent = 0.42, title = "Houston Wasp"                 },
-       { modelid = 10  , price = 11508 , rent = 1.08, title = "ISW 508"                      },
+       { modelid = 10  , price = 12508 , rent = 1.08, title = "ISW 508"                      },
        { modelid = 12  , price = 2100  , rent = 0.34, title = "Walter Utility"               },
-       { modelid = 13  , price = 31700 , rent = 2.75, title = "Jefferson Futura"             },
+       { modelid = 13  , price = 16700 , rent = 2.75, title = "Jefferson Futura"             },
        { modelid = 14  , price = 5400  , rent = 0.61, title = "Jefferson Provincial"         },
        { modelid = 15  , price = 3000  , rent = 0.46, title = "Lassiter Series 69"           },
        { modelid = 18  , price = 9100  , rent = 0.89, title = "Lassiter Series 75 Hollywood" },
@@ -93,9 +93,9 @@ local carPricesAll = [
        { modelid = 50  , price = 1475  , rent = 0.31, title = "Culver Empire"                },
        { modelid = 52  , price = 2850  , rent = 0.60, title = "Walker Rocket"                },
        { modelid = 53  , price = 510   , rent = 0.20, title = "Walter Coupe"                 },
-       { modelid = 54  , price = 14500 , rent = 0.20, title = "Delizia Grandeamerica"        },
-       { modelid = 56  , price = 24000 , rent = 0.20, title = "Potomac Elysium"              },
-       { modelid = 57  , price = 19000 , rent = 0.20, title = "Roller GL300"                 },
+       { modelid = 54  , price = 22500 , rent = 0.20, title = "Delizia Grandeamerica"        },
+       { modelid = 56  , price = 26000 , rent = 0.20, title = "Potomac Elysium"              },
+       { modelid = 57  , price = 18500 , rent = 0.20, title = "Roller GL300"                 },
        { modelid = 58  , price = 2300  , rent = 0.20, title = "Waybar Hot Rod"               },
        { modelid = 59  , price = 2800  , rent = 0.20, title = "Chaffeque XT"                 }
        { modelid = 37  , price = 2830  , rent = 0.0 , title = "Shubert Truck Covered"        },
@@ -175,8 +175,8 @@ alternativeTranslate({
 /* ==================================================================== EVENTS ================================================================================= */
 
 event("onServerStarted", function() {
-    createBlip  ( DIAMOND_CARSHOP_X, DIAMOND_CARSHOP_Y, ICON_LOGO_CAR, ICON_RANGE_FULL );
-    createBlip  ( TRUCK_SHOP_X, TRUCK_SHOP_Y, ICON_LOGO_CAR, ICON_RANGE_FULL );
+    createBlip  ( DIAMOND_CARSHOP_X, DIAMOND_CARSHOP_Y, ICON_LOGO_CAR, 150.0 );
+    createBlip  ( TRUCK_SHOP_X, TRUCK_SHOP_Y, ICON_LOGO_CAR, 150.0 );
 
     createPlace(DIAMOND_MOTORS_PLACE_NAME, DIAMOND_MOTORS_PLACE_COORDS[0], DIAMOND_MOTORS_PLACE_COORDS[1], DIAMOND_MOTORS_PLACE_COORDS[2], DIAMOND_MOTORS_PLACE_COORDS[3]);
     createPlace(TRUCK_SHOP_PLACE_NAME, TRUCK_SHOP_PLACE_COORDS[0], TRUCK_SHOP_PLACE_COORDS[1], TRUCK_SHOP_PLACE_COORDS[2], TRUCK_SHOP_PLACE_COORDS[3]);

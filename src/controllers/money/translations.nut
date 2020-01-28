@@ -6,7 +6,7 @@ alternativeTranslate({
     "en|moneysend.request" : "You are going to transfer $%.2f to %s."
     "ru|moneysend.request" : "Вы собираетесь передать $%.2f -> %s."
 
-    "en|moneysend.accept" : "To accept transfer, write in chat: yes"
+    "en|moneysend.accept" : "To accept transfer, write in chat: да"
     "ru|moneysend.accept" : "Для подтверждения передачи напишите в чат: да"
 
     "en|moneysend.cancel" : "To cancel transfer, write in chat: no"

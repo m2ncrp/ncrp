@@ -315,23 +315,15 @@ function getVehicleWantedForTax() {
     local vehiclesWanted = [];
 
     foreach (vehicleid, value in __vehicles) {
-        if (!value) continue;
-        if(value.entity && !isVehicleInParking(vehicleid) && value.ownership.ownerid != 4 && value.entity.plate.find("GOV-") == null ) {
+        if (!value || !value.entity || isVehicleInParking(vehicleid) || value.ownership.ownerid == 4 || isGovVehicle(value.entity.plate)) continue;
+
+        local carInfo = getCarInfoModelById( value.entity.model );
+
+        if(("tax" in value.entity.data) && value.entity.data.tax >= carInfo.price * 0.02) {
             vehiclesWanted.push( value.entity.plate );
         }
     }
 
-    Item.VehicleTax.findAll(function(err, result){
-        local curdateStamp = getDay() + getMonth()*30 + getYear()*360;
-        foreach (idx, value in result) {
-            local dateStamp = convertDateToTimestamp(value.data["expires"]);
-            if(curdateStamp <= dateStamp) {
-                if (vehiclesWanted.find(value.data["plate"]) != null) {
-                    vehiclesWanted.remove(vehiclesWanted.find(value.data["plate"]));
-                }
-            }
-        }
-    });
     return vehiclesWanted;
 }
 

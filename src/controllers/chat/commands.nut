@@ -213,10 +213,11 @@ cmd(["help", "h", "halp", "info"], function(playerid) {
         { name = "/help chat",              desc = "help.chat" },
         { name = "/help subway",            desc = "help.subway" },
      // { name = "/help taxi",              desc = "help.taxi" },
-        { name = "/help rent",              desc = "help.rentcar" },
         { name = "/help job",               desc = "help.job" },
         { name = "/help bank",              desc = "help.bank" },
         { name = "/help car",               desc = "help.cars" },
+        { name = "/rent",                   desc = "help.rentcar" },
+        { name = "/lease",                  desc = "help.leasecar" },
         { name = "/donate",                 desc = "help.donate" },
     //  { name = "/report ID TEXT",         desc = "help.report" },
     //  { name = "/idea TEXT",              desc = "help.idea" }

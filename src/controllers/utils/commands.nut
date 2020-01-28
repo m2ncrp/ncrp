@@ -167,15 +167,23 @@ acmd("colors103", function ( playerid ) {
     msg(playerid, "This is Test color  CL_CRUSTA", CL_CRUSTA);
     msg(playerid, "This is Test color  CL_BURNTORANGE", CL_BURNTORANGE);
     msg(playerid, "This is Test color  CL_ECSTASY", CL_ECSTASY);
-    msg(playerid, "This is Test color  CL_LYNCH", CL_LYNCH);
-    msg(playerid, "This is Test color  CL_SILVERSAND", CL_SILVERSAND);
-    msg(playerid, "This is Test color  CL_CASCADE", CL_CASCADE);
 });
 
 acmd("colors104", function ( playerid ) {
     msg(playerid, "============== COLOR Page 4 ===============", CL_WHITE);
-    msg(playerid, "This is Test color  CL_CLOUDS"       ,  CL_CLOUDS       );
-    msg(playerid, "This is Test color  CL_ASBESTOS"     ,  CL_ASBESTOS     );
+    msg(playerid, "This is Test color  CL_SILVERSAND"   , CL_SILVERSAND);
+    msg(playerid, "This is Test color  CL_CLOUDS"       , CL_CLOUDS    );
+    msg(playerid, "This is Test color  CL_LIGHTGRAY"    , CL_LIGHTGRAY );
+    msg(playerid, "This is Test color  CL_CASCADE"      , CL_CASCADE   );
+    msg(playerid, "This is Test color  CL_ASBESTOS"     , CL_ASBESTOS  );
+    msg(playerid, "This is Test color  CL_GRAY"         , CL_GRAY      );
+    msg(playerid, "This is Test color  CL_DARKGRAY"     , CL_DARKGRAY  );
+    msg(playerid, "This is Test color  CL_LYNCH"        , CL_LYNCH     );
+});
+
+acmd("colors105", function ( playerid ) {
+    msg(playerid, "============== COLOR Page 5 ===============", CL_WHITE);
+
     msg(playerid, "This is Test color  CL_MIDNIGHTBLUE" ,  CL_MIDNIGHTBLUE );
     msg(playerid, "This is Test color  CL_ERROR"        ,  CL_ERROR        );
     msg(playerid, "This is Test color  CL_WARNING"      ,  CL_WARNING      );
