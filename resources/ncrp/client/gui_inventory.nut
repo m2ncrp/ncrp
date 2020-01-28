@@ -838,8 +838,8 @@ local class_map = {
     PlayerInventory     = PlayerInventory,
     PlayerHands         = PlayerHands,
     Storage             = StorageInventory,
-    // VehicleInventory    = VehicleInventory,
-    // VehicleInterior     = VehicleInterior,
+    VehicleInventory    = VehicleInventory,
+    VehicleInterior     = VehicleInterior,
     // Equipment           = Equipment,
 };
 
