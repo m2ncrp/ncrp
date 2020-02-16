@@ -11,7 +11,7 @@ include("modules/shops/clothesshop/commands.nut");
 event("onServerStarted", function() {
     create3DText( CLOTHES_SHOP_X, CLOTHES_SHOP_Y, CLOTHES_SHOP_Z + 0.35, "VANGEL'S", CL_ROYALBLUE );
 
-    createBlip  ( CLOTHES_SHOP_X, CLOTHES_SHOP_Y, ICON_CLOTH, 150.0 );
+    createBlip  ( CLOTHES_SHOP_X, CLOTHES_SHOP_Y, ICON_CLOTH, ICON_RANGE_VISIBLE );
 });
 
 event("onServerPlayerStarted", function(playerid) {

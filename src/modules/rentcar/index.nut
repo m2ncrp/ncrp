@@ -130,7 +130,7 @@ event ("onServerStarted", function() {
 */
     // end
 
-    createBlip  (  570.26, 830.175, ICON_CAR, 150.0);
+    createBlip  (570.26, 830.175, ICON_CAR, ICON_RANGE_VISIBLE);
 });
 
 function isPlayerCarRent(playerid) {

@@ -237,7 +237,7 @@ key("e", function(playerid) {
 
 /**
  * Attempt to by car model
- * Usage: /car buy
+ * Usage: /skin buy
  */
 
 cmd("skin", "buy", function(playerid, skinid = null) {

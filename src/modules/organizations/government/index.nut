@@ -18,7 +18,7 @@ event("onServerStarted", function() {
     log("[organizations] government...");
 
     create3DText ( coords[0], coords[1], coords[2]+0.20, "/tax | /passport", CL_WHITE.applyAlpha(100), 2.0 );
-    createBlip  ( coords[0], coords[1], [ 24, 0 ], 150.0 );
+    createBlip  ( coords[0], coords[1], [ 24, 0 ], ICON_RANGE_VISIBLE );
     createPlace("GovernmentSidewalk", SIDEWALK[0], SIDEWALK[1], SIDEWALK[2], SIDEWALK[3]);
 
     governmentLoadedDataRead();

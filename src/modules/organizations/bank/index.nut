@@ -1,5 +1,4 @@
 include("modules/organizations/bank/models/Bank.nut");
-include("modules/organizations/bank/commands.nut");
 
 include("modules/organizations/bank/models/main-bank.nut");
 
@@ -12,7 +11,6 @@ alternativeTranslate({
     "ru|bank.withdraw.minimum"             :   "Минимальная сумма снятия $50"
     "ru|bank.withdraw.notenough"           :   "Недостаточно средств на балансе."
     "ru|bank.provideamount"                :   "Вам необходимо указать сумму."
-    "ru|bank.help.title"                   :   "Grand Imperial Bank"
     "ru|bank.deposit.completed"            :   "На ваш счёт зачислено $%.2f"
     "ru|bank.withdraw.completed"           :   " С вашего счёта снято $%.2f"
 
@@ -24,7 +22,6 @@ alternativeTranslate({
     "en|bank.withdraw.minimum"             :   "You can't withdraw this amount. Minimum withdrawal amount is $10."
     "en|bank.withdraw.notenough"           :   "You can't withdraw this amount: not enough money at account."
     "en|bank.provideamount"                :   "You must provide amount."
-    "en|bank.help.title"                   :   "Grand Imperial Bank"
     "en|bank.deposit.completed"            :   "На ваш счёт зачислено $%.2f"
     "en|bank.withdraw.completed"           :   " С вашего счёта снято $%.2f"
 });
@@ -65,8 +62,8 @@ event("onServerStarted", function() {
 
     //creating place and blip for Bank
     createPlace(BANK_OFFICE_PLACE_NAME, BANK_OFFICE_X - BANK_RADIUS, BANK_OFFICE_Y - BANK_RADIUS, BANK_OFFICE_X + BANK_RADIUS, BANK_OFFICE_Y + BANK_RADIUS);
-    createBlip(BANK_X, BANK_Y, ICON_MAFIA, 150.0 )
-    createBlip(BANK_OFFICE_X, BANK_OFFICE_Y, ICON_DOLLAR, 150.0 )
+    createBlip(BANK_X, BANK_Y, ICON_MAFIA, ICON_RANGE_VISIBLE )
+    createBlip(BANK_OFFICE_X, BANK_OFFICE_Y, ICON_DOLLAR, ICON_RANGE_VISIBLE )
 });
 
 event("onServerPlayerStarted", function( playerid ) {
@@ -125,7 +122,8 @@ function subMoneyToDeposit(playerid, amount) {
 event("bankPlayerDeposit", function(playerid, amount = "") {
 
     if(!bankPlayerInValidPoint( playerid )) {
-        msg( playerid, "bank.letsgo" );
+        msg( playerid, "bank.letsgo1" );
+        msg( playerid, "bank.letsgo2" );
         return trigger(playerid, "hideBankGUI");
     }
 
@@ -163,7 +161,8 @@ event("bankPlayerDeposit", function(playerid, amount = "") {
 event("bankPlayerWithdraw", function(playerid, amount = "") {
 
     if(!bankPlayerInValidPoint( playerid )) {
-        msg( playerid, "bank.letsgo" );
+        msg( playerid, "bank.letsgo1" );
+        msg( playerid, "bank.letsgo2" );
         return trigger(playerid, "hideBankGUI");
     }
 
@@ -218,8 +217,3 @@ key("e", function(playerid) {
     trigger(playerid, "showBankGUI", bankGetPlayerDeposit(playerid));
 })
 
-function helpBank(playerid) {
-    msg(playerid, "===========================================", CL_HELP_LINE);
-    msg(playerid, "bank.help.title", CL_HELP_TITLE);
-    msg(playerid, "bank.letsgo", CL_SILVERSAND);
-}

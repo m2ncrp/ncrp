@@ -120,11 +120,11 @@ alternativeTranslate({
     "en|shops.carshop.nofreespace"          : "There is no free space near Parking. Please come again later!"
     "en|shops.carshop.money.error"          : "Sorry, you dont have enough money."
     "en|shops.carshop.selectmodel"          : "You can browse vehicle models, and their prices via: /car list"
-    "en|shops.carshop.list.title"           : "Select car you like, and proceed to buying via: /car buy MODELID"
+    "en|shops.carshop.list.title"           : "Select car you like, and proceed to buying via: /buy car MODELID"
     "en|shops.carshop.list.entry"           : " - Model #%d, '%s'. Cost: $%.2f"
     "en|shops.carshop.success"              : "Congratulations on your purchase! Drive safe and enjoy your trip!"
     "en|shops.carshop.notforsale"           : "This car is not for sale."
-    "en|shops.carshop.canbuy"               : "You can buy this car for $%.2f: /car buy"
+    "en|shops.carshop.canbuy"               : "You can buy this car for $%.2f: /buy car"
     "en|shops.carshop.paint"                : "To change color - press 2."
     "en|shops.carshop.paint2"               : "To change main color - press 1. To change advanced color - press 2."
     "en|shops.carshop.diamondMotors.closed" : "The car shop is closed. Opening hours: %s:00 - %s:00."
@@ -148,11 +148,11 @@ alternativeTranslate({
     "ru|shops.carshop.nofreespace"          : "К сожалению, на парковке нету свободных мест. Зайдите позже."
     "ru|shops.carshop.money.error"          : "К сожалению, у вас недостаточно денег."
     "ru|shops.carshop.selectmodel"          : "Вы можете посмотреть модели авто и их цены, используя: /car list"
-    "ru|shops.carshop.list.title"           : "Выберите модель, которая вам нравится, и купите её, используя: /car buy MODELID"
+    "ru|shops.carshop.list.title"           : "Выберите модель, которая вам нравится, и купите её, используя: /buy car MODELID"
     "ru|shops.carshop.list.entry"           : " - Модель #%d, «%s». Цена: $%.2f"
     "ru|shops.carshop.success"              : "Поздравляем с покупкой! Наслаждайтесь поездкой!"
     "ru|shops.carshop.notforsale"           : "Этот автомобиль нельзя купить."
-    "ru|shops.carshop.canbuy"               : "Вы можете купить этот автомобиль за $%.2f: /car buy"
+    "ru|shops.carshop.canbuy"               : "Вы можете купить этот автомобиль за $%.2f: /buy car"
     "ru|shops.carshop.paint"                : "Выбор цвета покраски - кнопка 2."
     "ru|shops.carshop.paint2"               : "Смена основого цвета - кнопка 1. Смена доп. цвета - кнопка 2."
     "ru|shops.carshop.diamondMotors.closed" : "Автосалон закрыт. Чаcы работы с %s:00 до %s:00."
@@ -175,11 +175,11 @@ alternativeTranslate({
 /* ==================================================================== EVENTS ================================================================================= */
 
 event("onServerStarted", function() {
-    createBlip  ( DIAMOND_CARSHOP_X, DIAMOND_CARSHOP_Y, ICON_LOGO_CAR, 150.0 );
+    createBlip  ( DIAMOND_CARSHOP_X, DIAMOND_CARSHOP_Y, ICON_LOGO_CAR, ICON_RANGE_VISIBLE );
     createPlace(DIAMOND_MOTORS_PLACE_NAME, DIAMOND_MOTORS_PLACE_COORDS[0], DIAMOND_MOTORS_PLACE_COORDS[1], DIAMOND_MOTORS_PLACE_COORDS[2], DIAMOND_MOTORS_PLACE_COORDS[3]);
 
     if(getSettingsValue("isTruckShopEnabled")) {
-        createBlip(TRUCK_SHOP_X, TRUCK_SHOP_Y, ICON_LOGO_CAR, 150.0 );
+        createBlip(TRUCK_SHOP_X, TRUCK_SHOP_Y, ICON_LOGO_CAR, ICON_RANGE_VISIBLE );
         createPlace(TRUCK_SHOP_PLACE_NAME, TRUCK_SHOP_PLACE_COORDS[0], TRUCK_SHOP_PLACE_COORDS[1], TRUCK_SHOP_PLACE_COORDS[2], TRUCK_SHOP_PLACE_COORDS[3]);
     }
 
@@ -526,9 +526,9 @@ function generateRandomCars() {
 
 /**
  * Attempt to by car model
- * Usage: /car buy
+ * Usage: /buy car
  */
-cmd("car", "buy", function(playerid) {
+cmd("buy", "car", function(playerid) {
 
     if(!isPlayerInVehicle(playerid)) {
         return msg(playerid, "shops.carshop.gotothere", getPlayerName(playerid), CL_WARNING);
@@ -591,16 +591,6 @@ cmd("car", "buy", function(playerid) {
     //triggerClientEvent(playerid, "hideCarShopGUI");
     return msg(playerid, "shops.carshop.success", CL_SUCCESS);
 });
-
-function carShopHelp (playerid, a = null, b = null) {
-    local title = "shops.carshop.help.title";
-    local commands = [
-        { name = "/car buy", desc = "shops.carshop.help.buy" },
-    ];
-    msg_help(playerid, title, commands);
-}
-// usage: /help car
-cmd("help", "car", carShopHelp);
 
 /* ==================================================================== BINDS ================================================================================= */
 

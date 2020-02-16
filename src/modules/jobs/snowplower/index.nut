@@ -1087,7 +1087,7 @@ snowplowStops[953]   <-  snowplowStop( snowplowv3( -378.714,  620.386,  -10.265 
     create3DText ( SNOWPLOW_JOB_X, SNOWPLOW_JOB_Y, SNOWPLOW_JOB_Z+0.35, "SNOW PLOWING COMPANY", CL_ROYALBLUE );
     create3DText ( SNOWPLOW_JOB_X, SNOWPLOW_JOB_Y, SNOWPLOW_JOB_Z+0.20, "Press E to action", CL_WHITE.applyAlpha(150), RADIUS_SNOWPLOW );
 
-    registerPersonalJobBlip("snowplow", SNOWPLOW_JOB_X, SNOWPLOW_JOB_Y);
+    registerPersonalJobBlip("snowplowdriver", SNOWPLOW_JOB_X, SNOWPLOW_JOB_Y);
 
 });
 
