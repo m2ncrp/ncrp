@@ -1,6 +1,9 @@
 event("onServerStarted", function() {
-    // nothing there anymore :C
     log("[jobs] starting...");
+
+    if(!isSummer()) {
+        include("modules/jobs/snowplower");
+    }
 });
 
 /* ************************************************************************* */
@@ -59,6 +62,11 @@ function applyPersonalJobBlip(playerid) {
 
 event("onServerPlayerStarted", function(playerid) {
     applyPersonalJobBlip(playerid);
+
+    if(isPlayerHaveValidJob(playerid, "snowplowdriver") && isSummer()) {
+        setPlayerJob(playerid, null);
+        jobRestorePlayerModel(playerid);
+    }
 });
 
 event("onPlayerJobChanged", function(playerid) {
@@ -176,6 +184,7 @@ include("modules/jobs/truckdriver");
 include("modules/jobs/telephone");
 include("modules/jobs/docker");
 include("modules/jobs/stationporter");
-// include("modules/jobs/snowplower");
+
+
 // include("modules/jobs/realtor");
 // include("modules/jobs/slaughterhouseworker");
