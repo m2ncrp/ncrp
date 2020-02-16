@@ -199,6 +199,7 @@ event("onServerStarted", function() {
 
     vehicleWanted = getVehicleWantedForTax();
 
+    createBlip( POLICE_EBPD_ENTERES[1][0], POLICE_EBPD_ENTERES[1][1], [ 22, 0 ], ICON_RANGE_VISIBLE);
     createPlace("KosoyPereulok", 171.597, -302.503, 161.916, -326.178);
     // Create Police Officers Manager here
     // POLICE_MANAGER = OfficerManager();

@@ -63,7 +63,7 @@ alternativeTranslate({
     "ru|3dtext.organizations.meria"     : "лщпхъ"
 
     "en|3dtext.organizations.police"    : "EMPIRE BAY POLICE DEPARTMENT"
-    "ru|3dtext.organizations.police"    : "онкхжеияйхи деоюпрюлемр щлоюип-ащи"
+    "ru|3dtext.organizations.police"    : "онкхжеияйхи деоюпрюлемр"
 
     "en|3dtext.organizations.prison"    : "EMPIRE BAY PRISON"
     "ru|3dtext.organizations.prison"    : "цнпндяйюъ рчпэлю щлоюип-ащи"
