@@ -3,10 +3,12 @@ include("modules/organizations/government/ltc.nut");
 include("modules/organizations/government/tax.nut");
 // include("modules/organizations/government/vehicleTitle.nut");
 include("modules/organizations/government/voting.nut");
+include("modules/organizations/government/treasury.nut");
+include("modules/organizations/government/models/Government.nut");
 
 local coords = [-122.331, -62.9116, -12.041];
-
 local SIDEWALK = [-118.966, -73.4, -66.4244, -52.5];
+local governmentLoadedData = null;
 
 function getGovCoords(i) {
     return coords[i];
@@ -16,17 +18,60 @@ event("onServerStarted", function() {
     log("[organizations] government...");
 
     create3DText ( coords[0], coords[1], coords[2]+0.20, "/tax | /passport", CL_WHITE.applyAlpha(100), 2.0 );
-
     createBlip  ( coords[0], coords[1], [ 24, 0 ], 150.0 );
-
     createPlace("GovernmentSidewalk", SIDEWALK[0], SIDEWALK[1], SIDEWALK[2], SIDEWALK[3]);
 
+    governmentLoadedDataRead();
+
 });
+
+function governmentLoadedDataRead() {
+    Government.findAll(function(err, results) {
+        if (results.len()) {
+            governmentLoadedData = results;
+        } else {
+            local items = [
+                "tax_rate",
+                "ltc_price",
+                "driver_license_price",
+                "treasury",
+                "interest_rate",
+                "unemployed_income",
+                "started_income_min",
+                "started_income_max",
+            ];
+
+            foreach(i, item in items) {
+                local field = Government();
+
+                // put data
+                field.name  = item;
+                field.value = 10.0;
+                field.save();
+            }
+
+            governmentLoadedDataRead();
+        }
+    })
+}
+
+function getGovernmentField(name = "") {
+    foreach(i, item in governmentLoadedData) {
+        if(item.name == name) {
+            return item;
+        }
+    }
+}
+
+function setGovernmentField(name, value) {
+    local field = getGovernmentField(name);
+    field.value = value;
+    field.save();
+}
 
 event("onServerPlayerStarted", function( playerid ) {
     createPrivate3DText ( playerid, coords[0], coords[1], coords[2]+0.35, plocalize(playerid, "3dtext.organizations.meria"), CL_ROYALBLUE);
 });
-
 
 event("onPlayerPlaceEnter", function(playerid, name) {
     if (isPlayerInVehicle(playerid) && name == "GovernmentSidewalk") {

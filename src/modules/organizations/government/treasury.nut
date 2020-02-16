@@ -97,3 +97,31 @@ local phrases = {
 }
 alternativeTranslate(phrases);
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
+
+
+
+function addMoneyToTreasury(amount) {
+    local amount = round(fabs(amount.tofloat()), 2);
+    TREASURY.amount += amount;
+    TREASURY.save();
+    dbg("chat", "idea", "Городская казна", "Пополнение на сумму: "+amount.tostring());
+}
+
+
+function subMoneyToTreasury(amount) {
+    local amount = round(fabs(amount.tofloat()), 2);
+    TREASURY.amount -= amount;
+    TREASURY.save();
+    dbg("chat", "idea", "Городская казна", "Списание на сумму: "+amount.tostring());
+}
+
+
+function canTreasuryMoneyBeSubstracted(amount) {
+    local amount = round(fabs(amount.tofloat()), 2);
+    return (TREASURY.amount >= amount);
+}
+
+
+function getMoneyTreasury() {
+    return TREASURY.amount;
+}
