@@ -164,7 +164,7 @@ function validateAndUpdateCharacter(playerid, character, firstname, lastname, ra
         banned = (!err && bans.len() > 0);
     });
 
-    regexpBannedLastname = regexp(@"([^ae]in|ov|ev|off|iy|yan|dze|[^sia|]ko|[^a]nko|vich|ik)$").search(lastname);
+    regexpBannedLastname = regexp(@"([^ae]in|ov|ova|ev|eva|off|iy|yan|dze|[^sia|]ko|[^a]nko|vich|ik)$").search(lastname);
 
     //([^ae]in|ov|ev|off|iy|yan|dze|[^sia|]ko|[^a]nko|vich|ik)$
 
