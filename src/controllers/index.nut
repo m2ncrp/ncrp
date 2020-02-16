@@ -34,4 +34,5 @@ include("controllers/admin");
 include("controllers/donate");
 include("controllers/handshakes");
 include("controllers/weather");
+include("controllers/help");
 

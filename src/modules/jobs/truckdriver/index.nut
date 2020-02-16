@@ -1,4 +1,3 @@
-include("modules/jobs/truckdriver/commands.nut");
 include("modules/jobs/truckdriver/translations.nut");
 
 local job_truck = {};

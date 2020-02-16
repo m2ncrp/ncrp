@@ -39,25 +39,3 @@ cmd("fuel", "check", function(playerid) {
 cmd("fuel", "list", function(playerid) {
     fuelJobList( playerid );
 });
-
-// usage: /help job fuel
-cmd("help", ["job", "fuel"], function(playerid) {
-    fuelJobHelp ( playerid );
-});
-
-// usage: /help fuel job
-cmd("help", ["fuel", "job"], function(playerid) {
-    fuelJobHelp ( playerid );
-});
-
-function fuelJobHelp ( playerid ) {
-    local title = "job.fueldriver.help.title";
-    local commands = [
-        { name = "job.fueldriver.help.job",      desc = "job.fueldriver.help.jobtext" },
-        { name = "job.fueldriver.help.jobleave", desc = "job.fueldriver.help.jobleavetext" },
-        { name = "job.fueldriver.help.loadunload",      desc = "job.fueldriver.help.loadunloadtext" },
-        { name = "/fuel check",     desc = "job.fueldriver.help.check" },
-        { name = "/fuel list",      desc = "job.fueldriver.help.list" }
-    ];
-    msg_help(playerid, title, commands);
-}

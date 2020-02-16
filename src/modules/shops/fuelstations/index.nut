@@ -126,8 +126,8 @@ alternativeTranslate({
     "en|shops.fuelstations.money.notenough"    : "[FUEL] Not enough money. Need $%.2f."
     "ru|shops.fuelstations.money.notenough"    : "[FUEL] Недостаточно денег. Для оплаты требуется $%.2f."
 
-    "en|shops.fuelstations.fuel.payed"         : "[FUEL] Payment amounted $%.2f for %.2f %s. Come to us again!"
-    "ru|shops.fuelstations.fuel.payed"         : "[FUEL] Оплата составила $%.2f за %.2f %s. Будем рады видеть Вас снова!"
+    "en|shops.fuelstations.fuel.payed"         : "[FUEL] Payment amounted $%.2f for %s. Come to us again!"
+    "ru|shops.fuelstations.fuel.payed"         : "[FUEL] Оплата составила $%.2f за %s. Будем рады видеть Вас снова!"
 
     "en|shops.fuelstations.help.fuelup"        : "To fill up vehicle fuel tank"
     "ru|shops.fuelstations.help.fuelup"        : "Заправить автомобиль"
@@ -266,7 +266,7 @@ function fuelVehicleUp(playerid) {
         if(isPlayerConnected(playerid)) {
             freezePlayer( playerid, false);
             delayedFunction(1000, function () { freezePlayer( playerid, false); });
-            msg(playerid, "shops.fuelstations.fuel.payed", [cost, fuelInGallons, formatGallons(fuelInGallons)], CL_CHESTNUT2);
+            msg(playerid, "shops.fuelstations.fuel.payed", [cost, formatGallons(fuelInGallons)], CL_CHESTNUT2);
         }
         fueltank_loading[vehicleid] = false;
         setVehicleFuel(vehicleid, getDefaultVehicleFuel(vehicleid));

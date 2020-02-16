@@ -53,16 +53,6 @@ alternativeTranslate({
     "ru|job.truckdriver.empty"             : "[TRUCK] Грузовик пуст."
     "ru|job.truckdriver.takemoney"         : "[TRUCK] Возвращайся на базу к мосту в Хайбрук, припаркуй грузовик и получи заработанные деньги."
 
-    "ru|job.truckdriver.help.title"        : "Список команд, доступных шофёру:"
-    "ru|job.truckdriver.help.job"              :   "кнопка E"
-    "ru|job.truckdriver.help.jobtext"          :   "Устроиться на работу шофёром (подойти к Robert Casey)"
-    "ru|job.truckdriver.help.jobleave"         :   "кнопка Q"
-    "ru|job.truckdriver.help.jobleavetext"     :   "Уволиться с работы (подойти к Robert Casey)"
-    "ru|job.truckdriver.help.loadunload"       :   "кнопка E"
-    "ru|job.truckdriver.help.loadunloadtext"   :   "Загрузить/разгрузить грузовик (нужно быть в грузовике)"
-
-
-
 
 
     "en|job.truckdriver"                   : "truck driver"

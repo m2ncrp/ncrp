@@ -53,8 +53,6 @@ translation("ru", {
 
 });
 
-include("modules/jobs/docker/commands.nut");
-
 local job_docker = {};
 
 const DOCKER_RADIUS = 1.5;

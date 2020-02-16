@@ -39,25 +39,3 @@ cmd("milk", "check", function(playerid) {
 cmd("milk", "list", function(playerid) {
     milkJobList( playerid );
 });
-
-// usage: /help job milk
-cmd("help", ["job", "milk"], function(playerid) {
-    milkJobHelp ( playerid );
-});
-
-// usage: /help job milk
-cmd("help", ["milk", "job"], function(playerid) {
-    milkJobHelp ( playerid );
-});
-
-
-
-function milkJobHelp ( playerid ) {
-    local title = "job.milkdriver.help.title";
-    local commands = [
-        { name = "job.milkdriver.help.all",     desc = "" },
-        { name = "/milk check",     desc = "job.milkdriver.help.check" },
-        { name = "/milk list",      desc = "job.milkdriver.help.list" }
-    ];
-    msg_help(playerid, title, commands);
-}

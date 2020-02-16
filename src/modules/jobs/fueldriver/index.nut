@@ -104,8 +104,7 @@ alternativeTranslate({
 "ru|job.fueldriver.help.jobleavetext"                      : "Уволиться с работы (в штаб-квартире Ойстер-Бэй)"
 "ru|job.fueldriver.help.loadunload"                        : "кнопка E"
 "ru|job.fueldriver.help.loadunloadtext"                    : "Загрузить/разгрузить бензовоз"
-"ru|job.fueldriver.help.check"                             : "Проверить загруженность бензовоза"
-"ru|job.fueldriver.help.list"                              : "Посмотреть маршрутный лист"
+
 
 "en|job.fueldriver.routelist.title"                        : "[FUEL] ========== List of route =========="
 "en|job.fueldriver.routelist.completed"                    : "[FUEL] %d. Gas station in %s - completed"
@@ -120,8 +119,8 @@ alternativeTranslate({
 "en|job.fueldriver.help.jobleavetext"                      : "Leave bus driver job at Trago Oil in Oyster Bay"
 "en|job.fueldriver.help.loadunload"                        : "E button"
 "en|job.fueldriver.help.loadunloadtext"                    : "Load/unload fuel truck"
-"en|job.fueldriver.help.check"                             : "Checking loading truck"
-"en|job.fueldriver.help.list"                              : "See list of route"
+// "en|job.fueldriver.help.check"                             : "Checking loading truck"
+// "en|job.fueldriver.help.list"                              : "See list of route"
 
 });
 

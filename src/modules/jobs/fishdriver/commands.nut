@@ -24,23 +24,7 @@ cmd("fish", "finish", function(playerid) {
     fishJobFinish( playerid );
 });
 */
-// usage: /help job fish
-cmd("help", ["job", "fish"], function(playerid) {
-    fishJobHelp ( playerid );
-});
 
-// usage: /help fish job
-cmd("help", ["fish", "job"], function(playerid) {
-    fishJobHelp ( playerid );
-});
-
-function fishJobHelp ( playerid ) {
-    local title = "job.fishdriver.help.title";
-    local desc = "job.fishdriver.help.all";
-    msg(playerid, "==================================", CL_HELP_LINE);
-    msg(playerid, plocalize(playerid, title), CL_HELP_TITLE);
-    msg(playerid, plocalize(playerid, desc), CL_HELP);
-}
 
 
 // usage: /help fish job

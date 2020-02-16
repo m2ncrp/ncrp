@@ -105,8 +105,8 @@ local translations = {
 "en|job.milkdriver.unloadingcompleted.truckloaded"     :   "[MILK] Unloading completed. Milk truck is loaded to %d / 120. Go to next address."
 "ru|job.milkdriver.unloadingcompleted.truckloaded"     :   "[MILK] Разгрузка прошла успешно. Молоковоз заполнен на %d из 120. Направляйтесь к следующему адресу доставки."
 
-"en|job.milkdriver.help.check"                         :   "Checking loading milk truck"
-"ru|job.milkdriver.help.check"                         :   "Проверить загруженность молоковоза"
+"en|job.milkdriver.help.check"                         :   "Checking loading milk truck: /milk check"
+"ru|job.milkdriver.help.check"                         :   "Проверить загруженность молоковоза: /milk check"
 
 "en|job.milkdriver.help.job"                           :   "Get milkdriver job"
 "ru|job.milkdriver.help.job"                           :   "Устроиться на работу развозчиком молока"
@@ -114,8 +114,8 @@ local translations = {
 "en|job.milkdriver.help.jobleave"                      :   "Leave milkdriver job"
 "ru|job.milkdriver.help.jobleave"                      :   "Уволиться с работы"
 
-"en|job.milkdriver.help.list"                          :   "See list of route"
-"ru|job.milkdriver.help.list"                          :   "Посмотреть маршрутный лист"
+"en|job.milkdriver.help.list"                          :   "See list of route: /milk list"
+"ru|job.milkdriver.help.list"                          :   "Посмотреть маршрутный лист: /milk list"
 
 "en|job.milkdriver.help.load"                          :   "Load milk into milk truck"
 "ru|job.milkdriver.help.load"                          :   "Загрузить молоко в молоковоз"

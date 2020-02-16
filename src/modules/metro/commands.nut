@@ -1,4 +1,4 @@
-cmd( ["sub", "subway", "metro"], function( playerid, stationID = null ) {
+cmd("find", ["subway", "metro"], function( playerid, stationID = null ) {
     //travelToStation( playerid, stationID );
 
     showNearestMetroBlip(playerid);
@@ -14,18 +14,6 @@ cmd( ["sub", "subway", "metro"], "list", function( playerid) {
 key("e", function(playerid) {
     showMetroGUI( playerid );
 }, KEY_UP);
-
-
-function metroHelp ( playerid ) {
-    msg(playerid, "==================================", CL_HELP_LINE);
-    msg(playerid, "metro.help.title", CL_HELP_TITLE);
-    //msg(playerid, "taxi.help.taxi", CL_HELP_TITLE;
-}
-
-cmd(["help", "h", "halp", "info"], "subway", metroHelp);
-cmd(["help", "h", "halp", "info"], "metro", metroHelp);
-cmd(["help", "h", "halp", "info"], "sub", metroHelp);
-
 
 
 // Close station by its ID runtime

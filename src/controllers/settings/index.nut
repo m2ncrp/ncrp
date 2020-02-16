@@ -68,11 +68,13 @@ function setSettingsValue(name, value) {
 }
 
 function addWorldMoney(value) {
+    value = value.tofloat();
     local money = getSettingsValue("worldMoney");
     setSettingsValue("worldMoney", money + value);
 }
 
 function subWorldMoney(value) {
+    value = value.tofloat();
     local money = getSettingsValue("worldMoney");
     setSettingsValue("worldMoney", money - value);
 }

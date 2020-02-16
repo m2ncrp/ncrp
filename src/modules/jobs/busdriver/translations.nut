@@ -118,30 +118,6 @@ alternativeTranslate({
 
 
 
-
-    "en|job.bus.help.title"            :   "Controls for bus driver:"
-    "ru|job.bus.help.title"            :   "Управление для водителя автобуса:"
-
-    "en|job.bus.help.job"              :   "E button"
-    "ru|job.bus.help.job"              :   "кнопка E"
-
-    "en|job.bus.help.jobtext"          :   "Get bus driver job at bus depot in Uptown"
-    "ru|job.bus.help.jobtext"          :   "Устроиться на работу водителем автобуса (в автобусном депо в Аптауне)"
-
-    "en|job.bus.help.jobleave"         :   "Q button"
-    "ru|job.bus.help.jobleave"         :   "кнопка Q"
-
-    "en|job.bus.help.jobleavetext"     :   "Leave bus driver job at bus depot in Uptown"
-    "ru|job.bus.help.jobleavetext"     :   "Уволиться с работы (в автобусном депо в Аптауне)"
-
-    "en|job.bus.help.busstop"          :   "E button"
-    "ru|job.bus.help.busstop"          :   "кнопка E"
-
-    "en|job.bus.help.busstoptext"      :   "Bus stop"
-    "ru|job.bus.help.busstoptext"      :   "Остановиться на остановке"
-
-
-
     "en|job.bus.route.1"                   :   "Uptown - Sand Island Route (9 stations)"
     "en|job.bus.route.2"                   :   "Uptown - Kingston Route  (7 stations)"
     "en|job.bus.route.3"                   :   "Central Circle Route (11 stations)"
@@ -192,7 +168,7 @@ alternativeTranslate({
     "en|job.busstop.Port"                       : "Port"
     "en|job.busstop.SouthPortNorth"             : "North of Southport"
     "en|job.busstop.Meria"                      : "Government building"
-    "en|job.busstop.Twister"                    : "Twister theater"
+    "en|job.busstop.Twister"                    : "Twister cinema"
     "en|job.busstop.EastSideAlley"              : "Alley of East Side"
     "en|job.busstop.EastSideNearAlley"          : "East Side"
     "en|job.busstop.Chinatown2"                 : "Clothes shop in Chinatown"
@@ -228,7 +204,7 @@ alternativeTranslate({
     "ru|job.busstop.Port"                       : "Порт"
     "ru|job.busstop.SouthPortNorth"             : "Север Сауспорта"
     "ru|job.busstop.Meria"                      : "Здание правительства"
-    "ru|job.busstop.Twister"                    : "Театр «Твистер»"
+    "ru|job.busstop.Twister"                    : "Кинотеатр «Твистер»"
     "ru|job.busstop.EastSideAlley"              : "Аллея Ист-Сайда"
     "ru|job.busstop.EastSideNearAlley"          : "Ист-Сайд"
     "ru|job.busstop.Chinatown2"                 : "Магазин одежды в Чайнатауне"

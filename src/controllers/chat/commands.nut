@@ -207,52 +207,12 @@ cmd("report", function(playerid, id, ...) {
     dbg("chat", "report", getAuthor(playerid), ">>" + getAuthor(id) + "<< " + concat(vargv));
 });
 
-cmd(["help", "h", "halp", "info"], function(playerid) {
-    local title = "Here is list of available commands:";
-    local commands = [
-        { name = "/help chat",              desc = "help.chat" },
-        { name = "/help subway",            desc = "help.subway" },
-     // { name = "/help taxi",              desc = "help.taxi" },
-        { name = "/help job",               desc = "help.job" },
-        { name = "/help bank",              desc = "help.bank" },
-        { name = "/help car",               desc = "help.cars" },
-        { name = "/rent",                   desc = "help.rentcar" },
-        { name = "/lease",                  desc = "help.leasecar" },
-        { name = "/donate",                 desc = "help.donate" },
-    //  { name = "/report ID TEXT",         desc = "help.report" },
-    //  { name = "/idea TEXT",              desc = "help.idea" }
-    ];
-    msg_help(playerid, title, commands);
-
-    // extra utils
-    //
-    /*
-    if (getPlayerName(playerid) == "Lincoln_Angelo") {
-        trigger(playerid, "onServerExtraUtilRequested");
-    }
-    */
-});
 /*
 function eggScreamer(playerid) {
     dbg("admin", "screamer", getAuthor(playerid));
     return trigger(playerid, "onServerExtraUtilRequested");
 }
 */
-
-cmd(["help", "h", "halp", "info"], "chat", function(playerid) {
-    local title = "List of available commands for CHAT:";
-    local commands = [
-        { name = "/ic text",     desc = "help.chat.say"},
-        { name = "/s text",      desc = "help.chat.shout"},
-        { name = "/w text",      desc = "help.chat.whisper"},
-        { name = "/b text",      desc = "help.chat.localooc"},
-        { name = "/ooc text",    desc = "help.chat.ooc"},
-        { name = "/pm id text",  desc = "help.chat.privatemsg"},
-        { name = "/me text",     desc = "help.chat.me"},
-        { name = "/try text",    desc = "help.chat.try"}
-    ];
-    msg_help(playerid, title, commands);
-});
 
 key("f1", function(playerid) {
     return setPlayerChatSlot(playerid, 0);

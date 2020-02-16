@@ -167,10 +167,10 @@ alternativeTranslate({
     "ru|help.chat.shout"       : "Крикнуть от имени персонажа."
 
     "en|help.chat.whisper"     : "Say something to nearest player very quiet"
-    "ru|help.chat.whisper"     : "Прошептать от имени персонажа ближайшему игроку."
+    "ru|help.chat.whisper"     : "Прошептать ближайшему игроку."
 
     "en|help.chat.me"          : "Some action of your person"
-    "ru|help.chat.me"          : "Сообщить о действии вашего персонажа"
+    "ru|help.chat.me"          : "Сообщить о действии персонажа"
 
     "en|help.chat.do"          : "Some action of the game world at now"
     "ru|help.chat.do"          : "Сообщить о подробностях игрового мира в данный момент"
@@ -179,13 +179,13 @@ alternativeTranslate({
     "ru|help.chat.todo"        : "Совмещение /ic и /me"
 
     "en|help.chat.try"         : "Any action simulation that could be failed"
-    "ru|help.chat.try"         : "Сообщить о попытке выполнения действия со случайным результатом"
+    "ru|help.chat.try"         : "Попытка выполнения действия со случайным результатом"
 
-    "en|help.chat.privatemsg"  : "Send private message to other player with ID. Example: /pm 3 Hello!"
-    "ru|help.chat.privatemsg"  : "Отправить личное сообщение другому игроку. Образец: /pm 3 Привет!"
+    "en|help.chat.privatemsg"  : "Send private message to other player with ID."
+    "ru|help.chat.privatemsg"  : "Отправить личное сообщение другому игроку."
 
-    "en|help.chat.reply"       : "Reply to private message. Example: /re Hello!"
-    "ru|help.chat.reply"       : "Ответить на личное сообщение. Образец: /re Привет!"
+    "en|help.chat.reply"       : "Reply to private message"
+    "ru|help.chat.reply"       : "Ответить на последнее личное сообщение."
 
 
 });

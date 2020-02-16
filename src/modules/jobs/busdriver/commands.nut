@@ -47,20 +47,3 @@ cmd("bus", "stop", function(playerid) {
 //         triggerClientEvent(idx, "onServerPlayerBusExit", playerid, busid.tointeger());
 //     }
 // });
-
-function busJobHelp ( playerid ) {
-    local title = "job.bus.help.title";
-    local commands = [
-        { name = "job.bus.help.job",         desc = "job.bus.help.jobtext"           },
-        { name = "job.bus.help.jobleave",    desc = "job.bus.help.jobleavetext"      },
-        { name = "job.bus.help.busstop",     desc = "job.bus.help.busstoptext"    }
-    ];
-    msg_help(playerid, title, commands);
-}
-
-cmd("help", "bus", busJobHelp );
-cmd("help", ["job", "bus"], busJobHelp );
-cmd("help", ["bus", "job"], busJobHelp );
-cmd("job", ["bus", "help"], busJobHelp );
-cmd("bus", ["job", "help"], busJobHelp );
-cmd("bus", busJobHelp );
