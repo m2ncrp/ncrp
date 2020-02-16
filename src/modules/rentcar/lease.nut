@@ -53,7 +53,7 @@ function leaseCar(playerid) {
     }
 
     if(!canMoneyBeSubstracted(playerid, LEASE_DEPOSIT)) {
-        return msg(playerid, format("Недостаточно денег для внесение депозита ($%.2f).", [LEASE_DEPOSIT]), CL_ERROR);
+        return msg(playerid, "Недостаточно денег для внесение депозита ($%.2f).", LEASE_DEPOSIT, CL_ERROR);
     }
 
     trigger(playerid, "hudCreateTimer", 30, true, true);
@@ -102,7 +102,7 @@ function leaseCar(playerid) {
 
             complete = true;
 
-            msg(playerid, format("Стоимость аренды за час: $%.2f", price), CL_JORDYBLUE);
+            msg(playerid, "Стоимость аренды за час: $%.2f", price, CL_JORDYBLUE);
             msg(playerid, "Автомобиль выставлен в аренду.", CL_SUCCESS);
             return;
 
@@ -136,7 +136,7 @@ function unleaseCar(playerid) {
     }
 
     if(!isVehicleCarRent(vehicleid)) {
-        return msg(playerid, "Этот автомобиль не сдаётся", CL_ERROR);
+        return msg(playerid, "Этот автомобиль не сдан в аренду.", CL_ERROR);
     }
 
     local veh = getVehicleEntity(vehicleid);
@@ -150,11 +150,13 @@ function unleaseCar(playerid) {
     unblockDriving(vehicleid);
 
     msg(playerid, "Автомобиль снят с аренды.", CL_SUCCESS);
-    msg(playerid, format("Вместе с депозитом ($%.2f) вы получили: $%.2f", LEASE_DEPOSIT, veh.data.rent.money), CL_JORDYBLUE);
+    msg(playerid, "Вместе с депозитом ($%.2f) вы получили: $%.2f", [LEASE_DEPOSIT, veh.data.rent.money], CL_JORDYBLUE);
     delete veh.data.rent;
 }
 
 function leaseGetStats(playerid) {
+
+    if (!isPlayerInVehicle(playerid)) return msg(playerid, "Вы должны быть в личном автомобиле!", CL_ERROR);
 
     local vehicleid = getPlayerVehicle( playerid );
 
@@ -173,8 +175,8 @@ function leaseGetStats(playerid) {
     local veh = getVehicleEntity(vehicleid);
 
     msg(playerid, ".:: Сведения об аренде ::.", CL_HELP);
-    msg(playerid, format("Стоимость аренды за час: $%.2f", veh.data.rent.price), CL_JORDYBLUE);
-    msg(playerid, format("Количество аренд: %d", veh.data.rent.count), CL_JORDYBLUE);
-    msg(playerid, format("Топливо: %d из %d л.", getVehicleFuelEx(vehicleid), getDefaultVehicleFuel(vehicleid)), CL_JORDYBLUE);
-    msg(playerid, format("Баланс: $%.2f", veh.data.rent.money), CL_JORDYBLUE);
+    msg(playerid, "Стоимость аренды за час: $%.2f", veh.data.rent.price, CL_JORDYBLUE);
+    msg(playerid, "Количество аренд: %d", veh.data.rent.count, CL_JORDYBLUE);
+    msg(playerid, "Топливо: %d из %d л.", [getVehicleFuelEx(vehicleid), getDefaultVehicleFuel(vehicleid)], CL_JORDYBLUE);
+    msg(playerid, "Баланс: $%.2f", veh.data.rent.money, CL_JORDYBLUE);
 }
