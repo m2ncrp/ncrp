@@ -23,8 +23,12 @@ function settingsLoadedDataRead() {
                     value = "true",
                 },
                 {
-                    name = "world_money",
+                    name = "worldMoney",
                     value = "0.0",
+                },
+                {
+                    name = "isTruckShopEnabled",
+                    value = "false",
                 }
             ];
 
@@ -64,11 +68,11 @@ function setSettingsValue(name, value) {
 }
 
 function addWorldMoney(value) {
-    local money = getSettingsValue("world_money");
-    setSettingsValue("world_money", money + value);
+    local money = getSettingsValue("worldMoney");
+    setSettingsValue("worldMoney", money + value);
 }
 
 function subWorldMoney(value) {
-    local money = getSettingsValue("world_money");
-    setSettingsValue("world_money", money - value);
+    local money = getSettingsValue("worldMoney");
+    setSettingsValue("worldMoney", money - value);
 }

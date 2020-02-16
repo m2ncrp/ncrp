@@ -176,10 +176,12 @@ alternativeTranslate({
 
 event("onServerStarted", function() {
     createBlip  ( DIAMOND_CARSHOP_X, DIAMOND_CARSHOP_Y, ICON_LOGO_CAR, 150.0 );
-    createBlip  ( TRUCK_SHOP_X, TRUCK_SHOP_Y, ICON_LOGO_CAR, 150.0 );
-
     createPlace(DIAMOND_MOTORS_PLACE_NAME, DIAMOND_MOTORS_PLACE_COORDS[0], DIAMOND_MOTORS_PLACE_COORDS[1], DIAMOND_MOTORS_PLACE_COORDS[2], DIAMOND_MOTORS_PLACE_COORDS[3]);
-    createPlace(TRUCK_SHOP_PLACE_NAME, TRUCK_SHOP_PLACE_COORDS[0], TRUCK_SHOP_PLACE_COORDS[1], TRUCK_SHOP_PLACE_COORDS[2], TRUCK_SHOP_PLACE_COORDS[3]);
+
+    if(getSettingsValue("isTruckShopEnabled")) {
+        createBlip(TRUCK_SHOP_X, TRUCK_SHOP_Y, ICON_LOGO_CAR, 150.0 );
+        createPlace(TRUCK_SHOP_PLACE_NAME, TRUCK_SHOP_PLACE_COORDS[0], TRUCK_SHOP_PLACE_COORDS[1], TRUCK_SHOP_PLACE_COORDS[2], TRUCK_SHOP_PLACE_COORDS[3]);
+    }
 
     carPrices = generateRandomCars();
 
@@ -475,10 +477,11 @@ function carShopChangeColor(playerid) {
     setVehicleColour(vehicleid, cr[0], cr[1], cr[2], cr[3], cr[4], cr[5]);
 }
 
-
 function generateRandomCars() {
 
-    local shops = ["diamondMotors", "truckShop"];
+    local shops = ["diamondMotors"];
+
+    if(getSettingsValue("isTruckShopEnabled")) shops.push("truckShop");
 
     local carPricesArray = [];
 
