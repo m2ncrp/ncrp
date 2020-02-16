@@ -166,6 +166,13 @@ event("onClientSuccessfulyStarted", function(playerid) {
     trigger(playerid, "onServerWeatherSync", SERVER_WEATHER);
 });
 
+// register auto weather sync on player spawn
+event("onServerPlayerStarted", function(playerid) {
+    if(DEBUG) {
+        trigger(playerid, "onServerWeatherSync", SERVER_WEATHER);
+    }
+});
+
 acmd("resetweather", function(playerid) {
     resetWeather()
 });
