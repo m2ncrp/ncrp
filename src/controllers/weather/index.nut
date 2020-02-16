@@ -173,5 +173,5 @@ acmd("resetweather", function(playerid) {
 acmd("winter", function(playerid, value = null) {
     if(!value) return msg(playerid, "Формат: /winter true/false")
     setWinter(value);
-    msg(playerid, "Зима будет %s после рестарта сервера", [value ? "включена" : "отключена"])
+    msg(playerid, "Зима будет %s после рестарта сервера", [value == "true" ? "включена" : "отключена"])
 });
