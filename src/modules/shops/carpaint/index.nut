@@ -84,6 +84,7 @@ event("onPlayerPlaceExit", function(playerid, name) {
             msg(playerid, "carpaint.goodluck", CL_MALIBU);
             msg(playerid, "carpaint.payforcolor", CARPAINT_COST);
             subMoneyToPlayer(playerid, CARPAINT_COST);
+            addWorldMoney(CARPAINT_COST);
         } else {
             msg(playerid, "carpaint.bye", CL_MALIBU);
         }

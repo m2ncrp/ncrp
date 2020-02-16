@@ -1,14 +1,14 @@
 local hoboses = {};
 
-
 function hobosDig(playerid) {
-    if ( !isTimeToDig(playerid) ) { // isHobos(playerid) && 
+    if ( !isTimeToDig(playerid) ) { // isHobos(playerid) &&
         return msg( playerid, "organizations.hobos.tired" );
     }
     if ( isNearTrash(playerid) ) { // isHobos(playerid) &&
         local found = randomf(minCouldFind, maxCouldFind);
         found = round( found, 2);
-        addMoneyToPlayer(playerid, found );
+        subWorldMoney(found);
+        addMoneyToPlayer(playerid, found);
         msg( playerid, "organizations.hobos.trash.found", [found, getPlayerBalance(playerid)] );
 
         if (!(playerid in hoboses)) {

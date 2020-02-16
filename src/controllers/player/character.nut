@@ -97,7 +97,9 @@ event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, s
             local character = Character();
 
             // override onspawn stuff (money, other shiet)
-            character.money = randomf(16.5, 25.5);
+            local money = randomf(16.5, 25.5);
+            character.money = money;
+            subWorldMoney(money);
 
             // try to create new character
             return validateAndUpdateCharacter(playerid, character, firstname, lastname, race, sex, birthdate, cskin);

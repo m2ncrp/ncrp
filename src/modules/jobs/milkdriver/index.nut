@@ -561,6 +561,7 @@ function milkGetSalary( playerid ) {
     players[playerid].data.jobs.milkdriver.count += 1;
     msg( playerid, "job.milkdriver.nicejob", amount, MILK_JOB_COLOR );
     addMoneyToPlayer(playerid, amount);
+    subWorldMoney(amount);
 }
 
 /**

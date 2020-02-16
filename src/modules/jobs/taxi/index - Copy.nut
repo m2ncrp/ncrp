@@ -22,13 +22,13 @@ local TAXI_CHARACTERS_LIMIT = 100000;
 event("onServerStarted", function() {
     log("[jobs] loading taxi job...");
     local taxicars = [
-    
+
         createVehicle(24, -127.650, 412.521, -13.98, -90.0, 0.2, -0.2),   // taxi East Side 1
         createVehicle(24, -127.650, 408.872, -13.98, -90.0, 0.2, -0.2),   // taxi East Side 2
         createVehicle(24, -127.650, 405.611, -13.98, -90.0, 0.2, -0.2),   // taxi East Side 3
         createVehicle(24, -127.650, 402.069, -13.98, -90.0, 0.2, -0.2),   // taxi East Side 4
         createVehicle(33, -127.650, 398.769, -13.98, -90.0, 0.2, -0.2),   // taxi East Side 5
-    
+
 
 //createVehicle(   24, -658.287, 236.719, 1.17881, -179.192, 0.255169, -0.234465 ), // TaxiDEVELOPER
 
@@ -548,8 +548,8 @@ function taxiCallDone(playerid) {
     if(distance > 250.0) {
     local amount = distance * price;
         if(canTreasuryMoneyBeSubstracted(amount)) {
-            subMoneyToTreasury(amount);
             addMoneyToPlayer(playerid, amount);
+            subWorldMoney(amount);
             msg_taxi_dr( playerid, "job.taxi.youearn", amount );
             dbg("[TAXI] "+getPlayerName(playerid)+" earned $"+amount+" for "+distance+" meters");
         } else {

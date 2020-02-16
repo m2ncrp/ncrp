@@ -21,6 +21,10 @@ function settingsLoadedDataRead() {
                 {
                     name = "donate",
                     value = "true",
+                },
+                {
+                    name = "world_money",
+                    value = "0.0",
                 }
             ];
 
@@ -47,11 +51,24 @@ function getSettingsField(name = "") {
 }
 
 function getSettingsValue(name = "") {
-    return JSONParser.parse(getSettingsField(name).value);
+    local value = getSettingsField(name).value;
+    if(isFloat(value)) return value.tofloat();
+    if(isInteger(value)) return value.tointeger();
+    return JSONParser.parse(value);
 }
 
 function setSettingsValue(name, value) {
     local field = getSettingsField(name);
-    field.value = value;
+    field.value = value.tostring();
     field.save();
+}
+
+function addWorldMoney(value) {
+    local money = getSettingsValue("world_money");
+    setSettingsValue("world_money", money + value);
+}
+
+function subWorldMoney(value) {
+    local money = getSettingsValue("world_money");
+    setSettingsValue("world_money", money - value);
 }

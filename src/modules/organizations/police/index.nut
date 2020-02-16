@@ -148,6 +148,7 @@ function policeJobPaySalary(playerid) {
     local coeff = POLICE_RANK_SALLARY_PERMISSION_SKIN[rank][0];
     local summa = police[playerid]["ondutyminutes"] * POLICE_SALARY * coeff;
     addMoneyToPlayer(playerid, summa);
+    subWorldMoney(summa);
     msg(playerid, "organizations.police.income", [summa.tofloat(), getLocalizedPlayerJob(playerid)], CL_SUCCESS);
     police[playerid]["ondutyminutes"] = 0;
 }

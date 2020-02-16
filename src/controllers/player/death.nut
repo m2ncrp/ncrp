@@ -41,6 +41,7 @@ event("native:onPlayerDeath", function(playerid, killerid) {
     // maybe deduct some money...
     if (canMoneyBeSubstracted(playerid, HOSPITAL_AMOUNT)) {
         subMoneyToPlayer(playerid, HOSPITAL_AMOUNT);
+        addWorldMoney(HOSPITAL_AMOUNT)
     }
 
     if (killerid != INVALID_ENTITY_ID) {

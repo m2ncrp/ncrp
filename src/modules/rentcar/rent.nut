@@ -154,7 +154,7 @@ function showRentCarGUI(playerid, vehicleid){
 }
 
 alternativeTranslate({
-    "ru|rentcar.goto"           : "Отправляйтесь на парковку авто, предоставляемых в аренду, в North Millville."
+    "ru|rentcar.goto"           : "Отправляйтесь на парковку авто, предоставляемых в аренду, в Северном Милвилле."
     "ru|rentcar.notrent"        : "Этот автомобиль нельзя арендовать."
     "ru|rentcar.notenough"      : "У вас недостаточно денег."
     "ru|rentcar.rented"         : "Вы арендовали этот автомобиль. Отказаться от аренды: /unrent"

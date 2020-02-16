@@ -201,6 +201,7 @@ key("e", function(playerid) {
     canister.save();
     players[playerid].hands.sync();
     subMoneyToPlayer(playerid, JERRYCAN_COST);
+    addWorldMoney(JERRYCAN_COST);
 });
 
 
@@ -251,6 +252,7 @@ function fuelVehicleUp(playerid) {
             return msg(playerid, "shops.fuelstations.money.notenough", [cost], CL_THUNDERBIRD);
         }
         subMoneyToPlayer(playerid, cost);
+        addWorldMoney(cost);
         // addMoneyToTreasury(cost);
     }
 
@@ -311,6 +313,7 @@ function fuelJerrycanUp( playerid ) {
         jerrycanObj.save();
         players[playerid].hands.sync();
         subMoneyToPlayer(playerid, cost);
+        addWorldMoney(cost);
     });
 }
 

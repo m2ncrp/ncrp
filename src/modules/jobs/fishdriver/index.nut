@@ -518,6 +518,7 @@ function fishGetSalary( playerid ) {
     players[playerid].data.jobs.fishdriver.count += 1;
     msg( playerid, "job.fishdriver.nicejob", [getPlayerName( playerid ), amount], FISH_JOB_COLOR );
     addMoneyToPlayer(playerid, amount);
+    subWorldMoney(amount);
 }
 
 

@@ -1,10 +1,15 @@
 include("modules/organizations/hobos/commands.nut");
 
-translation("en", {
-    "organizations.hobos.trash.toofar"  : "You are too far from any trash!",
-    "organizations.hobos.tired"         : "You got tired. Take a nap.",
-    "organizations.hobos.trash.found"   : "You found $%.2f. Now you can buy yourself cookies with $%s."
-    "organizations.unemployed.income"   : "You've recieved $%.2f as unemployment compensation."
+alternativeTranslate({
+    "ru|organizations.hobos.trash.toofar"  : "Вы далеко от мусорного контейнера!"
+    "ru|organizations.hobos.tired"         : "Вы устали, отдохните."
+    "ru|organizations.hobos.trash.found"   : "Вы нашли $%.2f. Теперь у вас $%s."
+    "ru|organizations.unemployed.income"   : "Вы получили $%.2f в качестве пособия по безработице."
+
+    "en|organizations.hobos.trash.toofar"  : "You are too far from any trash!",
+    "en|organizations.hobos.tired"         : "You got tired. Take a nap.",
+    "en|organizations.hobos.trash.found"   : "You found $%.2f. Now you can buy yourself cookies with $%s."
+    "en|organizations.unemployed.income"   : "You've recieved $%.2f as unemployment compensation."
 });
 
 const hobos_spawnID = 1;
@@ -153,6 +158,7 @@ event("onServerHourChange", function() {
             }
 
             addMoneyToPlayer(playerid, amount);
+            subWorldMoney(amount);
             msg(playerid, "organizations.unemployed.income", [amount], CL_SUCCESS);
         }
     }

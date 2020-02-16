@@ -268,6 +268,8 @@ cmd("skin", "buy", function(playerid, skinid = null) {
     }
     // take money
     subMoneyToPlayer(playerid, skin.price);
+    addWorldMoney(skin.price);
+
     msg(playerid, "shops.clothesshop.success", CL_SUCCESS);
     clothes.amount = skin.skinid;
     players[playerid].inventory.push( clothes );

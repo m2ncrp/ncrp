@@ -462,6 +462,7 @@ function busGetSalary( playerid ) {
     local amount = job_bus[getCharacterIdFromPlayerId(playerid)]["route"][1] + getSalaryBonus();
     players[playerid].data.jobs.busdriver.count += 1;
     addMoneyToPlayer(playerid, amount);
+    subWorldMoney(amount);
     msg( playerid, "job.bus.nicejob", amount, BUS_JOB_COLOR );
 }
 

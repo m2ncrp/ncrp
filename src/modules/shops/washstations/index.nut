@@ -68,6 +68,7 @@ function washStationsWashCar (playerid) {
             local vehicleid = getPlayerVehicle(playerid);
             setVehicleDirtLevel (vehicleid, 0.0);
             subMoneyToPlayer(playerid, SHOP_WASH_COST);
+            addWorldMoney(SHOP_WASH_COST);
             return msg(playerid, "shops.washstations.wash.payed", [SHOP_WASH_COST, getPlayerBalance(playerid)], CL_WASH);
         });
 
