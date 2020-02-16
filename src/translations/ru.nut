@@ -321,26 +321,6 @@ translation("ru", {
 
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
-    "bank.letsgo"                       :   "Отправляйтесь к зданию Grand Imperial Bank в Мидтауне."
-    "bank.deposit.minimum"              :   "Вы не можете положить эту сумму. Минимальная сумма вклада составляет $100."
-    "bank.deposit.notenough"            :   "Вы не можете положить эту сумму: недостаточно наличных денег."
-    "bank.withdraw.minimum"             :   "Вы не можете снять эту сумму. Минимальная сумма снятия составляет $100."
-    "bank.withdraw.notenough"           :   "Вы не можете снять эту сумму: недостаточно средств на балансе."
-    "bank.provideamount"                :   "Вам необходимо указать сумму."
-    "bank.help.commandslist"            :   "Список доступных команд для Grand Imperial Bank:"
-
-    "help.bank.account"                 :   "Посмотреть информацию о своём счёте в банке"
-    "help.bank.deposit"                 :   "Положить на счёт указанную сумму"
-    "help.bank.depositall"              :   "Положить на счёт все наличные деньги"
-    "help.bank.withdraw"                :   "Снять со счёта указанную сумму"
-    "help.bank.withdrawall"             :   "Снять со счёта все деньги"
-
-    "help.cmd.bank.account"             :   "/bank account"
-    "help.cmd.bank.deposit"             :   "/bank deposit сумма"
-    "help.cmd.bank.depositall"          :   "/bank deposit all"
-    "help.cmd.bank.withdraw"            :   "/bank withdraw сумма"
-    "help.cmd.bank.withdrawall"         :   "/bank withdraw all"
-
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
     "organizations.hobos.trash.toofar"  : "Вы далеко от мусорного контейнера!"

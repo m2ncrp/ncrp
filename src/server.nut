@@ -300,6 +300,10 @@ proxy("changeModel",                "changeModel"                       );
 // RentCar
 proxy("RentCar",                    "RentCar"                           );
 
+// Bank
+proxy("bankPlayerDeposit",                "bankPlayerDeposit"           );
+proxy("bankPlayerWithdraw",               "bankPlayerWithdraw"          );
+
 // Telephone
 proxy("PhoneCallGUI",               "PhoneCallGUI"                      );
 
