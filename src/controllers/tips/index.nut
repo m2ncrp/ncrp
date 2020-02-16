@@ -59,8 +59,8 @@ alternativeTranslate({
         "en|tips.taxi"         :   "[TIPS] If you need a ride, you can take a taxi from phone booth. Use: /taxi"
         "ru|tips.taxi"         :   "[TIPS] Если вам нужно куда-то добраться, вы можете вызвать такси из телефонной будки: /taxi"
 
-        "en|tips.metro"        :   "[TIPS] Subway is a good way of transportation. Go to the nearest subway station and use: /subway"
-        "ru|tips.metro"        :   "[TIPS] Метро - это удобный и дешевый способ передвижения. Найдите ближайшую станцию с помощью /subway"
+        "en|tips.metro"        :   "[TIPS] Subway is a good way of transportation. Go to the nearest subway station and use: /find subway"
+        "ru|tips.metro"        :   "[TIPS] Метро - это удобный и дешевый способ передвижения. Найдите ближайшую станцию с помощью /find subway"
 
         "en|tips.house"        :   "[TIPS] You can buy a house, just find an estate agent, and settle a deal."
         "ru|tips.house"        :   "[TIPS] Вы можете купить дом. Найдите риелтора, чтобы заключить сделку."
@@ -98,8 +98,8 @@ alternativeTranslate({
         "en|tips.chatvisible"  :   "[TIPS] Press F5 to show/hide window of chat."
         "ru|tips.chatvisible"  :   "[TIPS] Если вы хотите скрыть чат - нажмите клавишу F5. Повторное нажатие отобразит чат."
 
-        "en|tips.turnlights"   :   "[TIPS] Z - left turn lights; X - hazard lights; C - right turn lights."
-        "ru|tips.turnlights"   :   "[TIPS] Z - левый поворотник; X - аварийка; C - правый поворотник."
+        "en|tips.turnlights"   :   "[TIPS] X - left turn lights; C - right turn lights; H - hazard lights."
+        "ru|tips.turnlights"   :   "[TIPS] X - левый поворотник; C - правый поворотник; H - аварийка."
 
         "en|tips.hat"          :   "[TIPS] Use /hat COUNT for pull a ball from hat, where COUNT balls in hat."
         "ru|tips.hat"          :   "[TIPS] /hat X - вытащить из шляпы один шар из X шаров."
@@ -148,7 +148,7 @@ event("onServerMinuteChange", function() {
     foreach (playerid, value in players) {
         if (getPlayerName(playerid) in tipsToggles) continue;
 
-        msg(playerid, tip, CL_JORDYBLUE);
+        msg(playerid, tip, CL_MALIBU);
     }
 });
 
