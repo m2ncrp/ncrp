@@ -521,7 +521,8 @@ alternativeTranslate({
     "en|auth.error.cmderror"   : "[AUTH] You can't execute commands without registration."
     "en|auth.notification"     : "[AUTH] You should enter into your account via /login PASSWORD, or create new one via /register PASSWORD"
     "en|auth.error.tomany"     : "You cant register more accounts."
-    "en|auth.client.notloaded" : "Please wait until download files has finished!"
+    "ru|auth.client.notloaded1" : "Please wait until download files has finished."
+    "ru|auth.client.notloaded2" : "If the authorization window does not appear, reconnect to the server."
     "en|auth.haveproblems"     : "     RU-localized site: mafia2online.ru | We're in Discord: bit.ly/m2ncrp"
 
 
@@ -539,7 +540,8 @@ alternativeTranslate({
     "ru|auth.notification"     : "[AUTH] Вам нужно войти в свой аккаунт используя /login ваш_пароль, или создать новый через /register ваш_пароль"
     "ru|auth.error.tomany"     : "Вы достигли лимита по количеству аккаунтов."
     "ru|auth.error.email"      : "Такой email адрес уже используется!"
-    "ru|auth.client.notloaded" : "Дождитесь пока завершится загрузка всех файлов и появится окно регистрации или ввода пароля!"
+    "ru|auth.client.notloaded1" : "Дождитесь пока завершится загрузка всех файлов."
+    "ru|auth.client.notloaded2" : "По её завершению, если не появилось окно авторизации, переподключитесь к серверу."
     "ru|auth.haveproblems"     : "  Сайт: mafia2online.ru | vk.com/m2ncrp | Мы в Discord: bit.ly/m2ncrp"
 
 
