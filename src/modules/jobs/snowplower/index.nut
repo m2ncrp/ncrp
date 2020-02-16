@@ -1105,6 +1105,12 @@ event("onPlayerConnect", function(playerid) {
 event("onServerPlayerStarted", function( playerid ){
 
     if(isSnowplowDriver(playerid)) {
+
+        if(isSummer()) {
+            setPlayerJob(playerid, null);
+            return;
+        }
+
         createText (playerid, "leavejob3dtext", SNOWPLOW_JOB_X, SNOWPLOW_JOB_Y, SNOWPLOW_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), RADIUS_SNOWPLOW_SMALL );
 
         if (getPlayerJobState(playerid) == "working") {

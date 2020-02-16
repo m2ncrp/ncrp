@@ -1,15 +1,17 @@
+
 include("controllers/command");
 include("controllers/event");
 include("controllers/translator");
 include("controllers/database");
 include("controllers/keyboard");
 include("controllers/chat");
+include("controllers/settings");
 include("controllers/3dtext");
 include("controllers/blip");
 include("controllers/time");
 include("controllers/auth");
 include("controllers/forgotpage");
-include("controllers/weather");
+
 include("controllers/world");
 include("controllers/player");
 include("controllers/money");
@@ -31,3 +33,5 @@ include("controllers/fraction");
 include("controllers/admin");
 include("controllers/donate");
 include("controllers/handshakes");
+include("controllers/weather");
+
