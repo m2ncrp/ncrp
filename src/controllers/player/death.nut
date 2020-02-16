@@ -62,10 +62,10 @@ event("onPlayerSpawn", function(playerid) {
     // maybe deduct some money...
     if (canMoneyBeSubstracted(playerid, HOSPITAL_AMOUNT)) {
         msg(playerid, "hospital.money.deducted", [HOSPITAL_AMOUNT], CL_SUCCESS);
-        players[playerid].health = 730.0;
+        players[playerid].health = 720.0;
     } else {
         msg(playerid, "hospital.money.donthave", [], CL_ERROR);
-        players[playerid].health = 370.0;
+        players[playerid].health = 210.0;
     }
 
     // repsawn at the hospital
