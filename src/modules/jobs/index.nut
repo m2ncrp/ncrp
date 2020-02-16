@@ -72,7 +72,7 @@ function createPersonalJobBlip(playerid, x, y, icon = ICON_STAR) {
     if (!(getCharacterIdFromPlayerId(playerid) in playerJobBlips)) {
         playerJobBlips[getCharacterIdFromPlayerId(playerid)] <- [];
     }
-    playerJobBlips[getCharacterIdFromPlayerId(playerid)].push(createPrivateBlip(playerid, x, y, icon, 4000.0));
+    playerJobBlips[getCharacterIdFromPlayerId(playerid)].push(createPrivateBlip(playerid, x, y, icon, 150.0));
 }
 
 function removePersonalJobBlip(playerid) {

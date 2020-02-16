@@ -68,6 +68,10 @@ function isSummer() {
     return SERVER_IS_SUMMER;
 }
 
+function setWinter(value) {
+    return setSettingsValue("isWinter", value)
+}
+
 local nativeSetWeather = setWeather;
 
 function setWeather(name) {
@@ -164,4 +168,10 @@ event("onClientSuccessfulyStarted", function(playerid) {
 
 acmd("resetweather", function(playerid) {
     resetWeather()
+});
+
+acmd("winter", function(playerid, value = null) {
+    if(!value) return msg(playerid, "Формат: /winter true/false")
+    setWinter(value);
+    msg(playerid, "Зима будет %s после рестарта сервера", [value ? "включена" : "отключена"])
 });
