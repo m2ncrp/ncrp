@@ -1,72 +1,6 @@
 include("modules/rentcar/commands.nut");
-include("modules/rentcar/rent.nut");
-include("modules/rentcar/lease.nut");
 
-local RENT_PLATE_PREFIX = "CR-";
-/*
-
-    TODO:
-    Проверка на налог при выставлении в аренду
-    + Проверка на возможность арендовать
-    + Проверка на возможность выставить в аренду
-    Штрафстоянка и как забирать если авто в аренде
-    Как найти авто, если его игрок где-то бросил (позвонить в 0192, там пункт найти мою машину, ввести номе, отобразить метку на карте)
-
-
-		Админиские команды:
-		  принудительно снять автомобиль из аренды
-			запретить игроку сдавать автомобиль в аренду если игрок оффлайн
-			разрешить игроку сдавать автомобиль в аренду если игрок оффлайн
-			запретить игроку арендовать автомобиль если игрок оффлайн
-			разрешить игроку арендовать автомобиль если игрок оффлайн
-
-
-
-    1. Территория, на которой можно поставить машину в аренду
-        северный миллвилл,
-        на tg 9,
-        в вест сайде,
-        на вокзале,
-        в гринфилде,
-        истсайд (парковка),
-        парковка за баром фредди
-        ойстер-бей (у забегаловки)
-        у планетария
-    2. Команда для выставления машины в аренду:
-        автомобиль должен быть чистый,
-        топлива должно быть не менее 80% от размера бака
-        автомобиль должен быть личный
-        ПРОВЕРКА НА НАЛОГ
-        в наличке должно быть не менее 50 долларов депозита (кладётся на баланс авто)
-
-       а) записывает позицию
-       б) записывает стоимость, которую указал игрок
-       в) повторный вызов не перезаписывает, а уведомляет что машина уже в аренде
-       г) нужно внести депозит для заправки автомобиля 50 долларов.
-    3. Команда для снятия машины из аренды
-       а) удаляет информацию о стоимости авто и позицию.
-       б) возвращает все деньги с баланса в наличку игроку (за вычетом комиссии)
-
-    4. номер телефона, для получения информации и меток на карте, где можно поставить авто в аренду (0192)
-    5. деньги за поездку записываются на счёт автомобиля
-    6. заправить автомобиль может любой игрок, арендовавший машину и приехавший на заправку (деньги за заправку списываются со счёта автомобиля)
-    7. если автомобиль находится в аренде, то отправка на шс возвращает его на место аренды. Если автомобиль не может попасть на место аренды, то найти автомобиль, который занимает место аренды, если он не арендный - отправить его на шс, и повторно отправить арендный автомобиль.
-    8. если на месте, куда должен отправиться автомобиль, есть другой автомобиль в радиусе 3,5 метров, то отправка невозможна (пытаться отправить каждый игровой час)
-
-    Команда просмотра сведений по автомобилю:
-        Денег на балансе автомобиля
-        Количество аренд за период выставления на аренду
-        Топлива есть из всего
-
-
-    Условия:
-    1) при посадке в автомобиль появляется окно об аренде, если игрок не является владельцем
-    2) при посадке в автомобиль появляется сообщение в чате о том, что можно забрать автомобиль из аренды, если он находится в радиусе 1 метра от начальной позиции и игрок является владельцем
-
-*/
-
-
-
+local rentcars = {};
 event ("onServerStarted", function() {
     log("[vehicles] loading rent cars module...");
 
@@ -81,46 +15,46 @@ event ("onServerStarted", function() {
     rentcars[createVehicle(52, 548.724, 802.5, -12.5, 45.0359, 0.392815, 0.00316114)]   <- [ "free" ];
 */
 
-//    rentcars[createVehicle( 43, 554.652, 802.5, -12.5, 38.7988, 0.134398, -0.381655 )]    <- [ "free" ];
-//    rentcars[createVehicle( 53, 548.724, 802.5, -12.5, 45.0359, 0.392815, 0.00316114)]    <- [ "free" ];
+    rentcars[createVehicle( 43, 554.652, 802.5, -12.5, 38.7988, 0.134398, -0.381655 )]    <- [ "free" ];
+    rentcars[createVehicle( 53, 548.724, 802.5, -12.5, 45.0359, 0.392815, 0.00316114)]    <- [ "free" ];
 
     //bus staion
-//    rentcars[createVehicle( 43, -430.506, 453.544, 0.763816, 179.807, -0.185194, 0.771896 )]    <- [ "free" ];
+    rentcars[createVehicle( 43, -430.506, 453.544, 0.763816, 179.807, -0.185194, 0.771896 )]    <- [ "free" ];
 
     // trago oil
-//    rentcars[createVehicle( 43,  532.395, -336.788, -20.0606, -8.815 , 0.0442939, 0.574663 )]    <- [ "free" ];
+    rentcars[createVehicle( 43,  532.395, -336.788, -20.0606, -8.815 , 0.0442939, 0.574663 )]    <- [ "free" ];
 
     //chinatown
-//    rentcars[createVehicle( 43,  306.911,96.4485,-21.3215, 27.8837,0.570526,-0.479447 )]    <- [ "free" ];
+    rentcars[createVehicle( 43,  306.911,96.4485,-21.3215, 27.8837,0.570526,-0.479447 )]    <- [ "free" ];
 
 
     // Vokzal
-//    rentcars[createVehicle(43, -547.328, 1583.16, -16.3215, 1.03211, 0.00669244, -0.743004)]  <- [ "free" ];
+    rentcars[createVehicle(43, -547.328, 1583.16, -16.3215, 1.03211, 0.00669244, -0.743004)]  <- [ "free" ];
     //rentcars[createVehicle(44, -539.312, 1600.12, -16.3687, -179.923, -0.285566, 0.826165)]   <- [ "free" ];
     //rentcars[createVehicle(44, -536.281, 1599.85, -16.4633, -179.624, -0.121403, 0.225714)]   <- [ "free" ];
 
     //Port
     //rentcars[createVehicle(44, -419.388, -667.238, -20.8829, 87.5226, -0.29715, -1.18796)]  <- [ "free" ];
-//    rentcars[createVehicle(43, -419.314, -677.798, -21.2509, 90.0, 0.213046, -1.64081)]    <- [ "free" ];
+    rentcars[createVehicle(43, -419.314, -677.798, -21.2509, 90.0, 0.213046, -1.64081)]    <- [ "free" ];
     //rentcars[createVehicle(43, -419.57, -670.935, -21.0624, 88.1328, -0.25944, -1.9095)]    <- [ "free" ];
     //rentcars[createVehicle(23, -419.314, -677.798, -21.2509, 90.0, 0.213046, -1.64081)]     <- [ "free" ];
 
     // Stadium
-//    rentcars[createVehicle(43, -1280.16,1332.96,-13.5016, -90.4743,-0.686156,-0.328493)]    <- [ "free" ];
+    rentcars[createVehicle(43, -1280.16,1332.96,-13.5016, -90.4743,-0.686156,-0.328493)]    <- [ "free" ];
 
     // Hospital
-//    rentcars[createVehicle( 43, -411.542, 898.964, -19.8691, 135.539, 0.374965, 0.695333 )]    <- [ "free" ];
+    rentcars[createVehicle( 43, -411.542, 898.964, -19.8691, 135.539, 0.374965, 0.695333 )]    <- [ "free" ];
 
-// foreach (idx, value in rentcars) {
-//     setVehiclePlateText(idx, getRandomVehiclePlate("CR"));
-//     local modelid = getVehicleModel(idx);
-//     setVehicleDirtLevel(idx, 0);
-//     if(modelid == 41 || modelid == 25 || modelid == 31) {
-//         setVehicleColour(idx, 120, 80, 10, 170, 120, 10);
-//         continue;
-//     }
-//     setVehicleColour(idx, 170, 120, 10, 120, 80, 10);
-// }
+    foreach (idx, value in rentcars) {
+        setVehiclePlateText(idx, getRandomVehiclePlate("CR"));
+        local modelid = getVehicleModel(idx);
+        setVehicleDirtLevel(idx, 0);
+        if(modelid == 41 || modelid == 25 || modelid == 31) {
+            setVehicleColour(idx, 120, 80, 10, 170, 120, 10);
+            continue;
+        }
+        setVehicleColour(idx, 170, 120, 10, 120, 80, 10);
+    }
 
     // need for helper in game
 /*  local houston = createVehicle(9, 1037.01, 842.146, -3.55631, 70.4218, 5.2121, 0.6804);
@@ -130,43 +64,143 @@ event ("onServerStarted", function() {
 */
     // end
 
-    createBlip  (  570.26, 830.175, ICON_CAR, 150.0);
+    createBlip  (  570.26, 830.175, ICON_CAR, ICON_RANGE_FULL);
 });
 
 function isPlayerCarRent(playerid) {
-    local vehicleid = getPlayerVehicle(playerid);
-    if(vehicleid == false) return false;
-    return isVehicleCarRent(vehicleid);
+    return (getPlayerVehicle(playerid) in rentcars);
 }
 
 function isVehicleCarRent(vehicleid) {
-    local veh = getVehicleEntity(vehicleid);
-    if(veh == null) return false;
-    return ("rent" in veh.data)
+    return (vehicleid in rentcars);
 }
 
 function getVehicleRentPrice(vehicleid) {
-
-    // local plate = getVehiclePlateText(vehicleid);
-    // if(plate.find(RENT_PLATE_PREFIX) == 0) {
-    //     local modelid = getVehicleModel(vehicleid);
-    //     return getCarInfoModelById(modelid).rent.tofloat();
-    // }
-
-    local veh = getVehicleEntity(vehicleid);
-    if(veh == null || !("rent" in veh.data)) return 0.0;
-
-    return veh.data.rent.price;
+    local modelid = getVehicleModel(vehicleid);
+    return getCarInfoModelById(modelid).rent.tofloat();
 }
 
+function getPlayerWhoRentVehicle(vehicleid) {
+    return rentcars[vehicleid][0];
+}
 
-/*
-
-    if("rent" in veh.data == false) {
-        veh.data.rent <- {
-
-
-        }
+function RentCar(playerid) {
+    if (!isPlayerInVehicle) {
+        return msg(playerid, "rentcar.goto");
+    }
+    if(!isPlayerCarRent(playerid)) {
+        return msg(playerid, "rentcar.notrent");
     }
 
-    */
+    local vehicleid = getPlayerVehicle(playerid);
+    local minute = getMinute().tofloat();
+    local minutesleft = ceil( minute / 10 ) * 10 - minute; // minutes to near largest round number: if minute == 36 then minutesleft = 4
+    if (minutesleft == 0) { minutesleft = 10; }
+    local rentprice = getVehicleRentPrice(vehicleid).tofloat()*minutesleft;
+
+    if(!canMoneyBeSubstracted(playerid, rentprice)) {
+        return msg(playerid, "rentcar.notenough");
+    }
+    rentcars[vehicleid][0] = playerid;
+    unblockDriving(vehicleid);
+    setVehicleFuel(vehicleid, 28.0);
+    setVehicleRespawnEx(vehicleid, false);
+    subMoneyToPlayer( playerid, rentprice );
+    addMoneyToTreasury(rentprice);
+    msg(playerid, "rentcar.rented");
+    msg(playerid, "rentcar.paidcar", [ rentprice ] );
+}
+addEventHandler("RentCar", RentCar);
+
+function RentCarRefuse(playerid) {
+    if(isPlayerInVehicle && isPlayerCarRent(playerid)) {
+        local vehicleid = getPlayerVehicle(playerid);
+        setVehicleFuel(vehicleid, 0.0);
+        setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
+    }
+
+    foreach (vehicleid, value in rentcars) {
+        if (value[0] == playerid) {
+            rentcars[vehicleid][0] = "free";
+            setVehicleRespawnEx(vehicleid, true);
+        }
+    }
+    msg(playerid, "rentcar.refused");
+}
+
+event ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
+    if(isPlayerCarRent(playerid) && seat == 0) {
+        local whorent = getPlayerWhoRentVehicle(vehicleid);
+        if(whorent != playerid) {
+            blockDriving(playerid, vehicleid);
+            //msg(playerid, "rentcar.canrent", [getVehicleRentPrice(vehicleid)*10, getVehicleRentPrice(vehicleid)*60 ]);
+            showRentCarGUI(playerid, vehicleid);
+        } else {
+            unblockDriving(vehicleid);
+        }
+    }
+});
+
+event ( "onPlayerVehicleExit", function ( playerid, vehicleid, seat ) {
+    if (vehicleid in rentcars && seat == 0) {
+        blockDriving(playerid, vehicleid);
+    }
+});
+
+event( "onPlayerDisconnect",  function ( playerid, reason ) {
+        foreach (vehicleid, value in rentcars) {
+            if (value[0] == "free") {
+                continue;
+            }
+            if (playerid == value[0]) {
+                setVehicleFuel(vehicleid, 0.0);
+                setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
+                rentcars[vehicleid][0] = "free";
+                setVehicleRespawnEx(vehicleid, true);
+            }
+        }
+});
+
+
+event ("onServerMinuteChange", function() {
+    if (((getMinute()+1) % 10.0) != 0) {
+        return;
+    }
+// called every game time minute changes
+    foreach (vehicleid, value in rentcars) {
+        if (value[0] == "free") {
+            setVehicleFuel(vehicleid, 0.0);
+            continue;
+        }
+        local playerid = value[0];
+        local price = getVehicleRentPrice(vehicleid).tofloat();
+        if(!canMoneyBeSubstracted(playerid, price)) {
+            setVehicleFuel(vehicleid, 0.0);
+            setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
+            rentcars[vehicleid][0] = "free";
+            setVehicleRespawnEx(vehicleid, true);
+            msg(playerid, "rentcar.cantrent");
+        } else {
+            local rentprice = price * 10;
+            subMoneyToPlayer(playerid, rentprice );
+            addMoneyToTreasury(rentprice);
+            msg(playerid, "rentcar.paidcar", [ rentprice ] );
+            msg(playerid, "rentcar.refuse");
+        }
+    }
+});
+
+
+event("onPlayerPhoneCall", function(playerid, number, place) {
+    if(number == "0192") {
+        msg(playerid, "You call to North Millville Car Rental. If you want to rent car - go to our parking in North Millville.");
+    }
+});
+
+function showRentCarGUI(playerid, vehicleid){
+    local windowText =  plocalize(playerid, "rentcar.gui.window");
+    local labelText =   plocalize(playerid, "rentcar.gui.canrent", [getVehicleRentPrice(vehicleid)*10, getVehicleRentPrice(vehicleid)*60]);
+    local button1Text = plocalize(playerid, "rentcar.gui.buttonRent");
+    local button2Text = plocalize(playerid, "rentcar.gui.buttonRefuse");
+    triggerClientEvent(playerid, "showRentCarGUI", windowText,labelText,button1Text,button2Text);
+}

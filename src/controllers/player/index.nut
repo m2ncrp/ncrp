@@ -19,7 +19,6 @@ include("controllers/player/commands.nut");
 include("controllers/player/spawn.nut");
 include("controllers/player/bannednames.nut");
 include("controllers/player/hunger.nut");
-include("controllers/player/data.nut");
 
 // create storage for players
 players  <- PlayerContainer();

@@ -39,7 +39,7 @@ function loadBusinessResources(entity) {
     local info = getBusinessInfo(entity.type);
 
     // не создавать оружейки
-    if (info.type == 3) return;
+    // if (info.type == 3) return;
 
     if (entity.type != BUSINESS_DEFAULT && info && info.info) {
         entity.text3 = create3DText( entity.x, entity.y, entity.z + 0.20, info.info, CL_WHITE.applyAlpha(75), BUSINESS_INTERACT_DISTANCE );

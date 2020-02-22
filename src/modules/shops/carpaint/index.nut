@@ -121,7 +121,7 @@ event("onServerStarted", function() {
     create3DText ( CARPAINT_COORDS_PLACE[0], CARPAINT_COORDS_PLACE[1], CARPAINT_COORDS_PLACE[2]+0.00, "Press 2 to change color", CL_WHITE.applyAlpha(150), CARPAINT_RADIUS_SMALL );
     create3DText ( CARPAINT_COORDS_PLACE[0], CARPAINT_COORDS_PLACE[1], CARPAINT_COORDS_PLACE[2]-0.25, "Press 1 to reset", CL_WHITE.applyAlpha(150), CARPAINT_RADIUS_SMALL );
 
-    createBlip  (  CARPAINT_COORDS_PLACE[0], CARPAINT_COORDS_PLACE[1], [ 14, 4 ], 150.0);
+    createBlip  (  CARPAINT_COORDS_PLACE[0], CARPAINT_COORDS_PLACE[1], [ 14, 4 ], 4000.0);
 });
 
 

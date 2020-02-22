@@ -71,31 +71,8 @@ event("onServerStarted", function() {
                 continue;
             }
             */
-
-            // init vehicle positions and rotations
-            local x = vehicle.x;
-            local y = vehicle.y;
-            local z = vehicle.z;
-            local rx = vehicle.rx;
-            local ry = vehicle.ry;
-            local rz = vehicle.rz;
-
-            local data = JSONParser.parse(vehicle.data);
-
-            if("defaultPos" in data) {
-                x = data.defaultPos.x;
-                y = data.defaultPos.y;
-                z = data.defaultPos.z;
-            }
-
-            if("defaultRot" in data) {
-                rx = data.defaultRot.x;
-                ry = data.defaultRot.y;
-                rz = data.defaultRot.z;
-            }
-
             // create vehicle
-            local vehicleid = createVehicle( vehicle.model, x, y, z, rx, ry, rz );
+            local vehicleid = createVehicle( vehicle.model, vehicle.x, vehicle.y, vehicle.z, vehicle.rx, vehicle.ry, vehicle.rz );
 
             // load all the data
             setVehicleColour      ( vehicleid, vehicle.cra, vehicle.cga, vehicle.cba, vehicle.crb, vehicle.cgb, vehicle.cbb );
@@ -110,7 +87,7 @@ event("onServerStarted", function() {
             setVehicleRespawnEx   ( vehicleid, false );
             setVehicleSaving      ( vehicleid, true );
             setVehicleEntity      ( vehicleid, vehicle );
-            setVehicleData        ( vehicleid, data, { parsed = true } );
+            setVehicleData        ( vehicleid, vehicle.data );
 
             // block vehicle by default
             blockVehicle          ( vehicleid );
@@ -179,10 +156,8 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
             unblockDriving(vehicleid);
             setVehicleOwner(vehicleid, playerid);
         } else {
-            if(!isVehicleCarRent(vehicleid)) {
-              msg(playerid, "vehicle.owner.warning", CL_WARNING);
-            }
             blockDriving(playerid, vehicleid);
+            msg(playerid, "vehicle.owner.warning", CL_WARNING);
         }
     }
 
@@ -206,10 +181,6 @@ key(["f"], function(playerid) {
     }
 
     if (!isPlayerHaveVehicleKey(playerid, vehicleid)) {
-        setVehicleEngineState(vehicleid, true)
-        delayedFunction(125, function() {
-            setVehicleEngineState(vehicleid, false)
-        })
         return;
     }
 

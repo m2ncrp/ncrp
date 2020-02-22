@@ -3,9 +3,8 @@
  *
  * @param {Integer} vehicleid
  * @param {Mixed} data
- * @param {Mixed} config
  */
-function setVehicleData(vehicleid, data, config = { parsed = false }) {
+function setVehicleData(vehicleid, data) {
 
     if (!(vehicleid in __vehicles)) {
         return dbg("[vehicle] setVehicleData: __vehicles no vehicleid #" + vehicleid);
@@ -16,8 +15,7 @@ function setVehicleData(vehicleid, data, config = { parsed = false }) {
         __vehicles[vehicleid].entity.data <- {}
     }
 
-    // Если в config указано, что data уже распаршена, то просто записываем
-    __vehicles[vehicleid].entity.data = config.parsed ? data : JSONParser.parse(data);
+    __vehicles[vehicleid].entity.data = JSONParser.parse(data);
 
     return true;
 }

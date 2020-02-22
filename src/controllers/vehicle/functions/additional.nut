@@ -24,7 +24,7 @@ function setVehiclePositionObj ( vehicleid, objpos ) {
  */
 function getVehicleRotationObj ( vehicleid ) {
     local vehRot = getVehicleRotation( vehicleid );
-    return { x = vehRot[0], y = vehRot[1], z = vehRot[2] };
+    return { rx = vehRot[0], ry = vehRot[1], rz = vehRot[2] };
 }
 
 /**
@@ -33,5 +33,5 @@ function getVehicleRotationObj ( vehicleid ) {
  * @param {object} objrot
  */
 function setVehicleRotationObj ( vehicleid, objrot ) {
-    setVehicleRotation(vehicleid, objrot.x, objrot.y, objrot.z);
+    setVehicleRotation(vehicleid, objrot.rx, objrot.ry, objrot.rz);
 }

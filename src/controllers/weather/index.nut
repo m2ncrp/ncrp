@@ -1,4 +1,4 @@
-// include("controllers/weather/commands.nut");
+//include("controllers/weather/commands.nut");
 
 /**
  * This array contains all the weathers and are ordered to fit the hour
@@ -41,16 +41,22 @@ local WEATHERS = {
         [21, 23, ["DT02NewStart1", "DT03part03MariaAgnelo", "DT02NewStart2", "DT03part04PriceOffice"] ],
 */
 
-        [0, 7, [ "DT02NewStart2", "DT03part04PriceOffice", "DT04part02" ] ],
-        [8, 8, [ "DT05part01JoesFlat" ] ],
-        [9, 9, [ "DT03part01JoesFlat" ] ],
-        [10, 11, [ "DTFreeRideDaySnow", "DT05part02FreddysBar", "DT05part04Distillery" ] ],
-        [12, 14, [ "DTFreeRideDayWinter", "DT04part01JoesFlat", "DT02part01Railwaystation", "DT05part03HarrysGunshop" ] ],
-        [15, 17, [ "DT05part05ElGreco", "DT02part02JoesFlat", "DT02part03Charlie" ] ],
-        [18, 19, [ "DT02part04Giuseppe", "DT03part02FreddysBar", "DT05Distillery_inside" ] ],
-        [20, 20, [ "DT02part05Derek", "DT05part06Francesca"] ],
-        [21, 22, [ "DT02NewStart1", "DT03part03MariaAgnelo" ] ],
-        [23, 23, [ "DT02NewStart2", "DT03part04PriceOffice", "DT03part03MariaAgnelo"] ],
+
+[0, 7, [ "DT02NewStart2", "DT03part04PriceOffice", "DT04part02" ] ],
+[8, 8, [ "DT05part01JoesFlat" ] ],
+[9, 9, [ "DT03part01JoesFlat" ] ],
+[10, 11, [ "DTFreeRideDaySnow", "DT05part02FreddysBar", "DT05part04Distillery" ] ],
+[12, 14, [ "DTFreeRideDayWinter", "DT04part01JoesFlat", "DT02part01Railwaystation", "DT05part03HarrysGunshop" ] ],
+[15, 17, [ "DT05part05ElGreco", "DT02part02JoesFlat", "DT02part03Charlie" ] ],
+[18, 19, [ "DT02part04Giuseppe", "DT03part02FreddysBar", "DT05Distillery_inside" ] ],
+[20, 20, [ "DT02part05Derek"] ],
+[21, 22, [ "DT02NewStart1", "DT03part03MariaAgnelo" ] ],
+[23, 23, [ "DT02NewStart2", "DT03part04PriceOffice", "DT03part03MariaAgnelo"] ],
+
+
+
+
+
 
     ]
 };
@@ -58,10 +64,11 @@ local WEATHERS = {
 /*
     Bugs weather
 
-    nothing
 */
 
-local SERVER_IS_SUMMER = true;
+
+
+local SERVER_IS_SUMMER = false;
 local WEATHER_CHANGE_TRIGGER = 0;
 local SERVER_WEATHER = null;
 
@@ -126,21 +133,13 @@ event("onServerSecondChange", function() {
                 randWeather = "DT02NewStart2";
             } else if (SERVER_WEATHER == "DT03part03MariaAgnelo") {
                 randWeather = "DT03part04PriceOffice";
-            } else if (SERVER_WEATHER == "DT02part02JoesFlat") {
-                randWeather = "DT02part03Charlie";
-            } else if (SERVER_WEATHER == "DT02part03Charlie") {
-                randWeather = "DT02part04Giuseppe";
-            } else if (SERVER_WEATHER == "DT02part04Giuseppe") {
-                randWeather = "DT02part05Derek";
-            } else if (SERVER_WEATHER == "DT03part03MariaAgnelo") {
-                randWeather = "DT03part04PriceOffice";
             } else {
                 randWeather = weathers[i][2][random(0, weathers[i][2].len()-1)];
             }
 
             // Set the random weather for all players
             setWeather(randWeather);
-            // nativeSetWeather(randWeather);
+            nativeSetWeather(randWeather);
 
             // Change SERVER_WEATHER string
             SERVER_WEATHER = randWeather;
@@ -148,8 +147,8 @@ event("onServerSecondChange", function() {
             dbg("server", "weather", SERVER_WEATHER);
 
             // Generate a new number when weather change will happen again
-            // New count is between 45 and 120 in-game minutes.
-            WEATHER_CHANGE_TRIGGER = random(45 * WORLD_SECONDS_PER_MINUTE, 120 * WORLD_SECONDS_PER_MINUTE);
+            // New count is between 20 and 75 in-game minutes.
+            WEATHER_CHANGE_TRIGGER = random(55 * WORLD_SECONDS_PER_MINUTE, 175 * WORLD_SECONDS_PER_MINUTE);
 
             // Break out of the loop
             break;
@@ -160,8 +159,4 @@ event("onServerSecondChange", function() {
 // register auto weather sync on player spawn
 event("onPlayerSpawn", function(playerid) {
     trigger(playerid, "onServerWeatherSync", SERVER_WEATHER);
-});
-
-acmd("resetweather", function(playerid) {
-    resetWeather()
 });

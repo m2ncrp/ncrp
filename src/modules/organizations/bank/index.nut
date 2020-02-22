@@ -48,7 +48,7 @@ event("onServerStarted", function() {
 */
     create3DText ( BANK_OFFICE_X, BANK_OFFICE_Y, BANK_OFFICE_Z+0.20, "/bank", CL_WHITE.applyAlpha(75), BANK_RADIUS );
 
-    createBlip(BANK_OFFICE_X, BANK_OFFICE_Y, ICON_DOLLAR, 150.0 )
+    createBlip(BANK_OFFICE_X, BANK_OFFICE_Y, ICON_DOLLAR, 4000.0 )
 });
 
 event("onServerPlayerStarted", function( playerid ) {

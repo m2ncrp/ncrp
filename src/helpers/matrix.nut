@@ -49,10 +49,10 @@ function transpMatrix(A)
  */
 function customEulerAngles(rotationVector) {
 
-    // преобразования под игру
-    local angleX = torad( rotationVector.z );
-    local angleY = torad( rotationVector.y );
-    local angleZ = torad( rotationVector.x );
+    // преобразовнаия под игру
+    local angleX = torad( rotationVector.rz );
+    local angleY = torad( rotationVector.ry );
+    local angleZ = torad( rotationVector.rx );
 
     // в скобках везду берём обратные величины (со знаком минус)
     local mX = [
