@@ -2078,6 +2078,70 @@ vehicleInfo <- {
         weight_kg  = [942.0, 870.0, 870.0],
         heat_limit = null,
     },
+    model_60 = {
+        gamename = "beetle",
+        name = "Volkswagen Beetle",
+        seats = 4,
+        triggers = {
+            front_left_wheel      = [-1.2800,  1.4500],
+            front_right_wheel     = [ 1.2800,  1.4500],
+            middle_left_wheel     = null,
+            middle_right_wheel    = null,
+            rear_left_wheel       = [-1.2800, -1.4000],
+            rear_right_wheel      = [ 1.2800, -1.4000],
+            hood                  = [ 0.0000,  2.5500],
+            trunk                 = [ 0.0000, -2.5500],
+                // Doors
+            front_left_door       = [-1.2800,  0.1000],
+            front_right_door      = [ 1.2800,  0.1000],
+            back_left_door        = null,
+            back_right_door       = null,
+        },
+        tank = 50.0,
+        trunk = {
+            gridSizeX = 2,
+            gridSizeY = 3,
+            volumeLimit = 225,
+        },
+        engine = {
+            top_speed_mph = [66.0,  66.0,  90.0],
+            top_speed_kmh = [107.0, 107.0, 145.0],
+        },
+        weight_kg  = [942.0, 870.0, 870.0],
+        heat_limit = null,
+    },
+    model_61 = {
+        gamename = "fordsedan",
+        name = "Ford Custom Fordor 1949",
+        seats = 4,
+        triggers = {
+            front_left_wheel      = [-1.2800,  1.4500],
+            front_right_wheel     = [ 1.2800,  1.4500],
+            middle_left_wheel     = null,
+            middle_right_wheel    = null,
+            rear_left_wheel       = [-1.2800, -1.4000],
+            rear_right_wheel      = [ 1.2800, -1.4000],
+            hood                  = [ 0.0000,  2.5500],
+            trunk                 = [ 0.0000, -2.5500],
+                // Doors
+            front_left_door       = [-1.2800,  0.1000],
+            front_right_door      = [ 1.2800,  0.1000],
+            back_left_door        = null,
+            back_right_door       = null,
+        },
+        tank = 50.0,
+        trunk = {
+            gridSizeX = 2,
+            gridSizeY = 3,
+            volumeLimit = 225,
+        },
+        engine = {
+            top_speed_mph = [66.0,  66.0,  90.0],
+            top_speed_kmh = [107.0, 107.0, 145.0],
+        },
+        weight_kg  = [942.0, 870.0, 870.0],
+        heat_limit = null,
+    },
 };
 
 

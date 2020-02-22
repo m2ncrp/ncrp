@@ -280,6 +280,9 @@ proxy("onClientSuccessfulyStarted", "onClientSuccessfulyStarted"        );
 proxy("onClientSuccessfulyStartedAgain", "onClientSuccessfulyStartedAgain" );
 proxy("onPlayerLanguageChange",     "onPlayerLanguageChange"            );
 
+proxy("onPlayerWeaponShoot",        "onPlayerWeaponShoot"             );
+proxy("onPlayerWeaponReload",       "onPlayerWeaponReload"            );
+
 proxy("onPlayerShowForgotGUI",      "onPlayerShowForgotGUI"             );
 proxy("onPlayerHideForgotGUI",      "onPlayerHideForgotGUI"             );
 proxy("onPlayerGetLoginByEmail",    "onPlayerGetLoginByEmail"           );
@@ -330,3 +333,11 @@ proxy("shop:purchase",              "native:shop:purchase"               );
 if (__DEBUG__EXPORT) {
     dbg(__commands);
 }
+
+event("onPlayerWeaponShoot", function(playerid) {
+    msg(playerid, "Пиу")
+})
+
+event("onPlayerWeaponReload", function(playerid) {
+    msg(playerid, "Перезарядка", CL_ERROR)
+})
