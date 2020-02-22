@@ -49,6 +49,8 @@ function RentCarRefuse(playerid) {
     msg(playerid, "rentcar.refused");
 }
 
+cmd("unrent", RentCarRefuse);
+
 event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
     if(isVehicleCarRent(vehicleid) && seat == 0) {
         local charid = getCharacterIdFromPlayerId(playerid);
