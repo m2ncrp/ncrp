@@ -170,18 +170,24 @@ local interiors = [
 ["onfoot",  "Exit",  "type",  149.652,    -430.939,    -19.429,      "EmpireDinerOysterBayExit3"],
 
 
-// ["onfoot",  "Enter", "type",  310.27,      432.974,    -22.8998,     "ChinaTownEnter", 310.0, 432.0, -25.0],
-// ["onfoot",  "Exit",  "type",  312.828,     426.763,    -25.7714,     "ChinaTownExit"],
+["onfoot",  "Enter", "type",  310.27,      432.974,    -22.8998,     "ChinaTownEnter", 310.0, 432.0, -25.0],
+["onfoot",  "Exit",  "type",  312.828,     426.763,    -25.7714,     "ChinaTownExit", 312.828, 426.763, -25.7714],
 
-// ["onfoot",  "Enter", "type",  305.434,     400.538,    -25.7734,     "ChinaTownLiftEnter"],
-// ["onfoot",  "Exit",  "type",  307.673,     397.318,    -29.5913,     "ChinaTownLiftExit"],
+["onfoot",  "Enter", "type",  305.434,     400.538,    -25.7734,     "ChinaTownLiftEnter"],
+["onfoot",  "Exit",  "type",  307.673,     397.318,    -29.5913,     "ChinaTownLiftExit"],
 
-// ["onfoot",  "Enter", "type",  306.285,     397.738,    -26.5533,      "ChinaTownLiftEnterHelp"],
-// ["onfoot",  "Exit",  "type",  307.673,     397.318,    -29.5913,      "ChinaTownLiftExitHelp"],
+["onfoot",  "Enter", "type",  306.285,     397.738,    -26.5533,      "ChinaTownLiftEnterHelp"],
+["onfoot",  "Exit",  "type",  307.673,     397.318,    -29.5913,      "ChinaTownLiftExitHelp"],
 
+["onfoot",  "Enter", "type",    325.836, 412.82, -25.7734,     "ChinaTownLiftShaftRest"],
+["onfoot",  "Exit",  "type",  326.838, 409.072, -19.4734,      "ChinaTownLiftShaftRest"],
 
 // ["onfoot",  "Enter", "type",  326.867,     412.519,    -25.7734,      "ChinaTownLift2EnterHelp"],
 // ["onfoot",  "Exit",  "type",  326.784,     411.757,     -26.467,      "ChinaTownLift2ExitHelp"],
+
+["onfoot",  "Enter", "type",   318.324, 415.469, -25.7766,     "ChinaTownPodvalDoor"],
+["onfoot",  "Exit",  "type",   319.013, 415.438, -25.7734      "ChinaTownPodvalDoor"],
+
 
 ["onfoot",  "Enter", "type",  -1302.92, 1613.28, 1.22659, "HarryVitrinaExit"],
 ["onfoot",  "Exit",  "type",  -1304.76, 1613.28, 1.22659, "HarryVitrinaEnter"],
@@ -283,7 +289,7 @@ key(["e"], function(playerid) {
     local check = false;
     local i = -1;
     foreach (key, value in interiors) {
-        if (isPlayerInValidPoint(playerid, value[3], value[4], 0.5 )) {
+        if (isPlayerInValidPoint3D(playerid, value[3], value[4], value[5], 0.5 )) {
             check = true;
             i = key;
             break;
@@ -312,18 +318,38 @@ key(["e"], function(playerid) {
             screenFadeinFadeoutEx(playerid, 250, 1000, function() {
                 setPlayerPosition(playerid, interiors[i][7], interiors[i][8], interiors[i][9]);
                     delayedFunction(1000, function () {
-                    i += 1;
-                    setPlayerPosition(playerid, interiors[i][3], interiors[i][4], interiors[i][5]);
-                    freezePlayer( playerid, false );
-                });
+                        i += 1;
+                        setPlayerPosition(playerid, interiors[i][3], interiors[i][4], interiors[i][5]);
+                        delayedFunction(1500, function () {
+                            freezePlayer( playerid, false );
+                        })
+                    });
             });
         }
 
     } else  {
+
         dbg("[ INTERIOR ] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> Exit |> "+interiors[i][6]+".");
-        i -= 1;
-        setPlayerPosition(playerid, interiors[i][3], interiors[i][4], interiors[i][5]);
+
+        if (interiors[i].len() <= 7) {
+            i -= 1;
+            setPlayerPosition(playerid, interiors[i][3], interiors[i][4], interiors[i][5]);
+        } else {
+            freezePlayer( playerid, true );
+            screenFadeinFadeoutEx(playerid, 250, 1000, function() {
+                setPlayerPosition(playerid, interiors[i][7], interiors[i][8], interiors[i][9]);
+                    delayedFunction(1000, function () {
+                        i -= 1;
+                        setPlayerPosition(playerid, interiors[i][3], interiors[i][4], interiors[i][5]);
+                        delayedFunction(1500, function () {
+                            freezePlayer( playerid, false );
+                        })
+                    });
+            });
+        }
+
         removePlayerWeaponChina ( playerid );
+
     }
 
 }, KEY_UP);

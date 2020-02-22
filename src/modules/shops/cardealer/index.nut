@@ -21,7 +21,7 @@ event("onServerStarted", function() {
     create3DText ( coords[0], coords[1], coords[2]+0.35, "CAR DEALER", CL_ROYALBLUE, 4.0 );
     create3DText ( coords[0], coords[1], coords[2]+0.20, "/dealer", CL_WHITE.applyAlpha(100), 2.0 );
 
-    createBlip  ( -1600.67, 1687.52, [ 25, 0 ], 4000.0 );
+    createBlip  ( -1600.67, 1687.52, [ 25, 0 ], 150.0 );
 
     createPlace("CarDealer", -1613.24, 1674.64, -1583.06, 1703.82);
 });

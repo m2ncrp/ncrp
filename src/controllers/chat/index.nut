@@ -78,11 +78,11 @@ alternativeTranslate({
     "en|chat.player.message.error"     : "[PM] You should provide pm in a following format: /pm id text",
     "ru|chat.player.message.error"     : "[PM] Формат личного сообщения: /pm id текст",
 
-    "en|chat.player.message.private.from" : "[PM] You to [%d]: %s",
-    "ru|chat.player.message.private.from" : "[PM] Вы пишете [%d]: %s"
+    "en|chat.player.message.private.from" : "[PM] You to [%s]: %s",
+    "ru|chat.player.message.private.from" : "[PM] Вы пишете [%s]: %s"
 
-    "en|chat.player.message.private.to"   : "[PM] Message from [%d]: %s",
-    "ru|chat.player.message.private.to"   : "[PM] Сообщение от [%d]: %s"
+    "en|chat.player.message.private.to"   : "[PM] Message from [%s]: %s",
+    "ru|chat.player.message.private.to"   : "[PM] Сообщение от [%s]: %s"
 
     "en|chat.player.message.noplayer"  : "[PM] Player is not connected",
     "ru|chat.player.message.noplayer"  : "[PM] Такого игрока нет на сервере.",
@@ -117,8 +117,11 @@ alternativeTranslate({
     "en|help.taxi"              : "Show list of commands for taxi"
     "ru|help.taxi"              : "команды такси"
 
-    "en|help.rentcar"           : "Show list of commands for rent car"
-    "ru|help.rentcar"           : "команды аренды авто"
+    "en|help.rentcar"           : "rent car"
+    "ru|help.rentcar"           : "аренда автомобиля"
+
+    "en|help.leasecar"           : "lease car"
+    "ru|help.leasecar"           : "сдача автомобиля в аренду"
 
     "en|help.job"               : "Show list of commands for job. Example: /help job"
     "ru|help.job"               : "команды работ"
