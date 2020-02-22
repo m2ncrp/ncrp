@@ -122,7 +122,7 @@ event("onPlayerCharacterSelect", function(playerid, id) {
 
         // load character
         trigger("onPlayerCharacterLoaded", playerid, character);
-        triggerClientEvent(playerid, "onPlayerInitMoney", (random(1, 50) +character.money).tofloat());
+        triggerClientEvent(playerid, "onPlayerInitMoney", character.money.tofloat());
         dbg("character", "selected", getIdentity(playerid));
     });
 });

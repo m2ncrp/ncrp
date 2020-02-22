@@ -7,11 +7,13 @@ addEventHandler("onPlayerInitMoney", function(money) {
 });
 
 addEventHandler("onPlayerAddMoney", function(amount) {
-    executeLua("game.game:GetActivePlayer():InventoryAddMoney("+amount+")");
+    local nAmount = amount * 100;
+    executeLua("game.game:GetActivePlayer():InventoryAddMoney("+nAmount+")");
 });
 
 addEventHandler("onPlayerRemoveMoney", function(amount) {
-    executeLua("game.game:GetActivePlayer():InventoryRemoveMoney("+amount+")");
+    local nAmount = amount * 100;
+    executeLua("game.game:GetActivePlayer():InventoryRemoveMoney("+nAmount+")");
 });
 
 function delayedFunction(time, callback, additional = null) {

@@ -2,6 +2,7 @@ function addMoneyToPlayer(playerid, amount) {
     local old_amount = players[playerid]["money"];
     local new_amount = old_amount + amount.tofloat();
     setPlayerMoney(playerid, new_amount);
+    triggerClientEvent(playerid, "onPlayerAddMoney", amount.tofloat())
     dbg("[ MONEY ] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> +"+format("%.2f", amount)+" dollars. Was: $"+format("%.2f", old_amount)+". Now: $"+format("%.2f", new_amount));
 }
 
@@ -21,6 +22,7 @@ function subMoneyToPlayer(playerid, amount) {
     local old_amount = players[playerid]["money"];
     local new_amount = old_amount - amount.tofloat();
     setPlayerMoney(playerid, new_amount);
+    triggerClientEvent(playerid, "onPlayerRemoveMoney", amount.tofloat())
     dbg("[ MONEY ] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> -"+format("%.2f", amount)+" dollars. Was: $"+format("%.2f", old_amount)+". Now: $"+format("%.2f", new_amount));
 }
 
