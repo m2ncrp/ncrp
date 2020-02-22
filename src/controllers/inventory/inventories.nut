@@ -33,7 +33,7 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
         local item = players[playerid].hands.remove(0);
 
         if(item.destroyOnDrop) {
-            inventory.sync();
+            players[playerid].hands.sync();
             item.remove();
         } else {
           local pos  = getPlayerPositionObj(playerid);
