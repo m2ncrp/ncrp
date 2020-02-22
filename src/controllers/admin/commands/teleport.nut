@@ -26,11 +26,11 @@ acmd(["tlist", "tl"], function(playerid, page = "0") {
 
     q.setParameter("page", max(0, page.tointeger()) * 10);
     q.getResult(function(err, results) {
-        sendPlayerMessage(playerid, format("Page %s (for next page /tl <page>):", page) );
+        sendPlayerMessage(playerid, format("Страница %s (cледующая страница /tl %d):", page, (page.tointeger()+1)) );
 
         // list
         return results.map(function(item) {
-            sendPlayerMessage(playerid, format(" #%d. %s", item.id, item.name), 240, 240, 220);
+            sendPlayerMessage(playerid, format("%d. %s", item.id, item.name), 240, 240, 220);
         })
     });
 });

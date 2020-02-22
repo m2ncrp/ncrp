@@ -177,7 +177,7 @@ function setRandomVehicleColors(vehicleid) {
     return false;
 }
 
-acmd("vcr", function(playerid) {
+mcmd(["admin.car"], "vcr", function(playerid) {
     if (!isPlayerInVehicle(playerid)) return;
     setRandomVehicleColors(getPlayerVehicle(playerid));
 })

@@ -3,22 +3,6 @@
 //});
 
 /*
-cmd("d", function(playerid) {
-    msg(playerid, "CMD testing");
-});
-
-acmd("dd", function(playerid) {
-    msg(playerid, "ACMD testing");
-});
-
-mcmd(["admin.kick1"], "ddd", function(playerid) {
-    msg(playerid, "Admin CMD testing");
-});
-
-mcmd(["admin.kick2"], "dddd", function(playerid) {
-    msg(playerid, "Developer CMD testing");
-});
-
 fmd("*", ["admin.kick2"], "$f hhh", function(fraction, character) {
     msg(character.playerid, "тесто");
 });*/

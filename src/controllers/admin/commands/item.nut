@@ -1,4 +1,4 @@
-acmd("item", function( playerid, itemName = 0 ) {
+mcmd(["admin.item"], "item", function( playerid, itemName = 0 ) {
 
     if (itemName == 0) {
         return msg(playerid, "/item VehicleKey | /item Burger");

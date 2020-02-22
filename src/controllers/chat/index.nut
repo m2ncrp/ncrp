@@ -93,21 +93,21 @@ alternativeTranslate({
 
 
 
-    "en|chat.bug.success"              : "[BUG] Your bug report is successfuly saved. Thank you!"
-    "ru|chat.bug.success"              : "[BUG] Ваше сообщение об ошибке успешно отправлено. Спасибо! ;)"
+    "en|chat.bug.success"              : "Your bug report is successfuly saved. Thank you!"
+    "ru|chat.bug.success"              : "Ваше сообщение об ошибке успешно отправлено. Спасибо! ;)"
 
-    "en|chat.idea.success"             : "[IDEA] Your idea has been successfuly submitted!"
-    "ru|chat.idea.success"             : "[IDEA] Ваша идея успешно отправлена!"
+    "en|chat.idea.success"             : "Your idea has been successfuly submitted!"
+    "ru|chat.idea.success"             : "Ваша идея успешно отправлена!"
 
-    "en|chat.report.success"           : "[REPORT] Your report has been successfuly submitted!"
-    "ru|chat.report.success"           : "[REPORT] Ваш репорт успешно отправлен!"
+    "en|chat.report.success"           : "Your report has been successfuly submitted!"
+    "ru|chat.report.success"           : "Ваш репорт успешно отправлен!"
 
 
-    "en|chat.report.noplayer"          : "[REPORT] You can't report about player, which is not connected!"
-    "ru|chat.report.noplayer"          : "[REPORT] Вы не можете создать репорт на игрока, который находится в оффлайн!"
+    "en|chat.report.noplayer"          : "You can't report about player, which is not connected!"
+    "ru|chat.report.noplayer"          : "Вы не можете создать репорт на игрока, который находится в оффлайн!"
 
-    "en|chat.report.error"             : "[REPORT] You should provide report in a following format: /report ID TEXT"
-    "ru|chat.report.error"             : "[REPORT] Вам необходимо отправить репорт в виде: /report id text"
+    "en|chat.report.error"             : "You should provide report in a following format: /report ID TEXT"
+    "ru|chat.report.error"             : "Вам необходимо отправить репорт в виде: /report id text"
 
 
 // help

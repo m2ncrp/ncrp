@@ -25,7 +25,7 @@ function getVehicleKeysHelp( playerid ) {
 }
 
 
-acmd("key", function( playerid, plateText = 0 ) {
+mcmd(["admin.item"], "key", function( playerid, plateText = 0 ) {
 
     if (plateText == 0) {
         return getVehicleKeysHelp( playerid );

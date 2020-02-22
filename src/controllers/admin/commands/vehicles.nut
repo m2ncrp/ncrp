@@ -89,8 +89,17 @@ mcmd(["admin.car"], ["tune"], function( playerid, tune = 3 ) {
         local vehicleid = getPlayerVehicle( playerid );
         setVehicleTuningTable( vehicleid, tune.tointeger() );
 
-        setVehicleWheelTexture( vehicleid, 0, 11 );
-        setVehicleWheelTexture( vehicleid, 1, 11 );
+        // setVehicleWheelTexture( vehicleid, 0, 11 );
+        // setVehicleWheelTexture( vehicleid, 1, 11 );
+    }
+});
+
+mcmd(["admin.car"], ["wheels"], function( playerid, wheels = 0 ) {
+    if( isPlayerInVehicle( playerid ) )
+    {
+        local vehicleid = getPlayerVehicle( playerid );
+        setVehicleWheelTexture( vehicleid, 0, wheels );
+        setVehicleWheelTexture( vehicleid, 1, wheels );
     }
 });
 
@@ -144,20 +153,20 @@ acmd(["stop"], function( playerid, targetid = null ) {
 //    setVehicleColour(getPlayerVehicle(playerid), r, g, b, r, g, b);
 //});
 
-//acmd("p", function(playerid, r1 = 0, g1 = 0, b1 = 0, r2 = 0, g2 = 0, b2 = 0) {
-//    local r1 = min(r1.tointeger(), 255);
-//    local g1 = min(g1.tointeger(), 255);
-//    local b1 = min(b1.tointeger(), 255);
-//    local r2 = min(r2.tointeger(), 255);
-//    local g2 = min(g2.tointeger(), 255);
-//    local b2 = min(b2.tointeger(), 255);
-//
-//    if (!isPlayerInVehicle(playerid)) {
-//        return;
-//    }
-//
-//    setVehicleColour(getPlayerVehicle(playerid), r1, g1, b1, r2, g2, b2);
-//});
+mcmd(["admin.car"], "paint", function(playerid, r1 = 0, g1 = 0, b1 = 0, r2 = 0, g2 = 0, b2 = 0) {
+    local r1 = min(r1.tointeger(), 255);
+    local g1 = min(g1.tointeger(), 255);
+    local b1 = min(b1.tointeger(), 255);
+    local r2 = min(r2.tointeger(), 255);
+    local g2 = min(g2.tointeger(), 255);
+    local b2 = min(b2.tointeger(), 255);
+
+    if (!isPlayerInVehicle(playerid)) {
+        return;
+    }
+
+    setVehicleColour(getPlayerVehicle(playerid), r1, g1, b1, r2, g2, b2);
+});
 
 //acmd("jump", function(playerid) {
 //    if (isPlayerInVehicle(playerid)) {

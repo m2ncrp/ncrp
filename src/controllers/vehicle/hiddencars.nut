@@ -83,10 +83,3 @@ addEventHandlerEx("onServerDayChange", function() {
     }
     spawnToday = !spawnToday;
 });
-
-
-// ADMIN
-// Usage: /gotocar <vehicleid>
-acmd("gotocar", function(playerid, vehicleid) {
-    setPlayerPositionObj( playerid, getVehiclePositionObj(vehicleid.tointeger()));
-});
