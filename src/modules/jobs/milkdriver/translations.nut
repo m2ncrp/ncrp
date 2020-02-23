@@ -1,5 +1,4 @@
-local translations = {
-
+alternativeTranslate({
 "en|job.milkdriver"                                    :   "milk truck driver"
 "ru|job.milkdriver"                                    :   "развозчик молока"
 
@@ -134,5 +133,4 @@ local translations = {
 
 "en|job.milkdriver.help.title"                         :   "Управление для развозчика молока:"
 "ru|job.milkdriver.help.all"                           :   "Читайте задания и используйте клавишу E для действия в процессе выполнения работы."
-}
-alternativeTranslate(translations);
+});
