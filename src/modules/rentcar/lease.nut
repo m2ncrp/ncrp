@@ -26,11 +26,6 @@ function leaseCar(playerid) {
     local vehPos        = getVehiclePositionObj( vehicleid );
     local vehRot        = getVehicleRotationObj( vehicleid );
 
-
-    // if(!isInPlace("CarRent", vehPos.x, vehPos.y)) {
-    //     return msg(playerid, "Сдать автомобиль в аренду можно только в специальных местах.", CL_ERROR);
-    // }
-
     if (!isPlayerHaveVehicleKey(playerid, vehicleid)) {
         return msg(playerid, "vehicle.owner.warning", CL_ERROR);
     }
@@ -38,7 +33,6 @@ function leaseCar(playerid) {
     if (isGovVehicle(getVehiclePlateText(vehicleid))) {
         return msg(playerid, "Этот автомобиль нельзя сдать в аренду.", CL_ERROR);
     }
-
 
     if(isVehicleCarRent(vehicleid)) {
         return msg(playerid, "Этот автомобиль уже сдаётся.", CL_ERROR);
