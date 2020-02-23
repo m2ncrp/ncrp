@@ -535,6 +535,11 @@ alternativeTranslate({
     "ru|auth.client.notloaded2" : "По её завершению, если не появилось окно авторизации, переподключитесь к серверу."
     "ru|auth.haveproblems"     : "  Сайт: mafia2online.ru | vk.com/m2ncrp | Мы в Discord: bit.ly/m2ncrp"
 
+    "ru|auth.under-construction1" : "На сервере проводятся плановые технические работы!"
+    "en|auth.under-construction1" : "Server is under construction!"
+
+    "ru|auth.under-construction2" : "Загляните к нам попозже!"
+    "en|auth.under-construction2" : "See you later!"
 
     "en|hello.1"     : ".:: Jobs are marked a gray star on map."
     "ru|hello.1"     : ".:: Работы отмечены на карте серыми звёздами."

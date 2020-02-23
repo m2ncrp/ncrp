@@ -48,6 +48,27 @@ function authStart(playerid, source = "first") {
 
     local username = getPlayerName(playerid);
 
+	if(getSettingsValue("isUnderConstruction") && !isPlayerServerAdmin(playerid)) {
+        // wait to load client chat and then display message
+        return delayedFunction(2000, function() {
+            // clear chat
+            for (local i = 0; i < 14; i++) {
+                msg(playerid, "");
+            }
+
+            msg(playerid, "auth.under-construction1", CL_SUCCESS);
+            msg(playerid, "auth.under-construction2");
+
+            dbg("kick", "under construction", getIdentity(playerid));
+
+            trigger(playerid, "onServerChatTrigger");
+
+            return delayedFunction(20000, function () {
+                kickPlayer( playerid );
+            });
+        });
+	}
+
     // check playername validity
     if (!REGEX_USERNAME.match(username) ||
         username.find("  ") != null ||
@@ -56,7 +77,7 @@ function authStart(playerid, source = "first") {
 
         // wait to load client chat and then display message
         return delayedFunction(2000, function() {
-            // // clear chat
+            // clear chat
             for (local i = 0; i < 14; i++) {
                 msg(playerid, "");
             }

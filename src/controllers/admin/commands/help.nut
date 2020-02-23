@@ -32,7 +32,9 @@ acmd("ahelp", "manage", function(playerid) {
         "/warn id - выдать варн",
         "/unwarn id - снять варн",
         "/firstname id новое_имя - изменение имени персонажа",
-        "/lastname id новая_фамилия - изменение фамилии персонажа"
+        "/lastname id новая_фамилия - изменение фамилии персонажа",
+        "/freeze id - заморозить игрока",
+        "/unfreeze id - разморозить игрока"
     ]);
 });
 
@@ -85,7 +87,8 @@ acmd("ahelp", "restart", function(playerid) {
         "/restart - плановый рестарт",
         "/fastrestart - быстрый рестарт (3 секунды)",
         "/nowrestart - моментальный рестарт",
-        "/zerorestart - рестарт, когда онлайн станет 0"
+        "/zerorestart - рестарт, когда онлайн станет 0",
+        "/uc true/false - технический перерыв"
     ]);
 });
 

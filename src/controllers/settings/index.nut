@@ -29,6 +29,10 @@ function settingsLoadedDataRead() {
                 {
                     name = "isTruckShopEnabled",
                     value = "false",
+                },
+                {
+                    name = "isUnderConstruction",
+                    value = "false",
                 }
             ];
 
