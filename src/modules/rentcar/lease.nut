@@ -144,7 +144,7 @@ function unleaseCar(playerid) {
     unblockDriving(vehicleid);
 
     msg(playerid, "Автомобиль снят с аренды.", CL_SUCCESS);
-    msg(playerid, "Вместе с депозитом ($%.2f) вы получили: $%.2f", [LEASE_DEPOSIT, veh.data.rent.money], CL_JORDYBLUE);
+    msg(playerid, "Возвращён депозит ($%.2f). Чистый доход: $%.2f", [LEASE_DEPOSIT, veh.data.rent.money - LEASE_DEPOSIT], CL_JORDYBLUE);
     delete veh.data.rent;
 }
 
