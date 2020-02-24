@@ -7,7 +7,7 @@ Item.State <- {
     STORAGE          = 4,
     VEHICLE_INV      = 5
     VEHICLE_INTERIOR = 6,
-    BUILDING_INV     = 7,
+    PROPERTY_INV     = 7,
 };
 
 // include entities
@@ -44,6 +44,7 @@ include("controllers/inventory/classes/PlayerHandsContainer.nut");
 include("controllers/inventory/classes/StorageItemContainer.nut");
 include("controllers/inventory/classes/VehicleInventoryItemContainer.nut");
 include("controllers/inventory/classes/VehicleInteriorItemContainer.nut");
+include("controllers/inventory/classes/PropertyInventoryItemContainer.nut");
 
 
 // add shortcuts overrides

@@ -827,6 +827,44 @@ class VehicleInterior extends Inventory
 
 }
 
+
+/* ************************
+ * * PROPERTY INVENTORY CLASS
+ * ************************
+ */
+
+class PropertyInventory extends Inventory
+{
+
+    function getOriginalSize() {
+        return base.getSize();
+    }
+
+
+    function getInitialPosition() {
+        local size = this.getSize();
+        return { x = centerX - size.x - 5.0, y = centerY - size.y / 2 };
+    }
+
+    function setTitle() {
+        if (typeof this.handle == "userdata") {
+            if (typeof guiSetText == "function") guiSetText(this.handle, translations[playerLang]["interior"]);
+        }
+    }
+
+    function createGUI() {
+        base.createGUI();
+
+        local props = {
+            width  = 32.0,
+            height = 32.0,
+        };
+
+        this.setTitle();
+    }
+
+}
+
 /**
  * ************************
  * * INVENTORY INTERACTIONS
@@ -840,6 +878,7 @@ local class_map = {
     Storage             = StorageInventory,
     VehicleInventory    = VehicleInventory,
     VehicleInterior     = VehicleInterior,
+    PropertyInventory   = PropertyInventory,
     // Equipment           = Equipment,
 };
 

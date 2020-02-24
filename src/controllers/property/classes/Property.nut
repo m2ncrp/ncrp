@@ -14,4 +14,6 @@ class Property extends ORM.JsonEntity {
         Free        = 0,
         Purchased   = 1,
     };
- }
+
+    inventory = null;
+}
