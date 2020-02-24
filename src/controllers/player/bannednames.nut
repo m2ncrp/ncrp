@@ -37,25 +37,62 @@ event("onServerStarted", function() {
  * Usage:
  *     /banname 15
  */
-acmd("banname", function(playerid, targetid) {
+acmd("banname", function(playerid, targetid, subject = 0) {
     local targetid = targetid.tointeger();
 
     if (!isPlayerLoaded(targetid)) {
         return msg(playerid, "Player character is not yet loaded, wait!");
     }
 
-    msg(playerid, "Banning name " + getPlayerName(targetid) + "...");
+    local fullName = getPlayerName(targetid);
 
-    local ban   = BannedName();
-    local parts = split(getPlayerName(targetid), " ");
+    local parts = split(fullName, " ");
 
     if (parts.len() != 2) {
-        return msg(playerid, "Could not parse name " + getPlayerName(targetid));
+        return msg(playerid, "Could not parse name " + fullName);
     }
 
-    // save banned name
-    ban.firstname = parts[0];
-    ban.lastname  = parts[1];
+    if(subject == 0) {
+        msg(playerid, "Вторым параметром необходимо указать некорректную часть:");
+        msg(playerid, "  first - имя: %s", parts[0]);
+        msg(playerid, "  last - фамилия: %s", parts[1]);
+        msg(playerid, "  both - отдельно имя: %s, отдельно фамилия: %s", [parts[0], parts[1]]);
+        msg(playerid, "  pair - имя и фамилия вместе: %s", fullName);
+        return msg(playerid, "Например: /banname 9 last");
+    }
+
+    local ban   = BannedName();
+
+    // Badname: Durak Johnson
+    if(subject == "first") {
+        ban.firstname = parts[0];
+        msg(playerid, "Будет заблокировано: %s", parts[0]);
+    }
+
+    // Badname: James Durak
+    if(subject == "last") {
+        ban.firstname = parts[1];
+        msg(playerid, "Будет заблокировано: %s", parts[1]);
+    }
+
+    // Badname: Durak Mudak
+    if(subject == "both") {
+        ban.firstname = parts[0];
+        msg(playerid, "Будет заблокировано: %s и %s", [parts[0], parts[1]]);
+
+        local ban2   = BannedName();
+        ban2.firstname = parts[1];
+        ban2.created   = time();
+        ban2.save();
+    }
+
+    // Badname: Chuck Norris
+    if(subject == "pair") {
+        ban.firstname = parts[0];
+        ban.lastname  = parts[1];
+        msg(playerid, "Будет заблокировано: %s", fullName);
+    }
+
     ban.created   = time();
     ban.save();
 
@@ -64,9 +101,9 @@ acmd("banname", function(playerid, targetid) {
     kick(playerid, targetid, plocalize(targetid, "character.invalid.rpname"));
     delayedFunction(1000, function() {
         dbg("admin", "player", "bannedname", "removing character", character.firstname + " " character.lastname);
-        msg(playerid, "Removed player character from database!", CL_SUCCESS);
         character.firstname = "";
         character.lastname  = "";
         character.save();
+        msg(playerid, "Успешно!", CL_SUCCESS);
     });
 });
