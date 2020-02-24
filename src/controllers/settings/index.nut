@@ -61,6 +61,7 @@ function getSettingsField(name = "") {
 function getSettingsValue(name = "") {
     local value = getSettingsField(name).value;
     if(isFloat(value)) return value.tofloat();
+    if(value.slice(0, 1) == "-" && isFloat(value.slice(1))) return value.tofloat();
     if(isInteger(value)) return value.tointeger();
     return JSONParser.parse(value);
 }
