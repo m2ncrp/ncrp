@@ -21,7 +21,6 @@ class PropertyInventoryItemContainer extends ItemContainer
         this.id     = md5(this.tostring());
         this.parent = property;
         this.title  = "inventory.property.title";
-        log(property)
         // if (property.data.inventory != null) {
         //     this.sizeX = property.data.inventory.sizeX;
         //     this.sizeY = property.data.inventory.sizeY;

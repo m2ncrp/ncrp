@@ -1,9 +1,5 @@
-acmd("", function(playerid) {
-
-})
-
 // Open property inventory
-key("e", function (playerid) {
+key("z", function (playerid) {
 
     local propertyId = getNearestPropertyIdByPrivateForPlayer(playerid);
     if(propertyId == false) return;
@@ -18,7 +14,7 @@ key("e", function (playerid) {
     //     return msg(playerid, "vehicle.parts.trunk.isClosed", CL_ERROR);
     // }
 
-    if(!("inventory" in property) || property.inventory == null) {
+    if(property.inventory == null) {
         loadPropertyInventory(property);
     }
 
@@ -28,6 +24,19 @@ key("e", function (playerid) {
     //    sendLocalizedMsgToAll(playerid, "vehicle.parts.trunk.inspecting", [ getKnownCharacterNameWithId, getVehiclePlateText(vehicleid) ], NORMAL_RADIUS, CL_CHAT_ME);
     //}
 
-    property.inventory.toggle(playerid);
+    if(property.inventory.isOpened(playerid)) {
+        players[playerid].inventory.hide(playerid);
+        property.inventory.hide(playerid);
 
+        if(property.inventory) {
+            foreach (idx, item in property.inventory) {
+                item.parent = property.id;
+                item.save();
+            }
+        }
+
+    } else {
+        property.inventory.toggle(playerid);
+        players[playerid].inventory.toggle(playerid);
+    }
 })

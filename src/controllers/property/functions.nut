@@ -46,7 +46,7 @@ function getNearestPropertyIdByPublicForPlayer(playerid) {
 
 function loadPropertyInventory(entity) {
 
-    entity.inventory <- PropertyInventoryItemContainer(entity);
+    entity.inventory = PropertyInventoryItemContainer(entity);
 
     ORM.Query("select * from tbl_items where parent = :id and state = :states")
         .setParameter("id", entity.id)

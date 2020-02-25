@@ -24,7 +24,7 @@ include("controllers/property/classes/Property.nut");
 include("controllers/property/functions.nut");
 include("controllers/property/commands.nut");
 
-properties <- {};
+properties <- null;
 
 event("onServerStarted", function() {
 
@@ -48,7 +48,7 @@ event("onServerStarted", function() {
 function createPropertyLabels(object) {
     if("private" in object.data.coords) {
         create3DText(object.data.coords.private.x, object.data.coords.private.y, object.data.coords.private.z, format("Private: %s", object.title), CL_CASCADE, 1.0);
-        create3DText(object.data.coords.private.x, object.data.coords.private.y, object.data.coords.private.z - 0.10, "Press E", CL_WHITE.applyAlpha(125), 0.5);
+        create3DText(object.data.coords.private.x, object.data.coords.private.y, object.data.coords.private.z - 0.10, "Press Z", CL_WHITE.applyAlpha(125), 0.5);
     }
     create3DText(object.data.coords.public.x, object.data.coords.public.y, object.data.coords.public.z, format("Property: %s", object.title), CL_RIPELEMON, 5.0);
     create3DText(object.data.coords.public.x, object.data.coords.public.y, object.data.coords.public.z - 0.10, "Press E", CL_WHITE.applyAlpha(125), 0.5);
