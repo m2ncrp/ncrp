@@ -14,7 +14,7 @@ function bankLoadedDataRead() {
 
 
 function test0() {
-	    local field = Bank();
+	local field = Bank();
 
     // put data
     field.ownerid  = 1;

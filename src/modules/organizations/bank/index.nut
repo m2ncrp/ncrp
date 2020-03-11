@@ -1,6 +1,6 @@
 include("modules/organizations/bank/models/Bank.nut");
 
-include("modules/organizations/bank/models/main-bank.nut");
+// include("modules/organizations/bank/models/main-bank.nut");
 
 alternativeTranslate({
     "ru|bank.letsgo1"                      :   "Чтобы посетить офис банка, отправляйтесь к зданию Grand Imperial Bank в центре Мидтауна."
@@ -96,26 +96,26 @@ function bankPlayerInValidPoint(playerid) {
 }
 
 function bankGetPlayerDeposit(playerid) {
-    return formatMoney(players[playerid]["deposit"]);
+    return formatMoney(players[playerid].deposit);
 }
 
 
 function canBankMoneyBeSubstracted(playerid, amount) {
     local amount = round(fabs(amount.tofloat()), 2);
-    return (players[playerid]["deposit"] >= amount);
+    return (players[playerid].deposit >= amount);
 }
 
 function addMoneyToDeposit(playerid, amount) {
-    local old_amount = players[playerid]["deposit"];
+    local old_amount = players[playerid].deposit;
     local new_amount = old_amount + amount.tofloat();
-    players[playerid]["deposit"] = new_amount;
+    players[playerid].deposit = new_amount;
     dbg("[DEPOSIT] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> +"+format("%.2f", amount)+" dollars. Was: $"+format("%.2f", old_amount)+". Now: $"+format("%.2f", new_amount));
 }
 
 function subMoneyToDeposit(playerid, amount) {
-    local old_amount = players[playerid]["deposit"];
+    local old_amount = players[playerid].deposit;
     local new_amount = old_amount - amount.tofloat();
-    players[playerid]["deposit"] = new_amount;
+    players[playerid].deposit = new_amount;
     dbg("[DEPOSIT] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> -"+format("%.2f", amount)+" dollars. Was: $"+format("%.2f", old_amount)+". Now: $"+format("%.2f", new_amount));
 }
 
