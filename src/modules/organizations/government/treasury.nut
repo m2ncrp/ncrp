@@ -1,17 +1,17 @@
 acmd(["treas"], "get", function( playerid) {
-    msg(playerid, "treasury.get", getMoneyTreasury() );
+    msg(playerid, "treasury.get", getTreasuryMoney() );
 });
 
 
 acmd(["treas"], "add", function( playerid, amount = 0.0) {
     addMoneyToTreasury(amount);
-    msg(playerid, "treasury.add", [ amount.tofloat(), getMoneyTreasury() ], CL_EUCALYPTUS );
+    msg(playerid, "treasury.add", [ amount.tofloat(), getTreasuryMoney() ], CL_EUCALYPTUS );
 });
 
 
 acmd(["treas"], "sub", function( playerid, amount = 0.0) {
     subMoneyToTreasury(amount);
-    msg(playerid, "treasury.sub", [ amount.tofloat(), getMoneyTreasury() ], CL_THUNDERBIRD );
+    msg(playerid, "treasury.sub", [ amount.tofloat(), getTreasuryMoney() ], CL_THUNDERBIRD );
 });
 
 
@@ -26,7 +26,7 @@ fmd("gov", ["gov.treasury"], "$f treasury get", function(fraction, character) {
         return msg(character.playerid, "treasury.toofar", CL_THUNDERBIRD );
     }
 
-    msg(character.playerid, "treasury.get", getMoneyTreasury() );
+    msg(character.playerid, "treasury.get", getTreasuryMoney() );
 });
 
 fmd("gov", ["gov.treasury"], "$f treasury add", function(fraction, character, amount = "0", reason = null) {
@@ -45,7 +45,7 @@ fmd("gov", ["gov.treasury"], "$f treasury add", function(fraction, character, am
 
     addMoneyToTreasury(amount);
     subMoneyToPlayer(character.playerid, amount);
-    msg(character.playerid, "treasury.add", [ amount.tofloat(), getMoneyTreasury() ], CL_EUCALYPTUS );
+    msg(character.playerid, "treasury.add", [ amount.tofloat(), getTreasuryMoney() ], CL_EUCALYPTUS );
     dbg("chat", "idea", getAuthor(character.playerid), "Добавлено в казну: "+amount.tostring()+". Основание: "+reason);
 });
 
@@ -59,13 +59,13 @@ fmd("gov", ["gov.treasury"], "$f treasury sub", function(fraction, character, am
 
     amount = amount.tofloat();
 
-    if(amount.tofloat() > getMoneyTreasury().tofloat()) {
+    if(amount.tofloat() > getTreasuryMoney().tofloat()) {
         return msg(character.playerid, "treasury.notenough", CL_THUNDERBIRD );
     }
 
     subMoneyToTreasury(amount);
     addMoneyToPlayer(character.playerid, amount);
-    msg(character.playerid, "treasury.sub", [ amount.tofloat(), getMoneyTreasury() ], CL_THUNDERBIRD );
+    msg(character.playerid, "treasury.sub", [ amount.tofloat(), getTreasuryMoney() ], CL_THUNDERBIRD );
     dbg("chat", "idea", getAuthor(character.playerid), "Взято из казны: "+amount.tostring()+". Основание: "+reason);
 });
 
@@ -99,29 +99,33 @@ alternativeTranslate(phrases);
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
 
-
 function addMoneyToTreasury(amount) {
     local amount = round(fabs(amount.tofloat()), 2);
-    TREASURY.amount += amount;
-    TREASURY.save();
-    dbg("chat", "idea", "Городская казна", "Пополнение на сумму: "+amount.tostring());
+    local currentAmount = getTreasuryMoney();
+    local newAmount = currentAmount + amount;
+    setTreasuryMoney(newAmount);
+    dbg("chat", "idea", "Городская казна", format("Пополнение на сумму: $%.2f", amount));
 }
 
 
 function subMoneyToTreasury(amount) {
     local amount = round(fabs(amount.tofloat()), 2);
-    TREASURY.amount -= amount;
-    TREASURY.save();
-    dbg("chat", "idea", "Городская казна", "Списание на сумму: "+amount.tostring());
+    local currentAmount = getTreasuryMoney();
+    local newAmount = currentAmount - amount;
+    setTreasuryMoney(newAmount);
+    dbg("chat", "idea", "Городская казна", format("Списание на сумму: $%.2f", amount));
 }
-
 
 function canTreasuryMoneyBeSubstracted(amount) {
     local amount = round(fabs(amount.tofloat()), 2);
-    return (TREASURY.amount >= amount);
+    return (getTreasuryMoney() >= amount);
 }
 
 
-function getMoneyTreasury() {
-    return TREASURY.amount;
+function getTreasuryMoney() {
+    return getGovernmentValue("treasury");
+}
+
+function setTreasuryMoney(amount) {
+    return setGovernmentValue("treasury", amount);
 }

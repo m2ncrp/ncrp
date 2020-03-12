@@ -12,18 +12,11 @@ alternativeTranslate({
     "en|organizations.unemployed.income"   : "You've recieved $%.2f as unemployment compensation."
 });
 
-const hobos_spawnID = 1;
 const DIG_RADIUS = 1.5;
-const HOBO_MODEL = 153;
 const DIG_TIME_DELAY = 150; // ~ 5 minutes in game or 2.5 minutes
-const UNEMPLOYED_MONEY_INCOME = 1.0; // randomf(X - 1, X + 2.5)
 
-local hobosSkins = [
-    87, 153, 154
-];
-
-const maxCouldFind = 0.15;
 const minCouldFind = 0.03;
+const maxCouldFind = 0.15;
 
 local hoboses = {};
 
@@ -146,7 +139,7 @@ event("onServerPlayerStarted", function( playerid ) {
 });
 
 event("onServerHourChange", function() {
-    local originalAmount = randomf(UNEMPLOYED_MONEY_INCOME - 0.5, UNEMPLOYED_MONEY_INCOME + 0.2);
+    local originalAmount = getGovernmentValue("unemployedIncome");
 
     foreach (playerid, value in players) {
         if (!getPlayerJob(playerid)) {

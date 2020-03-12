@@ -30,29 +30,104 @@ function governmentLoadedDataRead() {
         if (results.len()) {
             governmentLoadedData = results;
         } else {
+
             local items = [
-                "tax_rate",
-                "ltc_price",
-                "driver_license_price",
-                "treasury",
-                "interest_rate",
-                "unemployed_income",
-                "started_income_min",
-                "started_income_max",
+                {
+                    name = "treasury",
+                    unit = "$",
+                    desc = "Казна",
+                    value = "0.0",
+                },
+                {
+                    name = "interestRate",
+                    unit = "%",
+                    desc = "Ключевая ставка",
+                    value = "0.0",
+                },
+                {
+                    name = "taxVehicleRate",
+                    unit = "%",
+                    desc = "Налог на автомобиль",
+                    value = "0.0",
+                },
+                {
+                    name = "taxPropertyRate",
+                    unit = "%",
+                    desc = "Налог на недвижимость",
+                    value = "0.0",
+                },
+                {
+                    name = "ltcPrice",
+                    unit = "$",
+                    desc = "Стоимость лицензии на оружие",
+                    value = "0.0",
+                },
+                {
+                    name = "driverLicensePrice",
+                    unit = "$",
+                    desc = "Стоимость лицензии на вождение",
+                    value = "0.0",
+                },
+                {
+                    name = "unemployedIncome",
+                    unit = "$",
+                    desc = "Пособие по безработице",
+                    value = "10.0",
+                },
+                {
+                    name = "salaryBusDriver",
+                    unit = "$",
+                    desc = "Заработок водителя автобуса за одну остановку",
+                    value = "0.0",
+                },
+                {
+                    name = "salarySnowplowDriver",
+                    unit = "$",
+                    desc = "Заработок водителя снегоубор. машины за один чекпоинт",
+                    value = "0.0",
+                },
+                {
+                    name = "busTicketPrice",
+                    unit = "$",
+                    desc = "Стоимость проезда на автобусе",
+                    value = "0.4",
+                },
+                {
+                    name = "subwayTicketPrice",
+                    unit = "$",
+                    desc = "Стоимость проезда на метро",
+                    value = "0.15",
+                },
+                {
+                    name = "hospitalTreatmentPrice",
+                    unit = "$",
+                    desc = "Стоимость лечения в госпитале",
+                    value = "12.00",
+                }
             ];
 
             foreach(i, item in items) {
                 local field = Government();
 
                 // put data
-                field.name  = item;
-                field.value = 10.0;
+                field.name  = item.name;
+                field.unit  = item.unit;
+                field.desc  = item.desc;
+                field.value = item.value;
                 field.save();
             }
 
             governmentLoadedDataRead();
         }
     })
+}
+
+function getGovernmentFieldById(id) {
+    foreach(i, item in governmentLoadedData) {
+        if(item.id == id) {
+            return item;
+        }
+    }
 }
 
 function getGovernmentField(name = "") {
@@ -63,10 +138,18 @@ function getGovernmentField(name = "") {
     }
 }
 
-function setGovernmentField(name, value) {
+function setGovernmentValue(name, value) {
     local field = getGovernmentField(name);
-    field.value = value;
+    field.value = value.tostring();
     field.save();
+}
+
+function getGovernmentValue(name = "") {
+    local value = getGovernmentField(name).value;
+    if(isFloat(value)) return value.tofloat();
+    if(value.slice(0, 1) == "-" && isFloat(value.slice(1))) return value.tofloat();
+    if(isInteger(value)) return value.tointeger();
+    return JSONParser.parse(value);
 }
 
 event("onServerPlayerStarted", function( playerid ) {
@@ -127,20 +210,112 @@ function isGovVehicle(value) {
 
 }
 
-//function tax(monthUp = 12, day = null, month = null, year = null, ) {
-//    day   = day   ? day   : getDay();
-//    month = month ? month : getMonth();
-//    year  = year  ? year  : getYear();
-//    dbg(day+"."+month+"."+year)
-//
-//    local intMonth = year * 12 + month + monthUp;
-//    local intYear = floor(intMonth / 12);
-//    local lostMonth = intMonth % 12;
-//
-//    if (lostMonth == 0) {
-//        lostMonth = 12;
-//        intYear -= 1;
-//    }
-//
-//    dbg(day+"."+lostMonth+"."+intYear)
-//}
+fmd("gov", ["gov.act"], "$f acts", function(fraction, character, article = null, value = null) {
+
+    if (!isPlayerInValidPoint(character.playerid, getGovCoords(0), getGovCoords(1), 3.0 )) {
+        return msg(character.playerid, "gov.acts.toofar", CL_THUNDERBIRD);
+    }
+
+    if (article == null && value == null) {
+        local acts = [];
+        foreach(i, item in governmentLoadedData) {
+            local str;
+            if(item.unit == "$") {
+                str = format("%s: %s%s", item.desc, item.unit, item.value.tostring())
+            } else if(item.unit == "%") {
+                str = format("%s: %s %s", item.desc, item.value.tostring(), declOfNum(item.value.tofloat(), ["процент", "процента", "процентов"]) )
+            }
+
+            acts.push(str)
+        }
+        return msgh(character.playerid, "Сводка", acts);
+    }
+});
+
+fmd("gov", ["gov.act"], "$f act", function(fraction, character) {
+
+    if (!isPlayerInValidPoint(character.playerid, getGovCoords(0), getGovCoords(1), 3.0 )) {
+        return msg(character.playerid, "gov.act.toofar", CL_THUNDERBIRD);
+    }
+
+    local defaulttogooc = getPlayerOOC(character.playerid);
+    setPlayerOOC(character.playerid, false);
+
+
+    local helps = [];
+    foreach(i, item in governmentLoadedData) {
+        if(item.name == "treasury") continue;
+
+        local str;
+        if(item.unit == "$") {
+            str = format("%d. %s, %s", item.id, item.desc, item.unit)
+        } else if(item.unit == "%") {
+            str = format("%d. %s, %s", item.id, item.desc, "процент")
+        }
+        helps.push(str)
+    }
+
+    msgh(character.playerid, "Издание постановлений", helps);
+
+    local complete = false;
+
+    delayedFunction(30000, function() {
+        if (complete == false) {
+            if(defaulttogooc) setPlayerOOC(character.playerid, true);
+            return msg(character.playerid, "gov.act.incorrect", CL_THUNDERBIRD);
+        }
+    });
+
+    msg(character.playerid, "passport.insert.nationality", CL_CHESTNUT2);
+    trigger(character.playerid, "hudCreateTimer", 15, true, true);
+
+    requestUserInput(character.playerid, function(playerid, text) {
+        trigger(playerid, "hudDestroyTimer");
+        if (!text || !isNumeric(text) || text.tointeger() < 2 || text.tointeger() > 12) {
+            if(defaulttogooc) setPlayerOOC(playerid, true);
+            return msg(playerid, "passport.insert.incorrect", CL_THUNDERBIRD);
+        }
+
+        local field = getGovernmentFieldById(text.tointeger());
+
+
+        msg(playerid, field.desc, CL_CHESTNUT2);
+        trigger(playerid, "hudCreateTimer", 15, true, true);
+
+        delayedFunction( 1000, function() {
+            requestUserInput(playerid, function(playerid, text) {
+                trigger(playerid, "hudDestroyTimer");
+
+
+                if (!text || !isNumeric(text) || text.tointeger() < 0) {
+                    if(defaulttogooc) setPlayerOOC(playerid, true);
+                    return msg(playerid, "passport.insert.incorrect", CL_THUNDERBIRD);
+                }
+
+                local amount = text.tofloat();
+                msg(playerid, format("%s: %s", field.desc, amount.tostring()), CL_CHESTNUT2);
+
+                complete = true;
+
+                if(defaulttogooc) setPlayerOOC(playerid, true);
+
+            }, 15);
+        });
+    }, 15);
+
+});
+
+
+
+alternativeTranslate({
+
+    "en|gov.act.toofar"        : ""
+    "ru|gov.act.toofar"        : "Издание постановлений возможно только в здании мэрии"
+
+    "en|gov.act.incorrect"        : ""
+    "ru|gov.act.incorrect"        : "Некорректно"
+
+    "en|gov.acts.toofar"        : ""
+    "ru|gov.acts.toofar"        : "Ознакомиться с постановлениями можно только в здании мэрии"
+
+});
