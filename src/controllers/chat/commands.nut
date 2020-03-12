@@ -190,7 +190,6 @@ cmd(["text"], function(playerid, r, g, b) {
     msg(playerid, "Тестовое сообщение - Test message - 987654321", rgb(r.tointeger(), g.tointeger(), b.tointeger()));
 });
 
-
 cmd("report", function(playerid, id, ...) {
     if (!isInteger(id) || !vargv.len()) {
         return msg(playerid, "chat.report.error", CL_ERROR);

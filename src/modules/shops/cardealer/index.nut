@@ -47,7 +47,7 @@ event("onServerPlayerStarted", function( playerid ){
                 __vehicles[vehicleid].entity.parking = getTimestamp() - 3456000; // поправка на 80 игровых дней, чтобы тачка долго не стояла
                 __vehicles[vehicleid].entity.save();
                 dbg("chat", "report", "Автодилер", format("Отправил на штрафстоянку автомобиль с номером %s", plate));
-                dbg("chat", "police", "Автодилер", format("Отправил на штрафстоянку автомобиль с номером %s", plate));
+                dbg("police", "parking", "send", "Автодилер", getDateTime(), [["Номер", plate], ["Модель", getVehicleNameByModelId(getVehicleModel(vehicleid))]]);
             } else {
                 dbg("chat", "report", "Автодилер", format("Не удалось отправить на штрафстоянку автомобиль с номером %s", plate));
             }

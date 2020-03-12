@@ -57,7 +57,7 @@ cmd("santa", function(playerid, ...) {
     if (text && strip(text).len() > 0) {
         msg(playerid, "santa.complete", CL_SUCCESS);
         statisticsPushText("santa", playerid, concat(vargv));
-        dbg("chat", "idea", getAuthor(playerid), concat(vargv));
+        //dbg("chat", "idea", getAuthor(playerid), concat(vargv));
         return;
     }
     return msg(playerid, "santa.writemsg", CL_FLAMINGO);

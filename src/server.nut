@@ -74,7 +74,7 @@ function log(...) {
  * @return none
  */
 function dbg(...) {
-    return DEBUG_ENABLED ? ::print("[debug] " + JSONEncoder.encode(vargv)) : null;
+    return DEBUG_ENABLED ? ::print("[dbg] " + JSONEncoder.encode(vargv)) : null;
 }
 
 console.log = dbg;
@@ -201,7 +201,26 @@ event("native:onScriptInit", function() {
     trigger("onServerStarted");
 
     dbg("server", "server started");
+	//dbg("police", "parking", "noFreeSpace");
+	//dbg("police", "parking", "send", "Fernando Fabbri", "11:48 15.09.2019", [["Номер", "PD-123"], ["Модель", "Smith Custom 200 Police"]]);
+	//dbg("police", "jail", "unjail", "Fernando Fabbri", "Ottavio Ricci", "15.09.2019 11:48");
+	//dbg("police", "parking", "send", "Fernando Fabbri", "11:48 15.09.2019", [["Номер", "PD-123"], ["Модель", "Smith Custom 200 Police"]]);
+	//dbg("chat", "report", "Автодилер", format("Не удалось отправить на штрафстоянку автомобиль с номером %s", "dsdsd"));
+	// ex("{\"type\": \"test\"}")
+/*
+    delayedFunction(1000, function () {
+    ex(JSONEncoder.encode({type = "test1"}))
+    });
 
+
+    delayedFunction(2000, function () {
+    ex(JSONEncoder.encode({type = "test2"}))
+    });
+
+    delayedFunction(3000, function () {
+    ex(JSONEncoder.encode({type = "test3"}))
+    });
+*/
 });
 
 event("onServerStarted", function() {
@@ -341,3 +360,14 @@ event("onPlayerWeaponShoot", function(playerid) {
 event("onPlayerWeaponReload", function(playerid) {
     msg(playerid, "Перезарядка", CL_ERROR)
 })
+
+
+function ex(json) {
+    nnTrigger(json);
+};
+
+nnListen(function(data) {
+    local parsedData = JSONParser.parse(data);
+
+    log("from node json: " + parsedData.type + ": "+data);
+});

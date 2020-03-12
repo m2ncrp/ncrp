@@ -1,3 +1,5 @@
+include("modules/organizations/parking/translations.nut");
+
 local PARKING_COORDS = [ -1211.12, 1342.12, -1390.86, 1364.81 ];
 local PARKING_NAME = "CarPound";
 local PARKING_COST = 45.0;
@@ -199,8 +201,8 @@ acmd("aunpark", function ( playerid ) {
 });
 
 
-event("onVehicleSetToCarPound", function(playerid, plate = null) {
-    if (plate == null) {
+event("onVehicleSetToCarPound", function(playerid, plate) {
+    if (!plate) {
         return msg( playerid, "parking.needEnterPlate", CL_ERROR);
     }
 
@@ -223,10 +225,10 @@ event("onVehicleSetToCarPound", function(playerid, plate = null) {
 
     if(setVehicleToCarPound(vehicleid)) {
         msg(playerid, "parking.complete");
-        dbg("chat", "police", getAuthor(playerid), format("Отправил на штрафстоянку автомобиль с номером %s", getVehiclePlateText(vehicleid)) );
+        dbg("police", "parking", "send", getPlayerName(playerid), getDateTime(), [["Номер", getVehiclePlateText(vehicleid)], ["Модель", getVehicleNameByModelId(getVehicleModel(vehicleid))]]);
     } else {
         msg(playerid, "parking.noFreeSpace");
-        dbg("chat", "police", getAuthor(playerid), "Нет своободных мест на штрафстоянке" );
+        dbg("police", "parking", "noFreeSpace");
     }
 });
 
@@ -234,7 +236,6 @@ event("onVehicleSetToCarPound", function(playerid, plate = null) {
 function setVehicleToCarPound (vehicleid) {
 
     findBusyPlaces(); //read before
-    dbg(parkingPlaceStatus);
     local tpcomplete = false;
     foreach (placeid, place in parkingPlaceStatus) {
         if(place != "free") {
@@ -251,7 +252,6 @@ function setVehicleToCarPound (vehicleid) {
             setVehicleRotation(vehicleid, 180.0, 0.0, 0.0 );
         });
         delayedFunction(1000, findBusyPlaces()); //read after
-        dbg(parkingPlaceStatus);
         vehicleWanted = getVehicleWantedForTax();
         break;
     }
@@ -262,7 +262,6 @@ function setVehicleToCarPound (vehicleid) {
 
 event("onVehicleGetFromCarPound", function(playerid) {
     findBusyPlaces(); //read before
-    dbg(parkingPlaceStatus);
 
     if (!isPlayerInVehicle(playerid)) {
         return;
@@ -298,9 +297,9 @@ event("onVehicleGetFromCarPound", function(playerid) {
         break;
         }
     }
-    dbg(parkingPlaceStatus);
     vehicleWanted = getVehicleWantedForTax();
-    dbg("chat", "police", getAuthor(playerid), format("Забрал со штрафстоянки автомобиль с номером %s", getVehiclePlateText(vehicleid)) );
+
+		dbg("police", "parking", "out", getPlayerName(playerid), getDateTime(), [["Номер", getVehiclePlateText(vehicleid)], ["Модель", getVehicleNameByModelId(getVehicleModel(vehicleid))]]);
 });
 
 
@@ -327,7 +326,7 @@ event("onServerDayChange", function() {
             local vehicleid = place;
             if(getParkingDaysForVehicle(vehicleid) >= 90) {
                 parkingPlaceStatus[placeid] = "free";
-                dbg("Vehicle with plate "+getVehiclePlateText(vehicleid)+" has been removed from parking"+ (getVehicleOwner(vehicleid) ? " ("+getVehicleOwner(vehicleid)+")" : ""));
+                dbg("police", "parking", "remove", getVehicleOwner(vehicleid), getDateTime(), [["Номер", getVehiclePlateText(vehicleid)], ["Модель", getVehicleNameByModelId(getVehicleModel(vehicleid))]]);
                 removePlayerVehicle(vehicleid);
             }
         }
