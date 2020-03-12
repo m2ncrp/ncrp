@@ -7,6 +7,8 @@ local handshakeBlackList = [
   "inlife",
   "justpilz",
   "moderator",
+  "vito",
+  "joe",
   "owner",
   "админ",
   "администратор",
@@ -57,7 +59,7 @@ function searchBadWord(str) {
 }
 
 // сказать имя другому игроку
-cmd(["shake", "handshake"], function(playerid, targetid, ...) {
+cmd(["meet"], function(playerid, targetid, ...) {
 
     targetid = toInteger(targetid);
     local nickname = trim(concat(vargv));
@@ -93,14 +95,14 @@ cmd(["shake", "handshake"], function(playerid, targetid, ...) {
     /** Проверка на запрещённые слова */
     if(searchBadWord(nickname)) {
         players[playerid].setData("handshake", "off");
-        dbg(format("Система знакомств для игрока с ID %d отключена за слово %s", playerid, nickname))
+        dbg(format("Система знакомств для игрока %s отключена за слово %s", getPlayerName(playerid), nickname))
         return msg(playerid, "handshake.rules.break", CL_THUNDERBIRD);
     }
     /** // */
 
     local isAccept = false;
 
-    delayedFunction(12000, function() {
+    delayedFunction(15000, function() {
         if (!isAccept) {
             sendLocalizedMsgToAll(targetid, "handshake.shake.decline", [], NORMAL_RADIUS, CL_CHAT_IC);
         }
@@ -109,7 +111,7 @@ cmd(["shake", "handshake"], function(playerid, targetid, ...) {
     sendLocalizedMsgToAll(playerid, "handshake.shake.request", [nickname], NORMAL_RADIUS, CL_CHAT_IC);
     msg(targetid, "handshake.shake.request-desc", CL_LYNCH);
 
-    trigger(targetid, "hudCreateTimer", 12.0, true, true);
+    trigger(targetid, "hudCreateTimer", 15.0, true, true);
 
     local senderCharId = getCharacterIdFromPlayerId(playerid);
 
@@ -121,7 +123,7 @@ cmd(["shake", "handshake"], function(playerid, targetid, ...) {
     requestUserInput(targetid, function(targetid, text) {
         trigger(targetid, "hudDestroyTimer");
 
-        if (!text || trim(text) != "good") {
+        if (!text || (trim(text) != "ok" && trim(text) != "ок")) {
             return sendLocalizedMsgToAll(targetid, "handshake.shake.decline", [], NORMAL_RADIUS, CL_CHAT_IC);
         }
 
@@ -139,7 +141,7 @@ cmd(["shake", "handshake"], function(playerid, targetid, ...) {
 
         sendLocalizedMsgToAll(targetid, "handshake.shake.complete", [name], NORMAL_RADIUS, CL_CHAT_IC);
 
-    }, 12);
+    }, 15);
 
 });
 
@@ -174,7 +176,7 @@ cmd("remember", function(playerid, targetid, ...) {
     /** Проверка на запрещённые слова */
     if(searchBadWord(nickname)) {
         players[playerid].setData("handshake", "off");
-        dbg(format("Система знакомств для игрока с ID %d отключена за слово %s", playerid, nickname))
+        dbg(format("Система знакомств для игрока %s отключена за слово %s", getPlayerName(playerid), nickname))
         return msg(playerid, "handshake.rules.break", CL_THUNDERBIRD);
     }
     /** // */
@@ -235,43 +237,16 @@ cmd("forget", function(playerid, targetid = null) {
     return msg(playerid, "handshake.forget.complete", CL_SUCCESS);
 });
 
-function handshakeHelp(playerid) {
-    local title = "handshake.title";
-    local commands = [
-        { name = "/handshake id имя",           desc = "Представиться вымышленным именем" },
-        { name = "handshake.shake.example"                                                },
-        { name = "/handshake id me",            desc = "Представиться настоящим именем"   },
-        { name = "handshake.shake.real-name.example"                                      },
-        { name = "/remember id имя",            desc = "Запомнить имя"                    },
-        { name = "handshake.remember.example"                                              },
-        { name = "/forget id",                  desc = "Забыть имя"                       },
-        { name = "handshake.forget.example"                                                },
-    ];
-    msg_help_new(playerid, title, commands);
-}
-
-cmd("help", "handshake", handshakeHelp );
-
-function handshakeRules(playerid) {
-	  local title = "К запрещенным именам и псевдонимам относятся";
-    local phrases = [
+cmd("dating", "rules",  function(playerid) {
+    msgh(playerid, "К запрещенным именам и псевдонимам относятся", [
         "1) любые известные люди любых профессий и сфер деятельности (актеры, спортсмены, блоггеры и др. знаменитости);",
         "2) любые персонажи игр, фильмов, сериалов, тв-шоу;",
         "3) любые упоминания администрации сервера;",
         "4) титулы, должности, звания (император, король и т.д.);",
-        "5) любые оскорбительные слова" ,
-    ];
-
-	  msg(playerid, "===========================================", CL_HELP_LINE);
-    msg(playerid, title, CL_HELP_TITLE);
-
-    foreach (idx, value in phrases) {
-        local text = localize(value, [], getPlayerLocale(playerid));
-        msg(playerid, text, CL_SILVERSAND);
-    }
-}
-
-cmd("rules", "handshake", handshakeRules );
+        "5) любые оскорбительные слова",
+        "В случае обнаружения некорректных имён, вам будет отключена система знакомств. Настоящее имя персонажа будет показываться всем без необходимости в знакомстве."
+    ]);
+});
 
 alternativeTranslate({
 
@@ -279,22 +254,22 @@ alternativeTranslate({
     "ru|handshake.title"  : "Система знакомств"
 
     "en|handshake.shake.rule"  : ""
-    "ru|handshake.shake.rule"  : "Чтобы представиться: /shake id имя"
+    "ru|handshake.shake.rule"  : "Чтобы представиться: /meet id имя"
 
     "en|handshake.shake.example"  : ""
-    "ru|handshake.shake.example"  : "Например: /shake 7 Franz Ferdinand"
+    "ru|handshake.shake.example"  : "Например: /meet 7 Franz Ferdinand"
 
     "en|handshake.shake.real-name"  : ""
-    "ru|handshake.shake.real-name"  : "Представиться настоящим именем: /shake id me"
+    "ru|handshake.shake.real-name"  : "Представиться настоящим именем: /meet id me"
 
     "en|handshake.shake.real-name.example"  : ""
-    "ru|handshake.shake.real-name.example"  : "Например: /shake 5 me"
+    "ru|handshake.shake.real-name.example"  : "Например: /meet 5 me"
 
     "en|handshake.shake.request"  : ""
     "ru|handshake.shake.request"  : "Меня зовут %s"
 
     "en|handshake.shake.request-desc"  : ""
-    "ru|handshake.shake.request-desc"  : "Напишите в чат good, чтобы запомнить это имя"
+    "ru|handshake.shake.request-desc"  : "Напишите в чат ok, чтобы запомнить это имя"
 
     "en|handshake.shake.decline"  : ""
     "ru|handshake.shake.decline"  : "Простите, ваше имя звучит странно для меня"
@@ -319,7 +294,7 @@ alternativeTranslate({
     "ru|handshake.remember.rule"  : "Чтобы запомнить: /remember id имя"
 
     "en|handshake.remember.example"  : ""
-    "ru|handshake.remember.example"  : "Например: /remember 5 Howard"
+    "ru|handshake.remember.example"  : "Например: /remember 5 Luca"
 
     "en|handshake.remember.complete"  : ""
     "ru|handshake.remember.complete"  : "Вы запомнили %s"

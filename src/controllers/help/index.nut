@@ -191,7 +191,8 @@ cmd("char", function(playerid) {
     msgh(playerid, "Персонаж", [
         "Здоровье: /health",
         "Питание: /food",
-        "Одежда: /clothes"
+        "Одежда: /clothes",
+        "Система знакомств: /dating",
     ]);
 });
 
@@ -229,6 +230,21 @@ cmd("clothes", function(playerid) {
         "- у жителей города путём обмена одежды на деньги."
     ]);
 });
+
+cmd("dating", function(playerid) {
+    msgh(playerid, "Система знакомств", [
+        "/dating rules - правила",
+        "/meet id имя - представиться вымышленным именем",
+        "handshake.shake.example",
+        "/meet id me - представиться настоящим именем",
+        "handshake.shake.real-name.example",
+        "/remember id имя - запомнить имя",
+        "handshake.remember.example",
+        "/forget id - забыть имя",
+        "handshake.forget.example"
+    ]);
+});
+
 
 cmd("job", function(playerid) {
     msgh(playerid, "Работа", [
