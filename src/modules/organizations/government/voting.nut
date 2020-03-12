@@ -9,7 +9,7 @@ function candidatesList(playerid) {
     }
 }
 
-cmd("vote", function( playerid, candidate = "0" ) {
+acmd("vote", function( playerid, candidate = "0" ) {
 
     if (!isPlayerInValidPoint(playerid, getGovCoords(0), getGovCoords(1), 5.0 )) {
         return msg(playerid, "Проголосовать можно только в здании администрации", CL_THUNDERBIRD);
