@@ -4,6 +4,7 @@ function hobosDig(playerid) {
     if ( !isTimeToDig(playerid) ) { // isHobos(playerid) &&
         return msg( playerid, "organizations.hobos.tired" );
     }
+
     if ( isNearTrash(playerid) ) { // isHobos(playerid) &&
         local found = randomf(minCouldFind, maxCouldFind);
         found = round( found, 2);
@@ -18,7 +19,6 @@ function hobosDig(playerid) {
     }
 }
 
-cmd(["dig"], hobosDig);
 key("e", function(playerid) {
     if (!isNearTrash(playerid, true)) {
         return;
@@ -27,9 +27,6 @@ key("e", function(playerid) {
     hobosDig(playerid);
 });
 
-// function isHobos(playerid) {
-//     return players[playerid]["spawn"] == hobos_spawnID;
-// }
 
 function isNearTrash(playerid, silent = false) {
     foreach (point in hobos_points) {
