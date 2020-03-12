@@ -16,24 +16,39 @@ function settingsLoadedDataRead() {
             local items = [
                 {
                     name = "isWinter",
+                    desc = "Зима?",
                     value = "false",
                 },
                 {
                     name = "donate",
+                    desc = "Доступность доната",
                     value = "true",
                 },
                 {
                     name = "worldMoney",
+                    desc = "Сумма денег игрового мира",
                     value = "0.0",
                 },
                 {
                     name = "isTruckShopEnabled",
+                    desc = "Доступность магазина грузовиков",
                     value = "false",
                 },
                 {
                     name = "isUnderConstruction",
+                    desc = "Технические работы",
                     value = "false",
-                }
+                },
+                {
+                    name = "startedIncomeMin",
+                    desc = "Мин. стартовый капитал игрока",
+                    value = "10.0",
+                },
+                {
+                    name = "startedIncomeMax",
+                    desc = "Макс. стартовый капитал игрока",
+                    value = "20.0",
+                },
             ];
 
             foreach(i, item in items) {
@@ -41,6 +56,7 @@ function settingsLoadedDataRead() {
 
                 // put data
                 field.name = item.name;
+                field.desc = item.desc;
                 field.value = item.value;
                 field.save();
             }

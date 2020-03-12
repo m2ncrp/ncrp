@@ -5,6 +5,7 @@ class Settings extends ORM.Entity {
 
     static fields = [
         ORM.Field.String({ name = "name" }),
+        ORM.Field.String({ name = "desc" }),
         ORM.Field.String({ name = "value" }),
     ];
 
