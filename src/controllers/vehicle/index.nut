@@ -59,7 +59,7 @@ event("onScriptInit", function() {
 
 // binding events
 event("onServerStarted", function() {
-    log("[vehicles] starting...");
+    logStr("[vehicles] starting...");
     local counter = 0;
 
     // load all vehicles from db
@@ -126,7 +126,7 @@ event("onServerStarted", function() {
             counter++;
         }
 
-        log("[vehicles] loaded " + counter + " vehicles from database.");
+        logStr("[vehicles] loaded " + counter + " vehicles from database.");
     });
 });
 

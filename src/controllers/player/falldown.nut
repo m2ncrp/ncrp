@@ -94,7 +94,7 @@ addEventHandlerEx("onServerStarted", function() {
             // create3DText(teleport.x, teleport.y, teleport.z, "Teleport: " + teleport.name, CL_ROYALBLUE.applyAlpha(150));
         }
 
-        log(format("[players] loaded %d spawn points...", positions.len()));
+        logStr(format("[players] loaded %d spawn points...", positions.len()));
     });
 });
 

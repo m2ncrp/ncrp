@@ -7,7 +7,7 @@ local inventory_script;
 local inventory_cache = {};
 
 event("onServerStarted", function() {
-    logger.log("starting inventory...");
+    logStr("starting inventory...");
 });
 
 /**

@@ -82,7 +82,7 @@ translation("en", {
 
 
 event("onServerStarted", function() {
-    log("[jobs] loading police alarm box...");
+    logStr("[jobs] loading police alarm box...");
 });
 
 event("onServerPlayerStarted", function( playerid ){

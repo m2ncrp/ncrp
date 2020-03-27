@@ -104,7 +104,7 @@ key("e", function(playerid) {
         }
     }
 
-    // log(bizAlias);
+    // logStr(bizAlias);
     players[playerid].trigger("showShopGUI", selectShopAssortment(bizAlias), getPlayerLocale(playerid));
     players[playerid].inventory.show(playerid);
 });

@@ -90,7 +90,7 @@ local TRUCK_ROUTE_NOW = 3;
 
 
 event("onServerStarted", function() {
-    log("[jobs] loading truckdriver job...");
+    logStr("[jobs] loading truckdriver job...");
     //  loaded, playerid
     //truckcars[createVehicle(35, -705.155, 1456, -6.48204, -43.0174, -0.252974, -0.64192)]     <- [ false, null ]; //    Flatbed
     truckcars[createVehicle(37, -708.151, 1453.25, -6.50832, -43.1396, -0.445434, -1.12674)]  <- [ false, null ]; //    Covered

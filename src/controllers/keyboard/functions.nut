@@ -114,7 +114,7 @@ function triggerKeyboardPress(playerid, key, state) {
  * @return {Boolean}
  */
 function key(names, callback, state = KEY_DOWN) {
-    // log("key", names);
+    // logStr("key", names);
     if (typeof names != "array") {
         names = [names];
     }

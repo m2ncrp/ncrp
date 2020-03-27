@@ -44,7 +44,7 @@
  });
 
  event("onServerStarted", function() {
-     log("[jobs] loading bookmakers...");
+     logStr("[jobs] loading bookmakers...");
 
      // load records (horses and etc.)
      SportMember.findAll(function(err, results) {

@@ -4,7 +4,7 @@ function whee (vehicleid) {
     delayedFunction(3000, function () {
         setVehicleWheelTexture(vehicleid, 0, ii)
         setVehicleWheelTexture(vehicleid, 1, ii)
-        log(ii+" completed")
+        logStr(ii+" completed")
         ii++;
 
         whee(vehicleid);

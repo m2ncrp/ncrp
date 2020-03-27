@@ -3,7 +3,7 @@ include("controllers/settings/models/Settings.nut");
 local settingsLoadedData = [];
 
 event("onServerStarted", function() {
-    log("[admin] loading settings...");
+    logStr("[admin] loading settings...");
 
     settingsLoadedDataRead();
 });

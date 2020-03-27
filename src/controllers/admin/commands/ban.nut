@@ -4,7 +4,7 @@ const DEFAULT_PLAYER_BAN_TIME  = 60; // 30 minutes
 include("controllers/admin/models/Ban.nut");
 
 event("onServerStarted", function() {
-    log("[admin] Removing expired bans...");
+    logStr("[admin] Removing expired bans...");
 
     ORM.Query("select * from @Ban where until < :current")
         .setParameter("current", getTimestamp())

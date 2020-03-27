@@ -52,8 +52,9 @@ function statisticsPushMessage(playerid, message, type = "") {
 }
 
 function statisticsPushCommand(playerid, command, result = "") {
-    dbg("command", getIdentity(playerid), command, result);
-    return statisticsPushText("command", playerid, command, result);
+    //dbg("command", getIdentity(playerid), command, result);
+    statisticsPushText("command", playerid, command, result);
+    return;
 }
 
 function statisticsPushPlayers() {
@@ -88,5 +89,5 @@ addEventHandlerEx("onServerAutosave", function() {
     local amount = 0;
     amount += statisticsPushPlayers();
     amount += statisticsPushVehicles();
-    // log("[stats] collected info #" + amount + " records");
+    // logStr("[stats] collected info #" + amount + " records");
 });

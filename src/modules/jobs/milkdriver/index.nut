@@ -74,7 +74,7 @@ local function showLeave3dText (playerid, visible) {
 }
 
 event("onServerStarted", function() {
-    log("[jobs] loading milkdriver job...");
+    logStr("[jobs] loading milkdriver job...");
     // milktrucks[i][0] - Truck ready: true/false
     // milktrucks[i][1] - milk load: integer
     //milktrucks[createVehicle(19, 172.868, 436, -20.04, -178.634, 0.392045, -0.829271)]  <- 0 ;

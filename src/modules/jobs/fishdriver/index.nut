@@ -109,7 +109,7 @@ local FISH_JOB_WORKING_HOUR_START = 6;
 local FISH_JOB_WORKING_HOUR_END   = 21;
 
 event("onServerStarted", function() {
-    log("[jobs] loading fishdriver job...");
+    logStr("[jobs] loading fishdriver job...");
     //                                                                                             [ doors, gruz, skolko ]
     fishcars[createVehicle(38, 396.5, 101.977, -20.9432, -89.836, 0.40721, 0.0879066 )]         <- [ false, "emptybox", 0 ];  //SeagiftTruck0
     fishcars[createVehicle(38, 396.5, 98.0385, -20.9359, -88.4165, 0.479715, -0.0220962)]       <- [ false, "emptybox", 0 ];  //SeagiftTruck1

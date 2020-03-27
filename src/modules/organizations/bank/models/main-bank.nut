@@ -1,7 +1,7 @@
 local bankLoadedData = [];
 
 event("onServerStarted", function() {
-    log("[shops] loading bank...");
+    logStr("[shops] loading bank...");
 
     bankLoadedDataRead();
 });

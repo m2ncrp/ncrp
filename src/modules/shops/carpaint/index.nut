@@ -113,7 +113,7 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
 });
 
 event("onServerStarted", function() {
-    log("[shops] loading car paint...");
+    logStr("[shops] loading car paint...");
 
     createPlace(CARPAINT_NAME+"_inside",   CARPAINT_COORDS_INSIDE[0],  CARPAINT_COORDS_INSIDE[1],  CARPAINT_COORDS_INSIDE[2],  CARPAINT_COORDS_INSIDE[3]);
     createPlace(CARPAINT_NAME+"_outside", CARPAINT_COORDS_OUTSIDE[0], CARPAINT_COORDS_OUTSIDE[1], CARPAINT_COORDS_OUTSIDE[2], CARPAINT_COORDS_OUTSIDE[3]);

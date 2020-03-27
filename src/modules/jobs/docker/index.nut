@@ -101,7 +101,7 @@ local DOCKER_BOX_IN_HOUR = 35;
 local DOCKER_BOX_NOW = 29;
 
 event("onServerStarted", function() {
-    log("[jobs] loading docker job...");
+    logStr("[jobs] loading docker job...");
 
     registerPersonalJobBlip("docker", DOCKER_JOB_X, DOCKER_JOB_Y);
 
@@ -397,7 +397,7 @@ event("updateMoveState", function(playerid, state) {
 });
 
 function dockerJobBoxCanDropped(playerid) {
-    log("dockerJobBoxCanDropped");
+    logStr("dockerJobBoxCanDropped");
     if(isDocker( playerid ) && isDockerHaveBox(playerid)) {
         msg( playerid, "job.docker.dropped", DOCKER_JOB_COLOR );
 

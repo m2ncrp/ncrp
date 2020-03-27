@@ -118,21 +118,21 @@ function advancedCommand(permissions, aliases, extensionOrCallback, callbackOrNu
 
         if(permissions != "-") {
             if(!fractions.exists("admin")) {
-                log("fraction ADMIN doesn't exist");
+                logStr("fraction ADMIN doesn't exist");
                 return;
             }
 
             local character = players[playerid];
 
             if(!fractions.admin.members.exists(character)) {
-                log("player is not a member");
+                logStr("player is not a member");
                 return;
             }
 
             if (permissions != "*" && !fractions.admin.members.get(character).permitted(permissions)) {
                 return msg(playerid, "fraction.permission.error", CL_ERROR);
             } else {
-            		dbg("ncrp", "commands", getPlayerName(playerid), character.name, cmdlog)
+                dbg("ncrp", "commands", getPlayerName(playerid), character.name, cmdlog)
             }
         }
 

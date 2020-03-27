@@ -20,7 +20,7 @@ function applyMigrations(callback, type) {
         // if current version is old, migrate to new
         while (migration.current < __migrations.len()) {
             __migrations[migration.current++](callback, type);
-            log("[database][migration] applying migration #" + migration.current);
+            logStr("[database][migration] applying migration #" + migration.current);
         }
 
         migration.save();

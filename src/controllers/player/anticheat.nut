@@ -155,13 +155,13 @@ event("onServerStarted", function() {
                         || (state == 1 && distance > 5.0)
                         || (state == 2 && distance > 8.0)
                         ) {
-                            //log("================================================================ WARNING ===");
+                            //logStr("================================================================ WARNING ===");
                             playersInfo[charId].counter += 1;
                             if(playersInfo[charId].counter >= 5) {
                                 dbg("chat", "report", getAuthor(playerid), "Подозрение на использование трейнера");
                             }
                             if(playersInfo[charId].counter > maxToBan) {
-                                //log("@everyone WARNING!!! "+getAuthor(playerid)+" - using trainer");
+                                //logStr("@everyone WARNING!!! "+getAuthor(playerid)+" - using trainer");
                                 dbg("chat", "report", getAuthor(playerid), "Высокий риск наличия трейнера.");
 
                                 //freezePlayer(playerid, true);
@@ -174,7 +174,7 @@ event("onServerStarted", function() {
                         } else {
                             playersInfo[charId].counter = 0;
                         }
-                        //log("distance distance distance distance distance "+state.tostring()+" distance: "+distance.tostring());
+                        //logStr("distance distance distance distance distance "+state.tostring()+" distance: "+distance.tostring());
                     }
                     playersInfo[charId].pos = [plaPos[0], plaPos[1]];
                 }

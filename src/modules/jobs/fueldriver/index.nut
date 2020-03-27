@@ -182,7 +182,7 @@ local fuelcoords = [
 
 
 event("onServerStarted", function() {
-    log("[jobs] loading fueldriver job...");
+    logStr("[jobs] loading fueldriver job...");
     // DEPRECATED | fuelcars[i][0] - Truck ready: true/false DEPRECATED
     // fuelcars[i][1] - Fuel load: integer
     // fuelcars[createVehicle(5, 510.0, -277.5, -20.19, -179.464, -0.05, 0.1)]  <- [false, 0 ];

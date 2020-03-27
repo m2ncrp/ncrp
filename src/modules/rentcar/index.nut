@@ -68,7 +68,7 @@ local RENT_PLATE_PREFIX = "CR-";
 
 
 event ("onServerStarted", function() {
-    log("[vehicles] loading rent cars module...");
+    logStr("[vehicles] loading rent cars module...");
 
 /*
     rentcars[createVehicle(43, 579.762, 802.5, -12.5, 34.939,  0.37609, -0.0309878)]    <- [ "free" ];

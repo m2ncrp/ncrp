@@ -91,7 +91,7 @@ local routes_list = clone( routes_list_all );
 
 
 event("onServerStarted", function() {
-    log("[jobs] loading snowplow job...");
+    logStr("[jobs] loading snowplow job...");
 
     createVehicle(39, -372.233, 593.342, -9.96686, -89.1468, 1.52338, 0.0686706);
     createVehicle(39, -374.524, 589.011, -9.96381, -56.7532, 1.17279, 0.934235);

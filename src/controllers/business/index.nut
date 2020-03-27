@@ -13,7 +13,7 @@ const BUSINESS_BUY_DISTANCE      = 1.0;
 const BUSINESS_VIEW_DISTANCE     = 5.0;
 
 event("onServerStarted", function() {
-    log("[business] loading all businesses...");
+    logStr("[business] loading all businesses...");
     Business.findAll(function(err, results) {
         foreach (idx, business in results) {
             loadBusiness(business);

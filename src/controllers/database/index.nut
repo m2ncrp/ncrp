@@ -9,7 +9,7 @@ IS_DATABASE_DEBUG   <- false;
 IS_MYSQL_ENABLED    <- false;
 
 addEventHandler("onScriptInit", function() {
-    log("[database] trying to read mysql settings...");
+    logStr("[database] trying to read mysql settings...");
     local settings = readMysqlSettings(".mysql");
 
     // check if settings was propertly loaded
@@ -19,11 +19,11 @@ addEventHandler("onScriptInit", function() {
 
     // check if mysql is loaded
     if (IS_MYSQL_ENABLED && !("mysql_connect" in getroottable())) {
-        log("[database] mysql failed to load. skipping .mysql settings and falling back to sqlite...");
+        logStr("[database] mysql failed to load. skipping .mysql settings and falling back to sqlite...");
         IS_MYSQL_ENABLED = false;
     }
 
-    ::log("[database] creating connection...");
+    ::logStr("[database] creating connection...");
 
     // try to load mysql
     if (IS_MYSQL_ENABLED) {
@@ -63,7 +63,7 @@ addEventHandler("onScriptInit", function() {
 });
 
 addEventHandlerEx("onServerStopped", function() {
-    ::log("[database] stopping...");
+    ::logStr("[database] stopping...");
     if (!IS_MYSQL_ENABLED) {
         connection.close();
     } else {
@@ -234,7 +234,7 @@ function readMysqlSettings(filename) {
 
 //         // log query and result
 //         if (IS_DATABASE_DEBUG) {
-//             ::log("Incoming SQL request: " + request.data.query);
+//             ::logStr("Incoming SQL request: " + request.data.query);
 //             dbg(tmp);
 //         }
 

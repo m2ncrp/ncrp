@@ -12,7 +12,7 @@ translation("en", {
 include("modules/jobs/realtor/commands.nut");
 
 event("onServerStarted", function() {
-    log("[jobs] loading realtor job...");
+    logStr("[jobs] loading realtor job...");
 });
 
 function isRealtor (playerid) {

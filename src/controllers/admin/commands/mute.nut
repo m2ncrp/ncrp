@@ -1,7 +1,7 @@
 include("controllers/admin/models/Mute.nut");
 
 event("onServerStarted", function() {
-    log("[admin] Removing expired mutes...");
+    logStr("[admin] Removing expired mutes...");
 
     ORM.Query("select * from @Mute where until < :current")
         .setParameter("current", getTimestamp())

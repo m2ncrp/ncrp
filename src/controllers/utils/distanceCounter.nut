@@ -1,7 +1,7 @@
 local distanceCounter = {};
 
 event("onServerStarted", function() {
-    log("[module] distance counter...");
+    logStr("[module] distance counter...");
 });
 
 

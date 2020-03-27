@@ -13,7 +13,7 @@ local time_to_sale = 864000;            // время на продажу игр
 local time_to_await_owner = 432000;     // время ожидания игрока, чтобы забрал авто - 5 дней
 
 event("onServerStarted", function() {
-    log("[shops] loading car dealer...");
+    logStr("[shops] loading car dealer...");
 
     // load records (horses and etc.)
     carDealerLoadedDataRead();

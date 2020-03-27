@@ -124,7 +124,7 @@ acmd("cikl", function (playerid) {
 });
 
 function cikl (playerid, i) {
-    log(i.tostring(), anim[i][1]);
+    logStr(i.tostring(), anim[i][1]);
     local k = i + 1;
     //setPlayerHandModel(playerid, 1, i);
     setPlayerAnimStyle(playerid, anim[i][0],  anim[i][1]);

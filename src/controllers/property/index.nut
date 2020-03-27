@@ -6,14 +6,14 @@ property <- null;
 
 event("onServerStarted", function() {
 
-    log("[property] loading property module...");
+    logStr("[property] loading property module...");
 
     property <- Container(Property);
 
     Property.findAll(function(err, results) {
-      log(results.len().tostring())
+      logStr(results.len().tostring())
         foreach (idx, object in results) {
-            log(object)
+            logStr(object)
             property.set(object.id, object);
         }
     });
@@ -28,14 +28,14 @@ properties <- null;
 
 event("onServerStarted", function() {
 
-    log("[property] loading property module...");
+    logStr("[property] loading property module...");
 
     properties <- Container(Property);
 
     Property.findAll(function(err, results) {
-      log(results.len().tostring())
+      logStr(results.len().tostring())
         foreach (idx, object in results) {
-            log(object)
+            logStr(object)
             properties.set(object.id, object);
 
             createPropertyLabels(object)

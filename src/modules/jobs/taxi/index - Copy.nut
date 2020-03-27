@@ -20,7 +20,7 @@ local TAXI_CHARACTERS_LIMIT = 100000;
 
 
 event("onServerStarted", function() {
-    log("[jobs] loading taxi job...");
+    logStr("[jobs] loading taxi job...");
     local taxicars = [
 
         createVehicle(24, -127.650, 412.521, -13.98, -90.0, 0.2, -0.2),   // taxi East Side 1
@@ -365,28 +365,28 @@ function taxiCallTakeRefuse(playerid) {
     if (!isTaxiDriver(playerid)) {
         return;
     }
-log("if 1 complete");
+logStr("if 1 complete");
     if (!isPlayerCarTaxi(playerid)) {
         return; //msg_taxi_dr(playerid, "job.taxi.needcar");
     }
-log("if 2 complete");
+logStr("if 2 complete");
     if (job_taxi[players[playerid].id]["car"] != getPlayerVehicle(playerid) && job_taxi[players[playerid].id]["car"] != null) {
         return msg_taxi_dr(playerid, "Sit into your taxi car with plate "+getVehiclePlateText(job_taxi[players[playerid].id]["car"]));
     }
-log("if 3 complete");
+logStr("if 3 complete");
     if(getPlayerTaxiUserStatus(playerid) == "offair") {
         return msg_taxi_dr(playerid, "job.taxi.canttakecall");
     }
-log("if 4 complete");
+logStr("if 4 complete");
     if(getPlayerTaxiUserStatus(playerid) == "onroute") {
         if(isCounterStarted(playerid)) {
             taxiCallDone(playerid);
         }
         return;
     }
-log("if 5 complete");
+logStr("if 5 complete");
     if(job_taxi[players[playerid].id]["customer"] != null) {  dbg("refusing"); return taxiCallRefuse(playerid); };
-log("if 6 complete");
+logStr("if 6 complete");
     // если id персонажа (TAXI_LASTCALL) меньше 100 тысяч, тогда это реальный игрок, иначе - бот
     if (TAXI_LASTCALL < TAXI_CHARACTERS_LIMIT) {
 
@@ -795,9 +795,9 @@ function callTaxiByPed() {
     local check = false;
     foreach (characterid, value in job_taxi) {
         local targetid = getPlayerIdFromCharacterId(characterid);
-        //log("targetid: "+ targetid);
-        //log(value["userstatus"]);
-        //log("is taxi: "+isPlayerCarTaxi(targetid));
+        //logStr("targetid: "+ targetid);
+        //logStr(value["userstatus"]);
+        //logStr("is taxi: "+isPlayerCarTaxi(targetid));
         if (value["userstatus"] == "onair" && isPlayerCarTaxi(targetid) ) { // need changed to onair for correct work !!!!!!!!!!!!!!!!!!!!!!!!
             check = true;
             msg_taxi_dr(targetid, "job.taxi.call.new", [ plocalize(targetid, place)/*, playerid*/]);
@@ -811,7 +811,7 @@ function callTaxiByPed() {
     });
 
     if(!check) {
-        //log("No free drivers");
+        //logStr("No free drivers");
         return;
     }
 
@@ -830,7 +830,7 @@ function callTaxiByPed() {
         }
     });
 
-    log("Pedid "+pedid+" called taxi to "+place);
+    logStr("Pedid "+pedid+" called taxi to "+place);
 
 }
 
@@ -902,11 +902,11 @@ function isCarTaxiFreeForDriver(vehicleid) {
 
 
 function getPlayerTaxiUserStatus (playerid) {
-    log("get status");
+    logStr("get status");
     return job_taxi[players[playerid].id]["userstatus"];
 }
 
 function setPlayerTaxiUserStatus (playerid, status) {
-    log("set status to "+status);
+    logStr("set status to "+status);
     return job_taxi[players[playerid].id]["userstatus"] = status;
 }

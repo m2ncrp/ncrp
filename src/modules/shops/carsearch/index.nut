@@ -1,6 +1,6 @@
 /*
 event("onServerStarted", function() {
-    log("[shops] loading car searching services...");
+    logStr("[shops] loading car searching services...");
 });
 
 translate("en", {

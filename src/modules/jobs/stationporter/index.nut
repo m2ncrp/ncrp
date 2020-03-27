@@ -54,7 +54,7 @@ local PORTER_BOX_NOW = 29;
 
 
 event("onServerStarted", function() {
-    log("[jobs] loading porter job...");
+    logStr("[jobs] loading porter job...");
 
     registerPersonalJobBlip("porter", PORTER_JOB_X, PORTER_JOB_Y);
 

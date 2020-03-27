@@ -12,7 +12,7 @@ __world  <- null;
 local ticker = null;
 
 event("onServerStarted", function() {
-    log("[world] starting world ...");
+    logStr("[world] starting world ...");
 
     World.findAll(function(err, worlds) {
         if (err || worlds.len() < 1) {

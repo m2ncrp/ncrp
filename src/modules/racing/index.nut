@@ -48,7 +48,7 @@ local raceBlockingCars = [
 
 
 event("onServerStarted", function() {
-    log("[racing] loading racing module...");
+    logStr("[racing] loading racing module...");
 
     createPlace("RACE-DISCV-1", -1625.59,395.884, -1614.41,422.028 );
     createPlace("RACE-DISCV-2", -1637.21,573.284, -1631.73,538.236 );

@@ -3,7 +3,7 @@ include("controllers/citizens/models/Citizen.nut");
 local citizens_cache = {};
 
 event("onServerStarted", function() {
-    logger.log("starting citizens...");
+    logStr("starting citizens...");
 
     citizensLoadData();
 });
@@ -31,13 +31,13 @@ event("onServerSecondChange", function() {
     */
 
 
-    log("currentTimestamp: " + currentTimestamp)
+    logStr("currentTimestamp: " + currentTimestamp)
     foreach (citizenid, object in citizens_cache) {
 
         if (!object) continue;
 
         if(object.timestamp > currentTimestamp) continue;
-        log(object.id + ". timestamp: " + object.timestamp)
+        logStr(object.id + ". timestamp: " + object.timestamp)
         object.timestamp = getTimestamp() + random(20, 60);
 
         object.save();
@@ -47,9 +47,9 @@ event("onServerSecondChange", function() {
 
 function citizensLoadData() {
     Citizen.findAll(function(err, results) {
-      log(results.len().tostring())
+      logStr(results.len().tostring())
         foreach (idx, object in results) {
-            log(object)
+            logStr(object)
             citizens_cache[object.id] <- object;
         }
     });

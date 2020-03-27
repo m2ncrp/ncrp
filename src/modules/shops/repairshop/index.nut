@@ -35,7 +35,7 @@ repair_shops <- [
 ];
 
 addEventHandlerEx("onServerStarted", function() {
-    log("[shops] loading repair shops...");
+    logStr("[shops] loading repair shops...");
     //foreach (shop in repair_shops) {
     //    create3DText ( shop[0], shop[1], shop[2]+0.35, "=== "+shop[3]+" REPAIR SHOP ===", CL_ROYALBLUE, SHOP_REPAIR_3DTEXT_DRAW_DISTANCE );
     //    create3DText ( shop[0], shop[1], shop[2]+0.20, "Press E | Price: $"+SHOP_REPAIR_COST, CL_WHITE.applyAlpha(150), SHOP_REPAIR_RADIUS );

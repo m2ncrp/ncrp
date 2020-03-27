@@ -125,11 +125,14 @@ hobos_points <- [
     [-231.881, -676.135, -14.5929], //101
     [-142.61, -546.025,  -16.9013], //102
     [-127.069, -756.291,  -20.8767], //103
+    [-578.643,-3.57808,1.03806], //104
+    [-932.807,1650.29,6.87069], //105
+    [-164.829,540.551,-20.2779], //106
 ];
 
 
 event("onServerStarted", function() {
-    log("[hobos] loading trash containers...");
+    logStr("[hobos] loading trash containers...");
 });
 
 event("onServerPlayerStarted", function( playerid ) {

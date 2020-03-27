@@ -50,7 +50,7 @@ local canister_shops = [
 ];
 
 addEventHandlerEx("onServerStarted", function() {
-    log("[shops] loading fuel stations and canister shops...");
+    logStr("[shops] loading fuel stations and canister shops...");
 });
 
 

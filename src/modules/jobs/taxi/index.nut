@@ -17,7 +17,7 @@ local TAXI_CHARACTERS_LIMIT = 1000000;
 
 
 event("onServerStarted", function() {
-    log("[jobs] loading taxi job...");
+    logStr("[jobs] loading taxi job...");
     local taxicars = [
         createVehicle(24, -127.650, 412.521, -13.98, -90.0, 0.2, -0.2),   // taxi East Side 1
         createVehicle(24, -127.650, 408.872, -13.98, -90.0, 0.2, -0.2),   // taxi East Side 2

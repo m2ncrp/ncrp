@@ -9,11 +9,11 @@ acmd(["getGPS", "getpos"], function ( playerid, str ) {
         vehicleModel = getVehicleModel ( vehicleid );
         local vehPos = getVehiclePosition( vehicleid );
         local vehRot = getVehicleRotation( vehicleid );
-        log( "Vehicle: " + vehicleid + ", "+ vehicleModel + ", " + vehPos[0] + ", " + vehPos[1] + ", " + vehPos[2] + ", " + vehRot[0] + ", " + vehRot[1] + ", " + vehRot[2] );
+        logStr( "Vehicle: " + vehicleid + ", "+ vehicleModel + ", " + vehPos[0] + ", " + vehPos[1] + ", " + vehPos[2] + ", " + vehRot[0] + ", " + vehRot[1] + ", " + vehRot[2] );
     } else {
         local plaPos = getPlayerPosition( playerid ) ;
         local plaRot = getPlayerRotation( playerid );
-        log( "Player: " + plaPos[0] + ", " + plaPos[1] + ", " + plaPos[2] + ", " + plaRot[0] + ", " + plaRot[1] + ", " + plaRot[2] );
+        logStr( "Player: " + plaPos[0] + ", " + plaPos[1] + ", " + plaPos[2] + ", " + plaRot[0] + ", " + plaRot[1] + ", " + plaRot[2] );
     }
 
     // for info about reading modes check out

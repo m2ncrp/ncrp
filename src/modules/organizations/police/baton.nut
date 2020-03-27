@@ -41,7 +41,7 @@ key(["b"], function(playerid) {
     local currentPlayerHealth = getPlayerHealth(targetid);
     local healthDamagePercent = random(20, 40);
     local nextPlayerHealth = currentPlayerHealth - healthDamagePercent * 0.01 * currentPlayerHealth;
-    log(nextPlayerHealth.tostring());
+    logStr(nextPlayerHealth.tostring());
     if(nextPlayerHealth < 10) nextPlayerHealth = 10;
 
     setPlayerHealth(targetid, nextPlayerHealth);

@@ -55,7 +55,7 @@ function removeTaxiCall(callNumber) {
 }
 
 function getCalls() {
-    log(TAXI_CALLS);
+    logStr(TAXI_CALLS);
     return TAXI_CALLS;
 }
 
@@ -127,7 +127,7 @@ function isDridHaveTaxiCall(drid) {
 local DRIVERS = {};
 
 function getDrivers() {
-    log(DRIVERS);
+    logStr(DRIVERS);
     return DRIVERS;
 }
 
@@ -141,7 +141,7 @@ function addTaxiDriver(drid) {
 }
 
 function setTaxiDriverStatus(drid, status) {
-    log("Set status to "+status);
+    logStr("Set status to "+status);
     return DRIVERS[drid].status = status;
 }
 
@@ -151,12 +151,12 @@ function getTaxiDriverStatus(xid, byPlayerid = false) {
 }
 
 function setTaxiDriverCar(drid, vehicleid) {
-    log("Set vehicleid to "+vehicleid);
+    logStr("Set vehicleid to "+vehicleid);
     return DRIVERS[drid].vehicleid = vehicleid;
 }
 
 function getTaxiDriverCar(drid) {
-    log("get vehicleid");
+    logStr("get vehicleid");
     return DRIVERS[drid].vehicleid;
 }
 
@@ -173,7 +173,7 @@ function isHaveFreeDriver() {
 
 
 event("onServerStarted", function() {
-    log("[jobs] loading taxi job...");
+    logStr("[jobs] loading taxi job...");
     local taxicars = [
         createVehicle(24, -127.650, 412.521, -13.98, -90.0, 0.2, -0.2),   // taxi East Side 1
         createVehicle(24, -127.650, 408.872, -13.98, -90.0, 0.2, -0.2),   // taxi East Side 2
@@ -558,7 +558,7 @@ function callTaxiByPed() {
     }
 
     if(!check) {
-        //log("No free drivers");
+        //logStr("No free drivers");
         return;
     }
 
@@ -573,7 +573,7 @@ function callTaxiByPed() {
         }
     });
 
-    log("Pedid "+callObject.cuid+" called taxi to telephone"+placeNumber);
+    logStr("Pedid "+callObject.cuid+" called taxi to telephone"+placeNumber);
 
 }
 
@@ -662,8 +662,8 @@ function taxiManageCall(playerid) {
 
     if(callObject && callObject.counter.status == "") {
         local callObject = getTaxiCallObjectByDrid(drid);
-        log( callObject );
-        log("completeRoute");
+        logStr( callObject );
+        logStr("completeRoute");
         //if(isCounterStarted(playerid)) {
         //    taxiCallDone(playerid);
         //}
@@ -704,7 +704,7 @@ function taxiManageCall(playerid) {
     if( callObject.cuid < TAXI_CHARACTERS_LIMIT) {
         msg_taxi_cu(customerid, "taxi.call.received");
     } else {
-        log("callObject.place"+ callObject.place)
+        logStr("callObject.place"+ callObject.place)
         local ped_coords = getPedTaxiCoords(callObject.place);
         if (ped_coords != false) {
             trigger(playerid, "createPedTaxiPassenger", getPlayerName(playerid), 145, ped_coords[0], ped_coords[1], ped_coords[2], ped_coords[3], 0.0, 0.0 );
@@ -897,7 +897,7 @@ key("2", function(playerid) {
 key("4", function(playerid) {
     //taxiCallTakeRefuse ( playerid );
     calls_priority = !calls_priority;
-    log("set priority to: "+calls_priority)
+    logStr("set priority to: "+calls_priority)
 }, KEY_UP);
 
 

@@ -31,7 +31,7 @@
 //     local targetid = targetid.tointeger();
 //     local reason = concat(vargv);
 //     dbg(reason);
-//     log( getAuthor(playerid) + "'s kick " + getAuthor(targetid) + " for: " + reason);
+//     logStr( getAuthor(playerid) + "'s kick " + getAuthor(targetid) + " for: " + reason);
 //     freezePlayer( targetid, true );
 //     stopPlayerVehicle( targetid );
 //     msg(targetid, format("You has been kicked for: %s", reason), CL_RED);
@@ -75,7 +75,7 @@
 
 //     local reason = concat(vargv);
 //         dbg(reason);
-//     log( getAuthor(playerid) + "'s banned " + getAuthor(targetid) + " for " + srok + " "+srok_title+". Reason: " + reason);
+//     logStr( getAuthor(playerid) + "'s banned " + getAuthor(targetid) + " for " + srok + " "+srok_title+". Reason: " + reason);
 //     freezePlayer( targetid, true );
 //     stopPlayerVehicle( targetid );
 //     msg(targetid, format("You has been banned for: %s", reason), CL_RED);

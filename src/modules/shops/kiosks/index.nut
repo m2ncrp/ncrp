@@ -46,7 +46,7 @@ local kiosks = [
 ];
 
 event("onServerStarted", function() {
-    log("[shops] loading kiosks...");
+    logStr("[shops] loading kiosks...");
 });
 
 event("onServerPlayerStarted", function( playerid ){

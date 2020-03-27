@@ -36,7 +36,7 @@ local routes_list = clone( routes_list_all );
 local BUS_DEPOT_SIDEWALK = [-436.409, 461.904, -411.006, 498.025];
 
 event("onServerStarted", function() {
-    log("[jobs] loading busdriver job...");
+    logStr("[jobs] loading busdriver job...");
 
     createPlace("LittleItalyWaypoint",  -215.876, 625.305, -221.062, 650.786);
     //createPlace("WestSideWaypoint",  -536.377, -126.749, -561.389, -142.504);

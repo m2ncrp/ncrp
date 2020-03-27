@@ -14,7 +14,7 @@ local subwaystations = {};
 
 
 event("onServerStarted", function() {
-    log("[MAP] loading all data...");
+    logStr("[MAP] loading all data...");
     Business.findAll(function(err, results) {
         foreach (idx, business in results) {
             // Fill da bisnessies

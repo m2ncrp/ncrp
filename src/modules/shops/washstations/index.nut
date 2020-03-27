@@ -32,7 +32,7 @@ wash_stations <- [
 
 
 event("onServerStarted", function() {
-    log("[shops] loading wash stations...");
+    logStr("[shops] loading wash stations...");
 });
 
 event("onServerPlayerStarted", function(playerid) {

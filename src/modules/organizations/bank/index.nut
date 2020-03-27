@@ -56,7 +56,7 @@ const BANK_OFFICE_Y = -99.6398;
 const BANK_OFFICE_Z = -10.6255;
 
 event("onServerStarted", function() {
-    log("[jobs] loading bank...");
+    logStr("[jobs] loading bank...");
     createVehicle(27, 124.65, -240.0, -20.061, 180.0, 0.0, 0.0);   // securityCAR1
     createVehicle(27, 124.65, -222.5, -20.061, 180.0, 0.0, 0.0);   // securityCAR2
 

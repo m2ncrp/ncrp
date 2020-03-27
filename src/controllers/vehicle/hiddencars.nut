@@ -64,7 +64,7 @@ local places = [
 
 
 addEventHandlerEx("onServerStarted", function() {
-    log("[vehicles] spawning hidden cars...");
+    logStr("[vehicles] spawning hidden cars...");
     currentPlaces = places;
 });
 

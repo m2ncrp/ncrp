@@ -8,7 +8,7 @@ fmd("*", ["admin.kick2"], "$f hhh", function(fraction, character) {
 });*/
 
 event("onServerStarted", function() {
-    log("[hospital]=========================================...");
+    logStr("[hospital]=========================================...");
 });
 
 /*

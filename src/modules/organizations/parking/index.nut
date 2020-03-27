@@ -89,7 +89,7 @@ alternativeTranslate({
 });
 
 event("onServerStarted", function() {
-    log("[police] parking...");
+    logStr("[police] parking...");
 /*
     createVehicle(18, 16.15, 116.7, -13.8, 0.0, 0.0, 0.0 ); // 1
     createVehicle(18, 19.5,  116.7, -13.8, 0.0, 0.0, 0.0 ); // 2

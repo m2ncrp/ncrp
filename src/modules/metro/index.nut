@@ -61,7 +61,7 @@ const METRO_HEAD = 0;
 const METRO_TAIL = 6; // total number of stations-1
 
 event("onServerStarted", function() {
-    log("[metro] loading metro stations...");
+    logStr("[metro] loading metro stations...");
     //creating public 3dtext
 
 });

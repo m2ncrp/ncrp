@@ -2,7 +2,7 @@ include("controllers/handshakes/models/Handshake.nut");
 include("controllers/handshakes/commands.nut");
 
 event("onServerStarted", function() {
-    logger.log("starting handshakes...");
+    logStr("starting handshakes...");
 });
 
 local handshakes_cache = {};

@@ -60,7 +60,7 @@ logger.use(function(data) {
  * @param  {...}  any number of arguments
  * @return none
  */
-function log(...) {
+function logStr(...) {
     return ::print(JSONEncoder.encode(vargv).slice(2).slice(0, -2));
 };
 
@@ -174,17 +174,17 @@ local initializeEnvironment = function() {
 
 // bind general events
 event("native:onScriptInit", function() {
-    log("[core] starting initialization...");
+    logStr("[core] starting initialization...");
 
     initializeEnvironment();
 
     if (DEBUG) {
-        log("[core] running in DEBUG mode...");
+        logStr("[core] running in DEBUG mode...");
     } else {
-        log("[core] running in PROD mode...")
+        logStr("[core] running in PROD mode...")
     }
 
-    log(format("[core] running version %s...", VERSION));
+    logStr(format("[core] running version %s...", VERSION));
 
     // setup default values
     setGameModeText( "NCRP " + VERSION + " | vk.com/m2ncrp");
@@ -352,7 +352,7 @@ proxy("shop:purchase",              "native:shop:purchase"               );
 if (__DEBUG__EXPORT) {
     dbg(__commands);
 }
-
+/*
 event("onPlayerWeaponShoot", function(playerid) {
     msg(playerid, "Пиу")
 })
@@ -369,5 +369,11 @@ function ex(json) {
 nnListen(function(data) {
     local parsedData = JSONParser.parse(data);
 
-    log("from node json: " + parsedData.type + ": "+data);
+    logStr("from node json: " + parsedData.type + ": "+data);
 });
+
+
+cmd("nc", function (playerid) {
+    dbg("ncrp", "newcomers", "Test Testov");
+});
+*/

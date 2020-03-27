@@ -1,5 +1,5 @@
 event("onServerStarted", function() {
-    log("[jobs] starting...");
+    logStr("[jobs] starting...");
 
     if(!isSummer()) {
         include("modules/jobs/snowplower");

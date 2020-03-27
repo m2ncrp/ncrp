@@ -71,7 +71,7 @@ local police_rank = [
 function policecmd(name, callback) {
     cmd(name, function(playerid, ...) {
         if(!isOfficer(playerid)) {
-            return log("Bad Police");
+            return logStr("Bad Police");
         }
         //local police = fractions["police"];
         //police.exists(playerid)
@@ -187,7 +187,7 @@ police <- {};
 vehicleWanted <- [];
 
 event("onServerStarted", function() {
-    log("[police] starting police...");
+    logStr("[police] starting police...");
     // createVehicle(42, -387.247, 644.23, -11.1051, -0.540928, 0.0203334, 4.30543 );      // policecar1
     // createVehicle(42, -327.361, 677.508, -17.4467, 88.647, -2.7285, 0.00588255 );       // policecarParking3
     // createVehicle(42, -327.382, 682.532, -17.433, 90.5207, -3.07545, 0.378189 );        // policecarParking4
