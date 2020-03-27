@@ -174,7 +174,7 @@ include("modules/jobs/milkdriver");
 include("modules/jobs/fishdriver");
 include("modules/jobs/truckdriver");
 include("modules/jobs/telephone");
-include("modules/jobs/docker");
+//include("modules/jobs/docker");
 include("modules/jobs/stationporter");
 // include("modules/jobs/snowplower");
 // include("modules/jobs/realtor");
