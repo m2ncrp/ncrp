@@ -1,6 +1,6 @@
 local spawnHelperPositions = [
     [-557.706, 1698.31, -22.2408, "Paulo Matti"], // train station
-    [ -342.6, -952.716, -21.7457, "Edgard Ross"], // port
+    //[ -342.6, -952.716, -21.7457, "Edgard Ross"], // port
 ];
 
 local spawnHelperMessages = {};

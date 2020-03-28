@@ -64,7 +64,7 @@ function hideForgotGUI(playerid) {
 
     trigger(playerid, "destroyForgotGUI");
     screenFadein(playerid, 500, function() {
-        trigger("onClientSuccessfulyStartedAgain", playerid);
+        showIdentificationGui(playerid, 0);
         screenFadeout(playerid, 250);
     });
 }

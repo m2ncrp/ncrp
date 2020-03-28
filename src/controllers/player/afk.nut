@@ -1,4 +1,4 @@
-const AFK_TIME = 300; // 5 minutes
+const AFK_TIME = 180; // 3 minutes
 
 local afkPlayers = {};
 local afkLastPositions = {};

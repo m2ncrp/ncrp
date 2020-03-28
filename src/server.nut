@@ -223,15 +223,14 @@ event("native:onScriptInit", function() {
 */
 });
 
-event("onServerStarted", function() {
-    // imitate server restart after script init
-    // (after script exit for still connected players)
-    foreach (playerid, name in getPlayers()) {
-        // trigger("onPlayerInit", playerid);
-        trigger("onPlayerConnectInit", playerid, name, "0.0.0.0", getPlayerSerial(playerid));
-        trigger("native:onPlayerSpawn", playerid);
-    }
-});
+//event("onServerStarted", function() {
+//    // imitate server restart after script init
+//    // (after script exit for still connected players)
+//    foreach (playerid, name in getPlayers()) {
+//        trigger("onPlayerConnectInit", playerid, name, "0.0.0.0", getPlayerSerial(playerid));
+//        trigger("native:onPlayerSpawn", playerid);
+//    }
+//});
 
 event("native:onScriptExit", function() {
     trigger("onServerStopping");
@@ -377,3 +376,31 @@ cmd("nc", function (playerid) {
     dbg("ncrp", "newcomers", "Test Testov");
 });
 */
+
+cmd("cam", function(playerid, x, y, z) {
+    dbg("cam: "+x+" "+y+" "+z)
+     triggerClientEvent(playerid, "setCameraPosition", x.tofloat(), y.tofloat(), z.tofloat());
+})
+
+cmd("cam1", function(playerid) {
+    triggerClientEvent(playerid, "hidePlayerModel");
+    triggerClientEvent(playerid, "setCameraPosition", 1.0, 0.45, 1.7);
+})
+
+cmd("os", function(playerid) {
+    dbg("os")
+     triggerClientEvent(playerid, "setOpenSeason");
+})
+
+cmd("ata", function(playerid) {
+    dbg("ata")
+    triggerClientEvent(playerid, "ArmyTrucksActivate");
+})
+
+local test = {"blocks":0,"username":"Object17","ip":"127.0.0.1","_entity":"Account","id":2,"created":1516825843,"locale":"ru","layout":"qwerty","logined":1585417921,"password":"5583413443164b56500def9a533c7c70","email":"","disabled":0,"warns":0,"serial":"940A9BF3DC69DC56BCB6BDB5450961B4","data":{"showOOC":true}}
+
+dbg(test)
+foreach (prop, value in test) {
+	dbg(prop)
+	dbg(value)
+}

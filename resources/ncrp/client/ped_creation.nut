@@ -3,8 +3,8 @@ addEventHandler("onServerClientStarted", function(version) {
     local pedsArray = [
         [145,    -704.88,   1461.06,   -6.86539,       80.0,   -0.000400906,   -0.00015495, "Robert Casey"  ], // ped for truck job. Placed in Kingston under Red Bridge.
         // [109,    610.033, 744.465, -16.5903,          150.0,            0.0,           0.0, "Jonathan Neil"  ], // ped for truck shop
-        [154,   -557.706,   1698.31,   -22.2408,    24.3432,     0.00231509,    -0.0055519, "Paulo Matti"   ], // ped on the platform on the train station
-        [62,      -342.6,  -952.716,   -21.7457,    -10.052,    -0.00627452,    0.00265012, "Edgard Ross"   ], // ped near small port office on the pierce
+        [154,   -557.706,   1698.31,   -22.2408,    24.3432,     0.00231509,    -0.0055519, ""   ], // ped on the platform on the train station
+        //[62,      -342.6,  -952.716,   -21.7457,    -10.052,    -0.00627452,    0.00265012, "Edgard Ross"   ], // ped near small port office on the pierce
         [52,     389.032,   128.104,   -20.2027,      135.0,    0.000657043,   -0.00108726, "Lao Chen"      ], // ped at Seagift
         [75,     169.415,  -334.993,   -20.1634,      270.0,   -0.000566336,   -0.00311189, "Oliver Parks"  ], // ped at Cop
         //[171,   -720.586,   248.261,   0.365978,    51.2061,    0.000172777,   -0.00688932, "Daniel Burns"  ], // ped at Taxi

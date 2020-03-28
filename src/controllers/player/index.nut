@@ -16,10 +16,10 @@ include("controllers/player/name.nut");
 include("controllers/player/skin.nut");
 include("controllers/player/falldown.nut");
 include("controllers/player/commands.nut");
-include("controllers/player/spawn.nut");
 include("controllers/player/bannednames.nut");
 include("controllers/player/hunger.nut");
 include("controllers/player/data.nut");
+include("controllers/player/spawn.nut");
 
 // create storage for players
 players  <- PlayerContainer();
@@ -70,6 +70,7 @@ event("onServerPlayerStarted", function(playerid) {
  * (after player just logined or regitered)
  */
 event("onPlayerInit", function(playerid) {
+    dbg("onPlayerINIT")
     Character.findBy({ name = getAccountName(playerid) }, function(err, characters) {
         foreach (idx, c in characters) {
             if (DEBUG) {
@@ -91,7 +92,11 @@ event("onPlayerInit", function(playerid) {
     if (DEBUG) return;
 
     trigger(playerid, "onServerCharacterLoaded", getPlayerLocale(playerid));
-    screenFadeout(playerid, 250);
+    triggerClientEvent(playerid, "showPlayerModel");
+    delayedFunction(calculateFPSDelay(playerid) + 2000, function() {
+        nativeScreenFadeout(playerid, 100);
+        screenFadeout(playerid, 250);
+    });
 });
 
 /**

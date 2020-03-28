@@ -74,6 +74,10 @@ function setWinter(value) {
 
 local nativeSetWeather = setWeather;
 
+function getWeather() {
+    return SERVER_WEATHER;
+}
+
 function setWeather(name) {
     nativeSetWeather(name);
 
@@ -162,9 +166,10 @@ event("onServerSecondChange", function() {
 });
 
 // register auto weather sync on player spawn
-event("onClientSuccessfulyStarted", function(playerid) {
-    trigger(playerid, "onServerWeatherSync", SERVER_WEATHER);
-});
+// event("onClientSuccessfulyStarted", function(playerid) {
+//     dbg("onClientSuccessfulyStarted")
+//     trigger(playerid, "onServerWeatherSync", SERVER_WEATHER);
+// });
 
 // register auto weather sync on player spawn
 event("onServerPlayerStarted", function(playerid) {

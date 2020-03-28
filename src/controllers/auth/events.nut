@@ -1,19 +1,28 @@
-/**
- * Command allows players to register
- * using their current username and specified password
- */
-function registerFunc(playerid, password, email = null) {
+event("onPlayerConnectInit", function(playerid, username, ip, serial) {
+    // save base data
+    addAccountData(username, {
+        playerid = playerid,
+        username = username,
+        ip = ip,
+        serial = serial,
+        locale = "ru"
+    });
+});
+
+event("registerGUIFunction", function (playerid, password, email = null) {
 
     if (!email) {
         return msg(playerid, "Error: email is empty");
     }
+
+		local username = getAccountName(playerid);
 
     // create account
     local account = Account();
 
     account.username = getAccountName(playerid);
     account.password = md5(password);
-    account.ip       = getPlayerIp(playerid);
+    account.ip       = getPlayerIp(username);
     account.serial   = getPlayerSerial(playerid);
     account.locale   = getPlayerLocale(playerid);
     account.created  = getTimestamp();
@@ -40,8 +49,11 @@ function registerFunc(playerid, password, email = null) {
                             return;
                         }
 
+                        local username = getAccountName(playerid);
+
                         account.save(function(err, result) {
-                            addAccount(playerid, account);
+                            dbg(account)
+                            addAccount(username, account);
                             setLastActiveSession(playerid);
 
                             // send success registration message
@@ -59,27 +71,16 @@ function registerFunc(playerid, password, email = null) {
             });
         }
     });
+});
 
-}
+event("loginGUIFunction", function(playerid, password) {
+    dbg("loginGUIFunction")
 
-//simplecmd("register", registerFunc); // removed, doesn't work with field email
-addEventHandler("registerGUIFunction",registerFunc);
-
-/**
- * Command allows players to login
- * using their current username and specified password
- */
-function loginFunc(playerid, password) {
-
-    if (isPlayerAuthed(playerid)) {
-        trigger(playerid, "authErrorMessage", plocalize(playerid, "auth.error.login"));
-        //msg(playerid, "auth.error.login", CL_ERROR);
-        return;
-    }
+    local username = getAccountName(playerid);
 
     // try to find logined account
     Account.findOneBy({
-        username = getAccountName(playerid),
+        username = username,
         password = md5(password)
     }, function(err, account) {
         // no accounts found
@@ -90,14 +91,15 @@ function loginFunc(playerid, password) {
         }
 
         // update data
-        account.ip       = getPlayerIp(playerid);
+        account.ip       = getPlayerIp(username);
         account.serial   = getPlayerSerial(playerid);
         account.logined  = getTimestamp();
         account.locale   = getPlayerLocale(playerid);
         account.save();
 
         // save session
-        addAccount(playerid, account);
+        dbg(account)
+        addAccount(username, account);
         setLastActiveSession(playerid);
 
         // send message success
@@ -111,22 +113,20 @@ function loginFunc(playerid, password) {
             trigger("onPlayerInit", playerid);
         });
     });
-}
+});
 
-//simplecmd("login", loginFunc);
-addEventHandler("loginGUIFunction", loginFunc);
-
-
-function printStartedTips (playerid) {
-        // send message success
-        msg(playerid, "");
-        msg(playerid, "hello.1", CL_LIGHTGRAY);
-        msg(playerid, "hello.2", CL_CASCADE);
-        msg(playerid, "hello.3", CL_LIGHTGRAY);
-        msg(playerid, "hello.4", CL_CASCADE);
-        msg(playerid, "hello.5", CL_LIGHTGRAY);
-        msg(playerid, "hello.6", CL_CASCADE);
-        msg(playerid, "");
-        msg(playerid, "hello.end", CL_SUCCESS);
-        msg(playerid, "");
-}
+event("onPlayerLanguageChange", function(playerid, locale) {
+    local lwindow    = localize("auth.GUI.TitleLogin", [], locale);
+    local llabel     = localize("auth.GUI.TitleLabelLogin", [ getPlayerName(playerid) ], locale);
+    local linput     = localize("auth.GUI.TitleInputLogin", [], locale);
+    local lbutton    = localize("auth.GUI.ButtonLogin", [], locale);
+    local rwindow    = localize("auth.GUI.TitleRegister", [], locale);
+    local rlabel     = localize("auth.GUI.TitleLabelRegister", [], locale);
+    local rinputp    = localize("auth.GUI.PasswordInput", [], locale);
+    local rinputrp   = localize("auth.GUI.RepeatPasswordInput", [], locale);
+    local riptemail  = localize("auth.GUI.Email", [], locale);
+    local rbutton    = localize("auth.GUI.ButtonRegister", [], locale);
+    local helpText   = localize("auth.haveproblems", [], locale);
+    local forgotText = localize("auth.forgot", [], locale);
+    trigger(playerid, "changeAuthLanguage", lwindow, llabel, linput, lbutton, rwindow, rlabel, rinputp, rinputrp, riptemail, rbutton, helpText, forgotText);
+});

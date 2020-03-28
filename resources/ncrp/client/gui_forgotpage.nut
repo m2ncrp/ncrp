@@ -217,7 +217,7 @@ function onChangedPassword(result) {
 addEventHandler("onChangedPassword", onChangedPassword);
 
 
-addEventHandler( "onGuiElementClick",function(element) {
+addEventHandler("onGuiElementClick",function(element) {
 
     // Search
     if(element == button[0]) {

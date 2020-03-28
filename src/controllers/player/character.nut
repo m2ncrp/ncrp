@@ -20,6 +20,7 @@ translate("en", {
  * Handle character loadeded event
  */
 event("onPlayerCharacterLoaded", function(playerid, character) {
+    dbg("onPlayerCharacterLoaded")
     //Hide character creation gui
     trigger(playerid, "hideCharacterCreation");
 

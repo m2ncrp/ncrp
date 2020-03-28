@@ -189,7 +189,6 @@ function loadTranslation(){
 
 function formatCharacterSelection () {
     local idx = selectedCharacter;
-    // setWeather(WEATHER);
     setPlayerPosition(getLocalPlayer(), CHARACTER_POS[0], CHARACTER_POS[1], CHARACTER_POS[2]);
     setPlayerRotation(getLocalPlayer(), 180.0,0.0,0.0);
     if(charactersCount == 0){
@@ -214,7 +213,6 @@ function characterCreation(){
     hideCharacterSelection();
     isCharacterCreationMenu = true;
     togglePlayerControls( true );
-    // setWeather(WEATHER);
     setPlayerPosition(getLocalPlayer(), CHARACTER_POS[0], CHARACTER_POS[1], CHARACTER_POS[2]);
     setPlayerRotation(getLocalPlayer(), 180.0,0.0,180.0);
     window = guiCreateElement( ELEMENT_TYPE_WINDOW,  translation[0].CreationWindow, screen[0] - 400.0, screen[1]/2- 175.0, 260.0, 350.0 );

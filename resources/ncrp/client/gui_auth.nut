@@ -290,19 +290,23 @@ function isValidEmail(email)
     return check.match(email);
 }
 
-function setPlayerIntroScreen () {
-    setPlayerRotation(getLocalPlayer(), 0.0, 0.0, 180.0);
-}
-addEventHandler("setPlayerIntroScreen",setPlayerIntroScreen);
 
-function resetPlayerIntroScreen () {
+addEventHandler("setPlayerIntroScreen", function(x, y, z, weather) {
+    executeLua("p = game.game:GetActivePlayer() cam = game.cameramanager:GetPlayerMainCamera(0) cam:LockControl(true, false) cam:SetCameraRotation(p:GetPos() + p:GetDir() + Math:newVector("+x+", "+y+", "+z+"))");
+    //setPlayerRotation(getLocalPlayer(), 0.0, 0.0, 180.0);
+    delayedFunction(2500, function() {
+        setWeather(weather)
+    });
+});
+
+addEventHandler("resetPlayerIntroScreen", function() {
+    executeLua("cam = game.cameramanager:GetPlayerMainCamera(0) cam:LockControl(false, false)");
     isAuth = null;
     showChat(true);
     delayedFunction(500, function() {
         showChat(true);
     });
-}
-addEventHandler("resetPlayerIntroScreen",resetPlayerIntroScreen);
+});
 
 function delayedFunction(time, callback, additional = null) {
     return additional ? timer(callback, time, 1, additional) : timer(callback, time, 1);
