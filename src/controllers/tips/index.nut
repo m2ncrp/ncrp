@@ -45,7 +45,7 @@ alternativeTranslate({
         "ru|tips.car.repair"   :   "[TIPS] Вы можете починить свой автомобиль в автомастерских."
 
         "en|tips.eat"          :   "[TIPS] You can restore health by eating in the restaurants."
-        "ru|tips.eat"          :   "[TIPS] Вы можете восстанавливать уровень здоровья, обедая в ресторанах."
+        "ru|tips.eat"          :   "[TIPS] Вы можете восстанавливать уровень здоровья, покупая еду в ресторанах, барах и закусочных."
 
         "en|tips.police"       :   "[TIPS] If you see a crime, don't hesitate calling a police from phone booth. Use: /police"
         "ru|tips.police"       :   "[TIPS] Если вы стали свидетелем преступления - бегите к телефонной будке и вызывайте полицию. Команда: /police"
@@ -102,7 +102,7 @@ alternativeTranslate({
         "ru|tips.turnlights"   :   "[TIPS] X - левый поворотник; C - правый поворотник; H - аварийка."
 
         "en|tips.hat"          :   "[TIPS] Use /hat COUNT for pull a ball from hat, where COUNT balls in hat."
-        "ru|tips.hat"          :   "[TIPS] /hat X - вытащить из шляпы один шар из X шаров."
+        "ru|tips.hat"          :   "[TIPS] /hat 5 - вытащить из шляпы один шар из 5 шаров."
 
         "en|tips.enabled"      :   "[TIPS] Tips has been enabled."
         "ru|tips.enabled"      :   "[TIPS] Подсказки были включены."
