@@ -150,10 +150,10 @@ event("onPlayerConnect", function(playerid) {
 });
 
 // игрок заспавнен
-event("onPlayerSpawn", function(playerid) {
-    //setVehicleBeaconLightState(carp, true);
-    //if (isSummer()) { setVehicleBeaconLightState(carp2, true); }
-});
+// event("onPlayerSpawn", function(playerid) {
+//     //setVehicleBeaconLightState(carp, true);
+//     //if (isSummer()) { setVehicleBeaconLightState(carp2, true); }
+// });
 
 // прошли авторизацию
 event("onServerPlayerStarted", function( playerid ){
