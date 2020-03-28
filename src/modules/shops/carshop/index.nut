@@ -236,7 +236,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
         } else {
             local hour = getHour();
             if(hour < WORKING_HOUR.diamondMotors.start || hour >= WORKING_HOUR.diamondMotors.end) {
-                return msg( playerid, "shops.carshop.closed", [ WORKING_HOUR.diamondMotors.start.tostring(), WORKING_HOUR.diamondMotors.end.tostring()], CL_ROYALBLUE );
+                return msg( playerid, "shops.carshop.diamondMotors.closed", [ WORKING_HOUR.diamondMotors.start.tostring(), WORKING_HOUR.diamondMotors.end.tostring()], CL_ROYALBLUE );
             }
             msg(playerid, "===========================================", CL_HELP_LINE);
             msg(playerid, "shops.carshop.welcome1", CL_FIREBUSH);
