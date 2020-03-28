@@ -20,7 +20,6 @@ translate("en", {
  * Handle character loadeded event
  */
 event("onPlayerCharacterLoaded", function(playerid, character) {
-    dbg("onPlayerCharacterLoaded")
     //Hide character creation gui
     trigger(playerid, "hideCharacterCreation");
 
@@ -207,7 +206,7 @@ function validateAndUpdateCharacter(playerid, character, firstname, lastname, ra
         character.firstname = firstname;
         character.lastname  = lastname;
         character.race      = race;
-        character.sex       = sex == 1 ? 1 : 0;
+        character.sex       = sex == "1" ? 1 : 0;
         character.birthdate = birthdate.tostring();
         character.cskin     = cskin.tointeger();
         character.dskin     = cskin.tointeger();
