@@ -23,11 +23,13 @@ addEventHandler("onAlert", function (title, message, lines = 0) {
     if(window){
         guiSetVisible(window,true);
         guiSetText(label, message.tostring());
+        guiSetText(window, title.tostring());
     }
-    else{
-        window = guiCreateElement( ELEMENT_TYPE_WINDOW, title, screen[0]/2 - 150, screen[1]/2 - 50 - (lines/2 * 20.0), 300.0, 100.0 + 20.0 * lines );
-        label = guiCreateElement( ELEMENT_TYPE_LABEL, message.tostring(), 12.0, 20.0, 300.0, 50.0 + 20.0 * lines, false, window);
-        button = guiCreateElement( ELEMENT_TYPE_BUTTON, "OK" , 100.0, 70.0 + 20.0 * lines, 100.0, 20.0, false, window);
+    else {
+        local h = 100.0 + 21.0 * lines;
+        window = guiCreateElement( ELEMENT_TYPE_WINDOW, title, screen[0]/2 - 150, screen[1]/2 - 50 - (lines/2 * 20.0), 300.0, h);
+        label = guiCreateElement( ELEMENT_TYPE_LABEL, message.tostring(), 12.0, 20.0, 300.0, 50.0 + 21.0 * lines, false, window);
+        button = guiCreateElement( ELEMENT_TYPE_BUTTON, "OK" , 100.0, h - 30.0, 100.0, 20.0, false, window);
     }
     if(!oldCursorState){
         showCursor(true);
