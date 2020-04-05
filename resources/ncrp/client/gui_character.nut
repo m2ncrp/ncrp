@@ -29,6 +29,17 @@ PData.Sex <- 0;
 PData.Race <- 0;
 PData.BDay <- 0;
 
+local translations = {
+    rotateCamera = "Hold left shift and move mouse to rotate camera.",
+    newName = "You are migrating old character. All your property will be saved."
+};
+
+addEventHandler("onTranslateReturn", function (key, phrase) {
+    translations[key] = phrase;
+});
+
+callEvent("onTranslate", "rotateCamera");
+callEvent("onTranslate", "newName");
 
 const DEFAULT_SPAWN_X    = 0.0;//-1620.15;
 const DEFAULT_SPAWN_Y    = 0.0;// 49.2881;
@@ -106,8 +117,8 @@ function loadTranslation(){
         text.CreationFirstName      <- "Firstname";
         text.CreationLastName       <- "Lastname";
         text.CreationBirthday       <- "Birthday";
-        text.WrongLName             <- "Wrong firstname";
-        text.WrongFName             <- "Wrong lastname";
+        text.WrongFName             <- "Wrong firstname";
+        text.WrongLName             <- "Wrong lastname";
         text.WrongDay               <- "Day: from 1 to 30'";
         text.WrongMonth             <- "Month: from 1 to 12";
         text.WrongYear              <- "Year: from 1880 to 1927";
@@ -145,18 +156,19 @@ function loadTranslation(){
         text.CreationChooseSkin     <- "Выберите скин";
         text.ChooseSkinX            <- 92.0;
 
-        text.CreationFirstName      <- "Имя";
-        text.CreationLastName       <- "Фамилия";
+        text.CreationFirstName      <- "Имя персонажа";
+        text.CreationLastName       <- "Фамилия персонажа";
         text.CreationBirthday       <- "Дата рождения персонажа";
-        text.WrongLName             <- "Некорректное имя";
-        text.WrongFName             <- "Некорректная фамилия";
-        text.WrongDay               <- "День введён некорректно";
+        text.WrongFName             <- "Имя должно начинаться с заглавной буквы.\r\nБез пробелов, цифр, кириллицы.";
+        text.WrongLName             <- "Фамилия должна начинаться с заглавной буквы.\r\nБез пробелов, цифр, кириллицы.";
+        text.WrongDay               <- "День: от 1 до 31";
         text.WrongMonth             <- "Месяц: от 1 до 12";
         text.WrongYear              <- "Год: от 1880 до 1927";
-        text.ExampleFName           <- "Имя персонажа";
-        text.ExampleLName           <- "Фамилия персонажа";
+        text.ExampleFName           <- "Введите имя персонажа";
+        text.ExampleLName           <- "Введите фамилию персонажа";
 
         //other
+        text.Generate   <- "Подобрать";
         text.Male       <- "Мужской";
         text.Female     <- "Женский";
         text.Europide   <- "Европеоидная";
@@ -191,6 +203,7 @@ function formatCharacterSelection () {
     local idx = selectedCharacter;
     setPlayerPosition(getLocalPlayer(), CHARACTER_POS[0], CHARACTER_POS[1], CHARACTER_POS[2]);
     setPlayerRotation(getLocalPlayer(), 180.0,0.0,0.0);
+    executeLua("game.game:GetActivePlayer():ShowModel(false)");
     if(charactersCount == 0){
         return characterCreation();
     }
@@ -214,18 +227,18 @@ function characterCreation(){
     isCharacterCreationMenu = true;
     togglePlayerControls( true );
     setPlayerPosition(getLocalPlayer(), CHARACTER_POS[0], CHARACTER_POS[1], CHARACTER_POS[2]);
-    setPlayerRotation(getLocalPlayer(), 180.0,0.0,180.0);
+    executeLua("game.game:GetActivePlayer():ShowModel(false)");
+    //setPlayerRotation(getLocalPlayer(), 180.0,0.0,180.0);
     window = guiCreateElement( ELEMENT_TYPE_WINDOW,  translation[0].CreationWindow, screen[0] - 400.0, screen[1]/2- 175.0, 260.0, 350.0 );
 
 
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationFirstName 12.0,  80.0, 105.0, 20.0, false, window));//label[0]
-    input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].ExampleFName,     12.0, 100.0, 105.0, 20.0, false, window));//input[0]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationFirstName 12.0, 20.0, 166.0, 20.0, false, window));//label[0]
+    input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].ExampleFName,     12.0, 42.0, 166.0, 20.0, false, window));//input[0]
 
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationLastName, 122.0, 80.0, 125.0, 20.0, false, window));//label[1]
-    input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].ExampleLName,     122.0, 100.0, 125.0, 20.0, false, window));//input[1]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationLastName, 12.0, 69.0, 166.0, 20.0, false, window));//label[1]
+    input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].ExampleLName,     12.0, 91.0, 166.0, 20.0, false, window));//input[1]
 
-
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationBirthday, 12.0,   120.0, 256.0, 20.0, false, window));//label[2]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationBirthday, 12.0,   118.0, 256.0, 20.0, false, window));//label[2]
     input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].Day,              12.0,   140.0, 74.0, 20.0, false, window));//input[2]
     input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].Month,            92.0,   140.0, 75.0, 20.0, false, window));//input[3]
     input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].Year,            173.0,   140.0, 74.0, 20.0, false, window));//input[4]
@@ -242,20 +255,18 @@ function characterCreation(){
     radio.push(guiCreateElement( ELEMENT_TYPE_RADIOBUTTON, "",                          75.0, 240.0, 15.0, 15.0, false, window));//radio[1]
     radio.push(guiCreateElement( ELEMENT_TYPE_RADIOBUTTON, "",                          75.0, 260.0, 15.0, 15.0, false, window));//radio[2]
 
-
-
-
-
-
-
     label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationChooseSkin, translation[0].ChooseSkinX, 285.0, 300.0, 20.0, false, window));//label[7]
     button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, "<<",                            57.0, 285.0, 30.0, 20.0,false, window));//button[2]
     button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, ">>",                           173.0, 285.0, 30.0, 20.0,false, window));//button[3]
     button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[0].Next,             57.0, 310.0, 146.0, 30.0,false, window));//button[4]
 
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Info1, 12.0, 20.0, 236.0, 20.0, false, window));//label[7]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Info2, 12.0, 35.0, 236.0, 20.0, false, window));//label[7]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Info3, 12.0, 57.0, 236.0, 20.0, false, window));//label[7]
+    // label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Info1, 12.0, 20.0, 236.0, 20.0, false, window));//label[7]
+    // label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Info2, 12.0, 35.0, 236.0, 20.0, false, window));//label[7]
+    // label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Info3, 12.0, 57.0, 236.0, 20.0, false, window));//label[7]
+
+    button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[0].Generate, 183.0, 42.0, 64.0, 20.0,false, window));//button[5]
+    button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[0].Generate, 183.0, 91.0, 64.0, 20.0,false, window));//button[6]
+
     guiSetAlwaysOnTop(window,true);
     guiSetSizable(window,false);
     showCursor(true);
@@ -286,12 +297,14 @@ addEventHandler( "onGuiElementClick",function(element){
         }
         if(element == button[2]) return switchModel();
         if(element == button[3]) return switchModel();
-        if(element == input[0])  return guiSetText(input[0], "");
-        if(element == input[1])  return guiSetText(input[1], "");
-        if(element == input[2])  return guiSetText(input[2], "");
-        if(element == input[3])  return guiSetText(input[3], "");
-        if(element == input[4])  return guiSetText(input[4], "");
+        if(element == input[0] && guiGetText(input[0]) == translation[0].ExampleFName) return guiSetText(input[0], "");
+        if(element == input[1] && guiGetText(input[1]) == translation[0].ExampleLName)  return guiSetText(input[1], "");
+        if(element == input[2] && guiGetText(input[2]) == translation[0].Day)  return guiSetText(input[2], "");
+        if(element == input[3] && guiGetText(input[3]) == translation[0].Month)  return guiSetText(input[3], "");
+        if(element == input[4] && guiGetText(input[4]) == translation[0].Year)  return guiSetText(input[4], "");
         if(element == button[4]) return checkFields();
+        if(element == button[5]) return generateFirstname();
+        if(element == button[6]) return generateLastname();
     }
 
 
@@ -340,10 +353,10 @@ function switchCharacterSlot(){
         guiSetText(label[0], charDesc[0]);
         guiSetText(button[0], charDescButton[0]);
         triggerServerEvent("changeModel", characters[idx].cskin.tostring());
-        setPlayerRotation(getLocalPlayer(), 180.0,0.0,0.0);
+        //setPlayerRotation(getLocalPlayer(), 180.0,0.0,0.0);
     }
     else {
-        setPlayerRotation(getLocalPlayer(), 180.0,0.0,180.0);
+        //setPlayerRotation(getLocalPlayer(), 180.0,0.0,180.0);
         charDesc[0] = translation[0].EmptyCharacterSlot;
         charDescButton[0] = translation[0].CreateButtonDesc;
         guiSetText(label[0], charDesc[0]);
@@ -363,6 +376,23 @@ addEventHandler("onServerKeyboard", function(key, state) {
         }
     }
 });
+
+addEventHandler("onChangeRandomFirstname", function(value){
+    guiSetText(input[0], value);
+});
+
+addEventHandler("onChangeRandomLastname", function(value){
+    guiSetText(input[1], value);
+});
+
+function generateFirstname() {
+    triggerServerEvent("changeModel", model.tostring());
+}
+
+function generateLastname() {
+
+    guiSetText(input[1], "O'Reilly");
+}
 
 function switchModel(){
     if(switchModelID == 0){
@@ -386,36 +416,41 @@ function checkFields () {
     PData.Firstname <- guiGetText(input[0]);
     PData.Lastname <- guiGetText(input[1]);
     if(!isValidName(PData.Firstname)){
-        guiSetText(label[0], translation[0].WrongLName);
         guiSetText(input[0], translation[0].ExampleFName);
+        callEvent("onAlert", translation[0].ExampleFName, translation[0].WrongFName, 2);
+        // guiSetText(label[0], translation[0].WrongFName);
         return fieldsErrors++;
     }
     else {guiSetText(label[0],translation[0].CreationFirstName);}
 
-    if(!isValidName(PData.Lastname)){
-        guiSetText(label[1], translation[0].WrongFName);
+    if(!isValidLastName(PData.Lastname)){
         guiSetText(input[1], translation[0].ExampleLName);
+        callEvent("onAlert", translation[0].ExampleLName, translation[0].WrongLName, 2);
+        //guiSetText(label[1], translation[0].WrongFName);
         return fieldsErrors++;
     }
     else {guiSetText(label[1],translation[0].CreationLastName);}
 
     if(!isValidRange(guiGetText(input[2]), 0,32)){
-        guiSetText(label[2],translation[0].WrongDay);
         guiSetText(input[2],translation[0].Day);
+        callEvent("onAlert", translation[0].Day, translation[0].WrongDay, 1);
+        // guiSetText(label[2],translation[0].WrongDay);
         return fieldsErrors++;
     }
     else {guiSetText(label[2],translation[0].CreationBirthday);}
 
     if(!isValidRange(guiGetText(input[3]),0,13)){
-        guiSetText(label[2],translation[0].WrongMonth);
         guiSetText(input[3],translation[0].Month);
+        callEvent("onAlert", translation[0].Month, translation[0].WrongMonth, 1);
+        // guiSetText(label[2],translation[0].WrongMonth);
         return fieldsErrors++;
     }
     else {guiSetText(label[2],translation[0].CreationBirthday);}
 
-    if(!isValidRange(guiGetText(input[4]),1879,1928)){
-        guiSetText(label[2],translation[0].WrongYear);
+    if(!isValidRange(guiGetText(input[4]),1879,1928)) {
         guiSetText(input[4],translation[0].Year);
+        callEvent("onAlert", translation[0].Year, translation[0].WrongYear, 1);
+        //guiSetText(label[2],translation[0].WrongYear);
         return fieldsErrors++;
     }
     else {guiSetText(label[2],translation[0].CreationBirthday);}
@@ -476,6 +511,12 @@ function isValidName(name){
     return check.match(name);
 }
 
+function isValidLastName(name){
+    local check = regexp("^((O\'|Mc)?[A-Z][a-z]{1,16})$");
+    return check.match(name);
+}
+
+
 function getRaceFromId (id) {
     switch (id) {
         case 0:
@@ -501,19 +542,17 @@ function getSexFromId (id) {
     }
 }
 
-
-
 addEventHandler("onClientFrameRender", function(a) {
     if (a) return;
 
     if (!isCharacterSelectionMenu && !isCharacterCreationMenu) return;
 
-    local text   = "Hold left shift and move mouse to rotate camera.";
+    local text   = translations.rotateCamera;
     local offset = dxGetTextDimensions(text, 2.0, "tahoma-bold")[1];
     dxDrawText(text, 25.0, screenY - offset - 25.0, 0xAAFFFFFF, false, "tahoma-bold", 2.0);
 
     if (migrateOldCharacter) {
-        local text   = "You are migrating old character. All your property will be saved.";
+        local text   = translations.newName;
         local offset = dxGetTextDimensions(text, 2.0, "tahoma-bold")[1];
         dxDrawText(text, 25.0, screenY - offset - 25.0 - offset - 4.0, 0xAAFFFFFF, false, "tahoma-bold", 2.0);
     }

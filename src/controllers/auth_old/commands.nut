@@ -70,7 +70,6 @@ addEventHandler("registerGUIFunction",registerFunc);
  * using their current username and specified password
  */
 addEventHandler("loginGUIFunction", function(playerid, password) {
-    dbg("loginGUIFunction")
     if (isPlayerAuthed(playerid)) {
         trigger(playerid, "authErrorMessage", plocalize(playerid, "auth.error.login"));
         //msg(playerid, "auth.error.login", CL_ERROR);
@@ -97,7 +96,6 @@ addEventHandler("loginGUIFunction", function(playerid, password) {
         account.save();
 
         // save session
-        dbg(account)
         addAccount(account.id, account);
         setLastActiveSession(playerid);
 

@@ -170,9 +170,7 @@ function escape(str) {
 
             ch1 = format("%c", ch1);
 
-            if (ch1 == "\'") {
-                res += "\\\'";
-            } else if (ch1 == "\"") {
+            if (ch1 == "\"") {
                 res += "\\\"";
             } else if (ch1 == "\\") {
                 res += "\\\\";

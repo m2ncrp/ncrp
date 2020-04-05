@@ -43,8 +43,8 @@ class ORM.Utils.String {
 
                 ch1 = format("%c", ch1);
 
-                if (ch1 == "\'") {
-                    res += "\\\'";
+                if (ch1 == "'") {
+                    res += "''";
                 } else if (ch1 == "\"") {
                     res += "\\\"";
                 } else if (ch1 == "\\") {

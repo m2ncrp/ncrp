@@ -139,7 +139,7 @@ event("onServerMinuteChange", function() {
 // handle vehicle enter
 event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     logger.logf(
-        "[VEHICLE ENTER] (%s) %s (playerid: %d) | (vehid: %d) %s - %s (model: %d) | coords: [%.5f, %.5f, %.5f] | haveKey: %s",
+        "[VEHICLE ENTER] (%s) %s [%d] | (vehid: %d) %s - %s (model: %d) | coords: [%.5f, %.5f, %.5f] | haveKey: %s",
             getAccountName(playerid),
             getPlayerName(playerid),
             playerid,
@@ -245,7 +245,7 @@ key(["w", "s"], function(playerid) {
 // handle vehicle exit
 event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     logger.logf(
-        "[VEHICLE EXIT] (%s) %s (playerid: %d) | (vehid: %d) %s - %s (model: %d) | coords: [%.5f, %.5f, %.5f] | owner: %s | fraction: %s",
+        "[VEHICLE EXIT] (%s) %s [%d] | (vehid: %d) %s - %s (model: %d) | coords: [%.5f, %.5f, %.5f] | haveKey: %s",
             getAccountName(playerid),
             getPlayerName(playerid),
             playerid,
@@ -256,8 +256,7 @@ event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
             getVehiclePositionObj(vehicleid).x,
             getVehiclePositionObj(vehicleid).y,
             getVehiclePositionObj(vehicleid).z,
-            isVehicleOwned(vehicleid) ? (isPlayerVehicleOwner(playerid, vehicleid) ? "true" : "false") : "city_ncrp",
-            isVehicleFraction(vehicleid) ? "true" : "false"
+            isVehicleOwned(vehicleid) ? (isPlayerVehicleOwner(playerid, vehicleid) ? "true" : "false") : "city_ncrp"
     );
 
     if("seatPos" in __vehicles[vehicleid]) {

@@ -5,9 +5,22 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
         username = username,
         ip = ip,
         serial = serial,
-        locale = "ru"
+        locale = "ru",
+        exist = false
     });
 });
+
+event("onPlayerDisconnect", function(playerid, reason) {
+    // setPlayerMuted(playerid, false);
+    if (!isPlayerAuthed(playerid)) return;
+
+    setLastActiveSession(playerid);
+});
+
+event("changeModel",function(playerid, model) {
+    nativeSetPlayerModel( playerid, model.tointeger() );
+});
+
 
 event("registerGUIFunction", function (playerid, password, email = null) {
 
@@ -74,7 +87,6 @@ event("registerGUIFunction", function (playerid, password, email = null) {
 });
 
 event("loginGUIFunction", function(playerid, password) {
-    dbg("loginGUIFunction")
 
     local username = getAccountName(playerid);
 
@@ -98,7 +110,6 @@ event("loginGUIFunction", function(playerid, password) {
         account.save();
 
         // save session
-        dbg(account)
         addAccount(username, account);
         setLastActiveSession(playerid);
 

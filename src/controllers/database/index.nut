@@ -5,7 +5,7 @@ include("controllers/database/convertor.nut");
 local connection = null;
 
 // debug settings
-IS_DATABASE_DEBUG   <- false;
+IS_DATABASE_DEBUG   <- true;
 IS_MYSQL_ENABLED    <- false;
 
 addEventHandler("onScriptInit", function() {
@@ -85,6 +85,7 @@ function intializeSQLiteDrivers(conn) {
 
         // log query and result
         if (IS_DATABASE_DEBUG) {
+            log(queryString)
             dbg("database", "sql", queryString);
             dbg("database", "result", tmp);
         }

@@ -17,9 +17,6 @@ function showPedDialog(){
 }
 addEventHandler("spd", showPedDialog)
 
-
-
-
 addEventHandler("onClientFrameRender", function(isGUIdrawn) {
      if(isGUIdrawn) return;
      if( isDialogShowing ){

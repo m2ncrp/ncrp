@@ -2,6 +2,7 @@ include("controllers/auth/classes/Account.nut");
 
 IS_AUTHORIZATION_ENABLED <- true;
 AUTH_AUTOLOGIN_TIME      <- 900; // 15 minutes
+AUTH_ACCOUNTS_LIMIT      <- 1;
 
 /**
  * Compiled regex object for
@@ -29,8 +30,6 @@ include("controllers/auth/sessions.nut");
 */
 
 event("onClientSuccessfulyStarted", function(playerid) {
-    dbg("onClientSuccessfulyStarted")
-
     // 1. Set ui settings (hide ui elements, skin, set camera rotation)
     introUISetter(playerid)
 
@@ -60,7 +59,6 @@ event("onClientSuccessfulyStarted", function(playerid) {
     // 3. Detect username valid
 
     local username = getAccountName(playerid);
-    dbg(username)
 
     // check playername validity
     if (!REGEX_USERNAME.match(username) ||
@@ -172,7 +170,6 @@ event("onClientSuccessfulyStarted", function(playerid) {
                         // send message success
                         dbg("login", getIdentity(playerid), "autologin");
 
-                        dbg("trigger onPlayerInit")
                         trigger("onPlayerInit", playerid);
 
                         msg(playerid, "auth.success.autologin", CL_SUCCESS);
@@ -181,19 +178,18 @@ event("onClientSuccessfulyStarted", function(playerid) {
                         return;
                     }
 
-                    delayedFunction(calculateFPSDelay(playerid) + 2000,function() {
-                        nativeScreenFadeout(playerid, 100);
-                        screenFadeout(playerid, 250);
-                    });
-
-                    if (DEBUG) {
-                        return dbg("skipping auth forms for debug mode");
-                    }
-
-
-                    showIdentificationGui(playerid, 2000);
-
                 }
+
+                delayedFunction(calculateFPSDelay(playerid) + 2000,function() {
+                    nativeScreenFadeout(playerid, 100);
+                    screenFadeout(playerid, 250);
+                });
+
+                if (DEBUG) {
+                    return dbg("skipping auth forms for debug mode");
+                }
+
+                showIdentificationGui(playerid, 2000);
 
                 // ORM.Query("select * from @Mute where (serial = :serial or name = :name) and until > :current")
                 //     .setParameter("serial", getPlayerSerial(playerid))
@@ -219,8 +215,6 @@ event("onClientSuccessfulyStarted", function(playerid) {
 });
 
 function showIdentificationGui(playerid, delay = 2000) {
-    dbg("showIdentificationGui")
-
     local username = getAccountName(playerid);
     if (username == "Player") {
         showBadPlayerNicknameGUI(playerid);
@@ -229,10 +223,8 @@ function showIdentificationGui(playerid, delay = 2000) {
         local accountData = getAccountData(username);
 
         if(accountData.exist) {
-            dbg("call showLoginGUI")
             showLoginGUI(playerid, delay);
         } else {
-            dbg("call showRegisterGUI")
             showRegisterGUI(playerid, delay);
         }
 
@@ -245,7 +237,6 @@ function showIdentificationGui(playerid, delay = 2000) {
 }
 
 function introUISetter(playerid) {
-    dbg("introUISetter")
     screenFadein(playerid, 0);
 
     local defaultSpawn = getDefaultSpawn();

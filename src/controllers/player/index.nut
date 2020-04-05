@@ -70,7 +70,7 @@ event("onServerPlayerStarted", function(playerid) {
  * (after player just logined or regitered)
  */
 event("onPlayerInit", function(playerid) {
-    dbg("onPlayerINIT")
+    dbg("event onPlayerInit")
     Character.findBy({ name = getAccountName(playerid) }, function(err, characters) {
         foreach (idx, c in characters) {
             if (DEBUG) {
@@ -89,14 +89,16 @@ event("onPlayerInit", function(playerid) {
         }
     });
 
-    if (DEBUG) return;
-
-    trigger(playerid, "onServerCharacterLoaded", getPlayerLocale(playerid));
-    triggerClientEvent(playerid, "showPlayerModel");
-    delayedFunction(calculateFPSDelay(playerid) + 2000, function() {
+    delayedFunction(calculateFPSDelay(playerid) + 1500, function() {
+        triggerClientEvent(playerid, "showPlayerModel");
         nativeScreenFadeout(playerid, 100);
         screenFadeout(playerid, 250);
     });
+
+    if (DEBUG) return;
+
+    trigger(playerid, "onServerCharacterLoaded", getPlayerLocale(playerid));
+
 });
 
 /**

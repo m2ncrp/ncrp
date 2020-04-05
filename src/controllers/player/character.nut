@@ -5,7 +5,8 @@ const CHARACTER_LIMIT = 1;
  * validation of usernames
  * @type {Object}
  */
-local REGEX_NAME = regexp("[A-Za-z]{2,16}");
+local REGEX_FIRSTNAME = regexp("[A-Za-z]{2,16}");
+local REGEX_LASTNAME = regexp("^((O\'|Mc)?[A-Z][a-z]{1,16})$");
 
 translate("en", {
     "character.doesnotexist"        : "Character with provided data\ndoes not exist."
@@ -64,6 +65,16 @@ event("onPlayerCharacterLoaded", function(playerid, character) {
  * @param  {Integer}    migrateid
  */
 event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, sex, birthdate, cskin, migrateid) {
+
+    dbg("playerid: "+playerid);
+    dbg("firstname: "+firstname);
+    dbg("lastname: "+lastname);
+    dbg("race: "+race);
+    dbg("sex: "+sex);
+    dbg("birthdate: "+birthdate);
+    dbg("cskin: "+cskin);
+    dbg("migrateid: "+migrateid);
+
     if (!isPlayerAuthed(playerid)) return dbg("character", "create with no auth", getIdentity(playerid));
 
     // are we migrating character
@@ -142,13 +153,22 @@ event("onPlayerCharacterSelect", function(playerid, id) {
  * @return {Boolean}
  */
 function validateAndUpdateCharacter(playerid, character, firstname, lastname, race, sex, birthdate, cskin) {
+
+    dbg("playerid: "+playerid);
+    dbg("character: "+character);
+    dbg("firstname: "+firstname);
+    dbg("lastname: "+lastname);
+    dbg("race: "+race);
+    dbg("sex: "+sex);
+    dbg("birthdate: "+birthdate);
+    dbg("cskin: "+cskin);
     /**
      * Convert and validate string data
      */
     firstname = strip(firstname).slice(0, 1).toupper() + strip(firstname).slice(1).tolower();
-    lastname  = strip(lastname ).slice(0, 1).toupper() + strip(lastname ).slice(1).tolower();
 
-    if (!REGEX_NAME.match(firstname) || !REGEX_NAME.match(lastname) || firstname == lastname) {
+    if (!REGEX_FIRSTNAME.match(firstname) || !REGEX_LASTNAME.match(lastname) || firstname == lastname) {
+        dbg("validateAndUpdateCharacter failed")
         return alert(playerid, "character.wrongname", [], 10);
     }
 
@@ -210,9 +230,13 @@ function validateAndUpdateCharacter(playerid, character, firstname, lastname, ra
         character.birthdate = birthdate.tostring();
         character.cskin     = cskin.tointeger();
         character.dskin     = cskin.tointeger();
-
+        dbg("==========================")
+        dbg(character.lastname)
+        dbg(character.lastname)
         // save char
         character.save();
+        dbg("==========================")
+        dbg("character saved")
 
         // add to container
         trigger("onPlayerCharacterLoaded", playerid, character);

@@ -8,21 +8,6 @@
 
     <!-- non-packed client scripts -->
 
-        <!-- gui -->
-        <script type="client">gui_alert.nut</script>
-        <script type="client">gui_auth.nut</script>
-        <script type="client">gui_forgotpage.nut</script>
-        <script type="client">gui_bank.nut</script>
-        <script type="client">gui_carshop.nut</script>
-        <script type="client">gui_character.nut</script>
-        <script type="client">gui_metro.nut</script>
-        <script type="client">gui_phone.nut</script>
-        <script type="client">gui_rentcar.nut</script>
-        <script type="client">gui_empirediner.nut</script>
-
-        <!-- player -->
-        <script type="client">player_effects.nut</script>
-
         <!-- other -->
         <script type="client">other_3dtext.nut</script>
         <script type="client">other_blip.nut</script>
@@ -41,6 +26,24 @@
         <script type="client">other_weapon.nut</script>
         <!-- <script type="client">other_proxy.nut</script> -->
         <script type="client">other_bus.nut</script>
+
+        <!-- gui -->
+        <script type="client">gui_alert.nut</script>
+        <script type="client">gui_auth.nut</script>
+        <script type="client">gui_forgotpage.nut</script>
+        <script type="client">gui_bank.nut</script>
+        <script type="client">gui_carshop.nut</script>
+        <script type="client">gui_cyrillic.nut</script>
+        <script type="client">gui_character.nut</script>
+        <script type="client">gui_metro.nut</script>
+        <script type="client">gui_phone.nut</script>
+        <script type="client">gui_rentcar.nut</script>
+        <script type="client">gui_empirediner.nut</script>
+
+        <!-- player -->
+        <script type="client">player_effects.nut</script>
+
+
 
         <!-- peds -->
         <script type="client">ped_creation.nut</script>

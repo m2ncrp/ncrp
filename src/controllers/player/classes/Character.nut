@@ -21,7 +21,7 @@ class Character extends ORM.JsonEntity {
         ORM.Field.String    ({ name = "lastname"    }),
         ORM.Field.Integer   ({ name = "race"        }),
         ORM.Field.Integer   ({ name = "sex"         }),
-        ORM.Field.String    ({ name = "birthdate"   value = "01.01.1920" }),
+        ORM.Field.String    ({ name = "birthdate", value = "01.01.1920" }),
 
         ORM.Field.String    ({ name = "name"        }), // @deprecated
         ORM.Field.String    ({ name = "job"         }), // @deprecated

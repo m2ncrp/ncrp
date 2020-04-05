@@ -223,14 +223,14 @@ event("native:onScriptInit", function() {
 */
 });
 
-//event("onServerStarted", function() {
-//    // imitate server restart after script init
-//    // (after script exit for still connected players)
-//    foreach (playerid, name in getPlayers()) {
-//        trigger("onPlayerConnectInit", playerid, name, "0.0.0.0", getPlayerSerial(playerid));
-//        trigger("native:onPlayerSpawn", playerid);
-//    }
-//});
+event("onServerStarted", function() {
+    // imitate server restart after script init
+    // (after script exit for still connected players)
+    foreach (playerid, name in getPlayers()) {
+        trigger("onPlayerConnectInit", playerid, name, "0.0.0.0", getPlayerSerial(playerid));
+        trigger("native:onPlayerSpawn", playerid);
+    }
+});
 
 event("native:onScriptExit", function() {
     trigger("onServerStopping");
@@ -397,10 +397,70 @@ cmd("ata", function(playerid) {
     triggerClientEvent(playerid, "ArmyTrucksActivate");
 })
 
-local test = {"blocks":0,"username":"Object17","ip":"127.0.0.1","_entity":"Account","id":2,"created":1516825843,"locale":"ru","layout":"qwerty","logined":1585417921,"password":"5583413443164b56500def9a533c7c70","email":"","disabled":0,"warns":0,"serial":"940A9BF3DC69DC56BCB6BDB5450961B4","data":{"showOOC":true}}
+  function _escape(str) {
+    dbg(str)
+    local res = "";
 
-dbg(test)
-foreach (prop, value in test) {
-	dbg(prop)
-	dbg(value)
+    for (local i = 0; i < str.len(); i++) {
+
+      local ch1 = (str[i] & 0xFF);
+
+      if ((ch1 & 0x80) == 0x00) {
+        // 7-bit Ascii
+
+        ch1 = format("%c", ch1);
+
+        if (ch1 == "\'") {
+          res += "\\\'";
+        } else if (ch1 == "\"") {
+          res += "\\\"";
+        } else if (ch1 == "\\") {
+          res += "\\\\";
+        } else if (ch1 == "/") {
+          res += "\\/";
+        } else if (ch1 == "\b") {
+          res += "\\b";
+        } else if (ch1 == "\f") {
+          res += "\\f";
+        } else if (ch1 == "\n") {
+          res += "\\n";
+        } else if (ch1 == "\r") {
+          res += "\\r";
+        } else if (ch1 == "\t") {
+          res += "\\t";
+        } else if (ch1 == "\0") {
+          res += "\\u0000";
+        } else {
+          res += ch1;
+        }
+
+      } else {
+          dbg("else")
+        if ((ch1 & 0xE0) == 0xC0) {
+          // 110xxxxx = 2-byte unicode
+          local ch2 = (str[++i] & 0xFF);
+          res += format("%c%c", ch1, ch2);
+        } else if ((ch1 & 0xF0) == 0xE0) {
+          // 1110xxxx = 3-byte unicode
+          local ch2 = (str[++i] & 0xFF);
+          local ch3 = (str[++i] & 0xFF);
+          res += format("%c%c%c", ch1, ch2, ch3);
+        } else if ((ch1 & 0xF8) == 0xF0) {
+          // 11110xxx = 4 byte unicode
+          local ch2 = (str[++i] & 0xFF);
+          local ch3 = (str[++i] & 0xFF);
+          local ch4 = (str[++i] & 0xFF);
+          res += format("%c%c%c%c", ch1, ch2, ch3, ch4);
+        }
+
+      }
+    }
+    return res;
+}
+
+function te() {
+    dbg("1")
+    local lastname = "O'Reilly";
+    lastname = str_replace("'", "''", lastname);
+    ::print(lastname)
 }

@@ -49,7 +49,6 @@ include("controllers/auth/commands.nut");
  * depending if he is logined or not
  */
 event("onClientSuccessfulyStarted", function(playerid) {
-    dbg("onClientSuccessfulyStarted")
 
     // Check if server is under construction
 	if(getSettingsValue("isUnderConstruction") && !isPlayerServerAdmin(playerid)) {
@@ -368,7 +367,6 @@ event("onPlayerAccountChanged", function(playerid) {
 
 
 //event("onPlayerConnectInit", function(playerid, username, ip, serial) {
-//    dbg("onPlayerConnectInit")
 //    buffer[playerid] <- getTimestamp();
 //    dbg(buffer)
 //});
@@ -389,17 +387,3 @@ event("onServerSecondChange", function() {
     }
 });
 */
-/**
- * Listen spawn event
- * and spawn for non-authed players
- */
-// event("onPlayerSpawn", function(playerid) {
-//     dbg("onPlayerSpawn")
-//
-//     if(!isPlayerAuthed(playerid)) {
-//         introScreen(playerid)
-//     } else {
-//         spawnPlayer(playerid)
-//     }
-//
-// });

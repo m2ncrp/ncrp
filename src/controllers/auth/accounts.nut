@@ -5,7 +5,6 @@
 local accounts = {};
 local accountsData = {};
 
-
 /**
  * Return true if player is authed
  * @param  {Integer}  playerid
@@ -47,6 +46,35 @@ function setAccountIsExist(username, status) {
     return "ru";
 }
 
+
+/**
+ * Set current player locale
+ *
+ * @param  {Integer} playerid
+ * @return {String}
+ */
+function setPlayerLocale(playerid, locale = "ru") {
+    local username = getAccountName(playerid);
+
+    if (isPlayerAuthed(playerid)) {
+        accounts[username].locale = locale;
+        accounts[username].save();
+        return true;
+    }
+
+    if (!(username in accountsData)) {
+        accountsData[username] <- { locale = locale, account = account }
+        return true;
+    }
+
+    if (username in accountsData) {
+        accountsData[username].locale = locale;
+        return true;
+    }
+
+    return false;
+}
+
 /**
  * Get player ip
  * @param  {Integer} playerid
@@ -54,6 +82,34 @@ function setAccountIsExist(username, status) {
  */
 function getPlayerIp(username) {
     return (username in accountsData && "ip" in accountsData[username]) ? accountsData[username].ip : "0.0.0.0";
+}
+
+/**
+ * Get player email
+ * @param  {Integer} playerid
+ * @return {String}
+ */
+function getPlayerEmail(playerid) {
+    local username = getAccountName(playerid);
+    return (isPlayerAuthed(playerid) ? accounts[username].email : "-");
+}
+
+/**
+ * Set player email
+ * @param  {Integer} playerid
+ * @param  {String} email
+ * @return {String}
+ */
+function setPlayerEmail(playerid, email) {
+    local username = getAccountName(playerid);
+
+    if (isPlayerAuthed(playerid)) {
+        accounts[username].email = email;
+        accounts[username].save();
+        return true;
+    }
+
+    return false;
 }
 
 /**
@@ -111,4 +167,12 @@ function addAccountData(username, account) {
  */
 function getAccountData(username) {
   return username in accountsData ? accountsData[username] : null;
+}
+
+/**
+ * Get players accounts object
+ * @return {Account}
+ */
+function getAccounts() {
+    return accounts;
 }
