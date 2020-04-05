@@ -1,6 +1,6 @@
 local candidates = {
     "1": "Donny Fennicello"
-    "2": "Shengli Gao"
+    "2": "Antonio Marchini"
 }
 
 function candidatesList(playerid) {
@@ -29,11 +29,11 @@ cmd("vote", function( playerid, candidate = "0" ) {
 
     local timestamp = getTimestamp();
 
-    if(timestamp < 1554620400) { 1554620400
-        return msg(playerid, "Голосование не началось! Старт в 10:00 по Москве", CL_THUNDERBIRD);
+    if(timestamp < 1586239200) {
+        return msg(playerid, "Голосование не началось! Старт в 09:00 по Москве", CL_THUNDERBIRD);
     }
 
-    if(timestamp > 1554998400) {
+    if(timestamp > 1586451600) {
         return msg(playerid, "Голосование уже завершено!", CL_THUNDERBIRD);
     }
 
