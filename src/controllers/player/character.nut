@@ -66,15 +66,6 @@ event("onPlayerCharacterLoaded", function(playerid, character) {
  */
 event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, sex, birthdate, cskin, migrateid) {
 
-    dbg("playerid: "+playerid);
-    dbg("firstname: "+firstname);
-    dbg("lastname: "+lastname);
-    dbg("race: "+race);
-    dbg("sex: "+sex);
-    dbg("birthdate: "+birthdate);
-    dbg("cskin: "+cskin);
-    dbg("migrateid: "+migrateid);
-
     if (!isPlayerAuthed(playerid)) return dbg("character", "create with no auth", getIdentity(playerid));
 
     // are we migrating character
