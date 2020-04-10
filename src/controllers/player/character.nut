@@ -145,14 +145,6 @@ event("onPlayerCharacterSelect", function(playerid, id) {
  */
 function validateAndUpdateCharacter(playerid, character, firstname, lastname, race, sex, birthdate, cskin) {
 
-    dbg("playerid: "+playerid);
-    dbg("character: "+character);
-    dbg("firstname: "+firstname);
-    dbg("lastname: "+lastname);
-    dbg("race: "+race);
-    dbg("sex: "+sex);
-    dbg("birthdate: "+birthdate);
-    dbg("cskin: "+cskin);
     /**
      * Convert and validate string data
      */
@@ -221,13 +213,9 @@ function validateAndUpdateCharacter(playerid, character, firstname, lastname, ra
         character.birthdate = birthdate.tostring();
         character.cskin     = cskin.tointeger();
         character.dskin     = cskin.tointeger();
-        dbg("==========================")
-        dbg(character.lastname)
-        dbg(character.lastname)
+
         // save char
         character.save();
-        dbg("==========================")
-        dbg("character saved")
 
         // add to container
         trigger("onPlayerCharacterLoaded", playerid, character);
