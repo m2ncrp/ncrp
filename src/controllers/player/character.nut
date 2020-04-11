@@ -58,19 +58,20 @@ event("onPlayerCharacterLoaded", function(playerid, character) {
  * @param  {Integer}    playerid
  * @param  {String}     firstname
  * @param  {String}     lastname
+ * @param  {String}     nationality
  * @param  {Integer}    race
  * @param  {Integer}    sex
  * @param  {String}     birthdate
  * @param  {Integer}    cskin
  * @param  {Integer}    migrateid
  */
-event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, sex, birthdate, cskin, migrateid) {
+event("onPlayerCharacterCreate", function(playerid, firstname, lastname, nationality, race, sex, birthdate, cskin, migrateid) {
 
     if (!isPlayerAuthed(playerid)) return dbg("character", "create with no auth", getIdentity(playerid));
 
     // are we migrating character
     if (migrateid != "0") {
-        dbg("character", "migrating", migrateid, getIdentity(playerid), firstname, lastname, race, sex, birthdate, cskin);
+        dbg("character", "migrating", migrateid, getIdentity(playerid), firstname, lastname, nationality, race, sex, birthdate, cskin);
 
         Character.findOneBy({ id = migrateid.tointeger(), name = getAccountName(playerid) }, function(err, character) {
             if (err || !character) {
@@ -82,13 +83,13 @@ event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, s
             }
 
             // try to update existing character
-            return validateAndUpdateCharacter(playerid, character, firstname, lastname, race, sex, birthdate, cskin);
+            return validateAndUpdateCharacter(playerid, character, firstname, lastname, nationality, race, sex, birthdate, cskin);
         });
     }
 
     // or we are creating new
     if(migrateid == "0") {
-        dbg("character", "creating", null, getIdentity(playerid), firstname, lastname, race, sex, birthdate, cskin);
+        dbg("character", "creating", null, getIdentity(playerid), firstname, lastname, nationality, race, sex, birthdate, cskin);
 
         Character.findBy({ name = getAccountName(playerid) }, function(err, characters) {
             if (err || characters.len() >= CHARACTER_LIMIT) {
@@ -104,7 +105,7 @@ event("onPlayerCharacterCreate", function(playerid, firstname, lastname, race, s
             subWorldMoney(money);
 
             // try to create new character
-            return validateAndUpdateCharacter(playerid, character, firstname, lastname, race, sex, birthdate, cskin);
+            return validateAndUpdateCharacter(playerid, character, firstname, lastname, nationality, race, sex, birthdate, cskin);
         });
     }
 });
@@ -143,7 +144,7 @@ event("onPlayerCharacterSelect", function(playerid, id) {
  * @param  {Integer}    cskin
  * @return {Boolean}
  */
-function validateAndUpdateCharacter(playerid, character, firstname, lastname, race, sex, birthdate, cskin) {
+function validateAndUpdateCharacter(playerid, character, firstname, lastname, nationality, race, sex, birthdate, cskin) {
 
     /**
      * Convert and validate string data
@@ -204,15 +205,16 @@ function validateAndUpdateCharacter(playerid, character, firstname, lastname, ra
         }
 
         // update data
-        character.accountid = getAccountId(playerid);
-        character.name      = getAccountName(playerid);
-        character.firstname = firstname;
-        character.lastname  = lastname;
-        character.race      = race;
-        character.sex       = sex == "1" ? 1 : 0;
-        character.birthdate = birthdate.tostring();
-        character.cskin     = cskin.tointeger();
-        character.dskin     = cskin.tointeger();
+        character.accountid   = getAccountId(playerid);
+        character.name        = getAccountName(playerid);
+        character.firstname   = firstname;
+        character.lastname    = lastname;
+        character.nationality = nationality;
+        character.race        = race;
+        character.sex         = sex == "1" ? 1 : 0;
+        character.birthdate   = birthdate.tostring();
+        character.cskin       = cskin.tointeger();
+        character.dskin       = cskin.tointeger();
 
         // save char
         character.save();

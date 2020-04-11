@@ -312,11 +312,12 @@ proxy("onPlayerKicked",             "onPlayerKicked"                    );
 proxy("map:onClientOpen",           "map:onClientOpen"                  );
 proxy("map:onClientClose",          "map:onClientClose"                 );
 
-// Klo's playground
 proxy("loginGUIFunction",           "loginGUIFunction"                  );
 proxy("registerGUIFunction",        "registerGUIFunction"               );
 proxy("updateMoveState",            "updateMoveState"                   );
 proxy("changeModel",                "changeModel"                       );
+proxy("onGenerateFirstname",        "onGenerateFirstname"               );
+proxy("onGenerateLastname",         "onGenerateLastname"                );
 
 // RentCar
 proxy("RentCar",                    "RentCar"                           );

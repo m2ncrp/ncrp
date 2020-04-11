@@ -79,6 +79,7 @@ event("onPlayerInit", function(playerid) {
             trigger(playerid, "onServerCharacterLoading",
                 c.id.tostring(),
                 c.firstname, c.lastname,
+                c.nationality,
                 c.race.tostring(),
                 c.sex.tostring(),
                 c.birthdate,
@@ -88,8 +89,9 @@ event("onPlayerInit", function(playerid) {
         }
     });
 
+    triggerClientEvent(playerid, "onServerSeasonSet", getSeason());
+
     delayedFunction(calculateFPSDelay(playerid) + 1500, function() {
-        triggerClientEvent(playerid, "showPlayerModel");
         nativeScreenFadeout(playerid, 100);
         screenFadeout(playerid, 250);
     });

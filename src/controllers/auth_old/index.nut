@@ -194,7 +194,6 @@ function authStart(playerid, source = "first") {
                     // send message success
                     dbg("login", getIdentity(playerid), "autologin");
 
-                    dbg("trigger onPlayerInit")
                     trigger("onPlayerInit", playerid);
                     // trigger native game fadeout to fix possible black screen
 

@@ -60,16 +60,20 @@ local WEATHERS = {
 
     nothing
 */
-local SERVER_IS_SUMMER = true;
+local SERVER_SEASON = "summer";
 local WEATHER_CHANGE_TRIGGER = 0;
 local SERVER_WEATHER = null;
 
+function getSeason() {
+    return SERVER_SEASON;
+}
+
 function isSummer() {
-    return SERVER_IS_SUMMER;
+    return SERVER_SEASON == "summer";
 }
 
 function setWinter(value) {
-    return setSettingsValue("isWinter", value)
+    return setSettingsValue("season", value)
 }
 
 local nativeSetWeather = setWeather;
@@ -93,8 +97,8 @@ function resetWeather() {
 }
 
 event("onServerStarted", function() {
-    SERVER_IS_SUMMER = !getSettingsValue("isWinter")
-    setSummer(SERVER_IS_SUMMER);
+    SERVER_SEASON = getSettingsValue("season")
+    setSummer(isSummer());
 });
 
 event("onServerSecondChange", function() {
@@ -119,7 +123,7 @@ event("onServerSecondChange", function() {
     // }
 
     // Get weather based on what season it is
-    local weathers = (SERVER_IS_SUMMER) ? WEATHERS.SUMMER : WEATHERS.WINTER;
+    local weathers = (isSummer()) ? WEATHERS.SUMMER : WEATHERS.WINTER;
 
     // Go through the weathers array
     for (local i = 0; i < weathers.len(); i++) {

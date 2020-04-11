@@ -1,35 +1,63 @@
-local firstnameBoys = {
-  american = [],
-  british = [],
-  chinese = [],
-  french = [],
-  german = [],
-  italian = [],
-  irish = [],
-  jewish = [],
-  mexican = [],
-}
-
-local firstnameGirls = {
-  american = [],
-  british = [],
+local firstname = [
+  {
+  american = ["Robert","Michael","William","David","Richard","Charles","Joseph","Christopher","Daniel","Paul","Mark","Donald","George","Steven","Edward","Brian","Ronald","Anthony","Kevin","Jason","Gary","Emmet","Jose","Larry","Frank","Scott","Andrew","Raymond","Gregory","Jerry","Dennis","Walter","Patrick","Peter","Harold","Carl","Roger","Jack","Justin","Terry","Nicholas","Bruce","Adam","Fred","Steve","Louis","Jeremy","Howard","Eugene","Russel","Martin","Todd","Phillip","Alan","Chris","Tony","Mike","Alfred","Bernard","Bill","Floyd","Gordon","Dustin","Hector","Sam","Tyler","Brad","Darryl","Christian","Cody","Felix","Ken","Bob","Marcus","Denzel","Joseph","Justin","Brandon","Bill","Ethan","Darius","Joshua"],
+  british = ["James","Michael","Robert","David","William","Richard","Mark","Charles","Steven","Gary","Joseph","Donald","Ronald","Kenneth","Paul","Larry","Daniel","Stephen","Dennis","Timothy","Edward","Jeffrey","George","Gregory","Kevin","Terry","Anthony","Jerry","Bruce","Randy","Frank","Brian","Scott","Roger","Raymond","Peter","Patrick","Lawrence","Danny","Alan","Gerald","Ricky","Carl","Christopher","Dale","Walter","Craig","Willie","Arthur","Steve","Randall","Russell","Henry","Harold","Roy","Andrew","Philip","Ralph","Billy","Glenn","Stanley","Jimmy","Rodney","Barry","Samuel","Bobby","Albert","Phillip","Ronnie","Martin","Eugene","Louis","Howard","Allen","Curtis","Jeffery","Frederick","Leonard","Harry","Micheal","Ernest","Eddie","Fred","Darrell","Jay","Melvin","Matthew","Vincent","Francis","Marvin","Dean","Rick","Norman","Earl","Calvin","Ray","Clifford","Alfred","Jerome","Bradley","Clarence","Theodore","Rickey","Joel","Jesse","Jim","Edwin","Chris","Bernard","Jonathan","Gordon","Glen","Jeff","Warren","Leroy","Herbert","Duane","Bill","Benjamin","Alvin","Nicholas","Tim","Mitchell","Marc","Leslie","Leon","Dwight","Bryan","Lloyd","Vernon","Gene","Reginald","Lonnie","Guy","Gilbert","Garry","Juan","Kurt","Todd","Jackie","Greg","Lewis","Wesley","Clyde","Floyd","Neil","Allan","Donnie","Perry","Franklin","Lester","Brad","Manuel","Kirk","Carlos","Jimmie","Randolph","Charlie","Robin","Darryl","Dave","Ted","Milton","Daryl","Kerry","Freddie","Brent","Harvey","Gerard","Stuart","Johnnie","Lynn","Arnold","Kelly"],
+  chinese = ["Hao","Yi","Jian","Bin","Wei","Qiang","Lei","Jun","Yong","Yang","Jie","Tao","Ming","Aki","Bae","Chin","Chung","Jin","Feng"],
+  french = ["Baptiste","Adam","Raphael","Arthur","Jules","Florian","Gabriel","Antoine","Gaspard","Augustin","Paul","Louis","Leon","Samuel","Marcel","Jean","Michel","Alain","Gérard","Bernard","Daniel","Christian","Jacques","Patrick","Claude","Pierre","Andre","Philippe","Serge","Joel","Yves","Robert","Rene","Dominique","Francis","Francois","Gilbert","Georges","Marc","Gilles","Henri","Patrice","Didier","Roland","Denis","Jacky","Maurice","Raymond","Joseph","Richard","Herve","Lucien","Charles","Bruno","Yvon","Noel","Pascal","Thierry"],
+  german = ["Albert","Stefan","Frank","Henry","Noah","Fabian","Moritz","Tobias","Friedrich","Otto","Wolfgang","Max","Roland","Paul","Sebastian","Martin","Adrian","Johannes"],
+  italian = ["Francesco","Alessandro","Lorenzo","Andrea","Leonardo","Matteo","Tommaso","Davide","Giuseppe","Antonio","Federico","Edoardo","Marco","Samuele","Diego","Giovanni","Christian","Pietro","Simone","Filippo","Alessio","Gabriel","Michele","Emanuele","Jacopo","Daniele","Cristian","Giacomo","Vincenzo","Salvatore","Stefano","Giulio","Samuel","Nicola","Giorgio","Luigi","Daniel","Angelo","Domenico","Paolo","Raffaele"],
+  irish = ["Sean","Oisin","Patrick","Cian","Liam","Cillian","Fionn","Rian","Eoin","Oscar","Callum","Aidan","Cathal","Shane","Conor","Senan","Finn","Ronan","Rory","Ciaran","Shay","Killian","Brian","Oran","Darren","Brandon","Craig","Colm","Lorcan","Barry","Collin","Brendan","Fergal","Eric"],
+  jewish = ["Joseph","David","Harold","Michael","Daniel","Samuel","Benjamin","Alan","Barry","Mark","Alfred","Arnold","Edward","Seymour","Morton","Ralph","Philip","Jules","George","Walter","Abraham","Charles","Harry","Hyman","Herman","Jacob","Israel","Irving","Isaac","Isadore","Julius","Morris","Solomon"],
+  mexican = ["Juan","Jose","Francisco","Antonio","Jesus","Pedro","Alejandro","Manuel","Roberto","Fernando","Daniel","Carlos","Jorge","Ricardo","Miguel","Eduardo","Javier","Rafael","Martin","Raul","David","Arturo","Enrique","Gerardo","Mario","Alfredo","Sergio","Alberto","Luis","Armando","Santiago","Gabriel","Andres","Oscar","Guillermo","Ramon","Pablo","Felipe","Jaime","Gustavo","Marco","Sebastian","Lucas"]
+  },
+{
+  american = ["Linda","Mary","Patricia","Barbara","Susan","Maria","Donna","Nancy","Deborah","Kathleen","Susan","Karen","Sandra","Debra","Rochelle","Mildred","Mercy","Martha","Dawn"],
+  british = ["Mary","Linda","Patricia","Susan","Deborah","Barbara","Debra","Karen","Nancy","Donna","Sandra","Pamela","Sharon","Kathleen","Carol","Diane","Brenda","Cheryl","Janet","Elizabeth","Kathy","Margaret","Janice","Carolyn","Denise","Judy","Rebecca","Joyce","Teresa","Christine","Catherine","Shirley","Judith","Betty","Beverly","Lisa","Laura","Theresa","Connie","Ann","Gloria","Julie","Gail","Joan","Paula","Peggy","Cindy","Martha","Bonnie","Jane","Cathy","Robin","Debbie","Diana","Marilyn","Kathryn","Dorothy","Wanda","Jean","Vicki","Sheila","Virginia","Sherry","Katherine","Rose","Lynn","Ruth","Maria","Darlene","Jacqueline","Rita","Rhonda","Phyllis","Helen","Vickie","Lori","Ellen","Elaine","Joanne","Anne","Valerie","Alice","Frances","Suzanne","Marie","Victoria","Kimberly","Anita","Laurie","Michelle","Sally","Terri","Marcia","Terry","Jennifer","Leslie","Doris","Maureen","Wendy","Michele","Anna","Angela","Sarah","Sylvia","Jill","Dawn","Sue","Evelyn","Roberta","Jeanne","Charlotte","Eileen","Lois","Colleen","Stephanie","Annette","Glenda","Yvonne","Dianne","Tina","Beth","Lorraine","Constance","Renee","Charlene","Joann","Julia","Norma","Regina","Amy","Loretta","Sheryl","Carla","Andrea","Irene","Louise","Juanita","Marlene","Penny","Rosemary","Becky","Geraldine","Jeanette","Gayle","Annie","Vivian","Claudia","Lynda","Melissa","Audrey","Lynne","Patsy","Melinda","Vicky","June","Belinda","Arlene","Patti","Ruby","Sara","Rosa","Melanie","Christina","Jackie","Vanessa","Carmen","Monica","Janis","Holly","Marianne","Dolores","Shelley","Veronica","Mildred","Eva","Dana","Rachel","Shelia","Roxanne","Carole","Lillian","Josephine","Carrie","Sherri","Doreen","Grace"],
   chinese = ["Ai", "Bi", "Cai", "Dan", "Fang", "Hong", "Juan", "Lan", "Li", "Li", "Lian", "Na", "Ni", "Qian", "Qiong", "Shan", "Shu", "Ting", "Xia", "Xian", "Yun", "Zhen"],
-  french = [],
+  french = ["Marie","Martine","Francoise","Monique","Nicole","Chantal","Annie","Christiane","Jacqueline","Michele","Danielle","Josiane","Claudine","Annick","Catherine","Evelyne","Colette","Bernadette","Jocelyne","Brigitte","Josette","Genevieve","Joelle","Mireille","Michelle","Anne","Maryse","Daniele","Liliane","Eliane","Christine","Jeannine","Gisele","Susanne","Louise","Jade","Alice"],
   german = ["Amelie", "Andrea", "Angelika", "Anna", "Hannah", "Christina", "Elke", "Emma", "Erika", "Gisela", "Emily", "Ilse", "Johanna", "Katrin", "Mia", "Maria", "Martina", "Melanie", "Nadine", "Nicole", "Petra", "Sabine", "Sabrina", "Sandra", "Stefanie"],
-  italian = [],
+  italian = ["Sofia","Giulia","Emma","Giorgia","Martina","Alice","Greta","Ginevra","Chiara","Anna","Sara","Beatrice","Nicole","Gaia","Matilde","Noemi","Francesca","Alessia","Ludovica","Arianna","Viola","Camilla","Elisa","Bianca","Giada","Rebecca","Mia","Adele","Marta","Gioia","Maria","Eleonora","Carlotta","Miriam","Irene","Melissa","Margherita","Emily","Caterina","Anita","Serena","Benedetta","Rachele","Angelica","Cecilia","Isabel"],
   irish = ["Grace", "Ciara", "Fiona", "Nessa", "Cara", "Shauna", "Nuala", "Emily", "Emma", "Ava", "Sophie", "Amelia", "Ella", "Lucy"],
-  jewish = [],
-  mexican = ["Maria", "Guadalupe", "Juana", "Margarita", "Josefina", "Veronica", "Leticia", "Rosa", "Francisca", "Teresa", "Alicia", "Alejandra", "Martha", "Yolanda", "Patricia", "Gabriela", "Antonia", "Isabel", "Irma", "Lucia", "Adriana"],
+  jewish = ["Barbara","Ruth","Elizabeth","Martha","Matya","Judith","Edna","Sarah","Sharon","Alma","Sue","Joan","Ann","Beth","Cheryl","Ellen","Gail","Lois","Linda","Lynn","Rebbeca","Bessie","Bertha","Clara","Celia","Dora","Etta","Zelda"],
+  mexican = ["Maria", "Guadalupe", "Juana", "Margarita", "Josefina", "Veronica", "Leticia", "Rosa", "Francisca", "Teresa", "Alicia", "Alejandra", "Martha", "Yolanda", "Patricia", "Gabriela", "Antonia", "Isabel", "Irma", "Lucia", "Adriana"]
 }
+];
 
 local lastname = {
-  american = ["Smith", "Johnson", "Miller", "Brown", "Jones", "Williams", "Davis", "Anderson", "Wilson", "Martin", "Taylor", "Moore", "Thompson", "White", "Clark", "Thomas", "Hall", "Baker", "Nelson", "Allen", "Harris", "King", "Adams", "Walker", "Wright", "Roberts", "Campbell", "Jackson", "Phillips", "Hill", "Scott", "Robinson", "Murphy", "Cook", "Green", "Lee", "Evans", "Peterson", "Morris", "Collins", "Mitchell", "Parker", "Rogers", "Stewart", "Turner", "Wood", "Carter", "Morgan", "Cox", "Kelly", "Edwards", "Bailey", "Ward", "Reed", "Myers", "Sullivan", "Cooper", "Bennett", "Long", "Fisher", "Russell", "Howard", "Gray", "Bell", "Foster", "Ross", "Olson", "Richardson", "Powell", "Stevens", "Brooks", "Perry", "West", "Cole", "Barnes", "Hamilton", "Graham", "Murray", "Wallace", "Butler", "Simmons", "Warren", "Hicks", "Henry", "Duncan", "Woods", "Richards", "Ray", "Bishop", "Morrison", "Lee"],
-  british = [],
+  american = ["Smith", "Johnson", "Miller", "Brown", "Jones", "Williams", "Davis", "Anderson", "Wilson", "Martin", "Taylor", "Moore", "Thompson", "White", "Clark", "Thomas", "Hall", "Baker", "Nelson", "Allen", "Harris", "King", "Adams", "Walker", "Wright", "Roberts", "Campbell", "Jackson", "Phillips", "Hill", "Scott", "Robinson", "Murphy", "Cook", "Green", "Lee", "Evans", "Peterson", "Morris", "Collins", "Mitchell", "Parker", "Rogers", "Stewart", "Turner", "Wood", "Carter", "Morgan", "Cox", "Kelly", "Edwards", "Bailey", "Ward", "Reed", "Myers", "Sullivan", "Cooper", "Bennett", "Long", "Fisher", "Russell", "Howard", "Gray", "Bell", "Foster", "Ross", "Olson", "Richardson", "Powell", "Stevens", "Brooks", "Perry", "West", "Cole", "Barnes", "Hamilton", "Graham", "Murray", "Wallace", "Butler", "Simmons", "Warren", "Hicks", "Henry", "Duncan", "Woods", "Richards", "Ray", "Bishop", "Morrison"],
+  british = ["Adams","Allen","Anderson","Armstrong","Atkinson","Bailey","Baker","Ball","Barker","Barnes","Bell","Bennett","Booth","Bradley","Brooks","Brown","Burton","Butler","Campbell","Carter","Clarke","Cole","Collins","Cook","Cooper","Corbyn","Cox","Davidson","Davies","Dawson","Dixon","Edwards","Elliott","Evans","Fisher","Fletcher","Ford","Foster","Fox","Gibson","Graham","Grant","Gray","Green","Griffiths","Hall","Hamilton","Harris","Harrison","Harvey","Henderson","Hill","Howard","Hughes","Hunt","Hunter","Jackson","James","Jenkins","Johnson","Johnston","Jones","Kelly","Kennedy","King","Knight","Lawrence","Lewis","Lloyd","Marshall","Martin","Mason","Matthews","McDonald","Miller","Mitchell","Moore","Morgan","Morris","Morrison","Murphy","Murray","Owen","Palmer","Parker","Payne","Pearce","Pearson","Perry","Phillips","Powell","Price","Reid","Reynolds","Richards","Richardson","Roberts","Robertson","Robinson","Rogers","Rose","Ross","Russell","Saunders","Scott","Shaw","Simpson","Smith","Spencer","Stevens","Stewart","Taylor","Thompson","Thomson","Turner","Walker","Walsh","Ward","Watson","Watts","Webb","Webster","West","White","Wilkinson","Williams","Williamson","Wilson","Wood","Wright","Young"],
   chinese = ["Wang", "Li", "Zhang", "Liu", "Chen", "Yang", "Huang", "Zhao", "Wu", "Zhou", "Wong", "Lin", "Pham", "Chang", "Huang", "Khan", "Shan", "Yu", "Choi", "Vang", "Ho", "Xiong", "Vu", "Vo", "Lim", "Lu", "Tan", "Cheng", "Hong", "Xu", "Duong", "Lau", "Yee", "Fong", "Su", "Chong", "Dong", "Thai", "Feng", "Luo", "Tu", "Liao"],
-  french = [],
+  french = ["Petit","Durant","Dubois","Moreau","Laurent","Fabron","Chastain","Dupont","Brun","Legrand","Pelletier","Boucher","Buche","Bongard","Carmouche","Carrel","Dansereau","Chaumont","Darbonne","Ferrand","Gelinas"],
   german = ["Muller", "Schmidt", "Schneider", "Fischer", "Weber", "Meyer", "Wagner", "Becker", "Schulz", "Hoffmann", "Schafer", "Koch", "Bauer", "Richter", "Klein", "Wolf", "Schroder", "Neumann", "Schwarz", "Zimmermann", "Braun", "Kruger", "Hofmann", "Hartmann", "Lange", "Schmitt", "Werner", "Schmitz", "Krause", "Meier", "Lehmann", "Schmid", "Schulze", "Maier", "Kohler", "Herrmann", "Konig", "Walter", "Mayer", "Huber", "Kaiser", "Fuchs", "Peters", "Lang", "Scholz", "Moller", "Jung", "Hahn", "Schubert", "Vogel", "Keller", "Gunther", "Frank", "Berger", "Winkler", "Roth", "Beck", "Lorenz", "Baumann", "Franke", "Albrecht", "Schuster", "Bohm", "Kraus", "Martin", "Kramer", "Vogt", "Stein", "Jager", "Otto", "Sommer", "Heinrich", "Brandt", "Haas", "Schreiber", "Graf", "Schulte", "Dietrich", "Ziegler", "Kuhn", "Pohl", "Engel", "Horn", "Busch", "Bergmann", "Thomas", "Voigt", "Sauer", "Wolff"],
   italian = ["Accardi", "Agosti", "Amato", "Barone", "Bernardi", "Bianco", "Bruni", "Bruno", "Caputo", "Carbone", "Caruso", "Cattaneo", "Colombo", "Conte", "Coppola", "Costa", "DeVille", "Donato", "Esposito", "Farina", "Fiore", "Fontana", "Gallo", "Gatti", "Gentile", "Giordano", "Grasso", "Greco", "Guerra", "Lombardi", "Mancini", "Marchetti", "Mariano", "Marino", "Monti", "Moretti", "Pellegrini", "Rabito", "Ricci", "Rossi", "Santoro", "Scotti", "Serra", "Testa", "Verga", "Zucca"],
   irish = ["Murphy", "Kelly", "O'Sullivan", "Walsh", "Smith", "O'Brien", "Byrne", "Ryan", "O'Connor", "O'Neill", "O'Reilly", "Doyle", "McCarthy", "Gallagher", "O'Doherty", "Kennedy", "Lynch", "Murray", "Quinn", "Moore", "McLoughlin", "O'Carroll", "Connolly", "Daly", "O'Connell", "Wilson", "Dunne", "Brennan", "Burke", "Collins", "Campbell", "Clarke", "Johnston", "Hughes", "O'Farrell", "Fitzgerald", "Brown", "Martin", "Maguire", "Nolan"],
   jewish = ["Aberman", "Almen", "Appelbaum", "Berkman", "Berman", "Bingham", "Brafman", "Braverman", "Dorman", "Fangman", "Feingold", "Fishel", "Giller", "Gitelman", "Hendel", "Himmelman", "Hyams", "Kallus", "Kamber", "Kimelman", "Kuperman", "Latter", "Leiman", "Lipman", "Oshman", "Seeman", "Tenenbaum", "Weinbaum", "Wollman"],
-  mexican = ["Rodriguez", "Hernandez", "Martinez", "Garcia", "Gonzalez", "Lopez", "Ramirez", "Sanchez", "Perez", "Flores", "Chavez", "Ruiz", "Romero", "Castro", "Soto", "Reyes", "Cruz", "Garza", "Torres", "Gomez", "Resendiz", "Morales", "Jimenez", "Santiago", "Vazquez", "Diaz", "Benitez", "Acosta", "Herrera", "Molina", "Aguirre", "Rojas", "Ortiz", "Vera", "Moreno", "Castillo", "Arias", "Mendez", "Rivera", "Mendoza", "Medina", "Rios", "Vargas", "Valdez", "Ortega", "Espinoza", "Juarez", "Rivas", "Ramos"],
+  mexican = ["Rodriguez", "Hernandez", "Martinez", "Garcia", "Gonzalez", "Lopez", "Ramirez", "Sanchez", "Perez", "Flores", "Chavez", "Ruiz", "Romero", "Castro", "Soto", "Reyes", "Cruz", "Garza", "Torres", "Gomez", "Resendiz", "Morales", "Jimenez", "Santiago", "Vazquez", "Diaz", "Benitez", "Acosta", "Herrera", "Molina", "Aguirre", "Rojas", "Ortiz", "Vera", "Moreno", "Castillo", "Arias", "Mendez", "Rivera", "Mendoza", "Medina", "Rios", "Vargas", "Valdez", "Ortega", "Espinoza", "Juarez", "Rivas", "Ramos"]
+};
+
+// Copy afro as american
+firstname[0].afro <- firstname[0].american;
+firstname[1].afro <- firstname[1].american;
+lastname.afro <- lastname.american;
+
+function getRandomFirstname(gender, nationality) {
+  local count = firstname[gender][nationality].len();
+  local r = random(0, count - 1);
+  return firstname[gender][nationality][r];
 }
+
+function getRandomLastname(nationality) {
+  local count = lastname[nationality].len();
+  local r = random(0, count - 1);
+  return lastname[nationality][r];
+}
+
+event("onGenerateFirstname", function(playerid, gender, nationality = "american") {
+  local firstname = getRandomFirstname(gender, nationality);
+  triggerClientEvent(playerid, "onChangeRandomFirstname", firstname);
+});
+
+event("onGenerateLastname", function(playerid, nationality = "american") {
+  local lastname = getRandomLastname(nationality);
+  triggerClientEvent(playerid, "onChangeRandomLastname", lastname);
+});

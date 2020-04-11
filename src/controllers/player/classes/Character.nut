@@ -19,6 +19,7 @@ class Character extends ORM.JsonEntity {
 
         ORM.Field.String    ({ name = "firstname"   }),
         ORM.Field.String    ({ name = "lastname"    }),
+        ORM.Field.String    ({ name = "nationality" }),
         ORM.Field.Integer   ({ name = "race"        }),
         ORM.Field.Integer   ({ name = "sex"         }),
         ORM.Field.String    ({ name = "birthdate", value = "01.01.1920" }),

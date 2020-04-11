@@ -16,6 +16,7 @@ include("controllers/auth/events.nut");
 include("controllers/auth/accounts.nut");
 include("controllers/auth/functions.nut");
 include("controllers/auth/sessions.nut");
+include("controllers/auth/data-names.nut");
 
 /*
 Авторизация и регистрация
