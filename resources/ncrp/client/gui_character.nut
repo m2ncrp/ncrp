@@ -719,7 +719,7 @@ addEventHandler("onServerCharacterLoaded", function(locale){
     toggleHud(false);
 });
 
-addEventHandler("onServerSeasonSet", function(name = "") {
+addEventHandler("onServerSeasonSet", function(name = "summer") {
     season = name;
 });
 
