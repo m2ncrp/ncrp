@@ -125,6 +125,7 @@ event("onPlayerCharacterSelect", function(playerid, id) {
 
         // load character
         trigger("onPlayerCharacterLoaded", playerid, character);
+        triggerClientEvent(playerid, "showPlayerModel");
         triggerClientEvent(playerid, "onPlayerInitMoney", character.money.tofloat());
         dbg("character", "selected", getIdentity(playerid));
     });

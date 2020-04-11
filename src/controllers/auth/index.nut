@@ -29,13 +29,13 @@ include("controllers/auth/data-names.nut");
 6. Определяем нет ли мута
 7. Если надо показывать окна - запускаем интро, которое устанавливает параметры отображения. Делаем запрос в базу, определяя существует ли аккаунт или логин свободен для регистрации. Показываем нужное окно.
 */
-
 event("onClientSuccessfulyStarted", function(playerid) {
     // 1. Set ui settings (hide ui elements, skin, set camera rotation)
-    introUISetter(playerid)
+
 
     // 2. Check if server is under construction
 	if(getSettingsValue("isUnderConstruction") && !isPlayerServerAdmin(playerid)) {
+        introUISetter(playerid);
         introPlayerSetter(playerid);
         // wait to load client chat and then display message
         return delayedFunction(2000, function() {
@@ -66,6 +66,7 @@ event("onClientSuccessfulyStarted", function(playerid) {
         username.find("  ") != null ||
         username.find("__") != null
     ) {
+        introUISetter(playerid);
         introPlayerSetter(playerid);
         // wait to load client chat and then display message
         return delayedFunction(2000, function() {
@@ -99,6 +100,7 @@ event("onClientSuccessfulyStarted", function(playerid) {
              * Applying actions
              */
             if (result) {
+                introUISetter(playerid);
                 introPlayerSetter(playerid);
                 // wait to load client chat and then display message
                 return delayedFunction(2000, function() {
@@ -133,6 +135,7 @@ event("onClientSuccessfulyStarted", function(playerid) {
                     setAccountIsExist(username, true);
 
                     if (account.disabled) {
+                        introUISetter(playerid);
                         introPlayerSetter(playerid);
                         // wait to load client chat and then display message
                         return delayedFunction(2000, function() {
@@ -190,6 +193,10 @@ event("onClientSuccessfulyStarted", function(playerid) {
                     return dbg("skipping auth forms for debug mode");
                 }
 
+                delayedFunction(1000, function() {
+                    introUISetter(playerid);
+                    introPlayerSetter(playerid);
+                });
                 showIdentificationGui(playerid, 2000);
 
                 // ORM.Query("select * from @Mute where (serial = :serial or name = :name) and until > :current")
@@ -217,6 +224,7 @@ event("onClientSuccessfulyStarted", function(playerid) {
 
 function showIdentificationGui(playerid, delay = 2000) {
     local username = getAccountName(playerid);
+
     if (username == "Player") {
         showBadPlayerNicknameGUI(playerid);
     } else {
@@ -238,6 +246,7 @@ function showIdentificationGui(playerid, delay = 2000) {
 }
 
 function introUISetter(playerid) {
+    dbg("introUISetter")
     screenFadein(playerid, 0);
 
     local defaultSpawn = getDefaultSpawn();
@@ -259,6 +268,4 @@ function introPlayerSetter(playerid) {
     local defaultSpawn = getDefaultSpawn();
     // set player position and skin
     setPlayerPosition(playerid, defaultSpawn.position[0], defaultSpawn.position[1], defaultSpawn.position[2]);
-
-    nativeSetPlayerModel(playerid, DEFAULT_SPAWN_SKIN);
 }
