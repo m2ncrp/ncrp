@@ -345,6 +345,7 @@ function dockerJobTakeBox( playerid ) {
 
     job_docker[getCharacterIdFromPlayerId(playerid)]["havebox"] = true;
     DOCKER_BOX_NOW -= 1;
+    setVehiclePartOpen(TRUCKID, 1, true);
 
     triggerClientEvent(playerid, "takeBox");
 
