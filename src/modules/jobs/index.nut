@@ -160,12 +160,14 @@ key("2", function(playerid) { callJobEvent("2", playerid); });
 
 
 function jobSetPlayerModel(playerid, skin) {
+    return;
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
         setPlayerModel( playerid, skin );
     });
 }
 
 function jobRestorePlayerModel(playerid) {
+    return;
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
         restorePlayerModel(playerid);
     });

@@ -306,7 +306,7 @@ function milkJobGet ( playerid ) {
     setPlayerJobState( playerid, null);
 
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
-        setPlayerModel( playerid, MILK_JOB_SKIN );
+        //setPlayerModel( playerid, MILK_JOB_SKIN );
         showLeave3dText(playerid, true);
     });
     msg( playerid, "job.milkdriver.now", MILK_JOB_COLOR );
@@ -349,7 +349,7 @@ function milkJobLeave ( playerid ) {
     showLeave3dText(playerid, false);
 
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
-        restorePlayerModel(playerid);
+        //restorePlayerModel(playerid);
         msg( playerid, "job.leave", MILK_JOB_COLOR );
     });
 

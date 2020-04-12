@@ -1121,7 +1121,7 @@ event("onServerPlayerStarted", function( playerid ){
         }
 
         msg( playerid, "job.snowplow.ifyouwantstart", SNOWPLOW_JOB_COLOR );
-        restorePlayerModel(playerid);
+        //restorePlayerModel(playerid);
         setPlayerJobState(playerid, null);
     }
 });
@@ -1371,7 +1371,7 @@ function snowplowJobStartRoute( playerid ) {
     }
 
     setPlayerJobState( playerid, "working");
-    jobSetPlayerModel( playerid, SNOWPLOW_JOB_SKIN );
+    //jobSetPlayerModel( playerid, SNOWPLOW_JOB_SKIN );
 
     local rand = random(0, routes_list.len()-1);
     local route = routes_list[rand];

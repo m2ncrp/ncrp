@@ -449,7 +449,7 @@ function fuelJobGet( playerid ) {
 
             setPlayerJob( playerid, "fueldriver");
             screenFadeinFadeoutEx(playerid, 250, 200, function() {
-                setPlayerModel( playerid, FUEL_JOB_SKIN );
+                //setPlayerModel( playerid, FUEL_JOB_SKIN );
             });
         }
 
@@ -549,7 +549,7 @@ function fuelJobRefuseLeave( playerid ) {
         job_fuel[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] = null;
 
         setPlayerJob( playerid, null );
-        restorePlayerModel(playerid);
+        //restorePlayerModel(playerid);
 
         // remove private blip job
         removePersonalJobBlip ( playerid );

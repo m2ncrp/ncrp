@@ -299,7 +299,7 @@ function truckJobTalk( playerid ) {
             msg( playerid, "job.truckdriver.now" );
             setPlayerJob( playerid, "truckdriver");
             screenFadeinFadeoutEx(playerid, 250, 200, function() {
-                setPlayerModel( playerid, TRUCK_JOB_SKIN );
+                //setPlayerModel( playerid, TRUCK_JOB_SKIN );
             });
         }
 
@@ -377,7 +377,7 @@ function truckJobRefuseLeave( playerid ) {
         job_truck[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] = null;
 
         setPlayerJob( playerid, null );
-        restorePlayerModel(playerid);
+        //restorePlayerModel(playerid);
 
         // remove private blip job
         removePersonalJobBlip ( playerid );
