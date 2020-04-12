@@ -111,7 +111,7 @@ alternativeTranslate({
     "ru|TAKEBOXHERE"                    : "бнгэлх ъыхй гдеяэ"
 
     "en|PUTBOXHERE"                     : "PUT BOX HERE"
-    "ru|PUTBOXHERE"                     : "онкнфх ъыхй гдеяэ"
+    "ru|PUTBOXHERE"                     : "онкнфх ъыхй ячдю"
 
 
     "en|WASHSTATION"                    : "WASH STATION"

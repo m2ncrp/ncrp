@@ -12,11 +12,12 @@ translation("en", {
 "job.docker.presscapslock"      : "Press CAPS LOCK to walk."
 
 "job.docker.nicejob"            : "[DOCKER] You put the crate. You earned $%.2f."
-
-
+"job.docker.nojob"              : "Boxes are over. Come another time."
 
 "job.docker.haventbox"          : "[DOCKER] You haven't a crate."
 "job.docker.gotowarehouse"      : "[DOCKER] Go to truck."
+
+"job.docker.ifyouwantstart"    :   "[DOCKER] You're bus docker. If you want to work - go to warehouse and take box."
 
 
 "job.docker.help.title"         : "List of available commands for DOCKER JOB:"
@@ -28,22 +29,26 @@ translation("en", {
 
 translation("ru", {
     "job.docker"                        :   "портовый рабочий"
-    "job.docker.letsgo"                 :   "[DOCKER] Отправляйтесь в офис City Port."
-    "job.docker.already"                :   "[DOCKER] Ты уже работаешь портовым рабочим."
-    "job.docker.now"                    :   "[DOCKER] Ты стал портовым рабочим. Добро пожаловать... в ад! Аха-ха..."
-    "job.docker.takeboxandcarry"        :   "[DOCKER] Бери ящик и неси к грузовику."
-    "job.docker.not"                    :   "[DOCKER] Вы не работаете портовым рабочим."
-    "job.docker.havebox"                :   "[DOCKER] Ты уже несёшь ящик. Тебе мало что ли?"
-    "job.docker.tookbox"                :   "[DOCKER] Ты взял ящик. Теперь неси его к грузовику."
-    "job.docker.haventbox"              :   "[DOCKER] Ты не брал ящик."
-    "job.docker.dropped"                :   "[DOCKER] Ты уронил ящик."
+    "job.docker.letsgo"                 :   "Отправляйтесь в офис City Port."
+    "job.docker.already"                :   "Ты уже работаешь портовым рабочим."
+    "job.docker.now"                    :   "Ты стал портовым рабочим. Добро пожаловать... в ад! Аха-ха..."
+    "job.docker.takeboxandcarry"        :   "Бери ящик и неси к грузовику."
+    "job.docker.not"                    :   "Вы не работаете портовым рабочим."
+    "job.docker.havebox"                :   "У тебя уже есть ящик. Тебе мало что ли?"
+    "job.docker.tookbox"                :   "Неси ящик в кузов грузовика."
+    "job.docker.haventbox"              :   "Ты не брал ящик."
+    "job.docker.dropped"                :   "Ты уронил ящик."
     "job.docker.presscapslock"          :   "Нажми CAPS LOCK для включения режима ходьбы."
-    "job.docker.nicejob"                :   "[DOCKER] Ты принёс ящик. Твой заработок $%.2f."
+    "job.docker.nicejob"                :   "Молодец! Держи $%.2f."
+    "job.docker.nojob"                  :   "Ящики закончились. Приходи в другой раз."
 
+    "ru|job.bus.ifyouwantstart"            :   "[BUS] Ты работаешь водителем автобуса. Если хочешь выйти в рейс - возьми маршрут в автобусном депо."
 
 
     "job.docker.haventbox"              :   "[DOCKER] You haven't a crate."
     "job.docker.gotowarehouse"          :   "[DOCKER] Неси ящик к грузовику."
+
+    "job.docker.ifyouwantstart"         :  "Ты - портовый рабочий. Если хочешь поработать - иди на склад и возьми ящик."
 
     "job.docker.help.title"             :   "Список команд, доступных портовому рабочему:"
     "job.docker.help.job"               :   "Устроиться на работу портовым рабочим"
@@ -60,15 +65,13 @@ const DOCKER_JOB_X = -350.47;
 const DOCKER_JOB_Y = -726.907;
 const DOCKER_JOB_Z = -15.4207;
 
-
-
 const DOCKER_JOB_TAKEBOX_X = -334.056;
 const DOCKER_JOB_TAKEBOX_Y = -700.221;
 const DOCKER_JOB_TAKEBOX_Z = -21.7302;
 
 const DOCKER_JOB_PUTBOX_X = -331.502;
-const DOCKER_JOB_PUTBOX_Y = -713.312;
-const DOCKER_JOB_PUTBOX_Z = -20.7489;
+const DOCKER_JOB_PUTBOX_Y = -717.26;
+const DOCKER_JOB_PUTBOX_Z = -20.6;
 
 /*
 const DOCKER_JOB_TAKEBOX_X = -348.152;
@@ -97,15 +100,18 @@ local DOCKER_JOB_LEAVE_HOUR_START   = 0;    //6;
 local DOCKER_JOB_LEAVE_HOUR_END     = 23;   //18;
 local DOCKER_JOB_WORKING_HOUR_START = 0;    //6;
 local DOCKER_JOB_WORKING_HOUR_END   = 23;   //18;
-local DOCKER_BOX_IN_HOUR = 35;
-local DOCKER_BOX_NOW = 29;
+local DOCKER_BOX_IN_HOUR = 30;
+local DOCKER_BOX_NOW = 25;
+
+local TRUCKID = -1;
+
 
 event("onServerStarted", function() {
     logStr("[jobs] loading docker job...");
 
     registerPersonalJobBlip("docker", DOCKER_JOB_X, DOCKER_JOB_Y);
 
-    createVehicle(37, -331.585, -716.952, -21.4104, -178.888, -0.0503875, -0.427005); //    Covered
+    TRUCKID = createVehicle(35, -331.585, -717.952, -21.4104, -178.888, -0.0503875, -0.427005);
 
 });
 
@@ -124,12 +130,23 @@ event("onServerPlayerStarted", function( playerid ) {
 
     //creating 3dtext for bus depot
     createPrivate3DText ( playerid, DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z+0.35, plocalize(playerid, "3dtext.job.port"), CL_ROYALBLUE );
+    setVehiclePartOpen(TRUCKID, 1, true);
 
     if(players[playerid]["job"] == "docker") {
-
         dockerJobRegisterPrivateKeys(playerid);
 
-        job_docker[getCharacterIdFromPlayerId(playerid)]["blip3dtext"] = dockerJobCreatePrivateBlipText(playerid, DOCKER_JOB_TAKEBOX_X, DOCKER_JOB_TAKEBOX_Y, DOCKER_JOB_TAKEBOX_Z, plocalize(playerid, "TAKEBOXHERE"), plocalize(playerid, "3dtext.job.press.E"));
+        local charId = getCharacterIdFromPlayerId(playerid);
+
+        if(job_docker[charId]["havebox"]) {
+            triggerClientEvent(playerid, "setWithBoxPlayerState");
+
+            job_docker[getCharacterIdFromPlayerId(playerid)]["blip3dtext"] = dockerJobCreatePrivateBlipText(playerid, DOCKER_JOB_PUTBOX_X, DOCKER_JOB_PUTBOX_Y, DOCKER_JOB_PUTBOX_Z, plocalize(playerid, "PUTBOXHERE"), plocalize(playerid, "3dtext.job.press.E"));
+        } else {
+            msg( playerid, "job.docker.ifyouwantstart", DOCKER_JOB_COLOR );
+            triggerClientEvent(playerid, "setDefaultPlayerState");
+            job_docker[charId]["blip3dtext"] = dockerJobCreatePrivateBlipText(playerid, DOCKER_JOB_TAKEBOX_X, DOCKER_JOB_TAKEBOX_Y, DOCKER_JOB_TAKEBOX_Z, plocalize(playerid, "TAKEBOXHERE"), plocalize(playerid, "3dtext.job.press.E"));
+        }
+
         job_docker[getCharacterIdFromPlayerId(playerid)]["press3Dtext"] = createPrivate3DText (playerid, DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z+0.20, plocalize(playerid, "3dtext.job.press.leave"), CL_WHITE.applyAlpha(100), 3.0 );
     } else {
         privateKey(playerid, "e", "dockerJobGet", dockerJob);
@@ -138,7 +155,7 @@ event("onServerPlayerStarted", function( playerid ) {
 });
 
 event("onServerHourChange", function() {
-    DOCKER_BOX_NOW = DOCKER_BOX_IN_HOUR + random(-8, 9);
+    DOCKER_BOX_NOW = DOCKER_BOX_IN_HOUR + random(-5, 5);
 });
 
 function dockerJobRegisterPrivateKeys(playerid) {
@@ -242,7 +259,7 @@ function dockerJob( playerid ) {
         msg( playerid, "job.docker.now", DOCKER_JOB_COLOR );
         msg( playerid, "job.docker.takeboxandcarry", DOCKER_JOB_COLOR );
 
-        setPlayerModel( playerid, DOCKER_JOB_SKIN );
+        //setPlayerModel( playerid, DOCKER_JOB_SKIN );
 
         // create private blip job
         // createPersonalJobBlip( playerid, DOCKER_JOB_X, DOCKER_JOB_Y);
@@ -273,8 +290,7 @@ function dockerJobLeave( playerid ) {
 
     if (isDockerHaveBox(playerid)) {
         delayedFunction(250, function() {
-            setPlayerAnimStyle(playerid, "common", "default");
-            setPlayerHandModel(playerid, 1, 0);
+            triggerClientEvent(playerid, "setDefaultPlayerState");
         })
     }
 
@@ -284,7 +300,7 @@ function dockerJobLeave( playerid ) {
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
         msg( playerid, "job.leave", DOCKER_JOB_COLOR );
 
-        restorePlayerModel(playerid);
+        //restorePlayerModel(playerid);
 
         local charId = getCharacterIdFromPlayerId(playerid);
         job_docker[charId]["havebox"] = false;
@@ -318,7 +334,7 @@ function dockerJobTakeBox( playerid ) {
     }
 
     if(DOCKER_BOX_NOW < 1) {
-        return msg( playerid, "job.nojob", DOCKER_JOB_COLOR );
+        return msg( playerid, "job.docker.nojob", DOCKER_JOB_COLOR );
     }
 
     if (job_docker[getCharacterIdFromPlayerId(playerid)]["moveState"] == 1 || job_docker[getCharacterIdFromPlayerId(playerid)]["moveState"] == 2){
@@ -328,16 +344,13 @@ function dockerJobTakeBox( playerid ) {
     dockerJobRemovePrivateBlipText ( playerid );
 
     job_docker[getCharacterIdFromPlayerId(playerid)]["havebox"] = true;
+    DOCKER_BOX_NOW -= 1;
 
-    setPlayerAnimStyle(playerid, "common", "CarryBox");
-    setPlayerHandModel(playerid, 1, 98); // put box in hands
+    triggerClientEvent(playerid, "takeBox");
+
     msg( playerid, "job.docker.tookbox", DOCKER_JOB_COLOR );
 
     job_docker[getCharacterIdFromPlayerId(playerid)]["blip3dtext"] = dockerJobCreatePrivateBlipText(playerid, DOCKER_JOB_PUTBOX_X, DOCKER_JOB_PUTBOX_Y, DOCKER_JOB_PUTBOX_Z, plocalize(playerid, "PUTBOXHERE"), plocalize(playerid, "3dtext.job.press.E"));
-    delayedFunction(250, function () { setPlayerAnimStyle(playerid, "common", "CarryBox"); });
-    delayedFunction(500, function () { setPlayerAnimStyle(playerid, "common", "CarryBox"); });
-    delayedFunction(750, function () { setPlayerAnimStyle(playerid, "common", "CarryBox"); });
-    delayedFunction(1000, function () { setPlayerAnimStyle(playerid, "common", "CarryBox"); });
 }
 
 // working good, check
@@ -354,8 +367,7 @@ function dockerJobPutBox( playerid ) {
         return; // msg( playerid, "job.docker.gotowarehouse", DOCKER_JOB_COLOR );
     }
 
-    setPlayerAnimStyle(playerid, "common", "default");
-    setPlayerHandModel(playerid, 1, 0);
+    triggerClientEvent(playerid, "putBox");
 
     dockerJobRemovePrivateBlipText ( playerid );
 
@@ -374,10 +386,6 @@ function dockerJobPutBox( playerid ) {
     subWorldMoney(amount);
 
     job_docker[getCharacterIdFromPlayerId(playerid)]["blip3dtext"] = dockerJobCreatePrivateBlipText(playerid, DOCKER_JOB_TAKEBOX_X, DOCKER_JOB_TAKEBOX_Y, DOCKER_JOB_TAKEBOX_Z, plocalize(playerid, "TAKEBOXHERE"), plocalize(playerid, "3dtext.job.press.E"));
-    delayedFunction(250, function () { setPlayerAnimStyle(playerid, "common", "default"); });
-    delayedFunction(500, function () { setPlayerAnimStyle(playerid, "common", "default"); });
-    delayedFunction(750, function () { setPlayerAnimStyle(playerid, "common", "default"); });
-    delayedFunction(1000, function () { setPlayerAnimStyle(playerid, "common", "default"); });
 }
 
 
@@ -391,7 +399,7 @@ event("updateMoveState", function(playerid, state) {
             msg( playerid, "job.docker.dropped", DOCKER_JOB_COLOR );
             msg( playerid, "job.docker.presscapslock" );
 
-            dockerJobLeaveBox( playerid );
+            dockerJobDropBox( playerid );
         }
     }
 });
@@ -401,19 +409,14 @@ function dockerJobBoxCanDropped(playerid) {
     if(isDocker( playerid ) && isDockerHaveBox(playerid)) {
         msg( playerid, "job.docker.dropped", DOCKER_JOB_COLOR );
 
-        dockerJobLeaveBox( playerid );
+        dockerJobDropBox( playerid );
     }
 }
 
 
-function dockerJobLeaveBox( playerid ) {
-    setPlayerAnimStyle(playerid, "common", "default");
-    setPlayerHandModel(playerid, 1, 0);
+function dockerJobDropBox( playerid ) {
+    triggerClientEvent(playerid, "setDefaultPlayerState");
     dockerJobRemovePrivateBlipText ( playerid );
     job_docker[getCharacterIdFromPlayerId(playerid)]["havebox"] = false;
     job_docker[getCharacterIdFromPlayerId(playerid)]["blip3dtext"] = dockerJobCreatePrivateBlipText(playerid, DOCKER_JOB_TAKEBOX_X, DOCKER_JOB_TAKEBOX_Y, DOCKER_JOB_TAKEBOX_Z, plocalize(playerid, "TAKEBOXHERE"), plocalize(playerid, "3dtext.job.press.E"));
-    delayedFunction(250, function () { setPlayerAnimStyle(playerid, "common", "default"); });
-    delayedFunction(500, function () { setPlayerAnimStyle(playerid, "common", "default"); });
-    delayedFunction(750, function () { setPlayerAnimStyle(playerid, "common", "default"); });
-    delayedFunction(1000, function () { setPlayerAnimStyle(playerid, "common", "default"); });
 }
