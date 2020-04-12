@@ -71,6 +71,7 @@ local vehiclePositions = {
 local carPricesAll = [
        { modelid = 0   , price = 8200  , rent = 0.84, title = "Ascot Bailey S200"            },
        { modelid = 1   , price = 5600  , rent = 0.71, title = "Berkley Kingfisher"           },
+       { modelid = 5   , price = 18000 , rent = 2.71, title = "Hank B Fuel Tank"           },
        { modelid = 9   , price = 2710  , rent = 0.42, title = "Houston Wasp"                 },
        { modelid = 10  , price = 12508 , rent = 1.08, title = "ISW 508"                      },
        { modelid = 12  , price = 2100  , rent = 0.34, title = "Walter Utility"               },
