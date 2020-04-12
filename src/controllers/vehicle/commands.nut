@@ -162,10 +162,10 @@ key("z", function (playerid) {
 })
 
 acmd(["setdefault"], function( playerid ) {
-    if(!isPlayerInVehicle(playerid)) return msg(playerid, "Нужно быть в машине");
+    if(!isPlayerInVehicle(playerid)) return msg(playerid, "Нужно быть в автомобиле");
     local vehicleid = getPlayerVehicle(playerid);
     local veh = getVehicleEntity(vehicleid);
-    if(veh == null) return;
+    if(veh == null) return msg(playerid, "Автомобиль не в базе");
 
     local vehPos = getVehiclePositionObj(vehicleid);
     local vehRot = getVehicleRotationObj(vehicleid);

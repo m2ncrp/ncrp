@@ -56,13 +56,24 @@ function trySaveVehicle(vehicleid) {
     local position = getVehiclePosition(vehicleid);
     local rotation = getVehicleRotation(vehicleid);
 
-    vehicle.respawn.position.x = position[0];
-    vehicle.respawn.position.y = position[1];
-    vehicle.respawn.position.z = position[2];
+    if("defaultPos" in vehicle.entity.data) {
+        vehicle.respawn.position.x = vehicle.entity.data.defaultPos.x;
+        vehicle.respawn.position.y = vehicle.entity.data.defaultPos.y;
+        vehicle.respawn.position.z = vehicle.entity.data.defaultPos.z;
 
-    vehicle.respawn.rotation.x = rotation[0];
-    vehicle.respawn.rotation.y = rotation[1];
-    vehicle.respawn.rotation.z = rotation[2];
+        vehicle.respawn.rotation.x = vehicle.entity.data.defaultRot.x;
+        vehicle.respawn.rotation.y = vehicle.entity.data.defaultRot.y;
+        vehicle.respawn.rotation.z = vehicle.entity.data.defaultRot.z;
+    } else {
+        vehicle.respawn.position.x = position[0];
+        vehicle.respawn.position.y = position[1];
+        vehicle.respawn.position.z = position[2];
+
+        vehicle.respawn.rotation.x = rotation[0];
+        vehicle.respawn.rotation.y = rotation[1];
+        vehicle.respawn.rotation.z = rotation[2];
+    }
+
 
     vehicle.entity.x  = position[0];
     vehicle.entity.y  = position[1];
