@@ -116,10 +116,12 @@ event(["onServerAutosave", "onServerStopping"], function() {
 });
 
 /**
- * Increase player xp level (minutes)
+ * Increase player xp level (real minutes)
  */
 event("onServerMinuteChange", function() {
-    foreach (playerid, character in players) character.xp++;
+    if(getMinute() % 2 == 1) {
+        foreach (playerid, character in players) character.xp++;
+    }
 });
 
 /**
