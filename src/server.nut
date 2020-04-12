@@ -378,29 +378,21 @@ cmd("nc", function (playerid) {
 });
 */
 
-cmd("cam", function(playerid, x, y, z) {
+acmd("cam", function(playerid, x, y, z) {
     dbg("cam: "+x+" "+y+" "+z)
      triggerClientEvent(playerid, "setCameraPosition", x.tofloat(), y.tofloat(), z.tofloat());
 })
 
-cmd("cam1", function(playerid) {
+acmd("cam1", function(playerid) {
     triggerClientEvent(playerid, "hidePlayerModel");
     triggerClientEvent(playerid, "setCameraPosition", 1.0, 0.45, 1.7);
 })
 
-cmd("os", function(playerid) {
-    dbg("os")
-     triggerClientEvent(playerid, "setOpenSeason");
-})
-
-cmd("ata", function(playerid) {
-    dbg("ata")
-    triggerClientEvent(playerid, "ArmyTrucksActivate");
-})
-
-function te() {
-    dbg("1")
-    local lastname = "O'Reilly";
-    lastname = str_replace("'", "''", lastname);
-    ::print(lastname)
-}
+// for(local i = 0; i <= 61; i++) {
+//     if(i == 2 || i == 26 || i == 16 || i == 49) {
+//         continue;
+//     }
+//     local vehicleid = createVehicle(i, -452.0, 402.722 - 4.0 * i, 1.09233, -90.0, 0.0, 0.0 );
+//     local plate = (i < 10) ? "0"+i : i.tostring();
+//     setVehiclePlateText(vehicleid, format("%s", plate));
+// }
