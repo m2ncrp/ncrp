@@ -378,24 +378,6 @@ event("onServerPlayerStarted", function( playerid ){
     }
 });
 
-function phoneCreatePrivateBlipText(playerid, x, y, z, text, cmd) {
-    return [
-            createPrivateBlip (playerid, x, y, ICON_RED, 1000.0)
-            //createPrivate3DText (playerid, x, y, z+0.35, text, CL_RIPELEMON, 20 ),
-            //createPrivate3DText (playerid, x, y, z+0.20, cmd, CL_WHITE.applyAlpha(150), 0.3 ),
-    ];
-}
-
-/**
- * Remove private 3DTEXT AND BLIP
- * @param  {int}  playerid
- */
-function phoneJobRemovePrivateBlipText ( phone ) {
-        removeBlip   ( phone[0] );
-        //remove3DText ( phone[1] );
-        //remove3DText ( phone[2] );
-}
-
 function getPhoneObj(phoneName) {
     return telephones[phoneName.slice(9).tointeger()];
 }
@@ -438,11 +420,11 @@ function phoneFindNearest( playerid ) {
 function showBlipNearestPhoneForPlayer ( playerid ) {
     if (phone_nearest_blip[playerid]["blip3dtext"] == null) {
         local phoneid = phoneFindNearest( playerid );
-        local phonehash = phoneCreatePrivateBlipText(playerid, telephones[phoneid][0], telephones[phoneid][1], telephones[phoneid][2], "TELEPHONE", "/call");
+        local phonehash = createPrivateBlip(playerid, telephones[phoneid][0], telephones[phoneid][1], ICON_RED, 1000.0);
         phone_nearest_blip[playerid]["blip3dtext"] = true;
         msg( playerid, "telephone.findphone");
-        delayedFunction(15000, function() {
-            phoneJobRemovePrivateBlipText ( phonehash );
+        delayedFunction(20000, function() {
+            removeBlip(phonehash);
             phone_nearest_blip[playerid]["blip3dtext"] = null;
         });
 
