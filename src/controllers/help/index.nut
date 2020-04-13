@@ -1,3 +1,5 @@
+include("controllers/help/map.nut");
+
 function msgt(playerid, text) {
     msg(playerid, "");
     msg(playerid, ".:: %s ::.", text, CL_HELP);
