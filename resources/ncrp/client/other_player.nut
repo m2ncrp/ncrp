@@ -57,3 +57,20 @@ addEventHandler("setWithBoxPlayerState", function() {
     /* # Выставляем стиль ходьбы с ящиком */
     executeLua("DelayBuffer:Insert(function(l_1_0) CommandBuffer:Insert(l_6_0,{ function(l_1_0)return game.game:GetActivePlayer():SetAnimStyle('common', 'CarryBox') end}) end,{l_1_0},1000,1,false)")
 });
+
+
+addCommandHandler( "vrata",
+    function( playerid )
+    {
+
+		executeLua("DelayBuffer:Insert(function(l_1_0) CommandBuffer:Insert(l_6_0,{ function(l_1_0)return game.entitywrapper:GetEntityByName('HlavniVrata'):Open(game.entitywrapper:GetEntityByName('HlavniVrata'):GetPos(), true) end }) end,{l_1_0},500,1,false)")
+    }
+);
+
+addCommandHandler( "vrataclose",
+    function( playerid )
+    {
+
+		executeLua("DelayBuffer:Insert(function(l_1_0) CommandBuffer:Insert(l_6_0,{ function(l_1_0)return game.entitywrapper:GetEntityByName('HlavniVrata'):Close(game.entitywrapper:GetEntityByName('HlavniVrata'):GetPos(), true) end }) end,{l_1_0},500,1,false)")
+    }
+);
