@@ -15,14 +15,19 @@ function settingsLoadedDataRead() {
         } else {
             local items = [
                 {
-                    name = "isWinter",
-                    desc = "Зима?",
-                    value = "false",
+                    name = "season",
+                    desc = "Сезон",
+                    value = "summer",
                 },
                 {
                     name = "donate",
                     desc = "Доступность доната",
                     value = "true",
+                },
+                {
+                    name = "weaponsAvailable",
+                    desc = "Доступность оружия",
+                    value = "false",
                 },
                 {
                     name = "worldMoney",
@@ -79,6 +84,7 @@ function getSettingsValue(name = "") {
     if(isFloat(value)) return value.tofloat();
     if(value.slice(0, 1) == "-" && isFloat(value.slice(1))) return value.tofloat();
     if(isInteger(value)) return value.tointeger();
+    if(regexp(@"[a-zA-Z]+$").match(value) && value != "false" && value != "true") return value;
     return JSONParser.parse(value);
 }
 

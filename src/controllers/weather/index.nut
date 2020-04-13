@@ -97,7 +97,7 @@ function resetWeather() {
 }
 
 event("onServerStarted", function() {
-    SERVER_SEASON = getSettingsValue("season")
+    SERVER_SEASON = getSettingsValue("season");
     setSummer(isSummer());
 });
 

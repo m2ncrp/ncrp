@@ -35,6 +35,7 @@ include("controllers/donate");
 include("controllers/handshakes");
 include("controllers/contracts");
 // WIP: include("controllers/citizens");
+include("controllers/weapons");
 include("controllers/weather");
 include("controllers/help");
 

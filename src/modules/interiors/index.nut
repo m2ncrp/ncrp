@@ -384,7 +384,7 @@ key(["e"], function(playerid) {
 
 
 function removePlayerWeaponChina ( playerid ) {
-    local weaponlist = [3, 5, 7, 9, 10, 11, 12, 13, 14, 17, 18, 19, 20, 21];
+    local weaponlist = [3, 5, 7, 9, 10, 11, 12, 13, 14, 18, 19, 20, 21];
     weaponlist.apply(function(id) {
         removePlayerWeapon( playerid, id );
     })
