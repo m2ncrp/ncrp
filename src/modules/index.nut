@@ -9,3 +9,4 @@ include("modules/map");
 include("modules/radio");
 include("modules/policealarm");
 include("modules/racing");
+include("modules/filling-center");

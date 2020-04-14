@@ -237,7 +237,7 @@ function fuelVehicleUp(playerid) {
     local fuelInGallons = round(fuel * GALLONS_PER_LITRE, 2);
     local cost = round(GALLON_COST * fuelInGallons, 2);
 
-    if ( !isVehicleFuelNeeded(vehicleid) ) {
+    if (!isVehicleFuelNeeded(vehicleid)) {
         return msg(playerid, "shops.fuelstations.fueltank.full", CL_THUNDERBIRD);
     }
 
