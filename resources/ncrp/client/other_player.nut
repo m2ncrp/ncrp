@@ -74,3 +74,17 @@ addCommandHandler( "vrataclose",
 		executeLua("DelayBuffer:Insert(function(l_1_0) CommandBuffer:Insert(l_6_0,{ function(l_1_0)return game.entitywrapper:GetEntityByName('HlavniVrata'):Close(game.entitywrapper:GetEntityByName('HlavniVrata'):GetPos(), true) end }) end,{l_1_0},500,1,false)")
     }
 );
+
+addCommandHandler( "forge",
+    function( playerid )
+    {
+		executeLua("DelayBuffer:Insert(function(l_1_0) CommandBuffer:Insert(l_6_0,{ function(l_1_0)return game.entitywrapper:GetEntityByName('FNDR_Vrata_Exter'):Open(game.entitywrapper:GetEntityByName('FNDR_Vrata_Exter'):GetPos() + game.entitywrapper:GetEntityByName('FNDR_Vrata_Exter'):GetDir(), true) end}) end,{l_1_0},500,1,false)")
+    }
+);
+
+addCommandHandler( "forgeclose",
+    function( playerid )
+    {
+		executeLua("DelayBuffer:Insert(function(l_1_0) CommandBuffer:Insert(l_6_0,{ function(l_1_0)return game.entitywrapper:GetEntityByName('FNDR_Vrata_Exter'):Close(game.entitywrapper:GetEntityByName('FNDR_Vrata_Exter'):GetPos() + game.entitywrapper:GetEntityByName('FNDR_Vrata_Exter'):GetDir(), true) end}) end,{l_1_0},500,1,false)")
+    }
+);
