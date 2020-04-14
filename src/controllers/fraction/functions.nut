@@ -216,3 +216,16 @@ function fraction__Role(fraction, title, shortcut = "", level = 5, salary = 0.0)
 
     return fr;
 }
+
+function isPlayerFractionMember(playerid, fraction_alias) {
+
+    if(!fractions.exists(fraction_alias) || !players.has(playerid)) {
+        return false;
+    }
+
+    local character = players[playerid];
+    if(!fractions[fraction_alias].members.exists(character)) {
+        return false;
+    }
+    return true;
+}
