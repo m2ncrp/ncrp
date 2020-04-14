@@ -141,12 +141,20 @@ key("z", function (playerid) {
 
 })
 
-// Open vehicle interior
+// Open vehicle interior or show cargo properties
 key("z", function (playerid) {
     if(!isPlayerInVehicleSeat(playerid, 0)) return;
 
     local vehicleid = getPlayerVehicle(playerid);
     if(vehicleid == false) return;
+
+    local modelid = getVehicleModel(vehicleid);
+    if(modelid == 5) {
+        local veh = getVehicleEntity(vehicleid);
+        local vehInfo = getVehicleInfo(modelid);
+        msg(playerid, format("Заполненность цистерны: %d/%d", veh.data.parts.cargo, vehInfo.cargoLimit));
+        return;
+    }
 
     if(!isPlayerHaveVehicleKey(playerid, vehicleid)) return;
 

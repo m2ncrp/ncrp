@@ -171,8 +171,8 @@ function tryRespawnVehicleById(vehicleid, forced = false) {
     respawnData.time = getTimestamp();
 
     // reset position/rotation
-    setVehiclePosition(vehicleid, respawnData.position.x, respawnData.position.y, respawnData.position.z);
-    setVehicleRotation(vehicleid, respawnData.rotation.x, respawnData.rotation.y, respawnData.rotation.z);
+    setVehiclePosition(vehicleid, respawnData.position.x.tofloat(), respawnData.position.y.tofloat(), respawnData.position.z.tofloat());
+    setVehicleRotation(vehicleid, respawnData.rotation.x.tofloat(), respawnData.rotation.y.tofloat(), respawnData.rotation.z.tofloat());
 
     // reset other parameters
     setVehicleEngineState(vehicleid, false);

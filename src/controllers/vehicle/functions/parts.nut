@@ -26,7 +26,9 @@ event("onServerSecondChange", function() {
             };
         }
 
-        setVehiclePartOpen(vehicleid, 1, veh.data.parts.trunk.opened);
+        if("trunk" in veh.data.parts) {
+            setVehiclePartOpen(vehicleid, 1, veh.data.parts.trunk.opened);
+        }
     }
 });
 /**

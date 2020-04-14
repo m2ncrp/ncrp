@@ -220,6 +220,7 @@ vehicleInfo <- {
             cargo                 = [ 0.0000, -5.2500],
         },
         tank = 180.0,
+        cargoLimit = 4227,
         trunk = {
             gridSizeX = 0,
             gridSizeY = 0,
