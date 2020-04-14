@@ -81,30 +81,6 @@ function getVehicleTrunkPosition (vehicleid) {
 }
 
 /**
- * Get vehicle trunk position
- * @param  {[type]} vehicleid [description]
- * @return {[type]}           [description]
- */
-function getVehicleTrunkPositionOld (vehicleid) {
-    local modelId = getVehicleModel(vehicleid);
-
-    local trunkOffset = getVehicleTrunkOffset(modelId);
-    if(trunkOffset == null) {
-        return false;
-    }
-
-    local distance = trunkOffset.y; // offset by Y
-
-    local vehPos = getVehiclePositionObj(vehicleid);
-    local angel = 90 - getVehicleRotationObj(vehicleid).x;
-
-    local y = vehPos.y + Math.sin(torad(angel)) * distance;
-    local x = vehPos.x + Math.cos(torad(angel)) * distance;
-
-    return Vector3(x, y, vehPos.z);
-}
-
-/**
  * Check that player near vehicle trunk
  * @param  {[type]}  playerid  [description]
  * @param  {[type]}  vehicleid [description]
@@ -153,6 +129,10 @@ function getNearestVehicleForPlayerForTrunk(playerid) {
 }
 
 
+acmd("drawparts", function(playerid, vehicleid) {
+    drawVehicleParts(playerid, vehicleid.tointeger())
+})
+
 function drawVehicleParts (playerid, vehicleid = null) {
 
     local vehicleid = vehicleid.tointeger();
@@ -162,31 +142,14 @@ function drawVehicleParts (playerid, vehicleid = null) {
     local vehInfo = getVehicleInfo(modelId);
     local triggers = {};
 
-    foreach(key, value in vehInfo.triggers) {
-        if(value == null) { continue; }
+    foreach(key, data in vehInfo.triggers) {
+        if(data == null) { continue; }
 
-        //Координаты точки без вращения
-        local coordsOffset =  getVehiclePartCoords(vehicleid, offsetVector)
+        local offsetVector = Vector3(data[0], data[1], 0.0);
 
-        // Результирующая матрица поворота
-        local angles = customEulerAngles(vehRot);
+        local coordsGlobal =  getVehiclePartCoords(vehicleid, offsetVector)
 
-        // Координаты точки после вращения в локальной системе
-        local coordsAfterLocal = multiplyMatrix(
-            angles,
-            [
-                [ value[0] ],
-                [ value[1] ],
-                [ 0.0 ]
-            ]);
-
-        local coordsAfterGlobal = [
-            (coordsOffset[0] + coordsAfterLocal[0][0] - value[0]),
-            (coordsOffset[1] + coordsAfterLocal[1][0] - value[1]),
-            (coordsOffset[2] + coordsAfterLocal[2][0] - 0.0)
-        ]
-
-        createPrivate3DText ( playerid, coordsAfterGlobal[0], coordsAfterGlobal[1], coordsAfterGlobal[2] - 0.9, "V", CL_ROYALBLUE, 50.0);
+        createPrivate3DText ( playerid, coordsGlobal.x, coordsGlobal.y, coordsGlobal.z - 0.9, "V", CL_ROYALBLUE, 50.0);
 
     }
 
