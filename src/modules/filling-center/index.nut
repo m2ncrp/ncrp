@@ -29,6 +29,9 @@ alternativeTranslate({
     "en|fillingcenter.enter-value-of-gallons-hint"            : "Type integer number to chat from %d to %d."
     "ru|fillingcenter.enter-value-of-gallons-hint"            : "Напишите в чат целое число от %d до %d."
 
+    "en|fillingcenter.not-enough-gallons"                     : "Not enough gallons. Max %s"
+    "ru|fillingcenter.not-enough-gallons"                     : "Нет такого количества топлива. Топливное хранилище заполнено на %s"
+
     "en|fillingcenter.not-enough-money"                       : "Not enough money to pay. For %s gallons need $%.2f"
     "ru|fillingcenter.not-enough-money"                       : "Недостаточно денег для оплаты. За %s нужно $%.2f"
 
@@ -50,8 +53,12 @@ const FILLING_CENTER_Y = -876.451;
 const FILLING_CENTER_Z = -21.7358;
 const FILLING_CENTER_GALLON_COST = 0.2;
 const FILLING_CENTER_FUELUP_SPEED = 20; // gallons in seconds
-local FILLING_CENTER_COLOR = CL_CRUSTA;
 
+local FILLING_CENTER_IN_HOUR = 25;
+local FILLING_CENTER_MAX = 1000;
+local FILLING_CENTER_NOW = 100;
+
+local FILLING_CENTER_COLOR = CL_CRUSTA;
 local trucksOnLoading = [];
 local trucksOnQueue = [];
 
@@ -68,9 +75,8 @@ event("onServerPlayerStarted", function(playerid) {
     createPrivate3DText(playerid, FILLING_CENTER_X, FILLING_CENTER_Y, FILLING_CENTER_Z+0.35, plocalize(playerid, "3dtext.organizations.filling-center"), CL_RIPELEMON, 50.0 );
 });
 
-event("onServerDayChange", function() {
-    // сделать ограничение на складе
-    FUEL_ROUTE_NOW = FUEL_ROUTE_IN_HOUR + random(-1, 1);
+event("onServerHourChange", function() {
+    FILLING_CENTER_NOW += FILLING_CENTER_IN_HOUR;
 });
 
 event("onPlayerPlaceEnter", function(playerid, name) {
@@ -158,7 +164,7 @@ function fillingCenterLoad(playerid) {
 
     msg(playerid, "fillingcenter.enter-value-of-gallons-1", FILLING_CENTER_COLOR);
     msg(playerid, "fillingcenter.enter-value-of-gallons-2", [FILLING_CENTER_GALLON_COST], FILLING_CENTER_COLOR);
-    msg(playerid, "fillingcenter.enter-value-of-gallons-hint", [1, vehInfo.cargoLimit - veh.data.parts.cargo] CL_GRAY);
+    msg(playerid, "fillingcenter.enter-value-of-gallons-hint", [1, Math.min(vehInfo.cargoLimit - veh.data.parts.cargo, FILLING_CENTER_NOW)] CL_GRAY);
 
     local isSuccess = false;
 
@@ -183,6 +189,10 @@ function fillingCenterLoad(playerid) {
 
         local gallons = text.tointeger();
 
+        if(gallons > FILLING_CENTER_NOW) {
+            return msg(playerid, "fillingcenter.not-enough-gallons", [formatGallons(FILLING_CENTER_NOW)], FILLING_CENTER_COLOR);
+        }
+
         if(veh.data.parts.cargo + gallons > vehInfo.cargoLimit) {
             return msg(playerid, "fillingcenter.no-enough-volume", [formatGallons(gallons)], FILLING_CENTER_COLOR);
         }
@@ -197,6 +207,7 @@ function fillingCenterLoad(playerid) {
         msg(playerid, "");
         subMoneyToPlayer(playerid, amount);
         addWorldMoney(amount);
+        FILLING_CENTER_NOW -= gallons;
 
         local fuelUpSeconds = (gallons / FILLING_CENTER_FUELUP_SPEED).tointeger();
         msg(playerid, "fillingcenter.loading", FILLING_CENTER_COLOR);
