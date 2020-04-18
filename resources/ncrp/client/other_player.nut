@@ -88,3 +88,16 @@ addCommandHandler( "forgeclose",
 		executeLua("DelayBuffer:Insert(function(l_1_0) CommandBuffer:Insert(l_6_0,{ function(l_1_0)return game.entitywrapper:GetEntityByName('FNDR_Vrata_Exter'):Close(game.entitywrapper:GetEntityByName('FNDR_Vrata_Exter'):GetPos() + game.entitywrapper:GetEntityByName('FNDR_Vrata_Exter'):GetDir(), true) end}) end,{l_1_0},500,1,false)")
     }
 );
+
+addCommandHandler( "seagift",
+	function( playerid )
+	{
+		executeLua("DelayBuffer:Insert(function(l_1_0) CommandBuffer:Insert(l_6_0,{ function(l_1_0)return game.entitywrapper:GetEntityByName('SG_gate01'):Open(Math:newVector(-2, 0, 0) + game.entitywrapper:GetEntityByName('SG_gate01'):GetPos(), true) end}) end,{l_1_0},500,1,false)")
+	}
+);
+addCommandHandler( "seagiftclose",
+	function( playerid )
+	{
+		executeLua("DelayBuffer:Insert(function(l_1_0) CommandBuffer:Insert(l_6_0,{ function(l_1_0)return game.entitywrapper:GetEntityByName('SG_gate01'):Close(Math:newVector(-2, 0, 0) + game.entitywrapper:GetEntityByName('SG_gate01'):GetPos(), true) end}) end,{l_1_0},500,1,false)")
+	}
+);
