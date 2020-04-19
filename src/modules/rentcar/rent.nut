@@ -57,9 +57,9 @@ event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
         local whorent = getPlayerWhoRentVehicle(vehicleid);
         local ownerId = getVehicleOwnerId(vehicleid);
 
-        if(whorent != charid) {
-            blockDriving(playerid, vehicleid);
+         blockDriving(playerid, vehicleid);
 
+        if(whorent != charid) {
             // Сел владелец автомобиля
             if(ownerId == charid) {
                 // И автомобиль не занят
@@ -87,6 +87,12 @@ event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
             }
             trigger(playerid, "onServerShowChatTrigger");
         } else {
+            local veh = getVehicleEntity(vehicleid);
+            local state = getVehicleState(vehicleid);
+            if(state != "free") {
+                return msg(playerid, format("vehicle.state.%s", state), CL_ERROR);
+            }
+
             unblockDriving(vehicleid);
         }
     }
@@ -96,19 +102,6 @@ event("onPlayerVehicleExit", function ( playerid, vehicleid, seat ) {
     local vehid = getVehicleEntityId(vehicleid);
     if (vehid in rentcars && seat == 0) {
         blockDriving(playerid, vehicleid);
-    }
-});
-
-event("onPlayerDisconnect", function ( playerid, reason ) {
-    local charid = getCharacterIdFromPlayerId(playerid);
-    foreach (vehid, value in rentcars) {
-        if (value == charid) {
-            local vehicleid = getVehicleIdFromEntityId(vehid);
-            blockDriving(playerid, vehicleid);
-            setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
-            delete rentcars[vehid];
-            setVehicleRespawnEx(vehicleid, true);
-        }
     }
 });
 
@@ -122,6 +115,14 @@ event("onServerMinuteChange", function() {
 
         local charid = value;
         local playerid = getPlayerIdFromCharacterId(charid);
+
+        if(playerid == -1) {
+            setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
+            delete rentcars[vehid];
+            setVehicleRespawnEx(vehicleid, true);
+            return;
+        }
+
         local price = getVehicleRentPrice(vehicleid).tofloat();
         if(!canMoneyBeSubstracted(playerid, price)) {
             blockDriving(playerid, vehicleid);
@@ -131,10 +132,9 @@ event("onServerMinuteChange", function() {
             msg(playerid, "rentcar.cantrent");
         } else {
             local rentprice = round(price / 60 * 10, 2);
-            subMoneyToPlayer(playerid, rentprice );
+            subMoneyToPlayer(playerid, rentprice);
             local veh = getVehicleEntity(vehicleid);
             veh.data.rent.money += rentprice;
-            // addMoneyToTreasury(rentprice);
             msg(playerid, "rentcar.paidcar", [ rentprice ] );
             msg(playerid, "rentcar.refuse");
         }

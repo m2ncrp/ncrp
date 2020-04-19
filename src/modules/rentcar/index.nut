@@ -158,15 +158,3 @@ function getVehicleRentPrice(vehicleid) {
 
     return veh.data.rent.price;
 }
-
-
-/*
-
-    if("rent" in veh.data == false) {
-        veh.data.rent <- {
-
-
-        }
-    }
-
-    */
