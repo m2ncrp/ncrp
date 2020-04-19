@@ -163,7 +163,7 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     // handle vehicle passangers
     addVehiclePassenger(vehicleid, playerid, seat);
 
-    if (seat == 0) {
+    if (getVehicleFuel(vehicleid) > 0 && seat == 0) {
         // set state of the engine as on
         if (vehicleid in __vehicles) {
             __vehicles[vehicleid].state = true;
@@ -237,9 +237,10 @@ key(["w", "s"], function(playerid) {
         return;
     }
 
-    if (vehicleid in __vehicles) {
+    if(getVehicleFuel(vehicleid) > 0 && vehicleid in __vehicles) {
         __vehicles[vehicleid].state = true;
     }
+
 }, KEY_BOTH);
 
 // handle vehicle exit
