@@ -5,6 +5,17 @@ alternativeTranslate({
     "en|vehicle.stopandleave"  : "Stop the vehicle and go out."
     "ru|vehicle.stopandleave"  : "Остановитесь и выйдите из автомобиля."
 
+    "en|vehicle.state.loading"   : "Loading. Please, wait..."
+    "ru|vehicle.state.loading"   : "Идёт загрузка. Ожидайте..."
+
+    "en|vehicle.state.unloading"   : "Unloading. Please, wait..."
+    "ru|vehicle.state.unloading"   : "Идёт разгрузка. Ожидайте..."
+
+    "en|vehicle.state.loaded"      : "Loading is complete."
+    "ru|vehicle.state.loaded"      : "Загрузка завершена."
+
+    "en|vehicle.state.unloaded"      : "Unloading is complete."
+    "ru|vehicle.state.unloaded"      : "Разгрузка завершена."
 
     "en|vehicle.parts.trunk.unlocked"   : "Trunk has been unlocked"
     "ru|vehicle.parts.trunk.unlocked"   : "Вы открыли багажник ключом"

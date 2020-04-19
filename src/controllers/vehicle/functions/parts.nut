@@ -18,6 +18,10 @@ event("onServerSecondChange", function() {
             veh.data.options <- {};
         }
 
+        if(("state" in veh.data) == false) {
+            veh.data.state <- "free";
+        }
+
         if(("parts" in veh.data) == false) {
             veh.data.parts <- {};
             veh.data.parts.trunk <- {

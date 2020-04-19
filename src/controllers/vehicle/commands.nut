@@ -152,8 +152,9 @@ key("z", function (playerid) {
     if(modelid == 5) {
         local veh = getVehicleEntity(vehicleid);
         local vehInfo = getVehicleInfo(modelid);
-        msg(playerid, format("Заполненность цистерны: %d/%d", veh.data.parts.cargo, vehInfo.cargoLimit));
-        return;
+        local vehState = getVehicleState(vehicleid);
+        if(vehState != "free") return msg(playerid, format("vehicle.state.%s", vehState), CL_ERROR);
+        return msg(playerid, format("Заполненность цистерны: %d/%d", veh.data.parts.cargo, vehInfo.cargoLimit));
     }
 
     if(!isPlayerHaveVehicleKey(playerid, vehicleid)) return;

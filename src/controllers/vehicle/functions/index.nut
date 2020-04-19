@@ -1,4 +1,5 @@
 include("controllers/vehicle/functions/data.nut");
+include("controllers/vehicle/functions/state.nut");
 include("controllers/vehicle/functions/lights.nut");
 include("controllers/vehicle/functions/validators.nut");
 include("controllers/vehicle/functions/additional.nut");
