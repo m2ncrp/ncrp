@@ -1,11 +1,12 @@
 function addMoneyToPlayer(playerid, amount) {
-    local old_amount = players[playerid]["money"];
+    local old_amount = players[playerid].money;
     local new_amount = old_amount + amount.tofloat();
     setPlayerMoney(playerid, new_amount);
     triggerClientEvent(playerid, "onPlayerAddMoney", amount.tofloat())
     dbg("[ MONEY ] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> +"+format("%.2f", amount)+" dollars. Was: $"+format("%.2f", old_amount)+". Now: $"+format("%.2f", new_amount));
 }
 
+addPlayerMoney <- addMoneyToPlayer;
 /**
  * Check if <amount> money can be subsctracted from <playerid>
  *
@@ -15,19 +16,20 @@ function addMoneyToPlayer(playerid, amount) {
  */
 function canMoneyBeSubstracted(playerid, amount) {
     local amount = round(fabs(amount.tofloat()), 2);
-    return (players[playerid]["money"] >= amount);
+    return (players[playerid].money >= amount);
 }
 
 function subMoneyToPlayer(playerid, amount) {
-    local old_amount = players[playerid]["money"];
+    local old_amount = players[playerid].money;
     local new_amount = old_amount - amount.tofloat();
     setPlayerMoney(playerid, new_amount);
     triggerClientEvent(playerid, "onPlayerRemoveMoney", amount.tofloat())
     dbg("[ MONEY ] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> -"+format("%.2f", amount)+" dollars. Was: $"+format("%.2f", old_amount)+". Now: $"+format("%.2f", new_amount));
 }
+subPlayerMoney <- subMoneyToPlayer;
 
 function getPlayerBalance(playerid) {
-    return format("%.2f", players[playerid]["money"]);
+    return format("%.2f", players[playerid].money);
 }
 
 function formatMoney(amount) {
