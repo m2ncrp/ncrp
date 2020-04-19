@@ -33,6 +33,7 @@
         <script type="client">gui_auth.nut</script>
         <script type="client">gui_forgotpage.nut</script>
         <script type="client">gui_bank.nut</script>
+        <script type="client">gui_biz.nut</script>
         <script type="client">gui_carshop.nut</script>
         <script type="client">gui_cyrillic.nut</script>
         <script type="client">gui_character.nut</script>

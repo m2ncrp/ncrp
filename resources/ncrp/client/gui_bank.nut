@@ -3,7 +3,6 @@ const ELEMENT_TYPE_IMAGE = 13;
 
 local screen = getScreenSize();
 local window;
-local logo;
 local input = array(2);
 local label = array(3);
 local buttons = array(5);
