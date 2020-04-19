@@ -26,6 +26,7 @@
         <script type="client">other_weapon.nut</script>
         <!-- <script type="client">other_proxy.nut</script> -->
         <script type="client">other_bus.nut</script>
+        <script type="client">other_doors.nut</script>
 
         <!-- gui -->
         <script type="client">gui_alert.nut</script>
