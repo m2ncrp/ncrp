@@ -52,10 +52,10 @@ function leaseCar(playerid) {
 
     trigger(playerid, "hudCreateTimer", 30, true, true);
 
-    local complete = false;
+    local isEntered = false;
 
     delayedFunction(30000, function() {
-        if (complete == false) {
+        if (!isEntered) {
             return msg(playerid, "Аренда не подтверждена", CL_THUNDERBIRD);
         }
     });
@@ -65,6 +65,9 @@ function leaseCar(playerid) {
         requestUserInput(playerid, function(playerid, price) {
 
             trigger(playerid, "hudDestroyTimer");
+
+            isEntered = true;
+
             if (!price || !isFloat(price) || price.tofloat() <= 0) {
                 return msg(playerid, "Указана некорректная стоимость", CL_THUNDERBIRD);
             }
@@ -93,8 +96,6 @@ function leaseCar(playerid) {
             setVehicleRespawnPositionObj(vehicleid, vehPos)
             setVehicleRespawnRotationObj(vehicleid, vehRot)
             setVehicleRespawnEx(vehicleid, true);
-
-            complete = true;
 
             msg(playerid, "Стоимость аренды за час: $%.2f", price, CL_JORDYBLUE);
             msg(playerid, "Автомобиль выставлен в аренду.", CL_SUCCESS);
