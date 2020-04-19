@@ -16,7 +16,7 @@ if (isSummer()) {
     SHOP_WASH_COST <- 0.05;
 }
 
-const SHOP_WASH_3DTEXT_DRAW_DISTANCE = 35.0;
+const SHOP_WASH_3DTEXT_DRAW_DISTANCE = 10.0;
 const SHOP_WASH_RADIUS = 4.0;
 
 wash_stations <- [
