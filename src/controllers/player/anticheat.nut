@@ -25,7 +25,7 @@ vehicleSpeedLimits[08] <- [51.5, 55.0]; // have problem
 vehicleSpeedLimits[09] <- [43.5, 45.0];
 vehicleSpeedLimits[10] <- [55.0, 57.0];
 vehicleSpeedLimits[11] <- [30.5, 32.0];
-// vehicleSpeedLimits[12] <- [30.5, 32.0];
+vehicleSpeedLimits[12] <- [30.5, 32.0];
 vehicleSpeedLimits[12] <- [50.5, 52.0]; // temporary increased
 vehicleSpeedLimits[13] <- [50.5, 52.0];
 vehicleSpeedLimits[14] <- [40.5, 41.5];
@@ -98,14 +98,16 @@ event("onServerStarted", function() {
                 }
                 */
 
-                // check soft limit
-                if (maxsp > limits[0]) {
-                    dbg("anticheat", "speed", getIdentity(playerid), "model: " + getVehicleModel(vehicleid), maxsp);
-                }
+                if(getVehiclePlateText(vehicleid).find("RACE") == null) {
+                    // check soft limit
+                    if (maxsp > limits[0]) {
+                        dbg("anticheat", "speed", getIdentity(playerid), "model: " + getVehicleModel(vehicleid), maxsp);
+                    }
 
-                // check hard limit
-                if (maxsp > limits[1]) {
-                    kick( -1, playerid, "speed-hack protection" );
+                    // check hard limit
+                    if (maxsp > limits[1]) {
+                        kick( -1, playerid, "speed-hack protection" );
+                    }
                 }
 
                 // античит на бесконечное топливо
