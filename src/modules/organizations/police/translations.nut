@@ -232,16 +232,16 @@ alternativeTranslate({
 "ru|organizations.police.info.cmds.ticket"          : "Выдать штраф игроку. Пример: /ticket 2"
 
 "en|organizations.police.info.cmds.baton"           : "Stun nearset player"
-"ru|organizations.police.info.cmds.baton"           : "Обездвижить ближайшего игрока"
+"ru|organizations.police.info.cmds.baton"           : "Обездвижить ближайшего персонажа"
 
 "en|organizations.police.info.cmds.cuff"            : "Cuff nearest stunned player"
-"ru|organizations.police.info.cmds.cuff"            : "Надеть наручники на ближайшего игрока"
+"ru|organizations.police.info.cmds.cuff"            : "Надеть наручники на ближайшего персонажа"
 
 "en|organizations.police.info.cmds.uncuff"          : "Uncuff nearest stunned player"
-"ru|organizations.police.info.cmds.uncuff"          : "Снять наручники с ближайшего игрока"
+"ru|organizations.police.info.cmds.uncuff"          : "Снять наручники с ближайшего персонажа"
 
 "en|organizations.police.info.cmds.prison"          : "Put nearest cuffed player in jail"
-"ru|organizations.police.info.cmds.prison"          : "Посадить игрока с указанным id в тюрьму"
+"ru|organizations.police.info.cmds.prison"          : "Посадить персонажа с указанным id в тюрьму"
 
 "en|organizations.police.info.cmds.amnesty"         : "Take out player with given id from prison"
 "ru|organizations.police.info.cmds.amnesty"         : "Вытащить игрока с указанным id из тюрьмы"

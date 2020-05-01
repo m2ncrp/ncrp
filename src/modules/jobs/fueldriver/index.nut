@@ -98,11 +98,11 @@ alternativeTranslate({
 
 "ru|job.fueldriver.help.title"                             : "Список команд, доступных водителю бензовоза:"
 
-"ru|job.fueldriver.help.job"                               : "кнопка E"
+"ru|job.fueldriver.help.job"                               : "клавиша E"
 "ru|job.fueldriver.help.jobtext"                           : "Устроиться на работу водителем бензовоза (в штаб-квартире Ойстер-Бэй)"
-"ru|job.fueldriver.help.jobleave"                          : "кнопка Q"
+"ru|job.fueldriver.help.jobleave"                          : "клавиша Q"
 "ru|job.fueldriver.help.jobleavetext"                      : "Уволиться с работы (в штаб-квартире Ойстер-Бэй)"
-"ru|job.fueldriver.help.loadunload"                        : "кнопка E"
+"ru|job.fueldriver.help.loadunload"                        : "клавиша E"
 "ru|job.fueldriver.help.loadunloadtext"                    : "Загрузить/разгрузить бензовоз"
 
 

@@ -66,13 +66,13 @@ alternativeTranslate({
     "ru|job.snowplow.help.title"            :   "Управление для водителя снегоуборочной машины:"
 
     "en|job.snowplow.help.job"              :   "E button"
-    "ru|job.snowplow.help.job"              :   "кнопка E"
+    "ru|job.snowplow.help.job"              :   "клавиша E"
 
     "en|job.snowplow.help.jobtext"          :   "Get snowplow driver job at snowplow station in Uptown"
     "ru|job.snowplow.help.jobtext"          :   "Устроиться на работу водителем снегоуборочной машины (напротив Полицейского Департамента)"
 
     "en|job.snowplow.help.jobleave"         :   "Q button"
-    "ru|job.snowplow.help.jobleave"         :   "кнопка Q"
+    "ru|job.snowplow.help.jobleave"         :   "клавиша Q"
 
     "en|job.snowplow.help.jobleavetext"     :   "Leave snowplow driver job at snowplowing company in Uptown"
     "ru|job.snowplow.help.jobleavetext"     :   "Уволиться с работы (напротив Полицейского Департамента)"

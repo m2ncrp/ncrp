@@ -545,7 +545,7 @@ alternativeTranslate({
     "ru|hello.1"     : ".:: Работы отмечены на карте серыми звёздами."
 
     "en|hello.2"     : ".:: Open map - key M."
-    "ru|hello.2"     : ".:: Открыть карту - кнопка М (англ)."
+    "ru|hello.2"     : ".:: Открыть карту - клавиша М (англ)."
 
     "en|hello.3"     : ".:: Write in chat - key Enter. Show/hide chat - key F5."
     "ru|hello.3"     : ".:: Сообщение в чат - Enter или T (англ). Показать/скрыть чат - F5."

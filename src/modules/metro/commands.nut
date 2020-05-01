@@ -1,4 +1,4 @@
-cmd("find", ["subway", "metro"], function( playerid, stationID = null ) {
+cmd("find", "subway", function( playerid, stationID = null ) {
     //travelToStation( playerid, stationID );
 
     showNearestMetroBlip(playerid);

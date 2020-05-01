@@ -152,13 +152,13 @@ local translations = {
 "en|job.taxi.help.button2"          :   "button 2"
 "en|job.taxi.help.button2text"      :   "Call control (need be in taxi car)"
 
-"ru|job.taxi.help.job"              :   "кнопка E"
+"ru|job.taxi.help.job"              :   "клавиша E"
 "ru|job.taxi.help.jobtext"          :   "Устроиться на работу таксистом (подойти к Daniel Burns)"
-"ru|job.taxi.help.jobleave"         :   "кнопка Q"
+"ru|job.taxi.help.jobleave"         :   "клавиша Q"
 "ru|job.taxi.help.jobleavetext"     :   "Уволиться с работы (подойти к Daniel Burns)"
-"ru|job.taxi.help.button1"          :   "кнопка 1"
+"ru|job.taxi.help.button1"          :   "клавиша 1"
 "ru|job.taxi.help.button1text"      :   "Выйти на линию / уйти с линии (нужно быть в автомобиле такси)"
-"ru|job.taxi.help.button2"          :   "кнопка 2"
+"ru|job.taxi.help.button2"          :   "клавиша 2"
 "ru|job.taxi.help.button2text"      :   "Управление вызовом (нужно быть в автомобиле такси)"
 
 

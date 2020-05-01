@@ -237,7 +237,7 @@ local translations = {
     "ru|carpaint.placebusy"              :   "[PAINT] Хэй! Не видишь, что место занято? Жди своей очереди!"
 
     "en|carpaint.help1"                  :   "To change color - press button 2. To reset color - press button 1."
-    "ru|carpaint.help1"                  :   "Смена цвета - кнопка 2. Вернуть свой цвет - кнопка 1."
+    "ru|carpaint.help1"                  :   "Смена цвета - клавиша 2. Вернуть свой цвет - клавиша 1."
 
     "en|carpaint.help2"                  :   "Price: $%.2f. If you chosen color - free up place."
     "ru|carpaint.help2"                  :   "Цена покраски: $%.2f. Если выбрал цвет - освобождай место."
