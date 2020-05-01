@@ -152,6 +152,7 @@ alternativeTranslate({
     "en|Item.Sandwich"         : "Sandwich"
     "en|Item.Cola"             : "Cola"
     "en|Item.Gyros"            : "Gyros"
+    "en|Item.Donut"            : "Donut"
     "en|Item.CoffeeCup"        : "Cup of coffee"
 
     "en|Item.Jerrycan"         : "Canister"
@@ -167,6 +168,7 @@ alternativeTranslate({
     "en|Item.LTC"              : "LTC"
     "en|Item.DriverLicense"    : "Driver License"
     "en|Item.Race"             : "Racing form"
+    "en|Item.Dice"             : "Dice"
 
     "en|Item.BigBreakRed"      :  "Big Break Red"
     "en|Item.BigBreakBlue"     :  "Big Break Blue"
@@ -215,6 +217,7 @@ alternativeTranslate({
     "ru|Item.Hotdog"           : "Хот-дог"
     "ru|Item.Sandwich"         : "Сэндвич"
     "ru|Item.Cola"             : "Кола"
+    "ru|Item.Donut"            : "Пончик"
     "ru|Item.Gyros"            : "Гирос"
     "ru|Item.CoffeeCup"        : "Чашка кофе"
 
@@ -231,6 +234,7 @@ alternativeTranslate({
     "ru|Item.LTC"              : "Лицензия на оружие"
     "ru|Item.DriverLicense"    : "Водительские права"
     "ru|Item.Race"             : "Бланк гонки"
+    "ru|Item.Dice"             : "Игральный кубик"
 
     "ru|Item.BigBreakRed"      : "Big Break Red"
     "ru|Item.BigBreakBlue"     : "Big Break Blue"

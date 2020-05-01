@@ -192,6 +192,14 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
 
     // trigger other events
     trigger("onPlayerVehicleEnter", playerid, vehicleid, seat);
+
+    // local modelid = getVehicleModel(vehicleid);
+
+    // local steers = {
+        // model23 = -0.125,
+        // model24 = -0.125
+    // }
+    // triggerClientEvent(playerid, "setVehicleSteer", steers["model"+modelid])
 });
 
 key(["f"], function(playerid) {

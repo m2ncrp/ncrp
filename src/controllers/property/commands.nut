@@ -1,4 +1,5 @@
 // Open property inventory
+/*
 key("z", function (playerid) {
 
     local propertyId = getNearestPropertyIdByPrivateForPlayer(playerid);
@@ -40,3 +41,4 @@ key("z", function (playerid) {
         players[playerid].inventory.toggle(playerid);
     }
 })
+*/

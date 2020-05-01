@@ -84,7 +84,7 @@ event("native:shop:purchase", function(playerid, data) {
 event("native:shop:close", function(playerid, name) {
     players[playerid].inventory.hide(playerid);
 });
-
+/*
 key("e", function(playerid) {
     local bid = getBusinessNearPlayer(playerid);
 
@@ -130,3 +130,4 @@ key("e", function(playerid) {
     players[playerid].trigger("showShopGUI", selectShopAssortment(bizAlias), getPlayerLocale(playerid));
     players[playerid].inventory.show(playerid);
 });
+*/
