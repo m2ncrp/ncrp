@@ -56,6 +56,12 @@ function sendLocalizedMsgToAll(senderid, phrase_key, params, radius, color = 0) 
                     params[idx] = param[0].acall(param[1]);
                 }
             }
+
+            // Для IC чата цвет своих сообщений иной, нежели от других игроков
+            if(senderid == playerid && phrase_key == "chat.player.says") {
+                color = CL_GOLDENSAND;
+            }
+
             if (color) {
                 msg(playerid, localize(phrase_key, params, getPlayerLocale(player.playerid)), color);
             } else {
