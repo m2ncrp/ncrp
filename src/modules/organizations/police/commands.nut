@@ -1,5 +1,38 @@
 include("modules/organizations/police/models/PoliceTicket.nut");
 
+cmd("help", ["police"], function(playerid) {
+    msgh(playerid, "Полиция", [
+        "/help police radio - про рацию в автомобиле",
+        "/help police rupor - про рупор в автомобиле",
+        "Клавиша B - показать значок сотрудника полиции",
+        "Клавиша G - ударить дубинкой ближайшего персонажа",
+        "Клавиша V - надеть наручники на ближайшего персонажа",
+        "/ticket id - выдать штраф игроку. Пример: /ticket 2",
+        "/uncuff id - снять наручники с ближайшего персонажа",
+        "/prison id - посадить персонажа с указанным id в тюрьму",
+        "/amnesty id - отпустить из тюрьмы персонажа с указанным id",
+        "/park номер - отправить автомобиль на штрафстоянку",
+        "/wanted - посмотреть список разыскиваемых автомобилей",
+        "/wanted car номер - пробить номер автомобиля по базе розыска",
+    ]);
+});
+
+cmd("help", ["police", "radio"], function(playerid) {
+    msgh(playerid, "Рация", [
+        "/r текст - сказать что-либо в рацию",
+        "Клавиша V в машине - готовые короткие сообщения по рации",
+        "/r get - узнать текущий канал рации в автомобиле",
+        "/r set число - установить канал рации в автомобиле",
+    ]);
+});
+
+cmd("help", ["police", "rupor"], function(playerid) {
+    msgh(playerid, "Рупор", [
+        "/m текст - сказать что-либо в рупор служебной машины",
+        "Клавиша B в машине - готовые короткие сообщения в рупор",
+    ]);
+});
+
 acmd("a", ["police", "danger"], function(playerid, level) {
     setDangerLevel(playerid, level);
 });
@@ -303,32 +336,6 @@ cmd(["amnesty"], function(playerid, targetid) {
     targetid = targetid.tointeger();
     takeOutOfJail(playerid, targetid);
 });
-
-function policeHelp(playerid, a = null, b = null) {
-    msg( playerid, "organizations.police.info.howjoin" );
-    local title = "organizations.police.info.cmds.helptitle";
-    local commands = [
-        // { name = "/police job",             desc = "Get police officer job" },
-        // { name = "/police job leave",       desc = "Leave from police department job" },
-        { name = "/police duty on",             desc = "organizations.police.info.cmds.dutyon"},
-        { name = "/police duty off",            desc = "organizations.police.info.cmds.dutyoff"},
-        { name = "/r TEXT",                     desc = "organizations.police.info.cmds.ratio"},
-        { name = "/m TEXT",                     desc = "organizations.police.info.cmds.rupor"},
-        { name = "/ticket ID",                  desc = "organizations.police.info.cmds.ticket" },
-        { name = "B button",                    desc = "organizations.police.info.cmds.baton" },
-        { name = "V button",                    desc = "organizations.police.info.cmds.cuff" },
-        { name = "/uncuff ID",                  desc = "organizations.police.info.cmds.uncuff" },
-        { name = "/prison ID",                  desc = "organizations.police.info.cmds.prison" },
-        { name = "/amnesty ID",                 desc = "organizations.police.info.cmds.amnesty" }
-    ];
-    msg_help(playerid, title, commands);
-}
-
-// usage: /help job police
-cmd("help", ["job", "police"], policeHelp);
-cmd("help", ["police"], policeHelp);
-cmd("help", ["police", "job"], policeHelp);
-
 
  // /park plate_number
 cmd("park", function ( playerid, plate) {
