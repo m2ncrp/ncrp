@@ -105,7 +105,7 @@ alternativeTranslate({
 "ru|job.milkdriver.unloadingcompleted.truckloaded"     :   "[MILK] Разгрузка прошла успешно. Молоковоз заполнен на %d из 120. Направляйтесь к следующему адресу доставки."
 
 "en|job.milkdriver.help.check"                         :   "Checking loading milk truck: /milk check"
-"ru|job.milkdriver.help.check"                         :   "Проверить загруженность молоковоза: /milk check"
+"ru|job.milkdriver.help.check"                         :   "Проверить заполненность молоковоза: /milk check"
 
 "en|job.milkdriver.help.job"                           :   "Get milkdriver job"
 "ru|job.milkdriver.help.job"                           :   "Устроиться на работу развозчиком молока"
