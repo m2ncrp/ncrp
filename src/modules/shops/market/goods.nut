@@ -10,6 +10,7 @@ local goods = {
             { itemName = "Item.Sandwich",           price = 0.17 * coef },
             { itemName = "Item.Burger",             price = 0.12 * coef },
             { itemName = "Item.Hotdog",             price = 0.17 * coef },
+            { itemName = "Item.Donut",              price = 0.10 * coef },
             { itemName = "Item.Cola",               price = 0.04 * coef },
         ]
     },
@@ -125,6 +126,7 @@ local goods = {
         type  = "kiosk",
         items = [
             //{ itemName = "Item.Newspaper",          price = 0.05},
+            { itemName = "Item.Dice",               price = 0.50 },
             { itemName = "Item.BigBreakRed",        price = 2.50 },
             { itemName = "Item.BigBreakBlue",       price = 1.65 },
             { itemName = "Item.BigBreakWhite",      price = 0.90 },

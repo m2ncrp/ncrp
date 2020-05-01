@@ -116,11 +116,11 @@ class Item.Ammo38Special    extends Item.Ammo   { static classname = "Item.Ammo3
 /**
  * Food
  */
-class Item.Burger           extends Item.Food   { static classname = "Item.Burger";         constructor () { base.constructor(); this.volume = 1.5680; this.amount = 75.0 }}
+class Item.Burger           extends Item.Food   { static classname = "Item.Burger";         constructor () { base.constructor(); this.volume = 1.5680; this.amount = 60.0 }}
 class Item.Hotdog           extends Item.Food   { static classname = "Item.Hotdog";         constructor () { base.constructor(); this.volume = 0.6760; this.amount = 30.0 }}
 class Item.Sandwich         extends Item.Food   { static classname = "Item.Sandwich";       constructor () { base.constructor(); this.volume = 0.3776; this.amount = 20.0 }}
 class Item.Gyros            extends Item.Food   { static classname = "Item.Gyros";          constructor () { base.constructor(); this.volume = 1.0080; this.amount = 50.0 }}
-
+class Item.Donut            extends Item.Food   { static classname = "Item.Donut";          constructor () { base.constructor(); this.volume = 0.0850; this.amount = 35.0 }}
 
 /**
  * Drinks

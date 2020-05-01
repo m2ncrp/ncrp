@@ -83,6 +83,7 @@ local TRANSLATIONS = {
         "Item.Sandwich"         : "Sandwich"
         "Item.Cola"             : "Cola"
         "Item.Gyros"            : "Gyros"
+        "Item.Donut"            : "Donut"
         "Item.CoffeeCup"        : "Cup of coffee"
 
         "Item.Jerrycan"         : "Canister"
@@ -93,6 +94,7 @@ local TRANSLATIONS = {
         "Item.PoliceBadge"      : "Police badge"
         "Item.Gift"             : "Gift"
         "Item.Box"              : "Box"
+        "Item.Dice"             : "Dice"
 
         "Item.BigBreakRed"      : "Big Break Red"
         "Item.BigBreakBlue"     : "Big Break Blue"
@@ -144,6 +146,7 @@ local TRANSLATIONS = {
         "Item.Sandwich"         : "Сэндвич"
         "Item.Cola"             : "Кола"
         "Item.Gyros"            : "Гирос"
+        "Item.Donut"            : "Пончик"
         "Item.CoffeeCup"        : "Чашка кофе"
 
         "Item.Jerrycan"         : "Канистра"
@@ -154,6 +157,7 @@ local TRANSLATIONS = {
         "Item.PoliceBadge"      : "Полицейский жетон"
         "Item.Gift"             : "Подарок"
         "Item.Box"              : "Ящик"
+        "Item.Dice"             : "Игральный кубик"
 
         "Item.BigBreakRed"      : "Big Break Red"
         "Item.BigBreakBlue"     : "Big Break Blue"
