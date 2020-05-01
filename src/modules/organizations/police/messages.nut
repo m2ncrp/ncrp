@@ -1,8 +1,101 @@
+local phrases = {
+    "1": { "text": "Нахожусь в патрулировании", "marker": true },
+    "2": { "text": "Ухожу на перерыв" },
+    "3": { "text": "Запрашиваю напарника. Прибыть без сирен и мигалок", "marker": true},
+    "4": { "text": "Нужна помощь. Прибыть с мигалками", "marker": true },
+    "5": { "text": "Срочно требуется поддержка. Прибыть с сиреной и мигалками", "marker": true },
+    "6": { "text": "Доложите обстановку" },
+    "7": { "text": "Запрашиваю информацию по активным патрулям" },
+    "8": { "text": "Принял, выезжаю" },
+    "9": { "text": "Не могу выполнить" },
+}
+
+local timers = {};
+
+function policeCarRadioBinder(playerid) {
+    if (!isCopInPoliceCarOnDuty(playerid) || (playerid in timers && timers[playerid].IsActive() )) return;
+
+    local vehicleid = getPlayerVehicle(playerid);
+
+    if(vehicleid == false) {
+        return;
+    }
+
+    if(getVehicleRadioChannel(vehicleid) == false) {
+        return msg(playerid, "vehicle.options.radio.not-installed");
+    }
+
+    setPlayerBinderState(playerid, "v_policecar");
+
+    msg(playerid, "===========================================", CL_HELP_LINE);
+    msg(playerid, "РАЦИЯ", CL_HELP_TITLE);
+
+    for (local i = 1; i <= phrases.len(); i++) {
+
+        local text = format("%d. %s", i, phrases[i.tostring()].text);
+
+        if ((i % 2) == 0) {
+            msg(playerid, text, CL_HELP);
+        } else {
+            msg(playerid, text);
+        }
+    }
+
+    trigger(playerid, "hudCreateTimer", 3.0, true, true);
+    timers[playerid] <- delayedFunction(3000, function () {
+        clearPlayerBinderState(playerid);
+        msg(playerid, "Действие отменено");
+    });
+
+}
+
 /**
- * That file contain commands that operate with police radio in duty vehicles and messages translations through it.
+ * Create private bindings for playerid
  */
+function policeCarRadioBinderCreator(playerid) {
+    for (local i = 1; i <= phrases.len(); i++) {
+        local keyButton = i.tostring();
+        privateKey(playerid, keyButton, "policeCarRadioBinder"+keyButton, function(playerid) {
+            if(getPlayerBinderState(playerid) != "v_policecar") return;
+            sendRadioMsg(playerid, format("%s: %s", getPlayerName(playerid), phrases[keyButton].text));
+            if("marker" in phrases[keyButton]) {
+                createCrimePoint(playerid)
+            }
+            clearPlayerBinderState(playerid);
+            trigger(playerid, "hudDestroyTimer");
+            if( timers[playerid].IsActive() ) {
+                timers[playerid].Kill()
+            }
+        });
+    }
+}
+
+/**
+ * Remove private bindings for playerid
+ */
+function policeCarRadioBinderRemover(playerid) {
+    for (local i = 1; i <= phrases.len(); i++) {
+        local keyButton = i.tostring();
+        removePrivateKey(playerid, keyButton, "policeCarRadioBinder"+keyButton);
+    }
+}
+
+function createCrimePoint(playerid) {
+    local pos = getPlayerPositionObj(playerid);
+    foreach (player in players) {
+        local id = player.playerid;
+        if (isCopInPoliceCarOnDuty(playerid)) {
+            local crime_hash = createPrivateBlip(id, pos.x, pos.y, ICON_YELLOW, 4000.0);
+
+            delayedFunction(60000, function() {
+                removeBlip( crime_hash );
+            });
+        }
+    }
+}
 
 
+/*
 translation("ru", {
     "organizations.police.tencode.10-1"    : "10-1 ((Вышел в патруль))"
     "organizations.police.tencode.10-2"    : "10-2 ((Ушел на перерыв))"
@@ -72,193 +165,7 @@ function sendLocalizedPoliceRadioMsgToAll(sender, phrase_key, ...) {
         }
     }
 }
-
-function createCrimePoint(playerid) {
-    local pos = getPlayerPositionObj(playerid);
-    foreach (player in players) {
-        local id = player.playerid;
-        if ( isOfficer(id) && isOnPoliceDuty(id) && isPlayerInPoliceVehicle(id) ) {
-            local crime_hash = createPrivateBlip(id, pos.x, pos.y, ICON_YELLOW, 4000.0);
-
-            delayedFunction(60000, function() {
-                removeBlip( crime_hash );
-            });
-        }
-    }
-}
-
-
-
-// ------------------- COMMANDS
-cmd(["r"],["10-1"], function(playerid) {
-    if ( isPlayerInPoliceVehicle(playerid) ) {
-        sendLocalizedPoliceRadioMsgToAll( playerid, "10-1", "" );
-    }
-});
-
-cmd(["r"],["10-2"], function(playerid) {
-    if ( isPlayerInPoliceVehicle(playerid) ) {
-        sendLocalizedPoliceRadioMsgToAll( playerid, "10-2", "" );
-    }
-});
-
-cmd(["r"],["10-3"], function(playerid) {
-    if ( isPlayerInPoliceVehicle(playerid) ) {
-        sendLocalizedPoliceRadioMsgToAll( playerid, "10-3", "" );
-    }
-});
-
-cmd(["r"],["10-4"], function(playerid) {
-    if ( isPlayerInPoliceVehicle(playerid) ) {
-        sendLocalizedPoliceRadioMsgToAll( playerid, "10-4", "" );
-    }
-});
-
-cmd(["r"],["10-5"], function(playerid, ...) {
-    if ( isPlayerInPoliceVehicle(playerid) ) {
-        local message;
-        if (vargv.len() <= 0) {
-            message = "";
-        } else {
-            message = concat(vargv);
-        }
-        sendLocalizedPoliceRadioMsgToAll( playerid, "10-5", message );
-    }
-});
-
-cmd(["r"],["10-6"], function(playerid, ...) {
-    if ( isPlayerInPoliceVehicle(playerid) ) {
-        local message;
-        if (vargv.len() <= 0) {
-            message = "";
-        } else {
-            message = concat(vargv);
-        }
-        sendLocalizedPoliceRadioMsgToAll( playerid, "10-6", message );
-    }
-});
-
-cmd(["r"],["10-7"], function(playerid, ...) {
-    if ( isPlayerInPoliceVehicle(playerid) ) {
-        local message;
-        if (vargv.len() <= 0) {
-            message = "";
-        } else {
-            message = concat(vargv);
-        }
-        sendLocalizedPoliceRadioMsgToAll( playerid, "10-7", message );
-    }
-});
-
-cmd(["r"],["10-8"], function(playerid, ...) {
-    if ( isPlayerInPoliceVehicle(playerid) ) {
-        local message;
-        if (vargv.len() <= 0) {
-            message = "";
-        } else {
-            message = concat(vargv);
-        }
-        sendLocalizedPoliceRadioMsgToAll( playerid, "10-8", message );
-    }
-});
-
-cmd(["r"],["10-9"], function(playerid) {
-    if ( isPlayerInPoliceVehicle(playerid) ) {
-        sendLocalizedPoliceRadioMsgToAll( playerid, "10-9", "" );
-    }
-});
-
-cmd(["r"],["10-10"], function(playerid) {
-    if ( isPlayerInPoliceVehicle(playerid) ) {
-        sendLocalizedPoliceRadioMsgToAll( playerid, "10-10", "" );
-    }});
-
-cmd(["r"],["10-11"], function(playerid) {
-    if ( isPlayerInPoliceVehicle(playerid) ) {
-        sendLocalizedPoliceRadioMsgToAll( playerid, "10-11", "" );
-    }
-});
-
-cmd(["r"],["10-12"], function(playerid) {
-    if ( isPlayerInPoliceVehicle(playerid) ) {
-        sendLocalizedPoliceRadioMsgToAll( playerid, "10-12", "" );
-        createCrimePoint(playerid);
-    }
-});
-
-cmd(["r"],["10-13"], function(playerid, ...) {
-    if ( isPlayerInPoliceVehicle(playerid) ) {
-        local message;
-        if (vargv.len() <= 0) {
-            message = "";
-        } else {
-            message = concat(vargv);
-        }
-        sendLocalizedPoliceRadioMsgToAll( playerid, "10-13", message );
-    }
-});
-
-cmd(["r"],["10-14"], function(playerid) {
-    if ( isPlayerInPoliceVehicle(playerid) ) {
-        sendLocalizedPoliceRadioMsgToAll( playerid, "10-14", "" );
-    }
-});
-
-cmd(["r"],["10-15"], function(playerid) {
-    if ( isPlayerInPoliceVehicle(playerid) ) {
-        sendLocalizedPoliceRadioMsgToAll( playerid, "10-15", "" );
-        createCrimePoint(playerid);
-    }
-});
-
-cmd(["r"],["10-16"], function(playerid) {
-    if ( isPlayerInPoliceVehicle(playerid) ) {
-        sendLocalizedPoliceRadioMsgToAll( playerid, "10-16", "" );
-    }
-});
-
-cmd(["r"],["10-17"], function(playerid) {
-    if ( isPlayerInPoliceVehicle(playerid) ) {
-        sendLocalizedPoliceRadioMsgToAll( playerid, "10-17", "" );
-    }
-});
-
-cmd(["r"],["code", "0"], function(playerid) {
-    if ( isPlayerInPoliceVehicle(playerid) ) {
-        sendLocalizedPoliceRadioMsgToAll( playerid, "code0", "" );
-        createCrimePoint(playerid);
-    }
-});
-
-cmd(["r"],["code", "1"], function(playerid) {
-    if ( isPlayerInPoliceVehicle(playerid) ) {
-        sendLocalizedPoliceRadioMsgToAll( playerid, "code1", "" );
-        createCrimePoint(playerid);
-    }
-});
-
-cmd(["r"],["code", "2"], function(playerid) {
-    if ( isPlayerInPoliceVehicle(playerid) ) {
-        sendLocalizedPoliceRadioMsgToAll( playerid, "code2", "" );
-        createCrimePoint(playerid);
-    }
-});
-
-cmd(["r"],["code", "3"], function(playerid) {
-    if ( isPlayerInPoliceVehicle(playerid) ) {
-        sendLocalizedPoliceRadioMsgToAll( playerid, "code3", "" );
-        createCrimePoint(playerid);
-    }
-});
-
-cmd(["r"],["code", "4"], function(playerid) {
-    if ( isPlayerInPoliceVehicle(playerid) ) {
-        sendLocalizedPoliceRadioMsgToAll( playerid, "code4", "" );
-        createCrimePoint(playerid);
-    }
-});
-
-
+*/
 
 //     ["10-41", "organizations.police.tencode.10-41"], // Офицер заступил на смену
 //     ["10-41", "organizations.police.tencode.10-41"], // Офицер закончил смену

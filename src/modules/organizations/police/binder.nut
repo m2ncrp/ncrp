@@ -2,33 +2,19 @@
 
 local phrases = {
     "1": "Прижмитесь к обочине и остановитесь!"
-    "2": "Заглушите двигатель и положите руки на руль!"
+    "2": "Заглушите двигатель и выйдите из автомобиля!"
     "3": "Уступите дорогу служебному транспорту!"
     "4": "Немедленно остановитесь, иначе мы откроем по вам огонь!"
-    "5": "Проезжайте-проезжайте, не затрудняйте движение!"
+    "5": "Проезжайте, не затрудняйте движение!"
     "6": "Граждане, расходитесь! Ситуация под контролем полиции."
     "7": "Полиция Эмпайр-Бэй. Вы окружены. Сдавайтесь!"
     "8": "Выходите с поднятыми руками!"
+    "9": "Выстроиться в колонну и следовать за мной!"
 }
 
 local timers = {};
 
-function isCopInPoliceCarOnDuty(playerid) {
-    if ( !isOfficer(playerid) ) {
-        return false;
-    }
-    if ( isOfficer(playerid) && !isOnPoliceDuty(playerid) ) {
-        return false;
-    }
-
-    if ( !isPlayerInPoliceVehicle(playerid) ) {
-        return false;
-    }
-    return true;
-}
-
-
-function policeVehicleBinder (playerid) {
+function policeCarRuporBinder (playerid) {
     if (!isCopInPoliceCarOnDuty(playerid) || (playerid in timers && timers[playerid].IsActive() )) return;
 
     setPlayerBinderState(playerid, "b_policecar");
@@ -61,8 +47,9 @@ function policeVehicleBinder (playerid) {
 function policeCarRuporBinderCreator(playerid) {
     for (local i = 1; i <= phrases.len(); i++) {
         local keyButton = i.tostring();
-        privateKey(playerid, keyButton, "policeBinder"+keyButton, function(playerid) {
-            sendLocalizedMsgToAll(playerid, "[POLICE RUPOR] "+phrases[keyButton], [], RUPOR_RADIUS, CL_ROYALBLUE);
+        privateKey(playerid, keyButton, "policeCarRuporBinder"+keyButton, function(playerid) {
+            if(getPlayerBinderState(playerid) != "b_policecar") return;
+            sendLocalizedMsgToAll(playerid, "[POLICE] "+phrases[keyButton], [], RUPOR_RADIUS, CL_ROYALBLUE);
             clearPlayerBinderState(playerid);
             trigger(playerid, "hudDestroyTimer");
             if( timers[playerid].IsActive() ) {
@@ -78,6 +65,6 @@ function policeCarRuporBinderCreator(playerid) {
 function policeCarRuporBinderRemover(playerid) {
     for (local i = 1; i <= phrases.len(); i++) {
         local keyButton = i.tostring();
-        removePrivateKey(playerid, keyButton, "policeBinder"+keyButton);
+        removePrivateKey(playerid, keyButton, "policeCarRuporBinder"+keyButton);
     }
 }

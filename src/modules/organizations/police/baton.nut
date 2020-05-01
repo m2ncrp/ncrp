@@ -6,18 +6,18 @@ local batonBumps = {};
 key(["b"], function(playerid) {
 
     // если игрок в авто
-    if ( isPlayerInVehicle(playerid) ) {
+    if (isPlayerInVehicle(playerid)) {
         return;
     }
 
     // если игрок не офицер
-    if ( !isOfficer(playerid) ) {
+    if (!isOfficer(playerid)) {
         return;
     }
 
     // если игрок не на смене
-    if ( !isOfficerOnDuty(playerid) ) {
-        return msg( playerid, "police.duty.off" );
+    if (!isOfficerOnDuty(playerid)) {
+        return;
     }
 
     local targetid = playerList.nearestPlayer( playerid );

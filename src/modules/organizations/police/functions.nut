@@ -350,3 +350,17 @@ function getHashToPoliceBadge(fullname) {
 
     return s;
 }
+
+function isCopInPoliceCarOnDuty(playerid) {
+    if ( !isOfficer(playerid) ) {
+        return false;
+    }
+    if ( isOfficer(playerid) && !isOnPoliceDuty(playerid) ) {
+        return false;
+    }
+
+    if ( !isPlayerInPoliceVehicle(playerid) ) {
+        return false;
+    }
+    return true;
+}

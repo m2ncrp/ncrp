@@ -208,9 +208,10 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
     }
 });
 
-
+/*
 cmd(["r"],["dispatch"], function(playerid) {
     if ( isPlayerInPoliceVehicle(playerid) && isOfficer(playerid) ) {
         callPoliceDispatch(playerid, "не определено");
     }
 });
+*/

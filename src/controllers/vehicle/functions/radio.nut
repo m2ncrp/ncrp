@@ -1,19 +1,27 @@
 local MAX_CHANNEL_COUNT = 64;
 
-cmd(["r", "radio"], function(playerid, text) {
+function getVehicleRadioChannel(vehicleid) {
+    local veh = getVehicleEntity(vehicleid);
+    if(veh == null) return false;
+
+    if( !("radio" in veh.data.options)) {
+        return false;
+    }
+
+     return veh.data.options.radio;
+}
+
+function sendRadioMsg(playerid, text) {
     if ( !isPlayerInVehicle(playerid) ) {
         return msg(playerid, "vehicle.options.radio.not-in-car");
     }
 
     local vehicleid = getPlayerVehicle(playerid);
-    local veh = getVehicleEntity(vehicleid);
-    if(veh == null) return;
+    local radioChannel = getVehicleRadioChannel(vehicleid);
 
-    if( !("radio" in veh.data.options)) {
+    if(radioChannel == false) {
         return msg(playerid, "vehicle.options.radio.not-installed");
     }
-
-    local radioChannel = veh.data.options.radio;
 
     foreach (vehicleid, vehicle in __vehicles) {
         local entity = getVehicleEntity(vehicleid);
@@ -25,7 +33,9 @@ cmd(["r", "radio"], function(playerid, text) {
             msg( targetid, "vehicle.options.radio.msg", [radioChannel, text], CL_ROYALBLUE );
         }
     }
-});
+}
+
+cmd(["r", "radio"], sendRadioMsg);
 
 cmd(["r", "radio"], "set", function(playerid, channel = 0) {
     if ( !isPlayerInVehicle(playerid) ) {
@@ -33,10 +43,9 @@ cmd(["r", "radio"], "set", function(playerid, channel = 0) {
     }
 
     local vehicleid = getPlayerVehicle(playerid);
-    local veh = getVehicleEntity(vehicleid);
-    if(veh == null) return;
+    local channel = getVehicleRadioChannel(vehicleid);
 
-    if( !("radio" in veh.data.options)) {
+    if(channel == false) {
         return msg(playerid, "vehicle.options.radio.not-installed");
     }
 
@@ -48,6 +57,21 @@ cmd(["r", "radio"], "set", function(playerid, channel = 0) {
 
     veh.data.options.radio = toInteger(channel);
     msg(playerid, "vehicle.options.radio.channel-changed", [channel]);
+});
+
+cmd(["r", "radio"], "get", function(playerid) {
+    if ( !isPlayerInVehicle(playerid) ) {
+        return msg(playerid, "vehicle.options.radio.not-in-car");
+    }
+
+    local vehicleid = getPlayerVehicle(playerid);
+    local channel = getVehicleRadioChannel(vehicleid);
+
+    if(channel == false) {
+        return msg(playerid, "vehicle.options.radio.not-installed");
+    }
+
+    msg(playerid, "vehicle.options.radio.channel-current", [channel]);
 });
 
 
@@ -67,5 +91,8 @@ alternativeTranslate({
 
     "en|vehicle.options.radio.channel-changed" : "New channel: %d."
     "ru|vehicle.options.radio.channel-changed" : "Установлен канал: %d."
+
+    "en|vehicle.options.radio.channel-current" : "Current channel: %d."
+    "ru|vehicle.options.radio.channel-current" : "Текущий канал: %d."
 
 });
