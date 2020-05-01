@@ -3,7 +3,7 @@ class Item.Jerrycan extends Item.Abstract
     static classname = "Item.Jerrycan";
     volume      = 23.46;  // объём канистры снаружи
     //unitvolume  = 1; // вес 1 литра бензина 730 грамм
-    capacity    = 20;  // количество литров в канистре
+    capacity    = 5.3;  // количество галонов в канистре
 
     //function calculateVolume () {
     //    return this.volume + this.unitvolume * this.amount;
