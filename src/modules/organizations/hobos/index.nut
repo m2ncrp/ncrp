@@ -1,15 +1,20 @@
 include("modules/organizations/hobos/commands.nut");
 
 alternativeTranslate({
-    "ru|organizations.hobos.trash.toofar"  : "Вы далеко от мусорного контейнера!"
-    "ru|organizations.hobos.tired"         : "Вы устали, отдохните."
-    "ru|organizations.hobos.trash.found"   : "Вы нашли $%.2f. Теперь у вас $%s."
-    "ru|organizations.unemployed.income"   : "Вы получили $%.2f в качестве пособия по безработице."
+    "en|organizations.hobos.trash.toofar"   : "You are too far from any trash!",
+    "ru|organizations.hobos.trash.toofar"   : "Вы далеко от мусорного контейнера!"
 
-    "en|organizations.hobos.trash.toofar"  : "You are too far from any trash!",
-    "en|organizations.hobos.tired"         : "You got tired. Take a nap.",
-    "en|organizations.hobos.trash.found"   : "You found $%.2f. Now you can buy yourself cookies with $%s."
-    "en|organizations.unemployed.income"   : "You've recieved $%.2f as unemployment compensation."
+    "en|organizations.hobos.tired"          : "You got tired. Take a nap.",
+    "ru|organizations.hobos.tired"          : "Вы устали, отдохните."
+
+    "en|organizations.hobos.trash.found"    : "You found $%.2f. Now you can buy yourself cookies with $%s."
+    "ru|organizations.hobos.trash.found"    : "Вы нашли $%.2f. Теперь у вас $%s."
+
+    "en|organizations.unemployed.income"    : "You've recieved $%.2f as unemployment compensation."
+    "ru|organizations.unemployed.income"    : "Вы получили $%.2f в качестве пособия по безработице."
+
+    "en|organizations.unemployed.no-income" : "Sorry"
+    "ru|organizations.unemployed.no-income" : "Вам не положено пособие по безработице, т.к. вы не признаны безработным."
 });
 
 const DIG_RADIUS = 1.5;
@@ -137,26 +142,49 @@ event("onServerStarted", function() {
 });
 
 event("onServerPlayerStarted", function( playerid ) {
+    local charid = getCharacterIdFromPlayerId(playerid);
+    if(!(charid in hoboses)) {
+        hoboses[charid] <- 0;
+    }
+
     foreach (trashContainer in hobos_points) {
         createPrivate3DText ( playerid, trashContainer[0], trashContainer[1], trashContainer[2]+0.35, plocalize(playerid, "3dtext.job.press.hobos"), CL_EUCALYPTUS, DIG_RADIUS );
     }
 });
 
-event("onServerHourChange", function() {
-    local originalAmount = getGovernmentValue("unemployedIncome");
 
+event("onServerMinuteChange", function() {
     foreach (playerid, value in players) {
         if (!getPlayerJob(playerid)) {
-            local amount = originalAmount;
-
-            // give only 10% of current amount for afk
-            if (isPlayerAfk(playerid)) {
-                amount = originalAmount * 0.1;
-            }
-
-            addMoneyToPlayer(playerid, amount);
-            subWorldMoney(amount);
-            msg(playerid, "organizations.unemployed.income", [amount], CL_SUCCESS);
+            local charid = getCharacterIdFromPlayerId(playerid);
+            hoboses[charid] += 1;
         }
     }
 });
+
+event("onServerHourChange", function() {
+    local sum = 0;
+    local amount = getGovernmentValue("unemployedIncome");
+
+    foreach (charid, minutes in hoboses) {
+        local playerid = getPlayerIdFromCharacterId(charid);
+        if(playerid != -1) {
+            if (isPlayerAfk(playerid) || minutes < 30) {
+                msg(playerid, "organizations.unemployed.no-income", CL_ERROR);
+            } else {
+                sum += amount;
+                addMoneyToPlayer(playerid, amount);
+                subTreasuryMoney(amount, { "silent": true });
+                msg(playerid, "organizations.unemployed.income", [amount], CL_SUCCESS);
+            }
+        }
+
+        hoboses[charid] = 0;
+    }
+
+    dbg("gov", "", sum);
+});
+
+function ser() {
+    dbg(hoboses)
+}
