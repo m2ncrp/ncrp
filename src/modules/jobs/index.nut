@@ -70,6 +70,7 @@ event("onServerPlayerStarted", function(playerid) {
 
     local job = getPlayerJob(playerid);
 
+    if(!job) return;
     if(job == "fueldriver" || job == "truckdriver") {
         setPlayerJob(playerid, null);
         jobRestorePlayerModel(playerid);
