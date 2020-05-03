@@ -67,6 +67,15 @@ event("onServerPlayerStarted", function(playerid) {
         setPlayerJob(playerid, null);
         jobRestorePlayerModel(playerid);
     }
+
+    local job = getPlayerJob(playerid);
+
+    if(job == "fueldriver" || job == "truckdriver") {
+        setPlayerJob(playerid, null);
+        jobRestorePlayerModel(playerid);
+    } else if(job.find("police") != null && job != "busdriver") {
+        jobRestorePlayerModel(playerid);
+    }
 });
 
 event("onPlayerJobChanged", function(playerid) {
