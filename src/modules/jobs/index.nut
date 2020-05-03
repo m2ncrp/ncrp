@@ -194,3 +194,32 @@ include("modules/jobs/stationporter");
 
 // deprecated
 // include("modules/jobs/fueldriver");
+
+alternativeTranslate({
+    "en|job.busdriver"                     : "bus driver"
+    "ru|job.busdriver"                     : "Водитель автобуса"
+
+    "en|job.docker"                        : "docker"
+    "ru|job.docker"                        : "Грузчик в порту"
+
+    "en|job.fishdriver"                    : "fish truck driver"
+    "ru|job.fishdriver"                    : "Развозчик рыбы"
+
+    "en|job.fueldriver"                    : "fuel truck driver"
+    "ru|job.fueldriver"                    : "Водитель бензовоза"
+
+    "en|job.milkdriver"                    : "milk truck driver"
+    "ru|job.milkdriver"                    : "Развозчик молока"
+
+    "en|job.snowplowdriver"                : "snowplow driver"
+    "ru|job.snowplowdriver"                : "Водитель снегоуборочной машины"
+
+    "en|job.porter"                        : "station porter"
+    "ru|job.porter"                        : "Грузчик на вокзале"
+
+    "en|job.truckdriver"                   : "truck driver"
+    "ru|job.truckdriver"                   : "Развозчик грузов"
+
+    "en|job.police"                        : "policeman"
+    "ru|job.police"                        : "Сотрудник полиции"
+});

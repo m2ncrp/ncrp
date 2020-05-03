@@ -1,7 +1,4 @@
 alternativeTranslate({
-    "en|job.snowplowdriver"                     :   "snowplow driver"
-    "ru|job.snowplowdriver"                     :   "водитель снегоуборочной машины"
-
     "en|job.snowplow.needlevel"                 :   "You need level %d to become snowplow driver."
     "ru|job.snowplow.needlevel"                 :   "Стать водителем снегоуборочной машины можно, начиная с %d уровня."
 

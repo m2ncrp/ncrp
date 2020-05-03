@@ -1,5 +1,5 @@
 translation("en", {
-"job.docker"                    : "docker"
+
 "job.docker.letsgo"             : "[DOCKER] Let's go to office at City Port."
 "job.docker.already"            : "[DOCKER] You're docker already."
 "job.docker.now"                : "[DOCKER] You're a docker now. Welcome... to hell! Ha-ha..."
@@ -28,7 +28,7 @@ translation("en", {
 });
 
 translation("ru", {
-    "job.docker"                        :   "портовый рабочий"
+
     "job.docker.letsgo"                 :   "Отправляйтесь в офис City Port."
     "job.docker.already"                :   "Ты уже работаешь портовым рабочим."
     "job.docker.now"                    :   "Ты стал портовым рабочим. Добро пожаловать... в ад! Аха-ха..."

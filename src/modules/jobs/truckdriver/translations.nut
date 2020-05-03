@@ -1,7 +1,5 @@
 alternativeTranslate({
 
-    "ru|job.truckdriver"                   : "шофёр"
-
     "ru|job.truckdriver.scens1.load"       : "Садись в открытый грузовик %s и отправляйся в Северный Милвилл для загрузки строительных материалов."
     "ru|job.truckdriver.scens1.unload"     : "Грузовик загружен. Отправляйся в Мидтаун для разгрузки строительных материалов."
 
@@ -53,9 +51,6 @@ alternativeTranslate({
     "ru|job.truckdriver.empty"             : "[TRUCK] Грузовик пуст."
     "ru|job.truckdriver.takemoney"         : "[TRUCK] Возвращайся на базу к мосту в Хайбрук, припаркуй грузовик и получи заработанные деньги."
 
-
-
-    "en|job.truckdriver"                   : "truck driver"
 
     "en|job.truckdriver.scens1.load"       : "Sit into %s and go to North Millville to load construction materials."
     "en|job.truckdriver.scens1.unload"     : "The truck loaded. Go to Midtown to unload construction materials."

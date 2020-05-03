@@ -1,7 +1,4 @@
 alternativeTranslate({
-    "en|job.busdriver"                     :   "bus driver"
-    "ru|job.busdriver"                     :   "водитель автобуса"
-
     "en|job.bus.letsgo"                    :   "[BUS] Let's go to central door at bus depot in Uptown."
     "ru|job.bus.letsgo"                    :   "[BUS] Подойди к центральной двери здания автобусного депо в Аптауне."
 

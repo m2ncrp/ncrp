@@ -1,8 +1,5 @@
 alternativeTranslate({
 
-    "en|job.fueldriver"                                        : "fuel truck driver"
-    "ru|job.fueldriver"                                        : "водитель бензовоза"
-
     "en|job.fueldriver.letsgo"                                 : "[FUEL] Let's go to Trago Oil headquartered in Oyster Bay."
     "ru|job.fueldriver.letsgo"                                 : "[FUEL] Отправляйтесь к штаб-квартире Trago Oil в Ойстер-Бэй."
 

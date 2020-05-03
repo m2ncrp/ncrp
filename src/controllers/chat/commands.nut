@@ -44,6 +44,12 @@ event("onServerSecondChange", function() {
     }
 });
 
+cmd(["clearchat"], function(playerid) {
+    for(local i = 0; i <15;i++){
+        sendPlayerMessage(playerid,"")
+    }
+});
+
 // local chat
 chatcmd(["i", "ic", "say"], function(playerid, message) {
     sendLocalizedMsgToAll(playerid, "chat.player.says", [getKnownCharacterNameWithId, message], NORMAL_RADIUS, CL_CHAT_IC);

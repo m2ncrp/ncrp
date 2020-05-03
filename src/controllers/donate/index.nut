@@ -14,9 +14,11 @@ cmd(["donate", "donat"], function ( playerid, value = null ) {
     return msg(playerid, "На данный момент возможность доната не предоставляется");
   }
 
-  msg(playerid, "===========================================", CL_HELP_LINE);
-  msg(playerid, "ДОНАТ", CL_HELP_TITLE);
-  msg(playerid, "Вы можете приобрести игровую валюту.");
-  msg(playerid, "Подробности и варианты оплаты по ссылке:");
-  msg(playerid, "https://mafia2online.ru/donate.html", CL_HELP);
+  msgh(playerid, "Донат", [
+      "Донат - это пожертвования.",
+      "В благодарность мы начислим вам игровую валюту на счёт в банке.",
+      "Подробности на нашем сайте:",
+      "mafia2online.ru/donate"
+  ]);
+
 });

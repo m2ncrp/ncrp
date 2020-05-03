@@ -1,7 +1,4 @@
 alternativeTranslate({
-"en|job.milkdriver"                                    :   "milk truck driver"
-"ru|job.milkdriver"                                    :   "развозчик молока"
-
 "en|job.milkdriver.now"                                :   "[MILK] You're a milk truck driver now! Congratulations!"
 "ru|job.milkdriver.now"                                :   "[MILK] Вы стали развозчиком молока. Поздравляем!"
 

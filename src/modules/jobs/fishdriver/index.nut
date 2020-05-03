@@ -1,6 +1,4 @@
 translation("en", {
-"job.fishdriver"               : "fish truck driver"
-
 "job.fishdriver.needlevel"     : "[FISH] You need level %d to become fish truck driver."
 "job.fishdriver.already"       : "[FISH] You're fish truck driver already."
 "job.fishdriver.now"           : "[FISH] You're a fish truck driver now. Welcome!"
@@ -770,9 +768,6 @@ function fishJobTakePutBox( playerid ) {
 }
 
 translate("ru", {
-
-"job.fishdriver"                   :   "водитель грузовика"
-
 "job.fishdriver.needlevel"         :   "[FISH] Водителем грузовика можно устроиться начиная с уровня %d."
 "job.fishdriver.already"           :   "[FISH] Ты уже работаешь водителем грузовика."
 "job.fishdriver.now"               :   "[FISH] Ты устроился на работу водителем грузовика."
