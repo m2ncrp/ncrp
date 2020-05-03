@@ -4,7 +4,7 @@ class VehicleInteriorItemContainer extends ItemContainer
 
     id      = null;
     parent  = null;
-    limit   = 50.0;
+    limit   = 5.0;
 
     sizeX = 3;
     sizeY = 1;
