@@ -163,7 +163,7 @@ function carRentalCall(playerid) {
                 delayedFunction(6000, function() {
                     msg(playerid, ".:: Автомобили доступны на парковках у вокзала, госпиталя, порта, рыбной фабрики, молочного цеха, автобусного депо, топливной компании и стадиона.", CL_HELP);
                     delayedFunction(8000, function() {
-                        msg(playerid, ".:: Также вы можете арендовать нефирменные автомобили на парковках города.", CL_SILVERSAND);
+                        msg(playerid, ".:: Также вы можете арендовать частные автомобили.", CL_SILVERSAND);
                         delayedFunction(6000, function() {
                             msg(playerid, ".:: Стоимость аренды зависит от модели автомобиля.", CL_HELP);
                             delayedFunction(5000, function() {
@@ -190,16 +190,13 @@ function carRentalCall(playerid) {
                 delayedFunction(4000, function() {
                     msg(playerid, ".:: Всё очень просто:", CL_SILVERSAND);
                     delayedFunction(3000, function() {
-                        msg(playerid, "- Выбираете одну из парковок и приезжаете туда.", CL_JORDYBLUE);
-                        msg(playerid, "Метки доступных парковок появятся на карте в конце этого рассказа.", CL_GRAY);
-                        delayedFunction(7000, function() {
-                            msg(playerid, "- Находясь на парковке и сидя в автомобиле, введите: /lease", CL_SILVERSAND);
+                        msg(playerid, "- Подбираете место для размещения автомобиля.", CL_JORDYBLUE);
+                        delayedFunction(5000, function() {
+                            msg(playerid, "- Находясь в автомобиле, вводите: /lease", CL_SILVERSAND);
                             delayedFunction(5000, function() {
-                                msg(playerid, "- Укажите стоимость аренды вашего автомобиля", CL_JORDYBLUE);
+                                msg(playerid, "- Указываете стоимость аренды вашего автомобиля", CL_JORDYBLUE);
                                 delayedFunction(5000, function() {
-                                    msg(playerid, "- Всё готово! Ваш автомобиль ", CL_SILVERSAND);
-                                    msg(playerid, "Прямо сейчас метки парковок появятся на карте на 30 секунд.", CL_GRAY);
-                                    showCarRentalParkingBlips(playerid);
+                                    msg(playerid, "- Всё готово! Ваш автомобиль сдаётся в аренду.", CL_SILVERSAND);
                                     msg(playerid, "[DO] Разговор завершён", CL_CHAT_DO);
                                     if(!checkPlayerSectionData(playerid, "lease")) {
                                         setPlayerSectionData(playerid, "lease", { accessible = true })
