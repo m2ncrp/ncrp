@@ -42,12 +42,12 @@ function leaseCar(playerid) {
         return msg(playerid, "Автомобиль грязный.", CL_ERROR);
     }
 
-    if(getVehicleFuelEx(vehicleid) / getDefaultVehicleFuel(vehicleid) < 0.7) {
+    if(getVehicleFuelEx(vehicleid) / getDefaultVehicleFuel(vehicleid) < 0.5) {
         return msg(playerid, "В автомобиле мало топлива.", CL_ERROR);
     }
 
     if(!canMoneyBeSubstracted(playerid, LEASE_DEPOSIT)) {
-        return msg(playerid, "Недостаточно денег для внесение депозита ($%.2f).", LEASE_DEPOSIT, CL_ERROR);
+        return msg(playerid, "Недостаточно денег для внесения депозита ($%.2f).", LEASE_DEPOSIT, CL_ERROR);
     }
 
     trigger(playerid, "hudCreateTimer", 30, true, true);
