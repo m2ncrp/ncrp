@@ -39,9 +39,10 @@ event("native:onPlayerDeath", function(playerid, killerid) {
     dbg("player", "death", getIdentity(playerid), (killerid != INVALID_ENTITY_ID) ? getIdentity(killerid) : "self");
 
     // maybe deduct some money...
-    if (canMoneyBeSubstracted(playerid, HOSPITAL_AMOUNT)) {
-        subMoneyToPlayer(playerid, HOSPITAL_AMOUNT);
-        addWorldMoney(HOSPITAL_AMOUNT)
+    local amount = getGovernmentValue("hospitalTreatmentPrice");
+    if (canMoneyBeSubstracted(playerid, amount)) {
+        subMoneyToPlayer(playerid, amount);
+        addTreasuryMoney(amount);
     }
 
     if (killerid != INVALID_ENTITY_ID) {
