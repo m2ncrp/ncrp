@@ -23,7 +23,7 @@ function showBankGUI(balance){
         guiSetText( input[1], labelTextEnterAmount);
         showCursor(true);
     } else {
-        window = guiCreateElement( ELEMENT_TYPE_WINDOW, "Банк", screen[0]/2 - 140, screen[1]/2 - 100.0, windowWidth, 300.0 );
+        window = guiCreateElement( ELEMENT_TYPE_WINDOW, "Банк", screen[0]/2 - 140, screen[1]/2 - 150.0, windowWidth, 300.0 );
         image = createElem(window, 13, "bank.png", 0.0, 15.0, 418.0, 76.0);
         label[0] = createElem(window, ELEMENT_TYPE_LABEL, "Баланс: $"+balance,            windowWidth/2 - 50.0, 83.0, 100.0, 20.0);
         label[1] = createElem(window ELEMENT_TYPE_LABEL, "Доступные операции:", windowWidth/2 - 56.0, 106.0, 300.0, 20.0);
