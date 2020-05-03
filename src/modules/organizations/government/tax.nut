@@ -236,7 +236,7 @@ cmd("tax", function( playerid, plateText = 0) {
 
     msg(playerid, "tax.payed", [ price, plateText ], CL_SUCCESS);
     subMoneyToPlayer(playerid, price);
-    addMoneyToTreasury(price);
+    addTreasuryMoney(price);
     veh.data.tax = 0;
 
     vehicleWanted = getVehicleWantedForTax();

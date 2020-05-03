@@ -291,7 +291,7 @@ event("onVehicleGetFromCarPound", function(playerid) {
         __vehicles[vehicleid].entity.data.tax = 0;
         __vehicles[vehicleid].entity.save();
         subMoneyToPlayer(playerid, price);
-        addMoneyToTreasury(price);
+        addTreasuryMoney(price);
         msg(playerid, "parking.free", CL_SUCCESS);
         setVehicleSpeed(vehicleid, 0.0, -12.0, 0.0);
         break;

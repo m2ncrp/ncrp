@@ -284,7 +284,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
 
     //warnUp(0, playerid);
     subMoneyToPlayer(playerid, ticketcost);
-    addMoneyToTreasury(ticketcost);
+    addTreasuryMoney(ticketcost);
     return msg(playerid, "organizations.police.kosoypereulok.ticket", [ticketcost], CL_THUNDERBIRD);
 });
 

@@ -118,7 +118,7 @@ function policeGiveTicket(playerid, value) {
                 msg(playerid, "organizations.police.ticket.given", [getAuthor(targetid), player_reason, price], CL_CHESTNUT);
                 subMoneyToPlayer(targetid, price);
                 dbg("chat", "police", getAuthor(playerid), format("Выписал штраф **%s** за %s ($%.2f)", getPlayerName(targetid), reasonText, price) );
-                addMoneyToTreasury(price);
+                addTreasuryMoney(price);
                 return;
             }
 

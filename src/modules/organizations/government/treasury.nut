@@ -4,13 +4,13 @@ acmd(["treas"], "get", function( playerid) {
 
 
 acmd(["treas"], "add", function( playerid, amount = 0.0) {
-    addMoneyToTreasury(amount);
+    addTreasuryMoney(amount);
     msg(playerid, "treasury.add", [ amount.tofloat(), getTreasuryMoney() ], CL_EUCALYPTUS );
 });
 
 
 acmd(["treas"], "sub", function( playerid, amount = 0.0) {
-    subMoneyToTreasury(amount);
+    subTreasuryMoney(amount);
     msg(playerid, "treasury.sub", [ amount.tofloat(), getTreasuryMoney() ], CL_THUNDERBIRD );
 });
 
@@ -44,7 +44,7 @@ fmd("gov", ["gov.treasury"], "$f treasury add", function(fraction, character, am
     }
 
     local moneyInTreasuryOld = getMoneyTreasury();
-    addMoneyToTreasury(amount);
+    addTreasuryMoney(amount);
     local moneyInTreasuryNow = getMoneyTreasury();
 
     subMoneyToPlayer(character.playerid, amount);
@@ -67,7 +67,7 @@ fmd("gov", ["gov.treasury"], "$f treasury sub", function(fraction, character, am
     }
 
     local moneyInTreasuryOld = getMoneyTreasury();
-    subMoneyToTreasury(amount);
+    subTreasuryMoney(amount);
     local moneyInTreasuryNow = getMoneyTreasury();
 
     addMoneyToPlayer(character.playerid, amount);
@@ -105,7 +105,7 @@ alternativeTranslate(phrases);
 /* ------------------------------------------------------------------------------------------------------------------------------------------------------------ */
 
 
-function addMoneyToTreasury(amount) {
+function addTreasuryMoney(amount) {
     local amount = round(fabs(amount.tofloat()), 2);
     local currentAmount = getTreasuryMoney();
     local newAmount = currentAmount + amount;
@@ -114,12 +114,14 @@ function addMoneyToTreasury(amount) {
 }
 
 
-function subMoneyToTreasury(amount) {
+function subTreasuryMoney(amount, options) {
     local amount = round(fabs(amount.tofloat()), 2);
     local currentAmount = getTreasuryMoney();
     local newAmount = currentAmount - amount;
     setTreasuryMoney(newAmount);
-    dbg("chat", "idea", "Городская казна", format("Списание на сумму: $%.2f", amount));
+    if("silent" in options == false) {
+        dbg("chat", "idea", "Городская казна", format("Списание на сумму: $%.2f", amount));
+    }
 }
 
 function canTreasuryMoneyBeSubstracted(amount) {
