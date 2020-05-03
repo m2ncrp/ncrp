@@ -129,7 +129,7 @@ function sendMoney(playerid, targetid = null, amount = null) {
     requestUserInput(playerid, function(playerid, text) {
 
         trigger(playerid, "hudDestroyTimer");
-        if (text.tolower() != "да") {
+        if (text.tolower() != "ok") {
             moneyTransferRequest[pair] = "open";
             return msg(playerid, "moneysend.canceled");
         }
