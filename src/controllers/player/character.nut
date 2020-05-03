@@ -100,7 +100,7 @@ event("onPlayerCharacterCreate", function(playerid, firstname, lastname, nationa
             local character = Character();
 
             // override onspawn stuff (money, other shiet)
-            local money = randomf(16.5, 25.5);
+            local money = randomf(getSettingsValue("startedIncomeMin"), getSettingsValue("startedIncomeMax"));
             character.money = money;
             subWorldMoney(money);
 
