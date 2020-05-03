@@ -328,10 +328,10 @@ function dockerJobTakeBox( playerid ) {
         return msg( playerid, "job.docker.havebox", DOCKER_JOB_COLOR );
     }
 
-    local hour = getHour();
-    if(hour < DOCKER_JOB_WORKING_HOUR_START || hour >= DOCKER_JOB_WORKING_HOUR_END) {
-        return msg( playerid, "job.closed", [ DOCKER_JOB_WORKING_HOUR_START.tostring(), DOCKER_JOB_WORKING_HOUR_END.tostring()], DOCKER_JOB_COLOR );
-    }
+    // local hour = getHour();
+    // if(hour < DOCKER_JOB_WORKING_HOUR_START || hour >= DOCKER_JOB_WORKING_HOUR_END) {
+    //     return msg( playerid, "job.closed", [ DOCKER_JOB_WORKING_HOUR_START.tostring(), DOCKER_JOB_WORKING_HOUR_END.tostring()], DOCKER_JOB_COLOR );
+    // }
 
     if(DOCKER_BOX_NOW < 1) {
         return msg( playerid, "job.docker.nojob", DOCKER_JOB_COLOR );

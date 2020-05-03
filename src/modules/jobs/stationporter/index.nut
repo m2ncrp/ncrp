@@ -244,10 +244,10 @@ function porterJobTakeBox( playerid ) {
         return msg( playerid, "job.porter.havebox", PORTER_JOB_COLOR );
     }
 
-    local hour = getHour();
-    if(hour < PORTER_JOB_WORKING_HOUR_START || hour >= PORTER_JOB_WORKING_HOUR_END) {
-        return msg( playerid, "job.closed", [ PORTER_JOB_WORKING_HOUR_START.tostring(), PORTER_JOB_WORKING_HOUR_END.tostring()], PORTER_JOB_COLOR );
-    }
+    // local hour = getHour();
+    // if(hour < PORTER_JOB_WORKING_HOUR_START || hour >= PORTER_JOB_WORKING_HOUR_END) {
+    //     return msg( playerid, "job.closed", [ PORTER_JOB_WORKING_HOUR_START.tostring(), PORTER_JOB_WORKING_HOUR_END.tostring()], PORTER_JOB_COLOR );
+    // }
 
     if(PORTER_BOX_NOW < 1) {
         return msg( playerid, "job.nojob", PORTER_JOB_COLOR );

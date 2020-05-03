@@ -435,10 +435,10 @@ function fishJobRefuseLeave( playerid ) {
 function fishJobStartRoute( playerid ) {
     //job_fish[getCharacterIdFromPlayerId(playerid)]["blip3dtext"] = fishJobCreatePrivateBlipText(playerid, 396.5, 98.0385, -21.2582, "UNLOAD HERE", "/fish unload");
     //
-    local hour = getHour();
-    if(hour < FISH_JOB_WORKING_HOUR_START || hour >= FISH_JOB_WORKING_HOUR_END) {
-        return msg( playerid, "job.closed", [ FISH_JOB_WORKING_HOUR_START.tostring(), FISH_JOB_WORKING_HOUR_END.tostring()], FISH_JOB_COLOR );
-    }
+    // local hour = getHour();
+    // if(hour < FISH_JOB_WORKING_HOUR_START || hour >= FISH_JOB_WORKING_HOUR_END) {
+    //     return msg( playerid, "job.closed", [ FISH_JOB_WORKING_HOUR_START.tostring(), FISH_JOB_WORKING_HOUR_END.tostring()], FISH_JOB_COLOR );
+    // }
 
     job_fish[getCharacterIdFromPlayerId(playerid)]["userstatus"] = "working";
     fishJobSync3DText(playerid);
