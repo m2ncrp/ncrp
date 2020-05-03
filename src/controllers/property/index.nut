@@ -1,3 +1,90 @@
+include("controllers/property/translations.nut");
+include("controllers/property/translations-cyr.nut");
+include("controllers/property/classes/Property.nut");
+include("controllers/property/functions.nut");
+include("controllers/property/commands.nut");
+
+properties <- null;
+
+event("onServerStarted", function() {
+
+    logStr("[property] loading property module...");
+
+    properties <- Container(Property);
+
+    Property.findAll(function(err, results) {
+      logStr(results.len().tostring())
+        foreach (idx, object in results) {
+            properties.set(object.id, object);
+
+            if(object.type == "biz") {
+                loadBusiness(object)
+            }
+
+           // createPropertyLabels(object)
+        }
+
+    });
+});
+
+/*
+function createPropertyLabels(object) {
+
+    if(object.onsale) {
+        create3DText(object.data.coords.private.x, object.data.coords.private.y, object.data.coords.private.z, format("Private: %s", object.title), CL_CASCADE, 1.0);
+    }
+
+    if("private" in object.data.coords) {
+        create3DText(object.data.coords.private.x, object.data.coords.private.y, object.data.coords.private.z, format("Private: %s", object.title), CL_CASCADE, 1.0);
+        create3DText(object.data.coords.private.x, object.data.coords.private.y, object.data.coords.private.z - 0.10, "Press Z", CL_WHITE.applyAlpha(125), 0.5);
+    }
+    create3DText(object.data.coords.public.x, object.data.coords.public.y, object.data.coords.public.z, format("Property: %s", object.title), CL_RIPELEMON, 5.0);
+    create3DText(object.data.coords.public.x, object.data.coords.public.y, object.data.coords.public.z - 0.10, "Press E", CL_WHITE.applyAlpha(125), 0.5);
+}
+*/
+
+
+
+
+/*
+id
+_entity
+title
+alias
+type
+subtype
+ownerid
+basePrice: 12000,
+purchaseprice: 15000,
+salePrice: 25000,
+state: "opened"/"closed"/"onsale",
+data: {
+    "size": {
+        "x": 5,
+        "y": 3
+    },
+    "blipType": "ICON_MAP",
+    "coords": {
+        "public": {  // точка клиента
+            "x": -661.45,
+            "y": 346.388,
+            "z": 1.17575
+        },
+        "private": { // точка владельца
+            "x": -660.487,
+            "y": 343.874,
+            "z": 1.10121
+        },
+        "sale": {   // точка покупки/продажи
+            "x": -660.487,
+            "y": 343.874,
+            "z": 1.10121
+        }
+    }
+}
+
+*/
+
 /*
 include("controllers/property/classes/Property.nut");
 //include("controllers/property/commands.nut");
@@ -18,71 +105,6 @@ event("onServerStarted", function() {
         }
     });
 });
-*/
-
-include("controllers/property/classes/Property.nut");
-include("controllers/property/functions.nut");
-include("controllers/property/commands.nut");
-
-properties <- null;
-
-event("onServerStarted", function() {
-
-    logStr("[property] loading property module...");
-
-    properties <- Container(Property);
-
-    Property.findAll(function(err, results) {
-      logStr(results.len().tostring())
-        foreach (idx, object in results) {
-            logStr(object)
-            properties.set(object.id, object);
-
-            createPropertyLabels(object)
-        }
-
-    });
-});
-
-
-function createPropertyLabels(object) {
-    if("private" in object.data.coords) {
-        create3DText(object.data.coords.private.x, object.data.coords.private.y, object.data.coords.private.z, format("Private: %s", object.title), CL_CASCADE, 1.0);
-        create3DText(object.data.coords.private.x, object.data.coords.private.y, object.data.coords.private.z - 0.10, "Press Z", CL_WHITE.applyAlpha(125), 0.5);
-    }
-    create3DText(object.data.coords.public.x, object.data.coords.public.y, object.data.coords.public.z, format("Property: %s", object.title), CL_RIPELEMON, 5.0);
-    create3DText(object.data.coords.public.x, object.data.coords.public.y, object.data.coords.public.z - 0.10, "Press E", CL_WHITE.applyAlpha(125), 0.5);
-}
-
-
-
-/*
-id
-_entity
-type
-building
-title
-state [opened/closed]
-data: {
-    "size": {
-        "x": 5,
-        "y": 3
-    },
-    "basePrice": 25000,
-    "coords": {
-        "public": {
-            "x": -661.45,
-            "y": 346.388,
-            "z": 1.17575
-        },
-        "private": {
-            "x": -660.487,
-            "y": 343.874,
-            "z": 1.10121
-        }
-    }
-}
-
 */
 
 cmd("blip", function(playerid) {
