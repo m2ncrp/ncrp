@@ -115,7 +115,7 @@ cmd("police", ["job"], function(playerid, targetid) {
             return;
         }
 
-        if (players[targetid].xp < 1200) {
+        if (players[targetid].xp < 1500) {
                    msg(targetid, "organizations.police.lowxp.target", CL_RED);
             return msg(playerid, "organizations.police.lowxp", [ getPlayerName(targetid) ], CL_RED);
         }

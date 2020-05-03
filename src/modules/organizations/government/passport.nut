@@ -382,4 +382,15 @@ alternativeTranslate({
     "en|passport.nationality.1-11"  : "Jewish"
     "ru|passport.nationality.1-11"  : "Еврейка"
 
+    "ru|nationality.american"          : "Американцы"
+    "ru|nationality.british"           : "Британцы"
+    "ru|nationality.italian"           : "Итальянцы"
+    "ru|nationality.chinese"           : "Китайцы"
+    "ru|nationality.french"            : "Французы"
+    "ru|nationality.afro"              : "Афроамериканцы"
+    "ru|nationality.irish"             : "Ирландцы"
+    "ru|nationality.jewish"            : "Евреи"
+    "ru|nationality.german"            : "Немцы"
+    "ru|nationality.mexican"           : "Мексиканцы"
+
 });
