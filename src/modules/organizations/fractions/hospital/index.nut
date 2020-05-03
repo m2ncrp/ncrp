@@ -7,9 +7,9 @@ fmd("*", ["admin.kick2"], "$f hhh", function(fraction, character) {
     msg(character.playerid, "тесто");
 });*/
 
-event("onServerStarted", function() {
-    logStr("[hospital]=========================================...");
-});
+// event("onServerStarted", function() {
+//     logStr("[hospital]=========================================...");
+// });
 
 /*
 1. fractions.exists(shortcut)
