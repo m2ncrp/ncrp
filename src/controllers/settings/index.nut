@@ -76,6 +76,14 @@ function settingsLoadedDataRead() {
     });
 }
 
+function getSettingsFieldById(id) {
+    foreach(i, item in settingsLoadedData) {
+        if(item.id == id) {
+            return item;
+        }
+    }
+}
+
 function getSettingsField(name = "") {
     foreach(i, item in settingsLoadedData) {
         if(item.name == name) {
@@ -117,4 +125,45 @@ acmd("settings", function(playerid) {
         lines.push(format("%d. %s (%s): %s", setting.id, setting.desc, setting.name, setting.value.tostring()))
     }
     msgh(playerid, "Настройки", lines);
+})
+
+acmd("settings", ["set"], function(playerid) {
+    local lines = [];
+    foreach(idx, setting in settingsLoadedData) {
+        lines.push(format("%d. %s (%s): %s", setting.id, setting.desc, setting.name, setting.value.tostring()))
+    }
+    msgh(playerid, "Настройки", lines);
+
+    msg(playerid, "Введите номер настройки и его новое значение через пробел", CL_CHESTNUT2);
+    msg(playerid, "Пример: 1 winter", CL_GRAY);
+    trigger(playerid, "hudCreateTimer", 30, true, true);
+
+    local complete = false;
+
+    delayedFunction(15000, function() {
+        if (complete == false && character.playerid != -1) {
+            return msg(character.playerid, "Значение не указано", CL_THUNDERBIRD);
+        }
+    });
+
+    requestUserInput(playerid, function(playerid, text) {
+        trigger(playerid, "hudDestroyTimer");
+
+        local arr = split(text, " ");
+
+        if (arr.len() != 2 || !isNumeric(arr[0]) || arr[0].tointeger() < 1 || arr[0].tointeger() > settingsLoadedData.len()) {
+            return msg(playerid, "Некорректное значение", CL_THUNDERBIRD);
+        }
+
+        local field = getSettingsFieldById(arr[0].tointeger());
+
+        complete = true;
+
+        field.value = arr[1];
+        field.save();
+
+        msg(playerid, "Установлена настройка: «%s» в значение %s", [field.desc, arr[1]], CL_CHESTNUT2);
+    }, 15);
+
+
 })
