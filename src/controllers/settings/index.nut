@@ -54,6 +54,11 @@ function settingsLoadedDataRead() {
                     desc = "Макс. стартовый капитал игрока",
                     value = "20.0",
                 },
+                {
+                    name = "baseFuelPrice",
+                    desc = "Базовая стоимость галона топлива",
+                    value = "0.12",
+                },
             ];
 
             foreach(i, item in items) {
@@ -105,3 +110,11 @@ function subWorldMoney(value) {
     local money = getSettingsValue("worldMoney");
     setSettingsValue("worldMoney", money - value);
 }
+
+acmd("settings", function(playerid) {
+    local lines = [];
+    foreach(idx, setting in settingsLoadedData) {
+        lines.push(format("%d. %s (%s): %s", setting.id, setting.desc, setting.name, setting.value.tostring()))
+    }
+    msgh(playerid, "Настройки", lines);
+})

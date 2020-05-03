@@ -54,7 +54,6 @@ alternativeTranslate({
 const FILLING_CENTER_X = 156.195;
 const FILLING_CENTER_Y = -876.451;
 const FILLING_CENTER_Z = -21.7358;
-const FILLING_CENTER_GALLON_COST = 0.2;
 const FILLING_CENTER_FUELUP_SPEED = 20; // gallons in seconds
 
 local FILLING_CENTER_IN_HOUR = 25;
@@ -72,6 +71,7 @@ event("onServerStarted", function() {
     createBlip(FILLING_CENTER_X, FILLING_CENTER_Y, ICON_FUEL, ICON_RANGE_VISIBLE);
 
     createPlace("FillingCenter", 164.143, -871.729, 145.547, -880.425);
+
 });
 
 event("onServerPlayerStarted", function(playerid) {
@@ -163,7 +163,7 @@ function fillingCenterLoad(playerid) {
     }
 
     msg(playerid, "fillingcenter.enter-value-of-gallons-1", FILLING_CENTER_COLOR);
-    msg(playerid, "fillingcenter.enter-value-of-gallons-2", [FILLING_CENTER_GALLON_COST], FILLING_CENTER_COLOR);
+    msg(playerid, "fillingcenter.enter-value-of-gallons-2", [getSettingsValue("baseFuelPrice")], FILLING_CENTER_COLOR);
     msg(playerid, "fillingcenter.enter-value-of-gallons-hint", [1, Math.min(vehInfo.cargoLimit - veh.data.parts.cargo, FILLING_CENTER_NOW)], CL_GRAY);
 
     local isEntered = false;
@@ -204,7 +204,7 @@ function fillingCenterLoad(playerid) {
             return msg(playerid, "fillingcenter.no-enough-volume", [formatGallons(gallons)], FILLING_CENTER_COLOR);
         }
 
-        local amount = round(FILLING_CENTER_GALLON_COST * gallons, 2);
+        local amount = round(getSettingsValue("baseFuelPrice") * gallons, 2);
 
         if (!canMoneyBeSubstracted(playerid, amount)) {
             return msg(playerid, "fillingcenter.not-enough-money", [formatGallons(gallons), amount], CL_ERROR);
