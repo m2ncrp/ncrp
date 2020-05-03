@@ -27,7 +27,7 @@ cmd("ltc", function( playerid, parametr = 0 ) {
 
         local status = players[playerid].data.ltc.tostring();
 
-        // лицензия на оружие уже была получена
+        // лицензия на оружие запрещена к выдаче
         if (status == "blocked") {
             return msg(playerid, "ltc.blocked", CL_THUNDERBIRD);
         }

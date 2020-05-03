@@ -182,7 +182,7 @@ function fuelStationCreatePrivateInteractions(playerid, station) {
 
     local stationCoords = getFuelStationCoords(station);
 
-    // Внезависимости от состояния, если это владелец - показать приватный 3д текст 
+    // Внезависимости от состояния, если это владелец - показать приватный 3д текст
     if(charid == station.ownerid) {
         fuelStationCache[charid].owner <- createPrivate3DText(playerid, stationCoords.private[0], stationCoords.private[1], stationCoords.private[2]+0.35, plocalize(playerid, "property.3dtext.private"), CL_CHESTNUT, FUEL_RADIUS);
         fuelStationCache[charid].ownerSubtitle <- createPrivate3DText(playerid, stationCoords.private[0], stationCoords.private[1], stationCoords.private[2]+0.20, plocalize(playerid, "property.3dtext.press.E"), CL_WHITE.applyAlpha(150), 1.0);
@@ -415,7 +415,7 @@ function fuelJerrycanUp(playerid) {
         players[playerid].inventory.blocked = false;
         msg(playerid, "canister.fuelup.filled", [formatGallons(gallons), cost], CL_CHESTNUT2);
         freezePlayer(playerid, false);
-    
+
         players[playerid].hands.sync();
         delayedFunction(1000, function () { freezePlayer( playerid, false); });
     });
@@ -463,7 +463,7 @@ function getMaxGallonsReadyToBuy(station, veh) {
 }
 
 function fuelTruckUnload(playerid) {
-    
+
     local charid = getCharacterIdFromPlayerId(playerid);
     local stationName = getFuelStationCache(charid).name;
 
@@ -474,7 +474,7 @@ function fuelTruckUnload(playerid) {
     if (!isInRadius(playerid, stationCoords.unload[0], stationCoords.unload[1], stationCoords.unload[2], FUEL_RADIUS) ) {
         return;
     }
-    
+
     if (!isPlayerInVehicle(playerid) || getVehicleModel(getPlayerVehicle(playerid)) != 5) {
         return msg(playerid, "business.fuelStation.need-fuel-truck", CL_ERROR);
     }
@@ -552,7 +552,7 @@ function fuelTruckUnload(playerid) {
         removeTruckFromUnloadingQueue(veh.id);
 
         if (!isInRadius(playerid, stationCoords.unload[0], stationCoords.unload[1], stationCoords.unload[2], FUEL_RADIUS) ) {
-            return msg(playerid, "business.fuelStation.toofar", CL_ERROR); 
+            return msg(playerid, "business.fuelStation.toofar", CL_ERROR);
         }
 
         local gallons = text.tointeger();
@@ -579,7 +579,7 @@ function fuelTruckUnload(playerid) {
         local charid = getCharacterIdFromPlayerId(playerid);
 
         addPlayerMoney(playerid, amount);
-        
+
         veh.data.parts.cargo -= gallons;
         veh.save();
 
@@ -587,7 +587,7 @@ function fuelTruckUnload(playerid) {
         station.data.fuel.amountIn -= gallons;
         station.data.fuel.amount += gallons;
         station.save();
-        
+
         blockDriving(playerid, vehicleid);
         setVehicleState(vehicleid, "unloading");
         setVehicleEngineState(vehicleid, false);
