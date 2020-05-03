@@ -13,15 +13,24 @@ local handshakeBlackList = [
   "админ",
   "администратор",
   "блядь",
+  "босс",
   "быдло",
   "выблядок",
   "гей",
+  "гангстер",
+  "гангста",
   "дебил",
   "девелопер",
   "дурак",
   "ебанашка",
   "ебанутый",
+  "легавый",
   "модер",
+  "мафиози",
+  "москаль",
+  "мент",
+  "ментяра",
+  "мафиозник",
   "модератор",
   "мудак",
   "мудила",
@@ -29,6 +38,7 @@ local handshakeBlackList = [
   "пизда",
   "путин",
   "разработчик",
+  "синий",
   "трамп",
   "ублюдок",
   "уебище",
@@ -70,17 +80,17 @@ cmd(["meet"], function(playerid, targetid, ...) {
       return msg(playerid, "handshake.shake.real-name", CL_LYNCH );
     }
 
-    // if(playerid == targetid) {
-    //   return msg(playerid, "handshake.yourself");
-    // }
+    if(playerid == targetid) {
+      return msg(playerid, "handshake.yourself");
+    }
 
-    // if(!isPlayerConnected(targetid)) {
-    //     return msg(playerid, "handshake.noplayer");
-    // }
+    if(!isPlayerConnected(targetid)) {
+        return msg(playerid, "handshake.noplayer");
+    }
 
-    // if(!checkDistanceBtwTwoPlayersLess(playerid, targetid, 3.0)) {
-    //   return msg(playerid, "handshake.largedistance");
-    // }
+    if(!checkDistanceBtwTwoPlayersLess(playerid, targetid, 3.0)) {
+      return msg(playerid, "handshake.largedistance");
+    }
 
     // Если возможность рукопожатий запрещена для playerid
     if("handshake" in players[playerid].data && players[playerid].data.handshake == "off") {
@@ -100,11 +110,11 @@ cmd(["meet"], function(playerid, targetid, ...) {
     }
     /** // */
 
-    local isAccept = false;
+    local complete = false;
 
     delayedFunction(15000, function() {
-        if (!isAccept) {
-            sendLocalizedMsgToAll(targetid, "handshake.shake.decline", [], NORMAL_RADIUS, CL_CHAT_IC);
+        if (!complete) {
+            sendLocalizedMsgToAll(targetid, "chat.player.says", [getKnownCharacterNameWithId, plocalize(targetid, "handshake.shake.decline")], NORMAL_RADIUS, CL_CHAT_IC);
         }
     });
 
@@ -123,11 +133,11 @@ cmd(["meet"], function(playerid, targetid, ...) {
     requestUserInput(targetid, function(targetid, text) {
         trigger(targetid, "hudDestroyTimer");
 
-        if (!text || (trim(text) != "ok" && trim(text) != "ок")) {
-            return sendLocalizedMsgToAll(targetid, "handshake.shake.decline", [], NORMAL_RADIUS, CL_CHAT_IC);
-        }
+        complete = true;
 
-        isAccept = true;
+        if (!text || (trim(text) != "ok" && trim(text) != "ок")) {
+            return sendLocalizedMsgToAll(targetid, "chat.player.says", [getKnownCharacterNameWithId, plocalize(targetid, "handshake.shake.decline")], NORMAL_RADIUS, CL_CHAT_IC);
+        }
 
         local handshake = Handshake();
 
@@ -139,7 +149,7 @@ cmd(["meet"], function(playerid, targetid, ...) {
 
         character.handshakes[receiverCharId] <- handshake;
 
-        sendLocalizedMsgToAll(targetid, "handshake.shake.complete", [name], NORMAL_RADIUS, CL_CHAT_IC);
+        sendLocalizedMsgToAll(targetid, "chat.player.says", [getKnownCharacterNameWithId, plocalize(targetid, "handshake.shake.complete", [name])], NORMAL_RADIUS, CL_CHAT_IC);
 
     }, 15);
 
@@ -156,17 +166,17 @@ cmd("remember", function(playerid, targetid, ...) {
         return msg(playerid, "handshake.remember.example", CL_LYNCH );
     }
 
-    // if(playerid == targetid) {
-    //     return msg(playerid, "handshake.yourself");
-    // }
+    if(playerid == targetid) {
+        return msg(playerid, "handshake.yourself");
+    }
 
-    // if(!isPlayerConnected(targetid)) {
-    //     return msg(playerid, "handshake.noplayer");
-    // }
+    if(!isPlayerConnected(targetid)) {
+        return msg(playerid, "handshake.noplayer");
+    }
 
-    // if(!checkDistanceBtwTwoPlayersLess(playerid, targetid, 30.0)) {
-    //   return msg(playerid, "handshake.largedistance");
-    // }
+    if(!checkDistanceBtwTwoPlayersLess(playerid, targetid, 50.0)) {
+      return msg(playerid, "handshake.largedistance");
+    }
 
     // Если возможность рукопожатий запрещена для playerid
     if("handshake" in players[playerid].data && players[playerid].data.handshake == "off") {
@@ -208,17 +218,17 @@ cmd("forget", function(playerid, targetid = null) {
         return msg(playerid, "handshake.forget.example", CL_LYNCH );
     }
 
-    // if (playerid == targetid) {
-    //     return msg(playerid, "handshake.yourself");
-    // }
+    if (playerid == targetid) {
+        return msg(playerid, "handshake.yourself");
+    }
 
-    // if ( !isPlayerConnected(targetid) ) {
-    //     return msg(playerid, "handshake.noplayer");
-    // }
+    if ( !isPlayerConnected(targetid) ) {
+        return msg(playerid, "handshake.noplayer");
+    }
 
-    // if (!checkDistanceBtwTwoPlayersLess(playerid, targetid, 30.0)) {
-    //   return msg(playerid, "handshake.largedistance");
-    // }
+    if (!checkDistanceBtwTwoPlayersLess(playerid, targetid, 50.0)) {
+      return msg(playerid, "handshake.largedistance");
+    }
 
     // Если возможность рукопожатий запрещена для playerid
     if("handshake" in players[playerid].data && players[playerid].data.handshake == "off") {
