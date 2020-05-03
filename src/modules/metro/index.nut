@@ -39,7 +39,6 @@ translation("en", {
 });
 
 const METRO_RADIUS = 2.0;
-const METRO_TICKET_COST = 0.15;
 
 const METRO_KEY_AVALIABLE = "open";
 const METRO_KEY_UNAVALIABLE = "closed";
@@ -114,7 +113,7 @@ function showMetroGUI(playerid) {
 
     local windowText =  plocalize(playerid, "metro.gui.window");
     local label1Text =  plocalize(playerid, "metro.gui.youhere", [ plocalize(playerid, metroInfos[nearestStationID][10])  ]);
-    local label2Text =  plocalize(playerid, "metro.gui.price", [ METRO_TICKET_COST ]);
+    local label2Text =  plocalize(playerid, "metro.gui.price", [ getGovernmentValue("subwayTicketPrice") ]);
 
     local button1Text = plocalize(playerid, metroInfos[metroList[0][0]][10]);
     local button2Text = plocalize(playerid, metroInfos[metroList[1][0]][10]);
