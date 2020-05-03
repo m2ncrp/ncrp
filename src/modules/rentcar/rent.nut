@@ -24,7 +24,11 @@ function RentCar(playerid) {
     setVehicleRespawnEx(vehicleid, false);
 
     subMoneyToPlayer( playerid, rentprice );
-    veh.data.rent.money += rentprice;
+
+    local tax = getGovernmentValue("taxSales") * 0.01;
+
+    veh.data.tax += rentprice * tax;
+    veh.data.rent.money += rentprice * (1 - tax);
     veh.data.rent.count += 1;
     msg(playerid, "rentcar.rented");
     msg(playerid, "rentcar.paidcar", [ rentprice ] );

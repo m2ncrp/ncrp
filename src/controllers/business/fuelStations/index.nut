@@ -346,6 +346,9 @@ function fuelVehicleUp(playerid) {
     trigger(playerid, "hudCreateTimer", fuelupTime, true, true);
 
     station.data.fuel.amount -= gallons;
+    local tax = getGovernmentValue("taxSales") * 0.01;
+    station.data.money += cost * (1 - tax);
+    station.data.tax += cost * tax;
     station.save();
 
     delayedFunction(fuelupTime * 1000, function () {
@@ -408,7 +411,9 @@ function fuelJerrycanUp(playerid) {
         jerrycanObj.amount += gallons;
         jerrycanObj.save();
 
-        station.data.money += cost;
+        local tax = getGovernmentValue("taxSales") * 0.01;
+        station.data.money += cost * (1 - tax);
+        station.data.tax += cost * tax;
         station.data.fuel.amount -= gallons;
         station.save();
 
