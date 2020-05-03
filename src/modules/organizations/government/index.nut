@@ -8,6 +8,16 @@ include("modules/organizations/government/models/Government.nut");
 
 local coords = [-122.331, -62.9116, -12.041];
 local SIDEWALK = [-118.966, -73.4, -66.4244, -52.5];
+
+local availableActs = [
+    "taxVehicleRate",
+    "taxSales",
+    "unemployedIncome",
+    "busTicketPrice",
+    "subwayTicketPrice",
+    "hospitalTreatmentPrice",
+];
+local availableActsNumbers = [];
 local governmentLoadedData = null;
 
 function getGovCoords(i) {
@@ -29,6 +39,12 @@ function governmentLoadedDataRead() {
     Government.findAll(function(err, results) {
         if (results.len()) {
             governmentLoadedData = results;
+
+            availableActsNumbers = results.filter(function(idx, item) {
+                if(availableActs.find(item.name)) return item;
+            }).map(function(item) {
+                return item.id
+            })
         } else {
 
             local items = [
@@ -47,13 +63,19 @@ function governmentLoadedDataRead() {
                 {
                     name = "taxVehicleRate",
                     unit = "%",
-                    desc = "Налог на автомобиль",
+                    desc = "Налог на автотранспорт",
                     value = "0.0",
                 },
                 {
                     name = "taxPropertyRate",
                     unit = "%",
                     desc = "Налог на недвижимость",
+                    value = "0.0",
+                },
+                {
+                    name = "taxSales",
+                    unit = "%",
+                    desc = "Налог с продаж и оплаты услуг",
                     value = "0.0",
                 },
                 {
@@ -149,6 +171,7 @@ function getGovernmentValue(name = "") {
     if(isFloat(value)) return value.tofloat();
     if(value.slice(0, 1) == "-" && isFloat(value.slice(1))) return value.tofloat();
     if(isInteger(value)) return value.tointeger();
+    if(regexp(@"[a-zA-Z]+$").match(value) && value != "false" && value != "true") return value;
     return JSONParser.parse(value);
 }
 
@@ -233,7 +256,6 @@ fmd("gov", ["gov.act"], "$f acts", function(fraction, character, article = null,
 });
 
 fmd("gov", ["gov.act"], "$f act", function(fraction, character) {
-
     if (!isPlayerInValidPoint(character.playerid, getGovCoords(0), getGovCoords(1), 3.0 )) {
         return msg(character.playerid, "gov.act.toofar", CL_THUNDERBIRD);
     }
@@ -244,15 +266,14 @@ fmd("gov", ["gov.act"], "$f act", function(fraction, character) {
 
     local helps = [];
     foreach(i, item in governmentLoadedData) {
-        if(item.name == "treasury") continue;
+        if(availableActs.find(item.name) == null) continue;
 
-        local str;
-        if(item.unit == "$") {
-            str = format("%d. %s, %s", item.id, item.desc, item.unit)
-        } else if(item.unit == "%") {
-            str = format("%d. %s, %s", item.id, item.desc, "процент")
+        local value = convertFieldToString(item.value, item.unit);
+
+        if(item.next != 0.0) {
+            value += " -> "+item.next.tostring();
         }
-        helps.push(str)
+        helps.push(format("%d. %s, %s", item.id, item.desc, value))
     }
 
     msgh(character.playerid, "Издание постановлений", helps);
@@ -260,62 +281,124 @@ fmd("gov", ["gov.act"], "$f act", function(fraction, character) {
     local complete = false;
 
     delayedFunction(30000, function() {
-        if (complete == false) {
+        if (complete == false && character.playerid != -1) {
             if(defaulttogooc) setPlayerOOC(character.playerid, true);
             return msg(character.playerid, "gov.act.incorrect", CL_THUNDERBIRD);
         }
     });
 
-    msg(character.playerid, "passport.insert.nationality", CL_CHESTNUT2);
-    trigger(character.playerid, "hudCreateTimer", 15, true, true);
+    msg(character.playerid, "gov.acts.enter-field", CL_CHESTNUT2);
+    msg(character.playerid, "gov.acts.enter-field-help", CL_GRAY);
+    trigger(character.playerid, "hudCreateTimer", 30, true, true);
 
     requestUserInput(character.playerid, function(playerid, text) {
         trigger(playerid, "hudDestroyTimer");
-        if (!text || !isNumeric(text) || text.tointeger() < 2 || text.tointeger() > 12) {
+
+        local arr = split(text, " ");
+
+        if (arr.len() != 2 || !isNumeric(arr[0]) || availableActsNumbers.find(arr[0].tointeger()) == null) {
             if(defaulttogooc) setPlayerOOC(playerid, true);
-            return msg(playerid, "passport.insert.incorrect", CL_THUNDERBIRD);
+            return msg(playerid, "gov.act.incorrect", CL_THUNDERBIRD);
         }
 
-        local field = getGovernmentFieldById(text.tointeger());
+        local field = getGovernmentFieldById(arr[0].tointeger());
 
+        complete = true;
 
-        msg(playerid, field.desc, CL_CHESTNUT2);
-        trigger(playerid, "hudCreateTimer", 15, true, true);
+        field.next = arr[1];
+        field.until = getTimestamp() + 432000;
+        field.save();
 
-        delayedFunction( 1000, function() {
-            requestUserInput(playerid, function(playerid, text) {
-                trigger(playerid, "hudDestroyTimer");
-
-
-                if (!text || !isNumeric(text) || text.tointeger() < 0) {
-                    if(defaulttogooc) setPlayerOOC(playerid, true);
-                    return msg(playerid, "passport.insert.incorrect", CL_THUNDERBIRD);
-                }
-
-                local amount = text.tofloat();
-                msg(playerid, format("%s: %s", field.desc, amount.tostring()), CL_CHESTNUT2);
-
-                complete = true;
-
-                if(defaulttogooc) setPlayerOOC(playerid, true);
-
-            }, 15);
-        });
-    }, 15);
+        msg(character.playerid, "gov.acts.completed", [field.desc, arr[1]], CL_CHESTNUT2);
+        msg(character.playerid, "gov.acts.completed-hint", CL_GRAY);
+    }, 30);
 
 });
 
+function convertFieldToString(value, unit) {
+    if(unit == "%") {
+        return format("%s %s", value.tostring(), declOfNum(value, ["процент", "процента", "процентов"]));
+    }
 
+    if(unit == "$") {
+        return format("$ %s", value.tostring())
+    }
+
+    return value;
+}
+
+event("onServerHourChange", function() {
+    if(getHour() % 2 == 0) return;
+
+    local acts = [];
+
+    foreach(i, field in governmentLoadedData) {
+        if(field.until == 0) continue;
+
+        local timestamp = getTimestamp();
+
+        local when;
+        local diff = field.until - timestamp;
+
+        if(diff >= 108000) {
+            when = "Уже скоро";
+        }
+
+        if(diff < 108000) {
+            when = "С завтрашнего дня";
+        }
+
+        acts.push(format("Новости часа: %s вступает в силу постановление правительства Эмпайр-Бэй, согласно которому «%s» будет составлять %s.", when, field.desc, convertFieldToString(field.next, field.unit)));
+    }
+
+    local rand = random(0, acts.len()-1);
+    sendMsgToRadio(acts[rand]);
+});
+
+event("onServerDayChange", function() {
+    foreach(i, field in governmentLoadedData) {
+        if(field.until == 0) continue;
+
+        local timestamp = getTimestamp();
+
+        if(timestamp > field.until) {
+            field.value = field.next;
+            field.next = 0.0;
+            field.until = 0;
+            field.save();
+
+            sendMsgToRadio(format("Новости в полночь: Вступило в силу постановление правительства Эмпайр-Бэй, согласно которому «%s» теперь составляет %s.", field.desc, convertFieldToString(field.value, field.unit)));
+        }
+    }
+});
+
+fmd("gov", [], "$f help", function(fraction, character) {
+    msgh(character.playerid, "Правительство", [
+        "/gov - базовые команды управления правительством",
+        "/gov acts - сводка текущих значений",
+        "/gov act - принять новое постановление",
+    ]);
+});
 
 alternativeTranslate({
-
     "en|gov.act.toofar"        : ""
     "ru|gov.act.toofar"        : "Издание постановлений возможно только в здании мэрии"
 
-    "en|gov.act.incorrect"        : ""
-    "ru|gov.act.incorrect"        : "Некорректно"
+    "en|gov.act.incorrect"     : ""
+    "ru|gov.act.incorrect"     : "Некорректное значение"
 
-    "en|gov.acts.toofar"        : ""
-    "ru|gov.acts.toofar"        : "Ознакомиться с постановлениями можно только в здании мэрии"
+    "en|gov.acts.toofar"       : ""
+    "ru|gov.acts.toofar"       : "Ознакомиться с постановлениями можно только в здании мэрии"
 
+    "en|gov.acts.enter-field" : ""
+    "ru|gov.acts.enter-field" : "Введите номер постановления и его новое значение через пробел"
+
+    "en|gov.acts.enter-field-help" : ""
+    "ru|gov.acts.enter-field-help" : "Пример: 8 15"
+
+    "en|gov.acts.completed" : ""
+    "ru|gov.acts.completed" : "Издано постановление об установлении нового значения «%s» равное %s."
+
+    "en|gov.acts.completed-hint" : ""
+    "ru|gov.acts.completed-hint" : "Постановление вступит в силу через 5 реальных дней."
 });
