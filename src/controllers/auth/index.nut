@@ -31,7 +31,9 @@ include("controllers/auth/data-names.nut");
 */
 event("onClientSuccessfulyStarted", function(playerid) {
     // 1. Set ui settings (hide ui elements, skin, set camera rotation)
-
+    trigger(playerid, "setWeather",
+        getWeather()
+    );
 
     // 2. Check if server is under construction
 	if(getSettingsValue("isUnderConstruction") && !isPlayerServerAdmin(playerid)) {
@@ -257,8 +259,7 @@ function introUISetter(playerid) {
     trigger(playerid, "setPlayerIntroScreen",
         defaultSpawn.cam[0],
         defaultSpawn.cam[1],
-        defaultSpawn.cam[2],
-        getWeather()
+        defaultSpawn.cam[2]
     );
 
     togglePlayerHud(playerid, true);

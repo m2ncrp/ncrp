@@ -291,9 +291,11 @@ function isValidEmail(email)
 }
 
 
-addEventHandler("setPlayerIntroScreen", function(x, y, z, weather) {
+addEventHandler("setPlayerIntroScreen", function(x, y, z) {
     executeLua("p = game.game:GetActivePlayer() cam = game.cameramanager:GetPlayerMainCamera(0) cam:SetCameraRotation(p:GetPos() + p:GetDir() + Math:newVector("+x+", "+y+", "+z+"))");
-    //setPlayerRotation(getLocalPlayer(), 0.0, 0.0, 180.0);
+});
+
+addEventHandler("setWeather", function(weather) {
     delayedFunction(2500, function() {
         setWeather(weather)
     });
