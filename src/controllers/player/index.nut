@@ -90,6 +90,7 @@ event("onPlayerInit", function(playerid) {
     });
 
     triggerClientEvent(playerid, "onServerSeasonSet", getSeason());
+    triggerClientEvent(playerid, "onServerYearSet", getYear().tostring());
 
     delayedFunction(calculateFPSDelay(playerid) + 1500, function() {
         nativeScreenFadeout(playerid, 100);

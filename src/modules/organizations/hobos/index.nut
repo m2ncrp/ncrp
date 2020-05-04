@@ -157,6 +157,9 @@ event("onServerMinuteChange", function() {
     foreach (playerid, value in players) {
         if (!getPlayerJob(playerid)) {
             local charid = getCharacterIdFromPlayerId(playerid);
+            if(!(charid in hoboses)) {
+                hoboses[charid] <- 0;
+            }
             hoboses[charid] += 1;
         }
     }

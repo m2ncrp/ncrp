@@ -68,6 +68,7 @@ local WEATHER = "DTFreeRideDaySnow";
     // DT_RTRclear_day_late_even
 
 local season = "winter";
+local year = "1950";
 local modelIndex = 0;
 
 local characters = [];
@@ -133,11 +134,12 @@ function loadTranslation(){
         text.CreationFirstName      <- "Firstname";
         text.CreationLastName       <- "Lastname";
         text.CreationBirthday       <- "Birthday";
+        text.CreationAge            <- "Age";
         text.WrongFName             <- "Wrong firstname";
         text.WrongLName             <- "Wrong lastname";
         text.WrongDay               <- "Day: from 1 to 30'";
         text.WrongMonth             <- "Month: from 1 to 12";
-        text.WrongYear              <- "Year: from 1880 to 1927";
+        text.WrongAge               <- "Age: from 18 to 70";
         text.ExampleFName           <- "Firstname";
         text.ExampleLName           <- "Lastname";
 
@@ -160,7 +162,7 @@ function loadTranslation(){
 
         text.Day        <- "Day";
         text.Month      <- "Month";
-        text.Year       <- "Year";
+        text.Age        <- "Age";
         text.Next       <- "Continue";
         translation.push( text );
     }
@@ -187,11 +189,12 @@ function loadTranslation(){
         text.CreationFirstName      <- "Имя персонажа";
         text.CreationLastName       <- "Фамилия персонажа";
         text.CreationBirthday       <- "Дата рождения персонажа";
+        text.CreationAge            <- "Возраст";
         text.WrongFName             <- "Имя должно начинаться с заглавной буквы.\r\nБез пробелов, цифр, кириллицы.";
         text.WrongLName             <- "Фамилия должна начинаться с заглавной буквы.\r\nБез пробелов, цифр, кириллицы.";
         text.WrongDay               <- "День: от 1 до 31";
         text.WrongMonth             <- "Месяц: от 1 до 12";
-        text.WrongYear              <- "Год: от 1880 до 1927";
+        text.WrongAge               <- "Возраст: от 18 до 70";
         text.ExampleFName           <- "Введите имя персонажа";
         text.ExampleLName           <- "Введите фамилию персонажа";
 
@@ -217,7 +220,7 @@ function loadTranslation(){
 
         text.Day        <- "День";
         text.Month      <- "Месяц";
-        text.Year       <- "Год";
+        text.Age        <- "Возраст";
         text.Next       <- "Продолжить";
         translation.push( text );
     }
@@ -281,26 +284,27 @@ function characterCreation(){
     label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationLastName, 12.0, 239.0, 166.0, 20.0, false, window));//label[1]
     input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].ExampleLName,     12.0, 261.0, 166.0, 20.0, false, window));//input[1]
 
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationBirthday, 12.0,   288.0, 256.0, 20.0, false, window));//label[2]
-    input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].Day,              12.0,   310.0, 74.0, 20.0, false, window));//input[2]
-    input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].Month,            92.0,   310.0, 75.0, 20.0, false, window));//input[3]
-    input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].Year,            173.0,   310.0, 74.0, 20.0, false, window));//input[4]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationBirthday, 12.0, 288.0, 256.0, 20.0, false, window));//label[2]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationAge,     173.0, 288.0, 50.0, 20.0, false, window));//label[3]
+    input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].Day,              12.0, 310.0, 74.0, 20.0, false, window));//input[2]
+    input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].Month,            92.0, 310.0, 75.0, 20.0, false, window));//input[3]
+    input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].Age,            173.0, 310.0, 74.0, 20.0, false, window));//input[4]
 
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationChooseGender, 65.0, 20.0, 300.0, 20.0, false, window));//label[3]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationChooseGender, 65.0, 20.0, 300.0, 20.0, false, window));//label[5]
     button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[0].Male,    57, 42.0, 70.0, 22.0,false, window));//button[0]
     button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[0].Female, 133, 42.0, 70.0, 22.0,false, window));//button[1]
 
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationChooseNationality, 35.0, 68.0, 300.0, 20.0, false, window));//label[4]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].American,          44.0,   88.0, 300.0, 20.0, false, window));//label[5]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].British ,          45.0,  108.0, 300.0, 20.0, false, window));//label[6]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Italian ,          45.0,  128.0, 300.0, 20.0, false, window));//label[7]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Chinese ,          45.0,  148.0, 300.0, 20.0, false, window));//label[8]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].French  ,          45.0,  168.0, 300.0, 20.0, false, window));//label[9]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Afro    ,          154.0,  88.0, 300.0, 20.0, false, window));//label[10]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Irish   ,          155.0, 108.0, 300.0, 20.0, false, window));//label[11]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Jewish  ,          155.0, 128.0, 300.0, 20.0, false, window));//label[12]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].German  ,          155.0, 148.0, 300.0, 20.0, false, window));//label[13]
-    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Mexican ,          155.0, 168.0, 300.0, 20.0, false, window));//label[13]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationChooseNationality, 35.0, 68.0, 300.0, 20.0, false, window));//label[6]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].American,          44.0,   88.0, 300.0, 20.0, false, window));//label[7]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].British ,          45.0,  108.0, 300.0, 20.0, false, window));//label[8]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Italian ,          45.0,  128.0, 300.0, 20.0, false, window));//label[9]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Chinese ,          45.0,  148.0, 300.0, 20.0, false, window));//label[10]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].French  ,          45.0,  168.0, 300.0, 20.0, false, window));//label[11]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Afro    ,          154.0,  88.0, 300.0, 20.0, false, window));//label[12]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Irish   ,          155.0, 108.0, 300.0, 20.0, false, window));//label[13]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Jewish  ,          155.0, 128.0, 300.0, 20.0, false, window));//label[14]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].German  ,          155.0, 148.0, 300.0, 20.0, false, window));//label[15]
+    label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].Mexican ,          155.0, 168.0, 300.0, 20.0, false, window));//label[16]
 
     radio.push(guiCreateElement( ELEMENT_TYPE_RADIOBUTTON, "",                          25.0,   91.0, 15.0, 15.0, false, window));//radio[0]
     radio.push(guiCreateElement( ELEMENT_TYPE_RADIOBUTTON, "",                          25.0,  111.0, 15.0, 15.0, false, window));//radio[1]
@@ -403,7 +407,7 @@ addEventHandler( "onGuiElementClick",function(element){
         if(element == input[1] && guiGetText(input[1]) == translation[0].ExampleLName)  return guiSetText(input[1], "");
         if(element == input[2] && guiGetText(input[2]) == translation[0].Day)  return guiSetText(input[2], "");
         if(element == input[3] && guiGetText(input[3]) == translation[0].Month)  return guiSetText(input[3], "");
-        if(element == input[4] && guiGetText(input[4]) == translation[0].Year)  return guiSetText(input[4], "");
+        if(element == input[4] && guiGetText(input[4]) == translation[0].Age)  return guiSetText(input[4], "");
         if(element == button[4]) return checkFields();
         if(element == button[5]) return generateFirstname();
         if(element == button[6]) return generateLastname();
@@ -569,10 +573,10 @@ function checkFields () {
     }
     else {guiSetText(label[2],translation[0].CreationBirthday);}
 
-    if(!isValidRange(guiGetText(input[4]),1879,1928)) {
-        guiSetText(input[4],translation[0].Year);
-        callEvent("onAlert", translation[0].Year, translation[0].WrongYear, 1);
-        //guiSetText(label[2],translation[0].WrongYear);
+    if(!isValidRange(guiGetText(input[4]),18,70)) {
+        guiSetText(input[4],translation[0].Age);
+        callEvent("onAlert", translation[0].Age, translation[0].WrongAge, 1);
+        //guiSetText(label[2],translation[0].WrongAge);
         return fieldsErrors++;
     }
     else {guiSetText(label[2],translation[0].CreationBirthday);}
@@ -584,8 +588,8 @@ function createCharacter() {
     local last = PData.Lastname;
     local race = PData.Race;
     local nationality = PData.Nationality;
-    local sex = PData.Sex
-    local bday = format("%02d.%02d.%04d",guiGetText(input[2]).tointeger(),guiGetText(input[3]).tointeger(),guiGetText(input[4]).tointeger());
+    local sex = PData.Sex;
+    local bday = format("%02d.%02d.%04d",guiGetText(input[2]).tointeger(),guiGetText(input[3]).tointeger(), year - guiGetText(input[4]).tointeger());
     local model = modelsData[season][PData.Race][PData.Sex][modelIndex];
     triggerServerEvent("onPlayerCharacterCreate",first,last,nationality,race.tostring(),sex.tostring(),bday,model.tostring(),(migrateOldCharacter && "Id" in PData) ? PData.Id.tostring() : "0");
 }
@@ -721,6 +725,10 @@ addEventHandler("onServerCharacterLoaded", function(locale){
 
 addEventHandler("onServerSeasonSet", function(name = "summer") {
     season = name;
+});
+
+addEventHandler("onServerYearSet", function(value) {
+    year = value.tointeger();
 });
 
 addEventHandler("onClientScriptInit", function() {
