@@ -157,6 +157,25 @@ event("onClientSuccessfulyStarted", function(playerid) {
                         });
                     }
 
+                    ORM.Query("select * from @Mute where (serial = :serial or name = :name) and until > :current")
+                        .setParameter("serial", getPlayerSerial(playerid))
+                        .setParameter("name", getAccountName(playerid))
+                        .setParameter("current", getTimestamp())
+                        .getSingleResult(function(err, result) {
+                            /**
+                             * Account is muted!
+                             * Applying actions
+                             */
+                            if (result) {
+                                setPlayerMuted(playerid, {
+                                    amount = result.amount,
+                                    until = result.until,
+                                    created = result.created,
+                                    reason = result.reason
+                                });
+                            }
+                    });
+
                     /**
                     * Maybe we should apply autologin ?
                     */
@@ -199,24 +218,7 @@ event("onClientSuccessfulyStarted", function(playerid) {
                 });
                 showIdentificationGui(playerid, 2000);
 
-                // ORM.Query("select * from @Mute where (serial = :serial or name = :name) and until > :current")
-                //     .setParameter("serial", getPlayerSerial(playerid))
-                //     .setParameter("name", getAccountName(playerid))
-                //     .setParameter("current", getTimestamp())
-                //     .getSingleResult(function(err, result) {
-                //         /**
-                //          * Account is muted!
-                //          * Applying actions
-                //          */
-                //         if (result) {
-                //             setPlayerMuted(playerid, {
-                //                 amount = result.amount,
-                //                 until = result.until,
-                //                 created = result.created,
-                //                 reason = result.reason
-                //             });
-                //         }
-                // });
+
 
             });
         });
