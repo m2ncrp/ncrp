@@ -17,6 +17,7 @@ local label = array(5);
 local button = array(2);
 local image;
 local question;
+local buttonLock = false;
 
 local isAuth = null;
 local locale = "ru";
@@ -242,6 +243,11 @@ addEventHandler( "onGuiElementClick",function(element){ //this shit need some re
  * Trigger button login click
  */
 function buttonLoginClick() {
+    if(buttonLock) return;
+    buttonLock = true;
+    delayedFunction(1000, function() {
+        buttonLock = false;
+    })
     local password = guiGetText(input[0]);
     if(password.len() > 0){
         triggerServerEvent("loginGUIFunction", password);
