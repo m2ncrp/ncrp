@@ -1,7 +1,6 @@
 const HOSPITAL_X         = -393.429;
 const HOSPITAL_Y         = 912.044;
 const HOSPITAL_Z         = -20.0026;
-const HOSPITAL_AMOUNT    = 12.65;
 
 local lastDeaths = {};
 
@@ -62,8 +61,9 @@ event("onPlayerSpawn", function(playerid) {
     dbg("player", "spawn", "after death", getIdentity(playerid));
 
     // maybe deduct some money...
-    if (canMoneyBeSubstracted(playerid, HOSPITAL_AMOUNT)) {
-        msg(playerid, "hospital.money.deducted", [HOSPITAL_AMOUNT], CL_SUCCESS);
+    local amount = getGovernmentValue("hospitalTreatmentPrice");
+    if (canMoneyBeSubstracted(playerid, amount)) {
+        msg(playerid, "hospital.money.deducted", [amount], CL_SUCCESS);
         players[playerid].health = 720.0;
     } else {
         msg(playerid, "hospital.money.donthave", [], CL_ERROR);
