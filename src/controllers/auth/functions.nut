@@ -59,13 +59,15 @@ function showRegisterGUI(playerid, delay = 0) {
 function printStartedTips (playerid) {
         // send message success
         msg(playerid, "");
-        msg(playerid, "hello.1", CL_LIGHTGRAY);
-        msg(playerid, "hello.2", CL_CASCADE);
-        msg(playerid, "hello.3", CL_LIGHTGRAY);
-        msg(playerid, "hello.4", CL_CASCADE);
-        msg(playerid, "hello.5", CL_LIGHTGRAY);
-        msg(playerid, "hello.6", CL_CASCADE);
+        msg(playerid, "hello.help", CL_LIGHTGRAY);
+        msg(playerid, "hello.help-need", CL_CASCADE);
         msg(playerid, "");
         msg(playerid, "hello.end", CL_SUCCESS);
+        msg(playerid, "");
+        msg(playerid, "");
+        msg(playerid, "");
+        msg(playerid, "");
+        msg(playerid, "");
+        msg(playerid, "");
         msg(playerid, "");
 }

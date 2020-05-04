@@ -542,6 +542,11 @@ alternativeTranslate({
     "en|hello.6"     : ".:: Need help? Write in chat: /help"
     "ru|hello.6"     : ".:: Нужна помощь? Напиши в чат: /help"
 
+    "en|hello.help"     : ".:: Full help menu : /help"
+    "ru|hello.help"     : ".:: Подробное меню помощи: /help"
+
+    "en|hello.help-need"     : ".:: Be sure to familiarize yourself!"
+    "ru|hello.help-need"     : ".:: Обязательно ознакомьтесь!"
 
     "en|hello.end"     : "We wish you a successful and enjoyable game!"
     "ru|hello.end"     : "Приятной игры!"
