@@ -28,9 +28,8 @@ function getDefaultSpawn() {
  */
 function spawnPlayer(playerid) {
     if (!isPlayerLoaded(playerid)) {
-        return setPlayerHealth(playerid, 720.0);
+        return;
     }
-
     // draw default fadeout
     // screenFadeout(playerid, calculateFPSDelay(playerid) + 50000);
 
