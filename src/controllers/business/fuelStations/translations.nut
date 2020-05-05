@@ -22,6 +22,14 @@ alternativeTranslate({
     "en|business.fuelStation.stopengine"         : "Please, stop the engine."
     "ru|business.fuelStation.stopengine"         : "Заглушите двигатель."
 
+    "en|business.fuelStation.gov-declined"       : "Members of government can't make a bussiness."
+    "ru|business.fuelStation.gov-declined"       : "Члены правительства не могут заниматься бизнесом."
+
+    "en|business.fuelStation.sold"               : "«%s» fuel station is sold."
+    "ru|business.fuelStation.sold"               : "Автозаправка «%s» продана."
+
+    "en|business.fuelStation.bought"             : "You bought the fuel station."
+    "ru|business.fuelStation.bought"             : "Вы приобрели автозаправку."
 
     // Для заправки
 

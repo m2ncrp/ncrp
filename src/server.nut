@@ -326,6 +326,13 @@ proxy("RentCar",                    "RentCar"                           );
 proxy("bankPlayerDeposit",                "bankPlayerDeposit"           );
 proxy("bankPlayerWithdraw",               "bankPlayerWithdraw"          );
 
+// Biz Fuel
+proxy("bizFuelStationSave",                "bizFuelStationSave"           );
+proxy("bizFuelStationOpen",                "bizFuelStationOpen"           );
+proxy("bizFuelStationClose",               "bizFuelStationClose"          );
+proxy("bizFuelStationOnSale",              "bizFuelStationOnSale"         );
+proxy("bizFuelStationOnSaleToCity",        "bizFuelStationOnSaleToCity"   );
+
 // Telephone
 proxy("PhoneCallGUI",               "PhoneCallGUI"                      );
 

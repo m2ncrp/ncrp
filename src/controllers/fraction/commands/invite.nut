@@ -108,6 +108,10 @@ cmd("invites", "accept", function(playerid, invitation = -1) {
 
     local invite = invites[playerid][invitation];
 
+    if(invite.fraction.shortcut == "gov" && getPlayerBizCount(playerid) > 0) {
+        return msg(playerid, "fraction.invite.bizman-declined", CL_ERROR);
+    }
+
     //if (!fractions.has(invite.fraction.shortcut)) {
     //    invites[playerid].remove(invitation);
     //    return msg(playerid, "fraction.accept.fractionnotexist", CL_ERROR);

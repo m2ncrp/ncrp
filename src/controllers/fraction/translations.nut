@@ -17,6 +17,9 @@ alternativeTranslate({
 "en|fraction.invite.alreadyinfraction"      :   "You can't invite player, who already in fraction!"
 "ru|fraction.invite.alreadyinfraction"      :   "Нельзя пригласить игрока, который уже во фракции!"
 
+"en|fraction.invite.bizman-declined"        :   "Business owners can't be member of government."
+"ru|fraction.invite.bizman-declined"        :   "Владельцы бизнеса не могут состоять в правительстве."
+
 "en|fraction.chat.noempty"                  :   "You can't send an empty message"
 "ru|fraction.chat.noempty"                  :   "Вы не можете отправить пустое сообщение."
 

@@ -11,6 +11,12 @@ local buttons = array(5);
 local decor = array(8);
 local titles = array(2);
 
+local buttonLock = false;
+
+local stationName;
+local stationState;
+local lang;
+
 local saveButton;
 local actionButton;
 local saleButton;
@@ -22,7 +28,7 @@ local purchaseAmountInput;
 local purchasePriceInput;
 local stateLabel;
 local closeWindowButton;
-local salePriceInput;
+local saleBizPriceInput;
 
 
 local windowWidth = 418.0;
@@ -45,7 +51,7 @@ local TRANSLATIONS = {
       "opened" : "Opened",
       "closed" : "Closed",
       "onsale" : "Sale",
-  
+
       "actionButton": {
         "opened" : "Close",
         "closed" : "Open",
@@ -65,8 +71,11 @@ local TRANSLATIONS = {
     }
 }
 
-function showFuelStaionGUI(dataSrc){
+function showFuelStationGUI(dataSrc){
     local data = compilestring.call(getroottable(), format("return %s", dataSrc))();
+    stationName = data.stationName;
+    stationState = data.state;
+    lang = data.lang;
     if(window) {//if widow created
         guiSetVisible(window, true);
         delayedFunction(5, function() {
@@ -76,13 +85,14 @@ function showFuelStaionGUI(dataSrc){
           guiSetText(purchasePriceInput, data.priceIn);
           guiSetText(stateLabel, TRANSLATIONS[data.lang][data.state]);
           guiSetText(actionButton, TRANSLATIONS[data.lang].actionButton[data.state]);
-          guiSetText(label[6], "Продать городу за $"+(data.baseprice.tofloat() * 0.8)+" сейчас");
+          guiSetText(saleBizPriceInput, data.saleprice);
+          guiSetText(label[6], "Продать городу за $ "+data.saleToCityPrice+" сейчас");
           guiSetText(titles[0], "Продажа");
         });
 
         showCursor(true);
     } else {
-        window = guiCreateElement(ELEMENT_TYPE_WINDOW, "Автозаправка "+data.name, screen[0]/2 - 140, screen[1]/2 - windowHeight/2, windowWidth, windowHeight);
+        window = guiCreateElement(ELEMENT_TYPE_WINDOW, "Автозаправка "+data.name, screen[0]/2 - windowWidth/2, screen[1]/2 - windowHeight/2, windowWidth, windowHeight);
         decor[0] = createElem(window, 13, "dot.jpg", windowWidth/2, 22.0, 1.0, 75.0);
         decor[1] = createElem(window, 13, "shadow.jpg", windowWidth/2 + 1, 22.0, 1.0, 75.0);
         titles[0] = createElem(window, ELEMENT_TYPE_LABEL, "Продажа", windowWidth/4 - 25.0, 20.0, 100.0, 20.0);
@@ -116,12 +126,11 @@ function showFuelStaionGUI(dataSrc){
 
         // Строка выставления на продажу
         label[5] = createElem(window, ELEMENT_TYPE_LABEL, "Выставить на продажу за", 40.0, y + 35.0, 170.0, 20.0);
-        salePriceInput = createElem(window, ELEMENT_TYPE_EDIT, data.saleprice, 180.0, y + 36.0, 50.0, 20.0);
+        saleBizPriceInput = createElem(window, ELEMENT_TYPE_EDIT, data.saleprice, 180.0, y + 36.0, 50.0, 20.0);
         saleButton = createElem(window, ELEMENT_TYPE_BUTTON, "Выставить", windowWidth/2 + 40.0, y + 35.0, 110.0, 21.0);
 
         // Строка продажи городу
-        local p = data.baseprice.tofloat() * 0.8;
-        label[6] = createElem(window, ELEMENT_TYPE_LABEL, "Продать городу за $"+p+" сейчас", 40.0, y + 60.0, 170.0, 20.0);
+        label[6] = createElem(window, ELEMENT_TYPE_LABEL, "Продать городу за $ "+data.saleToCityPrice+" сейчас", 40.0, y + 60.0, 190.0, 20.0);
         saleNowButton = createElem(window, ELEMENT_TYPE_BUTTON, "Продать", windowWidth/2 + 40.0, y + 60.0, 110.0, 21.0);
 
         // Разделитель
@@ -145,6 +154,13 @@ function showFuelStaionGUI(dataSrc){
         // buttons[3] = createElem(window, ELEMENT_TYPE_BUTTON, "Снять всё",       windowWidth/2 + 5.0, 202.0, 115.0, 30.0);
         // label[2]   = createElem(window ELEMENT_TYPE_LABEL, "", windowWidth/2 - 90.0, 238.0, 180.0, 20.0);
 
+        if(data.state == "onsale") {
+            // for onsale
+            guiSetVisible(label[5], false);
+            guiSetVisible(saleBizPriceInput, false);
+            guiSetVisible(saleButton, false);
+        }
+
         guiSetAlwaysOnTop(decor[0], true);
         guiSetAlwaysOnTop(decor[1], true);
         guiSetMovable(window,false);
@@ -153,7 +169,7 @@ function showFuelStaionGUI(dataSrc){
         showCursor(true);
     }
 }
-addEventHandler("showFuelStaionGUI", showFuelStaionGUI)
+addEventHandler("showFuelStationGUI", showFuelStationGUI)
 /*
 addEventHandler("bankSetErrorText", function(text){
     if(window){
@@ -179,31 +195,54 @@ function hideFuelStaionGUI(){
 addEventHandler("hideFuelStaionGUI", hideFuelStaionGUI);
 
 addEventHandler( "onGuiElementClick", function(element) {
-    //if(element == input[1] && strip(guiGetText(input[1])) == labelTextEnterAmount){
-    //    guiSetText(input[1], "");
-    //    guiSetText(label[2], "");
-    //}
-    // Deposit amount
-    //if(element == buttons[0]){
-    //    triggerServerEvent("bankPlayerDeposit", strip(guiGetText(input[1])));
-    //    guiSetText(input[1], labelTextEnterAmount);
-    //}
+    if(buttonLock) return;
+    buttonLock = true;
+    delayedFunction(1000, function() {
+        buttonLock = false;
+    })
+    // 1. save price, priceIn, amountIn
+    // 2. money deposit, money withdraw
+    // 3. changeStatus
+    // 4. onSalse
+    // 5. saleNow
+    log("onGuiElementClick")
 
-    // Withdraw amount
-    //if(element == buttons[1]){
-    //    triggerServerEvent("bankPlayerWithdraw", strip(guiGetText(input[1])));
-    //    guiSetText(input[1], labelTextEnterAmount);
-    //}
 
-    // Deposit all
-    //if(element == buttons[2]){
-    //    triggerServerEvent("bankPlayerDeposit", "all");
-    //}
+    if(element == saveButton){
+        triggerServerEvent("bizFuelStationSave", stationName, guiGetText(salePriceInput), guiGetText(purchaseAmountInput), guiGetText(purchasePriceInput));
+    }
 
-    // Withdraw all
-    //if(element == buttons[3]){
-    //    triggerServerEvent("bankPlayerWithdraw", "all");
-    //}
+    if(element == actionButton){
+        if(stationState == "opened" || stationState == "onsale") {
+            stationState = "closed";
+            triggerServerEvent("bizFuelStationClose", stationName);
+
+            // for onsale -> closed
+            guiSetVisible(label[5], true);
+            guiSetVisible(saleBizPriceInput, true);
+            guiSetVisible(saleButton, true);
+        } else if(stationState == "closed") {
+            stationState = "opened";
+            triggerServerEvent("bizFuelStationOpen", stationName);
+        }
+
+        guiSetText(actionButton, TRANSLATIONS[lang].actionButton[stationState]);
+        guiSetText(stateLabel, TRANSLATIONS[lang][stationState]);
+    }
+
+    if(element == saleButton) {
+        stationState = "onsale";
+        guiSetText(actionButton, TRANSLATIONS[lang].actionButton[stationState]);
+        guiSetText(stateLabel, TRANSLATIONS[lang][stationState]);
+        triggerServerEvent("bizFuelStationOnSale", stationName, guiGetText(saleBizPriceInput));
+        guiSetVisible(label[5], false);
+        guiSetVisible(saleBizPriceInput, false);
+        guiSetVisible(saleButton, false);
+    }
+
+    if(element == saleNowButton) {
+        triggerServerEvent("bizFuelStationOnSaleToCity", stationName);
+    }
 
     if(element == closeWindowButton){
         hideFuelStaionGUI();

@@ -148,3 +148,8 @@ function alert(playerid, message, params = [], lines = 2) {
     if (DEBUG) dbg("alert", getIdentity(playerid), plocalize(playerid, message, params));
     return trigger(playerid, "onAlert", plocalize(playerid, "error.title"), plocalize(playerid, message, params), lines)
 }
+
+function info(playerid, title, message, params = [], lines = 2) {
+    if (DEBUG) dbg("info", getIdentity(playerid), plocalize(playerid, message, params));
+    return trigger(playerid, "onAlert", title, plocalize(playerid, message, params), lines)
+}

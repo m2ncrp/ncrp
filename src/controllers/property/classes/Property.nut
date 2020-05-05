@@ -10,6 +10,7 @@ class Property extends ORM.JsonEntity {
         ORM.Field.String ({ name = "name" }),
         ORM.Field.Integer({ name = "ownerid" })
         ORM.Field.Float  ({ name = "basePrice" }),
+        ORM.Field.Float  ({ name = "purchaseprice" }),
         ORM.Field.Float  ({ name = "salePrice" }),
         ORM.Field.String ({ name = "state" })
     ];

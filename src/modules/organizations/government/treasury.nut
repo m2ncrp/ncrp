@@ -114,7 +114,7 @@ function addTreasuryMoney(amount) {
 }
 
 
-function subTreasuryMoney(amount, options) {
+function subTreasuryMoney(amount, options = {}) {
     local amount = round(fabs(amount.tofloat()), 2);
     local currentAmount = getTreasuryMoney();
     local newAmount = currentAmount - amount;

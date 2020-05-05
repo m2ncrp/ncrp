@@ -5,7 +5,7 @@ local TITLE_DRAW_DISTANCE = 10.0;
 local FUEL_RADIUS = 3.0;
 local FUEL_UNLOAD_RADIUS = 25.0;
 
-local FUEL_STATION_LIMIT = 1000.0;
+const FUEL_STATION_LIMIT = 1000.0;
 
 local JERRYCAN_COST = 14.0;
 local JERRYCAN_BUY_RADIUS = 4.0;
@@ -222,6 +222,111 @@ function fuelStationCreatePrivateInteractions(playerid, station) {
         privateKey(playerid, "e", "fuelJerrycanBuy", fuelJerrycanBuy);
         privateKey(playerid, "e", "fuelVehicleOrJerrycanUp", fuelVehicleOrJerrycanUp);
     }
+
+    if(stationState == "onsale") {
+        privateKey(playerid, "e", "fuelStationOnSale", fuelStationOnSale);
+    }
+}
+
+function fuelStationOnSale(playerid) {
+    local charid = getCharacterIdFromPlayerId(playerid);
+    local stationName = getFuelStationCache(charid).name;
+
+    if(!stationName) return;
+
+    local stationCoords = getFuelStationCoordsByName(stationName);
+
+    if (!isInRadius(playerid, stationCoords.public[0], stationCoords.public[1], stationCoords.public[2], 1.0) ) {
+        return;
+    }
+
+    local station = getFuelStationEntity(stationName);
+
+    if(charid == station.ownerid) {
+               msg(playerid, "Вы - владелец этой автозаправки.", CL_SUCCESS);
+        /*return*/ msg(playerid, "Управление автозаправкой находится внутри помещения.", CL_GRAY);
+    }
+
+    local amount = (station.ownerid == -1) ? station.baseprice : getFuelStationSalePrice(station);
+
+    msgh(playerid, "Покупка автозаправки", [
+        "Вы можете приобрести эту автозаправку.",
+        format("На балансе: $ %.2f", station.data.money),
+        format("Неплаченный налог: $ %.2f", station.data.tax),
+        format("Цена: $ %.2f", station.ownerid == -1 ? station.baseprice : station.saleprice),
+        format("Итого: $ %.2f", amount),
+        "Купить: /biz buy"
+    ]);
+}
+
+cmd("biz", "buy", function(playerid) {
+    local charid = getCharacterIdFromPlayerId(playerid);
+    local stationName = getFuelStationCache(charid).name;
+
+    if(!stationName) {
+               msg(playerid, "Не удалось определить приобретаемый бизнес.", CL_ERROR);
+        return msg(playerid, "Возможно вы находитесь далеко от места покупки.", CL_GRAY);
+    }
+
+    local stationCoords = getFuelStationCoordsByName(stationName);
+
+    if (!isInRadius(playerid, stationCoords.public[0], stationCoords.public[1], stationCoords.public[2], 1.0) ) {
+        return;
+    }
+
+    local station = getFuelStationEntity(stationName);
+
+    if(charid == station.ownerid) {
+               msg(playerid, "Вы - владелец этой автозаправки.", CL_SUCCESS);
+        return msg(playerid, "Управление автозаправкой находится внутри помещения.", CL_GRAY);
+    }
+
+    if(!isPlayerAdmin(playerid) && isPlayerFractionMember(playerid, "gov")) {
+        return msg(playerid, "business.fuelStation.gov-declined", CL_ERROR);
+    }
+
+    local amount = (station.ownerid == -1) ? station.baseprice : getFuelStationSalePrice(station);
+
+    if (!canMoneyBeSubstracted(playerid, amount)) {
+        return msg(playerid, "business.fuelStation.money.notenough", [amount], CL_ERROR);
+    }
+
+    subPlayerMoney(playerid, amount);
+    local sellerid = getPlayerIdFromCharacterId(station.ownerid);
+
+    if(station.ownerid != -1) {
+        if(sellerid != -1) {
+            addPlayerDeposit(sellerid, amount);
+            msg(sellerid, "business.fuelStation.sold", [station.name], CL_SUCCESS);
+        } else {
+            getOfflineCharacter(station.ownerid, function(char) {
+                char.deposit += amount;
+                char.save();
+            })
+        }
+    } else {
+        addTreasuryMoney(amount);
+    }
+
+    station.ownerid = charid;
+    station.purchaseprice = station.saleprice;
+    station.saleprice = 0;
+    station.state = "closed";
+    station.save();
+
+    msg(playerid, "business.fuelStation.bought", CL_SUCCESS);
+    msg(playerid, "Управление автозаправкой находится внутри помещения.", CL_GRAY);
+
+    fuelStationReloadPrivateInteractionsForAllAtStation(station);
+
+});
+
+function getFuelStationSalePrice(station) {
+    return station.saleprice + station.data.money - station.data.tax;
+}
+
+function getFuelStationSaleToCityPrice(station) {
+    return station.baseprice * getSettingsValue("saleBizToCityCoef") - station.data.tax;
 }
 
 /* Удалим приватные 3D тексты для персонажа по конкретной заправке */
@@ -239,15 +344,35 @@ function fuelStationRemovePrivateInteractions(playerid, station) {
 
     // Удалим приватные бинды
     logStr("unregistering "+station.name)
-    removePrivateKey(playerid, "e", "fuelJerrycanBuy")
-    removePrivateKey(playerid, "e", "fuelVehicleOrJerrycanUp")
-    removePrivateKey(playerid, "e", "fuelTruckUnload")
-    removePrivateKey(playerid, "e", "fuelStationManage")
+    removePrivateKey(playerid, "e", "fuelJerrycanBuy");
+    removePrivateKey(playerid, "e", "fuelVehicleOrJerrycanUp");
+    removePrivateKey(playerid, "e", "fuelTruckUnload");
+    removePrivateKey(playerid, "e", "fuelStationManage");
+    removePrivateKey(playerid, "e", "fuelStationOnSale");
 
     delete fuelStationCache[charid];
 }
 
+function fuelStationReloadPrivateInteractions(playerid, station) {
+    fuelStationRemovePrivateInteractions(playerid, station);
+    fuelStationCreatePrivateInteractions(playerid, station);
+}
 
+function fuelStationReloadPrivateInteractionsForAllAtStation(station) {
+
+    foreach (playerid, player in players) {
+        local charid = getCharacterIdFromPlayerId(playerid);
+
+        if(!(charid in fuelStationCache)) {
+           continue;
+        }
+
+        if(fuelStationCache[charid].name == station.name) {
+            fuelStationReloadPrivateInteractions(playerid, station)
+        }
+
+    }
+}
 
 // Jerrycan buy
 function fuelJerrycanBuy(playerid) {

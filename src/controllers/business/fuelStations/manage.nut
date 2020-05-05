@@ -1,6 +1,4 @@
 function fuelStationManage(playerid) {
-    dbg("fuelStationManage");
-
     local charid = getCharacterIdFromPlayerId(playerid);
     local stationName = getFuelStationCache(charid).name;
 
@@ -18,27 +16,78 @@ function fuelStationManage(playerid) {
         return;
     }
 
-    msg(playerid, "Hello! It's your fuel station", CL_SUCCESS);
-    msg(playerid, "You can:", CL_SUCCESS);
-    msg(playerid, " - set selling price for fuel: /biz fuel price", CL_SUCCESS);
-    msg(playerid, " - set purchase price for fuel", CL_SUCCESS);
-    msg(playerid, " - set amount of fuel for purchase", CL_SUCCESS);
-    msg(playerid, " - set the fuel station on sale", CL_SUCCESS);
-    msg(playerid, " - temporarily close the fuel station", CL_SUCCESS);
-    msg(playerid, " - sale the fuel station to the city immediately", CL_SUCCESS);
+    local data = {
+        stationName = station.name,
+        amount = station.data.fuel.amount.tostring(),
+        price = station.data.fuel.price.tostring(),
+        amountIn = station.data.fuel.amountIn.tostring(),
+        priceIn = station.data.fuel.priceIn.tostring(),
+        state = station.state,
+        money = station.data.money.tostring(),
+        name = station.name,
+        saleprice = station.saleprice.tostring(),
+        saleToCityPrice = getFuelStationSaleToCityPrice(station).tostring(),
+        baseprice = station.baseprice.tostring(),
+        lang = getPlayerLocale(playerid)
+    }
 
-		local data = {
-			amount = station.data.fuel.amount.tostring(),
-			price = station.data.fuel.price.tostring(),
-			amountIn = station.data.fuel.amountIn.tostring(),
-			priceIn = station.data.fuel.priceIn.tostring(),
-			state = station.state,
-			money = station.data.money.tostring(),
-			name = station.name,
-			saleprice = station.saleprice.tostring(),
-			baseprice = station.baseprice.tostring(),
-			lang = getPlayerLocale(playerid)
-		}
-
-		trigger(playerid, "showFuelStaionGUI", JSONEncoder.encode(data));
+    trigger(playerid, "showFuelStationGUI", JSONEncoder.encode(data));
 }
+
+
+event("bizFuelStationSave", function(playerid, stationName, salePrice, purchaseAmount, purchasePrice) {
+    salePrice = salePrice.tofloat();
+    purchaseAmount = purchaseAmount.tofloat()
+    purchasePrice = purchasePrice.tofloat();
+
+    local station = getFuelStationEntity(stationName);
+    station.data.fuel.price = salePrice;
+    station.data.fuel.amountIn = purchaseAmount;
+    station.data.fuel.priceIn = purchasePrice;
+    station.save();
+    fuelStationReloadPrivateInteractionsForAllAtStation(station)
+    info(playerid, "Уведомление", "Изменения сохранены");
+})
+
+event("bizFuelStationClose", function(playerid, stationName) {
+    local station = getFuelStationEntity(stationName);
+    station.state = "closed";
+    station.save();
+    fuelStationReloadPrivateInteractionsForAllAtStation(station);
+})
+
+event("bizFuelStationOpen", function(playerid, stationName) {
+    local station = getFuelStationEntity(stationName);
+    station.state = "opened";
+    station.save();
+    fuelStationReloadPrivateInteractionsForAllAtStation(station);
+})
+
+event("bizFuelStationOnSale", function(playerid, stationName, price) {
+    local station = getFuelStationEntity(stationName);
+    station.state = "onsale";
+    station.saleprice = price.tofloat();
+    station.save();
+    fuelStationReloadPrivateInteractionsForAllAtStation(station);
+})
+
+event("bizFuelStationOnSaleToCity", function(playerid, stationName) {
+    local station = getFuelStationEntity(stationName);
+    local amount = getFuelStationSaleToCityPrice(station);
+    if(station.data.money > 0) {
+        return alert(playerid, "Баланс автозаправки должен быть равен 0.")
+    }
+    if(getTreasuryMoney() < amount) {
+        return alert(playerid, "В данный момент город не может выкупить\r\nавтозаправку обратно.", [], 2)
+    }
+    triggerClientEvent(playerid, "hideFuelStaionGUI");
+    addPlayerMoney(playerid, amount);
+    subTreasuryMoney(amount);
+    station.state = "onsale";
+    station.ownerid = -1;
+    station.saleprice = 0;
+    station.data.tax = 0;
+    station.save();
+    msg(playerid, "business.fuelStation.sold", [stationName], CL_SUCCESS);
+    fuelStationReloadPrivateInteractionsForAllAtStation(station);
+})

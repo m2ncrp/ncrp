@@ -13,3 +13,12 @@ function loadBusiness(business) {
 function getBusiness() {
     return businesses;
 }
+
+function getPlayerBizCount(playerid) {
+    local charid = getCharacterIdFromPlayerId(playerid);
+    local count = 0;
+    foreach(idx, biz in businesses) {
+        if (biz.ownerid == charid) count++;
+    }
+    return count;
+}

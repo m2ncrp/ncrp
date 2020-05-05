@@ -59,6 +59,11 @@ function settingsLoadedDataRead() {
                     desc = "Базовая стоимость галона топлива",
                     value = "0.12",
                 },
+                {
+                    name = "saleBizToCityCoef",
+                    desc = "Коэффициент продажи недвижимости городу",
+                    value = "0.8",
+                },
             ];
 
             foreach(i, item in items) {
