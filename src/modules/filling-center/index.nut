@@ -138,8 +138,8 @@ function fillingCenterLoad(playerid) {
         return msg(playerid, "fillingcenter.stop-engine", CL_ERROR);
     }
 
-    if(!isPlayerFractionMember(playerid, "gov")) {
-        return msg(playerid, "fillingcenter.driving", CL_ERROR);
+    if(!isPlayerAdmin(playerid) && isPlayerFractionMember(playerid, "gov")) {
+        return msg(playerid, "fillingcenter.gov-declined", CL_ERROR);
     }
 
     local veh = getVehicleEntity(vehicleid);

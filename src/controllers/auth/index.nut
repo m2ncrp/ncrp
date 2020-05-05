@@ -250,7 +250,6 @@ function showIdentificationGui(playerid, delay = 2000) {
 }
 
 function introUISetter(playerid) {
-    dbg("introUISetter")
     screenFadein(playerid, 0);
 
     local defaultSpawn = getDefaultSpawn();
