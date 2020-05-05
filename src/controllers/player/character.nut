@@ -228,3 +228,19 @@ function validateAndUpdateCharacter(playerid, character, firstname, lastname, na
 
     return true;
 }
+
+function getOfflineCharacter(characterid, callbackFn) {
+    local callback = function(err, target_character) {
+        if (!xPlayers.has(characterid)) {
+            xPlayers.add(characterid, target_character);
+        }
+
+        callbackFn(target_character)
+    };
+
+    if (xPlayers.has(characterid)) {
+        callback(null, xPlayers[characterid]);
+    } else {
+        Character.findOneBy({ id = characterid }, callback);
+    }
+}
