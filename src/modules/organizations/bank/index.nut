@@ -99,7 +99,6 @@ function bankGetPlayerDeposit(playerid) {
     return formatMoney(players[playerid].deposit);
 }
 
-
 function canBankMoneyBeSubstracted(playerid, amount) {
     local amount = round(fabs(amount.tofloat()), 2);
     return (players[playerid].deposit >= amount);
@@ -111,6 +110,8 @@ function addMoneyToDeposit(playerid, amount) {
     players[playerid].deposit = new_amount;
     dbg("[DEPOSIT] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> +"+format("%.2f", amount)+" dollars. Was: $"+format("%.2f", old_amount)+". Now: $"+format("%.2f", new_amount));
 }
+
+addPlayerDeposit <- addMoneyToDeposit;
 
 function subMoneyToDeposit(playerid, amount) {
     local old_amount = players[playerid].deposit;
