@@ -332,6 +332,8 @@ proxy("bizFuelStationOpen",                "bizFuelStationOpen"           );
 proxy("bizFuelStationClose",               "bizFuelStationClose"          );
 proxy("bizFuelStationOnSale",              "bizFuelStationOnSale"         );
 proxy("bizFuelStationOnSaleToCity",        "bizFuelStationOnSaleToCity"   );
+proxy("bizFuelStationOnAddBalanceMoney",   "bizFuelStationOnAddBalanceMoney" );
+proxy("bizFuelStationOnSubBalanceMoney",   "bizFuelStationOnSubBalanceMoney" );
 
 // Telephone
 proxy("PhoneCallGUI",               "PhoneCallGUI"                      );

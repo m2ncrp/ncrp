@@ -16,6 +16,10 @@ function fuelStationManage(playerid) {
         return;
     }
 
+    trigger(playerid, "showFuelStationGUI", getFuelStaionDataGUI(playerid, station));
+}
+
+function getFuelStaionDataGUI(playerid, station) {
     local data = {
         stationName = station.name,
         amount = station.data.fuel.amount.tostring(),
@@ -31,9 +35,8 @@ function fuelStationManage(playerid) {
         lang = getPlayerLocale(playerid)
     }
 
-    trigger(playerid, "showFuelStationGUI", JSONEncoder.encode(data));
+    return JSONEncoder.encode(data);
 }
-
 
 event("bizFuelStationSave", function(playerid, stationName, salePrice, purchaseAmount, purchasePrice) {
     salePrice = salePrice.tofloat();
@@ -90,4 +93,34 @@ event("bizFuelStationOnSaleToCity", function(playerid, stationName) {
     station.save();
     msg(playerid, "business.fuelStation.sold", [stationName], CL_SUCCESS);
     fuelStationReloadPrivateInteractionsForAllAtStation(station);
+})
+
+event("bizFuelStationOnAddBalanceMoney", function(playerid, stationName, amount) {
+    local station = getFuelStationEntity(stationName);
+    amount = amount.tofloat();
+
+    if (!canMoneyBeSubstracted(playerid, amount)) {
+        return alert(playerid, "У вас нет такой суммы денег");
+    }
+
+    station.data.money += amount;
+    subPlayerMoney(playerid, amount);
+    triggerClientEvent(playerid, "redrawFuelStationGUI", getFuelStaionDataGUI(playerid, station));
+    station.save();
+})
+
+
+event("bizFuelStationOnSubBalanceMoney", function(playerid, stationName, amount) {
+    local station = getFuelStationEntity(stationName);
+    amount = amount.tofloat();
+
+    if(station.data.money < amount) {
+        return alert(playerid, "На балансе автозаправки нет такой суммы.")
+    }
+
+    station.data.money -= amount;
+    addPlayerMoney(playerid, amount);
+    triggerClientEvent(playerid, "redrawFuelStationGUI", getFuelStaionDataGUI(playerid, station));
+    station.save();
+
 })

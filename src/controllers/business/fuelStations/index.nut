@@ -2,7 +2,7 @@ include("controllers/business/fuelStations/translations.nut");
 include("controllers/business/fuelStations/translations-cyr.nut");
 
 local TITLE_DRAW_DISTANCE = 10.0;
-local FUEL_RADIUS = 3.0;
+local FUEL_RADIUS = 2.0;
 local FUEL_UNLOAD_RADIUS = 25.0;
 
 const FUEL_STATION_LIMIT = 1000.0;
@@ -236,7 +236,7 @@ function fuelStationOnSale(playerid) {
 
     local stationCoords = getFuelStationCoordsByName(stationName);
 
-    if (!isInRadius(playerid, stationCoords.public[0], stationCoords.public[1], stationCoords.public[2], 1.0) ) {
+    if (!isInRadius(playerid, stationCoords.public[0], stationCoords.public[1], stationCoords.public[2], FUEL_RADIUS) ) {
         return;
     }
 
@@ -270,7 +270,7 @@ cmd("biz", "buy", function(playerid) {
 
     local stationCoords = getFuelStationCoordsByName(stationName);
 
-    if (!isInRadius(playerid, stationCoords.public[0], stationCoords.public[1], stationCoords.public[2], 1.0) ) {
+    if (!isInRadius(playerid, stationCoords.public[0], stationCoords.public[1], stationCoords.public[2], FUEL_RADIUS) ) {
         return;
     }
 
@@ -483,7 +483,7 @@ function fuelVehicleUp(playerid) {
             msg(playerid, "business.fuelStation.fuel.payed", [cost, formatGallons(gallons)], CL_CHESTNUT2);
         }
         setVehicleState(vehicleid, "free");
-        setVehicleFuel(vehicleid, getVehicleFuel(vehicleid) + gallons);
+        setVehicleFuel(vehicleid, (getVehicleFuelEx(vehicleid) + gallons) * LITRES_PER_GALLON);
     });
 }
 

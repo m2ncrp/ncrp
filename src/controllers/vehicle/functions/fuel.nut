@@ -40,7 +40,7 @@ function restoreVehicleFuel(vehicleid) {
  */
 function getVehicleFuelEx(vehicleid) {
     if (vehicleid in __vehicles) {
-        return __vehicles[vehicleid].fuel;
+        return __vehicles[vehicleid].fuel * GALLONS_PER_LITRE;
     }
 
     return 0;
@@ -61,7 +61,7 @@ function getDefaultVehicleFuel(vehicleid) {
  * @return {Float}
  */
 function getDefaultVehicleModelFuel(modelid) {
-    return (("model_" + modelid) in vehicleInfo) ? vehicleInfo["model_" + modelid].tank : VEHICLE_FUEL_DEFAULT;
+    return ((("model_" + modelid) in vehicleInfo) ? vehicleInfo["model_" + modelid].tank : VEHICLE_FUEL_DEFAULT) * GALLONS_PER_LITRE;
 }
 
 /**

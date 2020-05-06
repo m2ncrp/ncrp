@@ -17,6 +17,11 @@ local stationName;
 local stationState;
 local lang;
 
+local moneyLabel;
+local moneyInput;
+local moneyAddButton;
+local moneySubButton;
+
 local saveButton;
 local actionButton;
 local saleButton;
@@ -32,7 +37,7 @@ local saleBizPriceInput;
 
 
 local windowWidth = 418.0;
-local windowHeight = 312.0;
+local windowHeight = 342.0;
 local labelTextEnterAmount = "Укажите сумму";
 
 function createElem(window, type, text, x, y, W, H) {
@@ -87,6 +92,7 @@ function showFuelStationGUI(dataSrc){
           guiSetText(actionButton, TRANSLATIONS[data.lang].actionButton[data.state]);
           guiSetText(saleBizPriceInput, data.saleprice);
           guiSetText(label[6], "Продать городу за $ "+data.saleToCityPrice+" сейчас");
+          guiSetText(moneyLabel, "Баланс: $ "+data.money);
           guiSetText(titles[0], "Продажа");
         });
 
@@ -113,7 +119,14 @@ function showFuelStationGUI(dataSrc){
         decor[2] = createElem(window, 13, "dot.jpg", 0, 140.0, windowWidth, 1.0);
         decor[3] = createElem(window, 13, "shadow.jpg", 0, 141.0, windowWidth, 1.0);
 
-        local y = 170;
+
+        moneyLabel = createElem(window, ELEMENT_TYPE_LABEL, "Баланс: $ "+data.money, windowWidth/2 - 40.0, 145.0, 80.0, 20.0);
+        moneyInput = createElem(window, ELEMENT_TYPE_EDIT, "0",  windowWidth/2 - 25.0, 170.0, 50.0, 20.0);
+
+        moneyAddButton = createElem(window, ELEMENT_TYPE_BUTTON, "Добавить", windowWidth/2 - 30.0 - 100.0, 170.0, 100.0, 21.0);
+        moneySubButton = createElem(window, ELEMENT_TYPE_BUTTON, "Забрать", windowWidth/2 + 30.0, 170.0, 100.0, 21.0);
+
+        local y = 200;
 
         // Разделитель
         decor[4] = createElem(window, 13, "dot.jpg", 0, y, windowWidth, 1.0);
@@ -126,7 +139,7 @@ function showFuelStationGUI(dataSrc){
 
         // Строка выставления на продажу
         label[5] = createElem(window, ELEMENT_TYPE_LABEL, "Выставить на продажу за", 40.0, y + 35.0, 170.0, 20.0);
-        saleBizPriceInput = createElem(window, ELEMENT_TYPE_EDIT, data.saleprice, 180.0, y + 36.0, 50.0, 20.0);
+        saleBizPriceInput = createElem(window, ELEMENT_TYPE_EDIT, data.saleprice, windowWidth/2 - 25.0, y + 36.0, 50.0, 20.0);
         saleButton = createElem(window, ELEMENT_TYPE_BUTTON, "Выставить", windowWidth/2 + 40.0, y + 35.0, 110.0, 21.0);
 
         // Строка продажи городу
@@ -170,19 +183,9 @@ function showFuelStationGUI(dataSrc){
     }
 }
 addEventHandler("showFuelStationGUI", showFuelStationGUI)
-/*
-addEventHandler("bankSetErrorText", function(text){
-    if(window){
-        guiSetText( label[2], text);
-    }
-})
 
-addEventHandler("bankUpdateBalance", function(balance){
-    if(window){
-        guiSetText( label[0], "Баланс: $" + balance);
-    }
-})
-*/
+addEventHandler("redrawFuelStationGUI", showFuelStationGUI)
+
 function hideCursor() {
     showCursor(false);
 }
@@ -242,6 +245,16 @@ addEventHandler( "onGuiElementClick", function(element) {
 
     if(element == saleNowButton) {
         triggerServerEvent("bizFuelStationOnSaleToCity", stationName);
+    }
+
+    if(element == moneyAddButton) {
+        triggerServerEvent("bizFuelStationOnAddBalanceMoney", stationName, guiGetText(moneyInput));
+        guiSetText(moneyInput, "0");
+    }
+
+    if(element == moneySubButton) {
+        triggerServerEvent("bizFuelStationOnSubBalanceMoney", stationName, guiGetText(moneyInput));
+        guiSetText(moneyInput, "0");
     }
 
     if(element == closeWindowButton){
