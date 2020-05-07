@@ -2,7 +2,7 @@ include("controllers/auth/classes/Account.nut");
 
 alternativeTranslate({
     "en|auth.forgot"           : "I forgot my login/password"
-    "ru|auth.forgot"           : "Я забыл логин/пароль"
+    "ru|auth.forgot"           : "Не помню логин/пароль/e-mail"
 
     "en|auth.forgot.found"     : "Your login: %s"
     "ru|auth.forgot.found"     : "Ваш логин: %s"
@@ -35,6 +35,7 @@ alternativeTranslate({
  * @return {Boolean}
  */
 function showForgotGUI(playerid) {
+
     local window    = plocalize(playerid, "auth.GUI.TitleLogin");
     local label     = plocalize(playerid, "auth.GUI.TitleLabelLogin", [getPlayerName(playerid)]);
     local input     = plocalize(playerid, "auth.GUI.TitleInputLogin");
@@ -42,9 +43,8 @@ function showForgotGUI(playerid) {
     local helpText  = plocalize(playerid, "auth.haveproblems");
     local forgotText  = plocalize(playerid, "auth.forgot");
 
-    trigger(playerid, "destroyAuthGUI");
-
     screenFadein(playerid, 500, function() {
+        trigger(playerid, "destroyAuthGUI");
         trigger(playerid, "showForgotGUI", getPlayerLocale(playerid), forgotText);
         screenFadeout(playerid, 250);
     });
@@ -62,8 +62,9 @@ event("onPlayerShowForgotGUI", function(playerid) {
  */
 function hideForgotGUI(playerid) {
 
-    trigger(playerid, "destroyForgotGUI");
+
     screenFadein(playerid, 500, function() {
+        trigger(playerid, "destroyForgotGUI");
         showIdentificationGui(playerid, 0);
         screenFadeout(playerid, 250);
     });

@@ -25,6 +25,8 @@ local shadow = array(2);
 
 local searchCount = 0;
 
+local buttonLock = false;
+
 local tr = {
     "en" : {
         "rememberEmail": "I remember email"
@@ -218,6 +220,11 @@ addEventHandler("onChangedPassword", onChangedPassword);
 
 
 addEventHandler("onGuiElementClick",function(element) {
+    if(buttonLock) return;
+    buttonLock = true;
+    delayedFunction(1500, function() {
+        buttonLock = false;
+    })
 
     // Search
     if(element == button[0]) {

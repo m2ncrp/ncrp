@@ -192,7 +192,13 @@ addEventHandler("changeAuthLanguage", function(lwindow, llabel, linput, lbutton,
     }
 });
 
-addEventHandler( "onGuiElementClick",function(element){ //this shit need some refactor
+addEventHandler( "onGuiElementClick",function(element) {
+    if(buttonLock) return;
+    buttonLock = true;
+    delayedFunction(1500, function() {
+        buttonLock = false;
+    })
+
     if(element == button[0]){
         if(isAuth) {
             buttonLoginClick();
@@ -243,11 +249,6 @@ addEventHandler( "onGuiElementClick",function(element){ //this shit need some re
  * Trigger button login click
  */
 function buttonLoginClick() {
-    if(buttonLock) return;
-    buttonLock = true;
-    delayedFunction(1000, function() {
-        buttonLock = false;
-    })
     local password = guiGetText(input[0]);
     if(password.len() > 0){
         triggerServerEvent("loginGUIFunction", password);
