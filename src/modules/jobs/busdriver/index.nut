@@ -9,7 +9,7 @@ local routes = {};
 
 local RADIUS_BUS = 2.0;
 local RADIUS_BUS_SMALL = 1.0;
-local RADIUS_BUS_STOP = 1.0;
+local RADIUS_BUS_STOP = 2.0;
 local BUS_JOB_X = -422.731;
 local BUS_JOB_Y = 479.372;
 local BUS_JOB_Z = 0.10922;
