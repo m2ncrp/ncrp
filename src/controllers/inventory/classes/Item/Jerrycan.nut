@@ -23,19 +23,19 @@ class Item.Jerrycan extends Item.Abstract
             return msg(playerid, "canister.use.fueltankfull", CL_THUNDERBIRD);
         }
 
-        local fuel = 0;
-        local needFuel = getVehicleFuelNeed(vehicleid);
-        if(this.amount > needFuel) {
-            fuel = needFuel;
+        local gallons = 0;
+        local needGallons = getVehicleFuelNeed(vehicleid);
+        if(this.amount > needGallons) {
+            gallons = needGallons;
         } else {
-            fuel = this.amount;
+            gallons = this.amount;
         }
-        setVehicleFuel(vehicleid, getVehicleFuelEx(vehicleid) + fuel);
-        this.amount -= fuel;
+        setVehicleFuel(vehicleid, (getVehicleFuelEx(vehicleid) + gallons) * LITRES_PER_GALLON);
+        this.amount -= gallons;
         this.save();
-        local fuelInGallonsSpent = fuel * GALLONS_PER_LITRE;
-        local fuelInGallonsLost = this.amount * GALLONS_PER_LITRE;
-        msg(playerid, "canister.use.spent", [fuelInGallons, formatGallons(fuelInGallonsSpent), fuelInGallonsLost, formatGallons(fuelInGallonsLost)], CL_SUCCESS);
+        local fuelInGallonsSpent = gallons;
+        local fuelInGallonsLost = this.amount;
+        msg(playerid, "canister.use.spent", [formatGallons(fuelInGallonsSpent), formatGallons(fuelInGallonsLost)], CL_SUCCESS);
         inventory.sync();
     }
 

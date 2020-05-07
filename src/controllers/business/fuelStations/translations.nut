@@ -124,8 +124,8 @@ alternativeTranslate({
     "en|canister.use.farfromvehicle"          : "You are too far from vehicle."
     "ru|canister.use.farfromvehicle"          : "Вы слишком далеко от автомобиля."
 
-    "en|canister.use.spent"                   : "%.2f %s spent. Left %.2f %s."
-    "ru|canister.use.spent"                   : "Вылито %.2f %s. Осталось %.2f %s."
+    "en|canister.use.spent"                   : "%s spent. Left %s."
+    "ru|canister.use.spent"                   : "Вылито %s. Осталось %s."
 
 
     "en|canister.fuelup.needinhands"          : "Take jerrycan in hands."

@@ -19,11 +19,11 @@ local FUELSTATION_COLOR = CL_RIPELEMON;
 local trucksOnQueue = [];
 
 function formatLitres(value) {
-    return value+" "+declOfNum(value, ["литр", "литра", "литров"]);
+    return format("%.2f %s", value, declOfNum(value, ["литр", "литра", "литров"]));
 }
 
 function formatGallons(value) {
-    return value+" "+declOfNum(value, ["галлон", "галлона", "галлонов"]);
+    return format("%.2f %s", value, declOfNum(value, ["галлон", "галлона", "галлонов"]));
 }
 
 local coords = {

@@ -103,7 +103,7 @@ function showFuelStationGUI(dataSrc){
         decor[1] = createElem(window, 13, "shadow.jpg", windowWidth/2 + 1, 22.0, 1.0, 75.0);
         titles[0] = createElem(window, ELEMENT_TYPE_LABEL, "Продажа", windowWidth/4 - 25.0, 20.0, 100.0, 20.0);
         titles[1] = createElem(window, ELEMENT_TYPE_LABEL, "Покупка", windowWidth/2 + windowWidth/4 - 25.0, 20.0, 100.0, 20.0);
-        label[0] = createElem(window, ELEMENT_TYPE_LABEL, "Количество:",                 40.0, 45.0, 70.0, 20.0);
+        label[0] = createElem(window, ELEMENT_TYPE_LABEL, "Количество:",                 40.0, 45.0, 90.0, 20.0);
         label[1] = createElem(window, ELEMENT_TYPE_LABEL, "Цена:",                       40.0, 70.0, 70.0, 20.0);
         label[2] = createElem(window, ELEMENT_TYPE_LABEL, "Количество:", windowWidth/2 + 40.0, 45.0, 70.0, 20.0);
         label[3] = createElem(window, ELEMENT_TYPE_LABEL, "Цена:",       windowWidth/2 + 40.0, 70.0, 70.0, 20.0);
@@ -120,7 +120,7 @@ function showFuelStationGUI(dataSrc){
         decor[3] = createElem(window, 13, "shadow.jpg", 0, 141.0, windowWidth, 1.0);
 
 
-        moneyLabel = createElem(window, ELEMENT_TYPE_LABEL, "Баланс: $ "+data.money, windowWidth/2 - 40.0, 145.0, 80.0, 20.0);
+        moneyLabel = createElem(window, ELEMENT_TYPE_LABEL, "Баланс: $ "+data.money, windowWidth/2 - 40.0, 145.0, 90.0, 20.0);
         moneyInput = createElem(window, ELEMENT_TYPE_EDIT, "0",  windowWidth/2 - 25.0, 170.0, 50.0, 20.0);
 
         moneyAddButton = createElem(window, ELEMENT_TYPE_BUTTON, "Добавить", windowWidth/2 - 30.0 - 100.0, 170.0, 100.0, 21.0);
