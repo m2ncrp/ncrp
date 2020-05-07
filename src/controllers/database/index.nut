@@ -129,7 +129,27 @@ function intializeMySQLDDrivers(conn) {
         }
 
         if (!query) {
-            return error(JSONEncoder.encode([mysql_errno(conn), mysql_error(conn)]));
+            local errno = mysql_errno(conn);
+
+            if (errno == 2006) {
+                dbg("database", "mysql", "connection was dropped, reconnecting...");
+
+                /* fetch settings info */
+                local settings = readMysqlSettings(".mysql");
+
+                /* reconnect */
+                connection = mysql_connect(settings.hostname, settings.username, settings.password, settings.database);
+                conn = connection;
+
+                /* do same query again */
+                query = mysql_query(conn, queryString);
+
+                if (!query) {
+                    return error(JSONEncoder.encode([mysql_errno(conn), mysql_error(conn)]));
+                }
+            } else {
+                return error(JSONEncoder.encode([errno, mysql_error(conn)]));
+            }
         }
 
         local row = {};
