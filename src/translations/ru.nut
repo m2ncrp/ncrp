@@ -528,10 +528,10 @@ alternativeTranslate({
     "ru|hello.1"     : ".:: Работы отмечены на карте серыми звёздами."
 
     "en|hello.2"     : ".:: Open map - key M."
-    "ru|hello.2"     : ".:: Открыть карту - клавиша М (англ)."
+    "ru|hello.2"     : ".:: Открыть карту - клавиша М англ."
 
-    "en|hello.3"     : ".:: Write in chat - key Enter. Show/hide chat - key F5."
-    "ru|hello.3"     : ".:: Сообщение в чат - Enter или T (англ). Показать/скрыть чат - F5."
+    "en|hello.3"     : ".:: Write in chat: key Enter. Show/hide chat - key F5."
+    "ru|hello.3"     : ".:: Написать в чат: Enter или англ. T. Показать/скрыть чат - F5."
 
     "en|hello.4"     : ".:: You can get to the right place by metro, rented or private car."
     "ru|hello.4"     : ".:: Добраться до нужного места можно на метро, арендованном или личном автомобиле."
@@ -541,6 +541,9 @@ alternativeTranslate({
 
     "en|hello.6"     : ".:: Need help? Write in chat: /help"
     "ru|hello.6"     : ".:: Нужна помощь? Напиши в чат: /help"
+
+    "en|hello.start"     : ".:: First time here? Write /start"
+    "ru|hello.start"     : ".:: Впервые на сервере? Пиши /start"
 
     "en|hello.help"     : ".:: Full help menu : /help"
     "ru|hello.help"     : ".:: Подробное меню помощи: /help"
