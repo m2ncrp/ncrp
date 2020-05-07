@@ -19,7 +19,7 @@ event("onServerPlayerStarted", function( playerid ){
     if (account.hasData("showOOC")) {
         local showOOC = account.getData("showOOC");
         antiflood[playerid]["togooc"] = showOOC;
-        if (showOOC == false) {
+        if (players[playerid].xp >= 30 && showOOC == false) {
             msg(playerid, "chat.togoocDisabledAlready", CL_WHITE);
         }
     }
