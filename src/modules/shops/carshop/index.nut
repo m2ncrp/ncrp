@@ -583,6 +583,9 @@ cmd("buy", "car", function(playerid) {
 
     trySaveVehicle(vehicleid)
 
+    local veh = getVehicleEntity(vehicleid);
+    if(veh && !("tax" in veh.data)) veh.data.tax <- 0;
+
     vehicleKey.setData("id", __vehicles[vehicleid].entity.id);
 
     players[playerid].inventory.push( vehicleKey );
