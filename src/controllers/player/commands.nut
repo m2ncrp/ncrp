@@ -1,6 +1,7 @@
 cmd("stats", function(playerid) {
 
     local char = players[playerid];
+    local account = getAccount(playerid);
 
     msgh(playerid, "Информация о персонаже", [
         format("Имя и фамилия: %s", getPlayerName(playerid)),
@@ -9,6 +10,7 @@ cmd("stats", function(playerid) {
         format("Наличных денег: $ %.2f", char.money),
         format("Текущая работа: %s", getLocalizedPlayerJob(playerid)),
         format("Суммарное время в игре: %s", convertMinutesToFormattedString(char.xp)),
+        format("Дата регистрации: %s", epochToHuman(account.created).format("d.m.Y")),
         "Статистика по работам: /stats job"
     ]);
 });
