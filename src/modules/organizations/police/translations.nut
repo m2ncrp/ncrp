@@ -72,7 +72,7 @@ alternativeTranslate({
 "ru|organizations.police.call.withoutaddress"       : "Вы не можете вызвать полицию, не указав адрес."
 
 "en|organizations.police.call.no"                   : "Sorry, all patrols are busy. Call later, please."
-"ru|organizations.police.call.no"                   : "К сожалению, все патрули заняты. Позвоните позднее."
+"ru|organizations.police.call.no"                   : "К сожалению, нет доступных патрулей. Позвоните позднее."
 
 "en|organizations.police.call.new"                  : "[POLICE RADIO] There's situation on %s"
 "ru|organizations.police.call.new"                  : "[POLICE RADIO] Происшествие по адресу: %s"

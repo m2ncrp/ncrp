@@ -114,7 +114,6 @@ event("loginGUIFunction", function(playerid, password) {
         setLastActiveSession(playerid);
 
         // send message success
-        msg(playerid, "auth.success.login", CL_SUCCESS);
         printStartedTips(playerid);
 
         dbg("login", getIdentity(playerid));

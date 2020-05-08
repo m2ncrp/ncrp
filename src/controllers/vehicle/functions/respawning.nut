@@ -137,7 +137,7 @@ function tryRespawnVehicleById(vehicleid, forced = false) {
     if(veh == null) {
         // repair and refuel
         repairVehicle(vehicleid);
-        setVehicleFuel(vehicleid, getDefaultVehicleFuel(vehicleid));
+        setVehicleFuelEx(vehicleid, getDefaultVehicleFuel(vehicleid));
     }
 
     setIndicatorLightState(vehicleid, INDICATOR_LEFT, false);

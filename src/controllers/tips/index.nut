@@ -32,86 +32,86 @@ local infoTips = [
 
 alternativeTranslate({
 
-        "en|tips.money.earn"   :   "[TIPS] You can get money by working. For more info: /help job"
-        "ru|tips.money.earn"   :   "[TIPS] Вы можете зарабатывать деньги, устроившись на работу. Подробнее: /help job"
+        "en|tips.money.earn"   :   "You can get money by working. For more info: /job"
+        "ru|tips.money.earn"   :   "Вы можете зарабатывать деньги, устроившись на работу. Подробнее: /job"
 
-        "en|tips.money.bank"   :   "[TIPS] You can earn money by starting bank deposit. Go to the bank (icon with dollar on the map)."
-        "ru|tips.money.bank"   :   "[TIPS] Вы можете получать доход от депозита в банке (иконка доллара на карте)."
+        "en|tips.money.bank"   :   "You can earn money by starting bank deposit. Go to the bank (icon with dollar on the map)."
+        "ru|tips.money.bank"   :   "Вы можете получать доход от депозита в банке (иконка доллара на карте)."
 
-        "en|tips.car"          :   "[TIPS] You can buy own car at the Diamond Motors (colored icon with car on the map)."
-        "ru|tips.car"          :   "[TIPS] Вы можете купить собственный автомобиль в Diamond Motors (цветная иконка с автомобилем на карте)."
+        "en|tips.car"          :   "You can buy own car at the Diamond Motors (colored icon with car on the map)."
+        "ru|tips.car"          :   "Вы можете купить собственный автомобиль в Diamond Motors (цветная иконка с автомобилем на карте)."
 
-        "en|tips.car.repair"   :   "[TIPS] You can repair your car at the repair shops."
-        "ru|tips.car.repair"   :   "[TIPS] Вы можете починить свой автомобиль в автомастерских."
+        "en|tips.car.repair"   :   "You can repair your car at the repair shops."
+        "ru|tips.car.repair"   :   "Вы можете починить свой автомобиль в автомастерских."
 
-        "en|tips.eat"          :   "[TIPS] You can restore health by eating in the restaurants."
-        "ru|tips.eat"          :   "[TIPS] Вы можете восстанавливать уровень здоровья, покупая еду в ресторанах, барах и закусочных."
+        "en|tips.eat"          :   "You can restore health by eating in the restaurants."
+        "ru|tips.eat"          :   "Вы можете восстанавливать уровень здоровья, покупая еду в ресторанах, барах и закусочных."
 
-        "en|tips.police"       :   "[TIPS] If you see a crime, don't hesitate calling a police from phone booth. Use: /police"
-        "ru|tips.police"       :   "[TIPS] Если вы стали свидетелем преступления - бегите к телефонной будке и вызывайте полицию. Команда: /police"
+        "en|tips.police"       :   "If you see a crime, don't hesitate calling a police from phone booth. Use: /police"
+        "ru|tips.police"       :   "Если вы стали свидетелем преступления - бегите к телефонной будке и вызывайте полицию. Команда: /police"
 
-        "en|tips.hobos"        :   "[TIPS] You can search trash containers and find something in it"
-        "ru|tips.hobos"        :   "[TIPS] Вы можете найти деньги в мусорных контейнерах"
+        "en|tips.hobos"        :   "You can search trash containers and find something in it"
+        "ru|tips.hobos"        :   "Вы можете найти деньги в мусорных контейнерах"
 
-        "en|tips.engine.howto" :   "[TIPS] Do not waste fuel, don't forget to off the engine by press Q button"
-        "ru|tips.engine.howto" :   "[TIPS] Не забывайте экономить топливо, используйте кнопку Q для выключения двигателя."
+        "en|tips.engine.howto" :   "Do not waste fuel, don't forget to off the engine by press Q button"
+        "ru|tips.engine.howto" :   "Не забывайте экономить топливо, используйте кнопку Q для выключения двигателя."
 
-        "en|tips.taxi"         :   "[TIPS] If you need a ride, you can take a taxi from phone booth. Use: /taxi"
-        "ru|tips.taxi"         :   "[TIPS] Если вам нужно куда-то добраться, вы можете вызвать такси из телефонной будки: /taxi"
+        "en|tips.taxi"         :   "If you need a ride, you can take a taxi from phone booth. Use: /taxi"
+        "ru|tips.taxi"         :   "Если вам нужно куда-то добраться, вы можете вызвать такси из телефонной будки: /taxi"
 
-        "en|tips.metro"        :   "[TIPS] Subway is a good way of transportation. Go to the nearest subway station and use: /find subway"
-        "ru|tips.metro"        :   "[TIPS] Метро - это удобный и дешевый способ передвижения. Найдите ближайшую станцию с помощью /find subway"
+        "en|tips.metro"        :   "Subway is a good way of transportation. Go to the nearest subway station and use: /find subway"
+        "ru|tips.metro"        :   "Метро - это удобный и дешевый способ передвижения. Найдите ближайшую станцию с помощью /find subway"
 
-        "en|tips.house"        :   "[TIPS] You can buy a house, just find an estate agent, and settle a deal."
-        "ru|tips.house"        :   "[TIPS] Вы можете купить дом. Найдите риелтора, чтобы заключить сделку."
+        "en|tips.house"        :   "You can buy a house, just find an estate agent, and settle a deal."
+        "ru|tips.house"        :   "Вы можете купить дом. Найдите риелтора, чтобы заключить сделку."
 
-        "en|tips.report"       :   "[TIPS] Saw a cheater? Or player which is braking the rules? Report via: /report ID TEXT"
-        "ru|tips.report"       :   "[TIPS] Увидели читера? Или игрока нарушающего правила? Сообщите администрации: /report ID ТЕКСТ"
+        "en|tips.report"       :   "Saw a cheater? Or player which is braking the rules? Report via: /report id reason"
+        "ru|tips.report"       :   "Увидели читера? Или игрока нарушающего правила? Сообщите администрации: /report id нарушение"
 
-        "en|tips.idea"         :   "[TIPS] You have an idea, suggestion, or question? Let us know via: /idea TEXT"
-        "ru|tips.idea"         :   "[TIPS] У вас есть идея или предложение, сообщите об этом нам, используя команду: /idea ТЕКСТ"
+        "en|tips.idea"         :   "You have an idea, suggestion, or question? Let us know via: /idea TEXT"
+        "ru|tips.idea"         :   "У вас есть идея или предложение, сообщите об этом нам, используя команду: /idea ТЕКСТ"
 
-        "en|tips.discord"      :   "[TIPS] You can follow our development updates on the official discord server: bit.ly/m2ncrp"
-        "ru|tips.discord"      :   "[TIPS] Вы можете следить за новостями разработки на официальном сервере Discord: bit.ly/m2ncrp"
+        "en|tips.discord"      :   "You can follow our development updates on the official discord server: bit.ly/m2ncrp"
+        "ru|tips.discord"      :   "Вы можете следить за новостями разработки на официальном сервере Discord: bit.ly/m2ncrp"
 
-        "en|tips.vk"           :   "[TIPS] Join our group in VK: vk.com/m2ncrp"
-        "ru|tips.vk"           :   "[TIPS] Вступайте в нашу группу ВКонтакте: vk.com/m2ncrp"
+        "en|tips.vk"           :   "Join our group in VK: vk.com/m2ncrp"
+        "ru|tips.vk"           :   "Вступайте в нашу группу ВКонтакте: vk.com/m2ncrp"
 
-        "en|tips.layout"       :   "[TIPS] You can change keyboard layout (all binds will remain on same positions as for qwerty). Use /layout"
-        "ru|tips.layout"       :   "[TIPS] Вы можете сменить раскладку клавиатуры (бинды останутся на прежних местах как для qwerty). См. /layout"
+        "en|tips.layout"       :   "You can change keyboard layout (all binds will remain on same positions as for qwerty). Use /layout"
+        "ru|tips.layout"       :   "Вы можете сменить раскладку клавиатуры (бинды останутся на прежних местах как для qwerty). См. /layout"
 
-        "en|tips.business"     :   "[TIPS] You can purchase any business (while staning near it), via: /business buy"
-        "ru|tips.business"     :   "[TIPS] Вы можете приобрести бизнес. Находясь у бизнеса, напишите команду /business buy"
+        "en|tips.business"     :   "You can purchase any business (while staning near it), via: /business buy"
+        "ru|tips.business"     :   "Вы можете приобрести бизнес. Находясь у бизнеса, напишите команду /business buy"
 
-        "en|tips.sellcar"      :   "[TIPS] You can sell car to other player. Use command /sell"
-        "ru|tips.sellcar"      :   "[TIPS] Вы можете продать свой автомобиль другому игроку. Находясь в авто, используйте команду /sell"
+        "en|tips.sellcar"      :   "You can sell car to other player. Use command /sell"
+        "ru|tips.sellcar"      :   "Вы можете продать свой автомобиль другому игроку. Находясь в авто, используйте команду /sell"
 
-        "en|tips.bugreport"    :   "[TIPS] You can report bugs or errors via /bug TEXT"
-        "ru|tips.bugreport"    :   "[TIPS] Обнаружили ошибку или баг? Напишите нам: /bug ТЕКСТ"
+        "en|tips.bugreport"    :   "You can report bugs or errors via /bug TEXT"
+        "ru|tips.bugreport"    :   "Обнаружили ошибку или баг? Напишите нам: /bug ТЕКСТ"
 
-        "en|tips.openmap"      :   "[TIPS] You can open map - press key M."
-        "ru|tips.openmap"      :   "[TIPS] Вы можете открыть карту города, нажав на клавишу M (английскую)."
+        "en|tips.openmap"      :   "You can open map - press key M."
+        "ru|tips.openmap"      :   "Вы можете открыть карту города, нажав на клавишу M (английскую)."
 
-        "en|tips.switchchats"  :   "[TIPS] Use F1-F3 keys to switch between different types of the chat."
-        "ru|tips.switchchats"  :   "[TIPS] Для переключения между слотами чата используйте клавиши F1-F3."
+        "en|tips.switchchats"  :   "Use F1-F3 keys to switch between different types of the chat."
+        "ru|tips.switchchats"  :   "Для переключения между слотами чата используйте клавиши F1-F3."
 
-        "en|tips.chatvisible"  :   "[TIPS] Press F5 to show/hide window of chat."
-        "ru|tips.chatvisible"  :   "[TIPS] Если вы хотите скрыть чат - нажмите клавишу F5. Повторное нажатие отобразит чат."
+        "en|tips.chatvisible"  :   "Press F5 to show/hide window of chat."
+        "ru|tips.chatvisible"  :   "Если вы хотите скрыть чат - нажмите клавишу F5. Повторное нажатие отобразит чат."
 
-        "en|tips.turnlights"   :   "[TIPS] X - left turn lights; C - right turn lights; H - hazard lights."
-        "ru|tips.turnlights"   :   "[TIPS] X - левый поворотник; C - правый поворотник; H - аварийка."
+        "en|tips.turnlights"   :   "X - left turn lights; C - right turn lights; H - hazard lights."
+        "ru|tips.turnlights"   :   "X - левый поворотник; C - правый поворотник; H - аварийка."
 
-        "en|tips.hat"          :   "[TIPS] Use /hat COUNT for pull a ball from hat, where COUNT balls in hat."
-        "ru|tips.hat"          :   "[TIPS] /hat 5 - вытащить из шляпы один шар из 5 шаров."
+        "en|tips.hat"          :   "Use /hat COUNT for pull a ball from hat, where COUNT balls in hat."
+        "ru|tips.hat"          :   "/hat 5 - вытащить из шляпы один шар из 5 шаров."
 
-        "en|tips.enabled"      :   "[TIPS] Tips has been enabled."
-        "ru|tips.enabled"      :   "[TIPS] Подсказки были включены."
+        "en|tips.enabled"      :   "Tips has been enabled."
+        "ru|tips.enabled"      :   "Подсказки были включены."
 
-        "en|tips.disabled"     :   "[TIPS] Tips has been disabled."
-        "ru|tips.disabled"     :   "[TIPS] Подсказки были выключены."
+        "en|tips.disabled"     :   "Tips has been disabled."
+        "ru|tips.disabled"     :   "Подсказки были выключены."
 
-        "en|tips.disabledAlready"   :   "[TIPS] You have disabled receiving tips. To enable: /tips"
-        "ru|tips.disabledAlready"   :   "[TIPS] У вас отключены подсказки. Включить: /tips"
+        "en|tips.disabledAlready"   :   "You have disabled receiving tips. To enable: /tips"
+        "ru|tips.disabledAlready"   :   "У вас отключены подсказки. Включить: /tips"
 
 });
 

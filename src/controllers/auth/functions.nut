@@ -58,6 +58,7 @@ function showRegisterGUI(playerid, delay = 0) {
 
 function printStartedTips (playerid) {
         // send message success
+        msg(playerid, "auth.success.login", CL_SUCCESS);
         msg(playerid, "");
         msg(playerid, "hello.start", CL_LIGHTGRAY);
         msg(playerid, "");

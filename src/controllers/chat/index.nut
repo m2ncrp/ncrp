@@ -48,6 +48,11 @@ alternativeTranslate({
     "en|antiflood.message"             : "Aniflood: wait a %i seconds."
 
 
+    "ru|newplayer.message1"             : "Общий чат доступен игрокам, которые провели на сервере суммарно больше %d минут."
+    "en|newplayer.message1"             : "General chat is available for players with total online more %d minutes."
+
+    "ru|newplayer.message2"             : "Ваш онлайн: %d %s"
+    "en|newplayer.message2"             : "Your online: %d %s"
 
     "en|chat.player.says"              : "%s: %s"
     "ru|chat.player.says"              : "%s: %s"
@@ -85,12 +90,15 @@ alternativeTranslate({
     "en|chat.player.message.error"     : "[PM] You should provide pm in a following format: /pm id text",
     "ru|chat.player.message.error"     : "[PM] Формат личного сообщения: /pm id текст",
 
-    "en|chat.player.message.private"   : "[PM] %s to %s: %s",
-    "ru|chat.player.message.private"   : "[PM] %s пишет %s: %s"
+
+    "en|chat.player.message.private.from" : "[PM] You to %s: %s",
+    "ru|chat.player.message.private.from" : "[PM] Вы пишете %s: %s"
+
+    "en|chat.player.message.private.to"   : "[PM] Message from %s: %s",
+    "ru|chat.player.message.private.to"   : "[PM] Сообщение от %s: %s"
 
     "en|chat.player.message.noplayer"  : "[PM] Player is not connected",
     "ru|chat.player.message.noplayer"  : "[PM] Такого игрока нет на сервере.",
-
 
 
     "en|chat.bug.success"              : "Your bug report is successfuly saved. Thank you!"
@@ -106,8 +114,8 @@ alternativeTranslate({
     "en|chat.report.noplayer"          : "You can't report about player, which is not connected!"
     "ru|chat.report.noplayer"          : "Вы не можете создать репорт на игрока, который находится в оффлайн!"
 
-    "en|chat.report.error"             : "You should provide report in a following format: /report ID TEXT"
-    "ru|chat.report.error"             : "Вам необходимо отправить репорт в виде: /report id text"
+    "en|chat.report.error"             : "You should provide report in a following format: /report id reason"
+    "ru|chat.report.error"             : "Вам необходимо отправить репорт в виде: /report id нарушение"
 
 
 // help

@@ -98,8 +98,8 @@ mcmd(["admin.car"], ["wheels"], function( playerid, wheels = 0 ) {
     if( isPlayerInVehicle( playerid ) )
     {
         local vehicleid = getPlayerVehicle( playerid );
-        setVehicleWheelTexture( vehicleid, 0, wheels );
-        setVehicleWheelTexture( vehicleid, 1, wheels );
+        setVehicleWheelTexture( vehicleid, 0, wheels.tointeger() );
+        setVehicleWheelTexture( vehicleid, 1, wheels.tointeger() );
     }
 });
 
@@ -109,7 +109,7 @@ mcmd(["admin.fix"], ["fix"], function( playerid, targetid = null ) {
     if( targetid )  targetid = targetid.tointeger();
 
     repairVehicle( targetid );
-    setVehicleFuel(targetid, getDefaultVehicleFuel(targetid));
+    setVehicleFuelEx(targetid, getDefaultVehicleFuel(targetid));
     unblockVehicle(targetid)
 });
 

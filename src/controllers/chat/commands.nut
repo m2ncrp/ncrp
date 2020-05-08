@@ -20,7 +20,9 @@ event("onServerPlayerStarted", function( playerid ){
         local showOOC = account.getData("showOOC");
         antiflood[playerid]["togooc"] = showOOC;
         if (players[playerid].xp >= 30 && showOOC == false) {
-            msg(playerid, "chat.togoocDisabledAlready", CL_WHITE);
+            delayedFunction(7000, function() {
+                msg(playerid, "chat.togoocDisabledAlready", CL_CLOUDS);
+            })
         }
     }
 
@@ -28,7 +30,9 @@ event("onServerPlayerStarted", function( playerid ){
         local showPM = account.getData("showPM");
         antiflood[playerid]["togpm"] = showPM;
         if (showPM == false) {
-            msg(playerid, "chat.togpmDisabledAlready", CL_WHITE);
+            delayedFunction(10000, function() {
+                msg(playerid, "chat.togpmDisabledAlready", CL_CLOUDS);
+            })
         }
     }
 

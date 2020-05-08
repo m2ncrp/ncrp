@@ -30,7 +30,7 @@ class Item.Jerrycan extends Item.Abstract
         } else {
             gallons = this.amount;
         }
-        setVehicleFuel(vehicleid, (getVehicleFuelEx(vehicleid) + gallons) * LITRES_PER_GALLON);
+        setVehicleFuelEx(vehicleid, getVehicleFuelEx(vehicleid) + gallons);
         this.amount -= gallons;
         this.save();
         local fuelInGallonsSpent = gallons;

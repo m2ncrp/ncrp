@@ -483,7 +483,7 @@ function fuelVehicleUp(playerid) {
             msg(playerid, "business.fuelStation.fuel.payed", [cost, formatGallons(gallons)], CL_CHESTNUT2);
         }
         setVehicleState(vehicleid, "free");
-        setVehicleFuel(vehicleid, (getVehicleFuelEx(vehicleid) + gallons) * LITRES_PER_GALLON);
+        setVehicleFuelEx(vehicleid, getVehicleFuelEx(vehicleid) + gallons);
     });
 }
 

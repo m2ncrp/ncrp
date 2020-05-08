@@ -187,7 +187,3 @@ event("onServerHourChange", function() {
 
     dbg("gov", "", sum);
 });
-
-function ser() {
-    dbg(hoboses)
-}

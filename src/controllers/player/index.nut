@@ -124,7 +124,7 @@ event("onServerMinuteChange", function() {
         foreach (playerid, character in players) {
             character.xp++;
             if(character.xp == 30) {
-                msg(playerid, "Ты отыграл первые 30 минут. Теперь тебе доступен общий оос-чат.", CL_SUCCESS)
+                msg(playerid, "Ты отыграл первые 30 минут. Теперь тебе доступен общий чат.", CL_SUCCESS)
             }
         }
     }

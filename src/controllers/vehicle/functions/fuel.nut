@@ -47,6 +47,15 @@ function getVehicleFuelEx(vehicleid) {
 }
 
 /**
+ * Set fuel level for vehicle by vehicleid EX
+ * @param  {Integer} vehicleid
+ * @return {Float} level
+ */
+function setVehicleFuelEx(vehicleid, gallons) {
+    setVehicleFuel(vehicleid, gallons * LITRES_PER_GALLON);
+}
+
+/**
  * Get fuel level for vehicle by vehicleid
  * @param  {Integer} vehicleid
  * @return {Float} level

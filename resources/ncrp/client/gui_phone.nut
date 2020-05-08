@@ -35,7 +35,7 @@ function showPhoneGUI (windowText, label0Callto, label1insertNumber, button0Poli
         window =  guiCreateElement( ELEMENT_TYPE_WINDOW, windowText, screen[0]/2 - 100, screen[1]/2 - 125, 200.0, 250.0 );
         label[0]   = guiCreateElement(  ELEMENT_TYPE_LABEL, label0Callto,       50.0,   23.0, 150.0, 20.0, false, window);
         buttons[0] = guiCreateElement(  ELEMENT_TYPE_BUTTON, button0Police,     15.0,   50.0, 170.0, 25.0, false, window);
-        buttons[1] = guiCreateElement(  ELEMENT_TYPE_BUTTON, button1Taxi,       15.0,   80.0, 170.0, 25.0, false, window);
+        // buttons[1] = guiCreateElement(  ELEMENT_TYPE_BUTTON, button1Taxi,       15.0,   80.0, 170.0, 25.0, false, window);
 
         label[1]   = guiCreateElement(  ELEMENT_TYPE_LABEL, label1insertNumber, 52.0,   110.0, 120.0, 20.0, false, window);
 
@@ -49,7 +49,7 @@ delayedFunction(5, function() { //todo fix
         guiSetText( label[0], label0Callto);
         guiSetText( label[1], label1insertNumber);
         guiSetText( buttons[0], button0Police);
-        guiSetText( buttons[1], button1Taxi);
+        // guiSetText( buttons[1], button1Taxi);
         guiSetText( buttons[2], button2Call);
         guiSetText( buttons[3], button3Refuse);
         guiSetText( input[0], input0exampleNumber);
