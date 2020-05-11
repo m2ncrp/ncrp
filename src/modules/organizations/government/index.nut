@@ -1,3 +1,4 @@
+include("modules/organizations/government/classes/ContainerPassportRequests.nut");
 include("modules/organizations/government/passport.nut");
 include("modules/organizations/government/ltc.nut");
 include("modules/organizations/government/tax.nut");
@@ -5,6 +6,7 @@ include("modules/organizations/government/tax.nut");
 include("modules/organizations/government/voting.nut");
 include("modules/organizations/government/treasury.nut");
 include("modules/organizations/government/models/Government.nut");
+include("modules/organizations/government/models/PassportRequest.nut");
 
 local coords = [-122.331, -62.9116, -12.041];
 local SIDEWALK = [-118.966, -73.4, -66.4244, -52.5];
@@ -351,8 +353,10 @@ event("onServerHourChange", function() {
         acts.push(format("Новости часа: %s вступает в силу постановление правительства Эмпайр-Бэй, согласно которому «%s» будет составлять %s.", when, field.desc, convertFieldToString(field.next, field.unit)));
     }
 
-    local rand = random(0, acts.len()-1);
-    sendMsgToRadio(acts[rand]);
+    if(acts.len() > 0) {
+        local rand = random(0, acts.len()-1);
+        sendMsgToRadio(acts[rand]);
+    }
 });
 
 event("onServerDayChange", function() {
