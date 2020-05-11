@@ -266,7 +266,6 @@ cmd("passport", function( playerid) {
                     }
 
                     request.eyes = text.tointeger();
-                    dbg(request)
                     request.save();
 
                     passportRequests.push(request);
@@ -302,8 +301,6 @@ fmd("gov", ["gov.passport"], "$f passport list", function(fraction, character, p
     requests.reverse();
     local indexStart = ((page-1) * 10);
     local indexEnd = (indexStart + 10) > length ? length : indexStart + 10;
-    dbg(indexStart)
-    dbg(indexEnd)
 
     // title
     msgt(character.playerid, format("Заявки на паспорт (страница: %d)", page));
