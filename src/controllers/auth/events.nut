@@ -10,6 +10,10 @@ event("onPlayerConnectInit", function(playerid, username, ip, serial) {
     });
 });
 
+event("native:onPlayerDisconnect", function(playerid, reason) {
+    removeAccountData(playerid);
+});
+
 event("onPlayerDisconnect", function(playerid, reason) {
     setPlayerMuted(playerid, false);
     if (!isPlayerAuthed(playerid)) return;

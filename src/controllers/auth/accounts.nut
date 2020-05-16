@@ -153,11 +153,23 @@ function getAccountId(playerid) {
 
 /**
  * Add account to session
- * @param {Integer} playerid
+ * @param {string} username
  * @param {Account} account
  */
 function addAccountData(username, account) {
     return accountsData[username] <- account;
+}
+
+/**
+ * Add account to session
+ * @param {Integer} playerid
+ * @param {Account} account
+ */
+function removeAccountData(playerid) {
+    local username = getAccountName(playerid);
+    if(username in accountsData) {
+        delete accountsData[username];
+    }
 }
 
 /**
@@ -167,6 +179,14 @@ function addAccountData(username, account) {
  */
 function getAccountData(username) {
   return username in accountsData ? accountsData[username] : null;
+}
+
+/**
+ * Get players accounts object
+ * @return {Account}
+ */
+function getAccountsData() {
+    return accountsData;
 }
 
 /**
