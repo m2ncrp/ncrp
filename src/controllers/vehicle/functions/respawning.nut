@@ -170,13 +170,19 @@ function tryRespawnVehicleById(vehicleid, forced = false) {
     // reset respawn time
     respawnData.time = getTimestamp();
 
-    // reset position/rotation
-    setVehiclePosition(vehicleid, respawnData.position.x.tofloat(), respawnData.position.y.tofloat(), respawnData.position.z.tofloat());
-    setVehicleRotation(vehicleid, respawnData.rotation.x.tofloat(), respawnData.rotation.y.tofloat(), respawnData.rotation.z.tofloat());
+    // reset position/
+    if(veh) {
+        setVehiclePositionObj(vehicleid, veh.data.defaultPos);
+        setVehicleRotationObj(vehicleid, veh.data.defaultRot);
+        repairVehicle(vehicleid);
+    } else {
+        setVehiclePosition(vehicleid, respawnData.position.x.tofloat(), respawnData.position.y.tofloat(), respawnData.position.z.tofloat());
+        setVehicleRotation(vehicleid, respawnData.rotation.x.tofloat(), respawnData.rotation.y.tofloat(), respawnData.rotation.z.tofloat());
+        setVehicleDirtLevel(vehicleid, randomf(VEHICLE_MIN_DIRT, VEHICLE_MAX_DIRT));
+    }
 
     // reset other parameters
     setVehicleEngineState(vehicleid, false);
-    setVehicleDirtLevel(vehicleid, randomf(VEHICLE_MIN_DIRT, VEHICLE_MAX_DIRT));
 
     return true;
 }

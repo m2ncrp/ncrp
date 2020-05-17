@@ -1,3 +1,7 @@
+const FUEL_JOB_X = 551.762;
+const FUEL_JOB_Y = -266.866;
+const FUEL_JOB_Z = -20.1644;
+
 event("onServerStarted", function() {
     logStr("[jobs] starting...");
 
@@ -77,6 +81,14 @@ event("onServerPlayerStarted", function(playerid) {
     } else if(job.find("police") != null && job != "busdriver") {
         jobRestorePlayerModel(playerid);
     }
+});
+
+
+event("onServerStarted", function() {
+    create3DText ( FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.35, "TRAGO OIL", CL_ROYALBLUE );
+    create3DText ( FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.20, "/job fuel", CL_WHITE.applyAlpha(150), 2.0);
+
+    registerPersonalJobBlip("fueldriver", FUEL_JOB_X, FUEL_JOB_Y);
 });
 
 event("onPlayerJobChanged", function(playerid) {

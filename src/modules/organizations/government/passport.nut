@@ -11,7 +11,6 @@ function loadPassportRequest() {
     passportRequests <- ContainerPassportRequests(PassportRequest);
 
     PassportRequest.findAll(function(err, results) {
-      logStr(results.len().tostring())
         foreach (idx, object in results) {
             passportRequests.set(object.id, object);
         }
@@ -138,6 +137,10 @@ cmd("passport", function( playerid) {
         return msg(playerid, "passport.toofar", CL_ERROR);
     }
 
+    if(isRestartPlanned()) {
+        return msg(playerid, "В данный момент операции по заявкам не осуществляются.", CL_ERROR);
+    }
+
     local char = players[playerid];
 
     if(char.nationality == "") {
@@ -158,6 +161,14 @@ cmd("passport", function( playerid) {
             msg(playerid, "passport.rejected", CL_ERROR);
             msg(playerid, "passport.rejected.reason", request.reason, CL_ERROR);
             msg(playerid, "passport.rejected.badname", CL_GRAY);
+
+            delayedFunction(2000, function() {
+                msg(playerid, "passport.rejected.new", CL_SUCCESS);
+                local index = request.id;
+                request.remove();
+                passportRequests.remove(index);
+            });
+
             return;
         }
 
@@ -260,8 +271,9 @@ cmd("passport", function( playerid) {
             delayedFunction( 1000, function() {
                 requestUserInput(playerid, function(playerid, text) {
                     trigger(playerid, "hudDestroyTimer");
+                    setPlayerOOC(playerid, defaulttogooc);
+
                     if (!text || !isNumeric(text) || text.tointeger() < 1 || text.tointeger() > 9) {
-                        if(defaulttogooc) setPlayerOOC(playerid, true);
                         return msg(playerid, "passport.insert.incorrect", CL_ERROR);
                     }
 
@@ -269,6 +281,8 @@ cmd("passport", function( playerid) {
                     request.save();
 
                     passportRequests.push(request);
+
+                    timer.Kill();
 
                     return msg(playerid, "passport.request-sent", CL_SUCCESS);
 
@@ -281,6 +295,10 @@ cmd("passport", function( playerid) {
 
 
 fmd("gov", ["gov.passport"], "$f passport list", function(fraction, character, page = "1") {
+
+    if(isRestartPlanned()) {
+        return msg(playerid, "В данный момент операции по заявкам не осуществляются.", CL_ERROR);
+    }
 
     local length = passportRequests.len();
     if(length == 0) {
@@ -330,6 +348,10 @@ fmd("gov", ["gov.passport"], "$f passport list", function(fraction, character, p
 
 fmd("gov", ["gov.passport"], "$f passport show", function(fraction, character, num = "0") {
 
+    if(isRestartPlanned()) {
+        return msg(playerid, "В данный момент операции по заявкам не осуществляются.", CL_ERROR);
+    }
+
     local request = getPassportRequest(num.tointeger());
 
     if(!request) {
@@ -361,6 +383,10 @@ fmd("gov", ["gov.passport"], "$f passport show", function(fraction, character, n
 });
 
 fmd("gov", ["gov.passport"], "$f passport", function(fraction, character, result, num, ...) {
+
+    if(isRestartPlanned()) {
+        return msg(playerid, "В данный момент операции по заявкам не осуществляются.", CL_ERROR);
+    }
 
     local request = getPassportRequest(num.tointeger());
 
@@ -457,6 +483,9 @@ alternativeTranslate({
 
     "en|passport.request-sent"      : ""
     "ru|passport.request-sent"      : "Заявка на получение паспорта принята. В течение некоторого времени (обычно 1 реальный день) по заявке будет принято решение. Возвращайтесь!"
+
+    "en|passport.rejected.new"      : ""
+    "ru|passport.rejected.new"      : "Вы можете подать новую заявку, но будьте внимательны при заполнении."
 
 
     "en|passport.solution.invalid"  : "Invalid status."

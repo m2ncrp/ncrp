@@ -92,7 +92,7 @@ function showFuelStationGUI(dataSrc){
           guiSetText(actionButton, TRANSLATIONS[data.lang].actionButton[data.state]);
           guiSetText(saleBizPriceInput, data.saleprice);
           guiSetText(label[6], "Продать городу за $ "+data.saleToCityPrice+" сейчас");
-          guiSetText(moneyLabel, "Баланс: $ "+data.money);
+          guiSetText(moneyLabel, "Касса: $ "+data.money);
           guiSetText(titles[0], "Продажа");
         });
 
@@ -107,7 +107,7 @@ function showFuelStationGUI(dataSrc){
         label[1] = createElem(window, ELEMENT_TYPE_LABEL, "Цена:",                       40.0, 70.0, 70.0, 20.0);
         label[2] = createElem(window, ELEMENT_TYPE_LABEL, "Количество:", windowWidth/2 + 40.0, 45.0, 70.0, 20.0);
         label[3] = createElem(window, ELEMENT_TYPE_LABEL, "Цена:",       windowWidth/2 + 40.0, 70.0, 70.0, 20.0);
-        saleAmountLabel = createElem(window, ELEMENT_TYPE_LABEL, data.amount,  120.0, 45.0, 30.0, 20.0);
+        saleAmountLabel = createElem(window, ELEMENT_TYPE_LABEL, data.amount,  120.0, 45.0, 50.0, 20.0);
         salePriceInput = createElem(window, ELEMENT_TYPE_EDIT, data.price,  120.0, 71.0, 50.0, 20.0);
 
         saveButton = createElem(window, ELEMENT_TYPE_BUTTON, "Сохранить", windowWidth/2 - 50.0, 105.0, 100.0, 25.0);
@@ -120,7 +120,7 @@ function showFuelStationGUI(dataSrc){
         decor[3] = createElem(window, 13, "shadow.jpg", 0, 141.0, windowWidth, 1.0);
 
 
-        moneyLabel = createElem(window, ELEMENT_TYPE_LABEL, "Баланс: $ "+data.money, windowWidth/2 - 40.0, 145.0, 90.0, 20.0);
+        moneyLabel = createElem(window, ELEMENT_TYPE_LABEL, "Касса: $ "+data.money, windowWidth/2 - 40.0, 145.0, 90.0, 20.0);
         moneyInput = createElem(window, ELEMENT_TYPE_EDIT, "0",  windowWidth/2 - 25.0, 170.0, 50.0, 20.0);
 
         moneyAddButton = createElem(window, ELEMENT_TYPE_BUTTON, "Добавить", windowWidth/2 - 30.0 - 100.0, 170.0, 100.0, 21.0);

@@ -42,18 +42,19 @@ event("onPlayerDisconnect", function(playerid, reason) {
 
 function sendLocalizedMsgToAll(senderid, phrase_key, params, radius, color = 0) {
     foreach(playerid, player in players) {
+        local tempParams = clone(params);
         if ( isBothInRadius(senderid, playerid, radius) ) {
 
+            local results = []
             // перебираем массив параметров
-            foreach (idx, param in params) {
-
+            foreach (idx, param in tempParams) {
                 if(typeof param == "function") {
-                    params[idx] = param(senderid, playerid);
+                    tempParams[idx] = param(playerid, senderid);
                 }
 
                 //  Если параметр является массивом, то 0й элемент в нём - это функция, а 1й элемент - массив с параметрами этой функции
                 if(typeof param == "array") {
-                    params[idx] = param[0].acall(param[1]);
+                    tempParams[idx] = param[0].acall(param[1]);
                 }
             }
 
@@ -63,9 +64,9 @@ function sendLocalizedMsgToAll(senderid, phrase_key, params, radius, color = 0) 
             }
 
             if (color) {
-                msg(playerid, localize(phrase_key, params, getPlayerLocale(player.playerid)), color);
+                msg(playerid, localize(phrase_key, tempParams, getPlayerLocale(player.playerid)), color);
             } else {
-                msg(playerid, localize(phrase_key, params, getPlayerLocale(player.playerid)));
+                msg(playerid, localize(phrase_key, tempParams, getPlayerLocale(player.playerid)));
             }
         }
     }

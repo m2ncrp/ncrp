@@ -35,10 +35,12 @@ function sendRadioMsg(playerid, text) {
     }
 }
 
-cmd(["r", "radio"], sendRadioMsg);
+cmd(["r", "radio"], function(playerid, ...) {
+    sendRadioMsg(playerid, concat(vargv));
+});
 
-cmd(["r", "radio"], "set", function(playerid, channel = 0) {
-    if ( !isPlayerInVehicle(playerid) ) {
+cmd(["r", "radio"], "set", function(playerid, newChannel = 0) {
+    if (!isPlayerInVehicle(playerid)) {
         return msg(playerid, "vehicle.options.radio.not-in-car");
     }
 
@@ -49,14 +51,16 @@ cmd(["r", "radio"], "set", function(playerid, channel = 0) {
         return msg(playerid, "vehicle.options.radio.not-installed");
     }
 
-    channel = toInteger(channel);
+    newChannel = toInteger(newChannel);
 
-    if(channel < 0 || channel > 64) {
+    if(newChannel < 0 || newChannel > 64) {
         return msg(playerid, "vehicle.options.radio.channel-limit", [ MAX_CHANNEL_COUNT] );
     }
 
-    veh.data.options.radio = toInteger(channel);
-    msg(playerid, "vehicle.options.radio.channel-changed", [channel]);
+    local veh = getVehicleEntity(vehicleid);
+    veh.data.options.radio = newChannel;
+
+    msg(playerid, "vehicle.options.radio.channel-changed", [newChannel]);
 });
 
 cmd(["r", "radio"], "get", function(playerid) {

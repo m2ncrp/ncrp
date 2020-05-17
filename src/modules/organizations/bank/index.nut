@@ -215,6 +215,10 @@ key("e", function(playerid) {
         return;
     }
 
+    if (isPlayerInVehicle(playerid)) {
+        return msg(playerid, "Припаркуй автомобиль у обочины и подходи пешком.", CL_ERROR);
+    }
+
     trigger(playerid, "showBankGUI", bankGetPlayerDeposit(playerid));
 })
 

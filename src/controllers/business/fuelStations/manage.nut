@@ -22,7 +22,7 @@ function fuelStationManage(playerid) {
 function getFuelStaionDataGUI(playerid, station) {
     local data = {
         stationName = station.name,
-        amount = station.data.fuel.amount.tostring(),
+        amount = round(station.data.fuel.amount, 2).tostring(),
         price = station.data.fuel.price.tostring(),
         amountIn = station.data.fuel.amountIn.tostring(),
         priceIn = station.data.fuel.priceIn.tostring(),
@@ -78,7 +78,7 @@ event("bizFuelStationOnSaleToCity", function(playerid, stationName) {
     local station = getFuelStationEntity(stationName);
     local amount = getFuelStationSaleToCityPrice(station);
     if(station.data.money > 0) {
-        return alert(playerid, "Баланс автозаправки должен быть равен 0.")
+        return alert(playerid, "Касса автозаправки должна быть равна 0.")
     }
     if(getTreasuryMoney() < amount) {
         return alert(playerid, "В данный момент город не может выкупить\r\nавтозаправку обратно.", [], 2)
@@ -98,6 +98,7 @@ event("bizFuelStationOnSaleToCity", function(playerid, stationName) {
 event("bizFuelStationOnAddBalanceMoney", function(playerid, stationName, amount) {
     local station = getFuelStationEntity(stationName);
     amount = amount.tofloat();
+    amount = round(amount, 2);
 
     if (!canMoneyBeSubstracted(playerid, amount)) {
         return alert(playerid, "У вас нет такой суммы денег");
@@ -113,12 +114,16 @@ event("bizFuelStationOnAddBalanceMoney", function(playerid, stationName, amount)
 event("bizFuelStationOnSubBalanceMoney", function(playerid, stationName, amount) {
     local station = getFuelStationEntity(stationName);
     amount = amount.tofloat();
+    amount = round(amount, 2);
 
-    if(station.data.money < amount) {
+    if(round(station.data.money, 2) < amount) {
         return alert(playerid, "На балансе автозаправки нет такой суммы.")
     }
 
     station.data.money -= amount;
+    if(station.data.money < 0.01) {
+        station.data.money = 0.0;
+    }
     addPlayerMoney(playerid, amount);
     triggerClientEvent(playerid, "redrawFuelStationGUI", getFuelStaionDataGUI(playerid, station));
     station.save();

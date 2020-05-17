@@ -179,6 +179,10 @@ acmd(["setdefault"], function( playerid ) {
     local vehPos = getVehiclePositionObj(vehicleid);
     local vehRot = getVehicleRotationObj(vehicleid);
 
+    setVehicleRespawnPositionObj(vehicleid, vehPos)
+    setVehicleRespawnRotationObj(vehicleid, vehRot)
+    setVehicleRespawnEx(vehicleid, true);
+
     veh.data.defaultPos <- vehPos;
     veh.data.defaultRot <- vehRot;
     veh.save();

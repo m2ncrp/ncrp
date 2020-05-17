@@ -1,5 +1,10 @@
 local isRestarting = false;
+local isRestartPlanned = false;
 local isRestartWhenNoOnline = false;
+
+function isRestartPlanned() {
+    return isRestartPlanned;
+}
 
 event("native:onPlayerConnect", function(playerid, name, ip, serial) {
     if(isRestarting) kickPlayer( playerid );
@@ -23,6 +28,7 @@ event("native:onPlayerDisconnect", function(playerid, reason) {
 });
 
 function planServerRestart(playerid) {
+    isRestartPlanned = true;
     msga("autorestart.15min", [], CL_RED);
 
     delayedFunction(5*60*1000, function() {

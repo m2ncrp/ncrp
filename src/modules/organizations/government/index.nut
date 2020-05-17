@@ -43,7 +43,7 @@ function governmentLoadedDataRead() {
             governmentLoadedData = results;
 
             availableActsNumbers = results.filter(function(idx, item) {
-                if(availableActs.find(item.name)) return item;
+                if(availableActs.find(item.name) != null) return item;
             }).map(function(item) {
                 return item.id
             })
@@ -265,7 +265,6 @@ fmd("gov", ["gov.act"], "$f act", function(fraction, character) {
     local defaulttogooc = getPlayerOOC(character.playerid);
     setPlayerOOC(character.playerid, false);
 
-
     local helps = [];
     foreach(i, item in governmentLoadedData) {
         if(availableActs.find(item.name) == null) continue;
@@ -280,12 +279,10 @@ fmd("gov", ["gov.act"], "$f act", function(fraction, character) {
 
     msgh(character.playerid, "Издание постановлений", helps);
 
-    local complete = false;
-
-    delayedFunction(30000, function() {
-        if (complete == false && character.playerid != -1) {
-            if(defaulttogooc) setPlayerOOC(character.playerid, true);
-            return msg(character.playerid, "gov.act.incorrect", CL_THUNDERBIRD);
+    local timer = delayedFunction(30000, function() {
+        if (character.playerid != -1) {
+            setPlayerOOC(character.playerid, defaulttogooc);
+            return msg(character.playerid, "gov.act.nodata", CL_THUNDERBIRD);
         }
     });
 
@@ -295,6 +292,7 @@ fmd("gov", ["gov.act"], "$f act", function(fraction, character) {
 
     requestUserInput(character.playerid, function(playerid, text) {
         trigger(playerid, "hudDestroyTimer");
+        setPlayerOOC(character.playerid, defaulttogooc);
 
         local arr = split(text, " ");
 
@@ -305,7 +303,7 @@ fmd("gov", ["gov.act"], "$f act", function(fraction, character) {
 
         local field = getGovernmentFieldById(arr[0].tointeger());
 
-        complete = true;
+        timer.Kill();
 
         field.next = arr[1];
         field.until = getTimestamp() + 432000;
@@ -387,6 +385,9 @@ fmd("gov", [], "$f help", function(fraction, character) {
 alternativeTranslate({
     "en|gov.act.toofar"        : ""
     "ru|gov.act.toofar"        : "Издание постановлений возможно только в здании мэрии"
+
+    "en|gov.act.nodata"     : ""
+    "ru|gov.act.nodata"     : "Ничего не введено"
 
     "en|gov.act.incorrect"     : ""
     "ru|gov.act.incorrect"     : "Некорректное значение"

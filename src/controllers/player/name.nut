@@ -91,9 +91,9 @@ function getKnownCharacterName(playerid, targetid) {
     }
 
     // Раскомментировать для прода
-    // if(playerid == targetid) {
-    //     return getPlayerName(playerid);
-    // }
+    if(playerid == targetid) {
+        return getPlayerName(playerid);
+    }
 
     // Если возможность рукопожатий запрещена для targetid - отдавать настоящее имя
     if("handshake" in players[targetid].data && players[targetid].data.handshake == "off") {

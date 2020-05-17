@@ -3,8 +3,9 @@ local handshakeBlackList = [
   "administrator",
   "dev",
   "developer",
-  "fernando",
+  "fernando fabbri",
   "inlife",
+  "ray bacon",
   "justpilz",
   "moderator",
   "vito",
@@ -51,7 +52,8 @@ local handshakeBlackList = [
   "хуй",
   "член",
   "чмо"
-  "шлю",
+  "шлюха",
+  "шлюшка",
 ];
 
 /** Проверка на запрещённые слова */
@@ -60,7 +62,7 @@ function searchBadWord(str) {
     local foundBlackWord = false;
 
     foreach(index, value in handshakeBlackList) {
-        if(lowerStr.find(value) == null && value.find(lowerStr) == null) continue;
+        if(lowerStr != value) continue;
         foundBlackWord = true;
         break;
     }
@@ -110,12 +112,8 @@ cmd(["meet"], function(playerid, targetid, ...) {
     }
     /** // */
 
-    local complete = false;
-
-    delayedFunction(15000, function() {
-        if (!complete) {
-            sendLocalizedMsgToAll(targetid, "chat.player.says", [getKnownCharacterNameWithId, plocalize(targetid, "handshake.shake.decline")], NORMAL_RADIUS, CL_CHAT_IC);
-        }
+    local timer = delayedFunction(15000, function() {
+        sendLocalizedMsgToAll(targetid, "chat.player.says", [getKnownCharacterNameWithId, plocalize(targetid, "handshake.shake.decline")], NORMAL_RADIUS, CL_CHAT_IC);
     });
 
     sendLocalizedMsgToAll(playerid, "handshake.shake.request", [nickname], NORMAL_RADIUS, CL_CHAT_IC);
@@ -133,7 +131,7 @@ cmd(["meet"], function(playerid, targetid, ...) {
     requestUserInput(targetid, function(targetid, text) {
         trigger(targetid, "hudDestroyTimer");
 
-        complete = true;
+        timer.Kill();
 
         if (!text || (trim(text) != "ok" && trim(text) != "ок")) {
             return sendLocalizedMsgToAll(targetid, "chat.player.says", [getKnownCharacterNameWithId, plocalize(targetid, "handshake.shake.decline")], NORMAL_RADIUS, CL_CHAT_IC);
@@ -203,7 +201,7 @@ cmd("remember", function(playerid, targetid, ...) {
     handshake.text = nickname;
     handshake.save();
 
-    character.handshakes[charId] <- handshake;
+    character.handshakes[targetCharId] <- handshake;
     msg(playerid, "handshake.remember.complete", [nickname], CL_SUCCESS);
 });
 

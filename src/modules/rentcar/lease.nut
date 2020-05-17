@@ -172,6 +172,6 @@ function leaseGetStats(playerid) {
     msg(playerid, ".:: Сведения об аренде ::.", CL_HELP);
     msg(playerid, "Стоимость аренды за час: $%.2f", veh.data.rent.price, CL_JORDYBLUE);
     msg(playerid, "Количество аренд: %d", veh.data.rent.count, CL_JORDYBLUE);
-    msg(playerid, "Топливо: %d из %d л.", [getVehicleFuelEx(vehicleid), getDefaultVehicleFuel(vehicleid)], CL_JORDYBLUE);
+    msg(playerid, "Топливо: %d из %s", [getVehicleFuelEx(vehicleid), formatGallonsInteger(getDefaultVehicleFuel(vehicleid))], CL_JORDYBLUE);
     msg(playerid, "Баланс: $%.2f", veh.data.rent.money, CL_JORDYBLUE);
 }

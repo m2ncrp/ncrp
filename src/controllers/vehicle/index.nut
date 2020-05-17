@@ -24,14 +24,14 @@ event("onScriptInit", function() {
     addVehicleOverride(42, function(id) {
         setVehicleColour(id, 255, 255, 255, 0, 0, 0);
         setVehicleSirenState(id, false);
-        // setVehicleBeaconLight(id, false);
+        setVehicleBeaconLightState(id, false);
         setVehiclePlateText(id, getRandomVehiclePlate("PD"));
     });
 
     addVehicleOverride(51, function(id) {
         setVehicleColour(id, 0, 0, 0, 150, 150, 150);
         setVehicleSirenState(id, false);
-        // setVehicleBeaconLight(id, false);
+        setVehicleBeaconLightState(id, false);
         // added override for plate number
         setVehiclePlateText(id, getRandomVehiclePlate("PD"));
     });
@@ -82,20 +82,26 @@ event("onServerStarted", function() {
 
             local data = JSONParser.parse(vehicle.data);
 
-            if("defaultPos" in data) {
-                x = data.defaultPos.x;
-                y = data.defaultPos.y;
-                z = data.defaultPos.z;
-            }
+            // create vehicle
+            local vehicleid = createVehicle( vehicle.model, x, y, z, rx, ry, rz );
+
+            setVehicleRespawnEx(vehicleid, false);
 
             if("defaultRot" in data) {
                 rx = data.defaultRot.x;
                 ry = data.defaultRot.y;
                 rz = data.defaultRot.z;
+                setVehicleRespawnRotationObj(vehicleid, data.defaultRot)
             }
 
-            // create vehicle
-            local vehicleid = createVehicle( vehicle.model, x, y, z, rx, ry, rz );
+            if("defaultPos" in data) {
+                x = data.defaultPos.x;
+                y = data.defaultPos.y;
+                z = data.defaultPos.z;
+                setVehicleRespawnPositionObj(vehicleid, data.defaultPos)
+                setVehicleRespawnEx(vehicleid, true)
+            }
+
 
             // load all the data
             setVehicleColour      ( vehicleid, vehicle.cra, vehicle.cga, vehicle.cba, vehicle.crb, vehicle.cgb, vehicle.cbb );
@@ -107,7 +113,6 @@ event("onServerStarted", function() {
             setVehicleOwner       ( vehicleid, vehicle.owner, vehicle.ownerid );
 
             // secial methods for custom vehicles
-            setVehicleRespawnEx   ( vehicleid, false );
             setVehicleSaving      ( vehicleid, true );
             setVehicleEntity      ( vehicleid, vehicle );
             setVehicleData        ( vehicleid, data, { parsed = true } );

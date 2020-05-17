@@ -26,6 +26,11 @@ function formatGallons(value) {
     return format("%.2f %s", value, declOfNum(value, ["галлон", "галлона", "галлонов"]));
 }
 
+function formatGallonsInteger(value) {
+    local int = round(value, 0);
+    return format("%d %s", int, declOfNum(int, ["галлон", "галлона", "галлонов"]));
+}
+
 local coords = {
     LittleItalyEast = {
         //        x1       y1       x2       y2
@@ -139,7 +144,6 @@ addEventHandlerEx("onServerStarted", function() {
         createPlace(format("%s%s", FUELSTATION_PREFIX, name), station.zone[0], station.zone[1], station.zone[2], station.zone[3]);
     }
 });
-
 
 event("onServerPlayerStarted", function(playerid) {
 
@@ -472,8 +476,9 @@ function fuelVehicleUp(playerid) {
 
     station.data.fuel.amount -= gallons;
     local tax = getGovernmentValue("taxSales") * 0.01;
-    station.data.money += cost * (1 - tax);
-    station.data.tax += cost * tax;
+    local income = round(cost * (1 - tax), 2);
+    station.data.money += income;
+    station.data.tax += (cost - income);
     station.save();
 
     delayedFunction(fuelupTime * 1000, function () {
@@ -537,8 +542,9 @@ function fuelJerrycanUp(playerid) {
         jerrycanObj.save();
 
         local tax = getGovernmentValue("taxSales") * 0.01;
-        station.data.money += cost * (1 - tax);
-        station.data.tax += cost * tax;
+        local income = round(cost * (1 - tax), 2);
+        station.data.money += income;
+        station.data.tax += (cost - income);
         station.data.fuel.amount -= gallons;
         station.save();
 
