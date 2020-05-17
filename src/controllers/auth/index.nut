@@ -41,6 +41,7 @@ event("onClientSuccessfulyStarted", function(playerid) {
         introPlayerSetter(playerid);
         // wait to load client chat and then display message
         return delayedFunction(2000, function() {
+            screenFadeout(playerid, 0);
             // clear chat
             for (local i = 0; i < 14; i++) {
                 msg(playerid, "");
