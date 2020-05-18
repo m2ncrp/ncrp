@@ -43,13 +43,13 @@ fmd("gov", ["gov.treasury"], "$f treasury add", function(fraction, character, am
         return msg(character.playerid, "treasury.player.notenough", CL_THUNDERBIRD);
     }
 
-    local moneyInTreasuryOld = getMoneyTreasury();
+    subMoneyToPlayer(character.playerid, amount);
     addTreasuryMoney(amount);
     local moneyInTreasuryNow = getMoneyTreasury();
 
-    subMoneyToPlayer(character.playerid, amount);
+
     msg(character.playerid, "treasury.add", [ amount.tofloat(), moneyInTreasuryNow ], CL_EUCALYPTUS );
-    dbg("gov", "treasury", "add", getPlayerName(character.playerid), getDateTime(), [["Было", "$"+moneyInTreasuryOld.tostring()], ["Сумма", "+$"+amount.tostring()], ["Стало", "$"+moneyInTreasuryNow.tostring()],["Основание", concat(vargv)]]);
+    dbg("gov", "treasury", "add", getPlayerName(character.playerid), getDateTime(), amount.tostring(), concat(vargv), moneyInTreasuryNow.tostring());
 });
 
 fmd("gov", ["gov.treasury"], "$f treasury sub", function(fraction, character, amount, ...) {
@@ -66,13 +66,12 @@ fmd("gov", ["gov.treasury"], "$f treasury sub", function(fraction, character, am
         return msg(character.playerid, "treasury.notenough", CL_THUNDERBIRD );
     }
 
-    local moneyInTreasuryOld = getMoneyTreasury();
     subTreasuryMoney(amount);
     local moneyInTreasuryNow = getMoneyTreasury();
 
     addMoneyToPlayer(character.playerid, amount);
     msg(character.playerid, "treasury.sub", [ amount.tofloat(), getMoneyTreasury() ], CL_THUNDERBIRD );
-    dbg("gov", "treasury", "sub", getPlayerName(character.playerid), getDateTime(), [["Было", "$"+moneyInTreasuryOld.tostring()], ["Сумма", "-$"+amount.tostring()], ["Стало", "$"+moneyInTreasuryNow.tostring()],["Основание", concat(vargv)]]);
+    dbg("gov", "treasury", "sub", getPlayerName(character.playerid), getDateTime(), amount.tostring(), concat(vargv), moneyInTreasuryNow.tostring());
 });
 
 
