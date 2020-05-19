@@ -284,7 +284,7 @@ function showPoliceBadge(playerid, targetid = null) {
     msg(targetid, "organizations.police.show.badge", [getLocalizedPlayerJob(playerid), getAuthor(playerid)]);
 }
 
-function putInJail(playerid, targetid) {
+function putInJail(playerid, targetid, reason) {
     if ( isOnPoliceDuty(playerid) && getPlayerState(targetid) == "cuffed" ) {
         setPlayerState(targetid, "jail");
         screenFadeinFadeoutEx(targetid, 250, 200, function() {
@@ -293,9 +293,8 @@ function putInJail(playerid, targetid) {
             freezePlayer(targetid, false);
         });
         msg(targetid, "organizations.police.jail", [], CL_THUNDERBIRD);
-        //dbg( "[JAIL] " + getAuthor(playerid) + " put " + getAuthor(targetid) + "in jail." );
-
-        dbg("police", "jail", "put", getPlayerName(playerid), getPlayerName(targetid), getDateTime());
+        msg(playerid, format("Вы посадили в тюрьму [%d] по причине: %s", targetid, reason), [], CL_THUNDERBIRD);
+        dbg("police", "jail", "put", getPlayerName(playerid), getPlayerName(targetid), reason, getDateTime());
     }
 }
 
@@ -309,6 +308,8 @@ function takeOutOfJail(playerid, targetid) {
             setPlayerState(targetid, "free");
         });
         msg(targetid, "organizations.police.unjail", [], CL_THUNDERBIRD);
+        msg(playerid, format("Вы выпустиили из тюрьмы [%d]", targetid), [], CL_THUNDERBIRD);
+        dbg("police", "jail", "out", getPlayerName(playerid), getPlayerName(targetid), getDateTime());
     }
 }
 

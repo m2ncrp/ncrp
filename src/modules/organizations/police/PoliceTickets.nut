@@ -110,14 +110,14 @@ function policeGiveTicket(playerid, value) {
                 }
 
                 if (!canMoneyBeSubstracted(targetid, price)) {
-                    dbg("chat", "police", getAuthor(playerid), format("У нарушителя **%s** недостаточно денег для оплаты штрафа за %s ($%.2f)", getPlayerName(targetid), reasonText, price) );
+                    dbg("ncrp", "console", format("У нарушителя **%s** недостаточно денег для оплаты штрафа за %s ($%.2f)", getPlayerName(targetid), reasonText, price) );
                     return msg(playerid, "organizations.police.ticket.targetnomoney", CL_ERROR);
                 }
 
                 msg(targetid, "organizations.police.ticket.givewithreason", [getAuthor(playerid), target_reason, price], CL_CHESTNUT);
                 msg(playerid, "organizations.police.ticket.given", [getAuthor(targetid), player_reason, price], CL_CHESTNUT);
                 subMoneyToPlayer(targetid, price);
-                dbg("chat", "police", getAuthor(playerid), format("Выписал штраф **%s** за %s ($%.2f)", getPlayerName(targetid), reasonText, price) );
+                dbg("police", "tickets", getPlayerName(playerid), getPlayerName(targetid), reasonText, price, getDateTime());
                 addTreasuryMoney(price);
                 return;
             }
