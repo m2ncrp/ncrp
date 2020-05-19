@@ -211,6 +211,9 @@ cmd("passport", function( playerid) {
 
             msg(playerid, "passport.got", CL_SUCCESS);
             msg(playerid, "passport.got.check-inventory", CL_GRAY);
+
+            dbg("gov", "passport_office", getDateTime(), request.id.tostring(), getPlayerName(playerid), char.sex.tostring(), plocalize(playerid, "nationality."+char.nationality), char.birthdate, plocalize(playerid, "passport.hair."+request.hair), plocalize(playerid, "passport.eyes."+request.eyes), getDate(), day+"."+month+"."+year);
+
             return;
         }
 
@@ -283,6 +286,10 @@ cmd("passport", function( playerid) {
                     passportRequests.push(request);
 
                     timer.Kill();
+
+                    // new
+                    dbg("gov", "passport_requests", "new", getDateTime(), request.id.tostring(), getPlayerName(playerid), char.sex.tostring(), plocalize(playerid, "nationality."+char.nationality), char.birthdate, plocalize(playerid, "passport.hair."+request.hair), plocalize(playerid, "passport.eyes."+request.eyes);
+
 
                     return msg(playerid, "passport.request-sent", CL_SUCCESS);
 
@@ -391,7 +398,7 @@ fmd("gov", ["gov.passport"], "$f passport", function(fraction, character, result
     local request = getPassportRequest(num.tointeger());
 
     if(!request) {
-        return msg(character.playerid,  "Указанная заявка не существует", CL_ERROR);
+        return msg(character.playerid, "Указанная заявка не существует", CL_ERROR);
     }
 
     if(request.status == "completed") {
@@ -418,6 +425,7 @@ fmd("gov", ["gov.passport"], "$f passport", function(fraction, character, result
             request.examiner = getPlayerName(character.playerid);
             request.save();
             msg(character.playerid, "passport.solution.approved", CL_SUCCESS);
+            dbg("gov", "passport_requests", "changed", request.examiner, getDateTime(), "approved", request.id.tostring(), request.fio);
         break;
         case "reject":
             request.status = "rejected";
@@ -425,12 +433,14 @@ fmd("gov", ["gov.passport"], "$f passport", function(fraction, character, result
             request.reason = reason;
             request.save();
             msg(character.playerid, "passport.solution.rejected", CL_ERROR);
+            dbg("gov", "passport_requests", "changed", request.examiner, getDateTime(), "rejected", request.id.tostring(), request.fio);
         break;
         case "reset":
             request.status = "needsolution";
             request.examiner = "";
             request.save();
             msg(character.playerid, "passport.solution.reseted", CL_PICTONBLUE);
+            dbg("gov", "passport_requests", "reset", getPlayerName(character.playerid), getDateTime(), request.id.tostring(), request.fio, reason);
         break;
         default:
             msg(character.playerid, "passport.solution.invalid", CL_ERROR);
