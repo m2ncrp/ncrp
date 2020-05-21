@@ -218,7 +218,9 @@ key(["f"], function(playerid) {
         return;
     }
 
-    if (!isPlayerHaveVehicleKey(playerid, vehicleid)) {
+    local hasKey = isPlayerHaveVehicleKey(playerid, vehicleid);
+
+    if (!hasKey) {
         setVehicleEngineState(vehicleid, true)
         delayedFunction(125, function() {
             setVehicleEngineState(vehicleid, false)
@@ -229,7 +231,7 @@ key(["f"], function(playerid) {
     unblockVehicle(vehicleid);
     setVehicleEngineState(vehicleid, true)
     delayedFunction(100, function() {
-        if(getPlayerVehicle(playerid) == vehicleid && isPlayerVehicleOwner(playerid, vehicleid)) {
+        if(getPlayerVehicle(playerid) == vehicleid && hasKey) {
             return
         }
         setVehicleEngineState(vehicleid, false);
