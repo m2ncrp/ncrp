@@ -60,8 +60,9 @@ event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
         local charid = getCharacterIdFromPlayerId(playerid);
         local whorent = getPlayerWhoRentVehicle(vehicleid);
         local ownerId = getVehicleOwnerId(vehicleid);
+        local modelid = getVehicleModel(vehicleid);
 
-         blockDriving(playerid, vehicleid);
+        blockDriving(playerid, vehicleid);
 
         if(whorent != charid) {
             // Сел владелец автомобиля
@@ -80,7 +81,11 @@ event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
             } else {
                 if(checkPlayerSectionData(playerid, "rent")) {
                     if(players[playerid].data.rent.accessible) {
-                        showRentCarGUI(playerid, vehicleid);
+                        if(modelid == 5 && (getPlayerBizCount(playerid) > 0 || isPlayerFractionMember(playerid, "gov"))) {
+                            msg(playerid, "Вы не можете взять в аренду этот автомобиль", CL_ERROR);
+                        } else {
+                            showRentCarGUI(playerid, vehicleid);
+                        }
                     } else {
                         msg(playerid, "Вам недоступна возможность аренды автомобиля", CL_ERROR);
                     }
