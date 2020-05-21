@@ -225,10 +225,37 @@ event("onVehicleSetToCarPound", function(playerid, plate) {
 
     if(setVehicleToCarPound(vehicleid)) {
         msg(playerid, "parking.complete");
-        dbg("police", "parking", "send", getPlayerName(playerid), getDateTime(), [["Номер", getVehiclePlateText(vehicleid)], ["Модель", getVehicleNameByModelId(getVehicleModel(vehicleid))]]);
+        nano({
+            "path": "discord",
+            "server": "police",
+            "channel": "parking",
+            "action": "send",
+            "author": getPlayerName(playerid),
+            "description": "Отправил автомобиль на штрафстоянку",
+            "color": "red",
+            "datetime": getDateTime(),
+            "fields": [
+                ["Номер", getVehiclePlateText(vehicleid)],
+                ["Модель", getVehicleNameByModelId(getVehicleModel(vehicleid))]
+            ]
+        });
+
     } else {
         msg(playerid, "parking.noFreeSpace");
-        dbg("police", "parking", "noFreeSpace");
+        nano({
+            "path": "discord",
+            "server": "police",
+            "channel": "parking",
+            "action": "no-free-space",
+            "author": getPlayerName(playerid),
+            "description": "Не может отправить автомобиль на штрафстоянку: нет своободных мест",
+            "color": "brown",
+            "datetime": getDateTime(),
+            "fields": [
+                ["Номер", getVehiclePlateText(vehicleid)],
+                ["Модель", getVehicleNameByModelId(getVehicleModel(vehicleid))]
+            ]
+        });
     }
 });
 
@@ -299,7 +326,20 @@ event("onVehicleGetFromCarPound", function(playerid) {
     }
     vehicleWanted = getVehicleWantedForTax();
 
-		dbg("police", "parking", "out", getPlayerName(playerid), getDateTime(), [["Номер", getVehiclePlateText(vehicleid)], ["Модель", getVehicleNameByModelId(getVehicleModel(vehicleid))]]);
+    nano({
+        "path": "discord",
+        "server": "police",
+        "channel": "parking",
+        "action": "out",
+        "author": "Владелец",
+        "description": "Забрал автомобиль со штрафстоянки",
+        "color": "green",
+        "datetime": getDateTime(),
+        "fields": [
+            ["Номер", getVehiclePlateText(vehicleid)],
+            ["Модель", getVehicleNameByModelId(getVehicleModel(vehicleid))]
+        ]
+    });
 });
 
 

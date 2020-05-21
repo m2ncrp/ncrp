@@ -35,7 +35,7 @@ fmd("gov", ["gov.treasury"], "$f treasury add", function(fraction, character, am
         return msg(character.playerid, "treasury.toofar", CL_THUNDERBIRD );
     }
 
-    if(!vargv) return msg(character.playerid, "treasury.enterreason", CL_THUNDERBIRD );
+    if(vargv.len() == 0) return msg(character.playerid, "treasury.enterreason", CL_THUNDERBIRD );
 
     amount = amount.tofloat() || 0;
 
@@ -45,11 +45,25 @@ fmd("gov", ["gov.treasury"], "$f treasury add", function(fraction, character, am
 
     subMoneyToPlayer(character.playerid, amount);
     addTreasuryMoney(amount);
-    local moneyInTreasuryNow = getMoneyTreasury();
 
-
+    local moneyInTreasuryNow = getTreasuryMoney();
     msg(character.playerid, "treasury.add", [ amount.tofloat(), moneyInTreasuryNow ], CL_EUCALYPTUS );
-    dbg("gov", "treasury", "add", getPlayerName(character.playerid), getDateTime(), amount.tostring(), concat(vargv), moneyInTreasuryNow.tostring());
+    nano({
+        "path": "discord",
+        "server": "gov",
+        "channel": "treasury",
+        "action": "add",
+        "author": getPlayerName(character.playerid),
+        "description": "Приход",
+        "color": "green",
+        "datetime": getDateTime(),
+        "direction": false,
+        "fields": [
+            ["Сумма", format("$ %.2f", amount)],
+            ["Основание", concat(vargv)],
+            ["Баланс", format("$ %.2f", moneyInTreasuryNow)],
+        ]
+    })
 });
 
 fmd("gov", ["gov.treasury"], "$f treasury sub", function(fraction, character, amount, ...) {
@@ -58,7 +72,7 @@ fmd("gov", ["gov.treasury"], "$f treasury sub", function(fraction, character, am
         return msg(character.playerid, "treasury.toofar", CL_THUNDERBIRD );
     }
 
-    if(!vargv) return msg(character.playerid, "treasury.enterreason", CL_THUNDERBIRD );
+    if(vargv.len() == 0) return msg(character.playerid, "treasury.enterreason", CL_THUNDERBIRD );
 
     amount = amount.tofloat() || 0;
 
@@ -67,11 +81,26 @@ fmd("gov", ["gov.treasury"], "$f treasury sub", function(fraction, character, am
     }
 
     subTreasuryMoney(amount);
-    local moneyInTreasuryNow = getMoneyTreasury();
-
+    local moneyInTreasuryNow = getTreasuryMoney();
     addMoneyToPlayer(character.playerid, amount);
-    msg(character.playerid, "treasury.sub", [ amount.tofloat(), getMoneyTreasury() ], CL_THUNDERBIRD );
-    dbg("gov", "treasury", "sub", getPlayerName(character.playerid), getDateTime(), amount.tostring(), concat(vargv), moneyInTreasuryNow.tostring());
+
+    msg(character.playerid, "treasury.sub", [ amount.tofloat(), moneyInTreasuryNow ], CL_THUNDERBIRD );
+    nano({
+        "path": "discord",
+        "server": "gov",
+        "channel": "treasury",
+        "action": "sub",
+        "author": getPlayerName(character.playerid),
+        "description": "Расход",
+        "color": "red",
+        "datetime": getDateTime(),
+        "direction": false,
+        "fields": [
+            ["Сумма", format("$ %.2f", amount)],
+            ["Основание", concat(vargv)],
+            ["Баланс", format("$ %.2f", moneyInTreasuryNow)],
+        ]
+    })
 });
 
 
@@ -109,18 +138,14 @@ function addTreasuryMoney(amount) {
     local currentAmount = getTreasuryMoney();
     local newAmount = currentAmount + amount;
     setTreasuryMoney(newAmount);
-    dbg("chat", "idea", "Городская казна", format("Пополнение на сумму: $%.2f", amount));
 }
 
 
-function subTreasuryMoney(amount, options = {}) {
+function subTreasuryMoney(amount) {
     local amount = round(fabs(amount.tofloat()), 2);
     local currentAmount = getTreasuryMoney();
     local newAmount = currentAmount - amount;
     setTreasuryMoney(newAmount);
-    if("silent" in options == false) {
-        dbg("chat", "idea", "Городская казна", format("Списание на сумму: $%.2f", amount));
-    }
 }
 
 function canTreasuryMoneyBeSubstracted(amount) {

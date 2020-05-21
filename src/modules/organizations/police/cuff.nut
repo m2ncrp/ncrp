@@ -4,18 +4,22 @@ const CUFF_RADIUS = 6.0;
 key(["v"], function(playerid) {
 
     // если игрок в авто
-    if ( isPlayerInVehicle(playerid) ) {
+    if (isPlayerInVehicle(playerid)) {
         return;
     }
 
     // если игрок не офицер
-    if ( !isOfficer(playerid) ) {
+    if (!isOfficer(playerid)) {
         return;
     }
 
     // если игрок не на смене
-    if ( !isOfficerOnDuty(playerid) ) {
-        return msg( playerid, "police.duty.off" );
+    if (!isOfficerOnDuty(playerid)) {
+        return msg( playerid, "organizations.police.duty.not" );
+    }
+
+    if (getPoliceRank(playerid) < 1) {
+        return msg(playerid, "organizations.police.lowrank", CL_ERROR);
     }
 
     local targetid = playerList.nearestPlayer( playerid );
@@ -78,6 +82,9 @@ cmd(["uncuff"], function(playerid, targetid) {
 
 
 alternativeTranslate({
+
+    "en|police.arrested"               : "You are arrested."
+    "ru|police.arrested"               : "Вы арестованы."
 
     "en|police.cuff.beencuffed"           : "You've been cuffed by %s."
     "ru|police.cuff.beencuffed"           : "%s надел на вас наручники."

@@ -63,6 +63,25 @@ event("onServerPlayerStarted", function(playerid) {
       msg(playerid, "");
     }
 
+    nano({
+        "path": "discord-online",
+        "server": "ncrp",
+        "channel": "online",
+        "players": getPlayers().len()
+    })
+
+});
+
+event("onPlayerDisconnect", function(playerid, reason) {
+    delayedFunction(0, function() {
+        nano({
+            "path": "discord-online",
+            "server": "ncrp",
+            "channel": "online",
+            "players": getPlayers().len()
+        })
+    })
+
 });
 
 /**

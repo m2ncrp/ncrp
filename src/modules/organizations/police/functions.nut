@@ -53,19 +53,28 @@ function setDangerLevel(playerid, to) {
  * Become police officer
  * @param  {int} playerid
  */
-function getPoliceJob(playerid) {
-
-    if( isOfficer(playerid) ) {
-        return msg(playerid, "organizations.police.alreadyofficer");
-    }
-
-    if (isPlayerHaveJob(playerid)) {
-        return msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid));
+function setPoliceJob(playerid, targetid) {
+    if( isOfficer(targetid) ) {
+        return msg(targetid, "organizations.police.alreadyofficer");
     }
 
     // set first rank
-    setPlayerJob( playerid, setPoliceRank(playerid, 0) );
-    // msg(playerid, "organizations.police.onbecame");
+    setPlayerJob( targetid, setPoliceRank(playerid, 0) );
+
+    nano({
+        "path": "discord",
+        "server": "police",
+        "channel": "news",
+        "action": "join",
+        "author": getPlayerName(playerid),
+        "title": getPlayerName(targetid),
+        "description": "Принят на службу",
+        "color": "green",
+        "datetime": getDateTime(),
+        "fields": [
+            ["Должность",  getLocalizedPlayerJob(targetid)]
+        ]
+    })
 }
 
 
@@ -73,20 +82,33 @@ function getPoliceJob(playerid) {
  * Leave from police
  * @param  {int} playerid
  */
-function leavePoliceJob(playerid) {
-    if(!isOfficer(playerid)) {
-        return msg(playerid, "organizations.police.notanofficer");
+function leavePoliceJob(playerid, targetid, reason) {
+
+    if(!isOfficer(targetid)) {
+        return msg(targetid, "organizations.police.notanofficer");
     }
 
-    if (isPlayerHaveJob(playerid) && !isOfficer(playerid)) {
-        return msg(playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid));
+    if (isOnPoliceDuty(targetid)) {
+        policeSetOnDuty(targetid, false);
     }
 
-    if (isOnPoliceDuty(playerid)) {
-        policeSetOnDuty(playerid, false);
-    }
-    setPlayerJob( playerid, null );
-    msg(playerid, "organizations.police.onleave");
+    msg(targetid, "organizations.police.onleave");
+    nano({
+        "path": "discord",
+        "server": "police",
+        "channel": "news",
+        "action": "leave",
+        "author": getPlayerName(playerid),
+        "title": getPlayerName(targetid),
+        "description": "Уволен со службы",
+        "color": "red",
+        "datetime": getDateTime(),
+        "fields": [
+            ["Должность", getLocalizedPlayerJob(targetid)],
+            ["Причина", reason]
+        ]
+    });
+    setPlayerJob(targetid, null);
 }
 
 /**
@@ -201,6 +223,7 @@ function setPoliceRank(targetid, rankID) {
             // msg( playerid, "organizations.police.onrankdownsmbd", [getPlayerName(targetid), POLICE_RANK[rankID]]);
             msg( targetid, "organizations.police.onrankdown", [ getLocalizedPlayerJob(targetid) ] );
         }
+
         return POLICE_RANK[rankID];
     // }
     // return players[targetid].job;
@@ -293,8 +316,21 @@ function putInJail(playerid, targetid, reason) {
             freezePlayer(targetid, false);
         });
         msg(targetid, "organizations.police.jail", [], CL_THUNDERBIRD);
-        msg(playerid, format("Вы посадили в тюрьму [%d] по причине: %s", targetid, reason), [], CL_THUNDERBIRD);
-        dbg("police", "jail", "put", getPlayerName(playerid), getPlayerName(targetid), reason, getDateTime());
+        msg(playerid, format("Вы посадили в тюрьму %s по причине: %s", getKnownCharacterNameWithId(playerid, targetid), reason), [], CL_THUNDERBIRD);
+        nano({
+            "path": "discord",
+            "server": "police",
+            "channel": "jail",
+            "action": "put",
+            "author": getPlayerName(playerid),
+            "title": getKnownCharacterName(playerid, targetid),
+            "description": "Отправлен в тюрьму",
+            "color": "red",
+            "datetime": getDateTime(),
+            "fields": [
+                ["Причина", reason]
+            ]
+        });
     }
 }
 
@@ -307,9 +343,19 @@ function takeOutOfJail(playerid, targetid) {
         screenFadeinFadeoutEx(targetid, 250, 200, function() {
             setPlayerState(targetid, "free");
         });
-        msg(targetid, "organizations.police.unjail", [], CL_THUNDERBIRD);
-        msg(playerid, format("Вы выпустиили из тюрьмы [%d]", targetid), [], CL_THUNDERBIRD);
-        dbg("police", "jail", "out", getPlayerName(playerid), getPlayerName(targetid), getDateTime());
+        msg(targetid, "organizations.police.unjail", [], CL_SUCCESS);
+        msg(playerid, format("Вы выпустиили из тюрьмы %s", getKnownCharacterName(playerid, targetid)), [], CL_SUCCESS);
+        nano({
+            "path": "discord",
+            "server": "police",
+            "channel": "jail",
+            "action": "out",
+            "author": getPlayerName(playerid),
+            "title": getKnownCharacterName(playerid, targetid),
+            "description": "Выпущен из тюрьмы",
+            "color": "green",
+            "datetime": getDateTime(),
+        });
     }
 }
 

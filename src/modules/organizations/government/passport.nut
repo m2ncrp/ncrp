@@ -212,7 +212,26 @@ cmd("passport", function( playerid) {
             msg(playerid, "passport.got", CL_SUCCESS);
             msg(playerid, "passport.got.check-inventory", CL_GRAY);
 
-            dbg("gov", "passport_office", getDateTime(), request.id.tostring(), getPlayerName(playerid), char.sex.tostring(), plocalize(playerid, "nationality."+char.nationality), char.birthdate, plocalize(playerid, "passport.hair."+request.hair), plocalize(playerid, "passport.eyes."+request.eyes), getDate(), day+"."+month+"."+year);
+            nano({
+                "path": "discord",
+                "server": "gov",
+                "channel": "passport_office",
+                "action": "new",
+                "description": "Выдан паспорт",
+                "color": "purple",
+                "datetime": getDateTime(),
+                "fields": [
+                    ["Номер", request.id],
+                    ["Имя Фамилия", getPlayerName(playerid)],
+                    ["Пол", plocalize(playerid, "passport.sex."+char.sex)],
+                    ["Национальность", plocalize(playerid, "nationality."+char.nationality)],
+                    ["Дата рождения", char.birthdate],
+                    ["Цвет волос", plocalize(playerid, "passport.hair."+request.hair)],
+                    ["Цвет глаз", plocalize(playerid, "passport.eyes."+request.eyes)],
+                    ["Дата выдачи", getDate()],
+                    ["Дата истечения", day+"."+month+"."+year],
+                ]
+            });
 
             return;
         }
@@ -288,8 +307,25 @@ cmd("passport", function( playerid) {
                     timer.Kill();
 
                     // new
-                    dbg("gov", "passport_requests", "new", getDateTime(), request.id.tostring(), getPlayerName(playerid), char.sex.tostring(), plocalize(playerid, "nationality."+char.nationality), char.birthdate, plocalize(playerid, "passport.hair."+request.hair), plocalize(playerid, "passport.eyes."+request.eyes);
-
+                    nano({
+                        "path": "discord",
+                        "server": "gov",
+                        "channel": "passport_requests",
+                        "action": "new",
+                        "description": "Заявка на паспорт",
+                        "color": "yellow",
+                        "datetime": getDateTime(),
+                        "direction": false,
+                        "fields": [
+                            ["Номер", request.id],
+                            ["Имя Фамилия", getPlayerName(playerid)],
+                            ["Пол", plocalize(playerid, "passport.sex."+char.sex)],
+                            ["Национальность", plocalize(playerid, "nationality."+char.nationality)],
+                            ["Дата рождения", char.birthdate],
+                            ["Цвет волос", plocalize(playerid, "passport.hair."+request.hair)],
+                            ["Цвет глаз", plocalize(playerid, "passport.eyes."+request.eyes)],
+                        ]
+                    });
 
                     return msg(playerid, "passport.request-sent", CL_SUCCESS);
 
@@ -425,7 +461,21 @@ fmd("gov", ["gov.passport"], "$f passport", function(fraction, character, result
             request.examiner = getPlayerName(character.playerid);
             request.save();
             msg(character.playerid, "passport.solution.approved", CL_SUCCESS);
-            dbg("gov", "passport_requests", "changed", request.examiner, getDateTime(), "approved", request.id.tostring(), request.fio);
+            nano({
+                "path": "discord",
+                "server": "gov",
+                "channel": "passport_requests",
+                "action": "changed",
+                "author": request.examiner,
+                "description": "Одобрил заявку",
+                "color": "green",
+                "datetime": getDateTime(),
+                "direction": false,
+                "fields": [
+                    ["Номер", request.id],
+                    ["Имя Фамилия", request.fio],
+                ]
+            });
         break;
         case "reject":
             request.status = "rejected";
@@ -433,14 +483,45 @@ fmd("gov", ["gov.passport"], "$f passport", function(fraction, character, result
             request.reason = reason;
             request.save();
             msg(character.playerid, "passport.solution.rejected", CL_ERROR);
-            dbg("gov", "passport_requests", "changed", request.examiner, getDateTime(), "rejected", request.id.tostring(), request.fio);
+            nano({
+                "path": "discord",
+                "server": "gov",
+                "channel": "passport_requests",
+                "action": "changed",
+                "author": request.examiner,
+                "description": "Отклонил заявку",
+                "color": "red",
+                "datetime": getDateTime(),
+                "direction": false,
+                "fields": [
+                    ["Номер", request.id],
+                    ["Имя Фамилия", request.fio],
+                    ["Причина", reason],
+                ]
+            });
         break;
         case "reset":
+            local prevStatus = request.status;
             request.status = "needsolution";
             request.examiner = "";
             request.save();
             msg(character.playerid, "passport.solution.reseted", CL_PICTONBLUE);
-            dbg("gov", "passport_requests", "reset", getPlayerName(character.playerid), getDateTime(), request.id.tostring(), request.fio, reason);
+            nano({
+                "path": "discord",
+                "server": "gov",
+                "channel": "passport_requests",
+                "action": "reset",
+                "author": getPlayerName(character.playerid),
+                "description": "Сбросил решение по заявке",
+                "color": "blue",
+                "datetime": getDateTime(),
+                "direction": false,
+                "fields": [
+                    ["Номер", request.id],
+                    ["Имя Фамилия", request.fio],
+                    ["Предыдущий статус заявки", plocalize(character.playerid, "passport.status."+prevStatus)]
+                ]
+            });
         break;
         default:
             msg(character.playerid, "passport.solution.invalid", CL_ERROR);
@@ -475,6 +556,9 @@ alternativeTranslate({
 
     "en|passport.status.completed" :  "completed"
     "ru|passport.status.completed" :  "получен"
+
+    "en|passport.status.needsolution" :  "is considered"
+    "ru|passport.status.needsolution" :  "рассматривается"
 
     "en|passport.needsolution"      : ""
     "ru|passport.needsolution"      : "Ваша заявка ещё рассматривается. Приходите позже."
@@ -562,10 +646,10 @@ alternativeTranslate({
     "ru|passport.info.expires"      : "Истекает: %s"
 
     "en|passport.sex.0" : "Man"
-    "ru|passport.sex.0" : "мужской"
+    "ru|passport.sex.0" : "Мужской"
 
     "en|passport.sex.1" : "Woman"
-    "ru|passport.sex.1" : "женский"
+    "ru|passport.sex.1" : "Женский"
 
 
 

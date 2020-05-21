@@ -62,10 +62,10 @@ alternativeTranslate({
 
 
 "en|organizations.police.setjob.byadmin"            : "You've successfully set job for %s as %s."
-"ru|organizations.police.setjob.byadmin"            : "Вы устроили на работу игрока %s в качестве %s."
+"ru|organizations.police.setjob.byadmin"            : "Вы приняли на службу %s на должность: %s."
 
 "en|organizations.police.leavejob.byadmin"          : "You fired %s from %s job."
-"ru|organizations.police.leavejob.byadmin"          : "Вы уволили %s с работы %s."
+"ru|organizations.police.leavejob.byadmin"          : "Вы уволили со службы %s в должности: %s."
 
 
 "en|organizations.police.call.withoutaddress"       : "You can't call police without address."

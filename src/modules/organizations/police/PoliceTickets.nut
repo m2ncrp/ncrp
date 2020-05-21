@@ -3,29 +3,19 @@ cmd(["ticket"], function(playerid, target = null) {
     policeGiveTicket(playerid, target);
 });
 
-/**
- * Return true if parameter length less than 4 symbols that mean it's player ID
- * Return false if length more than 4 symbols that mean it's plate number
- * @param  {string}  parameter  player ID or plate number
- * @return {Boolean}            is it player ID
- */
-function isValueId(value) {
-    return ( value.len() < 4 );
-}
-
 local timers = {};
 
 POLICE_TICKET_PRICELIST <- [
-    [ 7.0,  "Пешее движение по проезжей части"],
-    [ 10.0, "Непропуск пешехода"],
-    [ 15.0, "Неиспользование поворотников"],
-    [ 25.0, "Превышение скорости"],
-    [ 30.0, "Создание препятствий для движения"],
+    [ 5.0,  "Пешее движение по проезжей части"],
+    [ 8.0, "Непропуск пешехода"],
+    [ 10.0, "Неиспользование поворотников"],
+    [ 15.0, "Превышение скорости"],
+    [ 20.0, "Создание препятствий для движения"],
     [ 40.0, "Выезд на полосу встречного движения"],
-    [ 20.0, "Проезд знака STOP без остановки"],
-    [ 45.0, "Проезд знака DO NOT ENTER"],
-    [ 45.0, "Движение за пределами проезжей части"],
-    [ 25.0, "Игнорирование требования остановки"],
+    [ 10.0, "Проезд знака STOP без остановки"],
+    [ 40.0, "Проезд знака DO NOT ENTER"],
+    [ 30.0, "Движение за пределами проезжей части"],
+    [ 15.0, "Игнорирование требования остановки"],
     [ 30.0, "Оскорбление сотрудника полиции"],
 
     //[17.0, "organizations.police.lawbreak.warning"          ],  // 0 - Предупреждение aka warning
@@ -101,6 +91,7 @@ function policeGiveTicket(playerid, value) {
                 if ( playerid == targetid ) {
                     return msg(playerid, "organizations.police.cantgivetickethimself", CL_ERROR);
                 }
+
                 if ( !isPlayerConnected(targetid) ) {
                     return msg(playerid, "general.playeroffline", CL_ERROR);
                 }
@@ -117,7 +108,21 @@ function policeGiveTicket(playerid, value) {
                 msg(targetid, "organizations.police.ticket.givewithreason", [getAuthor(playerid), target_reason, price], CL_CHESTNUT);
                 msg(playerid, "organizations.police.ticket.given", [getAuthor(targetid), player_reason, price], CL_CHESTNUT);
                 subMoneyToPlayer(targetid, price);
-                dbg("police", "tickets", getPlayerName(playerid), getPlayerName(targetid), reasonText, price, getDateTime());
+                nano({
+                    "path": "discord",
+                    "server": "police",
+                    "channel": "tickets",
+                    "author": getPlayerName(playerid),
+                    "title": getKnownCharacterName(playerid, targetid),
+                    "description": "Получил штраф",
+                    "color": "blue",
+                    "datetime": getDateTime(),
+                    "fields": [
+                        ["Нарушение", reasonText],
+                        ["Сумма", format("$ %.2f", price)]
+                    ]
+                });
+
                 addTreasuryMoney(price);
                 return;
             }
@@ -130,36 +135,3 @@ function policeGiveTicket(playerid, value) {
         return msg(playerid, "organizations.police.offduty.notickets");
     }
 }
-
-/**
- ** deprecated or need to rewrite
- **
-function getVehicleOwnerAndPinTicket(playerid, plateTxt, reason) {
-    local reason = reason.tointeger();
-    local price  = POLICE_TICKET_PRICELIST[reason][0].tofloat();
-    local key    = POLICE_TICKET_PRICELIST[reason][1];
-    local plates = getRegisteredVehiclePlates();
-    local opos   = getPlayerPosition(playerid);
-
-    if (plateTxt.len() < 6) {
-        return msg(playerid, "Enter whole 6 letter plate number", CL_ERROR);
-    }
-
-    foreach (plate, vehicleid in plates) {
-        if (plate.tolower().find(plateTxt.tolower()) != null) {
-            local pos    = getVehiclePosition(vehicleid);
-            if ( !checkDistanceXYZ(pos[0], pos[1], pos[2], opos[0], opos[1], opos[2], POLICE_TICKET_DISTANCE) ) {
-                return msg(playerid, "Distance too large");
-            }
-            local owner = (getVehicleOwner(vehicleid) ? getVehicleOwner(vehicleid) : "");
-            local player_reason = plocalize(playerid, key);
-
-            msg(playerid, "organizations.police.ticket.given", [plateTxt, player_reason, price]);
-
-            PoliceTicket( owner, key, price, "open", pos[0], pos[1], pos[2], getPlayerName(playerid))
-                .save();
-            return owner;
-        }
-    }
-}
-*/

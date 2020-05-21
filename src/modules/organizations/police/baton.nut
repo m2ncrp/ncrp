@@ -20,6 +20,10 @@ key(["b"], function(playerid) {
         return;
     }
 
+    if (getPoliceRank(playerid) < 1) {
+        return msg(playerid, "organizations.police.lowrank", CL_ERROR);
+    }
+
     local targetid = playerList.nearestPlayer( playerid );
 
     // если игрок не определён || радиус большой || целевой игрок является офицером (защита от суеты) || целевой игрок в авто

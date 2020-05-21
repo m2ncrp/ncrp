@@ -177,13 +177,24 @@ event("onServerHourChange", function() {
             } else {
                 sum += amount;
                 addMoneyToPlayer(playerid, amount);
-                subTreasuryMoney(amount, { "silent": true });
                 msg(playerid, "organizations.unemployed.income", [amount], CL_SUCCESS);
             }
         }
 
         hoboses[charid] = 0;
     }
+    if(sum > 0) {
+        subTreasuryMoney(sum);
+        nano({
+            "path": "discord",
+            "server": "gov",
+            "channel": "treasury",
+            "action": "sub",
+            "title": "Выплата пособий по безработице",
+            "description": format("$ %.2f", sum),
+            "color": "yellow",
+            "datetime": getDateTime(),
+        });
+    }
 
-    dbg("gov", "", sum);
 });

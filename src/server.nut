@@ -80,6 +80,11 @@ function dbg(...) {
 console.log = dbg;
 trim <- strip;
 
+function nano(json) {
+    nnTrigger(JSONEncoder.encode(json));
+};
+
+
 if (__DEBUG__EXPORT) {
     addEventHandler     <- function(...) {};
     addCommandHandler   <- function(...) {};
@@ -369,11 +374,34 @@ event("onPlayerWeaponShoot", function(playerid) {
 event("onPlayerWeaponReload", function(playerid) {
     msg(playerid, "Перезарядка", CL_ERROR)
 })
+*/
+
+/*
+delayedFunction(10000, function() {
+    local amount = 12.5;
+    local balance = 52.75;
+    local reason = "Тест";
+
+    nano({
+        "path": "discord",
+        "server": "gov",
+        "channel": "treasury",
+        "action": "add",
+        "author": "Test Testov",
+        "description": "Приход",
+        "color": "green",
+        //"author": getPlayerName(character.playerid),
+        "datetime": getDateTime(),
+        "fields": [
+            ["Сумма", format("$ %.2f", amount)],
+            ["Основание", reason],
+            ["Баланс", format("$ %.2f", balance)],
+        ]
+    })
+})
+*/
 
 
-function ex(json) {
-    nnTrigger(json);
-};
 
 nnListen(function(data) {
     local parsedData = JSONParser.parse(data);
@@ -385,7 +413,7 @@ nnListen(function(data) {
 cmd("nc", function (playerid) {
     dbg("ncrp", "newcomers", "Test Testov");
 });
-*/
+
 
 acmd("cam", function(playerid, x, y, z) {
     dbg("cam: "+x+" "+y+" "+z)

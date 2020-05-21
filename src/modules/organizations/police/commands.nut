@@ -41,7 +41,7 @@ acmd("a", ["police", "danger"], function(playerid, level) {
 // usage: /police job <id>
 acmd("a", ["police", "job"], function(playerid, targetid) {
     local targetid = targetid.tointeger();
-    getPoliceJob(targetid);
+    setPoliceJob(playerid, targetid);
     msg(playerid, "organizations.police.setjob.byadmin", [ getAuthor(targetid), getLocalizedPlayerJob(targetid) ] );
     dbg( "[POLICE JOIN]" + getAuthor(playerid) + " add " + getAuthor(targetid) + "to Police" );
 });
@@ -52,7 +52,7 @@ acmd("a", ["police", "job", "leave"], function(playerid, targetid) {
     local targetid = targetid.tointeger();
     msg(playerid, "organizations.police.leavejob.byadmin", [ getAuthor(targetid), getLocalizedPlayerJob(targetid) ]);
     dbg( "[POLICE LEAVE]" + getAuthor(playerid) + " remove " + getAuthor(targetid) + "from Police" );
-    leavePoliceJob(targetid);
+    leavePoliceJob(playerid, targetid, "Несоответствие требованиям ПД");
 });
 
 
@@ -141,9 +141,8 @@ cmd("police", ["job"], function(playerid, targetid) {
         policeBadge.save();
         players[targetid].inventory.sync();
 
-        getPoliceJob(targetid);
+        setPoliceJob(playerid, targetid);
         msg(playerid, "organizations.police.setjob.byadmin", [getKnownCharacterNameWithId(playerid, targetid), getLocalizedPlayerJob(targetid)]);
-        dbg("police", "news", "join", getPlayerName(playerid), getPlayerName(targetid), getDateTime());
     }
 });
 
@@ -151,14 +150,15 @@ cmd("police", ["job"], function(playerid, targetid) {
 // usage: /police job leave <id>
 cmd("police", ["job", "leave"], function(playerid, targetid, ...) {
     local targetid = targetid.tointeger();
+
     if ( getPoliceRank(playerid) == POLICE_MAX_RANK ) {
         if(vargv.len() == 0) {
             msg(playerid, "Не указана причина увольнения", CL_ERROR);
         }
         local reason = concat(vargv);
-        dbg("police", "news", "leave", getPlayerName(playerid), getPlayerName(targetid), reason, getDateTime());
+
         msg(playerid, "organizations.police.leavejob.byadmin", [ getKnownCharacterNameWithId(playerid, targetid), getLocalizedPlayerJob(targetid) ]);
-        leavePoliceJob(targetid);
+        leavePoliceJob(playerid, targetid, reason)
     }
 });
 
@@ -186,7 +186,21 @@ cmd("police", ["set", "rank"], function(playerid, targetid, rank) {
                 msg( playerid, "organizations.police.onrankset", [getKnownCharacterNameWithId(playerid, targetid), getLocalizedPlayerJob(targetid)]);
             }
             local newJob = getLocalizedPlayerJob(targetid);
-            dbg("police", "news", "rank", getPlayerName(playerid), getPlayerName(targetid), job, newJob, getDateTime());
+            nano({
+                "path": "discord",
+                "server": "police",
+                "channel": "news",
+                "action": "rank",
+                "author": getPlayerName(playerid),
+                "title": getPlayerName(targetid),
+                "description": "Изменена должность",
+                "color": "blue",
+                "datetime": getDateTime(),
+                "fields": [
+                    ["Предыдущая должность", job],
+                    ["Новая должность", newJob]
+                ]
+            });
         }
     }
 });
@@ -241,37 +255,6 @@ key(["b"], function(playerid) {
 }, KEY_UP);
 */
 
-
-// usage: /police duty on
-cmd("police", ["duty", "on"], function(playerid) {
-    if ( !isOfficer(playerid) ) {
-        return msg(playerid, "organizations.police.notanofficer");
-    }
-    if ( !isOnPoliceDuty(playerid) ) {
-        if ( isPlayerNearPoliceDepartment(playerid) ) { // <------------------------------- Set only on police dep
-            return policeSetOnDuty(playerid, true);
-        }
-    } else {
-        return msg(playerid, "organizations.police.duty.alreadyon");
-    }
-});
-
-
-// usage: /police duty off
-cmd("police", ["duty", "off"], function(playerid) {
-    if ( !isOfficer(playerid) ) {
-        return msg(playerid, "organizations.police.notanofficer");
-    }
-    if ( isOnPoliceDuty(playerid) ) {
-        if ( isPlayerNearPoliceDepartment(playerid) ) { // <------------------------------- Set only on police dep
-            return policeSetOnDuty(playerid, false);
-        }
-    } else {
-        return msg(playerid, "organizations.police.duty.alreadyoff");
-    }
-});
-
-
 // set duty on or off
 key(["e"], function(playerid) {
     if ( isPlayerInVehicle(playerid) ) {
@@ -297,19 +280,6 @@ policecmd("m", function(playerid, text) {
 
     sendLocalizedMsgToAll(playerid, "[POLICE RUPOR] "+text, [], RUPOR_RADIUS, CL_ROYALBLUE);
 });
-
-// cmd(["tickets"], function( playerid, page = 0 ) {
-//     local q = ORM.Query("select * from tbl_policetickets where player in (:player) limit :page, 10");
-//     q.setParameter("player", getPlayerName(playerid), true);
-//     q.setParameter("page", max(0, page.tointeger()) * 10);
-//     q.getResult(function(err, chars) {
-//         sendPlayerMessage(playerid, format("Page %s, format '#Ticket - reason (($amount))' (for next page /tickets <page>):", page.tostring()) );
-//         foreach (idx, char in chars) {
-//             msg(playerid, char.getName() + " - " + localize("job."+char.job, [], language));
-//         }
-//     });
-// });
-
 
 // local function policetestitout(playerid, targetid, vehid) {
 //     putPlayerInVehicle(targetid, vehid, 1);
@@ -357,7 +327,7 @@ cmd("park", function ( playerid, plate) {
     if ( !isOnPoliceDuty(playerid) ) {
         return msg( playerid, "organizations.police.duty.not", CL_ERROR );
     }
-    if ( getPoliceRank(playerid) < 2) {
+    if ( getPoliceRank(playerid) < 1) {
         return msg( playerid, "organizations.police.lowrank", CL_ERROR );
     }
 

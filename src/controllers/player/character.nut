@@ -89,6 +89,7 @@ event("onPlayerCharacterCreate", function(playerid, firstname, lastname, nationa
 
     // or we are creating new
     if(migrateid == "0") {
+
         dbg("character", "creating", null, getIdentity(playerid), firstname, lastname, nationality, race, sex, birthdate, cskin);
 
         Character.findBy({ name = getAccountName(playerid) }, function(err, characters) {
@@ -224,7 +225,18 @@ function validateAndUpdateCharacter(playerid, character, firstname, lastname, na
         trigger("onPlayerCharacterLoaded", playerid, character);
     });
 
-    dbg("ncrp", "newcomers", firstname+" "+lastname);
+    nano({
+        "path": "discord-newcomers",
+        "server": "ncrp",
+        "channel": "newcomers",
+        "name": format("%s %s", firstname, lastname)
+    })
+    nano({
+        "path": "discord-newchar",
+        "server": "ncrp",
+        "channel": "admin",
+        "text": format("Создан персонаж для аккаунта **%s**:\n%s %s", getAccountName(playerid), firstname, lastname)
+    })
 
     return true;
 }

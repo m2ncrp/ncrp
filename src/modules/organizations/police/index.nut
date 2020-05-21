@@ -62,12 +62,6 @@ police_permissoins[53]    <-  "bus"              ; // пользоваться �
 police_permissoins[54]    <-  "detective_car"    ; // пользоваться машиной детектива
 
 
-local police_rank = [
-
-
-];
-
-
 function policecmd(name, callback) {
     cmd(name, function(playerid, ...) {
         if(!isOfficer(playerid)) {
@@ -172,7 +166,7 @@ include("modules/organizations/police/functions.nut");
 include("modules/organizations/police/messages.nut");
 // include("modules/organizations/police/Gun.nut");
 include("modules/organizations/police/PoliceBuffer.nut");
-include("modules/organizations/police/PoliceOfficersList.nut");
+// include("modules/organizations/police/PoliceOfficersList.nut");
 include("modules/organizations/police/PoliceTickets.nut");
 include("modules/organizations/police/garage.nut");
 include("modules/organizations/police/binder.nut");
@@ -225,7 +219,7 @@ event("onServerPlayerStarted", function( playerid ){
 
     if (getPlayerState(playerid) == "cuffed") {
         delayedFunction(1100, function() { freezePlayer(playerid, true); });
-        msg(playerid, "You cuffed.");
+        msg(playerid, "police.arrested", CL_ERROR);
     }
 });
 
@@ -339,18 +333,19 @@ event("onPoliceDutyOn", function(playerid, rank = null) {
             givePlayerWeapon( playerid, 8, 48 ); // Remington Model 870 Field gun // on RED level
         }
     }
-    if (rank >= 8 && rank <= 10) {
+    if (rank >= 8) {
         givePlayerWeapon( playerid, 4, 56 ); // Colt M1911A1
         if (DENGER_LEVEL == "red") {
             givePlayerWeapon( playerid, 12, 120 ); // M1A1 Thompson
         }
     }
-    if (rank >= 11 && rank <= 14) {
-        givePlayerWeapon( playerid, 6, 42 ); // Model 19 Revolver
-        if (DENGER_LEVEL == "red") {
-            givePlayerWeapon( playerid, 12, 120 ); // M1A1 Thompson
-        }
-    }
+
+    // if (rank >= 11 && rank <= 14) {
+    //     givePlayerWeapon( playerid, 6, 42 ); // Model 19 Revolver
+    //     if (DENGER_LEVEL == "red") {
+    //         givePlayerWeapon( playerid, 12, 120 ); // M1A1 Thompson
+    //     }
+    // }
 });
 
 
@@ -367,20 +362,25 @@ event("onPoliceDutyOff", function(playerid, rank = null) {
         removePlayerWeapon( playerid, 2 ); // Model 12 Revolver
         removePlayerWeapon( playerid, 8 ); // Remington Model 870 Field gun // on RED level
     }
-    if (rank >= 8 && rank <= 10) {
+    if (rank >= 8) {
         removePlayerWeapon( playerid, 4 ); // Colt M1911A1
         removePlayerWeapon( playerid, 12 ); // M1A1 Thompson
     }
-    if (rank >= 11 && rank <= 14) {
-        removePlayerWeapon( playerid, 6 ); // Model 19 Revolver
-        removePlayerWeapon( playerid, 12 ); // M1A1 Thompson
-    }
+    //if (rank >= 11 && rank <= 14) {
+    //    removePlayerWeapon( playerid, 6 ); // Model 19 Revolver
+    //    removePlayerWeapon( playerid, 12 ); // M1A1 Thompson
+    //}
 });
 
 
 event("onBatonBitStart", function (playerid) {
     setPlayerAnimStyle(playerid, "common", "ManColdWeapon");
     setPlayerHandModel(playerid, 1, 28); // policedubinka right hand
+
+    delayedFunction(3000, function() {
+        setPlayerAnimStyle(playerid, "common", "default");
+        setPlayerHandModel(playerid, 1, 0);
+    })
 });
 
 
