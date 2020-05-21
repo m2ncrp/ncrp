@@ -214,7 +214,7 @@ function fuelStationCreatePrivateInteractions(playerid, station) {
             local vehicleid = getPlayerVehicle(playerid);
             local veh = getVehicleEntity(vehicleid)
             local modelid = veh.model;
-            if(modelid == 5 && getMaxGallonsReadyToBuy(station, veh) > 0) {
+            if(modelid == 5 && getMaxGallonsReadyToBuy(station, veh) >= 1) {
                 fuelStationCache[charid].unload <- createPrivate3DText(playerid, stationCoords.unload[0], stationCoords.unload[1], stationCoords.unload[2]+0.35, plocalize(playerid,"business.3dtext.fuelStation.unload"), CL_RIPELEMON, FUEL_UNLOAD_RADIUS);
                 fuelStationCache[charid].unloadSubtitle <- createPrivate3DText(playerid, stationCoords.unload[0], stationCoords.unload[1], stationCoords.unload[2], plocalize(playerid, "property.3dtext.press.E"), CL_WHITE.applyAlpha(150), FUEL_RADIUS);
                 privateKey(playerid, "e", "fuelTruckUnload", fuelTruckUnload);
@@ -651,7 +651,7 @@ function fuelTruckUnload(playerid) {
         return msg(playerid, "business.fuelStation.fueltruck.empty", CL_ERROR);
     }
 
-    if(maxGallonsReadyToBuy == 0) {
+    if(maxGallonsReadyToBuy < 1) {
         return msg(playerid, "business.fuelStation.not-ready-to-buy", CL_ERROR);
     }
 
@@ -700,7 +700,7 @@ function fuelTruckUnload(playerid) {
 
         local maxGallonsReadyToBuyNow = getMaxGallonsReadyToBuy(station, veh);
 
-        if(maxGallonsReadyToBuyNow == 0) {
+        if(maxGallonsReadyToBuyNow < 1) {
             return msg(playerid, "business.fuelStation.not-ready-to-buy", CL_ERROR);
         }
 

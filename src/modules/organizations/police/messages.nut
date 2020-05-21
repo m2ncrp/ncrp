@@ -84,7 +84,7 @@ function createCrimePoint(playerid) {
     local pos = getPlayerPositionObj(playerid);
     foreach (player in players) {
         local id = player.playerid;
-        if (isCopInPoliceCarOnDuty(playerid)) {
+        if (isCopInPoliceCarOnDuty(id)) {
             local crime_hash = createPrivateBlip(id, pos.x, pos.y, ICON_YELLOW, 4000.0);
 
             delayedFunction(60000, function() {

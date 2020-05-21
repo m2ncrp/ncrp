@@ -11,6 +11,9 @@ alternativeTranslate({
     "en|fillingcenter.gov-declined"                           : "Members of government can't make a bussiness."
     "ru|fillingcenter.gov-declined"                           : "Члены правительства не могут заниматься бизнесом."
 
+    "en|fillingcenter.bizman-declined"                           : "Members of government can't make a bussiness."
+    "ru|fillingcenter.bizman-declined"                           : "Члены правительства не могут заниматься бизнесом."
+
     "en|fillingcenter.stop-engine"                            : "Please, stop the engine."
     "ru|fillingcenter.stop-engine"                            : "Заглушите двигатель."
 
@@ -140,6 +143,10 @@ function fillingCenterLoad(playerid) {
 
     if(!isPlayerAdmin(playerid) && isPlayerFractionMember(playerid, "gov")) {
         return msg(playerid, "fillingcenter.gov-declined", CL_ERROR);
+    }
+
+    if(!isPlayerAdmin(playerid) && getPlayerBizCount(playerid) > 0) {
+        return msg(playerid, "fillingcenter.bizman-declined", CL_ERROR);
     }
 
     local veh = getVehicleEntity(vehicleid);
