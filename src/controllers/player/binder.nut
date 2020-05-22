@@ -1,7 +1,8 @@
 local playersInfo = {};
 
-function getPlayerBinderState(playerid,) {
-  return playersInfo[getCharacterIdFromPlayerId(playerid)];
+function getPlayerBinderState(playerid) {
+  local charid = getCharacterIdFromPlayerId(playerid);
+  return (charid in playersInfo) ? playersInfo[charid] : false;
 }
 
 function setPlayerBinderState(playerid, state) {
