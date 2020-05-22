@@ -71,7 +71,7 @@ function searchBadWord(str) {
 }
 
 // сказать имя другому игроку
-cmd(["meet"], function(playerid, targetid, ...) {
+cmd("meet", function(playerid, targetid, ...) {
 
     targetid = toInteger(targetid);
     local nickname = trim(concat(vargv));
@@ -116,7 +116,9 @@ cmd(["meet"], function(playerid, targetid, ...) {
         sendLocalizedMsgToAll(targetid, "chat.player.says", [getKnownCharacterNameWithId, plocalize(targetid, "handshake.shake.decline")], NORMAL_RADIUS, CL_CHAT_IC);
     });
 
-    sendLocalizedMsgToAll(playerid, "handshake.shake.request", [nickname], NORMAL_RADIUS, CL_CHAT_IC);
+    local name = nickname == "me" ? getPlayerName(playerid) : nickname;
+
+    sendLocalizedMsgToAll(playerid, "handshake.shake.request", [name], NORMAL_RADIUS, CL_CHAT_IC);
     msg(targetid, "handshake.shake.request-desc", CL_LYNCH);
 
     trigger(targetid, "hudCreateTimer", 15.0, true, true);
@@ -125,8 +127,6 @@ cmd(["meet"], function(playerid, targetid, ...) {
 
     local character = players[targetid];
     local receiverCharId = getCharacterIdFromPlayerId(targetid);
-
-    local name = nickname == "me" ? getPlayerName(playerid) : nickname;
 
     requestUserInput(targetid, function(targetid, text) {
         trigger(targetid, "hudDestroyTimer");
