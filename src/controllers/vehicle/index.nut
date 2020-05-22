@@ -235,7 +235,9 @@ key(["f"], function(playerid) {
             return
         }
         setVehicleEngineState(vehicleid, false);
-        blockVehicle(vehicleid);
+        if(!hasKey) {
+            blockVehicle(vehicleid);
+        }
     });
 
 
