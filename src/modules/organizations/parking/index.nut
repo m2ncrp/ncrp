@@ -239,7 +239,12 @@ event("onVehicleSetToCarPound", function(playerid, plate) {
                 ["Модель", getVehicleNameByModelId(getVehicleModel(vehicleid))]
             ]
         });
-
+        if(isVehicleCarRent(vehicleid)) {
+            setVehicleRespawnEx(vehicleid, false);
+            local veh = getVehicleEntity(vehicleid);
+            veh.data.rent.enabled = false;
+            veh.save();
+        }
     } else {
         msg(playerid, "parking.noFreeSpace");
         nano({

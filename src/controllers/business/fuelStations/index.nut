@@ -455,6 +455,11 @@ function fuelVehicleUp(playerid) {
 
     if(isVehicleCarRent(vehicleid)) {
         local veh = getVehicleEntity(vehicleid);
+
+        if(station.data.fuel.price > veh.data.rent.fuelPrice) {
+            return msg(playerid, "rentcar.very-expensive-fuel", [veh.data.rent.fuelPrice], CL_ERROR);
+        }
+
         if(veh.data.rent.money < cost) {
             return msg(playerid, "rentcar.notenoughbill", CL_ERROR);
         }

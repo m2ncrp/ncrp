@@ -52,55 +52,83 @@ function leaseCar(playerid) {
 
     trigger(playerid, "hudCreateTimer", 30, true, true);
 
-    local isEntered = false;
-
-    delayedFunction(30000, function() {
-        if (!isEntered) {
-            return msg(playerid, "Аренда не подтверждена", CL_THUNDERBIRD);
-        }
+    local timer = delayedFunction(30000, function() {
+        return msg(playerid, "Аренда не подтверждена", CL_THUNDERBIRD);
     });
 
-    msg(playerid, "Введите стоимость аренды в долларах за час (игровой):", CL_HELP);
-    delayedFunction( 1000, function() {
+    msg(playerid, "1. Введите стоимость аренды в долларах за час (игровой):", CL_HELP);
+    delayedFunction(0, function() {
         requestUserInput(playerid, function(playerid, price) {
 
             trigger(playerid, "hudDestroyTimer");
-
-            isEntered = true;
+            timer.Kill();
 
             if (!price || !isFloat(price) || price.tofloat() <= 0) {
-                return msg(playerid, "Указана некорректная стоимость", CL_THUNDERBIRD);
+                return msg(playerid, "Указана некорректная стоимость аренды", CL_THUNDERBIRD);
             }
 
             price = price.tofloat();
+            msg(playerid, format("$ %.2f", price), CL_JORDYBLUE);
 
-            blockDriving(playerid, vehicleid);
+            local timer2 = delayedFunction(30000, function() {
+                return msg(playerid, "Аренда не подтверждена", CL_THUNDERBIRD);
+            });
 
-            local veh = getVehicleEntity(vehicleid);
+            trigger(playerid, "hudCreateTimer", 30, true, true);
 
-            if(("rent" in veh.data) == false) {
-                veh.data.rent <- {}
-            }
+            local baseFuelPrice = getSettingsValue("baseFuelPrice");
 
-            subMoneyToPlayer(playerid, LEASE_DEPOSIT);
+            msg(playerid, "2. Введите максимальную цену галлона топлива, по которой арендаторы смогут заправлять этот автомобиль:", CL_HELP);
+            msg(playerid, format("Цена не может быть ниже $ %.2f. Указывайте разумный предел", baseFuelPrice), CL_GRAY);
+            delayedFunction(0, function() {
+                requestUserInput(playerid, function(playerid, fuelPrice) {
+                    trigger(playerid, "hudDestroyTimer");
+                    timer2.Kill();
 
-            veh.data.rent = {
-                price = price,
-                money = LEASE_DEPOSIT,
-                count = 0
-            }
+                    if (!fuelPrice || !isFloat(fuelPrice) || fuelPrice.tofloat() < baseFuelPrice) {
+                        return msg(playerid, "Указана некорректная максимальная цена топлива", CL_THUNDERBIRD);
+                    }
 
-            veh.data.defaultPos <- vehPos;
-            veh.data.defaultRot <- vehRot;
+                    fuelPrice = fuelPrice.tofloat();
+                    msg(playerid, format("$ %.2f", fuelPrice), CL_JORDYBLUE);
 
-            setVehicleRespawnPositionObj(vehicleid, vehPos)
-            setVehicleRespawnRotationObj(vehicleid, vehRot)
-            setVehicleRespawnEx(vehicleid, true);
+                    blockDriving(playerid, vehicleid);
 
-            msg(playerid, "Стоимость аренды за час: $%.2f", price, CL_JORDYBLUE);
-            msg(playerid, "Автомобиль выставлен в аренду.", CL_SUCCESS);
-            return;
+                    local veh = getVehicleEntity(vehicleid);
 
+                    if(("rent" in veh.data) == false) {
+                        veh.data.rent <- {}
+                        veh.data.rent = {
+                            enabled = true,
+                            count = 0,
+                            countall = 0,
+                            money = 0,
+                            price = 0,
+                            fuelPrice = 0
+                        }
+                    }
+
+                    subMoneyToPlayer(playerid, LEASE_DEPOSIT);
+
+                    veh.data.rent.enabled = true;
+                    veh.data.rent.money += LEASE_DEPOSIT;
+                    veh.data.rent.price = price;
+                    veh.data.rent.fuelPrice = fuelPrice;
+
+                    veh.data.defaultPos <- vehPos;
+                    veh.data.defaultRot <- vehRot;
+                    veh.save();
+
+                    setVehicleRespawnPositionObj(vehicleid, vehPos)
+                    setVehicleRespawnRotationObj(vehicleid, vehRot)
+                    setVehicleRespawnEx(vehicleid, true);
+
+                    msg(playerid, "Стоимость аренды за час: $ %.2f", price, CL_JORDYBLUE);
+                    msg(playerid, "Максимальная цена покупки галлона топлива: $ %.2f", fuelPrice, CL_JORDYBLUE);
+                    msg(playerid, "Автомобиль выставлен в аренду.", CL_SUCCESS);
+                    return;
+                }, 30);
+            });
         }, 30);
     });
 }
@@ -146,7 +174,10 @@ function unleaseCar(playerid) {
 
     msg(playerid, "Автомобиль снят с аренды.", CL_SUCCESS);
     msg(playerid, "Возвращён депозит ($%.2f). Чистый доход: $%.2f", [LEASE_DEPOSIT, veh.data.rent.money - LEASE_DEPOSIT], CL_JORDYBLUE);
-    delete veh.data.rent;
+    veh.data.rent.enabled = false;
+    veh.data.rent.money = 0;
+    veh.data.rent.count = 0;
+    veh.save();
 }
 
 function leaseGetStats(playerid) {
@@ -170,8 +201,9 @@ function leaseGetStats(playerid) {
     local veh = getVehicleEntity(vehicleid);
 
     msg(playerid, ".:: Сведения об аренде ::.", CL_HELP);
-    msg(playerid, "Стоимость аренды за час: $%.2f", veh.data.rent.price, CL_JORDYBLUE);
-    msg(playerid, "Количество аренд: %d", veh.data.rent.count, CL_JORDYBLUE);
+    msg(playerid, "Стоимость аренды за час: $ %.2f", veh.data.rent.price, CL_JORDYBLUE);
+    msg(playerid, "Максимальная цена покупки галлона топлива: $ %.2f", veh.data.rent.fuelPrice, CL_JORDYBLUE);
+    msg(playerid, "Количество аренд: %d (всего: %d)", [veh.data.rent.count, veh.data.rent.countall], CL_JORDYBLUE);
     msg(playerid, "Топливо: %d из %s", [getVehicleFuelEx(vehicleid), formatGallonsInteger(getDefaultVehicleFuel(vehicleid))], CL_JORDYBLUE);
-    msg(playerid, "Баланс: $%.2f", veh.data.rent.money, CL_JORDYBLUE);
+    msg(playerid, "Баланс: $ %.2f", veh.data.rent.money, CL_JORDYBLUE);
 }

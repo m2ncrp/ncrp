@@ -142,7 +142,7 @@ function isPlayerCarRent(playerid) {
 function isVehicleCarRent(vehicleid) {
     local veh = getVehicleEntity(vehicleid);
     if(veh == null) return false;
-    return ("rent" in veh.data)
+    return ("rent" in veh.data && veh.data.rent.enabled == true)
 }
 
 function getVehicleRentPrice(vehicleid) {
@@ -154,7 +154,7 @@ function getVehicleRentPrice(vehicleid) {
     // }
 
     local veh = getVehicleEntity(vehicleid);
-    if(veh == null || !("rent" in veh.data)) return 0.0;
+    if(veh == null || !("rent" in veh.data) || veh.data.rent.enabled == false) return 0.0;
 
     return veh.data.rent.price;
 }

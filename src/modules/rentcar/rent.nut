@@ -30,6 +30,7 @@ function RentCar(playerid) {
     veh.data.tax += rentprice * tax;
     veh.data.rent.money += rentprice * (1 - tax);
     veh.data.rent.count += 1;
+    veh.data.rent.countall += 1;
     msg(playerid, "rentcar.rented");
     msg(playerid, "rentcar.paidcar", [ rentprice ] );
 }
@@ -174,6 +175,10 @@ alternativeTranslate({
     "ru|rentcar.paidcar"        : "Вы заплатили за аренду автомобиля $%.2f."
     "ru|rentcar.refuse"         : "Отказаться от аренды: /unrent"
     "ru|rentcar.notenoughbill"  : "Недостаточно денег на балансе автомобиля"
+
+    "ru|rentcar.very-expensive-fuel"  : "Заправить этот автомобиль можно на автозаправках, где цена галлона топлива ниже $ %.2f"
+    "en|rentcar.very-expensive-fuel"  : "You can refuel this car at gas stations where the price of a gallon of fuel is below $ %.2f"
+
     "ru|rentcar.rent.dontknow"  : "Вы пока не знаете как арендовать автомобиль."
     "ru|rentcar.lease.dontknow" : "Вы пока не знаете как сдать автомобиль в аренду."
     "ru|rentcar.explorecity"    : "Изучите город в поисках дополнительной информации."
