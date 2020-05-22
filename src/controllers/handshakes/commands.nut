@@ -145,7 +145,7 @@ cmd("meet", function(playerid, targetid, ...) {
         handshake.text = name;
         handshake.save();
 
-        character.handshakes[receiverCharId] <- handshake;
+        character.handshakes[senderCharId] <- handshake;
 
         sendLocalizedMsgToAll(targetid, "chat.player.says", [getKnownCharacterNameWithId, plocalize(targetid, "handshake.shake.complete", [name])], NORMAL_RADIUS, CL_CHAT_IC);
 
