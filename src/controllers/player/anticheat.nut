@@ -159,17 +159,30 @@ event("onServerStarted", function() {
                         ) {
                             //logStr("================================================================ WARNING ===");
                             playersInfo[charId].counter += 1;
-                            if(playersInfo[charId].counter >= 5) {
-                                dbg("chat", "report", getAuthor(playerid), "Подозрение на использование трейнера");
+                            if(playersInfo[charId].counter >= 7) {
+                                nano({
+                                    "path": "discord",
+                                    "server": "ncrp",
+                                    "channel": "admin",
+                                    "author": "Античит",
+                                    "title": getAuthor(playerid),
+                                    "description": "Весомые подозрения на использование трейнера перемещения",
+                                    "color": "yellow"
+                                })
                             }
                             if(playersInfo[charId].counter > maxToBan) {
                                 //logStr("@everyone WARNING!!! "+getAuthor(playerid)+" - using trainer");
-                                dbg("chat", "report", getAuthor(playerid), "Высокий риск наличия трейнера.");
+                                nano({
+                                    "path": "discord",
+                                    "server": "ncrp",
+                                    "channel": "admin",
+                                    "author": "Античит",
+                                    "title": getAuthor(playerid),
+                                    "description": "Авто-бан за использование трейнера перемещения",
+                                    "color": "red"
+                                })
 
-                                //freezePlayer(playerid, true);
-                                //delayedFunction(6000, function () {
-                                //    newban(playerid, playerid, 7889760, plocalize(playerid, "admin.ban.trainer"));
-                                //});
+                                newban(playerid, playerid, 7884000, plocalize(playerid, "admin.ban.trainer"));
 
                                 playersInfo[charId].counter = 0;
                             }
