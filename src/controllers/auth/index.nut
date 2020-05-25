@@ -31,9 +31,7 @@ include("controllers/auth/data-names.nut");
 */
 event("onClientSuccessfulyStarted", function(playerid) {
     // 1. Set ui settings (hide ui elements, skin, set camera rotation)
-    trigger(playerid, "setWeather",
-        getWeather()
-    );
+    // nothing here
 
     // 2. Check if server is under construction
 	if(getSettingsValue("isUnderConstruction") && !isPlayerServerAdmin(playerid)) {
@@ -252,6 +250,12 @@ function showIdentificationGui(playerid, delay = 2000) {
 
 function introUISetter(playerid) {
     screenFadein(playerid, 0);
+
+    delayedFunction(0, function() {
+        trigger(playerid, "setWeather",
+            getWeather()
+        );
+    });
 
     local defaultSpawn = getDefaultSpawn();
 
