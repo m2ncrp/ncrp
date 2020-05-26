@@ -290,12 +290,12 @@ event("onPlayerVehicleExit", function( playerid, vehicleid, seat ) {
 });
 
 
-event("onPlayerDisconnect", function(playerid, reason) {
-    local playersState = getPlayerState(playerid);
-    if (playersState == "cuffed" || playersState == "immobilized") {
-        setPlayerState(playerid, "jail");
-    }
-});
+// event("onPlayerDisconnect", function(playerid, reason) {
+//     local playersState = getPlayerState(playerid);
+//     if (playersState == "cuffed" || playersState == "immobilized") {
+//         setPlayerState(playerid, "jail");
+//     }
+// });
 
 
 event("onServerMinuteChange", function() {

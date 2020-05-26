@@ -9,8 +9,8 @@ cmd("help", ["police"], function(playerid) {
         "Клавиша V - надеть наручники на ближайшего персонажа",
         "/ticket id - выдать штраф игроку. Пример: /ticket 2",
         "/uncuff id - снять наручники с ближайшего персонажа",
-        "/prison id - посадить персонажа с указанным id в тюрьму",
-        "/amnesty id - отпустить из тюрьмы персонажа с указанным id",
+        // "/prison id - посадить персонажа с указанным id в тюрьму",
+        // "/amnesty id - отпустить из тюрьмы персонажа с указанным id",
         "/park номер - отправить автомобиль на штрафстоянку",
         "/wanted - посмотреть список разыскиваемых автомобилей",
         "/wanted car номер - пробить номер автомобиля по базе розыска",
@@ -292,29 +292,29 @@ policecmd("m", function(playerid, text) {
 // });
 
 // put nearest cuffed player in jail
-cmd(["prison", "jail"], function(playerid, targetid, ...) {
-    if ( !isOfficer(playerid) ) {
-        return;
-    }
-    if(targetid == null) return msg(playerid, "Формат: /jail id причина+срок");
-    if(vargv.len() == 0) return msg(playerid, "Не указана причина", CL_ERROR);
-    targetid = targetid.tointeger();
-    if(getPoliceRank(playerid) < 2) return msg( playerid, "organizations.police.lowrank" );
-    local reason = concat(vargv);
-    putInJail(playerid, targetid, reason);
-});
+// cmd(["prison", "jail"], function(playerid, targetid, ...) {
+//     if ( !isOfficer(playerid) ) {
+//         return;
+//     }
+//     if(targetid == null) return msg(playerid, "Формат: /jail id причина+срок");
+//     if(vargv.len() == 0) return msg(playerid, "Не указана причина", CL_ERROR);
+//     targetid = targetid.tointeger();
+//     if(getPoliceRank(playerid) < 2) return msg( playerid, "organizations.police.lowrank" );
+//     local reason = concat(vargv);
+//     putInJail(playerid, targetid, reason);
+// });
 
 
 // take out player from jail
-cmd(["amnesty"], function(playerid, targetid) {
-    if ( !isOfficer(playerid) ) {
-        return;
-    }
-    if(targetid == null) return msg(playerid, "Формат: /amnesty id");
-    if(getPoliceRank(playerid) < 2) return msg( playerid, "organizations.police.lowrank" );
-    targetid = targetid.tointeger();
-    takeOutOfJail(playerid, targetid);
-});
+// cmd(["amnesty"], function(playerid, targetid) {
+//     if ( !isOfficer(playerid) ) {
+//         return;
+//     }
+//     if(targetid == null) return msg(playerid, "Формат: /amnesty id");
+//     if(getPoliceRank(playerid) < 2) return msg( playerid, "organizations.police.lowrank" );
+//     targetid = targetid.tointeger();
+//     takeOutOfJail(playerid, targetid);
+// });
 
  // /park plate_number
 cmd("park", function ( playerid, plate) {
