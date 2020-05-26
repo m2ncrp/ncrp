@@ -43,7 +43,13 @@ function statisticsPushText(type, playerid, content, additional = "") {
 function statisticsPushMessage(playerid, message, type = "") {
     // special handling for gamechat
     if (type == "ooc_") {
-        dbg("ncrp", "gamechat", getPlayerName(playerid), message);
+        nano({
+            "path": "discord-gamechat",
+            "server": "ncrp",
+            "channel": "gamechat",
+            "name": getPlayerName(playerid),
+            "msg": message,
+        })
     } else {
         dbg("ncrp", "console", getIdentity(playerid), message);
     }
