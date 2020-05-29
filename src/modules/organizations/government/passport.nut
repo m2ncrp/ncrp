@@ -340,7 +340,7 @@ cmd("passport", function( playerid) {
 fmd("gov", ["gov.passport"], "$f passport list", function(fraction, character, page = "1") {
 
     if(isRestartPlanned()) {
-        return msg(playerid, "В данный момент операции по заявкам не осуществляются.", CL_ERROR);
+        return msg(character.playerid, "В данный момент операции по заявкам не осуществляются.", CL_ERROR);
     }
 
     local length = passportRequests.len();
@@ -392,7 +392,7 @@ fmd("gov", ["gov.passport"], "$f passport list", function(fraction, character, p
 fmd("gov", ["gov.passport"], "$f passport show", function(fraction, character, num = "0") {
 
     if(isRestartPlanned()) {
-        return msg(playerid, "В данный момент операции по заявкам не осуществляются.", CL_ERROR);
+        return msg(character.playerid, "В данный момент операции по заявкам не осуществляются.", CL_ERROR);
     }
 
     local request = getPassportRequest(num.tointeger());
@@ -428,7 +428,7 @@ fmd("gov", ["gov.passport"], "$f passport show", function(fraction, character, n
 fmd("gov", ["gov.passport"], "$f passport", function(fraction, character, result, num, ...) {
 
     if(isRestartPlanned()) {
-        return msg(playerid, "В данный момент операции по заявкам не осуществляются.", CL_ERROR);
+        return msg(character.playerid, "В данный момент операции по заявкам не осуществляются.", CL_ERROR);
     }
 
     local request = getPassportRequest(num.tointeger());
