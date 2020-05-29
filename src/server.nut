@@ -403,11 +403,11 @@ delayedFunction(10000, function() {
 
 
 
-nnListen(function(data) {
-    local parsedData = JSONParser.parse(data);
-
-    logStr("from node json: " + parsedData.type + ": "+data);
-});
+// nnListen(function(data) {
+//     local parsedData = JSONParser.parse(data);
+//
+//     logStr("from node json: " + parsedData.type + ": "+data);
+// });
 
 
 cmd("nc", function (playerid) {

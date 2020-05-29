@@ -6,6 +6,15 @@ function isRestartPlanned() {
     return isRestartPlanned;
 }
 
+// Приёмник данных из ноды
+nnListen(function(sourceData) {
+    local data = JSONParser.parse(sourceData);
+
+    if(data.type == "server" && data.action == "plan-restart" ) {
+        planServerRestart(-1);
+    }
+});
+
 event("native:onPlayerConnect", function(playerid, name, ip, serial) {
     if(isRestarting) kickPlayer( playerid );
 });
@@ -63,7 +72,11 @@ function planServerRestart(playerid) {
 
             delayedFunction(1000, function() {
                 // request restart
-                dbg("server", "restart", "requested");
+                nano({
+                    "path": "server",
+                    "type": "restart",
+                    "action": "request",
+                });
             });
         });
     });
