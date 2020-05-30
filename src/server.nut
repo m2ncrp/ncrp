@@ -92,6 +92,8 @@ if (__DEBUG__EXPORT) {
 }
 
 // load classes
+include("helpers/patterns");
+
 include("traits/Colorable.nut");
 include("models/Color.nut");
 include("models/Vehicle.nut");
@@ -104,7 +106,6 @@ include("models/MigrationVersion.nut");
 include("models/Business.nut");
 
 // load helpers
-include("helpers/patterns");
 include("helpers/vector.nut");
 include("helpers/assert.nut");
 include("helpers/array.nut");

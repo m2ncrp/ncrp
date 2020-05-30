@@ -80,7 +80,7 @@ event("onServerStarted", function() {
             local ry = vehicle.ry;
             local rz = vehicle.rz;
 
-            local data = JSONParser.parse(vehicle.data);
+            local data = vehicle.data;
 
             // create vehicle
             local vehicleid = createVehicle( vehicle.model, x, y, z, rx, ry, rz );
@@ -115,7 +115,6 @@ event("onServerStarted", function() {
             // secial methods for custom vehicles
             setVehicleSaving      ( vehicleid, true );
             setVehicleEntity      ( vehicleid, vehicle );
-            setVehicleData        ( vehicleid, data, { parsed = true } );
 
             // block vehicle by default
             blockVehicle          ( vehicleid );
