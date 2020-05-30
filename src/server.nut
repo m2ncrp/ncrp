@@ -434,3 +434,30 @@ acmd("cam1", function(playerid) {
 //     local plate = (i < 10) ? "0"+i : i.tostring();
 //     setVehiclePlateText(vehicleid, format("%s", plate));
 // }
+
+acmd("sn", function(playerid) {
+    sn();
+    msg(playerid, "sended");
+})
+
+function sn() {
+    nano({
+        "path": "discord",
+        "server": "gov",
+        "channel": "passport_requests",
+        "action": "new",
+        "description": "Заявка на паспорт",
+        "color": "yellow",
+        "datetime": getDateTime(),
+        "direction": false,
+        "fields": [
+            ["Номер", 5],
+            ["Имя Фамилия", "Fernando Fabbri"],
+            ["Пол", "Мужской"],
+            ["Национальность", "Афро-итальянец китайскиого происхождения"],
+            ["Дата рождения", "01.01.1930"],
+            ["Цвет волос", "Серо-бур-козявчатый"],
+            ["Цвет глаз", "Лилово-оранжевый"],
+        ]
+    });
+}
