@@ -1870,7 +1870,7 @@ vehicleInfo <- {
         trunk = {
             gridSizeX = 2,
             gridSizeY = 3,
-            weightLimit = 70,
+            volumeLimit = 70,
         },
         engine = {
             top_speed_mph = [66.0,  66.0,  90.0],
@@ -1904,7 +1904,7 @@ vehicleInfo <- {
         trunk = {
             gridSizeX = 2,
             gridSizeY = 3,
-            weightLimit = 70,
+            volumeLimit = 70,
         },
         engine = {
             top_speed_mph = [66.0,  66.0,  90.0],
@@ -1937,7 +1937,7 @@ vehicleInfo <- {
         trunk = {
             gridSizeX = 2,
             gridSizeY = 3,
-            weightLimit = 70,
+            volumeLimit = 70,
         },
         engine = {
             top_speed_mph = [66.0,  66.0,  90.0],
@@ -1970,7 +1970,7 @@ vehicleInfo <- {
         trunk = {
             gridSizeX = 2,
             gridSizeY = 3,
-            weightLimit = 70,
+            volumeLimit = 70,
         },
         engine = {
             top_speed_mph = [66.0,  66.0,  90.0],
@@ -2004,7 +2004,7 @@ vehicleInfo <- {
         trunk = {
             gridSizeX = 2,
             gridSizeY = 3,
-            weightLimit = 70,
+            volumeLimit = 70,
         },
         engine = {
             top_speed_mph = [66.0,  66.0,  90.0],
@@ -2037,7 +2037,7 @@ vehicleInfo <- {
         trunk = {
             gridSizeX = 2,
             gridSizeY = 3,
-            weightLimit = 70,
+            volumeLimit = 70,
         },
         engine = {
             top_speed_mph = [66.0,  66.0,  90.0],
