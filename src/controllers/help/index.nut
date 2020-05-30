@@ -257,9 +257,9 @@ cmd("dating", function(playerid) {
     msgh(playerid, "Система знакомств", [
         "/dating rules - правила",
         "Обязательно для прочтения перед использованием!",
-        "/meet id имя - представиться вымышленным именем",
+        "/hi id имя - представиться вымышленным именем",
         "handshake.shake.example",
-        "/meet id me - представиться настоящим именем",
+        "/hi id me - представиться настоящим именем",
         "handshake.shake.real-name.example",
         "/remember id имя - запомнить имя",
         "handshake.remember.example",

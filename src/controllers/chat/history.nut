@@ -58,13 +58,3 @@ key("page_down", function(playerid) {
     showChatHistory(playerid, posStart);
 });
 
-cmd("hi", function(playerid) {
-	    for(local i = 0; i < 30; i++){
-				local str = "";
-				for(local j = 0; j < random(100, 250); j++){
-					str += i;
-				}
-					msg(playerid, (i+1)+". "+str);
-    }
-})
-

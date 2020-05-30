@@ -71,7 +71,7 @@ function searchBadWord(str) {
 }
 
 // сказать имя другому игроку
-cmd("meet", function(playerid, targetid, ...) {
+cmd(["meet", "hi"], function(playerid, targetid, ...) {
 
     targetid = toInteger(targetid);
     local nickname = trim(concat(vargv));
@@ -262,16 +262,16 @@ alternativeTranslate({
     "ru|handshake.title"  : "Система знакомств"
 
     "en|handshake.shake.rule"  : ""
-    "ru|handshake.shake.rule"  : "Чтобы представиться: /meet id имя"
+    "ru|handshake.shake.rule"  : "Чтобы представиться: /hi id имя"
 
     "en|handshake.shake.example"  : ""
-    "ru|handshake.shake.example"  : "Например: /meet 7 Franz Ferdinand"
+    "ru|handshake.shake.example"  : "Например: /hi 7 Franz Ferdinand"
 
     "en|handshake.shake.real-name"  : ""
-    "ru|handshake.shake.real-name"  : "Представиться настоящим именем: /meet id me"
+    "ru|handshake.shake.real-name"  : "Представиться настоящим именем: /hi id me"
 
     "en|handshake.shake.real-name.example"  : ""
-    "ru|handshake.shake.real-name.example"  : "Например: /meet 5 me"
+    "ru|handshake.shake.real-name.example"  : "Например: /hi 5 me"
 
     "en|handshake.shake.request"  : ""
     "ru|handshake.shake.request"  : "Меня зовут %s"
