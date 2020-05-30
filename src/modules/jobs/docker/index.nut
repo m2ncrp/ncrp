@@ -103,7 +103,7 @@ local DOCKER_JOB_WORKING_HOUR_END   = 23;   //18;
 local DOCKER_BOX_IN_HOUR = 30;
 local DOCKER_BOX_NOW = 25;
 
-local TRUCKID = -1;
+// local TRUCKID = -1;
 
 
 event("onServerStarted", function() {
@@ -111,7 +111,7 @@ event("onServerStarted", function() {
 
     registerPersonalJobBlip("docker", DOCKER_JOB_X, DOCKER_JOB_Y);
 
-    TRUCKID = createVehicle(35, -331.585, -717.952, -21.4104, -178.888, -0.0503875, -0.427005);
+    //TRUCKID = createVehicle(35, -331.585, -717.952, -21.4104, -178.888, -0.0503875, -0.427005);
 
 });
 
@@ -130,7 +130,7 @@ event("onServerPlayerStarted", function( playerid ) {
 
     //creating 3dtext for bus depot
     createPrivate3DText ( playerid, DOCKER_JOB_X, DOCKER_JOB_Y, DOCKER_JOB_Z+0.35, plocalize(playerid, "3dtext.job.port"), CL_ROYALBLUE );
-    setVehiclePartOpen(TRUCKID, 1, true);
+    // setVehiclePartOpen(TRUCKID, 1, true);
 
     if(players[playerid]["job"] == "docker") {
         dockerJobRegisterPrivateKeys(playerid);
@@ -345,7 +345,7 @@ function dockerJobTakeBox( playerid ) {
 
     job_docker[getCharacterIdFromPlayerId(playerid)]["havebox"] = true;
     DOCKER_BOX_NOW -= 1;
-    setVehiclePartOpen(TRUCKID, 1, true);
+    //setVehiclePartOpen(TRUCKID, 1, true);
 
     triggerClientEvent(playerid, "takeBox");
 
