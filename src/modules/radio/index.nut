@@ -131,7 +131,6 @@ local radioMsgs = [
     "radio.pdd"            ,
     "radio.parking"        ,
     "radio.carrental"      ,
-    "radio.carsearching"   ,
     "radio.vangel"         ,
     "radio.empirecustom"   ,
     "radio.swiftcola"      ,
