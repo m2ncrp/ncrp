@@ -1,4 +1,4 @@
-local rentcars = {};
+rentcars <- {};
 
 function getPlayerWhoRentVehicle(vehicleid) {
     local vehid = getVehicleEntityId(vehicleid);
