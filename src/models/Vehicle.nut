@@ -1,4 +1,4 @@
-class Vehicle extends ORM.Entity {
+class Vehicle extends ORM.JsonEntity {
 
     static classname = "Vehicle";
     static table = "tbl_vehicles";
@@ -16,7 +16,6 @@ class Vehicle extends ORM.Entity {
         ORM.Field.Integer ({ name = "reserved",   value = 0 }),
         ORM.Field.Integer ({ name = "parking",   value = 0 }),
         ORM.Field.Text  ({ name = "history", value = "", escaping = false }),
-        ORM.Field.Text  ({ name = "data", value = {}, escaping = false }),
     ];
 
     // predefiend collections of fields
