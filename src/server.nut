@@ -79,8 +79,10 @@ function dbg(...) {
 
 console.log = dbg;
 trim <- strip;
+nano_sequence_id <- 0;
 
 function nano(json) {
+    json.sequence_id <- (nano_sequence_id++);
     nnTrigger(JSONEncoder.encode(json));
 };
 
