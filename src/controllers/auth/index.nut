@@ -196,6 +196,12 @@ event("onClientSuccessfulyStarted", function(playerid) {
 
                         trigger("onPlayerInit", playerid);
 
+                        delayedFunction(0, function() {
+                            trigger(playerid, "setWeather",
+                                getWeather()
+                            );
+                        });
+
                         msg(playerid, "auth.success.autologin", CL_SUCCESS);
 
                         printStartedTips(playerid);
