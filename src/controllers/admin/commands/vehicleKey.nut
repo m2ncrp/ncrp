@@ -47,9 +47,9 @@ mcmd(["admin.item"], "key", function( playerid, plateText = 0 ) {
         return msg( playerid, "parking.checkPlate", CL_THUNDERBIRD);
     }
 
-    if(__vehicles[vehicleid].ownership.ownerid == 3) {
-        return msg( playerid, "vehkeys.alreadygot", CL_THUNDERBIRD);
-    }
+    // if(__vehicles[vehicleid].ownership.ownerid == 3) {
+    //     return msg( playerid, "vehkeys.alreadygot", CL_THUNDERBIRD);
+    // }
 
     // if (!isPlayerVehicleOwner(playerid, vehicleid)) {
     //     return msg(playerid, "parking.notYourCar", CL_THUNDERBIRD);
@@ -58,7 +58,6 @@ mcmd(["admin.item"], "key", function( playerid, plateText = 0 ) {
     local entityid = getVehicleEntityId(vehicleid);
 
     vehicleKey.setData("id", entityid);
-    __vehicles[vehicleid].ownership.ownerid = 3;
 
     players[playerid].inventory.push( vehicleKey );
     vehicleKey.save();
