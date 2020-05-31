@@ -219,7 +219,9 @@ event("onVehicleSetToCarPound", function(playerid, plate) {
         return msg(playerid, "parking.alreadyParking", CL_ERROR);
     }
 
-    if (!isVehicleOwned(vehicleid)) {
+    local plate = getVehiclePlateText(vehicleid);
+
+    if (!isVehicleOwned(vehicleid) || plate.find("CR-")) {
         return tryRespawnVehicleById(vehicleid, true);
     }
 
