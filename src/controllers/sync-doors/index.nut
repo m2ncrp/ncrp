@@ -73,7 +73,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
         if(name.find(DOOR_PREFIX) == null) return;
 
         local doorName = name.slice(DOOR_PREFIX.len());
-        local state = getDoorField(doorName).state ? "Open" : "Close"
+        local state = JSONParser.parse(getDoorField(doorName).state) ? "Open" : "Close"
         triggerClientEvent(playerid, doorName+state);
     });
 });
@@ -87,4 +87,14 @@ acmd("door", function(playerid, doorName, state) {
             triggerClientEvent(targetid, doorName+state);
         }
     }
+    msg(playerid, format("%s now: %s", doorName, state));
+})
+
+acmd("doors", function(playerid) {
+    local phdoors = [];
+    foreach(i, item in doors) {
+       phdoors.push(format("%s - %s", item.name, item.state));
+    }
+    phdoors.push("/door name open/close");
+    msgh(playerid, "Двери и ворота", phdoors);
 })
