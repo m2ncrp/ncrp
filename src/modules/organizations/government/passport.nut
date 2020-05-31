@@ -300,9 +300,8 @@ cmd("passport", function( playerid) {
                     }
 
                     request.eyes = text.tointeger();
+                    passportRequests.push(request);
                     request.save();
-
-                    //passportRequests.push(request);
 
                     timer.Kill();
 
