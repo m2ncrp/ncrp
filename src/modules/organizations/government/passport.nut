@@ -147,9 +147,25 @@ cmd("passport", function( playerid) {
         return msg(playerid, "Сначала необходимо выбрать национальность: /nation", CL_WARNING);
     }
 
+    // заявка на паспорт уже была подана ранее в старой системе, очистим эту информацию.
+    local oldSystemRequestState = players[playerid].getData("passport");
+    if(oldSystemRequestState == "needsolution" || oldSystemRequestState == "approved") {
+        delete players[playerid].data.passport;
+    }
+
+    // паспорт уже был получен ранее в старой системе
+    if(oldSystemRequestState == true) {
+        return msg(playerid, "passport.alreadyget", CL_ERROR);
+    }
+
     local request = getPassportRequestByCharid(char.id);
 
     if(request) {
+
+        // паспорт уже был получен
+        if(request.status == "completed") {
+            return msg(playerid, "passport.alreadyget", CL_ERROR);
+        }
 
         // решение ещё не принято
         if(request.status == "needsolution") {
@@ -234,11 +250,6 @@ cmd("passport", function( playerid) {
             });
 
             return;
-        }
-
-        // паспорт уже был получен
-        if(request.status == "completed") {
-            return msg(playerid, "passport.alreadyget", CL_ERROR);
         }
 
         return;
