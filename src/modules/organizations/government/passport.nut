@@ -246,7 +246,7 @@ cmd("passport", function( playerid) {
 
 
     // оформляем заявку
-    players[playerid].setData("passport", "needsolution");
+    // players[playerid].setData("passport", "needsolution");
 
     local request = PassportRequest();
     request.fio = format("%s %s", char.firstname, char.lastname);
@@ -274,7 +274,7 @@ cmd("passport", function( playerid) {
         msg(playerid,  i+". "+ plocalize(playerid, "passport.hair."+i));
     }
 
-    delayedFunction(1000, function() {
+    delayedFunction(100, function() {
         requestUserInput(playerid, function(playerid, text) {
 
             if (!text || !isNumeric(text) || text.tointeger() < 1 || text.tointeger() > 9) {
@@ -290,7 +290,7 @@ cmd("passport", function( playerid) {
                 msg(playerid,  i+". "+ plocalize(playerid, "passport.eyes."+i));
             }
 
-            delayedFunction( 1000, function() {
+            delayedFunction(100, function() {
                 requestUserInput(playerid, function(playerid, text) {
                     trigger(playerid, "hudDestroyTimer");
                     setPlayerOOC(playerid, defaulttogooc);
@@ -302,7 +302,7 @@ cmd("passport", function( playerid) {
                     request.eyes = text.tointeger();
                     request.save();
 
-                    passportRequests.push(request);
+                    //passportRequests.push(request);
 
                     timer.Kill();
 
