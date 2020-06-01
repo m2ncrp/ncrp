@@ -171,7 +171,7 @@ function tryRespawnVehicleById(vehicleid, forced = false) {
     respawnData.time = getTimestamp();
 
     // reset position/
-    if(veh) {
+    if(veh && "defaultPos" in veh.data) {
         setVehiclePositionObj(vehicleid, veh.data.defaultPos);
         setVehicleRotationObj(vehicleid, veh.data.defaultRot);
         repairVehicle(vehicleid);
