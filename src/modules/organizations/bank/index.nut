@@ -62,14 +62,14 @@ event("onServerStarted", function() {
 
     //creating place and blip for Bank
     createPlace(BANK_OFFICE_PLACE_NAME, BANK_OFFICE_X - BANK_RADIUS, BANK_OFFICE_Y - BANK_RADIUS, BANK_OFFICE_X + BANK_RADIUS, BANK_OFFICE_Y + BANK_RADIUS);
-    createBlip(BANK_X, BANK_Y, ICON_MAFIA, ICON_RANGE_VISIBLE )
+    // createBlip(BANK_X, BANK_Y, ICON_MAFIA, ICON_RANGE_VISIBLE )
     createBlip(BANK_OFFICE_X, BANK_OFFICE_Y, ICON_DOLLAR, ICON_RANGE_VISIBLE )
 });
 
 event("onServerPlayerStarted", function( playerid ) {
     //creating 3dtext for Main Bank Building
-    createPrivate3DText ( playerid, BANK_X, BANK_Y, BANK_Z+0.35, plocalize(playerid, "GRAND IMPERIAL BANK"), CL_ROYALBLUE );
-    createPrivate3DText ( playerid, BANK_X, BANK_Y, BANK_Z+0.20, plocalize(playerid, "3dtext.job.press.E"), CL_WHITE.applyAlpha(75), BANK_RADIUS );
+    // createPrivate3DText ( playerid, BANK_X, BANK_Y, BANK_Z+0.35, plocalize(playerid, "GRAND IMPERIAL BANK"), CL_ROYALBLUE );
+    // createPrivate3DText ( playerid, BANK_X, BANK_Y, BANK_Z+0.20, plocalize(playerid, "3dtext.job.press.E"), CL_WHITE.applyAlpha(75), BANK_RADIUS );
 
     //creating 3dtext for Bank Office
     createPrivate3DText ( playerid, BANK_OFFICE_X, BANK_OFFICE_Y, BANK_OFFICE_Z+0.35, plocalize(playerid, "3dtext.organizations.bank"), CL_ROYALBLUE );
