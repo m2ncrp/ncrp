@@ -114,7 +114,7 @@ event("onServerMinuteChange", function() {
         local speed = getVehicleSpeed(vehicleid);
 
         if (__vehicles[vehicleid].state && __vehicles[vehicleid].fuel >= 0) {
-            __vehicles[vehicleid].fuel -= VEHICLE_FUEL_STEP * getDefaultVehicleFuel(vehicleid);
+            __vehicles[vehicleid].fuel -= LITRES_PER_GALLON * VEHICLE_FUEL_STEP * getDefaultVehicleFuel(vehicleid);
         }
 
         setVehicleFuel(vehicleid, __vehicles[vehicleid].fuel);
