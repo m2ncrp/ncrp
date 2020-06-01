@@ -214,7 +214,7 @@ function getVehicleEntityId (vehicleid) {
  */
 function getVehicleIdFromEntityId(entityid) {
     foreach(vehicleid, value in __vehicles) {
-        if(!value) return false;
+        if(!value) continue;
         if(value.entity != null && value.entity.id == entityid) {
             return vehicleid;
         }
