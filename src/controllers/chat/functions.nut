@@ -142,7 +142,7 @@ function msg(playerid, text, ...) {
 
     local message = localize(text, params, getPlayerLocale(playerid.tointeger()));
 
-    addMessageToChatHistory(playerid.tointeger(), message, color);
+    // addMessageToChatHistory(playerid.tointeger(), message, color);
 
     return sendPlayerMessage(playerid.tointeger(), message, color.r, color.g, color.b);
 }
