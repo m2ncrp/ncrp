@@ -351,6 +351,8 @@ cmd("passport", function( playerid) {
 
 fmd("gov", ["gov.passport"], "$f passport list", function(fraction, character, page = "1") {
 
+    local fieldForPage = 6;
+
     if(isRestartPlanned()) {
         return msg(character.playerid, "В данный момент операции по заявкам не осуществляются.", CL_ERROR);
     }
@@ -360,7 +362,7 @@ fmd("gov", ["gov.passport"], "$f passport list", function(fraction, character, p
         return msg(character.playerid, "Заявок на получение паспорта нет", CL_WARNING);
     }
     page = page.tointeger();
-    if(page < 1 || page > length % 10) {
+    if(page < 1 || page > length % fieldForPage) {
         return msg(character.playerid, "Неверный номер страницы", CL_ERROR);
     }
 
@@ -372,8 +374,8 @@ fmd("gov", ["gov.passport"], "$f passport list", function(fraction, character, p
 
     // инвертируем
     requests.reverse();
-    local indexStart = ((page-1) * 10);
-    local indexEnd = (indexStart + 10) > length ? length : indexStart + 10;
+    local indexStart = ((page-1) * fieldForPage);
+    local indexEnd = (indexStart + fieldForPage) > length ? length : indexStart + fieldForPage;
 
     // title
     msgt(character.playerid, format("Заявки на паспорт (страница: %d)", page));
