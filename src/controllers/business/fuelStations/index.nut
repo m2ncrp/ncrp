@@ -212,7 +212,8 @@ function fuelStationCreatePrivateInteractions(playerid, station) {
     if(stationState == "opened") {
         if(isPlayerInVehicle(playerid) && station.data.fuel.amountIn > 0) {
             local vehicleid = getPlayerVehicle(playerid);
-            local veh = getVehicleEntity(vehicleid)
+            local veh = getVehicleEntity(vehicleid);
+            if(!veh) return;
             local modelid = veh.model;
             if(modelid == 5 && getMaxGallonsReadyToBuy(station, veh) >= 1) {
                 fuelStationCache[charid].unload <- createPrivate3DText(playerid, stationCoords.unload[0], stationCoords.unload[1], stationCoords.unload[2]+0.35, plocalize(playerid,"business.3dtext.fuelStation.unload"), CL_RIPELEMON, FUEL_UNLOAD_RADIUS);
