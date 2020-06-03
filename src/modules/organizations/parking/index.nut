@@ -221,7 +221,7 @@ event("onVehicleSetToCarPound", function(playerid, plate) {
 
     local plate = getVehiclePlateText(vehicleid);
 
-    if (!isVehicleOwned(vehicleid) || plate.find("CR-") != -1) {
+    if (!isVehicleOwned(vehicleid) || plate.find("CR-") != null) {
         return tryRespawnVehicleById(vehicleid, true);
     }
 
