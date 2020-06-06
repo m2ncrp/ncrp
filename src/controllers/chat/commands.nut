@@ -184,6 +184,13 @@ chatcmd(["o","ooc"], function(playerid, message) {
           return;
         }
 
+        local replaced = preg_replace(@"[^\d]+", "", message)
+        if(replaced.find("0192") != null) {
+            newmute(playerid.tostring(), playerid.tostring(), "1440", "ic в ooc");
+            dbg(format("Mute %s for 555-0192 in ooc", getPlayerName(playerid)));
+            return;
+        }
+
         // maybe he has some time to be antiflooded yet
         if(antiflood[playerid]["gooc"] == 0)
         {
