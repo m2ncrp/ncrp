@@ -12,6 +12,7 @@ local handshakeBlackList = [
   "joe",
   "owner",
   "админ",
+  "аноним",
   "администратор",
   "блядь",
   "босс",
@@ -156,6 +157,11 @@ cmd(["meet", "hi"], function(playerid, targetid, ...) {
 // записать/запомнить имя указанного игрока
 cmd("remember", function(playerid, targetid, ...) {
 
+    if(vargv.len() == 0) {
+               msg(playerid, "handshake.remember.rule",  CL_THUNDERBIRD);
+        return msg(playerid, "handshake.remember.example", CL_LYNCH );
+    }
+
     targetid = toInteger(targetid);
     local nickname = trim(concat(vargv));
 
@@ -172,13 +178,17 @@ cmd("remember", function(playerid, targetid, ...) {
         return msg(playerid, "handshake.noplayer");
     }
 
-    if(!checkDistanceBtwTwoPlayersLess(playerid, targetid, 50.0)) {
-      return msg(playerid, "handshake.largedistance");
-    }
-
     // Если возможность рукопожатий запрещена для playerid
     if("handshake" in players[playerid].data && players[playerid].data.handshake == "off") {
         return msg(playerid, "handshake.prohibited");
+    }
+
+    if(!checkDistanceBtwTwoPlayersLess(playerid, targetid, 50.0)) {
+        return msg(playerid, "handshake.largedistance");
+    }
+
+    if ((targetCharId in players[playerid].handshakes)) {
+        return msg(playerid, "handshake.forget.alreadyexist", CL_THUNDERBIRD);
     }
 
     /** Проверка на запрещённые слова */
@@ -187,7 +197,6 @@ cmd("remember", function(playerid, targetid, ...) {
         dbg(format("Система знакомств для игрока %s отключена за слово %s", getPlayerName(playerid), nickname))
         return msg(playerid, "handshake.rules.break", CL_THUNDERBIRD);
     }
-    /** // */
 
     local handshake = Handshake();
 
@@ -294,6 +303,9 @@ alternativeTranslate({
 
     "en|handshake.forget.notexist"  : ""
     "ru|handshake.forget.notexist"  : "Ты и так без понятия кто это"
+
+    "en|handshake.forget.alreadyexist"  : ""
+    "ru|handshake.forget.alreadyexist"  : "Вы уже знакомы"
 
     "en|handshake.forget.complete"  : ""
     "ru|handshake.forget.complete"  : "Теперь вы не знакомы"
