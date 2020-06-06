@@ -601,7 +601,11 @@ function getFuelStationCache(charid) {
 }
 
 function getMaxGallonsReadyToBuy(station, veh) {
-    return Math.min(Math.min(Math.min(FUEL_STATION_LIMIT - station.data.fuel.amount, station.data.fuel.amountIn), veh.data.parts.cargo), station.data.money / station.data.fuel.priceIn);
+    local a = Math.min(Math.min(FUEL_STATION_LIMIT - station.data.fuel.amount, station.data.fuel.amountIn), veh.data.parts.cargo);
+    if(station.data.fuel.priceIn == 0.0) {
+        return a;
+    }
+    return Math.min(a, station.data.money / station.data.fuel.priceIn);
 }
 
 function fuelTruckUnload(playerid) {
