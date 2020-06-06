@@ -343,7 +343,7 @@ translation("en", {
 
 local numbers = [
     "0192", //car rental
-    "0000", // searhing car services
+    // "0000", searhing car services
     "1111" // empire custom
     //"1863", // Tires and Rims
 ];

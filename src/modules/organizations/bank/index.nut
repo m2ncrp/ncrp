@@ -120,6 +120,8 @@ function subMoneyToDeposit(playerid, amount) {
     dbg("[DEPOSIT] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> -"+format("%.2f", amount)+" dollars. Was: $"+format("%.2f", old_amount)+". Now: $"+format("%.2f", new_amount));
 }
 
+subPlayerDeposit <- subMoneyToDeposit;
+
 event("bankPlayerDeposit", function(playerid, amount = "") {
 
     if(!bankPlayerInValidPoint( playerid )) {

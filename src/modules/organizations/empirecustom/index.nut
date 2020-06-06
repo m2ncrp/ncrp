@@ -10,12 +10,15 @@ translation("en", {
     "empirecustom.phone.canceled"   : "[CALL] If you want to advertise, call to us. Good luck! (hang up)"
 });
 
-local AD_COST = 0.75;
-local AD_TIMEOUT = 90; // in seconds
+local AD_COST = 1.0;
+local AD_TIMEOUT = 120; // in seconds
 local AD_COLOR = CL_CARIBBEANGREEN;
 
 event("onPlayerPhoneCall", function(playerid, number, place) {
     if(number == "1111") {
+        if (isPlayerMuted(playerid)) {
+            return msg(playerid, "admin.mute.youhave", CL_RED);
+        }
 
         msg(playerid, "empirecustom.phone.hello", AD_COST, TELEPHONE_TEXT_COLOR);
 
@@ -40,11 +43,20 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
                 ad_sended = "canceled";
                 return msg(playerid, "empirecustom.phone.canceled", TELEPHONE_TEXT_COLOR);
             }
+            ad_sended = true;
+
+            dbg(format("[RADIO] %s: %s", getPlayerName(playerid), text))
+            local replaced = preg_replace(@"[^\d]+", "", text)
+            if(replaced.find("0192") != null) {
+                subPlayerMoney(playerid, 100.0);
+                dbg(format("[RADIO] auto-fine: %s", getPlayerName(playerid)))
+                return;
+            }
 
             msg(playerid, "empirecustom.phone.yourad", text, TELEPHONE_TEXT_COLOR);
             msg(playerid, "empirecustom.phone.placed", TELEPHONE_TEXT_COLOR);
-            ad_sended = true;
-            subMoneyToDeposit(playerid, AD_COST);
+
+            subPlayerDeposit(playerid, AD_COST);
 
             delayedFunction(60000, function() {
                 trigger("onRadioMessageSend", text);
