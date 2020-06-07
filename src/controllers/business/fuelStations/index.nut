@@ -265,7 +265,7 @@ function fuelStationOnSale(playerid) {
 }
 
 cmd("biz", "buy", function(playerid) {
-    return msg(playerid, "Покупка бизнеса сейчас недоступна. Попробуйте позже.", CL_HELP);
+    //return msg(playerid, "Покупка бизнеса сейчас недоступна. Попробуйте позже.", CL_HELP);
 
     local charid = getCharacterIdFromPlayerId(playerid);
     local stationName = getFuelStationCache(charid).name;
@@ -286,6 +286,10 @@ cmd("biz", "buy", function(playerid) {
     if(charid == station.ownerid) {
                msg(playerid, "Вы - владелец этой автозаправки.", CL_SUCCESS);
         return msg(playerid, "Управление автозаправкой находится внутри помещения.", CL_GRAY);
+    }
+
+    if(station.state != "onsale") {
+        return msg(playerid, "Эта автозаправка не продаётся в данный момент.", CL_ERROR);
     }
 
     if(!isPlayerAdmin(playerid) && isPlayerFractionMember(playerid, "gov")) {
