@@ -265,6 +265,8 @@ function fuelStationOnSale(playerid) {
 }
 
 cmd("biz", "buy", function(playerid) {
+    return msg(playerid, "Покупка бизнеса сейчас недоступна. Попробуйте позже.", CL_HELP);
+
     local charid = getCharacterIdFromPlayerId(playerid);
     local stationName = getFuelStationCache(charid).name;
 

@@ -120,6 +120,8 @@ cmd("lease", function(playerid, sub = 0, targetid = null) {
 });
 
 function carRentalCall(playerid) {
+    return msg(playerid, "Номер не существует. Убедитесь в правильном вводе номера.", CL_HELP);
+
     local defaulttogooc = getPlayerOOC(playerid);
     setPlayerOOC(playerid, false);
 
