@@ -41,7 +41,7 @@ acmd("a", ["police", "danger"], function(playerid, level) {
 // usage: /police job <id>
 acmd("a", ["police", "job"], function(playerid, targetid) {
     local targetid = targetid.tointeger();
-    setPoliceJob(playerid, targetid);
+    setPoliceJob(playerid, targetid, 0);
     msg(playerid, "organizations.police.setjob.byadmin", [ getAuthor(targetid), getLocalizedPlayerJob(targetid) ] );
     dbg( "[POLICE JOIN]" + getAuthor(playerid) + " add " + getAuthor(targetid) + "to Police" );
 });
@@ -141,7 +141,7 @@ cmd("police", ["job"], function(playerid, targetid) {
         policeBadge.save();
         players[targetid].inventory.sync();
 
-        setPoliceJob(playerid, targetid);
+        setPoliceJob(playerid, targetid, 0);
         msg(playerid, "organizations.police.setjob.byadmin", [getKnownCharacterNameWithId(playerid, targetid), getLocalizedPlayerJob(targetid)]);
     }
 });

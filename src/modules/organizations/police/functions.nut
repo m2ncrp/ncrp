@@ -53,13 +53,13 @@ function setDangerLevel(playerid, to) {
  * Become police officer
  * @param  {int} playerid
  */
-function setPoliceJob(playerid, targetid) {
+function setPoliceJob(playerid, targetid, rankId) {
     if( isOfficer(targetid) ) {
         return msg(targetid, "organizations.police.alreadyofficer");
     }
 
     // set first rank
-    setPlayerJob( targetid, setPoliceRank(playerid, 0) );
+    setPlayerJob(targetid, POLICE_RANK[rankId]);
 
     nano({
         "path": "discord",
@@ -212,8 +212,8 @@ function setPoliceRank(targetid, rankID) {
     // if (rankID >= 0 && rankID < POLICE_RANK.len()) {
         local oldRankID = getPoliceRank(targetid);
 
-        players[targetid].job = POLICE_RANK[rankID];
         setPlayerJob(targetid, POLICE_RANK[rankID]);
+
         if (rankID == oldRankID) {
             return POLICE_RANK[rankID];
         } else if (rankID > oldRankID) {
