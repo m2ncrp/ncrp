@@ -5,9 +5,9 @@ const FUEL_JOB_Z = -20.1644;
 event("onServerStarted", function() {
     logStr("[jobs] starting...");
 
-    if(!isSummer()) {
-        include("modules/jobs/snowplower");
-    }
+    // if(!isSummer()) {
+    //     include("modules/jobs/snowplower");
+    // }
 });
 
 /* ************************************************************************* */
