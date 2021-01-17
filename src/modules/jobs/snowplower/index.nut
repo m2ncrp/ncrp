@@ -1405,7 +1405,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
             removePrivatePlace(playerid, "snowplowZone");
             removeText( playerid, "snowplow_3dtext");
             trigger(playerid, "removeGPS");
-						msg(playerid, format("Point: %d", job_snowplow[getCharacterIdFromPlayerId(playerid)]["route"][2][0]));
+						// msg(playerid, format("Point: %d", job_snowplow[getCharacterIdFromPlayerId(playerid)]["route"][2][0]));
             job_snowplow[getCharacterIdFromPlayerId(playerid)]["route"][2].remove(0);
             if (job_snowplow[getCharacterIdFromPlayerId(playerid)]["route"][2].len() == 0) {
 
