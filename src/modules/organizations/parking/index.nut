@@ -177,15 +177,15 @@ function getParkingPeniForVehicle(vehicleid) {
     local peni = 0.0;
 
     days -= 2; // 2 бесплатных игровых дня
-
-    if (days > 0) {
-        // если авто стоит на штрафке меньше либо равно 8 игровым дням
-        if (days <= 8) {
-           peni = 0.005 * car.price * days;
-        } else {
-           peni = 0.005 * car.price * 8 + 0.012 * car.price * (days - 8);
-        }
-    }
+    peni = 0.01 * car.price;
+    // if (days > 0) {
+    //     // если авто стоит на штрафке меньше либо равно 8 игровым дням
+    //     if (days <= 8) {
+    //        peni = 0.005 * car.price * days;
+    //     } else {
+    //        peni = 0.005 * car.price * 8 + 0.012 * car.price * (days - 8);
+    //     }
+    // }
 
     return peni;
 }
