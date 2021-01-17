@@ -2,14 +2,6 @@ const FUEL_JOB_X = 551.762;
 const FUEL_JOB_Y = -266.866;
 const FUEL_JOB_Z = -20.1644;
 
-event("onServerStarted", function() {
-    logStr("[jobs] starting...");
-
-    // if(!isSummer()) {
-    //     include("modules/jobs/snowplower");
-    // }
-});
-
 /* ************************************************************************* */
 local SALARY_BONUS = 0.0;
 event("onPlayerConnect", function(playerid) {
@@ -209,6 +201,13 @@ include("modules/jobs/telephone");
 include("modules/jobs/docker");
 include("modules/jobs/stationporter");
 
+event("onServerStarted", function() {
+    logStr("[jobs] starting...");
+
+    if(!isSummer()) {
+        include("modules/jobs/snowplower");
+    }
+});
 
 // include("modules/jobs/realtor");
 // include("modules/jobs/slaughterhouseworker");
