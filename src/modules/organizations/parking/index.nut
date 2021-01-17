@@ -367,7 +367,7 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     }
 });
 
-event("onServerStopping", function() {
+event("onServerStarted", function() {
     foreach (placeid, place in parkingPlaceStatus) {
         if(place != "free") {
             local vehicleid = place;
