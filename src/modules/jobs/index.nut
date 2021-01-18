@@ -204,9 +204,9 @@ include("modules/jobs/stationporter");
 event("onServerStarted", function() {
     logStr("[jobs] starting...");
 
-    if(!isSummer()) {
-        include("modules/jobs/snowplower");
-    }
+    // if(!isSummer()) {
+    //     include("modules/jobs/snowplower");
+    // }
 });
 
 // include("modules/jobs/realtor");
