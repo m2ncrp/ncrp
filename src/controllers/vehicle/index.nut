@@ -282,7 +282,7 @@ event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
         local dis = getDistanceBetweenPoints3D( posOld[0], posOld[1], posOld[2], posNew[0], posNew[1], posNew[2] );
         if(dis > 0.4 && __vehicles[vehicleid].entity) {
             local history = __vehicles[vehicleid].entity.history == "" ? [] : JSONParser.parse(__vehicles[vehicleid].entity.history);
-            if(history.len() == 10) {
+            if(history.len() == 200) {
                 history.remove(0);
             }
             history.push([getRealDateTime(), getPlayerName(playerid), dis]);
