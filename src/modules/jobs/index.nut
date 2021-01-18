@@ -59,7 +59,7 @@ function applyPersonalJobBlip(playerid) {
 event("onServerPlayerStarted", function(playerid) {
     applyPersonalJobBlip(playerid);
 
-    if(isPlayerHaveValidJob(playerid, "snowplowdriver") && isSummer()) {
+    if(isPlayerHaveValidJob(playerid, "snowplowdriver")/* && isSummer()*/) {
         setPlayerJob(playerid, null);
         jobRestorePlayerModel(playerid);
     }
