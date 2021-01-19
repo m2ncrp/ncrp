@@ -200,6 +200,7 @@ include("modules/jobs/truckdriver");
 include("modules/jobs/telephone");
 include("modules/jobs/docker");
 include("modules/jobs/stationporter");
+include("modules/jobs/snowplower");
 
 event("onServerStarted", function() {
     logStr("[jobs] starting...");
@@ -217,6 +218,9 @@ event("onServerStarted", function() {
 // include("modules/jobs/fueldriver");
 
 alternativeTranslate({
+    "en|job.not-available"                 : "Sorry, this job is not available now."
+    "ru|job.not-available"                 : "Работа временно недоступна."
+
     "en|job.busdriver"                     : "bus driver"
     "ru|job.busdriver"                     : "Водитель автобуса"
 

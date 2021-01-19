@@ -1,6 +1,7 @@
 include("modules/jobs/snowplower/commands.nut");
 include("modules/jobs/snowplower/translations.nut");
 
+/*
 local count = 0;
 
 key("n", function(playerid) {
@@ -54,7 +55,7 @@ key("n", function(playerid) {
     createPlace("snowPlace"+count, x1, y1, x2, y2);
     count += 1;
 });
-
+*/
 
 //include("modules/jobs/snowplow/commands.nut");
 
@@ -1226,6 +1227,8 @@ function snowplowJobGet( playerid ) {
     if(!isPlayerInValidPoint(playerid, SNOWPLOW_JOB_X, SNOWPLOW_JOB_Y, RADIUS_SNOWPLOW)) {
         return;
     }
+
+    return msg(playerid, "job.not-available", CL_ERROR );
 
     if(!isPlayerHaveValidPassport(playerid)) {
                msg(playerid, "job.needpassport", SNOWPLOW_JOB_COLOR );
