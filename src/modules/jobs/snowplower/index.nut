@@ -1367,8 +1367,25 @@ function snowplowGetSalary( playerid ) {
     local amount = job_snowplow[getCharacterIdFromPlayerId(playerid)]["route"].cost + getSalaryBonus();
     players[playerid].data.jobs.snowplowdriver.count += 1;
     addMoneyToPlayer(playerid, amount);
-    subWorldMoney(amount);
-    msg( playerid, "job.snowplow.nicejob", amount, SNOWPLOW_JOB_COLOR );
+    subTreasuryMoney(amount);
+    local moneyInTreasuryNow = getTreasuryMoney();
+    msg(playerid, "job.snowplow.nicejob", amount, SNOWPLOW_JOB_COLOR);
+    nano({
+        "path": "discord",
+        "server": "gov",
+        "channel": "treasury",
+        "action": "sub",
+        "author": getPlayerName(playerid),
+        "description": "Расход",
+        "color": "red",
+        "datetime": getDateTime(),
+        "direction": false,
+        "fields": [
+            ["Сумма", format("$ %.2f", amount)],
+            ["Основание", "Заработная плата водителю снегоуборочной машины за пройденный маршрут"],
+            ["Баланс", format("$ %.2f", moneyInTreasuryNow)],
+        ]
+    })
 }
 
 /**
