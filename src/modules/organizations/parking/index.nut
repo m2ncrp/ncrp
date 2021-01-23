@@ -158,7 +158,7 @@ function findBusyPlaces() {
 }
 
 function getParkingDaysByTimestamp(timestamp) {
-    return floor((getTimestamp() - timestamp) / 43200);  // делим на реальных 12 часов = 1 игровым суткам
+    return floor((getTimestamp() - timestamp) / 86400);  // в настоящих днях
 }
 
 function getParkingDaysForVehicle(vehicleid) {
@@ -371,10 +371,14 @@ event("onServerStarted", function() {
     foreach (placeid, place in parkingPlaceStatus) {
         if(place != "free") {
             local vehicleid = place;
-            if(getParkingDaysForVehicle(vehicleid) >= 90) {
+            if(getParkingDaysForVehicle(vehicleid) >= 15) {
                 parkingPlaceStatus[placeid] = "free";
                 dbg("police", "parking", "remove", getVehicleOwner(vehicleid), getDateTime(), [["Номер", getVehiclePlateText(vehicleid)], ["Модель", getVehicleNameByModelId(getVehicleModel(vehicleid))]]);
-                removePlayerVehicle(vehicleid);
+                //removePlayerVehicle(vehicleid);
+                destroyVehicle(vehicleid);
+                local veh = getVehicleEntity(vehicleid);
+                veh.reserved = 1;
+                veh.save();
             }
         }
     }
