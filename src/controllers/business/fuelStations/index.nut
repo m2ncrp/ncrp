@@ -487,6 +487,12 @@ function fuelVehicleUp(playerid) {
     trigger(playerid, "hudCreateTimer", fuelupTime, true, true);
 
     station.data.fuel.amount -= gallons;
+
+    if("sold" in station.data.fuel == false) {
+        station.data.fuel.sold <- 0;
+    }
+    station.data.fuel.sold += gallons;
+
     local tax = getGovernmentValue("taxSales") * 0.01;
     local income = round(cost * (1 - tax), 2);
     station.data.money += income;
@@ -558,6 +564,12 @@ function fuelJerrycanUp(playerid) {
         station.data.money += income;
         station.data.tax += (cost - income);
         station.data.fuel.amount -= gallons;
+
+        if("sold" in station.data.fuel == false) {
+            station.data.fuel.sold <- 0;
+        }
+        station.data.fuel.sold += gallons;
+
         station.save();
 
         players[playerid].inventory.blocked = false;
