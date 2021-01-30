@@ -200,7 +200,7 @@ include("modules/jobs/truckdriver");
 include("modules/jobs/telephone");
 include("modules/jobs/docker");
 include("modules/jobs/stationporter");
-include("modules/jobs/snowplower");
+// include("modules/jobs/snowplower");
 
 event("onServerStarted", function() {
     logStr("[jobs] starting...");
