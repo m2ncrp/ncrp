@@ -39,4 +39,5 @@ include("controllers/contracts");
 include("controllers/weapons");
 include("controllers/weather");
 include("controllers/help");
+include("controllers/discord");
 
