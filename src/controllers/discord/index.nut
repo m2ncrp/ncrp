@@ -8,45 +8,95 @@
 
 */
 
-keys = {}
+local codes = {};
+local charIds = {};
+
+function isExpired(time) {
+    local now = getTimestamp();
+    return now >= time;
+}
+
+nnListen(function(sourceData) {
+    local data = JSONParser.parse(sourceData);
+
+    if(!(type in data)) return;
+    if(data.type != "discord-member-code-remove") return;
+
+    local code = data.code;
+
+    if (code in codes) {
+        clearDiscordCode(code);
+    }
+});
 
 event("onServerMinuteChange", function() {
     if(getMinute() % 2 == 1) {
-        local now = getTimestamp();
-        foreach(idx, key in keys) {
-            if (key.expired >= now) clearDiscordKey(idx);
+        foreach(idx, code in codes) {
+            if (isExpired(code.expired)) clearDiscordCode(idx);
         }
     }
 });
 
-function getRandomDiscordKey(name) {
-    // generate key
-    local key = format( "%04d", random(0, 9999) );
+function getRandomDiscordCode(charId, name) {
 
-    // if exists - regenerate
-    if (key in keys) {
-        return getRandomDiscordKey();
+    // memo
+    if(charId in charIds) {
+        return charIds[charId];
     }
 
+    // generate code
+    local code = format("%04d", random(0, 9999));
 
-    // register key
-    keys[key] <- {
+    // if exists - regenerate
+    if (code in codes) {
+        return getRandomDiscordCode(charId, name);
+    }
+
+    local exp = getTimestamp() + 600;
+
+    // register code
+    codes[code] <- {
+        id = charId,
         name = name,
-        expired = getTimestamp() + 600
+        expired = exp
     };
 
-    return key;
+    charIds[charId] <- code;
+
+    nano({
+        "path": "discord-member",
+        "name": name,
+        "code": code,
+        "expired": exp.tostring()
+    })
+
+    return code;
 }
 
-function clearDiscordKey(key) {
-    if (key in keys) {
-        delete keys[key];
+function clearDiscordCode(code) {
+    if (code in codes) {
+        delete charIds[codes[code].id];
+        delete codes[code];
+        // dbg(format("delete %s", code));
         return true;
     }
 
     return false;
 }
 
-function tt() {
-    dbg(getRandomDiscordKey("Fernando"));
-}
+cmd("discord", function (playerid) {
+    local charName = getPlayerName(playerid);
+    local charId = getCharacterIdFromPlayerId(playerid);
+    local code = getRandomDiscordCode(charId, charName);
+
+    msg(playerid, format("Ваш код: %s", code));
+    msg(playerid, "Перейдите в Discord на сервер NCRP в канал #ввод-кода и следуйте инструкциям.", CL_LIGHTGRAY);
+    msg(playerid, "Код действителен в течение 10 минут.", CL_CASCADE);
+});
+
+// function tt() {
+//     local charName = "Fern2";
+//     local charId = 2;
+//     local code = getRandomDiscordCode(charId, charName);
+//     dbg(format("Your code: %s", code))
+// }
