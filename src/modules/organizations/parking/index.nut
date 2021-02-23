@@ -391,7 +391,7 @@ event("onServerSecondChange", function() {
     }
 */
     foreach (placeid, place in parkingPlaceStatus) {
-        if(place != "free") {
+        if(place != "free" && isInteger(place)) {
             local vehicleid = place;
             local vehPos = getVehiclePosition(vehicleid);
             local dist = getDistanceBetweenPoints2D(parkingPlace[placeid][0], parkingPlace[placeid][1], vehPos[0], vehPos[1]);
