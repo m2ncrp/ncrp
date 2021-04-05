@@ -138,7 +138,7 @@ chatcmd(["global", "g"], function(playerid, message) {
 cmd("pm", function(playerid, targetid, ...) {
     local targetid = toInteger(targetid);
 
-    if(!antiflood[targetid]["togpm"]){
+    if(!(targetid in antiflood) || !antiflood[targetid]["togpm"]){
         return  msg(playerid, "chat.playerTogPm", CL_ERROR);
     }
 
