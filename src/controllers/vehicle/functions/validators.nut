@@ -52,7 +52,7 @@ function isPlayerVehicleInValidPoint(playerid, X, Y, radius) {
  */
 function isVehicleNearPoint(vehicleid, x, y, radius = DEFAULT_NEAR_RADIUS) {
     local vehPos = getVehiclePosition(vehicleid);
-    return isPointInCircle2D( vehPos[0], vehPos[1], x, y, radius );
+    return isPointInCircle2D( vehPos[0].tofloat(), vehPos[1].tofloat(), x.tofloat(), y.tofloat(), radius );
 }
 
 /**
