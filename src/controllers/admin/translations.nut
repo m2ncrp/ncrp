@@ -36,10 +36,11 @@ alternativeTranslate({
     "en|admin.ban.reason"                   :   "Reason: %s."
     "ru|admin.ban.reason"                   :   "Причина: %s."
 
-    "en|admin.ban.trainer"                  :   "Using trainer (speed-hack)"
-    "ru|admin.ban.trainer"                  :   "Использование трейнера (спидхак)"
+    "en|admin.ban.trainer-speedhack"        :   "Using trainer (speed-hack)"
+    "ru|admin.ban.trainer-speedhack"        :   "Использование трейнера (спидхак)"
 
-
+    "en|admin.ban.trainer-weapons"          :   "Unlawful receipt of weapons"
+    "ru|admin.ban.trainer-weapons"          :   "Неправомерное получение оружия"
 /*
     "en|admin.warn.msga.playerreceived"     :   "Player %s received a warning."
     "ru|admin.warn.msga.playerreceived"     :   "Игрок %s получил одно предупреждение."

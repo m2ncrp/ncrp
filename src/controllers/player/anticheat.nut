@@ -140,9 +140,10 @@ event("onServerStarted", function() {
                             weaponlist.apply(function(id) {
                                 removePlayerWeapon( playerid, id );
                             });
-                            kick(-1, playerid, "Неправомерное получение оружия");
-                            playersInfo[charId].kicked = true;
-                            dbg("chat", "report", getPlayerName(playerid), "Кикнут за неправомерное получение оружия.");
+                            // kick(-1, playerid, "Неправомерное получение оружия");
+                            // playersInfo[charId].kicked = true;
+                            newban(playerid, playerid, 7884000, plocalize(playerid, "admin.ban.trainer-weapons"));
+                            dbg("chat", "report", getPlayerName(playerid), "Забанен за неправомерное получение оружия.");
                         }
                     }
                     // anticheat
@@ -182,7 +183,7 @@ event("onServerStarted", function() {
                                     "color": "red"
                                 })
 
-                                newban(playerid, playerid, 7884000, plocalize(playerid, "admin.ban.trainer"));
+                                newban(playerid, playerid, 7884000, plocalize(playerid, "admin.ban.trainer-speedhack"));
 
                                 playersInfo[charId].counter = 0;
                             }
