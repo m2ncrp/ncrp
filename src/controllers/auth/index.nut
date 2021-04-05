@@ -104,7 +104,7 @@ event("onClientSuccessfulyStarted", function(playerid) {
                 introUISetter(playerid);
                 introPlayerSetter(playerid);
                 // wait to load client chat and then display message
-                return delayedFunction(2000, function() {
+                return delayedFunction(5000, function() {
                     // clear chat
                     for (local i = 0; i < 12; i++) {
                         msg(playerid, "");
@@ -119,7 +119,7 @@ event("onClientSuccessfulyStarted", function(playerid) {
 
                     dbg("kick", "banned connected", getIdentity(playerid));
 
-                    return delayedFunction(20000, function () {
+                    return delayedFunction(25000, function () {
                         kickPlayer( playerid );
                     });
                 });
@@ -139,7 +139,7 @@ event("onClientSuccessfulyStarted", function(playerid) {
                         introUISetter(playerid);
                         introPlayerSetter(playerid);
                         // wait to load client chat and then display message
-                        return delayedFunction(2000, function() {
+                        return delayedFunction(5000, function() {
                             // clear chat
                             for (local i = 0; i < 12; i++) {
                                 msg(playerid, "");
@@ -152,7 +152,7 @@ event("onClientSuccessfulyStarted", function(playerid) {
 
                             dbg("kick", "banned connected", getIdentity(playerid));
 
-                            return delayedFunction(20000, function () {
+                            return delayedFunction(25000, function () {
                                 kickPlayer( playerid );
                             });
                         });
@@ -224,8 +224,6 @@ event("onClientSuccessfulyStarted", function(playerid) {
                     introPlayerSetter(playerid);
                 });
                 showIdentificationGui(playerid, 2000);
-
-
 
             });
         });
