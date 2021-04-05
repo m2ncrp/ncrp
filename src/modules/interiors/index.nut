@@ -170,8 +170,8 @@ local interiors = [
 ["onfoot",  "Exit",  "type",  149.652,    -430.939,    -19.429,      "EmpireDinerOysterBayExit3"],
 
 
-["onfoot",  "Enter", "type",  310.27,      432.974,    -22.8998,     "ChinaTownEnter", 310.0, 432.0, -25.0],
-["onfoot",  "Exit",  "type",  312.828,     426.763,    -25.7714,     "ChinaTownExit", 312.828, 426.763, -25.7714],
+// ["onfoot",  "Enter", "type",  310.27,      432.974,    -22.8998,     "ChinaTownEnter", 310.0, 432.0, -25.0],
+// ["onfoot",  "Exit",  "type",  312.828,     426.763,    -25.7714,     "ChinaTownExit", 312.828, 426.763, -25.7714],
 
 ["onfoot",  "Enter", "type",  305.434,     400.538,    -25.7734,     "ChinaTownLiftEnter"],
 ["onfoot",  "Exit",  "type",  307.673,     397.318,    -29.5913,     "ChinaTownLiftExit"],
