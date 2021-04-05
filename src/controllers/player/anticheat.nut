@@ -99,14 +99,37 @@ event("onServerStarted", function() {
                 */
 
                 if(getVehiclePlateText(vehicleid).find("RACE") == null) {
+                    local vehModel = getVehicleModel(vehicleid)
+                    local vehModelName = getVehicleNameByModelId(vehModel);
+
                     // check soft limit
                     if (maxsp > limits[0]) {
-                        dbg("anticheat", "speed", getIdentity(playerid), "model: " + getVehicleModel(vehicleid), maxsp);
+                        dbg("anticheat", "speed", getIdentity(playerid), "modelName: " + vehModelName, maxsp);
+                        nano({
+                            "path": "discord",
+                            "server": "ncrp",
+                            "channel": "admin",
+                            "author": "Античит",
+                            "title": getAuthor(playerid),
+                            "description": format("Подозрение на спидхак или модификацию файлов игры (автомобиль: %s)", vehModelName),
+                            "color": "yellow"
+                        })
                     }
 
                     // check hard limit
                     if (maxsp > limits[1]) {
-                        kick( -1, playerid, "speed-hack protection" );
+                        // kick( -1, playerid, "speed-hack protection" );
+                        newban(playerid, playerid, 7884000, plocalize(playerid, "admin.ban.speedhack-vehicle"));
+                        dbg("chat", "report", getPlayerName(playerid), "Авто-бан за спидхак или модификацию файлов игры");
+                        nano({
+                            "path": "discord",
+                            "server": "ncrp",
+                            "channel": "admin",
+                            "author": "Античит",
+                            "title": getAuthor(playerid),
+                            "description": format("Авто-бан за спидхак или модификацию файлов игры (автомобиль: %s)", vehModelName),
+                            "color": "red"
+                        })
                     }
                 }
 
@@ -118,7 +141,17 @@ event("onServerStarted", function() {
                     vehiclesInfo[vehicleid].fuelCheatCounter += 1;
                     if(vehiclesInfo[vehicleid].fuelCheatCounter > 20) {
                         vehiclesInfo[vehicleid].fuelCheatCounter = 0;
-                        trainerKeysEx(playerid, "Бесконечный бензин");
+                        newban(playerid, playerid, 7884000, plocalize(playerid, "admin.ban.trainer-fuel"));
+                        dbg("chat", "report", getPlayerName(playerid), "Авто-бан за использование трейнера (бесконечное топливо)");
+                        nano({
+                            "path": "discord",
+                            "server": "ncrp",
+                            "channel": "admin",
+                            "author": "Античит",
+                            "title": getAuthor(playerid),
+                            "description": "Авто-бан за использование трейнера (бесконечное топливо)",
+                            "color": "red"
+                        })
                     }
                 }
                 vehiclesInfo[vehicleid].fuel = newFuel;
@@ -143,7 +176,16 @@ event("onServerStarted", function() {
                             // kick(-1, playerid, "Неправомерное получение оружия");
                             // playersInfo[charId].kicked = true;
                             newban(playerid, playerid, 7884000, plocalize(playerid, "admin.ban.trainer-weapons"));
-                            dbg("chat", "report", getPlayerName(playerid), "Забанен за неправомерное получение оружия.");
+                            dbg("chat", "report", getPlayerName(playerid), "Авто-бан за неправомерное получение оружия");
+                            nano({
+                                "path": "discord",
+                                "server": "ncrp",
+                                "channel": "admin",
+                                "author": "Античит",
+                                "title": getAuthor(playerid),
+                                "description": "Авто-бан за неправомерное получение оружия",
+                                "color": "red"
+                            })
                         }
                     }
                     // anticheat
@@ -161,18 +203,20 @@ event("onServerStarted", function() {
                             //logStr("================================================================ WARNING ===");
                             playersInfo[charId].counter += 1;
                             if(playersInfo[charId].counter >= 7) {
+                                dbg("chat", "report", getPlayerName(playerid), "Подозрения на использование трейнера перемещения");
                                 nano({
                                     "path": "discord",
                                     "server": "ncrp",
                                     "channel": "admin",
                                     "author": "Античит",
                                     "title": getAuthor(playerid),
-                                    "description": "Весомые подозрения на использование трейнера перемещения",
+                                    "description": "Подозрения на использование трейнера перемещения",
                                     "color": "yellow"
                                 })
                             }
                             if(playersInfo[charId].counter > maxToBan) {
                                 //logStr("@everyone WARNING!!! "+getAuthor(playerid)+" - using trainer");
+                                dbg("chat", "report", getPlayerName(playerid), "Авто-бан за использование трейнера перемещения");
                                 nano({
                                     "path": "discord",
                                     "server": "ncrp",
@@ -183,7 +227,7 @@ event("onServerStarted", function() {
                                     "color": "red"
                                 })
 
-                                newban(playerid, playerid, 7884000, plocalize(playerid, "admin.ban.trainer-speedhack"));
+                                newban(playerid, playerid, 7884000, plocalize(playerid, "admin.ban.trainer-onfoot"));
 
                                 playersInfo[charId].counter = 0;
                             }
