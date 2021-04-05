@@ -73,12 +73,12 @@ event("onServerStarted", function() {
             */
 
             // init vehicle positions and rotations
-            local x = vehicle.x;
-            local y = vehicle.y;
-            local z = vehicle.z;
-            local rx = vehicle.rx;
-            local ry = vehicle.ry;
-            local rz = vehicle.rz;
+            local x = vehicle.x.tofloat();
+            local y = vehicle.y.tofloat();
+            local z = vehicle.z.tofloat();
+            local rx = vehicle.rx.tofloat();;
+            local ry = vehicle.ry.tofloat();;
+            local rz = vehicle.rz.tofloat();;
 
             local data = vehicle.data;
 
