@@ -12,6 +12,7 @@ nnListen(function(sourceData) {
 
     if(data.type == "server" && data.action == "plan-restart" ) {
         planServerRestart(-1);
+        dbg("server", "planServerRestart called, success");
     }
 });
 
@@ -39,25 +40,31 @@ event("native:onPlayerDisconnect", function(playerid, reason) {
 function planServerRestart(playerid) {
     isRestartPlanned = true;
     msga("autorestart.15min", [], CL_RED);
+    dbg("server", "autorestart 15min");
 
     delayedFunction(5*60*1000, function() {
         msga("autorestart.10min", [], CL_RED);
+        dbg("server", "autorestart 10min");
     });
 
     delayedFunction(10*60*1000, function() {
         msga("autorestart.5min", [], CL_RED);
+        dbg("server", "autorestart 5min");
     });
 
     delayedFunction(14*60*1000, function() {
         msga("autorestart.1min", [], CL_RED);
+        dbg("server", "autorestart 1min");
     });
 
     delayedFunction(14*60*1000+30000, function() {
         msga("autorestart.30sec", [], CL_RED);
+        dbg("server", "autorestart 30sec");
     });
 
     delayedFunction(15*60*1000, function() {
         msga("autorestart.3sec", [], CL_RED);
+        dbg("server", "autorestart 3sec");
 
         // kick all
         kickAll();
@@ -77,6 +84,7 @@ function planServerRestart(playerid) {
                     "type": "restart",
                     "action": "request",
                 });
+                dbg("server", "autorestart now, send nanomsg to node");
             });
         });
     });
@@ -84,13 +92,16 @@ function planServerRestart(playerid) {
 
 function planFastServerRestart(playerid) {
     msga("autorestart.1min", [], CL_RED);
+    dbg("server", "autorestart 1min");
 
     delayedFunction(30*1000, function() {
         msga("autorestart.30sec", [], CL_RED);
+        dbg("server", "autorestart 30sec");
     });
 
     delayedFunction(57*1000, function() {
         msga("autorestart.3sec", [], CL_RED);
+        dbg("server", "autorestart 3sec");
 
         // kick all
         kickAll();
@@ -105,6 +116,7 @@ function planFastServerRestart(playerid) {
             delayedFunction(1000, function() {
                 // request restart
                 dbg("server", "restart", "requested");
+                dbg("server", "^^^ maybe its not work");
             });
         });
     });
@@ -112,6 +124,7 @@ function planFastServerRestart(playerid) {
 
 function planNowServerRestart(playerid) {
     msga("autorestart.3sec", [], CL_RED);
+    dbg("server", "autorestart 3sec");
 
     delayedFunction(300, function() {
         // kick all
@@ -128,6 +141,7 @@ function planNowServerRestart(playerid) {
             delayedFunction(1000, function() {
                 // request restart
                 dbg("server", "restart", "requested");
+                dbg("server", "^^^ maybe its not work");
             });
         });
     });
