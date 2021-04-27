@@ -13,14 +13,20 @@ function msge(playerid, text) {
 }
 
 function msgh(playerid, title, list){
-    msgt(playerid, title);
+    delayedFunction(0, function() {
+        msgt(playerid, title);;
+    });
 
     foreach (idx, line in list) {
         local text = localize(line, [], getPlayerLocale(playerid))
         if ((idx % 2) == 0) {
-            msgo(playerid, text);
+            delayedFunction(idx, function() {
+                msgo(playerid, text);
+            });
         } else {
-            msge(playerid, text);
+            delayedFunction(idx, function() {
+                msge(playerid, text);
+            });
         }
     }
 }
