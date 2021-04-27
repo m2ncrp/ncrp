@@ -187,6 +187,8 @@ cmd("remember", function(playerid, targetid, ...) {
         return msg(playerid, "handshake.largedistance");
     }
 
+    local targetCharId = getCharacterIdFromPlayerId(targetid);
+
     if ((targetCharId in players[playerid].handshakes)) {
         return msg(playerid, "handshake.forget.alreadyexist", CL_THUNDERBIRD);
     }
@@ -202,7 +204,6 @@ cmd("remember", function(playerid, targetid, ...) {
 
     local character = players[playerid];
     local charId = character.id;
-    local targetCharId = getCharacterIdFromPlayerId(targetid);
 
     // персонаж запоминает у себя имя другого персонажа
     handshake.char = charId;
