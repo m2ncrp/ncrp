@@ -136,6 +136,13 @@ chatcmd(["global", "g"], function(playerid, message) {
 
 // private message
 cmd("pm", function(playerid, targetid, ...) {
+
+    if(checkPlayerSectionData(playerid, "pm"))
+        if(players[playerid].data.pm == false) {
+            return msg(playerid, "Вам недоступна возможность отправки личных сообщений", CL_ERROR);
+        }
+    }
+
     local targetid = toInteger(targetid);
 
     if(!(targetid in antiflood) || !antiflood[targetid]["togpm"]){
@@ -148,6 +155,11 @@ cmd("pm", function(playerid, targetid, ...) {
 
 // reply to private message
 cmd(["re", "reply"], function(playerid, ...) {
+    if(checkPlayerSectionData(playerid, "pm"))
+        if(players[playerid].data.pm == false) {
+            return msg(playerid, "Вам недоступна возможность отправки личных сообщений", CL_ERROR);
+        }
+    }
     local targetid = playerid in lastPMs ? lastPMs[playerid] : -1;
 
     if(targetid == -1) {
