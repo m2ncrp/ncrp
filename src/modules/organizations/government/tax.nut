@@ -52,7 +52,13 @@ event("onServerDayChange", function() {
         local modelid = veh.model;
         local carInfo = getCarInfoModelById( modelid );
 
-        if (carInfo == null || veh.owner == "city" /*|| isVehicleCarRent(vehicleid) */) {
+        if (carInfo == null || veh.owner == "city" || ("taxFree" in veh.data) /*|| isVehicleCarRent(vehicleid) */) {
+            continue;
+        }
+
+        // Машины, необлагаемые налогом
+        if ("taxFree" in veh.data) {
+            veh.data.tax <- 0;
             continue;
         }
 
@@ -248,7 +254,7 @@ cmd("tax", function( playerid, plateText = 0) {
 
 });
 
-acmd("resettax", function(playerid) {
+acmd("resettaxall", function(playerid) {
     foreach (vehicleid, object in __vehicles) {
 
         if (!object) continue;
@@ -262,6 +268,42 @@ acmd("resettax", function(playerid) {
         veh.data.tax <- 0;
     }
 });
+
+acmd("resettax", function(playerid) {
+
+    if(!isPlayerInVehicle(playerid)) {
+        return msg(playerid, "Нужно быть в автомобиле.", CL_ERROR);
+    }
+
+    local vehicleid = getPlayerVehicle(playerid);
+    local veh = getVehicleEntity(vehicleid);
+
+    if(veh == null) {
+        return msg(playerid, "Этот автомобиль не из базы.", CL_ERROR);
+    }
+
+    veh.data.tax <- 0;
+    msg(playerid, "Сумма налога на автомобиль обнулена.", CL_SUCCESS);
+});
+
+acmd("taxfree", function(playerid, status = "true") {
+
+    if(!isPlayerInVehicle(playerid)) {
+        return msg(playerid, "Нужно быть в автомобиле.", CL_ERROR);
+    }
+
+    local vehicleid = getPlayerVehicle(playerid);
+    local veh = getVehicleEntity(vehicleid);
+
+    if(veh == null) {
+        return msg(playerid, "Этот автомобиль не из базы.", CL_ERROR);
+    }
+
+    veh.data.taxFree <- !!status;
+    msg(playerid, format("Статус облагания налогом: %s", status), CL_SUCCESS);
+});
+
+
 
 /*
 
