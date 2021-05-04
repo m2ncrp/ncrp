@@ -14,6 +14,7 @@ class Vehicle extends ORM.JsonEntity {
         ORM.Field.Integer ({ name = "fwheel",   value = 0 }),
         ORM.Field.Integer ({ name = "rwheel",   value = 0 }),
         ORM.Field.Integer ({ name = "reserved",   value = 0 }),
+        ORM.Field.Integer ({ name = "deleted",   value = 0 }),
         ORM.Field.Integer ({ name = "parking",   value = 0 }),
         ORM.Field.Text  ({ name = "history", value = "", escaping = false }),
     ];

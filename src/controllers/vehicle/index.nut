@@ -63,7 +63,7 @@ event("onServerStarted", function() {
     local counter = 0;
 
     // load all vehicles from db
-    Vehicle.findBy({ reserved = 0 }, function(err, results) {
+    Vehicle.findBy({ reserved = 0, deleted = 0 }, function(err, results) {
         foreach (idx, vehicle in results) {
 
             /*

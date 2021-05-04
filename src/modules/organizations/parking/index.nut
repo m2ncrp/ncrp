@@ -377,7 +377,8 @@ event("onServerStarted", function() {
                 //removePlayerVehicle(vehicleid);
                 destroyVehicle(vehicleid);
                 local veh = getVehicleEntity(vehicleid);
-                veh.reserved = 1;
+                //veh.reserved = 0;
+                veh.deleted = 1;
                 veh.save();
             }
         }
