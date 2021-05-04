@@ -4,16 +4,20 @@ local vehiclesLimit = 2;                // рекомендуемое колич
 local vehiclesWithoutIncreaseTax = 2;   // количество автомобилей без повышения налогового коэффициента
 
 event("onServerDayChange", function() {
+    // счётчик количества автомобилей на каждого персонажа
     local vehiclesCountForPlayer = {};
+
+    // коэффициент на каждого игрока
     local coefForPlayer = {};
 
+    // собираем количество автомобилей по каждому персонажу
     foreach (vehicleid, object in __vehicles) {
 
         if (!object) continue;
 
         local veh = getVehicleEntity(vehicleid);
 
-        if(veh == null || isGovVehicle(veh.plate)) {
+        if(veh == null || isGovVehicle(veh.plate) || isVehicleidPoliceVehicle(vehicleid)) {
             continue;
         }
 
@@ -32,7 +36,7 @@ event("onServerDayChange", function() {
 
         local veh = getVehicleEntity(vehicleid);
 
-        if(veh == null || isGovVehicle(veh.plate)) {
+        if(veh == null || isGovVehicle(veh.plate) || isVehicleidPoliceVehicle(vehicleid)) {
             continue;
         }
 
@@ -48,13 +52,14 @@ event("onServerDayChange", function() {
         local modelid = veh.model;
         local carInfo = getCarInfoModelById( modelid );
 
-        if (carInfo == null || isVehicleCarRent(vehicleid)) {
+        if (carInfo == null || veh.owner == "city" /*|| isVehicleCarRent(vehicleid) */) {
             continue;
         }
 
         if(("tax" in veh.data) == false) {
             veh.data.tax <- 0;
         }
+
         veh.data.tax += round((carInfo.price * tax * coefForPlayer[ownerid]), 2);
     }
 });
