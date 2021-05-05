@@ -8,7 +8,8 @@ class Item.VehicleKey extends Item.Abstract
         local vehicleid = getVehicleIdFromEntityId(this.data.id);
 
         if (vehicleid == false) {
-            return msg(playerid, "inventory.vehiclekey.removedcar", CL_HELP_TITLE);
+                   msg(playerid, "inventory.vehiclekey.removedcar", CL_HELP_TITLE);
+            return msg(playerid, "inventory.vehiclekey.removedcar-hint", CL_LYNCH);
         }
 
         msg(playerid, "==================================", CL_HELP_LINE);

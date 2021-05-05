@@ -112,6 +112,9 @@ alternativeTranslate({
     "en|inventory.vehiclekey.removedcar"        : "It's a key from the car which I once owned. I don't even know where it now..."
     "ru|inventory.vehiclekey.removedcar"        : "Это ключ от автомобиля, которым я когда-то владел. Даже не знаю где он сейчас..."
 
+    "en|inventory.vehiclekey.removedcar-hint"   : "Hint"
+    "ru|inventory.vehiclekey.removedcar-hint"   : "Пояснение: автомобиль больше не существует в игровом мире. Вероятно, он попал на штрафстоянку и был уничтожен, потому что владелец его не забрал."
+
     "en|Item.None"             : ""
     "en|Item.Revolver"         : "Revolver 12"
     "en|Item.MauserC96"        : "Mauser C96"
