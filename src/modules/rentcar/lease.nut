@@ -68,6 +68,11 @@ function leaseCar(playerid) {
             }
 
             price = price.tofloat();
+
+            if (price > 100.0) {
+                return msg(playerid, "Стоимость аренды в час не может превышать $100.", CL_THUNDERBIRD);
+            }
+
             msg(playerid, format("$ %.2f", price), CL_JORDYBLUE);
 
             local timer2 = delayedFunction(30000, function() {
