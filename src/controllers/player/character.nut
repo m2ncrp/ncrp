@@ -6,7 +6,7 @@ const CHARACTER_LIMIT = 1;
  * @type {Object}
  */
 local REGEX_FIRSTNAME = regexp("[A-Za-z]{2,16}");
-local REGEX_LASTNAME = regexp("^((O\'|Mc)?[A-Z][a-z]{1,16})$");
+local REGEX_LASTNAME = regexp("^((Mc)?[A-Z][a-z]{1,16})$");
 
 translate("en", {
     "character.doesnotexist"        : "Character with provided data\ndoes not exist."
