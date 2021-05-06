@@ -36,6 +36,7 @@ event("onServerDayChange", function() {
 
         local veh = getVehicleEntity(vehicleid);
 
+        // не начислять налог на автомобили не из базы, на машины правительства и полицейские
         if(veh == null || isGovVehicle(veh.plate) || isVehicleidPoliceVehicle(vehicleid)) {
             continue;
         }
@@ -52,7 +53,8 @@ event("onServerDayChange", function() {
         local modelid = veh.model;
         local carInfo = getCarInfoModelById( modelid );
 
-        if (carInfo == null || veh.owner == "city" || ("taxFree" in veh.data) /*|| isVehicleCarRent(vehicleid) */) {
+        // не начислять налог на автомобили по которым нет данных, на машины города и taxFree машины
+        if (carInfo == null || veh.owner == "city" || ("taxFree" in veh.data)) {
             continue;
         }
 
@@ -136,7 +138,7 @@ function getVehicleTaxList( playerid ) {
 
         local veh = getVehicleEntity(vehicleid);
 
-        if(veh == null || isGovVehicle(veh.plate)) {
+        if(veh == null || veh.owner == "city" || ("taxFree" in veh.data) || isGovVehicle(veh.plate) || isVehicleidPoliceVehicle(vehicleid)) {
             continue;
         }
 
@@ -228,7 +230,8 @@ cmd("tax", function( playerid, plateText = 0) {
     local modelid = veh.model;
     local carInfo = getCarInfoModelById( modelid );
 
-    if (carInfo == null || isVehicleCarRent(vehicleid) || isGovVehicle(veh.plate)) {
+    // не требуют оплаты налога автомобили по которым нет данных, машины города, taxFree машины, машины правительства и полицейские
+    if (carInfo == null || veh.owner == "city" || ("taxFree" in veh.data) || isGovVehicle(veh.plate) || isVehicleidPoliceVehicle(vehicleid)) {
         return msg(playerid, "tax.notrequired");
     }
 
