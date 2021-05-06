@@ -105,6 +105,13 @@ cmd(["meet", "hi"], function(playerid, targetid, ...) {
         return msg(playerid, "handshake.prohibited.target");
     }
 
+    local senderCharId = getCharacterIdFromPlayerId(playerid);
+
+    // Если получатель уже знаком с отправителем, тогда отправитель отвечает
+    if ((senderCharId in players[targetid].handshakes)) {
+        return sendLocalizedMsgToAll(targetid, "handshake.shake.alreadyexist", [], NORMAL_RADIUS, CL_CHAT_IC);
+    }
+
     /** Проверка на запрещённые слова */
     if(searchBadWord(nickname)) {
         players[playerid].setData("handshake", "off");
@@ -123,8 +130,6 @@ cmd(["meet", "hi"], function(playerid, targetid, ...) {
     msg(targetid, "handshake.shake.request-desc", CL_LYNCH);
 
     trigger(targetid, "hudCreateTimer", 15.0, true, true);
-
-    local senderCharId = getCharacterIdFromPlayerId(playerid);
 
     local character = players[targetid];
     local receiverCharId = getCharacterIdFromPlayerId(targetid);
@@ -295,6 +300,8 @@ alternativeTranslate({
     "en|handshake.shake.complete"  : ""
     "ru|handshake.shake.complete"  : "Приятно познакомиться, %s"
 
+    "en|handshake.shake.alreadyexist"  : ""
+    "ru|handshake.shake.alreadyexist"  : "Мы уже знакомы"
 
     "en|handshake.forget.rule"  : ""
     "ru|handshake.forget.rule"  : "Чтобы забыть: /forget id"
