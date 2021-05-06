@@ -120,6 +120,7 @@ cmd("police", ["job"], function(playerid, targetid) {
             return msg(playerid, "organizations.police.lowxp", [ getPlayerName(targetid) ], CL_RED);
         }
 
+        /*
         local targetName = getKnownCharacterName(playerid, targetid);
 
         if(!players[targetid].inventory.isFreeSpace(1)) {
@@ -140,6 +141,7 @@ cmd("police", ["job"], function(playerid, targetid) {
         players[targetid].inventory.push( policeBadge );
         policeBadge.save();
         players[targetid].inventory.sync();
+        */
 
         setPoliceJob(playerid, targetid, 0);
         msg(playerid, "organizations.police.setjob.byadmin", [getKnownCharacterNameWithId(playerid, targetid), getLocalizedPlayerJob(targetid)]);
