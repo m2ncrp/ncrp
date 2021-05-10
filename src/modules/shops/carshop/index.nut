@@ -152,7 +152,8 @@ alternativeTranslate({
     "en|shops.carshop.success"              : "Congratulations on your purchase! Drive safe and enjoy your trip!"
     "en|shops.carshop.notforsale"           : "This car is not for sale."
     "en|shops.carshop.canbuy"               : "You can buy this car for $%.2f: /buy car"
-    "en|shops.carshop.paint"                : "To change color - press 2."
+    "en|shops.carshop.paint"                : "To change color:"
+    "en|shops.carshop.paint-controls"       : "prev color - press 1, next color - press 2."
     "en|shops.carshop.paint2"               : "To change main color - press 1. To change advanced color - press 2."
     "en|shops.carshop.diamondMotors.closed" : "The car shop is closed. Opening hours: %s:00 - %s:00."
     "en|shops.carshop.welcome1"             : "Welcome to the car shop Diamond Motors."
@@ -180,7 +181,8 @@ alternativeTranslate({
     "ru|shops.carshop.success"              : "Поздравляем с покупкой! Наслаждайтесь поездкой!"
     "ru|shops.carshop.notforsale"           : "Этот автомобиль нельзя купить."
     "ru|shops.carshop.canbuy"               : "Вы можете купить этот автомобиль за $%.2f: /buy car"
-    "ru|shops.carshop.paint"                : "Выбор цвета покраски - клавиша 2."
+    "ru|shops.carshop.paint"                : "Выбор цвета покраски:"
+    "ru|shops.carshop.paint-controls"       : "предыдущий - клавиша 1, следующий - клавиша 2."
     "ru|shops.carshop.paint2"               : "Смена основого цвета - клавиша 1. Смена доп. цвета - клавиша 2."
     "ru|shops.carshop.diamondMotors.closed" : "Автосалон закрыт. Чаcы работы с %s:00 до %s:00."
     "ru|shops.carshop.welcome1"             : "Добро пожаловать в автосалон Diamond Motors."
@@ -333,9 +335,9 @@ event ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
     local modelid = getVehicleModel(vehicleid);
     local car = getCarInfoModelById(modelid);
 
-           msg(playerid, "shops.carshop.canbuy", [car.price], CL_FIREBUSH);
-    return msg(playerid, "shops.carshop.paint", CL_SILVERSAND);
-
+        msg(playerid, "shops.carshop.canbuy", [car.price], CL_FIREBUSH);
+        msg(playerid, "shops.carshop.paint", CL_SILVERSAND);
+    return msg(playerid, "shops.carshop.paint-controls", CL_SILVERSAND);
 
 
 });
@@ -475,7 +477,7 @@ function carShopFreeCarSlot(playerid, vehicleid) {
 }
 
 
-function carShopChangeColor(playerid) {
+function carShopChangeColor(playerid, destination) {
 
     if (!isPlayerInVehicle(playerid)) {
         return;
@@ -495,8 +497,10 @@ function carShopChangeColor(playerid) {
 
     local carpaints = getVehicleColorsArray( vehicleid );
 
-    local num = currentcarcolor[vehicleid] + 1;
-    if(num >= carpaints.len()) num = 0;
+    local num = currentcarcolor[vehicleid] + (destination == "next" ? 1 : -1);
+    local len = carpaints.len();
+    if(num >= len) num = 0;
+    if(num < 0) num = len - 1;
 
     local cr = carpaints[num];
     currentcarcolor[vehicleid] = num;
@@ -624,6 +628,10 @@ cmd("buy", "car", function(playerid) {
 
 /* ==================================================================== BINDS ================================================================================= */
 
+key("1", function(playerid) {
+    carShopChangeColor(playerid, "prev");
+}, KEY_UP);
+
 key("2", function(playerid) {
-    carShopChangeColor(playerid);
+    carShopChangeColor(playerid, "next");
 }, KEY_UP);
