@@ -362,7 +362,7 @@ fmd("gov", ["gov.passport"], "$f passport list", function(fraction, character, p
         return msg(character.playerid, "Заявок на получение паспорта нет", CL_WARNING);
     }
     page = page.tointeger();
-    if(page < 1 || page > Math.ceil(length / fieldForPage)) {
+    if(page < 1 || page > ceil(length.tofloat() / fieldForPage)) {
         return msg(character.playerid, "Неверный номер страницы", CL_ERROR);
     }
 
