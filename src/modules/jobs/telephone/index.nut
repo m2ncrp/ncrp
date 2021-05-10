@@ -448,8 +448,9 @@ function phoneStartCall(playerid, number, isbind) {
 
     // need phonebooth
     if (budka == false && isbind == false) {
+        msg(playerid, "");
         msg(playerid, "telephone.needphone");
-        showBlipNearestPhoneForPlayer ( playerid );
+        showBlipNearestPhoneForPlayer (playerid);
         return;
     }
 
@@ -467,6 +468,7 @@ function callByPhone (playerid, number = null, isbind = false) {
 
     // need phonebooth
     if (budka == false && isbind == false) {
+        msg(playerid, "");
         msg(playerid, "telephone.needphone");
         showBlipNearestPhoneForPlayer ( playerid );
         return;
