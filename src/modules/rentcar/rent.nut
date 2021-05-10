@@ -181,7 +181,7 @@ alternativeTranslate({
 
     "ru|rentcar.rent.dontknow"  : "Вы пока не знаете как арендовать автомобиль."
     "ru|rentcar.lease.dontknow" : "Вы пока не знаете как сдать автомобиль в аренду."
-    "ru|rentcar.explorecity"    : "Изучите город в поисках дополнительной информации."
+    "ru|rentcar.explorecity"    : "Найдите парковку Car Rental в Северном Милвилле и внимательно её осмотрите."
 
     // Для GUI
     "ru|rentcar.gui.window"         : "Аренда автомобиля"
