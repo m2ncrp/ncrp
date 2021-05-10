@@ -6,18 +6,16 @@ cmd(["ticket"], function(playerid, target = null) {
 local timers = {};
 
 POLICE_TICKET_PRICELIST <- [
-    [ 5.0,  "Пешее движение по проезжей части"],
-    [ 8.0, "Непропуск пешехода"],
-    [ 10.0, "Неиспользование поворотников"],
-    [ 15.0, "Превышение скорости"],
+    [ 10.0, "Пешее движение по проезжей части"],
+    [ 15.0, "Неиспользование поворотников"],
+    [ 20.0, "Игнорирование требования остановки"],
     [ 20.0, "Создание препятствий для движения"],
+    [ 25.0, "Оскорбление сотрудника полиции"],
+    [ 30.0, "Превышение скорости"],
+    [ 35.0, "Движение за пределами проезжей части"],
     [ 40.0, "Выезд на полосу встречного движения"],
-    [ 10.0, "Проезд знака STOP без остановки"],
-    [ 40.0, "Проезд знака DO NOT ENTER"],
-    [ 30.0, "Движение за пределами проезжей части"],
-    [ 15.0, "Игнорирование требования остановки"],
-    [ 30.0, "Оскорбление сотрудника полиции"],
-
+    [ 45.0, "Проезд знака DO NOT ENTER"],
+    [ 50.0, "Порча городского имущества"],
     //[17.0, "organizations.police.lawbreak.warning"          ],  // 0 - Предупреждение aka warning
     //[18.5, "organizations.police.lawbreak.trafficviolation" ],  // 1 - Нарушение ПДД aka traffic violation
     //[20.0, "organizations.police.lawbreak.roadaccident"      ]   // 2 - ДТП aka road acident
@@ -48,7 +46,7 @@ function policeGiveTicket(playerid, value) {
         local count = POLICE_TICKET_PRICELIST.len();
 
         for (local i = 0; i < count; i++) {
-            msg(playerid, "  "+(i+1)+". "+ POLICE_TICKET_PRICELIST[i][1]);
+            msg(playerid, format("  %d. %s ($%d)", i+1, POLICE_TICKET_PRICELIST[i][1], POLICE_TICKET_PRICELIST[i][0].tointeger()));
         }
 
         msg(playerid, "organizations.police.ticket.neednumber", CL_GRAY);
@@ -100,10 +98,10 @@ function policeGiveTicket(playerid, value) {
                     return msg(playerid, "organizations.police.toofarfromoffender", CL_ERROR);
                 }
 
-                if (!canMoneyBeSubstracted(targetid, price)) {
-                    dbg("ncrp", "console", format("У нарушителя **%s** недостаточно денег для оплаты штрафа за %s ($%.2f)", getPlayerName(targetid), reasonText, price) );
-                    return msg(playerid, "organizations.police.ticket.targetnomoney", CL_ERROR);
-                }
+                // if (!canMoneyBeSubstracted(targetid, price)) {
+                //     dbg("ncrp", "console", format("У нарушителя **%s** недостаточно денег для оплаты штрафа за %s ($%.2f)", getPlayerName(targetid), reasonText, price) );
+                //     return msg(playerid, "organizations.police.ticket.targetnomoney", CL_ERROR);
+                // }
 
                 msg(targetid, "organizations.police.ticket.givewithreason", [getAuthor(playerid), target_reason, price], CL_CHESTNUT);
                 msg(playerid, "organizations.police.ticket.given", [getAuthor(targetid), player_reason, price], CL_CHESTNUT);
