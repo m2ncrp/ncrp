@@ -29,3 +29,12 @@ function setVehicleEngineState (vehicleid, state) {
 
     return false;
 }
+
+/**
+ * Check if vehicle engine is started
+ * @param  {int}  vehicleid
+ * @return {Boolean}
+ */
+function isVehicleEngineStarted(vehicleid) {
+    return (getVehicleEngineState(vehicleid) ? true : false);
+}
