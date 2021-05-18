@@ -44,13 +44,6 @@ function createElem(window, type, text, x, y, W, H) {
     return guiCreateElement(type, text, x, y, W, H, false, window);
 }
 
-addCommandHandler( "mvv",
-    function( playerid )
-    {
-     guiSetText(saleAmountLabel, "abc");
-    }
-);
-
 local TRANSLATIONS = {
     "en": {
       "opened" : "Opened",

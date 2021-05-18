@@ -293,7 +293,6 @@ event("onServerStarted", function() {
     logStr("[interiors] loading interiors enteries...");
 
     createPlace("ChinaTownPodvalExit", 308.871, 425.365, 306.927, 426.858);
-
 });
 
 event("onServerPlayerStarted", function( playerid ){
