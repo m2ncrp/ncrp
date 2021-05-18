@@ -220,9 +220,9 @@ key(["f"], function(playerid) {
     local hasKey = isPlayerHaveVehicleKey(playerid, vehicleid);
 
     if (!hasKey) {
-        setVehicleEngineState(vehicleid, true)
+        setVehicleEngineState(vehicleid, true);
         delayedFunction(125, function() {
-            setVehicleEngineState(vehicleid, false)
+            setVehicleEngineState(vehicleid, false);
         })
         return;
     }
@@ -238,11 +238,9 @@ key(["f"], function(playerid) {
             blockVehicle(vehicleid);
         }
     });
-
-
 }, KEY_UP);
 
-key(["w", "s"], function(playerid) {
+key(["w", "s", "arrow_up", "arrow_down"], function(playerid) {
     if (!isPlayerInVehicle(playerid)) {
         return;
     }
@@ -257,7 +255,7 @@ key(["w", "s"], function(playerid) {
         __vehicles[vehicleid].engineState = true;
     }
 
-}, KEY_BOTH);
+}, KEY_DOWN);
 
 // handle vehicle exit
 event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {

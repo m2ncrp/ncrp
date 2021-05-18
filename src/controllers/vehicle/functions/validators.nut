@@ -61,6 +61,6 @@ function isVehicleNearPoint(vehicleid, x, y, radius = DEFAULT_NEAR_RADIUS) {
  * @return {Boolean}
  */
 function isVehicleEngineStarted(vehicleid) {
-    return (getVehicleEngineStateEx(vehicleid) ? true : false);
+    return (getVehicleEngineState(vehicleid) ? true : false);
 }
 
