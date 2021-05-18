@@ -13,7 +13,7 @@ acmd("list", function(playerid) {
     }
 });
 
-mcmd(["admin.heal"], ["heal"], function( playerid, targetid = null ) {
+mcmd(["admin.heal"], ["aheal"], function( playerid, targetid = null ) {
     targetid = targetid ? targetid.tointeger() : playerid;
     setPlayerHealth( targetid, 720.0 );
 });

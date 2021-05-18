@@ -9,9 +9,6 @@ translation("en", {
 
     //"vehicle.owner.warning"             : "You can't drive a car which doesn't belong to you"
 
-    "hospital.money.deducted"           : "You've successfully payed $%.2f for your treatment!"
-    "hospital.money.donthave"           : "You don't have enough money to pay for full treatment!"
-
     "client.interface.job"              : "Job: %s"
     "client.interface.level"            : "Level: %d"
 

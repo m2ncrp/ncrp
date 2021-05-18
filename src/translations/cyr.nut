@@ -30,6 +30,9 @@ alternativeTranslate({
     "en|Enter"                          : "Enter"
     "ru|Enter"                          : "Âõîä"
 
+    "en|Heal"      : "Heal"
+    "ru|Heal"      : "Âûëå÷èòüñÿ"
+
     "en|3dtext.job.loadhere"            : "LOAD HERE"
     "ru|3dtext.job.loadhere"            : "ÌÅÑÒÎ ÇÀÃĞÓÇÊÈ"
 
@@ -58,6 +61,9 @@ alternativeTranslate({
 
     "en|3dtext.organizations.bank"      : "GRAND IMERIAL BANK"
     "ru|3dtext.organizations.bank"      : "ÁÀÍÊ"
+
+    "en|3dtext.organizations.hospital"  : "EMPIRE GENERAL HOSPITAL"
+    "ru|3dtext.organizations.hospital"  : "ÃÎÑÏÈÒÀËÜ"
 
     "en|3dtext.organizations.meria"     : "SECRETARY OF GOVERNMENT"
     "ru|3dtext.organizations.meria"     : "ÌİĞÈß"

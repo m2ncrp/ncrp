@@ -1,7 +1,3 @@
-const HOSPITAL_X         = -393.429;
-const HOSPITAL_Y         = 912.044;
-const HOSPITAL_Z         = -20.0026;
-
 local lastDeaths = {};
 
 /**

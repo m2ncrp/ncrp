@@ -6,3 +6,4 @@ include("modules/organizations/parking");
 include("modules/organizations/hobos");
 include("modules/organizations/fractions");
 include("modules/organizations/bank");
+include("modules/organizations/hospital");
