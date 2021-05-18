@@ -1,0 +1,15 @@
+winter     :
+euro man   : 63, 88, 132
+euro women : 120, 121, 122
+negro man  : 78, 163
+negro woman: 70, 139
+asian man  : 77, 79, 164
+asian woman: 58, 59
+           :
+summer     :
+euro man   : 71, 72
+euro women : 118, 119
+negro man  : 43, 44
+negro woman: 47
+asian man  : 51, 52
+asian woman: 56, 57

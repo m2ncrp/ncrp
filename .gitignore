@@ -12,7 +12,6 @@
 !env.xml
 *.dll
 *.exe
-*.txt
 !xml.exe
 bans.xml
 *.dll
