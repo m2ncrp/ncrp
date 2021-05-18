@@ -23,6 +23,7 @@ include("controllers/vehicle/functions/radio.nut");
 // saving original vehicle method
 local old__createVehicle = createVehicle;
 local old__setVehicleWheelTexture = setVehicleWheelTexture;
+local old__destroyVehicle = destroyVehicle;
 
 // creating storage for vehicles
 __vehicles <- {};
@@ -49,12 +50,13 @@ createVehicle = function(modelid, x, y, z, rx, ry, rz) {
             owner    = null,
             ownerid  = -1,
         },
+        spawned = true,
         wheels = {
             front = -1,
             rear  = -1
         },
         dirt = 0.0,
-        state = false,
+        engineState = false,
         fuel = getDefaultVehicleFuel(vehicleid),
     };
 
@@ -91,7 +93,7 @@ setVehicleWheelTexture = function(vehicleid, wheel, textureid) {
  * @param  {Integer} vehicleid
  * @return {Boolean}
  */
-function removePlayerVehicle(vehicleid) {
+function removeVehicle(vehicleid) {
     if (vehicleid in __vehicles) {
         dbg("removing player vehicle from database", getVehiclePlateText(vehicleid));
         if (__vehicles[vehicleid].entity) {
@@ -105,6 +107,41 @@ function removePlayerVehicle(vehicleid) {
         return true;
     }
 }
+
+function despawnVehicle(vehicleid) {
+    if (vehicleid in __vehicles) {
+        __vehicles[vehicleid].spawned <- false;
+        old__destroyVehicle(vehicleid);
+
+        return true;
+    }
+}
+
+destroyVehicle <- despawnVehicle;
+
+/*
+    removeVehicle - перманентное удаление авто
+    destroyVehicle / despawnVehicle - удаление 3d модели из игрового мира (десвпавн)
+    spawnVehicle - воссоздание авто (спавн)
+*/
+
+/**
+ * Spawn vehicle [working bad]
+ * @param  {Integer} vehicleid
+ * @return {Boolean}
+ */
+function spawnVehicle(vehicleid) {
+    if (vehicleid in __vehicles) {
+        local veh = getVehicleEntity(vehicleid);
+
+        local vehhh = createVehicle(veh.model, veh.x, veh.y, veh.z, veh.rx, veh.ry, veh.rz);
+        dbg(vehhh);
+        return true;
+    }
+
+    return false;
+}
+
 
 function setVehicleEntity(vehicleid, entity) {
     __vehiclesR[entity.id] <- entity;

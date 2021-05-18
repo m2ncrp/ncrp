@@ -188,7 +188,7 @@ mcmd(["admin.car"], "myveh", function(playerid, modelid) {
 mcmd(["admin.car"], ["deletecar", "removecar", "deleteveh", "removeveh"], function(playerid, plate) {
     local vehicleid = getVehicleByPlateText(plate.toupper());
     if (vehicleid) {
-        removePlayerVehicle(vehicleid);
+        removeVehicle(vehicleid);
         msg(playerid, "Vehicle "+plate.toupper()+" deleted.", CL_SNUFF);
     } else {
         msg(playerid, "Vehicle "+plate.toupper()+" not found. Enter full plate number.", CL_POMEGRANATE_50);

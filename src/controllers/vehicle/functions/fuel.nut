@@ -98,7 +98,7 @@ function isVehicleFuelNeeded(vehicleid) {
  */
 function switchEngine(vehicleid) {
     if (vehicleid in __vehicles) {
-        return setVehicleEngineState(vehicleid, (__vehicles[vehicleid].state = !__vehicles[vehicleid].state));
+        return setVehicleEngineState(vehicleid, (__vehicles[vehicleid].engineState = !__vehicles[vehicleid].engineState));
     }
 
     return false;
@@ -113,7 +113,7 @@ event("onServerMinuteChange", function() {
 
         local speed = getVehicleSpeed(vehicleid);
 
-        if (__vehicles[vehicleid].state && __vehicles[vehicleid].fuel >= 0) {
+        if (__vehicles[vehicleid].engineState && __vehicles[vehicleid].fuel >= 0) {
             __vehicles[vehicleid].fuel -= LITRES_PER_GALLON * VEHICLE_FUEL_STEP * getDefaultVehicleFuel(vehicleid);
         }
 

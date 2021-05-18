@@ -16,8 +16,9 @@ event("onServerPlayerStarted", function(playerid) {
 
 function resetVehiclesInstances() {
     foreach (vehicleid, vehicle in __vehicles) {
-        if (!vehicle) continue;
-        if (!isVehicleEmpty(vehicleid)) continue;
+        if(!vehicle) continue;
+        if(!vehicle.spawned) continue;
+        if(!isVehicleEmpty(vehicleid)) continue;
         setVehiclePositionObj(vehicleid, getVehiclePositionObj(vehicleid));
         setVehicleRotationObj(vehicleid, getVehicleRotationObj(vehicleid));
 

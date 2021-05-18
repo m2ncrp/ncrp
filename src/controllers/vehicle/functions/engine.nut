@@ -5,7 +5,7 @@
  */
 function getVehicleEngineStateEx (vehicleid) {
     if (vehicleid in __vehicles) {
-        return __vehicles[vehicleid].state;
+        return __vehicles[vehicleid].engineState;
     }
 
     return 0;

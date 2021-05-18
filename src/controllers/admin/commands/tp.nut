@@ -32,7 +32,7 @@ acmd("vv", function(playerid, targetid1 = null, targetid2 = null, offset = 1.0) 
     local targetid1 = toInteger(targetid1);
     local targetid2 = toInteger(targetid2);
 
-    if (targetid1 == null || targetid2 == null || !(targetid1 in __vehicles) || !(targetid2 in __vehicles)) {
+    if (targetid1 == null || targetid2 == null || !(targetid1 in __vehicles) || !(targetid2 in __vehicles) || !__vehicles[targetid1].spawned || !__vehicles[targetid2].spawned) {
         return msg(playerid, "Provide created vehicleids.", CL_ERROR);
     }
 
@@ -51,7 +51,7 @@ acmd("pv", function(playerid, targetid1 = null, targetid2 = null, offset = 1.2) 
     local targetid1 = toInteger(targetid1);
     local targetid2 = toInteger(targetid2);
 
-    if (targetid1 == null || targetid2 == null || !isPlayerConnected(targetid1) || !(targetid2 in __vehicles)) {
+    if (targetid1 == null || targetid2 == null || !isPlayerConnected(targetid1) || !(targetid2 in __vehicles) || !__vehicles[targetid2].spawned) {
         return msg(playerid, "Provide connected player and created vehicleid.", CL_ERROR);
     }
 
@@ -71,7 +71,7 @@ acmd("vp", function(playerid, targetid1 = null, targetid2 = null, offset = 0.1) 
     local targetid1 = toInteger(targetid1);
     local targetid2 = toInteger(targetid2);
 
-    if (targetid1 == null || targetid2 == null || !(targetid1 in __vehicles) || !isPlayerConnected(targetid2)) {
+    if (targetid1 == null || targetid2 == null || !(targetid1 in __vehicles) || !__vehicles[targetid1].spawned || !isPlayerConnected(targetid2)) {
         return msg(playerid, "Provide created vehicleid and connected player.", CL_ERROR);
     }
 

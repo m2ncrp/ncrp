@@ -53,48 +53,50 @@ function trySaveVehicle(vehicleid) {
     }
 
     // save data
-    local position = getVehiclePosition(vehicleid);
-    local rotation = getVehicleRotation(vehicleid);
+    if(vehicle.spawned) {
+        local position = getVehiclePosition(vehicleid);
+        local rotation = getVehicleRotation(vehicleid);
 
-    if("defaultPos" in vehicle.entity.data) {
-        vehicle.respawn.position.x = vehicle.entity.data.defaultPos.x;
-        vehicle.respawn.position.y = vehicle.entity.data.defaultPos.y;
-        vehicle.respawn.position.z = vehicle.entity.data.defaultPos.z;
+        if("defaultPos" in vehicle.entity.data) {
+            vehicle.respawn.position.x = vehicle.entity.data.defaultPos.x;
+            vehicle.respawn.position.y = vehicle.entity.data.defaultPos.y;
+            vehicle.respawn.position.z = vehicle.entity.data.defaultPos.z;
 
-        vehicle.respawn.rotation.x = vehicle.entity.data.defaultRot.x;
-        vehicle.respawn.rotation.y = vehicle.entity.data.defaultRot.y;
-        vehicle.respawn.rotation.z = vehicle.entity.data.defaultRot.z;
-    } else {
-        vehicle.respawn.position.x = position[0];
-        vehicle.respawn.position.y = position[1];
-        vehicle.respawn.position.z = position[2];
+            vehicle.respawn.rotation.x = vehicle.entity.data.defaultRot.x;
+            vehicle.respawn.rotation.y = vehicle.entity.data.defaultRot.y;
+            vehicle.respawn.rotation.z = vehicle.entity.data.defaultRot.z;
+        } else {
+            vehicle.respawn.position.x = position[0];
+            vehicle.respawn.position.y = position[1];
+            vehicle.respawn.position.z = position[2];
 
-        vehicle.respawn.rotation.x = rotation[0];
-        vehicle.respawn.rotation.y = rotation[1];
-        vehicle.respawn.rotation.z = rotation[2];
+            vehicle.respawn.rotation.x = rotation[0];
+            vehicle.respawn.rotation.y = rotation[1];
+            vehicle.respawn.rotation.z = rotation[2];
+        }
+
+        vehicle.entity.x  = position[0];
+        vehicle.entity.y  = position[1];
+        vehicle.entity.z  = position[2];
+        vehicle.entity.rx = rotation[0];
+        vehicle.entity.ry = rotation[1];
+        vehicle.entity.rz = rotation[2];
+
+        local colors = getVehicleColour(vehicleid);
+
+        vehicle.entity.cra = colors[0];
+        vehicle.entity.cga = colors[1];
+        vehicle.entity.cba = colors[2];
+        vehicle.entity.crb = colors[3];
+        vehicle.entity.cgb = colors[4];
+        vehicle.entity.cbb = colors[5];
+
+        vehicle.entity.model     = getVehicleModel(vehicleid);
+        vehicle.entity.tunetable = getVehicleTuningTable(vehicleid);
+        vehicle.entity.dirtlevel = getVehicleDirtLevel(vehicleid);
+        vehicle.entity.fuellevel = vehicle.fuel;
     }
 
-
-    vehicle.entity.x  = position[0];
-    vehicle.entity.y  = position[1];
-    vehicle.entity.z  = position[2];
-    vehicle.entity.rx = rotation[0];
-    vehicle.entity.ry = rotation[1];
-    vehicle.entity.rz = rotation[2];
-
-    local colors = getVehicleColour(vehicleid);
-
-    vehicle.entity.cra = colors[0];
-    vehicle.entity.cga = colors[1];
-    vehicle.entity.cba = colors[2];
-    vehicle.entity.crb = colors[3];
-    vehicle.entity.cgb = colors[4];
-    vehicle.entity.cbb = colors[5];
-
-    vehicle.entity.model     = getVehicleModel(vehicleid);
-    vehicle.entity.tunetable = getVehicleTuningTable(vehicleid);
-    vehicle.entity.dirtlevel = getVehicleDirtLevel(vehicleid);
-    vehicle.entity.fuellevel = vehicle.fuel;
     vehicle.entity.plate     = getVehiclePlateText(vehicleid);
     vehicle.entity.owner     = getVehicleOwner(vehicleid);
     vehicle.entity.ownerid   = getVehicleOwnerId(vehicleid);

@@ -170,7 +170,7 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     if (getVehicleFuel(vehicleid) > 0 && seat == 0) {
         // set state of the engine as on
         if (vehicleid in __vehicles) {
-            __vehicles[vehicleid].state = true;
+            __vehicles[vehicleid].engineState = true;
         }
     }
 
@@ -254,7 +254,7 @@ key(["w", "s"], function(playerid) {
     }
 
     if(getVehicleFuel(vehicleid) > 0 && vehicleid in __vehicles) {
-        __vehicles[vehicleid].state = true;
+        __vehicles[vehicleid].engineState = true;
     }
 
 }, KEY_BOTH);
