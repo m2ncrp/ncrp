@@ -565,18 +565,27 @@ class PlayerInventory extends Inventory
 
         if (item.active) {
             if (item.classname in translations[playerLang]) {
+                local text = translations[playerLang][item.classname];
+                // sendMessage(item.tostring())
                 if(item.amount != 0) {
                     if (item.classname == "Item.Money") {
-                        return guiSetText(this.components["lbl_name"], translations[playerLang][item.classname] + " [$"+item.amount+"]");
+                        text = translations[playerLang][item.classname] + " [$"+item.amount+"]";
                     }
-                    guiSetText(this.components["lbl_name"], translations[playerLang][item.classname] + " ["+item.amount+"]");
+
+                    // for items with amount field
+                    text = translations[playerLang][item.classname] + " ["+item.amount+"]";
                 }
-                else {
-                    if (item.classname == "Item.Jerrycan") {
-                        return guiSetText(this.components["lbl_name"], translations[playerLang][item.classname] + " ["+item.amount+"]");
-                    }
-                    guiSetText(this.components["lbl_name"], translations[playerLang][item.classname]);
+
+                if (item.classname == "Item.Jerrycan") {
+                    text = translations[playerLang][item.classname] + " ["+item.amount+"]";
                 }
+
+                if (item.classname == "Item.VehicleKey") {
+                    text = translations[playerLang][item.classname];
+                    //text = translations[playerLang][item.classname] + "\n ["+item.amount+"]";
+                }
+
+                guiSetText(this.components["lbl_name"], text);
             }
             else {
                 guiSetText(this.components["lbl_name"], item.classname);
@@ -1125,9 +1134,12 @@ function drawWorldGround() {
  * ************************
  */
 
+function dbg(data) {
+    triggerServerEvent("dbg", data.tostring());
+}
 
 // dbg <- function(...) {
-//     // log(JSONEncoder.encode(concat(vargv)));
+//     log(JSONEncoder.encode(concat(vargv)));
 // }
 
 // dbgc <- function(...) {
