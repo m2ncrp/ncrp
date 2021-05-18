@@ -73,7 +73,7 @@ event("onServerPlayerStarted", function( playerid ) {
 
     //creating 3dtext for Bank Office
     createPrivate3DText ( playerid, BANK_OFFICE_X, BANK_OFFICE_Y, BANK_OFFICE_Z+0.35, plocalize(playerid, "3dtext.organizations.bank"), CL_ROYALBLUE );
-    createPrivate3DText ( playerid, BANK_OFFICE_X, BANK_OFFICE_Y, BANK_OFFICE_Z+0.20, plocalize(playerid, "3dtext.job.press.E"), CL_WHITE.applyAlpha(75), BANK_RADIUS );
+    createPrivate3DText ( playerid, BANK_OFFICE_X, BANK_OFFICE_Y, BANK_OFFICE_Z+0.20, plocalize(playerid, "3dtext.job.press.E"), CL_WHITE.applyAlpha(150), BANK_RADIUS );
 });
 
 event("onPlayerVehicleEnter", function (playerid, vehicleid, seat) {
