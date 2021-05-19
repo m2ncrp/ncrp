@@ -1,6 +1,6 @@
-const HOSPITAL_X         = -393.429;
-const HOSPITAL_Y         = 912.044;
-const HOSPITAL_Z         = -20.0026;
+HOSPITAL_X <- -393.429;
+HOSPITAL_Y <- 912.044;
+HOSPITAL_Z <- -20.0026;
 const HOSPITAL_RADIUS    = 2.0;
 const HOSPITAL_HEAL_FIX  = 4.0;
 
