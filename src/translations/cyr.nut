@@ -168,6 +168,7 @@ alternativeTranslate({
     "en|GREENFIELD"                 : "GREENFIELD"
     "en|SANDISLAND"                 : "SAND ISLAND"
     "en|HUNTERSPOINT"               : "HUNTERS POINT"
+    "en|SOUTHMILLVILLE"             : "SOUTH MILLVILLE"
 
 
     "ru|WESTSIDE"                   : "беяр-яюид"
@@ -185,6 +186,7 @@ alternativeTranslate({
     "ru|GREENFIELD"                 : "цпхмтхкд"
     "ru|SANDISLAND"                 : "ящмд-юикемд"
     "ru|HUNTERSPOINT"               : "уюмрепя-онимр"
+    "ru|SOUTHMILLVILLE"             : "чфмши лхкбхкк"
 
 
     "en|3dtext.busstop.Uptown1a"                   : "Uptown (path 1A)"
