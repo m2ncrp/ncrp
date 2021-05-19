@@ -208,9 +208,6 @@ event("onServerHourChange", function() {
     }
 });
 
-/**
-Event: JOB - Bus driver - Already have job
-*/
 key("e", function(playerid) {
 
     if(!isPlayerInValidPoint(playerid, BANK_OFFICE_X, BANK_OFFICE_Y, BANK_RADIUS)) {
