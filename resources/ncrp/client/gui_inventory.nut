@@ -62,6 +62,8 @@ local translations = {
         "action:throwToGround"  : "Throw to the ground",
         "action:close"          : "Close",
 
+        "vehicle:notfound"      : "Unknown vehicle",
+
         "Item.None"             : ""
         "Item.Revolver"         : "Revolver .38"
         "Item.MauserC96"        : "Mauser C96"
@@ -139,6 +141,8 @@ local translations = {
         "action:takeInHand"     : "Взять в руку"
         "action:throwToGround"  : "Бросить на землю"
         "action:close"          : "Закрыть"
+
+        "vehicle:notfound"      : "Неизвестно от какого",
 
         "Item.None"             : ""
         "Item.Revolver"         : "Revolver .38"
@@ -311,7 +315,7 @@ class Inventory
             }
 
             foreach (idx, item in this.data.items) {
-                this.createItem(item.slot, item.classname, item.type, item.amount, item.volume);
+                this.createItem(item.slot, item.classname, item.type, item.amount, item.volume, item.data, item.temp);
             }
 
             local size = this.data.sizeX * this.data.sizeY;
@@ -349,7 +353,7 @@ class Inventory
             // and put old to cache
             if (matched && matched.classname != item.classname) {
                 this.cacheItem(item);
-                this.createItem(slot, matched.classname, matched.type, matched.amount, matched.volume);
+                this.createItem(slot, matched.classname, matched.type, matched.amount, matched.volume, matched.data, matched.temp);
                 continue;
             }
 
@@ -367,8 +371,8 @@ class Inventory
         }
     }
 
-    function createItem(slot, classname, type, amount = 0, volume = 0.0, outside_form = false) {
-        local item = { classname = classname, type = type, slot = slot, amount = amount, volume = volume, handle = null, label = null, active = false, parent = this };
+    function createItem(slot, classname, type, amount = 0, volume = 0.0, data = {}, temp = {}, outside_form = false) {
+        local item = { classname = classname, type = type, slot = slot, amount = amount, volume = volume, data = data, temp = temp, handle = null, label = null, active = false, parent = this };
         local pos  = this.getItemPosition(item);
 
         try {
@@ -547,7 +551,7 @@ class PlayerInventory extends Inventory
         };
 
         // buttons
-        this.components["lbl_name"]     <- this.addComponent(ELEMENT_TYPE_LABEL,  props,  0, "");
+        this.components["lbl_name"]     <- this.addComponent(ELEMENT_TYPE_LABEL, { width  = 125.0, height = 50.0 },  0, "");
         this.components["btn_use"]      <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -5, translations[playerLang]["action:use"]);
         this.components["btn_transfer"] <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -4, translations[playerLang]["action:transfer"]);
         this.components["btn_destroy"]  <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -3, translations[playerLang]["action:destroy"]);
@@ -581,8 +585,11 @@ class PlayerInventory extends Inventory
                 }
 
                 if (item.classname == "Item.VehicleKey") {
-                    text = translations[playerLang][item.classname];
-                    //text = translations[playerLang][item.classname] + "\n ["+item.amount+"]";
+                    if(item.temp.len() > 0) {
+                        text = translations[playerLang][item.classname] + "\n" + item.temp.plate + "\n" + item.temp.modelName;
+                    } else {
+                        text = translations[playerLang][item.classname] + "\n" + translations[playerLang]["vehicle:notfound"];
+                    }
                 }
 
                 guiSetText(this.components["lbl_name"], text);
@@ -683,8 +690,8 @@ class PlayerHands extends Inventory
         backbone["ihands"] = this;
     }
 
-    function createItem(slot, classname, type, amount = 0, volume = 0.0) {
-        return base.createItem(slot, classname, type, amount, volume, true);
+    function createItem(slot, classname, type, amount = 0, volume = 0.0, data = {}, temp = {}) {
+        return base.createItem(slot, classname, type, amount, volume, data, temp, true);
     }
 
     function hide() {

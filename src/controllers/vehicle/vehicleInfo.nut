@@ -533,7 +533,7 @@ vehicleInfo <- {
 
     model_15 = {
         gamename = "lassiter_69",
-        name = "Lassiter Series 69",
+        name = "Lassiter 69",
         seats = 4,
         triggers = {
             front_left_wheel      = [-1.2800,  1.7000],
@@ -566,7 +566,7 @@ vehicleInfo <- {
 
     model_16 = {
         gamename = "lassiter_69_destr",
-        name = "Lassiter Series 69 Destroy",
+        name = "Lassiter 69 Destroy",
         seats = 4,
         triggers = {
             front_left_wheel      = [-1.2800,  1.7000],
@@ -632,7 +632,7 @@ vehicleInfo <- {
 
     model_18 = {
         gamename = "lassiter_75_pha",
-        name = "Lassiter Series 75 Hollywood",
+        name = "Lassiter 75 Hollywood",
         seats = 4,
         triggers = {
             front_left_wheel      = [-1.2800,  2.1500],

@@ -81,6 +81,8 @@ class Item.Abstract extends ORM.JsonEntity
             volume      = this.calculateVolume(),
             id          = this.id,
             isPickable  = this.isPickable,
+            data        = this.data
+            temp        = {}
         };
 
         if (this.x != 0.0 || this.y != 0.0 || this.z != 0.0) {
