@@ -29,6 +29,7 @@ const INVENTORY_ACTIVE_ALPHA   = 1.0;
 local storage = {};
 local defaultMouseState = false;
 local selectedItem = null;
+local prevInventoryLink = null;
 local key_modifiers = {
     ctrl  = false,
     shift = false,
@@ -474,6 +475,15 @@ class Inventory
                 // guiSetAlpha(selectedItem.handle, INVENTORY_INACTIVE_ALPHA);
                 selectedItem.active = false;
                 selectedItem = null;
+
+                // cheat to clear lbl_name in PlayerInventory
+                if("lbl_name" in prevInventoryLink.components) {
+                    local lbl_name = prevInventoryLink.components["lbl_name"];
+                    delayedFunction(20, function() {
+                        guiSetText(lbl_name, "");
+                    });
+                }
+
             } else {
                 if (item.classname == "Item.None") return;
 
@@ -498,6 +508,7 @@ class Inventory
             item.active = false;
             // guiSetAlpha(item.handle, INVENTORY_INACTIVE_ALPHA);
         }
+        prevInventoryLink = this;
     }
 
     function rawclick(element) {
@@ -650,7 +661,9 @@ class PlayerInventory extends Inventory
 
         // drop item via clicking outside screen
         if (element == backbone["window"] && selectedItem) {
-            guiSetText(this.components["lbl_name"], "");
+            delayedFunction(25, function() {
+                 guiSetText(this.components["lbl_name"], "");
+            });
             selectedItem.active = false;
             trigger("inventory:drop", selectedItem.parent.id, selectedItem.slot);
             selectedItem = null;
@@ -754,6 +767,13 @@ class StorageInventory extends Inventory
 
     }
 
+    function click(item) {
+        base.click(item);
+
+        // sendMessage(item.classname)
+        // sendMessage("active: "+item.active)
+    }
+
     function rawclick(element) {
         foreach (idx, value in this.components) {
             if (element != value) {
@@ -806,6 +826,13 @@ class VehicleInventory extends Inventory
         };
 
         this.setTitle();
+    }
+
+
+    function click(item) {
+        base.click(item);
+
+        // sendMessage("VehicleInventory: "+item.classname)
     }
 
 }
