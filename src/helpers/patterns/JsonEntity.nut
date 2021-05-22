@@ -109,6 +109,14 @@ class ORM.JsonEntity extends ORM.Entity {
         return name in this.data ? this.data[name] : null;
     }
 
+    function getAllData() {
+        if (typeof data != "table") {
+            this.data = {};
+        }
+
+        return this.data;
+    }
+
     function hasData(name) {
         if (typeof data != "table") {
             this.data = {};
