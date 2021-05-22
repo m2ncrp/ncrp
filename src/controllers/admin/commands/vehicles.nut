@@ -178,7 +178,7 @@ mcmd(["admin.car"], "paint", function(playerid, r1 = 0, g1 = 0, b1 = 0, r2 = 0, 
 
 mcmd(["admin.car"], "myveh", function(playerid, modelid) {
     local pos = getPlayerPosition( playerid );
-    local vehicleid = createVehicle( modelid.tointeger(), pos[0] + 2.0, pos[1], pos[2] + 1.0, 0.0, 0.0, 0.0 );
+    local vehicleid = createVehicle( modelid.tointeger(), pos[0] + 2.0, pos[1], pos[2] + 0.1, 0.0, 0.0, 0.0 );
     // setVehicleColour(vehicleid, 0, 0, 0, 0, 0, 0);
     setVehicleOwner(vehicleid, playerid);
     setVehicleSaving(vehicleid, true); // it will be saved to database
