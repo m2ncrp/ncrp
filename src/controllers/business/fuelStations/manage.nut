@@ -39,9 +39,9 @@ function getFuelStaionDataGUI(playerid, station) {
 }
 
 event("bizFuelStationSave", function(playerid, stationName, salePrice, purchaseAmount, purchasePrice) {
-    salePrice = salePrice.tofloat();
-    purchaseAmount = purchaseAmount.tofloat()
-    purchasePrice = purchasePrice.tofloat();
+    salePrice = salePrice.len() > 0 ? salePrice.tofloat() : 0;
+    purchaseAmount = purchaseAmount.len() > 0 ? purchaseAmount.tofloat() : 0;
+    purchasePrice = purchasePrice.len() > 0 ? purchasePrice.tofloat() : 0;
 
     local station = getFuelStationEntity(stationName);
     station.data.fuel.price = salePrice;
