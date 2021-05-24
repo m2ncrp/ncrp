@@ -14,7 +14,7 @@ function getVehiclePositionObj ( vehicleid ) {
  * @param {object} objpos
  */
 function setVehiclePositionObj ( vehicleid, objpos ) {
-    setVehiclePosition( vehicleid, objpos.x, objpos.y, objpos.z);
+    setVehiclePosition( vehicleid, objpos.x.tofloat(), objpos.y.tofloat(), objpos.z.tofloat());
 }
 
 /**
