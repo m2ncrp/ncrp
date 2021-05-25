@@ -37,6 +37,10 @@ acmd(["die"], function( playerid, targetid = null ) {
     setPlayerHealth( targetid, 0.0 );
 });
 
+acmd(["mypos"], function( playerid ) {
+    msg(playerid, getPlayerPositionObj(playerid), CL_OCEANGREEN);
+});
+
 acmd(["firstname"], function(playerid, targetid = null, newname = null) {
 
     if (targetid == null || !isPlayerConnected(targetid.tointeger())) {
