@@ -1106,7 +1106,7 @@ function drawWorldGround() {
     local pos    = { x = curpos[0], y = curpos[1], z = curpos[2] }; if (typeof pos != "table" || pos.len() != 3) return;
     local radius = ground.distance;                                 if (typeof radius != "float") return;
     local nearitem = false;
-    local text = "Нажмите \"Е\" что бы подобрать предмет";
+    local text = "Нажмите \"Е\", чтобы подобрать предмет";
 
     local items = ground.current.filter(function(i, item) {
         return (
@@ -1151,7 +1151,7 @@ function drawWorldGround() {
         }
 
         if(!item.isPickable) {
-            text = "Нажмите \"Е\" что бы исследовать";
+            text = "Нажмите \"Е\", чтобы исследовать";
         }
     });
 
