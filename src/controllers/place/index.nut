@@ -180,6 +180,11 @@ acmd("placedbg", function(playerid) {
     trigger(playerid, "onDebugToggle");
 });
 
+acmd("addline", function(playerid) {
+    trigger(playerid, "onServerLineAdded");
+});
+
+
 // createPlace("test1", -612.941, 454.184, -560.539, 440.482);
 // createPlace("test2", -576.303, 444.865, -579.186, 449.768);
 
