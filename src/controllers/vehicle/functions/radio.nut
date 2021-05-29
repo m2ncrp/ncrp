@@ -43,7 +43,11 @@ function applyVehicleRadio(vehicleid, playerid) {
     if(!obj) return;
 
     triggerClientEvent(playerid, "setRadio", obj.station);
-    triggerClientEvent(playerid, "setRadio"+obj.enabled ? "On" : "Off");
+    delayedFunction(10, function() {
+        triggerClientEvent(playerid, "setRadio" + (obj.enabled ? "On" : "Off"));
+    })
+
+    dbg("applyVehicleRadio", vehicleid, playerid, obj.station, obj.enabled)
 }
 
 function setNextVehicleRadioStation(vehicleid) {
@@ -56,22 +60,29 @@ function setNextVehicleRadioStation(vehicleid) {
     if(!obj.enabled) {
         obj.station = stations[0]; // Delta
         obj.enabled = true;
-        return;
     }
 
-    if(obj.station == "Empire") {
+    else if(obj.station == "Empire") {
         obj.enabled = false;
-        return;
     }
 
-    if(obj.station == "Delta") {
+    else if(obj.station == "Delta") {
         obj.station = "Classic";
-        return;
     }
 
-    if(obj.station == "Classic") {
+    else if(obj.station == "Classic") {
         obj.station = "Empire";
-        return;
+    }
+
+    local passengers = getVehiclePassengers(vehicleid);
+    dbg("passengers")
+    dbg(passengers)
+    foreach (seat, playerid in passengers) {
+        dbg(seat, playerid)
+        if(seat != 0) {
+            dbg("apply", vehicleid, playerid)
+            applyVehicleRadio(vehicleid, playerid);
+        }
     }
 }
 
@@ -85,28 +96,36 @@ function setPrevVehicleRadioStation(vehicleid) {
     if(!obj.enabled) {
         obj.station = stations[2]; // Empire
         obj.enabled = true;
-        return;
     }
 
-    if(obj.station == "Delta") {
+    else if(obj.station == "Delta") {
         obj.enabled = false;
-        return;
     }
 
-    if(obj.station == "Empire") {
+    else if(obj.station == "Empire") {
         obj.station = "Classic";
-        return;
     }
 
-    if(obj.station == "Classic") {
+    else if(obj.station == "Classic") {
         obj.station = "Delta";
-        return;
+    }
+
+    local passengers = getVehiclePassengers(vehicleid);
+    dbg("passengers")
+    dbg(passengers)
+
+    foreach (seat, playerid in passengers) {
+        dbg(seat, playerid)
+        if(seat != 0) {
+            dbg("apply", vehicleid, playerid)
+            applyVehicleRadio(vehicleid, playerid);
+        }
     }
 }
 
 event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     if(seat == 0) {
-        delayedFunction(1500, function() {
+        delayedFunction(3000, function() {
             msg(playerid, "timer end, binding key...")
 
             local veh = getVehicleEntity(vehicleid);
@@ -120,6 +139,11 @@ event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
 
             privateKey(playerid, ".", "radioNext", function(playerid) { setNextVehicleRadioStation(vehicleid) });
             privateKey(playerid, ",", "radioPrev", function(playerid) { setPrevVehicleRadioStation(vehicleid) });
+        });
+    } else {
+        dbg("delay start")
+        delayedFunction(3000, function() {
+            applyVehicleRadio(vehicleid, playerid);
         });
     }
 });
@@ -156,4 +180,10 @@ key("7", function(playerid) {
 key("8", function(playerid) {
     msg(playerid, "set radio off");
     triggerClientEvent(playerid, "setRadioOff");
+});
+
+
+key("9", function(playerid) {
+    msg(playerid, "set content");
+    triggerClientEvent(playerid, "setRadioContent", "Delta", "21010");
 });
