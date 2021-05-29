@@ -66,13 +66,13 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
         local b = place.b;
         local c = place.c;
         local d = place.d;
+        local color = 0xFFFF0000;
+        if (place.state) color = 0xFF00FF00;
 
-        // if (a[2] >= 1 && b[2] >= 1 && c[2] >= 1 && d[2] >= 1) continue;
-
-        dxDrawLineWorld(a.x, a.y, z, b.x, b.y, z, 0xFFFF0000);
-        dxDrawLineWorld(b.x, b.y, z, c.x, c.y, z, 0xFFFF0000);
-        dxDrawLineWorld(c.x, c.y, z, d.x, d.y, z, 0xFFFF0000);
-        dxDrawLineWorld(d.x, d.y, z, a.x, a.y, z, 0xFFFF0000);
+        dxDrawLineWorld(a.x, a.y, z, b.x, b.y, z, color);
+        dxDrawLineWorld(b.x, b.y, z, c.x, c.y, z, color);
+        dxDrawLineWorld(c.x, c.y, z, d.x, d.y, z, color);
+        dxDrawLineWorld(d.x, d.y, z, a.x, a.y, z, color);
 
     }
 });
@@ -106,17 +106,16 @@ function onPlayerTick() {
     local pos = getPlayerPosition(getLocalPlayer());
     local x = pos[0];
     local y = pos[1];
-    local data = clone(placeRegistry);
 
-    foreach (idx, place in data) {
+    foreach (idx, place in placeRegistry) {
 
         // log("inside place with id " + idx);
         // log(format("x1: %f y1: %f;  x2: %f y2: %f;", place.a.x, place.a.y, place.b.x, place.b.y));
         // log(x + " " + y + "\n\n");
 
         if (
-            ((place.a.x < x && x < place.b.x) || (place.a.x > x && x > place.b.x)) &&
-            ((place.a.y < y && y < place.b.y) || (place.a.y > y && y > place.b.y))
+            ((place.a.x < x && x < place.c.x) || (place.a.x > x && x > place.c.x)) &&
+            ((place.a.y < y && y < place.c.y) || (place.a.y > y && y > place.c.y))
         ) {
 
             if (place.state) continue;
@@ -124,6 +123,7 @@ function onPlayerTick() {
             // player was outside
             // now he entering
             place.state = true;
+        log("inside place with id " + idx);
             triggerServerEvent("onPlayerPlaceEnter", idx);
         } else {
             if (!place.state) continue;
