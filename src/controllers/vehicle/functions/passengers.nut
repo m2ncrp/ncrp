@@ -149,9 +149,10 @@ function getVehicleDriver(vehicleid) {
  * @param  {[type]}  vehicleid [description]
  * @return {int}
  */
-function getVehiclePassenger(vehicleid) {
-    if (0 in getVehiclePassengers(vehicleid)) {
-        return getVehiclePassengers(vehicleid)[1];
+function getVehiclePassenger(vehicleid, seat = 0) {
+    local passengers = getVehiclePassengers(vehicleid);
+    if (seat in passengers) {
+        return passengers[seat];
     }
     return null;
 }
