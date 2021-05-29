@@ -35,6 +35,7 @@ include("controllers/inventory/classes/Item/PoliceBadge.nut");
 include("controllers/inventory/classes/Item/Money.nut");
 include("controllers/inventory/classes/Item/Gift.nut");
 include("controllers/inventory/classes/Item/Dice.nut");
+include("controllers/inventory/classes/Item/PaintCan.nut");
 include("controllers/inventory/classes/Item/CoffeeCup.nut");
 
 include("controllers/inventory/classes/GroundItems.nut");

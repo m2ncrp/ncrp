@@ -29,7 +29,7 @@ class PropertyInventoryItemContainer extends ItemContainer
     }
 
     function canBeInserted(item) {
-        dbg("trying to insert item");
+        dbg("trying to insert item PropertyInventory");
         return base.canBeInserted(item);
     }
 

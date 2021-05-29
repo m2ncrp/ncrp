@@ -30,7 +30,7 @@ class VehicleInventoryItemContainer extends ItemContainer
     }
 
     function canBeInserted(item) {
-        dbg("trying to insert item");
+        dbg("trying to insert item VehicleInventory");
         return base.canBeInserted(item);
     }
 

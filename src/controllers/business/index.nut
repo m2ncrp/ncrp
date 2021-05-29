@@ -1,4 +1,5 @@
 include("controllers/business/fuelStations");
+//include("controllers/business/repairShop");
 
 local businesses = {};
 
@@ -7,6 +8,10 @@ function loadBusiness(business) {
 
     if(business.subtype == "FuelStation") {
         loadFuelStation(business);
+    }
+
+    if(business.subtype == "RepairShop") {
+        //loadRepairShop(business);
     }
 }
 

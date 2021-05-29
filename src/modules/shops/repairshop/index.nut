@@ -34,6 +34,30 @@ repair_shops <- [
     [  832.358,  -4857.47,     18.1211, "AIRPORT"          ],
 ];
 
+paint_shops <- [
+[ -1127.71, 1391.04, -13.5724   ], // hardware-kingston
+[ -1227.33, 1552.58, 4.9256     ], // hardware-kingston-uo
+[ -1577.31, 1676.58, -0.165643  ], // hardware-kingston-dealer
+[ -403.811, 1666.22, -23.3185   ], // hardware-dipton
+[ -149.426, 726.255, -20.5496   ], // hardware-italy
+[ 1.42512, 625.981, -20.1637    ], // hardware-italy-2
+[ -222.122, 668.816, -20.1623   ], // hardware-italy-3
+[ 33.0751, 412.291, -16.6849    ], // hardware-east-side-big
+[ -149.058, 336.459, -13.3921   ], // locksmith-east-side-big
+[ 500.476, -285.232, -20.1639   ], // hardware-oyster
+[ 277.548, 33.2104, -23.3492    ], // hardware-oyster-2
+[ -183.09, -595.772, -20.1636   ], // hardware-southport
+[ -413.696, -586.736, -20.111   ], // hardware-southport-2
+[ -523.188, -574.907, -20.1684  ], // hardware-southport-3
+[ -724.994, -492.171, -22.7499  ], // hardware-southport-4
+[ -1496.2, -214.56, -20.1636    ], // hardware-sand
+[ -1391.38, -187.803, -20.1528  ], // hardware-sand-2
+[ -1749.63, 139.438, -5.14041   ], // hardware-sand-3
+[ -1368.81, 402.271, -23.7304   ], // hardware-hunters
+[ 61.5946, 99.3949, -13.4522    ], // locksmith-east-side-2
+[ 410.477, 682.052, -24.8827    ], // hardware-italy-4
+];
+
 addEventHandlerEx("onServerStarted", function() {
     logStr("[shops] loading repair shops...");
     //foreach (shop in repair_shops) {
@@ -47,6 +71,12 @@ event("onServerPlayerStarted", function(playerid) {
     foreach (shop in repair_shops) {
         createPrivate3DText ( playerid, shop[0], shop[1], shop[2]+0.35, [[ "REPAIRSHOP", shop[3]], "%s | %s"], CL_ROYALBLUE, SHOP_REPAIR_3DTEXT_DRAW_DISTANCE );
         createPrivate3DText ( playerid, shop[0], shop[1], shop[2]+0.20, [[ "3dtext.job.press.E", "PRICE"], "%s | %s: $"+SHOP_REPAIR_COST ], CL_WHITE.applyAlpha(150), SHOP_REPAIR_RADIUS );
+        createPrivateBlip( playerid,  shop[0], shop[1], ICON_REPAIR, 100.0 );
+    }
+
+    foreach (shop in paint_shops) {
+
+        createPrivateBlip( playerid,  shop[0], shop[1], ICON_LOCK, 100.0 );
     }
 });
 
@@ -81,12 +111,3 @@ function repairShopRepairCar (playerid) {
         });
     }
 }
-
-
-/*
-        if( isPlayerInVehicle( playerid ) )
-        {
-            local vehicleid = getPlayerVehicle( playerid );
-            setVehicleTuningTable( vehicleid, 3 );
-        }
- */
