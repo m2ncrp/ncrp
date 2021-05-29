@@ -53,3 +53,51 @@ addCommandHandler("sprayopen", function(playerid) {
 addCommandHandler("sprayclose", function(playerid) {
   executeLua("DelayBuffer:Insert(function(l_1_0) CommandBuffer:Insert(l_6_0,{ function(l_1_0)return game.entitywrapper:GetEntityByName('RS_vrata01'):Close(Math:newVector(0, 0, 2) + game.entitywrapper:GetEntityByName('RS_vrata01'):GetPos(), true) end }) end,{l_1_0},500,1,false)")
 });
+
+addEventHandler("setRadio", function(stationName) {
+	executeLua("DelayBuffer:Insert(function(l_1_0) CommandBuffer:Insert(l_6_0,{ function(l_1_0)return game.radio:SwitchPlayerStation('"+stationName+"') end}) end,{l_1_0},500,1,false)")
+});
+
+addEventHandler("setRadioOff", function() {
+	executeLua("DelayBuffer:Insert(function(l_1_0) CommandBuffer:Insert(l_6_0,{ function(l_1_0)return game.radio:TurnPlayerRadioOff(true) end}) end,{l_1_0},500,1,false)")
+});
+
+addEventHandler("setRadioOn", function() {
+	executeLua("DelayBuffer:Insert(function(l_1_0) CommandBuffer:Insert(l_6_0,{ function(l_1_0)return game.radio:TurnPlayerRadioOn(true) end}) end,{l_1_0},500,1,false)")
+});
+
+
+addCommandHandler( "radio_switch",
+    function( playerid )
+	{
+		executeLua("DelayBuffer:Insert(function(l_1_0) CommandBuffer:Insert(l_6_0,{ function(l_1_0)return game.radio:SwitchPlayerStation('Empire') end}) end,{l_1_0},500,1,false)")
+    }
+);
+
+addCommandHandler( "radio_default",
+    function( playerid )
+	{
+		executeLua("DelayBuffer:Insert(function(l_1_0) CommandBuffer:Insert(l_6_0,{ function(l_1_0)return game.radio:ForceDefaultStation('Delta') end}) end,{l_1_0},500,1,false)")
+    }
+);
+
+addCommandHandler( "radio_off",
+    function( playerid )
+	{
+		executeLua("DelayBuffer:Insert(function(l_1_0) CommandBuffer:Insert(l_6_0,{ function(l_1_0)return game.radio:TurnPlayerRadioOff(true) end}) end,{l_1_0},500,1,false)")
+    }
+);
+
+addCommandHandler( "radio_on",
+    function( playerid )
+	{
+		executeLua("DelayBuffer:Insert(function(l_1_0) CommandBuffer:Insert(l_6_0,{ function(l_1_0)return game.radio:TurnPlayerRadioOn(true) end}) end,{l_1_0},500,1,false)")
+    }
+);
+
+addCommandHandler( "next",
+    function( playerid )
+	{
+		executeLua("DelayBuffer:Insert(function(l_1_0) CommandBuffer:Insert(l_6_0,{ function(l_1_0)return game.radio:AdvanceTime() end}) end,{l_1_0},500,1,false)")
+    }
+);
