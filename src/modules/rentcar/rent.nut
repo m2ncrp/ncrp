@@ -40,6 +40,9 @@ addEventHandler("RentCar", RentCar);
 function RentCarRefuse(playerid) {
     if(isPlayerCarRent(playerid)) {
         local vehicleid = getPlayerVehicle(playerid);
+        if (isVehicleMoving(vehicleid)) {
+            return msg(playerid, "vehicle.park", CL_ERROR);
+        }
         blockDriving(playerid, vehicleid);
         setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
     }
