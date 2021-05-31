@@ -38,7 +38,8 @@ acmd(["die"], function( playerid, targetid = null ) {
 });
 
 acmd(["mypos"], function( playerid ) {
-    msg(playerid, getPlayerPositionObj(playerid), CL_OCEANGREEN);
+    local pos = getPlayerPositionObj(playerid);
+    msg(playerid, format("x = %.2f, y = %.2f, z = %.2f", pos.x, pos.y, pos.z), CL_OCEANGREEN);
 });
 
 acmd(["firstname"], function(playerid, targetid = null, newname = null) {
