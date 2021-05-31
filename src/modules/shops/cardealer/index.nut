@@ -103,7 +103,10 @@ event ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
     // if (isPlayerVehicleOwner(playerid, vehicleid)) {
     //     return;
     // }
-    local veh = getVehicleEntity(vehicleid)
+    local veh = getVehicleEntity(vehicleid);
+
+    if (!veh) return;
+
     local entityid = veh.id;
 
     foreach (idx, car in carDealerLoadedData) {
