@@ -2,6 +2,9 @@ alternativeTranslate({
     "en|vehicle.stop"          : "Stop the vehicle."
     "ru|vehicle.stop"          : "Остановите автомобиль."
 
+    "en|vehicle.park"          : "Park the vehicle."
+    "ru|vehicle.park"          : "Припаркуйте автомобиль."
+
     "en|vehicle.stopandleave"  : "Stop the vehicle and go out."
     "ru|vehicle.stopandleave"  : "Остановитесь и выйдите из автомобиля."
 
