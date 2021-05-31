@@ -103,8 +103,8 @@ event ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
     // if (isPlayerVehicleOwner(playerid, vehicleid)) {
     //     return;
     // }
-
-    local entityid = getVehicleEntityId( vehicleid );
+    local veh = getVehicleEntity(vehicleid)
+    local entityid = veh.id;
 
     foreach (idx, car in carDealerLoadedData) {
         local characterid = players[playerid].id;
@@ -122,7 +122,8 @@ event ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
 
             if (characterid != car.ownerid) {
                 msg(playerid, "cardealer.canBuy", [car.price+margin], CL_FIREBUSH);
-                return msg(playerid, "cardealer.hintTaxForBuyers", CL_HELP);
+                msg(playerid, "cardealer.unpaid-tax", [veh.data.tax.tofloat()], CL_ERROR);
+                return;
             }
 
             return msg(playerid, "cardealer.canReturn", [margin], CL_FIREBUSH);
@@ -527,6 +528,9 @@ alternativeTranslate({
 
     "en|cardealer.hintTaxForBuyers"       :  "When buying, keep in mind that tax can be up to $50."
     "ru|cardealer.hintTaxForBuyers"       :  "При покупке учитывайте, что неоплаченный за автомобиль налог может составлять до $50."
+
+    "en|cardealer.unpaid-tax"             :  "Keep in mind that unpaid tax for this vehicle is $%.2f."
+    "ru|cardealer.unpaid-tax"             :  "Учитывайте, что неоплаченный налог на этот автомобиль составляет $%.2f."
 
     "en|cardealer.needPrice"              :  "You need to set price or sell immediately. More /dealer"
     "ru|cardealer.needPrice"              :  "Необходимо указать цену продажи или продать немедленно. Подробнее /dealer"
