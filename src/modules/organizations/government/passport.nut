@@ -209,13 +209,13 @@ cmd("passport", function( playerid) {
             passportObj.setData("eyes", request.eyes);
             passportObj.setData("nationality", char.nationality);
 
-            local day   = getDay();
-            local month = getMonth();
-            local year  = getYear() + 2;
-            if (day < 10) { day = "0"+day; }
-            if (month < 10) { month = "0"+month; }
-            passportObj.setData("issued", getDate());
-            passportObj.setData("expires", day+"."+month+"."+year);
+            // local day   = getDay();
+            // local month = getMonth();
+            // local year  = getYear() + 2;
+            // if (day < 10) { day = "0"+day; }
+            // if (month < 10) { month = "0"+month; }
+            // passportObj.setData("issued", getDate());
+            // passportObj.setData("expires", day+"."+month+"."+year);
 
             players[playerid].inventory.push( passportObj );
             request.status = "completed";
@@ -241,11 +241,11 @@ cmd("passport", function( playerid) {
                     ["Имя Фамилия", getPlayerName(playerid)],
                     ["Пол", plocalize(playerid, "passport.sex."+char.sex)],
                     ["Национальность", plocalize(playerid, "nationality."+char.nationality)],
-                    ["Дата рождения", char.birthdate],
+                    ["Дата рождения", getBirthdate(char.birthdate)],
                     ["Цвет волос", plocalize(playerid, "passport.hair."+request.hair)],
                     ["Цвет глаз", plocalize(playerid, "passport.eyes."+request.eyes)],
-                    ["Дата выдачи", getDate()],
-                    ["Дата истечения", day+"."+month+"."+year],
+                    // ["Дата выдачи", getDate()],
+                    // ["Дата истечения", day+"."+month+"."+year],
                 ]
             });
 
@@ -333,7 +333,7 @@ cmd("passport", function( playerid) {
                             ["Имя Фамилия", getPlayerName(playerid)],
                             ["Пол", plocalize(playerid, "passport.sex."+char.sex)],
                             ["Национальность", plocalize(playerid, "nationality."+char.nationality)],
-                            ["Дата рождения", char.birthdate],
+                            ["Дата рождения", getBirthdate(char.birthdate)],
                             ["Цвет волос", plocalize(playerid, "passport.hair."+request.hair)],
                             ["Цвет глаз", plocalize(playerid, "passport.eyes."+request.eyes)],
                         ]
@@ -419,7 +419,7 @@ fmd("gov", ["gov.passport"], "$f passport show", function(fraction, character, n
 
     local lines = [
         plocalize(plaId, "passport.info.fio", [request.fio]),
-        plocalize(plaId, "passport.info.birthdate", [request.birthdate]),
+        plocalize(plaId, "passport.info.birthdate", [getBirthdate(request.birthdate)]),
         plocalize(plaId, "passport.info.sex", [plocalize(plaId, "passport.sex."+request.gender)]),
         plocalize(plaId, "passport.info.nationality", [plocalize(plaId, "nationality."+request.nationality)]),
         plocalize(plaId, "passport.info.hair", [plocalize(plaId, "passport.hair."+request.hair)]),

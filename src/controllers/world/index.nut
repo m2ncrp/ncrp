@@ -1,9 +1,14 @@
+include("controllers/world/translations.nut");
+include("controllers/world/translations-cyr.nut");
+
 // configs
-WORLD_SECONDS_PER_MINUTE    <- 30;
+WORLD_SECONDS_PER_MINUTE    <- 40;
 WORLD_MINUTES_PER_HOUR      <- 60;
 WORLD_HOURS_PER_DAY         <- 24;
 WORLD_DAYS_PER_MONTH        <- 30;
 WORLD_MONTH_PER_YEAR        <- 12;
+WORLD_MONTH_PER_YEAR        <- 12;
+WORLD_YEAR_TIME_STOOD_STILL <- 1954;
 
 AUTOSAVE_TIME               <- 10;
 
@@ -23,7 +28,7 @@ event("onServerStarted", function() {
 
             __world.day = 1;
             __world.month = 1;
-            __world.year = 1949;
+            __world.year = 0;
         } else {
             __world = worlds[0];
         }
@@ -73,6 +78,24 @@ function getDate() {
     return format("%02d.%02d.%d", __world.day, __world.month, __world.year);
 }
 
+function getVirtualDate() {
+    return format("%02d %s", __world.day, getStringMonth());
+}
+
+function getFullVirtualDate() {
+    local year = Math.max(__world.year - WORLD_YEAR_TIME_STOOD_STILL, 0);
+    return format("%02d %s, год %d", __world.day, getStringMonth(), year);
+}
+
+function formatDateToVirtualDate(date) {
+    local arrDate = split(date, ".").map(function(k) { return k.tointeger() });
+
+    return format("%02d %s, год %d", arrDate[0], localize("world.month."+arrDate[1], [], "ru"), formatYearToVirtualYear(arrDate[2]));
+}
+
+function formatYearToVirtualYear(year) {
+    return Math.max(year - WORLD_YEAR_TIME_STOOD_STILL, 0);
+}
 /**
  * Return string with current time on server
  * NOTE: Game time
@@ -84,8 +107,27 @@ function getTime() {
     return format("%02d:%02d", __world.hour, __world.minute);
 }
 
+function getBirthdate(birthdate) {
+    local bdate = split(birthdate, ".").map(function(k) { return k.tointeger() });
+    local age = __world.year - bdate[2].tointeger();
+
+    return format("%d %s (возраст: %d %s)", bdate[0], localize("world.month."+bdate[1], [], "ru"), age, declOfNum(age, ["год", "года", "лет"]));
+}
+
+function getVirtualYear() {
+    return formatYearToVirtualYear(__world.year);
+}
+
 function getDay() {
     return __world.day;
+}
+
+function getMonth() {
+    return __world.month;
+}
+
+function getStringMonth() {
+    return localize("world.month."+__world.month, [], "ru");
 }
 
 function getMonth() {
