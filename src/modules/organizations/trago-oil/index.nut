@@ -17,9 +17,9 @@ cmd("fuel", "list", function(playerid) {
     if (station.state != "opened" || station.data.fuel.amountIn == 0.0) continue;
     local price = station.data.fuel.priceIn;
     local needGallons = Math.min(FUEL_STATION_LIMIT - station.data.fuel.amount, station.data.fuel.amountIn);
-    local readyBoughtGallons = Math.min(needGallons, station.data.money / price);
-    local total = readyBoughtGallons * price;
-    list.push(format("%s покупает %.2f ед. по $%.2f за галлон. Итого: $%.2f", name, readyBoughtGallons, price, total));
+    local readyToBuyGallons = Math.min(needGallons, station.data.money / price);
+    local total = readyToBuyGallons * price;
+    list.push(format("%s покупает %.2f ед. по $%.2f за галлон. Итого: $%.2f", name, readyToBuyGallons, price, total));
   }
 
   msgh(playerid, "Зазказы на поставку топлива", list);
