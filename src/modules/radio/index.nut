@@ -134,14 +134,14 @@ local radioMsgs = [
     "radio.vangel"         ,
     "radio.empirecustom"   ,
     "radio.swiftcola"      ,
-    "radio.badguy"         ,
+    // "radio.badguy"         ,
     "radio.bigbreak"       ,
     "radio.potomac"        ,
     "radio.empirediner"    ,
     "radio.phoneservices"  ,
     "radio.masterbeer"     ,
     "radio.empiretimes"    ,
-    "radio.cab"            ,
+    //"radio.cab"            ,
     "radio.emeryshirt"     ,
     "radio.diptonapparel"  ,
     "radio.barbers"        ,
@@ -182,7 +182,7 @@ translation("en", {
     "radio.diptonapparel"   :   "Dipton Apparel - clothing you can depend on!"
     "radio.barbers"         :   "Keep looking beautiful with Barbers."
     "radio.tragooil1"       :   "Trago Oil - always on the top!"
-    "radio.tragooil2"       :   "Trago Oil - fuel for Leaders."
+    "radio.tragooil2"       :   "Trago Oil - fuel for leaders."
     "radio.ascot"           :   "Ascot Bailey S200 - enjoy the freedom!"
     "radio.milk"            :   "Empire Bay Milk - only fresh goods."
     "radio.dobinson"        :   "Easy to FIND, hard to LEAVE. Dobinson"
@@ -218,7 +218,7 @@ translation("ru", {
     "radio.diptonapparel"   :   "Dipton Apparel - одежда, на которую можно положиться!"
     "radio.barbers"         :   "Будь красивой вместе с Barbers."
     "radio.tragooil1"       :   "Trago Oil - всегда на высоте!"
-    "radio.tragooil2"       :   "Trago Oil - топливо для Лидеров!"
+    "radio.tragooil2"       :   "Trago Oil - топливо для лидеров!"
     "radio.ascot"           :   "Ascot Bailey S200 - наслаждайся свободой!"
     "radio.milk"            :   "Молочная компания Эмпайр-Бэй - только свежая фермерская продукция."
     "radio.dobinson"        :   "Легко найти, тяжело потерять. Dobinson"
