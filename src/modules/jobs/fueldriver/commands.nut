@@ -29,7 +29,7 @@ cmd("fuel", "park", function(playerid) {
     fuelJobPark( playerid );
 });
 
-*/
+
 // usage: /fuel finish
 cmd("fuel", "check", function(playerid) {
     fuelJobCheck( playerid );
@@ -39,3 +39,4 @@ cmd("fuel", "check", function(playerid) {
 cmd("fuel", "list", function(playerid) {
     fuelJobList( playerid );
 });
+*/
