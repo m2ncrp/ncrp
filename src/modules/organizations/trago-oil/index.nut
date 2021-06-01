@@ -22,5 +22,5 @@ cmd("fuel", "list", function(playerid) {
     list.push(format("%s покупает %.2f ед. по $%.2f за галлон. Итого: $%.2f", name, readyToBuyGallons, price, total));
   }
 
-  msgh(playerid, "Зазказы на поставку топлива", list);
+  msgh(playerid, "Заказы на поставку топлива", list);
 });
