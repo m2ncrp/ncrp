@@ -11,7 +11,7 @@ event("onServerStarted", function() {
 
 cmd("fuel", "orders", function(playerid) {
     if(!isPlayerInValidPoint(playerid, FUEL_JOB_X, FUEL_JOB_Y, 2.0)) {
-        return msg(playerid, "Чтобы посомтреть список заказов на топливо, отправляйтесь к штаб-квартире Trago Oil в Ойстер-Бэй.", CL_ERROR)
+        return msg(playerid, "Чтобы посмотреть список заказов на топливо, отправляйтесь к штаб-квартире Trago Oil в Ойстер-Бэй.", CL_ERROR)
     }
 
     local stations = getFuelStations();
