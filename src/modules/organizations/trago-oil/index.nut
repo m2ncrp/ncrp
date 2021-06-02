@@ -23,7 +23,7 @@ cmd("fuel", "orders", function(playerid) {
       local needGallons = Math.min(FUEL_STATION_LIMIT - station.data.fuel.amount, station.data.fuel.amountIn);
       local readyToBuyGallons = Math.min(needGallons, station.data.money / price);
       local total = readyToBuyGallons * price;
-      list.push(format("%s покупает %.2f ед. по $%.2f за галлон. Итого: $%.2f", name, readyToBuyGallons, price, total));
+      list.push(format("%s покупает %.2f гал. по $%.2f/гал. Итого: $%.2f", name, readyToBuyGallons, price, total));
     }
 
     msgh(playerid, "Заказы на поставку топлива", list);
