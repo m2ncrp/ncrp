@@ -4,7 +4,7 @@ const FUEL_JOB_Z = -20.1644;
 
 event("onServerStarted", function() {
     create3DText(FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.35, "TRAGO OIL", CL_ROYALBLUE);
-    create3DText(FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.20, "/job fuel | /fuel list", CL_WHITE.applyAlpha(150), 2.0);
+    create3DText(FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_Z+0.20, "/job fuel | /fuel orders", CL_WHITE.applyAlpha(150), 2.0);
 
     registerPersonalJobBlip("fueldriver", FUEL_JOB_X, FUEL_JOB_Y);
 });
