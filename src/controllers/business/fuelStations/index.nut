@@ -609,10 +609,10 @@ function isNearFuelStation(playerid) {
     return false;
 }
 
-acmd( ["fuel"], "low", function( playerid ) {
-    local vehicleid = getPlayerVehicle(playerid);
-    return setVehicleFuel(vehicleid, 10.0);
-});
+// acmd( ["fuel"], "low", function( playerid ) {
+//     local vehicleid = getPlayerVehicle(playerid);
+//     return setVehicleFuel(vehicleid, 10.0);
+// });
 
 function getFuelStationCache(charid) {
     return charid in fuelStationCache ? fuelStationCache[charid] : null;
