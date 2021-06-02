@@ -11,8 +11,8 @@ alternativeTranslate({
     "en|fillingcenter.gov-declined"                           : "Members of government can't make a bussiness."
     "ru|fillingcenter.gov-declined"                           : "Члены правительства не могут заниматься бизнесом."
 
-    "en|fillingcenter.bizman-declined"                           : "Members of government can't make a bussiness."
-    "ru|fillingcenter.bizman-declined"                           : "Члены правительства не могут заниматься бизнесом."
+    "en|fillingcenter.bizman-declined"                        : "Bussiness owners can't fulfill fuel orders."
+    "ru|fillingcenter.bizman-declined"                        : "Владельцы бизнесов не могут выполнять заказы на поставку топлива."
 
     "en|fillingcenter.stop-engine"                            : "Please, stop the engine."
     "ru|fillingcenter.stop-engine"                            : "Заглушите двигатель."
