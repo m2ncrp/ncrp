@@ -11,6 +11,14 @@ addEventHandler("setVehicleDamage", function(dmg) {
 });
 
 addEventHandler("setVehicleWheelsProtected", function(protected) {
-		local value = protected == "0" ? "false" : "true";
+    local value = protected == "0" ? "false" : "true";
     executeLua("game.game:GetActivePlayer():GetOwner():SetWheelsProtected("+value+")");
+});
+
+addEventHandler("setSpeedLimiter", function(speed) {
+    executeLua("game.game:GetActivePlayer():GetOwner():SetSpeedLimiter("+speed+")");
+});
+
+addEventHandler("setSpeedLimiterSpeed", function(speed) {
+    executeLua("game.game:GetActivePlayer():GetOwner():SetSpeedLimiterSpeed("+speed+")");
 });
