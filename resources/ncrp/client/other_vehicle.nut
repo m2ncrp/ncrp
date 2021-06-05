@@ -2,6 +2,10 @@ addEventHandler("givePlayerLockpick", function() {
     executeLua("game.game:GetActivePlayer():InventoryAddItem(36)");
 });
 
+addEventHandler("removePlayerLockpick", function() {
+    executeLua("game.game:GetActivePlayer():InventoryRemoveItem(36)");
+});
+
 addEventHandler("setVehicleSteer", function(deg) {
     executeLua("game.game:GetActivePlayer():GetOwner():SetAddSteer("+deg+")");
 });
@@ -21,4 +25,15 @@ addEventHandler("setSpeedLimiter", function(speed) {
 
 addEventHandler("setSpeedLimiterSpeed", function(speed) {
     executeLua("game.game:GetActivePlayer():GetOwner():SetSpeedLimiterSpeed("+speed+")");
+});
+addEventHandler("setVehicleDoorLocked", function(...) {
+    local vehicleid = vargv[0];
+
+    if(vargv.len() == 3) {
+        setVehicleDoorLocked(vehicleid, vargv[1], vargv[2]);
+    } else {
+        for (local i = 0; i <=3; i++) {
+            setVehicleDoorLocked(vehicleid, i, vargv[1]);
+        }
+    }
 });
