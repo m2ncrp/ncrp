@@ -182,7 +182,6 @@ cmd("dealer", function(playerid) {
 })
 
 cmd("dealer", "sell", function(playerid, price) {
-    dbg("dealer sell")
     if (!isPlayerInVehicle(playerid)) return;
 
     local vehicleid     = getPlayerVehicle( playerid );
