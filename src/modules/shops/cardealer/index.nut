@@ -5,13 +5,11 @@ local coords = [-1586.8, 1694.74, -0.336785, 150.868, 0.000169911, -0.00273992];
 local carDealerLoadedData = [];
 local availableCars = [0, 1, 4, 6, 7, 8, 9, 10, 12, 13, 14, 15, 17, 18, 22, 23, 25, 28, 29, 30, 31, 32, 41, 43, 44, 45, 46, 47, 48, 50, 52, 53, 54, 56, 57, 59];
 
-local margin_percent = 0.02; // наценка в процентах  // deprecated
-local sell_percent = 0.65; // наценка в процентах    // deprecated
 local tax_limit = 25.0;                              // deprecated
 
-local dealer_purchase_percent = 0.65;
-local dealer_sale_percent = 0.65;
-local dealer_margin_percent = 0.02;
+local dealer_purchase_percent = 0.70;
+local dealer_sale_percent = 0.75;
+local dealer_margin_percent = 0.025;  // наценка в процентах
 
 local time_to_sale_dealer = 86400 * 30;    // время на продажу дилеру - 30 дней
 local time_to_sale        = 86400 * 10;    // время на продажу игроку - 10 дней
@@ -123,15 +121,14 @@ event("onPlayerVehicleEnter", function (playerid, vehicleid, seat) {
         }
 
         if (deal.vehid == entityid && deal.status == "sale") {
-            local margin = deal.price * margin_percent;
 
             if (characterid != deal.seller_id) {
-                msg(playerid, "cardealer.canBuy", [deal.price+margin], CL_FIREBUSH);
+                msg(playerid, "cardealer.canBuy", [deal.price + deal.commission], CL_FIREBUSH);
                 msg(playerid, "cardealer.unpaid-tax", [veh.data.tax.tofloat()], CL_ERROR);
                 return;
             }
 
-            return msg(playerid, "cardealer.canReturn", [margin], CL_FIREBUSH);
+            return msg(playerid, "cardealer.canReturn", [deal.commission], CL_FIREBUSH);
         }
     }
 });
@@ -180,11 +177,12 @@ cmd("dealer", function(playerid) {
     msg(playerid, "cardealer.info.title", CL_HELP_LINE);
     msg(playerid, "cardealer.info.subtitle", CL_HELP);
     msg(playerid, "cardealer.info.way1");
-    msg(playerid, "cardealer.info.way2", [ carInfo.price * sell_percent ]);
+    msg(playerid, "cardealer.info.way2", [ carInfo.price * dealer_purchase_percent ]);
 
 })
 
 cmd("dealer", "sell", function(playerid, price) {
+    dbg("dealer sell")
     if (!isPlayerInVehicle(playerid)) return;
 
     local vehicleid     = getPlayerVehicle( playerid );
@@ -225,7 +223,7 @@ cmd("dealer", "sell", function(playerid, price) {
     }
 
     if (availableCars.find(modelid) == null) {
-        return;
+        return msg(playerid, "cardealer.cantSell", CL_ERROR);
     }
 
     local veh = getVehicleEntity(vehicleid);
@@ -286,9 +284,9 @@ cmd("dealer", "sell", function(playerid, price) {
         // sale transaction
         local saleDeal = CarDealer();
         saleDeal.vehid      = entityid;
-        deal.type           = "sale";
+        saleDeal.type       = "sale";
         saleDeal.seller_id  = 4;
-        saleDeal.price      = round(carInfo.price * dealer_sale_percent, 2);
+        saleDeal.price      = round(carInfo.price * dealer_purchase_percent, 2);
         saleDeal.created    = getTimestamp();
         saleDeal.data       = {
             plate = plate,
@@ -307,11 +305,11 @@ cmd("dealer", "sell", function(playerid, price) {
         deal.type       = "transfer";
         deal.price      = round(fabs(price.tofloat()), 2);
         deal.status     = "sale";
-        deal.commission = round(carInfo.price * dealer_margin_percent, 2);
+        deal.commission = round(deal.price * dealer_margin_percent, 2);
         deal.total      = 0.0;  // будущий приход дилера, но пока 0
         deal.until      = deal.created.tointeger() + time_to_sale;
         deal.save();
-        msg(playerid, "cardealer.onSaleNow", CL_SUCCESS);
+        msg(playerid, "cardealer.onSaleNow", [deal.price], CL_SUCCESS);
         dbg("chat", "report", getPlayerName(playerid), format("Выставил на продажу автомобиль «%s» (%s) за $%.2f", modelName, plate, deal.price));
     }
 
@@ -390,10 +388,10 @@ cmd("dealer", "buy", function(playerid) {
             msg(sellerPlayerid, "cardealer.sold", [modelName, plate, amount], CL_FIREBUSH);
         }
 
-        msg(playerid, "cardealer.boughtCar", CL_SUCCESS);
+        msg(playerid, "cardealer.boughtCar", [amount], CL_SUCCESS);
 
         if(deal.type == "sale") {
-            deal.total = deal.price + deal.commission;
+            deal.total = amount;
             deal.status = "completed";
         }
 
@@ -537,6 +535,9 @@ alternativeTranslate({
     "en|cardealer.enterZoneMore"          :  "More info: /dealer"
     "ru|cardealer.enterZoneMore"          :  "Подробнее: /dealer"
 
+    "en|cardealer.cantSell"               :  "The dealer does not resell vehicles of this model."
+    "ru|cardealer.cantSell"               :  "Дилер не занимается перепродажей автомобилей этой модели."
+
     "en|cardealer.notYourCar"             :  "This is not your car."
     "ru|cardealer.notYourCar"             :  "Этот автомобиль вам не принадлежит."
 
@@ -555,8 +556,8 @@ alternativeTranslate({
     "en|cardealer.needPrice"              :  "You need to set price or sell immediately. More /dealer"
     "ru|cardealer.needPrice"              :  "Необходимо указать цену продажи или продать немедленно. Подробнее /dealer"
 
-    "en|cardealer.onSaleNow"              :  "The car is on sale now."
-    "ru|cardealer.onSaleNow"              :  "Вы выставили автомобиль на продажу."
+    "en|cardealer.onSaleNow"              :  "The car is on sale now for $%.2f."
+    "ru|cardealer.onSaleNow"              :  "Вы выставили автомобиль на продажу за $%.2f."
 
     "en|cardealer.action"                 :  "This action can be carried out only in the dealer's area."
     "ru|cardealer.action"                 :  "Данное действие можно осуществить только на территории дилера."
@@ -570,8 +571,8 @@ alternativeTranslate({
     "en|cardealer.notForRemoving"         :  "This car still is on sale."
     "ru|cardealer.notForRemoving"         :  "Этот автомобиль ещё продаётся."
 
-    "en|cardealer.boughtCar"              :  "You bought this car."
-    "ru|cardealer.boughtCar"              :  "Вы приобрели этот автомобиль."
+    "en|cardealer.boughtCar"              :  "You bought this car for $%.2f."
+    "ru|cardealer.boughtCar"              :  "Вы приобрели этот автомобиль за $%.2f."
 
     "en|cardealer.returnedCar"            :  "You returned your car back for $%.2f."
     "ru|cardealer.returnedCar"            :  "Вы забрали автомобиль, заплатив $%.2f."
