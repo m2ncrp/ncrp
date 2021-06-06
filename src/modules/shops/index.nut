@@ -6,7 +6,6 @@ include("modules/shops/carsearch");
 //include("modules/shops/clothesshop");
 include("modules/shops/carpaint");
 include("modules/shops/cardealer");
-include("modules/shops/kiosks");
 //include("modules/shops/santa-klaus");
 // include("modules/shops/vehiclekeys_temporary");
 // include("modules/shops/harryshop");
