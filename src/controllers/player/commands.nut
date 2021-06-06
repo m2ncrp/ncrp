@@ -5,7 +5,7 @@ cmd("stats", function(playerid) {
 
     msgh(playerid, "Информация о персонаже", [
         format("Имя и фамилия: %s", getPlayerName(playerid)),
-        format("Дата рождения: %s", char.birthdate),
+        format("Дата рождения: %s", getBirthdate(char.birthdate)),
         format("Пол: %s", char.sex ? "женский" : "мужской"),
         format("Национальная принадлежность: %s", (char.nationality == "") ? "не выбрана" : plocalize(playerid, "nationality."+char.nationality)),
         format("Наличных денег: $ %.2f", char.money),

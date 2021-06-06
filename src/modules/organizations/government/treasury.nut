@@ -56,7 +56,7 @@ fmd("gov", ["gov.treasury"], "$f treasury add", function(fraction, character, am
         "author": getPlayerName(character.playerid),
         "description": "Приход",
         "color": "green",
-        "datetime": getDateTime(),
+        "datetime": getVirtualDate(),
         "direction": false,
         "fields": [
             ["Сумма", format("$ %.2f", amount)],
@@ -93,7 +93,7 @@ fmd("gov", ["gov.treasury"], "$f treasury sub", function(fraction, character, am
         "author": getPlayerName(character.playerid),
         "description": "Расход",
         "color": "red",
-        "datetime": getDateTime(),
+        "datetime": getVirtualDate(),
         "direction": false,
         "fields": [
             ["Сумма", format("$ %.2f", amount)],

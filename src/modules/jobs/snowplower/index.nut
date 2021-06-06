@@ -1378,7 +1378,7 @@ function snowplowGetSalary( playerid ) {
         "author": getPlayerName(playerid),
         "description": "Расход",
         "color": "red",
-        "datetime": getDateTime(),
+        "datetime": getVirtualDate(),
         "direction": false,
         "fields": [
             ["Сумма", format("$ %.2f", amount)],

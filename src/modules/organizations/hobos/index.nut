@@ -193,7 +193,7 @@ event("onServerHourChange", function() {
             "title": "Выплата пособий по безработице",
             "description": format("$ %.2f", sum),
             "color": "yellow",
-            "datetime": getDateTime(),
+            "datetime": getVirtualDate(),
         });
     }
 

@@ -42,7 +42,9 @@ local kiosks = [
     [ -1426.02, 975.747, -13.6296 ],
     [ -1601.44, 971.703, -5.16564 ],
     [ -1342.97, 410.674, -23.7304 ],
-    [ 564.845, -555.742, -22.7021 ]
+    [ 564.845, -555.742, -22.7021 ],
+    [ -656.352, 509.372, 1.03801  ],
+    [  400.107, 747.903, -24.8437 ]
 ];
 
 event("onServerStarted", function() {
@@ -67,4 +69,9 @@ function isPlayerNearKiosk(playerid) {
     }
 
     return check;
+}
+
+
+function getKioskPosition(id) {
+    return id in kiosks ? kiosks[id] : null;
 }

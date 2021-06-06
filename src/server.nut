@@ -417,10 +417,17 @@ cmd("nc", function (playerid) {
     dbg("ncrp", "newcomers", "Test Testov");
 });
 
+acmd("limit", function (playerid, enabled) {
+    triggerClientEvent(playerid, "setSpeedLimiter", enabled);
+});
+
+acmd("limitspeed", function (playerid, speed) {
+    triggerClientEvent(playerid, "setSpeedLimiterSpeed", speed.tofloat());
+});
 
 acmd("cam", function(playerid, x, y, z) {
     dbg("cam: "+x+" "+y+" "+z)
-     triggerClientEvent(playerid, "setCameraPosition", x.tofloat(), y.tofloat(), z.tofloat());
+    triggerClientEvent(playerid, "setCameraPosition", x.tofloat(), y.tofloat(), z.tofloat());
 })
 
 acmd("cam1", function(playerid) {
