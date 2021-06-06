@@ -2,6 +2,7 @@
 local tax = 0.01 / 30;                  // 1 percents for 30 day
 local vehiclesLimit = 2;                // рекомендуемое количество автомобилей на игрока
 local vehiclesWithoutIncreaseTax = 2;   // количество автомобилей без повышения налогового коэффициента
+local taxPercentsToState = 0.25;        // сумма поступления, отправляемая в казну штата
 
 event("onServerDayChange", function() {
     // счётчик количества автомобилей на каждого персонажа
@@ -250,7 +251,24 @@ cmd("tax", function( playerid, plateText = 0) {
 
     msg(playerid, "tax.payed", [ price, plateText ], CL_SUCCESS);
     subMoneyToPlayer(playerid, price);
-    addTreasuryMoney(price);
+    local sumToCity = price * (1 - taxPercentsToState);
+    local sumToState = price * taxPercentsToState;
+    addTreasuryMoney(sumToCity);
+    addWorldMoney(sumToState);
+    nano({
+        "path": "discord",
+        "server": "gov",
+        "channel": "treasury",
+        "action": "add",
+        "title": "Оплата налога на автомобиль",
+        "description": "Приход. Перечислено:",
+        "color": "green",
+        "datetime": getVirtualDate(),
+        "fields": [
+            ["В казну города", format("$ %.2f", sumToCity)],
+            ["В казну штата", format("$ %.2f", sumToState)],
+        ]
+    });
     veh.data.tax = 0;
 
     vehicleWanted = getVehicleWantedForTax();
