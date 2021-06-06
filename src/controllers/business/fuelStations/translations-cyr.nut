@@ -1,8 +1,8 @@
 
 alternativeTranslate({
     "en|business.3dtext.fuelStation.unload"  : "Sell and unload fuel"
-    "ru|business.3dtext.fuelStation.unload"  : "Продать и разгрузить топливо"
+    "ru|business.3dtext.fuelStation.unload"  : "РџСЂРѕРґР°С‚СЊ Рё СЂР°Р·РіСЂСѓР·РёС‚СЊ С‚РѕРїР»РёРІРѕ"
 
     "en|business.3dtext.fuelStation.press.E"             : "Press E | Gallon cost $%.2f"
-    "ru|business.3dtext.fuelStation.press.E"             : "Нажми E | Цена галлона $%.2f"
+    "ru|business.3dtext.fuelStation.press.E"             : "РќР°Р¶РјРё E | Р¦РµРЅР° РіР°Р»Р»РѕРЅР° $%.2f"
 });

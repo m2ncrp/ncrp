@@ -1,15 +1,15 @@
 
 alternativeTranslate({
     "en|property.3dtext.onsale"             : "On sale | Press E for info"
-    "ru|property.3dtext.onsale"             : "Продаётся | Нажми E для подробностей"
+    "ru|property.3dtext.onsale"             : "РџСЂРѕРґР°С‘С‚СЃСЏ | РќР°Р¶РјРё E РґР»СЏ РїРѕРґСЂРѕР±РЅРѕСЃС‚РµР№"
 
     "en|property.3dtext.press.E"            : "Press E"
-    "ru|property.3dtext.press.E"            : "Нажми E"
+    "ru|property.3dtext.press.E"            : "РќР°Р¶РјРё E"
 
 
     "en|property.3dtext.private"            : "Manage"
-    "ru|property.3dtext.private"            : "Управление"
+    "ru|property.3dtext.private"            : "РЈРїСЂР°РІР»РµРЅРёРµ"
 
     "en|property.3dtext.closed"             : "Closed"
-    "ru|property.3dtext.closed"             : "Закрыто"
+    "ru|property.3dtext.closed"             : "Р—Р°РєСЂС‹С‚Рѕ"
 });
