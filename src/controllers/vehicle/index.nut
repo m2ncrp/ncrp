@@ -312,6 +312,13 @@ event("onPlayerDeath", function(playerid) {
 
     if (isPlayerInVehicle(playerid)) {
         local vehicleid = getPlayerVehicle(playerid);
+        local veh = getVehicleEntity(vehicleid);
+
+        if(("fatalAccident" in veh.data) == false) {
+            veh.data.fatalAccident <- 0;
+        }
+
+        veh.data.fatalAccident += 1;
 
         delayedFunction(1500, function() {
             setVehiclePositionObj(vehicleid, getVehiclePositionObj(vehicleid));

@@ -125,7 +125,7 @@ function advancedCommand(permissions, aliases, extensionOrCallback, callbackOrNu
             local character = players[playerid];
 
             if(!fractions.admin.members.exists(character)) {
-                logStr("player is not a member");
+                dbg("ncrp", "commands", getPlayerName(playerid), character.name, cmdlog + " - player is not a member admin fraction");
                 return;
             }
 
