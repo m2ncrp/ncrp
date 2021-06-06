@@ -70,7 +70,7 @@ function setPoliceJob(playerid, targetid, rankId) {
         "title": getPlayerName(targetid),
         "description": "Принят на службу",
         "color": "green",
-        "datetime": getDateTime(),
+        "datetime": getVirtualDate(),
         "fields": [
             ["Должность",  getLocalizedPlayerJob(targetid)]
         ]
@@ -102,7 +102,7 @@ function leavePoliceJob(playerid, targetid, reason) {
         "title": getPlayerName(targetid),
         "description": "Уволен со службы",
         "color": "red",
-        "datetime": getDateTime(),
+        "datetime": getVirtualDate(),
         "fields": [
             ["Должность", getLocalizedPlayerJob(targetid)],
             ["Причина", reason]
@@ -326,7 +326,7 @@ function putInJail(playerid, targetid, reason) {
             "title": getKnownCharacterName(playerid, targetid),
             "description": "Отправлен в тюрьму",
             "color": "red",
-            "datetime": getDateTime(),
+            "datetime": getVirtualDate(),
             "fields": [
                 ["Причина", reason]
             ]
@@ -354,7 +354,7 @@ function takeOutOfJail(playerid, targetid) {
             "title": getKnownCharacterName(playerid, targetid),
             "description": "Выпущен из тюрьмы",
             "color": "green",
-            "datetime": getDateTime(),
+            "datetime": getVirtualDate(),
         });
     }
 }

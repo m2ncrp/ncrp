@@ -235,7 +235,7 @@ cmd("passport", function( playerid) {
                 "action": "new",
                 "description": "Выдан паспорт",
                 "color": "purple",
-                "datetime": getDateTime(),
+                "datetime": getVirtualDate(),
                 "fields": [
                     ["Номер", request.id],
                     ["Имя Фамилия", getPlayerName(playerid)],
@@ -326,7 +326,7 @@ cmd("passport", function( playerid) {
                         "action": "new",
                         "description": "Заявка на паспорт",
                         "color": "yellow",
-                        "datetime": getDateTime(),
+                        "datetime": getVirtualDate(),
                         "direction": false,
                         "fields": [
                             ["Номер", request.id],
@@ -483,7 +483,7 @@ fmd("gov", ["gov.passport"], "$f passport", function(fraction, character, result
                 "author": request.examiner,
                 "description": "Одобрил заявку",
                 "color": "green",
-                "datetime": getDateTime(),
+                "datetime": getVirtualDate(),
                 "direction": false,
                 "fields": [
                     ["Номер", request.id],
@@ -505,7 +505,7 @@ fmd("gov", ["gov.passport"], "$f passport", function(fraction, character, result
                 "author": request.examiner,
                 "description": "Отклонил заявку",
                 "color": "red",
-                "datetime": getDateTime(),
+                "datetime": getVirtualDate(),
                 "direction": false,
                 "fields": [
                     ["Номер", request.id],
@@ -528,7 +528,7 @@ fmd("gov", ["gov.passport"], "$f passport", function(fraction, character, result
                 "author": getPlayerName(character.playerid),
                 "description": "Сбросил решение по заявке",
                 "color": "blue",
-                "datetime": getDateTime(),
+                "datetime": getVirtualDate(),
                 "direction": false,
                 "fields": [
                     ["Номер", request.id],

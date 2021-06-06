@@ -114,7 +114,7 @@ function policeGiveTicket(playerid, value) {
                     "title": getKnownCharacterName(playerid, targetid),
                     "description": "Получил штраф",
                     "color": "blue",
-                    "datetime": getDateTime(),
+                    "datetime": getVirtualDate(),
                     "fields": [
                         ["Нарушение", reasonText],
                         ["Сумма", format("$ %.2f", price)]

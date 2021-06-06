@@ -197,7 +197,7 @@ cmd("police", ["set", "rank"], function(playerid, targetid, rank) {
                 "title": getPlayerName(targetid),
                 "description": "Изменена должность",
                 "color": "blue",
-                "datetime": getDateTime(),
+                "datetime": getVirtualDate(),
                 "fields": [
                     ["Предыдущая должность", job],
                     ["Новая должность", newJob]

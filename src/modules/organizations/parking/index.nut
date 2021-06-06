@@ -235,7 +235,7 @@ event("onVehicleSetToCarPound", function(playerid, plate) {
             "author": getPlayerName(playerid),
             "description": "Отправил автомобиль на штрафстоянку",
             "color": "red",
-            "datetime": getDateTime(),
+            "datetime": getVirtualDate(),
             "fields": [
                 ["Номер", getVehiclePlateText(vehicleid)],
                 ["Модель", getVehicleNameByModelId(getVehicleModel(vehicleid))]
@@ -257,7 +257,7 @@ event("onVehicleSetToCarPound", function(playerid, plate) {
             "author": getPlayerName(playerid),
             "description": "Не может отправить автомобиль на штрафстоянку: нет своободных мест",
             "color": "brown",
-            "datetime": getDateTime(),
+            "datetime": getVirtualDate(),
             "fields": [
                 ["Номер", getVehiclePlateText(vehicleid)],
                 ["Модель", getVehicleNameByModelId(getVehicleModel(vehicleid))]
@@ -341,7 +341,7 @@ event("onVehicleGetFromCarPound", function(playerid) {
         "author": "Владелец",
         "description": "Забрал автомобиль со штрафстоянки",
         "color": "green",
-        "datetime": getDateTime(),
+        "datetime": getVirtualDate(),
         "fields": [
             ["Номер", getVehiclePlateText(vehicleid)],
             ["Модель", getVehicleNameByModelId(getVehicleModel(vehicleid))]
