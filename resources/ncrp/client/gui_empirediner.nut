@@ -14,6 +14,7 @@ if ((screenX / screenY) > 2.0) {
 
 screen = [screenX, screenY];
 
+local currentShop = null;
 local showing = false;
 local window = {};
 local lastWindowType;
@@ -170,10 +171,11 @@ local TRANSLATIONS = {
 
 
 
-addEventHandler("showShopGUI", function(dataSrc, lang) {
+addEventHandler("showShopGUI", function(dataSrc, lang, uid) {
     //log("assortment");
     //log(dataSrc);
     local data = compilestring.call(getroottable(), format("return %s", dataSrc))();
+    currentShop = uid;
     //local data2 = JSONParser.parse("{\"type\":\"empirediner\",\"items\":[4,8,15,16]}");
     //log(data.type);
     //log(data.items.len().tostring());
@@ -194,6 +196,7 @@ addEventHandler("showShopGUI", function(dataSrc, lang) {
 
         lastWindowType = data.type;
         window[lastWindowType] <- guiCreateElement( ELEMENT_TYPE_WINDOW, data.title, screen[0]/2 - 383.0, screen[1]/2 - (548.0 - yoffset)/2, 378.0, 548.0 - yoffset);
+
         createItems(data.items, lang);
         // logo     =  guiCreateElement( ELEMENT_TYPE_IMAGE, "shop.logo.empirediner.png",    16.0, 29.0, 248.0, 151.0, false, window);
 
@@ -310,7 +313,7 @@ function shopCalculate() {
 }
 
 function buyItem(index) {
-    triggerServerEvent("shop:purchase", format("{\"type\":\"%s\",\"itemIndex\":%s}", lastWindowType, index.tostring()));
+    triggerServerEvent("shop:purchase", format("{\"type\":\"%s\",\"shop\":\"%s\",\"itemIndex\":%s}", lastWindowType, currentShop, index.tostring()));
 }
 
 addEventHandler("onGuiElementClick", function(element) {
