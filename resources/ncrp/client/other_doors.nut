@@ -22,3 +22,11 @@ addEventHandler("seagiftOpen", function() {
 addEventHandler("seagiftClose", function() {
   executeLua("DelayBuffer:Insert(function(l_1_0) CommandBuffer:Insert(l_6_0,{ function(l_1_0)return game.entitywrapper:GetEntityByName('SG_gate01'):Close(Math:newVector(-2, 0, 0) + game.entitywrapper:GetEntityByName('SG_gate01'):GetPos(), true) end}) end,{l_1_0},500,1,false)")
 });
+
+addEventHandler("portOpen", function() {
+  executeLua("DelayBuffer:Insert(function(l_1_0) CommandBuffer:Insert(l_6_0,{ function(l_1_0)return game.entitywrapper:GetEntityByName('LDOgate01'):Open(game.entitywrapper:GetEntityByName('LDOgate01'):GetPos(), true) end }) end,{l_1_0},500,1,false)")
+});
+
+addEventHandler("portClose", function() {
+  executeLua("DelayBuffer:Insert(function(l_1_0) CommandBuffer:Insert(l_6_0,{ function(l_1_0)return game.entitywrapper:GetEntityByName('LDOgate01'):Close(game.entitywrapper:GetEntityByName('LDOgate01'):GetPos(), true) end }) end,{l_1_0},500,1,false)")
+});
