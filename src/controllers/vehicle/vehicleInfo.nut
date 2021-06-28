@@ -2109,7 +2109,7 @@ vehicleInfo <- {
     },
     model_63 = {
         gamename = "shubert_six_taxi",
-        name = "Shubert Six Taxi",
+        name = "Shubert Six",
         seats = 4,
         triggers = {
             front_left_wheel      = [-1.2800,  1.4500],
@@ -2142,7 +2142,7 @@ vehicleInfo <- {
     model_64 = {
         gamename = "samson_drifter",
         name = "Samson Drifter",
-        seats = 4,
+        seats = 2,
         triggers = {
             front_left_wheel      = [-1.2800,  1.4500],
             front_right_wheel     = [ 1.2800,  1.4500],
