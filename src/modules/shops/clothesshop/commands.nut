@@ -267,7 +267,7 @@ cmd("skin", "buy", function(playerid, skinid = null) {
         return msg(playerid, "inventory.volume.notenough", CL_THUNDERBIRD);
     }
     // take money
-    subMoneyToPlayer(playerid, skin.price);
+    subPlayerMoney(playerid, skin.price);
     addWorldMoney(skin.price);
 
     msg(playerid, "shops.clothesshop.success", CL_SUCCESS);

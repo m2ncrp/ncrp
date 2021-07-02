@@ -250,7 +250,7 @@ cmd("tax", function( playerid, plateText = 0) {
     }
 
     msg(playerid, "tax.payed", [ price, plateText ], CL_SUCCESS);
-    subMoneyToPlayer(playerid, price);
+    subPlayerMoney(playerid, price);
     local sumToCity = price * (1 - taxPercentsToState);
     local sumToState = price * taxPercentsToState;
     addTreasuryMoney(sumToCity);

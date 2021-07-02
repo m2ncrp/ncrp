@@ -79,7 +79,7 @@ cmd("ltc", function( playerid, parametr = 0 ) {
         return msg(playerid, "inventory.volume.notenough", CL_THUNDERBIRD);
     }
 
-    subMoneyToPlayer(playerid, 250.0);
+    subPlayerMoney(playerid, 250.0);
 
     ltcObj.setData("number", playerid);
     ltcObj.setData("fio", getPlayerName(playerid));

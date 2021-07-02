@@ -76,7 +76,7 @@ cmd("business", "buy", function(playerid) {
         return msg(playerid, "business.error.cantbuy", CL_ERROR);
     }
 
-    // subMoneyToPlayer(playerid, getBusinessPrice(bizid));
+    // subPlayerMoney(playerid, getBusinessPrice(bizid));
     // setBusinessOwner(bizid, getPlayerName(playerid));
 
     // msg(playerid, "business.purchase.success", [getBusinessName(bizid)], CL_SUCCESS);

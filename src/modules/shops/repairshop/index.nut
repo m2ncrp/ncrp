@@ -75,7 +75,7 @@ function repairShopRepairCar (playerid) {
         screenFadeinFadeoutEx(playerid, 250, 3000, null, function() {
             local vehicleid = getPlayerVehicle(playerid);
             repairVehicle( vehicleid );
-            subMoneyToPlayer(playerid, SHOP_REPAIR_COST);
+            subPlayerMoney(playerid, SHOP_REPAIR_COST);
             addWorldMoney(SHOP_REPAIR_COST);
             return msg(playerid, "shops.repairshop.repair.payed", [SHOP_REPAIR_COST, getPlayerBalance(playerid)]);
         });

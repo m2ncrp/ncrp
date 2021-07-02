@@ -36,7 +36,7 @@ event("native:onPlayerDeath", function(playerid, killerid) {
     // maybe deduct some money...
     local amount = getGovernmentValue("hospitalTreatmentPrice");
     if (canMoneyBeSubstracted(playerid, amount)) {
-        subMoneyToPlayer(playerid, amount);
+        subPlayerMoney(playerid, amount);
         addTreasuryMoney(amount);
     }
 

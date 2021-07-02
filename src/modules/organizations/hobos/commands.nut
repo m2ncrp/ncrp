@@ -9,7 +9,7 @@ function hobosDig(playerid) {
         local found = randomf(minCouldFind, maxCouldFind);
         found = round( found, 2);
         subWorldMoney(found);
-        addMoneyToPlayer(playerid, found);
+        addPlayerMoney(playerid, found);
         msg( playerid, "organizations.hobos.trash.found", [found, getPlayerBalance(playerid)] );
 
         if (!(playerid in hoboses)) {

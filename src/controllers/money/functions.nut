@@ -6,8 +6,6 @@ function addPlayerMoney(playerid, amount) {
     dbg("[ MONEY ] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> +"+format("%.2f", amount)+" dollars. Was: $"+format("%.2f", old_amount)+". Now: $"+format("%.2f", new_amount));
 }
 
-addMoneyToPlayer <- addPlayerMoney;
-
 /**
  * Check if <amount> money can be subsctracted from <playerid>
  *
@@ -27,8 +25,6 @@ function subPlayerMoney(playerid, amount) {
     triggerClientEvent(playerid, "onPlayerRemoveMoney", amount.tofloat())
     dbg("[ MONEY ] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> -"+format("%.2f", amount)+" dollars. Was: $"+format("%.2f", old_amount)+". Now: $"+format("%.2f", new_amount));
 }
-
-subMoneyToPlayer <- subPlayerMoney;
 
 function getPlayerBalance(playerid) {
     return format("%.2f", players[playerid].money);

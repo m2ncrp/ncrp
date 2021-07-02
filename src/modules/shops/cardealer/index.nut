@@ -297,7 +297,7 @@ cmd("dealer", "sell", function(playerid, price) {
         saleDeal.until      = saleDeal.created.tointeger() + time_to_sale_dealer;
         saleDeal.save();
 
-        addMoneyToPlayer(playerid, amount);
+        addPlayerMoney(playerid, amount);
         msg(playerid, "cardealer.soldNow", [ amount ], CL_SUCCESS);
         dbg("chat", "report", getPlayerName(playerid), format("Продал дилеру автомобиль «%s» (%s) за $%.2f", modelName, plate, amount));
     } else {

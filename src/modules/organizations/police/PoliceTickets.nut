@@ -105,7 +105,7 @@ function policeGiveTicket(playerid, value) {
 
                 msg(targetid, "organizations.police.ticket.givewithreason", [getAuthor(playerid), target_reason, price], CL_CHESTNUT);
                 msg(playerid, "organizations.police.ticket.given", [getAuthor(targetid), player_reason, price], CL_CHESTNUT);
-                subMoneyToPlayer(targetid, price);
+                subPlayerMoney(targetid, price);
                 nano({
                     "path": "discord",
                     "server": "police",

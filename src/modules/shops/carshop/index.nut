@@ -597,7 +597,7 @@ cmd("buy", "car", function(playerid) {
     }
 
     // take money
-    subMoneyToPlayer(playerid, car.price);
+    subPlayerMoney(playerid, car.price);
     addWorldMoney(car.price);
 
     local vehiclePlate = getRandomVehiclePlate();
