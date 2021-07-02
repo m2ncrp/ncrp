@@ -1,4 +1,4 @@
-function addMoneyToPlayer(playerid, amount) {
+function addPlayerMoney(playerid, amount) {
     local old_amount = players[playerid].money;
     local new_amount = old_amount + amount.tofloat();
     setPlayerMoney(playerid, new_amount);
@@ -6,7 +6,8 @@ function addMoneyToPlayer(playerid, amount) {
     dbg("[ MONEY ] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> +"+format("%.2f", amount)+" dollars. Was: $"+format("%.2f", old_amount)+". Now: $"+format("%.2f", new_amount));
 }
 
-addPlayerMoney <- addMoneyToPlayer;
+addMoneyToPlayer <- addPlayerMoney;
+
 /**
  * Check if <amount> money can be subsctracted from <playerid>
  *
@@ -19,14 +20,15 @@ function canMoneyBeSubstracted(playerid, amount) {
     return (players[playerid].money >= amount);
 }
 
-function subMoneyToPlayer(playerid, amount) {
+function subPlayerMoney(playerid, amount) {
     local old_amount = players[playerid].money;
     local new_amount = old_amount - amount.tofloat();
     setPlayerMoney(playerid, new_amount);
     triggerClientEvent(playerid, "onPlayerRemoveMoney", amount.tofloat())
     dbg("[ MONEY ] "+getPlayerName(playerid)+" [ "+getAccountName(playerid)+" ] -> -"+format("%.2f", amount)+" dollars. Was: $"+format("%.2f", old_amount)+". Now: $"+format("%.2f", new_amount));
 }
-subPlayerMoney <- subMoneyToPlayer;
+
+subMoneyToPlayer <- subPlayerMoney;
 
 function getPlayerBalance(playerid) {
     return format("%.2f", players[playerid].money);
@@ -58,10 +60,11 @@ function setPlayerMoney(playerid, money) {
         return false;
     }
 
+    players[playerid].money = money;
+
     trigger(playerid, "onServerInterfaceMoney", money);
     trigger("onPlayerMoneyChanged", playerid);
 
-    players[playerid].money = money;
     return true;
 }
 
@@ -146,8 +149,8 @@ function sendMoney(playerid, targetid = null, amount = null) {
             return;
         }
 
-        subMoneyToPlayer(playerid, amount);
-        addMoneyToPlayer(targetid, amount);
+        subPlayerMoney(playerid, amount);
+        addPlayerMoney(targetid, amount);
 
         moneyTransferRequest[pair] = "open";
 
@@ -255,8 +258,8 @@ function invoiceAcceptNew(playerid, senderid = null) {
         if ("request" in players[senderid] && playerid in players[senderid]["request"]) {
             local amount = players[senderid]["request"][playerid][0];
             if(canMoneyBeSubstracted(playerid, amount)) {
-                subMoneyToPlayer(playerid, amount);
-                addMoneyToPlayer(senderid, amount);
+                subPlayerMoney(playerid, amount);
+                addPlayerMoney(senderid, amount);
 
                 // trigger callback
                 if (players[senderid]["request"][playerid][1]) {
@@ -335,8 +338,8 @@ function invoiceAccept(playerid, senderid = null) {
         if ("request" in players[senderid] && playerid in players[senderid]["request"]) {
             local amount = players[senderid]["request"][playerid][0];
             if(canMoneyBeSubstracted(playerid, amount)) {
-                subMoneyToPlayer(playerid, amount);
-                addMoneyToPlayer(senderid, amount);
+                subPlayerMoney(playerid, amount);
+                addPlayerMoney(senderid, amount);
 
                 // trigger callback
                 if (players[senderid]["request"][playerid][1]) {
