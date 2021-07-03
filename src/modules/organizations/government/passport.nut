@@ -763,16 +763,4 @@ alternativeTranslate({
     "ru|nationality.jewish"            : "Евреи"
     "ru|nationality.german"            : "Немцы"
     "ru|nationality.mexican"           : "Мексиканцы"
-
-    "ru|nationality.1"  : "Британцы"
-    "ru|nationality.2"  : "Итальянцы"
-    "ru|nationality.3"  : "Американцы"
-    "ru|nationality.4"  : "Ирландцы"
-    "ru|nationality.5"  : "Итальянцы"
-    "ru|nationality.6"  : "Французы"
-    "ru|nationality.7"  : "Афроамериканцы"
-    "ru|nationality.8"  : "Китайцы"
-    "ru|nationality.9"  : "Мексиканцы"
-    "ru|nationality.10" : "Немцы"
-
 });
