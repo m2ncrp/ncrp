@@ -41,7 +41,7 @@ cmd("heal", function(playerid) {
         return msg(playerid, "hospital.money.notenough", CL_ERROR);
     }
 
-    subMoneyToPlayer(playerid, amount);
+    subPlayerMoney(playerid, amount);
     addTreasuryMoney(amount);
     setPlayerHealth(playerid, 720.0);
     msg(playerid, "hospital.heal.complete", [amount], CL_SUCCESS);

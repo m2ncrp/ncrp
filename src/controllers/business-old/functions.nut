@@ -346,7 +346,7 @@ function calculateBusinessIncome() {
                 amount = amount * 0.1;
             }
 
-            addMoneyToPlayer(playerid, amount);
+            addPlayerMoney(playerid, amount);
             msg(playerid, "business.money.income", [amount, biz.name], CL_SUCCESS);
         }
     }

@@ -812,7 +812,7 @@ function taxiCallDone(playerid) {
     local amount = distance * price;
         if(canTreasuryMoneyBeSubstracted(amount)) {
             subWorldMoney(amount);
-            addMoneyToPlayer(playerid, amount);
+            addPlayerMoney(playerid, amount);
             msg_taxi_dr( playerid, "job.taxi.youearn", amount );
             dbg("[TAXI] "+getPlayerName(playerid)+" earned $"+amount+" for "+distance+" meters");
         } else {

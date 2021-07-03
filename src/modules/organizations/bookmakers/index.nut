@@ -654,7 +654,7 @@
      bet.fraction = participant[1].tofloat();
      bet.save();
 
-     subMoneyToPlayer( playerid, amount );
+     subPlayerMoney( playerid, amount );
      msg(playerid, "bk.betmade", [amount, bkLoadedData.members[(participant[0]-1)].title], BK_COLOR);
  }
 

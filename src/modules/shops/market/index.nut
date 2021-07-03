@@ -436,7 +436,7 @@ event("native:shop:purchase", function(playerid, data) {
         return msg(playerid, "inventory.volume.notenough", CL_WARNING);
     }
 
-    subMoneyToPlayer(playerid, price);
+    subPlayerMoney(playerid, price);
     addWorldMoney(price);
 
     if(data.type == "kiosk") {

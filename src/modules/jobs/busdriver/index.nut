@@ -461,7 +461,7 @@ Event: JOB - Bus driver - Get salary
 function busGetSalary( playerid ) {
     local amount = job_bus[getCharacterIdFromPlayerId(playerid)]["route"][1] + getSalaryBonus();
     players[playerid].data.jobs.busdriver.count += 1;
-    addMoneyToPlayer(playerid, amount);
+    addPlayerMoney(playerid, amount);
     subWorldMoney(amount);
     msg( playerid, "job.bus.nicejob", amount, BUS_JOB_COLOR );
 }
@@ -725,8 +725,8 @@ key("e", function(playerid) {
         msg(driverid, "bus.passenger.passenter", CL_CREAMCAN);
         msg(playerid, "bus.passenger.attention", CL_GRAY);
 
-        subMoneyToPlayer(playerid, BUS_TICKET_PRICE);
-        addMoneyToPlayer(driverid, BUS_TICKET_PRICE);
+        subPlayerMoney(playerid, BUS_TICKET_PRICE);
+        addPlayerMoney(driverid, BUS_TICKET_PRICE);
         putPlayerInBus(playerid, vehicleid);
 
     }

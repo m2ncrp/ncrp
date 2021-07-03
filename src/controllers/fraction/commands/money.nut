@@ -18,7 +18,7 @@ fmd("*", ["money.add"], "$f money add", function(fraction, character, amount = "
         return msg(character.playerid, "fraction.money.notenough", CL_ERROR);
     }
 
-    subMoneyToPlayer(character.playerid, amount);
+    subPlayerMoney(character.playerid, amount);
 
     fraction.money = fraction.money + amount;
     fraction.save();
@@ -46,7 +46,7 @@ fmd("*", ["money.remove"], "$f money sub", function(fraction, character, amount 
     fraction.money = fraction.money - amount;
     fraction.save();
 
-    addMoneyToPlayer(character.playerid, amount);
+    addPlayerMoney(character.playerid, amount);
 
     msg(character.playerid, "fraction.money.substract", [ amount, plocalize(character.playerid, fraction.title) ], CL_SUCCESS);
 

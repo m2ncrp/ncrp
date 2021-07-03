@@ -113,7 +113,7 @@ function leaseCar(playerid) {
                         }
                     }
 
-                    subMoneyToPlayer(playerid, LEASE_DEPOSIT);
+                    subPlayerMoney(playerid, LEASE_DEPOSIT);
 
                     veh.data.rent.enabled = true;
                     veh.data.rent.money += LEASE_DEPOSIT;
@@ -174,7 +174,7 @@ function unleaseCar(playerid) {
 
     setVehicleRespawnEx(vehicleid, false);
 
-    addMoneyToPlayer(playerid, veh.data.rent.money);
+    addPlayerMoney(playerid, veh.data.rent.money);
     unblockDriving(vehicleid);
 
     msg(playerid, "Автомобиль снят с аренды.", CL_SUCCESS);

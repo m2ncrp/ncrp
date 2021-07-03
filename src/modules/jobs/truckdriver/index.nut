@@ -391,7 +391,7 @@ function truckJobRefuseLeave( playerid ) {
 function truckGetSalary( playerid ) {
     local amount = TRUCK_JOB_SALARY + (random(-1, 2.5)).tofloat() + getSalaryBonus();
     players[playerid].data.jobs.truckdriver.count += 1;
-    addMoneyToPlayer(playerid, amount);
+    addPlayerMoney(playerid, amount);
     subWorldMoney(amount);
     msg( playerid, "job.truckdriver.nicejob", [amount] );
 }

@@ -560,7 +560,7 @@ function milkGetSalary( playerid ) {
     local amount = MILK_JOB_SALARY + (random(-1, 1)).tofloat() + getSalaryBonus();
     players[playerid].data.jobs.milkdriver.count += 1;
     msg( playerid, "job.milkdriver.nicejob", amount, MILK_JOB_COLOR );
-    addMoneyToPlayer(playerid, amount);
+    addPlayerMoney(playerid, amount);
     subWorldMoney(amount);
 }
 

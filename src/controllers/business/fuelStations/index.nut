@@ -410,7 +410,7 @@ function fuelJerrycanBuy(playerid) {
     players[playerid].hands.push( canister);
     canister.save();
     players[playerid].hands.sync();
-    subMoneyToPlayer(playerid, JERRYCAN_COST);
+    subPlayerMoney(playerid, JERRYCAN_COST);
     addWorldMoney(JERRYCAN_COST);
 }
 
