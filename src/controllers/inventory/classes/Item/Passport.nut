@@ -1,4 +1,4 @@
-convertedNationalityDict <- {
+local convertedNationalityDict = {
     "1"  : "british"
     "2"  : "italian"
     "3"  : "american"
