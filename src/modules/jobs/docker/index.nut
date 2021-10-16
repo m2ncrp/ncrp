@@ -383,7 +383,7 @@ function dockerJobPutBox( playerid ) {
     players[playerid].data.jobs.docker.count += 1;
 
     msg( playerid, "job.docker.nicejob", amount, DOCKER_JOB_COLOR );
-    addMoneyToPlayer(playerid, amount);
+    addPlayerMoney(playerid, amount);
     subWorldMoney(amount);
 
     job_docker[getCharacterIdFromPlayerId(playerid)]["blip3dtext"] = dockerJobCreatePrivateBlipText(playerid, DOCKER_JOB_TAKEBOX_X, DOCKER_JOB_TAKEBOX_Y, DOCKER_JOB_TAKEBOX_Z, plocalize(playerid, "TAKEBOXHERE"), plocalize(playerid, "3dtext.job.press.E"));

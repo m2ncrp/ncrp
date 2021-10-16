@@ -71,9 +71,8 @@ vehicleInfo <- {
 
     model_2  = {
         gamename = "fuel_tank", // fuel trailer
-        name = "Roller GL300"
-        //name = "Fuel Tank",
-        seats = 2,
+        name = "Fuel Tank",
+        seats = 0,
         triggers = {
             front_left_wheel      = null,
             front_right_wheel     = null,
@@ -100,41 +99,6 @@ vehicleInfo <- {
         weight_kg  = [5520.0, 5520.0, 5520.0],
         heat_limit = null,
     },
-
-/*
-    model_2  = {
-        gamename = "fuel_tank", // fuel trailer
-        name = "Fuel Tank",
-        seats = 0,
-        triggers = {
-            front_left_wheel      = null,
-            front_right_wheel     = null,
-            middle_left_wheel     = [-1.7400, -3.0000],
-            middle_right_wheel    = [ 1.7400, -3.0000],
-            rear_left_wheel       = [-1.7400, -4.0000],
-            rear_right_wheel      = [ 1.7400, -4.0000],
-            hood                  = null,
-            trunk                 = null,
-            front_left_door       = null,
-            front_right_door      = null,
-            back_left_door        = null,
-            back_right_door       = null,
-            hook                  = [ 0.0000,  3.0000],
-        },
-        tank = 50.0,
-        trunk = {
-            gridSizeX = 3,
-            gridSizeY = 3,
-            volumeLimit = 100,
-        },
-        engine = {
-            top_speed_mph = [70.0, 70.0, 70.0],
-            top_speed_kmh = [112.0, 112.0, 112.0],
-        },
-        weight_kg  = [5520.0, 5520.0, 5520.0],
-        heat_limit = null,
-    },
-*/
     model_3  = {
         gamename = "gai_353_military_truck",
         name = "GAI 353 Military Truck",
@@ -401,7 +365,7 @@ vehicleInfo <- {
 
     model_11 = {
         gamename = "jeep",
-        name = "Jeep",
+        name = "Walter Military",
         seats = 2,
         triggers = {
             front_left_wheel      = [-1.2800,  1.1520],
@@ -434,7 +398,7 @@ vehicleInfo <- {
 
     model_12 = {
         gamename = "jeep_civil",
-        name = "Jeep Civil",
+        name = "Walter Utility",
         seats = 2,
         triggers = {
             front_left_wheel      = [-1.2800,  1.1520],
@@ -733,11 +697,6 @@ vehicleInfo <- {
         gamename = "parry_prison",
         name = "Parry Bus Police",
         seats = 1,
-        trunk = {
-            gridSizeX = 3,
-            gridSizeY = 3,
-            volumeLimit = 100,
-        },
         triggers = {
             front_left_wheel      = [ 1.5500, -2.9100],
             front_right_wheel     = [-1.5500, -2.9100],
@@ -754,6 +713,11 @@ vehicleInfo <- {
             back_right_door       = [  1.5500, -1.5000],
         },
         tank = 150.0,
+        trunk = {
+            gridSizeX = 3,
+            gridSizeY = 3,
+            volumeLimit = 100,
+        },
         engine = {
             top_speed_mph = [82.0, 82.0, 82.0],
             top_speed_kmh = [132.0, 132.0, 132.0],
@@ -895,39 +859,6 @@ vehicleInfo <- {
     },
     model_26 = {
         gamename = "shubert_38_destr",
-        name = "Delizia Grandeamerica"
-        seats = 2,
-        triggers = {
-            front_left_wheel      = [-1.2800,  1.6000],
-            front_right_wheel     = [ 1.2800,  1.6000],
-            middle_left_wheel     = null,
-            middle_right_wheel    = null,
-            rear_left_wheel       = [-1.2100, -1.2500],
-            rear_right_wheel      = [ 1.2100, -1.2500],
-            hood                  = [ 0.0000,  2.4000],
-            trunk                 = [ 0.0000, -2.9230],
-                // Doors
-            front_left_door       = [-1.280,  -0.4800],
-            front_right_door      = [ 1.280,  -0.4800],
-            back_left_door        = null,
-            back_right_door       = null,
-        },
-        trunk = {
-            gridSizeX = 3,
-            gridSizeY = 3,
-            volumeLimit = 350,
-        },
-        engine = {
-            top_speed_mph = [178.0, 178.0, 178.0],
-            top_speed_kmh = [286.0, 286.0, 292.0],
-        },
-        weight_kg  = [1200.0, 1050.0, 1050.0],
-        heat_limit = null,
-    },
-
-/*
-    model_26 = {
-        gamename = "shubert_38_destr",
         name = "Shubert 38 Destroy",
         seats = 4,
         triggers = {
@@ -958,10 +889,9 @@ vehicleInfo <- {
         weight_kg  = [1420.0, 1300.0, 1300.0],
         heat_limit = null,
     },
-*/
     model_27 = {
         gamename = "shubert_armoured",
-        name = "Shubert Armored Truck",
+        name = "Shubert Armored Van",
         seats = 2,
         triggers = {
             front_left_wheel      = [-1.2800,  1.9000],
@@ -1684,10 +1614,9 @@ vehicleInfo <- {
         max_velocity          = [70.0],
         heat_limit = null,
     },
-
     model_49 = {
         gamename = "trailer",
-        name = "Chaffeque XT"
+        name = "Trailer"
         seats = 0,
         triggers = {
             front_left_wheel      = null,
@@ -1716,38 +1645,6 @@ vehicleInfo <- {
         weight_kg  = [1120.0, 1010.0, 1010.0],
         heat_limit = null,
     },
-
-/*
-    model_49 = {
-        gamename = "trailer",
-        name = "Trailer",
-        seats = 0,
-        triggers = {
-            front_left_wheel      = null,
-            front_right_wheel     = null,
-            middle_left_wheel     = null,
-            middle_right_wheel    = null,
-            rear_left_wheel       = [-1.2800, -2.5000],
-            rear_right_wheel      = [ 1.2800, -2.5000],
-            hood                  = null,
-            trunk                 = [ 0.0000, -5.0000],
-            hook                  = [ 0.0000,  3.0000],
-                // Doors
-            front_left_door       = null,
-            front_right_door      = null,
-            back_left_door        = null,
-            back_right_door       = null,
-        },
-        tank = 50.0,
-        trunk = {
-            gridSizeX = 3,
-            gridSizeY = 3,
-            volumeLimit = 100,
-        },
-        max_velocity          = [70.0],
-        heat_limit = null,
-    },
-*/
     model_50 = {
         gamename = "ulver_newyorker",
         name = "Culver Empire",
@@ -1880,7 +1777,6 @@ vehicleInfo <- {
         heat_limit = null,
     },
 
-
     model_54 = {
         gamename = "delizia_grandeamerica",
         name = "Delizia Grandeamerica",
@@ -1902,8 +1798,8 @@ vehicleInfo <- {
         },
         tank = 80.0,
         trunk = {
-            gridSizeX = 2,
-            gridSizeY = 3,
+            gridSizeX = 3,
+            gridSizeY = 2,
             volumeLimit = 70,
         },
         engine = {
@@ -1935,8 +1831,8 @@ vehicleInfo <- {
         },
         tank = 85.0,
         trunk = {
-            gridSizeX = 2,
-            gridSizeY = 3,
+            gridSizeX = 0,
+            gridSizeY = 0,
             volumeLimit = 70,
         },
         engine = {
@@ -2046,7 +1942,6 @@ vehicleInfo <- {
         weight_kg  = [942.0, 870.0, 870.0],
         heat_limit = null,
     },
-
     model_59 = {
         gamename = "chaffeque",
         name = "Chaffeque XT",
@@ -2080,9 +1975,9 @@ vehicleInfo <- {
         heat_limit = null,
     },
     model_60 = {
-        gamename = "beetle",
-        name = "Volkswagen Beetle",
-        seats = 4,
+        gamename = "shubert_pickup",
+        name = "Shubert Pickup",
+        seats = 2,
         triggers = {
             front_left_wheel      = [-1.2800,  1.4500],
             front_right_wheel     = [ 1.2800,  1.4500],
@@ -2098,7 +1993,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
-        tank = 50.0,
+        tank = 70.0,
         trunk = {
             gridSizeX = 2,
             gridSizeY = 3,
@@ -2108,12 +2003,12 @@ vehicleInfo <- {
             top_speed_mph = [66.0,  66.0,  90.0],
             top_speed_kmh = [107.0, 107.0, 145.0],
         },
-        weight_kg  = [942.0, 870.0, 870.0],
+        weight_kg  = [1620.0, 1300.0, 1300.0],
         heat_limit = null,
     },
     model_61 = {
-        gamename = "fordsedan",
-        name = "Ford Custom Fordor 1949",
+        gamename = "trautenberg_grande",
+        name = "Cossack",
         seats = 4,
         triggers = {
             front_left_wheel      = [-1.2800,  1.4500],
@@ -2130,7 +2025,7 @@ vehicleInfo <- {
             back_left_door        = null,
             back_right_door       = null,
         },
-        tank = 50.0,
+        tank = 80.0,
         trunk = {
             gridSizeX = 2,
             gridSizeY = 3,
@@ -2140,7 +2035,103 @@ vehicleInfo <- {
             top_speed_mph = [66.0,  66.0,  90.0],
             top_speed_kmh = [107.0, 107.0, 145.0],
         },
-        weight_kg  = [942.0, 870.0, 870.0],
+        weight_kg  = [2400.0, 2200.0, 2200.0],
+        heat_limit = null,
+    },
+    model_62 = {
+        gamename = "shubert_ab",
+        name = "Shubert Series AB",
+        seats = 4,
+        triggers = {
+            front_left_wheel      = [-1.2800,  1.4500],
+            front_right_wheel     = [ 1.2800,  1.4500],
+            middle_left_wheel     = null,
+            middle_right_wheel    = null,
+            rear_left_wheel       = [-1.2800, -1.4000],
+            rear_right_wheel      = [ 1.2800, -1.4000],
+            hood                  = [ 0.0000,  2.5500],
+            trunk                 = [ 0.0000, -2.5500],
+                // Doors
+            front_left_door       = [-1.2800,  0.1000],
+            front_right_door      = [ 1.2800,  0.1000],
+            back_left_door        = null,
+            back_right_door       = null,
+        },
+        tank = 70.0,
+        trunk = {
+            gridSizeX = 2,
+            gridSizeY = 3,
+            volumeLimit = 225,
+        },
+        engine = {
+            top_speed_mph = [66.0,  66.0,  90.0],
+            top_speed_kmh = [107.0, 107.0, 145.0],
+        },
+        weight_kg  = [1170.0, 1050.0, 1050.0],
+        heat_limit = null,
+    },
+    model_63 = {
+        gamename = "shubert_six_taxi",
+        name = "Shubert Six",
+        seats = 4,
+        triggers = {
+            front_left_wheel      = [-1.2800,  1.4500],
+            front_right_wheel     = [ 1.2800,  1.4500],
+            middle_left_wheel     = null,
+            middle_right_wheel    = null,
+            rear_left_wheel       = [-1.2800, -1.4000],
+            rear_right_wheel      = [ 1.2800, -1.4000],
+            hood                  = [ 0.0000,  2.5500],
+            trunk                 = [ 0.0000, -2.5500],
+                // Doors
+            front_left_door       = [-1.2800,  0.1000],
+            front_right_door      = [ 1.2800,  0.1000],
+            back_left_door        = null,
+            back_right_door       = null,
+        },
+        tank = 55.0,
+        trunk = {
+            gridSizeX = 2,
+            gridSizeY = 3,
+            volumeLimit = 225,
+        },
+        engine = {
+            top_speed_mph = [66.0,  66.0,  90.0],
+            top_speed_kmh = [107.0, 107.0, 145.0],
+        },
+        weight_kg  = [1220.0, 1220.0, 1220.0],
+        heat_limit = null,
+    },
+    model_64 = {
+        gamename = "samson_drifter",
+        name = "Samson Drifter",
+        seats = 2,
+        triggers = {
+            front_left_wheel      = [-1.2800,  1.4500],
+            front_right_wheel     = [ 1.2800,  1.4500],
+            middle_left_wheel     = null,
+            middle_right_wheel    = null,
+            rear_left_wheel       = [-1.2800, -1.4000],
+            rear_right_wheel      = [ 1.2800, -1.4000],
+            hood                  = [ 0.0000,  2.5500],
+            trunk                 = [ 0.0000, -2.5500],
+                // Doors
+            front_left_door       = [-1.2800,  0.1000],
+            front_right_door      = [ 1.2800,  0.1000],
+            back_left_door        = null,
+            back_right_door       = null,
+        },
+        tank = 81.0,
+        trunk = {
+            gridSizeX = 2,
+            gridSizeY = 3,
+            volumeLimit = 225,
+        },
+        engine = {
+            top_speed_mph = [66.0,  66.0,  90.0],
+            top_speed_kmh = [107.0, 107.0, 145.0],
+        },
+        weight_kg  = [1667.0, 1667.0, 1667.0],
         heat_limit = null,
     },
 };

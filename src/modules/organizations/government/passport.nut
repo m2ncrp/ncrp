@@ -763,5 +763,4 @@ alternativeTranslate({
     "ru|nationality.jewish"            : "Евреи"
     "ru|nationality.german"            : "Немцы"
     "ru|nationality.mexican"           : "Мексиканцы"
-
 });

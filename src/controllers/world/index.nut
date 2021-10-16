@@ -1,6 +1,6 @@
 include("controllers/world/translations.nut");
 include("controllers/world/translations-cyr.nut");
-
+include("controllers/world/inflations.nut");
 // configs
 WORLD_SECONDS_PER_MINUTE    <- 40;
 WORLD_MINUTES_PER_HOUR      <- 60;

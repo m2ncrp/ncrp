@@ -195,7 +195,7 @@ event("native:onScriptInit", function() {
     logStr(format("[core] running version %s...", VERSION));
 
     // setup default values
-    setGameModeText( "NCRP " + VERSION + " | vk.com/m2ncrp");
+    setGameModeText( "mafia2online.ru | vk.com/m2ncrp");
     setMapName( "Empire Bay" );
     srand(time()); // set random seed
 

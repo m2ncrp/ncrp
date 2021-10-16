@@ -73,6 +73,7 @@ local carPricesAll = [
        { modelid = 1   , price = 5600  , rent = 0.71, title = "Berkley Kingfisher"           },
        { modelid = 2   , price = 8200  , rent = 0.84, title = "Fuel Tank"                    },
        { modelid = 3   , price = 8200  , rent = 0.84, title = "GAI 353 Military Truck"       },
+       { modelid = 4   , price = 18000 , rent = 2.71, title = "Hank B"                       },
        { modelid = 5   , price = 18000 , rent = 2.71, title = "Hank B Fuel Tank"             },
        { modelid = 6   , price = 18000 , rent = 2.71, title = "Walter Hot Rod"               },
        { modelid = 7   , price = 18000 , rent = 2.71, title = "Smith 34 Hot Rod"             },
@@ -127,7 +128,12 @@ local carPricesAll = [
        { modelid = 56  , price = 26000 , rent = 0.20, title = "Potomac Elysium"              },
        { modelid = 57  , price = 18500 , rent = 0.20, title = "Roller GL300"                 },
        { modelid = 58  , price = 2300  , rent = 0.20, title = "Waybar Hot Rod"               },
-       { modelid = 59  , price = 2800  , rent = 0.20, title = "Chaffeque XT"                 }
+       { modelid = 59  , price = 2800  , rent = 0.20, title = "Chaffeque XT"                 },
+       { modelid = 60  , price = 1160  , rent = 0.20, title = "Shubert Pickup"               },
+       { modelid = 61  , price = 28000 , rent = 0.20, title = "Cossack"                      },
+       { modelid = 62  , price = 600   , rent = 0.17, title = "Shubert Series AB"            },
+       { modelid = 63  , price = 650   , rent = 0.17, title = "Shubert Six"                  },
+       { modelid = 64  , price = 2800  , rent = 0.20, title = "Samson Drifter"               },
 ];
 
 
@@ -597,7 +603,7 @@ cmd("buy", "car", function(playerid) {
     }
 
     // take money
-    subMoneyToPlayer(playerid, car.price);
+    subPlayerMoney(playerid, car.price);
     addWorldMoney(car.price);
 
     local vehiclePlate = getRandomVehiclePlate();

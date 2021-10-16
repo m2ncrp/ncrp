@@ -20,7 +20,7 @@ key("e", function(playerid) {
 //             msg(playerid, "shops.repairshop.needwait");
 //             screenFadeinFadeoutEx(playerid, 250, 3000, null, function() {
 //                 setVehicleColour(vehicleid, r, g, b, r, g, b);
-//                 subMoneyToPlayer(playerid, SHOP_REPAINT_COST);
+//                 subPlayerMoney(playerid, SHOP_REPAINT_COST);
 //                 return msg(playerid, "shops.repairshop.repaint.payed", [SHOP_REPAINT_COST, getPlayerBalance(playerid)]);
 //             });
 //         } else {

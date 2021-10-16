@@ -1366,7 +1366,7 @@ Event: JOB - Snowplow driver - Get salary
 function snowplowGetSalary( playerid ) {
     local amount = job_snowplow[getCharacterIdFromPlayerId(playerid)]["route"].cost + getSalaryBonus();
     players[playerid].data.jobs.snowplowdriver.count += 1;
-    addMoneyToPlayer(playerid, amount);
+    addPlayerMoney(playerid, amount);
     subTreasuryMoney(amount);
     local moneyInTreasuryNow = getTreasuryMoney();
     msg(playerid, "job.snowplow.nicejob", amount, SNOWPLOW_JOB_COLOR);

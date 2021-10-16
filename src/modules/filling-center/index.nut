@@ -220,7 +220,7 @@ function fillingCenterLoad(playerid) {
         // запомним персонажа
         local charid = getCharacterIdFromPlayerId(playerid);
 
-        subMoneyToPlayer(playerid, amount);
+        subPlayerMoney(playerid, amount);
         addWorldMoney(amount);
         FILLING_CENTER_NOW -= gallons;
 

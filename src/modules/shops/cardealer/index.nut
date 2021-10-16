@@ -297,7 +297,8 @@ cmd("dealer", "sell", function(playerid, price) {
         saleDeal.until      = saleDeal.created.tointeger() + time_to_sale_dealer;
         saleDeal.save();
 
-        addMoneyToPlayer(playerid, amount);
+        addPlayerMoney(playerid, amount);
+        subWorldMoney(amount);
         msg(playerid, "cardealer.soldNow", [ amount ], CL_SUCCESS);
         dbg("chat", "report", getPlayerName(playerid), format("Продал дилеру автомобиль «%s» (%s) за $%.2f", modelName, plate, amount));
     } else {
@@ -369,6 +370,7 @@ cmd("dealer", "buy", function(playerid) {
             return msg(playerid, "cardealer.notenoughmoney", CL_ERROR);
         }
         subPlayerMoney(playerid, deal.commission);
+        addWorldMoney(deal.commission);
         msg(sellerPlayerid, "cardealer.returnedCar", deal.commission, CL_FIREBUSH);
         deal.status = "canceled";
         deal.reason = "seller refused";
@@ -381,6 +383,7 @@ cmd("dealer", "buy", function(playerid) {
             return msg(playerid, "cardealer.notenoughmoney", CL_ERROR);
         }
         subPlayerMoney(playerid, amount);
+        addWorldMoney(amount);
 
         if(sellerPlayerid != -1 && sellerPlayerid != playerid) {
             addPlayerDeposit(sellerPlayerid, amount);
