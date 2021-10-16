@@ -100,11 +100,11 @@ addEventHandler("showAuthGUI", showAuthGUI);
 function showBadPlayerNicknameGUI(){
     blackRoundFrame = guiCreateElement(13,"other_mask.png", 0, 0, screen[0], screen[1]);
     local width = 385.0;
-    local height = 260.0;
+    local height = 180.0;
     window = guiCreateElement( ELEMENT_TYPE_WINDOW, "Информация / Information", screen[0]/2 - width/2, screen[1]/2 - height/2, width, height );
     //window = guiCreateElement( ELEMENT_TYPE_WINDOW, "Информация", screen[0]/2 - 192.5, screen[1]/2 - 72.0, 385.0, 144.0 );
-    label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, "[RU] Измените никнейм на свой\r\n\r\nДля этого:\r\n1. Нажмите на клавиатуре кнопку Escape (Esc)\r\n2. Выберите в меню пункт SETTINGS\r\n3. Введите в поле Nickname ваш никнейм (вместо Player)\r\n4. Переподключитесь к серверу\r\n", 38.0, 30.0, 300.0, 110.0, false, window);
-    label[1] = guiCreateElement( ELEMENT_TYPE_LABEL, "[EN] Change nickname\r\n\r\nHow to do it:\r\n1. Press Escape (Esc) button on your keyboard\r\n2. Choose SETTINGS item in top menu\r\n3. Enter your nickname into Nickname field (instead of Player)\r\n4. Disconnect and connect to server again\r\n", 38.0, 140.0, 300.0, 110.0, false, window);
+    label[0] = guiCreateElement( ELEMENT_TYPE_LABEL, "Измени никнейм на свой\r\n\r\nДля этого:\r\n1. Нажми на клавиатуре кнопку Escape (Esc).\r\n2. Выбери в меню пункт Выйти из игры.\r\n3. Заново запусти лончер.\r\n4. Открой настройки (шестерёнка в правом верхнем углу).\r\n5. Придумай логин или укажи ранее используемый.\r\n6. Закрой окно настроек и нажми кнопку ИГРАТЬ.\r\n", 38.0, 30.0, 300.0, 130.0, false, window);
+    // label[1] = guiCreateElement( ELEMENT_TYPE_LABEL, "[EN] Change nickname\r\n\r\nHow to do it:\r\n1. Press Escape (Esc) button on your keyboard\r\n2. Choose SETTINGS item in top menu\r\n3. Enter your nickname into Nickname field (instead of Player)\r\n4. Disconnect and connect to server again\r\n", 38.0, 140.0, 300.0, 110.0, false, window);
     guiSetMovable(window,false);
     guiSetSizable(window,false);
     showCursor(true);
