@@ -374,7 +374,7 @@ event("onServerStarted", function() {
             if(getParkingDaysForVehicle(vehicleid) >= 15) {
                 parkingPlaceStatus[placeid] = "free";
                 dbg("police", "parking", "remove", getVehicleOwner(vehicleid), getDateTime(), [["Номер", getVehiclePlateText(vehicleid)], ["Модель", getVehicleNameByModelId(getVehicleModel(vehicleid))]]);
-                //removePlayerVehicle(vehicleid);
+                //removeVehicle(vehicleid);
                 destroyVehicle(vehicleid);
                 local veh = getVehicleEntity(vehicleid);
                 //veh.reserved = 0;

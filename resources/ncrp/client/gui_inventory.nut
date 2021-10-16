@@ -29,6 +29,7 @@ const INVENTORY_ACTIVE_ALPHA   = 1.0;
 local storage = {};
 local defaultMouseState = false;
 local selectedItem = null;
+local prevInventoryLink = null;
 local key_modifiers = {
     ctrl  = false,
     shift = false,
@@ -61,6 +62,8 @@ local translations = {
         "action:takeInHand"     : "Take in hand",
         "action:throwToGround"  : "Throw to the ground",
         "action:close"          : "Close",
+
+        "vehicle:notfound"      : "Unknown vehicle",
 
         "Item.None"             : ""
         "Item.Revolver"         : "Revolver .38"
@@ -139,6 +142,8 @@ local translations = {
         "action:takeInHand"     : "Взять в руку"
         "action:throwToGround"  : "Бросить на землю"
         "action:close"          : "Закрыть"
+
+        "vehicle:notfound"      : "Неизвестно от какого",
 
         "Item.None"             : ""
         "Item.Revolver"         : "Revolver .38"
@@ -311,7 +316,7 @@ class Inventory
             }
 
             foreach (idx, item in this.data.items) {
-                this.createItem(item.slot, item.classname, item.type, item.amount, item.volume);
+                this.createItem(item.slot, item.classname, item.type, item.amount, item.volume, item.data, item.temp);
             }
 
             local size = this.data.sizeX * this.data.sizeY;
@@ -349,7 +354,7 @@ class Inventory
             // and put old to cache
             if (matched && matched.classname != item.classname) {
                 this.cacheItem(item);
-                this.createItem(slot, matched.classname, matched.type, matched.amount, matched.volume);
+                this.createItem(slot, matched.classname, matched.type, matched.amount, matched.volume, matched.data, matched.temp);
                 continue;
             }
 
@@ -367,8 +372,8 @@ class Inventory
         }
     }
 
-    function createItem(slot, classname, type, amount = 0, volume = 0.0, outside_form = false) {
-        local item = { classname = classname, type = type, slot = slot, amount = amount, volume = volume, handle = null, label = null, active = false, parent = this };
+    function createItem(slot, classname, type, amount = 0, volume = 0.0, data = {}, temp = {}, outside_form = false) {
+        local item = { classname = classname, type = type, slot = slot, amount = amount, volume = volume, data = data, temp = temp, handle = null, label = null, active = false, parent = this };
         local pos  = this.getItemPosition(item);
 
         try {
@@ -470,6 +475,15 @@ class Inventory
                 // guiSetAlpha(selectedItem.handle, INVENTORY_INACTIVE_ALPHA);
                 selectedItem.active = false;
                 selectedItem = null;
+
+                // cheat to clear lbl_name in PlayerInventory
+                if("lbl_name" in prevInventoryLink.components) {
+                    local lbl_name = prevInventoryLink.components["lbl_name"];
+                    delayedFunction(20, function() {
+                        guiSetText(lbl_name, "");
+                    });
+                }
+
             } else {
                 if (item.classname == "Item.None") return;
 
@@ -494,6 +508,7 @@ class Inventory
             item.active = false;
             // guiSetAlpha(item.handle, INVENTORY_INACTIVE_ALPHA);
         }
+        prevInventoryLink = this;
     }
 
     function rawclick(element) {
@@ -547,7 +562,7 @@ class PlayerInventory extends Inventory
         };
 
         // buttons
-        this.components["lbl_name"]     <- this.addComponent(ELEMENT_TYPE_LABEL,  props,  0, "");
+        this.components["lbl_name"]     <- this.addComponent(ELEMENT_TYPE_LABEL, { width  = 125.0, height = 50.0 },  0, "");
         this.components["btn_use"]      <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -5, translations[playerLang]["action:use"]);
         this.components["btn_transfer"] <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -4, translations[playerLang]["action:transfer"]);
         this.components["btn_destroy"]  <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -3, translations[playerLang]["action:destroy"]);
@@ -581,8 +596,11 @@ class PlayerInventory extends Inventory
                 }
 
                 if (item.classname == "Item.VehicleKey") {
-                    text = translations[playerLang][item.classname];
-                    //text = translations[playerLang][item.classname] + "\n ["+item.amount+"]";
+                    if(item.temp.len() > 0) {
+                        text = translations[playerLang][item.classname] + "\n" + item.temp.plate + "\n" + item.temp.modelName;
+                    } else {
+                        text = translations[playerLang][item.classname] + "\n" + translations[playerLang]["vehicle:notfound"];
+                    }
                 }
 
                 guiSetText(this.components["lbl_name"], text);
@@ -643,7 +661,9 @@ class PlayerInventory extends Inventory
 
         // drop item via clicking outside screen
         if (element == backbone["window"] && selectedItem) {
-            guiSetText(this.components["lbl_name"], "");
+            delayedFunction(25, function() {
+                 guiSetText(this.components["lbl_name"], "");
+            });
             selectedItem.active = false;
             trigger("inventory:drop", selectedItem.parent.id, selectedItem.slot);
             selectedItem = null;
@@ -683,8 +703,8 @@ class PlayerHands extends Inventory
         backbone["ihands"] = this;
     }
 
-    function createItem(slot, classname, type, amount = 0, volume = 0.0) {
-        return base.createItem(slot, classname, type, amount, volume, true);
+    function createItem(slot, classname, type, amount = 0, volume = 0.0, data = {}, temp = {}) {
+        return base.createItem(slot, classname, type, amount, volume, data, temp, true);
     }
 
     function hide() {
@@ -747,6 +767,13 @@ class StorageInventory extends Inventory
 
     }
 
+    function click(item) {
+        base.click(item);
+
+        // sendMessage(item.classname)
+        // sendMessage("active: "+item.active)
+    }
+
     function rawclick(element) {
         foreach (idx, value in this.components) {
             if (element != value) {
@@ -799,6 +826,13 @@ class VehicleInventory extends Inventory
         };
 
         this.setTitle();
+    }
+
+
+    function click(item) {
+        base.click(item);
+
+        // sendMessage("VehicleInventory: "+item.classname)
     }
 
 }
@@ -938,7 +972,7 @@ event("onClientFrameRender", function(afterGUI) {
                 pos.x += window[0];
                 pos.y += window[1];
             }
-            roundedRectangle(pos.x+1.0, pos.y+1.0, inventory.guiCellSize-2.0, inventory.guiCellSize-2.0, 0x50AF8E4D)
+            roundedRectangle(pos.x+1.0, pos.y+1.0, inventory.guiCellSize-2.0, inventory.guiCellSize-2.0, 0xFFAF8E4D)
             //dxDrawRectangle(pos.x, pos.y, inventory.guiCellSize, inventory.guiCellSize, 0x61AF8E4D);
         }
 
@@ -1072,7 +1106,7 @@ function drawWorldGround() {
     local pos    = { x = curpos[0], y = curpos[1], z = curpos[2] }; if (typeof pos != "table" || pos.len() != 3) return;
     local radius = ground.distance;                                 if (typeof radius != "float") return;
     local nearitem = false;
-    local text = "Press E to pick up item";
+    local text = "Нажмите \"Е\", чтобы подобрать предмет";
 
     local items = ground.current.filter(function(i, item) {
         return (
@@ -1102,13 +1136,14 @@ function drawWorldGround() {
 
     // draw them !
     items.map(function(item) {
-        local item_texture  = getGroundTexture(item.classname);           if (typeof item_texture != "userdata") return;
-        local item_screen   = getScreenFromWorld(item.x.tofloat(), item.y.tofloat(), item.z.tofloat()); if (typeof item_screen != "array" || item_screen.len() != 3) return;
+        local item_texture  = getGroundTexture(item.classname);
+        // local item_screen   = getScreenFromWorld(item.x.tofloat(), item.y.tofloat(), item.z.tofloat()); if (typeof item_screen != "array" || item_screen.len() != 3) return;
         local item_distance = getDistanceBetweenPoints3D(item.x.tofloat(), item.y.tofloat(), item.z.tofloat(), pos.x, pos.y, pos.z); if (typeof item_distance != "float") return;
 
-        if (item_distance < ground.distance && item_screen[2] < 1.0) {
+        if (item_distance < ground.distance /*&& item_screen[2] < 1.0*/) {
             local scale = 1 - (((item_distance > ground.distance) ? ground.distance : item_distance) / ground.distance);
-            dxDrawTexture(item_texture, item_screen[0].tofloat(), item_screen[1].tofloat(), scale.tofloat(), scale.tofloat(), 0.5, 0.5, 0.0, ground.alpha);
+            // dxDrawTextureWorld(item_texture, item.x.tofloat(), item.y.tofloat(), item.z.tofloat(), scale.tofloat(), scale.tofloat(), 0.5, 0.5, 0.0, ground.alpha);
+            dxDrawTextureWorld(item_texture, item.x.tofloat(), item.y.tofloat(), item.z.tofloat(), scale.tofloat(), scale.tofloat(), 0.5, 0.5, 0.0, ground.alpha);
         }
 
         if (item_distance < 1.0) {
@@ -1116,7 +1151,7 @@ function drawWorldGround() {
         }
 
         if(!item.isPickable) {
-            text = "Press E to explore";
+            text = "Нажмите \"Е\", чтобы исследовать";
         }
     });
 

@@ -1,102 +1,189 @@
-local MAX_CHANNEL_COUNT = 64;
+local stations = ["Delta", "Classic", "Empire"];
 
-function getVehicleRadioChannel(vehicleid) {
+function getVehicleRadioStationObj(vehicleid) {
     local veh = getVehicleEntity(vehicleid);
     if(veh == null) return false;
 
-    if( !("radio" in veh.data.options)) {
+    if(!("audio" in veh.data.options)) {
         return false;
     }
 
-     return veh.data.options.radio;
+    return veh.data.options.audio;
 }
 
-function sendRadioMsg(playerid, text) {
-    if ( !isPlayerInVehicle(playerid) ) {
-        return msg(playerid, "vehicle.options.radio.not-in-car");
+function getCurrentVehicleRadioStation(vehicleid) {
+    local obj = getVehicleRadioStationObj(vehicleid)
+
+    return obj ? obj.station : false;
+}
+
+function isVehicleRadioEnabled(vehicleid) {
+    local obj = getVehicleRadioStationObj(vehicleid)
+
+    return obj && obj.enabled;
+}
+
+function setVehicleDefaultRadioStationObj(vehicleid, playerid = -1) {
+    local veh = getVehicleEntity(vehicleid);
+    if(veh == null) return false;
+
+    veh.data.options.audio <- {
+        station = stations[2], // Empire
+        enabled = true
     }
 
-    local vehicleid = getPlayerVehicle(playerid);
-    local radioChannel = getVehicleRadioChannel(vehicleid);
+    if(playerid > -1) {
+        triggerClientEvent(playerid, "setRadio", "Empire");
+        triggerClientEvent(playerid, "setRadioOn");
+    }
+}
 
-    if(radioChannel == false) {
-        return msg(playerid, "vehicle.options.radio.not-installed");
+function applyVehicleRadio(vehicleid, playerid) {
+    local obj = getVehicleRadioStationObj(vehicleid);
+    if(!obj) return;
+
+    triggerClientEvent(playerid, "setRadio", obj.station);
+    delayedFunction(10, function() {
+        triggerClientEvent(playerid, "setRadio" + (obj.enabled ? "On" : "Off"));
+    })
+
+    dbg("applyVehicleRadio", vehicleid, playerid, obj.station, obj.enabled)
+}
+
+function setNextVehicleRadioStation(vehicleid) {
+    local obj = getVehicleRadioStationObj(vehicleid)
+
+    if(!obj) {
+        return;
     }
 
-    foreach (vehicleid, vehicle in __vehicles) {
-        local entity = getVehicleEntity(vehicleid);
-        if(entity == null) continue;
-        if(!("radio" in entity.data.options)) continue;
-        if(entity.data.options.radio != radioChannel) continue;
-        local passengers = getVehiclePassengers(vehicleid);
-        foreach (seat, targetid in passengers) {
-            msg( targetid, "vehicle.options.radio.msg", [radioChannel, text], CL_ROYALBLUE );
+    if(!obj.enabled) {
+        obj.station = stations[0]; // Delta
+        obj.enabled = true;
+    }
+
+    else if(obj.station == "Empire") {
+        obj.enabled = false;
+    }
+
+    else if(obj.station == "Delta") {
+        obj.station = "Classic";
+    }
+
+    else if(obj.station == "Classic") {
+        obj.station = "Empire";
+    }
+
+    local passengers = getVehiclePassengers(vehicleid);
+    dbg("passengers")
+    dbg(passengers)
+    foreach (seat, playerid in passengers) {
+        dbg(seat, playerid)
+        if(seat != 0) {
+            dbg("apply", vehicleid, playerid)
+            applyVehicleRadio(vehicleid, playerid);
         }
     }
 }
 
-cmd(["r", "radio"], function(playerid, ...) {
-    sendRadioMsg(playerid, concat(vargv));
+function setPrevVehicleRadioStation(vehicleid) {
+    local obj = getVehicleRadioStationObj(vehicleid)
+
+    if(!obj) {
+        return;
+    }
+
+    if(!obj.enabled) {
+        obj.station = stations[2]; // Empire
+        obj.enabled = true;
+    }
+
+    else if(obj.station == "Delta") {
+        obj.enabled = false;
+    }
+
+    else if(obj.station == "Empire") {
+        obj.station = "Classic";
+    }
+
+    else if(obj.station == "Classic") {
+        obj.station = "Delta";
+    }
+
+    local passengers = getVehiclePassengers(vehicleid);
+    dbg("passengers")
+    dbg(passengers)
+
+    foreach (seat, playerid in passengers) {
+        dbg(seat, playerid)
+        if(seat != 0) {
+            dbg("apply", vehicleid, playerid)
+            applyVehicleRadio(vehicleid, playerid);
+        }
+    }
+}
+
+event("onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
+    if(seat == 0) {
+        delayedFunction(3000, function() {
+            msg(playerid, "timer end, binding key...")
+
+            local veh = getVehicleEntity(vehicleid);
+            if(veh == null) return false;
+
+            if(!("audio" in veh.data.options)) {
+                setVehicleDefaultRadioStationObj(vehicleid, playerid);
+            } else {
+                applyVehicleRadio(vehicleid, playerid);
+            }
+
+            privateKey(playerid, ".", "radioNext", function(playerid) { setNextVehicleRadioStation(vehicleid) });
+            privateKey(playerid, ",", "radioPrev", function(playerid) { setPrevVehicleRadioStation(vehicleid) });
+        });
+    } else {
+        dbg("delay start")
+        delayedFunction(3000, function() {
+            applyVehicleRadio(vehicleid, playerid);
+        });
+    }
 });
 
-cmd(["r", "radio"], "set", function(playerid, newChannel = 0) {
-    if (!isPlayerInVehicle(playerid)) {
-        return msg(playerid, "vehicle.options.radio.not-in-car");
+event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
+    if(seat == 0) {
+        msg(playerid, "removing bindkey...");
+        removePrivateKey(playerid, ".", "radioNext");
+        removePrivateKey(playerid, ",", "radioPrev");
     }
-
-    local vehicleid = getPlayerVehicle(playerid);
-    local channel = getVehicleRadioChannel(vehicleid);
-
-    if(channel == false) {
-        return msg(playerid, "vehicle.options.radio.not-installed");
-    }
-
-    newChannel = toInteger(newChannel);
-
-    if(newChannel < 0 || newChannel > 64) {
-        return msg(playerid, "vehicle.options.radio.channel-limit", [ MAX_CHANNEL_COUNT] );
-    }
-
-    local veh = getVehicleEntity(vehicleid);
-    veh.data.options.radio = newChannel;
-
-    msg(playerid, "vehicle.options.radio.channel-changed", [newChannel]);
-});
-
-cmd(["r", "radio"], "get", function(playerid) {
-    if ( !isPlayerInVehicle(playerid) ) {
-        return msg(playerid, "vehicle.options.radio.not-in-car");
-    }
-
-    local vehicleid = getPlayerVehicle(playerid);
-    local channel = getVehicleRadioChannel(vehicleid);
-
-    if(channel == false) {
-        return msg(playerid, "vehicle.options.radio.not-installed");
-    }
-
-    msg(playerid, "vehicle.options.radio.channel-current", [channel]);
 });
 
 
-alternativeTranslate({
+key("4", function(playerid) {
+    msg(playerid, "set Delta");
+    triggerClientEvent(playerid, "setRadio", "Delta");
+});
 
-    "en|vehicle.options.radio.msg"             : "[RADIO] [channel: %d]: %s"
-    "ru|vehicle.options.radio.msg"             : "[РАЦИЯ] [канал: %d]: %s"
+key("5", function(playerid) {
+    msg(playerid, "set Classic");
+    triggerClientEvent(playerid, "setRadio", "Classic");
+});
 
-    "en|vehicle.options.radio.not-in-car"      : "You can use the radio only while in the car."
-    "ru|vehicle.options.radio.not-in-car"      : "Воспользоваться рацией можно только находясь в автомобиле."
+key("6", function(playerid) {
+    msg(playerid, "set Empire");
+    triggerClientEvent(playerid, "setRadio", "Empire");
+});
 
-    "en|vehicle.options.radio.not-installed"   : "There's no radio in the car."
-    "ru|vehicle.options.radio.not-installed"   : "В автомобиле не установлена рация."
+key("7", function(playerid) {
+    msg(playerid, "set radio on");
+    triggerClientEvent(playerid, "setRadioOn");
+});
 
-    "en|vehicle.options.radio.channel-limit"   : "Channel must be a number from 0 to %d"
-    "ru|vehicle.options.radio.channel-limit"   : "Канал должен быть числом от 0 до %d."
+key("8", function(playerid) {
+    msg(playerid, "set radio off");
+    triggerClientEvent(playerid, "setRadioOff");
+});
 
-    "en|vehicle.options.radio.channel-changed" : "New channel: %d."
-    "ru|vehicle.options.radio.channel-changed" : "Установлен канал: %d."
 
-    "en|vehicle.options.radio.channel-current" : "Current channel: %d."
-    "ru|vehicle.options.radio.channel-current" : "Текущий канал: %d."
-
+key("9", function(playerid) {
+    msg(playerid, "set content");
+    triggerClientEvent(playerid, "setRadioContent", "Delta", "21010");
 });

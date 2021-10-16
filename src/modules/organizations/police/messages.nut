@@ -21,8 +21,8 @@ function policeCarRadioBinder(playerid) {
         return;
     }
 
-    if(getVehicleRadioChannel(vehicleid) == false) {
-        return msg(playerid, "vehicle.options.radio.not-installed");
+    if(getVehicleWalkieTalkieChannel(vehicleid) == false) {
+        return msg(playerid, "vehicle.options.walkietalkie.not-installed");
     }
 
     setPlayerBinderState(playerid, "v_policecar");

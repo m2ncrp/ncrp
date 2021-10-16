@@ -17,6 +17,21 @@ class Item.VehicleKey extends Item.Abstract
         msg(playerid, getVehiclePlateText(vehicleid)+" - "+getVehicleNameByModelId( getVehicleModel(vehicleid) ), CL_WHITE);
     }
 
+    function serialize() {
+        local data = base.serialize();
+
+        local vehicleid = getVehicleIdFromEntityId(this.data.id);
+
+        if(vehicleid != false) {
+            data.temp = {
+                plate = getVehiclePlateText(vehicleid),
+                modelName = getVehicleNameByModelId(getVehicleModel(vehicleid))
+            }
+        }
+
+        return data;
+    }
+
     static function getType() {
         return "Item.VehicleKey";
     }

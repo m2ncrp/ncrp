@@ -57,6 +57,8 @@ mcmd(["admin.item"], "key", function( playerid, plateText = 0 ) {
 
     local entityid = getVehicleEntityId(vehicleid);
 
+    if (entityid < 0) return msg(playerid, "Не удалось создать ключ: entityid равен -1");
+
     vehicleKey.setData("id", entityid);
 
     players[playerid].inventory.push( vehicleKey );

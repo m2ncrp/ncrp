@@ -170,7 +170,7 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     if (getVehicleFuel(vehicleid) > 0 && seat == 0) {
         // set state of the engine as on
         if (vehicleid in __vehicles) {
-            __vehicles[vehicleid].state = true;
+            __vehicles[vehicleid].engineState = true;
         }
     }
 
@@ -220,9 +220,9 @@ key(["f"], function(playerid) {
     local hasKey = isPlayerHaveVehicleKey(playerid, vehicleid);
 
     if (!hasKey) {
-        setVehicleEngineState(vehicleid, true)
+        setVehicleEngineState(vehicleid, true);
         delayedFunction(125, function() {
-            setVehicleEngineState(vehicleid, false)
+            setVehicleEngineState(vehicleid, false);
         })
         return;
     }
@@ -238,11 +238,9 @@ key(["f"], function(playerid) {
             blockVehicle(vehicleid);
         }
     });
-
-
 }, KEY_UP);
 
-key(["w", "s"], function(playerid) {
+key(["w", "s", "arrow_up", "arrow_down"], function(playerid) {
     if (!isPlayerInVehicle(playerid)) {
         return;
     }
@@ -254,10 +252,10 @@ key(["w", "s"], function(playerid) {
     }
 
     if(getVehicleFuel(vehicleid) > 0 && vehicleid in __vehicles) {
-        __vehicles[vehicleid].state = true;
+        __vehicles[vehicleid].engineState = true;
     }
 
-}, KEY_BOTH);
+}, KEY_DOWN);
 
 // handle vehicle exit
 event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {

@@ -1,8 +1,8 @@
 /**
  * Teleport player to other player
  * Usage:
- *     /p2p 0 15
- *     /p2p 0 15 32.0
+ *     /pp 0 15
+ *     /pp 0 15 32.0
  */
 acmd("pp", function(playerid, targetid1 = null, targetid2 = null, offset = 2.0) {
     local targetid1 = toInteger(targetid1);
@@ -13,7 +13,7 @@ acmd("pp", function(playerid, targetid1 = null, targetid2 = null, offset = 2.0) 
     }
 
     if (isPlayerInVehicle(targetid1)) {
-        return msg(playerid, format("Player is in the vehicle, use /vtop %d %d", targetid1, targetid2), CL_WARNING);
+        return msg(playerid, format("Player is in the vehicle, use /vp %d %d", targetid1, targetid2), CL_WARNING);
     }
 
     local pos = getPlayerPosition(targetid2);
@@ -25,14 +25,14 @@ acmd("pp", function(playerid, targetid1 = null, targetid2 = null, offset = 2.0) 
  * Teleport vehicle to vehicle
  * NOTE: always offseted +2 by x axis
  * Usage:
- *     /v2v 0 15
- *     /v2v 0 15 32.0
+ *     /vv 0 15
+ *     /vv 0 15 32.0
  */
 acmd("vv", function(playerid, targetid1 = null, targetid2 = null, offset = 1.0) {
     local targetid1 = toInteger(targetid1);
     local targetid2 = toInteger(targetid2);
 
-    if (targetid1 == null || targetid2 == null || !(targetid1 in __vehicles) || !(targetid2 in __vehicles)) {
+    if (targetid1 == null || targetid2 == null || !(targetid1 in __vehicles) || !(targetid2 in __vehicles) || !__vehicles[targetid1].spawned || !__vehicles[targetid2].spawned) {
         return msg(playerid, "Provide created vehicleids.", CL_ERROR);
     }
 
@@ -44,14 +44,14 @@ acmd("vv", function(playerid, targetid1 = null, targetid2 = null, offset = 1.0) 
 /**
  * Teleport player to vehicle
  * Usage:
- *     /p2v 0 15
- *     /p2v 0 15 32.0
+ *     /pv 0 15
+ *     /pv 0 15 32.0
  */
 acmd("pv", function(playerid, targetid1 = null, targetid2 = null, offset = 1.2) {
     local targetid1 = toInteger(targetid1);
     local targetid2 = toInteger(targetid2);
 
-    if (targetid1 == null || targetid2 == null || !isPlayerConnected(targetid1) || !(targetid2 in __vehicles)) {
+    if (targetid1 == null || targetid2 == null || !isPlayerConnected(targetid1) || !(targetid2 in __vehicles) || !__vehicles[targetid2].spawned) {
         return msg(playerid, "Provide connected player and created vehicleid.", CL_ERROR);
     }
 
@@ -64,14 +64,14 @@ acmd("pv", function(playerid, targetid1 = null, targetid2 = null, offset = 1.2) 
  * Teleport vehicle to player
  * NOTE: always offseted +2 by x axis
  * Usage:
- *     /v2p 0 15
- *     /v2p 0 15 32.0
+ *     /vp 0 15
+ *     /vp 0 15 32.0
  */
 acmd("vp", function(playerid, targetid1 = null, targetid2 = null, offset = 0.1) {
     local targetid1 = toInteger(targetid1);
     local targetid2 = toInteger(targetid2);
 
-    if (targetid1 == null || targetid2 == null || !(targetid1 in __vehicles) || !isPlayerConnected(targetid2)) {
+    if (targetid1 == null || targetid2 == null || !(targetid1 in __vehicles) || !__vehicles[targetid1].spawned || !isPlayerConnected(targetid2)) {
         return msg(playerid, "Provide created vehicleid and connected player.", CL_ERROR);
     }
 
