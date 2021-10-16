@@ -244,11 +244,11 @@ function showIdentificationGui(playerid, delay = 2000) {
             showRegisterGUI(playerid, delay);
         }
 
-        msg(playerid, "Что-то пошло не так :(", CL_RED);
-        msg(playerid, "Попробуйте переподключиться к серверу.", CL_SILVERSAND);
-        msg(playerid, "Если данная проблема повторяется более 5 раз - напишите нам:", CL_SILVERSAND);
-        msg(playerid, "VK: vk.com/m2ncrp", CL_SILVERSAND);
-        msg(playerid, "Discord: bit.ly/m2ncrp", CL_SILVERSAND);
+        // msg(playerid, "Что-то пошло не так :(", CL_RED);
+        // msg(playerid, "Попробуйте переподключиться к серверу.", CL_SILVERSAND);
+        // msg(playerid, "Если данная проблема повторяется более 5 раз - напишите нам:", CL_SILVERSAND);
+        // msg(playerid, "VK: vk.com/m2ncrp", CL_SILVERSAND);
+        // msg(playerid, "Discord: bit.ly/m2ncrp", CL_SILVERSAND);
     }
 }
 
