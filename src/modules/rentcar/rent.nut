@@ -23,7 +23,7 @@ function RentCar(playerid) {
 
     setVehicleRespawnEx(vehicleid, false);
 
-    subMoneyToPlayer( playerid, rentprice );
+    subPlayerMoney( playerid, rentprice );
 
     local tax = getGovernmentValue("taxSales") * 0.01;
 
@@ -145,7 +145,7 @@ event("onServerMinuteChange", function() {
             msg(playerid, "rentcar.cantrent");
         } else {
             local rentprice = round(price / 60 * 10, 2);
-            subMoneyToPlayer(playerid, rentprice);
+            subPlayerMoney(playerid, rentprice);
             local veh = getVehicleEntity(vehicleid);
             veh.data.rent.money += rentprice;
             msg(playerid, "rentcar.paidcar", [ rentprice ] );

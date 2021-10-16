@@ -105,7 +105,7 @@ function policeGiveTicket(playerid, value) {
 
                 msg(targetid, "organizations.police.ticket.givewithreason", [getAuthor(playerid), target_reason, price], CL_CHESTNUT);
                 msg(playerid, "organizations.police.ticket.given", [getAuthor(targetid), player_reason, price], CL_CHESTNUT);
-                subMoneyToPlayer(targetid, price);
+                subPlayerMoney(targetid, price);
                 nano({
                     "path": "discord",
                     "server": "police",
@@ -114,7 +114,7 @@ function policeGiveTicket(playerid, value) {
                     "title": getKnownCharacterName(playerid, targetid),
                     "description": "Получил штраф",
                     "color": "blue",
-                    "datetime": getDateTime(),
+                    "datetime": getVirtualDate(),
                     "fields": [
                         ["Нарушение", reasonText],
                         ["Сумма", format("$ %.2f", price)]

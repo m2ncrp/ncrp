@@ -283,7 +283,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
     local ticketcost = 45.0;
 
     //warnUp(0, playerid);
-    subMoneyToPlayer(playerid, ticketcost);
+    subPlayerMoney(playerid, ticketcost);
     addTreasuryMoney(ticketcost);
     return msg(playerid, "organizations.police.kosoypereulok.ticket", [ticketcost], CL_THUNDERBIRD);
 });
@@ -500,7 +500,7 @@ function fuelGetSalary( playerid ) {
     local amount = FUEL_JOB_SALARY + (random(-1, 1)).tofloat() + getSalaryBonus();
     players[playerid].data.jobs.fueldriver.count += 1;
     msg( playerid, "job.fueldriver.nicejob", amount, FUEL_JOB_COLOR );
-    addMoneyToPlayer(playerid, amount);
+    addPlayerMoney(playerid, amount);
     subWorldMoney(amount);
 }
 

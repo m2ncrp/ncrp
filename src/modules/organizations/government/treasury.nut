@@ -43,7 +43,7 @@ fmd("gov", ["gov.treasury"], "$f treasury add", function(fraction, character, am
         return msg(character.playerid, "treasury.player.notenough", CL_THUNDERBIRD);
     }
 
-    subMoneyToPlayer(character.playerid, amount);
+    subPlayerMoney(character.playerid, amount);
     addTreasuryMoney(amount);
 
     local moneyInTreasuryNow = getTreasuryMoney();
@@ -56,7 +56,7 @@ fmd("gov", ["gov.treasury"], "$f treasury add", function(fraction, character, am
         "author": getPlayerName(character.playerid),
         "description": "Приход",
         "color": "green",
-        "datetime": getDateTime(),
+        "datetime": getVirtualDate(),
         "direction": false,
         "fields": [
             ["Сумма", format("$ %.2f", amount)],
@@ -82,7 +82,7 @@ fmd("gov", ["gov.treasury"], "$f treasury sub", function(fraction, character, am
 
     subTreasuryMoney(amount);
     local moneyInTreasuryNow = getTreasuryMoney();
-    addMoneyToPlayer(character.playerid, amount);
+    addPlayerMoney(character.playerid, amount);
 
     msg(character.playerid, "treasury.sub", [ amount.tofloat(), moneyInTreasuryNow ], CL_THUNDERBIRD );
     nano({
@@ -93,7 +93,7 @@ fmd("gov", ["gov.treasury"], "$f treasury sub", function(fraction, character, am
         "author": getPlayerName(character.playerid),
         "description": "Расход",
         "color": "red",
-        "datetime": getDateTime(),
+        "datetime": getVirtualDate(),
         "direction": false,
         "fields": [
             ["Сумма", format("$ %.2f", amount)],

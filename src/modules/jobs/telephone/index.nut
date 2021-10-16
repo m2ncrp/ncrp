@@ -483,7 +483,7 @@ function callByPhone (playerid, number = null, isbind = false) {
         if(!canMoneyBeSubstracted(playerid, PHONE_CALL_PRICE)) {
             return msg(playerid, "telephone.notenoughmoney");
         }
-        subMoneyToPlayer(playerid, PHONE_CALL_PRICE);
+        subPlayerMoney(playerid, PHONE_CALL_PRICE);
         addWorldMoney(PHONE_CALL_PRICE);
     }
 

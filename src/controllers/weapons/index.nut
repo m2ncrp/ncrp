@@ -41,7 +41,7 @@ cmd("gun", "buy", function(playerid, weaponid) {
         return msg(playerid, "shops.gunshop.weapon.not", CL_ERROR);
     }
 
-    subMoneyToPlayer(playerid, 25.0);
+    subPlayerMoney(playerid, 25.0);
     givePlayerWeapon(playerid, weaponid.tointeger(), 200);
     trigger("onPlayerBoughtWeapon", playerid, weaponid);
     msg(playerid, "shops.gunshop.weapon.bought", CL_SUCCESS);

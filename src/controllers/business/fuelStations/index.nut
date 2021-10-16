@@ -138,7 +138,7 @@ function removeTruckFromUnloadingQueue(vehid) {
 }
 
 addEventHandlerEx("onServerStarted", function() {
-    logStr("[shops] loading fuel stations and canister shops...");
+    logStr("[biz] loading fuel stations and canister shops...");
 
     foreach (name, station in coords) {
         createPlace(format("%s%s", FUELSTATION_PREFIX, name), station.zone[0], station.zone[1], station.zone[2], station.zone[3]);
@@ -410,7 +410,7 @@ function fuelJerrycanBuy(playerid) {
     players[playerid].hands.push( canister);
     canister.save();
     players[playerid].hands.sync();
-    subMoneyToPlayer(playerid, JERRYCAN_COST);
+    subPlayerMoney(playerid, JERRYCAN_COST);
     addWorldMoney(JERRYCAN_COST);
 }
 
@@ -609,10 +609,10 @@ function isNearFuelStation(playerid) {
     return false;
 }
 
-acmd( ["fuel"], "low", function( playerid ) {
-    local vehicleid = getPlayerVehicle(playerid);
-    return setVehicleFuel(vehicleid, 10.0);
-});
+// acmd( ["fuel"], "low", function( playerid ) {
+//     local vehicleid = getPlayerVehicle(playerid);
+//     return setVehicleFuel(vehicleid, 10.0);
+// });
 
 function getFuelStationCache(charid) {
     return charid in fuelStationCache ? fuelStationCache[charid] : null;

@@ -153,7 +153,7 @@ event("bankPlayerDeposit", function(playerid, amount = "") {
         }
     }
 
-    subMoneyToPlayer(playerid, amount);
+    subPlayerMoney(playerid, amount);
     addMoneyToDeposit(playerid, amount);
 
     trigger(playerid, "bankSetErrorText",  plocalize(playerid, "bank.deposit.completed", [amount]));
@@ -193,7 +193,7 @@ event("bankPlayerWithdraw", function(playerid, amount = "") {
     }
 
     subMoneyToDeposit(playerid, amount);
-    addMoneyToPlayer(playerid, amount);
+    addPlayerMoney(playerid, amount);
     trigger(playerid, "bankSetErrorText", plocalize(playerid, "bank.withdraw.completed", [amount]));
     trigger(playerid, "bankUpdateBalance", bankGetPlayerDeposit(playerid));
 });

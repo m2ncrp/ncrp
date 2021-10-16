@@ -16,7 +16,9 @@ class World extends ORM.Entity
         // triggerClientEvent(playerid, "onServerTimeSync", this.minute, this.hour, this.day, this.month, this.year.tostring());
         trigger(playerid, "onServerIntefaceTime",
             format("%02d:%02d", this.hour, this.minute),
-            format("%02d.%02d.%04d", this.day, this.month, this.year)
+            // format("%02d.%02d.%04d", this.day, this.month, this.year)
+            // format("%02d %s, %s %d", this.day, localize("world.cyr.month.min."+this.month, [], "ru"), localize("world.cyr.year", [], "ru"), getVirtualYear())
+            format("%02d %s", this.day, localize("world.cyr.month."+this.month, [], "ru"))
         );
     }
 

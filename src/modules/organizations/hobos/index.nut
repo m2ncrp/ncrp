@@ -174,7 +174,7 @@ event("onServerHourChange", function() {
         if(playerid != -1) {
             if (!isPlayerHaveJob(playerid) && !isPlayerAfk(playerid) && minutes >= 30) {
                 sum += amount;
-                addMoneyToPlayer(playerid, amount);
+                addPlayerMoney(playerid, amount);
                 msg(playerid, "organizations.unemployed.income", [amount], CL_SUCCESS);
             //} else {
             //    msg(playerid, "organizations.unemployed.no-income", CL_ERROR);
@@ -193,7 +193,7 @@ event("onServerHourChange", function() {
             "title": "Выплата пособий по безработице",
             "description": format("$ %.2f", sum),
             "color": "yellow",
-            "datetime": getDateTime(),
+            "datetime": getVirtualDate(),
         });
     }
 

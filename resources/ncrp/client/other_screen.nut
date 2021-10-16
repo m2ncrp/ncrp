@@ -149,7 +149,7 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
 
     // draw date
     offset = dxGetTextDimensions(drawdata.date, 1.4, "tahoma-bold")[0].tofloat();
-    dxDrawText(drawdata.date, screenX - offset - 25.0, 58.0, 0xFFE4E4E4, false, "tahoma-bold", 1.4 );
+    dxDrawText(drawdata.date, screenX - offset - 20.0, 58.0, 0xFFE4E4E4, false, "tahoma-bold", 1.4 );
 
     /**
      * Category: bottom-right
@@ -297,12 +297,12 @@ addEventHandler("onServerIntefaceCharacterJob", function(job) {
 });
 
 addEventHandler("onServerIntefaceCharacterLevel", function(level) {
-    drawdata.level = "Your level: " + level;
+    //drawdata.level = "Your level: " + level;
 });
 
 addEventHandler("onServerIntefaceCharacter", function(job, level) {
     drawdata.state = "Job: " + job;
-    drawdata.level = "Your level: " + level;
+    //drawdata.level = "Your level: " + level;
 });
 
 addEventHandler("onServerInterfaceMoney", function(money) {

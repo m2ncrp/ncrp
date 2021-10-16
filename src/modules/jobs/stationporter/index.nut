@@ -295,7 +295,7 @@ function porterJobPutBox( playerid ) {
     local amount = PORTER_SALARY + round(getSalaryBonus() / 50, 2);
     players[playerid].data.jobs.porter.count += 1;
     msg( playerid, "job.porter.nicejob", amount, PORTER_JOB_COLOR );
-    addMoneyToPlayer(playerid, amount);
+    addPlayerMoney(playerid, amount);
     subWorldMoney(amount);
 
     job_porter[getCharacterIdFromPlayerId(playerid)]["blip3dtext"] = porterJobCreatePrivateBlipText(playerid, PORTER_JOB_TAKEBOX_X, PORTER_JOB_TAKEBOX_Y, PORTER_JOB_TAKEBOX_Z, plocalize(playerid, "TAKEBOXHERE"), plocalize(playerid, "3dtext.job.press.E"));

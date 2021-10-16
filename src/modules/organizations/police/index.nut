@@ -141,7 +141,7 @@ function policeJobPaySalary(playerid) {
     local rank = getPoliceRank(playerid);
     local coeff = POLICE_RANK_SALLARY_PERMISSION_SKIN[rank][0];
     local summa = police[playerid]["ondutyminutes"] * POLICE_SALARY * coeff;
-    addMoneyToPlayer(playerid, summa);
+    addPlayerMoney(playerid, summa);
     subWorldMoney(summa);
     msg(playerid, "organizations.police.income", [summa.tofloat(), getLocalizedPlayerJob(playerid)], CL_SUCCESS);
     police[playerid]["ondutyminutes"] = 0;
@@ -205,7 +205,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
     local ticketcost = 45.0;
     //local vehicleid = getPlayerVehicle(playerid);
     //if(!canMoneyBeSubstracted(playerid, ticketcost)) { msg(playerid, "organizations.police.kosoypereulok.nomoney", CL_THUNDERBIRD); return; }
-    subMoneyToPlayer(playerid, ticketcost);
+    subPlayerMoney(playerid, ticketcost);
     addTreasuryMoney(ticketcost);
     msg(playerid, "organizations.police.kosoypereulok.ticket", [ticketcost], CL_THUNDERBIRD); return;
 });
