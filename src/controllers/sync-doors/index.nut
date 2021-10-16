@@ -3,7 +3,9 @@ include("controllers/sync-doors/models/Door.nut");
 local coords = {
   clemente = [-28.1281, 1577.48, 100.376, 1848.97],
   seagift = [289.917, 42.6427, 426.186, 189.896],
-  forge = [1366.69, 1150.28, 1011.31, 1400.56]
+  forge = [1366.69, 1150.28, 1011.31, 1400.56],
+  port1 = [0.0, 0.0, 0.0, 0.0],
+  port2 = [0.0, 0.0, 0.0, 0.0],
 }
 
 local doors = {};
