@@ -228,6 +228,15 @@ event("native:onPlayerChat", function(playerid, message) {
         return false;
     }
 
+    // NOTE(inlife): send technical message to all except current player
+    if (message == "__chat:typing:start" || message == "__chat:typing:stop") {
+        foreach(pid, player in players) {
+            if (pid != playerid) sendPlayerMessage(pid, message);
+        }
+
+        return true;
+    }
+
     if (message.len() >= 3) {
         if(message[0] == '-' && message[1] == ' ' && message[2] == ' ') {
             dbg("admin", "kicked", getPlayerName(playerid));

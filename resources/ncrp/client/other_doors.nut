@@ -101,6 +101,12 @@ addCommandHandler( "next",
 		executeLua("DelayBuffer:Insert(function(l_1_0) CommandBuffer:Insert(l_6_0,{ function(l_1_0)return game.radio:AdvanceTime() end}) end,{l_1_0},500,1,false)")
     }
 );
+
+addEventHandler("setRadioContent", function(stationName, contentName) {
+	executeLua("DelayBuffer:Insert(function(l_1_0) CommandBuffer:Insert(l_6_0,{ function(l_1_0)return game.radio:SetContent('"+stationName+"','all','"+contentName+"') end}) end,{l_1_0},500,1,false)")
+});
+
+
 addEventHandler("portOpen", function() {
   executeLua("DelayBuffer:Insert(function(l_1_0) CommandBuffer:Insert(l_6_0,{ function(l_1_0)return game.entitywrapper:GetEntityByName('LDOgate01'):Open(game.entitywrapper:GetEntityByName('LDOgate01'):GetPos(), true) end }) end,{l_1_0},500,1,false)")
 });
