@@ -972,7 +972,7 @@ event("onClientFrameRender", function(afterGUI) {
                 pos.x += window[0];
                 pos.y += window[1];
             }
-            roundedRectangle(pos.x+1.0, pos.y+1.0, inventory.guiCellSize-2.0, inventory.guiCellSize-2.0, 0x50AF8E4D)
+            roundedRectangle(pos.x+1.0, pos.y+1.0, inventory.guiCellSize-2.0, inventory.guiCellSize-2.0, 0xFFAF8E4D)
             //dxDrawRectangle(pos.x, pos.y, inventory.guiCellSize, inventory.guiCellSize, 0x61AF8E4D);
         }
 
@@ -1106,7 +1106,7 @@ function drawWorldGround() {
     local pos    = { x = curpos[0], y = curpos[1], z = curpos[2] }; if (typeof pos != "table" || pos.len() != 3) return;
     local radius = ground.distance;                                 if (typeof radius != "float") return;
     local nearitem = false;
-    local text = "Press E to pick up item";
+    local text = "Нажмите \"Е\", чтобы подобрать предмет";
 
     local items = ground.current.filter(function(i, item) {
         return (
@@ -1136,13 +1136,14 @@ function drawWorldGround() {
 
     // draw them !
     items.map(function(item) {
-        local item_texture  = getGroundTexture(item.classname);           if (typeof item_texture != "userdata") return;
-        local item_screen   = getScreenFromWorld(item.x.tofloat(), item.y.tofloat(), item.z.tofloat()); if (typeof item_screen != "array" || item_screen.len() != 3) return;
+        local item_texture  = getGroundTexture(item.classname);
+        // local item_screen   = getScreenFromWorld(item.x.tofloat(), item.y.tofloat(), item.z.tofloat()); if (typeof item_screen != "array" || item_screen.len() != 3) return;
         local item_distance = getDistanceBetweenPoints3D(item.x.tofloat(), item.y.tofloat(), item.z.tofloat(), pos.x, pos.y, pos.z); if (typeof item_distance != "float") return;
 
-        if (item_distance < ground.distance && item_screen[2] < 1.0) {
+        if (item_distance < ground.distance /*&& item_screen[2] < 1.0*/) {
             local scale = 1 - (((item_distance > ground.distance) ? ground.distance : item_distance) / ground.distance);
-            dxDrawTexture(item_texture, item_screen[0].tofloat(), item_screen[1].tofloat(), scale.tofloat(), scale.tofloat(), 0.5, 0.5, 0.0, ground.alpha);
+            // dxDrawTextureWorld(item_texture, item.x.tofloat(), item.y.tofloat(), item.z.tofloat(), scale.tofloat(), scale.tofloat(), 0.5, 0.5, 0.0, ground.alpha);
+            dxDrawTextureWorld(item_texture, item.x.tofloat(), item.y.tofloat(), item.z.tofloat(), scale.tofloat(), scale.tofloat(), 0.5, 0.5, 0.0, ground.alpha);
         }
 
         if (item_distance < 1.0) {
@@ -1150,7 +1151,7 @@ function drawWorldGround() {
         }
 
         if(!item.isPickable) {
-            text = "Press E to explore";
+            text = "Нажмите \"Е\", чтобы исследовать";
         }
     });
 

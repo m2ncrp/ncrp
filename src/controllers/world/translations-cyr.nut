@@ -1,76 +1,76 @@
 alternativeTranslate({
     "en|world.cyr.year"                : "Year"
-    "ru|world.cyr.year"                : "год"
+    "ru|world.cyr.year"                : "РіРѕРґ"
 
     "en|world.cyr.month.1"             : "January"
-    "ru|world.cyr.month.1"             : "января"
+    "ru|world.cyr.month.1"             : "СЏРЅРІР°СЂСЏ"
 
     "en|world.cyr.month.2"             : "February"
-    "ru|world.cyr.month.2"             : "февраля"
+    "ru|world.cyr.month.2"             : "С„РµРІСЂР°Р»СЏ"
 
     "en|world.cyr.month.3"             : "Mart"
-    "ru|world.cyr.month.3"             : "марта"
+    "ru|world.cyr.month.3"             : "РјР°СЂС‚Р°"
 
     "en|world.cyr.month.4"             : "April"
-    "ru|world.cyr.month.4"             : "апреля"
+    "ru|world.cyr.month.4"             : "Р°РїСЂРµР»СЏ"
 
     "en|world.cyr.month.5"             : "May"
-    "ru|world.cyr.month.5"             : "мая"
+    "ru|world.cyr.month.5"             : "РјР°СЏ"
 
     "en|world.cyr.month.6"             : "June"
-    "ru|world.cyr.month.6"             : "июня"
+    "ru|world.cyr.month.6"             : "РёСЋРЅСЏ"
 
     "en|world.cyr.month.7"             : "July"
-    "ru|world.cyr.month.7"             : "июля"
+    "ru|world.cyr.month.7"             : "РёСЋР»СЏ"
 
     "en|world.cyr.month.8"             : "August"
-    "ru|world.cyr.month.8"             : "августа"
+    "ru|world.cyr.month.8"             : "Р°РІРіСѓСЃС‚Р°"
 
     "en|world.cyr.month.9"             : "September"
-    "ru|world.cyr.month.9"             : "сентября"
+    "ru|world.cyr.month.9"             : "СЃРµРЅС‚СЏР±СЂСЏ"
 
     "en|world.cyr.month.10"            : "October"
-    "ru|world.cyr.month.10"            : "октября"
+    "ru|world.cyr.month.10"            : "РѕРєС‚СЏР±СЂСЏ"
 
     "en|world.cyr.month.11"            : "November"
-    "ru|world.cyr.month.11"            : "ноября"
+    "ru|world.cyr.month.11"            : "РЅРѕСЏР±СЂСЏ"
 
-		"en|world.cyr.month.12"            : "December"
-    "ru|world.cyr.month.12"            : "декабря"
+    "en|world.cyr.month.12"            : "December"
+    "ru|world.cyr.month.12"            : "РґРµРєР°Р±СЂСЏ"
 
     "en|world.cyr.month.min.1"             : "Jan"
-    "ru|world.cyr.month.min.1"             : "янв"
+    "ru|world.cyr.month.min.1"             : "СЏРЅРІ"
 
     "en|world.cyr.month.min.2"             : "Feb"
-    "ru|world.cyr.month.min.2"             : "фев"
+    "ru|world.cyr.month.min.2"             : "С„РµРІ"
 
     "en|world.cyr.month.min.3"             : "Mar"
-    "ru|world.cyr.month.min.3"             : "мар"
+    "ru|world.cyr.month.min.3"             : "РјР°СЂ"
 
     "en|world.cyr.month.min.4"             : "Apr"
-    "ru|world.cyr.month.min.4"             : "апр"
+    "ru|world.cyr.month.min.4"             : "Р°РїСЂ"
 
     "en|world.cyr.month.min.5"             : "May"
-    "ru|world.cyr.month.min.5"             : "мая"
+    "ru|world.cyr.month.min.5"             : "РјР°СЏ"
 
     "en|world.cyr.month.min.6"             : "Jun"
-    "ru|world.cyr.month.min.6"             : "июн"
+    "ru|world.cyr.month.min.6"             : "РёСЋРЅ"
 
     "en|world.cyr.month.min.7"             : "Jul"
-    "ru|world.cyr.month.min.7"             : "июл"
+    "ru|world.cyr.month.min.7"             : "РёСЋР»"
 
     "en|world.cyr.month.min.8"             : "Aug"
-    "ru|world.cyr.month.min.8"             : "авг"
+    "ru|world.cyr.month.min.8"             : "Р°РІРі"
 
     "en|world.cyr.month.min.9"             : "Sep"
-    "ru|world.cyr.month.min.9"             : "сен"
+    "ru|world.cyr.month.min.9"             : "СЃРµРЅ"
 
     "en|world.cyr.month.min.10"            : "Oct"
-    "ru|world.cyr.month.min.10"            : "окт"
+    "ru|world.cyr.month.min.10"            : "РѕРєС‚"
 
     "en|world.cyr.month.min.11"            : "Nov"
-    "ru|world.cyr.month.min.11"            : "ноя"
+    "ru|world.cyr.month.min.11"            : "РЅРѕСЏ"
 
-		"en|world.cyr.month.min.12"            : "Dec"
-    "ru|world.cyr.month.min.12"            : "дек"
+    "en|world.cyr.month.min.12"            : "Dec"
+    "ru|world.cyr.month.min.12"            : "РґРµРє"
 });
