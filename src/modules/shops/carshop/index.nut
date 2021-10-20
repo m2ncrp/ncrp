@@ -1,3 +1,5 @@
+include("modules/shops/carshop/translations.nut");
+
 // constants
 const CARSHOP_STATE_FREE = "free";
 const CARSHOP_DISTANCE   = 50.0; // distance for command
@@ -145,70 +147,6 @@ local carOnSale = {
 local currentcarcolor = {};
 local carPrices = {};
 
-// translations
-alternativeTranslate({
-    "en|shops.carshop.gotothere"            : "If you want to buy a car go to Diamond Motors or to uncle Jonathan!"
-    "en|shops.carshop.gotothere2"           : "If you want to buy a car go to Diamond Motors or to Bad Guy Motors!"
-    "en|shops.carshop.welcome"              : "Hello there, %s! If you want to buy a car, you should first choose it via: /car list"
-    "en|shops.carshop.nofreespace"          : "There is no free space near Parking. Please come again later!"
-    "en|shops.carshop.money.error"          : "Sorry, you dont have enough money."
-    "en|shops.carshop.selectmodel"          : "You can browse vehicle models, and their prices via: /car list"
-    "en|shops.carshop.list.title"           : "Select car you like, and proceed to buying via: /buy car MODELID"
-    "en|shops.carshop.list.entry"           : " - Model #%d, '%s'. Cost: $%.2f"
-    "en|shops.carshop.success"              : "Congratulations on your purchase! Drive safe and enjoy your trip!"
-    "en|shops.carshop.notforsale"           : "This car is not for sale."
-    "en|shops.carshop.canbuy"               : "You can buy this car for $%.2f: /buy car"
-    "en|shops.carshop.paint"                : "To change color:"
-    "en|shops.carshop.paint-controls"       : "prev color - press 1, next color - press 2."
-    "en|shops.carshop.paint2"               : "To change main color - press 1. To change advanced color - press 2."
-    "en|shops.carshop.diamondMotors.closed" : "The car shop is closed. Opening hours: %s:00 - %s:00."
-    "en|shops.carshop.welcome1"             : "Welcome to the car shop Diamond Motors."
-    "en|shops.carshop.welcome2"             : "We are pleased to offer you a wide range of cars."
-    "en|shops.carshop.welcome3"             : "Select a car that suits your needs and sit into."
-    "en|shops.carshop.waitingyou"           : "We are waiting for you to buy your «Diamond Motor»!"
-    "en|shops.carshop.dontsteal"            : "Don't try to steal the car!"
-
-    "en|shops.carshop.truck.welcome1"       : "Hello! My name is uncle Jonathan. I sell trucks. Do you want to buy?"
-    "en|shops.carshop.truck.welcome2"       : "Select a truck that suits your needs and sit into."
-    "en|shops.carshop.truckShop.closed"     : "Come back tomorrow from %s:00 to %s:00."
-
-    "en|shops.carshop.help.title"           : "List of available commands for CAR SHOP:"
-    "en|shops.carshop.help.list"            : "Lists cars which are available to buy"
-    "en|shops.carshop.help.buy"             : "Attempt to buy car by provided modelid"
-
-    "ru|shops.carshop.gotothere"            : "Если вы хотите купить авто, отправляйтесь в Diamond Motors или к дядюшке Джонатану!"
-    "ru|shops.carshop.gotothere2"           : "Если вы хотите купить авто, отправляйтесь в Diamond Motors или Bad Guy Motors!"
-    "ru|shops.carshop.welcome"              : "Добро пожаловать, %s! Если вы хотите купить авто, выберите модель через: /car list"
-    "ru|shops.carshop.nofreespace"          : "К сожалению, на парковке нету свободных мест. Зайдите позже."
-    "ru|shops.carshop.money.error"          : "К сожалению, у вас недостаточно денег."
-    "ru|shops.carshop.selectmodel"          : "Вы можете посмотреть модели авто и их цены, используя: /car list"
-    "ru|shops.carshop.list.title"           : "Выберите модель, которая вам нравится, и купите её, используя: /buy car MODELID"
-    "ru|shops.carshop.list.entry"           : " - Модель #%d, «%s». Цена: $%.2f"
-    "ru|shops.carshop.success"              : "Поздравляем с покупкой! Наслаждайтесь поездкой!"
-    "ru|shops.carshop.notforsale"           : "Этот автомобиль нельзя купить."
-    "ru|shops.carshop.canbuy"               : "Вы можете купить этот автомобиль за $%.2f: /buy car"
-    "ru|shops.carshop.paint"                : "Выбор цвета покраски:"
-    "ru|shops.carshop.paint-controls"       : "предыдущий - клавиша 1, следующий - клавиша 2."
-    "ru|shops.carshop.paint2"               : "Смена основого цвета - клавиша 1. Смена доп. цвета - клавиша 2."
-    "ru|shops.carshop.diamondMotors.closed" : "Автосалон закрыт. Чаcы работы с %s:00 до %s:00."
-    "ru|shops.carshop.welcome1"             : "Добро пожаловать в автосалон Diamond Motors."
-    "ru|shops.carshop.welcome2"             : "Мы рады предложить вам широкий ассортимент автомобилей."
-    "ru|shops.carshop.welcome3"             : "Выбирайте любое понравившееся авто и садитесь в него."
-    "ru|shops.carshop.waitingyou"           : "Ждём вас за покупкой «бриллиантового мотора»!"
-    "ru|shops.carshop.dontsteal"            : "Не пытайтесь угнать автомобиль!"
-
-    "ru|shops.carshop.truck.welcome1"       : "Привет! Меня зовут дядюшка Джонатан. Я продаю грузовики. Не желаешь приобрести?"
-    "ru|shops.carshop.truck.welcome2"       : "Выбирай любой понравившийся трак и садись в него."
-    "ru|shops.carshop.truckShop.closed"     : "Я отдыхаю. Приходи завтра с %s:00 до %s:00."
-
-
-    "ru|shops.carshop.help.title"    : "Список команд для покупки автомобиля:"
-    "ru|shops.carshop.help.list"     : "Посмотреть список авто, доступных для покупки"
-    "ru|shops.carshop.help.buy"      : "Купить выбранный автомобиль"
-});
-
-/* ==================================================================== EVENTS ================================================================================= */
-
 event("onServerStarted", function() {
     createBlip  ( DIAMOND_CARSHOP_X, DIAMOND_CARSHOP_Y, ICON_LOGO_CAR, ICON_RANGE_VISIBLE );
     createPlace(DIAMOND_MOTORS_PLACE_NAME, DIAMOND_MOTORS_PLACE_COORDS[0], DIAMOND_MOTORS_PLACE_COORDS[1], DIAMOND_MOTORS_PLACE_COORDS[2], DIAMOND_MOTORS_PLACE_COORDS[3]);
@@ -340,8 +278,11 @@ event ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
 
     local modelid = getVehicleModel(vehicleid);
     local car = getCarInfoModelById(modelid);
+    local vehInfo = getVehicleInfo(modelid);
 
-        msg(playerid, "shops.carshop.canbuy", [car.price], CL_FIREBUSH);
+        msg(playerid, "shops.carshop.model-name", [vehInfo.name], CL_FIREBUSH);
+        msg(playerid, "shops.carshop.seats", [vehInfo.seats], CL_FIREBUSH);
+        msg(playerid, "shops.carshop.trunk-grid", [vehInfo.trunk.gridSizeX, vehInfo.trunk.gridSizeY, (vehInfo.trunk.gridSizeX * vehInfo.trunk.gridSizeY)], CL_FIREBUSH);
         msg(playerid, "shops.carshop.paint", CL_SILVERSAND);
     return msg(playerid, "shops.carshop.paint-controls", CL_SILVERSAND);
 
