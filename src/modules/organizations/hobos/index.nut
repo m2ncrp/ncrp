@@ -11,7 +11,7 @@ alternativeTranslate({
     "ru|organizations.hobos.trash.found"    : "Вы нашли $%.2f. Теперь у вас $%s."
 
     "en|organizations.unemployed.income"    : "You've recieved $%.2f as unemployment compensation."
-    "ru|organizations.unemployed.income"    : "Вы получили $%.2f в качестве пособия по безработице."
+    "ru|organizations.unemployed.income"    : "Вы получили пособие по безработице в размере $%.2f."
 
     "en|organizations.unemployed.no-income" : "Sorry"
     "ru|organizations.unemployed.no-income" : "Вам не положено пособие по безработице, т.к. вы не признаны безработным."
