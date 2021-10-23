@@ -527,8 +527,8 @@ alternativeTranslate({
     "en|hello.2"     : ".:: Open map - key M."
     "ru|hello.2"     : ".:: Открыть карту - клавиша М англ."
 
-    "en|hello.3"     : ".:: Write in chat: key Enter. Show/hide chat - key F5."
-    "ru|hello.3"     : ".:: Написать в чат: Enter или англ. T. Показать/скрыть чат - F5."
+    "en|hello.3"     : ".:: Write in chat: key Enter."
+    "ru|hello.3"     : ".:: Написать в чат: Enter."
 
     "en|hello.4"     : ".:: You can get to the right place by metro, rented or private car."
     "ru|hello.4"     : ".:: Добраться до нужного места можно на метро, арендованном или личном автомобиле."

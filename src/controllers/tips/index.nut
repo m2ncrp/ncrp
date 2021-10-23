@@ -25,7 +25,6 @@ local infoTips = [
  // "tips.bugreport"    ,
     "tips.openmap"      ,
     "tips.switchchats"  ,
-    "tips.chatvisible"  ,
     "tips.turnlights"   ,
     "tips.hat"
 ];
@@ -94,9 +93,6 @@ alternativeTranslate({
 
         "en|tips.switchchats"  :   "Use F1-F3 keys to switch between different types of the chat."
         "ru|tips.switchchats"  :   "Для переключения между слотами чата используйте клавиши F1-F3."
-
-        "en|tips.chatvisible"  :   "Press F5 to show/hide window of chat."
-        "ru|tips.chatvisible"  :   "Если вы хотите скрыть чат - нажмите клавишу F5. Повторное нажатие отобразит чат."
 
         "en|tips.turnlights"   :   "X - left turn lights; C - right turn lights; H - hazard lights."
         "ru|tips.turnlights"   :   "X - левый поворотник; C - правый поворотник; H - аварийка."
