@@ -112,7 +112,7 @@ class Item.Abstract extends ORM.JsonEntity
         local charid = getCharacterIdFromPlayerId(playerid);
         if (charid in getCharsAnims()) return;
         addPlayerAnim(playerid, anim, model)
-        createPlace(format("animation_%d", charid), position[0] - 10, position[1] - 10, position[0] + 10, position[1] + 10);
+        createPlace(format("animation_%d", charid), position[0] - 100, position[1] - 100, position[0] + 100, position[1] + 100);
         triggerClientEvent(playerid, "animate", id, anim, model);
         foreach (idx, player in players) {
             local plaPos = getPlayerPosition(idx);
