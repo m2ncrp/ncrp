@@ -26,6 +26,9 @@ class Item.Abstract extends ORM.JsonEntity
     unitvolume  = 0.0;
     capacity    = 0.0;
     default_decay = 600;
+    hasAnimation = false;
+    model = 1;
+    anim_len = 3300;
 
     static name = "Default Item"; // ?
 
@@ -102,4 +105,32 @@ class Item.Abstract extends ORM.JsonEntity
     static function getType() {
         return "Item.Abstract";
     }
+
+    function animate(playerid, anim, model, id=-1) {
+        if(isPlayerInVehicle(playerid) || getPlayerState(playerid) == "cuffed" || isDockerHaveBox(playerid) || !this.hasAnimation) return;
+        local position = getPlayerPosition(playerid);
+        local charid = getCharacterIdFromPlayerId(playerid);
+        if (charid in getCharsAnims()) return;
+        addPlayerAnim(playerid, anim, model)
+        createPlace(format("animation_%d", charid), position[0] - 10, position[1] - 10, position[0] + 10, position[1] + 10);
+        triggerClientEvent(playerid, "animate", id, anim, model);
+        foreach (idx, player in players) {
+            local plaPos = getPlayerPosition(idx);
+            if (isInPlace(format("animation_%d", charid), plaPos[0], plaPos[1])) {
+                triggerClientEvent(idx, "animate", playerid, anim, model);
+                }
+        }
+        delayedFunction(this.anim_len, function() {
+            removePlace(format("animation_%d", charid));
+            removePlayerAnim(playerid);
+            });
+    }
 }
+
+event("onPlayerPlaceEnter", function(playerid, name) {
+    local data = split(name, "_");
+    if (data[0] == "animation") {
+        local playerAnim = getCharAnim(data[1].tointeger());
+        triggerClientEvent(playerid, "animate", getPlayerIdFromCharacterId(data[1].tointeger()), playerAnim[0], playerAnim[1]);
+    }
+})
