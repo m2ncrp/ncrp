@@ -1,18 +1,18 @@
-local CharsAnims = {};
+local charsAnims = {};
 
 
 function addPlayerAnim (playerid, anim, model) {
-    CharsAnims[getCharacterIdFromPlayerId(playerid)] <- [anim, model];
+    charsAnims[getCharacterIdFromPlayerId(playerid)] <- [anim, model];
 };
 
 function removePlayerAnim (playerid) {
-    delete CharsAnims[getCharacterIdFromPlayerId(playerid)];
+    delete charsAnims[getCharacterIdFromPlayerId(playerid)];
 }
 
 function getCharsAnims () {
-    return CharsAnims;
+    return charsAnims;
 }
 
 function getCharAnim (charid) {
-    return CharsAnims[charid];
+    return charsAnims[charid];
 }

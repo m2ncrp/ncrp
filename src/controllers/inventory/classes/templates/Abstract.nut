@@ -28,7 +28,7 @@ class Item.Abstract extends ORM.JsonEntity
     default_decay = 600;
     hasAnimation = false;
     model = 1;
-    anim_len = 3300;
+    animLen = 3300;
 
     static name = "Default Item"; // ?
 
@@ -107,14 +107,14 @@ class Item.Abstract extends ORM.JsonEntity
     }
 
     function animate(playerid, anim, model, id=-1) {
-        if(isPlayerInVehicle(playerid) || getPlayerState(playerid) == "cuffed" || isDockerHaveBox(playerid) || !this.hasAnimation) return;
+        if(isPlayerInVehicle(playerid) || getPlayerState(playerid) == "cuffed" || isDockerHaveBox(playerid) || !this.hasAnimation) return; // TODO: Подумать как избавиться от isDockerHaveBox
         local position = getPlayerPosition(playerid);
         local charid = getCharacterIdFromPlayerId(playerid);
         if (charid in getCharsAnims()) return;
         addPlayerAnim(playerid, anim, model)
         createPlace(format("animation_%d", charid), position[0] - 100, position[1] - 100, position[0] + 100, position[1] + 100);
         triggerClientEvent(playerid, "animate", id, anim, model);
-        delayedFunction(this.anim_len, function() {
+        delayedFunction(this.animLen, function() {
             removePlace(format("animation_%d", charid));
             removePlayerAnim(playerid);
         });
@@ -124,7 +124,8 @@ class Item.Abstract extends ORM.JsonEntity
 event("onPlayerPlaceEnter", function(playerid, name) {
     local data = split(name, "_");
     if (data[0] == "animation") {
-        local playerAnim = getCharAnim(data[1].tointeger());
-        triggerClientEvent(playerid, "animate", getPlayerIdFromCharacterId(data[1].tointeger()), playerAnim[0], playerAnim[1]);
+        local charId = data[1].tointeger();
+        local playerAnim = getCharAnim(charId);
+        triggerClientEvent(playerid, "animate", getPlayerIdFromCharacterId(charId), playerAnim[0], playerAnim[1]);
     }
 })

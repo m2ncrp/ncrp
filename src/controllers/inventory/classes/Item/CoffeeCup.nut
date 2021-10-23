@@ -4,7 +4,7 @@ class Item.CoffeeCup extends Item.Drink  {
     handsOnly = true;
     destroyOnDrop = true;
     model = 131; // id модельки в руке из внутриигровых таблиц
-    anim_len = 4000;
+    animLen = 4000;
 
     static function getType() {
         return "Item.CoffeeCup";

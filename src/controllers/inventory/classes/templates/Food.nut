@@ -3,7 +3,7 @@ class Item.Food extends Item.Abstract
     static classname = "Item.Food";
     hasAnimation = true;
     model = 1;
-    anim_len = 3200;
+    animLen = 3200;
 
     static function getType() {
         return "Item.Food";

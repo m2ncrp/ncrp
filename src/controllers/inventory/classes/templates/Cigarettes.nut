@@ -8,7 +8,7 @@ class Item.Cigarettes extends Item.Abstract
     steps = 4;
     addiction = 0;
     counter = 0;
-    anim_len = 41000;
+    animLen = 41000;
 
     static function getType() {
         return "Item.Cigarettes";
