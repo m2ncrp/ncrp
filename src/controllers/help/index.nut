@@ -65,7 +65,7 @@ cmd("general", function(playerid) {
 cmd("crash", function(playerid) {
     msgh(playerid, "Часто вылетает игра", [
         "Переведи игру в режим окна:",
-        " Settings -> вкладка Video -> сними галочку Fullscreen Mode",
+        " В настройках лончера сними галочку Полноэкранный режим",
         "Больше решений смотри на нашем сайте:",
         "mafia2online.ru"
     ]);
