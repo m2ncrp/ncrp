@@ -114,12 +114,6 @@ class Item.Abstract extends ORM.JsonEntity
         addPlayerAnim(playerid, anim, model)
         createPlace(format("animation_%d", charid), position[0] - 100, position[1] - 100, position[0] + 100, position[1] + 100);
         triggerClientEvent(playerid, "animate", id, anim, model);
-        foreach (idx, player in players) {
-            local plaPos = getPlayerPosition(idx);
-            if (isInPlace(format("animation_%d", charid), plaPos[0], plaPos[1])) {
-                triggerClientEvent(idx, "animate", playerid, anim, model);
-                }
-        }
         delayedFunction(this.anim_len, function() {
             removePlace(format("animation_%d", charid));
             removePlayerAnim(playerid);
