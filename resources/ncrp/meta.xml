@@ -44,6 +44,7 @@
 
         <!-- player -->
         <script type="client">player_effects.nut</script>
+        <script type="client">player_animations.nut</script>
 
 
 

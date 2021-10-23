@@ -26,6 +26,9 @@ class Item.Abstract extends ORM.JsonEntity
     unitvolume  = 0.0;
     capacity    = 0.0;
     default_decay = 600;
+    hasAnimation = false;
+    model = 1;
+    animLen = 3300;
 
     static name = "Default Item"; // ?
 
@@ -102,4 +105,27 @@ class Item.Abstract extends ORM.JsonEntity
     static function getType() {
         return "Item.Abstract";
     }
+
+    function animate(playerid, anim, model, id=-1) {
+        if(isPlayerInVehicle(playerid) || getPlayerState(playerid) == "cuffed" || isDockerHaveBox(playerid) || !this.hasAnimation) return; // TODO: Подумать как избавиться от isDockerHaveBox
+        local position = getPlayerPosition(playerid);
+        local charid = getCharacterIdFromPlayerId(playerid);
+        if (charid in getCharsAnims()) return;
+        addPlayerAnim(playerid, anim, model)
+        createPlace(format("animation_%d", charid), position[0] - 100, position[1] - 100, position[0] + 100, position[1] + 100);
+        triggerClientEvent(playerid, "animate", id, anim, model);
+        delayedFunction(this.animLen, function() {
+            removePlace(format("animation_%d", charid));
+            removePlayerAnim(playerid);
+        });
+    }
 }
+
+event("onPlayerPlaceEnter", function(playerid, name) {
+    local data = split(name, "_");
+    if (data[0] == "animation") {
+        local charId = data[1].tointeger();
+        local playerAnim = getCharAnim(charId);
+        triggerClientEvent(playerid, "animate", getPlayerIdFromCharacterId(charId), playerAnim[0], playerAnim[1]);
+    }
+})

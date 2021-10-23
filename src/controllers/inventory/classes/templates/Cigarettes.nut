@@ -1,15 +1,22 @@
 class Item.Cigarettes extends Item.Abstract
 {
     static classname = "Item.Cigarettes";
+    hasAnimation = true;
     volume = 0.09504;
     effect = 0;
     timeout = 0;
     steps = 4;
     addiction = 0;
     counter = 0;
+    animLen = 41000;
+
+    static function getType() {
+        return "Item.Cigarettes";
+    }
 
     function use(playerid, inventory) {
         msg(playerid, format("Вы выкурили: %s", plocalize(playerid, this.classname)));
+        this.animate(playerid, "Use" + this.getType(), this.model);
         inventory.remove(this.slot).remove();
         inventory.sync();
         hungerUp(playerid, inventory);
@@ -25,9 +32,5 @@ class Item.Cigarettes extends Item.Abstract
         delayedFunction(150000, function () {
             self.hungerUp(playerid, inventory);
         });
-    }
-
-    static function getType() {
-        return "Item.Cigarettes";
     }
 }
