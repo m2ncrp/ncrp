@@ -123,7 +123,7 @@ class Item.Abstract extends ORM.JsonEntity
         delayedFunction(this.anim_len, function() {
             removePlace(format("animation_%d", charid));
             removePlayerAnim(playerid);
-            });
+        });
     }
 }
 
