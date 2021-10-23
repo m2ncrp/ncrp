@@ -210,6 +210,10 @@ function isPlaceExists(name) {
     return md5(name) in placeRegister;
 }
 
+function isPlaceMaskExists(name) {
+    return md5(name) in placeRegister;
+}
+
 function isPrivatePlaceExists(name) {
     return md5(name + "_" + getPlayerName(playerid)) in placeRegister;
 }
