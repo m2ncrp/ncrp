@@ -197,7 +197,9 @@ addEventHandler("showShopGUI", function(dataSrc, lang, uid) {
         lastWindowType = data.type;
         window[lastWindowType] <- guiCreateElement( ELEMENT_TYPE_WINDOW, data.title, screen[0]/2 - 383.0, screen[1]/2 - (548.0 - yoffset)/2, 378.0, 548.0 - yoffset);
 
-        createItems(data.items, lang);
+        delayedFunction(0, function() {
+            createItems(data.items, lang);
+        });
         // logo     =  guiCreateElement( ELEMENT_TYPE_IMAGE, "shop.logo.empirediner.png",    16.0, 29.0, 248.0, 151.0, false, window);
 
         buttons[8] = guiCreateElement(  ELEMENT_TYPE_BUTTON, TRANSLATIONS[lang].close,   378/2 - 38.0,  508.0 - yoffset, 76.0, 24.0, false, window[lastWindowType]);
