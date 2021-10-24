@@ -1,5 +1,3 @@
-local JERRYCAN_COST = 14.0;
-local TOOLKIT_COST = 14.0;
 local MINI_MARKET_BUY_RADIUS = 4.0;
 
 local coords = getFuelStationsCoords();
@@ -12,7 +10,6 @@ event("onServerPlayerStarted", function(playerid) {
 });
 
 function fuelStationMiniMarket(playerid) {
-    dbg("fuelStationMiniMarket")
     local station = isPlayerNearFuelStation(playerid);
     if (!station) return;
     players[playerid].trigger("showShopGUI", selectShopAssortment("fuelStation"), getPlayerLocale(playerid), station.name);
