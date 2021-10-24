@@ -432,7 +432,11 @@ event("native:shop:purchase", function(playerid, data) {
 
     local volume = itemObject.calculateVolume();
 
-    if (!players[playerid].inventory.isFreeVolume(volume)) {
+    if(itemObject.handsOnly) {
+      if(!players[playerid].hands.isFreeSpace(1)) {
+        return msg(playerid, "inventory.hands.busy", CL_WARNING);
+      }
+    } else if(!players[playerid].inventory.isFreeVolume(volume)) {
         return msg(playerid, "inventory.volume.notenough", CL_WARNING);
     }
 

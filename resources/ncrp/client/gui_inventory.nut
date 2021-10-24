@@ -109,6 +109,7 @@ local translations = {
         "Item.CoffeeCup"        : "Cup of coffee"
 
         "Item.Jerrycan"         : "Canister"
+        "Item.RepairKit"        : "RepairKit"
         "Item.VehicleTax"       : "Vehicle tax"
         "Item.VehicleKey"       : "Vehicle key"
         "Item.VehicleTitle"     : "Vehicle title"
@@ -190,6 +191,7 @@ local translations = {
         "Item.CoffeeCup"        : "Чашка кофе"
 
         "Item.Jerrycan"         : "Канистра"
+        "Item.RepairKit"        : "Ремкомплект"
         "Item.VehicleTax"       : "Квитанция налога на ТС"
         "Item.VehicleKey"       : "Ключ от автомобиля"
         "Item.VehicleTitle"     : "Свидетельство на ТС"

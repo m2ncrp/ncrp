@@ -23,6 +23,7 @@ include("controllers/inventory/classes/templates/Storage.nut");
 include("controllers/inventory/classes/templates/Wheels.nut");
 //include("controllers/inventory/classes/templates/Equipment.nut");
 
+include("controllers/inventory/classes/Item/RepairKit.nut");
 include("controllers/inventory/classes/Item/Jerrycan.nut");
 include("controllers/inventory/classes/Item/VehicleTax.nut");
 include("controllers/inventory/classes/Item/VehicleKey.nut");
