@@ -159,6 +159,7 @@ alternativeTranslate({
     "en|Item.CoffeeCup"        : "Cup of coffee"
 
     "en|Item.Jerrycan"         : "Canister"
+    "en|Item.RepairKit"        : "Repair Kit"
     "en|Item.VehicleTax"       : "Vehicle tax"
     "en|Item.VehicleTitle"     : "Vehicle title"
     "en|Item.VehicleKey"       : "Vehicle key"
@@ -225,6 +226,7 @@ alternativeTranslate({
     "ru|Item.CoffeeCup"        : "Чашка кофе"
 
     "ru|Item.Jerrycan"         : "Канистра"
+    "ru|Item.RepairKit"        : "Ремкомплект"
     "ru|Item.VehicleTax"       : "Квитанция налога на ТС"
     "ru|Item.VehicleKey"       : "Ключ от автомобиля"
     "ru|Item.VehicleTitle"     : "Свидетельство на ТС"

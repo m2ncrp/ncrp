@@ -7,9 +7,6 @@ local FUEL_UNLOAD_RADIUS = 25.0;
 
 const FUEL_STATION_LIMIT = 1000.0;
 
-local JERRYCAN_COST = 14.0;
-local JERRYCAN_BUY_RADIUS = 4.0;
-
 local FUELUP_SPEED = 2.5; // gallons in second
 local FUEL_UNLOAD_SPEED = 20; // gallons in second
 
@@ -108,6 +105,10 @@ local fuelStations = {};
 // кеш заправки на персонажа, т.к. на двух одновременно он быть не может.
 local fuelStationCache = {};
 
+function getFuelStationsCoords() {
+    return coords;
+}
+
 function loadFuelStation(station) {
     fuelStations[station.name] <- station;
 }
@@ -128,6 +129,18 @@ function getFuelStationCoordsByName(name) {
     return name in coords ? coords[name] : null;
 }
 
+function isPlayerNearFuelStation(playerid) {
+    local res = false;
+    foreach (key, station in coords) {
+        if (isPlayerInValidPoint3D(playerid, station.shop[0], station.shop[1], station.shop[2], 1.0)) {
+            res = getFuelStationEntity(key);
+            break;
+        }
+    }
+
+    return res;
+}
+
 function getFuelStationState(station) {
     return station.state;
 }
@@ -146,14 +159,9 @@ addEventHandlerEx("onServerStarted", function() {
 });
 
 event("onServerPlayerStarted", function(playerid) {
-
     foreach (name, station in coords) {
         createPrivate3DText ( playerid, station.public[0], station.public[1], station.public[2]+0.35, [[ "FUELSTATION", name.toupper()], "%s | %s"], CL_CHESTNUT, TITLE_DRAW_DISTANCE);
-
-        createPrivate3DText ( playerid, station.shop[0], station.shop[1], station.shop[2]+0.35, plocalize(playerid, "CANISTER"), CL_RIPELEMON, JERRYCAN_BUY_RADIUS);
-        createPrivate3DText ( playerid, station.shop[0], station.shop[1], station.shop[2]+0.20, [[ "3dtext.job.press.E", "PRICE"], "%s | %s: $"+JERRYCAN_COST ], CL_WHITE.applyAlpha(150), 1.0);
     }
-
 });
 
 event("onPlayerPlaceEnter", function(playerid, name) {
@@ -224,7 +232,7 @@ function fuelStationCreatePrivateInteractions(playerid, station) {
 
         // Привяжем приватные бинды
         logStr("registering "+station.name)
-        privateKey(playerid, "e", "fuelJerrycanBuy", fuelJerrycanBuy);
+        privateKey(playerid, "e", "fuelStationMiniMarket", fuelStationMiniMarket);
         privateKey(playerid, "e", "fuelVehicleOrJerrycanUp", fuelVehicleOrJerrycanUp);
     }
 
@@ -355,7 +363,7 @@ function fuelStationRemovePrivateInteractions(playerid, station) {
 
     // Удалим приватные бинды
     logStr("unregistering "+station.name)
-    removePrivateKey(playerid, "e", "fuelJerrycanBuy");
+    removePrivateKey(playerid, "e", "fuelStationMiniMarket");
     removePrivateKey(playerid, "e", "fuelVehicleOrJerrycanUp");
     removePrivateKey(playerid, "e", "fuelTruckUnload");
     removePrivateKey(playerid, "e", "fuelStationManage");
@@ -778,3 +786,4 @@ function fuelTruckUnload(playerid) {
 }
 
 include("controllers/business/fuelStations/manage.nut");
+include("controllers/business/fuelStations/shop.nut");
