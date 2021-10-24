@@ -2149,6 +2149,10 @@ function getVehicleSeatsNumberByModelId(modelid) {
     return vehicleInfo["model_" + modelid].seats;
 }
 
+function hasVehicleTrunk(modelid) {
+    return vehicleInfo["model_" + modelid].trunk.gridSizeX > 0 && vehicleInfo["model_" + modelid].trunk.gridSizeY > 0;
+}
+
 function getVehicleTrunkDefaultSizeX(modelid) {
     return vehicleInfo["model_" + modelid].trunk.gridSizeX;
 }

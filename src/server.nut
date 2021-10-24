@@ -290,6 +290,8 @@ proxy("onPlayerVehicleExit",        "native:onPlayerVehicleExit"        );
 
 // vehicle
 proxy("onVehicleSpawn",             "native:onVehicleSpawn"             );
+proxy("setVehicleDoorLocked",       "setVehicleDoorLocked"              );
+proxy("setVehicleTrunkLocked",      "setVehicleTrunkLocked"             );
 
 // client events
 proxy("onClientKeyboardPress",      "onClientKeyboardPress"             );

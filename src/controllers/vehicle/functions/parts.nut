@@ -14,6 +14,8 @@ event("onServerSecondChange", function() {
             continue;
         }
 
+        local vehInfo = getVehicleInfo(veh.model);
+
         if(("options" in veh.data) == false) {
             veh.data.options <- {};
         }
@@ -28,6 +30,30 @@ event("onServerSecondChange", function() {
                 locked = true,
                 opened = false
             };
+        }
+
+        if(("doors" in veh.data.parts) == false) {
+            veh.data.parts.doors <- {};
+
+            if(vehInfo.seats == 1) {
+                veh.data.parts.doors.front <- {
+                    left = true,
+                };
+            }
+
+            if(vehInfo.seats == 2 || vehInfo.seats == 4) {
+                veh.data.parts.doors.front <- {
+                    left = false,
+                    right = false
+                };
+            }
+
+            if(vehInfo.seats == 4) {
+                veh.data.parts.doors.rear <- {
+                    left = false,
+                    right = false
+                };
+            }
         }
 
         if("trunk" in veh.data.parts) {

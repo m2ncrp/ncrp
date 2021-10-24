@@ -10,10 +10,6 @@ addEventHandler("setVehicleSteer", function(deg) {
     executeLua("game.game:GetActivePlayer():GetOwner():SetAddSteer("+deg+")");
 });
 
-addEventHandler("setVehicleDamage", function(dmg) {
-    executeLua("game.game:GetActivePlayer():GetOwner():SetCarDamage("+dmg+")");
-});
-
 addEventHandler("setVehicleWheelsProtected", function(protected) {
     local value = protected == "0" ? "false" : "true";
     executeLua("game.game:GetActivePlayer():GetOwner():SetWheelsProtected("+value+")");
@@ -33,6 +29,7 @@ addEventHandler("setSpeedLimiter", function(speed) {
 addEventHandler("setSpeedLimiterSpeed", function(speed) {
     executeLua("game.game:GetActivePlayer():GetOwner():SetSpeedLimiterSpeed("+speed+")");
 });
+
 addEventHandler("setVehicleDoorLocked", function(...) {
     local vehicleid = vargv[0];
 
@@ -43,4 +40,30 @@ addEventHandler("setVehicleDoorLocked", function(...) {
             setVehicleDoorLocked(vehicleid, i, vargv[1]);
         }
     }
+});
+
+addEventHandler("setPlayerVehicleOwner", function(int) {
+    executeLua("game.game:GetActivePlayer():MakeCarOwnership(game.entitywrapper:GetEntityByName(\"m2online_vehicle_"+int+"\"))")
+})
+
+addEventHandler("setMotorDamageByVehicleId", function(vehicleid, int) {
+    executeLua("game.entitywrapper:GetEntityByName(\"m2online_vehicle_"+vehicleid+"\"):SetMotorDamage("+int+")");
+});
+
+// Not tested
+
+addEventHandler("Repair", function(bool) {
+    executeLua("game.game:GetActivePlayer():GetOwner():Repair("+bool+")");
+});
+
+addEventHandler("SetMotorDamage", function(int) {
+    executeLua("game.game:GetActivePlayer():GetOwner():SetMotorDamage("+int+")");
+});
+
+addEventHandler("SetCarDamage", function(int) {
+    executeLua("game.game:GetActivePlayer():GetOwner():SetCarDamage("+int+")");
+});
+
+addEventHandler("SetVehicleDamage", function(dmg) {
+    executeLua("game.game:GetActivePlayer():GetOwner():SetCarDamage("+dmg+")");
 });

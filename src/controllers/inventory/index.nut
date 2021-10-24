@@ -68,12 +68,16 @@ event("onCharacterSave", function(playerid, character) {
 key("i", function(playerid) {
     if (isPlayerAdmin(playerid)) return;
 
+    if(isVehicleAccessManagerWindowOpened(playerid)) return msg(playerid, "Прежде закройте окно управления автомобилем.", CL_ERROR);
+
     if (!players[playerid].inventory.blocked) {
         players[playerid].inventory.toggle(playerid);
     }
 });
 
 key("tab", function(playerid) {
+    if (isVehicleAccessManagerWindowOpened(playerid)) return msg(playerid, "Прежде закройте окно управления автомобилем.", CL_ERROR);
+
     if (!players[playerid].inventory.blocked) {
         players[playerid].inventory.toggle(playerid);
     }

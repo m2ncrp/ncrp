@@ -1,6 +1,7 @@
 const CUFF_RADIUS = 6.0;
 
 // cuff nearest stunned player
+/*
 key(["v"], function(playerid) {
 
     // если игрок в авто
@@ -42,7 +43,7 @@ key(["v"], function(playerid) {
     msg(playerid, "police.cuff.cuffed", [ getKnownCharacterNameWithId(playerid, targetid) ]);
 
 });
-
+*/
 
 cmd(["uncuff"], function(playerid, targetid) {
 
