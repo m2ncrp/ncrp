@@ -228,7 +228,7 @@ event("native:onPlayerTransferItem", function(playerid, id, slot) {
                     return msg(playerid, "inventory.transfer.largedistance");
                 }
 
-                if(!players[targetid].hands.isFreeSpace(1)) {
+                if(!players[targetid].hands.isFreeSpace(1) || isPlayerVehicleDriver(targetid)) {
                            msg(playerid, "inventory.transfer.targethandsbusy", getKnownCharacterNameWithId(playerid, targetid), CL_THUNDERBIRD);
                     return msg(targetid, "inventory.transfer.handsbusy", getKnownCharacterNameWithId(targetid, playerid), CL_THUNDERBIRD);
                 }
