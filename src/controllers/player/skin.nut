@@ -103,8 +103,6 @@ function getSkinData(id) {
     return skinData[id.tostring()];
 }
 
-
-
 function setPlayerModel(playerid, skin, forced = false) {
     nativeSetPlayerModel(playerid, skin.tointeger());
 
