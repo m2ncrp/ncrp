@@ -28,7 +28,7 @@ class Item.Abstract extends ORM.JsonEntity
     default_decay = 600;
     hasAnimation = false;
     model = 1;
-    animLen = 3300;
+    animLen = 4100;
 
     static name = "Default Item"; // ?
 
