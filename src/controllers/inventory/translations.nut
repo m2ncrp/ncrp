@@ -18,8 +18,8 @@ alternativeTranslate({
     "en|inventory.cannotdestroy" : "You can't destroy this item."
     "ru|inventory.cannotdestroy" : "Вы не можете уничтожить этот предмет."
 
-    "en|inventory.using"         : "Finish the action first."
-    "ru|inventory.using"         : "Сначала закончи действие."
+    "en|inventory.using"         : "Wait till the current action finish."
+    "ru|inventory.using"         : "Дождитесь завершения текущего действия."
 
     "en|inventory.transfered"    : "[ME] %s transfer: %s"
     "ru|inventory.transfered"    : "[ME] %s передал: %s"
