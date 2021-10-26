@@ -1,7 +1,6 @@
 class Item.RepairKit extends Item.Abstract
 {
     static classname = "Item.RepairKit";
-    handsOnly = true;
     volume = 100.0;
 
     function use(playerid, inventory) {
