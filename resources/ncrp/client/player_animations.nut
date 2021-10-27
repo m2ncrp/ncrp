@@ -2,7 +2,7 @@ local animations = {
     "UseItem.Drink": [["sc_drink_bottle_out"], [0, 200, 3800]],
     "UseItem.Food": [["sc_eat_ham_out"], [0, 200, 1500]],
     "UseItem.Cigarettes": [["sc_man_smoke_in", "sc_man_smoke_stat_a", "sc_man_smoke_stat_b", "sc_man_smoke_stat_c", "sc_man_smoke_stat_d", "sc_man_smoke_out"], [500]],
-    "UseItem.CoffeeCup": [["sc_drink_coffee_out"], [0, 200, 3800]]
+    "UseItem.CoffeeCup": [["sc_drink_coffee_out"], [0, 200, 3300]]
 }
 
 
