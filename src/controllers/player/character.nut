@@ -41,7 +41,7 @@ event("onPlayerCharacterLoaded", function(playerid, character) {
         if (DEBUG) dbg("player", "started", getIdentity(playerid));
         trigger("onServerPlayerStarted", playerid);
         trigger(playerid, "onServerClientStarted", VERSION);
-        trigger(playerid, "onServerIntefaceCharacter", getLocalizedPlayerJob(playerid, "en"), getPlayerLevel(playerid) );
+        trigger(playerid, "onServerIntefaceCharacter", getLocalizedPlayerJob(playerid), getPlayerLevel(playerid) );
         trigger(playerid, "onServerInterfaceMoney", getPlayerMoney(playerid));
 
         // try to undfreeze player

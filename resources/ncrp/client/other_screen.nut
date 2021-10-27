@@ -207,8 +207,15 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
     dxDrawText( drawdata.money, get("borders.cx") - ( offset1 / 2 )      , get("borders.y") + 3.0      , 0xFF569267, false, "tahoma-bold", 1.6 );
 
     // draw state
-    dxDrawText( drawdata.state, get("borders.x") + 12.0, get("borders.y") + offset2 + 6.0, 0xFF000000, false, "tahoma-bold", 1.0 );
-    dxDrawText( drawdata.state, get("borders.x") + 11.0, get("borders.y") + offset2 + 5.0, 0xFFA1A1A1, false, "tahoma-bold", 1.0 );
+    local stateDimensions = dxGetTextDimensions(drawdata.state, 1.0, "tahoma-bold");
+    local stateWidth = stateDimensions[0].tofloat();
+    dxDrawText( drawdata.state, get("borders.cx") - ( stateWidth / 2 ) + 1.0, get("borders.y") + offset2 + 6.0, 0xFF000000, false, "tahoma-bold", 1.0 );
+    dxDrawText( drawdata.state, get("borders.cx") - ( stateWidth / 2 )      , get("borders.y") + offset2 + 5.0, 0xFFA1A1A1, false, "tahoma-bold", 1.0 );
+
+    // dxDrawRectangle(get("borders.x"), get("borders.y"), get("borders.cx"), get("borders.cy"), 0x99FFFFFF);
+
+    // dxDrawText(stateWidth.tostring(), get("borders.x"), get("borders.y"), 0xFFA1A1A1, false, "tahoma-bold", 1.0 );
+    // dxDrawText(stateHeight.tostring(), get("borders.cx"), get("borders.y") + 21, 0xFFA1A1A1, false, "tahoma-bold", 1.0 );
 
     // draw level
     // dxDrawText( drawdata.level, get("borders.x") + 11.0, get("borders.y") + offset2 + 21.0, 0xFFA1A1A1, false, "tahoma-bold", 1.0 );
@@ -293,7 +300,7 @@ addEventHandler("onServerIntefaceTime", function(time, date) {
 });
 
 addEventHandler("onServerIntefaceCharacterJob", function(job) {
-    drawdata.state = "Job: " + job;
+    drawdata.state = job; // Работа:
 });
 
 addEventHandler("onServerIntefaceCharacterLevel", function(level) {
@@ -301,7 +308,7 @@ addEventHandler("onServerIntefaceCharacterLevel", function(level) {
 });
 
 addEventHandler("onServerIntefaceCharacter", function(job, level) {
-    drawdata.state = "Job: " + job;
+    drawdata.state = job; // Работа:
     //drawdata.level = "Your level: " + level;
 });
 
