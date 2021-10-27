@@ -1,7 +1,6 @@
 class Item.Jerrycan extends Item.Abstract
 {
     static classname = "Item.Jerrycan";
-    handsOnly = true;
     volume      = 23.46;  // объём канистры снаружи
     //unitvolume  = 1; // вес 1 литра бензина 730 грамм
     capacity    = 5.3;  // количество галонов в канистре

@@ -418,10 +418,6 @@ event("native:shop:purchase", function(playerid, data) {
         return msg(playerid, "shops.restaurant.money.notenough", CL_WARNING);
     }
 
-    if (!players[playerid].inventory.isFreeSpace(1)) {
-        return msg(playerid, "inventory.space.notenough", CL_WARNING);
-    }
-
     // маленькая хитрость: отрезать «Item.» от значения поля item.itemName, оставив только имя предмета и вызвать, создав тем самым экземпляр класса
     // Пример: было "Item.Clothes", обрезаем до "Clothes", подставляем и вызываем
     local itemObject = Item[ item.itemName.slice(5) ]();
@@ -432,12 +428,26 @@ event("native:shop:purchase", function(playerid, data) {
 
     local volume = itemObject.calculateVolume();
 
-    if(itemObject.handsOnly) {
-        if(!players[playerid].hands.isFreeSpace(1)) {
-            return msg(playerid, "inventory.hands.busy", CL_WARNING);
+    local hasSpace = players[playerid].inventory.isFreeSpace(1);
+    local hasVolume = players[playerid].inventory.isFreeVolume(volume);
+    local isHandsFree = players[playerid].hands.isFreeSpace(1);
+
+    local targetPlace = "hands";
+
+    if(!itemObject.handsOnly) {
+        if(hasSpace) {
+            if(hasVolume) {
+                targetPlace = "inventory";
+            } else if(!isHandsFree) {
+                return msg(playerid, "inventory.volume.notenough", CL_WARNING);
+            }
+        } else if(!isHandsFree) {
+            return msg(playerid, "inventory.space.notenough", CL_WARNING);
         }
-    } else if(!players[playerid].inventory.isFreeVolume(volume)) {
-        return msg(playerid, "inventory.volume.notenough", CL_WARNING);
+    }
+
+    if(targetPlace == "hands" && !isHandsFree) {
+        return msg(playerid, "inventory.hands.busy", CL_WARNING);
     }
 
     subPlayerMoney(playerid, price);
@@ -456,7 +466,7 @@ event("native:shop:purchase", function(playerid, data) {
 
     msg(playerid, "shops.restaurant.buy.success", [ plocalize(playerid, item.itemName), price ], CL_SUCCESS);
 
-    if(itemObject.handsOnly) {
+    if(targetPlace == "hands") {
         players[playerid].hands.push(itemObject) || itemObject.save();
         players[playerid].hands.sync();
     } else {
