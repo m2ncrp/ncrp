@@ -21,6 +21,18 @@ alternativeTranslate({
     "en|inventory.using"         : "Wait till the current action finish."
     "ru|inventory.using"         : "Дождитесь завершения текущего действия."
 
+    "en|inventory.clothes.wrongsex-1"  : "This thing does not suits you."
+    "ru|inventory.clothes.wrongsex-1"  : "Эта одежда вам не подходит."
+
+    "en|inventory.clothes.wrongsex-2"  : "This is not your style."
+    "ru|inventory.clothes.wrongsex-2"  : "Это не ваш стиль."
+
+    "en|inventory.clothes.wrongsex-3"  : "You should not put on this."
+    "ru|inventory.clothes.wrongsex-3"  : "Вам не стоит это надевать."
+
+    "en|inventory.clothes.wrongrace"  : "This clothes does not match your race."
+    "ru|inventory.clothes.wrongrace"  : "Данная одежда не соответствует расе персонажа."
+
     "en|inventory.transfered"    : "[ME] %s transfer: %s"
     "ru|inventory.transfered"    : "[ME] %s передал: %s"
 
