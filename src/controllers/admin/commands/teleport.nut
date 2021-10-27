@@ -157,3 +157,28 @@ acmd(["tp"], function(playerid, targetid, nameOrId) {
         TeleportPosition.findOneBy({ name = nameOrId }, callback);
     }
 });
+
+acmd(["tvehicle", "tv"], function(playerid, plateOrId) {
+    local teleports = [];
+    TeleportPosition.findAll(function(err, positions) {
+        foreach (idx, value in positions) {
+        teleports.append([value.x, value.y, value.z, value.name])
+        }
+    });
+    local vehPos;
+    if (isInteger(plateOrId)) {
+        vehPos = getVehiclePosition(plateOrId.tointeger());
+    } else {
+        vehPos = getVehiclePosition(getVehicleByPlateText(plateOrId.toupper()));
+    };
+    local bestIdx;
+    local bestDistance = getDistanceBetweenPoints3D(teleports[0][0], teleports[0][1], teleports[0][2], vehPos[0], vehPos[1], vehPos[2]);
+    foreach (idx, value in teleports) {
+        local distance = getDistanceBetweenPoints3D(value[0], value[1], value[2], vehPos[0], vehPos[1], vehPos[2]);
+        if (distance < bestDistance) {
+            bestIdx = idx;
+            bestDistance = distance;
+        }
+    };
+    sendPlayerMessage(playerid, format("Ближайшая точка - %d. %s", bestIdx + 1, teleports[bestIdx][3]), 240, 240, 220);
+});
