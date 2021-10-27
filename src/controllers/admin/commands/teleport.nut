@@ -162,7 +162,7 @@ acmd(["tvehicle", "tv"], function(playerid, plateOrId) {
     local teleports = [];
     TeleportPosition.findAll(function(err, positions) {
         foreach (idx, value in positions) {
-        teleports.append([value.x, value.y, value.z, value.name])
+            teleports.append([value.x, value.y, value.z, value.name])
         }
     });
     local vehPos;
