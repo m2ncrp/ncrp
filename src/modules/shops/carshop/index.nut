@@ -280,13 +280,12 @@ event ( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
     local car = getCarInfoModelById(modelid);
     local vehInfo = getVehicleInfo(modelid);
 
-        msg(playerid, "shops.carshop.model-name", [vehInfo.name], CL_FIREBUSH);
-        msg(playerid, "shops.carshop.seats", [vehInfo.seats], CL_FIREBUSH);
-        msg(playerid, "shops.carshop.trunk-grid", [vehInfo.trunk.gridSizeX, vehInfo.trunk.gridSizeY, (vehInfo.trunk.gridSizeX * vehInfo.trunk.gridSizeY)], CL_FIREBUSH);
-        msg(playerid, "shops.carshop.paint", CL_SILVERSAND);
+    msg(playerid, "shops.carshop.model-name", [vehInfo.name], CL_FIREBUSH);
+    msg(playerid, "shops.carshop.seats", [vehInfo.seats], CL_FIREBUSH);
+    msg(playerid, "shops.carshop.trunk-grid", [vehInfo.trunk.gridSizeX, vehInfo.trunk.gridSizeY, (vehInfo.trunk.gridSizeX * vehInfo.trunk.gridSizeY)], CL_FIREBUSH);
+    msg(playerid, "shops.carshop.canbuy", [car.price], CL_FIREBUSH);
+    msg(playerid, "shops.carshop.paint", CL_SILVERSAND);
     return msg(playerid, "shops.carshop.paint-controls", CL_SILVERSAND);
-
-
 });
 
 /*
