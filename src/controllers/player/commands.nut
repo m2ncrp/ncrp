@@ -27,7 +27,7 @@ cmd("stats", "job", function(playerid) {
         if(idx == "police") {
             count = convertMinutesToFormattedString(job.count);
         }
-        else if(idx == "porter" || idx == "docker") {
+        else if(idx == "porter" || idx == "docker" || idx == "fishdriver") {
             count = format("%d %s", job.count, declOfNum(job.count, ["ящик", "ящика", "ящиков"]));
         }
         else {
