@@ -101,7 +101,7 @@ acmd(["tcoords", "tc"], function(playerid, nameOrId) {
 addEventHandlerEx("onServerStarted", function() {
     TeleportPosition.findAll(function(err, positions) {
         foreach (idx, teleport in positions) {
-            teleportPoints.append(teleport);
+            teleportPoints.push(teleport);
             // create3DText(teleport.x, teleport.y, teleport.z, "Teleport: " + teleport.name, CL_ROYALBLUE.applyAlpha(150));
         }
     });
@@ -177,5 +177,5 @@ function getNearestTeleportFromVehicle(vehicleid) {
 
 acmd(["tvehicle", "tv"], function(playerid, plateOrId) {
     local point = getNearestTeleportFromVehicle(isInteger(plateOrId) ? plateOrId.tointeger() : getVehicleByPlateText(plateOrId.toupper()));
-    msg(playerid, format("Ближайшая точка - %d. %s", point.id, point.name) CL_INFO);
+    msg(playerid, format("Ближайшая точка - %d. %s", point.id, point.name), CL_INFO);
 });
