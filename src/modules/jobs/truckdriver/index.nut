@@ -146,6 +146,7 @@ event("onPlayerConnect", function(playerid) {
         job_truck[getCharacterIdFromPlayerId(playerid)]["userstatus"] <- null;
         job_truck[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] <- null;
         job_truck[getCharacterIdFromPlayerId(playerid)]["truckblip3dtext"] <- [null, null, null];
+        job_truck[getCharacterIdFromPlayerId(playerid)]["jobstatus"] <- null;
     }
 });
 
@@ -162,9 +163,19 @@ event("onServerPlayerStarted", function( playerid ){
     createPrivate3DText ( playerid, TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.20, plocalize(playerid, "3dtext.job.press.action"), CL_WHITE.applyAlpha(150), RADIUS_TRUCK );
 
     if(players[playerid]["job"] == "truckdriver") {
-        msg( playerid, "job.truckdriver.wantwork", TRUCK_JOB_COLOR );
+        local truckCharData = job_truck[getCharacterIdFromPlayerId(playerid)];
+        if (truckCharData["jobstatus"] == "load") {
+            msg( playerid, truckCharData.userjob.LoadText, getVehicleNameByModelId(truckCharData["userjob"]["vehicleid"]), TRUCK_JOB_COLOR );
+            job_truck[getCharacterIdFromPlayerId(playerid)]["truckblip3dtext"] = truckJobCreatePrivateBlipText(playerid, truckCharData.userjob.LoadPointX, truckCharData.userjob.LoadPointY, truckCharData.userjob.LoadPointZ, plocalize(playerid, "3dtext.job.loadhere").tostring(), plocalize(playerid, "3dtext.job.press.load").tostring());
+        } else if (truckCharData["jobstatus"] == "unload") {
+            msg( playerid, truckCharData.userjob.UnloadText, TRUCK_JOB_COLOR );
+            job_truck[getCharacterIdFromPlayerId(playerid)]["truckblip3dtext"] = truckJobCreatePrivateBlipText(playerid, truckCharData.userjob.UnloadPointX, truckCharData.userjob.UnloadPointY, truckCharData.userjob.UnloadPointZ, plocalize(playerid, "3dtext.job.unloadhere"), plocalize(playerid, "3dtext.job.press.unload"));
+        } else if (truckCharData["jobstatus"] == "complete") {
+            msg( playerid, "job.truckdriver.takemoney", TRUCK_JOB_COLOR );
+        } else {
+            msg( playerid, "job.truckdriver.wantwork", TRUCK_JOB_COLOR );
+        }};
         job_truck[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] = createPrivate3DText (playerid, TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.05, plocalize(playerid, "3dtext.job.press.leave"), CL_WHITE.applyAlpha(100), RADIUS_TRUCK );
-    }
 });
 
 event("onPlayerVehicleEnter", function (playerid, vehicleid, seat) {
@@ -313,6 +324,7 @@ function truckJobTalk( playerid ) {
         job_truck[getCharacterIdFromPlayerId(playerid)]["userjob"] = userjob;
         msg( playerid, userjob.LoadText, getVehicleNameByModelId( userjob.vehicleid ), TRUCK_JOB_COLOR );
         job_truck[getCharacterIdFromPlayerId(playerid)]["userstatus"] = "working";
+        job_truck[getCharacterIdFromPlayerId(playerid)]["jobstatus"] = "load";
 
 
 
@@ -335,6 +347,7 @@ function truckJobTalk( playerid ) {
     // если у игрока статус работы == завершил работу
     if (job_truck[getCharacterIdFromPlayerId(playerid)]["userstatus"] == "complete") {
         job_truck[getCharacterIdFromPlayerId(playerid)]["userstatus"] = null;
+        job_truck[getCharacterIdFromPlayerId(playerid)]["jobstatus"] <- null;
         truckGetSalary( playerid );
         return;
     }
@@ -456,6 +469,7 @@ function truckJobLoadUnload( playerid ) {
             delayedFunction(1000, function () { freezePlayer( playerid, false); });
             truckcars[vehicleid][0] = true;
             truckcars[vehicleid][1] = playerid;
+            job_truck[getCharacterIdFromPlayerId(playerid)]["jobstatus"] = "unload";
             job_truck[getCharacterIdFromPlayerId(playerid)]["truckblip3dtext"] = truckJobCreatePrivateBlipText(playerid, userjob.UnloadPointX, userjob.UnloadPointY, userjob.UnloadPointZ, plocalize(playerid, "3dtext.job.unloadhere"), plocalize(playerid, "3dtext.job.press.unload"));
             msg( playerid, userjob.UnloadText, TRUCK_JOB_COLOR );
             setVehiclePartOpen(vehicleid, 1, false);
@@ -482,6 +496,7 @@ function truckJobLoadUnload( playerid ) {
                 freezePlayer( playerid, false);
                 delayedFunction(1000, function () { freezePlayer( playerid, false); });
                 job_truck[getCharacterIdFromPlayerId(playerid)]["userstatus"] = "complete";
+                job_truck[getCharacterIdFromPlayerId(playerid)]["jobstatus"] = "complete";
                 truckcars[vehicleid][0] = false;
                 truckcars[vehicleid][1] = null;
                 msg( playerid, "job.truckdriver.takemoney", TRUCK_JOB_COLOR );
