@@ -1,6 +1,8 @@
 /**
  * Save new position
  */
+local teleportPoints = [];
+
 acmd(["tsave", "ts"], function(playerid, name) {
     if (!name || name.len() < 1) return sendPlayerMessage(playerid, "Usage: /ts <name>");
 
@@ -99,6 +101,7 @@ acmd(["tcoords", "tc"], function(playerid, nameOrId) {
 addEventHandlerEx("onServerStarted", function() {
     TeleportPosition.findAll(function(err, positions) {
         foreach (idx, teleport in positions) {
+            teleportPoints.push(teleport);
             // create3DText(teleport.x, teleport.y, teleport.z, "Teleport: " + teleport.name, CL_ROYALBLUE.applyAlpha(150));
         }
     });
@@ -156,4 +159,23 @@ acmd(["tp"], function(playerid, targetid, nameOrId) {
     } else {
         TeleportPosition.findOneBy({ name = nameOrId }, callback);
     }
+});
+
+function getNearestTeleportFromVehicle(vehicleid) {
+    local vehPos = getVehiclePosition(vehicleid);
+    local bestIdx;
+    local bestDistance = getDistanceBetweenPoints2D(teleportPoints[0].x, teleportPoints[0].y, vehPos[0], vehPos[1]);
+    foreach (idx, value in teleportPoints) {
+        local distance = getDistanceBetweenPoints2D(value.x, value.y, vehPos[0], vehPos[1]);
+        if (distance < bestDistance) {
+            bestIdx = idx;
+            bestDistance = distance;
+        }
+    };
+    return teleportPoints[bestIdx];
+}
+
+acmd(["tvehicle", "tv"], function(playerid, plateOrId) {
+    local point = getNearestTeleportFromVehicle(isInteger(plateOrId) ? plateOrId.tointeger() : getVehicleByPlateText(plateOrId.toupper()));
+    msg(playerid, format("Ближайшая точка - %d. %s", point.id, point.name), CL_INFO);
 });
