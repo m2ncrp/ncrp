@@ -226,7 +226,8 @@ key(["f"], function(playerid) {
         })
         return;
     }
-
+    local driverId = getVehicleDriver(vehicleid);
+    if (driverId != null && !isPlayerHaveVehicleKey(driverId, vehicleid)) return;
     unblockVehicle(vehicleid);
     setVehicleEngineState(vehicleid, true)
     delayedFunction(100, function() {
