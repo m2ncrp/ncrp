@@ -93,9 +93,6 @@ alternativeTranslate({
     "en|inventory.clothes.use"      : "You put on: %s."
     "ru|inventory.clothes.use"      : "Вы надели: %s."
 
-    "en|inventory.clothes.work"     : "You are in a working clothes."
-    "ru|inventory.clothes.work"     : "Вы в рабочей одежде."
-
     "en|inventory.leavethecar"      : "Leave the car to use."
     "ru|inventory.leavethecar"      : "Для использования выйдите из автомобиля."
 
