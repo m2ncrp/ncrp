@@ -137,7 +137,7 @@ local goods = {
     },
 
     "fuelStation" : {
-        title = "Fuel Station",
+        title = "Мини-маркет при автозаправке",
         type  = "fuelStation",
         items = [
             { itemName = "Item.Jerrycan",           price = 14.0 },
