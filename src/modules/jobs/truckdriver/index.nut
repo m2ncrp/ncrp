@@ -165,17 +165,19 @@ event("onServerPlayerStarted", function( playerid ){
     if(getPlayerJob(playerid) == "truckdriver") {
         local truckCharData = job_truck[getCharacterIdFromPlayerId(playerid)];
         if (truckCharData["userstatus"] == "working"){
-        if (truckCharData["jobstatus"] == "load") {
-            msg( playerid, truckCharData.userjob.LoadText, getVehicleNameByModelId(truckCharData["userjob"]["vehicleid"]), TRUCK_JOB_COLOR );
-            job_truck[getCharacterIdFromPlayerId(playerid)]["truckblip3dtext"] = truckJobCreatePrivateBlipText(playerid, truckCharData.userjob.LoadPointX, truckCharData.userjob.LoadPointY, truckCharData.userjob.LoadPointZ, plocalize(playerid, "3dtext.job.loadhere").tostring(), plocalize(playerid, "3dtext.job.press.load").tostring());
-        } else if (truckCharData["jobstatus"] == "unload") {
-            msg( playerid, truckCharData.userjob.UnloadText, TRUCK_JOB_COLOR );
-            job_truck[getCharacterIdFromPlayerId(playerid)]["truckblip3dtext"] = truckJobCreatePrivateBlipText(playerid, truckCharData.userjob.UnloadPointX, truckCharData.userjob.UnloadPointY, truckCharData.userjob.UnloadPointZ, plocalize(playerid, "3dtext.job.unloadhere"), plocalize(playerid, "3dtext.job.press.unload"));
-        } else if (truckCharData["jobstatus"] == "complete") {
-            msg( playerid, "job.truckdriver.takemoney", TRUCK_JOB_COLOR );
-        } else {
-            msg( playerid, "job.truckdriver.wantwork", TRUCK_JOB_COLOR );
-        }}};
+            if (truckCharData["jobstatus"] == "load") {
+                msg( playerid, truckCharData.userjob.LoadText, getVehicleNameByModelId(truckCharData["userjob"]["vehicleid"]), TRUCK_JOB_COLOR );
+                job_truck[getCharacterIdFromPlayerId(playerid)]["truckblip3dtext"] = truckJobCreatePrivateBlipText(playerid, truckCharData.userjob.LoadPointX, truckCharData.userjob.LoadPointY, truckCharData.userjob.LoadPointZ, plocalize(playerid, "3dtext.job.loadhere").tostring(), plocalize(playerid, "3dtext.job.press.load").tostring());
+            } else if (truckCharData["jobstatus"] == "unload") {
+                msg( playerid, truckCharData.userjob.UnloadText, TRUCK_JOB_COLOR );
+                job_truck[getCharacterIdFromPlayerId(playerid)]["truckblip3dtext"] = truckJobCreatePrivateBlipText(playerid, truckCharData.userjob.UnloadPointX, truckCharData.userjob.UnloadPointY, truckCharData.userjob.UnloadPointZ, plocalize(playerid, "3dtext.job.unloadhere"), plocalize(playerid, "3dtext.job.press.unload"));
+            } else if (truckCharData["jobstatus"] == "complete") {
+                msg( playerid, "job.truckdriver.takemoney", TRUCK_JOB_COLOR );
+            } else {
+                msg( playerid, "job.truckdriver.wantwork", TRUCK_JOB_COLOR );
+            }
+        }
+    };
         job_truck[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] = createPrivate3DText (playerid, TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.05, plocalize(playerid, "3dtext.job.press.leave"), CL_WHITE.applyAlpha(100), RADIUS_TRUCK );
 });
 
