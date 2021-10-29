@@ -10,9 +10,6 @@ class Item.Clothes extends Item.Abstract
         if (getSkinData(this.amount).sex != players[playerid].sex) return msg(playerid, format("inventory.clothes.wrongsex-%d", random(1, 3)), CL_THUNDERBIRD);
         if (getSkinData(this.amount).race != players[playerid].race) return msg(playerid, "inventory.clothes.wrongrace", CL_THUNDERBIRD);
         local model = getPlayerModel(playerid);
-        if(getDefaultPlayerModel(playerid) != model) {
-            return msg(playerid, "inventory.clothes.work", CL_THUNDERBIRD);
-        }
         setPlayerModel(playerid, this.amount, true);
         msg(playerid, "inventory.clothes.use", [ plocalize(playerid, "shops.clothesshop.id"+this.amount) ] );
         this.amount = model;
