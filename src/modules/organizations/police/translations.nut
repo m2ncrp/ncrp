@@ -1,49 +1,49 @@
 alternativeTranslate({
 
-"en|job.police.cadet"                               : "cadet"
-"ru|job.police.cadet"                               : "кадет"
+"en|job.police.cadet"                               : "Cadet"
+"ru|job.police.cadet"                               : "Кадет"
 
-"en|job.police.patrol"                              : "patrolman"
-"ru|job.police.patrol"                              : "патрульный"
+"en|job.police.patrol"                              : "Patrolman"
+"ru|job.police.patrol"                              : "Патрульный"
 
-"en|job.police.officer"                             : "officer"
-"ru|job.police.officer"                             : "офицер"
+"en|job.police.officer"                             : "Officer"
+"ru|job.police.officer"                             : "Офицер"
 
-"en|job.police.detective"                           : "detective"
-"ru|job.police.detective"                           : "детектив"
+"en|job.police.detective"                           : "Detective"
+"ru|job.police.detective"                           : "Детектив"
 
-"en|job.police.sergeant.1"                          : "sergant I"
-"ru|job.police.sergeant.1"                          : "сержант I"
+"en|job.police.sergeant.1"                          : "Sergeant I"
+"ru|job.police.sergeant.1"                          : "Сержант I"
 
-"en|job.police.sergeant.2"                          : "sergant II"
-"ru|job.police.sergeant.2"                          : "сержант II"
+"en|job.police.sergeant.2"                          : "Sergeant II"
+"ru|job.police.sergeant.2"                          : "Сержант II"
 
-"en|job.police.lieutenant.1"                        : "lieutenant I"
-"ru|job.police.lieutenant.1"                        : "лейтенант I"
+"en|job.police.lieutenant.1"                        : "Lieutenant I"
+"ru|job.police.lieutenant.1"                        : "Лейтенант I"
 
-"en|job.police.lieutenant.2"                        : "lieutenant II"
-"ru|job.police.lieutenant.2"                        : "лейтенант II"
+"en|job.police.lieutenant.2"                        : "Lieutenant II"
+"ru|job.police.lieutenant.2"                        : "Лейтенант II"
 
-"en|job.police.Captain.1"                           : "captain I"
-"ru|job.police.Captain.1"                           : "капитан I"
+"en|job.police.Captain.1"                           : "Captain I"
+"ru|job.police.Captain.1"                           : "Капитан I"
 
-"en|job.police.Captain.2"                           : "captain II"
-"ru|job.police.Captain.2"                           : "капитан II"
+"en|job.police.Captain.2"                           : "Captain II"
+"ru|job.police.Captain.2"                           : "Капитан II"
 
-"en|job.police.Captain.3"                           : "captain III"
-"ru|job.police.Captain.3"                           : "капитан III"
+"en|job.police.Captain.3"                           : "Captain III"
+"ru|job.police.Captain.3"                           : "Капитан III"
 
-"en|job.police.commander"                           : "commander"
-"ru|job.police.commander"                           : "командующий"
+"en|job.police.commander"                           : "Commander"
+"ru|job.police.commander"                           : "Командующий"
 
-"en|job.police.deputychief"                         : "deputy chief"
-"ru|job.police.deputychief"                         : "заместитель шефа"
+"en|job.police.deputychief"                         : "Deputy chief"
+"ru|job.police.deputychief"                         : "Заместитель шефа"
 
-"en|job.police.assistantchief"                      : "assist. chief"
-"ru|job.police.assistantchief"                      : "помощник шефа"
+"en|job.police.assistantchief"                      : "Assist. chief"
+"ru|job.police.assistantchief"                      : "Помощник шефа"
 
-"en|job.police.chief"                               : "police chief"
-"ru|job.police.chief"                               : "шеф полиции"
+"en|job.police.chief"                               : "Police chief"
+"ru|job.police.chief"                               : "Шеф полиции"
 
 "en|organizations.police.job.getmaxrank"            : "You've reached maximum rank: %s."
 "ru|organizations.police.job.getmaxrank"            : "Вы достигли высшего звания: %s."

@@ -1,3 +1,15 @@
+local vehicleAccessManagerWindowOpened = {};
+
+function isVehicleAccessManagerWindowOpened(playerid) {
+    local charid = getCharacterIdFromPlayerId(playerid);
+    return (charid in vehicleAccessManagerWindowOpened) ? vehicleAccessManagerWindowOpened[charid] : false;
+}
+
+event("onPlayerDisconnect", function(playerid, reason) {
+    local charid = getCharacterIdFromPlayerId(playerid);
+    if (charid in vehicleAccessManagerWindowOpened) delete vehicleAccessManagerWindowOpened[charid];
+});
+
 /**
  * KEYBINDS
  */
@@ -20,8 +32,7 @@ function removePrivateVehicleLightsKeys (playerid) {
     removePrivateKey(playerid, "h", "switchBothLight");
 }
 
-
-
+/*
 // Lock/unlock vehicle trunk
 key("q", function (playerid) {
 
@@ -34,7 +45,6 @@ key("q", function (playerid) {
 
     local locked = veh.data.parts.trunk.locked;
     local opened = veh.data.parts.trunk.opened;
-
 
     local hasAccess = isPlayerHaveVehicleKey(playerid, vehicleid) || ( isOfficer(playerid) && isOfficerOnDuty(playerid) && isVehicleidPoliceVehicle(vehicleid) );
 
@@ -72,6 +82,7 @@ key("q", function (playerid) {
     });
 
 });
+*/
 
 // Open/close vehicle trunk
 key("e", function (playerid) {
@@ -108,11 +119,68 @@ key("e", function (playerid) {
     delayedFunction(50, function () {
         setVehiclePartOpen(vehicleid, 1, opened)
     });
-
 })
+
+// Show/hide vehicle GUI
+key("v", function (playerid) {
+
+    local charid = getCharacterIdFromPlayerId(playerid);
+    if(!(charid in vehicleAccessManagerWindowOpened)) {
+        vehicleAccessManagerWindowOpened[charid] <- false;
+    }
+
+    if(vehicleAccessManagerWindowOpened[charid]) {
+        triggerClientEvent(playerid, "hideVehicleGUI");
+        vehicleAccessManagerWindowOpened[charid] = false;
+        return;
+    }
+
+    if(players[playerid].inventory.isOpened(playerid)) return msg(playerid, "Прежде закройте окно инвентаря.", CL_ERROR);
+
+    vehicleAccessManagerWindowOpen(playerid, charid);
+})
+
+function vehicleAccessManagerWindowOpen(playerid, charid) {
+
+    local vehicleid = getNearestVehicleForPlayer(playerid, 3.0);
+
+    if(vehicleid == false) return;
+
+    local veh = getVehicleEntity(vehicleid);
+
+    if(veh == null) return;
+
+    if(veh.interior && veh.interior.isOpened(playerid)) return msg(playerid, "Прежде закройте окно салона автомобиля.", CL_ERROR);
+    if(veh.inventory && veh.inventory.isOpened(playerid)) return msg(playerid, "Прежде закройте окно багажника автомобиля.", CL_ERROR);
+
+    local hasAccess = isPlayerHaveVehicleKey(playerid, vehicleid) || ( isOfficer(playerid) && isOfficerOnDuty(playerid) && isVehicleidPoliceVehicle(vehicleid) );
+
+    local trunkLocked = veh.data.parts.trunk.locked;
+    local trunkOpened = veh.data.parts.trunk.opened;
+
+    local frontLeftDoor = veh.data.parts.doors.front.left;
+    local frontRightDoor = "right" in veh.data.parts.doors.front ? veh.data.parts.doors.front.right : null;
+
+    local rearLeftDoor = "rear" in veh.data.parts.doors ? veh.data.parts.doors.rear.left : null;
+    local rearRightDoor = "rear" in veh.data.parts.doors ? veh.data.parts.doors.rear.right : null;
+
+    if(!hasAccess) {
+        msg(playerid, "vehicle.owner.warning", CL_ERROR);
+        return;
+    }
+
+    local vehInfo = getVehicleInfo(veh.model);
+    local hasTrunk = hasVehicleTrunk(veh.model)
+
+    // ключ есть
+    triggerClientEvent(playerid, "showVehicleGUI", "Автомобиль", vehicleid, vehInfo.seats, hasTrunk, frontLeftDoor, frontRightDoor, rearLeftDoor, rearRightDoor, trunkOpened, trunkLocked);
+    vehicleAccessManagerWindowOpened[charid] = true;
+}
 
 // Open vehicle inventory
 key("z", function (playerid) {
+
+    if(isVehicleAccessManagerWindowOpened(playerid)) return;
 
     local vehicleid = getNearestVehicleForPlayerForTrunk(playerid);
     if(vehicleid == false) return;
@@ -143,6 +211,8 @@ key("z", function (playerid) {
 
 // Open vehicle interior or show cargo properties
 key("z", function (playerid) {
+    if(isVehicleAccessManagerWindowOpened(playerid)) return;
+
     if(!isPlayerInVehicleSeat(playerid, 0)) return;
 
     local vehicleid = getPlayerVehicle(playerid);

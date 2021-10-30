@@ -31,7 +31,7 @@ function setPlayerJob(playerid, jobname) {
 
     players[playerid].job = (!jobname) ? "" : jobname;
 
-    trigger(playerid, "onServerIntefaceCharacterJob", getLocalizedPlayerJob(playerid, "en"));
+    trigger(playerid, "onServerIntefaceCharacterJob", getLocalizedPlayerJob(playerid));
     delayedFunction(500, function() { renderPlayerJobBlips(playerid) });
 
     return true;

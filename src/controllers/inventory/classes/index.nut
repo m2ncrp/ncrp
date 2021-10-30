@@ -23,6 +23,7 @@ include("controllers/inventory/classes/templates/Storage.nut");
 include("controllers/inventory/classes/templates/Wheels.nut");
 //include("controllers/inventory/classes/templates/Equipment.nut");
 
+include("controllers/inventory/classes/Item/RepairKit.nut");
 include("controllers/inventory/classes/Item/Jerrycan.nut");
 include("controllers/inventory/classes/Item/VehicleTax.nut");
 include("controllers/inventory/classes/Item/VehicleKey.nut");
@@ -116,22 +117,22 @@ class Item.Ammo38Special    extends Item.Ammo   { static classname = "Item.Ammo3
 /**
  * Food
  */
-class Item.Burger           extends Item.Food   { static classname = "Item.Burger";         constructor () { base.constructor(); this.volume = 1.5680; this.amount = 60.0 }}
-class Item.Hotdog           extends Item.Food   { static classname = "Item.Hotdog";         constructor () { base.constructor(); this.volume = 0.6760; this.amount = 30.0 }}
-class Item.Sandwich         extends Item.Food   { static classname = "Item.Sandwich";       constructor () { base.constructor(); this.volume = 0.3776; this.amount = 20.0 }}
-class Item.Gyros            extends Item.Food   { static classname = "Item.Gyros";          constructor () { base.constructor(); this.volume = 1.0080; this.amount = 50.0 }}
-class Item.Donut            extends Item.Food   { static classname = "Item.Donut";          constructor () { base.constructor(); this.volume = 0.0850; this.amount = 35.0 }}
+class Item.Burger           extends Item.Food   { static classname = "Item.Burger";         constructor () { base.constructor(); this.volume = 1.5680; this.amount = 60.0; this.model = 65   }}
+class Item.Hotdog           extends Item.Food   { static classname = "Item.Hotdog";         constructor () { base.constructor(); this.volume = 0.6760; this.amount = 30.0; this.model = 48   }}
+class Item.Sandwich         extends Item.Food   { static classname = "Item.Sandwich";       constructor () { base.constructor(); this.volume = 0.3776; this.amount = 20.0; this.model = 66   }}
+class Item.Gyros            extends Item.Food   { static classname = "Item.Gyros";          constructor () { base.constructor(); this.volume = 1.0080; this.amount = 50.0; this.model = 127  }}
+class Item.Donut            extends Item.Food   { static classname = "Item.Donut";          constructor () { base.constructor(); this.volume = 0.0850; this.amount = 35.0; this.model = 1    }}
 
 /**
  * Drinks
  */
-class Item.Cola                 extends Item.Drink  { static classname = "Item.Cola";             constructor () { base.constructor(); this.volume = 0.6429; this.amount = 20.0 }}
-class Item.Whiskey              extends Item.Drink  { static classname = "Item.Whiskey";          constructor () { base.constructor(); this.volume = 1.3766; this.amount = 50.0 }}
-class Item.Brandy               extends Item.Drink  { static classname = "Item.Brandy";           constructor () { base.constructor(); this.volume = 1.8025; this.amount = 60.0 }}
-class Item.Wine                 extends Item.Drink  { static classname = "Item.Wine";             constructor () { base.constructor(); this.volume = 1.7388; this.amount = 55.0 }}
-class Item.MasterBeer           extends Item.Drink  { static classname = "Item.MasterBeer";       constructor () { base.constructor(); this.volume = 0.8263; this.amount = 30.0 }}
-class Item.StoltzBeer           extends Item.Drink  { static classname = "Item.StoltzBeer";       constructor () { base.constructor(); this.volume = 1.1741; this.amount = 35.0 }}
-class Item.OldEmpiricalBeer     extends Item.Drink  { static classname = "Item.OldEmpiricalBeer"; constructor () { base.constructor(); this.volume = 1.1605; this.amount = 40.0 }}
+class Item.Cola                 extends Item.Drink  { static classname = "Item.Cola";             constructor () { base.constructor(); this.volume = 0.6429; this.amount = 20.0; this.model = 111 }}
+class Item.Whiskey              extends Item.Drink  { static classname = "Item.Whiskey";          constructor () { base.constructor(); this.volume = 1.3766; this.amount = 50.0; this.model = 129 }}
+class Item.Brandy               extends Item.Drink  { static classname = "Item.Brandy";           constructor () { base.constructor(); this.volume = 1.8025; this.amount = 60.0; this.model = 29  }}
+class Item.Wine                 extends Item.Drink  { static classname = "Item.Wine";             constructor () { base.constructor(); this.volume = 1.7388; this.amount = 55.0; this.model = 130 }}
+class Item.MasterBeer           extends Item.Drink  { static classname = "Item.MasterBeer";       constructor () { base.constructor(); this.volume = 0.8263; this.amount = 30.0; this.model = 112 }}
+class Item.StoltzBeer           extends Item.Drink  { static classname = "Item.StoltzBeer";       constructor () { base.constructor(); this.volume = 1.1741; this.amount = 35.0; this.model = 128 }}
+class Item.OldEmpiricalBeer     extends Item.Drink  { static classname = "Item.OldEmpiricalBeer"; constructor () { base.constructor(); this.volume = 1.1605; this.amount = 40.0; this.model = 112 }}
 
 /**
  * Cigarrets

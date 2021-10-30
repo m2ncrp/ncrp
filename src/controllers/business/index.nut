@@ -1,5 +1,6 @@
 include("controllers/business/fuelStations");
 include("controllers/business/kiosks");
+include("controllers/business/private");
 
 local businesses = {};
 

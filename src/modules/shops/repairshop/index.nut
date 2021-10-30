@@ -2,17 +2,13 @@ include("modules/shops/repairshop/commands.nut");
 
 translation("en", {
     "shops.repairshop.toofar"             : "You are too far from any reapir shop!"
-    "shops.repairshop.money.notenough"    : "[REPAIR SHOP] Not enough money. Need $%.2f, but you have only $%s."
-    "shops.repairshop.repair.payed"       : "[REPAIR SHOP] You pay $%.2f for repair car. Current balance $%s. Come to us again!"
-    "shops.repairshop.repaint.payed"      : "[REPAIR SHOP] You pay $%.2f for repaint car. Current balance $%s. Come to us again!"
+    "shops.repairshop.money.notenough"    : "[REPAIR SHOP] Not enough money. Need $%.2f."
+    "shops.repairshop.repair.payed"       : "[REPAIR SHOP] You pay $%.2f for repair car. Come to us again!"
     "shops.repairshop.needwait"           : "[REPAIR SHOP] Please, wait while your car is on repair..."
     "shops.repairshop.ownership.wrong"    : "Sorry mate, but it's not your car. I won't repaint that."
-
-    "shops.repairshop.help.title"         : "List of available commands for REPAIR SHOP:"
-    "shops.repairshop.help.repair"        : "Repair car"
 });
 
-const SHOP_REPAIR_COST = 4.99;
+const SHOP_REPAIR_COST = 5.99;
 const SHOP_REPAINT_COST = 84.00;
 
 const SHOP_REPAIR_3DTEXT_DRAW_DISTANCE = 35.0;
@@ -69,7 +65,7 @@ function repairShopRepairCar (playerid) {
 
     if ( isNearRepairShop(playerid) ) {
         if ( !canMoneyBeSubstracted(playerid, SHOP_REPAIR_COST) ) {
-            return msg(playerid, "shops.repairshop.money.notenough", [SHOP_REPAIR_COST, getPlayerBalance(playerid)], CL_THUNDERBIRD);
+            return msg(playerid, "shops.repairshop.money.notenough", [SHOP_REPAIR_COST], CL_THUNDERBIRD);
         }
         msg(playerid, "shops.repairshop.needwait");
         screenFadeinFadeoutEx(playerid, 250, 3000, null, function() {
@@ -77,7 +73,7 @@ function repairShopRepairCar (playerid) {
             repairVehicle( vehicleid );
             subPlayerMoney(playerid, SHOP_REPAIR_COST);
             addWorldMoney(SHOP_REPAIR_COST);
-            return msg(playerid, "shops.repairshop.repair.payed", [SHOP_REPAIR_COST, getPlayerBalance(playerid)]);
+            return msg(playerid, "shops.repairshop.repair.payed", [SHOP_REPAIR_COST]);
         });
     }
 }

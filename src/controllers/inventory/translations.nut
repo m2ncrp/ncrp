@@ -18,6 +18,21 @@ alternativeTranslate({
     "en|inventory.cannotdestroy" : "You can't destroy this item."
     "ru|inventory.cannotdestroy" : "Вы не можете уничтожить этот предмет."
 
+    "en|inventory.using"         : "Wait till the current action finish."
+    "ru|inventory.using"         : "Дождитесь завершения текущего действия."
+
+    "en|inventory.clothes.wrongsex-1"  : "This thing does not suits you."
+    "ru|inventory.clothes.wrongsex-1"  : "Эта одежда вам не подходит."
+
+    "en|inventory.clothes.wrongsex-2"  : "This is not your style."
+    "ru|inventory.clothes.wrongsex-2"  : "Это не ваш стиль."
+
+    "en|inventory.clothes.wrongsex-3"  : "You should not put on this."
+    "ru|inventory.clothes.wrongsex-3"  : "Вам не стоит это надевать."
+
+    "en|inventory.clothes.wrongrace"  : "This clothes does not match your race."
+    "ru|inventory.clothes.wrongrace"  : "Данная одежда не соответствует расе персонажа."
+
     "en|inventory.transfered"    : "[ME] %s transfer: %s"
     "ru|inventory.transfered"    : "[ME] %s передал: %s"
 
@@ -77,9 +92,6 @@ alternativeTranslate({
 
     "en|inventory.clothes.use"      : "You put on: %s."
     "ru|inventory.clothes.use"      : "Вы надели: %s."
-
-    "en|inventory.clothes.work"     : "You are in a working clothes."
-    "ru|inventory.clothes.work"     : "Вы в рабочей одежде."
 
     "en|inventory.leavethecar"      : "Leave the car to use."
     "ru|inventory.leavethecar"      : "Для использования выйдите из автомобиля."
@@ -159,6 +171,7 @@ alternativeTranslate({
     "en|Item.CoffeeCup"        : "Cup of coffee"
 
     "en|Item.Jerrycan"         : "Canister"
+    "en|Item.RepairKit"        : "Repair Kit"
     "en|Item.VehicleTax"       : "Vehicle tax"
     "en|Item.VehicleTitle"     : "Vehicle title"
     "en|Item.VehicleKey"       : "Vehicle key"
@@ -225,6 +238,7 @@ alternativeTranslate({
     "ru|Item.CoffeeCup"        : "Чашка кофе"
 
     "ru|Item.Jerrycan"         : "Канистра"
+    "ru|Item.RepairKit"        : "Ремкомплект"
     "ru|Item.VehicleTax"       : "Квитанция налога на ТС"
     "ru|Item.VehicleKey"       : "Ключ от автомобиля"
     "ru|Item.VehicleTitle"     : "Свидетельство на ТС"

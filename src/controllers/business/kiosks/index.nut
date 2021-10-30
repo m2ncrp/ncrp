@@ -23,7 +23,7 @@ function isPlayerNearKiosk(playerid) {
     local res = false;
     foreach (key, kiosk in coords) {
         if (isPlayerInValidPoint3D(playerid, kiosk.public[0], kiosk.public[1], kiosk.public[2], 0.4)) {
-            res = kiosks[format("Kiosk%02d", key)];
+            res = kiosks[format("Kiosk%02d", key + 1)];
             break;
         }
     }

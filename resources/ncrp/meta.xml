@@ -41,9 +41,11 @@
         <script type="client">gui_phone.nut</script>
         <script type="client">gui_rentcar.nut</script>
         <script type="client">gui_empirediner.nut</script>
+        <script type="client">gui_vehicle.nut</script>
 
         <!-- player -->
         <script type="client">player_effects.nut</script>
+        <script type="client">player_animations.nut</script>
 
 
 
@@ -160,6 +162,7 @@
         <file>Item.Gyros.png</file>
         <file>Item.Hotdog.png</file>
         <file>Item.Jerrycan.png</file>
+        <file>Item.RepairKit.png</file>
         <file>Item.MasterBeer.png</file>
         <!--  <file>Item.Methamnetamine.png</file> -->
         <file>Item.Money.png</file>
@@ -192,6 +195,16 @@
         <file>Item.Wheels09.png</file>
         <file>Item.Wheels10.png</file>
         <file>Item.Wheels11.png</file>
+
+        <file>Vehicle.LeftDoorLocked.png</file>
+        <file>Vehicle.LeftDoorUnlocked.png</file>
+        <file>Vehicle.RightDoorLocked.png</file>
+        <file>Vehicle.RightDoorUnlocked.png</file>
+
+        <file>Vehicle.TrunkClosed.png</file>
+        <file>Vehicle.TrunkOpened.png</file>
+        <file>Vehicle.TrunkLocked.png</file>
+        <file>Vehicle.TrunkUnlocked.png</file>
 
         <file>Item.Dice.png</file>
         <file>Item.Donut.png</file>

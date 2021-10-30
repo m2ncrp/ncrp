@@ -277,9 +277,9 @@ key("f4", function(playerid) {
 //    return setPlayerChatSlot(playerid, 3);
 //});
 
-key("f5", function(playerid) {
-    return trigger(playerid, "onServerChatTrigger");
-});
+// key("f5", function(playerid) {
+//     return trigger(playerid, "onServerChatTrigger");
+// });
 
 acmd(["noooc"], function ( playerid ) {
     if(IS_OOC_ENABLED){

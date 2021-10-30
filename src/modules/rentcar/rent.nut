@@ -173,18 +173,18 @@ alternativeTranslate({
     "ru|rentcar.notrent"        : "Этот автомобиль нельзя арендовать."
     "ru|rentcar.notenough"      : "У вас недостаточно денег."
     "ru|rentcar.rented"         : "Вы арендовали этот автомобиль. Отказаться от аренды: /unrent"
-    "ru|rentcar.refused"        : "Вы отказались от аренды. Благодарим за выбор Car Rental!"
+    "ru|rentcar.refused"        : "Вы отказались от аренды."
     "ru|rentcar.cantrent"       : "У вас закончились деньги, аренда приостановлена. Пожалуйста, покиньте автомобиль."
     "ru|rentcar.paidcar"        : "Вы заплатили за аренду автомобиля $%.2f."
     "ru|rentcar.refuse"         : "Отказаться от аренды: /unrent"
     "ru|rentcar.notenoughbill"  : "Недостаточно денег на балансе автомобиля"
 
-    "ru|rentcar.very-expensive-fuel"  : "Заправить этот автомобиль можно на автозаправках, где цена галлона топлива ниже $ %.2f"
-    "en|rentcar.very-expensive-fuel"  : "You can refuel this car at gas stations where the price of a gallon of fuel is below $ %.2f"
+    "ru|rentcar.very-expensive-fuel"  : "Заправить этот автомобиль можно на автозаправках, где цена галлона топлива ниже $%.2f"
+    "en|rentcar.very-expensive-fuel"  : "You can refuel this car at gas stations where the price of a gallon of fuel is below $%.2f"
 
     "ru|rentcar.rent.dontknow"  : "Вы пока не знаете как арендовать автомобиль."
     "ru|rentcar.lease.dontknow" : "Вы пока не знаете как сдать автомобиль в аренду."
-    "ru|rentcar.explorecity"    : "Найдите парковку Car Rental в Северном Милвилле и внимательно её осмотрите."
+    "ru|rentcar.explorecity"    : "Позвоните на номер 555-0192 с любого телефонного аппарата."
 
     // Для GUI
     "ru|rentcar.gui.window"         : "Аренда автомобиля"

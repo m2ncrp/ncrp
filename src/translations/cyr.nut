@@ -138,6 +138,9 @@ alternativeTranslate({
     "en|CANISTER"                       : "CANISTER"
     "ru|CANISTER"                       : "КАНИСТРА"
 
+    "en|MINI-MARKET"                    : "MINI-MARKET"
+    "ru|MINI-MARKET"                    : "МИНИ-МАРКЕТ"
+
     "en|TUTORIAL"                       : "TUTORIAL"
     "ru|TUTORIAL"                       : "ИНФОРМАЦИЯ"
 

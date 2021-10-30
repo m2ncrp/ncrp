@@ -41,7 +41,7 @@ event("onPlayerCharacterLoaded", function(playerid, character) {
         if (DEBUG) dbg("player", "started", getIdentity(playerid));
         trigger("onServerPlayerStarted", playerid);
         trigger(playerid, "onServerClientStarted", VERSION);
-        trigger(playerid, "onServerIntefaceCharacter", getLocalizedPlayerJob(playerid, "en"), getPlayerLevel(playerid) );
+        trigger(playerid, "onServerIntefaceCharacter", getLocalizedPlayerJob(playerid), getPlayerLevel(playerid) );
         trigger(playerid, "onServerInterfaceMoney", getPlayerMoney(playerid));
 
         // try to undfreeze player
@@ -119,7 +119,7 @@ event("onPlayerCharacterSelect", function(playerid, id) {
 
     dbg("selecting character with data", id.tointeger(), getAccountName(playerid));
 
-    Character.findOneBy({ id = id.tointeger(), name = getAccountName(playerid) }, function(err, character) {
+    Character.findOneBy({ id = id.tointeger() }, function(err, character) {
         if (err || !character) {
             return alert(playerid, "character.doesnotexist");
         }
