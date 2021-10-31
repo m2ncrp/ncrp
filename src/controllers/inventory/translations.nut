@@ -33,6 +33,9 @@ alternativeTranslate({
     "en|inventory.clothes.wrongrace"  : "This clothes does not match your race."
     "ru|inventory.clothes.wrongrace"  : "Данная одежда не соответствует расе персонажа."
 
+    "en|inventory.clothes.skinerror"  : "Error with clothes %d. Contact with administration."
+    "ru|inventory.clothes.skinerror"  : "Ошибка в одежде %d. Обратитесь к администрации."
+
     "en|inventory.transfered"    : "[ME] %s transfer: %s"
     "ru|inventory.transfered"    : "[ME] %s передал: %s"
 
