@@ -45,9 +45,6 @@ event("onServerMinuteChange", function() {
     foreach (vehicleid, object in __vehicles) {
         local veh = getVehicleEntity(vehicleid);
         if(!veh) continue;
-        if (!("engine" in veh.data.parts)) {
-            veh.data.parts.engine <- {"temperature": 0};
-        }
         local temperature = veh.data.parts.engine.temperature;
         local step = isSummer() ? VEHICLE_ENGINE_TEMPERATURE_STEP_SUMMER : VEHICLE_ENGINE_TEMPERATURE_STEP_WINTER;
         if (isVehicleEngineStarted(vehicleid)) {
