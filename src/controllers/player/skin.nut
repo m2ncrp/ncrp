@@ -32,6 +32,8 @@ local skinData = {
     "58" : {"race": 2, "sex": 1},
     "59" : {"race": 2, "sex": 1},
     "70" : {"race": 2, "sex": 1},
+    "71" : {"race": 0, "sex": 0},
+    "72" : {"race": 0, "sex": 0},
     "73" : {"race": 0, "sex": 0},
     "74" : {"race": 0, "sex": 0},
     "77" : {"race": 0, "sex": 0},
@@ -101,6 +103,10 @@ local skinData = {
 
 function getSkinData(id) {
     return skinData[id.tostring()];
+}
+
+function getSkinsData() {
+    return skinData;
 }
 
 function setPlayerModel(playerid, skin, forced = false) {
