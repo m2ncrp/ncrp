@@ -1,25 +1,10 @@
 const VEHICLE_DIRT_STEP = 0.0041;
-const VEHICLE_ENGINE_TEMPERATURE_STEP_WINTER = 1.67;
-const VEHICLE_ENGINE_TEMPERATURE_STEP_SUMMER = 0.56;
 
 event("onServerMinuteChange", function() {
     foreach (vehicleid, object in __vehicles) {
-        local veh = getVehicleEntity(vehicleid);
-        if(!veh) continue;
-        if (!("engine" in veh.data.parts)) {
-            veh.data.parts.engine <- {"temperature": 0};
-        }
-        local temperature = veh.data.parts.engine.temperature;
-        local step = isSummer() ? VEHICLE_ENGINE_TEMPERATURE_STEP_SUMMER : VEHICLE_ENGINE_TEMPERATURE_STEP_WINTER;
-        if (isVehicleEngineStarted(vehicleid)) {
-            veh.data.parts.engine.temperature = 100;
-        } else if ((temperature - step) > 0) {
-            veh.data.parts.engine.temperature -= step;
-        } else {
-            veh.data.parts.engine.temperature = 0;
-        }
-        local speed = getVehicleSpeed(vehicleid);
         if (isVehicleEmpty(vehicleid)) continue;
+        local speed = getVehicleSpeed(vehicleid);
+
         if ((speed[0] > 1.0 || speed[1] > 1.0) && __vehicles[vehicleid].dirt <= 1.0) {
             __vehicles[vehicleid].dirt += VEHICLE_DIRT_STEP
         }
