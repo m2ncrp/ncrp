@@ -47,12 +47,9 @@ event("onServerMinuteChange", function() {
         if(!veh) continue;
         local temperature = veh.data.parts.engine.temperature;
         local step = isSummer() ? VEHICLE_ENGINE_TEMPERATURE_STEP_SUMMER : VEHICLE_ENGINE_TEMPERATURE_STEP_WINTER;
-        if (isVehicleEngineStarted(vehicleid)) {
-            veh.data.parts.engine.temperature = 100;
-        } else if ((temperature - step) > 0) {
-            veh.data.parts.engine.temperature -= step;
-        } else {
-            veh.data.parts.engine.temperature = 0;
-        }
+        local t = 0;
+        if (isVehicleEngineStarted(vehicleid)) t = 100;
+        else if ((temperature - step) > 0) t = temperature - step;
+        veh.data.parts.engine.temperature = t;
     }
 });
