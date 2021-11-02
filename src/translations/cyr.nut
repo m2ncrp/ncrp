@@ -80,6 +80,8 @@ alternativeTranslate({
     "en|3dtext.organizations.filling-center"    : "FILLING CENTER"
     "ru|3dtext.organizations.filling-center"    : "ТОПЛИВНОЕ ХРАНИЛИЩЕ"
 
+    "en|3dtext.organizations.filling-center-filled"    : "Fullness: %s"
+    "ru|3dtext.organizations.filling-center-filled"    : "Заполненость: %s"
 
     "en|3dtext.organizations.kiosks"    : "Press E to find something in that"
     "ru|3dtext.organizations.kiosks"    : "Нажми E, чтобы найти что-нибудь"
