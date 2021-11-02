@@ -287,11 +287,6 @@ function milkJobGet ( playerid ) {
         return msg(playerid, "passport.toofar", CL_LYNCH );
     }
 
-    //local hour = getHour();
-    //if(hour < MILK_JOB_GET_HOUR_START || hour >= MILK_JOB_GET_HOUR_END) {
-    //    return msg( playerid, "job.closed", [ MILK_JOB_GET_HOUR_START.tostring(), MILK_JOB_GET_HOUR_END.tostring()], MILK_JOB_COLOR );
-    //}
-
     if(!isPlayerLevelValid ( playerid, MILK_JOB_LEVEL )) {
         return msg(playerid, "job.milkdriver.needlevel", MILK_JOB_LEVEL, MILK_JOB_COLOR );
     }
@@ -324,11 +319,6 @@ function milkJobLeave ( playerid ) {
     if(!isPlayerInValidPoint(playerid, MILK_JOB_X, MILK_JOB_Y, MILK_JOB_RADIUS)) {
         return;
     }
-
-    //local hour = getHour();
-    //if(hour < MILK_JOB_LEAVE_HOUR_START || hour >= MILK_JOB_LEAVE_HOUR_END) {
-    //    return msg( playerid, "job.closed", [ MILK_JOB_LEAVE_HOUR_START.tostring(), MILK_JOB_LEAVE_HOUR_END.tostring()], MILK_JOB_COLOR );
-    //}
 
     if (getPlayerJobState(playerid) == "working") {
         msg( playerid, "job.milkdriver.badworker.onleave", MILK_JOB_COLOR);
@@ -375,11 +365,6 @@ function milkJobGetRoute ( playerid ) {
                msg(playerid, "job.needpassport", MILK_JOB_COLOR );
         return msg(playerid, "passport.toofar", CL_LYNCH );
     }
-
-    //local hour = getHour();
-    //if(hour < MILK_JOB_WORKING_HOUR_START || hour >= MILK_JOB_WORKING_HOUR_END) {
-    //    return msg( playerid, "job.closed", [ MILK_JOB_WORKING_HOUR_START.tostring(), MILK_JOB_WORKING_HOUR_END.tostring()], MILK_JOB_COLOR );
-    //}
 
     if(MILK_ROUTE_NOW < 1) {
         return msg( playerid, "job.nojob", MILK_JOB_COLOR );

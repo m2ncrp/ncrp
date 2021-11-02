@@ -421,11 +421,6 @@ function fuelJobGet( playerid ) {
 
         if(!isPlayerHaveJob(playerid)) {
 
-            //local hour = getHour();
-            //if(hour < FUEL_JOB_GET_HOUR_START || hour >= FUEL_JOB_GET_HOUR_END) {
-            //    return msg( playerid, "job.closed", [ FUEL_JOB_GET_HOUR_START.tostring(), FUEL_JOB_GET_HOUR_END.tostring()], FUEL_JOB_COLOR );
-            //}
-
             // если у игрока уже есть другая работа
             if(isPlayerHaveJob(playerid) && !isFuelDriver(playerid)) {
                 return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), FUEL_JOB_COLOR );
@@ -477,11 +472,6 @@ function fuelJobGet( playerid ) {
 // working good, check
 function fuelJobStartRoute( playerid ) {
 
-    //local hour = getHour();
-    //if(hour < FUEL_JOB_WORKING_HOUR_START || hour >= FUEL_JOB_WORKING_HOUR_END) {
-    //    return msg( playerid, "job.closed", [ FUEL_JOB_WORKING_HOUR_START.tostring(), FUEL_JOB_WORKING_HOUR_END.tostring()], FUEL_JOB_COLOR );
-    //}
-
     if(!isPlayerHaveValidPassport(playerid)) {
                msg(playerid, "job.needpassport", FUEL_JOB_COLOR );
         return msg(playerid, "passport.toofar", CL_LYNCH );
@@ -516,11 +506,6 @@ function fuelJobRefuseLeave( playerid ) {
     if(!isPlayerInValidPoint(playerid, FUEL_JOB_X, FUEL_JOB_Y, FUEL_JOB_RADIUS)) {
         return;
     }
-
-    //local hour = getHour();
-    //if(hour < FUEL_JOB_LEAVE_HOUR_START || hour >= FUEL_JOB_LEAVE_HOUR_END) {
-    //    return msg( playerid, "job.closed", [ FUEL_JOB_LEAVE_HOUR_START.tostring(), FUEL_JOB_LEAVE_HOUR_END.tostring()], FUEL_JOB_COLOR );
-    //}
 
     if(job_fuel[getCharacterIdFromPlayerId(playerid)]["userstatus"] == null) {
         msg( playerid, "job.fueldriver.goodluck", FUEL_JOB_COLOR);

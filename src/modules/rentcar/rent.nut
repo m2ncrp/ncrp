@@ -21,6 +21,11 @@ function RentCar(playerid) {
     rentcars[veh.id] <- charid;
     unblockDriving(vehicleid);
 
+    // Всегда заправлять городские арендные авто
+    if(veh.plate.find("CR-") == 0) {
+        setVehicleFuelEx(vehicleid, getDefaultVehicleFuel(vehicleid));
+    }
+
     setVehicleRespawnEx(vehicleid, false);
 
     subPlayerMoney( playerid, rentprice );
@@ -162,7 +167,7 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
 
 function showRentCarGUI(playerid, vehicleid){
     local windowText =  plocalize(playerid, "rentcar.gui.window");
-    local labelText =   plocalize(playerid, "rentcar.gui.canrent", [getVehicleRentPrice(vehicleid)]);
+    local labelText =   plocalize(playerid, "rentcar.gui.canrent", [getVehicleRentPrice(vehicleid) / 6.0]);
     local button1Text = plocalize(playerid, "rentcar.gui.buttonRent");
     local button2Text = plocalize(playerid, "rentcar.gui.buttonRefuse");
     triggerClientEvent(playerid, "showRentCarGUI", windowText,labelText,button1Text,button2Text);
@@ -190,7 +195,7 @@ alternativeTranslate({
     "ru|rentcar.gui.window"         : "Аренда автомобиля"
     "ru|rentcar.gui.buttonRent"     : "Арендовать"
     "ru|rentcar.gui.buttonRefuse"   : "Отказаться"
-    "ru|rentcar.gui.canrent"        : "Вы можете взять этот автомобиль в аренду.\nЦена: $%.2f в час (игровой)."
+    "ru|rentcar.gui.canrent"        : "Вы можете взять этот автомобиль в аренду.\nЦена: $%.2f за 10 минут (игровых)."
 
     "en|rentcar.goto"                      : "Go to parking CAR RENTAL in North Millville to rent a car."
     "en|rentcar.notrent"                   : "This car can not be rented."
@@ -206,7 +211,7 @@ alternativeTranslate({
     "en|rentcar.gui.window"                : "Car rent"
     "en|rentcar.gui.buttonRent"            : "Rent"
     "en|rentcar.gui.buttonRefuse"          : "Refuse"
-    "en|rentcar.gui.canrent"               : "You can rent this car.\nPrice: $%.2f in hour (in game)"
+    "en|rentcar.gui.canrent"               : "You can rent this car.\nPrice: $%.2f in 10 minutes (in game)"
 
 })
 

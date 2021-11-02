@@ -186,7 +186,7 @@ chatcmd(["o","ooc"], function(playerid, message) {
     if (IS_OOC_ENABLED && antiflood[playerid]["togooc"])
     {
         local xp = players[playerid].xp;
-        local minXp = 30;
+        local minXp = 15;
         if(xp < minXp) {
           msg(playerid, "newplayer.message1", [ minXp ], CL_ERROR);
 
