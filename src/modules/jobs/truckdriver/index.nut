@@ -296,11 +296,6 @@ function truckJobTalk( playerid ) {
             return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), TRUCK_JOB_COLOR );
         }
 
-        // local hour = getHour();
-        // if(hour < TRUCK_JOB_WORKING_HOUR_START || hour >= TRUCK_JOB_WORKING_HOUR_END) {
-        //     return msg( playerid, "job.closed", [ TRUCK_JOB_WORKING_HOUR_START.tostring(), TRUCK_JOB_WORKING_HOUR_END.tostring()], TRUCK_JOB_COLOR );
-        // }
-
         if(TRUCK_ROUTE_NOW < 1) {
             return msg( playerid, "job.nojob", BUS_JOB_COLOR );
         }
@@ -366,11 +361,7 @@ function truckJobRefuseLeave( playerid ) {
         return;
     }
 
-    local hour = getHour();
     local charId = getCharacterIdFromPlayerId(playerid);
-    if(hour < TRUCK_JOB_LEAVE_HOUR_START || hour >= TRUCK_JOB_LEAVE_HOUR_END) {
-        return msg( playerid, "job.closed", [ TRUCK_JOB_LEAVE_HOUR_START.tostring(), TRUCK_JOB_LEAVE_HOUR_END.tostring()], TRUCK_JOB_COLOR );
-    }
 
     if(job_truck[charId]["userstatus"] == null) {
         msg( playerid, "job.truckdriver.goodluck");

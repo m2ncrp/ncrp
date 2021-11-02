@@ -17,19 +17,17 @@ alternativeTranslate({
     "en|job.porter.help.take"          : "Take a box"
     "en|job.porter.help.put"           : "Put box to the railway carriage"
 
-
-
-    "ru|job.porter.letsgo"             :   "[PORTER] Отправляйтесь внутрь здания вокзала в Dipton."
-    "ru|job.porter.already"            :   "[PORTER] Ты уже работаешь грузчиком."
-    "ru|job.porter.now"                :   "[PORTER] Ты стал грузчиком. Давай за работу!"
-    "ru|job.porter.takeboxandcarry"    :   "[PORTER] Бери ящик и неси к вагону."
-    "ru|job.porter.not"                :   "[PORTER] Вы не работаете грузчиком."
-    "ru|job.porter.takebox"            :   "[PORTER] Иди и возьми ящик."
-    "ru|job.porter.havebox"            :   "[PORTER] Ты уже несёшь ящик. Тебе мало что ли?"
-    "ru|job.porter.tookbox"            :   "[PORTER] Ты взял ящик. Теперь неси его к вагону."
-    "ru|job.porter.haventbox"          :   "[PORTER] Ты не брал ящик."
-    "ru|job.porter.gotowarehouse"      :   "[PORTER] Иди к вагону."
-    "ru|job.porter.nicejob"            :   "[PORTER] Ты принёс ящик. Твой заработок $%.2f."
+    "ru|job.porter.letsgo"             :   "Отправляйтесь внутрь здания вокзала в Dipton."
+    "ru|job.porter.already"            :   "Ты уже работаешь грузчиком."
+    "ru|job.porter.now"                :   "Ты стал грузчиком. Давай за работу!"
+    "ru|job.porter.takeboxandcarry"    :   "Бери ящик (жёлтая метка на карте) и неси к вагону."
+    "ru|job.porter.not"                :   "Вы не работаете грузчиком."
+    "ru|job.porter.takebox"            :   "Иди и возьми ящик."
+    "ru|job.porter.havebox"            :   "Ты уже несёшь ящик. Тебе мало что ли?"
+    "ru|job.porter.tookbox"            :   "Ты взял ящик. Теперь неси его к вагону."
+    "ru|job.porter.haventbox"          :   "Ты не брал ящик."
+    "ru|job.porter.gotowarehouse"      :   "Иди к вагону."
+    "ru|job.porter.nicejob"            :   "Ты принёс ящик. Твой заработок $%.2f."
 
     "ru|job.porter.help.title"         :   "Список команд, доступных грузчику:"
     "ru|job.porter.help.job"           :   "Устроиться на работу грузчиком"
@@ -44,9 +42,9 @@ include("modules/jobs/stationporter/commands.nut");
 local job_porter = {};
 
 const PORTER_RADIUS = 4.0;
-const PORTER_JOB_X = -583.78; //Dipton Station Inside
-const PORTER_JOB_Y = 1620.02; //Dipton Station Inside
-const PORTER_JOB_Z = -15.6957; //Dipton Station Inside
+const PORTER_JOB_X = -611.44; // -583.78; //Dipton Station Inside
+const PORTER_JOB_Y = 1626.62; // 1620.02; //Dipton Station Inside
+const PORTER_JOB_Z = -15.9546; // -15.6957; //Dipton Station Inside
 
 const PORTER_JOB_TAKEBOX_X = -658.107;
 const PORTER_JOB_TAKEBOX_Y = 1722.11;
@@ -165,11 +163,6 @@ function porterJob( playerid ) {
         return msg( playerid, "job.porter.already", PORTER_JOB_COLOR );
     }
 
-    local hour = getHour();
-    if(hour < PORTER_JOB_GET_HOUR_START || hour >= PORTER_JOB_GET_HOUR_END) {
-        return msg( playerid, "job.closed", [ PORTER_JOB_GET_HOUR_START.tostring(), PORTER_JOB_GET_HOUR_END.tostring()], PORTER_JOB_COLOR );
-    }
-
     if(isPlayerHaveJob(playerid)) {
         return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), PORTER_JOB_COLOR );
     }
@@ -201,11 +194,6 @@ function porterJobLeave( playerid ) {
 
     if(!isPorter( playerid )) {
         return msg( playerid, "job.porter.not", PORTER_JOB_COLOR );
-    }
-
-    local hour = getHour();
-    if(hour < PORTER_JOB_LEAVE_HOUR_START || hour >= PORTER_JOB_LEAVE_HOUR_END) {
-        return msg( playerid, "job.closed", [ PORTER_JOB_LEAVE_HOUR_START.tostring(), PORTER_JOB_LEAVE_HOUR_END.tostring()], PORTER_JOB_COLOR );
     }
 
     screenFadeinFadeoutEx(playerid, 250, 200, function() {
@@ -243,11 +231,6 @@ function porterJobTakeBox( playerid ) {
     if (isPorterHaveBox(playerid)) {
         return msg( playerid, "job.porter.havebox", PORTER_JOB_COLOR );
     }
-
-    // local hour = getHour();
-    // if(hour < PORTER_JOB_WORKING_HOUR_START || hour >= PORTER_JOB_WORKING_HOUR_END) {
-    //     return msg( playerid, "job.closed", [ PORTER_JOB_WORKING_HOUR_START.tostring(), PORTER_JOB_WORKING_HOUR_END.tostring()], PORTER_JOB_COLOR );
-    // }
 
     if(PORTER_BOX_NOW < 1) {
         return msg( playerid, "job.nojob", PORTER_JOB_COLOR );
@@ -292,7 +275,8 @@ function porterJobPutBox( playerid ) {
     porterJobRemovePrivateBlipText ( playerid );
 
     job_porter[getCharacterIdFromPlayerId(playerid)]["havebox"] = false;
-    local amount = PORTER_SALARY + round(getSalaryBonus() / 50, 2);
+    local xp = players[playerid].xp;
+    local amount = PORTER_SALARY + (xp <= 30 ? 1.0 : 0.0);
     players[playerid].data.jobs.porter.count += 1;
     msg( playerid, "job.porter.nicejob", amount, PORTER_JOB_COLOR );
     addPlayerMoney(playerid, amount);

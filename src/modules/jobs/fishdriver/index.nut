@@ -340,10 +340,6 @@ function fishJobGet( playerid ) {
         return msg(playerid, "passport.toofar", CL_LYNCH );
     }
 
-    local hour = getHour();
-    if(hour < FISH_JOB_GET_HOUR_START || hour >= FISH_JOB_GET_HOUR_END) {
-        return msg( playerid, "job.closed", [ FISH_JOB_GET_HOUR_START.tostring(), FISH_JOB_GET_HOUR_END.tostring()], FISH_JOB_COLOR );
-    }
 /*
     if(isFishDriver( playerid )) {
         return msg( playerid, "job.fishdriver.already", FISH_JOB_COLOR );
@@ -393,52 +389,42 @@ function fishJobRefuseLeave( playerid ) {
         return;
     }
 
-    local hour = getHour();
-    if(hour < FISH_JOB_LEAVE_HOUR_START || hour >= FISH_JOB_LEAVE_HOUR_END) {
-        return msg( playerid, "job.closed", [ FISH_JOB_LEAVE_HOUR_START.tostring(), FISH_JOB_LEAVE_HOUR_END.tostring()], FISH_JOB_COLOR );
+    msg(playerid, "job.fishdriver.goodluck", FISH_JOB_COLOR);
+    job_fish[getCharacterIdFromPlayerId(playerid)]["userstatus"] = null;
+    job_fish[getCharacterIdFromPlayerId(playerid)]["hand"] = null;
+
+    local arr_3dtext = [
+        "leavejob3dtext"           ,
+        "fish_putbox1_3dtext"      ,
+        "fish_putbox1_3dtext_desc" ,
+        "fish_putbox2_3dtext"      ,
+        "fish_putbox2_3dtext_desc" ,
+        "fish_parking1_3dtext"     ,
+        "fish_parking2_3dtext"     ,
+        "fish_door1_3dtext"        ,
+        "fish_door2_3dtext"        ,
+        "fish_takebox"             ,
+        "fish_putbox"
+    ];
+    foreach (idx, value in arr_3dtext) {
+        if(existsText( playerid, value )) removeText ( playerid, value );
     }
 
-        msg( playerid, "job.fishdriver.goodluck", FISH_JOB_COLOR);
-        job_fish[getCharacterIdFromPlayerId(playerid)]["userstatus"] = null;
-        job_fish[getCharacterIdFromPlayerId(playerid)]["hand"] = null;
 
-        local arr_3dtext = [
-            "leavejob3dtext"           ,
-            "fish_putbox1_3dtext"      ,
-            "fish_putbox1_3dtext_desc" ,
-            "fish_putbox2_3dtext"      ,
-            "fish_putbox2_3dtext_desc" ,
-            "fish_parking1_3dtext"     ,
-            "fish_parking2_3dtext"     ,
-            "fish_door1_3dtext"        ,
-            "fish_door2_3dtext"        ,
-            "fish_takebox"             ,
-            "fish_putbox"
-        ];
-        foreach (idx, value in arr_3dtext) {
-            if(existsText( playerid, value )) removeText ( playerid, value );
-        }
+    msg( playerid, "job.leave", FISH_JOB_COLOR );
 
+    setPlayerJob( playerid, null );
+    //restorePlayerModel(playerid);
 
-        msg( playerid, "job.leave", FISH_JOB_COLOR );
+    // remove private blip job
+    removePersonalJobBlip ( playerid );
 
-        setPlayerJob( playerid, null );
-        //restorePlayerModel(playerid);
-
-        // remove private blip job
-        removePersonalJobBlip ( playerid );
-
-        fishJobRemovePrivateBlipText ( playerid );
+    fishJobRemovePrivateBlipText ( playerid );
 }
 
 
 function fishJobStartRoute( playerid ) {
     //job_fish[getCharacterIdFromPlayerId(playerid)]["blip3dtext"] = fishJobCreatePrivateBlipText(playerid, 396.5, 98.0385, -21.2582, "UNLOAD HERE", "/fish unload");
-    //
-    // local hour = getHour();
-    // if(hour < FISH_JOB_WORKING_HOUR_START || hour >= FISH_JOB_WORKING_HOUR_END) {
-    //     return msg( playerid, "job.closed", [ FISH_JOB_WORKING_HOUR_START.tostring(), FISH_JOB_WORKING_HOUR_END.tostring()], FISH_JOB_COLOR );
-    // }
 
     job_fish[getCharacterIdFromPlayerId(playerid)]["userstatus"] = "working";
     fishJobSync3DText(playerid);
