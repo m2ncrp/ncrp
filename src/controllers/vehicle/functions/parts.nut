@@ -56,10 +56,10 @@ event("onServerSecondChange", function() {
             }
         }
 
-        local veh = getVehicleEntity(vehicleid);
-        if(!veh) continue;
-        if (!("engine" in veh.data.parts)) {
-            veh.data.parts.engine <- {"temperature": 0};
+        if (("engine" in veh.data.parts) == false) {
+            veh.data.parts.engine <- {
+                temperature = 0
+            };
         }
 
         if("trunk" in veh.data.parts) {
