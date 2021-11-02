@@ -1260,11 +1260,6 @@ function snowplowJobGet( playerid ) {
     //     return msg(playerid, "job.snowplow.needlevel", SNOWPLOW_JOB_LEVEL, SNOWPLOW_JOB_COLOR );
     // }
 
-    // local hour = getHour();
-    // if(hour < SNOWPLOW_JOB_GET_HOUR_START || hour >= SNOWPLOW_JOB_GET_HOUR_END) {
-    //     return msg( playerid, "job.closed", [ SNOWPLOW_JOB_GET_HOUR_START.tostring(), SNOWPLOW_JOB_GET_HOUR_END.tostring()], SNOWPLOW_JOB_COLOR );
-    // }
-
     if (getCharacterIdFromPlayerId(playerid) in job_snowplow_blocked) {
         if (getTimestamp() - job_snowplow_blocked[getCharacterIdFromPlayerId(playerid)] < SNOWPLOW_JOB_TIMEOUT) {
             return msg( playerid, "job.snowplow.badworker", SNOWPLOW_JOB_COLOR);
@@ -1323,11 +1318,6 @@ function snowplowJobLeave( playerid ) {
     if(!isPlayerInValidPoint(playerid, SNOWPLOW_JOB_X, SNOWPLOW_JOB_Y, RADIUS_SNOWPLOW_SMALL)) {
         return;
     }
-
-    // local hour = getHour();
-    // if(hour < SNOWPLOW_JOB_LEAVE_HOUR_START || hour >= SNOWPLOW_JOB_LEAVE_HOUR_END) {
-    //     return msg( playerid, "job.closed", [ SNOWPLOW_JOB_LEAVE_HOUR_START.tostring(), SNOWPLOW_JOB_LEAVE_HOUR_END.tostring()], SNOWPLOW_JOB_COLOR );
-    // }
 
     if(getPlayerJobState(playerid) == null) {
         msg( playerid, "job.snowplow.goodluck", SNOWPLOW_JOB_COLOR);
@@ -1400,11 +1390,6 @@ function snowplowJobStartRoute( playerid ) {
                msg(playerid, "job.needpassport", SNOWPLOW_JOB_COLOR );
         return msg(playerid, "passport.toofar", CL_LYNCH );
     }
-
-    //local hour = getHour();
-    //if(hour < SNOWPLOW_JOB_WORKING_HOUR_START || hour >= SNOWPLOW_JOB_WORKING_HOUR_END) {
-    //    return msg( playerid, "job.closed", [ SNOWPLOW_JOB_WORKING_HOUR_START.tostring(), SNOWPLOW_JOB_WORKING_HOUR_END.tostring()], SNOWPLOW_JOB_COLOR );
-    //}
 
     if(SNOWPLOW_ROUTE_NOW < 1) {
         return msg( playerid, "job.nojob", SNOWPLOW_JOB_COLOR );

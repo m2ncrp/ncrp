@@ -243,11 +243,6 @@ function dockerJob( playerid ) {
         return msg( playerid, "job.docker.already", DOCKER_JOB_COLOR );
     }
 
-    // local hour = getHour();
-    // if(hour < DOCKER_JOB_GET_HOUR_START || hour >= DOCKER_JOB_GET_HOUR_END) {
-    //     return msg( playerid, "job.closed", [ DOCKER_JOB_GET_HOUR_START.tostring(), DOCKER_JOB_GET_HOUR_END.tostring()], DOCKER_JOB_COLOR );
-    // }
-
     if(isPlayerHaveJob(playerid)) {
         return msg( playerid, "job.alreadyhavejob", getLocalizedPlayerJob(playerid), DOCKER_JOB_COLOR );
     }
@@ -282,11 +277,6 @@ function dockerJobLeave( playerid ) {
     if(!isDocker( playerid )) {
         return msg( playerid, "job.docker.not", DOCKER_JOB_COLOR );
     }
-
-    // local hour = getHour();
-    // if(hour < DOCKER_JOB_LEAVE_HOUR_START || hour >= DOCKER_JOB_LEAVE_HOUR_END) {
-    //     return msg( playerid, "job.closed", [ DOCKER_JOB_LEAVE_HOUR_START.tostring(), DOCKER_JOB_LEAVE_HOUR_END.tostring()], DOCKER_JOB_COLOR );
-    // }
 
     if (isDockerHaveBox(playerid)) {
         delayedFunction(250, function() {
@@ -327,11 +317,6 @@ function dockerJobTakeBox( playerid ) {
     if (isDockerHaveBox(playerid)) {
         return msg( playerid, "job.docker.havebox", DOCKER_JOB_COLOR );
     }
-
-    // local hour = getHour();
-    // if(hour < DOCKER_JOB_WORKING_HOUR_START || hour >= DOCKER_JOB_WORKING_HOUR_END) {
-    //     return msg( playerid, "job.closed", [ DOCKER_JOB_WORKING_HOUR_START.tostring(), DOCKER_JOB_WORKING_HOUR_END.tostring()], DOCKER_JOB_COLOR );
-    // }
 
     if(DOCKER_BOX_NOW < 1) {
         return msg( playerid, "job.docker.nojob", DOCKER_JOB_COLOR );

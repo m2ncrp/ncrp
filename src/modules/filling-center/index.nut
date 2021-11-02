@@ -59,10 +59,6 @@ const FILLING_CENTER_Y = -876.451;
 const FILLING_CENTER_Z = -21.7358;
 const FILLING_CENTER_FUELUP_SPEED = 20; // gallons in seconds
 
-local FILLING_CENTER_IN_HOUR = 25;
-local FILLING_CENTER_MAX = 1000;
-local FILLING_CENTER_NOW = 100;
-
 local FILLING_CENTER_COLOR = CL_CRUSTA;
 
 // Перечень грузовиков в ожидании действия от игрока
@@ -75,15 +71,22 @@ event("onServerStarted", function() {
 
     createPlace("FillingCenter", 164.143, -871.729, 145.547, -880.425);
 
+    create3DText(FILLING_CENTER_X, FILLING_CENTER_Y, FILLING_CENTER_Z+0.35, localize("3dtext.organizations.filling-center", [], "ru"), CL_RIPELEMON, 50.0 );
+    create3DText(FILLING_CENTER_X, FILLING_CENTER_Y, FILLING_CENTER_Z-0.15, localize("3dtext.job.press.load", [], "ru"), CL_WHITE.applyAlpha(150), 4.0);
+    fillingCenterCreateVolume3DText();
 });
 
-event("onServerPlayerStarted", function(playerid) {
-    createPrivate3DText(playerid, FILLING_CENTER_X, FILLING_CENTER_Y, FILLING_CENTER_Z+0.35, plocalize(playerid, "3dtext.organizations.filling-center"), CL_RIPELEMON, 50.0 );
-    createPrivate3DText(playerid, FILLING_CENTER_X, FILLING_CENTER_Y, FILLING_CENTER_Z-0.15, plocalize(playerid, "3dtext.job.press.load"), CL_WHITE.applyAlpha(150), 4.0);
-});
+local fillingCenterVolume3DText = null;
 
-event("onServerHourChange", function() {
-    FILLING_CENTER_NOW += FILLING_CENTER_IN_HOUR;
+function fillingCenterCreateVolume3DText() {
+    fillingCenterVolume3DText = create3DText(FILLING_CENTER_X, FILLING_CENTER_Y, FILLING_CENTER_Z+0.10, localize("3dtext.organizations.filling-center-filled", [formatGallons(getSettingsValue("fillingCenterVolumeFilled"))], "ru"), CL_RIPELEMON, 4.0 );
+}
+
+event("onServerMinuteChange", function() {
+    local newVolume = getSettingsValue("fillingCenterVolumeFilled") + (random(2, 5) * getSettingsValue("fillingCenterVolumeFillingSpeed"));
+    setSettingsValue("fillingCenterVolumeFilled", newVolume);
+    remove3DText(fillingCenterVolume3DText);
+    fillingCenterCreateVolume3DText();
 });
 
 event("onPlayerPlaceEnter", function(playerid, name) {
@@ -165,13 +168,15 @@ function fillingCenterLoad(playerid) {
         return msg(playerid, "fillingcenter.already-loaded", FILLING_CENTER_COLOR);
     }
 
-    if(FILLING_CENTER_NOW == 0) {
+    local currentVolume = getSettingsValue("fillingCenterVolumeFilled");
+
+    if(currentVolume == 0) {
         return msg(playerid, "fillingcenter.empty", FILLING_CENTER_COLOR);
     }
 
     msg(playerid, "fillingcenter.enter-value-of-gallons-1", FILLING_CENTER_COLOR);
     msg(playerid, "fillingcenter.enter-value-of-gallons-2", [getSettingsValue("baseFuelPrice")], FILLING_CENTER_COLOR);
-    msg(playerid, "fillingcenter.enter-value-of-gallons-hint", [1, Math.min(vehInfo.cargoLimit - veh.data.parts.cargo, FILLING_CENTER_NOW)], CL_GRAY);
+    msg(playerid, "fillingcenter.enter-value-of-gallons-hint", [1, Math.min(vehInfo.cargoLimit - veh.data.parts.cargo, currentVolume)], CL_GRAY);
 
     local isEntered = false;
 
@@ -203,8 +208,8 @@ function fillingCenterLoad(playerid) {
 
         local gallons = text.tointeger();
 
-        if(gallons > FILLING_CENTER_NOW) {
-            return msg(playerid, "fillingcenter.not-enough-gallons", [formatGallons(FILLING_CENTER_NOW)], FILLING_CENTER_COLOR);
+        if(gallons > currentVolume) {
+            return msg(playerid, "fillingcenter.not-enough-gallons", [formatGallons(currentVolume)], FILLING_CENTER_COLOR);
         }
 
         if(veh.data.parts.cargo + gallons > vehInfo.cargoLimit) {
@@ -222,7 +227,8 @@ function fillingCenterLoad(playerid) {
 
         subPlayerMoney(playerid, amount);
         addWorldMoney(amount);
-        FILLING_CENTER_NOW -= gallons;
+
+        setSettingsValue("fillingCenterVolumeFilled", currentVolume - gallons);
 
         setVehicleState(vehicleid, "loading");
         blockDriving(playerid, vehicleid);

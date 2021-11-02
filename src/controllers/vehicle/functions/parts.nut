@@ -56,6 +56,12 @@ event("onServerSecondChange", function() {
             }
         }
 
+        if (("engine" in veh.data.parts) == false) {
+            veh.data.parts.engine <- {
+                temperature = 0
+            };
+        }
+
         if("trunk" in veh.data.parts) {
             setVehiclePartOpen(vehicleid, 1, veh.data.parts.trunk.opened);
         }

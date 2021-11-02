@@ -47,7 +47,7 @@ function settingsLoadedDataRead() {
                 {
                     name = "startedIncomeMin",
                     desc = "Мин. стартовый капитал игрока",
-                    value = "10.0",
+                    value = "15.0",
                 },
                 {
                     name = "startedIncomeMax",
@@ -57,7 +57,22 @@ function settingsLoadedDataRead() {
                 {
                     name = "baseFuelPrice",
                     desc = "Базовая стоимость галона топлива",
-                    value = "0.12",
+                    value = "0.18",
+                },
+                {
+                    name = "fillingCenterVolume",
+                    desc = "Объём топливного хранилища",
+                    value = "1000",
+                },
+                {
+                    name = "fillingCenterVolumeFilled",
+                    desc = "Заполненность топливного хранилища",
+                    value = "10.0",
+                },
+                {
+                    name = "fillingCenterVolumeFillingSpeed",
+                    desc = "Скорость заполнения топливного хранилища * rand(2, 5)",
+                    value = "0.01",
                 },
                 {
                     name = "saleBizToCityCoef",

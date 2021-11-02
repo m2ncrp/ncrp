@@ -5,7 +5,7 @@ local TITLE_DRAW_DISTANCE = 10.0;
 local FUEL_RADIUS = 2.0;
 local FUEL_UNLOAD_RADIUS = 25.0;
 
-const FUEL_STATION_LIMIT = 1000.0;
+const FUEL_STATION_LIMIT = 500.0;
 
 local FUELUP_SPEED = 2.5; // gallons in second
 local FUEL_UNLOAD_SPEED = 20; // gallons in second
@@ -691,7 +691,7 @@ function fuelTruckUnload(playerid) {
         return msg(playerid, "business.fuelStation.not-ready-to-buy", CL_ERROR);
     }
 
-    if(station.data.fuel.amount == FUEL_STATION_LIMIT) {
+    if(station.data.fuel.amount >= FUEL_STATION_LIMIT) {
         return msg(playerid, "business.fuelStation.full", CL_ERROR);
     }
 

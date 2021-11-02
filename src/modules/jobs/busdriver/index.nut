@@ -355,11 +355,6 @@ function busJobGet( playerid ) {
         return msg(playerid, "passport.toofar", CL_LYNCH );
     }
 
-    // local hour = getHour();
-    // if(hour < BUS_JOB_GET_HOUR_START || hour >= BUS_JOB_GET_HOUR_END) {
-    //     return msg( playerid, "job.closed", [ BUS_JOB_GET_HOUR_START.tostring(), BUS_JOB_GET_HOUR_END.tostring()], BUS_JOB_COLOR );
-    // }
-
     if (getCharacterIdFromPlayerId(playerid) in job_bus_blocked) {
         if (getTimestamp() - job_bus_blocked[getCharacterIdFromPlayerId(playerid)] < BUS_JOB_TIMEOUT) {
             return msg( playerid, "job.bus.badworker", BUS_JOB_COLOR);
@@ -419,11 +414,6 @@ function busJobLeave( playerid ) {
         return;
     }
 
-    //local hour = getHour();
-    //if(hour < BUS_JOB_LEAVE_HOUR_START || hour >= BUS_JOB_LEAVE_HOUR_END) {
-    //    return msg( playerid, "job.closed", [ BUS_JOB_LEAVE_HOUR_START.tostring(), BUS_JOB_LEAVE_HOUR_END.tostring()], BUS_JOB_COLOR );
-    //}
-
     if(getPlayerJobState(playerid) == null) {
         msg( playerid, "job.bus.goodluck", BUS_JOB_COLOR);
     }
@@ -479,11 +469,6 @@ function busJobStartRoute( playerid ) {
                msg(playerid, "job.needpassport", BUS_JOB_COLOR );
         return msg(playerid, "passport.toofar", CL_LYNCH );
     }
-
-    //local hour = getHour();
-    //if(hour < BUS_JOB_WORKING_HOUR_START || hour >= BUS_JOB_WORKING_HOUR_END) {
-    //    return msg( playerid, "job.closed", [ BUS_JOB_WORKING_HOUR_START.tostring(), BUS_JOB_WORKING_HOUR_END.tostring()], SNOWPLOW_JOB_COLOR );
-    //}
 
     if(BUS_ROUTE_NOW < 1) {
         return msg( playerid, "job.nojob", BUS_JOB_COLOR );
