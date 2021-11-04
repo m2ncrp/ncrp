@@ -11,3 +11,4 @@ include("modules/policealarm");
 include("modules/racing");
 include("modules/filling-center");
 include("modules/animations");
+include("modules/telephone");
