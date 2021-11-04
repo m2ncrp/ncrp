@@ -13,11 +13,11 @@ function playerDrawer() {
             clientStreamings["player_"+idx] <- true;
         }
         local targetPos = getPlayerPosition(idx);
-        if ((getDistanceBetweenPoints2D(targetPos[0], targetPos[1], plaPos[0], plaPos[1]) >= 10) && (clientStreamings["player_"+idx])) {
+        if ((getDistanceBetweenPoints2D(targetPos[0], targetPos[1], plaPos[0], plaPos[1]) >= 400) && (clientStreamings["player_"+idx])) {
             executeLua(format("game.entitywrapper:GetEntityByName(\"m2online_ped_%d\"):Deactivate()", idx));
             log("hiding player " + idx)
             clientStreamings["player_"+idx] = false;
-        } else if ((getDistanceBetweenPoints2D(targetPos[0], targetPos[1], plaPos[0], plaPos[1]) <= 10) && (!clientStreamings["player_"+idx])){
+        } else if ((getDistanceBetweenPoints2D(targetPos[0], targetPos[1], plaPos[0], plaPos[1]) <= 400) && (!clientStreamings["player_"+idx])){
             executeLua(format("game.entitywrapper:GetEntityByName(\"m2online_ped_%d\"):Activate()", idx));
             log("showing player " + idx)
             clientStreamings["player_"+idx] = true;
@@ -32,10 +32,10 @@ function vehicleDrawer() {
             clientStreamings["vehicle_"+vehicleid] <- true;
         }
         local targetPos = getVehiclePosition(vehicleid);
-        if ((getDistanceBetweenPoints2D(targetPos[0], targetPos[1], plaPos[0], plaPos[1]) >= 10) && (clientStreamings["vehicle_"+vehicleid])){
+        if ((getDistanceBetweenPoints2D(targetPos[0], targetPos[1], plaPos[0], plaPos[1]) >= 400) && (clientStreamings["vehicle_"+vehicleid])){
             executeLua(format("game.entitywrapper:GetEntityByName(\"m2online_vehicle_%d\"):Deactivate()", vehicleid));
             clientStreamings["vehicle_"+vehicleid] = false;
-        } else if ((getDistanceBetweenPoints2D(targetPos[0], targetPos[1], plaPos[0], plaPos[1]) <= 10) && (!clientStreamings["vehicle_"+vehicleid])) {
+        } else if ((getDistanceBetweenPoints2D(targetPos[0], targetPos[1], plaPos[0], plaPos[1]) <= 400) && (!clientStreamings["vehicle_"+vehicleid])) {
             executeLua(format("game.entitywrapper:GetEntityByName(\"m2online_vehicle_%d\"):Activate()", vehicleid));
             clientStreamings["vehicle_"+vehicleid] = true;
         }

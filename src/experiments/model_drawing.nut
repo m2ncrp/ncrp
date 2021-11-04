@@ -4,7 +4,7 @@ acmd("streamer", function(playerid, type, state) {
         if (setting.tostring() == state) {
             return msg(playerid, "Такое значение для отрисовки %s уже установлено", type, CL_THUNDERBIRD);
         };
-        setting = ((state == "true") ? true : false);
+        setting = (state == "true");
         foreach (targetid, name in players) {
             triggerClientEvent(targetid, "toggle" + type.slice(0,1).toupper() + type.slice(1) + "Drawer", setting);
             setSettingsValue(type + "Drawer", setting);
