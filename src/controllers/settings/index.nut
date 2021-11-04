@@ -79,6 +79,16 @@ function settingsLoadedDataRead() {
                     desc = "Коэффициент продажи недвижимости городу",
                     value = "0.8",
                 },
+                {
+                    name = "playersDrawer",
+                    desc = "Отрисовка моделей игроков в радиусе",
+                    value = "false",
+                },
+                {
+                    name = "vehiclesDrawer",
+                    desc = "Отрисовка моделей автомобилей в радиусе",
+                    value = "false",
+                },
             ];
 
             foreach(i, item in items) {
