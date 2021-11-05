@@ -134,6 +134,8 @@ include("translations/en.nut");
 include("translations/ru.nut");
 include("translations/cyr.nut");
 
+//experiments
+include("experiments/model_drawing.nut");
 // unit testing
 // dofile("resources/ncrp/unittests/index.nut", true);
 
