@@ -373,15 +373,6 @@ proxy("shop:purchase",              "native:shop:purchase"               );
 if (__DEBUG__EXPORT) {
     dbg(__commands);
 }
-/*
-event("onPlayerWeaponShoot", function(playerid) {
-    msg(playerid, "Пиу")
-})
-
-event("onPlayerWeaponReload", function(playerid) {
-    msg(playerid, "Перезарядка", CL_ERROR)
-})
-*/
 
 /*
 delayedFunction(10000, function() {

@@ -79,16 +79,26 @@
 
     <!-- inventory system -->
         <!-- items -->
-        <file>Item.Revolver.png</file>
-        <file>Item.Colt.png</file>
-        <file>Item.Magnum.png</file>
-        <file>Item.Remington870.png</file>
-        <file>Item.M1Garand.png</file>
+        <file>Item.Weapons.Thompson1928.png</file>
+        <file>Item.Weapons.M1Garand.png</file>
+        <file>Item.Weapons.M3GreaseGun.png</file>
+        <file>Item.Weapons.Magnum.png</file>
+        <file>Item.Weapons.Beretta38A.png</file>
+        <file>Item.Weapons.MauserC96.png</file>
+        <file>Item.Weapons.Colt.png</file>
+        <file>Item.Weapons.MP40.png</file>
+        <file>Item.Weapons.ColtSpec.png</file>
+        <file>Item.Weapons.Remington870.png</file>
+        <file>Item.Weapons.Kar98k.png</file>
+        <file>Item.Weapons.Revolver.png</file>
+        <file>Item.Weapons.M1A1Thompson.png</file>
 
+        <file>Item.Ammo792x57mm.png</file>
+        <file>Item.Ammo9x19mm.png</file>
+        <file>Item.Ammo12gauge.png</file>
         <file>Item.Ammo38Special.png</file>
         <file>Item.Ammo45ACP.png</file>
         <file>Item.Ammo357Magnum.png</file>
-        <file>Item.Ammo12.png</file>
         <file>Item.Ammo762x63mm.png</file>
 
 
