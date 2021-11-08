@@ -36,11 +36,11 @@ alternativeTranslate({
     "en|inventory.clothes.skinerror"  : "Error with clothes %d. Contact with administration."
     "ru|inventory.clothes.skinerror"  : "Ошибка в одежде %d. Обратитесь к администрации."
 
-    "en|inventory.transfered"    : "[ME] %s transfer: %s"
-    "ru|inventory.transfered"    : "[ME] %s передал: %s"
+    "en|inventory.transfered"    : "%s transfer: %s"
+    "ru|inventory.transfered"    : "%s передал: %s"
 
-    "en|inventory.transferedfrom"    : "[ME] %s taken in hands: %s"
-    "ru|inventory.transferedfrom"    : "[ME] %s взял в руки: %s"
+    "en|inventory.transferedfrom"    : "%s taken in hands: %s"
+    "ru|inventory.transferedfrom"    : "%s взял в руки: %s"
 
     "en|inventory.transfer.enter"    : "Enter player id to transfer item:"
     "ru|inventory.transfer.enter"    : "Введите id игрока, чтобы передать предмет:"

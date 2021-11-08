@@ -57,14 +57,14 @@ alternativeTranslate({
     "en|chat.player.says"              : "%s: %s"
     "ru|chat.player.says"              : "%s: %s"
 
-    "en|chat.player.me"                : "[ME] %s %s"
-    "ru|chat.player.me"                : "[ME] %s %s"
+    "en|chat.player.me"                : "%s %s"
+    "ru|chat.player.me"                : "%s %s"
 
     "en|chat.player.do"                : "[DO] %s (%s)"
     "ru|chat.player.do"                : "[DO] %s (%s)"
 
-    "en|chat.player.todo.me"           : "[ME] %s"
-    "ru|chat.player.todo.me"           : "[ME] %s"
+    "en|chat.player.todo.me"           : "%s"
+    "ru|chat.player.todo.me"           : "%s"
 
     "en|chat.player.b"                 : "%s: %s"
     "ru|chat.player.b"                 : "%s: %s"
