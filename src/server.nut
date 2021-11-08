@@ -229,7 +229,70 @@ event("native:onScriptInit", function() {
     ex(JSONEncoder.encode({type = "test3"}))
     });
 */
+    timer(function() {
+        local data = []
+        local hasData = false;
+
+        /* send players */
+        foreach (playerid, player in players) {
+            local pos = getPlayerPosition(player.playerid);
+            data.push({
+                "type": "player",
+                "gameid": player.playerid,
+                "charid": player.id,
+                "accid": player.accountid,
+                "x": pos[0],
+                "y": pos[1],
+                "z": pos[2],
+            })
+
+            hasData = true;
+        }
+
+        if (hasData) {
+            nano({
+                "type": "sync",
+                "data": data,
+            })
+        }
+    }, 500, -1)
 });
+
+nnListen(function(json) {
+    local data = JSONParser.parse(json);
+
+    if (!("route" in data)) return;
+
+    local route = split(data.route, ":")
+    local side = route[0]
+    local method = route[1]
+
+    if (side == "server") {
+        try {
+            local args = data.args;
+            args.insert(0, getroottable())
+            local result = getroottable()[method].acall(args)
+
+            nano({
+                "type": "success",
+                "seqid": data.seqid,
+                "output": result,
+            })
+        } catch (e) {
+            nano({
+                "type": "error",
+                "seqid": data.seqid,
+                "output": e,
+            })
+
+            throw e
+        }
+    }
+
+    // log(data.method)
+    // dbg(data.args);
+})
+
 
 event("onServerStarted", function() {
     // imitate server restart after script init
