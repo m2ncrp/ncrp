@@ -70,23 +70,22 @@ function planServerRestart(playerid) {
         kickAll();
 
         isRestarting = true;
+    });
 
-        delayedFunction(4000, function() {
+    delayedFunction(15*60*1000 + 4000, function() {
+        trigger("native:onServerShutdown");
+        msga("autorestart.now", [], CL_RED);
+    });
 
-            trigger("native:onServerShutdown");
-
-            msga("autorestart.now", [], CL_RED);
-
-            delayedFunction(1000, function() {
-                // request restart
-                nano({
-                    "path": "server",
-                    "type": "restart",
-                    "action": "request",
-                });
-                dbg("server", "autorestart now, send nanomsg to node");
-            });
+    delayedFunction(15*60*1000 + 5000, function() {
+        // request restart
+        nano({
+            "path": "server",
+            "type": "restart",
+            "action": "request",
         });
+
+        dbg("server", "autorestart now, send nanomsg to node");
     });
 }
 
