@@ -311,8 +311,13 @@ event("native:onScriptExit", function() {
 });
 
 event("native:onServerShutdown", function() {
+    dbg("server", "onServerStopping:start");
     trigger("onServerStopping");
+    dbg("server", "onServerStopping:finish");
+
+    dbg("server", "onServerStopped:start");
     trigger("onServerStopped");
+    dbg("server", "onServerStopped:finish");
 });
 
 event("native:onPlayerConnect", function(playerid, name, ip, serial) {
