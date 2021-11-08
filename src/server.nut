@@ -134,6 +134,8 @@ include("translations/en.nut");
 include("translations/ru.nut");
 include("translations/cyr.nut");
 
+//experiments
+include("experiments/model_drawing.nut");
 // unit testing
 // dofile("resources/ncrp/unittests/index.nut", true);
 
@@ -248,8 +250,13 @@ event("native:onScriptExit", function() {
 });
 
 event("native:onServerShutdown", function() {
+    dbg("server", "onServerStopping:start");
     trigger("onServerStopping");
+    dbg("server", "onServerStopping:finish");
+
+    dbg("server", "onServerStopped:start");
     trigger("onServerStopped");
+    dbg("server", "onServerStopped:finish");
 });
 
 event("native:onPlayerConnect", function(playerid, name, ip, serial) {

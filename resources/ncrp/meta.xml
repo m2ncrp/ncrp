@@ -27,6 +27,7 @@
         <!-- <script type="client">other_proxy.nut</script> -->
         <script type="client">other_bus.nut</script>
         <script type="client">other_doors.nut</script>
+        <script type="client">other_modeldraw.nut</script>
 
         <!-- gui -->
         <script type="client">gui_alert.nut</script>
@@ -46,8 +47,6 @@
         <!-- player -->
         <script type="client">player_effects.nut</script>
         <script type="client">player_animations.nut</script>
-
-
 
         <!-- peds -->
         <script type="client">ped_creation.nut</script>
