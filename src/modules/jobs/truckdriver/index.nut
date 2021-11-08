@@ -89,6 +89,20 @@ local TRUCK_ROUTE_IN_HOUR = 4;
 local TRUCK_ROUTE_NOW = 3;
 
 
+local TRANSLATIONS = {
+    "en": {
+      "opened" : "Opened",
+
+local TRUCK_JOB_PARKING = [{ 
+    "x": -704.88,
+    "y": 1461.06  
+}, { 
+    "x": -704.88,
+    "y": 1461.06  
+}];
+local TRUCK_JOB_PARKING_NAME = "TruckJobParking";
+
+
 event("onServerStarted", function() {
     logStr("[jobs] loading truckdriver job...");
     //  loaded, playerid
@@ -99,6 +113,7 @@ event("onServerStarted", function() {
     truckcars[createVehicle(37, -717.422, 1444.53, -6.33198, -39.2871, -1.59798, 3.26338)]    <- [ false, null ]; //    Covered
 
     registerPersonalJobBlip("truckdriver", TRUCK_JOB_X, TRUCK_JOB_Y);
+    createPlace(TRUCK_JOB_PARKING_NAME, TRUCK_JOB_PARKING[0].x, TRUCK_JOB_PARKING[0].y, TRUCK_JOB_PARKING[1].x, TRUCK_JOB_PARKING[1].y);
 });
 
 /*
