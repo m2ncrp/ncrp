@@ -6,6 +6,16 @@
 */
 
 local weapons = {
+    "0":  {
+        "name": "Nothing",
+        "bullet": 0,
+        "maxBullet": 0,
+    },
+    "1":  {
+        "name": "Hands",
+        "bullet": 0,
+        "maxBullet": 0,
+    },
     "2":  {
         "name": "Revolver .38",
         "bullet": 6,
@@ -85,6 +95,20 @@ event("onPlayerWeaponReload", function(playerid) {
     local weaponText = weapons[weaponid.tostring()].name;
     local bullets = getPlayerWeaponBullet(playerid);
     msg(playerid, format("Перезарядка: %s | %d", weaponText, bullets), CL_ERROR)
+})
+
+event("native:onPlayerChangeWeapon", function(playerid, weaponId, prevWeaponId) {
+    if(weaponId == 0 || prevWeaponId == 0) return;
+    local message = "";
+    if(weaponId == 1) {
+        message = format("убрал %s", weapons[prevWeaponId.tostring()].name);
+    } else if(prevWeaponId == 1) {
+        message = format("достал %s", weapons[weaponId.tostring()].name);
+    } else {
+        message = format("сменил %s на %s", weapons[prevWeaponId.tostring()].name, weapons[weaponId.tostring()].name)
+    }
+
+    sendLocalizedMsgToAll(playerid, "chat.player.me", [getKnownCharacterNameWithId, message], NORMAL_RADIUS, CL_CHAT_ME);
 })
 
 acmd("weapons-off", function(playerid) {
