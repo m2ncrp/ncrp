@@ -80,15 +80,22 @@ function planServerRestart(playerid) {
         kickAll();
 
         isRestarting = true;
+    });
 
-        delayedFunction(7000, function() {
+    delayedFunction(15*60*1000 + 4000, function() {
+        trigger("native:onServerShutdown");
+        msga("autorestart.now", [], CL_RED);
+    });
 
-            trigger("native:onServerShutdown");
-
-            delayedFunction(5000, function() {
-                requestRestart("auto restart");
-            });
+    delayedFunction(15*60*1000 + 5000, function() {
+        // request restart
+        nano({
+            "path": "server",
+            "type": "restart",
+            "action": "request",
         });
+
+        dbg("server", "autorestart now, send nanomsg to node");
     });
 }
 
