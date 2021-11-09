@@ -67,7 +67,8 @@ addEventHandlerEx("onServerStopped", function() {
     if (!IS_MYSQL_ENABLED) {
         connection.close();
     } else {
-        mysql_close(connection);
+        //NOTE(inlife): commented code in an attempt to fix server 100% cpu on restart (09.11.21)
+        //mysql_close(connection);
     }
 });
 
