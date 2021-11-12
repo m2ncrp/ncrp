@@ -260,6 +260,13 @@ event("native:onPlayerChat", function(playerid, message) {
         delete inputRequests[playerid];
     }
 
+    local charId = getCharacterIdFromPlayerId(playerid);
+    if (isUsingPhone(charId)) {
+    local phone = getPhoneData(getUserPhone(charId));
+        sendLocalizedMsgToAll(playerid, "chat.player.says", [getKnownCharacterNameWithId, message], NORMAL_RADIUS, CL_CHAT_IC)
+        return msg(getPlayerIdFromCharacterId(phone["caller"]), "telephone.call", [message], CL_CARIBBEANGREEN);
+    }
+
     // NOTE(inlife): make sure array looks exactly like the one in the client/screen.nut
     local chatslots = ["ooc", "ic", "b", "s", "w", "me", "todo", "do", "try"];
     local slot = getPlayerChatSlot(playerid);

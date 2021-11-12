@@ -159,7 +159,7 @@ event("onServerMinuteChange", function() {
     }
 });
 
-event("onPlayerPhoneCall", function(playerid, number, place) {
+event("onPlayerPhoneCallNPC", function(playerid, number, place) {
     if(number == "0192") {
         carRentalCall(playerid)
     }

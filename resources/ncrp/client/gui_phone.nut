@@ -92,6 +92,7 @@ addEventHandler( "onGuiElementClick",
             hidePhoneGUI();
         }
         if(element == buttons[3]){
+            triggerServerEvent("PhonePutGUI");
             hidePhoneGUI();
         }
         if(element == input[0]){

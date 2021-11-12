@@ -166,6 +166,9 @@ alternativeTranslate({
     "ru|telephone.lineinuse" : "Линия занята."
     "ru|telephone.callyourself" : "Это ваш номер."
     "ru|telephone.noanswer" : "Абонент не отвечает"
+    "ru|telephone.call" : "[ЗВОНОК] %s"
+    "ru|telephone.callend" : "Вызов Завершен"
+    "ru|telephone.callstart" : "Вы начали вызов. Нажмите Q чтобы положить трубку."
 
     "ru|phone.gui.window"          :   "Телефонный аппарат"
     "ru|phone.gui.callto"          :   "Выберите действие:"
