@@ -18,9 +18,9 @@ cmd("fuel", "orders", function(playerid) {
     local list = [];
 
     foreach (name, station in stations) {
-      if (station.state != "opened" || station.data.fuel.amountIn == 0.0) continue;
+      local needGallons = Math.max(0, Math.min(FUEL_STATION_LIMIT - station.data.fuel.amount, station.data.fuel.amountIn));
+      if (station.state != "opened" || station.data.fuel.amountIn == 0.0 || needGallons == 0.0) continue;
       local price = station.data.fuel.priceIn;
-      local needGallons = Math.min(FUEL_STATION_LIMIT - station.data.fuel.amount, station.data.fuel.amountIn);
       local readyToBuyGallons = Math.min(needGallons, station.data.money / price);
       local total = readyToBuyGallons * price;
       list.push(format("%s покупает %.2f гал. по $%.2f/гал. Итого: $%.2f", name, readyToBuyGallons, price, total));
