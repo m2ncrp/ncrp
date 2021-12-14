@@ -85,7 +85,7 @@ acmd("door", function(playerid, doorName, state) {
     setDoorState(doorName, state == "Open" ? true : false);
     foreach (targetid, name in getPlayers()) {
         local plaPos = getPlayerPositionObj(targetid);
-        if(isInPlace(DOOR_PREFIX+doorName, plaPos.x, plaPos.y)) {
+        if(isInArea(DOOR_PREFIX+doorName, plaPos.x, plaPos.y)) {
             triggerClientEvent(targetid, doorName+state);
         }
     }
