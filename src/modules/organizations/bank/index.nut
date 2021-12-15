@@ -84,7 +84,7 @@ event("onPlayerVehicleEnter", function (playerid, vehicleid, seat) {
     blockDriving(playerid, vehicleid);
 });
 
-event("onPlayerPlaceExit", function(playerid, name) {
+event("onPlayerAreaLeave", function(playerid, name) {
     if (name == BANK_OFFICE_PLACE_NAME) {
         return trigger(playerid, "hideBankGUI");
     }

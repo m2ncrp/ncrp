@@ -164,7 +164,7 @@ event("onServerPlayerStarted", function(playerid) {
     }
 });
 
-event("onPlayerPlaceEnter", function(playerid, name) {
+event("onPlayerAreaEnter", function(playerid, name) {
     if (name.find(FUELSTATION_PREFIX) == null) {
         return;
     }
@@ -173,7 +173,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
     fuelStationCreatePrivateInteractions(playerid, station);
 });
 
-event("onPlayerPlaceExit", function(playerid, name) {
+event("onPlayerAreaLeave", function(playerid, name) {
     if (name.find(FUELSTATION_PREFIX) == null) {
         return;
     }

@@ -268,7 +268,7 @@ event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     }
 });
 
-event("onPlayerPlaceEnter", function(playerid, name) {
+event("onPlayerAreaEnter", function(playerid, name) {
     if (name != "FuelBadZone1" && name != "FuelBadZone2") {
         return;
     }

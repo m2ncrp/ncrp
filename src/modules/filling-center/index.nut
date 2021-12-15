@@ -89,7 +89,7 @@ event("onServerMinuteChange", function() {
     fillingCenterCreateVolume3DText();
 });
 
-event("onPlayerPlaceEnter", function(playerid, name) {
+event("onPlayerAreaEnter", function(playerid, name) {
     if (name != "FillingCenter") {
         return;
     }
@@ -97,7 +97,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
     privateKey(playerid, "e", "fillingCenterLoad", fillingCenterLoad);
 });
 
-event("onPlayerPlaceExit", function(playerid, name) {
+event("onPlayerAreaLeave", function(playerid, name) {
     if (name != "FillingCenter") {
         return;
     }

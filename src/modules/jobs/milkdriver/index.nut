@@ -99,7 +99,7 @@ event("onPlayerConnect", function(playerid) {
 });
 
 
-event("onPlayerPlaceEnter", function(playerid, name) {
+event("onPlayerAreaEnter", function(playerid, name) {
     if(name != "milkParking" || !isMilkDriver(playerid) || !isPlayerVehicleMilk(playerid) || getPlayerJobState(playerid) == "sitting") return;
 
     if(getPlayerJobState(playerid) == "working" && job_milk[getCharacterIdFromPlayerId(playerid)]["milkcomplete"] < MILK_JOB_NUMBER_STATIONS) {

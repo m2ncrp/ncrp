@@ -91,10 +91,10 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
     }
 });
 
-addEventHandler("onServerPlaceRemoved", function(id) {
+addEventHandler("onServerAreaRemoved", function(id) {
     if (id in placeRegistry) {
         // if (placeRegistry[id].state) {
-        //     triggerServerEvent("onPlayerPlaceExit", getLocalPlayer(), id);
+        //     triggerServerEvent("onPlayerAreaLeave", getLocalPlayer(), id);
         // }
 
         delete placeRegistry[id];
@@ -160,14 +160,14 @@ function onPlayerTick() {
             // player was outside
             // now he entering
             place.state = true;
-            triggerServerEvent("onPlayerPlaceEnter", idx);
+            triggerServerEvent("onPlayerAreaEnter", idx);
         } else {
             if (!place.state) continue;
 
             // player was inside
             // now hes exiting
             place.state = false;
-            triggerServerEvent("onPlayerPlaceExit", idx);
+            triggerServerEvent("onPlayerAreaLeave", idx);
         }
     }
 }

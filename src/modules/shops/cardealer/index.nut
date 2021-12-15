@@ -134,7 +134,7 @@ event("onPlayerVehicleEnter", function (playerid, vehicleid, seat) {
 });
 
 
-event("onPlayerPlaceEnter", function(playerid, name) {
+event("onPlayerAreaEnter", function(playerid, name) {
     if (isPlayerInVehicle(playerid) && name == "CarDealer") {
         local vehicleid = getPlayerVehicle(playerid);
         setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);

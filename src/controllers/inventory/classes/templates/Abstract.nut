@@ -115,13 +115,13 @@ class Item.Abstract extends ORM.JsonEntity
         createPlace(format("animation_%d", charid), position[0] - 100, position[1] - 100, position[0] + 100, position[1] + 100);
         triggerClientEvent(playerid, "animate", id, anim, model);
         delayedFunction(this.animLen, function() {
-            removePlace(format("animation_%d", charid));
+            removeArea(format("animation_%d", charid));
             removePlayerAnim(playerid);
         });
     }
 }
 
-event("onPlayerPlaceEnter", function(playerid, name) {
+event("onPlayerAreaEnter", function(playerid, name) {
     local data = split(name, "_");
     if (data[0] == "animation") {
         local charId = data[1].tointeger();

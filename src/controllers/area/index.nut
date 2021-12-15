@@ -1,7 +1,6 @@
-// local placeIterator = 0;
 local areaRegister = {};
 
-event("native:onPlayerPlaceEnter", function(playerid, placeid) {
+event("native:onPlayerAreaEnter", function(playerid, placeid) {
     if (!isPlayerLoaded(playerid)) {
         return;
     }
@@ -10,10 +9,10 @@ event("native:onPlayerPlaceEnter", function(playerid, placeid) {
         return;
     }
 
-    trigger("onPlayerPlaceEnter", playerid, areaRegister[placeid].name);
+    trigger("onPlayerAreaEnter", playerid, areaRegister[placeid].name);
 });
 
-event("native:onPlayerPlaceExit", function(playerid, placeid) {
+event("native:onPlayerAreaLeave", function(playerid, placeid) {
     if (!isPlayerLoaded(playerid)) {
         return;
     }
@@ -22,7 +21,7 @@ event("native:onPlayerPlaceExit", function(playerid, placeid) {
         return;
     }
 
-    trigger("onPlayerPlaceExit", playerid, areaRegister[placeid].name);
+    trigger("onPlayerAreaLeave", playerid, areaRegister[placeid].name);
 });
 
 event("onServerPlayerStarted", function(playerid) {
@@ -38,6 +37,9 @@ event("onServerPlayerStarted", function(playerid) {
     }
 });
 
+function generatePrivateAreaId(name, playerid) {
+    return md5(name + "_" + getPlayerName(playerid));
+}
 
 /**
  * Create new place
@@ -79,7 +81,7 @@ function createPlace(name, x1, y1, x2, y2) {
  * @return {String}
  */
 function createPrivatePlace(playerid, name, x1, y1, x2, y2) {
-    local id = md5(name + "_" + getPlayerName(playerid));
+    local id = generatePrivateAreaId(name, playerid);
 
     if (id in areaRegister) {
         throw "createPlace: this name is already taken: " + name;
@@ -133,7 +135,7 @@ function createPolygon(name, points) {
  * @param  {String} name
  * @return {Boolean}
  */
-function removePlace(name) {
+function removeArea(name) {
     local id = md5(name);
 
     if (!(id in areaRegister)) {
@@ -142,7 +144,7 @@ function removePlace(name) {
 
     if ("players" in getroottable()) {
         players.each(function(playerid) {
-            trigger(playerid, "onServerPlaceRemoved", id);
+            trigger(playerid, "onServerAreaRemoved", id);
         });
     }
 
@@ -155,89 +157,69 @@ function removePlace(name) {
  * @param  {String} name
  * @return {Boolean}
  */
-function removePrivatePlace(playerid, name) {
-    local id = md5(name + "_" + getPlayerName(playerid));
+function removePrivateArea(playerid, name) {
+    local id = generatePrivateAreaId(name, playerid);
 
     if (!(id in areaRegister)) {
         return dbg("trying to remove non-exiting place: " + place);
     }
 
-    trigger(playerid, "onServerPlaceRemoved", id);
+    trigger(playerid, "onServerAreaRemoved", id);
 
     delete areaRegister[id];
     return true;
 }
 
-/**
- * Check if coords are inside place
- * @param  {String} name
- * @param  {Float} x
- * @param  {Float} y
- * @return {Boolean}
- */
+/* CHECKERS --------- */
+
 function isInArea(name, x, y) {
     local id = md5(name);
 
+    return _isInArea(id, x, y)
+}
+
+function isInPrivateArea(playerid, name, x, y) {
+    local id = generatePrivateAreaId(name, playerid);
+
+    return _isInArea(id, x, y);
+}
+
+function _isInArea(id, x, y) {
     if (!(id in areaRegister)) {
         return false;
     }
 
-    local place = areaRegister[id];
+    local area = areaRegister[id];
     x = x.tofloat();
     y = y.tofloat();
 
+    if(area.type == "place") {
+        return _isInPlace(area, x, y)
+    } else if(area.type == "polygon") {
+        return _isInPolygon(area, x, y)
+    }
+}
+
+function _isInPlace(place, x, y) {
     return (
         ((place.a.x < x && x < place.b.x) || (place.a.x > x && x > place.b.x)) &&
         ((place.a.y < y && y < place.b.y) || (place.a.y > y && y > place.b.y))
     );
 }
 
-function isInPrivatePlace(playerid, name, x, y) {
-    local id = md5(name + "_" + getPlayerName(playerid));
-
-    if (!(id in areaRegister)) {
-        return false;
-    }
-
-    local place = areaRegister[id];
-    x = x.tofloat();
-    y = y.tofloat();
-
-    return (
-        ((place.a.x < x && x < place.b.x) || (place.a.x > x && x > place.b.x)) &&
-        ((place.a.y < y && y < place.b.y) || (place.a.y > y && y > place.b.y))
-    );
-}
-
-/**
- * Check if coords are inside place
- * @param  {String} name
- * @param  {Float} x
- * @param  {Float} y
- * @return {Boolean}
- */
-function isInPolygon(name, x, y) {
-    local id = md5(name);
-
-    if (!(id in areaRegister)) {
-        return false;
-    }
-
-    local polygon = areaRegister[id].points;
-    x = x.tofloat();
-    y = y.tofloat();
-
-    local npol = polygon.len();
+function _isInPolygon(polygon, x, y) {
+    local points = polygon.points;
+    local npol = points.len();
     local j = npol - 1;
     local c = 0;
     for (local i = 0; i < npol; i++) {
       if (
-        ((polygon[i][1] <= y && y < polygon[j][1]) ||
-          (polygon[j][1] <= y && y < polygon[i][1])) &&
+        ((points[i][1] <= y && y < points[j][1]) ||
+          (points[j][1] <= y && y < points[i][1])) &&
         x >
-          ((polygon[j][0] - polygon[i][0]) * (y - polygon[i][1])) /
-            (polygon[j][1] - polygon[i][1]) +
-            polygon[i][0]
+          ((points[j][0] - points[i][0]) * (y - points[i][1])) /
+            (points[j][1] - points[i][1]) +
+            points[i][0]
       ) {
         c = !c;
       }
@@ -246,28 +228,6 @@ function isInPolygon(name, x, y) {
     return !!c;
 }
 
-function isInArea(name, x, y) {
-    local id = md5(name);
-
-    if (!(id in areaRegister)) {
-        return false;
-    }
-
-    local area = areaRegister[id];
-
-    if(area == "place") {
-        return isInArea(name, x, y)
-    } else if(area == "polygon") {
-        return isInPolygon(name, x, y)
-    }
-}
-
-// local temp = {};
-// acmd("a", function(playerid) {
-//     if (!(playerid in temp)) {
-//         temp[playerid] <- []
-//     }
-// });
 
 acmd("placedbg", function(playerid) {
     trigger(playerid, "onDebugToggle");
@@ -281,28 +241,29 @@ acmd("addline", function(playerid) {
 // createPlace("test1", -612.941, 454.184, -560.539, 440.482);
 // createPlace("test2", -576.303, 444.865, -579.186, 449.768);
 
-// event("onPlayerPlaceEnter", function(playerid, place) {
+// event("onPlayerAreaEnter", function(playerid, place) {
 //     msg(playerid, "you've entered " + place, CL_SUCCESS);
 // });
 
-// event("onPlayerPlaceExit", function(playerid, place) {
+// event("onPlayerAreaLeave", function(playerid, place) {
 //     msg(playerid, "you've exited " + place, CL_ERROR);
 // });
 
-function isVehicleInPlace(vehicleid, name) {
+function isVehicleInArea(vehicleid, name) {
     local pos = getVehiclePosition(vehicleid);
     return isInArea(name, pos[0], pos[1]);
 }
 
-function isVehicleInPrivatePlace(vehicleid, playerid, name) {
+function isVehicleInPrivateArea(vehicleid, playerid, name) {
     local pos = getVehiclePosition(vehicleid);
-    return isInPrivatePlace(playerid, name, pos[0], pos[1]);
+    return isInPrivateArea(playerid, name, pos[0], pos[1]);
 }
 
 function isPlaceExists(name) {
     return md5(name) in areaRegister;
 }
 
-function isPrivatePlaceExists(name) {
-    return md5(name + "_" + getPlayerName(playerid)) in areaRegister;
+function isPrivatePlaceExists(name, playerid) {
+    return generatePrivateAreaId(name, playerid) in areaRegister;
 }
+

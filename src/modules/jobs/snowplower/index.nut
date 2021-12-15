@@ -1424,7 +1424,7 @@ addJobEvent("e", SNOWPLOW_JOB_NAME, null, snowplowJobStartRoute);
 
 
 
-event("onPlayerPlaceEnter", function(playerid, name) {
+event("onPlayerAreaEnter", function(playerid, name) {
     if (isSnowplowDriver(playerid) && isPlayerVehicleSnowplow(playerid) && getPlayerJobState(playerid) == "working") {
         if(name == "snowplowZone") {
             local vehicleid = getPlayerVehicle(playerid);
@@ -1432,7 +1432,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
             local maxsp = max(fabs(speed[0]), fabs(speed[1]));
             if(maxsp > 14) return msg(playerid, "job.snowplow.driving", CL_RED);
  //msg(playerid, "#"+job_snowplow[getCharacterIdFromPlayerId(playerid)]["route"].points[0]);
-            removePrivatePlace(playerid, "snowplowZone");
+            removePrivateArea(playerid, "snowplowZone");
             removeText( playerid, "snowplow_3dtext");
             trigger(playerid, "removeGPS");
 						// msg(playerid, format("Point: %d", job_snowplow[getCharacterIdFromPlayerId(playerid)]["route"].points[0]));

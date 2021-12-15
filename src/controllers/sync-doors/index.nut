@@ -70,7 +70,7 @@ function setDoorState(name, state) {
     field.save();
 }
 
-event("onPlayerPlaceEnter", function(playerid, name) {
+event("onPlayerAreaEnter", function(playerid, name) {
     delayedFunction(1000, function() {
         if(name.find(DOOR_PREFIX) == null) return;
 

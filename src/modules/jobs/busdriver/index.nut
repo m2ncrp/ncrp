@@ -140,7 +140,7 @@ event("onServerStarted", function() {
 
 });
 
-event("onPlayerPlaceEnter", function(playerid, name) {
+event("onPlayerAreaEnter", function(playerid, name) {
     if (isPlayerInVehicle(playerid) && name == "BusDepotSidewalk") {
         local vehicleid = getPlayerVehicle(playerid);
         local vehSpeed = getVehicleSpeed(vehicleid);
@@ -631,7 +631,7 @@ addJobEvent("e", BUS_JOB_NAME, "working", busJobStop);
 
 
 
-event("onPlayerPlaceEnter", function(playerid, name) {
+event("onPlayerAreaEnter", function(playerid, name) {
     if (isBusDriver(playerid) && isPlayerVehicleBus(playerid) && getPlayerJobState(playerid) == "working") {
         if((name == "LittleItalyWaypoint" && job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2][0] == 98) /*|| (name == "WestSideWaypoint" && job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2][0] == 99)*/ || (name == "SandIslandWaypoint" && job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2][0] == 97)) {
             trigger(playerid, "removeGPS");
