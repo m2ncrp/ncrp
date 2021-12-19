@@ -28,6 +28,7 @@ include("controllers/tips");
 include("controllers/place");
 include("controllers/closedplaces");
 include("controllers/sync-doors");
+include("controllers/pickups");
 
 include("controllers/inventory");
 include("controllers/fraction");
