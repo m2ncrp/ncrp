@@ -57,6 +57,43 @@ key("n", function(playerid) {
 });
 */
 
+local count = 0;
+
+key("n", function(playerid) {
+    if(!isPlayerInValidVehicle(playerid, 39)) { return msg(playerid, "You need Shubert SnowPlow."); }
+    local vehicleid = getPlayerVehicle(playerid);
+    local vehPos = getVehiclePosition(vehicleid);
+    local vehRot = getVehicleRotation(vehicleid);
+
+    local xR = vehRot[0];
+    local x = vehPos[0];
+    local y = vehPos[1];
+    local z = vehPos[2];
+
+
+    dbg( "x: " + format("%.3f", round(x, 3)) + ", y: " + format("%.3f", round(y, 3)) + ", z: " + format("%.3f", round(z, 3)) + ", xr: " + format("%.3f", round(xR, 3)));
+    msg(playerid, "Place has been created.", CL_SUCCESS );
+    createPlace("snowPlace"+count, x-1, y+1, x+1, y-1);
+    count += 1;
+});
+
+// game.traffic:SwitchGenerators(xx) xx = true\false
+// game.traffic:Populate(##) ##=0..100
+// game.traffic:PoliceReinforcements(##) ##=0..100
+// game.traffic:OpenSeason(50) or (140)
+// game.traffic:CloseSeason()
+// game.traffic:SetPolice(xx) xx = true\false sets whether or not police car traffic should exit
+// game.traffic:DespawnPolice(xx) xx = true\false
+// game.traffic:SwitchRoad(Math:newVector(xx,yy,zz),false) false bloc circulation true debloc
+// game.traffic:SwitchFarAmbient( ? )
+// game.traffic:SetNumCars(##) ##=0..100
+// game.traffic:SetNumStaticCars(##) ##=0..100
+// game.traffic:SetNoAmbientRadius( ? )
+// game.traffic:SetFarAmbientRadius( ? )
+// game.traffic:PathFindEnableMiddlePoint( ? )
+// game.traffic:PathFindReset( ? )
+
+
 //include("modules/jobs/snowplow/commands.nut");
 
 local job_snowplow = {};
