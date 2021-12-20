@@ -1,3 +1,5 @@
+local drawing = true;
+
 addEventHandler("hidePlayerModel", function() {
     executeLua("game.game:GetActivePlayer():ShowModel(false)");
 });
@@ -5,6 +7,16 @@ addEventHandler("hidePlayerModel", function() {
 addEventHandler("showPlayerModel", function() {
     executeLua("game.game:GetActivePlayer():ShowModel(true)");
 });
+
+addEventHandler("onServerTogglePlayerVisible", function() {
+    drawing = !drawing;
+    if(drawing == false) {
+        executeLua("game.game:GetActivePlayer():ShowModel(false)");
+    } else {
+        executeLua("game.game:GetActivePlayer():ShowModel(true)");
+    }
+});
+
 
 addCommandHandler("takeBox", function(playerid) {
     /* # Ставим ограничительный контроль стиль */
