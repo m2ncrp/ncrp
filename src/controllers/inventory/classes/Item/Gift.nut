@@ -40,6 +40,21 @@ class Item.Gift extends Item.Abstract
                 item = Item.Money();
         }
 
+/*
+
+ёлочка
+карамельная трость
+пряник
+ёлочный шарик
+красный носок
+
+и если успеется:
+новогодняя шапка
+свеча
+венок
+*/
+
+
         inventory.set(this.slot, item);
         inventory.sync();
         this.remove();

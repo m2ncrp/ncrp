@@ -39,6 +39,26 @@ event("onServerStarted", function() {
     createBlip(SANTA_X, SANTA_Y, [ 0, 9 ], 4000.0);
  });
 
+local timestampStart = 1640415800; // суббота, 25 декабря 2021 г., 12:00:00 GMT+03:00
+local timestampExchangeEnd =  1641232800 // понедельник, 3 января 2022 г., 21:00:00 GMT+03:00
+
+event("onServerSecondChange", function() {
+    local currentTimestamp = getTimestamp() + 10800; // GMT+3
+
+    if(currentTimestamp == timestampStart) {
+        dbg("spawn first 30 items");
+        // send msg to all online players
+    }
+
+    local h = floor(currentTimestamp % 86400 / 3600 );
+    local m = floor(currentTimestamp % 3600 / 60);
+    local s = floor(currentTimestamp % 3600 % 60);
+
+    dbg(format("%d:%d:%d", h, m, s))
+
+
+});
+
 cmd("santa", function(playerid, ...) {
     if(!isPlayerInValidPoint(playerid, SANTA_X, SANTA_Y, SANTA_RADIUS)) {
         return msg( playerid, "santa.goto", CL_FLAMINGO );
@@ -75,7 +95,7 @@ cmd("gift", function(playerid, ...) {
 
         local gift = Item.Gift();
 
-        if (players[playerid].getData("gift-ny18") == true || !players[playerid].inventory.canBeInserted(gift) ) {
+        if (players[playerid].getData("gift-ny22") == true || !players[playerid].inventory.canBeInserted(gift) ) {
             return msg(playerid, "santa.gift.alreadyget", CL_WARNING);
         }
 
@@ -86,10 +106,36 @@ cmd("gift", function(playerid, ...) {
         players[playerid].inventory.push( gift );
         gift.save();
         players[playerid].inventory.sync();
-        players[playerid].setData("gift-ny18", true);
+        players[playerid].setData("gift-ny22", true);
 
         return msg( playerid, "santa.gift.get", CL_SUCCESS );
     }
 
 
 });
+
+
+local giftPoints = [
+  [-668.33, -216.72, -3.33],
+  [-182.42, 180.43, -10.56],
+  [-4.41, -230.97, -13.09],
+  [68.31, -323.82, -20.16],
+  [340.03, -111.53, -6.76],
+  [636.98, -232.72, -11.65],
+  [713.6, -395.77, -18.47],
+  [428.55, -426.14, -20.16],
+  [266.99, -507.73, -22.7],
+  [147.19, -734.91, -15.39]
+];
+
+function getGiftPosition(id) {
+    return id in giftPoints ? giftPoints[id] : null;
+}
+
+acmd("ny", function(playerid, id) {
+    id = id.tointeger();
+    local pointPos = getGiftPosition(id);
+    if (pointPos) {
+        setPlayerPosition(playerid, pointPos[0], pointPos[1], pointPos[2]);
+    }
+})
