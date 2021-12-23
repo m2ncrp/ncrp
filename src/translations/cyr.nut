@@ -39,6 +39,8 @@ alternativeTranslate({
     "en|3dtext.job.unloadhere"          : "UNLOAD HERE"
     "ru|3dtext.job.unloadhere"          : "МЕСТО РАЗГРУЗКИ"
 
+    "en|3dtext.job.checkpoint"          : "CHECKPOINT"
+    "ru|3dtext.job.checkpoint"          : "ЧЕКПОИНТ"
 
     "en|3dtext.job.truckdriver"         : "CARGO DELIVERY"
     "ru|3dtext.job.truckdriver"         : "ГРУЗОПЕРЕВОЗКИ"

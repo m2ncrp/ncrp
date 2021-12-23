@@ -215,7 +215,7 @@ cmd("char", function(playerid) {
         "Здоровье: /health",
         "Питание: /food",
         "Одежда: /clothes",
-        "Система знакомств: /dating",
+        "Система знакомств: /meeting",
     ]);
 });
 
@@ -257,9 +257,9 @@ cmd(["clothes", "cloths"], function(playerid) {
     ]);
 });
 
-cmd("dating", function(playerid) {
+cmd("meeting", function(playerid) {
     msgh(playerid, "Система знакомств", [
-        "/dating rules - правила",
+        "/meeting rules - правила",
         "Обязательно для прочтения перед использованием!",
         "/hi id имя - представиться вымышленным именем",
         "handshake.shake.example",

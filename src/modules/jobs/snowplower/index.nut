@@ -1105,10 +1105,6 @@ snowplowStops[953]   <-  snowplowStop( snowplowv3( -378.714,  620.386,  -10.265 
         points = [103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 829, 830, 831, 832, 833, 834, 835, 836, 837, 838, 839, 568, 569, 570, 571, 572, 573, 574, 840, 841, 842, 843, 844, 845, 846, 847, 848, 849, 850, 851, 852, 575, 576, 577, 578, 579, 853, 854, 855, 856, 857, 858, 859, 860, 861, 862, 863, 864, 865, 866, 867, 868, 869, 870, 871, 872, 873, 874, 875, 876, 877, 878, 879, 880, 881, 882, 883, 884, 885, 886, 887, 888, 889, 890, 891, 892, 893, 894, 895, 896, 897, 898, 899, 900, 901, 902, 903, 904, 905, 906, 907, 908, 909, 910, 911, 912, 913, 914, 915, 916, 917, 918, 919, 920, 921, 922, 923, 924, 925, 926, 927, 928, 929, 930, 931, 932, 933, 934, 935, 936, 937, 938, 939, 940, 941, 942, 943, 944, 945, 946, 947, 948, 949, 950, 951, 952, 953, 828, 0]
     };
 
-    //creating 3dtext for snowplow depot
-    create3DText ( SNOWPLOW_JOB_X, SNOWPLOW_JOB_Y, SNOWPLOW_JOB_Z+0.35, "SNOW PLOWING COMPANY", CL_ROYALBLUE );
-    create3DText ( SNOWPLOW_JOB_X, SNOWPLOW_JOB_Y, SNOWPLOW_JOB_Z+0.20, "Press E to action", CL_WHITE.applyAlpha(150), RADIUS_SNOWPLOW );
-
     registerPersonalJobBlip("snowplowdriver", SNOWPLOW_JOB_X, SNOWPLOW_JOB_Y);
 
 });
@@ -1126,9 +1122,14 @@ event("onPlayerConnect", function(playerid) {
 
 event("onServerPlayerStarted", function( playerid ){
 
+    //creating 3dtext for snowplow depot
+    createPrivate3DText ( playerid, SNOWPLOW_JOB_X, SNOWPLOW_JOB_Y, SNOWPLOW_JOB_Z+0.35, plocalize(playerid, "3dtext.job.snowplowdriver"), CL_ROYALBLUE );
+    createPrivate3DText ( playerid, SNOWPLOW_JOB_X, SNOWPLOW_JOB_Y, SNOWPLOW_JOB_Z+0.20, plocalize(playerid, "3dtext.job.press.action"), CL_WHITE.applyAlpha(150), RADIUS_SNOWPLOW );
+
+
     if(isSnowplowDriver(playerid)) {
 
-        createText (playerid, "leavejob3dtext", SNOWPLOW_JOB_X, SNOWPLOW_JOB_Y, SNOWPLOW_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), RADIUS_SNOWPLOW_SMALL );
+        createText (playerid, "leavejob3dtext", SNOWPLOW_JOB_X, SNOWPLOW_JOB_Y, SNOWPLOW_JOB_Z+0.05, plocalize(playerid, "3dtext.job.press.leave"), CL_WHITE.applyAlpha(100), RADIUS_SNOWPLOW_SMALL );
 
         if (getPlayerJobState(playerid) == "working") {
             local snowplowID = job_snowplow[getCharacterIdFromPlayerId(playerid)]["route"].points[0];
@@ -1198,7 +1199,7 @@ function snowplowv3(a, b, c) {
  */
 function createPrivateSnowplowCheckpoint3DText(playerid, snowplowstop) {
     return [
-        createText( playerid, "snowplow_3dtext", snowplowstop.x, snowplowstop.y, snowplowstop.z+0.20, SNOWPLOW_JOB_SNOWPLOWSTOP, CL_RIPELEMON, SNOWPLOW_JOB_DISTANCE )
+        createText( playerid, "snowplow_3dtext", snowplowstop.x, snowplowstop.y, snowplowstop.z+0.20, plocalize(playerid, "3dtext.job.checkpoint"), CL_RIPELEMON, SNOWPLOW_JOB_DISTANCE )
     ];
 }
 
@@ -1271,7 +1272,7 @@ function snowplowJobGet( playerid ) {
     setPlayerJobState( playerid, null);
 
     //snowplowJobStartRoute( playerid );
-    createText (playerid, "leavejob3dtext", SNOWPLOW_JOB_X, SNOWPLOW_JOB_Y, SNOWPLOW_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), RADIUS_SNOWPLOW_SMALL );
+    createText (playerid, "leavejob3dtext", SNOWPLOW_JOB_X, SNOWPLOW_JOB_Y, SNOWPLOW_JOB_Z+0.05, plocalize(playerid, "3dtext.job.press.leave"), CL_WHITE.applyAlpha(100), RADIUS_SNOWPLOW_SMALL );
 }
 addJobEvent("e", null,    null, snowplowJobGet);
 addJobEvent("e", null, "nojob", snowplowJobGet);
@@ -1411,7 +1412,7 @@ function snowplowJobStartRoute( playerid ) {
 
     local snowplowID = job_snowplow[getCharacterIdFromPlayerId(playerid)]["route"].points[0];
 
-    msg( playerid, "Route: %d", [routeNumber] );
+    // msg( playerid, "Route: %d", [routeNumber] );
     msg( playerid, "job.snowplow.startroute" , SNOWPLOW_JOB_COLOR );
     msg( playerid, "job.snowplow.startroute2", SNOWPLOW_JOB_COLOR );
     job_snowplow[getCharacterIdFromPlayerId(playerid)]["snowplow3dtext"] = createPrivateSnowplowCheckpoint3DText(playerid, snowplowStops[snowplowID].coords);
