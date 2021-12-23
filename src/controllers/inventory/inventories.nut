@@ -157,16 +157,16 @@ key("e", function(playerid) {
 
     // Если предмет может быть помещён в инвентарь (не только для рук) - поднять в инвентарь
     if (!closest.handsOnly && players[playerid].inventory.push(closest)) {
-        players[playerid].inventory.sync();
         closest.pick(playerid, players[playerid].inventory);
+        players[playerid].inventory.sync();
         ground.remove(closest);
         return true;
     }
 
     // Если предмет может быть помещён в руки - поднять в руки
     if (players[playerid].hands.push(closest)) {
-        players[playerid].hands.sync();
         closest.pick(playerid, players[playerid].hands);
+        players[playerid].hands.sync();
         ground.remove(closest);
         return true;
     }
@@ -260,9 +260,10 @@ event("native:onPlayerDestroyItem", function(playerid, id, slot) {
             if (!inventory[slot].canBeDestroyed()) return msg(playerid, "inventory.cannotdestroy", CL_WARNING);
 
             local item = inventory.remove(slot);
-            inventory.sync();
+
             item.destroy(playerid, inventory);
             item.remove();
+            inventory.sync();
         }
     }
 });
@@ -286,9 +287,9 @@ event("native:onPlayerDropItem", function(playerid, id, slot) {
               pos.x += randomf(-0.3, 0.3);
               pos.y += randomf(-0.3, 0.3);
 
-              inventory.sync();
-              delayedFunction(150, function() {
-                  ground.push(item, pos);
+              delayedFunction(100, function() {
+                ground.push(item, pos);
+                inventory.sync();
               });
             }
 
