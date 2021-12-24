@@ -62,6 +62,10 @@ event("onPlayerPlaceEnter", function(playerid, name) {
     if (data[0] == "animation") {
         local charId = data[1].tointeger();
         local playerAnim = getCharAnim(charId);
-        sendAnimation(playerid, {"animation": playerAnim[0], "model": playerAnim[1], "endless": playerAnim[2]}, getPlayerIdFromCharacterId(charId))
+        sendAnimation(playerid, {"animation": playerAnim[0], "model": playerAnim[1], "endless": playerAnim[2]}, getPlayerIdFromCharacterId(charId));
     }
-})
+});
+
+event("onServerPlayerStarted", function(playerid) {
+    triggerClientEvent(playerid, "setModel", 1);
+});

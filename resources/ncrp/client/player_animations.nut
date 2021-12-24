@@ -58,3 +58,7 @@ addEventHandler("animate", function(id, anim, model, endless, block, unblock) {
         executeLua(format("DelayBuffer:Insert(function(l_1_0) CommandBuffer:Insert(l_6_0,{function(l_2_0)return game.game:GetActivePlayer():ModelToHands(true,1, 1) end}) end,{l_1_0},%d,1,false)", animations[anim][1][2]));
     }
 });
+
+addEventHandler("setModel", function(model) {
+    executeLua(format("DelayBuffer:Insert(function(l_1_0) CommandBuffer:Insert(l_6_0,{function(l_2_0)return game.game:GetActivePlayer():ModelToHands(true,1, %d) end}) end,{l_1_0},0,1,false)", model))
+    });
