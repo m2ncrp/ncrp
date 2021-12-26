@@ -307,3 +307,17 @@ event("native:onPlayerCloseInventory", function(playerid, id) {
         inventory.hide(playerid);
     }
 });
+
+event("onSpawnNewYearLetter", function(x, y, z) {
+    local item = Item.SantaLetter();
+    item.state = 3;
+    item.save();
+
+    local pos = {
+        "x": x,
+        "y": y,
+        "z": z
+    };
+
+    ground.push(item, pos);
+});
