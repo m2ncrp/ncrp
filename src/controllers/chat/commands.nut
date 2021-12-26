@@ -1,6 +1,6 @@
 local antiflood = {};
 local lastPMs = {};
-local IS_OOC_ENABLED = true;
+local IS_OOC_ENABLED = false;
 
 event("onPlayerConnect", function(playerid){
     antiflood[playerid] <- {};
