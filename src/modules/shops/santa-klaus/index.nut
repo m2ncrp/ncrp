@@ -141,7 +141,7 @@ event("onServerSecondChange", function() {
 
             trigger("onSpawnNewYearLetter", giftPos[0], giftPos[1], giftPos[2])
         }
-        dbg("spawn gifts");
+        dbg("chat", "report", "Santa Event", "@Fernando#8366 Spawn first 30 letters");
     }
 
     local dayAfterStart = ceil((currentTimestamp - timestampStart).tofloat() / 86400);
