@@ -152,13 +152,19 @@ event("onServerSecondChange", function() {
     if(h >= 6 && h <= 20 && m == 30 && s == 0) {
         local hIndex = h - 6;
 
-        local id1 = 30 * dayAfterStart + 2 * hIndex
+        local id1 = 30 * dayAfterStart + 2 * hIndex;
         local id2 = id1 + 1;
-        local giftPos1 = getLetterPosition(id1);
-        trigger("onSpawnNewYearLetter", giftPos1[0], giftPos1[1], giftPos1[2])
 
+        local giftPos1 = getLetterPosition(id1);
         local giftPos2 = getLetterPosition(id2);
+        if(!giftPos1 || !giftPos2) {
+            dbg("chat", "report", "Santa Event", "@Fernando#8366 Letters are over");
+            return;
+        }
+        trigger("onSpawnNewYearLetter", giftPos1[0], giftPos1[1], giftPos1[2])
         trigger("onSpawnNewYearLetter", giftPos2[0], giftPos2[1], giftPos2[2])
+        dbg("chat", "report", "Santa Event", format("@Fernando#8366 spawn letter: %d", id1));
+        dbg("chat", "report", "Santa Event", format("@Fernando#8366 spawn letter: %d", id2));
     }
 
     //dbg(format("%d:%d:%d", h, m, s))
