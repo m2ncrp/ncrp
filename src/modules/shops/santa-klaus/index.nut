@@ -4,8 +4,8 @@ local SANTA_X = -330.915;
 local SANTA_Y = 210.595;
 local SANTA_Z = -4.59302;
 local SANTA_RADIUS = 2.0;
-// local timestampStart = 1640584800; // real
-local timestampStart = 1640549267; // fake
+local timestampStart = 1640584800; // real
+// local timestampStart = 1640549267; // fake
 
 
 alternativeTranslate({
