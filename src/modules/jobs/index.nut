@@ -55,9 +55,9 @@ function applyPersonalJobBlip(playerid) {
 event("onServerPlayerStarted", function(playerid) {
     applyPersonalJobBlip(playerid);
 
-    if(isPlayerHaveValidJob(playerid, "snowplowdriver")/* && isSummer()*/) {
+    if(isPlayerHaveValidJob(playerid, "snowplowdriver") && isSummer()) {
         setPlayerJob(playerid, null);
-        jobRestorePlayerModel(playerid);
+        // jobRestorePlayerModel(playerid);
     }
 
     local job = getPlayerJob(playerid);
@@ -65,7 +65,7 @@ event("onServerPlayerStarted", function(playerid) {
     if(!job) return;
     if(job == "fueldriver") {
         setPlayerJob(playerid, null);
-        jobRestorePlayerModel(playerid);
+        // jobRestorePlayerModel(playerid);
     } else if(job.find("police") != null && job != "busdriver") {
         jobRestorePlayerModel(playerid);
     }
