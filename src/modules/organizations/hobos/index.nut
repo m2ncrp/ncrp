@@ -172,7 +172,7 @@ event("onServerHourChange", function() {
     foreach (charid, minutes in hoboses) {
         local playerid = getPlayerIdFromCharacterId(charid);
         if(playerid != -1) {
-            if (!isPlayerHaveJob(playerid) && !isPlayerAfk(playerid) && minutes >= 30) {
+            if (!isPlayerHaveJob(playerid) && !isPlayerAfk(playerid) && minutes >= 30 && (getPlayerMoney(playerid) + getPlayerDeposit(playerid)) < 75.0) {
                 sum += amount;
                 addPlayerMoney(playerid, amount);
                 msg(playerid, "organizations.unemployed.income", [amount], CL_SUCCESS);

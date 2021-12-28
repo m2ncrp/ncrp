@@ -95,6 +95,10 @@ function bankPlayerInValidPoint(playerid) {
     return ( /*isPlayerInValidPoint(playerid, BANK_X, BANK_Y, BANK_RADIUS) || */ isPlayerInValidPoint(playerid, BANK_OFFICE_X, BANK_OFFICE_Y, BANK_RADIUS));
 }
 
+function getPlayerDeposit(playerid) {
+    return (isPlayerLoaded(playerid)) ? players[playerid].deposit: 0.0;
+}
+
 function bankGetPlayerDeposit(playerid) {
     return formatMoney(players[playerid].deposit);
 }
