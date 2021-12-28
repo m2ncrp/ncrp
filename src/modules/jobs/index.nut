@@ -179,8 +179,14 @@ playerDelayedFunction <- function(playerid, time, callback) { delayedFunction(ti
 
 
 include("modules/jobs/commands.nut");
-include("modules/jobs/busdriver");
 
+event("onServerStarted", function() {
+    if(!isSummer()) {
+        include("modules/jobs/snowplower");
+    }
+});
+
+include("modules/jobs/busdriver");
 //include("modules/jobs/taxi");
 include("modules/jobs/milkdriver");
 include("modules/jobs/fishdriver");
@@ -188,15 +194,6 @@ include("modules/jobs/truckdriver");
 include("modules/jobs/telephone");
 include("modules/jobs/docker");
 include("modules/jobs/stationporter");
-// include("modules/jobs/snowplower");
-
-event("onServerStarted", function() {
-    logStr("[jobs] starting...");
-
-    if(!isSummer()) {
-        include("modules/jobs/snowplower");
-    }
-});
 
 // include("modules/jobs/realtor");
 // include("modules/jobs/slaughterhouseworker");
