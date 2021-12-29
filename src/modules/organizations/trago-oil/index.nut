@@ -19,11 +19,15 @@ cmd("fuel", "orders", function(playerid) {
 
     foreach (name, station in stations) {
       local needGallons = Math.max(0, Math.min(FUEL_STATION_LIMIT - station.data.fuel.amount, station.data.fuel.amountIn));
-      if (station.state != "opened" || station.data.fuel.amountIn == 0.0 || needGallons == 0.0) continue;
       local price = station.data.fuel.priceIn;
       local readyToBuyGallons = Math.min(needGallons, station.data.money / price);
       local total = readyToBuyGallons * price;
+      if (station.state != "opened" || station.data.fuel.amountIn == 0.0 || needGallons == 0.0 || readyToBuyGallons == 0.0) continue;
       list.push(format("%s покупает %.2f гал. по $%.2f/гал. Итого: $%.2f", name, readyToBuyGallons, price, total));
+    }
+
+    if(list.len()== 0) {
+        return msg(playerid, "Заказов на поставку топлива в данный момент нет", CL_JORDYBLUE);
     }
 
     msgh(playerid, "Заказы на поставку топлива", list);

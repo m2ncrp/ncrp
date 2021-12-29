@@ -55,9 +55,9 @@ function applyPersonalJobBlip(playerid) {
 event("onServerPlayerStarted", function(playerid) {
     applyPersonalJobBlip(playerid);
 
-    if(isPlayerHaveValidJob(playerid, "snowplowdriver")/* && isSummer()*/) {
+    if(isPlayerHaveValidJob(playerid, "snowplowdriver") && isSummer()) {
         setPlayerJob(playerid, null);
-        jobRestorePlayerModel(playerid);
+        // jobRestorePlayerModel(playerid);
     }
 
     local job = getPlayerJob(playerid);
@@ -65,7 +65,7 @@ event("onServerPlayerStarted", function(playerid) {
     if(!job) return;
     if(job == "fueldriver") {
         setPlayerJob(playerid, null);
-        jobRestorePlayerModel(playerid);
+        // jobRestorePlayerModel(playerid);
     } else if(job.find("police") != null && job != "busdriver") {
         jobRestorePlayerModel(playerid);
     }
@@ -179,24 +179,22 @@ playerDelayedFunction <- function(playerid, time, callback) { delayedFunction(ti
 
 
 include("modules/jobs/commands.nut");
-include("modules/jobs/busdriver");
-
-//include("modules/jobs/taxi");
-include("modules/jobs/milkdriver");
-include("modules/jobs/fishdriver");
-include("modules/jobs/truckdriver");
-include("modules/jobs/telephone");
-include("modules/jobs/docker");
-include("modules/jobs/stationporter");
-// include("modules/jobs/snowplower");
 
 event("onServerStarted", function() {
-    logStr("[jobs] starting...");
+    if(!isSummer()) {
+        include("modules/jobs/snowplower");
+    }
 
-    // if(!isSummer()) {
-    //     include("modules/jobs/snowplower");
-    // }
+    include("modules/jobs/busdriver");
+    //include("modules/jobs/taxi");
+    include("modules/jobs/milkdriver");
+    include("modules/jobs/fishdriver");
+    include("modules/jobs/truckdriver");
+    include("modules/jobs/telephone");
+    include("modules/jobs/docker");
+    include("modules/jobs/stationporter");
 });
+
 
 // include("modules/jobs/realtor");
 // include("modules/jobs/slaughterhouseworker");

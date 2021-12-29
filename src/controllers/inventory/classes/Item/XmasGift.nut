@@ -1,13 +1,11 @@
-class Item.Gift extends Item.Abstract
+class Item.XmasGift extends Item.Abstract
 {
-    static classname = "Item.Gift";
+    static classname = "Item.XmasGift";
 
     default_decay = 0;
     volume = 0.75;
 
     function use(playerid, inventory) {
-        return msg(playerid, "Just a box");
-
         inventory.remove(this.slot).remove();
 
         local charid = getCharacterIdFromPlayerId(playerid);
@@ -22,6 +20,6 @@ class Item.Gift extends Item.Abstract
     }
 
     static function getType() {
-        return "Item.Gift";
+        return "Item.XmasGift";
     }
 }
