@@ -10,8 +10,8 @@ alternativeTranslate({
     "en|organizations.hobos.trash.found"    : "You found $%.2f. Now you can buy yourself cookies with $%s."
     "ru|organizations.hobos.trash.found"    : "Вы нашли $%.2f. Теперь у вас $%s."
 
-    "en|organizations.unemployed.income"    : "You've recieved $%.2f as unemployment compensation."
-    "ru|organizations.unemployed.income"    : "Вы получили пособие по безработице в размере $%.2f."
+    "en|organizations.unemployed.income"    : "You've recieved $%.2f as unemployment compensation for the poor."
+    "ru|organizations.unemployed.income"    : "Вы получили пособие для малоимущих безработных в размере $%.2f."
 
     "en|organizations.unemployed.no-income" : "Sorry"
     "ru|organizations.unemployed.no-income" : "Вам не положено пособие по безработице, т.к. вы не признаны безработным."
@@ -155,7 +155,7 @@ event("onServerPlayerStarted", function( playerid ) {
 
 event("onServerMinuteChange", function() {
     foreach (playerid, value in players) {
-        if (!getPlayerJob(playerid)) {
+        if (!getPlayerJob(playerid) && !isPlayerAfk(playerid) && (getPlayerMoney(playerid) + getPlayerDeposit(playerid)) < 75.0) {
             local charid = getCharacterIdFromPlayerId(playerid);
             if(!(charid in hoboses)) {
                 hoboses[charid] <- 0;
