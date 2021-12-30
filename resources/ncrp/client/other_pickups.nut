@@ -14,13 +14,13 @@ addEventHandler("destroyPickup", function (name) {
     executeLua(format("DelayBuffer:Insert(function(l_5_0) CommandBuffer:Insert(l_6_0,{function(l_3_0) icon = game.entitywrapper:GetEntityByName(\"%s\") icon:Deactivate() end}) end,{},14,0,false)", name));
 });
 
-addEventHandler("stopPickup", function (name) {
+addEventHandler("stopRotationPickup", function (name) {
     log("stop pickup")
     executeLua(format("DelayBuffer:Insert(function(l_5_0) CommandBuffer:Insert(l_6_0,{function(l_3_0) icon = game.entitywrapper:GetEntityByName(\"%s\") rot=Math:newMatrix() rot:setRotEuler(0,0,-0.05) icon:SetDir(icon:GetDir()*rot) end}) end,{},14,0,false)", name));
 });
 
 addEventHandler("movePickup", function (name, x, y, z) {
-    executeLua(format("game.entitywrapper:GetEntityByName(\"%s\"):SetPos(Math:newVector(%f, %f, %f))", name, x.tofloat(), y.tofloat(), z.tofloat()));
+    executeLua(format("DelayBuffer:Insert(function(l_5_0) CommandBuffer:Insert(l_6_0,{function(l_3_0) game.entitywrapper:GetEntityByName(\"%s\"):SetPos(Math:newVector(%f, %f, %f)) end}) end,{},14,0,false)", name, x.tofloat(), y.tofloat(), z.tofloat()));
 });
 
 addEventHandler("hPickup", function (name) {

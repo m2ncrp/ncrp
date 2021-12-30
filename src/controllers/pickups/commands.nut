@@ -20,5 +20,5 @@ acmd("dp", function(playerid) {
 
 acmd("sp", function(playerid) {
     msg(playerid, "stop pickup");
-    stopPickup("RTR_ARROW_00");
+    stopRotationPickup("RTR_ARROW_00");
 })

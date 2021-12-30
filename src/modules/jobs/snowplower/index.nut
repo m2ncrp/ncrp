@@ -87,7 +87,8 @@ local SNOWPLOW_JOB_WORKING_HOUR_END      = 23 ;   // 21;
 local SNOWPLOW_ROUTE_IN_HOUR = 4;
 local SNOWPLOW_ROUTE_NOW = 4;
 
-local routes_list_all = [ 1, 2, 3, 4, 5, 6, 7 ];
+local routes_list_all = [ 1, 2, 3, 4, 5, 6, 7, 8 ];
+// local routes_list_all = [ 8 ]; // test route
 local routes_list = clone( routes_list_all );
 
 
@@ -1069,6 +1070,13 @@ snowplowStops[951]   <-  snowplowStop( snowplowv3( -270.902,  693.230,  -19.797 
 snowplowStops[952]   <-  snowplowStop( snowplowv3( -305.378,  669.139,  -19.136 ), -307.378,  670.139,  -303.778,  668.139 );
 snowplowStops[953]   <-  snowplowStop( snowplowv3( -378.714,  620.386,  -10.265 ), -379.714,  622.386,  -377.714,  618.786 );
 
+snowplowStops[1000]   <-  snowplowStop( snowplowv3( -389.574, 601.590, -10.4103 ), -390.574, 602.590,  -388.574, 600.590 );
+snowplowStops[1001]   <-  snowplowStop( snowplowv3( -382.655, 617.676, -10.4111 ), -383.655, 618.676,  -381.655, 616.676 );
+snowplowStops[1002]   <-  snowplowStop( snowplowv3( -392.924, 628.336, -10.4111 ), -393.924, 629.336,  -391.924, 627.336 );
+snowplowStops[1003]   <-  snowplowStop( snowplowv3( -403.232, 619.044, -10.4111 ), -404.232, 620.044,  -402.232, 618.044 );
+snowplowStops[1004]   <-  snowplowStop( snowplowv3( -396.818, 604.930, -10.4111 ), -397.818, 605.930,  -395.818, 603.930 );
+
+
   //routes[0] <- [zarplata, [stop1, stop2, stop3, ..., stop562]];
     routes[1] <- {
         cost = 10.4,
@@ -1105,6 +1113,12 @@ snowplowStops[953]   <-  snowplowStop( snowplowv3( -378.714,  620.386,  -10.265 
         points = [103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 829, 830, 831, 832, 833, 834, 835, 836, 837, 838, 839, 568, 569, 570, 571, 572, 573, 574, 840, 841, 842, 843, 844, 845, 846, 847, 848, 849, 850, 851, 852, 575, 576, 577, 578, 579, 853, 854, 855, 856, 857, 858, 859, 860, 861, 862, 863, 864, 865, 866, 867, 868, 869, 870, 871, 872, 873, 874, 875, 876, 877, 878, 879, 880, 881, 882, 883, 884, 885, 886, 887, 888, 889, 890, 891, 892, 893, 894, 895, 896, 897, 898, 899, 900, 901, 902, 903, 904, 905, 906, 907, 908, 909, 910, 911, 912, 913, 914, 915, 916, 917, 918, 919, 920, 921, 922, 923, 924, 925, 926, 927, 928, 929, 930, 931, 932, 933, 934, 935, 936, 937, 938, 939, 940, 941, 942, 943, 944, 945, 946, 947, 948, 949, 950, 951, 952, 953, 828, 0]
     };
 
+    // test route
+    // routes[8] <- {
+    //     cost = 14.9,
+    //     points = [1000, 1001, 1002, 1003, 1004, 0]
+    // };
+
     registerPersonalJobBlip("snowplowdriver", SNOWPLOW_JOB_X, SNOWPLOW_JOB_Y);
 
 });
@@ -1119,7 +1133,6 @@ event("onPlayerConnect", function(playerid) {
     }
 });
 
-
 event("onServerPlayerStarted", function( playerid ){
 
     //creating 3dtext for snowplow depot
@@ -1133,7 +1146,9 @@ event("onServerPlayerStarted", function( playerid ){
 
         if (getPlayerJobState(playerid) == "working") {
             local snowplowID = job_snowplow[getCharacterIdFromPlayerId(playerid)]["route"].points[0];
-            job_snowplow[getCharacterIdFromPlayerId(playerid)]["snowplow3dtext"] = createPrivateSnowplowCheckpoint3DText(playerid, snowplowStops[snowplowID].coords);
+            //job_snowplow[getCharacterIdFromPlayerId(playerid)]["snowplow3dtext"] = createPrivateSnowplowCheckpoint3DText(playerid, snowplowStops[snowplowID].coords);
+            stopRotationPrivatePickup(playerid, PICKUP.SNOWPLOW_ARROW);
+            delayedFunction(0, createPrivateSnowplowCheckpointPickup(playerid, snowplowStops[snowplowID].coords));
             trigger(playerid, "setGPS", snowplowStops[snowplowID].coords.x, snowplowStops[snowplowID].coords.y);
             msg( playerid, "job.snowplow.continuesnowplowstop", SNOWPLOW_JOB_COLOR );
             return;
@@ -1204,11 +1219,20 @@ function createPrivateSnowplowCheckpoint3DText(playerid, snowplowstop) {
 }
 
 /**
- * Remove private 3DTEXT AND BLIP for current snowplow stop
+ * Create pickup for current snowplow stop
  * @param  {int}  playerid
  */
-function snowplowJobRemovePrivateBlipText ( playerid ) {
+function createPrivateSnowplowCheckpointPickup(playerid, snowplowstop) {
+    createPrivatePickup(playerid, PICKUP.SNOWPLOW_ARROW, snowplowstop.x, snowplowstop.y, snowplowstop.z+1.5);
+    rotatePrivatePickup(playerid, PICKUP.SNOWPLOW_ARROW);
+}
 
+/**
+ * Move pickup for current snowplow stop
+ * @param  {int}  playerid
+ */
+function movePrivateSnowplowCheckpointPickup(playerid, snowplowstop) {
+    movePrivatePickup(playerid, PICKUP.SNOWPLOW_ARROW, snowplowstop.x, snowplowstop.y, snowplowstop.z+1.5);
 }
 
 /**
@@ -1415,15 +1439,15 @@ function snowplowJobStartRoute( playerid ) {
     // msg( playerid, "Route: %d", [routeNumber] );
     msg( playerid, "job.snowplow.startroute" , SNOWPLOW_JOB_COLOR );
     msg( playerid, "job.snowplow.startroute2", SNOWPLOW_JOB_COLOR );
-    job_snowplow[getCharacterIdFromPlayerId(playerid)]["snowplow3dtext"] = createPrivateSnowplowCheckpoint3DText(playerid, snowplowStops[snowplowID].coords);
+
+    createPrivateSnowplowCheckpointPickup(playerid, snowplowStops[snowplowID].coords);
+    //job_snowplow[getCharacterIdFromPlayerId(playerid)]["snowplow3dtext"] = createPrivateSnowplowCheckpoint3DText(playerid, snowplowStops[snowplowID].coords);
 
     createPrivatePlace(playerid, "snowplowZone", snowplowStops[snowplowID].x1, snowplowStops[snowplowID].y1, snowplowStops[snowplowID].x2, snowplowStops[snowplowID].y2);
 
     trigger(playerid, "setGPS", snowplowStops[snowplowID].coords.x, snowplowStops[snowplowID].coords.y);
 }
 addJobEvent("e", SNOWPLOW_JOB_NAME, null, snowplowJobStartRoute);
-
-
 
 event("onPlayerPlaceEnter", function(playerid, name) {
     if (isSnowplowDriver(playerid) && isPlayerVehicleSnowplow(playerid) && getPlayerJobState(playerid) == "working") {
@@ -1434,12 +1458,13 @@ event("onPlayerPlaceEnter", function(playerid, name) {
             if(maxsp > 14) return msg(playerid, "job.snowplow.driving", CL_RED);
  //msg(playerid, "#"+job_snowplow[getCharacterIdFromPlayerId(playerid)]["route"].points[0]);
             removePrivatePlace(playerid, "snowplowZone");
-            removeText( playerid, "snowplow_3dtext");
+            //removeText( playerid, "snowplow_3dtext");
             trigger(playerid, "removeGPS");
 						// msg(playerid, format("Point: %d", job_snowplow[getCharacterIdFromPlayerId(playerid)]["route"].points[0]));
             job_snowplow[getCharacterIdFromPlayerId(playerid)]["route"].points.remove(0);
             if (job_snowplow[getCharacterIdFromPlayerId(playerid)]["route"].points.len() == 0) {
-
+                stopRotationPrivatePickup(playerid, PICKUP.SNOWPLOW_ARROW);
+                destroyPrivatePickup(playerid, PICKUP.SNOWPLOW_ARROW);
                 blockDriving(playerid, vehicleid);
                 msg( playerid, "job.snowplow.gototakemoney", SNOWPLOW_JOB_COLOR );
                 setPlayerJobState(playerid, "complete");
@@ -1447,12 +1472,12 @@ event("onPlayerPlaceEnter", function(playerid, name) {
             }
             local snowplowID = job_snowplow[getCharacterIdFromPlayerId(playerid)]["route"].points[0];
             trigger(playerid, "setGPS", snowplowStops[snowplowID].coords.x, snowplowStops[snowplowID].coords.y);
-            job_snowplow[getCharacterIdFromPlayerId(playerid)]["snowplow3dtext"] = createPrivateSnowplowCheckpoint3DText(playerid, snowplowStops[snowplowID].coords);
+            //job_snowplow[getCharacterIdFromPlayerId(playerid)]["snowplow3dtext"] = createPrivateSnowplowCheckpoint3DText(playerid, snowplowStops[snowplowID].coords);
+            movePrivateSnowplowCheckpointPickup(playerid, snowplowStops[snowplowID].coords);
             createPrivatePlace(playerid, "snowplowZone", snowplowStops[snowplowID].x1, snowplowStops[snowplowID].y1, snowplowStops[snowplowID].x2, snowplowStops[snowplowID].y2);
         }
     }
 });
-
 
 event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     if (isSnowplowDriver(playerid) && getVehicleModel(vehicleid) == 39 && getPlayerJobState(playerid) == "complete") {
@@ -1461,7 +1486,6 @@ event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
         });
     }
 });
-
 
 function getNearestSnowplowStationForPlayer(playerid) {
     local pos = getPlayerPositionObj( playerid );

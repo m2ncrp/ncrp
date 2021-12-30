@@ -1,0 +1,3 @@
+PICKUP <- {
+	"SNOWPLOW_ARROW": "DLC_ARROW_00",
+}
