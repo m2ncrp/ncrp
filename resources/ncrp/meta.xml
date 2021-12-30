@@ -65,10 +65,10 @@
     <file>bank.png</file>
     <!-- general images -->
     <file>logo.png</file>
-    <!-- <file>logo-ny1.png</file> -->
-    <!-- <file>logo-ny2.png</file> -->
-    <!-- <file>logo-ny3.png</file> -->
-    <!-- <file>logo-ny4.png</file> -->
+    <file>logo-ny1.png</file>
+    <file>logo-ny2.png</file>
+    <file>logo-ny3.png</file>
+    <file>logo-ny4.png</file>
     <file>other_mask.png</file>
     <file>lang_en.png</file>
     <file>lang_ru.png</file>
@@ -143,7 +143,6 @@
         <file>Item.Passport.jpg</file>
         <file>Item.PoliceBadge.jpg</file>
         <file>Item.Meth.jpg</file>
-        <file>Item.Test.png</file>
 -->
         <!-- <file>Item.AlarmClock.png</file> -->
         <!-- <file>Item.Bomb.png</file> -->
@@ -158,6 +157,7 @@
         <file>Item.Cola.png</file>
         <!--  <file>Item.FineList.png</file> -->
         <!--  <file>Item.FirstAidKit.png</file> -->
+        <file>Item.SantaLetter.png</file>
         <file>Item.Gift.png</file>
         <file>Item.Gyros.png</file>
         <file>Item.Hotdog.png</file>
@@ -208,6 +208,28 @@
 
         <file>Item.Dice.png</file>
         <file>Item.Donut.png</file>
+
+        <file>Item.XmasHolly.png</file>
+        <file>Item.XmasBall.png</file>
+        <file>Item.XmasBells.png</file>
+        <file>Item.XmasCandle.png</file>
+        <file>Item.XmasCane.png</file>
+        <file>Item.XmasCookieMan.png</file>
+        <file>Item.XmasCookiesAndMilk.png</file>
+        <file>Item.XmasCookieStar.png</file>
+        <file>Item.XmasDeer.png</file>
+        <file>Item.XmasElf.png</file>
+        <file>Item.XmasGift.png</file>
+        <file>Item.XmasHat.png</file>
+        <file>Item.XmasMittens.png</file>
+        <file>Item.XmasSanta.png</file>
+        <file>Item.XmasSign.png</file>
+        <file>Item.XmasSnowGlobe.png</file>
+        <file>Item.XmasSnowflake.png</file>
+        <file>Item.XmasSnowman.png</file>
+        <file>Item.XmasSock.png</file>
+        <file>Item.XmasStar.png</file>
+        <file>Item.XmasTree.png</file>
 
     <!-- <file>shop.logo.empirediner.png</file> -->
     <!-- <file>ped_tutorial1.png</file> -->

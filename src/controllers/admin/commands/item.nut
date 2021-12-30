@@ -15,8 +15,12 @@ mcmd(["admin.item"], "item", function( playerid, itemName = 0 ) {
     }
 
     players[playerid].inventory.push(item);
-    item.save();
     players[playerid].inventory.sync();
+    item.save();
+
+    if(players[playerid].inventory.isOpened(playerid)) {
+        trigger(playerid, "onServerShowCursorTrigger");
+    }
 
     return msg( playerid, format("Item %s received", itemName), CL_SUCCESS );
 });

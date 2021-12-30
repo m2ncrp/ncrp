@@ -75,13 +75,14 @@ function searchBadWord(str) {
 cmd(["meet", "hi"], function(playerid, targetid, ...) {
 
     targetid = toInteger(targetid);
-    local nickname = trim(concat(vargv));
 
-    if(targetid == null || !isNumeric(targetid) || !nickname.len()) {
+    if(targetid == null || vargv.len() == 0 || !isNumeric(targetid)) {
              msg(playerid, "handshake.shake.rule",  CL_THUNDERBIRD);
              msg(playerid, "handshake.shake.example", CL_LYNCH );
       return msg(playerid, "handshake.shake.real-name", CL_LYNCH );
     }
+
+    local nickname = trim(concat(vargv));
 
     if(playerid == targetid) {
       return msg(playerid, "handshake.yourself");
@@ -260,7 +261,7 @@ cmd("forget", function(playerid, targetid = null) {
     return msg(playerid, "handshake.forget.complete", CL_SUCCESS);
 });
 
-cmd("dating", "rules",  function(playerid) {
+cmd("meeting", "rules",  function(playerid) {
     msgh(playerid, "К запрещенным именам и псевдонимам относятся", [
         "1) любые известные люди любых профессий и сфер деятельности (актеры, спортсмены, блоггеры и др. знаменитости);",
         "2) любые персонажи игр, фильмов, сериалов, тв-шоу;",
