@@ -5,6 +5,7 @@ class Door extends ORM.Entity {
 
     static fields = [
         ORM.Field.String ({ name = "name" }),
+        ORM.Field.String ({ name = "ingame_name" }),
         ORM.Field.String ({ name = "state" })
     ];
 }
