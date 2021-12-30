@@ -57,25 +57,25 @@ key("n", function(playerid) {
 });
 */
 
-local count = 0;
-
-key("n", function(playerid) {
-    if(!isPlayerInValidVehicle(playerid, 39)) { return msg(playerid, "You need Shubert SnowPlow."); }
-    local vehicleid = getPlayerVehicle(playerid);
-    local vehPos = getVehiclePosition(vehicleid);
-    local vehRot = getVehicleRotation(vehicleid);
-
-    local xR = vehRot[0];
-    local x = vehPos[0];
-    local y = vehPos[1];
-    local z = vehPos[2];
-
-
-    dbg( "x: " + format("%.3f", round(x, 3)) + ", y: " + format("%.3f", round(y, 3)) + ", z: " + format("%.3f", round(z, 3)) + ", xr: " + format("%.3f", round(xR, 3)));
-    msg(playerid, "Place has been created.", CL_SUCCESS );
-    createPlace("snowPlace"+count, x-1, y+1, x+1, y-1);
-    count += 1;
-});
+// local count = 0;
+//
+// key("n", function(playerid) {
+//     if(!isPlayerInValidVehicle(playerid, 39)) { return msg(playerid, "You need Shubert SnowPlow."); }
+//     local vehicleid = getPlayerVehicle(playerid);
+//     local vehPos = getVehiclePosition(vehicleid);
+//     local vehRot = getVehicleRotation(vehicleid);
+//
+//     local xR = vehRot[0];
+//     local x = vehPos[0];
+//     local y = vehPos[1];
+//     local z = vehPos[2];
+//
+//
+//     dbg( "x: " + format("%.3f", round(x, 3)) + ", y: " + format("%.3f", round(y, 3)) + ", z: " + format("%.3f", round(z, 3)) + ", xr: " + format("%.3f", round(xR, // 3)));
+//     msg(playerid, "Place has been created.", CL_SUCCESS );
+//     createPlace("snowPlace"+count, x-1, y+1, x+1, y-1);
+//     count += 1;
+// });
 
 // game.traffic:SwitchGenerators(xx) xx = true\false
 // game.traffic:Populate(##) ##=0..100
