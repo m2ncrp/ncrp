@@ -30,8 +30,11 @@ alternativeTranslate({
     "en|Enter"                          : "Enter"
     "ru|Enter"                          : "Вход"
 
-    "en|Heal"      : "Heal"
-    "ru|Heal"      : "Вылечиться"
+    "en|Heal"                           : "Heal"
+    "ru|Heal"                           : "Вылечиться"
+
+    "en|3dtext.newyear.gifts"           : "HELP THE ELVES"
+    "ru|3dtext.newyear.gifts"           : "ПОМОГИ ЭЛЬФАМ"
 
     "en|3dtext.job.loadhere"            : "LOAD HERE"
     "ru|3dtext.job.loadhere"            : "МЕСТО ЗАГРУЗКИ"
@@ -39,6 +42,8 @@ alternativeTranslate({
     "en|3dtext.job.unloadhere"          : "UNLOAD HERE"
     "ru|3dtext.job.unloadhere"          : "МЕСТО РАЗГРУЗКИ"
 
+    "en|3dtext.job.checkpoint"          : "CHECKPOINT"
+    "ru|3dtext.job.checkpoint"          : "ЧЕКПОИНТ"
 
     "en|3dtext.job.truckdriver"         : "CARGO DELIVERY"
     "ru|3dtext.job.truckdriver"         : "ГРУЗОПЕРЕВОЗКИ"
