@@ -93,7 +93,11 @@ event("onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
                         if(modelid == 5 && (getPlayerBizCount(playerid) > 0 || isPlayerFractionMember(playerid, "gov"))) {
                             msg(playerid, "Вы не можете взять в аренду этот автомобиль", CL_ERROR);
                         } else {
-                            showRentCarGUI(playerid, vehicleid);
+                            if(getVehicleFuelEx(vehicleid) >= getDefaultVehicleFuel(vehicleid) * 0.5) {
+                                showRentCarGUI(playerid, vehicleid);
+                            } else {
+                                msg(playerid, "Автомобиль недоступен для аренды из-за малого количества топлива в баке.", CL_ERROR);
+                            }
                         }
                     } else {
                         msg(playerid, "Вам недоступна возможность аренды автомобиля", CL_ERROR);
