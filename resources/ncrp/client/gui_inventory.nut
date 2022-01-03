@@ -50,168 +50,282 @@ local drawing = true;
  */
 
 local translations = {
+    "en|inventory"             : "Inventory of ",
+    "ru|inventory"             : "Инвентарь ",
 
-    "en": {
-        "inventory"             : "Inventory of ",
-        "trunk"                 : "Trunk",
-        "interior"              : "Interior",
+    "en|trunk"                 : "Trunk",
+    "ru|trunk"                 : "Багажник",
 
-        "action:use"            : "Use",
-        "action:transfer"       : "Transfer",
-        "action:destroy"        : "Destroy",
-        "action:takeInHand"     : "Take in hand",
-        "action:throwToGround"  : "Throw to the ground",
-        "action:close"          : "Close",
-
-        "vehicle:notfound"      : "Unknown vehicle",
-
-        "Item.None"             : ""
-        "Item.Revolver"         : "Revolver .38"
-        "Item.MauserC96"        : "Mauser C96"
-        "Item.Colt"             : "Colt 1911"
-        "Item.ColtSpec"         : "Colt 1911 Special"
-        "Item.Magnum"           : "Magnum"
-        "Item.Remington870"     : "Remington 870"
-        "Item.M3GreaseGun"      : "MP Grease Gun"
-        "Item.MP40"             : "MP-40"
-        "Item.Thompson1928"     : "Thompson 1928"
-        "Item.M1A1Thompson"     : "M1A1 Thompson"
-        "Item.Beretta38A"       : "Beretta 38A"
-        "Item.MG42"             : "MG-42"
-        "Item.M1Garand"         : "M1 Garand"
-        "Item.Kar98k"           : "Kar 98k"
-
-        "Item.MK2"              : "MK2"
-        "Item.Molotov"          : "Molotov"
-        "Item.Ammo45ACP"        : "Ammo .45 ACP"
-        "Item.Ammo357magnum"    : "Ammo .357 Magnum"
-        "Item.Ammo12mm"         : "Ammo 12 mm"
-        "Item.Ammo9x19mm"       : "Ammo 9x19 mm"
-        "Item.Ammo792x57mm"     : "Ammo 7.92x57 mm"
-        "Item.Ammo762x63mm"     : "Ammo 7.62x63 mm"
-        "Item.Ammo38Special"    : "Ammo .38 Special"
-
-        "Item.Clothes"          : "Clothes"
-
-        "Item.Whiskey"          : "Whiskey"
-        "Item.MasterBeer"       : "Master Beer",
-        "Item.OldEmpiricalBeer" : "Old Empirical Beer",
-        "Item.StoltzBeer"       : "Stoltz Beer",
-        "Item.Wine"             : "Wine",
-        "Item.Brendy"           : "Brendy",
-
-        "Item.Burger"           : "Burger"
-        "Item.Hotdog"           : "Hotdog"
-        "Item.Sandwich"         : "Sandwich"
-        "Item.Cola"             : "Cola"
-        "Item.Gyros"            : "Gyros"
-        "Item.Donut"            : "Donut"
-        "Item.CoffeeCup"        : "Cup of coffee"
-
-        "Item.Jerrycan"         : "Canister"
-        "Item.RepairKit"        : "RepairKit"
-        "Item.VehicleTax"       : "Vehicle tax"
-        "Item.VehicleKey"       : "Vehicle key"
-        "Item.VehicleTitle"     : "Vehicle title"
-        "Item.FirstAidKit"      : "First aid kit"
-        "Item.Passport"         : "Passport"
-        "Item.PoliceBadge"      : "Police badge"
-        "Item.Gift"             : "Gift"
-        "Item.Box"              : "Box"
-        "Item.Money"            : "Money"
-        "Item.LTC"              : "LTC"
-        "Item.DriverLicense"    : "Driver License"
-        "Item.Race"             : "Racing form"
-        "Item.Dice"             : "Dice"
-
-        "Item.BigBreakRed"      :  "Big Break Red"
-        "Item.BigBreakBlue"     :  "Big Break Blue"
-        "Item.BigBreakWhite"    :  "Big Break White"
-
-        "Item.Methamnetamine"   : "Methamnetamine"
+    "en|interior"              : "Interior",
+    "ru|interior"              : "Салон",
 
 
-    },
-    "ru": {
-        "inventory"             : "Инвентарь "
-        "trunk"                 : "Багажник",
-        "interior"              : "Салон",
+    "en|action:use"            : "Use",
+    "ru|action:use"            : "Использовать",
 
-        "action:use"            : "Использовать"
-        "action:transfer"       : "Передать"
-        "action:destroy"        : "Уничтожить"
-        "action:takeInHand"     : "Взять в руку"
-        "action:throwToGround"  : "Бросить на землю"
-        "action:close"          : "Закрыть"
+    "en|action:transfer"       : "Transfer",
+    "ru|action:transfer"       : "Передать",
 
-        "vehicle:notfound"      : "Неизвестно от какого",
+    "en|action:destroy"        : "Destroy",
+    "ru|action:destroy"        : "Уничтожить",
 
-        "Item.None"             : ""
-        "Item.Revolver"         : "Revolver .38"
-        "Item.MauserC96"        : "Mauser C96"
-        "Item.Colt"             : "Colt 1911"
-        "Item.ColtSpec"         : "Colt 1911 Special"
-        "Item.Magnum"           : "Magnum"
-        "Item.Remington870"     : "Remington 870"
-        "Item.M3GreaseGun"      : "MP Grease Gun"
-        "Item.MP40"             : "MP-40"
-        "Item.Thompson1928"     : "Thompson 1928"
-        "Item.M1A1Thompson"     : "M1A1 Thompson"
-        "Item.Beretta38A"       : "Beretta 38A"
-        "Item.MG42"             : "MG-42"
-        "Item.M1Garand"         : "M1 Garand"
-        "Item.Kar98k"           : "Kar 98k"
+    "en|action:takeInHand"     : "Take in hand",
+    "ru|action:takeInHand"     : "Взять в руку",
 
-        "Item.MK2"              : "MK2"
-        "Item.Molotov"          : "Коктейль Молотова"
+    "en|action:throwToGround"  : "Throw to the ground",
+    "ru|action:throwToGround"  : "Бросить на землю",
 
-        "Item.Ammo45ACP"        : "Патроны .45 ACP"
-        "Item.Ammo357magnum"    : "Патроны .357 Magnum"
-        "Item.Ammo12mm"         : "Патроны 12 mm"
-        "Item.Ammo9x19mm"       : "Патроны 9x19 mm"
-        "Item.Ammo792x57mm"     : "Патроны 7.92x57 mm"
-        "Item.Ammo762x63mm"     : "Патроны 7.62x63 mm"
-        "Item.Ammo38Special"    : "Патроны .38 Special"
+    "en|action:close"          : "Close",
+    "ru|action:close"          : "Закрыть",
 
-        "Item.Clothes"          : "Одежда"
+    "en|vehicle:notfound"      : "Unknown vehicle",
+    "ru|vehicle:notfound"      : "Неизвестно от какого",
 
-        "Item.Whiskey"          : "Виски",
-        "Item.MasterBeer"       : "Пиво Мастер",
-        "Item.OldEmpiricalBeer" : "Пиво Старый Эмпайр",
-        "Item.StoltzBeer"       : "Пиво Штольц",
-        "Item.Wine"             : "Вино",
-        "Item.Brandy"           : "Бренди",
+    "en|Item.None"             : "",
+    "ru|Item.None"             : "",
 
-        "Item.Burger"           : "Бургер"
-        "Item.Hotdog"           : "Хот-дог"
-        "Item.Sandwich"         : "Сэндвич"
-        "Item.Cola"             : "Кола"
-        "Item.Gyros"            : "Гирос"
-        "Item.Donut"            : "Пончик"
-        "Item.CoffeeCup"        : "Чашка кофе"
+    "en|Item.Revolver"         : "Revolver .38",
+    "ru|Item.Revolver"         : "Revolver .38",
 
-        "Item.Jerrycan"         : "Канистра"
-        "Item.RepairKit"        : "Ремкомплект"
-        "Item.VehicleTax"       : "Квитанция налога на ТС"
-        "Item.VehicleKey"       : "Ключ от автомобиля"
-        "Item.VehicleTitle"     : "Свидетельство на ТС"
-        "Item.FirstAidKit"      : "Аптечка"
-        "Item.Passport"         : "Паспорт"
-        "Item.PoliceBadge"      : "Полицейский жетон"
-        "Item.Gift"             : "Подарок"
-        "Item.Box"              : "Ящик"
-        "Item.Money"            : "Деньги"
-        "Item.LTC"              : "Лицензия на оружие"
-        "Item.DriverLicense"    : "Водительские права"
-        "Item.Race"             : "Бланк гонки"
-        "Item.Dice"             : "Игральный кубик"
+    "en|Item.MauserC96"        : "Mauser C96",
+    "ru|Item.MauserC96"        : "Mauser C96",
 
-        "Item.BigBreakRed"    : "Big Break Red"
-        "Item.BigBreakBlue"   : "Big Break Blue"
-        "Item.BigBreakWhite"  : "Big Break White"
+    "en|Item.Colt"             : "Colt 1911",
+    "ru|Item.Colt"             : "Colt 1911",
 
-        "Item.Methamnetamine"   : "Метамфетамин"
-    }
+    "en|Item.ColtSpec"         : "Colt 1911 Special",
+    "ru|Item.ColtSpec"         : "Colt 1911 Special",
+
+    "en|Item.Magnum"           : "Magnum",
+    "ru|Item.Magnum"           : "Magnum",
+
+    "en|Item.Remington870"     : "Remington 870",
+    "ru|Item.Remington870"     : "Remington 870",
+
+    "en|Item.M3GreaseGun"      : "MP Grease Gun",
+    "ru|Item.M3GreaseGun"      : "MP Grease Gun",
+
+    "en|Item.MP40"             : "MP-40",
+    "ru|Item.MP40"             : "MP-40",
+
+    "en|Item.Thompson1928"     : "Thompson 1928",
+    "ru|Item.Thompson1928"     : "Thompson 1928",
+
+    "en|Item.M1A1Thompson"     : "M1A1 Thompson",
+    "ru|Item.M1A1Thompson"     : "M1A1 Thompson",
+
+    "en|Item.Beretta38A"       : "Beretta 38A",
+    "ru|Item.Beretta38A"       : "Beretta 38A",
+
+    "en|Item.MG42"             : "MG-42",
+    "ru|Item.MG42"             : "MG-42",
+
+    "en|Item.M1Garand"         : "M1 Garand",
+    "ru|Item.M1Garand"         : "M1 Garand",
+
+    "en|Item.Kar98k"           : "Kar 98k",
+    "ru|Item.Kar98k"           : "Kar 98k",
+
+    "en|Item.MK2"              : "MK2",
+    "ru|Item.MK2"              : "MK2",
+
+    "en|Item.Molotov"          : "Molotov",
+    "ru|Item.Molotov"          : "Коктейль Молотова",
+
+
+    "en|Item.Ammo45ACP"        : "Ammo .45 ACP",
+    "ru|Item.Ammo45ACP"        : "Патроны .45 ACP",
+
+    "en|Item.Ammo357magnum"    : "Ammo .357 Magnum",
+    "ru|Item.Ammo357magnum"    : "Патроны .357 Magnum",
+
+    "en|Item.Ammo12mm"         : "Ammo 12 mm",
+    "ru|Item.Ammo12mm"         : "Патроны 12 mm",
+
+    "en|Item.Ammo9x19mm"       : "Ammo 9x19 mm",
+    "ru|Item.Ammo9x19mm"       : "Патроны 9x19 mm",
+
+    "en|Item.Ammo792x57mm"     : "Ammo 7.92x57 mm",
+    "ru|Item.Ammo792x57mm"     : "Патроны 7.92x57 mm",
+
+    "en|Item.Ammo762x63mm"     : "Ammo 7.62x63 mm",
+    "ru|Item.Ammo762x63mm"     : "Патроны 7.62x63 mm",
+
+    "en|Item.Ammo38Special"    : "Ammo .38 Special",
+    "ru|Item.Ammo38Special"    : "Патроны .38 Special",
+
+
+    "en|Item.Clothes"          : "Clothes",
+    "ru|Item.Clothes"          : "Одежда",
+
+
+    "en|Item.Whiskey"          : "Whiskey"
+    "ru|Item.Whiskey"          : "Виски",
+
+    "en|Item.MasterBeer"       : "Master Beer",
+    "ru|Item.MasterBeer"       : "Пиво Мастер",
+
+    "en|Item.OldEmpiricalBeer" : "Old Empirical Beer",
+    "ru|Item.OldEmpiricalBeer" : "Пиво Старый Эмпайр",
+
+    "en|Item.StoltzBeer"       : "Stoltz Beer",
+    "ru|Item.StoltzBeer"       : "Пиво Штольц",
+
+    "en|Item.Wine"             : "Wine",
+    "ru|Item.Wine"             : "Вино",
+
+    "en|Item.Brendy"           : "Brendy",
+    "ru|Item.Brandy"           : "Бренди",
+
+
+    "en|Item.Burger"           : "Burger",
+    "ru|Item.Burger"           : "Бургер",
+
+    "en|Item.Hotdog"           : "Hotdog",
+    "ru|Item.Hotdog"           : "Хот-дог",
+
+    "en|Item.Sandwich"         : "Sandwich",
+    "ru|Item.Sandwich"         : "Сэндвич",
+
+    "en|Item.Cola"             : "Cola",
+    "ru|Item.Cola"             : "Кола",
+
+    "en|Item.Gyros"            : "Gyros",
+    "ru|Item.Gyros"            : "Гирос",
+
+    "en|Item.Donut"            : "Donut",
+    "ru|Item.Donut"            : "Пончик",
+
+    "en|Item.CoffeeCup"        : "Cup of coffee",
+    "ru|Item.CoffeeCup"        : "Чашка кофе",
+
+
+    "en|Item.Jerrycan"         : "Canister",
+    "ru|Item.Jerrycan"         : "Канистра",
+
+    "en|Item.RepairKit"        : "RepairKit",
+    "ru|Item.RepairKit"        : "Ремкомплект",
+
+    "en|Item.VehicleTax"       : "Vehicle tax",
+    "ru|Item.VehicleTax"       : "Квитанция налога на ТС",
+
+    "en|Item.VehicleKey"       : "Vehicle key",
+    "ru|Item.VehicleKey"       : "Ключ от автомобиля",
+
+    "en|Item.VehicleTitle"     : "Vehicle title",
+    "ru|Item.VehicleTitle"     : "Свидетельство на ТС",
+
+    "en|Item.FirstAidKit"      : "First aid kit",
+    "ru|Item.FirstAidKit"      : "Аптечка",
+
+    "en|Item.Passport"         : "Passport",
+    "ru|Item.Passport"         : "Паспорт",
+
+    "en|Item.PoliceBadge"      : "Police badge",
+    "ru|Item.PoliceBadge"      : "Полицейский жетон",
+
+    "en|Item.Gift"             : "Gift",
+    "ru|Item.Gift"             : "Подарок",
+
+    "en|Item.SantaLetter"      : "Letter of Santa",
+    "ru|Item.SantaLetter"      : "Письмо Санты",
+
+    "en|Item.Box"              : "Box",
+    "ru|Item.Box"              : "Ящик",
+
+    "en|Item.Money"            : "Money",
+    "ru|Item.Money"            : "Деньги",
+
+    "en|Item.LTC"              : "LTC",
+    "ru|Item.LTC"              : "Лицензия на оружие",
+
+    "en|Item.DriverLicense"    : "Driver License",
+    "ru|Item.DriverLicense"    : "Водительские права",
+
+    "en|Item.Race"             : "Racing form",
+    "ru|Item.Race"             : "Бланк гонки",
+
+    "en|Item.Dice"             : "Dice",
+    "ru|Item.Dice"             : "Игральный кубик",
+
+
+    "en|Item.BigBreakRed"      :  "Big Break Red",
+    "ru|Item.BigBreakRed"      : "Big Break Red",
+
+    "en|Item.BigBreakBlue"     :  "Big Break Blue",
+    "ru|Item.BigBreakBlue"     : "Big Break Blue",
+
+    "en|Item.BigBreakWhite"    :  "Big Break White",
+    "ru|Item.BigBreakWhite"    : "Big Break White",
+
+
+    "en|Item.Methamnetamine"   : "Methamnetamine",
+    "ru|Item.Methamnetamine"   : "Метамфетамин",
+
+
+    "en|Item.XmasHolly"        : "Christmas holly",
+    "ru|Item.XmasHolly"        : "Остролист",
+
+    "en|Item.XmasBall"         : "Christmas ball",
+    "ru|Item.XmasBall"         : "Ёлочный шарик",
+
+    "en|Item.XmasBells"        : "Christmas bells",
+    "ru|Item.XmasBells"        : "Колокольчики",
+
+    "en|Item.XmasCandle"       : "Christmas candle",
+    "ru|Item.XmasCandle"       : "Рождественская свеча",
+
+    "en|Item.XmasCane"         : "Candy cane",
+    "ru|Item.XmasCane"         : "Карамельная трость",
+
+    "en|Item.XmasCookieMan"    : "Gingerbread Man",
+    "ru|Item.XmasCookieMan"    : "Пряничный человечек",
+
+    "en|Item.XmasCookiesAndMilk"    : "Cookies and milk",
+    "ru|Item.XmasCookiesAndMilk"    : "Печенье и молоко",
+
+    "en|Item.XmasCookieStar"        : "Gingerbread star",
+    "ru|Item.XmasCookieStar"        : "Пряничная звезда",
+
+    "en|Item.XmasDeer"          : "Deer Rudolph",
+    "ru|Item.XmasDeer"          : "Олень Рудольф",
+
+    "en|Item.XmasElf"           : "Christmas elf",
+    "ru|Item.XmasElf"           : "Рождественский эльф",
+
+    "en|Item.XmasGift"          : "Christmas gift",
+    "ru|Item.XmasGift"          : "Подарок от Санты",
+
+    "en|Item.XmasHat"           : "Christmas hat",
+    "ru|Item.XmasHat"           : "Колпак Санты",
+
+    "en|Item.XmasMittens"       : "Mittens",
+    "ru|Item.XmasMittens"       : "Варежки",
+
+    "en|Item.XmasSanta"         : "Santa figure",
+    "ru|Item.XmasSanta"         : "Фигурка Санты",
+
+    "en|Item.XmasSign"          : "North Pole sign",
+    "ru|Item.XmasSign"          : "На Северный полюс",
+
+    "en|Item.XmasSnowGlobe"     : "Snow globe",
+    "ru|Item.XmasSnowGlobe"     : "Снежный шар",
+
+    "en|Item.XmasSnowflake"     : "Snowflake",
+    "ru|Item.XmasSnowflake"     : "Снежинка",
+
+    "en|Item.XmasSnowman"       : "Snowman",
+    "ru|Item.XmasSnowman"       : "Снеговик",
+
+    "en|Item.XmasSock"          : "Christmas sock",
+    "ru|Item.XmasSock"          : "Рождественский носок",
+
+    "en|Item.XmasStar"          : "Christmas star",
+    "ru|Item.XmasStar"          : "Рождественская звезда",
+
+    "en|Item.XmasTree"          : "Christmas tree",
+    "ru|Item.XmasTree"          : "Новогодняя ёлка",
+
 };
 
 
@@ -555,7 +669,7 @@ class PlayerInventory extends Inventory
         if (typeof this.handle == "userdata") {
             if (typeof guiSetAlwaysOnTop == "function") guiSetAlwaysOnTop(this.handle, true);
             if (typeof guiSetMovable == "function")     guiSetMovable(this.handle, false);
-            if (typeof guiSetText == "function")        guiSetText(this.handle, translations[playerLang]["inventory"]+characterName);
+            if (typeof guiSetText == "function")        guiSetText(this.handle, translations[playerLang+"|inventory"]+characterName);
         }
 
         local props = {
@@ -565,11 +679,11 @@ class PlayerInventory extends Inventory
 
         // buttons
         this.components["lbl_name"]     <- this.addComponent(ELEMENT_TYPE_LABEL, { width  = 125.0, height = 50.0 },  0, "");
-        this.components["btn_use"]      <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -5, translations[playerLang]["action:use"]);
-        this.components["btn_transfer"] <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -4, translations[playerLang]["action:transfer"]);
-        this.components["btn_destroy"]  <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -3, translations[playerLang]["action:destroy"]);
-        this.components["btn_hand"]     <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -2, translations[playerLang]["action:takeInHand"]);
-        this.components["btn_drop"]     <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -1, translations[playerLang]["action:throwToGround"]);
+        this.components["btn_use"]      <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -5, translations[playerLang+"|action:use"]);
+        this.components["btn_transfer"] <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -4, translations[playerLang+"|action:transfer"]);
+        this.components["btn_destroy"]  <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -3, translations[playerLang+"|action:destroy"]);
+        this.components["btn_hand"]     <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -2, translations[playerLang+"|action:takeInHand"]);
+        this.components["btn_drop"]     <- this.addComponent(ELEMENT_TYPE_BUTTON, props, -1, translations[playerLang+"|action:throwToGround"]);
 
     }
 
@@ -581,27 +695,28 @@ class PlayerInventory extends Inventory
         }
 
         if (item.active) {
-            if (item.classname in translations[playerLang]) {
-                local text = translations[playerLang][item.classname];
+            local translationName = playerLang +"|"+item.classname;
+            if (translationName in translations) {
+                local text = translations[translationName];
                 // sendMessage(item.tostring())
                 if(item.amount != 0) {
                     if (item.classname == "Item.Money") {
-                        text = translations[playerLang][item.classname] + " [$"+item.amount+"]";
+                        text = translations[translationName] + " [$"+item.amount+"]";
                     }
 
                     // for items with amount field
-                    text = translations[playerLang][item.classname] + " ["+item.amount+"]";
+                    text = translations[translationName] + " ["+item.amount+"]";
                 }
 
                 if (item.classname == "Item.Jerrycan") {
-                    text = translations[playerLang][item.classname] + " ["+item.amount+"]";
+                    text = translations[translationName] + " ["+item.amount+"]";
                 }
 
                 if (item.classname == "Item.VehicleKey") {
                     if(item.temp.len() > 0) {
-                        text = translations[playerLang][item.classname] + "\n" + item.temp.plate + "\n" + item.temp.modelName;
+                        text = translations[translationName] + "\n" + item.temp.plate + "\n" + item.temp.modelName;
                     } else {
-                        text = translations[playerLang][item.classname] + "\n" + translations[playerLang]["vehicle:notfound"];
+                        text = translations[translationName] + "\n" + translations[playerLang+"|vehicle:notfound"];
                     }
                 }
 
@@ -748,7 +863,7 @@ class StorageInventory extends Inventory
 
     function setTitle() {
         if (typeof this.handle == "userdata") {
-            if (typeof guiSetText == "function")        guiSetText(this.handle, translations[playerLang]["Item.Box"]);
+            if (typeof guiSetText == "function")        guiSetText(this.handle, translations[playerLang+"|Item.Box"]);
         }
     }
 
@@ -765,7 +880,7 @@ class StorageInventory extends Inventory
         local size = this.getSize();
 
         // buttons
-        this.components["btn_close"] <- guiCreateElement(ELEMENT_TYPE_BUTTON, translations[playerLang]["action:close"], size.x / 2 - 38, size.y - 31, 76.0, 22.0, false, this.handle );
+        this.components["btn_close"] <- guiCreateElement(ELEMENT_TYPE_BUTTON, translations[playerLang+"|action:close"], size.x / 2 - 38, size.y - 31, 76.0, 22.0, false, this.handle );
 
     }
 
@@ -815,7 +930,7 @@ class VehicleInventory extends Inventory
 
     function setTitle() {
         if (typeof this.handle == "userdata") {
-            if (typeof guiSetText == "function") guiSetText(this.handle, translations[playerLang]["trunk"]);
+            if (typeof guiSetText == "function") guiSetText(this.handle, translations[playerLang+"|trunk"]);
         }
     }
 
@@ -859,7 +974,7 @@ class VehicleInterior extends Inventory
 
     function setTitle() {
         if (typeof this.handle == "userdata") {
-            if (typeof guiSetText == "function") guiSetText(this.handle, translations[playerLang]["interior"]);
+            if (typeof guiSetText == "function") guiSetText(this.handle, translations[playerLang+"|interior"]);
         }
     }
 
@@ -897,7 +1012,7 @@ class PropertyInventory extends Inventory
 
     function setTitle() {
         if (typeof this.handle == "userdata") {
-            if (typeof guiSetText == "function") guiSetText(this.handle, translations[playerLang]["interior"]);
+            if (typeof guiSetText == "function") guiSetText(this.handle, translations[playerLang+"|interior"]);
         }
     }
 

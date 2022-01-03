@@ -25,6 +25,38 @@ function randomf(min = 0.0, max = RAND_MAX) {
 }
 
 /**
+ * Return random string by array of objects with weight
+ *
+ * @param  {array of objects} options
+ * local options = [
+ *     { "item": "bike", "weight": 0.4 },
+ *     { "item": "car", "weight": 0.3 },
+ *     { "item": "boat", "weight": 0.15 },
+ *     { "item": "train", "weight": 0.1 },
+ *     { "item": "plane", "weight": 0.05 },
+ * ];
+ * @return {string}
+ */
+function weightedRandom(options) {
+    local i;
+    local count = options.len();
+    local weights = array(count);
+
+    for (i = 0; i < count; i++) {
+        local weight = i - 1 >= 0 && weights[i - 1] ? weights[i - 1] : 0;
+        weights[i] = options[i].weight + weight;
+    }
+
+    local random = randomf(0.0, 1.0) * weights[weights.len() - 1];
+
+    for (i = 0; i < (weights.len() - 1); i++) {
+        if (weights[i] > random) break;
+    }
+
+    return options[i].item;
+}
+
+/**
  * Max from a range (2 or more parameters)
  * @return {int}
  */
