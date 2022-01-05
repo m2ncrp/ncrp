@@ -16,8 +16,13 @@ function deleteUserCall (charid) {
 }
 
 function isUsingPhone (charid) {
-    return charid in phoneUser;
-}
+    if (charid in phoneUser){
+        return phoneUser[charid] != null
+    } else {
+        return false;
+    }
+};
+
 
 
 /*
@@ -120,59 +125,59 @@ local telephones = {
     "0193": {"coords": [ -408.296, 631.616, -12.3661 ], "name": "telephone92" , "type": 0},
     "0194": {"coords": [ -264.414, 678.893, -19.9448 ], "name": "telephone93" , "type": 0},
     "0400": {"coords": [ -352.354, -726.13, -15.4204 ], "name": "telephone94" , "type": 1},
-    "0401": {"coords": [ -49.231, 740.707, -21.9009  ], "name": "telephone98" , "type": 1},
-    "0402": {"coords": [ 140.695, -427.998, -19.429   ], "name": "telephone108", "type": 1},
-    "0403": {"coords": [ -1590.33, 175.591, -12.4393  ], "name": "telephone109", "type": 1},
-    "0404": {"coords": [ -1584.37, 1605.48, -5.22507  ], "name": "telephone110", "type": 1},
-    "0405": {"coords": [ -645.304, 1293.91, 3.94464   ], "name": "telephone111", "type": 1},
-    "0406": {"coords": [  -1422.09, 959.373, -12.7543 ], "name": "telephone112", "type": 1},
-    "0407": {"coords": [  -563.005, 427.133, 1.02075  ], "name": "telephone113", "type": 1},
-    "0408": {"coords": [ 241.946, 710.54, -24.0321    ], "name": "telephone114", "type": 1},
-    "0409": {"coords": [  -773.044, -375.432, -20.4072], "name": "telephone115", "type": 1},
-    "0410": {"coords": [-1394.48, -34.1276, -17.8468  ], "name": "telephone129", "type": 1},
-    "0411": {"coords": [-1183.28, 1707.61, 11.0941    ], "name": "telephone130", "type": 1},
-    "0412": {"coords": [-288.33, 1628.95, -23.0758    ], "name": "telephone131", "type": 1},
-    "0413": {"coords": [ 272.476, -454.776, -20.1636  ], "name": "telephone132", "type": 1},
-    "0414": {"coords": [ 281.13, -118.194, -12.2741   ], "name": "telephone133", "type": 1},
-    "0415": {"coords": [ -569.074, 310.33, 0.16808    ], "name": "telephone134", "type": 1},
-    "0416": {"coords": [ -323.609, -587.756, -20.1043 ], "name": "telephone135", "type": 1},
-    "0417": {"coords": [ 69.4106, 140.001, -14.4583   ], "name": "telephone136", "type": 1},
-    "0418": {"coords": [ -11.8903, 739.111, -22.0582  ], "name": "telephone137", "type": 1},
-    "0419": {"coords": [ 405.023, 602.404, -24.9746   ], "name": "telephone138", "type": 1},
-    "0420": {"coords": [ -711.197, 1758.35, -14.9964  ], "name": "telephone139", "type": 1},
-    "0421": {"coords": [ -1587.8, 941.463, -5.19652   ], "name": "telephone140", "type": 1},
-    "0422": {"coords": [ -1684.18, -230.827, -20.3181 ], "name": "telephone141", "type": 1},
-    "0423": {"coords": [ 339.648, 879.538, -21.2967   ], "name": "telephone142", "type": 1},
-    "0424": {"coords": [ -150.935, 606.023, -20.1787  ], "name": "telephone143", "type": 1},
-    "0425": {"coords": [ 543.76, 3.37411, -18.2392    ], "name": "telephone144", "type": 1},
-    "0426": {"coords": [ 107.752, 182.195, -20.0295   ], "name": "telephone145", "type": 1},
-    "0427": {"coords": [  -629.376, -44.3486, 0.932261], "name": "telephone146", "type": 1},
-    "0428": {"coords": [ 81.3677, 892.368, -13.3204  ], "name": "telephone95" , "type": 1},
-    "0429": {"coords": [ 626.474, 898.527, -11.7137  ], "name": "telephone96" , "type": 1},
-    "0430": {"coords": [ -49.231, 740.707, -21.9009  ], "name": "telephone97" , "type": 1},
-    "0431": {"coords": [ -254.039, -82.1033, -11.458 ], "name": "telephone99" , "type": 1},
-    "0432": {"coords": [ -637.16, 348.346, 1.34485   ], "name": "telephone100", "type": 1},
-    "0433": {"coords": [ -1386.91, 470.764, -22.1321 ], "name": "telephone101", "type": 1},
-    "0434": {"coords": [ -1559.92, -163.443, -19.6113], "name": "telephone102", "type": 1},
-    "0435": {"coords": [ -1146.3, 1591.19, 6.25566   ], "name": "telephone103", "type": 1},
-    "0436": {"coords": [ -1301.75, 996.284, -17.3339 ], "name": "telephone104", "type": 1},
-    "0437": {"coords": [ -651.048, 942.307, -7.93587 ], "name": "telephone105", "type": 1},
-    "0438": {"coords": [ 374.146, -290.937, -15.5799 ], "name": "telephone106", "type": 1},
-    "0439": {"coords": [ -161.972, -588.33, -16.1199 ], "name": "telephone107", "type": 1},
-    "0440": {"coords": [ -375.504, -449.881, -17.2661 ], "name": "telephone116", "type": 1},
-    "0441": {"coords": [-1294.3, 1705.27, 10.5592     ], "name": "telephone117", "type": 1},
-    "0442": {"coords": [-1424.27, 1298.01, -13.7195   ], "name": "telephone118", "type": 1},
-    "0443": {"coords": [ -625.776, 290.6, -0.267079   ], "name": "telephone119", "type": 1},
-    "0445": {"coords": [-517.118, 873.251, -19.3223   ], "name": "telephone120", "type": 1},
-    "0446": {"coords": [430.495, 304.263, -20.1786    ], "name": "telephone121", "type": 1},
-    "0447": {"coords": [-40.4981, 388.486, -13.9963   ], "name": "telephone122", "type": 1},
-    "0448": {"coords": [ 345.958, 39.9048, -24.1478   ], "name": "telephone123", "type": 1},
-    "0449": {"coords": [ 413.931, -291.478, -20.1622  ], "name": "telephone124", "type": 1},
-    "0450": {"coords": [-4.2169, 559.556, -19.4067    ], "name": "telephone125", "type": 1},
-    "0451": {"coords": [ 273.21, 774.425, -21.2439    ], "name": "telephone126", "type": 1},
-    "0452": {"coords": [ -1376.25, 387.643, -23.7368  ], "name": "telephone127", "type": 1},
-    "0453": {"coords": [ -1531.76, 2.28327, -17.8468  ], "name": "telephone128", "type": 1},
-    "0454": {"coords": [ -1304.62, 1608.74, 1.22659  ], "name": "telephone147", "type":  1},
+    "0401": {"coords": [ 81.3677, 892.368, -13.3204  ], "name": "telephone95" , "type": 1},
+    "0402": {"coords": [ 626.474, 898.527, -11.7137  ], "name": "telephone96" , "type": 1},
+    "0403": {"coords": [ -49.231, 740.707, -21.9009  ], "name": "telephone97" , "type": 1},
+    "0404": {"coords": [ 19.2317, -74.7028, -15.595  ], "name": "telephone98" , "type": 1},
+    "0405": {"coords": [ -254.039, -82.1033, -11.458 ], "name": "telephone99" , "type": 1},
+    "0406": {"coords": [ -637.16, 348.346, 1.34485   ], "name": "telephone100", "type": 1},
+    "0407": {"coords": [ -1386.91, 470.764, -22.1321 ], "name": "telephone101", "type": 1},
+    "0408": {"coords": [ -1559.92, -163.443, -19.6113], "name": "telephone102", "type": 1},
+    "0409": {"coords": [ -1146.3, 1591.19, 6.25566   ], "name": "telephone103", "type": 1},
+    "0410": {"coords": [ -1301.75, 996.284, -17.3339 ], "name": "telephone104", "type": 1},
+    "0411": {"coords": [ -651.048, 942.307, -7.93587 ], "name": "telephone105", "type": 1},
+    "0412": {"coords": [ 374.146, -290.937, -15.5799 ], "name": "telephone106", "type": 1},
+    "0413": {"coords": [ -161.972, -588.33, -16.1199 ], "name": "telephone107", "type": 1},
+    "0414": {"coords": [ 140.695, -427.998, -19.429   ], "name": "telephone108", "type": 1},
+    "0415": {"coords": [ -1590.33, 175.591, -12.4393  ], "name": "telephone109", "type": 1},
+    "0416": {"coords": [ -1584.37, 1605.48, -5.22507  ], "name": "telephone110", "type": 1},
+    "0417": {"coords": [ -645.304, 1293.91, 3.94464   ], "name": "telephone111", "type": 1},
+    "0418": {"coords": [  -1422.09, 959.373, -12.7543 ], "name": "telephone112", "type": 1},
+    "0419": {"coords": [  -563.005, 427.133, 1.02075  ], "name": "telephone113", "type": 1},
+    "0420": {"coords": [ 241.946, 710.54, -24.0321    ], "name": "telephone114", "type": 1},
+    "0421": {"coords": [  -773.044, -375.432, -20.4072], "name": "telephone115", "type": 1},
+    "0422": {"coords": [ -375.504, -449.881, -17.2661 ], "name": "telephone116", "type": 1},
+    "0423": {"coords": [-1294.3, 1705.27, 10.5592     ], "name": "telephone117", "type": 1},
+    "0424": {"coords": [-1424.27, 1298.01, -13.7195   ], "name": "telephone118", "type": 1},
+    "0425": {"coords": [ -625.776, 290.6, -0.267079   ], "name": "telephone119", "type": 1},
+    "0426": {"coords": [-517.118, 873.251, -19.3223   ], "name": "telephone120", "type": 1},
+    "0427": {"coords": [430.495, 304.263, -20.1786    ], "name": "telephone121", "type": 1},
+    "0428": {"coords": [-40.4981, 388.486, -13.9963   ], "name": "telephone122", "type": 1},
+    "0429": {"coords": [ 345.958, 39.9048, -24.1478   ], "name": "telephone123", "type": 1},
+    "0430": {"coords": [ 413.931, -291.478, -20.1622  ], "name": "telephone124", "type": 1},
+    "0431": {"coords": [-4.2169, 559.556, -19.4067    ], "name": "telephone125", "type": 1},
+    "0432": {"coords": [ 273.21, 774.425, -21.2439    ], "name": "telephone126", "type": 1},
+    "0433": {"coords": [ -1376.25, 387.643, -23.7368  ], "name": "telephone127", "type": 1},
+    "0434": {"coords": [ -1531.76, 2.28327, -17.8468  ], "name": "telephone128", "type": 1},
+    "0435": {"coords": [-1394.48, -34.1276, -17.8468  ], "name": "telephone129", "type": 1},
+    "0436": {"coords": [-1183.28, 1707.61, 11.0941    ], "name": "telephone130", "type": 1},
+    "0437": {"coords": [-288.33, 1628.95, -23.0758    ], "name": "telephone131", "type": 1},
+    "0438": {"coords": [ 272.476, -454.776, -20.1636  ], "name": "telephone132", "type": 1},
+    "0439": {"coords": [ 281.13, -118.194, -12.2741   ], "name": "telephone133", "type": 1},
+    "0440": {"coords": [ -569.074, 310.33, 0.16808    ], "name": "telephone134", "type": 1},
+    "0441": {"coords": [ -323.609, -587.756, -20.1043 ], "name": "telephone135", "type": 1},
+    "0442": {"coords": [ 69.4106, 140.001, -14.4583   ], "name": "telephone136", "type": 1},
+    "0443": {"coords": [ -11.8903, 739.111, -22.0582  ], "name": "telephone137", "type": 1},
+    "0444": {"coords": [ 405.023, 602.404, -24.9746   ], "name": "telephone138", "type": 1},
+    "0445": {"coords": [ -711.197, 1758.35, -14.9964  ], "name": "telephone139", "type": 1},
+    "0446": {"coords": [ -1587.8, 941.463, -5.19652   ], "name": "telephone140", "type": 1},
+    "0447": {"coords": [ -1684.18, -230.827, -20.3181 ], "name": "telephone141", "type": 1},
+    "0448": {"coords": [ 339.648, 879.538, -21.2967   ], "name": "telephone142", "type": 1},
+    "0449": {"coords": [ -150.935, 606.023, -20.1787  ], "name": "telephone143", "type": 1},
+    "0450": {"coords": [ 543.76, 3.37411, -18.2392    ], "name": "telephone144", "type": 1},
+    "0451": {"coords": [ 107.752, 182.195, -20.0295   ], "name": "telephone145", "type": 1},
+    "0452": {"coords": [  -629.376, -44.3486, 0.932261], "name": "telephone146", "type": 1},
+    "0453": {"coords": [ -1304.62, 1608.74, 1.22659  ], "name": "telephone147", "type":  1},
 };
 
 function getPhoneData (number) {
@@ -432,13 +437,13 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
         local coords = telephones[number]["coords"];
         createPlace(format("phone_%s", number), coords[0] + 10, coords[1] + 10, coords[0] - 10, coords[1] - 10);
         telephones[number]["caller"] = getCharacterIdFromPlayerId(playerid);
-        delayedFunction(15000, function() {
+        delayedFunction(3000, function() {
             if (telephones[number]["isRinging"]) {
                 stopRinging(number);
                 animatedPut(playerid);
+                deleteUserCall(getCharacterIdFromPlayerId(playerid));
                 clearPhoneData(phone);
                 clearPhoneData(number);
-                phoneUser[getCharacterIdFromPlayerId(playerid)] <- null;
                 msg(playerid, "telephone.noanswer", CL_WARNING);
             }
         });
@@ -447,9 +452,8 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
 
 
 event("onPlayerPhonePickUp", function(playerid, number) {
-    local phone = getPlayerPhoneName(playerid);
     local charId = getCharacterIdFromPlayerId(playerid);
-    phoneUser[getCharacterIdFromPlayerId(playerid)] <- phone;
+    phoneUser[charId] <- number;
     stopRinging(number);
     telephones[number]["isCalling"] = true;
     telephones[number]["callee"] = charId;
