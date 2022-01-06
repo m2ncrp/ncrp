@@ -437,7 +437,7 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
         local coords = telephones[number]["coords"];
         createPlace(format("phone_%s", number), coords[0] + 10, coords[1] + 10, coords[0] - 10, coords[1] - 10);
         telephones[number]["caller"] = getCharacterIdFromPlayerId(playerid);
-        delayedFunction(3000, function() {
+        delayedFunction(10000, function() {
             if (telephones[number]["isRinging"]) {
                 stopRinging(number);
                 animatedPut(playerid);
@@ -524,30 +524,29 @@ function animatedPut(playerid) {
     delayedFunction(50, function() {
         animateGlobal(playerid, {"animation": animation, "model": model}, 1000)
     });
-    if (isUsingPhone(playerid)){
-        phoneUser[getCharacterIdFromPlayerId(playerid)] = null;
-    }
 }
 
 
 function stopCall(playerid) {
-    local id = -1;
-    local phone = -1;
     local charId = getCharacterIdFromPlayerId(playerid);
     if (!isUsingPhone(charId)) return;
     local number = phoneUser[charId];
     if (number == null) return;
     local data = getPhoneData(number);
-    phone = phoneUser[data.caller];
-    id = getPlayerIdFromCharacterId(data.caller);
-    msg(playerid, "telephone.callend", CL_WARNING)
-    msg(id, "telephone.callend", CL_WARNING);
-    clearPhoneData(phone);
-    clearPhoneData(number);
-    animatedPut(id);
-    phoneUser[charId] = null;
+    local callerId = getPlayerIdFromCharacterId(data.caller);
+    local calleeId = getPlayerIdFromCharacterId(data.callee);
+    msg(callerId, "telephone.callend", CL_WARNING)
+    msg(calleeId, "telephone.callend", CL_WARNING);
+    if (callerId == playerid) {
+        animatedPut(calleeId);
+    } else {
+        animatedPut(callerId);
+    }
+    deleteUserCall(data.caller);
+    deleteUserCall(data.callee);
+    clearPhoneData(phoneUser[data.caller];
+    clearPhoneData(phoneUser[data.callee]);
     clearAnimPlace(playerid);
-    deleteUserCall(getCharacterIdFromPlayerId(id));
 }
 
 event("PhonePutGUI", function (playerid) {
