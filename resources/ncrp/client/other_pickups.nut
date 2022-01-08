@@ -1,7 +1,3 @@
-addEventHandler("loadPickups", function () {
-    log("load " + executeLua("game.sds:ActivateStreamMapLine(\"marker_load\")"));
-});
-
 addEventHandler("createPickup", function (name, x, y, z) {
     executeLua(format("DelayBuffer:Insert(function(l_5_0) CommandBuffer:Insert(l_6_0,{function(l_3_0) icon = game.entitywrapper:GetEntityByName(\"%s\") icon:SetPos(Math:newVector(%f, %f, %f)) icon:Activate() end}) end,{},14,0,false)", name, x.tofloat(), y.tofloat(), z.tofloat()));
 });

@@ -414,6 +414,9 @@ delayedFunction(10000, function() {
 })
 */
 
+ event("onServerPlayerStarted", function(playerid) {
+    triggerClientEvent(playerid, "activateStreamMapLine");
+ });
 
 
 // nnListen(function(data) {

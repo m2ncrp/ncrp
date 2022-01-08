@@ -29,7 +29,9 @@
         <script type="client">other_doors.nut</script>
         <script type="client">other_modeldraw.nut</script>
         <script type="client">other_camera.nut</script>
+        <script type="client">stream_mapline.nut</script>
         <script type="client">other_pickups.nut</script>
+        <!-- <script type="client">other_subway.nut</script> -->
 
         <!-- gui -->
         <script type="client">gui_alert.nut</script>
