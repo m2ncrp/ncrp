@@ -1,11 +1,19 @@
 function getRealTime() {
-    local t = time();
+    local t = time() + 10800; // +3 GMT
+    local hour = ((t / 3600) % 24);
     local minute = (t / 60) % 60;
-    local hour = ((t / 3600) % 24) + 3;
-    if(hour >= 24) hour -= 24;
     return format("%s:%s", addFirstZero(hour), addFirstZero(minute));
 }
 
+function getFullRealTime() {
+    local t = time() + 10800; // +3 GMT
+    local hour = ((t / 3600) % 24);
+    local minute = (t / 60) % 60;
+    local seconds = t % 60;
+    return format("%s:%s:%s", addFirstZero(hour), addFirstZero(minute), addFirstZero(seconds));
+}
+
+// failed day of month
 function getRealDate() {
     local d = date();
     return format("%s.%s.%d", addFirstZero(d.day), addFirstZero(d.month), d.year);

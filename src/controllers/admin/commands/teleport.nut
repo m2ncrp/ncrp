@@ -161,18 +161,22 @@ acmd(["tp"], function(playerid, targetid, nameOrId) {
     }
 });
 
-function getNearestTeleportFromVehicle(vehicleid) {
-    local vehPos = getVehiclePosition(vehicleid);
+function getNearestTeleport(x, y) {
     local bestIdx;
-    local bestDistance = getDistanceBetweenPoints2D(teleportPoints[0].x, teleportPoints[0].y, vehPos[0], vehPos[1]);
+    local bestDistance = getDistanceBetweenPoints2D(teleportPoints[0].x, teleportPoints[0].y, x, y);
     foreach (idx, value in teleportPoints) {
-        local distance = getDistanceBetweenPoints2D(value.x, value.y, vehPos[0], vehPos[1]);
+        local distance = getDistanceBetweenPoints2D(value.x, value.y, x, y);
         if (distance < bestDistance) {
             bestIdx = idx;
             bestDistance = distance;
         }
     };
     return teleportPoints[bestIdx];
+}
+
+function getNearestTeleportFromVehicle(vehicleid) {
+    local vehPos = getVehiclePosition(vehicleid);
+    return getNearestTeleport(vehPos[0], vehPos[1])
 }
 
 acmd(["tvehicle", "tv"], function(playerid, plateOrId) {

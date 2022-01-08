@@ -143,14 +143,15 @@ event("onServerMinuteChange", function() {
 // handle vehicle enter
 event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
     logger.logf(
-        "[VEHICLE ENTER] (%s) %s [%d] | (vehid: %d) %s - %s (model: %d) | coords: [%.5f, %.5f, %.5f] | haveKey: %s",
-            getAccountName(playerid),
+        "[VEHICLE ENTER] %s [%d] (%s) | %s - %s (model: %d, vehid: %d) | %s | coords: [%.5f, %.5f, %.5f] | haveKey: %s",
             getPlayerName(playerid),
             playerid,
-            vehicleid,
+            getAccountName(playerid),
             getVehiclePlateText(vehicleid),
             getVehicleNameByModelId(getVehicleModel(vehicleid)),
             getVehicleModel(vehicleid),
+            vehicleid,
+            getNearestTeleportFromVehicle(vehicleid).name,
             getVehiclePositionObj(vehicleid).x,
             getVehiclePositionObj(vehicleid).y,
             getVehiclePositionObj(vehicleid).z,
@@ -176,8 +177,6 @@ event("native:onPlayerVehicleEnter", function(playerid, vehicleid, seat) {
 
     // check blocking
     if (isVehicleOwned(vehicleid) && seat == 0) {
-
-        dbg("player", "vehicle", "enter", getVehiclePlateText(vehicleid), getIdentity(playerid), "haveKey: " + isPlayerHaveVehicleKey(playerid, vehicleid));
 
         if (isPlayerHaveVehicleKey(playerid, vehicleid)) {
             unblockDriving(vehicleid);
@@ -261,18 +260,19 @@ key(["w", "s", "arrow_up", "arrow_down"], function(playerid) {
 // handle vehicle exit
 event("native:onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     logger.logf(
-        "[VEHICLE EXIT] (%s) %s [%d] | (vehid: %d) %s - %s (model: %d) | coords: [%.5f, %.5f, %.5f] | haveKey: %s",
-            getAccountName(playerid),
+        "[VEHICLE EXIT] %s [%d] (%s) | %s - %s (model: %d, vehid: %d) | %s | coords: [%.5f, %.5f, %.5f] | haveKey: %s",
             getPlayerName(playerid),
             playerid,
-            vehicleid,
+            getAccountName(playerid),
             getVehiclePlateText(vehicleid),
             getVehicleNameByModelId(getVehicleModel(vehicleid)),
             getVehicleModel(vehicleid),
+            vehicleid,
+            getNearestTeleportFromVehicle(vehicleid).name,
             getVehiclePositionObj(vehicleid).x,
             getVehiclePositionObj(vehicleid).y,
             getVehiclePositionObj(vehicleid).z,
-            isVehicleOwned(vehicleid) ? (isPlayerVehicleOwner(playerid, vehicleid) ? "true" : "false") : "city_ncrp"
+            isVehicleOwned(vehicleid) ? (isPlayerHaveVehicleKey(playerid, vehicleid) ? "true" : "false") : "city_ncrp"
     );
 
     if("seatPos" in __vehicles[vehicleid]) {
