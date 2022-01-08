@@ -354,7 +354,7 @@ function getPlayerMoveState(playerid) {
 }
 
 /*
-event("onPlayerPlaceEnter", function(playerid, name) {
+event("onPlayerAreaEnter", function(playerid, name) {
     if (name != "TestTeleport") {
         return;
     }

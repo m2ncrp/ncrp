@@ -111,7 +111,7 @@ event("onServerStarted", function() {
     findBusyPlaces();
 });
 
-event("onPlayerPlaceEnter", function(playerid, name) {
+event("onPlayerAreaEnter", function(playerid, name) {
     if (isPlayerInVehicle(playerid) && name == PARKING_NAME) {
         local vehicleid = getPlayerVehicle(playerid);
         local vehPos = getVehiclePosition(vehicleid);
@@ -123,7 +123,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
 });
 
 /*
-event("onPlayerPlaceExit", function(playerid, name) {
+event("onPlayerAreaLeave", function(playerid, name) {
     if (isPlayerInVehicle(playerid) && name == PARKING_NAME) {
         msg(playerid, "You've exited " + name);
     }

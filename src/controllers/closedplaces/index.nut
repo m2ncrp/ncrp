@@ -41,7 +41,7 @@ acmd("cl", "del", function(playerid, name = null) {
     local nameDelete = "closed_"+name;
     local check = closedplaces.find(nameDelete);
     if(check == null) return msg(playerid, "This name doesn't exists.");
-    removePlace(nameDelete);
+    removeArea(nameDelete);
     closedplaces.remove(check);
     closedplaces_respawn[nameDelete].clear();
     msg(playerid, format("Place %s has been deleted.", name));
@@ -58,7 +58,7 @@ acmd("cl", "list", function(playerid) {
 });
 
 
-event("onPlayerPlaceEnter", function(playerid, name) {
+event("onPlayerAreaEnter", function(playerid, name) {
     if(name.find("closed_") == null) return;
 
     if (isPlayerInVehicle(playerid)) {

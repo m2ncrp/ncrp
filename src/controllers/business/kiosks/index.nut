@@ -52,7 +52,7 @@ event("onServerPlayerStarted", function( playerid ){
     }
 });
 
-// event("onPlayerPlaceEnter", function(playerid, name) {
+// event("onPlayerAreaEnter", function(playerid, name) {
 //     if (name.find(KIOSK_PREFIX) == null) {
 //         return;
 //     }

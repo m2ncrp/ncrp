@@ -197,7 +197,7 @@ event("onServerPlayerStarted", function( playerid ){
         job_truck[getCharacterIdFromPlayerId(playerid)]["leavejob3dtext"] = createPrivate3DText (playerid, TRUCK_JOB_X, TRUCK_JOB_Y, TRUCK_JOB_Z+0.05, plocalize(playerid, "3dtext.job.press.leave"), CL_WHITE.applyAlpha(100), RADIUS_TRUCK );
 });
 
-event("onPlayerPlaceEnter", function(playerid, name) {
+event("onPlayerAreaEnter", function(playerid, name) {
     if(name == TRUCK_JOB_PARKING_NAME+"safe" && !isPlayerVehicleTruck(playerid, 35) && !isPlayerVehicleTruck(playerid, 37) ) {
         return msg(playerid, "Место парковки грузовиков. Опасная территория. Нахождение иных автомобилей запрещено.", CL_WARNING)
     }

@@ -149,7 +149,17 @@ local carPrices = {};
 
 event("onServerStarted", function() {
     createBlip  ( DIAMOND_CARSHOP_X, DIAMOND_CARSHOP_Y, ICON_LOGO_CAR, ICON_RANGE_VISIBLE );
-    createPlace(DIAMOND_MOTORS_PLACE_NAME, DIAMOND_MOTORS_PLACE_COORDS[0], DIAMOND_MOTORS_PLACE_COORDS[1], DIAMOND_MOTORS_PLACE_COORDS[2], DIAMOND_MOTORS_PLACE_COORDS[3]);
+
+    createPolygon(DIAMOND_MOTORS_PLACE_NAME,
+        [
+            [-189.093, 834.533, -21.2311],
+            [-213.128, 812.350, -19.8994],
+            [-225.180, 812.350, -20.0494],
+            [-225.180, 831.800, -21.2432],
+            [-203.982, 839.660, -21.2530],
+            [-195.795, 840.113, -21.2529],
+        ]
+    );
 
     if(getSettingsValue("isTruckShopEnabled")) {
         createBlip(TRUCK_SHOP_X, TRUCK_SHOP_Y, ICON_LOGO_CAR, ICON_RANGE_VISIBLE );
@@ -197,7 +207,7 @@ event("onServerStarted", function() {
 */
 });
 
-event("onPlayerPlaceEnter", function(playerid, name) {
+event("onPlayerAreaEnter", function(playerid, name) {
     if (name == DIAMOND_MOTORS_PLACE_NAME) {
         if(isPlayerInVehicle(playerid)) {
             local vehicleid = getPlayerVehicle(playerid);
@@ -237,7 +247,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
     }
 });
 
-event("onPlayerPlaceExit", function(playerid, name) {
+event("onPlayerAreaLeave", function(playerid, name) {
     if (name == DIAMOND_MOTORS_PLACE_NAME) {
 
         if (!isPlayerInVehicle(playerid)) return msg(playerid, "shops.carshop.waitingyou", CL_FIREBUSH);

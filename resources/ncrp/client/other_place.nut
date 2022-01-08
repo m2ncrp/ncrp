@@ -4,16 +4,32 @@ local ticker = null;
 local buffer = [];
 local lines = [];
 
-addEventHandler("onServerPlaceAdded", function(id, x1, y1, x2, y2) {
+addEventHandler("onServerPlaceAdded", function(id, type, x1, y1, x2, y2) {
     // log("registering place with id " + id);
     // log(format("x1: %f y1: %f;  x2: %f y2: %f;", x1, y1, x2, y2));
 
     if (!(id in placeRegistry)) {
         placeRegistry[id] <- {
-            a = { x = x1, y = y1 },
-            b = { x = x2, y = y1 },
-            c = { x = x2, y = y2 },
-            d = { x = x1, y = y2 },
+            points = [
+                { x = x1, y = y1 },
+                { x = x2, y = y1 },
+                { x = x2, y = y2 },
+                { x = x1, y = y2 },
+            ],
+            type = type,
+            state = false
+        };
+    }
+});
+
+addEventHandler("onServerPolygonAdded", function(id, type, points) {
+    local points = compilestring.call(getroottable(), format("return %s", points))();
+    if (!(id in placeRegistry)) {
+        placeRegistry[id] <- {
+            points = points.map(function(point) {
+                return { x = point[0], y = point[1] };
+            }),
+            type = type,
             state = false
         };
     }
@@ -62,25 +78,23 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
     // local data = clone(buffer);
 
     foreach (id, place in placeRegistry) {
-        local a = place.a;
-        local b = place.b;
-        local c = place.c;
-        local d = place.d;
+        local points = place.points;
         local color = 0xFFFF0000;
         if (place.state) color = 0xFF00FF00;
 
-        dxDrawLineWorld(a.x, a.y, z, b.x, b.y, z, color);
-        dxDrawLineWorld(b.x, b.y, z, c.x, c.y, z, color);
-        dxDrawLineWorld(c.x, c.y, z, d.x, d.y, z, color);
-        dxDrawLineWorld(d.x, d.y, z, a.x, a.y, z, color);
-
+        local len = points.len();
+        for (local i = 1; i < len; i++) {
+            dxDrawLineWorld(points[i-1].x, points[i-1].y, z, points[i].x, points[i].y, z, color);
+        }
+        // line from zero point to last point
+        dxDrawLineWorld(points[0].x, points[0].y, z, points[len-1].x, points[len-1].y, z, color);
     }
 });
 
-addEventHandler("onServerPlaceRemoved", function(id) {
+addEventHandler("onServerAreaRemoved", function(id) {
     if (id in placeRegistry) {
         // if (placeRegistry[id].state) {
-        //     triggerServerEvent("onPlayerPlaceExit", getLocalPlayer(), id);
+        //     triggerServerEvent("onPlayerAreaLeave", getLocalPlayer(), id);
         // }
 
         delete placeRegistry[id];
@@ -102,6 +116,31 @@ addEventHandler("onDebugToggle", function() {
     DEBUG = !DEBUG;
 });
 
+function isInPlace(points, x, y) {
+    return ((points[0].x < x && x < points[2].x) || (points[0].x > x && x > points[2].x)) &&
+            ((points[0].y < y && y < points[2].y) || (points[0].y > y && y > points[2].y))
+}
+
+function isInPolygon(polygon, x, y) {
+    local npol = polygon.len();
+    local j = npol - 1;
+    local c = 0;
+    for (local i = 0; i < npol; i++) {
+      if (
+        ((polygon[i].y <= y && y < polygon[j].y) ||
+          (polygon[j].y <= y && y < polygon[i].y)) &&
+        x >
+          ((polygon[j].x - polygon[i].x) * (y - polygon[i].y)) /
+            (polygon[j].y - polygon[i].y) +
+            polygon[i].x
+      ) {
+        c = !c;
+      }
+      j = i;
+    }
+    return c;
+}
+
 function onPlayerTick() {
     local pos = getPlayerPosition(getLocalPlayer());
     local x = pos[0];
@@ -112,26 +151,23 @@ function onPlayerTick() {
         // log("inside place with id " + idx);
         // log(format("x1: %f y1: %f;  x2: %f y2: %f;", place.a.x, place.a.y, place.b.x, place.b.y));
         // log(x + " " + y + "\n\n");
+        local isInArea = place.type == "place" ? isInPlace(place.points, x, y) : isInPolygon(place.points, x, y);
 
-        if (
-            ((place.a.x < x && x < place.c.x) || (place.a.x > x && x > place.c.x)) &&
-            ((place.a.y < y && y < place.c.y) || (place.a.y > y && y > place.c.y))
-        ) {
+        if (isInArea) {
 
             if (place.state) continue;
 
             // player was outside
             // now he entering
             place.state = true;
-        log("inside place with id " + idx);
-            triggerServerEvent("onPlayerPlaceEnter", idx);
+            triggerServerEvent("onPlayerAreaEnter", idx);
         } else {
             if (!place.state) continue;
 
             // player was inside
             // now hes exiting
             place.state = false;
-            triggerServerEvent("onPlayerPlaceExit", idx);
+            triggerServerEvent("onPlayerAreaLeave", idx);
         }
     }
 }
