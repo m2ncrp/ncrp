@@ -38,8 +38,9 @@ class Item.Jerrycan extends Item.Abstract
         local fuelInGallonsSpent = gallons;
         local fuelInGallonsLost = this.amount;
         msg(playerid, "canister.use.spent", [formatGallons(fuelInGallonsSpent), formatGallons(fuelInGallonsLost)], CL_SUCCESS);
+        inventory.sync();
         logger.logf(
-            join(["[VEHICLE JERRYCAN FUEL UP]", "%s [%d] (%s)", "%s - %s (model: %d, vehid: %d)", "%s", "coords: [%.5f, %.5f, %.5f]", "haveKey: %s", "%.2f + %.2f = %.2f gallons"], "\n"),
+            join(["[VEHICLE JERRYCAN FUEL UP]", "%s [%d] (%s)", "%s - %s (model: %d, vehid: %d)", "%s", "coords: [%.5f, %.5f, %.5f]", "haveKey: %s", "%.2f + %.2f = %.2f gallons"], "\n> "),
                 getPlayerName(playerid),
                 playerid,
                 getAccountName(playerid),
@@ -56,7 +57,6 @@ class Item.Jerrycan extends Item.Abstract
                 gallons,
                 newFuelLevel
         );
-        inventory.sync();
     }
 
     static function getType() {

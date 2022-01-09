@@ -511,7 +511,7 @@ function fuelVehicleUp(playerid) {
     local newFuelLevel = fuelLevel + gallons;
 
     logger.logf(
-        join(["[VEHICLE FUEL UP]", "%s [%d] (%s)", "%s - %s (model: %d, vehid: %d)", "%s", "coords: [%.5f, %.5f, %.5f]", "haveKey: %s", "%.2f + %.2f = %.2f gallons"], "\n"),
+        join(["[VEHICLE FUEL UP]", "%s [%d] (%s)", "%s - %s (model: %d, vehid: %d)", "%s", "coords: [%.5f, %.5f, %.5f]", "haveKey: %s", "%.2f + %.2f = %.2f gallons"], "\n> "),
             getPlayerName(playerid),
             playerid,
             getAccountName(playerid),
