@@ -20,7 +20,7 @@ local availableCars = [0, 1, 4, 6, 7, 8, 9, 10, 12, 13, 14, 15, 17, 18, 22, 23, 
 local car_paint = {};
 
 
-event("onPlayerPlaceEnter", function(playerid, name) {
+event("onPlayerAreaEnter", function(playerid, name) {
     if (!isPlayerInVehicle(playerid)) return;
 
     local vehicleid = getPlayerVehicle( playerid );
@@ -67,7 +67,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
     }
 });
 
-event("onPlayerPlaceExit", function(playerid, name) {
+event("onPlayerAreaLeave", function(playerid, name) {
     if (!isPlayerInVehicle(playerid)) return;
 
     local vehicleid = getPlayerVehicle( playerid );

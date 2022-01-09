@@ -181,7 +181,7 @@ event("onServerPlayerStarted", function( playerid ) {
     createPrivate3DText ( playerid, coords[0], coords[1], coords[2]+0.35, plocalize(playerid, "3dtext.organizations.meria"), CL_ROYALBLUE);
 });
 
-event("onPlayerPlaceEnter", function(playerid, name) {
+event("onPlayerAreaEnter", function(playerid, name) {
     if (isPlayerInVehicle(playerid) && name == "GovernmentSidewalk") {
         local vehicleid = getPlayerVehicle(playerid);
         local vehSpeed = getVehicleSpeed(vehicleid);

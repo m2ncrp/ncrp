@@ -10,6 +10,8 @@ function concat(vars, symbol = " ") {
     });
 }
 
+join <- concat;
+
 /**
  * Return new array with elements
  * shuffled in the random order

@@ -136,6 +136,7 @@ include("translations/cyr.nut");
 
 //experiments
 include("experiments/model_drawing.nut");
+include("experiments/camera_control.nut");
 // unit testing
 // dofile("resources/ncrp/unittests/index.nut", true);
 
@@ -211,12 +212,12 @@ event("native:onScriptInit", function() {
     trigger("onServerStarted");
 
     dbg("server", "server started");
-	//dbg("police", "parking", "noFreeSpace");
-	//dbg("police", "parking", "send", "Fernando Fabbri", "11:48 15.09.2019", [["Номер", "PD-123"], ["Модель", "Smith Custom 200 Police"]]);
-	//dbg("police", "jail", "unjail", "Fernando Fabbri", "Ottavio Ricci", "15.09.2019 11:48");
-	//dbg("police", "parking", "send", "Fernando Fabbri", "11:48 15.09.2019", [["Номер", "PD-123"], ["Модель", "Smith Custom 200 Police"]]);
-	//dbg("chat", "report", "Автодилер", format("Не удалось отправить на штрафстоянку автомобиль с номером %s", "dsdsd"));
-	// ex("{\"type\": \"test\"}")
+    //dbg("police", "parking", "noFreeSpace");
+    //dbg("police", "parking", "send", "Fernando Fabbri", "11:48 15.09.2019", [["Номер", "PD-123"], ["Модель", "Smith Custom 200 Police"]]);
+    //dbg("police", "jail", "unjail", "Fernando Fabbri", "Ottavio Ricci", "15.09.2019 11:48");
+    //dbg("police", "parking", "send", "Fernando Fabbri", "11:48 15.09.2019", [["Номер", "PD-123"], ["Модель", "Smith Custom 200 Police"]]);
+    //dbg("chat", "report", "Автодилер", format("Не удалось отправить на штрафстоянку автомобиль с номером %s", "dsdsd"));
+    // ex("{\"type\": \"test\"}")
 /*
     delayedFunction(1000, function () {
     ex(JSONEncoder.encode({type = "test1"}))
@@ -250,8 +251,13 @@ event("native:onScriptExit", function() {
 });
 
 event("native:onServerShutdown", function() {
+    dbg("server", "onServerStopping:start");
     trigger("onServerStopping");
+    dbg("server", "onServerStopping:finish");
+
+    dbg("server", "onServerStopped:start");
     trigger("onServerStopped");
+    dbg("server", "onServerStopped:finish");
 });
 
 event("native:onPlayerConnect", function(playerid, name, ip, serial) {
@@ -302,8 +308,8 @@ proxy("onClientScriptError",        "onClientScriptError"               );
 proxy("onPlayerTeleportRequested",  "onPlayerTeleportRequested"         );
 proxy("onClientDebugToggle",        "onClientDebugToggle"               );
 proxy("onClientSendFPSData",        "onClientSendFPSData"               );
-proxy("onPlayerPlaceEnter",         "native:onPlayerPlaceEnter"         );
-proxy("onPlayerPlaceExit",          "native:onPlayerPlaceExit"          );
+proxy("onPlayerAreaEnter",          "native:onPlayerAreaEnter"         );
+proxy("onPlayerAreaLeave",          "native:onPlayerAreaLeave"          );
 proxy("onPlayerCharacterCreate",    "onPlayerCharacterCreate"           );
 proxy("onPlayerCharacterSelect",    "onPlayerCharacterSelect"           );
 proxy("onClientSuccessfulyStarted", "onClientSuccessfulyStarted"        );

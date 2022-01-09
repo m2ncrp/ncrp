@@ -74,7 +74,7 @@ event("onServerMinuteChange", function() {
   }
 });
 
-event("onPlayerPlaceEnter", function(playerid, name) {
+event("onPlayerAreaEnter", function(playerid, name) {
   if(name.find("RACE-") == null) return;
   if(raceStatus != "running") return;
 

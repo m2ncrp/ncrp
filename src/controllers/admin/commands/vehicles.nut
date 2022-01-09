@@ -201,7 +201,7 @@ mcmd(["admin.car"], ["deletecar", "removecar", "deleteveh", "removeveh"], functi
 addKeyboardHandler("num_8", "up", function(playerid) {
     if(!isPlayerInVehicle(playerid)) return;
     local vehicleid = getPlayerVehicle(playerid);
-    if(!isVehicleInPlace(vehicleid, "CarPaint_outside") && !isVehicleInPlace(vehicleid, "CarShop") && isPlayerAdmin(playerid) /*&& !isPlayerCarTaxi(playerid)*/) {
+    if(!isVehicleInArea(vehicleid, "CarPaint_outside") && !isVehicleInArea(vehicleid, "CarShop") && isPlayerAdmin(playerid) /*&& !isPlayerCarTaxi(playerid)*/) {
         local vehicleid = getPlayerVehicle(playerid);
         local sp = getVehicleSpeed(vehicleid);
         setVehicleSpeed(vehicleid, sp[0], sp[1], sp[2] + 5.0);

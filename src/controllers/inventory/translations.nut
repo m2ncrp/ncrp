@@ -130,147 +130,254 @@ alternativeTranslate({
     "en|inventory.vehiclekey.removedcar-hint"   : "Hint"
     "ru|inventory.vehiclekey.removedcar-hint"   : "Пояснение: автомобиль больше не существует в игровом мире. Вероятно, он попал на штрафстоянку и был уничтожен, потому что владелец его не забрал."
 
-    "en|Item.None"             : ""
-    "en|Item.Revolver"         : "Revolver 12"
-    "en|Item.MauserC96"        : "Mauser C96"
-    "en|Item.ColtM1911A1"      : "Colt M1911 A1"
-    "en|Item.ColtM1911Spec"    : "Colt M1911 Special"
-    "en|Item.Revolver19"       : "Revolver 19"
-    "en|Item.MK2"              : "MK2"
-    "en|Item.Remington870"     : "Remington 870"
-    "en|Item.M3GreaseGun"      : "MP Grease Gun"
-    "en|Item.MP40"             : "MP-40"
-    "en|Item.Thompson1928"     : "Thompson 1928"
-    "en|Item.M1A1Thompson"     : "M1A1 Thompson"
-    "en|Item.Beretta38A"       : "Beretta 38A"
-    "en|Item.MG42"             : "MG-42"
-    "en|Item.M1Garand"         : "M1 Garand"
-    "en|Item.Kar98k"           : "Kar 98k"
-    "en|Item.Molotov"          : "Molotov"
-    "en|Item.Ammo45ACP"        : "Ammo .45 ACP"
-    "en|Item.Ammo357magnum"    : "Ammo .357 Magnum"
-    "en|Item.Ammo12mm"         : "Ammo 12 mm"
-    "en|Item.Ammo9x19mm"       : "Ammo 9x19 mm"
-    "en|Item.Ammo792x57mm"     : "Ammo 7.92x57 mm"
-    "en|Item.Ammo762x63mm"     : "Ammo 7.62x63 mm"
-    "en|Item.Ammo38Special"    : "Ammo .38 Special"
 
 
-    "en|Item.Clothes"          : "Clothes"
+    "en|Item.Revolver"         : "Revolver .38",
+    "ru|Item.Revolver"         : "Revolver .38",
 
+    "en|Item.MauserC96"        : "Mauser C96",
+    "ru|Item.MauserC96"        : "Mauser C96",
+
+    "en|Item.Colt"             : "Colt 1911",
+    "ru|Item.Colt"             : "Colt 1911",
+
+    "en|Item.ColtSpec"         : "Colt 1911 Special",
+    "ru|Item.ColtSpec"         : "Colt 1911 Special",
+
+    "en|Item.Magnum"           : "Magnum",
+    "ru|Item.Magnum"           : "Magnum",
+
+    "en|Item.Remington870"     : "Remington 870",
+    "ru|Item.Remington870"     : "Remington 870",
+
+    "en|Item.M3GreaseGun"      : "MP Grease Gun",
+    "ru|Item.M3GreaseGun"      : "MP Grease Gun",
+
+    "en|Item.MP40"             : "MP-40",
+    "ru|Item.MP40"             : "MP-40",
+
+    "en|Item.Thompson1928"     : "Thompson 1928",
+    "ru|Item.Thompson1928"     : "Thompson 1928",
+
+    "en|Item.M1A1Thompson"     : "M1A1 Thompson",
+    "ru|Item.M1A1Thompson"     : "M1A1 Thompson",
+
+    "en|Item.Beretta38A"       : "Beretta 38A",
+    "ru|Item.Beretta38A"       : "Beretta 38A",
+
+    "en|Item.MG42"             : "MG-42",
+    "ru|Item.MG42"             : "MG-42",
+
+    "en|Item.M1Garand"         : "M1 Garand",
+    "ru|Item.M1Garand"         : "M1 Garand",
+
+    "en|Item.Kar98k"           : "Kar 98k",
+    "ru|Item.Kar98k"           : "Kar 98k",
+
+    "en|Item.MK2"              : "MK2",
+    "ru|Item.MK2"              : "MK2",
+
+    "en|Item.Molotov"          : "Molotov",
+    "ru|Item.Molotov"          : "Коктейль Молотова",
+
+
+
+    "en|Item.Ammo45ACP"        : "Ammo .45 ACP",
+    "ru|Item.Ammo45ACP"        : "Патроны .45 ACP",
+
+    "en|Item.Ammo357magnum"    : "Ammo .357 Magnum",
+    "ru|Item.Ammo357magnum"    : "Патроны .357 Magnum",
+
+    "en|Item.Ammo12mm"         : "Ammo 12 mm",
+    "ru|Item.Ammo12mm"         : "Патроны 12 mm",
+
+    "en|Item.Ammo9x19mm"       : "Ammo 9x19 mm",
+    "ru|Item.Ammo9x19mm"       : "Патроны 9x19 mm",
+
+    "en|Item.Ammo792x57mm"     : "Ammo 7.92x57 mm",
+    "ru|Item.Ammo792x57mm"     : "Патроны 7.92x57 mm",
+
+    "en|Item.Ammo762x63mm"     : "Ammo 7.62x63 mm",
+    "ru|Item.Ammo762x63mm"     : "Патроны 7.62x63 mm",
+
+    "en|Item.Ammo38Special"    : "Ammo .38 Special",
+    "ru|Item.Ammo38Special"    : "Патроны .38 Special",
+
+    // Xmas
+    "en|Item.XmasHolly"        : "Christmas holly"
+    "ru|Item.XmasHolly"        : "Остролист"
+
+    "en|Item.XmasBall"         : "Christmas ball"
+    "ru|Item.XmasBall"         : "Ёлочный шарик"
+
+    "en|Item.XmasBells"        : "Christmas bells"
+    "ru|Item.XmasBells"        : "Колокольчики"
+
+    "en|Item.XmasCandle"       : "Christmas candle"
+    "ru|Item.XmasCandle"       : "Рождественская свеча"
+
+    "en|Item.XmasCane"         : "Candy cane"
+    "ru|Item.XmasCane"         : "Карамельная трость"
+
+    "en|Item.XmasCookieMan"    : "Gingerbread Man"
+    "ru|Item.XmasCookieMan"    : "Пряничный человечек"
+
+    "en|Item.XmasCookiesAndMilk"    : "Cookies and milk"
+    "ru|Item.XmasCookiesAndMilk"    : "Печенье и молоко"
+
+    "en|Item.XmasCookieStar"        : "Gingerbread star"
+    "ru|Item.XmasCookieStar"        : "Пряничная звезда"
+
+    "en|Item.XmasDeer"      : "Deer Rudolph",
+    "ru|Item.XmasDeer"      : "Олень Рудольф",
+
+    "en|Item.XmasElf"       : "Christmas elf"
+    "ru|Item.XmasElf"       : "Рождественский эльф"
+
+    "en|Item.XmasGift"      : "Christmas gift"
+    "ru|Item.XmasGift"      : "Подарок от Санты"
+
+    "en|Item.XmasHat"       : "Christmas hat"
+    "ru|Item.XmasHat"       : "Колпак Санты"
+
+    "en|Item.XmasMittens"       : "Mittens"
+    "ru|Item.XmasMittens"       : "Варежки"
+
+    "en|Item.XmasSanta"         : "Santa figure"
+    "ru|Item.XmasSanta"         : "Фигурка Санты"
+
+    "en|Item.XmasSign"          : "North Pole sign"
+    "ru|Item.XmasSign"          : "На Северный полюс"
+
+    "en|Item.XmasSnowGlobe"     : "Snow globe"
+    "ru|Item.XmasSnowGlobe"     : "Снежный шар"
+
+    "en|Item.XmasSnowflake"     : "Snowflake"
+    "ru|Item.XmasSnowflake"     : "Снежинка"
+
+    "en|Item.XmasSnowman"       : "Snowman"
+    "ru|Item.XmasSnowman"       : "Снеговик"
+
+    "en|Item.XmasSock"          : "Christmas sock"
+    "ru|Item.XmasSock"          : "Рождественский носок"
+
+    "en|Item.XmasStar"          : "Christmas star"
+    "ru|Item.XmasStar"          : "Рождественская звезда"
+
+    "en|Item.XmasTree"          : "Christmas tree"
+    "ru|Item.XmasTree"          : "Пряничная ёлка"
+
+
+
+    "en|Item.Clothes"          : "Clothes",
+    "ru|Item.Clothes"          : "Одежда",
+
+
+    // Drinks
     "en|Item.Whiskey"          : "Whiskey"
-    "en|Item.MasterBeer"       : "Master Beer",
-    "en|Item.OldEmpiricalBeer" : "Old Empirical Beer",
-    "en|Item.StoltzBeer"       : "Stoltz Beer",
-    "en|Item.Wine"             : "Wine",
-    "en|Item.Brendy"           : "Brendy",
-
-    "en|Item.Burger"           : "Burger"
-    "en|Item.Hotdog"           : "Hotdog"
-    "en|Item.Sandwich"         : "Sandwich"
-    "en|Item.Cola"             : "Cola"
-    "en|Item.Gyros"            : "Gyros"
-    "en|Item.Donut"            : "Donut"
-    "en|Item.CoffeeCup"        : "Cup of coffee"
-
-    "en|Item.Jerrycan"         : "Canister"
-    "en|Item.RepairKit"        : "Repair Kit"
-    "en|Item.VehicleTax"       : "Vehicle tax"
-    "en|Item.VehicleTitle"     : "Vehicle title"
-    "en|Item.VehicleKey"       : "Vehicle key"
-    "en|Item.FirstAidKit"      : "First aid kit"
-    "en|Item.Passport"         : "Passport"
-    "en|Item.PoliceBadge"      : "Police badge"
-    "en|Item.Gift"             : "Gift"
-    "en|Item.Box"              : "Box"
-    "en|Item.Money"            : "Money"
-    "en|Item.LTC"              : "LTC"
-    "en|Item.DriverLicense"    : "Driver License"
-    "en|Item.Race"             : "Racing form"
-    "en|Item.Dice"             : "Dice"
-
-    "en|Item.BigBreakRed"      :  "Big Break Red"
-    "en|Item.BigBreakBlue"     :  "Big Break Blue"
-    "en|Item.BigBreakWhite"    :  "Big Break White"
-
-    "en|Item.Methamnetamine"   : "Methamnetamine"
-
-
-
-
-    "ru|Item.None"             : ""
-    "ru|Item.Revolver12"       : "Revolver 12"
-    "ru|Item.MauserC96"        : "Mauser C96"
-    "ru|Item.ColtM1911A1"      : "Colt M1911 A1"
-    "ru|Item.ColtM1911Spec"    : "Colt M1911 Special"
-    "ru|Item.Revolver19"       : "Revolver 19"
-    "ru|Item.MK2"              : "MK2"
-    "ru|Item.Remington870"     : "Remington 870"
-    "ru|Item.M3GreaseGun"      : "MP Grease Gun"
-    "ru|Item.MP40"             : "MP-40"
-    "ru|Item.Thompson1928"     : "Thompson 1928"
-    "ru|Item.M1A1Thompson"     : "M1A1 Thompson"
-    "ru|Item.Beretta38A"       : "Beretta 38A"
-    "ru|Item.MG42"             : "MG-42"
-    "ru|Item.M1Garand"         : "M1 Garand"
-    "ru|Item.Kar98k"           : "Kar 98k"
-    "ru|Item.Molotov"          : "Коктейль Молотова"
-    "ru|Item.Ammo45ACP"        : "Патроны .45 ACP"
-    "ru|Item.Ammo357magnum"    : "Патроны .357 Magnum"
-    "ru|Item.Ammo12mm"         : "Патроны 12 mm"
-    "ru|Item.Ammo9x19mm"       : "Патроны 9x19 mm"
-    "ru|Item.Ammo792x57mm"     : "Патроны 7.92x57 mm"
-    "ru|Item.Ammo762x63mm"     : "Патроны 7.62x63 mm"
-    "ru|Item.Ammo38Special"    : "Патроны .38 Special"
-
-    "ru|Item.Clothes"          : "Одежда"
-
     "ru|Item.Whiskey"          : "Виски",
+
+    "en|Item.MasterBeer"       : "Master Beer",
     "ru|Item.MasterBeer"       : "Пиво Мастер",
+
+    "en|Item.OldEmpiricalBeer" : "Old Empirical Beer",
     "ru|Item.OldEmpiricalBeer" : "Пиво Старый Эмпайр",
+
+    "en|Item.StoltzBeer"       : "Stoltz Beer",
     "ru|Item.StoltzBeer"       : "Пиво Штольц",
+
+    "en|Item.Wine"             : "Wine",
     "ru|Item.Wine"             : "Вино",
+
+    "en|Item.Brendy"           : "Brendy",
     "ru|Item.Brandy"           : "Бренди",
 
-    "ru|Item.Burger"           : "Бургер"
-    "ru|Item.Hotdog"           : "Хот-дог"
-    "ru|Item.Sandwich"         : "Сэндвич"
-    "ru|Item.Cola"             : "Кола"
-    "ru|Item.Donut"            : "Пончик"
-    "ru|Item.Gyros"            : "Гирос"
-    "ru|Item.CoffeeCup"        : "Чашка кофе"
 
-    "ru|Item.Jerrycan"         : "Канистра"
-    "ru|Item.RepairKit"        : "Ремкомплект"
-    "ru|Item.VehicleTax"       : "Квитанция налога на ТС"
-    "ru|Item.VehicleKey"       : "Ключ от автомобиля"
-    "ru|Item.VehicleTitle"     : "Свидетельство на ТС"
-    "ru|Item.FirstAidKit"      : "Аптечка"
-    "ru|Item.Passport"         : "Паспорт"
-    "ru|Item.PoliceBadge"      : "Полицейский жетон"
-    "ru|Item.Gift"             : "Подарок"
-    "ru|Item.Box"              : "Ящик"
-    "ru|Item.Money"            : "Деньги"
-    "ru|Item.LTC"              : "Лицензия на оружие"
-    "ru|Item.DriverLicense"    : "Водительские права"
-    "ru|Item.Race"             : "Бланк гонки"
-    "ru|Item.Dice"             : "Игральный кубик"
+    // Food
+    "en|Item.Burger"           : "Burger",
+    "ru|Item.Burger"           : "Бургер",
 
-    "ru|Item.BigBreakRed"      : "Big Break Red"
-    "ru|Item.BigBreakBlue"     : "Big Break Blue"
-    "ru|Item.BigBreakWhite"    : "Big Break White"
+    "en|Item.Hotdog"           : "Hotdog",
+    "ru|Item.Hotdog"           : "Хот-дог",
 
-    "ru|Item.Methamnetamine"   : "Метамфетамин"
+    "en|Item.Sandwich"         : "Sandwich",
+    "ru|Item.Sandwich"         : "Сэндвич",
+
+    "en|Item.Cola"             : "Cola",
+    "ru|Item.Cola"             : "Кола",
+
+    "en|Item.Gyros"            : "Gyros",
+    "ru|Item.Gyros"            : "Гирос",
+
+    "en|Item.Donut"            : "Donut",
+    "ru|Item.Donut"            : "Пончик",
+
+    "en|Item.CoffeeCup"        : "Cup of coffee",
+    "ru|Item.CoffeeCup"        : "Чашка кофе",
 
 
+    // Other
+    "en|Item.Jerrycan"         : "Canister",
+    "ru|Item.Jerrycan"         : "Канистра",
+
+    "en|Item.RepairKit"        : "RepairKit",
+    "ru|Item.RepairKit"        : "Ремкомплект",
+
+    "en|Item.VehicleTax"       : "Vehicle tax",
+    "ru|Item.VehicleTax"       : "Квитанция налога на ТС",
+
+    "en|Item.VehicleKey"       : "Vehicle key",
+    "ru|Item.VehicleKey"       : "Ключ от автомобиля",
+
+    "en|Item.VehicleTitle"     : "Vehicle title",
+    "ru|Item.VehicleTitle"     : "Свидетельство на ТС",
+
+    "en|Item.FirstAidKit"      : "First aid kit",
+    "ru|Item.FirstAidKit"      : "Аптечка",
+
+    "en|Item.Passport"         : "Passport",
+    "ru|Item.Passport"         : "Паспорт",
+
+    "en|Item.PoliceBadge"      : "Police badge",
+    "ru|Item.PoliceBadge"      : "Полицейский жетон",
+
+    "en|Item.Gift"             : "Gift",
+    "ru|Item.Gift"             : "Подарок",
+
+    "en|Item.SantaLetter"      : "Letter of Santa",
+    "ru|Item.SantaLetter"      : "Письмо Санты",
+
+    "en|Item.Box"              : "Box",
+    "ru|Item.Box"              : "Ящик",
+
+    "en|Item.Money"            : "Money",
+    "ru|Item.Money"            : "Деньги",
+
+    "en|Item.LTC"              : "LTC",
+    "ru|Item.LTC"              : "Лицензия на оружие",
+
+    "en|Item.DriverLicense"    : "Driver License",
+    "ru|Item.DriverLicense"    : "Водительские права",
+
+    "en|Item.Race"             : "Racing form",
+    "ru|Item.Race"             : "Бланк гонки",
+
+    "en|Item.Dice"             : "Dice",
+    "ru|Item.Dice"             : "Игральный кубик",
 
 
+    "en|Item.BigBreakRed"      :  "Big Break Red",
+    "ru|Item.BigBreakRed"      : "Big Break Red",
+
+    "en|Item.BigBreakBlue"     :  "Big Break Blue",
+    "ru|Item.BigBreakBlue"     : "Big Break Blue",
+
+    "en|Item.BigBreakWhite"    :  "Big Break White",
+    "ru|Item.BigBreakWhite"    : "Big Break White",
 
 
-
-
-
-
+    "en|Item.Methamnetamine"   : "Methamnetamine",
+    "ru|Item.Methamnetamine"   : "Метамфетамин",
 
 
     "en|shops.clothesshop.id39"        : "Leather jacket with cap"

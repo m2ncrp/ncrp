@@ -134,7 +134,7 @@ event("onPlayerVehicleEnter", function (playerid, vehicleid, seat) {
 });
 
 
-event("onPlayerPlaceEnter", function(playerid, name) {
+event("onPlayerAreaEnter", function(playerid, name) {
     if (isPlayerInVehicle(playerid) && name == "CarDealer") {
         local vehicleid = getPlayerVehicle(playerid);
         setVehicleSpeed(vehicleid, 0.0, 0.0, 0.0);
@@ -147,7 +147,7 @@ cmd("dealer", function(playerid) {
 
     local plaPos = getPlayerPosition(playerid);
 
-    if(!isInPlace("CarDealer", plaPos[0], plaPos[1])) {
+    if(!isInArea("CarDealer", plaPos[0], plaPos[1])) {
         return msg(playerid, "cardealer.info.hint", CL_HELP);
     }
 
@@ -164,7 +164,7 @@ cmd("dealer", function(playerid) {
     local modelid       = getVehicleModel( vehicleid );
     local entityid      = getVehicleEntityId( vehicleid );
 
-    if(!isInPlace("CarDealer", vehPos[0], vehPos[1])) {
+    if(!isInArea("CarDealer", vehPos[0], vehPos[1])) {
         return msg(playerid, "cardealer.action", CL_ERROR);
     }
 
@@ -193,7 +193,7 @@ cmd("dealer", "sell", function(playerid, price) {
     local characterid   = getCharacterIdFromPlayerId(playerid);
 
 
-    if (!isInPlace("CarDealer", vehPos[0], vehPos[1])) {
+    if (!isInArea("CarDealer", vehPos[0], vehPos[1])) {
         return msg(playerid, "cardealer.action", CL_ERROR);
     }
 
@@ -329,7 +329,7 @@ cmd("dealer", "buy", function(playerid) {
     local plate         = getVehiclePlateText( vehicleid );
     local characterid   = players[playerid].id;
 
-    if(!isInPlace("CarDealer", vehPos[0], vehPos[1])) {
+    if(!isInArea("CarDealer", vehPos[0], vehPos[1])) {
         return msg(playerid, "cardealer.action", CL_ERROR);
     }
 
@@ -431,7 +431,7 @@ cmd("dealer", "take", function(playerid) {
     local plate         = getVehiclePlateText( vehicleid );
     local characterid   = players[playerid].id;
 
-    if(!isInPlace("CarDealer", vehPos[0], vehPos[1])) {
+    if(!isInArea("CarDealer", vehPos[0], vehPos[1])) {
         return msg(playerid, "cardealer.action", CL_ERROR);
     }
 

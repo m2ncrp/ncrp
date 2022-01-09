@@ -25,7 +25,7 @@ include("controllers/property");
 include("controllers/business");
 
 include("controllers/tips");
-include("controllers/place");
+include("controllers/area");
 include("controllers/closedplaces");
 include("controllers/sync-doors");
 

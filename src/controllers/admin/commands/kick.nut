@@ -50,5 +50,5 @@ event("onPlayerKicked", kick);
  * Kick all players on server stopping
  */
 function kickAll() {
-    foreach (playerid, character in players) kickPlayer( playerid );
+    foreach (playerid, character in players) kick( -1, playerid, "restart" );
 }
