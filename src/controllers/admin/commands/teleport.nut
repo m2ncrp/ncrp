@@ -162,7 +162,7 @@ acmd(["tp"], function(playerid, targetid, nameOrId) {
 });
 
 function getNearestTeleport(x, y) {
-    local bestIdx;
+    local bestIdx = 0;
     local bestDistance = getDistanceBetweenPoints2D(teleportPoints[0].x, teleportPoints[0].y, x, y);
     foreach (idx, value in teleportPoints) {
         local distance = getDistanceBetweenPoints2D(value.x, value.y, x, y);
