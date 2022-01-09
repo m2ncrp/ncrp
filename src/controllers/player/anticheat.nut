@@ -101,22 +101,33 @@ event("onServerStarted", function() {
                     }
                 }
                 */
+                local plateText = getVehiclePlateText(vehicleid);
 
-                if(getVehiclePlateText(vehicleid).find("RACE") == null) {
+                if(plateText.find("RACE") == null) {
                     local vehModel = getVehicleModel(vehicleid)
                     local vehModelName = getVehicleNameByModelId(vehModel);
+                    local vehPos = getVehiclePositionObj(vehicleid);
+                    local teleport = getNearestTeleportFromVehicle(vehicleid);
 
                     // check soft limit
                     if (maxsp > limits[0]) {
                         dbg("anticheat", "speed", getIdentity(playerid), "modelName: " + vehModelName, maxsp);
+
                         nano({
                             "path": "discord",
                             "server": "ncrp",
                             "channel": "admin",
                             "author": "Античит",
                             "title": getAuthor(playerid),
-                            "description": format("Подозрение на спидхак или модификацию файлов игры (автомобиль: %s)", vehModelName),
-                            "color": "yellow"
+                            "description": "Подозрение на спидхак или модификацию файлов игры",
+                            "color": "yellow",
+                            "fields": [
+                                ["Автомобиль", vehModelName],
+                                ["Номер", plateText],
+                                ["Скорость/лимит", format("%.3f/%.3f", maxsp, limits[0])],
+                                ["Ближайший телепорт", format("%d. %s", teleport.id, teleport.name)],
+                                ["Координаты", format("%.3f %.3f %.3f", vehPos.x, vehPos.y, vehPos.z)],
+                            ]
                         })
                     }
 
@@ -131,8 +142,15 @@ event("onServerStarted", function() {
                             "channel": "admin",
                             "author": "Античит",
                             "title": getAuthor(playerid),
-                            "description": format("Авто-бан за спидхак или модификацию файлов игры (автомобиль: %s)", vehModelName),
-                            "color": "red"
+                            "description": "Авто-бан за спидхак или модификацию файлов игры",
+                            "color": "red",
+                            "fields": [
+                                ["Автомобиль", vehModelName],
+                                ["Номер", plateText],
+                                ["Скорость/лимит", format("%.3f/%.3f", maxsp, limits[1])],
+                                ["Ближайший телепорт", format("%d. %s", teleport.id, teleport.name)],
+                                ["Координаты", format("%.3f %.3f %.3f", vehPos.x, vehPos.y, vehPos.z)],
+                            ]
                         })
                     }
                 }
