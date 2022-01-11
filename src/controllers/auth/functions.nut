@@ -68,7 +68,4 @@ function printStartedTips (playerid) {
         msg(playerid, "hello.3", CL_LIGHTGRAY);
         msg(playerid, "");
         msg(playerid, "hello.end", CL_SUCCESS);
-        msg(playerid, "");
-        msg(playerid, "");
-        msg(playerid, "");
 }

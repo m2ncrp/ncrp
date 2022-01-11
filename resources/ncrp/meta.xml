@@ -33,6 +33,7 @@
         <!-- gui -->
         <script type="client">gui_alert.nut</script>
         <script type="client">gui_auth.nut</script>
+        <script type="client">gui_help.nut</script>
         <script type="client">gui_forgotpage.nut</script>
         <script type="client">gui_bank.nut</script>
         <script type="client">gui_biz.nut</script>
@@ -51,7 +52,7 @@
 
         <!-- peds -->
         <script type="client">ped_creation.nut</script>
-        <script type="client">ped_dialog.nut</script>
+        <!-- <script type="client">ped_dialog.nut</script> -->
 
         <!-- invdev supa unstebla beyatch -->
         <script type="client">gui_inventory.nut</script>
