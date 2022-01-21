@@ -46,7 +46,7 @@ addEventHandlerEx("onServerStarted", function() {
 event("onServerPlayerStarted", function( playerid ){
     //creating public 3dtext
     foreach (key, kiosk in coords) {
-        createPrivate3DText ( playerid, kiosk.public[0], kiosk.public[1], kiosk.public[2]+0.35, plocalize(playerid, "NEWSSTAND #" + (key+1)), CL_RIPELEMON, 6.0);
+        createPrivate3DText ( playerid, kiosk.public[0], kiosk.public[1], kiosk.public[2]+0.35, plocalize(playerid, "NEWSSTAND", [key+1]), CL_RIPELEMON, 6.0);
         // createPrivate3DText ( playerid, kiosk.public[0], kiosk.public[1], kiosk.public[2]+0.55, key.tostring(), CL_RIPELEMON, 6.0);
         createPrivate3DText ( playerid, kiosk.public[0], kiosk.public[1], kiosk.public[2]+0.20, plocalize(playerid, "3dtext.job.press.E"), CL_WHITE.applyAlpha(150), 0.4 );
     }
