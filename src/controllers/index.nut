@@ -38,6 +38,6 @@ include("controllers/contracts");
 // WIP: include("controllers/citizens");
 include("controllers/weapons");
 include("controllers/weather");
+// include("controllers/city-regions");
 include("controllers/help");
 include("controllers/discord");
-
