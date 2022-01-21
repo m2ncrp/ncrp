@@ -49,8 +49,10 @@ event("onServerHourChange", function() {
         // удалить автомобиль если владелец не забрал в течение срока возврата
         if (timestamp > deal.until && deal.status == "await_owner") {
             local vehicleid = getVehicleIdFromEntityId( deal.vehid );
-            __vehicles[vehicleid].entity.deleted = 1;
-            __vehicles[vehicleid].entity.save();
+            if(vehicleid) {
+                __vehicles[vehicleid].entity.deleted = 1;
+                __vehicles[vehicleid].entity.save();
+            }
             deal.status = "deleted";
             deal.save();
             dbg("chat", "report", "Автодилер", format("Удалил автомобиль %s с номером %s", deal.data.modelName, deal.data.plate));
