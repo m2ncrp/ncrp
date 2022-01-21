@@ -542,10 +542,10 @@ function stopCall(playerid) {
     } else {
         animatedPut(callerId);
     }
-    deleteUserCall(data.caller);
-    deleteUserCall(data.callee);
-    clearPhoneData(phoneUser[data.caller];
+    clearPhoneData(phoneUser[data.caller]);
     clearPhoneData(phoneUser[data.callee]);
+    deleteUserCall(getCharacterIdFromPlayerId(callerId));
+    deleteUserCall(getCharacterIdFromPlayerId(calleeId));
     clearAnimPlace(playerid);
 }
 
