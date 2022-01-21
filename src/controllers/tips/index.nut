@@ -124,6 +124,12 @@ event("onServerPlayerStarted", function( playerid ){
         }
     }
 
+    delayedFunction(7000, function() {
+        msg(playerid, "hello.news.title", CL_WARNING);
+        msg(playerid, "hello.news.text", CL_SUCCESS);
+    });
+
+
 });
 
 event("onServerMinuteChange", function() {
