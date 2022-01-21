@@ -37,13 +37,13 @@ vehicleSpeedLimits[18] <- [47.1, 49.0]; // have problem
 vehicleSpeedLimits[19] <- [28.2, 30.0];
 vehicleSpeedLimits[20] <- [26.0, 28.0];
 vehicleSpeedLimits[24] <- [41.7, 42.5];
-vehicleSpeedLimits[25] <- [36.8, 37.5];
+vehicleSpeedLimits[25] <- [37.5, 39.0];
 vehicleSpeedLimits[31] <- [33.8, 35.0];
 vehicleSpeedLimits[33] <- [36.5, 37.5];
 vehicleSpeedLimits[35] <- [30.4, 32.5];
 vehicleSpeedLimits[38] <- [30.0, 32.5];
 vehicleSpeedLimits[42] <- [53.0, 54.0];
-vehicleSpeedLimits[43] <- [32.5, 34.0];
+vehicleSpeedLimits[43] <- [33.0, 34.0];
 vehicleSpeedLimits[47] <- [36.2, 36.9];
 vehicleSpeedLimits[50] <- [41.5, 43.0];
 vehicleSpeedLimits[51] <- [42.5, 43.5];
