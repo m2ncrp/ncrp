@@ -1439,6 +1439,7 @@ function snowplowJobStartRoute( playerid ) {
     local idx = random(0, routes_list.len()-1);
     local routeNumber = routes_list[idx];
     routes_list.remove(idx);
+    SNOWPLOW_ROUTE_NOW -= 1;
     if(routes_list.len() == 0) routes_list = clone( routes_list_all );
 
     job_snowplow[getCharacterIdFromPlayerId(playerid)]["route"] <- {
