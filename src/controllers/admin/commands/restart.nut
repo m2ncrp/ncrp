@@ -64,7 +64,9 @@ function planServerRestart(playerid) {
 
     delayedFunction(14*60*1000, function() {
         msga("autorestart.1min", [], CL_RED);
-        dbg("server", "autorestart 1min");
+        dbg("server", "autorestart 1min, enabled restarting mode");
+
+        isRestarting = true;
     });
 
     delayedFunction((14*60+30)*1000, function() {
@@ -75,19 +77,20 @@ function planServerRestart(playerid) {
     delayedFunction((14*60+50)*1000, function() {
         msga("autorestart.10sec", [], CL_RED);
         dbg("server", "autorestart 10sec");
-
-        // kick all
-        kickAll();
-
-        isRestarting = true;
     });
 
-    delayedFunction(15*60*1000 + 4000, function() {
+    delayedFunction((15*60+0)*1000, function() {
+        msga("autorestart.now", [], CL_RED);
+        dbg("server", "autorestart running, kick all!");
+        kickAll();
+    });
+
+    delayedFunction((15*60+30)*1000, function() {
         trigger("native:onServerShutdown");
         msga("autorestart.now", [], CL_RED);
     });
 
-    delayedFunction(15*60*1000 + 5000, function() {
+    delayedFunction((15*60+35)*1000, function() {
         // request restart
         nano({
             "path": "server",
