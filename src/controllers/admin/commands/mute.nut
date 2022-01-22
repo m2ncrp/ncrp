@@ -28,7 +28,7 @@ function newmute(...) {
     if(vargv.len() < 4){
         return msg(playerid, "Формат: /mute id время_в_минутах причина")
     }
-    local targetid = vargv[1].tointeger();
+    local targetid = getPlayerIdByPlayerSessionId(vargv[1].tointeger());
     local time = vargv[2].tointeger();
     local reason = "";
     for(local i = 3; i < vargv.len(); i++) reason = reason+" "+vargv[i]; //get mute reason

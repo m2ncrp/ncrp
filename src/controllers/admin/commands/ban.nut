@@ -31,7 +31,8 @@ function newban(...) {
     if(vargv.len() < 4){
         return msg(playerid, "Формат: /ban id время_в_минутах причина")
     }
-    local targetid = vargv[1].tointeger();
+
+    local targetid = getPlayerIdByPlayerSessionId(vargv[1].tointeger());
     local time = vargv[2].tointeger();
 
     local reason = "";

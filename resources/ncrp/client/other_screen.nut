@@ -32,8 +32,10 @@ local initialized = false;
 local datastore = {};
 local lines     = [];
 
-local chatslots = ["ooc", "ic", "b"];
+local chatslots = ["ooc (F1)", "Речь персонажа (F2)", "Речь игрока (F3)"];
 local selectedslot = 0;
+
+local sessionId = null;
 
 local asd = null;
 local notifications = [];
@@ -61,7 +63,7 @@ function onSecondChanged() {
 
     drawdata.status = format(
         "ID: %d  |  FPS: %d  |  Ping: %d", /*   |  Online: %d" */
-        getLocalPlayer(),
+        sessionId,
         getFPS(),
         getPlayerPing(getLocalPlayer())
         //(getPlayerCount() + 1)
@@ -121,22 +123,22 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
      * Category: top-left
      */
     // draw top chat line
-    dxDrawRectangle(10.0, 0.0, 400.0, 28.0, 0xA1000000);
+    dxDrawRectangle(10.0, 0.0, 480.0, 28.0, 0xA1000000);
 
     // draw status line
     offset = dxGetTextDimensions(drawdata.status, 1.0, "tahoma-bold")[0].tofloat();
-    dxDrawText(drawdata.status, 410.0 - offset - 8.0, 6.5, 0xFFA1A1A1, false, "tahoma-bold" );
+    dxDrawText(drawdata.status, 490.0 - offset - 8.0, 6.5, 0xFFA1A1A1, false, "tahoma-bold" );
 
     // draw chat slots
     offset = 0;
     for (local i = 0; i < 3; i++) {
-        local size = dxGetTextDimensions(chatslots[i], 1.0, "tahoma-bold")[0].tofloat() + 20.0;
+        local size = dxGetTextDimensions(chatslots[i], 1.0, "tahoma-bold")[0].tofloat() + 13.0;
 
         if (i == selectedslot) {
             dxDrawRectangle(15.0 + offset, 3.0, size - 1.0, 20.0, 0xFF29AF5C);
         }
 
-        dxDrawText(chatslots[i], 25.0 + offset, 6.5, i == selectedslot ? 0xFF111111 : 0xFFFFFFFF, false, "tahoma-bold" );
+        dxDrawText(chatslots[i], 21.0 + offset, 6.5, i == selectedslot ? 0xFF111111 : 0xFFC1C1C1, false, "tahoma-bold" );
         offset += size;
     }
 
@@ -144,12 +146,12 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
      * Category: top-right
      */
     // draw time
-    offset = dxGetTextDimensions(drawdata.time, 3.6, "tahoma-bold")[0].tofloat();
-    dxDrawText(drawdata.time, screenX - offset - 15.0, 8.0, 0xFFE4E4E4, false, "tahoma-bold", 3.6 );
+    offset = dxGetTextDimensions(drawdata.time, 3.3, "tahoma-bold")[0].tofloat();
+    dxDrawText(drawdata.time, screenX - offset - 15.0, 8.0, 0xAAE4E4E4, false, "tahoma-bold", 3.6 );
 
     // draw date
     offset = dxGetTextDimensions(drawdata.date, 1.4, "tahoma-bold")[0].tofloat();
-    dxDrawText(drawdata.date, screenX - offset - 20.0, 58.0, 0xFFE4E4E4, false, "tahoma-bold", 1.4 );
+    dxDrawText(drawdata.date, screenX - offset - 20.0, 58.0, 0xAAE4E4E4, false, "tahoma-bold", 1.4 );
 
     /**
      * Category: bottom-right
@@ -301,6 +303,10 @@ addEventHandler("onServerIntefaceTime", function(time, date) {
 
 addEventHandler("onServerIntefaceCharacterJob", function(job) {
     drawdata.state = job; // Работа:
+});
+
+addEventHandler("onServerInterfacePlayerSessionId", function(sId) {
+    sessionId = sId;
 });
 
 addEventHandler("onServerIntefaceCharacterLevel", function(level) {

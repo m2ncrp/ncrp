@@ -35,10 +35,11 @@ event("onPlayerDeath", function(playerid) {
     trigger(playerid, "onPlayerHungerUpdate", players[playerid].hunger, players[playerid].thirst);
 });
 
-mcmd(["admin.eat"], "eat", function(playerid) {
-    players[playerid].hunger = 100.0;
-    players[playerid].thirst = 100.0;
-    trigger(playerid, "onPlayerHungerUpdate", players[playerid].hunger, players[playerid].thirst);
+mcmd(["admin.eat"], "aeat", function(playerid, playerSessionId = null) {
+    local targetid = playerSessionId ? getPlayerIdByPlayerSessionId(playerSessionId.tointeger()) : playerid;
+    players[targetid].hunger = 100.0;
+    players[targetid].thirst = 100.0;
+    trigger(targetid, "onPlayerHungerUpdate", players[targetid].hunger, players[targetid].thirst);
 });
 
 /**

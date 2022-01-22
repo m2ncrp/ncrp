@@ -119,7 +119,7 @@ chatcmd(["w", "whisper"], function(playerid, message) {
     }
     if ( isBothInRadius(playerid, targetid, WHISPER_RADIUS) ) {
         msg(targetid, "chat.player.whisper", [ getKnownCharacterNameWithId(targetid, playerid), message], CL_CHAT_WHISPER);
-        msg(playerid, "chat.player.whisper", [ getAuthor( playerid ), message], CL_CHAT_WHISPER);
+        msg(playerid, "chat.player.whisper", [ getKnownCharacterNameWithId(playerid, playerid), message], CL_CHAT_WHISPER);
     }
 
     // statistics
@@ -135,7 +135,7 @@ chatcmd(["global", "g"], function(playerid, message) {
 */
 
 // private message
-cmd("pm", function(playerid, targetid, ...) {
+cmd("pm", function(playerid, playerSessionId, ...) {
 
     if(checkPlayerSectionData(playerid, "pm")) {
         if(players[playerid].data.pm == false) {
@@ -143,7 +143,7 @@ cmd("pm", function(playerid, targetid, ...) {
         }
     }
 
-    local targetid = toInteger(targetid);
+    local targetid = getPlayerIdByPlayerSessionId(playerSessionId.tointeger());
 
     if(!(targetid in antiflood) || !antiflood[targetid]["togpm"]){
         return  msg(playerid, "chat.playerTogPm", CL_ERROR);
