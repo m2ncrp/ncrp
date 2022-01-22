@@ -237,15 +237,17 @@ cmd("report", function(playerid, id, ...) {
         return msg(playerid, "chat.report.error", CL_ERROR);
     }
 
-    if (!isPlayerConnected(id.tointeger())) {
+    local targetid = getPlayerIdByPlayerSessionId(id.tointeger());
+
+    if (targetid == null || !isPlayerConnected(targetid)) {
         return msg(playerid, "chat.report.noplayer", CL_ERROR);
     }
 
-    vargv.insert(0, getPlayerName(id.tointeger()) + " ");
+    vargv.insert(0, getPlayerName(targetid) + " ");
 
     msg(playerid, "chat.report.success", CL_SUCCESS);
     statisticsPushText("report", playerid, concat(vargv));
-    dbg("chat", "report", getAuthor(playerid), ">>" + getAuthor(id) + "<< " + concat(vargv));
+    dbg("chat", "report", getAuthor(playerid), ">>" + getAuthor(targetid) + "<< " + concat(vargv));
 });
 
 /*
