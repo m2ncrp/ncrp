@@ -464,7 +464,7 @@ event("onPlayerPhonePickUp", function(playerid, number) {
 });
 
 
-event("onPlayerPlaceEnter", function(playerid, name) {
+event("onPlayerAreaEnter", function(playerid, name) {
     local data = split(name, "_");
     if (data[0] == "phone") {
         if (isPhoneRinging(data[1])) {
@@ -478,7 +478,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
     }
 });
 
-event("onPlayerPlaceExit", function(playerid, name) {
+event("onPlayerAreaLeave", function(playerid, name) {
     local data = split(name, "_");
     if (data[0] == "phone") {
         if (isPhoneRinging(data[1])) {

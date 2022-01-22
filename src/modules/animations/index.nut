@@ -57,7 +57,7 @@ function clearAnimPlace(playerid) {
 }
 
 
-event("onPlayerPlaceEnter", function(playerid, name) {
+event("onPlayerAreaEnter", function(playerid, name) {
     local data = split(name, "_");
     if (data[0] == "animation") {
         local charId = data[1].tointeger();
