@@ -45,14 +45,14 @@ function animateGlobal(playerid, data, animLen=0) {
         sendAnimation(playerid, data);
         if (animLen == 0) return;
         delayedFunction(animLen, function() {
-            removePlace(format("animation_%d", charId));
+            removeArea(format("animation_%d", charId));
             removePlayerAnim(playerid);
         });
     }
 
 function clearAnimPlace(playerid) {
     local charid = getCharacterIdFromPlayerId(playerid);
-    removePlace(format("animation_%d", charid));
+    removeArea(format("animation_%d", charid));
     removePlayerAnim(playerid);
 }
 

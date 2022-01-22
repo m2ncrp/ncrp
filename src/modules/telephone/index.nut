@@ -324,7 +324,7 @@ function stopRinging(number) {
         telephones[number]["isRinging"] = false;
         local coords = getPhoneCoords(number);
         foreach (idx, value in players) {
-            if (isInPlace(format("phone_%s", number), value.x, value.y)){
+            if (isInArea(format("phone_%s", number), value.x, value.y)){
                 if (getPhoneType(number) == 1){
                     triggerClientEvent(idx, "ringPhoneStatic", false, coords[0], coords[1], coords[2]);
                 } else {
@@ -332,7 +332,7 @@ function stopRinging(number) {
                 }
             }
         }
-        removePlace(format("phone_%s", number));
+        removeArea(format("phone_%s", number));
 }
 
 function callByPhone (playerid, number = null, isbind = false) {
