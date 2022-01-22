@@ -136,13 +136,13 @@ acmd("move", function(playerid, x, y = 0, z = 0) {
 /**
  * Player to position
  */
-acmd(["tp"], function(playerid, targetid, nameOrId) {
+acmd(["tp"], function(playerid, playerSessionId, nameOrId) {
     local callback = function(err, item) {
         if (!item) return sendPlayerMessage(playerid, "No point were found by " + nameOrId);
 
-        local targetid = targetid.tointeger();
+        local targetid = getPlayerIdByPlayerSessionId(playerSessionId.tointeger());
 
-        if(!isPlayerConnected(targetid)) return sendPlayerMessage(playerid, "Player with id ["+targetid+"] is not on server!", 240, 240, 200);
+        if(!isPlayerConnected(targetid)) return sendPlayerMessage(playerid, "Player with id ["+playerSessionId+"] is not on server!", 240, 240, 200);
 
         if (!isPlayerInVehicle(targetid)) {
             setPlayerPosition(targetid, item.x, item.y, item.z);
@@ -151,7 +151,7 @@ acmd(["tp"], function(playerid, targetid, nameOrId) {
             setVehiclePosition(getPlayerVehicle(targetid), item.x, item.y, item.z+0.5);
         }
 
-        sendPlayerMessage(playerid, "Teleport "+getPlayerName(targetid)+" ["+targetid+"] to " + item.name +" (#" + item.id + ") completed.", 240, 240, 200);
+        sendPlayerMessage(playerid, "Teleport "+getPlayerName(targetid)+" ["+playerSessionId+"] to " + item.name +" (#" + item.id + ") completed.", 240, 240, 200);
     };
 
     if (isInteger(nameOrId)) {

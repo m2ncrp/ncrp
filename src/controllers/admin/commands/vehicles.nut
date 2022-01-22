@@ -103,28 +103,36 @@ mcmd(["admin.car"], ["wheels"], function( playerid, wheels = 0 ) {
     }
 });
 
-mcmd(["admin.fix"], ["fix"], function( playerid, targetid = null ) {
-    if( !isPlayerInVehicle( playerid ) && !targetid )  return;
-    if( isPlayerInVehicle( playerid ) && !targetid )  targetid = getPlayerVehicle( playerid );
-    if( targetid )  targetid = targetid.tointeger();
+mcmd(["admin.fix"], ["repair"], function(playerid, targetid = null) {
+    if(!isPlayerInVehicle(playerid) && !targetid) return;
+    if(isPlayerInVehicle(playerid) && !targetid) targetid = getPlayerVehicle(playerid);
+    if(targetid) targetid = targetid.tointeger();
 
-    repairVehicle( targetid );
+    repairVehicle(targetid);
+});
+
+mcmd(["admin.fix"], ["fix"], function(playerid, targetid = null) {
+    if(!isPlayerInVehicle(playerid) && !targetid) return;
+    if(isPlayerInVehicle(playerid) && !targetid) targetid = getPlayerVehicle(playerid);
+    if(targetid) targetid = targetid.tointeger();
+
+    repairVehicle(targetid);
     setVehicleFuelEx(targetid, getDefaultVehicleFuel(targetid));
     unblockVehicle(targetid)
 });
 
-acmd(["rot"], function( playerid, targetid = null ) {
-    if( !isPlayerInVehicle( playerid ) && !targetid )  return;
-    if( isPlayerInVehicle( playerid ) && !targetid )  targetid = getPlayerVehicle( playerid );
-    if( targetid )  targetid = targetid.tointeger();
+acmd(["rot"], function(playerid, targetid = null) {
+    if(!isPlayerInVehicle(playerid) && !targetid) return;
+    if(isPlayerInVehicle(playerid) && !targetid) targetid = getPlayerVehicle(playerid);
+    if(targetid) targetid = targetid.tointeger();
 
     local vehRot = getVehicleRotation(targetid);
-    setVehicleRotation( targetid, vehRot[0], 0.0, 0.0 );
+    setVehicleRotation(targetid, vehRot[0], 0.0, 0.0);
 });
 
-acmd(["stop"], function( playerid, targetid = null ) {
+acmd(["stop"], function(playerid, targetid = null) {
     targetid = targetid ? targetid.tointeger() : playerid;
-    stopPlayerVehicle( targetid );
+    stopPlayerVehicle(targetid);
 });
 
 //acmd(["vehicle"], function( playerid, id ) {

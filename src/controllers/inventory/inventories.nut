@@ -214,7 +214,8 @@ event("native:onPlayerTransferItem", function(playerid, id, slot) {
                     targetid = -1;
                     return msg(playerid, "inventory.transfer.provide", CL_THUNDERBIRD);
                 }
-                targetid = text.tointeger();
+
+                targetid = getPlayerIdByPlayerSessionId(text.tointeger());
 
                 if (playerid == targetid) {
                     return msg(playerid, "inventory.transfer.yourself");

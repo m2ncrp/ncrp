@@ -6,7 +6,7 @@
  */
 function kick(playerid, targetid, ...) {
 
-    local targetid = toInteger(targetid);
+    local targetid = getPlayerIdByPlayerSessionId(targetid.tointeger());
     local reason   = concat(vargv);
 
     if (!isPlayerConnected(targetid)) {
