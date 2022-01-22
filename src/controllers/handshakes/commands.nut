@@ -72,9 +72,9 @@ function searchBadWord(str) {
 }
 
 // сказать имя другому игроку
-cmd(["meet", "hi"], function(playerid, targetid, ...) {
+cmd(["meet", "hi"], function(playerid, playerSessionId, ...) {
 
-    targetid = toInteger(targetid);
+    local targetid = getPlayerIdByPlayerSessionId(playerSessionId.tointeger());
 
     if(targetid == null || vargv.len() == 0 || !isNumeric(targetid)) {
              msg(playerid, "handshake.shake.rule",  CL_THUNDERBIRD);
@@ -161,14 +161,14 @@ cmd(["meet", "hi"], function(playerid, targetid, ...) {
 });
 
 // записать/запомнить имя указанного игрока
-cmd("remember", function(playerid, targetid, ...) {
+cmd("remember", function(playerid, playerSessionId, ...) {
 
     if(vargv.len() == 0) {
                msg(playerid, "handshake.remember.rule",  CL_THUNDERBIRD);
         return msg(playerid, "handshake.remember.example", CL_LYNCH );
     }
 
-    targetid = toInteger(targetid);
+    local targetid = getPlayerIdByPlayerSessionId(playerSessionId.tointeger());
     local nickname = trim(concat(vargv));
 
     if(targetid == null || !isNumeric(targetid) || !nickname.len()) {
@@ -223,9 +223,9 @@ cmd("remember", function(playerid, targetid, ...) {
 
 
 // забыть имя указанного игрока
-cmd("forget", function(playerid, targetid = null) {
+cmd("forget", function(playerid, playerSessionId = null) {
 
-    targetid = toInteger(targetid);
+    local targetid = getPlayerIdByPlayerSessionId(playerSessionId.tointeger());
 
     if (targetid == null || !isNumeric(targetid)) {
                msg(playerid, "handshake.forget.rule", CL_THUNDERBIRD);
@@ -281,13 +281,13 @@ alternativeTranslate({
     "ru|handshake.shake.rule"  : "Чтобы представиться: /hi id имя"
 
     "en|handshake.shake.example"  : ""
-    "ru|handshake.shake.example"  : "Например: /hi 7 Franz Ferdinand"
+    "ru|handshake.shake.example"  : "Например: /hi 17 Franz Ferdinand"
 
     "en|handshake.shake.real-name"  : ""
     "ru|handshake.shake.real-name"  : "Представиться настоящим именем: /hi id me"
 
     "en|handshake.shake.real-name.example"  : ""
-    "ru|handshake.shake.real-name.example"  : "Например: /hi 5 me"
+    "ru|handshake.shake.real-name.example"  : "Например: /hi 24 me"
 
     "en|handshake.shake.request"  : ""
     "ru|handshake.shake.request"  : "Меня зовут %s"
@@ -296,7 +296,7 @@ alternativeTranslate({
     "ru|handshake.shake.request-desc"  : "Напишите в чат ok, чтобы запомнить это имя"
 
     "en|handshake.shake.decline"  : ""
-    "ru|handshake.shake.decline"  : "Простите, ваше имя звучит странно для меня"
+    "ru|handshake.shake.decline"  : "Странное имя. Не смогу запомнить"
 
     "en|handshake.shake.complete"  : ""
     "ru|handshake.shake.complete"  : "Приятно познакомиться, %s"
@@ -308,7 +308,7 @@ alternativeTranslate({
     "ru|handshake.forget.rule"  : "Чтобы забыть: /forget id"
 
     "en|handshake.forget.example"  : ""
-    "ru|handshake.forget.example"  : "Например: /forget 5"
+    "ru|handshake.forget.example"  : "Например: /forget 24"
 
     "en|handshake.forget.notexist"  : ""
     "ru|handshake.forget.notexist"  : "Ты и так без понятия кто это"
@@ -323,7 +323,7 @@ alternativeTranslate({
     "ru|handshake.remember.rule"  : "Чтобы запомнить: /remember id имя"
 
     "en|handshake.remember.example"  : ""
-    "ru|handshake.remember.example"  : "Например: /remember 5 Luca"
+    "ru|handshake.remember.example"  : "Например: /remember 24 Luca"
 
     "en|handshake.remember.complete"  : ""
     "ru|handshake.remember.complete"  : "Вы запомнили %s"

@@ -164,7 +164,7 @@ event("onServerPlayerStarted", function(playerid) {
     }
 });
 
-event("onPlayerPlaceEnter", function(playerid, name) {
+event("onPlayerAreaEnter", function(playerid, name) {
     if (name.find(FUELSTATION_PREFIX) == null) {
         return;
     }
@@ -173,7 +173,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
     fuelStationCreatePrivateInteractions(playerid, station);
 });
 
-event("onPlayerPlaceExit", function(playerid, name) {
+event("onPlayerAreaLeave", function(playerid, name) {
     if (name.find(FUELSTATION_PREFIX) == null) {
         return;
     }
@@ -507,6 +507,28 @@ function fuelVehicleUp(playerid) {
     station.data.tax += (cost - income);
     station.save();
 
+    local fuelLevel = getVehicleFuelEx(vehicleid);
+    local newFuelLevel = fuelLevel + gallons;
+
+    logger.logf(
+        join(["[VEHICLE FUEL UP]", "%s [%d] (%s)", "%s - %s (model: %d, vehid: %d)", "%s", "coords: [%.5f, %.5f, %.5f]", "haveKey: %s", "%.2f + %.2f = %.2f gallons"], "\n> "),
+            getPlayerName(playerid),
+            playerid,
+            getAccountName(playerid),
+            getVehiclePlateText(vehicleid),
+            getVehicleNameByModelId(getVehicleModel(vehicleid)),
+            getVehicleModel(vehicleid),
+            vehicleid,
+            getNearestTeleportFromVehicle(vehicleid).name,
+            getVehiclePositionObj(vehicleid).x,
+            getVehiclePositionObj(vehicleid).y,
+            getVehiclePositionObj(vehicleid).z,
+            isVehicleOwned(vehicleid) ? (isPlayerHaveVehicleKey(playerid, vehicleid) ? "true" : "false") : "city_ncrp",
+            fuelLevel,
+            gallons,
+            newFuelLevel
+    );
+
     delayedFunction(fuelupTime * 1000, function () {
         if(isPlayerConnected(playerid)) {
             freezePlayer( playerid, false);
@@ -514,8 +536,11 @@ function fuelVehicleUp(playerid) {
             msg(playerid, "business.fuelStation.fuel.payed", [cost, formatGallons(gallons)], CL_CHESTNUT2);
         }
         setVehicleState(vehicleid, "free");
-        setVehicleFuelEx(vehicleid, getVehicleFuelEx(vehicleid) + gallons);
+        setVehicleFuelEx(vehicleid, newFuelLevel);
     });
+
+
+
 }
 
 

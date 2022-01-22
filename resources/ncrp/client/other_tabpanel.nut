@@ -7,13 +7,14 @@ local screenSize = getScreenSize( );
 // Scoreboard math stuff
 local fPadding = 5.0, fTopToTitles = 25.0;
 local fWidth = 600.0, fHeight = ((fPadding * 2) + (fTopToTitles * 3));
-local fOffsetID = 30.0, fOffsetIDlist = 48.0, fOffsetVerified = 60.0, fOffsetName = 420.0;
+local fOffsetID = 30.0, fOffsetIDlist = 48.0, fOffsetSessionID = 70.0, fOffsetVerified = 60.0, fOffsetName = 350.0;
 local fPaddingPlayer = 20.0;
 local fX = 0.0, fY = 0.0, fOffsetX = 0.0, fOffsetY = 0.0;
 
 local initialized = false;
 local players = array(MAX_PLAYERS, 0);
 local verified = array(MAX_PLAYERS, 0);
+local sessionIds = array(MAX_PLAYERS, 0);
 
 function tabDown()
 {
@@ -64,41 +65,42 @@ function frameRender( post_gui )
 
         fOffsetX += 25.0;
         fOffsetY += 25.0;
+
         dxDrawText( "ID", fOffsetX, fOffsetY, 0xFFFFFFFF, true, "tahoma-bold" );
-
         fOffsetX += fOffsetID;
+
+        dxDrawText( "SessionID", fOffsetX, fOffsetY, 0xFFFFFFFF, true, "tahoma-bold" );
+        fOffsetX += fOffsetSessionID;
+
         dxDrawText( "Verified", fOffsetX, fOffsetY, 0xFFFFFFFF, true, "tahoma-bold" );
-
         fOffsetX += fOffsetVerified;
-        dxDrawText( "Character", fOffsetX, fOffsetY, 0xFFFFFFFF, true, "tahoma-bold" );
 
+        dxDrawText( "Character", fOffsetX, fOffsetY, 0xFFFFFFFF, true, "tahoma-bold" );
         fOffsetX += fOffsetName;
+
         dxDrawText( "Ping", fOffsetX, fOffsetY, 0xFFFFFFFF, true, "tahoma-bold" );
 
         local localname = (getLocalPlayer() in players && players[getLocalPlayer()]) ? players[getLocalPlayer()] : getPlayerName(getLocalPlayer());
+        local sessionPlayerId = (getLocalPlayer() in sessionIds && sessionIds[getLocalPlayer()]);
         local isVerified = (getLocalPlayer() in verified && verified[getLocalPlayer()]);
         // old color for current player: 0xFF019875
         // Draw the localplayer
         fOffsetX = (fX + fPadding + 25.0);
         fOffsetY += 20.0;
         dxDrawText( getLocalPlayer().tostring(), fOffsetX, fOffsetY, 0XFF4183D7, true, "tahoma-bold" );
-
         fOffsetX += fOffsetIDlist;
+
+        dxDrawText(sessionPlayerId.tostring(), fOffsetX, fOffsetY, 0XFF4183D7, true, "tahoma-bold" );
+        fOffsetX += fOffsetSessionID;
+
         dxDrawText( isVerified ? "+" : "", fOffsetX, fOffsetY, 0XFF4183D7, true, "tahoma-bold" );
         fOffsetX -= 18;
-
         fOffsetX += fOffsetVerified;
+
         dxDrawText( localname, fOffsetX, fOffsetY, 0XFF4183D7, true, "tahoma-bold" );
 
         fOffsetX += fOffsetName;
-
         local ping = getPlayerPing(getLocalPlayer());
-        if(localname == "Justin Wood") {
-            ping += (5 + getPlayerCount());
-        }
-        if(localname == "Christopher Redfield") {
-            ping += (11 + getPlayerCount());
-        }
         dxDrawText( ping.tostring(), fOffsetX, fOffsetY, 0XFF4183D7, true, "tahoma-bold" );
 
         // Draw remote players
@@ -113,16 +115,20 @@ function frameRender( post_gui )
 
                     fOffsetX = (fX + fPadding + 25.0);
                     fOffsetY += fPaddingPlayer;
-                    dxDrawText( i.tostring(), fOffsetX, fOffsetY, lineColor, true, "tahoma-bold" );
 
+                    dxDrawText( i.tostring(), fOffsetX, fOffsetY, lineColor, true, "tahoma-bold" );
                     fOffsetX += fOffsetIDlist;
+
+                    dxDrawText(sessionIds[i].tostring(), fOffsetX, fOffsetY, lineColor, true, "tahoma-bold" );
+                    fOffsetX += fOffsetSessionID;
+
                     dxDrawText( verified[i] ? "+" : "", fOffsetX, fOffsetY, lineColor, true, "tahoma-bold" );
                     fOffsetX -= 18;
-
                     fOffsetX += fOffsetVerified;
-                    dxDrawText( players[i], fOffsetX, fOffsetY, lineColor, true, "tahoma-bold" );
 
+                    dxDrawText( players[i], fOffsetX, fOffsetY, lineColor, true, "tahoma-bold" );
                     fOffsetX += fOffsetName;
+
                     dxDrawText( getPlayerPing(i).tostring(), fOffsetX, fOffsetY, lineColor, true, "tahoma-bold" );
                 }
             }
@@ -131,7 +137,7 @@ function frameRender( post_gui )
 }
 addEventHandler( "onClientFrameRender", frameRender );
 
-addEventHandler("onServerPlayerAdded", function(playerid, charname, isVerified) {
+addEventHandler("onServerPlayerAdded", function(playerid, sessionPlayerId, charname, isVerified) {
     initialized = true;
 
     if( drawScoreboard ) {
@@ -140,6 +146,7 @@ addEventHandler("onServerPlayerAdded", function(playerid, charname, isVerified) 
 
     players[playerid] = charname;
     verified[playerid] = isVerified;
+    sessionIds[playerid] = sessionPlayerId;
 });
 
 addEventHandler("onClientPlayerDisconnect", function(playerid) {
@@ -150,6 +157,7 @@ addEventHandler("onClientPlayerDisconnect", function(playerid) {
     }
     players[playerid] = null;
     verified[playerid] = false;
+    sessionIds[playerid] = null;
 });
 
 addEventHandler("onCharacterChangedVerified", function(playerid, isVerified) {

@@ -96,8 +96,8 @@ alternativeTranslate({
 
 
 
-    "en|NEWSSTAND"                      : "NEWS STAND"
-    "ru|NEWSSTAND"                      : "КИОСК"
+    "en|NEWSSTAND"                      : "NEWS STAND #%d"
+    "ru|NEWSSTAND"                      : "КИОСК #%d"
 
     "en|POLICEALARM"                    : "POLICE ALARM"
     "ru|POLICEALARM"                    : "ВЫЗОВ ПОЛИЦИИ"

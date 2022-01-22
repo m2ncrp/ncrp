@@ -81,13 +81,14 @@ function sendMoneyBlock(playerid, ...) {
     msg(playerid, "moneysend.tempunavailable", CL_THUNDERBIRD);
 }
 
-function sendMoney(playerid, targetid = null, amount = null) {
+function sendMoney(playerid, playerSessionId = null, amount = null) {
 
-    if (targetid == null || amount == null) {
+    if (playerSessionId == null || amount == null) {
         return msg(playerid, "moneysend.provide");
     }
 
-    local targetid = targetid.tointeger();
+    local targetid = getPlayerIdByPlayerSessionId(playerSessionId.tointeger());
+
     local amount = round(fabs(amount.tofloat()), 2);
     if (playerid == targetid) {
         return msg(playerid, "moneysend.yourself");

@@ -6,7 +6,7 @@ key("e", function(playerid) {
 });
 
 acmd("kiosk", function(playerid, id) {
-    id = id.tointeger();
+    id = id.tointeger() - 1;
     local kioskPos = getKioskPosition(id);
     if (kioskPos) {
         setPlayerPosition(playerid, kioskPos.public[0], kioskPos.public[1], kioskPos.public[2]);

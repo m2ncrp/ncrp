@@ -37,13 +37,13 @@ vehicleSpeedLimits[18] <- [47.1, 49.0]; // have problem
 vehicleSpeedLimits[19] <- [28.2, 30.0];
 vehicleSpeedLimits[20] <- [26.0, 28.0];
 vehicleSpeedLimits[24] <- [41.7, 42.5];
-vehicleSpeedLimits[25] <- [36.8, 37.5];
+vehicleSpeedLimits[25] <- [37.5, 39.0];
 vehicleSpeedLimits[31] <- [33.8, 35.0];
 vehicleSpeedLimits[33] <- [36.5, 37.5];
 vehicleSpeedLimits[35] <- [30.4, 32.5];
 vehicleSpeedLimits[38] <- [30.0, 32.5];
 vehicleSpeedLimits[42] <- [53.0, 54.0];
-vehicleSpeedLimits[43] <- [32.5, 34.0];
+vehicleSpeedLimits[43] <- [33.0, 34.0];
 vehicleSpeedLimits[47] <- [36.2, 36.9];
 vehicleSpeedLimits[50] <- [41.5, 43.0];
 vehicleSpeedLimits[51] <- [42.5, 43.5];
@@ -101,22 +101,33 @@ event("onServerStarted", function() {
                     }
                 }
                 */
+                local plateText = getVehiclePlateText(vehicleid);
 
-                if(getVehiclePlateText(vehicleid).find("RACE") == null) {
+                if(plateText.find("RACE") == null) {
                     local vehModel = getVehicleModel(vehicleid)
                     local vehModelName = getVehicleNameByModelId(vehModel);
+                    local vehPos = getVehiclePositionObj(vehicleid);
+                    local teleport = getNearestTeleportFromVehicle(vehicleid);
 
                     // check soft limit
                     if (maxsp > limits[0]) {
                         dbg("anticheat", "speed", getIdentity(playerid), "modelName: " + vehModelName, maxsp);
+
                         nano({
                             "path": "discord",
                             "server": "ncrp",
                             "channel": "admin",
                             "author": "Античит",
                             "title": getAuthor(playerid),
-                            "description": format("Подозрение на спидхак или модификацию файлов игры (автомобиль: %s)", vehModelName),
-                            "color": "yellow"
+                            "description": "Подозрение на спидхак или модификацию файлов игры",
+                            "color": "yellow",
+                            "fields": [
+                                ["Автомобиль", vehModelName],
+                                ["Номер", plateText],
+                                ["Скорость/лимит", format("%.3f/%.3f", maxsp, limits[0])],
+                                ["Ближайший телепорт", format("%d. %s", teleport.id, teleport.name)],
+                                ["Координаты", format("%.3f %.3f %.3f", vehPos.x, vehPos.y, vehPos.z)],
+                            ]
                         })
                     }
 
@@ -131,8 +142,15 @@ event("onServerStarted", function() {
                             "channel": "admin",
                             "author": "Античит",
                             "title": getAuthor(playerid),
-                            "description": format("Авто-бан за спидхак или модификацию файлов игры (автомобиль: %s)", vehModelName),
-                            "color": "red"
+                            "description": "Авто-бан за спидхак или модификацию файлов игры",
+                            "color": "red",
+                            "fields": [
+                                ["Автомобиль", vehModelName],
+                                ["Номер", plateText],
+                                ["Скорость/лимит", format("%.3f/%.3f", maxsp, limits[1])],
+                                ["Ближайший телепорт", format("%d. %s", teleport.id, teleport.name)],
+                                ["Координаты", format("%.3f %.3f %.3f", vehPos.x, vehPos.y, vehPos.z)],
+                            ]
                         })
                     }
                 }
@@ -354,7 +372,7 @@ function getPlayerMoveState(playerid) {
 }
 
 /*
-event("onPlayerPlaceEnter", function(playerid, name) {
+event("onPlayerAreaEnter", function(playerid, name) {
     if (name != "TestTeleport") {
         return;
     }

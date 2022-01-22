@@ -199,7 +199,7 @@ event("onServerStarted", function() {
     // POLICE_MANAGER = OfficerManager();
 });
 
-event("onPlayerPlaceEnter", function(playerid, name) {
+event("onPlayerAreaEnter", function(playerid, name) {
     if(name != "KosoyPereulok" || !isPlayerInVehicle(playerid) || !isPlayerVehicleDriver(playerid) ) return;
 
     local ticketcost = 45.0;

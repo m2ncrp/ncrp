@@ -9,7 +9,7 @@ const MAX_WARNS_COUNT = 5;
  */
 function warnUp(playerid, targetid = null) {
     if(targetid == null) return msg(playerid, "USE: /warn targetid");
-    local targetid = targetid.tointeger();
+    local targetid = getPlayerIdByPlayerSessionId(targetid.tointeger());
     local account = getAccount(targetid);
     account.warns = account.warns + 1;
 
@@ -39,7 +39,7 @@ acmd("warn", warnUp);
  */
 function warnDown(playerid, targetid = null) {
     if(targetid == null) return msg(playerid, "USE: /unwarn targetid");
-    local targetid = targetid.tointeger();
+    local targetid = getPlayerIdByPlayerSessionId(targetid.tointeger());
     local account = getAccount(targetid);
     if (account.warns == 0) {
         return msg(playerid, "admin.warn.minimumlevel", [ getPlayerName(targetid) ], CL_SUCCESS);
@@ -55,7 +55,7 @@ acmd("unwarn", warnDown);
 
 function warnGet(playerid, targetid = null) {
     if(targetid == null) return msg(playerid, "USE: /getwarn targetid");
-    local targetid = targetid.tointeger();
+    local targetid = getPlayerIdByPlayerSessionId(targetid.tointeger());
     local account = getAccount(targetid);
     if (account.warns == 0) {
         return msg(playerid, "admin.warn.minimumlevel", [ getPlayerName(targetid) ], CL_SUCCESS);

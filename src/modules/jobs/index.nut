@@ -234,3 +234,19 @@ alternativeTranslate({
     "en|job.police"                        : "policeman"
     "ru|job.police"                        : "Сотрудник полиции"
 });
+
+// local pointA = null;
+// key("l", function(playerid) {
+//     if(isPlayerInVehicle(playerid)) return;
+
+//     if(pointA == null) {
+//         pointA = getPlayerPositionObj(playerid);
+//         return;
+//     }
+
+//     local pointB = getPlayerPositionObj(playerid);
+//     local distance = getDistanceBetweenPoints3D(pointA.x, pointA.y, pointA.z, pointB.x, pointB.y, pointB.z);
+
+//     msg(playerid, format("Distance: %.2f", distance), CL_SUCCESS);
+//     pointA = null;
+// });

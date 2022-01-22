@@ -1,10 +1,10 @@
-acmd("name", function(playerid, targetid) {
-    if (isPlayerConnected(playerid)) {
-        msg(playerid, "Инфо: " + getIdentity(targetid.tointeger()), CL_MEDIUMPURPLE);
-    } else {
-        msg(playerid, "Player is not connected", CL_MEDIUMPURPLE);
-    }
-});
+// acmd("name", function(playerid, targetid) {
+//     if (isPlayerConnected(playerid)) {
+//         msg(playerid, "Инфо: " + getIdentity(targetid.tointeger()), CL_MEDIUMPURPLE);
+//     } else {
+//         msg(playerid, "Player is not connected", CL_MEDIUMPURPLE);
+//     }
+// });
 
 acmd("list", function(playerid) {
     msg(playerid, "Список игроков онлайн:", CL_MEDIUMPURPLE);
@@ -13,28 +13,28 @@ acmd("list", function(playerid) {
     }
 });
 
-mcmd(["admin.heal"], ["aheal"], function( playerid, targetid = null ) {
-    targetid = targetid ? targetid.tointeger() : playerid;
-    setPlayerHealth( targetid, 720.0 );
+mcmd(["admin.heal"], ["aheal"], function(playerid, playerSessionId = null) {
+    local targetid = getTargetPlayerId(playerid, playerSessionId);
+    setPlayerHealth(targetid, 720.0);
 });
 
-acmd(["freeze", "friz"], function( playerid, targetid = null ) {
-    targetid = targetid ? targetid.tointeger() : playerid;
-    freezePlayer( targetid, true );
+acmd(["freeze", "friz"], function(playerid, playerSessionId = null) {
+    local targetid = getTargetPlayerId(playerid, playerSessionId);
+    freezePlayer(targetid, true);
     // если игрок в автомобиле - остановить авто
-    if(isPlayerInVehicle(targetid)) stopPlayerVehicle( targetid );
+    if(isPlayerInVehicle(targetid)) stopPlayerVehicle(targetid);
     msg(playerid, "Вы заморозили игрока "+getAuthor(targetid), CL_CHAT_MONEY_SUB);
 });
 
-acmd(["unfreeze", "unfriz"], function( playerid, targetid = null ) {
-    targetid = targetid ? targetid.tointeger() : playerid;
-    freezePlayer( targetid, false );
+acmd(["unfreeze", "unfriz"], function(playerid, playerSessionId = null) {
+    local targetid = getTargetPlayerId(playerid, playerSessionId);
+    freezePlayer(targetid, false);
     msg(playerid, "Вы разморозили игрока "+getAuthor(targetid), CL_CHAT_MONEY_ADD);
 });
 
-acmd(["die"], function( playerid, targetid = null ) {
-    targetid = targetid ? targetid.tointeger() : playerid;
-    setPlayerHealth( targetid, 0.0 );
+acmd(["die"], function( playerid, playerSessionId = null ) {
+    local targetid = getTargetPlayerId(playerid, playerSessionId);
+    setPlayerHealth(targetid, 0.0);
 });
 
 acmd(["mypos"], function( playerid ) {
@@ -42,26 +42,34 @@ acmd(["mypos"], function( playerid ) {
     msg(playerid, format("x = %.2f, y = %.2f, z = %.2f", pos.x, pos.y, pos.z), CL_OCEANGREEN);
 });
 
-acmd(["firstname"], function(playerid, targetid = null, newname = null) {
-
-    if (targetid == null || !isPlayerConnected(targetid.tointeger())) {
+acmd(["firstname"], function(playerid, playerSessionId = null, newname = null) {
+    if (playerSessionId == null) {
         return msg(playerid, "ID игрока не указан! Формат: /firstname id имя", CL_ERROR);
+    }
+
+    local targetid = getPlayerIdByPlayerSessionId(playerSessionId.tointeger());
+
+    if (targetid == null || !isPlayerConnected(targetid)) {
+        return msg(playerid, "Такого игрока нет в сети! Формат: /firstname id имя", CL_ERROR);
     }
 
     if (newname == null || newname.len() == 0) {
         return msg(playerid, "Новое имя персонажа не указано! Формат: /firstname id имя", CL_ERROR);
     }
 
-    targetid = targetid.tointeger();
-
     players[targetid].firstname = newname;
-    msg(playerid, format("Имя персонажа для игрока с ID %d изменено на %s.", targetid, newname), CL_SUCCESS);
+    msg(playerid, format("Имя персонажа для игрока с ID %d изменено на %s.", playerSessionId, newname), CL_SUCCESS);
 
 });
 
-acmd(["lastname"], function(playerid, targetid = null, newname = null) {
+acmd(["lastname"], function(playerid, playerSessionId = null, newname = null) {
+    if (playerSessionId == null) {
+        return msg(playerid, "ID игрока не указан! Формат: /lastname id фамилия", CL_ERROR);
+    }
 
-    if (targetid == null || !isPlayerConnected(targetid.tointeger())) {
+    local targetid = getPlayerIdByPlayerSessionId(playerSessionId.tointeger());
+
+    if (targetid == null || !isPlayerConnected(targetid)) {
         return msg(playerid, "ID игрока не указан! Формат: /lastname id фамилия", CL_ERROR);
     }
 
@@ -69,20 +77,21 @@ acmd(["lastname"], function(playerid, targetid = null, newname = null) {
         return msg(playerid, "Новая фамилия персонажа не указана! Формат: /lastname id фамилия", CL_ERROR);
     }
 
-    targetid = targetid.tointeger();
-
     players[targetid].lastname = newname;
-    msg(playerid, format("Фамилия персонажа для игрока с ID %d изменена на %s.", targetid, newname), CL_SUCCESS);
+    msg(playerid, format("Фамилия персонажа для игрока с ID %d изменена на %s.", playerSessionId, newname), CL_SUCCESS);
 
 });
 
-acmd(["verify"], function(playerid, targetid = null) {
-
-    if (targetid == null || !isPlayerConnected(targetid.tointeger())) {
+acmd(["verify"], function(playerid, playerSessionId = null) {
+    if (playerSessionId == null) {
         return msg(playerid, "ID игрока не указан! Формат: /verify id", CL_ERROR);
     }
 
-    targetid = targetid.tointeger();
+    local targetid = getPlayerIdByPlayerSessionId(playerSessionId.tointeger());
+
+    if (targetid == null || !isPlayerConnected(targetid)) {
+        return msg(playerid, "ID игрока не указан! Формат: /verify id", CL_ERROR);
+    }
 
     players[targetid].setData("verified", true);
     msg(playerid, format("Персонаж %s верифицирован.", getPlayerName(targetid)), CL_SUCCESS);
@@ -101,13 +110,16 @@ acmd(["verify"], function(playerid, targetid = null) {
 
 });
 
-acmd(["unverify"], function(playerid, targetid = null) {
-
-    if (targetid == null || !isPlayerConnected(targetid.tointeger())) {
+acmd(["unverify"], function(playerid, playerSessionId = null) {
+    if (playerSessionId == null) {
         return msg(playerid, "ID игрока не указан! Формат: /unverify id", CL_ERROR);
     }
 
-    targetid = targetid.tointeger();
+    local targetid = getPlayerIdByPlayerSessionId(playerSessionId.tointeger());
+
+    if (targetid == null || !isPlayerConnected(targetid)) {
+        return msg(playerid, "ID игрока не указан! Формат: /unverify id", CL_ERROR);
+    }
 
     players[targetid].setData("verified", false);
     msg(playerid, format("Верификация персонажа %s отменена.", getPlayerName(targetid)), CL_SUCCESS);
@@ -128,25 +140,31 @@ acmd(["unverify"], function(playerid, targetid = null) {
 
 
 
-acmd("hs", "off", function(playerid, targetid = null) {
-
-    if (targetid == null || !isPlayerConnected(targetid.tointeger())) {
+acmd("hs", "off", function(playerid, playerSessionId = null) {
+    if (playerSessionId == null) {
         return msg(playerid, "ID игрока не указан! Формат: /hs off id", CL_ERROR);
     }
 
-    targetid = targetid.tointeger();
+    local targetid = getPlayerIdByPlayerSessionId(playerSessionId.tointeger());
+
+    if (targetid == null || !isPlayerConnected(targetid)) {
+        return msg(playerid, "ID игрока не указан! Формат: /hs off id", CL_ERROR);
+    }
 
     players[targetid].setData("handshake", "off");
     msg(playerid, format("Система знакомств для игрока с ID %d отключена.", targetid), CL_SUCCESS);
 });
 
-acmd("hs", "on", function(playerid, targetid = null) {
-
-    if (targetid == null || !isPlayerConnected(targetid.tointeger())) {
+acmd("hs", "on", function(playerid, playerSessionId = null) {
+    if (playerSessionId == null) {
         return msg(playerid, "ID игрока не указан! Формат: /hs on id", CL_ERROR);
     }
 
-    targetid = targetid.tointeger();
+    local targetid = getPlayerIdByPlayerSessionId(playerSessionId.tointeger());
+
+    if (targetid == null || !isPlayerConnected(targetid)) {
+        return msg(playerid, "ID игрока не указан! Формат: /hs on id", CL_ERROR);
+    }
 
     players[targetid].setData("handshake", "on");
     msg(playerid, format("Система знакомств для игрока с ID %d подключена.", targetid), CL_SUCCESS);

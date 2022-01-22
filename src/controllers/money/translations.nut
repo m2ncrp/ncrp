@@ -16,7 +16,7 @@ alternativeTranslate({
     "ru|moneysend.canceled" : "Передача денег отменена."
 
     "en|moneysend.provide" : "You must provide player id and amount for transfer money."
-    "ru|moneysend.provide" : "Вы должны указать id игрока и сумму, чтобы передать деньги."
+    "ru|moneysend.provide" : "Формат передачи денег: /pay id_игрока сумма"
 
     "en|moneysend.largedistance" : "Distance between both players is too large!"
     "ru|moneysend.largedistance" : "Слишком большая дистанция между персонажами!"

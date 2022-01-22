@@ -31,7 +31,8 @@ function newban(...) {
     if(vargv.len() < 4){
         return msg(playerid, "Формат: /ban id время_в_минутах причина")
     }
-    local targetid = vargv[1].tointeger();
+
+    local targetid = getPlayerIdByPlayerSessionId(vargv[1].tointeger());
     local time = vargv[2].tointeger();
 
     local reason = "";
@@ -54,8 +55,11 @@ function newban(...) {
         removePlayerFromVehicle(targetid);
     }
 
-    msga("admin.ban.banned", [ targetid.tostring(), epochToHuman(getTimestamp() + bantime).format("d.m.Y H:i:s") ], CL_RED);
-    msga("admin.ban.reason", [ reason ], CL_RED);
+    msg(targetid, "admin.ban.banned", [ targetid.tostring(), epochToHuman(getTimestamp() + bantime).format("d.m.Y H:i:s") ], CL_RED);
+    msg(targetid, "admin.ban.reason", [ reason ], CL_RED);
+
+    msg(playerid, "admin.ban.banned", [ targetid.tostring(), epochToHuman(getTimestamp() + bantime).format("d.m.Y H:i:s") ], CL_RED);
+    msg(playerid, "admin.ban.reason", [ reason ], CL_RED);
 
     // remove player from players array (disabling chats and stuff)
     removePlayer(targetid, reason);

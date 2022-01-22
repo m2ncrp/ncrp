@@ -27,8 +27,8 @@ event("onPlayerDisconnect", function(playerid, reason = null) {
  * @param  {Integer} targetid
  * @param  {Mixed} role_shortcut
  */
-fmd("*", ["members.invite"], ["$f invite"], function(fraction, character, targetid = -1, role_shortcut = -1) {
-    targetid = targetid.tointeger();
+fmd("*", ["members.invite"], ["$f invite"], function(fraction, character, playerSessionId = -1, role_shortcut = -1) {
+    local targetid = getPlayerIdByPlayerSessionId(playerSessionId.tointeger());
     local playerid = character.playerid;
 
     if (!isPlayerLoaded(targetid)) {

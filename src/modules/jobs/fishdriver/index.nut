@@ -154,7 +154,7 @@ event("onServerPlayerStarted", function( playerid ){
     createText (playerid, "leavejob3dtext", FISH_JOB_X, FISH_JOB_Y, FISH_JOB_Z+0.05, "Press Q to leave job", CL_WHITE.applyAlpha(100), RADIUS_FISH_SMALL );
 });
 
-event("onPlayerPlaceEnter", function(playerid, name) {
+event("onPlayerAreaEnter", function(playerid, name) {
     if (name != "SeaGiftParking1" && name != "SeaGiftParking2") {
         return;
     }
@@ -200,7 +200,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
 });
 
 
-event("onPlayerPlaceExit", function(playerid, name) {
+event("onPlayerAreaLeave", function(playerid, name) {
     if (name != "SeaGiftParking1" && name != "SeaGiftParking2") {;
         return;
     }
@@ -592,7 +592,7 @@ function fishJobSync3DText(playerid) {
                 continue;
             }
 
-            local inplace1 = isVehicleInPlace(vehicleid, "SeaGiftParking1");
+            local inplace1 = isVehicleInArea(vehicleid, "SeaGiftParking1");
             if (inplace1) {
                 place1busy = true;
                 createText( playerid, "fish_door1_3dtext", FISH_TRUNK1[0], FISH_TRUNK1[1], FISH_TRUNK1[2]+0.20, "Press E to control doors", CL_WHITE.applyAlpha(150), 3.0 );
@@ -604,7 +604,7 @@ function fishJobSync3DText(playerid) {
                 continue;
             }
 
-            local inplace2 = isVehicleInPlace(vehicleid, "SeaGiftParking2");
+            local inplace2 = isVehicleInArea(vehicleid, "SeaGiftParking2");
             if (inplace2) {
                 place2busy = true;
                 createText( playerid, "fish_door2_3dtext", FISH_TRUNK2[0], FISH_TRUNK2[1], FISH_TRUNK2[2]+0.20, "Press E to control doors", CL_WHITE.applyAlpha(150), 3.0 );

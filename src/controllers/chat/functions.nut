@@ -27,6 +27,10 @@ function getPlayerChatSlot(playerid) {
     return 0;
 }
 
+event("onServerPlayerStarted", function(playerid) {
+    setPlayerChatSlot(playerid, 1);
+});
+
 event("onPlayerDisconnect", function(playerid, reason) {
     if (playerid in chatSlots) {
         delete chatSlots[playerid];
@@ -95,15 +99,6 @@ function sendMsgToAllInRadiusFromPoint(X, Y, Z, message, params, radius, color =
             }
         }
     }
-}
-
-/**
- * Return string "player_name [playerid]"
- * @param  {int}    playerid
- * @return {string}
- */
-function getAuthor( playerid ) {
-    return getPlayerName( playerid.tointeger() ) + " [" + playerid.tostring() + "]";
 }
 
 function chatcmd(names, callback)  {

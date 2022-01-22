@@ -1,5 +1,7 @@
 nativeGetPlayerName <- getPlayerName;
 
+local playerSessionIds = {};
+
 /**
  * Return logined player character name
  * or native network player name
@@ -76,6 +78,11 @@ function getCharacterIdFromPlayerId(playerid) {
     return false;
 }
 
+function getTargetPlayerId(playerid, playerSessionId) {
+    local targetid = playerSessionId ? getPlayerIdByPlayerSessionId(playerSessionId.tointeger()) : playerid;
+    return targetid ? targetid : playerid;
+}
+
 /**
  * Return known character name by playerid and targetid
  * or false
@@ -92,7 +99,7 @@ function getKnownCharacterName(playerid, targetid) {
 
     // Раскомментировать для прода
     if(playerid == targetid) {
-        return getPlayerName(playerid);
+        return "Ваш персонаж";
     }
 
     // Если возможность рукопожатий запрещена для targetid - отдавать настоящее имя
@@ -110,20 +117,76 @@ function getKnownCharacterName(playerid, targetid) {
 }
 
 function getKnownCharacterNameWithId(playerid, targetid) {
-    return getKnownCharacterName(playerid, targetid) + " [" + targetid.tostring() + "]";
+    return getKnownCharacterName(playerid, targetid) + " [" + getPlayerSessionIdByPlayerId(targetid).tostring() + "]";
+}
+
+function getAuthor(playerid) {
+    return getPlayerName(playerid.tointeger()) + " [" + getPlayerSessionIdByPlayerId(playerid).tostring() + "]";
+}
+
+function getRandomPlayerSessionId() {
+    local sessionId = random(10, 99);
+
+    if (sessionId in playerSessionIds) {
+        sessionId = getRandomPlayerSessionId();
+    }
+
+    return sessionId;
+}
+
+function getPlayerSessionIds() {
+    return playerSessionIds;
+}
+
+function removePlayerSessionId(playerSessionId) {
+    if (playerSessionId in playerSessionIds) {
+        delete playerSessionIds[playerSessionId];
+        return true;
+    }
+
+    return false;
+}
+
+function setPlayerSessionId(playerid) {
+    local sessionId = getRandomPlayerSessionId();
+    playerSessionIds[sessionId] <- playerid;
+    return sessionId;
+}
+
+function getPlayerIdByPlayerSessionId(sessionId) {
+    return sessionId in playerSessionIds ? playerSessionIds[sessionId] : null;
+}
+
+function getPlayerSessionIdByPlayerId(playerid) {
+    foreach (sessionId, plaId in playerSessionIds) {
+        if (plaId == playerid) {
+            return sessionId;
+        }
+    }
+
+    return false;
 }
 
 event("onServerPlayerStarted", function(playerid) {
 
+    local playerSessionId = setPlayerSessionId(playerid);
+
     local isVerified = ("verified" in players[playerid].data) ? players[playerid].data.verified : false;
 
     // for local player
-    trigger(playerid, "onServerPlayerAdded", playerid, getPlayerName(playerid), isVerified);
+    trigger(playerid, "onServerPlayerAdded", playerid, playerSessionId, getPlayerName(playerid), isVerified);
+    trigger(playerid, "onServerInterfacePlayerSessionId", playerSessionId);
 
     // for all players
     foreach (targetid, player in players) {
-        trigger(targetid, "onServerPlayerAdded", playerid, getPlayerName(playerid), isVerified ); // create name of current player for remote players
-        trigger(playerid, "onServerPlayerAdded", targetid, getPlayerName(targetid), ("verified" in players[targetid].data) ? players[targetid].data.verified : false ); // create name of remote player for current player
+        trigger(targetid, "onServerPlayerAdded", playerid, playerSessionId, getPlayerName(playerid), isVerified ); // create name of current player for remote players
+        trigger(playerid, "onServerPlayerAdded", targetid, getPlayerSessionIdByPlayerId(targetid), getPlayerName(targetid), ("verified" in players[targetid].data) ? players[targetid].data.verified : false ); // create name of remote player for current player
     }
 });
 
+event("onPlayerDisconnect", function(playerid, reason) {
+    local sessionId = getPlayerSessionIdByPlayerId(playerid);
+    if (sessionId) {
+        removePlayerSessionId(sessionId);
+    }
+});

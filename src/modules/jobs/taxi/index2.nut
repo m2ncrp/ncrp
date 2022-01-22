@@ -245,7 +245,7 @@ event( "onPlayerVehicleEnter", function ( playerid, vehicleid, seat ) {
             setTaxiDriverCar(drid, vehicleid);
             // удаляем зону сброса если таковая существует
             if(getTaxiDriverStatus(drid) != "offair" && isPlaceExists("TaxiDriverZone"+drid)) {
-                removePlace("TaxiDriverZone"+drid);
+                removeArea("TaxiDriverZone"+drid);
             }
         }
     }
@@ -321,7 +321,7 @@ event( "onPlayerVehicleExit", function ( playerid, vehicleid, seat ) {
 /* ******************************************************************************************************************************************************* */
 
 /* onPlaceEnter. Вход ВОДИТЕЛЯ в зону - при прибытии к клиенту */
-event("onPlayerPlaceEnter", function(playerid, name) {
+event("onPlayerAreaEnter", function(playerid, name) {
 
     if (!isTaxiDriver(playerid)) {
         return;
@@ -343,15 +343,15 @@ event("onPlayerPlaceEnter", function(playerid, name) {
 
         local plate = getVehiclePlateText( getPlayerVehicle( playerid ) );
 
-        removePlace("taxi"+drid+"Customer"+cuid);
+        removeArea("taxi"+drid+"Customer"+cuid);
         trigger(playerid, "removeGPS");
 
         msg_taxi_dr(playerid, "job.taxi.wait");
 
         // выполняется если Клиент - реальный игрок
         if (cuid < TAXI_CHARACTERS_LIMIT) {
-            removePlace("taxiSmall" + cuid);
-            removePlace("taxiBig" + cuid);
+            removeArea("taxiSmall" + cuid);
+            removeArea("taxiBig" + cuid);
             msg_taxi_cu(getPlayerIdFromCharacterId(cuid), "taxi.call.arrived", plate);
         }
     }
@@ -360,7 +360,7 @@ event("onPlayerPlaceEnter", function(playerid, name) {
 
 
 /* onPlaceExit. Выход ВОДИТЕЛЯ пешком из зоны сброса */
-event("onPlayerPlaceExit", function(playerid, name) {
+event("onPlayerAreaLeave", function(playerid, name) {
     local drid = getCharacterIdFromPlayerId(playerid);
     if(!isTaxiDriver(playerid) || getTaxiDriverStatus(drid) == "offair" || name != "TaxiDriverZone"+drid ) {
         return;
@@ -370,7 +370,7 @@ event("onPlayerPlaceExit", function(playerid, name) {
 
     setTaxiLightState(getTaxiDriverCar(drid), false);
     setTaxiDriverCar(drid, null);
-    removePlace("TaxiDriverZone"+drid);
+    removeArea("TaxiDriverZone"+drid);
     msg_taxi_dr(playerid, "job.taxi.leaveline");
     local callObject = getTaxiCallObjectByDrid(drid);
     removeTaxiCall(callObject.number);
@@ -378,7 +378,7 @@ event("onPlayerPlaceExit", function(playerid, name) {
 
 
 /* onPlaceExit. Выход КЛИЕНТА из зоны вызова до приезда водителя */
-event("onPlayerPlaceExit", function(playerid, name) {
+event("onPlayerAreaLeave", function(playerid, name) {
     local cuid = getCharacterIdFromPlayerId(playerid);
     if ("taxiSmall" + cuid  == name) {
         msg_taxi_cu(playerid, "taxi.call.ifyouaway");
@@ -387,8 +387,8 @@ event("onPlayerPlaceExit", function(playerid, name) {
 
     if ("taxiBig" + cuid  == name) {
         msg_taxi_cu(playerid, "taxi.call.fakecall");
-        removePlace("taxiSmall" + cuid);
-        removePlace("taxiBig" + cuid);
+        removeArea("taxiSmall" + cuid);
+        removeArea("taxiBig" + cuid);
 
         local callObject = getTaxiCallObjectByCuid(cuid);
         if(callObject) {
@@ -396,7 +396,7 @@ event("onPlayerPlaceExit", function(playerid, name) {
             if(callObject.drid) {
                 local drid = callObject.drid;
 
-                removePlace("taxi"+drid+"Customer"+cuid);
+                removeArea("taxi"+drid+"Customer"+cuid);
                 setTaxiDriverStatus(drid, "onair");
 
                 local driverid = getPlayerIdFromCharacterId(drid);
@@ -504,8 +504,8 @@ function taxiCall(playerid, place, again = 0) {
     local placeNameSmall = "taxiSmall"+cuid;
     local placeNameBig   = "taxiBig"+cuid;
     if(isPlaceExists(placeNameSmall) || isPlaceExists(placeNameBig)) {
-        removePlace(placeNameSmall);
-        removePlace(placeNameBig);
+        removeArea(placeNameSmall);
+        removeArea(placeNameBig);
     }
     local phoneObj = getPhoneObj(place);
 
@@ -769,7 +769,7 @@ function taxiCallRefuse(playerid) {
 
     msg_taxi_dr(playerid, "job.taxi.refusedcall");
     msg_taxi_cu(customerid, "taxi.call.refused");
-    removePlace("taxi"+playerid+"Customer"+customerid);
+    removeArea("taxi"+playerid+"Customer"+customerid);
     trigger(playerid, "removeGPS");
 
     delayedFunction(5000,  function() {

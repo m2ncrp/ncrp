@@ -382,4 +382,10 @@ alternativeTranslate({
 
     "en|hello.end"     : "We wish you a successful and enjoyable game!"
     "ru|hello.end"     : "Приятной игры!"
+
+    "en|hello.news.title"     : "======= Breaking news! ======="
+    "ru|hello.news.title"     : "======= Важное объявление! ======="
+
+    "en|hello.news.text"     : "We are developing a new version of the server. So if for some reason the current functionality does not suit you, we recommend to visit us in a few months, as well as follow the development news on Discord."
+    "ru|hello.news.text"     : "Мы занимаемся разработкой новой версии сервера. Поэтому если по каким-то причинам текущий функционал вам не подходит, рекомендуем заглянуть к нам через несколько месяцев, а также следить за новостями разработки в Discord и VK."
 });

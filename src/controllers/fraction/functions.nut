@@ -50,6 +50,8 @@ function fmd(shortcuts, permissions, patterns, callback) {
         }
 
         fracts.map(function(fraction) {
+            // skip cmds for disabled fractions
+            if(fraction.hasData("disabled")) return;
             patterns.map(function(pattern) {
                 local command_parts = split(str_replace("\\$f", fraction.shortcut, pattern), " ");
 
