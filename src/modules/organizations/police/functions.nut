@@ -19,7 +19,7 @@ function policeCall(playerid, place) {
     }
 
     if(!policeOfficersOnline) {
-        animatedPut(playerid);
+        trigger("onPlayerPhonePut", playerid);
         return msg(playerid, "organizations.police.call.no", [], CL_ROYALBLUE);
     }
 
@@ -40,7 +40,7 @@ function policeCall(playerid, place) {
             msg(id, "organizations.police.call.new", plocalize(id, place), CL_ROYALBLUE);
         }
     }
-    animatedPut(playerid);
+    trigger("onPlayerPhonePut", playerid);
 }
 
 function setDangerLevel(playerid, to) {

@@ -1,35 +1,27 @@
 include("modules/telephone/commands.nut");
 include("modules/telephone/translations.nut");
+include("modules/telephone/nodes.nut");
 
+// TODO: может стоит переехать на классы
+// include("modules/telephone/classes/Telephone.nut");
+
+// type
+const PHONE_TYPE_BOOTH = 0;
+const PHONE_TYPE_BUSSINESS = 1;
+
+TELEPHONE_TEXT_COLOR <- CL_WAXFLOWER;
 local phone_nearest_blip = {};
 local PHONE_CALL_PRICE = 0.50;
 
-local phoneUser = {};
-
-
-function getUserPhone (charid) {
-    return phoneUser[charid];
-}
-
-function deleteUserCall (charid) {
-    return phoneUser[charid] <- null;
-}
-
-function isUsingPhone (charid) {
-    if (charid in phoneUser){
-        return phoneUser[charid] != null
-    } else {
-        return false;
-    }
+local numbers = {
+    "0192": "car rental",
+    "1111": "empire custom"
+    // "0000", searhing car services
+    // "1863", // Tires and Rims
+    // "6214", // Richard Beck
 };
 
-
-
-/*
-0 - phone booth
-1 - bussiness
-*/
-local telephones = {
+local phoneObjs = {
     "0100": {"coords": [ -1021.87, 1643.44, 10.6318  ], "name": "telephone0"  , "type": 0},
     "0101": {"coords": [ -562.58, 1521.96, -16.1836  ], "name": "telephone1"  , "type": 0},
     "0102": {"coords": [ -310.62, 1694.98, -22.3772  ], "name": "telephone2"  , "type": 0},
@@ -180,226 +172,74 @@ local telephones = {
     "0453": {"coords": [ -1304.62, 1608.74, 1.22659  ], "name": "telephone147", "type":  1},
 };
 
-function getPhoneData (number) {
-    return telephones[number];
+function getPhoneObj(number) {
+    return number in phoneObjs ? phoneObjs[number] : null;
 }
 
-function clearPhoneData(number) {
-    telephones[number]["isCalling"] = false;
-    telephones[number]["caller"] = null;
-    telephones[number]["callee"] = null;
+function getPlayerPhoneObj(playerid) {
+    foreach (key, value in phoneObjs) {
+        if (isPlayerInValidPoint3D(playerid, value.coords[0], value.coords[1], value.coords[2], 0.4)) {
+            return value;
+            break;
+        }
+    }
 }
 
-function isPhoneRinging (number) {
-    return telephones[number]["isRinging"];
+function findNearestPhoneObj(playerid) {
+    local pos = getPlayerPositionObj(playerid);
+    local dis = 2000;
+    local obj = null;
+    foreach (key, value in telephones) {
+        local distance = getDistanceBetweenPoints2D(pos.x, pos.y, value.coords[0], value.coords[1]);
+        if (distance < dis && value.type == PHONE_TYPE_BOOTH) {
+           dis = distance;
+           obj = value;
+        }
+    }
+    return obj;
 }
 
-function getPhoneType(number) {
-    return telephones[number]["type"];
+function goToPhone(playerid, number) {
+    local phObj = getPhoneObj(number);
+    setPlayerPosition(playerid, phObj.coords[0], phObj.coords[1], phObj.coords[2]);
 }
-
-function getPhoneCoords(number) {
-    return telephones[number]["coords"];
-}
-
-local numbers = {
-    "0192": "car rental",
-    // "0000", searhing car services
-    "1111": "empire custom"
-    // "1863", // Tires and Rims
-    // "6214", // Richard Beck
-};
-
-TELEPHONE_TEXT_COLOR <- CL_WAXFLOWER;
 
 event("onServerStarted", function() {
     logStr("[jobs] loading telephone services job and telephone system...");
-    foreach (idx, phone in telephones) {
-        telephones[idx]["isCalling"] <- false;
-        telephones[idx]["isRinging"] <- false;
-        telephones[idx]["caller"] <- null;
-        telephones[idx]["callee"] <- null;
+    foreach (key, phone in phoneObjs) {
+        phone.number <- key;
+        phone.isCalling <- false;
+        phone.isRinging <- false;
     }
-/*
-    local ets1 = createVehicle(31, -1066.02, 1483.81, -3.79657, -90.8055, -1.36482, -0.105954);   // telephoneCAR1
-    local ets2 = createVehicle(31, -1076.38, 1483.81, -3.51025, -89.5915, -1.332, -0.0857111);   // telephoneCAR2
-    setVehicleColor(ets1, 102, 70, 18, 63, 36, 7);
-    setVehicleColor(ets2, 102, 70, 18, 63, 36, 7);
-    setVehiclePlateText(ets1, "ETS-01");
-    setVehiclePlateText(ets2, "ETS-02");
-*/
-
-
-
 });
 
 event("onPlayerConnect", function(playerid){
     phone_nearest_blip[playerid] <- {};
-    phone_nearest_blip[playerid]["blip3dtext"] <- null;
+    phone_nearest_blip[playerid].blip3dtext <- null;
 });
 
 event("onServerPlayerStarted", function( playerid ){
-    //creating public 3dtext
-    foreach (phone, key in telephones) {
-        createPrivate3DText ( playerid, key["coords"][0], key["coords"][1], key["coords"][2]+0.35, plocalize(playerid, "TELEPHONE"), CL_RIPELEMON, 2.0);
-        createPrivate3DText ( playerid, key["coords"][0], key["coords"][1], key["coords"][2]+0.20, plocalize(playerid, "3dtext.job.press.Q"), CL_WHITE.applyAlpha(150), 0.4 );
+    foreach (key, phObj in phoneObjs) {
+        createPrivate3DText(playerid, phObj.coords[0], phObj.coords[1], phObj.coords[2]+0.35, plocalize(playerid, "TELEPHONE", [key]), CL_RIPELEMON, 2.0);
+        createPrivate3DText(playerid, phObj.coords[0], phObj.coords[1], phObj.coords[2]+0.20, plocalize(playerid, "3dtext.job.press.Q"), CL_WHITE.applyAlpha(150), 0.4);
     }
 });
 
-function getPlayerPhoneName(playerid) {
-    local check = false;
-    local obj = null;
-    foreach (key, value in telephones) {
-        if (isPlayerInValidPoint3D(playerid, value["coords"][0], value["coords"][1], value["coords"][2], 0.4)) {
-        check = true;
-        //name = value[3];
-        obj = key;
-        break;
-        }
+
+function showBlipNearestPhoneForPlayer(playerid) {
+    if (phone_nearest_blip[playerid].blip3dtext) {
+        return msg(playerid, "telephone.findalready");
     }
-    if(check) {
-        return obj;
-        //return plocalize(playerid, name);
-    } else {
-        return false;
-    }
+
+    local phObj = findNearestPhoneObj(playerid);
+    local phonehash = createPrivateBlip(playerid, phObj.coords[0], phObj.coords[1], ICON_RED, 1000.0);
+    phone_nearest_blip[playerid].blip3dtext = true;
+    msg(playerid, "telephone.findphone");
+    delayedFunction(20000, function() {
+        removeBlip(phonehash);
+        phone_nearest_blip[playerid].blip3dtext = null;
+    });
 }
-
-function phoneFindNearest( playerid ) {
-    local pos = getPlayerPositionObj( playerid );
-    local dis = 2000;
-    local phoneid = null;
-    foreach (key, value in telephones) {
-        local distance = getDistanceBetweenPoints2D( pos.x, pos.y, value["coords"][0], value["coords"][1] );
-        if (distance < dis && value[4] == 0) {
-           dis = distance;
-           phoneid = key;
-        }
-    }
-    return phoneid;
-}
-
-
-function showBlipNearestPhoneForPlayer ( playerid ) {
-    if (phone_nearest_blip[playerid]["blip3dtext"] == null) {
-        local phoneid = phoneFindNearest( playerid );
-        local phonehash = createPrivateBlip(playerid, telephones[phoneid]["coords"][0], telephones[phoneid]["coords"][1], ICON_RED, 1000.0);
-        phone_nearest_blip[playerid]["blip3dtext"] = true;
-        msg( playerid, "telephone.findphone");
-        delayedFunction(20000, function() {
-            removeBlip(phonehash);
-            phone_nearest_blip[playerid]["blip3dtext"] = null;
-        });
-
-    } else {
-        msg( playerid, "telephone.findalready");
-    }
-}
-
-function goToPhone(playerid, phoneid) {
-    local phoneid = phoneid;
-    setPlayerPosition( playerid, telephones[phoneid]["coords"][0], telephones[phoneid]["coords"][1], telephones[phoneid]["coords"][2] );
-}
-
-
-function phoneStartCall(playerid, number, isbind) {
-    local budka = getPlayerPhoneName(playerid);
-
-    if (budka == false && isbind == true) {
-        return;
-    }
-
-    // need phonebooth
-    if (budka == false && isbind == false) {
-        msg(playerid, "");
-        msg(playerid, "telephone.needphone");
-        showBlipNearestPhoneForPlayer (playerid);
-        return;
-    }
-
-    showPhoneGUI(playerid);
-}
-
-function stopRinging(number) {
-        telephones[number]["isRinging"] = false;
-        local coords = getPhoneCoords(number);
-        foreach (idx, value in players) {
-            if (isInArea(format("phone_%s", number), value.x, value.y)){
-                if (getPhoneType(number) == 1){
-                    triggerClientEvent(idx, "ringPhoneStatic", false, coords[0], coords[1], coords[2]);
-                } else {
-                    triggerClientEvent(idx, "ringPhone", false);
-                }
-            }
-        }
-        removeArea(format("phone_%s", number));
-}
-
-function callByPhone (playerid, number = null, isbind = false) {
-    local budka = getPlayerPhoneName(playerid);
-
-    if (budka == false && isbind == true) {
-        return;
-    }
-
-    // need phonebooth
-    if (budka == false && isbind == false) {
-        msg(playerid, "");
-        msg(playerid, "telephone.needphone");
-        showBlipNearestPhoneForPlayer ( playerid );
-        return;
-    }
-
-    // number empty
-    if (number == null) {
-        return msg(playerid, "telephone.neednumber");
-    }
-
-    if (telephones[budka]["type"] == 0) {
-        if(!canMoneyBeSubstracted(playerid, PHONE_CALL_PRICE)) {
-            return msg(playerid, "telephone.notenoughmoney");
-        }
-        subPlayerMoney(playerid, PHONE_CALL_PRICE);
-        addWorldMoney(PHONE_CALL_PRICE);
-    }
-
-    if(number == "taxi" || number == "police" || number == "dispatch" || number == "towtruck" ) {
-        return trigger("onPlayerPhoneCall", playerid, number, telephones[budka]["name"] /*plocalize(playerid, budka[3])*/ );
-    }
-    local number = str_replace("555-", "", number);
-    if(isNumeric(number) && number.len() == 4) {
-        trigger(playerid, "onServerShowChatTrigger");
-        msg(playerid, "telephone.youcall", ["555-"+number]);
-        delayedFunction(3000, function () {
-            local check = false;
-            if (number in telephones) {
-                trigger("onPlayerPhoneCall", playerid, number, plocalize(playerid, telephones[budka]["name"]));
-                check = true;
-                return;
-            } else {
-                if (number in numbers) {
-                    trigger("onPlayerPhoneCallNPC", playerid, number, plocalize(playerid, telephones[budka]["name"]));
-                    check = true;
-                    return;
-                }
-            }
-            if (!check){
-                msg(playerid, "telephone.notregister");
-                animatedPut(playerid);
-                delayedFunction(1000, function() { phoneStartCall (playerid, null, null); });
-            }
-        });
-    } else {
-        msg(playerid, "telephone.incorrect");
-        animatedPut(playerid);
-    }
-}
-
-/* -------------------------------------------------------------------------------------------------------- */
-
-event("PhoneCallGUI", function (playerid, number) {
-    callByPhone(playerid, number);
-});
 
 function showPhoneGUI(playerid){
     local windowText            =  plocalize(playerid, "phone.gui.window");
@@ -410,66 +250,178 @@ function showPhoneGUI(playerid){
     local button2Call           =  plocalize(playerid, "phone.gui.buttonCall");
     local button3Refuse         =  plocalize(playerid, "phone.gui.buttonRefuse");
     local input0exampleNumber   =  plocalize(playerid, "phone.gui.exampleNumber");
-    animatedPickUp(playerid);
+
+    triggerClientEvent(playerid, "showPhoneGUI", windowText, label0Callto, label1insertNumber, button0Police, button1Taxi, button2Call, button3Refuse, input0exampleNumber);
+}
+
+
+function animatePhonePickUp(playerid) {
+    local phoneObj = getPlayerPhoneObj(playerid);
+    local type = phoneObj.type == PHONE_TYPE_BUSSINESS;
+    local animation1 = type ? "Phone.PickUp": "PhoneBooth.PickUp";
+    local animation2 = type ? "Phone.Static" : "PhoneBooth.Static";
+    local model = type ? 118 : 1;
+    animateGlobal(playerid, {"animation": animation1, "unblock": false, "model": model}, 2000);
     delayedFunction(2000, function() {
-        triggerClientEvent(playerid, "showPhoneGUI", windowText, label0Callto, label1insertNumber, button0Police, button1Taxi, button2Call, button3Refuse, input0exampleNumber);
+        animateGlobal(playerid, {"animation": animation2, "endless": true, "block": false, "model": model});
     });
 }
 
-event("onPlayerPhoneCall", function(playerid, number, place) {
-    if  (number == getPlayerPhoneName(playerid)) {
-        msg(playerid, "telephone.callyourself", CL_WARNING);
-        animatedPut(playerid);
+function animatePhonePut(playerid) {
+    clearAnimPlace(playerid);
+    local phoneObj = getPlayerPhoneObj(playerid);
+    local type = phoneObj.type == PHONE_TYPE_BUSSINESS;
+    local animation = type ? "Phone.Put": "PhoneBooth.Put";
+    local model = type ? 118 : 1;
+    animateGlobal(playerid, {"animation": animation, "model": model}, 1)
+    delayedFunction(50, function() {
+        animateGlobal(playerid, {"animation": animation, "model": model}, 1000)
+    });
+}
+
+
+function callByPhone(playerid, number = null) {
+    local number = str_replace("555-", "", number);
+    local phoneObj = getPlayerPhoneObj(playerid);
+
+    dbg(playerid, number)
+    dbg(phoneObj)
+
+    if (phoneObj == false) {
         return;
     }
-    if (telephones[number]["isCalling"]){
-        animatedPut(playerid);
-        return msg(playerid, "telephone.lineinuse", CL_WARNING);
+
+    if (phoneObj.type == PHONE_TYPE_BOOTH) {
+        if(!canMoneyBeSubstracted(playerid, PHONE_CALL_PRICE)) {
+            trigger("onPlayerPhonePut", playerid);
+            return msg(playerid, "telephone.notenoughmoney");
         }
+        subPlayerMoney(playerid, PHONE_CALL_PRICE);
+        addWorldMoney(PHONE_CALL_PRICE);
+    }
 
-    if (!(number in numbers) && (number != "police")) {
-        local phone = getPlayerPhoneName(playerid);
-        phoneUser[getCharacterIdFromPlayerId(playerid)] <- phone;
-        telephones[phone]["isCalling"] = true;
-        telephones[number]["isCalling"] = true;
-        telephones[phone]["callee"] = getCharacterIdFromPlayerId(playerid);
-        telephones[number]["isRinging"] = true;
-        local coords = telephones[number]["coords"];
-        createPlace(format("phone_%s", number), coords[0] + 10, coords[1] + 10, coords[0] - 10, coords[1] - 10);
-        telephones[number]["caller"] = getCharacterIdFromPlayerId(playerid);
-        delayedFunction(10000, function() {
-            if (telephones[number]["isRinging"]) {
-                stopRinging(number);
-                animatedPut(playerid);
-                deleteUserCall(getCharacterIdFromPlayerId(playerid));
-                clearPhoneData(phone);
-                clearPhoneData(number);
-                msg(playerid, "telephone.noanswer", CL_WARNING);
-            }
-        });
-    };
+    if (phoneObj.number == number) {
+        msg(playerid, "telephone.callyourself", CL_WARNING);
+        trigger("onPlayerPhonePut", playerid);
+        return;
+    }
+
+    // TODO
+    if(number == "taxi" || number == "police" || number == "dispatch" || number == "towtruck" ) {
+        return trigger("onPlayerPhoneCallNPC", playerid, number, plocalize(playerid, phoneObj.name));
+    }
+
+    if(!isNumeric(number) || number.len() != 4) {
+        msg(playerid, "telephone.incorrect");
+        return trigger("onPlayerPhonePut", playerid);
+    }
+
+    msg(playerid, "telephone.youcalling", ["555-"+number]);
+
+    local isNumberExist = getPhoneObj(number);
+    local eventName = number in numbers ? "onPlayerPhoneCallNPC" : isNumberExist ? "onPlayerPhoneCall" : null;
+
+    if (!eventName) {
+        msg(playerid, "telephone.notregister");
+        trigger("onPlayerPhonePut", playerid);
+        return;
+    }
+
+    trigger(eventName, playerid, number, phoneObj);
+}
+
+event("PhoneCallGUI", callByPhone);
+
+event("onPlayerPhoneCall", function(playerid, number, phoneObj) {
+    local targetPhoneObj = getPhoneObj(number);
+
+    if (targetPhoneObj.isRinging || targetPhoneObj.isCalling) {
+        trigger("onPlayerPhonePut", playerid);
+        return msg(playerid, "telephone.lineinuse", CL_WARNING);
+    }
+
+    targetPhoneObj.isRinging = true;
+
+    local node = findPhoneNodeBy({"from": phoneObj.number});
+    phoneNodeFillDestination(node.hash, number);
+
+    local coords = targetPhoneObj.coords;
+    createPlace(format("phone_%s", number), coords[0] + 10, coords[1] + 10, coords[0] - 10, coords[1] - 10);
+
+    delayedFunction(15000, function() {
+        if (targetPhoneObj.isRinging) {
+            stopRinging(targetPhoneObj);
+            trigger("onPlayerPhonePut", playerid);
+            msg(playerid, "telephone.noanswer", CL_WARNING);
+        }
+    });
 });
 
+event("onPlayerPhonePickUp", function(playerid, phoneObj) {
+    animatePhonePickUp(playerid);
 
-event("onPlayerPhonePickUp", function(playerid, number) {
+    phoneObj.isCalling = true;
+
     local charId = getCharacterIdFromPlayerId(playerid);
-    phoneUser[charId] <- number;
-    stopRinging(number);
-    telephones[number]["isCalling"] = true;
-    telephones[number]["callee"] = charId;
-    local caller = telephones[number]["caller"];
-    telephones[phoneUser[caller]]["caller"] = charId;
-    msg(playerid, "telephone.callstart", CL_SUCCESS);
-    msg(getPlayerIdFromCharacterId(caller), "telephone.callstart", CL_SUCCESS);
+
+    local node = findPhoneNodeBy({"to": phoneObj.number});
+
+    // Есть входящий звонок, отвечаем
+    if(node) {
+        msg(playerid, "telephone.callstart", CL_SUCCESS);
+        msg(getPlayerIdFromCharacterId(node.subscribers[0]), "telephone.callstart", CL_SUCCESS);
+        phoneNodeAddSubscriber(node.hash, charId);
+        stopRinging(phoneObj);
+        return;
+    }
+
+    addPhoneNode(charId, phoneObj.number);
+
+    // Показать окно
+    delayedFunction(2000, function() {
+        showPhoneGUI(playerid);
+    });
 });
 
+event("onPlayerPhonePut", function(playerid) {
+    local phoneObj = getPlayerPhoneObj(playerid);
+
+    phoneObj.isCalling = false;
+
+    animatePhonePut(playerid);
+
+    local node = findPhoneNodeBy({"from": phoneObj.number});
+    if(!node) return;
+
+    local targetPhoneObj = getPhoneObj(node.to);
+    if(targetPhoneObj && targetPhoneObj.isRinging) stopRinging(targetPhoneObj);
+
+    deletePhoneNode(node.hash)
+});
+
+
+function stopRinging(phoneObj) {
+    phoneObj.isRinging = false;
+    local coords = phoneObj.coords;
+    foreach (idx, value in players) {
+        if (isInArea(format("phone_%s", phoneObj.number), value.x, value.y)){
+            if (phoneObj.type == PHONE_TYPE_BUSSINESS){
+                triggerClientEvent(idx, "ringPhoneStatic", false, coords[0], coords[1], coords[2]);
+            } else {
+                triggerClientEvent(idx, "ringPhone", false);
+            }
+        }
+    }
+    removeArea(format("phone_%s", phoneObj.number));
+}
 
 event("onPlayerAreaEnter", function(playerid, name) {
     local data = split(name, "_");
     if (data[0] == "phone") {
-        if (isPhoneRinging(data[1])) {
-            if (getPhoneType(data[1]) == 1){
-                local coords = getPhoneCoords(data[1]);
+        local phoneObj = getPhoneObj(data[1]);
+        if(phoneObj.isRinging) {
+            if (phoneObj.type == PHONE_TYPE_BUSSINESS){
+                local coords = phoneObj.coords;
                 triggerClientEvent(playerid, "ringPhoneStatic", true, coords[0], coords[1], coords[2]);
             } else {
                 triggerClientEvent(playerid, "ringPhone", true);
@@ -481,9 +433,10 @@ event("onPlayerAreaEnter", function(playerid, name) {
 event("onPlayerAreaLeave", function(playerid, name) {
     local data = split(name, "_");
     if (data[0] == "phone") {
-        if (isPhoneRinging(data[1])) {
-            if (getPhoneType(data[1]) == 1){
-                local coords = getPhoneCoords(data[1]);
+        local phoneObj = getPhoneObj(data[1]);
+        if(phoneObj.isRinging) {
+            if (phoneObj.type == PHONE_TYPE_BUSSINESS){
+                local coords = phoneObj.coords;
                 triggerClientEvent(playerid, "ringPhoneStatic", false, coords[0], coords[1], coords[2]);
             } else {
                 triggerClientEvent(playerid, "ringPhone", false);
@@ -493,66 +446,35 @@ event("onPlayerAreaLeave", function(playerid, name) {
 });
 
 event("onPlayerDisconnect", function(playerid, reason) {
-    if (getCharacterIdFromPlayerId(playerid) in phoneUser) {
-        stopCall(playerid);
-    }
+    stopCall(playerid);
 });
 
 event("onPlayerDeath", function(playerid) {
-    if (getCharacterIdFromPlayerId(playerid) in phoneUser) {
-        stopCall(playerid);
-    }
+    stopCall(playerid);
 });
 
-function animatedPickUp(playerid) {
-    local type = getPhoneType(getPlayerPhoneName(playerid)) == 1;
-    local animation1 = ( type ? "Phone.PickUp": "PhoneBooth.PickUp");
-    local animation2 = ( type ? "Phone.Static" : "PhoneBooth.Static");
-    local model = ( type ? 118 : 1);
-    animateGlobal(playerid, {"animation": animation1, "unblock": false, "model": model}, 2000);
-    delayedFunction(2000, function() {
-        animateGlobal(playerid, {"animation": animation2, "endless": true, "block": false, "model": model});
-    });
-}
-
-function animatedPut(playerid) {
-    clearAnimPlace(playerid);
-    local type = getPhoneType(getPlayerPhoneName(playerid)) == 1;
-    local animation = ( type ? "Phone.Put": "PhoneBooth.Put");
-    local model = ( type ? 118 : 1);
-    animateGlobal(playerid, {"animation": animation, "model": model}, 1)
-    delayedFunction(50, function() {
-        animateGlobal(playerid, {"animation": animation, "model": model}, 1000)
-    });
-}
 
 
 function stopCall(playerid) {
     local charId = getCharacterIdFromPlayerId(playerid);
-    if (!isUsingPhone(charId)) return;
-    local number = phoneUser[charId];
-    if (number == null) return;
-    local data = getPhoneData(number);
-    local callerId = getPlayerIdFromCharacterId(data.caller);
-    local calleeId = getPlayerIdFromCharacterId(data.callee);
-    msg(callerId, "telephone.callend", CL_WARNING)
-    msg(calleeId, "telephone.callend", CL_WARNING);
-    if (callerId == playerid) {
-        animatedPut(calleeId);
-    } else {
-        animatedPut(callerId);
+    local node = findPhoneNodeBy({"subscribers": charId});
+
+    if(!node) return;
+
+    if(isPlayerConnected(playerid)) {
+        msg(playerid, "telephone.callend", CL_WARNING);
+        trigger("onPlayerPhonePut", playerid);
     }
-    clearPhoneData(phoneUser[data.caller]);
-    clearPhoneData(phoneUser[data.callee]);
-    deleteUserCall(getCharacterIdFromPlayerId(callerId));
-    deleteUserCall(getCharacterIdFromPlayerId(calleeId));
-    clearAnimPlace(playerid);
+
+    local companionCharId = getPhoneNodeCompanion(node, charId);
+    if(companionCharId) {
+        local companionPlayerId = getPlayerIdFromCharacterId(companionCharId);
+        if(companionPlayerId == -1 || !isPlayerConnected(companionPlayerId)) return;
+        msg(companionPlayerId, "telephone.callend", CL_WARNING);
+        trigger("onPlayerPhonePut", companionPlayerId);
+    }
 }
 
-event("PhonePutGUI", function (playerid) {
-    animatedPut(playerid);
-});
-    //showBlipNearestPhoneForPlayer ( playerid );
 /* don't remove
 
 addEventHandlerEx("onServerStarted", function() {
@@ -567,4 +489,10 @@ addEventHandlerEx("onServerStarted", function() {
     }
 });
 
+    local ets1 = createVehicle(31, -1066.02, 1483.81, -3.79657, -90.8055, -1.36482, -0.105954);   // telephoneCAR1
+    local ets2 = createVehicle(31, -1076.38, 1483.81, -3.51025, -89.5915, -1.332, -0.0857111);   // telephoneCAR2
+    setVehicleColor(ets1, 102, 70, 18, 63, 36, 7);
+    setVehicleColor(ets2, 102, 70, 18, 63, 36, 7);
+    setVehiclePlateText(ets1, "ETS-01");
+    setVehiclePlateText(ets2, "ETS-02");
 */

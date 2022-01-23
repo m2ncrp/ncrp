@@ -17,7 +17,7 @@ local AD_COLOR = CL_CARIBBEANGREEN;
 event("onPlayerPhoneCallNPC", function(playerid, number, place) {
     if(number == "1111") {
         if (isPlayerMuted(playerid)) {
-            animatedPut(playerid);
+            trigger("onPlayerPhonePut", playerid);
             return msg(playerid, "admin.mute.youhave", CL_RED);
         }
 
@@ -25,7 +25,7 @@ event("onPlayerPhoneCallNPC", function(playerid, number, place) {
 
         if(!canBankMoneyBeSubstracted(playerid, AD_COST)) {
             msg(playerid, "empirecustom.phone.notenough")
-            animatedPut(playerid);
+            trigger("onPlayerPhonePut", playerid);
             return;
         }
 
@@ -44,7 +44,7 @@ event("onPlayerPhoneCallNPC", function(playerid, number, place) {
             trigger(playerid, "hudDestroyTimer");
             if (text.tolower() == "отмена" || text.tolower() == "'отмена'" || text.tolower() == "нет" || text.tolower() == "'нет'" || text.tolower() == "cancel" || text.tolower() == "'cancel'" || text == "0") {
                 ad_sended = "canceled";
-                animatedPut(playerid);
+                trigger("onPlayerPhonePut", playerid);
                 return msg(playerid, "empirecustom.phone.canceled", TELEPHONE_TEXT_COLOR);
             }
             ad_sended = true;
@@ -54,13 +54,13 @@ event("onPlayerPhoneCallNPC", function(playerid, number, place) {
             if(replaced.find("0192") != null) {
                 subPlayerMoney(playerid, 100.0);
                 dbg(format("[RADIO] auto-fine: %s", getPlayerName(playerid)))
-                animatedPut(playerid);
+                trigger("onPlayerPhonePut", playerid);
                 return;
             }
 
             msg(playerid, "empirecustom.phone.yourad", text, TELEPHONE_TEXT_COLOR);
             msg(playerid, "empirecustom.phone.placed", TELEPHONE_TEXT_COLOR);
-            animatedPut(playerid);
+            trigger("onPlayerPhonePut", playerid);
 
             subPlayerDeposit(playerid, AD_COST);
 

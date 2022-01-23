@@ -384,7 +384,7 @@ event("onBatonBitStart", function (playerid) {
 });
 
 
-event("onPlayerPhoneCall", function(playerid, number, place) {
+event("onPlayerPhoneCallNPC", function(playerid, number, place) {
     if (number == "police") {
         policeCall(playerid, place);
     }

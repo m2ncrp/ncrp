@@ -44,7 +44,7 @@ function showPhoneGUI (windowText, label0Callto, label1insertNumber, button0Poli
         buttons[3] = guiCreateElement(  ELEMENT_TYPE_BUTTON, button3Refuse,     15.0,   208.0, 170.0, 25.0, false, window);
     }
 
-delayedFunction(5, function() { //todo fix
+    delayedFunction(5, function() {
         guiSetText( window, windowText);
         guiSetText( label[0], label0Callto);
         guiSetText( label[1], label1insertNumber);
@@ -53,7 +53,7 @@ delayedFunction(5, function() { //todo fix
         guiSetText( buttons[2], button2Call);
         guiSetText( buttons[3], button3Refuse);
         guiSetText( input[0], input0exampleNumber);
-});
+    });
 
     guiSetSizable(window,false);
     guiSetMovable(window,false);
@@ -66,7 +66,7 @@ function hidePhoneGUI () {
     guiSetVisible(window,false);
     guiSetText( label[0], "");
     guiSetText( input[0], "555-");
-    delayedFunction(100, hideCursor); //todo fix
+    delayedFunction(100, hideCursor);
 }
 
 function hideCursor() {
@@ -74,29 +74,35 @@ function hideCursor() {
 }
 
 
-addEventHandler( "onGuiElementClick",
+addEventHandler("onGuiElementClick",
     function(element)
     {
-        if(element == buttons[0]){
+        if(element == buttons[0]) {
             triggerServerEvent("PhoneCallGUI", "police");
             hidePhoneGUI();
+            return;
         }
-        if(element == buttons[1]){
+        if(element == buttons[1]) {
             log("call taxi");
             triggerServerEvent("PhoneCallGUI", "taxi");
             hidePhoneGUI();
+            return;
         }
-        if(element == buttons[2]){
+        if(element == buttons[2]) {
             local number = guiGetText(input[0]);
+            if(number == "") return;
             triggerServerEvent("PhoneCallGUI", number);
             hidePhoneGUI();
+            return;
         }
-        if(element == buttons[3]){
-            triggerServerEvent("PhonePutGUI");
+        if(element == buttons[3]) {
+            triggerServerEvent("onPlayerPhonePut");
             hidePhoneGUI();
+            return;
         }
-        if(element == input[0]){
+        if(element == input[0]) {
             guiSetText(input[0], "555-");
+            return;
         }
     });
 

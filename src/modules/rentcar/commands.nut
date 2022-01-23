@@ -153,7 +153,7 @@ function carRentalCall(playerid) {
 
             if (!choise || (choise != "1" && choise != "2")) {
                 if(defaulttogooc) setPlayerOOC(playerid, true);
-                animatedPut(playerid);
+                trigger("onPlayerPhonePut", playerid);
                 return msg(playerid, ".:: Перезвоните нам, когда определитесь. Всего доброго!", CL_HELP);
             }
 
@@ -172,7 +172,7 @@ function carRentalCall(playerid) {
                             delayedFunction(5000, function() {
                                 msg(playerid, "Чтобы не разбивать стекло, нажмите F два раза подряд.", CL_CHAT_TIPS);
                                 msg(playerid, "[DO] Разговор завершён", CL_CHAT_DO);
-                                animatedPut(playerid);
+                                trigger("onPlayerPhonePut", playerid);
                                 if(!checkPlayerSectionData(playerid, "rent")) {
                                     setPlayerSectionData(playerid, "rent", { accessible = true })
                                     delayedFunction(2000, function() {
@@ -188,7 +188,7 @@ function carRentalCall(playerid) {
             if(choise == "2") {
                 if(checkPlayerSectionData(playerid, "lease") && players[playerid].data.lease.accessible == false) {
                     msg(playerid, ".:: Вы нарушали наши правила много раз, поэтому мы не готовы с вами сотрудничать. Нам жаль.", CL_HELP);
-                    animatedPut(playerid);
+                    trigger("onPlayerPhonePut", playerid);
                     return msg(playerid, "[DO] Разговор завершён", CL_CHAT_DO);
                 }
                 msg(playerid, ".:: Вы можете сдать в аренду свой автомобиль и получать с этого доход.", CL_JORDYBLUE);
@@ -203,7 +203,7 @@ function carRentalCall(playerid) {
                                 delayedFunction(5000, function() {
                                     msg(playerid, "- Всё готово! Ваш автомобиль сдаётся в аренду.", CL_SILVERSAND);
                                     msg(playerid, "[DO] Разговор завершён", CL_CHAT_DO);
-                                    animatedPut(playerid);
+                                    trigger("onPlayerPhonePut", playerid);
                                     if(!checkPlayerSectionData(playerid, "lease")) {
                                         setPlayerSectionData(playerid, "lease", { accessible = true })
                                         delayedFunction(2000, function() {
