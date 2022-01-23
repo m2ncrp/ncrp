@@ -1,11 +1,15 @@
 local charsAnims = {};
 
-function addPlayerAnim (playerid, anim, model, endless) {
-    charsAnims[getCharacterIdFromPlayerId(playerid)] <- [anim, model, endless];
+function addPlayerAnim (charId, anim, model, endless) {
+    charsAnims[charId] <- [anim, model, endless];
 };
 
-function removePlayerAnim (playerid) {
-    delete charsAnims[getCharacterIdFromPlayerId(playerid)];
+function removePlayerAnim (charId) {
+    if(charId in charsAnims) {
+        delete charsAnims[charId];
+        return true;
+    }
+    return false;
 }
 
 function getCharsAnims () {
@@ -34,26 +38,27 @@ function sendAnimation(playerid, data, id=-1) {
 
 function animateGlobal(playerid, data, animLen=0) {
     if(isPlayerInVehicle(playerid) || getPlayerState(playerid) == "cuffed" || isDockerHaveBox(playerid)) return; // TODO: Подумать как избавиться от isDockerHaveBox
-        local position = getPlayerPosition(playerid);
-        local charId = getCharacterIdFromPlayerId(playerid);
-        if (charId in getCharsAnims()) return;
-        if (!("endless" in data)) {
-            data["endless"] <- false;
-        }
-        addPlayerAnim(playerid, data["animation"], data["model"], data["endless"]);
-        createPlace(format("animation_%d", charId), position[0] - 100, position[1] - 100, position[0] + 100, position[1] + 100);
-        sendAnimation(playerid, data);
-        if (animLen == 0) return;
-        delayedFunction(animLen, function() {
-            removeArea(format("animation_%d", charId));
-            removePlayerAnim(playerid);
-        });
+
+    local position = getPlayerPosition(playerid);
+    local charId = getCharacterIdFromPlayerId(playerid);
+    if (charId in getCharsAnims()) return;
+    if (!("endless" in data)) {
+        data["endless"] <- false;
     }
+    addPlayerAnim(charId, data["animation"], data["model"], data["endless"]);
+    createPlace(format("animation_%d", charId), position[0] - 100, position[1] - 100, position[0] + 100, position[1] + 100);
+    sendAnimation(playerid, data);
+    if (animLen == 0) return;
+    delayedFunction(animLen, function() {
+        removeArea(format("animation_%d", charId));
+        removePlayerAnim(charId);
+    });
+}
 
 function clearAnimPlace(playerid) {
-    local charid = getCharacterIdFromPlayerId(playerid);
-    removeArea(format("animation_%d", charid));
-    removePlayerAnim(playerid);
+    local charId = getCharacterIdFromPlayerId(playerid);
+    removeArea(format("animation_%d", charId));
+    removePlayerAnim(charId);
 }
 
 
