@@ -284,9 +284,6 @@ function callByPhone(playerid, number = null) {
     local number = str_replace("555-", "", number);
     local phoneObj = getPlayerPhoneObj(playerid);
 
-    dbg(playerid, number)
-    dbg(phoneObj)
-
     if (phoneObj == false) {
         return;
     }

@@ -1,7 +1,3 @@
-acmd("call", function(playerid, number = null, isBind = false) {
-    //callByPhone (playerid, number, false);
-});
-
 acmd("gotophone", function(playerid, phoneid) {
     goToPhone(playerid, phoneid);
 });
