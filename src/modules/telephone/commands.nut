@@ -8,6 +8,7 @@ key("q", function(playerid) {
 
     if(phoneObj.isCalling) {
         stopCall(playerid);
+        triggerClientEvent(playerid, "hidePhoneGUI");
         return;
     }
 

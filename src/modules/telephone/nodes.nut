@@ -12,7 +12,7 @@ function getPhoneNodesList() {
     return nodes;
 }
 
-function addPhoneNode(caller, from) {
+function addPhoneNode(caller, from, to) {
     local hash = getTimestamp();
 
     nodes[hash] <- {};
@@ -20,17 +20,13 @@ function addPhoneNode(caller, from) {
     nodes[hash].subscribers <- [];
     nodes[hash].subscribers.push(caller);
     nodes[hash].from <- from;
-    nodes[hash].to <- null;
+    nodes[hash].to <- to;
 
     return hash;
 }
 
 function phoneNodeAddSubscriber(hash, callee) {
     nodes[hash].subscribers.push(callee);
-}
-
-function phoneNodeFillDestination(hash, destination) {
-    nodes[hash].to <- destination;
 }
 
 function getPhoneNode(hash) {

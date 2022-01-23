@@ -68,6 +68,7 @@ function hidePhoneGUI () {
     guiSetText( input[0], "555-");
     delayedFunction(100, hideCursor);
 }
+addEventHandler("hidePhoneGUI", hidePhoneGUI);
 
 function hideCursor() {
     showCursor(false);

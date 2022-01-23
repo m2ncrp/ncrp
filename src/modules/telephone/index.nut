@@ -275,6 +275,7 @@ function animatePhonePut(playerid) {
     local model = type ? 118 : 1;
     animateGlobal(playerid, {"animation": animation, "model": model}, 1)
     delayedFunction(50, function() {
+        if(!isPlayerConnected(playerid)) return;
         animateGlobal(playerid, {"animation": animation, "model": model}, 1000)
     });
 }
@@ -331,6 +332,7 @@ event("PhoneCallGUI", callByPhone);
 
 event("onPlayerPhoneCall", function(playerid, number, phoneObj) {
     local targetPhoneObj = getPhoneObj(number);
+    local charId = getCharacterIdFromPlayerId(playerid);
 
     if (targetPhoneObj.isRinging || targetPhoneObj.isCalling) {
         trigger("onPlayerPhonePut", playerid);
@@ -339,8 +341,7 @@ event("onPlayerPhoneCall", function(playerid, number, phoneObj) {
 
     targetPhoneObj.isRinging = true;
 
-    local node = findPhoneNodeBy({"from": phoneObj.number});
-    phoneNodeFillDestination(node.hash, number);
+    addPhoneNode(charId, phoneObj.number, number);
 
     local coords = targetPhoneObj.coords;
     createPlace(format("phone_%s", number), coords[0] + 10, coords[1] + 10, coords[0] - 10, coords[1] - 10);
@@ -359,12 +360,11 @@ event("onPlayerPhonePickUp", function(playerid, phoneObj) {
 
     phoneObj.isCalling = true;
 
-    local charId = getCharacterIdFromPlayerId(playerid);
-
     local node = findPhoneNodeBy({"to": phoneObj.number});
 
     // Есть входящий звонок, отвечаем
     if(node) {
+        local charId = getCharacterIdFromPlayerId(playerid);
         msg(playerid, "telephone.callstart", CL_SUCCESS);
         msg(getPlayerIdFromCharacterId(node.subscribers[0]), "telephone.callstart", CL_SUCCESS);
         phoneNodeAddSubscriber(node.hash, charId);
@@ -372,10 +372,8 @@ event("onPlayerPhonePickUp", function(playerid, phoneObj) {
         return;
     }
 
-    addPhoneNode(charId, phoneObj.number);
-
     // Показать окно
-    delayedFunction(2000, function() {
+    delayedFunction(2500, function() {
         showPhoneGUI(playerid);
     });
 });
@@ -454,14 +452,14 @@ event("onPlayerDeath", function(playerid) {
 
 function stopCall(playerid) {
     local charId = getCharacterIdFromPlayerId(playerid);
+
+    trigger("onPlayerPhonePut", playerid);
+
     local node = findPhoneNodeBy({"subscribers": charId});
 
     if(!node) return;
 
-    if(isPlayerConnected(playerid)) {
-        msg(playerid, "telephone.callend", CL_WARNING);
-        trigger("onPlayerPhonePut", playerid);
-    }
+    msg(playerid, "telephone.callend", CL_WARNING);
 
     local companionCharId = getPhoneNodeCompanion(node, charId);
     if(companionCharId) {
