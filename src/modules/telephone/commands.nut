@@ -3,6 +3,8 @@ acmd("gotophone", function(playerid, phoneid) {
 });
 
 key("q", function(playerid) {
+    if (isPlayingAnim(playerid) == "playing") return;
+
     local phoneObj = getPlayerPhoneObj(playerid);
     if (!phoneObj) return;
 

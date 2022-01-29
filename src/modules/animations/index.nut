@@ -10,15 +10,29 @@ function removePlayerAnim (charId) {
         return true;
     }
     return false;
-}
+};
 
 function getCharsAnims () {
     return charsAnims;
-}
+};
 
 function getCharAnim (charid) {
     return charsAnims[charid];
-}
+};
+
+function isPlayingAnim (playerid) {
+    local charId = getCharacterIdFromPlayerId(playerid);
+    if (charId in charsAnims) {
+        if (charsAnims[charId][2]) {
+            return "idling";
+        } else {
+            return "playing";
+        }
+    } else {
+        return null;
+    }
+};
+
 
 function sendAnimation(playerid, data, id=-1) {
     local defaultArgs = {

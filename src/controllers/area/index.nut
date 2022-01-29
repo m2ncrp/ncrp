@@ -139,7 +139,7 @@ function removeArea(name) {
     local id = md5(name);
 
     if (!(id in areaRegister)) {
-        return dbg("trying to remove non-exiting place: " + place);
+        return dbg("trying to remove non-exiting area: " + name);
     }
 
     if ("players" in getroottable()) {
