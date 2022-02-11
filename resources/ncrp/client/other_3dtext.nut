@@ -16,17 +16,18 @@ event("onClientFrameRender", function(post) {
 
     local clone_3Dtext_objects = clone(_3Dtext_objects);
 
-    foreach(i,obj in clone_3Dtext_objects) {
+    local lclPos;
+    if (isPlayerInVehicle(getLocalPlayer())) {
+        lclPos = getVehiclePosition(getPlayerVehicle(getLocalPlayer()));
+    } else {
+        lclPos = getPlayerPosition(getLocalPlayer());
+    }
 
+    if (typeof(lclPos) != "array") return;
+
+    foreach(i, obj in clone_3Dtext_objects) {
         local pos = obj.pos;
-        local lclPos;
-        if (isPlayerInVehicle(getLocalPlayer())) {
-            lclPos = getVehiclePosition(getPlayerVehicle(getLocalPlayer()));
-        } else {
-            lclPos = getPlayerPosition(getLocalPlayer());
-        }
 
-        if (typeof(lclPos) != "array") return;
         local fDistance = pow(pos.x - lclPos[0], 2) + pow(pos.y - lclPos[1], 2) + pow(pos.z - lclPos[2], 2);
 
         if (fDistance <= pow(obj.distance, 2)/* && (i in _3Dtext_vectors) && _3Dtext_vectors[i][2] < 1*/) {

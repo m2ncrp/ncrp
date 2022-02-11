@@ -147,9 +147,9 @@ event("onPlayerAreaEnter", function(playerid, name) {
 
 cmd("dealer", function(playerid) {
 
-    local plaPos = getPlayerPosition(playerid);
+    local plaPos = getPlayerPositionObj(playerid);
 
-    if(!isInArea("CarDealer", plaPos[0], plaPos[1])) {
+    if(!isInArea("CarDealer", plaPos.x, plaPos.y, plaPos.z)) {
         return msg(playerid, "cardealer.info.hint", CL_HELP);
     }
 
@@ -162,11 +162,11 @@ cmd("dealer", function(playerid) {
     }
 
     local vehicleid     = getPlayerVehicle( playerid );
-    local vehPos        = getVehiclePosition( vehicleid );
+    local vehPos        = getVehiclePositionObj( vehicleid );
     local modelid       = getVehicleModel( vehicleid );
     local entityid      = getVehicleEntityId( vehicleid );
 
-    if(!isInArea("CarDealer", vehPos[0], vehPos[1])) {
+    if(!isInArea("CarDealer", vehPos.x, vehPos.y, vehPos.z)) {
         return msg(playerid, "cardealer.action", CL_ERROR);
     }
 
@@ -188,14 +188,14 @@ cmd("dealer", "sell", function(playerid, price) {
 
     local vehicleid     = getPlayerVehicle( playerid );
     local entityid      = getVehicleEntityId( vehicleid );
-    local vehPos        = getVehiclePosition( vehicleid );
+    local vehPos        = getVehiclePositionObj( vehicleid );
     local modelid       = getVehicleModel( vehicleid );
     local modelName     = getVehicleNameByModelId( modelid );
     local plate         = getVehiclePlateText(vehicleid);
     local characterid   = getCharacterIdFromPlayerId(playerid);
 
 
-    if (!isInArea("CarDealer", vehPos[0], vehPos[1])) {
+    if (!isInArea("CarDealer", vehPos.x, vehPos.y, vehPos.z)) {
         return msg(playerid, "cardealer.action", CL_ERROR);
     }
 
@@ -325,13 +325,13 @@ cmd("dealer", "buy", function(playerid) {
 
     local vehicleid     = getPlayerVehicle( playerid );
     local entityid      = getVehicleEntityId( vehicleid );
-    local vehPos        = getVehiclePosition( vehicleid );
+    local vehPos        = getVehiclePositionObj( vehicleid );
     local modelid       = getVehicleModel( vehicleid );
     local modelName     = getVehicleNameByModelId( modelid );
     local plate         = getVehiclePlateText( vehicleid );
     local characterid   = players[playerid].id;
 
-    if(!isInArea("CarDealer", vehPos[0], vehPos[1])) {
+    if(!isInArea("CarDealer", vehPos.x, vehPos.y, vehPos.z)) {
         return msg(playerid, "cardealer.action", CL_ERROR);
     }
 
@@ -427,13 +427,13 @@ cmd("dealer", "take", function(playerid) {
 
     local vehicleid     = getPlayerVehicle( playerid );
     local entityid      = getVehicleEntityId( vehicleid );
-    local vehPos        = getVehiclePosition( vehicleid );
+    local vehPos        = getVehiclePositionObj( vehicleid );
     local modelid       = getVehicleModel( vehicleid );
     local modelName     = getVehicleNameByModelId( modelid );
     local plate         = getVehiclePlateText( vehicleid );
     local characterid   = players[playerid].id;
 
-    if(!isInArea("CarDealer", vehPos[0], vehPos[1])) {
+    if(!isInArea("CarDealer", vehPos.x, vehPos.y, vehPos.z)) {
         return msg(playerid, "cardealer.action", CL_ERROR);
     }
 

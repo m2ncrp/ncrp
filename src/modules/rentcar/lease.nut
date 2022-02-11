@@ -14,7 +14,7 @@ function leaseCar(playerid) {
 
     local plaPos = getPlayerPosition(playerid);
 
-    // if(!isInArea("CarRent", plaPos[0], plaPos[1])) {
+    // if(!isInArea("CarRent", plaPos[0], plaPos[1], plaPos[2])) {
     //     return msg(playerid, "Сдать автомобиль в аренду можно на одной из площадок, которые обозначены на карте", CL_HELP);
     // }
 
@@ -142,7 +142,7 @@ function unleaseCar(playerid) {
 
     local plaPos = getPlayerPosition(playerid);
 
-    // if(!isInArea("CarRent", plaPos[0], plaPos[1])) {
+    // if(!isInArea("CarRent", plaPos[0], plaPos[1], plaPos[2])) {
     //     return msg(playerid, "Сдать автомобиль в аренду можно на одной из площадок, которые обозначены на карте", CL_HELP);
     // }
 
@@ -153,7 +153,7 @@ function unleaseCar(playerid) {
     local vehicleid     = getPlayerVehicle( playerid );
     local vehPos        = getVehiclePositionObj( vehicleid );
 
-    // if(!isInArea("CarRent", vehPos.x, vehPos.y)) {
+    // if(!isInArea("CarRent", vehPos.x, vehPos.y, vehPos.z)) {
     //     return msg(playerid, "Сдать автомобиль в аренду можно только в специальных местах.", CL_ERROR);
     // }
        // удаляет информацию о стоимости авто и позицию.
