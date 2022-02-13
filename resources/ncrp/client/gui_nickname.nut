@@ -14,56 +14,47 @@ local window;
 local input = [];
 local button = [];
 local label = [];
-local translation = [];
-
-function loadTranslation(){
-    translation.clear();
-    local text = {};
-    if(playerLocale == "en"){
-        text.CreationFirstName      <- "Firstname";
-        text.CreationLastName       <- "Lastname";
-        text.ExampleFName           <- "Firstname";
-        text.ExampleLName           <- "Lastname";
-        text.Change                 <-  "Change";
-        text.Generate               <- "Generate";
-        text.NicknameChange         <- "Nickname change";
-        text.Cancel <- "Cancel";
-        translation.push( text );
-    }
-    else if(playerLocale == "ru")
-    {
-        text.CreationFirstName      <- "Имя персонажа";
-        text.CreationLastName       <- "Фамилия персонажа";
-        text.ExampleFName           <- "Введите имя персонажа";
-        text.ExampleLName           <- "Введите фамилию персонажа";
-        text.Generate               <- "Подобрать";
-        text.Change                 <- "Изменить";
-        text.NicknameChange         <- "Смена имени";
-        text.Cancel                 <- "Отмена";
-        translation.push( text );
-    }
-}
+local translation =
+{"en": {
+        "creationFirstName": "Firstname",
+        "creationLastName":  "Lastname",
+        "exampleFName":      "Firstname",
+        "exampleLName":      "Lastname",
+        "change":            "Change",
+        "generate":          "Generate",
+        "nicknameChange":    "Nickname change",
+        "cancel":            "Cancel"}
+"ru": {
+        "creationFirstName": "Имя персонажа",
+        "creationLastName":  "Фамилия персонажа",
+        "exampleFName":      "Введите имя персонажа",
+        "exampleLName":      "Введите фамилию персонажа",
+        "change":            "Подобрать",
+        "generate":          "Изменить",
+        "nicknameChange":    "Смена имени",
+        "cancel":            "Отмена"}
+};
 
 
-function nicknameChange(playerid, price){
+function nicknameChange(playerid, price, locale){
     if(window){//if widow created
         guiSetSize(window, 200.0, 250.0  );
         guiSetPosition(window,screen[0] /2 - 140, screen[1]/2 - 90.0);
         guiSetVisible( window, true);
     } else {//if widow doesn't created, create his
-        window = guiCreateElement( ELEMENT_TYPE_WINDOW,  translation[0].NicknameChange, screen[0] /2 - 140, screen[1]/2 - 90.0, 280.0, 180.0 );
+        window = guiCreateElement( ELEMENT_TYPE_WINDOW,  translation[locale].nicknameChange, screen[0] /2 - 140, screen[1]/2 - 90.0, 280.0, 180.0 );
 
 
-        label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationFirstName, 25.0, 15.0, 166.0, 50.0, false, window));//label[0]
-        input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].ExampleFName,     20.0, 50.0, 166.0, 20.0, false, window));//input[0]
+        label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[locale].creationFirstName, 25.0, 15.0, 166.0, 50.0, false, window));//label[0]
+        input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[locale].exampleFName,     20.0, 50.0, 166.0, 20.0, false, window));//input[0]
 
-        label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[0].CreationLastName, 25.0, 65.0, 166.0, 50.0, false, window));//label[1]
-        input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[0].ExampleLName,     20.0, 100.0, 166.0, 20.0, false, window));//input[1]
+        label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[locale].creationLastName, 25.0, 65.0, 166.0, 50.0, false, window));//label[1]
+        input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[locale].exampleLName,     20.0, 100.0, 166.0, 20.0, false, window));//input[1]
 
-        button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[0].Generate, 193.0, 50.0, 64.0, 20.0,false, window));//button[0]
-        button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[0].Generate, 193.0, 100.0, 64.0, 20.0,false, window));//button[1]
-        button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[0].Change + format(" (%s$)", price.tostring()), 20.0, 145.0, 115.0, 20.0,false, window));//button[2]
-        button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[0].Cancel, 140.0, 145.0, 115.0, 20.0,false, window));//button[3]
+        button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[locale].generate, 193.0, 50.0, 64.0, 20.0,false, window));//button[0]
+        button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[locale].generate, 193.0, 100.0, 64.0, 20.0,false, window));//button[1]
+        button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[locale].change + format(" (%s$)", price.tostring()), 20.0, 145.0, 115.0, 20.0,false, window));//button[2]
+        button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[locale].cancel, 140.0, 145.0, 115.0, 20.0,false, window));//button[3]
     }
     guiSetAlwaysOnTop(window,true);
     guiSetSizable(window,false);
@@ -76,22 +67,22 @@ addEventHandler( "onGuiElementClick",
     function(element)
     {
         if(element == button[0]){
-            triggerServerEvent("generateNickname", "first");
+            triggerServerEvent("onGenerateNickname", "first");
         }
         if(element == button[1]){
-            triggerServerEvent("generateNickname", "last");
+            triggerServerEvent("onGenerateNickname", "last");
         }
         if(element == button[2]){
             local name = guiGetText(input[0]);
             local lastname = guiGetText(input[1]);
             local valid = (isValidName(name) && isValidLastName(lastname));
-                triggerServerEvent("changeNickname", name, lastname, valid);
+            triggerServerEvent("onChangeNickname", name, lastname, valid);
             hideNicknameGUI();
         }
         if(element == button[3]){
             hideNicknameGUI();
         }
-    });
+});
 
 
 function hideNicknameGUI () {
@@ -102,11 +93,6 @@ function hideNicknameGUI () {
 function hideCursor() {
     showCursor(false);
 }
-
-addEventHandler("onServerCharacterLoaded", function(locale){
-    playerLocale = locale;
-    loadTranslation();
-});
 
 function delayedFunction(time, callback, additional = null) {
     return additional ? timer(callback, time, 1, additional) : timer(callback, time, 1);
