@@ -120,7 +120,9 @@ function checkDistance(playerid, targetid, radius) {
     return checkDistanceBtwTwoPlayersLess(playerid, targetid, radius);
 }
 
-
+function getDistanceXYZ(X1, Y1, Z1, X2, Y2, Z2) {
+    return getDistanceBetweenPoints3D( X1, Y1, Z1, X2, Y2, Z2 );
+}
 
 function checkDistanceXYZ(X1, Y1, Z1, X2, Y2, Z2, radius) {
     local distance = getDistanceBetweenPoints3D( X1, Y1, Z1, X2, Y2, Z2 );

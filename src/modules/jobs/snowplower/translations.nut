@@ -5,6 +5,9 @@ alternativeTranslate({
     "en|job.snowplow.badworker"                 :   "You are a bad worker. We haven't job for you."
     "ru|job.snowplow.badworker"                 :   "Увы, но нам нужны только ответственные водители."
 
+    "en|job.snowplow.nojob"                     :   "There is no work now. Come to another time."
+    "ru|job.snowplow.nojob"                     :   "Сейчас уборка не требуется. Приходи в другое время."
+
     "en|job.snowplow.badworker.onleave"         :   "You are a bad worker. Get out of here."
     "ru|job.snowplow.badworker.onleave"         :   "Плохой из тебя работник."
 

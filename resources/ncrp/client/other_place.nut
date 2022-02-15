@@ -104,7 +104,7 @@ addEventHandler("onClientFrameRender", function(isGUIdrawn) {
 
         local fDis = pow(line.points.a.x - localPos[0], 2) + pow(line.points.a.y - localPos[1], 2);
 
-        if (fDis > 10000) continue;
+        if (fDis > 22500) continue;
 
         dxDrawLineWorld(line.points.a.x, line.points.a.y, line.points.a.z, line.points.b.x, line.points.b.y, line.points.b.z, 0xFFFFFFFF);
     }
