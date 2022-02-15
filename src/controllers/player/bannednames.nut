@@ -37,8 +37,9 @@ event("onServerStarted", function() {
  * Usage:
  *     /banname 15
  */
-acmd("banname", function(playerid, targetid, subject = 0) {
-    local targetid = targetid.tointeger();
+acmd("banname", function(playerid, sessionId, subject = 0) {
+    local sessionId = sessionId.tointeger();
+    local targetid = getPlayerIdByPlayerSessionId(sessionId);
 
     if (!isPlayerLoaded(targetid)) {
         return msg(playerid, "Player character is not yet loaded, wait!");
@@ -61,7 +62,7 @@ acmd("banname", function(playerid, targetid, subject = 0) {
         return msg(playerid, "Например: /banname 9 last");
     }
 
-    local ban   = BannedName();
+    local ban = BannedName();
 
     // Badname: Durak Johnson
     if(subject == "first") {
@@ -96,7 +97,6 @@ acmd("banname", function(playerid, targetid, subject = 0) {
     ban.created   = time();
     ban.save();
 
-    // kick and delete player character
     local character = players[targetid];
     kick(playerid, targetid, plocalize(targetid, "character.invalid.rpname"));
     delayedFunction(1000, function() {
