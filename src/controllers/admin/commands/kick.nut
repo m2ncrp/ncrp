@@ -6,7 +6,7 @@
  */
 function kick(playerid, targetid, ...) {
 
-    local targetid = getPlayerIdByPlayerSessionId(targetid.tointeger());
+    local targetid = targetid.tointeger();
     local reason   = concat(vargv);
 
     if (!isPlayerConnected(targetid)) {
@@ -30,7 +30,7 @@ function kick(playerid, targetid, ...) {
     }
 
     msg(targetid, "admin.kick.hasbeenkicked", [ reason ], CL_RED);
-    msg(playerid, "admin.kick.kicked"        , [ getPlayerName(targetid), reason ], CL_SUCCESS);
+    msg(playerid, "admin.kick.kicked", [ getPlayerName(targetid), reason ], CL_SUCCESS);
 
     // remove player from players array (disabling chats and stuff)
     removePlayer(targetid, reason);
