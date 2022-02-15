@@ -30,22 +30,32 @@ event("onGenerateNickname", function (playerid, name) {
 
 event("onChangeNickname", function (playerid, firstname, lastname, valid) {
     if (!valid) return msg(playerid, "nickname.change.incorrect", CL_ERROR);
+
     if (!canMoneyBeSubstracted(playerid, NICKNAME_CHANGE_PRICE)) return msg(playerid, "nickname.change.notenoughmoney", CL_ERROR);
+
     if (!canChangeName(playerid)) return msg(playerid, "nickname.change.unavailable", CL_ERROR);
+
     players[playerid].firstname = firstname;
     players[playerid].lastname = lastname;
     subPlayerMoney(playerid, NICKNAME_CHANGE_PRICE);
+
     return msg(playerid, "nickname.change.success", format("%s %s", firstname, lastname), CL_SUCCESS);
 });
 
 function canChangeName(playerid) {
-    local charid = getCharacterIdFromPlayerId(playerid);
-    local request = getPassportRequestByCharid(charid);
-    if (request != false) {
-        if (request.status != "rejected"){
-            return false
-        }
+
+    if(players[playerid].getData("passport")) {
+        return false;
     }
+
+    local charid = getCharacterIdFromPlayerId(playerid);
+    local requestByName = getPassportRequestByName(getPlayerName(playerid));
+    local requestByCharId = getPassportRequestByCharid(charid);
+
+    if ((requestByName && requestByName.status != "rejected") || (requestByCharId && requestByName.status != "rejected")) {
+        return false;
+    }
+
     return true;
 };
 
@@ -54,10 +64,10 @@ alternativeTranslate({
     "en|nickname.change.pickup"        : "CHANGE NICKNAME"
     "ru|nickname.change.pickup"        : "СМЕНА ИМЕНИ"
 
-    "en|nickname.change.unavailable"   : "You can't change your nickname right now"
-    "ru|nickname.change.unavailable"   : "Вы не можете изменить имя в данный момент"
+    "en|nickname.change.unavailable"   : "You can't change your name"
+    "ru|nickname.change.unavailable"   : "Вы не можете изменить имя."
 
-    "en|nickname.change.incorrect"   : "Incorrect Name"
+    "en|nickname.change.incorrect"   : "Incorrect name"
     "ru|nickname.change.incorrect"   : "Некорректное имя или фамилия"
 
     "en|nickname.change.notenoughmoney" : "You don't have enough money"
