@@ -68,7 +68,7 @@ local WEATHER = "DTFreeRideDaySnow";
     // DT_RTRclear_day_late_even
 
 local season = "winter";
-local year = "1950";
+local year = "1940";
 local modelIndex = 0;
 
 local characters = [];

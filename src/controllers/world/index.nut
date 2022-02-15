@@ -111,7 +111,8 @@ function getBirthdate(birthdate) {
     local bdate = split(birthdate, ".").map(function(k) { return k.tointeger() });
     local age = __world.year - bdate[2].tointeger();
 
-    return format("%d %s (возраст: %d %s)", bdate[0], localize("world.month."+bdate[1], [], "ru"), age, declOfNum(age, ["год", "года", "лет"]));
+    // return format("%d %s (возраст: %d %s)", bdate[0], localize("world.month."+bdate[1], [], "ru"), age, declOfNum(age, ["год", "года", "лет"]));
+    return format("%d %s", bdate[0], localize("world.month."+bdate[1], [], "ru"));
 }
 
 function getVirtualYear() {
