@@ -27,6 +27,16 @@ function getPassportRequestByCharid(charid) {
     return false;
 }
 
+function getPassportRequestByName(name) {
+    foreach (idx, object in passportRequests) {
+        if(object.fio == name) {
+            return object;
+        }
+    }
+
+    return false;
+}
+
 function getPassportRequest(id) {
     foreach (idx, object in passportRequests) {
         if(object.id == id) {
@@ -257,8 +267,6 @@ cmd("passport", function( playerid) {
 
 
     // оформляем заявку
-    // players[playerid].setData("passport", "needsolution");
-
     local request = PassportRequest();
     request.fio = format("%s %s", char.firstname, char.lastname);
     request.charid = char.id;
