@@ -131,10 +131,10 @@ addEventHandler("onChangeRandomLastname", function(value){
 
 
 function isValidName(name){
-    local check = regexp("^[A-Z][a-z]*$");
+    local check = regexp("[A-Z][a-z]{1,16}");
     return check.match(name);
 }
 function isValidLastName(name){
-    local check = regexp("^([A-Z][a-z]{1,22})$");
+    local check = regexp("[A-Z][a-z]{1,16}");
     return check.match(name);
 }
