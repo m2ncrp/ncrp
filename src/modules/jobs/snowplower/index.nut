@@ -296,7 +296,7 @@ addJobEvent("q", SNOWPLOW_JOB_NAME, "complete", snowplowJobLeave);
 Event: JOB - Snowplow driver - Get salary
 */
 function snowplowGetSalary( playerid ) {
-    local amount = job_snowplow[getCharacterIdFromPlayerId(playerid)]["route"].cost + getSalaryBonus();
+    local amount = getGovernmentValue("salarySnowplowDriver") + getSalaryBonus();
     players[playerid].data.jobs.snowplowdriver.count += 1;
     addPlayerMoney(playerid, amount);
     subTreasuryMoney(amount);

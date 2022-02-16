@@ -15,6 +15,7 @@ local availableActs = [
     "taxVehicleRate",
     "taxSales",
     "unemployedIncome",
+    "salarySnowplowDriver",
     "busTicketPrice",
     "subwayTicketPrice",
     "hospitalTreatmentPrice",
