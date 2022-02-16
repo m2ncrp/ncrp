@@ -14,47 +14,69 @@ local window;
 local input = [];
 local button = [];
 local label = [];
+local y = 0;
 local translation =
-{"en": {
-        "creationFirstName": "Firstname",
-        "creationLastName":  "Lastname",
-        "exampleFName":      "Firstname",
-        "exampleLName":      "Lastname",
-        "change":            "Change",
-        "generate":          "Generate",
+{
+    "en": {
         "nicknameChange":    "Nickname change",
-        "cancel":            "Cancel"}
-"ru": {
-        "creationFirstName": "Имя персонажа",
-        "creationLastName":  "Фамилия персонажа",
-        "exampleFName":      "Введите имя персонажа",
-        "exampleLName":      "Введите фамилию персонажа",
-        "change":            "Подобрать",
-        "generate":          "Изменить",
+        "nationality":       "Nationality: %s",
+        "hint":              "You can't change nationality.\r\nChoose names according to nationality.",
+        "creationFirstName": "New firstname",
+        "creationLastName":  "New lastname",
+        "exampleFName":      "Enter new firstname",
+        "exampleLName":      "Enter new lastname",
+        "change":            "Change ($%s)",
+        "generate":          "Generate",
+        "cancel":            "Cancel",
+    },
+    "ru": {
         "nicknameChange":    "Смена имени",
-        "cancel":            "Отмена"}
+        "nationality":       "Национальность: %s",
+        "hint":              "Поменять национальность нельзя.\r\nВыбирайте имя и фамилию под национальность.",
+        "creationFirstName": "Новое имя персонажа",
+        "creationLastName":  "Новая фамилия персонажа",
+        "exampleFName":      "Введите новое имя",
+        "exampleLName":      "Введите новую фамилию",
+        "change":            "Изменить ($%s)",
+        "generate":          "Подобрать",
+        "cancel":            "Отмена",
+    }
 };
 
 
-function nicknameChange(playerid, price, locale){
+function nicknameChange(playerid, price, locale, nationality){
     if(window){//if widow created
-        guiSetSize(window, 200.0, 250.0  );
+        guiSetSize(window, 280.0, 240.0);
         guiSetPosition(window,screen[0] /2 - 140, screen[1]/2 - 90.0);
+        guiSetText(label[1], translation[locale].hint);
         guiSetVisible( window, true);
     } else {//if widow doesn't created, create his
-        window = guiCreateElement( ELEMENT_TYPE_WINDOW,  translation[locale].nicknameChange, screen[0] /2 - 140, screen[1]/2 - 90.0, 280.0, 180.0 );
+        window = guiCreateElement( ELEMENT_TYPE_WINDOW,  translation[locale].nicknameChange, screen[0] /2 - 140, screen[1]/2 - 90.0, 280.0, 240.0 );
+
+        y += 25.0;
+        label.push(guiCreateElement( ELEMENT_TYPE_LABEL, format(translation[locale].nationality, nationality), 22.0, y, 250.0, 20.0, false, window));//label[0]
+
+        y += 18.0;
+        label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[locale].hint, 22.0, y, 250.0, 45.0, false, window));//label[0]
 
 
-        label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[locale].creationFirstName, 25.0, 15.0, 166.0, 50.0, false, window));//label[0]
-        input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[locale].exampleFName,     20.0, 50.0, 166.0, 20.0, false, window));//input[0]
+        y += 43.0;
+        label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[locale].creationFirstName, 22.0, y, 166.0, 20.0, false, window));//label[1]
 
-        label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[locale].creationLastName, 25.0, 65.0, 166.0, 50.0, false, window));//label[1]
-        input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[locale].exampleLName,     20.0, 100.0, 166.0, 20.0, false, window));//input[1]
+        y += 22.0;
+        input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[locale].exampleFName,      20.0, y, 166.0, 20.0, false, window));//input[0]
+        button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[locale].generate,       191.0, y, 64.0, 20.0, false, window));//button[0]
 
-        button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[locale].generate, 193.0, 50.0, 64.0, 20.0,false, window));//button[0]
-        button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[locale].generate, 193.0, 100.0, 64.0, 20.0,false, window));//button[1]
-        button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[locale].change + format(" (%s$)", price.tostring()), 20.0, 145.0, 115.0, 20.0,false, window));//button[2]
-        button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[locale].cancel, 140.0, 145.0, 115.0, 20.0,false, window));//button[3]
+        y += 28.0;
+        label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[locale].creationLastName, 22.0, y, 166.0, 20.0, false, window));//label[2]
+
+        y += 22.0;
+        input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[locale].exampleLName,     20.0, y, 166.0, 20.0, false, window));//input[1]
+        button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[locale].generate,      191.0, y, 64.0, 20.0, false, window));//button[1]
+
+        y += 35.0;
+        button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, format(translation[locale].change, price.tostring()), 20.0, y, 115.0, 30.0, false, window));//button[2]
+        button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[locale].cancel, 140.0, y, 115.0, 30.0, false, window));//button[3]
     }
     guiSetAlwaysOnTop(window,true);
     guiSetSizable(window,false);
@@ -63,30 +85,32 @@ function nicknameChange(playerid, price, locale){
 addEventHandler("nicknameChange", nicknameChange);
 
 
-addEventHandler( "onGuiElementClick",
-    function(element)
-    {
-        if(element == button[0]){
-            triggerServerEvent("onGenerateNickname", "first");
-        }
-        if(element == button[1]){
-            triggerServerEvent("onGenerateNickname", "last");
-        }
-        if(element == button[2]){
-            local name = guiGetText(input[0]);
-            local lastname = guiGetText(input[1]);
-            local valid = (isValidName(name) && isValidLastName(lastname));
-            triggerServerEvent("onChangeNickname", name, lastname, valid);
-            hideNicknameGUI();
-        }
-        if(element == button[3]){
-            hideNicknameGUI();
-        }
+addEventHandler( "onGuiElementClick", function(element) {
+    if(element == button[0]){
+        triggerServerEvent("onGenerateNickname", "first");
+    }
+
+    if(element == button[1]){
+        triggerServerEvent("onGenerateNickname", "last");
+    }
+
+    if(element == button[2]){
+        local name = guiGetText(input[0]);
+        local lastname = guiGetText(input[1]);
+        local valid = (isValidName(name) && isValidLastName(lastname));
+        triggerServerEvent("onChangeNickname", name, lastname, valid);
+        hideNicknameGUI();
+    }
+
+    if(element == button[3]){
+        hideNicknameGUI();
+    }
 });
 
 
 function hideNicknameGUI () {
-    guiSetVisible(window,false);
+    guiSetVisible(window, false);
+    guiSetText(label[1], "");
     delayedFunction(200, hideCursor); //todo fix
 }
 
@@ -111,6 +135,6 @@ function isValidName(name){
     return check.match(name);
 }
 function isValidLastName(name){
-    local check = regexp("^((O\'|Mc)?[A-Z][a-z]{1,16})$");
+    local check = regexp("^([A-Z][a-z]{1,22})$");
     return check.match(name);
 }

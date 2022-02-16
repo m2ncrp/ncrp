@@ -13,7 +13,9 @@ event("onServerPlayerStarted", function(playerid) {
 key("e", function(playerid) {
     if (isInRadius(playerid, NICKNAME_CHANGE_COORD.x, NICKNAME_CHANGE_COORD.y, NICKNAME_CHANGE_COORD.z, 2.0)) {
         if (!canChangeName(playerid)) return msg(playerid, "nickname.change.unavailable", CL_ERROR);
-        triggerClientEvent(playerid, "nicknameChange", playerid, NICKNAME_CHANGE_PRICE, getPlayerLocale(playerid));
+
+        local char = players[playerid];
+        triggerClientEvent(playerid, "nicknameChange", playerid, NICKNAME_CHANGE_PRICE, getPlayerLocale(playerid), plocalize(playerid, "nationality."+char.nationality));
     };
 }, KEY_UP);
 
@@ -52,7 +54,7 @@ function canChangeName(playerid) {
     local requestByName = getPassportRequestByName(getPlayerName(playerid));
     local requestByCharId = getPassportRequestByCharid(charid);
 
-    if ((requestByName && requestByName.status != "rejected") || (requestByCharId && requestByName.status != "rejected")) {
+    if ((requestByName && requestByName.status != "rejected") || (requestByCharId && requestByCharId.status != "rejected")) {
         return false;
     }
 

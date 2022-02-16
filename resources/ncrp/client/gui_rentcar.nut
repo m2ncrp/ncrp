@@ -42,8 +42,8 @@ function hideCursor() {
 }
 
 function hideRentCarGUI () {
-    guiSetVisible(window,false);
-    guiSetText( label, "");
+    guiSetVisible(window, false);
+    guiSetText(label, "");
     delayedFunction(100, hideCursor);//todo fix
 }
 
