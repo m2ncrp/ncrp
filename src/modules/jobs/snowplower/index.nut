@@ -4,7 +4,7 @@ include("modules/jobs/snowplower/translations.nut");
 include("modules/jobs/snowplower/nodes.nut");
 include("modules/jobs/snowplower/edges.nut");
 
-include("modules/jobs/snowplower/drawer.nut");
+// include("modules/jobs/snowplower/drawer.nut");
 
 // game.traffic:SwitchGenerators(xx) xx = true\false
 // game.traffic:Populate(##) ##=0..100
@@ -26,7 +26,6 @@ include("modules/jobs/snowplower/drawer.nut");
 //include("modules/jobs/snowplow/commands.nut");
 
 local job_snowplow = {};
-local job_snowplow_blocked = {};
 
 local routes = {};
 
@@ -46,7 +45,7 @@ local SNOWPLOW_JOB_NAME = "snowplowdriver";
 local SNOWPLOW_JOB_SNOWPLOWSTOP = "CHECKPOINT";
 local SNOWPLOW_JOB_DISTANCE = 100;
 local SNOWPLOW_JOB_LEVEL = 1;
-      SNOWPLOW_JOB_COLOR <- CL_ROYALBLUE;
+      SNOWPLOW_JOB_COLOR <- CL_MALIBU;
 local SNOWPLOW_JOB_GET_HOUR_START        = 0  ;   // 6;
 local SNOWPLOW_JOB_GET_HOUR_END          = 23 ;   // 9;
 local SNOWPLOW_JOB_LEAVE_HOUR_START      = 0  ;   // 20;
@@ -63,11 +62,34 @@ local nodes = getSnowplowNodes();
 event("onServerStarted", function() {
     logStr("[jobs] loading snowplow job...");
 
-    createVehicle(39, -372.233, 593.342, -9.96686, -89.1468, 1.52338, 0.0686706);
-    createVehicle(39, -374.524, 589.011, -9.96381, -56.7532, 1.17279, 0.934235);
-    createVehicle(39, -380.797, 588.42, -9.95933, -56.3861, 1.20405, 0.900966);
+    local vehsp1 = createVehicle(39, -372.233, 593.342, -9.96686, -89.1468, 1.52338, 0.0686706);
+    local vehsp2 = createVehicle(39, -374.524, 589.011, -9.96381, -56.7532, 1.17279, 0.934235);
+    local vehsp3 = createVehicle(39, -380.797, 588.42, -9.95933, -56.3861, 1.20405, 0.900966);
+
+    setVehicleFuelEx(vehsp1, getDefaultVehicleFuel(vehsp1));
+    setVehicleFuelEx(vehsp2, getDefaultVehicleFuel(vehsp2));
+    setVehicleFuelEx(vehsp3, getDefaultVehicleFuel(vehsp3));
+
+    setVehicleColor(vehsp1, 18, 44, 69, 154, 154, 154);
+    setVehicleColor(vehsp2, 97, 46, 10, 154, 154, 154);
+    setVehicleColor(vehsp3, 80, 80, 80, 154, 154, 154);
+
+    setVehicleDirtLevel(vehsp1, 0.0);
+    setVehicleDirtLevel(vehsp2, 0.0);
+    setVehicleDirtLevel(vehsp3, 0.0);
 
     registerPersonalJobBlip("snowplowdriver", SNOWPLOW_JOB_X, SNOWPLOW_JOB_Y);
+
+    foreach (idx, point in nodes) {
+        createPlace("snowplowZone_"+idx,
+            point.coords.x - 1.5,
+            point.coords.y + 1.5,
+            point.coords.x + 1.5,
+            point.coords.y - 1.5,
+            point.coords.z - 0.5,
+            3.0
+        );
+    }
 });
 
 event("onPlayerConnect", function(playerid) {
@@ -89,10 +111,12 @@ event("onServerPlayerStarted", function( playerid ){
         createText (playerid, "leavejob3dtext", SNOWPLOW_JOB_X, SNOWPLOW_JOB_Y, SNOWPLOW_JOB_Z+0.05, plocalize(playerid, "3dtext.job.press.leave"), CL_WHITE.applyAlpha(100), RADIUS_SNOWPLOW_SMALL );
 
         if (getPlayerJobState(playerid) == "working") {
-            local snowplowId = job_snowplow[getCharacterIdFromPlayerId(playerid)]["route"].points[0];
-            job_snowplow[getCharacterIdFromPlayerId(playerid)]["snowplow3dtext"] = createPrivateSnowplowCheckpoint3DText(playerid, nodes[snowplowId].coords);
+            local charId = getCharacterIdFromPlayerId(playerid);
+            local route = job_snowplow[charId].route;
+            local snowplowId = route.nextPointId;
+            job_snowplow[charId]["snowplow3dtext"] = createPrivateSnowplowCheckpoint3DText(playerid, nodes[snowplowId].coords);
             trigger(playerid, "setGPS", nodes[snowplowId].coords.x, nodes[snowplowId].coords.y);
-            msg( playerid, "job.snowplow.continuesnowplowstop", SNOWPLOW_JOB_COLOR );
+            msg(playerid, "job.snowplow.continuesnowplowstop", SNOWPLOW_JOB_COLOR );
             return;
         }
 
@@ -202,11 +226,6 @@ function snowplowJobGet( playerid ) {
     //     return msg(playerid, "job.snowplow.needlevel", SNOWPLOW_JOB_LEVEL, SNOWPLOW_JOB_COLOR );
     // }
 
-    if (getCharacterIdFromPlayerId(playerid) in job_snowplow_blocked) {
-        if (getTimestamp() - job_snowplow_blocked[getCharacterIdFromPlayerId(playerid)] < SNOWPLOW_JOB_TIMEOUT) {
-            return msg( playerid, "job.snowplow.badworker", SNOWPLOW_JOB_COLOR);
-        }
-    }
     msg( playerid, "job.snowplow.driver.now", SNOWPLOW_JOB_COLOR );
     msg( playerid, "job.snowplow.driver.togetroute", CL_LYNCH );
     setPlayerJob( playerid, "snowplowdriver");
@@ -296,7 +315,11 @@ addJobEvent("q", SNOWPLOW_JOB_NAME, "complete", snowplowJobLeave);
 Event: JOB - Snowplow driver - Get salary
 */
 function snowplowGetSalary( playerid ) {
-    local amount = getGovernmentValue("salarySnowplowDriver") + getSalaryBonus();
+    local charId = getCharacterIdFromPlayerId(playerid);
+    local route = job_snowplow[charId].route;
+    local moneyForPoint = getGovernmentValue("salarySnowplowDriver");
+    msg(playerid, format("%d, %d", route.currentPointsCount, route.overSpeedCount));
+    local amount = moneyForPoint * route.currentPointsCount - (route.overSpeedCount > 0 ? moneyForPoint * route.overSpeedCount : 0.0) + getSalaryBonus();
     players[playerid].data.jobs.snowplowdriver.count += 1;
     addPlayerMoney(playerid, amount);
     subTreasuryMoney(amount);
@@ -338,78 +361,99 @@ function snowplowJobStartRoute( playerid ) {
     }
 
     setPlayerJobState( playerid, "working");
-    //jobSetPlayerModel( playerid, SNOWPLOW_JOB_SKIN );
 
     SNOWPLOW_ROUTE_NOW -= 1;
 
-    local targetPointsCount = random(100, 200);
+    local targetPointsCount = random(80, 120);
 
     local ts1 = getSnowplowNodeTimestamp(1);
     local ts101 = getSnowplowNodeTimestamp(101);
     local snowplowId = ts101 >= ts1 ? 101 : 1; // 1 or 101
 
     job_snowplow[getCharacterIdFromPlayerId(playerid)]["route"] <- {
+        // Рандомное количество точек до возврата на базу
         targetPointsCount = targetPointsCount,
+
+        // Текущее количество пройденных точек. Нужно для определения момента возврата на базу и расчёта ЗП
         currentPointsCount = 0,
-        lastPointId = snowplowId
+
+        // ID следующей точки
+        nextPointId = snowplowId,
+
+        // Количество превышений скорости
+        overSpeedCount = -1,
+
+        // Массив точек A*-маршрута возврата на базу
+        pointsToBase = null
     };
 
-    // msg( playerid, "Route: %d", [routeNumber] );
-    msg( playerid, "job.snowplow.startroute" , SNOWPLOW_JOB_COLOR );
-    msg( playerid, "job.snowplow.startroute2", SNOWPLOW_JOB_COLOR );
+    msg(playerid, "job.snowplow.startroute" , SNOWPLOW_JOB_COLOR);
+    msg(playerid, "job.snowplow.startroute2", SNOWPLOW_JOB_COLOR);
     job_snowplow[getCharacterIdFromPlayerId(playerid)]["snowplow3dtext"] = createPrivateSnowplowCheckpoint3DText(playerid, nodes[snowplowId].coords);
-
-    createPrivatePlace(playerid, "snowplowZone",
-        nodes[snowplowId].coords.x - 1.5,
-        nodes[snowplowId].coords.y + 1.5,
-        nodes[snowplowId].coords.x + 1.5,
-        nodes[snowplowId].coords.y - 1.5
-    );
 
     trigger(playerid, "setGPS", nodes[snowplowId].coords.x, nodes[snowplowId].coords.y);
 }
 addJobEvent("e", SNOWPLOW_JOB_NAME, null, snowplowJobStartRoute);
 
 
-
 event("onPlayerAreaEnter", function(playerid, name) {
     if (isSnowplowDriver(playerid) && isPlayerVehicleSnowplow(playerid) && getPlayerJobState(playerid) == "working") {
-        if(name == "snowplowZone") {
-            local vehicleid = getPlayerVehicle(playerid);
-            local speed = getVehicleSpeed(vehicleid);
-            local maxsp = max(fabs(speed[0]), fabs(speed[1]));
-            if(maxsp > 14) {
-                return msg(playerid, "job.snowplow.driving", CL_RED);
+
+        local parts = split(name, "_");
+
+        if(parts[0] != "snowplowZone") return;
+        local zoneId = parts[1].tointeger();
+
+        local charId = getCharacterIdFromPlayerId(playerid);
+        local route = job_snowplow[charId].route;
+
+        if(route.nextPointId != zoneId) return;
+
+        local vehicleid = getPlayerVehicle(playerid);
+        local speed = getVehicleSpeed(vehicleid);
+        local maxsp = max(fabs(speed[0]), fabs(speed[1]));
+
+        local charId = getCharacterIdFromPlayerId(playerid);
+        local route = job_snowplow[charId].route;
+
+        // Если превышение
+        if(maxsp > 14) {
+            route.overSpeedCount += 1;
+            if(route.overSpeedCount == 0) {
+                msg(playerid, "job.snowplow.overspeed.warn", CL_WARNING);
+            } else {
+                msg(playerid, "job.snowplow.overspeed.penalty", [route.overSpeedCount], CL_RED);
             }
-            removePrivateArea(playerid, "snowplowZone");
-            removeText( playerid, "snowplow_3dtext");
-            trigger(playerid, "removeGPS");
+        }
 
-            local charId = getCharacterIdFromPlayerId(playerid);
+        route.currentPointsCount += 1;
+        removeText( playerid, "snowplow_3dtext");
+        trigger(playerid, "removeGPS");
 
-            local route = job_snowplow[charId].route;
+        // Строим маршрут до базы
+        if (route.currentPointsCount == route.targetPointsCount) {
+            route.pointsToBase = findPath(route.nextPointId, 0);
+        }
 
-            route.currentPointsCount += 1;
-
-            if (route.currentPointsCount == route.targetPointsCount) { // TODO
+        local nextPointId = null;
+        if(route.pointsToBase == null) {
+            local nextPoints = edges[route.nextPointId];
+            nextPointId = nextPoints[random(0, nextPoints.len() - 1)]; // TODO сделать выбор с учётом последней чистки
+        } else {
+            route.pointsToBase.remove(0);
+            if(route.pointsToBase.len() > 0) {
+                nextPointId = route.pointsToBase[0];
+            } else {
                 blockDriving(playerid, vehicleid);
                 msg(playerid, "job.snowplow.gototakemoney", SNOWPLOW_JOB_COLOR);
                 setPlayerJobState(playerid, "complete");
                 return;
             }
-
-            local nextPoints = edges[route.lastPointId];
-            local snowplowId = nextPoints[random(0, nextPoints.len() - 1)];
-
-            trigger(playerid, "setGPS", nodes[snowplowId].coords.x, nodes[snowplowId].coords.y);
-            job_snowplow[charId].snowplow3dtext = createPrivateSnowplowCheckpoint3DText(playerid, nodes[snowplowId].coords);
-            createPrivatePlace(playerid, "snowplowZone",
-                nodes[snowplowId].coords.x - 1.5,
-                nodes[snowplowId].coords.y + 1.5,
-                nodes[snowplowId].coords.x + 1.5,
-                nodes[snowplowId].coords.y - 1.5
-            );
         }
+
+        route.nextPointId = nextPointId;
+        trigger(playerid, "setGPS", nodes[nextPointId].coords.x, nodes[nextPointId].coords.y);
+        job_snowplow[charId].snowplow3dtext = createPrivateSnowplowCheckpoint3DText(playerid, nodes[nextPointId].coords);
     }
 });
 
@@ -424,7 +468,6 @@ function findPath(indexStart, indexEnd) {
         "f": 0,
         "parent": null
      };
-
 
     local activePoint = indexStart;
 
@@ -562,62 +605,6 @@ function findPath(indexStart, indexEnd) {
 
     return resolvePath();
 }
-
-
-
-// function findPath(indexStart, indexEnd) {
-//     local result = [];
-
-//     function find(id, nextPoints) {
-//         local bestNextPointId;
-//         if(edges[id].len() > 1) {
-//             local distances = nextPoints.map(function(pointId) {
-//                 return getDistanceXYZ(
-//                     nodes[pointId].coords.x,
-//                     nodes[pointId].coords.y,
-//                     nodes[pointId].coords.z,
-//                     nodes[indexEnd].coords.x,
-//                     nodes[indexEnd].coords.y,
-//                     nodes[indexEnd].coords.z
-//                 )
-//             });
-
-//             dbg("distances", distances)
-
-//             local minDistance = minOfArray(distances);
-
-//             dbg("minDistance", minDistance)
-//             local idx = distances.find(minDistance);
-//             dbg("idx", idx)
-//             bestNextPointId = nextPoints[idx];
-//         } else {
-//             bestNextPointId = nextPoints[0];
-//         }
-
-//         dbg("edges[id]", edges[id])
-//         dbg("bestNextPointId", bestNextPointId)
-
-//         if(result.find(bestNextPointId) != null) {
-//             local clonedPoints = edges[id].filter(function(i, item) {
-//                 return item != bestNextPointId;
-//             })
-//             find(id, clonedPoints);
-//             return;
-//         }
-
-//         result.push(bestNextPointId);
-
-//         dbg("result")
-
-//         if(bestNextPointId == indexEnd) return;
-
-//         find(bestNextPointId, clone edges[bestNextPointId]);
-//     }
-
-//     find(indexStart, clone edges[indexStart]);
-
-//     return result;
-// }
 
 event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     if (isSnowplowDriver(playerid) && getVehicleModel(vehicleid) == 39 && getPlayerJobState(playerid) == "complete") {

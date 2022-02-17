@@ -4,8 +4,6 @@ local nodesTimestamps = {};
 
 event("onServerStarted", function() {
     snowplowNodesLoadedData();
-
-    dbg(nodesTimestamps.len())
 });
 
 function snowplowNodesLoadedData() {

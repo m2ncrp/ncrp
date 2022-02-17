@@ -2982,12 +2982,3 @@ foreach (idx, value in edgesSource) {
 function getSnowplowEdges() {
 	return edges;
 }
-
-local k = 0;
-foreach (idx, value in edges) {
-    foreach (idy, point in value) {
-        k+=1;
-    }
-}
-
-dbg("edges", k)

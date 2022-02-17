@@ -4,14 +4,6 @@ local edges = getSnowplowEdges();
 event("onServerStarted", function() {
     foreach (idx, point in nodes) {
         create3DText(point.coords.x, point.coords.y, point.coords.z+0.35, "POINT "+idx, CL_RIPELEMON, 75.0 );
-        createPlace("snowplowZone_"+idx,
-            point.coords.x - 1.5,
-            point.coords.y + 1.5,
-            point.coords.x + 1.5,
-            point.coords.y - 1.5,
-            point.coords.z - 0.5,
-            3.0
-        );
     }
 
     foreach (idx, edge in edges) {
@@ -30,7 +22,7 @@ event("onServerStarted", function() {
     }
 });
 
-local record = true;
+local record = false;
 local prevId = null;
 
 key("y", function(playerid) {
