@@ -5,8 +5,13 @@ local NICKNAME_CHANGE_COORD = {
     "z": -15.6957
 };
 
+event("onServerStarted", function() {
+    createBlip(NICKNAME_CHANGE_COORD.x, NICKNAME_CHANGE_COORD.y, [7 ,  4], ICON_RANGE_VISIBLE);
+});
+
+
 event("onServerPlayerStarted", function(playerid) {
-    createPrivate3DText(playerid, NICKNAME_CHANGE_COORD.x, NICKNAME_CHANGE_COORD.y, NICKNAME_CHANGE_COORD.z+0.35, plocalize(playerid,"nickname.change.pickup"), CL_RIPELEMON, 5.0);
+    createPrivate3DText(playerid, NICKNAME_CHANGE_COORD.x, NICKNAME_CHANGE_COORD.y, NICKNAME_CHANGE_COORD.z+0.35, plocalize(playerid,"nickname.change.pickup"), CL_RIPELEMON, 15.0);
     createPrivate3DText(playerid, NICKNAME_CHANGE_COORD.x, NICKNAME_CHANGE_COORD.y, NICKNAME_CHANGE_COORD.z+0.20, plocalize(playerid, "3dtext.job.press.E"), CL_WHITE.applyAlpha(150), 2.0);
 });
 
@@ -40,6 +45,20 @@ event("onChangeNickname", function (playerid, firstname, lastname, valid) {
     players[playerid].firstname = firstname;
     players[playerid].lastname = lastname;
     subPlayerMoney(playerid, NICKNAME_CHANGE_PRICE);
+    addTreasuryMoney(NICKNAME_CHANGE_PRICE);
+    nano({
+        "path": "discord",
+        "server": "gov",
+        "channel": "treasury",
+        "action": "add",
+        "title": "Смена ника",
+        "description": "Приход. Перечислено:",
+        "color": "green",
+        "datetime": getVirtualDate(),
+        "fields": [
+            ["В казну города", format("$ %.2f", NICKNAME_CHANGE_PRICE)]
+        ]
+    });
 
     return msg(playerid, "nickname.change.success", format("%s %s", firstname, lastname), CL_SUCCESS);
 });
