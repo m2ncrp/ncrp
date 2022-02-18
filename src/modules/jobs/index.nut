@@ -1,6 +1,6 @@
 /* ************************************************************************* */
 local SALARY_BONUS = 0.0;
-event("onPlayerConnect", function(playerid) {
+event("onServerPlayerStarted", function(playerid) {
     calcSalaryBonus();
 
     if(!("jobs" in players[playerid].data)) {

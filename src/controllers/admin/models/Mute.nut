@@ -9,7 +9,7 @@ class Mute extends ORM.Entity{
         ORM.Field.String({ name = "charname", value = "" }),
         ORM.Field.String({ name = "serial", value = "" }),
         ORM.Field.String({ name = "reason", value = "" }),
-        ORM.Field.String({ name = "owner" value = ""}),
+        ORM.Field.String({ name = "owner", value = ""}),
         ORM.Field.Integer({ name = "amount" }),
         ORM.Field.Integer({ name = "until" }),
         ORM.Field.Integer({ name = "created" }),

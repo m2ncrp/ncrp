@@ -41,20 +41,20 @@ alternativeTranslate({
     "en|job.snowplow.continuesnowplowstop"      :   "Continue the route."
     "ru|job.snowplow.continuesnowplowstop"      :   "Продолжайте движение по маршруту."
 
-    "en|job.snowplow.overspeed.warn"            :   "You have exceeded the allowed cleaning speed. Starting from the next excess, penalty points will be awarded that affect the final earnings"
-    "ru|job.snowplow.overspeed.warn"            :   "Вы превысили допустимую скорость уборки. Начиная со следующего превышения будут начисляться штрафные баллы, влияющие на ваш итоговый заработок."
+    "en|job.snowplow.overspeed.warn"            :   "You have exceeded the allowed cleaning speed. Starting from the next excess, penalty points will be awarded that affect the final earnings. 1 penalty point removes %d passed checkpoints."
+    "ru|job.snowplow.overspeed.warn"            :   "Вы превысили допустимую скорость уборки. Начиная со следующего превышения будут начисляться штрафные баллы, влияющие на ваш итоговый заработок. 1 штрафной балл снимает %d пройденных чекпоинта."
 
     "en|job.snowplow.overspeed.penalty"         :   "You have exceeded the allowed cleaning speed. Added 1 penalty point. Total: %d"
     "ru|job.snowplow.overspeed.penalty"         :   "Вы превысили допустимую скорость уборки. Добавлен 1 штрафной балл. Всего: %d"
 
+    "en|job.snowplow.bad-result"                :   "You did the cleaning poorly and earned nothing."
+    "ru|job.snowplow.bad-result"                :   "Вы плохо провели уборку и ничего не заработали."
 
     "en|job.snowplow.gototakemoney"             :   "Leave the snowplow truck and take your money."
-    "ru|job.snowplow.gototakemoney"             :   "Вылезайте из машины и забирайте деньги за работу."
+    "ru|job.snowplow.gototakemoney"             :   "Выйдите из машины и заберите деньги за работу."
 
     "en|job.snowplow.nicejob"                   :   "Nice job! You earned $%.2f"
     "ru|job.snowplow.nicejob"                   :   "Отличная работа! Вы заработали $%.2f."
-
-
 
     "en|job.snowplow.help.title"            :   "Controls for snowplow driver:"
     "ru|job.snowplow.help.title"            :   "Управление для водителя снегоуборочной машины:"

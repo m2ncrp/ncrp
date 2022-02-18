@@ -4,6 +4,6 @@ class SnowplowNode extends ORM.Entity {
     static table = "tbl_snowplow_nodes";
 
     static fields = [
-        ORM.Field.Integer({ name = "timestamp", }),
+        ORM.Field.Integer({ name = "timestamp" }),
     ];
 }
