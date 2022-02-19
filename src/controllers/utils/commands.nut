@@ -2,7 +2,7 @@
 //                                                          ADDITIONAL COMMAND
 //================================================================================================================================================
 
-acmd(["getGPS", "getpos"], function ( playerid, str ) {
+acmd(["getGPS", "getpos"], function (playerid, str = "unknown place") {
     local vehicleModel = -1;
     if( isPlayerInVehicle( playerid ) ) {
         local vehicleid = getPlayerVehicle( playerid ) ;
@@ -34,7 +34,7 @@ acmd(["getGPS", "getpos"], function ( playerid, str ) {
     pos.insert(0, vehicleModel);
 
     foreach (idx, value in rot) {
-        pos.push(value);
+        pos.push(format("%.5f", value));
     }
 
     // read rest of the input string (if there any)
@@ -62,6 +62,8 @@ acmd(["getGPS", "getpos"], function ( playerid, str ) {
     // and dont forget push newline before closing
     posfile.writen('\n', 'b');
     posfile.close();
+
+    msg(playerid, format("Position saved as %s", str), CL_ROSYBROWN);
 });
 
 
