@@ -10,6 +10,7 @@ include("controllers/player/character.nut");
 include("controllers/player/death.nut");
 include("controllers/player/mute.nut");
 include("controllers/player/positions.nut");
+include("controllers/player/rotations.nut");
 include("controllers/player/level.nut");
 include("controllers/player/job.nut");
 include("controllers/player/name.nut");
