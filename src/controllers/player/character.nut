@@ -133,6 +133,56 @@ event("onPlayerCharacterSelect", function(playerid, id) {
 });
 
 
+function validateCharacterName(firstname, lastname) {
+    /**
+     * Convert and validate string data
+     */
+    firstname = strip(firstname).slice(0, 1).toupper() + strip(firstname).slice(1).tolower();
+
+    local regexpBadLastname = regexp(@"(nin|nina|ov|ova|ev|eva|off|iy|aya|zyan|nyan|dze|ko|da|lya|chuk|ik)$").search(lastname);
+
+    if (!REGEX_FIRSTNAME.match(firstname) || !REGEX_LASTNAME.match(lastname) || firstname == lastname || regexpBadLastname) {
+        return false;
+    }
+
+    return true;
+}
+
+function isCharacterNameBanned(firstname, lastname) {
+    /**
+     * Check for name bans
+     */
+    local banned = false;
+
+    local q = ORM.Query("select * from @BannedName where ((firstname like :firstname and lastname = '') or (firstname like :lastname and lastname = '') or (firstname like :firstname and lastname like :lastname))");
+
+    q.setParameter("firstname", firstname);
+    q.setParameter("lastname",  lastname );
+
+    q.getResult(function(err, bans) {
+        banned = (!err && bans.len() > 0);
+    });
+
+    if (banned) {
+        return false;
+    }
+
+    return true;
+}
+
+function isCharacterNameAlreadyRegistered(firstname, lastname) {
+    /**
+     * Check for used names
+     */
+    Character.findBy({ firstname = firstname, lastname = lastname }, function(err, characters) {
+        if (err || characters.len()) {
+            return false
+        }
+    });
+
+    return true;
+}
+
 /**
  * Main function that validates inputted data
  * and verifies if its acutally ok to udpate or create new
@@ -148,82 +198,35 @@ event("onPlayerCharacterSelect", function(playerid, id) {
  */
 function validateAndUpdateCharacter(playerid, character, firstname, lastname, nationality, race, sex, birthdate, cskin) {
 
-    /**
-     * Convert and validate string data
-     */
-    firstname = strip(firstname).slice(0, 1).toupper() + strip(firstname).slice(1).tolower();
-
-    if (!REGEX_FIRSTNAME.match(firstname) || !REGEX_LASTNAME.match(lastname) || firstname == lastname) {
-        dbg("validateAndUpdateCharacter failed")
+    if(!validateCharacterName(firstname, lastname)) {
         return alert(playerid, "character.wrongname", [], 10);
     }
 
-    /**
-     * Check for name bans
-     */
-    local banned = false;
-    local regexpBannedFirstname = false;
-    local regexpBannedLastname = false;
-    local q = ORM.Query("select * from @BannedName where ((firstname like :firstname and lastname = '') or (firstname like :lastname and lastname = '') or (firstname like :firstname and lastname like :lastname))");
-
-    q.setParameter("firstname", firstname);
-    q.setParameter("lastname",  lastname );
-
-    q.getResult(function(err, bans) {
-        banned = (!err && bans.len() > 0);
-    });
-
-    regexpBannedLastname = regexp(@"([^ae]in|ov|ova|ev|eva|off|iy|yan|dze|[^sia|]ko|[^a]nko|vich|ik)$").search(lastname);
-
-    //([^ae]in|ov|ev|off|iy|yan|dze|[^sia|]ko|[^a]nko|vich|ik)$
-
-    if (banned || regexpBannedFirstname || regexpBannedLastname) {
+    if(isCharacterNameBanned(firstname, lastname)) {
         return alert(playerid, "character.bannednames", [], 10);
     }
 
-/*
+    if(isCharacterNameAlreadyRegistered(firstname, lastname)) {
+        return alert(playerid, "character.alreadyregistered", [], 10);
+    }
 
-    local qc = ORM.Query("select * from tbl_items where _entity = 'Item.Passport' and data->'$.fio' = concat(:firstname, ' ', :lastname) and STR_TO_DATE(data->'$.expires','\"%d.%m.%Y\"') >= STR_TO_DATE(:date, '%d.%m.%Y')");
+    // update data
+    character.accountid   = getAccountId(playerid);
+    character.name        = getAccountName(playerid);
+    character.firstname   = firstname;
+    character.lastname    = lastname;
+    character.nationality = nationality;
+    character.race        = race;
+    character.sex         = sex == "1" ? 1 : 0;
+    character.birthdate   = birthdate.tostring();
+    character.cskin       = cskin.tointeger();
+    character.dskin       = cskin.tointeger();
 
-    qc.setParameter("firstname", firstname);
-    qc.setParameter("lastname",  lastname );
-    qc.setParameter("date",  getDate() );
+    // save char
+    character.save();
 
-    qc.getResult(function(err, characters) {
-        if (err || characters.len()) {
-            return alert(playerid, "character.alreadyregistered", [], 10);
-        }
-
-        // альтернативный вариант проверки имён по наличию действующего паспорта.
-    })
- */
-
-    /**
-     * Check for used names
-     */
-    Character.findBy({ firstname = firstname, lastname = lastname }, function(err, characters) {
-        if (err || characters.len()) {
-            return alert(playerid, "character.alreadyregistered", [], 10);
-        }
-
-        // update data
-        character.accountid   = getAccountId(playerid);
-        character.name        = getAccountName(playerid);
-        character.firstname   = firstname;
-        character.lastname    = lastname;
-        character.nationality = nationality;
-        character.race        = race;
-        character.sex         = sex == "1" ? 1 : 0;
-        character.birthdate   = birthdate.tostring();
-        character.cskin       = cskin.tointeger();
-        character.dskin       = cskin.tointeger();
-
-        // save char
-        character.save();
-
-        // add to container
-        trigger("onPlayerCharacterLoaded", playerid, character);
-    });
+    // add to container
+    trigger("onPlayerCharacterLoaded", playerid, character);
 
     nano({
         "path": "discord-newcomers",
@@ -256,3 +259,21 @@ function getOfflineCharacter(characterid, callbackFn) {
         Character.findOneBy({ id = characterid }, callback);
     }
 }
+
+
+/*
+
+    local qc = ORM.Query("select * from tbl_items where _entity = 'Item.Passport' and data->'$.fio' = concat(:firstname, ' ', :lastname) and STR_TO_DATE(data->'$.expires','\"%d.%m.%Y\"') >= STR_TO_DATE(:date, '%d.%m.%Y')");
+
+    qc.setParameter("firstname", firstname);
+    qc.setParameter("lastname",  lastname );
+    qc.setParameter("date",  getDate() );
+
+    qc.getResult(function(err, characters) {
+        if (err || characters.len()) {
+            return alert(playerid, "character.alreadyregistered", [], 10);
+        }
+
+        // альтернативный вариант проверки имён по наличию действующего паспорта.
+    })
+ */
