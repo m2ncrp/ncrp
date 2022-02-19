@@ -9,7 +9,7 @@ if ((screenX / screenY) > 2.0) {
 }
 
 screen = [screenX, screenY];
-local playerLocale;
+local userLocale = "ru";
 local window;
 local input = [];
 local button = [];
@@ -44,39 +44,40 @@ local translation =
 };
 
 
-function nicknameChange(playerid, price, locale, nationality){
+function nicknameChange(playerid, price, locale, nationality) {
+    userLocale = locale;
     if(window){//if widow created
         guiSetSize(window, 280.0, 240.0);
         guiSetPosition(window,screen[0] /2 - 140, screen[1]/2 - 90.0);
         guiSetText(label[1], translation[locale].hint);
         guiSetVisible( window, true);
     } else {//if widow doesn't created, create his
-        window = guiCreateElement( ELEMENT_TYPE_WINDOW,  translation[locale].nicknameChange, screen[0] /2 - 140, screen[1]/2 - 90.0, 280.0, 240.0 );
+        window = guiCreateElement( ELEMENT_TYPE_WINDOW,  translation[userLocale].nicknameChange, screen[0] /2 - 140, screen[1]/2 - 90.0, 280.0, 240.0 );
 
         y += 25.0;
-        label.push(guiCreateElement( ELEMENT_TYPE_LABEL, format(translation[locale].nationality, nationality), 22.0, y, 250.0, 20.0, false, window));//label[0]
+        label.push(guiCreateElement( ELEMENT_TYPE_LABEL, format(translation[userLocale].nationality, nationality), 22.0, y, 250.0, 20.0, false, window));//label[0]
 
         y += 18.0;
-        label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[locale].hint, 22.0, y, 250.0, 45.0, false, window));//label[0]
+        label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[userLocale].hint, 22.0, y, 250.0, 45.0, false, window));//label[0]
 
 
         y += 43.0;
-        label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[locale].creationFirstName, 22.0, y, 166.0, 20.0, false, window));//label[1]
+        label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[userLocale].creationFirstName, 22.0, y, 166.0, 20.0, false, window));//label[1]
 
         y += 22.0;
-        input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[locale].exampleFName,      20.0, y, 166.0, 20.0, false, window));//input[0]
-        button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[locale].generate,       191.0, y, 64.0, 20.0, false, window));//button[0]
+        input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[userLocale].exampleFName,      20.0, y, 166.0, 20.0, false, window));//input[0]
+        button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[userLocale].generate,       191.0, y, 64.0, 20.0, false, window));//button[0]
 
         y += 28.0;
-        label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[locale].creationLastName, 22.0, y, 166.0, 20.0, false, window));//label[2]
+        label.push(guiCreateElement( ELEMENT_TYPE_LABEL, translation[userLocale].creationLastName, 22.0, y, 166.0, 20.0, false, window));//label[2]
 
         y += 22.0;
-        input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[locale].exampleLName,     20.0, y, 166.0, 20.0, false, window));//input[1]
-        button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[locale].generate,      191.0, y, 64.0, 20.0, false, window));//button[1]
+        input.push(guiCreateElement( ELEMENT_TYPE_EDIT,  translation[userLocale].exampleLName,     20.0, y, 166.0, 20.0, false, window));//input[1]
+        button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[userLocale].generate,      191.0, y, 64.0, 20.0, false, window));//button[1]
 
         y += 35.0;
-        button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, format(translation[locale].change, price.tostring()), 20.0, y, 115.0, 30.0, false, window));//button[2]
-        button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[locale].cancel, 140.0, y, 115.0, 30.0, false, window));//button[3]
+        button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, format(translation[userLocale].change, price.tostring()), 20.0, y, 115.0, 30.0, false, window));//button[2]
+        button.push(guiCreateElement( ELEMENT_TYPE_BUTTON, translation[userLocale].cancel, 140.0, y, 115.0, 30.0, false, window));//button[3]
     }
     guiSetAlwaysOnTop(window,true);
     guiSetSizable(window,false);
@@ -86,23 +87,35 @@ addEventHandler("nicknameChange", nicknameChange);
 
 
 addEventHandler( "onGuiElementClick", function(element) {
-    if(element == button[0]){
+    if(element == input[0]) {
+        if(guiGetText(input[0]) == translation[userLocale].exampleFName) {
+            guiSetText(input[0], "");
+        }
+    }
+
+    if(element == input[1]) {
+        if(guiGetText(input[1]) == translation[userLocale].exampleLName) {
+            guiSetText(input[1], "");
+        }
+    }
+
+    if(element == button[0]) {
         triggerServerEvent("onGenerateNickname", "first");
     }
 
-    if(element == button[1]){
+    if(element == button[1]) {
         triggerServerEvent("onGenerateNickname", "last");
     }
 
-    if(element == button[2]){
+    if(element == button[2]) {
         local name = guiGetText(input[0]);
         local lastname = guiGetText(input[1]);
         local valid = (isValidName(name) && isValidLastName(lastname));
         triggerServerEvent("onChangeNickname", name, lastname, valid);
-        hideNicknameGUI();
+        // hideNicknameGUI();
     }
 
-    if(element == button[3]){
+    if(element == button[3]) {
         hideNicknameGUI();
     }
 });

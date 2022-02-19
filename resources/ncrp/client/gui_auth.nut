@@ -20,6 +20,7 @@ local question;
 local buttonLock = false;
 
 local isAuth = null;
+local passwordPlaceholder = null;
 local locale = "ru";
 
 local blackRoundFrame;
@@ -72,7 +73,8 @@ local logorand = random(1, logos.len()-1);
 
 //image = guiCreateElement(13, "logo.png", screen[0]/2 - 203.0, screen[1]/2 - 145.0, 406.0, 266.0);
 
-function showAuthGUI(windowLabel, labelText, inputText, buttonText, helpText, forgotText){
+function showAuthGUI(windowLabel, labelText, inputText, buttonText, helpText, forgotText) {
+    passwordPlaceholder = inputText;
     //setPlayerPosition( getLocalPlayer(), -412.0, 1371.0, 36.0 );
     //setPlayerPosition( getLocalPlayer(), -746.0, 1278.0, 15.5 );
     blackRoundFrame = guiCreateElement(13,"other_mask.png", 0, 0, screen[0], screen[1]);
@@ -216,10 +218,12 @@ addEventHandler( "onGuiElementClick",function(element) {
         callEvent("onAlert", "Email", (locale == "ru" ? "Мы просим Вас указать действительный email\r\n на случай, если вы забудете логин или пароль.\r\nЕсли вы укажите недействительный email -\r\nвы не сможете восстановить доступ к аккаунту." : "Please enter your correct email to have opportunity\r\nto restore access to your game account\r\nin the event of loss."), 2);
     }
 
-    if(element == input[0]){
+    if(element == input[0]) {
         if(isAuth) {
-            guiSetText(input[0], "");
-            guiSetInputMasked(input[0], true );
+            guiSetInputMasked(input[0], true);
+            if(guiGetText(input[0]) == passwordPlaceholder) {
+                guiSetText(input[0], "");
+            }
         }
     }
 

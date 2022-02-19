@@ -163,24 +163,22 @@ function isCharacterNameBanned(firstname, lastname) {
         banned = (!err && bans.len() > 0);
     });
 
-    if (banned) {
-        return false;
-    }
-
-    return true;
+    return banned;
 }
 
-function isCharacterNameAlreadyRegistered(firstname, lastname) {
-    /**
+// isCharacterNameAlreadyRegistered("Paolo", "Guerra")
+function isCharacterNameAlreadyRegistered(firstname, lastname) {    /**
      * Check for used names
      */
+
+    local found = false;
     Character.findBy({ firstname = firstname, lastname = lastname }, function(err, characters) {
         if (err || characters.len()) {
-            return false
+            found = true
         }
     });
 
-    return true;
+    return found;
 }
 
 /**

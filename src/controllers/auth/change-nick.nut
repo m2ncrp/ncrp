@@ -36,14 +36,29 @@ event("onGenerateNickname", function (playerid, name) {
 });
 
 event("onChangeNickname", function (playerid, firstname, lastname, valid) {
-    if (!valid) return msg(playerid, "nickname.change.incorrect", CL_ERROR);
+    if (!valid)
+        return msg(playerid, "nickname.change.incorrect", CL_ERROR);
 
-    if (!canMoneyBeSubstracted(playerid, NICKNAME_CHANGE_PRICE)) return msg(playerid, "nickname.change.notenoughmoney", CL_ERROR);
+    if (!canMoneyBeSubstracted(playerid, NICKNAME_CHANGE_PRICE))
+        return msg(playerid, "nickname.change.notenoughmoney", CL_ERROR);
 
-    if (!canChangeName(playerid)) return msg(playerid, "nickname.change.unavailable", CL_ERROR);
+    if (!canChangeName(playerid))
+        return msg(playerid, "nickname.change.unavailable", CL_ERROR);
+
+    if(!validateCharacterName(firstname, lastname))
+        return alert(playerid, "character.wrongname", [], 7);
+
+    if(isCharacterNameBanned(firstname, lastname))
+        return alert(playerid, "character.bannednames", [], 7);
+
+    if(isCharacterNameAlreadyRegistered(firstname, lastname))
+        return alert(playerid, "character.alreadyregistered", [], 7);
+
 
     players[playerid].firstname = firstname;
     players[playerid].lastname = lastname;
+    players[playerid].save();
+
     subPlayerMoney(playerid, NICKNAME_CHANGE_PRICE);
     addTreasuryMoney(NICKNAME_CHANGE_PRICE);
     nano({
