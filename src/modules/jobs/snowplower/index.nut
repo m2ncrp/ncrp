@@ -401,6 +401,9 @@ event("onPlayerAreaEnter", function(playerid, name) {
 
     local vehicleid = getPlayerVehicle(playerid);
     if (vehicleid != -1 && !isPlayerVehicleSnowplow(playerid)) {
+        local node = getSnowplowNode(zoneId);
+        if(!node || node.isTunnel) return;
+
         local nodeTs = getSnowplowNodeTimestamp(zoneId).timestamp;
         local currentTimestamp = getTimestamp();
         local correctionCoef = WORLD_SECONDS_PER_MINUTE / 60.0;
@@ -458,17 +461,22 @@ function handlePlayerCheckpointEnter(playerid, zoneId) {
 
         local nextPointId = null;
         if(route.pointsToBase == null) {
-            local nextPoints = edges[route.nextPointId];
+             local nextPoints = edges[route.nextPointId];
 
-            local timestamps = nextPoints.map(function(pointId) {
-                return getSnowplowNodeTimestamp(pointId).timestamp;
-            })
+            // Хак для точек, ведущих в 0 и точек с одной следующей
+            if([815, 645].find(route.nextPointId) != null || nextPoints.len() == 1) {
+                nextPointId = nextPoints[0];
+            } else {
+                local timestamps = nextPoints.map(function(pointId) {
+                    return getSnowplowNodeTimestamp(pointId).timestamp;
+                })
 
-            local latestTimestamp = minOfArray(timestamps);
+                local latestTimestamp = minOfArray(timestamps);
 
-            local idx = timestamps.find(latestTimestamp);
+                local idx = timestamps.find(latestTimestamp);
 
-            nextPointId = nextPoints[idx];
+                nextPointId = nextPoints[idx];
+            }
         } else {
             route.pointsToBase.remove(0);
             if(route.pointsToBase.len() > 0) {

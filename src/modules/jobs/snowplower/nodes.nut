@@ -6,7 +6,7 @@ event("onServerStarted", function() {
     snowplowNodesLoadedData();
 });
 
-event("onServerAutosave", function() {
+event("onServerAutosaveEarly", function() {
     foreach (idx, nodeTimestamp in nodesTimestamps) {
         nodeTimestamp.save();
     }
@@ -32,8 +32,8 @@ function snowplowNodesLoadedData() {
     });
 }
 
-function snowplowv3(a, b, c) {
-    return { coords = { x = a.tofloat(), y = b.tofloat(), z = c.tofloat() }};
+function snowplowv3(a, b, c, isTunnel = false) {
+    return { coords = { x = a.tofloat(), y = b.tofloat(), z = c.tofloat() }, isTunnel = isTunnel };
 }
 
 function getSnowplowNodesTimestamps() {
@@ -715,9 +715,9 @@ nodes[663] <-  snowplowv3(126.377, 938.589, -22.09)
 nodes[664] <-  snowplowv3(91.001, 990.793, -18.745)
 nodes[665] <-  snowplowv3(44.868, 1000.588, -14.811)
 nodes[666] <-  snowplowv3(-22.676, 1029.284, -11.009)
-nodes[667] <-  snowplowv3(-46.997, 1091.273, -10.992)
-nodes[668] <-  snowplowv3(-82.928, 1203.184, -13.629)
-nodes[669] <-  snowplowv3(-117.032, 1302.424, -15.138)
+nodes[667] <-  snowplowv3(-46.997,  1091.273, -10.992, true) // is tunnel
+nodes[668] <-  snowplowv3(-82.928,  1203.184, -13.629, true) // is tunnel
+nodes[669] <-  snowplowv3(-117.032, 1302.424, -15.138, true) // is tunnel
 nodes[670] <-  snowplowv3(-118.122, 1388.627, -15.143)
 nodes[671] <-  snowplowv3(-117.918, 1458.643, -15.144)
 nodes[672] <-  snowplowv3(-152.716, 1541.564, -18.031)
@@ -848,11 +848,11 @@ nodes[796] <-  snowplowv3(-1009.929, 1377.937, -13.407)
 nodes[797] <-  snowplowv3(-970.127, 1378.184, -13.897)
 nodes[798] <-  snowplowv3(-927.954, 1378.314, -21.49)
 nodes[799] <-  snowplowv3(-881.683, 1378.557, -23.667)
-nodes[800] <-  snowplowv3(-792.533, 1378.538, -31.802)
-nodes[801] <-  snowplowv3(-672.738, 1363.065, -35.076)
-nodes[802] <-  snowplowv3(-563.533, 1293.002, -31.983)
-nodes[803] <-  snowplowv3(-512.051, 1208.157, -25.28)
-nodes[804] <-  snowplowv3(-504.946, 1117.481, -19.721)
+nodes[800] <-  snowplowv3(-792.533, 1378.538, -31.802, true) // is tunnel
+nodes[801] <-  snowplowv3(-672.738, 1363.065, -35.076, true) // is tunnel
+nodes[802] <-  snowplowv3(-563.533, 1293.002, -31.983, true) // is tunnel
+nodes[803] <-  snowplowv3(-512.051, 1208.157, -25.280, true) // is tunnel
+nodes[804] <-  snowplowv3(-504.946, 1117.481, -19.721, true) // is tunnel
 nodes[805] <-  snowplowv3(-501.523, 994.051, -15.974)
 nodes[806] <-  snowplowv3(-500.83, 930.927, -18.913)
 nodes[807] <-  snowplowv3(-501.078, 903.736, -18.938)  // у телефонной будки
@@ -972,9 +972,9 @@ nodes[920] <-  snowplowv3(-161.597, 1532.572, -18.027)
 nodes[921] <-  snowplowv3(-130.884, 1455.69, -15.142)
 nodes[922] <-  snowplowv3(-130.704, 1389.555, -15.142)
 nodes[923] <-  snowplowv3(-136.098, 1326.358, -15.149)
-nodes[924] <-  snowplowv3(-136.904, 1286.747, -15.183)
-nodes[925] <-  snowplowv3(-111.607, 1213.181, -14.121)
-nodes[926] <-  snowplowv3(-76.655, 1124.615, -11.378)
+nodes[924] <-  snowplowv3(-136.904, 1286.747, -15.183, true)  // is tunnel
+nodes[925] <-  snowplowv3(-111.607, 1213.181, -14.121, true)  // is tunnel
+nodes[926] <-  snowplowv3( -76.655, 1124.615, -11.378, true)  // is tunnel
 nodes[927] <-  snowplowv3(-58.078, 1044.211, -11.013)
 nodes[928] <-  snowplowv3(-69.906, 980.745, -12.444)
 nodes[929] <-  snowplowv3(-109.189, 954.237, -15.574)
@@ -1098,9 +1098,9 @@ nodes[1046] <- snowplowv3(40.489, 741.267, -11.002)
 nodes[1047] <- snowplowv3(19.104, 819.368, -11.014)
 nodes[1048] <- snowplowv3(-7.598, 920.819, -11.016)
 nodes[1049] <- snowplowv3(-22.027, 974.848, -11.015)
-nodes[1050] <- snowplowv3(-51.371, 1090.277, -11.003)
-nodes[1051] <- snowplowv3(-86.002, 1199.012, -13.575)
-nodes[1052] <- snowplowv3(-122.032, 1300.044, -15.152)
+nodes[1050] <- snowplowv3( -51.371, 1090.277, -11.003, true) // is tunnel
+nodes[1051] <- snowplowv3( -86.002, 1199.012, -13.575, true) // is tunnel
+nodes[1052] <- snowplowv3(-122.032, 1300.044, -15.152, true) // is tunnel
 nodes[1053] <- snowplowv3(-122.345, 1386.394, -15.142)
 nodes[1054] <- snowplowv3(-122.232, 1456.921, -15.142)
 nodes[1055] <- snowplowv3(-154.093, 1537.369, -17.93)
@@ -1285,11 +1285,11 @@ nodes[1233] <- snowplowv3(-738.517, -465.136, -22.726)
 nodes[1234] <- snowplowv3(-781.043, -465.308, -24.091)
 nodes[1235] <- snowplowv3(-836.958, -465.01, -26.24)
 nodes[1236] <- snowplowv3(-906.607, -461.699, -34.623)
-nodes[1237] <- snowplowv3(-998.707, -459.168, -34.643)
-nodes[1238] <- snowplowv3(-1084.302, -429.869, -34.645)
-nodes[1239] <- snowplowv3(-1149.316, -375.906, -34.645)
-nodes[1240] <- snowplowv3(-1226.024, -317.08, -34.644)
-nodes[1241] <- snowplowv3(-1307.125, -294.747, -34.642)
+nodes[1237] <- snowplowv3( -998.707, -459.168, -34.643, true) // is tunnel
+nodes[1238] <- snowplowv3(-1084.302, -429.869, -34.645, true) // is tunnel
+nodes[1239] <- snowplowv3(-1149.316, -375.906, -34.645, true) // is tunnel
+nodes[1240] <- snowplowv3(-1226.024,  -317.08, -34.644, true) // is tunnel
+nodes[1241] <- snowplowv3(-1307.125, -294.747, -34.642, true) // is tunnel
 nodes[1242] <- snowplowv3(-1403.493, -294.116, -34.397)
 nodes[1243] <- snowplowv3(-1468.379, -297.022, -26.649)
 nodes[1244] <- snowplowv3(-1521.275, -297.304, -20.337)
@@ -2589,9 +2589,9 @@ nodes[2537] <- snowplowv3( -155.986,  1521.045,  -17.263 );
 nodes[2538] <- snowplowv3( -134.731,  1453.300,  -15.140 );
 nodes[2539] <- snowplowv3( -135.254,  1386.549,  -15.138 );
 nodes[2540] <- snowplowv3( -131.462,  1328.052,  -15.144 );
-nodes[2541] <- snowplowv3( -131.895,  1281.312,  -15.175 );
-nodes[2542] <- snowplowv3( -103.781,  1210.684,  -14.013 );
-nodes[2543] <- snowplowv3( -68.892,  1115.217,  -11.235 );
+nodes[2541] <- snowplowv3( -131.895,  1281.312,  -15.175, true); // is tunnel
+nodes[2542] <- snowplowv3( -103.781,  1210.684,  -14.013, true); // is tunnel
+nodes[2543] <- snowplowv3( -68.892,   1115.217,  -11.235, true); // is tunnel
 nodes[2544] <- snowplowv3( -43.063,  1020.042,  -11.020 );
 nodes[2545] <- snowplowv3( -314.404,  1571.306,  -23.428 );
 nodes[2546] <- snowplowv3( -366.551,  1571.123,  -23.428 );
@@ -2737,11 +2737,11 @@ nodes[2685] <- snowplowv3( -1660.040,  -98.862,  -15.458 );
 nodes[2686] <- snowplowv3( -1660.473,  -179.656,  -19.618 );
 nodes[2687] <- snowplowv3( -831.941,  -461.840,  -25.908 );
 nodes[2688] <- snowplowv3( -903.638,  -457.973,  -34.542 );
-nodes[2689] <- snowplowv3( -996.861,  -455.037,  -34.644 );
-nodes[2690] <- snowplowv3( -1077.966,  -428.092,  -34.641 );
-nodes[2691] <- snowplowv3( -1143.447,  -375.524,  -34.644 );
-nodes[2692] <- snowplowv3( -1223.670,  -313.739,  -34.643 );
-nodes[2693] <- snowplowv3( -1302.618,  -291.043,  -34.643 );
+nodes[2689] <- snowplowv3( -996.8610,  -455.037,  -34.644, true); // is tunnel
+nodes[2690] <- snowplowv3( -1077.966,  -428.092,  -34.641, true); // is tunnel
+nodes[2691] <- snowplowv3( -1143.447,  -375.524,  -34.644, true); // is tunnel
+nodes[2692] <- snowplowv3( -1223.670,  -313.739,  -34.643, true); // is tunnel
+nodes[2693] <- snowplowv3( -1302.618,  -291.043,  -34.643, true); // is tunnel
 nodes[2694] <- snowplowv3( -1400.986,  -289.736,  -34.536 );
 nodes[2695] <- snowplowv3( -1445.243,  -291.578,  -29.572 );
 nodes[2696] <- snowplowv3( -1516.190,  -293.647,  -20.766 );
@@ -2756,11 +2756,11 @@ nodes[2704] <- snowplowv3( -1566.493,  -302.211,  -20.034 );
 nodes[2705] <- snowplowv3( -1528.194,  -302.165,  -20.040 );
 nodes[2706] <- snowplowv3( -1471.090,  -302.253,  -26.294 );
 nodes[2707] <- snowplowv3( -1413.715,  -305.379,  -33.336 );
-nodes[2708] <- snowplowv3( -1322.090,  -308.076,  -34.639 );
-nodes[2709] <- snowplowv3( -1244.397,  -332.915,  -34.643 );
-nodes[2710] <- snowplowv3( -1182.036,  -379.779,  -34.643 );
-nodes[2711] <- snowplowv3( -1098.997,  -447.447,  -34.651 );
-nodes[2712] <- snowplowv3( -1007.929,  -472.665,  -34.644 );
+nodes[2708] <- snowplowv3( -1322.090,  -308.076,  -34.639, true); // is tunnel
+nodes[2709] <- snowplowv3( -1244.397,  -332.915,  -34.643, true); // is tunnel
+nodes[2710] <- snowplowv3( -1182.036,  -379.779,  -34.643, true); // is tunnel
+nodes[2711] <- snowplowv3( -1098.997,  -447.447,  -34.651, true); // is tunnel
+nodes[2712] <- snowplowv3( -1007.929,  -472.665,  -34.644, true); // is tunnel
 nodes[2713] <- snowplowv3( -917.002,  -473.010,  -34.642 );
 nodes[2714] <- snowplowv3( -836.215,  -469.215,  -26.182 );
 nodes[2715] <- snowplowv3( -1663.106,  -218.456,  -20.158 );
@@ -2771,11 +2771,11 @@ nodes[2719] <- snowplowv3( -1560.055,  -305.751,  -20.028 );
 nodes[2720] <- snowplowv3( -1525.715,  -305.527,  -20.033 );
 nodes[2721] <- snowplowv3( -1471.582,  -306.209,  -26.235 );
 nodes[2722] <- snowplowv3( -1414.333,  -309.680,  -33.277 );
-nodes[2723] <- snowplowv3( -1327.741,  -311.483,  -34.645 );
-nodes[2724] <- snowplowv3( -1251.689,  -334.530,  -34.645 );
-nodes[2725] <- snowplowv3( -1187.728,  -380.355,  -34.641 );
-nodes[2726] <- snowplowv3( -1106.074,  -449.056,  -34.642 );
-nodes[2727] <- snowplowv3( -1011.781,  -476.923,  -34.645 );
+nodes[2723] <- snowplowv3( -1327.741,  -311.483,  -34.645, true); // is tunnel
+nodes[2724] <- snowplowv3( -1251.689,  -334.530,  -34.645, true); // is tunnel
+nodes[2725] <- snowplowv3( -1187.728,  -380.355,  -34.641, true); // is tunnel
+nodes[2726] <- snowplowv3( -1106.074,  -449.056,  -34.642, true); // is tunnel
+nodes[2727] <- snowplowv3( -1011.781,  -476.923,  -34.645, true); // is tunnel
 nodes[2728] <- snowplowv3( -917.134,  -477.314,  -34.644 );
 nodes[2729] <- snowplowv3( -836.698,  -473.083,  -26.216 );
 nodes[2730] <- snowplowv3( -811.085,  -452.042,  -25.713 );
@@ -2910,13 +2910,13 @@ nodes[2858] <- snowplowv3( -534.342,  176.115,  1.516 );
 nodes[2859] <- snowplowv3( -197.102,  -42.643,  -11.878 );
 nodes[2860] <- snowplowv3( -496.835,  942.053,  -18.895 );
 nodes[2861] <- snowplowv3( -496.956,  986.999,  -16.051 );
-nodes[2862] <- snowplowv3( -497.902,  1070.996,  -17.236 );
-nodes[2863] <- snowplowv3( -501.332,  1153.307,  -21.754 );
-nodes[2864] <- snowplowv3( -515.209,  1233.275,  -27.193 );
-nodes[2865] <- snowplowv3( -572.666,  1309.255,  -32.737 );
-nodes[2866] <- snowplowv3( -670.536,  1368.128,  -35.078 );
-nodes[2867] <- snowplowv3( -768.017,  1382.971,  -33.813 );
-nodes[2868] <- snowplowv3( -849.437,  1382.949,  -25.577 );
+nodes[2862] <- snowplowv3( -497.902,  1070.996,  -17.236, true); // is tunnel
+nodes[2863] <- snowplowv3( -501.332,  1153.307,  -21.754, true); // is tunnel
+nodes[2864] <- snowplowv3( -515.209,  1233.275,  -27.193, true); // is tunnel
+nodes[2865] <- snowplowv3( -572.666,  1309.255,  -32.737, true); // is tunnel
+nodes[2866] <- snowplowv3( -670.536,  1368.128,  -35.078, true); // is tunnel
+nodes[2867] <- snowplowv3( -768.017,  1382.971,  -33.813, true); // is tunnel
+nodes[2868] <- snowplowv3( -849.437,  1382.949,  -25.577, true); // is tunnel
 nodes[2869] <- snowplowv3( -929.854,  1382.650,  -21.307 );
 nodes[2870] <- snowplowv3( -967.612,  1382.719,  -14.325 );
 nodes[2871] <- snowplowv3( -1004.307,  1382.346,  -13.411 );
@@ -3031,4 +3031,8 @@ nodes[2979] <- snowplowv3( -1652.041,  1114.120,  -6.967 );
 
 function getSnowplowNodes() {
   return nodes;
+}
+
+function getSnowplowNode(id) {
+    return (id in nodes) ? nodes[id] : false;
 }
