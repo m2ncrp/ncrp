@@ -361,8 +361,8 @@ function snowplowJobStartRoute( playerid ) {
 
     SNOWPLOW_ROUTE_NOW -= 1;
 
-    local targetPointsCount = random(2, 2);
-    // local targetPointsCount = random(90, 140);
+    // local targetPointsCount = random(2, 2);
+    local targetPointsCount = random(90, 140);
 
     local ts1 = getSnowplowNodeTimestamp(1);
     local ts101 = getSnowplowNodeTimestamp(101);
