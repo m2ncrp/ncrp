@@ -50,6 +50,7 @@ local SNOWPLOW_OVERSPEED_COEF = 2;
 
 local edges = getSnowplowEdges();
 local nodes = getSnowplowNodes();
+local traps = [spoilVehicleControls, skidVehicle, slowDownVehicle];
 
 event("onServerStarted", function() {
     logStr("[jobs] loading snowplow job...");
@@ -238,7 +239,7 @@ function snowplowJobNeedComplete( playerid ) {
         return;
     }
 
-    msg( playerid, "job.snowplow.route.needcomplete", SNOWPLOW_JOB_COLOR );
+    msg(playerid, "job.snowplow.route.needcomplete", SNOWPLOW_JOB_COLOR);
 }
 addJobEvent("e", SNOWPLOW_JOB_NAME, "working", snowplowJobNeedComplete);
 
@@ -392,14 +393,35 @@ function snowplowJobStartRoute( playerid ) {
 }
 addJobEvent("e", SNOWPLOW_JOB_NAME, null, snowplowJobStartRoute);
 
-
 event("onPlayerAreaEnter", function(playerid, name) {
+    local parts = split(name, "_");
+
+    if(parts[0] != "snowplowZone") return;
+    local zoneId = parts[1].tointeger();
+
+    handlePlayerCheckpointEnter(playerid, zoneId);
+
+    local vehicleid = getPlayerVehicle(playerid);
+    if (vehicleid != -1 && !isPlayerVehicleSnowplow(playerid)) {
+        local nodeTs = getSnowplowNodeTimestamp(zoneId).timestamp;
+        local currentTimestamp = getTimestamp();
+        local correctionCoef = WORLD_SECONDS_PER_MINUTE / 60.0;
+        local daysBetweenClean = 2;
+        local diffInSec = daysBetweenClean * 24 * 60 * 60 * correctionCoef;
+
+        if(currentTimestamp > nodeTs + diffInSec && randomTry(0.25)) {
+            traps[random(0, traps.len()-1)](vehicleid);
+            if(randomTry(0.15)) {
+                delayedFunction(2000, function() {
+                    sendIcMsg(playerid, plocalize(playerid, format("job.snowplow.angry.%d", random(1, 17))));
+                })
+            }
+        }
+    }
+});
+
+function handlePlayerCheckpointEnter(playerid, zoneId) {
     if (isSnowplowDriver(playerid) && isPlayerVehicleSnowplow(playerid) && getPlayerJobState(playerid) == "working") {
-
-        local parts = split(name, "_");
-
-        if(parts[0] != "snowplowZone") return;
-        local zoneId = parts[1].tointeger();
 
         local charId = getCharacterIdFromPlayerId(playerid);
         local route = job_snowplow[charId].route;
@@ -466,7 +488,7 @@ event("onPlayerAreaEnter", function(playerid, name) {
         trigger(playerid, "setGPS", nodes[nextPointId].coords.x, nodes[nextPointId].coords.y);
         job_snowplow[charId].snowplow3dtext = createPrivateSnowplowCheckpoint3DText(playerid, nodes[nextPointId].coords);
     }
-});
+};
 
 
 function findPath(indexStart, indexEnd) {

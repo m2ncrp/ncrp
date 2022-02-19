@@ -71,4 +71,56 @@ alternativeTranslate({
     "en|job.snowplow.help.jobleavetext"     :   "Leave snowplow driver job at snowplowing company in Uptown"
     "ru|job.snowplow.help.jobleavetext"     :   "Уволиться с работы (напротив Полицейского Департамента)"
 
+    "en|job.snowplow.angry.1"     :   ""
+    "ru|job.snowplow.angry.1"     :   "Да что такое?! Совсем дороги не чистят"
+
+    "en|job.snowplow.angry.2"     :   ""
+    "ru|job.snowplow.angry.2"     :   "Вообще дороги не убирают..."
+
+    "en|job.snowplow.angry.3"     :   ""
+    "ru|job.snowplow.angry.3"     :   "Проклятье, эта зима меня доконает"
+
+    "en|job.snowplow.angry.4"     :   ""
+    "ru|job.snowplow.angry.4"     :   "Да бл&#ь"
+
+    "en|job.snowplow.angry.5"     :   ""
+    "ru|job.snowplow.angry.5"     :   "Всё замело... Куда смотрит мэр?"
+
+    "en|job.snowplow.angry.6"     :   ""
+    "ru|job.snowplow.angry.6"     :   "Где же носит всю уборочную технику?"
+
+    "en|job.snowplow.angry.7"     :   ""
+    "ru|job.snowplow.angry.7"     :   "Это что сейчас было?"
+
+    "en|job.snowplow.angry.8"     :   ""
+    "ru|job.snowplow.angry.8"     :   "Эээ, что происходит?!"
+
+    "en|job.snowplow.angry.9"     :   ""
+    "ru|job.snowplow.angry.9"     :   "Да почистите наконец эти чёртовы дороги"
+
+    "en|job.snowplow.angry.10"     :   ""
+    "ru|job.snowplow.angry.10"     :   "Что за хрень?"
+
+    "en|job.snowplow.angry.11"     :  ""
+    "ru|job.snowplow.angry.11"     :  "Когда уже чистить улицы начнут?"
+
+    "en|job.snowplow.angry.12"     :  ""
+    "ru|job.snowplow.angry.12"     :  "Снега навалило, а убирать некому"
+
+    "en|job.snowplow.angry.13"     :  ""
+    "ru|job.snowplow.angry.13"     :  "Так и поседеть можно..."
+
+    "en|job.snowplow.angry.14"     :  ""
+    "ru|job.snowplow.angry.14"     :  "И на что идут мои налоги?"
+
+    "en|job.snowplow.angry.15"     :  ""
+    "ru|job.snowplow.angry.15"     :  "Ну, ёпрст"
+
+    "en|job.snowplow.angry.16"     :  ""
+    "ru|job.snowplow.angry.16"     :  "Воу-воу, я ещё жить хочу"
+
+    "en|job.snowplow.angry.17"     :  ""
+    "ru|job.snowplow.angry.17"     :  "Да твою ж мать"
+
+
 });

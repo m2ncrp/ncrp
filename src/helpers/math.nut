@@ -56,6 +56,11 @@ function weightedRandom(options) {
     return options[i].item;
 }
 
+function randomTry(truthWeight) {
+    local lieWeight = 1 - truthWeight;
+    return weightedRandom([{ "item": 1, "weight": truthWeight }, { "item": 0, "weight": lieWeight }])
+}
+
 /**
  * Max from a range (2 or more parameters)
  * @return {int}

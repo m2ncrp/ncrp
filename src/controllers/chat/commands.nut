@@ -54,12 +54,16 @@ cmd(["clearchat"], function(playerid) {
     }
 });
 
-// local chat
-chatcmd(["i", "ic", "say"], function(playerid, message) {
+function sendIcMsg(playerid, message) {
     sendLocalizedMsgToAll(playerid, "chat.player.says", [getKnownCharacterNameWithId, message], NORMAL_RADIUS, CL_CHAT_IC);
 
     // statistics
     statisticsPushMessage(playerid, message, "say");
+}
+
+// local chat
+chatcmd(["i", "ic", "say"], function(playerid, message) {
+    sendIcMsg(playerid, message)
 });
 
 // shout
@@ -103,7 +107,7 @@ chatcmd("todo", function(playerid, message) {
     local messageBefore = strip(message.slice(match[1].begin, match[1].end));
     local messageAfter = strip(message.slice(match[3].begin, match[3].end));
 
-    sendLocalizedMsgToAll(playerid, "chat.player.says", [getKnownCharacterNameWithId, messageBefore], NORMAL_RADIUS, CL_CHAT_IC);
+    sendIcMsg(playerid, messageBefore);
     sendLocalizedMsgToAll(playerid, "chat.player.todo.me", [messageAfter], NORMAL_RADIUS, CL_CHAT_ME);
 
     statisticsPushMessage(playerid, message, "todo");
