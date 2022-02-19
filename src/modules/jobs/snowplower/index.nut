@@ -23,8 +23,6 @@ include("modules/jobs/snowplower/edges.nut");
 
 local job_snowplow = {};
 
-local routes = {};
-
 local RADIUS_SNOWPLOW = 2.0;
 local RADIUS_SNOWPLOW_SMALL = 1.0;
 local SNOWPLOW_JOB_X = -388.442;
@@ -647,12 +645,12 @@ event("onPlayerVehicleExit", function(playerid, vehicleid, seat) {
     }
 });
 
-function getNearestSnowplowStationForPlayer(playerid) {
+function getNearestSnowplowNodeForPlayer(playerid) {
     local pos = getPlayerPositionObj( playerid );
     local dis = 5;
     local snowplowStopid = null;
     foreach (key, value in nodes) {
-        local distance = getDistanceBetweenPoints3D( pos.x, pos.y, pos.z, value.public.x, value.public.y, value.public.z );
+        local distance = getDistanceBetweenPoints3D( pos.x, pos.y, pos.z, value.coords.x, value.coords.y, value.coords.z );
         if (distance < dis) {
            dis = distance;
            snowplowStopid = key;
