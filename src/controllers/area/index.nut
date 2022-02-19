@@ -1,3 +1,5 @@
+include("controllers/area/lines.nut");
+
 local areaRegister = {};
 
 event("native:onPlayerAreaEnter", function(playerid, placeid) {
@@ -29,9 +31,9 @@ event("onServerPlayerStarted", function(playerid) {
         if (obj.private == false || obj.private == getPlayerName(playerid)) {
             if(obj.type == "place") {
                 // dbg("sending place with", idx, idx, obj.a.x, obj.a.y, obj.b.x, obj.b.y);
-                trigger(playerid, "onServerPlaceAdded", idx, obj.type, obj.a.x, obj.a.y, obj.b.x, obj.b.y);
+                trigger(playerid, "onServerPlaceAdded", idx, obj.type, obj.a.x, obj.a.y, obj.b.x, obj.b.y, obj.z, obj.height);
             } else {
-                trigger(playerid, "onServerPolygonAdded", idx, obj.type, JSONEncoder.encode(obj.points));
+                trigger(playerid, "onServerPolygonAdded", idx, obj.type, JSONEncoder.encode(obj.points), obj.z, obj.height);
             }
         }
     }
@@ -50,20 +52,28 @@ function generatePrivateAreaId(name, playerid) {
  * @param  {Float} y2
  * @return {String}
  */
-function createPlace(name, x1, y1, x2, y2) {
+function createPlace(name, x1, y1, x2, y2, z = null, height = null) {
     local id = md5(name);
 
     if (id in areaRegister) {
         throw "createPlace: this name is already taken: " + name;
     }
 
-    areaRegister[id] <- { private = false, type = "place", name = name, a = { x = x1.tofloat(), y = y1.tofloat() },  b = { x = x2.tofloat(), y = y2.tofloat() }};
+    areaRegister[id] <- {
+        private = false,
+        type = "place",
+        name = name,
+        a = { x = x1.tofloat(), y = y1.tofloat() },
+        b = { x = x2.tofloat(), y = y2.tofloat() },
+        z = z,
+        height = height
+    };
 
     if ("players" in getroottable()) {
         local obj = areaRegister[id];
 
         players.each(function(playerid) {
-            trigger(playerid, "onServerPlaceAdded", id, obj.type, obj.a.x, obj.a.y, obj.b.x, obj.b.y);
+            trigger(playerid, "onServerPlaceAdded", id, obj.type, obj.a.x, obj.a.y, obj.b.x, obj.b.y, obj.z, obj.height);
         });
     }
 
@@ -103,7 +113,7 @@ function createPrivatePlace(playerid, name, x1, y1, x2, y2) {
  * @param  {Float} y2
  * @return {String}
  */
-function createPolygon(name, points) {
+function createPolygon(name, points, z = null, height = null) {
     local id = md5(name);
 
     if (id in areaRegister) {
@@ -117,13 +127,15 @@ function createPolygon(name, points) {
         points = points.map(function(point) {
             return [point[0].tofloat(), point[1].tofloat()];
         })
+        z = z,
+        height = height
     };
 
     if ("players" in getroottable()) {
         local obj = areaRegister[id];
 
         players.each(function(playerid) {
-            trigger(playerid, "onServerPolygonAdded", id, obj.type, JSONEncoder.encode(obj.points));
+            trigger(playerid, "onServerPolygonAdded", id, obj.type, JSONEncoder.encode(obj.points), obj.z, obj.height);
         });
     }
 
@@ -172,19 +184,19 @@ function removePrivateArea(playerid, name) {
 
 /* CHECKERS --------- */
 
-function isInArea(name, x, y) {
+function isInArea(name, x, y, z) {
     local id = md5(name);
 
-    return _isInArea(id, x, y)
+    return _isInArea(id, x, y, z)
 }
 
-function isInPrivateArea(playerid, name, x, y) {
+function isInPrivateArea(playerid, name, x, y, z) {
     local id = generatePrivateAreaId(name, playerid);
 
-    return _isInArea(id, x, y);
+    return _isInArea(id, x, y, z);
 }
 
-function _isInArea(id, x, y) {
+function _isInArea(id, x, y, z) {
     if (!(id in areaRegister)) {
         return false;
     }
@@ -192,18 +204,20 @@ function _isInArea(id, x, y) {
     local area = areaRegister[id];
     x = x.tofloat();
     y = y.tofloat();
+    z = z.tofloat();
 
     if(area.type == "place") {
-        return _isInPlace(area, x, y)
+        return _isInPlace(area, x, y, z)
     } else if(area.type == "polygon") {
         return _isInPolygon(area, x, y)
     }
 }
 
-function _isInPlace(place, x, y) {
+function _isInPlace(place, x, y, z = null) {
     return (
         ((place.a.x < x && x < place.b.x) || (place.a.x > x && x > place.b.x)) &&
-        ((place.a.y < y && y < place.b.y) || (place.a.y > y && y > place.b.y))
+        ((place.a.y < y && y < place.b.y) || (place.a.y > y && y > place.b.y)) &&
+        (place.z == null ? true : ((z > place.z) && (z < (place.z + place.height))))
     );
 }
 
@@ -251,12 +265,12 @@ acmd("addline", function(playerid) {
 
 function isVehicleInArea(vehicleid, name) {
     local pos = getVehiclePosition(vehicleid);
-    return isInArea(name, pos[0], pos[1]);
+    return isInArea(name, pos[0], pos[1], pos[2]);
 }
 
 function isVehicleInPrivateArea(vehicleid, playerid, name) {
     local pos = getVehiclePosition(vehicleid);
-    return isInPrivateArea(playerid, name, pos[0], pos[1]);
+    return isInPrivateArea(playerid, name, pos[0], pos[1], pos[2]);
 }
 
 function isPlaceExists(name) {

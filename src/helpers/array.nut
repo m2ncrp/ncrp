@@ -69,3 +69,13 @@ function getRandomSubArray(arr, size = 1) {
     }
     return subarr;
 }
+
+// Remove first item
+function array_shift(arr) {
+    return arr.remove(0);
+}
+
+// Add item to first position
+function array_unshift(arr, item) {
+    return arr.insert(0, item);
+}

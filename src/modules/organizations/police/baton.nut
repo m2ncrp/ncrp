@@ -55,7 +55,7 @@ key(["b"], function(playerid) {
 
     if(bumps >= 4) {
       local plaRot = getPlayerRotation(targetid);
-      setPlayerRotation(targetid, -89.0, plaRot[1], plaRot[0]);
+      setPlayerRotation(targetid, -89.0, plaRot[1], plaRot[2]);
       freezePlayer(targetid, true);
       setPlayerState(targetid, "immobilized");
 

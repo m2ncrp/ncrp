@@ -158,7 +158,8 @@ event("onServerStarted", function() {
             [-225.180, 831.800, -21.2432],
             [-203.982, 839.660, -21.2530],
             [-195.795, 840.113, -21.2529],
-        ]
+        ],
+        -20.2857
     );
 
     if(getSettingsValue("isTruckShopEnabled")) {

@@ -16,6 +16,7 @@ local availableActs = [
     "taxVehicleRate",
     "taxSales",
     "unemployedIncome",
+    "salarySnowplowDriver",
     "busTicketPrice",
     "subwayTicketPrice",
     "hospitalTreatmentPrice",
@@ -275,7 +276,7 @@ fmd("gov", ["gov.act"], "$f act", function(fraction, character) {
         if(item.next != 0.0) {
             value += " -> "+item.next.tostring();
         }
-        helps.push(format("%d. %s, %s", item.id, item.desc, value))
+        helps.push(format("%d. %s: %s", item.id, item.desc, value))
     }
 
     msgh(character.playerid, "Издание постановлений", helps);
