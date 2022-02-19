@@ -56,6 +56,11 @@ function weightedRandom(options) {
     return options[i].item;
 }
 
+function randomTry(truthWeight) {
+    local lieWeight = 1 - truthWeight;
+    return weightedRandom([{ "item": 1, "weight": truthWeight }, { "item": 0, "weight": lieWeight }])
+}
+
 /**
  * Max from a range (2 or more parameters)
  * @return {int}
@@ -191,4 +196,23 @@ function todeg(angle) {
 
 function torad(angle) {
     return angle * PI / 180.0;
+}
+
+
+function sortArray(arr) {
+    local cloned = clone arr;
+    cloned.sort(function(a, b) {
+        if(a >= b) return 1;
+        if(a < b) return -1;
+    })
+
+    return cloned;
+}
+
+function maxOfArray(arr) {
+    return sortArray(arr)[arr.len() - 1]
+}
+
+function minOfArray(arr) {
+    return sortArray(arr)[0]
 }

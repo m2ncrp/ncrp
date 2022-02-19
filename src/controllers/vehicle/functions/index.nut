@@ -21,6 +21,7 @@ include("controllers/vehicle/functions/speed.nut");
 include("controllers/vehicle/functions/walkie-talkie.nut");
 include("controllers/vehicle/functions/trunk.nut");
 include("controllers/vehicle/functions/lock.nut");
+include("controllers/vehicle/functions/skid.nut");
 // include("controllers/vehicle/functions/radio.nut");
 
 // saving original vehicle method
