@@ -447,7 +447,7 @@ function handlePlayerCheckpointEnter(playerid, zoneId) {
         } else {
             local nodeTs = getSnowplowNodeTimestamp(route.nextPointId);
             nodeTs.timestamp = getTimestamp();
-            // nodeTs.save(); // Закоменчено, потому что используется автосейв
+            nodeTs.save(); // Закоменчено, потому что используется автосейв
             route.currentPointsCount += 1;
         }
 

@@ -56,10 +56,6 @@ class World extends ORM.Entity
             trigger("onServerAutosave");
         }
 
-        if (!(this.minute % AUTOSAVE_TIME_EARLY)) {
-            trigger("onServerAutosaveEarly");
-        }
-
         // save ourself
         this.save();
     }
