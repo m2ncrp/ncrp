@@ -11,7 +11,6 @@ WORLD_MONTH_PER_YEAR        <- 12;
 WORLD_YEAR_TIME_STOOD_STILL <- 1954;
 
 AUTOSAVE_TIME               <- 10;
-AUTOSAVE_TIME_EARLY          <- 9;
 
 // setup local storage
 __world  <- null;
