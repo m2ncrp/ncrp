@@ -139,16 +139,16 @@ event(["onServerAutosave", "onServerStopping"], function() {
 /**
  * Increase player xp level (real minutes)
  */
-event("onServerMinuteChange", function() {
-    if(getMinute() % 2 == 1) {
-        foreach (playerid, character in players) {
-            character.xp++;
-            if(character.xp == 15) {
-                msg(playerid, "Ты отыграл первые 15 минут. Теперь тебе доступен общий чат.", CL_SUCCESS)
-            }
-        }
-    }
-});
+// event("onServerMinuteChange", function() {
+//     if(getMinute() % 2 == 1) {
+//         foreach (playerid, character in players) {
+//             character.xp++;
+//             if(character.xp == 15) {
+//                 msg(playerid, "Ты отыграл первые 15 минут. Теперь тебе доступен общий чат.", CL_SUCCESS)
+//             }
+//         }
+//     }
+// });
 
 /**
  * Save player information
