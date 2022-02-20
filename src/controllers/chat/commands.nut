@@ -224,10 +224,11 @@ chatcmd(["o","ooc"], function(playerid, message) {
             msg(playerid, "antiflood.message", antiflood[playerid]["gooc"], CL_CHAT_B);
         }
     } else {
-        sendLocalizedMsgToAll(playerid, "chat.player.b", [getKnownCharacterNameWithId, message], NORMAL_RADIUS, CL_CHAT_B);
+        msg(playerid, "admin.ooc.disabled", CL_ERROR)
+        // sendLocalizedMsgToAll(playerid, "chat.player.b", [getKnownCharacterNameWithId, message], NORMAL_RADIUS, CL_CHAT_B);
 
         // statistics
-        statisticsPushMessage(playerid, message, "non-rp-local");
+        // statisticsPushMessage(playerid, message, "non-rp-local");
     }
 
 });

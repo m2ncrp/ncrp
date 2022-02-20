@@ -6,7 +6,7 @@ event("onServerStarted", function() {
     snowplowNodesLoadedData();
 });
 
-event("onServerAutosaveEarly", function() {
+event(["onServerAutosaveEarly", "onServerStopping"], function() {
     foreach (idx, nodeTimestamp in nodesTimestamps) {
         nodeTimestamp.save();
     }
