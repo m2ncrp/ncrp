@@ -306,13 +306,10 @@ event("onPlayerDeath", function(playerid) {
 
 function stopCall(playerid) {
     local charId = getCharacterIdFromPlayerId(playerid);
-
-    trigger("onPlayerPhonePut", playerid);
-
     local node = findPhoneNodeBy({"subscribers": charId});
 
     if(!node) return;
-
+    trigger("onPlayerPhonePut", playerid);
     msg(playerid, "telephone.callend", CL_WARNING);
 
     local companionCharId = getPhoneNodeCompanion(node, charId);
