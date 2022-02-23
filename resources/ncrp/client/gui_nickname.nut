@@ -124,8 +124,10 @@ addEventHandler( "onGuiElementClick", function(element) {
 function hideNicknameGUI () {
     guiSetVisible(window, false);
     guiSetText(label[1], "");
-    delayedFunction(200, hideCursor); //todo fix
+    delayedFunction(200, hideCursor);
+    triggerServerEvent("onHideNicknameGUI");
 }
+addEventHandler("hideNicknameGUI", hideNicknameGUI);
 
 function hideCursor() {
     showCursor(false);

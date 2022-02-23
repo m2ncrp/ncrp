@@ -336,8 +336,9 @@ proxy("updateMoveState",            "updateMoveState"                   );
 proxy("changeModel",                "changeModel"                       );
 proxy("onGenerateFirstname",        "onGenerateFirstname"               );
 proxy("onGenerateLastname",         "onGenerateLastname"                );
-proxy("onGenerateNickname",         "onGenerateNickname"                  );
-proxy("onChangeNickname",           "onChangeNickname"                    );
+proxy("onGenerateNickname",         "onGenerateNickname"                );
+proxy("onChangeNickname",           "onChangeNickname"                  );
+proxy("onHideNicknameGUI",          "onHideNicknameGUI"                 );
 
 // RentCar
 proxy("RentCar",                    "RentCar"                           );

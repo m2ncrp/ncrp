@@ -386,23 +386,6 @@ addEventHandler("map:onServerOpen", function() {
         openMap();
     });
 });
-
-
-addEventHandler("onServerKeyboard", function(key, state) {
-    if (key == "m" && state == "down") {
-        if (!initialized) return;
-
-        if (drawing) {
-            drawing = false;
-            triggerServerEvent("map:onClientOpen");
-        } else {
-            triggerServerEvent("map:onClientClose");
-            drawing = true;
-        }
-
-        showChat(drawing);
-    }
-});
 /**
  * Initialization
  */

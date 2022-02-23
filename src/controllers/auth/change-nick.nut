@@ -5,6 +5,18 @@ local NICKNAME_CHANGE_COORD = {
     "z": -15.6957
 };
 
+local nicknameChangeWindowOpened = {};
+
+function isnicknameChangeWindowOpened(playerid) {
+    local charid = getCharacterIdFromPlayerId(playerid);
+    return (charid in nicknameChangeWindowOpened) ? nicknameChangeWindowOpened[charid] : false;
+}
+
+event("onPlayerDisconnect", function(playerid, reason) {
+    local charid = getCharacterIdFromPlayerId(playerid);
+    if (charid in nicknameChangeWindowOpened) delete nicknameChangeWindowOpened[charid];
+});
+
 event("onServerStarted", function() {
     createBlip(NICKNAME_CHANGE_COORD.x, NICKNAME_CHANGE_COORD.y, [7 ,  4], ICON_RANGE_VISIBLE);
 });
@@ -20,9 +32,25 @@ key("e", function(playerid) {
         if (!canChangeName(playerid)) return msg(playerid, "nickname.change.unavailable", CL_ERROR);
 
         local char = players[playerid];
+        local charid = getCharacterIdFromPlayerId(playerid);
+        if(!(isnicknameChangeWindowOpened(playerid))) {
+            nicknameChangeWindowOpened[charid] <- false;
+        }
+
+        if(isnicknameChangeWindowOpened(playerid)) {
+            triggerClientEvent(playerid, "hideNicknameGUI");
+            nicknameChangeWindowOpened[charid] = false;
+            return;
+        }
         triggerClientEvent(playerid, "nicknameChange", playerid, NICKNAME_CHANGE_PRICE, getPlayerLocale(playerid), plocalize(playerid, "nationality."+char.nationality));
+        nicknameChangeWindowOpened[charid] = true;
     };
 }, KEY_UP);
+
+event("onHideNicknameGUI", function(playerid) {
+    local charid = getCharacterIdFromPlayerId(playerid);
+    nicknameChangeWindowOpened[charid] <- false;
+});
 
 event("onGenerateNickname", function (playerid, name) {
     local char = players[playerid];
@@ -58,6 +86,7 @@ event("onChangeNickname", function (playerid, firstname, lastname, valid) {
     players[playerid].firstname = firstname;
     players[playerid].lastname = lastname;
     players[playerid].save();
+    nicknameChangeWindowOpened[charid] <- false;
 
     subPlayerMoney(playerid, NICKNAME_CHANGE_PRICE);
     addTreasuryMoney(NICKNAME_CHANGE_PRICE);
@@ -112,5 +141,3 @@ alternativeTranslate({
     "en|nickname.change.success"   : "You successfully change your name to %s"
     "ru|nickname.change.success"   : "Вы успешно сменили имя на %s"
 });
-
-
