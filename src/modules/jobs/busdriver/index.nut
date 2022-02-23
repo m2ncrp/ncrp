@@ -211,7 +211,7 @@ event("onServerPlayerStarted", function( playerid ){
             local busID = job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2][0];
             if (busID < 90 ) job_bus[getCharacterIdFromPlayerId(playerid)]["bus3dtext"] = createPrivateBusStop3DText(playerid, busStops[busID].private);
             setPlayerJobState(playerid, "working");
-            trigger(playerid, "setGPS", busStops[busID].private.x, busStops[busID].private.y);
+            trigger(playerid, "setGPS", busStops[busID].private.x, busStops[busID].private.y, busStops[busID].private.z);
             trigger(playerid, "hudDestroyTimer");
             msg( playerid, "job.bus.continuebusstop", BUS_JOB_COLOR );
             msg( playerid, "job.bus.nextbusstop", plocalize(playerid, "job."+busStops[busID].name), BUS_JOB_COLOR );
@@ -494,7 +494,7 @@ function busJobStartRoute( playerid ) {
 
     msg( playerid, "job.bus.startroute", plocalize(playerid, "job."+busStops[busID].name), BUS_JOB_COLOR );
     if (busID < 90 ) job_bus[getCharacterIdFromPlayerId(playerid)]["bus3dtext"] = createPrivateBusStop3DText(playerid, busStops[busID].private);
-    trigger(playerid, "setGPS", busStops[busID].private.x, busStops[busID].private.y);
+    trigger(playerid, "setGPS", busStops[busID].private.x, busStops[busID].private.y, busStops[busID].private.z);
 }
 addJobEvent("e", BUS_JOB_NAME, null, busJobStartRoute);
 
@@ -620,10 +620,8 @@ function busJobStop( playerid ) {
         //job_bus[getCharacterIdFromPlayerId(playerid)]["busBlip"]   = createPrivateBlip(playerid, busStops[busID].private.x, busStops[busID].private.y, ICON_YELLOW, 2000.0);
         //job_bus[getCharacterIdFromPlayerId(playerid)]["busBlip"]   = playerid+"blip"; //надо вырезать
         setPlayerJobState(playerid, "working");
-        trigger(playerid, "setGPS", busStops[busID].private.x, busStops[busID].private.y);
+        trigger(playerid, "setGPS", busStops[busID].private.x, busStops[busID].private.y, busStops[busID].private.z);
         msg( playerid, "job.bus.gotonextbusstop", plocalize(playerid, "job."+busStops[busID].name), BUS_JOB_COLOR );
-        //local gpsPos = busStops[busID].private;
-        //trigger(playerid, "setGPS", gpsPos.x, gpsPos.y);
     });
 
 }
@@ -637,7 +635,7 @@ event("onPlayerAreaEnter", function(playerid, name) {
             trigger(playerid, "removeGPS");
             job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2].remove(0);
             local busID = job_bus[getCharacterIdFromPlayerId(playerid)]["route"][2][0];
-            trigger(playerid, "setGPS", busStops[busID].private.x, busStops[busID].private.y);
+            trigger(playerid, "setGPS", busStops[busID].private.x, busStops[busID].private.y, busStops[busID].private.z);
             job_bus[getCharacterIdFromPlayerId(playerid)]["bus3dtext"] = createPrivateBusStop3DText(playerid, busStops[busID].private);
         }
     }

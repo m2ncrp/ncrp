@@ -217,7 +217,7 @@ event("onPlayerAreaLeave", function(playerid, name) {
 
     if(fishcars[vehicleid][1] == "emptybox" && fishcars[vehicleid][2] > 0) {
         job_fish[getCharacterIdFromPlayerId(playerid)]["blip3dtext"] = fishJobCreatePrivateBlipText(playerid, FISH_JOB_LOAD_X, FISH_JOB_LOAD_Y, FISH_JOB_LOAD_Z, "LOAD FISH", "Press E");
-        trigger(playerid, "setGPS", FISH_JOB_LOAD_X, FISH_JOB_LOAD_Y);
+        trigger(playerid, "setGPS", FISH_JOB_LOAD_X, FISH_JOB_LOAD_Y, FISH_JOB_LOAD_Z);
         msg(playerid, "job.fishdriver.toload", FISH_JOB_COLOR );
     }
 
@@ -488,7 +488,7 @@ function fishJobLoad( playerid ) {
         delayedFunction(1000, function () { freezePlayer( playerid, false); });
         job_fish[getCharacterIdFromPlayerId(playerid)]["userstatus"] = "working";
         fishcars[vehicleid][1] = "fishbox";
-        trigger(playerid, "setGPS", 370.0, 118.0);
+        trigger(playerid, "setGPS", 370.0, 118.0, -20.2027);
         msg( playerid, "job.fishdriver.loaded", FISH_JOB_COLOR );
     });
 

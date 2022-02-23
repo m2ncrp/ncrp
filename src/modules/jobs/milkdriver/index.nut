@@ -146,7 +146,7 @@ event("onServerPlayerStarted", function( playerid ) {
 
         if (getPlayerJobState(playerid) == "needparking") {
             msg( playerid, "job.milkdriver.nicejob.needpark", MILK_JOB_COLOR );
-            trigger(playerid, "setGPS", 170.803, 436.015);
+            trigger(playerid, "setGPS", 170.803, 436.015, -20.1758);
             showLeave3dText(playerid, false);
             return;
         }
@@ -503,7 +503,7 @@ function milkJobUnload ( playerid ) {
         if (job_milk[getCharacterIdFromPlayerId(playerid)]["milkcomplete"] == MILK_JOB_NUMBER_STATIONS) {
             setPlayerJobState(playerid, "needparking");
             msg( playerid, "job.milkdriver.nicejob.needpark", MILK_JOB_COLOR );
-            trigger(playerid, "setGPS", 170.803, 436.015);
+            trigger(playerid, "setGPS", 170.803, 436.015, -20.1758);
             showLeave3dText(playerid, false);
         } else {
             if (milktrucks[vehicleid] >= 12) {
