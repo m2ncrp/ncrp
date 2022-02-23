@@ -106,7 +106,7 @@ event("onServerPlayerStarted", function( playerid ){
             local route = job_snowplow[charId].route;
             local snowplowId = route.nextPointId;
             job_snowplow[charId].snowplow3dtext = createPrivateSnowplowCheckpoint3DText(playerid, nodes[snowplowId].coords);
-            trigger(playerid, "setGPS", nodes[snowplowId].coords.x, nodes[snowplowId].coords.y);
+            trigger(playerid, "setGPS", nodes[snowplowId].coords.x, nodes[snowplowId].coords.y, nodes[snowplowId].coords.z);
             msg(playerid, "job.snowplow.continuesnowplowstop", SNOWPLOW_JOB_COLOR );
             return;
         }
@@ -387,7 +387,7 @@ function snowplowJobStartRoute( playerid ) {
     msg(playerid, "job.snowplow.startroute2", SNOWPLOW_JOB_COLOR);
     job_snowplow[getCharacterIdFromPlayerId(playerid)].snowplow3dtext = createPrivateSnowplowCheckpoint3DText(playerid, nodes[snowplowId].coords);
 
-    trigger(playerid, "setGPS", nodes[snowplowId].coords.x, nodes[snowplowId].coords.y);
+    trigger(playerid, "setGPS", nodes[snowplowId].coords.x, nodes[snowplowId].coords.y, nodes[snowplowId].coords.z);
 }
 addJobEvent("e", SNOWPLOW_JOB_NAME, null, snowplowJobStartRoute);
 
@@ -491,7 +491,7 @@ function handlePlayerCheckpointEnter(playerid, zoneId) {
 
         route.nextPointId = nextPointId;
 
-        trigger(playerid, "setGPS", nodes[nextPointId].coords.x, nodes[nextPointId].coords.y);
+        trigger(playerid, "setGPS", nodes[nextPointId].coords.x, nodes[nextPointId].coords.y, nodes[nextPointId].coords.z);
         job_snowplow[charId].snowplow3dtext = createPrivateSnowplowCheckpoint3DText(playerid, nodes[nextPointId].coords);
     }
 };
