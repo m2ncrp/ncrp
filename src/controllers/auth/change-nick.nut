@@ -33,6 +33,7 @@ key("e", function(playerid) {
 
         local char = players[playerid];
         local charid = getCharacterIdFromPlayerId(playerid);
+        if(players[playerid].inventory.isOpened(playerid)) return msg(playerid, "Прежде закройте окно инвентаря.", CL_ERROR);
         if(!(isnicknameChangeWindowOpened(playerid))) {
             nicknameChangeWindowOpened[charid] <- false;
         }
@@ -82,7 +83,7 @@ event("onChangeNickname", function (playerid, firstname, lastname, valid) {
     if(isCharacterNameAlreadyRegistered(firstname, lastname))
         return alert(playerid, "character.alreadyregistered", [], 7);
 
-
+    local charid = getCharacterIdFromPlayerId(playerid);
     players[playerid].firstname = firstname;
     players[playerid].lastname = lastname;
     players[playerid].save();
