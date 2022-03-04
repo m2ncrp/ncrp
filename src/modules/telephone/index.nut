@@ -295,11 +295,19 @@ event("onPlayerAreaLeave", function(playerid, name) {
 });
 
 event("onPlayerDisconnect", function(playerid, reason) {
-    stopCall(playerid);
+    local phoneObj = getPlayerPhoneObj(playerid);
+    if (!phoneObj) return;
+    if(phoneObj.isCalling) {
+        stopCall(playerid);
+    };
 });
 
 event("onPlayerDeath", function(playerid) {
-    stopCall(playerid);
+    local phoneObj = getPlayerPhoneObj(playerid);
+    if (!phoneObj) return;
+    if(phoneObj.isCalling) {
+        stopCall(playerid);
+    };
 });
 
 
@@ -307,9 +315,9 @@ event("onPlayerDeath", function(playerid) {
 function stopCall(playerid) {
     local charId = getCharacterIdFromPlayerId(playerid);
     local node = findPhoneNodeBy({"subscribers": charId});
+    trigger("onPlayerPhonePut", playerid);
 
     if(!node) return;
-    trigger("onPlayerPhonePut", playerid);
     msg(playerid, "telephone.callend", CL_WARNING);
 
     local companionCharId = getPhoneNodeCompanion(node, charId);
