@@ -14,16 +14,19 @@ local AD_COST = 1.0;
 local AD_TIMEOUT = 120; // in seconds
 local AD_COLOR = CL_CARIBBEANGREEN;
 
-event("onPlayerPhoneCall", function(playerid, number, place) {
+event("onPlayerPhoneCallNPC", function(playerid, number, place) {
     if(number == "1111") {
         if (isPlayerMuted(playerid)) {
+            trigger("onPlayerPhonePut", playerid);
             return msg(playerid, "admin.mute.youhave", CL_RED);
         }
 
         msg(playerid, "empirecustom.phone.hello", AD_COST, TELEPHONE_TEXT_COLOR);
 
         if(!canBankMoneyBeSubstracted(playerid, AD_COST)) {
-            return msg(playerid, "empirecustom.phone.notenough");
+            msg(playerid, "empirecustom.phone.notenough")
+            trigger("onPlayerPhonePut", playerid);
+            return;
         }
 
         msg(playerid, "empirecustom.phone.enter");
@@ -41,6 +44,7 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
             trigger(playerid, "hudDestroyTimer");
             if (text.tolower() == "отмена" || text.tolower() == "'отмена'" || text.tolower() == "нет" || text.tolower() == "'нет'" || text.tolower() == "cancel" || text.tolower() == "'cancel'" || text == "0") {
                 ad_sended = "canceled";
+                trigger("onPlayerPhonePut", playerid);
                 return msg(playerid, "empirecustom.phone.canceled", TELEPHONE_TEXT_COLOR);
             }
             ad_sended = true;
@@ -50,11 +54,13 @@ event("onPlayerPhoneCall", function(playerid, number, place) {
             if(replaced.find("0192") != null) {
                 subPlayerMoney(playerid, 100.0);
                 dbg(format("[RADIO] auto-fine: %s", getPlayerName(playerid)))
+                trigger("onPlayerPhonePut", playerid);
                 return;
             }
 
             msg(playerid, "empirecustom.phone.yourad", text, TELEPHONE_TEXT_COLOR);
             msg(playerid, "empirecustom.phone.placed", TELEPHONE_TEXT_COLOR);
+            trigger("onPlayerPhonePut", playerid);
 
             subPlayerDeposit(playerid, AD_COST);
 

@@ -102,8 +102,8 @@ alternativeTranslate({
     "en|POLICEALARM"                    : "POLICE ALARM"
     "ru|POLICEALARM"                    : "ВЫЗОВ ПОЛИЦИИ"
 
-    "en|TELEPHONE"                      : "TELEPHONE"
-    "ru|TELEPHONE"                      : "ТЕЛЕФОН"
+    "en|TELEPHONE"                      : "TELEPHONE %s"
+    "ru|TELEPHONE"                      : "ТЕЛЕФОН %s"
 
     "en|ROUTE"                          : "ROUTE"
     "ru|ROUTE"                          : "МАРШРУТ"

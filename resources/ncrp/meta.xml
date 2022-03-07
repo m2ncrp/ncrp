@@ -49,6 +49,10 @@
         <script type="client">player_effects.nut</script>
         <script type="client">player_animations.nut</script>
 
+
+        <!-- entities -->
+        <script type="client">phone_controllers.nut</script>
+
         <!-- peds -->
         <script type="client">ped_creation.nut</script>
         <script type="client">ped_dialog.nut</script>

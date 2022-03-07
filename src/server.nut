@@ -354,10 +354,11 @@ proxy("bizFuelStationOnAddBalanceMoney",   "bizFuelStationOnAddBalanceMoney" );
 proxy("bizFuelStationOnSubBalanceMoney",   "bizFuelStationOnSubBalanceMoney" );
 
 // Telephone
-proxy("PhoneCallGUI",               "PhoneCallGUI"                      );
+proxy("PhoneCallGUI",              "PhoneCallGUI"                        );
+proxy("onPlayerPhonePut",          "onPlayerPhonePut"                    );
 
 // Metro
-proxy("travelToStationGUI",         "travelToStationGUI"                );
+proxy("travelToStationGUI",         "travelToStationGUI"                 );
 
 //Inventory system
 proxy("inventory:loaded",           "native:inventory:loaded"            );

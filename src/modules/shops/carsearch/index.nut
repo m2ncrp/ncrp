@@ -16,7 +16,7 @@ translate("en", {
 local FINDCAR_COST = 29.90;
 local FINDCAR_TIMEOUT = 30; // in seconds
 
-event("onPlayerPhoneCall", function(playerid, number, place) {
+event("onPlayerPhoneCallNPC", function(playerid, number, place) {
     if(number == "0000") {
 
         msg(playerid, "shops.findcar.hello", FINDCAR_COST, TELEPHONE_TEXT_COLOR);

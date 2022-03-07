@@ -199,22 +199,9 @@ alternativeTranslate({
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // settings
-const NORMAL_RADIUS = 20.0;
-const WHISPER_RADIUS = 4.0;
+const NORMAL_RADIUS = 10.0;
+const WHISPER_RADIUS = 3.0;
 const SHOUT_RADIUS = 35.0;
 
 
@@ -266,10 +253,13 @@ event("native:onPlayerChat", function(playerid, message) {
 
     /**
      * убираем пробелы в начале и конце сообщения
+    */
+    local message = strip(message);
+
+    /**
      * пытаемся определить слот поиском " me" и "do" в конце сообщения
      * если находим - определяем номер слота и обрезаем тип слота
      */
-    local message = strip(message);
     local match = regexp(@"\s(ooc|ic|b|s|w|me|todo|do|try)$").search(message);
 
     if (match) {
