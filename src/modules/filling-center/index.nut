@@ -41,6 +41,9 @@ alternativeTranslate({
     "en|fillingcenter.not-enough-gallons"                     : "Not enough gallons. Max %s"
     "ru|fillingcenter.not-enough-gallons"                     : "Нет такого количества топлива. Топливное хранилище заполнено на %s"
 
+    "en|fillingcenter.min-purchase-limit"                     : "Min purchase volume is %s"
+    "ru|fillingcenter.min-purchase-limit"                     : "Минимальный объём покупки составляет %s"
+
     "en|fillingcenter.not-enough-money"                       : "Not enough money to pay. For %s gallons need $%.2f"
     "ru|fillingcenter.not-enough-money"                       : "Недостаточно денег для оплаты. За %s нужно $%.2f"
 
@@ -57,7 +60,8 @@ alternativeTranslate({
 const FILLING_CENTER_X = 156.195;
 const FILLING_CENTER_Y = -876.451;
 const FILLING_CENTER_Z = -21.7358;
-const FILLING_CENTER_FUELUP_SPEED = 20; // gallons in seconds
+const FILLING_CENTER_FUELUP_SPEED = 15; // gallons in seconds
+const FILLING_CENTER_PURCHASE_LIMIT = 50; // gallons
 
 local FILLING_CENTER_COLOR = CL_CRUSTA;
 
@@ -210,6 +214,10 @@ function fillingCenterLoad(playerid) {
 
         if(gallons > currentVolume) {
             return msg(playerid, "fillingcenter.not-enough-gallons", [formatGallons(currentVolume)], FILLING_CENTER_COLOR);
+        }
+
+        if(gallons < FILLING_CENTER_PURCHASE_LIMIT) {
+            return msg(playerid, "fillingcenter.min-purchase-limit", [formatGallons(FILLING_CENTER_PURCHASE_LIMIT)], FILLING_CENTER_COLOR);
         }
 
         if(veh.data.parts.cargo + gallons > vehInfo.cargoLimit) {
