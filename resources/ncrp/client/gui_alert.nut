@@ -1,4 +1,5 @@
 const ELEMENT_TYPE_BUTTON = 2;
+const ELEMENT_TYPE_IMAGE = 13;
 
 // added check for 2x widht bug
 local screen = getScreenSize();
@@ -14,6 +15,7 @@ screen = [screenX, screenY];
 local window;
 local label;
 local button;
+local bg;
 local oldCursorState = false;
 
 addEventHandler("onAlert", function (title, message, lines = 0) {
@@ -27,8 +29,12 @@ addEventHandler("onAlert", function (title, message, lines = 0) {
     }
     else {
         local h = 100.0 + 21.0 * lines;
-        window = guiCreateElement( ELEMENT_TYPE_WINDOW, title, screen[0]/2 - 150, screen[1]/2 - 50 - (lines/2 * 20.0), 300.0, h);
-        label = guiCreateElement( ELEMENT_TYPE_LABEL, message.tostring(), 12.0, 20.0, 300.0, 50.0 + 21.0 * lines, false, window);
+        local w = 300.0;
+        local x = screen[0]/2 - 150;
+        local y = screen[1]/2 - 50 - (lines/2 * 20.0);
+        window = guiCreateElement( ELEMENT_TYPE_WINDOW, title, x, y, w, h);
+        bg = guiCreateElement(ELEMENT_TYPE_IMAGE, "shadow.jpg", 0.0, 0.0, w, h, false, window);
+        label = guiCreateElement( ELEMENT_TYPE_LABEL, message.tostring(), 12.0, 20.0, w, 50.0 + 21.0 * lines, false, window);
         button = guiCreateElement( ELEMENT_TYPE_BUTTON, "OK" , 100.0, h - 30.0, 100.0, 20.0, false, window);
     }
     if(!oldCursorState){

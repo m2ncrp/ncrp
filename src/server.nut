@@ -336,6 +336,9 @@ proxy("updateMoveState",            "updateMoveState"                   );
 proxy("changeModel",                "changeModel"                       );
 proxy("onGenerateFirstname",        "onGenerateFirstname"               );
 proxy("onGenerateLastname",         "onGenerateLastname"                );
+proxy("onGenerateNickname",         "onGenerateNickname"                );
+proxy("onChangeNickname",           "onChangeNickname"                  );
+proxy("onHideNicknameGUI",          "onHideNicknameGUI"                 );
 
 // RentCar
 proxy("RentCar",                    "RentCar"                           );
@@ -481,3 +484,19 @@ function sn() {
         ]
     });
 }
+
+/*
+// Name checker
+
+local nats = ["american", "british", "chinese", "french", "german", "irish", "jewish", "mexican"];
+
+foreach (idx, nat in nats) {
+  for (local i = 0; i < 5000; i++) {
+    local fn = getRandomFirstname(0, nat);
+    local ls = getRandomLastname(nat);
+    if(fn == ls) continue;
+    local check = validateCharacterName(fn, ls)
+    if(!check) dbg(nat, fn, ls)
+  }
+}
+*/

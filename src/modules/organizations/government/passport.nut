@@ -27,6 +27,16 @@ function getPassportRequestByCharid(charid) {
     return false;
 }
 
+function getPassportRequestByName(name) {
+    foreach (idx, object in passportRequests) {
+        if(object.fio == name) {
+            return object;
+        }
+    }
+
+    return false;
+}
+
 function getPassportRequest(id) {
     foreach (idx, object in passportRequests) {
         if(object.id == id) {
@@ -257,8 +267,6 @@ cmd("passport", function( playerid) {
 
 
     // оформляем заявку
-    // players[playerid].setData("passport", "needsolution");
-
     local request = PassportRequest();
     request.fio = format("%s %s", char.firstname, char.lastname);
     request.charid = char.id;
@@ -289,6 +297,7 @@ cmd("passport", function( playerid) {
         requestUserInput(playerid, function(playerid, text) {
 
             if (!text || !isNumeric(text) || text.tointeger() < 1 || text.tointeger() > 9) {
+                trigger(playerid, "hudDestroyTimer");
                 return msg(playerid, "passport.insert.incorrect", CL_ERROR);
             }
 
@@ -587,7 +596,7 @@ alternativeTranslate({
     "ru|passport.rejected.reason"   : "Причина: %s"
 
     "en|passport.rejected.badname"  : ""
-    "ru|passport.rejected.badname"  : "Если причиной указано любая проблема с именем и фамилией - обратитесь к администрации для смены имени."
+    "ru|passport.rejected.badname"  : "Если причиной указана проблема с именем и фамилией - отправляйтесь в здание вокзала для смены имени."
 
     "en|passport.request-sent"      : ""
     "ru|passport.request-sent"      : "Заявка на получение паспорта принята. В течение некоторого времени (обычно 1 реальный день) по заявке будет принято решение. Возвращайтесь!"

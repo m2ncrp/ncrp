@@ -69,6 +69,7 @@ key("i", function(playerid) {
     if (isPlayerAdmin(playerid)) return;
 
     if(isVehicleAccessManagerWindowOpened(playerid)) return msg(playerid, "Прежде закройте окно управления автомобилем.", CL_ERROR);
+    if(isnicknameChangeWindowOpened(playerid)) return;
 
     if (!players[playerid].inventory.blocked) {
         players[playerid].inventory.toggle(playerid);
@@ -77,7 +78,7 @@ key("i", function(playerid) {
 
 key("tab", function(playerid) {
     if (isVehicleAccessManagerWindowOpened(playerid)) return msg(playerid, "Прежде закройте окно управления автомобилем.", CL_ERROR);
-
+    if(isnicknameChangeWindowOpened(playerid)) return;
     if (!players[playerid].inventory.blocked) {
         players[playerid].inventory.toggle(playerid);
     }
