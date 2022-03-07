@@ -595,7 +595,7 @@ alternativeTranslate({
     "ru|passport.rejected.reason"   : "Причина: %s"
 
     "en|passport.rejected.badname"  : ""
-    "ru|passport.rejected.badname"  : "Если причиной указано любая проблема с именем и фамилией - обратитесь к администрации для смены имени."
+    "ru|passport.rejected.badname"  : "Если причиной указано любая проблема с именем и фамилией - отправляйтесь в здание вокзала для смены имени."
 
     "en|passport.request-sent"      : ""
     "ru|passport.request-sent"      : "Заявка на получение паспорта принята. В течение некоторого времени (обычно 1 реальный день) по заявке будет принято решение. Возвращайтесь!"
