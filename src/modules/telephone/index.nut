@@ -253,7 +253,7 @@ function stopRinging(phoneObj) {
     phoneObj.isRinging = false;
     local coords = phoneObj.coords;
     foreach (idx, value in players) {
-        if (isInArea(format("phone_%s", phoneObj.number), value.x, value.y)){
+        if (isInArea(format("phone_%s", phoneObj.number), value.x, value.y, value.z)){
             if (phoneObj.type == PHONE_TYPE_BUSSINESS){
                 triggerClientEvent(idx, "ringPhoneStatic", false, coords[0], coords[1], coords[2]);
             } else {
