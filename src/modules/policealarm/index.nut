@@ -125,7 +125,7 @@ function callPoliceByAlarm (playerid) {
     }
     if (police_alarm_block[plaName] != "block") {
         police_alarm_block[plaName] = "block";
-                trigger("onPlayerPhoneCall", playerid, "police", policeAlarm[3]);
+                trigger("onPlayerPhoneCallNPC", playerid, "police", policeAlarm[3]);
         delayedFunction(180000, function() {
             police_alarm_block[plaName] = null;
         });

@@ -57,6 +57,13 @@ cmd(["clearchat"], function(playerid) {
 function sendIcMsg(playerid, message) {
     sendLocalizedMsgToAll(playerid, "chat.player.says", [getKnownCharacterNameWithId, message], NORMAL_RADIUS, CL_CHAT_IC);
 
+    local charId = getCharacterIdFromPlayerId(playerid);
+    local node = findPhoneNodeBy({"subscribers": charId})
+    if(node && node.subscribers.len() == 2) {
+        local companionCharId = getPhoneNodeCompanion(node, charId);
+        msg(getPlayerIdFromCharacterId(companionCharId), "telephone.call", [message], CL_CARIBBEANGREEN);
+    }
+
     // statistics
     statisticsPushMessage(playerid, message, "say");
 }

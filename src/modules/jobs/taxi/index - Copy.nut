@@ -213,7 +213,7 @@ event("onPlayerAreaLeave", function(playerid, name) {
 
 
 
-event("onPlayerPhoneCall", function(playerid, number, place) {
+event("onPlayerPhoneCallNPC", function(playerid, number, place) {
     if(number == "taxi") {
         taxiCall(playerid, place);
     }

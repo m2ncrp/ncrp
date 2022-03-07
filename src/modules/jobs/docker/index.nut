@@ -228,7 +228,8 @@ function isDocker(playerid) {
  * @return {Boolean} true/false
  */
 function isDockerHaveBox(playerid) {
-    return job_docker[getCharacterIdFromPlayerId(playerid)]["havebox"];
+    local charId = getCharacterIdFromPlayerId(playerid);
+    return charId && charId in job_docker ? job_docker[charId]["havebox"] : false;
 }
 
 

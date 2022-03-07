@@ -17,6 +17,7 @@ include("controllers/auth/accounts.nut");
 include("controllers/auth/functions.nut");
 include("controllers/auth/sessions.nut");
 include("controllers/auth/data-names.nut");
+include("controllers/auth/change-nick.nut");
 
 /*
 Авторизация и регистрация

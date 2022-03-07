@@ -53,7 +53,7 @@ event("onPlayerVehicleExit", function( playerid, vehicleid, seat ) {
 });
 
 function isOfficerNearCommunications(playerid) {
-    return (isPlayerInPoliceVehicle(playerid) || getPlayerPhoneName(playerid));
+    return (isPlayerInPoliceVehicle(playerid) || getPlayerPhoneObj(playerid));
 }
 
 function callPoliceDispatchByPhone(playerid, place = "") {
@@ -202,7 +202,7 @@ event("onCallPoliceDispatch", function (playerid) {
 
 
 
-event("onPlayerPhoneCall", function(playerid, number, place) {
+event("onPlayerPhoneCallNPC", function(playerid, number, place) {
     if (number == "dispatch" && isOfficer(playerid)) {
         callPoliceDispatchByPhone(playerid, place);
     }

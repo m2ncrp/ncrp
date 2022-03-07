@@ -39,6 +39,7 @@
         <script type="client">gui_carshop.nut</script>
         <script type="client">gui_cyrillic.nut</script>
         <script type="client">gui_character.nut</script>
+        <script type="client">gui_nickname.nut</script>
         <script type="client">gui_metro.nut</script>
         <script type="client">gui_phone.nut</script>
         <script type="client">gui_rentcar.nut</script>
@@ -48,6 +49,10 @@
         <!-- player -->
         <script type="client">player_effects.nut</script>
         <script type="client">player_animations.nut</script>
+
+
+        <!-- entities -->
+        <script type="client">phone_controllers.nut</script>
 
         <!-- peds -->
         <script type="client">ped_creation.nut</script>

@@ -634,12 +634,12 @@ function isValidRange(input, a, b) {
 }
 
 function isValidName(name){
-    local check = regexp("^[A-Z][a-z]*$");
+    local check = regexp("[A-Z][a-z]{1,16}");
     return check.match(name);
 }
 
 function isValidLastName(name){
-    local check = regexp("^((O\'|Mc)?[A-Z][a-z]{1,16})$");
+    local check = regexp("[A-Z][a-z]{1,16}");
     return check.match(name);
 }
 
