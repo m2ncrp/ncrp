@@ -360,7 +360,7 @@ function snowplowJobStartRoute( playerid ) {
     SNOWPLOW_ROUTE_NOW -= 1;
 
     // local targetPointsCount = random(2, 2);
-    local targetPointsCount = random(90, 140);
+    local targetPointsCount = random(110, 160);
 
     local ts1 = getSnowplowNodeTimestamp(1);
     local ts101 = getSnowplowNodeTimestamp(101);
@@ -407,7 +407,7 @@ event("onPlayerAreaEnter", function(playerid, name) {
         local nodeTs = getSnowplowNodeTimestamp(zoneId).timestamp;
         local currentTimestamp = getTimestamp();
         local correctionCoef = WORLD_SECONDS_PER_MINUTE / 60.0;
-        local daysBetweenClean = 2;
+        local daysBetweenClean = 3;
         local diffInSec = daysBetweenClean * 24 * 60 * 60 * correctionCoef;
 
         if(currentTimestamp > nodeTs + diffInSec && randomTry(0.25)) {
