@@ -426,10 +426,52 @@ delayedFunction(10000, function() {
 //     logStr("from node json: " + parsedData.type + ": "+data);
 // });
 
+function sendTestMsg(value) {
+    dbg("sendTestMsg", value)
+}
 
-cmd("nc", function (playerid) {
-    dbg("ncrp", "newcomers", "Test Testov");
-});
+nnListen(function(json) {
+    local data = JSONParser.parse(json);
+
+    if (!("route" in data)) return;
+
+    local route = split(data.route, ":")
+    local side = route[0]
+    local method = route[1]
+
+    if (side == "server") {
+        try {
+            local args = data.args;
+            args.insert(0, getroottable())
+            local result = getroottable()[method].acall(args)
+
+            nano({
+                "type": "success",
+                "seqid": data.seqid,
+                "output": result,
+            })
+        } catch (e) {
+            nano({
+                "type": "error",
+                "seqid": data.seqid,
+                "output": e,
+            })
+
+            throw e
+        }
+    }
+
+    // dbg(data)
+})
+
+function sn() {
+    nano({
+        "type": "test",
+        "data": 123,
+    });
+}
+
+// -----------------------------------------------------
 
 acmd("limit", function (playerid, enabled) {
     triggerClientEvent(playerid, "setSpeedLimiter", enabled);
@@ -463,27 +505,26 @@ acmd("sn", function(playerid) {
     msg(playerid, "sended");
 })
 
-function sn() {
-    nano({
-        "path": "discord",
-        "server": "gov",
-        "channel": "passport_requests",
-        "action": "new",
-        "description": "Заявка на паспорт",
-        "color": "yellow",
-        "datetime": getDateTime(),
-        "direction": false,
-        "fields": [
-            ["Номер", 5],
-            ["Имя Фамилия", "Fernando Fabbri"],
-            ["Пол", "Мужской"],
-            ["Национальность", "Афро-итальянец китайскиого происхождения"],
-            ["Дата рождения", "01.01.1930"],
-            ["Цвет волос", "Серо-бур-козявчатый"],
-            ["Цвет глаз", "Лилово-оранжевый"],
-        ]
-    });
-}
+
+//    nano({
+//        "path": "discord",
+//        "server": "gov",
+//        "channel": "passport_requests",
+//        "action": "new",
+//        "description": "Заявка на паспорт",
+//        "color": "yellow",
+//        "datetime": getDateTime(),
+//        "direction": false,
+//        "fields": [
+//            ["Номер", 5],
+//            ["Имя Фамилия", "Fernando Fabbri"],
+//            ["Пол", "Мужской"],
+//            ["Национальность", "Афро-итальянец китайскиого происхождения"],
+//            ["Дата рождения", "01.01.1930"],
+//            ["Цвет волос", "Серо-бур-козявчатый"],
+//            ["Цвет глаз", "Лилово-оранжевый"],
+//        ]
+//    });
 
 /*
 // Name checker
