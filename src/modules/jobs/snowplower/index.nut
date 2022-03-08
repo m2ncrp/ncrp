@@ -3,7 +3,7 @@ include("modules/jobs/snowplower/commands.nut");
 include("modules/jobs/snowplower/translations.nut");
 include("modules/jobs/snowplower/nodes.nut");
 include("modules/jobs/snowplower/edges.nut");
-include("modules/jobs/snowplower/utils/drawer.nut");
+// include("modules/jobs/snowplower/utils/drawer.nut");
 
 // game.traffic:SwitchGenerators(xx) xx = true\false
 // game.traffic:Populate(##) ##=0..100
