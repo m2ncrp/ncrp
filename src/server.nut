@@ -363,6 +363,9 @@ proxy("onPlayerPhonePut",          "onPlayerPhonePut"                    );
 // Metro
 proxy("travelToStationGUI",         "travelToStationGUI"                 );
 
+proxy("onSendMessage",         "onSendMessage"                 );
+
+
 //Inventory system
 proxy("inventory:loaded",           "native:inventory:loaded"            );
 proxy("inventory:use",              "native:onPlayerUseItem"             );
@@ -383,6 +386,11 @@ proxy("shop:purchase",              "native:shop:purchase"               );
 if (__DEBUG__EXPORT) {
     dbg(__commands);
 }
+
+event("onSendMessage", function(playerid, text) {
+    msg(playerid, text);
+})
+
 /*
 event("onPlayerWeaponShoot", function(playerid) {
     msg(playerid, "Пиу")

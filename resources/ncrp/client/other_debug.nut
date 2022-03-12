@@ -2,6 +2,8 @@ dbgc <- function(...) {
     sendMessage(JSONEncoder.encode(concat(vargv)));
 };
 
+
+
 addEventHandler("onServerScriptEvaluate", function(code) {
     log("[debug] trying to evaluate script code;");
     log("[debug] code: " + code);
@@ -9,7 +11,7 @@ addEventHandler("onServerScriptEvaluate", function(code) {
     try {
         local result = compilestring(format("return %s;", code))();
         log(JSONEncoder.encode(result));
-        sendMessage(JSONEncoder.encode(result));
+        triggerServerEvent("onSendMessage", JSONEncoder.encode(result));
     } catch (e) {
         triggerServerEvent("onClientScriptError", JSONEncoder.encode(e));
     }
@@ -19,7 +21,7 @@ local toggler = false;
 local step = 0.5;
 
 addEventHandler("onServerDebugToggle", function() {
-    sendMessage("[tp] you are now in free fly mode!");
+    triggerServerEvent("onSendMessage", "[tp] you are now in free fly mode!");
     togglePlayerControls(true);
     toggler = true;
 });
@@ -29,7 +31,7 @@ addEventHandler("onServerKeyboard", function(key, state) {
 
     if (key == "0") {
         if (toggler) {
-            sendMessage("[tp] you are now in default mode!");
+            triggerServerEvent("onSendMessage", "[tp] you are now in default mode!");
             togglePlayerControls(false);
             toggler = false;
         } else {
@@ -62,11 +64,11 @@ addEventHandler("onServerKeyboard", function(key, state) {
 
     if (key == "1") {
         step -= (step / 2);
-        sendMessage("[tp] step is now: " + step);
+        triggerServerEvent("onSendMessage", "[tp] step is now: " + step);
     }
 
     if (key == "2") {
         step += step;
-        sendMessage("[tp] step is now: " + step);
+        triggerServerEvent("onSendMessage", "[tp] step is now: " + step);
     }
 });
