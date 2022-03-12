@@ -1,5 +1,7 @@
 include("controllers/screen/commands.nut");
 
+addEventHandler("1", "")
+
 local __fpsdata = {};
 
 /**
@@ -23,7 +25,7 @@ function calculateFPSDelay(playerid, minimum = 150) {
     return  (-20 * fps) + 1200 + minimum;
 }
 
-addEventHandler("onClientSendFPSData", function(playerid, fps) {
+event("onClientSendFPSData", function(playerid, fps) {
     try {
         __fpsdata[playerid] <- fps.tointeger();
     }

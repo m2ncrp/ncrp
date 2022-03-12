@@ -113,11 +113,11 @@ function removeEvent(event, func) {
  * testing
  */
 
-// evt("native:onPlayerConnect", function(p, a, s, d) {
+// event("native:onPlayerConnect", function(p, a, s, d) {
 //     print("called event with playerid: " + p + "\n");
 // });
 
-// evt("onCustom", function(p, a) {
+// event("onCustom", function(p, a) {
 //     print(p + a);
 //     print("\n")
 // });
@@ -132,9 +132,8 @@ function removeEvent(event, func) {
 /**
  * Aliasing
  */
-evt                  <- event;
-addEventHandler      <- event;
-addEventHandlerEx    <- event;
+addEventHandler     <- function(...) warning("addEventHandler deprecated. Use event(...) instead");
 triggerServerEventEx <- trigger;
 triggerClientEvent   <- trigger;
 removeEventHandlerEx <- removeEvent;
+

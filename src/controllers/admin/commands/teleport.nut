@@ -98,7 +98,7 @@ acmd(["tcoords", "tc"], function(playerid, nameOrId) {
 /**
  * Rendering tgs in the world
  */
-addEventHandlerEx("onServerStarted", function() {
+event("onServerStarted", function() {
     TeleportPosition.findAll(function(err, positions) {
         foreach (idx, teleport in positions) {
             teleportPoints.push(teleport);

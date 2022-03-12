@@ -35,7 +35,7 @@ function getKioskPosition(id) {
     return id in coords ? coords[id] : null;
 }
 
-addEventHandlerEx("onServerStarted", function() {
+event("onServerStarted", function() {
     logStr("[biz] loading kiosks...");
 
     // foreach (idx, kiosk in coords) {

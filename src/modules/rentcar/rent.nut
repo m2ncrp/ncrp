@@ -39,7 +39,7 @@ function RentCar(playerid) {
     msg(playerid, "rentcar.rented");
     msg(playerid, "rentcar.paidcar", [ rentprice ] );
 }
-addEventHandler("RentCar", RentCar);
+event("RentCar", RentCar);
 
 // need changed
 function RentCarRefuse(playerid) {

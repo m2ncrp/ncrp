@@ -639,7 +639,7 @@ Truck is full. Sit into truck and go to Port.
 
 
 /*
-addEventHandlerEx("onServerHourChange", function() {
+event("onServerHourChange", function() {
        fish_limit_in_hour_current = fish_limit_in_hour_default;
 });
 

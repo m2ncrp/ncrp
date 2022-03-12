@@ -87,7 +87,7 @@ function statisticsPushVehicles() {
     return amount;
 }
 
-addEventHandlerEx("onServerAutosave", function() {
+event("onServerAutosave", function() {
     if (!STATISICS_ENABLED) {
         return;
     }

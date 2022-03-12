@@ -88,7 +88,7 @@ acmd(["spawncoords", "sc"], function(playerid, nameOrId) {
 /**
  * Rendering tgs in the world
  */
-addEventHandlerEx("onServerStarted", function() {
+event("onServerStarted", function() {
     SpawnPosition.findAll(function(err, positions) {
         foreach (idx, teleport in positions) {
             // create3DText(teleport.x, teleport.y, teleport.z, "Teleport: " + teleport.name, CL_ROYALBLUE.applyAlpha(150));

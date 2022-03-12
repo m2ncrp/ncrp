@@ -39,7 +39,7 @@ function getPlayerSeat(playerid, busid) {
     return null;
 }
 
-addEventHandler("onServerClientStarted", function(version) {
+event("onServerClientStarted", function(version) {
     if (ticker) return;
 
     // check for distances of the busses
@@ -56,12 +56,12 @@ addEventHandler("onServerClientStarted", function(version) {
     }, 1000, -1);
 });
 
-addEventHandler("onServerClientStopped", function() {
+event("onServerClientStopped", function() {
     ticker.Kill();
     ticker = null;
 });
 
-addEventHandler("onServerPlayerBusEnter", function(playerid, busid) {
+event("onServerPlayerBusEnter", function(playerid, busid) {
     if (!(busid in busses)) {
         busses[busid] <- {};
         busses[busid]["seats"] <- passangerPositions;
@@ -74,7 +74,7 @@ addEventHandler("onServerPlayerBusEnter", function(playerid, busid) {
     busses[busid]["seats"][seat][3] = playerid;
 });
 
-addEventHandler("onServerPlayerBusExit", function(playerid, busid) {
+event("onServerPlayerBusExit", function(playerid, busid) {
     if (!(busid in busses)) {
         return;
     }
@@ -86,7 +86,7 @@ addEventHandler("onServerPlayerBusExit", function(playerid, busid) {
     }
 });
 
-addEventHandler("onClientFrameRender", function(a) {
+event("onClientFrameRender", function(a) {
     if (a) {
         for (local i = 0; i < syncing.len(); i++) {
             local busid = syncing[i];
@@ -94,7 +94,7 @@ addEventHandler("onClientFrameRender", function(a) {
             seat = passangerPositions[seat];
             local pos = getVehiclePosition(busid);
             local angle = getVehicleRotation(busid)[0] * 3.1415 / 180.0;
-            
+
             local relX = seat[0]*cos(angle) - seat[1]*sin(angle);
             local relY = seat[0]*sin(angle) + seat[1]*cos(angle);
 

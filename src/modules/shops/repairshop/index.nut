@@ -30,7 +30,7 @@ repair_shops <- [
     [  832.358,  -4857.47,     18.1211, "AIRPORT"          ],
 ];
 
-addEventHandlerEx("onServerStarted", function() {
+event("onServerStarted", function() {
     logStr("[shops] loading repair shops...");
     //foreach (shop in repair_shops) {
     //    create3DText ( shop[0], shop[1], shop[2]+0.35, "=== "+shop[3]+" REPAIR SHOP ===", CL_ROYALBLUE, SHOP_REPAIR_3DTEXT_DRAW_DISTANCE );

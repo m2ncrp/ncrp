@@ -8,7 +8,7 @@ local connection = null;
 IS_DATABASE_DEBUG   <- false;
 IS_MYSQL_ENABLED    <- false;
 
-addEventHandler("onScriptInit", function() {
+event("onScriptInit", function() {
     logStr("[database] trying to read mysql settings...");
     local settings = readMysqlSettings(".mysql");
 
@@ -62,7 +62,7 @@ addEventHandler("onScriptInit", function() {
     }
 });
 
-addEventHandlerEx("onServerStopped", function() {
+event("onServerStopped", function() {
     ::logStr("[database] stopping...");
     if (!IS_MYSQL_ENABLED) {
         connection.close();
@@ -247,7 +247,7 @@ function readMysqlSettings(filename) {
 //  * Main database handler
 //  * manages all database requrests
 //  */
-// addEventHandlerEx("__networkRequest", function(request) {
+// event("__networkRequest", function(request) {
 //     if (!("destination" in request.data)) return;
 
 //     if (request.data.destination == "database") {

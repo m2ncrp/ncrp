@@ -331,7 +331,7 @@ function stopCall(playerid) {
 
 /* don't remove
 
-addEventHandlerEx("onServerStarted", function() {
+event("onServerStarted", function() {
     logStr("[jobs] loading telephone services job...");
     local teleservicescars = [
         createVehicle(31, -1066.02, 1483.81, -3.79657, -90.8055, -1.36482, -0.105954),   // telephoneCAR1

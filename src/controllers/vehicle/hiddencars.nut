@@ -63,13 +63,13 @@ local places = [
 ];
 
 
-addEventHandlerEx("onServerStarted", function() {
+event("onServerStarted", function() {
     logStr("[vehicles] spawning hidden cars...");
     currentPlaces = places;
 });
 
 
-addEventHandlerEx("onServerDayChange", function() {
+event("onServerDayChange", function() {
     local modelid = hiddenCars[random(0, hiddenCars.len() - 1)];
     placeid = random(0, currentPlaces.len() - 1);
 

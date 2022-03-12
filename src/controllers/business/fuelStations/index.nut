@@ -150,7 +150,7 @@ function removeTruckFromUnloadingQueue(vehid) {
     if(index != null) trucksOnQueue.remove(index);
 }
 
-addEventHandlerEx("onServerStarted", function() {
+event("onServerStarted", function() {
     logStr("[biz] loading fuel stations and canister shops...");
 
     foreach (name, station in coords) {
