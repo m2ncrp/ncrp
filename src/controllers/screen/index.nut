@@ -1,7 +1,5 @@
 include("controllers/screen/commands.nut");
 
-addEventHandler("1", "")
-
 local __fpsdata = {};
 
 /**

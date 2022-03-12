@@ -182,7 +182,6 @@ local initializeEnvironment = function() {
     // verblob.close();
 };
 
-
 // bind general events
 event("native:onScriptInit", function() {
     logStr("[core] starting initialization...");
@@ -205,42 +204,19 @@ event("native:onScriptInit", function() {
     // trigger pre init events
     trigger("onScriptInit");
 
-    // creating playerList storage
-    // playerList = PlayerList();
-
     // triggerring load events
     trigger("onServerStarted");
 
     dbg("server", "server started");
-    //dbg("police", "parking", "noFreeSpace");
-    //dbg("police", "parking", "send", "Fernando Fabbri", "11:48 15.09.2019", [["Номер", "PD-123"], ["Модель", "Smith Custom 200 Police"]]);
-    //dbg("police", "jail", "unjail", "Fernando Fabbri", "Ottavio Ricci", "15.09.2019 11:48");
-    //dbg("police", "parking", "send", "Fernando Fabbri", "11:48 15.09.2019", [["Номер", "PD-123"], ["Модель", "Smith Custom 200 Police"]]);
-    //dbg("chat", "report", "Автодилер", format("Не удалось отправить на штрафстоянку автомобиль с номером %s", "dsdsd"));
-    // ex("{\"type\": \"test\"}")
-/*
-    delayedFunction(1000, function () {
-    ex(JSONEncoder.encode({type = "test1"}))
-    });
-
-
-    delayedFunction(2000, function () {
-    ex(JSONEncoder.encode({type = "test2"}))
-    });
-
-    delayedFunction(3000, function () {
-    ex(JSONEncoder.encode({type = "test3"}))
-    });
-*/
 });
 
 event("onServerStarted", function() {
     // imitate server restart after script init
     // (after script exit for still connected players)
-    foreach (playerid, name in getPlayers()) {
-        trigger("onPlayerConnectInit", playerid, name, "0.0.0.0", getPlayerSerial(playerid));
-        trigger("native:onPlayerSpawn", playerid);
-    }
+    // foreach (playerid, name in getPlayers()) {
+    //     trigger("onPlayerConnectInit", playerid, name, "0.0.0.0", getPlayerSerial(playerid));
+    //     trigger("native:onPlayerSpawn", playerid);
+    // }
 });
 
 event("native:onScriptExit", function() {
@@ -261,8 +237,8 @@ event("native:onServerShutdown", function() {
 });
 
 event("native:onPlayerConnect", function(playerid, name, ip, serial) {
+    dbg("native:onPlayerConnect")
     dbg("player", "connect", name, playerid, ip, serial);
-
     if (!IS_AUTHORIZATION_ENABLED || DEBUG) {
         setLastActiveSession(playerid);
         trigger("onPlayerConnectInit", playerid, name, ip, serial);
@@ -271,111 +247,85 @@ event("native:onPlayerConnect", function(playerid, name, ip, serial) {
     }
 });
 
-/**
- * Registering proxies
- */
-// server
-proxy("onScriptInit",               "native:onScriptInit"               );
-proxy("onScriptExit",               "native:onScriptExit"               );
-proxy("onConsoleInput",             "native:onConsoleInput"             );
-proxy("onServerShutdown",           "native:onServerShutdown"           );
-// onScriptError
-// onServerPulse
-//proxy("onServerPulse", "onServerPulse");
 
-// player
-proxy("onPlayerConnect",            "native:onPlayerConnect"            );
-proxy("onPlayerDisconnect",         "native:onPlayerDisconnect"         );
-proxy("onPlayerConnectionRejected", "native:onPlayerConnectionRejected" );
-proxy("onPlayerChat",               "native:onPlayerChat"               );
-proxy("onPlayerSpawn",              "native:onPlayerSpawn"              );
-proxy("onPlayerChangeNick",         "native:onPlayerChangeNick"         );
-proxy("onPlayerDeath",              "native:onPlayerDeath"              );
-proxy("onPlayerChangeWeapon",       "native:onPlayerChangeWeapon"       );
-proxy("onPlayerChangeHealth",       "native:onPlayerChangeHealth"       );
-proxy("onPlayerVehicleEnter",       "native:onPlayerVehicleEnter"       );
-proxy("onPlayerVehicleExit",        "native:onPlayerVehicleExit"        );
+// proxy("setVehicleDoorLocked",       "setVehicleDoorLocked"              );
+// proxy("setVehicleTrunkLocked",      "setVehicleTrunkLocked"             );
 
-// vehicle
-proxy("onVehicleSpawn",             "native:onVehicleSpawn"             );
-proxy("setVehicleDoorLocked",       "setVehicleDoorLocked"              );
-proxy("setVehicleTrunkLocked",      "setVehicleTrunkLocked"             );
+// // client events
+// proxy("onClientKeyboardPress",      "onClientKeyboardPress"             );
+// proxy("onClientNativeKeyboardPress","onClientNativeKeyboardPress"       );
+// proxy("onClientScriptError",        "onClientScriptError"               );
+// proxy("onPlayerTeleportRequested",  "onPlayerTeleportRequested"         );
+// proxy("onClientDebugToggle",        "onClientDebugToggle"               );
+// proxy("onClientSendFPSData",        "onClientSendFPSData"               );
+// proxy("onPlayerAreaEnter",          "native:onPlayerAreaEnter"         );
+// proxy("onPlayerAreaLeave",          "native:onPlayerAreaLeave"          );
+// proxy("onPlayerCharacterCreate",    "onPlayerCharacterCreate"           );
+// proxy("onPlayerCharacterSelect",    "onPlayerCharacterSelect"           );
+// proxy("onClientSuccessfulyStarted", "onClientSuccessfulyStarted"        );
+// proxy("onClientSuccessfulyStartedAgain", "onClientSuccessfulyStartedAgain" );
+// proxy("onPlayerLanguageChange",     "onPlayerLanguageChange"            );
 
-// client events
-proxy("onClientKeyboardPress",      "onClientKeyboardPress"             );
-proxy("onClientNativeKeyboardPress","onClientNativeKeyboardPress"       );
-proxy("onClientScriptError",        "onClientScriptError"               );
-proxy("onPlayerTeleportRequested",  "onPlayerTeleportRequested"         );
-proxy("onClientDebugToggle",        "onClientDebugToggle"               );
-proxy("onClientSendFPSData",        "onClientSendFPSData"               );
-proxy("onPlayerAreaEnter",          "native:onPlayerAreaEnter"         );
-proxy("onPlayerAreaLeave",          "native:onPlayerAreaLeave"          );
-proxy("onPlayerCharacterCreate",    "onPlayerCharacterCreate"           );
-proxy("onPlayerCharacterSelect",    "onPlayerCharacterSelect"           );
-proxy("onClientSuccessfulyStarted", "onClientSuccessfulyStarted"        );
-proxy("onClientSuccessfulyStartedAgain", "onClientSuccessfulyStartedAgain" );
-proxy("onPlayerLanguageChange",     "onPlayerLanguageChange"            );
+// proxy("onPlayerWeaponShoot",        "onPlayerWeaponShoot"             );
+// proxy("onPlayerWeaponReload",       "onPlayerWeaponReload"            );
 
-proxy("onPlayerWeaponShoot",        "onPlayerWeaponShoot"             );
-proxy("onPlayerWeaponReload",       "onPlayerWeaponReload"            );
+// proxy("onPlayerShowForgotGUI",      "onPlayerShowForgotGUI"             );
+// proxy("onPlayerHideForgotGUI",      "onPlayerHideForgotGUI"             );
+// proxy("onPlayerGetLoginByEmail",    "onPlayerGetLoginByEmail"           );
+// proxy("onPlayerGetEmailBySerial",   "onPlayerGetEmailBySerial"          );
+// proxy("onPlayerChangePassword",     "onPlayerChangePassword"            );
 
-proxy("onPlayerShowForgotGUI",      "onPlayerShowForgotGUI"             );
-proxy("onPlayerHideForgotGUI",      "onPlayerHideForgotGUI"             );
-proxy("onPlayerGetLoginByEmail",    "onPlayerGetLoginByEmail"           );
-proxy("onPlayerGetEmailBySerial",   "onPlayerGetEmailBySerial"          );
-proxy("onPlayerChangePassword",     "onPlayerChangePassword"            );
+// proxy("onPlayerKicked",             "onPlayerKicked"                    );
 
-proxy("onPlayerKicked",             "onPlayerKicked"                    );
+// proxy("map:onClientOpen",           "map:onClientOpen"                  );
+// proxy("map:onClientClose",          "map:onClientClose"                 );
 
-proxy("map:onClientOpen",           "map:onClientOpen"                  );
-proxy("map:onClientClose",          "map:onClientClose"                 );
+// proxy("loginGUIFunction",           "loginGUIFunction"                  );
+// proxy("registerGUIFunction",        "registerGUIFunction"               );
+// proxy("updateMoveState",            "updateMoveState"                   );
+// proxy("changeModel",                "changeModel"                       );
+// proxy("onGenerateFirstname",        "onGenerateFirstname"               );
+// proxy("onGenerateLastname",         "onGenerateLastname"                );
+// proxy("onGenerateNickname",         "onGenerateNickname"                );
+// proxy("onChangeNickname",           "onChangeNickname"                  );
+// proxy("onHideNicknameGUI",          "onHideNicknameGUI"                 );
 
-proxy("loginGUIFunction",           "loginGUIFunction"                  );
-proxy("registerGUIFunction",        "registerGUIFunction"               );
-proxy("updateMoveState",            "updateMoveState"                   );
-proxy("changeModel",                "changeModel"                       );
-proxy("onGenerateFirstname",        "onGenerateFirstname"               );
-proxy("onGenerateLastname",         "onGenerateLastname"                );
-proxy("onGenerateNickname",         "onGenerateNickname"                );
-proxy("onChangeNickname",           "onChangeNickname"                  );
-proxy("onHideNicknameGUI",          "onHideNicknameGUI"                 );
+// // RentCar
+// proxy("RentCar",                    "RentCar"                           );
 
-// RentCar
-proxy("RentCar",                    "RentCar"                           );
+// // Bank
+// proxy("bankPlayerDeposit",                "bankPlayerDeposit"           );
+// proxy("bankPlayerWithdraw",               "bankPlayerWithdraw"          );
 
-// Bank
-proxy("bankPlayerDeposit",                "bankPlayerDeposit"           );
-proxy("bankPlayerWithdraw",               "bankPlayerWithdraw"          );
+// // Biz Fuel
+// proxy("bizFuelStationSave",                "bizFuelStationSave"           );
+// proxy("bizFuelStationOpen",                "bizFuelStationOpen"           );
+// proxy("bizFuelStationClose",               "bizFuelStationClose"          );
+// proxy("bizFuelStationOnSale",              "bizFuelStationOnSale"         );
+// proxy("bizFuelStationOnSaleToCity",        "bizFuelStationOnSaleToCity"   );
+// proxy("bizFuelStationOnAddBalanceMoney",   "bizFuelStationOnAddBalanceMoney" );
+// proxy("bizFuelStationOnSubBalanceMoney",   "bizFuelStationOnSubBalanceMoney" );
 
-// Biz Fuel
-proxy("bizFuelStationSave",                "bizFuelStationSave"           );
-proxy("bizFuelStationOpen",                "bizFuelStationOpen"           );
-proxy("bizFuelStationClose",               "bizFuelStationClose"          );
-proxy("bizFuelStationOnSale",              "bizFuelStationOnSale"         );
-proxy("bizFuelStationOnSaleToCity",        "bizFuelStationOnSaleToCity"   );
-proxy("bizFuelStationOnAddBalanceMoney",   "bizFuelStationOnAddBalanceMoney" );
-proxy("bizFuelStationOnSubBalanceMoney",   "bizFuelStationOnSubBalanceMoney" );
+// // Telephone
+// proxy("PhoneCallGUI",              "PhoneCallGUI"                        );
+// proxy("onPlayerPhonePut",          "onPlayerPhonePut"                    );
 
-// Telephone
-proxy("PhoneCallGUI",              "PhoneCallGUI"                        );
-proxy("onPlayerPhonePut",          "onPlayerPhonePut"                    );
+// // Metro
+// proxy("travelToStationGUI",         "travelToStationGUI"                 );
 
-// Metro
-proxy("travelToStationGUI",         "travelToStationGUI"                 );
-
-proxy("onSendMessage",         "onSendMessage"                 );
+// proxy("onSendMessage",         "onSendMessage"                 );
 
 
-//Inventory system
-proxy("inventory:loaded",           "native:inventory:loaded"            );
-proxy("inventory:use",              "native:onPlayerUseItem"             );
-proxy("inventory:transfer",         "native:onPlayerTransferItem"        );
-proxy("inventory:destroy",          "native:onPlayerDestroyItem"         );
-proxy("inventory:move",             "native:onPlayerMoveItem"            );
-proxy("inventory:drop",             "native:onPlayerDropItem"            );
-proxy("inventory:close",            "native:onPlayerCloseInventory"      );
-proxy("shop:close",                 "native:shop:close"                  );
-proxy("shop:purchase",              "native:shop:purchase"               );
+// //Inventory system
+// proxy("inventory:loaded",           "native:inventory:loaded"            );
+// proxy("inventory:use",              "native:onPlayerUseItem"             );
+// proxy("inventory:transfer",         "native:onPlayerTransferItem"        );
+// proxy("inventory:destroy",          "native:onPlayerDestroyItem"         );
+// proxy("inventory:move",             "native:onPlayerMoveItem"            );
+// proxy("inventory:drop",             "native:onPlayerDropItem"            );
+// proxy("inventory:close",            "native:onPlayerCloseInventory"      );
+// proxy("shop:close",                 "native:shop:close"                  );
+// proxy("shop:purchase",              "native:shop:purchase"               );
 
 /**
  * Debug export

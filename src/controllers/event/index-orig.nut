@@ -2,7 +2,6 @@ __events <- {};
 
 // saving old
 local nativeAddEventHandler = addEventHandler;
-local nativeCallEvent = callEvent;
 local nativeTriggerClientEvent   = triggerClientEvent;
 
 /**
@@ -22,6 +21,7 @@ function proxy(native, inner) {
         trigger.acall(args);
     });
 }
+
 
 /**
  * Register event handler
@@ -109,34 +109,28 @@ function removeEvent(event, func) {
 }
 
 /**
- * Registering proxies
+ * testing
  */
 
-// server
-proxy("onScriptInit",      "native:onScriptInit"    );
-proxy("onScriptExit",      "native:onScriptExit"    );
-proxy("onScriptError",     "native:onScriptError"   );
-proxy("onConsoleInput",    "native:onConsoleInput"  );
-// proxy("onServerPulse",     "native:onServerPulse"   );
-proxy("onServerShutdown",  "native:onServerShutdown");
+// event("native:onPlayerConnect", function(p, a, s, d) {
+//     print("called event with playerid: " + p + "\n");
+// });
 
-// player
-proxy("onPlayerConnect",            "native:onPlayerConnect"            );
-proxy("onPlayerDisconnect",         "native:onPlayerDisconnect"         );
-proxy("onPlayerConnectionRejected", "native:onPlayerConnectionRejected" );
-proxy("onPlayerChat",               "native:onPlayerChat"               );
-proxy("onPlayerSpawn",              "native:onPlayerSpawn"              );
-proxy("onPlayerChangeNick",         "native:onPlayerChangeNick"         );
-proxy("onPlayerDeath",              "native:onPlayerDeath"              );
-proxy("onPlayerChangeWeapon",       "native:onPlayerChangeWeapon"       );
-proxy("onPlayerChangeHealth",       "native:onPlayerChangeHealth"       );
-proxy("onPlayerVehicleEnter",       "native:onPlayerVehicleEnter"       );
-proxy("onPlayerVehicleExit",        "native:onPlayerVehicleExit"        );
+// event("onCustom", function(p, a) {
+//     print(p + a);
+//     print("\n")
+// });
 
-// vehicle
-proxy("onVehicleSpawn",             "onVehicleSpawn"             );
+// trigger(5, "onCustom", 5, 5);
+// trigger("onCustom", 5, 4);
 
-// aliases
-addEventHandler    <- function(...) warning("addEventHandler deprecated. Use event(...) instead");
-callEvent          <- function(...) warning("callEvent deprecated. Use trigger(...) instead");;
-triggerClientEvent <- trigger;
+// proxy("onPlayerConnect", "native:onPlayerConnect");
+
+// a["onPlayerConnect"](15, 1, 2, 3);
+
+/**
+ * Aliasing
+ */
+addEventHandler     <- function(...) warning("addEventHandler deprecated. Use event(...) instead");
+triggerClientEvent   <- trigger;
+
